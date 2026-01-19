@@ -1,7 +1,7 @@
 {
   "name": "pr-reviewer",
-  "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "path": ".claude/skills/pr-reviewer/SKILL.md",
-  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "downloaded_at": "2026-01-17T03:43:41.534684Z"
+  "repo": "jmagly/ai-writing-guide",
+  "path": "agentic/code/frameworks/sdlc-complete/extensions/github/skills/pr-reviewer/SKILL.md",
+  "source": "github.com/jmagly/ai-writing-guide",
+  "downloaded_at": "2026-01-19T02:50:57.886613Z"
 }

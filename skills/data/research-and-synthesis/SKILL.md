@@ -1,7 +1,7 @@
 ---
 name: research-and-synthesis
 description: Fetch and summarize authoritative external sources into actionable guidance using MCP helpers. EXCLUSIVE to researcher agent.
-allowed-tools: Read, Grep, Glob, Bash, WebFetch, mcp_codex-bridge, mcp_context7, mcp_web-search-prime, mcp_web-reader, mcp_zread
+allowed-tools: Read, Grep, Glob, Bash, WebFetch, mcp_gemini-bridge, mcp_context7, mcp_web-search-prime, mcp_web-reader, mcp_zread
 ---
 # Research and Synthesis
 
@@ -9,9 +9,9 @@ allowed-tools: Read, Grep, Glob, Bash, WebFetch, mcp_codex-bridge, mcp_context7,
 
 ## MCP Helpers (Brain + Memory + Web)
 
-### 🧠 Codex-Bridge (Brain) — Deep Analysis
+### 🧠 Gemini-Bridge (Brain) — Deep Analysis
 ```
-mcp_codex-bridge_consult_codex(
+mcp_gemini-bridge_consult_gemini(
   query="Research [topic] with pros/cons, security considerations, and code examples",
   directory="."
 )
@@ -42,14 +42,14 @@ mcp_zread_read(url="https://docs-page.com")
 1. Search with web-search-prime to find sources
 2. Read promising articles with web-reader or zread
 3. Verify with Context7 official docs
-4. Synthesize with Codex-Bridge
+4. Synthesize with Gemini-Bridge
 ```
 
 ## Instructions
 
 1. Understand project stack from `docs/project-overview-pdr.md`
 2. Define the research question clearly
-3. Use **Codex-Bridge** for deep analysis and reasoning
+3. Use **Gemini-Bridge** for deep analysis and reasoning
 4. Use **Context7** for up-to-date library documentation
 5. Verify with multiple sources
 6. Summarize actionable findings

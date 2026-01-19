@@ -1,7 +1,7 @@
 {
   "name": "secrets-management",
-  "repo": "wshobson/agents",
-  "path": "plugins/cicd-automation/skills/secrets-management/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-17T03:59:12.918892Z"
+  "repo": "buenhyden/hy-home.service-1",
+  "path": "agents_settings/agent/skills/secrets-management/SKILL.md",
+  "source": "github.com/buenhyden/hy-home.service-1",
+  "downloaded_at": "2026-01-19T04:05:40.355624Z"
 }

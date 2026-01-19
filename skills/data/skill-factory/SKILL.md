@@ -1,242 +1,352 @@
 ---
 name: skill-factory
-description: Create new skills with proper structure and YAML frontmatter. Use when building new slash command skills, ensuring consistent formatting, directory structure, and validation. Guides through the complete skill creation workflow.
-model_tier: sonnet
-parallel_hints:
-  can_parallel_with: [agent-factory]
-  must_serialize_with: []
-  preferred_batch_size: 1
-context_hints:
-  max_file_context: 40
-  compression_level: 1
-  requires_git_context: true
-  requires_db_context: false
-escalation_triggers:
-  - pattern: "security|auth|credential"
-    reason: "Security-affecting skills require human approval"
-  - pattern: "duplicate|conflict"
-    reason: "Functionality conflicts need human resolution"
-  - keyword: ["critical system", "agent permissions"]
-    reason: "System-level changes require review"
+description: Generate new Claude Skills for the Dual-Domain LLM Platform using natural language. Use when the user wants to create a new skill, automate a workflow, or build team capabilities. Activates when user mentions "create a skill", "new skill", "skill for", or "automate [task]".
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash
 ---
 
-# Skill Factory
+# Skill Factory 🏭
 
-> **Purpose:** Guide users through creating new Claude Code skills with proper structure
-> **Created:** 2025-12-27
-> **Trigger:** `/skill-factory` command
+**Meta-skill for generating domain-specific Claude Skills for your team.**
 
----
+This skill helps you create production-ready skills tailored to the Dual-Domain LLM Platform (AI Dev Cockpit + Enterprise).
 
-## When to Use
+## How It Works
 
-- Creating a new slash command skill
-- Need to ensure proper YAML frontmatter format
-- Want consistent skill structure across the project
-- Building skills for agents or workflows
-- Validating existing skill files
+When you say something like:
+- "Create a skill for deploying models to RunPod"
+- "I need a skill to manage Supabase auth flows"
+- "Build a skill that helps with theme consistency"
+- "Automate cost optimization analysis"
 
----
+I will:
+1. **Analyze** your codebase to understand the domain
+2. **Generate** a complete skill with YAML frontmatter and instructions
+3. **Add supporting files** (scripts, templates, references) if needed
+4. **Test** the skill description for Claude's discovery
+5. **Document** how to use it
 
-## Required Actions
+## Project Context
 
-When this skill is invoked, Claude MUST:
+This factory knows about your platform:
 
-1. **Gather skill requirements** from the user:
-   - Skill name (kebab-case, e.g., `my-new-skill`)
-   - One-line description (for slash command discovery)
-   - Purpose and use cases
-   - Whether it needs Reference/ or Workflows/ subdirectories
+### **Architecture**
+- **Frontend**: Next.js 14, TypeScript, Tailwind CSS, Framer Motion
+- **Services**: RunPod (deployment, vLLM), HuggingFace (model discovery)
+- **Auth**: Supabase with MFA, RBAC, organizations
+- **Testing**: Playwright E2E, chaos engineering, performance tests
+- **Themes**: Dual-domain (AI Dev Cockpit dark/terminal, Enterprise light/corporate)
 
-2. **Validate the skill name**:
-   - Must be kebab-case
-   - Must not conflict with existing skills
-   - Must be descriptive and discoverable
-
-3. **Create the directory structure**:
-   ```
-   .claude/skills/<skill-name>/
-   ├── SKILL.md           # Required: Main skill file
-   ├── Reference/         # Optional: Reference documentation
-   └── Workflows/         # Optional: Workflow definitions
-   ```
-
-4. **Generate SKILL.md** using the template below
-
-5. **Validate the created skill**:
-   - YAML frontmatter is valid
-   - Required sections are present
-   - Examples are included
-
----
-
-## Skill Template
-
-Use this template for all new skills:
-
-```markdown
----
-name: <skill-name>
-description: <one-line description for slash command discovery>
----
-
-# <Skill Title>
-
-> **Purpose:** <what this skill does>
-> **Created:** <date>
-> **Trigger:** `/<skill-name>` command
-
----
-
-## When to Use
-
-<bullet list of scenarios when this skill should be used>
-
----
-
-## Required Actions
-
-When this skill is invoked, Claude MUST:
-
-1. <action 1>
-2. <action 2>
-3. <action 3>
-
----
-
-## Examples
-
-<usage examples showing how the skill works>
-
----
-
-## Escalation Rules
-
-**Escalate to human when:**
-
-<list of situations requiring human intervention>
-
-**Can handle automatically:**
-
-<list of situations the skill can handle independently>
-
----
-
-## Related
-
-- <related skills>
-- <related documentation>
+### **Key Service Areas**
+```
+src/services/
+  ├── runpod/          # 7 services (client, deployment, monitoring, rollback, cost, vllm)
+  ├── huggingface/     # 11 services (api, cache, circuit-breaker, webhooks, unified-llm)
+  ├── inference/       # Streaming and model management
+  └── monitoring/      # Observability and metrics
 ```
 
+### **Common Workflows**
+1. Model deployment (HuggingFace → RunPod → vLLM)
+2. Cost estimation and optimization
+3. Auth operations (user, org, RBAC)
+4. Theme management (dual-domain consistency)
+5. E2E testing and validation
+6. Performance monitoring and chaos testing
+
+## Skill Generation Process
+
+### Step 1: Understand the Need
+Ask clarifying questions:
+- What workflow are you trying to automate?
+- What files/services are involved?
+- Who will use this skill? (you, team, specific role)
+- What's the expected frequency? (daily, per-feature, rarely)
+
+### Step 2: Analyze the Codebase
+Search for relevant files:
+```bash
+# Find services
+find src/services -name "*keyword*"
+
+# Search for patterns
+grep -r "specific function" src/
+
+# Check existing components
+ls src/components/[area]/
+```
+
+### Step 3: Generate the Skill
+
+Create `SKILL.md` with:
+```yaml
+---
+name: descriptive-skill-name
+description: Clear description of what it does AND when to use it. Include trigger keywords.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-## Validation Checklist
+# Skill Name
 
-Before completing skill creation, verify:
+Brief overview of what this skill does.
 
-- [ ] **YAML Frontmatter Valid**
-  - `name:` matches directory name (kebab-case)
-  - `description:` is one line, under 200 characters
-  - No trailing spaces or invalid YAML syntax
+## When to Use This Skill
 
-- [ ] **Required Sections Present**
-  - Title with Purpose/Created/Trigger metadata
-  - "When to Use" section with bullet points
-  - "Required Actions" section with numbered steps
-  - "Examples" section with concrete usage
+- Specific scenario 1
+- Specific scenario 2
+- Specific scenario 3
 
-- [ ] **Quality Standards**
-  - Description is discoverable (keywords users would search)
-  - Actions are specific and actionable
-  - Examples demonstrate real use cases
-  - Escalation rules define boundaries
+## Instructions
 
-- [ ] **No Conflicts**
-  - Skill name doesn't duplicate existing skill
-  - Functionality doesn't overlap significantly with existing skills
+Step-by-step workflow:
 
-- [ ] **Directory Structure Correct**
-  - `.claude/skills/<skill-name>/SKILL.md` exists
-  - Optional subdirectories created if needed
-
----
+1. **First step** - Clear action
+2. **Second step** - What to check
+3. **Third step** - How to proceed
 
 ## Examples
 
-### Example 1: Create a Simple Skill
+### Example 1: Common Use Case
+\`\`\`bash
+# Command to run
+\`\`\`
 
-**User:** Create a skill for generating changelogs
+Expected outcome: ...
 
-**Claude:**
-1. Gathers requirements: name=`changelog-generator`, purpose=generate changelogs from git history
-2. Creates directory: `.claude/skills/changelog-generator/`
-3. Generates SKILL.md with proper frontmatter
-4. Validates all checklist items pass
+### Example 2: Edge Case
+...
 
-### Example 2: Create a Skill with Reference Docs
+## Files Involved
 
-**User:** Create a skill for ACGME compliance with reference documentation
+- `src/services/[service]/file.ts` - Purpose
+- `src/components/[area]/Component.tsx` - Purpose
 
-**Claude:**
-1. Gathers requirements including reference materials needed
-2. Creates structure:
-   ```
-   .claude/skills/acgme-compliance/
-   ├── SKILL.md
-   └── Reference/
-       ├── hour-limits.md
-       └── supervision-ratios.md
-   ```
-3. Populates reference files as needed
+## Best Practices
 
-### Example 3: Check Existing Skill
+- Do this
+- Don't do that
+- Watch out for...
 
-**User:** Validate the test-writer skill
+## Troubleshooting
 
-**Claude:**
-1. Reads `.claude/skills/test-writer/SKILL.md`
-2. Validates YAML frontmatter
-3. Checks all required sections present
-4. Reports any issues found
+**Issue**: Common problem
+**Solution**: How to fix it
+```
 
----
+### Step 4: Add Supporting Files (if needed)
 
-## Escalation Rules
+**Reference docs** (`REFERENCE.md`):
+- Detailed API documentation
+- Complex workflows
+- Advanced configurations
 
-**Escalate to human when:**
+**Scripts** (`scripts/helper.sh`):
+- Automation utilities
+- Validation scripts
+- Quick commands
 
-1. Skill affects security (auth, credentials, secrets)
-2. Skill duplicates existing functionality significantly
-3. Skill requires new agent permissions
-4. Unclear whether skill or agent is appropriate
-5. Skill would modify critical system files
+**Templates** (`templates/template.ts`):
+- Code templates
+- Configuration files
+- Boilerplate
 
-**Can handle automatically:**
+**Examples** (`examples/example.md`):
+- Real-world usage
+- Complete workflows
+- Before/after comparisons
 
-1. Creating standard skill structure
-2. Generating SKILL.md from template
-3. Validating existing skills
-4. Creating Reference/ and Workflows/ subdirectories
-5. Checking for naming conflicts
+### Step 5: Test Discovery
 
----
+Ensure the description triggers correctly:
+- Include **action verbs**: "deploy", "manage", "analyze", "create"
+- Add **domain terms**: "RunPod", "vLLM", "Supabase", "Qwen"
+- Specify **when to use**: "Use when...", "Activates when..."
+- List **trigger phrases**: "model deployment", "cost optimization"
 
-## Integration with TOOLSMITH Agent
+### Step 6: Document Usage
 
-This skill implements part of the TOOLSMITH agent's "Create New Skill" workflow:
+Add to team CLAUDE.md:
+```markdown
+## Available Skills
 
-1. TOOLSMITH receives skill creation request
-2. Invokes `/skill-factory` to generate structure
-3. Validates output meets quality standards
-4. Reports completion to ORCHESTRATOR
+### skill-name
+**Purpose**: Brief description
+**When to use**: Trigger conditions
+**Example**: "Deploy Qwen model to RunPod"
+```
 
-For agent creation, use the `/agent-factory` skill instead.
+## Skill Templates
 
----
+See [templates/](templates/) for common patterns:
+- `service-skill.md` - Wrapping a service layer
+- `workflow-skill.md` - Multi-step process automation
+- `analysis-skill.md` - Code analysis and reporting
+- `testing-skill.md` - Test generation and validation
 
-## Related
+## Examples
 
-- `.claude/Agents/TOOLSMITH.md` - Agent specification for tool creation
-- `.claude/skills/` - Directory containing all project skills
-- `docs/development/AGENT_SKILLS.md` - Agent skills reference
-- `CLAUDE.md` - Project guidelines and standards
+See [examples/](examples/) for complete skills:
+- `runpod-deployment-example.md` - Full deployment skill
+- `theme-management-example.md` - Theme consistency skill
+- `cost-analysis-example.md` - Cost optimization skill
+
+## Skill Naming Conventions
+
+✅ **Good names**:
+- `runpod-deployment` - Clear, specific
+- `supabase-auth-ops` - Domain + action
+- `cost-optimization` - Descriptive
+
+❌ **Avoid**:
+- `helper` - Too vague
+- `utils` - Not descriptive
+- `misc-tools` - Unfocused
+
+## Best Practices for Skills
+
+### Keep Skills Focused
+One skill = one capability
+- ✅ "Deploy models to RunPod"
+- ❌ "Do everything with models"
+
+### Write Clear Descriptions
+Include both **what** and **when**:
+```yaml
+description: Deploy Chinese LLM models (Qwen, DeepSeek, ChatGLM) to RunPod serverless with vLLM. Use when deploying models, checking deployment status, or configuring vLLM settings.
+```
+
+### Use Progressive Disclosure
+- Core instructions in SKILL.md (< 200 lines)
+- Details in REFERENCE.md
+- Complex workflows in separate docs
+- Claude reads additional files only when needed
+
+### Test with Real Questions
+Ask questions that should trigger the skill:
+- "How do I deploy a Qwen model?"
+- "Check the status of my RunPod deployment"
+- "Optimize vLLM configuration for DeepSeek"
+
+### Version Your Skills
+Add version history in SKILL.md:
+```markdown
+## Version History
+- v1.1.0 (2025-11-06): Added support for ChatGLM-4
+- v1.0.0 (2025-11-05): Initial deployment skill
+```
+
+## Skill Discovery Tips
+
+### High-Priority Skills Needed
+
+Based on your codebase, create skills for:
+
+1. **runpod-deployment** (CRITICAL)
+   - 7 services, 100+ LOC
+   - Complex deployment workflow
+   - Cost optimization needed
+
+2. **supabase-auth-ops** (HIGH)
+   - 11 auth routes
+   - MFA, RBAC, organizations
+   - Frequent user management
+
+3. **dual-domain-theme** (MEDIUM)
+   - 2 distinct themes
+   - 40+ components
+   - Brand consistency critical
+
+4. **e2e-testing** (MEDIUM)
+   - Playwright + chaos testing
+   - Performance validation
+   - Comprehensive test suite
+
+5. **cost-optimization** (LOW)
+   - Analysis and reporting
+   - ROI calculations
+   - Less frequent use
+
+## Interactive Skill Creation
+
+### Quick Creation Flow
+
+**User**: "Create a skill for [X]"
+
+**I will**:
+1. Ask 2-3 clarifying questions
+2. Search codebase for relevant files
+3. Generate complete SKILL.md
+4. Add supporting files if needed
+5. Test the description
+6. Document in CLAUDE.md
+
+### Detailed Creation Flow
+
+**User**: "Let's build a comprehensive skill for [X]"
+
+**I will**:
+1. Deep-dive into requirements
+2. Analyze all related services
+3. Create main SKILL.md
+4. Add REFERENCE.md with details
+5. Create helper scripts
+6. Add templates and examples
+7. Write tests for the skill
+8. Full documentation
+
+## Maintenance
+
+### Updating Skills
+When project evolves, update skills:
+```bash
+# Review skill effectiveness
+grep -r "skill-name" .claude/skills/
+
+# Update description for better discovery
+# Add new examples
+# Update file references
+```
+
+### Deprecating Skills
+If a skill is no longer needed:
+1. Add deprecation notice to SKILL.md
+2. Suggest replacement skill
+3. Keep for 2 weeks
+4. Then remove directory
+
+## Integration with Development Workflow
+
+### Morning Routine
+```
+User: "What should I work on today?"
+→ Uses task management skills
+→ Prioritizes based on complexity
+→ Suggests relevant skills to use
+```
+
+### Feature Development
+```
+User: "Implement authentication for org management"
+→ Uses supabase-auth-ops skill
+→ Reads existing auth patterns
+→ Generates consistent code
+→ Updates tests
+```
+
+### Code Review
+```
+User: "Review this deployment code"
+→ Uses runpod-deployment skill
+→ Checks best practices
+→ Validates cost optimization
+→ Suggests improvements
+```
+
+## Ready to Build?
+
+Say something like:
+- "Create a skill for deploying models"
+- "I need a skill to help with auth"
+- "Build me a theme management skill"
+- "What skills should we create first?"
+
+I'll guide you through the creation process! 🏭

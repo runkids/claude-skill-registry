@@ -1,103 +1,67 @@
 ---
 name: refactoring-code
-description: Batch refactoring via MorphLLM edit_file. Use for "refactor across files", "batch rename", "update pattern everywhere", large files (500+ lines), or 5+ edits in same file.
-user-invocable: false
-allowed-tools:
-  - mcp__morphllm__edit_file
-  - mcp__morphllm__warpgrep_codebase_search
-  - mcp__morphllm__codebase_search
-  - Read
-  - Grep
-  - Glob
+description: Improve code structure without changing behavior. Use when code is hard to read, modify, or test. Covers Extract Method, Rename, and other safe refactorings.
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep, mcp__serena__*
 ---
 
-# Fast Refactoring with MorphLLM
+# Refactoring Code
 
-MorphLLM edit_file provides semantic code merging at 10,500+ tokens/sec with 98% accuracy.
+## MCP Tools
 
-## When to Use edit_file
+**Serena** (safe refactoring):
+- `find_symbol` — Locate refactoring targets
+- `find_referencing_symbols` — Find ALL usages before changes
+- `rename_symbol` — Rename across entire codebase safely
+- `replace_symbol_body` — Replace function implementations
+- `get_symbols_overview` — Understand module structure
 
-| Use edit_file                   | Use Built-in Edit/MultiEdit      |
-| ------------------------------- | -------------------------------- |
-| Multi-file batch refactoring    | Single file, clear edit          |
-| Style/pattern update everywhere | 2-3 targeted replacements        |
-| Complex prompt → many changes   | Need clear diff to review/tune   |
-| Structural refactoring at scale | Simple rename (replace_all)      |
-| 5+ files need same pattern      | Straightforward single-file work |
+## The Refactoring Hat
 
-## Key Features
+When refactoring, you change **structure** without changing **behavior**. Always have tests passing before and after.
 
-- **Semantic merge**: Understands code structure, not just text
-- **Speed**: 10,500 tok/s vs 180 tok/s streaming
-- **Accuracy**: 98% success rate on edge cases
-- **dryRun**: Preview changes before applying
+## Workflows
 
-## Workflow
+- [ ] **Tests Green**: Ensure all tests pass before starting
+- [ ] **Analyze**: Use Serena to understand dependencies
+- [ ] **Small Steps**: Make one small change at a time
+- [ ] **Verify Usages**: Use `find_referencing_symbols` before changes
+- [ ] **Commit Often**: Commit after each successful refactoring
+- [ ] **Tests Green**: Verify tests still pass after each change
 
-### Standard Refactoring
+## Common Refactorings
 
-```
-1. Use WarpGrep to find all locations needing change
-2. For each file: call edit_file with changes
-3. Verify with lint/test
-```
+### Extract Method
+When a code block does one thing, extract it to a named method.
 
-### High-Stakes Changes (dryRun)
+1. Use `find_referencing_symbols` to verify extraction won't break callers
+2. Extract the method
+3. Run tests
 
-```
-1. Call edit_file with dryRun: true
-2. Review preview output
-3. If approved, call again with dryRun: false
-```
+### Rename for Clarity
+Names should reveal intent.
 
-## Parameters
+1. Use `find_referencing_symbols` to find ALL usages
+2. Use `rename_symbol` for codebase-wide rename
+3. Verify no missed references
 
-```
-path: "/absolute/path/to/file"
-code_edit: "changed lines with // ... existing code ... markers"
-instruction: "brief description of changes"
-dryRun: false (set true to preview)
-```
+### Remove Dead Code
+1. Use `find_referencing_symbols` to verify code is unused
+2. If zero references, safe to remove
+3. If references exist, trace to understand usage
 
-## Edit Format
+## Code Smells to Address
 
-Use `// ... existing code ...` markers for unchanged sections:
+- **Long Method**: Extract smaller methods
+- **Long Parameter List**: Introduce parameter object
+- **Duplicate Code**: Extract to shared function (use `find_symbol` to locate duplicates)
+- **Feature Envy**: Move method to the class it uses most
+- **Data Clumps**: Group related data into objects
+- **Primitive Obsession**: Replace primitives with value objects
 
-```typescript
-// ... existing code ...
-function updatedFunction() {
-  // new implementation
-}
-// ... existing code ...
-```
+## Safety Rules
 
-## Common Patterns
-
-### Batch Error Handling
-
-```
-instruction: "Add error wrapping to all repository methods"
-code_edit: Shows only changed functions with context markers
-```
-
-### Import Updates
-
-```
-instruction: "Update imports from old-pkg to new-pkg"
-code_edit: Shows import section with changes
-```
-
-### Multi-Location Rename
-
-```
-instruction: "Rename getUserById to findUser throughout file"
-code_edit: Shows all locations with changes
-```
-
-## Tips
-
-- Batch all edits to same file in one call
-- Include enough context to locate changes precisely
-- Preserve exact indentation in code_edit
-- Use WarpGrep first to understand scope
-- Run tests after each file to catch issues early
+1. Never refactor and add features simultaneously
+2. **Always use `find_referencing_symbols` before removing/renaming**
+3. Run tests after every change
+4. Use Serena's `rename_symbol` instead of find-replace
+5. Commit working states frequently

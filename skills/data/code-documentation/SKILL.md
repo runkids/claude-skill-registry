@@ -1,102 +1,47 @@
 ---
 name: code-documentation
-description: Generate comprehensive code documentation including docstrings, comments, and API documentation. Use when code lacks documentation, needs better explanations, or requires API docs. Focuses on clarity, completeness, and following language-specific documentation standards.
+description: TSDoc standards for TypeScript/JavaScript code. Automatically invoked when writing, reviewing, or editing any TSDoc comments, code documentation, or API documentation. (project)
+license: ISC
+compatibility: Requires bun
 ---
 
 # Code Documentation Skill
 
-## Instructions
+## Purpose
 
-1. Analyze the code structure to understand what needs documentation
-2. Generate docstrings/comments following language conventions:
-   - Python: Google, NumPy, or Sphinx style
-   - JavaScript/TypeScript: JSDoc format
-   - Go: Standard Go doc comments
-   - Java: JavaDoc format
-3. Document:
-   - Function/method purpose and behavior
-   - Parameters with types and descriptions
-   - Return values with types and descriptions
-   - Exceptions/errors that may be raised
-   - Usage examples when helpful
-   - Edge cases and important notes
-4. Add inline comments for complex logic or non-obvious code
-5. Generate API documentation when requested
-6. Keep documentation concise but complete
-7. Use clear, professional language
+This skill provides TSDoc format templates, type documentation guidelines, and maintenance workflows. Use this when:
+- Writing or editing TSDoc comments for any function, type, or module
+- Reviewing documentation quality
+- Creating comprehensive API documentation
+- Documenting complex type structures
+- Cleaning up non-compliant comments (performance notes, timestamps, inline explanations)
+- Synchronizing out-of-sync TSDoc with code changes
+- Removing orphaned documentation for deleted code
 
-## Examples
+**Key Standard**: No `@example` sections - tests and stories serve as living examples.
 
-**Input (Python function without docs):**
-```python
-def calculate_total(items, tax_rate=0.1):
-    subtotal = sum(item.price for item in items)
-    return subtotal * (1 + tax_rate)
-```
+## Quick Reference
 
-**Output:**
-```python
-def calculate_total(items: List[Item], tax_rate: float = 0.1) -> float:
-    """
-    Calculate the total price including tax for a list of items.
-    
-    Args:
-        items: List of Item objects with a price attribute
-        tax_rate: Tax rate as a decimal (default: 0.1 for 10%)
-    
-    Returns:
-        Total price including tax as a float
-    
-    Example:
-        >>> items = [Item(price=10.0), Item(price=20.0)]
-        >>> calculate_total(items, tax_rate=0.08)
-        32.4
-    """
-    subtotal = sum(item.price for item in items)
-    return subtotal * (1 + tax_rate)
-```
+- **Creating TSDoc**: See [workflow.md](references/workflow.md) for the generation workflow
+- **Maintaining TSDoc**: See [maintenance.md](references/maintenance.md) for cleanup and sync guidelines
 
-**Input (JavaScript function):**
-```javascript
-function processUserData(data) {
-    const filtered = data.filter(u => u.active);
-    return filtered.map(u => ({ id: u.id, name: u.name }));
-}
-```
+This skill contains detailed templates for:
+- Public API Functions
+- Internal Module Documentation
+- Public and Internal Types
+- Helper Functions
+- Behavioral Programming Functions
+- Special Annotations (Security, Performance, Deprecated)
+- Type Documentation (Complex Objects, Unions, Functions, Utilities, Branded Types, etc.)
 
-**Output:**
-```javascript
-/**
- * Process user data by filtering active users and extracting key fields.
- * 
- * @param {Array<Object>} data - Array of user objects
- * @param {boolean} data[].active - Whether the user is active
- * @param {string} data[].id - User identifier
- * @param {string} data[].name - User display name
- * @returns {Array<Object>} Array of processed user objects with id and name
- * 
- * @example
- * const users = [
- *   { id: '1', name: 'Alice', active: true },
- *   { id: '2', name: 'Bob', active: false }
- * ];
- * processUserData(users); // [{ id: '1', name: 'Alice' }]
- */
-function processUserData(data) {
-    const filtered = data.filter(u => u.active);
-    return filtered.map(u => ({ id: u.id, name: u.name }));
-}
-```
+## Navigation
 
-## Documentation Standards
+- [workflow.md](references/workflow.md) - TSDoc generation workflow (4 phases)
+- [maintenance.md](references/maintenance.md) - Comment policy, sync tasks, orphaned doc handling
+- [public-api-templates.md](references/public-api-templates.md) - Templates for public-facing APIs
+- [internal-templates.md](references/internal-templates.md) - Templates for internal code and modules
+- [type-documentation.md](references/type-documentation.md) - Comprehensive type documentation templates
 
-**Python:**
-- Use Google or NumPy style docstrings
-- Include type hints when possible
-- Document exceptions with `Raises:`
-- Add `Example:` section for complex functions
+## Related Skills
 
-**JavaScript/TypeScript:**
-- Use JSDoc format with `@param`, `@returns`, `@throws`
-- Include type information in JSDoc comments
-- Add `@example` for usage demonstrations
+- **typescript-lsp**: Use for type verification and discovery during documentation workflow. Essential for Phase 1 (type analysis) and Phase 2 (usage discovery) of the TSDoc generation process. Run `lsp-hover` to verify signatures, `lsp-references` to find usages, and `lsp-symbols` to understand file structure.

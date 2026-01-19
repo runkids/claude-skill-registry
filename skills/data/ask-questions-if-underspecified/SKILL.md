@@ -1,9 +1,17 @@
 ---
 name: ask-questions-if-underspecified
-description: Clarify requirements before implementing. Do not use automatically, only when invoked explicitly.
+description: Clarify requirements before implementing. Use when serious doubts araise.
 ---
 
 # Ask Questions If Underspecified
+
+## When to Use
+
+Use this skill when a request has multiple plausible interpretations or key details (objective, scope, constraints, environment, or safety) are unclear.
+
+## When NOT to Use
+
+Do not use this skill when the request is already clear, or when a quick, low-risk discovery read can answer the missing details.
 
 ## Goal
 
@@ -75,7 +83,3 @@ Reply with: defaults (or 1a 2a)
 
 - Don't ask questions you can answer with a quick, low-risk discovery read (e.g., configs, existing patterns, docs).
 - Don't ask open-ended questions if a tight multiple-choice or yes/no would eliminate ambiguity faster.
-
----
-
-*Originally created by [@thsottiaux](https://x.com/thsottiaux)*

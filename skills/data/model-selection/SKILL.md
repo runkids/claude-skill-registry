@@ -1,316 +1,712 @@
 ---
 name: model-selection
-description: Choose appropriate model for custom agent tasks. Use when selecting between Haiku, Sonnet, and Opus for agents, optimizing cost vs quality tradeoffs, or matching model capability to task complexity.
-allowed-tools: Read, Grep, Glob, AskUserQuestion
+description: Automatically applies when choosing LLM models and providers. Ensures proper model comparison, provider selection, cost optimization, fallback patterns, and multi-model strategies.
+category: ai-llm
 ---
 
-# Model Selection Skill
+# Model Selection and Provider Management
 
-Choose the right model for custom agent tasks based on complexity, cost, and performance requirements.
+When selecting LLM models and managing providers, follow these patterns for optimal cost, performance, and reliability.
 
-## Interactive Model Selection
+**Trigger Keywords**: model selection, provider, model comparison, fallback, OpenAI, Anthropic, model routing, cost optimization, model capabilities, provider failover
 
-Use AskUserQuestion to understand requirements and recommend the optimal model:
+**Agent Integration**: Used by `ml-system-architect`, `performance-and-cost-engineer-llm`, `llm-app-engineer`
 
-```yaml
-# Question 1: Primary Priority (MCP: CLI best practices - tradeoff selection)
-question: "What is your primary priority for this agent?"
-header: "Priority"
-options:
-  - label: "Cost Efficiency (Recommended)"
-    description: "Minimize API costs, high-volume operations"
-  - label: "Balanced Performance"
-    description: "Good quality at reasonable cost for most tasks"
-  - label: "Maximum Quality"
-    description: "Best results regardless of cost, complex reasoning"
-  - label: "Lowest Latency"
-    description: "Real-time responses, user-facing interactions"
-
-# Question 2: Task Complexity (MCP: Agent SDK model selection)
-question: "How complex is the task this agent will perform?"
-header: "Complexity"
-options:
-  - label: "Simple"
-    description: "Transformations, extraction, formatting, classification"
-  - label: "Moderate"
-    description: "Code generation, analysis, planning, most tasks"
-  - label: "Complex"
-    description: "Architecture decisions, multi-step reasoning, critical code"
-  - label: "Variable"
-    description: "Mix of simple and complex tasks in one agent"
-```
-
-Use these responses to apply the decision tree and recommend the appropriate model.
-
-## Purpose
-
-Guide selection of appropriate Claude model (Haiku, Sonnet, Opus) for custom agent tasks to optimize cost, speed, and quality.
-
-## When to Use
-
-- Designing a new custom agent
-- Optimizing existing agent performance
-- Balancing cost vs quality
-- Meeting specific latency requirements
-
-## Model Overview
-
-| Model | Speed | Cost | Quality | Use Case |
-| --- | --- | --- | --- | --- |
-| **Haiku** | Fastest | Lowest | Good | Simple tasks, high volume |
-| **Sonnet** | Fast | Medium | Very Good | Most tasks, balanced |
-| **Opus** | Slowest | Highest | Best | Complex reasoning |
-
-## Selection Decision Tree
-
-```text
-START
-  │
-  ├── Is task simple transformation?
-  │   └── YES → Haiku
-  │
-  ├── Is cost the primary concern?
-  │   └── YES → Haiku (if adequate) or Sonnet
-  │
-  ├── Is quality critical (no room for error)?
-  │   └── YES → Opus
-  │
-  ├── Does task require complex reasoning?
-  │   └── YES → Opus
-  │
-  ├── Is latency critical (real-time)?
-  │   └── YES → Haiku
-  │
-  └── DEFAULT → Sonnet (best balance)
-```
-
-## Model Selection by Task Type
-
-### Haiku Tasks
-
-Best for:
-
-- Text transformations (uppercase, formatting)
-- Simple classification
-- Data extraction
-- High-volume operations
-- Real-time processing
-- Pattern matching
+## ✅ Correct Pattern: Model Registry
 
 ```python
-# Haiku examples
-model="claude-3-5-haiku-20241022"
+from typing import Optional, Dict, List
+from pydantic import BaseModel, Field
+from enum import Enum
 
-# Echo agent - simple transformation
-# Calculator - straightforward math
-# Stream processor - high volume, low complexity
-```
 
-### Sonnet Tasks
+class ModelProvider(str, Enum):
+    """Supported LLM providers."""
+    ANTHROPIC = "anthropic"
+    OPENAI = "openai"
+    GOOGLE = "google"
+    LOCAL = "local"
 
-Best for:
 
-- Code generation
-- Code review
-- Planning and analysis
-- Most custom agents
-- Balanced performance
+class ModelCapabilities(BaseModel):
+    """Model capabilities and constraints."""
 
-```python
-# Sonnet examples
-model="claude-sonnet-4-20250514"
+    max_context_tokens: int
+    max_output_tokens: int
+    supports_streaming: bool = True
+    supports_function_calling: bool = False
+    supports_vision: bool = False
+    supports_json_mode: bool = False
 
-# QA agent - codebase analysis
-# Builder agent - code implementation
-# General-purpose agents
-```
 
-### Opus Tasks
+class ModelPricing(BaseModel):
+    """Model pricing information."""
 
-Best for:
+    input_price_per_mtok: float  # USD per million tokens
+    output_price_per_mtok: float
+    cache_write_price_per_mtok: Optional[float] = None
+    cache_read_price_per_mtok: Optional[float] = None
 
-- Strategic planning
-- Complex architectural decisions
-- Critical code review
-- Multi-step reasoning
-- Novel problem solving
 
-```python
-# Opus examples
-model="claude-opus-4-20250514"
+class ModelConfig(BaseModel):
+    """Complete model configuration."""
 
-# Planner agent - strategic decisions
-# Reviewer agent - critical validation
-# Architect agent - system design
-```
+    id: str
+    name: str
+    provider: ModelProvider
+    capabilities: ModelCapabilities
+    pricing: ModelPricing
+    recommended_use_cases: List[str] = Field(default_factory=list)
+    quality_tier: str  # "flagship", "balanced", "fast"
 
-## Cost Considerations
 
-### Relative Costs
+class ModelRegistry:
+    """Registry of available models with metadata."""
 
-| Model | Input Tokens | Output Tokens | Relative Cost |
-| --- | --- | --- | --- |
-| Haiku | Low | Low | 1x |
-| Sonnet | Medium | Medium | ~10x |
-| Opus | High | High | ~30x |
+    def __init__(self):
+        self.models: Dict[str, ModelConfig] = {}
+        self._register_default_models()
 
-### Cost Optimization Strategies
+    def _register_default_models(self):
+        """Register commonly used models."""
 
-1. **Start with Haiku**: Test if simpler model is adequate
-2. **Use Haiku for preprocessing**: Filter/classify before main task
-3. **Reserve Opus for critical paths**: Only where quality is paramount
-4. **Monitor costs**: Track `ResultMessage.total_cost_usd`
+        # Claude models
+        self.register(ModelConfig(
+            id="claude-sonnet-4-20250514",
+            name="Claude Sonnet 4",
+            provider=ModelProvider.ANTHROPIC,
+            capabilities=ModelCapabilities(
+                max_context_tokens=200_000,
+                max_output_tokens=8_192,
+                supports_streaming=True,
+                supports_vision=True,
+                supports_json_mode=True
+            ),
+            pricing=ModelPricing(
+                input_price_per_mtok=3.00,
+                output_price_per_mtok=15.00,
+                cache_write_price_per_mtok=3.75,
+                cache_read_price_per_mtok=0.30
+            ),
+            recommended_use_cases=[
+                "complex reasoning",
+                "long context",
+                "code generation"
+            ],
+            quality_tier="flagship"
+        ))
 
-```python
-# Cost tracking
-async for message in client.receive_response():
-    if isinstance(message, ResultMessage):
-        print(f"Query cost: ${message.total_cost_usd:.6f}")
-```
+        self.register(ModelConfig(
+            id="claude-haiku-3-5-20250514",
+            name="Claude Haiku 3.5",
+            provider=ModelProvider.ANTHROPIC,
+            capabilities=ModelCapabilities(
+                max_context_tokens=200_000,
+                max_output_tokens=8_192,
+                supports_streaming=True,
+                supports_vision=True
+            ),
+            pricing=ModelPricing(
+                input_price_per_mtok=0.80,
+                output_price_per_mtok=4.00
+            ),
+            recommended_use_cases=[
+                "high throughput",
+                "cost-sensitive",
+                "simple tasks"
+            ],
+            quality_tier="fast"
+        ))
 
-## Speed Considerations
+        # OpenAI models
+        self.register(ModelConfig(
+            id="gpt-4-turbo",
+            name="GPT-4 Turbo",
+            provider=ModelProvider.OPENAI,
+            capabilities=ModelCapabilities(
+                max_context_tokens=128_000,
+                max_output_tokens=4_096,
+                supports_streaming=True,
+                supports_function_calling=True,
+                supports_vision=True,
+                supports_json_mode=True
+            ),
+            pricing=ModelPricing(
+                input_price_per_mtok=10.00,
+                output_price_per_mtok=30.00
+            ),
+            recommended_use_cases=[
+                "function calling",
+                "complex reasoning",
+                "structured output"
+            ],
+            quality_tier="flagship"
+        ))
 
-### Latency Profiles
+    def register(self, model: ModelConfig):
+        """Register a model."""
+        self.models[model.id] = model
 
-| Model | First Token | Total Time | Throughput |
-| --- | --- | --- | --- |
-| Haiku | ~500ms | Fast | Highest |
-| Sonnet | ~1s | Medium | Good |
-| Opus | ~2s | Slower | Lower |
+    def get(self, model_id: str) -> Optional[ModelConfig]:
+        """Get model by ID."""
+        return self.models.get(model_id)
 
-### Speed Optimization
+    def find_by_criteria(
+        self,
+        max_cost_per_mtok: Optional[float] = None,
+        min_context_tokens: Optional[int] = None,
+        requires_streaming: bool = False,
+        requires_vision: bool = False,
+        quality_tier: Optional[str] = None,
+        provider: Optional[ModelProvider] = None
+    ) -> List[ModelConfig]:
+        """
+        Find models matching criteria.
 
-1. **Real-time needs Haiku**: Sub-second response
-2. **Interactive needs Sonnet**: Acceptable latency
-3. **Batch allows Opus**: Latency less critical
+        Args:
+            max_cost_per_mtok: Maximum input cost
+            min_context_tokens: Minimum context window
+            requires_streaming: Must support streaming
+            requires_vision: Must support vision
+            quality_tier: Quality tier filter
+            provider: Provider filter
 
-## Quality Considerations
+        Returns:
+            List of matching models
+        """
+        matches = []
 
-### Capability Differences
+        for model in self.models.values():
+            # Check cost
+            if max_cost_per_mtok is not None:
+                if model.pricing.input_price_per_mtok > max_cost_per_mtok:
+                    continue
 
-| Capability | Haiku | Sonnet | Opus |
-| --- | --- | --- | --- |
-| Simple reasoning | ✓ | ✓ | ✓ |
-| Code generation | Limited | Good | Excellent |
-| Complex planning | Poor | Good | Excellent |
-| Multi-step reasoning | Limited | Good | Excellent |
-| Novel problems | Poor | Adequate | Excellent |
+            # Check context
+            if min_context_tokens is not None:
+                if model.capabilities.max_context_tokens < min_context_tokens:
+                    continue
 
-### Quality Requirements
+            # Check capabilities
+            if requires_streaming and not model.capabilities.supports_streaming:
+                continue
+            if requires_vision and not model.capabilities.supports_vision:
+                continue
 
-- **Haiku**: Acceptable for well-defined, simple tasks
-- **Sonnet**: Good for most development tasks
-- **Opus**: Required for critical decisions
+            # Check tier
+            if quality_tier and model.quality_tier != quality_tier:
+                continue
 
-## Multi-Model Patterns
+            # Check provider
+            if provider and model.provider != provider:
+                continue
 
-### Tiered Processing
+            matches.append(model)
 
-```python
-# Tier 1: Haiku for classification
-classification = await classify_task(task, model="haiku")
+        # Sort by cost (cheapest first)
+        matches.sort(key=lambda m: m.pricing.input_price_per_mtok)
 
-# Tier 2: Route to appropriate model
-if classification == "simple":
-    result = await process(task, model="haiku")
-elif classification == "complex":
-    result = await process(task, model="opus")
-else:
-    result = await process(task, model="sonnet")
-```
+        return matches
 
-### Multi-Agent with Different Models
 
-```python
-# Planner: Opus for strategic decisions
-planner_options = ClaudeAgentOptions(
-    model="claude-opus-4-20250514"
+# Usage
+registry = ModelRegistry()
+
+# Find cost-effective models with vision
+models = registry.find_by_criteria(
+    max_cost_per_mtok=5.00,
+    requires_vision=True
 )
 
-# Builder: Sonnet for implementation
-builder_options = ClaudeAgentOptions(
-    model="claude-sonnet-4-20250514"
+for model in models:
+    print(f"{model.name}: ${model.pricing.input_price_per_mtok}/MTok")
+```
+
+## Model Router
+
+```python
+import asyncio
+from typing import Callable, Optional
+
+
+class ModelRouter:
+    """Route requests to appropriate models based on task."""
+
+    def __init__(self, registry: ModelRegistry):
+        self.registry = registry
+        self.routing_rules = []
+
+    def add_rule(
+        self,
+        name: str,
+        condition: Callable[[str], bool],
+        model_id: str,
+        priority: int = 0
+    ):
+        """
+        Add routing rule.
+
+        Args:
+            name: Rule name
+            condition: Function that checks if rule applies
+            model_id: Model to route to
+            priority: Higher priority rules checked first
+        """
+        self.routing_rules.append({
+            "name": name,
+            "condition": condition,
+            "model_id": model_id,
+            "priority": priority
+        })
+
+        # Sort by priority
+        self.routing_rules.sort(key=lambda r: r["priority"], reverse=True)
+
+    def route(self, prompt: str) -> str:
+        """
+        Determine which model to use for prompt.
+
+        Args:
+            prompt: Input prompt
+
+        Returns:
+            Model ID to use
+        """
+        for rule in self.routing_rules:
+            if rule["condition"](prompt):
+                return rule["model_id"]
+
+        # Default fallback
+        return "claude-sonnet-4-20250514"
+
+
+# Example routing rules
+router = ModelRouter(registry)
+
+# Route simple tasks to fast model
+router.add_rule(
+    name="simple_tasks",
+    condition=lambda p: len(p) < 100 and "?" in p,
+    model_id="claude-haiku-3-5-20250514",
+    priority=1
 )
 
-# Reviewer: Opus for critical review
-reviewer_options = ClaudeAgentOptions(
-    model="claude-opus-4-20250514"
+# Route code to Sonnet
+router.add_rule(
+    name="code_tasks",
+    condition=lambda p: any(kw in p.lower() for kw in ["code", "function", "class"]),
+    model_id="claude-sonnet-4-20250514",
+    priority=2
+)
+
+# Route long context to Claude
+router.add_rule(
+    name="long_context",
+    condition=lambda p: len(p) > 50_000,
+    model_id="claude-sonnet-4-20250514",
+    priority=3
+)
+
+# Use router
+prompt = "Write a Python function to sort a list"
+model_id = router.route(prompt)
+print(f"Using model: {model_id}")
+```
+
+## Fallback Chain
+
+```python
+from typing import List, Optional
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+class FallbackChain:
+    """Implement fallback chain for reliability."""
+
+    def __init__(
+        self,
+        primary_model: str,
+        fallback_models: List[str],
+        registry: ModelRegistry
+    ):
+        self.primary_model = primary_model
+        self.fallback_models = fallback_models
+        self.registry = registry
+
+    async def complete_with_fallback(
+        self,
+        prompt: str,
+        clients: Dict[str, any],
+        **kwargs
+    ) -> Dict[str, any]:
+        """
+        Try primary model, fallback on failure.
+
+        Args:
+            prompt: Input prompt
+            clients: Dict mapping provider to client
+            **kwargs: Additional model parameters
+
+        Returns:
+            Dict with response and metadata
+        """
+        models_to_try = [self.primary_model] + self.fallback_models
+
+        last_error = None
+
+        for model_id in models_to_try:
+            model_config = self.registry.get(model_id)
+            if not model_config:
+                logger.warning(f"Model {model_id} not in registry")
+                continue
+
+            try:
+                logger.info(f"Attempting request with {model_id}")
+
+                # Get client for provider
+                client = clients.get(model_config.provider.value)
+                if not client:
+                    logger.warning(f"No client for {model_config.provider}")
+                    continue
+
+                # Make request
+                response = await client.complete(
+                    prompt,
+                    model=model_id,
+                    **kwargs
+                )
+
+                return {
+                    "response": response,
+                    "model_used": model_id,
+                    "fallback_occurred": model_id != self.primary_model
+                }
+
+            except Exception as e:
+                logger.error(f"Request failed for {model_id}: {e}")
+                last_error = e
+                continue
+
+        # All models failed
+        raise Exception(f"All models failed. Last error: {last_error}")
+
+
+# Usage
+fallback_chain = FallbackChain(
+    primary_model="claude-sonnet-4-20250514",
+    fallback_models=[
+        "gpt-4-turbo",
+        "claude-haiku-3-5-20250514"
+    ],
+    registry=registry
+)
+
+result = await fallback_chain.complete_with_fallback(
+    prompt="What is Python?",
+    clients={
+        "anthropic": anthropic_client,
+        "openai": openai_client
+    }
+)
+
+print(f"Response from: {result['model_used']}")
+```
+
+## Cost Optimization
+
+```python
+class CostOptimizer:
+    """Optimize costs by selecting appropriate models."""
+
+    def __init__(self, registry: ModelRegistry):
+        self.registry = registry
+
+    def estimate_cost(
+        self,
+        model_id: str,
+        input_tokens: int,
+        output_tokens: int
+    ) -> float:
+        """
+        Estimate cost for request.
+
+        Args:
+            model_id: Model identifier
+            input_tokens: Input token count
+            output_tokens: Expected output tokens
+
+        Returns:
+            Estimated cost in USD
+        """
+        model = self.registry.get(model_id)
+        if not model:
+            raise ValueError(f"Unknown model: {model_id}")
+
+        input_cost = (
+            input_tokens / 1_000_000
+        ) * model.pricing.input_price_per_mtok
+
+        output_cost = (
+            output_tokens / 1_000_000
+        ) * model.pricing.output_price_per_mtok
+
+        return input_cost + output_cost
+
+    def find_cheapest_model(
+        self,
+        input_tokens: int,
+        output_tokens: int,
+        quality_tier: Optional[str] = None,
+        **criteria
+    ) -> tuple[str, float]:
+        """
+        Find cheapest model meeting criteria.
+
+        Args:
+            input_tokens: Input token count
+            output_tokens: Expected output tokens
+            quality_tier: Optional quality requirement
+            **criteria: Additional model criteria
+
+        Returns:
+            Tuple of (model_id, estimated_cost)
+        """
+        # Find matching models
+        candidates = self.registry.find_by_criteria(
+            quality_tier=quality_tier,
+            **criteria
+        )
+
+        if not candidates:
+            raise ValueError("No models match criteria")
+
+        # Calculate costs
+        costs = [
+            (
+                model.id,
+                self.estimate_cost(model.id, input_tokens, output_tokens)
+            )
+            for model in candidates
+        ]
+
+        # Return cheapest
+        return min(costs, key=lambda x: x[1])
+
+    def batch_cost_analysis(
+        self,
+        requests: List[Dict[str, int]],
+        model_ids: List[str]
+    ) -> Dict[str, Dict[str, float]]:
+        """
+        Analyze costs for batch of requests across models.
+
+        Args:
+            requests: List of dicts with input_tokens, output_tokens
+            model_ids: Models to compare
+
+        Returns:
+            Cost breakdown per model
+        """
+        analysis = {}
+
+        for model_id in model_ids:
+            total_cost = 0.0
+            total_tokens = 0
+
+            for req in requests:
+                cost = self.estimate_cost(
+                    model_id,
+                    req["input_tokens"],
+                    req["output_tokens"]
+                )
+                total_cost += cost
+                total_tokens += req["input_tokens"] + req["output_tokens"]
+
+            analysis[model_id] = {
+                "total_cost_usd": total_cost,
+                "avg_cost_per_request": total_cost / len(requests),
+                "total_tokens": total_tokens,
+                "cost_per_1k_tokens": (total_cost / total_tokens) * 1000
+            }
+
+        return analysis
+
+
+# Usage
+optimizer = CostOptimizer(registry)
+
+# Find cheapest model for task
+model_id, cost = optimizer.find_cheapest_model(
+    input_tokens=1000,
+    output_tokens=500,
+    quality_tier="balanced"
+)
+
+print(f"Cheapest model: {model_id} (${cost:.4f})")
+
+# Compare costs across models
+requests = [
+    {"input_tokens": 1000, "output_tokens": 500},
+    {"input_tokens": 2000, "output_tokens": 1000},
+]
+
+cost_analysis = optimizer.batch_cost_analysis(
+    requests,
+    model_ids=[
+        "claude-sonnet-4-20250514",
+        "claude-haiku-3-5-20250514",
+        "gpt-4-turbo"
+    ]
+)
+
+for model_id, stats in cost_analysis.items():
+    print(f"{model_id}: ${stats['total_cost_usd']:.4f}")
+```
+
+## Multi-Model Ensemble
+
+```python
+class ModelEnsemble:
+    """Ensemble multiple models for improved results."""
+
+    def __init__(
+        self,
+        models: List[str],
+        voting_strategy: str = "majority"
+    ):
+        self.models = models
+        self.voting_strategy = voting_strategy
+
+    async def complete_ensemble(
+        self,
+        prompt: str,
+        clients: Dict[str, any],
+        registry: ModelRegistry
+    ) -> str:
+        """
+        Get predictions from multiple models and combine.
+
+        Args:
+            prompt: Input prompt
+            clients: Provider clients
+            registry: Model registry
+
+        Returns:
+            Combined prediction
+        """
+        # Get predictions from all models
+        tasks = []
+        for model_id in self.models:
+            model_config = registry.get(model_id)
+            client = clients.get(model_config.provider.value)
+
+            task = client.complete(prompt, model=model_id)
+            tasks.append(task)
+
+        predictions = await asyncio.gather(*tasks)
+
+        # Combine predictions
+        if self.voting_strategy == "majority":
+            return self._majority_vote(predictions)
+        elif self.voting_strategy == "longest":
+            return max(predictions, key=len)
+        elif self.voting_strategy == "first":
+            return predictions[0]
+        else:
+            raise ValueError(f"Unknown strategy: {self.voting_strategy}")
+
+    def _majority_vote(self, predictions: List[str]) -> str:
+        """Select most common prediction."""
+        from collections import Counter
+        counter = Counter(predictions)
+        return counter.most_common(1)[0][0]
+
+
+# Usage
+ensemble = ModelEnsemble(
+    models=[
+        "claude-sonnet-4-20250514",
+        "gpt-4-turbo",
+        "claude-opus-4-20250514"
+    ],
+    voting_strategy="majority"
+)
+
+result = await ensemble.complete_ensemble(
+    prompt="Is Python case-sensitive? Answer yes or no.",
+    clients=clients,
+    registry=registry
 )
 ```
 
-## Output Format
+## ❌ Anti-Patterns
 
-When recommending model selection:
+```python
+# ❌ Hardcoded model ID everywhere
+response = client.complete("prompt", model="claude-sonnet-4-20250514")
 
-```markdown
-## Model Selection
+# ✅ Better: Use model registry and routing
+model_id = router.route(prompt)
+response = client.complete(prompt, model=model_id)
 
-**Task:** [description]
-**Recommended Model:** [Haiku/Sonnet/Opus]
 
-### Decision Factors
+# ❌ No fallback on failure
+try:
+    response = await primary_client.complete(prompt)
+except:
+    raise  # App crashes!
 
-| Factor | Weight | Assessment |
-| --- | --- | --- |
-| Complexity | [H/M/L] | [assessment] |
-| Cost sensitivity | [H/M/L] | [assessment] |
-| Quality requirement | [H/M/L] | [assessment] |
-| Latency requirement | [H/M/L] | [assessment] |
+# ✅ Better: Implement fallback chain
+result = await fallback_chain.complete_with_fallback(prompt, clients)
 
-### Rationale
 
-[Why this model is appropriate]
+# ❌ Always using most expensive model
+model = "claude-opus-4-20250514"  # Always flagship!
 
-### Alternatives
+# ✅ Better: Route based on task complexity
+model_id = router.route(prompt)  # Uses appropriate model
 
-- If cost is concern: [alternative]
-- If quality is critical: [alternative]
 
-### Configuration
+# ❌ No cost tracking
+response = await client.complete(prompt)  # No idea of cost!
 
+# ✅ Better: Track and optimize costs
+cost = optimizer.estimate_cost(model_id, input_tokens, output_tokens)
+logger.info(f"Request cost: ${cost:.4f}")
 ```
 
-options = ClaudeAgentOptions(
-    model="[model-id]",
-    ...
-)
+## Best Practices Checklist
 
-```text
+- ✅ Use model registry to centralize model metadata
+- ✅ Implement routing to select appropriate models
+- ✅ Set up fallback chains for reliability
+- ✅ Track and optimize costs per model
+- ✅ Consider quality tier for each use case
+- ✅ Monitor model performance metrics
+- ✅ Use cheaper models for simple tasks
+- ✅ Cache model responses when appropriate
+- ✅ Test fallback chains regularly
+- ✅ Document model selection rationale
+- ✅ Review costs regularly and optimize
+- ✅ Keep model metadata up to date
 
-```
+## Auto-Apply
 
-## Selection Checklist
+When selecting models:
+1. Register models in ModelRegistry with capabilities and pricing
+2. Implement ModelRouter for task-based routing
+3. Set up FallbackChain for reliability
+4. Use CostOptimizer to find cost-effective options
+5. Track costs per model and request
+6. Document routing logic and fallback strategy
+7. Monitor model performance and costs
 
-- [ ] Task complexity assessed
-- [ ] Cost constraints identified
-- [ ] Quality requirements defined
-- [ ] Latency requirements considered
-- [ ] Model selected with rationale
-- [ ] Alternatives documented
+## Related Skills
 
-## Key Insights
-
-> "Choose wisely: Claude Haiku for simple, fast tasks. Claude Sonnet for balanced performance. Claude Opus for complex reasoning."
-
-Model selection directly impacts:
-
-- User experience (latency)
-- Operational cost (tokens)
-- Output quality (accuracy)
-
-## Cross-References
-
-- @core-four-custom.md - Model in Core Four
-- @custom-agent-design skill - Agent design workflow
-- @agent-deployment-forms.md - Deployment considerations
-
-## Version History
-
-- **v1.0.0** (2025-12-26): Initial release
-
----
-
-## Last Updated
-
-**Date:** 2025-12-26
-**Model:** claude-opus-4-5-20251101
+- `llm-app-architecture` - For LLM integration
+- `evaluation-metrics` - For model comparison
+- `monitoring-alerting` - For tracking performance
+- `performance-profiling` - For optimization
+- `prompting-patterns` - For model-specific prompts

@@ -1,9 +1,7 @@
 {
   "name": "roi-analyzer",
-  "description": "Use when preparing executive reports, evaluating investments, or calculating ROI/break-even/payback period. 30-minute analysis (87.5% time saving). Includes scenario analysis.",
-  "repo": "Tempuss/agent-hub",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/marketing-pro-workflow/.claude/skills/roi-analyzer/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-19T03:26:10.828120Z"
 }

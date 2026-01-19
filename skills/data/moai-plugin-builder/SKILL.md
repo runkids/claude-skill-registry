@@ -4,19 +4,9 @@ description: "Claude Code plugin development patterns, templates, and best pract
 version: 1.2.0
 category: "foundation"
 modularized: false
-user-invocable: false
 tags: ['plugin', 'claude-code', 'development', 'templates', 'hooks', 'commands', 'agents', 'skills', 'mcp', 'lsp', 'marketplace']
-updated: 2026-01-08
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-  - TodoWrite
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: "Read, Write, Edit, Grep, Glob, Bash, TodoWrite, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
+updated: 2026-01-06
 status: "active"
 author: "MoAI-ADK Team"
 ---

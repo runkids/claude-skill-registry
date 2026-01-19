@@ -1,500 +1,503 @@
 ---
 name: pinia
-description: Pinia state management for JARVIS system state
-model: sonnet
-risk_level: MEDIUM
-version: 1.0.0
+description: Manages Vue state with Pinia including stores, getters, actions, and plugins. Use when building Vue applications needing centralized state, sharing state between components, or replacing Vuex.
 ---
 
-# Pinia State Management Skill
+# Pinia
 
-> **File Organization**: This skill uses split structure. See `references/` for advanced patterns and security examples.
+The intuitive, type safe, and flexible store for Vue.
 
-## 1. Overview
+## Quick Start
 
-This skill provides Pinia expertise for managing application state in the JARVIS AI Assistant, including system metrics, user preferences, and HUD configuration.
-
-**Risk Level**: MEDIUM - Manages sensitive state, SSR considerations, potential data exposure
-
-**Primary Use Cases**:
-- System metrics and status tracking
-- User preferences and settings
-- HUD configuration state
-- Command history and queue
-- Real-time data synchronization
-
-## 2. Core Responsibilities
-
-### 2.1 Core Principles
-
-1. **TDD First**: Write store tests before implementation
-2. **Performance Aware**: Optimize subscriptions and computed values
-3. **Type Safety**: Define stores with full TypeScript typing
-4. **SSR Security**: Prevent state leakage between requests
-5. **Composition API**: Use setup stores for better TypeScript support
-6. **Minimal State**: Store only necessary data, derive the rest
-7. **Action Validation**: Validate inputs in actions before mutations
-8. **Persistence Security**: Never persist sensitive data to localStorage
-
-## 3. Technology Stack & Versions
-
-### 3.1 Recommended Versions
-
-| Package | Version | Notes |
-|---------|---------|-------|
-| pinia | ^2.1.0 | Latest stable |
-| @pinia/nuxt | ^0.5.0 | Nuxt integration |
-| pinia-plugin-persistedstate | ^3.0.0 | Optional persistence |
-
-### 3.2 Nuxt Configuration
-
-```typescript
-// nuxt.config.ts
-export default defineNuxtConfig({
-  modules: ['@pinia/nuxt'],
-  pinia: {
-    storesDirs: ['./stores/**']
-  }
-})
-```
-
-### 3.3 Implementation Workflow (TDD)
-
-Follow this workflow for every store:
-
-**Step 1: Write Failing Test First**
-
-```typescript
-// tests/stores/metrics.test.ts
-import { describe, it, expect, beforeEach } from 'vitest'
-import { setActivePinia, createPinia } from 'pinia'
-import { useMetricsStore } from '~/stores/metrics'
-
-describe('MetricsStore', () => {
-  beforeEach(() => {
-    setActivePinia(createPinia())
-  })
-
-  it('should initialize with default values', () => {
-    const store = useMetricsStore()
-    expect(store.cpu).toBe(0)
-    expect(store.memory).toBe(0)
-  })
-
-  it('should clamp values within valid range', () => {
-    const store = useMetricsStore()
-    store.updateCpu(150)
-    expect(store.cpu).toBe(100)
-    store.updateCpu(-50)
-    expect(store.cpu).toBe(0)
-  })
-
-  it('should compute health status correctly', () => {
-    const store = useMetricsStore()
-    store.updateCpu(95)
-    store.updateMemory(90)
-    expect(store.healthStatus).toBe('critical')
-  })
-})
-```
-
-**Step 2: Implement Minimum to Pass**
-
-```typescript
-// stores/metrics.ts
-export const useMetricsStore = defineStore('metrics', () => {
-  const cpu = ref(0)
-  const memory = ref(0)
-
-  const healthStatus = computed(() => {
-    const avg = (cpu.value + memory.value) / 2
-    if (avg > 90) return 'critical'
-    if (avg > 70) return 'warning'
-    return 'healthy'
-  })
-
-  function updateCpu(value: number) {
-    cpu.value = Math.max(0, Math.min(100, value))
-  }
-
-  function updateMemory(value: number) {
-    memory.value = Math.max(0, Math.min(100, value))
-  }
-
-  return { cpu, memory, healthStatus, updateCpu, updateMemory }
-})
-```
-
-**Step 3: Refactor Following Patterns**
-
-- Extract validation logic
-- Add TypeScript interfaces
-- Optimize computed dependencies
-
-**Step 4: Run Full Verification**
-
+**Install:**
 ```bash
-npm run test -- --filter=stores
-npm run typecheck
-npm run build
+npm install pinia
 ```
 
-## 4. Implementation Patterns
+**Setup (main.ts):**
+```typescript
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import App from './App.vue';
 
-### 4.1 Setup Store with TypeScript
+const app = createApp(App);
+app.use(createPinia());
+app.mount('#app');
+```
+
+## Defining Stores
+
+### Option Store (Vue Options API style)
 
 ```typescript
-// stores/jarvis.ts
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+// stores/counter.ts
+import { defineStore } from 'pinia';
 
-interface SystemMetrics {
-  cpu: number
-  memory: number
-  network: number
-  timestamp: number
-}
+export const useCounterStore = defineStore('counter', {
+  state: () => ({
+    count: 0,
+    name: 'Counter',
+  }),
 
-interface JARVISState {
-  status: 'idle' | 'listening' | 'processing' | 'responding'
-  securityLevel: 'normal' | 'elevated' | 'lockdown'
-}
+  getters: {
+    doubleCount: (state) => state.count * 2,
 
-export const useJarvisStore = defineStore('jarvis', () => {
+    // Getter using other getters
+    doubleCountPlusOne(): number {
+      return this.doubleCount + 1;
+    },
+  },
+
+  actions: {
+    increment() {
+      this.count++;
+    },
+
+    async fetchAndSet() {
+      const response = await fetch('/api/count');
+      const data = await response.json();
+      this.count = data.count;
+    },
+  },
+});
+```
+
+### Setup Store (Composition API style)
+
+```typescript
+// stores/counter.ts
+import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
+
+export const useCounterStore = defineStore('counter', () => {
   // State
-  const state = ref<JARVISState>({
-    status: 'idle',
-    securityLevel: 'normal'
-  })
-
-  const metrics = ref<SystemMetrics>({
-    cpu: 0,
-    memory: 0,
-    network: 0,
-    timestamp: Date.now()
-  })
+  const count = ref(0);
+  const name = ref('Counter');
 
   // Getters
-  const isActive = computed(() =>
-    state.value.status !== 'idle'
-  )
-
-  const systemHealth = computed(() => {
-    const avg = (metrics.value.cpu + metrics.value.memory) / 2
-    if (avg > 90) return 'critical'
-    if (avg > 70) return 'warning'
-    return 'healthy'
-  })
+  const doubleCount = computed(() => count.value * 2);
 
   // Actions
-  function updateMetrics(newMetrics: Partial<SystemMetrics>) {
-    // ✅ Validate input
-    if (newMetrics.cpu !== undefined) {
-      metrics.value.cpu = Math.max(0, Math.min(100, newMetrics.cpu))
-    }
-    if (newMetrics.memory !== undefined) {
-      metrics.value.memory = Math.max(0, Math.min(100, newMetrics.memory))
-    }
-    if (newMetrics.network !== undefined) {
-      metrics.value.network = Math.max(0, newMetrics.network)
-    }
-    metrics.value.timestamp = Date.now()
+  function increment() {
+    count.value++;
   }
 
-  function setStatus(newStatus: JARVISState['status']) {
-    state.value.status = newStatus
+  async function fetchAndSet() {
+    const response = await fetch('/api/count');
+    const data = await response.json();
+    count.value = data.count;
   }
 
-  function setSecurityLevel(level: JARVISState['securityLevel']) {
-    state.value.securityLevel = level
-
-    // ✅ Audit security changes
-    console.info(`Security level changed to: ${level}`)
-  }
-
-  return {
-    state,
-    metrics,
-    isActive,
-    systemHealth,
-    updateMetrics,
-    setStatus,
-    setSecurityLevel
-  }
-})
+  return { count, name, doubleCount, increment, fetchAndSet };
+});
 ```
 
-### 4.2 User Preferences Store (with Persistence)
+## Using Stores
 
-```typescript
-// stores/preferences.ts
-export const usePreferencesStore = defineStore('preferences', () => {
-  const preferences = ref({
-    theme: 'dark' as 'dark' | 'light',
-    hudOpacity: 0.8,
-    soundEnabled: true
-  })
-
-  function updatePreference<K extends keyof typeof preferences.value>(
-    key: K, value: typeof preferences.value[K]
-  ) {
-    if (key === 'hudOpacity' && (value < 0 || value > 1)) return
-    preferences.value[key] = value
-  }
-
-  return { preferences, updatePreference }
-}, {
-  persist: {
-    key: 'jarvis-preferences',
-    paths: ['preferences.theme', 'preferences.hudOpacity']
-    // ❌ Never persist: tokens, passwords, API keys
-  }
-})
-```
-
-### 4.3 Command Queue Store
-
-```typescript
-// stores/commands.ts
-interface Command {
-  id: string
-  action: string
-  status: 'pending' | 'executing' | 'completed' | 'failed'
-}
-
-export const useCommandStore = defineStore('commands', () => {
-  const queue = ref<Command[]>([])
-  const history = ref<Command[]>([])
-  const MAX_HISTORY = 100
-
-  const pendingCommands = computed(() =>
-    queue.value.filter(cmd => cmd.status === 'pending')
-  )
-
-  function addCommand(action: string) {
-    const cmd: Command = { id: crypto.randomUUID(), action, status: 'pending' }
-    queue.value.push(cmd)
-    return cmd.id
-  }
-
-  function completeCommand(id: string, status: 'completed' | 'failed') {
-    const idx = queue.value.findIndex(cmd => cmd.id === id)
-    if (idx !== -1) {
-      const [cmd] = queue.value.splice(idx, 1)
-      cmd.status = status
-      history.value = [cmd, ...history.value].slice(0, MAX_HISTORY)
-    }
-  }
-
-  return { queue, history, pendingCommands, addCommand, completeCommand }
-})
-```
-
-### 4.4 SSR-Safe Store Usage
+### Basic Usage
 
 ```vue
 <script setup lang="ts">
-// ✅ Safe for SSR - store initialized per-request
-const jarvisStore = useJarvisStore()
+import { useCounterStore } from '@/stores/counter';
 
-// ✅ Fetch data on server
-const { data } = await useFetch('/api/metrics')
+const counter = useCounterStore();
 
-// Update store with fetched data
-if (data.value) {
-  jarvisStore.updateMetrics(data.value)
-}
+// Access state
+console.log(counter.count);
+
+// Access getters
+console.log(counter.doubleCount);
+
+// Call actions
+counter.increment();
 </script>
+
+<template>
+  <div>
+    <p>Count: {{ counter.count }}</p>
+    <p>Double: {{ counter.doubleCount }}</p>
+    <button @click="counter.increment">Increment</button>
+  </div>
+</template>
 ```
 
-### 4.5 Store Composition
+### Destructuring with storeToRefs
+
+```vue
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { useCounterStore } from '@/stores/counter';
+
+const counter = useCounterStore();
+
+// Destructure with reactivity preserved
+const { count, doubleCount } = storeToRefs(counter);
+
+// Actions can be destructured directly
+const { increment } = counter;
+</script>
+
+<template>
+  <div>
+    <p>{{ count }}</p>
+    <button @click="increment">+1</button>
+  </div>
+</template>
+```
+
+## State
+
+### Accessing State
 
 ```typescript
-// stores/dashboard.ts
-export const useDashboardStore = defineStore('dashboard', () => {
-  // ✅ Compose from other stores
-  const jarvisStore = useJarvisStore()
-  const commandStore = useCommandStore()
+const store = useCounterStore();
 
-  const dashboardStatus = computed(() => ({
-    systemHealth: jarvisStore.systemHealth,
-    pendingCommands: commandStore.pendingCommands.length,
-    isActive: jarvisStore.isActive
-  }))
+// Direct access
+store.count;
 
-  return {
-    dashboardStatus
+// Via $state
+store.$state.count;
+```
+
+### Modifying State
+
+```typescript
+const store = useCounterStore();
+
+// Direct mutation
+store.count++;
+
+// Patch single property
+store.$patch({ count: 10 });
+
+// Patch multiple properties
+store.$patch({
+  count: 10,
+  name: 'New Counter',
+});
+
+// Patch with function
+store.$patch((state) => {
+  state.count++;
+  state.items.push({ id: 1 });
+});
+
+// Replace entire state
+store.$state = { count: 0, name: 'Reset' };
+
+// Reset to initial state
+store.$reset();
+```
+
+## Getters
+
+### Basic Getters
+
+```typescript
+export const useProductStore = defineStore('products', {
+  state: () => ({
+    items: [] as Product[],
+  }),
+
+  getters: {
+    // Arrow function
+    itemCount: (state) => state.items.length,
+
+    // Using this for other getters
+    hasItems(): boolean {
+      return this.itemCount > 0;
+    },
+
+    // Getter with parameter (returns function)
+    getById: (state) => {
+      return (id: string) => state.items.find(item => item.id === id);
+    },
+  },
+});
+```
+
+### Using Other Store Getters
+
+```typescript
+import { useUserStore } from './user';
+
+export const useCartStore = defineStore('cart', {
+  getters: {
+    userCart(): CartItem[] {
+      const userStore = useUserStore();
+      return this.items.filter(item => item.userId === userStore.currentUserId);
+    },
+  },
+});
+```
+
+## Actions
+
+### Basic Actions
+
+```typescript
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    user: null as User | null,
+    token: null as string | null,
+  }),
+
+  actions: {
+    async login(email: string, password: string) {
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+        this.user = data.user;
+        this.token = data.token;
+
+        return data;
+      } catch (error) {
+        this.user = null;
+        this.token = null;
+        throw error;
+      }
+    },
+
+    logout() {
+      this.user = null;
+      this.token = null;
+      this.$reset();
+    },
+  },
+});
+```
+
+### Using Other Stores in Actions
+
+```typescript
+import { useNotificationStore } from './notification';
+
+export const useCartStore = defineStore('cart', {
+  actions: {
+    async checkout() {
+      const notificationStore = useNotificationStore();
+
+      try {
+        await this.submitOrder();
+        notificationStore.show('Order placed!');
+      } catch (error) {
+        notificationStore.show('Order failed', 'error');
+      }
+    },
+  },
+});
+```
+
+## Subscribing to Changes
+
+### State Subscription
+
+```typescript
+const store = useCounterStore();
+
+// Subscribe to state changes
+store.$subscribe((mutation, state) => {
+  console.log('State changed:', mutation.type);
+  console.log('New state:', state);
+
+  // Persist to localStorage
+  localStorage.setItem('counter', JSON.stringify(state));
+});
+
+// With options
+store.$subscribe(
+  (mutation, state) => {
+    // ...
+  },
+  { detached: true } // Survives component unmount
+);
+```
+
+### Action Subscription
+
+```typescript
+const store = useAuthStore();
+
+// Subscribe to actions
+store.$onAction(({ name, args, after, onError }) => {
+  console.log(`Action ${name} called with:`, args);
+
+  after((result) => {
+    console.log(`Action ${name} finished with:`, result);
+  });
+
+  onError((error) => {
+    console.error(`Action ${name} failed:`, error);
+  });
+});
+```
+
+## Plugins
+
+### Creating a Plugin
+
+```typescript
+// plugins/persistedState.ts
+import { PiniaPluginContext } from 'pinia';
+
+export function piniaPersistedState({ store }: PiniaPluginContext) {
+  // Restore state from localStorage
+  const savedState = localStorage.getItem(store.$id);
+  if (savedState) {
+    store.$patch(JSON.parse(savedState));
   }
-})
-```
 
-## 5. Security Standards
-
-### 5.1 OWASP Coverage
-
-| OWASP Category | Risk | Mitigation |
-|----------------|------|------------|
-| A01 Broken Access Control | MEDIUM | Validate actions, check permissions |
-| A04 Insecure Design | MEDIUM | SSR state isolation |
-| A07 Auth Failures | MEDIUM | Never persist tokens |
-
-### 5.3 Sensitive Data Handling
-
-```typescript
-// ❌ NEVER persist: tokens, API keys, passwords
-// ✅ Store sensitive data in memory only (no persist option)
-const authStore = defineStore('auth', () => {
-  const token = ref<string | null>(null)
-  return { token }
-})
-```
-
-## 5.5 Performance Patterns
-
-### Pattern 1: Selective Subscriptions
-
-```typescript
-// BAD - Subscribes to entire store
-const store = useJarvisStore()
-watch(() => store.state, () => { /* ... */ }, { deep: true })
-
-// GOOD - Subscribe to specific properties
-const store = useJarvisStore()
-watch(() => store.state.status, (newStatus) => {
-  console.log('Status changed:', newStatus)
-})
-```
-
-### Pattern 2: Computed Getters (Memoization)
-
-```typescript
-// BAD - Recalculates on every access
-function getFilteredItems() {
-  return items.value.filter(i => i.active)
+  // Subscribe to changes
+  store.$subscribe((mutation, state) => {
+    localStorage.setItem(store.$id, JSON.stringify(state));
+  });
 }
 
-// GOOD - Cached until dependencies change
-const filteredItems = computed(() =>
-  items.value.filter(i => i.active)
-)
+// main.ts
+const pinia = createPinia();
+pinia.use(piniaPersistedState);
 ```
 
-### Pattern 3: Batch Updates
+### Adding Properties to Stores
 
 ```typescript
-// BAD - Multiple reactive triggers
-function updateAll(data: MetricsData) {
-  metrics.value.cpu = data.cpu
-  metrics.value.memory = data.memory
-  metrics.value.network = data.network
-}
+import { markRaw } from 'vue';
+import { Router } from 'vue-router';
 
-// GOOD - Single reactive trigger
-function updateAll(data: MetricsData) {
-  metrics.value = { ...metrics.value, ...data, timestamp: Date.now() }
-}
-```
-
-### Pattern 4: Lazy Store Initialization
-
-```typescript
-// BAD - Store initializes immediately
-const heavyStore = useHeavyDataStore()
-
-// GOOD - Initialize only when needed
-const heavyStore = ref<ReturnType<typeof useHeavyDataStore> | null>(null)
-
-function loadHeavyData() {
-  if (!heavyStore.value) {
-    heavyStore.value = useHeavyDataStore()
-  }
-  return heavyStore.value
-}
-```
-
-### Pattern 5: Optimistic Updates
-
-```typescript
-// BAD - Wait for server response
-async function deleteItem(id: string) {
-  await api.delete(`/items/${id}`)
-  items.value = items.value.filter(i => i.id !== id)
-}
-
-// GOOD - Update immediately, rollback on error
-async function deleteItem(id: string) {
-  const backup = [...items.value]
-  items.value = items.value.filter(i => i.id !== id)
-
-  try {
-    await api.delete(`/items/${id}`)
-  } catch (error) {
-    items.value = backup  // Rollback
-    throw error
+declare module 'pinia' {
+  export interface PiniaCustomProperties {
+    router: Router;
   }
 }
+
+const pinia = createPinia();
+pinia.use(({ store }) => {
+  store.router = markRaw(router);
+});
 ```
 
-## 6. Testing & Quality
+## TypeScript
 
-See **Section 3.3** for complete TDD workflow with vitest examples.
-
-## 8. Common Anti-Patterns
-
-### Security Anti-Patterns
+### Typed Store
 
 ```typescript
-// ❌ Global state leaks between SSR users
-const state = reactive({ user: null })
+interface UserState {
+  user: User | null;
+  isLoading: boolean;
+  error: string | null;
+}
 
-// ✅ Pinia isolates per-request
-export const useUserStore = defineStore('user', () => {
-  const user = ref(null)
-  return { user }
-})
+export const useUserStore = defineStore('user', {
+  state: (): UserState => ({
+    user: null,
+    isLoading: false,
+    error: null,
+  }),
 
-// ❌ Never persist auth tokens (XSS risk)
-persist: { paths: ['authToken'] }
+  getters: {
+    isLoggedIn: (state): boolean => !!state.user,
+    fullName(): string {
+      return this.user ? `${this.user.firstName} ${this.user.lastName}` : '';
+    },
+  },
 
-// ✅ Use httpOnly cookies for auth
+  actions: {
+    async fetchUser(id: string): Promise<void> {
+      this.isLoading = true;
+      try {
+        const response = await fetch(`/api/users/${id}`);
+        this.user = await response.json();
+      } catch (e) {
+        this.error = (e as Error).message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+  },
+});
 ```
 
-### Performance Anti-Patterns
+## Testing
 
-See **Section 5.5** for detailed performance patterns with Good/Bad examples.
+```typescript
+import { setActivePinia, createPinia } from 'pinia';
+import { useCounterStore } from '@/stores/counter';
+import { describe, it, expect, beforeEach } from 'vitest';
 
-## 13. Pre-Implementation Checklist
+describe('Counter Store', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
 
-### Phase 1: Before Writing Code
+  it('increments count', () => {
+    const counter = useCounterStore();
+    expect(counter.count).toBe(0);
 
-- [ ] Store interface designed with TypeScript types
-- [ ] Test file created with failing tests
-- [ ] Security requirements identified (persistence, SSR)
-- [ ] Performance patterns selected for use case
+    counter.increment();
+    expect(counter.count).toBe(1);
+  });
 
-### Phase 2: During Implementation
+  it('computes double count', () => {
+    const counter = useCounterStore();
+    counter.count = 5;
+    expect(counter.doubleCount).toBe(10);
+  });
+});
+```
 
-- [ ] Tests passing after each feature added
-- [ ] Actions validate all inputs
-- [ ] Computed values use minimal dependencies
-- [ ] No sensitive data in persisted state
-- [ ] SSR state properly isolated
+## Composing Stores
 
-### Phase 3: Before Committing
+```typescript
+// stores/cart.ts
+import { useProductStore } from './products';
+import { useUserStore } from './user';
 
-- [ ] All store tests passing: `npm run test -- --filter=stores`
-- [ ] Type check passing: `npm run typecheck`
-- [ ] Build succeeds: `npm run build`
-- [ ] No global state outside Pinia
-- [ ] State shape documented in types
+export const useCartStore = defineStore('cart', () => {
+  const productStore = useProductStore();
+  const userStore = useUserStore();
 
-## 14. Summary
+  const items = ref<CartItem[]>([]);
 
-Pinia provides type-safe state management for JARVIS:
+  const total = computed(() => {
+    return items.value.reduce((sum, item) => {
+      const product = productStore.getById(item.productId);
+      return sum + (product?.price ?? 0) * item.quantity;
+    }, 0);
+  });
 
-1. **TDD First**: Write store tests before implementation
-2. **Performance**: Optimize subscriptions and computed values
-3. **Security**: Never persist sensitive data, isolate SSR state
-4. **Type Safety**: Use setup stores with full TypeScript
+  const discountedTotal = computed(() => {
+    const discount = userStore.user?.discount ?? 0;
+    return total.value * (1 - discount);
+  });
 
-**References**: See `references/` for advanced patterns and security examples.
+  return { items, total, discountedTotal };
+});
+```
+
+## Best Practices
+
+1. **One store per domain** - User store, cart store, etc.
+2. **Use Setup Stores for complex logic** - Better composition
+3. **Use storeToRefs for destructuring** - Maintains reactivity
+4. **Keep actions async-aware** - Return promises
+5. **Use plugins for cross-cutting concerns** - Persistence, logging
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Destructuring state directly | Use storeToRefs() |
+| Calling useStore outside setup | Call inside setup or actions |
+| Mutating state in getters | Keep getters pure |
+| Circular store dependencies | Refactor to avoid cycles |
+| Not using $reset | Use it to reset to initial |
+
+## Reference Files
+
+- [references/plugins.md](references/plugins.md) - Plugin patterns
+- [references/testing.md](references/testing.md) - Testing stores
+- [references/composition.md](references/composition.md) - Store composition

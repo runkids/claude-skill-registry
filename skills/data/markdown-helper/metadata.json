@@ -1,7 +1,7 @@
 {
   "name": "markdown-helper",
   "repo": "Interstellar-code/claud-skills",
-  "path": ".claude/skills/markdown-helper/skill.md",
+  "path": "generic-claude-framework/skills/markdown-helper/skill.md",
   "source": "github.com/Interstellar-code/claud-skills",
-  "downloaded_at": "2026-01-17T03:32:27.049914Z"
+  "downloaded_at": "2026-01-19T03:57:28.539406Z"
 }

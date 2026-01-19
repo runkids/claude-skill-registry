@@ -1,7 +1,7 @@
 {
   "name": "speckit-analyze",
-  "repo": "dceoy/pdmt5",
-  "path": ".claude/skills/speckit-analyze/SKILL.md",
-  "source": "github.com/dceoy/pdmt5",
-  "downloaded_at": "2026-01-17T03:18:49.472748Z"
+  "repo": "dceoy/speckit-agent-skills",
+  "path": "skills/speckit-analyze/SKILL.md",
+  "source": "github.com/dceoy/speckit-agent-skills",
+  "downloaded_at": "2026-01-19T01:34:44.043226Z"
 }

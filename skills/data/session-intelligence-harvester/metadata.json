@@ -1,7 +1,7 @@
 {
   "name": "session-intelligence-harvester",
-  "repo": "mjunaidca/robolearn",
-  "path": ".claude/skills/session-intelligence-harvester/SKILL.md",
-  "source": "github.com/mjunaidca/robolearn",
-  "downloaded_at": "2026-01-17T03:42:03.600017Z"
+  "repo": "mjunaidca/mjs-agent-skills",
+  "path": "docs/taskflow-vault/skills/engineering/session-intelligence-harvester/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-19T04:12:55.699815Z"
 }

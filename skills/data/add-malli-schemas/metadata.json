@@ -1,7 +1,7 @@
 {
   "name": "add-malli-schemas",
-  "repo": "Kidoz-SDK/metabase",
+  "repo": "metabase/metabase",
   "path": ".claude/skills/add-malli-schemas/SKILL.md",
-  "source": "github.com/Kidoz-SDK/metabase",
-  "downloaded_at": "2026-01-17T03:19:02.465695Z"
+  "source": "github.com/metabase/metabase",
+  "downloaded_at": "2026-01-19T03:29:20.353023Z"
 }

@@ -1,26 +1,26 @@
 ---
 name: Backend Migrations
-description: Create and manage database migrations following best practices for reversibility, zero-downtime deployments, and version control. Use this skill when creating migration files, modifying database schemas, adding or removing tables/columns, managing indexes, or performing data transformations. Apply when working on migration files (migrations/*.ts, migrations/*.sql, *_migration.py), Prisma schema changes, Supabase migrations, or any database evolution tasks. This skill ensures reversible migrations with rollback/down methods, small focused single-change migrations, zero-downtime deployment compatibility, separated schema and data migrations, safe concurrent index creation on large tables, clear descriptive naming conventions, and proper version control practices (never modify deployed migrations).
+description: Create reversible, focused database migrations with proper naming, version control practices, and zero-downtime deployment considerations. Use this skill when creating or editing migration files in database/migrations/, when writing schema changes (creating/modifying tables, columns, indexes, foreign keys), when implementing migration rollback methods, when managing database version control, when adding or modifying indexes on large tables, or when separating schema changes from data migrations for safer deployments.
 ---
 
 # Backend Migrations
 
-## When to use this skill:
-
-- When creating new database migration files
-- When modifying existing database schemas (adding/removing tables or columns)
-- When working on migration files (migrations/*.ts, migrations/*.sql, *_migration.py)
-- When adding or modifying database indexes for performance
-- When performing data migrations or transformations
-- When implementing rollback/down methods for migrations
-- When ensuring zero-downtime deployment strategies
-- When managing schema versioning and migration order
-- When separating schema changes from data migrations
-- When working with Prisma migrate, Supabase migrations, or Entity Framework migrations
-- When creating indexes on large PostgreSQL tables using concurrent options
-- When planning backwards-compatible schema changes for high-availability systems
-
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle backend migrations.
+
+## When to use this skill
+
+- When creating new migration files in `database/migrations/` directory
+- When editing existing migration files (with caution for deployed migrations)
+- When writing table creation or modification logic using Schema builder
+- When implementing migration rollback/down methods for reversibility
+- When adding or modifying database columns, indexes, or constraints
+- When creating or dropping foreign key relationships
+- When renaming tables or columns
+- When adding indexes to tables, especially large production tables
+- When separating schema changes from data migrations
+- When considering zero-downtime deployment strategies for migrations
+- When writing data migrations or seeders that modify existing records
+- When planning backwards-compatible database changes
 
 ## Instructions
 

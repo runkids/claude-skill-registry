@@ -1,201 +1,143 @@
 ---
-name: deployment-patterns
-description: Deploy projects to Vercel, Railway, or Docker with platform-specific best practices. Use when deploying applications, configuring deployment settings, debugging deployment failures, or setting up CI/CD pipelines. Triggers on "deploy to vercel", "railway deployment", "docker build", "deployment failed", "configure vercel.json".
+name: Deployment Patterns
+description: Practical deployment strategies (rolling, blue-green, canary) for safe releases with rollback, health checks, and database compatibility guidance—without requiring full Kubernetes complexity
 ---
 
-# Deployment Patterns for Scientia Stack
+# Deployment Patterns
 
-Deploy to Vercel, Railway, or Docker following proven patterns from 98+ projects.
+## Overview
 
-## Platform Selection
+รูปแบบการ deploy ที่เหมาะกับ scale และความต้องการต่างๆ: rolling update, blue-green, canary โดยไม่ต้องพึ่ง full Kubernetes complexity
 
-Choose based on project type:
+## Why This Matters
 
-| Project Type | Platform | Reason |
-|--------------|----------|--------|
-| Next.js frontend | Vercel | Native support, edge functions |
-| Python backend | Railway | Nixpacks, health checks |
-| ML/GPU workloads | RunPod | GPU access, vLLM |
-| Local development | Docker | Consistent environment |
+- **Zero downtime**: Users ไม่รู้สึกว่ามี deployment
+- **Safe rollouts**: ค่อยๆ release, ถอยได้เร็ว
+- **Right-sized**: เลือก pattern ตาม needs
+- **Simplicity**: ไม่ต้อง over-engineer
 
-## Vercel Deployment (19 projects)
+---
 
-### Standard vercel.json for Monorepo
+## Core Concepts
 
-```json
-{
-  "framework": "nextjs",
-  "installCommand": "cd frontend && npm install",
-  "buildCommand": "cd frontend && npm run build",
-  "outputDirectory": "frontend/.next"
-}
+### 1. Health Gates (ต้องมี)
+
+- liveness/readiness checks เป็น gating ก่อนรับ traffic
+- deploy ต้องหยุด/rollback ได้เมื่อ error rate/latency เกิน threshold
+- ควรมี smoke tests หลัง switch traffic
+
+### 2. Compatibility Window
+
+- รองรับช่วงที่ version เก่า/ใหม่รันพร้อมกัน (mixed versions)
+- schema changes ต้องเป็น backward-compatible หรือทำแบบ expand/contract
+
+### 3. Rollback Strategy
+
+- rollback คือ “กลับไป stable state” ทั้ง app + config + routing
+- มี kill switch/feature flags สำหรับ cutover ที่เสี่ยง
+
+## Deployment Patterns
+
+### Rolling Update
+```
+Best for: Most applications
+Risk: Medium (gradual)
+
+Old: [A] [A] [A] [A]
+     ↓
+     [B] [A] [A] [A]
+     ↓
+     [B] [B] [A] [A]
+     ↓
+     [B] [B] [B] [B]
 ```
 
-### Environment Variables
+### Blue-Green
+```
+Best for: Database migrations, big changes
+Risk: Low (instant rollback)
 
-1. Set in Vercel Dashboard or CLI:
-   ```bash
-   vercel env add VITE_SUPABASE_URL production
-   vercel env add VITE_SUPABASE_ANON_KEY production
-   ```
+Blue (current): [A] [A] ← traffic
+Green (new):    [B] [B]
 
-2. For preview deployments, use `preview` scope.
-
-### SPA Routing
-
-Add to `frontend/vercel.json`:
-```json
-{
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
-}
+Switch traffic:
+Blue:  [A] [A]
+Green: [B] [B] ← traffic
 ```
 
-### Deploy Command
+### Canary
+```
+Best for: Risky changes, A/B testing
+Risk: Very low (1% first)
 
-```bash
-# Production
-vercel --prod
+1%:  [B] ←1%
+     [A] [A] [A] ←99%
 
-# Preview
-vercel
+10%: [B] [B] ←10%
+     [A] [A] ←90%
+
+100%: [B] [B] [B] [B] ←100%
 ```
 
-## Railway Deployment (2 projects)
+## When to Use
 
-### Standard railway.json
+| Pattern | Use When |
+|---------|----------|
+| Rolling | Standard deploys, stateless apps |
+| Blue-Green | DB changes, need instant rollback |
+| Canary | New features, high-risk changes |
 
-```json
-{
-  "$schema": "https://railway.com/railway.schema.json",
-  "build": {
-    "builder": "NIXPACKS",
-    "buildCommand": "poetry install --no-dev"
-  },
-  "deploy": {
-    "startCommand": "poetry run python -m src.vozlux.main",
-    "healthcheckPath": "/health",
-    "healthcheckTimeout": 300,
-    "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 3
-  }
-}
-```
+## Quick Start
 
-### Environment Variables
+1. เลือก pattern ตาม blast radius (rolling สำหรับทั่วไป, canary สำหรับ risky, blue-green สำหรับ cutover ใหญ่)
+2. เตรียม health gates + dashboards (errors/latency/saturation)
+3. วาง rollback plan (ทำได้จริงภายในนาที)
+4. ถ้ามี DB/schema change ให้ใช้ expand/contract + phased rollout
 
-Railway requires manual dashboard configuration for sensitive vars:
-- Go to: https://railway.com/project/{project-id}/settings
-- Add each variable under "Variables" tab
-
-Common variables for Python backends:
-```
-SUPABASE_URL
-SUPABASE_SERVICE_KEY
-ANTHROPIC_API_KEY
-GOOGLE_API_KEY
-DEEPSEEK_API_KEY
-TWILIO_ACCOUNT_SID
-TWILIO_AUTH_TOKEN
-```
-
-### Health Check Endpoint
-
-Always implement `/health`:
-```python
-@app.get("/health")
-async def health():
-    return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
-```
-
-## Docker Deployment (5 projects)
-
-### Multi-stage Dockerfile
-
-```dockerfile
-# Build stage
-FROM python:3.11-slim as builder
-WORKDIR /app
-COPY pyproject.toml poetry.lock ./
-RUN pip install poetry && poetry export -f requirements.txt > requirements.txt
-
-# Runtime stage
-FROM python:3.11-slim
-WORKDIR /app
-COPY --from=builder /app/requirements.txt .
-RUN pip install -r requirements.txt
-COPY src/ ./src/
-CMD ["python", "-m", "src.main"]
-```
-
-### docker-compose.yml for Development
+## Simple Implementation (Docker Compose)
 
 ```yaml
-version: '3.8'
+# Blue-green with nginx
 services:
-  app:
-    build: .
-    ports:
-      - "8000:8000"
-    env_file:
-      - .env
+  nginx:
+    image: nginx
     volumes:
-      - ./src:/app/src
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+
+  app-blue:
+    image: myapp:1.0.0
+
+  app-green:
+    image: myapp:1.1.0
+
+# Switch by updating nginx.conf upstream
 ```
 
-## Pre-Deployment Checklist
+## Production Checklist
 
-Before any deployment:
+- [ ] Readiness/liveness configured และใช้เป็น deploy gates
+- [ ] Rollback plan ชัดเจน (routing + app version + config)
+- [ ] Observability พร้อม: error rate/latency dashboards + alerts
+- [ ] Canary/blue-green มีวิธี “ลด traffic/สลับ traffic” ที่ทำซ้ำได้
+- [ ] DB migrations ถูกออกแบบให้ compatible กับ mixed versions
 
-1. [ ] All tests passing (`npm test` or `pytest`)
-2. [ ] No hardcoded API keys (grep for patterns)
-3. [ ] Environment variables documented in `.env.example`
-4. [ ] CLAUDE.md updated with deployment status
-5. [ ] Build succeeds locally (`npm run build` or `poetry build`)
+## Anti-patterns
 
-## Debugging Deployment Failures
+1. **Deploy without gates**: ปล่อย traffic ก่อน readiness ผ่าน
+2. **Big bang cutover**: เปลี่ยนพร้อมกันหมดโดยไม่มี staged rollout
+3. **Rollback only in theory**: ไม่มีคนลอง rollback จริง/ไม่มี playbook
+4. **Ignoring DB compatibility**: schema breaking ในขณะที่มี app หลาย version
 
-### Vercel Failures
+## Integration Points
 
-1. Check build logs: `vercel logs`
-2. Common issues:
-   - Missing env vars → Check Vercel dashboard
-   - Build timeout → Increase in project settings
-   - Module not found → Check package.json dependencies
+- CI/CD pipelines (progressive delivery, approvals, rollbacks)
+- Load balancers / reverse proxies (Nginx, HAProxy, ALB)
+- Feature flags (kill switch, gradual rollout)
+- Runbooks/incident response
 
-### Railway Failures
+## Further Reading
 
-1. Check logs in dashboard
-2. Common issues:
-   - Health check timeout → Increase `healthcheckTimeout`
-   - Missing env vars → Must set manually in dashboard
-   - Poetry lock issues → Delete poetry.lock and regenerate
-
-### Docker Failures
-
-1. Build locally first: `docker build -t test .`
-2. Run with logs: `docker run -it test`
-3. Check for missing system dependencies
-
-## CI/CD Integration
-
-For GitHub Actions, use:
-
-```yaml
-name: Deploy
-on:
-  push:
-    branches: [main]
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-```
+- [Deployment Strategies](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment)
+- [Canary Deployments](https://martinfowler.com/bliki/CanaryRelease.html)

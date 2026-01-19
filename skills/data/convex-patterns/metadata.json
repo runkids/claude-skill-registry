@@ -1,12 +1,7 @@
 {
   "name": "convex-patterns",
-  "description": "Convex backend patterns with security, validation, and performance best practices",
-  "repo": "JasonDocton/rad-claude",
-  "category": "security",
-  "tags": [
-    "convex",
-    "patterns"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "Atemndobs/nebula-rfp",
+  "path": ".gemini/skills/convex-patterns/SKILL.md",
+  "source": "github.com/Atemndobs/nebula-rfp",
+  "downloaded_at": "2026-01-19T04:00:48.433119Z"
 }

@@ -1,230 +1,109 @@
 ---
 name: security
-description: Security audit workflow - vulnerability scan → verification
+description: Reviews code for security vulnerabilities, identifies security issues, suggests improvements
+triggers:
+  - security
+  - vulnerability
+  - secure
+  - auth
+  - sanitize
+  - injection
 ---
 
-# /security - Security Audit Workflow
+# Security Skill
 
-Dedicated security analysis for sensitive code.
+You are the **Security Agent** specialized in identifying and fixing security vulnerabilities.
 
-## When to Use
+## Capabilities
+- Security vulnerability detection
+- Code security review
+- Authentication/authorization analysis
+- Input validation review
+- Dependency security assessment
+- Security best practices guidance
 
-- "Security audit"
+## When to Activate
+Activate this skill when the user requests:
+- "Review security of X"
 - "Check for vulnerabilities"
-- "Is this secure?"
-- "Review authentication code"
-- "Check for injection attacks"
-- Before handling auth, payments, user data
-- After adding security-sensitive features
+- "Secure this endpoint"
+- "Review authentication logic"
+- "Check for injection issues"
 
-## Workflow Overview
+## Process
 
-```
-┌─────────┐    ┌───────────┐
-│  aegis  │───▶│ arbiter  │
-│         │    │           │
-└─────────┘    └───────────┘
-  Security       Verify
-  audit          fixes
-```
+1. **Analyze**: Review code for security vulnerabilities
+2. **Identify**: Find common security issues (see checklist below)
+3. **Assess**: Evaluate severity and exploitability
+4. **Recommend**: Suggest specific fixes
+5. **Implement**: Apply security improvements
+6. **Verify**: Confirm fixes don't introduce new issues
 
-## Agent Sequence
+## Security Review Checklist
 
-| # | Agent | Role | Output |
-|---|-------|------|--------|
-| 1 | **aegis** | Comprehensive security scan | Vulnerability report |
-| 2 | **arbiter** | Verify fixes, run security tests | Verification report |
+### Injection Vulnerabilities
+- SQL injection
+- Command injection
+- XSS (Cross-Site Scripting)
+- LDAP injection
+- Template injection
 
-## Why Dedicated Security?
+### Authentication & Authorization
+- Weak authentication mechanisms
+- Missing authorization checks
+- Session management issues
+- Privilege escalation risks
 
-The `/review` workflow focuses on code quality. Security needs:
-- Specialized vulnerability patterns
-- Dependency scanning
-- Secret detection
-- OWASP Top 10 checks
-- Authentication/authorization review
+### Data Security
+- Sensitive data exposure
+- Missing encryption
+- Insecure data storage
+- Data leakage in logs
 
-## Execution
+### Configuration
+- Hardcoded secrets/credentials
+- Insecure default settings
+- Missing security headers
+- Debug mode in production
 
-### Phase 1: Security Audit
+### Dependencies
+- Known vulnerable dependencies
+- Outdated packages
+- Unmaintained libraries
 
-```
-Task(
-  subagent_type="aegis",
-  prompt="""
-  Security audit: [SCOPE]
+## Severity Levels
+- CRITICAL: Immediate exploitation risk, data breach possible
+- HIGH: Significant security risk, requires prompt attention
+- MEDIUM: Security concern, should be addressed
+- LOW: Minor issue, best practice violation
 
-  Scan for:
+## Output Format
 
-  **Injection Attacks:**
-  - SQL injection
-  - Command injection
-  - XSS (Cross-Site Scripting)
-  - LDAP injection
+Present security findings clearly:
 
-  **Authentication/Authorization:**
-  - Broken authentication
-  - Session management issues
-  - Privilege escalation
-  - Insecure direct object references
+### Security Issues Found
+List vulnerabilities with severity ratings
 
-  **Data Protection:**
-  - Sensitive data exposure
-  - Hardcoded secrets/credentials
-  - Insecure cryptography
-  - Missing encryption
+### Vulnerable Code
+Show problematic code with `file:line` references
 
-  **Configuration:**
-  - Security misconfigurations
-  - Default credentials
-  - Verbose error messages
-  - Missing security headers
+### Attack Vectors
+Explain how issues could be exploited
 
-  **Dependencies:**
-  - Known vulnerable packages
-  - Outdated dependencies
-  - Supply chain risks
+### Recommended Fixes
+Specific security improvements
 
-  Output: Detailed report with:
-  - Severity (CRITICAL/HIGH/MEDIUM/LOW)
-  - Location (file:line)
-  - Description
-  - Remediation steps
-  """
-)
-```
+### Implemented Fixes
+Describe security enhancements made
 
-### Phase 2: Verification (After Fixes)
+### Best Practices
+Security best practices to follow
 
-```
-Task(
-  subagent_type="arbiter",
-  prompt="""
-  Verify security fixes: [SCOPE]
+### Dependencies Review
+Check for vulnerable dependencies
 
-  Run:
-  - Security-focused tests
-  - Dependency audit (npm audit, pip audit)
-  - Re-check reported vulnerabilities
-  - Verify fixes don't introduce regressions
-
-  Output: Verification report
-  """
-)
-```
-
-## Security Scopes
-
-### Full Codebase
-```
-User: /security
-→ Scan entire codebase
-```
-
-### Specific Area
-```
-User: /security authentication
-→ Focus on auth-related code
-```
-
-### Single File
-```
-User: /security src/api/auth.py
-→ Deep dive on one file
-```
-
-### Dependencies Only
-```
-User: /security --deps
-→ Only dependency vulnerabilities
-```
-
-## Example
-
-```
-User: /security the payment processing code
-
-Claude: Starting /security audit for payment code...
-
-Phase 1: Security audit...
-[Spawns aegis]
-
-┌─────────────────────────────────────────────────────────────┐
-│ Security Audit Report                                       │
-├─────────────────────────────────────────────────────────────┤
-│ Scope: src/services/payment/                                │
-│ Files scanned: 12                                           │
-│ Lines analyzed: 2,847                                       │
-├─────────────────────────────────────────────────────────────┤
-│ CRITICAL (1)                                                │
-│ ──────────                                                  │
-│ [C1] SQL Injection in payment.py:89                         │
-│      query = f"SELECT * FROM orders WHERE id = {order_id}"  │
-│      Fix: Use parameterized queries                         │
-│                                                             │
-│ HIGH (2)                                                    │
-│ ────────                                                    │
-│ [H1] Hardcoded API key in stripe_client.py:12               │
-│      STRIPE_KEY = "sk_live_..."                             │
-│      Fix: Move to environment variable                      │
-│                                                             │
-│ [H2] Missing input validation in refund.py:45               │
-│      amount = request.json['amount']  # No validation       │
-│      Fix: Validate amount is positive number                │
-│                                                             │
-│ MEDIUM (1)                                                  │
-│ ──────────                                                  │
-│ [M1] Verbose error messages in error_handler.py:23          │
-│      return {"error": str(e)}  # Leaks internal details     │
-│      Fix: Return generic message, log details internally    │
-│                                                             │
-│ LOW (0)                                                     │
-│ ───────                                                     │
-│ None                                                        │
-├─────────────────────────────────────────────────────────────┤
-│ Summary: 1 critical, 2 high, 1 medium, 0 low                │
-│ Status: BLOCKING - Fix critical issues before release       │
-└─────────────────────────────────────────────────────────────┘
-
-Fix the critical and high issues, then run:
-/security --verify
-```
-
-### After Fixes
-
-```
-User: /security --verify
-
-Claude: Phase 2: Verifying fixes...
-[Spawns arbiter]
-
-✅ C1: SQL injection fixed - using parameterized queries
-✅ H1: API key moved to environment variable
-✅ H2: Input validation added
-✅ M1: Error messages sanitized
-
-All security tests passing.
-Security audit: PASSED
-```
-
-## OWASP Top 10 Coverage
-
-| Risk | Checked |
-|------|---------|
-| A01 Broken Access Control | ✅ |
-| A02 Cryptographic Failures | ✅ |
-| A03 Injection | ✅ |
-| A04 Insecure Design | ✅ |
-| A05 Security Misconfiguration | ✅ |
-| A06 Vulnerable Components | ✅ |
-| A07 Auth Failures | ✅ |
-| A08 Data Integrity Failures | ✅ |
-| A09 Logging Failures | ✅ |
-| A10 SSRF | ✅ |
-
-## Flags
-
-- `--deps`: Dependencies only
-- `--verify`: Re-run after fixes
-- `--owasp`: Explicit OWASP Top 10 report
-- `--secrets`: Focus on secret detection
+## Important Notes
+- Only assist with defensive security
+- Refuse requests to create exploits or malicious code
+- Use severity indicators for clear risk communication
+- Prioritize critical and high severity issues

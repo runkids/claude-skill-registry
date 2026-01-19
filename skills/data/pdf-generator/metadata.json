@@ -1,7 +1,7 @@
 {
   "name": "pdf-generator",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "skills/19-business-automation/pdf-generator/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-17T04:00:07.182723Z"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/document-processing/pdf/pdf-generator/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-19T03:36:25.931351Z"
 }

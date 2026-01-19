@@ -9,7 +9,7 @@ This skill acts as your writing partner, helping you research, outline, draft, a
 
 ## When to Use This Skill
 
-- Writing blog posts, articles, or newsletters
+- Writing blog posts, articles, or newsletters,reports
 - Creating educational content or tutorials
 - Drafting thought leadership pieces
 - Researching and writing case studies

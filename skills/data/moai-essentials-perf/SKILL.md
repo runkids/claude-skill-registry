@@ -1,175 +1,113 @@
 ---
 name: moai-essentials-perf
-version: 4.0.0
-updated: 2025-11-20
-status: stable
-description: Performance optimization with profiling, memory analysis, and benchmarking
-allowed-tools: [Read, Bash, WebSearch, WebFetch]
+version: 2.0.0
+created: 2025-10-22
+updated: 2025-10-22
+status: active
+description: Performance optimization with profiling, bottleneck detection, and tuning strategies.
+keywords: ['performance', 'profiling', 'optimization', 'bottleneck']
+allowed-tools:
+  - Read
+  - Bash
 ---
 
-# Performance Optimization Expert
+# Essentials Perf Skill
 
-**Application Profiling & Performance Tuning**
+## Skill Metadata
 
-> **Focus**: CPU/Memory Profiling, Benchmarking, Optimization Patterns  
-> **Tools**: Python (Scalene, cProfile), Node.js (Clinic.js), Go (pprof)
-
----
-
-## Overview
-
-Systematic approach to identifying and fixing performance bottlenecks.
-
-### Core Techniques
-
-1.  **Profiling**: Measure CPU, memory, I/O usage.
-2.  **Benchmarking**: Compare performance before/after changes.
-3.  **Optimization**: Apply targeted improvements (caching, lazy loading, parallelism).
+| Field | Value |
+| ----- | ----- |
+| **Skill Name** | moai-essentials-perf |
+| **Version** | 2.0.0 (2025-10-22) |
+| **Allowed tools** | Read (read_file), Bash (terminal) |
+| **Auto-load** | On demand when keywords detected |
+| **Tier** | Essentials |
 
 ---
 
-## Implementation Patterns
+## What It Does
 
-### 1. Python Profiling (Scalene)
+Performance optimization with profiling, bottleneck detection, and tuning strategies.
 
-**Installation**:
+**Key capabilities**:
+- ✅ Best practices enforcement for essentials domain
+- ✅ TRUST 5 principles integration
+- ✅ Latest tool versions (2025-10-22)
+- ✅ TDD workflow support
 
-```bash
-pip install scalene
-```
+---
 
-**Usage**:
+## When to Use
 
-```bash
-# Profile CPU, memory, and GPU
-scalene my_script.py
+**Automatic triggers**:
+- Related code discussions and file patterns
+- SPEC implementation (`/alfred:2-run`)
+- Code review requests
 
-# HTML report
-scalene --html --outfile profile.html my_script.py
-```
+**Manual invocation**:
+- Review code for TRUST 5 compliance
+- Design new features
+- Troubleshoot issues
 
-**Code-level profiling**:
+---
 
-```python
-from scalene import scalene_profiler
+## Inputs
 
-scalene_profiler.start()
-# Code to profile
-result = expensive_computation()
-scalene_profiler.stop()
-```
+- Language-specific source directories
+- Configuration files
+- Test suites and sample data
 
-### 2. Memory Optimization
+## Outputs
 
-**Common Issues**:
+- Test/lint execution plan
+- TRUST 5 review checkpoints
+- Migration guidance
 
-- Large data structures held in memory
-- Circular references preventing GC
-- Inefficient data structures (lists vs generators)
+## Failure Modes
 
-**Example (Python)**:
+- When required tools are not installed
+- When dependencies are missing
+- When test coverage falls below 85%
 
-```python
-# Bad: Load entire file into memory
-data = [line for line in open('large_file.txt')]
+## Dependencies
 
-# Good: Use generator
-def read_lines(filename):
-    with open(filename) as f:
-        for line in f:
-            yield line.strip()
-```
+- Access to project files via Read/Bash tools
+- Integration with `moai-foundation-langs` for language detection
+- Integration with `moai-foundation-trust` for quality gates
 
-### 3. Database Query Optimization
+---
 
-**N+1 Query Problem**:
+## References (Latest Documentation)
 
-```python
-# Bad: N+1 queries
-users = User.query.all()
-for user in users:
-    posts = Post.query.filter_by(user_id=user.id).all()  # N queries
+_Documentation links updated 2025-10-22_
 
-# Good: Eager loading
-users = User.query.options(joinedload(User.posts)).all()
-```
+---
 
-**Indexing**:
+## Changelog
 
-```sql
--- Create index on frequently queried columns
-CREATE INDEX idx_user_email ON users(email);
-```
+- **v2.0.0** (2025-10-22): Major update with latest tool versions, comprehensive best practices, TRUST 5 integration
+- **v1.0.0** (2025-03-29): Initial Skill release
 
-### 4. Caching Strategies
+---
 
-**In-Memory Cache (Python)**:
+## Works Well With
 
-```python
-from functools import lru_cache
-
-@lru_cache(maxsize=128)
-def expensive_function(x):
-    # Expensive computation
-    return result
-```
-
-**Redis Cache**:
-
-```python
-import redis
-
-cache = redis.Redis(host='localhost', port=6379)
-
-def get_data(key):
-    cached = cache.get(key)
-    if cached:
-        return cached
-
-    data = fetch_from_database(key)
-    cache.setex(key, 3600, data)  # Cache for 1 hour
-    return data
-```
-
-### 5. Async I/O (Node.js)
-
-**Avoid blocking I/O**:
-
-```javascript
-// Bad: Synchronous
-const data = fs.readFileSync("large_file.txt", "utf8");
-
-// Good: Asynchronous
-const data = await fs.promises.readFile("large_file.txt", "utf8");
-```
+- `moai-foundation-trust` (quality gates)
+- `moai-alfred-code-reviewer` (code review)
+- `moai-essentials-debug` (debugging support)
 
 ---
 
 ## Best Practices
 
-1.  **Measure First**: Don't optimize without profiling.
-2.  **Target Hotspots**: Focus on the 20% causing 80% slowdown.
-3.  **Benchmark**: Use realistic workloads, not microbenchmarks.
-4.  **Monitor Production**: Use APM tools (New Relic, Datadog).
+✅ **DO**:
+- Follow essentials best practices
+- Use latest stable tool versions
+- Maintain test coverage ≥85%
+- Document all public APIs
 
----
-
-## Validation Checklist
-
-- [ ] **Profiled**: Code profiled with appropriate tool?
-- [ ] **Baseline**: Performance baseline established?
-- [ ] **Optimized**: Hotspots identified and fixed?
-- [ ] **Benchmarked**: Improvements measured with benchmarks?
-- [ ] **Monitored**: Production metrics tracked?
-
----
-
-## Related Skills
-
-- `moai-domain-backend`: API optimization
-- `moai-domain-monitoring`: APM setup
-- `moai-devops-docker`: Container resource limits
-
----
-
-**Last Updated**: 2025-11-20
+❌ **DON'T**:
+- Skip quality gates
+- Use deprecated tools
+- Ignore security warnings
+- Mix testing frameworks

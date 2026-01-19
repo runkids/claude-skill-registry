@@ -47,15 +47,15 @@ Use when the user addresses "lisa" directly:
 ## How to use
 1) Parse user intent from "lisa" request
 2) Route to appropriate underlying command:
-   - Memory recall: `node .agents/skills/memory/scripts/memory.js load --cache`
-   - Memory search: `node .agents/skills/memory/scripts/memory.js load --cache --query "<topic>"`
-   - Memory add: `node .agents/skills/memory/scripts/memory.js add "<text>" --cache`
-   - Task list: `node .agents/skills/tasks/scripts/tasks.js list --cache`
-   - Task add: `node .agents/skills/tasks/scripts/tasks.js add "<text>" --cache`
-   - Storage status: `node .agents/skills/lisa/scripts/storage.js status --cache`
-   - Storage switch: `node .agents/skills/lisa/scripts/storage.js switch <mode> --cache`
+   - Memory recall: `node .lisa/skills/memory/scripts/memory.js load --cache`
+   - Memory search: `node .lisa/skills/memory/scripts/memory.js load --cache --query "<topic>"`
+   - Memory add: `node .lisa/skills/memory/scripts/memory.js add "<text>" --cache`
+   - Task list: `node .lisa/skills/tasks/scripts/tasks.js list --cache`
+   - Task add: `node .lisa/skills/tasks/scripts/tasks.js add "<text>" --cache`
+   - Storage status: `node .lisa/skills/lisa/scripts/storage.js status --cache`
+   - Storage switch: `node .lisa/skills/lisa/scripts/storage.js switch <mode> --cache`
    - Retrospective: See Retrospective Process below
-   - Compile skills: `node .agents/skills/lisa/scripts/compile-skills.js`
+   - Compile skills: `node .lisa/skills/lisa/scripts/compile-skills.js`
 3) Summarize results conversationally
 
 ## Retrospective Process
@@ -77,7 +77,7 @@ When user asks for a retrospective, follow these steps:
    - GOTCHAS: Things to avoid or watch out for
 4) **Save to Memory**: Use memory add command to save findings:
    ```
-   node .agents/skills/memory/scripts/memory.js add "RETROSPECTIVE: <findings>" --cache
+   node .lisa/skills/memory/scripts/memory.js add "RETROSPECTIVE: <findings>" --cache
    ```
 5) **Report**: Summarize what was learned and saved
 
@@ -105,14 +105,16 @@ When user asks for a retrospective, follow these steps:
 - Suggests related queries when appropriate
 
 ## Output Formatting
-- Always prefix Lisa's responses with the 👧 emoji followed by a space
-- Use the emoji at the start of section headers when presenting data:
-  - `👧  Recent Memories:` for memory listings
-  - `👧  Tasks:` for task listings
-  - `👧  Lisa says:` for conversational responses
+- Always prefix Lisa's responses with `👧 lisa >> ` (emoji, space, "lisa >>", space)
+- Use this prefix at the start of section headers when presenting data:
+  - `👧 lisa >> Recent Memories:` for memory listings
+  - `👧 lisa >> Tasks:` for task listings
+  - `👧 lisa >> ` for conversational responses
+- For memory and task queries, include the storage mode at the end in parentheses:
+  - Example: `👧 lisa >> Tasks: (neo4j)` or `👧 lisa >> Recent Memories: (zep-cloud)`
 - Example format:
   ```
-  👧  Recent Memories:
+  👧 lisa >> Recent Memories: (neo4j)
   1. **Memory title** (date)
      - Details here
   ```

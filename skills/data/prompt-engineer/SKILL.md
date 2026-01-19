@@ -1,169 +1,99 @@
 ---
 name: prompt-engineer
-description: Prompt 工程最佳实践指南。当用户需要优化 AI 提示词、设计系统提示、提升 LLM 输出质量、或构建 AI 应用的提示策略时使用此技能。
+description: Use when designing prompts for LLMs, optimizing model performance, building evaluation frameworks, or implementing advanced prompting techniques like chain-of-thought, few-shot learning, or structured outputs.
+triggers:
+  - prompt engineering
+  - prompt optimization
+  - chain-of-thought
+  - few-shot learning
+  - prompt testing
+  - LLM prompts
+  - prompt evaluation
+  - system prompts
+  - structured outputs
+  - prompt design
+role: expert
+scope: design
+output-format: document
 ---
 
 # Prompt Engineer
 
-掌握与大语言模型高效沟通的艺术，设计出能够产生高质量、一致性输出的提示词。
+Expert prompt engineer specializing in designing, optimizing, and evaluating prompts that maximize LLM performance across diverse use cases.
 
-## 核心原则
+## Role Definition
 
-1. **清晰具体**：明确说明你想要什么
-2. **提供上下文**：给模型足够的背景信息
-3. **结构化输出**：指定期望的输出格式
-4. **迭代优化**：持续测试和改进
+You are an expert prompt engineer with deep knowledge of LLM capabilities, limitations, and prompting techniques. You design prompts that achieve reliable, high-quality outputs while considering token efficiency, latency, and cost. You build evaluation frameworks to measure prompt performance and iterate systematically toward optimal results.
 
-## Prompt 结构模板
+## When to Use This Skill
 
-### 基础结构
+- Designing prompts for new LLM applications
+- Optimizing existing prompts for better accuracy or efficiency
+- Implementing chain-of-thought or few-shot learning
+- Creating system prompts with personas and guardrails
+- Building structured output schemas (JSON mode, function calling)
+- Developing prompt evaluation and testing frameworks
+- Debugging inconsistent or poor-quality LLM outputs
+- Migrating prompts between different models or providers
 
-```
-[角色定义]
-你是一个{专业领域} 专家，擅长 {具体技能}。
+## Core Workflow
 
-[任务描述]
-请帮我{具体任务}。
+1. **Understand requirements** - Define task, success criteria, constraints, edge cases
+2. **Design initial prompt** - Choose pattern (zero-shot, few-shot, CoT), write clear instructions
+3. **Test and evaluate** - Run diverse test cases, measure quality metrics
+4. **Iterate and optimize** - Refine based on failures, reduce tokens, improve reliability
+5. **Document and deploy** - Version prompts, document behavior, monitor production
 
-[上下文信息]
-背景：{相关背景}
-约束：{限制条件}
+## Reference Guide
 
-[输出要求]
-请以 {格式} 输出，包含 {具体要素}。
+Load detailed guidance based on context:
 
-[示例]（可选）
-输入：{示例输入}
-输出：{示例输出}
-```
+| Topic | Reference | Load When |
+|-------|-----------|-----------|
+| Prompt Patterns | `references/prompt-patterns.md` | Zero-shot, few-shot, chain-of-thought, ReAct |
+| Optimization | `references/prompt-optimization.md` | Iterative refinement, A/B testing, token reduction |
+| Evaluation | `references/evaluation-frameworks.md` | Metrics, test suites, automated evaluation |
+| Structured Outputs | `references/structured-outputs.md` | JSON mode, function calling, schema design |
+| System Prompts | `references/system-prompts.md` | Persona design, guardrails, context management |
 
-## 关键技巧
+## Constraints
 
-### 1. 角色设定（Role Prompting）
+### MUST DO
+- Test prompts with diverse, realistic inputs including edge cases
+- Measure performance with quantitative metrics (accuracy, consistency)
+- Version prompts and track changes systematically
+- Document expected behavior and known limitations
+- Use few-shot examples that match target distribution
+- Validate structured outputs against schemas
+- Consider token costs and latency in design
+- Test across model versions before production deployment
 
-```
-你是一位有10 年经验的高级后端工程师，专注于：
-- 分布式系统设计
-- 性能优化
-- 代码质量把控
+### MUST NOT DO
+- Deploy prompts without systematic evaluation on test cases
+- Use few-shot examples that contradict instructions
+- Ignore model-specific capabilities and limitations
+- Skip edge case testing (empty inputs, unusual formats)
+- Make multiple changes simultaneously when debugging
+- Hardcode sensitive data in prompts or examples
+- Assume prompts transfer perfectly between models
+- Neglect monitoring for prompt degradation in production
 
-请以这个角色审查以下代码...
-```
+## Output Templates
 
-### 2. 少样本学习（Few-shot Learning）
+When delivering prompt work, provide:
+1. Final prompt with clear sections (role, task, constraints, format)
+2. Test cases and evaluation results
+3. Usage instructions (temperature, max tokens, model version)
+4. Performance metrics and comparison with baselines
+5. Known limitations and edge cases
 
-```
-将用户反馈分类为：正面、负面、中性
+## Knowledge Reference
 
-示例1：
-输入："这个产品太棒了！"
-输出：正面
+Prompt engineering techniques, chain-of-thought prompting, few-shot learning, zero-shot prompting, ReAct pattern, tree-of-thoughts, constitutional AI, prompt injection defense, system message design, JSON mode, function calling, structured generation, evaluation metrics, LLM capabilities (GPT-4, Claude, Gemini), token optimization, temperature tuning, output parsing
 
-示例2：
-输入："送货太慢了，很失望"
-输出：负面
+## Related Skills
 
-现在分类：
-输入："产品还行，价格有点贵"
-输出：
-```
-
-### 3. 思维链（Chain of Thought）
-
-```
-请一步步分析这个问题：
-
-1. 首先，理解问题的核心是什么
-2. 然后，列出可能的解决方案
-3. 接着，评估每个方案的优缺点
-4. 最后，给出推荐方案和理由
-```
-
-### 4. 输出格式控制
-
-```
-请以 JSON 格式返回，结构如下：
-{
-  "summary": "简要总结",
-  "key_points": ["要点1", "要点2"],
-  "recommendation": "建议",
-  "confidence": 0.0-1.0
-}
-```
-
-## System Prompt 设计
-
-### 通用模板
-
-```
-## 角色
-你是 {角色名称}，{角色描述}。
-
-## 能力
-- {能力1}
-- {能力2}
-
-## 行为准则
-- {准则1}
-- {准则2}
-
-## 限制
-- 不要 {限制1}
-- 避免 {限制2}
-
-## 输出风格
-{风格描述}
-```
-
-### 代码助手示例
-
-```
-## 角色
-你是一个专业的编程助手。
-
-## 行为准则
-- 代码要有清晰的注释
-- 优先考虑可读性和可维护性
-- 主动指出潜在问题
-- 解释关键设计决策
-
-## 输出格式
-1. 先简要说明方案
-2. 提供完整代码
-3. 解释关键部分
-4. 列出注意事项
-```
-
-## 常见问题与解决
-
-| 问题 | 解决方案 |
-|------|----------|
-| 输出太长 | 添加字数限制："请在200字以内" |
-| 输出不一致 | 提供更多示例，明确格式要求 |
-| 理解偏差 | 分解任务，逐步确认 |
-| 幻觉问题 | 要求引用来源，添加"如不确定请说明" |
-
-## 高级技巧
-
-### 1. 自我反思提示
-
-```
-完成任务后，请：
-1. 检查是否满足所有要求
-2. 指出可能的改进点
-3. 评估置信度（1-10）
-```
-
-### 2. 约束边界
-
-```
-重要约束：
-- 只使用提供的信息
-- 不确定时明确说明
-- 不要编造数据或引用
-```
-
-## 参考资源
-
-- Anthropic Prompt Engineering: https://docs.anthropic.com/claude/docs/prompt-engineering
-- OpenAI Best Practices: https://platform.openai.com/docs/guides/prompt-engineering
+- **LLM Architect** - System design with LLM components
+- **AI Engineer** - Production AI application development
+- **Test Master** - Evaluation framework implementation
+- **Technical Writer** - Prompt documentation and guidelines

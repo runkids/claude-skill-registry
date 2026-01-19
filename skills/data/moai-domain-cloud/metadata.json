@@ -1,7 +1,7 @@
 {
   "name": "moai-domain-cloud",
-  "repo": "jg-chalk-io/Nora-LiveKit",
-  "path": ".claude/skills/moai-domain-cloud/SKILL.md",
-  "source": "github.com/jg-chalk-io/Nora-LiveKit",
-  "downloaded_at": "2026-01-17T03:33:11.780075Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-domain-cloud/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-19T03:18:39.275320Z"
 }

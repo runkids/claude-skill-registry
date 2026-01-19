@@ -241,7 +241,16 @@ export async function middleware(request: NextRequest) {
 
 ---
 
+## Key File
+
+**File:** `src/middleware.ts`
+
+This is the actual middleware implementation. See this file for the current protected paths and auth logic.
+
+---
+
 ## Related Skills
 
 - `auth-patterns` - Auth handling after middleware check
 - `supabase-patterns` - Database operations (not in middleware)
+- `testing-patterns` - Auth middleware tests in `auth-middleware.test.ts`

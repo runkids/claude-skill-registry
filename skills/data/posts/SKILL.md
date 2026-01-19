@@ -1,72 +1,127 @@
 ---
-title: 'Taste > Skill'
-tags: 'ideas, work, advice'
-date: 'Dec 18, 2023'
+title: 思路不一样的高亮实现
+date: 2022-07-06
+duration: 2min
 ---
 
-To do any great work, you need two fundamental assets: [taste and skill](https://refactoring.fm/p/taste-vs-skills).
+## 高亮的实现
 
-For building products:
+我们知道，以`Vue`为例子，如果想要实现文字高亮效果，需要借助`v-html`进行模版渲染，例如：
 
-- **Taste** is knowing what is good – being able to recognize it.
-- **Skill** is the ability to build – to do what is needed to do the work.
+在下面的代码中
 
-They are totally independent, you could have one or the other, but having both allows you to make truly great work.
+```html
+<script setup>
+  const str = 'my name is peterroe'
+  const keyWord = 'peterroe'
+  const handleKeyWordHighlight = (s, k) => {     //希望高亮的文字
+    const reg = new RegExp(k, 'g')
+    return s.replace(reg, `<span class="highlight">${k}</span>`)
+  }
+</script>
+<template>
+  <div>
+    <span v-html="handleKeyWordHighlight(str, keyWord)"></span>
+  <div>
+</template>
+<style>
+  .hight-light {
+    background-color: yellow;
+  }
+</style>
+```
 
-It also helps in personal growth. The fundamental question is whether your skill is good enough for your taste.
+效果：
 
-Right now, you could be in one of two scenarios
+<Split/>
 
-### Taste > Skill
+***
 
-when your taste is ahead of your skills, you are not satisfied with the work you produce.
+### 其他实现方法
 
-every time you're unhappy with your work, it just means your taste for what is good is ahead of what you're able to create.
+通常来说，不管是`vue`的`v-html`和`react`的`dangerouslySetInnerHTML`，还是原生的`innerHTML`的，操作是非常危险的。
 
-This is good. This means your skill has room to grow.
+> **假如现在不准用上面的这三个操作，你应该怎样实现高亮的效果呢？**
 
-You have a voice in your head saying you can do better., a reference point of something you aren't able to achieve yet
+上面的这个问题实际上不是凭空捏造，而是本人碰到的真实场景，接下来我将使用`split`解决这个问题：
 
-### Skill >= Taste
+```html
+<script setup>
+  const str = 'my name is peterroe'
+  const keyWord = 'peterroe'
+  const handleKeyWordHighlight = (s, k) => {     //希望高亮的文字
+    const reg = new RegExp(`(${k})`, 'g')
+    return s.split(reg).map((item, index) => ({
+      text: item,
+      isKeyWord: item === k
+    }))
+  }
+</script>
+<template>
+  <div>
+    <span 
+      v-for="item in handleKeyWordHighlight(str, keyWord)"
+      :key="item.text"
+      :class="{'highlight': item.isKeyWord}"
+    >
+      {{item.text}}
+    </span>
+  <div>
+</template>
+```
 
-When your skill is equal or higher than your taste, you're able to build what you believe is good.
+实现思路就是，将原始的文字分割成单词，然后每个单词都添加一个`class`，如果单词是高亮的，则添加`highlight`这个`class`，如果不是高亮的，则不添加这个`class`。
 
-You're happy with your work, but you also stop growing, unless you grow your taste first.
+上面还用到了`split`一个不常用的技巧：
 
-This dynamic between taste and skill is crucial.
+```ts
+// 通常来说
+'aabbcc'.split('bb') // ['aa', 'cc']
+'aabbcc'.split(/bb/) // ['aa', 'cc']
+// 用正则捕获
+'aabbcc'.split(/(bb)/) // ['aa', 'bb', 'cc']
+```
 
-<mark>Skill is your floor, taste is your ceiling</mark>
+### 第三种方法
 
-The most effective way to improve your taste is by being **exposed** to what is good.
+利用 Range Api
 
-To create a good team, you have to work in one.
+```html
+<template>
+  <div id="word">my name is peterroe</div>
+</template>
 
-This makes good taste more valuable than good skills, the latter is easier to catch up with.
+<script setup lang="ts">
+  const keyWord = 'name'
+  const reg = new RegExp(keyWord)
+  onMounted(() => {
+    const textNode = document.querySelector('#word')?.childNodes[0]
+    if(!textNode) return 
 
-### Closing the gap
+    const content = textNode?.textContent || ''
 
-If great taste is knowing what's good, and great skill is knowing how to build things, the third element is knowing why.
+    const start = content.match(reg)?.index || 0
+    const end = start + keyWord.length
+    
+    const range = document.createRange()
+    range.setStart(textNode, start)
+    range.setEnd(textNode, end)
 
-Know **what makes good things good**
+    const highElm = document.createElement('span')
+    highElm.setAttribute('class', 'high-light')
+    range.surroundContents(highElm)
+  })
+</script>
 
-You may study hundreds of artworks or great design work, and develop intuitive taste for good ones.
+<style>
+.high-light {
+  background-color: yellow;
+}
+</style>
+```
 
-But unless you create your own designs, or paint or sketch, you learn what makes good things good, and ultimately allowing your **taste to turn into skills**
+---
 
-Thus, the two ways to help with closing the gap is:
+<WebApiRange />
 
-- just build stuff: your bad output constantly triggers your reasoning, question yourself "why do I think this is crap?"
-- discuss with others: elaborate on your judgement in your discussions. if you disagree on something being good, chances are you want to figure out why.
-
-### Takeaways
-
-- grow your taste – expose yourself to high-quality stuff
-- grow your skills on something you already have good taste for – e.g. learning design as a programmer
-- combine your taste and skills in a unique way – you know good design (taste) and you can code (skill)
-
-This unique combination can help you decide what to work on and what to build as an entrepreneur.
-
-It helps answer "why me?", and gives you the answer to these two important questions:
-
-- Why are you better positioned than most other people for doing that?
-- Why do you have a special shot at being successful?
+---

@@ -1,8 +1,7 @@
 {
   "name": "etl-elt-patterns",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Use when designing data pipelines, choosing between ETL and ELT approaches, or implementing data transformation patterns. Covers modern data pipeline architecture.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:12.002459Z"
+  "path": "plugins/systems-design/skills/etl-elt-patterns/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-19T03:27:24.186224Z"
 }

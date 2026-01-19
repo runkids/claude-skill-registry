@@ -1,7 +1,7 @@
 {
   "name": "command-development",
-  "repo": "arlenagreer/claude_configuration_docs",
-  "path": "plugins/marketplaces/claude-code-plugins/plugins/plugin-dev/skills/command-development/SKILL.md",
-  "source": "github.com/arlenagreer/claude_configuration_docs",
-  "downloaded_at": "2026-01-17T03:56:20.492648Z"
+  "repo": "akiojin/playfab-mcp-server",
+  "path": ".claude/skills/command-development/SKILL.md",
+  "source": "github.com/akiojin/playfab-mcp-server",
+  "downloaded_at": "2026-01-19T03:38:36.592518Z"
 }

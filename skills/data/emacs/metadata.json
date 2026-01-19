@@ -1,11 +1,7 @@
 {
   "name": "emacs",
-  "description": "Interact with a running Emacs instance via MCP. Use this skill when the user asks to interact with Emacs buffers, set up automation, or coordinate between Claude Code and Emacs. Access Elisp documenta",
-  "repo": "conornash/dot-emacs",
-  "category": "documents",
-  "tags": [
-    "emacs"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "repo": "plurigrid/asi",
+  "path": "skills/emacs/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-19T04:21:40.632858Z"
 }

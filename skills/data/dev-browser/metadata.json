@@ -1,7 +1,7 @@
 {
   "name": "dev-browser",
-  "repo": "wrsmith108/dev-browser-claude-skill",
-  "path": "skills/dev-browser/SKILL.md",
-  "source": "github.com/wrsmith108/dev-browser-claude-skill",
-  "downloaded_at": "2026-01-17T03:20:54.158828Z"
+  "repo": "jayteealao/blank-template",
+  "path": ".claude/skills/dev-browser/SKILL.md",
+  "source": "github.com/jayteealao/blank-template",
+  "downloaded_at": "2026-01-19T04:07:51.252972Z"
 }

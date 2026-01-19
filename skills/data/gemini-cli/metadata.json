@@ -1,7 +1,7 @@
 {
   "name": "gemini-cli",
-  "repo": "creator-hian/claude-code-plugins",
-  "path": "gemini-plugin/skills/gemini-cli/SKILL.md",
-  "source": "github.com/creator-hian/claude-code-plugins",
-  "downloaded_at": "2026-01-17T02:41:24.093349Z"
+  "repo": "samhvw8/dot-claude",
+  "path": "skills/gemini-cli/SKILL.md",
+  "source": "github.com/samhvw8/dot-claude",
+  "downloaded_at": "2026-01-19T04:16:55.697828Z"
 }

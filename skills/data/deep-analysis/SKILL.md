@@ -1,368 +1,394 @@
 ---
 name: deep-analysis
-description: "⚡ PRIMARY SKILL for: 'how does X work', 'investigate', 'analyze architecture', 'trace flow', 'find implementations'. PREREQUISITE: code-search-selector must validate tool choice. Launches codebase-detective with claudemem INDEXED MEMORY."
-allowed-tools: Task
-prerequisites:
-  - code-search-selector  # Must run before this skill
+description: Analytical thinking patterns for comprehensive evaluation, code audits, security analysis, and performance reviews. Provides structured templates for thorough investigation with extended thinking support.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Task
+  - WebFetch
+  - WebSearch
 dependencies:
-  - claudemem must be indexed (claudemem status)
+  - extended-thinking
+  - complex-reasoning
+triggers:
+  - analyze
+  - audit
+  - review
+  - assess
+  - evaluate
+  - investigate
+  - deep dive
+  - comprehensive review
+  - security analysis
+  - performance analysis
+  - code audit
 ---
 
-# Deep Code Analysis
+# Deep Analysis Skill
 
-This Skill provides comprehensive codebase investigation capabilities using the codebase-detective agent with semantic search and pattern matching.
+Comprehensive analytical templates for thorough investigation, audits, and evaluations leveraging extended thinking capabilities.
 
-## Prerequisites (MANDATORY)
+## When to Use
 
-```
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                        BEFORE INVOKING THIS SKILL                             ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║                                                                              ║
-║  1. INVOKE code-search-selector skill FIRST                                  ║
-║     → Validates tool selection (claudemem vs grep)                           ║
-║     → Checks if claudemem is indexed                                         ║
-║     → Prevents tool familiarity bias                                         ║
-║                                                                              ║
-║  2. VERIFY claudemem status                                                  ║
-║     → Run: claudemem status                                                  ║
-║     → If not indexed: claudemem index -y                                     ║
-║                                                                              ║
-║  3. DO NOT start with Read/Glob                                              ║
-║     → Even if file paths are mentioned in the prompt                         ║
-║     → Semantic search first, Read specific lines after                       ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-```
+- **Code audits** requiring systematic review
+- **Security assessments** and threat modeling
+- **Performance analysis** and optimization planning
+- **Architecture reviews** and technical debt assessment
+- **Incident post-mortems** and root cause analysis
+- **Compliance audits** and risk assessments
 
-## When to use this Skill
+## Analysis Templates
 
-Claude should invoke this Skill when:
-
-- User asks "how does [feature] work?"
-- User wants to understand code architecture or patterns
-- User is debugging and needs to trace code flow
-- User asks "where is [functionality] implemented?"
-- User needs to find all usages of a component/service
-- User wants to understand dependencies between files
-- User mentions: "investigate", "analyze", "find", "trace", "understand"
-- User is exploring an unfamiliar codebase
-- User needs to understand complex multi-file functionality
-
-## Instructions
-
-### Phase 1: Determine Investigation Scope
-
-Understand what the user wants to investigate:
-
-1. **Specific Feature**: "How does user authentication work?"
-2. **Find Implementation**: "Where is the payment processing logic?"
-3. **Trace Flow**: "What happens when I click the submit button?"
-4. **Debug Issue**: "Why is the profile page showing undefined?"
-5. **Find Patterns**: "Where are all the API calls made?"
-6. **Analyze Architecture**: "What's the structure of the data layer?"
-
-### Phase 2: Invoke codebase-detective Agent
-
-Use the Task tool to launch the codebase-detective agent with comprehensive instructions:
-
-```
-Use Task tool with:
-- subagent_type: "code-analysis:detective"
-- description: "Investigate [brief summary]"
-- prompt: [Detailed investigation instructions]
-```
-
-**Prompt structure for codebase-detective**:
+### Code Audit Template
 
 ```markdown
-# Code Investigation Task
+## Code Audit Report
 
-## Investigation Target
-[What needs to be investigated - be specific]
+**Repository**: [repo-name]
+**Scope**: [files/modules audited]
+**Date**: [YYYY-MM-DD]
+**Auditor**: Claude + [Human reviewer]
 
-## Context
-- Working Directory: [current working directory]
-- Purpose: [debugging/learning/refactoring/etc]
-- User's Question: [original user question]
+### Executive Summary
+[2-3 sentence overview of findings]
 
-## Investigation Steps
+### Audit Criteria
+- [ ] Code quality and maintainability
+- [ ] Security vulnerabilities
+- [ ] Performance concerns
+- [ ] Test coverage
+- [ ] Documentation completeness
+- [ ] Dependency health
 
-1. **Initial Search** (CLAUDEMEM REQUIRED):
-   - FIRST: Check `claudemem status` - is index available?
-   - ALWAYS: Use `claudemem search "semantic query"` for investigation
-   - NEVER: Use grep/glob for semantic understanding tasks
-   - Search for: [concepts, functionality, patterns by meaning]
+### Critical Findings
+| ID | Severity | Location | Issue | Recommendation |
+|----|----------|----------|-------|----------------|
+| C1 | Critical | file:line | [Issue] | [Fix] |
+| C2 | Critical | file:line | [Issue] | [Fix] |
 
-2. **Code Location**:
-   - Find exact file paths and line numbers
-   - Identify entry points and main implementations
-   - Note related files and dependencies
+### High Priority Findings
+| ID | Severity | Location | Issue | Recommendation |
+|----|----------|----------|-------|----------------|
+| H1 | High | file:line | [Issue] | [Fix] |
 
-3. **Code Flow Analysis**:
-   - Trace how data/control flows through the code
-   - Identify key functions and their roles
-   - Map out component/service relationships
+### Medium Priority Findings
+[...]
 
-4. **Pattern Recognition**:
-   - Identify architectural patterns used
-   - Note code conventions and styles
-   - Find similar implementations for reference
+### Low Priority / Suggestions
+[...]
 
-## Deliverables
+### Metrics
+| Metric | Value | Target | Status |
+|--------|-------|--------|--------|
+| Test Coverage | 75% | 80% | ⚠️ |
+| Cyclomatic Complexity | 12 | <10 | ⚠️ |
+| Technical Debt | 4.2d | <3d | ❌ |
+| Security Score | 8/10 | 9/10 | ⚠️ |
 
-Provide a comprehensive report including:
+### Recommendations
+1. **Immediate**: [Critical fixes]
+2. **Short-term**: [Within sprint]
+3. **Long-term**: [Tech debt reduction]
 
-1. **📍 Primary Locations**:
-   - Main implementation files with line numbers
-   - Entry points and key functions
-   - Configuration and setup files
-
-2. **🔍 Code Flow**:
-   - Step-by-step flow explanation
-   - How components interact
-   - Data transformation points
-
-3. **🗺️ Architecture Map**:
-   - High-level structure diagram
-   - Component relationships
-   - Dependency graph
-
-4. **📝 Code Snippets**:
-   - Key implementations (show important code)
-   - Patterns and conventions used
-   - Notable details or gotchas
-
-5. **🚀 Navigation Guide**:
-   - How to explore the code further
-   - Related files to examine
-   - Commands to run for testing
-
-6. **💡 Insights**:
-   - Why the code is structured this way
-   - Potential issues or improvements
-   - Best practices observed
-
-## Search Strategy
-
-### ⚠️ CRITICAL: Tool Selection
-
-**BEFORE ANY SEARCH, CHECK CLAUDEMEM STATUS:**
-```bash
-claudemem status
+### Sign-off
+- [ ] All critical issues addressed
+- [ ] High priority issues have timeline
+- [ ] Audit findings documented in backlog
 ```
 
-### ✅ PRIMARY METHOD: claudemem (Indexed Memory)
+### Security Threat Model Template
 
-```bash
-# Index if needed
-claudemem index -y
+```markdown
+## Threat Model: [System/Component Name]
 
-# Semantic search (ALWAYS use this for investigation)
-claudemem search "authentication login session" -n 15
-claudemem search "API endpoint handler route" -n 20
-claudemem search "data transformation pipeline" -n 10
+**Version**: [1.0]
+**Last Updated**: [YYYY-MM-DD]
+**Classification**: [Internal/Confidential]
+
+### System Overview
+[Brief description of the system being modeled]
+
+### Assets
+| Asset | Description | Sensitivity | Owner |
+|-------|-------------|-------------|-------|
+| User Data | PII, credentials | Critical | Auth Team |
+| API Keys | Service credentials | High | DevOps |
+| Business Data | Transactions | High | Product |
+
+### Trust Boundaries
+```
+┌─────────────────────────────────────────┐
+│           External (Untrusted)          │
+│  [Internet Users] [Third-party APIs]    │
+└──────────────────┬──────────────────────┘
+                   │ WAF/Load Balancer
+┌──────────────────┴──────────────────────┐
+│              DMZ (Semi-trusted)         │
+│  [API Gateway] [CDN] [Public Services]  │
+└──────────────────┬──────────────────────┘
+                   │ Internal Firewall
+┌──────────────────┴──────────────────────┐
+│           Internal (Trusted)            │
+│  [App Servers] [Databases] [Queues]     │
+└─────────────────────────────────────────┘
 ```
 
-**Why claudemem is REQUIRED for investigation:**
-- Understands code MEANING, not just text patterns
-- Finds related code even with different terminology
-- Returns ranked, relevant results
-- AST-aware (understands code structure)
+### Threat Categories (STRIDE)
 
-### ❌ WHEN NOT TO USE GREP
+#### Spoofing
+| Threat | Likelihood | Impact | Mitigation |
+|--------|------------|--------|------------|
+| Credential theft | Medium | High | MFA, rate limiting |
+| Session hijacking | Low | High | Secure cookies, HTTPS |
 
-| User Request | ❌ DON'T | ✅ DO |
-|-------------|----------|-------|
-| "How does auth work?" | `grep -r "auth" src/` | `claudemem search "authentication flow"` |
-| "Find API endpoints" | `grep -r "router" src/` | `claudemem search "API endpoint handler"` |
-| "Trace data flow" | `grep -r "transform" src/` | `claudemem search "data transformation"` |
-| "Audit architecture" | `ls -la src/` | `claudemem search "architecture layers"` |
+#### Tampering
+| Threat | Likelihood | Impact | Mitigation |
+|--------|------------|--------|------------|
+| SQL injection | Medium | Critical | Parameterized queries |
+| Data modification | Low | High | Integrity checks |
 
-### ⚠️ DEGRADED FALLBACK (Only if claudemem unavailable)
+#### Repudiation
+[...]
 
-**Only use grep/find if:**
-1. claudemem is NOT installed, AND
-2. User explicitly accepts degraded mode
+#### Information Disclosure
+[...]
 
-```bash
-# DEGRADED MODE - inferior results expected
-grep -r "pattern" src/  # Text match only, no semantic understanding
-find . -name "*.ts"     # File discovery only
+#### Denial of Service
+[...]
+
+#### Elevation of Privilege
+[...]
+
+### Attack Vectors
+1. **Vector 1**: [Description]
+   - Entry point: [Where]
+   - Technique: [How]
+   - Mitigation: [Defense]
+
+### Risk Matrix
+| Threat | Likelihood | Impact | Risk Score | Priority |
+|--------|------------|--------|------------|----------|
+| T1     | High       | Critical | 9 | P1 |
+| T2     | Medium     | High | 6 | P2 |
+| T3     | Low        | Medium | 3 | P3 |
+
+### Security Controls
+| Control | Type | Status | Coverage |
+|---------|------|--------|----------|
+| WAF | Preventive | ✅ Active | External |
+| SAST | Detective | ✅ CI/CD | Code |
+| DAST | Detective | ⚠️ Partial | Runtime |
+| Encryption | Preventive | ✅ Active | Data |
+
+### Recommendations
+1. [Priority 1 recommendations]
+2. [Priority 2 recommendations]
+3. [Priority 3 recommendations]
 ```
 
-**Always warn user**: "Using grep fallback - results will be less accurate than semantic search."
+### Performance Analysis Template
 
-## Output Format
+```markdown
+## Performance Analysis Report
 
-Structure your findings clearly with:
-- File paths using backticks: `src/auth/login.ts:45`
-- Code blocks for snippets
-- Clear headings and sections
-- Actionable next steps
+**System**: [System name]
+**Period**: [Date range]
+**Environment**: [Production/Staging]
+
+### Executive Summary
+[Key findings and recommendations]
+
+### Performance Metrics
+
+#### Response Times
+| Endpoint | P50 | P95 | P99 | Target | Status |
+|----------|-----|-----|-----|--------|--------|
+| /api/users | 45ms | 120ms | 350ms | <200ms | ✅ |
+| /api/search | 230ms | 890ms | 2.1s | <500ms | ❌ |
+| /api/reports | 1.2s | 3.4s | 8.2s | <2s | ❌ |
+
+#### Throughput
+| Service | Current RPS | Peak RPS | Capacity | Utilization |
+|---------|-------------|----------|----------|-------------|
+| API | 1,200 | 2,400 | 5,000 | 48% |
+| Worker | 500 | 800 | 1,000 | 80% |
+
+#### Resource Utilization
+| Resource | Average | Peak | Threshold | Status |
+|----------|---------|------|-----------|--------|
+| CPU | 45% | 78% | 80% | ⚠️ |
+| Memory | 62% | 85% | 85% | ⚠️ |
+| Disk I/O | 30% | 55% | 70% | ✅ |
+| Network | 25% | 40% | 60% | ✅ |
+
+### Bottleneck Analysis
+
+#### Identified Bottlenecks
+1. **Database Queries** (High Impact)
+   - Location: `/api/search` endpoint
+   - Cause: Missing index on `created_at` column
+   - Impact: 890ms P95 latency
+   - Fix: Add composite index
+
+2. **Memory Pressure** (Medium Impact)
+   - Location: Report generation service
+   - Cause: Large dataset loading into memory
+   - Impact: GC pauses, OOM risks
+   - Fix: Implement streaming/pagination
+
+### Load Test Results
+| Scenario | Users | Duration | Errors | Avg Response |
+|----------|-------|----------|--------|--------------|
+| Baseline | 100 | 10min | 0% | 120ms |
+| Normal | 500 | 30min | 0.1% | 180ms |
+| Peak | 1000 | 15min | 2.3% | 450ms |
+| Stress | 2000 | 5min | 15% | 2.1s |
+
+### Optimization Recommendations
+
+#### Quick Wins (This Sprint)
+1. Add database indexes - Expected: 40% improvement
+2. Enable query caching - Expected: 25% improvement
+3. Optimize N+1 queries - Expected: 30% improvement
+
+#### Medium Term (Next Quarter)
+1. Implement read replicas
+2. Add CDN for static assets
+3. Optimize serialization
+
+#### Long Term (6+ Months)
+1. Service decomposition
+2. Event-driven architecture
+3. Edge computing deployment
+
+### Capacity Planning
+| Timeframe | Expected Load | Current Capacity | Gap | Action |
+|-----------|---------------|------------------|-----|--------|
+| 3 months | +25% | 5,000 RPS | ✅ | Monitor |
+| 6 months | +50% | 5,000 RPS | ⚠️ | Scale |
+| 12 months | +100% | 5,000 RPS | ❌ | Redesign |
 ```
 
-### Phase 3: Present Analysis Results
+### Architecture Review Template
 
-After the agent completes, present results to the user:
+```markdown
+## Architecture Review
 
-1. **Executive Summary** (2-3 sentences):
-   - What was found
-   - Where it's located
-   - Key insight
+**System**: [System name]
+**Version**: [Current architecture version]
+**Review Date**: [YYYY-MM-DD]
+**Participants**: [Team members]
 
-2. **Detailed Findings**:
-   - Primary file locations with line numbers
-   - Code flow explanation
-   - Architecture overview
+### Current Architecture
 
-3. **Visual Structure** (if complex):
-   ```
-   EntryPoint (file:line)
-     ├── Validator (file:line)
-     ├── BusinessLogic (file:line)
-     │   └── DataAccess (file:line)
-     └── ResponseHandler (file:line)
-   ```
-
-4. **Code Examples**:
-   - Show key code snippets inline
-   - Highlight important patterns
-
-5. **Next Steps**:
-   - Suggest follow-up investigations
-   - Offer to dive deeper into specific parts
-   - Provide commands to test/run the code
-
-### Phase 4: Offer Follow-up
-
-Ask the user:
-- "Would you like me to investigate any specific part in more detail?"
-- "Do you want to see how [related feature] works?"
-- "Should I trace [specific function] further?"
-
-## Example Scenarios
-
-### Example 1: Understanding Authentication
-
+#### System Diagram
 ```
-User: "How does login work in this app?"
-
-Skill invokes codebase-detective agent with:
-"Investigate user authentication and login flow:
-1. Find login API endpoint or form handler
-2. Trace authentication logic
-3. Identify token generation/storage
-4. Find session management
-5. Locate authentication middleware"
-
-Agent provides:
-- src/api/auth/login.ts:34-78 (login endpoint)
-- src/services/authService.ts:12-45 (JWT generation)
-- src/middleware/authMiddleware.ts:23 (token validation)
-- Flow: Form → API → Service → Middleware → Protected Routes
+[Include architecture diagram or ASCII representation]
 ```
 
-### Example 2: Debugging Undefined Error
+#### Components
+| Component | Purpose | Technology | Owner |
+|-----------|---------|------------|-------|
+| API Gateway | Request routing | Kong | Platform |
+| Auth Service | Authentication | Keycloak | Security |
+| Core API | Business logic | Python/FastAPI | Backend |
+| Database | Data persistence | PostgreSQL | Data |
 
-```
-User: "The dashboard shows 'undefined' for user name"
+#### Data Flow
+1. User request → API Gateway
+2. API Gateway → Auth validation
+3. Auth → Core API
+4. Core API → Database
+5. Response → User
 
-Skill invokes codebase-detective agent with:
-"Debug undefined user name in dashboard:
-1. Find Dashboard component
-2. Locate where user name is rendered
-3. Trace user data fetching
-4. Check data transformation/mapping
-5. Identify where undefined is introduced"
+### Evaluation Criteria
 
-Agent provides:
-- src/components/Dashboard.tsx:156 renders user.name
-- src/hooks/useUser.ts:45 fetches user data
-- Issue: API returns 'full_name' but code expects 'name'
-- Fix: Map 'full_name' to 'name' in useUser hook
-```
+#### Scalability
+| Aspect | Current | Target | Gap | Score |
+|--------|---------|--------|-----|-------|
+| Horizontal scaling | Manual | Auto | Yes | 6/10 |
+| Database scaling | Single | Sharded | Yes | 5/10 |
+| Caching | Redis | Distributed | No | 8/10 |
 
-### Example 3: Finding All API Calls
+#### Reliability
+| Aspect | Current | Target | Gap | Score |
+|--------|---------|--------|-----|-------|
+| Availability | 99.5% | 99.9% | Yes | 7/10 |
+| Disaster recovery | Manual | Auto | Yes | 5/10 |
+| Data backup | Daily | Real-time | Yes | 6/10 |
 
-```
-User: "Where are all the API calls made?"
+#### Maintainability
+| Aspect | Current | Target | Gap | Score |
+|--------|---------|--------|-----|-------|
+| Code modularity | Medium | High | Yes | 6/10 |
+| Documentation | Partial | Complete | Yes | 5/10 |
+| Test coverage | 70% | 85% | Yes | 7/10 |
 
-Skill invokes codebase-detective agent with:
-"Find all API call locations:
-1. Search for fetch, axios, http client usage
-2. Identify API client/service files
-3. List all endpoints used
-4. Note patterns (REST, GraphQL, etc)
-5. Find error handling approach"
+### Technical Debt Assessment
+| Item | Impact | Effort | Priority | Age |
+|------|--------|--------|----------|-----|
+| Legacy auth system | High | High | P1 | 2y |
+| Monolithic API | Medium | High | P2 | 1.5y |
+| Missing monitoring | Medium | Low | P1 | 1y |
 
-Agent provides:
-- 23 API calls across 8 files
-- Centralized in src/services/*
-- Using axios with interceptors
-- Base URL in src/config/api.ts
-- Error handling in src/utils/errorHandler.ts
-```
+### Recommendations
 
-## Success Criteria
+#### Immediate (0-3 months)
+1. [Recommendation 1]
+2. [Recommendation 2]
 
-The Skill is successful when:
+#### Short-term (3-6 months)
+1. [Recommendation 1]
+2. [Recommendation 2]
 
-1. ✅ User's question is comprehensively answered
-2. ✅ Exact code locations provided with line numbers
-3. ✅ Code relationships and flow clearly explained
-4. ✅ User can navigate to code and understand it
-5. ✅ Architecture patterns identified and explained
-6. ✅ Follow-up questions anticipated
+#### Long-term (6-12 months)
+1. [Recommendation 1]
+2. [Recommendation 2]
 
-## Tips for Optimal Results
-
-1. **Be Comprehensive**: Don't just find one file, map the entire flow
-2. **Provide Context**: Explain why code is structured this way
-3. **Show Examples**: Include actual code snippets
-4. **Think Holistically**: Connect related pieces across files
-5. **Anticipate Questions**: Answer follow-up questions proactively
-
-## Integration with Other Tools
-
-This Skill works well with:
-
-- **claudemem CLI**: For local semantic code search with Tree-sitter parsing
-- **MCP gopls**: For Go-specific analysis
-- **Standard CLI tools**: grep, ripgrep, find, git
-- **Project-specific tools**: Use project's search/navigation tools
-
-## Notes
-
-- The codebase-detective agent uses extended thinking for complex analysis
-- **claudemem is REQUIRED** - grep/find produce inferior results
-- Fallback to grep ONLY if claudemem unavailable AND user accepts degraded mode
-- claudemem requires OpenRouter API key (https://openrouter.ai)
-- Default model: `voyage/voyage-code-3` (best code understanding)
-- Run `claudemem --models` to see all options and pricing
-- Results are actionable and navigable
-- Great for onboarding to new codebases
-- Helps prevent incorrect assumptions about code
-
-## Tool Selection Quick Reference
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│ BEFORE ANY CODE INVESTIGATION:                                       │
-│                                                                      │
-│ 1. INVOKE code-search-selector skill                                │
-│ 2. Run: claudemem status                                            │
-│ 3. If indexed → USE claudemem search                                │
-│ 4. If not indexed → Index first OR ask user                         │
-│ 5. NEVER default to grep when claudemem available                   │
-│ 6. NEVER start with Read/Glob for semantic questions                │
-│                                                                      │
-│ grep is for EXACT STRING MATCHES only, NOT semantic understanding   │
-└─────────────────────────────────────────────────────────────────────┘
+### Decision Log
+| Decision | Rationale | Alternatives Considered | Date |
+|----------|-----------|------------------------|------|
+| [Decision 1] | [Why] | [Options] | [Date] |
 ```
 
----
+## Integration with Extended Thinking
 
-**Maintained by:** MadAppGang
-**Plugin:** code-analysis v2.2.0
-**Last Updated:** December 2025
+For deep analysis tasks, use maximum thinking budget:
+
+```python
+response = client.messages.create(
+    model="claude-opus-4-5-20250514",
+    max_tokens=32000,
+    thinking={
+        "type": "enabled",
+        "budget_tokens": 25000  # Maximum budget for deep analysis
+    },
+    system="""You are a senior technical analyst performing a
+    comprehensive review. Use structured analysis templates and
+    document all findings systematically.""",
+    messages=[{
+        "role": "user",
+        "content": "Perform a security threat model for..."
+    }]
+)
+```
+
+## Best Practices
+
+1. **Use appropriate templates**: Match template to analysis type
+2. **Be systematic**: Follow the template structure completely
+3. **Quantify findings**: Use metrics and severity ratings
+4. **Prioritize actionable**: Focus on findings that can be fixed
+5. **Document evidence**: Link to specific code/logs/data
+6. **Track progress**: Update findings as they're addressed
+
+## See Also
+
+- [[extended-thinking]] - Enable deep reasoning capabilities
+- [[complex-reasoning]] - Reasoning frameworks
+- [[testing]] - Validation strategies
+- [[debugging]] - Issue investigation

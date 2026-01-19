@@ -1,7 +1,7 @@
 {
   "name": "spec-writing",
-  "repo": "vasic-digital/SuperAgent",
-  "path": "skills/plugins/community/sprint/spec-writing/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-17T01:41:45.649247Z"
+  "repo": "athola/claude-night-market",
+  "path": "plugins/spec-kit/skills/spec-writing/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-19T02:11:25.272331Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "stripe-best-practices",
-  "repo": "nordeim/Prompt-Engineering",
-  "path": "Claude-Skills/plugins/stripe/skills/stripe-best-practices/SKILL.md",
-  "source": "github.com/nordeim/Prompt-Engineering",
-  "downloaded_at": "2026-01-17T02:18:45.204909Z"
+  "repo": "anthropics/claude-plugins-official",
+  "path": "external_plugins/stripe/skills/stripe-best-practices/SKILL.md",
+  "source": "github.com/anthropics/claude-plugins-official",
+  "downloaded_at": "2026-01-19T02:39:30.323182Z"
 }

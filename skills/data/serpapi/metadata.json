@@ -1,11 +1,7 @@
 {
   "name": "serpapi",
-  "description": "SerpApi search engine results API via curl. Use this skill to scrape Google, Bing, YouTube, and other search engines.",
-  "repo": "vm0-ai/vm0-skills",
-  "category": "development",
-  "tags": [
-    "serpapi"
-  ],
-  "stars": 8,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/video-creator-workflow/.claude/skills/serpapi/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-19T03:26:09.623195Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "pr-review",
-  "repo": "lovedragonball/power-ranger-toolkit",
-  "path": "src/skills/pr-review/SKILL.md",
-  "source": "github.com/lovedragonball/power-ranger-toolkit",
-  "downloaded_at": "2026-01-17T03:14:51.087488Z"
+  "repo": "OneKeyHQ/app-monorepo",
+  "path": ".claude/skills/pr-review/SKILL.md",
+  "source": "github.com/OneKeyHQ/app-monorepo",
+  "downloaded_at": "2026-01-19T03:50:41.997523Z"
 }

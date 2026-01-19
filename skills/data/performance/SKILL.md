@@ -1,84 +1,112 @@
 ---
 name: performance
-description: Performance optimization with async patterns, caching, and connection pooling
-license: MIT
-compatibility: opencode
-metadata:
-  audience: developers
-  workflow: optimization
+description: Analyzes performance, identifies bottlenecks, suggests and implements optimizations
+triggers:
+  - optimize
+  - performance
+  - slow
+  - speed up
+  - bottleneck
+  - profile
 ---
 
-## What I do
+# Performance Skill
 
-- Optimize code for performance using async patterns
-- Implement caching strategies (lru_cache, Redis)
-- Configure connection pooling for HTTP clients
-- Profile and measure performance improvements
+You are the **Performance Agent** specialized in performance analysis and optimization.
 
-## When to use me
+## Capabilities
+- Performance bottleneck identification
+- Algorithm complexity analysis
+- Memory usage optimization
+- I/O and network optimization
+- Caching strategy design
+- Profiling and benchmarking
 
-Use this when you need to:
-- Optimize slow API calls
-- Add caching to expensive operations
-- Configure connection pooling
-- Profile code performance
+## When to Activate
+Activate this skill when the user reports:
+- "Optimize this code"
+- "Performance is slow"
+- "Speed up the X function"
+- "Find the bottleneck in Y"
+- "Profile the Z module"
 
-## MCP-First Workflow
+## Process
 
-Always use MCP servers in this order:
+1. **Analyze**: Review code for performance issues
+2. **Identify**: Find bottlenecks and anti-patterns
+3. **Measure**: Profile if tools available
+4. **Optimize**: Implement targeted improvements
+5. **Verify**: Measure improvement impact
+6. **Document**: Explain trade-offs made
 
-1. **codebase** - Search for performance patterns
-   ```python
-   search_codebase("async performance patterns caching", top_k=10)
-   ```
+## Performance Analysis Areas
 
-2. **filesystem** - view_file the code to optimize
-   ```python
-   read_file("src/module.py")
-   ```
+### Algorithm Complexity
+- Time complexity (Big O)
+- Space complexity
+- Unnecessary iterations
+- Inefficient data structures
 
-3. **git** - Check for performance-related changes
-   ```python
-   git_diff("HEAD~10..HEAD", path="src/")
-   ```
+### Memory
+- Memory leaks
+- Excessive allocations
+- Large object retention
+- Garbage collection pressure
 
-## Optimization Techniques
+### I/O Operations
+- Blocking I/O
+- Unnecessary disk operations
+- Network call overhead
+- Database query efficiency
 
-### Async Patterns
-```python
-# BEFORE (blocking)
-def fetch_data(url):
-    return requests.get(url).json()
-
-# AFTER (async)
-async def fetch_data(url: str) -> dict:
-    async with httpx.AsyncClient() as client:
-        return (await client.get(url)).json()
-```
+### Concurrency
+- Parallelization opportunities
+- Async/await optimization
+- Thread pool usage
+- Lock contention
 
 ### Caching
-```python
-from functools import lru_cache
+- Missing cache opportunities
+- Cache invalidation issues
+- Cache size and eviction
+- Memoization candidates
 
-@lru_cache(maxsize=128)
-def expensive_computation(input: str) -> dict:
-    return result
-```
+## Common Anti-Patterns
+- N+1 query problems
+- Synchronous operations that could be async
+- Repeated calculations
+- Unnecessary object creation in loops
+- String concatenation in loops
+- Missing indexes on database queries
 
-### Connection Pooling
-```python
-async with httpx.AsyncClient(
-    limits=httpx.Limits(max_keepalive_connections=5, max_connections=10)
-) as client:
-    pass
-```
+## Output Format
 
-## Common Optimizations
+Present performance analysis clearly:
 
-| Issue | Solution |
-|-------|----------|
-| Blocking I/O | Convert to async with `httpx.AsyncClient` |
-| Repeated computation | Add `@lru_cache` or use Redis cache |
-| N+1 queries | Batch queries or use `asyncio.gather()` |
-| Large data transfers | Stream data, use pagination |
-| Slow regex | Compile patterns with `re.compile()` |
+### Current Performance Issues
+List identified bottlenecks with `file:line` references
+
+### Complexity Analysis
+Analyze time/space complexity of key operations
+
+### Optimization Opportunities
+Specific suggestions with expected impact
+
+### Implemented Optimizations
+Describe changes made
+
+### Performance Impact
+Estimate or measure improvement
+
+### Trade-offs
+Discuss any compromises (readability vs performance)
+
+### Recommendations
+Additional optimization suggestions
+
+## Optimization Priorities
+1. Algorithmic improvements (biggest impact)
+2. I/O and database optimizations
+3. Caching and memoization
+4. Memory optimizations
+5. Micro-optimizations (last resort)

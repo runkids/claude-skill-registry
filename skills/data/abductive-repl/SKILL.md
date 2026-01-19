@@ -1,15 +1,17 @@
 ---
 name: abductive-repl
-description: "Hypothesis-Test Loops via REPL for Exploratory Abductive Inference with Gay.jl colors"
+description: Hypothesis-Test Loops via REPL for Exploratory Abductive Inference
+version: 1.0.0
 ---
+
 
 # abductive-repl
 
 > Hypothesis-Test Loops via REPL for Exploratory Abductive Inference
 
-**Version**: 1.1.0 (music-topos enhanced)
-**Trit**: 0 (Ergodic - coordinates inference)
-**Bundle**: repl
+**Version**: 1.0.0  
+**Trit**: 0 (Ergodic - coordinates inference)  
+**Bundle**: repl  
 
 ## Overview
 
@@ -20,82 +22,187 @@ Abductive-REPL enables exploratory abductive reasoning through an interactive RE
 ```
 Observation → Generate Hypotheses → Test → Refine → Repeat
 
-Abduction: Given effect E and rule "A implies E",
+Abduction: Given effect E and rule "A implies E", 
            hypothesize A as possible cause.
 ```
 
-## Enhanced Integration: Interpreters
+## Capabilities
 
-### Julia (Gay.jl) - Primary
+### 1. abduce-from-observation
 
-```julia
-# Start abductive REPL with Gay.jl
-julia --project=Gay.jl -e 'using Gay; Gay.repl()'
+Generate hypotheses from observed behavior.
 
-# In REPL:
+```python
+from abductive_repl import AbductiveEngine
+
+engine = AbductiveEngine(seed=0xf061ebbc2ca74d78)
+
+# Observed: A specific color was generated
+observed_color = RGB(216, 125, 157)
+
+hypotheses = engine.abduce(
+    observation=observed_color,
+    search_space="invader_ids",
+    search_range=range(1, 10000),
+    top_k=5
+)
+
+# Returns ranked hypotheses:
+# [
+#   {hypothesis: "invader_id=42069", confidence: 0.98, distance: 0.02},
+#   {hypothesis: "invader_id=42070", confidence: 0.45, distance: 0.55},
+#   ...
+# ]
+```
+
+### 2. repl-commands
+
+Interactive REPL mode for exploration.
+
+```
+gay> !teleport 42069
+Teleporting to invader 42069...
+  Source color: RGB(180, 90, 120)
+  Derangement: cyclic_1
+  World color: RGB(216, 125, 157)
+  Tropical t: 0.69
+
 gay> !abduce 216 125 157
-# Searches invader space for color match
+Generating hypotheses for RGB(216, 125, 157)...
+  [1] invader_id=42069 (confidence: 0.98)
+  [2] invader_id=42070 (confidence: 0.45)
+  [3] invader_id=41999 (confidence: 0.23)
+
+gay> !jump 1
+Jumping to hypothesis 1 (invader_id=42069)...
+  ✓ Hypothesis confirmed!
+
+gay> !neighbors 5
+Finding 5 neighbors of invader 42069...
+  42068: RGB(214, 123, 155) distance=0.02
+  42070: RGB(218, 127, 159) distance=0.02
+  42067: RGB(212, 121, 153) distance=0.04
+  ...
+
+gay> !test 100
+Running abductive roundtrip tests (n=100)...
+  ✓ 100/100 passed (100% accuracy)
+  Average inference time: 2.3ms
 ```
 
-### Hy (HyJAX) - Secondary
+### 3. forward-simulate
 
-```hy
-;; thread_relational_hyjax.hy integration
-(import lib.thread_relational_hyjax :as tra)
+Simulate forward from hypothesis to predict observations.
 
-(defn abduce-from-color [r g b]
-  "Abduce invader ID from observed RGB"
-  (let [target [r g b]
-        analyzer (tra.ThreadRelationalAnalyzer)]
-    ;; Search hypothesis space
-    (lfor id (range 1 10000)
-          :if (color-match? id target 0.05)
-          {:hypothesis id :confidence (- 1.0 (color-distance id target))})))
+```python
+simulation = engine.forward_simulate(
+    hypothesis="invader_id=42069",
+    seed=0xf061ebbc2ca74d78
+)
+
+# Returns:
+# {
+#   id: 42069,
+#   source: RGB(180, 90, 120),
+#   derangement_idx: 1,
+#   tropical_t: 0.69,
+#   world: RGB(216, 125, 157),
+#   properties: {
+#     spi_determinism: True,
+#     derangement_bijectivity: True,
+#     tropical_idempotence: True,
+#     spin_consistency: True
+#   }
+# }
 ```
 
-### Babashka (bb) - Scripting
+### 4. roundtrip-test
 
-```clojure
-;; abductive_repl.bb
-(require '[babashka.process :refer [shell]])
+Verify abductive inference accuracy.
 
-(defn abduce [observed-color]
-  (let [result (shell {:out :string} 
-                      "julia" "--project=Gay.jl" "-e"
-                      (format "using Gay; Gay.abduce(RGB(%s))" 
-                              (clojure.string/join "," observed-color)))]
-    (parse-hypotheses (:out result))))
+```python
+def abductive_roundtrip_test(id: int, seed: int) -> bool:
+    """
+    Forward simulate → Abduce back → Check if recovered
+    """
+    # Forward
+    sim = forward_simulate(id, seed)
+    
+    # Abduce
+    hypotheses = abduce(
+        observation=sim.world,
+        search_range=range(id - 100, id + 100),
+        top_k=1
+    )
+    
+    # Verify
+    return hypotheses[0].hypothesis == f"invader_id={id}"
+
+# Run batch
+results = [abductive_roundtrip_test(i, SEED) for i in range(1, 1001)]
+accuracy = sum(results) / len(results)
+assert accuracy > 0.99
 ```
 
-## REPL Commands Enhanced
+### 5. hypothesis-refinement
 
-| Command | Description | Interpreter |
-|---------|-------------|-------------|
-| `!teleport <id>` | Jump to invader's world state | Julia |
-| `!abduce r g b` | Infer invader from observed RGB | Julia/Hy |
-| `!test [n]` | Run n abductive roundtrip tests | Julia |
-| `!hy-analyze` | Run HyJAX relational analysis | Hy |
-| `!bb-export` | Export hypotheses via Babashka | Babashka |
+Iteratively refine hypotheses based on feedback.
+
+```python
+# Initial hypothesis
+hypothesis = engine.initial_hypothesis(observation)
+
+for iteration in range(max_iterations):
+    # Test hypothesis
+    prediction = engine.predict(hypothesis)
+    error = distance(prediction, observation)
+    
+    if error < threshold:
+        break
+    
+    # Refine based on error
+    hypothesis = engine.refine(hypothesis, error, observation)
+
+print(f"Converged after {iteration} iterations")
+```
+
+## REPL Command Reference
+
+| Command | Description |
+|---------|-------------|
+| `!teleport <id>` | Jump to invader's world state |
+| `!world` | Show current world state |
+| `!back` | Return to previous world |
+| `!abduce r g b` | Infer invader from observed RGB |
+| `!jump <n>` | Jump to nth hypothesis |
+| `!neighbors [r]` | Explore nearby invaders (radius r) |
+| `!test [n]` | Run n abductive roundtrip tests |
+| `!property <name>` | Test specific property |
+| `!history` | Show teleportation history |
+| `!seed [s]` | Get/set RNG seed |
 
 ## Properties (Testable Predicates)
 
-```ruby
-# world_broadcast.rb integration
-module AbductiveProperties
-  def self.spi_determinism(id, seed)
-    # Same input always produces same output
-    c1 = WorldBroadcast::CondensedAnima.liquid_norm([id], r: 0.5)
-    c2 = WorldBroadcast::CondensedAnima.liquid_norm([id], r: 0.5)
-    c1 == c2
-  end
-  
-  def self.abductive_roundtrip(id, seed)
-    # Forward → Abduce → Verify
-    forward = CondensedAnima.analytic_stack([id])
-    cellular = CondensedAnima.to_cellular_sheaf(forward)
-    cellular[:vertices].include?(id)
-  end
-end
+```python
+class SPIDeterminism:
+    """Same input always produces same output."""
+    
+class DerangementBijectivity:
+    """Derangement is reversible."""
+    
+class TropicalIdempotence:
+    """tropical_blend(x, x, t) = x for all t."""
+    
+class SpinConsistency:
+    """Spin direction preserved through transformations."""
+
+def test_all_properties(id: int, seed: int) -> dict:
+    return {
+        "spi_determinism": test_property(SPIDeterminism(), id, seed),
+        "derangement_bijectivity": test_property(DerangementBijectivity(), id, seed),
+        "tropical_idempotence": test_property(TropicalIdempotence(), id, seed),
+        "spin_consistency": test_property(SpinConsistency(), id, seed)
+    }
 ```
 
 ## GF(3) Triad Integration
@@ -108,6 +215,28 @@ end
 
 **Conservation**: (-1) + (0) + (+1) = 0 ✓
 
+## Configuration
+
+```yaml
+# abductive-repl.yaml
+inference:
+  search_range_default: 10000
+  top_k_default: 5
+  confidence_threshold: 0.7
+  max_iterations: 100
+
+testing:
+  roundtrip_batch_size: 100
+  property_tests: true
+
+repl:
+  history_file: "~/.abductive_history"
+  prompt: "gay> "
+  
+reproducibility:
+  seed: 0xf061ebbc2ca74d78
+```
+
 ## Justfile Recipes
 
 ```makefile
@@ -115,13 +244,13 @@ end
 abduce-repl:
     julia --project=Gay.jl -e 'using Gay; Gay.repl()'
 
-# Run via Hy
-abduce-hy:
-    uv run hy -c '(import lib.thread_relational_hyjax) (print "HyJAX ready")'
+# Run roundtrip tests
+abduce-test n="100":
+    julia --project=Gay.jl -e 'using Gay; Gay.test_abductive({{n}})'
 
-# Babashka roundtrip test
-abduce-bb-test n="100":
-    bb -e '(println "Abductive tests:" {{n}})'
+# Abduce from color
+abduce-color r g b:
+    julia --project=Gay.jl -e 'using Gay; Gay.abduce(RGB({{r}}/255, {{g}}/255, {{b}}/255))'
 ```
 
 ## Related Skills
@@ -129,4 +258,39 @@ abduce-bb-test n="100":
 - `world-hopping` - Possible world navigation
 - `unworld` - Derivation chains
 - `gay-mcp` - Color generation
-- `condensed-analytic-stacks` - 6-functor sheaf bridge
+- `cider-clojure`, `slime-lisp`, `geiser-chicken` - REPL backends
+
+
+
+## Scientific Skill Interleaving
+
+This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
+
+### Graph Theory
+- **networkx** [○] via bicomodule
+  - Universal graph hub
+
+### Bibliography References
+
+- `general`: 734 citations in bib.duckdb
+
+## Cat# Integration
+
+This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:
+
+```
+Trit: 0 (ERGODIC)
+Home: Prof
+Poly Op: ⊗
+Kan Role: Adj
+Color: #26D826
+```
+
+### GF(3) Naturality
+
+The skill participates in triads satisfying:
+```
+(-1) + (0) + (+1) ≡ 0 (mod 3)
+```
+
+This ensures compositional coherence in the Cat# equipment structure.

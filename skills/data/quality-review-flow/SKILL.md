@@ -205,27 +205,32 @@ prompt = """
 
 > **禁止**: 設計書・コード全文の再読み込み
 
-### 4.4 Token節約効果
+### 4.4 Token節約効果（推定）
 
-| フェーズ | 従来方式 | TODO駆動方式 | 削減率 |
+> **Note**: 以下は設計書全文（2,000-5,000トークン）をTODOファイル（300-500トークン）に置き換えた場合の推定値です。
+> 実際の削減率はプロジェクトの設計書サイズやレビュー指摘数に依存します。
+
+| フェーズ | 従来方式 | TODO駆動方式 | 推定削減率 |
 |---------|---------|-------------|--------|
-| 1回目レビュー後 | 設計書全文 + コード全文読み込み | TODOファイルのみ | **60-70%** |
-| 2回目レビュー後 | 設計書全文 + コード全文読み込み | TODOファイルのみ | **60-70%** |
-| 3回目レビュー後 | 設計書全文 + コード全文読み込み | TODOファイルのみ | **60-70%** |
+| 1回目レビュー後 | 設計書全文 + コード全文読み込み | TODOファイルのみ | 約60-70% |
+| 2回目レビュー後 | 設計書全文 + コード全文読み込み | TODOファイルのみ | 約60-70% |
+| 3回目レビュー後 | 設計書全文 + コード全文読み込み | TODOファイルのみ | 約60-70% |
 
-**累積効果**: 3回のレビューループで **5,000-15,000トークン節約**
+**推定累積効果**: 3回のレビューループで数千トークン節約
 
 ### 4.5 TODOファイルのセッション間永続化
 
 > **重要**: TODOファイルはcontainer-use環境内に保存されるため、セッション間で永続化される。
 
-#### environments.json との連携
+#### GitHub Issue との連携
+
+> **状態管理API**: {{skill:github-issue-state-management}} を参照
 
 | タイミング | 操作 |
 |-----------|------|
-| TODOファイル生成時 | `pending_issues` に `{type: "review_todo", todo_file, attempt, subtask_id}` を追加 |
-| Phaseを `review-fix` に更新 | `update_phase(env_id, phase=7, step="review-fix")` |
-| セッション再開時 | `pending_issues` から `review_todo` を検索してTODOファイルを読み込み |
+| TODOファイル生成時 | Issue にコメントを追加（`gh issue comment`） |
+| Phaseを `review-fix` に更新 | `issue-state.sh phase <num> 7-review` |
+| セッション再開時 | Issue コメントから直近の review-todo を検索 |
 
 #### ディレクトリ構造
 
@@ -239,14 +244,11 @@ prompt = """
 
 ### 4.6 Blocked状態への移行
 
-レビュー3回失敗時、`environments.json` を `blocked` 状態に更新：
+レビュー3回失敗時、Issue を `blocked` 状態に更新（{{skill:github-issue-state-management}} API）：
 
-| 設定項目 | 値 |
-|---------|-----|
-| reason | `review_loop_exceeded` |
-| description | `Issue #N: レビュー3回失敗（最終スコア: X/10）` |
-| suggested_action | 設計書の該当セクションを見直し |
-| context | `{subtask_id, review_attempts: 3, last_score, unresolved_issues}` |
+```bash
+bash .opencode/skill/github-issue-state-management/scripts/issue-state.sh block <issue-num> review_loop_exceeded "レビュー3回失敗（最終スコア: X/10）"
+```
 
 その後、Draft PRを作成して中断。
 
@@ -256,7 +258,7 @@ prompt = """
 
 3回連続でスコア9点未満の場合：
 
-1. `environments.json` を `blocked` 状態に更新（`escalate_to_blocked()`）
+1. Issue に `env:blocked` ラベルを追加、Blocked コメントを投稿
 2. Draft PRを作成（`--draft`フラグ）
 3. PRの本文に「レビュー未通過」と明記
 4. 未解決の指摘事項をPRコメントに記載

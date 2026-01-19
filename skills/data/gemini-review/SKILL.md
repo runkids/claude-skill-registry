@@ -1,320 +1,453 @@
 ---
 name: gemini-review
-description: >-
-  Invoke Gemini for design/code review. PROACTIVE: (1) BEFORE proposing new
-  features/architecture, (2) AFTER >100 lines or >3 files changed (before
-  tests), (3) AFTER security/perf changes, (4) ON SESSION RESUME - check
-  thresholds first. Triggers on "new feature", "architectural decision",
-  "security review", "performance review", "code review", "gemini review",
-  "debug", "cross-service", "data flow", "frontend backend", "analysis",
-  "implementation complete", "run the tests", "commit these", "modified
-  multiple files", "session resumed", "context compaction", "left off",
-  "I've implemented", "I've added", "I've modified", "changes are done",
-  "done implementing", "finished implementing", "implementation is complete",
-  "let me run", "now let me test", "rebuild", "make rebuild", "pytest",
-  "all tests pass", "tests pass", "fixed the", "added the", "updated the".
-allowed-tools: Bash
+description: Google Gemini CLI code review with Gemini 2.5 Pro, 1M token context, CI/CD integration
 ---
 
-# ABOUTME: Skill for invoking Gemini CLI for design reviews and code analysis
-# ABOUTME: Enforces the Gemini collaboration workflow defined in CLAUDE.md
+# Google Gemini Code Review Skill
 
-# Gemini Review Skill
+*Load with: base.md + code-review.md*
 
-**Full details**: `references/workflow.md`
+Use Google's Gemini CLI for code review with Gemini 2.5 Pro - featuring a massive 1M token context window that can analyze entire repositories at once.
 
-Invoke Gemini for collaborative design and code review.
+**Sources:** [Gemini CLI](https://github.com/google-gemini/gemini-cli) | [Code Review Extension](https://github.com/gemini-cli-extensions/code-review) | [Gemini Code Assist](https://codeassist.google/) | [GitHub Action](https://github.com/google-github-actions/run-gemini-cli)
 
-## 🛑 COMPLETION TRIGGER DETECTION
+---
 
-**STOP IMMEDIATELY when you catch yourself saying/thinking:**
+## Why Gemini for Code Review?
 
-| Trigger Phrase | Action |
-|----------------|--------|
-| "All tasks are complete" | ❌ STOP → Check Gemini threshold |
-| "Let me run the tests" | ❌ STOP → Check Gemini threshold |
-| "Now let me commit" | ❌ STOP → Check Gemini threshold |
-| "I've finished implementing" | ❌ STOP → Check Gemini threshold |
-| "Let me provide a summary" | ❌ STOP → Check Gemini threshold |
-| "Implementation is done" | ❌ STOP → Check Gemini threshold |
-| Marking last todo as "completed" | ❌ STOP → Check Gemini threshold |
+| Feature | Benefit |
+|---------|---------|
+| **Gemini 2.5 Pro** | State-of-the-art reasoning for code |
+| **1M token context** | Entire repositories fit - no chunking needed |
+| **Free tier** | 1,000 requests/day with Google account |
+| **Consistent output** | Clean formatting, predictable structure |
+| **GitHub native** | Gemini Code Assist app for auto PR reviews |
 
-**These phrases are BLOCKING triggers.** You MUST NOT proceed until you've verified Gemini review status.
+### Benchmark Performance
 
-## 🚨 MANDATORY THRESHOLD CHECK
+| Benchmark | Score | Notes |
+|-----------|-------|-------|
+| SWE-Bench Verified | 63.8% | Agentic coding benchmark |
+| Qodo PR Benchmark | 56.3% | PR review quality |
+| LiveCodeBench v5 | 70.4% | Code generation |
+| WebDev Arena | #1 | Web development |
 
-**This is a BLOCKING checkpoint. Execute BEFORE tests/summary/commit:**
+---
 
-```
-╔══════════════════════════════════════════════════════════════════╗
-║  🛑 STOP - GEMINI REVIEW CHECKPOINT                              ║
-║                                                                  ║
-║  STEP 1: Count your changes                                      ║
-║  Run: git diff --stat | tail -5                                  ║
-║                                                                  ║
-║  STEP 2: Check thresholds                                        ║
-║  □ Modified/created MORE than 3 files with logic changes?        ║
-║  □ Wrote MORE than 100 lines of code?                            ║
-║  □ Touched security or performance code?                         ║
-║                                                                  ║
-║  STEP 3: Take action                                             ║
-║  ANY YES → CALL GEMINI NOW (before tests, before summary)        ║
-║  ALL NO  → Skip Gemini, proceed to tests                         ║
-║                                                                  ║
-║  ⚠️  DO NOT mark todos complete until this check passes          ║
-║  ⚠️  DO NOT run tests until this check passes                    ║
-║  ⚠️  DO NOT provide summary until this check passes              ║
-╚══════════════════════════════════════════════════════════════════╝
-```
+## Installation
 
-**Why this matters:** In session 1ea73ffd, Claude modified 8+ files with 300+ lines
-but skipped Gemini review entirely. This checkpoint prevents that failure mode.
-
-## 🔄 RESUMED SESSION CHECKPOINT
-
-**When a session is resumed from context compaction, STOP and check:**
-
-```
-╔══════════════════════════════════════════════════════════════════╗
-║  SESSION RESUMED - MANDATORY VERIFICATION                        ║
-║                                                                  ║
-║  Before continuing ANY work, answer these questions:             ║
-║                                                                  ║
-║  1. Was I in the middle of implementing code?                    ║
-║     → Check the summary for "in progress" or "pending" tasks     ║
-║                                                                  ║
-║  2. How many files were modified before compaction?              ║
-║     → Run: git diff --stat                                       ║
-║                                                                  ║
-║  3. Did I already call Gemini for review?                        ║
-║     → Search summary for "gemini" or "code review"               ║
-║                                                                  ║
-║  If implementation was in progress AND Gemini wasn't called:     ║
-║  → CALL GEMINI FIRST before continuing implementation            ║
-║                                                                  ║
-║  If implementation is complete but tests weren't run:            ║
-║  → Check thresholds (>100 lines OR >3 files) → Call Gemini       ║
-╚══════════════════════════════════════════════════════════════════╝
-```
-
-**Why this matters:** Context compaction loses awareness of the workflow state.
-The summary may say "continue with X" but omit that Gemini review was pending.
-
-**Resume workflow:**
-```
-1. Session resumes with summary
-2. ★ STOP - Read summary carefully ★
-3. Check: Was implementation in progress?
-4. Check: git diff --stat for change count
-5. If thresholds met AND no Gemini review recorded:
-   → Call Gemini BEFORE continuing
-6. Then proceed with the task
-```
-
-## When to Invoke (MANDATORY)
-
-| Trigger | Timing | Action |
-|---------|--------|--------|
-| **Session resumed/compacted** | **IMMEDIATELY on resume** | Check thresholds |
-| New feature request | BEFORE proposing solutions | Design review |
-| Architectural decision | BEFORE proposing solutions | Architecture review |
-| **Architectural review/analysis** | **BEFORE presenting recommendations** | Architecture review |
-| **>100 lines changed** | **IMMEDIATELY after implementation** | Code review |
-| **>3 files with logic changes** | **IMMEDIATELY after implementation** | Code review |
-| Security-related code | IMMEDIATELY after implementation | Security review |
-| Performance optimization | IMMEDIATELY after implementation | Performance review |
-| Cross-service debugging | WHEN data flows between services | Debug review |
-| Frontend/Backend alignment | WHEN form data doesn't match API | Alignment review |
-
-**🚨 CRITICAL - Post-Implementation Checkpoint:**
-- "IMMEDIATELY after implementation" means BEFORE:
-  - Running tests
-  - Providing summaries to the user
-  - Moving to the next task
-  - Committing changes
-- If you've just finished writing code across multiple files, STOP and call Gemini NOW
-- The checkpoint triggers on IMPLEMENTATION COMPLETION, not on commit intent
-
-**Self-check phrases that should trigger review:**
-- "I've implemented..." / "I've added..." / "I've modified..."
-- "Let me run the tests" / "Let me commit" ← STOP! Check threshold first!
-
-**CRITICAL**: After codebase exploration, if you are about to produce **recommendations, suggestions, or analysis with actionable items**, you MUST call Gemini first. "Proposing solutions" includes architectural reviews that recommend changes.
-
-## When to Skip
-
-- <100 lines AND ≤3 files with only mechanical changes
-- Mechanical changes: imports, formatting, version bumps
-- Documentation-only changes
-- String constant propagation
-
-## How to Invoke
-
-**Command format:**
-```bash
-gemini -m gemini-3-pro-preview "Your review prompt here" .
-```
-
-**CRITICAL - Model Selection:**
-- **ALWAYS use `gemini-3-pro-preview`** - this is non-negotiable
-- Do NOT substitute with other models:
-  - ❌ `gemini-2.5-pro` (older model, less capable)
-  - ❌ `gemini-2.5-flash` (different tier)
-  - ❌ `gemini-3-flash-preview` (different tier)
-- If `gemini-3-pro-preview` fails, **report the error to the user** rather than silently using a different model
-
-**CRITICAL - Execution:**
-- Always use `timeout: 1800000` (30 min) in Bash tool call
-- NEVER run as background task; wait for completion synchronously
-- Always provide `.` as final parameter for codebase access
-
-## Review Prompts by Type
-
-### Design Review (BEFORE implementation)
+### Prerequisites
 
 ```bash
-gemini -m gemini-3-pro-preview "I need to implement [FEATURE]. Help me design the architecture: where should the logic live? What patterns work best for this codebase? Propose alternatives with trade-offs." .
+# Check Node.js version (requires 20+)
+node --version
+
+# Install Node.js 20 if needed
+# macOS
+brew install node@20
+
+# Or via nvm
+nvm install 20
+nvm use 20
 ```
 
-### Architecture Review (BEFORE implementation)
+### Install Gemini CLI
 
 ```bash
-gemini -m gemini-3-pro-preview "I'm planning to [CHANGE]. Review the current implementation and propose an optimal strategy. How should it integrate with existing patterns?" .
+# Via npm (recommended)
+npm install -g @google/gemini-cli
+
+# Via Homebrew (macOS)
+brew install gemini-cli
+
+# Or run without installing
+npx @google/gemini-cli
+
+# Verify installation
+gemini --version
 ```
 
-### Architectural Analysis Review (BEFORE presenting findings)
-
-Use this when the user asks for architectural review/analysis and you've explored the codebase:
+### Install Code Review Extension
 
 ```bash
-gemini -m gemini-3-pro-preview "I've explored [COMPONENT] architecture. Before presenting my analysis, review:
+# Requires Gemini CLI v0.4.0+
+gemini extensions install https://github.com/gemini-cli-extensions/code-review
 
-Current findings:
-- [KEY OBSERVATION 1]
-- [KEY OBSERVATION 2]
-
-Questions for counter-analysis:
-1. What separation of concerns issues do you see?
-2. What patterns should be applied here?
-3. Are there alternative architectural approaches I'm missing?
-4. What are the trade-offs of the current design?
-
-Provide a counter-analysis to ensure comprehensive review." .
+# Verify extension
+gemini extensions list
 ```
 
-### Code Review (AFTER implementation)
+---
+
+## Authentication
+
+### Option 1: Google Account (Recommended)
+
+**Free tier: 1,000 requests/day, 60 requests/min**
 
 ```bash
-gemini -m gemini-3-pro-preview "Review my recent changes for correctness and edge cases. Focus on: [SPECIFIC AREAS]. Check for potential bugs, race conditions, and error handling." .
+# Run gemini and follow browser login
+gemini
+
+# Select: "Login with Google Account"
+# Opens browser for OAuth
 ```
 
-### Security Review (AFTER implementation)
+This gives you access to Gemini 2.5 Pro with the full 1M token context window.
+
+### Option 2: Gemini API Key
+
+**Free tier: 100 requests/day**
 
 ```bash
-gemini -m gemini-3-pro-preview "Perform a security review of [COMPONENT]. Check for: authentication issues, input validation, token handling, and OWASP top 10 vulnerabilities." .
+# Get API key from https://aistudio.google.com/apikey
+
+# Set environment variable
+export GEMINI_API_KEY="your-api-key"
+
+# Or add to shell profile
+echo 'export GEMINI_API_KEY="your-api-key"' >> ~/.zshrc
+
+# Run Gemini
+gemini
 ```
 
-### Performance Review (AFTER implementation)
+### Option 3: Vertex AI (Enterprise)
 
 ```bash
-gemini -m gemini-3-pro-preview "Review the performance optimization I made to [COMPONENT]. Check for: proper async/await usage, memory leaks, and concurrency issues." .
+# For Google Cloud projects
+export GOOGLE_API_KEY="your-api-key"
+export GOOGLE_GENAI_USE_VERTEXAI=true
+export GOOGLE_CLOUD_PROJECT="your-project-id"
+
+gemini
 ```
 
-### Cross-Service Debug Review (WHEN debugging multi-service issues)
+---
+
+## Interactive Code Review
+
+### Using the Code Review Extension
 
 ```bash
-gemini -m gemini-3-pro-preview "Debug cross-service issue: [PROBLEM DESCRIPTION].
+# Start Gemini CLI
+gemini
 
-Services involved: [LIST SERVICES]
-Data flow: [DESCRIBE EXPECTED FLOW]
-Observed behavior: [WHAT'S HAPPENING]
-Expected behavior: [WHAT SHOULD HAPPEN]
-
-Analyze the data contracts between services and identify where the mismatch occurs. Recommend which service should own the fix." .
+# Run code review on current branch
+/code-review
 ```
 
-### Frontend/Backend Alignment Review (WHEN form data doesn't match API)
+The extension analyzes:
+- Code changes on your current branch
+- Identifies quality issues
+- Suggests fixes
+
+### Manual Review Prompts
 
 ```bash
-gemini -m gemini-3-pro-preview "Frontend/Backend alignment issue: [PROBLEM].
+# In interactive mode
+gemini
 
-Frontend sends: [FIELDS]
-Backend expects: [FIELDS]
-Database schema: [RELEVANT COLUMNS]
-
-Should the fix be:
-A) Frontend explicitly sends the missing field
-B) Backend derives the field from other data
-C) Both with validation
-
-Analyze both codebases and recommend specific file changes." .
+# Then ask:
+> Review the changes in this branch for bugs and security issues
+> Analyze src/api/users.ts for potential vulnerabilities
+> What are the code quality issues in the last 3 commits?
 ```
 
-## Integration with TDD Workflow
+---
 
-```
-1. User requests feature
-2. Claude explores codebase (Explore agent)
-3. Claude calls Gemini for design review  ← BEFORE proposing
-4. Claude presents options to user
-5. User approves approach
-6. Claude implements with TDD (Red → Green → Refactor)
-7. ★ POST-IMPLEMENTATION CHECKPOINT ★
-   If >100 lines OR >3 files:
-   Claude calls Gemini for code review  ← IMMEDIATELY (before tests/summary)
-8. Claude runs tests
-9. Claude provides summary to user
-10. Claude commits
-```
+## Headless Mode (Automation)
 
-**The checkpoint at step 7 is BLOCKING** - do not proceed to tests or summary until Gemini review is complete.
+### Basic Usage
 
-## Integration with Architectural Analysis
-
-```
-1. User requests architectural review/analysis
-2. Claude explores codebase (Explore agent, Read, Grep)
-3. Claude has initial findings
-4. ★ CHECKPOINT: Am I about to produce recommendations? ★
-5. Claude calls Gemini for counter-analysis  ← BEFORE presenting
-6. Claude combines findings with Gemini's perspective
-7. Claude presents comprehensive analysis to user
-```
-
-**Model enforcement**: MANDATORY `gemini-3-pro-preview`. Using any other model (gemini-2.5-pro, gemini-2.5-flash, etc.) is a skill violation. Fail loudly, never substitute silently.
-
-## Failure Recovery
-
-If Gemini invocation fails:
-1. Check the model name is exactly `gemini-3-pro-preview` (no typos, no substitutions)
-2. Verify the `.` context path is correct
-3. Retry with a simpler prompt
-4. If model is unavailable: **STOP and inform user** - do NOT fall back to another model
-5. If still failing, document the failure and proceed with explicit note to user
-
-**NEVER do this:**
 ```bash
-# WRONG - silently using different model
-gemini -m gemini-2.5-pro "..." .  # ❌ FORBIDDEN
+# Simple prompt execution
+gemini -p "Review the code changes for bugs and security issues"
+
+# With JSON output (for parsing)
+gemini -p "Review the changes" --output-format json
+
+# Stream JSON events (real-time)
+gemini -p "Review and fix issues" --output-format stream-json
+
+# Specify model
+gemini -m gemini-2.5-pro -p "Deep code review of this PR"
 ```
 
-## Example Session
+### Full CI/CD Example
 
+```bash
+# Get diff and review
+git diff origin/main...HEAD > diff.txt
+
+gemini -p "Review this code diff for:
+1. Security vulnerabilities
+2. Performance issues
+3. Code quality problems
+4. Missing error handling
+
+Diff:
+$(cat diff.txt)
+" --output-format json > review.json
 ```
-User: "Add user authentication to the API"
 
-Claude: "I'll explore the codebase first to understand the current structure."
-[Uses Explore agent]
+### Session Tracking
 
-Claude: "Before proposing solutions, let me get Gemini's input on the design."
-[Invokes this skill]
+```bash
+# Track token usage and costs
+gemini -p "Review changes" --session-summary metrics.json
 
-gemini -m gemini-3-pro-preview "I need to add user authentication to this API.
-Help me design: Should auth be middleware or per-route? JWT vs sessions?
-Where should user storage live? Propose alternatives with trade-offs." .
-
-[Gemini responds with recommendations]
-
-Claude: "Based on my exploration and Gemini's recommendations, here are the options..."
-[Presents options to user]
+# View metrics
+cat metrics.json
 ```
+
+---
+
+## GitHub Integration
+
+### Option 1: Gemini Code Assist App (Easiest)
+
+Install from [GitHub Marketplace](https://github.com/marketplace/gemini-code-assist):
+
+1. Go to GitHub Marketplace → Gemini Code Assist
+2. Click "Install" and select repositories
+3. PRs automatically get reviewed when opened
+
+**Commands in PR comments:**
+```
+/gemini review     # Request code review
+/gemini summary    # Get PR summary
+/gemini help       # Show available commands
+```
+
+**Quota:**
+- Free: 33 PRs/day
+- Enterprise: 100+ PRs/day
+
+### Option 2: GitHub Action
+
+```yaml
+# .github/workflows/gemini-review.yml
+name: Gemini Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Gemini CLI
+        run: npm install -g @google/gemini-cli
+
+      - name: Run Review
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          # Get diff
+          git diff origin/${{ github.base_ref }}...HEAD > diff.txt
+
+          # Run Gemini review
+          gemini -p "Review this pull request diff for bugs, security issues, and code quality problems. Be specific about file names and line numbers.
+
+          $(cat diff.txt)" > review.md
+
+      - name: Post Review Comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const review = fs.readFileSync('review.md', 'utf8');
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## 🤖 Gemini Code Review\n\n${review}`
+            });
+```
+
+### Option 3: Official GitHub Action
+
+```yaml
+# .github/workflows/gemini-review.yml
+name: Gemini Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  issue_comment:
+    types: [created]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Gemini CLI
+        uses: google-github-actions/run-gemini-cli@v1
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          prompt: "Review this pull request for code quality, security issues, and potential bugs."
+```
+
+**On-demand commands in comments:**
+```
+@gemini-cli /review
+@gemini-cli explain this code change
+@gemini-cli write unit tests for this component
+```
+
+---
+
+## GitLab CI/CD
+
+```yaml
+# .gitlab-ci.yml
+gemini-review:
+  image: node:20
+  stage: review
+  script:
+    - npm install -g @google/gemini-cli
+    - |
+      gemini -p "Review the merge request changes for bugs, security issues, and code quality" > review.md
+    - cat review.md
+  artifacts:
+    paths:
+      - review.md
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    GEMINI_API_KEY: $GEMINI_API_KEY
+```
+
+---
+
+## Configuration
+
+### Global Config
+
+```bash
+# ~/.gemini/settings.json
+{
+  "model": "gemini-2.5-pro",
+  "theme": "dark",
+  "sandbox": true
+}
+```
+
+### Project Config (GEMINI.md)
+
+Create a `GEMINI.md` file in your project root for project-specific context:
+
+```markdown
+# Project Context for Gemini
+
+## Tech Stack
+- TypeScript with strict mode
+- React 18 with hooks
+- FastAPI backend
+- PostgreSQL database
+
+## Code Review Focus Areas
+1. Type safety - ensure proper TypeScript types
+2. React hooks rules - check for dependency array issues
+3. SQL injection - verify parameterized queries
+4. Authentication - check all endpoints have proper auth
+
+## Conventions
+- Use camelCase for variables
+- Use PascalCase for components
+- All API errors should use AppError class
+```
+
+---
+
+## CLI Quick Reference
+
+```bash
+# Interactive
+gemini                          # Start interactive mode
+/code-review                    # Run code review extension
+
+# Headless
+gemini -p "prompt"              # Single prompt, exit
+gemini -p "prompt" --output-format json   # JSON output
+gemini -m gemini-2.5-flash -p "prompt"    # Use faster model
+
+# Extensions
+gemini extensions list          # List installed
+gemini extensions install URL   # Install extension
+gemini extensions update        # Update all
+
+# Key Flags
+--output-format json            # Structured output
+--output-format stream-json     # Real-time events
+--session-summary FILE          # Track metrics
+-m MODEL                        # Select model
+```
+
+---
+
+## Comparison: Claude vs Codex vs Gemini
+
+| Aspect | Claude | Codex CLI | Gemini CLI |
+|--------|--------|-----------|------------|
+| **Setup** | None (built-in) | npm + OpenAI API | npm + Google Account |
+| **Model** | Claude | GPT-5.2-Codex | Gemini 2.5 Pro |
+| **Context** | Conversation | Fresh per review | 1M tokens (huge!) |
+| **Free Tier** | N/A | Limited | 1,000/day |
+| **Best For** | Quick reviews | High accuracy | Large codebases |
+| **GitHub Native** | No | @codex | Gemini Code Assist |
+
+### When to Use Each
+
+| Scenario | Recommended Engine |
+|----------|-------------------|
+| Quick in-flow review | Claude |
+| Critical security review | Codex (88% detection) |
+| Large codebase (100+ files) | Gemini (1M context) |
+| Free automated reviews | Gemini |
+| Multiple perspectives | All three (dual/triple engine) |
+
+---
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| `gemini: command not found` | `npm install -g @google/gemini-cli` |
+| `Node.js version error` | Upgrade to Node.js 20+ |
+| `Authentication failed` | Re-run `gemini` and login again |
+| `Extension not found` | `gemini extensions install https://github.com/gemini-cli-extensions/code-review` |
+| `Rate limited` | Wait or upgrade to Vertex AI |
+| `Hangs in CI` | Ensure `DEBUG` env var is not set |
+
+---
+
+## Anti-Patterns
+
+- **Skipping authentication setup** - Always configure before CI/CD
+- **Using API key in logs** - Use secrets management
+- **Ignoring context limits** - Even 1M tokens has limits for huge monorepos
+- **Running on every commit** - Use on PRs only to save quota
+- **Not setting project context** - Add GEMINI.md for better reviews

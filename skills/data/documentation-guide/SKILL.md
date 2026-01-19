@@ -1,541 +1,416 @@
 ---
 name: documentation-guide
-type: knowledge
-description: Documentation standards and automation. Use when updating docs, writing guides, or synchronizing code with documentation.
-keywords: documentation, docs, readme, changelog, guides, api docs
-auto_activate: true
+description: |
+  Guide documentation structure, content requirements, and project documentation best practices.
+  Use when: creating README, documentation, docs folder, project setup, technical docs.
+  Keywords: README, docs, documentation, CONTRIBUTING, CHANGELOG, ARCHITECTURE, API docs, 文件, 說明文件, 技術文件.
 ---
 
-# Documentation Guide Skill
+# Documentation Guide
 
-Documentation standards and automation for [PROJECT_NAME] project.
+> **Language**: English | [繁體中文](../../../locales/zh-TW/skills/claude-code/documentation-guide/SKILL.md)
 
-## When This Activates
+**Version**: 2.0.0
+**Last Updated**: 2026-01-12
+**Applicability**: Claude Code Skills
 
-- Code changes requiring doc updates
-- New features added
-- API changes
-- Writing/updating documentation
-- Keywords: "docs", "documentation", "readme", "changelog", "guide"
+---
 
-## Documentation Structure
+## Purpose
+
+This skill provides comprehensive guidance on project documentation, including:
+- Documentation structure and file organization
+- Content requirements by project type
+- Writing standards for technical documents
+- Templates for common documentation types
+
+---
+
+## Quick Reference (YAML Compressed)
+
+```yaml
+# === PROJECT TYPE → DOCUMENT REQUIREMENTS ===
+document_matrix:
+  #           README  ARCH   API    DB     DEPLOY MIGRATE ADR    CHANGE CONTRIB
+  new:        [REQ,   REQ,   if_app, if_app, REQ,   NO,     REC,   REQ,   REC]
+  refactor:   [REQ,   REQ,   REQ,    REQ,    REQ,   REQ,    REQ,   REQ,   REC]
+  migration:  [REQ,   REQ,   REQ,    REQ,    REQ,   REQ,    REQ,   REQ,   REC]
+  maintenance:[REQ,   REC,   REC,    REC,    REC,   NO,     if_app, REQ,   if_app]
+  # REQ=Required, REC=Recommended, if_app=If applicable, NO=Not needed
+
+# === DOCUMENTATION PYRAMID ===
+pyramid:
+  level_1: "README.md → Entry point, quick overview"
+  level_2: "ARCHITECTURE.md → System overview"
+  level_3: "API.md, DATABASE.md, DEPLOYMENT.md → Technical details"
+  level_4: "ADR/, MIGRATION.md, CHANGELOG.md → Change history"
+
+# === ESSENTIAL FILES ===
+root_files:
+  README.md: {required: true, purpose: "Project overview, quick start"}
+  CONTRIBUTING.md: {required: "recommended", purpose: "Contribution guidelines"}
+  CHANGELOG.md: {required: "recommended", purpose: "Version history"}
+  LICENSE: {required: "for OSS", purpose: "License information"}
+
+docs_structure:
+  INDEX.md: "Documentation index"
+  ARCHITECTURE.md: "System architecture"
+  API.md: "API documentation"
+  DATABASE.md: "Database schema"
+  DEPLOYMENT.md: "Deployment guide"
+  MIGRATION.md: "Migration plan (if applicable)"
+  ADR/: "Architecture Decision Records"
+
+# === FILE NAMING ===
+naming:
+  root: "UPPERCASE.md (README.md, CONTRIBUTING.md, CHANGELOG.md)"
+  docs: "lowercase-kebab-case.md (getting-started.md, api-reference.md)"
+
+# === QUALITY STANDARDS ===
+quality:
+  format:
+    language: "English (or project-specified)"
+    encoding: "UTF-8"
+    line_length: "≤120 characters recommended"
+    diagrams: "Mermaid preferred, then ASCII Art"
+    links: "Relative paths for internal links"
+  maintenance:
+    sync: "Update docs when code changes"
+    version: "Mark version and date at top"
+    review: "Include docs in code review"
+    periodic: "Review quarterly for staleness"
+```
+
+---
+
+## Project Type Document Requirements
+
+### Document Requirements Matrix
+
+| Document | New Project | Refactoring | Migration | Maintenance |
+|----------|:-----------:|:-----------:|:---------:|:-----------:|
+| **README.md** | ✅ Required | ✅ Required | ✅ Required | ✅ Required |
+| **ARCHITECTURE.md** | ✅ Required | ✅ Required | ✅ Required | ⚪ Recommended |
+| **API.md** | ⚪ If applicable | ✅ Required | ✅ Required | ⚪ Recommended |
+| **DATABASE.md** | ⚪ If applicable | ✅ Required | ✅ Required | ⚪ Recommended |
+| **DEPLOYMENT.md** | ✅ Required | ✅ Required | ✅ Required | ⚪ Recommended |
+| **MIGRATION.md** | ❌ Not needed | ✅ Required | ✅ Required | ❌ Not needed |
+| **ADR/** | ⚪ Recommended | ✅ Required | ✅ Required | ⚪ If applicable |
+| **CHANGELOG.md** | ✅ Required | ✅ Required | ✅ Required | ✅ Required |
+
+### Project Type Quick Reference
 
 ```
-docs/
-├── CLAUDE.md                    # Docs-specific automation (create this)
-├── COMPLETE_SYSTEM_GUIDE.md     # Master guide
-├── QUICKSTART.md                # Getting started
-├── HOW_TO_MAINTAIN_ALIGNMENT.md # Maintenance
-├── features/                    # Feature-specific
-│   ├── model-download.md
-│   ├── training-methods.md
-│   └── data-preparation.md
-├── guides/                      # How-to guides
-│   ├── installation.md
-│   ├── configuration.md
-│   └── troubleshooting.md
-├── api/                         # API reference
-│   ├── core.md
-│   ├── backends.md
-│   └── cli.md
-├── examples/                    # Code examples
-│   ├── basic-training.py
-│   └── advanced-usage.py
-└── architecture/                # ADRs
-    ├── overview.md
-    └── decisions/
-        ├── 001-[framework]-backend.md
-        └── 002-multi-arch.md
-
-README.md                        # Root readme
-CHANGELOG.md                     # Version history
+🆕 New Project     → README + ARCHITECTURE + DEPLOYMENT + CHANGELOG
+🔄 Refactoring     → All documents + MIGRATION + ADR (document "why refactor")
+🚚 Migration       → All documents + MIGRATION (core document) + data verification
+🔧 Maintenance     → README + CHANGELOG (update based on change scope)
 ```
 
-## Auto-Update Rules
+---
 
-### When Code Changes → Update Docs
+## Documentation Pyramid
 
-| Change Type     | Documentation Updates                                   |
-| --------------- | ------------------------------------------------------- |
-| New feature     | README.md, docs/guides/, CHANGELOG.md, examples/        |
-| API change      | docs/api/, CHANGELOG.md                                 |
-| Bug fix         | CHANGELOG.md, (optional) docs/guides/troubleshooting.md |
-| Breaking change | CHANGELOG.md, README.md, docs/guides/, migration guide  |
-| New dependency  | README.md (install), requirements.txt                   |
+```
+                    ┌─────────────┐
+                    │   README    │  ← Entry point, quick overview
+                    ├─────────────┤
+                 ┌──┴─────────────┴──┐
+                 │   ARCHITECTURE    │  ← System overview
+                 ├───────────────────┤
+              ┌──┴───────────────────┴──┐
+              │  API / DATABASE / DEPLOY │  ← Technical details
+              ├─────────────────────────┤
+           ┌──┴─────────────────────────┴──┐
+           │    ADR / MIGRATION / CHANGELOG │  ← Change history
+           └───────────────────────────────┘
+```
 
-### CHANGELOG.md (Always Update)
+---
+
+## Document Templates (YAML Compressed)
+
+```yaml
+# === README.md ===
+readme:
+  minimum:
+    - "# Project Name"
+    - "Brief one-liner description"
+    - "## Installation"
+    - "## Usage"
+    - "## License"
+  recommended:
+    - "# Project Name + Badges"
+    - "## Features (bullet list)"
+    - "## Installation"
+    - "## Quick Start / Usage"
+    - "## Documentation (link to docs/)"
+    - "## Contributing (link to CONTRIBUTING.md)"
+    - "## License"
+
+# === ARCHITECTURE.md ===
+architecture:
+  required:
+    - system_overview: "Purpose, scope, main functions"
+    - architecture_diagram: "Mermaid or ASCII Art"
+    - module_description: "Responsibilities, dependencies"
+    - technology_stack: "Frameworks, languages, versions"
+    - data_flow: "Main business process"
+  recommended:
+    - deployment_architecture: "Production topology"
+    - design_decisions: "Key decisions (or link to ADR)"
+
+# === API.md ===
+api:
+  required:
+    - api_overview: "Version, base URL, authentication"
+    - authentication: "Token acquisition, expiration"
+    - endpoint_list: "All API endpoints"
+    - endpoint_specs: "Request/response format"
+    - error_codes: "Error codes and descriptions"
+  recommended:
+    - code_examples: "Examples in common languages"
+    - rate_limiting: "API call frequency limits"
+  endpoint_format: |
+    ### POST /api/v1/resource
+    **Request**: | Field | Type | Required | Description |
+    **Response**: | Field | Type | Description |
+    **Errors**: | Code | Description |
+
+# === DATABASE.md ===
+database:
+  required:
+    - db_overview: "Type, version, connection info"
+    - er_diagram: "Entity relationship diagram"
+    - table_list: "All tables with purposes"
+    - table_specs: "Column definitions"
+    - index_docs: "Indexing strategy"
+    - migration_scripts: "Script locations"
+  recommended:
+    - backup_strategy: "Frequency, retention"
+  table_format: |
+    ### TableName
+    **Columns**: | Column | Type | Nullable | Default | Description |
+    **Indexes**: | Name | Columns | Type |
+    **Relations**: | Related | Join | Relationship |
+
+# === DEPLOYMENT.md ===
+deployment:
+  required:
+    - environment_requirements: "Hardware, software, network"
+    - installation_steps: "Detailed process"
+    - configuration: "Config file parameters"
+    - verification: "Confirm successful deployment"
+    - troubleshooting: "Common issues and solutions"
+  recommended:
+    - monitoring: "Health checks, log locations"
+    - scaling_guide: "Horizontal/vertical scaling"
+
+# === MIGRATION.md ===
+migration:
+  required:
+    - overview: "Goals, scope, timeline"
+    - prerequisites: "Required preparation"
+    - migration_steps: "Detailed process"
+    - verification_checklist: "Post-migration checks"
+    - rollback_plan: "Steps on failure"
+    - backward_compatibility: "API/DB compatibility"
+  recommended:
+    - partner_notification: "External systems to notify"
+
+# === ADR (Architecture Decision Record) ===
+adr:
+  filename: "NNN-kebab-case-title.md (e.g., 001-use-postgresql.md)"
+  required:
+    - title: "Decision name"
+    - status: "proposed | accepted | deprecated | superseded"
+    - context: "Why this decision is needed"
+    - decision: "Specific decision content"
+    - consequences: "Impact (positive/negative)"
+  recommended:
+    - alternatives: "Other options considered"
+```
+
+---
+
+## File Location Standards
+
+```
+project-root/
+├── README.md                    # Project entry document
+├── CONTRIBUTING.md              # Contribution guide
+├── CHANGELOG.md                 # Change log
+├── LICENSE                      # License file
+└── docs/                        # Documentation directory
+    ├── INDEX.md                 # Documentation index
+    ├── ARCHITECTURE.md          # Architecture document
+    ├── API.md                   # API document
+    ├── DATABASE.md              # Database document
+    ├── DEPLOYMENT.md            # Deployment document
+    ├── MIGRATION.md             # Migration document (if needed)
+    └── ADR/                     # Architecture decision records
+        ├── 001-xxx.md
+        └── ...
+```
+
+---
+
+## README.md Required Sections
+
+### Minimum Viable README
 
 ```markdown
-# Changelog
+# Project Name
 
-All notable changes documented here.
-Format: [Keep a Changelog](https://keepachangelog.com/)
-Versioning: [Semantic Versioning](https://semver.org/)
+Brief one-liner description.
 
-## [Unreleased]
+## Installation
 
-### Added
-
-- New feature X with Y capability
-- CLI flag `--new-option` for Z
-
-### Changed
-
-- Updated API: `Trainer` now accepts `gradient_checkpointing` param
-- [FRAMEWORK] dependency bumped to 0.20.0
-
-### Fixed
-
-- Model cache invalidation bug (#42)
-- Memory leak in long training runs
-
-### Deprecated
-
-- `old_function()` - Use `new_function()` instead
-
-### Removed
-
-- Legacy training method (use LoRA instead)
-
-### Security
-
-- Updated dependencies to patch CVE-2024-XXXX
-
-## [3.0.0] - 2024-01-15
-
-### Added
-
-- Complete rebranding to [PROJECT_NAME]
-- Multi-architecture support
-
-[Previous versions...]
+```bash
+npm install your-package
 ```
 
-## Writing Standards
+## Usage
 
-### Tone & Style
-
-- **Clear and concise**: Short sentences, active voice
-- **User-focused**: Write "you", not "the user"
-- **Practical**: Every concept has a code example
-- **Scannable**: Use headers, lists, code blocks
-- **Linked**: Reference related docs
-
-### Example Structure
-
-````markdown
-# Feature Name
-
-Brief one-sentence description.
-
-## What It Does
-
-1-2 paragraphs explaining the feature and its benefits.
-
-## Quick Example
-
-```python
-# Minimal working example
-from [project_name] import Feature
-
-result = Feature().run()
-print(result)
-```
-````
-
-## Prerequisites
-
-- Python 3.11+
-- API key set in .env
-- [PROJECT_NAME] installed: `pip install [project_name]`
-
-## Detailed Usage
-
-### Step 1: Setup
-
-```python
-from [project_name].feature import Feature
-
-feature = Feature(param="value")
+```javascript
+const lib = require('your-package');
+lib.doSomething();
 ```
 
-### Step 2: Execute
+## License
 
-```python
-result = feature.execute()
+MIT
 ```
 
-## Common Patterns
+### Recommended README Sections
 
-### Pattern 1: Simple Use Case
+1. **Project Name & Description**
+2. **Badges** (CI status, coverage, npm version)
+3. **Features** (bullet list)
+4. **Installation**
+5. **Quick Start / Usage**
+6. **Documentation** (link to docs/)
+7. **Contributing** (link to CONTRIBUTING.md)
+8. **License**
 
-```python
-# Example code
-```
+---
 
-### Pattern 2: Advanced Use Case
-
-```python
-# Example code
-```
-
-## Configuration
-
-| Option   | Type | Default   | Description |
-| -------- | ---- | --------- | ----------- |
-| `param1` | str  | "default" | Description |
-| `param2` | int  | 100       | Description |
-
-## Troubleshooting
-
-### Issue: Error Message
-
-**Symptoms**: What you see
-**Cause**: Why it happens
-**Solution**:
-
-```python
-# Fix code
-```
-
-## See Also
-
-- [Related Guide](./related.md)
-- [API Reference](../api/module.md)
-
-````
-
-## API Documentation Template
+## ADR Template
 
 ```markdown
-# Module Name
-
-Brief module description.
-
-## Classes
-
-### `ClassName`
-
-Brief class description.
-
-```python
-from [project_name].module import ClassName
-
-instance = ClassName(param="value")
-````
-
-**Parameters:**
-
-- `param1` (str): Description of parameter
-- `param2` (int, optional): Description. Default: 100
-- `param3` (bool, optional): Description. Default: False
-
-**Attributes:**
-
-- `attribute1` (str): Description
-- `attribute2` (int): Description
-
-**Example:**
-
-```python
-instance = ClassName(param1="test")
-result = instance.method()
-print(result)
-```
-
-**Methods:**
-
-#### `method_name(arg1, arg2=default)`
-
-Description of what method does.
-
-**Parameters:**
-
-- `arg1` (type): Description
-- `arg2` (type, optional): Description. Default: value
-
-**Returns:**
-
-- `ReturnType`: Description of return value
-
-**Raises:**
-
-- `ValueError`: When X condition
-- `TypeError`: When Y condition
-
-**Example:**
-
-```python
-result = instance.method_name("value", arg2=True)
-assert result.success
-```
-
-## Functions
-
-### `function_name(param1, param2)`
-
-[Same structure as methods]
-
-````
-
-## Example Code Template
-
-```python
-#!/usr/bin/env python3
-"""
-Title: Brief description
-
-This example demonstrates:
-- Feature 1
-- Feature 2
-- Feature 3
-
-Requirements:
-- pip install [project_name]
-- ANTHROPIC_API_KEY in .env
-
-Usage:
-    python examples/example_name.py
-"""
-
-import os
-from pathlib import Path
-from dotenv import load_dotenv
-
-from [project_name] import Feature
-
-
-def main():
-    """Main example function."""
-    # Load environment
-    load_dotenv()
-    api_key = os.getenv("ANTHROPIC_API_KEY")
-
-    if not api_key:
-        print("ERROR: ANTHROPIC_API_KEY not set")
-        print("Add to .env file: ANTHROPIC_API_KEY=sk-ant-...")
-        print("See: docs/guides/setup.md")
-        return 1
-
-    # Step 1: Initialize
-    print("Step 1: Initializing feature...")
-    feature = Feature(api_key=api_key)
-
-    # Step 2: Execute
-    print("Step 2: Running feature...")
-    result = feature.run()
-
-    # Step 3: Show results
-    print(f"\nResults:")
-    print(f"  Success: {result.success}")
-    print(f"  Data: {result.data}")
-
-    return 0
-
-
-if __name__ == "__main__":
-    exit(main())
-````
-
-## Architecture Decision Records (ADRs)
-
-When making significant architectural decisions, create ADR in `docs/architecture/decisions/`:
-
-```markdown
-# ADR-XXX: Title of Decision
+# ADR-001: [Decision Title]
 
 ## Status
-
-**Proposed** | Accepted | Deprecated | Superseded by ADR-YYY
+Accepted
 
 ## Context
-
-What problem are we solving? What are the constraints?
-
-- Constraint 1
-- Constraint 2
-- Requirement 1
+[Why this decision is needed...]
 
 ## Decision
-
-We will [decision statement].
-
-### Approach
-
-Detailed explanation of the approach:
-
-1. Step 1
-2. Step 2
-3. Step 3
+[Specific decision...]
 
 ## Consequences
 
 ### Positive
-
-- ✅ Benefit 1: Description
-- ✅ Benefit 2: Description
+- Benefit 1
+- Benefit 2
 
 ### Negative
-
-- ⚠️ Tradeoff 1: Description
-- ⚠️ Tradeoff 2: Description
-
-### Neutral
-
-- ℹ️ Change 1: Description
+- Drawback 1
+- Drawback 2
 
 ## Alternatives Considered
-
-### Alternative 1: [Name]
-
-**Description**: What it is
-**Pros**: Benefits
-**Cons**: Drawbacks
-**Why rejected**: Reason
-
-### Alternative 2: [Name]
-
-[Same structure]
-
-## References
-
-- [External Resource](https://example.com)
-- [Internal Doc](../guides/related.md)
+1. Alternative A - Rejected because...
+2. Alternative B - Rejected because...
 ```
 
-## README.md Updates
+---
 
-### Features Section
+## Documentation Audit Checklist
 
-When adding new feature:
+When reviewing a project's documentation:
+
+```
+□ README.md exists with essential sections
+□ Installation instructions are clear and tested
+□ Usage examples are provided and work
+□ License specified
+□ ARCHITECTURE.md exists (for non-trivial projects)
+□ API.md exists (if APIs exposed)
+□ DATABASE.md exists (if databases used)
+□ DEPLOYMENT.md exists (for deployed projects)
+□ ADR/ exists for major decisions
+□ CHANGELOG.md follows Keep a Changelog format
+□ All internal links working
+□ Diagrams are up to date
+□ No outdated information
+```
+
+---
+
+## Configuration Detection
+
+### Detection Order
+
+1. Check `CONTRIBUTING.md` for "Disabled Skills" section
+2. Check `CONTRIBUTING.md` for "Documentation Language" section
+3. Check existing documentation structure
+4. If not found, **default to English**
+
+### First-Time Setup
+
+If documentation is missing:
+
+1. Ask: "This project doesn't have complete documentation. Which language should I use? (English / 中文)"
+2. Determine project type (new/refactor/migrate/maintain)
+3. Create required documents based on matrix
+4. Suggest documenting in `CONTRIBUTING.md`:
 
 ```markdown
-## Features
+## Documentation Standards
 
-- **Model Discovery**: Browse 2,984+ [FRAMEWORK] models
-- **Data Curator**: Extract from 10 content types
-- **Adaptive Tuner**: 5 training methods (LoRA, DPO, etc)
-- **NEW FEATURE**: Brief description # ← Add here
+### Language
+This project uses **English** for documentation.
+
+### Required Documents
+Based on project type, we maintain:
+- README.md
+- ARCHITECTURE.md
+- DEPLOYMENT.md
+- CHANGELOG.md
 ```
 
-### Installation Section
+---
 
-When adding dependencies:
+## Detailed Guidelines
 
-````markdown
-## Installation
+For complete standards, see:
+- [Documentation Writing Standards](../../../core/documentation-writing-standards.md)
+- [Documentation Structure](../../../core/documentation-structure.md)
+- [README Template](./readme-template.md)
 
-```bash
-pip install [project_name]
+---
 
-# For new feature (optional)
-pip install [project_name][feature]
-```
-````
+## Related Standards
 
-````
+- [Documentation Writing Standards](../../../core/documentation-writing-standards.md) - Content requirements
+- [Documentation Structure](../../../core/documentation-structure.md) - File organization
+- [Changelog Standards](../../../core/changelog-standards.md) - CHANGELOG format
+- [Changelog Guide Skill](../changelog-guide/SKILL.md) - CHANGELOG skill
 
-## Link Validation
+---
 
-### Check Internal Links
-```python
-import re
-from pathlib import Path
+## Version History
 
+| Version | Date | Changes |
+|---------|------|---------|
+| 2.0.0 | 2026-01-12 | Added: Project type matrix, document templates, documentation pyramid |
+| 1.0.0 | 2025-12-24 | Initial release |
 
-def find_broken_links(docs_dir: Path) -> list[str]:
-    """Find broken internal markdown links."""
-    broken = []
+---
 
-    for md_file in docs_dir.rglob("*.md"):
-        content = md_file.read_text()
+## License
 
-        # Find markdown links: [text](link)
-        links = re.findall(r'\[([^\]]+)\]\(([^\)]+)\)', content)
+This skill is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-        for text, link in links:
-            # Skip external
-            if link.startswith("http"):
-                continue
-
-            # Resolve relative path
-            target = (md_file.parent / link).resolve()
-
-            if not target.exists():
-                broken.append(f"{md_file}:{text} → {link}")
-
-    return broken
-````
-
-## Documentation Checklist
-
-Before marking docs complete:
-
-- [ ] CHANGELOG.md updated
-- [ ] README.md updated (if public API change)
-- [ ] API docs updated (if function signatures changed)
-- [ ] Guides created/updated for new features
-- [ ] Code examples working and tested
-- [ ] No broken internal links
-- [ ] Markdown properly formatted
-- [ ] Spelling checked
-- [ ] All code examples have dependencies listed
-
-## Auto-Generation Scripts
-
-### Extract Docstrings → API Docs
-
-```python
-import ast
-from pathlib import Path
-
-
-def extract_api_docs(source_file: Path) -> dict:
-    """Extract API documentation from Python file."""
-    with open(source_file) as f:
-        tree = ast.parse(f.read())
-
-    docs = {}
-
-    for node in ast.walk(tree):
-        if isinstance(node, ast.ClassDef):
-            class_doc = ast.get_docstring(node)
-            methods = {}
-
-            for item in node.body:
-                if isinstance(item, ast.FunctionDef):
-                    if not item.name.startswith("_"):  # Skip private
-                        methods[item.name] = ast.get_docstring(item)
-
-            docs[node.name] = {
-                "docstring": class_doc,
-                "methods": methods
-            }
-
-    return docs
-```
-
-## Quick Reference
-
-### When to Update Which Docs
-
-| You Changed     | Update                                        |
-| --------------- | --------------------------------------------- |
-| Added function  | API docs, CHANGELOG                           |
-| Fixed bug       | CHANGELOG, maybe troubleshooting              |
-| New feature     | README, guides, examples, API docs, CHANGELOG |
-| Breaking change | CHANGELOG, migration guide, all affected docs |
-| Config option   | Configuration guide, CHANGELOG                |
-| Dependencies    | README (install), CHANGELOG                   |
-| Architecture    | ADR, architecture docs                        |
-
-## Key Takeaways
-
-1. **Always update CHANGELOG** - Every PR
-2. **Keep README current** - First thing users see
-3. **Auto-sync API docs** - Extract from docstrings
-4. **Test examples** - Must work as written
-5. **Validate links** - No 404s
-6. **User-focused** - "How to" not "what is"
-7. **Code examples** - Every concept
-8. **ADRs for architecture** - Document decisions
+**Source**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)

@@ -1,7 +1,7 @@
 {
   "name": "multi-agent-coordination",
-  "repo": "CULPRITCHAOS/Interlock",
-  "path": ".claude/skills/multi-agent-coordination/SKILL.md",
-  "source": "github.com/CULPRITCHAOS/Interlock",
-  "downloaded_at": "2026-01-17T04:04:49.845068Z"
+  "repo": "Lobbi-Docs/claude",
+  "path": "plugins/orchestrate-complex/skills/multi-agent-coordination/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-19T04:20:34.357928Z"
 }

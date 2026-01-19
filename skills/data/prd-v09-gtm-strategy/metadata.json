@@ -1,7 +1,7 @@
 {
   "name": "prd-v09-gtm-strategy",
-  "repo": "mattgierhart/PRD-driven-context-engineering",
-  "path": ".claude/skills/prd-v09-gtm-strategy/SKILL.md",
-  "source": "github.com/mattgierhart/PRD-driven-context-engineering",
-  "downloaded_at": "2026-01-17T02:02:47.190004Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/marketing-pro-workflow/.claude/skills/prd-v09-gtm-strategy/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-19T03:26:18.053902Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "content-research",
-  "description": "Research-first content creation optimized for both human readers and AI search engines (Claude, ChatGPT, Perplexity, Gemini). Creates authentic, authoritative content that becomes the go-to citation s",
-  "repo": "atalovesyou/claude-skills-pack",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/video-creator-workflow/.claude/skills/content-research/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-19T03:26:13.987224Z"
 }

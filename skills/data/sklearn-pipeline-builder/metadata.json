@@ -1,8 +1,7 @@
 {
   "name": "sklearn-pipeline-builder",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Sklearn Pipeline Builder - Auto-activating skill for ML Training.Triggers on: sklearn pipeline builder, sklearn pipeline builderPart of the ML Training skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:11.495256Z"
+  "path": "skills/07-ml-training/sklearn-pipeline-builder/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-19T01:49:58.203975Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "marp",
-  "description": "build marp presentations",
-  "repo": "mpazaryna/presentation",
-  "category": "development",
-  "tags": [
-    "marp"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "vamseeachanta/digitalmodel",
+  "path": "skills/documentation/marp/SKILL.md",
+  "source": "github.com/vamseeachanta/digitalmodel",
+  "downloaded_at": "2026-01-19T01:13:09.621567Z"
 }

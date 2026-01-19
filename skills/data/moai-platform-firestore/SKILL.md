@@ -4,20 +4,12 @@ description: "Firebase Firestore specialist covering NoSQL patterns, real-time s
 version: 2.0.0
 category: "platform"
 modularized: true
-user-invocable: false
 tags: ['firestore', 'firebase', 'nosql', 'realtime', 'offline', 'mobile']
-updated: 2026-01-08
+updated: 2026-01-06
 status: "active"
 context7-libraries: ['/firebase/firebase-docs']
 related-skills: ['moai-platform-firebase-auth', 'moai-lang-flutter', 'moai-lang-typescript']
-allowed-tools:
-  - Read
-  - Write
-  - Bash
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: "Read, Write, Bash, Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
 ---
 
 # moai-platform-firestore: Firebase Firestore Specialist

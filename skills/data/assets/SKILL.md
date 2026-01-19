@@ -1,328 +1,416 @@
 ---
-name: kanban-tui
-description: Plans and manages tasks and todos for all project and task related prompts. Use this tool instead of your TodoWrite tool everytime. Make sure kanban-tui or ktui command are available otherwise use `uvx kanban-tui`
+name: assets
+description: Plutonium assets and theming - TailwindCSS configuration, custom styling, and component themes
 ---
 
-# Kanban-TUI Task Management Skill
+# Plutonium Assets & Theming
 
-## Description
-Use kanban-tui (ktui) for task planning, tracking, and management throughout conversations. This skill provides CLI-based kanban board management for organizing work.
+Plutonium uses TailwindCSS 4 for styling with a customizable theme system for components.
 
-## When to Use
-Use this skill proactively for:
-- Complex multi-step tasks (3+ distinct steps)
-- Non-trivial and complex tasks requiring planning
-- When user explicitly requests task tracking or todo lists
-- When user provides multiple tasks (numbered or comma-separated)
-- After receiving new instructions to capture requirements
-- Throughout implementation to track progress
+## Asset Configuration
 
-## Prerequisites
-- kanban-tui must be installed (`which kanban-tui`) if not installed and uv is installed use `uvx kanban-tui COMMAND`
-- Use only CLI commands (`ktui board/task/column`), never launch the TUI interface by running kanban-tui without any command
+Configure assets in the initializer:
 
-## Core Commands
+```ruby
+# config/initializers/plutonium.rb
+Plutonium.configure do |config|
+  config.load_defaults 1.0
 
-### Board Management
-```bash
-# List all boards
-ktui board list
-
-# List all boards (JSON format for programmatic use)
-ktui board list --json
-
-# Create new board (when not providing any -c/--columns argument, default Columns: Ready, Doing, Done, Archive will be used)
-ktui board create "Board Name" --icon ":emoji:" --set-active -c "First Column" -c "Second Column"
-
-# Activate a board
-ktui board activate BOARD_ID
-
-# Delete a board
-ktui board delete BOARD_ID
+  # Custom assets
+  config.assets.stylesheet = "application"    # Your CSS file
+  config.assets.script = "application"        # Your JS file
+  config.assets.logo = "my_logo.png"          # Logo image
+  config.assets.favicon = "my_favicon.ico"    # Favicon
+end
 ```
 
-### Column Management
+## Setup Custom Assets
+
+Run the assets generator to set up your own TailwindCSS build:
+
 ```bash
-# List columns on active board
-ktui column list
-
-# List columns (JSON format)
-ktui column list --json
-
-# List columns for a specific board
-ktui column list --board BOARD_ID
+rails generate pu:core:assets
 ```
 
-### Task Management
-```bash
-# Create task
-ktui task create "Task Title" --description "Task details" --column COLUMN_ID
+This:
+1. Installs required npm packages (`@radioactive-labs/plutonium`, TailwindCSS plugins)
+2. Creates `tailwind.config.js` that extends Plutonium's config
+3. Imports Plutonium CSS into your `application.tailwind.css`
+4. Registers Plutonium's Stimulus controllers
+5. Updates Plutonium config to use your assets
 
-# Create task with due date
-ktui task create "Task Title" --description "Details" --column COLUMN_ID --due-date 2026-12-31
+## TailwindCSS Configuration
 
-# List all tasks
-ktui task list
+### Generated Config
 
-# List all tasks (JSON format for programmatic use)
-ktui task list --json
+```javascript
+// tailwind.config.js
+const { execSync } = require('child_process');
+const plutoniumGemPath = execSync("bundle show plutonium").toString().trim();
+const plutoniumTailwindConfig = require(`${plutoniumGemPath}/tailwind.options.js`)
 
-# List tasks in a specific column
-ktui task list --column COLUMN_ID
-
-# Move task to different column
-ktui task move TASK_ID COLUMN_ID
-
-# Update task
-ktui task update TASK_ID --title "New Title" --description "New details"
-
-# Delete task (with confirmation prompt)
-ktui task delete TASK_ID
-
-# Delete task (skip confirmation)
-ktui task delete TASK_ID --no-confirm
-```
-
-### Skill Management
-```bash
-# Initialize SKILL.md in dedicated folder
-ktui skill init
-
-# Update SKILL.md to current tool version
-ktui skill update
-
-# Delete global and local SKILL.md files
-ktui skill delete
-```
-
-## JSON Output Format
-Use `--json` flag for machine-readable output. The JSON format provides:
-- Valid JSON with double quotes
-- ISO 8601 datetime strings
-- Lowercase booleans (`true`/`false`)
-- Only populated fields (null values omitted)
-
-Example output:
-```json
-[
+module.exports = {
+  darkMode: plutoniumTailwindConfig.darkMode,
+  plugins: [
+    // Add your plugins here
+  ].concat(plutoniumTailwindConfig.plugins),
+  theme: plutoniumTailwindConfig.merge(
+    plutoniumTailwindConfig.theme,
     {
-        "task_id": 1,
-        "title": "Implement feature",
-        "column": 5,
-        "creation_date": "2026-01-11T22:53:12",
-        "description": "Feature details",
-        "days_since_creation": 3,
-        "finished": false
+      // Your custom theme overrides
+    },
+  ),
+  content: [
+    `${__dirname}/app/**/*.{erb,haml,html,slim,rb}`,
+    `${__dirname}/app/javascript/**/*.js`,
+    `${__dirname}/packages/**/app/**/*.{erb,haml,html,slim,rb}`,
+  ].concat(plutoniumTailwindConfig.content),
+}
+```
+
+### Customizing Colors
+
+Override Plutonium's color palette:
+
+```javascript
+// tailwind.config.js
+theme: plutoniumTailwindConfig.merge(
+  plutoniumTailwindConfig.theme,
+  {
+    extend: {
+      colors: {
+        primary: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6',  // Your brand color
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
+          950: '#172554',
+        },
+        secondary: {
+          // Your secondary palette
+        },
+      },
+    },
+  },
+),
+```
+
+### Default Color Palette
+
+Plutonium includes these semantic colors:
+
+| Color | Usage |
+|-------|-------|
+| `primary` | Primary brand color (turquoise by default) |
+| `secondary` | Secondary color (navy by default) |
+| `success` | Success states (green) |
+| `info` | Informational states (blue) |
+| `warning` | Warning states (amber) |
+| `danger` | Error/danger states (red) |
+| `accent` | Accent highlights (coral pink) |
+
+### Dark Mode
+
+Plutonium uses `selector` strategy for dark mode:
+
+```javascript
+darkMode: "selector"
+```
+
+Toggle dark mode by adding/removing the `dark` class on `<html>`:
+
+```javascript
+// Toggle dark mode
+document.documentElement.classList.toggle('dark');
+```
+
+Plutonium includes a color mode selector component that handles this automatically.
+
+## CSS Imports
+
+### Application Stylesheet
+
+```css
+/* app/assets/stylesheets/application.tailwind.css */
+@import "gem:plutonium/src/css/plutonium.css";
+
+@import "tailwindcss";
+@config '../../../tailwind.config.js';
+
+/* Your custom styles */
+```
+
+### What Plutonium CSS Includes
+
+- Core utility classes
+- EasyMDE (markdown editor) styles
+- Slim Select styles
+- International telephone input styles
+- Flatpickr (date picker) styles
+
+## Component Themes
+
+Plutonium components use a theme system based on Phlexi. Each component type has a theme class with named style tokens.
+
+### Form Theme
+
+```ruby
+class PostDefinition < ResourceDefinition
+  class Form < Form
+    class Theme < Plutonium::UI::Form::Theme
+      def self.theme
+        super.merge({
+          # Container
+          base: "bg-white dark:bg-gray-800 shadow-md rounded-lg p-6",
+          fields_wrapper: "grid grid-cols-2 gap-6",
+          actions_wrapper: "flex justify-end mt-6 space-x-2",
+
+          # Labels
+          label: "block mb-2 text-base font-bold",
+          invalid_label: "text-red-700 dark:text-red-500",
+          valid_label: "text-green-700 dark:text-green-500",
+          neutral_label: "text-gray-500 dark:text-gray-400",
+
+          # Inputs
+          input: "w-full p-2 border rounded-md shadow-sm",
+          invalid_input: "bg-red-50 border-red-500 text-red-900",
+          valid_input: "bg-green-50 border-green-500 text-green-900",
+          neutral_input: "border-gray-300 dark:border-gray-600",
+
+          # Hints & Errors
+          hint: "mt-2 text-sm text-gray-500",
+          error: "mt-2 text-sm text-red-600",
+
+          # Buttons
+          button: "px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700",
+        })
+      end
+    end
+  end
+end
+```
+
+### Display Theme
+
+```ruby
+class PostDefinition < ResourceDefinition
+  class Display < Display
+    class Theme < Plutonium::UI::Display::Theme
+      def self.theme
+        super.merge({
+          fields_wrapper: "grid grid-cols-3 gap-8",
+          label: "text-sm font-bold text-gray-500 mb-1",
+          string: "text-lg text-gray-900 dark:text-white",
+          link: "text-primary-600 hover:underline",
+          markdown: "prose dark:prose-invert max-w-none",
+        })
+      end
+    end
+  end
+end
+```
+
+### Table Theme
+
+```ruby
+class PostDefinition < ResourceDefinition
+  class Table < Table
+    class Theme < Plutonium::UI::Table::Theme
+      def self.theme
+        super.merge({
+          wrapper: "overflow-x-auto shadow-md rounded-lg",
+          base: "w-full text-sm text-gray-500",
+          header: "text-xs uppercase bg-gray-100 dark:bg-gray-700",
+          header_cell: "px-6 py-3",
+          body_row: "bg-white border-b dark:bg-gray-800",
+          body_cell: "px-6 py-4",
+        })
+      end
+    end
+  end
+end
+```
+
+### Theme Keys Reference
+
+#### Form Theme Keys
+
+| Key | Description |
+|-----|-------------|
+| `base` | Form container |
+| `fields_wrapper` | Grid wrapper for fields |
+| `actions_wrapper` | Submit button container |
+| `wrapper` | Individual field wrapper |
+| `inner_wrapper` | Inner field wrapper |
+| `label` | Label base styles |
+| `invalid_label` | Label when field invalid |
+| `valid_label` | Label when field valid |
+| `neutral_label` | Label default state |
+| `input` | Input base styles |
+| `invalid_input` | Input when invalid |
+| `valid_input` | Input when valid |
+| `neutral_input` | Input default state |
+| `hint` | Hint text |
+| `error` | Error message |
+| `button` | Submit button |
+| `checkbox` | Checkbox input |
+| `select` | Select dropdown |
+
+#### Display Theme Keys
+
+| Key | Description |
+|-----|-------------|
+| `fields_wrapper` | Grid wrapper |
+| `label` | Field label |
+| `description` | Field description |
+| `string` | String values |
+| `text` | Text values |
+| `link` | URL links |
+| `email` | Email links |
+| `phone` | Phone links |
+| `markdown` | Markdown content |
+| `json` | JSON display |
+
+#### Table Theme Keys
+
+| Key | Description |
+|-----|-------------|
+| `wrapper` | Table container |
+| `base` | Table element |
+| `header` | Header row |
+| `header_cell` | Header cell |
+| `body_row` | Body row |
+| `body_cell` | Body cell |
+| `sort_icon` | Sort indicator |
+
+## Using Tokens in Components
+
+### The `tokens` Helper
+
+Conditionally apply classes:
+
+```ruby
+class MyComponent < Plutonium::UI::Component::Base
+  def initialize(active:)
+    @active = active
+  end
+
+  def view_template
+    div(class: tokens(
+      "base-class",
+      active?: "bg-primary-500 text-white",
+      inactive?: "bg-gray-200 text-gray-700"
+    )) {
+      "Content"
     }
-]
+  end
+
+  private
+
+  def active? = @active
+  def inactive? = !@active
+end
 ```
 
-## Workflow
+### The `classes` Helper
 
-### 1. Initial Setup (per session)
-When starting work that requires task tracking:
+Returns a hash suitable for splatting:
 
-```bash
-# Create and activate project board
-# Use multiple `-c` arguments for custom columns
-ktui board create "Project Name" --icon ":EMOJI_CODE:" --set-active
-
-# Check default columns (Ready, Doing, Done, Archive)
-ktui column list
+```ruby
+div(**classes("p-4", "rounded", active?: "ring-2")) { }
+# => <div class="p-4 rounded ring-2">
 ```
 
-### 2. Task Creation
-Break down work into specific, actionable tasks:
+### Conditional Tokens with Hash
 
-```bash
-# Add tasks to Ready column (defaults to left-most visible column if --column not provided)
-ktui task create "Task 1" --description "Details" --column READY_COLUMN_ID
-ktui task create "Task 2" --description "Details" --column READY_COLUMN_ID
-
-# If starting immediately, add to Doing column
-ktui task create "Current Task" --description "Details" --column DOING_COLUMN_ID
+```ruby
+tokens(
+  "base",
+  condition?: { then: "if-true", else: "if-false" }
+)
 ```
 
-### 3. Task Progression
-As you work:
+## Stimulus Controllers
 
-```bash
-# Move task to Doing when starting
-ktui task move TASK_ID DOING_COLUMN_ID
+Plutonium includes Stimulus controllers. Register them in your application:
 
-# Move task to Done when complete
-ktui task move TASK_ID DONE_COLUMN_ID
+```javascript
+// app/javascript/controllers/index.js
+import { application } from "./application"
 
-# Archive completed tasks
-ktui task move TASK_ID ARCHIVE_COLUMN_ID
+import { registerControllers } from "@radioactive-labs/plutonium"
+registerControllers(application)
+
+// Your custom controllers...
 ```
 
-### 4. Status Tracking
-Regularly check progress:
+### Available Controllers
 
-```bash
-# View all tasks and their status
-ktui task list
+- `color-mode` - Dark/light mode toggle
+- `form` - Form handling (pre-submit, etc.)
+- `nested-resource-form-fields` - Nested form management
+- `slim-select` - Enhanced select boxes
+- `flatpickr` - Date/time pickers
+- `easymde` - Markdown editor
+- Various UI controllers
 
-# View tasks in JSON format for parsing
-ktui task list --json
+## Custom Stimulus Controllers
 
-# View only tasks in a specific column
-ktui task list --column COLUMN_ID
+Add your own controllers alongside Plutonium's:
+
+```javascript
+// app/javascript/controllers/custom_controller.js
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+  connect() {
+    console.log("Custom controller connected")
+  }
+}
 ```
 
-## Best Practices
+Register in your index:
 
-### Task Management
-1. **Create Specific Tasks**: Break complex work into clear, actionable items
-2. **Use Descriptions**: Add context about what needs to be done, markdown is supported
-3. **One Active Task**: Keep only 1-2 tasks in Doing column at a time
-4. **Immediate Updates**: Move tasks as soon as status changes
-5. **Complete First**: Finish current tasks before starting new ones
-
-### Task States
-- **Ready**: Not yet started, planned work
-- **Doing**: Currently in progress (limit to 1-2 tasks)
-- **Done**: Completed successfully
-- **Archive**: Finished tasks no longer needing visibility
-
-### Task Naming
-Use imperative verbs for clarity:
-- "Implement authentication feature"
-- "Fix login bug"
-- "Write unit tests for API"
-- ~~"Authentication"~~ (too vague)
-- ~~"Working on tests"~~ (status, not action)
-
-### Task Completion
-Only move to Done when:
-- Task is FULLY accomplished
-- Tests pass (if applicable)
-- No blocking errors remain
-- Implementation is complete
-
-Keep as Doing if:
-- Tests are failing
-- Implementation is partial
-- Unresolved errors exist
-- Missing files or dependencies
-
-## Examples
-
-### Example 1: Feature Implementation
-```bash
-# Setup
-ktui board create "Auth Feature" --icon ":lock:" --set-active
-ktui column list  # Get column IDs
-
-# Plan tasks
-ktui task create "Design authentication flow" --column 5
-ktui task create "Implement login endpoint" --column 5
-ktui task create "Add JWT token generation" --column 5
-ktui task create "Write auth middleware" --column 5
-ktui task create "Add tests for auth flow" --column 5
-
-# Start first task
-ktui task move 1 6  # Move to Doing
-
-# Complete and move to next
-ktui task move 1 7  # Move to Done
-ktui task move 2 6  # Start next task
+```javascript
+import CustomController from "./custom_controller"
+application.register("custom", CustomController)
 ```
 
-### Example 2: Bug Fix with Investigation
-```bash
-# Create investigation tasks
-ktui task create "Reproduce bug" --description "Verify the issue" --column 5
-ktui task create "Identify root cause" --description "Debug and trace issue" --column 5
-ktui task create "Implement fix" --description "Apply solution" --column 5
-ktui task create "Test fix" --description "Verify resolution" --column 5
+## Typography
 
-# Work through systematically
-ktui task list  # Check status regularly
+Plutonium uses Lato font by default. The layout loads it from Google Fonts.
+
+Override in your layout:
+
+```ruby
+class MyLayout < Plutonium::UI::Layout::ResourceLayout
+  def render_fonts
+    # Your custom fonts
+    link(rel: "preconnect", href: "https://fonts.googleapis.com")
+    link(href: "https://fonts.googleapis.com/css2?family=Inter&display=swap", rel: "stylesheet")
+  end
+end
 ```
 
-### Example 3: Multiple Features
-```bash
-# User requests: "Add login, signup, and password reset"
-ktui task create "Implement login form" --column 5
-ktui task create "Implement signup form" --column 5
-ktui task create "Implement password reset" --column 5
-ktui task create "Add form validation" --column 5
-ktui task create "Write tests for auth forms" --column 5
-ktui task create "Update documentation" --column 5
+Update Tailwind config:
+
+```javascript
+theme: {
+  fontFamily: {
+    'body': ['Inter', 'sans-serif'],
+    'sans': ['Inter', 'sans-serif'],
+  }
+}
 ```
 
-## Integration with Claude Code
+## Related Skills
 
-### When to Use vs TodoWrite
-- **Use ktui**: When user explicitly requests it (as per their preference)
-- **TodoWrite**: Only if user hasn't specified a preference
-
-### Communication
-After creating/updating tasks:
-1. Inform user briefly: "Added X tasks to kanban board"
-2. Show task list output when relevant
-3. Don't over-communicate every task move unless significant
-
-### Task Breakdown
-Apply same rules as TodoWrite:
-- Break complex tasks into smaller steps
-- Create specific, actionable items
-- Use clear, descriptive names
-- Track progress in real-time
-
-## Troubleshooting
-
-### No tasks showing
-```bash
-# Check if board is active
-ktui board list
-
-# Verify tasks exist
-ktui task list
-```
-
-### Wrong column IDs
-```bash
-# Get correct column IDs
-ktui column list
-
-# Or for a specific board
-ktui column list --board BOARD_ID
-```
-
-### Task in wrong column
-```bash
-# Move to correct column
-ktui task move TASK_ID CORRECT_COLUMN_ID
-```
-
-## Quick Reference
-
-| Action | Command |
-|--------|---------|
-| Create board | `ktui board create "Name" --set-active` |
-| List boards | `ktui board list` |
-| List boards (JSON) | `ktui board list --json` |
-| List columns | `ktui column list` |
-| List columns (JSON) | `ktui column list --json` |
-| Create task | `ktui task create "Title" --column ID` |
-| List tasks | `ktui task list` |
-| List tasks (JSON) | `ktui task list --json` |
-| Filter tasks by column | `ktui task list --column ID` |
-| Move task | `ktui task move TASK_ID COLUMN_ID` |
-| Update task | `ktui task update TASK_ID --title "New"` |
-| Delete task | `ktui task delete TASK_ID` |
-| Delete task (no confirm) | `ktui task delete TASK_ID --no-confirm` |
-
-## Notes
-- Always use CLI commands, never launch interactive TUI
-- Column IDs are board-specific (get via `ktui column list`)
-- Task IDs are unique across all boards
-- Archive column is typically hidden by default
-- Default columns: Ready, Doing, Done, Archive
-- Use `--json` flag for machine-readable output
-
-<!-- This Section is for the `kanban-tui skill update`-command to check if this SKILL.md version matches the tool version and update it if needed, the agent can ignore it -->
-<!-- Version: KANBAN_TUI_VERSION -->
+- `views` - Layout customization
+- `forms` - Form theming
+- `installation` - Initial setup

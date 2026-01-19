@@ -1,7 +1,7 @@
 {
   "name": "gpui-async",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/gpui-async/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-17T02:27:12.935514Z"
+  "repo": "longbridge/gpui-component",
+  "path": ".claude/skills/gpui-async/SKILL.md",
+  "source": "github.com/longbridge/gpui-component",
+  "downloaded_at": "2026-01-19T01:38:48.308512Z"
 }

@@ -1,183 +1,583 @@
 ---
 name: best-practices
-description: View and manage your personal best practices library with success/failure patterns. Use when viewing best practices, checking patterns, reviewing success/failure history.
-context: inherit
-version: 1.0.0
-author: SkillForge
-tags: [best-practices, patterns, anti-patterns, mem0, learning]
-user-invocable: false
+description: Apply modern web development best practices for security, compatibility, and code quality. Use when asked to "apply best practices", "security audit", "modernize code", "code quality review", or "check for vulnerabilities".
+license: MIT
+metadata:
+  author: web-quality-skills
+  version: "1.0"
 ---
 
-# Best Practices - View Your Pattern Library
+# Best practices
 
-Display your aggregated best practices library, showing successful patterns and anti-patterns across all projects.
+Modern web development standards based on Lighthouse best practices audits. Covers security, browser compatibility, and code quality patterns.
 
-## When to Use
+## Security
 
-- Reviewing what patterns worked well
-- Checking for known anti-patterns
-- Getting statistics on your practices
-- Before implementing a pattern to check history
+### HTTPS everywhere
 
-## Usage
+**Enforce HTTPS:**
+```html
+<!-- ❌ Mixed content -->
+<img src="http://example.com/image.jpg">
+<script src="http://cdn.example.com/script.js"></script>
+
+<!-- ✅ HTTPS only -->
+<img src="https://example.com/image.jpg">
+<script src="https://cdn.example.com/script.js"></script>
+
+<!-- ✅ Protocol-relative (will use page's protocol) -->
+<img src="//example.com/image.jpg">
+```
+
+**HSTS Header:**
+```
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+```
+
+### Content Security Policy (CSP)
+
+```html
+<!-- Basic CSP via meta tag -->
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self' https://trusted-cdn.com; 
+               style-src 'self' 'unsafe-inline';
+               img-src 'self' data: https:;
+               connect-src 'self' https://api.example.com;">
+
+<!-- Better: HTTP header -->
+```
+
+**CSP Header (recommended):**
+```
+Content-Security-Policy: 
+  default-src 'self';
+  script-src 'self' 'nonce-abc123' https://trusted.com;
+  style-src 'self' 'nonce-abc123';
+  img-src 'self' data: https:;
+  connect-src 'self' https://api.example.com;
+  frame-ancestors 'self';
+  base-uri 'self';
+  form-action 'self';
+```
+
+**Using nonces for inline scripts:**
+```html
+<script nonce="abc123">
+  // This inline script is allowed
+</script>
+```
+
+### Security headers
 
 ```
-/best-practices                     # Show full library
-/best-practices <category>          # Filter by category
-/best-practices --warnings          # Show only anti-patterns
-/best-practices --successes         # Show only successes
-/best-practices --stats             # Show statistics only
+# Prevent clickjacking
+X-Frame-Options: DENY
+
+# Prevent MIME type sniffing
+X-Content-Type-Options: nosniff
+
+# Enable XSS filter (legacy browsers)
+X-XSS-Protection: 1; mode=block
+
+# Control referrer information
+Referrer-Policy: strict-origin-when-cross-origin
+
+# Permissions policy (formerly Feature-Policy)
+Permissions-Policy: geolocation=(), microphone=(), camera=()
 ```
 
-## Options
+### No vulnerable libraries
 
-- `<category>` - Filter by specific category (pagination, database, authentication, etc.)
-- `--warnings` - Show only anti-patterns (failed patterns)
-- `--successes` - Show only successful patterns
-- `--stats` - Show statistics summary without individual patterns
+```bash
+# Check for vulnerabilities
+npm audit
+yarn audit
 
-## Workflow
+# Auto-fix when possible
+npm audit fix
 
-### 1. Query mem0 for Best Practices
+# Check specific package
+npm ls lodash
+```
 
-Use `mcp__mem0__search_memories` with:
-
+**Keep dependencies updated:**
 ```json
+// package.json
 {
-  "query": "patterns outcomes",
-  "filters": {
-    "OR": [
-      { "metadata.outcome": "success" },
-      { "metadata.outcome": "failed" }
-    ]
-  },
-  "limit": 100
-}
-```
-
-### 2. Aggregate Results
-
-Group patterns by category, then by outcome:
-
-```json
-{
-  "pagination": {
-    "successes": [...],
-    "failures": [...]
-  },
-  "authentication": {
-    "successes": [...],
-    "failures": [...]
+  "scripts": {
+    "audit": "npm audit --audit-level=moderate",
+    "update": "npm update && npm audit fix"
   }
 }
 ```
 
-### 3. Calculate Statistics
+**Known vulnerable patterns to avoid:**
+```javascript
+// ❌ Prototype pollution vulnerable patterns
+Object.assign(target, userInput);
+_.merge(target, userInput);
 
-For each pattern:
-- Count occurrences across projects
-- Calculate success rate: successes / (successes + failures)
-- Note which projects contributed
-
-### 4. Display Output
-
-**Full Library View:**
-```
-📚 Your Best Practices Library
-═══════════════════════════════════════════════════════════════
-
-PAGINATION
-─────────────────────────────────────────────────────────────
-  ✅ Cursor-based pagination (3 projects, always worked)
-     "Scales well for large datasets"
-
-  ❌ Offset pagination (failed in 2 projects)
-     "Caused timeouts on tables with 1M+ rows"
-     💡 Lesson: Use cursor-based for large datasets
-
-AUTHENTICATION
-─────────────────────────────────────────────────────────────
-  ✅ JWT + httpOnly refresh tokens (4 projects)
-     "Secure and scalable for web apps"
-
-  ⚠️ Session-based auth (mixed: 1 success, 1 failure)
-     "Works but scaling issues in high-traffic scenarios"
-
-───────────────────────────────────────────────────────────────
-📊 Summary: 8 patterns | 5 ✅ successes | 3 ❌ anti-patterns
-💡 Use `/remember --success` or `/remember --failed` to add more
+// ✅ Safer alternatives
+const safeData = JSON.parse(JSON.stringify(userInput));
 ```
 
-**Stats Only View (`--stats`):**
-```
-📊 Best Practices Statistics
-═══════════════════════════════════════════════════════════════
+### Input sanitization
 
-Total Patterns: 15
-├── ✅ Successful: 10 (67%)
-├── ❌ Anti-patterns: 5 (33%)
-└── ⚠️ Mixed: 2
+```javascript
+// ❌ XSS vulnerable
+element.innerHTML = userInput;
+document.write(userInput);
 
-Categories:
-├── pagination: 3 patterns (2 ✅, 1 ❌)
-├── authentication: 4 patterns (3 ✅, 1 ⚠️)
-├── database: 5 patterns (4 ✅, 1 ❌)
-└── api: 3 patterns (1 ✅, 2 ❌)
+// ✅ Safe text content
+element.textContent = userInput;
 
-Projects Contributing: 7
-Last Updated: 2 days ago
+// ✅ If HTML needed, sanitize
+import DOMPurify from 'dompurify';
+element.innerHTML = DOMPurify.sanitize(userInput);
 ```
 
-**Filtered View (by category):**
-```
-📚 Best Practices: PAGINATION
-═══════════════════════════════════════════════════════════════
+### Secure cookies
 
-  ✅ Cursor-based pagination (3 projects, always worked)
-     "Scales well for large datasets"
-     Projects: project-a, project-b, project-c
+```javascript
+// ❌ Insecure cookie
+document.cookie = "session=abc123";
 
-  ❌ Offset pagination (failed in 2 projects)
-     "Caused timeouts on tables with 1M+ rows"
-     💡 Lesson: Use cursor-based for large datasets
-     Projects: project-a, project-d
+// ✅ Secure cookie (server-side)
+Set-Cookie: session=abc123; Secure; HttpOnly; SameSite=Strict; Path=/
 ```
 
-## Pattern Confidence Indicators
+---
 
-| Icon | Meaning |
+## Browser compatibility
+
+### Doctype declaration
+
+```html
+<!-- ❌ Missing or invalid doctype -->
+<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<!-- ✅ HTML5 doctype -->
+<!DOCTYPE html>
+<html lang="en">
+```
+
+### Character encoding
+
+```html
+<!-- ❌ Missing or late charset -->
+<html>
+<head>
+  <title>Page</title>
+  <meta charset="UTF-8">
+</head>
+
+<!-- ✅ Charset as first element in head -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Page</title>
+</head>
+```
+
+### Viewport meta tag
+
+```html
+<!-- ❌ Missing viewport -->
+<head>
+  <title>Page</title>
+</head>
+
+<!-- ✅ Responsive viewport -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page</title>
+</head>
+```
+
+### Feature detection
+
+```javascript
+// ❌ Browser detection (brittle)
+if (navigator.userAgent.includes('Chrome')) {
+  // Chrome-specific code
+}
+
+// ✅ Feature detection
+if ('IntersectionObserver' in window) {
+  // Use IntersectionObserver
+} else {
+  // Fallback
+}
+
+// ✅ Using @supports in CSS
+@supports (display: grid) {
+  .container {
+    display: grid;
+  }
+}
+
+@supports not (display: grid) {
+  .container {
+    display: flex;
+  }
+}
+```
+
+### Polyfills (when needed)
+
+```html
+<!-- Load polyfills conditionally -->
+<script>
+  if (!('fetch' in window)) {
+    document.write('<script src="/polyfills/fetch.js"><\/script>');
+  }
+</script>
+
+<!-- Or use polyfill.io -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=fetch,IntersectionObserver"></script>
+```
+
+---
+
+## Deprecated APIs
+
+### Avoid these
+
+```javascript
+// ❌ document.write (blocks parsing)
+document.write('<script src="..."></script>');
+
+// ✅ Dynamic script loading
+const script = document.createElement('script');
+script.src = '...';
+document.head.appendChild(script);
+
+// ❌ Synchronous XHR (blocks main thread)
+const xhr = new XMLHttpRequest();
+xhr.open('GET', url, false); // false = synchronous
+
+// ✅ Async fetch
+const response = await fetch(url);
+
+// ❌ Application Cache (deprecated)
+<html manifest="cache.manifest">
+
+// ✅ Service Workers
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+```
+
+### Event listener passive
+
+```javascript
+// ❌ Non-passive touch/wheel (may block scrolling)
+element.addEventListener('touchstart', handler);
+element.addEventListener('wheel', handler);
+
+// ✅ Passive listeners (allows smooth scrolling)
+element.addEventListener('touchstart', handler, { passive: true });
+element.addEventListener('wheel', handler, { passive: true });
+
+// ✅ If you need preventDefault, be explicit
+element.addEventListener('touchstart', handler, { passive: false });
+```
+
+---
+
+## Console & errors
+
+### No console errors
+
+```javascript
+// ❌ Errors in production
+console.log('Debug info'); // Remove in production
+throw new Error('Unhandled'); // Catch all errors
+
+// ✅ Proper error handling
+try {
+  riskyOperation();
+} catch (error) {
+  // Log to error tracking service
+  errorTracker.captureException(error);
+  // Show user-friendly message
+  showErrorMessage('Something went wrong. Please try again.');
+}
+```
+
+### Error boundaries (React)
+
+```jsx
+class ErrorBoundary extends React.Component {
+  state = { hasError: false };
+  
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+  
+  componentDidCatch(error, info) {
+    errorTracker.captureException(error, { extra: info });
+  }
+  
+  render() {
+    if (this.state.hasError) {
+      return <FallbackUI />;
+    }
+    return this.props.children;
+  }
+}
+
+// Usage
+<ErrorBoundary>
+  <App />
+</ErrorBoundary>
+```
+
+### Global error handler
+
+```javascript
+// Catch unhandled errors
+window.addEventListener('error', (event) => {
+  errorTracker.captureException(event.error);
+});
+
+// Catch unhandled promise rejections
+window.addEventListener('unhandledrejection', (event) => {
+  errorTracker.captureException(event.reason);
+});
+```
+
+---
+
+## Source maps
+
+### Production configuration
+
+```javascript
+// ❌ Source maps exposed in production
+// webpack.config.js
+module.exports = {
+  devtool: 'source-map', // Exposes source code
+};
+
+// ✅ Hidden source maps (uploaded to error tracker)
+module.exports = {
+  devtool: 'hidden-source-map',
+};
+
+// ✅ Or no source maps in production
+module.exports = {
+  devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
+};
+```
+
+---
+
+## Performance best practices
+
+### Avoid blocking patterns
+
+```javascript
+// ❌ Blocking script
+<script src="heavy-library.js"></script>
+
+// ✅ Deferred script
+<script defer src="heavy-library.js"></script>
+
+// ❌ Blocking CSS import
+@import url('other-styles.css');
+
+// ✅ Link tags (parallel loading)
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="other-styles.css">
+```
+
+### Efficient event handlers
+
+```javascript
+// ❌ Handler on every element
+items.forEach(item => {
+  item.addEventListener('click', handleClick);
+});
+
+// ✅ Event delegation
+container.addEventListener('click', (e) => {
+  if (e.target.matches('.item')) {
+    handleClick(e);
+  }
+});
+```
+
+### Memory management
+
+```javascript
+// ❌ Memory leak (never removed)
+const handler = () => { /* ... */ };
+window.addEventListener('resize', handler);
+
+// ✅ Cleanup when done
+const handler = () => { /* ... */ };
+window.addEventListener('resize', handler);
+
+// Later, when component unmounts:
+window.removeEventListener('resize', handler);
+
+// ✅ Using AbortController
+const controller = new AbortController();
+window.addEventListener('resize', handler, { signal: controller.signal });
+
+// Cleanup:
+controller.abort();
+```
+
+---
+
+## Code quality
+
+### Valid HTML
+
+```html
+<!-- ❌ Invalid HTML -->
+<div id="header">
+<div id="header"> <!-- Duplicate ID -->
+
+<ul>
+  <div>Item</div> <!-- Invalid child -->
+</ul>
+
+<a href="/"><button>Click</button></a> <!-- Invalid nesting -->
+
+<!-- ✅ Valid HTML -->
+<header id="site-header">
+</header>
+
+<ul>
+  <li>Item</li>
+</ul>
+
+<a href="/" class="button">Click</a>
+```
+
+### Semantic HTML
+
+```html
+<!-- ❌ Non-semantic -->
+<div class="header">
+  <div class="nav">
+    <div class="nav-item">Home</div>
+  </div>
+</div>
+<div class="main">
+  <div class="article">
+    <div class="title">Headline</div>
+  </div>
+</div>
+
+<!-- ✅ Semantic HTML5 -->
+<header>
+  <nav>
+    <a href="/">Home</a>
+  </nav>
+</header>
+<main>
+  <article>
+    <h1>Headline</h1>
+  </article>
+</main>
+```
+
+### Image aspect ratios
+
+```html
+<!-- ❌ Distorted images -->
+<img src="photo.jpg" width="300" height="100">
+<!-- If actual ratio is 4:3, this squishes the image -->
+
+<!-- ✅ Preserve aspect ratio -->
+<img src="photo.jpg" width="300" height="225">
+<!-- Actual 4:3 dimensions -->
+
+<!-- ✅ CSS object-fit for flexibility -->
+<img src="photo.jpg" style="width: 300px; height: 200px; object-fit: cover;">
+```
+
+---
+
+## Permissions & privacy
+
+### Request permissions properly
+
+```javascript
+// ❌ Request on page load (bad UX, often denied)
+navigator.geolocation.getCurrentPosition(success, error);
+
+// ✅ Request in context, after user action
+findNearbyButton.addEventListener('click', async () => {
+  // Explain why you need it
+  if (await showPermissionExplanation()) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+});
+```
+
+### Permissions policy
+
+```html
+<!-- Restrict powerful features -->
+<meta http-equiv="Permissions-Policy" 
+      content="geolocation=(), camera=(), microphone=()">
+
+<!-- Or allow for specific origins -->
+<meta http-equiv="Permissions-Policy" 
+      content="geolocation=(self 'https://maps.example.com')">
+```
+
+---
+
+## Audit checklist
+
+### Security (critical)
+- [ ] HTTPS enabled, no mixed content
+- [ ] No vulnerable dependencies (`npm audit`)
+- [ ] CSP headers configured
+- [ ] Security headers present
+- [ ] No exposed source maps
+
+### Compatibility
+- [ ] Valid HTML5 doctype
+- [ ] Charset declared first in head
+- [ ] Viewport meta tag present
+- [ ] No deprecated APIs used
+- [ ] Passive event listeners for scroll/touch
+
+### Code quality
+- [ ] No console errors
+- [ ] Valid HTML (no duplicate IDs)
+- [ ] Semantic HTML elements used
+- [ ] Proper error handling
+- [ ] Memory cleanup in components
+
+### UX
+- [ ] No intrusive interstitials
+- [ ] Permission requests in context
+- [ ] Clear error messages
+- [ ] Appropriate image aspect ratios
+
+## Tools
+
+| Tool | Purpose |
 |------|---------|
-| ✅ | Strong success (3+ projects, 100% success rate) |
-| ✓ | Moderate success (1-2 projects or some failures) |
-| ⚠️ | Mixed results (both successes and failures) |
-| ❌ | Anti-pattern (only failures) |
-| 🔴 | Strong anti-pattern (3+ projects, all failed) |
+| `npm audit` | Dependency vulnerabilities |
+| [SecurityHeaders.com](https://securityheaders.com) | Header analysis |
+| [W3C Validator](https://validator.w3.org) | HTML validation |
+| Lighthouse | Best practices audit |
+| [Observatory](https://observatory.mozilla.org) | Security scan |
 
-## Empty Library
+## References
 
-```
-📚 Your Best Practices Library is empty
-
-Start building it with:
-• /remember --success "Pattern that worked well"
-• /remember --failed "Pattern that caused problems"
-
-Your patterns will be tracked across all projects and help
-Claude warn you before repeating past mistakes.
-```
-
-## Proactive Integration
-
-See `references/proactive-warnings.md` for automatic anti-pattern detection.
-
-
-## Related Skills
-- code-review-playbook: Review best practices
-- api-design-framework: API design best practices
-- testing-strategy: Testing best practices
-- security-hardening: Security best practices
-## Related Commands
-
-- `/remember --success <text>` - Add a successful pattern
-- `/remember --failed <text>` - Add an anti-pattern
-- `/recall <query>` - Search all memories (not just best practices)
+- [MDN Web Security](https://developer.mozilla.org/en-US/docs/Web/Security)
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [Web Quality Audit](../web-quality-audit/SKILL.md)

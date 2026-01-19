@@ -1,9 +1,7 @@
 {
   "name": "model-evaluation-benchmark",
-  "description": "Skill from rysweet/AzureHayMaker",
-  "repo": "rysweet/AzureHayMaker",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "repo": "rysweet/amplihack",
+  "path": ".claude/skills/model-evaluation-benchmark/SKILL.md",
+  "source": "github.com/rysweet/amplihack",
+  "downloaded_at": "2026-01-19T03:48:16.113186Z"
 }

@@ -1,99 +1,94 @@
 ---
 name: coding-guidelines
-description: Provides React/Next.js component guidelines focusing on testability, Server Components, entity/gateway pattern, and directory structure. Use when implementing components, refactoring code, organizing project structure, extracting conditional branches, or ensuring code quality standards.
+description: "Use when asking about Rust code style or best practices. Keywords: naming, formatting, comment, clippy, rustfmt, lint, code style, best practice, P.NAM, G.FMT, code review, naming convention, variable naming, function naming, type naming, 命名规范, 代码风格, 格式化, 最佳实践, 代码审查, 怎么命名"
+source: https://rust-coding-guidelines.github.io/rust-coding-guidelines-zh/
 ---
 
-# Coding Guidelines
+# Rust Coding Guidelines (50 Core Rules)
 
-Guidelines for React/Next.js development focusing on testability, Server Components, and proper architecture. Each guideline file contains principles, code examples, and anti-patterns to avoid.
+## Naming (Rust-Specific)
 
----
+| Rule | Guideline |
+|------|-----------|
+| No `get_` prefix | `fn name()` not `fn get_name()` |
+| Iterator convention | `iter()` / `iter_mut()` / `into_iter()` |
+| Conversion naming | `as_` (cheap &), `to_` (expensive), `into_` (ownership) |
+| Static var prefix | `G_CONFIG` for `static`, no prefix for `const` |
+
+## Data Types
+
+| Rule | Guideline |
+|------|-----------|
+| Use newtypes | `struct Email(String)` for domain semantics |
+| Prefer slice patterns | `if let [first, .., last] = slice` |
+| Pre-allocate | `Vec::with_capacity()`, `String::with_capacity()` |
+| Avoid Vec abuse | Use arrays for fixed sizes |
+
+## Strings
+
+| Rule | Guideline |
+|------|-----------|
+| Prefer bytes | `s.bytes()` over `s.chars()` when ASCII |
+| Use `Cow<str>` | When might modify borrowed data |
+| Use `format!` | Over string concatenation with `+` |
+| Avoid nested iteration | `contains()` on string is O(n*m) |
+
+## Error Handling
+
+| Rule | Guideline |
+|------|-----------|
+| Use `?` propagation | Not `try!()` macro |
+| `expect()` over `unwrap()` | When value guaranteed |
+| Assertions for invariants | `assert!` at function entry |
+
+## Memory
+
+| Rule | Guideline |
+|------|-----------|
+| Meaningful lifetimes | `'src`, `'ctx` not just `'a` |
+| `try_borrow()` for RefCell | Avoid panic |
+| Shadowing for transformation | `let x = x.parse()?` |
+
+## Concurrency
+
+| Rule | Guideline |
+|------|-----------|
+| Identify lock ordering | Prevent deadlocks |
+| Atomics for primitives | Not Mutex for bool/usize |
+| Choose memory order carefully | Relaxed/Acquire/Release/SeqCst |
+
+## Async
+
+| Rule | Guideline |
+|------|-----------|
+| Sync for CPU-bound | Async is for I/O |
+| Don't hold locks across await | Use scoped guards |
+
+## Macros
+
+| Rule | Guideline |
+|------|-----------|
+| Avoid unless necessary | Prefer functions/generics |
+| Follow Rust syntax | Macro input should look like Rust |
+
+## Deprecated → Better
+
+| Deprecated | Better | Since |
+|------------|--------|-------|
+| `lazy_static!` | `std::sync::OnceLock` | 1.70 |
+| `once_cell::Lazy` | `std::sync::LazyLock` | 1.80 |
+| `std::sync::mpsc` | `crossbeam::channel` | - |
+| `std::sync::Mutex` | `parking_lot::Mutex` | - |
+| `failure`/`error-chain` | `thiserror`/`anyhow` | - |
+| `try!()` | `?` operator | 2018 |
 
 ## Quick Reference
 
-- **Server Components & Data Fetching** → [server-components.md](server-components.md)
-- **Testability & Props Control** → [testability.md](testability.md)
-- **useEffect Guidelines & Dependencies** → [useeffect-guidelines.md](useeffect-guidelines.md)
-- **Architecture & Patterns** → [architecture.md](architecture.md)
-
----
-
-## When to Use What
-
-### Server Components
-
-**When**: Writing server-side data fetching or async components
-**Read**: [server-components.md](server-components.md)
-
-Key topics:
-- Server Component Pattern (async/await, Suspense)
-- Promise Handling (.then().catch() vs try-catch)
-- When NOT to use "use client"
-
-### Testability
-
-**When**: Writing "use client" components, useEffect, or event handlers
-**Read**: [testability.md](testability.md)
-
-Key topics:
-- Props Control (all states controllable via props)
-- Closure Variable Dependencies (extract to pure functions)
-- Conditional Branch Extraction (JSX → components, useEffect → pure functions)
-
-### useEffect Guidelines & Dependencies
-
-**When**: Deciding whether to use useEffect, managing dependencies, or avoiding unnecessary re-renders
-**Read**: [useeffect-guidelines.md](useeffect-guidelines.md)
-
-Key topics:
-- When you DON'T need useEffect (data transformation, expensive calculations)
-- When you DO need useEffect (external system synchronization)
-- Event handlers vs Effects decision framework
-- Data fetching patterns and race conditions
-- Separating reactive and non-reactive logic
-- Managing dependencies (updater functions, useEffectEvent, avoiding objects/functions)
-- Reactive values and dependency array rules
-- Never suppress the exhaustive-deps linter
-
-### Architecture
-
-**When**: Creating files, functions, or organizing code structure
-**Read**: [architecture.md](architecture.md)
-
-Key topics:
-- Directory Structure (component collocation, naming)
-- Entity/Gateway Pattern (data types and fetching)
-- Function Extraction (action-based design)
-- Presenter Pattern (conditional text)
-
----
-
-## Core Principles
-
-1. **Server Component First**: Default to Server Components, use "use client" only when necessary
-2. **Props Control Everything**: All UI states must be controllable via props for testability
-3. **Pure Functions**: Extract all conditional logic from useEffect/handlers
-4. **No Closure Dependencies**: Pass all variables as function arguments
-5. **Entity/Gateway Pattern**: Separate data types (entity) from fetching logic (gateway)
-6. **Collocate Functions**: Place function files at same level as components, no utils/ directories
-
----
-
-## Quick Decision Tree
-
 ```
-Are you writing a component?
-├─ Does it need interactivity? (onClick, useState, useEffect)
-│  ├─ YES → "use client" required
-│  │  ├─ Using useEffect?
-│  │  │  └─ Read: useeffect-guidelines.md (Do you really need it? + Managing dependencies)
-│  │  └─ Read: testability.md
-│  └─ NO → Server Component (default)
-│     └─ Read: server-components.md
-│
-├─ Does it fetch data?
-│  └─ Read: server-components.md + architecture.md (Entity/Gateway)
-│
-└─ Are you organizing files/functions?
-   └─ Read: architecture.md (Directory Structure)
+Naming: snake_case (fn/var), CamelCase (type), SCREAMING_CASE (const)
+Format: rustfmt (just use it)
+Docs: /// for public items, //! for module docs
+Lint: #![warn(clippy::all)]
 ```
+
+Claude knows Rust conventions well. These are the non-obvious Rust-specific rules.

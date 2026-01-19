@@ -1,17 +1,10 @@
-<!-- AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY -->
-<!-- Source: bitsoex/ai-code-instructions → global/skills/coding-standards/SKILL.md -->
-<!-- To modify, edit the source file and run the distribution workflow -->
-
 ---
 name: coding-standards
-description: Enforces consistent coding standards across the codebase including naming conventions, code organization, and documentation requirements. Use when writing new code, reviewing pull requests, or refactoring existing code.
-
+description: Standards de Codage React Native - TypeScript. Use when reviewing code style or formatting.
 ---
 
-> See [.agent-skills/coding-standards/](.agent-skills/coding-standards/) for full skill content.
+# Standards de Codage React Native - TypeScript
 
-This is a placeholder that references the master skill location. The full skill includes:
-- **SKILL.md** - Complete instructions
-- **scripts/** - Executable automation scripts  
-- **references/** - Detailed documentation
-- **assets/** - Templates and resources
+This skill provides guidelines and best practices.
+
+See @REFERENCE.md for detailed documentation.

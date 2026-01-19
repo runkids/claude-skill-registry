@@ -1,104 +1,81 @@
 ---
 name: dev-server
-description: Manage development servers for vacay-photo-map. Use when starting, stopping, or checking status of postgres, frontend (Vite), or API (Bun) servers.
-allowed-tools: Bash
+description: Manage Next.js dev servers across worktrees. Start, stop, and read logs from dev servers. Agents can access logs from any running session, regardless of who started it.
 ---
 
-# Dev Server Manager
+# Dev Server Skill
 
-Manages the three dev services: PostgreSQL, Frontend (Vite), and API (Bun/Hono).
+Centralized management of Next.js dev servers across multiple git worktrees. The daemon handles port allocation, environment variable injection, and log aggregation so that any agent can access dev server logs regardless of who started the server.
 
-## Quick Commands
+## Quick Start
 
-### Check Status
 ```bash
-.claude/hooks/check-dev-status.sh
+# Check what's running
+node .claude/skills/dev-server/cli.mjs status
+
+# Start a dev server for current worktree
+node .claude/skills/dev-server/cli.mjs start
+
+# Start for a specific worktree
+node .claude/skills/dev-server/cli.mjs start /path/to/worktree
+
+# View logs
+node .claude/skills/dev-server/cli.mjs logs <session-id>
+
+# Stop a session
+node .claude/skills/dev-server/cli.mjs stop <session-id>
 ```
 
-### Start All Services
-```bash
-# Start postgres first (use the hook for proper wait)
-.claude/hooks/start-dev.sh
+**Checking if server is ready:** After starting, poll the session status to check `ready: true`. The daemon marks sessions ready either via configured health check endpoint or by detecting "Ready" patterns in logs.
 
-# Or manually:
-docker compose -p vacay-dev up -d postgres
-# Wait for ready: docker compose -p vacay-dev exec -T postgres pg_isready -U vacay
+## CLI Commands
 
-# Start frontend and API (run in background)
-pnpm dev &
-pnpm dev:api &
+| Command | Description |
+|---------|-------------|
+| `status` | Check daemon status and list all sessions |
+| `list` | List all dev sessions |
+| `start [worktree]` | Start dev server (default: current directory) |
+| `logs [session-id]` | Get logs for a session |
+| `tail [session-id]` | Tail logs continuously |
+| `stop <session-id>` | Stop a session |
+| `restart <session-id>` | Restart a session |
+| `shutdown` | Shutdown the daemon |
+
+## Session Object
+
+Each session includes:
+
+```json
+{
+  "id": "a1b2c3d4",
+  "worktree": "/path/to/worktree",
+  "branch": "feature/my-feature",
+  "port": 3000,
+  "status": "running",
+  "ready": true,
+  "readyAt": "2024-01-15T10:30:02.000Z",
+  "startedAt": "2024-01-15T10:30:00.000Z",
+  "url": "http://localhost:3000"
+}
 ```
 
-### Start Individual Services
-```bash
-# Postgres only
-docker compose -p vacay-dev up -d postgres
+Status values: `starting`, `running`, `stopped`, `crashed`, `error`
 
-# Frontend only (localhost:5173)
-pnpm dev
+## Log Entries
 
-# API only (localhost:4000)
-pnpm dev:api
+```json
+{
+  "index": 42,
+  "timestamp": "2024-01-15T10:30:05.123Z",
+  "level": "stdout",
+  "message": "Ready on http://localhost:3000"
+}
 ```
 
-### Stop All Services
-```bash
-.claude/hooks/cleanup-dev.sh
-```
+Log levels: `stdout`, `stderr`, `error`, `warn`, `info`
 
-### Stop Individual Services
-```bash
-# Stop frontend/API (matches the pnpm commands)
-pkill -f "pnpm dev"
-pkill -f "pnpm dev:api"
+## Notes
 
-# Stop postgres
-docker compose -p vacay-dev down
-```
-
-## Service Details
-
-| Service | Port | Command | Health Check |
-|---------|------|---------|--------------|
-| PostgreSQL | 5433 | `docker compose -p vacay-dev up -d postgres` | `docker compose -p vacay-dev ps` |
-| Frontend | 5173 | `pnpm dev` | `curl -s localhost:5173` |
-| API | 4000 | `pnpm dev:api` | `curl -s localhost:4000` |
-
-## Dev Tunnel Mode
-
-For mobile/WebAuthn testing via Cloudflare Tunnel:
-- Frontend: https://photos-dev.joeczar.com
-- API: https://photos-dev-api.joeczar.com
-
-Same commands - tunnel is configured on server side.
-
-## Troubleshooting
-
-### Port already in use
-```bash
-# Find what's using the port
-lsof -i :5173
-lsof -i :4000
-
-# Kill it
-kill -9 <PID>
-```
-
-### Orphaned processes
-```bash
-# Run cleanup script
-.claude/hooks/cleanup-dev.sh
-
-# Or manually
-pkill -f "pnpm dev"
-pkill -f "pnpm dev:api"
-```
-
-### Database connection issues
-```bash
-# Check postgres logs
-docker compose -p vacay-dev logs postgres
-
-# Restart postgres
-docker compose -p vacay-dev restart postgres
-```
+- The daemon starts automatically when you run CLI commands
+- Sessions persist until explicitly stopped or the daemon shuts down
+- Logs are kept in memory (up to 2000 lines per session)

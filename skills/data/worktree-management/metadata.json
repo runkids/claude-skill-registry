@@ -1,7 +1,7 @@
 {
   "name": "worktree-management",
-  "repo": "arlenagreer/claude_configuration_docs",
-  "path": "skills/worktree-management/SKILL.md",
-  "source": "github.com/arlenagreer/claude_configuration_docs",
-  "downloaded_at": "2026-01-17T03:56:23.253023Z"
+  "repo": "JacobPEvans/ai-assistant-instructions",
+  "path": "agentsmd/skills/worktree-management/SKILL.md",
+  "source": "github.com/JacobPEvans/ai-assistant-instructions",
+  "downloaded_at": "2026-01-19T03:15:33.541977Z"
 }

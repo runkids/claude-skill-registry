@@ -1,11 +1,7 @@
 {
   "name": "mkdocs",
-  "description": "Comprehensive guide for creating and managing MkDocs documentation projects with Material theme. Includes official CLI command reference with complete parameters and arguments, and mkdocs.yml configur",
-  "repo": "Jamie-BitFlight/claude_skills",
-  "category": "documents",
-  "tags": [
-    "mkdocs"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "vamseeachanta/workspace-hub",
+  "path": "skills/documentation/mkdocs/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-19T03:34:35.394007Z"
 }

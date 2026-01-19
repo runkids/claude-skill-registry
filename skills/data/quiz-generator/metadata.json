@@ -1,7 +1,7 @@
 {
   "name": "quiz-generator",
-  "repo": "mjunaidca/robolearn",
-  "path": ".claude/skills/quiz-generator/SKILL.md",
-  "source": "github.com/mjunaidca/robolearn",
-  "downloaded_at": "2026-01-17T03:42:01.493283Z"
+  "repo": "panaversity/agentfactory",
+  "path": "docs/_skills_archive/cold/quiz-generator/SKILL.md",
+  "source": "github.com/panaversity/agentfactory",
+  "downloaded_at": "2026-01-19T03:45:26.035233Z"
 }

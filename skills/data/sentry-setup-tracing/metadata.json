@@ -1,7 +1,7 @@
 {
   "name": "sentry-setup-tracing",
-  "repo": "troykelly/codex-skills",
+  "repo": "troykelly/claude-skills",
   "path": "external/skills/sentry-setup-tracing/SKILL.md",
-  "source": "github.com/troykelly/codex-skills",
-  "downloaded_at": "2026-01-17T03:02:14.222070Z"
+  "source": "github.com/troykelly/claude-skills",
+  "downloaded_at": "2026-01-19T04:19:51.991386Z"
 }

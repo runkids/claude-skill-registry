@@ -1,73 +1,66 @@
 ---
 name: browser
-description: This skill should be used for browser automation tasks using Chrome DevTools Protocol (CDP). Triggers when users need to launch Chrome with remote debugging, navigate pages, execute JavaScript in browser context, capture screenshots, or interactively select DOM elements. No MCP server required.
+description: Minimal Chrome DevTools Protocol tools for browser automation and scraping. Use when you need to start Chrome, navigate pages, execute JavaScript, take screenshots, or interactively pick DOM elements.
 ---
 
-# Browser Automation
+# Browser Tools
 
-Minimal Chrome DevTools Protocol (CDP) helpers for browser automation without MCP server setup.
+Minimal CDP tools for collaborative site exploration and scraping.
 
-## Setup
+**IMPORTANT**: All scripts are located in `~/.factory/skills/browser/` and must be called with full paths.
 
-Install dependencies before first use:
-
-```bash
-npm install --prefix ~/.claude/skills/browser/browser ws
-```
-
-## Scripts
-
-All scripts connect to Chrome on `localhost:9222`.
-
-### start.js - Launch Chrome
+## Start Chrome
 
 ```bash
-scripts/start.js              # Fresh profile
-scripts/start.js --profile    # Use persistent profile (keeps cookies/auth)
+~/.factory/skills/browser/start.js              # Fresh profile
+~/.factory/skills/browser/start.js --profile    # Copy your profile (cookies, logins)
 ```
 
-### nav.js - Navigate
+Start Chrome on `:9222` with remote debugging.
+
+## Navigate
 
 ```bash
-scripts/nav.js https://example.com        # Navigate current tab
-scripts/nav.js https://example.com --new  # Open in new tab
+~/.factory/skills/browser/nav.js https://example.com
+~/.factory/skills/browser/nav.js https://example.com --new
 ```
 
-### eval.js - Execute JavaScript
+Navigate current tab or open new tab.
+
+## Evaluate JavaScript
 
 ```bash
-scripts/eval.js 'document.title'
-scripts/eval.js '(() => { const x = 1; return x + 1; })()'
+~/.factory/skills/browser/eval.js 'document.title'
+~/.factory/skills/browser/eval.js 'document.querySelectorAll("a").length'
 ```
 
-Use single expressions or IIFE for multiple statements.
+Execute JavaScript in active tab (async context).
 
-### screenshot.js - Capture Screenshot
+**IMPORTANT**: The code must be a single expression or use IIFE for multiple statements:
+
+- Single expression: `'document.title'`
+- Multiple statements: `'(() => { const x = 1; return x + 1; })()'`
+- Avoid newlines in the code string - keep it on one line
+
+## Screenshot
 
 ```bash
-scripts/screenshot.js
+~/.factory/skills/browser/screenshot.js
 ```
 
-Returns `{ path, filename }` of saved PNG in temp directory.
+Screenshot current viewport, returns temp file path.
 
-### pick.js - Visual Element Picker
+## Pick Elements
 
 ```bash
-scripts/pick.js "Click the submit button"
+~/.factory/skills/browser/pick.js "Click the submit button"
 ```
 
-Returns element metadata: tag, id, classes, text, href, selector, rect.
+Interactive element picker. Click to select, Cmd/Ctrl+Click for multi-select, Enter to finish.
 
-## Workflow
+## Usage Notes
 
-1. Launch Chrome: `scripts/start.js --profile` for authenticated sessions
-2. Navigate: `scripts/nav.js <url>`
-3. Inspect: `scripts/eval.js 'document.querySelector(...)'`
-4. Capture: `scripts/screenshot.js` or `scripts/pick.js`
-5. Return gathered data
-
-## Key Points
-
-- All operations run locally - credentials never leave the machine
-- Use `--profile` flag to preserve cookies and auth tokens
-- Scripts return structured JSON for agent consumption
+- Start Chrome first before using other tools
+- The `--profile` flag syncs your actual Chrome profile so you're logged in everywhere
+- JavaScript evaluation runs in an async context in the page
+- Pick tool allows you to visually select DOM elements by clicking on them

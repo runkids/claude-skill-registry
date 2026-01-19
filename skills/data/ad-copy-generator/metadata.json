@@ -1,7 +1,7 @@
 {
   "name": "ad-copy-generator",
-  "repo": "nicepkg/ai-workflow",
-  "path": "marketing-pro-workflow/.claude/skills/ad-copy-generator/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-17T02:05:45.059300Z"
+  "repo": "WesleySmits/agent-skills",
+  "path": ".agent/skills/ad-copy-generator/SKILL.md",
+  "source": "github.com/WesleySmits/agent-skills",
+  "downloaded_at": "2026-01-19T04:12:36.467019Z"
 }

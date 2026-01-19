@@ -1,7 +1,7 @@
 {
   "name": "refactoring-code",
-  "repo": "alexei-led/claude-code-config",
-  "path": "skills/refactoring-code/SKILL.md",
-  "source": "github.com/alexei-led/claude-code-config",
-  "downloaded_at": "2026-01-17T03:17:56.950936Z"
+  "repo": "dralgorhythm/claude-agentic-framework",
+  "path": ".claude/skills/core-engineering/refactoring-code/SKILL.md",
+  "source": "github.com/dralgorhythm/claude-agentic-framework",
+  "downloaded_at": "2026-01-19T03:25:56.254917Z"
 }

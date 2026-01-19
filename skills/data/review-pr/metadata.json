@@ -1,7 +1,7 @@
 {
   "name": "review-pr",
-  "repo": "mhalder/dotfiles",
-  "path": "claude/.claude/skills/review-pr/SKILL.md",
-  "source": "github.com/mhalder/dotfiles",
-  "downloaded_at": "2026-01-17T02:24:00.760370Z"
+  "repo": "sasamuku/dotfiles",
+  "path": ".claude/skills/review-pr/SKILL.md",
+  "source": "github.com/sasamuku/dotfiles",
+  "downloaded_at": "2026-01-19T01:05:24.225517Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "reverse-engineer",
-  "description": "Deep codebase analysis to generate 9 comprehensive documentation files. Adapts based on path choice - Greenfield extracts business logic only (tech-agnostic), Brownfield extracts business logic + tech",
-  "repo": "jschulte/stackshift",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "rmyndharis/antigravity-skills",
+  "path": "skills/reverse-engineer/SKILL.md",
+  "source": "github.com/rmyndharis/antigravity-skills",
+  "downloaded_at": "2026-01-19T01:53:49.481102Z"
 }

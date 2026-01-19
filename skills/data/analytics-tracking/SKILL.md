@@ -1,464 +1,283 @@
 ---
-name: Analytics Tracking
-slug: analytics-tracking
-description: Expert guide for tracking user analytics, events, conversions, A/B testing, and data-driven insights. Use when implementing analytics, tracking user behavior, or optimizing conversions.
-category: observability
-complexity: moderate
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "add analytics"
-  - "track events"
-  - "implement tracking"
-  - "conversion tracking"
-  - "A/B testing"
-  - "user behavior"
-  - "analytics setup"
-  - "page views"
-  - "funnel analysis"
-tags:
-  - analytics
-  - tracking
-  - events
-  - conversions
-  - A/B testing
-  - metrics
-  - user-behavior
-  - posthog
-  - google-analytics
+name: analytics-tracking
+description: Event tracking with GA4 + PostHog, adding new events, and updating GTM. Use when implementing tracking, adding analytics events, or configuring GTM/PostHog. Keywords: analytics, tracking, GA4, PostHog, GTM, dataLayer, event, conversion, metrics.
+compatibility: Antigravity, Claude Code, Cursor
+metadata:
+  version: "1.1"
+  project: "stepleague"
+  last_updated: "2026-01-17"
 ---
 
-# Analytics & Tracking Skill
+# Analytics Tracking Skill
 
-Comprehensive analytics and event tracking implementation for Next.js applications. From basic page views to complex conversion funnels, this skill covers everything needed for data-driven decisions including provider integration, custom event systems, A/B testing, and privacy compliance.
+## Overview
 
-Track user interactions, measure conversion funnels, run experiments, and gain actionable insights into user behavior. Integrate with popular analytics platforms like Vercel Analytics, PostHog, Mixpanel, and Google Analytics while maintaining privacy compliance.
+StepLeague uses a **dual-tracking architecture**:
+- **GA4 (via GTM)**: Google Analytics for standard web analytics
+- **PostHog SDK**: Session replay, feature flags, funnels, and product analytics
 
-## Core Workflows
+All events are pushed to both systems from a single `trackEvent()` call.
 
-### Workflow 1: Google Analytics 4 (GA4) Setup
-**Purpose:** Implement Google Analytics for comprehensive web analytics
+## Architecture
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                       analytics.ts                               │
+│                                                                  │
+│  trackEvent('event_name', { properties })                        │
+│       │                                                          │
+│       ├──────────────────▶ window.dataLayer.push() ──▶ GTM ──▶ GA4
+│       │                                                          │
+│       └──────────────────▶ posthog.capture() ──────────▶ PostHog │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `src/lib/analytics.ts` | Main tracking library with all event methods |
+| `src/components/analytics/PostHogProvider.tsx` | PostHog SDK initialization, consent-aware |
+| `src/components/analytics/GoogleTagManager.tsx` | GTM loading with consent gates |
+| `src/lib/consent/cookieConsent.ts` | Cookie consent helpers |
+| `src/lib/__tests__/analytics.test.ts` | Test suite for analytics events |
+
+## Critical Rules
+
+> [!WARNING]
+> **Always follow these rules when adding analytics tracking:**
+
+### 1. Event Naming
+- Use `snake_case` for event names: `league_created`, NOT `leagueCreated`
+- Use past tense verbs: `submitted`, `created`, `clicked`
+- Max 40 characters
+- **Never use reserved prefixes**: `ga_`, `firebase_`, `google_`
+
+### 2. Dual-Push Architecture
+- **Never call PostHog or GTM directly** - always use `trackEvent()` from `analytics.ts`
+- This ensures events go to both GA4 and PostHog automatically
+- The `analytics` object exports all event methods
+
+### 3. User Identification
+- `identifyUser()` is called after login (handled in AuthProvider)
+- `clearUser()` is called on logout (handled in `analytics.logout()`)
+- **Never track PII** (emails, names) in event properties
+
+### 4. Consent Compliance
+- Analytics only fire after user grants consent via cookie banner
+- Never bypass the consent check in PostHogProvider
+- Consent state is managed by `vanilla-cookieconsent`
+
+### 5. Testing New Events
+- Add tests to `src/lib/__tests__/analytics.test.ts`
+- Test both dataLayer push and PostHog capture calls
+- See existing tests for `proxyClaimed` and `highFiveSent` as examples
+
+## Recently Added Events (Jan 2026)
+
+| Event | Purpose | Parameters |
+|-------|---------|------------|
+| `proxy_claimed` | Tracks when a proxy user claims their profile | `proxy_id`, `submission_count`, `league_count` |
+| `high_five_sent` | Tracks high-five engagement interactions | `recipient_id`, `action` (send/remove) |
+
+## Adding a New Tracking Event
+
+### Step 1: Add event to `analytics.ts`
+
+```typescript
+// In src/lib/analytics.ts, add to the `analytics` object:
+
+export const analytics = {
+    // ... existing events ...
+
+    // Add your new event:
+    myNewEvent: (someParam: string, anotherParam: number) => {
+        trackEvent('my_new_event', {
+            some_param: someParam,
+            another_param: anotherParam,
+            category: 'engagement',  // or 'conversion', 'navigation', etc.
+            action: 'click',
+        });
+    },
+};
+```
+
+### Step 2: Use it in your component
+
+```typescript
+import { analytics } from '@/lib/analytics';
+
+function MyComponent() {
+    const handleClick = () => {
+        analytics.myNewEvent('value', 123);
+    };
+    return <button onClick={handleClick}>Do Thing</button>;
+}
+```
+
+### Step 3: Done! (Usually)
+
+The event now flows to **both GA4 and PostHog automatically**. No GTM changes needed!
+
+## When GTM Updates ARE Required
+
+You only need to update GTM if you want to:
+
+1. **Create a GA4 "Key Event"** - Mark the event as a conversion in GA4
+2. **Add custom dimensions** - Register new parameters in GA4
+3. **Create GTM triggers** - Fire other tags based on this event
+
+### GTM Manual Steps (if needed)
+
+1. Log into [Google Tag Manager](https://tagmanager.google.com/)
+2. Create a **Custom Event Trigger** with Event Name = `my_new_event`
+3. Create a **GA4 Event Tag** that fires on this trigger
+4. Add the event to GA4 as a "Key Event" if it's a conversion
+
+> **Tell the user**: "To complete the tracking setup, you'll need to add a Custom Event trigger in GTM for `my_new_event` and optionally mark it as a Key Event in GA4."
+
+## Event Naming Conventions
+
+- Use **snake_case**: `league_created`, `steps_submitted`
+- Use **past tense verbs**: `submitted`, `created`, `clicked`
+- Max 40 characters
+- No special prefixes: avoid `ga_`, `firebase_`, `google_`
+
+## Parameter Naming
+
+- Use **snake_case**: `league_id`, `step_count`
+- Reuse existing parameters when possible
+- Standard parameters: `user_id`, `league_id`, `method`, `category`, `action`, `component`
+
+## User Identification
+
+Handled automatically by `AuthProvider`:
+
+```typescript
+// In AuthProvider after login:
+identifyUser(user.id, { display_name: user.display_name });
+
+// On logout:
+clearUser();
+```
+
+## Consent Requirements
+
+Both GTM and PostHog respect the cookie consent banner. Analytics only load after `analytics` category consent is granted.
+
+## PostHog Features Available
+
+- **Session Replay**: Automatically recorded for all consented users
+- **Feature Flags**: Use `posthogFeatureFlag('flag-name')` to check flags
+- **Funnels**: Configure in PostHog dashboard based on events
+- **A/B Testing**: Create experiments in PostHog, check variants with feature flags
+
+## Removing GTM PostHog Tag
+
+After this SDK integration, the "PostHog Tracking" custom HTML tag in GTM should be removed to avoid duplicate tracking.
 
 **Steps:**
-1. Install @next/third-parties package
-2. Add GoogleAnalytics component to layout
-3. Implement custom event tracking
-4. Set up conversion goals
+1. Go to [GTM](https://tagmanager.google.com/) → Your Container
+2. Find "PostHog Tracking" tag (Custom HTML)
+3. Delete it
+4. Publish new container version
 
-**Implementation:**
-```typescript
-// Install
-// npm install @next/third-parties
+## Troubleshooting
 
-// app/layout.tsx
-import { GoogleAnalytics } from '@next/third-parties/google'
+### Events not showing in PostHog
+1. Check consent was granted
+2. Check `NEXT_PUBLIC_POSTHOG_KEY` is set
+3. Check browser console for `[PostHog]` logs in development
 
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <body>
-        {children}
-        <GoogleAnalytics gaId="G-XXXXXXXXXX" />
-      </body>
-    </html>
-  )
-}
+### Events not in GA4
+1. Check GTM Preview mode to see if events fire
+2. Verify GA4 DebugView shows the event
+3. Ensure GTM has a tag configured for this event
 
-// Track Events
-'use client'
+## Environment Variables
 
-export function TrackableButton() {
-  const handleClick = () => {
-    window.gtag('event', 'button_click', {
-      event_category: 'engagement',
-      event_label: 'cta_button',
-      value: 1
-    })
-  }
+```env
+# GA4 via GTM
+NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
 
-  return <button onClick={handleClick}>Click Me</button>
-}
+# PostHog SDK
+NEXT_PUBLIC_POSTHOG_KEY=phc_your_key_here
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
 ```
 
-### Workflow 2: Vercel Analytics Integration
-**Purpose:** Zero-config analytics for Vercel deployments
-
-**Steps:**
-1. Install @vercel/analytics
-2. Add Analytics component
-3. Track custom events
-
-**Implementation:**
-```typescript
-// npm install @vercel/analytics
-
-// app/layout.tsx
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
-
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <body>
-        {children}
-        <Analytics />
-        <SpeedInsights />
-      </body>
-    </html>
-  )
-}
-
-// Track Custom Events
-import { track } from '@vercel/analytics'
-
-track('Purchase', { amount: 99.99, currency: 'USD' })
-```
-
-### Workflow 3: PostHog (Open Source Analytics)
-**Purpose:** Full-featured product analytics with feature flags and session replay
-
-**Steps:**
-1. Install posthog-js
-2. Create PostHog provider
-3. Implement event tracking
-4. Set up feature flags
-
-**Implementation:**
-```typescript
-// lib/posthog.ts
-import posthog from 'posthog-js'
-
-export function initPostHog() {
-  if (typeof window !== 'undefined') {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
-      loaded: (posthog) => {
-        if (process.env.NODE_ENV === 'development') posthog.debug()
-      }
-    })
-  }
-}
-
-// app/providers.tsx
-'use client'
-import { useEffect } from 'react'
-import { initPostHog } from '@/lib/posthog'
-
-export function Providers({ children }) {
-  useEffect(() => {
-    initPostHog()
-  }, [])
-
-  return <>{children}</>
-}
-
-// Track Events
-import posthog from 'posthog-js'
-
-posthog.capture('user_signed_up', {
-  plan: 'pro',
-  source: 'landing_page'
-})
-```
-
-### Workflow 4: Custom Analytics System
-**Purpose:** Build a unified analytics abstraction layer
-
-**Implementation:**
-```typescript
-// hooks/use-analytics.ts
-'use client'
-import { useCallback } from 'react'
-
-type EventProperties = Record<string, any>
-
-export function useAnalytics() {
-  const track = useCallback((eventName: string, properties?: EventProperties) => {
-    if (typeof window !== 'undefined') {
-      // Google Analytics
-      window.gtag?.('event', eventName, properties)
-
-      // PostHog
-      window.posthog?.capture(eventName, properties)
-
-      // Custom backend
-      fetch('/api/analytics/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event: eventName,
-          properties,
-          timestamp: new Date().toISOString(),
-          url: window.location.href,
-          referrer: document.referrer,
-        })
-      }).catch(() => {})
-    }
-  }, [])
-
-  const identify = useCallback((userId: string, traits?: EventProperties) => {
-    if (typeof window !== 'undefined') {
-      window.gtag?.('config', 'GA_MEASUREMENT_ID', { user_id: userId })
-      window.posthog?.identify(userId, traits)
-    }
-  }, [])
-
-  const page = useCallback((pageName: string, properties?: EventProperties) => {
-    if (typeof window !== 'undefined') {
-      window.gtag?.('event', 'page_view', {
-        page_title: pageName,
-        ...properties
-      })
-      window.posthog?.capture('$pageview', properties)
-    }
-  }, [])
-
-  return { track, identify, page }
-}
-```
-
-### Workflow 5: Conversion Funnel Tracking
-**Purpose:** Track and analyze multi-step conversion funnels
-
-**Implementation:**
-```typescript
-// lib/funnel.ts
-type FunnelStep =
-  | 'landing'
-  | 'signup'
-  | 'onboarding'
-  | 'first_action'
-  | 'activation'
-
-export class FunnelTracker {
-  private steps: FunnelStep[] = []
-
-  trackStep(step: FunnelStep, properties?: Record<string, any>) {
-    this.steps.push(step)
-
-    track('Funnel Step Completed', {
-      step,
-      step_number: this.steps.length,
-      funnel_id: 'user_activation',
-      ...properties
-    })
-
-    // Track drop-off if user hasn't progressed
-    setTimeout(() => {
-      if (this.steps[this.steps.length - 1] === step) {
-        track('Funnel Drop Off', {
-          at_step: step,
-          steps_completed: this.steps.length
-        })
-      }
-    }, 60000)
-  }
-}
-
-// Usage
-const funnel = new FunnelTracker()
-funnel.trackStep('landing')
-funnel.trackStep('signup', { method: 'email' })
-funnel.trackStep('onboarding', { completed_steps: 3 })
-```
-
-### Workflow 6: A/B Testing Implementation
-**Purpose:** Run controlled experiments with statistical significance
-
-**Implementation:**
-```typescript
-// lib/ab-test.ts
-'use client'
-import { useState, useEffect } from 'react'
-
-type Variant = 'A' | 'B'
-
-export function useABTest(testName: string): Variant {
-  const [variant, setVariant] = useState<Variant>('A')
-
-  useEffect(() => {
-    const key = `ab_test_${testName}`
-    let userVariant = localStorage.getItem(key) as Variant
-
-    if (!userVariant) {
-      userVariant = Math.random() > 0.5 ? 'A' : 'B'
-      localStorage.setItem(key, userVariant)
-
-      track('AB Test Assigned', {
-        test_name: testName,
-        variant: userVariant
-      })
-    }
-
-    setVariant(userVariant)
-  }, [testName])
-
-  return variant
-}
-
-// Usage
-function PricingPage() {
-  const variant = useABTest('pricing_layout')
-
-  if (variant === 'A') {
-    return <PricingLayoutA />
-  }
-  return <PricingLayoutB />
-}
-
-// Advanced A/B Testing with PostHog
-import { useFeatureFlagEnabled } from 'posthog-js/react'
-
-export function PricingPage() {
-  const showNewPricing = useFeatureFlagEnabled('new-pricing-layout')
-
-  if (showNewPricing) {
-    return <NewPricingLayout />
-  }
-  return <OldPricingLayout />
-}
-```
-
-## Quick Reference
-
-| Action | Command/Trigger |
-|--------|-----------------|
-| Basic setup | "add analytics to my app" |
-| Track event | "track [event name]" |
-| Page views | "track page views" |
-| Conversions | "set up conversion tracking" |
-| A/B testing | "implement A/B test" |
-| Feature flags | "add feature flags" |
-| User identification | "identify users" |
-| Funnel analysis | "track conversion funnel" |
-
-## Common Events to Track
-
-**User Authentication:**
-```typescript
-track('User Signed Up', { method: 'email' })
-track('User Logged In', { method: 'google' })
-track('User Logged Out')
-```
-
-**Engagement:**
-```typescript
-track('Button Clicked', { button_id: 'cta', location: 'hero' })
-track('Link Clicked', { url: '/pricing', text: 'See Pricing' })
-track('Video Played', { video_id: 'intro', duration: 120 })
-track('Form Submitted', { form_id: 'contact', success: true })
-```
-
-**E-commerce:**
-```typescript
-track('Product Viewed', { product_id: '123', name: 'Pro Plan' })
-track('Product Added to Cart', { product_id: '123', quantity: 1 })
-track('Checkout Started', { cart_total: 99.99 })
-track('Order Completed', {
-  order_id: 'ORD-123',
-  total: 99.99,
-  items: 3
-})
-```
-
-## Privacy & Consent
-
-```typescript
-// components/cookie-consent.tsx
-'use client'
-import { useState, useEffect } from 'react'
-
-export function CookieConsent() {
-  const [showBanner, setShowBanner] = useState(false)
-
-  useEffect(() => {
-    const consent = localStorage.getItem('cookie_consent')
-    if (!consent) {
-      setShowBanner(true)
-    } else if (consent === 'accepted') {
-      initAnalytics()
-    }
-  }, [])
-
-  const accept = () => {
-    localStorage.setItem('cookie_consent', 'accepted')
-    setShowBanner(false)
-    initAnalytics()
-  }
-
-  const decline = () => {
-    localStorage.setItem('cookie_consent', 'declined')
-    setShowBanner(false)
-  }
-
-  if (!showBanner) return null
-
-  return (
-    <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4">
-      <p>We use cookies to improve your experience.</p>
-      <button onClick={accept}>Accept</button>
-      <button onClick={decline}>Decline</button>
-    </div>
-  )
-}
-```
-
-## Best Practices
-
-- **Privacy First:** Respect user consent and privacy regulations (GDPR, CCPA)
-- **Consistent Naming:** Use snake_case for event names
-- **Rich Context:** Include relevant properties with every event
-- **User Identification:** Link anonymous and authenticated sessions
-- **Event Taxonomy:** Document your event naming conventions
-- **Sampling:** Use sampling for high-volume events
-- **Testing:** Test tracking in development before production
-- **Data Quality:** Validate events before sending
-- **Performance:** Batch events and avoid blocking the main thread
-- **Documentation:** Maintain an event dictionary
-
-## Dependencies
-
-```bash
-# Vercel Analytics
-npm install @vercel/analytics @vercel/speed-insights
-
-# Google Analytics
-npm install @next/third-parties
-
-# PostHog
-npm install posthog-js
-
-# Mixpanel
-npm install mixpanel-browser
-```
-
-## Error Handling
-
-- **Network Failures:** Queue events locally and retry
-- **Blocked Trackers:** Gracefully degrade without breaking the app
-- **Invalid Events:** Validate event structure before sending
-- **Rate Limits:** Implement client-side rate limiting
-- **Missing User ID:** Use anonymous IDs until identification
-
-## Performance Tips
-
-- Use `requestIdleCallback` for non-critical tracking
-- Batch multiple events into single requests
-- Lazy load analytics scripts
-- Use beacon API for page unload events
-- Avoid tracking on every keystroke
-- Sample high-frequency events
-
-## When to Use This Skill
-
-Invoke this skill when:
-- Setting up analytics tracking
-- Implementing conversion tracking
-- Creating A/B tests
-- Tracking user behavior
-- Setting up funnels
-- Implementing GDPR compliance
-- Debugging analytics issues
-- Optimizing conversions
-- Creating analytics dashboards
-- Tracking custom events
+## MCP Servers for AI-Assisted Analytics Management
+
+> **For a full list of available MCP servers and project-wide configuration, see [AGENTS.md](../../../AGENTS.md).**
+
+Three MCP servers are configured for managing analytics via AI:
+
+### GTM MCP Server (Stape) ✅ Write Access
+
+**Purpose**: Create, modify, and delete GTM tags, triggers, variables, and containers.
+
+**StepLeague Account**: `6331302038` (StepLeague)
+
+**Capabilities**:
+- Create/update/delete tags, triggers, variables
+- Manage containers and workspaces
+- Audit GTM configuration
+- Set up GA4 event tags programmatically
+- Preview and publish container versions
+
+**Authentication**: OAuth-based (browser popup on first use)
+
+**Example usages**:
+- "List all GTM containers in my account"
+- "Create a new GA4 event tag for `league_created` with a custom event trigger"
+- "List all tags in the StepLeague container"
+- "Get the live version of the container"
+
+### GA4 MCP Server (Stape) 📊 Read-only
+
+**Purpose**: Query GA4 reports and property information.
+
+**StepLeague Property**: `517956149` (StepLeague WebApp, Account: `378957957`)
+
+**Capabilities**:
+- Run core reports (page views, sessions, conversions)
+- Run realtime reports
+- Get account summaries and property details
+- List Google Ads links
+- Get custom dimensions and metrics
+
+**Authentication**: OAuth-based (browser popup on first use, same as GTM)
+
+**Example usages**:
+- "Get my GA4 account summaries"
+- "What were my top 10 pages by sessions last week?"
+- "Show realtime active users on the site"
+- "Run a report of page views for the last 30 days"
+
+### PostHog MCP Server 📊 Full Access
+
+**Purpose**: Manage PostHog analytics, feature flags, experiments, and insights.
+
+**Capabilities**:
+- Create/update/query insights and dashboards
+- Manage feature flags (create, update, delete)
+- Create and monitor A/B test experiments
+- Query event data and user analytics
+- Manage surveys and actions
+- Search PostHog documentation
+
+**Authentication**: API key-based (configured in `.vscode/mcp.json`)
+
+**Example usages**:
+- "Get all feature flags in the project"
+- "Create a new A/B test for the signup flow"
+- "What are my top events in the last 7 days?"
+- "Create an insight showing daily active users"
+
+---
+
+## Related Skills
+
+- **`testing-patterns`** - Write tests for analytics events (see `analytics.test.ts` for examples)
+- **`auth-patterns`** - User identification flow integrates with analytics
+- **`project-updates`** - Document new events in AGENTS.md and CHANGELOG.md
+- **`error-handling`** - Track error events alongside regular analytics

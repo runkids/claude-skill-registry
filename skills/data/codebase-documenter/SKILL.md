@@ -1,159 +1,198 @@
 ---
 name: codebase-documenter
-description: Generates comprehensive documentation explaining how a codebase works, including architecture, key components, data flow, and development guidelines. Use when user wants to understand unfamiliar code, create onboarding docs, document architecture, or explain how the system works.
+description: This skill should be used when writing documentation for codebases, including README files, architecture documentation, code comments, and API documentation. Use this skill when users request help documenting their code, creating getting-started guides, explaining project structure, or making codebases more accessible to new developers. The skill provides templates, best practices, and structured approaches for creating clear, beginner-friendly documentation.
 ---
 
 # Codebase Documenter
 
-Generates comprehensive documentation for codebases - architecture, components, data flow, development guidelines.
+Create comprehensive, beginner-friendly documentation for any codebase.
 
 ## When to Use
 
-- "explain this codebase"
-- "document the architecture"
-- "how does this code work"
-- "create developer documentation"
-- "generate codebase overview"
-- "create onboarding docs"
+**Use for:**
 
-## What It Documents
+- Writing or updating README files
+- Creating architecture documentation
+- Adding meaningful code comments
+- Documenting APIs and endpoints
+- Creating getting-started guides
+- Explaining project structure
 
-### 1. Project Overview
-- Purpose & vision
-- Target users
-- Key features
-- Technology stack
-- Project status
+**Don't use when:**
 
-### 2. Architecture
-- High-level structure
-- Design patterns
-- Data flow
-- Control flow
-- Diagrams (Mermaid)
-- Architectural decisions
+- Code review → use `generic-code-reviewer`
+- UX design decisions → use `generic-ux-designer`
+- Adding code features → use `generic-feature-developer`
 
-### 3. Directory Structure
-- Organization purpose
-- Naming conventions
-- Entry points
-- Core modules
-- Configuration locations
+## Core Principles
 
-### 4. Key Components
-- Major modules
-- Classes & functions
-- Responsibilities
-- Interactions
-- Extension points
-- Code examples
+1. **Start with "Why"** - Explain purpose before implementation
+2. **Progressive Disclosure** - Simple to complex
+3. **Provide Context** - Why code exists, not just what it does
+4. **Include Examples** - Concrete usage for every concept
+5. **Assume No Prior Knowledge** - Define terms, avoid jargon
+6. **Visual Aids** - Diagrams, file trees, flowcharts
+7. **Quick Wins** - Get something running in 5 minutes
 
-### 5. External Integrations
-- APIs consumed
-- Databases & schemas
-- Authentication
-- Caching
-- Message queues
-- File storage
+## Documentation Workflow
 
-### 6. Data Models
-- Database schema
-- Data structures
-- Validation
-- Migrations
-- Data transformations
+1. **Analyze** - Entry points, dependencies, core concepts, configuration
+2. **Choose Type** - README → Architecture → API → Comments
+3. **Generate** - Use templates, customize for project
+4. **Verify** - Read as beginner, test examples
 
-### 7. Development Setup
-- Prerequisites
-- Installation steps
-- Configuration
-- Running the app
-- Testing
-- Debugging
-- Troubleshooting
+## Documentation Types
 
-### 8. Development Guidelines
-- Coding conventions
-- Testing approach
-- Error handling
-- Logging
-- Security practices
-- Performance patterns
+### README (Project Entry Point)
 
-### 9. Deployment
-- Build process
-- Deployment steps
-- Environments
-- Monitoring
-- Rollback procedures
+```markdown
+# Project Name
 
-### 10. Contributing
-- Development workflow
-- Code review guidelines
-- Testing requirements
-- Documentation updates
+## What This Does
 
-## Approach
+[1-2 sentence explanation]
 
-1. **Explore** using Explore agent (thorough)
-2. **Map structure** with Glob
-3. **Read critical files** (README, entry points, core modules)
-4. **Identify patterns** with Grep (imports, exports)
-5. **Trace execution** paths
-6. **Extract knowledge** from docs, comments, tests
-7. **Synthesize** into cohesive documentation
+## Quick Start
 
-## Output
+[< 5 minute setup]
 
-Creates markdown documentation:
-```
-docs/
-├── README.md              # Overview and quick start
-├── ARCHITECTURE.md        # System architecture
-├── DEVELOPMENT.md         # Development guide
-├── API.md                 # API documentation
-├── DEPLOYMENT.md          # Deployment guide
-└── CONTRIBUTING.md        # Contribution guidelines
+## Project Structure
+
+[Visual file tree]
+
+## Key Concepts
+
+[Core abstractions]
+
+## Common Tasks
+
+[Step-by-step guides]
 ```
 
-Or single comprehensive doc if preferred.
+### Architecture Documentation
 
-## Depth Levels
+```markdown
+# Architecture Overview
 
-- **Quick**: High-level overview (15-30 min)
-- **Standard**: Comprehensive coverage (30-60 min)
-- **Deep**: Exhaustive with examples (60+ min)
+## System Design
 
-## Visual Elements
+[High-level diagram]
 
-- Mermaid diagrams (architecture, flow charts, sequence)
-- Code examples from codebase
-- Specific file:line references
-- Tables for structured info
-- Lists for guidelines
+## Data Flow
 
-## Tools Used
+[How data moves through system]
 
-- **Task (Explore agent)**: Codebase exploration
-- **Glob**: Map directory structure
-- **Grep**: Find patterns, imports, exports
-- **Read**: Analyze key files
-- **Write**: Create documentation
-- **Bash**: Extract metadata (git log, versions)
+## Key Design Decisions
 
-## Success Criteria
+[Why certain choices were made]
 
-- Complete coverage of all areas
-- Clear explanations with examples
-- Visual diagrams for complex concepts
-- Specific file:line references
-- Actionable setup/development instructions
-- New developer can onboard using only docs
-- Organized, navigable structure
-- Accurate and current information
+## Extension Points
 
-## Integration
+[Where to add new features]
+```
 
-- **code-auditor**: Includes quality/security context
-- **project-bootstrapper**: Documents bootstrap decisions
-- **visual-html-creator**: Create visual diagrams
+### Code Comments
+
+```typescript
+// ✅ GOOD - Explains WHY and context
+// IndexedDB quota check: Prevents silent failures when storage is full.
+// Without this, writes fail with cryptic QuotaExceededError.
+if (quota.percentUsed > 80) showStorageWarning();
+
+// ❌ BAD - Just repeats what code does
+// Check if quota is over 80
+```
+
+### API Documentation
+
+```markdown
+## Endpoint: POST /api/resource
+
+### What It Does
+
+[Plain-English purpose]
+
+### Request/Response
+
+[JSON examples]
+
+### Common Errors
+
+[Error codes and meanings]
+```
+
+## Visual Patterns
+
+### File Tree
+
+```
+project/
+├── src/                    # Source code
+│   ├── components/        # Reusable UI
+│   ├── services/          # Business logic
+│   └── types/             # TypeScript types
+├── tests/                 # Test files
+└── package.json           # Dependencies
+```
+
+### Data Flow
+
+```
+User Request Flow:
+1. User submits → 2. Validation → 3. API → 4. Database → 5. Response
+
+[1] components/Form.tsx
+    ↓ validates
+[2] services/validation.ts
+    ↓ calls API
+[3] services/api.ts
+    ↓ queries
+[4] Database
+    ↓ returns
+[5] Form.tsx (updates UI)
+```
+
+### Design Decision (ADR)
+
+```markdown
+## Why We Use [Technology]
+
+**Decision:** [What we chose]
+**Context:** [Why we needed to choose]
+**Reasoning:** [Why this option]
+**Trade-offs:** [What we gave up]
+```
+
+## Documentation Quality Checklist
+
+### Before Publishing
+
+- [ ] Quick start works in < 5 minutes
+- [ ] Code examples are copy-pasteable
+- [ ] File paths are accurate
+- [ ] Links work
+- [ ] Jargon is defined
+- [ ] Diagrams are included for complex flows
+
+### Common Mistakes to Avoid
+
+- Assuming reader knows the codebase
+- Outdated code examples
+- Missing prerequisites
+- No visual aids for complex systems
+- Explaining "what" without "why"
+
+## Verification Workflow
+
+After writing documentation:
+
+1. **Fresh Eyes Test** - Read as if you've never seen the codebase
+2. **Run Examples** - Copy-paste and verify they work
+3. **Check Links** - All internal/external links resolve
+4. **Beginner Review** - Would a new developer understand?
+5. **Update Check** - Does it reflect current code?
+
+## See Also
+
+- [Code Review Standards](../_shared/CODE_REVIEW_STANDARDS.md) - Documentation quality
+- Project `CLAUDE.md` - Documentation rules

@@ -1,104 +1,34 @@
-/*============================================================================*/
-/* WHEN-CREATING-PRESENTATIONS-USE-PPTX-GENERATION SKILL :: VERILINGUA x VERIX EDITION                      */
-/*============================================================================*/
-
 ---
 name: when-creating-presentations-use-pptx-generation
 version: 1.0.0
-description: |
-  [assert|neutral] Enterprise-grade PowerPoint deck generation using evidence-based prompting, workflow enforcement, constraint-based design [ground:given] [conf:0.95] [state:confirmed]
+description: Enterprise-grade PowerPoint deck generation using evidence-based prompting, workflow enforcement, constraint-based design
 category: utilities
-tags:
-- presentation
-- pptx
-- slides
-- enterprise
-- documentation
-author: ruv
-cognitive_frame:
-  primary: aspectual
-  goal_analysis:
-    first_order: "Execute when-creating-presentations-use-pptx-generation workflow"
-    second_order: "Ensure quality and consistency"
-    third_order: "Enable systematic utilities processes"
+tags: [presentation, pptx, slides, enterprise, documentation]
+agents: [coder, researcher]
+difficulty: intermediate
+estimated_duration: 25-40min
+success_criteria:
+  - Presentation generated with proper structure
+  - All slides follow design constraints
+  - Accessibility standards met (WCAG 2.1 AA)
+  - Data visualization effective
+validation_method: accessibility_scan
+dependencies:
+  - claude-flow@alpha
+  - pptxgenjs
+  - html2pptx (optional)
+outputs:
+  - PowerPoint file (.pptx)
+  - Slide notes
+  - Accessibility report
+triggers:
+  - Need professional presentation
+  - Board deck required
+  - Report generation
+  - Data visualization needed
 ---
 
-/*----------------------------------------------------------------------------*/
-/* S0 META-IDENTITY                                                            */
-/*----------------------------------------------------------------------------*/
-
-[define|neutral] SKILL := {
-  name: "when-creating-presentations-use-pptx-generation",
-  category: "utilities",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
-
-/*----------------------------------------------------------------------------*/
-/* S1 COGNITIVE FRAME                                                          */
-/*----------------------------------------------------------------------------*/
-
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-/*----------------------------------------------------------------------------*/
-/* S2 TRIGGER CONDITIONS                                                       */
-/*----------------------------------------------------------------------------*/
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["when-creating-presentations-use-pptx-generation", "utilities", "workflow"],
-  context: "user needs when-creating-presentations-use-pptx-generation capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
-/*----------------------------------------------------------------------------*/
-/* S3 CORE CONTENT                                                             */
-/*----------------------------------------------------------------------------*/
-
-## When to Use This Skill
-
-- **Tool Usage**: When you need to execute specific tools, lookup reference materials, or run automation pipelines
-- **Reference Lookup**: When you need to access documented patterns, best practices, or technical specifications
-- **Automation Needs**: When you need to run standardized workflows or pipeline processes
-
-## When NOT to Use This Skill
-
-- **Manual Processes**: Avoid when manual intervention is more appropriate than automated tools
-- **Non-Standard Tools**: Do not use when tools are deprecated, unsupported, or outside standard toolkit
-
-## Success Criteria
-- [assert|neutral] *Tool Executed Correctly**: Verify tool runs without errors and produces expected output [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Reference Accurate**: Confirm reference material is current and applicable [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Pipeline Complete**: Ensure automation pipeline completes all stages successfully [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Edge Cases
-
-- **Tool Unavailable**: Handle scenarios where required tool is not installed or accessible
-- **Outdated References**: Detect when reference material is obsolete or superseded
-- **Pipeline Failures**: Recover gracefully from mid-pipeline failures with clear error messages
-
-## Guardrails
-- [assert|emphatic] NEVER: use deprecated tools**: Always verify tool versions and support status before execution [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: verify outputs**: Validate tool outputs match expected format and content [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: check health**: Run tool health checks before critical operations [ground:policy] [conf:0.98] [state:confirmed]
-
-## Evidence-Based Validation
-
-- **Tool Health Checks**: Execute diagnostic commands to verify tool functionality before use
-- **Output Validation**: Compare actual outputs against expected schemas or patterns
-- **Pipeline Monitoring**: Track pipeline execution metrics and success rates
-
 # PPTX Generation - Enterprise Presentation Creator
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
 
 ## Overview
 
@@ -168,67 +98,343 @@ async function analyzeData(data) {
 ### Validation Criteria
 - [ ] Content structure defined
 - [ ] Data points extracted
-- [ ] Visualization types
+- [ ] Visualization types identified
+- [ ] Outline complete
 
-/*----------------------------------------------------------------------------*/
-/* S4 SUCCESS CRITERIA                                                         */
-/*----------------------------------------------------------------------------*/
+## Phase 2: Design Layout (7 min)
 
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Objective
+Create presentation design following constraints
 
-/*----------------------------------------------------------------------------*/
-/* S5 MCP INTEGRATION                                                          */
-/*----------------------------------------------------------------------------*/
+### Agent: Coder
 
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+**Step 2.1: Define Design System**
+```javascript
+const designSystem = {
+  colors: {
+    primary: '#2C3E50',
+    secondary: '#3498DB',
+    accent: '#E74C3C',
+    text: '#2C3E50',
+    background: '#FFFFFF'
+  },
+  fonts: {
+    heading: { face: 'Calibri', size: 32, bold: true },
+    subheading: { face: 'Calibri', size: 24, bold: true },
+    body: { face: 'Calibri', size: 18 },
+    caption: { face: 'Calibri', size: 14, italic: true }
+  },
+  layout: {
+    marginX: 0.5,
+    marginY: 0.5,
+    titleY: 0.5,
+    contentY: 1.5,
+    spacing: 0.3
+  },
+  accessibility: {
+    contrastRatio: 4.5, // WCAG 2.1 AA
+    altText: true,
+    readingOrder: true
+  }
+};
 
-/*----------------------------------------------------------------------------*/
-/* S6 MEMORY NAMESPACE                                                         */
-/*----------------------------------------------------------------------------*/
+await memory.store('pptx/design-system', designSystem);
+```
 
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/utilities/when-creating-presentations-use-pptx-generation/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+**Step 2.2: Create Slide Layouts**
+```javascript
+const slideLayouts = {
+  title: {
+    type: 'title',
+    elements: [
+      { type: 'text', content: '{title}', style: 'heading', position: { x: 1, y: 2.5 } },
+      { type: 'text', content: '{subtitle}', style: 'subheading', position: { x: 1, y: 3.5 } }
+    ]
+  },
+  content: {
+    type: 'content',
+    elements: [
+      { type: 'text', content: '{title}', style: 'heading', position: { x: 0.5, y: 0.5 } },
+      { type: 'text', content: '{body}', style: 'body', position: { x: 0.5, y: 1.5 } }
+    ]
+  },
+  twoColumn: {
+    type: 'two-column',
+    elements: [
+      { type: 'text', content: '{left}', position: { x: 0.5, y: 1.5, w: 4.5 } },
+      { type: 'text', content: '{right}', position: { x: 5.5, y: 1.5, w: 4.5 } }
+    ]
+  },
+  dataVisualization: {
+    type: 'chart',
+    elements: [
+      { type: 'text', content: '{title}', style: 'heading', position: { x: 0.5, y: 0.5 } },
+      { type: 'chart', chartData: '{data}', position: { x: 1, y: 1.5, w: 8, h: 4 } }
+    ]
+  }
+};
 
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "when-creating-presentations-use-pptx-generation-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+await memory.store('pptx/layouts', slideLayouts);
+```
 
-/*----------------------------------------------------------------------------*/
-/* S7 SKILL COMPLETION VERIFICATION                                            */
-/*----------------------------------------------------------------------------*/
+### Validation Criteria
+- [ ] Design system defined
+- [ ] Color contrast meets WCAG 2.1 AA
+- [ ] Layouts created
+- [ ] Accessibility constraints applied
 
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+## Phase 3: Generate Slides (12 min)
 
-/*----------------------------------------------------------------------------*/
-/* S8 ABSOLUTE RULES                                                           */
-/*----------------------------------------------------------------------------*/
+### Objective
+Create PowerPoint file with all slides
 
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+### Agent: Coder
 
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+**Step 3.1: Initialize Presentation**
+```javascript
+const pptxgen = require('pptxgenjs');
+const pres = new pptxgen();
 
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+// Apply design system
+pres.layout = 'LAYOUT_WIDE';
+pres.author = contentStructure.metadata.author;
+pres.title = contentStructure.metadata.title;
+pres.subject = contentStructure.metadata.purpose;
+```
 
-/*----------------------------------------------------------------------------*/
-/* PROMISE                                                                     */
-/*----------------------------------------------------------------------------*/
+**Step 3.2: Generate Slides**
+```javascript
+async function generateSlides(outline, designSystem, layouts) {
+  for (const section of outline) {
+    for (const slideData of section.slides) {
+      const layout = selectLayout(slideData.type, layouts);
+      const slide = pres.addSlide();
 
-[commit|confident] <promise>WHEN_CREATING_PRESENTATIONS_USE_PPTX_GENERATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+      // Add title
+      slide.addText(slideData.title, {
+        x: layout.title.x,
+        y: layout.title.y,
+        w: layout.title.w || 9,
+        h: layout.title.h || 0.75,
+        fontSize: designSystem.fonts.heading.size,
+        bold: designSystem.fonts.heading.bold,
+        color: designSystem.colors.text
+      });
+
+      // Add content based on slide type
+      if (slideData.type === 'content') {
+        slide.addText(slideData.content, {
+          x: layout.content.x,
+          y: layout.content.y,
+          w: layout.content.w || 9,
+          h: layout.content.h || 4,
+          fontSize: designSystem.fonts.body.size,
+          color: designSystem.colors.text,
+          bullet: slideData.bullet || false
+        });
+      }
+
+      // Add visualizations
+      if (slideData.chart) {
+        slide.addChart(slideData.chart.type, slideData.chart.data, {
+          x: layout.chart.x,
+          y: layout.chart.y,
+          w: layout.chart.w,
+          h: layout.chart.h,
+          showTitle: true,
+          showLegend: true
+        });
+      }
+
+      // Add accessibility
+      if (slideData.altText) {
+        slide.addNotes(slideData.altText); // Alt text for screen readers
+      }
+    }
+  }
+
+  return pres;
+}
+```
+
+**Step 3.3: Add Data Visualizations**
+```javascript
+function addChart(slide, chartData, position, designSystem) {
+  const chartConfig = {
+    x: position.x,
+    y: position.y,
+    w: position.w,
+    h: position.h,
+    chartColors: [
+      designSystem.colors.primary,
+      designSystem.colors.secondary,
+      designSystem.colors.accent
+    ],
+    showLabel: true,
+    showValue: true,
+    showLegend: true,
+    legendPos: 'r',
+    valAxisMaxVal: Math.max(...chartData.values) * 1.2
+  };
+
+  slide.addChart(chartData.type, chartData.data, chartConfig);
+}
+```
+
+### Validation Criteria
+- [ ] All slides generated
+- [ ] Design system applied consistently
+- [ ] Charts and visuals rendered
+- [ ] Alt text added for accessibility
+
+## Phase 4: Validate Quality (8 min)
+
+### Objective
+Ensure accessibility and quality standards
+
+### Agent: Coder
+
+**Step 4.1: Accessibility Scan**
+```javascript
+async function scanAccessibility(pres) {
+  const issues = [];
+
+  for (const slide of pres.slides) {
+    // Check color contrast
+    for (const element of slide.elements) {
+      if (element.color && element.background) {
+        const contrast = calculateContrastRatio(element.color, element.background);
+        if (contrast < 4.5) {
+          issues.push({
+            slide: slide.index,
+            type: 'COLOR_CONTRAST',
+            severity: 'HIGH',
+            message: `Contrast ratio ${contrast} < 4.5 (WCAG 2.1 AA)`
+          });
+        }
+      }
+    }
+
+    // Check alt text
+    if (slide.hasImages() && !slide.hasAltText()) {
+      issues.push({
+        slide: slide.index,
+        type: 'MISSING_ALT_TEXT',
+        severity: 'HIGH',
+        message: 'Images missing alt text for screen readers'
+      });
+    }
+
+    // Check reading order
+    if (!slide.hasReadingOrder()) {
+      issues.push({
+        slide: slide.index,
+        type: 'READING_ORDER',
+        severity: 'MEDIUM',
+        message: 'Reading order not defined'
+      });
+    }
+  }
+
+  await memory.store('pptx/accessibility-issues', issues);
+  return issues;
+}
+```
+
+**Step 4.2: Quality Checks**
+```javascript
+const qualityChecks = {
+  consistency: checkDesignConsistency(pres),
+  readability: checkTextReadability(pres),
+  dataIntegrity: validateChartData(pres),
+  fileSize: checkFileSize(pres),
+  slideCount: pres.slides.length <= 40 // Optimal for attention
+};
+
+const passed = Object.values(qualityChecks).every(check => check.passed);
+```
+
+### Validation Criteria
+- [ ] WCAG 2.1 AA compliance
+- [ ] No critical accessibility issues
+- [ ] Quality checks passed
+- [ ] File size reasonable
+
+## Phase 5: Export Final (5 min)
+
+### Objective
+Generate final presentation file
+
+### Agent: Coder
+
+**Step 5.1: Generate PPTX File**
+```javascript
+async function exportPresentation(pres, filename) {
+  await pres.writeFile({ fileName: filename });
+  console.log(`✅ Presentation saved: ${filename}`);
+
+  // Generate accessibility report
+  const report = {
+    filename,
+    slides: pres.slides.length,
+    accessibilityIssues: await memory.retrieve('pptx/accessibility-issues'),
+    qualityScore: calculateQualityScore(pres),
+    wcagCompliance: 'AA',
+    generatedAt: new Date()
+  };
+
+  await fs.writeFile(
+    filename.replace('.pptx', '-accessibility-report.json'),
+    JSON.stringify(report, null, 2)
+  );
+}
+```
+
+**Step 5.2: Generate Documentation**
+```markdown
+# Presentation Documentation
+
+## Metadata
+- Title: ${metadata.title}
+- Slides: ${slideCount}
+- Generated: ${timestamp}
+
+## Design System
+- Colors: ${colors}
+- Fonts: ${fonts}
+- Accessibility: WCAG 2.1 AA
+
+## Slide Breakdown
+${outline.map(section => `
+### ${section.name}
+${section.slides.map(slide => `- ${slide.title}`).join('\n')}
+`).join('\n')}
+
+## Quality Metrics
+- Accessibility Score: ${accessibilityScore}/100
+- Readability Score: ${readabilityScore}/100
+- Design Consistency: ${consistencyScore}/100
+```
+
+### Validation Criteria
+- [ ] PPTX file generated
+- [ ] Accessibility report created
+- [ ] Documentation complete
+- [ ] Ready for distribution
+
+## Success Metrics
+
+- All slides generated successfully
+- WCAG 2.1 AA compliance achieved
+- Quality score > 85/100
+- File size < 50MB
+
+## Skill Completion
+
+Outputs:
+1. **presentation.pptx**: Final PowerPoint file
+2. **accessibility-report.json**: Compliance analysis
+3. **presentation-doc.md**: Generation documentation
+4. **slide-notes.txt**: Speaker notes
+
+Complete when PPTX generated with WCAG 2.1 AA compliance.

@@ -1,179 +1,256 @@
 ---
-name: dapr-observability-setup
-description: Configure OpenTelemetry tracing, metrics, and structured logging for DAPR applications. Integrates with Azure Monitor, Jaeger, Prometheus, and other observability backends.
+name: observability-setup
+description: Set up structured logging, metrics, and monitoring dashboards. Use when adding logging, setting up alerts, debugging production issues, or implementing analytics.
 ---
 
-# DAPR Observability Setup
+# Logging & Monitoring
 
-Configure comprehensive observability for DAPR microservices.
+## When to Use
 
-## When to Activate
+- Adding logging to new features
+- Debugging production issues
+- Setting up error tracking
+- Implementing analytics events
+- Creating monitoring dashboards
 
-This skill should be invoked when:
-- Setting up a new DAPR project
-- Adding monitoring/tracing to existing services
-- Configuring Azure Monitor or other backends
-- Debugging distributed system issues
+## Quick Reference
 
-## Observability Components
+### Structured Logging Pattern
 
-### 1. Distributed Tracing (OpenTelemetry)
+```typescript
+// lib/logger.ts
+type LogLevel = "debug" | "info" | "warn" | "error";
 
-Configure tracing in Python applications:
+interface LogContext {
+  userId?: string;
+  action?: string;
+  [key: string]: unknown;
+}
 
-```python
-from opentelemetry import trace
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
+function log(level: LogLevel, message: string, context?: LogContext) {
+  const entry = {
+    timestamp: new Date().toISOString(),
+    level,
+    message,
+    ...context,
+  };
 
-def configure_tracing(service_name: str):
-    provider = TracerProvider()
-    processor = BatchSpanProcessor(OTLPSpanExporter())
-    provider.add_span_processor(processor)
-    trace.set_tracer_provider(provider)
+  // Development: pretty print
+  if (process.env.NODE_ENV === "development") {
+    const color = { debug: "36", info: "32", warn: "33", error: "31" }[level];
+    console.log(
+      `\x1b[${color}m[${level.toUpperCase()}]\x1b[0m`,
+      message,
+      context || "",
+    );
+    return;
+  }
 
-    # Instrument FastAPI
-    FastAPIInstrumentor.instrument()
+  // Production: JSON for log aggregation
+  console[level](JSON.stringify(entry));
+}
 
-    # Instrument HTTP requests
-    RequestsInstrumentor().instrument()
+export const logger = {
+  debug: (msg: string, ctx?: LogContext) => log("debug", msg, ctx),
+  info: (msg: string, ctx?: LogContext) => log("info", msg, ctx),
+  warn: (msg: string, ctx?: LogContext) => log("warn", msg, ctx),
+  error: (msg: string, ctx?: LogContext) => log("error", msg, ctx),
+};
+
+// Usage
+logger.info("Entry created", { userId: user.uid, entryId: entry.id });
+logger.error("Failed to save", { error: err.message, stack: err.stack });
 ```
 
-### 2. Metrics (Prometheus)
+### Log Levels Guide
 
-Configure metrics collection:
+| Level   | When to Use                  | Example                                         |
+| ------- | ---------------------------- | ----------------------------------------------- |
+| `debug` | Development only, verbose    | `debug('Rendering component', { props })`       |
+| `info`  | Normal operations            | `info('User logged in', { userId })`            |
+| `warn`  | Potential issues             | `warn('Rate limit approaching', { remaining })` |
+| `error` | Failures that need attention | `error('Payment failed', { error })`            |
 
-```python
-from prometheus_client import Counter, Histogram, start_http_server
+### Firebase Analytics Events
 
-# Define metrics
-REQUEST_COUNT = Counter(
-    'dapr_requests_total',
-    'Total requests',
-    ['method', 'endpoint', 'status']
-)
+```typescript
+// lib/analytics.ts
+import { getAnalytics, logEvent } from "firebase/analytics";
 
-REQUEST_LATENCY = Histogram(
-    'dapr_request_duration_seconds',
-    'Request latency',
-    ['method', 'endpoint']
-)
+const analytics = typeof window !== "undefined" ? getAnalytics() : null;
 
-# Start metrics server
-start_http_server(9090)
+export function trackEvent(
+  name: string,
+  params?: Record<string, string | number | boolean>,
+) {
+  if (!analytics) return;
+
+  logEvent(analytics, name, params);
+
+  // Also log to console in dev
+  if (process.env.NODE_ENV === "development") {
+    console.log("[Analytics]", name, params);
+  }
+}
+
+// Standard events
+export const Events = {
+  // User actions
+  signUp: () => trackEvent("sign_up"),
+  login: () => trackEvent("login"),
+
+  // Feature usage
+  createEntry: (type: string) => trackEvent("create_entry", { type }),
+  useFilter: (filter: string) => trackEvent("use_filter", { filter }),
+
+  // Engagement
+  viewPage: (page: string) => trackEvent("page_view", { page }),
+  completeTutorial: () => trackEvent("tutorial_complete"),
+};
 ```
 
-### 3. Structured Logging
+### API Route Logging
 
-Configure JSON logging:
+```typescript
+// app/api/entries/route.ts
+import { logger } from "@/lib/logger";
 
-```python
-import logging
-import json
-from datetime import datetime
+export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+  const requestId = crypto.randomUUID();
 
-class JSONFormatter(logging.Formatter):
-    def format(self, record):
-        log_obj = {
-            "timestamp": datetime.utcnow().isoformat(),
-            "level": record.levelname,
-            "message": record.getMessage(),
-            "service": "my-service",
-            "trace_id": getattr(record, 'trace_id', None),
-            "span_id": getattr(record, 'span_id', None),
-        }
-        return json.dumps(log_obj)
+  try {
+    const userId = await getUserId(request);
+    logger.info("API request started", {
+      requestId,
+      method: "POST",
+      path: "/api/entries",
+      userId,
+    });
 
-def configure_logging():
-    handler = logging.StreamHandler()
-    handler.setFormatter(JSONFormatter())
-    logging.root.handlers = [handler]
-    logging.root.setLevel(logging.INFO)
+    const entry = await createEntry(userId, data);
+
+    logger.info("API request completed", {
+      requestId,
+      duration: Date.now() - startTime,
+      status: 201,
+    });
+
+    return NextResponse.json({ data: entry }, { status: 201 });
+  } catch (error) {
+    logger.error("API request failed", {
+      requestId,
+      duration: Date.now() - startTime,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+
+    return NextResponse.json(
+      { error: { code: "INTERNAL_ERROR", message: "Failed" } },
+      { status: 500 },
+    );
+  }
+}
 ```
 
-## DAPR Configuration
+### Performance Monitoring
 
-### Tracing Configuration
+```typescript
+// lib/performance.ts
+export function measureAsync<T>(
+  name: string,
+  fn: () => Promise<T>,
+): Promise<T> {
+  const start = performance.now();
 
-```yaml
-apiVersion: dapr.io/v1alpha1
-kind: Configuration
-metadata:
-  name: tracing-config
-spec:
-  tracing:
-    samplingRate: "1"  # 100% for dev, reduce for production
-    otel:
-      endpointAddress: "otel-collector:4317"
-      isSecure: false
-      protocol: grpc
+  return fn().finally(() => {
+    const duration = performance.now() - start;
+
+    if (duration > 1000) {
+      logger.warn(`Slow operation: ${name}`, {
+        duration: Math.round(duration),
+      });
+    } else if (process.env.NODE_ENV === "development") {
+      logger.debug(`${name} completed`, { duration: Math.round(duration) });
+    }
+  });
+}
+
+// Usage
+const entries = await measureAsync("fetchEntries", () =>
+  getEntriesForUser(userId),
+);
 ```
 
-### Azure Monitor Integration
+### Error Tracking Setup
 
-```yaml
-apiVersion: dapr.io/v1alpha1
-kind: Configuration
-metadata:
-  name: azure-monitor-config
-spec:
-  tracing:
-    samplingRate: "0.1"  # 10% sampling for production
-    otel:
-      endpointAddress: "https://dc.services.visualstudio.com/v2/track"
-      isSecure: true
-      protocol: http
+```typescript
+// lib/error-tracking.ts
+// For Sentry or similar service
+
+export function initErrorTracking() {
+  if (process.env.NODE_ENV !== "production") return;
+
+  // Sentry.init({
+  //   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  //   environment: process.env.NODE_ENV,
+  //   tracesSampleRate: 0.1,
+  // });
+}
+
+export function captureError(error: Error, context?: Record<string, unknown>) {
+  logger.error(error.message, {
+    stack: error.stack,
+    ...context,
+  });
+
+  // Sentry.captureException(error, { extra: context });
+}
+
+export function setUser(userId: string) {
+  // Sentry.setUser({ id: userId });
+}
 ```
 
-## Observability Stack
+## Monitoring Checklist
 
-### OpenTelemetry Collector Config
+### What to Log
 
-```yaml
-receivers:
-  otlp:
-    protocols:
-      grpc:
-        endpoint: 0.0.0.0:4317
-      http:
-        endpoint: 0.0.0.0:4318
+- [ ] User authentication events
+- [ ] CRUD operations on important data
+- [ ] API request/response times
+- [ ] Errors with stack traces
+- [ ] Feature usage for analytics
 
-processors:
-  batch:
-    timeout: 1s
-    send_batch_size: 1024
+### What NOT to Log
 
-exporters:
-  jaeger:
-    endpoint: jaeger:14250
-    tls:
-      insecure: true
+- [ ] Passwords or tokens
+- [ ] Full credit card numbers
+- [ ] Personal health information
+- [ ] Private message content
+- [ ] Session tokens
 
-  prometheus:
-    endpoint: 0.0.0.0:8889
+### Alerts to Set Up
 
-  azuremonitor:
-    connection_string: ${APPLICATIONINSIGHTS_CONNECTION_STRING}
+- [ ] Error rate > 1% of requests
+- [ ] Response time > 2 seconds
+- [ ] Failed login attempts > 5/minute
+- [ ] Database query time > 500ms
+- [ ] Memory usage > 80%
 
-service:
-  pipelines:
-    traces:
-      receivers: [otlp]
-      processors: [batch]
-      exporters: [jaeger, azuremonitor]
-    metrics:
-      receivers: [otlp]
-      processors: [batch]
-      exporters: [prometheus]
+## Quick Debug Commands
+
+```bash
+# View Vercel logs
+vercel logs --follow
+
+# View Firebase function logs
+firebase functions:log --only functionName
+
+# Search logs for errors
+vercel logs | grep -i error
 ```
 
-## Best Practices
+## See Also
 
-1. **Correlation IDs**: Always propagate trace context
-2. **Sampling**: Use 10-20% sampling in production
-3. **Log Levels**: Use INFO for normal, DEBUG for troubleshooting
-4. **Metrics Cardinality**: Limit label values to prevent explosion
-5. **Retention**: Set appropriate retention for traces (7-30 days)
+- [patterns.md](patterns.md) - Advanced logging patterns
+- [dashboards.md](dashboards.md) - Monitoring dashboard setup

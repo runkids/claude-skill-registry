@@ -1,13 +1,7 @@
 {
   "name": "api-response-optimization",
-  "description": "Optimize API response times through caching, compression, and efficient payloads. Improve backend performance and reduce network traffic.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "api",
-    "response",
-    "optimization"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/api-response-optimization/skills/api-response-optimization/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-19T03:48:00.187487Z"
 }

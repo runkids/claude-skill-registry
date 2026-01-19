@@ -1,7 +1,7 @@
 {
   "name": "issue-creator",
-  "repo": "shiiman/claude-code-plugins",
-  "path": ".claude/skills/issue-creator/SKILL.md",
-  "source": "github.com/shiiman/claude-code-plugins",
-  "downloaded_at": "2026-01-17T03:40:15.904724Z"
+  "repo": "pcortes/swarm-attack",
+  "path": "swarm_attack/default_skills/issue-creator/SKILL.md",
+  "source": "github.com/pcortes/swarm-attack",
+  "downloaded_at": "2026-01-19T04:07:37.571969Z"
 }

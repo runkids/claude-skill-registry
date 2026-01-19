@@ -1,9 +1,7 @@
 {
   "name": "godot-coding-standards",
-  "description": "Godot 4.x GDScript 编码规范。当编写、审查、修改 Godot 代码时使用。适用于：GDScript 脚本、场景创建、组件设计、Resource 类、信号连接、节点组织、类型注解、命名规范、性能优化。触发词：godot, gdscript, 组件, 信号, export, 场景。",
   "repo": "hongliangc/combo_demon",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/godot-coding-standards/SKILL.md",
+  "source": "github.com/hongliangc/combo_demon",
+  "downloaded_at": "2026-01-19T03:22:20.496844Z"
 }

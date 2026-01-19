@@ -1,7 +1,7 @@
 {
   "name": "branch-discipline",
-  "repo": "liauw-media/household-expense-tracker",
-  "path": ".claude/skills/workflow/branch-discipline/SKILL.md",
-  "source": "github.com/liauw-media/household-expense-tracker",
-  "downloaded_at": "2026-01-17T03:57:20.829693Z"
+  "repo": "troykelly/claude-skills",
+  "path": "skills/branch-discipline/SKILL.md",
+  "source": "github.com/troykelly/claude-skills",
+  "downloaded_at": "2026-01-19T04:19:53.333887Z"
 }

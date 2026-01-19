@@ -1,696 +1,134 @@
 ---
 name: plugin-architecture
-description: Architecture principles, skill patterns, and design guidance for building goal-based Claude Code marketplace components
+description: |
+  プラグインアーキテクチャの専門スキル。レジストリパターン、動的ロード、依存性注入を活用し、拡張可能なシステム設計を提供する。
+
+  Anchors:
+  • Clean Architecture (Robert C. Martin) / 適用: 拡張性設計 / 目的: 柔軟性確保
+  • Dependency Injection Principles and Practices (Mark Seemann) / 適用: DI設計 / 目的: 疎結合実現
+  • Design Patterns: Elements of Reusable Object-Oriented Software (Gang of Four) / 適用: レジストリパターン / 目的: 型安全な登録管理
+
+  Trigger:
+  Use when designing plugin systems, implementing extension points, managing dynamic module loading, creating registry patterns, or building workflow engines with pluggable executors.
+  plugin architecture, registry pattern, dependency injection, dynamic loading, extension points, workflow executor
 allowed-tools:
   - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
-# Plugin Architecture Skill
+# プラグインアーキテクチャ
 
-**REFERENCE MODE**: This skill provides reference material. Load specific references on-demand based on current task. Do not load all references at once.
+## 概要
 
-Pure reference skill providing architecture principles, skill patterns, and design guidance for building goal-based Claude Code marketplace components.
+動的な機能拡張を可能にするプラグインアーキテクチャの設計を専門とするスキル。レジストリパターン、動的ロード、依存性注入を活用し、機能追加時の既存コード修正を不要にする拡張性の高いシステム設計を提供します。
 
-## What This Skill Provides
+## ワークフロー
 
-**Architecture Foundation**: Core principles for building marketplace components that follow Claude Skills best practices and goal-based organization.
+### Phase 1: 要件分析
 
-**Skill Patterns**: 10 implementation patterns for building different types of skills (automation, analysis, validation, etc.).
+**目的**: プラグインシステムの拡張要件を分析
 
-**Design Guidance**: Workflow-focused skill design, thin orchestrator commands, and proper resource organization.
+**アクション**:
 
-## Pattern Type
+1. 拡張ポイントの特定（どこを拡張可能にするか）
+2. プラグインインターフェースの設計要件の整理
+3. ライフサイクル管理の必要性を評価
 
-**Pattern 10: Reference Library** - Pure reference skill with no execution logic. Load references on-demand based on current task.
+**Task**: `agents/analyze-requirements.md` を参照
 
-## When to Use This Skill
+### Phase 2: システム設計
 
-Activate when:
-- **Creating new marketplace components** - Agents, commands, skills, or bundles
-- **Refactoring existing components** - Migrating to goal-based architecture
-- **Reviewing component design** - Ensuring architecture compliance
-- **Learning marketplace architecture** - Understanding principles and patterns
+**目的**: プラグインシステムの全体設計を確定
 
-## Core Concepts
+**アクション**:
 
-### Goal-Based Organization
+1. レジストリパターンの選択（Map-based, Service Locator等）
+2. ロード戦略の決定（Eager, Lazy, On-Demand）
+3. 依存性注入方式の設計
+4. プラグインライフサイクルフックの定義
 
-**Principle**: Organize by WHAT users want to accomplish (goals), not by WHAT component operates on (types).
+**Task**: `agents/design-plugin-system.md` を参照
 
-**User Goals**:
-- **CREATE** - Create new marketplace components
-- **DIAGNOSE** - Find and understand issues
-- **FIX** - Fix identified issues
-- **MAINTAIN** - Keep marketplace healthy
-- **LEARN** - Understand architecture and patterns
+### Phase 3: レジストリ実装
 
-### Progressive Disclosure
+**目的**: 型安全なレジストリを実装
 
-**Principle**: Minimize initial context load, load details on-demand.
+**アクション**:
 
-**Levels**:
-1. **Frontmatter** - Minimal metadata (~3 lines)
-2. **SKILL.md** - Full instructions (~400-800 lines)
-3. **References** - Detailed content (thousands of lines, loaded when needed)
+1. `assets/registry-implementation.md` を基にレジストリクラスを作成
+2. CRUD操作（register, get, list, unregister）を実装
+3. エラーハンドリング（重複登録、未登録キーアクセス）を追加
+4. `scripts/validate-plugin-structure.mjs` で検証
 
-### Relative Path Pattern
+**Task**: `agents/implement-registry.md` を参照
 
-**Principle**: All resource paths use relative paths from the skill directory for portability across installations.
+## Task仕様ナビ
 
-**Examples**:
-```
-Read references/core-principles.md
-bash scripts/analyzer.py
-Load template: assets/template.html
-```
-
-When a skill is loaded, Claude knows its installation directory and resolves relative paths from there.
-
-## Available References
-
-Load references progressively based on current task. **Never load all references at once.**
-
-### 1. Core Principles (NEW - Essential Foundation)
-**File**: `references/core-principles.md`
-
-**Load When**:
-- Starting any marketplace component development
-- Learning Claude Skills fundamentals
-- Understanding relative path pattern
-- Reviewing progressive disclosure strategy
-
-**Contents**:
-- Skills as prompt modifiers
-- Relative path pattern for portability
-- Progressive disclosure strategy
-- Resource organization (scripts/, references/, assets/)
-- Tool permissions scoping
-- Imperative language guidelines
-- Scripts for deterministic logic
-- Anti-patterns to avoid
-
-**Load Command**:
-```
-Read references/core-principles.md
-```
-
-### 2. Skill Patterns (NEW - Implementation Patterns)
-**File**: `references/skill-patterns.md`
-
-**Load When**:
-- Designing a new skill
-- Choosing implementation pattern
-- Understanding skill composition
-- Learning pattern combinations
-
-**Contents**:
-- Pattern 1: Script Automation
-- Pattern 2: Read-Process-Write
-- Pattern 3: Search-Analyze-Report
-- Pattern 4: Command Chain Execution
-- Pattern 5: Wizard-Style Workflow
-- Pattern 6: Template-Based Generation
-- Pattern 7: Iterative Refinement
-- Pattern 8: Context Aggregation
-- Pattern 9: Validation Pipeline
-- Pattern 10: Reference Library
-- Decision guide for choosing patterns
-- Pattern combination strategies
-
-**Load Command**:
-```
-Read references/skill-patterns.md
-```
-
-### 3. Goal-Based Organization (NEW - Architecture Paradigm)
-**File**: `references/goal-based-organization.md`
-
-**Load When**:
-- Understanding goal-based vs component-centric
-- Migrating from component-centric architecture
-- Designing goal-based commands
-- Learning context optimization strategies
-
-**Contents**:
-- Goal-centric vs component-centric comparison
-- User goals: CREATE, DIAGNOSE, FIX, MAINTAIN, LEARN
-- Benefits of goal-based structure
-- Migration from component-centric
-- Progressive disclosure in action
-- Context reduction strategies
-
-**Load Command**:
-```
-Read references/goal-based-organization.md
-```
-
-### 4. Architecture Rules (Core Requirements)
-**File**: `references/architecture-rules.md`
-
-**Load When**:
-- Validating component compliance
-- Understanding self-containment requirements
-- Learning reference pattern rules
-- Implementing progressive disclosure
-
-**Contents**:
-- Rule 1: Skills must be self-contained
-- Rule 2: Components must use skills (not direct file access)
-- Rule 3: Reference categorization (internal, external, skill)
-- Rule 4: Progressive disclosure requirement
-- Rule 5: Goal-based organization requirement
-- relative path pattern requirements
-- Validation criteria
-
-**Load Command**:
-```
-Read references/architecture-rules.md
-```
-
-### 5. Skill Design (Workflow-Focused)
-**File**: `references/skill-design.md`
-
-**Load When**:
-- Designing skill workflows
-- Creating multi-workflow skills
-- Understanding workflow parameters
-- Learning skill composition patterns
-
-**Contents**:
-- Workflow-focused design principles
-- Multi-workflow vs single-workflow skills
-- Workflow parameter design
-- Conditional workflow selection
-- Workflow composition patterns
-- Quality standards for workflows
-
-**Load Command**:
-```
-Read references/skill-design.md
-```
-
-### 6. Command Design (Thin Orchestrators)
-**File**: `references/command-design.md`
-
-**Load When**:
-- Creating new commands
-- Designing parameter parsing
-- Routing to skill workflows
-- Learning user interaction patterns
-
-**Contents**:
-- Thin orchestrator pattern
-- Parameter parsing strategies
-- Routing to skill workflows
-- Goal-based command structure
-- User interaction patterns
-- Command quality standards
-
-**Load Command**:
-```
-Read references/command-design.md
-```
-
-### 7. Token Optimization (Context Management)
-**File**: `references/token-optimization.md`
-
-**Load When**:
-- Optimizing context usage
-- Designing batch processing
-- Implementing large-scale workflows
-- Reducing token consumption
-
-**Contents**:
-- Pre-loading shared content
-- Batched processing strategies
-- Streamlined output formats
-- Context budgeting
-- Progressive disclosure for token reduction
-- Pattern 7 (Iterative Refinement) for large codebases
-
-**Load Command**:
-```
-Read references/token-optimization.md
-```
-
-### 8. Reference Patterns (relative paths Usage)
-**File**: `references/reference-patterns.md`
-
-**Load When**:
-- Understanding allowed reference types
-- Implementing relative path pattern
-- Validating reference compliance
-- Testing portability
-
-**Contents**:
-- Pattern 1: relative paths/references/ for documentation
-- Pattern 2: relative paths/scripts/ for automation
-- Pattern 3: relative paths/assets/ for templates
-- Pattern 4: External URLs (allowed)
-- Pattern 5: Skill dependencies (Skill:)
-- Portability testing guidance
-- Prohibited patterns
-
-**Load Command**:
-```
-Read references/reference-patterns.md
-```
-
-### 9. Frontmatter Standards (Component Metadata)
-**File**: `references/frontmatter-standards.md`
-
-**Load When**:
-- Creating component YAML frontmatter
-- Validating frontmatter fields
-- Understanding required vs optional fields
-
-**Contents**:
-- Required frontmatter fields
-- Optional frontmatter fields
-- Field format specifications
-- Validation rules
-- Examples for agents, commands, skills
-
-**Load Command**:
-```
-Read references/frontmatter-standards.md
-```
-
-### 10. Script Standards (Executable Automation)
-**File**: `references/script-standards.md`
-
-**Load When**:
-- Documenting scripts in SKILL.md
-- Understanding script quality requirements
-- Common issues and fixes
-
-**Contents**:
-- Script location (`{skill-dir}/scripts/`)
-- Documentation requirements in SKILL.md
-- Script quality checklist
-- Common issues and fixes
-
-**Related Skill**:
-For Python implementation patterns, testing standards, and output contracts:
-```
-Skill: pm-plugin-development:plugin-script-architecture
-```
-
-**Load Command**:
-```
-Read references/script-standards.md
-```
-
-### 11. Execution Directive (Skill Execution Patterns)
-**File**: `references/execution-directive.md`
-
-**Load When**:
-- Creating execution skills (Pattern 1-9)
-- Ensuring Claude executes rather than explains
-- Adding MANDATORY/CRITICAL markers
-- Designing command handoff patterns
-- Distinguishing EXECUTE vs READ vs REFERENCE modes
-
-**Contents**:
-- Execution Mode directive standard
-- MANDATORY/CRITICAL marker usage
-- Execution vs Reference clarity patterns
-- Workflow decision tree patterns
-- Command handoff pattern
-- Imperative language guidelines
-- Code-first pattern
-- Validation checklist pattern
-- Anti-patterns to avoid
-
-**Load Command**:
-```
-Read references/execution-directive.md
-```
-
-### 12. Minimal Wrapper Pattern (Context Isolation Strategy)
-**File**: `references/minimal-wrapper-pattern.md`
-
-**Load When**:
-- Designing agents or commands as thin orchestrators
-- Solving context handling challenges
-- Understanding agent-to-skill delegation
-- Migrating from fat agents (> 150 lines)
-- Implementing context isolation strategy
-- Learning line budget guidelines for wrappers
-
-**Contents**:
-- Problem: Context pollution with pure skill-based architecture
-- Solution: Thin wrappers (< 150 lines) that delegate to skills
-- Why agent→skill works but agent→agent doesn't
-- Implementation patterns for commands and agents
-- Line budget guidelines (150 line maximum)
-- Skill invocation patterns (commands, agents, chained)
-- Anti-patterns (fat wrappers, duplicate logic, agent-to-agent)
-- Correct patterns (thin orchestration, single source of truth)
-- Integration with goal-based organization
-- Migration guide from fat agents to minimal wrappers
-- Quality checklist for wrapper compliance
-- Real-world before/after examples
-
-**Load Command**:
-```
-Read references/minimal-wrapper-pattern.md
-```
-
-### 13. User-Facing Output (Display Standards)
-**File**: `references/user-facing-output.md`
-
-**Load When**:
-- Designing skill/command output
-- Filtering internal operations from user display
-- Creating status messages and progress indicators
-- Implementing phase transitions
-- Reviewing output for anti-patterns
-
-**Contents**:
-- Core concept: Show status, not process
-- Structured status output pattern
-- Phase transition message format
-- Configuration display pattern
-- Progress tables pattern
-- Issue detection output pattern
-- Final metrics display pattern
-- Anti-patterns: What NOT to display (step numbers, skill loading, tool execution, diffs)
-- Output filtering rules (MUST/MUST NOT/MAY display)
-- Output by component type (commands, skills, agents)
-- Implementation checklist
-
-**Load Command**:
-```
-Read references/user-facing-output.md
-```
-
-### 14. AskUserQuestion Patterns (User Interaction)
-**File**: `references/askuserquestion-patterns.md`
-
-**Load When**:
-- Designing interactive workflows with user input
-- Using AskUserQuestion tool in skills/commands
-- Handling free-text input via "Other" option
-- Avoiding common interaction anti-patterns
-
-**Contents**:
-- Tool characteristics and schema
-- Pattern 1: Selection with free-text alternative
-- Pattern 2: Confirmation with customization
-- Pattern 3: Type selection
-- Pattern 4: Multi-select features
-- Anti-patterns (redundant options, follow-up questions, expecting customization)
-- Best practices for question design
-- Known limitations (fixed "Type something." label)
-- Workarounds for UI constraints
-
-**Load Command**:
-```
-Read references/askuserquestion-patterns.md
-```
-
-## Examples
-
-### Example 1: Goal-Based Skill
-**File**: `references/examples/goal-based-skill-example.md`
-
-**Load When**:
-- Learning goal-based skill structure
-- Understanding workflow organization
-- Seeing progressive disclosure in practice
-
-**Shows**:
-- plugin-diagnose skill structure
-- 5 workflows for different diagnostic goals
-- Progressive disclosure demonstration
-- relative paths usage throughout
-- Script contracts (JSON output)
-- Reference loading patterns
-
-**Load Command**:
-```
-Read references/examples/goal-based-skill-example.md
-```
-
-### Example 2: Thin Orchestrator Command
-**File**: `references/examples/workflow-command-example.md`
-
-**Load When**:
-- Learning command design patterns
-- Understanding parameter parsing
-- Seeing skill invocation in practice
-
-**Shows**:
-- diagnose command structure
-- Parameter parsing logic
-- Scope determination
-- Skill invocation with workflow selection
-- User interaction patterns
-
-**Load Command**:
-```
-Read references/examples/workflow-command-example.md
-```
-
-### Example 3: Pattern Usage
-**File**: `references/examples/pattern-usage-examples.md`
-
-**Load When**:
-- Applying skill patterns to real scenarios
-- Understanding pattern combinations
-- Learning when to use which pattern
-
-**Shows**:
-- Each of 10 patterns applied to marketplace scenarios
-- Pattern combinations (e.g., Pattern 5 + Pattern 6)
-- When to use which pattern
-- Anti-pattern examples
-
-**Load Command**:
-```
-Read references/examples/pattern-usage-examples.md
-```
-
-## Usage Workflow
-
-### Step 1: Identify Your Goal
-
-Determine what you're trying to accomplish:
-- **Creating component** → Load core-principles.md, skill-patterns.md
-- **Understanding architecture** → Load goal-based-organization.md, architecture-rules.md
-- **Designing skill** → Load skill-design.md, skill-patterns.md
-- **Designing command** → Load command-design.md
-- **Optimizing context** → Load token-optimization.md
-- **Validating compliance** → Load architecture-rules.md, reference-patterns.md
-
-### Step 2: Load Relevant References
-
-**Never load all references** - Load only what's needed for current task.
-
-**Example**:
-```
-# Creating a new skill
-Read references/core-principles.md
-Read references/skill-patterns.md
-Read references/skill-design.md
-```
-
-### Step 3: Apply Principles
-
-Follow the guidance in loaded references:
-- Use relative paths for all resource paths
-- Implement progressive disclosure
-- Choose appropriate skill pattern
-- Follow architecture rules
-- Optimize token usage
-
-### Step 4: Validate Compliance
-
-Ensure component follows architecture requirements:
-- Self-contained (no external file references)
-- Uses relative path pattern
-- Implements progressive disclosure
-- Follows chosen skill pattern
-- Meets quality standards
-
-## Integration with Other Skills
-
-### Plugin-Create Skill
-When creating components, this skill provides:
-- Architecture principles for templates
-- Frontmatter standards
-- Validation rules
-
-### Plugin-Diagnose Skill
-When analyzing components, this skill provides:
-- Quality standards for validation
-- Architecture rules for compliance checking
-- Reference patterns for validation
-
-### Plugin-Fix Skill
-When fixing components, this skill provides:
-- Architecture rules for fix guidance
-- Reference patterns for corrections
-- Compliance criteria
-
-## Quick Reference Guide
-
-### When to Load What
-
-**Starting any work**:
-```
-Read references/core-principles.md
-```
-
-**Creating skill**:
-```
-Read references/skill-patterns.md
-Read references/skill-design.md
-```
-
-**Creating command**:
-```
-Read references/command-design.md
-```
-
-**Understanding architecture**:
-```
-Read references/goal-based-organization.md
-Read references/architecture-rules.md
-```
-
-**Optimizing performance**:
-```
-Read references/token-optimization.md
-```
-
-**Validating compliance**:
-```
-Read references/architecture-rules.md
-Read references/reference-patterns.md
-```
-
-**Ensuring execution (not explanation)**:
-```
-Read references/execution-directive.md
-```
-
-**Creating scripts**:
-```
-Read references/script-standards.md
-```
-
-**Designing thin wrappers**:
-```
-Read references/minimal-wrapper-pattern.md
-```
-
-**Designing user output**:
-```
-Read references/user-facing-output.md
-```
-
-**Designing user interactions**:
-```
-Read references/askuserquestion-patterns.md
-```
-
-**Learning by example**:
-```
-Read references/examples/goal-based-skill-example.md
-Read references/examples/workflow-command-example.md
-```
-
-## Key Principles Summary
-
-### 1. Goal-Based Organization
-Organize by user goals (CREATE, DIAGNOSE, FIX, MAINTAIN, LEARN), not component types.
-
-### 2. Progressive Disclosure
-Minimize upfront information, load details on-demand.
-
-### 3. relative paths Pattern
-Always use `relative paths` for resource paths - never hardcode paths.
-
-### 4. Self-Containment
-Skills contain all content within their directory structure.
-
-### 5. Pattern-Driven Design
-Choose from 10 patterns based on skill purpose and complexity.
-
-### 6. Workflow-Focused
-Skills provide workflows, not monolithic operations.
-
-### 7. Thin Orchestrators
-Commands parse parameters and route to skill workflows.
-
-### 8. Token Optimization
-Pre-load shared content, use batching, streamline output.
-
-### 9. Quality Standards
-Follow architecture rules, validate compliance.
-
-### 10. Composition
-Build complex capabilities from simple, focused skills.
-
-## Quality Verification
-
-Components using this skill should demonstrate:
-- [ ] Self-contained (no external file references)
-- [ ] relative path pattern used throughout
-- [ ] Progressive disclosure implemented
-- [ ] Appropriate skill pattern chosen
-- [ ] Goal-based organization followed
-- [ ] Architecture rules compliance
-- [ ] Token optimization applied
-- [ ] Quality standards met
-
-## References
-
-### Source Materials
-- Claude Skills Deep Dive: https://leehanchung.github.io/blogs/2025/10/26/claude-skills-deep-dive/
-- Claude Code Plugin Documentation: https://docs.claude.com/en/docs/claude-code/plugins
-
-### Related Skills
-- plan-marshall:general-development-rules - Core development principles
-- plan-marshall:diagnostic-patterns - Tool usage patterns
-- pm-plugin-development:plugin-script-architecture - Python implementation, testing, output contracts
-
-### Internal References (Load On-Demand)
-All references are in `references/` directory:
-- core-principles.md
-- skill-patterns.md
-- goal-based-organization.md
-- architecture-rules.md
-- skill-design.md
-- command-design.md
-- token-optimization.md
-- reference-patterns.md
-- frontmatter-standards.md
-- script-standards.md
-- execution-directive.md
-- minimal-wrapper-pattern.md
-- user-facing-output.md
-- askuserquestion-patterns.md
-- examples/goal-based-skill-example.md
-- examples/workflow-command-example.md
-- examples/pattern-usage-examples.md
-
----
-
-## Non-Prompting Requirements
-
-This skill is designed to run without user prompts. Required permissions:
-
-**File Operations:**
-- `Read(relative paths/references/**)` - Read reference documentation
-
-**Ensuring Non-Prompting:**
-- All file reads use `relative paths/references/` which resolves to skill's mounted path
-- Pure reference skill with no writes or executions
-- Only the Read tool is used (no prompting scenarios)
-
----
-
-*This is a Pattern 10 (Reference Library) skill - pure documentation with no execution logic. All content is loaded progressively based on current needs.*
+| Task                 | 起動タイミング | 入力                     | 出力                     |
+| -------------------- | -------------- | ------------------------ | ------------------------ |
+| analyze-requirements | Phase 1開始時  | システム要件             | 拡張要件分析書           |
+| design-plugin-system | Phase 2開始時  | 拡張要件分析書           | プラグインシステム設計書 |
+| implement-registry   | Phase 3開始時  | プラグインシステム設計書 | Registryクラス実装       |
+
+**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリの対応ファイルを参照
+
+## ベストプラクティス
+
+### すべきこと
+
+- ワークフローエンジンのプラグインシステムを構築する時
+- 機能の動的追加・削除が必要な時
+- 疎結合なモジュール設計が必要な時
+- 拡張ポイントを提供するフレームワークを設計する時
+- 型安全なプラグイン登録メカニズムを実装する時
+- ロード順序の依存性を明確に管理する時
+
+### 避けるべきこと
+
+- プラグイン間の循環依存を許可しない
+- グローバル状態を使用してプラグイン間通信を行わない
+- 型安全性なしでプラグインレジストリを実装しない
+- ライフサイクルフックなしで動的ロードを行わない
+- 依存性注入なしでプラグイン間の依存を解決しない
+
+## リソース参照
+
+### references/（詳細知識）
+
+| リソース           | パス                                                                         | 内容                       |
+| ------------------ | ---------------------------------------------------------------------------- | -------------------------- |
+| 基礎知識           | See [references/Level1_basics.md](references/Level1_basics.md)               | プラグインの基本概念       |
+| 実装パターン       | See [references/Level2_intermediate.md](references/Level2_intermediate.md)   | レジストリ・DI実装パターン |
+| 高度なテクニック   | See [references/Level3_advanced.md](references/Level3_advanced.md)           | 動的ロード・スケーリング   |
+| エキスパート知見   | See [references/Level4_expert.md](references/Level4_expert.md)               | 大規模システムの設計知見   |
+| レジストリパターン | See [references/registry-pattern.md](references/registry-pattern.md)         | 型安全なレジストリ詳細     |
+| ライフサイクル管理 | See [references/plugin-lifecycle.md](references/plugin-lifecycle.md)         | 初期化・シャットダウン     |
+| 依存性注入         | See [references/dependency-injection.md](references/dependency-injection.md) | DI Container設計           |
+| 動的ロード         | See [references/dynamic-loading.md](references/dynamic-loading.md)           | 動的モジュールロード       |
+| サービスロケーター | See [references/service-locator.md](references/service-locator.md)           | Service Locatorパターン    |
+
+### scripts/（決定論的処理）
+
+| スクリプト                      | 用途               | 使用例                                                          |
+| ------------------------------- | ------------------ | --------------------------------------------------------------- |
+| `validate-plugin-structure.mjs` | プラグイン構造検証 | `node scripts/validate-plugin-structure.mjs src/features`       |
+| `validate-skill.mjs`            | スキル構造検証     | `node scripts/validate-skill.mjs`                               |
+| `log_usage.mjs`                 | フィードバック記録 | `node scripts/log_usage.mjs --result success --phase "Phase 3"` |
+
+### assets/（テンプレート）
+
+| テンプレート                 | 用途                              |
+| ---------------------------- | --------------------------------- |
+| `plugin-implementation.md`   | IPlugin実装、ライフサイクルフック |
+| `registry-implementation.md` | 型安全なRegistry実装              |
+
+## 変更履歴
+
+| Version | Date       | Changes                              |
+| ------- | ---------- | ------------------------------------ |
+| 2.0.0   | 2026-01-02 | 18-skills.md仕様完全準拠、構造再編成 |
+| 1.0.0   | 2025-12-31 | 初版                                 |

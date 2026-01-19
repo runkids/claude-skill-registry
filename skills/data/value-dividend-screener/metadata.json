@@ -1,7 +1,7 @@
 {
   "name": "value-dividend-screener",
   "repo": "nicepkg/ai-workflow",
-  "path": "stock-trader-workflow/.claude/skills/value-dividend-screener/SKILL.md",
+  "path": "workflows/stock-trader-workflow/.claude/skills/value-dividend-screener/SKILL.md",
   "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-17T02:05:47.976520Z"
+  "downloaded_at": "2026-01-19T03:26:19.202844Z"
 }

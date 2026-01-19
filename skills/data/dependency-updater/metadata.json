@@ -1,7 +1,7 @@
 {
   "name": "dependency-updater",
-  "repo": "omerlefaruk/CasareRPA",
-  "path": ".claude/skills/dependency-updater/SKILL.md",
-  "source": "github.com/omerlefaruk/CasareRPA",
-  "downloaded_at": "2026-01-17T03:43:36.065193Z"
+  "repo": "CuriousLearner/devkit",
+  "path": "skills/dependency-updater/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-19T03:53:42.914060Z"
 }

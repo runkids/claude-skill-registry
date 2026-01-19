@@ -1,7 +1,7 @@
 {
   "name": "deployment-pipeline-design",
-  "repo": "wshobson/agents",
-  "path": "plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-17T03:59:19.745360Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-19T03:12:56.865160Z"
 }

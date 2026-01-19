@@ -1,8 +1,7 @@
 {
   "name": "vector-search-alternatives",
   "repo": "daishiman/AIWorkflowOrchestrator",
-  "category": "data",
-  "description": "SQLite\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u5411\u3051\u306e\u30d9\u30af\u30c8\u30eb\u691c\u7d22\u4ee3\u66ff\u6226\u7565\u30b9\u30ad\u30eb\u3002SQLite VSS\u3001\u5916\u90e8\u30d9\u30af\u30c8\u30ebDB\u3001RAG\u30d1\u30a4\u30d7\u30e9\u30a4\u30f3\u306e\u5b9f\u88c5\u3092\u63d0\u4f9b\u3057\u307e\u3059\u3002Anchors:- The Pragmatic Programmer\uff08Andrew Hunt\uff09/ \u9069\u7528: \u5b9f\u8df5\u7684\u30bd\u30ea\u30e5\u30fc\u30b7\u30e7\u30f3\u9078\u5b9a / \u76ee\u7684: \u9069\u6750\u9069\u6240\u306e\u6280\u8853\u9078\u629e- Designing Data-Intensive Applications\uff08Martin Klep",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:45.905351Z"
+  "path": "docs/99-claude/skills/vector-search-alternatives/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-19T03:07:23.721413Z"
 }

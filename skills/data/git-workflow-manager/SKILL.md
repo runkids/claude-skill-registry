@@ -1,146 +1,42 @@
 ---
 name: git-workflow-manager
-description: Use when committing, releasing, or managing changelogs - enforces conventional commits, semantic versioning, and consistent release notes format
+description: |
+  Git Workflow Manager - Auto-activating skill for DevOps Basics.
+  Triggers on: git workflow manager, git workflow manager
+  Part of the DevOps Basics skill category.
+allowed-tools: Read, Write, Edit, Bash, Grep
+version: 1.0.0
+license: MIT
+author: Jeremy Longshore <jeremy@intentsolutions.io>
 ---
 
 # Git Workflow Manager
 
-## Overview
+## Purpose
 
-Enforces consistent git workflows: conventional commits, semantic versioning, changelog updates, and release notes format.
+This skill provides automated assistance for git workflow manager tasks within the DevOps Basics domain.
 
-## Commit Convention
+## When to Use
 
-```
-<type>: <description>
-```
+This skill activates automatically when you:
+- Mention "git workflow manager" in your request
+- Ask about git workflow manager patterns or best practices
+- Need help with foundational devops skills covering version control, containerization, basic ci/cd, and infrastructure fundamentals.
 
-| Type | Description | Version Bump |
-|------|-------------|--------------|
-| `feat` | New feature | MINOR |
-| `fix` | Bug fix | PATCH |
-| `docs` | Documentation | — |
-| `refactor` | Code change | — |
-| `chore` | Maintenance | — |
+## Capabilities
 
-Breaking change: `feat!:` or `fix!:` → MAJOR
+- Provides step-by-step guidance for git workflow manager
+- Follows industry best practices and patterns
+- Generates production-ready code and configurations
+- Validates outputs against common standards
 
-## Version Bump Rules
+## Example Triggers
 
-```
-Current: 1.2.3
+- "Help me with git workflow manager"
+- "Set up git workflow manager"
+- "How do I implement git workflow manager?"
 
-feat:     → 1.3.0 (MINOR)
-fix:      → 1.2.4 (PATCH)
-feat!:    → 2.0.0 (MAJOR)
-docs:     → no bump
-```
+## Related Skills
 
-## Workflow: Commit
-
-```bash
-# 1. Stage changes
-git add .
-
-# 2. Commit with conventional message
-git commit -m "feat: add new feature"
-
-# 3. For multi-line:
-git commit -m "$(cat <<'EOF'
-feat: add feature
-
-Detailed description here.
-EOF
-)"
-```
-
-## Workflow: Release
-
-```bash
-# 1. Determine version bump from commits since last tag
-git log $(git describe --tags --abbrev=0)..HEAD --oneline
-
-# 2. Update CHANGELOG.md
-# - Move [Unreleased] items to new version section
-# - Add date: [1.3.0] - YYYY-MM-DD
-
-# 3. Commit changelog
-git add CHANGELOG.md
-git commit -m "docs: update changelog for v1.3.0"
-
-# 4. Create tag
-git tag -a v1.3.0 -m "Release v1.3.0"
-
-# 5. Push
-git push && git push --tags
-
-# 6. Create GitHub release
-gh release create v1.3.0 \
-  --title "v1.3.0 — Short Description" \
-  --notes-file /tmp/release-notes.md
-```
-
-## Release Notes Template
-
-```markdown
-## What's New
-
-### Feature Name
-Brief description.
-
-**Key points:**
-- Point 1
-- Point 2
-
-### Installation (if applicable)
-\`\`\`bash
-command here
-\`\`\`
-
----
-
-**Full Changelog**: https://github.com/USER/REPO/compare/vPREV...vNEW
-```
-
-## CHANGELOG.md Format
-
-```markdown
-# Changelog
-
-## [Unreleased]
-
-## [1.3.0] - 2025-12-17
-### Added
-- Feature description
-
-### Changed
-- Change description
-
-### Fixed
-- Fix description
-
-[Unreleased]: https://github.com/.../compare/v1.3.0...HEAD
-[1.3.0]: https://github.com/.../compare/v1.2.0...v1.3.0
-```
-
-Sections: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
-
-## Quick Commands
-
-| Task | Command |
-|------|---------|
-| Last tag | `git describe --tags --abbrev=0` |
-| Commits since tag | `git log $(git describe --tags --abbrev=0)..HEAD --oneline` |
-| Create release | `gh release create vX.Y.Z --title "vX.Y.Z — Title"` |
-| Edit release | `gh release edit vX.Y.Z --title "New Title" --notes "..."` |
-| List releases | `gh release list` |
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---------|-----|
-| No conventional prefix | Always use `feat:`, `fix:`, etc. |
-| Forgot CHANGELOG | Update before tagging |
-| Tag without release | Always `gh release create` after tag |
-| Inconsistent title | Format: `vX.Y.Z — Short Description` |
-| Missing comparison link | Add `**Full Changelog**: compare/...` |
+Part of the **DevOps Basics** skill category.
+Tags: devops, git, docker, ci-cd, infrastructure

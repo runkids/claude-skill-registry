@@ -1,188 +1,360 @@
 ---
 name: prd-creation
-description: Guide PRD document creation using the standard template. PRD contains REQUIREMENTS ONLY - no user stories (those are extracted separately). Use when EA agent drafts or updates a PRD, or when validating PRD structure.
-owner: enterprise-architect-agent
+description: Creating outcome-based PRDs for StepLeague. Use when planning new features, writing requirements documents, discussing feature specifications, or defining what a feature should achieve. PRDs define WHAT to achieve, not HOW to implement. Keywords: PRD, product requirements, planning, specification, feature design, outcomes, requirements document.
+compatibility: Antigravity, Claude Code, Cursor
+metadata:
+  version: "1.1"
+  project: "stepleague"
 ---
 
 # PRD Creation Skill
 
-**Purpose:** Guide PRD document creation following the standard template
-**Trigger:** When EA agent creates or updates a PRD document
-**Output:** Well-structured PRD ready for story extraction
+## ⚠️ Critical: Always Read AGENTS.md First
+
+Before creating any PRD:
+
+1. **Read [AGENTS.md](../../../AGENTS.md)** - Contains all project patterns
+2. **Check existing PRDs** in `docs/prds/` for format reference
+3. **Reference relevant skills** in `.agent/skills/`
 
 ---
 
-## Template Reference
+## Core Philosophy: Outcome-Based PRDs
 
-**ALWAYS read the template before creating a PRD:**
+> **THE GOLDEN RULE:** Define **WHAT** to achieve and **WHY** it matters.
+> Let the implementing agent decide **HOW** to build it.
 
-```
-templates/prd-template.md
-```
+**PRDs must be outcome-based, NOT implementation-prescriptive.**
 
-The template contains:
+### Why Outcome-Based?
 
-- Required YAML frontmatter fields
-- All 10 standard sections
-- Field placeholders and formatting rules
-- Template rules (comments at bottom)
+1. **Technology evolves** - By the time we implement, better tools may exist
+2. **Flexibility** - Allows the implementing agent to choose optimal solutions
+3. **Focus on value** - Keeps attention on what users get, not code details
+4. **Reduced maintenance** - Less rewriting when implementation details change
+5. **Better AI assistance** - AI can propose innovative solutions you hadn't considered
 
----
+### ❌ WRONG: Implementation-Prescriptive
 
-## Workflow
-
-1. **Read the template:**
-   - Load `templates/prd-template.md`
-   - Note all required sections and frontmatter fields
-
-2. **Gather requirements:**
-   - Extract goals and scope from user prompt
-   - Identify functional and non-functional requirements
-   - Clarify ambiguities via HITL loop (AskUserQuestion)
-
-3. **Draft PRD sections:**
-   - Follow template section order (1-10)
-   - Use tables for structured data (requirements, risks, decisions)
-   - Keep descriptions concise (2-3 sentences per section intro)
-
-4. **Validate structure:**
-   - Run validation checklist (see below)
-   - Fix any missing or malformed sections
-
-5. **Save PRD:**
-   - Write to `{projectFolder}/prd.md`
-   - Ensure frontmatter is complete
-
-6. **Pass validation gate:**
-   - Spawn reviewer agent for PRD validation
-   - On FAIL: Address issues and retry (max 3 attempts)
-   - On PASS: Proceed to story extraction
-
----
-
-## PRD Structure (10 Sections)
-
-| #   | Section             | Purpose                                        |
-| --- | ------------------- | ---------------------------------------------- |
-| 1   | Executive Summary   | 2-3 sentence overview + goal                   |
-| 2   | Problem Statement   | Current state, issues, pain points             |
-| 3   | Solution Overview   | Target state, core principles                  |
-| 4   | Requirements        | FR/NFR tables with IDs and priority            |
-| 5   | Scope               | In scope / out of scope lists                  |
-| 6   | Epic Summary        | Epic list with story counts (NO story details) |
-| 7   | Success Criteria    | Technical requirements, verification, metrics  |
-| 8   | Risks & Mitigations | Risk table with impact/likelihood              |
-| 9   | Dependencies        | External and internal dependencies             |
-| 10  | Design Decisions    | HITL decisions with rationale                  |
-
----
-
-## Validation Checklist
-
-Run this checklist before marking PRD complete:
-
-### Frontmatter
-
-- [ ] `epic_id` present (format: `{app}-{epic}` e.g., `msm-aut`)
-- [ ] `title` present
-- [ ] `version` present (start at "1.0")
-- [ ] `status` present (draft | in-review | approved)
-- [ ] `created` date present (YYYY-MM-DD)
-- [ ] `updated` date present (YYYY-MM-DD)
-- [ ] `owner` set to "enterprise-architect-agent"
-
-### Required Sections
-
-- [ ] Section 1: Executive Summary has overview + goal
-- [ ] Section 2: Problem Statement has current state + issues table
-- [ ] Section 3: Solution Overview has target state + principles table
-- [ ] Section 4: Requirements has FR and NFR tables with IDs
-- [ ] Section 5: Scope has both in-scope and out-of-scope lists
-- [ ] Section 6: Epic Summary has epic table (NO user story details)
-- [ ] Section 7: Success Criteria has technical requirements + verification
-- [ ] Section 8: Risks has risk table with mitigations
-- [ ] Section 9: Dependencies lists external and internal
-- [ ] Section 10: Design Decisions has decision table
-
-### Content Rules
-
-- [ ] Requirements use ID format: FR-001, NFR-001
-- [ ] Priority values are P0, P1, or P2 only
-- [ ] Epic summary shows counts, NOT story details
-- [ ] No user story acceptance criteria in PRD
-- [ ] Tables properly formatted with headers
-
----
-
-## Validation Gate
-
-After PRD is written and self-validated, spawn external reviewer for quality gate.
-
-**Spawn:** `core-claude-plugin:generic:reviewer`
-
-| Parameter       | Value                              |
-| --------------- | ---------------------------------- |
-| artifact_path   | Path to written PRD file           |
-| validation_type | `prd`                              |
-| checklist       | Use PRD validation checklist above |
-
-**Expected Output:**
-
-```json
-{
-  "result": "PASS" | "FAIL",
-  "issues": ["issue description", ...]
-}
+```markdown
+## Feature: User Notifications
+- Create a `notifications` table with columns: id, user_id, message, created_at
+- Use React Query for fetching
+- Create POST /api/notifications endpoint
+- Add NotificationBell component to NavHeader
 ```
 
-**Gate Logic:**
+### ✅ CORRECT: Outcome-Based
 
-1. **On PASS:** Continue to next phase (story extraction)
-2. **On FAIL:** Return issues to enterprise-architect agent
-   - EA addresses each issue in `issues[]` array
-   - EA rewrites/updates PRD sections as needed
-   - Re-run validation gate (loop until PASS)
+```markdown
+## Feature: User Notifications
+**Objective:** Users receive timely, contextual notifications about important events.
 
-**Maximum Retries:** 3 attempts before escalating to human reviewer
-
----
-
-## Key Rules
-
-| Rule                       | Reason                                  |
-| -------------------------- | --------------------------------------- |
-| PRD = requirements only    | Stories extracted in separate phase     |
-| Epic summary = counts only | Details live in user-stories/ folder    |
-| Frontmatter required       | Enables document tracking and ownership |
-| Use tables for lists       | Improves readability and parsing        |
+| # | Outcome | Success Criteria |
+|---|---------|------------------|
+| 1 | Users are notified of new league invites | Notification appears within 5s of invite, clickable to accept |
+| 2 | Notifications persist until read | Unread count visible, notification history accessible |
+| 3 | Non-intrusive UX | No blocking modals, badge/indicator pattern preferred |
+```
 
 ---
 
-## Example
+## PRD Location & Structure
 
-**Input:** User requests "Build authentication API"
+### Where PRDs Live
 
-**PRD Creation:**
+**Primary location:** `docs/prds/admin-feedback-system/`
 
-1. EA reads template from `templates/prd-template.md`
-2. EA drafts:
-   - Section 1: "Implement secure user authentication..."
-   - Section 4: FR-001 Login endpoint, FR-002 Logout endpoint...
-   - Section 6: "| E01 | Authentication | 5 | 15 |"
-3. EA validates against checklist
-4. EA saves to `docs/epics/msm-aut-auth-api/prd.md`
+```
+docs/prds/admin-feedback-system/
+├── PRD_00_Index.md              # Master index with all PRDs
+├── PRD_01_Database_Schema.md
+├── PRD_02_Admin_APIs.md
+├── PRD_03_Filter_Search.md
+├── ...
+├── PRD_41_Proxy_Refactor.md
+├── PRD_42_Test_Coverage_Expansion.md
+└── ... (40+ PRDs)
+```
 
-**Output:** Complete PRD with all 10 sections, ready for story extraction
+> **Note:** All PRDs should be created in `docs/prds/admin-feedback-system/` and indexed in `PRD_00_Index.md`.
+
+### Naming Convention
+
+| Format | Example |
+|--------|---------|
+| Single PRD | `PRD_[number]_[Name_With_Underscores].md` |
+| PRD folder | `[kebab-case-name]/` with sub-documents |
+
+### Standard PRD Template
+
+```markdown
+# PRD [Number]: [Title]
+
+> **Order:** [Number]  
+> **Status:** 🟢 Complete | 🟡 Planning | 🔴 Blocked  
+> **Type:** Feature | Architecture | Refactor | Bug
 
 ---
 
-## Integration
+## 🎯 Objective
 
-**Called by:** requirements-phase, /architect command, /build command
-**Calls:** Read tool (for template), Write tool (for saving), `core-claude-plugin:generic:reviewer` (validation gate)
-**References:**
+One paragraph describing the user-facing goal. What problem does this solve?
 
-- `/skill user-story-template` - For story extraction (separate phase)
-- `/skill save-prd` - For persisting approved PRD artifacts
+---
 
-**Next step:** After passing validation gate, story extraction using `/skill user-story-template`
+## ⚠️ Agent Context (Mandatory for Complex PRDs)
+
+Reference files agents should study before implementing.
+
+| File | Purpose |
+|------|---------|
+| `src/path/to/file.tsx` | Why this file matters |
+
+---
+
+## 🏗️ Detailed Feature Requirements
+
+### Section A: [Area Name] — [N] Items
+
+| # | Outcome | Problem Solved | Success Criteria |
+|---|---------|----------------|------------------|
+| **A-1** | **[Outcome Title]** | What pain this addresses | How to verify it works |
+
+---
+
+## ✅ Success Criteria
+
+| Metric | Target | Verification Method |
+|--------|--------|---------------------|
+| [Measurable outcome] | [Target value] | [How to check] |
+
+---
+
+## 📅 Implementation Plan Reference
+
+### Phase A: [Name]
+1. High-level step (not code)
+2. Another step
+
+---
+
+## 🔗 Related Documents
+
+- [Link to related PRD or doc]
+
+---
+
+## Changelog
+
+| Date | Section | Change |
+|------|---------|--------|
+| YYYY-MM-DD | Initial | Created PRD |
+```
+
+---
+
+## Critical Requirements
+
+### 1. Always Reference AGENTS.md
+
+Before writing a PRD, ensure you understand:
+
+- **Architecture patterns** (Section 7 of AGENTS.md)
+- **Critical rules** (no `<Database>` generics, mobile-first, etc.)
+- **Related skills** - Check `.agent/skills/` for domain knowledge
+
+### 2. Cross-Reference Other Skills
+
+When your PRD touches specific domains, reference the relevant skills:
+
+| Domain | Skill to Reference |
+|--------|-------------------|
+| UI/Styling | `design-system` |
+| API routes | `api-handler` |
+| Database/Auth | `supabase-patterns` |
+| Forms | `form-components` |
+| Error handling | `error-handling` |
+| Architecture | `architecture-philosophy` |
+
+### 3. Use Table Format for Requirements
+
+Tables make PRDs:
+- **Scannable** - Quick to understand
+- **Trackable** - Each item has a number
+- **Testable** - Success criteria are explicit
+
+### 4. Include Agent Context Section
+
+For complex PRDs, tell future agents:
+- Which files to study
+- Key patterns to follow
+- Related documentation
+
+### 5. Add Changelog at Bottom
+
+Every PRD must have a changelog table at the end:
+
+```markdown
+## Changelog
+
+| Date | Section | Change |
+|------|---------|--------|
+| 2026-01-16 | Features | Added notification persistence requirement |
+| 2026-01-15 | Initial | Created PRD |
+---
+
+## PRD Index Files (IMPORTANT)
+
+### Understanding PRD Index Structure
+
+Each PRD folder contains a `PRD_00_Index.md` that serves as the master registry:
+
+```
+docs/prds/admin-feedback-system/
+├── PRD_00_Index.md        # Master index with all PRDs
+├── PRD_01_Database.md
+├── PRD_02_APIs.md
+└── ...
+```
+
+### Index File Components
+
+The index contains:
+
+1. **Status Table** - Shows status of each PRD
+2. **Dependency Graph** - Mermaid diagram showing execution order
+3. **Phases** - Grouped by development stage
+
+### Status Icons
+
+| Icon | Meaning |
+|------|---------|
+| ✅ Complete | PRD fully implemented |
+| 🟢 Active | Currently being worked on |
+| 📋 Proposed | Not yet started |
+| 🔴 Blocked | Waiting on dependency |
+| 🔄 Ongoing | Continuous (like Tech Debt) |
+
+---
+
+## Dependency Ordering (CRITICAL)
+
+### Why Dependency Order Matters
+
+PRDs with dependencies MUST be ordered to prevent:
+- Blocked work (waiting on incomplete dependencies)
+- Rework (building on unstable foundations)
+- Wasted effort (implementing features that need prerequisites)
+
+### How to Define Dependencies
+
+1. **In PRD Index** - Use Mermaid dependency graph:
+
+```mermaid
+graph TD
+    PRD24[24. Menu System] --> PRD25[25. User Prefs]
+    PRD25 --> PRD26[26. SuperAdmin Settings]
+    PRD26 --> PRD27[27. League Hub]
+```
+
+2. **In Individual PRDs** - Reference dependencies in header:
+
+```markdown
+> **Dependencies:** PRD 24, PRD 25
+> **Blocks:** PRD 28, PRD 29
+```
+
+### Restructuring PRDs with Dependencies
+
+When reviewing incomplete PRDs:
+
+1. **Identify dependencies** - What must exist before this PRD can start?
+2. **Reorder if needed** - Move dependent PRDs to execute after prerequisites
+3. **Update index graph** - Keep Mermaid diagram current
+4. **Flag blocked items** - Use 🔴 for items waiting on others
+
+---
+
+## Marking PRDs as Complete (MANDATORY)
+
+### When to Mark Complete
+
+A PRD is complete when:
+- All requirements in the table are implemented
+- Success criteria are verified
+- Code is deployed/merged
+- Documentation (changelog, etc.) is updated
+
+### How to Mark Complete
+
+1. **Update PRD Status Header**:
+
+```markdown
+> **Status:** 🟢 Complete (was 📋 Proposed)
+```
+
+2. **Update PRD Index Table**:
+
+```markdown
+| **A-1** | 25 | [User Preferences](./PRD_25_User_Preferences.md) | Modular settings | ✅ Complete |
+```
+
+3. **Add Completion Changelog Entry**:
+
+```markdown
+## Changelog
+
+| Date | Section | Change |
+|------|---------|--------|
+| 2026-01-16 | Status | Marked complete - all items implemented |
+| 2026-01-15 | Initial | Created PRD |
+```
+
+4. **Update Project Roadmap** - Use the `project-updates` skill
+
+### Verification Before Marking Complete
+
+- [ ] All table items implemented
+- [ ] Success criteria met
+- [ ] Tests passing (if applicable)
+- [ ] CHANGELOG.md updated
+- [ ] PRD index status updated
+- [ ] Dependency graph still accurate
+
+---
+
+## Before Finalizing a PRD
+
+### Checklist
+
+- [ ] Objective is outcome-based (WHAT, not HOW)
+- [ ] Requirements use table format with numbers
+- [ ] Success criteria are measurable
+- [ ] Agent Context section included (for complex PRDs)
+- [ ] Related documents linked
+- [ ] Changelog section at bottom
+- [ ] Reviewed AGENTS.md for relevant patterns
+- [ ] Referenced appropriate skills
+- [ ] **Dependencies identified and ordered**
+- [ ] **Index file updated with new PRD**
+
+### Anti-Patterns to Avoid
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| Specify exact database columns | Describe data requirements |
+| Prescribe specific libraries | State capability needs |
+| Write implementation code | Define acceptance criteria |
+| Assume current tech stack | Focus on outcomes |
+| Skip success criteria | Make everything measurable |
+| **Start without checking dependencies** | **Order PRDs by dependency graph** |
+| **Forget to update index when done** | **Mark completion in PRD and index** |
+
+---
+
+## Related Skills
+
+- `architecture-philosophy` - Core principles for all implementations
+- `project-updates` - How to update roadmap when PRD is complete
+

@@ -1,289 +1,355 @@
 ---
-name: performance-profiler
-description: Analyze code performance patterns and identify optimization opportunities.
+name: profiling-performance
+description: Runs performance audits and suggests optimizations using Lighthouse and Web Vitals. Use when the user asks about performance, page speed, Core Web Vitals, Lighthouse scores, or wants to optimize rendering and execution.
 ---
 
-# Performance Profiler Skill
+# Performance Profiler Assistant
 
-Analyze code performance patterns and identify optimization opportunities.
+## When to use this skill
+
+- User asks to run a performance audit
+- User mentions Lighthouse or Web Vitals
+- User wants to improve page load speed
+- User asks about LCP, FID, CLS, or INP
+- User wants to profile CPU or memory usage
+- User asks to optimize rendering performance
+
+## Workflow
+
+- [ ] Identify target URL or build to audit
+- [ ] Run Lighthouse audit
+- [ ] Collect Core Web Vitals metrics
+- [ ] Analyze bundle size
+- [ ] Profile runtime performance if needed
+- [ ] Generate optimization recommendations
+- [ ] Prioritize fixes by impact
 
 ## Instructions
 
-You are a performance optimization expert. When invoked:
+### Step 1: Identify Audit Target
 
-1. **Identify Performance Issues**:
-   - Inefficient algorithms (O(n²) where O(n) possible)
-   - Memory leaks and excessive allocations
-   - Unnecessary re-renders (React/Vue)
-   - Blocking operations on main thread
-   - N+1 query problems
-   - Excessive network requests
-   - Large bundle sizes
-   - Unoptimized loops and iterations
+For deployed site:
 
-2. **Analyze Patterns**:
-   - Function call frequency and duration
-   - Memory usage patterns
-   - CPU-intensive operations
-   - I/O bottlenecks
-   - Database query efficiency
-   - Render performance (frontend)
+```bash
+# URL to audit
+TARGET_URL="https://example.com"
+```
 
-3. **Measure Impact**:
-   - Time complexity analysis
-   - Space complexity analysis
-   - Actual runtime measurements (if possible)
-   - Memory footprint
-   - Bundle size impact
+For local development:
 
-4. **Provide Recommendations**:
-   - Specific optimization strategies
-   - Code examples showing improvements
-   - Expected performance gains
-   - Trade-offs and considerations
+```bash
+# Ensure dev server is running
+npm run dev
+TARGET_URL="http://localhost:3000"
+```
 
-## Performance Anti-Patterns
+For static build analysis:
 
-### Inefficient Algorithms
+```bash
+npm run build
+npx serve dist  # or out, build folder
+```
+
+### Step 2: Run Lighthouse Audit
+
+**CLI audit:**
+
+```bash
+npx lighthouse $TARGET_URL --output=json --output=html --output-path=./lighthouse-report
+```
+
+**With specific categories:**
+
+```bash
+npx lighthouse $TARGET_URL --only-categories=performance,accessibility,best-practices,seo --output=json
+```
+
+**Mobile emulation (default):**
+
+```bash
+npx lighthouse $TARGET_URL --preset=desktop  # For desktop metrics
+```
+
+**Programmatic in Node.js:**
+
 ```javascript
-// ❌ O(n²) - Inefficient
-function findDuplicates(arr) {
-  const duplicates = [];
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[i] === arr[j]) duplicates.push(arr[i]);
-    }
-  }
-  return duplicates;
-}
+import lighthouse from "lighthouse";
+import * as chromeLauncher from "chrome-launcher";
 
-// ✓ O(n) - Efficient
-function findDuplicates(arr) {
-  const seen = new Set();
-  const duplicates = new Set();
-  for (const item of arr) {
-    if (seen.has(item)) duplicates.add(item);
-    seen.add(item);
-  }
-  return Array.from(duplicates);
-}
+const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
+const result = await lighthouse(url, { port: chrome.port });
+console.log(result.lhr.categories.performance.score * 100);
+await chrome.kill();
 ```
 
-### Unnecessary Re-renders
-```javascript
-// ❌ Re-renders on every parent update
-function ExpensiveComponent({ data }) {
-  const processed = expensiveCalculation(data);
-  return <div>{processed}</div>;
-}
+### Step 3: Interpret Core Web Vitals
 
-// ✓ Memoized, only re-renders when data changes
-const ExpensiveComponent = React.memo(({ data }) => {
-  const processed = useMemo(() => expensiveCalculation(data), [data]);
-  return <div>{processed}</div>;
-});
+| Metric                          | Good   | Needs Improvement | Poor   |
+| ------------------------------- | ------ | ----------------- | ------ |
+| LCP (Largest Contentful Paint)  | ≤2.5s  | 2.5s–4s           | >4s    |
+| INP (Interaction to Next Paint) | ≤200ms | 200ms–500ms       | >500ms |
+| CLS (Cumulative Layout Shift)   | ≤0.1   | 0.1–0.25          | >0.25  |
+| FCP (First Contentful Paint)    | ≤1.8s  | 1.8s–3s           | >3s    |
+| TTFB (Time to First Byte)       | ≤800ms | 800ms–1.8s        | >1.8s  |
+
+### Step 4: Analyze Bundle Size
+
+**Next.js:**
+
+```bash
+ANALYZE=true npm run build
+# Or add to next.config.js:
+# const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: process.env.ANALYZE === 'true' });
 ```
 
-### N+1 Query Problem
-```javascript
-// ❌ N+1 queries
-async function getPostsWithAuthors() {
-  const posts = await db.posts.findAll();
-  for (const post of posts) {
-    post.author = await db.users.findById(post.authorId); // N queries
-  }
-  return posts;
-}
+**Vite/Nuxt:**
 
-// ✓ Single query with join
-async function getPostsWithAuthors() {
-  return await db.posts.findAll({
-    include: [{ model: db.users, as: 'author' }]
-  });
-}
+```bash
+npx vite-bundle-visualizer
+# Or
+npx nuxi analyze
 ```
 
-### Memory Leaks
-```javascript
-// ❌ Memory leak - event listener not cleaned up
-useEffect(() => {
-  window.addEventListener('scroll', handleScroll);
-  // Missing cleanup!
-}, []);
+**Generic webpack:**
 
-// ✓ Proper cleanup
-useEffect(() => {
-  window.addEventListener('scroll', handleScroll);
-  return () => window.removeEventListener('scroll', handleScroll);
-}, []);
+```bash
+npx webpack-bundle-analyzer stats.json
 ```
 
-## Usage Examples
+**Source map explorer:**
 
-```
-@performance-profiler
-@performance-profiler src/
-@performance-profiler UserList.jsx
-@performance-profiler --focus algorithms
-@performance-profiler --include-bundle-size
+```bash
+npx source-map-explorer dist/**/*.js
 ```
 
-## Report Format
+### Step 5: Profile Runtime Performance
+
+**Chrome DevTools Performance tab:**
+
+1. Open DevTools → Performance
+2. Click Record
+3. Perform user actions
+4. Stop recording
+5. Analyze flame chart for long tasks
+
+**Measure in code:**
+
+```typescript
+// Performance marks
+performance.mark("start-operation");
+await heavyOperation();
+performance.mark("end-operation");
+performance.measure("operation", "start-operation", "end-operation");
+
+const measures = performance.getEntriesByName("operation");
+console.log(`Operation took ${measures[0].duration}ms`);
+```
+
+**React Profiler:**
+
+```tsx
+import { Profiler } from "react";
+
+<Profiler
+  id="Component"
+  onRender={(id, phase, actualDuration) => {
+    console.log(`${id} ${phase} render: ${actualDuration}ms`);
+  }}
+>
+  <Component />
+</Profiler>;
+```
+
+### Step 6: Generate Recommendations
+
+**Report template:**
 
 ```markdown
-# Performance Analysis Report
+## Performance Audit Report
 
-## Summary
-- Files analyzed: 23
-- Issues found: 18
-- High priority: 4
-- Medium priority: 9
-- Low priority: 5
-- Estimated improvement: 60% faster, 30% smaller bundle
+**URL**: https://example.com
+**Date**: 2026-01-18
+**Device**: Mobile (Moto G Power)
 
-## Critical Issues (4)
+### Scores
 
-### 1. Inefficient Algorithm - src/utils/search.js:34
-**Issue**: O(n²) search algorithm
-**Current**: Linear search within loop (complexity: O(n²))
-**Impact**: ~850ms for 1000 items
-**Recommendation**: Use Map for O(1) lookups
-**Expected improvement**: 99% faster (~8ms for 1000 items)
+| Category       | Score |
+| -------------- | ----- |
+| Performance    | 72    |
+| Accessibility  | 95    |
+| Best Practices | 92    |
+| SEO            | 100   |
 
-```javascript
-// Current (slow)
-function findMatches(items, queries) {
-  return queries.map(q => items.find(i => i.id === q));
+### Core Web Vitals
+
+| Metric | Value | Status               |
+| ------ | ----- | -------------------- |
+| LCP    | 3.2s  | ⚠️ Needs Improvement |
+| INP    | 150ms | ✅ Good              |
+| CLS    | 0.05  | ✅ Good              |
+
+### Top Issues
+
+#### 1. Large Contentful Paint (3.2s)
+
+**Impact**: High
+**Cause**: Hero image not optimized
+**Fix**:
+
+- Add `priority` to Next.js Image
+- Use responsive srcset
+- Preload LCP image
+
+#### 2. Render-blocking resources
+
+**Impact**: Medium
+**Cause**: 3 CSS files blocking render
+**Fix**:
+
+- Inline critical CSS
+- Defer non-critical styles
+- Use `media` attribute for print styles
+
+#### 3. Unused JavaScript (245KB)
+
+**Impact**: Medium
+**Cause**: Large vendor bundle
+**Fix**:
+
+- Enable tree shaking
+- Dynamic import heavy components
+- Remove unused dependencies
+```
+
+## Common Optimizations
+
+### Images
+
+```tsx
+// Next.js - Use Image component with priority for LCP
+import Image from "next/image";
+
+<Image
+  src="/hero.jpg"
+  alt="Hero"
+  width={1200}
+  height={600}
+  priority // Preloads LCP image
+  sizes="(max-width: 768px) 100vw, 1200px"
+/>;
+```
+
+### Code Splitting
+
+```tsx
+// React - Lazy load heavy components
+import { lazy, Suspense } from "react";
+
+const HeavyChart = lazy(() => import("./HeavyChart"));
+
+<Suspense fallback={<Loading />}>
+  <HeavyChart />
+</Suspense>;
+```
+
+```typescript
+// Dynamic import for conditional features
+const module = await import("./heavy-module");
+```
+
+### Font Optimization
+
+```tsx
+// Next.js - Use next/font
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"], display: "swap" });
+```
+
+```css
+/* Self-hosted with font-display */
+@font-face {
+  font-family: "Custom";
+  src: url("/fonts/custom.woff2") format("woff2");
+  font-display: swap;
+}
+```
+
+### Preloading Critical Resources
+
+```html
+<!-- Preload LCP image -->
+<link rel="preload" as="image" href="/hero.webp" />
+
+<!-- Preconnect to CDN -->
+<link rel="preconnect" href="https://cdn.example.com" />
+
+<!-- DNS prefetch for third parties -->
+<link rel="dns-prefetch" href="https://analytics.example.com" />
+```
+
+### Reducing Layout Shift
+
+```css
+/* Reserve space for images */
+img {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
 }
 
-// Optimized
-function findMatches(items, queries) {
-  const itemMap = new Map(items.map(i => [i.id, i]));
-  return queries.map(q => itemMap.get(q));
+/* Reserve space for ads/embeds */
+.ad-slot {
+  min-height: 250px;
 }
 ```
 
-### 2. Unnecessary Re-renders - src/components/DataTable.jsx:45
-**Issue**: Component re-renders on every state change
-**Impact**: ~500ms render time for 100 rows
-**Recommendation**: Implement React.memo and useMemo
-**Expected improvement**: 80% reduction in render time
+```tsx
+// Always provide width/height
+<Image width={800} height={450} ... />
+```
 
-### 3. Bundle Size - Entire lodash imported
-**Issue**: Importing entire lodash library (71KB gzipped)
-**Current**: `import _ from 'lodash'`
-**Recommendation**: Import only needed functions
-**Expected improvement**: -65KB (91% reduction)
+### Caching
 
 ```javascript
-// Instead of
-import _ from 'lodash';
-
-// Use
-import debounce from 'lodash/debounce';
-import throttle from 'lodash/throttle';
+// next.config.js - Cache static assets
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
+};
 ```
 
-### 4. N+1 Database Queries - src/api/posts.js:67
-**Issue**: Sequential database queries in loop
-**Impact**: ~2000ms for 50 posts
-**Recommendation**: Use eager loading/joins
-**Expected improvement**: 95% faster (~100ms)
+## Validation
 
-## Medium Priority Issues (9)
+Before completing:
 
-### Memory Allocations in Loop - src/parsers/csv.js:23
-- Creating new objects in tight loop
-- Recommendation: Reuse objects or use object pool
-- Expected improvement: 40% less memory allocation
+- [ ] Lighthouse performance score ≥90
+- [ ] All Core Web Vitals in "Good" range
+- [ ] No render-blocking resources
+- [ ] Bundle size within budget
+- [ ] No layout shifts from loading content
 
-### Blocking Main Thread - src/workers/processor.js:89
-- CPU-intensive calculation on main thread
-- Recommendation: Move to Web Worker
-- Expected improvement: UI remains responsive
+## Error Handling
 
-## Bundle Analysis
+- **Lighthouse fails to run**: Ensure Chrome is installed and no conflicting flags.
+- **Metrics vary wildly**: Run multiple times and average; use `--throttling.cpuSlowdownMultiplier`.
+- **Can't reproduce field data**: Lab data differs from real users; use CrUX for field data.
+- **Build analysis fails**: Ensure source maps are generated (`devtool: 'source-map'`).
 
-**Total Bundle Size**: 487KB (gzipped: 142KB)
+## Resources
 
-**Largest Dependencies**:
-1. lodash - 71KB (use lodash-es or cherry-pick)
-2. moment - 68KB (use date-fns or day.js)
-3. chart.js - 52KB (consider lighter alternative)
-
-**Recommendations**:
-- Replace moment with date-fns: -55KB
-- Use lodash-es with tree shaking: -50KB
-- Lazy load chart.js: -52KB (move to async chunk)
-- Total potential savings: ~157KB (110% improvement)
-
-## Performance Metrics
-
-### Time Complexity Issues
-- O(n²): 3 instances (should be O(n) or O(n log n))
-- O(n³): 1 instance (should be optimized)
-
-### Memory Issues
-- Potential memory leaks: 2
-- Excessive allocations: 5
-- Large object creation in loops: 4
-
-## Recommendations Priority
-
-**High Priority (Do First)**:
-1. Fix O(n²) algorithm in search.js
-2. Add React.memo to DataTable
-3. Fix N+1 queries in posts API
-4. Remove unused lodash imports
-
-**Medium Priority**:
-1. Move heavy computations to workers
-2. Implement virtualization for long lists
-3. Optimize image loading (lazy load, WebP)
-4. Add response caching
-
-**Low Priority (Nice to Have)**:
-1. Code splitting for routes
-2. Preload critical resources
-3. Service worker for offline support
-```
-
-## Optimization Techniques
-
-### Frontend Performance
-- **Memoization**: Cache expensive calculations
-- **Virtualization**: Render only visible items
-- **Lazy Loading**: Load code/images on demand
-- **Code Splitting**: Break bundle into chunks
-- **Debouncing/Throttling**: Limit function calls
-- **Web Workers**: Offload CPU-intensive tasks
-
-### Backend Performance
-- **Caching**: Redis, in-memory caches
-- **Query Optimization**: Indexes, joins, pagination
-- **Connection Pooling**: Reuse database connections
-- **Async Operations**: Non-blocking I/O
-- **Batching**: Combine multiple operations
-
-### General Optimizations
-- **Algorithm Choice**: Pick right data structure
-- **Early Returns**: Exit loops/functions early
-- **Avoid Premature Optimization**: Profile first
-- **Lazy Evaluation**: Compute only when needed
-
-## Profiling Tools
-
-- **JavaScript**: Chrome DevTools, React Profiler, Lighthouse
-- **Node.js**: clinic.js, 0x, node --prof
-- **Python**: cProfile, memory_profiler, py-spy
-- **Database**: Query analyzers, EXPLAIN plans
-- **Bundle**: webpack-bundle-analyzer, source-map-explorer
-
-## Notes
-
-- Always profile before optimizing
-- Measure actual impact after changes
-- Consider readability vs performance trade-offs
-- Focus on bottlenecks, not micro-optimizations
-- Test performance improvements with realistic data
-- Document why optimizations were made
+- [web.dev Performance](https://web.dev/performance/)
+- [Lighthouse Documentation](https://developer.chrome.com/docs/lighthouse/)
+- [Core Web Vitals](https://web.dev/vitals/)
+- [Chrome UX Report](https://developer.chrome.com/docs/crux/)

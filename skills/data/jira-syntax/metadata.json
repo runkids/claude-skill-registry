@@ -1,7 +1,7 @@
 {
   "name": "jira-syntax",
-  "repo": "netresearch/jira-skill",
-  "path": "skills/jira-syntax/SKILL.md",
-  "source": "github.com/netresearch/jira-skill",
-  "downloaded_at": "2026-01-17T03:52:51.824327Z"
+  "repo": "netresearch/claude-code-marketplace",
+  "path": "skills/jira-integration/skills/jira-syntax/SKILL.md",
+  "source": "github.com/netresearch/claude-code-marketplace",
+  "downloaded_at": "2026-01-19T02:40:05.217151Z"
 }

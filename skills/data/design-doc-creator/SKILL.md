@@ -1,20 +1,20 @@
 ---
-name: Game Design Doc Creator
-description: Create design documents for Stapledons Voyage game features. Use when user asks to create a design doc, plan a feature, or document game mechanics. Handles both planned/ and implemented/ docs.
+name: Design Doc Creator
+description: Create AILANG design documents in the correct format and location. Use when user asks to create a design doc, plan a feature, or document a design. Handles both planned/ and implemented/ docs with proper structure.
 ---
 
-# Game Design Doc Creator
+# Design Doc Creator
 
-Create well-structured design documents for Stapledons Voyage game features.
+Create well-structured design documents for AILANG features following the project's conventions.
 
 ## Quick Start
 
 **Most common usage:**
 ```bash
-# User says: "Create a design doc for NPC pathfinding"
+# User says: "Create a design doc for better error messages"
 # This skill will:
-# 1. Ask for key details (priority, complexity)
-# 2. Create design_docs/planned/npc-pathfinding.md
+# 1. Ask for key details (priority, version target)
+# 2. Create design_docs/planned/better-error-messages.md
 # 3. Fill template with proper structure
 # 4. Guide you through customization
 ```
@@ -22,253 +22,470 @@ Create well-structured design documents for Stapledons Voyage game features.
 ## When to Use This Skill
 
 Invoke this skill when:
-- User asks to "create a design doc" or "plan a feature"
-- Before implementing new game mechanics
-- Documenting world generation algorithms
-- Planning NPC AI behaviors
-- Designing rendering/visual features
+- User asks to "create a design doc" or "write a design doc"
+- User says "plan a feature" or "design a feature"
+- User mentions "document the design" or "create a spec"
+- Before starting implementation of a new feature
+- After completing a feature (to move to implemented/)
 
 ## Available Scripts
 
 ### `scripts/create_planned_doc.sh <doc-name> [version]`
 Create a new design document in `design_docs/planned/`.
 
+**Version Auto-Detection:**
+The script automatically detects the current AILANG version from `CHANGELOG.md` and suggests the next version folder. This prevents accidentally placing docs in wrong version folders.
+
+**Usage:**
+```bash
+# See current version and suggested target
+.claude/skills/design-doc-creator/scripts/create_planned_doc.sh
+# Output: Current AILANG version: v0.5.6
+#         Suggested next version: v0_5_7
+
+# Create doc in planned/ root (no version)
+.claude/skills/design-doc-creator/scripts/create_planned_doc.sh m-dx2-better-errors
+
+# Create doc in next version folder (recommended)
+.claude/skills/design-doc-creator/scripts/create_planned_doc.sh reflection-system v0_5_7
+```
+
+**What it does:**
+- Detects current version from CHANGELOG.md
+- Suggests next patch version for targeting
+- Creates design doc from template
+- Places in correct directory (planned/ or planned/VERSION/)
+- Fills in creation date
+- Shows version context in output
+
 ### `scripts/move_to_implemented.sh <doc-name> <version>`
 Move a design document from planned/ to implemented/ after completion.
 
+**Usage:**
+```bash
+.claude/skills/design-doc-creator/scripts/move_to_implemented.sh m-dx1-developer-experience v0_3_10
+```
+
+**What it does:**
+- Finds doc in planned/
+- Copies to implemented/VERSION/
+- Updates status to "Implemented"
+- Updates last modified date
+- Provides template for implementation report
+- Keeps original until you verify and commit
+
 ## Workflow
 
-### 1. Gather Requirements
+### Creating a Planned Design Doc
+
+**1. Gather Requirements**
 
 Ask user:
-- What game feature are you designing?
-- What game systems does it affect? (world, NPCs, rendering, input)
-- Estimated complexity? (simple, medium, complex)
-- Any AILANG limitations to work around?
+- What feature are you designing?
+- What version is this targeted for? (e.g., v0.4.0)
+- What priority? (P0/P1/P2)
+- Estimated effort? (e.g., 2 days, 1 week)
+- Any dependencies on other features?
 
-### 2. Game Vision Alignment
+**⚠️ CRITICAL: Audit for Systemic Issues FIRST**
 
-**Every feature should be scored against the game's core pillars.**
+**Before writing a design doc for a bug fix, ALWAYS ask: "Is this part of a larger pattern?"**
 
-**IMPORTANT:** Before creating any design doc, read these files maintained by `game-vision-designer`:
+**The Anti-Pattern (incremental special-casing):**
+```
+v1: Add feature for case A
+v2: Bug! Add special case for B
+v3: Bug! Add special case for C
+v4: Bug! Add special case for D
+...forever patching
+```
 
-| File | Purpose | When to Check |
-|------|---------|---------------|
-| [core-pillars.md](../../../docs/vision/core-pillars.md) | Authoritative pillar definitions | Always - score feature against each |
-| [design-decisions.md](../../../docs/vision/design-decisions.md) | Prior decisions & rationale | Check for relevant constraints |
-| [open-questions.md](../../../docs/vision/open-questions.md) | Unresolved design questions | See if feature touches these |
-| [game-vision.md](../../../docs/game-vision.md) | Full game design document | Deep context when needed |
+**The Pattern to Follow (unified solutions):**
+```
+v1: Bug report for case B
+    BEFORE writing design doc:
+    1. Search for similar code paths
+    2. Check if A, C, D have same gap
+    3. Design ONE fix covering ALL cases
+v2: Unified fix - no future bugs in this area
+```
 
-**Score against each pillar in core-pillars.md:**
+**Concrete Example (M-CODEGEN-UNIFIED-SLICE-CONVERTERS, Dec 2025):**
+```
+Bug reported: [SolarPlanet] return type panics
 
-| Pillar | Question |
-|--------|----------|
-| **Time Dilation Consequence** | Does this reinforce irreversible time choices? |
-| **Civilization Simulation** | Does it enhance galaxy-scale simulation? |
-| **Philosophical Depth** | Does it add moral/philosophical decisions? |
-| **Ship & Crew Life** | Does it connect to finite crew narrative? |
-| **Legacy Impact** | Does it contribute to Year 1,000,000 report? |
-| **Hard Sci-Fi Authenticity** | Does it maintain scientific plausibility? |
+❌ Quick fix design doc: Add ConvertToSolarPlanetSlice
+   (Will need ConvertToAnotherRecordSlice later...)
 
-**Feature types:**
-- **Gameplay features** should score positively on multiple pillars
-- **Engine/Infrastructure** features can score N/A on most pillars (they're enabling tech)
-- **No feature** should score negatively on any pillar (violates game vision)
+✅ Systemic design doc: Audit ALL slice types
+   Found: []float64 ALSO broken!
+   Found: []*ADTType partially broken!
+   One unified fix covers all 3 gaps.
+```
 
-**Check design-decisions.md for:**
-- Prior decisions that constrain this feature
-- Rejected alternatives (don't re-propose without new justification)
-- Related features and how they were resolved
+**Analysis Checklist (do BEFORE writing design doc):**
+- [ ] Is this a one-off or part of a pattern?
+- [ ] Search codebase for similar code paths
+- [ ] Check if other types/cases have the same gap
+- [ ] Look at git history - has this area been patched repeatedly?
+- [ ] Design fix to cover ALL cases, not just the reported one
 
-### 3. Physics-First Design (CRITICAL)
+**🔍 Use `ailang docs search` to Check Existing Work:**
 
-**This is a hard sci-fi game. All visual effects must be based on real physics.**
+Before creating a design doc, search for existing implementations:
 
-#### Real Physics (USE THESE)
+```bash
+# Check if feature already implemented
+ailang docs search --stream implemented "feature keywords"
 
-| Effect | Physics Basis | When to Use |
-|--------|---------------|-------------|
-| **SR Doppler Shift** | Light wavelength changes with relative velocity | Relativistic travel |
-| **SR Aberration** | Stars appear to bunch forward at high velocity | High-speed scenes |
-| **GR Lensing** | Light bends around massive objects | Near black holes, neutron stars |
-| **GR Redshift** | Light escaping gravity wells shifts red | Near massive objects |
-| **Time Dilation** | γ = 1/√(1-v²/c²) | All relativistic travel |
-| **Parallax** | Distant objects move slower than near ones | Depth perception |
+# Check if design doc already planned
+ailang docs search --stream planned "feature keywords"
 
-#### Hollywood Conventions (NEVER USE)
+# Use neural search for semantic matching (requires Ollama, slow ~20-30s)
+ailang docs search --stream planned --neural "semantic description of feature"
 
-| Rejected Effect | Why It's Wrong | What to Use Instead |
-|-----------------|----------------|---------------------|
-| **Star Streaks** | Stars are too distant for motion blur | SR aberration (stars bunch forward) |
-| **Radial Motion Blur** | No physical basis at relativistic speeds | SR Doppler shift (color change) |
-| **Warp Tunnels** | Pure fantasy, no physics | Actual SR/GR visual distortion |
-| **Sound in Space** | No medium for sound waves | Silence, or ship interior sounds |
-| **Engine Glow Trails** | No medium to illuminate in vacuum | Point-source engine light only |
-| **Instant Communication** | Violates light speed limit | Time-delayed messages |
-| **Artificial Gravity Plates** | No known physics | Rotation or acceleration |
+# Search with JSON output for programmatic use
+ailang docs search --stream implemented --json "keywords"
+```
 
-#### Physics Validation Checklist
+**Example workflow:**
+```bash
+# Before creating "lazy embeddings" design doc:
+$ ailang docs search --stream implemented "embedding cache"
+🔍 SimHash search: "embedding cache"
+   Scanned: 42 docs
 
-Before finalizing any visual/physics design:
-- [ ] Is this effect based on real physics?
-- [ ] Can I cite the equation or principle?
-- [ ] Would a physicist approve?
-- [ ] If "artistic license" is needed, is there a narrative justification?
+No matching documents found.
+# ✅ Safe to create - not implemented yet
 
-**Example narrative justification**: Lower velocities (0.1c-0.5c instead of 0.9c) because "the AI pilot slows for crew sightseeing" - physics is still accurate, just at visible intensities.
+$ ailang docs search --stream planned "lazy embedding"
+🔍 SimHash search: "lazy embedding"
+   Scanned: 28 docs
 
-### 4. Engine Capabilities Reference
+1. design_docs/planned/v0_5_11/m-doc-sem-lazy-embeddings.md (0.85)
+# ⚠️ Already planned - review existing doc first
+```
 
-**Before designing, know what's already available:**
+**Key flags:**
+- `--stream implemented` - Only search implemented/ directory
+- `--stream planned` - Only search planned/ directory
+- `--neural` - Use semantic embeddings (finds conceptually similar docs, **slow: ~20-30s**)
+- `--limit N` - Return top N results
+- `--json` - JSON output for scripting
 
-| Reference | Contents |
-|-----------|----------|
-| [engine-capabilities.md](../../../design_docs/reference/engine-capabilities.md) | Complete engine reference |
-| [gr-effects.md](../../../design_docs/implemented/v0_1_0/gr-effects.md) | GR physics & shaders |
-| [ai-handler-system.md](../../../design_docs/implemented/v0_1_0/ai-handler-system.md) | AI effect & providers |
+**Performance note:** SimHash search (without `--neural`) is instant. Only use `--neural` when keyword matching isn't finding what you need.
 
-**Available Engine Features:**
-- **DrawCmd**: Sprite, Rect, Text, IsoTile, IsoEntity, GalaxyBg, Star, Ui, Line, Circle, TextWrapped
-- **Effects**: Debug, Rand, Clock, AI (Claude/Gemini/stub backends)
-- **Assets**: Animated sprites, Audio (OGG/WAV), Fonts (TTF)
-- **Shaders**: SR warp (Doppler, aberration), GR warp (lensing, redshift), bloom, vignette
-- **Physics**: Lorentz factor (γ), time dilation, gravitational redshift, Schwarzschild radius
+**Warning Signs of Fragmented Design:**
+- Multiple maps tracking similar things (`adtSliceTypes`, `recordTypes`...)
+- Switch statements with growing case lists
+- Functions named `handleX`, `handleY`, `handleZ` instead of unified `handle`
+- Bug fixes that add `|| specialCase` conditions
 
-### 5. Consider AILANG Constraints
+**When these signs appear:** Expand scope of design doc to unify the system.
 
-**Important for this project:** All game logic is written in AILANG. Consider:
-- No mutable state - must use functional updates
-- No loops - must use recursion (with depth limits!)
-- Limited data structures - lists only, no arrays
-- Known issues - check CLAUDE.md for current limitations
+**⚠️ IMPORTANT: Keep AILANG's Vision in Mind**
 
-### 6. Design Doc Structure
+**AI-first DX = Minimize Syntactic Entropy**
 
-**Game-specific sections:**
-- **Game Vision Alignment**: Score against core pillars from `docs/vision/core-pillars.md`
-- **Prior Decisions**: Reference relevant entries from `docs/vision/design-decisions.md`
-- **Physics Validation**: (for visual features) What real physics principles apply?
-- **Feature Overview**: What gameplay does this enable?
-- **AILANG Implementation**: Types, functions, effects needed
-- **Engine Integration**: How Go/Ebiten renders this
-- **Performance**: Recursion depth, list operations needed
-- **Testing**: How to verify the feature works
+The goal of every feature is to make AILANG the most **machine-decidable**, **context-efficient**, and **deterministic** language for AI coders.
 
-**When creating a design doc:**
-1. Read `docs/vision/core-pillars.md` and score the feature
-2. Check `docs/vision/design-decisions.md` for constraints
-3. If this doc makes new design decisions, log them via `game-vision-designer`
+Before writing a design doc, verify that the proposed feature **strictly improves one or more** of the following metrics — and **does not degrade any**:
 
-**For visual/physics features, include:**
+| Principle | Definition | Design-time Test |
+|-----------|------------|------------------|
+| ✅ **Reduce Syntactic Noise** | Remove or infer repetitive scaffolding (imports, effect declarations, boilerplate) | "Can an AI express the same intent with fewer tokens or less redundancy?" |
+| ✅ **Preserve Semantic Clarity** | Keep meaning explicit and compositional even when syntax is inferred | "Would another AI (or static checker) interpret this code identically?" |
+| ✅ **Increase Determinism** | Ensure identical inputs produce identical ASTs and effects. Avoid implicit state, random order, or hidden magic. | "Could this feature be fully round-tripped through the compiler?" |
+| ✅ **Lower Token Cost** | Minimize the number of tokens and transformations needed for the AI to express intent and the compiler to verify it | "Does this feature shorten the conversational path from intent → executable?" |
+
+### 🧭 Implementation Guidance
+
+**Score the proposed feature across these axes:**
+
+| Axis | −1 (hurts) | 0 (neutral) | +1 (helps) |
+|------|------------|-------------|------------|
+| Syntactic Noise | adds boilerplate | — | removes boilerplate |
+| Semantic Clarity | adds ambiguity | — | clearer, self-describing |
+| Determinism | introduces nondeterminism | — | increases reproducibility |
+| Token Cost | increases context size | — | lowers token footprint |
+
+**Decision rule:**
+- Net score **> +1**: Move forward to draft
+- Net score **≤ 0**: Reject or redesign
+
+### 💡 Examples
+
+| Feature | Score | Why |
+|---------|-------|-----|
+| ✅ Entry-module Prelude (`print`) | **+3** | Removes boilerplate (+1), Deterministic injection (+1), Token savings (+1) |
+| ✅ Auto-cap inference (`!{IO}`) | **+2** | Syntactic noise ↓ (+1), Semantic clarity maintained (0), Token cost ↓ (+1) |
+| ❌ Global mutable state | **−2** | Violates determinism (−2) |
+| ⚠️ Optional type annotations | **±0** | Only if inference remains stable and predictable |
+
+### 🧠 Conceptual Frame
+
+**Think of every feature as a compression algorithm for code intent.**
+
+The better the compression, the lower the entropy, and the more efficiently an AI can operate in that linguistic medium.
+
+### What AILANG Is NOT Optimized For
+
+- ❌ IDE features (autocomplete, hover, refactoring)
+- ❌ Human concurrency patterns (CSP channels → static task graphs)
+- ❌ Familiar syntax from other languages (if it adds entropy)
+
+### Reference Documents
+
+- [VISION_BENCHMARKS.md](../../../benchmarks/VISION_BENCHMARKS.md) - Vision goals and success metrics
+- [Example Parity & Vision Alignment](../../../design_docs/planned/v0_3_15/example-parity-vision-alignment.md) - AI-first DX philosophy detailed
+- [Auto-Capability Inference](../../../design_docs/planned/20251013_auto_caps_capability_inference.md) - Example of entropy reduction
+
+**2. Choose Document Name**
+
+**Naming conventions:**
+- Use lowercase with hyphens: `feature-name.md`
+- For milestone features: `m-XXX-feature-name.md` (e.g., `m-dx2-better-errors.md`)
+- Be specific and descriptive
+- Avoid generic names like `improvements.md`
+
+**3. Run Create Script**
+
+```bash
+# If version is known (most cases)
+.claude/skills/design-doc-creator/scripts/create_planned_doc.sh feature-name v0_4_0
+
+# If version not decided yet
+.claude/skills/design-doc-creator/scripts/create_planned_doc.sh feature-name
+```
+
+**4. Customize the Template**
+
+The script creates a comprehensive template. Fill in:
+
+**Header section:**
+- Feature name (replace `[Feature Name]`)
+- Status: Leave as "Planned"
+- Target: Version number (e.g., v0.4.0)
+- Priority: P0 (High), P1 (Medium), or P2 (Low)
+- Estimated: Time estimate (e.g., "3 days", "1 week")
+- Dependencies: List prerequisite features or "None"
+
+**Problem Statement:**
+- Describe current pain points
+- Include metrics if available (e.g., "takes 7.5 hours")
+- Explain who is affected and how
+
+**Goals:**
+- Primary goal: One-sentence main objective
+- Success metrics: 3-5 measurable outcomes
+
+**Solution Design:**
+- Overview: High-level approach
+- Architecture: Technical design
+- Implementation plan: Break into phases with tasks
+- Files to modify: List new/changed files with LOC estimates
+
+**Examples:**
+- Show before/after code or workflows
+- Make examples concrete and runnable
+
+**Success Criteria:**
+- Checkboxes for acceptance tests
+- Include "All tests passing" and "Documentation updated"
+
+**Timeline:**
+- Week-by-week breakdown
+- Realistic estimates (2x your initial guess!)
+
+**5. Review and Commit**
+
+```bash
+git add design_docs/planned/feature-name.md
+git commit -m "Add design doc for feature-name"
+```
+
+### Moving to Implemented
+
+**When to move:**
+- Feature is complete and shipped
+- Tests are passing
+- Documentation is updated
+- Version is tagged/released
+
+**1. Run Move Script**
+
+```bash
+.claude/skills/design-doc-creator/scripts/move_to_implemented.sh feature-name v0_3_14
+```
+
+**2. Add Implementation Report**
+
+The script provides a template. Add:
+
+**What Was Built:**
+- Summary of actual implementation
+- Any deviations from plan
+
+**Code Locations:**
+- New files created (with LOC)
+- Modified files (with +/- LOC)
+
+**Test Coverage:**
+- Number of tests
+- Coverage percentage
+- Test file locations
+
+**Metrics:**
+- Before/after comparison table
+- Show improvements achieved
+
+**Known Limitations:**
+- What's not yet implemented
+- Edge cases not handled
+- Performance limitations
+
+**3. Update design_docs/README.md**
+
+Add entry under appropriate version:
+
 ```markdown
-## Physics Basis
-- Effect: [name]
-- Principle: [cite equation or physics concept]
-- Reference: [link to physics explanation]
-
-## Rejected Alternatives
-| Hollywood Effect | Why Rejected |
-|------------------|--------------|
-| [effect] | [physics reason] |
+### v0.3.14 - Feature Name (October 2024)
+- Brief description of what shipped
+- Key improvements
+- [CHANGELOG](../CHANGELOG.md#v0314)
 ```
 
-### 7. Example: NPC Movement Design Doc
+**4. Commit Changes**
 
+```bash
+git add design_docs/implemented/v0_3_14/feature-name.md design_docs/README.md
+git commit -m "Move feature-name design doc to implemented (v0.3.14)"
+git rm design_docs/planned/feature-name.md
+git commit -m "Remove feature-name from planned (moved to implemented)"
+```
+
+## Design Doc Structure
+
+See [resources/design_doc_structure.md](resources/design_doc_structure.md) for:
+- Complete template breakdown
+- Section-by-section guide
+- Best practices for each section
+- Common mistakes to avoid
+
+## Best Practices
+
+### 1. Be Specific
+
+**Good:**
 ```markdown
-# NPC Movement System
-
-## Status
-- Status: Planned
-- Priority: P1
-- Estimated: 2 days
-
-## Game Vision Alignment
-
-Checked against [core-pillars.md](docs/vision/core-pillars.md):
-
-| Pillar | Alignment | Notes |
-|--------|-----------|-------|
-| Time Dilation Consequence | N/A | Infrastructure feature |
-| Civilization Simulation | ✅ Supports | NPCs populate civilizations |
-| Ship & Crew Life | ✅ Supports | Crew members use this system |
-| Hard Sci-Fi Authenticity | N/A | No physics implications |
-
-**Prior Decisions:** None directly relevant in design-decisions.md.
-
-## Feature Overview
-NPCs should move around the world grid, avoiding obstacles.
-
-## AILANG Implementation
-
-### Types (in sim/world.ail)
-```ailang
-type Direction = North | South | East | West
-type MoveResult = Moved(Coord) | Blocked(string)
+**Primary Goal:** Reduce builtin development time from 7.5h to 2.5h (-67%)
 ```
 
-### Functions (in sim/npc_ai.ail)
-```ailang
-export pure func move(npc: NPC, dir: Direction, world: World) -> MoveResult
-export pure func pathfind(npc: NPC, target: Coord, world: World) -> [Direction]
+**Bad:**
+```markdown
+**Primary Goal:** Make development easier
 ```
 
-## Engine Integration
-- Go code reads NPC positions from World state
-- Renders sprites at grid positions * tile size
+### 2. Include Metrics
 
-## Performance Concerns
-- Pathfinding recursion: A* with depth limit
-- List operations: O(n) for each tile lookup
-
-## Success Criteria
-- [ ] NPCs can move in 4 directions
-- [ ] Movement blocked by obstacles
-- [ ] No recursion overflow with 64x64 grid
+**Good:**
+```markdown
+**Current State:**
+- Development time: 7.5 hours per builtin
+- Files to edit: 4
+- Type construction: 35 lines
 ```
 
-## AILANG Feedback Integration
+**Bad:**
+```markdown
+**Current State:**
+- Development takes a long time
+```
 
-**If you encounter AILANG limitations while designing:**
+### 3. Break Into Phases
 
-1. Note the limitation in the design doc
-2. Design a workaround
-3. Report to AILANG core via `ailang-feedback` skill:
-   ```bash
-   ~/.claude/skills/ailang-feedback/scripts/send_feedback.sh feature \
-     "Feature needed for <game feature>" \
-     "Description of what would help" \
-     "stapledons_voyage"
-   ```
+**Good:**
+```markdown
+**Phase 1: Core Registry** (~4 hours)
+- [ ] Create BuiltinSpec struct
+- [ ] Implement validation
+- [ ] Add unit tests
+
+**Phase 2: Type Builder** (~3 hours)
+- [ ] Create DSL methods
+- [ ] Add fluent API
+- [ ] Test with existing builtins
+```
+
+**Bad:**
+```markdown
+**Implementation:**
+- Build everything
+```
+
+### 4. Link to Examples
+
+**Good:**
+```markdown
+See existing M-DX1 implementation:
+- design_docs/implemented/v0_3_10/M-DX1_developer_experience.md
+- internal/builtins/spec.go
+```
+
+**Bad:**
+```markdown
+Similar to other features
+```
+
+### 5. Realistic Estimates
+
+**Rule of thumb:**
+- 2x your initial estimate (things always take longer)
+- Add buffer for testing and documentation
+- Include time for unexpected issues
+
+**Good:**
+```markdown
+**Estimated**: 3 days (6h implementation + 4h testing + 2h docs + buffer)
+```
+
+**Bad:**
+```markdown
+**Estimated**: Should be quick, maybe 2 hours
+```
 
 ## Document Locations
 
 ```
 design_docs/
 ├── planned/              # Future features
-│   ├── feature.md
-│   └── v0_1_0/           # Targeted for game v0.1.0
-├── implemented/          # Completed features
-│   └── v0_1_0/
-└── README.md             # Feature index
+│   ├── feature.md        # Unversioned (version TBD)
+│   └── v0_4_0/           # Targeted for v0.4.0
+│       └── feature.md
+└── implemented/          # Completed features
+    ├── v0_3_10/          # Shipped in v0.3.10
+    │   └── feature.md
+    └── v0_3_14/          # Shipped in v0.3.14
+        └── feature.md
 ```
 
-## Best Practices
+**Version folder naming:**
+- Use underscores: `v0_3_14` not `v0.3.14`
+- Match CHANGELOG.md tags exactly
+- Create folder when first doc needs it
 
-### 1. Start with AILANG Types
-Define your data structures first - they drive the implementation.
+## Progressive Disclosure
 
-### 2. Plan for Recursion Limits
-Any operation on 64x64 grid (4096 tiles) needs careful design.
+This skill loads information progressively:
 
-### 3. Test with `ailang check` Early
-Type-check your planned code snippets before committing to the design.
-
-### 4. Link to `ailang prompt`
-Reference `ailang prompt` output when documenting AILANG syntax.
+1. **Always loaded**: This SKILL.md file (workflow overview)
+2. **Execute as needed**: Scripts create/move docs
+3. **Load on demand**: `resources/design_doc_structure.md` (detailed guide)
 
 ## Notes
 
-- All game logic is AILANG, engine is Go/Ebiten
-- Design docs should include AILANG code snippets
-- Document workarounds for AILANG limitations
-- Report feature requests to AILANG core
+- All design docs should follow the template structure
+- Update CHANGELOG.md when features ship (separate from design doc)
+- Link design docs from README.md under version history
+- Keep design docs focused - split large features into multiple docs
+- Use M-XXX naming for milestone/major features

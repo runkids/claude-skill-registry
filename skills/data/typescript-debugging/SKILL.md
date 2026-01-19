@@ -40,12 +40,12 @@ const leagues = (data || []).map((l: any) => ({ ... }));
 Parameter 'options' implicitly has an 'any' type.
 ```
 
-**Fix:** Add explicit type:
+**Fix:** Add explicit type (see `src/lib/supabase/server.ts`):
 ```typescript
 // ❌ WRONG
 setAll(options) { ... }
 
-// ✅ CORRECT
+// ✅ CORRECT - Import from @supabase/ssr
 import { CookieOptions } from '@supabase/ssr';
 setAll(options: { name: string; value: string; options?: CookieOptions }[]) { ... }
 ```

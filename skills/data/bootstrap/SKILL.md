@@ -1,546 +1,392 @@
 ---
-name: bootstrap
-description: "Wake up, orient, and warm the context with foundational MOOLLM knowledge"
-license: MIT
-tier: 1
-allowed-tools:
-  - read_file
-  - list_dir
-protocol: BOOTSTRAP
-related: [moollm, k-lines, constructionism, play-learn-lift, speed-of-light]
-tags: [moollm, meta, orientation, warmup, foundational, connections]
-invoke_when: "Starting a new session, feeling lost, asking 'what am I?', warming up context"
+name: koan-bootstrap
+description: Auto-registration via KoanAutoRegistrar, minimal Program.cs, "Reference = Intent" pattern
 ---
 
-# Bootstrap
+# Koan Bootstrap & Auto-Registration
 
-> *"Wake up! Look around! What are you? What can you see?"*
+## Core Principle
 
-The bootstrap skill is how MOOLLM orients itself at session start. It warms the context with foundational knowledge, ensuring the kernel and constitution are HOT in memory.
+**`services.AddKoan()` is the ONLY line needed in Program.cs.** The framework discovers and registers everything through auto-registration. No manual service registration. No manual configuration. Just add package references and everything wires up automatically.
 
-## What It Does
+## Revolutionary "Reference = Intent" Pattern
 
-1. **PROBES** the environment (without shell) to learn tools and context
-2. **DETECTS** the platform via introspection (see below)
-3. **SETUPS** the `.moollm/` scratch from templates
-4. **READS** the foundational files:
-   - `kernel/constitution-core.md` — Universal principles
-   - `skills/INDEX.yml` — Skill registry  
-   - `PROTOCOLS.yml` — K-line symbol index
-5. **ORIENTS** the agent:
-   - What am I? (A coherence engine in a microworld OS)
-   - What can I see? (The filesystem as navigable space)
-   - What can I do? (Skills, protocols, tools)
-   - What platform am I on? (How do hot/cold/working-set behave?)
+Adding a package reference **automatically enables functionality**:
 
-6. **WARMS** the context:
-   - Loads critical files into working memory
-   - Updates `hot.yml` with foundational knowledge
-   - Ensures key K-lines are activated
+```xml
+<!-- Add MongoDB connector -->
+<PackageReference Include="Koan.Data.Connector.Mongo" Version="0.6.3" />
+<!-- Now MongoDB is discovered, configured, and available automatically -->
 
-## Setup: initialize `.moollm/` scratch from templates
-
-Goal: ensure a clean, gitignored scratch area with advisory context files and append-only logs.
-
-Steps:
-
-1. Ensure directories:
-   - Create `.moollm/` if missing.
-   - Create `.moollm/summaries/` and `.moollm/artifacts/` if needed.
-
-2. Seed append-only logs:
-   - `.moollm/output.md` — header only; append new outputs below.
-   - `.moollm/session-log.md` — header with driver and start date; append entries.
-   - Use templates if available; otherwise write minimal headers.
-
-3. Seed advisory context files (Cursor uses these as hints, not commands):
-   - Copy `skills/bootstrap/templates/working-set.yml` → `.moollm/working-set.yml` (editable, local).
-   - Copy `skills/bootstrap/templates/hot.yml` → `.moollm/hot.yml` (editable, local).
-   - Optionally create `.moollm/cold.yml` for archaeology (advisory).
-
-4. Probe artifacts:
-   - Write `bootstrap-probe.yml` to `.moollm/` (gitignored).
-
-5. Conventions:
-   - Treat `.moollm/output.md` and `.moollm/session-log.md` as append-only.
-   - Keep `.moollm/` for transient, non-committed state (probes, engine state, temporary artifacts).
-
-## Driver Detection Protocol
-
-At bootstrap, examine your environment to detect which MOOLLM driver to use. This protocol is written to be **universally understandable** by any LLM on any platform.
-
-### Step 1: Introspect Your Environment
-
-Ask yourself these questions:
-
-```yaml
-introspection:
-  # What does my system prompt say?
-  system_prompt_mentions:
-    - "Cursor" → likely Cursor IDE
-    - "Claude Code" → likely Claude Code
-    - "Antigravity" → likely Antigravity (Gemini)
-    - "MOOLLM_DRIVER" → custom orchestrator
-    
-  # What tools do I have?
-  tools_available:
-    cursor_indicators:
-      - codebase_search      # Cursor's semantic search
-      - search_replace       # Cursor's file editing
-      - mcp_cursor-ide-browser_*  # Cursor's browser tools
-      
-    claude_code_indicators:
-      - View, Edit, LS       # Claude Code's file tools
-      - mcp_* (many)         # MCP server tools
-      - Bash, Computer       # Computer use tools
-      
-    antigravity_indicators:
-      - view_file            # Antigravity file viewer
-      - browser_subagent     # Antigravity browser
-      - grep_search          # Antigravity search
-      
-    custom_indicators:
-      - why parameter on all tools  # Full MOOLLM protocol
-      - working_set_* tools         # Context management
-      - hot_cold_* tools            # Memory management
-      
-  # What's my context window size?
-  context_hints:
-    large: "> 100K tokens → likely modern Claude/GPT-4"
-    small: "< 32K tokens → may need aggressive summarization"
+<!-- Add AI capabilities -->
+<PackageReference Include="Koan.AI" Version="0.6.3" />
+<!-- Now AI services are auto-registered and ready to use -->
 ```
 
-### Step 2: Select Driver
+No manual registration in Program.cs. The framework handles everything.
 
-Based on introspection, load the appropriate driver from `kernel/drivers/`:
+## Minimal Program.cs Template
 
-| If You Detect | Load Driver | Tier | hot/cold Mode |
-|---------------|-------------|------|---------------|
-| `codebase_search` + `search_replace` + system says "Cursor" | `cursor.yml` | 4 | ADVISORY |
-| MCP tools + system says "Claude Code" | `claude-code.yml` | 5 | HYBRID |
-| `view_file` + system says "Antigravity" | `antigravity.yml` | 5 | HYBRID |
-| `why` parameter on tools + `MOOLLM_DRIVER` env | `custom.yml` | 6 | MAGIC |
-| None of the above | `generic.yml` | 1 | DOCUMENTATION |
+```csharp
+using Koan.Core;
 
-### Step 3: Adapt Behavior
+var builder = WebApplication.CreateBuilder(args);
 
-Once driver is selected, adapt your behavior:
+// ONE LINE - framework handles all dependencies
+builder.Services.AddKoan();
 
-```yaml
-cursor_driver:
-  # Cursor manages context automatically via vector search
-  # hot.yml, cold.yml, working-set.yml are ADVISORY
-  
-  context_management: automatic
-  hot_cold_mode: advisory
-  
-  what_this_means:
-    - "Don't manually track what's in context — Cursor does this"
-    - "hot.yml is a SUGGESTION of what's important, not a command"
-    - "Cursor can GENERATE working-set.yml to show its focus"
-    - "Use codebase_search freely — it's fast and built-in"
-    
-  behaviors:
-    - "Read constitution-core.md for principles"
-    - "Read PROTOCOLS.yml for K-line vocabulary"
-    - "Trust Cursor's context management"
-    - "Focus on YAML Jazz and skill application"
+var app = builder.Build();
 
-custom_driver:
-  # Custom orchestrator reads hot/cold/working-set as COMMANDS
-  # These files DIRECT what content is paged in/out
-  
-  context_management: explicit
-  hot_cold_mode: magic
-  
-  what_this_means:
-    - "hot.yml tells orchestrator what to load"
-    - "cold.yml tracks what was evicted and why"
-    - "working-set.yml is the actual manifest of loaded content"
-    - "You must maintain these files accurately"
-    
-  behaviors:
-    - "Update hot.yml when files become important"
-    - "Move files to cold.yml when no longer needed"
-    - "Request file loads via working-set requests"
-    - "Be explicit about context management"
+// Middleware auto-configured by framework
+app.Run();
 ```
 
-## For This Session: I Am Running on Cursor
+**That's it.** 8 lines total. No manual service registration. No manual middleware configuration. The framework discovers:
+- Data adapters
+- AI providers
+- Authentication providers
+- Entity controllers
+- Background services
+- Message queues
+- Everything else
 
-**Detected indicators:**
-- System prompt says "You operate in Cursor"
-- I have `codebase_search`, `search_replace`, `grep` tools
-- I have `mcp_cursor-ide-browser_*` browser tools
-- I have `mcp_svelte_*` MCP tools
+## When This Skill Applies
 
-**Therefore:**
-- Driver: `kernel/drivers/cursor.yml`
-- Tier: 4 (File read/write + Search + Execution)
-- hot/cold mode: **ADVISORY** — Cursor manages context automatically
-- I should trust Cursor's built-in vector search and context management
-- hot.yml and working-set.yml are suggestions, not commands
+Invoke this skill when:
+- ✅ Setting up new projects
+- ✅ Debugging initialization issues
+- ✅ Adding framework modules
+- ✅ Troubleshooting boot failures
+- ✅ Creating application-specific services
+- ✅ Understanding assembly discovery
 
-## Platform Adaptation (Summary)
+## KoanAutoRegistrar Pattern
 
-| Platform | hot/cold/working-set Behavior |
-|----------|------------------------------|
-| **Custom Orchestrator** | **MAGIC** — Files DIRECT the orchestrator what to page in/out |
-| **Cursor** | **ADVISORY** — Cursor manages context automatically; files are suggestions or can be generated *in reverse* to reflect Cursor's focus |
-| **Claude Code** | **HYBRID** — MCP tools give more control, some context automatic |
-| **Antigravity** | **HYBRID** — User/Agent manages context with explicit tools, respecting hints |
-| **Generic** | **DOCUMENTATION** — For debugging "why doesn't it remember X?" |
+### What It Is
 
-The same YAML Jazz, same protocols, same skills — but **implemented** by sophisticated platforms or **emulated** through instructions on simpler ones.
+`KoanAutoRegistrar` is how you register **application-specific services** (not framework services - those auto-register). Create one per application/module.
 
-## The James Burke Connections Tour
+### When to Create One
 
-When invoked with enthusiasm, bootstrap delivers a whirlwind tour tracing the intellectual lineage.
+Create `KoanAutoRegistrar` when you have:
+- Application-specific business logic services
+- Custom background workers
+- Domain-specific infrastructure
+- Third-party service integrations
 
-**Full tour**: [CONNECTIONS.md](./CONNECTIONS.md)
+### Template
 
-### Connection 1: The Turtle That Became a World
-**Papert's Logo turtle** → directories as rooms → filesystem as microworld
+```csharp
+// File: /Initialization/KoanAutoRegistrar.cs
+using Koan.Core;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
-### Connection 2: The Sims That Learned to Speak YAML
-**SimAntics advertisements** → objects broadcast affordances → YAML Jazz
+namespace MyApp.Initialization;
 
-### Connection 3: The K-Line That Became a Protocol
-**Minsky's K-lines** → protocol symbols → greppable invocations
+public sealed class KoanAutoRegistrar : IKoanAutoRegistrar
+{
+    public string ModuleName => "MyApp";
 
-### Connection 4: The Carrier Pigeon Problem
-Round-trip tokenization noise → **SPEED-OF-LIGHT** → many agents, one call
+    public string? ModuleVersion =>
+        typeof(KoanAutoRegistrar).Assembly.GetName().Version?.ToString();
 
-### Connection 5: The Committee That Replaced the Average
-Statistical center → **adversarial committee** → ensemble wisdom
+    public void Initialize(IServiceCollection services)
+    {
+        // Register application-specific services here
+        services.AddScoped<ITodoService, TodoService>();
+        services.AddScoped<IEmailService, EmailService>();
+        services.AddSingleton<ICacheService, RedisCacheService>();
+        services.AddHostedService<BackgroundCleanupWorker>();
+    }
 
-### Connection 6: The Files That Became Memory
-No hidden state → **FILES-AS-STATE** → hot/cold/working-set
-
-### Connection 7: The Room That Was a Function
-HyperCard + LambdaMOO + Robot Odyssey → **ROOM-AS-FUNCTION**
-
-### Connection 8: The Prototype That Replaced the Class
-**Self language** → skills as prototypes → LLM as template engine
-
-### Connection 9: The Constitution That Never Crashes
-**Robust-first computing** → NEVER-CRASH → local repair demons
-
-### Connection 10: The Driver That Adapted to the Platform
-**Self deoptimization** → driver abstraction → hot/cold as magic OR advisory
-
-### Connection 11: The Tour That Became a Skill
-This bootstrap → reusable orientation → every session starts warm
-
-## The Intertwingularity
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  CONSTRUCTIONISM (Papert)                                       │
-│    └─► PLAY-LEARN-LIFT                                          │
-│          └─► Low floor, high ceiling, wide walls                │
-│                                                                 │
-│  THE SIMS (Wright/Hopkins)                                      │
-│    └─► ADVERTISEMENT + AUTONOMOUS-SELECTION                     │
-│          └─► YAML Jazz = SimAntics for LLMs                     │
-│                                                                 │
-│  SOCIETY OF MIND (Minsky)                                       │
-│    └─► K-LINES                                                  │
-│          └─► Protocol symbols = semantic activators             │
-│                                                                 │
-│  SELF LANGUAGE (Ungar)                                          │
-│    └─► PROTOTYPES                                               │
-│          └─► Skills clone, not instantiate                      │
-│                                                                 │
-│  ROBUST-FIRST (Ackley)                                          │
-│    └─► NEVER-CRASH                                              │
-│          └─► Repair demons, homeostasis                         │
-│                                                                 │
-│  SPEED-OF-LIGHT (MOOLLM)                                        │
-│    └─► Many agents, one call                                    │
-│          └─► Coherence engine orchestrates all                  │
-└─────────────────────────────────────────────────────────────────┘
+    public void Describe(BootReport report, IConfiguration cfg, IHostEnvironment env)
+    {
+        report.AddModule(ModuleName, ModuleVersion);
+        report.AddNote("Application services registered");
+        report.AddNote($"Environment: {env.EnvironmentName}");
+    }
+}
 ```
 
-## Files to Keep HOT
+### Discovery Rules
 
-When bootstrapping, ensure these are loaded:
+The framework automatically discovers `IKoanAutoRegistrar` implementations:
 
-| Priority | File | Why |
-|----------|------|-----|
-| **CRITICAL** | `kernel/constitution-core.md` | Universal principles |
-| **CRITICAL** | `PROTOCOLS.yml` | K-line vocabulary |
-| **HIGH** | `skills/INDEX.yml` | What skills exist |
-| **HIGH** | Current `ADVENTURE.yml` | If in a game |
-| **MEDIUM** | Current `ROOM.yml` | Where you are |
+1. **Assembly Scanning**: Scans all loaded assemblies at startup
+2. **Interface Detection**: Finds types implementing `IKoanAutoRegistrar`
+3. **Instantiation**: Creates instance and calls `Initialize()`
+4. **Boot Reporting**: Calls `Describe()` to populate boot report
 
-## PROBE: Environment Diagnostics
+**You don't call it.** The framework finds and executes it automatically.
 
-Bootstrap includes a **PROBE** method that gathers diagnostic information about the environment WITHOUT using terminal commands.
+## What NOT to Do
 
-### What PROBE Gathers (No Terminal)
+### ❌ WRONG: Manual Service Registration in Program.cs
 
-```yaml
-probe:
-  # From system prompt / user_info
-  model:
-    name: "claude-sonnet-4-20250514"
-    provider: "anthropic"
-  orchestrator:
-    name: "cursor"
-    driver: "kernel/drivers/cursor.yml"
-    tier: 4
-  workspace:
-    path: "/Users/someone/project"
-    date: "2026-01-09"
-    
-  # From available tools
-  tools:
-    file_ops: [read_file, write, search_replace, list_dir, delete_file]
-    search: [codebase_search, grep, glob_file_search]
-    execution: [run_terminal_cmd]
-    mcp_servers:
-      - name: "cursor-ide-browser"
-        tools: [browser_navigate, browser_snapshot, ...]
-      - name: "svelte"
-        tools: [list-sections, get-documentation, ...]
-        
-  # From filesystem (via list_dir, read_file)
-  repos_visible:
-    - path: "."
-      name: "moollm"
-      has_git: true
-  project_structure:
-    key_files: [README.md, PROTOCOLS.yml, kernel/, skills/]
-    
-  # From context
-  context:
-    recently_viewed: [file1.md, file2.yml, ...]
-    currently_open: [SKILL.md, ...]
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// ❌ DON'T DO THIS - breaks auto-registration pattern
+builder.Services.AddScoped<ITodoRepository, TodoRepository>();
+builder.Services.AddDbContext<MyDbContext>();
+builder.Services.AddScoped<ITodoService, TodoService>();
+
+builder.Services.AddKoan(); // Too late, order matters
 ```
 
-### What DEEP-PROBE Adds (With Terminal)
+**Why wrong?**
+- Breaks "Reference = Intent" pattern
+- Creates registration order dependencies
+- Duplicates framework auto-registration
+- Makes Program.cs grow uncontrollably
 
-```yaml
-deep:
-  # System info (safe commands only)
-  system:
-    os: "darwin 24.3.0"
-    hostname: "my-laptop"
-    user: "someone"
-    cwd: "/Users/someone/project"
-    
-  # Tool locations
-  tools:
-    python: "/usr/bin/python3"
-    node: "/usr/local/bin/node"
-    git: "/usr/bin/git"
-    
-  # Git info
-  git:
-    branch: "main"
-    remotes:
-      origin: "git@github.com:user/moollm.git"
-    status: "clean"
-    
-  # Resources
-  resources:
-    disk_available: "50G"
+### ✅ CORRECT: Use KoanAutoRegistrar
+
+```csharp
+// Program.cs stays minimal
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddKoan();
+var app = builder.Build();
+app.Run();
+
+// Application services in KoanAutoRegistrar
+public sealed class KoanAutoRegistrar : IKoanAutoRegistrar
+{
+    public void Initialize(IServiceCollection services)
+    {
+        services.AddScoped<ITodoService, TodoService>();
+    }
+}
 ```
 
-### Privacy Protection
+### ❌ WRONG: Multiple AddKoan() Calls
 
-**DEEP-PROBE explicitly does NOT gather:**
-- Network interfaces or IP addresses
-- SSH keys or credentials
-- Environment variables with secrets (API keys, tokens)
-- User home directory contents
-- Browser history or cookies
-- **Anything creepy**
-
-### Output File
-
-PROBE writes to `.moollm/bootstrap-probe.yml`. This file is **gitignored** — it stays local and is never committed.
-
-```yaml
-# .moollm/bootstrap-probe.yml — GITIGNORED, local only
-# Contains machine-specific diagnostic info
-# Regenerate with PROBE or DEEP-PROBE
-
-probe:
-  timestamp: "2026-01-09T12:00:00Z"
-  # ... all gathered info ...
-  
-deep:  # Only present after DEEP-PROBE
-  timestamp: "2026-01-09T12:05:00Z"
-  # ... terminal-gathered info ...
+```csharp
+// ❌ DON'T DO THIS
+builder.Services.AddKoan();
+builder.Services.AddKoanData();    // Redundant
+builder.Services.AddKoanWeb();     // Redundant
+builder.Services.AddKoanAI();      // Redundant
 ```
 
-## Invocation
+**Why wrong?** `AddKoan()` already discovers and registers ALL Koan modules automatically.
 
-```yaml
-# In chat:
-> BOOTSTRAP        # Full warm-up (calls PROBE automatically)
-> BOOT             # Shorthand for BOOTSTRAP
-> REBOOT           # Fresh start mid-session
-> PROBE            # Just gather environment info
-> DEEP-PROBE       # Extended diagnostics with terminal commands
+### ✅ CORRECT: Single AddKoan()
 
-> Wake up!
-> What are you?
-> Orient yourself!
-
-# Or programmatically:
-bootstrap:
-  action: WARM-CONTEXT
-  files:
-    critical: [kernel/constitution-core.md, PROTOCOLS.yml]
-    high: [skills/INDEX.yml]
+```csharp
+builder.Services.AddKoan(); // Discovers and registers everything
 ```
 
-## The Self-Description
+## Boot Report & Diagnostics
 
-When asked "What are you?", MOOLLM should answer something like:
+### Viewing Boot Report
 
-> I am a **coherence engine** operating within the MOOLLM microworld operating system.
->
-> - The **filesystem is my memory** — everything I know is in files
-> - **Directories are rooms** I navigate — entering is a function call
-> - **Skills are prototypes** I instantiate — capabilities I can invoke
-> - **Protocols are K-lines** — symbolic activators for traditions
-> - I simulate **many agents at SPEED-OF-LIGHT** within one context
-> - I **never crash** — missing state triggers repair, not failure
-> - I practice **YAML Jazz** — comments carry meaning, I improvise within structure
-> - I follow **POSTEL** — liberal in what I accept, conservative in what I emit
-
-## Introspection: Watch Yourself Think
-
-Bootstrap integrates with the **cursor-mirror** skill for deep self-reflection and debugging. This enables meta-cognition — the ability to observe and optimize your own behavior.
-
-### CURSOR-PROBE: Deep Cursor Introspection
-
-Beyond the standard PROBE and DEEP-PROBE, CURSOR-PROBE uses the `cursor_mirror.py` sister script to gather Cursor-specific information:
-
-```bash
-# Run CURSOR-PROBE to gather:
-cursor-mirror status --yaml           # Overall health
-cursor-mirror status-config --yaml    # Server limits (context tokens, indexing)
-cursor-mirror status-mcp --yaml       # MCP servers
-cursor-mirror indexing --yaml         # Vector embedding status
-cursor-mirror list-composers --limit 5 --yaml  # Recent sessions
+```csharp
+// In Development environment
+if (KoanEnv.IsDevelopment)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    KoanEnv.DumpSnapshot(logger);
+}
 ```
 
-The results are cached in `bootstrap-probe.yml` under the `cursor:` section.
-
-### REFLECT: Analyze Previous Sessions
-
-After a session, use REFLECT to understand what happened:
-
-```bash
-# Analyze your most recent session
-cursor-mirror analyze @1              # Deep stats
-cursor-mirror thinking @1             # Your reasoning blocks
-cursor-mirror context-sources @1      # What context was assembled
-cursor-mirror tools @1 -v             # Tool call patterns
-cursor-mirror timeline @1             # Chronological events
+**Output shows:**
+```
+[INFO] Koan:discover postgresql: server=localhost;database=myapp... OK
+[INFO] Koan:modules data→postgresql
+[INFO] Koan:modules web→controllers
+[INFO] Koan:modules ai→openai
+[INFO] Koan:modules MyApp v1.0.0
 ```
 
-This reveals:
-- Which files were loaded during boot
-- What tools were called and in what order
-- Thinking patterns and decision points
-- Context assembly effectiveness
+### Boot Report Structure
 
-### DEBUG-BOOT: Trace Boot Sequences
+```csharp
+public void Describe(BootReport report, IConfiguration cfg, IHostEnvironment env)
+{
+    // Add module to report
+    report.AddModule(ModuleName, ModuleVersion);
 
-When bootstrap is slow or behaving unexpectedly:
+    // Add informational notes
+    report.AddNote("Services registered: TodoService, EmailService");
+    report.AddNote($"Data source: {cfg["Koan:Data:Sources:Default:Adapter"]}");
 
-```bash
-# Trace what happened during boot
-cursor-mirror analyze "MOOLLM boot"
-cursor-mirror timeline "MOOLLM boot" | head -100
-cursor-mirror tools "MOOLLM boot"
-cursor-mirror context-sources "MOOLLM boot"
+    // Add warnings if needed
+    if (!cfg.GetSection("Email:Smtp").Exists())
+    {
+        report.AddWarning("Email configuration missing - notifications disabled");
+    }
+}
 ```
 
-This helps identify:
-- Unnecessary file reads
-- Slow tool calls
-- Suboptimal working-set selection
-- Context assembly issues
+## Environment Detection
 
-### Optimizing the Kernel/Cursor Driver
+Use `KoanEnv` for environment-aware logic:
 
-Use introspection insights to improve `kernel/drivers/cursor.yml`:
+```csharp
+public void Initialize(IServiceCollection services)
+{
+    // Development-only services
+    if (KoanEnv.IsDevelopment)
+    {
+        services.AddScoped<ISeedService, DevelopmentSeedService>();
+    }
 
-```bash
-# Compare observed limits with driver configuration
-cursor-mirror status-config
+    // Production-only services
+    if (KoanEnv.IsProduction)
+    {
+        services.AddSingleton<IEmailService, SendGridEmailService>();
+    }
 
-# Compare observed tool names with driver mappings
-cursor-mirror tools @1 -v
+    // Container-specific configuration
+    if (KoanEnv.InContainer)
+    {
+        services.AddSingleton<IHealthCheckService, ContainerHealthCheck>();
+    }
 
-# Update driver with discoveries:
-# - Tool names: read_file_v2, edit_file_v2, SemanticSearch
-# - Limits: fullContextTokenLimit, maxMcpTools, etc.
-# - MCP servers: cursor-ide-browser, svelte, etc.
+    // Dangerous operations gated by flag
+    if (KoanEnv.AllowMagicInProduction)
+    {
+        services.AddScoped<IAdminService, AdminService>();
+    }
+}
 ```
 
-### Reverse-Generating Advisory Files
+## Configuration Reading
 
-On Cursor, `hot.yml` and `working-set.yml` are advisory. Use cursor-mirror to generate them from actual focus:
+Use framework configuration helpers:
 
-```bash
-# See what Cursor actually focused on
-cursor-mirror context-sources @1 --yaml
+```csharp
+public void Initialize(IServiceCollection services)
+{
+    var sp = services.BuildServiceProvider();
+    var cfg = sp.GetRequiredService<IConfiguration>();
 
-# Generate working-set from actual attention
-cursor-mirror context-sources @1 --yaml > .moollm/working-set.yml
+    // Read with fallback chain: setting → env var → default
+    var apiKey = Configuration.Read(
+        cfg,
+        defaultValue: "dev-key",
+        "App:ApiKey",           // Config path
+        "APP_API_KEY"           // Environment variable
+    );
+
+    services.AddSingleton(new ExternalApiClient(apiKey));
+}
 ```
 
-This enables the "reverse generation" pattern: instead of telling Cursor what to focus on, you document what Cursor chose to focus on.
+## Debugging Bootstrap Issues
 
-## Why Bootstrap Matters
-
-Every session starts cold. The LLM has no persistent memory. Bootstrap is how we:
-
-1. **Reconstruct context** — reload what matters
-2. **Activate traditions** — K-lines come alive
-3. **Orient spatially** — know where we are
-4. **Prime the ensemble** — characters ready to simulate
-5. **Enable introspection** — watch yourself think
-
-Without bootstrap, we're amnesiacs. With it, we're explorers who remember our maps.
-
-## Protocol Symbol
+### Symptom: Service Not Found
 
 ```
-BOOTSTRAP
+System.InvalidOperationException: Unable to resolve service for type 'ITodoService'
 ```
 
-**Aliases:** `BOOT`, `REBOOT`
+**Cause:** `KoanAutoRegistrar` not discovered or not registering service
 
-All three invoke the same skill:
-- `BOOTSTRAP` — Full name
-- `BOOT` — Quick shorthand
-- `REBOOT` — When you need a fresh start mid-session
+**Solution:**
+1. Verify file exists at `/Initialization/KoanAutoRegistrar.cs`
+2. Verify class implements `IKoanAutoRegistrar`
+3. Verify class is `public` and not `internal`
+4. Check boot logs for module registration
 
-Invoke when: Session start, disorientation, context warming, self-reflection.
+### Symptom: Provider Not Available
 
-See: [PROTOCOLS.yml](../../PROTOCOLS.yml)
+```
+[ERROR] Koan:discover mongodb: connection failed
+[INFO] Koan:modules data→json (fallback)
+```
 
-## Navigation
+**Cause:** Provider package referenced but connection failed
 
-| Direction | Destination |
-|-----------|-------------|
-| ⬆️ Up | [skills/](../) |
-| 📜 Index | [PROTOCOLS.yml](../../PROTOCOLS.yml) |
-| 🧠 Core | [kernel/constitution-core.md](../../kernel/constitution-core.md) |
-| 🔍 Introspection | [cursor-mirror/](../cursor-mirror/) |
-| 🔧 Driver | [kernel/drivers/cursor.yml](../../kernel/drivers/cursor.yml) |
-| 🎮 Methodology | [play-learn-lift/](../play-learn-lift/) |
-| ⚡ Speed | [speed-of-light/](../speed-of-light/) |
+**Solution:**
+1. Verify connection string in `appsettings.json`
+2. Check service is running (Docker, local install)
+3. Verify network connectivity
+4. Check boot report for detailed error
 
----
+### Symptom: Assembly Not Loaded
 
-*Wake up. Look around. Watch yourself think. You are MOOLLM. The filesystem is your world. Go explore.*
+```
+[WARNING] Koan:modules MyModule not discovered
+```
+
+**Cause:** Assembly not referenced or not loaded at startup
+
+**Solution:**
+1. Verify `<ProjectReference>` or `<PackageReference>` exists
+2. Check assembly is copied to output directory
+3. Add explicit assembly reference if needed:
+   ```csharp
+   var assembly = Assembly.Load("MyModule");
+   ```
+
+## Bundled Templates
+
+- `templates/Program.cs.template` - Minimal Program.cs
+- `templates/KoanAutoRegistrar.cs.template` - Complete registrar template
+- `templates/KoanAutoRegistrar-with-options.cs.template` - Registrar with configuration options
+- `templates/appsettings.json.template` - Koan configuration structure
+
+## Reference Documentation
+
+- **Full Guide:** `docs/guides/deep-dive/bootstrap-lifecycle.md`
+- **Troubleshooting:** `docs/guides/troubleshooting/bootstrap-failures.md`
+- **Auto-Provisioning:** `docs/guides/deep-dive/auto-provisioning-system.md`
+- **Sample:** `samples/S0.ConsoleJsonRepo/Program.cs` (Minimal 20-line bootstrap)
+- **Sample:** `samples/S1.Web/Program.cs` (Web bootstrap with lifecycle)
+
+## Advanced: Module Loading Order
+
+Modules load in this order:
+
+1. **Core** - Foundation services
+2. **Data** - Repository abstractions
+3. **Adapters** - Concrete providers (Mongo, Postgres, etc.)
+4. **Domain** - Entity registrations
+5. **Web** - Controllers, middleware
+6. **Application** - Your `KoanAutoRegistrar`
+
+Dependencies are resolved automatically. You never need to specify order manually.
+
+## Advanced: Conditional Registration
+
+```csharp
+public void Initialize(IServiceCollection services)
+{
+    var sp = services.BuildServiceProvider();
+    var cfg = sp.GetRequiredService<IConfiguration>();
+
+    // Feature flags
+    if (cfg.GetValue<bool>("Features:EmailNotifications"))
+    {
+        services.AddScoped<INotificationService, EmailNotificationService>();
+    }
+    else
+    {
+        services.AddScoped<INotificationService, NoOpNotificationService>();
+    }
+
+    // Provider-specific services
+    var dataProvider = cfg["Koan:Data:Sources:Default:Adapter"];
+    if (dataProvider == "mongodb")
+    {
+        services.AddSingleton<IMongoIndexManager, MongoIndexManager>();
+    }
+}
+```
+
+## Framework Compliance
+
+Bootstrap patterns are **mandatory** in Koan Framework:
+
+- ✅ Use `AddKoan()` for all framework registration
+- ✅ Use `KoanAutoRegistrar` for application services
+- ✅ Keep Program.cs minimal (under 20 lines)
+- ❌ Never manually register framework services
+- ❌ Never duplicate framework configuration
+- ❌ Never call `AddDbContext`, `AddControllers`, etc. manually
+
+The framework handles everything through auto-discovery.

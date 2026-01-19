@@ -1,7 +1,7 @@
 {
   "name": "workers-development",
-  "repo": "involvex/involvex-claude-marketplace",
+  "repo": "SteveLeve/claude-marketplace",
   "path": "plugins/cloudflare-expert/skills/workers-development/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-01-17T03:58:54.184378Z"
+  "source": "github.com/SteveLeve/claude-marketplace",
+  "downloaded_at": "2026-01-19T03:56:13.105531Z"
 }

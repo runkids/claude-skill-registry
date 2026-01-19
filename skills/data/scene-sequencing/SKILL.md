@@ -5,8 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: story-sense
 ---
 
 # Scene Sequencing: Pacing Skill
@@ -142,27 +140,32 @@ Mode should match function. Action in sequels feels rushed. Introspection in act
 5. If clean victories: "That might be draining tension. What 'but' could you add?"
 6. If missing sequels: "Adding even a paragraph of reaction before the next scene helps readers catch up"
 
-## Anti-Patterns to Watch
+## Anti-Patterns
 
-### The Relentless Scene
-Pure action with no processing time. Reader becomes numb.
-Fix: Insert sequel beats even in fast-paced stories.
+### 1. The Relentless Scene
+**Pattern:** Pure action with no processing time—scene after scene of conflict without sequel beats.
+**Why it fails:** Reader becomes numb. Without processing time, emotional stakes flatten. Each new disaster hits with diminishing impact. The reader can't catch up.
+**Fix:** Insert sequel beats even in fast-paced stories. Even a paragraph of reaction helps. Compression is fine; elimination exhausts.
 
-### The Wallowing Sequel
-Pages of introspection without decision. Reader loses patience.
-Fix: Dilemma must lead to decision; decision to action.
+### 2. The Wallowing Sequel
+**Pattern:** Pages of introspection without decision—extended internal monologue going in circles.
+**Why it fails:** Reader loses patience. Sequels exist to process and decide, not to wallow. Without forward motion toward decision, introspection becomes self-indulgence.
+**Fix:** Dilemma must lead to decision; decision to action. Time-box sequels. If the character isn't moving toward a choice, compress or cut.
 
-### The Arbitrary Disaster
-Outcome disconnected from scene events.
-Fix: Disaster should be logical consequence of conflict.
+### 3. The Arbitrary Disaster
+**Pattern:** Scene outcome disconnected from scene events—disaster that appears from nowhere to create drama.
+**Why it fails:** Readers sense manipulation. Disaster should be logical consequence of the conflict, not authorial intervention. Unmotivated disaster breaks trust.
+**Fix:** Trace the chain backward. How did scene conflict logically produce this disaster? If you can't answer, the disaster is arbitrary. Rework the conflict to set up the disaster.
 
-### The Clean Victory
-Character achieves goal without complications.
-Fix: Add a "but" or set up new problem.
+### 4. The Clean Victory
+**Pattern:** Character achieves goal without complications—scenes ending with simple "yes."
+**Why it fails:** Clean victories drain tension. Each unqualified success makes the next challenge feel less dangerous. Readers stop worrying.
+**Fix:** Add a "but" or "and furthermore." Goal achieved but new problem created. Victory came but cost more than expected. Simple success is rare; complications are normal.
 
-### Goal Drift
-Scene starts with one goal, achieves different goal.
-Fix: If goal changes, make shift explicit and motivated.
+### 5. Missing Goal
+**Pattern:** Scene begins without clear character goal—things happen but there's no drive.
+**Why it fails:** Without goal, there's no conflict (nothing to oppose). Without conflict, there's no disaster (nothing to fail). The scene becomes description, not story.
+**Fix:** Establish goal in first paragraph. What does the POV character want in this scene specifically? If you can't answer clearly, the scene lacks direction.
 
 ## Available Tools
 
@@ -238,3 +241,25 @@ For this skill, persist:
 
 Pattern: `{story}-pacing-{date}.md`
 Example: `novel-chapter5-pacing-2025-01-15.md`
+
+## Integration
+
+### Inbound (feeds into this skill)
+| Skill | What it provides |
+|-------|------------------|
+| story-sense | Diagnosis that pacing is the problem area |
+| key-moments | Emotional beats that need scene structure |
+| outline-collaborator | Scene-level structure to analyze for pacing |
+
+### Outbound (this skill enables)
+| Skill | What this provides |
+|-------|-------------|
+| drafting | Properly paced scenes ready for prose generation |
+| story-collaborator | Scene structures to generate prose within |
+| revision | Pacing diagnosis for revision passes |
+
+### Complementary
+| Skill | Relationship |
+|-------|--------------|
+| key-moments | Key-moments identifies what emotional beats matter; scene-sequencing structures how to deliver them |
+| dialogue | Scene-sequencing handles scene-level structure; dialogue operates within scenes at the exchange level |

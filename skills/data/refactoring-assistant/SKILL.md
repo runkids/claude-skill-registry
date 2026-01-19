@@ -1,162 +1,205 @@
 ---
-source: skills/claude-code/refactoring-assistant/SKILL.md
-source_version: 1.0.0
-translation_version: 1.0.0
-last_synced: 2026-01-12
-status: current
 name: refactoring-assistant
 description: |
-  引導重構决策和大規模程序码改进。
-  使用时机：重構程序码、遺留系统現代化、技術債、重写决策。
-  关鍵字：refactor, rewrite, legacy, strangler, technical debt, 重構, 重写, 技術債.
+  Guide refactoring decisions and large-scale code improvements.
+  Use when: refactoring code, legacy modernization, technical debt, rewrite decisions.
+  Keywords: refactor, rewrite, legacy, strangler, technical debt, 重構, 重寫, 技術債.
 ---
 
-# 重構助手
+# Refactoring Assistant
 
-> **语言**: [English](../../../../../skills/claude-code/refactoring-assistant/SKILL.md) | 简体中文
+> **Language**: English | [繁體中文](../../../locales/zh-TW/skills/claude-code/refactoring-assistant/SKILL.md)
 
-**版本**: 1.0.0
-**最後更新**: 2026-01-12
-**適用範圍**: Claude Code Skills
-
----
-
-## 目的
-
-本技能提供重構与重写的决策框架、大規模重構模式，以及技術債管理。
+**Version**: 1.0.0
+**Last Updated**: 2026-01-12
+**Applicability**: Claude Code Skills
 
 ---
 
-## 快速參考（YAML 壓縮格式）
+## Purpose
+
+This skill provides decision frameworks for refactoring vs rewriting, large-scale refactoring patterns, and technical debt management.
+
+---
+
+## Quick Reference (YAML Compressed)
 
 ```yaml
-# === 决策：重構 vs 重写 ===
+# === DECISION: Refactor vs Rewrite ===
 decision_tree:
-  - q: "程序码在生产環境运行？"
-    n: "→ 考慮重写（風險較低）"
+  - q: "Code in production?"
+    n: "→ Consider rewrite (lower risk)"
     y: next
-  - q: "了解程序码的功能？"
-    n: "→ 先写特徵测试"
+  - q: "Understand what code does?"
+    n: "→ Characterization tests first"
     y: next
-  - q: "测试覆蓋率 >60%？"
-    n: "→ 先補测试"
+  - q: "Test coverage >60%?"
+    n: "→ Add tests first"
     y: next
-  - q: "核心架構可修復？"
-    n: "→ Strangler Fig 模式"
-    y: "→ 增量重構 ✓"
+  - q: "Core architecture salvageable?"
+    n: "→ Strangler Fig pattern"
+    y: "→ Incremental Refactoring ✓"
 
 comparison_matrix:
-  favor_refactor: [大型程序庫, 良好测试, 业务关鍵, 团队熟悉, 架構健全, 时间緊迫, 低風險]
-  favor_rewrite: [小型獨立, 無测试, 可容忍停机, 無人熟悉, 架構有缺陷, 时间充裕, 較高風險]
+  favor_refactor: [large_codebase, good_tests, business_critical, team_knows_code, sound_arch, tight_deadline, low_risk]
+  favor_rewrite: [small_isolated, no_tests, can_tolerate_downtime, no_knowledge, flawed_arch, flexible_time, higher_risk]
 
-# === 警告：第二系统效应 ===
+# === WARNING: Second-System Effect ===
 rewrite_antipatterns:
-  - "加入原本没有的功能"
-  - "为未來彈性過度抽象"
-  - "忽略現有系统的經驗教訓"
-quote: "第二个系统是一个人设计過最危險的系统。— Fred Brooks"
+  - "Adding features not in original"
+  - "Over-abstracting for future flexibility"
+  - "Ignoring lessons from existing system"
+quote: "The second system is the most dangerous system a person ever designs. — Fred Brooks"
 
-# === 規模：重構策略 ===
+# === SCALE: Refactoring Strategies ===
 scales:
   small:
-    duration: "5-15 分鐘"
-    scope: "单一方法/类别"
-    techniques: [提取方法, 重新命名, 內联变數, 替换魔術數字]
+    duration: "5-15 min"
+    scope: "single method/class"
+    techniques: [extract_method, rename, inline_var, replace_magic_number]
   medium:
-    duration: "數小时到數天"
-    scope: "一个功能/模組"
-    checklist: [定義範圍, 識别入口点, "覆蓋率>80%", 增量提交, 与团队溝通]
+    duration: "hours-days"
+    scope: "one feature/module"
+    checklist: [define_scope, identify_entry_points, "coverage>80%", incremental_commits, communicate]
   large:
-    duration: "數周到數月"
-    scope: "多个模組/系统"
+    duration: "weeks-months"
+    scope: "multiple modules/system"
     patterns: [strangler_fig, branch_by_abstraction, parallel_change]
 
-# === 模式：大規模重構 ===
+# === PATTERNS: Large-Scale Refactoring ===
 strangler_fig:
   phases:
-    1_攔截: "请求 → 外觀 → 舊系统(100%)"
-    2_迁移: "请求 → 外觀 → [新系统(功能A), 舊系统(其餘)]"
-    3_完成: "请求 → 新系统(100%) [舊系统除役]"
+    1_intercept: "Request → Facade → Legacy(100%)"
+    2_migrate: "Request → Facade → [New(FeatureA), Legacy(Rest)]"
+    3_complete: "Request → New(100%) [Legacy decommissioned]"
+  checklist: [identify_interception_point, create_event_capture, implement_first_feature, route_incrementally, monitor_compare, decommission]
 
 branch_by_abstraction:
   steps:
-    1: "客户端 → 抽象层(界面) → 舊实作"
-    2: "客户端 → 抽象层 → [舊实作, 新实作(切换)]"
-    3: "客户端 → 新实作 [移除舊实作]"
+    1: "Client → Abstraction(interface) → OldImpl"
+    2: "Client → Abstraction → [OldImpl, NewImpl(toggled)]"
+    3: "Client → NewImpl [OldImpl removed]"
+  principles: [all_changes_on_trunk, feature_toggles, coexist_during_transition]
 
 expand_migrate_contract:
   phases:
-    expand: "新增新的，保留舊的，新程序用新的，舊程序仍可用"
-    migrate: "更新所有客户端使用新的，验证，数据迁移"
-    contract: "移除舊的，清理，更新文件"
+    expand: "Add new alongside old, new code uses new, old still works"
+    migrate: "Update all clients to new, verify, data migration"
+    contract: "Remove old, clean up, update docs"
 
-# === 遺留程序码：策略 ===
+# === LEGACY CODE: Strategies ===
 legacy:
-  definition: "没有测试的程序码（不論年齡）"
-  dilemma: "安全修改需要测试 → 加测试需要修改程序码"
-  solution: "使用安全技術先加测试"
+  definition: "Code without tests (regardless of age)"
+  dilemma: "Need tests to change safely → Need to change to add tests"
+  solution: "Safe techniques to add tests first"
 
 characterization_tests:
-  purpose: "捕捉現有行为（非验证正确性）"
+  purpose: "Capture existing behavior (not verify correctness)"
   process:
-    1: "呼叫要理解的程序码"
-    2: "写预期会失败的斷言"
-    3: "执行，觀察实际結果"
-    4: "更新斷言以匹配实际行为"
-    5: "重複直到涵蓋需要修改的行为"
+    1: "Call code to understand"
+    2: "Write assertion expected to FAIL"
+    3: "Run, see actual result"
+    4: "Update assertion to match actual"
+    5: "Repeat until behavior covered"
 
-# === 技術債管理 ===
+seams:
+  object: "Override via polymorphism (inject test double)"
+  preprocessing: "Compile-time substitution (macros)"
+  link: "Replace at link time (DI, module replacement)"
+
+sprout_wrap:
+  sprout_method: "New logic → create new method, call from old"
+  sprout_class: "New logic evolves independently → new class"
+  wrap_method: "Add before/after → rename original, create wrapper"
+  wrap_class: "Decorate existing → decorator pattern"
+principle: "New code uses TDD; legacy untouched until tested"
+
+# === DATABASE: Refactoring ===
+db_expand_contract:
+  expand: "Add new column/table, app writes BOTH, safe to rollback"
+  migrate: "Copy data, verify consistency, app reads from new"
+  contract: "Confirm old unused, remove old, cleanup dual-write"
+
+db_scenarios:
+  rename_column: {strategy: "add→migrate→drop", risk: medium}
+  split_table: {strategy: "new+FK→migrate→adjust", risk: high}
+  merge_tables: {strategy: "new→merge→switch", risk: high}
+  change_datatype: {strategy: "new_col→convert→switch", risk: medium}
+  add_not_null: {strategy: "fill_defaults→add_constraint", risk: low}
+
+# === WORKFLOW: Safe Refactoring ===
+before: [define_success_criteria, "coverage>80%", clean_working_dir, create_branch, communicate]
+during: [one_small_change, test_after_every_change, revert_if_fail, commit_frequently, no_new_functionality]
+after: [all_tests_pass, measurably_better, docs_updated, team_reviewed, no_new_functionality]
+
+# === METRICS ===
+code_quality:
+  cyclomatic_complexity: "<10/function"
+  cognitive_complexity: "lower=better"
+  coupling: "reduce"
+  cohesion: "increase"
+  duplication: "<3%"
+
+test_quality:
+  coverage: "≥80%, don't decrease"
+  speed: "faster after refactoring"
+  flaky_count: "decrease"
+
+# === TECHNICAL DEBT ===
 quadrant: # Martin Fowler
-  prudent_deliberate: "我們知道这是債务"
-  reckless_deliberate: "没时间做设计"
-  prudent_inadvertent: "現在知道应該怎麼做了"
-  reckless_inadvertent: "什麼是分层？"
+  prudent_deliberate: "We know this is debt"
+  reckless_deliberate: "No time for design"
+  prudent_inadvertent: "Now we know how we should have done it"
+  reckless_inadvertent: "What's layering?"
 
 priority:
-  high: {criteria: "阻塞开发，頻繁出錯", action: "立即处理"}
-  medium: {criteria: "拖慢开发，增加複雜度", action: "規划到下个迭代"}
-  low: {criteria: "小麻煩，影響局部", action: "有机会就处理"}
+  high: {criteria: "blocks dev, frequent bugs", action: "address immediately"}
+  medium: {criteria: "slows dev, increases complexity", action: "plan next sprint"}
+  low: {criteria: "minor annoyance, isolated", action: "address opportunistically"}
+
+tracking:
+  fields: [description, impact, estimated_effort, risk_if_ignored, related_code]
 ```
 
 ---
 
-## 配置偵测
+## Configuration Detection
 
-### 偵测順序
+### Detection Order
 
-1. 检查 `CONTRIBUTING.md` 中的「停用技能」區段
-2. 检查 `CONTRIBUTING.md` 中的「重構标准」區段
-3. 如果未找到，**预设使用标准重構实踐**
-
----
-
-## 详细指南
-
-完整标准請參阅：
-- [重構标准](../../../core/refactoring-standards.md)
+1. Check `CONTRIBUTING.md` for "Disabled Skills" section
+2. Check `CONTRIBUTING.md` for "Refactoring Standards" section
+3. If not found, **default to standard refactoring practices**
 
 ---
 
-## 相关标准
+## Detailed Guidelines
 
-- [重構标准](../../../core/refactoring-standards.md) - 核心标准
-- [测试驅动开发](../../../core/test-driven-development.md) - TDD 重構阶段
-- [程序码审查检查清单](../../../core/code-review-checklist.md) - 重構 PR 审查
-- [簽入标准](../../../core/checkin-standards.md) - 提交前要求
-- [TDD 助手](../tdd-assistant/SKILL.md) - TDD 工作流程
+For complete standards, see:
+- [Refactoring Standards](../../../core/refactoring-standards.md)
 
 ---
 
-## 版本历史
+## Related Standards
 
-| 版本 | 日期 | 变更 |
-|------|------|------|
-| 1.0.0 | 2026-01-12 | 初始發布 |
+- [Refactoring Standards](../../../core/refactoring-standards.md) - Core standard
+- [Test-Driven Development](../../../core/test-driven-development.md) - TDD refactor phase
+- [Code Review Checklist](../../../core/code-review-checklist.md) - Refactoring PR review
+- [Checkin Standards](../../../core/checkin-standards.md) - Pre-commit requirements
+- [TDD Assistant](../tdd-assistant/SKILL.md) - TDD workflow
 
 ---
 
-## 授权
+## Version History
 
-本技能以 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 授权發布。
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0.0 | 2026-01-12 | Initial release |
 
-**來源**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)
+---
+
+## License
+
+This skill is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+**Source**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)

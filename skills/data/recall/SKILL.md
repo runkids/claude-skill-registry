@@ -1,252 +1,219 @@
 ---
 name: recall
-description: Search and retrieve decisions and patterns from semantic memory. Use when recalling patterns, retrieving memories, finding past decisions.
-context: inherit
-version: 1.1.0
-author: SkillForge
-tags: [memory, search, decisions, patterns, mem0, graph-memory]
-user-invocable: true
+description: Deep search across all past Claude Code sessions for decisions, solutions, and discussions
+version: 0.6.0
+triggers:
+  - "I forgot"
+  - "do you remember"
+  - "what did we decide"
+  - "we discussed this before"
+  - "I need to recall"
+  - "search my memory"
+  - "/recall"
+tools:
+  - Bash
+  - Read
 ---
 
-# Recall - Search Semantic Memory
+# Recall: Self-Memory Retrieval
 
-Search past decisions and patterns stored in mem0.
+> **STOP. READ THIS FIRST.**
+>
+> **THE ONLY COMMAND YOU MAY USE IS:**
+> ```
+> transcript recall "your query"
+> ```
+>
+> **YOU MUST NOT USE:**
+> - `rg` - FORBIDDEN
+> - `grep` - FORBIDDEN
+> - `find` - FORBIDDEN
+> - `cat ~/.claude/` - FORBIDDEN
+> - Any direct file access to `~/.claude/projects/` - FORBIDDEN
+>
+> If you use any forbidden command, you are violating this skill's requirements.
 
-## When to Use
+## Why This Matters
 
-- Finding past architectural decisions
-- Searching for recorded patterns
-- Looking up project context
-- Retrieving stored knowledge
-- Querying cross-project best practices
+The `transcript` CLI:
+- Handles JSONL parsing correctly
+- Groups results by session
+- Shows timestamps and context
+- Finds related skills automatically
+- Auto-synthesizes complex queries with LLM
 
-## Usage
+Raw tools like `rg` return unreadable JSON blobs and miss context. **Using them is a failure mode.**
 
-```
-/recall <search query>
-/recall --category <category> <search query>
-/recall --limit <number> <search query>
+## The Command
 
-# Advanced options (v1.1.0+)
-/recall --graph <query>                     # Search with graph relationships
-/recall --agent <agent-id> <query>          # Filter by agent scope
-/recall --global <query>                    # Search cross-project best practices
-/recall --global --category pagination      # Combine flags
-```
-
-## Options
-
-- `--category <category>` - Filter by category (decision, architecture, pattern, blocker, constraint, preference, pagination, database, authentication, api, frontend, performance)
-- `--limit <number>` - Maximum results to return (default: 10)
-
-## Advanced Flags
-
-- `--graph` - Enable graph search to find related entities and relationships
-- `--agent <agent-id>` - Filter results to a specific agent's memories (e.g., `database-engineer`)
-- `--global` - Search cross-project best practices instead of project-specific memories
-
-## Workflow
-
-### 1. Parse Input
-
-```
-Check for --category <category> flag
-Check for --limit <number> flag
-Check for --graph flag → enable_graph: true
-Check for --agent <agent-id> flag → filter by agent_id
-Check for --global flag → search global user_id
-Extract the search query
+```bash
+transcript recall "your query"
 ```
 
-### 2. Search mem0
+That's it. Run this command. Read the output. Done.
 
-Use `mcp__mem0__search_memories` with:
+## Tiered Retrieval
 
-```json
-{
-  "query": "user's search query",
-  "filters": {
-    "AND": [
-      { "user_id": "skillforge-{project-name}-decisions" }
-    ]
-  },
-  "limit": 10,
-  "enable_graph": false
-}
+Recall uses intelligent tiering to match retrieval strategy to query complexity:
+
+### Fast Path (default)
+- SQLite FTS search
+- Returns in 1-2 seconds
+- Best for simple keyword lookups
+
+### Deep Path (auto or --deep)
+- Fast path + LLM synthesis
+- Returns in 5-10 seconds
+- Best for complex questions requiring cross-session analysis
+
+### Auto-Escalation
+
+The command automatically escalates to deep path when:
+- **Match count > 50** - Too many results to scan manually
+- **Results span > 7 days** - Long time range suggests complex topic
+- **Query is a question** - Starts with what/why/how/did/do/etc.
+- **Session count > 5** - Information spread across many sessions
+
+### Controlling Escalation
+
+```bash
+# Force deep path (LLM synthesis) even for simple queries
+transcript recall "caching" --deep
+transcript recall "caching" -D
+
+# Force fast path (skip synthesis) even when criteria would trigger escalation
+transcript recall "why did we choose redis" --fast
+transcript recall "why did we choose redis" -F
 ```
 
-**User ID Selection:**
-- Default: `skillforge-{project-name}-decisions`
-- With `--global`: `skillforge-global-best-practices`
+**Note:** `--fast` takes precedence over `--deep` if both are specified.
 
-**Filter Construction:**
-- Always include `user_id` filter
-- With `--category`: Add `{ "metadata.category": "{category}" }` to AND array
-- With `--agent`: Add `{ "agent_id": "skf:{agent-id}" }` to AND array
+### Options
 
-**Example with category and agent filters:**
-```json
-{
-  "query": "pagination patterns",
-  "filters": {
-    "AND": [
-      { "user_id": "skillforge-myproject-decisions" },
-      { "metadata.category": "pagination" },
-      { "agent_id": "skf:database-engineer" }
-    ]
-  },
-  "limit": 10,
-  "enable_graph": true
-}
+```bash
+transcript recall "query" --max-sessions 5    # Limit sessions shown (default: 5)
+transcript recall "query" --context 3         # Matches per session (default: 3)
+transcript recall "query" --limit 100         # Total matches to search (default: 100)
+transcript recall "query" --deep              # Force LLM synthesis
+transcript recall "query" --fast              # Skip LLM synthesis
+transcript recall "query" --json              # Output as JSON (includes synthesis if applicable)
 ```
-
-### 3. Format Results
-
-**Standard Results:**
-```
-🔍 Found {count} memories matching "{query}":
-
-1. [{time ago}] ({category}) {memory text}
-
-2. [{time ago}] ({category}) {memory text}
-```
-
-**With Graph Relationships (when --graph used):**
-```
-🔍 Found {count} memories matching "{query}":
-
-1. [{time ago}] ({category}) {memory text}
-   📊 Related: {entity1} → {relation} → {entity2}
-
-2. [{time ago}] ({category}) {memory text}
-   📊 Related: {entity1} → {relation} → {entity2}
-```
-
-### 4. Handle No Results
-
-```
-🔍 No memories found matching "{query}"
-
-Try:
-• Broader search terms
-• /remember to store new decisions
-• --global flag to search cross-project best practices
-• Check if mem0 is configured correctly
-```
-
-## Time Formatting
-
-| Duration | Display |
-|----------|---------|
-| < 1 day | "today" |
-| 1 day | "yesterday" |
-| 2-7 days | "X days ago" |
-| 1-4 weeks | "X weeks ago" |
-| > 4 weeks | "X months ago" |
 
 ## Examples
 
-### Basic Search
-
-**Input:** `/recall database`
-
-**Output:**
+### Simple keyword lookup (fast path)
+```bash
+transcript recall "caching"
 ```
-🔍 Found 3 memories matching "database":
+Returns grouped results in 1-2 seconds.
 
-1. [2 days ago] (decision) PostgreSQL chosen for ACID requirements and team familiarity
-
-2. [1 week ago] (pattern) Database connection pooling with pool_size=10, max_overflow=20
-
-3. [2 weeks ago] (architecture) Using pgvector extension for vector similarity search
+### Question query (auto-escalates to deep path)
+```bash
+transcript recall "why did we decide to use Redis?"
 ```
+Auto-detects question pattern, runs synthesis, returns synthesized answer with citations.
 
-### Category Filter
-
-**Input:** `/recall --category architecture API`
-
-**Output:**
+### Force deep analysis
+```bash
+transcript recall "authentication patterns" --deep
 ```
-🔍 Found 2 memories matching "API" (category: architecture):
+Forces LLM synthesis even if auto-escalation criteria not met.
 
-1. [3 days ago] (architecture) Layered API architecture with controllers, services, repositories
-
-2. [1 week ago] (architecture) API versioning using /api/v1 prefix in URL path
+### Skip synthesis for speed
+```bash
+transcript recall "how does the login flow work" --fast
 ```
+Skips synthesis despite question pattern, returns fast path results only.
 
-### Limited Results
+## Understanding the Output
 
-**Input:** `/recall --limit 5 auth`
-
-**Output:**
+### Fast Path Output
 ```
-🔍 Found 5 memories matching "auth":
+🔍 Recall: "caching"
 
-1. [1 day ago] (decision) JWT authentication with 24h expiry for access tokens
+Found 12 matches across 3 sessions
+⏩ Fast path: No escalation criteria met
 
-2. [3 days ago] (pattern) Refresh tokens stored in httpOnly cookies
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📁 happy-hippo (5 matches)
+   Jan 15, 10:30 AM - 11:45 AM
 
-3. [1 week ago] (architecture) Auth middleware in src/auth/middleware.py
+   [10:32 AM] assistant   Line 245
+   Implemented Redis caching layer with 60-second TTL...
 
-4. [1 week ago] (constraint) Must support OAuth2 for enterprise customers
-
-5. [2 weeks ago] (blocker) Auth tokens not refreshing properly - fixed by adding token rotation
+   → transcript happy-hippo --search "caching" --human
 ```
 
-### Graph Search (New)
-
-**Input:** `/recall --graph "what does database-engineer recommend for vectors?"`
-
-**Output:**
+### Deep Path Output
 ```
-🔍 Found 2 memories with relationships:
+🔍 Recall: "why did we choose Redis?"
 
-1. [3 days ago] (database) database-engineer uses pgvector for RAG applications
-   📊 Related: database-engineer → recommends → pgvector
-   📊 Related: pgvector → used_for → RAG
+Found 28 matches across 4 sessions
+⚡ Deep path: Query is a question
 
-2. [1 week ago] (performance) pgvector requires HNSW index for >100k vectors
-   📊 Related: pgvector → requires → HNSW index
-```
+[... fast path results ...]
 
-### Agent-Scoped Search (New)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🤖 Synthesized Answer
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-**Input:** `/recall --agent backend-system-architect "API patterns"`
+Based on your past sessions, you chose Redis for caching because:
 
-**Output:**
-```
-🔍 Found 2 memories from backend-system-architect:
+1. **Performance requirements** [1] - The dashboard needed sub-100ms response times
+2. **Existing infrastructure** [2] - You already had Redis running for session storage
+3. **TTL support** [3] - Native expiration simplified cache invalidation logic
 
-1. [2 days ago] (api) Use versioned endpoints: /api/v1/, /api/v2/
+───────────────────────────────────────────────────────────
+📚 Sources
 
-2. [1 week ago] (architecture) Separate controllers, services, and repositories
-```
-
-### Cross-Project Search (New)
-
-**Input:** `/recall --global --category pagination`
-
-**Output:**
-```
-🔍 Found 4 GLOBAL best practices (pagination):
-
-1. [Project: ecommerce] (pagination) Cursor-based pagination scales better than offset for large datasets
-
-2. [Project: analytics] (pagination) Use keyset pagination for real-time feeds
-
-3. [Project: cms] (pagination) Cache page counts separately - they're expensive to compute
-
-4. [Project: api-gateway] (pagination) Always return next_cursor even if empty to signal end
+  [1] happy-hippo (Jan 15, 2026)
+      → transcript happy-hippo --search "why did we choose Redis?" --human
+  [2] clever-cat (Jan 10, 2026)
+      → transcript clever-cat --search "why did we choose Redis?" --human
 ```
 
+## Workflow
 
-## Related Skills
-- remember: Store information for later recall
+```
+User asks about past discussion
+         ↓
+transcript recall "topic"     ← START HERE, ALWAYS
+         ↓
+Check path indicator (⏩ Fast or ⚡ Deep)
+         ↓
+Read the grouped output (and synthesis if deep)
+         ↓
+Need more detail? → Use drill-down command from output
+         ↓
+Respond to user with findings
+```
 
-## Error Handling
+## Common Mistakes (DO NOT DO THESE)
 
-- If mem0 unavailable, inform user to check MCP configuration
-- If search query empty, show recent memories instead
-- If no results, suggest alternatives
-- If --agent used without agent-id, show available agents
-- If --global returns no results, suggest storing with /remember --global
+```bash
+# WRONG - Do not use rg
+rg "sandbox" ~/.claude/projects/
+
+# WRONG - Do not use grep
+grep -r "sandbox" ~/.claude/
+
+# WRONG - Do not use find
+find ~/.claude -name "*.jsonl" | xargs grep sandbox
+
+# WRONG - Do not cat jsonl files directly
+cat ~/.claude/projects/*/abc123.jsonl | grep sandbox
+```
+
+```bash
+# CORRECT - Use transcript recall
+transcript recall "sandbox"
+```
+
+## Summary
+
+1. **USE:** `transcript recall "query"`
+2. **DO NOT USE:** `rg`, `grep`, `find`, `cat` on transcript files
+3. Let auto-escalation work - it detects when synthesis is needed
+4. Use `--deep` to force synthesis, `--fast` to skip it
+5. Read the grouped output (and synthesis if provided)
+6. Drill down if needed using commands from the output

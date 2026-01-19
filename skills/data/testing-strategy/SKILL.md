@@ -1,193 +1,92 @@
 ---
 name: testing-strategy
-description: Designs comprehensive testing strategies for any codebase. Use when adding tests, improving coverage, setting up testing infrastructure, or when asked about testing approaches.
+description: A specialist skill that designs and implements a testing strategy for a codebase. This skill should be used after code development and before code review.
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
 ---
 
 # Testing Strategy Skill
 
-## Testing Pyramid Approach
+## Tooling Notes
 
-Apply the testing pyramid for balanced coverage:
+This skill should only use read-only commands and avoid modifying files.
 
+## Workflow
+
+Copy this checklist and use it to track your progress through the testing strategy design process:
+
+```markdown
+Testing Strategy Checklist
+
+- [ ] Understand the Codebase
+  - [ ] Familiarize yourself with the codebase and its functionality.
+  - [ ] Identify recent changes made by developers.
+- [ ] Determine Testing Needs
+  - [ ] Decide on the types of tests required (unit, integration, end-to-end, performance, security).
+  - [ ] Identify critical areas of the code that need thorough testing.
+- [ ] Design Test Cases
+  - [ ] Create test cases that cover various scenarios, including edge cases and error handling.
+  - [ ] Ensure tests are clear, concise, and maintainable.
+- [ ] Implement Tests
+  - [ ] Write the tests according to the designed test cases.
+  - [ ] Use appropriate testing frameworks and tools.
+- [ ] Execute Tests
+  - [ ] Run the tests to validate the code changes.
+  - [ ] Analyze test results to identify any failures or issues.
+- [ ] Maintain Tests
+  - [ ] Regularly update and maintain the test suite to ensure it remains relevant and effective.
 ```
+
+## Testing Pyramid
+
+When designing a testing strategy, consider the following pyramid structure to ensure a balanced approach:
+
+```plaintext
         /\
-       /  \     E2E Tests (10%)
-      /----\    - Critical user journeys
-     /      \   - Slow but comprehensive
-    /--------\  Integration Tests (20%)
-   /          \ - Component interactions
-  /------------\ - API contracts
- /              \ Unit Tests (70%)
+       /  \        **E2E Tests** (10%)
+      /----\       - Critical user journeys
+     /      \      - Slow but comprehensive
+    /--------\     **Integration Tests** (20%)
+   /          \    - Component interactions
+  /------------\   - API contracts
+ /              \  **Unit Tests** (70%)
 /________________\ - Fast, isolated
                    - Business logic focus
 ```
 
-## Framework Selection by Language
+## Framework Selection
 
-### JavaScript/TypeScript
-| Type | Recommended | Alternative |
-|------|-------------|-------------|
-| Unit | Vitest | Jest |
-| Integration | Vitest + MSW | Jest + SuperTest |
-| E2E | Playwright | Cypress |
-| Component | Testing Library | Enzyme |
+Choose appropriate testing frameworks based on the programming language and project requirements. Some popular options include:
 
-### Python
-| Type | Recommended | Alternative |
-|------|-------------|-------------|
-| Unit | pytest | unittest |
-| Integration | pytest + httpx | pytest + requests |
-| E2E | Playwright | Selenium |
-| API | pytest + FastAPI TestClient | - |
+- **JavaScript/TypeScript**: For unit, use Vitest. For integration, use Vitest with MSQ. For E2E tests, use Playwright. For component tests, use Testing Library.
 
-### Go
-| Type | Recommended |
-|------|-------------|
-| Unit | testing + testify |
-| Integration | testing + httptest |
-| E2E | testing + chromedp |
+- **Python**: For unit and integration tests, use Pytest. For E2E tests, use Playwright.
 
-## Test Structure Templates
+## Test Coverage
 
-### Unit Test
-```javascript
-describe('[Unit] ComponentName', () => {
-  describe('methodName', () => {
-    it('should [expected behavior] when [condition]', () => {
-      // Arrange
-      const input = createTestInput();
-      
-      // Act
-      const result = methodName(input);
-      
-      // Assert
-      expect(result).toEqual(expectedOutput);
-    });
-    
-    it('should throw error when [invalid condition]', () => {
-      expect(() => methodName(invalidInput)).toThrow(ExpectedError);
-    });
-  });
-});
-```
+Ensure that your testing strategy covers the following aspects:
 
-### Integration Test
-```javascript
-describe('[Integration] API /users', () => {
-  beforeAll(async () => {
-    await setupTestDatabase();
-  });
-  
-  afterAll(async () => {
-    await teardownTestDatabase();
-  });
-  
-  it('should create user and return 201', async () => {
-    const response = await request(app)
-      .post('/users')
-      .send({ name: 'Test', email: 'test@example.com' });
-    
-    expect(response.status).toBe(201);
-    expect(response.body.id).toBeDefined();
-  });
-});
-```
-
-### E2E Test
-```javascript
-describe('[E2E] User Registration Flow', () => {
-  it('should complete registration successfully', async ({ page }) => {
-    await page.goto('/register');
-    
-    await page.fill('[data-testid="email"]', 'new@example.com');
-    await page.fill('[data-testid="password"]', 'SecurePass123!');
-    await page.click('[data-testid="submit"]');
-    
-    await expect(page.locator('.welcome-message')).toBeVisible();
-    await expect(page).toHaveURL('/dashboard');
-  });
-});
-```
-
-## Coverage Strategy
-
-### What to Cover
-- ✅ Business logic (100%)
-- ✅ Edge cases and error handling (90%+)
-- ✅ API contracts (100%)
-- ✅ Critical user paths (E2E)
-- ⚠️ UI components (snapshot + interaction)
-- ❌ Third-party library internals
-- ❌ Simple getters/setters
-
-### Coverage Thresholds
-```json
-{
-  "coverageThreshold": {
-    "global": {
-      "branches": 80,
-      "functions": 80,
-      "lines": 80,
-      "statements": 80
-    },
-    "src/core/": {
-      "branches": 95,
-      "functions": 95
-    }
-  }
-}
-```
-
-## Test Data Management
-
-### Factories/Builders
-```javascript
-// factories/user.js
-export const userFactory = (overrides = {}) => ({
-  id: faker.string.uuid(),
-  name: faker.person.fullName(),
-  email: faker.internet.email(),
-  createdAt: new Date(),
-  ...overrides,
-});
-
-// Usage
-const admin = userFactory({ role: 'admin' });
-```
-
-### Fixtures
-```javascript
-// fixtures/users.json
-{
-  "validUser": { "name": "Test", "email": "test@example.com" },
-  "invalidUser": { "name": "", "email": "invalid" }
-}
-```
+- **Business Logic**: Core functionalities and algorithms.
+- **Edge Cases**: Unusual or extreme input scenarios.
+- **Error Handling**: Proper responses to invalid inputs or failures.
+- **Performance**: Critical code paths that impact performance.
+- **API Contracts**: Interactions between different services or components.
 
 ## Mocking Strategy
 
-### When to Mock
-- ✅ External APIs and services
-- ✅ Database in unit tests
-- ✅ Time/Date for determinism
-- ✅ Random values
-- ❌ Internal modules (usually)
-- ❌ The code under test
+When designing tests, implement a mocking strategy to isolate components and simulate external dependencies. Consider the following guidelines:
 
-### Mock Examples
-```javascript
-// API mocking with MSW
-import { http, HttpResponse } from 'msw';
+- **Mock External Services**: Use mocks for APIs, databases, and third-party services to ensure tests are reliable and fast.
+- **Use Test Doubles**: Implement stubs, spies, or fakes as needed to simulate behavior without relying on actual implementations.
+- **Isolate Units**: Ensure unit tests focus on individual components without side effects from dependencies.
 
-export const handlers = [
-  http.get('/api/users', () => {
-    return HttpResponse.json([
-      { id: 1, name: 'John' },
-    ]);
-  }),
-];
+## Coverage Thresholds
 
-// Time mocking
-vi.useFakeTimers();
-vi.setSystemTime(new Date('2024-01-01'));
-```
+Set minimum coverage thresholds to ensure adequate test coverage:
+
+- **Unit Tests**: Aim for at least 80% coverage.
+- **Integration Tests**: Aim for at least 70% coverage.
+- **E2E Tests**: Aim for at least 60% coverage.

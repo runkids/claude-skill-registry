@@ -1,126 +1,58 @@
 ---
 name: verify
-description: Comprehensive feature verification with parallel analysis agents. Use when verifying implementations, testing changes, validating features, or checking correctness.
-context: fork
-version: 1.1.0
-author: SkillForge
-tags: [verification, testing, quality, validation]
-user-invocable: true
+description: Run project verification checks (type-check, lint, unit tests, e2e tests, build). Use this skill when the user asks to verify the project, run checks, or validate code quality.
 ---
 
-# Verify Feature
+# Verify Project Skill
 
-Comprehensive verification using parallel specialized agents.
+## Purpose
+
+Run comprehensive project verification checks including type-checking, linting, unit tests, e2e tests, and build validation.
 
 ## When to Use
 
-- Verifying completed features
-- Pre-merge validation
-- Quality gate checks
-- End-to-end verification
+- User asks to verify project
+- User asks to run checks/tests
+- Before committing/pushing changes
+- After code changes
+- Before creating a PR
 
-## Quick Start
+## Steps
 
-```bash
-/verify authentication flow
-/verify user profile feature
-```
+1. **Run unit tests & build verification**
 
-## Phase 1: Gather Context
+   ```bash
+   npm run verify
+   ```
 
-```bash
-# Get recent changes
-git diff main --stat
-git log main..HEAD --oneline
+   This runs: `type-check`, `lint`, `test`, and `build`
 
-# Identify affected areas
-git diff main --name-only | sort -u
-```
+2. **Run e2e tests** (optional, recommended before release)
 
-## Phase 2: Skills Auto-Loading (CC 2.1.6)
+   ```bash
+   npm run test:e2e
+   ```
 
-**CC 2.1.6 auto-discovers skills** - no manual loading needed!
+3. **Report results**
+   - ✅ All passed
+   - ❌ Show failures and fix them
 
-Relevant skills activated automatically:
-- `code-review-playbook` - Quality patterns
-- `security-scanning` - Security validation
-- `evidence-verification` - Completion proof
+## Available Scripts
 
-## Phase 3: Parallel Verification (5 Agents)
+### Core Verification
 
-Launch ALL agents in ONE message with `run_in_background: true`:
-
-| Agent | Focus |
-|-------|-------|
-| code-quality-reviewer | Code quality, patterns |
-| security-auditor | Security compliance |
-| test-generator | Test coverage |
-| backend-system-architect | API correctness |
-| frontend-ui-developer | UI/UX validation |
-
-```python
-# PARALLEL - All 5 agents in ONE message
-Task(subagent_type="code-quality-reviewer", prompt="Verify code quality...", run_in_background=True)
-Task(subagent_type="security-auditor", prompt="Verify security...", run_in_background=True)
-Task(subagent_type="test-generator", prompt="Verify test coverage...", run_in_background=True)
-Task(subagent_type="backend-system-architect", prompt="Verify API...", run_in_background=True)
-Task(subagent_type="frontend-ui-developer", prompt="Verify UI...", run_in_background=True)
-```
-
-## Phase 4: Run Tests
-
-```bash
-# Backend tests
-cd backend && poetry run pytest tests/ -v --cov=app --cov-report=term-missing
-
-# Frontend tests
-cd frontend && npm run test -- --coverage
-
-# E2E tests (if available)
-cd e2e && npx playwright test
-```
-
-## Phase 5: Compile Evidence
-
-```markdown
-# Verification Report
-
-## Feature: [Name]
-
-## Test Results
-- Unit Tests: X/Y passed
-- Integration Tests: X/Y passed
-- E2E Tests: X/Y passed
-- Coverage: X%
+- `npm run verify` - runs type-check + lint + test + build
+- `npm run type-check` - TypeScript validation
+- `npm run lint` - ESLint check
+- `npm run lint:fix` - Auto-fix linting issues
+- `npm run test` - Run Jest unit tests
+- `npm run test:e2e` - Run Playwright e2e tests
+- `npm run build` - Build all packages
 
 ## Quality Gates
-| Gate | Status |
-|------|--------|
-| Type Safety | / |
-| Security Scan | / |
-| Linting | / |
-| Coverage >= 70% | / |
 
-## Evidence
-- Test output attached
-- Coverage report attached
-- Security scan results attached
-```
-
-## Phase 6: E2E Verification (Optional)
-
-If UI changes, verify with Playwright MCP:
-
-```python
-mcp__playwright__browser_navigate(url="http://localhost:5173")
-mcp__playwright__browser_snapshot()
-mcp__playwright__browser_take_screenshot(filename="verification.png")
-```
-
-
-## Related Skills
-- implement: Verify implementations
-- code-review-playbook: Code review patterns for verification
-## References
-
-- [Verification Checklist](references/verification-checklist.md)
+- ✅ Type check must pass
+- ✅ Linting must pass (no warnings)
+- ✅ All unit tests must pass
+- ✅ Build must succeed
+- ✅ E2E tests should pass (before release)

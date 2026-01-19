@@ -1,7 +1,7 @@
 {
   "name": "latex-posters",
-  "repo": "Sologa/codex-pipeline",
-  "path": ".codex/skills/latex-posters/SKILL.md",
-  "source": "github.com/Sologa/codex-pipeline",
-  "downloaded_at": "2026-01-17T01:20:10.784148Z"
+  "repo": "K-Dense-AI/claude-scientific-writer",
+  "path": "scientific_writer/.claude/skills/latex-posters/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-writer",
+  "downloaded_at": "2026-01-19T03:54:09.337663Z"
 }

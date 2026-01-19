@@ -1,427 +1,519 @@
 ---
 name: api-security
-description: API security best practices and common vulnerability prevention. Enforces security checks for authentication, input validation, SQL injection, XSS, and OWASP Top 10 vulnerabilities. Use when building or modifying APIs.
+description: Use when implementing API authentication, authorization, or security patterns. Covers OAuth 2.0, OIDC, JWT, API keys, rate limiting, and common API security vulnerabilities.
+allowed-tools: Read, Glob, Grep
 ---
 
-# API Security Best Practices
+# API Security
 
-## Purpose
-
-This guardrail skill enforces critical security practices when building APIs. It helps prevent common vulnerabilities including OWASP Top 10 threats, ensuring your API is secure by design.
+Comprehensive guide to securing APIs - authentication, authorization, and protection against common vulnerabilities.
 
 ## When to Use This Skill
 
-Auto-activates when:
+- Implementing API authentication (OAuth, OIDC, JWT)
+- Designing authorization models for APIs
+- Securing API endpoints
+- Understanding API security vulnerabilities
+- Implementing rate limiting and abuse prevention
+- API key management
 
-- Working with API endpoints or routes
-- Mentions of "api", "endpoint", "authentication", "authorization"
-- Adding request handlers or middleware
-- Working with user input or database queries
+## Authentication Patterns
 
-## Authentication & Authorization
+### OAuth 2.0 Flows
 
-### Always Require Authentication
+```text
+OAuth 2.0 Grant Types:
 
-Every API endpoint must have explicit authentication:
+1. Authorization Code (with PKCE)
+   └── Best for: Web apps, mobile apps, SPAs
+   └── Most secure for user authentication
 
-```python
-# Good - Authentication required
-@app.post("/api/users")
-@require_auth  # Explicit authentication decorator
-async def create_user(request: Request):
-    user = get_current_user(request)
-    # Implementation
+   User ──► Auth Server ──► Authorization Code ──► Token
+
+2. Client Credentials
+   └── Best for: Service-to-service (M2M)
+   └── No user context, server-to-server
+
+   Service ──► Auth Server ──► Access Token
+
+3. Device Authorization (Device Flow)
+   └── Best for: Smart TVs, IoT, limited input devices
+   └── User authorizes on separate device
+
+   Device ──► Show Code ──► User enters on phone ──► Token
+
+Deprecated (avoid):
+- Implicit flow (security issues)
+- Resource Owner Password Credentials (anti-pattern)
 ```
 
-```javascript
-// Good - Authentication middleware
-router.post('/api/users', authenticate, async (req, res) => {
-  const user = req.user; // Set by authenticate middleware
-  // Implementation
-});
+### Authorization Code Flow with PKCE
+
+```text
+┌──────────┐                              ┌───────────────┐
+│  Client  │                              │  Auth Server  │
+└────┬─────┘                              └───────┬───────┘
+     │                                            │
+     │  1. Generate code_verifier (random)        │
+     │  2. Compute code_challenge = SHA256(verifier)
+     │                                            │
+     │──3. Authorization Request ───────────────►│
+     │     (client_id, redirect_uri,             │
+     │      code_challenge, challenge_method)     │
+     │                                            │
+     │◄──4. Authorization Code ──────────────────│
+     │     (after user authentication/consent)    │
+     │                                            │
+     │──5. Token Request ───────────────────────►│
+     │     (code, code_verifier)                 │
+     │                                            │
+     │◄──6. Access Token + Refresh Token ────────│
+     │                                            │
+
+Why PKCE?
+- Prevents authorization code interception attacks
+- Required for mobile apps and SPAs
+- Recommended for all OAuth flows
 ```
 
-**Never skip authentication:**
-```python
-# BAD - No authentication!
-@app.post("/api/users")
-async def create_user(request: Request):
-    # Anyone can call this!
-    pass
+### OpenID Connect (OIDC)
+
+```text
+OIDC = OAuth 2.0 + Identity Layer
+
+OIDC adds:
+├── ID Token (JWT with user claims)
+├── UserInfo endpoint
+├── Standardized claims (sub, name, email, etc.)
+└── Discovery and metadata
+
+Token Types:
+┌─────────────────────────────────────────────────┐
+│ ID Token                                        │
+│ - User identity (who they are)                  │
+│ - Contains claims about authentication          │
+│ - For the CLIENT to consume                     │
+├─────────────────────────────────────────────────┤
+│ Access Token                                    │
+│ - Authorization (what they can do)              │
+│ - For the API/resource server to validate       │
+│ - Should NOT be parsed by client                │
+├─────────────────────────────────────────────────┤
+│ Refresh Token                                   │
+│ - Long-lived credential                         │
+│ - Used to obtain new access tokens              │
+│ - Store securely, never expose to browser       │
+└─────────────────────────────────────────────────┘
 ```
 
-### Implement Proper Authorization
+### JWT (JSON Web Tokens)
 
-Authentication (who you are) is not enough - check authorization (what you can do):
+```text
+JWT Structure:
 
-```python
-@app.delete("/api/users/{user_id}")
-@require_auth
-async def delete_user(user_id: str, request: Request):
-    current_user = get_current_user(request)
+Header.Payload.Signature
 
-    # Authorization check
-    if not current_user.is_admin and current_user.id != user_id:
-        raise HTTPException(status_code=403, detail="Forbidden")
+Header (Base64URL):
+{
+  "alg": "RS256",     // Algorithm
+  "typ": "JWT",       // Type
+  "kid": "key-123"    // Key ID for rotation
+}
 
-    # Proceed with deletion
-    await delete_user_by_id(user_id)
-```
+Payload (Base64URL):
+{
+  "iss": "https://auth.example.com",  // Issuer
+  "sub": "user-12345",                 // Subject
+  "aud": "https://api.example.com",   // Audience
+  "exp": 1735689600,                   // Expiration
+  "iat": 1735686000,                   // Issued at
+  "scope": "read write"                // Scopes/permissions
+}
 
-### Use Strong Token Standards
-
-Use industry-standard tokens:
-
-```python
-# Good - JWT with expiration
-import jwt
-from datetime import datetime, timedelta
-
-def create_access_token(user_id: str) -> str:
-    payload = {
-        "sub": user_id,
-        "exp": datetime.utcnow() + timedelta(hours=1),
-        "iat": datetime.utcnow(),
-    }
-    return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
-
-# Validate tokens properly
-def verify_token(token: str) -> dict:
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-        return payload
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail="Token expired")
-    except jwt.InvalidTokenError:
-        raise HTTPException(status_code=401, detail="Invalid token")
-```
-
-## Input Validation
-
-### Validate All User Input
-
-Never trust user input - always validate:
-
-```python
-from pydantic import BaseModel, Field, validator
-
-class CreateUserRequest(BaseModel):
-    """Validated user creation request."""
-
-    username: str = Field(..., min_length=3, max_length=50, regex="^[a-zA-Z0-9_]+$")
-    email: str = Field(..., regex=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
-    age: int = Field(..., ge=0, le=150)
-
-    @validator("username")
-    def username_no_admin(cls, v):
-        if "admin" in v.lower():
-            raise ValueError("Username cannot contain 'admin'")
-        return v
-
-@app.post("/api/users")
-async def create_user(data: CreateUserRequest):  # Automatic validation
-    # data is guaranteed valid here
-    pass
-```
-
-### Sanitize Output
-
-Prevent XSS by escaping output:
-
-```python
-import html
-
-@app.get("/api/users/{user_id}")
-async def get_user(user_id: str):
-    user = await get_user_by_id(user_id)
-
-    # Sanitize output for web display
-    return {
-        "username": html.escape(user.username),
-        "bio": html.escape(user.bio),
-    }
-```
-
-### Rate Limiting
-
-Prevent abuse with rate limiting:
-
-```python
-from slowapi import Limiter
-from slowapi.util import get_remote_address
-
-limiter = Limiter(key_func=get_remote_address)
-
-@app.post("/api/login")
-@limiter.limit("5/minute")  # Max 5 attempts per minute
-async def login(request: Request, credentials: LoginRequest):
-    # Implementation
-    pass
-```
-
-## SQL Injection Prevention
-
-### Always Use Parameterized Queries
-
-**NEVER concatenate user input into SQL:**
-
-```python
-# CRITICAL VULNERABILITY - SQL Injection!
-user_id = request.query_params.get("id")
-query = f"SELECT * FROM users WHERE id = {user_id}"  # NEVER DO THIS!
-result = db.execute(query)
-
-# Good - Parameterized query
-user_id = request.query_params.get("id")
-query = "SELECT * FROM users WHERE id = ?"
-result = db.execute(query, (user_id,))
-
-# Better - Use ORM
-user = await User.filter(id=user_id).first()
-```
-
-### ORM Best Practices
-
-Use ORMs correctly to prevent injection:
-
-```python
-from sqlalchemy import select
-
-# Good - ORM with parameters
-async def get_users_by_role(role: str):
-    query = select(User).where(User.role == role)  # Parameterized
-    result = await session.execute(query)
-    return result.scalars().all()
-
-# BAD - Raw SQL with concatenation
-async def get_users_by_role_bad(role: str):
-    query = f"SELECT * FROM users WHERE role = '{role}'"  # Vulnerable!
-    result = await session.execute(query)
-    return result.all()
-```
-
-## Cross-Site Scripting (XSS) Prevention
-
-### Content Security Policy
-
-Set CSP headers to prevent XSS:
-
-```python
-@app.middleware("http")
-async def add_security_headers(request: Request, call_next):
-    response = await call_next(request)
-
-    response.headers["Content-Security-Policy"] = (
-        "default-src 'self'; "
-        "script-src 'self' 'unsafe-inline'; "
-        "style-src 'self' 'unsafe-inline'; "
-        "img-src 'self' data: https:;"
-    )
-    response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["X-Frame-Options"] = "DENY"
-    response.headers["X-XSS-Protection"] = "1; mode=block"
-
-    return response
-```
-
-### Escape User Content
-
-Always escape user-generated content:
-
-```python
-import html
-import json
-
-# Escape for HTML
-safe_html = html.escape(user_input)
-
-# Escape for JavaScript
-safe_js = json.dumps(user_input)
-
-# Use templating engines with auto-escaping
-# Jinja2 auto-escapes by default
-return templates.TemplateResponse("page.html", {"content": user_input})
-```
-
-## HTTPS & Transport Security
-
-### Enforce HTTPS
-
-Redirect HTTP to HTTPS:
-
-```python
-@app.middleware("http")
-async def https_redirect(request: Request, call_next):
-    if request.url.scheme != "https" and not request.url.hostname == "localhost":
-        url = request.url.replace(scheme="https")
-        return RedirectResponse(url, status_code=301)
-
-    return await call_next(request)
-```
-
-### Set HSTS Headers
-
-```python
-response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
-```
-
-## CORS Configuration
-
-### Configure CORS Properly
-
-Don't use wildcard origins in production:
-
-```python
-from fastapi.middleware.cors import CORSMiddleware
-
-# BAD - Too permissive
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Anyone can call your API!
-    allow_credentials=True,
-)
-
-# Good - Specific origins
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://myapp.com",
-        "https://www.myapp.com",
-    ],
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
-    allow_headers=["*"],
+Signature:
+RSASHA256(
+  base64UrlEncode(header) + "." + base64UrlEncode(payload),
+  privateKey
 )
 ```
 
-## Sensitive Data Handling
+### JWT Validation
 
-### Never Log Sensitive Data
+```text
+JWT Validation Checklist:
 
-```python
-import logging
+1. Signature Verification
+   □ Verify using correct public key (from JWKS)
+   □ Reject if signature invalid
 
-logger = logging.getLogger(__name__)
+2. Claims Validation
+   □ iss (issuer): Matches expected issuer
+   □ aud (audience): Contains your API identifier
+   □ exp (expiration): Token not expired
+   □ iat (issued at): Not issued in the future
+   □ nbf (not before): Token is active
 
-# BAD - Logs password!
-logger.info(f"User {username} logging in with password {password}")
+3. Additional Checks
+   □ Token not in revocation list (if applicable)
+   □ Required scopes present
+   □ Token type is access_token (not id_token)
 
-# Good - No sensitive data
-logger.info(f"User {username} attempting login")
-
-# Redact sensitive fields
-def redact_sensitive(data: dict) -> dict:
-    sensitive_fields = {"password", "ssn", "credit_card", "token"}
-    return {
-        k: "***REDACTED***" if k in sensitive_fields else v
-        for k, v in data.items()
-    }
+Common Mistakes:
+❌ Trusting "alg": "none"
+❌ Not validating audience
+❌ Using symmetric keys for public APIs
+❌ Storing sensitive data in JWT payload
 ```
 
-### Hash Passwords Properly
+## Authorization Patterns
 
-```python
-from passlib.context import CryptContext
+### Role-Based Access Control (RBAC)
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+```text
+RBAC Model:
 
-# Hash password
-hashed = pwd_context.hash(plain_password)
+Users ──► Roles ──► Permissions
 
-# Verify password
-is_valid = pwd_context.verify(plain_password, hashed)
+Example:
+┌──────────────────────────────────────┐
+│ Role: editor                         │
+├──────────────────────────────────────┤
+│ Permissions:                         │
+│ - articles:read                      │
+│ - articles:create                    │
+│ - articles:update                    │
+│ - comments:moderate                  │
+└──────────────────────────────────────┘
 
-# NEVER store passwords in plain text!
+API Implementation:
+GET /articles        ← Requires: articles:read
+POST /articles       ← Requires: articles:create
+PUT /articles/{id}   ← Requires: articles:update
+DELETE /articles/{id} ← Requires: articles:delete
+
+Token includes:
+{
+  "scope": "articles:read articles:create articles:update"
+}
 ```
 
-### Encrypt Sensitive Data
+### Attribute-Based Access Control (ABAC)
 
-```python
-from cryptography.fernet import Fernet
+```text
+ABAC Model:
 
-# Generate key (store securely, not in code!)
-key = Fernet.generate_key()
-cipher = Fernet(key)
+Access = f(Subject, Resource, Action, Environment)
 
-# Encrypt
-encrypted = cipher.encrypt(sensitive_data.encode())
+Subject Attributes:
+- Role, department, clearance level
+- User ID, group membership
 
-# Decrypt
-decrypted = cipher.decrypt(encrypted).decode()
+Resource Attributes:
+- Owner, classification, type
+- Created date, sensitivity
+
+Action Attributes:
+- Read, write, delete, approve
+
+Environment Attributes:
+- Time of day, IP address, device type
+
+Example Policy:
+"Allow if user.department == resource.department
+ AND user.role == 'manager'
+ AND action == 'approve'
+ AND environment.time.isBusinessHours"
 ```
 
-## Error Handling
+### Resource-Based Authorization
 
-### Don't Leak Information in Errors
+```text
+Check ownership/access at resource level:
 
-```python
-# BAD - Reveals internal details
-@app.get("/api/users/{user_id}")
-async def get_user(user_id: str):
-    try:
-        user = await db.query(f"SELECT * FROM users WHERE id = {user_id}")
-        return user
-    except Exception as e:
-        # Leaks SQL structure and database details!
-        raise HTTPException(status_code=500, detail=str(e))
+GET /documents/{id}
 
-# Good - Generic error messages
-@app.get("/api/users/{user_id}")
-async def get_user(user_id: str):
-    try:
-        user = await User.get(id=user_id)
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
-        return user
-    except Exception as e:
-        # Log detailed error internally
-        logger.error(f"Error fetching user {user_id}: {e}")
-        # Return generic message to client
-        raise HTTPException(status_code=500, detail="Internal server error")
+Authorization Check:
+1. Validate token (authentication)
+2. Extract user from token
+3. Query: Can this user access this document?
+   - Is user the owner?
+   - Does user have explicit permission?
+   - Is document in a shared folder user can access?
+   - Is user in a group with access?
+4. Return 403 if not authorized
+
+Implementation Pattern:
+async function authorize(userId, resourceId, action) {
+  // Check direct ownership
+  if (await isOwner(userId, resourceId)) return true;
+
+  // Check explicit permissions
+  if (await hasPermission(userId, resourceId, action)) return true;
+
+  // Check group permissions
+  if (await hasGroupPermission(userId, resourceId, action)) return true;
+
+  return false;
+}
 ```
 
-## API Security Checklist
+## API Key Security
 
-Before deploying any API endpoint, verify:
+### API Key Best Practices
 
-- [ ] Authentication required for all endpoints (except explicit public ones)
-- [ ] Authorization checks enforce proper access control
-- [ ] All user input validated with strict schemas
-- [ ] Parameterized queries used (no SQL concatenation)
-- [ ] Output properly escaped/sanitized
-- [ ] Rate limiting configured
-- [ ] HTTPS enforced
-- [ ] Security headers set (CSP, HSTS, X-Frame-Options)
-- [ ] CORS configured with specific origins (not wildcard)
-- [ ] Passwords hashed with bcrypt/argon2
-- [ ] Sensitive data encrypted at rest
-- [ ] Error messages don't leak internal details
-- [ ] Secrets stored in environment variables (not code)
-- [ ] Logging doesn't include sensitive data
-- [ ] Dependencies regularly updated for security patches
+```text
+API Key Design:
 
-## Common Vulnerabilities (OWASP Top 10)
+Format: prefix_randomBytes
+Example: sk_live_a1b2c3d4e5f6...
 
-1. **Broken Access Control**: Always check authorization, not just authentication
-2. **Cryptographic Failures**: Use strong algorithms, proper key management
-3. **Injection**: Parameterized queries, input validation, output encoding
-4. **Insecure Design**: Security by design, threat modeling
-5. **Security Misconfiguration**: Secure defaults, minimal permissions
-6. **Vulnerable Components**: Keep dependencies updated
-7. **Authentication Failures**: Strong passwords, MFA, secure sessions
-8. **Data Integrity Failures**: Sign/encrypt data, verify signatures
-9. **Logging Failures**: Log security events, monitor for anomalies
-10. **SSRF**: Validate/sanitize URLs, whitelist allowed destinations
+Prefix Benefits:
+- sk_ = secret key (server-side only)
+- pk_ = public key (can be exposed)
+- test_ = test environment
+- live_ = production
 
-## Key Takeaways
+Security Requirements:
+□ Sufficient entropy (32+ bytes random)
+□ Secure storage (hashed, not plaintext)
+□ Scoped permissions (not all-or-nothing)
+□ Rotation capability
+□ Audit logging
+□ Rate limiting per key
+```
 
-1. Require authentication and authorization for every endpoint
-2. Validate all input, sanitize all output
-3. Use parameterized queries to prevent SQL injection
-4. Set security headers (CSP, HSTS, X-Frame-Options)
-5. Configure CORS with specific origins, not wildcards
-6. Hash passwords with bcrypt, never store plaintext
-7. Enforce HTTPS in production
-8. Rate limit endpoints to prevent abuse
-9. Don't leak information in error messages
-10. Log security events without sensitive data
+### API Key vs OAuth
+
+```text
+When to Use Each:
+
+API Keys:
+✓ Service-to-service integration
+✓ Simple use cases
+✓ Developer-facing APIs
+✓ Stateless, simple auth
+✗ Not for user context
+✗ Hard to revoke in real-time
+
+OAuth 2.0:
+✓ User-delegated access
+✓ Fine-grained scopes
+✓ Short-lived tokens
+✓ Revocation support
+✓ Standard compliance
+✗ More complex to implement
+✗ Requires authorization server
+```
+
+## Common Vulnerabilities
+
+### OWASP API Security Top 10
+
+```text
+1. Broken Object Level Authorization (BOLA)
+   Problem: Accessing other users' resources by changing IDs
+   Fix: Always verify user has access to specific resource
+
+   ❌ GET /users/123/orders (any user can change 123)
+   ✓ Verify requesting user can access user 123's orders
+
+2. Broken Authentication
+   Problem: Weak authentication mechanisms
+   Fix: Use proven auth protocols, implement properly
+
+   ❌ Custom token schemes, weak passwords
+   ✓ OAuth 2.0/OIDC with MFA
+
+3. Broken Object Property Level Authorization
+   Problem: Exposing sensitive properties
+   Fix: Filter response based on authorization
+
+   ❌ Returning user.password_hash in API response
+   ✓ Explicitly select fields to return
+
+4. Unrestricted Resource Consumption
+   Problem: No limits on requests/data
+   Fix: Rate limiting, pagination, resource quotas
+
+   ❌ GET /users returns 10 million records
+   ✓ Pagination, query limits, rate limiting
+
+5. Broken Function Level Authorization
+   Problem: Missing authorization on endpoints
+   Fix: Verify authorization for every function
+
+   ❌ Admin endpoints accessible to regular users
+   ✓ Role checks on all endpoints
+
+6. Unrestricted Access to Sensitive Business Flows
+   Problem: Business logic abuse
+   Fix: Detect and limit abuse patterns
+
+   ❌ Unlimited password reset attempts
+   ✓ Rate limit + CAPTCHA on sensitive flows
+
+7. Server Side Request Forgery (SSRF)
+   Problem: API fetches attacker-controlled URLs
+   Fix: Validate and sanitize URLs, allowlist
+
+   ❌ POST /fetch { "url": "http://internal-service" }
+   ✓ Validate against allowlist, block internal IPs
+
+8. Security Misconfiguration
+   Problem: Default configs, exposed errors
+   Fix: Harden configuration, minimal errors
+
+   ❌ Detailed stack traces in production
+   ✓ Generic error messages, proper headers
+
+9. Improper Inventory Management
+   Problem: Untracked API versions, shadow APIs
+   Fix: API inventory, version management
+
+   ❌ Old API versions still accessible
+   ✓ Inventory, lifecycle management, deprecation
+
+10. Unsafe Consumption of APIs
+    Problem: Trusting third-party API responses
+    Fix: Validate all external data
+
+    ❌ Directly using third-party response data
+    ✓ Validate, sanitize, treat as untrusted
+```
+
+### Input Validation
+
+```text
+Validation Layers:
+
+1. Syntax Validation
+   - Is it valid JSON/XML?
+   - Are required fields present?
+   - Are field types correct?
+
+2. Semantic Validation
+   - Is email format valid?
+   - Is date in valid range?
+   - Does ID reference exist?
+
+3. Business Rule Validation
+   - Is quantity within limits?
+   - Is user authorized for this action?
+   - Does the state transition make sense?
+
+Validation Patterns:
+- Allowlist over blocklist
+- Validate on input AND output
+- Fail safely with clear errors
+- Log validation failures for monitoring
+```
+
+## Transport Security
+
+### TLS Requirements
+
+```text
+TLS Configuration:
+
+Minimum: TLS 1.2
+Preferred: TLS 1.3
+
+Required Settings:
+□ Strong cipher suites only
+□ Perfect forward secrecy (ECDHE)
+□ Valid certificates from trusted CA
+□ HSTS header enabled
+□ Certificate transparency
+
+Headers:
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
+
+### Certificate Pinning
+
+```text
+Certificate Pinning (Mobile/Embedded):
+
+Purpose: Prevent MITM attacks even with compromised CAs
+
+Options:
+1. Pin certificate
+   - Requires update for certificate rotation
+
+2. Pin public key
+   - Survives certificate renewal
+   - More flexible
+
+3. Pin intermediate CA
+   - Balance of security and flexibility
+
+Considerations:
+- Always have backup pins
+- Plan for rotation
+- Handle failures gracefully
+- Consider using dynamic pinning
+```
+
+## Rate Limiting and Abuse Prevention
+
+```text
+Rate Limiting Strategies:
+
+By Identity:
+- Per API key
+- Per user ID
+- Per client ID
+
+By Resource:
+- Per endpoint
+- Per operation type
+- Per resource ID
+
+Headers (draft standard):
+RateLimit-Limit: 100
+RateLimit-Remaining: 95
+RateLimit-Reset: 1735689600
+Retry-After: 60
+
+Response Codes:
+429 Too Many Requests - Rate limit exceeded
+503 Service Unavailable - Server overloaded
+
+Abuse Prevention:
+□ Rate limiting
+□ Request size limits
+□ CAPTCHA for sensitive operations
+□ Behavioral analysis
+□ IP reputation
+□ Anomaly detection
+```
+
+## Security Headers
+
+```text
+Essential API Security Headers:
+
+# Prevent MIME type sniffing
+X-Content-Type-Options: nosniff
+
+# Control caching of sensitive data
+Cache-Control: no-store, private
+
+# CORS configuration (be restrictive)
+Access-Control-Allow-Origin: https://trusted.example.com
+Access-Control-Allow-Methods: GET, POST
+Access-Control-Allow-Headers: Authorization, Content-Type
+
+# Frame protection (if serving HTML)
+X-Frame-Options: DENY
+
+# Content Security Policy (if serving HTML)
+Content-Security-Policy: default-src 'none'
+```
+
+## Related Skills
+
+- `zero-trust-architecture` - Overall security architecture
+- `mtls-service-mesh` - Service-to-service security
+- `rate-limiting-patterns` - Detailed rate limiting strategies
+- `secrets-management` - Managing API keys and secrets

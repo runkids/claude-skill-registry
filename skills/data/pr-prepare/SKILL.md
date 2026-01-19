@@ -90,6 +90,18 @@ Follow conventional commits format:
 | `perf:` | Performance improvement |
 | `chore:` | Maintenance, dependencies |
 
+### 5. Linear Integration
+
+If addressing a Linear issue, include:
+
+```markdown
+## Linear Issue
+
+Closes TMPL-[NUMBER]
+```
+
+Ask the user if they want to link a Linear issue.
+
 ### 6. Output
 
 Present the complete PR description ready to copy-paste into GitHub.

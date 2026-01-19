@@ -35,6 +35,7 @@ backlog search "keyword" --plain
 ## Task Creation
 
 ### Basic Task Creation
+
 ```bash
 # Simple task
 backlog task create "Implement user login"
@@ -59,6 +60,7 @@ backlog task create "Implement user login" \
 ```
 
 ### Advanced Creation
+
 ```bash
 # Create draft task
 backlog task create "Research options" --draft
@@ -76,6 +78,7 @@ backlog task create "Fix bug" -l bug,urgent,frontend
 ## Task Modification
 
 ### Status Management
+
 ```bash
 # Change status
 backlog task edit 42 -s "In Progress"
@@ -87,6 +90,7 @@ backlog task edit 42 -s "In Progress" -a @me
 ```
 
 ### Basic Fields
+
 ```bash
 # Update title
 backlog task edit 42 -t "New title"
@@ -132,6 +136,7 @@ backlog task edit 42 \
 ```
 
 **Note**:
+
 - ✅ Use multiple flags: `--check-ac 1 --check-ac 2`
 - ❌ Don't use commas: `--check-ac 1,2,3`
 - ❌ Don't use ranges: `--check-ac 1-3`
@@ -156,6 +161,7 @@ backlog task edit 42 --notes $'## Changes\n- Implemented X\n- Fixed Y\n\n## Test
 ```
 
 ### Dependencies
+
 ```bash
 # Add dependencies
 backlog task edit 42 --dep task-1 --dep task-2
@@ -166,6 +172,7 @@ backlog task edit 42 --dep task-1 --dep task-2
 ## Viewing Tasks
 
 ### List Tasks
+
 ```bash
 # List all tasks (always use --plain for AI-readable output)
 backlog task list --plain
@@ -188,6 +195,7 @@ backlog task list -s "In Progress" -a @me --plain
 ```
 
 ### View Task Details
+
 ```bash
 # View single task (always use --plain)
 backlog task 42 --plain
@@ -197,6 +205,7 @@ backlog task 42 --web
 ```
 
 ### Search
+
 ```bash
 # Search across all content (uses fuzzy matching)
 backlog search "authentication" --plain
@@ -212,9 +221,66 @@ backlog search "bug" --priority high --plain
 backlog search "database" --in title --plain
 ```
 
+## Sub-Agent Task Execution
+
+### 원칙
+**모든 태스크 실행은 서브 에이전트를 통해 수행한다.**
+
+메인 컨텍스트는 태스크 조율자(orchestrator) 역할만 수행:
+- 태스크 목록 조회
+- 다음 태스크 결정
+- 사용자와 커뮤니케이션
+- 서브 에이전트 결과 요약 전달
+
+### 서브 에이전트 호출 패턴
+
+태스크 시작 시 Task tool을 사용:
+
+```
+Task tool 호출:
+- subagent_type: "general-purpose"
+- description: "Execute backlog task [ID]"
+- prompt: |
+    Execute backlog task [ID]: [제목]
+
+    ## Task Details
+    [backlog task <ID> --plain 결과]
+
+    ## Instructions
+    1. AC 분석 및 구현 계획 수립
+    2. 코드 구현/수정
+    3. 테스트 실행 및 검증
+    4. AC 체크: backlog task edit <ID> --check-ac <완료된 번호>
+    5. 노트 추가: backlog task edit <ID> --append-notes "진행 내용"
+
+    ## Return Format
+    작업 완료 후 다음 형식으로 반환:
+    - 완료된 AC 목록
+    - 수정된 파일 목록
+    - 테스트 결과
+    - 미해결 이슈 (있는 경우)
+```
+
+### 메인 컨텍스트 워크플로우
+
+```
+1. backlog task list -a @me -s "In Progress" --plain  # 현재 태스크 확인
+2. backlog task <ID> --plain                           # 태스크 상세 조회
+3. Task tool로 서브 에이전트 생성 (태스크 전체 위임)
+4. 서브 에이전트 결과 수신
+5. 사용자에게 완료 리뷰 요청
+6. 사용자 응답에 따라 다음 태스크 또는 종료
+```
+
+### 효과
+- 메인 컨텍스트: 태스크 조회, 결과 요약만 유지
+- 서브 에이전트: 구현, 테스트, AC 체크 등 상세 작업 수행
+- 여러 태스크 연속 처리 시에도 메인 컨텍스트 크기 일정 유지
+
 ## Task Workflow
 
 ### Complete Task Lifecycle
+
 ```bash
 # 1. Create task
 backlog task create "Implement feature X" \
@@ -242,6 +308,7 @@ backlog task edit 42 -s Done
 ```
 
 ### Starting a Task (Critical Steps)
+
 ```bash
 # ALWAYS do these steps when starting a task:
 # 1. Set status to In Progress
@@ -274,6 +341,7 @@ backlog report --output report.md
 ## Task Operations
 
 ### Archive & Promote
+
 ```bash
 # Archive completed task
 backlog task archive 42
@@ -286,6 +354,7 @@ backlog task promote draft-5
 ```
 
 ### Task History
+
 ```bash
 # View task history (if supported)
 backlog task history 42
@@ -296,319 +365,30 @@ backlog task diff 42
 
 ## Documentation & Decisions
 
-### When to Use Docs vs Decisions
-
-**Use `backlog doc` for:**
-- General project documentation
-- Architecture overviews
-- Technical specifications
-- Design documents
-- User guides
-- Reference documentation
-
-**Use `backlog decision` for:**
-- Architectural decisions (ADRs)
-- Technology choices
-- Design pattern selections
-- Infrastructure decisions
-- Breaking changes that need justification
-
-**Golden Rule for AI Assistants**: When you need to create markdown documentation (like architecture docs, decision records, specifications), ALWAYS use `backlog doc create` or `backlog decision create`. NEVER create standalone .md files in the project root.
-
 ### Documents
 
-Documents are stored in `backlog/docs/` with the naming pattern `doc-XXX - Title.md`.
-
-#### Creating Documents
-
 ```bash
-# Basic document (opens editor for content)
+# Create document
 backlog doc create "API Documentation"
 
-# With type
-backlog doc create "Architecture Overview" -t architecture
-
-# From file
-backlog doc create "README" -p /path/to/readme.md
-
-# Via MCP tools (for AI assistants - preferred method)
-# Use mcp__backlog__document_create tool with title and content
-```
-
-#### Viewing & Listing Documents
-
-```bash
-# List all documents
+# List documents
 backlog doc list --plain
 
-# View specific document
-backlog doc view doc-001
-
-# Search documents
-backlog search "architecture" --type doc --plain
+# Edit document
+backlog doc edit 1 --content "Updated content"
 ```
-
-#### Document Structure
-
-Documents have YAML frontmatter:
-```yaml
----
-id: doc-001
-title: API Documentation
-type: other
-created_date: '2025-11-11 15:22'
----
-```
-
-Document types:
-- `architecture` - System architecture docs
-- `specification` - Technical specifications
-- `guide` - User or developer guides
-- `reference` - Reference documentation
-- `other` - General documentation
 
 ### Architectural Decisions
 
-Decisions are stored in `backlog/decisions/` with the naming pattern `decision-XXX - Title.md`.
-
-#### Creating Decisions
-
 ```bash
-# Create decision (opens editor)
+# Create decision record
 backlog decision create "Use PostgreSQL for data storage"
 
-# With status
-backlog decision create "Migrate to microservices" --status "proposed"
-
-# Decision statuses:
-# - proposed: Decision proposed, under discussion
-# - accepted: Decision accepted and implemented
-# - rejected: Decision rejected
-# - deprecated: Decision no longer valid
-# - superseded: Replaced by newer decision
-```
-
-#### Decision Document Template
-
-When you create a decision, it uses this template:
-
-```markdown
----
-id: decision-XXX
-title: Your Decision Title
-date: 'YYYY-MM-DD HH:MM'
-status: proposed
----
-## Context
-
-What is the issue or situation we're addressing?
-- What forces are at play?
-- What constraints exist?
-- What are we trying to achieve?
-
-## Decision
-
-What decision have we made?
-- What approach are we taking?
-- Why this approach over alternatives?
-
-## Consequences
-
-What are the implications of this decision?
-- Positive outcomes
-- Negative trade-offs
-- What becomes easier/harder?
-- Future implications
-```
-
-#### Viewing & Listing Decisions
-
-```bash
-# List all decisions
+# List decisions
 backlog decision list --plain
 
-# View specific decision (if supported)
-backlog decision view decision-001
-
-# Search decisions
-backlog search "database" --type decision --plain
-```
-
-#### Writing Good Decisions
-
-**Title**: Clear, concise statement of decision
-```bash
-# ✅ Good
-backlog decision create "Use PostgreSQL for primary database"
-backlog decision create "Implement OAuth2 for authentication"
-backlog decision create "Adopt microservices architecture"
-
-# ❌ Bad
-backlog decision create "Database"
-backlog decision create "We should probably use OAuth"
-```
-
-**Context**: Explain the problem and constraints
-```markdown
-## Context
-
-Our current SQLite database cannot handle the increased load from
-1000+ concurrent users. We need a production-grade database that:
-- Supports high concurrency
-- Provides ACID guarantees
-- Offers good tooling and community support
-- Fits within our budget constraints
-
-We evaluated PostgreSQL, MySQL, and MongoDB.
-```
-
-**Decision**: State the decision clearly with rationale
-```markdown
-## Decision
-
-We will use PostgreSQL as our primary database.
-
-Rationale:
-- Excellent ACID compliance and data integrity
-- Superior support for complex queries and JSON data
-- Strong community and ecosystem
-- Our team has PostgreSQL experience
-- Free and open source (cost-effective)
-- Better performance for our read-heavy workload than MySQL
-- More mature than MongoDB for transactional data
-```
-
-**Consequences**: Document trade-offs honestly
-```markdown
-## Consequences
-
-Positive:
-- Robust data integrity and ACID compliance
-- Better scalability for our use case
-- Rich feature set (JSON, full-text search, etc.)
-- Excellent monitoring and debugging tools
-
-Negative:
-- More complex to set up than SQLite
-- Requires separate database server (infrastructure cost)
-- Learning curve for team members unfamiliar with PostgreSQL
-- Migration effort from existing SQLite database
-
-Trade-offs:
-- Operational complexity increases, but data reliability improves
-- Higher infrastructure cost, but better performance at scale
-```
-
-### Decision Workflow
-
-#### 1. Proposing a Decision
-```bash
-# Create decision as "proposed"
-backlog decision create "Adopt GraphQL API" --status "proposed"
-
-# Document the decision
-# - Add context about the problem
-# - Explain the proposed solution
-# - List alternatives considered
-# - Document trade-offs
-```
-
-#### 2. Discussion
-```bash
-# Team reviews the decision
-# - Add comments/feedback
-# - Update decision based on feedback
-# - Consider alternatives
-```
-
-#### 3. Accepting or Rejecting
-```bash
-# If accepted
-# - Update status to "accepted"
-# - Document final rationale
-# - Link to implementation tasks
-
-# If rejected
-# - Update status to "rejected"
-# - Document why it was rejected
-# - Preserve for future reference
-```
-
-#### 4. Implementation
-```bash
-# Create tasks to implement decision
-backlog task create "Implement PostgreSQL migration" \
-  -d "Migrate from SQLite to PostgreSQL (per decision-001)" \
-  --ac "Database schema migrated" \
-  --ac "All data transferred successfully" \
-  --ac "Application updated to use PostgreSQL"
-```
-
-#### 5. Deprecation or Superseding
-```bash
-# If decision becomes outdated
-# - Create new decision
-# - Mark old decision as "deprecated" or "superseded"
-# - Reference new decision in old one
-```
-
-### Linking Decisions to Tasks
-
-Always reference decisions in related tasks:
-
-```bash
-backlog task create "Implement OAuth2 authentication" \
-  -d "Implement OAuth2 as decided in decision-002" \
-  --ac "OAuth2 flow implemented" \
-  --ac "Existing sessions migrated"
-
-# In task notes, reference decision
-backlog task edit 42 --notes $'## Decision Reference
-This implements decision-002: "Use OAuth2 for authentication"
-
-## Implementation
-- Integrated passport-oauth2 library
-- Configured Google and GitHub providers
-...'
-```
-
-### Best Practices for Documentation
-
-#### Document Organization
-
-```bash
-# Architecture documents
-backlog doc create "System Architecture Overview" -t architecture
-backlog doc create "Database Schema Design" -t architecture
-backlog doc create "API Architecture" -t architecture
-
-# Specifications
-backlog doc create "API Specification v2" -t specification
-backlog doc create "Authentication Flow Specification" -t specification
-
-# Guides
-backlog doc create "Development Setup Guide" -t guide
-backlog doc create "Deployment Guide" -t guide
-```
-
-#### Version Control
-
-Documents and decisions are version controlled with Git:
-- Keep documents up to date
-- Use Git history to track changes
-- Reference specific versions when needed
-
-#### Searchability
-
-Use consistent terminology:
-```bash
-# Good - Searchable terms
-backlog doc create "Authentication Architecture"
-backlog decision create "Use JWT for API authentication"
-
-# Bad - Hard to search
-backlog doc create "How we do auth stuff"
-backlog decision create "Token thing"
+# View decision
+backlog decision 1 --plain
 ```
 
 ## Best Practices
@@ -616,6 +396,7 @@ backlog decision create "Token thing"
 ### Writing Good Tasks
 
 **Title**: Clear, concise, action-oriented
+
 ```bash
 # ✅ Good
 backlog task create "Implement user authentication"
@@ -627,12 +408,14 @@ backlog task create "There's a problem with the app"
 ```
 
 **Description**: Explain the "why" and context
+
 ```bash
 backlog task create "Add rate limiting to API" \
   -d "Current API has no rate limiting, causing server overload during peak hours. Need to implement per-user rate limiting to prevent abuse."
 ```
 
 **Acceptance Criteria**: Focus on outcomes, not implementation
+
 ```bash
 # ✅ Good - Testable outcomes
 --ac "API rejects requests after 100 requests per minute per user"
@@ -647,6 +430,7 @@ backlog task create "Add rate limiting to API" \
 ### Task Organization
 
 **Use Labels Effectively**
+
 ```bash
 # Organize by type, area, and priority
 backlog task create "Fix login bug" -l bug,urgent,auth
@@ -655,6 +439,7 @@ backlog task create "Update docs" -l documentation,frontend
 ```
 
 **Use Tags for Metadata**
+
 ```bash
 # Tags for filtering and organization
 --tag "sprint:23"
@@ -665,6 +450,7 @@ backlog task create "Update docs" -l documentation,frontend
 ### Task Breakdown
 
 **Atomic Tasks**: Each task should be independently deliverable
+
 ```bash
 # ✅ Good - One PR per task
 backlog task create "Add login endpoint"
@@ -676,6 +462,7 @@ backlog task create "Implement entire authentication system"
 ```
 
 **Avoid Future Dependencies**: Never reference tasks that don't exist yet
+
 ```bash
 # ✅ Good - Reference existing tasks
 backlog task create "Deploy auth API" --dep task-40 --dep task-41
@@ -687,6 +474,7 @@ backlog task create "Add feature A" -d "This will be used by future tasks"
 ### Implementation Notes
 
 **Format as PR Description**: Make notes ready for GitHub
+
 ```bash
 backlog task edit 42 --notes $'## Summary
 - Implemented user authentication with JWT
@@ -712,6 +500,7 @@ None
 ```
 
 **Progressive Notes**: Append as you work
+
 ```bash
 # As you make progress
 backlog task edit 42 --append-notes "- Implemented core auth logic"
@@ -724,21 +513,19 @@ backlog task edit 42 --append-notes "- Updated documentation"
 **A task is Done only when ALL of these are complete:**
 
 Via CLI:
+
 1. ✅ All acceptance criteria checked: `--check-ac 1 --check-ac 2 ...`
 2. ✅ Implementation notes added: `--notes "..."`
 3. ✅ Status set to Done: `-s Done`
 
-Via Code/Testing:
-4. ✅ Tests pass
-5. ✅ Documentation updated
-6. ✅ Code reviewed
-7. ✅ No regressions
+Via Code/Testing: 4. ✅ Tests pass 5. ✅ Documentation updated 6. ✅ Code reviewed 7. ✅ No regressions 8. ✅ 사용자 리뷰 완료
 
 **Never mark task as Done without completing ALL items**
 
 ## Common Patterns
 
 ### Daily Workflow
+
 ```bash
 # Morning: Check your tasks
 backlog task list -a @me -s "In Progress" --plain
@@ -760,6 +547,7 @@ backlog task edit 42 --append-notes "- Completed X, Y pending"
 ```
 
 ### Sprint Planning
+
 ```bash
 # Review backlog
 backlog task list -s "To Do" --plain
@@ -777,6 +565,7 @@ backlog board
 ```
 
 ### Bug Fix Workflow
+
 ```bash
 # Create bug task
 backlog task create "Fix login timeout issue" \
@@ -812,6 +601,7 @@ backlog task edit 42 -s Done
 ## Troubleshooting
 
 ### Task Not Found
+
 ```bash
 # List all tasks to find ID
 backlog task list --plain
@@ -821,6 +611,7 @@ backlog search "keyword" --type task --plain
 ```
 
 ### Acceptance Criteria Issues
+
 ```bash
 # View task to see AC numbers
 backlog task 42 --plain
@@ -833,6 +624,7 @@ backlog task edit 42 --check-ac 1 --check-ac 2 --check-ac 3
 ```
 
 ### Metadata Out of Sync
+
 ```bash
 # Re-edit via CLI to fix
 backlog task edit 42 -s "In Progress"
@@ -842,6 +634,7 @@ ls -la backlog/tasks/
 ```
 
 ### Multiline Input
+
 ```bash
 # Use ANSI-C quoting (bash/zsh)
 backlog task edit 42 --notes $'Line 1\nLine 2'
@@ -859,6 +652,7 @@ backlog task edit 42 --notes "Line 1`nLine 2"
 ## Command Reference
 
 ### Core Commands
+
 ```bash
 # Tasks
 backlog task create <title> [options]
@@ -888,6 +682,7 @@ backlog decision <id> --plain
 ```
 
 ### Common Options
+
 ```bash
 # Task creation/editing
 -t, --title           Task title
@@ -919,18 +714,16 @@ backlog decision <id> --plain
 ## Tips
 
 1. **Always use `--plain`** when listing or viewing for AI processing
-2. **For AI: Use backlog for docs**: Create architecture/decision docs with `backlog doc create` or `backlog decision create`, NEVER create standalone .md files
-3. **Start tasks properly**: Set In Progress and assign to yourself
-4. **Check AC as you go**: Don't wait until end to mark them complete
-5. **Use multiline properly**: Use `$'...\n...'` syntax for newlines
-6. **Multiple flags work**: `--check-ac 1 --check-ac 2 --check-ac 3`
-7. **Organize with labels**: Use consistent labeling scheme
-8. **Atomic tasks**: One PR = One task
-9. **PR-ready notes**: Format notes as GitHub PR description
-10. **Never edit files directly**: Always use CLI commands
-11. **Search is fuzzy**: "auth" finds "authentication"
-12. **Document decisions**: Use decision records for architectural choices
-13. **Link decisions to tasks**: Reference decision IDs in related task descriptions
+2. **Start tasks properly**: Set In Progress and assign to yourself
+3. **Check AC as you go**: Don't wait until end to mark them complete
+4. **Use multiline properly**: Use `$'...\n...'` syntax for newlines
+5. **Multiple flags work**: `--check-ac 1 --check-ac 2 --check-ac 3`
+6. **Organize with labels**: Use consistent labeling scheme
+7. **Atomic tasks**: One PR = One task
+8. **PR-ready notes**: Format notes as GitHub PR description
+9. **Never edit files directly**: Always use CLI commands
+10. **Search is fuzzy**: "auth" finds "authentication"
+11. **서브 에이전트 사용**: 태스크 실행은 항상 Task tool로 위임하여 메인 컨텍스트 경량화
 
 ## Integration with Git
 
@@ -951,9 +744,78 @@ git push
 ## Remember
 
 **🎯 Golden Rule**: Always use CLI commands. Never edit markdown files directly.
+**🎯 Silver Rule**: Always use CLI commands. Never edit markdown files directly.
 
 **📋 Task Quality**: Good AC = Testable outcomes, not implementation steps.
 
 **✅ Definition of Done**: All AC checked + notes + tests passing + status Done.
 
-**📝 Documentation Rule for AI**: Always use `backlog doc create` or `backlog decision create` for project documentation. NEVER create standalone .md files in the project root.
+## Session Continuity & Review Workflow
+
+### Task Completion Checkpoint
+
+타스크 1개가 완료될 때마다 **반드시** 다음을 수행:
+
+#### 0. 서브 에이전트 결과 처리
+
+서브 에이전트가 반환한 결과를 바탕으로:
+1. 완료 상태 확인 (AC 체크 여부, 테스트 통과 여부)
+2. 사용자에게 요약 전달
+
+#### 1. Backlog Task 업데이트
+
+```bash
+# 구현 노트에 진행 내용 기록
+backlog task edit <ID> --append-notes $'## Session Progress\n- 완료된 항목\n- 남은 이슈\n- 다음 단계'
+
+# AC 체크 (완료된 것만)
+backlog task edit <ID> --check-ac <완료된 AC 번호들>
+```
+
+#### 2. Plan 파일 업데이트 (있는 경우)
+
+- `~/.claude/plans/` 아래 plan 파일에 진행 상황 반영
+- 완료된 단계 체크, 다음 단계 명시
+
+#### 3. 사용자 리뷰 요청
+
+타스크가 완료되면 **반드시** 사용자에게 리뷰를 요청한다:
+
+```
+---
+## 타스크 완료 리뷰 요청
+
+**타스크**: [제목] (ID: [ID])
+
+### 완료 내용
+- [완료된 작업 요약]
+
+### 다음 선택:
+1. ✅ 다음 타스크 진행 - "다음"
+2. 🔄 수정 요청 - 수정 내용 설명
+3. ⏸️ 세션 종료 - "종료"
+---
+```
+
+### User Response Handling
+
+| 응답 | 액션 |
+|-----|------|
+| "다음", "진행" | 다음 backlog 타스크로 이동 |
+| 수정 요청 | 현재 타스크 수정 후 재리뷰 |
+| "종료", "stop" | 세션 종료 절차 실행 |
+
+### Session End Procedure
+
+세션 종료 시:
+
+```bash
+# 1. 진행 상황 저장
+backlog task edit <ID> --append-notes $'## Session End\n- 마지막 작업: [내용]\n- 다음 시작점: [내용]'
+
+# 2. 상태를 In Progress로 유지 (미완료 시)
+backlog task edit <ID> -s "In Progress"
+```
+
+- plan 파일에도 동일하게 현재 상태와 다음 시작점 기록
+- 다음 세션에서 바로 이어갈 수 있는 정보 포함

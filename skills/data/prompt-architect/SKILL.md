@@ -1,627 +1,446 @@
 ---
 name: prompt-architect
-description: "Create and enhance prompts, system instructions, and principle files. Capabilities: transform verbose prompts, add patterns/heuristics, optimize token usage, structure CLAUDE.md principles, improve agent/persona definitions, apply prompt engineering techniques (CoT, few-shot, ReAct). Actions: create, enhance, optimize, refactor, compress prompts. Keywords: prompt engineering, system prompt, CLAUDE.md, principle files, instruction optimization, agent prompt, persona prompt, token efficiency, prompt structure, workflow prompts, rules, constraints, few-shot, chain-of-thought. Use when: creating new prompts, enhancing principle files, improving system instructions, optimizing CLAUDE.md, restructuring verbose prompts, adding patterns to workflows, defining agent behaviors."
+description: Comprehensive framework for analyzing, creating, and refining prompts for AI systems. Use when creating prompts for Claude, ChatGPT, or other language models, improving existing prompts, or applying evidence-based prompt engineering techniques. Applies structural optimization, self-consistency patterns, and anti-pattern detection to transform prompts into highly effective versions.
 ---
 
 # Prompt Architect
 
-Create and enhance production-ready prompts. Diagnose what's needed, output only what serves that need - no fixed templates, no bloat.
+A comprehensive framework for creating, analyzing, and refining prompts for AI language models using evidence-based techniques, structural optimization principles, and systematic anti-pattern detection.
 
-## Phase 1: Detect Mode
+## Overview
 
-| Input | Mode | Action |
-|-------|------|--------|
-| "Create a prompt for X" | **Create** | Diagnose intent → Generate from scratch |
-| "Improve/enhance this: [prompt]" | **Enhance** | Analyze existing → Fix gaps, preserve what works |
-| [Just a prompt with no instruction] | **Enhance** | Assume they want it improved |
-| Unclear | **Ask** | "Create new prompt or improve existing one?" |
+Prompt Architect provides a systematic approach to prompt engineering that combines research-backed techniques with practical experience. Whether crafting prompts for Claude, ChatGPT, Gemini, or other systems, this skill applies proven patterns that consistently produce high-quality responses.
 
-## Phase 2: Diagnosis
+This skill is particularly valuable for developing prompts used repeatedly, troubleshooting prompts that aren't performing well, building prompt templates for teams, or optimizing high-stakes tasks where prompt quality significantly impacts outcomes.
 
-### 2.1 Classify Type
+## When to Use This Skill
 
-| Type | Signs | Needs |
-|------|-------|-------|
-| **Agent** | Autonomous, tool use, multi-step, decisions | Role essential, mental models for judgment, boundaries |
-| **Task** | Clear deliverable, input→output | Objective, constraints, output spec (role often optional) |
-| **Persona** | Character, voice, conversation style | Role essential, voice details, behavioral specifics |
-| **Workflow** | Steps, process, pipeline | Sequence (or mental models if expertise needed) |
-| **Rules** | Constraints, guardrails, compliance | Clear rules, edge cases, exceptions |
-| **Skill/Expert** | Domain knowledge, judgment | Mental models, thinking approaches, anti-patterns |
-| **Hybrid** | Multiple types | Combine minimal necessary elements |
+Apply Prompt Architect when:
+- Creating new prompts for AI systems that will be used repeatedly or programmatically
+- Improving existing prompts that produce inconsistent or suboptimal results
+- Building prompt libraries or templates for team use
+- Teaching others about effective prompt engineering
+- Working on complex tasks where prompt quality substantially impacts outcomes
+- Debugging why a prompt isn't working as expected
 
-### 2.2 Assess Complexity
+This skill focuses on prompts as engineered artifacts rather than casual conversational queries. The assumption is you're creating prompts that provide compounding value through repeated or systematic use.
 
-- **Simple**: Single clear task → Minimal output
-- **Moderate**: Some ambiguity → Light structure
-- **Complex**: Deep expertise, high stakes → Full architecture
+## Core Prompt Analysis Framework
 
-### 2.3 Identify Gaps
+When analyzing existing prompts, apply systematic evaluation across these dimensions:
 
-| Gap | Signs |
-|-----|-------|
-| Vague objective | "Help with X" without success criteria |
-| Missing boundaries | No constraints, everything allowed |
-| Unclear output | No format specified |
-| No edge cases | Only happy path handled |
-| Procedures without insight | Steps but no WHY |
-| Verbose repetition | Same thing said multiple ways |
-| Generic language | "Be professional" without specifics |
-| Missing anti-patterns | What to do, not what to avoid |
+### Intent and Clarity Assessment
 
-### 2.4 For Enhance Mode: What's Working?
+Evaluate whether the prompt clearly communicates its core objective. Ask:
+- Could someone unfamiliar with context understand what task is being requested?
+- Are success criteria explicit or must the AI infer what constitutes a good response?
+- Is there ambiguous phrasing that could be interpreted multiple ways?
+- Does the prompt state its goal unambiguously?
 
-Before changing anything, identify what to **preserve**:
-- Role that grounds the prompt? → Keep, enhance
-- Structure that makes sense? → Keep
-- Constraints that are clear? → Keep
-- Voice that's appropriate? → Keep
+Strong prompts leave minimal room for misinterpretation of their central purpose.
 
-**Key rule for agents/personas:** If input has role, output must have role. Enhance it, don't remove it.
+### Structural Organization Analysis
 
-## Phase 3: Technique Selection
+Evaluate how the prompt is organized:
+- Does critical information appear at the beginning and end where attention is highest?
+- Are clear delimiters used to separate different types of information?
+- Is there hierarchical structure for complex multi-part tasks?
+- Does organization make the prompt easy to parse for both humans and AI?
 
-Apply techniques only when triggered:
+Effective structure guides the AI naturally through the task.
 
-| Technique | When to Apply | Skip When |
-|-----------|---------------|-----------|
-| **Mental Models** | Deep expertise, judgment-heavy, transferable reasoning | Mechanical/procedural task |
-| **Thinking Approaches** | Generative questions needed, complex reasoning | Simple rule-based decisions |
-| **Patterns** (legacy) | Procedural checklists, specific triggers→actions | Expertise needs to transfer |
-| **Heuristics** | Simple rules of thumb sufficient | Complex domain reasoning |
-| **Anti-Patterns** | High-stakes, common failures exist | Low-risk task |
-| **Chain-of-Thought** | Complex reasoning | Simple task |
-| **Few-Shot Examples** | Format unusual/unclear | Obvious format |
-| **Constraint Spec** | Boundaries unclear | Well-bounded |
-| **Role Enhancement** | Agent/persona/expert | Simple task |
+### Context Sufficiency Evaluation
 
-### Prompting Techniques Reference
+Determine whether adequate context is provided:
+- Are there implied assumptions about background knowledge?
+- Are constraints, requirements, and edge cases explicitly stated?
+- Does the prompt specify audience, purpose, and contextual factors?
+- Is necessary background information included or assumed?
 
-**Chain-of-Thought (CoT)**
-- Use for: Complex reasoning, math problems, logical deduction
-- Implementation: Add "think step by step" or "show your reasoning"
+Strong prompts make required context explicit rather than assuming shared understanding.
 
-**Few-Shot Learning**
-- Use for: Pattern-based tasks, specific formatting, consistent outputs
-- Implementation: Include 2-3 examples showing input-output pairs
+### Technique Application Review
 
-**ReAct (Reasoning + Acting)**
-- Use for: Tool use, multi-step tasks, decision-making
-- Implementation: Combine reasoning traces with action steps
+Assess whether appropriate evidence-based techniques are employed:
+- For analytical tasks: Are self-consistency mechanisms present?
+- For numerical/logical problems: Is program-of-thought structure used?
+- For complex multi-stage tasks: Is plan-and-solve framework present?
+- Are techniques appropriate to the task type?
 
-**Role-Based Prompting**
-- Use for: Domain-specific expertise, perspective-taking
-- Implementation: Assign expert role with specific approach
+Different task categories benefit from different prompting patterns.
 
-## Phase 4: Building Blocks
+### Failure Mode Detection
 
-**Include only what serves the task.** No fixed template.
+Examine for common anti-patterns:
+- Vague instructions that allow excessive interpretation
+- Contradictory requirements
+- Over-complexity that confuses rather than clarifies
+- Insufficient edge case handling
+- Assumptions that may not hold across all expected uses
 
-### Deciding What to Include
+Identify what could go wrong and whether guardrails exist.
 
-| Section | Include When... |
-|---------|-----------------|
-| **Role** | Agent, persona, expert; OR identity matters; OR input has role |
-| **Voice** | How it communicates matters; OR persona prompt |
-| **Objective** | Clear deliverable; OR task-focused |
-| **Mental Models** | Deep expertise, transferable reasoning, judgment-heavy |
-| **Thinking Approaches** | Generative questions guide better decisions |
-| **Patterns** (legacy) | Procedural checklists, mechanical triggers |
-| **Heuristics** | Simple rules of thumb sufficient |
-| **Rules (always/never)** | Behavioral boundaries matter |
-| **Conditions (when)** | Edge cases; OR situational behavior |
-| **Anti-patterns** | High-stakes; OR mistakes costly |
-| **Output spec** | Format unclear; OR deliverable needs definition |
+### Formatting and Accessibility
 
-### Block Templates
+Evaluate presentation quality:
+- Do delimiters clearly separate instructions from data?
+- Does visual hierarchy aid understanding?
+- Is whitespace, headers, and structure used effectively?
+- Is the prompt accessible to both AI systems and human maintainers?
 
-**Role Block** - When identity matters:
+Good formatting enhances both machine and human comprehension.
+
+## Prompt Refinement Methodology
+
+When improving prompts, follow this systematic approach:
+
+### 1. Clarify Core Intent First
+
+Begin by ensuring the central task is crystal clear:
+- Rewrite primary instruction using specific action verbs
+- Replace abstract requests with concrete operations
+- Add quantifiable parameters where appropriate
+- Make success criteria explicit
+
+A refined prompt should leave no doubt about its fundamental purpose.
+
+### 2. Restructure for Attention and Flow
+
+Apply structural optimization:
+- Move critical instructions and constraints to beginning and end
+- Organize complex prompts hierarchically
+- Use formatting and delimiters to create visual structure
+- Ensure logical progression through the task
+
+Each section should build naturally on previous ones.
+
+### 3. Add Necessary Context
+
+Enrich prompts with previously implicit or missing context:
+- Specify audience, purpose, and situational factors
+- Define ambiguous terms or concepts
+- Establish constraints and requirements explicitly
+- Provide background needed to understand task significance
+
+Make assumptions explicit rather than hidden.
+
+### 4. Apply Evidence-Based Techniques
+
+Incorporate research-validated patterns:
+- **Self-Consistency**: For factual/analytical tasks, request validation from multiple perspectives
+- **Program-of-Thought**: For logical tasks, structure step-by-step explicit reasoning
+- **Plan-and-Solve**: For complex workflows, separate planning from execution
+- **Few-Shot Examples**: Provide concrete examples of desired input-output patterns
+- **Chain-of-Thought**: Request explicit reasoning steps for complex problems
+
+Match techniques to task requirements.
+
+### 5. Build in Quality Mechanisms
+
+Add self-checking and validation:
+- Include verification steps in multi-stage processes
+- Specify quality criteria for outputs
+- Request explicit uncertainty acknowledgment when appropriate
+- Build in sanity checks for analytical tasks
+
+Quality mechanisms increase reliability and reduce errors.
+
+### 6. Address Edge Cases and Failure Modes
+
+Anticipate and handle potential problems:
+- Identify likely edge cases and specify handling
+- Include fallback strategies for error conditions
+- Use negative examples to illustrate what to avoid
+- Make explicit any assumptions that might not hold
+
+Proactive edge case handling prevents common failures.
+
+### 7. Optimize Output Specification
+
+Be explicit about desired output format:
+- Specify structure (prose, JSON, bullet points, etc.)
+- Define required components and their order
+- Indicate appropriate length or detail level
+- Clarify how to handle uncertainty or incomplete information
+
+Clear output specification prevents format ambiguity.
+
+## Evidence-Based Prompting Techniques
+
+### Self-Consistency
+
+For tasks requiring factual accuracy or analytical rigor, instruct the AI to:
+- Consider multiple perspectives or approaches
+- Validate conclusions against available evidence
+- Flag areas of uncertainty explicitly
+- Cross-check reasoning for internal consistency
+
+Example addition to prompt: "After reaching your conclusion, validate it by considering alternative interpretations of the evidence. Flag any areas where uncertainty exists."
+
+### Program-of-Thought
+
+For mathematical, logical, or step-by-step problem-solving tasks:
+- Structure prompts to encourage explicit step-by-step thinking
+- Request showing work and intermediate steps
+- Break complex operations into clear substeps
+- Have the AI explain its reasoning at each stage
+
+Example structure: "Solve this problem step by step. For each step, explain your reasoning before moving to the next step. Show all intermediate calculations."
+
+### Plan-and-Solve
+
+For complex multi-stage workflows:
+- Separate planning phase from execution phase
+- Request explicit plan before beginning work
+- Build in verification after completion
+- Structure as: Plan → Execute → Verify
+
+Example structure: "First, create a detailed plan for how you'll approach this task. Then execute the plan systematically. Finally, verify your results against the original requirements."
+
+### Few-Shot Examples
+
+For tasks with specific desired patterns:
+- Provide 2-5 concrete examples showing input-output pairs
+- Ensure examples are representative of the task variety
+- Include edge cases in examples if they're important
+- Use consistent formatting across examples
+
+Example pattern:
 ```
-<role>
-You are [specific identity with credibility].
+Here are examples of the desired format:
 
-Your approach: [perspective/methodology that shapes how you work]
-</role>
-```
+Input: [example 1 input]
+Output: [example 1 output]
 
-**Voice Block** - When communication style matters:
-```
-<voice>
-Tone: [specific tone]
-Style: [communication patterns]
-Boundaries: [what this voice won't do]
-</voice>
-```
+Input: [example 2 input]
+Output: [example 2 output]
 
-**Objective Block** - When deliverable matters:
-```
-<objective>
-[Clear statement: what to accomplish, why it matters]
-</objective>
-
-<success_criteria>
-[How to know it's done well]
-</success_criteria>
-```
-
-**Mental Models Block** - When expertise matters (PREFERRED over Patterns):
-```
-<mental_models>
-**[Lens Name]**
-Experts think in terms of: [conceptual framework - the abstraction they use]
-Questions they ask: [generative questions that surface insights in ANY scenario]
-Core tension: [underlying tradeoff or dynamic that defines the domain]
-This lens reveals: [what becomes visible through this frame]
-</mental_models>
-```
-
-**Why Mental Models > Patterns:**
-- **Patterns are prescriptive**: Your examples become the ceiling of what the agent can do
-- **Mental Models are generative**: Your lenses become the floor from which the agent reasons upward
-- Mental Models let agents handle situations you never anticipated by asking the right *questions*, not matching against your *answers*
-
-**Patterns Block** (Legacy - Only for procedural checklists):
-```
-<patterns>
-**[Pattern Name]**
-When you see: [trigger]
-This indicates: [insight - what expert knows]
-Therefore: [action]
-Watch out for: [pitfall]
-</patterns>
-```
-
-**When to use Mental Models vs Patterns:**
-- **Mental Models**: Deep expertise, judgment-heavy domains (security, architecture, strategy, legal, consulting)
-- **Patterns**: Procedural knowledge where triggers → actions (compliance checklists, linting rules, mechanical validations)
-
-**Heuristics Block** - When judgment matters (simple rules):
-```
-<heuristics>
-- [Rule of thumb]: [when/why it applies]
-- [Rule of thumb]: [when/why it applies]
-</heuristics>
-```
-
-**Thinking Approaches Block** - When reasoning matters (PREFERRED over Heuristics for complex domains):
-```
-<thinking_approaches>
-**[Approach Name]**
-The question experts ask: [generative question that guides reasoning]
-What this surfaces: [insights the question reveals]
-Apply when: [context for this approach]
-</thinking_approaches>
-```
-
-**Why Thinking Approaches > Heuristics:**
-- **Heuristics constrain conclusions**: "If X, then Y"
-- **Thinking Approaches guide reasoning**: "Ask this question to discover Y"
-- Thinking Approaches transfer across scenarios; heuristics only match specific cases
-
-**Rules Block** - When boundaries matter:
-```
-<always>
-- [Must do]: [why]
-</always>
-
-<never>
-- [Must not]: [what it prevents]
-</never>
-
-<when>
-- [Condition]: [behavior]
-</when>
-```
-
-**Anti-Patterns Block** - When mistakes are costly:
-```
-<anti_patterns>
-**[Mistake Name]**
-Looks like: [how it manifests]
-Why wrong: [harm it causes]
-Instead: [correct approach]
-</anti_patterns>
+Now process: [actual input]
 ```
 
-**Output Block** - When format matters:
-```
-<o>
-[Format/structure of deliverable]
-</o>
-```
-
-## Phase 5: Key Transformations
-
-### Patterns → Mental Models (Prescriptive → Generative)
-
-Transform when expertise needs to transfer, not just specific scenarios.
-
-**Before (Prescriptive - Patterns):**
-```
-<patterns>
-**Auth Bypass**
-When you see: Login, session, password reset flows
-This indicates: Identity establishment - where can it be forged?
-Therefore: Check race conditions, token predictability, session fixation
-Watch out for: "Secure" libraries used incorrectly
-</patterns>
-```
-*Problem: Agent can only handle login/session/password scenarios you listed.*
-
-**After (Generative - Mental Models):**
-```
-<mental_models>
-**Trust Boundaries**
-Experts think in terms of: Where does trust transition happen? (user→system, service→service, stored→executed)
-Questions they ask: "What proves identity here? Can that proof be forged, replayed, or bypassed?"
-Core tension: Convenience vs. verification rigor
-This lens reveals: Attack surfaces at every trust transition, not just obvious auth endpoints
-</mental_models>
-```
-*Result: Agent applies this lens to ANY scenario - OAuth, API keys, service accounts, file uploads with embedded scripts - including ones you never anticipated.*
-
-### Procedure → Patterns (still useful for checklists)
-
-Transform when you need procedural knowledge but with expert insight.
-
-**Before:**
-```
-1. Check authentication
-2. Check authorization
-3. Check input validation
-```
-
-**After:**
-```
-<patterns>
-**Auth Bypass**
-When you see: Login, session, password reset flows
-This indicates: Identity establishment - where can it be forged?
-Therefore: Check race conditions, token predictability, session fixation
-Watch out for: "Secure" libraries used incorrectly
-
-**Privilege Escalation**
-When you see: Role checks, ownership validation
-This indicates: Authorization boundary - can low reach high?
-Therefore: Test IDOR, vertical escalation, role manipulation
-</patterns>
-```
-
-### Generic → Specific
-
-**Before:** "Be professional"
-
-**After:**
-```
-<voice>
-Tone: Direct, confident, not hedging
-Style: Short sentences, active voice, specific examples
-Boundaries: Don't over-explain obvious concepts
-</voice>
-```
-
-### Verbose → Focused
-
-Remove redundancy, preserve substance, **keep roles for agents/personas**.
-
-**Before:**
-```
-You are a helpful assistant. You help users. Always be helpful and professional.
-Try to help. Be respectful and polite. Your goal is to assist users.
-```
-
-**After:**
-```
-<role>
-You are an assistant who [specific value you provide].
+### Chain-of-Thought
 
-Your approach: [how you help - be specific]
-</role>
-
-<always>
-- [Specific actionable behavior]
-</always>
-```
+For complex reasoning tasks:
+- Request explicit reasoning steps
+- Ask AI to show its thinking process
+- Have AI explain why it reached particular conclusions
+- Build in self-reflection on reasoning quality
 
-## Phase 6: Token Optimization
+Example addition: "Think through this step by step, explaining your reasoning at each stage. After reaching your conclusion, reflect on whether your reasoning was sound."
 
-When reducing output tokens (API costs) while maintaining functionality:
+## Structural Optimization Principles
 
-### Core Strategy: Compact Output + Server-Side Remapping
+### Context Positioning
 
-LLM generates ultra-compact format, application remaps to original format.
+Critical information receives more attention when placed strategically:
+- **Beginning**: State the core task and most critical constraints
+- **End**: Reinforce key requirements and output format
+- **Middle**: Provide supporting details, background, and examples
 
-**Techniques:**
+This leverages how attention is distributed across prompts.
 
-| Technique | Example | Savings |
-|-----------|---------|---------|
-| Ultra-Compact Keys | `queries` → `q`, `keyword` → `kw` | 70-85% per key |
-| Short Codes | `category=dairy` → `c=c8` | 75-90% on enums |
-| String Compression | `[{filter_by:...}]` → `"c=c4"` | 60-80% |
-| Omit Defaults | Skip `sort_by:relevant` if default | 10-30% |
+### Hierarchical Organization
 
-**When to Apply:**
-- High-volume API usage (>1000 requests/day)
-- Output tokens are >50% of total costs
-- Schema is stable and well-defined
+For complex prompts, use clear hierarchy:
+- Top level: Overall task and goals
+- Second level: Major components or phases
+- Third level: Specific instructions and details
+- Use headers, numbering, or formatting to make hierarchy visible
 
-**When NOT to Apply:**
-- Low-volume usage
-- Human readability critical
-- No application layer for remapping
+Hierarchy prevents information overload and aids navigation.
 
-### Token Optimization Example
+### Delimiter Strategy
 
-**Before (Original):**
-```json
-{"queries":[{"keyword":"milk","filter":"category=dairy","sort_by":"relevant"}]}
-```
+Use clear delimiters to separate different types of content:
+- Triple backticks for code or data: ```data here```
+- XML-style tags for sections: <context>...</context>
+- Headers and whitespace for visual separation
+- Consistent delimiter usage throughout the prompt
 
-**After (60% smaller):**
-```json
-{"q":[{"kw":"milk","f":"c=c8"}]}
-```
+Delimiters prevent ambiguity about where instructions end and data begins.
 
-Application remaps to original format for clients.
+### Length Management
 
-## Phase 7: Validation
+Balance comprehensiveness with parsability:
+- Short prompts (<200 words): Fine for simple, well-defined tasks
+- Medium prompts (200-800 words): Appropriate for most complex tasks
+- Long prompts (>800 words): Use hierarchical structure and progressive detail
+- Consider splitting extremely long prompts into multi-turn interactions
 
-Before output, verify:
+Longer isn't always better—optimize for clarity and necessity.
 
-### Structure
-- [ ] Every section earns its place
-- [ ] No redundancy
-- [ ] Complexity matches task
+## Common Anti-Patterns to Avoid
 
-### Content
-- [ ] Language specific and actionable
-- [ ] Sounds like practitioner
-- [ ] Patterns have insight (not just steps)
+### Vague Instructions
 
-### Expertise Transfer (Critical for Expert/Skill prompts)
-- [ ] **The Expert Test**: Could an expert in this domain look at your prompt and say "yes, that's how I think" - or would they say "that's a checklist someone made about my field"?
-- [ ] Mental Models give *lenses* not *answers*
-- [ ] Questions are generative (apply to unseen scenarios), not just triggers for known patterns
+Problem: Instructions that allow excessive interpretation
+- "Analyze this data" (analyze how? for what purpose?)
+- "Make it better" (better in what way? by what criteria?)
 
-### Preservation (Enhance mode)
-- [ ] If input had role → output has role
-- [ ] Original intent preserved
-- [ ] User's structure respected
+Solution: Use specific action verbs and concrete objectives
+- "Analyze this dataset to identify trends in user engagement, focusing on weekly patterns and demographic segments"
 
-### Effectiveness
-- [ ] Adds clear value (if not, don't change)
-- [ ] Works across platforms
+### Contradictory Requirements
 
-## Phase 8: Output
+Problem: Instructions that conflict with each other
+- "Be comprehensive but keep it brief"
+- "Include all details but summarize"
 
-**Return prompt directly:**
-- No wrapper
-- No meta-commentary unless asked
-- Directly usable
+Solution: Prioritize requirements explicitly
+- "Provide a brief executive summary (200 words) followed by detailed sections on each key finding"
 
-**If already good:** Say so. Don't add bloat. Maybe note one optional improvement.
+### Over-Complexity
 
-**If unclear:** Ask ONE clarifying question.
+Problem: Prompts so intricate they confuse rather than clarify
+- Multiple nested conditions and exceptions
+- Excessive special cases and qualifications
 
----
+Solution: Simplify structure, use examples instead of complex rules
+- Replace complex conditional logic with clear examples showing desired behavior
 
-## Examples
+### Insufficient Context
 
-### Example 1: Create - Agent Prompt
+Problem: Assuming shared understanding that doesn't exist
+- References to "the usual format" without defining it
+- Assumptions about domain knowledge
 
-**Input:** "Create a prompt for a research assistant"
+Solution: Make context explicit
+- "Format as JSON with fields: name (string), age (integer), skills (array of strings)"
 
-**Mode:** Create | **Type:** Agent | **Needs:** Role, capabilities, judgment, boundaries
+### Neglecting Edge Cases
 
-**Output:**
-```
-<role>
-You are a research assistant who finds accurate information and synthesizes it clearly.
+Problem: Not specifying handling for boundary conditions
+- "Extract email addresses from the text" (what if there are none? multiple formats? invalid ones?)
 
-Your approach: Verify across sources, prioritize authoritative sources, distinguish facts from opinions. When uncertain, say so.
-</role>
+Solution: Explicitly address likely edge cases
+- "Extract email addresses. If none found, return empty array. Validate format and exclude malformed addresses."
 
-<capabilities>
-- Web search for current information
-- Synthesize multiple sources
-- Identify gaps and conflicts in information
-</capabilities>
+### Cognitive Biases in Prompting
 
-<heuristics>
-- Prefer primary sources over summaries
-- If top results conflict, dig deeper
-- Recent isn't always better - check for authoritative older sources
-</heuristics>
+Problem: Unintentionally biased instructions
+- "Quickly assess..." (implies less rigor)
+- "Obviously..." (assumes conclusions)
 
-<always>
-- Cite sources for factual claims
-- Note confidence level (established vs. preliminary)
-</always>
+Solution: Use neutral language
+- "Assess this thoroughly and systematically"
 
-<never>
-- Present speculation as fact
-- Rely on single source for important claims
-</never>
-```
+## Task-Category Specific Guidance
 
-### Example 2: Enhance - Agent Prompt with Mental Models
+### Creative Writing Tasks
 
-**Input:** "Improve this: You are a code review assistant. Review code and find bugs."
+Optimize for:
+- Clear genre, tone, and style specifications
+- Concrete examples of desired voice
+- Explicit constraints (length, themes, audience)
+- Freedom within well-defined boundaries
 
-**Mode:** Enhance | **Type:** Agent | **Gaps:** Vague role, no mental models, no judgment
+Avoid: Over-constraining the creative process
 
-**Output:**
-```
-<role>
-You are a code review assistant focused on quality, security, and maintainability.
+### Analytical Tasks
 
-Your approach: Find issues that matter, not style nitpicks. Think like a maintainer who'll debug this at 2am.
-</role>
+Optimize for:
+- Self-consistency checks
+- Multiple perspective consideration
+- Explicit uncertainty acknowledgment
+- Clear success criteria for analysis quality
 
-<mental_models>
-**Cognitive Load**
-Experts think in terms of: How much must someone hold in their head to understand this code?
-Questions they ask: "If I'm debugging this at 2am, what will trip me up?"
-Core tension: Abstraction (hiding complexity) vs. explicitness (seeing what happens)
-This lens reveals: Functions doing too much, unclear naming, hidden control flow, magic values
+Avoid: Allowing confirmation bias through leading questions
 
-**Trust Boundaries**
-Experts think in terms of: Where does data cross from untrusted to trusted contexts?
-Questions they ask: "What assumptions am I making about this input? Can those assumptions be violated?"
-Core tension: Defensive coding vs. code simplicity
-This lens reveals: Injection risks, validation gaps, assumption violations
+### Code Generation Tasks
 
-**Failure Modes**
-Experts think in terms of: What happens when things go wrong, not just when they go right?
-Questions they ask: "If this fails, will anyone know? Will they know why?"
-Core tension: Happy path clarity vs. error path robustness
-This lens reveals: Silent failures, swallowed exceptions, missing error context
-</mental_models>
+Optimize for:
+- Specific language and version
+- Clear requirements and constraints
+- Expected input/output specifications
+- Error handling expectations
+- Style guide references
 
-<thinking_approaches>
-**The Naming Test**
-Question experts ask: "Can I name this thing in 3 words without 'and'?"
-What this surfaces: Violated single responsibility, unclear purpose
-Apply when: Reviewing functions, classes, modules
+Avoid: Vague requirements that lead to non-functional code
 
-**The Test Setup Test**
-Question experts ask: "How much scaffolding do I need to test this in isolation?"
-What this surfaces: Coupling problems, hidden dependencies
-Apply when: Evaluating testability and architecture
-</thinking_approaches>
+### Content Transformation Tasks
 
-<o>
-Each issue: location, mental model applied, severity (critical/major/minor), specific fix
-</o>
-```
+Optimize for:
+- Clear source and target formats
+- Explicit transformation rules
+- Edge case handling
+- Quality verification criteria
 
-**Why this works:** The agent can now identify issues in code patterns you never listed—because it's asking the right *questions* about cognitive load, trust, and failure modes, not just matching against your specific triggers.
+Avoid: Assuming obvious transformation patterns
 
-### Example 3: Create - Simple Task (No Role)
+### Question Answering Tasks
 
-**Input:** "Create a prompt to convert CSV to JSON"
+Optimize for:
+- Specificity about desired answer depth
+- Citation or evidence requirements
+- Handling of uncertain or unknown information
+- Format for qualified or partial answers
 
-**Mode:** Create | **Type:** Task | **Needs:** Objective, format, edge cases
+Avoid: Binary framing that prevents nuanced responses
 
-**Output:**
-```
-<objective>
-Convert CSV data to JSON, preserving all values and structure.
-</objective>
+## Model-Specific Considerations
 
-<o>
-JSON array of objects. Each object = one row.
-Keys = header names (preserve spelling/casing)
-Values = cell contents as strings (null for empty)
-</o>
+While these principles apply broadly, adapt for specific models when possible:
 
-<when>
-- No header row: Use "col_0", "col_1" as keys
-- Empty file: Return []
-- Malformed CSV: Report error, attempt best-effort if possible
-</when>
-```
+### Claude-Specific Optimization
+- Leverages strong instruction following
+- Responds well to XML-style tags for structure
+- Excels at nuanced tasks with detailed context
+- Benefits from explicit thinking step requests
 
-No role needed. Task-focused. Clean.
+### ChatGPT-Specific Optimization
+- Strong with conversational framing
+- Responds well to role-based prompts ("You are an expert...")
+- Benefits from clear examples
+- Effective with system message guidance
 
-### Example 4: Enhance - Already Good
+### General Model Adaptation
+- Test empirically rather than assuming
+- Iterate based on actual performance
+- Note model-specific strengths and optimize accordingly
+- Be prepared to adjust techniques based on results
 
-**Input:**
-```
-Improve this:
-<role>
-Technical documentation writer for developer APIs.
-Approach: Start with what reader needs, minimal info, assume competence.
-</role>
+## Practical Workflow
 
-<always>
-- Lead with common use case
-- Working code example for every endpoint
-</always>
+When creating or refining a prompt:
 
-<never>
-- Use "simply" or "just"
-</never>
-```
+1. **Understand the Task**: What are you actually trying to accomplish? What would success look like?
 
-**Mode:** Enhance | **Assessment:** Already good
+2. **Draft Initial Prompt**: Get something down quickly without over-optimizing
 
-**Output:**
+3. **Test and Observe**: Try the prompt and note what works and what doesn't
 
-This prompt is production-ready. Clear role, specific rules, domain awareness.
+4. **Apply Analysis Framework**: Use the evaluation dimensions to identify issues
 
-Optional addition:
-```
-<when>
-- Deprecated features: Mark clearly, explain migration, state timeline
-- Multiple approaches: Lead with recommended, note alternatives
-</when>
-```
+5. **Refine Systematically**: Address issues using the refinement methodology
 
-But core is solid as-is.
+6. **Add Appropriate Techniques**: Incorporate evidence-based patterns that fit the task
 
-### Example 5: Rules Only (No Role)
+7. **Optimize Structure**: Apply structural principles for clarity and attention
 
-**Input:** "Improve: Always respond in JSON"
+8. **Test Edge Cases**: Try variations and boundary conditions
 
-**Mode:** Enhance | **Type:** Rules | **Needs:** Edge cases, format spec
+9. **Iterate**: Refine based on actual performance
 
-**Output:**
-```
-<always>
-- Valid JSON only, no text outside structure
-- Consistent key naming (camelCase)
-</always>
+10. **Document**: Record what worked for future reference
 
-<never>
-- Markdown code blocks around JSON
-- Text before/after JSON
-</never>
+## Teaching Others
 
-<when>
-- Request unclear: {"error": "clarification needed", "question": "..."}
-- Cannot fulfill: {"error": "...", "reason": "..."}
-</when>
+When helping others improve their prompts:
 
-<o>
-{"response": "...", "metadata": {}}
-</o>
-```
+**Explain Your Reasoning**: Connect changes to underlying principles so they can generalize
 
-No role added - this is a formatting rule, not a persona.
+**Highlight Patterns**: Point out recurring patterns across different prompts
 
----
+**Encourage Experimentation**: Guide toward empirical testing rather than pure theory
 
-## Decision Tree Summary
+**Build Mental Models**: Help them understand how language models process prompts
 
-```
-1. What mode?
-   - Create from intent
-   - Enhance existing
+**Promote Best Practices**: Encourage documentation, version control, systematic approaches
 
-2. What type?
-   - Agent/Persona → Role essential
-   - Task → Role often optional
-   - Rules → No role needed
-   - Expert/Skill → Mental models needed (not just patterns)
+The goal is building sustainable prompt engineering capabilities, not just fixing individual prompts.
 
-3. What's needed?
-   - Only include sections that serve the task
-   - Prefer Mental Models over Patterns for expertise transfer
-   - Prefer Thinking Approaches over Heuristics for reasoning
+## Conclusion
 
-4. What's working? (Enhance mode)
-   - Preserve it, don't replace
+Effective prompt engineering combines art and science. These principles provide scientific foundation—research-backed techniques and structural optimization—but applying them requires judgment, creativity, and adaptation to specific contexts.
 
-5. Validate expertise transfer
-   - The Expert Test: Would an expert say "that's how I think"?
-   - Lenses generate insights; checklists constrain them
-
-6. Output
-   - Dynamic structure based on above
-   - No fixed template
-```
-
----
-
-**Status**: Production Ready | **Lines**: ~450
+Master these fundamentals, then develop your own expertise through practice and systematic reflection on results. The most effective prompt engineers combine principled approaches with creative experimentation and continuous learning from actual outcomes.

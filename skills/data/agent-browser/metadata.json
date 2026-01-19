@@ -1,7 +1,7 @@
 {
   "name": "agent-browser",
-  "repo": "ninehills/skills",
-  "path": "skills/agent-browser/SKILL.md",
-  "source": "github.com/ninehills/skills",
-  "downloaded_at": "2026-01-17T03:13:59.351510Z"
+  "repo": "privaspeech-org/squire-monorepo",
+  "path": ".claude/skills/agent-browser/SKILL.md",
+  "source": "github.com/privaspeech-org/squire-monorepo",
+  "downloaded_at": "2026-01-19T03:27:07.080886Z"
 }

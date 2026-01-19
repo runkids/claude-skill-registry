@@ -1,259 +1,189 @@
 ---
 name: design-patterns
-description: Software design patterns for Python and C++ development. Use when implementing creational patterns (Factory, Builder, Singleton), structural patterns (Adapter, Decorator, Facade), or behavioral patterns (Strategy, Observer, Command). Covers Gang of Four patterns with language-specific implementations, when to use each pattern, and common anti-patterns to avoid.
+version: 1.0.0
+description: "Guidance on when and how to apply design patterns. Use when: (1) asking which pattern to use, (2) refactoring code, (3) discussing code smells, (4) need to decouple components, (5) building extensible systems."
+license: MIT
+model: claude-opus-4-5-20251101
+metadata:
+  domains: [design-patterns, architecture, refactoring, oop]
+  source: https://refactoring.guru/design-patterns/catalog
+  language: typescript
 ---
 
-# Software Design Patterns
+# Design Patterns
 
-## Purpose
+Expert guidance on applying Gang of Four design patterns to solve common software design problems. This skill helps you identify code smells, match them to appropriate patterns, and implement solutions effectively.
 
-Guide for applying classic software design patterns in Python and C++ codebases. Patterns help solve common design problems with proven, reusable solutions.
+## Triggers
 
-## When to Use This Skill
+- `which pattern should I use` - Pattern selection guidance
+- `refactor this code` - Identify and apply patterns to improve existing code
+- `how to decouple` - Find patterns to reduce coupling
+- `design pattern for` - Specific pattern recommendations
+- `code smells` - Identify problems that patterns can solve
 
-Automatically activates when working on:
-- Creating factories or builders
-- Implementing plugin systems
-- Decoupling components
-- Managing object creation complexity
-- Adding extensibility to existing code
-- Refactoring tightly-coupled code
+## Quick Reference
 
----
+| Input | Output | Duration |
+|-------|--------|----------|
+| Code problem/smell | Pattern recommendation + implementation guide | 2-5 min |
+| Existing code | Refactoring plan with pattern | 5-10 min |
+| Pattern name | Implementation example + guidance | 1-2 min |
 
-## Pattern Categories
+## Agent Behavior Contract
 
-| Category | Purpose | Common Patterns |
-|----------|---------|-----------------|
-| **Creational** | Object creation mechanisms | Factory, Builder, Singleton |
-| **Structural** | Object composition | Adapter, Decorator, Facade |
-| **Behavioral** | Object communication | Strategy, Observer, Command |
+1. **Analyze first** - Always examine existing code before recommending patterns
+2. **Identify the problem** - Clearly state the code smell or design issue
+3. **Don't over-engineer** - Apply patterns only when they solve real problems
+4. **Explain trade-offs** - Discuss pros and cons of each pattern
+5. **Prefer simplicity** - If a simpler solution exists, recommend it
+6. **Show examples** - Provide TypeScript code examples
+7. **Consider alternatives** - Mention related or alternative patterns
 
----
+## Pattern Selection Decision Tree
 
-## Quick Reference: When to Use Each Pattern
+### Object Creation Problems?
 
-| Problem | Pattern | Key Benefit |
-|---------|---------|-------------|
-| Create objects without specifying exact class | **Factory** | Decouples creation from usage |
-| Complex object with many optional parameters | **Builder** | Readable, step-by-step construction |
-| Ensure only one instance exists | **Singleton** | Global access (use sparingly!) |
-| Make incompatible interfaces work together | **Adapter** | Integration without modification |
-| Add behavior without modifying class | **Decorator** | Runtime extension |
-| Simplify complex subsystem | **Facade** | Single entry point |
-| Swap algorithms at runtime | **Strategy** | Flexible behavior |
-| Notify multiple objects of changes | **Observer** | Loose coupling |
-| Encapsulate requests as objects | **Command** | Undo/redo, queuing |
-
----
-
-## Most Common Patterns (Quick Examples)
-
-### Factory Method
-
-```python
-# Python
-class ControllerFactory:
-    _controllers = {"joint": JointController, "cartesian": CartesianController}
-
-    @classmethod
-    def create(cls, controller_type: str) -> Controller:
-        return cls._controllers[controller_type]()
-
-controller = ControllerFactory.create("joint")
+```
+├─ Need to create objects without specifying concrete classes?
+│  └─→ Factory Method
+│
+├─ Need families of related objects to work together?
+│  └─→ Abstract Factory
+│
+├─ Complex object with many optional parameters?
+│  └─→ Builder
+│
+└─ Need exactly one instance with global access?
+   └─→ Singleton (⚠️ use sparingly)
 ```
 
-```cpp
-// C++
-class ControllerFactory {
-public:
-    static std::unique_ptr<Controller> Create(const std::string& type) {
-        if (type == "joint") return std::make_unique<JointController>();
-        if (type == "cartesian") return std::make_unique<CartesianController>();
-        throw std::invalid_argument("Unknown type");
-    }
-};
+### Behavior/Algorithm Problems?
+
+```
+├─ Need to swap algorithms at runtime?
+│  └─→ Strategy
+│
+├─ Behavior changes based on internal state?
+│  └─→ State
+│
+├─ Need to notify multiple objects of changes?
+│  └─→ Observer
+│
+├─ Want to queue, log, or undo operations?
+│  └─→ Command
+│
+├─ Need to save/restore object state (undo/redo, snapshots)?
+│  └─→ Memento
+│
+└─ Define algorithm skeleton, let subclasses override steps?
+   └─→ Template Method
 ```
 
-### Builder
+### Structure/Interface Problems?
 
-```python
-# Python - Fluent builder
-config = (
-    RobotConfigBuilder("Apollo", joint_count=7)
-    .with_velocity(2.0)
-    .with_collision(False)
-    .build()
-)
+```
+├─ Incompatible interfaces need to work together?
+│  └─→ Adapter
+│
+├─ Need to add responsibilities without subclassing?
+│  └─→ Decorator
+│
+└─ Want to simplify complex subsystem?
+   └─→ Facade
 ```
 
-```cpp
-// C++
-auto config = RobotConfig::Builder("Apollo", 7)
-    .WithVelocity(2.0)
-    .WithCollision(false)
-    .Build();
-```
+## Process
 
-### Strategy
+### Phase 1: Identify the Problem
 
-```python
-# Python - Swap algorithms at runtime
-class MotionController:
-    def __init__(self, generator: TrajectoryGenerator) -> None:
-        self._generator = generator
+Analyze the code to identify specific issues.
 
-    def set_generator(self, generator: TrajectoryGenerator) -> None:
-        self._generator = generator
+1. **Read the code** - Understand current implementation
+2. **Identify code smells** - Look for:
+   - Tight coupling between classes
+   - Large constructors or parameter lists
+   - Conditional logic that changes frequently
+   - Duplicate code across similar classes
+   - Global state or singletons everywhere
+   - Classes with too many responsibilities
 
-    def move(self, start: float, end: float) -> np.ndarray:
-        return self._generator.generate(start, end)
+**Verification:** You can clearly articulate the specific problem or limitation.
 
-controller = MotionController(LinearTrajectory())
-controller.set_generator(CubicTrajectory())  # Swap at runtime
-```
+### Phase 2: Match Problem to Pattern
 
-### Observer
+Select the most appropriate pattern.
 
-```python
-# Python - Publish/subscribe
-class StatePublisher:
-    def __init__(self) -> None:
-        self._observers: list[StateObserver] = []
+1. **Use decision tree** - Navigate the decision tree above
+2. **Consult reference files** - Read detailed pattern documentation:
+   - `references/creational.md` - Factory Method, Abstract Factory, Builder, Singleton
+   - `references/structural.md` - Adapter, Decorator, Facade
+   - `references/behavioral.md` - Observer, Strategy, Command, State, Template Method
+3. **Consider alternatives** - Evaluate 2-3 patterns if multiple fit
+4. **Explain trade-offs** - Discuss pros/cons of recommended approach
 
-    def subscribe(self, observer: StateObserver) -> None:
-        self._observers.append(observer)
+**Verification:** The pattern directly addresses the identified problem.
 
-    def update_state(self, state: RobotState) -> None:
-        for observer in self._observers:
-            observer.on_state_change(state)
+### Phase 3: Implement Solution
 
-publisher = StatePublisher()
-publisher.subscribe(Logger())
-publisher.subscribe(SafetyMonitor())
-```
+Guide implementation with concrete examples.
 
-### Decorator
+1. **Show structure** - Explain key participants (interfaces, classes, relationships)
+2. **Provide example** - Write TypeScript code demonstrating the pattern
+3. **Explain flow** - Walk through how components interact
+4. **Point out gotchas** - Warn about common mistakes
 
-```python
-# Python - Add behavior via decorators
-@timing
-@retry(max_attempts=3)
-@log_calls
-def send_command(joint_id: int, position: float) -> bool:
-    ...
-```
+**Verification:** Implementation follows pattern principles and solves the original problem.
 
-### Facade
+## Common Scenarios → Patterns
 
-```python
-# Python - Simplify complex subsystem
-class RobotFacade:
-    def move_to(self, target: Pose) -> bool:
-        if not self._safety.is_safe():
-            return False
-        trajectory = self._motion.plan(target)
-        if self._collision.check(trajectory):
-            return False
-        return self._controller.execute(trajectory)
+| Scenario | Pattern | Why |
+|----------|---------|-----|
+| Multiple button types trigger save, but implementation differs | Strategy | Swap save algorithms at runtime |
+| UI needs to update when data changes | Observer | Automatic notification system |
+| Need to add logging, validation to existing objects | Decorator | Add behavior without modifying originals |
+| Working with legacy API that doesn't match your interface | Adapter | Bridge incompatible interfaces |
+| Complex library with 50 classes, just need simple operations | Facade | Simplified interface to subsystem |
+| Creating game characters with many customization options | Builder | Step-by-step construction |
+| Document editor with undo/redo | Command | Encapsulate operations as objects |
+| Connection states: disconnected, connecting, connected | State | Behavior changes with state |
+| Need to save object snapshots for rollback | Memento | Capture and restore state without breaking encapsulation |
 
-robot = RobotFacade()
-robot.move_to(target_pose)  # Simple interface
-```
+## Anti-Patterns
 
----
+| Avoid | Why | Instead |
+|-------|-----|---------|
+| Pattern for pattern's sake | Adds unnecessary complexity | Identify actual problem first |
+| Singleton everywhere | Hidden dependencies, hard to test | Dependency injection |
+| Deep decorator chains | Debugging nightmare | Consider composition or other patterns |
+| Premature abstraction | YAGNI violation | Wait for clear pattern of repetition |
+| Factory for single product | Over-engineering | Direct instantiation is fine |
+| Observer for everything | Memory leaks, performance issues | Use only when truly needed |
 
-## Choosing the Right Pattern
+## Verification
 
-### Creational Patterns
+After applying a pattern:
 
-| Pattern | Choose When |
-|---------|-------------|
-| **Factory** | Don't know exact class until runtime |
-| **Abstract Factory** | Need families of related objects |
-| **Builder** | Many optional parameters, complex construction |
-| **Singleton** | Exactly one instance needed (hardware, config) |
-| **Prototype** | Cloning is cheaper than creating |
+- [ ] The original problem is solved
+- [ ] Code is more maintainable, not more complex
+- [ ] Pattern participants have clear responsibilities
+- [ ] Tests pass and cover new structure
+- [ ] Team members understand the pattern choice
+- [ ] No unnecessary abstraction layers added
 
-### Structural Patterns
+## Extension Points
 
-| Pattern | Choose When |
-|---------|-------------|
-| **Adapter** | Converting interface A to interface B |
-| **Decorator** | Adding behavior without subclassing |
-| **Facade** | Simplifying complex API |
-| **Composite** | Tree structures, part-whole hierarchies |
-| **Proxy** | Lazy loading, access control, caching |
-| **Bridge** | Abstraction and implementation vary independently |
+1. **Custom patterns**: Document your own domain-specific patterns based on these fundamentals
+2. **Pattern combinations**: Some problems benefit from combining multiple patterns
+3. **Refactoring catalog**: Build a library of before/after refactorings for your codebase
 
-### Behavioral Patterns
+## References
 
-| Pattern | Choose When |
-|---------|-------------|
-| **Strategy** | Multiple interchangeable algorithms |
-| **Observer** | One-to-many event notification |
-| **Command** | Undo/redo, request queuing |
-| **State** | Behavior depends on object state |
-| **Template Method** | Common algorithm, varying steps |
-| **Chain of Responsibility** | Multiple potential handlers |
+- [Creational Patterns](references/creational.md) - Factory Method, Abstract Factory, Builder, Singleton
+- [Structural Patterns](references/structural.md) - Adapter, Decorator, Facade
+- [Behavioral Patterns](references/behavioral.md) - Observer, Strategy, Command, State, Template Method, Memento
+- [Refactoring.Guru](https://refactoring.guru/design-patterns/catalog) - Complete catalog with examples
 
 ---
 
-## Anti-Patterns to Avoid
-
-❌ **Singleton overuse** - Hides dependencies, makes testing hard
-❌ **God object** - One class that does everything
-❌ **Premature abstraction** - Adding patterns before they're needed
-❌ **Pattern mania** - Using patterns for their own sake
-❌ **Ignoring YAGNI** - Building extensibility you'll never use
-
----
-
-## Pattern Selection Flowchart
-
-```
-Need to create objects?
-├── Don't know class until runtime → Factory
-├── Many optional parameters → Builder
-├── Need exactly one instance → Singleton (carefully!)
-└── Need related object families → Abstract Factory
-
-Need to structure objects?
-├── Convert interface → Adapter
-├── Add behavior dynamically → Decorator
-├── Simplify complex API → Facade
-└── Tree structure → Composite
-
-Need to manage behavior?
-├── Swap algorithms → Strategy
-├── Notify on changes → Observer
-├── Undo/redo support → Command
-└── State-dependent behavior → State
-```
-
----
-
-## Resource Files
-
-### [creational-patterns.md](resources/creational-patterns.md)
-Factory, Abstract Factory, Builder, Prototype, Singleton with full examples
-
-### [structural-patterns.md](resources/structural-patterns.md)
-Adapter, Bridge, Composite, Decorator, Facade, Proxy with full examples
-
-### [behavioral-patterns.md](resources/behavioral-patterns.md)
-Strategy, Observer, Command, State, Template Method, Chain of Responsibility
-
----
-
-## Related Resources
-
-- [Refactoring Guru - Design Patterns](https://refactoring.guru/design-patterns)
-- [python-dev-guidelines](../../python/python-dev-guidelines/SKILL.md)
-- [cpp-dev-guidelines](../../cpp/cpp-dev-guidelines/SKILL.md)
-
----
-
-**Skill Status**: COMPLETE ✅
-**Line Count**: < 450 ✅
-**Progressive Disclosure**: Resource files for detailed patterns ✅
+**Note**: Pattern selection requires judgment. When in doubt, prefer simpler solutions over pattern application.

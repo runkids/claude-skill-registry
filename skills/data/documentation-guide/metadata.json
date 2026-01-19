@@ -1,7 +1,7 @@
 {
   "name": "documentation-guide",
-  "repo": "akaszubski/anyclaude-local",
-  "path": "plugins/autonomous-dev/skills/documentation-guide/SKILL.md",
-  "source": "github.com/akaszubski/anyclaude-local",
-  "downloaded_at": "2026-01-17T03:13:50.416820Z"
+  "repo": "AsiaOstrich/universal-dev-standards",
+  "path": "skills/claude-code/documentation-guide/SKILL.md",
+  "source": "github.com/AsiaOstrich/universal-dev-standards",
+  "downloaded_at": "2026-01-19T04:02:19.749269Z"
 }

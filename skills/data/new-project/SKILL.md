@@ -1,117 +1,139 @@
 ---
 name: new-project
-description: Create a new project page to showcase research projects, side projects, or open-source work. Use when adding portfolio items.
-allowed-tools: Write, Bash(mkdir:*)
+description: Scaffold a new Lean 4 project in the workspace. Use when creating a new project, library, or application.
 ---
 
-# Adding a New Project
+# New Project Scaffolding
 
-## Instructions
+Create a new Lean 4 project with the correct structure for this workspace.
 
-When creating a project page:
+## Quick Start
 
-1. **Generate the slug**:
-   - Use the project name, lowercase with hyphens
-   - Example: "flame-benchmark" or "ml-toolkit"
-
-2. **Create directory structure**:
-   ```
-   projects/<slug>/
-   ├── index.qmd
-   └── featured.png   (project thumbnail/screenshot)
-   ```
-
-3. **Create index.qmd with frontmatter**:
-   ```yaml
-   ---
-   title: "Project Name"
-   description: "One-line description for listings"
-   date: YYYY-MM-DD
-   categories: [Research, Open Source, Tool, etc.]
-   image: featured.png
-
-   # Project links
-   github: "https://github.com/username/repo"
-   demo: "https://demo-url.com"
-   docs: "https://docs-url.com"
-
-   # Project status
-   status: "Active"  # Active, Completed, Archived, In Development
-
-   # Technologies used
-   tech: [Python, PyTorch, React, etc.]
-
-   # Featured on homepage?
-   featured: true
-   ---
-   ```
-
-4. **Structure the content**:
-   ```markdown
-   Brief project overview (2-3 sentences)...
-
-   ## Overview
-
-   More detailed description of what the project does and why it matters.
-
-   ## Features
-
-   - Key feature 1
-   - Key feature 2
-   - Key feature 3
-
-   ## Getting Started
-
-   ```bash
-   pip install project-name
-   ```
-
-   ## Links
-
-   - [GitHub Repository](https://github.com/...)
-   - [Documentation](https://...)
-   - [Live Demo](https://...)
-
-   ## Related Publications
-
-   If applicable, link to related papers.
-   ```
+1. Determine project category and name
+2. Create directory structure
+3. Generate lakefile.lean with GitHub-style dependencies
+4. Create README.md and CLAUDE.md
+5. Set up test structure with Crucible
 
 ## Project Categories
 
-Common categories:
-- `Research` - Academic research projects
-- `Open Source` - Open-source tools/libraries
-- `Tool` - Utilities and developer tools
-- `Demo` - Interactive demonstrations
-- `Data` - Datasets or data projects
-- `Web` - Web applications
-- `ML` - Machine learning projects
+| Category | Purpose | Directory |
+|----------|---------|-----------|
+| graphics | TUI, GPU, widgets, rendering | `graphics/` |
+| web | HTTP, HTML, templates | `web/` |
+| network | HTTP client, protocols | `network/` |
+| data | Databases, data structures | `data/` |
+| apps | Applications | `apps/` |
+| util | Utilities, tools | `util/` |
+| math | Linear algebra, units | `math/` |
+| audio | Sound synthesis | `audio/` |
+| testing | Test frameworks | `testing/` |
 
-## Featured Image Guidelines
+## Directory Structure
 
-- Size: 1200x630px (social sharing friendly)
-- Format: PNG for screenshots, JPG for photos
-- Content: Screenshot, diagram, or project logo
-- Keep under 500KB
-
-## Example
-
-**File**: `projects/flame/index.qmd`
-
-```yaml
----
-title: "FLAME"
-description: "Financial Language Model Evaluation framework for benchmarking LLMs"
-date: 2024-03-01
-categories: [Research, ML, Open Source]
-image: featured.png
-github: "https://github.com/gmatlin/flame"
-status: "Active"
-tech: [Python, PyTorch, Hugging Face]
-featured: true
----
-
-FLAME is a comprehensive evaluation framework designed to assess the capabilities
-of large language models on financial domain tasks...
 ```
+<category>/<project>/
+├── lakefile.lean
+├── README.md
+├── CLAUDE.md
+├── <Project>/
+│   └── Basic.lean
+├── <Project>.lean
+└── Tests/
+    └── Main.lean
+```
+
+## Template: lakefile.lean
+
+```lean
+import Lake
+open Lake DSL
+
+package «projectName» where
+  leanOptions := #[
+    ⟨`autoImplicit, false⟩
+  ]
+
+@[default_target]
+lean_lib «ProjectName» where
+  roots := #[`ProjectName]
+
+require crucible from git "https://github.com/nathanial/crucible" @ "v0.0.1"
+
+lean_exe tests where
+  root := `Tests.Main
+
+@[test_driver]
+script test do
+  let result ← IO.Process.run {
+    cmd := ".lake/build/bin/tests"
+    args := #[]
+  }
+  IO.println result
+  return 0
+```
+
+## Template: Main Library (<Project>.lean)
+
+```lean
+import ProjectName.Basic
+```
+
+## Template: Basic.lean
+
+```lean
+namespace ProjectName
+
+-- Your code here
+
+end ProjectName
+```
+
+## Template: Tests/Main.lean
+
+```lean
+import Crucible
+import ProjectName
+
+open Crucible
+
+def main : IO Unit := Crucible.runTests "ProjectName" do
+  describe "Basic" do
+    it "works" do
+      assert true
+```
+
+## Template: CLAUDE.md
+
+```markdown
+# <Project Name>
+
+Brief description.
+
+## Build
+
+\`\`\`bash
+lake build && lake test
+\`\`\`
+
+## Usage
+
+\`\`\`lean
+import ProjectName
+\`\`\`
+```
+
+## Naming Conventions
+
+- Directory: lowercase with hyphens (e.g., `my-project`)
+- Package: lowercase with hyphens in lakefile
+- Library/namespace: PascalCase (e.g., `MyProject`)
+- GitHub repo: matches directory name (except `chronos` → `chronos-lean`)
+
+## After Creation
+
+1. `lake build` to verify structure
+2. `lake test` to run initial tests
+3. `git init && git add -A && git commit -m "Initial commit"`
+4. Create GitHub repo and push
+5. Add to workspace CLAUDE.md project list

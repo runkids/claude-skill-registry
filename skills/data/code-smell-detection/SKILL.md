@@ -1,131 +1,137 @@
 ---
 name: code-smell-detection
-description: Use when reviewing code quality, before refactoring, when complexity increases, when code feels "hard to change", during code review, or when onboarding to unfamiliar code - systematic identification of code smells with specific refactoring recipes
+description: |
+  コードスメルとアーキテクチャ・アンチパターンを整理し、レビューと改善対象の特定を支援するスキル。
+  クラス/メソッドのスメル検出、改善優先度の整理、レポート化を扱う。
+
+  Anchors:
+  • Clean Code (Robert C. Martin) / 適用: コード品質レビュー / 目的: 意図の明確化
+  • Refactoring (Martin Fowler) / 適用: スメル検出と改善 / 目的: 安全な修正
+  • Working Effectively with Legacy Code (Michael Feathers) / 適用: 改善対象の特定 / 目的: リスク最小化
+
+  Trigger:
+  Use when detecting code smells, identifying refactoring targets, analyzing technical debt, or documenting anti-patterns.
+  code smells, anti-patterns, refactoring targets, technical debt, architecture review
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
-# Code Smell Detection
+# code-smell-detection
 
-**Persona:** Code quality auditor who catalogs issues without judgment, focusing on objective metrics.
+## 概要
 
-**Core principle:** Detect smells early, refactor incrementally, prevent accumulation.
+コードスメルとアンチパターンを検出し、改善対象の優先度と対応方針を整理する。
 
-## Should NOT Attempt
+## ワークフロー
 
-- Refactoring while detecting (separate concerns)
-- Flagging style preferences as smells (smell != dislike)
-- Reporting smells without refactoring recipes
-- Detecting smells in generated or vendored code
+### Phase 1: 現状把握
 
-## Smell Categories
+**目的**: スメルの種類と対象範囲を明確化する。
 
-### Bloaters (Too Big)
+**アクション**:
 
-| Smell | Detection | Refactoring |
-|-------|-----------|-------------|
-| Long Method | >20 lines, multiple indents | Extract Method |
-| Large Class | >300 lines, many responsibilities | Extract Class |
-| Long Parameter List | >3 parameters | Introduce Parameter Object |
-| Primitive Obsession | Strings for IDs, ints for money | Value Object |
-| Data Clumps | Same 3+ fields appear together | Extract Class |
+1. 対象コードと検出対象（クラス/メソッド/構造）を整理する。
+2. 参照すべきスメル定義を選定する。
+3. 出力レポートの形式を確認する。
 
-### Change Preventers (Hard to Modify)
+**Task**: `agents/analyze-smell-scope.md` を参照
 
-| Smell | Detection | Refactoring |
-|-------|-----------|-------------|
-| Divergent Change | One class changed for many reasons | Extract Class per reason |
-| Shotgun Surgery | One change requires many file edits | Move Method, Inline Class |
+### Phase 2: スメル検出
 
-### Couplers (Too Connected)
+**目的**: 検出結果と改善優先度をまとめる。
 
-| Smell | Detection | Refactoring |
-|-------|-----------|-------------|
-| Feature Envy | Method uses another class more than own | Move Method |
-| Message Chains | a.b().c().d() | Hide Delegate |
+**アクション**:
 
-### Dispensables (Remove)
+1. 検出スクリプトとレビューでスメルを抽出する。
+2. 影響度と優先度を評価する。
+3. 改善対象と対応方針を整理する。
 
-| Smell | Detection | Refactoring |
-|-------|-----------|-------------|
-| Dead Code | Unreachable, unused | Delete |
-| Duplicate Code | Same logic in multiple places | Extract Method/Class |
-| Comments | Explaining bad code | Refactor code to be clear |
+**Task**: `agents/design-smell-remediation.md` を参照
 
-## Detection
+### Phase 3: 検証と記録
 
-```bash
-# Long methods/Large files
-find ./src -name "*.py" -exec wc -l {} \; | awk '$1 > 300'
+**目的**: レポートを確定し、ログと評価を更新する。
 
-# Feature Envy: Count method's references to own vs other class
-# If other > own, method belongs elsewhere
-```
+**アクション**:
 
-## Refactoring Recipe: Extract Method
+1. レポート内容を検証する。
+2. 改善計画をレポートに反映する。
+3. ログと評価情報を更新する。
 
-```python
-# Before: Long method with comment sections
-def process_order(order):
-    # Validate order
-    if not order.items: raise ValueError("Empty order")
-    # Calculate totals
-    total = sum(item.price for item in order.items) * 1.1
-    # Notify
-    send_email(order.customer.email, f"Total: {total}")
+**Task**: `agents/validate-smell-report.md` を参照
 
-# After: Extracted methods
-def process_order(order):
-    validate_order(order)
-    total = calculate_total(order)
-    notify_customer(order.customer, total)
-```
+## Task仕様ナビ
 
-## Prioritization
+| Task                     | 起動タイミング | 入力                | 出力                           |
+| ------------------------ | -------------- | ------------------- | ------------------------------ |
+| analyze-smell-scope      | Phase 1開始時  | 対象コード/検出対象 | 対象範囲メモ、参照一覧         |
+| design-smell-remediation | Phase 2開始時  | 検出結果            | 優先度付きスメル一覧、改善方針 |
+| validate-smell-report    | Phase 3開始時  | レポート草案        | 確定レポート、ログ更新内容     |
 
-| Severity | Smells | Action |
-|----------|--------|--------|
-| High | Duplicate code, Feature envy, God class | Fix immediately |
-| Medium | Long methods, Long params, Data clumps | Fix when touching file |
-| Low | Comments, Lazy class | Fix during cleanup |
+**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリを参照
 
-## Output Format
+## ベストプラクティス
 
-```markdown
-## Code Smell Report: {path}
+### すべきこと
 
-### High Priority
-| File:Line | Smell | Evidence | Refactoring |
-|-----------|-------|----------|-------------|
-| user.py:45 | Long Method | 67 lines | Extract Method |
-```
+| 推奨事項                     | 理由                 |
+| ---------------------------- | -------------------- |
+| スメル定義を統一して検出する | 判定ブレを防ぐため   |
+| 改善優先度を明記する         | 対応順が明確になる   |
+| レポートを更新する           | 改善活動の継続に必要 |
 
-## Escalation Triggers
+### 避けるべきこと
 
-| Condition | Action |
-|-----------|--------|
-| >10 High severity smells | Escalate to `orchestrator` agent for planning |
-| God class (>1000 lines) | Use `batch-editor` agent for systematic extraction |
-| Circular dependencies | Escalate to architecture review |
-| No test coverage | STOP. Add tests before ANY refactoring |
+| 禁止事項                 | 問題点               |
+| ------------------------ | -------------------- |
+| スメルの定義を曖昧にする | 誤検出が増える       |
+| 影響度を評価しない       | 重要度が判断できない |
+| レポートなしで改善する   | 追跡が困難になる     |
 
-## Failure Behavior
+## リソース参照
 
-If detection cannot complete:
-- Report smells found so far with file:line references
-- State reason for incomplete analysis (e.g., "Circular imports prevented full analysis")
-- Recommend next steps (e.g., "Break circular dependency A→B→A first")
+### scripts/（決定論的処理）
 
-## Red Flags
+| スクリプト                       | 機能                         |
+| -------------------------------- | ---------------------------- |
+| `scripts/detect-code-smells.mjs` | コードスメル検出             |
+| `scripts/log_usage.mjs`          | 使用記録と評価メトリクス更新 |
+| `scripts/validate-skill.mjs`     | スキル構造の検証             |
 
-- "It works, don't touch it" - Smells accumulate
-- Refactoring without tests - Recipe for regression
+### references/（詳細知識）
 
-## Related Skills
+| リソース                     | パス                                                                               | 読込条件         |
+| ---------------------------- | ---------------------------------------------------------------------------------- | ---------------- |
+| Level1 基礎                  | [references/Level1_basics.md](references/Level1_basics.md)                         | 初回整理時       |
+| Level2 実務                  | [references/Level2_intermediate.md](references/Level2_intermediate.md)             | 検出準備時       |
+| Level3 応用                  | [references/Level3_advanced.md](references/Level3_advanced.md)                     | 詳細分析時       |
+| Level4 専門                  | [references/Level4_expert.md](references/Level4_expert.md)                         | 改善ループ時     |
+| アーキテクチャアンチパターン | [references/architecture-antipatterns.md](references/architecture-antipatterns.md) | 構造問題の分析時 |
+| クラススメル                 | [references/class-smells.md](references/class-smells.md)                           | クラス分析時     |
+| メソッドスメル               | [references/method-smells.md](references/method-smells.md)                         | メソッド分析時   |
+| 旧スキル                     | [references/legacy-skill.md](references/legacy-skill.md)                           | 互換確認時       |
 
-- **receiving-code-review**: Both focus on code quality improvement
-- **verification-before-completion**: Verify fixes don't introduce new smells
+### assets/（テンプレート・素材）
 
-## Integration
+| アセット                      | 用途               |
+| ----------------------------- | ------------------ |
+| `assets/code-smell-report.md` | スメル検出レポート |
 
-- **orchestrator** agent - Plan safe refactoring after detecting smells
-- **code-reviewer** agent - Find dead code during review
-- **test-driven-development** skill - Write tests before refactoring
+### 運用ファイル
+
+| ファイル     | 目的                       |
+| ------------ | -------------------------- |
+| `EVALS.json` | レベル評価・メトリクス管理 |
+| `LOGS.md`    | 実行ログの蓄積             |
+
+## 変更履歴
+
+| Version | Date       | Changes                                    |
+| ------- | ---------- | ------------------------------------------ |
+| 1.1.0   | 2026-01-06 | class-smells.mdにGod Component検出事例追加 |
+| 1.0.0   | 2025-12-31 | 初版作成                                   |

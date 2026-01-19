@@ -1,13 +1,7 @@
 {
   "name": "antidote-threat-handler",
-  "description": "Detect and respond to ideological drift, sycophantic patterns, and alignment threats using the Antidote Protocol.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "antidote",
-    "threat",
-    "handler"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/antidote-threat-handler/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-19T02:25:47.523399Z"
 }

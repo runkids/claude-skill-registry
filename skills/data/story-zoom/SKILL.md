@@ -5,8 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: fiction
 ---
 
 # Story-Zoom: Multi-Level Fiction Synchronization

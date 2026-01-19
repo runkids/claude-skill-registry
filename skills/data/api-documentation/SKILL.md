@@ -1,935 +1,270 @@
 ---
 name: api-documentation
-description: Document REST APIs with OpenAPI/Swagger specifications, endpoint documentation, authentication, error handling, and SDK guides. Use for API reference docs, Swagger specs, and client library documentation. Triggers: api docs, openapi, swagger, endpoint documentation, rest api, api reference, sdk documentation, api specification, document api, api endpoints.
+description: Use when API code changes (routes, endpoints, schemas). Enforces Swagger/OpenAPI sync. Pauses work if documentation has drifted, triggering documentation-audit skill.
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - Edit
+  - Write
+  - mcp__github__*
+model: opus
 ---
 
-# API Documentation
+# API Documentation Enforcement
 
 ## Overview
 
-Comprehensive API documentation skill covering OpenAPI/Swagger specifications, endpoint documentation, authentication flows, error handling, versioning strategies, and SDK/client documentation.
+Ensures all API changes are reflected in Swagger/OpenAPI documentation. When documentation drift is detected, work pauses until documentation is synchronized.
 
-## Instructions
+**Core principle:** API documentation is a first-class artifact, not an afterthought. No API change ships without documentation.
 
-### 1. Understand the API First
+**Announce at start:** "I'm using api-documentation to verify Swagger/OpenAPI sync."
 
-- Review all endpoints and their purposes
-- Identify authentication mechanisms
-- Understand request/response schemas
-- Note error conditions and edge cases
-- Check existing API patterns for consistency
+## When This Skill Triggers
 
-### 2. Documentation Components
+This skill is triggered when ANY of these file patterns are modified:
 
-Every API should document:
+| Pattern | Framework | Trigger Reason |
+|---------|-----------|----------------|
+| `**/routes/**/*.ts` | Express/Fastify | Route definitions |
+| `**/controllers/**/*.ts` | NestJS/Express | Controller endpoints |
+| `**/*.controller.ts` | NestJS | Controller class |
+| `**/api/**/*.py` | FastAPI/Flask | API endpoints |
+| `**/*_router.py` | FastAPI | Router definitions |
+| `**/handlers/**/*.go` | Go | HTTP handlers |
+| `**/schema*.ts` | TypeScript | Schema definitions |
+| `**/dto/**/*.ts` | NestJS | Data transfer objects |
+| `**/models/**/*.ts` | Various | API models |
 
-1. **Authentication**: How to authenticate
-2. **Base URL**: Environment-specific URLs
-3. **Endpoints**: All available operations
-4. **Schemas**: Request/response models
-5. **Errors**: Error codes and handling
-6. **Rate limits**: Throttling policies
-7. **Versioning**: How versions work
+## Documentation Locations
 
-## Best Practices
+Check these locations for existing API documentation:
 
-- Use consistent terminology
-- Provide working examples for every endpoint
-- Document all possible response codes
-- Include request/response examples
-- Explain authentication clearly
-- Document rate limits and quotas
-- Keep schemas DRY with $ref
+| File | Format | Standard |
+|------|--------|----------|
+| `openapi.yaml` | YAML | OpenAPI 3.x |
+| `openapi.json` | JSON | OpenAPI 3.x |
+| `swagger.yaml` | YAML | Swagger 2.0 |
+| `swagger.json` | JSON | Swagger 2.0 |
+| `docs/api.yaml` | YAML | OpenAPI 3.x |
+| `api/openapi.yaml` | YAML | OpenAPI 3.x |
 
-## Examples
+## The Protocol
 
-### OpenAPI/Swagger Specification
+### Step 1: Detect API Changes
+
+```bash
+# Check if current changes affect API
+API_CHANGED=false
+
+# Check common API file patterns
+for pattern in "routes/" "controllers/" "api/" "handlers/" "*.controller.ts" "*_router.py"; do
+  if git diff --name-only HEAD~1 | grep -q "$pattern"; then
+    API_CHANGED=true
+    break
+  fi
+done
+
+# Check for schema/DTO changes
+if git diff --name-only HEAD~1 | grep -qE "(schema|dto|model)"; then
+  API_CHANGED=true
+fi
+
+echo "API Changed: $API_CHANGED"
+```
+
+### Step 2: Find Documentation File
+
+```bash
+find_api_docs() {
+  for file in openapi.yaml openapi.json swagger.yaml swagger.json \
+              docs/api.yaml docs/openapi.yaml api/openapi.yaml; do
+    if [ -f "$file" ]; then
+      echo "$file"
+      return 0
+    fi
+  done
+  return 1
+}
+
+DOC_FILE=$(find_api_docs)
+if [ -z "$DOC_FILE" ]; then
+  echo "ERROR: No API documentation file found"
+  echo "PAUSE: Trigger documentation-audit skill"
+fi
+```
+
+### Step 3: Verify Sync
+
+Compare API code with documentation:
+
+```bash
+verify_api_sync() {
+  local doc_file=$1
+
+  # Extract endpoints from code
+  CODE_ENDPOINTS=$(find . -name "*.ts" -path "*/routes/*" -exec grep -h "@(Get|Post|Put|Delete|Patch)" {} \; | \
+    sed 's/.*@\(Get\|Post\|Put\|Delete\|Patch\)(\([^)]*\)).*/\1 \2/' | sort -u)
+
+  # Extract endpoints from OpenAPI
+  DOC_ENDPOINTS=$(yq '.paths | keys[]' "$doc_file" 2>/dev/null | sort -u)
+
+  # Compare
+  MISSING=$(comm -23 <(echo "$CODE_ENDPOINTS" | sort) <(echo "$DOC_ENDPOINTS" | sort))
+
+  if [ -n "$MISSING" ]; then
+    echo "DRIFT DETECTED: Endpoints in code but not in docs:"
+    echo "$MISSING"
+    return 1
+  fi
+
+  return 0
+}
+```
+
+### Step 4: Handle Drift
+
+If documentation drift is detected:
+
+```markdown
+## API Documentation Drift Detected
+
+**Status:** PAUSED
+**Reason:** API documentation is out of sync with code
+
+### Missing from Documentation
+- `POST /api/users` (found in `routes/users.ts:45`)
+- `GET /api/users/:id/profile` (found in `routes/users.ts:67`)
+
+### Action Required
+1. Invoke `documentation-audit` skill
+2. Update Swagger/OpenAPI documentation
+3. Resume current work after sync complete
+
+---
+*api-documentation skill paused work*
+```
+
+Then invoke documentation-audit:
+
+```
+Use Skill tool: documentation-audit
+```
+
+## Documentation Requirements
+
+When updating API documentation, include:
+
+### Required Fields
+
+| Field | Description |
+|-------|-------------|
+| `summary` | Short description of endpoint |
+| `description` | Detailed explanation |
+| `parameters` | All path/query/header params |
+| `requestBody` | Request schema with examples |
+| `responses` | All response codes with schemas |
+| `tags` | Grouping for organization |
+| `security` | Auth requirements |
+
+### Required Examples
+
+Every endpoint must have:
+- Request example (for POST/PUT/PATCH)
+- Success response example
+- Error response example
+
+### Example OpenAPI Entry
 
 ```yaml
-openapi: 3.1.0
-info:
-  title: User Management API
-  description: |
-    API for managing users and their profiles.
-
-    ## Authentication
-    All endpoints require Bearer token authentication.
-    Obtain a token via POST /auth/login.
-
-    ## Rate Limits
-    - Standard: 100 requests/minute
-    - Authenticated: 1000 requests/minute
-  version: 2.0.0
-  contact:
-    name: API Support
-    email: api-support@example.com
-    url: https://developer.example.com
-  license:
-    name: MIT
-    url: https://opensource.org/licenses/MIT
-
-servers:
-  - url: https://api.example.com/v2
-    description: Production
-  - url: https://api.staging.example.com/v2
-    description: Staging
-  - url: http://localhost:3000/v2
-    description: Local development
-
-tags:
-  - name: Users
-    description: User management operations
-  - name: Authentication
-    description: Authentication and authorization
-
-security:
-  - BearerAuth: []
-
-paths:
-  /users:
-    get:
-      summary: List all users
-      description: |
-        Retrieve a paginated list of users.
-        Results are sorted by creation date (newest first).
-      operationId: listUsers
-      tags:
-        - Users
-      parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
-        - name: status
-          in: query
-          description: Filter by user status
-          schema:
-            type: string
-            enum: [active, inactive, pending]
-        - name: search
-          in: query
-          description: Search by name or email
-          schema:
-            type: string
-            minLength: 2
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserListResponse"
-              example:
-                data:
-                  - id: "usr_123"
-                    email: "john@example.com"
-                    name: "John Doe"
-                    status: "active"
-                    createdAt: "2024-01-15T10:30:00Z"
-                pagination:
-                  page: 1
-                  limit: 20
-                  total: 150
-                  hasMore: true
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "429":
-          $ref: "#/components/responses/RateLimited"
-
-    post:
-      summary: Create a new user
-      description: Create a new user account
-      operationId: createUser
-      tags:
-        - Users
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateUserRequest"
-            examples:
-              basic:
-                summary: Basic user creation
-                value:
-                  email: "jane@example.com"
-                  name: "Jane Smith"
-                  password: "secureP@ssw0rd"
-              withRole:
-                summary: User with admin role
-                value:
-                  email: "admin@example.com"
-                  name: "Admin User"
-                  password: "secureP@ssw0rd"
-                  role: "admin"
-      responses:
-        "201":
-          description: User created successfully
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "409":
-          description: User with this email already exists
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                error:
-                  code: "USER_EXISTS"
-                  message: "A user with this email already exists"
-
-  /users/{userId}:
-    get:
-      summary: Get user by ID
-      description: Retrieve a specific user by their unique identifier
-      operationId: getUserById
-      tags:
-        - Users
-      parameters:
-        - $ref: "#/components/parameters/UserIdParam"
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserResponse"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-    patch:
-      summary: Update user
-      description: Update user properties. Only provided fields are updated.
-      operationId: updateUser
-      tags:
-        - Users
-      parameters:
-        - $ref: "#/components/parameters/UserIdParam"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateUserRequest"
-      responses:
-        "200":
-          description: User updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-    delete:
-      summary: Delete user
-      description: Permanently delete a user account
-      operationId: deleteUser
-      tags:
-        - Users
-      parameters:
-        - $ref: "#/components/parameters/UserIdParam"
-      responses:
-        "204":
-          description: User deleted successfully
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: |
-        JWT token obtained from POST /auth/login.
-        Include in header: `Authorization: Bearer <token>`
-
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: X-API-Key
-      description: API key for server-to-server authentication
-
-  parameters:
-    UserIdParam:
-      name: userId
-      in: path
+/api/users:
+  post:
+    summary: Create a new user
+    description: |
+      Creates a new user account with the provided details.
+      Requires admin authentication.
+    tags:
+      - Users
+    security:
+      - bearerAuth: []
+    requestBody:
       required: true
-      description: Unique user identifier
-      schema:
-        type: string
-        pattern: "^usr_[a-zA-Z0-9]+$"
-      example: usr_123abc
-
-    PageParam:
-      name: page
-      in: query
-      description: Page number (1-indexed)
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-
-    LimitParam:
-      name: limit
-      in: query
-      description: Number of items per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-
-  schemas:
-    User:
-      type: object
-      required:
-        - id
-        - email
-        - name
-        - status
-        - createdAt
-      properties:
-        id:
-          type: string
-          description: Unique identifier
-          example: usr_123abc
-        email:
-          type: string
-          format: email
-          description: User's email address
-          example: john@example.com
-        name:
-          type: string
-          description: User's full name
-          example: John Doe
-        status:
-          type: string
-          enum: [active, inactive, pending]
-          description: Account status
-        role:
-          type: string
-          enum: [user, admin, moderator]
-          default: user
-        createdAt:
-          type: string
-          format: date-time
-          description: Account creation timestamp
-        updatedAt:
-          type: string
-          format: date-time
-          description: Last update timestamp
-
-    CreateUserRequest:
-      type: object
-      required:
-        - email
-        - name
-        - password
-      properties:
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-          minLength: 2
-          maxLength: 100
-        password:
-          type: string
-          format: password
-          minLength: 8
-          description: Must contain uppercase, lowercase, number, and special character
-        role:
-          type: string
-          enum: [user, admin, moderator]
-          default: user
-
-    UpdateUserRequest:
-      type: object
-      minProperties: 1
-      properties:
-        name:
-          type: string
-          minLength: 2
-          maxLength: 100
-        status:
-          type: string
-          enum: [active, inactive]
-
-    UserResponse:
-      type: object
-      properties:
-        data:
-          $ref: "#/components/schemas/User"
-
-    UserListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: "#/components/schemas/User"
-        pagination:
-          $ref: "#/components/schemas/Pagination"
-
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        total:
-          type: integer
-        hasMore:
-          type: boolean
-
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code
-            message:
-              type: string
-              description: Human-readable error message
-            details:
-              type: array
-              items:
-                type: object
-                properties:
-                  field:
-                    type: string
-                  message:
-                    type: string
-
-  responses:
-    BadRequest:
-      description: Invalid request parameters
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/CreateUserRequest'
           example:
-            error:
-              code: "VALIDATION_ERROR"
-              message: "Request validation failed"
-              details:
-                - field: "email"
-                  message: "Must be a valid email address"
-
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Error"
-          example:
-            error:
-              code: "UNAUTHORIZED"
-              message: "Invalid or missing authentication token"
-
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Error"
-          example:
-            error:
-              code: "NOT_FOUND"
-              message: "The requested resource was not found"
-
-    RateLimited:
-      description: Rate limit exceeded
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Request limit per minute
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Remaining requests
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: Unix timestamp when limit resets
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Error"
-          example:
-            error:
-              code: "RATE_LIMITED"
-              message: "Too many requests. Please retry after 60 seconds."
+            email: user@example.com
+            name: John Doe
+            role: member
+    responses:
+      '201':
+        description: User created successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            example:
+              id: usr_123abc
+              email: user@example.com
+              name: John Doe
+              role: member
+              createdAt: '2025-01-02T10:30:00Z'
+      '400':
+        description: Invalid request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+            example:
+              code: VALIDATION_ERROR
+              message: Email is required
+      '401':
+        description: Authentication required
+      '403':
+        description: Insufficient permissions
 ```
 
-### Endpoint Documentation (Markdown)
+## Validation
 
-```markdown
-## Create User
+After updating documentation, validate:
 
-Create a new user account in the system.
+```bash
+# Validate OpenAPI spec
+npx @apidevtools/swagger-cli validate openapi.yaml
 
-**Endpoint:** `POST /users`
-
-**Authentication:** Required (Bearer token)
-
-### Request
-
-#### Headers
-
-| Header        | Required | Description                           |
-| ------------- | -------- | ------------------------------------- |
-| Authorization | Yes      | Bearer token                          |
-| Content-Type  | Yes      | `application/json`                    |
-| X-Request-Id  | No       | Unique request identifier for tracing |
-
-#### Body Parameters
-
-| Parameter | Type   | Required | Description                                                                     |
-| --------- | ------ | -------- | ------------------------------------------------------------------------------- |
-| email     | string | Yes      | Valid email address                                                             |
-| name      | string | Yes      | Full name (2-100 characters)                                                    |
-| password  | string | Yes      | Password (min 8 chars, must include uppercase, lowercase, number, special char) |
-| role      | string | No       | User role: `user`, `admin`, `moderator`. Default: `user`                        |
-
-#### Example Request
-
-\`\`\`bash
-curl -X POST https://api.example.com/v2/users \
- -H "Authorization: Bearer eyJhbG..." \
- -H "Content-Type: application/json" \
- -d '{
-"email": "jane@example.com",
-"name": "Jane Smith",
-"password": "SecureP@ss123"
-}'
-\`\`\`
-
-### Response
-
-#### Success Response (201 Created)
-
-\`\`\`json
-{
-"data": {
-"id": "usr_abc123",
-"email": "jane@example.com",
-"name": "Jane Smith",
-"status": "pending",
-"role": "user",
-"createdAt": "2024-01-15T10:30:00Z"
-}
-}
-\`\`\`
-
-#### Error Responses
-
-| Status | Code             | Description              |
-| ------ | ---------------- | ------------------------ |
-| 400    | VALIDATION_ERROR | Invalid request body     |
-| 401    | UNAUTHORIZED     | Missing or invalid token |
-| 409    | USER_EXISTS      | Email already registered |
-| 429    | RATE_LIMITED     | Too many requests        |
-
-**400 Bad Request:**
-\`\`\`json
-{
-"error": {
-"code": "VALIDATION_ERROR",
-"message": "Request validation failed",
-"details": [
-{
-"field": "password",
-"message": "Password must be at least 8 characters"
-}
-]
-}
-}
-\`\`\`
+# Or with yq for basic structure check
+yq 'has("openapi") and has("paths") and has("info")' openapi.yaml
 ```
 
-### Authentication Documentation
-
-```markdown
-# Authentication
-
-## Overview
-
-The API supports two authentication methods:
-
-1. **Bearer Token (JWT)** - For user-facing applications
-2. **API Key** - For server-to-server integrations
-
-## Bearer Token Authentication
-
-### Obtaining a Token
-
-\`\`\`bash
-POST /auth/login
-Content-Type: application/json
-
-{
-"email": "user@example.com",
-"password": "your-password"
-}
-\`\`\`
-
-**Response:**
-\`\`\`json
-{
-"accessToken": "eyJhbGciOiJIUzI1NiIs...",
-"refreshToken": "dGhpcyBpcyBhIHJlZnJl...",
-"expiresIn": 3600,
-"tokenType": "Bearer"
-}
-\`\`\`
-
-### Using the Token
-
-Include the token in the Authorization header:
-
-\`\`\`
-Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
-\`\`\`
-
-### Token Lifecycle
-
-| Token         | Lifetime | Usage                   |
-| ------------- | -------- | ----------------------- |
-| Access Token  | 1 hour   | API requests            |
-| Refresh Token | 30 days  | Obtain new access token |
-
-### Refreshing Tokens
-
-\`\`\`bash
-POST /auth/refresh
-Content-Type: application/json
-
-{
-"refreshToken": "dGhpcyBpcyBhIHJlZnJl..."
-}
-\`\`\`
-
-## API Key Authentication
-
-For server-to-server integrations, use API key authentication.
-
-### Creating an API Key
-
-1. Go to Dashboard > Settings > API Keys
-2. Click "Create New Key"
-3. Select permissions and expiration
-4. Copy and securely store the key
-
-### Using the API Key
-
-Include in the `X-API-Key` header:
-
-\`\`\`
-X-API-Key: sk_live_abc123...
-\`\`\`
-
-### API Key Best Practices
-
-- Never expose keys in client-side code
-- Rotate keys regularly (every 90 days)
-- Use separate keys for each environment
-- Apply minimum required permissions
-```
-
-### Error Response Documentation
-
-```markdown
-# Error Handling
-
-## Error Response Format
-
-All errors follow a consistent format:
-
-\`\`\`json
-{
-"error": {
-"code": "ERROR_CODE",
-"message": "Human-readable description",
-"details": [
-{
-"field": "fieldName",
-"message": "Field-specific error"
-}
-],
-"requestId": "req_abc123"
-}
-}
-\`\`\`
-
-## HTTP Status Codes
-
-| Status | Meaning           | When Used                               |
-| ------ | ----------------- | --------------------------------------- |
-| 200    | OK                | Successful GET, PUT, PATCH              |
-| 201    | Created           | Successful POST creating resource       |
-| 204    | No Content        | Successful DELETE                       |
-| 400    | Bad Request       | Invalid request syntax or parameters    |
-| 401    | Unauthorized      | Missing or invalid authentication       |
-| 403    | Forbidden         | Valid auth but insufficient permissions |
-| 404    | Not Found         | Resource doesn't exist                  |
-| 409    | Conflict          | Resource state conflict                 |
-| 422    | Unprocessable     | Valid syntax but semantic errors        |
-| 429    | Too Many Requests | Rate limit exceeded                     |
-| 500    | Internal Error    | Server-side error                       |
-
-## Common Error Codes
-
-### Authentication Errors
-
-| Code               | HTTP Status | Description            | Resolution                   |
-| ------------------ | ----------- | ---------------------- | ---------------------------- |
-| UNAUTHORIZED       | 401         | No token provided      | Include Authorization header |
-| TOKEN_EXPIRED      | 401         | Token has expired      | Refresh your access token    |
-| TOKEN_INVALID      | 401         | Token is malformed     | Obtain a new token           |
-| INSUFFICIENT_SCOPE | 403         | Token lacks permission | Request with proper scopes   |
-
-### Validation Errors
-
-| Code             | HTTP Status | Description               | Resolution                          |
-| ---------------- | ----------- | ------------------------- | ----------------------------------- |
-| VALIDATION_ERROR | 400         | Request failed validation | Check `details` for specific fields |
-| INVALID_JSON     | 400         | Malformed JSON body       | Verify JSON syntax                  |
-| MISSING_FIELD    | 400         | Required field missing    | Include all required fields         |
-
-### Resource Errors
-
-| Code            | HTTP Status | Description            | Resolution             |
-| --------------- | ----------- | ---------------------- | ---------------------- |
-| NOT_FOUND       | 404         | Resource doesn't exist | Verify resource ID     |
-| ALREADY_EXISTS  | 409         | Duplicate resource     | Use unique identifiers |
-| RESOURCE_LOCKED | 423         | Resource is locked     | Wait and retry         |
-
-## Handling Errors in Code
-
-### JavaScript/TypeScript
-
-\`\`\`typescript
-try {
-const response = await api.createUser(userData);
-} catch (error) {
-if (error.status === 401) {
-await refreshToken();
-return retry();
-}
-
-if (error.status === 429) {
-const retryAfter = error.headers['retry-after'];
-await sleep(retryAfter \* 1000);
-return retry();
-}
-
-if (error.body?.error?.code === 'VALIDATION_ERROR') {
-const fieldErrors = error.body.error.details;
-displayFieldErrors(fieldErrors);
-}
-}
-\`\`\`
-```
-
-### Versioning Documentation
-
-```markdown
-# API Versioning
-
-## Version Format
-
-The API uses URL path versioning:
-
-\`\`\`
-https://api.example.com/v{major}/resource
-\`\`\`
-
-Current version: **v2**
-
-## Supported Versions
-
-| Version | Status     | Sunset Date |
-| ------- | ---------- | ----------- |
-| v2      | Current    | -           |
-| v1      | Deprecated | 2024-12-31  |
-
-## Version Lifecycle
-
-1. **Current**: Actively developed and supported
-2. **Deprecated**: Supported but no new features
-3. **Sunset**: Read-only access for 90 days
-4. **Retired**: No longer accessible
-
-## Breaking vs Non-Breaking Changes
-
-### Non-Breaking (No version bump)
-
-- Adding new endpoints
-- Adding optional parameters
-- Adding new response fields
-- Adding new enum values
-
-### Breaking (Major version bump)
-
-- Removing endpoints
-- Removing or renaming fields
-- Changing field types
-- Changing authentication method
-- Changing error format
-
-## Migration Guide: v1 to v2
-
-### Authentication Change
-
-**v1:** API Key in query parameter
-\`\`\`
-GET /v1/users?api_key=abc123
-\`\`\`
-
-**v2:** Bearer token in header
-\`\`\`
-GET /v2/users
-Authorization: Bearer eyJhbG...
-\`\`\`
-
-### Response Format Change
-
-**v1:** Flat response
-\`\`\`json
-{
-"id": "123",
-"name": "John"
-}
-\`\`\`
-
-**v2:** Wrapped response
-\`\`\`json
-{
-"data": {
-"id": "usr_123",
-"name": "John"
-}
-}
-\`\`\`
-```
-
-### SDK Documentation
-
-```markdown
-# JavaScript SDK
-
-## Installation
-
-\`\`\`bash
-npm install @example/api-client
-\`\`\`
-
-## Quick Start
-
-\`\`\`javascript
-import { ApiClient } from '@example/api-client';
-
-const client = new ApiClient({
-apiKey: process.env.API_KEY,
-environment: 'production' // or 'sandbox'
-});
-
-// Create a user
-const user = await client.users.create({
-email: 'jane@example.com',
-name: 'Jane Smith'
-});
-
-console.log(user.id); // usr_abc123
-\`\`\`
-
-## Configuration
-
-\`\`\`javascript
-const client = new ApiClient({
-// Required
-apiKey: 'sk*live*...',
-
-// Optional
-environment: 'production', // 'production' | 'sandbox'
-timeout: 30000, // Request timeout in ms
-retries: 3, // Auto-retry failed requests
-logger: console, // Custom logger
-});
-\`\`\`
-
-## Resources
-
-### Users
-
-\`\`\`javascript
-// List users with pagination
-const { data, pagination } = await client.users.list({
-page: 1,
-limit: 20,
-status: 'active'
-});
-
-// Get single user
-const user = await client.users.get('usr_123');
-
-// Create user
-const newUser = await client.users.create({
-email: 'new@example.com',
-name: 'New User'
-});
-
-// Update user
-const updated = await client.users.update('usr_123', {
-name: 'Updated Name'
-});
-
-// Delete user
-await client.users.delete('usr_123');
-\`\`\`
-
-## Error Handling
-
-\`\`\`javascript
-import { ApiError, ValidationError, RateLimitError } from '@example/api-client';
-
-try {
-await client.users.create({ email: 'invalid' });
-} catch (error) {
-if (error instanceof ValidationError) {
-console.log(error.details); // Field-level errors
-} else if (error instanceof RateLimitError) {
-console.log(`Retry after ${error.retryAfter} seconds`);
-} else if (error instanceof ApiError) {
-console.log(error.code, error.message);
-}
-}
-\`\`\`
-
-## TypeScript Support
-
-The SDK includes full TypeScript definitions:
-
-\`\`\`typescript
-import { ApiClient, User, CreateUserParams } from '@example/api-client';
-
-const params: CreateUserParams = {
-email: 'typed@example.com',
-name: 'Typed User'
-};
-
-const user: User = await client.users.create(params);
-\`\`\`
-```
+## Checklist
+
+Before resuming work:
+
+- [ ] API documentation file exists
+- [ ] All endpoints are documented
+- [ ] Request/response schemas defined
+- [ ] Examples provided for all operations
+- [ ] Security requirements documented
+- [ ] Documentation validates successfully
+- [ ] Changes committed to branch
+
+## Integration
+
+This skill coordinates with:
+
+| Skill | Purpose |
+|-------|---------|
+| `documentation-audit` | Full documentation sync |
+| `issue-driven-development` | Triggered during implementation |
+| `comprehensive-review` | Validates documentation complete |
+
+## When to Skip
+
+This skill can be skipped when:
+- Changes are purely internal (no API surface change)
+- Changes are to test files only
+- Changes are to documentation itself
+- Project has no API (CLI tool, library, etc.)

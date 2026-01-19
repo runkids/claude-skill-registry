@@ -1,782 +1,652 @@
 ---
 name: yaml-workflow-executor
-description: Execute data processing workflows defined in YAML configuration files. Supports data loading, transformation, validation, and reporting pipelines.
-version: 1.0.0
-category: workspace-hub
-type: skill
-trigger: manual
-auto_execute: false
-capabilities:
-  - yaml_configuration
-  - pipeline_execution
-  - data_processing
-  - workflow_orchestration
-  - bash_integration
-tools:
-  - Read
-  - Write
-  - Bash
+description: Execute configuration-driven analysis workflows from YAML files. Use for running analysis pipelines, data processing tasks, and automation workflows defined in YAML configuration.
+version: 1.1.0
+category: development
 related_skills:
-  - python-project-template
-  - interactive-report-generator
-  - data-validation-reporter
+  - data-pipeline-processor
+  - engineering-report-generator
+  - parallel-file-processor
 ---
 
 # YAML Workflow Executor
 
-> Execute standardized data processing workflows from YAML configuration files.
+> Version: 1.1.0
+> Category: Development
+> Last Updated: 2026-01-02
+
+Execute configuration-driven workflows where YAML files define the analysis parameters, data sources, and execution steps.
 
 ## Quick Start
 
+```yaml
+# config/workflows/analysis.yaml
+task: analyze_data
+
+input:
+  data_path: data/raw/measurements.csv
+
+output:
+  results_path: data/results/analysis.json
+
+parameters:
+  filter_column: status
+  filter_value: active
+```
+
+```python
+from workflow_executor import execute_workflow
+
+# Execute workflow
+result = execute_workflow("config/workflows/analysis.yaml")
+print(f"Status: {result['status']}")
+```
+
 ```bash
-# Execute workflow from YAML
-/yaml-workflow-executor config/input/analysis.yaml
-
-# Execute with output directory
-/yaml-workflow-executor config/input/pipeline.yaml --output reports/
-
-# Dry run (validate only)
-/yaml-workflow-executor config/input/pipeline.yaml --dry-run
+# CLI execution
+python -m workflow_executor config/workflows/analysis.yaml --verbose
 ```
 
 ## When to Use
 
-**USE when:**
-- Running standardized analysis workflows
-- Batch processing with different parameters
-- Creating reproducible pipelines
-- Separating configuration from code
+- Running analysis defined in YAML configuration files
+- Executing data processing pipelines from config
+- Automating repetitive tasks with parameterized configs
+- Building reproducible workflows
+- Processing multiple scenarios from config variations
 
-**DON'T USE when:**
-- One-off scripts
-- Interactive exploration
-- Configuration is simple (single parameter)
+## Core Pattern
 
-## Prerequisites
+```
+YAML Config -> Load -> Validate -> Route to Handler -> Execute -> Output
+```
 
-- Python 3.9+
-- pyyaml>=6.0
-- pydantic>=2.0 (for validation)
-- Data files in expected locations
+## Implementation
 
-## Overview
+### Configuration Loader
 
-Implements the YAML → Script → Report pattern used across workspace-hub:
+```python
+import yaml
+from pathlib import Path
+from dataclasses import dataclass, field
+from typing import Any, Dict, Optional
+import logging
 
-1. **Load YAML** - Parse configuration file
-2. **Validate** - Check required fields and types
-3. **Execute** - Run processing pipeline
-4. **Report** - Generate output and logs
+logger = logging.getLogger(__name__)
+
+@dataclass
+class WorkflowConfig:
+    """Configuration container for workflow execution."""
+    task: str
+    input: Dict[str, Any] = field(default_factory=dict)
+    output: Dict[str, Any] = field(default_factory=dict)
+    parameters: Dict[str, Any] = field(default_factory=dict)
+    options: Dict[str, Any] = field(default_factory=dict)
+
+    @classmethod
+    def from_yaml(cls, yaml_path: str) -> 'WorkflowConfig':
+        """Load configuration from YAML file."""
+        path = Path(yaml_path)
+        if not path.exists():
+            raise FileNotFoundError(f"Config file not found: {yaml_path}")
+
+        with open(path, 'r') as f:
+            data = yaml.safe_load(f)
+
+        return cls(
+            task=data.get('task', 'default'),
+            input=data.get('input', {}),
+            output=data.get('output', {}),
+            parameters=data.get('parameters', {}),
+            options=data.get('options', {})
+        )
+
+    def validate(self) -> bool:
+        """Validate configuration has required fields."""
+        if not self.task:
+            raise ValueError("Configuration must specify 'task'")
+        return True
+```
+
+### Workflow Router
+
+```python
+class WorkflowRouter:
+    """Route tasks to appropriate handlers based on configuration."""
+
+    def __init__(self):
+        self.handlers = {}
+
+    def register(self, task_name: str, handler_func):
+        """Register a handler for a task type."""
+        self.handlers[task_name] = handler_func
+
+    def route(self, config: WorkflowConfig) -> Any:
+        """Route configuration to appropriate handler."""
+        task = config.task
+
+        if task not in self.handlers:
+            available = ', '.join(self.handlers.keys())
+            raise ValueError(f"Unknown task: {task}. Available: {available}")
+
+        handler = self.handlers[task]
+        logger.info(f"Routing to handler: {task}")
+
+        return handler(config)
+
+# Global router instance
+router = WorkflowRouter()
+```
+
+### Handler Registration Pattern
+
+```python
+def register_handlers(router: WorkflowRouter):
+    """Register all available task handlers."""
+
+    @router.register('analyze_data')
+    def analyze_data(config: WorkflowConfig):
+        """Handler for data analysis tasks."""
+        import pandas as pd
+
+        # Load input
+        df = pd.read_csv(config.input['data_path'])
+
+        # Apply parameters
+        if config.parameters.get('filter_column'):
+            col = config.parameters['filter_column']
+            val = config.parameters['filter_value']
+            df = df[df[col] == val]
+
+        # Process
+        results = {
+            'row_count': len(df),
+            'columns': list(df.columns),
+            'statistics': df.describe().to_dict()
+        }
+
+        # Save output
+        if config.output.get('results_path'):
+            import json
+            with open(config.output['results_path'], 'w') as f:
+                json.dump(results, f, indent=2)
+
+        return results
+
+    @router.register('generate_report')
+    def generate_report(config: WorkflowConfig):
+        """Handler for report generation tasks."""
+        # Import report generator
+        from .report_generator import generate_report
+
+        return generate_report(
+            data_path=config.input['data_path'],
+            output_path=config.output['report_path'],
+            title=config.parameters.get('title', 'Analysis Report'),
+            sections=config.parameters.get('sections', {})
+        )
+
+    @router.register('transform_data')
+    def transform_data(config: WorkflowConfig):
+        """Handler for data transformation tasks."""
+        import pandas as pd
+
+        df = pd.read_csv(config.input['data_path'])
+
+        # Apply transformations from config
+        transforms = config.parameters.get('transforms', [])
+        for transform in transforms:
+            op = transform['operation']
+            if op == 'rename':
+                df = df.rename(columns=transform['mapping'])
+            elif op == 'filter':
+                df = df.query(transform['expression'])
+            elif op == 'aggregate':
+                df = df.groupby(transform['by']).agg(transform['agg'])
+            elif op == 'sort':
+                df = df.sort_values(transform['by'], ascending=transform.get('ascending', True))
+
+        # Save output
+        df.to_csv(config.output['data_path'], index=False)
+        return {'rows': len(df), 'columns': len(df.columns)}
+```
+
+### Main Executor
+
+```python
+def execute_workflow(yaml_path: str, overrides: Dict[str, Any] = None) -> Any:
+    """
+    Execute workflow from YAML configuration.
+
+    Args:
+        yaml_path: Path to YAML config file
+        overrides: Optional parameter overrides
+
+    Returns:
+        Workflow execution results
+    """
+    # Load config
+    config = WorkflowConfig.from_yaml(yaml_path)
+
+    # Apply overrides
+    if overrides:
+        config.parameters.update(overrides)
+
+    # Validate
+    config.validate()
+
+    # Log execution
+    logger.info(f"Executing workflow: {config.task}")
+    logger.info(f"Input: {config.input}")
+    logger.info(f"Output: {config.output}")
+
+    # Register handlers and route
+    register_handlers(router)
+    result = router.route(config)
+
+    logger.info(f"Workflow completed: {config.task}")
+    return result
+```
 
 ## YAML Configuration Format
 
-### Standard Structure
+### Basic Structure
 
 ```yaml
-# config/input/analysis_pipeline.yaml
+# config/workflows/analysis.yaml
 
-# Metadata (required)
-metadata:
-  name: "data-analysis-pipeline"
-  version: "1.0.0"
-  created: "2026-01-14"
-  author: "analyst"
-  description: "Process and analyze CSV data"
+task: analyze_data
 
-# Input configuration
 input:
-  source:
-    type: "csv"                    # csv, excel, json, parquet
-    path: "data/raw/input.csv"     # Relative path
-    encoding: "utf-8"
+  data_path: data/raw/measurements.csv
+  schema_path: config/schemas/measurements.json  # optional
 
-  validation:
-    required_columns: ["id", "value", "date"]
-    max_rows: 1000000
-    max_size_mb: 100
-
-# Processing steps
-processing:
-  steps:
-    - name: "clean_data"
-      operation: "remove_nulls"
-      columns: ["value"]
-
-    - name: "transform"
-      operation: "calculate"
-      expression: "value * 1.1"
-      output_column: "adjusted_value"
-
-    - name: "aggregate"
-      operation: "group_by"
-      by: ["category"]
-      aggregations:
-        value: "sum"
-        count: "count"
-
-# Output configuration
 output:
-  format: "html"                   # html, csv, json, excel
-  path: "reports/analysis_report.html"
-  include_plots: true
-  plots:
-    - type: "time_series"
-      x: "date"
-      y: ["value", "adjusted_value"]
-    - type: "bar"
-      x: "category"
-      y: "sum_value"
+  results_path: data/results/analysis.json
+  report_path: reports/analysis.html
 
-# Execution settings
-execution:
-  log_level: "INFO"
+parameters:
+  filter_column: status
+  filter_value: active
+  date_range:
+    start: "2024-01-01"
+    end: "2024-12-31"
+
+options:
+  verbose: true
   parallel: false
-  timeout_minutes: 30
+  cache: true
 ```
 
-### Complete Example
+### Data Transformation Config
 
 ```yaml
-# config/input/bsee_analysis.yaml
-metadata:
-  name: "bsee-production-analysis"
-  version: "2.0.0"
-  created: "2026-01-14"
-  author: "energy-analyst"
-  description: "BSEE production data analysis with NPV calculation"
+task: transform_data
 
 input:
-  source:
-    type: "csv"
-    path: "data/raw/bsee_production.csv"
-    date_columns: ["production_date"]
-    parse_dates: true
-
-  filters:
-    - column: "field_name"
-      operator: "in"
-      values: ["JULIA", "ANCHOR", "JACK"]
-    - column: "production_date"
-      operator: ">="
-      value: "2020-01-01"
-
-  validation:
-    required_columns:
-      - "api_number"
-      - "field_name"
-      - "oil_bbl"
-      - "gas_mcf"
-      - "production_date"
-    numeric_columns: ["oil_bbl", "gas_mcf", "water_bbl"]
-
-processing:
-  steps:
-    - name: "clean"
-      operation: "fillna"
-      columns: ["water_bbl"]
-      value: 0
-
-    - name: "calculate_boe"
-      operation: "add_column"
-      expression: "oil_bbl + gas_mcf / 6"
-      output_column: "boe"
-
-    - name: "monthly_aggregate"
-      operation: "resample"
-      date_column: "production_date"
-      frequency: "M"
-      aggregations:
-        oil_bbl: "sum"
-        gas_mcf: "sum"
-        boe: "sum"
-
-    - name: "npv_calculation"
-      operation: "npv"
-      cash_flow_column: "revenue"
-      discount_rates: [0.08, 0.10, 0.12]
-      periods: 20
+  data_path: data/raw/source.csv
 
 output:
-  format: "html"
-  path: "reports/bsee_analysis_{timestamp}.html"
-  title: "BSEE Production Analysis"
+  data_path: data/processed/transformed.csv
 
-  summary:
-    include: true
-    metrics:
-      - "total_oil_bbl"
-      - "total_gas_mcf"
-      - "total_boe"
-      - "npv_results"
+parameters:
+  transforms:
+    - operation: rename
+      mapping:
+        old_name: new_name
+        date_col: timestamp
 
-  plots:
-    - type: "time_series"
-      title: "Monthly Production"
-      x: "production_date"
-      y: ["oil_bbl", "gas_mcf"]
+    - operation: filter
+      expression: "value > 0 and status == 'valid'"
 
-    - type: "bar"
-      title: "Production by Field"
-      x: "field_name"
-      y: "total_boe"
+    - operation: aggregate
+      by: [category, month]
+      agg:
+        value: [sum, mean, count]
+        quantity: sum
 
-    - type: "line"
-      title: "NPV Sensitivity"
-      x: "discount_rate"
-      y: "npv"
-
-execution:
-  log_level: "INFO"
-  save_intermediate: true
-  intermediate_path: "data/processed/"
-  parallel: true
-  n_workers: 4
+    - operation: sort
+      by: timestamp
+      ascending: true
 ```
 
-## Core Implementation
+### Report Generation Config
 
-### Workflow Executor Class
+```yaml
+task: generate_report
+
+input:
+  data_path: data/processed/results.csv
+
+output:
+  report_path: reports/monthly_analysis.html
+
+parameters:
+  title: "Monthly Production Analysis"
+  project: "Field Development Project"
+  sections:
+    summary: |
+      <p>Analysis of production data for the reporting period.</p>
+    methodology: |
+      <p>Data processed using standard statistical methods.</p>
+  charts:
+    - type: line
+      x: date
+      y: production
+      title: "Daily Production Trend"
+
+    - type: bar
+      x: well_id
+      y: cumulative
+      color: status
+      title: "Well Performance Comparison"
+```
+
+### Multi-Step Workflow
+
+```yaml
+task: pipeline
+
+steps:
+  - name: extract
+    task: transform_data
+    input:
+      data_path: data/raw/source.csv
+    output:
+      data_path: data/staging/extracted.csv
+
+  - name: transform
+    task: transform_data
+    input:
+      data_path: data/staging/extracted.csv
+    output:
+      data_path: data/processed/transformed.csv
+    depends_on: extract
+
+  - name: analyze
+    task: analyze_data
+    input:
+      data_path: data/processed/transformed.csv
+    output:
+      results_path: data/results/analysis.json
+    depends_on: transform
+
+  - name: report
+    task: generate_report
+    input:
+      data_path: data/processed/transformed.csv
+    output:
+      report_path: reports/final_report.html
+    depends_on: analyze
+```
+
+## CLI Integration
+
+### Command-Line Interface
 
 ```python
-"""
-ABOUTME: YAML workflow executor for standardized data pipelines
-ABOUTME: Executes configuration-driven processing workflows
-"""
-
-import yaml
-import logging
-from pathlib import Path
-from typing import Dict, Any, Optional, List
-from dataclasses import dataclass
-from datetime import datetime
-import pandas as pd
-from pydantic import BaseModel, validator
-
-
-class InputConfig(BaseModel):
-    """Input configuration model."""
-    type: str = "csv"
-    path: str
-    encoding: str = "utf-8"
-    date_columns: List[str] = []
-    parse_dates: bool = True
-
-
-class ProcessingStep(BaseModel):
-    """Processing step configuration."""
-    name: str
-    operation: str
-    columns: Optional[List[str]] = None
-    expression: Optional[str] = None
-    output_column: Optional[str] = None
-
-
-class WorkflowConfig(BaseModel):
-    """Complete workflow configuration."""
-    metadata: Dict[str, Any]
-    input: Dict[str, Any]
-    processing: Dict[str, Any]
-    output: Dict[str, Any]
-    execution: Dict[str, Any] = {}
-
-
-class YAMLWorkflowExecutor:
-    """Execute workflows defined in YAML configuration."""
-
-    def __init__(self, config_path: Path):
-        """
-        Initialize executor with configuration file.
-
-        Args:
-            config_path: Path to YAML configuration
-        """
-        self.config_path = Path(config_path)
-        self.config: Optional[WorkflowConfig] = None
-        self.data: Optional[pd.DataFrame] = None
-        self.results: Dict[str, Any] = {}
-
-        self._setup_logging()
-        self._load_config()
-
-    def _setup_logging(self):
-        """Configure logging."""
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        )
-        self.logger = logging.getLogger(__name__)
-
-    def _load_config(self):
-        """Load and validate configuration."""
-        if not self.config_path.exists():
-            raise FileNotFoundError(f"Config not found: {self.config_path}")
-
-        with open(self.config_path) as f:
-            raw_config = yaml.safe_load(f)
-
-        self.config = WorkflowConfig(**raw_config)
-        self.logger.info(f"Loaded config: {self.config.metadata.get('name')}")
-
-    def validate(self) -> bool:
-        """
-        Validate configuration without executing.
-
-        Returns:
-            True if valid, False otherwise
-        """
-        errors = []
-
-        # Check input file exists
-        input_path = Path(self.config.input['source']['path'])
-        if not input_path.exists():
-            errors.append(f"Input file not found: {input_path}")
-
-        # Check output directory
-        output_path = Path(self.config.output['path']).parent
-        if not output_path.exists():
-            self.logger.warning(f"Output directory will be created: {output_path}")
-
-        # Validate processing steps
-        for step in self.config.processing.get('steps', []):
-            if 'name' not in step:
-                errors.append("Processing step missing 'name'")
-            if 'operation' not in step:
-                errors.append(f"Step '{step.get('name')}' missing 'operation'")
-
-        if errors:
-            for error in errors:
-                self.logger.error(error)
-            return False
-
-        self.logger.info("Configuration validated successfully")
-        return True
-
-    def execute(self, dry_run: bool = False) -> Dict[str, Any]:
-        """
-        Execute the workflow.
-
-        Args:
-            dry_run: If True, validate without executing
-
-        Returns:
-            Results dictionary
-        """
-        if dry_run:
-            self.validate()
-            return {"status": "dry_run", "valid": True}
-
-        start_time = datetime.now()
-        self.logger.info(f"Starting workflow: {self.config.metadata.get('name')}")
-
-        try:
-            # Step 1: Load data
-            self._load_data()
-
-            # Step 2: Execute processing steps
-            self._execute_processing()
-
-            # Step 3: Generate output
-            self._generate_output()
-
-            # Calculate execution time
-            execution_time = (datetime.now() - start_time).total_seconds()
-
-            self.results['status'] = 'success'
-            self.results['execution_time'] = execution_time
-            self.logger.info(f"Workflow completed in {execution_time:.2f}s")
-
-        except Exception as e:
-            self.logger.error(f"Workflow failed: {e}")
-            self.results['status'] = 'failed'
-            self.results['error'] = str(e)
-            raise
-
-        return self.results
-
-    def _load_data(self):
-        """Load input data based on configuration."""
-        source = self.config.input['source']
-        path = Path(source['path'])
-        file_type = source.get('type', 'csv')
-
-        self.logger.info(f"Loading data from: {path}")
-
-        if file_type == 'csv':
-            self.data = pd.read_csv(
-                path,
-                encoding=source.get('encoding', 'utf-8'),
-                parse_dates=source.get('date_columns', [])
-            )
-        elif file_type == 'excel':
-            self.data = pd.read_excel(path)
-        elif file_type == 'parquet':
-            self.data = pd.read_parquet(path)
-        elif file_type == 'json':
-            self.data = pd.read_json(path)
-        else:
-            raise ValueError(f"Unsupported file type: {file_type}")
-
-        self.logger.info(f"Loaded {len(self.data)} rows")
-        self.results['input_rows'] = len(self.data)
-
-    def _execute_processing(self):
-        """Execute processing steps."""
-        steps = self.config.processing.get('steps', [])
-
-        for i, step in enumerate(steps):
-            self.logger.info(f"Step {i+1}/{len(steps)}: {step['name']}")
-            self._execute_step(step)
-
-        self.results['output_rows'] = len(self.data)
-
-    def _execute_step(self, step: Dict[str, Any]):
-        """Execute a single processing step."""
-        operation = step['operation']
-
-        if operation == 'remove_nulls':
-            columns = step.get('columns', self.data.columns.tolist())
-            self.data = self.data.dropna(subset=columns)
-
-        elif operation == 'fillna':
-            columns = step.get('columns', self.data.columns.tolist())
-            value = step.get('value', 0)
-            self.data[columns] = self.data[columns].fillna(value)
-
-        elif operation == 'calculate':
-            expression = step['expression']
-            output_col = step['output_column']
-            self.data[output_col] = self.data.eval(expression)
-
-        elif operation == 'add_column':
-            expression = step['expression']
-            output_col = step['output_column']
-            self.data[output_col] = self.data.eval(expression)
-
-        elif operation == 'group_by':
-            by = step['by']
-            aggs = step['aggregations']
-            self.data = self.data.groupby(by).agg(aggs).reset_index()
-
-        elif operation == 'filter':
-            column = step['column']
-            op = step['operator']
-            value = step['value']
-
-            if op == '==':
-                self.data = self.data[self.data[column] == value]
-            elif op == '>':
-                self.data = self.data[self.data[column] > value]
-            elif op == '>=':
-                self.data = self.data[self.data[column] >= value]
-            elif op == 'in':
-                self.data = self.data[self.data[column].isin(value)]
-
-        elif operation == 'resample':
-            date_col = step['date_column']
-            freq = step['frequency']
-            aggs = step['aggregations']
-            self.data = self.data.set_index(date_col).resample(freq).agg(aggs).reset_index()
-
-        else:
-            self.logger.warning(f"Unknown operation: {operation}")
-
-    def _generate_output(self):
-        """Generate output based on configuration."""
-        output = self.config.output
-        format_type = output.get('format', 'csv')
-
-        # Handle timestamp in path
-        path_str = output['path']
-        if '{timestamp}' in path_str:
-            path_str = path_str.replace(
-                '{timestamp}',
-                datetime.now().strftime('%Y%m%d_%H%M%S')
-            )
-
-        output_path = Path(path_str)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-
-        if format_type == 'csv':
-            self.data.to_csv(output_path, index=False)
-        elif format_type == 'excel':
-            self.data.to_excel(output_path, index=False)
-        elif format_type == 'parquet':
-            self.data.to_parquet(output_path, index=False)
-        elif format_type == 'html':
-            self._generate_html_report(output_path, output)
-        elif format_type == 'json':
-            self.data.to_json(output_path, orient='records', indent=2)
-
-        self.logger.info(f"Output saved: {output_path}")
-        self.results['output_path'] = str(output_path)
-
-    def _generate_html_report(self, output_path: Path, config: Dict[str, Any]):
-        """Generate interactive HTML report."""
-        import plotly.express as px
-        import plotly.graph_objects as go
-        from plotly.subplots import make_subplots
-
-        title = config.get('title', 'Analysis Report')
-
-        # Create figure with subplots for each configured plot
-        plots = config.get('plots', [])
-
-        if plots:
-            fig = make_subplots(
-                rows=len(plots),
-                cols=1,
-                subplot_titles=[p.get('title', f'Plot {i+1}') for i, p in enumerate(plots)]
-            )
-
-            for i, plot_config in enumerate(plots):
-                plot_type = plot_config['type']
-
-                if plot_type == 'time_series' or plot_type == 'line':
-                    for y_col in plot_config['y']:
-                        fig.add_trace(
-                            go.Scatter(
-                                x=self.data[plot_config['x']],
-                                y=self.data[y_col],
-                                name=y_col,
-                                mode='lines'
-                            ),
-                            row=i+1, col=1
-                        )
-
-                elif plot_type == 'bar':
-                    fig.add_trace(
-                        go.Bar(
-                            x=self.data[plot_config['x']],
-                            y=self.data[plot_config['y']],
-                            name=plot_config['y']
-                        ),
-                        row=i+1, col=1
-                    )
-
-            fig.update_layout(height=400 * len(plots), title_text=title)
-            fig.write_html(output_path, include_plotlyjs='cdn')
-        else:
-            # Simple data table export
-            self.data.to_html(output_path)
-
-
-def run_workflow(config_path: str, dry_run: bool = False) -> Dict[str, Any]:
-    """
-    Run workflow from configuration file.
-
-    Args:
-        config_path: Path to YAML configuration
-        dry_run: If True, validate only
-
-    Returns:
-        Results dictionary
-    """
-    executor = YAMLWorkflowExecutor(Path(config_path))
-    return executor.execute(dry_run=dry_run)
+import argparse
+import sys
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='Execute YAML-defined workflows'
+    )
+    parser.add_argument(
+        'config',
+        help='Path to YAML configuration file'
+    )
+    parser.add_argument(
+        '--override', '-o',
+        action='append',
+        help='Parameter override (key=value)'
+    )
+    parser.add_argument(
+        '--verbose', '-v',
+        action='store_true',
+        help='Enable verbose output'
+    )
+    parser.add_argument(
+        '--dry-run',
+        action='store_true',
+        help='Validate config without executing'
+    )
+
+    args = parser.parse_args()
+
+    # Parse overrides
+    overrides = {}
+    if args.override:
+        for item in args.override:
+            key, value = item.split('=', 1)
+            overrides[key] = value
+
+    # Configure logging
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
+
+    try:
+        if args.dry_run:
+            config = WorkflowConfig.from_yaml(args.config)
+            config.validate()
+            print(f"Configuration valid: {args.config}")
+            print(f"Task: {config.task}")
+            return 0
+
+        result = execute_workflow(args.config, overrides)
+        print(f"Workflow completed successfully")
+        return 0
+
+    except Exception as e:
+        logger.error(f"Workflow failed: {e}")
+        return 1
+
+if __name__ == '__main__':
+    sys.exit(main())
 ```
 
-### Bash Wrapper Script
+### Bash Wrapper
 
 ```bash
 #!/bin/bash
 # scripts/run_workflow.sh
-# Execute YAML-configured workflow
 
-set -e
+CONFIG_FILE="${1:?Usage: $0 <config.yaml> [--override key=value]}"
+shift
 
-CONFIG_FILE="$1"
-OUTPUT_DIR="${2:-./reports}"
-DRY_RUN="${3:-false}"
-
-if [ -z "$CONFIG_FILE" ]; then
-    echo "Usage: ./scripts/run_workflow.sh <config.yaml> [output_dir] [--dry-run]"
-    exit 1
-fi
-
-if [ ! -f "$CONFIG_FILE" ]; then
-    echo "Error: Config file not found: $CONFIG_FILE"
-    exit 1
-fi
-
-echo "=========================================="
-echo "YAML Workflow Executor"
-echo "Config: $CONFIG_FILE"
-echo "Output: $OUTPUT_DIR"
-echo "=========================================="
-
-# Activate UV environment if available
-if [ -d ".venv" ]; then
+# Activate environment if needed
+if [ -f ".venv/bin/activate" ]; then
     source .venv/bin/activate
 fi
 
-# Execute workflow
-if [ "$DRY_RUN" = "--dry-run" ] || [ "$DRY_RUN" = "true" ]; then
-    python -c "
-from workflow_executor import run_workflow
-result = run_workflow('$CONFIG_FILE', dry_run=True)
-print(f'Validation: {result}')
-"
-else
-    python -c "
-from workflow_executor import run_workflow
-result = run_workflow('$CONFIG_FILE')
-print(f'Result: {result}')
-"
-fi
-
-echo "Workflow complete!"
+# Run workflow
+python -m workflow_executor "$CONFIG_FILE" "$@"
 ```
 
 ## Usage Examples
 
-### Example 1: Basic Data Processing
-
-```yaml
-# config/input/basic_processing.yaml
-metadata:
-  name: "basic-processing"
-  version: "1.0.0"
-
-input:
-  source:
-    type: "csv"
-    path: "data/raw/input.csv"
-
-processing:
-  steps:
-    - name: "remove_nulls"
-      operation: "remove_nulls"
-      columns: ["value"]
-
-    - name: "add_calculated"
-      operation: "calculate"
-      expression: "value * 2"
-      output_column: "doubled_value"
-
-output:
-  format: "csv"
-  path: "data/processed/output.csv"
-```
+### Example 1: Run Analysis
 
 ```bash
-# Execute
-./scripts/run_workflow.sh config/input/basic_processing.yaml
+# Direct execution
+python -m workflow_executor config/workflows/analysis.yaml
+
+# With overrides
+python -m workflow_executor config/workflows/analysis.yaml \
+    --override filter_value=completed \
+    --override date_range.start=2024-06-01
+
+# Via bash script
+./scripts/run_workflow.sh config/workflows/analysis.yaml -v
 ```
 
-### Example 2: Analysis with Report
+### Example 2: Batch Processing
 
-```yaml
-# config/input/analysis_with_report.yaml
-metadata:
-  name: "analysis-report"
-  version: "1.0.0"
+```python
+from pathlib import Path
 
-input:
-  source:
-    type: "csv"
-    path: "data/raw/sales_data.csv"
-    date_columns: ["sale_date"]
-
-processing:
-  steps:
-    - name: "filter_recent"
-      operation: "filter"
-      column: "sale_date"
-      operator: ">="
-      value: "2025-01-01"
-
-    - name: "aggregate_monthly"
-      operation: "group_by"
-      by: ["product_category"]
-      aggregations:
-        revenue: "sum"
-        quantity: "sum"
-
-output:
-  format: "html"
-  path: "reports/sales_analysis.html"
-  title: "Sales Analysis Report"
-  plots:
-    - type: "bar"
-      title: "Revenue by Category"
-      x: "product_category"
-      y: "revenue"
+# Process multiple configs
+config_dir = Path('config/workflows/')
+for config_file in config_dir.glob('*.yaml'):
+    print(f"Processing: {config_file}")
+    result = execute_workflow(str(config_file))
+    print(f"Result: {result}")
 ```
 
-## Execution Checklist
+### Example 3: Programmatic Use
 
-**Configuration:**
-- [ ] YAML file is valid syntax
-- [ ] Input path exists
-- [ ] Required columns specified
-- [ ] Processing steps are ordered
+```python
+# Load and modify config programmatically
+config = WorkflowConfig.from_yaml('config/base.yaml')
+config.parameters['custom_param'] = 'value'
+config.input['data_path'] = 'data/custom_input.csv'
 
-**Execution:**
-- [ ] Run dry-run first (`--dry-run`)
-- [ ] Check input data quality
-- [ ] Monitor execution logs
-- [ ] Verify output generated
-
-**Validation:**
-- [ ] Output file created
-- [ ] Row counts match expectations
-- [ ] Plots render correctly
-- [ ] No error messages
-
-## Error Handling
-
-### Config Not Found
-```
-Error: Config not found: config/input/missing.yaml
-
-Check:
-1. File path is correct
-2. File exists
-3. Correct working directory
+result = router.route(config)
 ```
 
-### Invalid YAML
-```
-Error: YAML parsing failed
+### Example 4: Dynamic Workflow Generation
 
-Check:
-1. Valid YAML syntax
-2. No tabs (use spaces)
-3. Correct indentation
-```
+```python
+import yaml
 
-### Missing Input
-```
-Error: Input file not found: data/raw/input.csv
+def generate_workflow_config(data_files: list, output_dir: str) -> str:
+    """Generate workflow config for multiple data files."""
+    config = {
+        'task': 'pipeline',
+        'steps': []
+    }
 
-Check:
-1. Input path is relative to project root
-2. File has been downloaded/created
-3. Path separators correct for OS
+    for i, data_file in enumerate(data_files):
+        config['steps'].append({
+            'name': f'process_{i}',
+            'task': 'analyze_data',
+            'input': {'data_path': data_file},
+            'output': {'results_path': f'{output_dir}/result_{i}.json'}
+        })
+
+    config_path = 'config/generated_workflow.yaml'
+    with open(config_path, 'w') as f:
+        yaml.dump(config, f)
+
+    return config_path
 ```
 
 ## Best Practices
 
-1. **Use version control** for config files
-2. **Start with dry-run** to validate
-3. **Use timestamps** in output paths for history
-4. **Document configs** with comments
-5. **Test incrementally** - add steps one at a time
+### Do
+
+1. Keep configs in `config/workflows/` directory
+2. Use descriptive filenames: `<domain>_<task>_<variant>.yaml`
+3. Version control all configurations
+4. Use comments to document parameters
+5. Validate configs before execution with `--dry-run`
+6. Log sufficient context for debugging
+
+### Don't
+
+1. Hardcode absolute paths
+2. Skip input validation
+3. Mix configuration with implementation
+4. Create overly complex nested configs
+5. Ignore error handling
+
+### Configuration Design
+- Keep configs in `config/workflows/` directory
+- Use descriptive filenames: `<domain>_<task>_<variant>.yaml`
+- Version control all configurations
+- Use comments to document parameters
+
+### Handler Development
+- One handler per task type
+- Validate inputs at handler start
+- Log progress for long-running tasks
+- Return structured results
+
+### File Organization
+```
+project/
+    config/
+        workflows/           # Workflow configs
+            analysis.yaml
+            transform.yaml
+        schemas/             # Validation schemas
+    src/
+        workflow_executor/   # Executor code
+    scripts/
+        run_workflow.sh      # CLI wrapper
+    data/
+        raw/
+        processed/
+        results/
+```
+
+## Error Handling
+
+### Common Errors
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `FileNotFoundError` | Config file missing | Verify config path |
+| `ValueError: Unknown task` | Handler not registered | Check task name spelling |
+| `KeyError` | Missing required config field | Add missing field to YAML |
+| `yaml.YAMLError` | Invalid YAML syntax | Validate YAML format |
+
+### Error Template
+
+```python
+def safe_execute_workflow(yaml_path: str) -> dict:
+    """Execute workflow with comprehensive error handling."""
+    try:
+        # Validate config exists
+        if not Path(yaml_path).exists():
+            return {'status': 'error', 'message': f'Config not found: {yaml_path}'}
+
+        # Load and validate
+        config = WorkflowConfig.from_yaml(yaml_path)
+        config.validate()
+
+        # Execute
+        result = execute_workflow(yaml_path)
+        return {'status': 'success', 'result': result}
+
+    except yaml.YAMLError as e:
+        return {'status': 'error', 'message': f'Invalid YAML: {e}'}
+    except ValueError as e:
+        return {'status': 'error', 'message': f'Validation error: {e}'}
+    except Exception as e:
+        return {'status': 'error', 'message': f'Execution error: {e}'}
+```
+
+## Execution Checklist
+
+- [ ] YAML config file exists and is valid
+- [ ] All required fields present (task, input, output)
+- [ ] Input data files exist
+- [ ] Output directories exist or can be created
+- [ ] Handler registered for specified task
+- [ ] Parameters are correctly typed
+- [ ] Dry-run validation passes
+- [ ] Logging configured for debugging
+- [ ] Error handling covers all failure modes
+
+## Metrics
+
+| Metric | Target | Description |
+|--------|--------|-------------|
+| Config Load Time | <100ms | YAML parsing speed |
+| Validation Time | <50ms | Config validation duration |
+| Handler Dispatch | <10ms | Routing overhead |
+| Total Execution | Varies | Depends on task complexity |
 
 ## Related Skills
 
-- [python-project-template](../python-project-template/SKILL.md) - Project setup
-- [interactive-report-generator](../interactive-report-generator/SKILL.md) - Report generation
-- [data-validation-reporter](../data-validation-reporter/SKILL.md) - Data quality
-
-## References
-
-- [YAML 1.2 Specification](https://yaml.org/spec/1.2.2/)
-- [Pydantic Documentation](https://docs.pydantic.dev/)
-- [workspace-hub Development Workflow](../../../docs/modules/workflow/DEVELOPMENT_WORKFLOW.md)
+- [data-pipeline-processor](../data-pipeline-processor/SKILL.md) - Data transformation
+- [engineering-report-generator](../engineering-report-generator/SKILL.md) - Report generation
+- [parallel-file-processor](../parallel-file-processor/SKILL.md) - Batch file processing
 
 ---
 
 ## Version History
 
-- **1.0.0** (2026-01-14): Initial release - YAML-configured workflow executor with data processing, validation, and HTML report generation
+- **1.1.0** (2026-01-02): Upgraded to SKILL_TEMPLATE_v2 format with Quick Start, Error Handling, Metrics, Execution Checklist, additional examples
+- **1.0.0** (2024-10-15): Initial release with WorkflowConfig, WorkflowRouter, CLI integration

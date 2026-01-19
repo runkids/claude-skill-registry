@@ -3,17 +3,9 @@ name: moai-foundation-claude
 aliases: [moai-foundation-claude]
 category: foundation
 description: Canonical Claude Code authoring kit covering Skills, sub-agents, plugins, slash commands, hooks, memory, settings, sandboxing, headless mode, and advanced agent patterns. Use when creating Claude Code extensions or configuring Claude Code features.
-version: 5.0.0
+version: 4.0.0
 modularized: false
-user-invocable: false
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: Read, Write, Edit, Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 tags: ['foundation', 'claude-code', 'skills', 'sub-agents', 'plugins', 'slash-commands', 'hooks', 'memory', 'settings', 'sandboxing', 'headless', 'agent-patterns']
 ---
 

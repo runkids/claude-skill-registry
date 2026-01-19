@@ -1,7 +1,7 @@
 {
   "name": "research-lookup",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/research-lookup/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-17T03:59:35.048844Z"
+  "repo": "K-Dense-AI/claude-scientific-writer",
+  "path": "scientific_writer/.claude/skills/research-lookup/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-writer",
+  "downloaded_at": "2026-01-19T03:54:12.272031Z"
 }

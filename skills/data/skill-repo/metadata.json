@@ -1,7 +1,7 @@
 {
   "name": "skill-repo",
-  "repo": "netresearch/claude-code-marketplace",
-  "path": "skills/skill-repo/skills/skill-repo/SKILL.md",
-  "source": "github.com/netresearch/claude-code-marketplace",
-  "downloaded_at": "2026-01-17T03:31:23.412731Z"
+  "repo": "netresearch/skill-repo-skill",
+  "path": "skills/skill-repo/SKILL.md",
+  "source": "github.com/netresearch/skill-repo-skill",
+  "downloaded_at": "2026-01-19T03:39:07.639049Z"
 }

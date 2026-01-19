@@ -1,7 +1,7 @@
 {
   "name": "claude-extensibility",
-  "repo": "samhvw8/dotfiles",
-  "path": "dot_claude/skills/claude-extensibility/SKILL.md",
-  "source": "github.com/samhvw8/dotfiles",
-  "downloaded_at": "2026-01-17T02:31:34.154552Z"
+  "repo": "samhvw8/dot-claude",
+  "path": "skills/claude-extensibility/SKILL.md",
+  "source": "github.com/samhvw8/dot-claude",
+  "downloaded_at": "2026-01-19T04:16:58.136995Z"
 }

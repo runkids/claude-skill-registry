@@ -1,7 +1,7 @@
 {
   "name": "code-review",
-  "repo": "KanTrun/KLelite_Web",
-  "path": ".claude/skills/code-review/SKILL.md",
-  "source": "github.com/KanTrun/KLelite_Web",
-  "downloaded_at": "2026-01-17T04:08:04.343201Z"
+  "repo": "plurigrid/asi",
+  "path": "skills/code-review/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-19T04:21:42.272025Z"
 }

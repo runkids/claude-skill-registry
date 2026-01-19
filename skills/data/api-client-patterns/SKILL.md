@@ -1,145 +1,565 @@
 ---
 name: api-client-patterns
-description: |
-  外部API統合における構造的パターンと腐敗防止層（Anti-Corruption Layer）の設計を専門とするスキル。API クライアントの設計、データ変換、パターンの実装を支援します。
-
-  **Anchors**:
-  • 『RESTful Web APIs』（Leonard Richardson, Mike Amundsen）/ 適用: API仕様分析と設計 / 目的: 外部API統合の基盤構築
-  • 『Design Patterns』（Gang of Four）/ 適用: APIクライアント抽象化 / 目的: Adapter Patternによるインターフェース統合と保護
-  • 『Domain-Driven Design』（Eric Evans）/ 適用: 境界層実装 / 目的: Anti-Corruption Layerによる外部API変更の影響隔離
-  • 『Design Patterns』（Gang of Four）/ 適用: 統合インターフェース設計 / 目的: Facade Patternによる複雑なAPI統合の簡潔化
-  • 『API Design Best Practices』（複数の標準仕様）/ 適用: データ変換ロジック / 目的: 型安全な形式変換と検証
-
-  **Triggers**:
-  • APIクライアントを設計する必要がある時に使用
-  • 外部データを内部ドメインモデルに変換する必要がある時に使用
-  • 腐敗防止層の境界を設計する必要がある時に使用
-  • 外部API変更の影響を最小限に抑えたい時に使用
-  • 複数のAPI統合を管理する必要がある時に使用
-
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
+description: HTTP client patterns, API integration, request/response handling, error handling, retry logic, axios usage. Use when building API clients, integrating external services, handling API errors, or making HTTP requests.
+allowed-tools: Read, Grep, Glob
 ---
 
 # API Client Patterns
 
-## 概要
+## Core Principles
 
-外部API統合における構造的パターンと腐敗防止層（Anti-Corruption Layer）の設計を専門とするスキル。API クライアントの構造化設計、データ変換パターン、統合インターフェースの実装を支援します。
+1. **Single Responsibility** - One client per service
+2. **Centralized Configuration** - Base URL, headers, timeouts in one place
+3. **Comprehensive Error Handling** - Catch and transform errors appropriately
+4. **Type Safety** - Define request/response interfaces
+5. **Retry Logic** - Handle transient failures gracefully
 
-詳細な手順や背景は `references/Level1_basics.md` と `references/Level2_intermediate.md` を参照してください。
+---
 
-## ワークフロー
+## API Client Structure
 
-### Phase 1: 要件の明確化と設計方針の決定
+### CORRECT: Well-Structured API Client
 
-**目的**: タスクの要件を理解し、適切なパターンを選定する
+```javascript
+// client/src/utils/api.js
+import axios from 'axios';
 
-**アクション**:
+// Configuration
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001/api';
+const TIMEOUT = 30000; // 30 seconds
 
-1. 統合対象のAPI仕様を確認
-2. 必要な変換レベルと境界を決定
-3. `references/Level1_basics.md` で基礎パターンを確認
+// Create axios instance with defaults
+const apiClient = axios.create({
+  baseURL: API_BASE,
+  timeout: TIMEOUT,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
 
-**Task**: `agents/analyze-client-requirements.md` を参照
+// Request interceptor (optional - for auth, logging, etc.)
+apiClient.interceptors.request.use(
+  (config) => {
+    // Add auth token if available
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
-### Phase 2: パターン実装と検証
+// Response interceptor (optional - for error transformation)
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Transform errors to consistent format
+    const message = error.response?.data?.error || error.message || 'Unknown error';
+    return Promise.reject(new Error(message));
+  }
+);
 
-**目的**: 選定したパターンを実装し、要件を満たしているか確認する
+// API Methods
 
-**アクション**:
+/**
+ * Verify faculty password
+ */
+export const verifyPassword = async (password) => {
+  const response = await apiClient.post('/auth/verify', { password });
+  return response.data;
+};
 
-1. `assets/api-client-template.ts` と `assets/transformer-template.ts` を参照
-2. 関連リソース（adapter-pattern.md、anti-corruption-layer.md など）に基づいて実装
-3. 型安全性とエラーハンドリングを確認
+/**
+ * Generate or update instructional page
+ */
+export const generatePage = async (config, message, history = []) => {
+  const response = await apiClient.post('/generate', {
+    config,
+    message,
+    history
+  });
+  return response.data;
+};
 
-**Task**: `agents/implement-client-pattern.md` を参照
+/**
+ * Generate AI image using DALL-E
+ */
+export const generateImage = async (prompt) => {
+  const response = await apiClient.post('/images/generate', { prompt });
+  return response.data;
+};
 
-### Phase 3: 検証と記録
+/**
+ * Upload image to Cloudinary
+ */
+export const uploadImage = async (file) => {
+  const formData = new FormData();
+  formData.append('image', file);
 
-**目的**: 成果物の品質を確認し、ナレッジを記録する
+  const response = await apiClient.post('/images/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+  return response.data;
+};
 
-**アクション**:
-
-1. `scripts/validate-api-client.mjs` で実装の検証
-2. `scripts/log_usage.mjs` で使用記録を保存
-3. 実装パターンのドキュメント化
-
-**Task**: `agents/validate-client.md` を参照
-
-## Task仕様ナビ
-
-| Task                      | 概要                                                | 対応する Phase | リソース                                              |
-| ------------------------- | --------------------------------------------------- | -------------- | ----------------------------------------------------- |
-| APIクライアント設計       | APIの構造と仕様を分析し、クライアントの骨組みを設計 | Phase 1, 2     | Level1_basics.md, adapter-pattern.md                  |
-| データ変換パターン        | 外部APIデータを内部ドメインモデルに変換             | Phase 2        | data-transformer-patterns.md, transformer-template.ts |
-| Anti-Corruption Layer実装 | API変更の影響を隔離する境界層の実装                 | Phase 1, 2     | anti-corruption-layer.md, Level2_intermediate.md      |
-| Facade設計                | 複数APIを統合した統一インターフェースの設計         | Phase 1, 2     | facade-pattern.md, Level3_advanced.md                 |
-| エラーハンドリング        | APIエラーの統一的な処理と変換                       | Phase 2        | Level2_intermediate.md, Level3_advanced.md            |
-| 型安全性確保              | TypeScriptによる型定義と検証の実装                  | Phase 2        | Level1_basics.md, api-client-template.ts              |
-| 実装検証                  | 実装の品質確認とバリデーション                      | Phase 3        | validate-api-client.mjs                               |
-
-## ベストプラクティス
-
-### すべきこと
-
-- 外部API仕様を詳細に分析した上で設計を開始する
-- 変換ロジックを独立した関数に分離する
-- APIの変更に強い設計を心がける（Anti-Corruption Layer）
-- 型定義を先に作成し、型安全性を確保する
-- エラーハンドリングを一貫性を持たせて実装する
-- ドメインモデルとAPI仕様の差異を明確に文書化する
-
-### 避けるべきこと
-
-- APIデータをそのまま内部モデルとして使用する
-- 変換ロジックを多数の箇所に分散させる
-- エラーハンドリングを各クライアントで異なる実装にする
-- 型定義なしで実装を進める
-- アンチパターンや注意点を確認せずに進める
-
-## リソース参照
-
-### リソース読み取り
-
-```bash
-# 基礎から専門的内容まで段階的に学習
-cat .claude/skills/api-client-patterns/references/Level1_basics.md
-cat .claude/skills/api-client-patterns/references/Level2_intermediate.md
-cat .claude/skills/api-client-patterns/references/Level3_advanced.md
-cat .claude/skills/api-client-patterns/references/Level4_expert.md
-
-# パターン別詳細
-cat .claude/skills/api-client-patterns/references/adapter-pattern.md
-cat .claude/skills/api-client-patterns/references/anti-corruption-layer.md
-cat .claude/skills/api-client-patterns/references/data-transformer-patterns.md
-cat .claude/skills/api-client-patterns/references/facade-pattern.md
+export default apiClient;
 ```
 
-### テンプレート参照
+### WRONG: Scattered API Calls
 
-```bash
-cat .claude/skills/api-client-patterns/assets/api-client-template.ts
-cat .claude/skills/api-client-patterns/assets/transformer-template.ts
+```javascript
+// ❌ DON'T DO THIS: Direct axios calls scattered across components
+import axios from 'axios';
+
+// In Component 1
+const handleLogin = async () => {
+  const res = await axios.post('http://localhost:3001/api/auth/verify', {
+    password: pwd
+  });
+};
+
+// In Component 2
+const handleGenerate = async () => {
+  const res = await axios.post('http://localhost:3001/api/generate', data);
+};
+
+// ❌ Issues:
+// - Repeated base URL strings
+// - No centralized error handling
+// - No configuration reuse
+// - Hard to test
 ```
 
-### スクリプト実行
+---
 
-```bash
-node .claude/skills/api-client-patterns/scripts/validate-api-client.mjs --help
-node .claude/skills/api-client-patterns/scripts/validate-skill.mjs --help
-node .claude/skills/api-client-patterns/scripts/log_usage.mjs --help
+## Error Handling Patterns
+
+### CORRECT: Comprehensive Error Handling
+
+```javascript
+// API client with error transformation
+export const generatePage = async (config, message, history) => {
+  try {
+    const response = await apiClient.post('/generate', {
+      config,
+      message,
+      history
+    });
+    return response.data;
+  } catch (error) {
+    // Check different error types
+    if (error.response) {
+      // Server responded with error status
+      const status = error.response.status;
+      const message = error.response.data?.error || 'Server error';
+
+      if (status === 400) {
+        throw new Error(`Validation error: ${message}`);
+      } else if (status === 401) {
+        throw new Error('Authentication failed');
+      } else if (status === 429) {
+        throw new Error('Rate limit exceeded. Please try again later.');
+      } else if (status >= 500) {
+        throw new Error('Server error. Please try again.');
+      } else {
+        throw new Error(message);
+      }
+    } else if (error.request) {
+      // Request made but no response received
+      throw new Error('Network error. Please check your connection.');
+    } else {
+      // Something else happened
+      throw new Error(error.message || 'Request failed');
+    }
+  }
+};
 ```
 
-## 変更履歴
+### Component Error Handling
 
-| Version | Date       | Changes                                                   |
-| ------- | ---------- | --------------------------------------------------------- |
-| 3.0.0   | 2025-12-31 | agents/3ファイル追加、Phase別Task参照を追加               |
-| 2.0.0   | 2025-12-31 | 18-skills.md仕様に準拠、Task仕様ナビ、Trigger/Anchors追加 |
-| 1.0.0   | 2025-12-24 | 初期仕様と成果物の整備                                    |
+```javascript
+// In component
+export default function ChatInterface() {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await generatePage(config, message, history);
+      // Handle success
+    } catch (err) {
+      // Error is already transformed by API client
+      setError(err.message);
+
+      // Optional: Report to error tracking service
+      console.error('Generation failed:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <p>{error}</p>
+          <button onClick={() => setError(null)}>Dismiss</button>
+        </div>
+      )}
+      {/* Rest of component */}
+    </div>
+  );
+}
+```
+
+---
+
+## Request Configuration Patterns
+
+### With Timeout
+
+```javascript
+export const generatePageWithTimeout = async (config, message, history, timeout = 60000) => {
+  const response = await apiClient.post('/generate', {
+    config,
+    message,
+    history
+  }, {
+    timeout // Override default timeout for long operations
+  });
+  return response.data;
+};
+```
+
+### With Abort Controller (Cancellation)
+
+```javascript
+export const generatePageCancellable = async (config, message, history, signal) => {
+  const response = await apiClient.post('/generate', {
+    config,
+    message,
+    history
+  }, {
+    signal // Pass AbortController signal
+  });
+  return response.data;
+};
+
+// Usage in component
+const abortController = useRef(null);
+
+const handleGenerate = async () => {
+  // Cancel previous request if exists
+  if (abortController.current) {
+    abortController.current.abort();
+  }
+
+  abortController.current = new AbortController();
+
+  try {
+    const result = await generatePageCancellable(
+      config,
+      message,
+      history,
+      abortController.current.signal
+    );
+    // Handle result
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      console.log('Request cancelled');
+    } else {
+      setError(err.message);
+    }
+  }
+};
+
+// Cleanup on unmount
+useEffect(() => {
+  return () => {
+    if (abortController.current) {
+      abortController.current.abort();
+    }
+  };
+}, []);
+```
+
+---
+
+## Streaming Responses Pattern
+
+For long-running AI generation with streaming:
+
+```javascript
+/**
+ * Generate page with streaming response
+ */
+export const generatePageStream = async (config, message, history, onChunk) => {
+  const response = await fetch(`${API_BASE}/generate/stream`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ config, message, history })
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop(); // Keep incomplete line in buffer
+
+    for (const line of lines) {
+      if (line.trim()) {
+        try {
+          const data = JSON.parse(line);
+          onChunk(data);
+        } catch (err) {
+          console.error('Failed to parse chunk:', err);
+        }
+      }
+    }
+  }
+};
+
+// Usage in component
+const handleStreamingGenerate = async () => {
+  let fullText = '';
+
+  try {
+    await generatePageStream(config, message, history, (chunk) => {
+      // Process each chunk as it arrives
+      if (chunk.type === 'text') {
+        fullText += chunk.content;
+        setPreview(fullText); // Update UI in real-time
+      } else if (chunk.type === 'done') {
+        setComplete(true);
+      }
+    });
+  } catch (err) {
+    setError(err.message);
+  }
+};
+```
+
+---
+
+## Retry Logic Pattern
+
+For handling transient failures:
+
+```javascript
+/**
+ * Retry a function with exponential backoff
+ */
+const retryWithBackoff = async (fn, maxRetries = 3, baseDelay = 1000) => {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      const isLastAttempt = attempt === maxRetries - 1;
+
+      // Don't retry on 4xx errors (client errors)
+      if (error.response?.status >= 400 && error.response?.status < 500) {
+        throw error;
+      }
+
+      if (isLastAttempt) {
+        throw error;
+      }
+
+      // Exponential backoff: 1s, 2s, 4s, 8s, etc.
+      const delay = baseDelay * Math.pow(2, attempt);
+      console.log(`Retry attempt ${attempt + 1}/${maxRetries} after ${delay}ms`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+};
+
+// Usage
+export const generatePageWithRetry = async (config, message, history) => {
+  return retryWithBackoff(async () => {
+    const response = await apiClient.post('/generate', {
+      config,
+      message,
+      history
+    });
+    return response.data;
+  });
+};
+```
+
+---
+
+## File Upload Pattern
+
+### With Progress Tracking
+
+```javascript
+export const uploadImageWithProgress = async (file, onProgress) => {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const response = await apiClient.post('/images/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    onUploadProgress: (progressEvent) => {
+      const percentCompleted = Math.round(
+        (progressEvent.loaded * 100) / progressEvent.total
+      );
+      onProgress(percentCompleted);
+    }
+  });
+
+  return response.data;
+};
+
+// Usage in component
+const handleFileUpload = async (file) => {
+  setProgress(0);
+  try {
+    const result = await uploadImageWithProgress(file, (percent) => {
+      setProgress(percent);
+    });
+    setImageUrl(result.url);
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setProgress(0);
+  }
+};
+```
+
+---
+
+## Environment-Based Configuration
+
+```javascript
+// client/src/utils/api.js
+
+// Different base URLs for different environments
+const getApiBase = () => {
+  const env = import.meta.env.MODE;
+
+  switch (env) {
+    case 'production':
+      return 'https://api.yourapp.com';
+    case 'staging':
+      return 'https://staging-api.yourapp.com';
+    case 'development':
+    default:
+      return import.meta.env.VITE_API_BASE || 'http://localhost:3001/api';
+  }
+};
+
+const apiClient = axios.create({
+  baseURL: getApiBase(),
+  timeout: 30000
+});
+```
+
+---
+
+## Testing API Clients
+
+```javascript
+// client/src/utils/api.test.js
+import { describe, it, expect, vi } from 'vitest';
+import axios from 'axios';
+import { generatePage, verifyPassword } from './api';
+
+// Mock axios
+vi.mock('axios');
+
+describe('API Client', () => {
+  it('should call generatePage endpoint with correct data', async () => {
+    const mockResponse = {
+      data: {
+        html: '<div>Test</div>',
+        message: 'Generated successfully'
+      }
+    };
+
+    axios.create.mockReturnValue({
+      post: vi.fn().mockResolvedValue(mockResponse)
+    });
+
+    const result = await generatePage(
+      { depth: 2 },
+      'Create a page about React',
+      []
+    );
+
+    expect(result.html).toBe('<div>Test</div>');
+  });
+
+  it('should handle errors correctly', async () => {
+    axios.create.mockReturnValue({
+      post: vi.fn().mockRejectedValue(new Error('Network error'))
+    });
+
+    await expect(
+      generatePage({}, 'Test', [])
+    ).rejects.toThrow('Network error');
+  });
+});
+```
+
+---
+
+## Checklist
+
+### Before Creating an API Client
+- [ ] What endpoints will this client access?
+- [ ] What base URL and configuration is needed?
+- [ ] What error cases need handling?
+- [ ] Does it need retry logic?
+- [ ] Does it need request/response interceptors?
+
+### After Creating an API Client
+- [ ] Base URL configured correctly
+- [ ] Timeout set appropriately
+- [ ] Errors transformed to consistent format
+- [ ] All endpoints have JSDoc comments
+- [ ] Request/response types documented
+- [ ] Error cases handled in consuming components
+- [ ] Tested with mock responses
+
+---
+
+## Integration with Other Skills
+
+- **react-component-patterns**: Using API clients in components
+- **express-api-patterns**: Understanding backend endpoints
+- **systematic-debugging**: Debugging API integration issues
+- **testing-patterns**: Testing API clients
+
+---
+
+## Common Mistakes to Avoid
+
+1. ❌ Scattered axios calls across components
+2. ❌ Hard-coded API URLs
+3. ❌ Not handling network errors
+4. ❌ Not transforming error responses
+5. ❌ Missing timeout configuration
+6. ❌ Not cancelling requests on unmount
+7. ❌ Retry logic on non-retryable errors (4xx)
+8. ❌ Not using environment variables for base URL

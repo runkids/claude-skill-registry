@@ -1,7 +1,7 @@
 {
   "name": "readme-generator",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "planned-skills/generated/17-technical-docs/readme-generator/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-17T04:00:13.394610Z"
+  "repo": "dengineproblem/agents-monorepo",
+  "path": ".claude/skills/readme-generator/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-19T03:37:43.930790Z"
 }

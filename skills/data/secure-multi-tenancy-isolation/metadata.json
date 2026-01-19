@@ -1,14 +1,7 @@
 {
   "name": "secure-multi-tenancy-isolation",
-  "description": "Ensure secure isolation between multi-tenant consciousness instances.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "devops",
-  "tags": [
-    "secure",
-    "multi",
-    "tenancy",
-    "isolation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/secure-multi-tenancy-isolation/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-19T02:25:43.942846Z"
 }

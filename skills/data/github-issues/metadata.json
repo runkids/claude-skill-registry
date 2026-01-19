@@ -1,7 +1,7 @@
 {
   "name": "github-issues",
-  "repo": "github/awesome-copilot",
-  "path": "skills/github-issues/SKILL.md",
-  "source": "github.com/github/awesome-copilot",
-  "downloaded_at": "2026-01-17T04:05:36.568473Z"
+  "repo": "lsst-sqre/squareone",
+  "path": ".claude/skills/github-issues/SKILL.md",
+  "source": "github.com/lsst-sqre/squareone",
+  "downloaded_at": "2026-01-19T04:03:11.555817Z"
 }

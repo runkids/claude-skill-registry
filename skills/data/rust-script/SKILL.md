@@ -225,6 +225,15 @@ RUST_LOG=rust_script=trace rust-script script.rs
 
 2. **Dependencies not found**: Ensure proper manifest syntax - cargo block must be in doc comments (//! or ///)
 
+## Research Tools
+
+```
+# gh search code for rust examples
+gh search code "#[tokio::main]" --language=rust
+gh search code "clap::Parser" --language=rust
+gh search code "anyhow::Result" --language=rust
+```
+
 ## Templates
 
 See `templates/` directory for ready-to-use examples:

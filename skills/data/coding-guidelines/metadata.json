@@ -1,12 +1,7 @@
 {
   "name": "coding-guidelines",
-  "description": "Comprehensive React component coding guidelines, refactoring principles, and architectural patterns. **CRITICAL**: Focuses on patterns AI commonly fails to implement correctly, especially testability,",
-  "repo": "imaimai17468/imaimai-front-templete",
-  "category": "development",
-  "tags": [
-    "coding",
-    "guidelines"
-  ],
-  "stars": 24,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ZhangHanDong/rust-skills",
+  "path": "skills/coding-guidelines/SKILL.md",
+  "source": "github.com/ZhangHanDong/rust-skills",
+  "downloaded_at": "2026-01-19T03:23:41.221280Z"
 }

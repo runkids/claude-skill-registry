@@ -1,7 +1,7 @@
 {
   "name": "release-workflow",
   "repo": "takemo101/compose-workflow",
-  "path": ".opencode/skill/release-workflow/SKILL.md",
+  "path": ".claude/skills/release-workflow/SKILL.md",
   "source": "github.com/takemo101/compose-workflow",
-  "downloaded_at": "2026-01-17T03:54:12.429150Z"
+  "downloaded_at": "2026-01-19T01:50:29.972651Z"
 }

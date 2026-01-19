@@ -1,7 +1,7 @@
 {
   "name": "hooks",
-  "repo": "masharratt/claude-flow-novice",
-  "path": ".claude/skills/cfn-edit-safety/lib/hooks/SKILL.md",
-  "source": "github.com/masharratt/claude-flow-novice",
-  "downloaded_at": "2026-01-17T03:40:39.057125Z"
+  "repo": "paunchygent/skriptoteket",
+  "path": ".claude/skills/hooks/SKILL.md",
+  "source": "github.com/paunchygent/skriptoteket",
+  "downloaded_at": "2026-01-19T02:57:36.514621Z"
 }

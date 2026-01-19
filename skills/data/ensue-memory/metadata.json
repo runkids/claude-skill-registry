@@ -1,7 +1,7 @@
 {
   "name": "ensue-memory",
-  "repo": "nguyendinhquocx/code-ai",
-  "path": "ensue skill/skills/ensue-memory/SKILL.md",
-  "source": "github.com/nguyendinhquocx/code-ai",
-  "downloaded_at": "2026-01-14T01:13:40.677739Z"
+  "repo": "mutable-state-inc/ensue-skill",
+  "path": "skills/ensue-memory/SKILL.md",
+  "source": "github.com/mutable-state-inc/ensue-skill",
+  "downloaded_at": "2026-01-19T01:33:07.194737Z"
 }

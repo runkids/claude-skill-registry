@@ -1,18 +1,19 @@
 ---
-name: moai-lang-template
-version: 4.0.0
-updated: '2025-11-19'
-status: stable
-stability: stable
-description: {{LANGUAGE_NAME}} best practices with modern frameworks, {{PRIMARY_DOMAIN}},
+name: moai-lang-{{LANGUAGE_SLUG}}
+version: 2.0.0
+created: 2025-11-06
+updated: 2025-11-06
+status: active
+description: "{{LANGUAGE_NAME}} best practices with modern frameworks, {{PRIMARY_DOMAIN}}, and performance optimization for 2025"
+keywords: [{{LANGUAGE_SLUG}}, programming, {{PRIMARY_PARADIGMS}}, {{ECOSYSTEM_KEYWORDS}}]
 allowed-tools:
-- Read
-- Bash
-- WebSearch
-- WebFetch
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - WebFetch
+  - WebSearch
 ---
-
-
 
 # {{LANGUAGE_NAME}} Development Mastery
 

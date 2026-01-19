@@ -1,7 +1,7 @@
 {
   "name": "claude-agent-sdk",
-  "repo": "jezweb/claude-skills",
-  "path": "skills/claude-agent-sdk/SKILL.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-01-17T03:02:35.619352Z"
+  "repo": "Anveio/conveaux",
+  "path": ".claude/skills/claude-agent-sdk/SKILL.md",
+  "source": "github.com/Anveio/conveaux",
+  "downloaded_at": "2026-01-19T03:10:58.387367Z"
 }

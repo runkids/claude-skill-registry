@@ -1,159 +1,379 @@
 ---
 name: setup
-description: >
-  First-time setup for protein design tools. Use this skill when:
-  (1) User is new and hasn't run any tools yet,
-  (2) Commands fail with "file not found" or "modal: command not found",
-  (3) Modal authentication errors occur,
-  (4) User asks how to get started or set up the environment,
-  (5) biomodals directory is missing or tools aren't working.
-license: MIT
-category: utilities
-tags: [setup, onboarding, installation]
+description: Complete guide to installing Git and performing basic configuration across all platforms (Windows, macOS, Linux, WSL). Use when setting up Git for the first time, installing Git on new systems, configuring user identity, setting default branch, choosing editor, verifying installation, or troubleshooting Git installation issues. Covers platform-specific installation methods, basic required configuration, and verification steps.
+allowed-tools: Read, Bash, Glob, Grep
 ---
 
-# Setup Guide
+# Git Setup
 
-Help users get their environment ready to run protein design tools.
+Complete guidance for installing Git and performing essential initial configuration across Windows, macOS, Linux, and WSL environments.
 
-## Quick checklist
+## Table of Contents
 
-Run through this checklist when a user encounters setup issues:
+- [Quick Start](#quick-start) - Windows, macOS, Linux
+- [Platform Detection](#platform-detection) - Identify your platform
+- [Installation Guides](#windows-installation) - Windows, macOS, Linux, WSL
+- [Basic Configuration](#basic-configuration-all-platforms) - User identity, default branch, editor
+- [Verification](#verification) - Test your Git installation
+- [Configuration Files](#configuration-file-locations) - Where Git stores settings
+- [Reference Loading](#reference-loading-guide) - How references are loaded
+- [Next Steps](#next-steps) - Advanced configuration with other skills
 
-| Step | Check | Fix |
-|------|-------|-----|
-| 1. Modal CLI | `modal --version` | `pip install modal` |
-| 2. Modal auth | `modal token show` | `modal setup` |
-| 3. biomodals | `ls biomodals/modal_*.py` | `git clone https://github.com/hgbrian/biomodals` |
-| 4. Test | `cd biomodals && modal run modal_boltzgen.py --help` | See troubleshooting |
+## Overview
 
-## Diagnosing issues
+This skill helps you:
 
-### Error: "modal: command not found"
+- Install Git using the best method for your platform
+- Configure essential Git settings (user identity, default branch, editor)
+- Verify your installation is working correctly
+- Understand platform-specific considerations
+- Get started quickly with recommended defaults
 
-**Cause**: Modal CLI not installed.
+**For advanced configuration** (aliases, performance tuning, credential management, maintenance), see the **git-config** skill.
 
-**Fix**:
-```bash
-pip install modal
+## When to Use This Skill
+
+Use this skill when:
+
+- Installing Git on a new development machine
+- Setting up Git for the first time on any platform
+- Configuring user identity and basic Git settings
+- Verifying Git installation is working correctly
+- Troubleshooting Git installation issues
+- Understanding platform-specific Git installation options
+- Setting up Git on Windows, macOS, Linux, or WSL
+
+## Quick Start
+
+**Fastest path to getting Git installed and configured:**
+
+### Windows
+
+```powershell
+# Install Git
+winget install --id Git.Git -e --source winget
+
+# Configure identity
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+git config --global init.defaultBranch main
+
+# Verify
+git --version
 ```
 
-Then restart the terminal or run `hash -r`.
-
-### Error: "Permission denied" or "Unauthorized"
-
-**Cause**: Modal not authenticated.
-
-**Fix**:
-```bash
-modal setup
-```
-
-This opens a browser. Click "Authorize" to complete authentication.
-
-### Error: "No such file or directory: modal_boltzgen.py"
-
-**Cause**: biomodals repository not cloned or not in correct directory.
-
-**Fix**:
-```bash
-git clone https://github.com/hgbrian/biomodals
-cd biomodals
-```
-
-### Error: "uvx: command not found"
-
-**Cause**: `uvx` is an optional wrapper from the `uv` package. It's not required.
-
-**Fix**: Run modal directly (recommended):
-```bash
-modal run modal_boltzgen.py --help
-```
-
-Or install uv if you prefer using uvx:
-```bash
-pip install uv
-```
-
-## Full setup steps
-
-### Step 1: Install Modal CLI
+### macOS
 
 ```bash
-pip install modal
+# Install Git
+brew install git
+
+# Configure identity
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+git config --global init.defaultBranch main
+
+# Verify
+git --version
 ```
 
-Verify: `modal --version`
-
-### Step 2: Authenticate Modal
+### Linux
 
 ```bash
-modal setup
+# Install Git (Ubuntu/Debian)
+sudo apt update && sudo apt install git
+
+# Configure identity
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+git config --global init.defaultBranch main
+
+# Verify
+git --version
 ```
-
-This opens a browser. Click "Authorize".
-
-Verify: `modal token show`
-
-### Step 3: Clone biomodals
-
-```bash
-git clone https://github.com/hgbrian/biomodals
-cd biomodals
-```
-
-Verify: `ls modal_*.py` should show files like `modal_boltzgen.py`
-
-### Step 4: Test the Setup
-
-```bash
-cd biomodals
-modal run modal_boltzgen.py --help
-```
-
-Expected: Usage instructions appear showing `--input-yaml`, `--protocol`, `--num-designs` options.
-
-## Common workflows after setup
-
-Once setup is complete, users can:
-
-```bash
-cd biomodals
-
-# Design binders with BoltzGen (requires YAML config)
-modal run modal_boltzgen.py --input-yaml binder.yaml --protocol protein-anything --num-designs 50
-
-# Generate backbones with RFdiffusion
-modal run modal_rfdiffusion.py --pdb target.pdb --contigs "A1-150/0 70-100" --num-designs 100
-
-# Validate with Chai
-modal run modal_chai1.py --input-faa designs.fasta
-```
-
-## GPU selection
-
-Set GPU with environment variable:
-
-```bash
-GPU=A10G modal run modal_rfdiffusion.py --pdb target.pdb --contigs "A1-100/0 50-80" --num-designs 10
-GPU=L40S modal run modal_boltzgen.py --input-yaml config.yaml --num-designs 50
-GPU=A100 modal run modal_chai1.py --input-faa complex.fasta
-```
-
-| GPU | VRAM | Best For |
-|-----|------|----------|
-| T4 | 16GB | ProteinMPNN, ESM |
-| A10G | 24GB | RFdiffusion, Chai |
-| L40S | 48GB | BoltzGen, BindCraft |
-| A100 | 40-80GB | Large complexes |
-
-## Modal free tier
-
-Modal offers $30/month in free credits - enough for:
-- ~500 BoltzGen designs
-- ~2000 RFdiffusion backbones
-- ~1000 Chai predictions
 
 ---
 
-**Full documentation**: See [Installation Guide](../../docs/installation.md)
+## Platform Detection
+
+When helping users with Git installation, detect their platform using environment indicators:
+
+- **Windows**: `$env:OS` contains "Windows", PowerShell commands, `winget`, file paths like `C:\`
+- **macOS**: `uname -s` returns "Darwin", Homebrew (`brew`), `~/.zshrc`
+- **Linux**: `uname -s` returns "Linux", package managers (`apt`, `dnf`, `pacman`), `~/.bashrc`
+- **WSL**: Linux kernel + Windows integration (e.g., `/mnt/c/`), `wsl.exe` available
+
+Provide platform-specific guidance automatically based on detected or stated platform.
+
+---
+
+## Windows Installation
+
+Two installation options: **Git for Windows Installer** (full control, recommended) or **winget** (quick install). Includes Windows-specific configuration (long paths, system-level settings) and troubleshooting.
+
+📚 **Full guide:** [references/install-windows.md](references/install-windows.md)
+
+Topics covered: Installation options, verification, Windows-specific configuration, Win32 long paths, troubleshooting, Git Bash history issues
+
+---
+
+## macOS Installation
+
+Two installation options: **Xcode Command Line Tools** (quick, built-in) or **Homebrew** (latest version, recommended). Includes macOS-specific configuration, shell integration (Zsh/Bash), and global gitignore setup.
+
+📚 **Full guide:** [references/install-macos.md](references/install-macos.md)
+
+Topics covered: Installation options, verification, line ending configuration, Zsh/Bash shell integration, global gitignore
+
+---
+
+## Linux Installation
+
+Installation via package manager: **apt** (Ubuntu/Debian), **dnf** (Fedora/RHEL), or **pacman** (Arch Linux). Includes Linux-specific configuration, shell integration (Bash/Zsh), and global gitignore setup.
+
+📚 **Full guide:** [references/install-linux.md](references/install-linux.md)
+
+Topics covered: Distribution-specific installation, verification, line ending configuration, Bash/Zsh shell integration, global gitignore
+
+---
+
+## WSL (Windows Subsystem for Linux)
+
+WSL runs Linux (Ubuntu by default), so Git installation is identical to native Linux. Includes WSL-specific configuration and performance considerations.
+
+📚 **Full guide:** [references/install-wsl.md](references/install-wsl.md)
+
+Topics covered: Installation (same as Linux), verification, WSL-specific configuration, filesystem performance notes, Windows integration, credential sharing
+
+---
+
+## Basic Configuration (All Platforms)
+
+After installing Git, configure these essential settings:
+
+### Set User Identity (Required)
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+**Important**: This information is included in every commit. Use your real name and work/personal email.
+
+### Set Default Branch Name
+
+```bash
+git config --global init.defaultBranch main
+```
+
+**Note**: Modern standard is `main` (replacing older `master` convention).
+
+### Set Preferred Editor (Optional)
+
+Choose one:
+
+```bash
+# VS Code (must be in PATH)
+git config --global core.editor "code --wait"
+
+# Notepad (Windows)
+git config --global core.editor "notepad"
+
+# Vim
+git config --global core.editor "vim"
+
+# Nano (Linux/macOS)
+git config --global core.editor "nano"
+```
+
+**Note**: If not set, Git uses system default editor (usually Vim on Linux/macOS, Notepad on Windows).
+
+---
+
+## Verification
+
+After installation and configuration, verify everything is working:
+
+### Check Git Version
+
+```bash
+git --version
+```
+
+### Verify Configuration
+
+```bash
+# View all configuration with source files
+git config --list --show-origin
+
+# View specific values
+git config user.name
+git config user.email
+git config init.defaultBranch
+```
+
+### Test Basic Git Operations
+
+```bash
+# Create test repository
+mkdir test-repo
+cd test-repo
+git init
+
+# Create and commit a file
+echo "# Test Repository" > README.md
+git add README.md
+git commit -m "Initial commit"
+
+# View commit history
+git log
+
+# Clean up
+cd ..
+rm -rf test-repo
+```
+
+**Expected result**: Repository created, commit successful, log shows your commit.
+
+---
+
+## Configuration File Locations
+
+For comprehensive details on configuration file locations, hierarchy, conditional includes, and troubleshooting, see [Configuration Details](references/configuration-details.md).
+
+**Quick reference:**
+
+- **System**: `/etc/gitconfig` (all users, requires sudo)
+- **Global**: `~/.config/git/config` or `~/.gitconfig` (current user)
+- **Local**: `.git/config` (current repository)
+- **Hierarchy**: Local > Global > System
+
+---
+
+## Unsetting Config Values
+
+To remove/unset a config value:
+
+```bash
+# Unset system config value (requires admin/sudo)
+git config --system --unset status.aheadbehind
+
+# Unset global/user config value
+git config --global --unset status.aheadbehind
+
+# Unset local config value (inside a repo)
+git config --unset status.aheadbehind
+```
+
+---
+
+## Reference Loading Guide
+
+All references in this skill are **conditionally loaded** based on platform detection or troubleshooting context. This progressive disclosure strategy keeps the skill efficient by loading only relevant content when needed.
+
+### Always Load (Core)
+
+- None - all references are contextual and loaded on-demand
+
+### Conditional Load
+
+- `references/install-windows.md` - Load when user is on Windows platform (install workflow)
+- `references/install-macos.md` - Load when user is on macOS platform (install workflow)
+- `references/install-linux.md` - Load when user is on Linux platform (install workflow)
+- `references/install-wsl.md` - Load when user is on WSL platform (install workflow)
+- `references/git-bash-history-troubleshooting.md` - Load when troubleshooting Git Bash command history issues on Windows Terminal
+
+**Token efficiency**: Most users follow the Quick Start path (~3k tokens). Platform-specific deep dives load only the relevant reference (~3.5-4k tokens total).
+
+---
+
+## Next Steps
+
+After completing basic Git setup, consider:
+
+1. **Advanced Configuration**: Use the **git-config** skill for:
+   - Comprehensive global configuration (performance, aliases, maintenance)
+   - Credential management (GitHub CLI, Windows Credential Manager)
+   - Clone shortcuts (save typing for common repos)
+
+2. **Line Ending Management**: Use the **line-endings** skill for:
+   - Understanding line ending configuration
+   - Setting up `.gitattributes` for cross-platform teams
+   - Troubleshooting line ending issues
+   - Git LFS setup for large files
+
+3. **Commit Signing**: Use the **gpg-signing** skill for:
+   - Setting up GPG commit signing
+   - Generating and managing GPG keys
+   - Adding GPG keys to GitHub/GitLab
+   - Troubleshooting signing issues
+
+4. **GUI Tools**: Use the **gui-tools** skill for:
+   - Installing Git GUI clients (GitKraken, Sourcetree, GitHub Desktop)
+   - Configuring GUI tools
+   - Choosing the right GUI for your workflow
+
+---
+
+## Related Skills
+
+- **config**: Comprehensive Git configuration (aliases, performance, credentials, maintenance)
+- **line-endings**: Line ending configuration, `.gitattributes`, Git LFS
+- **gpg-signing**: GPG commit signing setup and troubleshooting
+- **gui-tools**: Git GUI client installation and configuration
+
+---
+
+## Testing and Evaluations
+
+For comprehensive test scenarios, multi-model testing notes, formal evaluations, and development methodology, see [Testing and Evaluations](references/testing-evaluations.md).
+
+**Evaluation Summary**: 3/3 evaluations passed - Tested with Claude Sonnet 4.5 and Claude Sonnet 3.5
+
+---
+
+## References
+
+**Installation Guides:**
+
+- [Windows Installation](references/install-windows.md) - winget, Git for Windows installer, Win32 long paths
+- [macOS Installation](references/install-macos.md) - Xcode Command Line Tools, Homebrew, Zsh integration
+- [Linux Installation](references/install-linux.md) - apt, dnf, pacman, Bash/Zsh integration
+- [WSL Installation](references/install-wsl.md) - Same as Linux, WSL2 performance, credential sharing
+
+**Configuration:**
+
+- [Configuration Details](references/configuration-details.md) - File locations, hierarchy, conditional includes, troubleshooting
+
+**Troubleshooting:**
+
+- [Git Bash History Troubleshooting](references/git-bash-history-troubleshooting.md) - Windows Terminal command history issues
+
+**Testing:**
+
+- [Testing and Evaluations](references/testing-evaluations.md) - Test scenarios, multi-model testing, formal evaluations
+
+---
+
+## Version History
+
+- v1.3.0 (2025-11-28): Token optimization - extracted configuration details and testing to references/, reduced SKILL.md from 526 to ~400 lines
+- v1.2.0 (2025-11-25): Comprehensive audit improvements - enhanced WSL reference, updated Git versions to 2.47.0+
+- v1.1.0 (2025-01-11): Added Windows Terminal Git Bash command history troubleshooting reference
+- v1.0.0 (2025-01-06): Initial release with comprehensive Git installation and configuration guidance
+
+---
+
+## Official Documentation
+
+- [Git Official Site](https://git-scm.com/)
+- [Git for Windows](https://git-scm.com/install/windows)
+- [Getting Started - First-Time Git Setup](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
+- [Git Configuration Documentation](https://git-scm.com/docs/git-config)
+
+---
+
+## Last Updated
+
+**Date:** 2025-11-28
+**Model:** claude-opus-4-5-20251101

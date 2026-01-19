@@ -1,7 +1,7 @@
 {
   "name": "trace-claude-code",
-  "repo": "parcadei/Continuous-Claude-v3",
+  "repo": "MitchellkellerLG/claude-workspace-template",
   "path": ".claude/plugins/braintrust-tracing/skills/trace-claude-code/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-17T03:45:31.625278Z"
+  "source": "github.com/MitchellkellerLG/claude-workspace-template",
+  "downloaded_at": "2026-01-19T03:59:23.388381Z"
 }

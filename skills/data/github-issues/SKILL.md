@@ -1,132 +1,386 @@
 ---
 name: github-issues
-description: 'Create, update, and manage GitHub issues using MCP tools. Use this skill when users want to create bug reports, feature requests, or task issues, update existing issues, add labels/assignees/milestones, or manage issue workflows. Triggers on requests like "create an issue", "file a bug", "request a feature", "update issue X", or any GitHub issue management task.'
+description: |
+  Local-first GitHub issue planning and synchronization system. Use this skill when planning projects locally, creating issue files in .issues/, working with the /plan-issue, /update-issue, /sync-issue, /list-issues, or /work-issue commands, or synchronizing local plans with GitHub issues. Covers frontmatter schema, file structure conventions, sub-issue management, and gh CLI operations.
 ---
 
-# GitHub Issues
+# GitHub Issues Planning System
 
-Manage GitHub issues using the `@modelcontextprotocol/server-github` MCP server.
+A local-first system for planning projects and synchronizing with GitHub issues. Plan and iterate locally, then sync to GitHub when ready.
 
-## Available MCP Tools
+## Quick Reference
 
-| Tool | Purpose |
-|------|---------|
-| `mcp__github__create_issue` | Create new issues |
-| `mcp__github__update_issue` | Update existing issues |
-| `mcp__github__get_issue` | Fetch issue details |
-| `mcp__github__search_issues` | Search issues |
-| `mcp__github__add_issue_comment` | Add comments |
-| `mcp__github__list_issues` | List repository issues |
+### Commands
 
-## Workflow
+| Command | Purpose |
+|---------|---------|
+| `/plan-issue <prompt>` | Create new issue plan from prompt |
+| `/update-issue <path> <prompt>` | Update existing plan |
+| `/sync-issue <path>` | Sync local ↔ GitHub |
+| `/list-issues` | List all local issue plans |
+| `/work-issue <path> <prompt>` | Set up context to work on an issue |
 
-1. **Determine action**: Create, update, or query?
-2. **Gather context**: Get repo info, existing labels, milestones if needed
-3. **Structure content**: Use appropriate template from [references/templates.md](references/templates.md)
-4. **Execute**: Call the appropriate MCP tool
-5. **Confirm**: Report the issue URL to user
+### File Locations
 
-## Creating Issues
+- **Issue files**: `.issues/` directory (gitignored)
+- **Simple issues**: `.issues/YYYY-MM-slug.md`
+- **Multi-phase projects**: `.issues/YYYY-MM-slug/` directory
 
-### Required Parameters
+## Frontmatter Schema
 
-```
-owner: repository owner (org or user)
-repo: repository name  
-title: clear, actionable title
-body: structured markdown content
-```
+### Single Issue
 
-### Optional Parameters
-
-```
-labels: ["bug", "enhancement", "documentation", ...]
-assignees: ["username1", "username2"]
-milestone: milestone number (integer)
+```yaml
+---
+repo: org/repo           # Auto-detected from git remote
+issue: 123               # GitHub issue number (null if draft)
+state: draft             # draft | open | closed
+labels:
+  - enhancement
+  - priority:high
+created: 2025-01-15T10:30:00Z
+updated: 2025-01-15T14:20:00Z
+---
 ```
 
-### Title Guidelines
+### Parent Issue (with sub-issues)
 
-- Start with type prefix when useful: `[Bug]`, `[Feature]`, `[Docs]`
-- Be specific and actionable
-- Keep under 72 characters
-- Examples:
-  - `[Bug] Login fails with SSO enabled`
-  - `[Feature] Add dark mode support`
-  - `Add unit tests for auth module`
-
-### Body Structure
-
-Always use the templates in [references/templates.md](references/templates.md). Choose based on issue type:
-
-| User Request | Template |
-|--------------|----------|
-| Bug, error, broken, not working | Bug Report |
-| Feature, enhancement, add, new | Feature Request |
-| Task, chore, refactor, update | Task |
-
-## Updating Issues
-
-Use `mcp__github__update_issue` with:
-
-```
-owner, repo, issue_number (required)
-title, body, state, labels, assignees, milestone (optional - only changed fields)
+```yaml
+---
+repo: org/repo
+issue: 123
+state: open
+labels:
+  - epic
+sub_issues:              # Ordered list - execution sequence
+  - 01-database-schema.md
+  - 02-api-endpoints.md
+  - 03-frontend-ui.md
+created: 2025-01-15T10:30:00Z
+updated: 2025-01-15T14:20:00Z
+---
 ```
 
-State values: `open`, `closed`
+### Field Reference
 
-## Examples
+| Field | Type | Description |
+|-------|------|-------------|
+| `repo` | string | GitHub repo in `org/repo` format. Auto-detected from git remote |
+| `issue` | number \| null | GitHub issue number. `null` for drafts not yet pushed |
+| `state` | enum | `draft` (local only), `open`, or `closed` |
+| `labels` | string[] | GitHub labels to apply |
+| `sub_issues` | string[] | Ordered list of sub-issue filenames (parent issues only) |
+| `created` | ISO 8601 | Creation timestamp |
+| `updated` | ISO 8601 | Last modification timestamp |
 
-### Example 1: Bug Report
+## File Structure
 
-**User**: "Create a bug issue - the login page crashes when using SSO"
+### Simple Issue (single file)
 
-**Action**: Call `mcp__github__create_issue` with:
-```json
-{
-  "owner": "github",
-  "repo": "awesome-copilot",
-  "title": "[Bug] Login page crashes when using SSO",
-  "body": "## Description\nThe login page crashes when users attempt to authenticate using SSO.\n\n## Steps to Reproduce\n1. Navigate to login page\n2. Click 'Sign in with SSO'\n3. Page crashes\n\n## Expected Behavior\nSSO authentication should complete and redirect to dashboard.\n\n## Actual Behavior\nPage becomes unresponsive and displays error.\n\n## Environment\n- Browser: [To be filled]\n- OS: [To be filled]\n\n## Additional Context\nReported by user.",
-  "labels": ["bug"]
-}
+For straightforward issues without phases:
+
+```
+.issues/
+└── 2025-01-user-auth.md
 ```
 
-### Example 2: Feature Request
+### Multi-Phase Project (directory)
 
-**User**: "Create a feature request for dark mode with high priority"
+For complex projects with ordered phases:
 
-**Action**: Call `mcp__github__create_issue` with:
-```json
-{
-  "owner": "github",
-  "repo": "awesome-copilot",
-  "title": "[Feature] Add dark mode support",
-  "body": "## Summary\nAdd dark mode theme option for improved user experience and accessibility.\n\n## Motivation\n- Reduces eye strain in low-light environments\n- Increasingly expected by users\n- Improves accessibility\n\n## Proposed Solution\nImplement theme toggle with system preference detection.\n\n## Acceptance Criteria\n- [ ] Toggle switch in settings\n- [ ] Persists user preference\n- [ ] Respects system preference by default\n- [ ] All UI components support both themes\n\n## Alternatives Considered\nNone specified.\n\n## Additional Context\nHigh priority request.",
-  "labels": ["enhancement", "high-priority"]
-}
+```
+.issues/
+└── 2025-01-api-migration/
+    ├── 00-parent.md           # Parent issue with overview
+    ├── 01-deprecate-v1.md     # Phase 1
+    ├── 02-implement-v2.md     # Phase 2
+    └── 03-remove-v1.md        # Phase 3
 ```
 
-## Common Labels
+**Naming conventions**:
+- Date prefix: `YYYY-MM-`
+- Slug: lowercase, hyphens for spaces
+- Sub-issues: Two-digit prefix (00, 01, 02, ...) for ordering
+- Parent file: Always `00-parent.md`
 
-Use these standard labels when applicable:
+## Markdown Content Structure
 
-| Label | Use For |
-|-------|---------|
-| `bug` | Something isn't working |
-| `enhancement` | New feature or improvement |
-| `documentation` | Documentation updates |
-| `good first issue` | Good for newcomers |
-| `help wanted` | Extra attention needed |
-| `question` | Further information requested |
-| `wontfix` | Will not be addressed |
-| `duplicate` | Already exists |
-| `high-priority` | Urgent issues |
+### Required Sections
 
-## Tips
+```markdown
+# Title
 
-- Always confirm the repository context before creating issues
-- Ask for missing critical information rather than guessing
-- Link related issues when known: `Related to #123`
-- For updates, fetch current issue first to preserve unchanged fields
+<high-level description - becomes the GitHub issue body intro>
+
+## Research
+
+<background research and analysis of current codebase state>
+- What exists today
+- What needs to change
+- Dependencies and constraints
+- Related code locations
+
+## Proposed Design
+
+<description of the design to implement>
+- Architecture decisions
+- API changes
+- User-facing changes
+
+## Implementation Details
+
+<how this will be implemented>
+- Step-by-step implementation approach
+- Files to modify
+- Testing strategy
+```
+
+### Parent Issue Additional Section
+
+Parent issues include a **Contents** section linking to sub-issues:
+
+```markdown
+## Contents
+
+Links to sub-issues in execution order:
+
+1. [Deprecate V1 endpoints](./01-deprecate-v1.md) - #124
+2. [Implement V2 API](./02-implement-v2.md) - #125
+3. [Remove V1 code](./03-remove-v1.md) - #126
+```
+
+## Writing Effective Issue Plans
+
+### Research Section Best Practices
+
+- Include specific file paths and line numbers
+- Document current behavior vs desired behavior
+- List dependencies that might be affected
+- Note any technical debt or constraints
+
+### Design Section Best Practices
+
+- Focus on the "what" and "why", not implementation details
+- Include diagrams or ASCII art for complex flows
+- Document trade-offs considered
+- Reference relevant patterns in the codebase
+
+### Implementation Section Best Practices
+
+- Break into discrete, testable steps
+- Each step should be achievable in a single PR
+- Include acceptance criteria
+- Note testing requirements
+
+### When to Use Sub-Issues
+
+Convert to multi-phase when:
+- Project requires multiple PRs
+- Work can/should be parallelized
+- Different reviewers needed for different phases
+- Project spans multiple systems or packages
+
+## GitHub Synchronization
+
+### Draft → Open Workflow
+
+1. Create plan locally with `/plan-issue`
+2. Iterate with `/update-issue` until ready
+3. Run `/sync-issue` to create GitHub issue
+4. Frontmatter updates with issue number and state
+
+### Sync Behavior
+
+**For drafts (issue: null)**:
+- Creates new GitHub issue
+- Updates frontmatter with issue number
+- Sets state to `open`
+
+**For existing issues**:
+- Fetches current GitHub state
+- Compares local vs remote content
+- Shows diff if different
+- Asks user to push, pull, or skip
+
+### Parent-Child Linking
+
+When syncing parent issues with sub-issues:
+1. Create all sub-issues first (they need issue IDs)
+2. Create the parent issue
+3. Link sub-issues to parent using the Sub-Issues REST API
+4. Parent body includes task list with sub-issue links
+
+**Important**: GitHub's sub-issues feature uses the issue's internal `id` (a large integer like `3731549400`), not the issue `number` (like `#346`).
+
+## gh CLI Reference
+
+### Auto-detect Repository
+
+```bash
+git remote get-url origin | sed 's/.*github.com[:/]\(.*\)\.git/\1/'
+```
+
+### Create Issue
+
+```bash
+gh issue create \
+  --repo org/repo \
+  --title "Issue Title" \
+  --body "Issue body content" \
+  --label "label1,label2"
+```
+
+### View Issue (JSON)
+
+```bash
+gh issue view 123 --repo org/repo --json title,body,state,labels
+```
+
+### Update Issue
+
+```bash
+gh issue edit 123 \
+  --repo org/repo \
+  --title "New Title" \
+  --body "New body content"
+```
+
+### Manage Labels
+
+```bash
+# Add labels
+gh issue edit 123 --repo org/repo --add-label "label1,label2"
+
+# Remove labels
+gh issue edit 123 --repo org/repo --remove-label "label1"
+```
+
+### Change State
+
+```bash
+# Close issue
+gh issue close 123 --repo org/repo
+
+# Reopen issue
+gh issue reopen 123 --repo org/repo
+```
+
+### List Issues
+
+```bash
+gh issue list --repo org/repo --json number,title,state,labels
+```
+
+## Sub-Issues REST API
+
+GitHub's sub-issues feature allows hierarchical issue organization. The `gh` CLI doesn't have built-in sub-issue commands, so use the REST API via `gh api`.
+
+### Get Issue ID
+
+Sub-issues API requires the issue's internal `id`, not the `number`. Get it from the issue JSON:
+
+```bash
+# Get the internal id for issue #123
+gh api repos/org/repo/issues/123 --jq '.id'
+# Returns: 3731549400
+```
+
+### Add Sub-Issue to Parent
+
+Link a sub-issue to a parent issue:
+
+```bash
+# Get the sub-issue's internal id first
+SUB_ISSUE_ID=$(gh api repos/org/repo/issues/456 --jq '.id')
+
+# Add as sub-issue to parent #123
+gh api repos/org/repo/issues/123/sub_issues \
+  -X POST \
+  --input - <<< "{\"sub_issue_id\": $SUB_ISSUE_ID}"
+```
+
+**Important**: The `sub_issue_id` must be an integer, not a string. Use `--input` with JSON to ensure correct typing (the `-f` flag sends strings).
+
+### List Sub-Issues
+
+```bash
+gh api repos/org/repo/issues/123/sub_issues --jq '.[].number'
+```
+
+### Remove Sub-Issue
+
+```bash
+SUB_ISSUE_ID=$(gh api repos/org/repo/issues/456 --jq '.id')
+
+gh api repos/org/repo/issues/123/sub_issues/$SUB_ISSUE_ID -X DELETE
+```
+
+### Get Parent Issue
+
+Check if an issue has a parent:
+
+```bash
+gh api repos/org/repo/issues/456/parent --jq '.number'
+```
+
+### Sync Workflow for Multi-Phase Projects
+
+When syncing a directory with parent and sub-issues:
+
+1. **Create sub-issues first** (in order):
+   ```bash
+   for file in 01-*.md 02-*.md 03-*.md; do
+     gh issue create --repo org/repo --title "..." --body "..."
+   done
+   ```
+
+2. **Create parent issue**:
+   ```bash
+   gh issue create --repo org/repo --title "..." --body "..."
+   ```
+
+3. **Link sub-issues to parent**:
+   ```bash
+   PARENT_NUM=123
+
+   for SUB_NUM in 124 125 126; do
+     SUB_ID=$(gh api repos/org/repo/issues/$SUB_NUM --jq '.id')
+     gh api repos/org/repo/issues/$PARENT_NUM/sub_issues \
+       -X POST \
+       --input - <<< "{\"sub_issue_id\": $SUB_ID}"
+   done
+   ```
+
+4. **Update local frontmatter** with issue numbers and set `state: open`
+
+### Sub-Issues Limits
+
+- Maximum 100 sub-issues per parent
+- Maximum 8 levels of nesting
+- Sub-issues can be in different repositories (cross-repo)
+
+## Troubleshooting
+
+### "Not logged in to GitHub"
+
+Run `gh auth login` to authenticate.
+
+### "Repository not found"
+
+- Check that the repo in frontmatter matches GitHub
+- Ensure you have access to the repository
+- Verify git remote is configured correctly
+
+### Sync Conflicts
+
+When local and remote differ:
+1. Review the diff shown
+2. Choose to push (overwrite GitHub) or pull (overwrite local)
+3. If unsure, skip and manually resolve
+
+### Missing Issue Number After Sync
+
+Check that:
+- `gh issue create` completed successfully
+- Network connectivity during sync
+- GitHub API rate limits not exceeded

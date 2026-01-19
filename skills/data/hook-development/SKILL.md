@@ -4,6 +4,11 @@ description: This skill should be used when the user asks to "create a hook", "a
 version: 0.1.0
 ---
 
+# SOURCE: anthropics/claude-plugins-official
+# PATH: plugins/plugin-dev/skills/hook-development/SKILL.md
+# DO NOT EDIT: This file is synced from external source
+
+
 # Hook Development for Claude Code Plugins
 
 ## Overview

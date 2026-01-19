@@ -1,11 +1,7 @@
 {
   "name": "jupyter",
-  "description": "Work with Jupyter notebooks without leaving Claude Code. Execute cells, inspect outputs, validate structure, and convert formats. Activate when working with .ipynb files, user mentions notebooks, Jupy",
-  "repo": "anntnzrb/.claude",
-  "category": "development",
-  "tags": [
-    "jupyter"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "anntnzrb/agents",
+  "path": "assets/skills/jupyter/SKILL.md",
+  "source": "github.com/anntnzrb/agents",
+  "downloaded_at": "2026-01-19T01:28:20.332557Z"
 }

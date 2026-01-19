@@ -1,7 +1,7 @@
 {
   "name": "postgresql-psql",
-  "repo": "einverne/dotfiles",
-  "path": "claude/skills/postgresql-psql/SKILL.md",
-  "source": "github.com/einverne/dotfiles",
-  "downloaded_at": "2026-01-17T03:54:55.913808Z"
+  "repo": "alex-tgk/saasquatch",
+  "path": ".claude/skills/postgresql-psql/SKILL.md",
+  "source": "github.com/alex-tgk/saasquatch",
+  "downloaded_at": "2026-01-19T04:17:53.691733Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "ci-workflow",
-  "repo": "takemo101/compose-workflow",
-  "path": ".opencode/skill/ci-workflow/SKILL.md",
-  "source": "github.com/takemo101/compose-workflow",
-  "downloaded_at": "2026-01-17T03:54:11.397079Z"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/ci-workflow/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-19T02:17:37.160602Z"
 }

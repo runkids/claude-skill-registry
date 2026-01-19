@@ -1,7 +1,7 @@
 ---
-name: Test Skill
-description: Skill for testing purposes
+name: Working Dir Test Skill
+description: Local skill in working directory
 ---
 
 ## Details
-More info here.
+This skill is in the working_dir/skills directory.

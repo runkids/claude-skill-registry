@@ -1,9 +1,7 @@
 {
   "name": "story-zoom",
-  "description": "Manage multi-level story synchronization. Use when changes at one abstraction level (pitch, structure, scenes, entities, prose) need to propagate to others, or when story elements feel inconsistent ac",
-  "repo": "jwynia/the-kepler-testimonies",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/structure/story-zoom/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-19T03:36:23.206817Z"
 }

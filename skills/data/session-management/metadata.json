@@ -1,7 +1,7 @@
 {
   "name": "session-management",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/session-management/skills/session-management/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-17T03:58:35.854592Z"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/session-management/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-19T03:07:33.043399Z"
 }

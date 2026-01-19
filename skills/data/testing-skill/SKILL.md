@@ -1,436 +1,336 @@
 ---
-name: testing
-description: ALWAYS USE when writing tests, test fixtures, test utilities, or debugging test failures. MUST be loaded before creating pytest tests, integration tests, or test infrastructure. Provides test quality patterns, anti-pattern detection, K8s-native testing guidance, and regression strategies.
+name: "testing-skill"
+description: "TDD patterns, test writing strategies, coverage guidance, mocking patterns. Use when: write tests, TDD, test coverage, unit test, integration test, E2E test, mocking, test organization, pytest, vitest, jest."
 ---
 
-# Testing Skill (Research-Driven)
+<objective>
+Comprehensive testing skill covering TDD workflow, test pyramid strategy, mocking patterns, and coverage guidance. Framework-agnostic patterns applicable to pytest, vitest, jest, and other testing frameworks.
 
-## Philosophy
+This skill emphasizes writing tests that provide confidence without becoming maintenance burdens. Tests should be fast, reliable, and focused on behavior rather than implementation details.
+</objective>
 
-**Tests are production code.** Apply the same rigor to test code as production code: type safety, security, maintainability, and quality standards.
+<core_principles>
+## The Testing Mindset
 
-This skill does NOT prescribe specific test implementations. Instead, it guides you to:
-1. **Research** the current testing infrastructure and patterns
-2. **Discover** existing test utilities, fixtures, and base classes
-3. **Validate** tests follow project standards (TESTING.md)
-4. **Verify** tests align with K8s-native production parity goals
+1. **Tests are documentation** - A failing test is a specification that hasn't been implemented
+2. **Test behavior, not implementation** - Tests should survive refactoring
+3. **Fast feedback loops** - Unit tests run in milliseconds, not seconds
+4. **Isolation by default** - Each test should be independent
+5. **Arrange-Act-Assert** - Clear structure in every test
+</core_principles>
 
-## Core Principles
+<tdd_workflow>
+## TDD: Red-Green-Refactor
 
-### The "FAIL not Skip" Philosophy
-
-**Tests MUST fail when infrastructure is missing, NEVER skip.**
-
-| Situation | ❌ Wrong Approach | ✅ Correct Approach |
-|-----------|------------------|---------------------|
-| Service unavailable | `pytest.skip()` | Test fails, user fixes infrastructure |
-| Feature not implemented | `@pytest.mark.skip` | Don't write test yet, or test NOT-implemented behavior |
-| Flaky test | Skip to "fix later" | Fix the flakiness (add retries, fix race) |
-
-**Why**: Skipped tests are invisible failures. "All tests pass" when half are skipped = false confidence.
-
-### Production Parity (K8s-Native Testing)
-
-**Target State**: All integration/E2E tests run in ephemeral Kubernetes clusters (kind) for production parity.
-
-**Current State (Epic 2 Migration)**:
-- Docker Compose (current baseline, being phased out)
-- kind (target state, <30s cluster creation)
-
-**Benefits of K8s-Native**:
-- Same Helm charts as staging/production
-- K8s service discovery works identically
-- Health probes, init containers, hooks tested
-- No `/etc/hosts` modification needed
-
-**Read**: [references/k8s-native-testing.md](references/k8s-native-testing.md)
-
----
-
-## Pre-Implementation Research Protocol
-
-### Step 1: Verify Testing Infrastructure State
-
-**ALWAYS check current state first**:
-
-```bash
-# Check if Docker Compose is running
-docker compose -f testing/docker/docker-compose.yml ps
-
-# Check if kind cluster exists
-kind get clusters
-
-# Verify test execution model
-make test-unit     # Unit tests (host)
-make test-k8s      # Integration tests (kind - target)
-make test-all      # Both Docker + K8s (validation)
+```
+┌─────────────────────────────────────────────────────────┐
+│                    TDD CYCLE                             │
+│                                                          │
+│    ┌─────────┐                                          │
+│    │   RED   │ ◄─── Write a failing test                │
+│    └────┬────┘                                          │
+│         │                                                │
+│         ▼                                                │
+│    ┌─────────┐                                          │
+│    │  GREEN  │ ◄─── Write minimum code to pass          │
+│    └────┬────┘                                          │
+│         │                                                │
+│         ▼                                                │
+│    ┌─────────┐                                          │
+│    │REFACTOR │ ◄─── Clean up while tests stay green     │
+│    └────┬────┘                                          │
+│         │                                                │
+│         └──────────────► Back to RED                    │
+└─────────────────────────────────────────────────────────┘
 ```
 
-**Critical Questions**:
-- Which test tier am I writing? (unit, contract, integration, E2E)
-- Where should this test run? (host, Docker, K8s)
-- What services does this test require?
+### The Rules
 
-**Read**: `TESTING.md` - "Test Execution Model (CRITICAL)" section
+1. **Write a failing test first** - Never write production code without a failing test
+2. **Write only enough test to fail** - Compilation failures count as failures
+3. **Write only enough code to pass** - No more, no less
+4. **Refactor only when green** - Never refactor with failing tests
 
-### Step 2: Discover Existing Test Patterns
+### Common TDD Mistakes
 
-**BEFORE writing new tests**, search for existing implementations:
+| Mistake | Why It's Wrong | Instead |
+|---------|----------------|---------|
+| Writing tests after code | Tests become confirmation bias | Red-Green-Refactor |
+| Testing private methods | Tests implementation, not behavior | Test public interface |
+| Big leaps in test complexity | Hard to debug failures | Baby steps |
+| Skipping refactor step | Technical debt accumulates | Always clean up |
+</tdd_workflow>
 
-```bash
-# Find existing test base classes
-rg "class.*TestBase|IntegrationTestBase" --type py testing/base_classes/
+<test_pyramid>
+## The Test Pyramid
 
-# Find existing fixtures
-rg "@pytest.fixture" --type py testing/fixtures/
-
-# Find polling utilities (replaces time.sleep)
-rg "wait_for_condition|poll_until" --type py testing/fixtures/services.py
-
-# Find existing tests for similar components
-rg "def test_" --type py packages/<package>/tests/
+```
+                    ┌───────────┐
+                    │    E2E    │  Few, slow, expensive
+                    │   Tests   │  (minutes)
+                    └─────┬─────┘
+                          │
+               ┌──────────┴──────────┐
+               │   Integration Tests  │  Some, medium speed
+               │   (API, Database)    │  (seconds)
+               └──────────┬───────────┘
+                          │
+        ┌─────────────────┴─────────────────┐
+        │          Unit Tests                │  Many, fast, cheap
+        │    (Functions, Components)         │  (milliseconds)
+        └────────────────────────────────────┘
 ```
 
-**Key Questions**:
-- What base classes exist for this test type?
-- What fixtures are already available?
-- What polling patterns are in use?
-- How do similar tests handle service detection?
+### Distribution Guidelines
 
-### Step 3: Research Test Anti-Patterns
+| Type | Percentage | Speed | Scope |
+|------|------------|-------|-------|
+| Unit | 70-80% | <10ms each | Single function/component |
+| Integration | 15-25% | <1s each | Multiple components, DB |
+| E2E | 5-10% | <30s each | Full user flows |
 
-**Check for common anti-patterns in similar tests**:
+### What to Test Where
 
-```bash
-# Check for hardcoded sleeps (FORBIDDEN)
-rg "time\.sleep\(" --type py packages/<package>/tests/
+**Unit Tests:**
+- Pure functions
+- Business logic
+- Data transformations
+- Validation rules
+- Component rendering
 
-# Check for skipped tests (FORBIDDEN)
-rg "@pytest\.mark\.skip|pytest\.skip\(" --type py packages/<package>/tests/
+**Integration Tests:**
+- API endpoints
+- Database operations
+- Service interactions
+- Component integration
 
-# Check for floating point equality (FORBIDDEN)
-rg "assert.*==.*\d+\.\d+" --type py packages/<package>/tests/
+**E2E Tests:**
+- Critical user flows (login, checkout)
+- Happy paths only
+- Smoke tests
+</test_pyramid>
 
-# Check for missing negative path tests
-rg "def test_.*_invalid|def test_.*_failure" --type py packages/<package>/tests/
+<when_to_mock>
+## Mocking Strategy
+
+### The London vs Detroit Schools
+
+**London School (Mockist):**
+- Mock all dependencies
+- Test in complete isolation
+- Tests are very focused
+
+**Detroit School (Classicist):**
+- Only mock external services
+- Test natural units together
+- Tests are more realistic
+
+**Recommended: Pragmatic approach**
+- Mock external services (APIs, DBs in unit tests)
+- Don't mock your own code unless necessary
+- Use real implementations in integration tests
+
+### What to Mock
+
+| Mock | Don't Mock |
+|------|------------|
+| External APIs | Your own pure functions |
+| File system (in unit tests) | Data transformations |
+| Network requests | Business logic |
+| Time/randomness | In-memory data structures |
+| Expensive computations | Simple utilities |
+
+### Mocking Patterns
+
+```typescript
+// GOOD: Mock external dependency
+const mockFetch = vi.fn().mockResolvedValue({ data: [] });
+
+// BAD: Mocking your own utilities
+const mockFormatDate = vi.fn(); // Don't do this
+
+// GOOD: Dependency injection for testability
+function createService(httpClient = fetch) {
+  return {
+    getData: () => httpClient('/api/data')
+  };
+}
+
+// In test:
+const mockClient = vi.fn();
+const service = createService(mockClient);
+```
+</when_to_mock>
+
+<test_structure>
+## Test Organization
+
+### File Naming
+
+```
+src/
+├── components/
+│   ├── Button.tsx
+│   └── Button.test.tsx      # Colocated test
+├── utils/
+│   ├── format.ts
+│   └── format.test.ts
+└── __tests__/               # Or separate folder
+    └── integration/
+        └── api.test.ts
 ```
 
-**Read**: [references/test-anti-patterns.md](references/test-anti-patterns.md)
+### Test Naming
 
-### Step 4: Validate Against Testing Standards
+```typescript
+// Pattern: describe what + when + expected result
+describe('UserService', () => {
+  describe('createUser', () => {
+    it('returns user object when given valid email', () => {});
+    it('throws ValidationError when email is invalid', () => {});
+    it('sends welcome email after successful creation', () => {});
+  });
+});
 
-**Before implementing**, verify compliance with:
+// Alternative: BDD style
+describe('UserService', () => {
+  describe('when creating a user with valid data', () => {
+    it('should return the created user', () => {});
+    it('should send a welcome email', () => {});
+  });
 
-1. **Requirement Traceability**: Every test MUST have `@pytest.mark.requirement()` marker
-2. **Test Documentation**: Every test MUST have docstring explaining intent
-3. **Type Hints**: All test functions and fixtures MUST have type hints
-4. **Negative Path Coverage**: Every positive test (`test_X`) MUST have negative test (`test_X_invalid`)
-5. **Unique Namespaces**: Integration tests MUST use unique namespaces for isolation
-
-**Read**: `TESTING.md` - Full testing guide with all standards
-
----
-
-## Implementation Guidance (Progressive Disclosure)
-
-### Test Tier Selection
-
-**Where should this test live?**
-
-| Test Tier | Location | Execution | Requires | Coverage Target |
-|-----------|----------|-----------|----------|-----------------|
-| **Unit** | `packages/*/tests/unit/` | Host (`uv run pytest`) | No external deps | 60% of tests |
-| **Contract** | `packages/*/tests/contract/` | Host | No external deps | 10% of tests |
-| **Integration** | `packages/*/tests/integration/` | Docker/K8s | External services | 20-30% of tests |
-| **E2E** | `packages/*/tests/e2e/` | Docker/K8s | Full pipeline | 5-10% of tests |
-
-**Decision Tree**:
-```
-Does test require external services (DB, S3, Polaris)?
-  ├─ YES → Integration test (Docker/K8s)
-  └─ NO → Does test validate cross-package contracts?
-      ├─ YES → Contract test (host)
-      └─ NO → Unit test (host)
+  describe('when email is invalid', () => {
+    it('should throw ValidationError', () => {});
+  });
+});
 ```
 
-### Using Test Base Classes
+### Arrange-Act-Assert
 
-**For Integration Tests** - ALWAYS inherit from `IntegrationTestBase`:
+```typescript
+it('calculates total with discount', () => {
+  // Arrange - set up test data
+  const cart = createCart([
+    { price: 100, quantity: 2 },
+    { price: 50, quantity: 1 }
+  ]);
+  const discount = 0.1;
 
+  // Act - perform the action
+  const total = calculateTotal(cart, discount);
+
+  // Assert - verify result
+  expect(total).toBe(225); // (200 + 50) * 0.9
+});
+```
+</test_structure>
+
+<what_not_to_test>
+## What NOT to Test
+
+### Skip These
+
+1. **Framework code** - React's useState, Express routing
+2. **Third-party libraries** - They have their own tests
+3. **Trivial getters/setters** - No logic = no test needed
+4. **Implementation details** - Private methods, internal state
+5. **One-line functions** - Unless they have complex logic
+
+### Focus On
+
+1. **Business logic** - Where bugs hide
+2. **Edge cases** - Nulls, empty arrays, boundaries
+3. **Error paths** - What happens when things fail
+4. **User-facing behavior** - What users actually do
+5. **Regressions** - Bugs that came back once
+
+### Coverage Targets
+
+| Metric | Target | Notes |
+|--------|--------|-------|
+| Line coverage | 70-80% | Higher isn't always better |
+| Branch coverage | 70-80% | More important than lines |
+| Critical paths | 100% | Auth, payments, data mutations |
+
+**Warning:** 100% coverage doesn't mean good tests. Bad tests can hit every line without testing anything meaningful.
+</what_not_to_test>
+
+<references>
+For detailed patterns, load the appropriate reference:
+
+| Topic | Reference File | When to Load |
+|-------|----------------|--------------|
+| Unit testing patterns | `reference/unit-testing.md` | Writing unit tests, mocking |
+| Integration testing | `reference/integration-testing.md` | API tests, database tests |
+| Test organization | `reference/test-organization.md` | Structuring test suites |
+| Coverage strategies | `reference/coverage-strategies.md` | Setting coverage goals |
+
+**To load:** Ask for the specific topic or check if context suggests it.
+</references>
+
+<framework_patterns>
+## Quick Reference by Framework
+
+### pytest (Python)
 ```python
-from testing.base_classes.integration_test_base import IntegrationTestBase
+# Fixtures
+@pytest.fixture
+def user():
+    return User(name="test")
 
-class MyIntegrationTest(IntegrationTestBase):
-    """Integration test with automatic service detection."""
+def test_user_greet(user):
+    assert user.greet() == "Hello, test"
 
-    # Declare required services (automatic health checking)
-    required_services = [("polaris", 8181), ("localstack", 4566)]
-
-    def test_something(self):
-        # Automatically checks infrastructure before running
-        self.check_infrastructure("polaris", 8181)
-
-        # Generate unique namespace for isolation
-        namespace = self.generate_unique_namespace("test_feature")
-
-        # Use context-aware hostname resolution
-        host = self.get_service_host("polaris")  # "polaris" in Docker/K8s, "localhost" on host
+# Parametrize
+@pytest.mark.parametrize("input,expected", [
+    ("hello", "HELLO"),
+    ("world", "WORLD"),
+])
+def test_uppercase(input, expected):
+    assert uppercase(input) == expected
 ```
 
-**Read**: `testing/base_classes/integration_test_base.py` for full API
+### vitest/jest (TypeScript)
+```typescript
+// Basic test
+test('adds numbers', () => {
+  expect(add(1, 2)).toBe(3);
+});
 
-### Polling Instead of Sleep
+// Mock
+vi.mock('./api', () => ({
+  fetchUser: vi.fn().mockResolvedValue({ name: 'test' })
+}));
 
-**NEVER use `time.sleep()` in tests** - use polling utilities:
+// Component test
+import { render, screen } from '@testing-library/react';
 
-```python
-from testing.fixtures.services import wait_for_condition, poll_until
-
-# Wait for boolean condition
-def test_service_ready():
-    start_service()
-
-    # ❌ FORBIDDEN
-    # time.sleep(5)
-
-    # ✅ CORRECT
-    result = wait_for_condition(
-        condition=lambda: service.is_ready(),
-        timeout=10.0,
-        poll_interval=0.5,
-        description="service to become ready"
-    )
-    assert result, "Service did not become ready"
-
-# Poll until data appears
-def test_lineage_emission():
-    trigger_pipeline()
-
-    # ✅ CORRECT - Two-phase polling
-    traces = poll_until(
-        fetch_func=lambda: jaeger.get_traces(service="test"),
-        check_func=lambda traces: len(traces) > 0,
-        timeout=10.0,
-        description="traces to be exported"
-    )
-    assert traces is not None
+test('renders button', () => {
+  render(<Button>Click</Button>);
+  expect(screen.getByRole('button')).toHaveTextContent('Click');
+});
 ```
 
-**Read**: [references/polling-patterns.md](references/polling-patterns.md)
+### Testing Library Principles
+1. Query by role, not test ID
+2. Test what users see, not implementation
+3. Prefer `userEvent` over `fireEvent`
+4. Avoid testing internal state
+</framework_patterns>
 
-### Positive AND Negative Path Testing
+<checklist>
+## Testing Checklist
 
-**Every positive test MUST have corresponding negative tests**:
+Before marking code complete:
 
-```python
-# ✅ COMPLETE - Both paths tested
-@pytest.mark.requirement("004-FR-001")
-def test_create_catalog():
-    """Test catalog creation succeeds with valid input."""
-    catalog = create_catalog(name="valid_name", warehouse="warehouse")
-    assert catalog is not None
-    assert catalog.name == "valid_name"
-
-@pytest.mark.requirement("004-FR-002")
-def test_create_catalog_invalid_name():
-    """Test catalog creation fails with invalid name."""
-    with pytest.raises(ValidationError, match="Invalid name"):
-        create_catalog(name="", warehouse="warehouse")
-
-@pytest.mark.requirement("004-FR-003")
-def test_create_catalog_already_exists():
-    """Test catalog creation fails when name exists."""
-    create_catalog(name="existing", warehouse="warehouse")
-    with pytest.raises(ConflictError, match="already exists"):
-        create_catalog(name="existing", warehouse="warehouse")
-
-@pytest.mark.requirement("004-FR-004")
-def test_create_catalog_missing_warehouse():
-    """Test catalog creation fails without warehouse."""
-    with pytest.raises(ValidationError, match="warehouse.*required"):
-        create_catalog(name="valid", warehouse="")
-```
-
-**Pattern**: For every success path, test ALL failure modes.
-
----
-
-## Test Quality Validation
-
-### Pre-Implementation Checklist
-
-Before writing tests:
-- [ ] Verified test tier (unit, contract, integration, E2E)
-- [ ] Searched for existing test patterns
-- [ ] Identified required services (if integration test)
-- [ ] Found appropriate base class or fixtures
-- [ ] Reviewed anti-patterns to avoid
-
-### During Implementation Checklist
-
-While writing tests:
-- [ ] Test inherits from appropriate base class (if integration)
-- [ ] All functions have type hints
-- [ ] Every test has docstring explaining intent
-- [ ] Using `wait_for_condition` instead of `time.sleep()`
-- [ ] Generating unique namespaces for isolation
-- [ ] Both positive AND negative paths tested
-- [ ] Edge cases covered (empty, None, max bounds)
-
-### Post-Implementation Checklist
-
-After writing tests:
-- [ ] All tests have `@pytest.mark.requirement()` markers
-- [ ] Requirement traceability 100% (`python -m testing.traceability`)
-- [ ] Tests pass locally: `make test-unit` or `make test-k8s`
-- [ ] No skipped tests (tests FAIL, never skip)
-- [ ] No hardcoded sleeps detected (`rg "time\.sleep\(" tests/`)
-- [ ] No floating point equality (`rg "assert.*==.*\d+\.\d+" tests/`)
-- [ ] Test coverage >80% for unit tests, >70% for integration
-
----
-
-## Regression Testing Awareness
-
-**Remember**: Your tests may run as part of regression suites.
-
-**Impact Mapping**:
-- Changes to `floe-core/schemas/` → ALL contract tests run
-- Changes to `testing/base_classes/` → ALL integration tests run
-- Changes to `charts/` → ALL K8s tests run
-
-**Smoke Tests**: Mark critical path tests with `@pytest.mark.smoke` for fast CI feedback.
-
-**Read**: [references/regression-strategies.md](references/regression-strategies.md)
-
----
-
-## Advanced Test Quality Metrics
-
-### Mutation Testing (Aspirational)
-
-**Goal**: >80% mutation score for critical modules.
-
-```bash
-# Install mutmut
-uv pip install mutmut
-
-# Run mutation testing (slow - not for CI)
-mutmut run --paths-to-mutate=packages/floe-core/src
-
-# View results
-mutmut results
-```
-
-**When to use**: Before releases, for critical modules (authentication, validation).
-
-**Read**: [references/test-quality-metrics.md](references/test-quality-metrics.md)
-
-### Property-Based Testing
-
-**Goal**: Find edge cases automatically with Hypothesis.
-
-```python
-from hypothesis import given, strategies as st
-
-@pytest.mark.requirement("001-FR-005")
-@given(st.text(min_size=1, max_size=100))
-def test_identifier_validation_property(input_str: str):
-    """Property-based test: identifier validation with random inputs."""
-    if input_str[0].isalpha():
-        result = is_valid_identifier(input_str)
-        assert isinstance(result, bool)
-        # Property: valid identifiers match pattern
-        if result:
-            assert input_str[0].isalpha()
-            assert all(c.isalnum() or c == "_" for c in input_str)
-```
-
-**Research Finding**: Property-based testing finds **50x more mutations** per test than unit tests.
-
----
-
-## Context Injection (For Future Claude Instances)
-
-When this skill is invoked, you should:
-
-1. **Verify infrastructure state** (don't assume):
-   ```bash
-   make test-unit  # Check unit tests work
-   kind get clusters  # Check K8s state
-   ```
-
-2. **Discover existing patterns** (don't invent):
-   ```bash
-   rg "class.*TestBase" --type py testing/base_classes/
-   rg "@pytest.fixture" --type py testing/fixtures/
-   ```
-
-3. **Research when uncertain** (don't guess):
-   - Read `TESTING.md` for comprehensive guide
-   - Check `testing/base_classes/` for reusable patterns
-   - Search for similar tests: `rg "def test_" packages/<package>/tests/`
-
-4. **Validate against standards** (don't skip):
-   - Requirement traceability markers present
-   - No anti-patterns (hardcoded sleeps, skipped tests)
-   - Both positive and negative paths tested
-
----
-
-## Quick Reference: Common Research Queries
-
-Use these searches when encountering specific needs:
-
-**Finding Patterns**:
-- Polling utilities: `rg "wait_for_condition|poll_until" testing/fixtures/`
-- Service detection: `rg "get_service_host|check_infrastructure" testing/base_classes/`
-- Unique namespaces: `rg "generate_unique_namespace" testing/base_classes/`
-
-**Finding Examples**:
-- Similar integration tests: `rg "class.*IntegrationTest" --type py packages/<package>/tests/`
-- Negative path tests: `rg "def test_.*_invalid|def test_.*_failure" --type py`
-- Property-based tests: `rg "@given\(" --type py`
-
-**Validating Quality**:
-- Check for anti-patterns: `rg "time\.sleep\(|pytest\.skip\(" --type py tests/`
-- Verify requirement markers: `rg "@pytest\.mark\.requirement" --type py tests/`
-- Check traceability: `python -m testing.traceability --all`
-
----
-
-## Progressive Disclosure References
-
-**Load only when needed** (zero context until loaded):
-
-- **[references/test-anti-patterns.md](references/test-anti-patterns.md)** - 5 critical anti-patterns to avoid
-- **[references/test-quality-metrics.md](references/test-quality-metrics.md)** - Beyond code coverage (mutation testing, property-based, defect density)
-- **[references/k8s-native-testing.md](references/k8s-native-testing.md)** - kind cluster setup, production parity, Epic 2 migration
-- **[references/regression-strategies.md](references/regression-strategies.md)** - Layered regression (smoke → targeted → full), impact mapping
-- **[references/polling-patterns.md](references/polling-patterns.md)** - wait_for_condition and poll_until API details
-
-**Core Documentation**:
-- **`TESTING.md`** - Comprehensive testing guide (900+ lines, updated with modern practices)
-- **`testing/base_classes/integration_test_base.py`** - IntegrationTestBase API
-- **`testing/fixtures/services.py`** - Polling utilities source code
-
----
-
-## External Resources
-
-Research these when you need deeper understanding:
-
-- **pytest documentation**: https://docs.pytest.org/
-- **Hypothesis (property-based testing)**: https://hypothesis.readthedocs.io/
-- **Testcontainers**: https://testcontainers-python.readthedocs.io/
-- **kind (Kubernetes in Docker)**: https://kind.sigs.k8s.io/
-- **Mutation testing with mutmut**: https://mutmut.readthedocs.io/
-
----
-
-**Remember**: This skill provides research guidance, NOT prescriptive patterns. Always:
-1. Verify the testing infrastructure state
-2. Discover existing test patterns
-3. Research when encountering unfamiliar patterns
-4. Validate against project standards (TESTING.md)
-5. Ensure tests FAIL when infrastructure missing (never skip)
+- [ ] Unit tests cover happy path
+- [ ] Unit tests cover error cases
+- [ ] Edge cases tested (null, empty, boundary)
+- [ ] Integration tests for API endpoints
+- [ ] No flaky tests (run 3x to verify)
+- [ ] Tests are independent (run in any order)
+- [ ] Test names describe behavior
+- [ ] No hardcoded timeouts (use waitFor)
+- [ ] Mocks are reset between tests
+- [ ] Coverage meets project standards
+</checklist>

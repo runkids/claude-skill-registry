@@ -1,238 +1,597 @@
 ---
 name: technical-indicators
-description: 计算股票技术指标（MA、MACD、RSI、BOLL等）。适用于技术分析、量化回测、趋势判断等场景。支持单个指标计算或批量计算所有指标，返回包含指标值的DataFrame。
-license: MIT
-allowed-tools:
-  - calculate_ma
-  - calculate_macd
-  - calculate_rsi
-  - calculate_boll
-  - calculate_all_indicators
-metadata:
-  version: "1.0.0"
-  author: "YFOOOO"
-  indicators:
-    - MA (移动平均线)
-    - MACD (指数平滑异同移动平均线)
-    - RSI (相对强弱指标)
-    - BOLL (布林带)
+description: Technical analysis with TA-Lib - Moving averages, RSI, MACD, Bollinger Bands, Stochastic, ATR, candlestick patterns, and strategy signals using OpenAlgo market data
 ---
 
-# Technical Indicators Skill
+# OpenAlgo Technical Indicators
 
-专业的股票技术指标计算工具，支持主流技术分析指标。
+Perform technical analysis using TA-Lib with OpenAlgo market data. Build trading strategies based on indicators, generate signals, and backtest ideas.
 
-## Overview
+## Environment Setup
 
-本 Skill 提供以下核心功能：
-1. **单个指标计算** - 计算 MA、MACD、RSI、BOLL 等单一指标
-2. **批量计算** - 一次性计算所有指标
-3. **指标解读** - 提供指标含义和使用建议
+```bash
+# Install TA-Lib (requires system library)
+# macOS
+brew install ta-lib
+pip install TA-Lib
 
-所有计算基于 pandas 和 talib，支持向量化高性能计算。
+# Ubuntu/Debian
+sudo apt-get install libta-lib-dev
+pip install TA-Lib
 
-## Quick Start
-
-### 1. 准备数据
-
-技术指标计算需要 OHLCV 数据（开盘、最高、最低、收盘、成交量）。
-通常先调用 `financial-data-fetch` Skill 获取数据。
-
-### 2. 选择指标
-
-根据分析需求选择合适的指标：
-- **趋势分析** → MA (移动平均线)
-- **动量分析** → MACD, RSI
-- **波动分析** → BOLL (布林带)
-- **综合分析** → calculate_all_indicators
-
-### 3. 调用工具
-
-传入 DataFrame 数据，返回包含指标值的新 DataFrame。
-
-## Indicators
-
-### 1. MA (移动平均线)
-
-**Tool**: `calculate_ma`
-
-**Description**: 计算简单移动平均线（SMA），用于判断价格趋势。
-
-**Parameters**:
-- `data` (DataFrame, required): 包含"收盘"列的价格数据
-- `periods` (list[int], optional): MA 周期列表，默认 [5, 10, 20, 60]
-
-**Returns**: DataFrame，新增列：MA5, MA10, MA20, MA60
-
-**Example**:
-```python
-result = calculate_ma(data=stock_df, periods=[5, 10, 20])
-# 返回包含 MA5, MA10, MA20 列的 DataFrame
+# Windows
+# Download from https://www.lfd.uci.edu/~gohlke/pythonlibs/#ta-lib
+pip install TA_Lib‑0.4.28‑cp311‑cp311‑win_amd64.whl
 ```
 
-**Interpretation**:
-- 短期MA（5日）上穿长期MA（20日） → 金叉，买入信号
-- 短期MA下穿长期MA → 死叉，卖出信号
+```python
+from openalgo import api
+import talib
+import pandas as pd
+import numpy as np
+
+client = api(
+    api_key='your_api_key_here',
+    host='http://127.0.0.1:5000'
+)
+```
+
+## Quick Start Scripts
+
+### Calculate Indicators
+```bash
+python scripts/indicators.py --symbol SBIN --exchange NSE --interval 5m --days 5
+```
+
+### Generate Signals
+```bash
+python scripts/signals.py --symbol NIFTY --exchange NSE_INDEX --strategy rsi_oversold
+```
+
+### Scan for Patterns
+```bash
+python scripts/scanner.py --symbols RELIANCE,TCS,INFY,SBIN --exchange NSE --pattern bullish
+```
 
 ---
 
-### 2. MACD (指数平滑异同移动平均线)
+## Fetching Data for Analysis
 
-**Tool**: `calculate_macd`
-
-**Description**: 计算 MACD 指标，用于判断买卖时机和趋势强度。
-
-**Parameters**:
-- `data` (DataFrame, required): 包含"收盘"列的价格数据
-- `fast_period` (int, optional): 快线周期，默认 12
-- `slow_period` (int, optional): 慢线周期，默认 26
-- `signal_period` (int, optional): 信号线周期，默认 9
-
-**Returns**: DataFrame，新增列：MACD_DIF, MACD_DEA, MACD_BAR
-
-**Example**:
 ```python
-result = calculate_macd(data=stock_df)
-# 返回包含 MACD_DIF, MACD_DEA, MACD_BAR 的 DataFrame
-```
+from openalgo import api
+import pandas as pd
 
-**Interpretation**:
-- DIF 上穿 DEA → 金叉，买入信号
-- DIF 下穿 DEA → 死叉，卖出信号
-- BAR 柱状图放大 → 趋势增强
+client = api(api_key='your_key', host='http://127.0.0.1:5000')
+
+# Fetch historical data
+df = client.history(
+    symbol="SBIN",
+    exchange="NSE",
+    interval="5m",
+    start_date="2025-01-01",
+    end_date="2025-01-15"
+)
+
+# TA-Lib requires numpy arrays
+open_prices = df['open'].values
+high_prices = df['high'].values
+low_prices = df['low'].values
+close_prices = df['close'].values
+volume = df['volume'].values
+```
 
 ---
 
-### 3. RSI (相对强弱指标)
+## Overlap Studies (Trend Indicators)
 
-**Tool**: `calculate_rsi`
+### Simple Moving Average (SMA)
 
-**Description**: 计算 RSI 指标，用于判断超买超卖状态。
-
-**Parameters**:
-- `data` (DataFrame, required): 包含"收盘"列的价格数据
-- `period` (int, optional): RSI 周期，默认 14
-
-**Returns**: DataFrame，新增列：RSI
-
-**Example**:
 ```python
-result = calculate_rsi(data=stock_df, period=14)
-# 返回包含 RSI 列的 DataFrame
+import talib
+
+# Calculate SMA
+sma_20 = talib.SMA(close_prices, timeperiod=20)
+sma_50 = talib.SMA(close_prices, timeperiod=50)
+sma_200 = talib.SMA(close_prices, timeperiod=200)
+
+# Add to DataFrame
+df['SMA_20'] = sma_20
+df['SMA_50'] = sma_50
+df['SMA_200'] = sma_200
+
+# Crossover signal
+df['SMA_Cross'] = np.where(df['SMA_20'] > df['SMA_50'], 1, -1)
 ```
 
-**Interpretation**:
-- RSI > 70 → 超买区域，可能回调
-- RSI < 30 → 超卖区域，可能反弹
-- RSI 在 30-70 之间 → 正常区域
+### Exponential Moving Average (EMA)
+
+```python
+ema_9 = talib.EMA(close_prices, timeperiod=9)
+ema_21 = talib.EMA(close_prices, timeperiod=21)
+
+df['EMA_9'] = ema_9
+df['EMA_21'] = ema_21
+
+# EMA crossover
+df['EMA_Signal'] = np.where(df['EMA_9'] > df['EMA_21'], 'BUY', 'SELL')
+```
+
+### Bollinger Bands
+
+```python
+upper, middle, lower = talib.BBANDS(
+    close_prices,
+    timeperiod=20,
+    nbdevup=2,
+    nbdevdn=2,
+    matype=0  # SMA
+)
+
+df['BB_Upper'] = upper
+df['BB_Middle'] = middle
+df['BB_Lower'] = lower
+df['BB_Width'] = (upper - lower) / middle * 100  # Bandwidth %
+
+# Bollinger Band signals
+df['BB_Signal'] = np.where(close_prices < lower, 'BUY',
+                   np.where(close_prices > upper, 'SELL', 'HOLD'))
+```
+
+### SuperTrend (Custom Implementation)
+
+```python
+def supertrend(df, period=10, multiplier=3):
+    """Calculate SuperTrend indicator."""
+    hl2 = (df['high'] + df['low']) / 2
+    atr = talib.ATR(df['high'].values, df['low'].values, df['close'].values, timeperiod=period)
+
+    upperband = hl2 + (multiplier * atr)
+    lowerband = hl2 - (multiplier * atr)
+
+    supertrend = pd.Series(index=df.index, dtype=float)
+    direction = pd.Series(index=df.index, dtype=int)
+
+    for i in range(period, len(df)):
+        if df['close'].iloc[i] > upperband[i-1]:
+            supertrend.iloc[i] = lowerband[i]
+            direction.iloc[i] = 1  # Bullish
+        elif df['close'].iloc[i] < lowerband[i-1]:
+            supertrend.iloc[i] = upperband[i]
+            direction.iloc[i] = -1  # Bearish
+        else:
+            supertrend.iloc[i] = supertrend.iloc[i-1]
+            direction.iloc[i] = direction.iloc[i-1]
+
+    return supertrend, direction
+
+df['SuperTrend'], df['ST_Direction'] = supertrend(df)
+```
 
 ---
 
-### 4. BOLL (布林带)
+## Momentum Indicators
 
-**Tool**: `calculate_boll`
+### Relative Strength Index (RSI)
 
-**Description**: 计算布林带指标，用于判断价格波动范围。
-
-**Parameters**:
-- `data` (DataFrame, required): 包含"收盘"列的价格数据
-- `period` (int, optional): MA 周期，默认 20
-- `std_dev` (float, optional): 标准差倍数，默认 2.0
-
-**Returns**: DataFrame，新增列：BOLL_MIDDLE, BOLL_UPPER, BOLL_LOWER
-
-**Example**:
 ```python
-result = calculate_boll(data=stock_df, period=20, std_dev=2.0)
-# 返回包含 BOLL_MIDDLE, BOLL_UPPER, BOLL_LOWER 的 DataFrame
+rsi = talib.RSI(close_prices, timeperiod=14)
+df['RSI'] = rsi
+
+# RSI signals
+df['RSI_Signal'] = np.where(df['RSI'] < 30, 'OVERSOLD',
+                    np.where(df['RSI'] > 70, 'OVERBOUGHT', 'NEUTRAL'))
+
+# RSI divergence detection
+def detect_rsi_divergence(df, lookback=14):
+    """Detect bullish/bearish RSI divergence."""
+    price_low = df['close'].rolling(lookback).min()
+    price_high = df['close'].rolling(lookback).max()
+    rsi_low = df['RSI'].rolling(lookback).min()
+    rsi_high = df['RSI'].rolling(lookback).max()
+
+    # Bullish divergence: price makes lower low, RSI makes higher low
+    bullish = (df['close'] == price_low) & (df['RSI'] > rsi_low.shift(lookback))
+
+    # Bearish divergence: price makes higher high, RSI makes lower high
+    bearish = (df['close'] == price_high) & (df['RSI'] < rsi_high.shift(lookback))
+
+    return bullish, bearish
+
+df['Bullish_Div'], df['Bearish_Div'] = detect_rsi_divergence(df)
 ```
 
-**Interpretation**:
-- 价格触及上轨 → 超买，可能回调
-- 价格触及下轨 → 超卖，可能反弹
-- 价格突破上轨 → 强势上涨
-- 价格跌破下轨 → 强势下跌
+### MACD (Moving Average Convergence Divergence)
+
+```python
+macd, signal, hist = talib.MACD(
+    close_prices,
+    fastperiod=12,
+    slowperiod=26,
+    signalperiod=9
+)
+
+df['MACD'] = macd
+df['MACD_Signal'] = signal
+df['MACD_Hist'] = hist
+
+# MACD crossover signals
+df['MACD_Cross'] = np.where(
+    (df['MACD'] > df['MACD_Signal']) & (df['MACD'].shift(1) <= df['MACD_Signal'].shift(1)),
+    'BUY',
+    np.where(
+        (df['MACD'] < df['MACD_Signal']) & (df['MACD'].shift(1) >= df['MACD_Signal'].shift(1)),
+        'SELL',
+        'HOLD'
+    )
+)
+```
+
+### Stochastic Oscillator
+
+```python
+slowk, slowd = talib.STOCH(
+    high_prices,
+    low_prices,
+    close_prices,
+    fastk_period=14,
+    slowk_period=3,
+    slowk_matype=0,
+    slowd_period=3,
+    slowd_matype=0
+)
+
+df['Stoch_K'] = slowk
+df['Stoch_D'] = slowd
+
+# Stochastic signals
+df['Stoch_Signal'] = np.where(
+    (df['Stoch_K'] < 20) & (df['Stoch_K'] > df['Stoch_D']),
+    'BUY',
+    np.where(
+        (df['Stoch_K'] > 80) & (df['Stoch_K'] < df['Stoch_D']),
+        'SELL',
+        'HOLD'
+    )
+)
+```
+
+### ADX (Average Directional Index)
+
+```python
+adx = talib.ADX(high_prices, low_prices, close_prices, timeperiod=14)
+plus_di = talib.PLUS_DI(high_prices, low_prices, close_prices, timeperiod=14)
+minus_di = talib.MINUS_DI(high_prices, low_prices, close_prices, timeperiod=14)
+
+df['ADX'] = adx
+df['Plus_DI'] = plus_di
+df['Minus_DI'] = minus_di
+
+# Trend strength
+df['Trend_Strength'] = np.where(df['ADX'] > 25, 'STRONG',
+                        np.where(df['ADX'] > 20, 'MODERATE', 'WEAK'))
+
+# DI crossover with trend filter
+df['ADX_Signal'] = np.where(
+    (df['Plus_DI'] > df['Minus_DI']) & (df['ADX'] > 25),
+    'STRONG_BUY',
+    np.where(
+        (df['Minus_DI'] > df['Plus_DI']) & (df['ADX'] > 25),
+        'STRONG_SELL',
+        'NEUTRAL'
+    )
+)
+```
+
+### Williams %R
+
+```python
+willr = talib.WILLR(high_prices, low_prices, close_prices, timeperiod=14)
+df['Williams_R'] = willr
+
+df['WillR_Signal'] = np.where(df['Williams_R'] < -80, 'OVERSOLD',
+                     np.where(df['Williams_R'] > -20, 'OVERBOUGHT', 'NEUTRAL'))
+```
+
+### CCI (Commodity Channel Index)
+
+```python
+cci = talib.CCI(high_prices, low_prices, close_prices, timeperiod=20)
+df['CCI'] = cci
+
+df['CCI_Signal'] = np.where(df['CCI'] < -100, 'OVERSOLD',
+                   np.where(df['CCI'] > 100, 'OVERBOUGHT', 'NEUTRAL'))
+```
 
 ---
 
-### 5. 批量计算所有指标
+## Volatility Indicators
 
-**Tool**: `calculate_all_indicators`
+### ATR (Average True Range)
 
-**Description**: 一次性计算所有主流技术指标（MA、MACD、RSI、BOLL）。
-
-**Parameters**:
-- `data` (DataFrame, required): 包含 OHLCV 列的价格数据
-
-**Returns**: DataFrame，新增所有指标列
-
-**Example**:
 ```python
-result = calculate_all_indicators(data=stock_df)
-# 返回包含所有指标的 DataFrame
+atr = talib.ATR(high_prices, low_prices, close_prices, timeperiod=14)
+df['ATR'] = atr
+df['ATR_Percent'] = (atr / close_prices) * 100
+
+# Volatility classification
+df['Volatility'] = np.where(df['ATR_Percent'] > 2, 'HIGH',
+                   np.where(df['ATR_Percent'] > 1, 'MEDIUM', 'LOW'))
+
+# ATR-based stop loss
+df['Stop_Loss'] = df['close'] - (2 * df['ATR'])  # 2x ATR trailing stop
 ```
 
-## Data Requirements
+### Keltner Channel
 
-### 输入数据格式
+```python
+def keltner_channel(df, ema_period=20, atr_period=10, multiplier=2):
+    """Calculate Keltner Channel."""
+    ema = talib.EMA(df['close'].values, timeperiod=ema_period)
+    atr = talib.ATR(df['high'].values, df['low'].values, df['close'].values, timeperiod=atr_period)
 
-所有工具要求输入 DataFrame 包含以下列：
-- ✅ **必需**: `收盘` (float) - 收盘价
-- ⚠️ **可选**: `开盘`, `最高`, `最低`, `成交量` (部分指标需要)
+    upper = ema + (multiplier * atr)
+    lower = ema - (multiplier * atr)
 
-### 数据质量要求
+    return upper, ema, lower
 
-1. **最小数据量**:
-   - MA: 至少 max(periods) + 1 行
-   - MACD: 至少 34 行（slow_period + signal_period）
-   - RSI: 至少 period + 1 行
-   - BOLL: 至少 period + 1 行
-
-2. **数据连续性**: 建议使用连续交易日数据（无缺失）
-
-3. **数据排序**: 按日期升序排列
-
-## Error Handling
-
-### 1. 数据不足
-```
-错误：数据量不足，需要至少 34 行数据计算 MACD
+df['KC_Upper'], df['KC_Middle'], df['KC_Lower'] = keltner_channel(df)
 ```
 
-### 2. 列名缺失
+### Donchian Channel
+
+```python
+def donchian_channel(df, period=20):
+    """Calculate Donchian Channel."""
+    upper = df['high'].rolling(period).max()
+    lower = df['low'].rolling(period).min()
+    middle = (upper + lower) / 2
+    return upper, middle, lower
+
+df['DC_Upper'], df['DC_Middle'], df['DC_Lower'] = donchian_channel(df)
+
+# Breakout signals
+df['DC_Signal'] = np.where(df['close'] > df['DC_Upper'].shift(1), 'BREAKOUT_UP',
+                  np.where(df['close'] < df['DC_Lower'].shift(1), 'BREAKOUT_DOWN', 'RANGE'))
 ```
-错误：DataFrame 缺少 '收盘' 列
+
+---
+
+## Volume Indicators
+
+### On-Balance Volume (OBV)
+
+```python
+obv = talib.OBV(close_prices, volume.astype(float))
+df['OBV'] = obv
+df['OBV_SMA'] = talib.SMA(obv, timeperiod=20)
+
+# OBV trend
+df['OBV_Trend'] = np.where(df['OBV'] > df['OBV_SMA'], 'ACCUMULATION', 'DISTRIBUTION')
 ```
 
-### 3. 数据类型错误
+### Volume Weighted Average Price (VWAP)
+
+```python
+def vwap(df):
+    """Calculate VWAP (intraday)."""
+    typical_price = (df['high'] + df['low'] + df['close']) / 3
+    vwap = (typical_price * df['volume']).cumsum() / df['volume'].cumsum()
+    return vwap
+
+df['VWAP'] = vwap(df)
+df['VWAP_Signal'] = np.where(df['close'] > df['VWAP'], 'ABOVE_VWAP', 'BELOW_VWAP')
 ```
-错误：'收盘' 列必须为数值类型（float/int）
+
+### Money Flow Index (MFI)
+
+```python
+mfi = talib.MFI(high_prices, low_prices, close_prices, volume.astype(float), timeperiod=14)
+df['MFI'] = mfi
+
+df['MFI_Signal'] = np.where(df['MFI'] < 20, 'OVERSOLD',
+                   np.where(df['MFI'] > 80, 'OVERBOUGHT', 'NEUTRAL'))
 ```
 
-### 4. 参数超出范围
+---
+
+## Candlestick Patterns
+
+### Pattern Recognition
+
+```python
+# Bullish patterns
+df['HAMMER'] = talib.CDLHAMMER(open_prices, high_prices, low_prices, close_prices)
+df['ENGULFING_BULL'] = talib.CDLENGULFING(open_prices, high_prices, low_prices, close_prices)
+df['MORNING_STAR'] = talib.CDLMORNINGSTAR(open_prices, high_prices, low_prices, close_prices)
+df['THREE_WHITE_SOLDIERS'] = talib.CDL3WHITESOLDIERS(open_prices, high_prices, low_prices, close_prices)
+df['PIERCING'] = talib.CDLPIERCING(open_prices, high_prices, low_prices, close_prices)
+
+# Bearish patterns
+df['SHOOTING_STAR'] = talib.CDLSHOOTINGSTAR(open_prices, high_prices, low_prices, close_prices)
+df['ENGULFING_BEAR'] = -talib.CDLENGULFING(open_prices, high_prices, low_prices, close_prices)
+df['EVENING_STAR'] = talib.CDLEVENINGSTAR(open_prices, high_prices, low_prices, close_prices)
+df['THREE_BLACK_CROWS'] = talib.CDL3BLACKCROWS(open_prices, high_prices, low_prices, close_prices)
+df['DARK_CLOUD'] = talib.CDLDARKCLOUDCOVER(open_prices, high_prices, low_prices, close_prices)
+
+# Doji patterns
+df['DOJI'] = talib.CDLDOJI(open_prices, high_prices, low_prices, close_prices)
+df['DRAGONFLY_DOJI'] = talib.CDLDRAGONFLYDOJI(open_prices, high_prices, low_prices, close_prices)
+df['GRAVESTONE_DOJI'] = talib.CDLGRAVESTONEDOJI(open_prices, high_prices, low_prices, close_prices)
 ```
-错误：RSI 周期必须 > 0（当前: -1）
+
+### All Patterns Scanner
+
+```python
+def scan_all_patterns(df):
+    """Scan for all candlestick patterns."""
+    pattern_functions = {
+        'HAMMER': talib.CDLHAMMER,
+        'INVERTED_HAMMER': talib.CDLINVERTEDHAMMER,
+        'ENGULFING': talib.CDLENGULFING,
+        'MORNING_STAR': talib.CDLMORNINGSTAR,
+        'EVENING_STAR': talib.CDLEVENINGSTAR,
+        'SHOOTING_STAR': talib.CDLSHOOTINGSTAR,
+        'DOJI': talib.CDLDOJI,
+        'SPINNING_TOP': talib.CDLSPINNINGTOP,
+        'MARUBOZU': talib.CDLMARUBOZU,
+        'HARAMI': talib.CDLHARAMI,
+    }
+
+    o, h, l, c = df['open'].values, df['high'].values, df['low'].values, df['close'].values
+
+    patterns = {}
+    for name, func in pattern_functions.items():
+        result = func(o, h, l, c)
+        if result[-1] != 0:  # Pattern detected on latest candle
+            patterns[name] = 'BULLISH' if result[-1] > 0 else 'BEARISH'
+
+    return patterns
+
+latest_patterns = scan_all_patterns(df)
+print(f"Detected patterns: {latest_patterns}")
 ```
 
-## Performance Notes
+---
 
-- **计算时间**: 
-  - 单个指标: < 100ms (1000行数据)
-  - 批量计算: < 500ms (1000行数据)
-- **内存使用**: 约为原始数据的 2-3 倍
-- **优化建议**: 使用向量化操作，避免循环
+## Trading Strategies
 
-## References
+### RSI + MACD Strategy
 
-详细指标公式和解读见：
-- [指标公式详解](references/indicators_formula.md)
-- [指标解读指南](references/interpretation.md)
+```python
+def rsi_macd_strategy(df):
+    """Combined RSI and MACD strategy."""
+    # Calculate indicators
+    df['RSI'] = talib.RSI(df['close'].values, timeperiod=14)
+    macd, signal, _ = talib.MACD(df['close'].values)
+    df['MACD'] = macd
+    df['MACD_Signal'] = signal
 
-## Script Implementation
+    # Generate signals
+    buy_condition = (df['RSI'] < 30) & (df['MACD'] > df['MACD_Signal'])
+    sell_condition = (df['RSI'] > 70) & (df['MACD'] < df['MACD_Signal'])
 
-指标计算逻辑实现在：
-- `scripts/calculate_ma.py` - MA 计算
-- `scripts/calculate_macd.py` - MACD 计算
-- `scripts/calculate_all.py` - 批量计算（复用 `core/indicators.py`）
+    df['Strategy_Signal'] = np.where(buy_condition, 'BUY',
+                            np.where(sell_condition, 'SELL', 'HOLD'))
 
-这些脚本复用项目中的 `core/indicators.py` 模块，确保计算一致性。
+    return df
+
+df = rsi_macd_strategy(df)
+```
+
+### Moving Average Crossover Strategy
+
+```python
+def ma_crossover_strategy(df, fast=9, slow=21):
+    """EMA crossover strategy with trend filter."""
+    df['EMA_Fast'] = talib.EMA(df['close'].values, timeperiod=fast)
+    df['EMA_Slow'] = talib.EMA(df['close'].values, timeperiod=slow)
+    df['EMA_200'] = talib.EMA(df['close'].values, timeperiod=200)
+
+    # Crossover detection
+    df['Cross_Up'] = (df['EMA_Fast'] > df['EMA_Slow']) & (df['EMA_Fast'].shift(1) <= df['EMA_Slow'].shift(1))
+    df['Cross_Down'] = (df['EMA_Fast'] < df['EMA_Slow']) & (df['EMA_Fast'].shift(1) >= df['EMA_Slow'].shift(1))
+
+    # Trend filter (only trade in direction of 200 EMA)
+    df['Signal'] = np.where(
+        df['Cross_Up'] & (df['close'] > df['EMA_200']),
+        'BUY',
+        np.where(
+            df['Cross_Down'] & (df['close'] < df['EMA_200']),
+            'SELL',
+            'HOLD'
+        )
+    )
+
+    return df
+```
+
+### Bollinger Band Squeeze Strategy
+
+```python
+def bb_squeeze_strategy(df):
+    """Bollinger Band squeeze breakout strategy."""
+    upper, middle, lower = talib.BBANDS(df['close'].values, timeperiod=20)
+    df['BB_Upper'], df['BB_Middle'], df['BB_Lower'] = upper, middle, lower
+    df['BB_Width'] = (upper - lower) / middle
+
+    # Keltner Channel for squeeze detection
+    kc_upper, kc_middle, kc_lower = keltner_channel(df)
+    df['KC_Upper'], df['KC_Lower'] = kc_upper, kc_lower
+
+    # Squeeze: BB inside KC
+    df['Squeeze'] = (df['BB_Lower'] > df['KC_Lower']) & (df['BB_Upper'] < df['KC_Upper'])
+
+    # Breakout after squeeze
+    df['Squeeze_Release'] = df['Squeeze'].shift(1) & ~df['Squeeze']
+
+    # Direction based on momentum
+    mom = talib.MOM(df['close'].values, timeperiod=12)
+    df['Signal'] = np.where(
+        df['Squeeze_Release'] & (mom > 0),
+        'BUY',
+        np.where(
+            df['Squeeze_Release'] & (mom < 0),
+            'SELL',
+            'HOLD'
+        )
+    )
+
+    return df
+```
+
+---
+
+## Complete Indicator Dashboard
+
+```python
+def calculate_all_indicators(df):
+    """Calculate comprehensive indicator set."""
+    close = df['close'].values
+    high = df['high'].values
+    low = df['low'].values
+    open_ = df['open'].values
+    volume = df['volume'].values.astype(float)
+
+    # Trend
+    df['SMA_20'] = talib.SMA(close, 20)
+    df['SMA_50'] = talib.SMA(close, 50)
+    df['EMA_9'] = talib.EMA(close, 9)
+    df['EMA_21'] = talib.EMA(close, 21)
+
+    # Bollinger Bands
+    df['BB_Upper'], df['BB_Middle'], df['BB_Lower'] = talib.BBANDS(close, 20)
+
+    # Momentum
+    df['RSI'] = talib.RSI(close, 14)
+    df['MACD'], df['MACD_Signal'], df['MACD_Hist'] = talib.MACD(close)
+    df['Stoch_K'], df['Stoch_D'] = talib.STOCH(high, low, close)
+    df['ADX'] = talib.ADX(high, low, close, 14)
+    df['CCI'] = talib.CCI(high, low, close, 20)
+    df['Williams_R'] = talib.WILLR(high, low, close, 14)
+    df['MOM'] = talib.MOM(close, 10)
+    df['ROC'] = talib.ROC(close, 10)
+
+    # Volatility
+    df['ATR'] = talib.ATR(high, low, close, 14)
+    df['NATR'] = talib.NATR(high, low, close, 14)
+
+    # Volume
+    df['OBV'] = talib.OBV(close, volume)
+    df['MFI'] = talib.MFI(high, low, close, volume, 14)
+    df['AD'] = talib.AD(high, low, close, volume)
+
+    return df
+
+df = calculate_all_indicators(df)
+```
+
+---
+
+## Notes
+
+- TA-Lib requires the system library to be installed first
+- All indicators return NaN for initial periods (warmup period)
+- Use `dropna()` before making trading decisions
+- Combine multiple indicators for confirmation
+- Always backtest strategies before live trading
+- Use OpenAlgo's Analyzer mode for paper trading

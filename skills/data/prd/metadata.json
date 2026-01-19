@@ -1,7 +1,7 @@
 {
   "name": "prd",
-  "repo": "clawdbot/skills",
-  "path": "skills/bjesuiter/prd/SKILL.md",
-  "source": "github.com/clawdbot/skills",
-  "downloaded_at": "2026-01-17T03:30:44.180268Z"
+  "repo": "miethe/skillmeat",
+  "path": ".claude/docs/prd/PRD-002-skillmeat-cli-skill.md",
+  "source": "github.com/miethe/skillmeat",
+  "downloaded_at": "2026-01-19T03:44:24.880419Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "coach",
-  "repo": "netresearch/claude-code-marketplace",
-  "path": "plugins/coach/skills/coach/SKILL.md",
-  "source": "github.com/netresearch/claude-code-marketplace",
-  "downloaded_at": "2026-01-17T03:31:22.534289Z"
+  "repo": "netresearch/claude-coach-plugin",
+  "path": "skills/coach/SKILL.md",
+  "source": "github.com/netresearch/claude-coach-plugin",
+  "downloaded_at": "2026-01-19T04:17:48.646703Z"
 }

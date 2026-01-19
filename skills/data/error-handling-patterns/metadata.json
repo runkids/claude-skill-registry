@@ -1,7 +1,7 @@
 {
   "name": "error-handling-patterns",
-  "repo": "wshobson/agents",
-  "path": "plugins/developer-essentials/skills/error-handling-patterns/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-17T03:59:22.288279Z"
+  "repo": "WesleySmits/agent-skills",
+  "path": ".agent/skills/error-handling-patterns/SKILL.md",
+  "source": "github.com/WesleySmits/agent-skills",
+  "downloaded_at": "2026-01-19T04:12:39.133267Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "skill-development",
-  "repo": "arlenagreer/claude_configuration_docs",
-  "path": "plugins/marketplaces/claude-code-plugins/plugins/plugin-dev/skills/skill-development/SKILL.md",
-  "source": "github.com/arlenagreer/claude_configuration_docs",
-  "downloaded_at": "2026-01-17T03:56:22.627989Z"
+  "repo": "troykelly/claude-skills",
+  "path": "external/skills/skill-development/SKILL.md",
+  "source": "github.com/troykelly/claude-skills",
+  "downloaded_at": "2026-01-19T04:19:51.531055Z"
 }

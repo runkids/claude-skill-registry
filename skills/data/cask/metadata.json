@@ -1,7 +1,7 @@
 {
   "name": "cask",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/cask/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-14T01:56:12.526550Z"
+  "repo": "bfly123/claude_code_bridge",
+  "path": "skills/cask/SKILL.md.powershell",
+  "source": "github.com/bfly123/claude_code_bridge",
+  "downloaded_at": "2026-01-19T01:07:31.513818Z"
 }

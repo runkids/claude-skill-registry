@@ -1,7 +1,7 @@
 {
   "name": "doc-generator",
-  "repo": "enoch-robinson/agent-skill-collection",
-  "path": "skills/documents/doc-generator/SKILL.md",
-  "source": "github.com/enoch-robinson/agent-skill-collection",
-  "downloaded_at": "2026-01-17T04:03:31.665942Z"
+  "repo": "ainexllc/ainexsuite",
+  "path": ".claude/skills/doc-generator/SKILL.md",
+  "source": "github.com/ainexllc/ainexsuite",
+  "downloaded_at": "2026-01-19T04:03:26.993196Z"
 }

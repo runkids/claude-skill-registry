@@ -1,900 +1,334 @@
 ---
-name: Game Sprint Executor (AILANG)
-description: Execute approved sprint plans for Stapledons Voyage using AILANG. ALL game logic must be AILANG - engine is rendering only. Use when user says "execute sprint", "start implementation", or wants to begin an approved sprint plan.
+name: AILANG Sprint Executor
+description: Execute approved sprint plans with test-driven development, continuous linting, progress tracking, and pause points. Use when user says "execute sprint", "start sprint", or wants to implement an approved sprint plan.
 ---
 
-# Game Sprint Executor (AILANG-Only)
+# AILANG Sprint Executor
 
-Execute an approved sprint plan with **AILANG as the primary implementation language**. All game logic, state machines, and gameplay code goes in `sim/*.ail` - the Go engine only renders DrawCmd output.
-
-## MANDATORY: Sprint JSON Tracking
-
-**Every sprint MUST have a tracking JSON file:**
-
-```bash
-# Location: sprints/sprint_<sprint-id>.json
-# Example: sprints/sprint_view-system-v1.json
-```
-
-**Two formats supported:**
-
-### Features-Based (Preferred for new sprints)
-```json
-{
-  "sprint_id": "<sprint-id>",
-  "created": "YYYY-MM-DDTHH:MM:SSZ",
-  "status": "in_progress",
-  "design_doc": "design_docs/planned/next/<feature>.md",
-  "features": [
-    {
-      "id": "feature-id",
-      "description": "What this feature does",
-      "estimated_loc": 300,
-      "actual_loc": null,
-      "dependencies": [],
-      "acceptance_criteria": ["Criterion 1", "Criterion 2"],
-      "passes": null,
-      "started": null,
-      "completed": null,
-      "notes": null
-    }
-  ],
-  "velocity": { "target_loc_per_day": 275, "actual_loc_per_day": 0 },
-  "ailang_issues": [],
-  "dx_issues_discovered": [],
-  "lessons_learned": [],
-  "last_updated": "YYYY-MM-DDTHH:MM:SSZ"
-}
-```
-
-### Phases/Tasks-Based (Legacy)
-```json
-{
-  "sprint_id": "<sprint-id>",
-  "name": "Sprint Name",
-  "status": "in_progress",
-  "type": "ailang",
-  "started": "YYYY-MM-DD",
-  "design_doc": "design_docs/planned/next/<feature>.md",
-  "phases": [
-    {
-      "id": "phase1",
-      "name": "Phase Name",
-      "status": "in_progress",
-      "tasks": [
-        {"id": "1.1", "name": "Task Name", "status": "pending", "notes": ""}
-      ]
-    }
-  ],
-  "ailang_issues": [],
-  "dx_issues_discovered": [],
-  "lessons_learned": [],
-  "notes": []
-}
-```
-
-**AILANG sprints MUST include these sections** (added to standard format):
-- `ailang_issues` - Bugs/features reported to AILANG team
-- `dx_issues_discovered` - DX friction discovered during sprint
-- `lessons_learned` - What to do differently next time
-
-**Update this JSON:**
-- Mark milestones as `completed` immediately after finishing
-- Add notes with workarounds used
-- Document ALL DX issues as you discover them
-- Add lessons learned in real-time, not at sprint end
-
-## Pre-Sprint DX Checklist
-
-Before writing any code, verify these items:
-
-### File Boundaries
-- [ ] **sim_gen/*.go is GENERATED** - Never edit (OK to have game types - they come from AILANG)
-- [ ] **engine/*.go is GENERIC** - Must work for ANY AILANG game (no deck names, planet names, crew roles)
-- [ ] **game_views/*.go for game-specific** - Stapledon-specific rendering helpers go here
-- [ ] **sim/*.ail is source** - Primary edit location for all game logic
-
-### Engine Genericization Check
-- [ ] **Before adding to engine/**, ask: Could a different game use this unchanged?
-- [ ] **If NO** → Put in `game_views/` instead
-- [ ] **sim_gen types OK in engine**: DrawCmd*, FrameInput, FrameOutput, Camera, Coord
-- [ ] **sim_gen types NOT OK in engine**: World, DeckType, Planet, NPC, ArrivalState, DomeViewState
-
-### For Visual Features
-- [ ] **Screenshot testing ready** - Can run `go run ./cmd/game -screenshot N -output /tmp/test.png`
-- [ ] **Test at multiple frames** - Don't declare rendering complete until tested
-- [ ] **Use real assets from start** - No placeholder rectangles
-
-### For Downloaded Assets
-- [ ] **Verify with `file` command** - Catch HTML error pages masquerading as images
-- [ ] **Check URLs still work** - NASA/external URLs may return 404
-
-### DrawCmd Limitations
-- [ ] **Color is INDEX not RGBA** - Use biomeColors[] indices or RectRGBA/CircleRGBA for custom colors
-- [ ] **Renderer is isometric** - Use direct drawing for screen-space elements
-- [ ] **Use RectRGBA/CircleRGBA for screen-space** - These bypass camera transforms and use packed 0xRRGGBBAA colors
-
-### Screen Resolution
-- [ ] **NEVER hardcode 640x480 or other fixed sizes** - Use `display.InternalWidth` and `display.InternalHeight`
-- [ ] **Internal resolution is 1280x960** - All screen-space coordinates should be relative to this
-- [ ] **Use percentages for positioning** - e.g., `screenW * 0.5` for center, not fixed `320`
-
-### Physics/Shader Effects
-- [ ] **Use artistic license on values** - Physically accurate may not be visually playable
-- [ ] **Test SR blueshift >0.5c** - May wash out all content
-- [ ] **Test GR at high intensity** - May render pure black
-
-### Build & Test
-- [ ] **Always use `make build`** - Detects sim_gen errors and enforces correct bug reporting
-- [ ] **Use `make game` for executable** - Builds bin/game
-- [ ] **Use `go run` for quick testing** - Compiles fresh each time
-- [ ] **NEVER use direct `go build ./...`** - Won't detect AILANG codegen bugs
-- [ ] **Run `voyage manifest`** - Validate all assets exist before starting
-
-## CRITICAL: AILANG-First Architecture
-
-**This project is ALL-IN on AILANG.** The architecture is:
-
-| Layer | Language | Responsibility | Edit? |
-|-------|----------|----------------|-------|
-| `sim/*.ail` | AILANG | ALL game logic | ✅ Primary work |
-| `sim_gen/*.go` | Generated | AILANG → Go output (OK to have game types) | ❌ Never edit |
-| `game_views/*.go` | Go | Game-specific rendering helpers | ✅ For Stapledon-specific visuals |
-| `engine/*.go` | Go | Generic rendering (reusable for ANY game) | ⚠️ Must be game-agnostic |
-
-**If you're writing game logic in Go, STOP. Write it in AILANG.**
-
-Mock-only mode was for early prototyping. We are past that phase.
-
-### ⚠️ Engine Genericization Rule (IMPORTANT)
-
-**The engine should work unchanged for a completely different AILANG game.**
-
-Before writing Go code, ask: **Could a different game use this unchanged?**
-
-| Answer | Where to Put It |
-|--------|-----------------|
-| YES - generic rendering | `engine/*.go` |
-| NO - game-specific visual | `game_views/*.go` |
-| NO - game logic/data | `sim/*.ail` (AILANG) |
-
-**sim_gen/ is fine** - It's generated from AILANG. Game-specific types (World, DeckType, Planet) belong there because they come from AILANG.
-
-**engine/ must be generic:**
-- ✅ DrawCmd rendering (Sprite, Rect, Text, Circle, etc.)
-- ✅ Asset loading (sprites, audio, fonts)
-- ✅ Camera transforms, shaders, display
-- ❌ Deck names (Core, Engineering, Bridge)
-- ❌ Planet names (Saturn, Earth, Jupiter)
-- ❌ Crew roles (pilot, comms, scientist)
-- ❌ Game-specific state types (DomeViewState, ArrivalState)
-
-**game_views/ for game-specific rendering:**
-- DomeRenderer (solar system visualization)
-- DeckStackRenderer (5-deck ship structure)
-- DeckPreview (deck colors and names)
-- Any code that references sim_gen game types beyond DrawCmd
-
-**Example Violation (DO NOT DO):**
-```go
-// ❌ WRONG - in engine/render/draw.go
-func getBridgeSpriteColor(id int64) color.RGBA {
-    case id == 1200: return ... // pilot
-    case id == 1201: return ... // comms  <- GAME CONCEPTS IN ENGINE!
-}
-
-// ✅ RIGHT - move to game_views/sprite_colors.go
-// Or better: define colors in AILANG and pass via DrawCmd
-```
+Execute an approved sprint plan with continuous progress tracking, testing, and documentation updates.
 
 ## Quick Start
 
 **Most common usage:**
 ```bash
-# User says: "Execute the arrival sequence sprint"
+# User says: "Execute the sprint plan in design_docs/20251019/M-S1.md"
 # This skill will:
-# 1. Check AILANG modules compile
-# 2. Write new AILANG types and functions
-# 3. Run ailang check after every change
-# 4. Report AILANG issues immediately
-# 5. Compile to Go and test in engine
+# 1. Validate prerequisites (tests pass, linting clean)
+# 2. Create TodoWrite tasks for all milestones
+# 3. Execute each milestone with test-driven development
+# 4. Run checkpoint after each milestone (tests + lint)
+# 5. Update CHANGELOG and sprint plan progressively
+# 6. Pause after each milestone for user review
 ```
 
 ## When to Use This Skill
 
 Invoke this skill when:
 - User says "execute sprint", "start sprint", "begin implementation"
-- User has an approved sprint plan ready
-- Implementing ANY game feature (it MUST be AILANG)
-
-**Do NOT use this skill for:**
-- Pure engine rendering changes (use dev-tools or direct edits)
-- Asset pipeline work (use asset-manager skill)
+- User has an approved sprint plan ready to implement
+- User wants guided execution with built-in quality checks
+- User needs progress tracking and pause points
 
 ## Core Principles
 
-1. **AILANG-First**: ALL game logic in `sim/*.ail` - no exceptions
-2. **Test-Driven**: Run `ailang check` after every change
-3. **Feedback-First**: Report AILANG issues immediately
-4. **Track Progress**: Use TodoWrite AND update sprint JSON
-5. **Document Workarounds**: Record how you navigated limitations
-6. **Physics Accuracy First**: Use exact formulas, document any approximations
-7. **No Wrapper Files**: NEVER create Go wrapper files to work around AILANG codegen issues - report the bug and wait for a fix
+1. **Test-Driven**: All code must pass tests before moving to next milestone
+2. **Lint-Clean**: All code must pass linting before moving to next milestone
+3. **Document as You Go**: Update CHANGELOG.md and sprint plan progressively
+4. **Pause for Breath**: Stop at natural breakpoints for review and approval
+5. **Track Everything**: Use TodoWrite to maintain visible progress
+6. **DX-First**: Improve AILANG development experience as we go - make it easier next time
 
-## JSON Progress Tracking (IMPORTANT)
+## Multi-Session Continuity (NEW)
 
-**Always update the sprint JSON file as you work.** This enables session continuity.
+**Sprint execution can now span multiple Claude Code sessions!**
 
-Sprint JSON files can use either **features-based** (preferred for new sprints) or **phases/tasks-based** (legacy) structure.
+Based on [Anthropic's long-running agent patterns](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents), sprint-executor implements the "Coding Agent" pattern:
 
-### Commands
+- **Session Startup Routine**: Every session starts with `session_start.sh`
+  - Checks working directory
+  - Reads JSON progress file (`.ailang/state/sprints/sprint_<id>.json`)
+  - Reviews recent git commits
+  - Validates tests pass
+  - Prints "Here's where we left off" summary
 
+- **Structured Progress Tracking**: JSON file tracks state
+  - Features with `passes: true/false/null` (follows "constrained modification" pattern)
+  - Velocity metrics updated automatically
+  - Clear checkpoint messages
+  - Session timestamps
+
+- **Pause and Resume**: Work can be interrupted at any time
+  - Status saved to JSON: `not_started`, `in_progress`, `paused`, `completed`
+  - Next session picks up exactly where you left off
+  - No loss of context or progress
+
+**For JSON schema details**, see [`resources/json_progress_schema.md`](resources/json_progress_schema.md)
+
+## Available Scripts
+
+### `scripts/session_start.sh <sprint_id>` **NEW**
+Resume sprint execution across multiple sessions.
+
+**When to use:** ALWAYS at the start of EVERY session continuing a sprint.
+
+**What it does:**
+1. **Syncs GitHub issues** via `ailang messages import-github`
+2. Loads sprint JSON progress file
+3. Shows linked GitHub issues with titles from local messages
+4. Displays feature progress summary
+5. Shows velocity metrics
+6. Runs tests to verify clean state
+7. Prints "Here's where we left off" summary
+
+### `scripts/validate_prerequisites.sh`
+Validate prerequisites before starting sprint execution.
+
+**What it checks:**
+1. **Syncs GitHub issues** via `ailang messages import-github`
+2. Working directory status (clean/uncommitted changes)
+3. Current branch (dev or main)
+4. Test suite passes
+5. Linting passes
+6. Shows unread messages (potential issues/feedback)
+
+### `scripts/validate_sprint_json.sh <sprint_id>` **NEW**
+**REQUIRED before starting any sprint.** Validates that sprint JSON has real milestones (not placeholders).
+
+**What it checks:**
+- No placeholder milestone IDs (`MILESTONE_ID`)
+- No placeholder acceptance criteria (`Criterion 1/2`)
+- At least 2 milestones defined
+- All milestones have custom values (not defaults)
+- Dependencies reference valid milestone IDs
+
+**Exit codes:**
+- `0` - Valid JSON, ready for execution
+- `1` - Invalid JSON or placeholders detected (sprint-planner must fix)
+
+### `scripts/milestone_checkpoint.sh <milestone_name>`
+Run checkpoint after completing a milestone (tests, linting, git diff).
+**Now includes JSON update reminder!** Shows current milestone statuses and prompts you to update the sprint JSON.
+
+### `scripts/acceptance_test.sh <milestone_id> <test_type>` **NEW**
+Run end-to-end acceptance tests (parser, builtin, examples, REPL, e2e).
+
+### `scripts/finalize_sprint.sh <sprint_id> [version]` **NEW**
+Finalize a completed sprint by moving design docs and updating status.
+
+**What it does:**
+- Moves design doc from `planned/` to `implemented/<version>/`
+- Moves sprint plan markdown to `implemented/<version>/`
+- Updates design doc status to "IMPLEMENTED"
+- Updates sprint JSON status to "completed"
+- Updates file paths in sprint JSON
+
+**When to use:** After all milestones pass and sprint is complete.
+
+**Example:**
 ```bash
-# Location: sprints/sprint_<sprint-id>.json
-
-# For feature-based sprints (preferred):
-.claude/skills/sprint-executor/scripts/update_progress.sh \
-  sprints/sprint_<sprint-id>.json feature <feature_id> in_progress
-
-.claude/skills/sprint-executor/scripts/update_progress.sh \
-  sprints/sprint_<sprint-id>.json feature <feature_id> completed [actual_loc]
-
-# For phase/task-based sprints (legacy):
-.claude/skills/sprint-executor/scripts/update_progress.sh \
-  sprints/<sprint-id>.json task <task_id> completed
-
-.claude/skills/sprint-executor/scripts/update_progress.sh \
-  sprints/<sprint-id>.json phase <phase_id> completed
-
-# Update overall sprint status (both formats):
-.claude/skills/sprint-executor/scripts/update_progress.sh \
-  <sprint-file>.json sprint in_progress
-
-# Show current progress (auto-detects format):
-.claude/skills/sprint-executor/scripts/update_progress.sh \
-  <sprint-file>.json show
-```
-
-### Feature Command (for features-based sprints)
-
-| Command | Effect |
-|---------|--------|
-| `feature <id> in_progress` | Sets `started` timestamp |
-| `feature <id> completed` | Sets `completed` timestamp, `passes: true` |
-| `feature <id> completed <loc>` | Also sets `actual_loc` |
-| `feature <id> blocked` | Sets `passes: false` |
-| `feature <id> pending` | Resets to initial state |
-
-**Status values:** `pending` | `in_progress` | `completed` | `blocked`
-
-### When to Update JSON
-- Mark sprint as `in_progress` when starting
-- Mark each feature/task `in_progress` before starting work
-- Mark each feature/task `completed` immediately after finishing
-- Mark sprint `completed` at the end
-
-## Engine-Only Changes (Rare)
-
-Most work should be AILANG. Engine changes are only needed for:
-- Adding new DrawCmd rendering (e.g., new DrawCmd variant)
-- Shader modifications (generic visual effects)
-- Asset loading (generic loaders)
-
-**STOP - Is this game-specific?**
-- Game-specific rendering → `game_views/*.go`
-- Generic rendering → `engine/*.go`
-
-For engine-only work:
-```bash
-make engine       # Build engine only (skips sim_gen check)
-make run          # Test rendering
-```
-
-**Remember:** Engine code should be "dumb" - it only renders what AILANG tells it via DrawCmd. It should work unchanged for ANY AILANG game.
-
-## Game-Specific Views (game_views/)
-
-For rendering helpers that reference game concepts:
-- DomeRenderer, DeckStackRenderer, DeckPreview
-- Any code using sim_gen types beyond DrawCmd/FrameInput/FrameOutput
-- Code that knows about decks, planets, crew, etc.
-
-```bash
-# game_views imports both engine/ and sim_gen/
-# engine/ should NOT import game_views/
+.claude/skills/sprint-executor/scripts/finalize_sprint.sh M-BUG-RECORD-UPDATE-INFERENCE v0_4_9
 ```
 
 ## Execution Flow
 
-### Phase 1: Initialize Sprint
+### Phase 0: Session Resumption (for continuing sprints)
 
-1. **Check Status**
-   ```bash
-   # For AILANG sprints:
-   for f in sim/*.ail; do ailang check "$f"; done
-   ailang messages list --unread
+**If this is NOT the first session for this sprint:**
 
-   # For mock-only sprints:
-   go test ./...
-   make game-mock
-   ```
+```bash
+# ALWAYS run session_start.sh first!
+.claude/skills/sprint-executor/scripts/session_start.sh <sprint-id>
+```
 
-2. **Initialize JSON Progress**
-   ```bash
-   .claude/skills/sprint-executor/scripts/update_progress.sh \
-     sprints/<sprint-id>.json sprint in_progress
-   ```
+This prints "Here's where we left off" summary. **Then skip to Phase 2** to continue with the next milestone.
 
-3. **Create Todo List**
-   - Use TodoWrite for all milestones
-   - Mark first milestone as in_progress
+### Phase 1: Initialize Sprint (first session only)
+
+1. **Validate Sprint JSON** - Run `validate_sprint_json.sh <sprint-id>` **REQUIRED FIRST**
+   - If validation fails, STOP and notify user that sprint-planner must fix the JSON
+   - Do NOT proceed with placeholder milestones
+2. **Read Sprint Plan** - Parse markdown + load JSON progress file (`.ailang/state/sprints/sprint_<id>.json`)
+3. **Validate Prerequisites** - Run `validate_prerequisites.sh` (tests, linting, git status)
+4. **Create Todo List** - Use TodoWrite to track all milestones
+5. **Initial Status Update** - Mark sprint as "🔄 In Progress"
+6. **Initial DX Review** - Consider tools/helpers that would make sprint easier (see [resources/dx_improvement_patterns.md](resources/dx_improvement_patterns.md))
 
 ### Phase 2: Execute Milestones
 
 **For each milestone:**
 
-1. **Pre-Implementation**
-   - Mark milestone as in_progress in TodoWrite
-   - Re-read `ailang prompt` for syntax reference
+1. **Pre-Implementation** - Mark milestone as `in_progress` in TodoWrite
+2. **Implement** - Write code with DX awareness (helper functions, debug flags, better errors)
+3. **Write Tests** - TDD recommended for complex logic, comprehensive coverage required
+4. **Verify Quality** - Run `milestone_checkpoint.sh <milestone-name>` (tests + lint must pass)
+5. **Update Documentation**:
+   - CHANGELOG.md (what, LOC, key decisions)
+   - Example files (REQUIRED for new features)
+   - Sprint plan markdown (mark milestone as ✅)
+6. **Update Sprint JSON** ⚠️ **CRITICAL** - The checkpoint script reminds you!
+   - Update `passes: true/false` in `.ailang/state/sprints/sprint_<id>.json`
+   - Set `completed: "<ISO timestamp>"`
+   - Add `notes: "<summary of what was done>"`
+7. **DX Reflection** - Identify and implement quick wins (<15 min), defer larger improvements
+8. **Pause for Breath** - Show progress, ask user if ready to continue
 
-2. **Implement AILANG Code**
-   ```bash
-   # After each file edit:
-   ailang check sim/<file>.ail
+**Quick tips:**
+- Use parser test helpers from `internal/parser/test_helpers.go`
+- Use `DEBUG_PARSER=1` for token flow tracing
+- Use `make doc PKG=<package>` for API discovery
+- See [resources/parser_patterns.md](resources/parser_patterns.md) for parser/pattern matching
+- See [resources/codegen_patterns.md](resources/codegen_patterns.md) for Go code generation (builtins, expressions)
+- See [resources/api_patterns.md](resources/api_patterns.md) for common API patterns
+- See [resources/dx_improvement_patterns.md](resources/dx_improvement_patterns.md) for DX opportunities
 
-   # If errors, fix immediately
-   # If stuck, report to AILANG team
-   ```
+### Phase 3: Finalize Sprint
 
-3. **Test with ailang run**
-   ```bash
-   # Test entry function
-   ailang run --entry <function> sim/step.ail
-   ```
+1. **Final Testing** - Run `make test`, `make lint`, `make test-coverage-badge`
+2. **Documentation Review** - Verify CHANGELOG.md, example files, sprint plan complete
+3. **Final Commit** - Git commit with sprint summary (milestones, LOC, velocity)
+4. **Move Design Docs** - Run `finalize_sprint.sh <sprint-id> [version]` to:
+   - Move design docs from `planned/` to `implemented/<version>/`
+   - Update design doc status to IMPLEMENTED
+   - Update sprint JSON status to "completed"
+   - Update file paths in sprint JSON
+5. **Summary Report** - Compare planned vs actual (LOC, time, velocity)
+6. **DX Impact Summary** - Document improvements made during sprint
 
-4. **Report Issues Encountered**
-   ```bash
-   # For bugs
-   ~/.claude/skills/ailang-feedback/scripts/send_feedback.sh bug \
-     "Issue title" "Description" --from stapledons_voyage
+## Key Features
 
-   # For missing features
-   ~/.claude/skills/ailang-feedback/scripts/send_feedback.sh feature \
-     "Feature needed" "Why it would help" --from stapledons_voyage
-   ```
+### Continuous Testing
+- Run `make test` after every file change
+- Never proceed if tests fail
+- Track test count increase
 
-5. **Update Progress (IMPORTANT)**
-   ```bash
-   # After each task
-   .claude/skills/sprint-executor/scripts/update_progress.sh \
-     sprints/<sprint-id>.json task <task_id> completed
+### Continuous Linting
+- Run `make lint` after implementation
+- Fix linting issues immediately
+- Use `make fmt` for formatting
 
-   # After completing all tasks in a phase
-   .claude/skills/sprint-executor/scripts/update_progress.sh \
-     sprints/<sprint-id>.json phase <phase_id> completed
-   ```
-   - Note workarounds used
-   - Update CLAUDE.md if new limitations found
+### Progress Tracking
+- TodoWrite shows real-time progress
+- Sprint plan updated at each milestone
+- CHANGELOG.md grows incrementally
+- **JSON file tracks structured state** (NEW)
+- Git commits create audit trail
 
-6. **Pause for Review**
-   - Show progress: `.../update_progress.sh sprints/<id>.json show`
-   - Ask if ready to continue
+### GitHub Issue Integration (NEW)
+**Uses `ailang messages` for GitHub sync and issue tracking!**
 
-### Phase 3: Engine Integration (if needed)
+**Automatic sync:**
+- `session_start.sh` and `validate_prerequisites.sh` run `ailang messages import-github` first
+- Linked issues shown with titles from local message database
 
-1. **Compile AILANG to Go**
-   ```bash
-   make sim   # Generates sim_gen/*.go
-   ```
+If `github_issues` is set in sprint JSON:
+- `validate_sprint_json.sh` shows linked issues
+- `session_start.sh` displays issue titles from messages
+- `milestone_checkpoint.sh` reminds you to include `Refs #...` in commits
+- `finalize_sprint.sh` suggests commit message with issue references
 
-2. **Check Codegen Quality (MANDATORY)**
-   ```bash
-   # Run quality check on generated Go code
-   .claude/skills/sprint-executor/scripts/check_codegen_quality.sh
-   ```
-
-   **What it checks:**
-   - Excessive nesting (>20 chars indentation)
-   - Too many closure wrappers (>10 consecutive)
-   - Patterns that indicate AILANG codegen issues
-
-   **If issues found:**
-   - Report to AILANG via `ailang messages send user "..." --type bug --github`
-   - Consider refactoring AILANG source to reduce nesting (helper functions)
-   - Document workarounds in sprint JSON
-
-3. **Test Game**
-   ```bash
-   make run   # Run with Ebiten
-   ```
-
-4. **Fix Integration Issues**
-   - Check generated Go code
-   - Update engine/ if needed
-
-### Phase 4: Finalize Sprint
-
-1. **Final Testing**
-   ```bash
-   # All AILANG modules
-   for f in sim/*.ail; do ailang check "$f"; done
-
-   # Game build
-   make game
-   ```
-
-2. **AILANG Feedback Summary**
-   - List all issues reported during sprint
-   - Note any responses received
-
-3. **Developer Experience (DX) Report** (AILANG sprints only)
-
-   **Skip this for mock-only sprints** - the `ailang-feedback` skill is for AILANG language feedback, not general sprint completion.
-
-   For sprints that involve AILANG code, send a DX feedback message reflecting on the overall experience:
-
-   ```bash
-   ~/.claude/skills/ailang-feedback/scripts/send_feedback.sh dx \
-     "Sprint DX: <sprint-name>" \
-     "<honest reflection on working with AILANG this sprint>" \
-     --from stapledons_voyage
-   ```
-
-   **Include in your reflection:**
-   - **Positives**: What worked well? What felt natural?
-   - **Friction points**: Where did you get stuck? What was confusing?
-   - **Productivity**: Could you express your intent easily?
-   - **Error messages**: Were they helpful or cryptic?
-   - **Documentation**: Did `ailang prompt` have what you needed?
-   - **Overall sentiment**: Would you want to use AILANG again?
-
-   **Be honest** - negative feedback is valuable. Examples:
-   - "Pattern matching felt natural and expressive"
-   - "Nested field access errors were frustrating to debug"
-   - "The functional style made NPC updates clean"
-   - "Had to fight the type system on record updates"
-
-4. **Sprint Report**
-   - Milestones completed
-   - AILANG issues encountered (if any)
-   - Workarounds used (if any)
-   - DX rating (1-5 stars) - for AILANG sprints only
-
-## Error Handling
-
-### CRITICAL: Use `make build` - It Enforces Correct Behavior
-
-**Always use `make build` instead of `go build`!**
-
-`make build` automatically:
-1. Detects if errors are in `sim_gen/` (AILANG codegen bug)
-2. Prints instructions for reporting the bug
-3. Prevents workaround attempts
-
+**Commit message format:**
 ```bash
-# CORRECT - use this
-make build
+# During development - use "refs" to LINK without closing
+git commit -m "Complete M1: Parser foundation, refs #17"
 
-# WRONG - don't use direct go build
-go build ./...   # Won't detect codegen bugs
+# Final sprint commit - use "Fixes" to AUTO-CLOSE issues on merge
+git commit -m "Finalize sprint M-BUG-FIX
+
+Fixes #17
+Fixes #42"
 ```
 
-**If `make build` shows "ERROR IN sim_gen/":**
-1. Follow the printed instructions to report the bug
-2. Mark the feature as BLOCKED in sprint tracking
-3. STOP and wait for fix
-4. DO NOT refactor AILANG to work around it
-5. DO NOT edit sim_gen files
-
-**If `make build` shows a normal error (not in sim_gen/):**
-- Fix it in engine/*.go or cmd/*.go as usual
-
-### AILANG Compilation Fails
-1. Show error output
-2. Check `ailang prompt` for correct syntax
-3. If unclear error, report to AILANG team
-4. Don't proceed until `ailang check` passes
-
-### Recursion Depth Exceeded
-1. Reduce data size for testing
-2. Consider iterative workaround (if possible)
-3. Report as feature request (tail recursion optimization)
-
-### Module Import Fails
-1. Duplicate type definitions locally
-2. Document the duplication
-3. Report import issue to AILANG team
-
-### Feature Not Available
-1. Design workaround
-2. Document the workaround
-3. Report as feature request
-
-## Common AILANG Workarounds
-
-Quick reference for known issues and their solutions:
-
-| Problem | Error Message | Workaround |
-|---------|---------------|------------|
-| Nested field access | "cannot unify open record with TVar2" | Break `a.b.c` into `let b = a.b; b.c` |
-| Record update with derived value | "cannot unify open record" on `{b \| pos: newPos}` | Use explicit construction: `{ field1: b.field1, pos: newPos }` |
-| Module-level `let` in function | "undefined variable" | Inline constant or pass as parameter (intentional design) |
-| Tuple destructuring | Parse error on `let (x, y) = pair` | Use `match pair { (x, y) => ... }` |
-| ADT in inline tests | Test harness crashes | Only use primitive types in test inputs |
-| DrawCmd uses color index not RGBA | N/A (works but limited) | Use direct Ebiten drawing in engine/ for custom colors. Feature requested from AILANG. |
-| Go codegen wrong return types | Exported func returns `struct{}` but impl returns typed value | **DO NOT create wrapper files** - report bug via ailang-feedback and wait for fix |
-| Go codegen unexported converters | `convertToDrawCmdSlice` is lowercase | **DO NOT create wrapper files** - report bug via ailang-feedback and wait for fix |
-| **Editing sim_gen/*.go** | Changes overwritten | **NEVER edit sim_gen files**. Request features via ailang-feedback. |
-
-### Maintaining This List (IMPORTANT)
-
-**This project's purpose is to surface and fix AILANG issues.** Keep this workarounds table current:
-
-**Scripts for tracking workarounds:**
-
-```bash
-# Check inbox and verify workarounds still needed
-.claude/skills/sprint-executor/scripts/check_workarounds.sh
-
-# Add a new workaround (updates both SKILL.md and CLAUDE.md)
-.claude/skills/sprint-executor/scripts/add_workaround.sh \
-  "Problem name" "Error message" "Workaround description"
-
-# Mark an issue as fixed (moves to Fixed section)
-.claude/skills/sprint-executor/scripts/mark_fixed.sh \
-  "problem keyword" "v0.5.0"
-```
-
-**When you discover a new issue:**
-1. Run `add_workaround.sh` with problem, error, and workaround
-2. Report via `ailang-feedback` with detailed repro steps
-
-**When AILANG fixes an issue:**
-1. Check inbox: `ailang messages list --unread`
-2. Verify fix: `ailang check sim/*.ail`
-3. Run `mark_fixed.sh "<keyword>" "<version>"`
-4. Remove workarounds from code where practical
-5. Acknowledge: `ailang messages ack <msg-id>`
-
-**At sprint start:**
-```bash
-# Full status check
-.claude/skills/sprint-executor/scripts/check_workarounds.sh
-```
-
-### Record Update Pattern
-
-When updating nested records, this pattern works:
-```ailang
--- WORKS: newPos comes from parameter or fresh construction
-pure func moveBox(b: Box, newPos: Point) -> Box {
-    {b | pos: newPos}
-}
-
--- FAILS: newPos derived from b.pos
-pure func moveBoxBad(b: Box) -> Box {
-    let oldPos = b.pos;
-    let newPos = { x: oldPos.x + 1, y: oldPos.y };
-    {b | pos: newPos}  -- ERROR!
-}
-
--- WORKAROUND: explicit construction
-pure func moveBoxFixed(b: Box) -> Box {
-    let oldPos = b.pos;
-    let newPos = { x: oldPos.x + 1, y: oldPos.y };
-    { pos: newPos, size: b.size }  -- Explicit fields
-}
-```
-
-## Quality Checkpoints
-
-After each milestone:
-
-```bash
-# 1. All AILANG modules compile
-for f in sim/*.ail; do ailang check "$f"; done
-
-# 2. Entry functions run
-ailang run --entry init_world sim/step.ail
-
-# 3. Game builds (if engine changes)
-make game
-```
-
-## Visual Verification (MANDATORY for Visual Features)
-
-**For any milestone involving visual output, YOU MUST take and verify screenshots.**
-
-### CRITICAL: Use In-Game Screenshots, NOT macOS screencapture
-
-**NEVER use macOS `screencapture` command** - it captures the entire desktop at native resolution (5K+ on Retina), producing huge files that crash Claude.
-
-**ALWAYS use the in-game screenshot functionality** - it captures the game's internal render buffer at 1280x960, producing consistent, small PNG files.
-
-### Screenshot Helper Script (Recommended)
-
-Use the dedicated screenshot helper for easy, reliable screenshots:
-
-```bash
-# Basic game screenshot at frame 30
-.claude/skills/sprint-executor/scripts/take_screenshot.sh
-
-# Bridge demo at frame 60
-.claude/skills/sprint-executor/scripts/take_screenshot.sh -c demo-game-bridge -f 60
-
-# Game with effects
-.claude/skills/sprint-executor/scripts/take_screenshot.sh --effects bloom,sr_warp --velocity 0.5
-
-# Arrival sequence at frame 120
-.claude/skills/sprint-executor/scripts/take_screenshot.sh --arrival -f 120
-
-# Custom output path
-.claude/skills/sprint-executor/scripts/take_screenshot.sh -o out/screenshots/my-test.png
-```
-
-### Direct Command Usage
-
-You can also use the screenshot flags directly on any game command:
-
-```bash
-# Main game
-go run ./cmd/game --screenshot 30 --output out/screenshots/game.png
-
-# Demo commands
-go run ./cmd/demo-game-bridge --screenshot 30 --output out/screenshots/bridge.png
-go run ./cmd/demo-saturn --screenshot 60 --output out/screenshots/saturn.png
-
-# With effects
-go run ./cmd/game --screenshot 60 --output out/test.png --effects bloom,sr_warp --velocity 0.5
-
-# Arrival sequence
-go run ./cmd/game --screenshot 120 --output out/arrival.png --arrival
-```
-
-### Why In-Game Screenshots?
-
-| Method | Resolution | File Size | Works? |
-|--------|------------|-----------|--------|
-| `--screenshot` flag | 1280x960 | ~50-200KB | YES |
-| macOS `screencapture` | 5120x2880+ | 5-20MB | NO (crashes) |
-
-### Screenshot Workflow
-
-1. **Take Screenshots at Key States**
-   ```bash
-   # Initial state
-   .claude/skills/sprint-executor/scripts/take_screenshot.sh -f 30 -o out/screenshots/initial.png
-
-   # Mid-animation (if applicable)
-   .claude/skills/sprint-executor/scripts/take_screenshot.sh -f 60 -o out/screenshots/mid.png
-
-   # Final state
-   .claude/skills/sprint-executor/scripts/take_screenshot.sh -f 90 -o out/screenshots/final.png
-   ```
-
-2. **View Screenshots Using Read Tool**
-   ```bash
-   # Claude Code can view PNG images directly
-   # Use Read tool on screenshot path to verify visuals
-   ```
-
-3. **Document What to Look For**
-   - Visual elements positioned correctly
-   - No rendering artifacts
-   - Effects applied properly (if enabled)
-   - UI elements visible and readable
-
-### Screenshot Verification Checklist
-
-For each visual feature:
-- [ ] Screenshot captured at initial state
-- [ ] Screenshot captured during any animations/transitions
-- [ ] Screenshot captured at final state
-- [ ] Screenshots viewed and verified correct
-- [ ] Issues found documented in sprint JSON
-- [ ] Visual artifacts investigated and fixed
-
-### Available Commands for Screenshots
-
-| Command | Description |
-|---------|-------------|
-| `game` | Main game (bridge view, NPC, etc.) |
-| `demo-game-bridge` | Bridge interior only |
-| `demo-saturn` | Saturn with rings |
-| `demo-arrival` | Black hole arrival sequence |
-| `demo-sr-flyby` | SR effects flyby demo |
-| `demo-view` | View system demo |
-
-## Output File Organization (MANDATORY)
-
-**All generated output MUST go in the correct `out/` subdirectory.** See [out/README.md](../../../out/README.md) for full details.
-
-### Directory Structure
-
-```
-out/
-├── eval/           # Benchmarks, evaluation reports
-├── generated/      # Final GIFs, videos, animations
-├── scenarios/      # Scenario runner temp output
-├── screenshots/    # Demo screenshots from sprints  ← USE THIS
-└── test/           # Visual test golden files
-```
-
-### Where to Put Files
-
-| Output Type | Location | Example |
-|-------------|----------|---------|
-| Demo screenshots | `out/screenshots/` | `out/screenshots/bridge-initial.png` |
-| Sprint verification | `out/screenshots/<sprint>/` | `out/screenshots/arrival-v1/mid-transition.png` |
-| Evaluation output | `out/eval/` | `out/eval/report.json` |
-| Generated videos/GIFs | `out/generated/` | `out/generated/flyby-demo.gif` |
-| Test scenario output | `out/test/<scenario>/` | `out/test/camera-pan/after-right.png` |
-
-### Rules
-
-1. **NEVER put files in `out/` root** - always use a subdirectory
-2. **Clean up intermediate files** - frame sequences for video generation should be deleted after the final video is created
-3. **Use descriptive names** - `bridge-initial.png` not `test1.png`
-4. **Organize by sprint** - for multi-screenshot verification, use `out/screenshots/<sprint-name>/`
-
-### Screenshot Commands
-
-```bash
-# Single screenshot
-./bin/demo --screenshot 30 --output out/screenshots/initial.png
-
-# Sprint with multiple screenshots
-mkdir -p out/screenshots/arrival-v1
-./bin/demo --screenshot 30 --output out/screenshots/arrival-v1/initial.png
-./bin/demo --screenshot 60 --output out/screenshots/arrival-v1/mid.png
-./bin/demo --screenshot 90 --output out/screenshots/arrival-v1/final.png
-```
-
-### Video/Animation Generation
-
-```bash
-# Generate frames to temp directory
-mkdir -p /tmp/frames
-./bin/demo --capture-frames /tmp/frames/
-
-# Create final video
-ffmpeg -i /tmp/frames/frame_%05d.png out/generated/demo.mp4
-
-# Clean up intermediate frames
-rm -rf /tmp/frames
-```
-
-**Do NOT leave frame directories in `out/`** - they can grow to hundreds of MB.
-
-### Cleanup Command
-
-If `out/` gets cluttered during development:
-```bash
-make clean  # Removes bin/, out/* but preserves structure
-```
+**Important: "refs" vs "Fixes"**
+- `refs #17` - Links commit to issue (NO auto-close)
+- `Fixes #17`, `Closes #17`, `Resolves #17` - AUTO-CLOSES issue when merged
+
+**Workflow:**
+1. Sprint JSON has `github_issues: [17, 42]` (set by sprint-planner, deduplicated)
+2. During development: Use `refs #17` to link commits without closing
+3. Final commit: Use `Fixes #17` to auto-close issues on merge
+4. No duplicates: `ailang messages import-github` checks existing issues before importing
+
+### Pause Points
+- After each milestone completion
+- When tests or linting fail (fix before continuing)
+- When user requests "pause"
+- When encountering unexpected issues
+
+### Error Handling
+- **If tests fail**: Show output, ask how to fix, don't proceed
+- **If linting fails**: Show output, ask how to fix, don't proceed
+- **If implementation unclear**: Ask for clarification, don't guess
+- **If milestone takes much longer than estimated**: Pause and reassess
 
 ## Resources
 
-### Engine & Physics Reference
+### Multi-Session State
+- **JSON Schema**: [`resources/json_progress_schema.md`](resources/json_progress_schema.md) - Sprint progress format
+- **Session Startup**: Use `session_start.sh` ALWAYS for continuing sprints
 
-**IMPORTANT:** Before implementing features, review these reference documents:
+### Development Tools
+- **Parser & Patterns**: [`resources/parser_patterns.md`](resources/parser_patterns.md) - Parser development + pattern matching pipeline
+- **Codegen Patterns**: [`resources/codegen_patterns.md`](resources/codegen_patterns.md) - Go code generation for new features/builtins
+- **API Patterns**: [`resources/api_patterns.md`](resources/api_patterns.md) - Common constructor signatures and API gotchas
+- **Developer Tools**: [`resources/developer_tools.md`](resources/developer_tools.md) - Make targets, ailang commands, workflows
+- **DX Improvements**: [`resources/dx_improvement_patterns.md`](resources/dx_improvement_patterns.md) - Identifying and implementing DX wins
+- **DX Quick Reference**: [`resources/dx_quick_reference.md`](resources/dx_quick_reference.md) - ROI calculator, decision matrix
+- **Milestone Checklist**: [`resources/milestone_checklist.md`](resources/milestone_checklist.md) - Step-by-step per milestone
 
-| Document | Contents | When to Use |
-|----------|----------|-------------|
-| [engine-capabilities.md](../../../design_docs/reference/engine-capabilities.md) | All DrawCmd types, effect handlers, assets, shaders, physics | Any sprint involving rendering or engine features |
-| [game-capabilities.md](../../../design_docs/reference/game-capabilities.md) | AILANG game features (celestial, starmap, bridge, viewport) | Any sprint involving game logic in sim/*.ail |
-| [ai-capabilities.md](../../../design_docs/reference/ai-capabilities.md) | AI text/image/TTS, 30 voices, SSML, style control | NPC dialogue, voice generation, AI-driven content |
-| [demos.md](../../../design_docs/reference/demos.md) | Demo index (demo-engine-*, demo-game-*) | Creating or running feature demos |
-| [gr-effects.md](../../../design_docs/implemented/v0_1_0/gr-effects.md) | GR physics formulas, shader uniforms, danger levels | Black hole/neutron star features |
-| [ai-handler-system.md](../../../design_docs/implemented/v0_1_0/ai-handler-system.md) | AI effect, multimodal APIs, provider config | NPC dialogue, AI-driven decisions |
+### External Documentation
+- **Parser Guide**: [docs/guides/parser_development.md](../../docs/guides/parser_development.md)
+- **Website**: https://ailang.sunholo.com/
 
-**Key Engine Capabilities:**
+## Progressive Disclosure
 
-| Category | What's Available |
-|----------|------------------|
-| **DrawCmd** | Sprite, Rect, Text, IsoTile, IsoEntity, GalaxyBg, Star, Ui, Line, Circle, TextWrapped |
-| **Effects** | Debug, Rand, Clock, AI (with Claude/Gemini/stub backends) |
-| **Assets** | Sprites (animated), Audio (OGG/WAV), Fonts (TTF with scaling) |
-| **Shaders** | SR warp (Doppler, aberration), GR warp (lensing, redshift), bloom, vignette, CRT |
-| **Physics** | Lorentz factor, time dilation, gravitational redshift, Schwarzschild radius |
+This skill loads information progressively:
 
-### Project Commands
-- `make sim` - Compile AILANG to Go
-- `make game` - Build game executable
-- `make run` - Run game
-- `make install` - Install voyage CLI globally
+1. **Always loaded**: This SKILL.md file (YAML frontmatter + execution workflow) - ~250 lines
+2. **Execute as needed**: Scripts in `scripts/` directory (validation, checkpoints, testing)
+3. **Load on demand**: Resources in `resources/` directory (detailed guides, patterns, references)
 
-### Voyage CLI (Dev Tools)
+## Prerequisites
 
-The `voyage` CLI provides development tools. Install with `make install`.
+- Working directory clean (or only sprint-related changes)
+- Current branch `dev` (or specified in sprint plan)
+- All existing tests pass
+- All existing linting passes
+- Sprint plan approved and documented
+- **JSON progress file created AND POPULATED by sprint-planner** (not just template!)
+- **JSON must pass validation**: `scripts/validate_sprint_json.sh <sprint-id>`
 
-```bash
-# API documentation (always up-to-date via AST parsing)
-voyage api                      # List all engine packages
-voyage api tetra                # List types in package
-voyage api tetra.Scene          # Show type details
-voyage api tetra.Scene --methods # Show with method signatures
-voyage api --search camera      # Search across all packages
+## Failure Recovery
 
-# Demo runner (use instead of manual go run)
-voyage demo              # Interactive selection menu
-voyage demo bridge       # Run demo-game-bridge directly
-voyage demo orbital      # Partial name matching works
+### If Tests Fail During Sprint
+1. Show test failure output
+2. Ask user: "Tests failing. Options: (a) fix now, (b) revert change, (c) pause sprint"
+3. Don't proceed until tests pass
 
-# File watcher (auto-rebuild on changes)
-voyage watch             # Watch sim/*.ail, run make sim on changes
-voyage watch --test      # Also run ailang test after rebuild
-voyage watch --run bridge # Rebuild and restart demo automatically
+### If Linting Fails During Sprint
+1. Show linting output
+2. Try auto-fix: `make fmt`
+3. If still failing, ask user for guidance
+4. Don't proceed until linting passes
 
-# Screenshot capture (use for visual verification)
-voyage screenshot        # Capture main game (frame 60)
-voyage screenshot bridge # Capture specific demo
-voyage screenshot --all  # Capture all demos to out/screenshots/
-voyage screenshot bridge -f 120 -o out/ # Custom frames/output
+### If Implementation Blocked
+1. Show what's blocking progress
+2. Ask user for guidance or clarification
+3. Consider simplifying the approach
+4. Document the blocker in sprint plan
 
-# Asset validation (run before sprints)
-voyage manifest          # Validate all asset manifests exist
-voyage manifest -v       # Verbose (show all files)
-voyage manifest sprites  # Check specific manifest
-
-# Other inspection tools
-voyage world             # Inspect world state
-voyage bench             # Run benchmarks
-voyage ai                # Test AI handlers
-```
-
-**Use `voyage` commands for:**
-- Engine API lookup (find correct signatures, constructors, methods)
-- Quick demo switching during development
-- Auto-rebuild while editing AILANG
-- Screenshot capture for visual verification
-- Asset validation before commits
-
-### AILANG Commands
-- `ailang check <file>` - Type-check
-- `ailang run --entry <func> <file>` - Run with entry point
-- `ailang prompt` - Syntax reference
-
-### Feedback Commands
-- `ailang messages list --unread` - Check unread messages
-- `ailang messages ack <msg-id>` - Acknowledge message
-- `ailang messages send <inbox> <msg>` - Send message
-- `~/.claude/skills/ailang-feedback/scripts/send_feedback.sh` - Report issues
-
-## Milestone Checklist Template
-
-```markdown
-## Milestone: [Name]
-
-### Implementation
-- [ ] AILANG types defined
-- [ ] AILANG functions implemented
-- [ ] `ailang check` passes
-- [ ] `ailang run` works
-
-### Testing
-- [ ] Edge cases handled
-- [ ] Error conditions covered
-
-### Visual Verification (if visual feature)
-- [ ] Screenshot captured at initial state
-- [ ] Screenshot captured during animations/transitions
-- [ ] Screenshot captured at final state
-- [ ] Screenshots viewed and verified correct
-- [ ] Visual issues fixed
-
-### Feedback
-- [ ] Issues reported: [list]
-- [ ] Workarounds documented: [list]
-
-### Status
-- [ ] Complete and ready for next milestone
-```
+### If Velocity Much Lower Than Expected
+1. Pause and reassess after 2-3 milestones
+2. Calculate actual velocity
+3. Propose: (a) continue as-is, (b) reduce scope, (c) extend timeline
+4. Update sprint plan with revised estimates
 
 ## Notes
 
-- Every `ailang check` failure is a learning opportunity
-- Report issues early, don't wait until sprint end
-- Check inbox for AILANG team responses
-- This project's purpose is testing AILANG, not just building a game
-- Document everything - it helps AILANG improve
+- This skill is long-running - expect it to take hours or days
+- Pause points are built in - you're not locked into finishing
+- Sprint plan is the source of truth - but reality may require adjustments
+- Git commits create a reversible audit trail
+- TodoWrite provides real-time visibility into progress
+- Test-driven development is non-negotiable - tests must pass
+- **Multi-session continuity** - Sprint can span multiple Claude Code sessions (NEW)
+- **JSON state tracking** - Structured progress in `.ailang/state/sprints/sprint_<id>.json` (NEW)

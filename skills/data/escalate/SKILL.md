@@ -1,176 +1,120 @@
 ---
 name: escalate
-description: Use when stuck in circles and want to hand off to another agent (Codex CLI) with full context
-disable-model-invocation: true
+description: 'Structured escalation with evidence. Surfaces blocking issues for human decision.'
+user-invocable: false
 ---
 
-# Escalate
+# /escalate - Structured Escalation
 
-Generate a handoff prompt for another agent when you're stuck and need fresh perspective.
+Surface a blocking issue for human decision with structured evidence.
 
-## When to Use
+## Input
 
-- You've tried multiple approaches and keep hitting the same walls
-- You're going in circles and want a fresh perspective
-- You need to context-switch but want to preserve progress for Codex CLI or another agent
+`$ARGUMENTS` = escalation context
 
-## Workflow
+Example: "AC-4 blocking after 3 attempts" or "Manual criteria AC-10, AC-11 need human review"
 
-```
-/escalate → Choose detail level → Choose handoff mode → Analyze session → Generate prompt → pbcopy
-```
+## Escalation Types
 
-## Step 1: Ask Detail Level
+### Blocking Criterion
 
-Use `AskUserQuestion` to ask:
+Automated criterion that can't be satisfied after multiple attempts.
 
-```
-How much context for the handoff?
+Read execution log (`/tmp/do-log-*.md`) to find what was attempted and why it failed.
 
-1. Concise (~200-400 words) - Problem, key blockers, clear ask
-2. Detailed (~500-800 words) - Above plus files, errors, code snippets
-```
-
-## Step 2: Ask Handoff Mode
-
-Use `AskUserQuestion` to ask:
-
-```
-What should the next agent do?
-
-1. Continue - Pick up where I left off and solve this
-2. Fresh perspective - Ignore my approaches, try something new
-3. Validate first - Confirm my understanding, then propose alternatives
-4. Other - [let user specify custom instruction]
-```
-
-## Step 3: Analyze the Session
-
-Review the conversation to extract:
-
-| Section | What to Capture |
-|---------|-----------------|
-| **Problem** | The core objective - what you're trying to accomplish |
-| **Approaches Tried** | Each attempt and why it didn't work |
-| **Current Hypothesis** | What you think might be the root cause |
-| **Relevant Files** | Key file paths that are central to the issue |
-| **Error Messages** | Specific errors encountered (exact text) |
-| **Constraints** | Things that must be preserved or avoided |
-
-**For concise mode:** Focus on Problem, Approaches Tried, and one key blocker.
-
-**For detailed mode:** Include all sections with code snippets and full error messages.
-
-## Step 4: Generate the Prompt
-
-### Template
+Output:
 
 ```markdown
-# Problem
+## Escalation: Criterion [AC-N] ([description])
 
-[Clear statement of what you're trying to accomplish]
+### Summary
+Unable to satisfy [criterion] after [N] attempts. Requesting human decision.
 
-# Approaches Tried
+### Attempts (from execution log)
 
-- **Approach 1:** [what you tried]
-  - Result: [what happened]
-  - Why it failed: [analysis]
+1. **[Approach 1]**
+   What: [what was tried]
+   Result: [what happened]
+   Why failed: [specific reason]
 
-- **Approach 2:** [what you tried]
-  - Result: [what happened]
-  - Why it failed: [analysis]
+2. **[Approach 2]**
+   What: [what was tried]
+   Result: [what happened]
+   Why failed: [specific reason]
 
-[Continue for each significant approach]
+3. **[Approach 3]**
+   What: [what was tried]
+   Result: [what happened]
+   Why failed: [specific reason]
 
-# Current Hypothesis
+### Hypothesis
 
-[What you think might be the root cause or blocker]
+[Theory about why this criterion may be problematic]
 
-# Relevant Context
+Examples:
+- "Criterion assumes API exists that doesn't"
+- "Criterion conflicts with AC-2"
+- "Codebase architecture prevents this approach"
 
-**Files:**
-- `path/to/file.ts` - [why it's relevant]
-- `path/to/other.ts` - [why it's relevant]
+### Possible Resolutions
 
-**Errors:**
-```
-[Exact error messages]
-```
+1. **[Option A]**: [description]
+   Tradeoff: [what this changes]
 
-**Constraints:**
-- [Things that must be preserved]
-- [Approaches to avoid and why]
+2. **[Option B]**: [description]
+   Tradeoff: [what this changes]
 
-# Your Task
+3. **[Option C]**: Amend criterion
+   Suggested change: [new criterion wording]
 
-[Based on handoff mode:]
+### Requesting
 
-- Continue: "Pick up where I left off. The context above shows what's been tried. Find a path forward and solve this."
-- Fresh perspective: "Ignore the approaches above - they haven't worked. Look at this problem fresh and propose a different strategy."
-- Validate first: "First, confirm whether my understanding of the problem is correct. Then propose an alternative approach."
-- Other: [User's custom instruction]
-```
-
-## Step 5: Copy to Clipboard
-
-```bash
-echo "[generated prompt]" | pbcopy
+Human decision on which path to take.
 ```
 
-Use a heredoc for multi-line content:
+### Manual Criteria
 
-```bash
-pbcopy << 'EOF'
-[generated prompt content]
-EOF
-```
+All automated pass, manual criteria need human review.
 
-## Step 6: Confirm
-
-Tell the user:
-
-```
-Handoff prompt copied to clipboard. Paste into Codex CLI to continue.
-```
-
-## Quality Checklist
-
-- [ ] Problem statement is clear and self-contained
-- [ ] Approaches include WHY they failed, not just WHAT was tried
-- [ ] Hypothesis is specific, not vague
-- [ ] File paths are absolute or repo-relative
-- [ ] Error messages are exact, not paraphrased
-- [ ] Constraints call out landmines to avoid
-- [ ] Handoff instruction matches selected mode
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---------|-----|
-| Vague problem statement | Be specific about the goal and success criteria |
-| Listing approaches without failure analysis | Always explain WHY each approach didn't work |
-| Missing context | Include enough that the next agent doesn't need to ask clarifying questions |
-| Too much detail in concise mode | Ruthlessly cut to ~300 words for concise |
-| Forgetting constraints | Warn about approaches that look promising but have been ruled out |
-
-## Example Output (Concise)
+Output:
 
 ```markdown
-# Problem
+## Escalation: Manual Criteria Require Human Review
 
-Trying to get Jest tests to run in a WordPress plugin. Tests pass locally but fail in CI with "Cannot find module '@wordpress/scripts'" errors.
+All automated criteria verified passing. The following require human verification:
 
-# Approaches Tried
+### Manual Criteria
 
-- **Verified node_modules:** Confirmed package is installed, same versions local and CI
-- **Cleared CI cache:** Rebuilt from scratch, same error
-- **Checked path resolution:** Added moduleNameMapper in jest.config.js, no change
+- **AC-10**: [description]
+  How to verify: [instructions from definition]
 
-# Current Hypothesis
+- **AC-11**: [description]
+  How to verify: [instructions from definition]
 
-CI environment might have different NODE_PATH or module resolution behavior. The @wordpress/scripts package uses a nested dependency structure.
+### Automated Results Summary
 
-# Your Task
+Passed: [N] criteria
+- AC-1, AC-2, AC-3, ...
 
-Pick up where I left off. The context above shows what's been tried. Find a path forward and solve this.
+### What Was Executed
+
+[Brief summary of changes]
+
+---
+
+Please review the manual criteria and confirm completion.
 ```
+
+## Evidence Requirements
+
+For blocking criterion escalation, MUST include:
+1. **Which criterion** - specific AC-N
+2. **At least 3 attempts** - what was tried
+3. **Why each failed** - not just "didn't work"
+4. **Hypothesis** - theory about root cause
+5. **Options** - possible paths forward
+
+Lazy escalations are NOT acceptable:
+- "I can't figure this out"
+- "Can you help?"
+- "This is hard"

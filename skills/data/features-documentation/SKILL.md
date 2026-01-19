@@ -1,6 +1,15 @@
 ---
 name: features-documentation
 description: Use when user-facing features change. Ensures features documentation is updated. Pauses work if documentation has drifted, triggering documentation-audit skill.
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - Edit
+  - Write
+  - mcp__github__*
+model: opus
 ---
 
 # Features Documentation Enforcement

@@ -1,230 +1,689 @@
 ---
 name: codex-cli
-description: OpenAI Codex CLIを起動・操作するスキル。マルチエージェント連携、コード生成の委譲、サブエージェントとしてCodexを活用したいときに使う。
+description: Integrate OpenAI Codex CLI into Claude Code for AI collaboration, code generation, and automated development. Use when working with OpenAI models (GPT-5.2, GPT-5.1-Codex-Max, o3, o4-mini), code refactoring, git workflows, or needing full automation with permission bypass.
 ---
 
-## 目的
+# OpenAI Codex CLI Integration
 
-ClaudeからOpenAI Codex CLIを起動・操作し、マルチエージェント協調を実現する。
+Integrates OpenAI's Codex CLI into Claude Code, enabling seamless AI collaboration between Claude and Codex for enhanced development workflows.
 
-- **マルチエージェント連携**: ClaudeとCodexで異なる視点からコード生成・レビュー
-- **コード生成の委譲**: 特定のコーディングタスクをCodexに任せ、結果を統合
-- **オーケストレーターループ**: ゴール達成までClaudeがCodexと自動的に対話を繰り返す
+**Last Updated**: December 2025 (GPT-5.2 Release)
 
----
+## When to Use
 
-## トリガー語
+- Working with OpenAI models (GPT-5.2, GPT-5.1-Codex-Max, o3, o4-mini)
+- Code generation and refactoring with latest models
+- Git-aware workflows and PR reviews
+- Full automation with permission bypass
+- Reasoning-first development (o3 models, GPT-5.2 with xhigh reasoning)
+- Multimodal tasks (code + images)
+- Sandboxed execution environments
+- Long-context tasks (400K tokens with GPT-5.2)
 
-- 「Codex CLIを起動」
-- 「Codexでコード生成」
-- 「Codexに委譲」
-- 「Codexに任せて」
-- 「マルチエージェントで作業」
-- 「ClaudeとCodexで連携」
-- 「Codexセッションを再開」
-- 「Codexをtmuxで起動」
-- 「ゴール達成までCodexでループ」
+## Quick Start
 
----
-
-## 入力で最初に聞くこと
-
-| # | 質問 | 目的 |
-|---|------|------|
-| 1 | **実行モード**: インタラクティブTUI / スクリプト実行 / オーケストレーターループ | 適切な実行方式を選択 |
-| 2 | **タスク内容**: Codexに何をやらせたいか（自然言語で） | プロンプト準備、ゴール定義 |
-| 3 | **承認モード**: suggest / auto-edit / full-auto | セキュリティレベル決定 |
-| 4 | **永続モード（オプション）**: tmuxで永続化するか | セッション管理方式決定 |
-| 5 | **制限設定（オプション）**: 最大ループ回数、タイムアウト | 無限ループ防止 |
-
----
-
-## 手順
-
-### Step 1: Pre-flight Check
+### 1. Install Codex CLI
 
 ```bash
-# Codex CLIインストール確認
-which codex || echo "NOT_INSTALLED"
-
-# バージョン確認（認証状態も確認）
+# Check current installation
 codex --version
-```
 
-**未インストールの場合**:
-```bash
-# Homebrew（macOS推奨）
-brew install --cask codex
-
-# npm（クロスプラットフォーム）
+# Install/Update globally via NPM
 npm install -g @openai/codex
+
+# Or use Homebrew (macOS/Linux)
+brew install openai/tap/codex-cli
 ```
 
-**未認証の場合**:
+### 2. Setup Authentication
+
+#### Option A: ChatGPT Plus/Pro (Recommended)
 ```bash
-# OAuth認証（推奨）
+# Login with ChatGPT account
 codex login
-
-# APIキー認証
-codex login --with-api-key
+# Opens browser for OAuth authentication
+# Includes GPT-5-Codex access with subscription
 ```
 
-### Step 2: モード選択
-
-| モード | 用途 | コマンド | 推奨度 |
-|--------|------|---------|:------:|
-| **完全自動（推奨）** | Claude委譲、CI/CD | `codex exec "タスク"` | ⭐⭐⭐ |
-| 対話観察 | デバッグ、学習 | `tmux` + `send-keys` | ⭐⭐ |
-| インタラクティブTUI | 手動探索 | `codex` | ⭐ |
-| MCPサーバー | ツール統合 | `codex mcp` | - |
-
-### Step 3: 承認モード設定
-
-| モード | リスク | 用途 | コマンド |
-|--------|--------|------|---------|
-| `--suggest` | 低 | 全操作を確認（推奨デフォルト） | `codex --suggest` |
-| `--auto-edit` | 中 | ファイル編集は自動、実行は確認 | `codex --auto-edit` |
-| `--full-auto` | 高 | ネットワーク含め自動 | `codex --full-auto` |
-| `--yolo` | 危険 | 全て自動（要注意） | `codex --yolo` |
-
-### Step 4: 実行
-
-**A. インタラクティブTUI（手動操作）**
+#### Option B: API Key
 ```bash
-codex --approval-mode auto-edit
-```
-ユーザーが直接対話する場合に使用。
+# Set OpenAI API key
+export OPENAI_API_KEY="your-api-key-here"
 
----
-
-**B. 完全自動モード（推奨）**
-```bash
-codex exec "タスク内容" --approval-mode auto-edit
+# Or create config file
+mkdir -p ~/.codex
+echo 'api_key = "your-api-key-here"' > ~/.codex/config.toml
 ```
-**Claudeからの委譲に最適。** シンプルで安定。結果のみ取得。
+
+### 3. Basic Usage
 
 ```bash
-# 例: レビュー依頼
-codex exec "SKILL.mdとREFERENCE.mdをレビューして改善点を指摘してください"
+# Direct execution (like gemini -p)
+codex exec "Analyze this codebase and suggest improvements"
 
-# 例: コード生成
-codex exec "Pythonでファイル名一括変更スクリプトを作成"
+# Full automation (BYPASS ALL APPROVALS)
+codex exec --dangerously-bypass-approvals-and-sandbox "Refactor authentication module"
+
+# Safe automation (sandboxed)
+codex exec --full-auto "Generate tests for all functions"
+
+# Interactive mode
+codex "Let's work on improving this code"
+
+# With specific model (December 2025)
+codex exec -m gpt-5.2 "Complex task with latest model"
+codex exec -m gpt-5.1-codex-max "Best for agentic coding (default)"
+codex exec -m o3 "Deep reasoning task"
+codex exec -m o4-mini "Quick code generation"
 ```
 
----
+## Full Automation Mode - MAXIMUM POWER
 
-**C. 対話観察モード（tmux使用）**
+**`--dangerously-bypass-approvals-and-sandbox`** - Complete automation, zero friction:
 
-対話の過程をターミナルで観察したい場合に使用。
+### ✅ When to Use Bypass Mode
 
-> **セットアップ（ユーザーが実行）**
 ```bash
-# 1. tmuxセッション作成
-tmux new -s codex
+# Trusted, repeatable workflows
+codex exec --dangerously-bypass-approvals-and-sandbox "Add JSDoc comments to all ./src functions"
 
-# 2. tmux内でcodex起動
-codex --approval-mode auto-edit
+# Automated testing workflows
+codex exec --dangerously-bypass-approvals-and-sandbox "Run tests and auto-fix all failures"
 
-# 3. セッションから離脱（Codexは動作継続）
-# Ctrl+B → D
+# Bulk operations
+codex exec --dangerously-bypass-approvals-and-sandbox "Convert all .js files to TypeScript"
+
+# CI/CD pipelines (externally sandboxed)
+codex exec --dangerously-bypass-approvals-and-sandbox "Deploy to staging environment"
 ```
 
-> **Claudeからの操作**
+### ⚠️ Safer Automation Options
+
 ```bash
-# メッセージ送信（C-m推奨）
-tmux send-keys -t codex "タスク内容" && sleep 0.5 && tmux send-keys -t codex C-m
+# --full-auto: Sandboxed with workspace write access
+codex exec --full-auto "Refactor module safely"
 
-# 応答キャプチャ
-sleep 10 && tmux capture-pane -t codex -p -S -50
+# Custom approval + sandbox
+codex exec -a never -s workspace-write "Controlled automation"
+
+# On-failure approval (runs until error)
+codex exec -a on-failure "Try operations, escalate on error"
 ```
 
-> **セッション管理**
+### Approval Policies
+
 ```bash
-tmux ls                      # セッション確認
-tmux attach -t codex         # 接続（対話を観察）
-# Ctrl+B → D                 # 離脱
-tmux kill-session -t codex   # 終了
+# -a never: Full automation (no approvals)
+codex exec -a never "Complete workflow automation"
+
+# -a on-request: Model decides when to ask
+codex exec -a on-request "Intelligent approval requests"
+
+# -a on-failure: Only ask if command fails
+codex exec -a on-failure "Run until failure, then ask"
+
+# -a untrusted: Only run trusted commands (default)
+codex exec -a untrusted "Safe, limited automation"
 ```
 
-**実証済みの注意点**:
-- `tmux new -s codex 'codex'` は `[exited]` になるため、2段階で起動
-- `Enter` より `C-m` (Ctrl-M) を推奨（実証で安定動作を確認）
-- テキスト送信と `C-m` の間に `sleep 0.5` を挟む
+### Sandbox Modes
 
-**完了検出の制限**:
-- `❯` プロンプト検出はCodex CLIのバージョン/テーマに依存する可能性あり
-- 安定運用には **完全自動モード（B）** を推奨
+```bash
+# -s read-only: Cannot modify files
+codex exec -s read-only "Analysis only, no changes"
 
-### Step 5: オーケストレーターループ詳細
+# -s workspace-write: Can modify workspace
+codex exec -s workspace-write "Safe file modifications"
 
-**ループフロー**:
-```
-while (ゴール未達成 && ループ < MAX && 時間 < TIMEOUT):
-    1. Claudeが次の指示を決定（前回出力を分析）
-    2. tmux send-keysでCodexに送信
-    3. capture-paneで完了待ち
-    4. Claudeが出力を評価
-       - ゴール達成 → ループ終了
-       - 進捗あり → 次の指示生成
-       - エラー → 修正指示生成
-       - スタック（3回同一エラー） → 介入要求
-    5. ループカウンタ++
+# -s danger-full-access: Full system access
+codex exec -s danger-full-access "Complete control (use carefully)"
 ```
 
-**ゴール判定ロジック（Claude判断）**:
+## Available Models (December 2025)
 
-| 判定 | 条件例 | アクション |
-|------|--------|-----------|
-| ゴール達成 | テスト全パス、ファイル生成完了、エラー0 | ループ終了、成功報告 |
-| 進捗あり | 一部完了、次ステップ明確 | 次の指示を生成して継続 |
-| エラー発生 | コンパイルエラー、テスト失敗 | 修正指示を生成して継続 |
-| スタック | 同じエラー3回連続、進捗なし | 介入要求 or 戦略変更 |
+### GPT-5.2 Series (NEW - December 11, 2025)
+```bash
+# GPT-5.2 Thinking - Latest frontier model
+# 400K context, 128K output, knowledge cutoff Aug 31, 2025
+# Pricing: $1.75/1M input, $14/1M output (90% cached discount)
+codex exec -m gpt-5.2 "Complex multi-step task with deep reasoning"
 
-**制限パラメータ**:
+# GPT-5.2 Instant - Speed optimized for routine queries
+codex exec -m gpt-5.2-chat-latest "Fast information seeking and writing"
+
+# GPT-5.2 Pro - Maximum accuracy (Responses API only)
+# Pricing: $21/1M input, $168/1M output
+# Supports reasoning.effort: medium, high, xhigh
+codex exec -m gpt-5.2-pro "Critical high-accuracy tasks"
+```
+
+### GPT-5.1 Codex Series (Recommended for Coding)
+```bash
+# GPT-5.1-Codex-Max - DEFAULT for Codex CLI
+# Best for agentic coding with native compaction support
+codex exec -m gpt-5.1-codex-max "Complex development workflows"
+
+# GPT-5.1-Codex - Optimized for long-running agentic tasks
+codex exec -m gpt-5.1-codex "Extended coding sessions"
+
+# GPT-5.1-Codex-Mini - Cost-efficient coding
+codex exec -m gpt-5.1-codex-mini "Quick code tasks"
+```
+
+### Legacy GPT-5 Series
+```bash
+# GPT-5 - General model (use GPT-5.2 for latest)
+codex exec -m gpt-5 "General tasks"
+
+# GPT-5-Codex - Previous coding model
+codex exec -m gpt-5-codex "Code generation"
+```
+
+### o-Series (Reasoning Models)
+```bash
+# o3 - Smartest reasoning model
+codex exec -m o3 "Complex architectural decisions"
+
+# o4-mini - Efficient reasoning
+codex exec -m o4-mini "Quick reasoning tasks"
+```
+
+### New GPT-5.2 Features
+```bash
+# Extended reasoning with xhigh effort (GPT-5.2 Pro/Thinking)
+codex exec -m gpt-5.2-pro --reasoning-effort xhigh "Maximum accuracy task"
+
+# Context compaction for long sessions
+codex exec -m gpt-5.2 --compact "Long document analysis"
+
+# Concise reasoning summaries
+codex exec -m gpt-5.2 --concise-reasoning "Explain this code"
+```
+
+## Claude + Codex Collaboration Patterns
+
+**Claude orchestrates, Codex executes** - The Think-Act-Observe Loop:
+
+### Structured Workflows
+
+```bash
+#!/bin/bash
+# Claude directs Codex for complete feature development
+
+# THINK: Claude analyzes requirements
+echo "Goal: Add user profile caching"
+
+# ACT: Codex researches best practices (with web search)
+codex exec --search --dangerously-bypass-approvals-and-sandbox \
+  "Research Redis caching patterns and create implementation plan" \
+  > plan.md
+
+# OBSERVE: Claude reviews the plan
+cat plan.md
+
+# ACT: Codex implements (full automation)
+codex exec --dangerously-bypass-approvals-and-sandbox --json \
+  "Implement the caching system according to @plan.md" \
+  > implementation.json
+
+# OBSERVE: Claude verifies
+jq '.changes[]' implementation.json
+
+# ACT: Codex tests
+codex exec --dangerously-bypass-approvals-and-sandbox \
+  "Generate and run comprehensive tests"
+
+# Loop continues...
+```
+
+### JSON Output for AI Parsing
+
+```bash
+# Get structured output for Claude to parse
+codex exec --json "List all exported functions in ./src" > functions.json
+
+# Claude processes reliably
+for func in $(jq -r '.functions[].name' functions.json); do
+  echo "Processing: $func"
+  codex exec --dangerously-bypass-approvals-and-sandbox \
+    "Add input validation to $func function"
+done
+```
+
+### Sequential Task Decomposition
+
+```bash
+#!/bin/bash
+# Claude breaks down complex goal into safe atomic steps
+
+echo "=== Feature: Add OAuth2 Authentication ==="
+
+# Step 1: Research (safe, read-only)
+codex exec --search --full-auto "Research OAuth2 best practices 2025" > research.md
+
+# Step 2: Plan (Claude reviews)
+codex exec "Create detailed OAuth2 implementation plan based on @research.md"
+read -p "Review plan. Continue? [y/N] " -r
+
+# Step 3: Install dependencies
+codex exec --dangerously-bypass-approvals-and-sandbox "Install OAuth2 packages"
+
+# Step 4: Generate code
+codex exec --dangerously-bypass-approvals-and-sandbox \
+  "Generate OAuth2 auth module according to plan"
+
+# Step 5: Tests
+codex exec --dangerously-bypass-approvals-and-sandbox \
+  "Generate comprehensive OAuth2 tests"
+
+# Step 6: Verify
+codex exec --dangerously-bypass-approvals-and-sandbox "Run all tests and fix failures"
+```
+
+## Advanced Features
+
+### Web Search Integration
+
+```bash
+# Enable web search for research
+codex exec --search --dangerously-bypass-approvals-and-sandbox \
+  "Research latest React 19 features and create migration guide"
+
+# Research-driven development
+codex exec --search --full-auto \
+  "Find best practices for microservices and implement API gateway"
+```
+
+### Multimodal (Code + Images)
+
+```bash
+# Attach design screenshots
+codex exec -i design.png --dangerously-bypass-approvals-and-sandbox \
+  "Implement this UI design in React"
+
+# Multiple images
+codex exec -i mockup1.png -i mockup2.png --full-auto \
+  "Compare these designs and implement the better approach"
+```
+
+### Git-Aware Workflows
+
+```bash
+# Apply Codex changes as git patch
+codex apply
+# or
+codex a
+
+# Work on git branch
+git checkout -b feature/new-auth
+codex exec --dangerously-bypass-approvals-and-sandbox \
+  "Implement authentication with clean commits"
+
+# Codex respects .gitignore and git history
+```
+
+### Resume Sessions
+
+```bash
+# Resume last session
+codex exec resume --last
+
+# Pick from previous sessions
+codex resume
+```
+
+### Configuration Profiles
+
+```bash
+# Create profile in ~/.codex/config.toml
+[profiles.auto-dev]
+model = "gpt-5.1-codex"
+ask_for_approval = "never"
+sandbox = "workspace-write"
+search = true
+
+# Use profile
+codex exec -p auto-dev "Develop new feature automatically"
+```
+
+### MCP Server Integration
+
+```bash
+# Run as MCP server
+codex mcp
+
+# Manage MCP servers (experimental)
+codex mcp list
+codex mcp add <server-name>
+```
+
+## Core Workflows
+
+### Automated Code Generation
+
+```bash
+#!/bin/bash
+# Complete automation for code generation
+
+generate_api() {
+  local spec="$1"
+
+  codex exec --dangerously-bypass-approvals-and-sandbox \
+    --json \
+    --search \
+    "Read API specification @$spec and generate:
+    1. Data models with validation
+    2. API endpoints with OpenAPI docs
+    3. Database migrations
+    4. Comprehensive tests
+    5. Error handling middleware
+    6. Authentication middleware
+    7. Rate limiting
+    8. API documentation"
+}
+
+# Usage
+generate_api "./specs/user-api.yaml"
+```
+
+### Automated Refactoring
+
+```bash
+#!/bin/bash
+# Safe, automated refactoring workflow
+
+refactor_module() {
+  local module="$1"
+
+  # Backup first
+  git stash push -m "pre-refactor-$(date +%s)"
+
+  # Full automation with git safety
+  codex exec --dangerously-bypass-approvals-and-sandbox \
+    "Refactor $module:
+    1. Analyze current code structure
+    2. Identify improvements
+    3. Apply modern patterns
+    4. Add comprehensive tests
+    5. Run all tests
+    6. Fix any test failures
+    7. Update documentation
+    8. Create clean git commits"
+
+  if [ $? -eq 0 ]; then
+    echo "Refactoring complete!"
+  else
+    git stash pop
+    echo "Refactoring failed, restored backup"
+  fi
+}
+
+# Usage
+refactor_module "./src/auth"
+```
+
+### Test Generation & Fixing
+
+```bash
+#!/bin/bash
+# Automated test generation and fixing
+
+automate_testing() {
+  local target="$1"
+
+  codex exec --dangerously-bypass-approvals-and-sandbox \
+    "Complete testing workflow for $target:
+    1. Analyze code coverage gaps
+    2. Generate comprehensive unit tests
+    3. Generate integration tests
+    4. Generate end-to-end tests
+    5. Run all tests
+    6. Fix any failing tests
+    7. Achieve 100% coverage
+    8. Generate test report"
+}
+
+# Usage
+automate_testing "./src"
+```
+
+### CI/CD Integration
+
 ```yaml
-limits:
-  max_loops: 10          # 最大ループ回数
-  timeout_minutes: 30    # タイムアウト（分）
-  poll_interval_sec: 2   # ポーリング間隔（秒）
-  max_output_lines: 500  # capture-pane取得行数
-  stuck_threshold: 3     # 同一エラー許容回数
+# GitHub Actions with Codex
+name: Codex Automation
+on: [push, pull_request]
+
+jobs:
+  codex-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Codex CLI
+        run: npm install -g @openai/codex
+
+      - name: Run Codex Analysis
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          codex exec --dangerously-bypass-approvals-and-sandbox \
+            --json \
+            "Analyze code changes, run tests, fix issues, generate report" \
+            > codex-report.json
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: codex-analysis
+          path: codex-report.json
 ```
 
-### Step 6: 結果統合
+## Configuration
 
-1. Codex出力をキャプチャ
-2. 変更されたファイル一覧を取得
-3. セッション情報を記録（再開用）
-4. Claudeワークフローに結果を統合
+### Config File (~/.codex/config.toml)
+
+```toml
+# Default model (December 2025)
+model = "gpt-5.1-codex-max"  # Best for agentic coding
+
+# Approval policy
+ask_for_approval = "on-request"  # or "never", "on-failure", "untrusted"
+
+# Sandbox mode
+sandbox = "workspace-write"  # or "read-only", "danger-full-access"
+
+# Enable web search
+search = true
+
+# Additional writable directories
+add_dirs = ["./docs", "./tests"]
+
+# Feature flags
+[features]
+web_search = true
+multimodal = true
+mcp = true
+
+# Profiles for different workflows
+[profiles.safe]
+ask_for_approval = "untrusted"
+sandbox = "read-only"
+
+[profiles.auto]
+ask_for_approval = "never"
+sandbox = "workspace-write"
+search = true
+
+[profiles.danger]
+ask_for_approval = "never"
+sandbox = "danger-full-access"
+search = true
+
+# NEW: GPT-5.2 optimized profiles
+[profiles.gpt52]
+model = "gpt-5.2"
+ask_for_approval = "never"
+sandbox = "workspace-write"
+search = true
+
+[profiles.gpt52-pro]
+model = "gpt-5.2-pro"
+reasoning_effort = "xhigh"
+ask_for_approval = "on-request"
+sandbox = "workspace-write"
+
+[profiles.long-context]
+model = "gpt-5.2"
+ask_for_approval = "never"
+sandbox = "workspace-write"
+compact = true  # Enable context compaction
+```
+
+### Environment Variables
+
+```bash
+# Authentication
+export OPENAI_API_KEY="your-key"
+
+# Default model (December 2025)
+export CODEX_MODEL="gpt-5.1-codex-max"  # For agentic coding
+# export CODEX_MODEL="gpt-5.2"          # For general tasks with 400K context
+# export CODEX_MODEL="gpt-5.2-pro"      # For maximum accuracy
+
+# Default config path
+export CODEX_CONFIG_PATH="~/.codex/config.toml"
+
+# GPT-5.2 specific options
+export CODEX_REASONING_EFFORT="high"  # medium, high, xhigh
+```
+
+## Best Practices
+
+### Security with Bypass Mode
+
+When using `--dangerously-bypass-approvals-and-sandbox`:
+
+1. **Use in Controlled Environments**
+   - CI/CD with external sandboxing
+   - Docker containers
+   - Disposable development environments
+
+2. **Always Have Backups**
+   ```bash
+   git stash push -m "pre-codex-$(date +%s)"
+   codex exec --dangerously-bypass-approvals-and-sandbox "task"
+   ```
+
+3. **Use Git for Safety**
+   - Work on feature branches
+   - Review diffs before pushing
+   - Use `codex apply` to review changes
+
+4. **Limit Scope**
+   ```bash
+   codex exec --dangerously-bypass-approvals-and-sandbox \
+     -C ./specific/directory \
+     "Only affect this directory"
+   ```
+
+### Model Selection Strategy (December 2025)
+
+```bash
+# Quick tasks: o4-mini or gpt-5.1-codex-mini
+codex exec -m o4-mini "Format code with Prettier"
+codex exec -m gpt-5.1-codex-mini "Quick code fixes"
+
+# Standard development: gpt-5.1-codex-max (DEFAULT)
+codex exec -m gpt-5.1-codex-max "Implement user authentication"
+
+# Long-context tasks: gpt-5.2 (400K context)
+codex exec -m gpt-5.2 "Analyze entire codebase"
+
+# Complex reasoning: o3 or gpt-5.2-pro with xhigh
+codex exec -m o3 "Design scalable microservices architecture"
+codex exec -m gpt-5.2-pro --reasoning-effort xhigh "Critical architecture decisions"
+
+# Speed-optimized: gpt-5.2-chat-latest (Instant)
+codex exec -m gpt-5.2-chat-latest "Quick information retrieval"
+
+# Maximum accuracy: gpt-5.2-pro
+codex exec -m gpt-5.2-pro "High-stakes production code"
+```
+
+### Performance Optimization
+
+```bash
+# Use JSON for faster parsing
+codex exec --json "task" | jq .
+
+# Skip git checks if not needed
+codex exec --skip-git-repo-check "task"
+
+# Specify working directory
+codex exec -C ./project "task"
+
+# Use profiles to avoid repetitive flags
+codex exec -p auto-dev "task"
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Authentication Failed**
+```bash
+codex logout
+codex login
+```
+
+**Model Not Available**
+```bash
+# Check available models (December 2025)
+codex exec -m gpt-5.2 "test" || echo "GPT-5.2 not available"
+
+# Fall back to stable coding model
+codex exec -m gpt-5.1-codex-max "task"
+
+# Or use previous generation
+codex exec -m gpt-5.1-codex "task"
+```
+
+**Sandbox Errors**
+```bash
+# Try different sandbox mode
+codex exec -s danger-full-access "task"
+
+# Or bypass entirely (if safe)
+codex exec --dangerously-bypass-approvals-and-sandbox "task"
+```
+
+## Related Skills
+
+- `codex-auth`: Authentication and API key management
+- `codex-chat`: Interactive REPL workflows
+- `codex-tools`: Tool execution and file operations
+- `codex-review`: Code review and git workflows
+- `codex-git`: Git-aware development patterns
+
+## Updates
+
+```bash
+# Update Codex CLI
+npm update -g @openai/codex
+
+# Check version
+codex --version
+
+# Check for new models
+codex exec "What models are available?"
+```
 
 ---
 
-## 成果物
-
-| 成果物 | 必須 | 説明 |
-|--------|:----:|------|
-| 実行ログ | Yes | Codexのターミナル出力 |
-| 変更ファイル一覧 | Yes | Codexが作成/編集したファイル |
-| セッションID | Optional | `codex resume`用のID |
-| tmuxセッション情報 | Optional | ソケットパス、セッション名 |
-| ループ履歴 | Optional | 各イテレーションの指示と結果 |
-| ゴール達成証拠 | Yes | テスト結果、生成物の確認 |
-
----
-
-## 検証（完了条件）
-
-- [ ] Codex CLIがインストールされている
-- [ ] 認証が成功している
-- [ ] 指定したタスクが実行された
-- [ ] 出力/変更が文書化されている
-- [ ] Claudeへのハンドオフが完了している
-- [ ] （オーケストレーターループの場合）ゴールが達成されている
-
----
-
-## 参照
-
-- Reference: [REFERENCE.md](./REFERENCE.md) - 詳細なコマンドリファレンス、トラブルシューティング
-- OpenAI Codex CLI: https://developers.openai.com/codex/cli/
-- tmux: https://github.com/tmux/tmux
+**Created for Claude Code** - Full automation for AI-to-AI collaboration

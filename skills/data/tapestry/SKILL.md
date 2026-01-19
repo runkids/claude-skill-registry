@@ -1,446 +1,481 @@
 ---
 name: tapestry
 description: Unified content extraction and action planning. Use when user says "tapestry <URL>", "weave <URL>", "help me plan <URL>", "extract and plan <URL>", "make this actionable <URL>", or similar phrases indicating they want to extract content and create an action plan. Automatically detects content type (YouTube video, article, PDF) and processes accordingly.
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Skill
 ---
 
-# Tapestry: Unified Content → Action Workflow
+# Tapestry: Unified Content Extraction + Action Planning
 
-This skill combines content extraction with actionable planning - turning any learning resource (YouTube videos, articles, PDFs) into **Ship-Learn-Next** action plans in one seamless flow.
+This is the **master skill** that orchestrates the entire Tapestry workflow:
+1. Detect content type from URL
+2. Extract content using appropriate skill
+3. Automatically create a Ship-Learn-Next action plan
 
 ## When to Use This Skill
 
 Activate when the user:
-- Says "tapestry [URL]" or "weave [URL]"
-- Wants to "extract and plan from [URL]"
-- Asks to "make [URL] actionable"
-- Says "help me implement [URL]"
-- Provides a URL and wants both content + action plan
-- Wants to turn learning content into concrete steps
+- Says "tapestry [URL]"
+- Says "weave [URL]"
+- Says "help me plan [URL]"
+- Says "extract and plan [URL]"
+- Says "make this actionable [URL]"
+- Says "turn [URL] into a plan"
+- Provides a URL and asks to "learn and implement from this"
+- Wants the full Tapestry workflow (extract → plan)
 
-## Core Philosophy
+**Keywords to watch for**: tapestry, weave, plan, actionable, extract and plan, make a plan, turn into action
 
-**Tapestry weaves three threads together:**
-1. **Extract** - Get clean content from any source
-2. **Synthesize** - Identify actionable lessons
-3. **Plan** - Create Ship-Learn-Next cycles
+## How It Works
 
-**Result**: From URL to shippable action plan in one flow.
+### Complete Workflow:
+1. **Detect URL type** (YouTube, article, PDF)
+2. **Extract content** using appropriate skill:
+   - YouTube → youtube-transcript skill
+   - Article → article-extractor skill
+   - PDF → download and extract text
+3. **Create action plan** using ship-learn-next skill
+4. **Save both** content file and plan file
+5. **Present summary** to user
 
-## How Tapestry Works
+## URL Detection Logic
+
+### YouTube Videos
+
+**Patterns to detect:**
+- `youtube.com/watch?v=`
+- `youtu.be/`
+- `youtube.com/shorts/`
+- `m.youtube.com/watch?v=`
+
+**Action:** Use youtube-transcript skill
+
+### Web Articles/Blog Posts
+
+**Patterns to detect:**
+- `http://` or `https://`
+- NOT YouTube, NOT PDF
+- Common domains: medium.com, substack.com, dev.to, etc.
+- Any HTML page
+
+**Action:** Use article-extractor skill
+
+### PDF Documents
+
+**Patterns to detect:**
+- URL ends with `.pdf`
+- URL returns `Content-Type: application/pdf`
+
+**Action:** Download and extract text
+
+### Other Content
+
+**Fallback:**
+- Try article-extractor (works for most HTML)
+- If fails, inform user of unsupported type
+
+## Step-by-Step Workflow
 
 ### Step 1: Detect Content Type
 
-When user provides a URL, automatically detect:
-
 ```bash
-# YouTube detection
-if [[ "$URL" =~ youtube\.com|youtu\.be ]]; then
+URL="$1"
+
+# Check for YouTube
+if [[ "$URL" =~ youtube\.com/watch || "$URL" =~ youtu\.be/ || "$URL" =~ youtube\.com/shorts ]]; then
     CONTENT_TYPE="youtube"
-# Article/blog detection
-elif [[ "$URL" =~ ^https?:// ]]; then
-    CONTENT_TYPE="article"
-# PDF detection (if URL ends in .pdf)
+
+# Check for PDF
 elif [[ "$URL" =~ \.pdf$ ]]; then
     CONTENT_TYPE="pdf"
-fi
-```
 
-### Step 2: Extract Content (Automatic)
+# Check if URL returns PDF
+elif curl -sI "$URL" | grep -i "Content-Type: application/pdf" > /dev/null; then
+    CONTENT_TYPE="pdf"
 
-Based on content type, use the appropriate extraction method:
-
-#### For YouTube Videos
-Use the `youtube-transcript` skill:
-```bash
-# Activate youtube-transcript skill
-# This handles:
-# - Installation check (yt-dlp)
-# - Subtitle detection (manual → auto-generated → Whisper)
-# - VTT to plain text conversion
-# - Deduplication
-```
-
-**Result**: Clean transcript saved as `[Video Title].txt`
-
-#### For Articles/Blogs
-Use the `article-extractor` skill:
-```bash
-# Activate article-extractor skill
-# This handles:
-# - Tool detection (reader/trafilatura/fallback)
-# - Content extraction
-# - Clutter removal
-# - Clean text output
-```
-
-**Result**: Clean article saved as `[Article Title].txt`
-
-#### For PDFs
-Direct extraction:
-```bash
-# Check for PDF tools
-if command -v pdftotext &> /dev/null; then
-    pdftotext "$PDF_URL" output.txt
-elif command -v mutool &> /dev/null; then
-    mutool draw -F txt -o output.txt "$PDF_URL"
+# Default to article
 else
-    echo "PDF extraction requires pdftotext or mutool"
-    echo "Install: brew install poppler (macOS) or apt install poppler-utils (Linux)"
+    CONTENT_TYPE="article"
+fi
+
+echo "📍 Detected: $CONTENT_TYPE"
+```
+
+### Step 2: Extract Content (by Type)
+
+#### YouTube Video
+
+```bash
+# Use youtube-transcript skill workflow
+echo "📺 Extracting YouTube transcript..."
+
+# 1. Check for yt-dlp
+if ! command -v yt-dlp &> /dev/null; then
+    echo "Installing yt-dlp..."
+    brew install yt-dlp
+fi
+
+# 2. Get video title
+VIDEO_TITLE=$(yt-dlp --print "%(title)s" "$URL" | tr '/' '_' | tr ':' '-' | tr '?' '' | tr '"' '')
+
+# 3. Download transcript
+yt-dlp --write-auto-sub --skip-download --sub-langs en --output "temp_transcript" "$URL"
+
+# 4. Convert to clean text (deduplicate)
+python3 -c "
+import sys, re
+seen = set()
+vtt_file = 'temp_transcript.en.vtt'
+try:
+    with open(vtt_file, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('WEBVTT') and not line.startswith('Kind:') and not line.startswith('Language:') and '-->' not in line:
+                clean = re.sub('<[^>]*>', '', line)
+                clean = clean.replace('&amp;', '&').replace('&gt;', '>').replace('&lt;', '<')
+                if clean and clean not in seen:
+                    print(clean)
+                    seen.add(clean)
+except FileNotFoundError:
+    print('Error: Could not find transcript file', file=sys.stderr)
+    sys.exit(1)
+" > "${VIDEO_TITLE}.txt"
+
+# 5. Cleanup
+rm -f temp_transcript.en.vtt
+
+CONTENT_FILE="${VIDEO_TITLE}.txt"
+echo "✓ Saved transcript: $CONTENT_FILE"
+```
+
+#### Article/Blog Post
+
+```bash
+# Use article-extractor skill workflow
+echo "📄 Extracting article content..."
+
+# 1. Check for extraction tools
+if command -v reader &> /dev/null; then
+    TOOL="reader"
+elif command -v trafilatura &> /dev/null; then
+    TOOL="trafilatura"
+else
+    TOOL="fallback"
+fi
+
+echo "Using: $TOOL"
+
+# 2. Extract based on tool
+case $TOOL in
+    reader)
+        reader "$URL" > temp_article.txt
+        ARTICLE_TITLE=$(head -n 1 temp_article.txt | sed 's/^# //')
+        ;;
+
+    trafilatura)
+        METADATA=$(trafilatura --URL "$URL" --json)
+        ARTICLE_TITLE=$(echo "$METADATA" | python3 -c "import json, sys; print(json.load(sys.stdin).get('title', 'Article'))")
+        trafilatura --URL "$URL" --output-format txt --no-comments > temp_article.txt
+        ;;
+
+    fallback)
+        ARTICLE_TITLE=$(curl -s "$URL" | grep -oP '<title>\K[^<]+' | head -n 1)
+        ARTICLE_TITLE=${ARTICLE_TITLE%% - *}
+        curl -s "$URL" | python3 -c "
+from html.parser import HTMLParser
+import sys
+
+class ArticleExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.content = []
+        self.skip_tags = {'script', 'style', 'nav', 'header', 'footer', 'aside', 'form'}
+        self.in_content = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag not in self.skip_tags and tag in {'p', 'article', 'main'}:
+            self.in_content = True
+
+    def handle_data(self, data):
+        if self.in_content and data.strip():
+            self.content.append(data.strip())
+
+    def get_content(self):
+        return '\n\n'.join(self.content)
+
+parser = ArticleExtractor()
+parser.feed(sys.stdin.read())
+print(parser.get_content())
+" > temp_article.txt
+        ;;
+esac
+
+# 3. Clean filename
+FILENAME=$(echo "$ARTICLE_TITLE" | tr '/' '-' | tr ':' '-' | tr '?' '' | tr '"' '' | cut -c 1-80 | sed 's/ *$//')
+CONTENT_FILE="${FILENAME}.txt"
+mv temp_article.txt "$CONTENT_FILE"
+
+echo "✓ Saved article: $CONTENT_FILE"
+```
+
+#### PDF Document
+
+```bash
+# Download and extract PDF
+echo "📑 Downloading PDF..."
+
+# 1. Download PDF
+PDF_FILENAME=$(basename "$URL")
+curl -L -o "$PDF_FILENAME" "$URL"
+
+# 2. Extract text using pdftotext (if available)
+if command -v pdftotext &> /dev/null; then
+    pdftotext "$PDF_FILENAME" temp_pdf.txt
+    CONTENT_FILE="${PDF_FILENAME%.pdf}.txt"
+    mv temp_pdf.txt "$CONTENT_FILE"
+    echo "✓ Extracted text from PDF: $CONTENT_FILE"
+
+    # Optionally keep PDF
+    echo "Keep original PDF? (y/n)"
+    read -r KEEP_PDF
+    if [[ ! "$KEEP_PDF" =~ ^[Yy]$ ]]; then
+        rm "$PDF_FILENAME"
+    fi
+else
+    # No pdftotext available
+    echo "⚠️  pdftotext not found. PDF downloaded but not extracted."
+    echo "   Install with: brew install poppler"
+    CONTENT_FILE="$PDF_FILENAME"
 fi
 ```
 
-**Result**: Clean PDF text saved as `[PDF Title].txt`
+### Step 3: Create Ship-Learn-Next Action Plan
 
-### Step 3: Synthesize Content
+**IMPORTANT**: Always create an action plan after extracting content.
 
-Once content is extracted, analyze for:
+```bash
+# Read the extracted content
+CONTENT_FILE="[from previous step]"
 
-**Actionable Elements**:
-- Specific techniques mentioned
-- Case studies or examples
-- Step-by-step processes
-- Advice that can be practiced
-- Skills that can be developed
+# Invoke ship-learn-next skill logic:
+# 1. Read the content file
+# 2. Extract core actionable lessons
+# 3. Create 5-rep progression plan
+# 4. Save as: Ship-Learn-Next Plan - [Quest Title].md
 
-**Theory vs Practice**:
-- Filter out pure theory
-- Focus on "do this" over "know this"
-- Identify minimal viable implementations
-
-**Core Lessons** (3-5 maximum):
-- What are the key takeaways?
-- What would change someone's behavior?
-- What can be practiced immediately?
-
-### Step 4: Create Action Plan (Ship-Learn-Next)
-
-Use the `ship-learn-next` skill to transform lessons into action:
-
-**Activate ship-learn-next with**:
-- The extracted content file
-- Synthesized lessons
-- User's goal (ask if not clear)
-
-This creates:
-- Quest overview
-- Rep 1 (shippable this week)
-- Reps 2-5 (progression path)
-- Reflection framework
-- Success criteria
-
-**Result**: Complete action plan saved as `Ship-Learn-Next Plan - [Title].md`
-
-### Step 5: Present to User
-
-Show:
-1. " Content extracted from: [source]"
-2. " Identified [N] core actionable lessons"
-3. " Created Ship-Learn-Next plan: [filename]"
-4. Preview of Rep 1 (what's due this week)
-
-Ask:
-- "When will you ship Rep 1?"
-- "What questions do you have about the plan?"
-
-## Complete Workflow Example
-
-```markdown
-User: "tapestry https://www.youtube.com/watch?v=example"
-
-[AUTOMATIC EXECUTION]
-
-Step 1: Detect → YouTube video
-Step 2: Activate youtube-transcript skill
-  → Download transcript
-  → Clean and deduplicate
-  → Save: "How to Build Profitable SaaS Products.txt"
-
-Step 3: Synthesize content
-  → Read transcript
-  → Extract 5 core lessons:
-    1. Start with proven markets (not new ones)
-    2. Solve your own problem first
-    3. Ship MVP in 2 weeks max
-    4. Get 10 paying customers before scaling
-    5. Focus on retention over acquisition
-
-Step 4: Activate ship-learn-next skill
-  → Create quest: "Ship a Micro-SaaS in 8 Weeks"
-  → Define Rep 1: "Ship landing page + waitlist by Friday"
-  → Map Reps 2-5
-
-Step 5: Present results
-   Content extracted: "How to Build Profitable SaaS Products.txt"
-   Identified 5 core actionable lessons
-   Created: "Ship-Learn-Next Plan - Build Micro-SaaS.md"
-
-  [Preview of Rep 1]
-  **Rep 1: Ship Landing Page + Waitlist (By Friday)**
-  - Build single-page site explaining your SaaS idea
-  - Add email capture form
-  - Deploy to Vercel/Netlify
-  - Share with 10 people for feedback
-
-  When will you ship Rep 1?
+# See ship-learn-next/SKILL.md for full details
 ```
 
-## Skill Orchestration
+**Key points for plan creation:**
+- Extract actionable lessons (not just summaries)
+- Define a specific 4-8 week quest
+- Create Rep 1 (shippable this week)
+- Design Reps 2-5 (progressive iterations)
+- Save plan to markdown file
+- Use format: `Ship-Learn-Next Plan - [Brief Quest Title].md`
 
-Tapestry coordinates three specialized skills:
+### Step 4: Present Results
 
-### Content Extraction Layer
-- `youtube-transcript` - For video content
-- `article-extractor` - For articles/blogs
-- Direct extraction - For PDFs
+Show user:
+```
+✅ Tapestry Workflow Complete!
 
-### Action Planning Layer
-- `ship-learn-next` - Transforms content into action cycles
+📥 Content Extracted:
+   ✓ [Content type]: [Title]
+   ✓ Saved to: [filename.txt]
+   ✓ [X] words extracted
 
-### Synthesis Layer (Built-in)
-- Reads extracted content
-- Identifies actionable elements
-- Filters theory from practice
-- Connects lessons to concrete reps
+📋 Action Plan Created:
+   ✓ Quest: [Quest title]
+   ✓ Saved to: Ship-Learn-Next Plan - [Title].md
 
-## Handling Different URL Types
+🎯 Your Quest: [One-line summary]
 
-### YouTube Videos
-**Patterns**:
-- `youtube.com/watch?v=*`
-- `youtu.be/*`
-- `youtube.com/shorts/*`
+📍 Rep 1 (This Week): [Rep 1 goal]
 
-**Process**:
-1. Activate youtube-transcript
-2. Wait for transcript file
-3. Read and synthesize
-4. Create action plan
-
-### Articles/Blogs
-**Patterns**:
-- Any HTTP/HTTPS URL (not YouTube/PDF)
-
-**Process**:
-1. Activate article-extractor
-2. Wait for article file
-3. Read and synthesize
-4. Create action plan
-
-### PDFs
-**Patterns**:
-- URLs ending in `.pdf`
-- Direct PDF links
-
-**Process**:
-1. Check for PDF tools
-2. Extract text directly
-3. Read and synthesize
-4. Create action plan
-
-## User Commands
-
-### Primary Command
-```bash
-tapestry <URL>
+When will you ship Rep 1?
 ```
 
-**Aliases** (all equivalent):
-- `weave <URL>`
-- `tapestry <URL>`
-- `make actionable <URL>`
-- `extract and plan <URL>`
+## Complete Tapestry Workflow Script
 
-### Optional Flags (Future Enhancement)
 ```bash
-# Extract only (no action plan)
-tapestry --extract-only <URL>
+#!/bin/bash
 
-# Action plan only (content already extracted)
-tapestry --plan-only <file>
+# Tapestry: Extract content + create action plan
+# Usage: tapestry <URL>
 
-# Quick mode (3 reps instead of 5)
-tapestry --quick <URL>
+URL="$1"
+
+if [ -z "$URL" ]; then
+    echo "Usage: tapestry <URL>"
+    exit 1
+fi
+
+echo "🧵 Tapestry Workflow Starting..."
+echo "URL: $URL"
+echo ""
+
+# Step 1: Detect content type
+if [[ "$URL" =~ youtube\.com/watch || "$URL" =~ youtu\.be/ || "$URL" =~ youtube\.com/shorts ]]; then
+    CONTENT_TYPE="youtube"
+elif [[ "$URL" =~ \.pdf$ ]] || curl -sI "$URL" | grep -iq "Content-Type: application/pdf"; then
+    CONTENT_TYPE="pdf"
+else
+    CONTENT_TYPE="article"
+fi
+
+echo "📍 Detected: $CONTENT_TYPE"
+echo ""
+
+# Step 2: Extract content
+case $CONTENT_TYPE in
+    youtube)
+        echo "📺 Extracting YouTube transcript..."
+        # [YouTube extraction code from above]
+        ;;
+
+    article)
+        echo "📄 Extracting article..."
+        # [Article extraction code from above]
+        ;;
+
+    pdf)
+        echo "📑 Downloading PDF..."
+        # [PDF extraction code from above]
+        ;;
+esac
+
+echo ""
+
+# Step 3: Create action plan
+echo "🚀 Creating Ship-Learn-Next action plan..."
+# [Plan creation using ship-learn-next skill]
+
+echo ""
+echo "✅ Tapestry Workflow Complete!"
+echo ""
+echo "📥 Content: $CONTENT_FILE"
+echo "📋 Plan: Ship-Learn-Next Plan - [title].md"
+echo ""
+echo "🎯 Next: Review your action plan and ship Rep 1!"
 ```
 
 ## Error Handling
 
-### Content Extraction Fails
-```markdown
-Problem: YouTube transcript unavailable, article behind paywall, PDF corrupted
+### Common Issues:
 
-Solution:
-1. Inform user of the issue
-2. Suggest alternatives:
-   - Try different URL
-   - Paste content directly
-   - Use different source
-3. Offer manual content input
-```
+**1. Unsupported URL type**
+- Try article extraction as fallback
+- If fails: "Could not extract content from this URL type"
 
-### No Actionable Content
-```markdown
-Problem: Content is purely theoretical or entertainment
+**2. No content extracted**
+- Check if URL is accessible
+- Try alternate extraction method
+- Inform user: "Extraction failed. URL may require authentication."
 
-Solution:
-1. Inform user: "This content doesn't contain actionable advice"
-2. Offer to:
-   - Try different content
-   - Create learning plan around theory
-   - Suggest related actionable resources
-```
+**3. Tools not installed**
+- Auto-install when possible (yt-dlp, reader, trafilatura)
+- Provide install instructions if auto-install fails
+- Use fallback methods when available
 
-### User Goal Unclear
-```markdown
-Problem: Can't determine what user wants to achieve
-
-Solution:
-1. Show extracted lessons
-2. Ask: "Which of these resonates with you?"
-3. Ask: "What would you like to achieve in 4-8 weeks?"
-4. Build plan around their specific goal
-```
+**4. Empty or invalid content**
+- Verify file has content before creating plan
+- Don't create plan if extraction failed
+- Show preview to user before planning
 
 ## Best Practices
 
-### For Content Extraction
--  Always verify extraction succeeded before proceeding
--  Show preview of extracted content
--  Handle missing tools gracefully (install prompts)
--  Clean filenames for filesystem compatibility
+- ✅ Always show what was detected ("📍 Detected: youtube")
+- ✅ Display progress for each step
+- ✅ Save both content file AND plan file
+- ✅ Show preview of extracted content (first 10 lines)
+- ✅ Create plan automatically (don't ask)
+- ✅ Present clear summary at end
+- ✅ Ask commitment question: "When will you ship Rep 1?"
 
-### For Synthesis
--  Focus on specific, actionable advice (not theory)
--  Limit to 3-5 core lessons (avoid overwhelming)
--  Identify concrete examples to replicate
--  Connect lessons to practical implementations
+## Usage Examples
 
-### For Action Planning
--  Make Rep 1 shippable THIS WEEK
--  Ensure clear success criteria
--  Build progression that makes sense
--  Reference source material for each rep
--  Keep focus on DOING, not studying
+### Example 1: YouTube Video (using "tapestry")
 
-## Output Files
-
-Tapestry creates two files:
-
-### 1. Extracted Content
-**Filename**: `[Source Title].txt`
-**Contents**: Clean text from source (no clutter)
-**Purpose**: Reference material for implementation
-
-### 2. Action Plan
-**Filename**: `Ship-Learn-Next Plan - [Quest Title].md`
-**Contents**: Complete Ship-Learn-Next cycle with reps 1-5
-**Purpose**: Executable roadmap
-
-## Success Criteria
-
-A successful tapestry run produces:
--  Clean extracted content file
--  Action plan with shippable Rep 1
--  Clear connection between content and action
--  Concrete deliverables (not vague goals)
--  Timeline commitments
--  Reflection framework built in
-
-## Tips for Users
-
-**To get the best results**:
-1. Provide clear URLs (not shortened links)
-2. Mention your goal if known ("I want to...")
-3. Be specific about timeline if needed
-4. Ask questions about the plan before starting
-5. Come back after Rep 1 to reflect and iterate
-
-**Remember**:
-- Tapestry is about DOING, not collecting
-- The plan is meant to be shipped, not studied
-- Start with Rep 1 immediately
-- Learn by building, not by consuming
-
-## Related Skills
-
-- **youtube-transcript** - Called automatically for YouTube URLs
-- **article-extractor** - Called automatically for article URLs
-- **ship-learn-next** - Called automatically for action planning
-
-## Integration Examples
-
-### Example 1: YouTube Video
 ```
-User: "tapestry https://youtube.com/watch?v=abc123"
+User: tapestry https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
-Tapestry:
-1. Detects YouTube → Calls youtube-transcript
-2. Extracts transcript → "How to Build Winning Products.txt"
-3. Synthesizes 4 core lessons
-4. Calls ship-learn-next → Creates quest with 5 reps
-5. Presents plan → "Ship-Learn-Next Plan - Build Winning Products.md"
+Claude:
+🧵 Tapestry Workflow Starting...
+📍 Detected: youtube
+📺 Extracting YouTube transcript...
+✓ Saved transcript: Never Gonna Give You Up.txt
+
+🚀 Creating action plan...
+✓ Quest: Master Video Production
+✓ Saved plan: Ship-Learn-Next Plan - Master Video Production.md
+
+✅ Complete! When will you ship Rep 1?
 ```
 
-### Example 2: Blog Article
-```
-User: "weave https://example.com/how-to-scale-your-startup"
+### Example 2: Article (using "weave")
 
-Tapestry:
-1. Detects article → Calls article-extractor
-2. Extracts clean text → "How to Scale Your Startup.txt"
-3. Synthesizes 5 actionable strategies
-4. Calls ship-learn-next → Creates quest with 5 reps
-5. Presents plan → "Ship-Learn-Next Plan - Scale Startup.md"
 ```
+User: weave https://example.com/how-to-build-saas
 
-### Example 3: PDF Research Paper
-```
-User: "tapestry https://arxiv.org/pdf/example.pdf"
+Claude:
+🧵 Tapestry Workflow Starting...
+📍 Detected: article
+📄 Extracting article...
+✓ Using reader (Mozilla Readability)
+✓ Saved article: How to Build a SaaS.txt
 
-Tapestry:
-1. Detects PDF → Extracts with pdftotext
-2. Saves → "Machine Learning Best Practices.txt"
-3. Synthesizes practical techniques
-4. Calls ship-learn-next → Creates implementation quest
-5. Presents plan → "Ship-Learn-Next Plan - ML Best Practices.md"
+🚀 Creating action plan...
+✓ Quest: Build a SaaS MVP
+✓ Saved plan: Ship-Learn-Next Plan - Build a SaaS MVP.md
+
+✅ Complete! When will you ship Rep 1?
 ```
 
-## Advanced Usage
+### Example 3: PDF (using "help me plan")
 
-### Chaining Multiple Sources
 ```
-User: "I have 3 articles on X. Can tapestry handle multiple?"
+User: help me plan https://example.com/research-paper.pdf
 
-Process:
-1. Run tapestry on each URL separately
-2. Synthesize combined lessons across all sources
-3. Create single unified Ship-Learn-Next plan
-4. Reference specific sources for each rep
+Claude:
+🧵 Tapestry Workflow Starting...
+📍 Detected: pdf
+📑 Downloading PDF...
+✓ Downloaded: research-paper.pdf
+✓ Extracted text: research-paper.txt
+
+🚀 Creating action plan...
+✓ Quest: Apply Research Findings
+✓ Saved plan: Ship-Learn-Next Plan - Apply Research Findings.md
+
+✅ Complete! When will you ship Rep 1?
 ```
 
-### Updating Existing Plans
-```
-User: "I finished Rep 1. Can we update the plan?"
+## Dependencies
 
-Process:
-1. Read existing plan
-2. Ask reflection questions
-3. Adjust Rep 2 based on learnings
-4. Save updated plan
-```
+This skill orchestrates the other skills, so requires:
+
+**For YouTube:**
+- yt-dlp (auto-installed)
+- Python 3 (for deduplication)
+
+**For Articles:**
+- reader (npm) OR trafilatura (pip)
+- Falls back to basic curl if neither available
+
+**For PDFs:**
+- curl (built-in)
+- pdftotext (optional - from poppler package)
+  - Install: `brew install poppler` (macOS)
+  - Install: `apt install poppler-utils` (Linux)
+
+**For Planning:**
+- No additional requirements (uses built-in tools)
 
 ## Philosophy
 
-Tapestry embodies the principle:
+**Tapestry weaves learning content into action.**
 
-**"From consumption to creation"**
+The unified workflow ensures you never just consume content - you always create an implementation plan. This transforms passive learning into active building.
 
-Every piece of learning content should lead to something built, shipped, and reflected upon. Tapestry automates the bridge between passive learning and active doing.
+Extract → Plan → Ship → Learn → Next.
 
-**100 reps beats 100 hours of study.**
-
-Let's weave learning into action.
+That's the Tapestry way.

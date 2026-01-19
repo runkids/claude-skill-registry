@@ -1,277 +1,289 @@
 ---
 name: gh-cli
-description: "The gh CLI is GitHub's official command line tool for interacting with GitHub repositories, issues, pull requests, and more. When needs to interact with GitHub repositories, issues, pull requests, and more, use this skill."
-license: Proprietary. LICENSE.txt has complete terms
+description: Use GitHub CLI (gh) for common operations like creating PRs, viewing GitHub Actions logs, managing issues, reviewing PRs, and more. Use this when you need to interact with GitHub repositories directly from the command line.
+license: MIT
 ---
 
-# GitHub CLI (gh)
+# GitHub CLI Operations
 
-Work seamlessly with GitHub from the command line.
+This skill provides quick access to common GitHub CLI operations for managing repositories, pull requests, issues, and GitHub Actions.
 
-## Usage
+## Requirements
 
-```
-gh <command> <subcommand> [flags]
-```
+- `gh` (GitHub CLI) - must be authenticated with your GitHub account
+- Run `gh auth login` if not already authenticated
 
-## Core Commands
+## Common operations
 
-```
-  issue:      Manage issues
-  pr:         Manage pull requests
-  repo:       Create, clone, fork, and view repositories
-  api:        Make an authenticated GitHub API request
-  run:        View details about workflow runs
+### Pull requests
+
+**Create a new PR**:
+```bash
+gh pr create --title "Your PR title" --body "Description of changes"
 ```
 
-Use `gh <command> --help` for more information about a command.
-
----
-
-## gh pr
-
-Work with GitHub pull requests.
-
-```
-USAGE
-  gh pr <command> [flags]
-
-CORE COMMANDS
-  checkout:   Check out a pull request in git
-  checks:     Show CI status for a single pull request
-  close:      Close a pull request
-  comment:    Create a new pr comment
-  create:     Create a pull request
-  diff:       View changes in a pull request
-  edit:       Edit a pull request
-  list:       List and filter pull requests in this repository
-  merge:      Merge a pull request
-  ready:      Mark a pull request as ready for review
-  reopen:     Reopen a pull request
-  review:     Add a review to a pull request
-  status:     Show status of relevant pull requests
-  view:       View a pull request
-
-FLAGS
-  -R, --repo [HOST/]OWNER/REPO   Select another repository using the [HOST/]OWNER/REPO format
-
-INHERITED FLAGS
-  --help   Show help for command
-
-ARGUMENTS
-  A pull request can be supplied as argument in any of the following formats:
-  - by number, e.g. "123";
-  - by URL, e.g. "https://github.com/OWNER/REPO/pull/123"; or
-  - by the name of its head branch, e.g. "patch-1" or "OWNER:patch-1".
-
-EXAMPLES
-  $ gh pr checkout 353
-  $ gh pr create --fill
-  $ gh pr view --web
-
-LEARN MORE
-  Use 'gh <command> <subcommand> --help' for more information about a command.
-  Read the manual at https://cli.github.com/manual
+**Create a PR with auto-fill (from commit messages)**:
+```bash
+gh pr create --fill
 ```
 
----
-
-## gh issue
-
-Work with GitHub issues.
-
-```
-USAGE
-  gh issue <command> [flags]
-
-CORE COMMANDS
-  close:      Close issue
-  comment:    Create a new issue comment
-  create:     Create a new issue
-  delete:     Delete issue
-  edit:       Edit an issue
-  list:       List and filter issues in this repository
-  reopen:     Reopen issue
-  status:     Show status of relevant issues
-  transfer:   Transfer issue to another repository
-  view:       View an issue
-
-FLAGS
-  -R, --repo [HOST/]OWNER/REPO   Select another repository using the [HOST/]OWNER/REPO format
-
-INHERITED FLAGS
-  --help   Show help for command
-
-ARGUMENTS
-  An issue can be supplied as argument in any of the following formats:
-  - by number, e.g. "123"; or
-  - by URL, e.g. "https://github.com/OWNER/REPO/issues/123".
-
-EXAMPLES
-  $ gh issue list
-  $ gh issue create --label bug
-  $ gh issue view --web
-
-LEARN MORE
-  Use 'gh <command> <subcommand> --help' for more information about a command.
-  Read the manual at https://cli.github.com/manual
+**Create a draft PR**:
+```bash
+gh pr create --draft --title "WIP: Feature X"
 ```
 
----
+**List PRs**:
+```bash
+# List open PRs
+gh pr list
 
-## gh repo
+# List all PRs (including closed)
+gh pr list --state all
 
-Work with GitHub repositories.
-
-```
-USAGE
-  gh repo <command> [flags]
-
-CORE COMMANDS
-  archive:    Archive a repository
-  clone:      Clone a repository locally
-  create:     Create a new repository
-  delete:     Delete a repository
-  edit:       Edit repository settings
-  fork:       Create a fork of a repository
-  list:       List repositories owned by user or organization
-  rename:     Rename a repository
-  sync:       Sync a repository
-  view:       View a repository
-
-INHERITED FLAGS
-  --help   Show help for command
-
-ARGUMENTS
-  A repository can be supplied as an argument in any of the following formats:
-  - "OWNER/REPO"
-  - by URL, e.g. "https://github.com/OWNER/REPO"
-
-EXAMPLES
-  $ gh repo create
-  $ gh repo clone cli/cli
-  $ gh repo view --web
+# List your PRs
+gh pr list --author @me
 ```
 
-## Search Query Syntax
+**View a PR**:
+```bash
+# View PR in terminal
+gh pr view 123
 
-The `--search` flag uses GitHub search syntax. Full documentation: https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax
-
-### Comparison Operators
-
-| Query | Description | Example |
-|-------|-------------|---------|
-| `>n` | Greater than | `stars:>1000` |
-| `>=n` | Greater than or equal | `topics:>=5` |
-| `<n` | Less than | `size:<10000` |
-| `<=n` | Less than or equal | `stars:<=50` |
-
-### Range Queries
-
-| Query | Description | Example |
-|-------|-------------|---------|
-| `n..n` | Between range | `stars:10..50` |
-| `n..*` | Greater than or equal | `stars:10..*` (same as `>=10`) |
-| `*..n` | Less than or equal | `stars:*..10` (same as `<=10`) |
-
-### Date Queries
-
-Date format: `YYYY-MM-DD` (ISO8601). Optional time: `YYYY-MM-DDTHH:MM:SS+00:00`
-
-| Query | Example |
-|-------|---------|
-| `>YYYY-MM-DD` | `created:>2024-04-29` — after April 29, 2024 |
-| `>=YYYY-MM-DD` | `created:>=2024-04-01` — on or after April 1, 2024 |
-| `<YYYY-MM-DD` | `pushed:<2024-07-05` — before July 5, 2024 |
-| `<=YYYY-MM-DD` | `created:<=2024-07-04` — on or before July 4, 2024 |
-| `YYYY-MM-DD..YYYY-MM-DD` | `created:2024-04-30..2024-07-04` — date range |
-| `YYYY-MM-DD..*` | `created:2024-04-30..*` — on or after date |
-| `*..YYYY-MM-DD` | `created:*..2024-07-04` — on or before date |
-
-### Exclude Results
-
-Prefix qualifier with `-` to exclude:
-
-| Query | Example |
-|-------|---------|
-| `-QUALIFIER` | `stars:>10 -language:javascript` — exclude JavaScript repos |
-| `NOT` | `hello NOT world` — has "hello" but not "world" |
-
-### Usernames
-
-| Query | Description |
-|-------|-------------|
-| `author:USERNAME` | Filter by specific user |
-| `author:@me` | Filter by current user |
-| `assignee:@me` | Assigned to current user |
-
-### Queries with Whitespace
-
-Use quotation marks for multi-word values:
-- `label:"bug fix"` — label with space
-- `cats NOT "hello world"` — exclude phrase
-
----
-
-## JSON Output
-
-Common fields for `--json`:
-
-**PR**:
-
-```
-additions
-assignees
-author
-baseRefName
-body
-changedFiles
-closed
-closedAt
-comments
-commits
-createdAt
-deletions
-files
-headRefName
-headRepository
-headRepositoryOwner
-id
-isCrossRepository
-isDraft
-labels
-maintainerCanModify
-mergeCommit
-mergeStateStatus
-mergeable
-mergedAt
-mergedBy
-milestone
-number
-potentialMergeCommit
-projectCards
-reactionGroups
-reviewDecision
-reviewRequests
-reviews
-state
-statusCheckRollup
-title
-updatedAt
-url
+# Open PR in browser
+gh pr view 123 --web
 ```
 
-**Issue**:
-
+**Check out a PR locally**:
+```bash
+gh pr checkout 123
 ```
-close
-  comment
-  create
-  delete
-  edit
-  list
-  reopen
-  status
-  transfer
-  view
+
+**Review a PR**:
+```bash
+# Approve
+gh pr review 123 --approve
+
+# Request changes
+gh pr review 123 --request-changes --body "Please fix the typo"
+
+# Comment
+gh pr review 123 --comment --body "Looks good overall"
+```
+
+**Merge a PR**:
+```bash
+# Merge with merge commit
+gh pr merge 123
+
+# Squash and merge
+gh pr merge 123 --squash
+
+# Rebase and merge
+gh pr merge 123 --rebase
+
+# Auto-merge when checks pass
+gh pr merge 123 --auto --squash
+```
+
+### GitHub Actions
+
+**List workflow runs**:
+```bash
+# List recent runs
+gh run list
+
+# List runs for a specific workflow
+gh run list --workflow "CI"
+
+# List failed runs
+gh run list --status failure
+```
+
+**View run details**:
+```bash
+gh run view 1234567890
+```
+
+**View run logs**:
+```bash
+# View all logs for a run
+gh run view 1234567890 --log
+
+# View logs for a specific job
+gh run view 1234567890 --log --job "build"
+```
+
+**Download run logs**:
+```bash
+gh run download 1234567890
+```
+
+**Re-run a workflow**:
+```bash
+# Re-run failed jobs
+gh run rerun 1234567890 --failed
+
+# Re-run all jobs
+gh run rerun 1234567890
+```
+
+**Watch a running workflow**:
+```bash
+gh run watch 1234567890
+```
+
+**Trigger a workflow manually**:
+```bash
+gh workflow run workflow-name.yml
+```
+
+### Issues
+
+**Create an issue**:
+```bash
+gh issue create --title "Bug: Something broken" --body "Description here"
+```
+
+**List issues**:
+```bash
+# List open issues
+gh issue list
+
+# List your issues
+gh issue list --assignee @me
+
+# List issues with a label
+gh issue list --label bug
+```
+
+**View an issue**:
+```bash
+gh issue view 456
+```
+
+**Comment on an issue**:
+```bash
+gh issue comment 456 --body "Thanks for reporting this!"
+```
+
+**Close/reopen an issue**:
+```bash
+gh issue close 456
+gh issue reopen 456
+```
+
+### Repository operations
+
+**Clone a repository**:
+```bash
+gh repo clone owner/repo
+```
+
+**Create a repository**:
+```bash
+# Create public repo
+gh repo create my-repo --public
+
+# Create private repo with README
+gh repo create my-repo --private --add-readme
+```
+
+**View repository info**:
+```bash
+gh repo view owner/repo
+```
+
+**Fork a repository**:
+```bash
+gh repo fork owner/repo --clone
+```
+
+**Set default branch**:
+```bash
+gh repo set-default owner/repo
+```
+
+### Status and monitoring
+
+**Check CI status**:
+```bash
+# View checks for current branch
+gh pr checks
+
+# View checks for a specific PR
+gh pr checks 123
+```
+
+**View your notifications**:
+```bash
+gh notify
+```
+
+### Advanced usage
+
+**Use with specific repository**:
+```bash
+gh pr list --repo owner/repo
+```
+
+**Output as JSON for scripting**:
+```bash
+gh pr list --json number,title,author,state
+```
+
+**Use custom queries**:
+```bash
+# Search for PRs with label
+gh pr list --label "needs-review"
+
+# Search for issues assigned to you
+gh issue list --assignee @me --state open
+```
+
+## Tips
+
+**Check command help**: Add `--help` to any command to see all options:
+```bash
+gh pr create --help
+```
+
+**Interactive mode**: Many commands support interactive prompts when you don't provide required flags:
+```bash
+gh pr create  # Will prompt for title, body, etc.
+```
+
+**Aliases**: Create custom aliases for frequently used commands:
+```bash
+gh alias set prc 'pr create --fill'
+```
+
+**Default repository**: Run `gh repo set-default` in a repo to avoid specifying `--repo` flag.
+
+## Common workflows
+
+**Creating a PR from current branch**:
+```bash
+git push -u origin feature-branch
+gh pr create --fill
+```
+
+**Checking why a PR failed**:
+```bash
+gh pr checks 123
+gh run view <run-id> --log
+```
+
+**Quick PR review workflow**:
+```bash
+gh pr list
+gh pr view 123
+gh pr checkout 123
+# Make local tests/review
+gh pr review 123 --approve
+```
+
+**Monitoring a deployment**:
+```bash
+gh run list --workflow "Deploy"
+gh run watch <latest-run-id>
 ```

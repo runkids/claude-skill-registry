@@ -1,132 +1,195 @@
 ---
 name: database-design
-description: 数据库设计指南。当用户需要设计数据库 Schema、优化索引、规划表结构、处理数据关系或进行数据库性能优化时使用此技能。
+description: Designs database schemas, relationships, indexes, and migrations for relational and NoSQL databases. Trigger keywords: database design, schema, migration, ERD, normalization, index, foreign key, table design.
+allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 
 # Database Design
 
-帮助开发者设计高效、可扩展的数据库结构，遵循最佳实践。
+## Overview
 
-## 设计流程
+This skill focuses on designing efficient, scalable, and maintainable database schemas. It covers relational databases (PostgreSQL, MySQL), NoSQL databases (MongoDB, Redis), and data modeling best practices.
 
-1. **需求分析**：理解业务实体和关系
-2. **概念设计**：绘制 ER 图
-3. **逻辑设计**：定义表结构和关系
-4. **物理设计**：索引、分区策略
-5. **优化迭代**：根据查询模式调整
+## Instructions
 
-## Schema 设计原则
+### 1. Understand Data Requirements
 
-### 命名规范
+- Identify entities and their attributes
+- Map relationships between entities
+- Determine data access patterns
+- Estimate data volumes and growth
+
+### 2. Design Schema
+
+- Normalize data appropriately (typically 3NF)
+- Define primary keys and foreign keys
+- Choose appropriate data types
+- Plan for NULL handling
+
+### 3. Optimize for Performance
+
+- Design indexes for query patterns
+- Consider denormalization where needed
+- Plan partitioning strategy for large tables
+- Design for concurrent access
+
+### 4. Plan Migrations
+
+- Create reversible migrations
+- Handle data transformations
+- Plan for zero-downtime deployments
+- Version control schema changes
+
+## Best Practices
+
+1. **Choose Appropriate Types**: Use correct data types for storage efficiency
+2. **Index Wisely**: Index columns used in WHERE, JOIN, and ORDER BY
+3. **Normalize First**: Start normalized, denormalize for performance
+4. **Use Constraints**: Enforce data integrity at database level
+5. **Plan for Scale**: Consider sharding and replication early
+6. **Document Schemas**: Maintain ERD and data dictionary
+7. **Test Migrations**: Always test migrations on production-like data
+
+## Examples
+
+### Example 1: E-Commerce Schema (PostgreSQL)
 
 ```sql
--- 表名：小写复数，下划线分隔
-users, order_items, user_profiles
-
--- 字段名：小写，下划线分隔
-created_at, user_id, is_active
-
--- 主键：id 或 表名单数_id
-id, user_id
-
--- 外键：关联表单数_id
-user_id, order_id
-```
-
-### 基础表模板
-
-```sql
+-- Users table with proper constraints
 CREATE TABLE users (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email VARCHAR(255) NOT NULL UNIQUE,
-    username VARCHAR(50) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    deleted_at TIMESTAMPTZ,
+
+    CONSTRAINT email_format CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
 );
 
--- 更新时间触发器
-CREATE TRIGGER update_users_updated_at
-    BEFORE UPDATE ON users
-    FOR EACH ROW
-    EXECUTE FUNCTION update_updated_at_column();
-```
+-- Products with proper indexing
+CREATE TABLE products (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    sku VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL CHECK (price >= 0),
+    stock_quantity INTEGER NOT NULL DEFAULT 0 CHECK (stock_quantity >= 0),
+    category_id UUID REFERENCES categories(id),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
 
-## 索引策略
+-- Indexes for common queries
+CREATE INDEX idx_products_category ON products(category_id);
+CREATE INDEX idx_products_price ON products(price);
+CREATE INDEX idx_products_name_search ON products USING gin(to_tsvector('english', name));
 
-### 何时创建索引
-
-| 场景 | 建议|
-|------|------|
-| WHERE 条件字段 | ✅ 创建索引 |
-| JOIN 关联字段 | ✅ 创建索引 |
-| ORDER BY 字段 | ✅ 考虑索引 |
-|高频更新字段 | ⚠️ 谨慎索引 |
-| 低基数字段 | ❌ 避免索引 |
-
-### 索引类型选择
-
-```sql
--- B-Tree：默认，适合等值和范围查询
-CREATE INDEX idx_users_email ON users(email);
-
--- 复合索引：多字段查询
-CREATE INDEX idx_orders_user_status ON orders(user_id, status);
-
--- 部分索引：条件过滤
-CREATE INDEX idx_active_users ON users(email) WHERE is_active = true;
-
--- 唯一索引：保证唯一性
-CREATE UNIQUE INDEX idx_users_email_unique ON users(email);
-```
-
-## 关系设计
-
-### 一对多
-
-```sql
--- 用户有多个订单
+-- Orders with proper relationships
 CREATE TABLE orders (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users(id),
-    total_amount DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id),
+    status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    total_amount DECIMAL(10, 2) NOT NULL,
+    shipping_address JSONB NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT valid_status CHECK (status IN ('pending', 'paid', 'shipped', 'delivered', 'cancelled'))
 );
 
-CREATE INDEX idx_orders_user_id ON orders(user_id);
+CREATE INDEX idx_orders_user ON orders(user_id);
+CREATE INDEX idx_orders_status ON orders(status);
+CREATE INDEX idx_orders_created ON orders(created_at DESC);
+
+-- Order items junction table
+CREATE TABLE order_items (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    order_id UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+    product_id UUID NOT NULL REFERENCES products(id),
+    quantity INTEGER NOT NULL CHECK (quantity > 0),
+    unit_price DECIMAL(10, 2) NOT NULL,
+
+    UNIQUE(order_id, product_id)
+);
 ```
 
-### 多对多
+### Example 2: Migration Script
 
 ```sql
--- 用户和角色的多对多关系
-CREATE TABLE user_roles (
-    user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
-    role_id BIGINT REFERENCES roles(id) ON DELETE CASCADE,
-    assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id, role_id)
+-- Migration: Add customer loyalty program
+-- Version: 20240115_001
+
+BEGIN;
+
+-- Add loyalty tier to users
+ALTER TABLE users
+ADD COLUMN loyalty_tier VARCHAR(20) DEFAULT 'bronze',
+ADD COLUMN loyalty_points INTEGER DEFAULT 0;
+
+-- Add constraint for valid tiers
+ALTER TABLE users
+ADD CONSTRAINT valid_loyalty_tier
+CHECK (loyalty_tier IN ('bronze', 'silver', 'gold', 'platinum'));
+
+-- Create points history table
+CREATE TABLE loyalty_points_history (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id),
+    points_change INTEGER NOT NULL,
+    reason VARCHAR(100) NOT NULL,
+    reference_type VARCHAR(50),
+    reference_id UUID,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE INDEX idx_loyalty_history_user ON loyalty_points_history(user_id);
+CREATE INDEX idx_loyalty_history_created ON loyalty_points_history(created_at DESC);
+
+COMMIT;
+
+-- Rollback script (save separately)
+-- BEGIN;
+-- DROP TABLE IF EXISTS loyalty_points_history;
+-- ALTER TABLE users DROP COLUMN IF EXISTS loyalty_points;
+-- ALTER TABLE users DROP COLUMN IF EXISTS loyalty_tier;
+-- COMMIT;
 ```
 
-## 常见反模式
+### Example 3: MongoDB Document Design
 
-| 反模式 | 问题 | 解决方案 |
-|--------|------|----------|
-| 过度规范化 | 查询复杂，性能差 | 适度反规范化 |
-| 万能表 | 难维护，浪费空间 | 拆分为专用表 |
-| 无索引外键 | JOIN 性能差 | 为外键添加索引 |
-| 存储 JSON滥用 | 无法有效查询 | 结构化数据用列存储 |
+```javascript
+// User document with embedded addresses
+{
+  _id: ObjectId("..."),
+  email: "user@example.com",
+  profile: {
+    name: "John Doe",
+    avatar_url: "https://..."
+  },
+  addresses: [
+    {
+      type: "shipping",
+      street: "123 Main St",
+      city: "Boston",
+      state: "MA",
+      zip: "02101",
+      is_default: true
+    }
+  ],
+  preferences: {
+    newsletter: true,
+    notifications: {
+      email: true,
+      push: false
+    }
+  },
+  created_at: ISODate("2024-01-15T10:00:00Z")
+}
 
-## 性能优化
-
-1. **EXPLAIN 分析**：检查查询计划
-2. **避免 SELECT ***：只查询需要的字段
-3. **分页优化**：使用游标分页替代 OFFSET
-4. **连接池**：复用数据库连接
-5. **读写分离**：主从架构分担负载
-
-## 参考资源
-
-- PostgreSQL 文档: https://www.postgresql.org/docs/
-- MySQL 优化指南: https://dev.mysql.com/doc/refman/8.0/en/optimization.html
+// Indexes
+db.users.createIndex({ email: 1 }, { unique: true });
+db.users.createIndex({ "addresses.zip": 1 });
+db.users.createIndex({ created_at: -1 });
+```

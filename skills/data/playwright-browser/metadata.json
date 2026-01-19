@@ -1,7 +1,7 @@
 {
   "name": "playwright-browser",
-  "repo": "arlenagreer/claude_configuration_docs",
-  "path": "skills/playwright-browser/SKILL.md",
-  "source": "github.com/arlenagreer/claude_configuration_docs",
-  "downloaded_at": "2026-01-17T03:56:20.096563Z"
+  "repo": "Light-Brands/base-ai",
+  "path": "plugins/core/skills/playwright-browser/SKILL.md",
+  "source": "github.com/Light-Brands/base-ai",
+  "downloaded_at": "2026-01-19T03:30:00.921054Z"
 }

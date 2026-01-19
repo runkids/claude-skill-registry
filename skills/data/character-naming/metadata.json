@@ -1,12 +1,7 @@
 {
   "name": "character-naming",
-  "description": "Break LLM name defaults with external entropy. Use when character names cluster around statistical medians (Chen, Patel, Maya, Marcus), when cast has collision risks, or when fantasy cultures need pho",
-  "repo": "jwynia/the-kepler-testimonies",
-  "category": "development",
-  "tags": [
-    "character",
-    "naming"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/character/character-naming/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-19T03:36:31.587469Z"
 }

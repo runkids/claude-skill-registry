@@ -1,7 +1,7 @@
 {
   "name": "scientific-schematics",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/scientific-schematics/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-17T01:26:21.182482Z"
+  "repo": "K-Dense-AI/claude-scientific-writer",
+  "path": "scientific_writer/.claude/skills/scientific-schematics/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-writer",
+  "downloaded_at": "2026-01-19T03:54:14.558024Z"
 }

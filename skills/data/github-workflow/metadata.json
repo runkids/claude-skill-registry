@@ -1,7 +1,7 @@
 {
   "name": "github-workflow",
-  "repo": "akaszubski/anyclaude-local",
-  "path": "plugins/autonomous-dev/skills/github-workflow/SKILL.md",
-  "source": "github.com/akaszubski/anyclaude-local",
-  "downloaded_at": "2026-01-17T03:13:49.451682Z"
+  "repo": "yaakaito/env",
+  "path": "cc-plugins/base/skills/github-workflow/SKILL.md",
+  "source": "github.com/yaakaito/env",
+  "downloaded_at": "2026-01-19T02:02:31.901575Z"
 }

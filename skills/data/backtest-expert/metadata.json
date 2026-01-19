@@ -1,7 +1,7 @@
 {
   "name": "backtest-expert",
   "repo": "nicepkg/ai-workflow",
-  "path": "stock-trader-workflow/.claude/skills/backtest-expert/SKILL.md",
+  "path": "workflows/stock-trader-workflow/.claude/skills/backtest-expert/SKILL.md",
   "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-17T02:05:43.109958Z"
+  "downloaded_at": "2026-01-19T03:26:12.449504Z"
 }

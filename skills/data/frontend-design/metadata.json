@@ -1,7 +1,7 @@
 {
   "name": "frontend-design",
-  "repo": "KanTrun/KLelite_Web",
-  "path": ".claude/skills/frontend-design/SKILL.md",
-  "source": "github.com/KanTrun/KLelite_Web",
-  "downloaded_at": "2026-01-17T04:08:03.795943Z"
+  "repo": "troykelly/claude-skills",
+  "path": "external/skills/frontend-design/SKILL.md",
+  "source": "github.com/troykelly/claude-skills",
+  "downloaded_at": "2026-01-19T04:19:51.235689Z"
 }

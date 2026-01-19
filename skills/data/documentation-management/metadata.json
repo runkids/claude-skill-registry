@@ -1,12 +1,7 @@
 {
   "name": "documentation-management",
-  "description": "Keep project documentation accurate when behavior changes. EXCLUSIVE to project-manager agent.",
   "repo": "htooayelwinict/claude-config",
-  "category": "documents",
-  "tags": [
-    "documentation",
-    "management"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/documentation-management/SKILL.md",
+  "source": "github.com/htooayelwinict/claude-config",
+  "downloaded_at": "2026-01-19T04:20:11.371656Z"
 }

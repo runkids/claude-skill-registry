@@ -1,7 +1,7 @@
 {
   "name": "testing-workflow",
-  "repo": "Awannaphasch2016/jousef-landing",
-  "path": ".claude/skills/testing-workflow/SKILL.md",
-  "source": "github.com/Awannaphasch2016/jousef-landing",
-  "downloaded_at": "2026-01-17T03:48:31.219296Z"
+  "repo": "ilude/claude-code-config",
+  "path": "skills/testing-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-19T03:57:13.533989Z"
 }

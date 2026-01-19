@@ -1,330 +1,179 @@
 ---
 name: cloudflare-queues
-description: |
-  Build async message queues with Cloudflare Queues for background processing. Use when: handling async tasks, batch processing, implementing retries, configuring dead letter queues, managing consumer concurrency, or troubleshooting queue timeout, batch retry, message loss, or throughput exceeded.
-user-invocable: true
+description: This skill should be used when the user asks to "set up Cloudflare Queues", "create a message queue", "implement queue consumer", "process background jobs", "configure queue retry logic", "publish messages to queue", "implement dead letter queue", or encountering "queue timeout", "message retry", "throughput exceeded", "queue backlog" errors.
+
+  Keywords: cloudflare queues, queues workers, message queue, queue bindings, async processing,
+  background jobs, queue consumer, queue producer, batch processing, dead letter queue, dlq,
+  message retry, queue ack, consumer concurrency, queue backlog, wrangler queues
+license: MIT
+metadata:
+  version: "3.0.0"
+  wrangler_version: "4.50.0"
+  workers_types_version: "4.20251126.0"
+  last_verified: "2025-12-27"
+  errors_prevented: 10
+  templates_included: 6
+  references_included: 11
+  agents_included: 2
+  commands_included: 3
 ---
 
 # Cloudflare Queues
 
-**Status**: Production Ready ✅
-**Last Updated**: 2026-01-09
+**Status**: Production Ready ✅ | **Last Verified**: 2025-12-27
+
 **Dependencies**: cloudflare-worker-base (for Worker setup)
-**Latest Versions**: wrangler@4.58.0, @cloudflare/workers-types@4.20260109.0
 
-**Recent Updates (2025)**:
-- **April 2025**: Pull consumers increased limits (5,000 msg/s per queue, up from 1,200 requests/5min)
-- **March 2025**: Pause & Purge APIs (wrangler queues pause-delivery, queues purge)
-- **2025**: Customizable retention (60s to 14 days, previously fixed at 4 days)
-- **2025**: Increased queue limits (10,000 queues per account, up from 10)
+**Contents**: [Quick Start](#quick-start-10-minutes) • [Critical Rules](#critical-rules) • [Top Errors](#top-3-critical-errors) • [Use Cases](#common-use-cases) • [When to Load References](#when-to-load-references) • [Limits](#limits--quotas)
 
 ---
 
-## Quick Start (5 Minutes)
+## Quick Start (10 Minutes)
+
+### 1. Create Queue
 
 ```bash
-# 1. Create queue
-npx wrangler queues create my-queue
-
-# 2. Add producer binding to wrangler.jsonc
-# { "queues": { "producers": [{ "binding": "MY_QUEUE", "queue": "my-queue" }] } }
-
-# 3. Send message from Worker
-await env.MY_QUEUE.send({ userId: '123', action: 'process-order' });
-
-# 4. Add consumer binding to wrangler.jsonc
-# { "queues": { "consumers": [{ "queue": "my-queue", "max_batch_size": 10 }] } }
-
-# 5. Process messages
-export default {
-  async queue(batch: MessageBatch, env: Env): Promise<void> {
-    for (const message of batch.messages) {
-      await processMessage(message.body);
-      message.ack(); // Explicit acknowledgement
-    }
-  }
-};
-
-# 6. Deploy and test
-npx wrangler deploy
-npx wrangler tail my-consumer
+bunx wrangler queues create my-queue
+bunx wrangler queues list
 ```
 
----
-
-## Producer API
-
-```typescript
-// Send single message
-await env.MY_QUEUE.send({ userId: '123', action: 'send-email' });
-
-// Send with delay (max 12 hours)
-await env.MY_QUEUE.send({ action: 'reminder' }, { delaySeconds: 600 });
-
-// Send batch (max 100 messages or 256 KB)
-await env.MY_QUEUE.sendBatch([
-  { body: { userId: '1' } },
-  { body: { userId: '2' } },
-]);
-```
-
-**Critical Limits:**
-- Message size: **128 KB max** (including ~100 bytes metadata)
-- Messages >128 KB will fail - store in R2 and send reference instead
-- Batch size: 100 messages or 256 KB total
-- Delay: 0-43200 seconds (12 hours max)
-
----
-
-## Consumer API
-
-```typescript
-export default {
-  async queue(batch: MessageBatch, env: Env, ctx: ExecutionContext): Promise<void> {
-    for (const message of batch.messages) {
-      // message.id - unique UUID
-      // message.timestamp - Date when sent
-      // message.body - your content
-      // message.attempts - retry count (starts at 1)
-
-      await processMessage(message.body);
-      message.ack(); // Explicit ack (critical for non-idempotent ops)
-    }
-  }
-};
-
-// Retry with exponential backoff
-message.retry({ delaySeconds: Math.min(60 * Math.pow(2, message.attempts - 1), 3600) });
-
-// Batch methods
-batch.ackAll();   // Ack all messages
-batch.retryAll(); // Retry all messages
-```
-
-**Critical:**
-- **`message.ack()`** - Mark success, prevents retry even if handler fails later
-- **Use explicit ack for non-idempotent operations** (DB writes, API calls, payments)
-- **Implicit ack** - If handler returns successfully without calling ack(), all messages auto-acknowledged
-- **Ordering not guaranteed** - Don't assume FIFO message order
-
----
-
-## Critical Consumer Patterns
-
-### Explicit Acknowledgement (Non-Idempotent Operations)
-
-**ALWAYS use explicit ack() for:** Database writes, API calls, financial transactions
-
-```typescript
-export default {
-  async queue(batch: MessageBatch, env: Env): Promise<void> {
-    for (const message of batch.messages) {
-      try {
-        await env.DB.prepare('INSERT INTO orders (id, amount) VALUES (?, ?)')
-          .bind(message.body.orderId, message.body.amount).run();
-        message.ack(); // Only ack on success
-      } catch (error) {
-        console.error(`Failed ${message.id}:`, error);
-        // Don't ack - will retry
-      }
-    }
-  }
-};
-```
-
-**Why?** Prevents duplicate writes if one message in batch fails. Failed messages retry independently.
-
----
-
-### Exponential Backoff for Rate-Limited APIs
-
-```typescript
-export default {
-  async queue(batch: MessageBatch, env: Env): Promise<void> {
-    for (const message of batch.messages) {
-      try {
-        await fetch('https://api.example.com/process', {
-          method: 'POST',
-          body: JSON.stringify(message.body),
-        });
-        message.ack();
-      } catch (error) {
-        if (error.status === 429) {
-          const delaySeconds = Math.min(60 * Math.pow(2, message.attempts - 1), 3600);
-          message.retry({ delaySeconds });
-        } else {
-          message.retry();
-        }
-      }
-    }
-  }
-};
-```
-
----
-
-### Dead Letter Queue (DLQ) - CRITICAL for Production
-
-**⚠️ Without DLQ, failed messages are DELETED PERMANENTLY after max_retries**
-
-```bash
-npx wrangler queues create my-dlq
-```
+### 2. Producer (Send Messages)
 
 **wrangler.jsonc:**
+
 ```jsonc
 {
+  "name": "my-producer",
+  "main": "src/index.ts",
   "queues": {
-    "consumers": [{
-      "queue": "my-queue",
-      "max_retries": 3,
-      "dead_letter_queue": "my-dlq"  // Messages go here after 3 failed retries
-    }]
+    "producers": [
+      {
+        "binding": "MY_QUEUE",
+        "queue": "my-queue"
+      }
+    ]
   }
 }
 ```
 
-**DLQ Consumer:**
+**src/index.ts:**
+
 ```typescript
-export default {
-  async queue(batch: MessageBatch, env: Env): Promise<void> {
-    for (const message of batch.messages) {
-      console.error('PERMANENTLY FAILED:', message.id, message.body);
-      await env.DB.prepare('INSERT INTO failed_messages (id, body) VALUES (?, ?)')
-        .bind(message.id, JSON.stringify(message.body)).run();
-      message.ack(); // Remove from DLQ
-    }
+import { Hono } from 'hono';
+
+type Bindings = {
+  MY_QUEUE: Queue;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
+
+app.post('/send', async (c) => {
+  await c.env.MY_QUEUE.send({
+    userId: '123',
+    action: 'process-order',
+    timestamp: Date.now(),
+  });
+
+  return c.json({ status: 'queued' });
+});
+
+export default app;
+```
+
+### 3. Consumer (Process Messages)
+
+**wrangler.jsonc:**
+
+```jsonc
+{
+  "name": "my-consumer",
+  "main": "src/consumer.ts",
+  "queues": {
+    "consumers": [
+      {
+        "queue": "my-queue",
+        "max_batch_size": 10,
+        "max_retries": 3,
+        "dead_letter_queue": "my-dlq"
+      }
+    ]
   }
+}
+```
+
+**src/consumer.ts:**
+
+```typescript
+import type { MessageBatch } from '@cloudflare/workers-types';
+
+export default {
+  async queue(batch: MessageBatch): Promise<void> {
+    for (const message of batch.messages) {
+      console.log('Processing:', message.body);
+      // Your logic here
+    }
+    // Implicit ack: returning successfully acknowledges all messages
+  },
 };
 ```
 
----
-
-## Consumer Configuration
-
-```jsonc
-{
-  "queues": {
-    "consumers": [{
-      "queue": "my-queue",
-      "max_batch_size": 100,           // 1-100 (default: 10)
-      "max_batch_timeout": 30,         // 0-60s (default: 5s)
-      "max_retries": 5,                // 0-100 (default: 3)
-      "retry_delay": 300,              // Seconds (default: 0)
-      "max_concurrency": 10,           // 1-250 (default: auto-scale)
-      "dead_letter_queue": "my-dlq"    // REQUIRED for production
-    }]
-  }
-}
-```
-
-**Critical Settings:**
-
-- **Batching** - Consumer called when EITHER condition met (max_batch_size OR max_batch_timeout)
-- **max_retries** - After exhausted: with DLQ → sent to DLQ, without DLQ → **DELETED PERMANENTLY**
-- **max_concurrency** - Only set if upstream has rate limits or connection limits. Otherwise leave unset for auto-scaling (up to 250 concurrent invocations)
-- **DLQ** - Create separately: `npx wrangler queues create my-dlq`
-
----
-
-## Wrangler Commands
+**Deploy:**
 
 ```bash
-# Create queue
-npx wrangler queues create my-queue
-npx wrangler queues create my-queue --message-retention-period-secs 1209600  # 14 days
-
-# Manage queues
-npx wrangler queues list
-npx wrangler queues info my-queue
-npx wrangler queues delete my-queue  # ⚠️ Deletes ALL messages!
-
-# Pause/Purge (March 2025 - NEW)
-npx wrangler queues pause-delivery my-queue   # Pause processing, keep receiving
-npx wrangler queues resume-delivery my-queue
-npx wrangler queues purge my-queue            # ⚠️ Permanently deletes all messages!
-
-# Consumer management
-npx wrangler queues consumer add my-queue my-consumer-worker \
-  --batch-size 50 --batch-timeout 10 --message-retries 5
-npx wrangler queues consumer remove my-queue my-consumer-worker
+bunx wrangler deploy
 ```
 
----
-
-## Limits & Quotas
-
-| Feature | Limit |
-|---------|-------|
-| **Queues per account** | 10,000 |
-| **Message size** | 128 KB (includes ~100 bytes metadata) |
-| **Message retries** | 100 max |
-| **Batch size** | 1-100 messages |
-| **Batch timeout** | 0-60 seconds |
-| **Messages per sendBatch** | 100 (or 256 KB total) |
-| **Queue throughput** | 5,000 messages/second per queue |
-| **Message retention** | 4 days (default), 14 days (max) |
-| **Queue backlog size** | 25 GB per queue |
-| **Concurrent consumers** | 250 (push-based, auto-scale) |
-| **Consumer duration** | 15 minutes (wall clock) |
-| **Consumer CPU time** | 30 seconds (default), 5 minutes (max) |
-| **Visibility timeout** | 12 hours (pull consumers) |
-| **Message delay** | 12 hours (max) |
-| **API rate limit** | 1200 requests / 5 minutes |
+**Load**: `references/setup-guide.md` for complete 6-step setup with DLQ configuration
 
 ---
 
-## Pricing
+## Critical Rules
 
-**Requires Workers Paid plan** ($5/month)
+### Always Do ✅
 
-**Operations Pricing:**
-- First 1,000,000 operations/month: **FREE**
-- After that: **$0.40 per million operations**
+1. **Configure Dead Letter Queue** for production queues
+2. **Use explicit ack()** for non-idempotent operations (DB writes, API calls)
+3. **Validate message size** before sending (<128 KB)
+4. **Use sendBatch()** for multiple messages (more efficient)
+5. **Implement exponential backoff** for retries
+6. **Set appropriate batch settings** based on workload
+7. **Monitor queue backlog** and consumer errors
+8. **Use ctx.waitUntil()** for async cleanup in consumers
+9. **Handle errors gracefully** - log, alert, retry
+10. **Let concurrency auto-scale** (don't set max_concurrency unless needed)
 
-**What counts as an operation:**
-- Each 64 KB chunk written, read, or deleted
-- Messages >64 KB count as multiple operations:
-  - 65 KB message = 2 operations
-  - 127 KB message = 2 operations
-  - 128 KB message = 2 operations
+### Never Do ❌
 
-**Typical message lifecycle:**
-- 1 write + 1 read + 1 delete = **3 operations**
-
-**Retries:**
-- Each retry = additional **read operation**
-- Message retried 3 times = 1 write + 4 reads + 1 delete = **6 operations**
-
-**Dead Letter Queue:**
-- Writing to DLQ = additional **write operation**
-
-**Cost examples:**
-- 1M messages/month (no retries): ((1M × 3) - 1M) / 1M × $0.40 = **$0.80**
-- 10M messages/month: ((10M × 3) - 1M) / 1M × $0.40 = **$11.60**
-- 100M messages/month: ((100M × 3) - 1M) / 1M × $0.40 = **$119.60**
+1. **Never assume message ordering** - not guaranteed FIFO
+2. **Never rely on implicit ack for non-idempotent ops** - use explicit ack()
+3. **Never send messages >128 KB** - will fail
+4. **Never delete queues with active messages** - data loss
+5. **Never skip DLQ configuration** in production
+6. **Never exceed 5000 msg/s per queue** - rate limit error
+7. **Never process messages synchronously in loop** - use Promise.all()
+8. **Never ignore message.attempts** - use for backoff logic
+9. **Never set max_concurrency=1** unless you have a very specific reason
+10. **Never forget to ack()** in explicit acknowledgement patterns
 
 ---
 
+## Top 3 Critical Errors
 
-## Error Handling
+### Error #1: Message Too Large
 
-### Common Errors
+**Problem**: Message exceeds 128 KB limit
 
-#### 1. Message Too Large
+**Solution**: Store large data in R2, send reference
 
 ```typescript
-// ❌ Bad: Message >128 KB
-await env.MY_QUEUE.send({
-  data: largeArray, // >128 KB
-});
+// ❌ Wrong
+await env.MY_QUEUE.send({ data: largeArray }); // >128 KB fails
 
-// ✅ Good: Check size before sending
+// ✅ Correct
 const message = { data: largeArray };
 const size = new TextEncoder().encode(JSON.stringify(message)).length;
 
 if (size > 128000) {
-  // Store in R2, send reference
   const key = `messages/${crypto.randomUUID()}.json`;
   await env.MY_BUCKET.put(key, JSON.stringify(message));
   await env.MY_QUEUE.send({ type: 'large-message', r2Key: key });
@@ -333,17 +182,19 @@ if (size > 128000) {
 }
 ```
 
----
+### Error #2: Throughput Exceeded
 
-#### 2. Throughput Exceeded
+**Problem**: Exceeding 5000 messages/second per queue
+
+**Solution**: Use sendBatch() and rate limiting
 
 ```typescript
-// ❌ Bad: Exceeding 5000 msg/s per queue
+// ❌ Wrong
 for (let i = 0; i < 10000; i++) {
   await env.MY_QUEUE.send({ id: i }); // Too fast!
 }
 
-// ✅ Good: Use sendBatch
+// ✅ Correct
 const messages = Array.from({ length: 10000 }, (_, i) => ({
   body: { id: i },
 }));
@@ -352,207 +203,304 @@ const messages = Array.from({ length: 10000 }, (_, i) => ({
 for (let i = 0; i < messages.length; i += 100) {
   await env.MY_QUEUE.sendBatch(messages.slice(i, i + 100));
 }
-
-// ✅ Even better: Rate limit with delay
-for (let i = 0; i < messages.length; i += 100) {
-  await env.MY_QUEUE.sendBatch(messages.slice(i, i + 100));
-  if (i + 100 < messages.length) {
-    await new Promise(resolve => setTimeout(resolve, 100)); // 100ms delay
-  }
-}
 ```
 
----
+### Error #3: Entire Batch Retried When One Message Fails
 
-#### 3. Consumer Timeout
+**Problem**: Single message failure causes all messages to retry
+
+**Solution**: Use explicit acknowledgement
 
 ```typescript
-// ❌ Bad: Long processing without CPU limit increase
+// ❌ Wrong - implicit ack
 export default {
-  async queue(batch: MessageBatch): Promise<void> {
+  async queue(batch: MessageBatch, env: Env): Promise<void> {
     for (const message of batch.messages) {
-      await processForMinutes(message.body); // CPU timeout!
+      await env.DB.prepare('INSERT INTO orders VALUES (?, ?)').bind(
+        message.body.id,
+        message.body.amount
+      ).run();
+    }
+    // If any fails, ALL retry!
+  },
+};
+
+// ✅ Correct - explicit ack
+export default {
+  async queue(batch: MessageBatch, env: Env): Promise<void> {
+    for (const message of batch.messages) {
+      try {
+        await env.DB.prepare('INSERT INTO orders VALUES (?, ?)').bind(
+          message.body.id,
+          message.body.amount
+        ).run();
+
+        message.ack(); // Only ack on success
+      } catch (error) {
+        console.error(`Failed: ${message.id}`, error);
+        // Don't ack - will retry independently
+      }
     }
   },
 };
-
-// ✅ Good: Increase CPU limit in wrangler.jsonc
 ```
 
-**wrangler.jsonc:**
-
-```jsonc
-{
-  "limits": {
-    "cpu_ms": 300000  // 5 minutes (max allowed)
-  }
-}
-```
+**Load `references/error-catalog.md` for all 10 errors including DLQ configuration, auto-scaling issues, message deletion prevention, and detailed solutions.**
 
 ---
 
-#### 4. Backlog Growing
+## Common Use Cases
+
+### Use Case 1: Basic Message Queue
+
+**When**: Simple async job processing (emails, notifications)
+
+**Quick Pattern**:
 
 ```typescript
-// Issue: Consumer too slow, backlog growing
+// Producer
+await env.MY_QUEUE.send({ type: 'email', to: 'user@example.com' });
 
-// ✅ Solution 1: Increase batch size
-{
-  "queues": {
-    "consumers": [{
-      "queue": "my-queue",
-      "max_batch_size": 100  // Process more per invocation
-    }]
-  }
-}
-
-// ✅ Solution 2: Let concurrency auto-scale (don't set max_concurrency)
-
-// ✅ Solution 3: Optimize consumer code
+// Consumer (implicit ack - for idempotent operations)
 export default {
-  async queue(batch: MessageBatch, env: Env): Promise<void> {
-    // Process in parallel
-    await Promise.all(
-      batch.messages.map(async (message) => {
-        await process(message.body);
-        message.ack();
-      })
-    );
+  async queue(batch: MessageBatch): Promise<void> {
+    for (const message of batch.messages) {
+      await sendEmail(message.body.to, message.body.content);
+    }
   },
 };
 ```
 
----
+**Load**: `templates/queues-producer.ts` + `templates/queues-consumer-basic.ts`
 
-## Critical Rules
+### Use Case 2: Database Writes (Non-Idempotent)
 
-**Always:**
-- ✅ Configure DLQ for production (`dead_letter_queue` in consumer config)
-- ✅ Use explicit `message.ack()` for non-idempotent ops (DB writes, API calls)
-- ✅ Validate message size <128 KB before sending
-- ✅ Use `sendBatch()` for multiple messages (more efficient)
-- ✅ Implement exponential backoff: `60 * Math.pow(2, message.attempts - 1)`
-- ✅ Let concurrency auto-scale (don't set `max_concurrency` unless upstream has rate limits)
+**When**: Writing to database, must avoid duplicates
 
-**Never:**
-- ❌ Never assume FIFO ordering - not guaranteed
-- ❌ Never rely on implicit ack for non-idempotent ops - use explicit `ack()`
-- ❌ Never send messages >128 KB - will fail (store in R2 instead)
-- ❌ Never skip DLQ in production - failed messages DELETED PERMANENTLY without DLQ
-- ❌ Never exceed 5,000 msg/s per queue (push consumers) or rate limits apply
-- ❌ Never process messages synchronously - use `Promise.all()` for parallelism
+**Load**: `templates/queues-consumer-explicit-ack.ts` + `references/consumer-api.md`
 
----
+### Use Case 3: Retry with Exponential Backoff
 
-## Troubleshooting
+**When**: Calling rate-limited APIs, temporary failures
 
-### Issue: Messages not being delivered to consumer
+**Load**: `templates/queues-retry-with-delay.ts` + `references/error-catalog.md` (Error #2, #3)
 
-**Possible causes:**
-1. Consumer not deployed
-2. Wrong queue name in wrangler.jsonc
-3. Delivery paused
-4. Consumer throwing errors
+### Use Case 4: Dead Letter Queue Pattern
 
-**Solution:**
+**When**: Production systems, need to capture permanently failed messages
 
-```bash
-# Check queue info
-npx wrangler queues info my-queue
+**Load**: `templates/queues-dlq-pattern.ts` + `references/setup-guide.md` (Step 4)
 
-# Check if delivery paused
-npx wrangler queues resume-delivery my-queue
+### Use Case 5: High Throughput Processing
 
-# Check consumer logs
-npx wrangler tail my-consumer
-```
+**When**: Processing thousands of messages per second
 
----
-
-### Issue: Entire batch retried when one message fails
-
-**Cause:** Using implicit acknowledgement with non-idempotent operations
-
-**Solution:** Use explicit ack()
-
-```typescript
-// ✅ Explicit ack
-for (const message of batch.messages) {
-  try {
-    await dbWrite(message.body);
-    message.ack(); // Only ack on success
-  } catch (error) {
-    console.error(`Failed: ${message.id}`);
-    // Don't ack - will retry
-  }
-}
-```
-
----
-
-### Issue: Messages deleted without processing
-
-**Cause:** No Dead Letter Queue configured
-
-**Solution:**
-
-```bash
-# Create DLQ
-npx wrangler queues create my-dlq
-
-# Add to consumer config
-```
+**Quick Pattern**:
 
 ```jsonc
 {
   "queues": {
     "consumers": [{
       "queue": "my-queue",
-      "dead_letter_queue": "my-dlq"
+      "max_batch_size": 100,        // Large batches
+      "max_batch_timeout": 5,       // Fast processing
+      "max_concurrency": null       // Auto-scale
     }]
   }
 }
 ```
 
----
-
-### Issue: Consumer not auto-scaling
-
-**Possible causes:**
-1. `max_concurrency` set to 1
-2. Consumer returning errors (not processing)
-3. Batch processing too fast (no backlog)
-
-**Solution:**
-
-```jsonc
-{
-  "queues": {
-    "consumers": [{
-      "queue": "my-queue",
-      // Don't set max_concurrency - let it auto-scale
-      "max_batch_size": 50  // Increase batch size instead
-    }]
-  }
-}
-```
+**Load**: `references/best-practices.md` → Optimizing Throughput
 
 ---
 
-## Related Documentation
+## When to Load References
 
-- [Cloudflare Queues Docs](https://developers.cloudflare.com/queues/)
-- [How Queues Works](https://developers.cloudflare.com/queues/reference/how-queues-works/)
-- [JavaScript APIs](https://developers.cloudflare.com/queues/configuration/javascript-apis/)
-- [Batching & Retries](https://developers.cloudflare.com/queues/configuration/batching-retries/)
-- [Consumer Concurrency](https://developers.cloudflare.com/queues/configuration/consumer-concurrency/)
-- [Dead Letter Queues](https://developers.cloudflare.com/queues/configuration/dead-letter-queues/)
-- [Wrangler Commands](https://developers.cloudflare.com/queues/reference/wrangler-commands/)
-- [Limits](https://developers.cloudflare.com/queues/platform/limits/)
-- [Pricing](https://developers.cloudflare.com/queues/platform/pricing/)
+**Load `references/setup-guide.md` when**:
+- User needs complete setup walkthrough (queue → producer → consumer → DLQ)
+- First time setting up Cloudflare Queues
+- Need production configuration examples
+- Want complete end-to-end example
+
+**Load `references/error-catalog.md` when**:
+- Encountering any of the 10 documented errors
+- Troubleshooting queue issues
+- Messages not being delivered/processed
+- Need prevention checklist
+
+**Load `references/producer-api.md` when**:
+- Need complete producer API reference
+- Using send() or sendBatch() methods
+- Need message format specifications
+- Handling large messages or batches
+
+**Load `references/consumer-api.md` when**:
+- Need complete consumer API reference
+- Using explicit ack(), retry(), or retryAll()
+- Need batch processing patterns
+- Implementing complex consumer logic
+
+**Load `references/best-practices.md` when**:
+- Optimizing queue performance
+- Production deployment guidance
+- Monitoring and observability setup
+- Security and reliability patterns
+
+**Load `references/wrangler-commands.md` when**:
+- Need CLI commands reference
+- Managing queues (create, delete, list)
+- Controlling delivery (pause, resume)
+- Debugging queue issues
+- Real-time monitoring and performance analysis
+
+**Load `references/typescript-types.md` when**:
+- Need complete TypeScript type definitions
+- Working with Queue, MessageBatch, or Message interfaces
+- Implementing type-safe producers or consumers
+- Using generic types for message bodies
+- Need type guards for message validation
+
+**Load `references/production-checklist.md` when**:
+- Preparing for production deployment
+- Need pre-deployment verification checklist
+- Want detailed explanations of production best practices
+- Setting up monitoring, DLQ, or error handling
+- Planning load testing or security review
+
+**Load `references/pull-consumers.md` when**:
+- Need to consume messages from non-Workers environments
+- Integrating with existing backend services (Node.js, Python, Go)
+- Implementing pull-based polling instead of push-based consumption
+- Working with containerized or legacy applications
+
+**Load `references/http-publishing.md` when**:
+- Publishing messages from external systems via HTTP
+- Integrating webhooks from third-party services
+- Need to send messages without deploying Workers
+- Implementing CI/CD pipeline notifications
+
+**Load `references/r2-event-integration.md` when**:
+- Triggering queue messages on R2 bucket events
+- Implementing automated image/document processing
+- Setting up event-driven data pipelines
+- Need R2 object upload/delete notifications
 
 ---
 
-**Last Updated**: 2025-10-21
-**Version**: 1.0.0
-**Maintainer**: Jeremy Dawes | jeremy@jezweb.net
+## Agents & Commands
+
+**Available Agents**:
+- **queue-debugger** - 9-phase diagnostic analysis for queue issues (systematic troubleshooting)
+- **queue-optimizer** - Performance tuning and cost optimization (batch size, concurrency, retries)
+
+**Available Commands**:
+- **/queue-setup** - Interactive wizard for complete queue setup
+- **/queue-troubleshoot** - Quick diagnostic for common issues
+- **/queue-monitor** - Real-time metrics and status display
+
+---
+
+## Limits & Quotas
+
+**Critical limits:**
+
+- **Message size**: 128 KB max per message
+- **Throughput**: 5,000 messages/second per queue
+- **Batch size**: 100 messages max per sendBatch()
+- **Consumer CPU time**: 30 seconds (default), 300 seconds (max with config)
+- **Max retries**: Configurable (default 3)
+- **Queue name**: Max 63 characters, lowercase/numbers/hyphens
+
+**Load `references/best-practices.md` for handling limits and optimization strategies.**
+
+---
+
+## Configuration Reference
+
+**Producer**: Add queue binding to `wrangler.jsonc` queues.producers array with `binding` and `queue` fields.
+
+**Consumer**: Configure in `wrangler.jsonc` queues.consumers array with `queue`, `max_batch_size` (1-100), `max_batch_timeout` (0-60s), `max_retries`, `dead_letter_queue`, and optionally `max_concurrency` (default: auto-scale).
+
+**CPU Limits**: Increase `limits.cpu_ms` from default 30,000ms if processing takes longer.
+
+**Load `references/setup-guide.md` for complete configuration examples and `templates/wrangler-queues-config.jsonc` for production-ready config.**
+
+---
+
+## Using Bundled Resources
+
+### References (references/)
+
+- **setup-guide.md** - Complete 6-step setup (queue → producer → consumer → DLQ → deploy → production config)
+- **error-catalog.md** - All 10 errors with solutions + prevention checklist
+- **producer-api.md** - Complete producer API (send, sendBatch, message format)
+- **consumer-api.md** - Complete consumer API (ack, retry, batch processing)
+- **best-practices.md** - Performance, monitoring, security, reliability patterns
+- **wrangler-commands.md** - CLI reference (create, delete, list, pause, resume)
+- **typescript-types.md** - Complete TypeScript type definitions for Queue, MessageBatch, Message
+- **production-checklist.md** - Pre-deployment verification and best practices
+- **pull-consumers.md** - Pull-based consumers for non-Workers environments (HTTP polling)
+- **http-publishing.md** - Publishing messages via HTTP API from external systems
+- **r2-event-integration.md** - R2 event notifications triggering queue messages
+
+### Templates (templates/)
+
+- **queues-producer.ts** - Basic producer with single and batch sending
+- **queues-consumer-basic.ts** - Implicit ack consumer (idempotent operations)
+- **queues-consumer-explicit-ack.ts** - Explicit ack consumer (non-idempotent)
+- **queues-retry-with-delay.ts** - Exponential backoff retry pattern
+- **queues-dlq-pattern.ts** - Dead letter queue setup and consumer
+- **wrangler-queues-config.jsonc** - Complete production configuration
+
+---
+
+## TypeScript Types
+
+Use `@cloudflare/workers-types` package for complete type definitions: `Queue`, `MessageBatch<Body>`, `Message<Body>`, `QueueSendOptions`.
+
+**Load `references/typescript-types.md` for complete type reference with interfaces, generics, type guards, and usage examples.**
+
+---
+
+## Monitoring & Debugging
+
+**Key Commands**: `wrangler queues info` (status), `wrangler tail` (logs), `wrangler queues pause-delivery/resume-delivery` (control).
+
+**Load `references/wrangler-commands.md` for complete CLI reference with real-time monitoring, debugging workflows, and performance analysis commands.**
+
+---
+
+## Production Checklist
+
+**12-Point Pre-Deployment Checklist**: DLQ configuration, message acknowledgment strategy, size validation, batch optimization, concurrency settings, CPU limits, error handling, monitoring, rate limiting, idempotency, load testing, and security review.
+
+**Load `references/production-checklist.md` for complete checklist with detailed explanations, code examples, and deployment workflow.**
+
+---
+
+## Related Skills
+
+- **cloudflare-worker-base** - Worker setup and configuration
+- **cloudflare-d1** - Database integration for queue consumers
+- **cloudflare-r2** - Store large message payloads
+- **cloudflare-workflows** - More complex orchestration needs
+
+---
+
+## Official Documentation
+
+- **Cloudflare Queues**: https://developers.cloudflare.com/queues/
+- **Configuration**: https://developers.cloudflare.com/queues/configuration/
+- **Wrangler Commands**: https://developers.cloudflare.com/workers/wrangler/commands/#queues
+- **Limits**: https://developers.cloudflare.com/queues/platform/limits/
+- **Troubleshooting**: https://developers.cloudflare.com/queues/observability/troubleshooting/
+- **Best Practices**: https://developers.cloudflare.com/queues/configuration/best-practices/
+
+---
+
+**Questions? Issues?**
+
+1. Check `references/error-catalog.md` for all 10 errors and solutions
+2. Review `references/setup-guide.md` for complete setup walkthrough
+3. See `references/best-practices.md` for production patterns
+4. Check official docs: https://developers.cloudflare.com/queues/

@@ -1,7 +1,7 @@
 {
   "name": "api-integration",
-  "repo": "involvex/involvex-claude-marketplace",
-  "path": "plugins/frontend/skills/api-integration/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-01-17T03:58:49.915052Z"
+  "repo": "dseirz-rgb/worker",
+  "path": ".kiro/skills/api-integration/SKILL.md",
+  "source": "github.com/dseirz-rgb/worker",
+  "downloaded_at": "2026-01-19T03:39:53.525774Z"
 }

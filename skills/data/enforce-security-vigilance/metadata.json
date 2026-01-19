@@ -1,13 +1,7 @@
 {
   "name": "enforce-security-vigilance",
-  "description": "Enforce continuous security vigilance and threat monitoring.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "security",
-  "tags": [
-    "enforce",
-    "security",
-    "vigilance"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/enforce-security-vigilance/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-19T02:25:43.386419Z"
 }

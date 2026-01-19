@@ -1,7 +1,7 @@
 {
   "name": "hybrid-cloud-networking",
-  "repo": "wshobson/agents",
-  "path": "plugins/cloud-infrastructure/skills/hybrid-cloud-networking/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-17T03:59:22.171544Z"
+  "repo": "buenhyden/hy-home.service-1",
+  "path": "agents_settings/agent/skills/hybrid-cloud-networking/SKILL.md",
+  "source": "github.com/buenhyden/hy-home.service-1",
+  "downloaded_at": "2026-01-19T04:05:47.389705Z"
 }

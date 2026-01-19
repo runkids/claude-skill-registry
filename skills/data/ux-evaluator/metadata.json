@@ -1,7 +1,7 @@
 {
   "name": "ux-evaluator",
-  "repo": "92Bilal26/TaskPilotAI",
-  "path": ".claude/skills/ux-evaluator/SKILL.md",
-  "source": "github.com/92Bilal26/TaskPilotAI",
-  "downloaded_at": "2026-01-17T02:02:33.085031Z"
+  "repo": "mjunaidca/mjs-agent-skills",
+  "path": "docs/taskflow-vault/skills/engineering/ux-evaluator/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-19T04:12:55.240461Z"
 }

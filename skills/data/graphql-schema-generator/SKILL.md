@@ -1,266 +1,156 @@
 ---
 name: graphql-schema-generator
-description: Generates GraphQL schemas with type definitions, resolvers, queries, mutations, and subscriptions. Use when building GraphQL APIs.
+description: Generate GraphQL schemas, resolvers, and type definitions. Use when designing GraphQL APIs or documenting GraphQL schemas.
 ---
 
 # GraphQL Schema Generator Skill
 
-Expert at creating GraphQL schemas with proper types, resolvers, and best practices.
+GraphQLスキーマを生成するスキルです。
 
-## When to Activate
+## 概要
 
-- "create GraphQL schema for [entity]"
-- "generate GraphQL API"
-- "build GraphQL types and resolvers"
+データモデルからGraphQLスキーマ、リゾルバーを自動生成します。
 
-## Complete GraphQL Structure
+## 主な機能
 
-```typescript
-// schema/user.schema.ts
-import { gql } from 'apollo-server-express';
+- **スキーマ定義**: Type、Query、Mutation
+- **リゾルバー生成**: 実装テンプレート
+- **ベストプラクティス**: ページネーション、エラーハンドリング
+- **ドキュメント**: 自動生成
 
-export const userTypeDefs = gql`
-  type User {
-    id: ID!
-    email: String!
-    name: String!
-    role: UserRole!
-    posts: [Post!]!
-    createdAt: DateTime!
-    updatedAt: DateTime!
-  }
+## 生成例
 
-  enum UserRole {
-    USER
-    ADMIN
-    MODERATOR
-  }
+### Schema
 
-  input CreateUserInput {
-    email: String!
-    name: String!
-    password: String!
-    role: UserRole = USER
-  }
+```graphql
+# Types
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  posts: [Post!]!
+  createdAt: DateTime!
+}
 
-  input UpdateUserInput {
-    email: String
-    name: String
-    password: String
-    role: UserRole
-  }
+type Post {
+  id: ID!
+  title: String!
+  content: String!
+  author: User!
+  published: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
 
-  type UserConnection {
-    edges: [UserEdge!]!
-    pageInfo: PageInfo!
-    totalCount: Int!
-  }
+type Query {
+  user(id: ID!): User
+  users(first: Int = 10, after: String): UserConnection!
+  post(id: ID!): Post
+  posts(published: Boolean): [Post!]!
+}
 
-  type UserEdge {
-    node: User!
-    cursor: String!
-  }
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+  createPost(input: CreatePostInput!): Post!
+  publishPost(id: ID!): Post!
+}
 
-  type Query {
-    user(id: ID!): User
-    users(
-      first: Int = 10
-      after: String
-      search: String
-    ): UserConnection!
-    me: User
-  }
+# Inputs
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
 
-  type Mutation {
-    createUser(input: CreateUserInput!): User!
-    updateUser(id: ID!, input: UpdateUserInput!): User!
-    deleteUser(id: ID!): Boolean!
-  }
+input UpdateUserInput {
+  name: String
+  email: String
+}
 
-  type Subscription {
-    userCreated: User!
-    userUpdated(id: ID!): User!
-  }
-`;
+input CreatePostInput {
+  title: String!
+  content: String!
+  authorId: ID!
+}
 
-// resolvers/user.resolvers.ts
-import { UserInputError, AuthenticationError } from 'apollo-server-express';
-import { UserService } from '../services/user.service';
-import { pubsub } from '../pubsub';
+# Pagination
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
 
-const USER_CREATED = 'USER_CREATED';
-const USER_UPDATED = 'USER_UPDATED';
+type UserEdge {
+  node: User!
+  cursor: String!
+}
 
-export const userResolvers = {
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# Custom Scalars
+scalar DateTime
+```
+
+### Resolvers (JavaScript)
+
+```javascript
+const resolvers = {
   Query: {
-    user: async (_parent, { id }, { services, user }) => {
-      if (!user) {
-        throw new AuthenticationError('Not authenticated');
-      }
-
-      return await services.user.findById(id);
+    user: async (parent, { id }, { dataSources }) => {
+      return dataSources.userAPI.getUserById(id);
     },
-
-    users: async (_parent, { first, after, search }, { services, user }) => {
-      if (!user) {
-        throw new AuthenticationError('Not authenticated');
-      }
-
-      const result = await services.user.findAll({
-        first,
-        after,
-        search,
-      });
-
-      return {
-        edges: result.users.map(user => ({
-          node: user,
-          cursor: Buffer.from(user.id.toString()).toString('base64'),
-        })),
-        pageInfo: {
-          hasNextPage: result.hasNextPage,
-          endCursor: result.endCursor,
-        },
-        totalCount: result.totalCount,
-      };
+    users: async (parent, { first, after }, { dataSources }) => {
+      return dataSources.userAPI.getUsers({ first, after });
     },
-
-    me: async (_parent, _args, { user }) => {
-      if (!user) {
-        throw new AuthenticationError('Not authenticated');
-      }
-
-      return user;
+    post: async (parent, { id }, { dataSources }) => {
+      return dataSources.postAPI.getPostById(id);
     },
+    posts: async (parent, { published }, { dataSources }) => {
+      return dataSources.postAPI.getPosts({ published });
+    }
   },
 
   Mutation: {
-    createUser: async (_parent, { input }, { services }) => {
-      const user = await services.user.create(input);
-
-      // Publish subscription event
-      pubsub.publish(USER_CREATED, { userCreated: user });
-
-      return user;
+    createUser: async (parent, { input }, { dataSources }) => {
+      return dataSources.userAPI.createUser(input);
     },
-
-    updateUser: async (_parent, { id, input }, { services, user }) => {
-      if (!user) {
-        throw new AuthenticationError('Not authenticated');
-      }
-
-      if (user.id !== id && user.role !== 'ADMIN') {
-        throw new AuthenticationError('Not authorized');
-      }
-
-      const updatedUser = await services.user.update(id, input);
-
-      if (!updatedUser) {
-        throw new UserInputError('User not found');
-      }
-
-      // Publish subscription event
-      pubsub.publish(USER_UPDATED, {
-        userUpdated: updatedUser,
-        id,
-      });
-
-      return updatedUser;
+    updateUser: async (parent, { id, input }, { dataSources }) => {
+      return dataSources.userAPI.updateUser(id, input);
     },
-
-    deleteUser: async (_parent, { id }, { services, user }) => {
-      if (!user || user.role !== 'ADMIN') {
-        throw new AuthenticationError('Admin access required');
-      }
-
-      const success = await services.user.delete(id);
-
-      if (!success) {
-        throw new UserInputError('User not found');
-      }
-
-      return true;
+    deleteUser: async (parent, { id }, { dataSources }) => {
+      return dataSources.userAPI.deleteUser(id);
     },
-  },
-
-  Subscription: {
-    userCreated: {
-      subscribe: () => pubsub.asyncIterator([USER_CREATED]),
+    createPost: async (parent, { input }, { dataSources, user }) => {
+      if (!user) throw new Error('Unauthorized');
+      return dataSources.postAPI.createPost(input);
     },
-
-    userUpdated: {
-      subscribe: withFilter(
-        () => pubsub.asyncIterator([USER_UPDATED]),
-        (payload, variables) => {
-          return payload.id === variables.id;
-        }
-      ),
-    },
+    publishPost: async (parent, { id }, { dataSources, user }) => {
+      if (!user) throw new Error('Unauthorized');
+      return dataSources.postAPI.publishPost(id);
+    }
   },
 
   User: {
-    // Field resolver for nested data
-    posts: async (parent, _args, { services }) => {
-      return await services.post.findByAuthorId(parent.id);
-    },
+    posts: async (parent, args, { dataSources }) => {
+      return dataSources.postAPI.getPostsByAuthor(parent.id);
+    }
   },
+
+  Post: {
+    author: async (parent, args, { dataSources }) => {
+      return dataSources.userAPI.getUserById(parent.authorId);
+    }
+  }
 };
 ```
 
-## DataLoader Pattern
+## バージョン情報
 
-```typescript
-// dataloaders/user.dataloader.ts
-import DataLoader from 'dataloader';
-import { UserService } from '../services/user.service';
-
-export function createUserLoader(userService: UserService) {
-  return new DataLoader(async (ids: readonly string[]) => {
-    const users = await userService.findByIds([...ids]);
-
-    const userMap = new Map(users.map(user => [user.id, user]));
-
-    return ids.map(id => userMap.get(id) || null);
-  });
-}
-
-// Use in context
-export const createContext = ({ req }) => {
-  const userService = new UserService();
-
-  return {
-    user: req.user,
-    services: {
-      user: userService,
-    },
-    loaders: {
-      user: createUserLoader(userService),
-    },
-  };
-};
-```
-
-## Best Practices
-
-- Use clear, descriptive type names
-- Implement pagination (Connection pattern)
-- Add input validation
-- Use enums for fixed values
-- Implement authentication/authorization
-- Use DataLoaders to prevent N+1 queries
-- Add proper error handling
-- Document schema with descriptions
-- Version your API
-- Use subscriptions for real-time data
-- Implement field-level resolvers
-- Cache responses when appropriate
-
-## Output Checklist
-
-- ✅ Type definitions created
-- ✅ Resolvers implemented
-- ✅ Queries/Mutations/Subscriptions
-- ✅ DataLoaders setup
-- ✅ Authentication added
-- ✅ Error handling
-- 📝 Usage examples
+- スキルバージョン: 1.0.0

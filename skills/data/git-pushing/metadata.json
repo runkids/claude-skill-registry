@@ -1,7 +1,7 @@
 {
   "name": "git-pushing",
-  "repo": "mhattingpete/claude-skills-marketplace",
-  "path": "engineering-workflow-plugin/skills/git-pushing/SKILL.md",
-  "source": "github.com/mhattingpete/claude-skills-marketplace",
-  "downloaded_at": "2026-01-17T03:28:19.989988Z"
+  "repo": "mbcoalson/skills",
+  "path": ".claude/skills/git-pushing/SKILL.md",
+  "source": "github.com/mbcoalson/skills",
+  "downloaded_at": "2026-01-19T04:05:54.165457Z"
 }

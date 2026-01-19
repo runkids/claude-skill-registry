@@ -1,7 +1,7 @@
 {
   "name": "google-gemini-embeddings",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/google-gemini-embeddings/skills/google-gemini-embeddings/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-17T03:58:35.461217Z"
+  "repo": "jezweb/claude-skills",
+  "path": "skills/google-gemini-embeddings/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-19T03:08:48.935046Z"
 }

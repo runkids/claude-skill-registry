@@ -1,7 +1,7 @@
 {
   "name": "canvas-design",
-  "repo": "hongbietcode/synthetic-claude",
-  "path": "plugins/design-studio/skills/canvas-design/SKILL.md",
-  "source": "github.com/hongbietcode/synthetic-claude",
-  "downloaded_at": "2026-01-17T04:07:18.583036Z"
+  "repo": "plurigrid/asi",
+  "path": "skills/canvas-design/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-19T04:21:43.992246Z"
 }

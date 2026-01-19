@@ -1,7 +1,7 @@
 {
   "name": "mermaid-tools",
-  "repo": "nguyendinhquocx/code-ai",
-  "path": "skills/mermaid-tools/SKILL.md",
-  "source": "github.com/nguyendinhquocx/code-ai",
-  "downloaded_at": "2026-01-14T01:13:39.437151Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/talk-to-slidev-workflow/.claude/skills/mermaid-tools/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-19T03:26:12.153445Z"
 }

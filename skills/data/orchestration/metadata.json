@@ -1,7 +1,7 @@
 {
   "name": "orchestration",
-  "repo": "namesreallyblank/Clorch",
-  "path": "skills/orchestration/SKILL.md",
-  "source": "github.com/namesreallyblank/Clorch",
-  "downloaded_at": "2026-01-17T04:07:11.054338Z"
+  "repo": "jwwelbor/shark-task-manager",
+  "path": ".claude/skills/orchestration/SKILL.md",
+  "source": "github.com/jwwelbor/shark-task-manager",
+  "downloaded_at": "2026-01-19T04:09:55.901129Z"
 }

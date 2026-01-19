@@ -1,12 +1,7 @@
 {
   "name": "beads-integration",
-  "description": "Manages persistent task memory using Beads. Automatically invoked when discussing task tracking, long-running projects, session persistence, or context preservation across sessions. Handles syncing be",
-  "repo": "jmanhype/speckit",
-  "category": "productivity",
-  "tags": [
-    "beads",
-    "integration"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lambda-curry/devagent",
+  "path": ".devagent/plugins/ralph/skills/beads-integration/SKILL.md",
+  "source": "github.com/lambda-curry/devagent",
+  "downloaded_at": "2026-01-19T03:14:38.818499Z"
 }

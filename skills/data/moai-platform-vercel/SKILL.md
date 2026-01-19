@@ -4,20 +4,12 @@ description: "Vercel edge deployment specialist covering Edge Functions, Next.js
 version: 2.0.0
 category: "platform"
 modularized: true
-user-invocable: false
 tags: ['vercel', 'edge', 'nextjs', 'isr', 'preview', 'cdn', 'kv', 'blob', 'postgres']
 context7-libraries: "/vercel/next.js, /vercel/vercel"
 related-skills: "moai-platform-railway, moai-lang-typescript, moai-domain-frontend"
-updated: 2026-01-08
+updated: 2026-01-06
 status: "active"
-allowed-tools:
-  - Read
-  - Write
-  - Bash
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: "Read, Write, Bash, Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
 ---
 
 # moai-platform-vercel: Vercel Edge Deployment Specialist

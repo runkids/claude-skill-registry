@@ -1,7 +1,7 @@
 {
   "name": "testing-strategy",
-  "repo": "meeezus/Musha-Shugyo-OS",
-  "path": ".claude/skills/testing-strategy/SKILL.md",
-  "source": "github.com/meeezus/Musha-Shugyo-OS",
-  "downloaded_at": "2026-01-17T03:45:10.774970Z"
+  "repo": "nicholasgriffintn/claude-code",
+  "path": "skills/testing-strategy/SKILL.md",
+  "source": "github.com/nicholasgriffintn/claude-code",
+  "downloaded_at": "2026-01-19T03:50:47.149001Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "cost-optimization",
-  "repo": "wshobson/agents",
-  "path": "plugins/cloud-infrastructure/skills/cost-optimization/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-17T03:59:15.665493Z"
+  "repo": "hgeldenhuys/claude-code-sdk",
+  "path": "skills/cost-optimization/SKILL.md",
+  "source": "github.com/hgeldenhuys/claude-code-sdk",
+  "downloaded_at": "2026-01-19T04:07:18.141880Z"
 }

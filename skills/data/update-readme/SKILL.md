@@ -1,43 +1,93 @@
 ---
 name: update-readme
-description: Updates README.md to match the current project state. Use when the user says "update readme", "sync readme", "refresh documentation", "readme is outdated", or asks to document the project.
-allowed-tools: Read, Glob, Grep, Edit, Write
+description: |
+
+Triggers: research, exemplars, readme, structure, update
+  Consolidate README content using language-aware exemplars, internal doc linkage,
+  and reproducible evidence.
+
+  Triggers: README update, documentation refresh, readme structure, exemplar research,
+  language-aware docs, readme modernization, project documentation
+
+  Use when: README requires structural refresh, adding features to documentation,
+  aligning readme with exemplar standards, improving project presentation
+
+  DO NOT use when: updating inline docs - use doc-updates.
+  DO NOT use when: consolidating ephemeral reports - use doc-consolidation.
+
+  Run git-workspace-review first to capture repo context.
+category: artifact-generation
+tags: [readme, documentation, exemplars, research, structure]
+tools: [Read, Write, Edit, Bash, WebSearch, TodoWrite]
+complexity: high
+estimated_tokens: 1200
+modules:
+  - language-audit
+  - exemplar-research
+progressive_loading: true
+dependencies:
+  - sanctum:shared
+  - sanctum:git-workspace-review
+  - imbue:evidence-logging
 ---
 
-# Update README
+# README Update Workflow
 
-Analyze a project's codebase and update its README.md to accurately reflect the current state.
+## When to Use
+Use this skill whenever the README requires a structural refresh.
+Run `Skill(sanctum:git-workspace-review)` first to capture repo context and diffs.
 
-## Instructions
+## Required TodoWrite Items
+1. `update-readme:language-audit`
+2. `update-readme:exemplar-research`
+3. `update-readme:outline-aligned`
+4. `update-readme:edits-applied`
+5. `update-readme:verification-reporting`
 
-1. Read the current `README.md` to understand existing structure
-2. Read package files (`package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod`, etc.) for metadata
-3. Use Glob to understand directory layout (`**/*.{js,ts,py,go,rs}`)
-4. Compare README against actual codebase for discrepancies
-5. Update only sections that are outdated or incorrect
-6. Provide a summary of changes made
+## Step 1 - Language Audit (`update-readme:language-audit`)
+- Confirm `pwd`, `git status -sb`, and the baseline branch for reference.
+- Detect dominant languages using repository heuristics (manifest files, file counts).
+- Note secondary languages that influence documentation (e.g., a TypeScript frontend and a Rust backend) so the README can surface both.
+- Record the method and findings.
 
-## What to verify
+See `modules/language-audit.md` for detailed detection patterns and commands.
 
-- **Dependencies:** Match actual package files
-- **Features:** Reflect capabilities found in code
-- **Installation:** Steps work with current setup
-- **Usage examples:** Code snippets are accurate
-- **File references:** Mentioned paths exist
-- **Configuration:** Options are complete
+## Step 2 - Exemplar Research (`update-readme:exemplar-research`)
+- For each primary and secondary language, use web search to locate high-quality READMEs (star count, recency, maintainer activity).
+- Capture 2-3 exemplar repositories per language and summarize why each is relevant (section order, visuals, quickstart clarity, governance messaging, math exposition, etc.).
+- Store citations for every exemplar so the final summary references them explicitly.
 
-## Rules
+See `modules/exemplar-research.md` for search query patterns and evaluation criteria.
 
-- MUST preserve existing README structure when possible
-- MUST keep any badges, images, or custom formatting
-- MUST use relative links for internal documentation
-- Never add sections that weren't requested
-- Never remove sections without explicit approval
-- Never fabricate features not found in the codebase
+## Step 3 - Outline Alignment (`update-readme:outline-aligned`)
+- Compare current README headings (`rg -n '^#' README.md`) against patterns observed in exemplars.
+- Draft a target outline covering: value proposition, installation, quickstart, deeper usage/configuration, architecture/feature highlights, performance or math guarantees, documentation links, contribution/governance, roadmap/status, and licensing/security notes.
+- validate internal documents (docs/, specs/, wiki, commands/) are mapped to the relevant sections so the README anchors them with context-sensitive links.
 
-## Output
+## Step 4 - Apply Edits (`update-readme:edits-applied`)
+- Implement the new structure directly in `README.md` (or the specified file).
+- Maintain concise, evidence-based prose; avoid marketing fluff.
+- Add comparison tables, feature lists, or diagrams only if they originate from current repository assets (no speculative content).
+- When referencing algorithms or performance claims, point to benchmarks or tests within the repository or documented math reviews.
 
-After updating, summarize:
-- Sections updated
-- What was added or removed
-- Anything needing manual review
+## Step 5 - Verification & Reporting (`update-readme:verification-reporting`)
+- Re-read the updated README for clarity, accessibility (section lengths, bullet balance), and accurate links.
+- Run `git diff README.md` (or the edited file) and capture snippets for the final report.
+- Summarize detected languages, exemplar sources (with citations), key structural decisions, and follow-up TODOs (e.g., add badges, upload diagrams).
+
+## Exit Criteria
+- All `TodoWrite` items are complete.
+- The README reflects a modern, language-aware structure, referencing both internal docs and external inspiration with citations.
+- Research notes and command references are captured so future reviewers can reproduce the process.
+## Troubleshooting
+
+### Common Issues
+
+**Documentation out of sync**
+Run `make docs-update` to regenerate from code
+
+**Build failures**
+Check that all required dependencies are installed
+
+**Links broken**
+Verify relative paths in documentation files

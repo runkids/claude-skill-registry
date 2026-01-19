@@ -1,160 +1,160 @@
 ---
 name: planning-with-files
-description: Transforms workflow to use Manus-style persistent markdown files for planning, progress tracking, and knowledge storage. Use when starting complex tasks, multi-step projects, research tasks, or when the user mentions planning, organizing work, tracking progress, or wants structured output.
+description: 将工作流转换为使用 Manus 风格的持久化 markdown 文件进行规划、进度跟踪和知识存储。适用于开始复杂任务、多步骤项目、研究任务，或者当用户提到规划、组织工作、跟踪进度或需要结构化输出时使用。
 ---
 
-# Planning with Files
+# 使用文件进行规划
 
-Work like Manus: Use persistent markdown files as your "working memory on disk."
+像 Manus 一样工作：使用持久化的 markdown 文件作为你的"磁盘工作记忆"。
 
-## Quick Start
+## 快速开始
 
-Before ANY complex task:
+在任何复杂任务之前：
 
-1. **Create `task_plan.md`** in the working directory
-2. **Define phases** with checkboxes
-3. **Update after each phase** - mark [x] and change status
-4. **Read before deciding** - refresh goals in attention window
+1. **在工作目录中创建 `task_plan.md`**
+2. **定义阶段**，使用复选框
+3. **每个阶段后更新** - 标记 [x] 并更改状态
+4. **决策前读取** - 刷新注意力窗口中的目标
 
-## The 3-File Pattern
+## 三文件模式
 
-For every non-trivial task, create THREE files:
+对于每个非平凡任务，创建三个文件：
 
-| File | Purpose | When to Update |
+| 文件 | 用途 | 更新时机 |
 |------|---------|----------------|
-| `task_plan.md` | Track phases and progress | After each phase |
-| `notes.md` | Store findings and research | During research |
-| `[deliverable].md` | Final output | At completion |
+| `task_plan.md` | 跟踪阶段和进度 | 每个阶段后 |
+| `notes.md` | 存储发现和研究 | 研究过程中 |
+| `[deliverable].md` | 最终输出 | 完成时 |
 
-## Core Workflow
+## 核心工作流
 
 ```
-Loop 1: Create task_plan.md with goal and phases
-Loop 2: Research → save to notes.md → update task_plan.md
-Loop 3: Read notes.md → create deliverable → update task_plan.md
-Loop 4: Deliver final output
+循环 1：创建包含目标和阶段的 task_plan.md
+循环 2：研究 → 保存到 notes.md → 更新 task_plan.md
+循环 3：读取 notes.md → 创建交付物 → 更新 task_plan.md
+循环 4：交付最终输出
 ```
 
-### The Loop in Detail
+### 详细循环说明
 
-**Before each major action:**
+**每次主要操作前：**
 ```bash
-Read task_plan.md  # Refresh goals in attention window
+Read task_plan.md  # 刷新注意力窗口中的目标
 ```
 
-**After each phase:**
+**每个阶段后：**
 ```bash
-Edit task_plan.md  # Mark [x], update status
+Edit task_plan.md  # 标记 [x]，更新状态
 ```
 
-**When storing information:**
+**存储信息时：**
 ```bash
-Write notes.md     # Don't stuff context, store in file
+Write notes.md     # 不要塞满上下文，存储到文件中
 ```
 
-## task_plan.md Template
+## task_plan.md 模板
 
-Create this file FIRST for any complex task:
+对于任何复杂任务，首先创建此文件：
 
 ```markdown
-# Task Plan: [Brief Description]
+# 任务计划：[简要描述]
 
-## Goal
-[One sentence describing the end state]
+## 目标
+[一句话描述最终状态]
 
-## Phases
-- [ ] Phase 1: Plan and setup
-- [ ] Phase 2: Research/gather information
-- [ ] Phase 3: Execute/build
-- [ ] Phase 4: Review and deliver
+## 阶段
+- [ ] 阶段 1：规划和设置
+- [ ] 阶段 2：研究/收集信息
+- [ ] 阶段 3：执行/构建
+- [ ] 阶段 4：审查和交付
 
-## Key Questions
-1. [Question to answer]
-2. [Question to answer]
+## 关键问题
+1. [需要回答的问题]
+2. [需要回答的问题]
 
-## Decisions Made
-- [Decision]: [Rationale]
+## 已做出的决策
+- [决策]：[理由]
 
-## Errors Encountered
-- [Error]: [Resolution]
+## 遇到的错误
+- [错误]：[解决方案]
 
-## Status
-**Currently in Phase X** - [What I'm doing now]
+## 状态
+**当前处于阶段 X** - [我现在正在做的事情]
 ```
 
-## notes.md Template
+## notes.md 模板
 
-For research and findings:
+用于研究和发现：
 
 ```markdown
-# Notes: [Topic]
+# 笔记：[主题]
 
-## Sources
+## 来源
 
-### Source 1: [Name]
-- URL: [link]
-- Key points:
-  - [Finding]
-  - [Finding]
+### 来源 1：[名称]
+- URL：[链接]
+- 关键点：
+  - [发现]
+  - [发现]
 
-## Synthesized Findings
+## 综合发现
 
-### [Category]
-- [Finding]
-- [Finding]
+### [类别]
+- [发现]
+- [发现]
 ```
 
-## Critical Rules
+## 关键规则
 
-### 1. ALWAYS Create Plan First
-Never start a complex task without `task_plan.md`. This is non-negotiable.
+### 1. 始终先创建计划
+在没有 `task_plan.md` 的情况下永远不要开始复杂任务。这是不可协商的。
 
-### 2. Read Before Decide
-Before any major decision, read the plan file. This keeps goals in your attention window.
+### 2. 决策前先读取
+在任何重大决策之前，读取计划文件。这可以将目标保持在你的注意力窗口中。
 
-### 3. Update After Act
-After completing any phase, immediately update the plan file:
-- Mark completed phases with [x]
-- Update the Status section
-- Log any errors encountered
+### 3. 行动后更新
+完成任何阶段后，立即更新计划文件：
+- 用 [x] 标记已完成的阶段
+- 更新状态部分
+- 记录遇到的任何错误
 
-### 4. Store, Don't Stuff
-Large outputs go to files, not context. Keep only paths in working memory.
+### 4. 存储，不要塞满
+大型输出放入文件，而不是上下文。在工作记忆中只保留路径。
 
-### 5. Log All Errors
-Every error goes in the "Errors Encountered" section. This builds knowledge for future tasks.
+### 5. 记录所有错误
+每个错误都进入"遇到的错误"部分。这为未来的任务积累知识。
 
-## When to Use This Pattern
+## 何时使用此模式
 
-**Use 3-file pattern for:**
-- Multi-step tasks (3+ steps)
-- Research tasks
-- Building/creating something
-- Tasks spanning multiple tool calls
-- Anything requiring organization
+**对以下情况使用三文件模式：**
+- 多步骤任务（3+ 步骤）
+- 研究任务
+- 构建/创建某物
+- 跨多个工具调用的任务
+- 任何需要组织的事情
 
-**Skip for:**
-- Simple questions
-- Single-file edits
-- Quick lookups
+**以下情况跳过：**
+- 简单问题
+- 单文件编辑
+- 快速查找
 
-## Anti-Patterns to Avoid
+## 避免的反模式
 
-| Don't | Do Instead |
+| 不要做 | 而是做 |
 |-------|------------|
-| Use TodoWrite for persistence | Create `task_plan.md` file |
-| State goals once and forget | Re-read plan before each decision |
-| Hide errors and retry | Log errors to plan file |
-| Stuff everything in context | Store large content in files |
-| Start executing immediately | Create plan file FIRST |
+| 使用 TodoWrite 进行持久化 | 创建 `task_plan.md` 文件 |
+| 陈述一次目标就忘记 | 每次决策前重新读取计划 |
+| 隐藏错误并重试 | 将错误记录到计划文件 |
+| 将所有内容塞入上下文 | 将大型内容存储到文件中 |
+| 立即开始执行 | 首先创建计划文件 |
 
-## Advanced Patterns
+## 高级模式
 
-See [reference.md](reference.md) for:
-- Attention manipulation techniques
-- Error recovery patterns
-- Context optimization from Manus
+参见 [reference.md](reference.md) 了解：
+- 注意力操作技巧
+- 错误恢复模式
+- 来自 Manus 的上下文优化
 
-See [examples.md](examples.md) for:
-- Real task examples
-- Complex workflow patterns
+参见 [examples.md](examples.md) 了解：
+- 真实任务示例
+- 复杂工作流模式

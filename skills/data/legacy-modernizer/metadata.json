@@ -1,7 +1,7 @@
 {
   "name": "legacy-modernizer",
-  "repo": "j0KZ/mcp-agents",
-  "path": "starter-kit/.claude/skills/legacy-modernizer/SKILL.md",
-  "source": "github.com/j0KZ/mcp-agents",
-  "downloaded_at": "2026-01-17T01:46:56.148705Z"
+  "repo": "Jeffallan/claude-skills",
+  "path": "skills/legacy-modernizer/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-19T04:11:56.914820Z"
 }

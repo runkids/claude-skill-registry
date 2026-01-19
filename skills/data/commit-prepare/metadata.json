@@ -1,7 +1,7 @@
 {
   "name": "commit-prepare",
-  "repo": "ByronWilliamsCPA/rag-processor",
+  "repo": "ByronWilliamsCPA/template-sample",
   "path": ".claude/skills/commit-prepare/SKILL.md",
-  "source": "github.com/ByronWilliamsCPA/rag-processor",
-  "downloaded_at": "2026-01-17T03:07:48.371937Z"
+  "source": "github.com/ByronWilliamsCPA/template-sample",
+  "downloaded_at": "2026-01-19T04:06:29.049103Z"
 }

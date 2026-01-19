@@ -1,7 +1,7 @@
 {
   "name": "swift",
-  "repo": "dralgorhythm/claude-agentic-framework",
-  "path": ".claude/skills/languages/swift/SKILL.md",
-  "source": "github.com/dralgorhythm/claude-agentic-framework",
-  "downloaded_at": "2026-01-17T02:09:59.141773Z"
+  "repo": "yebot/rad-cc-plugins",
+  "path": "plugins/apps-dev-team/skills/swift/SKILL.md",
+  "source": "github.com/yebot/rad-cc-plugins",
+  "downloaded_at": "2026-01-19T04:05:20.807115Z"
 }

@@ -1,212 +1,125 @@
 ---
-name: "moai-lang-scala"
-description: "Scala 3.4+ development specialist covering Akka, Cats Effect, ZIO, and Spark patterns. Use when building distributed systems, big data pipelines, or functional programming applications."
-version: 2.0.0
-category: "language"
-modularized: true
-user-invocable: false
-updated: 2026-01-08
+name: moai-lang-scala
+version: 2.1.0
+created: 2025-10-22
+updated: 2025-11-02
+status: active
+description: Scala 3.6+ best practices with ScalaTest 3.2, sbt 1.10, functional programming patterns, and Play Framework.
+keywords: ['scala', 'scalatest', 'sbt', 'functional', 'play-framework']
 allowed-tools:
   - Read
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+  - Bash
 ---
 
-# Scala 3.4+ Development Specialist
+# Lang Scala Skill
 
-Functional programming, effect systems, and big data processing for JVM applications.
+## Skill Metadata
 
-## Quick Reference
-
-Auto-Triggers: Scala files (.scala, .sc), build files (build.sbt, project/build.properties)
-
-Core Capabilities:
-- Scala 3.4: Given/using, extension methods, enums, opaque types, match types
-- Akka 2.9: Typed actors, streams, clustering, persistence
-- Cats Effect 3.5: Pure FP runtime, fibers, concurrent structures
-- ZIO 2.1: Effect system, layers, streaming, error handling
-- Apache Spark 3.5: DataFrame API, SQL, structured streaming
-
-Key Ecosystem Libraries:
-- HTTP: Http4s 0.24, Tapir 1.10
-- JSON: Circe 0.15, ZIO JSON 0.6
-- Database: Doobie 1.0, Slick 3.5, Quill 4.8
-- Streaming: FS2 3.10, ZIO Streams 2.1
-- Testing: ScalaTest, Specs2, MUnit, Weaver
+| Field | Value |
+| ----- | ----- |
+| **Skill Name** | moai-lang-scala |
+| **Version** | 2.1.0 (2025-11-02) |
+| **Allowed tools** | Read (read_file), Bash (terminal) |
+| **Auto-load** | On demand when keywords detected |
+| **Tier** | Language |
 
 ---
 
-## Module Index
+## What It Does
 
-This skill uses progressive disclosure with specialized modules:
+Scala 3.6+ best practices with ScalaTest 3.2, sbt 1.10, functional programming patterns, and Play Framework.
 
-### Core Language
-- [functional-programming.md](modules/functional-programming.md) - Scala 3.4 features: Given/Using, Type Classes, Enums, Opaque Types, Extension Methods
-
-### Effect Systems
-- [cats-effect.md](modules/cats-effect.md) - Cats Effect 3.5: IO monad, Resources, Fibers, FS2 Streaming
-- [zio-patterns.md](modules/zio-patterns.md) - ZIO 2.1: Effects, Layers, ZIO Streams, Error handling
-
-### Frameworks
-- [akka-actors.md](modules/akka-actors.md) - Akka Typed Actors 2.9: Actors, Streams, Clustering patterns
-- [spark-data.md](modules/spark-data.md) - Apache Spark 3.5: DataFrame API, SQL, Structured Streaming
+**Key capabilities**:
+- ✅ Best practices enforcement for language domain
+- ✅ TRUST 5 principles integration
+- ✅ Latest tool versions (2025-11-02)
+- ✅ TDD workflow support
+- ✅ Play Framework web application patterns
 
 ---
 
-## Implementation Guide
+## When to Use
 
-### Project Setup (SBT 1.10)
+**Automatic triggers**:
+- Related code discussions and file patterns
+- SPEC implementation (`/alfred:2-run`)
+- Code review requests
 
-```scala
-ThisBuild / scalaVersion := "3.4.2"
-ThisBuild / organization := "com.example"
-
-lazy val root = (project in file("."))
-  .settings(
-    name := "scala-service",
-    libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats-effect" % "3.5.4",
-      "dev.zio" %% "zio" % "2.1.0",
-      "com.typesafe.akka" %% "akka-actor-typed" % "2.9.0",
-      "org.http4s" %% "http4s-ember-server" % "0.24.0",
-      "io.circe" %% "circe-generic" % "0.15.0",
-      "org.scalatest" %% "scalatest" % "3.2.18" % Test
-    ),
-    scalacOptions ++= Seq("-deprecation", "-feature", "-Xfatal-warnings")
-  )
-```
-
-### Quick Examples
-
-Extension Methods:
-```scala
-extension (s: String)
-  def words: List[String] = s.split("\\s+").toList
-  def truncate(maxLen: Int): String =
-    if s.length <= maxLen then s else s.take(maxLen - 3) + "..."
-```
-
-Given and Using:
-```scala
-trait JsonEncoder[A]:
-  def encode(value: A): String
-
-given JsonEncoder[String] with
-  def encode(value: String): String = s"\"$value\""
-
-def toJson[A](value: A)(using encoder: JsonEncoder[A]): String =
-  encoder.encode(value)
-```
-
-Enum Types:
-```scala
-enum Result[+E, +A]:
-  case Success(value: A)
-  case Failure(error: E)
-
-  def map[B](f: A => B): Result[E, B] = this match
-    case Success(a) => Success(f(a))
-    case Failure(e) => Failure(e)
-```
+**Manual invocation**:
+- Review code for TRUST 5 compliance
+- Design new features
+- Troubleshoot issues
 
 ---
 
-## Context7 Integration
+## Tool Version Matrix (2025-11-02)
 
-Library mappings for latest documentation:
-
-Core Scala:
-- /scala/scala3 - Scala 3.4 language reference
-- /scala/scala-library - Standard library
-
-Effect Systems:
-- /typelevel/cats-effect - Cats Effect 3.5 documentation
-- /typelevel/cats - Cats 2.10 functional abstractions
-- /zio/zio - ZIO 2.1 documentation
-- /zio/zio-streams - ZIO Streams 2.1
-
-Akka Ecosystem:
-- /akka/akka - Akka 2.9 typed actors and streams
-- /akka/akka-http - Akka HTTP REST APIs
-- /akka/alpakka - Akka connectors
-
-HTTP and Web:
-- /http4s/http4s - Functional HTTP server/client
-- /softwaremill/tapir - API-first design
-
-Big Data:
-- /apache/spark - Spark 3.5 DataFrame and SQL
-- /apache/flink - Flink 1.19 streaming
-- /apache/kafka - Kafka clients 3.7
+| Tool | Version | Purpose | Status |
+|------|---------|---------|--------|
+| **Scala** | 3.6.0 | Runtime | ✅ Current |
+| **ScalaTest** | 3.2.19 | Testing | ✅ Current |
+| **sbt** | 1.10.0 | Build tool | ✅ Current |
+| **Play Framework** | 3.0.9 | Web framework | ✅ Current |
 
 ---
 
-## Testing Quick Reference
+## Inputs
 
-ScalaTest:
-```scala
-class UserServiceSpec extends AnyFlatSpec with Matchers:
-  "UserService" should "create user successfully" in {
-    val result = service.createUser(CreateUserRequest("John", "john@example.com"))
-    result.name shouldBe "John"
-  }
-```
+- Language-specific source directories
+- Configuration files
+- Test suites and sample data
 
-MUnit with Cats Effect:
-```scala
-class UserServiceSuite extends CatsEffectSuite:
-  test("should fetch user") {
-    UserService.findById(1L).map { result =>
-      assertEquals(result.name, "John")
-    }
-  }
-```
+## Outputs
 
-ZIO Test:
-```scala
-object UserServiceSpec extends ZIOSpecDefault:
-  def spec = suite("UserService")(
-    test("should find user") {
-      for result <- UserService.findById(1L)
-      yield assertTrue(result.name == "John")
-    }
-  )
-```
+- Test/lint execution plan
+- TRUST 5 review checkpoints
+- Migration guidance
+
+## Failure Modes
+
+- When required tools are not installed
+- When dependencies are missing
+- When test coverage falls below 85%
+
+## Dependencies
+
+- Access to project files via Read/Bash tools
+- Integration with `moai-foundation-langs` for language detection
+- Integration with `moai-foundation-trust` for quality gates
 
 ---
 
-## Troubleshooting
+## References (Latest Documentation)
 
-Common Issues:
-- Implicit resolution: Use scalac -explain for detailed error messages
-- Type inference: Add explicit type annotations when inference fails
-- SBT slow compilation: Enable Global / concurrentRestrictions in build.sbt
+_Documentation links updated 2025-10-22_
 
-Effect System Issues:
-- Cats Effect: Check for missing import cats.effect.* or import cats.syntax.all.*
-- ZIO: Verify layer composition with ZIO.serviceWith and ZIO.serviceWithZIO
-- Akka: Review actor hierarchy and supervision strategies
+---
+
+## Changelog
+
+- **v2.0.0** (2025-10-22): Major update with latest tool versions, comprehensive best practices, TRUST 5 integration
+- **v1.0.0** (2025-03-29): Initial Skill release
 
 ---
 
 ## Works Well With
 
-- moai-lang-java - JVM interoperability, Spring Boot integration
-- moai-domain-backend - REST API, GraphQL, microservices patterns
-- moai-domain-database - Doobie, Slick, database patterns
-- moai-workflow-testing - ScalaTest, MUnit, property-based testing
+- `moai-foundation-trust` (quality gates)
+- `moai-alfred-code-reviewer` (code review)
+- `moai-essentials-debug` (debugging support)
 
 ---
 
-## Additional Resources
+## Best Practices
 
-For comprehensive reference materials:
-- [reference.md](reference.md) - Complete Scala 3.4 coverage, Context7 mappings, performance
-- [examples.md](examples.md) - Production-ready code: Http4s, Akka, Spark patterns
+✅ **DO**:
+- Follow language best practices
+- Use latest stable tool versions
+- Maintain test coverage ≥85%
+- Document all public APIs
 
----
-
-Last Updated: 2026-01-06
-Status: Production Ready (v2.0.0)
+❌ **DON'T**:
+- Skip quality gates
+- Use deprecated tools
+- Ignore security warnings
+- Mix testing frameworks

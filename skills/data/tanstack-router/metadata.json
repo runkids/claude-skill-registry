@@ -1,7 +1,7 @@
 {
   "name": "tanstack-router",
-  "repo": "involvex/involvex-claude-marketplace",
-  "path": "plugins/frontend/skills/tanstack-router/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-01-17T03:58:50.198933Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/tanstack-router/skills/tanstack-router/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-19T03:47:55.175674Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "project-setup",
-  "repo": "lovedragonball/power-ranger-toolkit",
-  "path": "src/skills/project-setup/skill.md",
-  "source": "github.com/lovedragonball/power-ranger-toolkit",
-  "downloaded_at": "2026-01-17T03:14:53.330262Z"
+  "repo": "hgeldenhuys/claude-code-sdk",
+  "path": "skills/project-setup/SKILL.md",
+  "source": "github.com/hgeldenhuys/claude-code-sdk",
+  "downloaded_at": "2026-01-19T04:07:16.909545Z"
 }

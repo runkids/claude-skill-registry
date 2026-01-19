@@ -5,8 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: story-sense
 ---
 
 # Drafting: Diagnostic Skill

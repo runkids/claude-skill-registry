@@ -1,10 +1,7 @@
 {
   "name": "gmail",
-  "description": "This skill should be used when searching, fetching, or downloading emails from Gmail. Use for queries like \"search Gmail for...\", \"find emails from John\", \"show unread emails\", \"emails about project X",
-  "repo": "glebis/claude-skills",
-  "category": "data",
-  "tags": [
-    "gmail"
-  ],
-  "stars": 4
+  "repo": "tbroadley/dotfiles",
+  "path": "claude/skills/gmail/SKILL.md",
+  "source": "github.com/tbroadley/dotfiles",
+  "downloaded_at": "2026-01-19T02:05:57.087377Z"
 }

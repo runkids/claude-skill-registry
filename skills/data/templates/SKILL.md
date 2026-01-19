@@ -1,69 +1,128 @@
-# Simple Skill Template
-
-코드 없이 지침만 제공하는 단순 스킬용
-
+---
+name: [workflow-name]
+description: [End-to-end workflow description]. Use when [full workflow trigger], or when user asks to "[action phrase]".
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-## SKILL.md 예시
+# [Workflow Name]
 
-```markdown
----
-name: writing-commit-messages
-description: "Generates descriptive commit messages from git diffs. Use when writing commits or reviewing staged changes."
-allowed-tools:
-  - Bash
-  - Read
----
+Complete workflow for [end goal].
 
-# Commit Message Generator
-
-## Quick start
-
-1. Stage your changes: `git add .`
-2. Review diff: `git diff --staged`
-3. Generate message following the format below
-
-## Message format
+## Workflow Overview
 
 ```
-type(scope): brief description
-
-Detailed explanation of changes
+[Step 1] → [Step 2] → [Step 3] → [Complete]
 ```
 
-**Types**: feat, fix, docs, style, refactor, test, chore
+## When to Use
 
-## Examples
+- Beginning [project phase]
+- When user requests "[natural language trigger]"
+- For [specific scenario]
 
-**Input**: Added user authentication with JWT
-**Output**:
+## Prerequisites
+
+Before starting:
+- [ ] [Requirement 1]
+- [ ] [Requirement 2]
+- [ ] [Requirement 3]
+
+## Complete Workflow
+
+### Phase 1: [Name]
+
+**Goal**: [What this phase achieves]
+
+**Steps**:
+1. **[Action]** - Run:
+   ```bash
+   # Command
+   ```
+   Expected output: ...
+
+2. **[Action]** - Check:
+   ```bash
+   # Verification
+   ```
+   Should see: ...
+
+3. **[Action]** - Proceed to Phase 2
+
+### Phase 2: [Name]
+
+**Goal**: [What this phase achieves]
+
+**Steps**:
+1. ...
+2. ...
+
+### Phase 3: [Name]
+
+**Goal**: [What this phase achieves]
+
+**Steps**:
+1. ...
+2. ...
+
+## Validation
+
+After completion, verify:
+```bash
+# Check 1
+# Check 2
+# Check 3
 ```
-feat(auth): implement JWT-based authentication
 
-Add login endpoint and token validation middleware
+All checks should ✅ pass.
+
+## Rollback
+
+If something goes wrong:
+
+1. **Stop current process**:
+   ```bash
+   # Stop command
+   ```
+
+2. **Restore previous state**:
+   ```bash
+   # Rollback command
+   ```
+
+3. **Verify rollback**:
+   ```bash
+   # Verification
+   ```
+
+## Files Modified
+
+This workflow touches:
+- `[file1]` - [how modified]
+- `[file2]` - [how modified]
+
+## Success Criteria
+
+✅ Workflow complete when:
+- [ ] [Criterion 1]
+- [ ] [Criterion 2]
+- [ ] [Criterion 3]
+
+## Common Issues
+
+See [Troubleshooting](#troubleshooting) section.
+
+## Automation
+
+To automate this workflow:
+```bash
+# Script or command
 ```
 
-**Input**: Fixed date display bug in reports
-**Output**:
-```
-fix(reports): correct date formatting in timezone conversion
+## Related Workflows
 
-Use UTC timestamps consistently across report generation
-```
+- `[related-workflow-1]` - Run before this
+- `[related-workflow-2]` - Run after this
 
-## Guidelines
+## Version History
 
-- First line: 50 chars max
-- Body: 72 chars per line
-- Use imperative mood ("Add" not "Added")
-- Explain why, not just what
-```
-
----
-
-## 핵심 포인트
-
-1. **Quick start**: 핵심 사용법 바로 보여주기
-2. **Format**: 기대하는 형식 명확히
-3. **Examples**: Input/Output 쌍으로 제시
-4. **Guidelines**: 간결한 규칙
+- v1.0.0 (YYYY-MM-DD): Initial workflow

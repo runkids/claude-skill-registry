@@ -1,7 +1,7 @@
 {
   "name": "debugger",
-  "repo": "wtthornton/HomeIQ",
-  "path": ".claude/skills/debugger/SKILL.md",
-  "source": "github.com/wtthornton/HomeIQ",
-  "downloaded_at": "2026-01-17T03:24:06.682798Z"
+  "repo": "mgreenly/ikigai",
+  "path": ".claude/library/debugger/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-19T04:08:23.250731Z"
 }

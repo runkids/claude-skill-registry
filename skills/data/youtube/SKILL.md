@@ -1,206 +1,266 @@
 ---
 name: youtube
-description: Handle YouTube links and transcripts. Use when the user (1) pastes a YouTube URL that needs cleaning to short form, (2) requests transcript fetching from YouTube videos, or (3) works with YouTube video content. Automatically cleans URLs to https://youtu.be/VIDEO_ID format and saves transcripts directly to Database/Bookmarks to avoid polluting chat context.
+description: Comprehensive YouTube operations using yt-dlp - download videos/audio, extract transcripts and subtitles, get metadata, work with playlists, download thumbnails, and inspect available formats. Use this for any YouTube content processing task.
+license: MIT
 ---
 
-# YouTube
+# YouTube operations
 
-## Overview
+This skill provides comprehensive YouTube operations using `yt-dlp`, always using the latest version via `uvx`.
 
-This skill handles YouTube links and transcript operations. It automatically cleans YouTube URLs to canonical short form and fetches transcripts using the MCP YouTube transcript tool, saving them directly to the Bookmarks database to avoid filling up chat context.
+## Requirements
 
-## Core Capabilities
+- `uv` - The Python package runner (provides `uvx` command)
 
-### 1. URL Cleaning
+No pre-installation of `yt-dlp` is needed. The `uvx` command automatically fetches and runs the latest version.
 
-When YouTube URLs are encountered (pasted, mentioned, or used), automatically clean them:
+## Video downloads
 
-**Always convert to short form:** `https://youtu.be/<id>`
-
-**Remove all:**
-- Query parameters (e.g., `?v=`, `?si=`, `&feature=`, etc.)
-- Tracking identifiers
-- Playlist parameters
-- Timestamp parameters
-
-**Supported input formats:**
-- `https://www.youtube.com/watch?v=VIDEO_ID` (any query params)
-- `https://youtube.com/watch?v=VIDEO_ID`
-- `https://youtu.be/VIDEO_ID` (any query params)
-- `https://m.youtube.com/watch?v=VIDEO_ID`
-- `https://www.youtube.com/embed/VIDEO_ID`
-
-**Use the utility script:**
-
-```python
-from scripts.youtube_utils import clean_youtube_url, extract_video_id
-
-# Clean any YouTube URL
-clean_url = clean_youtube_url(dirty_url)
-# Result: "https://youtu.be/eIoohUmYpGI"
-
-# Or just extract the ID
-video_id = extract_video_id(dirty_url)
-# Result: "eIoohUmYpGI"
-```
-
-### 2. Transcript Fetching and Saving to Bookmarks
-
-**Key principle:** Save transcripts directly to `Database/Bookmarks` to avoid polluting chat context with full transcript content. This allows handling multiple video links without context overflow.
-
-**Output location:** `Database/Bookmarks/youtube-{video_id}.md`
-
-**Caching:** The Database/Bookmarks directory acts as a cache. If a video already has a bookmark file with a valid transcript (not empty/failed), it won't be re-fetched unless forced.
-
-**Workflow:**
-
-1. **Clean the URL** using `clean_youtube_url(url)` to get canonical short form
-2. **Check if bookmark exists** - if valid transcript exists, skip fetching
-3. **Fetch transcript** using `mcp__youtube-transcript__get_transcript` MCP tool (only if not cached)
-4. **Save directly to Bookmarks** using the `save_transcript.py` script
-5. **Return only success message** with `cached` flag (not the full transcript)
-
-**Simplified workflow for Claude:**
-
-When a user provides a YouTube URL, use the `process_youtube_url.py` script which handles everything:
-
+**Download best quality (default)**:
 ```bash
-echo '{"url": "URL", "lang": "en", "force": false}' | \
-  python3 .claude/skills/youtube/scripts/process_youtube_url.py
+uvx yt-dlp -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
 ```
 
-This single command:
-1. Checks if transcript is already cached in Bookmarks
-2. If cached, returns immediately with `cached: true`
-3. If not cached, fetches transcript directly using youtube-transcript-api (Python library)
-4. Saves to Database/Bookmarks with proper formatting
-5. Returns success status without showing full transcript content
-
-**Output:**
-```json
-{
-  "success": true,
-  "video_id": "abc123",
-  "filepath": "Database/Bookmarks/youtube-abc123.md",
-  "url": "https://youtu.be/abc123",
-  "title": "Video Title",
-  "cached": false
-}
+**Download to custom location**:
+```bash
+uvx yt-dlp -o "/path/to/folder/%(title)s.%(ext)s" "VIDEO_URL"
 ```
 
-**Benefits:**
-- No MCP tool needed - fetches transcripts directly
-- NO context pollution - transcript never appears in chat
-- Automatic caching - same video won't be fetched twice
-- Single command - no multi-step workflow needed
-
-**Important:**
-- **Check cache first** to avoid redundant API calls
-- DO NOT return the full transcript text in chat
-- Only inform the user that the transcript was saved/cached
-- Use the `cached` flag in output to inform user if existing bookmark was used
-- This prevents context pollution when handling multiple videos
-- Users can read the transcript from the bookmark file later
-- Failed/empty transcripts are NOT cached and will be retried on next request
-
-### 3. Language Support
-
-The MCP transcript tool supports multiple languages via the `lang` parameter:
-- Default: `"en"` (English)
-- Other examples: `"ko"` (Korean), `"es"` (Spanish), `"fr"` (French), etc.
-
-Always use `"en"` unless the user specifically requests a different language.
-
-## Resources
-
-### scripts/process_youtube_url.py
-
-**Primary entry point** - Use this script for all YouTube transcript operations.
-
-Handles the complete workflow: cache checking → fetching → saving.
-
-**Input (stdin JSON):**
-```json
-{
-  "url": "https://youtube.com/watch?v=...",
-  "lang": "en",  // Optional, defaults to "en"
-  "force": false  // Optional, force re-fetch even if cached
-}
+**Download specific quality (e.g., 720p)**:
+```bash
+uvx yt-dlp -f "bestvideo[height<=720]+bestaudio/best[height<=720]" -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
 ```
 
-**Output (stdout JSON):**
-```json
-{
-  "success": true,
-  "video_id": "abc123",
-  "filepath": "Database/Bookmarks/youtube-abc123.md",
-  "url": "https://youtu.be/abc123",
-  "title": "Video Title",
-  "cached": false
-}
+**List available formats before downloading**:
+```bash
+uvx yt-dlp -F "VIDEO_URL"
 ```
 
-### scripts/fetch_transcript.py
+## Audio downloads
 
-Fetches YouTube transcripts using the `youtube-transcript-api` Python library.
-
-Called internally by `process_youtube_url.py`. Uses YouTube's internal API to retrieve transcripts with language fallback support (requested lang → English → first available).
-
-### scripts/save_transcript.py
-
-Saves transcript data to Bookmarks database with proper formatting.
-
-**Purpose:** Write transcript content directly to `Database/Bookmarks/youtube-{video_id}.md` to avoid polluting chat context.
-
-**Input (stdin JSON):**
-```json
-{
-  "url": "https://youtube.com/watch?v=...",
-  "title": "Video Title",
-  "transcript": [{"text": "...", "start": 0.0, "duration": 1.5}, ...],
-  "force": false  // Optional: force re-fetch even if cached
-}
+**Download audio only (mp3)** - downloads to Synology music folder:
+```bash
+uvx yt-dlp -x --audio-format mp3 -o "~/Library/CloudStorage/SynologyDrive-sync/music/%(title)s.%(ext)s" "VIDEO_URL"
 ```
 
-**Output (stdout JSON):**
-```json
-{
-  "success": true,
-  "video_id": "abc123",
-  "filepath": "Database/Bookmarks/youtube-abc123.md",
-  "url": "https://youtu.be/abc123",
-  "title": "Video Title",
-  "cached": false  // True if existing valid transcript was found
-}
+**Download audio in other formats**:
+```bash
+# AAC format
+uvx yt-dlp -x --audio-format aac -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
+
+# Opus format
+uvx yt-dlp -x --audio-format opus -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
+
+# Best quality audio (no conversion)
+uvx yt-dlp -f bestaudio -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
 ```
 
-**Key features:**
-- **Checks cache first** - if bookmark exists with valid transcript, returns immediately
-- Only re-fetches if bookmark doesn't exist, has empty/failed transcript, or `force: true`
-- Concatenates transcript segments into continuous text
-- Creates properly formatted bookmark markdown with frontmatter
-- Automatically creates `Database/Bookmarks` directory if needed
-- Returns only metadata (not full transcript) to avoid context pollution
-- `cached` flag indicates whether existing bookmark was used
+## Transcript and subtitle extraction
 
-### scripts/youtube_utils.py
+**Download subtitles only (no video)**:
+```bash
+# Auto-generated or manual subtitles in English
+uvx yt-dlp --skip-download --write-auto-subs --sub-lang en --sub-format vtt -o "~/Downloads/%(title)s" "VIDEO_URL"
 
-Python utility module providing URL manipulation functions:
+# Manual subtitles only (not auto-generated)
+uvx yt-dlp --skip-download --write-subs --sub-lang en --sub-format vtt -o "~/Downloads/%(title)s" "VIDEO_URL"
+```
 
-**URL utilities:**
-- `extract_video_id(url)`: Extract video ID from any YouTube URL format
-- `clean_youtube_url(url)`: Convert any URL to clean `https://youtu.be/<id>` form
+**Download subtitles in multiple languages**:
+```bash
+uvx yt-dlp --skip-download --write-subs --sub-lang en,es,fr --sub-format vtt -o "~/Downloads/%(title)s" "VIDEO_URL"
+```
 
-The script is self-contained and can be executed directly for testing URL cleaning functionality.
+**List available subtitles**:
+```bash
+uvx yt-dlp --list-subs "VIDEO_URL"
+```
 
-## Best Practices
+**Convert subtitles to plain text** (remove timestamps):
+```bash
+# Download as SRT first, then process
+uvx yt-dlp --skip-download --write-auto-subs --sub-lang en --sub-format srt -o "~/Downloads/%(title)s" "VIDEO_URL"
 
-1. **Always clean URLs** when YouTube links are pasted or referenced to canonical short form
-2. **Check cache first** before fetching transcripts to avoid redundant API calls
-3. **Save transcripts to Bookmarks** using `save_transcript.py` to avoid context pollution
-4. **DO NOT output full transcript** in chat - only inform user of saved/cached location
-5. **Use English by default** for transcripts unless user specifies otherwise
-6. **Handle multiple videos efficiently** - the Bookmarks approach allows processing many videos without context overflow
-7. **Inform user clearly** whether transcript was fetched or loaded from cache
-8. **Retry failed transcripts** - empty/failed transcripts are not cached and will be retried
-9. **Use `force: true`** only when user explicitly wants to re-fetch existing transcripts
+# Then use sed or awk to extract just the text
+sed '/^[0-9]*$/d; /^[0-9][0-9]:/d; /^$/d' ~/Downloads/video-title.en.srt > ~/Downloads/transcript.txt
+```
+
+**Download video with embedded subtitles**:
+```bash
+uvx yt-dlp --write-subs --embed-subs --sub-lang en -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
+```
+
+## Metadata extraction
+
+**Get video information without downloading**:
+```bash
+# Basic info as JSON
+uvx yt-dlp --dump-json "VIDEO_URL"
+
+# Just the title
+uvx yt-dlp --get-title "VIDEO_URL"
+
+# Just the description
+uvx yt-dlp --get-description "VIDEO_URL"
+
+# Duration
+uvx yt-dlp --get-duration "VIDEO_URL"
+
+# Upload date
+uvx yt-dlp --get-filename -o "%(upload_date)s" "VIDEO_URL"
+
+# Channel/uploader
+uvx yt-dlp --get-filename -o "%(uploader)s" "VIDEO_URL"
+```
+
+**Extract all metadata to JSON file**:
+```bash
+uvx yt-dlp --dump-json --skip-download "VIDEO_URL" > video-metadata.json
+```
+
+**Get video chapters/timestamps**:
+```bash
+# Chapters are included in --dump-json output
+uvx yt-dlp --dump-json "VIDEO_URL" | jq '.chapters'
+```
+
+## Playlist operations
+
+**Download entire playlist**:
+```bash
+uvx yt-dlp -o "~/Downloads/%(playlist)s/%(playlist_index)s-%(title)s.%(ext)s" "PLAYLIST_URL"
+```
+
+**Download playlist as audio only**:
+```bash
+uvx yt-dlp -x --audio-format mp3 -o "~/Library/CloudStorage/SynologyDrive-sync/music/%(playlist)s/%(title)s.%(ext)s" "PLAYLIST_URL"
+```
+
+**Download specific videos from playlist**:
+```bash
+# Videos 1-5
+uvx yt-dlp --playlist-items 1-5 -o "~/Downloads/%(title)s.%(ext)s" "PLAYLIST_URL"
+
+# Specific videos (1, 3, 5)
+uvx yt-dlp --playlist-items 1,3,5 -o "~/Downloads/%(title)s.%(ext)s" "PLAYLIST_URL"
+```
+
+**Get playlist information without downloading**:
+```bash
+# Full playlist metadata
+uvx yt-dlp --dump-json --flat-playlist "PLAYLIST_URL"
+
+# Just list video titles
+uvx yt-dlp --get-filename -o "%(title)s" --flat-playlist "PLAYLIST_URL"
+```
+
+**Download only new videos from playlist** (useful for subscriptions):
+```bash
+# Creates archive file to track downloaded videos
+uvx yt-dlp --download-archive archive.txt -o "~/Downloads/%(title)s.%(ext)s" "PLAYLIST_URL"
+```
+
+## Thumbnail downloads
+
+**Download thumbnail only**:
+```bash
+uvx yt-dlp --skip-download --write-thumbnail --convert-thumbnails png -o "~/Downloads/%(title)s" "VIDEO_URL"
+```
+
+**Download video with embedded thumbnail**:
+```bash
+uvx yt-dlp --embed-thumbnail -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
+```
+
+**Get all available thumbnails**:
+```bash
+uvx yt-dlp --list-thumbnails "VIDEO_URL"
+```
+
+## Advanced options
+
+**Download with speed limit**:
+```bash
+uvx yt-dlp --limit-rate 1M -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
+```
+
+**Download age-restricted content** (requires cookies):
+```bash
+# Export cookies from browser first, then:
+uvx yt-dlp --cookies cookies.txt -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
+```
+
+**Download with custom filename**:
+```bash
+uvx yt-dlp -o "~/Downloads/my-custom-name.%(ext)s" "VIDEO_URL"
+```
+
+**Resume interrupted download**:
+```bash
+# yt-dlp resumes automatically if you run the same command
+uvx yt-dlp -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
+```
+
+**Download with date range filter**:
+```bash
+# Only videos uploaded after date
+uvx yt-dlp --dateafter 20240101 "CHANNEL_URL"
+
+# Only videos uploaded before date
+uvx yt-dlp --datebefore 20241231 "CHANNEL_URL"
+```
+
+## Output filename templates
+
+The `-o` flag uses templates for output filenames. Common variables:
+
+- `%(title)s` - Video title
+- `%(id)s` - Video ID
+- `%(ext)s` - File extension
+- `%(uploader)s` - Channel name
+- `%(upload_date)s` - Upload date (YYYYMMDD)
+- `%(playlist)s` - Playlist name
+- `%(playlist_index)s` - Video position in playlist
+- `%(duration)s` - Video duration in seconds
+- `%(resolution)s` - Video resolution
+
+**Example with multiple variables**:
+```bash
+uvx yt-dlp -o "~/Downloads/%(uploader)s/%(upload_date)s-%(title)s.%(ext)s" "VIDEO_URL"
+```
+
+## Common workflows
+
+**Create audio podcast archive from YouTube channel**:
+```bash
+uvx yt-dlp --download-archive podcast-archive.txt -x --audio-format mp3 -o "~/Music/Podcasts/%(uploader)s/%(title)s.%(ext)s" "CHANNEL_URL"
+```
+
+**Extract transcripts for research**:
+```bash
+# Download all video transcripts from a playlist
+uvx yt-dlp --skip-download --write-auto-subs --sub-lang en --sub-format srt -o "~/Documents/transcripts/%(title)s" "PLAYLIST_URL"
+```
+
+**Download video with all extras**:
+```bash
+# Video + subtitles + thumbnail + metadata
+uvx yt-dlp --write-subs --embed-subs --write-thumbnail --embed-thumbnail --write-info-json -o "~/Downloads/%(title)s.%(ext)s" "VIDEO_URL"
+```
+
+**Monitor and archive a channel**:
+```bash
+# Run periodically to get only new uploads
+uvx yt-dlp --download-archive channel-archive.txt -o "~/Videos/%(uploader)s/%(upload_date)s-%(title)s.%(ext)s" "CHANNEL_URL/videos"
+```
+
+## Notes
+
+- The default video format is **webm** (YouTube's native best quality)
+- The default download location is `~/Downloads` but can be changed
+- **MP3 audio downloads go to `~/Library/CloudStorage/SynologyDrive-sync/music/`** (Synology NAS)
+- `uvx` ensures you always have the latest `yt-dlp` version without manual updates
+- YouTube URLs should be quoted to handle special characters
+- Subtitle formats: `vtt` (WebVTT), `srt` (SubRip), `json3` (timestamped JSON)
+- Auto-generated subtitles are often available even when manual ones aren't
+- Use `--dump-json` to explore all available metadata fields

@@ -1,7 +1,7 @@
 {
   "name": "database-migrations",
-  "repo": "cliangdev/specflux",
-  "path": ".claude/skills/database-migrations/SKILL.md",
-  "source": "github.com/cliangdev/specflux",
-  "downloaded_at": "2026-01-17T02:38:35.081201Z"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/database-migrations/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-19T03:07:34.675129Z"
 }

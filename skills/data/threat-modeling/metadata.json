@@ -1,7 +1,7 @@
 {
   "name": "threat-modeling",
-  "repo": "proflead/codex-skills-library",
-  "path": "skills/security/threat-modeling/SKILL.md",
-  "source": "github.com/proflead/codex-skills-library",
-  "downloaded_at": "2026-01-17T02:40:42.864549Z"
+  "repo": "melodic-software/claude-code-plugins",
+  "path": "plugins/security/skills/threat-modeling/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-19T03:27:11.078445Z"
 }

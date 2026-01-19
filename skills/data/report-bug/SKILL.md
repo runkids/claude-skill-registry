@@ -1,298 +1,171 @@
 ---
 name: report-bug
-description: Automatically generate and post detailed bug reports to GitHub Issues for the active project repository. This skill should be used when documenting bugs discovered during development, creating professionally formatted GitHub Issues with reproduction steps, technical insights, and recommended E2E tests.
+description: Quickly report bugs and minor issues to GitHub Issues
+user-invocable: true
+allowed-tools: Bash, AskUserQuestion, mcp__claude-in-chrome__*
 ---
 
-# Report Bug Skill
+# Bug Reporter Skill
 
-Automatically generate comprehensive, professional bug reports and post them directly to the GitHub repository associated with the current working directory.
+Quick bug reporting tool that creates properly formatted GitHub issues.
 
-## Purpose
+## Usage
 
-This skill automates the creation of detailed bug reports that include:
-- Clear, concise issue titles
-- Step-by-step reproduction instructions
-- Technical analysis and root cause insights
-- Recommended E2E test specifications
-- Professional formatting suitable for team collaboration
+```
+/report-bug <description>
+```
 
-## When to Use This Skill
+**Examples:**
 
-Use this skill when:
-- Documenting a bug discovered during development or testing
-- Creating a GitHub Issue to track a problem
-- Generating a professional bug report with reproduction steps
-- Providing E2E test recommendations for verification
-- Ensuring consistent bug reporting standards across the team
+```
+/report-bug There is a padding around the login page that creates a white border around the background
+/report-bug Task card hover effect not working in Safari
+/report-bug API returns 500 when deleting a task that doesn't exist
+```
+
+## How It Works
+
+When invoked, this skill will:
+
+1. **Capture the bug description** from user input
+2. **Ask clarifying questions** (area, severity)
+3. **Create a GitHub issue** with proper formatting
+4. **Apply appropriate labels** (bug + area + priority)
+5. **Add to milestone** (MVP Launch)
+6. **Return the issue URL**
+
+## Issue Template
+
+```markdown
+## Description
+
+[User's bug description]
+
+## Area
+
+[Frontend/Backend/Database]
+
+## Priority
+
+[Severity level]
+
+## Expected Behavior
+
+[If provided]
+```
 
 ## Workflow
 
-### 1. Repository Detection
+1. User runs: `/report-bug <description>`
+2. Skill asks for:
+   - Area (Frontend/Backend/Database)
+   - Priority (MVP Blocker/Critical/High/Medium/Low)
+3. Skill creates GitHub issue with:
+   - Title: "Bug: [short description]"
+   - Labels: `bug` + area + priority
+   - Milestone: "MVP Launch"
+4. Returns issue URL to user
 
-Detect the Git repository in the current working directory:
-- Extract the repository owner and name from the remote origin URL
-- Validate that the repository is a GitHub repository
-- Handle both HTTPS and SSH remote URL formats
+## Priority Levels
 
-### 2. Bug Report Generation
+- **MVP Blocker** (`mvp-blocker`) - Breaks core functionality, must fix before launch
+- **Critical** (`critical`) - Blocks important features
+- **High** (`high-priority`) - Should fix soon, affects UX
+- **Medium** (`medium-priority`) - Default, should fix but not urgent
+- **Low** (`low-priority`) - Nice to have
 
-Create a comprehensive bug report following this structure:
+## Area Labels
 
-**Issue Title**: Clear, concise summary (max 80 characters)
+- `frontend` - Angular UI, components, pages, styles
+- `backend` - Fastify API, routes, business logic
+- `database` - PostgreSQL schema, migrations, queries
 
-**Issue Body**:
+## Examples
 
-```markdown
-## Summary
-[Clear description of the issue including what went wrong and expected behavior]
+### Example 1: UI Bug
 
-## Reproduction Steps
-1. [First step to reproduce]
-2. [Second step to reproduce]
-3. [Third step to reproduce]
-...
-
-## Environment
-- **OS**: [Operating system and version]
-- **Browser/Runtime**: [Browser or Node.js version]
-- **Version**: [Application or package version]
-
-## Technical Details
-- **Component**: [Affected component/module/file]
-- **Severity**: [Critical/High/Medium/Low]
-- **Affected Users**: [Scope of impact]
-
-## Findings and Insights
-
-### Root Cause Analysis
-[Detailed technical analysis from the debugging session, explaining why the bug occurs]
-
-### Code Locations
-[Specific files, functions, and line numbers where the issue manifests]
-
-### Potential Impact
-[Description of how this bug affects users and system behavior]
-
-### Dependencies Affected
-[Other components or systems that may be impacted]
-
-## Recommended E2E Test
-
-```typescript
-describe('Bug Fix Verification', () => {
-  it('should [expected behavior after fix]', async () => {
-    // Arrange: Set up test conditions
-
-    // Act: Execute the action that previously triggered the bug
-
-    // Assert: Verify the bug is fixed
-  });
-});
+```
+/report-bug There is a padding around the login page that creates a white border around the background
 ```
 
-## Additional Context
+Creates:
 
-### Error Messages
-```
-[Relevant error messages from logs or console]
-```
+- Title: "Bug: Padding around login page creates white border"
+- Labels: `bug`, `frontend`, `medium-priority`
+- Milestone: "MVP Launch"
 
-### Stack Trace
-```
-[Stack trace if available]
-```
+### Example 2: Critical API Bug
 
-### Related Issues
-[Links to related GitHub issues if applicable]
-
-### Screenshots/Logs
-[Additional context like screenshots or log snippets]
+```
+/report-bug API returns 500 when deleting a task that doesn't exist
 ```
 
-### 3. GitHub Issue Creation
+User selects: Backend, Critical
 
-Use the `scripts/create_issue.sh` script to create the GitHub issue:
+Creates:
+
+- Title: "Bug: API returns 500 when deleting non-existent task"
+- Labels: `bug`, `backend`, `critical`
+- Milestone: "MVP Launch"
+
+## Implementation
+
+The skill should:
+
+1. Parse the bug description from ARGUMENTS
+2. Ask user for area and priority using AskUserQuestion
+3. Format a proper issue body
+4. Create the issue using `gh issue create`
+5. Return the issue URL
+
+Keep it simple and fast - the goal is to make bug reporting frictionless.
+
+## Capturing Live Screenshots (Optional Enhancement)
+
+For visual bugs, capture evidence from the production site at **home.st44.no**:
+
+### Take Screenshot
 
 ```bash
-scripts/create_issue.sh "<title>" "<body>" "<labels>"
+# 1. Get tab context
+tabs_context_mcp(createIfEmpty: true)
+
+# 2. Navigate to the affected page
+navigate(url: "https://home.st44.no/...", tabId: <id>)
+
+# 3. Take screenshot
+computer(action: "screenshot", tabId: <id>)
+
+# Include screenshot ID in bug report description
 ```
 
-The script:
-- Authenticates using GitHub CLI (`gh`)
-- Validates repository permissions
-- Creates the issue with specified labels
-- Returns the issue number and URL
-
-### 4. Result Presentation
-
-Display the created issue information:
-- Issue number
-- Direct link to the GitHub Issue
-- Confirmation of successful creation
-- Applied labels
-
-## Authentication Requirements
-
-This skill requires GitHub CLI (`gh`) for authentication:
-
-1. **Installation**: Ensure `gh` is installed on the system
-   - macOS: `brew install gh`
-   - Other platforms: https://cli.github.com
-
-2. **Authentication**: User must be authenticated
-   - Run: `gh auth login`
-   - Follow the authentication flow
-   - Ensure `repo` scope is included
-
-3. **Permissions**: User must have write access to the target repository
-
-## Using the Scripts
-
-### create_issue.sh
-
-The main script for creating GitHub issues:
+### Record Bug Reproduction (For Complex Bugs)
 
 ```bash
-scripts/create_issue.sh "<issue-title>" "<issue-body>" "bug,priority:high"
+# 1. Start recording
+gif_creator(action: "start_recording", tabId: <id>)
+computer(action: "screenshot", tabId: <id>)  # Initial frame
+
+# 2. Reproduce the bug steps
+computer(action: "left_click", coordinate: [x, y], tabId: <id>)
+# ... more steps ...
+
+# 3. Capture final state
+computer(action: "screenshot", tabId: <id>)
+gif_creator(action: "stop_recording", tabId: <id>)
+
+# 4. Export GIF
+gif_creator(action: "export", download: true, filename: "bug-reproduction.gif", tabId: <id>)
 ```
 
-**Parameters:**
-- `title`: Issue title (required, max 80 characters recommended)
-- `body`: Full issue body in markdown format (required)
-- `labels`: Comma-separated list of labels (optional, defaults to "bug")
+### When to Capture Visual Evidence
 
-**Features:**
-- Validates `gh` CLI installation and authentication
-- Detects repository information automatically
-- Handles both SSH and HTTPS remote URLs
-- Creates temporary files for issue body
-- Returns issue URL and number on success
-- Provides colored output for better visibility
+- **Always** for visual/UI bugs (layout, styling, positioning)
+- **Recommended** for UX issues (confusing flows, unexpected behavior)
+- **Optional** for API/backend bugs (unless UI shows error state)
 
-**Error Handling:**
-- Checks for `gh` CLI installation
-- Verifies GitHub authentication status
-- Confirms Git repository presence
-- Validates GitHub remote URL
+Visual evidence helps developers understand and fix bugs faster.
 
-## Using the Assets
+## Related Resources
 
-### issue_template.md
-
-Template for generating consistent bug report bodies. Use this template to structure bug reports before passing them to the script.
-
-The template includes placeholders for:
-- `{{SUMMARY}}`: Brief description of the bug
-- `{{REPRODUCTION_STEPS}}`: Numbered steps to reproduce
-- `{{OS}}`, `{{RUNTIME}}`, `{{VERSION}}`: Environment details
-- `{{COMPONENT}}`, `{{SEVERITY}}`, `{{AFFECTED_USERS}}`: Technical metadata
-- `{{ROOT_CAUSE}}`: Root cause analysis
-- `{{CODE_LOCATIONS}}`: Affected files and functions
-- `{{IMPACT}}`: Potential impact description
-- `{{DEPENDENCIES}}`: Affected dependencies
-- `{{TEST_LANGUAGE}}`, `{{TEST_SUITE_NAME}}`, `{{TEST_DESCRIPTION}}`, `{{TEST_IMPLEMENTATION}}`: Test specification
-- `{{ERROR_MESSAGES}}`, `{{STACK_TRACE}}`: Error details
-- `{{RELATED_ISSUES}}`, `{{ADDITIONAL_CONTEXT}}`: Extra context
-
-To use the template:
-1. Read the template from `assets/issue_template.md`
-2. Replace placeholders with actual values
-3. Pass the formatted body to `scripts/create_issue.sh`
-
-## Best Practices
-
-1. **Provide Context**: Include relevant session information, code snippets, or error logs in the bug report
-2. **Be Specific**: Use precise language for reproduction steps that anyone can follow
-3. **Test Scripts**: Always include E2E test recommendations to verify the fix
-4. **Severity Assessment**: Accurately assess bug severity based on impact:
-   - **Critical**: System down, data loss, security breach
-   - **High**: Major functionality broken, affects many users
-   - **Medium**: Feature partially broken, workaround available
-   - **Low**: Minor issue, cosmetic problem, edge case
-5. **Labels**: Apply appropriate GitHub labels (bug, priority:high, component:auth, etc.)
-6. **Screenshots**: Reference externally hosted screenshots if visual context is needed
-
-## Example Usage
-
-**Simple invocation:**
-```
-Use the report-bug skill to create an issue for the login button not responding to clicks
-```
-
-**Detailed invocation:**
-```
-Use report-bug to document the memory leak in the UserProfile component.
-Include the findings from today's debugging session about the event listener not being cleaned up.
-Recommend a test that validates proper cleanup on component unmount.
-```
-
-**With specific severity:**
-```
-Use report-bug to create a critical issue for the payment processing failure.
-Include the error logs and stack trace from the production incident.
-```
-
-## Error Handling and Troubleshooting
-
-### Common Issues
-
-**"gh: command not found"**
-- Install GitHub CLI: `brew install gh` (macOS) or visit https://cli.github.com
-- Verify installation: `gh --version`
-
-**"authentication required"**
-- Run: `gh auth login`
-- Follow the authentication flow
-- Ensure the `repo` scope is granted
-
-**"permission denied"**
-- Verify write access to the repository
-- Check GitHub authentication scope includes `repo`
-- Confirm repository ownership or collaborator status
-
-**"not a git repository"**
-- Ensure execution from within a Git repository directory
-- Run `git remote -v` to verify remote is configured
-- Check for `.git` directory in current or parent directories
-
-**Issue creation fails**
-- Check GitHub API rate limits: `gh api rate_limit`
-- Verify network connectivity to GitHub
-- Ensure issue title is not empty and body is valid markdown
-- Check repository settings allow issue creation
-
-## Output Format
-
-After successful creation, the skill returns:
-
-```
-✅ Bug report created successfully!
-
-Issue #123: Login button unresponsive on mobile devices
-🔗 https://github.com/owner/repo/issues/123
-
-The issue has been posted with:
-- Reproduction steps (4 steps)
-- Technical analysis
-- Recommended E2E test
-- Labels: bug, priority:high
-```
-
-## Technical Notes
-
-- Uses `gh issue create` command for GitHub API interaction
-- Respects repository's issue templates if configured
-- Automatically detects project-specific labels available in the repository
-- Handles rate limiting gracefully with clear error messages
-- Supports both public and private repositories
-- Maximum issue body size: 65,536 characters (GitHub limitation)
-- Creates temporary files for issue body to handle special characters
-
-## Integration
-
-This skill integrates with:
-- **Git**: Repository detection and remote URL parsing
-- **GitHub CLI**: Issue creation and authentication
-- **Claude Code**: Session context and findings extraction
-- **Markdown**: Professional formatting and code blocks
-- **Bash**: Script execution for automation
+- **Live Debug Skill**: `.claude/skills/live-debug/SKILL.md` - Full browser debugging documentation

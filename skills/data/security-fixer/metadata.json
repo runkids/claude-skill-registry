@@ -1,12 +1,7 @@
 {
   "name": "security-fixer",
-  "description": "Use when generating security patches, fixing vulnerabilities, or creating code remediation for security findings. Invoked for automated fix generation, patch creation, and vulnerability remediation.",
-  "repo": "jpoley/flowspec",
-  "category": "security",
-  "tags": [
-    "security",
-    "fixer"
-  ],
-  "stars": 7,
-  "source": "local"
+  "repo": "jpoley/agentic-pair-programming",
+  "path": ".claude/skills/security-fixer/SKILL.md",
+  "source": "github.com/jpoley/agentic-pair-programming",
+  "downloaded_at": "2026-01-19T02:47:59.585208Z"
 }

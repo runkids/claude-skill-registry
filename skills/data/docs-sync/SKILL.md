@@ -1,76 +1,228 @@
 ---
 name: docs-sync
-description: Analyze main branch implementation and configuration to find missing, incorrect, or outdated documentation in docs/. Use when asked to audit doc coverage, sync docs with code, or propose doc updates/structure changes. Only update English docs under docs/** and never touch translated docs under docs/ja, docs/ko, or docs/zh. Provide a report and ask for approval before editing docs.
+description: Sync AILANG documentation website with codebase reality. Use after releases, when features are implemented, or when website accuracy is questioned. Checks design docs vs website, validates examples, updates feature status.
 ---
 
-# Docs Sync
+# Documentation Sync Skill
 
-## Overview
+Keep the AILANG website in sync with actual implementation by checking design docs, validating examples, and tracking feature status.
 
-Identify doc coverage gaps and inaccuracies by comparing main branch features and configuration options against the current docs structure, then propose targeted improvements.
+## Quick Start
+
+```bash
+# After a release - full sync check
+# User: "sync docs for v0.5.6" or "run docs-sync"
+
+# Check specific area
+# User: "verify landing pages" or "check working examples"
+```
+
+## When to Use This Skill
+
+Invoke this skill when:
+- After any release (post-release should trigger this)
+- User questions website accuracy
+- Features move from planned → implemented
+- Examples may be broken or outdated
+- Version constants need updating
 
 ## Workflow
 
-1. Confirm scope and base branch
-   - Identify the current branch and default branch (usually `main`).
-   - Prefer analyzing the current branch to keep work aligned with in-flight changes.
-   - If the current branch is not `main`, analyze only the diff vs `main` to scope doc updates.
-   - Avoid switching branches if it would disrupt local changes; use `git show main:<path>` or `git worktree add` when needed.
+### 1. Pre-flight Checks
 
-2. Build a feature inventory from the selected scope
-   - If on `main`: inventory the full surface area and review docs comprehensively.
-   - If not on `main`: inventory only changes vs `main` (feature additions/changes/removals).
-   - Focus on user-facing behavior: public exports, configuration options, environment variables, CLI commands, default values, and documented runtime behaviors.
-   - Capture evidence for each item (file path + symbol/setting).
-   - Use targeted search to find option types and feature flags (for example: `rg "Settings"`, `rg "Config"`, `rg "os.environ"`, `rg "OPENAI_"`).
-   - When the topic involves OpenAI platform features, invoke `$openai-knowledge` to pull current details from the OpenAI Developer Docs MCP server instead of guessing, while treating the SDK source code as the source of truth when discrepancies appear.
+Run all diagnostic scripts to understand current state:
 
-3. Doc-first pass: review existing pages
-   - Walk each relevant page under `docs/` (excluding `docs/ja`, `docs/ko`, and `docs/zh`).
-   - Identify missing mentions of important, supported options (opt-in flags, env vars), customization points, or new features from `src/agents/` and `examples/`.
-   - Propose additions where users would reasonably expect to find them on that page.
+```bash
+# Check design docs status
+.claude/skills/docs-sync/scripts/audit_design_docs.sh
 
-4. Code-first pass: map features to docs
-   - Review the current docs information architecture under `docs/` and `mkdocs.yml`.
-   - Determine the best page/section for each feature based on existing patterns and the API reference structure under `docs/ref`.
-   - Identify features that lack any doc page or have a page but no corresponding content.
-   - Note when a structural adjustment would improve discoverability.
-   - When improving `docs/ref/*` pages, treat the corresponding docstrings/comments in `src/` as the source of truth. Prefer updating those code comments so regenerated reference docs stay correct, instead of hand-editing the generated pages.
+# Check version constants
+.claude/skills/docs-sync/scripts/check_versions.sh
 
-5. Detect gaps and inaccuracies
-   - **Missing**: features/configs present in main but absent in docs.
-   - **Incorrect/outdated**: names, defaults, or behaviors that diverge from main.
-   - **Structural issues** (optional): pages overloaded, missing overviews, or mis-grouped topics.
+# Validate working examples
+.claude/skills/docs-sync/scripts/check_examples.sh
+```
 
-6. Produce a Docs Sync Report and ask for approval
-   - Provide a clear report with evidence, suggested doc locations, and proposed edits.
-   - Ask the user whether to proceed with doc updates.
+### 2. Review Feature Themes
 
-7. If approved, apply changes (English only)
-   - Edit only English docs in `docs/**`.
-   - Do **not** edit `docs/ja`, `docs/ko`, or `docs/zh`.
-   - Keep changes aligned with the existing docs style and navigation.
-   - Update `mkdocs.yml` when adding or renaming pages.
-   - Build docs with `make build-docs` after edits to verify the docs site still builds.
+Features are grouped into themes (see [resources/feature_themes.md](resources/feature_themes.md)):
 
-## Output format
+| Theme | Status Page | Description |
+|-------|-------------|-------------|
+| Core Language | `/reference/language-syntax` | Types, ADTs, pattern matching |
+| Effect System | `/reference/effects` | Capabilities, IO, FS, Net |
+| Module System | `/reference/modules` | Imports, exports, aliasing |
+| Go Codegen | `/guides/go-codegen` | Compilation to Go |
+| AI Integration | `/guides/ai-integration` | Prompts, benchmarks, agents |
+| Testing | `/guides/testing` | Inline tests, property-based |
+| Developer Experience | `/guides/development` | REPL, debugging, CLI |
+| **Roadmap: Execution Profiles** | `/roadmap/execution-profiles` | v0.6.0 planned |
+| **Roadmap: Shared Semantic State** | `/roadmap/shared-semantic-state` | v0.6.0 planned |
+| **Roadmap: Deterministic Tooling** | `/roadmap/deterministic-tooling` | v0.7.0 planned |
 
-Use this template when reporting findings:
+### 3. Fix Priority Order
 
-Docs Sync Report
+1. **Version Constants** - Update `docs/src/constants/version.js`
+2. **Landing Pages** - intro.mdx, vision.mdx, why-ailang.mdx
+3. **Working Examples** - Ensure examples use raw-loader, all pass
+4. **Status Banners** - Add "PLANNED" banners to future features
+5. **Feature Docs** - Create missing docs for implemented features
+6. **Roadmap Section** - Move theoretical pages to roadmap
 
-- Doc-first findings
-  - Page + missing content -> evidence + suggested insertion point
-- Code-first gaps
-  - Feature + evidence -> suggested doc page/section (or missing page)
-- Incorrect or outdated docs
-  - Doc file + issue + correct info + evidence
-- Structural suggestions (optional)
-  - Proposed change + rationale
-- Proposed edits
-  - Doc file -> concise change summary
-- Questions for the user
+### 4. Update Checklist
 
-## References
+After fixing, verify:
 
-- `references/doc-coverage-checklist.md`
+```bash
+# Rebuild and check
+cd docs && npm run build
+
+# Verify no broken links
+npm run serve  # Manual check
+
+# Commit changes
+git add docs/
+git commit -m "docs: sync website with v0.X.X implementation"
+```
+
+## Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `audit_design_docs.sh` | Compare planned vs implemented design docs |
+| `derive_roadmap_versions.sh` | **Derive target versions from design doc folders** |
+| `check_versions.sh` | Verify version constants match releases |
+| `check_examples.sh` | Validate example files compile/run |
+| `generate_report.sh` | Generate sync status report |
+
+### CLI Example Verification (External)
+
+The Makefile provides CLI example verification that complements this skill:
+
+```bash
+# Verify all CLI examples documented in examples/cli_examples.txt
+make verify-cli-examples
+
+# Full verification: code examples + CLI examples
+make verify-examples && make verify-cli-examples
+```
+
+**CLI Examples File Format** (`examples/cli_examples.txt`):
+```
+# Comment explaining the example
+$ ailang run --caps IO --entry main examples/runnable/hello.ail
+Hello, AILANG!
+```
+
+This ensures CLI syntax in documentation matches actual behavior.
+
+### Version Derivation Script
+
+```bash
+# List all planned features with derived target versions
+.claude/skills/docs-sync/scripts/derive_roadmap_versions.sh
+
+# Full lifecycle: planned + implemented features
+.claude/skills/docs-sync/scripts/derive_roadmap_versions.sh --full
+
+# Check website consistency (exits 1 if mismatches)
+.claude/skills/docs-sync/scripts/derive_roadmap_versions.sh --check
+
+# JSON output for automation
+.claude/skills/docs-sync/scripts/derive_roadmap_versions.sh --json --full
+
+# Full validation: all features + website check
+.claude/skills/docs-sync/scripts/derive_roadmap_versions.sh --full --check
+```
+
+## Resources
+
+| Resource | Content |
+|----------|---------|
+| `feature_themes.md` | Feature groupings and expected pages |
+| `landing_page_checklist.md` | Requirements for main pages |
+
+## Integration with Post-Release
+
+The `post-release` skill should invoke docs-sync automatically:
+
+```bash
+# In post-release workflow after eval baselines
+# Run docs-sync to update website
+```
+
+## Key Principles
+
+1. **Theoretical is OK** - Future features can be documented, but must:
+   - Link to design docs on GitHub
+   - Have clear status banner (e.g., "PLANNED FOR v0.6.0")
+   - Be in roadmap section, not current features
+
+2. **Examples Must Work** - Every code example should:
+   - Use raw-loader to import from `examples/`
+   - Be tested with `ailang run` or `ailang test`
+   - Never embed code directly in MDX
+   - **CLI commands must be added to `examples/cli_examples.txt`** and verified with `./tools/verify_cli_examples.sh`
+   - Default entrypoint is `main` - don't use `--entry main` unless showing non-main entry
+   - Test all commands before documenting: `./bin/ailang run --caps IO examples/runnable/hello.ail`
+
+   **Exception for Reference Documentation:**
+   - Reference pages (e.g., `language-syntax.md`, `effects.md`) may use inline syntax snippets
+   - These are small patterns showing language constructs, not complete runnable programs
+   - Tutorial pages (`examples.mdx`, `getting-started.mdx`, `guides/`) must always import from files
+   - Rule: If the code snippet is a complete runnable program, it MUST be imported
+
+3. **Design Docs = Ultimate Source of Truth** - The folder structure tracks complete feature lifecycle:
+
+   **Planned features:**
+   - `design_docs/planned/v0_6_0/foo.md` → Feature targets v0.6.0
+   - Website pages must match: `PLANNED FOR v0.6.0` banner
+   - Website MUST link to design doc on GitHub as ultimate reference
+   - OVERDUE = design doc folder version ≤ current release but not implemented
+
+   **Implemented features:**
+   - `design_docs/implemented/v0_5_6/foo.md` → Feature shipped in v0.5.6
+   - Website reference pages can link to implemented design docs
+   - Moving `planned/` → `implemented/` = feature is done
+
+   **Validation:**
+   - Run `./scripts/derive_roadmap_versions.sh --check` to validate website
+   - Run `./scripts/derive_roadmap_versions.sh --full` to see complete lifecycle
+   - Script checks for GitHub links in roadmap pages
+
+4. **One Source of Truth** - Version comes from:
+   - `git describe --tags` → actual version
+   - `prompts/versions.json` → latest prompt
+   - These feed into `docs/src/constants/version.js`
+
+5. **Themes Over Changelog** - Group features by theme, not by version. Users care about "how do effects work?" not "what changed in v0.5.3?"
+
+6. **Evolving Themes** - Themes should evolve as the language grows:
+   - When a feature doesn't fit existing themes, consider a new theme
+   - New themes warrant new landing pages
+   - Update `resources/feature_themes.md` when adding themes
+   - Current themes: Core Language, Type System, Effect System, Module System, Go Codegen, Arrays, Testing, AI Integration, Developer Experience
+   - Roadmap themes: Execution Profiles, Deterministic Tooling, Shared Semantic State
+
+## Theme Evolution Guidelines
+
+When reviewing new features, ask:
+
+1. **Does this fit an existing theme?** → Add to that theme's page
+2. **Is this a major new capability?** → Consider a new theme
+3. **Is this cross-cutting?** → May need multiple mentions but one authoritative page
+
+### Signals for a New Theme
+
+- 3+ related features with no natural home
+- A new design doc folder (e.g., `v0_7_0/`) with a coherent focus
+- User questions consistently asking "how do I do X?" where X isn't covered
+- A planned feature graduating to implemented that's substantial
+
+### Creating a New Theme
+
+1. Add entry to `resources/feature_themes.md`
+2. Create website page at appropriate location
+3. Update sidebar in `docs/sidebars.js`
+4. Cross-link from related themes
+5. Update this skill's theme table above

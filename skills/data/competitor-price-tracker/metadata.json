@@ -1,13 +1,7 @@
 {
   "name": "competitor-price-tracker",
-  "description": "Monitor competitor pricing pages and send alerts when prices change. Track discount patterns, promotional cycles, and pricing strategy shifts.",
-  "repo": "OneWave-AI/claude-skills",
-  "category": "devops",
-  "tags": [
-    "competitor",
-    "price",
-    "tracker"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/marketing-pro-workflow/.claude/skills/competitor-price-tracker/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-19T03:26:21.697320Z"
 }

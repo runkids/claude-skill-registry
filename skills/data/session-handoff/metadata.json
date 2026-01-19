@@ -1,12 +1,7 @@
 {
   "name": "session-handoff",
-  "description": "End-of-session workflow that audits workspace for junk files, validates work against development principles, updates session documentation, and completes handoff. Use when wrapping up a session or whe",
-  "repo": "Brennan-Wilkerson/second-brain-public",
-  "category": "documents",
-  "tags": [
-    "session",
-    "handoff"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "JoernStoehler/msc-viterbo",
+  "path": ".claude/skills/session-handoff/SKILL.md",
+  "source": "github.com/JoernStoehler/msc-viterbo",
+  "downloaded_at": "2026-01-19T01:45:58.968015Z"
 }

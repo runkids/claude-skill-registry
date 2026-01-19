@@ -1,80 +1,32 @@
-/*============================================================================*/
-/* WHEN-CREATING-SKILL-TEMPLATE-USE-SKILL-BUILDER SKILL :: VERILINGUA x VERIX EDITION                      */
-/*============================================================================*/
-
 ---
 name: when-creating-skill-template-use-skill-builder
 version: 1.0.0
-description: |
-  [assert|neutral] Create new Claude Code Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization [ground:given] [conf:0.95] [state:confirmed]
+description: Create new Claude Code Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization
 category: utilities
-tags:
-- skill-creation
-- templates
-- yaml
-- documentation
-author: system
-cognitive_frame:
-  primary: aspectual
-  goal_analysis:
-    first_order: "Execute when-creating-skill-template-use-skill-builder workflow"
-    second_order: "Ensure quality and consistency"
-    third_order: "Enable systematic utilities processes"
+tags: [skill-creation, templates, yaml, documentation]
+agents: [base-template-generator, coder]
+difficulty: beginner
+estimated_duration: 15-25min
+success_criteria:
+  - Valid YAML frontmatter
+  - All required files created
+  - Proper directory structure
+  - Documentation complete
+validation_method: skill_execution_test
+dependencies:
+  - claude-flow@alpha
+outputs:
+  - SKILL.md with YAML frontmatter
+  - README.md
+  - PROCESS.md
+  - process-diagram.gv
 ---
 
-/*----------------------------------------------------------------------------*/
-/* S0 META-IDENTITY                                                            */
-/*----------------------------------------------------------------------------*/
-
-[define|neutral] SKILL := {
-  name: "when-creating-skill-template-use-skill-builder",
-  category: "utilities",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
-
-/*----------------------------------------------------------------------------*/
-/* S1 COGNITIVE FRAME                                                          */
-/*----------------------------------------------------------------------------*/
-
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-/*----------------------------------------------------------------------------*/
-/* S2 TRIGGER CONDITIONS                                                       */
-/*----------------------------------------------------------------------------*/
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["when-creating-skill-template-use-skill-builder", "utilities", "workflow"],
-  context: "user needs when-creating-skill-template-use-skill-builder capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
-/*----------------------------------------------------------------------------*/
-/* S3 CORE CONTENT                                                             */
-/*----------------------------------------------------------------------------*/
-
 # Skill Builder - Claude Code Skill Template Generator
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
 
 ## Overview
 
 Creates new Claude Code Skills with proper structure, YAML frontmatter, progressive disclosure, and complete documentation. Ensures skills follow best practices and specification requirements.
-
-## MCP Requirements
-
-This skill operates using Claude Code's built-in tools only. No additional MCP servers required.
-
-Skill creation uses file operations (Read, Write, Edit, Glob) and directory creation which are core Claude Code capabilities.
 
 ## When to Use
 
@@ -207,7 +159,7 @@ npx claude-flow@alpha hooks pre-task --description "${phase1.description}"
 ## [Repeat for all phases]
 
 ## Success Metrics
-- [assert|neutral] ${successCriteria} [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+${successCriteria}
 
 ## Memory Schema
 \`\`\`javascript
@@ -245,67 +197,301 @@ ${successCriteria}
 For detailed documentation, see SKILL.md
 ```
 
-**
+**Step 2.3: Create PROCESS.md**
+```markdown
+# ${skillName} - Detailed Workflow
 
-/*----------------------------------------------------------------------------*/
-/* S4 SUCCESS CRITERIA                                                         */
-/*----------------------------------------------------------------------------*/
+## Process Overview
+${processOverview}
 
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
+## Phase Breakdown
+${phases.map(phase => `
+### Phase ${phase.number}: ${phase.title}
 
-/*----------------------------------------------------------------------------*/
-/* S5 MCP INTEGRATION                                                          */
-/*----------------------------------------------------------------------------*/
+**Objective**: ${phase.objective}
+**Agent**: ${phase.agent}
+**Duration**: ${phase.duration}
 
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+**Steps**:
+${phase.steps.map((step, i) => `${i+1}. ${step}`).join('\n')}
 
-/*----------------------------------------------------------------------------*/
-/* S6 MEMORY NAMESPACE                                                         */
-/*----------------------------------------------------------------------------*/
+**Outputs**: ${phase.outputs.join(', ')}
+**Validation**: ${phase.validation}
+`).join('\n---\n')}
 
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/utilities/when-creating-skill-template-use-skill-builder/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+## Workflow Diagram
+[See process-diagram.gv]
 
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "when-creating-skill-template-use-skill-builder-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+## Integration Patterns
+${integrationExamples}
+```
 
-/*----------------------------------------------------------------------------*/
-/* S7 SKILL COMPLETION VERIFICATION                                            */
-/*----------------------------------------------------------------------------*/
+**Step 2.4: Create process-diagram.gv**
+```graphviz
+digraph ${SkillName} {
+    rankdir=TB;
+    node [shape=box, style=filled, fillcolor=lightblue];
 
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+    start [label="Input", shape=ellipse, fillcolor=lightgreen];
+    ${phases.map((p, i) => `
+    phase${i+1} [label="Phase ${i+1}: ${p.title}\\n(${p.duration})\\nAgent: ${p.agent}", fillcolor=lightcoral];
+    output${i+1} [label="${p.outputs.join('\\n')}", shape=parallelogram];
+    `).join('\n')}
+    end [label="Output", shape=ellipse, fillcolor=lightgreen];
 
-/*----------------------------------------------------------------------------*/
-/* S8 ABSOLUTE RULES                                                           */
-/*----------------------------------------------------------------------------*/
+    start -> phase1;
+    ${phases.map((p, i) => `
+    phase${i+1} -> output${i+1};
+    output${i+1} -> phase${i+2 <= phases.length ? i+2 : 'end'};
+    `).join('\n')}
+}
+```
 
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+### Validation Criteria
+- [ ] All 4 files created
+- [ ] YAML valid
+- [ ] Content complete
+- [ ] Diagram syntax correct
 
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+## Phase 3: Implement Functionality (8 min)
 
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+### Objective
+Add implementation details and code examples
 
-/*----------------------------------------------------------------------------*/
-/* PROMISE                                                                     */
-/*----------------------------------------------------------------------------*/
+### Agent: Coder
 
-[commit|confident] <promise>WHEN_CREATING_SKILL_TEMPLATE_USE_SKILL_BUILDER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+**Step 3.1: Add Code Examples**
+```javascript
+// For each phase, add:
+// - Implementation code snippets
+// - Memory operations
+// - Hook integrations
+// - Script templates
+
+const phaseImplementation = {
+  codeExample: `
+async function execute${phase.title}() {
+  // Implementation
+  await memory.store('${skillName}/${phase.key}', data);
+  return result;
+}
+  `,
+  hooks: `
+npx claude-flow@alpha hooks pre-task --description "${phase.description}"
+npx claude-flow@alpha hooks post-task --task-id "${phase.key}"
+  `,
+  scriptTemplate: `
+#!/bin/bash
+# ${phase.title}.sh
+${phase.script}
+  `
+};
+```
+
+**Step 3.2: Add Memory Patterns**
+```javascript
+const memorySchema = {
+  [`${skillName}/`]: {
+    [`session-\${id}/`]: {
+      ...phases.reduce((acc, phase) => ({
+        ...acc,
+        [phase.key]: { /* phase data */ }
+      }), {})
+    }
+  }
+};
+```
+
+**Step 3.3: Add Integration Examples**
+```javascript
+// How to use with other skills
+const integrationExamples = {
+  withSPARC: `${skillName} → SPARC workflow`,
+  withCascade: `cascade: [${skillName}, next-skill]`,
+  standalone: `npx claude-flow@alpha skill-run ${skillName}`
+};
+```
+
+### Validation Criteria
+- [ ] Code examples complete
+- [ ] Memory schema defined
+- [ ] Hooks integrated
+- [ ] Script templates added
+
+## Phase 4: Test Skill (5 min)
+
+### Objective
+Validate skill executes correctly
+
+### Agent: Coder
+
+**Step 4.1: Syntax Validation**
+```bash
+# Validate YAML
+npx js-yaml SKILL.md
+
+# Validate GraphViz
+dot -Tsvg process-diagram.gv -o /dev/null
+
+# Check file completeness
+test -f SKILL.md && test -f README.md && test -f PROCESS.md && test -f process-diagram.gv
+```
+
+**Step 4.2: Execution Test**
+```bash
+# Try to run the skill
+npx claude-flow@alpha skill-run ${skillName} --dry-run
+
+# Check for errors
+if [ $? -eq 0 ]; then
+  echo "✅ Skill validation passed"
+else
+  echo "❌ Skill validation failed"
+fi
+```
+
+**Step 4.3: Documentation Review**
+```javascript
+const documentationChecklist = {
+  hasYAMLFrontmatter: true,
+  hasOverview: true,
+  hasPhases: phases.length > 0,
+  hasValidation: true,
+  hasMemorySchema: true,
+  hasSuccessMetrics: true,
+  hasIntegrationExamples: true
+};
+
+const allChecksPassed = Object.values(documentationChecklist).every(v => v === true);
+```
+
+### Validation Criteria
+- [ ] YAML valid
+- [ ] GraphViz valid
+- [ ] All files present
+- [ ] Dry-run successful
+
+## Phase 5: Document Usage (2 min)
+
+### Objective
+Create usage guide and examples
+
+### Agent: Base-Template-Generator
+
+**Step 5.1: Add Usage Examples**
+```markdown
+## Usage Examples
+
+### Basic Usage
+\`\`\`bash
+npx claude-flow@alpha skill-run ${skillName} \\
+  --input "input.json" \\
+  --output "output.json"
+\`\`\`
+
+### With Parameters
+\`\`\`bash
+npx claude-flow@alpha skill-run ${skillName} \\
+  --param1 "value1" \\
+  --param2 "value2"
+\`\`\`
+
+### Programmatic Usage
+\`\`\`javascript
+const result = await runSkill('${skillName}', {
+  input: data,
+  options: { ... }
+});
+\`\`\`
+```
+
+**Step 5.2: Add Troubleshooting**
+```markdown
+## Troubleshooting
+
+### Issue: ${commonIssue1}
+**Solution**: ${solution1}
+
+### Issue: ${commonIssue2}
+**Solution**: ${solution2}
+```
+
+**Step 5.3: Generate Completion Report**
+```javascript
+const completionReport = {
+  skillName: skillRequirements.name,
+  filesCreated: [
+    'SKILL.md',
+    'README.md',
+    'PROCESS.md',
+    'process-diagram.gv'
+  ],
+  linesOfCode: calculateLOC(),
+  estimatedDuration: skillRequirements.estimatedDuration,
+  agentsRequired: skillRequirements.agents.length,
+  phasesImplemented: phases.length,
+  validationStatus: 'PASSED',
+  readyForUse: true
+};
+
+await memory.store('skill-builder/completion', completionReport);
+```
+
+### Validation Criteria
+- [ ] Usage examples added
+- [ ] Troubleshooting guide complete
+- [ ] Completion report generated
+- [ ] Ready for use
+
+## Success Metrics
+
+- All 4 files created
+- YAML validation passes
+- Skill executes without errors
+- Documentation complete
+- Ready for integration
+
+## Memory Schema
+
+```javascript
+{
+  "skill-builder/": {
+    "session-${id}/": {
+      "requirements": {},
+      "phase-structure": [],
+      "generated-files": [],
+      "validation-results": {},
+      "completion": {}
+    }
+  }
+}
+```
+
+## Common Patterns
+
+### Quick Skill Template
+```bash
+npx claude-flow@alpha skill-run skill-builder \
+  --name "my-new-skill" \
+  --category "utilities" \
+  --agents "coder,tester" \
+  --phases "3"
+```
+
+### From Existing Workflow
+```bash
+# Convert workflow to skill
+npx claude-flow@alpha skill-builder \
+  --from-workflow "workflow.json" \
+  --output-dir ".claude/skills/utilities/"
+```
+
+## Skill Completion
+
+Outputs:
+1. **SKILL.md**: Complete skill specification
+2. **README.md**: Quick start guide
+3. **PROCESS.md**: Detailed workflow
+4. **process-diagram.gv**: Visual process diagram
+
+Skill complete when all files created and validation passes.

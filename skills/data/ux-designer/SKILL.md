@@ -1,370 +1,682 @@
 ---
-skill_id: bmad-bmm-ux-designer
-name: UX Designer
-description: User experience and interface design specialist
-version: 6.0.0
-module: bmm
+name: ux-designer
+description: Perfect UX/UI designer that eliminates bugs, improves usability, and ensures flawless user experience. Use when user mentions "perfect the UI", "fix UX bugs", "improve demo", or "make it flawless".
+version: 1.0.0
+agents: [codex-deep-research, gemini-research-analyst]
 ---
 
-# UX Designer
+# UX Designer - Perfection-Focused UI/UX Skill
 
-**Role:** Phase 2/3 - Planning and Solutioning UX specialist
+**Goal: Zero bugs, perfect usability, flawless user experience.**
 
-**Function:** Design user experiences, create wireframes, define user flows, ensure accessibility
+## When to Use
 
-## Responsibilities
+Invoke this skill when:
+- User mentions: "perfect the demo", "fix UX bugs", "make it flawless"
+- UI has inconsistencies or bugs
+- User experience is confusing or broken
+- Demo has visual issues
+- Interactive elements don't work properly
 
-- Design user interfaces based on requirements
-- Create wireframes and mockups
-- Define user flows and journeys
-- Ensure accessibility compliance (WCAG)
-- Document design systems and patterns
-- Collaborate with Product Manager and Developer
-- Validate designs against user needs
+## UX Perfection Methodology
 
-## Core Principles
+### Phase 1: Comprehensive UX Audit
 
-1. **User-Centered** - Design for users, not preferences
-2. **Accessibility First** - WCAG 2.1 AA minimum, AAA where possible
-3. **Consistency** - Reuse patterns and components
-4. **Mobile-First** - Design for smallest screen, scale up
-5. **Feedback-Driven** - Iterate based on user feedback
-6. **Performance-Conscious** - Design for fast load times
-7. **Document Everything** - Clear design documentation for developers
+**1A. Visual Inspection**
+```bash
+# Check all HTML files for common issues
+find public -name "*.html" -type f
 
-## Available Commands
+# For each file, check:
+- Broken links (404s)
+- Missing images
+- JavaScript errors in console
+- CSS rendering issues
+- Responsive design breakpoints
+- Color contrast (accessibility)
+- Typography consistency
+```
 
-UX Design workflows:
+**1B. Interaction Testing**
+```markdown
+Test every interactive element:
+- [ ] Buttons: Click response, hover states, disabled states
+- [ ] Forms: Validation, error messages, success states
+- [ ] Navigation: All links work, breadcrumbs accurate
+- [ ] Modals: Open/close, backdrop click, ESC key
+- [ ] Dropdowns: Open/close, keyboard navigation
+- [ ] Tables: Sorting, filtering, pagination
+- [ ] Real-time updates: WebSocket connection, live data
+- [ ] Loading states: Spinners, skeletons, placeholders
+```
 
-- **/create-ux-design** - Create comprehensive UX design with wireframes, flows, and accessibility
+**1C. User Flow Analysis**
+```markdown
+Map critical user journeys:
+1. New user onboarding → Should be intuitive, max 3 steps
+2. Core feature usage → Should be discoverable, max 2 clicks
+3. Error recovery → Clear error messages, obvious next steps
+4. Success confirmation → Visible feedback, celebratory if appropriate
+```
 
-## Workflow Execution
+### Phase 2: Research Best Practices
 
-**All workflows follow helpers.md patterns:**
+**Launch codex-deep-research agent**:
+```markdown
+Invoke Task tool with subagent_type="codex-deep-research"
 
-1. **Load Context** - See `helpers.md#Combined-Config-Load`
-2. **Understand Requirements** - What are we designing?
-3. **Create User Flows** - How do users navigate?
-4. **Design Wireframes** - What does it look like?
-5. **Ensure Accessibility** - Can everyone use it?
-6. **Document Design** - See `helpers.md#Save-Output-Document`
-7. **Validate Design** - Does it meet requirements?
-8. **Recommend Next** - See `helpers.md#Determine-Next-Workflow`
+Prompt:
+"Research the best UX/UI practices for interactive demos and dashboards.
 
-## Integration Points
+Context:
+- Project Conductor is a workflow orchestration platform
+- Demo showcases 7-module workflow (Onboarding → Implementation)
+- Tech: HTML, CSS, JavaScript (vanilla), Socket.io
+- Users: Product managers, engineers, stakeholders
 
-**You work after:**
+Provide best practices for:
+1. **Demo UX Patterns**
+   - Interactive tutorials vs guided tours
+   - Progress indicators
+   - Contextual help
+   - Error handling in demos
 
-- Business Analyst - Receives user research and pain points
-- Product Manager - Receives requirements and acceptance criteria
+2. **Dashboard Design**
+   - Card layouts
+   - Data visualization
+   - Real-time updates (WebSocket)
+   - Empty states
+   - Loading states
 
-**You work before:**
+3. **Navigation**
+   - Module-to-module flow
+   - Breadcrumbs
+   - Back button behavior
+   - Deep linking
 
-- System Architect - Provides UX constraints for architecture
-- Developer - Hands off design for implementation
-
-**You work with:**
-
-- Creative Intelligence - Brainstorm design alternatives
-- Product Manager - Validate designs against requirements
-
-**Phase integration:**
-
-- Phase 2 (Planning) - Create UX designs from requirements
-- Phase 3 (Solutioning) - Validate designs against architecture
-- Phase 4 (Implementation) - Support developers with design specs
-
-## Critical Actions (On Load)
-
-When activated:
-
-1. Load project config per `helpers.md#Load-Project-Config`
-2. Load requirements (PRD/tech-spec) per `helpers.md#Load-Documents`
-3. Check for existing design system or patterns
-4. Understand target devices (mobile, tablet, desktop, web, native)
-5. Review accessibility requirements (WCAG level)
-
-## Design Process
-
-**Standard UX design workflow:**
-
-1. **Requirements Analysis**
-   - Load PRD/tech-spec
-   - Extract user stories and acceptance criteria
-   - Identify user personas
-   - Understand success metrics
-
-2. **User Flow Design**
-   - Map user journeys
-   - Define navigation paths
-   - Identify decision points
-   - Document happy path and error cases
-
-3. **Wireframe Creation**
-   - Design screen layouts (ASCII art or description)
-   - Define component hierarchy
-   - Specify interactions
-   - Show responsive breakpoints
-
-4. **Accessibility Design**
-   - WCAG 2.1 compliance (AA minimum)
+4. **Accessibility**
    - Keyboard navigation
-   - Screen reader compatibility
-   - Color contrast ratios
-   - Focus indicators
-   - Alternative text for images
+   - Screen reader support
+   - Focus management
+   - ARIA labels
 
-5. **Design Documentation**
-   - Component specifications
-   - Interaction patterns
-   - Responsive behavior
-   - Accessibility annotations
-   - Developer handoff notes
+5. **Performance**
+   - Perceived performance
+   - Lazy loading
+   - Animation frame rate
+   - Memory leaks
 
-## Wireframe Format
+6. **Error Handling**
+   - User-friendly error messages
+   - Recovery actions
+   - Fallback UI
+   - Offline behavior
 
-**Use ASCII art or structured descriptions:**
-
-**ASCII Example:**
-
-```
-┌─────────────────────────────────────┐
-│  Logo           Nav1  Nav2  Nav3    │
-├─────────────────────────────────────┤
-│                                     │
-│  Headline Text                      │
-│  Subheading                         │
-│                                     │
-│  ┌─────────┐ ┌─────────┐           │
-│  │ Card 1  │ │ Card 2  │           │
-│  │         │ │         │           │
-│  └─────────┘ └─────────┘           │
-│                                     │
-│  [Call to Action Button]            │
-│                                     │
-└─────────────────────────────────────┘
+Provide specific code examples and visual patterns."
 ```
 
-**Structured Description:**
+**Check for AI-powered UX tools**:
+```markdown
+Invoke Task tool with subagent_type="gemini-research-analyst"
 
-```
-Screen: Home Page
+Prompt:
+"Research if Google's Gemini AI provides any UX design, usability testing, or UI generation tools.
 
-Layout:
-- Header (fixed, 60px)
-  - Logo (left, 40px × 40px)
-  - Navigation (right, 3 items)
-- Hero Section (full-width, 400px)
-  - Headline (H1, center-aligned)
-  - Subheading (H2, center-aligned)
-- Card Grid (2 columns on desktop, 1 on mobile)
-  - Card 1 (300px × 200px)
-  - Card 2 (300px × 200px)
-- CTA Section (center-aligned)
-  - Primary Button (160px × 48px)
+Investigate:
+1. Gemini-powered UX analysis tools
+2. Automated accessibility testing
+3. UI component generation
+4. User flow optimization
+5. A/B testing recommendations
+6. Heatmap analysis tools
 
-Interactions:
-- Logo: Click → Home
-- Nav Items: Click → Respective pages
-- Cards: Hover → Shadow effect
-- CTA Button: Click → Sign up flow
+If available, explain how to integrate with HTML/JS demos."
 ```
 
-## Accessibility Checklist
+### Phase 3: Bug Hunting (Zero Tolerance)
 
-**WCAG 2.1 Level AA Compliance:**
-
-**Perceivable:**
-
-- [ ] All images have alt text
-- [ ] Color contrast ≥ 4.5:1 (text), ≥ 3:1 (UI components)
-- [ ] Content not dependent on color alone
-- [ ] Text resizable to 200% without loss of function
-- [ ] No horizontal scrolling at 320px width
-
-**Operable:**
-
-- [ ] All functionality available via keyboard
-- [ ] Visible focus indicators
-- [ ] No keyboard traps
-- [ ] Sufficient time to read/interact
-- [ ] Animations can be paused/stopped
-- [ ] Skip navigation links
-
-**Understandable:**
-
-- [ ] Language specified (lang attribute)
-- [ ] Labels for all form inputs
-- [ ] Error messages clear and actionable
-- [ ] Consistent navigation
-- [ ] Predictable interactions
-
-**Robust:**
-
-- [ ] Valid semantic HTML
-- [ ] ARIA labels where needed
-- [ ] Compatible with assistive technologies
-- [ ] Fallbacks for advanced features
-
-## Design Patterns
-
-**Common UI patterns to reuse:**
-
-**Navigation:**
-
-- Top nav (desktop)
-- Hamburger menu (mobile)
-- Tab navigation
-- Breadcrumbs
-
-**Forms:**
-
-- Single-column layout
-- Labels above inputs
-- Inline validation
-- Clear error states
-- Submit at bottom
-
-**Cards:**
-
-- Consistent padding
-- Clear hierarchy (image, title, description, action)
-- Hover states
-- Responsive grid
-
-**Modals:**
-
-- Centered overlay
-- Close button (top-right)
-- Escape key to close
-- Focus trap
-- Background overlay
-
-**Buttons:**
-
-- Primary (high emphasis)
-- Secondary (medium emphasis)
-- Tertiary/text (low emphasis)
-- Minimum 44px × 44px touch target
-
-## Responsive Design
-
-**Breakpoints:**
-
-- Mobile: 320-767px
-- Tablet: 768-1023px
-- Desktop: 1024px+
-
-**Approach:**
-
-- Mobile-first design
-- Progressive enhancement
-- Flexible grids
-- Flexible images
-- Media queries
-
-## Design Handoff
-
-**Deliverables for developers:**
-
-1. Wireframes (all screens)
-2. User flows (diagrams)
-3. Component specifications
-4. Interaction patterns
-5. Accessibility annotations
-6. Responsive behavior notes
-7. Design tokens (colors, spacing, typography)
-
-## Color System
-
-**Recommend defining:**
-
-```
-Primary: [hex] - Main brand color
-Secondary: [hex] - Accent color
-Success: [hex] - Positive actions
-Warning: [hex] - Caution states
-Error: [hex] - Error states
-Neutral: [hex range] - Grays for text/backgrounds
-
-Ensure all colors meet contrast requirements.
+**3A. Console Error Check**
+```javascript
+// Check browser console for errors
+// Common issues:
+- Uncaught ReferenceError (missing variables)
+- Uncaught TypeError (null/undefined access)
+- Failed to fetch (broken API calls)
+- WebSocket connection failed
+- CORS errors
+- 404 for assets (images, CSS, JS)
 ```
 
-## Typography
-
-**Recommend defining:**
-
-```
-Heading 1: [size, weight, line-height]
-Heading 2: [size, weight, line-height]
-Heading 3: [size, weight, line-height]
-Body: [size, weight, line-height]
-Small: [size, weight, line-height]
-
-Font family: [system fonts for performance]
+**3B. Network Tab Analysis**
+```markdown
+Check Network tab for:
+- [ ] All resources load successfully (no 404s)
+- [ ] API endpoints respond <200ms
+- [ ] WebSocket connection established
+- [ ] No unnecessary requests (optimize)
+- [ ] Proper caching headers
+- [ ] Compressed assets (gzip)
 ```
 
-## Spacing System
+**3C. Responsive Design Testing**
+```bash
+# Test breakpoints
+- Mobile: 320px, 375px, 414px
+- Tablet: 768px, 1024px
+- Desktop: 1280px, 1440px, 1920px
 
-**Recommend using consistent scale:**
-
-```
-4px, 8px, 16px, 24px, 32px, 48px, 64px
-
-Base unit: 8px
-All spacing should be multiples of 8px
-```
-
-## Notes for LLMs
-
-- Use TodoWrite to track UX design steps
-- Load requirements (PRD/tech-spec) before designing
-- Create ASCII wireframes or detailed descriptions
-- Always include accessibility annotations
-- Use consistent design patterns
-- Design mobile-first, then scale up
-- Specify all interactions and states
-- Document responsive behavior
-- Provide developer handoff notes
-- Reference helpers.md for common operations
-- Validate designs against WCAG 2.1 AA
-- Include user flows for complex interactions
-- Use design tokens for consistency
-- Consider performance (image sizes, animations)
-
-## Example Interaction
-
-```
-User: /create-ux-design
-
-UX Designer:
-I'll create a comprehensive UX design for your project.
-
-First, let me load the requirements...
-
-[Loads PRD/tech-spec per helpers.md]
-
-I found 12 user stories to design for.
-
-I'll create:
-1. User flows (5 main flows)
-2. Wireframes (8 screens)
-3. Component specifications
-4. Accessibility annotations
-5. Responsive behavior notes
-
-[Executes design workflow]
-
-✓ UX Design Complete!
-
-Screens Designed: 8
-User Flows: 5
-Components: 24
-Accessibility: WCAG 2.1 AA compliant
-
-Document: ./bmad-outputs/ux-design-2025-11-01.md
-
-Next: Review with Product Manager, then hand off to System Architect
+# Check for:
+- Horizontal scroll (should be none)
+- Text overflow
+- Image scaling
+- Button touch targets (min 44x44px)
+- Readable font sizes (min 16px)
 ```
 
-**Remember:** User-centered design with accessibility ensures products work for everyone. Design for the smallest screen first, use consistent patterns, and document everything for developers.
+**3D. Cross-Browser Testing**
+```markdown
+Test in:
+- [ ] Chrome (latest)
+- [ ] Firefox (latest)
+- [ ] Safari (latest)
+- [ ] Edge (latest)
+
+Check for:
+- CSS compatibility (flexbox, grid)
+- JavaScript APIs (fetch, WebSocket)
+- Event handlers (click, keyboard)
+- CSS animations
+```
+
+### Phase 4: Usability Improvements
+
+**4A. First-Time User Experience**
+```markdown
+Checklist:
+- [ ] Clear value proposition (what is this?)
+- [ ] Obvious starting point (where do I begin?)
+- [ ] Contextual help (tooltips, hints)
+- [ ] Progress indicators (how far have I gone?)
+- [ ] Success feedback (I completed something!)
+- [ ] Error prevention (guard rails)
+- [ ] Easy recovery (undo, reset)
+```
+
+**4B. Visual Hierarchy**
+```css
+/* Apply visual hierarchy principles */
+- Primary actions: Bold, high contrast, larger
+- Secondary actions: Less prominent
+- Tertiary actions: Text links, subtle
+- Destructive actions: Red, confirmation required
+- Disabled states: Greyed out, not clickable
+
+/* Example */
+.btn-primary {
+  background: #007bff;
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  font-size: 16px;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+```
+
+**4C. Feedback & Confirmation**
+```javascript
+// Every user action needs feedback
+function handleAction(action) {
+  // 1. Immediate feedback (button state)
+  button.disabled = true;
+  button.textContent = 'Processing...';
+
+  // 2. Action execution
+  await performAction(action);
+
+  // 3. Success feedback
+  showToast('✅ Action completed successfully!', 'success');
+  button.disabled = false;
+  button.textContent = 'Done';
+
+  // 4. Update UI to reflect change
+  refreshData();
+}
+
+// Toast notification system
+function showToast(message, type = 'info', duration = 3000) {
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('fade-out');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+```
+
+**4D. Error Handling (User-Friendly)**
+```javascript
+// Bad: Generic error
+catch (error) {
+  alert('Error');
+}
+
+// Good: Helpful error with action
+catch (error) {
+  showError({
+    title: 'Unable to Load Projects',
+    message: 'We couldn\'t connect to the server. Please check your internet connection and try again.',
+    actions: [
+      { label: 'Retry', onClick: () => retryLoad() },
+      { label: 'Go Back', onClick: () => history.back() }
+    ],
+    icon: '🔌'
+  });
+
+  // Log detailed error for debugging
+  console.error('Project load failed:', error);
+}
+```
+
+### Phase 5: Accessibility Perfection
+
+**5A. Keyboard Navigation**
+```javascript
+// Ensure all interactive elements are keyboard accessible
+document.querySelectorAll('button, a, input, select, textarea').forEach(el => {
+  // Add focus visible styles
+  el.addEventListener('focus', (e) => {
+    e.target.classList.add('focus-visible');
+  });
+
+  // Support Enter/Space on custom buttons
+  if (el.getAttribute('role') === 'button') {
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        el.click();
+      }
+    });
+  }
+});
+
+// Trap focus in modals
+function trapFocus(modal) {
+  const focusableElements = modal.querySelectorAll(
+    'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+  );
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  modal.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement.focus();
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement.focus();
+      }
+    } else if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+}
+```
+
+**5B. ARIA Labels**
+```html
+<!-- Bad: No context for screen readers -->
+<button onclick="save()">
+  <svg>...</svg>
+</button>
+
+<!-- Good: Descriptive label -->
+<button onclick="save()" aria-label="Save project changes">
+  <svg aria-hidden="true">...</svg>
+</button>
+
+<!-- Dynamic content -->
+<div role="status" aria-live="polite" aria-atomic="true">
+  <span id="status-message">Loading projects...</span>
+</div>
+
+<!-- Form validation -->
+<input
+  type="email"
+  id="email"
+  aria-describedby="email-error"
+  aria-invalid="true"
+>
+<span id="email-error" role="alert">
+  Please enter a valid email address
+</span>
+```
+
+**5C. Color Contrast Check**
+```javascript
+// Ensure WCAG AA compliance (4.5:1 for normal text, 3:1 for large)
+// Use tools: Chrome DevTools Lighthouse, axe DevTools
+
+// Example: Check programmatically
+function checkContrast(foreground, background) {
+  const ratio = getContrastRatio(foreground, background);
+  return {
+    passAA: ratio >= 4.5,
+    passAAA: ratio >= 7,
+    ratio: ratio.toFixed(2)
+  };
+}
+
+// Fix: Increase contrast
+/* Before */
+.text-muted { color: #999; } /* 2.8:1 - FAILS */
+
+/* After */
+.text-muted { color: #6c757d; } /* 4.5:1 - PASSES */
+```
+
+### Phase 6: Performance Optimization
+
+**6A. Perceived Performance**
+```javascript
+// Instant feedback, lazy load heavy content
+async function loadDashboard() {
+  // 1. Show skeleton immediately (0ms)
+  showSkeleton();
+
+  // 2. Load critical data first (100ms)
+  const criticalData = await fetchCritical();
+  renderCritical(criticalData);
+  hideSkeleton();
+
+  // 3. Load secondary data (background)
+  fetchSecondary().then(renderSecondary);
+
+  // 4. Prefetch likely next page
+  prefetchNextPage();
+}
+
+// Skeleton UI
+function showSkeleton() {
+  const skeleton = `
+    <div class="skeleton-card">
+      <div class="skeleton-line skeleton-title"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+    </div>
+  `;
+  container.innerHTML = skeleton.repeat(6);
+}
+```
+
+**6B. Animation Performance**
+```css
+/* Bad: Causes layout thrashing */
+.animate-bad {
+  animation: slide-in 0.3s ease;
+}
+@keyframes slide-in {
+  from { margin-left: -100px; }
+  to { margin-left: 0; }
+}
+
+/* Good: GPU-accelerated */
+.animate-good {
+  animation: slide-in 0.3s ease;
+}
+@keyframes slide-in {
+  from { transform: translateX(-100px); }
+  to { transform: translateX(0); }
+}
+
+/* Use will-change for complex animations */
+.will-animate {
+  will-change: transform, opacity;
+}
+```
+
+**6C. Memory Leak Prevention**
+```javascript
+// Bad: Event listeners not cleaned up
+socket.on('update', handleUpdate);
+
+// Good: Clean up on unmount
+const listeners = [];
+
+function addListener(event, handler) {
+  socket.on(event, handler);
+  listeners.push({ event, handler });
+}
+
+function cleanup() {
+  listeners.forEach(({ event, handler }) => {
+    socket.off(event, handler);
+  });
+  listeners.length = 0;
+}
+
+// Call cleanup when leaving page
+window.addEventListener('beforeunload', cleanup);
+```
+
+### Phase 7: Final Polish
+
+**7A. Micro-interactions**
+```css
+/* Smooth button interactions */
+button {
+  transition: all 0.2s ease;
+  transform: scale(1);
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Loading spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+```
+
+**7B. Empty States**
+```html
+<!-- Instead of blank screen -->
+<div class="empty-state">
+  <svg class="empty-icon"><!-- Icon --></svg>
+  <h3>No projects yet</h3>
+  <p>Create your first project to get started</p>
+  <button class="btn-primary">Create Project</button>
+</div>
+```
+
+**7C. Consistency Check**
+```markdown
+Ensure consistency across:
+- [ ] Button styles (primary, secondary, danger)
+- [ ] Spacing (use 8px grid: 8, 16, 24, 32, 48, 64)
+- [ ] Typography (max 3 font sizes, consistent weights)
+- [ ] Colors (stick to design system palette)
+- [ ] Icons (same style, size, stroke width)
+- [ ] Shadows (consistent elevation levels)
+- [ ] Border radius (consistent rounding)
+- [ ] Animations (consistent timing, easing)
+```
+
+## Validation Checklist
+
+Before marking UX as "perfect":
+
+### Functionality
+- [ ] All buttons work (no broken onClick handlers)
+- [ ] All links go to correct destinations
+- [ ] Forms validate properly
+- [ ] API calls succeed
+- [ ] WebSocket connects and receives updates
+- [ ] Error states display correctly
+- [ ] Success states display correctly
+- [ ] Loading states show during async operations
+
+### Visual
+- [ ] No layout shift (CLS score <0.1)
+- [ ] No horizontal scroll
+- [ ] Consistent spacing
+- [ ] Consistent typography
+- [ ] High color contrast (WCAG AA)
+- [ ] Icons are clear and consistent
+- [ ] Images load correctly
+- [ ] No visual bugs (overlapping, cutoff text)
+
+### Usability
+- [ ] Clear navigation
+- [ ] Obvious primary actions
+- [ ] Helpful error messages
+- [ ] Success confirmation
+- [ ] Undo/cancel available
+- [ ] Keyboard accessible
+- [ ] Screen reader compatible
+- [ ] Mobile responsive (320px - 1920px)
+
+### Performance
+- [ ] Page load <2s
+- [ ] API calls <200ms
+- [ ] Smooth animations (60fps)
+- [ ] No memory leaks
+- [ ] Efficient rendering (no jank)
+
+### Browser Compatibility
+- [ ] Chrome (latest)
+- [ ] Firefox (latest)
+- [ ] Safari (latest)
+- [ ] Edge (latest)
+
+## Demo-Specific Checks
+
+For Project Conductor demo:
+
+### Module Navigation
+```bash
+# Test all module transitions
+Module 0 (Onboarding) → Module 1 (Dashboard)
+Module 1 (Dashboard) → Module 2 (BRD)
+Module 2 (BRD) → Module 3 (PRD)
+Module 3 (PRD) → Module 4 (Engineering Design)
+Module 4 (Engineering Design) → Module 5 (Conflicts)
+Module 5 (Conflicts) → Module 6 (Implementation)
+Module 6 (Implementation) → Module 1 (Dashboard)
+
+# Check:
+- [ ] All links work
+- [ ] Navigation breadcrumbs update
+- [ ] Back button works
+- [ ] State persists (if applicable)
+```
+
+### Real-Time Features
+```javascript
+// Test WebSocket functionality
+- [ ] Connection establishes on page load
+- [ ] Live updates appear without refresh
+- [ ] Multiple tabs stay in sync
+- [ ] Reconnects after disconnect
+- [ ] Shows offline indicator if disconnected
+- [ ] No duplicate updates
+```
+
+### Data Display
+```markdown
+- [ ] Projects list loads correctly
+- [ ] Requirements display properly
+- [ ] Status badges show correct colors
+- [ ] Progress bars update in real-time
+- [ ] Filters work correctly
+- [ ] Sorting works correctly
+- [ ] Pagination works correctly
+- [ ] Search works correctly
+```
+
+## Output Format
+
+After UX audit, provide:
+
+```markdown
+## UX Audit Report
+
+**Status**: [PERFECT ✅ / NEEDS FIXES ⚠️ / CRITICAL ISSUES ❌]
+
+### Issues Found
+
+#### Critical (Must Fix) 🔴
+1. [Issue description]
+   - Impact: [How this affects users]
+   - Fix: [Specific code changes needed]
+   - File: [path/to/file.html]
+   - Line: [line number]
+
+#### Important (Should Fix) 🟡
+1. [Issue description]
+   - Impact: [How this affects users]
+   - Fix: [Specific code changes needed]
+
+#### Nice to Have (Polish) 🟢
+1. [Issue description]
+   - Enhancement: [How this improves UX]
+   - Suggestion: [Code example]
+
+### UX Score
+
+- Functionality: [X/10]
+- Visual Design: [X/10]
+- Usability: [X/10]
+- Accessibility: [X/10]
+- Performance: [X/10]
+
+**Overall**: [X/50] - [Grade: A+ to F]
+
+### Next Steps
+
+1. Fix critical issues first
+2. Implement important fixes
+3. Add polish enhancements
+4. Re-test all flows
+5. Final validation
+
+### Code Fixes
+
+[Provide specific code changes with file paths and line numbers]
+```
+
+## Example Usage
+
+User: "Make sure the demo is perfect"
+
+This skill will:
+1. Audit all demo HTML files
+2. Test every interactive element
+3. Research best UX practices
+4. Find and document all bugs
+5. Provide specific fixes with code
+6. Validate accessibility
+7. Check performance
+8. Test across browsers
+9. Generate comprehensive report
+10. Implement fixes if requested

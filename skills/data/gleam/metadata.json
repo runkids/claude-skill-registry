@@ -1,11 +1,7 @@
 {
   "name": "gleam",
-  "description": "Develop with Gleam using idiomatic patterns, TDD, and type-driven design. Activate when working with .gleam files, gleam.toml, or user mentions Gleam, BEAM, or Erlang.",
-  "repo": "anntnzrb/.claude",
-  "category": "development",
-  "tags": [
-    "gleam"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "anntnzrb/agents",
+  "path": "assets/skills/gleam/SKILL.md",
+  "source": "github.com/anntnzrb/agents",
+  "downloaded_at": "2026-01-19T01:28:19.835775Z"
 }

@@ -1,52 +1,101 @@
 INFO:__main__:============================================================
 INFO:__main__:STEP 3: Downloading SKILL.md files
 INFO:__main__:============================================================
-INFO:__main__:Total skills in registry: 34060
-INFO:__main__:Already downloaded: 25566
-INFO:__main__:To download: 10445
-INFO:__main__:Batch 1/35: ✅ 0 | ❌ 300 | ⚡ 0.0/s
-INFO:__main__:Batch 2/35: ✅ 1 | ❌ 599 | ⚡ 0.1/s
-INFO:__main__:Batch 3/35: ✅ 1 | ❌ 899 | ⚡ 0.1/s
-INFO:__main__:Batch 4/35: ✅ 1 | ❌ 1199 | ⚡ 0.0/s
-INFO:__main__:Batch 5/35: ✅ 1 | ❌ 1499 | ⚡ 0.0/s
-INFO:__main__:Batch 6/35: ✅ 1 | ❌ 1799 | ⚡ 0.0/s
-INFO:__main__:Batch 7/35: ✅ 1 | ❌ 2099 | ⚡ 0.0/s
-INFO:__main__:Batch 8/35: ✅ 1 | ❌ 2399 | ⚡ 0.0/s
-INFO:__main__:Batch 9/35: ✅ 1 | ❌ 2699 | ⚡ 0.0/s
-INFO:__main__:Batch 10/35: ✅ 1 | ❌ 2999 | ⚡ 0.0/s
-INFO:__main__:Batch 11/35: ✅ 1 | ❌ 3299 | ⚡ 0.0/s
-INFO:__main__:Batch 12/35: ✅ 1 | ❌ 3599 | ⚡ 0.0/s
-INFO:__main__:Batch 13/35: ✅ 2 | ❌ 3898 | ⚡ 0.0/s
-INFO:__main__:Batch 14/35: ✅ 2 | ❌ 4198 | ⚡ 0.0/s
-INFO:__main__:Batch 15/35: ✅ 2 | ❌ 4498 | ⚡ 0.0/s
-INFO:__main__:Batch 16/35: ✅ 2 | ❌ 4798 | ⚡ 0.0/s
-INFO:__main__:Batch 17/35: ✅ 2 | ❌ 5098 | ⚡ 0.0/s
-INFO:__main__:Batch 18/35: ✅ 2 | ❌ 5398 | ⚡ 0.0/s
-INFO:__main__:Batch 19/35: ✅ 2 | ❌ 5698 | ⚡ 0.0/s
-INFO:__main__:Batch 20/35: ✅ 2 | ❌ 5998 | ⚡ 0.0/s
-INFO:__main__:Batch 21/35: ✅ 2 | ❌ 6298 | ⚡ 0.0/s
-INFO:__main__:Batch 22/35: ✅ 2 | ❌ 6598 | ⚡ 0.0/s
-INFO:__main__:Batch 23/35: ✅ 10 | ❌ 6890 | ⚡ 0.1/s
-INFO:__main__:Batch 24/35: ✅ 10 | ❌ 7190 | ⚡ 0.1/s
-INFO:__main__:Batch 25/35: ✅ 10 | ❌ 7490 | ⚡ 0.1/s
-INFO:__main__:Batch 26/35: ✅ 10 | ❌ 7790 | ⚡ 0.1/s
-INFO:__main__:Batch 27/35: ✅ 10 | ❌ 8090 | ⚡ 0.1/s
-INFO:__main__:Batch 28/35: ✅ 10 | ❌ 8390 | ⚡ 0.1/s
-INFO:__main__:Batch 29/35: ✅ 10 | ❌ 8690 | ⚡ 0.1/s
-INFO:__main__:Batch 30/35: ✅ 10 | ❌ 8990 | ⚡ 0.1/s
-INFO:__main__:Batch 31/35: ✅ 10 | ❌ 9290 | ⚡ 0.1/s
-INFO:__main__:Batch 32/35: ✅ 10 | ❌ 9590 | ⚡ 0.1/s
-INFO:__main__:Batch 33/35: ✅ 10 | ❌ 9890 | ⚡ 0.1/s
-INFO:__main__:Batch 34/35: ✅ 10 | ❌ 10190 | ⚡ 0.1/s
-INFO:__main__:Batch 35/35: ✅ 10 | ❌ 10435 | ⚡ 0.1/s
+INFO:__main__:Total skills in registry: 25725
+INFO:__main__:Already downloaded: 26912
+INFO:__main__:To download: 25164
+INFO:__main__:Batch 1/84: ✅ 233 | ❌ 67 | ⚡ 72.5/s
+INFO:__main__:Batch 2/84: ✅ 511 | ❌ 89 | ⚡ 92.5/s
+INFO:__main__:Batch 3/84: ✅ 809 | ❌ 91 | ⚡ 99.2/s
+INFO:__main__:Batch 4/84: ✅ 1099 | ❌ 101 | ⚡ 104.9/s
+INFO:__main__:Batch 5/84: ✅ 1398 | ❌ 102 | ⚡ 109.7/s
+INFO:__main__:Batch 6/84: ✅ 1698 | ❌ 102 | ⚡ 114.1/s
+INFO:__main__:Batch 7/84: ✅ 1998 | ❌ 102 | ⚡ 116.1/s
+INFO:__main__:Batch 8/84: ✅ 2298 | ❌ 102 | ⚡ 118.7/s
+INFO:__main__:Batch 9/84: ✅ 2597 | ❌ 103 | ⚡ 122.8/s
+INFO:__main__:Batch 10/84: ✅ 2897 | ❌ 103 | ⚡ 127.3/s
+INFO:__main__:Batch 11/84: ✅ 3197 | ❌ 103 | ⚡ 132.6/s
+INFO:__main__:Batch 12/84: ✅ 3497 | ❌ 103 | ⚡ 130.8/s
+INFO:__main__:Batch 13/84: ✅ 3796 | ❌ 104 | ⚡ 129.8/s
+INFO:__main__:Batch 14/84: ✅ 4093 | ❌ 107 | ⚡ 128.9/s
+INFO:__main__:Batch 15/84: ✅ 4388 | ❌ 112 | ⚡ 128.7/s
+INFO:__main__:Batch 16/84: ✅ 4688 | ❌ 112 | ⚡ 126.5/s
+INFO:__main__:Batch 17/84: ✅ 4988 | ❌ 112 | ⚡ 126.9/s
+INFO:__main__:Batch 18/84: ✅ 5287 | ❌ 113 | ⚡ 126.8/s
+INFO:__main__:Batch 19/84: ✅ 5585 | ❌ 115 | ⚡ 126.7/s
+INFO:__main__:Batch 20/84: ✅ 5885 | ❌ 115 | ⚡ 126.2/s
+INFO:__main__:Batch 21/84: ✅ 6185 | ❌ 115 | ⚡ 126.5/s
+INFO:__main__:Batch 22/84: ✅ 6465 | ❌ 135 | ⚡ 126.0/s
+INFO:__main__:Batch 23/84: ✅ 6698 | ❌ 202 | ⚡ 122.7/s
+INFO:__main__:Batch 24/84: ✅ 6998 | ❌ 202 | ⚡ 124.7/s
+INFO:__main__:Batch 25/84: ✅ 7297 | ❌ 203 | ⚡ 124.9/s
+INFO:__main__:Batch 26/84: ✅ 7597 | ❌ 203 | ⚡ 125.6/s
+INFO:__main__:Batch 27/84: ✅ 7889 | ❌ 211 | ⚡ 124.6/s
+INFO:__main__:Batch 28/84: ✅ 8163 | ❌ 237 | ⚡ 122.8/s
+INFO:__main__:Batch 29/84: ✅ 8439 | ❌ 261 | ⚡ 123.0/s
+INFO:__main__:Batch 30/84: ✅ 8739 | ❌ 261 | ⚡ 122.8/s
+INFO:__main__:Batch 31/84: ✅ 9039 | ❌ 261 | ⚡ 122.5/s
+INFO:__main__:Batch 32/84: ✅ 9338 | ❌ 262 | ⚡ 123.0/s
+INFO:__main__:Batch 33/84: ✅ 9638 | ❌ 262 | ⚡ 123.4/s
+INFO:__main__:Batch 34/84: ✅ 9846 | ❌ 354 | ⚡ 122.2/s
+INFO:__main__:Batch 35/84: ✅ 10146 | ❌ 354 | ⚡ 122.6/s
+INFO:__main__:Batch 36/84: ✅ 10440 | ❌ 360 | ⚡ 123.6/s
+INFO:__main__:Batch 37/84: ✅ 10740 | ❌ 360 | ⚡ 123.8/s
+INFO:__main__:Batch 38/84: ✅ 11040 | ❌ 360 | ⚡ 123.6/s
+INFO:__main__:Batch 39/84: ✅ 11340 | ❌ 360 | ⚡ 123.6/s
+INFO:__main__:Batch 40/84: ✅ 11635 | ❌ 365 | ⚡ 124.5/s
+INFO:__main__:Batch 41/84: ✅ 11935 | ❌ 365 | ⚡ 124.6/s
+INFO:__main__:Batch 42/84: ✅ 12232 | ❌ 368 | ⚡ 124.0/s
+INFO:__main__:Batch 43/84: ✅ 12516 | ❌ 384 | ⚡ 123.7/s
+INFO:__main__:Batch 44/84: ✅ 12816 | ❌ 384 | ⚡ 123.5/s
+INFO:__main__:Batch 45/84: ✅ 13116 | ❌ 384 | ⚡ 124.2/s
+INFO:__main__:Batch 46/84: ✅ 13416 | ❌ 384 | ⚡ 124.9/s
+INFO:__main__:Batch 47/84: ✅ 13716 | ❌ 384 | ⚡ 125.5/s
+INFO:__main__:Batch 48/84: ✅ 14016 | ❌ 384 | ⚡ 112.1/s
+INFO:__main__:Batch 49/84: ✅ 14316 | ❌ 384 | ⚡ 111.2/s
+INFO:__main__:Batch 50/84: ✅ 14616 | ❌ 384 | ⚡ 111.8/s
+INFO:__main__:Batch 51/84: ✅ 14826 | ❌ 474 | ⚡ 100.7/s
+INFO:__main__:Batch 52/84: ✅ 15125 | ❌ 475 | ⚡ 100.6/s
+INFO:__main__:Batch 53/84: ✅ 15379 | ❌ 521 | ⚡ 100.6/s
+INFO:__main__:Batch 54/84: ✅ 15679 | ❌ 521 | ⚡ 101.1/s
+INFO:__main__:Batch 55/84: ✅ 15977 | ❌ 523 | ⚡ 101.6/s
+INFO:__main__:Batch 56/84: ✅ 16277 | ❌ 523 | ⚡ 102.5/s
+INFO:__main__:Batch 57/84: ✅ 16577 | ❌ 523 | ⚡ 103.0/s
+INFO:__main__:Batch 58/84: ✅ 16877 | ❌ 523 | ⚡ 103.5/s
+INFO:__main__:Batch 59/84: ✅ 17172 | ❌ 528 | ⚡ 103.7/s
+INFO:__main__:Batch 60/84: ✅ 17472 | ❌ 528 | ⚡ 103.9/s
+INFO:__main__:Batch 61/84: ✅ 17772 | ❌ 528 | ⚡ 104.0/s
+INFO:__main__:Batch 62/84: ✅ 18072 | ❌ 528 | ⚡ 104.8/s
+INFO:__main__:Batch 63/84: ✅ 18370 | ❌ 530 | ⚡ 105.2/s
+INFO:__main__:Batch 64/84: ✅ 18670 | ❌ 530 | ⚡ 105.4/s
+INFO:__main__:Batch 65/84: ✅ 18969 | ❌ 531 | ⚡ 105.8/s
+INFO:__main__:Batch 66/84: ✅ 19269 | ❌ 531 | ⚡ 106.2/s
+INFO:__main__:Batch 67/84: ✅ 19556 | ❌ 544 | ⚡ 106.5/s
+INFO:__main__:Batch 68/84: ✅ 19845 | ❌ 555 | ⚡ 106.7/s
+INFO:__main__:Batch 69/84: ✅ 20145 | ❌ 555 | ⚡ 107.0/s
+INFO:__main__:Batch 70/84: ✅ 20445 | ❌ 555 | ⚡ 107.8/s
+INFO:__main__:Batch 71/84: ✅ 20745 | ❌ 555 | ⚡ 108.1/s
+INFO:__main__:Batch 72/84: ✅ 21045 | ❌ 555 | ⚡ 108.5/s
+INFO:__main__:Batch 73/84: ✅ 21344 | ❌ 556 | ⚡ 108.7/s
+INFO:__main__:Batch 74/84: ✅ 21626 | ❌ 574 | ⚡ 108.6/s
+INFO:__main__:Batch 75/84: ✅ 21921 | ❌ 579 | ⚡ 108.7/s
+INFO:__main__:Batch 76/84: ✅ 22157 | ❌ 643 | ⚡ 108.6/s
+INFO:__main__:Batch 77/84: ✅ 22426 | ❌ 674 | ⚡ 108.4/s
+INFO:__main__:Batch 78/84: ✅ 22726 | ❌ 674 | ⚡ 108.8/s
+INFO:__main__:Batch 79/84: ✅ 23026 | ❌ 674 | ⚡ 109.5/s
+INFO:__main__:Batch 80/84: ✅ 23326 | ❌ 674 | ⚡ 110.0/s
+INFO:__main__:Batch 81/84: ✅ 23626 | ❌ 674 | ⚡ 110.5/s
+INFO:__main__:Batch 82/84: ✅ 23926 | ❌ 674 | ⚡ 110.7/s
+INFO:__main__:Batch 83/84: ✅ 24226 | ❌ 674 | ⚡ 111.0/s
+INFO:__main__:Batch 84/84: ✅ 24483 | ❌ 681 | ⚡ 110.7/s
 INFO:__main__:============================================================
 INFO:__main__:DOWNLOAD COMPLETE
 INFO:__main__:============================================================
-INFO:__main__:Downloaded: 10
-INFO:__main__:Failed: 10435
-INFO:__main__:Total skills: 25576
+INFO:__main__:Downloaded: 24483
+INFO:__main__:Failed: 681
+INFO:__main__:Total skills: 27331
 INFO:__main__:Failure report saved to /home/runner/work/claude-skill-registry/claude-skill-registry/failure_report.json
 INFO:__main__:============================================================
 INFO:__main__:PIPELINE COMPLETE
-INFO:__main__:Total time: 196.9s (3.3 min)
+INFO:__main__:Total time: 222.8s (3.7 min)
 INFO:__main__:============================================================

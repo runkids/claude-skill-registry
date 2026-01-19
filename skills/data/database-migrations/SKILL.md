@@ -1,90 +1,152 @@
 ---
 name: database-migrations
-description: SQLite database migration patterns for SpecFlux. Use when creating new tables, modifying schema, adding indexes, or running migrations. Ensures reversible migrations with UP and DOWN sections.
+description: |
+  安全で可逆的なデータベースマイグレーションを設計・運用するスキル。
+  スキーマ変更計画、移行期間、ロールバックまでの実務フローを整理する。
+
+  Anchors:
+  • Refactoring Databases / 適用: 安全なスキーマ進化 / 目的: 破壊的変更の最小化
+  • Drizzle Kit / 適用: マイグレーション生成 / 目的: 変更管理の自動化
+  • Zero-Downtime Patterns / 適用: 本番適用 / 目的: サービス停止の回避
+
+  Trigger:
+  Use when planning schema changes, generating migrations, applying them safely, or defining rollback/transition strategies.
+  database migrations, schema change, drizzle kit, rollback, zero downtime
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
-# Database Migration Patterns
+# database-migrations
 
-## Migration Files
+## 概要
 
-Keep migrations simple and atomic:
+安全なスキーマ変更と移行期間の運用を支援し、ロールバック可能なマイグレーション計画を提供する。
 
-```sql
--- migrations/003_add_notifications.sql
--- UP
-CREATE TABLE notifications (
-  id INTEGER PRIMARY KEY,
-  project_id INTEGER NOT NULL,
-  type TEXT NOT NULL,
-  title TEXT NOT NULL,
-  message TEXT,
-  task_id INTEGER,
-  is_read BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (project_id) REFERENCES projects(id),
-  FOREIGN KEY (task_id) REFERENCES tasks(id)
-);
+## ワークフロー
 
-CREATE INDEX idx_notifications_project_id ON notifications(project_id);
-CREATE INDEX idx_notifications_is_read ON notifications(is_read);
+### Phase 1: 要件整理
 
--- DOWN
-DROP INDEX IF EXISTS idx_notifications_is_read;
-DROP INDEX IF EXISTS idx_notifications_project_id;
-DROP TABLE notifications;
-```
+**目的**: 変更範囲・制約・移行条件を整理する。
 
-## Migration Runner
+**アクション**:
 
-```typescript
-// src/db/migrate.ts
-import Database from 'better-sqlite3';
-import fs from 'fs';
-import path from 'path';
+1. 変更対象と影響範囲を整理する。
+2. 既存データの保全条件を確認する。
+3. 移行期間の要否を判断する。
 
-export async function runMigrations(db: Database.Database) {
-  // Create migrations table
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS migrations (
-      id INTEGER PRIMARY KEY,
-      name TEXT NOT NULL UNIQUE,
-      applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
+**Task**: `agents/analyze-migration-requirements.md` を参照
 
-  // Get applied migrations
-  const applied = db.prepare('SELECT name FROM migrations').all() as { name: string }[];
-  const appliedNames = new Set(applied.map(m => m.name));
+### Phase 2: 設計
 
-  // Read migration files
-  const migrationsDir = path.join(__dirname, '../../migrations');
-  const files = fs.readdirSync(migrationsDir).filter(f => f.endsWith('.sql')).sort();
+**目的**: マイグレーション計画とロールバック方針を設計する。
 
-  // Apply pending migrations
-  for (const file of files) {
-    if (appliedNames.has(file)) continue;
+**アクション**:
 
-    console.log(`Applying migration: ${file}`);
-    const sql = fs.readFileSync(path.join(migrationsDir, file), 'utf-8');
-    const upSQL = sql.split('-- DOWN')[0].replace('-- UP', '').trim();
+1. `references/schema-change-patterns.md` で変更パターンを確認する。
+2. `references/migration-strategies.md` で戦略を整理する。
+3. `references/transition-period-patterns.md` で移行期間を設計する。
 
-    db.exec(upSQL);
-    db.prepare('INSERT INTO migrations (name) VALUES (?)').run(file);
-  }
-}
-```
+**Task**: `agents/design-migration-architecture.md` を参照
 
-## Testing Migrations
+### Phase 3: 実装
 
-Always test UP and DOWN:
+**目的**: 変更と検証を実装し、リスクを低減する。
 
-```bash
-# Test UP
-npm run migrate
+**アクション**:
 
-# Test DOWN (rollback)
-npm run migrate:rollback
+1. `references/drizzle-kit-commands.md` で生成手順を確認する。
+2. `scripts/check-migration-safety.mjs` で安全性を確認する。
+3. `scripts/generate-rollback.mjs` でロールバック案を用意する。
 
-# Test UP again
-npm run migrate
-```
+**Task**: `agents/implement-migration-plan.md` を参照
+
+### Phase 4: 検証と運用
+
+**目的**: 適用結果を検証し、運用記録を残す。
+
+**アクション**:
+
+1. `assets/migration-checklist.md` で検証する。
+2. `references/rollback-procedures.md` で復旧手順を確認する。
+3. `scripts/log_usage.mjs` で記録を更新する。
+
+**Task**: `agents/validate-migration-quality.md` を参照
+
+## Task仕様ナビ
+
+| Task                           | 起動タイミング | 入力     | 出力                                   |
+| ------------------------------ | -------------- | -------- | -------------------------------------- |
+| analyze-migration-requirements | Phase 1開始時  | 変更要件 | 要件メモ、影響一覧                     |
+| design-migration-architecture  | Phase 2開始時  | 要件メモ | マイグレーション計画、ロールバック方針 |
+| implement-migration-plan       | Phase 3開始時  | 計画書   | 実装メモ、検証結果                     |
+| validate-migration-quality     | Phase 4開始時  | 実装メモ | 検証レポート、改善提案                 |
+
+**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリを参照
+
+## ベストプラクティス
+
+### すべきこと
+
+| 推奨事項                   | 理由               |
+| -------------------------- | ------------------ |
+| 変更対象を分割する         | リスクを小さくする |
+| 移行期間を設ける           | 互換性を維持する   |
+| ロールバック手順を用意する | 復旧を確実にする   |
+| 事前検証を自動化する       | 人為ミスを減らす   |
+
+### 避けるべきこと
+
+| 禁止事項         | 問題点                 |
+| ---------------- | ---------------------- |
+| 一括変更         | 失敗時の影響が大きい   |
+| 互換性無視       | サービス停止につながる |
+| ロールバック不備 | 復旧不能になる         |
+
+## リソース参照
+
+### scripts/（決定論的処理）
+
+| スクリプト                           | 機能                         |
+| ------------------------------------ | ---------------------------- |
+| `scripts/check-migration-safety.mjs` | 安全性チェック               |
+| `scripts/generate-rollback.mjs`      | ロールバック案の生成         |
+| `scripts/validate-skill.mjs`         | スキル構造の検証             |
+| `scripts/log_usage.mjs`              | 使用記録と評価メトリクス更新 |
+
+### references/（詳細知識）
+
+| リソース         | パス                                                                                 | 読込条件   |
+| ---------------- | ------------------------------------------------------------------------------------ | ---------- |
+| レベル1 基礎     | [references/Level1_basics.md](references/Level1_basics.md)                           | 要件整理時 |
+| レベル2 実務     | [references/Level2_intermediate.md](references/Level2_intermediate.md)               | 設計時     |
+| レベル3 応用     | [references/Level3_advanced.md](references/Level3_advanced.md)                       | 実装時     |
+| レベル4 専門     | [references/Level4_expert.md](references/Level4_expert.md)                           | 検証時     |
+| Drizzle Kit      | [references/drizzle-kit-commands.md](references/drizzle-kit-commands.md)             | 生成時     |
+| 変更パターン     | [references/schema-change-patterns.md](references/schema-change-patterns.md)         | 設計時     |
+| 移行戦略         | [references/migration-strategies.md](references/migration-strategies.md)             | 設計時     |
+| ロールバック     | [references/rollback-procedures.md](references/rollback-procedures.md)               | 検証時     |
+| ゼロダウンタイム | [references/zero-downtime-patterns.md](references/zero-downtime-patterns.md)         | 本番適用時 |
+| 移行期間         | [references/transition-period-patterns.md](references/transition-period-patterns.md) | 移行設計時 |
+| 要求仕様索引     | [references/requirements-index.md](references/requirements-index.md)                 | 仕様確認時 |
+| 旧スキル         | [references/legacy-skill.md](references/legacy-skill.md)                             | 互換確認時 |
+
+### assets/（テンプレート・素材）
+
+| アセット                            | 用途                         |
+| ----------------------------------- | ---------------------------- |
+| `assets/migration-plan-template.md` | 計画テンプレート             |
+| `assets/migration-checklist.md`     | 検証チェックリスト           |
+| `assets/rollback-plan-template.md`  | ロールバック計画テンプレート |
+
+### 運用ファイル
+
+| ファイル       | 目的                       |
+| -------------- | -------------------------- |
+| `EVALS.json`   | レベル評価・メトリクス管理 |
+| `LOGS.md`      | 実行ログの蓄積             |
+| `CHANGELOG.md` | 改善履歴の記録             |

@@ -1,7 +1,7 @@
 {
   "name": "test-writer",
-  "repo": "enoch-robinson/agent-skill-collection",
-  "path": "skills/development/test-writer/SKILL.md",
-  "source": "github.com/enoch-robinson/agent-skill-collection",
-  "downloaded_at": "2026-01-17T04:03:33.208843Z"
+  "repo": "xnopre/copro-tickets-tracker",
+  "path": ".claude/skills/test-writer/SKILL.md",
+  "source": "github.com/xnopre/copro-tickets-tracker",
+  "downloaded_at": "2026-01-19T02:55:00.751204Z"
 }

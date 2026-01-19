@@ -1,7 +1,7 @@
 {
   "name": "recall",
-  "repo": "yonatangross/skillforge-claude-plugin",
+  "repo": "hgeldenhuys/claude-code-sdk",
   "path": "skills/recall/SKILL.md",
-  "source": "github.com/yonatangross/skillforge-claude-plugin",
-  "downloaded_at": "2026-01-17T01:47:40.146292Z"
+  "source": "github.com/hgeldenhuys/claude-code-sdk",
+  "downloaded_at": "2026-01-19T04:07:16.435013Z"
 }

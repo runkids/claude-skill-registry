@@ -1,12 +1,7 @@
 {
   "name": "character-arc",
-  "description": "Design and troubleshoot character transformation arcs. Use when characters feel static, when transformation feels unearned or abrupt, when you can't articulate what false belief needs to die, or when ",
-  "repo": "jwynia/the-kepler-testimonies",
-  "category": "design",
-  "tags": [
-    "character",
-    "arc"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/character/character-arc/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-19T03:36:20.146432Z"
 }

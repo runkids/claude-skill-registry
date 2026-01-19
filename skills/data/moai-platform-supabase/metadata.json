@@ -1,7 +1,7 @@
 {
   "name": "moai-platform-supabase",
-  "repo": "zellycloud/zyflow",
+  "repo": "modu-ai/cc-plugins",
   "path": ".claude/skills/moai-platform-supabase/SKILL.md",
-  "source": "github.com/zellycloud/zyflow",
-  "downloaded_at": "2026-01-17T03:46:29.492085Z"
+  "source": "github.com/modu-ai/cc-plugins",
+  "downloaded_at": "2026-01-19T03:57:56.804203Z"
 }

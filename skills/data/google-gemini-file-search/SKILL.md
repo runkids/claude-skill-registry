@@ -1,70 +1,483 @@
 ---
 name: google-gemini-file-search
-description: Google Gemini File Search for managed RAG with 100+ file formats. Use for document Q&A, knowledge bases, or encountering immutability errors, quota issues, polling failures. Supports Gemini 3 Pro/Flash (Gemini 2.5 legacy).
-license: MIT
-metadata:
-  version: "2.0.0"
-  last_verified: "2025-11-18"
-  production_tested: true
-  token_savings: "~65%"
-  errors_prevented: 8
-  templates_included: 0
-  references_included: 2
+description: |
+  Build document Q&A with Gemini File Search - fully managed RAG with automatic chunking, embeddings, and citations. Upload 100+ file formats, query with natural language.
+
+  Use when: document Q&A, searchable knowledge bases, semantic search. Troubleshoot: document immutability, storage quota (3x), chunking config, metadata limits (20 max), polling timeouts.
+user-invocable: true
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Glob
+  - Grep
+  - WebFetch
 ---
 
-# Google Gemini File Search
+# Google Gemini File Search Setup
 
-**Status**: Production Ready | **Last Verified**: 2025-11-18
+## Overview
 
----
+Google Gemini File Search is a fully managed RAG system. Upload documents (100+ formats: PDF, Word, Excel, code) and query with natural language—automatic chunking, embeddings, semantic search, and citations.
 
-## What Is File Search?
+**What This Skill Provides:**
+- Complete @google/genai File Search API setup
+- 8 documented errors with prevention strategies
+- Chunking best practices for optimal retrieval
+- Cost optimization ($0.15/1M tokens indexing, 3x storage multiplier)
+- Cloudflare Workers + Next.js integration templates
 
-Google Gemini File Search is **fully managed RAG** (Retrieval-Augmented Generation):
-- Upload documents → Automatic chunking + embeddings + vector search + citations
-- **No vector database setup** required
-- **100+ file formats** supported (PDF, Word, Excel, code, Markdown, JSON, etc.)
-- **Built-in grounding** with citation metadata
-- **Cost-effective**: $0.15/1M tokens (one-time indexing), free storage + queries
+## Prerequisites
 
-**Key difference from other RAG:**
-- Cloudflare Vectorize: You manage chunking/embeddings
-- OpenAI Files API: Tied to Assistants API threads
-- File Search: Fully managed, standalone RAG
+### 1. Google AI API Key
 
----
+Create an API key at https://aistudio.google.com/apikey
 
-## Quick Start (5 Minutes)
+**Free Tier Limits:**
+- 1 GB storage (total across all file search stores)
+- 1,500 requests per day
+- 1 million tokens per minute
 
-### 1. Get API Key & Install
+**Paid Tier Pricing:**
+- Indexing: $0.15 per 1M input tokens (one-time)
+- Storage: Free (Tier 1: 10 GB, Tier 2: 100 GB, Tier 3: 1 TB)
+- Query-time embeddings: Free (retrieved context counts as input tokens)
 
-Get API key: https://aistudio.google.com/apikey (Free tier: 1 GB storage, 1,500 requests/day)
+### 2. Node.js Environment
+
+**Minimum Version:** Node.js 18+ (v20+ recommended)
 
 ```bash
-bun add @google/genai
+node --version  # Should be >=18.0.0
 ```
 
-**Version:** 0.21.0+ | **Node.js:** 18+
+### 3. Install @google/genai SDK
 
-### 2. Basic Example
+```bash
+npm install @google/genai
+# or
+pnpm add @google/genai
+# or
+yarn add @google/genai
+```
+
+**Current Stable Version:** 1.30.0+ (verify with `npm view @google/genai version`)
+
+**⚠️ Important:** File Search API requires **@google/genai v1.29.0 or later**. Earlier versions do not support File Search. The API was added in v1.29.0 (November 5, 2025).
+
+### 4. TypeScript Configuration (Optional but Recommended)
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
+```
+
+## Common Errors Prevented
+
+This skill prevents 8 common errors encountered when implementing File Search:
+
+### Error 1: Document Immutability
+
+**Symptom:**
+```
+Error: Documents cannot be modified after indexing
+```
+
+**Cause:** Documents are immutable once indexed. There is no PATCH or UPDATE operation.
+
+**Prevention:**
+Use the delete+re-upload pattern for updates:
 
 ```typescript
-import { GoogleGenerativeAI } from '@google/genai';
-import fs from 'fs';
+// ❌ WRONG: Trying to update document (no such API)
+await ai.fileSearchStores.documents.update({
+  name: documentName,
+  customMetadata: { version: '2.0' }
+})
 
-const ai = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
+// ✅ CORRECT: Delete then re-upload
+const docs = await ai.fileSearchStores.documents.list({
+  parent: fileStore.name
+})
 
-// Create store
-const fileStore = await ai.fileSearchStores.create({
-  config: { displayName: 'my-knowledge-base' }
-});
+const oldDoc = docs.documents.find(d => d.displayName === 'manual.pdf')
+if (oldDoc) {
+  await ai.fileSearchStores.documents.delete({
+    name: oldDoc.name,
+    force: true
+  })
+}
 
-// Upload document
+await ai.fileSearchStores.uploadToFileSearchStore({
+  name: fileStore.name,
+  file: fs.createReadStream('manual-v2.pdf'),
+  config: { displayName: 'manual.pdf' }
+})
+```
+
+**Source:** https://ai.google.dev/api/file-search/documents
+
+### Error 2: Storage Quota Exceeded
+
+**Symptom:**
+```
+Error: Quota exceeded. Expected 1GB limit, but 3.2GB used.
+```
+
+**Cause:** Storage calculation includes input files + embeddings + metadata. Total storage ≈ 3x input size.
+
+**Prevention:**
+Calculate storage before upload:
+
+```typescript
+// ❌ WRONG: Assuming storage = file size
+const fileSize = fs.statSync('data.pdf').size // 500 MB
+// Expect 500 MB usage → WRONG
+
+// ✅ CORRECT: Account for 3x multiplier
+const fileSize = fs.statSync('data.pdf').size // 500 MB
+const estimatedStorage = fileSize * 3 // 1.5 GB (embeddings + metadata)
+console.log(`Estimated storage: ${estimatedStorage / 1e9} GB`)
+
+// Check if within quota before upload
+if (estimatedStorage > 1e9) {
+  console.warn('⚠️ File may exceed free tier 1 GB limit')
+}
+```
+
+**Source:** https://blog.google/technology/developers/file-search-gemini-api/
+
+### Error 3: Incorrect Chunking Configuration
+
+**Symptom:**
+Poor retrieval quality, irrelevant results, or context cutoff mid-sentence.
+
+**Cause:** Default chunking may not be optimal for your content type.
+
+**Prevention:**
+Use recommended chunking strategy:
+
+```typescript
+// ❌ WRONG: Using defaults without testing
+await ai.fileSearchStores.uploadToFileSearchStore({
+  name: fileStore.name,
+  file: fs.createReadStream('docs.pdf')
+  // Default chunking may be too large or too small
+})
+
+// ✅ CORRECT: Configure chunking for precision
+await ai.fileSearchStores.uploadToFileSearchStore({
+  name: fileStore.name,
+  file: fs.createReadStream('docs.pdf'),
+  config: {
+    chunkingConfig: {
+      whiteSpaceConfig: {
+        maxTokensPerChunk: 500,  // Smaller chunks = more precise retrieval
+        maxOverlapTokens: 50     // 10% overlap prevents context loss
+      }
+    }
+  }
+})
+```
+
+**Chunking Guidelines:**
+- **Technical docs/code:** 500 tokens/chunk, 50 overlap
+- **Prose/articles:** 800 tokens/chunk, 80 overlap
+- **Legal/contracts:** 300 tokens/chunk, 30 overlap (high precision)
+
+**Source:** https://www.philschmid.de/gemini-file-search-javascript
+
+### Error 4: Metadata Limits Exceeded
+
+**Symptom:**
+```
+Error: Maximum 20 custom metadata key-value pairs allowed
+```
+
+**Cause:** Each document can have at most 20 metadata fields.
+
+**Prevention:**
+Design compact metadata schema:
+
+```typescript
+// ❌ WRONG: Too many metadata fields
+await ai.fileSearchStores.uploadToFileSearchStore({
+  name: fileStore.name,
+  file: fs.createReadStream('doc.pdf'),
+  config: {
+    customMetadata: {
+      doc_type: 'manual',
+      version: '1.0',
+      author: 'John Doe',
+      department: 'Engineering',
+      created_date: '2025-01-01',
+      // ... 18 more fields → Error!
+    }
+  }
+})
+
+// ✅ CORRECT: Use hierarchical keys or JSON strings
+await ai.fileSearchStores.uploadToFileSearchStore({
+  name: fileStore.name,
+  file: fs.createReadStream('doc.pdf'),
+  config: {
+    customMetadata: {
+      doc_type: 'manual',
+      version: '1.0',
+      author_dept: 'John Doe|Engineering',  // Combine related fields
+      dates: JSON.stringify({                // Or use JSON for complex data
+        created: '2025-01-01',
+        updated: '2025-01-15'
+      })
+    }
+  }
+})
+```
+
+**Source:** https://ai.google.dev/api/file-search/documents
+
+### Error 5: Indexing Cost Surprises
+
+**Symptom:**
+Unexpected bill for $375 after uploading 10 GB of documents.
+
+**Cause:** Indexing costs are one-time but calculated per input token ($0.15/1M tokens).
+
+**Prevention:**
+Estimate costs before indexing:
+
+```typescript
+// ❌ WRONG: No cost estimation
+await uploadAllDocuments(fileStore.name, './data') // 10 GB uploaded → $375 surprise
+
+// ✅ CORRECT: Calculate costs upfront
+const totalSize = getTotalDirectorySize('./data') // 10 GB
+const estimatedTokens = (totalSize / 4) // Rough estimate: 1 token ≈ 4 bytes
+const indexingCost = (estimatedTokens / 1e6) * 0.15
+
+console.log(`Estimated indexing cost: $${indexingCost.toFixed(2)}`)
+console.log(`Estimated storage: ${(totalSize * 3) / 1e9} GB`)
+
+// Confirm before proceeding
+const proceed = await confirm(`Proceed with indexing? Cost: $${indexingCost.toFixed(2)}`)
+if (proceed) {
+  await uploadAllDocuments(fileStore.name, './data')
+}
+```
+
+**Cost Examples:**
+- 1 GB text ≈ 250M tokens = $37.50 indexing
+- 100 MB PDF ≈ 25M tokens = $3.75 indexing
+- 10 MB code ≈ 2.5M tokens = $0.38 indexing
+
+**Source:** https://ai.google.dev/pricing
+
+### Error 6: Not Polling Operation Status
+
+**Symptom:**
+Query returns no results immediately after upload, or incomplete indexing.
+
+**Cause:** File uploads are processed asynchronously. Must poll operation until `done: true`.
+
+**Prevention:**
+Always poll operation status:
+
+```typescript
+// ❌ WRONG: Assuming upload is instant
 const operation = await ai.fileSearchStores.uploadToFileSearchStore({
   name: fileStore.name,
-  file: fs.createReadStream('./manual.pdf'),
+  file: fs.createReadStream('large.pdf')
+})
+// Immediately query → No results!
+
+// ✅ CORRECT: Poll until indexing complete
+const operation = await ai.fileSearchStores.uploadToFileSearchStore({
+  name: fileStore.name,
+  file: fs.createReadStream('large.pdf')
+})
+
+// Poll every 1 second
+while (!operation.done) {
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  operation = await ai.operations.get({ name: operation.name })
+  console.log(`Indexing progress: ${operation.metadata?.progress || 'processing...'}`)
+}
+
+if (operation.error) {
+  throw new Error(`Indexing failed: ${operation.error.message}`)
+}
+
+console.log('✅ Indexing complete:', operation.response.displayName)
+```
+
+**Source:** https://ai.google.dev/api/file-search/file-search-stores#uploadtofilesearchstore
+
+### Error 7: Forgetting Force Delete
+
+**Symptom:**
+```
+Error: Cannot delete store with documents. Set force=true.
+```
+
+**Cause:** Stores with documents require `force: true` to delete (prevents accidental deletion).
+
+**Prevention:**
+Always use `force: true` when deleting non-empty stores:
+
+```typescript
+// ❌ WRONG: Trying to delete store with documents
+await ai.fileSearchStores.delete({
+  name: fileStore.name
+})
+// Error: Cannot delete store with documents
+
+// ✅ CORRECT: Use force delete
+await ai.fileSearchStores.delete({
+  name: fileStore.name,
+  force: true  // Deletes store AND all documents
+})
+
+// Alternative: Delete documents first
+const docs = await ai.fileSearchStores.documents.list({ parent: fileStore.name })
+for (const doc of docs.documents || []) {
+  await ai.fileSearchStores.documents.delete({
+    name: doc.name,
+    force: true
+  })
+}
+await ai.fileSearchStores.delete({ name: fileStore.name })
+```
+
+**Source:** https://ai.google.dev/api/file-search/file-search-stores#delete
+
+### Error 8: Using Unsupported Models
+
+**Symptom:**
+```
+Error: File Search is only supported for Gemini 3 Pro and Flash models
+```
+
+**Cause:** File Search requires Gemini 3 Pro or Gemini 3 Flash. Gemini 2.x and 1.5 models are not supported.
+
+**Prevention:**
+Always use Gemini 3 models:
+
+```typescript
+// ❌ WRONG: Using Gemini 1.5 model
+const response = await ai.models.generateContent({
+  model: 'gemini-1.5-pro',  // Not supported!
+  contents: 'What is the installation procedure?',
+  config: {
+    tools: [{
+      fileSearch: { fileSearchStoreNames: [fileStore.name] }
+    }]
+  }
+})
+
+// ✅ CORRECT: Use Gemini 3 models
+const response = await ai.models.generateContent({
+  model: 'gemini-3-flash',  // ✅ Supported (fast, cost-effective)
+  // OR
+  // model: 'gemini-3-pro',   // ✅ Supported (higher quality)
+  contents: 'What is the installation procedure?',
+  config: {
+    tools: [{
+      fileSearch: { fileSearchStoreNames: [fileStore.name] }
+    }]
+  }
+})
+```
+
+**Source:** https://ai.google.dev/gemini-api/docs/file-search
+
+## Setup Instructions
+
+### Step 1: Initialize Client
+
+```typescript
+import { GoogleGenAI } from '@google/genai'
+import fs from 'fs'
+
+// Initialize client with API key
+const ai = new GoogleGenAI({
+  apiKey: process.env.GOOGLE_API_KEY
+})
+
+// Verify API key is set
+if (!process.env.GOOGLE_API_KEY) {
+  throw new Error('GOOGLE_API_KEY environment variable is required')
+}
+```
+
+### Step 2: Create File Search Store
+
+```typescript
+// Create a store (container for documents)
+const fileStore = await ai.fileSearchStores.create({
+  config: {
+    displayName: 'my-knowledge-base',  // Human-readable name
+    // Optional: Add store-level metadata
+    customMetadata: {
+      project: 'customer-support',
+      environment: 'production'
+    }
+  }
+})
+
+console.log('Created store:', fileStore.name)
+// Output: fileSearchStores/abc123xyz...
+```
+
+**Finding Existing Stores:**
+
+```typescript
+// List all stores (paginated)
+const stores = await ai.fileSearchStores.list({
+  pageSize: 20  // Max 20 per page
+})
+
+// Find by display name
+let targetStore = null
+let pageToken = null
+
+do {
+  const page = await ai.fileSearchStores.list({ pageToken })
+  targetStore = page.fileSearchStores.find(
+    s => s.displayName === 'my-knowledge-base'
+  )
+  pageToken = page.nextPageToken
+} while (!targetStore && pageToken)
+
+if (targetStore) {
+  console.log('Found existing store:', targetStore.name)
+} else {
+  console.log('Store not found, creating new one...')
+}
+```
+
+### Step 3: Upload Documents
+
+**Single File Upload:**
+
+```typescript
+const operation = await ai.fileSearchStores.uploadToFileSearchStore({
+  name: fileStore.name,
+  file: fs.createReadStream('./docs/manual.pdf'),
   config: {
     displayName: 'Installation Manual',
+    customMetadata: {
+      doc_type: 'manual',
+      version: '1.0',
+      language: 'en'
+    },
     chunkingConfig: {
       whiteSpaceConfig: {
         maxTokensPerChunk: 500,
@@ -72,307 +485,507 @@ const operation = await ai.fileSearchStores.uploadToFileSearchStore({
       }
     }
   }
-});
+})
 
-// Poll until done
+// Poll until indexing complete
 while (!operation.done) {
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  operation = await ai.operations.get({ name: operation.name });
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  operation = await ai.operations.get({ name: operation.name })
 }
 
-// Query documents
-const model = ai.getGenerativeModel({
-  model: 'gemini-2.5-pro',  // Only 2.5 Pro/Flash supported
-  tools: [{
-    fileSearchTool: {
-      fileSearchStores: [fileStore.name]
-    }
-  }]
-});
-
-const result = await model.generateContent('How do I install the product?');
-console.log(result.response.text());
-
-// Get citations
-const grounding = result.response.candidates[0].groundingMetadata;
-if (grounding) {
-  console.log('Sources:', grounding.groundingChunks);
-}
+console.log('✅ Indexed:', operation.response.displayName)
 ```
 
-**Load `references/setup-guide.md` for complete walkthrough with batch uploads, error handling, and production checklist.**
-
----
-
-## Critical Rules
-
-### Always Do
-
-1. **Use delete + re-upload** for updates (documents are immutable)
-2. **Calculate 3x storage** (embeddings + metadata = ~3x file size)
-3. **Configure chunking** (500 tokens for technical docs, 800 for prose)
-4. **Poll operations** until `done: true` (with timeout)
-5. **Use force: true** when deleting stores with documents
-6. **Use Gemini 2.5 models** only (2.5-pro or 2.5-flash)
-7. **Keep metadata under 20 fields** per document
-8. **Estimate indexing costs** ($0.15/1M tokens one-time)
-
-### Never Do
-
-1. **Never try to update** documents (no PATCH API exists)
-2. **Never assume storage = file size** (it's 3x)
-3. **Never skip chunking config** (defaults may not be optimal)
-4. **Never upload without polling** (operation may still be processing)
-5. **Never delete without force** if store has documents
-6. **Never use Gemini 1.5 models** (File Search requires 2.5)
-7. **Never exceed 20 metadata fields** (hard limit)
-8. **Never upload large files without cost estimate**
-
----
-
-## Top 3 Errors Prevented
-
-### Error 1: Document Immutability
-
-**Problem:** Trying to update existing document
-
-**Solution:** Delete + re-upload pattern
+**Batch Upload (Concurrent):**
 
 ```typescript
-// Find and delete old version
-const docs = await ai.fileSearchStores.documents.list({
-  parent: fileStore.name
-});
-const oldDoc = docs.documents.find(d => d.displayName === 'manual.pdf');
-if (oldDoc) {
-  await ai.fileSearchStores.documents.delete({
-    name: oldDoc.name,
-    force: true
-  });
-}
+const filePaths = [
+  './docs/manual.pdf',
+  './docs/faq.md',
+  './docs/troubleshooting.docx'
+]
 
-// Upload new version
-await ai.fileSearchStores.uploadToFileSearchStore({
-  name: fileStore.name,
-  file: fs.createReadStream('manual-v2.pdf'),
-  config: { displayName: 'manual.pdf' }
-});
-```
-
-### Error 2: Storage Quota Exceeded
-
-**Problem:** Storage calculation wrong (3x multiplier)
-
-**Solution:** Estimate before upload
-
-```typescript
-const fileSize = fs.statSync('data.pdf').size;
-const estimatedStorage = fileSize * 3;  // Embeddings + metadata
-
-if (estimatedStorage > 1e9) {
-  console.warn('⚠️ May exceed free tier 1 GB limit');
-}
-```
-
-### Error 3: Model Compatibility
-
-**Problem:** Using wrong model version
-
-**Solution:** Use Gemini 2.5 only
-
-```typescript
-// ✅ CORRECT
-const model = ai.getGenerativeModel({
-  model: 'gemini-2.5-pro',  // or gemini-2.5-flash
-  tools: [{ fileSearchTool: { fileSearchStores: [storeName] } }]
-});
-
-// ❌ WRONG
-const model = ai.getGenerativeModel({
-  model: 'gemini-1.5-pro',  // Not supported!
-  tools: [{ fileSearchTool: { fileSearchStores: [storeName] } }]
-});
-```
-
-**Load `references/error-catalog.md` for all 8 errors with detailed solutions including chunking, operation polling, metadata limits, and force delete requirements.**
-
----
-
-## When to Use File Search
-
-### Use File Search When:
-
-- Want fully managed RAG (no vector DB)
-- Cost predictability matters (one-time indexing)
-- Need 100+ file format support
-- Citations are important (built-in grounding)
-- Simple deployment is priority
-- Documents are relatively static
-
-### Use Alternatives When:
-
-**Cloudflare Vectorize** - Global edge performance, custom embeddings, real-time R2 updates
-**OpenAI Files API** - Assistants API, conversational threads, very large collections (10,000+)
-
----
-
-## Common Patterns
-
-### Pattern 1: Customer Support Knowledge Base
-
-```typescript
-// Upload support docs with metadata
-await ai.fileSearchStores.uploadToFileSearchStore({
-  name: fileStore.name,
-  file: fs.createReadStream('troubleshooting.pdf'),
-  config: {
-    displayName: 'Troubleshooting Guide',
-    customMetadata: {
-      doc_type: 'support',
-      category: 'troubleshooting',
-      language: 'en'
-    }
-  }
-});
-```
-
-### Pattern 2: Batch Document Upload
-
-```typescript
-const files = ['doc1.pdf', 'doc2.md', 'doc3.docx'];
-const uploadPromises = files.map(file =>
+// Upload all files concurrently
+const uploadPromises = filePaths.map(filePath =>
   ai.fileSearchStores.uploadToFileSearchStore({
     name: fileStore.name,
-    file: fs.createReadStream(file),
-    config: { displayName: file }
+    file: fs.createReadStream(filePath),
+    config: {
+      displayName: filePath.split('/').pop(),
+      customMetadata: {
+        doc_type: 'support',
+        source_path: filePath
+      },
+      chunkingConfig: {
+        whiteSpaceConfig: {
+          maxTokensPerChunk: 500,
+          maxOverlapTokens: 50
+        }
+      }
+    }
   })
-);
-const operations = await Promise.all(uploadPromises);
+)
+
+const operations = await Promise.all(uploadPromises)
 
 // Poll all operations
-for (const op of operations) {
-  let operation = op;
-  while (!operation.done) {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    operation = await ai.operations.get({ name: operation.name });
+for (const operation of operations) {
+  let op = operation
+  while (!op.done) {
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    op = await ai.operations.get({ name: op.name })
   }
-  console.log('✅', operation.response.displayName);
+  console.log('✅ Indexed:', op.response.displayName)
 }
 ```
 
-### Pattern 3: Document Update Flow
+### Step 4: Query with File Search
+
+**Basic Query:**
 
 ```typescript
-// 1. List existing documents
-const docs = await ai.fileSearchStores.documents.list({
-  parent: fileStore.name
-});
-
-// 2. Delete old version
-const oldDoc = docs.documents.find(d => d.displayName === 'manual.pdf');
-if (oldDoc) {
-  await ai.fileSearchStores.documents.delete({
-    name: oldDoc.name,
-    force: true
-  });
-}
-
-// 3. Upload new version
-const operation = await ai.fileSearchStores.uploadToFileSearchStore({
-  name: fileStore.name,
-  file: fs.createReadStream('manual-v2.pdf'),
+const response = await ai.models.generateContent({
+  model: 'gemini-3-flash',
+  contents: 'What are the safety precautions for installation?',
   config: {
-    displayName: 'manual.pdf',
-    customMetadata: {
-      version: '2.0',
-      updated_at: new Date().toISOString()
-    }
+    tools: [{
+      fileSearch: {
+        fileSearchStoreNames: [fileStore.name]
+      }
+    }]
   }
-});
+})
 
-// 4. Poll until done
-while (!operation.done) {
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  operation = await ai.operations.get({ name: operation.name });
+console.log('Answer:', response.text)
+
+// Access citations
+const grounding = response.candidates[0].groundingMetadata
+if (grounding?.groundingChunks) {
+  console.log('\nSources:')
+  grounding.groundingChunks.forEach((chunk, i) => {
+    console.log(`${i + 1}. ${chunk.retrievedContext?.title || 'Unknown'}`)
+    console.log(`   URI: ${chunk.retrievedContext?.uri || 'N/A'}`)
+  })
 }
 ```
 
-**Load `references/setup-guide.md` for additional patterns including code documentation search and internal knowledge bases.**
+**Query with Metadata Filtering:**
 
----
+```typescript
+const response = await ai.models.generateContent({
+  model: 'gemini-3-flash',
+  contents: 'How do I reset the device?',
+  config: {
+    tools: [{
+      fileSearch: {
+        fileSearchStoreNames: [fileStore.name],
+        // Filter to only search troubleshooting docs in English, version 1.0
+        metadataFilter: 'doc_type="troubleshooting" AND language="en" AND version="1.0"'
+      }
+    }]
+  }
+})
 
-## When to Load References
+console.log('Answer:', response.text)
+```
 
-### Load `references/setup-guide.md` when:
-- First-time File Search setup
-- Need step-by-step walkthrough with all configuration options
-- Configuring batch upload strategies
-- Production deployment checklist
-- Complete API initialization patterns
+**Metadata Filter Syntax:**
+- AND: `key1="value1" AND key2="value2"`
+- OR: `key1="value1" OR key1="value2"`
+- Parentheses: `(key1="a" OR key1="b") AND key2="c"`
 
-### Load `references/error-catalog.md` when:
-- Encountering any of 8 common errors
-- Need detailed error solutions with code examples
-- Prevention checklist required
-- Troubleshooting upload/query issues
-- Understanding chunking, metadata, or cost calculation problems
+### Step 5: List and Manage Documents
 
----
+```typescript
+// List all documents in store
+const docs = await ai.fileSearchStores.documents.list({
+  parent: fileStore.name,
+  pageSize: 20
+})
 
-## Supported File Formats
+console.log(`Total documents: ${docs.documents?.length || 0}`)
 
-**100+ formats including:**
-- **Documents**: PDF, Word (.docx), Excel (.xlsx), PowerPoint (.pptx)
-- **Text**: Markdown (.md), Plain text (.txt), JSON, CSV
-- **Code**: Python, JavaScript, TypeScript, Java, C++, Go, Rust, etc.
+docs.documents?.forEach(doc => {
+  console.log(`- ${doc.displayName} (${doc.name})`)
+  console.log(`  Metadata:`, doc.customMetadata)
+})
 
-**Not supported:** Images in PDFs (text extraction only), Audio files, Video files
+// Get specific document details
+const docDetails = await ai.fileSearchStores.documents.get({
+  name: docs.documents[0].name
+})
 
----
+console.log('Document details:', docDetails)
 
-## Pricing
+// Delete document
+await ai.fileSearchStores.documents.delete({
+  name: docs.documents[0].name,
+  force: true
+})
+```
 
-**Indexing (one-time):** $0.15 per 1M tokens
-**Storage:** Free (10 GB - 1 TB depending on tier)
-**Query embeddings:** Free (retrieved context counts as input tokens)
+### Step 6: Cleanup
 
-**Example:** 1,000-page document ≈ 500k tokens → Indexing cost: $0.075 → Storage: ~1.5 GB (3x multiplier)
+```typescript
+// Delete entire store (force deletes all documents)
+await ai.fileSearchStores.delete({
+  name: fileStore.name,
+  force: true
+})
 
----
+console.log('✅ Store deleted')
+```
 
-## Chunking Guidelines
+## Recommended Chunking Strategies
 
-**Technical docs:** 500 tokens/chunk, 50 overlap
-**Prose:** 800 tokens/chunk, 80 overlap
-**Legal:** 300 tokens/chunk, 30 overlap
+Chunking configuration significantly impacts retrieval quality. Adjust based on content type:
+
+### Technical Documentation
 
 ```typescript
 chunkingConfig: {
   whiteSpaceConfig: {
-    maxTokensPerChunk: 500,  // Smaller = more precise
-    maxOverlapTokens: 50     // 10% overlap recommended
+    maxTokensPerChunk: 500,   // Smaller chunks for precise code/API lookup
+    maxOverlapTokens: 50      // 10% overlap
   }
 }
 ```
 
+**Best for:** API docs, SDK references, code examples, configuration guides
+
+### Prose and Articles
+
+```typescript
+chunkingConfig: {
+  whiteSpaceConfig: {
+    maxTokensPerChunk: 800,   // Larger chunks preserve narrative flow
+    maxOverlapTokens: 80      // 10% overlap
+  }
+}
+```
+
+**Best for:** Blog posts, news articles, product descriptions, marketing materials
+
+### Legal and Contracts
+
+```typescript
+chunkingConfig: {
+  whiteSpaceConfig: {
+    maxTokensPerChunk: 300,   // Very small chunks for high precision
+    maxOverlapTokens: 30      // 10% overlap
+  }
+}
+```
+
+**Best for:** Legal documents, contracts, regulations, compliance docs
+
+### FAQ and Support
+
+```typescript
+chunkingConfig: {
+  whiteSpaceConfig: {
+    maxTokensPerChunk: 400,   // Medium chunks (1-2 Q&A pairs)
+    maxOverlapTokens: 40      // 10% overlap
+  }
+}
+```
+
+**Best for:** FAQs, troubleshooting guides, how-to articles
+
+**General Rule:** Maintain 10% overlap (overlap = chunk size / 10) to prevent context loss at chunk boundaries.
+
+## Metadata Best Practices
+
+Design metadata schema for filtering and organization:
+
+### Example: Customer Support Knowledge Base
+
+```typescript
+customMetadata: {
+  doc_type: 'faq' | 'manual' | 'troubleshooting' | 'guide',
+  product: 'widget-pro' | 'widget-lite',
+  version: '1.0' | '2.0',
+  language: 'en' | 'es' | 'fr',
+  category: 'installation' | 'configuration' | 'maintenance',
+  priority: 'critical' | 'normal' | 'low',
+  last_updated: '2025-01-15',
+  author: 'support-team'
+}
+```
+
+**Query Example:**
+```typescript
+metadataFilter: 'product="widget-pro" AND (doc_type="troubleshooting" OR doc_type="faq") AND language="en"'
+```
+
+### Example: Legal Document Repository
+
+```typescript
+customMetadata: {
+  doc_type: 'contract' | 'regulation' | 'case-law' | 'policy',
+  jurisdiction: 'US' | 'EU' | 'UK',
+  practice_area: 'employment' | 'corporate' | 'ip' | 'tax',
+  effective_date: '2025-01-01',
+  status: 'active' | 'archived',
+  confidentiality: 'public' | 'internal' | 'privileged'
+}
+```
+
+### Example: Code Documentation
+
+```typescript
+customMetadata: {
+  doc_type: 'api-reference' | 'tutorial' | 'example' | 'changelog',
+  language: 'javascript' | 'python' | 'java' | 'go',
+  framework: 'react' | 'nextjs' | 'express' | 'fastapi',
+  version: '1.2.0',
+  difficulty: 'beginner' | 'intermediate' | 'advanced'
+}
+```
+
+**Tips:**
+- Use consistent key naming (`snake_case` or `camelCase`)
+- Limit to most important filterable fields (20 max)
+- Use enums/constants for values (easier filtering)
+- Include version and date fields for time-based filtering
+
+## Cost Optimization
+
+### 1. Deduplicate Before Upload
+
+```typescript
+// Track uploaded file hashes to avoid duplicates
+const uploadedHashes = new Set<string>()
+
+async function uploadWithDeduplication(filePath: string) {
+  const fileHash = await getFileHash(filePath)
+
+  if (uploadedHashes.has(fileHash)) {
+    console.log(`Skipping duplicate: ${filePath}`)
+    return
+  }
+
+  await ai.fileSearchStores.uploadToFileSearchStore({
+    name: fileStore.name,
+    file: fs.createReadStream(filePath)
+  })
+
+  uploadedHashes.add(fileHash)
+}
+```
+
+### 2. Compress Large Files
+
+```typescript
+// Convert images to text before indexing (OCR)
+// Compress PDFs (remove images, use text-only)
+// Use markdown instead of Word docs (smaller size)
+```
+
+### 3. Use Metadata Filtering to Reduce Query Scope
+
+```typescript
+// ❌ EXPENSIVE: Search all 10GB of documents
+const response = await ai.models.generateContent({
+  model: 'gemini-3-flash',
+  contents: 'Reset procedure?',
+  config: {
+    tools: [{ fileSearch: { fileSearchStoreNames: [fileStore.name] } }]
+  }
+})
+
+// ✅ CHEAPER: Filter to only troubleshooting docs (subset)
+const response = await ai.models.generateContent({
+  model: 'gemini-3-flash',
+  contents: 'Reset procedure?',
+  config: {
+    tools: [{
+      fileSearch: {
+        fileSearchStoreNames: [fileStore.name],
+        metadataFilter: 'doc_type="troubleshooting"'  // Reduces search scope
+      }
+    }]
+  }
+})
+```
+
+### 4. Choose Flash Over Pro for Cost Savings
+
+```typescript
+// Gemini 3 Flash is 10x cheaper than Pro for queries
+// Use Flash unless you need Pro's advanced reasoning
+
+// Development/testing: Use Flash
+model: 'gemini-3-flash'
+
+// Production (high-stakes answers): Use Pro
+model: 'gemini-3-pro'
+```
+
+### 5. Monitor Storage Usage
+
+```typescript
+// List stores and estimate storage
+const stores = await ai.fileSearchStores.list()
+
+for (const store of stores.fileSearchStores || []) {
+  const docs = await ai.fileSearchStores.documents.list({
+    parent: store.name
+  })
+
+  console.log(`Store: ${store.displayName}`)
+  console.log(`Documents: ${docs.documents?.length || 0}`)
+  // Estimate storage (3x input size)
+  console.log(`Estimated storage: ~${(docs.documents?.length || 0) * 10} MB`)
+}
+```
+
+## Testing & Verification
+
+### Verify Store Creation
+
+```typescript
+const store = await ai.fileSearchStores.get({
+  name: fileStore.name
+})
+
+console.assert(store.displayName === 'my-knowledge-base', 'Store name mismatch')
+console.log('✅ Store created successfully')
+```
+
+### Verify Document Indexing
+
+```typescript
+const docs = await ai.fileSearchStores.documents.list({
+  parent: fileStore.name
+})
+
+console.assert(docs.documents?.length > 0, 'No documents indexed')
+console.log(`✅ ${docs.documents?.length} documents indexed`)
+```
+
+### Verify Query Functionality
+
+```typescript
+const response = await ai.models.generateContent({
+  model: 'gemini-3-flash',
+  contents: 'What is this knowledge base about?',
+  config: {
+    tools: [{ fileSearch: { fileSearchStoreNames: [fileStore.name] } }]
+  }
+})
+
+console.assert(response.text.length > 0, 'Empty response')
+console.log('✅ Query successful:', response.text.substring(0, 100) + '...')
+```
+
+### Verify Citations
+
+```typescript
+const response = await ai.models.generateContent({
+  model: 'gemini-3-flash',
+  contents: 'Provide a specific answer with citations.',
+  config: {
+    tools: [{ fileSearch: { fileSearchStoreNames: [fileStore.name] } }]
+  }
+})
+
+const grounding = response.candidates[0].groundingMetadata
+console.assert(
+  grounding?.groundingChunks?.length > 0,
+  'No grounding/citations returned'
+)
+console.log(`✅ ${grounding?.groundingChunks?.length} citations returned`)
+```
+
+## Integration Examples
+
+This skill includes 3 working templates in the `templates/` directory:
+
+### Template 1: basic-node-rag
+
+Minimal Node.js/TypeScript example demonstrating:
+- Create file search store
+- Upload multiple documents
+- Query with natural language
+- Display citations
+
+**Use when:** Learning File Search, prototyping, simple CLI tools
+
+**Run:**
+```bash
+cd templates/basic-node-rag
+npm install
+npm run dev
+```
+
+### Template 2: cloudflare-worker-rag
+
+Cloudflare Workers integration showing:
+- Edge API for document upload
+- Edge API for semantic search
+- Integration with R2 for document storage
+- Hybrid architecture (Gemini File Search + Cloudflare edge)
+
+**Use when:** Building global edge applications, integrating with Cloudflare stack
+
+**Deploy:**
+```bash
+cd templates/cloudflare-worker-rag
+npm install
+npx wrangler deploy
+```
+
+### Template 3: nextjs-docs-search
+
+Full-stack Next.js application featuring:
+- Document upload UI with drag-and-drop
+- Real-time search interface
+- Citation rendering with source links
+- Metadata filtering UI
+
+**Use when:** Building production documentation sites, knowledge bases
+
+**Run:**
+```bash
+cd templates/nextjs-docs-search
+npm install
+npm run dev
+```
+
+
+## References
+
+**Official Documentation:**
+- File Search Overview: https://ai.google.dev/gemini-api/docs/file-search
+- API Reference (Stores): https://ai.google.dev/api/file-search/file-search-stores
+- API Reference (Documents): https://ai.google.dev/api/file-search/documents
+- Blog Announcement: https://blog.google/technology/developers/file-search-gemini-api/
+- Pricing: https://ai.google.dev/pricing
+
+**Tutorials:**
+- JavaScript/TypeScript Guide: https://www.philschmid.de/gemini-file-search-javascript
+- SDK Repository: https://github.com/googleapis/js-genai
+
+**Bundled Resources in This Skill:**
+- `references/api-reference.md` - Complete API documentation
+- `references/chunking-best-practices.md` - Detailed chunking strategies
+- `references/pricing-calculator.md` - Cost estimation guide
+- `references/migration-from-openai.md` - Migration guide from OpenAI Files API
+- `scripts/create-store.ts` - CLI tool to create stores
+- `scripts/upload-batch.ts` - Batch upload script
+- `scripts/query-store.ts` - Interactive query tool
+- `scripts/cleanup.ts` - Cleanup script
+
+**Working Templates:**
+- `templates/basic-node-rag/` - Minimal Node.js example
+- `templates/cloudflare-worker-rag/` - Edge deployment example
+- `templates/nextjs-docs-search/` - Full-stack Next.js app
+
 ---
 
-## Resources
-
-**References** (`references/`):
-- `setup-guide.md` - Complete setup walkthrough (authentication, store creation, file upload, batch patterns, production checklist)
-- `error-catalog.md` - All 8 documented errors with solutions (immutability, storage, chunking, metadata, costs, polling, force delete, model compatibility)
-
-**Official Documentation**:
-- **File Search Overview**: https://ai.google.dev/api/file-search
-- **API Reference**: https://ai.google.dev/api/file-search/documents
-- **Blog Post**: https://blog.google/technology/developers/file-search-gemini-api/
-
----
-
-**Questions? Issues?**
-
-1. Check `references/setup-guide.md` for complete setup
-2. Review `references/error-catalog.md` for all 8 errors
-3. Verify model version (must be Gemini 2.5)
-4. Check storage calculation (3x file size)
+**Skill Version:** 1.0.0
+**Last Verified:** 2026-01-09
+**Package Version:** @google/genai ^1.35.0 (minimum 1.29.0 required)
+**Token Savings:** ~65%
+**Errors Prevented:** 8

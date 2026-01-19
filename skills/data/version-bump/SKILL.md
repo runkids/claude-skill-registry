@@ -1,101 +1,90 @@
 ---
 name: version-bump
-description: Manage semantic version updates for any project. Handles patch, minor, and major version increments following semantic versioning. Updates all version-tracked files (e.g., package.json, pyproject.toml, etc.). Creates git tags and GitHub releases. Auto-generates CHANGELOG.md from releases.
+description: Increment app version numbers. Use when user asks to bump version, increment version, or prepare a release.
 ---
 
-# Version Bump Skill
+# Version Bump
 
-Manage semantic versioning across any project with consistent updates to all version-tracked files.
+## Action
 
-## Quick Reference
+When this skill is invoked:
+1. Read current version from `mac-app/macos-host/Info.plist`
+2. Increment CFBundleShortVersionString (bump the last number, e.g., `0.2.0-alpha.10` → `0.2.0-alpha.11`)
+3. Increment CFBundleVersion build number (e.g., `11` → `12`)
+4. Apply the changes to Info.plist
+5. Report the version change to the user
 
-**Common files requiring updates:**
-1. `package.json` (line 3) - Node.js projects
-2. `pyproject.toml` - Python projects
-3. Additional project-specific version files
+## Single Source of Truth
 
-**Semantic versioning:**
-- **PATCH** (x.y.Z): Bugfixes only
-- **MINOR** (x.Y.0): New features, backward compatible
-- **MAJOR** (X.0.0): Breaking changes
-
-## Quick Decision Guide
-
-**What changed?**
-- "Fixed a bug" → PATCH (5.3.0 → 5.3.1)
-- "Added new feature" → MINOR (5.3.0 → 5.4.0)
-- "Breaking change" → MAJOR (5.3.0 → 6.0.0)
-
-**If unclear, ASK THE USER explicitly.**
-
-## Standard Workflow
-
-See [operations/workflow.md](operations/workflow.md) for detailed step-by-step process.
-
-**Quick version:**
-1. Determine version type (PATCH/MINOR/MAJOR)
-2. Calculate new version from current
-3. Preview changes to user
-4. Update ALL THREE files
-5. Verify consistency
-6. Build and test
-7. Commit and create git tag
-8. Push and create GitHub release
-9. Generate CHANGELOG.md from releases and commit
-10. Post Discord notification
-
-## Common Scenarios
-
-See [operations/scenarios.md](operations/scenarios.md) for examples:
-- Bug fix releases
-- New feature releases
-- Breaking change releases
-
-## Critical Rules
-
-**ALWAYS:**
-- Update ALL files with matching version numbers
-- Create git tag with format `vX.Y.Z`
-- Create GitHub release from the tag
-- Generate CHANGELOG.md from releases after creating release
-- Post Discord notification after release
-- Ask user if version type is unclear
-
-**NEVER:**
-- Update only one files
-- Skip the verification step
-- Forget to create git tag or GitHub release
-
-## Verification Checklist
-
-Before considering the task complete:
-- [ ] All files have matching version numbers
-- [ ] `bun run build` succeeds
-- [ ] Git commit created with all version files
-- [ ] Git tag created (format: vX.Y.Z)
-- [ ] Commit and tags pushed to remote
-- [ ] GitHub release created from the tag
-- [ ] CHANGELOG.md generated and committed
-- [ ] Discord notification sent
-
-## Reference Commands
-
-```bash
-# View current version (Node.js)
-grep '"version"' package.json
-
-# View current version (Python)
-grep '^version' pyproject.toml
-
-# Verify consistency across all version files (adjust paths as needed)
-grep '"version"' package.json pyproject.toml
-
-# View git tags
-git tag -l -n1
-
-# Check what will be committed
-git status
-git diff package.json pyproject.toml
+All version information comes from:
+```
+mac-app/macos-host/Info.plist
 ```
 
-For more commands, see [operations/reference.md](operations/reference.md).
+Two version fields:
+- **CFBundleShortVersionString**: Display version (e.g., `0.2.0-alpha.4`)
+- **CFBundleVersion**: Build number (e.g., `5`) - must be incremented for every release
+
+## How to Update Version
+
+1. Edit `mac-app/macos-host/Info.plist`
+2. Update both fields:
+
+```xml
+<key>CFBundleShortVersionString</key>
+<string>0.2.0-alpha.5</string>
+<key>CFBundleVersion</key>
+<string>6</string>
+```
+
+**Important**: Always increment CFBundleVersion. Sparkle uses this numeric value to determine if an update is available.
+
+## Version Format
+
+Follow semantic versioning with optional pre-release identifiers:
+- `MAJOR.MINOR.PATCH` for stable releases (e.g., `1.0.0`)
+- `MAJOR.MINOR.PATCH-alpha.N` for alpha releases (e.g., `0.2.0-alpha.4`)
+- `MAJOR.MINOR.PATCH-beta.N` for beta releases (e.g., `0.2.0-beta.1`)
+
+## Release Process
+
+1. Update version in `Info.plist` (both fields)
+2. Commit the change
+3. Push to main
+4. Go to GitHub Actions and manually trigger the "Release macOS App" workflow
+5. The workflow will:
+   - Read version from Info.plist
+   - Build and sign the app
+   - Notarize with Apple
+   - Create GitHub release with tag `v{version}`
+   - Update the appcast at releases.nomendex.com
+
+## Where Version is Used
+
+| Location | Source | Purpose |
+|----------|--------|---------|
+| Info.plist | Manual edit | Single source of truth |
+| GitHub Release | Workflow reads Info.plist | Release tag and assets |
+| Appcast XML | Workflow reads Info.plist | Sparkle update detection |
+| UI Sidebar | `/api/version` endpoint | Display to user |
+
+## API Endpoint
+
+The sidecar serves version info at `/api/version`:
+```json
+{
+  "version": "0.2.0-alpha.4",
+  "buildNumber": "5"
+}
+```
+
+This reads from Info.plist at runtime, checking multiple paths for dev vs bundled app.
+
+## Sparkle Update Detection
+
+Sparkle compares CFBundleVersion (build number) to determine updates:
+- Current app: build `5`
+- Appcast shows: build `6`
+- Result: Update available
+
+This is why CFBundleVersion must always increase, even for the same display version.

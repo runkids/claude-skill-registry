@@ -1,7 +1,7 @@
 {
   "name": "query-optimization",
-  "repo": "sgcarstrends/sgcarstrends",
-  "path": ".claude/skills/query-optimization/SKILL.md",
-  "source": "github.com/sgcarstrends/sgcarstrends",
-  "downloaded_at": "2026-01-17T02:37:36.144678Z"
+  "repo": "JosiahSiegel/claude-plugin-marketplace",
+  "path": "plugins/tsql-master/skills/query-optimization/SKILL.md",
+  "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
+  "downloaded_at": "2026-01-19T04:00:08.217594Z"
 }

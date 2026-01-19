@@ -1,139 +1,177 @@
 ---
 name: mcp-server
-description: Build MCP (Model Context Protocol) servers for CasareRPA integrations using Python FastMCP. Covers server structure, tool design, error handling, and RPA-specific patterns. See references/ for detailed guides. Use when: creating MCP servers, tool design, error handling, RPA-specific patterns, FastMCP, Context logging, lifespan hooks.
+description: This skill should be used when setting up a stateless MCP (Model Context Protocol) server in FastAPI using the Official MCP SDK with 5 task management tools that interact with SQLModel database.
 ---
 
-# MCP Server Builder
+# MCP Server Setup Skill
 
-Build Model Context Protocol servers for RPA integrations.
+This skill provides guidance for setting up a stateless MCP server using the Official MCP SDK in FastAPI.
 
-## Quick Start
+## Purpose
+
+Create a stateless MCP server that provides 5 task management tools (add_task, list_tasks, complete_task, delete_task, update_task) with proper user isolation, database integration, and error handling.
+
+## When to Use
+
+Use this skill when:
+- Setting up a new MCP server for chatbot integration
+- Adding MCP tools for task management functionality
+- Creating MCP server infrastructure with database integration
+- Implementing tool chaining and error handling for MCP
+
+## Capabilities
+
+- **Stateless Design**: Each request independent, no server-side state between calls
+- **User Isolation**: All tools require user_id and enforce ownership at query level
+- **Tool Chaining**: Tools designed to be safely called by other tools
+- **Async Performance**: Full async/await support for concurrent operations
+- **Error Handling**: Structured errors (400, 401, 403, 404, 500) with descriptive messages
+
+## MCP Server Architecture
+
+### Server Structure
+
+```
+backend/
+├── mcp_server.py      # Main MCP server with FastAPI integration
+├── mcp_tools.py       # Tool implementations
+├── mcp_config.py      # Server configuration
+└── main.py            # Updated with MCP server startup
+```
+
+### Tool Signatures
+
+| Tool | Parameters | Returns |
+|------|------------|---------|
+| `add_task` | user_id: str, title: str, description?: str, priority?: int, due_date?: str | {success: bool, task_id: str, task: dict} |
+| `list_tasks` | user_id: str, status?: str, priority?: int | {success: bool, tasks: list[dict]} |
+| `complete_task` | user_id: str, task_id: str | {success: bool, task: dict} |
+| `delete_task` | user_id: str, task_id: str | {success: bool, deleted_task_id: str} |
+| `update_task` | user_id: str, task_id: str, title?: str, description?: str, priority?: int, due_date?: str | {success: bool, task: dict} |
+
+## Implementation Pattern
+
+### MCP Server Setup
 
 ```python
-from fastmcp import FastMCP, Context
-from typing import Dict, Any
+from mcp.server.fastapi import FastAPIMCP
+from fastapi import FastAPI
 
-mcp = FastMCP(
-    name="CasareRPA Integration",
-    instructions="Execute and manage RPA workflows"
-)
+app = FastAPI()
+mcp_server = FastAPIMCP(app)
 
-@mcp.tool()
-async def execute_workflow(
-    workflow_id: str,
-    ctx: Context
-) -> Dict[str, Any]:
-    """Execute a CasareRPA workflow by ID.
-
-    Args:
-        workflow_id: UUID of the workflow to execute
-        ctx: FastMCP context for logging
-
-    Returns:
-        Execution result with status and output
-    """
-    await ctx.info(f"Executing workflow: {workflow_id}")
-    # Implementation details in references/python-mcp.md
-    return {"status": "success", "workflow_id": workflow_id}
-
-if __name__ == "__main__":
-    mcp.run(transport="stdio")
+@mcp_server.tool()
+async def add_task(user_id: str, title: str, description: str = None) -> dict:
+    """Add a new task for the specified user."""
+    # Extract user_id from context
+    # Validate parameters
+    # Execute with user_id filter: WHERE user_id = :user_id
+    # Return structured JSON response
 ```
 
-## Server Structure
-
-```
-src/casare_rpa/infrastructure/mcp/
-├── __init__.py
-├── server.py           # FastMCP server instance
-├── tools/              # Tool implementations
-│   ├── workflow.py     # Workflow execution tools
-│   ├── robot.py        # Robot control tools
-│   └── monitoring.py   # Status and monitoring
-└── resources/          # MCP resources
-    └── status.py       # Server status resources
-```
-
-## Key Concepts
-
-| Concept | Description | Reference |
-|---------|-------------|-----------|
-| Tools | Callable functions for LLMs | `references/mcp-best-practices.md` |
-| Resources | Static/dynamic data endpoints | `references/mcp-best-practices.md` |
-| Context | Logging, progress reporting | `references/python-mcp.md` |
-| Lifespan | Startup/shutdown hooks | `references/python-mcp.md` |
-| Error Handling | Graceful failure patterns | `references/mcp-best-practices.md` |
-
-## Tool Naming
-
-Use verb_noun pattern matching RPA operations:
-- `execute_workflow`, `list_workflows`, `stop_workflow`
-- `get_robot_status`, `start_robot`, `pause_robot`
-- `read_variable`, `set_variable`, `list_variables`
-
-## Error Handling
-
-Always wrap external calls and use Context for logging:
+### Database Session Management
 
 ```python
-@mcp.tool()
-async def safe_operation(param: str, ctx: Context) -> Dict[str, Any]:
-    try:
-        result = await external_api_call(param)
-        await ctx.info(f"Operation completed: {param}")
-        return {"status": "success", "data": result}
-    except ValueError as e:
-        await ctx.error(f"Validation failed: {e}")
-        return {"status": "error", "message": str(e)}
-    except Exception as e:
-        await ctx.error(f"Unexpected error: {e}")
-        return {"status": "error", "message": "Operation failed"}
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker
+
+engine = create_async_engine(DATABASE_URL)
+async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+async def get_db_session():
+    async with async_session() as session:
+        yield session
 ```
 
-## RPA-Specific Patterns
+### User ID Enforcement
 
-### Long-Running Operations
-Use progress reporting for workflow execution:
 ```python
-await ctx.report_progress(5, 10)  # 5/10 complete
+async def add_task(user_id: str, title: str, ...) -> dict:
+    if not user_id:
+        raise ValueError("user_id is required")
+
+    # Always filter by user_id in queries
+    statement = select(Task).where(
+        Task.id == task_id,
+        Task.user_id == user_id  # Critical for isolation
+    )
 ```
 
-### Resource Cleanup
-Use lifespan for connections:
+## Tool Implementation Checklist
+
+For each tool, implement:
+
+1. **Parameter Validation**: Check required fields, types, and constraints
+2. **User ID Extraction**: Get user_id from request context or parameters
+3. **Database Operation**: Execute with proper user_id filtering
+4. **Response Construction**: Return structured JSON with success status
+5. **Error Handling**: Catch exceptions and return appropriate error codes
+6. **Logging**: Log operation outcomes for debugging
+
+## Error Taxonomy
+
+| Status | Condition | Example |
+|--------|-----------|---------|
+| 400 | Invalid input parameters | Missing required fields, invalid types |
+| 401 | Missing/unauthorized user | No user_id provided |
+| 403 | User not authorized | user_id doesn't match resource owner |
+| 404 | Resource not found | Task doesn't exist |
+| 500 | Internal error | Database connection failed |
+
+## Tool Chaining Support
+
+Design tools to support chaining:
+
 ```python
-from contextlib import asynccontextmanager
+async def complete_task(user_id: str, task_id: str) -> dict:
+    """Mark a task as complete. Can be called by other tools."""
+    task = await get_task_by_id(user_id, task_id)
+    if task:
+        task.completed = True
+        await session.commit()
+    return {"success": True, "task": task_to_dict(task)}
 
-@asynccontextmanager
-async def lifespan(app: FastMCP):
-    # Startup: connect to orchestrator
-    await orchestrator.connect()
-    yield
-    # Shutdown: cleanup
-    await orchestrator.disconnect()
-
-mcp = FastMCP("RPA Server", lifespan=lifespan)
+async def list_tasks(user_id: str, status: str = None) -> dict:
+    """List tasks. Supports filtering by status."""
+    # This can chain to complete_task or other tools
 ```
 
-## Testing
+## Dependencies
+
+```txt
+mcp>=0.9.0
+fastapi>=0.100.0
+sqlmodel>=0.0.14
+sqlalchemy>=2.0.0
+```
+
+## Running the Server
 
 ```bash
-# Development with inspector
-fastmcp dev server.py
-
-# Run tests
-pytest tests/infrastructure/mcp/ -v
+cd backend
+uvicorn mcp_server:app --host 0.0.0.0 --port 8001
 ```
 
-## References
+## Integration with Main App
 
-| File | Content |
-|------|---------|
-| `references/mcp-best-practices.md` | Tool design, naming, error patterns |
-| `references/python-mcp.md` | FastMCP-specific patterns |
-| `references/evaluation.md` | Testing and evaluation checklist |
+```python
+# main.py
+from mcp_server import mcp
 
-## See Also
+app = FastAPI()
+app.include_router(mcp.router)
 
-- `.brain/systemPatterns.md` - CasareRPA architecture patterns
-- `src/casare_rpa/infrastructure/orchestrator/` - Workflow orchestration
-- `docs/developer-guide/architecture/mcp-integration.md` - Full integration guide
+@app.on_event("startup")
+async def startup():
+    await mcp.run()
+```
+
+## Verification Checklist
+
+- [ ] All 5 tools registered and accessible
+- [ ] User ID enforced in every database query
+- [ ] JSON responses match specification
+- [ ] Error handling returns appropriate codes
+- [ ] Tool chaining works correctly
+- [ ] Server starts without errors
+- [ ] Database connections work

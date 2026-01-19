@@ -1,114 +1,142 @@
 ---
 name: data-analysis
-description: Data processing, analysis, and visualization with Python/JavaScript. Use for data exploration, pandas operations, chart generation, and insights extraction.
+description: 代码库功能完成度分析工具。分析项目中各功能模块的实现状态、核心文件存在性、架构采用情况，并生成结构化的JSON分析报告。适用于项目进度跟踪、功能盘点、技术债务评估等场景。
 ---
 
-# 📊 Data Analysis Skill
+# 代码库分析工具
 
-## Python Data Processing
+代码库功能完成度分析工具，用于评估项目开发进度和质量。
 
-### Pandas Basics
-```python
-import pandas as pd
-import numpy as np
+## 快速开始
 
-# Read data
-df = pd.read_csv('data.csv')
-df = pd.read_json('data.json')
-df = pd.read_excel('data.xlsx')
+### 基本使用流程
 
-# Basic exploration
-df.head()        # First 5 rows
-df.info()        # Column types
-df.describe()    # Statistics
-df.shape         # (rows, cols)
+1. **准备分析配置**：确保项目中存在功能模块定义文件（如 JSON 配置）
+2. **执行分析**：运行代码库分析命令或请求 AI 助手执行分析
+3. **查看报告**：获取 JSON 格式的详细分析报告
+4. **采取行动**：根据报告识别需要改进的模块
+
+### 快速示例
+
+```
+用户：分析当前项目的功能完成度
+助手：
+1. 读取 codebase-analysis.json 配置
+2. 检查各功能模块的核心文件
+3. 生成完成度报告
+4. 输出统计结果
 ```
 
-### Data Cleaning
-```python
-# Handle missing values
-df.dropna()                    # Drop rows with NaN
-df.fillna(0)                   # Fill NaN with value
-df['col'].fillna(df['col'].mean())  # Fill with mean
+## 核心功能
 
-# Remove duplicates
-df.drop_duplicates()
+### 功能模块分析
 
-# Type conversion
-df['date'] = pd.to_datetime(df['date'])
-df['price'] = df['price'].astype(float)
+- 检测各功能模块的核心文件是否存在
+- 评估功能完成度百分比
+- 标识部分实现和未实现的功能指标
+
+### 架构采用评估
+
+- 评估项目架构决策的落地情况
+- 检测技术选型的实际使用
+- 提供架构采用证据
+
+### 进度统计
+
+- 统计已实现功能数量
+- 计算整体项目完成度
+- 生成可视化的进度报告
+
+## 何时使用
+
+当您需要以下功能时使用此技能：
+
+1. **项目进度跟踪**：快速了解项目各功能模块的实现状态
+2. **功能盘点**：检查计划功能是否已完整实现
+3. **技术债务评估**：识别部分实现或缺失的功能
+4. **架构审查**：验证架构设计是否得到实际落地
+5. **交接文档生成**：为项目交接提供详细的功能清单
+
+## 输出格式
+
+生成 JSON 格式的分析报告，包含：
+
+- 功能模块状态（完整/部分/缺失）
+- 核心文件检查结果
+- 功能完成度评分
+- 架构采用情况
+- 整体项目统计
+
+## 使用场景
+
+**场景1：新成员加入团队**
+
+```
+用户：帮我分析一下这个项目有哪些功能已经实现了
+助手：使用 data-analysis 技能生成功能完成度报告
 ```
 
-### Aggregations
-```python
-# Group by
-df.groupby('category')['sales'].sum()
-df.groupby(['year', 'month']).agg({
-    'sales': 'sum',
-    'quantity': 'mean',
-    'price': ['min', 'max']
-})
+**场景2：Sprint 复盘**
 
-# Pivot tables
-pd.pivot_table(df, values='sales', index='category', columns='year')
+```
+用户：检查本次 Sprint 计划的功能是否都完成了
+助手：使用 data-analysis 技能对比计划与实现
 ```
 
----
+**场景3：技术债务评估**
 
-## Visualization
-
-### Matplotlib/Seaborn
-```python
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Basic line chart
-plt.figure(figsize=(10, 6))
-plt.plot(df['date'], df['sales'])
-plt.title('Sales Over Time')
-plt.xlabel('Date')
-plt.ylabel('Sales')
-plt.savefig('chart.png')
-
-# Seaborn heatmap
-sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
+```
+用户：找出那些只完成了部分功能的模块
+助手：使用 data-analysis 技能识别部分实现的功能
 ```
 
-### Chart.js (JavaScript)
-```javascript
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar'],
-    datasets: [{
-      label: 'Sales',
-      data: [12, 19, 3],
-      backgroundColor: 'rgba(99, 102, 241, 0.5)'
-    }]
-  }
-});
+## 工作流程
+
+### 完整分析流程
+
+```
+1. 读取配置
+   ↓
+   读取 codebase-analysis.json
+   解析功能模块定义
+
+2. 文件检查
+   ↓
+   遍历每个功能模块
+   检查核心文件是否存在
+
+3. 状态评估
+   ↓
+   计算功能完成度
+   识别实现指标
+
+4. 架构验证
+   ↓
+   检查架构决策
+   收集采用证据
+
+5. 生成报告
+   ↓
+   统计整体数据
+   输出 JSON 结果
 ```
 
----
+### 决策逻辑
 
-## Common Analysis Patterns
+- **完整实现**：所有核心文件存在 + 所有指标实现
+- **部分实现**：部分核心文件存在或部分指标实现
+- **未实现**：核心文件缺失且无指标实现
 
-| Task | Code |
-|------|------|
-| Top N items | `df.nlargest(10, 'sales')` |
-| Date filtering | `df[df['date'] >= '2024-01-01']` |
-| Rolling average | `df['sales'].rolling(7).mean()` |
-| Year-over-year | `df.groupby(df['date'].dt.year)` |
-| Percentiles | `df['sales'].quantile([0.25, 0.5, 0.75])` |
+## 快速提交工具
 
----
+技能还包含快速 Git 提交脚本 `push.sh`，支持一键添加、提交和推送代码：
 
-## Analysis Checklist
+```bash
+./push.sh "提交信息"
+```
 
-- [ ] Load and inspect data
-- [ ] Handle missing values
-- [ ] Clean and transform
-- [ ] Exploratory analysis
-- [ ] Create visualizations
-- [ ] Extract insights
-- [ ] Document findings
+## 注意事项
+
+- 分析结果基于文件存在性检查，不代表代码质量
+- 需要预定义功能模块和核心文件清单
+- 适合配合项目文档一起使用

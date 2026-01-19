@@ -1,7 +1,7 @@
 {
   "name": "gh-cli",
-  "repo": "benchflow-ai/skillsbench",
-  "path": "tasks/gh-repo-analytics/environment/skills/gh-cli/SKILL.md",
-  "source": "github.com/benchflow-ai/skillsbench",
-  "downloaded_at": "2026-01-14T03:02:46.915059Z"
+  "repo": "ericmjl/skills",
+  "path": "skills/gh-cli/SKILL.md",
+  "source": "github.com/ericmjl/skills",
+  "downloaded_at": "2026-01-19T02:49:25.030903Z"
 }

@@ -307,7 +307,7 @@ When Phase 6 is complete (all proposals created), you MUST:
 ## See Also
 
 - Pipeline Orchestrator (triggers this)
-- PRD-to-Tasks skill (generates TaskMaster format)
+- prd-to-tasks skill (generates TaskMaster format)
 - TaskMaster documentation (for hierarchical structure)
 - Test Strategy Generator skill (Phase 6.1, auto-enhances proposals)
 - **Discovery Stage 2.4.5** (captures dependency documentation - REQUIRED before OpenSpec)

@@ -1,246 +1,303 @@
+/*============================================================================*/
+/* TERRAFORM-IAC SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-name: Terraform IaC Expert
-description: Infrastructure as Code for AI workloads using Terraform across AWS, Azure, GCP, and OCI
-version: 1.1.0
-last_updated: 2026-01-06
-external_version: "Terraform 1.10+"
-resources: resources/modules.tf
-triggers:
-  - terraform
-  - infrastructure as code
-  - IaC
-  - provisioning
+name: terraform-iac
+version: 1.0.0
+description: |
+  [assert|neutral] Terraform infrastructure as code specialist for multi-cloud deployments (AWS/GCP/Azure), state management with remote backends, module development, drift detection, policy as code with Sentinel/OPA, a [ground:given] [conf:0.95] [state:confirmed]
+category: Infrastructure
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute terraform-iac workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic Infrastructure processes"
 ---
 
-# Terraform IaC Expert
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
 
-Expert in Terraform and Infrastructure as Code for deploying AI infrastructure across multi-cloud environments.
+[define|neutral] SKILL := {
+  name: "terraform-iac",
+  category: "Infrastructure",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Project Structure
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["terraform-iac", "Infrastructure", "workflow"],
+  context: "user needs terraform-iac capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
+
+# Terraform Infrastructure as Code Specialist
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+
+
+Expert Terraform for cloud-agnostic infrastructure provisioning and state management.
+
+## Purpose
+
+Comprehensive Terraform expertise including multi-cloud deployments, state management, module development, drift detection, and GitOps. Ensures infrastructure is versioned, reproducible, and maintainable.
+
+## When to Use
+
+- Provisioning cloud infrastructure (AWS, GCP, Azure)
+- Managing infrastructure state with remote backends
+- Creating reusable Terraform modules
+- Implementing GitOps for infrastructure
+- Detecting and fixing infrastructure drift
+- Migrating from manual infrastructure to IaC
+- Multi-environment deployments (dev, staging, prod)
+
+## Prerequisites
+
+**Required**: Cloud provider basics (AWS/GCP/Azure), HCL syntax, Terraform CLI
+
+**Agents**: `system-architect`, `cicd-engineer`, `security-manager`, `reviewer`
+
+## Core Workflows
+
+### Workflow 1: AWS Infrastructure with Modules
+
+**Step 1: Directory Structure**
 
 ```
-infrastructure/
-├── modules/
-│   ├── aws-bedrock/
-│   ├── azure-openai/
-│   ├── oci-genai/
-│   └── vector-store/
-├── environments/
-│   ├── dev/
-│   ├── staging/
-│   └── prod/
-├── shared/
-│   ├── networking/
-│   └── security/
-└── scripts/
+terraform/
+├── main.tf
+├── variables.tf
+├── outputs.tf
+├── versions.tf
+├── terraform.tfvars
+└── modules/
+    ├── vpc/
+    │   ├── main.tf
+    │   ├── variables.tf
+    │   └── outputs.tf
+    └── ec2/
+        ├── main.tf
+        ├── variables.tf
+        └── outputs.tf
 ```
 
-## Module Overview
-
-| Module | Provider | Purpose |
-|--------|----------|---------|
-| `aws-bedrock` | AWS | Bedrock, Knowledge Bases, VPC Endpoints |
-| `azure-openai` | Azure | Azure OpenAI, AI Search, Private Endpoints |
-| `oci-genai` | OCI | DACs, Endpoints, Agents, Knowledge Bases |
-| `vector-store` | Multi | OpenSearch Serverless, Qdrant, Milvus |
-
-**Full module code:** `resources/modules.tf`
-
-## AWS AI Infrastructure
-
-### Bedrock Module
-```hcl
-module "aws_ai" {
-  source = "./modules/aws-bedrock"
-
-  prefix             = "prod"
-  region             = "us-east-1"
-  vpc_id             = data.aws_vpc.main.id
-  private_subnet_ids = data.aws_subnets.private.ids
-
-  enable_private_endpoint = true
-  create_knowledge_base   = true
-}
-```
-
-### Key Resources
-- IAM roles for Bedrock access
-- VPC endpoints for private connectivity
-- Knowledge bases with OpenSearch
-
-## Azure AI Infrastructure
-
-### Azure OpenAI Module
-```hcl
-module "azure_ai" {
-  source = "./modules/azure-openai"
-
-  openai_name         = "prod-openai"
-  location            = "eastus"
-  resource_group_name = azurerm_resource_group.ai.name
-
-  gpt4o_capacity      = 100  # TPM
-  embedding_capacity  = 50
-
-  enable_private_endpoint = true
-}
-```
-
-### Key Resources
-- Cognitive Account (OpenAI kind)
-- Model deployments (GPT-4o, embeddings)
-- Private endpoints
-- Azure AI Search
-
-## OCI AI Infrastructure
-
-### GenAI Module
-```hcl
-module "oci_ai" {
-  source = "./modules/oci-genai"
-
-  prefix         = "prod"
-  compartment_id = var.oci_compartment_id
-  cluster_type   = "HOSTING"
-  unit_count     = 10
-  unit_shape     = "LARGE_COHERE"
-
-  create_agent          = true
-  create_knowledge_base = true
-}
-```
-
-### Key Resources
-- Dedicated AI Clusters (DAC)
-- Model endpoints
-- GenAI Agents
-- Knowledge bases
-
-## Vector Store Infrastructure
-
-### OpenSearch Serverless (AWS)
-```hcl
-module "vectors" {
-  source = "./modules/vector-store/aws-opensearch"
-
-  prefix           = "prod"
-  vpc_endpoint_ids = [aws_vpc_endpoint.opensearch.id]
-  allowed_principals = [aws_iam_role.bedrock.arn]
-}
-```
-
-## Multi-Cloud Environment
+**Step 2: Main Configuration**
 
 ```hcl
-# environments/prod/main.tf
-
+# main.tf
 terraform {
+  required_version = ">= 1.5.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
   backend "s3" {
-    bucket = "terraform-state-ai-infra"
-    key    = "prod/terraform.tfstate"
-    encrypt = true
+    bucket         = "my-terraform-state"
+    key            = "production/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-lock"
   }
 }
 
-provider "aws" { region = var.aws_region }
-provider "azurerm" { features {} }
-provider "oci" { ... }
+provider "aws" {
+  region = var.aws_region
 
-# Deploy to all clouds
-module "aws_ai" { source = "../../modules/aws-bedrock" ... }
-module "azure_ai" { source = "../../modules/azure-openai" ... }
-module "oci_ai" { source = "../../modules/oci-genai" ... }
+  default_tags {
+    tags = {
+      Environment = var.environment
+      ManagedBy   = "Terraform"
+      Project     = var.project_name
+    }
+  }
+}
+
+module "vpc" {
+  source = "./modules/vpc"
+
+  vpc_cidr           = var.vpc_cidr
+  availability_zones = var.availability_zones
+  environment        = var.environment
+}
+
+module "ec2" {
+  source = "./modules/ec2"
+
+  vpc_id            = module.vpc.vpc_id
+  subnet_ids        = module.vpc.private_subnet_ids
+  instance_type     = var.instance_type
+  instance_count    = var.instance_count
+  security_group_id = module.vpc.security_group_id
+}
 ```
 
-## Best Practices
+**Step 3: Variables and Outputs**
 
-### State Management
-- Remote state (S3, Azure Blob, OCI Object Storage)
-- State locking (DynamoDB, Cosmos DB)
-- Encrypt state at rest
-- Separate state per environment
-
-### Variable Validation
 ```hcl
+# variables.tf
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "us-east-1"
+}
+
 variable "environment" {
-  type = string
+  description = "Environment name"
+  type        = string
   validation {
-    condition     = contains(["dev", "staging", "prod"], var.environment)
-    error_message = "Environment must be dev, staging, or prod."
+    condition     = contains(["dev", "staging", "production"], var.environment)
+    error_message = "Environment must be dev, staging, or production."
   }
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block for VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+# outputs.tf
+output "vpc_id" {
+  description = "VPC ID"
+  value       = module.vpc.vpc_id
+}
+
+output "instance_ids" {
+  description = "EC2 instance IDs"
+  value       = module.ec2.instance_ids
 }
 ```
 
-### Sensitive Data
-- Use `sensitive = true` for outputs
-- Reference secrets from secret managers
-- Never commit `.tfvars` with secrets
+### Workflow 2: Dynamic Blocks and for_each
 
-### Tagging
 ```hcl
-default_tags {
+# Dynamic ingress rules
+resource "aws_security_group" "app" {
+  name   = "${var.environment}-app-sg"
+  vpc_id = var.vpc_id
+
+  dynamic "ingress" {
+    for_each = var.ingress_rules
+    content {
+      from_port   = ingress.value.from_port
+      to_port     = ingress.value.to_port
+      protocol    = ingress.value.protocol
+      cidr_blocks = ingress.value.cidr_blocks
+      description = ingress.value.description
+    }
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# for_each for multiple resources
+resource "aws_instance" "app" {
+  for_each = toset(var.availability_zones)
+
+  ami           = var.ami_id
+  instance_type = var.instance_type
+  subnet_id     = var.subnet_ids[each.key]
+
   tags = {
-    Environment = var.environment
-    Project     = "ai-platform"
-    ManagedBy   = "terraform"
-  }
-}
-```
+    Name = "${var.environment}-app-${each.key}"
+    AZ   = each.v
 
-## CI/CD Integration
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### GitHub Actions
-```yaml
-- uses: hashicorp/setup-terraform@v3
-- run: terraform init
-- run: terraform plan -out=tfplan
-- run: terraform apply -auto-approve tfplan
-  if: github.ref == 'refs/heads/main'
-```
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Key Patterns
-- Plan on PR, apply on merge
-- Use workspaces or directories for environments
-- Lock state during apply
-- Store plan artifacts
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Managed Kubernetes GPU
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-### EKS GPU Nodes
-```hcl
-eks_managed_node_groups = {
-  gpu = {
-    instance_types = ["g5.2xlarge"]
-    ami_type = "AL2_x86_64_GPU"
-    taints = [{ key = "nvidia.com/gpu" ... }]
-  }
-}
-```
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-### AKS GPU Nodes
-```hcl
-resource "azurerm_kubernetes_cluster_node_pool" "gpu" {
-  vm_size = "Standard_NC24ads_A100_v4"
-  node_taints = ["nvidia.com/gpu=true:NoSchedule"]
-}
-```
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/Infrastructure/terraform-iac/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### OKE GPU Nodes
-```hcl
-resource "oci_containerengine_node_pool" "gpu" {
-  node_shape = "BM.GPU.A100-v2.8"
-}
-```
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "terraform-iac-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-**Full examples:** `resources/modules.tf`
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-## Resources
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest)
-- [Terraform Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
-- [Terraform OCI Provider](https://registry.terraform.io/providers/oracle/oci/latest)
-- [Terraform Best Practices](https://www.terraform-best-practices.com/)
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
----
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-*Infrastructure as Code for enterprise AI deployments.*
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>TERRAFORM_IAC_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

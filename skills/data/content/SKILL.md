@@ -1,155 +1,116 @@
 ---
-title: "Building a Conversation Search Skill for Claude Code"
-type: note
+title: "Claude Code Continuous Learning Skill"
+type: github
+url: "https://github.com/blader/claude-code-continuous-learning-skill"
+stars: 359
+language: "Shell"
 tags:
   - claude-code
+  - ai-agents
+  - developer-experience
   - ai-tools
-  - productivity
-  - python
-  - skills
 authors:
-  - alex-colvin
-summary: "How to build a skill that searches past Claude Code conversations to find solutions to previously solved problems, leveraging the JSONL conversation history stored locally."
-notes: "Created from my own experience - I faced an issue but forgot the fix. The conversation history had the answer."
-date: 2026-01-02
+  - blader
+summary: "A meta-skill that extracts reusable knowledge from debugging sessions and saves it as new skills, giving Claude Code persistent memory across sessions."
+date: 2026-01-18
 ---
 
-## Motivation
+## Overview
 
-Yesterday I faced a bug but couldn't remember how I fixed it last time. Then I realized: Claude Code stores every conversation locally. Why not search through them?
+Every Claude Code session starts fresh—no memory of past discoveries. The Continuous Learning Skill solves this by extracting non-obvious knowledge (debugging techniques, workarounds, project patterns) and saving it as new skills that load automatically in future sessions.
 
-## Where Claude Code Stores Conversations
+The architecture exploits Claude Code's native skill retrieval system. At startup, Claude loads skill names and descriptions (~100 tokens each). When your current context semantically matches a description, the full skill loads. This skill *writes* to that retrieval system, not just reads from it.
 
-All conversations are stored as JSONL files under:
+## Key Features
+
+- **Automatic extraction**: Evaluates each session for knowledge worth preserving
+- **Quality gates**: Only extracts reusable, non-trivial, verified solutions
+- **Searchable descriptions**: Generated descriptions optimized for future semantic matching
+- **Retrospective mode**: Run `/retrospective` at session end to catch missed learnings
+
+## Architecture
+
+::mermaid
+<pre>
+flowchart LR
+    Problem[Problem] --> Investigate[Investigation]
+    Investigate --> Solution[Solution]
+    Solution --> Eval{Worth<br/>preserving?}
+    Eval -->|Yes| Extract[Extract Skill]
+    Eval -->|No| Done[End]
+    Extract --> Library[(Skills Library)]
+    Library -->|Future sessions| Match[Semantic Matching]
+    Match --> Load[Auto-load Skill]
+</pre>
+::
+
+## Code Snippets
+
+### Installation
 
 ```bash
-~/.claude/projects/<encoded-project-path>/<session-id>.jsonl
+git clone https://github.com/blader/claude-code-continuous-learning-skill.git \
+  ~/.claude/skills/continuous-learning
 ```
 
-The project path is encoded by replacing `/` with `-`. For example:
+### Hook Setup
 
-- `/Users/alex/Projects/nuxt/secondBrain`
-- becomes `-Users-alex-Projects-nuxt-secondBrain`
+Create an activation hook that injects evaluation reminders:
 
-Each conversation is a separate JSONL file named with a UUID like `fff8047b-ca56-4302-b746-a78eb86a13f4.jsonl`.
+```bash
+mkdir -p ~/.claude/hooks
+cp ~/.claude/skills/continuous-learning/scripts/continuous-learning-activator.sh \
+   ~/.claude/hooks/
+chmod +x ~/.claude/hooks/continuous-learning-activator.sh
+```
 
-## JSONL Structure
-
-Each line is a JSON object with a `type` field:
+Add to `~/.claude/settings.json`:
 
 ```json
 {
-  "type": "user",
-  "message": { "role": "user", "content": "fix the ESLint config" },
-  "uuid": "f9f49f7e-...",
-  "timestamp": "2025-12-31T20:31:22.799Z",
-  "gitBranch": "main",
-  "sessionId": "fff8047b-..."
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/continuous-learning-activator.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
-Types include `user`, `assistant`, `system`, and `summary`. Assistant messages contain tool uses (Bash commands, file edits) that show exactly how problems were solved.
+## Quality Gates
 
-## The Skill
+The system applies strict criteria before extraction:
 
-I created a Python script that parses these JSONL files and scores them against a search query. The skill lives at `~/.claude/skills/conversation-search/`.
+| Gate | Question |
+|------|----------|
+| **Reusable** | Will this help with future tasks? |
+| **Non-trivial** | Did this require discovery, not docs lookup? |
+| **Specific** | Can you describe exact triggers and solutions? |
+| **Verified** | Has the solution been tested and confirmed? |
 
-### SKILL.md
+## Extraction Triggers
 
-```markdown
----
-name: conversation-search
-description: Search past Claude Code conversation history to find solutions to previously solved problems.
----
+- Non-obvious debugging requiring >10 minutes investigation
+- Error resolution where root cause wasn't apparent
+- Workaround discovery through experimentation
+- Configuration insights differing from standard patterns
 
-# Conversation History Search
+## Academic Foundations
 
-Use this skill when the user asks:
-- "How did we fix X before?"
-- "What was the solution for Y?"
-- "Search history for Z"
-```
+The approach draws from AI agent research:
 
-### search_history.py
+- **Voyager** (Wang et al., 2023): Game-playing agents building skill libraries
+- **CASCADE** (2024): Meta-skills—skills for acquiring skills
+- **SEAgent** (2025): Agents learning software environments through trial and error
+- **Reflexion** (Shinn et al., 2023): Self-reflection improving agent performance
 
-```python
-#!/usr/bin/env python3
-from pathlib import Path
-import json
-import re
+## Connections
 
-def get_claude_projects_dir() -> Path:
-    return Path.home() / '.claude' / 'projects'
-
-def decode_project_path(encoded: str) -> str:
-    if encoded.startswith('-'):
-        return '/' + encoded[1:].replace('-', '/')
-    return encoded.replace('-', '/')
-
-def tokenize(text: str) -> set:
-    return set(re.findall(r'\b\w+\b', text.lower()))
-
-def calculate_relevance_score(query: str, messages: list) -> float:
-    query_tokens = tokenize(query)
-    total_score = 0.0
-
-    for msg in messages:
-        msg_tokens = tokenize(msg.get('content', ''))
-        overlap = len(query_tokens & msg_tokens)
-        if overlap > 0:
-            score = overlap / len(query_tokens)
-            # Boost user messages (problem descriptions)
-            if msg.get('role') == 'user':
-                score *= 1.5
-            total_score += score
-
-    return total_score
-
-def search_conversations(query: str, limit: int = 5):
-    results = []
-    for project_dir in get_claude_projects_dir().iterdir():
-        if not project_dir.is_dir():
-            continue
-        for jsonl_file in project_dir.glob('*.jsonl'):
-            messages = []
-            with open(jsonl_file) as f:
-                for line in f:
-                    entry = json.loads(line)
-                    if entry.get('type') in ('user', 'assistant'):
-                        messages.append(entry.get('message', {}))
-
-            score = calculate_relevance_score(query, messages)
-            if score > 0:
-                results.append((score, jsonl_file, messages))
-
-    results.sort(key=lambda x: x[0], reverse=True)
-    return results[:limit]
-```
-
-## Usage
-
-```bash
-# Find how an error was fixed
-python3 ~/.claude/skills/conversation-search/scripts/search_history.py "EMFILE error"
-
-# Search within a specific project
-python3 ~/.claude/skills/conversation-search/scripts/search_history.py "vitest" --project ~/Projects/myapp
-```
-
-Claude Code automatically invokes this skill when you ask things like "what did we work on yesterday?" or "how did we fix that SSR bug?"
-
-## Output
-
-Results include:
-- **Score**: Relevance ranking
-- **Problem**: The original issue
-- **Solution**: How it was resolved
-- **Commands Run**: Bash commands executed during the fix
-
-## Key Insight
-
-The conversation history is a goldmine. Every bug fix, every implementation decision, every command that worked—it's all there. This skill turns that history into searchable institutional memory.
-
-## Related
-
-See [[writing-a-good-claude-md]] for configuring Claude Code, and [[claude-code-skills]] for more on building skills.
+- [[claude-code-skills]] - Official Skills documentation that this tool extends with automatic generation
+- [[introducing-agent-skills-in-vs-code]] - Same portable skill concept applied to VS Code's agent ecosystem

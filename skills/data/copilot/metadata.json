@@ -1,7 +1,7 @@
 {
   "name": "copilot",
-  "repo": "mlflow/mlflow",
+  "repo": "mlflow/dev",
   "path": ".claude/skills/copilot/SKILL.md",
-  "source": "github.com/mlflow/mlflow",
-  "downloaded_at": "2026-01-17T03:38:17.256844Z"
+  "source": "github.com/mlflow/dev",
+  "downloaded_at": "2026-01-19T01:17:03.457281Z"
 }

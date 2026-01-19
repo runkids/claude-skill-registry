@@ -1,13 +1,7 @@
 {
   "name": "database-schema-manager",
-  "description": "Manages LibSQL/Turso database schemas with Zod validation, creates migrations, and ensures type-safe database operations. Use when creating database tables, writing migrations, or implementing schema ",
-  "repo": "d-oit/do-novelist-ai",
-  "category": "data",
-  "tags": [
-    "database",
-    "schema",
-    "manager"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "WesleySmits/agent-skills",
+  "path": ".agent/skills/database-schema-manager/SKILL.md",
+  "source": "github.com/WesleySmits/agent-skills",
+  "downloaded_at": "2026-01-19T04:12:38.409278Z"
 }

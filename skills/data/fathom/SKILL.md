@@ -1,152 +1,109 @@
 ---
 name: fathom
-description: Connect to Fathom AI to fetch call recordings, transcripts, and summaries. Use when user asks about their meetings, call history, or wants to search past conversations.
-read_when:
-  - User asks about their Fathom calls or meetings
-  - User wants to search call transcripts
-  - User needs a call summary or action items
-  - User wants to set up Fathom integration
-metadata:
-  clawdbot:
-    emoji: "📞"
-    requires:
-      bins: ["curl", "jq"]
+description: AI meeting assistant with automatic note-taking and summaries.
+category: analytics
 ---
-
 # Fathom Skill
 
-Connect to [Fathom AI](https://fathom.video) to fetch call recordings, transcripts, and summaries.
+AI meeting assistant with automatic note-taking and summaries.
+
+## Quick Install
+
+```bash
+curl -sSL https://canifi.com/skills/fathom/install.sh | bash
+```
+
+Or manually:
+```bash
+cp -r skills/fathom ~/.canifi/skills/
+```
 
 ## Setup
 
-### 1. Get Your API Key
-1. Go to [developers.fathom.ai](https://developers.fathom.ai)
-2. Create an API key
-3. Copy the key (format: `v1XDx...`)
+Configure via [canifi-env](https://canifi.com/setup/scripts):
 
-### 2. Configure
 ```bash
-# Option A: Store in file (recommended)
-echo "YOUR_API_KEY" > ~/.fathom_api_key
-chmod 600 ~/.fathom_api_key
+# First, ensure canifi-env is installed:
+# curl -sSL https://canifi.com/install.sh | bash
 
-# Option B: Environment variable
-export FATHOM_API_KEY="YOUR_API_KEY"
+canifi-env set FATHOM_EMAIL "your_email"
+canifi-env set FATHOM_PASSWORD "your_password"
 ```
 
-### 3. Test Connection
+## Privacy & Authentication
+
+**Your credentials, your choice.** Canifi LifeOS respects your privacy.
+
+### Option 1: Manual Browser Login (Recommended)
+If you prefer not to share credentials with Claude Code:
+1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
+2. Login to the service manually in the Playwright-controlled Chrome window
+3. Claude will use your authenticated session without ever seeing your password
+
+### Option 2: Environment Variables
+If you're comfortable sharing credentials, you can store them locally:
 ```bash
-./scripts/setup.sh
+canifi-env set SERVICE_EMAIL "your-email"
+canifi-env set SERVICE_PASSWORD "your-password"
 ```
 
----
+**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
 
-## Commands
+## Capabilities
 
-### List Recent Calls
-```bash
-./scripts/list-calls.sh                    # Last 10 calls
-./scripts/list-calls.sh --limit 20         # Last 20 calls
-./scripts/list-calls.sh --after 2026-01-01 # Calls after date
-./scripts/list-calls.sh --json             # Raw JSON output
+1. **Auto-Record**: Join and record meetings
+2. **AI Notes**: Automatic meeting notes
+3. **Highlights**: Mark important moments
+4. **Summaries**: Post-meeting summaries
+5. **CRM Sync**: Update Salesforce/HubSpot
+
+## Usage Examples
+
+### View Recording
+```
+User: "Show my last meeting recording"
+Assistant: Returns meeting video
 ```
 
-### Get Transcript
-```bash
-./scripts/get-transcript.sh 123456789      # By recording ID
-./scripts/get-transcript.sh 123456789 --json
-./scripts/get-transcript.sh 123456789 --text-only
+### Get Notes
+```
+User: "Get notes from the sales call"
+Assistant: Returns AI-generated notes
 ```
 
-### Get Summary
-```bash
-./scripts/get-summary.sh 123456789         # By recording ID
-./scripts/get-summary.sh 123456789 --json
+### Create Highlight
+```
+User: "Highlight the pricing discussion"
+Assistant: Marks segment
 ```
 
-### Search Calls
-```bash
-./scripts/search-calls.sh "product launch" # Search transcripts
-./scripts/search-calls.sh --speaker "Lucas"
-./scripts/search-calls.sh --after 2026-01-01 --before 2026-01-15
+### Sync to CRM
+```
+User: "Update Salesforce with this meeting"
+Assistant: Syncs meeting data
 ```
 
----
+## Authentication Flow
 
-## API Reference
+1. Account-based authentication
+2. No official API
+3. Browser automation
+4. CRM OAuth connections
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/meetings` | GET | List meetings with filters |
-| `/recordings/{id}/transcript` | GET | Full transcript with speakers |
-| `/recordings/{id}/summary` | GET | AI summary + action items |
-| `/webhooks` | POST | Register webhook for auto-sync |
+## Error Handling
 
-**Base URL:** `https://api.fathom.ai/external/v1`  
-**Auth:** `X-API-Key` header
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Login Failed | Invalid credentials | Check account |
+| Recording Failed | Permissions | Allow access |
+| Sync Error | CRM connection | Reconnect |
+| Processing Error | Video issue | Retry |
 
----
+## Notes
 
-## Filters for list-calls
-
-| Filter | Description | Example |
-|--------|-------------|---------|
-| `--limit N` | Number of results | `--limit 20` |
-| `--after DATE` | Calls after date | `--after 2026-01-01` |
-| `--before DATE` | Calls before date | `--before 2026-01-15` |
-| `--cursor TOKEN` | Pagination cursor | `--cursor eyJo...` |
-
----
-
-## Output Formats
-
-| Flag | Description |
-|------|-------------|
-| `--json` | Raw JSON from API |
-| `--table` | Formatted table (default for lists) |
-| `--text-only` | Plain text (transcripts only) |
-
----
-
-## Examples
-
-### Get your last call's summary
-```bash
-# Get latest call ID
-CALL_ID=$(./scripts/list-calls.sh --limit 1 --json | jq -r '.[0].recording_id')
-
-# Get summary
-./scripts/get-summary.sh $CALL_ID
-```
-
-### Export all calls from last week
-```bash
-./scripts/list-calls.sh --after $(date -d '7 days ago' +%Y-%m-%d) --json > last_week_calls.json
-```
-
-### Find calls mentioning a topic
-```bash
-./scripts/search-calls.sh "quarterly review"
-```
-
----
-
-## Troubleshooting
-
-| Error | Solution |
-|-------|----------|
-| "No API key found" | Run setup or set `FATHOM_API_KEY` |
-| "401 Unauthorized" | Check API key is valid |
-| "429 Rate Limited" | Wait and retry |
-| "Recording not found" | Verify recording ID exists |
-
----
-
-## Webhook Setup (Advanced)
-
-For automatic transcript ingestion, see the webhook setup guide:
-```bash
-./scripts/setup-webhook.sh --url https://your-endpoint.com/webhook
-```
-
-Requires a publicly accessible HTTPS endpoint.
+- Free for individuals
+- Auto-join meetings
+- CRM integration
+- Highlight clips
+- No public API
+- Team collaboration

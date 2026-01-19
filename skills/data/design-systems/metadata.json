@@ -1,7 +1,7 @@
 {
   "name": "design-systems",
-  "repo": "martinholovsky/claude-skills-generator",
-  "path": "skills/design-systems/SKILL.md",
-  "source": "github.com/martinholovsky/claude-skills-generator",
-  "downloaded_at": "2026-01-17T02:45:38.122523Z"
+  "repo": "dralgorhythm/claude-agentic-framework",
+  "path": ".claude/skills/design/design-systems/SKILL.md",
+  "source": "github.com/dralgorhythm/claude-agentic-framework",
+  "downloaded_at": "2026-01-19T03:26:00.955917Z"
 }

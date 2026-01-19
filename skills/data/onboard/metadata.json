@@ -1,7 +1,7 @@
 {
   "name": "onboard",
-  "repo": "namesreallyblank/Clorch",
-  "path": "skills/onboard/SKILL.md",
-  "source": "github.com/namesreallyblank/Clorch",
-  "downloaded_at": "2026-01-17T04:06:59.518740Z"
+  "repo": "kasperjunge/agent-resources-legacy",
+  "path": ".claude/skills/onboard/SKILL.md",
+  "source": "github.com/kasperjunge/agent-resources-legacy",
+  "downloaded_at": "2026-01-19T04:16:02.136769Z"
 }

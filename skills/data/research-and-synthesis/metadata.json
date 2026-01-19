@@ -1,13 +1,7 @@
 {
   "name": "research-and-synthesis",
-  "description": "Fetch and summarize authoritative external sources into actionable guidance. EXCLUSIVE to researcher agent.",
   "repo": "htooayelwinict/claude-config",
-  "category": "design",
-  "tags": [
-    "research",
-    "and",
-    "synthesis"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/research-and-synthesis/SKILL.md",
+  "source": "github.com/htooayelwinict/claude-config",
+  "downloaded_at": "2026-01-19T04:20:11.805042Z"
 }

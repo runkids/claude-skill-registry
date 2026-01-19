@@ -1,158 +1,77 @@
 ---
 name: playwright-browser
-description: Browser automation and E2E testing via local Playwright Docker container
+# prettier-ignore
+description: "Use when automating browsers, testing pages, taking screenshots, checking UI, verifying login flows, or testing responsive behavior"
+version: 1.1.0
 category: testing
-triggers: [browser, automation, E2E, screenshot, navigate, playwright]
-docker_required: true
-ruby_required: true
+triggers:
+  - "browser"
+  - "playwright"
+  - "screenshot"
+  - "test the page"
+  - "check the UI"
+  - "login flow"
+  - "fill form"
+  - "responsive"
+  - "viewport"
 ---
 
-# Playwright Browser Automation Skill
+<objective>
+Browser automation via Playwright. Write scripts, execute via run.js.
+</objective>
 
-## Purpose
-Provides browser automation capabilities through a local Playwright Docker container, eliminating the need for remote MCP server connections. Enables web scraping, E2E testing, screenshot capture, and browser interaction automation.
+<execution>
+Write Playwright code to /tmp, execute from skill directory:
 
-## Capabilities
-- **Navigation**: Load URLs with configurable wait conditions
-- **Screenshots**: Capture full-page or viewport screenshots
-- **Interaction**: Click, fill forms, press keys
-- **Evaluation**: Execute JavaScript in page context
-- **Testing**: End-to-end test automation
-
-## Requirements
-
-### Docker
-- Docker Desktop installed and running
-- `agent-network` Docker network created
-- Playwright container running
-
-### Ruby
-- Ruby ≥2.7
-- Gems: `websocket-client-simple`, `json`
-
-### Setup
 ```bash
-# Start Playwright container
-cd ~/.claude/skills/playwright-browser/docker
-docker-compose up -d
-
-# Verify container is running
-docker ps | grep playwright-server
-
-# Check health
-curl http://localhost:3000/health
+node $SKILL_DIR/run.js /tmp/playwright-task.js
 ```
 
-## Usage
+For inline code (variables are auto-injected, see below):
 
-### Navigation
 ```bash
-# Navigate to URL
-~/.claude/skills/playwright-browser/scripts/navigate.rb "https://example.com"
+node $SKILL_DIR/run.js "const b = await chromium.launch(); const p = await b.newPage(); await p.goto('http://localhost:3000'); console.log(await p.title()); await b.close();"
 ```
 
-### Screenshots
+$SKILL_DIR is where you loaded this file from. </execution>
+
+<headless-vs-headed>
+Default: headless (invisible, less intrusive).
+
+Use `{ headless: false }` when user wants to see the browser. You know when that is.
+</headless-vs-headed>
+
+<defaults>
+Screenshots to /tmp. Use `slowMo: 100` for debugging.
+</defaults>
+
+<injected-variables>
+For inline code, these are available:
+
+- `BASE_URL` - from PLAYWRIGHT_BASE_URL env var
+- `CI_ARGS` - browser args for CI (`['--no-sandbox', '--disable-setuid-sandbox']`)
+- `EXTRA_HEADERS` - from PW_HEADER_NAME/VALUE or PW_EXTRA_HEADERS
+- `chromium`, `firefox`, `webkit`, `devices` - from playwright
+
+Example:
+
 ```bash
-# Capture screenshot
-~/.claude/skills/playwright-browser/scripts/screenshot.rb "https://example.com" /tmp/screenshot.png
-
-# Full-page screenshot
-~/.claude/skills/playwright-browser/scripts/screenshot.rb "https://example.com" /tmp/screenshot.png --full-page
+node $SKILL_DIR/run.js "
+const browser = await chromium.launch({ args: CI_ARGS });
+const page = await browser.newPage();
+await page.goto(BASE_URL || 'http://localhost:3000');
+console.log(await page.title());
+await browser.close();
+"
 ```
 
-### JavaScript Evaluation
-```bash
-# Execute JavaScript
-~/.claude/skills/playwright-browser/scripts/evaluate.rb "document.title"
+</injected-variables>
 
-# Get page data
-~/.claude/skills/playwright-browser/scripts/evaluate.rb "JSON.stringify({title: document.title, url: location.href})"
-```
+<auto-install>
+run.js auto-installs Playwright on first use. No manual setup needed.
+</auto-install>
 
-## Docker Management
-
-### Start Container
-```bash
-~/.claude/skills/playwright-browser/scripts/start.sh
-```
-
-### Stop Container
-```bash
-~/.claude/skills/playwright-browser/scripts/stop.sh
-```
-
-### Restart Container
-```bash
-~/.claude/skills/playwright-browser/scripts/restart.sh
-```
-
-### Check Status
-```bash
-~/.claude/skills/playwright-browser/scripts/status.sh
-```
-
-## Troubleshooting
-
-### Container won't start
-**Symptom**: `docker-compose up -d` fails
-
-**Solutions**:
-1. Check Docker Desktop is running
-2. Verify network exists: `docker network ls | grep agent-network`
-3. Check logs: `docker-compose logs`
-4. Try recreating: `docker-compose down && docker-compose up -d`
-
-### Connection refused
-**Symptom**: WebSocket connection fails
-
-**Solutions**:
-1. Verify container is running: `docker ps | grep playwright`
-2. Check health: `curl http://localhost:3000/health`
-3. Check logs: `docker logs playwright-server`
-4. Restart container: `docker-compose restart`
-
-### Slow performance
-**Symptom**: Operations take >5 seconds
-
-**Solutions**:
-1. Check resource allocation in Docker Desktop settings
-2. Increase memory limit in docker-compose.yml
-3. Verify no other heavy containers running
-4. Check system resources: `docker stats`
-
-### Ruby gem errors
-**Symptom**: `LoadError` for websocket gem
-
-**Solutions**:
-```bash
-gem install websocket-client-simple
-gem install json
-```
-
-## Performance Notes
-- Container startup: ~20-30 seconds
-- API response time: <500ms typical
-- Memory usage: ~500MB-1GB
-- Suitable for development and light automation
-
-## Advanced Configuration
-
-### Custom Playwright version
-Edit `docker-compose.yml`:
-```yaml
-image: mcr.microsoft.com/playwright:v1.41.0-jammy
-```
-
-### Resource limits
-Edit `docker-compose.yml` deploy section:
-```yaml
-deploy:
-  resources:
-    limits:
-      memory: 4G
-      cpus: '4.0'
-```
-
-## See Also
-- Chrome DevTools skill for debugging capabilities
-- Original research: `~/.claude/claudedocs/research_mcp_to_agent_skill_conversion_20251116.md`
+<advanced-patterns>
+For network mocking, auth persistence, multi-tab, downloads, video, traces:
+[API_REFERENCE.md](API_REFERENCE.md)
+</advanced-patterns>

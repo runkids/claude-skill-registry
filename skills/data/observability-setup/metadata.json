@@ -1,7 +1,7 @@
 {
   "name": "observability-setup",
-  "repo": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
-  "path": "plugins/dapr/skills/observability-setup/SKILL.md",
-  "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
-  "downloaded_at": "2026-01-17T03:40:56.652201Z"
+  "repo": "ainexllc/ainexsuite",
+  "path": ".claude/skills/observability-setup/SKILL.md",
+  "source": "github.com/ainexllc/ainexsuite",
+  "downloaded_at": "2026-01-19T04:03:26.861707Z"
 }

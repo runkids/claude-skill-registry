@@ -1,12 +1,7 @@
 {
   "name": "dev-server",
-  "description": "Manage development servers for vacay-photo-map. Use when starting, stopping, or checking status of postgres, frontend (Vite), or API (Bun) servers.",
-  "repo": "joeczar/vacay-photo-map",
-  "category": "development",
-  "tags": [
-    "dev",
-    "server"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "civitai/civitai",
+  "path": ".claude/skills/dev-server/SKILL.md",
+  "source": "github.com/civitai/civitai",
+  "downloaded_at": "2026-01-19T01:32:08.200139Z"
 }

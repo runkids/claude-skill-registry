@@ -1,12 +1,7 @@
 {
   "name": "mcp-servers",
-  "description": "Speech feedback to user via MCP audio servers. Use when providing status updates or asking questions.",
-  "repo": "ywatanabe1989/melbourne-moving-sale",
-  "category": "development",
-  "tags": [
-    "mcp",
-    "servers"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "seanchatmangpt/ggen",
+  "path": ".claude/skills/mcp-servers/SKILL.md",
+  "source": "github.com/seanchatmangpt/ggen",
+  "downloaded_at": "2026-01-19T04:14:43.377681Z"
 }

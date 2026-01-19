@@ -1,204 +1,112 @@
 ---
 name: test
-description: General-purpose testing for all test types - unit, integration, E2E, component tests
-allowed-tools:
-  - Read
-  - Glob
-  - Grep
-  - Write
-  - Edit
-  - Task
-  - AskUserQuestion
-  - Bash(npx vitest:*)
-  - Bash(npx cypress:*)
-  - Bash(npm test:*)
-  - Bash(npx nx test:*)
-  - Bash(npx nx e2e:*)
-  - Bash(npx nx run:*:test)
-  - Bash(git status:*)
-  - Bash(git diff:*)
-  - Bash(git log:*)
-  - WebFetch
+description: Use this skill when writing or running tests. Enforces rstest for parametrized tests and DRY test patterns. Use when creating new tests, fixing test failures, or improving test coverage.
+allowed-tools: Read, Grep, Glob, Edit, Write, Bash(cargo test:*)
 ---
 
-# Testing Skill
+# Testing with rstest
 
-## Purpose
-General-purpose testing skill for ALL test types:
-- Unit tests (hooks, utils, services)
-- Integration tests (API, GraphQL resolvers)
-- Component tests (UI components)
-- E2E tests (user journeys)
+This project uses rstest for DRY, parametrized tests.
 
-## Modes
+## Running Tests
 
-### Execution Mode (default)
-Run tests, debug failures, write test code.
-
-Invoked: `/test` or `/test path/to/file.spec.ts`
-
-### Planning Mode
-Create test plan BEFORE implementation. Used by `/feature` skill.
-
-Invoked: `/test --plan docs/features/{feature}/`
-
-**REQUIRES**: Path to feature folder with approved architecture in journey.md.
-
-## Test Frameworks
-
-| Framework  | Purpose                |
-|------------|------------------------|
-| Karma      | Unit/Integration tests |
-| Protractor | E2E tests              |
-
-## Workflows
-
-### General Testing
-1. **Read source code**: Understand what needs testing
-2. **Check existing tests**: Find related test files
-3. **Create/update tests**: Write tests following patterns
-4. **Run tests**: Verify they pass
-5. **Debug failures**: Analyze and fix failing tests
-
-### Flow-Based Testing (when using UI/UX flows)
-1. **Read flows**: Extract `T-{FEAT}-*` markers from diagrams
-2. **Map to scenarios**: Understand what each marker validates
-3. **Generate tests**: Create tests matching markers
-4. **Update test-plan.md**: Document coverage
-
-## Test File Locations
-
-| Type             | Location                             | Naming      |
-|------------------|--------------------------------------|-------------|
-| Unit             | Next to source                       | `*.spec.ts` |
-| E2E (Protractor) | `e2e/src/`                           | `*.po.ts`   |
-
-## Test ID Convention (for flow-based tests)
-
-| Format | Type | Example |
-|--------|------|---------|
-| `T-{FEAT}-{NUM}` | Standard test | T-TREE-001 |
-| `T-{FEAT}-S{NUM}` | State machine | T-TREE-S01 |
-| `T-{FEAT}-E{NUM}` | Edge case | T-TREE-E01 |
-| `T-{FEAT}-I{NUM}` | Integration | T-TREE-I01 |
-
-## Checklist
-
-When writing tests:
-
-1. [ ] Identify what needs testing
-2. [ ] Check existing test patterns in codebase
-3. [ ] Create test file next to source
-4. [ ] Write tests following project conventions
-5. [ ] Run tests locally to verify
-6. [ ] Check coverage if applicable
-
----
-
-## Planning Mode
-
-### When to Use
-- Before implementing a new feature
-- Called by `/feature` skill in Phase 4
-- When you need to document test strategy first
-
-### Required Input
-
-**Planning mode REQUIRES a feature folder path as argument.**
-
-```
-/test --plan docs/features/{feature}/
+```bash
+cargo test                     # Run all tests
+cargo test <test_name>         # Run specific test
+cargo test -- --nocapture      # Show stdout
 ```
 
-If no folder path provided, STOP and ask for it.
+## Coverage
 
-### Prerequisites (MANDATORY)
+Use cargo-llvm-cov to measure test coverage locally:
 
-**Before creating test plan, READ the feature folder and verify:**
-
-1. ✅ Folder exists with description.md and journey.md
-2. ✅ journey.md contains flow diagrams or state machines
-3. ✅ description.md contains "## Key Components" with source locations
-4. ✅ Architecture is approved (check for Mermaid diagrams in journey.md)
-
-**If ANY of these are missing:**
-- DO NOT proceed with test planning
-- Return error: "Architecture not complete. Please finish /architect phase first."
-
-### Planning Workflow
-
-1. **Read feature folder**: Parse description.md and journey.md
-2. **Verify architecture exists**: Check for required sections
-3. **Extract testable units from description.md**:
-   - Utilities
-   - Services
-   - Components
-   - User journeys (from journey.md)
-4. **Choose test types** per component
-5. **Assign test IDs** (T-{FEAT}-{NUM})
-6. **Set coverage targets**
-7. **Output**: Update `docs/features/{feature}/test-plan.md`
-
-### Planning Output Structure
-
-```markdown
-# {Feature} Test Plan
-
-## Overview
-{Brief description of what's being tested}
-
-## Test Strategy
-
-### Unit Tests
-| Component | File | Coverage Target |
-|-----------|------|-----------------|
-| useFeature | use-feature.spec.ts | 80% |
-
-### Integration Tests
-| Component | File | Coverage Target |
-|-----------|------|-----------------|
-| FeatureResolver | feature-resolver.spec.ts | 70% |
-
-### E2E Tests
-| Flow | File | Framework |
-|------|------|-----------|
-| Complete feature flow | feature.po.ts | Protractor |
-
-## Test Cases
-
-### Unit: useFeature Hook
-| ID | Scenario | Expected |
-|----|----------|----------|
-| T-FEAT-001 | Happy path | Returns data |
-| T-FEAT-002 | Error handling | Shows error toast |
-
-### Integration: FeatureResolver
-| ID | Scenario | Expected |
-|----|----------|----------|
-| T-FEAT-I01 | Create entity | Returns new entity |
-
-### E2E: User Journey
-| ID | Scenario | Steps |
-|----|----------|-------|
-| T-FEAT-E01 | Full flow | Navigate → Fill → Submit → Verify |
+```bash
+cargo llvm-cov                           # Run tests with coverage (text summary)
+cargo llvm-cov --html                    # Generate HTML report in target/llvm-cov/html/
+cargo llvm-cov --lcov --output-path lcov.info  # Generate LCOV format (used in CI)
 ```
 
----
+Coverage is automatically measured and uploaded to Codecov in CI.
 
-## Test ID Naming
+## Writing Tests
 
-### Format
-`T-{FEATURE}-{TYPE}{NUMBER}`
+### Always prefer rstest over plain #[test]
 
-### Prefixes
-| Prefix | Type |
-|--------|------|
-| (none) | Unit test |
-| I | Integration |
-| E | E2E |
-| S | State machine |
+Use `#[rstest]` with `#[case]` for multiple inputs:
 
-### Examples
-- `T-TREE-001` - Tree unit test
-- `T-TREE-I01` - Tree integration test
-- `T-TREE-E01` - Tree E2E test
+```rust
+use rstest::*;
+
+#[rstest]
+#[case::empty("", true)]
+#[case::whitespace("   ", true)]
+#[case::valid("hello", false)]
+fn test_is_blank(#[case] input: &str, #[case] expected: bool) {
+    assert_eq!(is_blank(input), expected);
+}
+```
+
+### Use fixtures for shared setup
+
+```rust
+#[fixture]
+fn repository() -> InMemoryRepository {
+    let mut r = InMemoryRepository::default();
+    // setup
+    r
+}
+
+#[rstest]
+fn test_find(repository: InMemoryRepository) {
+    // repository is automatically injected
+}
+```
+
+### Combine cases with values
+
+```rust
+#[rstest]
+#[case::admin(User::Admin)]
+#[case::guest(User::Guest)]
+fn test_access(
+    #[case] user: User,
+    #[values("read", "write", "delete")] action: &str,
+) {
+    // Generates 6 tests: admin+read, admin+write, ...
+}
+```
+
+### Use indoc for multiline test input
+
+```rust
+use indoc::indoc;
+
+#[rstest]
+#[case::with_frontmatter(
+    indoc! {r#"
+        ---
+        title: "Test"
+        ---
+        Body content
+    "#},
+    "Test",
+    "Body content\n"
+)]
+fn test_parse(#[case] input: &str, #[case] title: &str, #[case] body: &str) {
+    let doc = parse(input);
+    assert_eq!(doc.title, title);
+    assert_eq!(doc.body, body);
+}
+```
+
+## Test Naming
+
+- Use `#[case::descriptive_name]` for named cases
+- Test function: `test_<function>_<scenario>` or `should_<behavior>`
+
+## DRY Principles
+
+1. Extract common assertions into helper functions
+2. Use fixtures for repeated setup
+3. Parametrize similar tests with `#[case]`
+4. Use `#[values]` for combinatorial testing

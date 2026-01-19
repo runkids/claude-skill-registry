@@ -1,12 +1,7 @@
 {
   "name": "security-reporter",
-  "description": "Use when generating comprehensive security audit reports, analyzing security scan results, calculating security posture, or creating OWASP Top 10 compliance assessments. Invoked for security reporting",
-  "repo": "jpoley/jp-spec-kit",
-  "category": "security",
-  "tags": [
-    "security",
-    "reporter"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "jpoley/agentic-pair-programming",
+  "path": ".claude/skills/security-reporter/SKILL.md",
+  "source": "github.com/jpoley/agentic-pair-programming",
+  "downloaded_at": "2026-01-19T02:48:00.160174Z"
 }

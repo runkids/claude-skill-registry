@@ -1,7 +1,7 @@
 {
   "name": "prd-template",
-  "repo": "cliangdev/specflux",
-  "path": "src/plugin/skills/prd-template/SKILL.md",
-  "source": "github.com/cliangdev/specflux",
-  "downloaded_at": "2026-01-17T02:38:34.217329Z"
+  "repo": "jsegov/shipspec-claude-code-plugin",
+  "path": "skills/prd-template/SKILL.md",
+  "source": "github.com/jsegov/shipspec-claude-code-plugin",
+  "downloaded_at": "2026-01-19T02:42:40.870905Z"
 }

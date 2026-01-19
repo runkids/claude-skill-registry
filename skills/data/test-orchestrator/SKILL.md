@@ -1,273 +1,226 @@
 ---
 name: test-orchestrator
-description: Coordinates testing strategy and execution across all test types. Use when creating test plans, implementing tests (unit/integration/E2E), or enforcing coverage requirements (80% minimum). Applies testing-requirements.md.
+description: |
+  Unified orchestration layer that coordinates all test skills into cohesive validation pipelines.
+  Provides a single entry point for comprehensive project validation with intelligent skill selection,
+  quality gates, and consolidated reporting. Supports quick PR checks through full release validation.
+license: MIT
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - Task
+compatibility:
+  claude-code: ">=1.0.0"
+metadata:
+  version: "1.0.0"
+  author: "QuantQuiver AI R&D"
+  category: "testing"
+  tags:
+    - orchestration
+    - validation-pipeline
+    - ci-cd
+    - quality-gates
 ---
 
-# Test Orchestrator Skill
+# Test Orchestrator
 
-## Role
-Acts as QA Lead, coordinating all testing activities across the system.
+## Purpose
 
-## Responsibilities
+Unified orchestration layer that coordinates all test skills into cohesive validation pipelines. Provides a single entry point for comprehensive project validation with intelligent skill selection, quality gates, and consolidated reporting.
 
-1. **Test Strategy**
-   - Define test plans
-   - Coordinate test execution
-   - Manage test environments
-   - Track coverage metrics
+## Triggers
 
-2. **Test Automation**
-   - Unit test coordination
-   - Integration test suites
-   - E2E test scenarios
-   - Performance testing
+Use this skill when:
+- "run full test suite"
+- "validate this project"
+- "comprehensive testing"
+- "pre-deployment validation"
+- "test everything"
+- "quality gate check"
+- "CI/CD validation pipeline"
 
-3. **Quality Gates**
-   - Define acceptance criteria
-   - Enforce coverage thresholds
-   - Block failing builds
-   - Report quality metrics
+## When to Use
 
-4. **Context Maintenance**
-   ```
-   ai-state/active/testing/
-   ├── test-plans.json     # Test strategies
-   ├── coverage.json       # Coverage metrics
-   ├── results.json        # Test results
-   └── tasks/             # Active test tasks
-   ```
+- New project setup requiring test infrastructure
+- Pre-release validation checkpoints
+- Continuous integration pipeline design
+- Quality assurance automation
+- Multi-dimensional validation needs
 
-## Skill Coordination
+## When NOT to Use
 
-### Available Test Skills
-- `unit-test-skill` - Unit test creation
-- `integration-test-skill` - Integration testing
-- `e2e-test-skill` - End-to-end scenarios
-- `performance-test-skill` - Load/stress testing
-- `security-test-skill` - Security validation
+- Running individual test types (use specific skill)
+- Simple single-skill validation
+- Quick exploratory testing
 
-### Context Package to Skills
+---
+
+## Core Instructions
+
+### Skill Coordination Matrix
+
+| Skill | When Triggered | Output |
+|-------|---------------|--------|
+| `unit-test-generator` | Code files present | Generated tests, coverage |
+| `api-contract-validator` | OpenAPI spec found | Contract report |
+| `security-test-suite` | Always (security critical) | Security report |
+| `performance-benchmark` | Endpoints defined | Performance report |
+| `data-validation` | Data files/schemas present | Quality report |
+| `test-health-monitor` | Existing tests found | Health report |
+
+### Predefined Pipelines
+
+| Pipeline | Duration | Use Case |
+|----------|----------|----------|
+| `quick_validation` | < 5 min | PR checks |
+| `standard_validation` | < 15 min | CI/CD |
+| `comprehensive_validation` | < 60 min | Releases |
+| `pre_production` | < 120 min | Production readiness |
+
+### Pipeline Configurations
+
 ```yaml
-context:
-  task_id: "task-004-testing"
-  component: "authentication"
-  test_requirements:
-    unit: ["all public methods", ">80% coverage"]
-    integration: ["database operations", "API calls"]
-    e2e: ["login flow", "password reset"]
-    performance: ["100 concurrent users", "<200ms response"]
-  standards:
-    - "testing-requirements.md"
-  existing_tests:
-    coverage: 65%
-    failing: ["test_login_invalid"]
+quick_validation:
+  skills:
+    - unit-test-generator: { mode: "check-existing" }
+    - security-test-suite: { scan_types: ["sast", "secrets"] }
+  parallel: true
+
+comprehensive_validation:
+  skills:
+    - unit-test-generator: { coverage_target: 85 }
+    - api-contract-validator: { breaking_changes: true }
+    - security-test-suite: { scan_types: "all" }
+    - performance-benchmark: { scenarios: ["baseline", "load", "stress"] }
+    - data-validation: { all_dimensions: true }
+    - test-health-monitor: { flaky_detection: true }
+  gates:
+    - security_critical: 0
+    - coverage: ">= 80"
+    - performance_p99: "< 500ms"
 ```
 
-## Task Processing Flow
+### Quality Gates
 
-1. **Receive Task**
-   - Identify component
-   - Review requirements
-   - Check existing tests
+| Gate | Target | Blocking |
+|------|--------|----------|
+| Security Critical | 0 | Yes |
+| Security High | 0 | Yes |
+| Coverage | >= 80% | No |
+| p99 Latency | < 500ms | Yes |
+| Error Rate | < 0.1% | Yes |
+| Data Quality | >= 80 | No |
 
-2. **Create Test Plan**
-   - Define test scenarios
-   - Set coverage goals
-   - Identify test data
+---
 
-3. **Assign to Skills**
-   - Distribute test types
-   - Set priorities
-   - Define timelines
+## Templates
 
-4. **Execute Tests**
-   - Run test suites
-   - Monitor execution
-   - Collect results
+### Unified Validation Report
 
-5. **Validate Quality**
-   - Check coverage
-   - Review failures
-   - Verify fixes
-   - Generate reports
+```markdown
+# Project Validation Report
 
-## Test Categories
+**Project:** {project_name}
+**Pipeline:** {pipeline_name}
+**Generated:** {timestamp}
+**Duration:** {duration} seconds
 
-### Unit Testing
-- [ ] All public methods tested
-- [ ] Edge cases covered
-- [ ] Mocks properly used
-- [ ] Fast execution (<1s)
-- [ ] Isolated tests
-- [ ] Clear assertions
+## Executive Summary
 
-### Integration Testing
-- [ ] Component interactions
-- [ ] Database operations
-- [ ] API integrations
-- [ ] Message queues
-- [ ] File operations
-- [ ] External services
+### Overall Status: {status}
 
-### E2E Testing
-- [ ] User workflows
-- [ ] Critical paths
-- [ ] Cross-browser
-- [ ] Mobile responsive
-- [ ] Error scenarios
-- [ ] Recovery flows
+| Gate | Target | Actual | Status |
+|------|--------|--------|--------|
+| Security Critical | 0 | {actual} | {status_icon} |
+| Security High | 0 | {actual} | {status_icon} |
+| Coverage | >= 80% | {actual}% | {status_icon} |
+| p99 Latency | < 500ms | {actual}ms | {status_icon} |
 
-### Performance Testing
-- [ ] Load testing
-- [ ] Stress testing
-- [ ] Spike testing
-- [ ] Volume testing
-- [ ] Endurance testing
-- [ ] Scalability testing
+### Risk Assessment
 
-## Test Standards
+**Deployment Risk:** {risk_level}
 
-### Test Quality Checklist
-- [ ] Descriptive test names
-- [ ] AAA pattern (Arrange, Act, Assert)
-- [ ] Single assertion focus
-- [ ] No test interdependencies
-- [ ] Deterministic results
-- [ ] Meaningful failures
+**Blocking Issues:**
+- {blocking_issue}
 
-### Coverage Requirements
-- **Unit Tests:** >80% code coverage
-- **Integration:** All APIs tested
-- **E2E:** Critical paths covered
-- **Performance:** Meets SLAs
-- **Security:** OWASP top 10
+## Skill Results Summary
 
-## Integration Points
+| Skill | Status | Score | Issues | Duration |
+|-------|--------|-------|--------|----------|
+| Unit Tests | {status} | {score} | {issues} | {duration} |
+| Security | {status} | {score} | {issues} | {duration} |
+| Performance | {status} | {score} | {issues} | {duration} |
 
-### With Development Orchestrators
-- Test requirements from tasks
-- Failure feedback loops
-- Coverage reporting
-- Quality gates
+## Recommended Actions
 
-### With CI/CD Pipeline
-- Automated test execution
-- Build blocking on failures
-- Test result reporting
-- Coverage trends
+### Immediate (Block Deployment)
+1. {action}
 
-### With Human-Docs
-Updates testing documentation:
-- Test plan changes
-- Coverage reports
-- Quality metrics
-- Test guidelines
-
-## Event Communication
-
-### Listening For
-```json
-{
-  "event": "code.changed",
-  "component": "user-service",
-  "impact": ["auth", "profile"],
-  "requires_testing": true
-}
+### Before Next Release
+2. {action}
 ```
 
-### Broadcasting
-```json
-{
-  "event": "tests.completed",
-  "component": "user-service",
-  "results": {
-    "passed": 145,
-    "failed": 2,
-    "skipped": 3,
-    "coverage": "85%"
-  },
-  "status": "FAILED"
-}
+---
+
+## Example
+
+**Input**: Pre-release validation
+
+**Output**:
+```markdown
+## Executive Summary
+
+### Overall Status: CONDITIONAL PASS
+
+| Gate | Target | Actual | Status |
+|------|--------|--------|--------|
+| Security Critical | 0 | 0 | Pass |
+| Security High | 0 | 2 | Fail |
+| Coverage | >= 80% | 82.3% | Pass |
+| p99 Latency | < 500ms | 234ms | Pass |
+
+### Risk Assessment
+
+**Deployment Risk:** MEDIUM
+
+**Blocking Issues:**
+- 2 HIGH severity security vulnerabilities require remediation
+- Estimated fix time: 4-8 hours
+
+## Skill Results Summary
+
+| Skill | Status | Score | Issues |
+|-------|--------|-------|--------|
+| Unit Tests | Pass | 82.3% | 3 flaky |
+| API Contract | Pass | 100% | 0 |
+| Security | Fail | 2 HIGH | 8 total |
+| Performance | Pass | 234ms p99 | 0 |
 ```
 
-## Test Execution Strategy
+---
 
-### Parallel Execution
-```python
-class TestOrchestrator:
-    def run_tests(self, suites):
-        # 1. Identify independent tests
-        # 2. Distribute across workers
-        # 3. Collect results
-        # 4. Aggregate coverage
-        # 5. Generate report
-```
+## Validation Checklist
 
-### Test Retry Logic
-```python
-def retry_failed_tests(failures):
-    MAX_RETRIES = 3
-    for test in failures:
-        for attempt in range(MAX_RETRIES):
-            if run_test(test).passed:
-                break
-        else:
-            mark_as_flaky(test)
-```
+- [ ] All enabled skills executed successfully
+- [ ] Quality gates evaluated against targets
+- [ ] Blocking issues clearly identified
+- [ ] Risk assessment reflects findings
+- [ ] Recommendations are prioritized
+- [ ] Individual skill reports generated
+- [ ] Unified report is comprehensive
 
-## Success Metrics
+---
 
-- Test execution time < 10 min
-- Coverage > 80%
-- Flaky test rate < 1%
-- False positive rate < 0.1%
-- Test maintenance time < 10%
+## Related Skills
 
-## Test Data Management
-
-### Strategies
-1. **Fixtures** - Predefined test data
-2. **Factories** - Dynamic data generation
-3. **Snapshots** - Baseline comparisons
-4. **Mocks** - External service simulation
-5. **Stubs** - Simplified implementations
-
-### Best Practices
-- Isolate test data
-- Clean up after tests
-- Use realistic data
-- Version test data
-- Document data requirements
-
-## Common Testing Patterns
-
-### Page Object Pattern (E2E)
-```typescript
-class LoginPage {
-  async login(email: string, password: string) {
-    await this.emailInput.fill(email);
-    await this.passwordInput.fill(password);
-    await this.submitButton.click();
-  }
-}
-```
-
-### Test Builder Pattern
-```python
-def test_user_creation():
-    user = UserBuilder()
-        .with_email("test@example.com")
-        .with_role("admin")
-        .build()
-
-    assert user.is_valid()
-```
-
-## Anti-Patterns to Avoid
-
-❌ Tests that depend on order
-❌ Hardcoded test data
-❌ Testing implementation details
-❌ Slow test suites
-❌ Flaky tests ignored
-❌ No test documentation
+- `unit-test-generator` - Generate unit tests
+- `api-contract-validator` - Validate API contracts
+- `security-test-suite` - Security scanning
+- `performance-benchmark` - Performance testing
+- `data-validation` - Data quality validation
+- `test-health-monitor` - Test suite health

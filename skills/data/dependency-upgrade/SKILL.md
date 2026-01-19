@@ -1,6 +1,7 @@
 ---
 name: dependency-upgrade
 description: Manage major dependency version upgrades with compatibility analysis, staged rollout, and comprehensive testing. Use when upgrading framework versions, updating major dependencies, or managing breaking changes in libraries.
+license: MIT
 ---
 
 # Dependency Upgrade
@@ -33,8 +34,12 @@ PATCH: Bug fixes, backward compatible
 
 ## Dependency Analysis
 
-### Audit Dependencies
+### Audit Dependencies (Prefer Bun)
 ```bash
+# Preferred: Bun
+bun outdated
+bun audit
+
 # npm
 npm outdated
 npm audit
@@ -45,8 +50,8 @@ yarn outdated
 yarn audit
 
 # Check for major updates
-npx npm-check-updates
-npx npm-check-updates -u  # Update package.json
+bunx npm-check-updates
+bunx npm-check-updates -u  # Update package.json
 ```
 
 ### Analyze Dependency Tree
@@ -60,7 +65,7 @@ npm dedupe
 yarn dedupe
 
 # Visualize dependencies
-npx madge --image graph.png src/
+bunx madge --image graph.png src/
 ```
 
 ## Compatibility Matrix
@@ -111,25 +116,43 @@ echo "Upgrade order:
 5. Build tools" > UPGRADE_PLAN.md
 ```
 
-### Phase 2: Incremental Updates
+### Phase 2: Incremental Updates (Prefer Bun)
 ```bash
 # Don't upgrade everything at once!
 
-# Step 1: Update TypeScript
-npm install typescript@latest
+# Step 1: Update TypeScript (preferred)
+bun add -D typescript@latest
 
-# Test
+# Or with npm
+bun add typescript@latest
+
+# Test (preferred)
+bun test
+bun run build
+
+# Or with npm
 npm run test
 npm run build
 
 # Step 2: Update React (one major version at a time)
-npm install react@17 react-dom@17
+# Preferred
+bun add react@17 react-dom@17
 
-# Test again
+# Or with npm
+bun add react@17 react-dom@17
+
+# Test again (preferred)
+bun test
+
+# Or with npm
 npm run test
 
 # Step 3: Continue with other packages
-npm install react-router-dom@6
+# Preferred
+bun add react-router-dom@6
+
+# Or with npm
+bun add react-router-dom@6
 
 # And so on...
 ```
@@ -156,7 +179,7 @@ describe('Dependency Compatibility', () => {
 ### Identifying Breaking Changes
 ```bash
 # Use changelog parsers
-npx changelog-parser react 16.0.0 17.0.0
+bunx changelog-parser react 16.0.0 17.0.0
 
 # Or manually check
 curl https://raw.githubusercontent.com/facebook/react/main/CHANGELOG.md
@@ -165,10 +188,10 @@ curl https://raw.githubusercontent.com/facebook/react/main/CHANGELOG.md
 ### Codemod for Automated Fixes
 ```bash
 # React upgrade codemods
-npx react-codeshift <transform> <path>
+bunx react-codeshift <transform> <path>
 
 # Example: Update lifecycle methods
-npx react-codeshift \
+bunx react-codeshift \
   --parser tsx \
   --transform react-codeshift/transforms/rename-unsafe-lifecycles.js \
   src/
@@ -209,7 +232,7 @@ glob('src/**/*.tsx', (err, files) => {
 npm run test
 
 // Update test utilities if needed
-npm install @testing-library/react@latest
+bun add @testing-library/react@latest
 ```
 
 ### Integration Tests
@@ -304,7 +327,7 @@ git stash
 git checkout -b upgrade-branch
 
 # Attempt upgrade
-npm install package@latest
+bun add package@latest
 
 # Run tests
 if npm run test; then
@@ -321,8 +344,11 @@ fi
 
 ## Common Upgrade Patterns
 
-### Lock File Management
+### Lock File Management (Prefer Bun)
 ```bash
+# Preferred: Bun
+bun install --frozen-lockfile
+
 # npm
 npm install --package-lock-only  # Update lock file only
 npm ci  # Clean install from lock file
@@ -347,7 +373,7 @@ npm install --force
 npm install --workspaces
 
 # Update specific workspace
-npm install package@latest --workspace=packages/app
+bun add package@latest --workspace=packages/app
 ```
 
 ## Resources
@@ -362,14 +388,15 @@ npm install package@latest --workspace=packages/app
 
 ## Best Practices
 
-1. **Read Changelogs**: Understand what changed
-2. **Upgrade Incrementally**: One major version at a time
-3. **Test Thoroughly**: Unit, integration, E2E tests
-4. **Check Peer Dependencies**: Resolve conflicts early
-5. **Use Lock Files**: Ensure reproducible installs
-6. **Automate Updates**: Use Renovate or Dependabot
-7. **Monitor**: Watch for runtime errors post-upgrade
-8. **Document**: Keep upgrade notes
+1. **Prefer Bun**: Use Bun for installs, scripts, and tests when possible
+2. **Read Changelogs**: Understand what changed
+3. **Upgrade Incrementally**: One major version at a time
+4. **Test Thoroughly**: Unit, integration, E2E tests
+5. **Check Peer Dependencies**: Resolve conflicts early
+6. **Use Lock Files**: Ensure reproducible installs
+7. **Automate Updates**: Use Renovate or Dependabot
+8. **Monitor**: Watch for runtime errors post-upgrade
+9. **Document**: Keep upgrade notes
 
 ## Upgrade Checklist
 

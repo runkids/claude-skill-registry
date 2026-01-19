@@ -1,13 +1,7 @@
 {
   "name": "competitor-content-analyzer",
-  "description": "Track competitor blog posts, whitepapers, and content strategy. Identify content gaps in your strategy.",
-  "repo": "OneWave-AI/claude-skills",
-  "category": "marketing",
-  "tags": [
-    "competitor",
-    "content",
-    "analyzer"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "WesleySmits/agent-skills",
+  "path": ".agent/skills/competitor-content-analyzer/SKILL.md",
+  "source": "github.com/WesleySmits/agent-skills",
+  "downloaded_at": "2026-01-19T04:12:41.899460Z"
 }

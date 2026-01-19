@@ -1,11 +1,7 @@
 {
   "name": "ml-pipeline-automation",
-  "description": "Build end-to-end ML pipelines with automated data processing, training, validation, and deployment using Airflow, Kubeflow, and Jenkins",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "pipeline",
-    "automation"
-  ],
-  "stars": 25
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/ml-pipeline-automation/skills/ml-pipeline-automation/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-19T03:47:58.897750Z"
 }

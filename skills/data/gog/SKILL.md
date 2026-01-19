@@ -1,36 +1,104 @@
 ---
 name: gog
-description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.
-homepage: https://gogcli.sh
-metadata: {"clawdbot":{"emoji":"🎮","requires":{"bins":["gog"]},"install":[{"id":"brew","kind":"brew","formula":"steipete/tap/gogcli","bins":["gog"],"label":"Install gog (brew)"}]}}
+description: Manage GOG.com library of DRM-free games, wishlist, and store deals
+category: gaming
 ---
 
-# gog
+# GOG Skill
 
-Use `gog` for Gmail/Calendar/Drive/Contacts/Sheets/Docs. Requires OAuth setup.
+## Overview
+Enables Claude to interact with GOG.com for managing DRM-free game library, tracking wishlist sales, claiming free games, and discovering classic and indie titles.
 
-Setup (once)
-- `gog auth credentials /path/to/client_secret.json`
-- `gog auth add you@gmail.com --services gmail,calendar,drive,contacts,sheets,docs`
-- `gog auth list`
+## Quick Install
 
-Common commands
-- Gmail search: `gog gmail search 'newer_than:7d' --max 10`
-- Gmail send: `gog gmail send --to a@b.com --subject "Hi" --body "Hello"`
-- Calendar: `gog calendar events <calendarId> --from <iso> --to <iso>`
-- Drive search: `gog drive search "query" --max 10`
-- Contacts: `gog contacts list --max 20`
-- Sheets get: `gog sheets get <sheetId> "Tab!A1:D10" --json`
-- Sheets update: `gog sheets update <sheetId> "Tab!A1:B2" --values-json '[["A","B"],["1","2"]]' --input USER_ENTERED`
-- Sheets append: `gog sheets append <sheetId> "Tab!A:C" --values-json '[["x","y","z"]]' --insert INSERT_ROWS`
-- Sheets clear: `gog sheets clear <sheetId> "Tab!A2:Z"`
-- Sheets metadata: `gog sheets metadata <sheetId> --json`
-- Docs export: `gog docs export <docId> --format txt --out /tmp/doc.txt`
-- Docs cat: `gog docs cat <docId>`
+```bash
+curl -sSL https://canifi.com/skills/gog/install.sh | bash
+```
 
-Notes
-- Set `GOG_ACCOUNT=you@gmail.com` to avoid repeating `--account`.
-- For scripting, prefer `--json` plus `--no-input`.
-- Sheets values can be passed via `--values-json` (recommended) or as inline rows.
-- Docs supports export/cat/copy. In-place edits require a Docs API client (not in gog).
-- Confirm before sending mail or creating events.
+Or manually:
+```bash
+cp -r skills/gog ~/.canifi/skills/
+```
+
+## Setup
+
+Configure via [canifi-env](https://canifi.com/setup/scripts):
+
+```bash
+# First, ensure canifi-env is installed:
+# curl -sSL https://canifi.com/install.sh | bash
+
+canifi-env set GOG_EMAIL "your-email@example.com"
+```
+
+## Privacy & Authentication
+
+**Your credentials, your choice.** Canifi LifeOS respects your privacy.
+
+### Option 1: Manual Browser Login (Recommended)
+If you prefer not to share credentials with Claude Code:
+1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
+2. Login to the service manually in the Playwright-controlled Chrome window
+3. Claude will use your authenticated session without ever seeing your password
+
+### Option 2: Environment Variables
+If you're comfortable sharing credentials, you can store them locally:
+```bash
+canifi-env set SERVICE_EMAIL "your-email"
+canifi-env set SERVICE_PASSWORD "your-password"
+```
+
+**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
+
+## Capabilities
+- Browse and manage DRM-free game library
+- Track wishlist and sale notifications
+- Claim giveaway games
+- View purchase history
+- Access GOG Galaxy features
+
+## Usage Examples
+### Example 1: Wishlist Sales
+```
+User: "Are any of my GOG wishlist games on sale?"
+Claude: I'll check your GOG wishlist for current discounts.
+```
+
+### Example 2: Library Check
+```
+User: "What games do I own on GOG?"
+Claude: I'll browse your GOG library and list your DRM-free collection.
+```
+
+### Example 3: Free Games
+```
+User: "Any free games on GOG right now?"
+Claude: I'll check for current GOG giveaways and claim any available.
+```
+
+## Authentication Flow
+1. Navigate to gog.com via Playwright MCP
+2. Click "Sign In" button
+3. Enter email and password
+4. Handle 2FA if enabled
+5. Maintain session for subsequent requests
+
+## Error Handling
+- Login Failed: Retry authentication up to 3 times, then notify via iMessage
+- Session Expired: Re-authenticate automatically
+- 2FA Required: Wait for code via email
+- Rate Limited: Implement exponential backoff
+- Download Issues: Check offline installers availability
+
+## Self-Improvement Instructions
+When encountering new UI patterns:
+1. Document GOG interface changes
+2. Update selectors for new layouts
+3. Track giveaway schedules
+4. Monitor Galaxy integration
+
+## Notes
+- All games are DRM-free
+- Offline installers available
+- GOG Galaxy optional but recommended
+- GOG Connect for Steam library additions

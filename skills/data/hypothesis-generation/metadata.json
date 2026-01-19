@@ -1,7 +1,7 @@
 {
   "name": "hypothesis-generation",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/hypothesis-generation/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-17T03:59:40.861812Z"
+  "repo": "K-Dense-AI/claude-scientific-writer",
+  "path": "scientific_writer/.claude/skills/hypothesis-generation/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-writer",
+  "downloaded_at": "2026-01-19T03:54:14.284207Z"
 }

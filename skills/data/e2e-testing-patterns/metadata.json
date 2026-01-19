@@ -1,7 +1,7 @@
 {
   "name": "e2e-testing-patterns",
-  "repo": "wshobson/agents",
-  "path": "plugins/developer-essentials/skills/e2e-testing-patterns/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-17T03:59:18.657448Z"
+  "repo": "WesleySmits/agent-skills",
+  "path": ".agent/skills/e2e-testing-patterns/SKILL.md",
+  "source": "github.com/WesleySmits/agent-skills",
+  "downloaded_at": "2026-01-19T04:12:37.665776Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "integration-patterns",
-  "repo": "daishiman/AIWorkflowOrchestrator",
-  "path": "docs/99-claude/skills/integration-patterns/SKILL.md",
-  "source": "github.com/daishiman/AIWorkflowOrchestrator",
-  "downloaded_at": "2026-01-17T02:52:46.010834Z"
+  "repo": "Lobbi-Docs/claude",
+  "path": "plugins/team-accelerator/skills/integration-patterns/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-19T04:20:26.699091Z"
 }

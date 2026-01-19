@@ -1,7 +1,7 @@
 {
   "name": "speckit-clarify",
-  "repo": "dceoy/pdmt5",
-  "path": ".claude/skills/speckit-clarify/SKILL.md",
-  "source": "github.com/dceoy/pdmt5",
-  "downloaded_at": "2026-01-17T03:18:48.932810Z"
+  "repo": "dceoy/speckit-agent-skills",
+  "path": "skills/speckit-clarify/SKILL.md",
+  "source": "github.com/dceoy/speckit-agent-skills",
+  "downloaded_at": "2026-01-19T01:34:43.896156Z"
 }

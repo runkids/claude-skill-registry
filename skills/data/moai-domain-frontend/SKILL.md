@@ -1,195 +1,128 @@
 ---
-name: "moai-domain-frontend"
-description: "Frontend development specialist covering React 19, Next.js 16, Vue 3.5, and modern UI/UX patterns with component architecture. Use when building web UIs, implementing components, optimizing frontend performance, or integrating state management."
-version: 2.0.0
-category: "domain"
-modularized: true
-user-invocable: false
-tags: ['frontend', 'react', 'nextjs', 'vue', 'ui', 'components']
-context7-libraries: ['/facebook/react', '/vercel/next.js', '/vuejs/vue']
-updated: 2026-01-08
+name: moai-domain-frontend
+version: 2.1.0
+created: 2025-10-22
+updated: 2025-11-02
+status: active
+description: React 19/Vue 3.5/Angular 19 with state management, performance optimization, accessibility, and meta-frameworks (Nuxt, SvelteKit, Astro, SolidJS).
+keywords: ['react', 'vue', 'angular', 'state', 'accessibility', 'nuxt', 'sveltekit', 'astro', 'solidjs']
 allowed-tools:
   - Read
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
-status: "active"
-author: "MoAI-ADK Team"
+  - Bash
 ---
 
-# Frontend Development Specialist
+# Domain Frontend Skill
 
-## Quick Reference
+## Skill Metadata
 
-Modern Frontend Development - Comprehensive patterns for React 19, Next.js 16, Vue 3.5.
-
-Core Capabilities:
-- React 19: Server components, concurrent features, cache(), Suspense
-- Next.js 16: App Router, Server Actions, ISR, Route handlers
-- Vue 3.5: Composition API, TypeScript, Pinia state management
-- Component Architecture: Design systems, compound components, CVA
-- Performance: Code splitting, dynamic imports, memoization
-
-When to Use:
-- Modern web application development
-- Component library creation
-- Frontend performance optimization
-- UI/UX with accessibility
+| Field | Value |
+| ----- | ----- |
+| **Skill Name** | moai-domain-frontend |
+| **Version** | 2.1.0 (2025-11-02) |
+| **Allowed tools** | Read (read_file), Bash (terminal) |
+| **Auto-load** | On demand when keywords detected |
+| **Tier** | Domain |
 
 ---
 
-## Module Index
+## What It Does
 
-Load specific modules for detailed patterns:
+React 19/Vue 3.5/Angular 19 with state management, performance optimization, accessibility, and meta-frameworks (Nuxt, SvelteKit, Astro, SolidJS).
 
-### Framework Patterns
-
-[React 19 Patterns](modules/react19-patterns.md):
-- Server Components, Concurrent features, cache() API, Form handling
-
-[Next.js 16 Patterns](modules/nextjs16-patterns.md):
-- App Router, Server Actions, ISR, Route Handlers, Parallel Routes
-
-[Vue 3.5 Patterns](modules/vue35-patterns.md):
-- Composition API, Composables, Reactivity, Pinia, Provide/Inject
-
-### Architecture Patterns
-
-[Component Architecture](modules/component-architecture.md):
-- Design tokens, CVA variants, Compound components, Accessibility
-
-[State Management](modules/state-management.md):
-- Zustand, Redux Toolkit, React Context, Pinia
-
-[Performance Optimization](modules/performance-optimization.md):
-- Code splitting, Dynamic imports, Image optimization, Memoization
+**Key capabilities**:
+- ✅ Best practices enforcement for frontend domain
+- ✅ TRUST 5 principles integration
+- ✅ Latest tool versions (2025-11-02)
+- ✅ TDD workflow support
+- ✅ Meta-framework patterns (Nuxt, SvelteKit, Astro)
 
 ---
 
-## Implementation Quickstart
+## When to Use
 
-### React 19 Server Component
+**Automatic triggers**:
+- Related code discussions and file patterns
+- SPEC implementation (`/alfred:2-run`)
+- Code review requests
 
-```tsx
-import { cache } from 'react'
-import { Suspense } from 'react'
+**Manual invocation**:
+- Review code for TRUST 5 compliance
+- Design new features
+- Troubleshoot issues
 
-const getData = cache(async (id: string) => {
-  const res = await fetch(`/api/data/${id}`)
-  return res.json()
-})
+---
 
-export default async function Page({ params }: { params: { id: string } }) {
-  return (
-    <Suspense fallback={<Skeleton />}>
-      <DataDisplay data={await getData(params.id)} />
-    </Suspense>
-  )
-}
-```
+## Tool Version Matrix (2025-11-02)
 
-### Next.js Server Action
+| Tool | Version | Purpose | Status |
+|------|---------|---------|--------|
+| **React** | 19.0.0 | UI Library | ✅ Current |
+| **Vue** | 3.5.13 | UI Framework | ✅ Current |
+| **Angular** | 19.0.0 | UI Framework | ✅ Current |
+| **Svelte** | 4.2+ | UI Framework | ✅ Current |
+| **SolidJS** | 1.2.0 | UI Library | ✅ Current |
+| **Vite** | 6.0.5 | Build tool | ✅ Current |
+| **Astro** | 5.15.3 | Static site gen | ✅ Current |
 
-```tsx
-'use server'
+---
 
-import { revalidatePath } from 'next/cache'
-import { z } from 'zod'
+## Inputs
 
-const schema = z.object({
-  title: z.string().min(1),
-  content: z.string().min(10)
-})
+- Language-specific source directories
+- Configuration files
+- Test suites and sample data
 
-export async function createPost(formData: FormData) {
-  const result = schema.safeParse({
-    title: formData.get('title'),
-    content: formData.get('content')
-  })
-  if (!result.success) return { errors: result.error.flatten().fieldErrors }
-  await db.post.create({ data: result.data })
-  revalidatePath('/posts')
-}
-```
+## Outputs
 
-### Vue Composable
+- Test/lint execution plan
+- TRUST 5 review checkpoints
+- Migration guidance
 
-```typescript
-import { ref, computed, watchEffect } from 'vue'
+## Failure Modes
 
-export function useUser(userId: Ref<string>) {
-  const user = ref<User | null>(null)
-  const loading = ref(false)
-  const fullName = computed(() =>
-    user.value ? `${user.value.firstName} ${user.value.lastName}` : ''
-  )
-  watchEffect(async () => {
-    loading.value = true
-    user.value = await fetchUser(userId.value)
-    loading.value = false
-  })
-  return { user, loading, fullName }
-}
-```
+- When required tools are not installed
+- When dependencies are missing
+- When test coverage falls below 85%
 
-### CVA Component
+## Dependencies
 
-```tsx
-import { cva, type VariantProps } from 'class-variance-authority'
+- Access to project files via Read/Bash tools
+- Integration with `moai-foundation-langs` for language detection
+- Integration with `moai-foundation-trust` for quality gates
 
-const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md font-medium',
-  {
-    variants: {
-      variant: {
-        default: 'bg-primary text-white hover:bg-primary/90',
-        outline: 'border border-input hover:bg-accent',
-      },
-      size: {
-        sm: 'h-9 px-3 text-sm',
-        default: 'h-10 px-4',
-        lg: 'h-11 px-8',
-      },
-    },
-    defaultVariants: { variant: 'default', size: 'default' },
-  }
-)
+---
 
-export function Button({ variant, size, children }: ButtonProps) {
-  return <button className={buttonVariants({ variant, size })}>{children}</button>
-}
-```
+## References (Latest Documentation)
+
+_Documentation links updated 2025-10-22_
+
+---
+
+## Changelog
+
+- **v2.0.0** (2025-10-22): Major update with latest tool versions, comprehensive best practices, TRUST 5 integration
+- **v1.0.0** (2025-03-29): Initial Skill release
 
 ---
 
 ## Works Well With
 
-- moai-domain-backend - Full-stack development
-- moai-library-shadcn - Component library integration
-- moai-domain-uiux - UI/UX design principles
-- moai-lang-typescript - TypeScript patterns
-- moai-workflow-testing - Frontend testing
+- `moai-foundation-trust` (quality gates)
+- `moai-alfred-code-reviewer` (code review)
+- `moai-essentials-debug` (debugging support)
 
 ---
 
-## Technology Stack
+## Best Practices
 
-Frameworks: React 19, Next.js 16, Vue 3.5, Nuxt 3
-Languages: TypeScript 5.9+, JavaScript ES2024
-Styling: Tailwind CSS 3.4+, CSS Modules, shadcn/ui
-State: Zustand, Redux Toolkit, Pinia
-Testing: Vitest, Testing Library, Playwright
+✅ **DO**:
+- Follow domain best practices
+- Use latest stable tool versions
+- Maintain test coverage ≥85%
+- Document all public APIs
 
----
-
-## Resources
-
-Module files in modules/ directory contain detailed patterns.
-- React: https://react.dev/
-- Next.js: https://nextjs.org/docs
-- Vue: https://vuejs.org/
-
----
-
-Version: 2.0.0 | Last Updated: 2026-01-06
+❌ **DON'T**:
+- Skip quality gates
+- Use deprecated tools
+- Ignore security warnings
+- Mix testing frameworks

@@ -1,28 +1,27 @@
 ---
 name: Frontend Accessibility
-description: Build accessible user interfaces following WCAG guidelines with semantic HTML, keyboard navigation, screen reader support, and proper color contrast. Use this skill when creating or modifying UI components, implementing form inputs, adding interactive elements, working with navigation menus, creating modals or dialogs, or handling focus management. Apply when working on React component files (*.tsx, *.jsx), Shadcn/ui components, or any frontend code that users interact with. This skill ensures semantic HTML elements (nav, main, button, etc.) that convey meaning to assistive technologies, keyboard navigation with visible focus indicators (focus:ring-2 focus:ring-offset-2 in Tailwind), sufficient color contrast ratios (4.5:1 for normal text), descriptive alt text for images and meaningful labels for form inputs, screen reader testing and verification, ARIA attributes for complex components when semantic HTML isn't sufficient, logical heading structure (h1-h6 in proper order), and proper focus management in dynamic content, modals, and SPAs.
+description: Implement accessible user interfaces with semantic HTML, keyboard navigation, sufficient color contrast, screen reader support, ARIA attributes, and proper focus management. Use this skill when creating or editing React components (.tsx, .jsx files), when implementing forms with labels and inputs, when building interactive elements (buttons, modals, menus, dialogs), when implementing keyboard navigation, when choosing colors and ensuring contrast ratios, when adding ARIA attributes, when testing with screen readers, when implementing focus states and focus management, or when creating heading structures and page landmarks.
 ---
 
 # Frontend Accessibility
 
-## When to use this skill:
-
-- When creating new UI components or interactive elements
-- When implementing form inputs, buttons, or controls
-- When building navigation menus, headers, or footers
-- When creating modals, dialogs, or overlays with Shadcn/ui
-- When implementing custom interactive widgets
-- When adding images, icons, or media content
-- When working with color schemes and visual design
-- When managing focus states in single-page applications
-- When implementing keyboard shortcuts or hotkeys
-- When testing components with screen readers
-- When working on component files (*.tsx, *.jsx, components/*.*)
-- When reviewing designs for accessibility compliance
-- When adding visible focus indicators using Tailwind classes
-- When implementing screen-reader-only content with srOnly utility class
-
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle frontend accessibility.
+
+## When to use this skill
+
+- When creating or editing React components in `.tsx` or `.jsx` files
+- When implementing semantic HTML elements (nav, main, button, article, section, etc.)
+- When building forms and ensuring all inputs have associated labels
+- When implementing keyboard navigation and focus management
+- When adding interactive elements like buttons, links, modals, or menus
+- When choosing colors and verifying contrast ratios meet WCAG standards (4.5:1 minimum)
+- When adding alternative text to images or icons
+- When implementing ARIA attributes for complex UI patterns
+- When testing components with screen readers
+- When creating logical heading hierarchies (h1-h6)
+- When implementing visible focus indicators for keyboard navigation
+- When managing focus in dynamic content, modals, or single-page applications
+- When ensuring touch targets are appropriately sized for accessibility
 
 ## Instructions
 

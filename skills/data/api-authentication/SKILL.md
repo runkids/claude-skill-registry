@@ -1,343 +1,322 @@
 ---
 name: api-authentication
-description: Implement secure API authentication with JWT, OAuth 2.0, API keys, and session management. Use when securing APIs, managing tokens, or implementing user authentication flows.
+description: Эксперт по API аутентификации. Используй для OAuth 2.0, JWT, API keys, сессий, безопасности токенов и best practices.
 ---
 
-# API Authentication
+# API Authentication Expert
 
-## Overview
+Эксперт по аутентификации API с глубокими знаниями протоколов аутентификации, лучших практик безопасности и паттернов реализации.
 
-Implement comprehensive authentication strategies for APIs including JWT tokens, OAuth 2.0, API keys, and session management with proper security practices.
+## Основные методы аутентификации
 
-## When to Use
-
-- Securing API endpoints
-- Implementing user login/logout flows
-- Managing access tokens and refresh tokens
-- Integrating OAuth 2.0 providers
-- Protecting sensitive data
-- Implementing API key authentication
-
-## Instructions
-
-### 1. **JWT Authentication**
-
+### API Keys
 ```javascript
-// Node.js JWT Implementation
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-
-const app = express();
-const SECRET_KEY = process.env.JWT_SECRET || 'your-secret-key';
-const REFRESH_SECRET = process.env.REFRESH_SECRET || 'your-refresh-secret';
-
-// User login endpoint
-app.post('/api/auth/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    // Find user in database
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    // Verify password
-    const isValid = await bcrypt.compare(password, user.password);
-    if (!isValid) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    // Generate tokens
-    const accessToken = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role },
-      SECRET_KEY,
-      { expiresIn: '15m' }
-    );
-
-    const refreshToken = jwt.sign(
-      { userId: user.id },
-      REFRESH_SECRET,
-      { expiresIn: '7d' }
-    );
-
-    // Store refresh token in database
-    await RefreshToken.create({ token: refreshToken, userId: user.id });
-
-    res.json({
-      accessToken,
-      refreshToken,
-      expiresIn: 900,
-      user: { id: user.id, email: user.email, role: user.role }
-    });
-  } catch (error) {
-    res.status(500).json({ error: 'Authentication failed' });
+// Header-based API key
+const response = await fetch('/api/data', {
+  headers: {
+    'X-API-Key': 'your-api-key-here',
+    'Content-Type': 'application/json'
   }
 });
 
-// Refresh token endpoint
-app.post('/api/auth/refresh', (req, res) => {
-  const { refreshToken } = req.body;
+// Query parameter (менее безопасно)
+const response = await fetch('/api/data?api_key=your-api-key');
+```
 
-  if (!refreshToken) {
-    return res.status(401).json({ error: 'Refresh token required' });
-  }
+### JWT (JSON Web Tokens)
+```python
+import jwt
+from datetime import datetime, timedelta
 
-  try {
-    const decoded = jwt.verify(refreshToken, REFRESH_SECRET);
-
-    // Verify token exists in database
-    const storedToken = await RefreshToken.findOne({
-      token: refreshToken,
-      userId: decoded.userId
-    });
-
-    if (!storedToken) {
-      return res.status(401).json({ error: 'Invalid refresh token' });
+# Генерация JWT
+def create_jwt_token(user_id, secret_key):
+    payload = {
+        'user_id': user_id,
+        'exp': datetime.utcnow() + timedelta(hours=24),
+        'iat': datetime.utcnow()
     }
+    return jwt.encode(payload, secret_key, algorithm='HS256')
 
-    // Generate new access token
-    const newAccessToken = jwt.sign(
-      { userId: decoded.userId },
-      SECRET_KEY,
-      { expiresIn: '15m' }
-    );
+# Верификация JWT
+def verify_jwt_token(token, secret_key):
+    try:
+        payload = jwt.decode(token, secret_key, algorithms=['HS256'])
+        return payload['user_id']
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
+        return None
+```
 
-    res.json({ accessToken: newAccessToken, expiresIn: 900 });
-  } catch (error) {
-    res.status(401).json({ error: 'Invalid refresh token' });
-  }
-});
+### OAuth 2.0 Authorization Code Flow
+```javascript
+// Шаг 1: Редирект на сервер авторизации
+const authUrl = `https://auth.provider.com/oauth/authorize?
+  client_id=${clientId}&
+  redirect_uri=${redirectUri}&
+  response_type=code&
+  scope=read:user&
+  state=${randomState}`;
 
-// Middleware to verify JWT
-const verifyToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer token
+// Шаг 2: Обмен кода на access token
+async function exchangeCodeForToken(code) {
+  const response = await fetch('https://auth.provider.com/oauth/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': `Basic ${btoa(`${clientId}:${clientSecret}`)}`
+    },
+    body: new URLSearchParams({
+      grant_type: 'authorization_code',
+      code: code,
+      redirect_uri: redirectUri
+    })
+  });
+  return await response.json();
+}
+```
 
-  if (!token) {
-    return res.status(401).json({ error: 'Access token required' });
-  }
+## Безопасное хранение токенов
 
-  try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    if (error.name === 'TokenExpiredError') {
-      return res.status(401).json({ error: 'Token expired', code: 'TOKEN_EXPIRED' });
-    }
-    res.status(403).json({ error: 'Invalid token' });
-  }
-};
-
-// Protected endpoint
-app.get('/api/profile', verifyToken, (req, res) => {
-  res.json({ user: req.user });
-});
-
-// Logout endpoint
-app.post('/api/auth/logout', verifyToken, async (req, res) => {
-  try {
-    await RefreshToken.deleteOne({ userId: req.user.userId });
-    res.json({ message: 'Logged out successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Logout failed' });
-  }
+### HttpOnly Cookies
+```javascript
+// Server-side cookie configuration
+res.cookie('refreshToken', refreshToken, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'strict',
+  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 дней
 });
 ```
 
-### 2. **OAuth 2.0 Implementation**
+### Рекомендации
+- Всегда используйте HTTPS для передачи токенов
+- Храните refresh токены в HttpOnly cookies
+- Access токены храните в памяти (не в localStorage)
+- Используйте короткоживущие access токены (15-60 минут)
 
-```javascript
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
-passport.use(new GoogleStrategy(
-  {
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/api/auth/google/callback'
-  },
-  async (accessToken, refreshToken, profile, done) => {
-    try {
-      let user = await User.findOne({ googleId: profile.id });
-
-      if (!user) {
-        user = await User.create({
-          googleId: profile.id,
-          email: profile.emails[0].value,
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName
-        });
-      }
-
-      return done(null, user);
-    } catch (error) {
-      return done(error);
-    }
-  }
-));
-
-// OAuth routes
-app.get('/api/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
-
-app.get('/api/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    const token = jwt.sign(
-      { userId: req.user.id, email: req.user.email },
-      SECRET_KEY,
-      { expiresIn: '7d' }
-    );
-    res.redirect(`/dashboard?token=${token}`);
-  }
-);
-```
-
-### 3. **API Key Authentication**
-
-```javascript
-// API Key middleware
-const verifyApiKey = (req, res, next) => {
-  const apiKey = req.headers['x-api-key'];
-
-  if (!apiKey) {
-    return res.status(401).json({ error: 'API key required' });
-  }
-
-  try {
-    // Verify API key format and existence
-    const keyHash = crypto.createHash('sha256').update(apiKey).digest('hex');
-    const apiKeyRecord = await ApiKey.findOne({ key_hash: keyHash, active: true });
-
-    if (!apiKeyRecord) {
-      return res.status(401).json({ error: 'Invalid API key' });
-    }
-
-    req.apiKey = apiKeyRecord;
-    next();
-  } catch (error) {
-    res.status(500).json({ error: 'Authentication failed' });
-  }
-};
-
-// Generate API key endpoint
-app.post('/api/apikeys/generate', verifyToken, async (req, res) => {
-  try {
-    const apiKey = crypto.randomBytes(32).toString('hex');
-    const keyHash = crypto.createHash('sha256').update(apiKey).digest('hex');
-
-    const record = await ApiKey.create({
-      userId: req.user.userId,
-      key_hash: keyHash,
-      name: req.body.name,
-      active: true
-    });
-
-    res.json({ apiKey, message: 'Save this key securely' });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to generate API key' });
-  }
-});
-
-// Protected endpoint with API key
-app.get('/api/data', verifyApiKey, (req, res) => {
-  res.json({ data: 'sensitive data for API key holder' });
-});
-```
-
-### 4. **Python Authentication Implementation**
+## Rate Limiting
 
 ```python
-from flask import Flask, request, jsonify
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required
-from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
+from flask import request, jsonify
+from time import time
 
-app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'secret-key'
-jwt = JWTManager(app)
+def rate_limit(max_requests=100, window=3600):
+    def decorator(f):
+        requests_store = {}
 
-@app.route('/api/auth/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    user = User.query.filter_by(email=data['email']).first()
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            client_ip = request.remote_addr
+            current_time = time()
 
-    if not user or not check_password_hash(user.password, data['password']):
-        return jsonify({'error': 'Invalid credentials'}), 401
+            # Очистка старых записей
+            requests_store[client_ip] = [
+                t for t in requests_store.get(client_ip, [])
+                if current_time - t < window
+            ]
 
-    access_token = create_access_token(
-        identity=user.id,
-        additional_claims={'email': user.email, 'role': user.role}
-    )
+            if len(requests_store.get(client_ip, [])) >= max_requests:
+                return jsonify({'error': 'Rate limit exceeded'}), 429
 
-    return jsonify({
-        'accessToken': access_token,
-        'user': {'id': user.id, 'email': user.email}
-    }), 200
-
-@app.route('/api/protected', methods=['GET'])
-@jwt_required()
-def protected():
-    from flask_jwt_extended import get_jwt_identity
-    user_id = get_jwt_identity()
-    return jsonify({'userId': user_id}), 200
-
-def require_role(role):
-    def decorator(fn):
-        @wraps(fn)
-        @jwt_required()
-        def wrapper(*args, **kwargs):
-            from flask_jwt_extended import get_jwt
-            claims = get_jwt()
-            if claims.get('role') != role:
-                return jsonify({'error': 'Forbidden'}), 403
-            return fn(*args, **kwargs)
-        return wrapper
+            requests_store.setdefault(client_ip, []).append(current_time)
+            return f(*args, **kwargs)
+        return decorated_function
     return decorator
-
-@app.route('/api/admin', methods=['GET'])
-@require_role('admin')
-def admin_endpoint():
-    return jsonify({'message': 'Admin data'}), 200
 ```
 
-## Best Practices
+## Middleware аутентификации
 
-### ✅ DO
-- Use HTTPS for all authentication
-- Store tokens securely (HttpOnly cookies)
-- Implement token refresh mechanism
-- Set appropriate token expiration times
-- Hash and salt passwords
-- Use strong secret keys
-- Validate tokens on every request
-- Implement rate limiting on auth endpoints
-- Log authentication attempts
-- Rotate secrets regularly
+### Go
+```go
+func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        token := r.Header.Get("Authorization")
+        if token == "" {
+            http.Error(w, "Unauthorized", http.StatusUnauthorized)
+            return
+        }
 
-### ❌ DON'T
-- Store passwords in plain text
-- Send tokens in URL parameters
-- Use weak secret keys
-- Store sensitive data in JWT payload
-- Ignore token expiration
-- Disable HTTPS in production
-- Log sensitive tokens
-- Reuse API keys across services
-- Store credentials in code
+        // Remove "Bearer " prefix
+        if strings.HasPrefix(token, "Bearer ") {
+            token = token[7:]
+        }
+
+        userID, err := validateJWT(token)
+        if err != nil {
+            http.Error(w, "Invalid token", http.StatusUnauthorized)
+            return
+        }
+
+        ctx := context.WithValue(r.Context(), "userID", userID)
+        next(w, r.WithContext(ctx))
+    }
+}
+```
+
+### TypeScript/Express
+```typescript
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+
+interface AuthRequest extends Request {
+  userId?: string;
+}
+
+export const authMiddleware = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader?.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Missing token' });
+  }
+
+  const token = authHeader.slice(7);
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string };
+    req.userId = decoded.userId;
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+};
+```
+
+## Token Refresh Strategy
+
+```typescript
+class TokenManager {
+  private accessToken: string | null = null;
+  private refreshToken: string | null = null;
+
+  async refreshTokens(): Promise<boolean> {
+    try {
+      const response = await fetch('/api/auth/refresh', {
+        method: 'POST',
+        credentials: 'include' // для httpOnly cookies
+      });
+
+      if (!response.ok) {
+        throw new Error('Token refresh failed');
+      }
+
+      const { accessToken } = await response.json();
+      this.accessToken = accessToken;
+      return true;
+    } catch (error) {
+      this.logout();
+      return false;
+    }
+  }
+
+  async makeAuthenticatedRequest(url: string, options: RequestInit = {}) {
+    if (this.isTokenExpired()) {
+      const refreshed = await this.refreshTokens();
+      if (!refreshed) {
+        throw new Error('Session expired');
+      }
+    }
+
+    return fetch(url, {
+      ...options,
+      headers: {
+        ...options.headers,
+        'Authorization': `Bearer ${this.accessToken}`
+      }
+    });
+  }
+
+  private isTokenExpired(): boolean {
+    if (!this.accessToken) return true;
+
+    const payload = JSON.parse(atob(this.accessToken.split('.')[1]));
+    return payload.exp * 1000 < Date.now();
+  }
+}
+```
+
+## Multi-Factor Authentication (MFA)
+
+```python
+import pyotp
+import qrcode
+from io import BytesIO
+
+def generate_totp_secret(user_email):
+    secret = pyotp.random_base32()
+    totp_uri = pyotp.totp.TOTP(secret).provisioning_uri(
+        name=user_email,
+        issuer_name="Your App Name"
+    )
+
+    # Generate QR code
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(totp_uri)
+    qr.make(fit=True)
+
+    return secret, qr
+
+def verify_totp(secret, token):
+    totp = pyotp.TOTP(secret)
+    return totp.verify(token, valid_window=1)
+```
 
 ## Security Headers
 
 ```javascript
-app.use((req, res, next) => {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'DENY');
-  res.setHeader('X-XSS-Protection', '1; mode=block');
-  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
-  next();
-});
+const helmet = require('helmet');
+const cors = require('cors');
+
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+    },
+  },
+}));
+
+app.use(cors({
+  origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
 ```
+
+## Key Rotation
+
+```python
+class KeyRotationManager:
+    def __init__(self):
+        self.current_key_id = self.get_current_key_id()
+        self.keys = self.load_signing_keys()
+
+    def sign_token(self, payload):
+        key = self.keys[self.current_key_id]
+        payload['kid'] = self.current_key_id
+        return jwt.encode(payload, key, algorithm='RS256')
+
+    def verify_token(self, token):
+        unverified_header = jwt.get_unverified_header(token)
+        kid = unverified_header.get('kid')
+
+        if kid not in self.keys:
+            raise jwt.InvalidKeyError("Invalid key ID")
+
+        return jwt.decode(token, self.keys[kid], algorithms=['RS256'])
+```
+
+## Лучшие практики
+
+1. **Используйте HTTPS везде** — никогда не передавайте токены по HTTP
+2. **Короткоживущие access токены** — 15-60 минут максимум
+3. **Secure refresh tokens** — HttpOnly cookies, ротация при использовании
+4. **Валидация на каждом запросе** — не кэшируйте результаты авторизации
+5. **Логирование событий безопасности** — все попытки входа, ошибки токенов
+6. **Rate limiting** — защита от brute force атак
+7. **Ротация ключей** — регулярная смена signing keys

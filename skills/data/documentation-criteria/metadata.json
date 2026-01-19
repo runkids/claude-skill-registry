@@ -1,7 +1,7 @@
 {
   "name": "documentation-criteria",
-  "repo": "shinpr/agentic-code",
-  "path": ".agents/skills/documentation-criteria/SKILL.md",
-  "source": "github.com/shinpr/agentic-code",
-  "downloaded_at": "2026-01-17T02:43:08.149088Z"
+  "repo": "shinpr/claude-code-workflows",
+  "path": "skills/documentation-criteria/SKILL.md",
+  "source": "github.com/shinpr/claude-code-workflows",
+  "downloaded_at": "2026-01-19T02:30:03.454389Z"
 }

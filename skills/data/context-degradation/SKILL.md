@@ -1,6 +1,6 @@
 ---
 name: context-degradation
-description: This skill should be used when the user asks to "diagnose context problems", "fix lost-in-middle issues", "debug agent failures", "understand context poisoning", or mentions context degradation, attention patterns, context clash, context confusion, or agent performance degradation. Provides patterns for recognizing and mitigating context failures.
+description: Recognize, diagnose, and mitigate patterns of context degradation in agent systems. Use when context grows large, agent performance degrades unexpectedly, or debugging agent failures.
 ---
 
 # Context Degradation Patterns
@@ -39,7 +39,7 @@ Design context placement with attention patterns in mind. Place critical informa
 
 For long documents or conversations, use summary structures that surface key information at attention-favored positions. Use explicit section headers and transitions to help models navigate structure.
 
-### When to use this skill Poisoning
+### Context Poisoning
 
 Context poisoning occurs when hallucinations, errors, or incorrect information enters context and compounds through repeated reference. Once poisoned, context creates feedback loops that reinforce incorrect beliefs.
 
@@ -98,19 +98,19 @@ The RULER benchmark delivers sobering findings: only 50% of models claiming 32K+
 | Model | Degradation Onset | Severe Degradation | Notes |
 |-------|-------------------|-------------------|-------|
 | GPT-5.2 | ~64K tokens | ~200K tokens | Best overall degradation resistance with thinking mode |
-| the AI Assistant Opus 4.5 | ~100K tokens | ~180K tokens | 200K context window, strong attention management |
-| the AI Assistant Sonnet 4.5 | ~80K tokens | ~150K tokens | Optimized for agents and coding tasks |
+| Claude Opus 4.5 | ~100K tokens | ~180K tokens | 200K context window, strong attention management |
+| Claude Sonnet 4.5 | ~80K tokens | ~150K tokens | Optimized for agents and coding tasks |
 | Gemini 3 Pro | ~500K tokens | ~800K tokens | 1M context window, native multimodality |
 | Gemini 3 Flash | ~300K tokens | ~600K tokens | 3x speed of Gemini 2.5, 81.2% MMMU-Pro |
 
 **Model-Specific Behavior Patterns**
 Different models exhibit distinct failure modes under context pressure:
 
-- **the AI Assistant 4.5 series**: Lowest hallucination rates with calibrated uncertainty. the AI Assistant Opus 4.5 achieves 80.9% on SWE-bench Verified. Tends to refuse or ask clarification rather than fabricate.
+- **Claude 4.5 series**: Lowest hallucination rates with calibrated uncertainty. Claude Opus 4.5 achieves 80.9% on SWE-bench Verified. Tends to refuse or ask clarification rather than fabricate.
 - **GPT-5.2**: Two modes available - instant (fast) and thinking (reasoning). Thinking mode reduces hallucination through step-by-step verification but increases latency.
 - **Gemini 3 Pro/Flash**: Native multimodality with 1M context window. Gemini 3 Flash offers 3x speed improvement over previous generation. Strong at multi-modal reasoning across text, code, images, audio, and video.
 
-These patterns inform model selection for different use cases. High-stakes tasks benefit from the AI Assistant 4.5's conservative approach or GPT-5.2's thinking mode; speed-critical tasks may use instant modes.
+These patterns inform model selection for different use cases. High-stakes tasks benefit from Claude 4.5's conservative approach or GPT-5.2's thinking mode; speed-critical tasks may use instant modes.
 
 ### Counterintuitive Findings
 
@@ -156,7 +156,7 @@ Four strategies address different aspects of context degradation:
 
 Implement these strategies through specific architectural patterns. Use just-in-time context loading to retrieve information only when needed. Use observation masking to replace verbose tool outputs with compact references. Use sub-agent architectures to isolate context for different tasks. Use compaction to summarize growing context before it exceeds limits.
 
-## How to use this skill
+## Examples
 
 **Example 1: Detecting Degradation**
 ```yaml

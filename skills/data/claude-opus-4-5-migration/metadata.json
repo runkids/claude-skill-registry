@@ -1,7 +1,7 @@
 {
   "name": "claude-opus-4-5-migration",
-  "repo": "DennisLiuCk/claude-plugin-marketplace",
-  "path": "plugins/claude-opus-4-5-migration/skills/claude-opus-4-5-migration/SKILL.md",
-  "source": "github.com/DennisLiuCk/claude-plugin-marketplace",
-  "downloaded_at": "2026-01-17T01:44:28.685295Z"
+  "repo": "akiojin/playfab-mcp-server",
+  "path": ".claude/skills/claude-opus-4-5-migration/SKILL.md",
+  "source": "github.com/akiojin/playfab-mcp-server",
+  "downloaded_at": "2026-01-19T03:38:36.732716Z"
 }

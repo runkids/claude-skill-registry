@@ -1,381 +1,212 @@
 ---
 name: task-decomposition
-description: Break down complex tasks into atomic, actionable goals with clear dependencies and success criteria. Use this skill when you need to plan multi-step projects, coordinate agents, or decompose complex user requests into manageable sub-tasks.
+description: "Transform overwhelming development tasks into manageable units. This skill should be used when the user says 'task too big', 'can't estimate', 'overwhelmed by scope', 'where do I start', 'epic needs breakdown', or has dependency problems. Keywords: decomposition, breakdown, estimate, scope, INVEST, vertical slice, spike, dependencies."
+license: MIT
+compatibility: Works with any project. Integrates with github-agile for tracking decomposed work.
+metadata:
+  author: jwynia
+  version: "1.0"
 ---
 
-# Task Decomposition
+# Task Decomposition Diagnostic
 
-Enable effective planning and execution by decomposing high-level objectives into manageable, testable sub-tasks.
+Transform overwhelming development tasks into manageable units by respecting cognitive limits, creating clear boundaries, and enabling parallel work. Tasks properly decomposed achieve 3x higher completion rates and 60% fewer defects.
 
-## When to Use
+## When to Use This Skill
 
-- Complex user requests with multiple components
-- Multi-phase projects requiring coordination
-- Tasks that could benefit from parallel execution
-- When planning agent coordination strategies
+Use this skill when:
+- A task feels too big to estimate
+- Unsure where to start
+- Blocked by dependencies
+- Task keeps growing (scope creep)
+- Need to break down an epic or feature
 
-## Decomposition Framework
+Do NOT use this skill when:
+- Task is already small and clear
+- Doing implementation work
+- Architecture decisions needed (use system-design)
 
-### 1. Requirements Analysis
+## Core Principle
 
-**Extract Information**:
-- Primary objective (what user wants to achieve)
-- Implicit requirements (quality, performance, documentation)
-- Constraints (time, resources, compatibility)
-- Success criteria (how to measure completion)
+**The goal isn't more tasks—it's the right tasks.** Tasks small enough to understand completely, large enough to deliver value, independent enough to avoid blocking.
 
-**Questions to Ask**:
-- What is the core goal?
-- What are the sub-goals that contribute to the main goal?
-- What are the dependencies between sub-goals?
-- What could go wrong and how to prevent it?
+## Quick Reference: Cognitive Limits
 
-### 2. Goal Hierarchy
+| Limit | Threshold | Implication |
+|-------|-----------|-------------|
+| Working memory | 7±2 items | Max concepts per task |
+| Context switch recovery | 23 minutes | Minimize task switching |
+| Files examined | 15-20 max | Bound task scope |
+| Days before completion drops | 2-3 days | Keep tasks under this |
 
-**Top-Down Decomposition**:
-```
-Main Goal: [High-level objective]
-├─ Sub-goal 1: [Component 1]
-│  ├─ Task 1.1: [Atomic action]
-│  └─ Task 1.2: [Atomic action]
-├─ Sub-goal 2: [Component 2]
-│  ├─ Task 2.1: [Atomic action]
-│  └─ Task 2.2: [Atomic action]
-└─ Sub-goal 3: [Component 3]
-   └─ Task 3.1: [Atomic action]
-```
+## Task Duration Success Rates
 
-**Atomic Task Criteria**:
-- Single, clear action
-- Well-defined inputs and outputs
-- Can be completed by one agent
-- Testable/verifiable completion
-- Time-bounded (estimable duration)
+| Duration | Completion Rate |
+|----------|-----------------|
+| < 2 hours | 95% |
+| 2-4 hours | 90% |
+| 4-8 hours (1 day) | 80% |
+| 2-3 days | 60% |
+| 1 week | 35% |
+| > 2 weeks | <10% |
 
-### 3. Dependency Mapping
+## Diagnostic States
 
-**Dependency Types**:
+### TD1: Too Big to Understand
 
-**Sequential Dependencies**:
-```
-Task A → Task B → Task C
-(B requires A's output, C requires B's output)
-```
+**Symptoms:** Estimates range wildly, can't hold all requirements in mind, more than 7 concepts to track
 
-**Parallel Independent**:
-```
-Task A ─┐
-Task B ─┼─ [All can run simultaneously]
-Task C ─┘
-```
+**Interventions:**
+- Apply INVEST criteria: Independent, Negotiable, Valuable, Estimable, Small, Testable
+- Use vertical slicing (each slice is independently deployable)
+- Apply walking skeleton (minimal end-to-end first)
 
-**Converging Dependencies**:
-```
-Task A ─┐
-Task B ─┼─> Task D (requires A, B, C)
-Task C ─┘
-```
+### TD2: No Clear Entry Point
 
-**Resource Dependencies**:
-```
-Task A (needs resource X)
-Task B (needs resource X)
-→ Sequential or resource pooling required
-```
+**Symptoms:** Multiple valid starting points, paralysis, everything seems connected
 
-### 4. Success Criteria Definition
+**Interventions:**
+- Front-load risk: start with highest-uncertainty items
+- Tracer bullet: minimal proof of concept
+- Find the walking skeleton: thinnest slice through all layers
 
-For each task, define:
+### TD3: Dependency Problems
 
-**Input Requirements**:
-- What data/state is needed to start
-- What resources must be available
-- What preconditions must be met
+**Symptoms:** "Blocked on X", diamond dependencies, coordination overhead
 
-**Output Expectations**:
-- What artifacts will be produced
-- What state changes will occur
-- What metrics define success
+**Interventions:**
+- Interface contracts: define API, mock while implementing
+- Feature flags: deploy independently, enable when ready
+- Branch by abstraction: create layer, swap implementations
 
-**Quality Standards**:
-- Performance requirements
-- Code quality standards (from AGENTS.md)
-- Testing requirements
-- Documentation requirements
+### TD4: No Clear Done Criteria
 
-## Decomposition Process
+**Symptoms:** "Almost done" forever, no way to verify completion
 
-### Step 1: Understand the Goal
+**Interventions:**
+- Define acceptance criteria (Given/When/Then)
+- Time-box to force prioritization
+- Define explicit out-of-scope items
 
-```markdown
-User Request: [Original request]
+### TD5: Scope Creep
 
-Analysis:
-- Primary Goal: [Main objective]
-- Type: [Implementation/Debug/Refactor/Analysis]
-- Domain: [Specific area of codebase]
-- Complexity: [Simple/Medium/Complex]
-```
+**Symptoms:** Task keeps growing, "while we're here" additions
 
-### Step 2: Identify Major Components
+**Interventions:**
+- Freeze scope, spawn new tasks for additions
+- Define minimum viable version
+- Ship smallest version that solves the problem
 
-Break main goal into 3-7 major components:
+### TD6: Need Spike First
 
-```markdown
-Main Goal: Implement batch pattern update feature
+**Symptoms:** Estimate variance > 4x, new technology, multiple approaches
 
-Major Components:
-1. Database layer (Turso + redb)
-2. API layer (public interface)
-3. Business logic (batch processing)
-4. Testing (unit + integration)
-5. Documentation (API docs + examples)
-```
-
-### Step 3: Decompose Each Component
-
-For each component, identify atomic tasks:
-
-```markdown
-Component: Database layer
-
-Tasks:
-1. Design batch schema/structure
-   - Input: Pattern data structures
-   - Output: Schema definition
-   - Success: Supports efficient batch operations
-
-2. Implement Turso batch operations
-   - Input: Schema, patterns array
-   - Output: Batch insert/update functions
-   - Success: Atomic transaction, proper error handling
-
-3. Implement redb batch caching
-   - Input: Schema, patterns array
-   - Output: Batch cache update functions
-   - Success: Fast writes, consistency maintained
-```
-
-### Step 4: Map Dependencies
-
-```markdown
-Dependency Graph:
-
-[Design schema] ──┬──> [Implement Turso batch] ──┐
-                  │                               ├──> [Write tests]
-                  └──> [Implement redb batch] ───┘
-
-[Write tests] ──> [Write documentation]
-```
-
-### Step 5: Assign Priorities
-
-**Priority Levels**:
-- **P0 (Critical)**: Must complete for goal achievement
-- **P1 (Important)**: Significantly improves quality/functionality
-- **P2 (Nice-to-have)**: Enhances but not essential
-
-**Prioritization Factors**:
-- Blocks other tasks (critical path)
-- High user value
-- Risk reduction (address unknowns early)
-- Quick wins (early validation)
-
-### Step 6: Estimate Complexity
-
-For each task:
-```markdown
-Task: [Name]
-- Complexity: [Low/Medium/High]
-- Effort: [Small/Medium/Large]
-- Risk: [Low/Medium/High]
-- Dependencies: [List]
-```
+**Interventions:**
+- Time-boxed spike (8 hours max)
+- Deliverables: options, POC, trade-offs, revised estimate
+- Spike then implement pattern
 
 ## Decomposition Patterns
 
-### Pattern 1: Layer-Based Decomposition
+### Vertical Slicing (Preferred for Features)
 
-For architectural changes:
 ```
-1. Data/Storage layer
-2. Business logic layer
-3. API/Interface layer
-4. Testing layer
-5. Documentation layer
-```
+Feature: User Profile Management
 
-### Pattern 2: Feature-Based Decomposition
+Slice 1: View basic profile (4h)
+  - UI: Profile display
+  - API: GET /profile
+  - DB: Read profile
 
-For new features:
-```
-1. Core functionality (MVP)
-2. Error handling & edge cases
-3. Performance optimization
-4. Integration with existing system
-5. Testing & validation
-6. Documentation & examples
+Slice 2: Edit profile name (6h)
+  - UI: Edit dialog
+  - API: PATCH /profile/name
+  - DB: Update profile
+
+Each slice is independently deployable
 ```
 
-### Pattern 3: Phase-Based Decomposition
+### Walking Skeleton (For New Systems)
 
-For large projects:
 ```
-Phase 1: Research & Design
-Phase 2: Foundation & Infrastructure
-Phase 3: Core Implementation
-Phase 4: Integration & Testing
-Phase 5: Optimization & Polish
-Phase 6: Documentation & Release
-```
+Minimal end-to-end first:
+1. Hello World page
+2. One GET endpoint
+3. Single table
+4. Basic deploy
 
-### Pattern 4: Problem-Solution Decomposition
-
-For debugging/fixing:
-```
-1. Reproduce issue
-2. Diagnose root cause
-3. Design solution
-4. Implement fix
-5. Verify fix
-6. Prevent regression (tests)
+Then flesh out incrementally
 ```
 
-## Example Decompositions
+### Tracer Bullet (Validate Architecture)
 
-### Example 1: Simple Task
+```
+Step 1: Minimal Service A (1h) - Hardcoded response
+Step 2: Minimal Service B (1h) - Simple transformation
+Step 3: Integrate (2h) - Prove they communicate
 
-```markdown
-Request: "Fix failing test in pattern extraction"
-
-Analysis: Simple, focused task
-
-Decomposition:
-1. Run test to observe failure
-2. Identify failure cause
-3. Apply fix
-4. Verify test passes
-5. Check for similar issues
-
-Dependencies: Sequential (1→2→3→4→5)
-Complexity: Low
-Strategy: Single agent, sequential execution
+Total: 4 hours to decision point
 ```
 
-### Example 2: Medium Task
+## Estimation Techniques
 
-```markdown
-Request: "Add caching to episode retrieval"
+### Complexity Sizing (Fibonacci)
 
-Analysis: Medium complexity, multiple components
+| Points | Meaning |
+|--------|---------|
+| 1 | Trivial, < 1 hour |
+| 2 | Simple, 1-2 hours |
+| 3 | Standard, 2-4 hours |
+| 5 | Moderate, 4-8 hours |
+| 8 | Complex, 1-2 days |
+| 13 | Very complex, 2-3 days |
+| 21 | **Too large, must decompose** |
 
-Decomposition:
-1. Design cache strategy
-2. Implement cache layer
-3. Integrate with retrieval
-4. Add tests
-5. Measure performance
+### Three-Point Estimation
 
-Dependencies:
-- 1 → 2 → 3 (sequential)
-- 4 depends on 3
-- 5 depends on 3
+```
+O = Optimistic (everything perfect)
+L = Likely (normal case)
+P = Pessimistic (major issues)
 
-Strategy: Sequential with parallel testing
+PERT estimate: (O + 4L + P) / 6
 ```
 
-### Example 3: Complex Task
+## Anti-Patterns
 
-```markdown
-Request: "Refactor storage layer to support multiple backends"
+### Big Bang Delivery
+Building complete system before any delivery.
+**Fix:** Vertical slices, incremental value.
 
-Analysis: High complexity, architectural change
+### Technical Tasks Without Value
+"Set up database," "Create service layer."
+**Fix:** Include in feature tasks: "User can view products (includes DB)."
 
-Major Components:
-1. Storage abstraction layer
-2. Turso backend implementation
-3. redb backend implementation
-4. Backend factory & configuration
-5. Migration utilities
-6. Testing infrastructure
-7. Documentation
+### Research Forever
+Unbounded investigation.
+**Fix:** Time-boxed spikes with deliverables.
 
-Strategy: Multi-phase hybrid execution
-Coordination: GOAP agent + multiple specialized agents
-```
+### Perfect Decomposition
+Over-analyzing before starting.
+**Fix:** Decompose next 2 weeks. Details for later work emerge.
 
-## Quality Checklist
+## Decomposition Checklist
 
-### Good Decomposition Characteristics
+Before starting any task:
 
-✓ Each task is atomic and actionable
-✓ Dependencies are clearly identified
-✓ Success criteria are measurable
-✓ Complexity is appropriately estimated
-✓ All requirements are covered
-✓ No task is too large (>4 hours work)
-✓ Parallelization opportunities identified
+- [ ] Can hold all requirements in working memory?
+- [ ] Duration under 2-3 days?
+- [ ] Clear acceptance criteria exist?
+- [ ] Dependencies identified and broken where possible?
+- [ ] Can be completed independently?
+- [ ] Delivers verifiable value?
+- [ ] Estimate confidence is high?
 
-### Common Pitfalls
+If any "no" → further decomposition needed.
 
-✗ Tasks too large or vague
-✗ Missing dependencies
-✗ Unclear success criteria
-✗ Over-decomposition (too granular)
-✗ Missing quality/testing tasks
-✗ No consideration for error handling
-✗ Forgetting documentation tasks
+## Related Skills
 
-## Integration with GOAP Agent
-
-The GOAP agent uses task decomposition as its first phase:
-
-1. **Receive user request**
-2. **Apply decomposition framework** (this skill)
-3. **Create execution plan** (agent-coordination skill)
-4. **Execute with monitoring** (parallel-execution skill)
-5. **Report results**
-
-## Tips for Effective Decomposition
-
-### 1. Start with Why
-- Understand the true goal behind the request
-- Identify implicit requirements
-- Consider broader context
-
-### 2. Think Top-Down
-- Start with high-level components
-- Decompose each component separately
-- Stop at appropriate granularity
-
-### 3. Consider the User
-- What value does each task provide?
-- Can tasks be reordered for faster feedback?
-- What's the minimum viable solution?
-
-### 4. Plan for Quality
-- Include testing tasks
-- Include documentation tasks
-- Include review/validation tasks
-
-### 5. Anticipate Issues
-- What could go wrong?
-- What are the unknowns?
-- Where are the risks?
-
-### 6. Enable Parallelization
-- Identify truly independent tasks
-- Break dependencies where possible
-- Consider resource constraints
-
-## Summary
-
-Good task decomposition is the foundation of effective planning and coordination. By breaking complex goals into atomic, well-defined tasks with clear dependencies, you enable:
-
-- Optimal execution strategies (parallel/sequential)
-- Clear success criteria and validation
-- Effective agent coordination
-- Better progress tracking
-- Higher quality outcomes
-
-Use this skill as the first step in any complex task planning workflow.
+- **github-agile** - Track decomposed work as issues
+- **system-design** - Understand architectural boundaries
+- **requirements-analysis** - Clarify unclear requirements
+- **code-review** - Review after implementation

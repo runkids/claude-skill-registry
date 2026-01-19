@@ -1,7 +1,7 @@
 {
   "name": "error-recovery",
-  "repo": "involvex/involvex-claude-marketplace",
-  "path": "plugins/orchestration/skills/error-recovery/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-01-17T03:58:51.732276Z"
+  "repo": "troykelly/claude-skills",
+  "path": "skills/error-recovery/SKILL.md",
+  "source": "github.com/troykelly/claude-skills",
+  "downloaded_at": "2026-01-19T04:19:50.898143Z"
 }

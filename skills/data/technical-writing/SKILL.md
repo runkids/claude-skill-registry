@@ -1,259 +1,178 @@
 ---
 name: technical-writing
-description: Professional technical documentation writing for software projects. Use for README files, user guides, migration guides, changelogs, and general documentation. Triggers: documentation, docs, readme, guide, tutorial, changelog, migration guide, write docs, document code.
+description: "Write clear, engaging technical content from real experience. Use when writing blog posts, documentation, tutorials, or technical articles."
+category: communication
+priority: medium
+tokenEstimate: 800
+agents: [qe-quality-analyzer, qe-api-contract-validator]
+implementation_status: optimized
+optimization_version: 1.0
+last_optimized: 2025-12-03
+dependencies: []
+quick_reference_card: true
+tags: [writing, documentation, communication, blogs, tutorials]
 ---
 
 # Technical Writing
 
-## Overview
+<default_to_action>
+When writing technical content:
+1. LEAD with value (what will reader learn/gain?)
+2. SHOW, don't tell (specific examples, code, numbers)
+3. STRUCTURE for scanning (headers, bold, short paragraphs)
+4. CUT ruthlessly (every sentence must earn its place)
+5. BE honest about trade-offs
 
-Technical writing skill for creating clear, comprehensive documentation for software projects. This skill covers the full documentation lifecycle from understanding code to producing polished, audience-appropriate documentation.
-
-## Instructions
-
-### 1. Understand Before Documenting
-
-- **Read the code first**: Never document without understanding the implementation
-- **Identify the purpose**: What problem does this code solve?
-- **Trace the flow**: Understand how components interact
-- **Note edge cases**: Document limitations and constraints
-- **Check existing docs**: Review current documentation for style and gaps
-
-### 2. Know Your Audience
-
-- **Developers**: Focus on API details, code examples, technical depth
-- **End users**: Focus on tasks, outcomes, minimal technical jargon
-- **Operators/DevOps**: Focus on deployment, configuration, monitoring
-- **New team members**: Focus on onboarding, architecture overview
-
-### 3. Structure Documents Effectively
-
-Standard documentation structure:
-
-```
-1. Overview/Introduction
-   - What is this?
-   - Why does it exist?
-   - Who is it for?
-
-2. Getting Started
-   - Prerequisites
-   - Installation
-   - Quick start example
-
-3. Core Concepts
-   - Key terminology
-   - Architecture overview
-   - Mental models
-
-4. Usage Guide
-   - Common tasks
-   - Configuration options
-   - Best practices
-
-5. API Reference
-   - Methods/endpoints
-   - Parameters
-   - Return values
-   - Examples
-
-6. Troubleshooting
-   - Common issues
-   - Error messages
-   - FAQ
-
-7. Contributing (if applicable)
-   - Development setup
-   - Code style
-   - PR process
-```
-
-### 4. Writing Process
-
-1. **Outline first**: Create structure before prose
-2. **Write draft**: Get content down without perfecting
-3. **Add examples**: Include working code snippets
-4. **Review for clarity**: Simplify complex sentences
-5. **Check consistency**: Verify terminology and style
-6. **Test examples**: Ensure code samples work
-
-## Best Practices
-
-### Prose Style
-
-- Use active voice: "The function returns" not "The value is returned by"
-- Be concise: Remove unnecessary words
-- Be specific: "Returns a string" not "Returns the result"
-- Use present tense for descriptions
-- Use imperative mood for instructions: "Run the command" not "You should run"
-
-### README Best Practices
-
+**Blog Post Structure:**
 ```markdown
-# Project Name
+# Title (specific promise)
 
-Brief one-line description.
+## Opening (2-3 paragraphs)
+- Hook: The problem or insight
+- Context: Why this matters
+- Promise: What they'll learn
 
-## Features
+## Body (3-5 sections)
+- One clear idea per section
+- Support with examples/code/data
 
-- Key feature 1
-- Key feature 2
-
-## Installation
-
-\`\`\`bash
-npm install package-name
-\`\`\`
-
-## Quick Start
-
-\`\`\`javascript
-import { feature } from 'package-name';
-
-const result = feature.doSomething();
-\`\`\`
-
-## Documentation
-
-Link to full docs.
-
-## Contributing
-
-Link to contributing guide.
-
-## License
-
-MIT
+## Closing
+- Key takeaway (1-2 sentences)
+- Action reader can take
 ```
 
-### Changelog Best Practices
+**Before/After:**
+❌ "We implemented a comprehensive testing strategy..."
+✅ "We moved exploratory testing into sprint planning. QE now pairs with devs during story refinement."
+</default_to_action>
 
-Follow [Keep a Changelog](https://keepachangelog.com/) format:
+## Quick Reference Card
 
-```markdown
-# Changelog
+### Core Principles
 
-## [Unreleased]
+| Principle | Bad | Good |
+|-----------|-----|------|
+| **Lead with value** | "In today's landscape..." | "Here's how we cut bugs 60%" |
+| **Show, don't tell** | "We improved testing" | "Bug detection: 12→47 per sprint" |
+| **Be specific** | "Performance improved" | "Response time: 2.3s→180ms" |
+| **Honest trade-offs** | "This approach is best" | "TDD slowed velocity 20%, reduced bugs 75%" |
 
-## [1.2.0] - 2024-01-15
+### Words to Cut
 
-### Added
+| Kill | Reason |
+|------|--------|
+| basically, actually, probably | Hedge words |
+| leverage, synergy, paradigm | Corporate speak |
+| very, really, quite | Unnecessary qualifiers |
+| it should be noted that | Just note it |
 
-- New feature X for doing Y
+---
 
-### Changed
+## Audience-Specific Writing
 
-- Updated dependency Z to version 2.0
+### For Developers
+- Lead with code or concrete problem
+- Show implementation details
+- Discuss trade-offs and alternatives
+- Link to repos or examples
 
-### Fixed
+### For QA/QE
+- Start with testing challenge
+- Show strategy, not just tools
+- Include risk assessment
+- Provide adaptable heuristics
 
-- Bug where A caused B
+### For Leadership
+- Open with business impact
+- Use metrics that matter
+- Connect technical to outcomes
+- Keep technical details concise
 
-### Removed
+---
 
-- Deprecated method `oldMethod()`
+## Editing Checklist
+
+Before publishing:
+- [ ] Title promises something specific
+- [ ] Opening hooks in 30 seconds
+- [ ] Claims backed by examples
+- [ ] All unnecessary words cut
+- [ ] Code examples tested and correct
+- [ ] Takeaway crystal clear
+- [ ] Would send to respected colleague
+
+---
+
+## Example Transformations
+
+**Before:**
+"We decided to implement a more comprehensive testing strategy that would allow us to catch bugs earlier in the development lifecycle."
+
+**After:**
+"We moved exploratory testing into sprint planning. QE now pairs with devs during story refinement, identifying risks before code is written."
+
+---
+
+**Before:**
+"The benefits of this approach are numerous and include improved quality, faster feedback loops, and better team collaboration."
+
+**After:**
+"Three outcomes: bugs found 2 days earlier on average, 30% fewer regression issues, and devs now ask QE for input during design."
+
+---
+
+## Agent Integration
+
+```typescript
+// Generate documentation from code
+const docs = await Task("Generate Docs", {
+  source: 'src/services/PaymentService.ts',
+  format: 'markdown',
+  includeExamples: true
+}, "qe-quality-analyzer");
+
+// Review documentation quality
+const review = await Task("Review Docs", {
+  files: ['README.md', 'docs/api.md'],
+  checkClarity: true,
+  checkCodeExamples: true
+}, "qe-quality-analyzer");
 ```
 
-### Migration Guide Best Practices
+---
 
-```markdown
-# Migration Guide: v1.x to v2.0
+## Agent Coordination Hints
 
-## Overview
-
-Brief description of why migration is needed.
-
-## Breaking Changes
-
-### Change 1: New Authentication
-
-**Before (v1.x):**
-\`\`\`javascript
-client.auth(apiKey);
-\`\`\`
-
-**After (v2.0):**
-\`\`\`javascript
-client.authenticate({ key: apiKey, type: 'bearer' });
-\`\`\`
-
-## Step-by-Step Migration
-
-1. Update package to v2.0
-2. Replace auth calls (see above)
-3. Update configuration file format
-4. Test your integration
-
-## Deprecation Timeline
-
-- v2.0: Old methods deprecated with warnings
-- v3.0: Old methods removed
+### Memory Namespace
+```
+aqe/technical-writing/
+├── generated-docs/*   - Auto-generated documentation
+├── reviews/*          - Documentation review findings
+└── templates/*        - Reusable doc templates
 ```
 
-## Examples
-
-### Example: Function Documentation
-
-```javascript
-/**
- * Calculates the total price including tax and discounts.
- *
- * @param {number} basePrice - The original price before adjustments
- * @param {Object} options - Calculation options
- * @param {number} [options.taxRate=0.1] - Tax rate as decimal (0.1 = 10%)
- * @param {number} [options.discount=0] - Discount amount in currency units
- * @returns {number} Final price rounded to 2 decimal places
- * @throws {Error} If basePrice is negative
- *
- * @example
- * // Basic usage
- * calculateTotal(100);
- * // Returns: 110.00
- *
- * @example
- * // With discount
- * calculateTotal(100, { discount: 20 });
- * // Returns: 88.00
- */
-function calculateTotal(basePrice, options = {}) {
-  // implementation
-}
+### Fleet Coordination
+```typescript
+const docsFleet = await FleetManager.coordinate({
+  strategy: 'documentation',
+  agents: [
+    'qe-quality-analyzer',         // Generate and review
+    'qe-api-contract-validator'    // API doc accuracy
+  ],
+  topology: 'sequential'
+});
 ```
 
-### Example: CLI Documentation
+---
 
-```markdown
-## Usage
+## Related Skills
+- [bug-reporting-excellence](../bug-reporting-excellence/) - Technical bug writing
+- [code-review-quality](../code-review-quality/) - Review documentation
 
-\`\`\`
-myapp <command> [options]
-\`\`\`
+---
 
-### Commands
+## Remember
 
-| Command | Description              |
-| ------- | ------------------------ |
-| `init`  | Initialize a new project |
-| `build` | Build the project        |
-| `serve` | Start development server |
+**You're not writing to impress.** You're writing to help people solve problems you've already solved. Be the colleague you wish you'd had.
 
-### Options
-
-| Option      | Alias | Description           | Default         |
-| ----------- | ----- | --------------------- | --------------- |
-| `--config`  | `-c`  | Path to config file   | `./config.json` |
-| `--verbose` | `-v`  | Enable verbose output | `false`         |
-| `--port`    | `-p`  | Server port           | `3000`          |
-
-### Examples
-
-Initialize a new project:
-\`\`\`bash
-myapp init my-project
-\`\`\`
-
-Build with custom config:
-\`\`\`bash
-myapp build -c ./custom-config.json
-\`\`\`
-```
+**Write from experience.** Only write about what you've done in production. If exploring, say so.

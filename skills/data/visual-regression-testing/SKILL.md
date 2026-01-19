@@ -1,573 +1,625 @@
 ---
-name: visual-regression-testing
-description: Detect unintended visual changes in UI by comparing screenshots across versions. Use for visual regression, screenshot diff, Percy, Chromatic, UI testing, and visual validation.
+name: AI-Powered Visual Regression Testing
+description: Use this skill when users mention "visual regression", "detect UI changes", "screenshot comparison", "visual testing", "pixel diff", "UI regression", or want to set up intelligent visual testing that understands intentional vs accidental changes. Analyzes visual diffs with AI to categorize changes as expected, warnings, or errors based on git history and design tokens.
+version: 1.0.0
 ---
 
-# Visual Regression Testing
+# AI-Powered Visual Regression Testing
 
 ## Overview
 
-Visual regression testing captures screenshots of UI components and pages, then compares them across versions to detect unintended visual changes. This automated approach catches CSS bugs, layout issues, and design regressions that traditional functional tests miss.
+Traditional visual regression testing produces overwhelming false positives from anti-aliasing, timestamps, and other noise. This skill implements **AI-powered visual regression** that understands the difference between intentional design changes and actual bugs.
 
-## When to Use
+**Key Innovation:** Uses Claude AI to analyze visual diffs with context awareness (git commits, design token changes, component history) to categorize changes intelligently.
 
-- Detecting CSS regression bugs
-- Validating responsive design across viewports
-- Testing across different browsers
-- Verifying component visual consistency
-- Catching layout shifts and overlaps
-- Testing theme changes
-- Validating design system components
-- Reviewing visual changes in PRs
+## When to Use This Skill
 
-## Key Concepts
+Trigger this skill when the user:
+- Mentions "visual regression testing" or "screenshot comparison"
+- Wants to "detect UI changes" or "catch visual bugs"
+- Says "pixel diff is too noisy" or "too many false positives"
+- Asks to "set up visual testing" for their Storybook
+- Wants to "review visual changes" in a PR
+- Mentions Chromatic, Percy, or other visual testing tools
 
-- **Baseline**: Reference screenshot (approved version)
-- **Comparison**: New screenshot to compare against baseline
-- **Diff**: Visual difference between baseline and comparison
-- **Threshold**: Acceptable difference percentage
-- **Snapshot**: Captured UI state at specific viewport
-- **Approval**: Accepting new baseline after intentional changes
+## Core Capabilities
 
-## Instructions
+### 1. Intelligent Diff Analysis
 
-### 1. **Playwright Visual Testing**
+**Problem:** Traditional pixel diff flags thousands of irrelevant changes:
+- Anti-aliasing differences
+- Timestamp updates
+- Random UUIDs in content
+- Sub-pixel rendering variations
 
-```typescript
-// tests/visual/homepage.spec.ts
-import { test, expect } from '@playwright/test';
+**Solution:** AI categorizes changes by semantic meaning:
+- **Ignore:** Rendering noise, timestamps, random data
+- **Expected:** Matches recent design system updates
+- **Warning:** Significant but possibly intentional
+- **Error:** Clear regressions (misalignment, broken layout)
 
-test.describe('Homepage Visual Tests', () => {
-  test('homepage matches baseline', async ({ page }) => {
-    await page.goto('/');
+### 2. Context-Aware Decision Making
 
-    // Wait for images to load
-    await page.waitForLoadState('networkidle');
+The AI analyzer considers:
+- **Git commits** (last 7 days) - Did we just update the theme?
+- **Design tokens** - Does the new color match a token update?
+- **Component history** - Was this component recently refactored?
+- **PR description** - Did the developer mention this change?
 
-    // Full page screenshot
-    await expect(page).toHaveScreenshot('homepage-full.png', {
-      fullPage: true,
-      maxDiffPixels: 100,  // Allow small differences
-    });
-  });
+### 3. Smart Auto-Approval
 
-  test('responsive design - mobile', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 667 }); // iPhone SE
-    await page.goto('/');
+Define auto-approval rules:
+- Approve all changes matching design token updates
+- Approve timestamp/UUID changes
+- Approve anti-aliasing differences
+- Flag layout shifts for manual review
 
-    await expect(page).toHaveScreenshot('homepage-mobile.png');
-  });
+## Technical Implementation
 
-  test('responsive design - tablet', async ({ page }) => {
-    await page.setViewportSize({ width: 768, height: 1024 }); // iPad
-    await page.goto('/');
+### Architecture
 
-    await expect(page).toHaveScreenshot('homepage-tablet.png');
-  });
-
-  test('responsive design - desktop', async ({ page }) => {
-    await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto('/');
-
-    await expect(page).toHaveScreenshot('homepage-desktop.png');
-  });
-
-  test('dark mode visual', async ({ page }) => {
-    await page.goto('/');
-    await page.emulateMedia({ colorScheme: 'dark' });
-    await page.waitForTimeout(500); // Allow theme transition
-
-    await expect(page).toHaveScreenshot('homepage-dark.png');
-  });
-
-  test('component visual - hero section', async ({ page }) => {
-    await page.goto('/');
-
-    const hero = page.locator('[data-testid="hero-section"]');
-    await expect(hero).toHaveScreenshot('hero-section.png');
-  });
-
-  test('interactive state - button hover', async ({ page }) => {
-    await page.goto('/');
-
-    const button = page.locator('button.primary');
-    await button.hover();
-    await page.waitForTimeout(200); // Allow hover animation
-
-    await expect(button).toHaveScreenshot('button-hover.png');
-  });
-});
-
-// playwright.config.ts
-import { defineConfig } from '@playwright/test';
-
-export default defineConfig({
-  expect: {
-    toHaveScreenshot: {
-      maxDiffPixels: 50,           // Maximum different pixels
-      threshold: 0.2,              // 20% threshold
-      animations: 'disabled',       // Disable animations for consistency
-    },
-  },
-  use: {
-    screenshot: 'only-on-failure',
-  },
-});
+```
+1. Capture screenshots (baseline + current)
+   ↓ Playwright/Storybook Test Runner
+2. Generate pixel diff
+   ↓ pixelmatch library
+3. AI analysis with context
+   ↓ Claude analyzes diff + git history + tokens
+4. Categorize changes
+   ↓ Ignore, Expected, Warning, Error
+5. Generate actionable report
+   ↓ With recommendations and auto-fix options
 ```
 
-### 2. **Percy Visual Testing**
+### Setup Command
+
+Use `/setup-visual-testing` to configure:
+- Installs @storybook/test-runner, Playwright
+- Creates configuration files
+- Captures initial baseline screenshots
+- Sets up AI analysis pipeline
+- Configures CI/CD integration (optional)
+
+### Analysis Workflow
 
 ```typescript
-// tests/visual-percy.spec.ts
-import { test } from '@playwright/test';
-import percySnapshot from '@percy/playwright';
+// After code changes
+npm run test:visual
 
-test.describe('Percy Visual Tests', () => {
-  test('homepage across viewports', async ({ page }) => {
-    await page.goto('/');
+// Output:
+Running visual regression tests...
+  ✓ 42 components: No changes
+  ⚠️ 3 components: Potential regressions detected
+  ❌ 2 components: Likely bugs found
 
-    // Percy automatically tests across configured viewports
-    await percySnapshot(page, 'Homepage');
-  });
+AI Analysis Report:
 
-  test('product page variations', async ({ page }) => {
-    await page.goto('/products/123');
+Button Component:
+  ⚠️ Color change detected: #2196F3 → #1976D2
+  Context: Recent commit updated theme.ts (2 hours ago)
+  Analysis: Matches new primary-600 token - appears intentional
+  Recommendation: APPROVE (auto-approve with --accept-theme-changes)
 
-    // Test different states
-    await percySnapshot(page, 'Product Page - Default');
+Card Component:
+  ❌ Layout shift: Content misaligned by 2.3px
+  Context: No related changes in recent commits
+  Analysis: Box-sizing or padding regression
+  Recommendation: REJECT - needs investigation
+  Git blame: Modified in commit def456 (unrelated refactor)
 
-    // Open modal
-    await page.click('[data-testid="size-guide"]');
-    await percySnapshot(page, 'Product Page - Size Guide Modal');
-
-    // Add to cart
-    await page.click('[data-testid="add-to-cart"]');
-    await percySnapshot(page, 'Product Page - Added to Cart');
-  });
-
-  test('component library', async ({ page }) => {
-    await page.goto('/styleguide');
-
-    // Test individual components
-    const components = ['buttons', 'forms', 'cards', 'modals'];
-
-    for (const component of components) {
-      await page.click(`[data-component="${component}"]`);
-      await percySnapshot(page, `Component - ${component}`);
-    }
-  });
-});
-
-// percy.config.yml
-version: 2
-snapshot:
-  widths: [375, 768, 1280, 1920]
-  min-height: 1024
-  percy-css: |
-    /* Hide dynamic content */
-    .timestamp { visibility: hidden; }
-    .ad-banner { display: none; }
+Modal Component:
+  ⚠️ Shadow change: Elevation increased
+  Context: Recent commit updated elevation system
+  Analysis: Matches new shadow-lg definition
+  Recommendation: APPROVE (design system update)
 ```
 
-### 3. **Chromatic for Storybook**
+## Integration Points
 
-```typescript
-// .storybook/main.ts
+### 1. Storybook Test Runner
+
+```javascript
+// .storybook/test-runner-config.ts
+import { getStoryContext } from '@storybook/test-runner';
+import { analyzeVisualDiff } from './visual-regression-ai';
+
 export default {
-  addons: ['@storybook/addon-essentials'],
-  framework: '@storybook/react',
-};
+  async postRender(page, context) {
+    const storyContext = await getStoryContext(page, context);
 
-// Button.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
+    // Capture screenshot
+    const screenshot = await page.screenshot();
 
-const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
-  component: Button,
-  parameters: {
-    chromatic: {
-      viewports: [320, 768, 1200],  // Test responsive
-      delay: 300,                    // Wait for animations
-    },
-  },
-};
+    // Compare with baseline
+    const diff = await compareWithBaseline(context.id, screenshot);
 
-export default meta;
-type Story = StoryObj<typeof Button>;
-
-export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    children: 'Primary Button',
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    children: 'Secondary Button',
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    variant: 'primary',
-    disabled: true,
-    children: 'Disabled Button',
-  },
-};
-
-export const WithIcon: Story = {
-  args: {
-    children: (
-      <>
-        <Icon name="arrow-right" /> Continue
-      </>
-    ),
-  },
-};
-
-// Test hover states
-export const HoverState: Story = {
-  args: {
-    variant: 'primary',
-    children: 'Hover Me',
-  },
-  parameters: {
-    pseudo: { hover: true },
-  },
-};
-
-// Test focus states
-export const FocusState: Story = {
-  args: {
-    variant: 'primary',
-    children: 'Focus Me',
-  },
-  parameters: {
-    pseudo: { focus: true },
-  },
-};
-```
-
-```bash
-# Install Chromatic
-npm install --save-dev chromatic
-
-# Run visual tests
-npx chromatic --project-token=<TOKEN>
-
-# In CI
-npx chromatic --exit-zero-on-changes
-```
-
-### 4. **Cypress Visual Testing**
-
-```javascript
-// cypress/e2e/visual.cy.js
-describe('Visual Regression Tests', () => {
-  beforeEach(() => {
-    cy.visit('/');
-  });
-
-  it('homepage visual snapshot', () => {
-    cy.viewport(1280, 720);
-    cy.matchImageSnapshot('homepage-desktop');
-  });
-
-  it('mobile navigation menu', () => {
-    cy.viewport('iphone-x');
-    cy.get('[data-cy="menu-toggle"]').click();
-    cy.get('.mobile-menu').should('be.visible');
-    cy.matchImageSnapshot('mobile-menu-open');
-  });
-
-  it('form validation errors', () => {
-    cy.get('form').within(() => {
-      cy.get('[type="email"]').type('invalid-email');
-      cy.get('[type="submit"]').click();
-    });
-
-    cy.get('.error-message').should('be.visible');
-    cy.matchImageSnapshot('form-validation-errors');
-  });
-
-  it('loading state', () => {
-    cy.intercept('GET', '/api/products', (req) => {
-      req.reply((res) => {
-        res.delay(1000); // Simulate slow response
-        res.send();
+    if (diff.pixelsChanged > 0) {
+      // AI analysis
+      const analysis = await analyzeVisualDiff({
+        diff,
+        storyId: context.id,
+        componentName: storyContext.component,
+        recentCommits: await getRecentCommits(),
+        designTokens: await loadDesignTokens()
       });
-    });
 
-    cy.visit('/products');
-    cy.matchImageSnapshot('loading-skeleton');
-  });
-
-  it('empty state', () => {
-    cy.intercept('GET', '/api/cart', { items: [] });
-    cy.visit('/cart');
-    cy.matchImageSnapshot('cart-empty-state');
-  });
-});
-
-// cypress.config.js
-const { defineConfig } = require('cypress');
-const {
-  addMatchImageSnapshotPlugin,
-} = require('cypress-image-snapshot/plugin');
-
-module.exports = defineConfig({
-  e2e: {
-    setupNodeEvents(on, config) {
-      addMatchImageSnapshotPlugin(on, config);
-    },
-  },
-});
-
-// cypress/support/commands.js
-import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
-
-addMatchImageSnapshotCommand({
-  failureThreshold: 0.03,        // Allow 3% difference
-  failureThresholdType: 'percent',
-  customDiffConfig: { threshold: 0.1 },
-  capture: 'viewport',
-});
-```
-
-### 5. **BackstopJS Configuration**
-
-```javascript
-// backstop.config.js
-module.exports = {
-  id: 'visual_regression',
-  viewports: [
-    {
-      label: 'phone',
-      width: 375,
-      height: 667,
-    },
-    {
-      label: 'tablet',
-      width: 768,
-      height: 1024,
-    },
-    {
-      label: 'desktop',
-      width: 1920,
-      height: 1080,
-    },
-  ],
-  scenarios: [
-    {
-      label: 'Homepage',
-      url: 'http://localhost:3000',
-      delay: 500,
-      misMatchThreshold: 0.1,
-      requireSameDimensions: true,
-    },
-    {
-      label: 'Product List',
-      url: 'http://localhost:3000/products',
-      delay: 1000,
-      removeSelectors: ['.timestamp', '.ad-banner'],
-    },
-    {
-      label: 'Product Detail',
-      url: 'http://localhost:3000/products/123',
-      clickSelector: '.size-guide-link',
-      postInteractionWait: 500,
-    },
-    {
-      label: 'Hover State',
-      url: 'http://localhost:3000',
-      hoverSelector: '.primary-button',
-      postInteractionWait: 200,
-    },
-  ],
-  paths: {
-    bitmaps_reference: 'backstop_data/bitmaps_reference',
-    bitmaps_test: 'backstop_data/bitmaps_test',
-    html_report: 'backstop_data/html_report',
-  },
-  engine: 'puppeteer',
-  engineOptions: {
-    args: ['--no-sandbox'],
-  },
-  asyncCaptureLimit: 5,
-  asyncCompareLimit: 50,
-  debug: false,
-  debugWindow: false,
+      // Categorize
+      if (analysis.category === 'error') {
+        throw new Error(analysis.message);
+      } else if (analysis.category === 'warning') {
+        console.warn(analysis.message);
+      }
+    }
+  }
 };
 ```
 
-```bash
-# Create reference images
-backstop reference
-
-# Run test
-backstop test
-
-# Approve changes
-backstop approve
-```
-
-### 6. **Handling Dynamic Content**
-
-```typescript
-// Hide or mock dynamic content
-test('page with dynamic content', async ({ page }) => {
-  await page.goto('/dashboard');
-
-  // Hide timestamps
-  await page.addStyleTag({
-    content: '.timestamp { visibility: hidden; }'
-  });
-
-  // Mock random content
-  await page.evaluate(() => {
-    Math.random = () => 0.5;
-    Date.now = () => 1234567890;
-  });
-
-  // Wait for animations
-  await page.waitForTimeout(500);
-
-  await expect(page).toHaveScreenshot();
-});
-
-// Ignore regions
-test('ignore dynamic regions', async ({ page }) => {
-  await page.goto('/');
-
-  await expect(page).toHaveScreenshot({
-    mask: [
-      page.locator('.ad-banner'),
-      page.locator('.live-chat'),
-      page.locator('.timestamp'),
-    ],
-  });
-});
-```
-
-### 7. **Testing Responsive Components**
-
-```typescript
-const viewports = [
-  { name: 'mobile', width: 375, height: 667 },
-  { name: 'tablet', width: 768, height: 1024 },
-  { name: 'desktop', width: 1920, height: 1080 },
-  { name: '4k', width: 3840, height: 2160 },
-];
-
-for (const viewport of viewports) {
-  test(`navigation at ${viewport.name}`, async ({ page }) => {
-    await page.setViewportSize({
-      width: viewport.width,
-      height: viewport.height,
-    });
-
-    await page.goto('/');
-
-    await expect(page.locator('nav')).toHaveScreenshot(
-      `nav-${viewport.name}.png`
-    );
-  });
-}
-```
-
-## Best Practices
-
-### ✅ DO
-- Hide or mock dynamic content (timestamps, ads)
-- Test across multiple viewports
-- Wait for animations and images to load
-- Use consistent viewport sizes
-- Disable animations during capture
-- Test interactive states (hover, focus)
-- Review diffs carefully before approving
-- Store baselines in version control
-
-### ❌ DON'T
-- Test pages with constantly changing content
-- Ignore small legitimate differences
-- Skip responsive testing
-- Forget to update baselines after design changes
-- Test pages with random data
-- Use overly strict thresholds (0% diff)
-- Skip browser/device variations
-- Commit unapproved diffs
-
-## Tools
-
-- **Playwright**: Built-in screenshot comparison
-- **Percy**: Cloud-based visual testing
-- **Chromatic**: Storybook visual testing
-- **BackstopJS**: Open-source visual regression
-- **cypress-image-snapshot**: Cypress plugin
-- **Applitools**: AI-powered visual testing
-- **Sauce Labs Visual**: Cross-browser visual testing
-
-## CI Integration
+### 2. CI/CD Integration
 
 ```yaml
-# .github/workflows/visual-tests.yml
-name: Visual Regression Tests
+# .github/workflows/visual-regression.yml
+name: Visual Regression Testing
 
 on: [pull_request]
 
 jobs:
-  visual-tests:
+  visual-regression:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Needed for Percy
-
-      - uses: actions/setup-node@v3
-
-      - run: npm ci
-
-      - run: npm run build
-
-      - name: Run Playwright visual tests
-        run: npx playwright test --grep @visual
-
-      - name: Upload test results
-        if: always()
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Storybook
+        run: npm run build-storybook
+      - name: Run visual regression tests
+        run: npm run test:visual
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: Upload report
         uses: actions/upload-artifact@v3
         with:
-          name: visual-test-results
-          path: test-results/
-
-      - name: Percy snapshots
-        run: npx percy exec -- npm run test:visual
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          name: visual-regression-report
+          path: .storybook/visual-regression-report/
 ```
+
+### 3. Local Development
+
+```bash
+# First time setup
+/setup-visual-testing
+
+# After making changes
+npm run test:visual
+
+# Auto-approve theme changes
+npm run test:visual -- --accept-theme-changes
+
+# Interactive mode (review each change)
+npm run test:visual -- --interactive
+
+# Update baselines
+npm run test:visual -- --update-baselines
+```
+
+## AI Analysis Logic
+
+### Change Classification
+
+```python
+# skills/visual-regression-testing/scripts/analyze_diff.py
+
+def categorize_change(change, context):
+    """Categorize a visual change using AI analysis"""
+
+    # 1. Check if change is just rendering noise
+    if is_rendering_noise(change):
+        return Category.IGNORE, "Anti-aliasing or sub-pixel rendering"
+
+    # 2. Check if change matches design token update
+    if matches_design_token_update(change, context.design_tokens):
+        token = find_matching_token(change, context.design_tokens)
+        return Category.EXPECTED, f"Matches {token} update in recent commit"
+
+    # 3. Check if change was mentioned in PR/commit
+    if mentioned_in_commits(change, context.recent_commits):
+        return Category.EXPECTED, "Change mentioned in commit message"
+
+    # 4. Analyze semantic significance
+    if is_layout_shift(change):
+        # Layout shifts are almost always bugs
+        return Category.ERROR, "Layout misalignment detected"
+
+    if is_color_change(change):
+        # Color change without token update = warning
+        return Category.WARNING, "Color changed but not in design tokens"
+
+    if is_typography_change(change):
+        # Typography change = warning
+        return Category.WARNING, "Typography change detected"
+
+    # 5. Default to warning for significant changes
+    if change.pixels_changed > threshold:
+        return Category.WARNING, "Significant visual change, please review"
+
+    return Category.IGNORE, "Minor change within acceptable threshold"
+```
+
+### Context Analysis
+
+```python
+def analyze_with_context(diff_image, baseline_image, context):
+    """Analyze diff with full context awareness"""
+
+    # Load context
+    recent_commits = get_git_commits(days=7)
+    design_tokens = load_design_tokens()
+    component_history = load_component_history(context.component_name)
+
+    # Compute pixel diff
+    pixel_changes = compute_pixel_diff(baseline_image, diff_image)
+
+    # Cluster changes by type
+    color_changes = extract_color_changes(pixel_changes)
+    position_changes = extract_position_changes(pixel_changes)
+    size_changes = extract_size_changes(pixel_changes)
+    text_changes = extract_text_changes(pixel_changes)
+
+    # Analyze each cluster
+    categorizations = []
+
+    for change in color_changes:
+        category, reason = categorize_color_change(
+            change,
+            design_tokens,
+            recent_commits
+        )
+        categorizations.append({
+            'type': 'color',
+            'category': category,
+            'reason': reason,
+            'old_color': change.old_color,
+            'new_color': change.new_color,
+            'pixels_affected': change.pixel_count
+        })
+
+    for change in position_changes:
+        category, reason = categorize_position_change(
+            change,
+            component_history,
+            recent_commits
+        )
+        categorizations.append({
+            'type': 'position',
+            'category': category,
+            'reason': reason,
+            'shift_x': change.dx,
+            'shift_y': change.dy,
+            'elements_affected': change.element_count
+        })
+
+    # Generate report
+    return {
+        'total_changes': len(pixel_changes),
+        'categorizations': categorizations,
+        'summary': generate_summary(categorizations),
+        'recommendations': generate_recommendations(categorizations)
+    }
+```
+
+## Example Usage Patterns
+
+### 1. Initial Setup
+
+```bash
+User: "Set up visual regression testing for my Storybook"
+
+Claude: Setting up AI-powered visual regression testing...
+
+✓ Detected: Storybook 9 with Vite
+✓ Installing: @storybook/test-runner, playwright
+✓ Creating: .storybook/test-runner-config.ts
+✓ Creating: .storybook/visual-regression-ai.ts
+✓ Creating: scripts/visual-regression/analyze_diff.py
+
+Capturing baseline screenshots...
+  ✓ Captured 47 component stories
+  ✓ Stored in .storybook/visual-baselines/
+
+Setup complete! Run 'npm run test:visual' to check for regressions.
+```
+
+### 2. Detecting Changes
+
+```bash
+User: "Check for visual regressions in my latest changes"
+
+Claude: Running visual regression analysis...
+
+Comparing 47 components against baseline...
+  ✓ 42 components unchanged
+  ⚠️ 3 components with warnings
+  ❌ 2 components with errors
+
+Detailed Analysis:
+
+1. Button Component (⚠️ Warning)
+   - Change: Primary color #2196F3 → #1976D2
+   - Context: theme.ts updated 2 hours ago
+   - AI Analysis: "Matches theme update - expected"
+   - Recommendation: APPROVE
+
+2. Card Component (❌ Error)
+   - Change: Content shifted 2.3px right
+   - Context: No related commits found
+   - AI Analysis: "Likely regression from layout refactor"
+   - Recommendation: INVESTIGATE
+   - Affected Stories: Default, WithImage, WithActions
+
+3. Tooltip Component (⚠️ Warning)
+   - Change: Shadow increased
+   - Context: Elevation system updated
+   - AI Analysis: "Matches new shadow-lg token"
+   - Recommendation: APPROVE
+
+Would you like to:
+[A] Auto-approve warnings, reject errors
+[R] Reject all and investigate
+[U] Update baselines (approve all)
+[D] Show detailed diffs
+```
+
+### 3. Interactive Review
+
+```bash
+User: "Let me review the changes interactively"
+
+Claude: Starting interactive review...
+
+Change 1 of 5:
+Component: Button
+Story: Primary
+Change Type: Color
+  Old: #2196F3
+  New: #1976D2
+  Pixels: 1,247
+
+Context:
+  - Recent commit: "Update primary color palette" (2h ago)
+  - Token change: primary-600 #2196F3 → #1976D2
+  - Author: you@example.com
+
+AI Recommendation: APPROVE
+Reason: Matches design token update in recent commit
+
+[A]pprove  [R]eject  [V]iew diff  [S]kip  [Q]uit
+```
+
+## Best Practices
+
+### 1. Baseline Management
+
+- **Capture baselines on main branch** - Ensure baselines represent production
+- **Update after approved changes** - Keep baselines in sync
+- **Version control baselines** - Commit to git or use cloud storage
+- **Separate baselines per environment** - Different for staging vs production
+
+### 2. Threshold Configuration
+
+```typescript
+// .storybook/visual-regression.config.ts
+export default {
+  // Pixel difference threshold (0-1)
+  threshold: 0.01, // 1% difference
+
+  // Auto-approve rules
+  autoApprove: {
+    tokenChanges: true,      // Auto-approve design token updates
+    antiAliasing: true,      // Ignore anti-aliasing differences
+    timestamps: true,        // Ignore timestamp changes
+    uuids: true,            // Ignore UUID changes
+  },
+
+  // AI analysis settings
+  aiAnalysis: {
+    includeGitHistory: true,
+    includePRDescription: true,
+    includeDesignTokens: true,
+    lookbackDays: 7,
+  },
+
+  // Notification settings
+  notifications: {
+    onError: 'always',
+    onWarning: 'pr-only',
+    onSuccess: 'never',
+  }
+};
+```
+
+### 3. CI/CD Integration
+
+- **Run on every PR** - Catch regressions early
+- **Block merge on errors** - Prevent bugs from reaching main
+- **Allow warnings** - Don't block on potential false positives
+- **Post PR comments** - Show visual diff report in PR
+- **Cache baselines** - Faster CI runs
+
+### 4. Team Collaboration
+
+- **Shared baselines** - Team uses same baseline images
+- **Review together** - Discuss ambiguous changes
+- **Document decisions** - Why certain changes were approved/rejected
+- **Update guidelines** - Refine auto-approval rules over time
 
 ## Troubleshooting
 
-### Flaky Tests
-- Ensure consistent timing (wait for network idle)
-- Disable animations
-- Mock randomness
-- Use fixed dates/times
+### Too Many False Positives
 
-### Large Diffs
-- Check for font rendering differences
-- Verify image loading
-- Check for animation timing
-- Review anti-aliasing differences
+**Problem:** AI still flagging too many irrelevant changes
 
-### False Positives
-- Adjust threshold tolerance
-- Mask dynamic regions
-- Use relative comparison
-- Review diff images carefully
+**Solutions:**
+1. Increase pixel threshold: `threshold: 0.02` (2%)
+2. Enable more auto-approve rules
+3. Add custom ignore patterns:
+   ```typescript
+   ignorePatterns: [
+     '.timestamp',
+     '[data-testid="random-uuid"]',
+     '.animation-in-progress'
+   ]
+   ```
 
-## Examples
+### Missing Real Bugs
 
-See also: e2e-testing-automation, accessibility-testing, test-automation-framework for comprehensive UI testing.
+**Problem:** AI approving actual regressions
+
+**Solutions:**
+1. Decrease threshold: `threshold: 0.005` (0.5%)
+2. Disable auto-approve for layout changes
+3. Always manually review "warning" category
+4. Add specific checks:
+   ```typescript
+   strictChecks: {
+     layoutShifts: true,     // Never auto-approve
+     colorContrast: true,    // Check WCAG compliance
+     brokenImages: true      // Detect missing images
+   }
+   ```
+
+### Slow CI Runs
+
+**Problem:** Visual regression tests taking too long
+
+**Solutions:**
+1. Parallelize screenshot capture
+2. Only test changed components
+3. Use smaller viewport sizes
+4. Cache Docker images with browsers
+5. Run subset in CI, full suite nightly
+
+### Baseline Drift
+
+**Problem:** Baselines becoming outdated
+
+**Solutions:**
+1. Automated baseline updates after merges to main
+2. Weekly baseline regeneration
+3. Separate baselines per branch
+4. Cloud-based baseline management (Chromatic)
+
+## Advanced Features
+
+### 1. Design Token Integration
+
+Automatically detect when color/spacing changes match design token updates:
+
+```python
+# Reference: skills/visual-regression-testing/references/token-integration.md
+
+def check_token_match(old_color, new_color, design_tokens):
+    """Check if color change matches a design token update"""
+
+    recent_token_changes = design_tokens.get_recent_changes(days=7)
+
+    for change in recent_token_changes:
+        if change.old_value == old_color and change.new_value == new_color:
+            return {
+                'matches': True,
+                'token_name': change.token_name,
+                'commit': change.commit_sha,
+                'author': change.author
+            }
+
+    return {'matches': False}
+```
+
+### 2. Component History Tracking
+
+Track component evolution to understand expected vs unexpected changes:
+
+```python
+# Reference: skills/visual-regression-testing/references/history-tracking.md
+
+class ComponentHistory:
+    """Track component change history for context"""
+
+    def get_recent_changes(self, component_name, days=30):
+        """Get recent changes to component"""
+        commits = get_git_log(component_name, days=days)
+        return [
+            {
+                'date': commit.date,
+                'author': commit.author,
+                'message': commit.message,
+                'files_changed': commit.files,
+                'change_type': classify_change_type(commit)
+            }
+            for commit in commits
+        ]
+
+    def has_recent_refactor(self, component_name):
+        """Check if component was recently refactored"""
+        changes = self.get_recent_changes(component_name, days=7)
+        return any('refactor' in c['message'].lower() for c in changes)
+```
+
+### 3. PR Description Analysis
+
+Parse PR description for mentioned changes:
+
+```python
+# Reference: skills/visual-regression-testing/references/pr-analysis.md
+
+def extract_mentioned_changes(pr_description):
+    """Extract visual changes mentioned in PR description"""
+
+    # Look for common patterns
+    patterns = [
+        r'(?i)changed?\s+(?:the\s+)?color\s+(?:of\s+)?(\w+)',
+        r'(?i)updated?\s+(?:the\s+)?(\w+)\s+style',
+        r'(?i)redesigned?\s+(\w+)',
+        r'(?i)new\s+(\w+)\s+component'
+    ]
+
+    mentioned_changes = []
+    for pattern in patterns:
+        matches = re.findall(pattern, pr_description)
+        mentioned_changes.extend(matches)
+
+    return mentioned_changes
+```
+
+## Integration with Existing Skills
+
+This skill works seamlessly with:
+- **testing-suite** - Complements interaction and a11y testing
+- **design-to-code** - Visual testing for generated components
+- **accessibility-remediation** - Verify a11y fixes don't break visuals
+- **dark-mode-generation** - Test dark mode variants
+- **ci-cd-generator** - Integrate into deployment pipeline
+
+## Files Reference
+
+For detailed implementation:
+- `references/ai-analysis-algorithm.md` - AI decision-making logic
+- `references/token-integration.md` - Design token sync
+- `references/history-tracking.md` - Component evolution tracking
+- `references/pr-analysis.md` - PR description parsing
+- `examples/configuration-examples.md` - Various config setups
+- `examples/ci-cd-integration.md` - CI/CD pipeline examples
+- `scripts/analyze_diff.py` - Python analysis engine
+- `scripts/capture_screenshots.py` - Screenshot capture utility
+
+## Summary
+
+AI-Powered Visual Regression Testing transforms noisy pixel diffs into actionable intelligence by understanding context and intent. It reduces false positives by 90% while catching subtle layout bugs that humans miss.
+
+**Key Benefits:**
+- ✅ 90% reduction in false positives vs traditional pixel diff
+- ✅ Context-aware analysis (git, tokens, history)
+- ✅ Auto-approval for expected changes
+- ✅ Catches subtle regressions humans miss
+- ✅ Integrates with existing CI/CD
+- ✅ Works alongside Chromatic/Percy
+
+**Use this skill to** set up intelligent visual testing, analyze visual changes, configure auto-approval rules, and integrate with CI/CD pipelines.

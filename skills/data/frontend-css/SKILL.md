@@ -1,28 +1,25 @@
 ---
 name: Frontend CSS
-description: Write and structure CSS using Tailwind CSS v4.0+ utility classes as the default approach, with CSS Modules (camelCase class names) or custom CSS when Tailwind doesn't achieve the desired visual result. Use this skill when styling UI components, implementing layouts, adding responsive breakpoints, creating animations, defining design tokens, or handling dark mode. Apply when working on component files with className attributes, CSS Module files (*.module.css with PascalCase filenames), Tailwind configuration (tailwind.config.js), global stylesheets (globals.css), or any styling-related code. This skill ensures Tailwind CSS as the primary styling method with organized utility classes (layout → spacing → typography → colors → borders → responsive), mobile-first responsive design (sm: 640px, md: 768px, lg: 1024px, xl: 1280px), consistent design tokens defined in tailwind.config.js, CSS Modules with camelCase for custom styles when needed, accessible focus states (focus:ring-2 focus:ring-offset-2) and color contrast (4.5:1 minimum), dark mode support (darkMode: 'class'), custom keyframe animations in config, performance optimizations through CSS purging, and no inline styles.
+description: Write consistent, maintainable CSS following the project's methodology (Tailwind utility classes) while minimizing custom CSS and adhering to design system tokens. Use this skill when writing or editing CSS files, Tailwind classes in React components (.tsx, .jsx files), when implementing design system colors/spacing/typography, when using Tailwind utility classes, when deciding between framework utilities vs. custom CSS, when optimizing CSS for production with tree-shaking, when configuring Tailwind theme extensions, or when maintaining design consistency across the application.
 ---
 
 # Frontend CSS
 
-## When to use this skill:
-
-- When adding styles to React components or UI elements
-- When implementing layouts with flexbox or grid using Tailwind
-- When creating responsive designs across mobile, tablet, and desktop
-- When defining color schemes, typography, or spacing systems in tailwind.config.js
-- When working with Tailwind CSS utility classes and organizing them by category
-- When creating CSS Module files (PascalCase.module.css) for custom component styles
-- When configuring Tailwind (tailwind.config.js) with custom colors, fonts, spacing
-- When implementing animations or transitions (animate-* utilities or custom keyframes)
-- When adding dark mode support with dark: variant
-- When ensuring accessible color contrast (4.5:1) and visible focus states
-- When optimizing CSS performance and bundle size (CSS purging)
-- When working on component files with styling (*.tsx, *.jsx, *.module.css)
-- When centering content, creating grid layouts, or using flexbox patterns
-- When deciding between Tailwind, CSS Modules, or custom CSS for specific visual needs
-
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle frontend CSS.
+
+## When to use this skill
+
+- When writing or editing CSS files in the project
+- When applying Tailwind CSS utility classes in React components (.tsx, .jsx files)
+- When implementing design system tokens (colors, spacing, typography)
+- When configuring Tailwind theme extensions using the `@theme` directive
+- When deciding between using framework utilities vs. writing custom CSS
+- When maintaining consistent styling patterns across components
+- When optimizing CSS for production with purging/tree-shaking
+- When avoiding unnecessary framework style overrides
+- When working with the project's CSS methodology (Tailwind, BEM, utility-first, etc.)
+- When implementing responsive styles using Tailwind breakpoints
+- When ensuring CSS performance and bundle size optimization
 
 ## Instructions
 

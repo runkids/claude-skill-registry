@@ -5,9 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: story-sense
-  mode: collaborative
 ---
 
 # Outline Collaborator: Active Structural Partner Skill

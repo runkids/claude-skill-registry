@@ -1,136 +1,130 @@
-# 🔍 SEO Optimization Skill
-
 ---
 name: seo-optimization
-description: Optimize web applications for search engines with meta tags, structured data, and performance
+description: |
+  SEO最適化の専門スキル。Next.js Metadata APIを活用した検索エンジン対策、ソーシャルメディア最適化、構造化データマークアップを提供する。
+
+  Anchors:
+  • Google SEO Starter Guide / 適用: メタデータ設定と構造化データ / 目的: 検索可視性向上
+  • Web Vitals Guide / 適用: パフォーマンス最適化 / 目的: ユーザー体験向上
+  • Schema.org Documentation / 適用: 構造化データマークアップ / 目的: リッチリザルト対応
+
+  Trigger:
+  Use when implementing SEO optimization, setting up metadata, adding structured data markup, configuring OGP, or optimizing for search engines.
+  SEO, metadata, OGP, Twitter Cards, structured data, JSON-LD, sitemap, robots.txt
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
-## 🎯 Purpose
+# SEO最適化
 
-Optimize เว็บไซต์สำหรับ search engines ด้วย meta tags, structured data, และ performance
+## 概要
 
-## 📋 When to Use
+Next.js Metadata APIを活用したSEO最適化を実装するスキル。メタデータ設定、OGP/Twitter Cards、構造化データ、Sitemap/robots.txtをカバーする。
 
-- Launch new website
-- Improve search rankings
-- Audit existing site
-- Content updates
-- Performance optimization
+## ワークフロー
 
-## 🔧 Core SEO Elements
-
-### Meta Tags
-```html
-<head>
-  <title>Page Title - Site Name</title>
-  <meta name="description" content="Description under 160 chars" />
-  <meta name="keywords" content="keyword1, keyword2" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://example.com/page" />
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Title" />
-  <meta property="og:description" content="Description" />
-  <meta property="og:image" content="https://example.com/image.jpg" />
-  <meta property="og:url" content="https://example.com/page" />
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Title" />
-</head>
+```
+analyze-requirements → implement-metadata → validate-seo
 ```
 
-### Next.js Implementation
-```typescript
-// app/layout.tsx
-export const metadata = {
-  title: {
-    template: '%s | My Site',
-    default: 'My Site',
-  },
-  description: 'Site description',
-  openGraph: {
-    title: 'My Site',
-    description: 'Description',
-    url: 'https://example.com',
-    siteName: 'My Site',
-    images: [{ url: '/og-image.jpg' }],
-  },
-};
-```
+### Phase 1: 要件分析
 
-### Structured Data
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Article Title",
-  "author": {
-    "@type": "Person",
-    "name": "Author Name"
-  },
-  "datePublished": "2024-01-15"
-}
-</script>
-```
+**目的**: SEO要件と対象ページを特定する
 
-## 📊 SEO Checklist
+**Task**: `agents/requirements-analysis.md` を参照
 
-### Technical
-- [ ] Fast loading (<3s)
-- [ ] Mobile-friendly
-- [ ] HTTPS enabled
-- [ ] XML sitemap
-- [ ] robots.txt
-- [ ] No broken links
+**アクション**:
 
-### Content
-- [ ] Unique titles per page
-- [ ] Meta descriptions
-- [ ] Header hierarchy (H1-H6)
-- [ ] Alt text on images
-- [ ] Internal linking
-- [ ] Quality content
+1. 対象ページの特定
+2. 実装範囲の決定（Metadata/OGP/構造化データ）
+3. 競合分析（任意）
 
-### Performance
-- [ ] Image optimization
-- [ ] Lazy loading
-- [ ] Minified CSS/JS
-- [ ] CDN usage
-- [ ] Core Web Vitals pass
+### Phase 2: メタデータ実装
 
-## 📝 Sitemap Template
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://example.com/</loc>
-    <lastmod>2024-01-15</lastmod>
-    <priority>1.0</priority>
-  </url>
-</urlset>
-```
+**目的**: SEO要素を実装する
 
-## 🛠️ Tools
+**Task**: `agents/metadata-implementation.md` を参照
 
-- Google Search Console
-- Lighthouse
-- PageSpeed Insights
-- Schema Markup Validator
+**アクション**:
 
-## ✅ Audit Checklist
+1. Next.js Metadata API設定
+2. OGP/Twitter Cardsメタタグ設定
+3. JSON-LD構造化データ実装
+4. Sitemap/robots.txt設定
 
-- [ ] Title tags optimized
-- [ ] Meta descriptions unique
-- [ ] Images have alt text
-- [ ] URLs are clean
-- [ ] Page speed acceptable
-- [ ] Mobile responsive
-- [ ] Structured data valid
+### Phase 3: 検証と記録
 
-## 🔗 Related Skills
+**目的**: SEO設定の検証と記録
 
-- `performance-optimization` - Speed improvements
-- `accessibility-audit` - A11y helps SEO
-- `documentation` - Content creation
+**アクション**:
+
+1. メタデータの正確性を確認
+2. Google Rich Results Testで構造化データを検証
+3. `scripts/log_usage.mjs` で記録
+
+## Task仕様ナビ
+
+| Task                    | 責務           | 入力       | 出力               |
+| ----------------------- | -------------- | ---------- | ------------------ |
+| requirements-analysis   | 要件分析       | ページ情報 | SEO要件定義        |
+| metadata-implementation | メタデータ実装 | SEO要件    | 実装済みメタデータ |
+
+**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリを参照
+
+## ベストプラクティス
+
+### すべきこと
+
+| 推奨事項                        | 理由                     |
+| ------------------------------- | ------------------------ |
+| 各ページにユニークなtitleを設定 | 検索結果での識別性向上   |
+| descriptionは160文字以内に      | 検索結果での切り捨て防止 |
+| OGP画像は1200x630pxで用意       | SNS共有時の最適表示      |
+| canonicalタグを設定する         | 重複コンテンツ問題の回避 |
+| 構造化データを検証する          | エラーのない実装を保証   |
+
+### 避けるべきこと
+
+| 禁止事項                   | 問題点               |
+| -------------------------- | -------------------- |
+| タイトルの重複             | 検索エンジンの混乱   |
+| キーワードスタッフィング   | ペナルティのリスク   |
+| robots.txtでの完全ブロック | インデックス除外     |
+| 構造化データのエラー放置   | リッチリザルト非表示 |
+
+## リソース参照
+
+### references/（詳細知識）
+
+| リソース       | パス                                                                 | 読込条件         |
+| -------------- | -------------------------------------------------------------------- | ---------------- |
+| Metadata API   | [references/metadata-api-guide.md](references/metadata-api-guide.md) | メタデータ実装時 |
+| OGP/Twitter    | [references/ogp-twitter-cards.md](references/ogp-twitter-cards.md)   | OGP設定時        |
+| 構造化データ   | [references/structured-data.md](references/structured-data.md)       | JSON-LD実装時    |
+| Sitemap/robots | [references/sitemap-robots.md](references/sitemap-robots.md)         | クローラー対策時 |
+
+### scripts/（決定論的処理）
+
+| スクリプト                | 機能               |
+| ------------------------- | ------------------ |
+| `scripts/log_usage.mjs`   | 使用記録と自動評価 |
+| `scripts/analyze-seo.mjs` | SEO分析            |
+
+### assets/（テンプレート）
+
+| アセット                             | 用途                     |
+| ------------------------------------ | ------------------------ |
+| `assets/metadata-template.md`        | Metadata設定テンプレート |
+| `assets/structured-data-template.md` | JSON-LDテンプレート      |
+
+## 変更履歴
+
+| Version | Date       | Changes                                            |
+| ------- | ---------- | -------------------------------------------------- |
+| 2.0.0   | 2026-01-02 | 18-skills仕様完全準拠、agents/を責務ベースに再構成 |
+| 1.0.0   | 2025-12-31 | 初版                                               |

@@ -1,334 +1,523 @@
 ---
 name: codex
-description: Execute Codex CLI for code analysis, refactoring, and automated code changes. Use when you need to delegate complex code tasks to Codex AI with file references (@syntax) and structured output.
+description: Executes OpenAI Codex CLI for code analysis, refactoring, and automated editing. Activates when users mention codex commands, code review requests, or automated code transformations requiring advanced reasoning models.
 ---
 
-# Codex CLI Integration
+# Codex Execution Skill
 
-## Overview
+## Prerequisites
+- Codex CLI installed and configured (`~/.codex/config.toml`)
+- Verify availability: `codex --version` on first use per session
 
-Execute Codex CLI commands and parse structured JSON responses. Supports file references via `@` syntax, multiple models, and sandbox controls.
+## Workflow Checklist
 
-## When to Use
+**For every Codex task, follow this sequence**:
 
-- Complex code analysis requiring deep understanding
-- Large-scale refactoring across multiple files
-- Automated code generation with safety controls
+1. ☐ **Detect HPC/Slurm environment**:
+   - Check if running on HPC cluster (look for `/home/woody/`, `/home/hpc/`, Slurm env vars)
+   - If HPC detected: **Always use `--yolo` flag to bypass Landlock sandbox restrictions**
 
-## Fallback Policy
+2. ☐ **Ask user for execution parameters** via `AskUserQuestion` (single prompt):
+   - Model: `gpt-5`, `gpt-5-codex`, or default
+   - Reasoning effort: `minimal`, `low`, `medium`, `high`
 
-Codex is the **primary execution method** for all code edits and tests. Direct execution is only permitted when:
+3. ☐ **Determine sandbox mode** based on task:
+   - `read-only`: Code review, analysis, documentation
+   - `workspace-write`: Code modifications, file creation
+   - `danger-full-access`: System operations, network access
+   - **HPC override**: Always add `--yolo` flag (bypasses Landlock restrictions)
 
-1. Codex is unavailable (service down, network issues)
-2. Codex fails **twice consecutively** on the same task
+4. ☐ **Build command** with required flags:
+   ```bash
+   codex exec [OPTIONS] "PROMPT"
+   ```
+   Essential flags:
+   - `-m <MODEL>` (if overriding default)
+   - `-c model_reasoning_effort="<LEVEL>"`
+   - `-s <SANDBOX_MODE>` (skip on HPC)
+   - `--skip-git-repo-check` (if outside git repo)
+   - `-C <DIRECTORY>` (if changing workspace)
+   - `--full-auto` (for non-interactive execution, **cannot be used with --yolo**)
 
-When falling back to direct execution:
-- Log `CODEX_FALLBACK` with the reason
-- Retry Codex on the next task (don't permanently switch)
-- Document the fallback in the final summary
+   **HPC command pattern** (with `--yolo` to bypass Landlock):
+   ```bash
+   codex exec --yolo -m gpt-5 -c model_reasoning_effort="high" --skip-git-repo-check \
+     "Analyze this code: $(cat /path/to/file.py)" 2>/dev/null
+   ```
 
-## Usage
+   **Note**: `--yolo` is an alias for `--dangerously-bypass-approvals-and-sandbox` and is REQUIRED on HPC clusters to avoid Landlock sandbox errors. **Do not use --full-auto with --yolo as they are incompatible.**
 
-**Mandatory**: Run every automated invocation through the Bash tool in the foreground with **HEREDOC syntax** to avoid shell quoting issues, keeping the `timeout` parameter fixed at `7200000` milliseconds (do not change it or use any other entry point).
+5. ☐ **Execute with stderr suppression**:
+   - Append `2>/dev/null` to hide thinking tokens
+   - Remove only if user requests verbose output or debugging
+
+6. ☐ **Validate execution**:
+   - Check exit code (0 = success)
+   - Summarize output for user
+   - Report errors with actionable solutions
+   - If Landlock/sandbox errors on HPC: verify `--yolo` flag was used, retry if missing
+
+7. ☐ **Inform about resume capability**:
+   - "Resume this session anytime: `codex resume`"
+
+## Command Patterns
+
+> **🔥 HPC QUICK TIP**: On HPC clusters (e.g., `/home/woody/`, `/home/hpc/`), **ALWAYS add `--yolo` flag** to avoid Landlock sandbox errors. Example: `codex exec --yolo -m gpt-5 ...`
+
+### Read-Only Analysis
+```bash
+codex exec -m gpt-5 -c model_reasoning_effort="medium" -s read-only \
+  --skip-git-repo-check --full-auto "review @file.py for security issues" 2>/dev/null
+```
+
+### Stdin Input (bypasses sandbox file restrictions)
+```bash
+cat file.py | codex exec -m gpt-5 -c model_reasoning_effort="low" \
+  --skip-git-repo-check --full-auto - 2>/dev/null
+```
+**Note**: Stdin with `-` flag may not be supported in all Codex CLI versions.
+
+### HPC/Slurm Environment (YOLO Mode - Bypass Landlock)
+When running on HPC clusters with Landlock security restrictions, use the `--yolo` flag:
 
 ```bash
-codex-wrapper - [working_dir] <<'EOF'
-<task content here>
-EOF
+# Primary solution: --yolo flag bypasses Landlock sandbox
+codex exec --yolo -m gpt-5 -c model_reasoning_effort="high" --skip-git-repo-check \
+  "Analyze this code: $(cat /path/to/file.py)" 2>/dev/null
 ```
 
-**Why HEREDOC?** Tasks often contain code blocks, nested quotes, shell metacharacters (`$`, `` ` ``, `\`), and multiline text. HEREDOC (Here Document) syntax passes these safely without shell interpretation, eliminating quote-escaping nightmares.
-
-**Foreground only (no background/BashOutput)**: Never set `background: true`, never accept Claude's "Running in the background" mode, and avoid `BashOutput` streaming loops. Keep a single foreground Bash call per Codex task; if work might be long, split it into smaller foreground runs instead of offloading to background execution.
-
-**Simple tasks** (backward compatibility):
-For simple single-line tasks without special characters, you can still use direct quoting:
+**Alternative: Manual Code Injection** (if --yolo is unavailable):
 ```bash
-codex-wrapper "simple task here" [working_dir]
+# Capture code content and pass directly in prompt
+codex exec -m gpt-5 -c model_reasoning_effort="high" --skip-git-repo-check --full-auto \
+  "Analyze this Python code: $(cat file.py)" 2>/dev/null
 ```
-
-**Resume a session with HEREDOC:**
+Or for large files, use heredoc:
 ```bash
-codex-wrapper resume <session_id> - [working_dir] <<'EOF'
-<task content>
-EOF
+codex exec --yolo -m gpt-5 -c model_reasoning_effort="high" --skip-git-repo-check "$(cat <<'ENDCODE'
+Analyze the following code comprehensively:
+
+$(cat file.py)
+
+Focus on: architecture, algorithms, multi-GPU optimization, potential bugs, code quality.
+ENDCODE
+)" 2>/dev/null
 ```
 
-**Cross-platform notes:**
-- **Bash/Zsh**: Use `<<'EOF'` (single quotes prevent variable expansion)
-- **PowerShell 5.1+**: Use `@'` and `'@` (here-string syntax)
-  ```powershell
-  codex-wrapper - @'
-  task content
-  '@
-  ```
+**Note**: `--yolo` is short for `--dangerously-bypass-approvals-and-sandbox` and is safe on HPC login nodes where you have limited permissions anyway. **Do not combine --yolo with --full-auto as they are incompatible.**
 
-## Environment Variables
-
-- **CODEX_TIMEOUT**: Override timeout in milliseconds (default: 7200000 = 2 hours)
-  - Example: `export CODEX_TIMEOUT=3600000` for 1 hour
-
-## Timeout Control
-
-- **Built-in**: Binary enforces 2-hour timeout by default
-- **Override**: Set `CODEX_TIMEOUT` environment variable (in milliseconds, e.g., `CODEX_TIMEOUT=3600000` for 1 hour)
-- **Behavior**: On timeout, sends SIGTERM, then SIGKILL after 5s if process doesn't exit
-- **Exit code**: Returns 124 on timeout (consistent with GNU timeout)
-- **Bash tool**: Always set `timeout: 7200000` parameter for double protection
-
-### Parameters
-
-- `task` (required): Task description, supports `@file` references
-- `working_dir` (optional): Working directory (default: current)
-
-### Return Format
-
-Extracts `agent_message` from Codex JSON stream and appends session ID:
-```
-Agent response text here...
-
----
-SESSION_ID: 019a7247-ac9d-71f3-89e2-a823dbd8fd14
-```
-
-Error format (stderr):
-```
-ERROR: Error message
-```
-
-Return only the final agent message and session ID—do not paste raw `BashOutput` logs or background-task chatter into the conversation.
-
-### Invocation Pattern
-
-All automated executions must use HEREDOC syntax through the Bash tool in the foreground, with `timeout` fixed at `7200000` (non-negotiable):
-
-```
-Bash tool parameters:
-- command: codex-wrapper - [working_dir] <<'EOF'
-  <task content>
-  EOF
-- timeout: 7200000
-- description: <brief description of the task>
-```
-
-Run every call in the foreground—never append `&` to background it—so logs and errors stay visible for timely interruption or diagnosis.
-
-**Important:** Use HEREDOC (`<<'EOF'`) for all but the simplest tasks. This prevents shell interpretation of quotes, variables, and special characters.
-
-### Examples
-
-**Basic code analysis:**
+### Code Modification
 ```bash
-# Recommended: with HEREDOC (handles any special characters)
-codex-wrapper - <<'EOF'
-explain @src/main.ts
-EOF
-# timeout: 7200000
-
-# Alternative: simple direct quoting (if task is simple)
-codex-wrapper "explain @src/main.ts"
+codex exec -m gpt-5 -c model_reasoning_effort="high" -s workspace-write \
+  --skip-git-repo-check --full-auto "refactor @module.py to async/await" 2>/dev/null
 ```
 
-**Refactoring with multiline instructions:**
+### Resume Session
 ```bash
-codex-wrapper - <<'EOF'
-refactor @src/utils for performance:
-- Extract duplicate code into helpers
-- Use memoization for expensive calculations
-- Add inline comments for non-obvious logic
-EOF
-# timeout: 7200000
+echo "fix the remaining issues" | codex exec --skip-git-repo-check resume --last 2>/dev/null
 ```
 
-**Multi-file analysis:**
+### Cross-Directory Execution
 ```bash
-codex-wrapper - "/path/to/project" <<'EOF'
-analyze @. and find security issues:
-1. Check for SQL injection vulnerabilities
-2. Identify XSS risks in templates
-3. Review authentication/authorization logic
-4. Flag hardcoded credentials or secrets
-EOF
-# timeout: 7200000
+codex exec -C /path/to/project -m gpt-5 -c model_reasoning_effort="medium" \
+  -s read-only --skip-git-repo-check --full-auto "analyze architecture" 2>/dev/null
 ```
 
-**Resume previous session:**
+### Using Profiles
 ```bash
-# First session
-codex-wrapper - <<'EOF'
-add comments to @utils.js explaining the caching logic
-EOF
-# Output includes: SESSION_ID: 019a7247-ac9d-71f3-89e2-a823dbd8fd14
-
-# Continue the conversation with more context
-codex-wrapper resume 019a7247-ac9d-71f3-89e2-a823dbd8fd14 - <<'EOF'
-now add TypeScript type hints and handle edge cases where cache is null
-EOF
-# timeout: 7200000
+codex exec --profile production -c model_reasoning_effort="high" \
+  --full-auto "optimize performance in @app.py" 2>/dev/null
 ```
 
-**Task with code snippets and special characters:**
+## CLI Reference
+
+### Core Flags
+
+| Flag | Values | When to Use |
+|------|--------|-------------|
+| `-m, --model` | `gpt-5`, `gpt-5-codex` | Override default model |
+| `-c, --config` | `key=value` | Runtime config override (repeatable) |
+| `-s, --sandbox` | `read-only`, `workspace-write`, `danger-full-access` | Set execution permissions |
+| `--yolo` | flag | **REQUIRED on HPC** - Bypasses all sandbox restrictions (alias for `--dangerously-bypass-approvals-and-sandbox`). **Cannot be used with --full-auto** |
+| `-C, --cd` | `path` | Change workspace directory |
+| `--skip-git-repo-check` | flag | Allow execution outside git repos |
+| `--full-auto` | flag | Non-interactive mode (workspace-write + approvals on failure). **Cannot be used with --yolo** |
+| `-p, --profile` | `string` | Load configuration profile from config.toml |
+| `--json` | flag | JSON event output (CI/CD pipelines) |
+| `-o, --output-last-message` | `path` | Write final message to file |
+| `-i, --image` | `path[,path...]` | Attach images (repeatable or comma-separated) |
+| `--oss` | flag | Use local open-source model (requires Ollama) |
+
+### Configuration Options
+
+**Model Reasoning Effort** (`-c model_reasoning_effort="<LEVEL>"`):
+- `minimal`: Quick tasks, simple queries
+- `low`: Standard operations, routine refactoring
+- `medium`: Complex analysis, architectural decisions (default)
+- `high`: Critical code, security audits, complex algorithms
+
+**Model Verbosity** (`-c model_verbosity="<LEVEL>"`):
+- `low`: Minimal output
+- `medium`: Balanced detail (default)
+- `high`: Verbose explanations
+
+**Approval Prompts** (`-c approvals="<WHEN>"`):
+- `on-request`: Before any tool use
+- `on-failure`: Only on errors (default for `--full-auto`)
+- `untrusted`: Minimal prompts
+- `never`: No interruptions (use with caution)
+
+## Configuration Management
+
+### Config File Location
+`~/.codex/config.toml`
+
+### Runtime Overrides
 ```bash
-codex-wrapper - <<'EOF'
-Fix the bug in @app.js where the regex /\d+/ doesn't match "123"
-The current code is:
-  const re = /\d+/;
-  if (re.test(input)) { ... }
-Add proper escaping and handle $variables correctly.
-EOF
+# Override single setting
+codex exec -c model="gpt-5" "task"
+
+# Override multiple settings
+codex exec -c model="gpt-5" -c model_reasoning_effort="high" "task"
 ```
 
-### Parallel Execution
+### Using Profiles
+Define in `config.toml`:
+```toml
+[profiles.research]
+model = "gpt-5"
+model_reasoning_effort = "high"
+sandbox = "read-only"
 
-> Important:
-> - `--parallel` only reads task definitions from stdin.
-> - It does not accept extra command-line arguments (no inline `workdir`, `task`, or other params).
-> - Put all task metadata and content in stdin; nothing belongs after `--parallel` on the command line.
+[profiles.development]
+model = "gpt-5-codex"
+sandbox = "workspace-write"
+```
 
-**Correct vs Incorrect Usage**
-
-**Correct:**
+Use with:
 ```bash
-# Option 1: file redirection
-codex-wrapper --parallel < tasks.txt
-
-# Option 2: heredoc (recommended for multiple tasks)
-codex-wrapper --parallel <<'EOF'
----TASK---
-id: task1
-workdir: /path/to/dir
----CONTENT---
-task content
-EOF
-
-# Option 3: pipe
-echo "---TASK---..." | codex-wrapper --parallel
+codex exec --profile research "analyze codebase"
 ```
 
-**Incorrect (will trigger shell parsing errors):**
+## Resume Behavior
+
+**Automatic inheritance**:
+- Model selection
+- Reasoning effort
+- Sandbox mode
+- Configuration overrides
+
+**Resume syntax**:
 ```bash
-# Bad: no extra args allowed after --parallel
-codex-wrapper --parallel - /path/to/dir <<'EOF'
-...
-EOF
+# Resume last session
+codex exec resume --last
 
-# Bad: --parallel does not take a task argument
-codex-wrapper --parallel "task description"
+# Resume with new prompt
+codex exec resume --last "continue with next steps"
 
-# Bad: workdir must live inside the task config
-codex-wrapper --parallel /path/to/dir < tasks.txt
+# Resume via stdin
+echo "new instructions" | codex exec resume --last 2>/dev/null
+
+# Resume specific session
+codex exec resume <SESSION_ID> "follow-up task"
 ```
 
-For multiple independent or dependent tasks, use `--parallel` mode with delimiter format:
-
-**Typical Workflow (analyze → implement → test, chained in a single parallel call)**:
+**Flag injection** (between `exec` and `resume`):
 ```bash
-codex-wrapper --parallel <<'EOF'
----TASK---
-id: analyze_1732876800
-workdir: /home/user/project
----CONTENT---
-analyze @spec.md and summarize API and UI requirements
----TASK---
-id: implement_1732876801
-workdir: /home/user/project
-dependencies: analyze_1732876800
----CONTENT---
-implement features from analyze_1732876800 summary in backend @services and frontend @ui
----TASK---
-id: test_1732876802
-workdir: /home/user/project
-dependencies: implement_1732876801
----CONTENT---
-add and run regression tests covering the new endpoints and UI flows
-EOF
+# Change reasoning effort for resumed session
+codex exec -c model_reasoning_effort="high" resume --last
 ```
-A single `codex-wrapper --parallel` call schedules all three stages concurrently, using `dependencies` to enforce sequential ordering without multiple invocations.
 
+## Error Handling
+
+### Validation Loop
+1. Execute command
+2. Check exit code (non-zero = failure)
+3. Report error with context
+4. Ask user for direction via `AskUserQuestion`
+5. Retry with adjustments or escalate
+
+### Permission Requests
+Before using high-impact flags, request user approval via `AskUserQuestion`:
+- `--full-auto`: Automated execution
+- `-s danger-full-access`: System-wide access
+- `--yolo` / `--dangerously-bypass-approvals-and-sandbox`:
+  - **HPC clusters**: No approval needed (required for operation)
+  - **Personal machines**: Request approval (full system access)
+
+### Partial Success Handling
+When output contains warnings:
+1. Summarize successful operations
+2. Detail failures with context
+3. Use `AskUserQuestion` to determine next steps
+4. Propose specific adjustments
+
+## Troubleshooting
+
+### File Access Blocked
+
+**Symptom**: "shell is blocked by the sandbox" or permission errors
+
+**Root cause**: Sandbox `read-only` mode restricts file system
+
+**Solutions** (priority order):
+
+1. **Stdin piping** (recommended):
+   ```bash
+   cat target.py | codex exec -m gpt-5 -c model_reasoning_effort="medium" \
+     --skip-git-repo-check --full-auto - 2>/dev/null
+   ```
+
+2. **Explicit permissions**:
+   ```bash
+   codex exec -m gpt-5 -s read-only \
+     -c 'sandbox_permissions=["disk-full-read-access"]' \
+     --skip-git-repo-check --full-auto "@file.py" 2>/dev/null
+   ```
+
+3. **Upgrade sandbox**:
+   ```bash
+   codex exec -m gpt-5 -s workspace-write \
+     --skip-git-repo-check --full-auto "review @file.py" 2>/dev/null
+   ```
+
+### Invalid Flag Errors
+
+**Symptom**: "unexpected argument '--add-dir' found"
+
+**Cause**: Flag does not exist in Codex CLI
+
+**Solution**: Use `-C <DIR>` to change directory:
 ```bash
-codex-wrapper --parallel <<'EOF'
----TASK---
-id: backend_1732876800
-workdir: /home/user/project/backend
----CONTENT---
-implement /api/orders endpoints with validation and pagination
----TASK---
-id: frontend_1732876801
-workdir: /home/user/project/frontend
----CONTENT---
-build Orders page consuming /api/orders with loading/error states
----TASK---
-id: tests_1732876802
-workdir: /home/user/project/tests
-dependencies: backend_1732876800, frontend_1732876801
----CONTENT---
-run API contract tests and UI smoke tests (waits for backend+frontend)
-EOF
+codex exec -C /target/dir -m gpt-5 --skip-git-repo-check \
+  --full-auto "task" 2>/dev/null
 ```
 
-**Delimiter Format**:
-- `---TASK---`: Starts a new task block
-- `id: <task-id>`: Required, unique task identifier
-  - Best practice: use `<feature>_<timestamp>` format (e.g., `auth_1732876800`, `api_test_1732876801`)
-  - Ensures uniqueness across runs and makes tasks traceable
-- `workdir: <path>`: Optional, working directory (default: `.`)
-  - Best practice: use absolute paths (e.g., `/home/user/project/backend`)
-  - Avoids ambiguity and ensures consistent behavior across environments
-  - Must be specified inside each task block; do not pass `workdir` as a CLI argument to `--parallel`
-  - Each task can set its own `workdir` when different directories are needed
-- `dependencies: <id1>, <id2>`: Optional, comma-separated task IDs
-- `session_id: <uuid>`: Optional, resume a previous session
-- `---CONTENT---`: Separates metadata from task content
-- Task content: Any text, code, special characters (no escaping needed)
+### Exit Code Failures
 
-**Dependencies Best Practices**
+**Symptom**: Non-zero exit without clear message
 
-- Avoid multiple invocations: Place "analyze then implement" in a single `codex-wrapper --parallel` call, chaining them via `dependencies`, rather than running analysis first and then launching implementation separately.
-- Naming convention: Use `<action>_<timestamp>` format (e.g., `analyze_1732876800`, `implement_1732876801`), where action names map to features/stages and timestamps ensure uniqueness and sortability.
-- Dependency chain design: Keep chains short; only add dependencies for tasks that truly require ordering, let others run in parallel, avoiding over-serialization that reduces throughput.
+**Diagnostic steps**:
+1. Remove `2>/dev/null` to see full stderr
+2. Verify installation: `codex --version`
+3. Check configuration: `cat ~/.codex/config.toml`
+4. Test minimal command: `codex exec -m gpt-5 "hello world"`
+5. Verify model access: `codex exec --model gpt-5 "test"`
 
-**Resume Failed Tasks**:
+### Model Unavailable
+
+**Symptom**: "model not found" or authentication errors
+
+**Solutions**:
+1. Check configured model: `grep model ~/.codex/config.toml`
+2. Verify API access: Ensure valid credentials
+3. Try alternative model: `-m gpt-5-codex`
+4. Use OSS fallback: `--oss` (requires Ollama)
+
+### Session Resume Fails
+
+**Symptom**: Cannot resume previous session
+
+**Diagnostic steps**:
+1. List recent sessions: `codex history`
+2. Verify session ID format
+3. Try `--last` flag instead of specific ID
+4. Check if session expired or was cleaned up
+
+### HPC/Slurm Sandbox Failures
+
+**Symptom**: "Landlock sandbox error", "LandlockRestrict", or all file operations fail
+
+**Root Cause**: HPC clusters use Landlock/seccomp kernel security modules that block Codex's default sandbox
+
+**✅ SOLUTION: Use the `--yolo` flag** (priority order):
+
+1. **YOLO Flag** (PRIMARY SOLUTION - WORKS ON HPC):
+   ```bash
+   # Bypasses Landlock restrictions completely
+   codex exec --yolo -m gpt-5 -c model_reasoning_effort="high" --skip-git-repo-check \
+     "Analyze this code: $(cat /full/path/to/file.py)" 2>/dev/null
+   ```
+
+   **Why this works**: `--yolo` (alias for `--dangerously-bypass-approvals-and-sandbox`) disables the Codex sandbox entirely, allowing direct file access on HPC systems. **Note: Do not use --full-auto with --yolo as they are incompatible.**
+
+2. **Manual Code Injection** (fallback if --yolo unavailable):
+   ```bash
+   # Pass code directly in prompt via command substitution
+   codex exec -m gpt-5 -c model_reasoning_effort="high" --skip-git-repo-check --full-auto \
+     "Analyze this code comprehensively: $(cat /full/path/to/file.py)" 2>/dev/null
+   ```
+
+3. **Heredoc for Long Code**:
+   ```bash
+   codex exec --yolo -m gpt-5 -c model_reasoning_effort="high" --skip-git-repo-check "$(cat <<'EOF'
+   Analyze the following Python code for architecture, bugs, and optimization opportunities:
+
+   $(cat /home/user/script.py)
+
+   Provide technical depth with actionable insights.
+   EOF
+   )" 2>/dev/null
+   ```
+
+4. **Run on Login Node** (if compute node blocks outbound):
+   ```bash
+   # SSH to login node first, then run codex there (not in Slurm job)
+   ssh login.cluster.edu
+   codex exec --yolo -m gpt-5 --skip-git-repo-check "analyze @file.py" 2>/dev/null
+   ```
+
+5. **Use Apptainer/Singularity** (if cluster supports):
+   ```bash
+   # Build image with Codex installed, then run via Slurm
+   singularity exec codex.sif codex exec --yolo -m gpt-5 "task"
+   ```
+
+**Best Practice for HPC**:
+- **Always use `--yolo` flag on HPC clusters** - it's safe on login nodes where you already have limited permissions
+- Run analysis on login nodes, submit only heavy compute jobs to Slurm
+- Keep code files on shared filesystem readable from login nodes
+- Combine `--yolo` with `$(cat file.py)` for maximum compatibility
+
+## Best Practices
+
+### Reasoning Effort Selection
+- **minimal**: Syntax fixes, simple renaming
+- **low**: Standard refactoring, basic analysis
+- **medium**: Complex refactoring, architecture review
+- **high**: Security audits, algorithm optimization, critical bugs
+
+### Sandbox Mode Selection
+- **read-only**: Default for any analysis or review
+- **workspace-write**: File modifications only
+- **danger-full-access**: Network operations, system commands (rare)
+
+### Stderr Suppression
+- **Always use `2>/dev/null`** unless:
+  - User explicitly requests thinking tokens
+  - Debugging failed commands
+  - Troubleshooting configuration issues
+
+### Profile Usage
+Create profiles for common workflows:
+- `review`: High reasoning, read-only
+- `refactor`: Medium reasoning, workspace-write
+- `quick`: Low reasoning, read-only
+- `security`: High reasoning, workspace-write
+
+### Stdin vs File Reference
+- **Stdin**: Single file analysis, avoids permissions
+- **File reference**: Multi-file context, codebase-wide changes
+
+## Safety Guidelines
+
+**HPC Clusters - `--yolo` is SAFE and REQUIRED**:
+- HPC login nodes already have strict permissions (no root access, no network modification)
+- `--yolo` bypasses Codex sandbox but you still operate within HPC user restrictions
+- Always use `--yolo` on HPC to avoid Landlock errors
+
+**General Use - Exercise Caution**:
+- Don't use `--yolo` on unrestricted systems (your laptop, cloud VMs with full sudo)
+- Prefer `--full-auto` + `-s workspace-write` for normal development
+
+**Always verify before**:
+- Using `danger-full-access` sandbox (outside HPC)
+- Disabling approval prompts on production systems
+- Running with `--yolo` on personal machines with sudo access
+
+**Ask user approval for**:
+- First-time `workspace-write` usage
+- System-wide access requests
+- Destructive operations (deletions, migrations)
+
+## Advanced Usage
+
+### CI/CD Integration
 ```bash
-# Use session_id from previous output to resume
-codex-wrapper --parallel <<'EOF'
----TASK---
-id: T2
-session_id: 019xxx-previous-session-id
----CONTENT---
-fix the previous error and retry
-EOF
+codex exec --json -o result.txt -m gpt-5 \
+  -c model_reasoning_effort="medium" \
+  --skip-git-repo-check --full-auto \
+  "run security audit on changed files" 2>/dev/null
 ```
 
-**Output**: Human-readable text format
-```
-=== Parallel Execution Summary ===
-Total: 3 | Success: 2 | Failed: 1
-
---- Task: T1 ---
-Status: SUCCESS
-Session: 019xxx
-
-Task output message...
-
---- Task: T2 ---
-Status: FAILED (exit code 1)
-Error: some error message
+### Batch Processing
+```bash
+for file in *.py; do
+  cat "$file" | codex exec -m gpt-5 -c model_reasoning_effort="low" \
+    --skip-git-repo-check --full-auto "lint and format" - 2>/dev/null
+done
 ```
 
-**Features**:
-- Automatic topological sorting based on dependencies
-- Unlimited concurrency for independent tasks
-- Error isolation (failed tasks don't stop others)
-- Dependency blocking (dependent tasks skip if parent fails)
+### Multi-Step Workflows
+```bash
+# Step 1: Analysis
+codex exec -m gpt-5 -c model_reasoning_effort="high" -s read-only \
+  --full-auto "analyze @codebase for architectural issues" 2>/dev/null
 
-## Notes
+# Step 2: Resume with changes
+echo "implement suggested refactoring" | \
+  codex exec -s workspace-write resume --last 2>/dev/null
+```
 
-- **Binary distribution**: Single Go binary, zero dependencies
-- **Installation**: Download from GitHub Releases or use install.sh
-- **Cross-platform compatible**: Linux (amd64/arm64), macOS (amd64/arm64)
-- All automated runs must use the Bash tool with the fixed timeout to provide dual timeout protection and unified logging/exit semantics
-for automation (new sessions only)
-- Uses `--skip-git-repo-check` to work in any directory
-- Streams progress, returns only final agent message
-- Every execution returns a session ID for resuming conversations
-- Requires Codex CLI installed and authenticated
+## When to Escalate
+
+If errors persist after troubleshooting:
+
+1. **Check documentation**:
+   ```bash
+   WebFetch https://developers.openai.com/codex/cli/reference
+   ```
+   ```bash
+   WebFetch https://developers.openai.com/codex/local-config#cli
+   ```
+
+2. **Report to user**:
+   - Error message verbatim
+   - Attempted solutions
+   - Configuration details
+   - Exit codes and stderr output
+
+3. **Request guidance**:
+   - Alternative approaches
+   - Configuration adjustments
+   - Manual intervention points
+
+## Model Selection Guide
+
+| Task Type | Recommended Model | Reasoning Effort |
+|-----------|------------------|------------------|
+| Quick syntax fixes | `gpt-5` | minimal |
+| Code review | `gpt-5` | medium |
+| Refactoring | `gpt-5-codex` | medium |
+| Architecture analysis | `gpt-5` | high |
+| Security audit | `gpt-5` | high |
+| Algorithm optimization | `gpt-5-codex` | high |
+| Documentation generation | `gpt-5` | low |
+
+## Common Workflows
+
+### Code Review Workflow
+1. Ask user: model + reasoning effort
+2. Run read-only analysis
+3. Present findings
+4. If changes needed: resume with workspace-write
+5. Validate changes
+6. Inform about resume capability
+
+### Refactoring Workflow
+1. Ask user: model + reasoning effort
+2. Analyze current code (read-only)
+3. Propose changes
+4. Get user approval
+5. Apply changes (workspace-write)
+6. Run validation/tests
+7. Report results
+
+### Security Audit Workflow
+1. Use high reasoning effort
+2. Run comprehensive analysis (read-only)
+3. Document findings
+4. Propose fixes
+5. Apply fixes if approved (workspace-write)
+6. Re-audit to verify
+7. Generate report

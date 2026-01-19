@@ -140,13 +140,13 @@ gh release create v<version> ...
 
 ```bash
 # Phase 0.5 のみ実行
-.opencode/skill/release-workflow/scripts/release.sh --version-check <new-version>
+.claude/skills/release-workflow/scripts/release.sh --version-check <new-version>
 
 # 完全リリースフロー内で自動実行（デフォルト）
-.opencode/skill/release-workflow/scripts/release.sh --version 1.2.3
+.claude/skills/release-workflow/scripts/release.sh --version 1.2.3
 
 # Phase 0.5 をスキップして実行
-.opencode/skill/release-workflow/scripts/release.sh --version 1.2.3 --skip-version-check
+.claude/skills/release-workflow/scripts/release.sh --version 1.2.3 --skip-version-check
 ```
 
 > **依存**: `rg`（ripgrep）がインストールされている場合は高速検索を使用。
@@ -201,7 +201,7 @@ gh release create v<version> ...
 
 ```bash
 # スクリプトを使用（推奨）
-.opencode/skill/release-workflow/scripts/release.sh --detect
+.claude/skills/release-workflow/scripts/release.sh --detect
 
 # または手動で検出
 # Rust
@@ -272,7 +272,7 @@ v0.4.0
 > 番号を選択してください（1-3）:
 ```
 
-> **参照**: {{skill:approval-gate}} 形式に準拠
+> **参照**: @.claude/skills/approval-gate/SKILL.md 形式に準拠
 
 ---
 
@@ -294,7 +294,7 @@ v0.4.0
 
 ```bash
 # スクリプトを使用（推奨）
-.opencode/skill/release-workflow/scripts/release.sh --update-version <new-version>
+.claude/skills/release-workflow/scripts/release.sh --update-version <new-version>
 
 # または手動で更新（エコシステム別）
 ```
@@ -356,7 +356,7 @@ echo "<new-version>" > VERSION
 
 ```bash
 # スクリプトを使用（推奨）
-.opencode/skill/release-workflow/scripts/release.sh --commit <new-version>
+.claude/skills/release-workflow/scripts/release.sh --commit <new-version>
 
 # または手動
 git add -A
@@ -369,7 +369,7 @@ git push origin <default-branch> --tags
 
 ```bash
 # スクリプトを使用（推奨）
-.opencode/skill/release-workflow/scripts/release.sh --create-release <new-version> "<release-notes>"
+.claude/skills/release-workflow/scripts/release.sh --create-release <new-version> "<release-notes>"
 
 # または手動
 gh release create v<new-version> \
@@ -381,7 +381,7 @@ gh release create v<new-version> \
 
 ```bash
 # スクリプトを使用（推奨）
-.opencode/skill/release-workflow/scripts/release.sh --watch
+.claude/skills/release-workflow/scripts/release.sh --watch
 
 # または手動
 gh run list --workflow=Release --limit 1
@@ -398,38 +398,38 @@ gh release view v<new-version> --json tagName,assets --jq '.tagName, (.assets[].
 
 ## スクリプト使用方法
 
-`.opencode/skill/release-workflow/scripts/release.sh` を使用することで、上記の処理を自動化できます。
+`.claude/skills/release-workflow/scripts/release.sh` を使用することで、上記の処理を自動化できます。
 
 ### 基本コマンド
 
 ```bash
 # エコシステム検出とバージョン表示
-.opencode/skill/release-workflow/scripts/release.sh --detect
+.claude/skills/release-workflow/scripts/release.sh --detect
 
 # 完全自動リリース（対話モード）
-.opencode/skill/release-workflow/scripts/release.sh
+.claude/skills/release-workflow/scripts/release.sh
 
 # バージョン指定リリース
-.opencode/skill/release-workflow/scripts/release.sh --version 1.2.3
+.claude/skills/release-workflow/scripts/release.sh --version 1.2.3
 
 # ドライラン（実行せずに確認）
-.opencode/skill/release-workflow/scripts/release.sh --dry-run --version 1.2.3
+.claude/skills/release-workflow/scripts/release.sh --dry-run --version 1.2.3
 ```
 
 ### 個別操作
 
 ```bash
 # バージョン更新のみ
-.opencode/skill/release-workflow/scripts/release.sh --update-version 1.2.3
+.claude/skills/release-workflow/scripts/release.sh --update-version 1.2.3
 
 # コミット & タグのみ
-.opencode/skill/release-workflow/scripts/release.sh --commit 1.2.3
+.claude/skills/release-workflow/scripts/release.sh --commit 1.2.3
 
 # GitHub Release作成のみ
-.opencode/skill/release-workflow/scripts/release.sh --create-release 1.2.3 "Release notes here"
+.claude/skills/release-workflow/scripts/release.sh --create-release 1.2.3 "Release notes here"
 
 # Workflow監視
-.opencode/skill/release-workflow/scripts/release.sh --watch
+.claude/skills/release-workflow/scripts/release.sh --watch
 ```
 
 ---
@@ -553,8 +553,8 @@ gh release upload v<version> <asset-file>
 | [Keep a Changelog](https://keepachangelog.com/) | CHANGELOG形式の標準 |
 | [Semantic Versioning](https://semver.org/) | バージョニング規約 |
 | [release.sh スクリプト](./scripts/release.sh) | リリース自動化スクリプト |
-| {{skill:workflow-phase-convention}} | Phase番号体系（release-workflowセクション参照） |
-| {{skill:approval-gate}} | 承認ゲートの共通フォーマット |
+| @.claude/skills/workflow-phase-convention/SKILL.md | Phase番号体系（release-workflowセクション参照） |
+| @.claude/skills/approval-gate/SKILL.md | 承認ゲートの共通フォーマット |
 
 ---
 

@@ -1,348 +1,732 @@
 ---
 name: convex-patterns
-description: Convex backend patterns with security, validation, and performance best practices
+description: Convex database patterns and best practices for RFP Discovery. Use when writing Convex queries, mutations, actions, or schema definitions. Also helpful for real-time subscriptions and auth integration.
+allowed-tools: Read, Grep, Glob
 ---
 
-# Convex Patterns
+# Convex Patterns Skill
 
-**Purpose**: Enforce secure, performant Convex backend (validation, auth, race prevention, rate limiting)
+## Overview
 
-- Keywords: convex, mutation, query, action, schema, database, ctx.db, defineSchema, internalMutation, webhook, httpAction, http, stripe, CONVEX_SITE_URL, callback, api
+This skill provides patterns and best practices for implementing Convex backend functions in the RFP Discovery platform.
 
-## Quick Reference
+## Schema Design
 
-| Pattern | ✅ DO | ❌ AVOID |
-|---------|-------|----------|
-| Files | `snake_case.ts` | `kebab-case.ts` (deploy fails) |
-| Fields | `snake_case` | `camelCase` |
-| Validation | `args: v.object({...})` | No validators (insecure!) |
-| Auth | Check every mutation | Trust client |
-| Queries | `.withIndex()` | Table scans |
+### Complete Schema
 
-## CRITICAL Security
+```typescript
+// convex/schema.ts
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
 
-⚠️ **ALL functions PUBLIC by default**
-
-Always:
-1. Use validators on all functions
-2. Check authentication (`ctx.auth.getUserIdentity()`)
-3. Verify ownership before operations
-4. Validate beyond schema
-
-⚠️ **NEVER share CONVEX_URL publicly** (GitHub, docs, screenshots)
-
-## Mutation Structure
-
-```ts
-import { mutation } from "./_generated/server"
-import { v } from "convex/values"
-
-export const createOrder = mutation({
-  args: {
-    amount: v.number(),
-    customer_name: v.optional(v.string())
-  },
-  returns: v.id("orders"),
-  handler: async (ctx, { amount, customer_name }) => {
-    // 1. Auth
-    const identity = await ctx.auth.getUserIdentity()
-    if (!identity) throw new Error('Unauthorized')
-
-    // 2. Validate beyond schema
-    if (amount <= 0 || amount > 1000000) {
-      throw new Error('Invalid amount')
-    }
-
-    // 3. Insert
-    return await ctx.db.insert("orders", {
-      amount,
-      customer_name: customer_name ?? null,
-      user_id: identity.subject,
-      status: "pending"
-    })
-  }
-})
-```
-
-## Authorization Pattern
-
-```ts
-export const updateOrder = mutation({
-  args: { order_id: v.id("orders"), status: v.string() },
-  handler: async (ctx, { order_id, status }) => {
-    // 1. Auth
-    const identity = await ctx.auth.getUserIdentity()
-    if (!identity) throw new Error('Unauthorized')
-
-    // 2. Fetch
-    const order = await ctx.db.get(order_id)
-    if (!order) throw new Error('Not found')
-
-    // 3. Verify ownership BEFORE update
-    if (order.user_id !== identity.subject) {
-      throw new Error('Access denied')
-    }
-
-    // 4. Update
-    await ctx.db.patch(order_id, { status })
-  }
-})
-```
-
-## Performant Queries
-
-```ts
-// Schema with indexes
 export default defineSchema({
+  // Users (synced from Clerk)
   users: defineTable({
+    clerkId: v.string(),
+    name: v.string(),
     email: v.string(),
-    status: v.string()
+    imageUrl: v.optional(v.string()),
+    role: v.string(), // "admin" | "user" | "viewer"
+    createdAt: v.number(),
+    updatedAt: v.number(),
   })
-    .index("by_email", ["email"])
-    .index("by_status", ["status"])
-})
+    .index("by_clerk_id", ["clerkId"])
+    .index("by_email", ["email"]),
 
-// ✅ Use index (O(log n))
-const user = await ctx.db
-  .query('users')
-  .withIndex('by_email', q => q.eq('email', email))
-  .first()
+  // RFP Opportunities
+  rfps: defineTable({
+    externalId: v.string(),
+    source: v.string(),
+    title: v.string(),
+    description: v.string(),
+    summary: v.optional(v.string()),
+    location: v.string(),
+    category: v.string(),
+    naicsCode: v.optional(v.string()),
+    setAside: v.optional(v.string()),
+    postedDate: v.number(),
+    expiryDate: v.number(),
+    url: v.string(),
+    eligibilityFlags: v.optional(v.array(v.string())),
+    rawData: v.optional(v.any()),
+    ingestedAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_external_id", ["externalId", "source"])
+    .index("by_source", ["source"])
+    .index("by_expiry", ["expiryDate"])
+    .searchIndex("search_title", {
+      searchField: "title",
+      filterFields: ["source", "category"],
+    }),
 
-// ❌ Table scan (O(n))
-const user = await ctx.db
-  .query('users')
-  .filter(q => q.eq(q.field('email'), email))
-  .first()
+  // Evaluations
+  evaluations: defineTable({
+    rfpId: v.id("rfps"),
+    userId: v.string(),
+    evaluationType: v.string(),
+    score: v.number(),
+    isFit: v.boolean(),
+    criteriaResults: v.array(
+      v.object({
+        criterionId: v.string(),
+        criterionName: v.string(),
+        weight: v.number(),
+        met: v.boolean(),
+        score: v.number(),
+        matchedKeywords: v.array(v.string()),
+        details: v.string(),
+      })
+    ),
+    eligibility: v.object({
+      eligible: v.boolean(),
+      status: v.string(),
+      disqualifiers: v.array(v.string()),
+    }),
+    reasoning: v.optional(v.string()),
+    evaluatedAt: v.number(),
+  })
+    .index("by_rfp", ["rfpId"])
+    .index("by_user", ["userId"])
+    .index("by_score", ["score"]),
+
+  // Pursuits
+  pursuits: defineTable({
+    rfpId: v.id("rfps"),
+    userId: v.string(),
+    status: v.string(),
+    decision: v.optional(v.string()),
+    decisionBy: v.optional(v.string()),
+    decisionAt: v.optional(v.number()),
+    brief: v.optional(v.string()),
+    complianceMatrix: v.optional(v.string()),
+    notes: v.optional(v.string()),
+    teamMembers: v.optional(v.array(v.string())),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_rfp", ["rfpId"])
+    .index("by_user", ["userId"])
+    .index("by_status", ["status"]),
+
+  // Criteria Configuration
+  criteria: defineTable({
+    name: v.string(),
+    displayName: v.string(),
+    weight: v.number(),
+    enabled: v.boolean(),
+    keywords: v.array(
+      v.object({
+        value: v.string(),
+        enabled: v.boolean(),
+      })
+    ),
+    minMatches: v.number(),
+    systemInstruction: v.optional(v.string()),
+    order: v.number(),
+  }).index("by_order", ["order"]),
+
+  // Ingestion Logs
+  ingestionLogs: defineTable({
+    source: v.string(),
+    status: v.string(),
+    recordsProcessed: v.number(),
+    recordsInserted: v.number(),
+    recordsUpdated: v.number(),
+    errors: v.optional(v.array(v.string())),
+    startedAt: v.number(),
+    completedAt: v.optional(v.number()),
+  }).index("by_source", ["source"]),
+});
 ```
 
-## Idempotency
+## Query Patterns
 
-**Pattern 1: Check-Before-Insert**
+### Basic Query with Pagination
 
-```ts
-// Schema with composite index
-defineTable({
-  user_id: v.string(),
-  session_id: v.id('sessions'),
-  data: v.string()
-}).index('by_user_session', ['user_id', 'session_id'])
+```typescript
+// ✅ Good: Uses limit and proper typing
+export const list = query({
+  args: {
+    limit: v.optional(v.number()),
+    cursor: v.optional(v.id("rfps")),
+  },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 50;
 
-// Mutation (safe to retry)
-const existing = await ctx.db
-  .query('entries')
-  .withIndex('by_user_session', q =>
-    q.eq('user_id', userId).eq('session_id', session_id)
-  )
-  .first()
+    let q = ctx.db.query("rfps").order("desc");
 
-if (existing) return existing._id  // Idempotent
+    if (args.cursor) {
+      const cursorDoc = await ctx.db.get(args.cursor);
+      if (cursorDoc) {
+        q = q.filter((q) =>
+          q.lt(q.field("_creationTime"), cursorDoc._creationTime)
+        );
+      }
+    }
 
-return await ctx.db.insert('entries', { user_id: userId, session_id, data })
+    const items = await q.take(limit + 1);
+    const hasMore = items.length > limit;
+
+    return {
+      items: items.slice(0, limit),
+      nextCursor: hasMore ? items[limit - 1]._id : null,
+    };
+  },
+});
+
+// ❌ Bad: Collects all without limit
+export const listAll = query({
+  handler: async (ctx) => {
+    return await ctx.db.query("rfps").collect(); // Don't do this!
+  },
+});
 ```
 
-**Pattern 2: Idempotency Keys (Actions)**
+### Query with Index
 
-```ts
-// Schema
-defineTable({
-  key: v.string(),
-  result: v.any(),
-  created_at: v.number()
-}).index('by_key', ['key'])
+```typescript
+// ✅ Good: Uses index for efficient filtering
+export const listBySource = query({
+  args: { source: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("rfps")
+      .withIndex("by_source", (q) => q.eq("source", args.source))
+      .order("desc")
+      .take(50);
+  },
+});
 
-// Action with key
-export const createPayment = action({
-  args: { idempotency_key: v.string(), amount: v.number() },
-  handler: async (ctx, { idempotency_key, amount }) => {
-    // Check if processed
-    const existing = await ctx.runMutation(api.payments.checkKey, {
-      key: idempotency_key
-    })
-    if (existing) return existing
-
-    // Process (side effect)
-    const charge = await stripe.charges.create({ amount })
-    const orderId = await ctx.runMutation(api.orders.create, { amount })
-
-    const result = { orderId, chargeId: charge.id }
-
-    // Store result
-    await ctx.runMutation(api.payments.storeResult, {
-      key: idempotency_key,
-      result
-    })
-
-    return result
-  }
-})
+// ❌ Bad: Full table scan with filter
+export const listBySourceBad = query({
+  args: { source: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("rfps")
+      .filter((q) => q.eq(q.field("source"), args.source))
+      .collect();
+  },
+});
 ```
 
-**Client**: Generate key once, safe to retry
+### Full-Text Search
+
+```typescript
+export const search = query({
+  args: {
+    searchTerm: v.string(),
+    source: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    let q = ctx.db
+      .query("rfps")
+      .withSearchIndex("search_title", (q) => {
+        let sq = q.search("title", args.searchTerm);
+        if (args.source) {
+          sq = sq.eq("source", args.source);
+        }
+        return sq;
+      });
+
+    return await q.take(20);
+  },
+});
+```
+
+## Mutation Patterns
+
+### Authenticated Mutation
+
+```typescript
+// ✅ Good: Checks auth before any operation
+export const create = mutation({
+  args: {
+    rfpId: v.id("rfps"),
+    status: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    return await ctx.db.insert("pursuits", {
+      rfpId: args.rfpId,
+      userId: identity.subject,
+      status: args.status,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+  },
+});
+```
+
+### Upsert Pattern
+
+```typescript
+export const upsert = mutation({
+  args: {
+    externalId: v.string(),
+    source: v.string(),
+    title: v.string(),
+    // ... other fields
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("rfps")
+      .withIndex("by_external_id", (q) =>
+        q.eq("externalId", args.externalId).eq("source", args.source)
+      )
+      .first();
+
+    const now = Date.now();
+
+    if (existing) {
+      await ctx.db.patch(existing._id, {
+        ...args,
+        updatedAt: now,
+      });
+      return { id: existing._id, action: "updated" as const };
+    }
+
+    const id = await ctx.db.insert("rfps", {
+      ...args,
+      ingestedAt: now,
+      updatedAt: now,
+    });
+    return { id, action: "inserted" as const };
+  },
+});
+```
+
+### Transactional Updates
+
+```typescript
+export const updatePursuitWithHistory = mutation({
+  args: {
+    pursuitId: v.id("pursuits"),
+    status: v.string(),
+    notes: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Not authenticated");
+
+    const pursuit = await ctx.db.get(args.pursuitId);
+    if (!pursuit) throw new Error("Pursuit not found");
+
+    // Update pursuit
+    await ctx.db.patch(args.pursuitId, {
+      status: args.status,
+      notes: args.notes,
+      updatedAt: Date.now(),
+    });
+
+    // Log activity (both happen in same transaction)
+    await ctx.db.insert("activityLog", {
+      userId: identity.subject,
+      action: "status_change",
+      entityType: "pursuit",
+      entityId: args.pursuitId,
+      details: {
+        from: pursuit.status,
+        to: args.status,
+      },
+      timestamp: Date.now(),
+    });
+
+    return { success: true };
+  },
+});
+```
+
+## Action Patterns
+
+### Authenticated Action (Client-Callable)
+
+Actions called from the client **MUST** verify authentication before processing:
+
+```typescript
+// ✅ Good: Auth check for client-callable action
+export const uploadData = action({
+  args: { data: v.string() },
+  handler: async (ctx, args) => {
+    // CRITICAL: Always verify auth for client-callable actions
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Delegate to internal action for processing
+    return await ctx.runAction(internal.ingestion.processData, args);
+  },
+});
+
+// ✅ Good: Use internalAction for background processing
+export const processData = internalAction({
+  args: { data: v.string() },
+  handler: async (ctx, args) => {
+    // Internal actions are only callable from other Convex functions
+    // No auth check needed here - the calling action handles it
+    // ... process data
+  },
+});
+```
+
+**Why separate action vs internalAction?**
+- `action` - Callable from client, needs auth check
+- `internalAction` - Only callable from server, can skip auth check
+- Pattern: Client calls `action` (with auth) → `action` calls `internalAction` (for processing)
+
+### External API Call
+
+```typescript
+// convex/actions/samGov.ts
+import { action } from "../_generated/server";
+import { v } from "convex/values";
+import { internal } from "../_generated/api";
+
+export const fetchOpportunities = action({
+  args: { daysBack: v.number() },
+  handler: async (ctx, args) => {
+    const apiKey = process.env.SAM_GOV_API_KEY;
+    if (!apiKey) {
+      throw new Error("SAM_GOV_API_KEY not configured");
+    }
+
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - args.daysBack);
+
+    const response = await fetch(
+      `https://api.sam.gov/opportunities/v2/search?` +
+        `api_key=${apiKey}&postedFrom=${fromDate.toISOString().split("T")[0]}`,
+      {
+        headers: { Accept: "application/json" },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Process in batches to avoid timeout
+    const BATCH_SIZE = 10;
+    const opportunities = data.opportunitiesData ?? [];
+
+    for (let i = 0; i < opportunities.length; i += BATCH_SIZE) {
+      const batch = opportunities.slice(i, i + BATCH_SIZE);
+
+      await Promise.all(
+        batch.map((opp: any) =>
+          ctx.runMutation(internal.rfps.upsert, {
+            externalId: opp.noticeId,
+            source: "sam.gov",
+            title: opp.title,
+            // ... map other fields
+          })
+        )
+      );
+    }
+
+    return { processed: opportunities.length };
+  },
+});
+```
+
+## React Integration
+
+### useQuery with Loading State
 
 ```tsx
-const [key] = useState(() => uuid())
-await createPayment({ idempotency_key: key, amount: 1000 })
-```
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
 
-**Pattern 3: Webhook Deduplication**
+function RfpList() {
+  const rfps = useQuery(api.rfps.list, { limit: 50 });
 
-```ts
-// Schema
-defineTable({
-  event_id: v.string(),  // External event ID
-  event_type: v.string(),
-  processed_at: v.number()
-}).index('by_event_id', ['event_id'])
-
-// Mutation
-const existing = await ctx.db
-  .query('webhook_events')
-  .withIndex('by_event_id', q => q.eq('event_id', event_id))
-  .first()
-
-if (existing) return { processed: false, reason: 'duplicate' }
-
-// Process event...
-
-await ctx.db.insert('webhook_events', { event_id, event_type, processed_at: Date.now() })
-```
-
-## HTTP Actions (Webhooks)
-
-**Use for**: Webhooks, public API endpoints, external integrations
-
-**Critical**: HTTP Actions use **CONVEX_SITE_URL** (not CONVEX_URL)
-
-| Use Case | URL | Why |
-|----------|-----|-----|
-| Mutations/Queries (client SDK) | `CONVEX_URL` | Internal app communication |
-| HTTP Actions (webhooks) | `CONVEX_SITE_URL` | Public HTTP endpoints |
-
-### Setup HTTP Router
-
-```ts
-// convex/http.ts
-import { httpRouter } from "convex/server"
-import { httpAction } from "./_generated/server"
-
-const http = httpRouter()
-
-http.route({
-  path: "/stripe/webhook",
-  method: "POST",
-  handler: httpAction(async (ctx, request) => {
-    const signature = request.headers.get("stripe-signature")
-    const body = await request.text()
-
-    // 1. Verify signature BEFORE processing
-    if (!verifyStripeSignature(body, signature, STRIPE_WEBHOOK_SECRET)) {
-      return new Response("Invalid signature", { status: 401 })
-    }
-
-    // 2. Check timestamp (replay attack prevention)
-    const event = JSON.parse(body)
-    const eventTime = event.created * 1000
-    if (Date.now() - eventTime > 5 * 60 * 1000) {
-      return new Response("Timestamp too old", { status: 400 })
-    }
-
-    // 3. Process idempotently using event ID
-    await ctx.runMutation(api.webhooks.processWebhookEvent, {
-      event_id: event.id,
-      event_type: event.type,
-      data: event.data.object
-    })
-
-    // Always return 200 (even for duplicates)
-    return new Response("OK", { status: 200 })
-  })
-})
-
-export default http
-```
-
-**Why this matters**:
-- Webhook providers retry failed requests
-- Network issues cause duplicate deliveries
-- Event ID ensures exactly-once processing
-- Return 200 for duplicates prevents unnecessary retries
-
-**Webhook URL**: `https://YOUR_SITE.convex.site/stripe/webhook` (uses CONVEX_SITE_URL)
-
-## Rate Limiting
-
-```ts
-import { RateLimiter } from '@convex-dev/ratelimiter'
-
-const limiter = new RateLimiter(components.rateLimiter, {
-  createOrder: { kind: 'token bucket', rate: 10, period: 60_000 }
-})
-
-export const createOrder = mutation({
-  handler: async (ctx, { amount }) => {
-    const identity = await ctx.auth.getUserIdentity()
-    if (!identity) throw new Error('Unauthorized')
-
-    await limiter.limit(ctx, 'createOrder', { key: identity.subject })
-
-    return await ctx.db.insert("orders", { amount, user_id: identity.subject })
+  if (rfps === undefined) {
+    return <LoadingSpinner />;
   }
-})
+
+  if (rfps.items.length === 0) {
+    return <EmptyState message="No RFPs found" />;
+  }
+
+  return (
+    <div className="grid gap-4">
+      {rfps.items.map((rfp) => (
+        <RfpCard key={rfp._id} rfp={rfp} />
+      ))}
+    </div>
+  );
+}
 ```
 
-**Common limits**:
-- Registration: 3/user/24h
-- Login: 10/email/5min
-- Orders: 10/user/min
-- API: 100/user/hour
+### useMutation with Optimistic Updates
 
-## File Naming
+```tsx
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
 
-⚠️ **CRITICAL**: Convex requires `snake_case` for files in `convex/`
+function PursuitActions({ pursuitId }: { pursuitId: Id<"pursuits"> }) {
+  const updateStatus = useMutation(api.pursuits.updateStatus);
+  const [isPending, setIsPending] = useState(false);
 
+  const handleStatusChange = async (newStatus: string) => {
+    setIsPending(true);
+    try {
+      await updateStatus({ pursuitId, status: newStatus });
+    } finally {
+      setIsPending(false);
+    }
+  };
+
+  return (
+    <select
+      disabled={isPending}
+      onChange={(e) => handleStatusChange(e.target.value)}
+    >
+      <option value="new">New</option>
+      <option value="triage">Triage</option>
+      <option value="bid">Bid</option>
+      <option value="no-bid">No Bid</option>
+    </select>
+  );
+}
 ```
-✅ convex/stripe_webhook.ts
-✅ convex/user_queries.ts
-❌ convex/stripe-webhook.ts  (deploy fails)
+
+## Common Patterns
+
+### Auth Helper
+
+```typescript
+// convex/lib/auth.ts
+import { QueryCtx, MutationCtx } from "./_generated/server";
+
+export async function requireAuth(ctx: QueryCtx | MutationCtx) {
+  const identity = await ctx.auth.getUserIdentity();
+  if (!identity) {
+    throw new Error("Not authenticated");
+  }
+  return identity;
+}
+
+export async function requireAdmin(ctx: QueryCtx | MutationCtx) {
+  const identity = await requireAuth(ctx);
+
+  const user = await ctx.db
+    .query("users")
+    .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+    .first();
+
+  if (!user || user.role !== "admin") {
+    throw new Error("Admin access required");
+  }
+
+  return { identity, user };
+}
 ```
 
-**Error**: "Path component X can only contain alphanumeric, underscores, periods"
+### Scheduled Jobs
 
-## Field Naming
+```typescript
+// convex/crons.ts
+import { cronJobs } from "convex/server";
+import { internal } from "./_generated/api";
 
-Always `snake_case`:
+const crons = cronJobs();
 
-```ts
-await ctx.db.insert("orders", {
-  transaction_id: "abc",     // ✅
-  customer_name: "John",     // ✅
-  _creationTime: Date.now(), // ✅ System field
-  userId: identity.subject   // ❌ Should be user_id
-})
+// Run every 6 hours
+crons.interval(
+  "ingest-sam-gov",
+  { hours: 6 },
+  internal.ingestion.runSamGovIngestion
+);
+
+// Run daily at 6 AM UTC
+crons.daily(
+  "cleanup-expired",
+  { hourUTC: 6, minuteUTC: 0 },
+  internal.maintenance.archiveExpiredRfps
+);
+
+export default crons;
 ```
 
-## Validators
+## Bandwidth Optimization Patterns
 
-| Type | Usage |
-|------|-------|
-| Primitives | `v.string()`, `v.number()`, `v.boolean()`, `v.null()` |
-| ID | `v.id("table_name")` |
-| Optional | `v.optional(v.string())`, `v.nullable(v.number())` |
-| Object | `v.object({ name: v.string(), age: v.number() })` |
-| Array | `v.array(v.string())` |
-| Union | `v.union(v.literal("a"), v.literal("b"))` |
-| Any | `v.any()` (use sparingly) |
+### Stats Aggregation Table
 
-## Resources
+Pre-compute counts to avoid querying thousands of documents. This is **critical** for free tier limits (1GB/month).
 
-Progressive disclosure for deep dives:
+```typescript
+// ❌ Bad: Reads entire table to count
+const all = await ctx.db.query("evaluations").collect();
+return { total: all.length, eligible: all.filter(e => e.status === "ELIGIBLE").length };
 
-- `resources/schema-design.md` - Table design, index patterns
-- `resources/auth-patterns.md` - Comprehensive auth
-- `resources/performance.md` - Query optimization, caching
+// ✅ Good: Read single aggregation document
+const cached = await ctx.db
+  .query("statsAggregation")
+  .withIndex("by_key", (q) => q.eq("key", "eligibility"))
+  .first();
 
-## Docs
+return {
+  total: cached?.counts.total ?? 0,
+  eligible: cached?.counts.eligible ?? 0,
+};
+```
 
-- [Convex Docs](https://docs.convex.dev)
-- [Best Practices](https://docs.convex.dev/production/best-practices)
-- [Rate Limiter](https://docs.convex.dev/production/rate-limiting)
+**Schema for aggregation table:**
+```typescript
+statsAggregation: defineTable({
+  key: v.string(), // e.g., "eligibility", "opportunities"
+  counts: v.object({
+    total: v.number(),
+    eligible: v.optional(v.number()),
+    // ... other counts
+  }),
+  lastUpdatedAt: v.number(),
+}).index("by_key", ["key"]),
+```
+
+**Update stats incrementally** when records change:
+```typescript
+// In your create/update/delete mutations:
+async function updateStatsOnIncrement(ctx: MutationCtx, status: string) {
+  const existing = await ctx.db.query("statsAggregation")
+    .withIndex("by_key", (q) => q.eq("key", "eligibility")).first();
+
+  if (!existing) {
+    await ctx.db.insert("statsAggregation", {
+      key: "eligibility",
+      counts: { total: 1, eligible: status === "ELIGIBLE" ? 1 : 0 },
+      lastUpdatedAt: Date.now(),
+    });
+    return;
+  }
+
+  const counts = { ...existing.counts };
+  counts.total = (counts.total ?? 0) + 1;
+  if (status === "ELIGIBLE") counts.eligible = (counts.eligible ?? 0) + 1;
+  await ctx.db.patch(existing._id, { counts, lastUpdatedAt: Date.now() });
+}
+```
+
+### Conditional Query Loading (Skip Pattern)
+
+Only load data when user actually needs it:
+
+```tsx
+// ✅ Good: Data won't load until user clicks export
+const [wantsExport, setWantsExport] = useState(false);
+const exportData = useQuery(
+  api.eligibilityRules.exportRules,
+  wantsExport ? {} : "skip"  // "skip" prevents the query from running
+);
+
+// User clicks button → query runs → data loads
+<button onClick={() => setWantsExport(true)}>Export Rules</button>
+
+// ❌ Bad: Loads all data on component mount even if rarely used
+const exportData = useQuery(api.eligibilityRules.exportRules, {});
+```
+
+### Batch Operations with hasMore Pattern
+
+For deleting or processing large datasets:
+
+```typescript
+// ✅ Good: Process in batches, return hasMore flag
+export const resetAllEvaluations = mutation({
+  args: { batchSize: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    const batchSize = args.batchSize ?? 100;
+    const evaluations = await ctx.db.query("evaluations").take(batchSize);
+
+    for (const evaluation of evaluations) {
+      await ctx.db.delete(evaluation._id);
+    }
+
+    return {
+      deleted: evaluations.length,
+      hasMore: evaluations.length === batchSize  // True if there might be more
+    };
+  },
+});
+```
+
+**Client-side loop:**
+```typescript
+const handleReset = async () => {
+  let hasMore = true;
+  let totalDeleted = 0;
+
+  while (hasMore) {
+    const result = await resetEvaluations({ batchSize: 100 });
+    totalDeleted += result.deleted;
+    hasMore = result.hasMore;
+  }
+
+  console.log(`Deleted ${totalDeleted} evaluations`);
+};
+```
+
+### Indexed Lookups for Joins
+
+When joining tables, use indexed lookups per-record instead of loading entire tables:
+
+```typescript
+// ❌ Bad: Loads ALL evaluations, then filters in JS
+const allEvaluations = await ctx.db.query("evaluations").take(1000);
+const evaluationMap = new Map(allEvaluations.map(e => [e.opportunityId, e]));
+return opportunities.map(opp => ({
+  ...opp,
+  evaluation: evaluationMap.get(opp._id),
+}));
+
+// ✅ Good: Use indexed lookup per opportunity (N queries, but each is tiny)
+const evaluationPromises = opportunities.map(opp =>
+  ctx.db.query("evaluations")
+    .withIndex("by_opportunity", (q) => q.eq("opportunityId", opp._id))
+    .first()
+  );
+const evaluations = await Promise.all(evaluationPromises);
+return opportunities.map((opp, i) => ({
+  ...opp,
+  evaluation: evaluations[i],
+}));
+```
+
+### Deduplication with Sets
+
+For upsert operations, use Set-based lookups instead of array includes:
+
+```typescript
+// ❌ Bad: O(n) lookup for each check
+const recentIds = recentOpportunities.map(o => o.externalIds[0]?.externalId);
+if (recentIds.includes(record.externalId)) continue;
+
+// ✅ Good: O(1) lookup with Set
+const existingIds = new Set(
+  recentOpportunities.flatMap(o => o.externalIds.map(e => e.externalId))
+);
+if (existingIds.has(record.externalId)) continue;
+```
+
+## Anti-Patterns to Avoid
+
+| ❌ Avoid                                   | ✅ Do Instead                            |
+| ----------------------------------------- | --------------------------------------- |
+| `.collect()` without limit                | `.take(limit)`                          |
+| Large `.take(1000)` on heavyweight tables | Smaller limits (50-200) with pagination |
+| Loading full table to count records       | Stats aggregation table                 |
+| Filtering in JS after fetch               | Use indexes                             |
+| Storing derived data                      | Compute in queries (unless for stats)   |
+| `any` types in args                       | Proper `v.*` validators                 |
+| Multiple awaits in loops                  | `Promise.all` for batches               |
+| Env vars in queries                       | Only in actions                         |
+| Loading unused data on mount              | Conditional queries with `"skip"`       |
+| Full table scan for joins                 | Indexed lookups per record              |

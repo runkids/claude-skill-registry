@@ -1,74 +1,324 @@
 ---
 name: doc-generator
-description: 技术文档生成技能。当用户需要编写 README、API 文档、项目文档、技术规范、使用指南或任何技术文档时使用此技能。
+description: Generate and maintain consistent documentation for code, APIs, and architecture. Use when documenting functions, creating READMEs, or writing ADRs.
 ---
 
-# Doc Generator
+# Documentation Standards
 
-生成专业、清晰、结构化的技术文档。
+## When to Use
 
-## 文档类型
+- Documenting new functions/components
+- Creating README files
+- Writing Architecture Decision Records (ADRs)
+- API documentation
+- Code comments
 
-### README.md 结构
+## Quick Reference
+
+### JSDoc Standards
+
+```typescript
+/**
+ * Creates a new journal entry for the specified user.
+ *
+ * @param userId - The Firebase UID of the user
+ * @param data - The journal entry form data
+ * @param spaceId - Optional space ID (defaults to personal)
+ * @returns The ID of the created entry
+ * @throws {FirebaseError} If the write operation fails
+ *
+ * @example
+ * const entryId = await createJournalEntry(user.uid, {
+ *   title: 'My Day',
+ *   content: 'Today was great...',
+ *   mood: 'happy',
+ *   tags: ['reflection']
+ * });
+ */
+export async function createJournalEntry(
+  userId: string,
+  data: JournalEntryFormData,
+  spaceId?: string,
+): Promise<string> {
+  // implementation
+}
+```
+
+### Component Documentation
+
+```typescript
+/**
+ * A reusable modal dialog component with customizable content and actions.
+ *
+ * @component
+ * @example
+ * <Modal
+ *   isOpen={showModal}
+ *   onClose={() => setShowModal(false)}
+ *   title="Confirm Action"
+ * >
+ *   <p>Are you sure you want to proceed?</p>
+ * </Modal>
+ */
+interface ModalProps {
+  /** Whether the modal is currently visible */
+  isOpen: boolean;
+  /** Callback when the modal should close */
+  onClose: () => void;
+  /** Optional title displayed in the modal header */
+  title?: string;
+  /** Modal content */
+  children: React.ReactNode;
+  /** Size variant */
+  size?: "sm" | "md" | "lg";
+}
+
+export function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+  size = "md",
+}: ModalProps) {
+  // implementation
+}
+```
+
+### README Template
+
 ```markdown
-# 项目名称
-简短描述（一句话）
+# App Name
 
-## 功能特性
-- 特性1
-- 特性 2
+Brief description of what this app does.
 
-## 快速开始
-### 安装
-### 使用
+## Features
 
-## 配置说明
+- Feature 1: Description
+- Feature 2: Description
+- Feature 3: Description
 
-## API 文档（如适用）
+## Getting Started
 
-## 贡献指南
+### Prerequisites
+
+- Node.js 18+
+- pnpm 8+
+- Firebase project
+
+### Installation
+
+\`\`\`bash
+pnpm install
+\`\`\`
+
+### Development
+
+\`\`\`bash
+pnpm dev
+\`\`\`
+
+### Environment Variables
+
+| Variable                       | Description                | Required |
+| ------------------------------ | -------------------------- | -------- |
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | Firebase API key           | Yes      |
+| `DATABASE_URL`                 | Database connection string | Yes      |
+
+## Architecture
+
+Brief overview of the app architecture.
+
+### Key Files
+
+- `src/app/` - Next.js app router pages
+- `src/components/` - React components
+- `src/lib/` - Utility functions and hooks
+
+## API Reference
+
+### `GET /api/entries`
+
+Retrieves journal entries for the authenticated user.
+
+**Query Parameters:**
+
+- `limit` (optional): Number of entries to return (default: 20)
+- `offset` (optional): Pagination offset
+
+**Response:**
+\`\`\`json
+{
+"data": [...],
+"meta": { "total": 100, "limit": 20, "offset": 0 }
+}
+\`\`\`
+
+## Contributing
+
+1. Create a feature branch
+2. Make changes
+3. Run `pnpm build` to verify
+4. Submit PR
 
 ## License
+
+MIT
 ```
 
-### API 文档结构
+### Architecture Decision Record (ADR)
+
 ```markdown
-## 接口名称
-简要描述
+# ADR-001: Use Firebase Firestore for Data Storage
 
-### 请求
-- Method: GET/POST/...
-- URL: /api/v1/resource
-- Headers: ...
-- Body: ...
+## Status
 
-### 响应
-- 成功响应示例
-- 错误响应示例
+Accepted
 
-### 示例代码
+## Context
+
+We need a database solution for storing user data across our suite of applications.
+Requirements:
+
+- Real-time sync capabilities
+- Offline support
+- Scalable without ops overhead
+- Works well with our auth system
+
+## Decision
+
+We will use Firebase Firestore as our primary database.
+
+## Consequences
+
+### Positive
+
+- Real-time listeners out of the box
+- Offline persistence built-in
+- Scales automatically
+- Integrates with Firebase Auth
+- No server management needed
+
+### Negative
+
+- Vendor lock-in to Google Cloud
+- Complex queries have limitations
+- Costs can be unpredictable at scale
+- Learning curve for security rules
+
+### Neutral
+
+- Need to design around document-based model
+- Security rules are separate from application code
+
+## Alternatives Considered
+
+1. **PostgreSQL + Supabase**: Good real-time, but more ops overhead
+2. **MongoDB Atlas**: Flexible schema, but no native offline sync
+3. **PlanetScale**: Great for SQL, but no real-time
+
+## Related
+
+- ADR-002: Firestore Schema Design
+- ADR-003: Security Rules Strategy
 ```
 
-## 文档原则
+### Inline Comment Guidelines
 
-1. **用户优先**：从读者角度出发
-2. **示例驱动**：代码示例胜过长篇描述
-3. **保持更新**：文档与代码同步
-4. **结构清晰**：使用标题层级组织内容
+```typescript
+// GOOD: Explain WHY, not WHAT
+// Using batch writes to ensure atomic updates across related documents
+const batch = writeBatch(db);
 
-## 写作规范
+// GOOD: Warn about non-obvious behavior
+// Note: Firestore timestamps are server-generated, so createdAt
+// won't be available immediately after addDoc returns
+const docRef = await addDoc(collection(db, 'entries'), data);
 
-- 使用主动语态
-- 句子简短明确
-- 专业术语首次出现时解释
-- 代码块标注语言类型
-- 重要信息使用提示框
+// GOOD: Document workarounds
+// Workaround for Firestore limitation: Can't query by month/day
+// across years, so we fetch all entries and filter client-side
+const entries = await getUserEntries(userId, { limit: 500 });
 
-## 提示框格式
+// BAD: Stating the obvious
+// Loop through the array (adds no value)
+for (const item of items) { ... }
 
-```markdown
->⚠️ **警告**：重要警告信息
+// BAD: Outdated comment
+// Returns user's email (but function now returns full profile)
+function getUserProfile() { ... }
+```
 
-> 💡 **提示**：有用的建议
+### API Documentation
 
-> 📝 **注意**：需要注意的事项
+```typescript
+/**
+ * @api {post} /api/entries Create Entry
+ * @apiName CreateEntry
+ * @apiGroup Entries
+ * @apiVersion 1.0.0
+ *
+ * @apiHeader {String} Authorization Bearer token
+ *
+ * @apiBody {String} title Entry title (max 200 chars)
+ * @apiBody {String} content Entry content (max 50000 chars)
+ * @apiBody {String[]} [tags] Optional tags (max 20)
+ * @apiBody {String="happy","neutral","sad"} [mood] Mood indicator
+ *
+ * @apiSuccess {Object} data Created entry object
+ * @apiSuccess {String} data.id Entry ID
+ * @apiSuccess {String} data.title Entry title
+ *
+ * @apiError (400) ValidationError Invalid input data
+ * @apiError (401) Unauthorized Missing or invalid token
+ * @apiError (500) ServerError Internal server error
+ *
+ * @apiExample {curl} Example:
+ *     curl -X POST https://api.example.com/api/entries \
+ *       -H "Authorization: Bearer xxx" \
+ *       -d '{"title":"My Entry","content":"..."}'
+ */
+```
+
+## Documentation Checklist
+
+### Functions/Methods
+
+- [ ] Purpose clearly stated
+- [ ] Parameters documented with types
+- [ ] Return value documented
+- [ ] Errors/exceptions documented
+- [ ] Example usage provided (for public APIs)
+
+### Components
+
+- [ ] Component purpose described
+- [ ] Props interface documented
+- [ ] Usage example provided
+- [ ] Edge cases noted
+
+### Files/Modules
+
+- [ ] File header with purpose
+- [ ] Exports documented
+- [ ] Dependencies noted if unusual
+
+### READMEs
+
+- [ ] What the project does
+- [ ] How to install/setup
+- [ ] How to run/use
+- [ ] Environment variables listed
+- [ ] Contributing guidelines
+
+## When NOT to Document
+
+- Self-explanatory code (e.g., `getUserById(id)`)
+- Temporary/experimental code
+- Internal implementation details
+- Obvious type information
+
+## See Also
+
+- [templates/readme.md](templates/readme.md) - README template
+- [templates/adr.md](templates/adr.md) - ADR template
+- [templates/component.md](templates/component.md) - Component doc template

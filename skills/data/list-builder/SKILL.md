@@ -5,9 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: story-sense
-  type: utility
 ---
 
 # List Builder: Entropy List Curation Skill

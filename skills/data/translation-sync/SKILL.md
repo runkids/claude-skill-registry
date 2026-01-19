@@ -5,12 +5,18 @@ description: Expert assistant for managing Finnish/English content translations 
 
 # Translation Sync
 
+## Context Files (Read First)
+
+For schema and structure, read from `Docs/context/`:
+- `Docs/context/db-schema-short.md` - Translation tables
+- `Docs/context/supabase-map.md` - RPC functions
+
 ## Capabilities
-- Sync topic translations between Finnish and English
+
+- Sync topic translations (FI ↔ EN)
 - Manage term translation cache
 - Validate translation completeness
 - Export/import CSV for bulk updates
-- Identify missing translations
 
 ## Translation Tables
 
@@ -429,7 +435,10 @@ The translations can be managed via:
 
 See `Docs/07-ADMIN-GUIDE.md` for admin panel usage.
 
-## Related Documentation
-- See `Docs/07-ADMIN-GUIDE.md` for admin features
-- See `Docs/03-API.md` for term_translations table
-- See `Docs/06-AI-ARCHITECTURE.md` for AI translation
+## Related Skills
+
+| Situation | Delegate To |
+|-----------|-------------|
+| Schema changes | `supabase-migration-writer` |
+| Admin page updates | `admin-panel-builder` |
+| AI translation config | `ai-prompt-manager` |

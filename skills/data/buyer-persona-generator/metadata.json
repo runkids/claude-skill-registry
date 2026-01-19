@@ -1,7 +1,7 @@
 {
   "name": "buyer-persona-generator",
   "repo": "nicepkg/ai-workflow",
-  "path": "marketing-pro-workflow/.claude/skills/buyer-persona-generator/SKILL.md",
+  "path": "workflows/marketing-pro-workflow/.claude/skills/buyer-persona-generator/SKILL.md",
   "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-17T02:05:48.108746Z"
+  "downloaded_at": "2026-01-19T03:26:19.803907Z"
 }

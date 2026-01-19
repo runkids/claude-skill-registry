@@ -1,15 +1,22 @@
 ---
 name: fastmcp
-description: |
-  Build MCP servers in Python with FastMCP to expose tools, resources, and prompts to LLMs. Supports storage backends, middleware, OAuth Proxy, OpenAPI integration, and FastMCP Cloud deployment. Prevents 25+ errors.
+description: FastMCP Python framework for MCP servers with tools, resources, storage backends (memory/disk/Redis/DynamoDB). Use for Claude tool exposure, OAuth Proxy, cloud deployment, or encountering storage, lifespan, middleware, circular import, async errors.
 
-  Use when: creating MCP servers, or troubleshooting module-level server, storage, lifespan, middleware, or OAuth errors.
-user-invocable: true
+  Keywords: FastMCP, MCP server Python, Model Context Protocol Python, fastmcp framework, mcp tools, mcp resources, mcp prompts, fastmcp storage, fastmcp memory storage, fastmcp disk storage, fastmcp redis, fastmcp dynamodb, fastmcp lifespan, fastmcp middleware, fastmcp oauth proxy, server composition mcp, fastmcp import, fastmcp mount, fastmcp cloud, fastmcp deployment, mcp authentication, fastmcp icons, openapi mcp, claude mcp server, fastmcp testing, storage misconfiguration, lifespan issues, middleware order, circular imports, module-level server, async await mcp
+license: MIT
+metadata:
+  version: "2.0.0"
+  package_version: "fastmcp>=2.13.0"
+  python_version: ">=3.10"
+  token_savings: "90-95%"
+  errors_prevented: 25
+  production_tested: true
+  last_updated: "2025-11-18"
 ---
 
 # FastMCP - Build MCP Servers in Python
 
-FastMCP is a Python framework for building Model Context Protocol (MCP) servers that expose tools, resources, and prompts to Large Language Models like Claude. This skill provides production-tested patterns, error prevention, and deployment strategies for building robust MCP servers.
+FastMCP is a Python framework for building Model Context Protocol (MCP) servers that expose tools, resources, and prompts to Large Language Models like Claude.
 
 ## Quick Start
 
@@ -17,8 +24,7 @@ FastMCP is a Python framework for building Model Context Protocol (MCP) servers 
 
 ```bash
 pip install fastmcp
-# or
-uv pip install fastmcp
+# or: uv pip install fastmcp
 ```
 
 ### Minimal Server
@@ -38,664 +44,417 @@ if __name__ == "__main__":
     mcp.run()
 ```
 
-**Run it:**
+**Run:**
 ```bash
-# Local development
-python server.py
-
-# With FastMCP CLI
-fastmcp dev server.py
-
-# HTTP mode
-python server.py --transport http --port 8000
+python server.py              # Local development
+fastmcp dev server.py         # With FastMCP CLI
+python server.py --transport http --port 8000  # HTTP mode
 ```
 
-## What's New in v2.14.x (December 2025)
-
-### v2.14.2 (December 31, 2024)
-- MCP SDK pinned to <2.x for compatibility
-- Supabase provider gains `auth_route` parameter
-- Bug fixes: outputSchema `$ref` resolution, OAuth Proxy validation, OpenAPI 3.1 support
-
-### v2.14.1: Sampling with Tools (SEP-1577)
-- **`ctx.sample()` now accepts tools** for agentic workflows
-- `AnthropicSamplingHandler` promoted from experimental
-- `ctx.sample_step()` for single LLM call returning `SampleStep`
-- Python 3.13 support added
-
-### v2.14.0: Background Tasks (SEP-1686)
-- **Protocol-native background tasks** for long-running operations
-- Add `task=True` to async decorators; progress tracking without blocking
-- MCP 2025-11-25 specification support
-- SEP-1699: SSE polling and event resumability
-- SEP-1330: Multi-select enum elicitation schemas
-- SEP-1034: Default values for elicitation schemas
-
-**⚠️ Breaking Changes (v2.14.0):**
-- `BearerAuthProvider` module removed (use `JWTVerifier` or `OAuthProxy`)
-- `Context.get_http_request()` method removed
-- `fastmcp.Image` top-level import removed (use `from fastmcp.utilities import Image`)
-- `enable_docket`, `enable_tasks` settings removed (always enabled)
-- `run_streamable_http_async()`, `sse_app()`, `streamable_http_app()`, `run_sse_async()` methods removed
-- `dependencies` parameter removed from decorators
-- `output_schema=False` support eliminated
-- `FASTMCP_SERVER_` environment variable prefix deprecated
-
-**Known Compatibility:**
-- MCP SDK pinned to <2.x (v2.14.2+)
-
----
+**Copy-Paste Template**: See `templates/basic-server.py`
 
 ## Core Concepts
 
 ### Tools
-Functions LLMs can call. Best practices: Clear names, comprehensive docstrings (LLMs read these!), strong type hints (Pydantic validates), structured returns, error handling.
+
+Functions that LLMs can call:
 
 ```python
 @mcp.tool()
-async def async_tool(url: str) -> dict:  # Use async for I/O
-    async with httpx.AsyncClient() as client:
-        return (await client.get(url)).json()
+def calculate(operation: str, a: float, b: float) -> float:
+    """Perform mathematical operations."""
+    operations = {
+        "add": lambda x, y: x + y,
+        "subtract": lambda x, y: x - y,
+        "multiply": lambda x, y: x * y,
+        "divide": lambda x, y: x / y if y != 0 else None
+    }
+    return operations.get(operation, lambda x, y: None)(a, b)
 ```
+
+**Best Practices:**
+- Clear, descriptive function names
+- Comprehensive docstrings (LLMs read these!)
+- Strong type hints (Pydantic validates automatically)
+- Return structured data (dicts/lists)
+- Handle errors gracefully
 
 ### Resources
-Expose data to LLMs. URI schemes: `data://`, `file://`, `resource://`, `info://`, `api://`, or custom.
+
+Expose static or dynamic data:
 
 ```python
-@mcp.resource("user://{user_id}/profile")  # Template with parameters
-async def get_user(user_id: str) -> dict:  # CRITICAL: param names must match
-    return await fetch_user_from_db(user_id)
+@mcp.resource("data://config")
+def get_config() -> dict:
+    """Provide application configuration."""
+    return {"version": "1.0.0", "features": ["auth", "api"]}
+
+# Dynamic resource with parameters
+@mcp.resource("user://{user_id}/profile")
+async def get_user_profile(user_id: str) -> dict:
+    """Get user profile by ID."""
+    return {"id": user_id, "name": f"User {user_id}"}
 ```
 
+**URI Schemes**: `data://`, `file://`, `resource://`, `info://`, `api://`, or custom
+
 ### Prompts
-Pre-configured prompts with parameters.
+
+Pre-configured prompts for LLMs:
 
 ```python
 @mcp.prompt("analyze")
 def analyze_prompt(topic: str) -> str:
-    return f"Analyze {topic} considering: state, challenges, opportunities, recommendations."
+    """Generate analysis prompt."""
+    return f"""Analyze {topic} considering:
+    1. Current state
+    2. Challenges
+    3. Opportunities
+    4. Recommendations"""
 ```
 
-## Context Features
-
-Inject `Context` parameter (with type hint!) for advanced features:
-
-**Elicitation (User Input):**
-```python
-from fastmcp import Context
-
-@mcp.tool()
-async def confirm_action(action: str, context: Context) -> dict:
-    confirmed = await context.request_elicitation(prompt=f"Confirm {action}?", response_type=str)
-    return {"status": "completed" if confirmed.lower() == "yes" else "cancelled"}
-```
+### Context Features
 
 **Progress Tracking:**
 ```python
-@mcp.tool()
-async def batch_import(file_path: str, context: Context) -> dict:
-    data = await read_file(file_path)
-    for i, item in enumerate(data):
-        await context.report_progress(i + 1, len(data), f"Importing {i + 1}/{len(data)}")
-        await import_item(item)
-    return {"imported": len(data)}
-```
-
-**Sampling (LLM calls from tools):**
-```python
-@mcp.tool()
-async def enhance_text(text: str, context: Context) -> str:
-    response = await context.request_sampling(
-        messages=[{"role": "user", "content": f"Enhance: {text}"}],
-        temperature=0.7
-    )
-    return response["content"]
-```
-
-## Background Tasks (v2.14.0+)
-
-Long-running operations that report progress without blocking clients. Uses Docket task scheduler (always enabled in v2.14.0+).
-
-**Basic Usage:**
-```python
-@mcp.tool(task=True)  # Enable background task mode
-async def analyze_large_dataset(dataset_id: str, context: Context) -> dict:
-    """Analyze large dataset with progress tracking."""
-    data = await fetch_dataset(dataset_id)
-
-    for i, chunk in enumerate(data.chunks):
-        # Report progress to client
-        await context.report_progress(
-            current=i + 1,
-            total=len(data.chunks),
-            message=f"Processing chunk {i + 1}/{len(data.chunks)}"
-        )
-        await process_chunk(chunk)
-
-    return {"status": "complete", "records_processed": len(data)}
-```
-
-**Task States:** `pending` → `running` → `completed` / `failed` / `cancelled`
-
-**When to Use:**
-- Operations taking >30 seconds (LLM timeout risk)
-- Batch processing with per-item status updates
-- Operations that may need user input mid-execution
-- Long-running API calls or data processing
-
-**Important:** Tasks execute through Docket scheduler. Cannot execute tasks through proxies (will raise error).
-
-## Sampling with Tools (v2.14.1+)
-
-Servers can pass tools to `ctx.sample()` for agentic workflows where the LLM can call tools during sampling.
-
-**Agentic Sampling:**
-```python
 from fastmcp import Context
-from fastmcp.sampling import AnthropicSamplingHandler
-
-# Configure sampling handler
-mcp = FastMCP("Agent Server")
-mcp.add_sampling_handler(AnthropicSamplingHandler(api_key=os.getenv("ANTHROPIC_API_KEY")))
 
 @mcp.tool()
-async def research_topic(topic: str, context: Context) -> dict:
-    """Research a topic using agentic sampling with tools."""
-
-    # Define tools available during sampling
-    research_tools = [
-        {
-            "name": "search_web",
-            "description": "Search the web for information",
-            "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}}}
-        },
-        {
-            "name": "fetch_url",
-            "description": "Fetch content from a URL",
-            "inputSchema": {"type": "object", "properties": {"url": {"type": "string"}}}
-        }
-    ]
-
-    # Sample with tools - LLM can call these tools during reasoning
-    result = await context.sample(
-        messages=[{"role": "user", "content": f"Research: {topic}"}],
-        tools=research_tools,
-        max_tokens=4096
-    )
-
-    return {"research": result.content, "tools_used": result.tool_calls}
+async def batch_process(items: list, context: Context) -> dict:
+    """Process items with progress updates."""
+    for i, item in enumerate(items):
+        await context.report_progress(i + 1, len(items), f"Processing {item}")
+        await process_item(item)
+    return {"processed": len(items)}
 ```
 
-**Single-Step Sampling:**
+**User Input:**
 ```python
 @mcp.tool()
-async def get_single_response(prompt: str, context: Context) -> dict:
-    """Get a single LLM response without tool loop."""
-
-    # sample_step() returns SampleStep for inspection
-    step = await context.sample_step(
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7
+async def confirm_action(action: str, context: Context) -> dict:
+    """Perform action with user confirmation."""
+    confirmed = await context.request_elicitation(
+        prompt=f"Confirm {action}? (yes/no)",
+        response_type=str
     )
-
-    return {
-        "content": step.content,
-        "model": step.model,
-        "stop_reason": step.stop_reason
-    }
+    return {"confirmed": confirmed.lower() == "yes"}
 ```
-
-**Sampling Handlers:**
-- `AnthropicSamplingHandler` - For Claude models (v2.14.1+)
-- `OpenAISamplingHandler` - For GPT models
 
 ## Storage Backends
 
-Built on `py-key-value-aio` for OAuth tokens, response caching, persistent state.
+Choose storage based on deployment:
 
-**Available Backends:**
-- **Memory** (default): Ephemeral, fast, dev-only
-- **Disk**: Persistent, encrypted with `FernetEncryptionWrapper`, platform-aware (Mac/Windows default)
-- **Redis**: Distributed, production, multi-instance
-- **Others**: DynamoDB, MongoDB, Elasticsearch, Memcached, RocksDB, Valkey
-
-**Basic Usage:**
 ```python
 from key_value.stores import DiskStore, RedisStore
 from key_value.encryption import FernetEncryptionWrapper
 from cryptography.fernet import Fernet
 
-# Disk (persistent, single instance)
-mcp = FastMCP("Server", storage=DiskStore(path="/app/data/storage"))
+# Memory (default) - Development only
+mcp = FastMCP("Dev Server")
 
-# Redis (distributed, production)
-mcp = FastMCP("Server", storage=RedisStore(
-    host=os.getenv("REDIS_HOST"), password=os.getenv("REDIS_PASSWORD")
-))
+# Disk - Single instance
+mcp = FastMCP(
+    "Production Server",
+    storage=FernetEncryptionWrapper(
+        key_value=DiskStore(path="/var/lib/mcp/storage"),
+        fernet=Fernet(os.getenv("STORAGE_ENCRYPTION_KEY"))
+    )
+)
 
-# Encrypted storage (recommended)
-mcp = FastMCP("Server", storage=FernetEncryptionWrapper(
-    key_value=DiskStore(path="/app/data"),
-    fernet=Fernet(os.getenv("STORAGE_ENCRYPTION_KEY"))
-))
+# Redis - Multi-instance
+mcp = FastMCP(
+    "Production Server",
+    storage=FernetEncryptionWrapper(
+        key_value=RedisStore(
+            host=os.getenv("REDIS_HOST"),
+            password=os.getenv("REDIS_PASSWORD")
+        ),
+        fernet=Fernet(os.getenv("STORAGE_ENCRYPTION_KEY"))
+    )
+)
 ```
-
-**Platform Defaults:** Mac/Windows use Disk, Linux uses Memory. Override with `storage` parameter.
 
 ## Server Lifespans
 
-**⚠️ Breaking Change in v2.13.0**: Lifespan behavior changed from per-session to per-server-instance.
-
-Initialize/cleanup resources once per server (NOT per session) - critical for DB connections, API clients.
+Initialize resources on server startup:
 
 ```python
 from contextlib import asynccontextmanager
-from dataclasses import dataclass
-
-@dataclass
-class AppContext:
-    db: Database
-    api_client: httpx.AsyncClient
 
 @asynccontextmanager
 async def app_lifespan(server: FastMCP):
-    """Runs ONCE per server instance."""
-    db = await Database.connect(os.getenv("DATABASE_URL"))
-    api_client = httpx.AsyncClient(base_url=os.getenv("API_BASE_URL"), timeout=30.0)
-
+    """Runs ONCE when server starts (v2.13.0+)."""
+    db = await Database.connect()
+    print("Server starting")
+    
     try:
-        yield AppContext(db=db, api_client=api_client)
+        yield {"db": db}
     finally:
         await db.disconnect()
-        await api_client.aclose()
+        print("Server stopping")
 
-mcp = FastMCP("Server", lifespan=app_lifespan)
-
-# Access in tools
-@mcp.tool()
-async def query_db(sql: str, context: Context) -> list:
-    app_ctx = context.fastmcp_context.lifespan_context
-    return await app_ctx.db.query(sql)
+mcp = FastMCP("My Server", lifespan=app_lifespan)
 ```
 
-**ASGI Integration (FastAPI/Starlette):**
-```python
-mcp = FastMCP("Server", lifespan=mcp_lifespan)
-app = FastAPI(lifespan=mcp.lifespan)  # ✅ MUST pass lifespan!
-```
-
-**State Management:**
-```python
-context.fastmcp_context.set_state(key, value)  # Store
-context.fastmcp_context.get_state(key, default=None)  # Retrieve
-```
+**Critical**: v2.13.0+ lifespans run per-server (not per-session). For per-session logic, use middleware.
 
 ## Middleware System
 
-**8 Built-in Types:** TimingMiddleware, ResponseCachingMiddleware, LoggingMiddleware, RateLimitingMiddleware, ErrorHandlingMiddleware, ToolInjectionMiddleware, PromptToolMiddleware, ResourceToolMiddleware
+8 built-in middleware types:
 
-**Execution Order (order matters!):**
-```
-Request Flow:
-  → ErrorHandlingMiddleware (catches errors)
-    → TimingMiddleware (starts timer)
-      → LoggingMiddleware (logs request)
-        → RateLimitingMiddleware (checks rate limit)
-          → ResponseCachingMiddleware (checks cache)
-            → Tool/Resource Handler
-```
-
-**Basic Usage:**
 ```python
-from fastmcp.middleware import ErrorHandlingMiddleware, TimingMiddleware, LoggingMiddleware
+from fastmcp.middleware import (
+    LoggingMiddleware,
+    TimingMiddleware,
+    RateLimitingMiddleware,
+    ResponseCachingMiddleware
+)
 
-mcp.add_middleware(ErrorHandlingMiddleware())  # First: catch errors
-mcp.add_middleware(TimingMiddleware())         # Second: time requests
-mcp.add_middleware(LoggingMiddleware(level="INFO"))
+# Order matters!
+mcp.add_middleware(LoggingMiddleware())
+mcp.add_middleware(TimingMiddleware())
 mcp.add_middleware(RateLimitingMiddleware(max_requests=100, window_seconds=60))
-mcp.add_middleware(ResponseCachingMiddleware(ttl_seconds=300, storage=RedisStore()))
+mcp.add_middleware(ResponseCachingMiddleware(ttl_seconds=3600))
 ```
 
 **Custom Middleware:**
 ```python
 from fastmcp.middleware import BaseMiddleware
 
-class AccessControlMiddleware(BaseMiddleware):
+class CustomMiddleware(BaseMiddleware):
     async def on_call_tool(self, tool_name, arguments, context):
-        user = context.fastmcp_context.get_state("user_id")
-        if user not in self.allowed_users:
-            raise PermissionError(f"User not authorized")
-        return await self.next(tool_name, arguments, context)
+        print(f"Before: {tool_name}")
+        result = await self.next(tool_name, arguments, context)  # MUST call next()
+        print(f"After: {tool_name}")
+        return result
 ```
-
-**Hook Hierarchy:** `on_message` (all) → `on_request`/`on_notification` → `on_call_tool`/`on_read_resource`/`on_get_prompt` → `on_list_*` (list operations)
 
 ## Server Composition
 
-**Two Strategies:**
-
-1. **`import_server()`** - Static snapshot: One-time copy at import, changes don't propagate, fast (no runtime delegation). Use for: Finalized component bundles.
-
-2. **`mount()`** - Dynamic link: Live runtime link, changes immediately visible, runtime delegation (slower). Use for: Modular runtime composition.
-
-**Basic Usage:**
+**Import Server** (static, one-time copy):
 ```python
-# Import (static)
-main_server.import_server(api_server)  # One-time copy
-
-# Mount (dynamic)
-main_server.mount(api_server, prefix="api")  # Tools: api.fetch_data
-main_server.mount(db_server, prefix="db")    # Resources: resource://db/path
+main_server.import_server(vendor_server)  # Static bundle
 ```
 
-**Tag Filtering:**
+**Mount Server** (dynamic, runtime delegation):
 ```python
-@api_server.tool(tags=["public"])
-def public_api(): pass
-
-main_server.import_server(api_server, include_tags=["public"])  # Only public
-main_server.mount(api_server, prefix="api", exclude_tags=["admin"])  # No admin
+main_server.mount(api_server, prefix="api")  # Changes appear immediately
 ```
 
-**Resource Prefix Formats:**
-- **Path** (default since v2.4.0): `resource://prefix/path`
-- **Protocol** (legacy): `prefix+resource://path`
+## Cloud Deployment
+
+**FastMCP Cloud Requirements:**
+1. Server MUST be at module level
+2. Use disk/Redis storage (not memory)
+3. No import-time execution
 
 ```python
-main_server.mount(subserver, prefix="api", resource_prefix_format="path")
+# ✅ Cloud-ready pattern
+mcp = FastMCP("My Server")  # Module level
+
+@mcp.tool()
+async def my_tool(): pass
+
+if __name__ == "__main__":
+    mcp.run()
 ```
 
-## OAuth & Authentication
-
-**4 Authentication Patterns:**
-
-1. **Token Validation** (`JWTVerifier`): Validate external tokens
-2. **External Identity Providers** (`RemoteAuthProvider`): OAuth 2.0/OIDC with DCR
-3. **OAuth Proxy** (`OAuthProxy`): Bridge to providers without DCR (GitHub, Google, Azure, AWS, Discord, Facebook)
-4. **Full OAuth** (`OAuthProvider`): Complete authorization server
-
-**Pattern 1: Token Validation**
-```python
-from fastmcp.auth import JWTVerifier
-
-auth = JWTVerifier(issuer="https://auth.example.com", audience="my-server",
-                   public_key=os.getenv("JWT_PUBLIC_KEY"))
-mcp = FastMCP("Server", auth=auth)
-```
-
-**Pattern 3: OAuth Proxy (Production)**
-```python
-from fastmcp.auth import OAuthProxy
-from key_value.stores import RedisStore
-from key_value.encryption import FernetEncryptionWrapper
-from cryptography.fernet import Fernet
-
-auth = OAuthProxy(
-    jwt_signing_key=os.environ["JWT_SIGNING_KEY"],
-    client_storage=FernetEncryptionWrapper(
-        key_value=RedisStore(host=os.getenv("REDIS_HOST"), password=os.getenv("REDIS_PASSWORD")),
-        fernet=Fernet(os.environ["STORAGE_ENCRYPTION_KEY"])
-    ),
-    upstream_authorization_endpoint="https://github.com/login/oauth/authorize",
-    upstream_token_endpoint="https://github.com/login/oauth/access_token",
-    upstream_client_id=os.getenv("GITHUB_CLIENT_ID"),
-    upstream_client_secret=os.getenv("GITHUB_CLIENT_SECRET"),
-    enable_consent_screen=True  # CRITICAL: Prevents confused deputy attacks
-)
-mcp = FastMCP("GitHub Auth", auth=auth)
-```
-
-**OAuth Proxy Features:** Token factory pattern (issues own JWTs), consent screens (prevents bypass), PKCE support, RFC 7662 token introspection
-
-**Supported Providers:** GitHub, Google, Azure, AWS Cognito, Discord, Facebook, WorkOS, AuthKit, Descope, Scalekit, OCI (v2.13.1)
-
-## Icons, API Integration, Cloud Deployment
-
-**Icons:** Add to servers, tools, resources, prompts. Use `Icon(url, size)`, data URIs via `Icon.from_file()` or `Image.to_data_uri()` (v2.13.1).
-
-**API Integration (3 Patterns):**
-1. **Manual**: `httpx.AsyncClient` with base_url/headers/timeout
-2. **OpenAPI Auto-Gen**: `FastMCP.from_openapi(spec, client, route_maps)` - GET→Resources/Templates, POST/PUT/DELETE→Tools
-3. **FastAPI Conversion**: `FastMCP.from_fastapi(app, httpx_client_kwargs)`
-
-**Cloud Deployment Critical Requirements:**
-1. ❗ **Module-level server** named `mcp`, `server`, or `app`
-2. **PyPI dependencies only** in requirements.txt
-3. **Public GitHub repo** (or accessible)
-4. **Environment variables** for config
-
-```python
-# ✅ CORRECT: Module-level export
-mcp = FastMCP("server")  # At module level!
-
-# ❌ WRONG: Function-wrapped
-def create_server():
-    return FastMCP("server")  # Too late for cloud!
-```
-
-**Deployment:** https://fastmcp.cloud → Sign in → Create Project → Select repo → Deploy
-
-**Client Config (Claude Desktop):**
-```json
-{"mcpServers": {"my-server": {"url": "https://project.fastmcp.app/mcp", "transport": "http"}}}
-```
-
-## 25 Common Errors (With Solutions)
-
-### Error 1: Missing Server Object
-**Error:** `RuntimeError: No server object found at module level`
-**Cause:** Server not exported at module level (FastMCP Cloud requirement)
-**Solution:** `mcp = FastMCP("server")` at module level, not inside functions
-
-### Error 2: Async/Await Confusion
-**Error:** `RuntimeError: no running event loop`, `TypeError: object coroutine can't be used in 'await'`
-**Cause:** Mixing sync/async incorrectly
-**Solution:** Use `async def` for tools with `await`, sync `def` for non-async code
-
-### Error 3: Context Not Injected
-**Error:** `TypeError: missing 1 required positional argument: 'context'`
-**Cause:** Missing `Context` type annotation
-**Solution:** `async def tool(context: Context)` - type hint required!
-
-### Error 4: Resource URI Syntax
-**Error:** `ValueError: Invalid resource URI: missing scheme`
-**Cause:** Resource URI missing scheme prefix
-**Solution:** Use `@mcp.resource("data://config")` not `@mcp.resource("config")`
-
-### Error 5: Resource Template Parameter Mismatch
-**Error:** `TypeError: get_user() missing 1 required positional argument`
-**Cause:** Function parameter names don't match URI template
-**Solution:** `@mcp.resource("user://{user_id}/profile")` → `def get_user(user_id: str)` - names must match exactly
-
----
-
-### Error 6: Pydantic Validation Error
-**Error:** `ValidationError: value is not a valid integer`
-**Cause:** Type hints don't match provided data
-**Solution:** Use Pydantic models: `class Params(BaseModel): query: str = Field(min_length=1)`
-
-### Error 7: Transport/Protocol Mismatch
-**Error:** `ConnectionError: Server using different transport`
-**Cause:** Client and server using incompatible transports
-**Solution:** Match transports - stdio: `mcp.run()` + `{"command": "python", "args": ["server.py"]}`, HTTP: `mcp.run(transport="http", port=8000)` + `{"url": "http://localhost:8000/mcp", "transport": "http"}`
-
-### Error 8: Import Errors (Editable Package)
-**Error:** `ModuleNotFoundError: No module named 'my_package'`
-**Cause:** Package not properly installed
-**Solution:** `pip install -e .` or use absolute imports or `export PYTHONPATH="/path/to/project"`
-
-### Error 9: Deprecation Warnings
-**Error:** `DeprecationWarning: 'mcp.settings' is deprecated`
-**Cause:** Using old FastMCP v1 API
-**Solution:** Use `os.getenv("API_KEY")` instead of `mcp.settings.get("API_KEY")`
-
-### Error 10: Port Already in Use
-**Error:** `OSError: [Errno 48] Address already in use`
-**Cause:** Port 8000 already occupied
-**Solution:** Use different port `--port 8001` or kill process `lsof -ti:8000 | xargs kill -9`
-
-### Error 11: Schema Generation Failures
-**Error:** `TypeError: Object of type 'ndarray' is not JSON serializable`
-**Cause:** Unsupported type hints (NumPy arrays, custom classes)
-**Solution:** Return JSON-compatible types: `list[float]` or convert: `{"values": np_array.tolist()}`
-
-### Error 12: JSON Serialization
-**Error:** `TypeError: Object of type 'datetime' is not JSON serializable`
-**Cause:** Returning non-JSON-serializable objects
-**Solution:** Convert: `datetime.now().isoformat()`, bytes: `.decode('utf-8')`
-
-### Error 13: Circular Import Errors
-**Error:** `ImportError: cannot import name 'X' from partially initialized module`
-**Cause:** Circular dependency (common in cloud deployment)
-**Solution:** Use direct imports in `__init__.py`: `from .api_client import APIClient` or lazy imports in functions
-
-### Error 14: Python Version Compatibility
-**Error:** `DeprecationWarning: datetime.utcnow() is deprecated`
-**Cause:** Using deprecated Python 3.12+ methods
-**Solution:** Use `datetime.now(timezone.utc)` instead of `datetime.utcnow()`
-
-### Error 15: Import-Time Execution
-**Error:** `RuntimeError: Event loop is closed`
-**Cause:** Creating async resources at module import time
-**Solution:** Use lazy initialization - create connection class with async `connect()` method, call when needed in tools
-
----
-
-### Error 16: Storage Backend Not Configured
-**Error:** `RuntimeError: OAuth tokens lost on restart`, `ValueError: Cache not persisting`
-**Cause:** Using default memory storage in production without persistence
-**Solution:** Use encrypted DiskStore (single instance) or RedisStore (multi-instance) with `FernetEncryptionWrapper`
-
-### Error 17: Lifespan Not Passed to ASGI App
-**Error:** `RuntimeError: Database connection never initialized`, `Warning: MCP lifespan hooks not running`
-**Cause:** FastMCP with FastAPI/Starlette without passing lifespan (v2.13.0 requirement)
-**Solution:** `app = FastAPI(lifespan=mcp.lifespan)` - MUST pass lifespan!
-
-### Error 18: Middleware Execution Order Error
-**Error:** `RuntimeError: Rate limit not checked before caching`
-**Cause:** Incorrect middleware ordering (order matters!)
-**Solution:** ErrorHandling → Timing → Logging → RateLimiting → ResponseCaching (this order)
-
-### Error 19: Circular Middleware Dependencies
-**Error:** `RecursionError: maximum recursion depth exceeded`
-**Cause:** Middleware not calling `self.next()` or calling incorrectly
-**Solution:** Always call `result = await self.next(tool_name, arguments, context)` in middleware hooks
-
-### Error 20: Import vs Mount Confusion
-**Error:** `RuntimeError: Subserver changes not reflected`, `ValueError: Unexpected tool namespacing`
-**Cause:** Using `import_server()` when `mount()` was needed (or vice versa)
-**Solution:** `import_server()` for static bundles (one-time copy), `mount()` for dynamic composition (live link)
-
-### Error 21: Resource Prefix Format Mismatch
-**Error:** `ValueError: Resource not found: resource://api/users`
-**Cause:** Using wrong resource prefix format
-**Solution:** Path format (default v2.4.0+): `resource://prefix/path`, Protocol (legacy): `prefix+resource://path` - set with `resource_prefix_format="path"`
-
-### Error 22: OAuth Proxy Without Consent Screen
-**Error:** `SecurityWarning: Authorization bypass possible`
-**Cause:** OAuth Proxy without consent screen (security vulnerability)
-**Solution:** Always set `enable_consent_screen=True` - prevents confused deputy attacks (CRITICAL)
-
-### Error 23: Missing JWT Signing Key in Production
-**Error:** `ValueError: JWT signing key required for OAuth Proxy`
-**Cause:** OAuth Proxy missing `jwt_signing_key`
-**Solution:** Generate: `secrets.token_urlsafe(32)`, store in `FASTMCP_JWT_SIGNING_KEY` env var, pass to `OAuthProxy(jwt_signing_key=...)`
-
-### Error 24: Icon Data URI Format Error
-**Error:** `ValueError: Invalid data URI format`
-**Cause:** Incorrectly formatted data URI for icons
-**Solution:** Use `Icon.from_file("/path/icon.png", size="medium")` or `Image.to_data_uri()` (v2.13.1) - don't manually format
-
-### Error 25: Lifespan Behavior Change (v2.13.0)
-**Error:** `Warning: Lifespan runs per-server, not per-session`
-**Cause:** Expecting v2.12 behavior (per-session) in v2.13.0+ (per-server)
-**Solution:** v2.13.0+ lifespans run ONCE per server, not per session - use middleware for per-session logic
-
-### Error 26: BearerAuthProvider Removed (v2.14.0)
-**Error:** `ImportError: cannot import name 'BearerAuthProvider' from 'fastmcp.auth'`
-**Cause:** `BearerAuthProvider` module removed in v2.14.0
-**Solution:** Use `JWTVerifier` for token validation or `OAuthProxy` for full OAuth flows:
-```python
-# Before (v2.13.x)
-from fastmcp.auth import BearerAuthProvider
-
-# After (v2.14.0+)
-from fastmcp.auth import JWTVerifier
-auth = JWTVerifier(issuer="...", audience="...", public_key="...")
-```
-
-### Error 27: Context.get_http_request() Removed (v2.14.0)
-**Error:** `AttributeError: 'Context' object has no attribute 'get_http_request'`
-**Cause:** `Context.get_http_request()` method removed in v2.14.0
-**Solution:** Access request info through middleware or use `InitializeResult` exposed to middleware
-
-### Error 28: Image Import Path Changed (v2.14.0)
-**Error:** `ImportError: cannot import name 'Image' from 'fastmcp'`
-**Cause:** `fastmcp.Image` top-level import removed in v2.14.0
-**Solution:** Use new import path:
-```python
-# Before (v2.13.x)
-from fastmcp import Image
-
-# After (v2.14.0+)
-from fastmcp.utilities import Image
-```
-
----
-
-## Production Patterns, Testing, CLI
-
-**4 Production Patterns:**
-1. **Utils Module**: Single `utils.py` with Config class, format_success/error helpers
-2. **Connection Pooling**: Singleton `httpx.AsyncClient` with `get_client()` class method
-3. **Retry with Backoff**: `retry_with_backoff(func, max_retries=3, initial_delay=1.0, exponential_base=2.0)`
-4. **Time-Based Caching**: `TimeBasedCache(ttl=300)` with `.get()` and `.set()` methods
-
-**Testing:**
-- Unit: `pytest` + `create_test_client(test_server)` + `await client.call_tool()`
-- Integration: `Client("server.py")` + `list_tools()` + `call_tool()` + `list_resources()`
-
-**CLI Commands:**
+**Deploy:**
 ```bash
-fastmcp dev server.py                # Run with inspector
-fastmcp install server.py             # Install to Claude Desktop
-FASTMCP_LOG_LEVEL=DEBUG fastmcp dev  # Debug logging
+fastmcp deploy server.py
 ```
 
-**Best Practices:** Factory pattern with module-level export, environment config with validation, comprehensive docstrings (LLMs read these!), health check resources
+## Top 5 Critical Errors
 
-**Project Structure:**
-- Simple: `server.py`, `requirements.txt`, `.env`, `README.md`
-- Production: `src/` (server.py, utils.py, tools/, resources/, prompts/), `tests/`, `pyproject.toml`
+### 1. Missing Server Object
 
----
+**Error:** `RuntimeError: No server object found at module level`
 
-## References & Summary
+**Fix:**
+```python
+# ❌ WRONG
+def create_server():
+    return FastMCP("server")
 
-**Official:** https://github.com/jlowin/fastmcp, https://fastmcp.cloud, https://modelcontextprotocol.io, Context7: `/jlowin/fastmcp`
-**Related Skills:** openai-api, claude-api, cloudflare-worker-base, typescript-mcp
-**Package Versions:** fastmcp>=2.14.2 (PyPI), Python>=3.10, httpx, pydantic, py-key-value-aio, cryptography
-**Last Updated**: 2026-01-09
+# ✅ CORRECT
+mcp = FastMCP("server")  # At module level
+```
 
-**17 Key Takeaways:**
-1. Module-level server export (FastMCP Cloud)
-2. Persistent storage (Disk/Redis) for OAuth/caching
-3. Server lifespans for resource management
-4. Middleware order: errors → timing → logging → rate limiting → caching
-5. Composition: `import_server()` (static) vs `mount()` (dynamic)
-6. OAuth security: consent screens + encrypted storage + JWT signing
-7. Async/await properly (don't block event loop)
-8. Structured error handling
-9. Avoid circular imports
-10. Test locally (`fastmcp dev`)
-11. Environment variables (never hardcode secrets)
-12. Comprehensive docstrings (LLMs read!)
-13. Production patterns (utils, pooling, retry, caching)
-14. OpenAPI auto-generation
-15. Health checks + monitoring
-16. **Background tasks** for long-running operations (`task=True`)
-17. **Sampling with tools** for agentic workflows (`ctx.sample(tools=[...])`)
+### 2. Async/Await Confusion
 
-**Production Readiness:** Encrypted storage, 4 auth patterns, 8 middleware types, modular composition, OAuth security (consent screens, PKCE, RFC 7662), response caching, connection pooling, timing middleware, background tasks, agentic sampling
+**Error:** `RuntimeError: no running event loop`
 
-**Prevents 25+ errors. 90-95% token savings.**
+**Fix:**
+```python
+# ❌ WRONG: Sync function calling async
+@mcp.tool()
+def bad_tool():
+    result = await async_function()  # Error!
+
+# ✅ CORRECT: Async tool
+@mcp.tool()
+async def good_tool():
+    result = await async_function()
+    return result
+```
+
+### 3. Context Not Injected
+
+**Error:** `TypeError: missing 1 required positional argument: 'context'`
+
+**Fix:**
+```python
+from fastmcp import Context
+
+# ❌ WRONG: No type hint
+@mcp.tool()
+async def bad_tool(context):  # Missing type!
+    await context.report_progress(...)
+
+# ✅ CORRECT: Proper type hint
+@mcp.tool()
+async def good_tool(context: Context):
+    await context.report_progress(0, 100, "Starting")
+```
+
+### 4. Storage Backend Not Configured
+
+**Error:** `RuntimeError: OAuth tokens lost on restart`
+
+**Fix:** Use disk or Redis storage in production (see Storage Backends section above)
+
+### 5. Circular Import Errors
+
+**Error:** `ImportError: cannot import name 'X' from partially initialized module`
+
+**Fix:**
+```python
+# ❌ WRONG: Factory function creating circular dependency
+# shared/__init__.py
+def get_client():
+    from .api_client import APIClient  # Circular!
+    return APIClient()
+
+# ✅ CORRECT: Direct imports
+# shared/__init__.py
+from .api_client import APIClient
+from .cache import CacheManager
+
+# shared/monitoring.py
+from .api_client import APIClient
+client = APIClient()
+```
+
+**See all 25 errors**: `references/error-catalog.md`
+
+## Client Configuration
+
+### Claude Desktop
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "command": "python",
+      "args": ["/path/to/server.py"]
+    }
+  }
+}
+```
+
+### Claude Code CLI
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "command": "python",
+      "args": ["server.py"]
+    }
+  }
+}
+```
+
+## CLI Commands
+
+```bash
+fastmcp dev server.py              # Development mode with hot reload
+fastmcp run server.py              # Production mode
+fastmcp deploy server.py           # Deploy to FastMCP Cloud
+fastmcp test server.py             # Run tests
+```
+
+## Best Practices
+
+1. **Server Structure**: Keep module-level server, organize tools in separate files
+2. **Type Hints**: Use Pydantic models for complex validation
+3. **Documentation**: Write detailed docstrings (LLMs read them!)
+4. **Error Handling**: Catch and return structured errors
+5. **Storage**: Use encrypted disk/Redis in production
+6. **Lifespans**: Initialize connections once per server
+7. **Middleware**: Order matters (error handling → timing → logging → rate limiting → caching)
+8. **Testing**: Unit test tools with `FastMCP.test_tool()`
+
+## Bundled Resources
+
+**References** (`references/`):
+- `cli-commands.md` - Complete CLI command reference (dev, run, deploy, test)
+- `cloud-deployment.md` - FastMCP Cloud deployment guide with module-level requirements
+- `common-errors.md` - All 25 documented errors with solutions and prevention
+- `context-features.md` - Progress tracking, user input, and Context API patterns
+- `error-catalog.md` - Comprehensive error catalog with fixes
+- `integration-patterns.md` - Server composition (import/mount), OAuth Proxy, OpenAPI
+- `production-patterns.md` - Storage backends, lifespans, middleware, architecture patterns
+
+**Templates** (`templates/`):
+- `basic-server.py` - Minimal MCP server with tools, resources, prompts
+- `client-example.py` - MCP client integration examples
+- `api-client-pattern.py` - API integration patterns
+- `error-handling.py` - Error handling best practices
+- `openapi-integration.py` - OpenAPI schema integration
+- `prompts-examples.py` - Prompt template patterns
+- `resources-examples.py` - Resource URI patterns and examples
+- `tools-examples.py` - Tool definition patterns
+- `self-contained-server.py` - Complete production-ready self-contained server
+- `.env.example` - Environment variables template
+- `requirements.txt` - Python dependencies
+- `pyproject.toml` - Python project configuration
+
+## Dependencies
+
+```json
+{
+  "dependencies": {
+    "fastmcp": ">=2.13.0",
+    "pydantic": ">=2.0.0"
+  },
+  "optionalDependencies": {
+    "py-key-value-aio": ">=0.1.0",  // For storage backends
+    "cryptography": ">=41.0.0",     // For encryption
+    "redis": ">=5.0.0"              // For Redis storage
+  }
+}
+```
+
+## Official Documentation
+
+- FastMCP GitHub: https://github.com/jlowin/fastmcp
+- MCP Protocol: https://modelcontextprotocol.io
+- FastMCP Cloud: https://fastmcp.com
+
+## Verification Checklist
+
+- [ ] FastMCP installed (`fastmcp>=2.13.0`)
+- [ ] Server object at module level
+- [ ] Tool docstrings comprehensive
+- [ ] Context type hints for context parameters
+- [ ] Resource URIs have schemes
+- [ ] Storage backend configured (production)
+- [ ] Lifespan pattern correct (v2.13.0+)
+- [ ] Middleware order logical
+- [ ] Client configuration tested
+- [ ] Production deployment successful
+
+**Token Savings**: 90-95% vs learning from scratch
+**Errors Prevented**: 25 documented issues
+**Production Tested**: ✅ Multiple deployments

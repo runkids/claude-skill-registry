@@ -1,7 +1,7 @@
 {
   "name": "validate-agent",
-  "repo": "namesreallyblank/Clorch",
-  "path": "skills/validate-agent/SKILL.md",
-  "source": "github.com/namesreallyblank/Clorch",
-  "downloaded_at": "2026-01-17T04:07:11.607980Z"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/validate-agent/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-19T03:31:33.440843Z"
 }

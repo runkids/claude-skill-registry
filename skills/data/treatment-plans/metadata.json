@@ -1,7 +1,7 @@
 {
   "name": "treatment-plans",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/treatment-plans/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-17T03:59:41.271822Z"
+  "repo": "K-Dense-AI/claude-scientific-writer",
+  "path": "scientific_writer/.claude/skills/treatment-plans/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-writer",
+  "downloaded_at": "2026-01-19T03:54:10.299109Z"
 }

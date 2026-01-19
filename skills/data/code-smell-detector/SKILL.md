@@ -1,412 +1,741 @@
 ---
 name: code-smell-detector
-description: "**CODE SMELL DETECTOR** - 코드 작성/리뷰 시 자동 발동. 나쁜 코드 패턴 조기 탐지. God Object, Long Method, Feature Envy 등 22가지 코드 스멜 감지. 문제가 커지기 전에 리팩토링 제안."
-allowed-tools:
-  - Read
-  - Glob
-  - Grep
+version: 1.0.0
+description: |
+  Identifies anti-patterns specific to amplihack philosophy.
+  Use when reviewing code for quality issues or refactoring.
+  Detects: over-abstraction, complex inheritance, large functions (>50 lines), tight coupling, missing __all__ exports.
+  Provides specific fixes and explanations for each smell.
 ---
 
-# Code Smell Detector Skill v1.0
+# Code Smell Detector Skill
 
-**코드 스멜 탐지기** - 문제가 작을 때 잡아서 산불 방지
+## Purpose
 
-## 핵심 철학
+This skill identifies anti-patterns that violate amplihack's development philosophy and provides constructive, specific fixes. It ensures code maintains ruthless simplicity, modular design, and zero-BS implementations.
 
-```yaml
-Core_Philosophy:
-  원칙: "불씨가 산불 되기 전에 끄자"
-  목표: "리팩토링이 필요한 시점을 조기에 알려줌"
+## When to Use This Skill
 
-  왜_중요한가:
-    - 기술 부채 누적 방지
-    - 유지보수 비용 절감
-    - 버그 발생 가능성 감소
-    - 코드 가독성 유지
+- **Code review**: Identify violations before merging
+- **Refactoring**: Find opportunities to simplify and improve code quality
+- **New module creation**: Catch issues early in development
+- **Philosophy compliance**: Ensure code aligns with amplihack principles
+- **Learning**: Understand why patterns are problematic and how to fix them
+- **Mentoring**: Educate team members on philosophy-aligned code patterns
 
-  탐지_시점:
-    - 코드 작성 직후 (즉시 피드백)
-    - 코드 리뷰 시 (PR 검토)
-    - 리팩토링 계획 시 (부채 정리)
+## Core Philosophy Reference
+
+**Amplihack Development Philosophy focuses on:**
+
+- **Ruthless Simplicity**: Every abstraction must justify its existence
+- **Modular Design (Bricks & Studs)**: Self-contained modules with clear connection points
+- **Zero-BS Implementation**: No stubs, no placeholders, only working code
+- **Single Responsibility**: Each module/function has ONE clear job
+
+## Code Smells Detected
+
+### 1. Over-Abstraction
+
+**What It Is**: Unnecessary layers of abstraction, generic base classes, or interfaces that don't provide clear value.
+
+**Why It's Bad**: Violates "ruthless simplicity" - adds complexity without proportional benefit. Makes code harder to understand and maintain.
+
+**Red Flags**:
+
+- Abstract base classes with only one implementation
+- Generic helper classes that do very little
+- Deep inheritance hierarchies (3+ levels)
+- Interfaces for single implementations
+- Over-parameterized functions
+
+**Example - SMELL**:
+
+```python
+# BAD: Over-abstracted
+class DataProcessor(ABC):
+    @abstractmethod
+    def process(self, data):
+        pass
+
+class SimpleDataProcessor(DataProcessor):
+    def process(self, data):
+        return data * 2
 ```
 
-## 자동 발동 조건
+**Example - FIXED**:
 
-```yaml
-Auto_Trigger_Conditions:
-  Always_Active:
-    - "Write tool로 코드 작성 시"
-    - "Edit tool로 코드 수정 시"
-    - "코드 리뷰 요청 시"
-
-  Keywords:
-    - "코드 리뷰", "리뷰해줘"
-    - "코드 스멜", "나쁜 코드"
-    - "리팩토링", "개선"
-    - "냄새나는 코드", "문제 있어?"
+```python
+# GOOD: Direct implementation
+def process_data(data):
+    """Process data by doubling it."""
+    return data * 2
 ```
 
-## 코드 스멜 분류
+**Detection Checklist**:
 
-### 🔴 Critical - 즉시 수정
+- [ ] Abstract classes with only 1-2 concrete implementations
+- [ ] Generic utility classes that don't encapsulate state
+- [ ] Type hierarchies deeper than 2 levels
+- [ ] Mixins solving single problems
 
-```yaml
-God_Object:
-  설명: "너무 많은 책임을 가진 클래스/모듈"
-  탐지_기준:
-    - 메서드 수 > 20개
-    - 프로퍼티 수 > 15개
-    - 파일 라인 수 > 500줄
-    - 의존성 수 > 10개
-  문제점:
-    - 수정 시 영향 범위 파악 불가
-    - 테스트 어려움
-    - 재사용 불가능
-  해결책:
-    - 단일 책임 원칙(SRP) 적용
-    - 관련 기능별로 클래스 분리
-  예시:
-    Bad: |
-      class UserManager {
-        createUser() {}
-        deleteUser() {}
-        sendEmail() {}
-        generateReport() {}
-        processPayment() {}
-        validateData() {}
-        // ... 50개 더
-      }
-    Good: |
-      class UserService { /* 사용자 CRUD */ }
-      class EmailService { /* 이메일 발송 */ }
-      class ReportService { /* 리포트 생성 */ }
-      class PaymentService { /* 결제 처리 */ }
+**Fix Strategy**:
 
-Long_Method:
-  설명: "너무 긴 함수/메서드"
-  탐지_기준:
-    - 라인 수 > 50줄
-    - 들여쓰기 깊이 > 4단계
-    - 파라미터 수 > 5개
-    - 지역 변수 > 10개
-  문제점:
-    - 이해하기 어려움
-    - 테스트 어려움
-    - 재사용 불가능
-  해결책:
-    - 의미 있는 단위로 함수 분리
-    - 조기 반환(Early Return) 적용
-  예시:
-    Bad: |
-      function processOrder(order) {
-        // 100줄의 로직...
-        if (condition1) {
-          if (condition2) {
-            if (condition3) {
-              // 깊은 중첩...
-            }
-          }
-        }
-      }
-    Good: |
-      function processOrder(order) {
-        validateOrder(order);
-        calculateTotal(order);
-        applyDiscount(order);
-        saveOrder(order);
-        sendConfirmation(order);
-      }
-
-Duplicate_Code:
-  설명: "중복된 코드"
-  탐지_기준:
-    - 3줄 이상 동일 코드 2곳 이상
-    - 유사한 로직 패턴 반복
-  문제점:
-    - 수정 시 모든 곳 수정 필요
-    - 일부만 수정하면 불일치 발생
-  해결책:
-    - 공통 함수/모듈로 추출
-    - 템플릿 메서드 패턴 적용
-```
-
-### 🟠 Warning - 빠른 수정 권장
-
-```yaml
-Feature_Envy:
-  설명: "다른 클래스의 데이터를 과도하게 사용"
-  탐지_기준:
-    - 다른 객체 메서드 3회 이상 연속 호출
-    - 다른 객체 프로퍼티 5개 이상 접근
-  문제점:
-    - 책임 분리 위반
-    - 캡슐화 위반
-  해결책:
-    - 메서드를 데이터가 있는 클래스로 이동
-  예시:
-    Bad: |
-      function getFullAddress(user) {
-        return user.street + user.city + user.country + user.zipCode;
-      }
-    Good: |
-      class User {
-        getFullAddress() {
-          return this.street + this.city + this.country + this.zipCode;
-        }
-      }
-
-Data_Clumps:
-  설명: "항상 함께 다니는 데이터 그룹"
-  탐지_기준:
-    - 같은 파라미터 조합 3곳 이상
-    - 같은 필드 조합 반복
-  문제점:
-    - 중복된 검증 로직
-    - 변경 시 여러 곳 수정
-  해결책:
-    - 데이터 클래스/인터페이스로 묶기
-  예시:
-    Bad: |
-      function createOrder(street, city, zipCode, country) {}
-      function validateAddress(street, city, zipCode, country) {}
-      function formatAddress(street, city, zipCode, country) {}
-    Good: |
-      interface Address { street, city, zipCode, country }
-      function createOrder(address: Address) {}
-      function validateAddress(address: Address) {}
-
-Primitive_Obsession:
-  설명: "기본 타입 남용"
-  탐지_기준:
-    - 문자열로 특수 값 표현 (status: "active")
-    - 숫자로 코드 값 표현
-    - 배열 인덱스로 의미 부여
-  문제점:
-    - 타입 안전성 없음
-    - 유효성 검증 반복
-  해결책:
-    - 값 객체(Value Object) 생성
-    - enum 사용
-  예시:
-    Bad: |
-      const status = "active"; // 오타 가능
-      const phone = "010-1234-5678"; // 검증 안됨
-    Good: |
-      enum Status { ACTIVE, INACTIVE }
-      class PhoneNumber { constructor(value) { this.validate(value); } }
-
-Long_Parameter_List:
-  설명: "파라미터가 너무 많은 함수"
-  탐지_기준:
-    - 파라미터 > 4개
-    - Boolean 파라미터 2개 이상
-  문제점:
-    - 호출 시 순서 혼동
-    - 가독성 저하
-  해결책:
-    - 파라미터 객체로 묶기
-    - 빌더 패턴 사용
-  예시:
-    Bad: |
-      createUser(name, email, age, city, country, phone, isAdmin, isActive)
-    Good: |
-      createUser({ name, email, age, address: { city, country }, phone, roles })
-```
-
-### 🟡 Info - 검토 권장
-
-```yaml
-Dead_Code:
-  설명: "사용되지 않는 코드"
-  탐지_기준:
-    - 호출되지 않는 함수
-    - 도달 불가능한 코드
-    - 주석 처리된 코드
-  해결책: "삭제"
-
-Speculative_Generality:
-  설명: "미래를 위해 만든 사용 안 하는 추상화"
-  탐지_기준:
-    - 구현체가 1개인 인터페이스
-    - 사용 안 되는 파라미터
-    - 오버엔지니어링된 패턴
-  해결책: "YAGNI - 필요할 때 만들기"
-
-Comments:
-  설명: "코드를 설명하는 주석"
-  탐지_기준:
-    - What 설명 주석 (코드로 알 수 있음)
-    - 오래된 주석 (코드와 불일치)
-  해결책:
-    - 코드 자체를 명확하게
-    - Why 주석만 유지
-
-Magic_Numbers:
-  설명: "의미 없는 숫자/문자열 리터럴"
-  탐지_기준:
-    - 하드코딩된 숫자 (if count > 100)
-    - 반복되는 문자열
-  해결책: "상수로 추출"
-  예시:
-    Bad: "if (status === 1) { ... }"
-    Good: "if (status === STATUS.ACTIVE) { ... }"
-
-Nested_Conditionals:
-  설명: "깊게 중첩된 조건문"
-  탐지_기준:
-    - if 중첩 > 3단계
-    - else if 체인 > 4개
-  해결책:
-    - 조기 반환 (Early Return)
-    - 전략 패턴
-    - 다형성
-  예시:
-    Bad: |
-      if (user) {
-        if (user.isActive) {
-          if (user.hasPermission) {
-            // do something
-          }
-        }
-      }
-    Good: |
-      if (!user) return;
-      if (!user.isActive) return;
-      if (!user.hasPermission) return;
-      // do something
-```
-
-## 탐지 임계값
-
-```yaml
-Thresholds:
-  파일:
-    max_lines: 300
-    max_functions: 15
-    max_imports: 15
-
-  함수:
-    max_lines: 30
-    max_params: 4
-    max_depth: 3
-    max_complexity: 10
-
-  클래스:
-    max_methods: 15
-    max_properties: 10
-    max_dependencies: 7
-
-  중복:
-    min_duplicate_lines: 3
-    min_occurrences: 2
-```
-
-## 심각도 점수 체계
-
-```yaml
-Severity_Score:
-  계산: "각 스멜별 점수 합산"
-
-  점수_기준:
-    Critical: 10점
-    Warning: 5점
-    Info: 2점
-
-  등급:
-    A: "0-10점 - 깨끗함"
-    B: "11-25점 - 양호"
-    C: "26-50점 - 주의 필요"
-    D: "51-100점 - 리팩토링 필요"
-    F: "100점+ - 심각"
-```
-
-## 출력 형식
-
-```markdown
-## 🔍 코드 스멜 분석 결과
-
-### 요약
-- **파일**: user.service.ts
-- **점수**: 35점 (C등급 - 주의 필요)
-- **Critical**: 1개
-- **Warning**: 3개
-- **Info**: 5개
+1. Identify what the abstraction solves
+2. Check if you really need multiple implementations now
+3. Delete the abstraction - use direct implementation
+4. If multiple implementations needed later, refactor then
+5. Principle: Avoid future-proofing
 
 ---
 
-### 🔴 Critical Issues
+### 2. Complex Inheritance
 
-#### 1. Long Method (line 45-120)
-- **함수**: `processUserRegistration`
-- **문제**: 75줄, 들여쓰기 5단계
-- **권장**:
-  ```typescript
-  // Before: 모든 로직이 한 함수에
-  // After: 책임별로 분리
-  async function processUserRegistration(data) {
-    const validated = await validateUserData(data);
-    const user = await createUser(validated);
-    await sendWelcomeEmail(user);
-    await setupDefaultSettings(user);
-    return user;
-  }
-  ```
+**What It Is**: Deep inheritance chains, multiple inheritance, or convoluted class hierarchies that obscure code flow.
 
----
+**Why It's Bad**: Makes code hard to follow, creates tight coupling, violates simplicity principle. Who does what becomes unclear.
 
-### 🟠 Warning Issues
+**Red Flags**:
 
-#### 1. Data Clumps (multiple locations)
-- **위치**: line 15, 45, 78
-- **패턴**: (street, city, zipCode) 반복
-- **권장**: Address 타입으로 묶기
+- 3+ levels of inheritance (GrandparentClass -> ParentClass -> ChildClass)
+- Multiple inheritance from non-interface classes
+- Inheritance used for code reuse instead of composition
+- Overriding multiple levels of methods
+- "Mixin" classes for cross-cutting concerns
 
----
+**Example - SMELL**:
 
-### 🟡 Info Issues
+```python
+# BAD: Complex inheritance
+class Entity:
+    def save(self): pass
+    def load(self): pass
 
-#### 1. Magic Number (line 23)
-- **코드**: `if (retryCount > 3)`
-- **권장**: `const MAX_RETRY = 3;`
+class TimestampedEntity(Entity):
+    def add_timestamp(self): pass
 
----
+class AuditableEntity(TimestampedEntity):
+    def audit_log(self): pass
 
-### 권장 조치
-1. processUserRegistration 함수 분리 (우선순위 높음)
-2. Address 타입 생성
-3. 상수 추출
+class User(AuditableEntity):
+    def authenticate(self): pass
 ```
 
-## Quick Commands
+**Example - FIXED**:
 
-| 명령 | 동작 |
-|-----|------|
-| smell check | 현재 파일 스멜 검사 |
-| smell score | 스멜 점수 계산 |
-| smell fix | 자동 수정 가능한 것 수정 |
+```python
+# GOOD: Composition over inheritance
+class User:
+    def __init__(self, storage, timestamp_service, audit_log):
+        self.storage = storage
+        self.timestamps = timestamp_service
+        self.audit = audit_log
 
-## 체크리스트
+    def save(self):
+        self.storage.save(self)
+        self.timestamps.record()
+        self.audit.log("saved user")
+```
 
-```markdown
-### 함수
-[ ] 30줄 이하인가?
-[ ] 파라미터 4개 이하인가?
-[ ] 들여쓰기 3단계 이하인가?
-[ ] 하나의 일만 하는가?
+**Detection Checklist**:
 
-### 클래스
-[ ] 메서드 15개 이하인가?
-[ ] 단일 책임인가?
-[ ] 의존성 7개 이하인가?
+- [ ] Inheritance depth > 2 levels
+- [ ] Multiple inheritance from concrete classes
+- [ ] Methods overridden at multiple inheritance levels
+- [ ] Inheritance hierarchy with no code reuse
 
-### 전체
-[ ] 중복 코드가 없는가?
-[ ] 매직 넘버가 없는가?
-[ ] 죽은 코드가 없는가?
+**Fix Strategy**:
+
+1. Use composition instead of inheritance
+2. Pass services as constructor arguments
+3. Each class handles its own responsibility
+4. Easier to test, understand, and modify
+
+---
+
+### 3. Large Functions (>50 Lines)
+
+**What It Is**: Functions that do too many things and are difficult to understand, test, and modify.
+
+**Why It's Bad**: Violates single responsibility, makes testing harder, increases bug surface area, reduces code reusability.
+
+**Red Flags**:
+
+- Functions with >50 lines of code
+- Multiple indentation levels (3+ nested if/for)
+- Functions with 5+ parameters
+- Functions that need scrolling to see all of them
+- Complex logic that's hard to name
+
+**Example - SMELL**:
+
+```python
+# BAD: Large function doing multiple things
+def process_user_data(user_dict, validate=True, save=True, notify=True, log=True):
+    if validate:
+        if not user_dict.get('email'):
+            raise ValueError("Email required")
+        if not '@' in user_dict['email']:
+            raise ValueError("Invalid email")
+
+    user = User(
+        name=user_dict['name'],
+        email=user_dict['email'],
+        phone=user_dict['phone']
+    )
+
+    if save:
+        db.save(user)
+
+    if notify:
+        email_service.send(user.email, "Welcome!")
+
+    if log:
+        logger.info(f"User {user.name} created")
+
+    # ... 30+ more lines of mixed concerns
+    return user
+```
+
+**Example - FIXED**:
+
+```python
+# GOOD: Separated concerns
+def validate_user_data(user_dict):
+    """Validate user data structure."""
+    if not user_dict.get('email'):
+        raise ValueError("Email required")
+    if '@' not in user_dict['email']:
+        raise ValueError("Invalid email")
+
+def create_user(user_dict):
+    """Create user object from data."""
+    return User(
+        name=user_dict['name'],
+        email=user_dict['email'],
+        phone=user_dict['phone']
+    )
+
+def process_user_data(user_dict):
+    """Orchestrate user creation workflow."""
+    validate_user_data(user_dict)
+    user = create_user(user_dict)
+    db.save(user)
+    email_service.send(user.email, "Welcome!")
+    logger.info(f"User {user.name} created")
+    return user
+```
+
+**Detection Checklist**:
+
+- [ ] Function body >50 lines
+- [ ] 3+ levels of nesting
+- [ ] Multiple unrelated operations
+- [ ] Hard to name succinctly
+- [ ] 5+ parameters
+
+**Fix Strategy**:
+
+1. Extract helper functions for each concern
+2. Give each function a clear, single purpose
+3. Compose small functions into larger workflows
+4. Each function should fit on one screen
+5. Easy to name = usually doing one thing
+
+---
+
+### 4. Tight Coupling
+
+**What It Is**: Modules/classes directly depend on concrete implementations instead of abstractions, making them hard to test and modify.
+
+**Why It's Bad**: Changes in one module break others. Hard to test in isolation. Violates modularity principle.
+
+**Red Flags**:
+
+- Direct instantiation of classes inside functions (`db = Database()`)
+- Deep attribute access (`obj.service.repository.data`)
+- Hardcoded class names in conditionals
+- Module imports everything from another module
+- Circular dependencies between modules
+
+**Example - SMELL**:
+
+```python
+# BAD: Tight coupling
+class UserService:
+    def create_user(self, name, email):
+        db = Database()  # Hardcoded dependency
+        user = db.save_user(name, email)
+
+        email_service = EmailService()  # Hardcoded dependency
+        email_service.send(email, "Welcome!")
+
+        return user
+
+    def get_user(self, user_id):
+        db = Database()
+        return db.find_user(user_id)
+```
+
+**Example - FIXED**:
+
+```python
+# GOOD: Loose coupling via dependency injection
+class UserService:
+    def __init__(self, db, email_service):
+        self.db = db
+        self.email = email_service
+
+    def create_user(self, name, email):
+        user = self.db.save_user(name, email)
+        self.email.send(email, "Welcome!")
+        return user
+
+    def get_user(self, user_id):
+        return self.db.find_user(user_id)
+
+# Usage:
+user_service = UserService(db=PostgresDB(), email_service=SMTPService())
+```
+
+**Detection Checklist**:
+
+- [ ] Class instantiation inside methods (`Service()`)
+- [ ] Deep attribute chaining (3+ dots)
+- [ ] Hardcoded class references
+- [ ] Circular imports or dependencies
+- [ ] Module can't be tested without other modules
+
+**Fix Strategy**:
+
+1. Accept dependencies as constructor parameters
+2. Use dependency injection
+3. Create test doubles (mocks) easily
+4. Swap implementations without changing code
+5. Each module is independently testable
+
+---
+
+### 5. Missing `__all__` Exports (Python)
+
+**What It Is**: Python modules that don't explicitly define their public interface via `__all__`.
+
+**Why It's Bad**: Unclear what's public vs internal. Users import private implementation details. Violates the "stud" concept - unclear connection points.
+
+**Red Flags**:
+
+- No `__all__` in `__init__.py`
+- Modules expose internal functions/classes
+- Users uncertain what to import
+- Private names (`_function`) still accessible
+- Documentation doesn't match exports
+
+**Example - SMELL**:
+
+```python
+# BAD: No __all__ - unclear public interface
+# module/__init__.py
+from .core import process_data, _internal_helper
+from .utils import validate_input, LOG_LEVEL
+
+# What should users import? All of it? Only some?
+```
+
+**Example - FIXED**:
+
+```python
+# GOOD: Clear public interface via __all__
+# module/__init__.py
+from .core import process_data
+from .utils import validate_input
+
+__all__ = ['process_data', 'validate_input']
+
+# Users know exactly what's public and what to use
+```
+
+**Detection Checklist**:
+
+- [ ] Missing `__all__` in `__init__.py`
+- [ ] Internal functions (prefixed with `_`) exposed
+- [ ] Unclear what's "public API"
+- [ ] All imports at module level
+
+**Fix Strategy**:
+
+1. Add `__all__` to every `__init__.py`
+2. List ONLY the public functions/classes
+3. Prefix internal implementation with `_`
+4. Update documentation to match `__all__`
+5. Clear = users know exactly what to use
+
+---
+
+## Analysis Process
+
+### Step 1: Scan Code Structure
+
+1. Review file organization and module boundaries
+2. Identify inheritance hierarchies
+3. Scan for large functions (count lines)
+4. Note `__all__` presence/absence
+5. Check for tight coupling patterns
+
+### Step 2: Analyze Each Smell
+
+For each potential issue:
+
+1. Confirm it violates philosophy
+2. Measure severity (critical/major/minor)
+3. Find specific line numbers
+4. Note impact on system
+
+### Step 3: Generate Fixes
+
+For each smell found:
+
+1. Provide clear explanation of WHY it's bad
+2. Show BEFORE code
+3. Show AFTER code with detailed comments
+4. Explain philosophy principle violated
+5. Give concrete refactoring steps
+
+### Step 4: Create Report
+
+1. List all smells found
+2. Prioritize by severity/impact
+3. Include specific examples
+4. Provide actionable fixes
+5. Reference philosophy docs
+
+---
+
+## Detection Rules
+
+### Rule 1: Abstract Base Classes
+
+**Check**: `class X(ABC)` with exactly 1 concrete implementation
+
+```python
+# BAD pattern detection
+- Count implementations of abstract class
+- If count <= 2 and not used as interface: FLAG
+```
+
+**Fix**: Remove abstraction, use direct implementation
+
+### Rule 2: Inheritance Depth
+
+**Check**: Class hierarchy depth
+
+```python
+# BAD pattern detection
+- Follow inheritance chain: class -> parent -> grandparent...
+- If depth > 2: FLAG
+```
+
+**Fix**: Use composition instead
+
+### Rule 3: Function Line Count
+
+**Check**: All function bodies
+
+```python
+# BAD pattern detection
+- Count lines in function (excluding docstring)
+- If > 50 lines: FLAG
+- If > 3 nesting levels: FLAG
+```
+
+**Fix**: Extract helper functions
+
+### Rule 4: Dependency Instantiation
+
+**Check**: Class instantiation inside methods/functions
+
+```python
+# BAD pattern detection
+- Search for "= ServiceName()" inside methods
+- If found: FLAG
+```
+
+**Fix**: Pass as constructor argument
+
+### Rule 5: Missing **all**
+
+**Check**: Python modules
+
+```python
+# BAD pattern detection
+- Look for __all__ definition
+- If missing: FLAG
+- If __all__ incomplete: FLAG
+```
+
+**Fix**: Define explicit `__all__`
+
+---
+
+## Common Code Smells & Quick Fixes
+
+### Smell: "Utility Class" Holder
+
+```python
+# BAD
+class StringUtils:
+    @staticmethod
+    def clean(s):
+        return s.strip().lower()
+```
+
+**Fix**: Use direct function
+
+```python
+# GOOD
+def clean_string(s):
+    return s.strip().lower()
 ```
 
 ---
 
-**Version**: 1.0.0
-**Auto-Active**: 코드 작성/리뷰 시
-**Integration**: clean-code-mastery, naming-convention-guard
+### Smell: "Manager" Class
+
+```python
+# BAD
+class UserManager:
+    def create(self): pass
+    def update(self): pass
+    def delete(self): pass
+    def validate(self): pass
+    def email(self): pass
+```
+
+**Fix**: Split into focused services
+
+```python
+# GOOD
+class UserService:
+    def __init__(self, db, email):
+        self.db = db
+        self.email = email
+
+    def create(self): pass
+    def update(self): pass
+    def delete(self): pass
+
+def validate_user(user): pass
+```
+
+---
+
+### Smell: God Function
+
+```python
+# BAD - 200 line function doing everything
+def process_order(order_data, validate, save, notify, etc...):
+    # 200 lines mixing validation, transformation, DB, email, logging
+```
+
+**Fix**: Compose small functions
+
+```python
+# GOOD
+def process_order(order_data):
+    validate_order(order_data)
+    order = create_order(order_data)
+    save_order(order)
+    notify_customer(order)
+    log_creation(order)
+```
+
+---
+
+### Smell: Brittle Inheritance
+
+```python
+# BAD
+class Base:
+    def work(self): pass
+class Middle(Base):
+    def work(self):
+        return super().work()
+class Derived(Middle):
+    def work(self):
+        return super().work()  # Which work()?
+```
+
+**Fix**: Use clear, testable composition
+
+```python
+# GOOD
+class Worker:
+    def __init__(self, validator, transformer):
+        self.validator = validator
+        self.transformer = transformer
+
+    def work(self, data):
+        self.validator.check(data)
+        return self.transformer.apply(data)
+```
+
+---
+
+### Smell: Hidden Dependencies
+
+```python
+# BAD
+def fetch_data(user_id):
+    db = Database()  # Where's this coming from?
+    return db.query(f"SELECT * FROM users WHERE id={user_id}")
+```
+
+**Fix**: Inject dependencies explicitly
+
+```python
+# GOOD
+def fetch_data(user_id, db):
+    return db.query(f"SELECT * FROM users WHERE id={user_id}")
+
+# Or in a class:
+class UserRepository:
+    def __init__(self, db):
+        self.db = db
+
+    def fetch(self, user_id):
+        return self.db.query(f"SELECT * FROM users WHERE id={user_id}")
+```
+
+---
+
+## Usage Examples
+
+### Example 1: Review New Module
+
+```
+User: Review this new authentication module for code smells.
+
+Claude:
+1. Scans all Python files in module
+2. Checks for each smell type
+3. Finds:
+   - Abstract base class with 1 implementation
+   - Large 120-line authenticate() function
+   - Missing __all__ in __init__.py
+4. Provides specific fixes with before/after code
+5. Explains philosophy violations
+```
+
+### Example 2: Identify Tight Coupling
+
+```
+User: Find tight coupling in this user service.
+
+Claude:
+1. Traces all dependencies
+2. Finds hardcoded Database() instantiation
+3. Finds direct EmailService() creation
+4. Shows dependency injection fix
+5. Includes test example showing why it matters
+```
+
+### Example 3: Simplify Inheritance
+
+```
+User: This class hierarchy is too complex.
+
+Claude:
+1. Maps inheritance tree (finds 4 levels)
+2. Shows each level doing what
+3. Suggests composition approach
+4. Provides before/after refactoring
+5. Explains how it aligns with brick philosophy
+```
+
+---
+
+## Analysis Checklist
+
+### Philosophy Compliance
+
+- [ ] No unnecessary abstractions
+- [ ] Single responsibility per class/function
+- [ ] Clear public interface (`__all__`)
+- [ ] Dependencies injected, not hidden
+- [ ] Inheritance depth <= 2 levels
+- [ ] Functions < 50 lines
+- [ ] No dead code or stubs
+
+### Code Quality
+
+- [ ] Each function has one clear job
+- [ ] Easy to understand at a glance
+- [ ] Easy to test in isolation
+- [ ] Easy to modify without breaking others
+- [ ] Clear naming reflects responsibility
+
+### Modularity
+
+- [ ] Modules are independently testable
+- [ ] Clear connection points ("studs")
+- [ ] Loose coupling between modules
+- [ ] Explicit dependencies
+
+---
+
+## Success Criteria for Review
+
+A code review using this skill should:
+
+- [ ] Identify all violations of philosophy
+- [ ] Provide specific line numbers
+- [ ] Show before/after examples
+- [ ] Explain WHY each is a problem
+- [ ] Suggest concrete fixes
+- [ ] Include test strategies
+- [ ] Reference philosophy docs
+- [ ] Prioritize by severity
+- [ ] Be constructive and educational
+- [ ] Help writer improve future code
+
+---
+
+## Integration with Code Quality Tools
+
+**When to Use This Skill**:
+
+- During code review (before merge)
+- In pull request comments
+- Before creating new modules
+- When refactoring legacy code
+- To educate team members
+- In design review meetings
+
+**Works Well With**:
+
+- Code review process
+- Module spec generation
+- Refactoring workflows
+- Architecture discussions
+- Mentoring and learning
+
+---
+
+## Resources
+
+- **Philosophy**: `.claude/context/PHILOSOPHY.md`
+- **Patterns**: `.claude/context/PATTERNS.md`
+- **Brick Philosophy**: See "Modular Architecture for AI" in PHILOSOPHY.md
+- **Zero-BS**: See "Zero-BS Implementations" in PHILOSOPHY.md
+
+---
+
+## Remember
+
+This skill helps maintain code quality by:
+
+1. Catching issues before they become technical debt
+2. Educating developers on philosophy
+3. Keeping code simple and maintainable
+4. Preventing tightly-coupled systems
+5. Making code easier to understand and modify
+
+Use it constructively - the goal is learning and improvement, not criticism.

@@ -1,7 +1,7 @@
 {
   "name": "triage",
   "repo": "Lobbi-Docs/claude",
-  "path": "plugins/jira-orchestrator/skills/triage/SKILL.md",
+  "path": ".claude/plugins/jira-orchestrator/skills/triage/SKILL.md",
   "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-01-17T02:39:48.460510Z"
+  "downloaded_at": "2026-01-19T04:20:28.174524Z"
 }

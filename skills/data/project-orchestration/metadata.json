@@ -1,12 +1,7 @@
 {
   "name": "project-orchestration",
-  "description": "Coordinate multiple agents by routing tasks to appropriate specialists. EXCLUSIVE to project-manager agent.",
   "repo": "htooayelwinict/claude-config",
-  "category": "productivity",
-  "tags": [
-    "project",
-    "orchestration"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/project-orchestration/SKILL.md",
+  "source": "github.com/htooayelwinict/claude-config",
+  "downloaded_at": "2026-01-19T04:20:11.073146Z"
 }

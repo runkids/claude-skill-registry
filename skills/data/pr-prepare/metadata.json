@@ -1,7 +1,7 @@
 {
   "name": "pr-prepare",
-  "repo": "ByronWilliamsCPA/rag-processor",
+  "repo": "ByronWilliamsCPA/template-sample",
   "path": ".claude/skills/pr-prepare/SKILL.md",
-  "source": "github.com/ByronWilliamsCPA/rag-processor",
-  "downloaded_at": "2026-01-17T03:07:47.640813Z"
+  "source": "github.com/ByronWilliamsCPA/template-sample",
+  "downloaded_at": "2026-01-19T04:06:28.178445Z"
 }

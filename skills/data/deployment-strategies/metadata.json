@@ -1,7 +1,7 @@
 {
   "name": "deployment-strategies",
-  "repo": "involvex/involvex-claude-marketplace",
+  "repo": "SteveLeve/claude-marketplace",
   "path": "plugins/cloudflare-expert/skills/deployment-strategies/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-01-17T03:58:54.474254Z"
+  "source": "github.com/SteveLeve/claude-marketplace",
+  "downloaded_at": "2026-01-19T03:56:13.258450Z"
 }

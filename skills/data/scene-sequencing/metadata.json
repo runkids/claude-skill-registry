@@ -1,9 +1,7 @@
 {
   "name": "scene-sequencing",
-  "description": "Structure scenes and control pacing using scene-sequel rhythm. Use when individual scenes work but don't accumulate, when pacing feels off (too rushed or too slow), when transitions feel mechanical, o",
-  "repo": "jwynia/the-kepler-testimonies",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/structure/scene-sequencing/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-19T03:36:23.682003Z"
 }

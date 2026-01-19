@@ -1,7 +1,7 @@
 {
   "name": "json-schema",
-  "repo": "mcclowes/fpl-oas",
-  "path": ".claude/skills/json-schema/SKILL.md",
-  "source": "github.com/mcclowes/fpl-oas",
-  "downloaded_at": "2026-01-17T03:56:14.358626Z"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/json-schema/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-19T03:07:28.673483Z"
 }

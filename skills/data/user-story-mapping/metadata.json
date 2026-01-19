@@ -1,7 +1,7 @@
 {
   "name": "user-story-mapping",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/requirements-elicitation/skills/user-story-mapping/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-17T01:53:12.791386Z"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/user-story-mapping/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-19T03:07:32.592012Z"
 }

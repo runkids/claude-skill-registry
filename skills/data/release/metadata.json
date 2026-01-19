@@ -1,7 +1,7 @@
 {
   "name": "release",
-  "repo": "namesreallyblank/Clorch",
-  "path": "skills/release/SKILL.md",
-  "source": "github.com/namesreallyblank/Clorch",
-  "downloaded_at": "2026-01-17T04:06:59.940944Z"
+  "repo": "kasperjunge/agent-resources-legacy",
+  "path": ".claude/skills/release/SKILL.md",
+  "source": "github.com/kasperjunge/agent-resources-legacy",
+  "downloaded_at": "2026-01-19T04:16:02.279443Z"
 }

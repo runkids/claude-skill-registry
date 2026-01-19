@@ -1,191 +1,101 @@
 ---
 name: rest-api-design
-description: |
-  RESTful API design and OpenAPI specification generation. Use when: (1) Designing new REST API endpoints, (2) Creating OpenAPI/Swagger specifications, (3) Choosing HTTP methods, status codes, or URL patterns, (4) Implementing pagination, filtering, or sorting, (5) Planning API versioning strategy, (6) Reviewing API design for best practices, (7) Generating API documentation templates.
+description: Designs RESTful APIs with proper resource naming, HTTP methods, status codes, and response formats. Use when building new APIs, establishing API conventions, or designing developer-friendly interfaces.
 ---
 
 # REST API Design
 
-Design RESTful APIs following industry standards and generate OpenAPI 3.0 specifications.
+Design RESTful APIs with proper conventions and developer experience.
 
-## Quick Reference
-
-### Endpoint Pattern
-```
-GET    /resources           # List
-POST   /resources           # Create
-GET    /resources/{id}      # Read
-PUT    /resources/{id}      # Replace
-PATCH  /resources/{id}      # Update
-DELETE /resources/{id}      # Delete
-```
-
-### Status Code Selection
-```
-Success:  200 OK | 201 Created | 204 No Content
-Client:   400 Bad Request | 401 Unauthorized | 403 Forbidden
-          404 Not Found | 409 Conflict | 422 Validation Error
-Server:   500 Internal Error | 503 Unavailable
-```
-
-### URL Naming Rules
-- Plural nouns: `/users`, `/products`
-- Lowercase with hyphens: `/user-profiles`
-- No verbs in paths (HTTP methods are verbs)
-- Max 2-3 nesting levels
-
-## Workflow
-
-### 1. Design Endpoints
-Define resources and their relationships:
-```yaml
-# Core resource
-/items                    # Collection
-/items/{itemId}           # Instance
-
-# Sub-resources (if tightly coupled)
-/items/{itemId}/comments  # Nested collection
-```
-
-See [naming-conventions.md](references/naming-conventions.md) for complete patterns.
-
-### 2. Select HTTP Methods
-Choose based on operation semantics:
-
-| Operation | Method | Idempotent |
-|-----------|--------|------------|
-| Fetch data | GET | Yes |
-| Create new | POST | No |
-| Replace all | PUT | Yes |
-| Update partial | PATCH | No |
-| Remove | DELETE | Yes |
-
-See [http-methods.md](references/http-methods.md) for decision tree.
-
-### 3. Define Status Codes
-Match response to outcome:
+## Resource Naming
 
 ```
-Creating resource?     → 201 + Location header
-Deleting resource?     → 204 (no body)
-Validation failed?     → 422 + error details
-Auth missing?          → 401
-Auth insufficient?     → 403
-Not found?             → 404
+# Good - nouns, plural, hierarchical
+GET    /api/users
+GET    /api/users/123
+GET    /api/users/123/orders
+POST   /api/users
+PATCH  /api/users/123
+DELETE /api/users/123
+
+# Bad - verbs, actions in URL
+GET    /api/getUsers
+POST   /api/createUser
+POST   /api/users/123/delete
 ```
 
-See [status-codes.md](references/status-codes.md) for complete decision tree.
+## HTTP Methods
 
-### 4. Add Pagination & Filtering
-For collection endpoints:
+| Method | Purpose | Idempotent |
+|--------|---------|------------|
+| GET | Read resource | Yes |
+| POST | Create resource | No |
+| PUT | Replace resource | Yes |
+| PATCH | Partial update | Yes |
+| DELETE | Remove resource | Yes |
 
-```yaml
-parameters:
-  - name: page
-    in: query
-    schema: { type: integer, default: 1 }
-  - name: limit
-    in: query
-    schema: { type: integer, default: 20, maximum: 100 }
-  - name: sort
-    in: query
-    schema: { type: string }
-    description: "field:direction (e.g., created_at:desc)"
+## Status Codes
+
+| Code | Meaning | Use For |
+|------|---------|---------|
+| 200 | OK | Successful GET, PATCH |
+| 201 | Created | Successful POST |
+| 204 | No Content | Successful DELETE |
+| 400 | Bad Request | Validation errors |
+| 401 | Unauthorized | Missing auth |
+| 403 | Forbidden | Insufficient permissions |
+| 404 | Not Found | Resource doesn't exist |
+| 429 | Too Many Requests | Rate limited |
+
+## Response Format
+
+```json
+{
+  "data": {
+    "id": "123",
+    "type": "user",
+    "attributes": {
+      "name": "John",
+      "email": "john@example.com"
+    }
+  },
+  "meta": {
+    "requestId": "req_abc123"
+  }
+}
 ```
 
-See [pagination-filtering-sorting.md](references/pagination-filtering-sorting.md) for patterns.
+## Collection Response
 
-### 5. Choose Versioning Strategy
-Recommended: URI path versioning
-
-```
-https://api.example.com/v1/users
-https://api.example.com/v2/users
-```
-
-See [versioning.md](references/versioning.md) for alternatives.
-
-### 6. Generate OpenAPI Spec
-Use the template at [assets/openapi-template.yaml](assets/openapi-template.yaml).
-
-Replace placeholders:
-- `${API_TITLE}` - Your API name
-- `${API_DESCRIPTION}` - API overview
-- `${API_VERSION}` - Semantic version
-
-### 7. Validate Design
-Run through [validation-checklist.md](references/validation-checklist.md).
-
-## Common Patterns
-
-### Error Response
-```yaml
-Error:
-  type: object
-  required: [code, message]
-  properties:
-    code:
-      type: string
-      example: VALIDATION_ERROR
-    message:
-      type: string
-      example: Validation failed
-    details:
-      type: array
-      items:
-        type: object
-        properties:
-          field: { type: string }
-          message: { type: string }
-    requestId:
-      type: string
+```json
+{
+  "data": [...],
+  "pagination": {
+    "page": 1,
+    "limit": 20,
+    "total": 150,
+    "totalPages": 8
+  },
+  "links": {
+    "self": "/api/users?page=1",
+    "next": "/api/users?page=2"
+  }
+}
 ```
 
-### Pagination Response
-```yaml
-ListResponse:
-  type: object
-  properties:
-    data:
-      type: array
-      items: { $ref: '#/components/schemas/Resource' }
-    pagination:
-      type: object
-      properties:
-        page: { type: integer }
-        limit: { type: integer }
-        totalItems: { type: integer }
-        totalPages: { type: integer }
+## Query Parameters
+
+```
+GET /api/products?category=electronics    # Filtering
+GET /api/products?sort=-price,name        # Sorting
+GET /api/products?page=2&limit=20         # Pagination
+GET /api/products?fields=id,name,price    # Field selection
 ```
 
-### Resource with Timestamps
-```yaml
-Resource:
-  type: object
-  required: [id, createdAt, updatedAt]
-  properties:
-    id:
-      type: string
-      format: uuid
-      readOnly: true
-    createdAt:
-      type: string
-      format: date-time
-      readOnly: true
-    updatedAt:
-      type: string
-      format: date-time
-      readOnly: true
-```
+## Best Practices
 
-## Resources
-
-| File | Purpose |
-|------|---------|
-| [openapi-template.yaml](assets/openapi-template.yaml) | Complete OpenAPI 3.0 template with sample CRUD API |
-| [naming-conventions.md](references/naming-conventions.md) | URL patterns, resource naming, query parameters |
-| [http-methods.md](references/http-methods.md) | Method selection guide, PUT vs PATCH |
-| [status-codes.md](references/status-codes.md) | Status code decision tree, error format |
-| [pagination-filtering-sorting.md](references/pagination-filtering-sorting.md) | Collection query patterns |
-| [versioning.md](references/versioning.md) | API versioning strategies |
-| [validation-checklist.md](references/validation-checklist.md) | Pre-implementation review checklist |
+- Use nouns for resources, not verbs
+- Version API via URL path (`/api/v1/`)
+- Return appropriate status codes
+- Include pagination for collections
+- Document with OpenAPI/Swagger

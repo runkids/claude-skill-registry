@@ -1,7 +1,7 @@
 {
   "name": "skill-skeleton",
-  "repo": "nodnarbnitram/claude-code-extensions",
+  "repo": "jezweb/claude-skills",
   "path": "templates/skill-skeleton/SKILL.md",
-  "source": "github.com/nodnarbnitram/claude-code-extensions",
-  "downloaded_at": "2026-01-17T03:51:59.273967Z"
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-19T03:08:43.899820Z"
 }

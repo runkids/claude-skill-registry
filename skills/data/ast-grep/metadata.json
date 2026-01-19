@@ -1,7 +1,7 @@
 {
   "name": "ast-grep",
-  "repo": "OutlineDriven/odin-gemini-cli-extension",
+  "repo": "OutlineDriven/odin-claude-plugin",
   "path": "skills/ast-grep/SKILL.md",
-  "source": "github.com/OutlineDriven/odin-gemini-cli-extension",
-  "downloaded_at": "2026-01-17T03:47:33.505415Z"
+  "source": "github.com/OutlineDriven/odin-claude-plugin",
+  "downloaded_at": "2026-01-19T03:32:38.930920Z"
 }

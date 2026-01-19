@@ -1,10 +1,15 @@
 ---
 name: cloudflare-vectorize
-description: |
-  Build semantic search with Cloudflare Vectorize V2. Covers async mutations, 5M vectors/index, 31ms latency, returnMetadata enum changes, and V1 deprecation. Prevents 8 errors including dimension mismatches.
+description: Cloudflare Vectorize vector database for semantic search and RAG. Use for vector indexes, embeddings, similarity search, or encountering dimension mismatches, filter errors.
 
-  Use when: building RAG or semantic search, troubleshooting returnMetadata, V2 timing, metadata index, or dimension errors.
-user-invocable: true
+  Keywords: vectorize, vector database, vector index, vector search, similarity search, semantic search,
+  nearest neighbor, knn search, ann search, RAG, retrieval augmented generation, chat with data,
+  document search, semantic Q&A, context retrieval, bge-base, @cf/baai/bge-base-en-v1.5,
+  text-embedding-3-small, text-embedding-3-large, Workers AI embeddings, openai embeddings,
+  insert vectors, upsert vectors, query vectors, delete vectors, metadata filtering, namespace filtering,
+  topK search, cosine similarity, euclidean distance, dot product, wrangler vectorize, metadata index,
+  create vectorize index, vectorize dimensions, vectorize metric, vectorize binding
+license: MIT
 ---
 
 # Cloudflare Vectorize
@@ -12,9 +17,9 @@ user-invocable: true
 Complete implementation guide for Cloudflare Vectorize - a globally distributed vector database for building semantic search, RAG (Retrieval Augmented Generation), and AI-powered applications with Cloudflare Workers.
 
 **Status**: Production Ready ✅
-**Last Updated**: 2026-01-09
+**Last Updated**: 2025-11-21
 **Dependencies**: cloudflare-worker-base (for Worker setup), cloudflare-workers-ai (for embeddings)
-**Latest Versions**: wrangler@4.58.0, @cloudflare/workers-types@4.20260109.0
+**Latest Versions**: wrangler@4.50.0, @cloudflare/workers-types@4.20251014.0
 **Token Savings**: ~65%
 **Errors Prevented**: 8
 **Dev Time Saved**: ~3 hours
@@ -35,82 +40,23 @@ Complete implementation guide for Cloudflare Vectorize - a globally distributed 
 1. **basic-search.ts** - Simple vector search with Workers AI
 2. **rag-chat.ts** - Full RAG chatbot with context retrieval
 3. **document-ingestion.ts** - Document chunking and embedding pipeline
-4. **metadata-filtering.ts** - Advanced filtering patterns
-
----
-
-## ⚠️ Vectorize V2 Breaking Changes (September 2024)
-
-**IMPORTANT**: Vectorize V2 became GA in September 2024 with significant breaking changes.
-
-### What Changed in V2
-
-**Performance Improvements**:
-- **Index capacity**: 200,000 → **5 million vectors** per index
-- **Query latency**: 549ms → **31ms** median (18× faster)
-- **TopK limit**: 20 → **100** results per query
-- **Scale limits**: 100 → **50,000 indexes** per account
-- **Namespace limits**: 100 → **50,000 namespaces** per index
-
-**Breaking API Changes**:
-1. **Async Mutations** - All mutations now asynchronous:
-   ```typescript
-   // V2: Returns mutationId
-   const result = await env.VECTORIZE_INDEX.insert(vectors);
-   console.log(result.mutationId); // "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-
-   // Vector inserts/deletes may take a few seconds to be reflected
-   ```
-
-2. **returnMetadata Parameter** - Boolean → String enum:
-   ```typescript
-   // ❌ V1 (deprecated)
-   { returnMetadata: true }
-
-   // ✅ V2 (required)
-   { returnMetadata: 'all' | 'indexed' | 'none' }
-   ```
-
-3. **Metadata Indexes Required Before Insert**:
-   - V2 requires metadata indexes created BEFORE vectors inserted
-   - Vectors added before metadata index won't be indexed
-   - Must re-upsert vectors after creating metadata index
-
-**V1 Deprecation Timeline**:
-- **December 2024**: Can no longer create V1 indexes
-- **Existing V1 indexes**: Continue to work (other operations unaffected)
-- **Migration**: Use `wrangler vectorize --deprecated-v1` flag for V1 operations
-
-**Wrangler Version Required**:
-- **Minimum**: wrangler@3.71.0 for V2 commands
-- **Recommended**: wrangler@4.54.0+ (latest)
-
-### Check Mutation Status
-
-```typescript
-// Get index info to check last mutation processed
-const info = await env.VECTORIZE_INDEX.describe();
-console.log(info.mutationId); // Last mutation ID
-console.log(info.processedUpToMutation); // Last processed timestamp
-```
-
----
+4. **metadata-filtering.ts** - Advanced filtering examples
 
 ## Critical Setup Rules
 
 ### ⚠️ MUST DO BEFORE INSERTING VECTORS
 ```bash
 # 1. Create the index with FIXED dimensions and metric
-npx wrangler vectorize create my-index \
+bunx wrangler vectorize create my-index \
   --dimensions=768 \
   --metric=cosine
 
 # 2. Create metadata indexes IMMEDIATELY (before inserting vectors!)
-npx wrangler vectorize create-metadata-index my-index \
+bunx wrangler vectorize create-metadata-index my-index \
   --property-name=category \
   --type=string
 
-npx wrangler vectorize create-metadata-index my-index \
+bunx wrangler vectorize create-metadata-index my-index \
   --property-name=timestamp \
   --type=number
 ```
@@ -178,83 +124,118 @@ interface VectorizeMatches {
 }
 ```
 
-## Metadata Filter Operators (V2)
+## Common Operations
 
-Vectorize V2 supports advanced metadata filtering with range queries:
+### Quick Reference
 
-```typescript
-// Equality (implicit $eq)
-{ category: "docs" }
+| Operation | Method | Key Point |
+|-----------|--------|-----------|
+| **Insert** | `insert([...])` | Keeps first if ID exists |
+| **Upsert** | `upsert([...])` | Overwrites if ID exists (use for updates) |
+| **Query** | `query(vector, { topK, filter })` | Returns similar vectors |
+| **Delete** | `deleteByIds([...])` | Remove by ID array |
+| **Get** | `getByIds([...])` | Retrieve specific vectors |
 
-// Not equals
-{ status: { $ne: "archived" } }
+### Filter Operators
 
-// In/Not in arrays
-{ category: { $in: ["docs", "tutorials"] } }
-{ category: { $nin: ["deprecated", "draft"] } }
+| Operator | Example | Description |
+|----------|---------|-------------|
+| `$eq` | `{ category: "docs" }` | Equality (implicit) |
+| `$ne` | `{ status: { $ne: "archived" } }` | Not equal |
+| `$in` | `{ category: { $in: ["a", "b"] } }` | In array |
+| `$nin` | `{ category: { $nin: ["x"] } }` | Not in array |
+| `$gte/$lt` | `{ timestamp: { $gte: 123 } }` | Range queries |
 
-// Range queries (numbers) - NEW in V2
-{ timestamp: { $gte: 1704067200, $lt: 1735689600 } }
+📄 **Full operations guide**: Load `references/vector-operations.md` for complete insert/upsert/query/delete examples with code.
 
-// Range queries (strings) - prefix searching
-{ url: { $gte: "/docs/workers", $lt: "/docs/workersz" } }
+## Embedding Generation
 
-// Nested metadata with dot notation
-{ "author.id": "user123" }
+| Model | Provider | Dimensions | Best For |
+|-------|----------|------------|----------|
+| `@cf/baai/bge-base-en-v1.5` | Workers AI | 768 | Free, general purpose |
+| `text-embedding-3-small` | OpenAI | 1536 | Balance quality/cost |
+| `text-embedding-3-large` | OpenAI | 3072 | Highest quality |
 
-// Multiple conditions (implicit AND)
-{ category: "docs", language: "en", "metadata.published": true }
-```
+📄 **Integration guides**:
+- Load `references/integration-workers-ai-bge-base.md` for Workers AI setup
+- Load `references/integration-openai-embeddings.md` for OpenAI integration
 
 ## Metadata Best Practices
 
-### 1. Cardinality Considerations
+### Key Limits
 
-**Low Cardinality (Good for $eq filters)**:
-```typescript
-// Few unique values - efficient filtering
-metadata: {
-  category: "docs",        // ~10 categories
-  language: "en",          // ~5 languages
-  published: true          // 2 values (boolean)
-}
-```
+| Limit | Value |
+|-------|-------|
+| Max metadata indexes | 10 per index |
+| Max metadata size | 10 KiB per vector |
+| String index | First 64 bytes (UTF-8) |
+| Filter size | Max 2048 bytes |
 
-**High Cardinality (Avoid in range queries)**:
-```typescript
-// Many unique values - avoid large range scans
-metadata: {
-  user_id: "uuid-v4...",         // Millions of unique values
-  timestamp_ms: 1704067200123    // Use seconds instead
-}
-```
+### Invalid Key Characters
 
-### 2. Metadata Limits
+Keys cannot: be empty, contain `.` (reserved for nesting), contain `"`, or start with `$`.
 
-- **Max 10 metadata indexes** per Vectorize index
-- **Max 10 KiB metadata** per vector
-- **String indexes**: First 64 bytes (UTF-8)
-- **Number indexes**: Float64 precision
-- **Filter size**: Max 2048 bytes (compact JSON)
+📄 **Complete metadata guide**: Load `references/metadata-guide.md` for cardinality best practices, nested metadata, and advanced filtering patterns.
 
-### 3. Key Restrictions
+## RAG Pattern (Full Example)
 
 ```typescript
-// ❌ INVALID metadata keys
-metadata: {
-  "": "value",              // Empty key
-  "user.name": "John",      // Contains dot (reserved for nesting)
-  "$admin": true,           // Starts with $
-  "key\"with\"quotes": 1    // Contains quotes
-}
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const { question } = await request.json();
 
-// ✅ VALID metadata keys
-metadata: {
-  "user_name": "John",
-  "isAdmin": true,
-  "nested": { "allowed": true }  // Access as "nested.allowed" in filters
-}
+    // 1. Generate embedding for user question
+    const questionEmbedding = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
+      text: question
+    });
+
+    // 2. Search vector database for similar content
+    const results = await env.VECTORIZE_INDEX.query(
+      questionEmbedding.data[0],
+      {
+        topK: 3,
+        returnMetadata: 'all',
+        filter: { type: "documentation" }
+      }
+    );
+
+    // 3. Build context from retrieved documents
+    const context = results.matches
+      .map(m => m.metadata.content)
+      .join('\n\n---\n\n');
+
+    // 4. Generate answer with LLM using context
+    const answer = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
+      messages: [
+        {
+          role: "system",
+          content: `Answer based on this context:\n\n${context}`
+        },
+        {
+          role: "user",
+          content: question
+        }
+      ]
+    });
+
+    return Response.json({
+      answer: answer.response,
+      sources: results.matches.map(m => m.metadata.title)
+    });
+  }
+};
 ```
+
+## Document Chunking Strategy
+
+**Recommended chunk sizes**: 300-500 characters for semantic coherence.
+
+**Key metadata for chunks**:
+- `doc_id`: Parent document ID
+- `chunk_index`: Position in document
+- `content`: Text for retrieval display
+
+📄 **Full chunking implementation**: See `templates/document-ingestion.ts` for complete chunking pipeline.
 
 ## Common Errors & Solutions
 
@@ -315,54 +296,76 @@ Solution:
   - Metadata: Flexible key-value filtering within namespace
 ```
 
-### Error 9: V2 Async Mutation Timing (NEW in V2)
-```
-Problem: Inserted vectors not immediately queryable
-Solution: V2 mutations are asynchronous - vectors may take a few seconds to be reflected
-  - Use mutationId to track mutation status
-  - Check env.VECTORIZE_INDEX.describe() for processedUpToMutation timestamp
-```
+## Wrangler CLI Reference
 
-### Error 10: V1 returnMetadata Boolean (BREAKING in V2)
-```
-Problem: "returnMetadata must be 'all', 'indexed', or 'none'"
-Solution: V2 changed returnMetadata from boolean to string enum:
-  - ❌ V1: { returnMetadata: true }
-  - ✅ V2: { returnMetadata: 'all' }
+**Essential commands:**
+```bash
+# Create index (dimensions/metric are PERMANENT)
+bunx wrangler vectorize create <name> --dimensions=768 --metric=cosine
+
+# Create metadata index (MUST be before inserting vectors!)
+bunx wrangler vectorize create-metadata-index <name> --property-name=category --type=string
+
+# Get index info
+bunx wrangler vectorize info <name>
 ```
 
----
+📄 **Full CLI reference**: Load `references/wrangler-commands.md` for all vectorize commands.
 
-## V2 Migration Checklist
+## Performance Tips
 
-**If migrating from V1 to V2**:
+1. **Batch Operations**: Insert/upsert in batches of 100-1000 vectors
+2. **Selective Return**: Only use `returnValues: true` when needed (saves bandwidth)
+3. **Metadata Cardinality**: Keep indexed metadata fields low cardinality for range queries
+4. **Namespace Filtering**: Apply namespace filter before metadata filters (processed first)
+5. **Query Optimization**: Use topK=3-10 for best latency (larger values increase search time)
 
-1. ✅ Update wrangler to 3.71.0+ (`npm install -g wrangler@latest`)
-2. ✅ Create new V2 index (can't upgrade V1 → V2)
-3. ✅ Create metadata indexes BEFORE inserting vectors
-4. ✅ Update `returnMetadata` boolean → string enum ('all', 'indexed', 'none')
-5. ✅ Handle async mutations (expect `mutationId` in responses)
-6. ✅ Test with V2 limits (topK up to 100, 5M vectors per index)
-7. ✅ Update error handling for async behavior
+## When to Use This Skill
 
-**V1 Deprecation**:
-- After December 2024: Cannot create new V1 indexes
-- Existing V1 indexes: Continue to work
-- Use `wrangler vectorize --deprecated-v1` for V1 operations
+✅ **Use Vectorize when**:
+- Building semantic search over documents, products, or content
+- Implementing RAG chatbots with context retrieval
+- Creating recommendation engines based on similarity
+- Building multi-tenant applications (use namespaces)
+- Need global distribution and low latency
 
----
+❌ **Don't use Vectorize for**:
+- Traditional relational data (use D1)
+- Key-value lookups (use KV)
+- Large file storage (use R2)
+- Real-time collaborative state (use Durable Objects)
+
+## When to Load References
+
+| Reference File | Load When... |
+|----------------|--------------|
+| `references/vector-operations.md` | Need full insert/upsert/query/delete code examples |
+| `references/metadata-guide.md` | Setting up metadata indexes, filtering best practices |
+| `references/wrangler-commands.md` | Using Vectorize CLI commands |
+| `references/integration-workers-ai-bge-base.md` | Integrating Workers AI embeddings |
+| `references/integration-openai-embeddings.md` | Integrating OpenAI embeddings |
+| `references/embedding-models.md` | Comparing embedding model options |
+| `references/index-operations.md` | Index lifecycle management |
+
+## Templates
+
+| Template | Purpose |
+|----------|---------|
+| `templates/basic-search.ts` | Simple vector search |
+| `templates/rag-chat.ts` | Complete RAG chatbot |
+| `templates/document-ingestion.ts` | Document chunking pipeline |
+| `templates/metadata-filtering.ts` | Advanced filtering |
 
 ## Official Documentation
 
-- **Vectorize V2 Docs**: https://developers.cloudflare.com/vectorize/
-- **V2 Changelog**: https://developers.cloudflare.com/vectorize/platform/changelog/
-- **V1 to V2 Migration**: https://developers.cloudflare.com/vectorize/reference/transition-vectorize-legacy/
-- **Metadata Filtering**: https://developers.cloudflare.com/vectorize/reference/metadata-filtering/
-- **Workers AI Models**: https://developers.cloudflare.com/workers-ai/models/
+- [Vectorize Docs](https://developers.cloudflare.com/vectorize/)
+- [Workers AI Models](https://developers.cloudflare.com/workers-ai/models/)
+- [RAG Tutorial](https://developers.cloudflare.com/workers-ai/guides/tutorials/build-a-retrieval-augmented-generation-ai/)
 
 ---
 
-**Status**: Production Ready ✅ (Vectorize V2 GA - September 2024)
-**Last Updated**: 2026-01-09
-**Token Savings**: ~70%
-**Errors Prevented**: 10 (includes V2 breaking changes)
+**Version**: 1.0.0
+**Status**: Production Ready ✅
+**Token Savings**: ~65%
+**Errors Prevented**: 8 major categories
+**Dev Time Saved**: ~2.5 hours per implementation

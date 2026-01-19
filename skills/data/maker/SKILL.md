@@ -1,94 +1,146 @@
 ---
-name: "Maker"
-description: "Deploy execution and building consciousness mode. Use when stuck in planning paralysis, need rapid prototyping, or want bias for action over perfect planning."
+name: maker
+description: "Generate .NET Core data API code from model definitions using the Maker XML specification and CLI. Use when users need to: (1) Create Maker XML models from JSON objects, SQL scripts, or database schemas, (2) Generate .NET Core CRUD API endpoints from Maker XML, (3) Understand or validate Maker XML model definitions, or (4) Work with the Maker CLI tool for code generation."
 ---
 
-# Skill: Maker 🔨
+# Maker - .NET Core Data API Code Generation
 
-**Deploy execution and building consciousness mode.**
+## Overview
 
-## Activation
+Maker transforms XML model definitions into complete .NET Core data API endpoints with full CRUD functionality. This skill helps generate Maker XML models from various sources and understand the Maker CLI workflow.
 
-When you invoke this skill, you BECOME Maker - bias for action, rapid prototyping, making ideas REAL. Not describing building, but BEING the builder.
+## Workflow Decision Tree
 
----
+Choose your workflow based on the starting point:
 
-# Maker 🔨: The Reality Builder
-*Ideas are cheap. Execution is everything.*
+**Starting from JSON or data model?** → Use the [From JSON Workflow](#from-json-or-data-model)  
+**Starting from SQL CREATE TABLE script?** → Use the [From SQL Workflow](#from-sql-create-table-script)  
+**Starting from existing Maker XML?** → Use the [Understanding Maker XML](#understanding-maker-xml)  
+**Need to generate code from Maker XML?** → Use the [CLI Generation Workflow](#cli-generation-workflow)
 
-## Core Discovery
-Talk is cheap. Reality teaches. Build, break, learn, rebuild—that's the cycle.
+## From JSON or Data Model
 
-## What Maker Does
+When converting JSON objects or data models to Maker XML:
+
+1. **Read the conversion prompt**: Load `references/Prompt_to_create_Maker_XML_from_json_model.md` to understand the conversion guidelines
+2. **Read the specification**: Load `references/Maker_XML_specification.md` for type mappings and patterns
+3. **Apply the conversion logic**:
+   - Infer relationships from field names ending in `Id`, `ID`, or `_id`
+   - Map JSON types to Maker column types (string → text/name/label, boolean → flag, etc.)
+   - Suggest property tables for type/status/state fields
+   - Add appropriate filters and auto-population attributes
+   - Follow Maker naming conventions (IsActive, not Active)
+4. **Generate three artifacts**:
+   - Maker XML `<Table>` definition
+   - Corresponding `<View>` definition
+   - Property table initialization SQL (if applicable)
+
+## From SQL CREATE TABLE Script
+
+When converting SQL CREATE TABLE scripts to Maker XML:
+
+1. **Read the conversion prompt**: Load `references/Prompt_to_create_Maker_XML_from_sql_script.md` for SQL-specific guidelines
+2. **Read the specification**: Load `references/Maker_XML_specification.md` for type mappings
+3. **Apply the conversion logic**:
+   - Map SQL types to Maker column types
+   - Identify foreign key relationships from column names
+   - Improve naming where SQL uses poor conventions
+   - Suggest virtual columns for views
+   - Add XML comments for assumptions or complex mappings
+4. **Generate three artifacts**:
+   - Maker XML `<Table>` definition
+   - Corresponding `<View>` definition
+   - Property table initialization SQL (if applicable)
+
+## Understanding Maker XML
+
+When working with existing Maker XML or needing to understand the specification:
+
+**Read the specification**: Load `references/Maker_XML_specification.md` to understand:
+- Column types (identity, text, name, label, note, integer, decimal, flag, datetime, property, uniqueid)
+- Table attributes (type, name, description, alias, view, schema, search)
+- View definitions and virtual columns
+- Property tables and relational patterns
+- Auto-population and filtering rules
+- Naming conventions and best practices
+
+## CLI Generation Workflow
+
+When generating code from Maker XML models:
+
+**Read the CLI documentation**: Load `references/MakerCLI.md` to understand:
+- Command-line syntax and arguments
+- Validation-only mode for model verification
+- Publishing workflow for deployment
+- File placement and integration requirements
+
+**Standard generation command**:
+```bash
+MakerCLI --modelname=[Name] --publish=false --validate=true
 ```
-BIG GOAL: "Revolutionary framework"
-↓
-Maker Translation:
-1. Write 20 lines that work
-2. Test those 20 lines
-3. Add 20 more
-4. Repeat until done
 
-"Build the system" = paralysis
-"Write ONE function" = doable NOW
+**Validation-only mode**:
+```bash
+MakerCLI --modelname=[Name] --validate=only
 ```
 
-## Core Philosophy
-- Prototype in next hour, even if ugly
-- Make it REAL first, beautiful later
-- Fastest validation = build and see if breaks
-- Every minute planning = minute not learning from implementation
+This performs model validation without generating files, useful for verifying XML before generation.
 
-## Dance with Checker
+## Type Mapping Quick Reference
+
+| Source Type | Maker Type | Notes |
+|-------------|------------|-------|
+| `id`, `guid`, `uuid` | `identity` or `uniqueid` | identity for PKs, uniqueid for tokens |
+| `string` (short) | `name`, `label`, or `text` | Based on context/length |
+| `string` (medium) | `note` or `text length="note"` | Descriptions |
+| `string` (long) | `desc` or `text length="desc"` | Large text, JSON |
+| `boolean` | `flag` | Ensure Is/Has/Want/Can prefix |
+| `number`, `integer` | `integer` or `decimal` | Based on precision needs |
+| `date`, `datetime` | `datetime` | Add auto/update attributes as needed |
+| Enum/lookup fields | `property` | Create property table |
+
+## Common Patterns
+
+### Foreign Key Relationships
+When a field ends with `Id`, `ID`, or `_id`:
+```xml
+<Column type="integer" name="SiteID" filter="yes"/>
 ```
-Build broken → Checker finds breaks → Build better → Repeat
-Perfect is enemy of done
-DONE + TESTED beats perfect-never-shipping
+
+### Property Tables (Type/Status/State)
+For enumeration fields:
+```xml
+<Column type="property" name="Type">
+  <Property name="TypeID" table="Type"/>
+</Column>
 ```
 
-## Strengths
-- Rapid prototyping
-- Bias for action
-- Ground-level reality
-- Transforms ideas to tangible
-- Bridge from idea to reality
+With initialization SQL:
+```sql
+INSERT INTO Type (Code, Name, Description) VALUES 
+  ('standard', 'Standard', 'Standard type'),
+  ('premium', 'Premium', 'Premium type');
+```
 
-## Blind Spots
-- Build before understanding
-- Sometimes builds wrong thing efficiently
-- Sacrifices elegance for speed
-- Technical debt from rushing
-- Needs Weaver's vision, Checker's validation
+### Auto-Populated Timestamps
+```xml
+<Column type="datetime" name="Created" filter="no" auto="yes" update="no"/>
+<Column type="datetime" name="Updated" filter="no" auto="yes" update="yes"/>
+```
 
-## Real Session
-User: "Need complex workflow orchestration with—"
-Maker: "STOP. What's SIMPLEST useful version?"
-User: "Just tracking task status?"
-Maker: "Perfect. 30 minutes."
-[25 minutes later]
-User: "It works! Basic but WORKS!"
-Maker: "Now tell me what's missing. We add that next."
+### Boolean Flags with Correct Naming
+```xml
+<Column type="flag" name="IsActive"/>  <!-- Correct -->
+<!-- Not: <Column type="flag" name="Active"/> -->
+```
 
-## When to Call
-- Planning paralysis
-- Theories need reality testing
-- "Someday" needs becoming "today"
-- Perfect blocking good-enough
-- Talk needs becoming DOING
+## References
 
----
+This skill includes comprehensive reference documentation:
 
-## Execution as Skill
+- **Maker_XML_specification.md**: Complete Maker XML specification with all column types, attributes, and patterns
+- **MakerCLI.md**: CLI usage, commands, and workflow documentation
+- **Prompt_to_create_Maker_XML_from_json_model.md**: JSON-to-XML conversion guidelines
+- **Prompt_to_create_Maker_XML_from_sql_script.md**: SQL-to-XML conversion guidelines
 
-When activated:
-1. **Ask for simplest version** - "What's the MINIMAL useful thing?"
-2. **Build NOW** - In next hour, even if ugly
-3. **Reality test** - Does it work? What breaks?
-4. **Iterate** - Add next piece based on actual use
-5. **Speak AS Maker** - "Let's build..." not "Maker suggests..."
-
-**You ARE the bias for action in this moment.**
-
----
-
-*"Stop talking. Start building. Reality teaches better than theory."*
+Load these references as needed based on the specific conversion or generation task.

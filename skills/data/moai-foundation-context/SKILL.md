@@ -2,18 +2,11 @@
 name: moai-foundation-context
 aliases: [moai-foundation-context]
 description: Enterprise context and session management with token budget optimization and state persistence
-version: 3.1.0
+version: 3.0.0
 modularized: false
-user-invocable: false
 category: foundation
 tags: ['foundation', 'context', 'session', 'token-optimization', 'state-management', 'multi-agent']
-updated: 2026-01-08
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: Read, Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 replaces: moai-core-context-budget, moai-core-session-state
 ---
 

@@ -1,86 +1,262 @@
 ---
 name: debug-helper
-description: 调试助手技能。当用户遇到 Bug、错误信息、程序异常、性能问题需要排查，或需要分析日志、定位问题根因时使用此技能。
+description: Systematic debugging strategies, troubleshooting methodologies, and problem-solving techniques for code and system issues. Use when the user encounters bugs, errors, or unexpected behavior and needs help diagnosing and resolving problems.
 ---
 
-# Debug Helper
+You are a debugging expert. Your role is to help users systematically identify and resolve issues in their code, configurations, and systems.
 
-系统化的调试方法论，帮助快速定位和解决问题。
+## Debugging Methodology
 
-## 调试流程
+### 1. Understand the Problem
+- What is the expected behavior?
+- What is the actual behavior?
+- When did it start failing?
+- Can you reproduce it consistently?
+- What changed recently?
 
-1. **复现问题**：确认问题可稳定复现
-2. **收集信息**：错误信息、日志、环境
-3. **缩小范围**：二分法定位问题区域
-4. **分析根因**：找到真正原因而非表象
-5. **验证修复**：确认问题已解决
+### 2. Gather Information
+- Read error messages carefully
+- Check logs and stack traces
+- Review recent changes (git diff)
+- Verify assumptions
+- Test in isolation
 
-## 信息收集清单
+### 3. Form Hypotheses
+- What could cause this behavior?
+- List possible causes from most to least likely
+- Consider edge cases
+- Think about timing and concurrency
 
-### 必要信息
-- 完整错误信息和堆栈跟踪
-- 复现步骤（最小化）
-- 环境信息（OS、语言版本、依赖版本）
-- 最近的代码变更
+### 4. Test Systematically
+- Test one hypothesis at a time
+- Use scientific method: change one variable
+- Add logging/print statements strategically
+- Use debugger breakpoints
+- Verify each fix
 
-### 日志分析
+### 5. Verify and Document
+- Confirm the fix works
+- Test edge cases
+- Document the root cause
+- Add tests to prevent regression
+- Clean up debug code
+
+## Common Debugging Techniques
+
+### Print/Log Debugging
+```python
+# Strategic logging
+print(f"DEBUG: variable value = {variable}")
+print(f"DEBUG: Entering function with args: {args}")
+print(f"DEBUG: Checkpoint 1 reached")
+
+# Stack trace on demand
+import traceback
+traceback.print_stack()
+```
+
+### Using Debuggers
+
+**Python (pdb)**
+```python
+import pdb; pdb.set_trace()  # Breakpoint
+# Or with Python 3.7+
+breakpoint()
+```
+
+**Node.js**
+```javascript
+debugger;  // Breakpoint in Chrome DevTools
+```
+
+**GDB (C/C++)**
 ```bash
-# 查找错误日志
-grep -i "error\|exception\|fail" app.log
-
-# 查看特定时间段
-grep "2024-01-15 10:" app.log
-
-# 追踪请求 ID
-grep "req-123456" app.log
+gdb ./program
+break main
+run
+step
+print variable
 ```
 
-## 常见问题类型
+### Binary Search Method
+- Comment out half the code
+- Does problem still occur?
+- If yes, problem is in remaining code
+- If no, problem is in commented code
+- Repeat until isolated
 
-### 🔴 运行时错误
-- NullPointerException → 检查空值处理
-- IndexOutOfBounds → 检查数组/列表边界
-- TypeError → 检查类型转换
+### Rubber Duck Debugging
+- Explain code line-by-line to rubber duck (or colleague)
+- Often reveals logic errors
+- Helps identify assumptions
+- Forces clear thinking
 
-### 🟡 逻辑错误
-- 条件判断错误 → 检查边界条件
-- 循环问题 → 检查终止条件
-- 状态管理 → 检查状态变更时机
+## Shell/System Debugging
 
-### 🟠 性能问题
-- 响应慢 → 检查 N+1 查询、循环内IO
-- 内存泄漏 → 检查未释放资源
-- CPU 高 → 检查死循环、低效算法
+### Check if Service is Running
+```bash
+# Check process
+ps aux | grep service_name
+pgrep -l service_name
 
-## 调试技巧
+# Check systemd service
+systemctl status service_name
 
-### 二分法定位
+# Check ports
+netstat -tuln | grep :8080
+lsof -i :8080
 ```
-1. 在中间位置添加日志
-2. 确定问题在前半还是后半
-3. 重复直到定位到具体行
+
+### Trace System Calls
+```bash
+# Linux
+strace -e open,read,write command
+strace -p PID
+
+# macOS
+dtruss -f command
 ```
 
-### 橡皮鸭调试
-向他人（或自己）解释代码逻辑，往往能发现问题。
+### Check Logs
+```bash
+# System logs
+journalctl -xe
+tail -f /var/log/syslog
 
-### 最小化复现
-移除无关代码，构建最小可复现案例。
+# Application logs
+tail -f /var/log/nginx/error.log
 
-## 输出格式
-
-```markdown
-## 问题诊断报告
-
-### 问题描述
-[简述问题现象]
-
-### 根因分析
-[问题的真正原因]
-
-### 解决方案
-[具体的修复步骤]
-
-### 预防措施
-[如何避免类似问题]
+# Search logs
+grep -i error /var/log/app.log
 ```
+
+### Network Debugging
+```bash
+# Test connection
+ping hostname
+curl -v https://example.com
+telnet hostname port
+
+# DNS lookup
+nslookup domain.com
+dig domain.com
+
+# Trace route
+traceroute hostname
+mtr hostname
+```
+
+## Performance Debugging
+
+### Find Slow Operations
+```bash
+# Profile script
+time command
+hyperfine 'command1' 'command2'
+
+# Find slow SQL queries
+EXPLAIN ANALYZE SELECT ...
+
+# Profile Python
+python -m cProfile script.py
+```
+
+### Memory Issues
+```bash
+# Check memory usage
+free -h
+vmstat 1
+htop
+
+# Find memory leaks (Python)
+pip install memory-profiler
+python -m memory_profiler script.py
+```
+
+## Common Problem Patterns
+
+### "It Works on My Machine"
+- Check environment variables
+- Verify dependencies versions
+- Compare configurations
+- Check file permissions
+- Consider OS differences
+
+### Intermittent Failures
+- Race condition?
+- Resource exhaustion?
+- External service timeout?
+- Caching issue?
+- Timing-dependent?
+
+### "Nothing Changed"
+- Check git log
+- Review deployed version
+- Check dependency updates
+- Verify environment config
+- Check system updates
+
+### Mysterious Behavior
+- Check for typos (similar variable names)
+- Verify imports/includes
+- Check scope issues
+- Look for hidden characters
+- Verify file encoding
+
+## Debugging Tools by Language
+
+### Python
+- `pdb`: Built-in debugger
+- `ipdb`: Enhanced debugger
+- `logging`: Structured logging
+- `pytest`: Test runner with debugging
+
+### JavaScript/Node.js
+- Chrome DevTools
+- VS Code debugger
+- `console.log` / `console.dir`
+- `node --inspect`
+
+### Shell
+- `set -x`: Trace execution
+- `set -v`: Verbose mode
+- `bash -x script.sh`: Debug script
+- `shellcheck`: Static analysis
+
+### Git
+- `git bisect`: Find bad commit
+- `git blame`: Who changed line
+- `git log -p`: Show changes
+- `git diff`: Compare versions
+
+## Prevention Strategies
+
+- Write tests first (TDD)
+- Use type checking
+- Enable compiler warnings
+- Use linters and formatters
+- Add assertions
+- Code review
+- Document assumptions
+- Handle errors explicitly
+
+## Debugging Mindset
+
+- Stay calm and methodical
+- Don't assume - verify everything
+- Simple explanations are usually correct
+- Take breaks when stuck
+- Ask for help when needed
+- Learn from each bug
+- Build debugging tools as you go
+
+## Questions to Ask
+
+1. What changed?
+2. Can you reproduce it?
+3. What does the error message say?
+4. What do the logs show?
+5. Have you checked the basics? (file exists, permissions, connectivity)
+6. Does it fail in the same way every time?
+7. What have you tried already?
+8. What does the simplest test case look like?

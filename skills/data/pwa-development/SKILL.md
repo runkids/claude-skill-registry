@@ -1,568 +1,165 @@
 ---
 name: pwa-development
-description: Progressive Web App development for installable, offline-capable web applications. Use when building PWAs, implementing service workers, or creating offline-first experiences.
+description: "Implement Progressive Web App features for React and Svelte projects. This skill should be used when the user asks to 'make a PWA', 'add offline support', 'create a service worker', 'fix caching issues', or wants installable web apps. Keywords: PWA, service worker, offline, manifest, caching, installable, Workbox, vite-pwa."
+license: MIT
+compatibility: Works with React, Svelte/SvelteKit, Vite, Next.js.
+metadata:
+  author: jwynia
+  version: "1.0"
 ---
 
-# Progressive Web App (PWA) Development
+# PWA Development
 
-Build installable, offline-capable web applications that work across all platforms.
+Implement Progressive Web App features including service workers, caching strategies, offline support, and installation prompts for React and Svelte applications.
 
-## PWA Capabilities
+## When to Use This Skill
 
-| Feature            | Support               |
-| ------------------ | --------------------- |
-| Offline access     | All modern browsers   |
-| Install prompt     | Chrome, Edge, Samsung |
-| Push notifications | All except iOS Safari |
-| Background sync    | Chrome, Edge          |
-| File handling      | Chrome, Edge          |
-| Share target       | Chrome, Edge, Safari  |
+Use this skill when:
+- Adding PWA capabilities to a web app
+- Implementing offline support
+- Creating service worker caching strategies
+- Debugging PWA installation issues
+- Handling iOS-specific PWA quirks
 
----
+Do NOT use this skill when:
+- Building backend APIs
+- Working on requirements/design (use those skills first)
+- Need complex offline-first architecture (design first)
 
-## Core Requirements
+## Core Principle
 
-### 1. Web App Manifest
+**PWAs fail when offline behavior is an afterthought.** A PWA is not "add service worker to existing app." It's a fundamental architectural decision about data flow, caching, and connectivity failure.
 
-```json
-// public/manifest.json
-{
-  "name": "My Progressive Web App",
-  "short_name": "MyPWA",
-  "description": "A progressive web application",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#3b82f6",
-  "orientation": "portrait-primary",
-  "scope": "/",
-  "icons": [
-    {
-      "src": "/icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshots/desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "/screenshots/mobile.png",
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "New Document",
-      "short_name": "New",
-      "url": "/new",
-      "icons": [{ "src": "/icons/new.png", "sizes": "96x96" }]
-    }
-  ],
-  "share_target": {
-    "action": "/share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url",
-      "files": [
-        {
-          "name": "files",
-          "accept": ["image/*", "text/*"]
-        }
-      ]
-    }
-  }
-}
+## Diagnostic States
+
+### P0: No PWA Setup
+
+**Symptoms:** No manifest.json, no service worker, online-only
+
+**Interventions:**
+- Run `scripts/manifest-generator.ts` to create manifest
+- Add `<link rel="manifest">` to HTML head
+- Generate minimal SW with `scripts/sw-scaffolder.ts`
+
+### P1: Basic Manifest Only
+
+**Symptoms:** Manifest exists but SW missing, breaks offline
+
+**Key Questions:**
+- What content MUST be available offline?
+- What should always be fresh (network-first)?
+
+**Interventions:**
+- Use `scripts/cache-strategy-advisor.ts`
+- Implement app shell pattern
+- Add offline fallback page
+
+### P2: Caching Issues
+
+**Symptoms:** Stale content, unexpected caching behavior
+
+**Interventions:**
+- Audit with `scripts/pwa-audit.ts`
+- Map resources to strategies using `data/caching-strategies.json`
+- Add cache expiration and cleanup
+
+### P3: Update Problems
+
+**Symptoms:** Users stuck on old versions, multiple refreshes needed
+
+**Interventions:**
+- Implement skipWaiting/clients.claim appropriately
+- Add update notification UI (`assets/update-prompt.tsx`)
+- Handle "waiting" state properly
+
+### P4: Offline Data Gaps
+
+**Symptoms:** User actions lost offline, no sync indicator
+
+**Interventions:**
+- Implement IndexedDB for offline storage
+- Add Background Sync API
+- Create sync status UI
+
+### P5: iOS Issues
+
+**Symptoms:** Works on Android, breaks on iOS
+
+**Interventions:**
+- Review `data/ios-quirks.json`
+- Add apple-mobile-web-app meta tags
+- Handle storage eviction gracefully
+
+### P6: Production Ready
+
+**Indicators:** Lighthouse PWA 100, works offline, updates cleanly
+
+## Caching Strategies
+
+| Strategy | Use For | Behavior |
+|----------|---------|----------|
+| Cache First | Static assets, fonts | Serve from cache, update in background |
+| Network First | API data, user content | Try network, fall back to cache |
+| Stale While Revalidate | Semi-static content | Serve stale, update cache for next time |
+| Network Only | Auth, real-time data | Always network, no caching |
+
+## Available Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `manifest-generator.ts` | Generate manifest.json |
+| `sw-scaffolder.ts` | Generate service worker |
+| `cache-strategy-advisor.ts` | Recommend caching strategies |
+| `pwa-audit.ts` | Validate PWA configuration |
+
+## Anti-Patterns
+
+### The Everything Cache
+Precaching every asset - massive initial download.
+**Fix:** Precache only critical app shell. Runtime cache content.
+
+### The Immortal Cache
+Never expiring caches - stale content forever.
+**Fix:** Cache versioning, delete old on activate, set max age.
+
+### The Silent Update
+Forcing updates without notification.
+**Fix:** Notify user, let them choose when to refresh.
+
+### The iOS Afterthought
+Building for Chrome, testing iOS last.
+**Fix:** Test iOS early. Accept iOS limitations.
+
+## Framework Quick Reference
+
+### React + Vite
+```bash
+npm i -D vite-plugin-pwa
 ```
 
-### 2. HTML Meta Tags
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- PWA Meta Tags -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#3b82f6" />
-    <meta name="description" content="My Progressive Web App" />
-
-    <!-- iOS Specific -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="MyPWA" />
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-
-    <!-- Windows Specific -->
-    <meta name="msapplication-TileColor" content="#3b82f6" />
-    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
-
-    <title>My PWA</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+### SvelteKit
+```bash
+npm i -D @vite-pwa/sveltekit
 ```
 
----
-
-## Service Worker
-
-### Basic Service Worker
-
-```typescript
-// public/sw.js
-const CACHE_NAME = "my-pwa-v1";
-const STATIC_ASSETS = [
-  "/",
-  "/index.html",
-  "/manifest.json",
-  "/icons/icon-192x192.png",
-];
-
-// Install - cache static assets
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
-    }),
-  );
-  self.skipWaiting();
-});
-
-// Activate - clean old caches
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name)),
-      );
-    }),
-  );
-  self.clients.claim();
-});
-
-// Fetch - serve from cache, fallback to network
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      // Cache-first strategy
-      if (cached) {
-        return cached;
-      }
-
-      // Network fallback
-      return fetch(event.request).then((response) => {
-        // Don't cache non-GET or failed requests
-        if (event.request.method !== "GET" || !response.ok) {
-          return response;
-        }
-
-        // Cache successful responses
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone);
-        });
-
-        return response;
-      });
-    }),
-  );
-});
+### Next.js
+```bash
+npm i next-pwa
 ```
 
-### Workbox (Recommended)
+See `data/framework-patterns.json` for configuration.
 
-```typescript
-// src/sw.ts
-import { precacheAndRoute } from "workbox-precaching";
-import { registerRoute } from "workbox-routing";
-import {
-  CacheFirst,
-  NetworkFirst,
-  StaleWhileRevalidate,
-} from "workbox-strategies";
-import { ExpirationPlugin } from "workbox-expiration";
+## Debugging Checklist
 
-// Precache static assets
-precacheAndRoute(self.__WB_MANIFEST);
+1. **DevTools > Application > Manifest** - Valid?
+2. **DevTools > Application > Service Workers** - Registered?
+3. **DevTools > Application > Cache Storage** - What's cached?
+4. **DevTools > Network > Offline** - Works offline?
+5. **Lighthouse > PWA** - Score and failures?
+6. **iOS Safari** - Test on actual device
 
-// Cache images
-registerRoute(
-  ({ request }) => request.destination === "image",
-  new CacheFirst({
-    cacheName: "images",
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 100,
-        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
-      }),
-    ],
-  }),
-);
+## Related Skills
 
-// Network-first for API calls
-registerRoute(
-  ({ url }) => url.pathname.startsWith("/api/"),
-  new NetworkFirst({
-    cacheName: "api-cache",
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 50,
-        maxAgeSeconds: 5 * 60, // 5 minutes
-      }),
-    ],
-  }),
-);
-
-// Stale-while-revalidate for pages
-registerRoute(
-  ({ request }) => request.mode === "navigate",
-  new StaleWhileRevalidate({
-    cacheName: "pages",
-  }),
-);
-```
-
-### Service Worker Registration
-
-```typescript
-// src/registerSW.ts
-export async function registerServiceWorker() {
-  if ("serviceWorker" in navigator) {
-    try {
-      const registration = await navigator.serviceWorker.register("/sw.js", {
-        scope: "/",
-      });
-
-      registration.addEventListener("updatefound", () => {
-        const newWorker = registration.installing;
-        if (newWorker) {
-          newWorker.addEventListener("statechange", () => {
-            if (newWorker.state === "installed") {
-              if (navigator.serviceWorker.controller) {
-                // New update available
-                dispatchEvent(new CustomEvent("sw:update"));
-              }
-            }
-          });
-        }
-      });
-
-      console.log("Service Worker registered:", registration.scope);
-    } catch (error) {
-      console.error("Service Worker registration failed:", error);
-    }
-  }
-}
-```
-
----
-
-## Install Prompt
-
-### Custom Install Button
-
-```tsx
-import { useState, useEffect } from "react";
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-}
-
-function InstallButton() {
-  const [deferredPrompt, setDeferredPrompt] =
-    useState<BeforeInstallPromptEvent | null>(null);
-  const [isInstalled, setIsInstalled] = useState(false);
-
-  useEffect(() => {
-    // Check if already installed
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsInstalled(true);
-      return;
-    }
-
-    const handler = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-    };
-
-    window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("beforeinstallprompt", handler);
-  }, []);
-
-  const handleInstall = async () => {
-    if (!deferredPrompt) return;
-
-    await deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-
-    if (outcome === "accepted") {
-      setIsInstalled(true);
-    }
-    setDeferredPrompt(null);
-  };
-
-  if (isInstalled || !deferredPrompt) return null;
-
-  return (
-    <button onClick={handleInstall} className="install-button">
-      Install App
-    </button>
-  );
-}
-```
-
----
-
-## Offline Support
-
-### Offline Detection
-
-```tsx
-import { useState, useEffect } from "react";
-
-function useOnlineStatus() {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
-
-  useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  }, []);
-
-  return isOnline;
-}
-
-// Usage
-function App() {
-  const isOnline = useOnlineStatus();
-
-  return (
-    <div>
-      {!isOnline && (
-        <div className="offline-banner">
-          You're offline. Some features may be unavailable.
-        </div>
-      )}
-    </div>
-  );
-}
-```
-
-### Background Sync
-
-```typescript
-// In Service Worker
-self.addEventListener("sync", (event) => {
-  if (event.tag === "sync-data") {
-    event.waitUntil(syncData());
-  }
-});
-
-async function syncData() {
-  const db = await openDB("pending-requests", 1);
-  const requests = await db.getAll("requests");
-
-  for (const request of requests) {
-    try {
-      await fetch(request.url, request.options);
-      await db.delete("requests", request.id);
-    } catch {
-      // Will retry on next sync
-    }
-  }
-}
-
-// Register sync from app
-async function queueRequest(url: string, options: RequestInit) {
-  await navigator.serviceWorker.ready;
-
-  if ("sync" in window.ServiceWorkerRegistration.prototype) {
-    // Store request and trigger sync
-    const db = await openDB("pending-requests", 1);
-    await db.add("requests", { url, options, id: Date.now() });
-    await navigator.serviceWorker.ready.then((reg) =>
-      reg.sync.register("sync-data"),
-    );
-  } else {
-    // Fallback to immediate fetch
-    await fetch(url, options);
-  }
-}
-```
-
----
-
-## Push Notifications
-
-### Request Permission
-
-```typescript
-async function requestNotificationPermission() {
-  const permission = await Notification.requestPermission();
-  if (permission === "granted") {
-    const registration = await navigator.serviceWorker.ready;
-    const subscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
-    });
-
-    // Send subscription to server
-    await fetch("/api/push/subscribe", {
-      method: "POST",
-      body: JSON.stringify(subscription),
-    });
-  }
-}
-```
-
-### Handle Push in Service Worker
-
-```typescript
-self.addEventListener("push", (event) => {
-  const data = event.data?.json() ?? {};
-
-  event.waitUntil(
-    self.registration.showNotification(data.title, {
-      body: data.body,
-      icon: "/icons/icon-192x192.png",
-      badge: "/icons/badge.png",
-      data: data.url,
-    }),
-  );
-});
-
-self.addEventListener("notificationclick", (event) => {
-  event.notification.close();
-
-  if (event.notification.data) {
-    event.waitUntil(clients.openWindow(event.notification.data));
-  }
-});
-```
-
----
-
-## Vite PWA Plugin
-
-```typescript
-// vite.config.ts
-import { VitePWA } from "vite-plugin-pwa";
-
-export default defineConfig({
-  plugins: [
-    react(),
-    VitePWA({
-      registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "robots.txt", "icons/*.png"],
-      manifest: {
-        name: "My PWA",
-        short_name: "MyPWA",
-        theme_color: "#3b82f6",
-        icons: [
-          // ... icon definitions
-        ],
-      },
-      workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/api\.example\.com\/.*/i,
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "api-cache",
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24, // 24 hours
-              },
-            },
-          },
-        ],
-      },
-    }),
-  ],
-});
-```
-
----
-
-## Testing PWA
-
-### Lighthouse Audit
-
-1. Open Chrome DevTools
-2. Go to Lighthouse tab
-3. Select "Progressive Web App"
-4. Run audit
-
-### Required Scores
-
-- Performance: 90+
-- PWA: 100
-- Accessibility: 90+
-- Best Practices: 90+
-
----
-
-## Best Practices
-
-### DO:
-
-- Use HTTPS (required)
-- Provide offline fallback
-- Cache static assets
-- Show update notification
-- Handle all screen sizes
-
-### DON'T:
-
-- Cache everything forever
-- Block app on SW update
-- Ignore iOS limitations
-- Skip manifest icons
-- Forget offline states
+- **requirements-analysis** - Determine offline requirements
+- **system-design** - PWA architecture decisions
+- **react-pwa** - React-specific PWA implementation

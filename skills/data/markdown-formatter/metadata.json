@@ -1,7 +1,7 @@
 {
   "name": "markdown-formatter",
-  "repo": "dredd-us/seashells",
-  "path": ".claude/skills/markdown-formatter/SKILL.md",
-  "source": "github.com/dredd-us/seashells",
-  "downloaded_at": "2026-01-17T01:18:32.858830Z"
+  "repo": "maxvaega/skillkit",
+  "path": "examples/skills/markdown-formatter/SKILL.md",
+  "source": "github.com/maxvaega/skillkit",
+  "downloaded_at": "2026-01-19T01:23:36.036959Z"
 }

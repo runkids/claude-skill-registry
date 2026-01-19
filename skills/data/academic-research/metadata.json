@@ -1,9 +1,7 @@
 {
   "name": "academic-research",
-  "description": "Conduct deep academic research for philosophy, neuroscience, cognitive science, and theoretical computer science (computability, complexity, AI theory, logic). Use when user asks to: research academic",
-  "repo": "chrislemke/stoffy",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "plurigrid/asi",
+  "path": "skills/academic-research/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-19T04:21:48.748976Z"
 }

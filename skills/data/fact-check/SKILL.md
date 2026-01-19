@@ -1,649 +1,266 @@
 ---
-name: fact-check
-description: Verify technical accuracy of JavaScript concept pages by checking code examples, MDN/ECMAScript compliance, and external resources to prevent misinformation
+name: Fact Check
+description: This skill should be used when the user asks to "verify claims", "fact check", "validate documentation", "check sources", or needs verification of external source references. Provides patterns for systematic fact verification using Context7 and WebSearch.
 ---
 
-# Skill: JavaScript Fact Checker
-
-Use this skill to verify the technical accuracy of concept documentation pages for the 33 JavaScript Concepts project. This ensures we're not spreading misinformation about JavaScript.
-
-## When to Use
-
-- Before publishing a new concept page
-- After significant edits to existing content
-- When reviewing community contributions
-- When updating pages with new JavaScript features
-- Periodic accuracy audits of existing content
-
-## What We're Protecting Against
-
-- Incorrect JavaScript behavior claims
-- Outdated information (pre-ES6 patterns presented as current)
-- Code examples that don't produce stated outputs
-- Broken or misleading external resource links
-- Common misconceptions stated as fact
-- Browser-specific behavior presented as universal
-- Inaccurate API descriptions
-
----
-
-## Fact-Checking Methodology
-
-Follow these five phases in order for a complete fact check.
-
-### Phase 1: Code Example Verification
-
-Every code example in the concept page must be verified for accuracy.
-
-#### Step-by-Step Process
-
-1. **Identify all code blocks** in the document
-2. **For each code block:**
-   - Read the code and any output comments (e.g., `// "string"`)
-   - Mentally execute the code or test in a JavaScript environment
-   - Verify the output matches what's stated in comments
-   - Check that variable names and logic are correct
-
-3. **For "wrong" examples (marked with ❌):**
-   - Verify they actually produce the wrong/unexpected behavior
-   - Confirm the explanation of why it's wrong is accurate
-
-4. **For "correct" examples (marked with ✓):**
-   - Verify they work as stated
-   - Confirm they follow current best practices
-
-5. **Run project tests:**
-   ```bash
-   # Run all tests
-   npm test
-   
-   # Run tests for a specific concept
-   npm test -- tests/fundamentals/call-stack/
-   npm test -- tests/fundamentals/primitive-types/
-   ```
-
-6. **Check test coverage:**
-   - Look in `/tests/{category}/{concept-name}/`
-   - Verify tests exist for major code examples
-   - Flag examples without test coverage
-
-#### Code Verification Checklist
-
-| Check | How to Verify |
-|-------|---------------|
-| `console.log` outputs match comments | Run code or trace mentally |
-| Variables are correctly named/used | Read through logic |
-| Functions return expected values | Trace execution |
-| Async code resolves in stated order | Understand event loop |
-| Error examples actually throw | Test in try/catch |
-| Array/object methods return correct types | Check MDN |
-| `typeof` results are accurate | Test common cases |
-| Strict mode behavior noted if relevant | Check if example depends on it |
-
-#### Common Output Mistakes to Catch
-
-```javascript
-// Watch for these common mistakes:
-
-// 1. typeof null
-typeof null        // "object" (not "null"!)
-
-// 2. Array methods that return new arrays vs mutate
-const arr = [1, 2, 3]
-arr.push(4)        // Returns 4 (length), not the array!
-arr.map(x => x*2)  // Returns NEW array, doesn't mutate
-
-// 3. Promise resolution order
-Promise.resolve().then(() => console.log('micro'))
-setTimeout(() => console.log('macro'), 0)
-console.log('sync')
-// Output: sync, micro, macro (NOT sync, macro, micro)
-
-// 4. Comparison results
-[] == false        // true
-[] === false       // false
-![]                // false (empty array is truthy!)
-
-// 5. this binding
-const obj = {
-  name: 'Alice',
-  greet: () => console.log(this.name)  // undefined! Arrow has no this
-}
-```
-
----
-
-### Phase 2: MDN Documentation Verification
-
-All claims about JavaScript APIs, methods, and behavior should align with MDN documentation.
-
-#### Step-by-Step Process
-
-1. **Check all MDN links:**
-   - Click each MDN link in the document
-   - Verify the link returns 200 (not 404)
-   - Confirm the linked page matches what's being referenced
-
-2. **Verify API descriptions:**
-   - Compare method signatures with MDN
-   - Check parameter names and types
-   - Verify return types
-   - Confirm edge case behavior
-
-3. **Check for deprecated APIs:**
-   - Look for deprecation warnings on MDN
-   - Flag any deprecated methods being taught as current
-
-4. **Verify browser compatibility claims:**
-   - Cross-reference with MDN compatibility tables
-   - Check Can I Use for broader support data
-
-#### MDN Link Patterns
-
-| Content Type | MDN URL Pattern |
-|--------------|-----------------|
-| Web APIs | `https://developer.mozilla.org/en-US/docs/Web/API/{APIName}` |
-| Global Objects | `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/{Object}` |
-| Statements | `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/{Statement}` |
-| Operators | `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/{Operator}` |
-| HTTP | `https://developer.mozilla.org/en-US/docs/Web/HTTP` |
-
-#### What to Verify Against MDN
-
-| Claim Type | What to Check |
-|------------|---------------|
-| Method signature | Parameters, optional params, return type |
-| Return value | Exact type and possible values |
-| Side effects | Does it mutate? What does it affect? |
-| Exceptions | What errors can it throw? |
-| Browser support | Compatibility tables |
-| Deprecation status | Any deprecation warnings? |
-
----
-
-### Phase 3: ECMAScript Specification Compliance
-
-For nuanced JavaScript behavior, verify against the ECMAScript specification.
-
-#### When to Check the Spec
-
-- Edge cases and unusual behavior
-- Claims about "how JavaScript works internally"
-- Type coercion rules
-- Operator precedence
-- Execution order guarantees
-- Claims using words like "always", "never", "guaranteed"
-
-#### How to Navigate the Spec
-
-The ECMAScript specification is at: https://tc39.es/ecma262/
-
-| Concept | Spec Section |
-|---------|--------------|
-| Type coercion | Abstract Operations (7.1) |
-| Equality | Abstract Equality Comparison (7.2.14), Strict Equality (7.2.15) |
-| typeof | The typeof Operator (13.5.3) |
-| Objects | Ordinary and Exotic Objects' Behaviours (10) |
-| Functions | ECMAScript Function Objects (10.2) |
-| this binding | ResolveThisBinding (9.4.4) |
-| Promises | Promise Objects (27.2) |
-| Iteration | Iteration (27.1) |
-
-#### Spec Verification Examples
-
-```javascript
-// Claim: "typeof null returns 'object' due to a bug"
-// Spec says: typeof null → "object" (Table 41)
-// Historical context: This is a known quirk from JS 1.0
-// Verdict: ✓ Correct, though calling it a "bug" is slightly informal
-
-// Claim: "Promises always resolve asynchronously"
-// Spec says: Promise reaction jobs are enqueued (27.2.1.3.2)
-// Verdict: ✓ Correct - even resolved promises schedule microtasks
-
-// Claim: "=== is faster than =="
-// Spec says: Nothing about performance
-// Verdict: ⚠️ Needs nuance - this is implementation-dependent
-```
-
----
-
-### Phase 4: External Resource Verification
-
-All external links (articles, videos, courses) must be verified.
-
-#### Step-by-Step Process
-
-1. **Check link accessibility:**
-   - Click each external link
-   - Verify it loads (not 404, not paywalled)
-   - Note any redirects to different URLs
-
-2. **Verify content accuracy:**
-   - Skim the resource for obvious errors
-   - Check it's JavaScript-focused (not C#, Python, Java)
-   - Verify it's not teaching anti-patterns
-
-3. **Check publication date:**
-   - For time-sensitive topics (async, modules, etc.), prefer recent content
-   - Flag resources from before 2015 for ES6+ topics
-
-4. **Verify description accuracy:**
-   - Does our description match what the resource actually covers?
-   - Is the description specific (not generic)?
-
-#### External Resource Checklist
-
-| Check | Pass Criteria |
-|-------|---------------|
-| Link works | Returns 200, content loads |
-| Not paywalled | Free to access (or clearly marked) |
-| JavaScript-focused | Not primarily about other languages |
-| Not outdated | Post-2015 for modern JS topics |
-| Accurate description | Our description matches actual content |
-| No anti-patterns | Doesn't teach bad practices |
-| Reputable source | From known/trusted creators |
-
-#### Red Flags in External Resources
-
-- Uses `var` everywhere for ES6+ topics
-- Uses callbacks for content about Promises/async
-- Teaches jQuery as modern DOM manipulation
-- Contains factual errors about JavaScript
-- Video is >2 hours without timestamp links
-- Content is primarily about another language
-- Uses deprecated APIs without noting deprecation
-
----
-
-### Phase 5: Technical Claims Audit
-
-Review all prose claims about JavaScript behavior.
-
-#### Claims That Need Verification
-
-| Claim Type | How to Verify |
-|------------|---------------|
-| Performance claims | Need benchmarks or caveats |
-| Browser behavior | Specify which browsers, check MDN |
-| Historical claims | Verify dates/versions |
-| "Always" or "never" statements | Check for exceptions |
-| Comparisons (X vs Y) | Verify both sides accurately |
-
-#### Red Flags in Technical Claims
-
-- "Always" or "never" without exceptions noted
-- Performance claims without benchmarks
-- Browser behavior claims without specifying browsers
-- Comparisons that oversimplify differences
-- Historical claims without dates
-- Claims about "how JavaScript works" without spec reference
-
-#### Examples of Claims to Verify
-
-```markdown
-❌ "async/await is always better than Promises"
-→ Verify: Not always - Promise.all() is better for parallel operations
-
-❌ "JavaScript is an interpreted language"
-→ Verify: Modern JS engines use JIT compilation
-
-❌ "Objects are passed by reference"
-→ Verify: Technically "passed by sharing" - the reference is passed by value
-
-❌ "=== is faster than =="
-→ Verify: Implementation-dependent, not guaranteed by spec
-
-✓ "JavaScript is single-threaded"
-→ Verify: Correct for the main thread (Web Workers are separate)
-
-✓ "Promises always resolve asynchronously"
-→ Verify: Correct per ECMAScript spec
-```
-
----
-
-## Common JavaScript Misconceptions
-
-Watch for these misconceptions being stated as fact.
-
-### Type System Misconceptions
-
-| Misconception | Reality | How to Verify |
-|---------------|---------|---------------|
-| `typeof null === "object"` is intentional | It's a bug from JS 1.0 that can't be fixed for compatibility | Historical context, TC39 discussions |
-| JavaScript has no types | JS is dynamically typed, not untyped | ECMAScript spec defines types |
-| `==` is always wrong | `== null` checks both null and undefined, has valid uses | Many style guides allow this pattern |
-| `NaN === NaN` is false "by mistake" | It's intentional per IEEE 754 floating point spec | IEEE 754 standard |
-
-### Function Misconceptions
-
-| Misconception | Reality | How to Verify |
-|---------------|---------|---------------|
-| Arrow functions are just shorter syntax | They have no `this`, `arguments`, `super`, or `new.target` | MDN, ECMAScript spec |
-| `var` is hoisted to function scope with its value | Only declaration is hoisted, not initialization | Code test, MDN |
-| Closures are a special opt-in feature | All functions in JS are closures | ECMAScript spec |
-| IIFEs are obsolete | Still useful for one-time initialization | Modern codebases still use them |
-
-### Async Misconceptions
-
-| Misconception | Reality | How to Verify |
-|---------------|---------|---------------|
-| Promises run in parallel | JS is single-threaded; Promises are async, not parallel | Event loop explanation |
-| `async/await` is different from Promises | It's syntactic sugar over Promises | MDN, can await any thenable |
-| `setTimeout(fn, 0)` runs immediately | Runs after current execution + microtasks | Event loop, code test |
-| `await` pauses the entire program | Only pauses the async function, not the event loop | Code test |
-
-### Object Misconceptions
-
-| Misconception | Reality | How to Verify |
-|---------------|---------|---------------|
-| Objects are "passed by reference" | References are passed by value ("pass by sharing") | Reassignment test |
-| `const` makes objects immutable | `const` prevents reassignment, not mutation | Code test |
-| Everything in JavaScript is an object | Primitives are not objects (though they have wrappers) | `typeof` tests, MDN |
-| `Object.freeze()` creates deep immutability | It's shallow - nested objects can still be mutated | Code test |
-
-### Performance Misconceptions
-
-| Misconception | Reality | How to Verify |
-|---------------|---------|---------------|
-| `===` is always faster than `==` | Implementation-dependent, not spec-guaranteed | Benchmarks vary |
-| `for` loops are faster than `forEach` | Modern engines optimize both; depends on use case | Benchmark |
-| Arrow functions are faster | No performance difference, just different behavior | Benchmark |
-| Avoiding DOM manipulation is always faster | Sometimes batch mutations are slower than individual | Depends on browser, use case |
-
----
-
-## Test Integration
-
-Running the project's test suite is a key part of fact-checking.
-
-### Test Commands
-
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run tests for specific concept
-npm test -- tests/fundamentals/call-stack/
-npm test -- tests/fundamentals/primitive-types/
-npm test -- tests/fundamentals/value-reference-types/
-npm test -- tests/fundamentals/type-coercion/
-npm test -- tests/fundamentals/equality-operators/
-npm test -- tests/fundamentals/scope-and-closures/
-```
-
-### Test Directory Structure
-
-```
-tests/
-├── fundamentals/              # Concepts 1-6
-│   ├── call-stack/
-│   ├── primitive-types/
-│   ├── value-reference-types/
-│   ├── type-coercion/
-│   ├── equality-operators/
-│   └── scope-and-closures/
-├── functions-execution/       # Concepts 7-8
-│   ├── event-loop/
-│   └── iife-modules/
-└── web-platform/              # Concepts 9-10
-    ├── dom/
-    └── http-fetch/
-```
-
-### When Tests Are Missing
-
-If a concept doesn't have tests:
-1. Flag this in the report as "needs test coverage"
-2. Manually verify code examples are correct
-3. Consider adding tests as a follow-up task
-
----
-
-## Verification Resources
-
-### Primary Sources
-
-| Resource | URL | Use For |
-|----------|-----|---------|
-| MDN Web Docs | https://developer.mozilla.org | API docs, guides, compatibility |
-| ECMAScript Spec | https://tc39.es/ecma262 | Authoritative behavior |
-| TC39 Proposals | https://github.com/tc39/proposals | New features, stages |
-| Can I Use | https://caniuse.com | Browser compatibility |
-| Node.js Docs | https://nodejs.org/docs | Node-specific APIs |
-| V8 Blog | https://v8.dev/blog | Engine internals |
-
-### Project Resources
-
-| Resource | Path | Use For |
-|----------|------|---------|
-| Test Suite | `/tests/` | Verify code examples |
-| Concept Pages | `/docs/concepts/` | Current content |
-| Run Tests | `npm test` | Execute all tests |
-
----
-
-## Fact Check Report Template
-
-Use this template to document your findings.
-
-```markdown
-# Fact Check Report: [Concept Name]
-
-**File:** `/docs/concepts/[slug].mdx`
-**Date:** YYYY-MM-DD
-**Reviewer:** [Name/Claude]
-**Overall Status:** ✅ Verified | ⚠️ Minor Issues | ❌ Major Issues
-
----
-
-## Executive Summary
-
-[2-3 sentence summary of findings. State whether the page is accurate overall and highlight any critical issues.]
-
-**Tests Run:** Yes/No
-**Test Results:** X passing, Y failing
-**External Links Checked:** X/Y valid
-
----
-
-## Phase 1: Code Example Verification
-
-| # | Description | Line | Status | Notes |
-|---|-------------|------|--------|-------|
-| 1 | [Brief description] | XX | ✅/⚠️/❌ | [Notes] |
-| 2 | [Brief description] | XX | ✅/⚠️/❌ | [Notes] |
-| 3 | [Brief description] | XX | ✅/⚠️/❌ | [Notes] |
-
-### Code Issues Found
-
-#### Issue 1: [Title]
-
-**Location:** Line XX
-**Severity:** Critical/Major/Minor
-**Current Code:**
-```javascript
-// The problematic code
-```
-**Problem:** [Explanation of what's wrong]
-**Correct Code:**
-```javascript
-// The corrected code
-```
-
----
-
-## Phase 2: MDN/Specification Verification
-
-| Claim | Location | Source | Status | Notes |
-|-------|----------|--------|--------|-------|
-| [Claim made] | Line XX | MDN/Spec | ✅/⚠️/❌ | [Notes] |
-
-### MDN Link Status
-
-| Link Text | URL | Status |
-|-----------|-----|--------|
-| [Text] | [URL] | ✅ 200 / ❌ 404 |
-
-### Specification Discrepancies
-
-[If any claims don't match the ECMAScript spec, detail them here]
-
----
-
-## Phase 3: External Resource Verification
-
-| Resource | Type | Link | Content | Notes |
-|----------|------|------|---------|-------|
-| [Title] | Article/Video | ✅/❌ | ✅/⚠️/❌ | [Notes] |
-
-### Broken Links
-
-1. **Line XX:** [URL] - 404 Not Found
-2. **Line YY:** [URL] - Domain expired
-
-### Content Concerns
-
-1. **[Resource name]:** [Concern - e.g., outdated, wrong language, anti-patterns]
-
-### Description Accuracy
-
-| Resource | Description Accurate? | Notes |
-|----------|----------------------|-------|
-| [Title] | ✅/❌ | [Notes] |
-
----
-
-## Phase 4: Technical Claims Audit
-
-| Claim | Location | Verdict | Notes |
-|-------|----------|---------|-------|
-| "[Claim]" | Line XX | ✅/⚠️/❌ | [Notes] |
-
-### Claims Needing Revision
-
-1. **Line XX:** "[Current claim]"
-   - **Issue:** [What's wrong]
-   - **Suggested:** "[Revised claim]"
-
----
-
-## Phase 5: Test Results
-
-**Test File:** `/tests/[category]/[concept]/[concept].test.js`
-**Tests Run:** XX
-**Passing:** XX
-**Failing:** XX
-
-### Failing Tests
-
-| Test Name | Expected | Actual | Related Doc Line |
-|-----------|----------|--------|------------------|
-| [Test] | [Expected] | [Actual] | Line XX |
-
-### Coverage Gaps
-
-Examples in documentation without corresponding tests:
-- [ ] Line XX: [Description of untested example]
-- [ ] Line YY: [Description of untested example]
-
----
-
-## Issues Summary
-
-### Critical (Must Fix Before Publishing)
-
-1. **[Issue title]**
-   - Location: Line XX
-   - Problem: [Description]
-   - Fix: [How to fix]
-
-### Major (Should Fix)
-
-1. **[Issue title]**
-   - Location: Line XX
-   - Problem: [Description]
-   - Fix: [How to fix]
-
-### Minor (Nice to Have)
-
-1. **[Issue title]**
-   - Location: Line XX
-   - Suggestion: [Improvement]
-
----
-
-## Recommendations
-
-1. **[Priority 1]:** [Specific actionable recommendation]
-2. **[Priority 2]:** [Specific actionable recommendation]
-3. **[Priority 3]:** [Specific actionable recommendation]
-
----
-
-## Verification Checklist
-
-- [ ] All code examples verified for correct output
-- [ ] All MDN links checked and valid
-- [ ] API descriptions match MDN documentation
-- [ ] ECMAScript compliance verified (if applicable)
-- [ ] All external resource links accessible
-- [ ] Resource descriptions accurately represent content
-- [ ] No common JavaScript misconceptions found
-- [ ] Technical claims are accurate and nuanced
-- [ ] Project tests run and reviewed
-- [ ] Report complete and ready for handoff
-
----
-
-## Sign-off
-
-**Verified by:** [Name/Claude]
-**Date:** YYYY-MM-DD
-**Recommendation:** ✅ Ready to publish | ⚠️ Fix issues first | ❌ Major revision needed
-```
-
----
-
-## Quick Reference: Verification Commands
-
-```bash
-# Run all tests
-npm test
-
-# Run specific concept tests
-npm test -- tests/fundamentals/call-stack/
-
-# Check for broken links (if you have a link checker)
-# Install: npm install -g broken-link-checker
-# Run: blc https://developer.mozilla.org/... -ro
-
-# Quick JavaScript REPL for testing
-node
-> typeof null
-'object'
-> [1,2,3].map(x => x * 2)
-[ 2, 4, 6 ]
-```
-
----
-
-## Summary
-
-When fact-checking a concept page:
-
-1. **Run tests first** — `npm test` catches code errors automatically
-2. **Verify every code example** — Output comments must match reality
-3. **Check all MDN links** — Broken links and incorrect descriptions hurt credibility
-4. **Verify external resources** — Must be accessible, accurate, and JavaScript-focused
-5. **Audit technical claims** — Watch for misconceptions and unsupported statements
-6. **Document everything** — Use the report template for consistent, thorough reviews
-
-**Remember:** Our readers trust us to teach them correct JavaScript. A single piece of misinformation can create confusion that takes years to unlearn. Take fact-checking seriously.
+<purpose>
+Provide patterns for systematic fact-checking of claims against authoritative external sources using Context7 MCP and WebSearch tools.
+</purpose>
+
+<tools>
+<tool name="resolve-library-id">
+<description>Resolve package name to Context7-compatible library ID</description>
+<param name="libraryName">Library name to search for</param>
+<use_case>Must call before get-library-docs for library documentation claims</use_case>
+</tool>
+
+<tool name="get-library-docs">
+<description>Fetch documentation for a specific library to verify claims</description>
+<param name="context7CompatibleLibraryID">Library ID from resolve-library-id</param>
+<param name="topic">Specific topic to verify</param>
+<param name="tokens">Max tokens to retrieve (default: 5000)</param>
+<use_case>Verify claims about library APIs, behavior, and best practices</use_case>
+</tool>
+
+<tool name="WebSearch">
+<description>Search web for verification of general claims</description>
+<param name="query">Search query for verification</param>
+<use_case>Verify claims about standards, specifications, and general technical facts</use_case>
+</tool>
+
+<tool name="WebFetch">
+<description>Fetch specific URL content for verification</description>
+<param name="url">URL to fetch</param>
+<param name="prompt">Extraction prompt for relevant content</param>
+<use_case>Verify claims against specific documentation pages or specifications</use_case>
+</tool>
+</tools>
+
+<workflow>
+<phase name="extract">
+<objective>Identify verifiable claims from content</objective>
+<step>1. Scan content for claims referencing external sources</step>
+<step>2. Classify claims by type (library API, documentation, standard, specification)</step>
+<step>3. Prioritize claims by impact and verifiability</step>
+</phase>
+<phase name="verify">
+<objective>Verify each claim against authoritative sources</objective>
+<step>1. Select appropriate verification source (Context7 for libraries, WebSearch for general)</step>
+<step>2. Query source for relevant information</step>
+<step>3. Compare claim against retrieved evidence</step>
+<step>4. Calculate verification confidence (0-100)</step>
+</phase>
+<phase name="synthesize">
+<objective>Generate verification report</objective>
+<step>1. Compile verified claims with evidence</step>
+<step>2. Flag claims with confidence below 80</step>
+<step>3. Document unverifiable claims</step>
+</phase>
+</workflow>
+
+<error_escalation>
+<level severity="low">
+<example>Claim cannot be verified due to missing documentation</example>
+<action>Note in report as unverifiable, proceed</action>
+</level>
+<level severity="medium">
+<example>Conflicting information from different sources</example>
+<action>Document discrepancy, use AskUserQuestion for clarification</action>
+</level>
+<level severity="high">
+<example>Claim directly contradicts authoritative source</example>
+<action>STOP, flag discrepancy to user with evidence</action>
+</level>
+<level severity="critical">
+<example>Security-related claim is incorrect</example>
+<action>BLOCK operation, require explicit user acknowledgment</action>
+</level>
+</error_escalation>
+
+<patterns>
+<pattern name="claim_extraction">
+<description>Identify claims that reference external sources for verification</description>
+<decision_tree name="when_to_use">
+<question>Does the content reference external documentation or standards?</question>
+<if_yes>Apply claim extraction to identify verifiable assertions</if_yes>
+<if_no>No fact-checking needed for this content</if_no>
+</decision_tree>
+<example>
+Claim types to extract:
+Library API claims: "useState returns a tuple"
+Documentation references: "according to the React docs"
+Standard compliance: "follows WCAG 2.1 AA"
+Version-specific behavior: "in React 18, Suspense..."
+Performance claims: "O(log n) complexity per MDN"
+
+Version-specific example:
+Claim: "React 18 introduces automatic batching for all updates"
+Verification: Query Context7 with topic="batching" for React 18 docs
+Result: Confirmed - React 18 automatically batches state updates inside promises, setTimeout, and native event handlers
+</example>
+</pattern>
+
+<pattern name="source_selection">
+<description>Choose appropriate verification source based on claim type</description>
+<decision_tree name="when_to_use">
+<question>What type of claim needs verification?</question>
+<branch condition="Library/framework API">Use Context7 with resolve-library-id then get-library-docs</branch>
+<branch condition="Web standard/specification">Use WebSearch for official specification</branch>
+<branch condition="General technical fact">Use WebSearch with authoritative domain filter</branch>
+<branch condition="Specific documentation URL">Use WebFetch to retrieve and verify</branch>
+</decision_tree>
+<example>
+Source priority:
+Context7 for library documentation (trust score 7+)
+WebFetch for specific URLs cited in claims
+WebSearch for general technical claims
+Mark as unverifiable if no source available
+</example>
+</pattern>
+
+<pattern name="confidence_assessment">
+<description>Calculate verification confidence based on evidence quality</description>
+<decision_tree name="when_to_use">
+<question>Has verification evidence been collected?</question>
+<if_yes>Apply confidence assessment to rate verification quality</if_yes>
+<if_no>Continue evidence collection before assessment</if_no>
+</decision_tree>
+<example>
+Confidence levels:
+90-100: Exact match with authoritative source
+80-89: Strong match with minor wording differences
+70-79: Partial match, some details unverified
+60-69: Weak match, significant uncertainty
+0-59: No match or contradictory evidence
+
+Threshold: Flag claims with confidence below 80
+</example>
+</pattern>
+
+<pattern name="discrepancy_reporting">
+<description>Format and report verification failures with evidence</description>
+<decision_tree name="when_to_use">
+<question>Is the verification confidence below 80?</question>
+<if_yes>Apply discrepancy reporting to document the issue</if_yes>
+<if_no>Mark claim as verified</if_no>
+</decision_tree>
+<example>
+Discrepancy report format:
+Claim: Original assertion made
+Source: Where claim was made
+Verification source: Context7/WebSearch result
+Evidence: Actual information from source
+Confidence: 0-100 score
+Recommendation: Suggested correction or note
+</example>
+</pattern>
+</patterns>
+
+<concepts>
+<concept name="verification_sources">
+<description>Authoritative sources for different claim types</description>
+<example>
+Library documentation: Context7 MCP
+React: /facebook/react
+Next.js: /vercel/next.js
+TypeScript: /microsoft/typescript
+NixOS: /nixos/nixpkgs
+
+Web standards: WebSearch with domain filters
+MDN Web Docs: developer.mozilla.org
+W3C: w3.org
+WHATWG: html.spec.whatwg.org
+OWASP: owasp.org
+</example>
+</concept>
+
+<concept name="claim_types">
+<description>Categories of verifiable claims</description>
+<example>
+API behavior: Function signatures, return types, parameters
+Configuration: Config options, default values, valid settings
+Best practices: Recommended patterns from official docs
+Deprecation: API deprecation status and alternatives
+Compatibility: Version compatibility and requirements
+Performance: Complexity claims, benchmark references
+Security: Security recommendations and vulnerability info
+</example>
+</concept>
+
+<concept name="confidence_thresholds">
+<description>Confidence score interpretation</description>
+<example>
+80+: Verified - Claim matches authoritative source
+60-79: Uncertain - Partial verification, review recommended
+Below 60: Disputed - Claim contradicts or unsupported by source
+Unverifiable: No authoritative source available
+</example>
+</concept>
+</concepts>
+
+<best_practices>
+<practice priority="critical">Use Context7 as primary source for library documentation claims</practice>
+<practice priority="critical">Flag all claims with verification confidence below 80</practice>
+<practice priority="critical">Document evidence source for each verification</practice>
+<practice priority="high">Prefer libraries with Context7 trust score 7+ for verification</practice>
+<practice priority="high">Use WebSearch fallback when Context7 unavailable</practice>
+<practice priority="medium">Include direct quotes from sources as evidence</practice>
+<practice priority="medium">Note when verification source has version mismatch</practice>
+</best_practices>
+
+<anti_patterns>
+<avoid name="assumption_verification">
+<description>Marking claims as verified without actual source check</description>
+<instead>Always query Context7 or WebSearch for evidence before marking verified</instead>
+</avoid>
+
+<avoid name="single_source_reliance">
+<description>Relying on only one source for disputed claims</description>
+<instead>Cross-reference with multiple sources when confidence is borderline (70-85)</instead>
+</avoid>
+
+<avoid name="ignoring_version_context">
+<description>Verifying claims without considering version differences</description>
+<instead>Note version context and verify against appropriate documentation version</instead>
+</avoid>
+
+<avoid name="over_verification">
+<description>Attempting to verify every statement including obvious facts</description>
+<instead>Focus on claims referencing external sources, APIs, and specifications</instead>
+</avoid>
+</anti_patterns>
+
+<rules priority="critical">
+<rule>Always verify claims against authoritative sources before flagging</rule>
+<rule>Use Context7 as primary source for library and framework claims</rule>
+<rule>Flag claims with confidence below 80 in fact check results</rule>
+<rule>Document evidence source for every verification</rule>
+</rules>
+
+<rules priority="standard">
+<rule>Use WebSearch as fallback when Context7 unavailable</rule>
+<rule>Prefer official documentation over third-party sources</rule>
+<rule>Note version context when verifying version-specific claims</rule>
+<rule>Cross-reference disputed claims with multiple sources</rule>
+</rules>
+
+<constraints>
+<must>Query authoritative sources before verification</must>
+<must>Document evidence for all verification results</must>
+<must>Flag discrepancies with confidence scores</must>
+<avoid>Marking claims verified without source check</avoid>
+<avoid>Verifying claims based on assumption or memory</avoid>
+<avoid>Ignoring version context in verification</avoid>
+</constraints>
+
+<related_agents>
+<agent name="fact-check">Primary agent using this skill for verification</agent>
+<agent name="quality-assurance">Uses fact-check for documentation accuracy</agent>
+<agent name="docs">Uses fact-check to verify documentation claims</agent>
+</related_agents>
+
+<related_skills>
+<skill name="context7-usage">Core tool for library documentation verification</skill>
+<skill name="investigation-patterns">Evidence collection methodology</skill>
+<skill name="technical-documentation">Documentation accuracy standards</skill>
+</related_skills>

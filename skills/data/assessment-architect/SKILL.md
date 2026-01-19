@@ -1,11 +1,14 @@
 ---
 name: assessment-architect
-description: Generate MIT-standard assessments through deterministic orchestration. Reads source material, spawns subagents with mandatory SKILL.md + references reading. Subagents write markdown to assessments/ directory. Main agent assembles and validates before DOCX delivery. Prevents placeholder failures through explicit protocols.
+description: Generate MIT-standard certification exams (DOCX) for chapters or parts. Use "ch X" for single chapter, "part X" for entire part. Disambiguates scope before generation. Outputs to assessments/ directory.
 ---
 
-# Assessment Architect (MIT Standard) - Generic & Deterministic
+# Assessment Architect (MIT Standard) - Certification Exams
 
-Generate rigorous, pedagogically sound assessments for **any chapter** with explicit protocols and reliability guarantees.
+Generate rigorous, pedagogically sound **certification exams** for any chapter or part with explicit protocols and reliability guarantees.
+
+**Output:** DOCX format for print/distribution (assessments/ directory)
+**NOT for:** Practice quizzes (those use `*_quiz.md` MDX files in chapter directories)
 
 ---
 
@@ -54,10 +57,26 @@ Subagents must follow **mandatory prerequisite protocol** and **hard constraints
 - "create quiz" | "generate exam" | "make practice questions"
 - "assessment" | "test me on [topic]" | "chapter assessment"
 
-**Input Format:**
-- `Chapter 5` | `ch 5` | `chapter 5: Claude Code Features and Workflows`
-- `Chapter 40` | `ch 40` | `chapter 40: FastAPI Agent API`
-- Output format: `docx` or `markdown`
+**Input Format (CRITICAL - Chapter vs Part):**
+
+| Input | Interpretation | Scope |
+|-------|----------------|-------|
+| `ch 5` / `chapter 5` | Chapter 5 | Single chapter: `*/05-*/` |
+| `part 5` / `p5` | Part 5 | All chapters in: `05-*/` |
+| `5` (bare number) | **AMBIGUOUS** | Ask user: "Chapter 5 or Part 5?" |
+
+**Book Structure (docs/<PART>/<CHAPTER>/):**
+```
+Part 1 (01-*): Chapters 1-3
+Part 2 (02-*): Chapters 4-10   ← Chapter 5 (Claude Code) is HERE
+Part 3 (03-*): Chapters 11-12
+Part 4 (04-*): Chapters 13-14
+Part 5 (05-*): Chapters 15-32  ← Part 5 has 18 chapters
+Part 6 (06-*): Chapters 33-47
+Part 7 (07-*): Chapters 48-57
+```
+
+**Chapter numbers are GLOBAL**, not local to parts. "ch 5" ≠ "part 5".
 
 ### 6. Question Type Distribution (T2 Intermediate - Standard)
 
@@ -89,66 +108,126 @@ Explicit subagent output contract (assessments/ directory), deterministic file l
 
 ---
 
-## Workflow: 7-Phase Deterministic Process
+## Workflow: 8-Phase Deterministic Process
 
-### Phase 0: User Input & Parameter Negotiation ⭐ (NEW - GOVERNANCE)
+### Phase 0: Scope Disambiguation ⭐ (CRITICAL - PREVENTS MISINTERPRETATION)
 
-**Use AskUserQuestion to gather quiz parameters:**
-1. Quiz Title/Description (default: "{CHAPTER_NAME} Professional Certification Exam")
-2. Question Count (50/75/100/custom, default: 100)
-3. Difficulty Tier (T1/T2/T3, default: T2)
-4. Time Limit in minutes (default: 150)
-5. Target Audience (Book readers/Practitioners/Instructors)
+**Parse input to determine scope BEFORE any other action:**
 
-**Output:** User confirmation of parameters, then proceed to Phase 1.
+```
+STEP 0.1: PARSE INPUT FORMAT
+  input = user's request (e.g., "ch 5", "part 5", "5", "chapter 15")
+
+  IF input matches "ch X" | "chapter X":
+    SCOPE_TYPE = "chapter"
+    SCOPE_NUM = X
+    → Search: apps/learn-app/docs/*/X-*/ (chapter folder)
+
+  ELSE IF input matches "part X" | "p X" | "pX":
+    SCOPE_TYPE = "part"
+    SCOPE_NUM = X
+    → Search: apps/learn-app/docs/X-*/ (part folder)
+
+  ELSE IF input is bare number "X":
+    ⚠️ AMBIGUOUS - MUST ASK USER
+    AskUserQuestion:
+      "'{X}' is ambiguous. Did you mean:
+       A) Chapter {X} (single chapter)
+       B) Part {X} (all chapters in that part)"
+
+STEP 0.2: VALIDATE SCOPE EXISTS
+  IF SCOPE_TYPE == "chapter":
+    path = glob("apps/learn-app/docs/*/{SCOPE_NUM:02d}-*/")
+    IF NOT exists: FAIL "Chapter {SCOPE_NUM} not found"
+    CHAPTER_PATH = path
+    CHAPTER_COUNT = 1
+
+  IF SCOPE_TYPE == "part":
+    path = glob("apps/learn-app/docs/{SCOPE_NUM:02d}-*/")
+    IF NOT exists: FAIL "Part {SCOPE_NUM} not found"
+    PART_PATH = path
+    chapters = ls {PART_PATH}/*/README.md
+    CHAPTER_COUNT = count(chapters)
+    → Report: "Part {SCOPE_NUM} contains {CHAPTER_COUNT} chapters"
+
+STEP 0.3: CONFIRM SCOPE WITH USER
+  Display discovered scope:
+  "Scope confirmed:
+   - Type: {SCOPE_TYPE}
+   - {SCOPE_TYPE == 'chapter' ? 'Chapter' : 'Part'}: {SCOPE_NUM}
+   - Path: {path}
+   - Chapters: {CHAPTER_COUNT}
+   - Estimated lessons: {lesson_count}"
+```
 
 ---
 
-### Phase 1: Scope Discovery & Complete Lesson Audit ⭐ (ENHANCED)
+### Phase 0.5: Exam Parameters
 
-**Steps:**
+**Use AskUserQuestion to gather exam parameters:**
+
 ```
-1. Parse chapter identifier
-   CHAPTER_NUM = extract number (5, 40, 50, etc.)
-   CHAPTER_SLUG = "ch{CHAPTER_NUM}"
+QUESTION 1: QUESTION COUNT
+  Default: 100 questions total
+  Options: 50 (quick) | 75 (standard) | 100 (comprehensive)
 
-2. Discover chapter path (DYNAMIC)
-   search for: apps/learn-app/docs/*/0{CHAPTER_NUM}-*/ (if exists)
-   search for: apps/learn-app/docs/*/{CHAPTER_NUM:02d}-*/ (alternative format)
-   IF found: CHAPTER_PATH = {discovered_path}
-   IF NOT: Ask user: "Where are Chapter {N} lessons? (e.g., path/to/chapter/)"
+QUESTION 2: DIFFICULTY TIER
+  Options: T1 (Introductory) | T2 (Intermediate - default) | T3 (Advanced)
+```
 
-3. COMPLETE LESSON AUDIT (NOT JUST FIRST 15)
-   Bash: ls {CHAPTER_PATH}/*.md | grep -v summary | wc -l
-   List ALL lessons: 01-*, 02-*, ... 99-*
+**Output:** Store QUESTION_COUNT, DIFFICULTY_TIER for subsequent phases.
 
-   ⚠️ CRITICAL: Verify all lessons, not just first 15
-   Report: "Found {TOTAL} lessons in Chapter {NUM}"
+---
 
-   If <10 lessons: WARN "Unexpectedly low lesson count"
-   If >25 lessons: WARN "Unexpectedly high lesson count"
+### Phase 1: Content Audit ⭐ (ENHANCED FOR CHAPTERS AND PARTS)
 
-4. CONCEPT MAPPING (NEW)
-   Read: 3-4 key lessons across beginning/middle/end
-   Extract core concepts (not just facts):
-   - Architectural patterns (how things relate)
-   - Trade-offs (not just features)
-   - Design decisions (not just definitions)
+**Steps (adapted based on SCOPE_TYPE from Phase 0):**
 
-   Example output:
-   ```
-   Chapter 5 Core Concepts:
-   - Context Persistence: CLAUDE.md, .claude/settings.json, session context
-   - Component Isolation: Subagents, Tools, MCP servers
-   - Expertise Encoding: Skills, skill architecture, three-level loading
-   - Coordination Patterns: Subagent orchestration, sequential/parallel
-   ```
+```
+IF SCOPE_TYPE == "chapter":
+  1. Use CHAPTER_PATH from Phase 0
+  2. COMPLETE LESSON AUDIT:
+     Bash: ls {CHAPTER_PATH}/*.md | grep -v summary | grep -v README | grep -v quiz | wc -l
+     List ALL lessons: 01-*, 02-*, ... 99-*
+     Report: "Found {TOTAL} lessons in Chapter {CHAPTER_NUM}"
 
-5. Store variables:
-   CHAPTER_NUM, CHAPTER_NAME, CHAPTER_PATH, QUESTION_COUNT, LESSON_COUNT (all lessons, not just 15)
+  3. CONCEPT MAPPING:
+     Read 3-4 key lessons across beginning/middle/end
+     Extract core concepts (not just facts)
+
+  4. Store: CHAPTER_NUM, CHAPTER_NAME, CHAPTER_PATH, LESSON_COUNT
+
+IF SCOPE_TYPE == "part":
+  1. Use PART_PATH from Phase 0
+  2. ENUMERATE ALL CHAPTERS IN PART:
+     chapters = ls -d {PART_PATH}/*/
+     FOR each chapter_dir in chapters:
+       chapter_num = extract number from dir name
+       lesson_count = count lessons in chapter_dir
+       Store: CHAPTERS[chapter_num] = {path, lesson_count, name}
+
+  3. CALCULATE QUESTION DISTRIBUTION:
+     total_lessons = sum(all lesson counts)
+     FOR each chapter:
+       weight = chapter.lesson_count / total_lessons
+       chapter.question_allocation = round(QUESTION_COUNT * weight)
+
+  4. Example for Part 5 (Python Fundamentals):
+     ```
+     Part 5 Content Audit:
+     ├── Ch 15 (UV Package Manager): 9 lessons → 12 questions
+     ├── Ch 16 (Intro Python): 5 lessons → 8 questions
+     ├── Ch 17 (Data Types): 5 lessons → 8 questions
+     ...
+     └── Ch 32 (CPython/GIL): 7 lessons → 10 questions
+     TOTAL: 95 lessons → 100 questions
+     ```
+
+  5. Store: PART_NUM, PART_NAME, PART_PATH, CHAPTERS[], TOTAL_LESSONS
 ```
 
 **Output:** Scope summary with all variables populated
+
 ```
 Chapter: 5 (Claude Code Features and Workflows)
 Path: apps/learn-app/docs/02-AI-Tool-Landscape/05-claude-code-features-and-workflows/
@@ -160,7 +239,7 @@ Output format: DOCX
 
 ---
 
-### Phase 2: User Configuration ✅
+### Phase 2: Parameter Validation ✅
 
 **Ask 2 questions:**
 Use AskUserQuestion to gather:
@@ -665,21 +744,23 @@ OPTION 3: Manual Review & Adjustment
 
 ## Known Failure Modes & Prevention
 
-### Executive Summary: 11 Failure Modes Addressed (Jan 16, 2026 Governance Update)
+### Executive Summary: 13 Failure Modes Addressed (Jan 17, 2026 Update)
 
 **Original Issues (Post-Mortem Analysis):**
 - 7 critical quality failures identified in first assessment generation
-- Root causes traced to lack of governance, verification gates, and validation
+- 2 critical scope failures identified (Jan 17, 2026)
+- Root causes traced to lack of governance, verification gates, and disambiguation
 
 **Improvements Implemented:**
-- ✅ 3 NEW phases added (Phase 0 user input, Phase 8 feedback loop)
+- ✅ Phase 0 added: Scope disambiguation (`ch X` vs `part X`)
 - ✅ 4 existing phases ENHANCED with verification checkpoints
-- ✅ 11 explicit failure modes documented with prevention strategies
-- ✅ 3 critical validation gates added (answer key bias, content quality, internal headers)
+- ✅ 13 explicit failure modes documented with prevention strategies
+- ✅ Chapter vs Part disambiguation (CRITICAL - prevents wrong scope)
+- ✅ Multi-chapter Part support (can assess entire parts with 18+ chapters)
 - ✅ Subagent prerequisite reading made MANDATORY and VERIFIABLE
-- ✅ User interaction moved to PHASE 0 (before generation starts)
+- ✅ Clear scope: Certification exams only (not practice quizzes)
 
-**Result:** Assessment generation now has explicit governance layer preventing the 7 original issues.
+**Result:** Assessment generation now handles chapters OR parts with explicit disambiguation. Outputs certification exams (DOCX) only.
 
 ---
 
@@ -783,34 +864,64 @@ OPTION 3: Manual Review & Adjustment
   - ✓ User confirmation required before proceeding to Phase 1
   - ✓ Parameters drive all subsequent phases (distribution, subagent count, etc.)
 
+### Failure 12: Chapter vs Part Misinterpretation (Jan 17, 2026 - CRITICAL) ❌
+**Symptom:** User says "ch 5" meaning Chapter 5 (Claude Code), skill interprets as Part 5 (Python Fundamentals with 18 chapters)
+**Root Cause:** No disambiguation between chapter numbers and part numbers
+**Real Example:**
+  - User: "create quiz for chapter 5"
+  - Skill thought: "Part 5: Python Fundamentals" (18 chapters, Ch 15-32)
+  - User meant: "Chapter 5: Claude Code" (1 chapter, 17 lessons)
+**Prevention:**
+  - ✓ Phase 0: SCOPE DISAMBIGUATION (NEW) - parses "ch X" vs "part X" vs bare "X"
+  - ✓ Book structure documented: Parts are folders `0X-*`, Chapters are subfolders `*/XX-*/`
+  - ✓ Chapter numbers are GLOBAL (Ch 5 is in Part 2, not Part 5)
+  - ✓ Bare numbers trigger disambiguation question
+  - ✓ Clear input format table in Success Trigger section
+
+### Failure 13: Scope Confusion - This Skill is for Exams Only (Jan 17, 2026 - CLARIFICATION)
+**Symptom:** User expects practice quiz but skill generates certification exam
+**Clarification:** This skill is ONLY for certification exams (DOCX). Practice quizzes are a DIFFERENT product.
+**Two Different Products:**
+  - **Practice Quiz** (`*_quiz.md`): MDX with <Quiz> component, explanations, in chapter dir
+  - **Certification Exam** (this skill): DOCX, no explanations, in assessments/ dir
+**Prevention:**
+  - ✓ Skill description clearly states "certification exams (DOCX)"
+  - ✓ Header explicitly says "NOT for: Practice quizzes"
+  - ✓ If user wants practice quiz, direct them to existing `*_quiz.md` pattern or different skill
+
 ---
 
 ## Summary: Generic & Deterministic
 
 **The principle:** Parallelization requires coordination. Coordination requires explicit protocols.
 
-**Before:**
+**Before (Jan 16):**
 - Hardcoded to Chapter 5 (breaks for Ch 40, Ch 50)
-- Implicit coordination → failures
+- No Chapter vs Part disambiguation
 - Generic questions (no source grounding)
 
-**After:**
-- Fully parameterized ({CHAPTER_NUM}, {CHAPTER_PATH}, {CHAPTER_SLUG}, {QUESTION_COUNT})
-- Explicit protocols for any chapter
+**After (Jan 17):**
+- Explicit scope disambiguation: `ch X` vs `part X` vs bare `X`
+- Multi-chapter Part support (can assess Part 5 with 18 chapters)
 - Validation gates prevent placeholder/generic failures
 - Subagents read references + lessons (ensures quality)
-- Works for Chapter 5, 40, 50, or any chapter
 
 **Key variables (discovered or provided):**
-- `{CHAPTER_NUM}` - Chapter number (5, 40, 50, etc.)
-- `{CHAPTER_NAME}` - Chapter title (automatically discovered)
-- `{CHAPTER_PATH}` - Lesson directory (dynamically discovered)
-- `{CHAPTER_SLUG}` - Shorthand (ch5, ch40, ch50, etc.)
-- `{QUESTION_COUNT}` - Total questions (user configurable, default 100)
-- `{TIME_LIMIT}` - Time in minutes (user configurable, default 150)
-- All file names, paths, sizes use these variables
+- `{SCOPE_TYPE}` - "chapter" | "part"
+- `{SCOPE_NUM}` - The number (5, 40, etc.)
+- `{SCOPE_PATH}` - Directory path (dynamically discovered)
+- `{QUESTION_COUNT}` - Total questions (user configurable)
+- `{CHAPTER_COUNT}` - 1 for chapter, N for parts
+- `{CHAPTERS[]}` - Array of chapters (for parts)
 
-**Result:** One skill works for ANY chapter with same reliability guarantees.
+**Input Format Quick Reference:**
+| Input | Scope | Example |
+|-------|-------|---------|
+| `ch 5` | Chapter 5 | Claude Code (17 lessons) |
+| `part 5` | Part 5 | Python Fundamentals (18 chapters) |
+| `5` | AMBIGUOUS | Ask user to clarify |
+
+**Result:** One skill works for ANY chapter OR part, outputs certification exams (DOCX).
 
 ---
 

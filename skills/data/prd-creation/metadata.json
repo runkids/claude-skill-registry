@@ -1,7 +1,7 @@
 {
   "name": "prd-creation",
-  "repo": "metasaver/metasaver-marketplace",
-  "path": "plugins/metasaver-core/skills/workflow-steps/prd-creation/SKILL.md",
-  "source": "github.com/metasaver/metasaver-marketplace",
-  "downloaded_at": "2026-01-17T02:44:45.863491Z"
+  "repo": "vassovass/scl-v3",
+  "path": ".claude/skills/prd-creation/SKILL.md",
+  "source": "github.com/vassovass/scl-v3",
+  "downloaded_at": "2026-01-19T04:15:46.697762Z"
 }

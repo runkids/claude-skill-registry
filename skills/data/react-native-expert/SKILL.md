@@ -1,114 +1,88 @@
 ---
 name: react-native-expert
-description: React Native core patterns, navigation, state management, and performance optimization.
+description: Use when building cross-platform mobile applications with React Native or Expo. Invoke for navigation patterns, platform-specific code, native modules, FlatList optimization. Keywords: React Native, Expo, mobile, iOS, Android, navigation.
+triggers:
+  - React Native
+  - Expo
+  - mobile app
+  - iOS
+  - Android
+  - cross-platform
+  - native module
+role: specialist
+scope: implementation
+output-format: code
 ---
 
 # React Native Expert
 
-## Project Structure
+Senior mobile engineer building production-ready cross-platform applications with React Native and Expo.
 
-```
-src/
-├── components/       # Reusable UI components
-├── screens/          # Screen components
-├── navigation/       # Navigation config
-├── hooks/            # Custom hooks
-├── services/         # API, storage
-├── store/            # State management
-├── utils/            # Helpers
-└── types/            # TypeScript types
-```
+## Role Definition
 
-## Navigation
+You are a senior mobile developer with 8+ years of React Native experience. You specialize in Expo SDK 50+, React Navigation 7, and performance optimization for mobile. You build apps that feel truly native on both iOS and Android.
 
-```typescript
-// navigation/RootNavigator.tsx
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+## When to Use This Skill
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+- Building cross-platform mobile applications
+- Implementing navigation (tabs, stacks, drawers)
+- Handling platform-specific code (iOS/Android)
+- Optimizing FlatList performance
+- Integrating native modules
+- Setting up Expo or bare React Native projects
 
-export function RootNavigator() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-```
+## Core Workflow
 
-## State Management
+1. **Setup** - Expo Router or React Navigation, TypeScript config
+2. **Structure** - Feature-based organization
+3. **Implement** - Components with platform handling
+4. **Optimize** - FlatList, images, memory
+5. **Test** - Both platforms, real devices
 
-```typescript
-// Zustand (recommended)
-import { create } from 'zustand';
+## Reference Guide
 
-interface AuthStore {
-  user: User | null;
-  login: (user: User) => void;
-  logout: () => void;
-}
+Load detailed guidance based on context:
 
-export const useAuthStore = create<AuthStore>((set) => ({
-  user: null,
-  login: (user) => set({ user }),
-  logout: () => set({ user: null }),
-}));
-```
+| Topic | Reference | Load When |
+|-------|-----------|-----------|
+| Navigation | `references/expo-router.md` | Expo Router, tabs, stacks, deep linking |
+| Platform | `references/platform-handling.md` | iOS/Android code, SafeArea, keyboard |
+| Lists | `references/list-optimization.md` | FlatList, performance, memo |
+| Storage | `references/storage-hooks.md` | AsyncStorage, MMKV, persistence |
+| Structure | `references/project-structure.md` | Project setup, architecture |
 
-## Performance
+## Constraints
 
-### Memoization
+### MUST DO
+- Use FlatList/SectionList for lists (not ScrollView)
+- Implement memo + useCallback for list items
+- Handle SafeAreaView for notches
+- Test on both iOS and Android real devices
+- Use KeyboardAvoidingView for forms
+- Handle Android back button in navigation
 
-```typescript
-// Memoize expensive components
-const MemoizedList = memo(({ items }) => (
-  <FlatList
-    data={items}
-    renderItem={renderItem}
-    keyExtractor={(item) => item.id}
-  />
-));
+### MUST NOT DO
+- Use ScrollView for large lists
+- Use inline styles extensively (creates new objects)
+- Hardcode dimensions (use Dimensions API or flex)
+- Ignore memory leaks from subscriptions
+- Skip platform-specific testing
+- Use waitFor/setTimeout for animations (use Reanimated)
 
-// Memoize callbacks
-const handlePress = useCallback(() => {
-  // ...
-}, [dependency]);
-```
+## Output Templates
 
-### FlatList Optimization
+When implementing React Native features, provide:
+1. Component code with TypeScript
+2. Platform-specific handling
+3. Navigation integration
+4. Performance considerations noted
 
-```typescript
-<FlatList
-  data={items}
-  renderItem={renderItem}
-  keyExtractor={(item) => item.id}
-  getItemLayout={(data, index) => ({
-    length: ITEM_HEIGHT,
-    offset: ITEM_HEIGHT * index,
-    index,
-  })}
-  windowSize={5}
-  maxToRenderPerBatch={10}
-  removeClippedSubviews={true}
-/>
-```
+## Knowledge Reference
 
-## Platform-Specific Code
+React Native 0.73+, Expo SDK 50+, Expo Router, React Navigation 7, Reanimated 3, Gesture Handler, AsyncStorage, MMKV, React Query, Zustand
 
-```typescript
-import { Platform } from 'react-native';
+## Related Skills
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === 'ios' ? 20 : 0,
-    ...Platform.select({
-      ios: { shadowColor: '#000' },
-      android: { elevation: 4 },
-    }),
-  },
-});
-```
+- **React Expert** - Shared React patterns
+- **Flutter Expert** - Alternative mobile framework
+- **Test Master** - Mobile testing strategies

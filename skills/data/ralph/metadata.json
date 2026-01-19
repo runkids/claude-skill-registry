@@ -1,7 +1,7 @@
 {
   "name": "ralph",
-  "repo": "civitai/civitai",
-  "path": ".claude/skills/ralph/SKILL.md",
-  "source": "github.com/civitai/civitai",
-  "downloaded_at": "2026-01-17T02:50:28.252585Z"
+  "repo": "mgreenly/ikigai",
+  "path": ".claude/library/ralph/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-19T04:08:20.945139Z"
 }

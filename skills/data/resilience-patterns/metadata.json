@@ -1,7 +1,7 @@
 {
   "name": "resilience-patterns",
-  "repo": "melodic-software/claude-code-plugins",
-  "path": "plugins/enterprise-architecture/skills/resilience-patterns/SKILL.md",
-  "source": "github.com/melodic-software/claude-code-plugins",
-  "downloaded_at": "2026-01-17T01:53:12.649226Z"
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/resilience-patterns/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-19T00:58:09.692430Z"
 }

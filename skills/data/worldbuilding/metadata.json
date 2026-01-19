@@ -1,9 +1,7 @@
 {
   "name": "worldbuilding",
-  "description": "Diagnose world-level story problems. Use when settings feel thin, institutions feel designed rather than evolved, economies don't make sense, or non-human species feel like humans in costume. Applies ",
-  "repo": "jwynia/the-kepler-testimonies",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/fiction/worldbuilding/worldbuilding/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-19T03:36:20.528498Z"
 }

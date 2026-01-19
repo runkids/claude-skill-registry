@@ -1,6 +1,6 @@
 ---
 name: context-optimization
-description: This skill should be used when the user asks to "optimize context", "reduce token costs", "improve context efficiency", "implement KV-cache optimization", "partition context", or mentions context limits, observation masking, context budgeting, or extending effective context capacity.
+description: Apply optimization techniques to extend effective context capacity. Use when context limits constrain agent performance, when optimizing for cost or latency, or when implementing long-running agent systems.
 ---
 
 # Context Optimization Techniques
@@ -72,7 +72,7 @@ Optimize for caching by reordering context elements to maximize cache hits. Plac
 
 Design prompts to maximize cache stability: avoid dynamic content like timestamps, use consistent formatting, keep structure stable across sessions.
 
-### When to use this skill Partitioning
+### Context Partitioning
 
 **Sub-Agent Partitioning**
 The most aggressive form of context optimization is partitioning work across sub-agents with isolated contexts. Each sub-agent operates in a clean context focused on its subtask without carrying accumulated context from other subtasks.
@@ -112,7 +112,7 @@ Compaction should achieve 50-70% token reduction with less than 5% quality degra
 
 Monitor and iterate on optimization strategies based on measured effectiveness.
 
-## How to use this skill
+## Examples
 
 **Example 1: Compaction Trigger**
 ```python

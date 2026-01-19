@@ -1,7 +1,7 @@
 {
   "name": "confidence-check",
-  "repo": "metasaver/metasaver-marketplace",
-  "path": "zzzold/skills/cross-cutting/confidence-check/SKILL.md",
-  "source": "github.com/metasaver/metasaver-marketplace",
-  "downloaded_at": "2026-01-17T02:44:53.185577Z"
+  "repo": "miethe/skillmeat",
+  "path": ".claude/skills/confidence-check/SKILL.md",
+  "source": "github.com/miethe/skillmeat",
+  "downloaded_at": "2026-01-19T03:44:26.506875Z"
 }

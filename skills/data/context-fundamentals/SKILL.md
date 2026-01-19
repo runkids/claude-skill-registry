@@ -1,6 +1,6 @@
 ---
 name: context-fundamentals
-description: This skill should be used when the user asks to "understand context", "explain context windows", "design agent architecture", "debug context issues", "optimize context usage", or discusses context components, attention mechanics, progressive disclosure, or context budgeting. Provides foundational understanding of context engineering for AI agent systems.
+description: Understand the components, mechanics, and constraints of context in agent systems. Use when designing agent architectures, debugging context-related failures, or optimizing context usage.
 ---
 
 # Context Engineering Fundamentals
@@ -51,7 +51,7 @@ Tool outputs are the results of agent actions: file contents, search results, co
 
 Tool outputs consume context whether they are relevant to current decisions or not. This creates pressure for strategies like observation masking, compaction, and selective tool result retention.
 
-### When to use this skill Windows and Attention Mechanics
+### Context Windows and Attention Mechanics
 
 **The Attention Budget Constraint**
 Language models process tokens through attention mechanisms that create pairwise relationships between all tokens in context. For n tokens, this creates n² relationships that must be computed and stored. As context length increases, the model's ability to capture these relationships gets stretched thin.
@@ -102,7 +102,7 @@ Design with explicit context budgets in mind. Know the effective context limit f
 
 Effective context budgeting requires understanding not just raw token counts but also attention distribution patterns. The middle of context receives less attention than the beginning and end. Place critical information at attention-favored positions.
 
-## How to use this skill
+## Examples
 
 **Example 1: Organizing System Prompts**
 ```markdown

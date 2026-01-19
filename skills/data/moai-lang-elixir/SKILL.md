@@ -4,16 +4,9 @@ description: "Elixir 1.17+ development specialist covering Phoenix 1.7, LiveView
 version: 1.0.0
 category: "language"
 modularized: true
-user-invocable: false
-updated: 2026-01-08
+updated: 2025-12-07
 status: "active"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: "Read, Grep, Glob, Bash, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
 ---
 
 ## Quick Reference (30 seconds)

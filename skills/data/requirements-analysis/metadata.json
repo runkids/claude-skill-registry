@@ -1,7 +1,7 @@
 {
   "name": "requirements-analysis",
-  "repo": "dralgorhythm/claude-agentic-framework",
-  "path": ".claude/skills/product/requirements-analysis/SKILL.md",
-  "source": "github.com/dralgorhythm/claude-agentic-framework",
-  "downloaded_at": "2026-01-17T02:09:56.439222Z"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/development/architecture/requirements-analysis/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-19T03:36:24.422868Z"
 }

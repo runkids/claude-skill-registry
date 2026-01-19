@@ -1,148 +1,60 @@
 ---
-name: Hook Pipeline
-version: 1.4.0
-complexity: High
-keywords: [
-    "post-edit validation",
-    "automated code quality",
-    "security scanning",
-    "ROOT_WARNING detection",
-    "real-time feedback",
-    "code enforcement",
-    "TDD mechanism",
-    "validation pipeline",
-    "auto-resolution",
-    "feedback resolver"
-]
-triggers: [
-    "code quality improvement",
-    "automated validation workflow",
-    "continuous code correction",
-    "security vulnerability detection",
-    "automatic issue resolution"
-]
-performance_targets: {
-    "hook_execution_time_ms": 200,
-    "redis_feedback_delivery_ms": 100,
-    "auto_resolution_rate_pct": 95,
-    "feedback_accuracy_pct": 90,
-    "security_scan_confidence_pct": 85
-}
+name: claude-hooks-developer
+description: Create, configure, and manage Claude Code hooks for workflow automation, validation, and security. Guides hook implementation, configuration patterns, and best practices.
 ---
 
-# Hook Pipeline Skill: Post-Edit Automation & Feedback Resolution
+# Claude Code Hooks Developer
 
-## Overview
-Complete automated post-edit workflow with validation, security scanning, and intelligent auto-resolution. This skill combines:
+Compact skill for creating and managing Claude Code hooks that intercept tool calls, validate operations, and enhance workflows.
 
-1. **Post-Edit Validation** - Detect issues immediately after Edit/Write operations
-2. **Security Scanning** - Comprehensive vulnerability detection
-3. **Feedback Resolution** - Automatically fix common issues
-4. **Redis Integration** - Coordinate validation and resolution across agents
-5. **Audit Trail** - Track all validation and resolution actions
+## When to Use
 
-## Version 1.4.0 Highlights
+Activate when the user:
+- Needs to create a new hook (PreToolUse, PostToolUse, UserPromptSubmit, Stop, etc.)
+- Wants to configure hooks in `.claude/settings.json` or `.claude/settings.local.json`
+- Asks about hook lifecycle events or available hook types
+- Needs to validate/block operations, format files, or send notifications
+- Mentions security controls, file protection, or command validation
+- Wants examples of hook patterns or common use cases
 
-### New Security Scanning Features
-- Integrated security scanner script
-- Vulnerability detection for multiple file types
-- Supports SQL injection, XSS, hardcoded secrets detection
-- Configurable security check patterns
-- Non-blocking security warnings
-- Redis notification for security events
+## Core Capabilities
 
-### Security Scanning Modes
+- **Hook Types**: Guide selection between PreToolUse, PostToolUse, UserPromptSubmit, Stop, SubagentStop, SessionStart, Notification, PermissionRequest
+- **Hook Configuration**: Generate correct JSON structure for `settings.json` with matchers, commands, and paths
+- **Script Templates**: Provide Python/Bash templates for common hook patterns
+- **Security Patterns**: Implement file protection, dangerous command blocking, and access control
+- **Environment Variables**: Utilize CLAUDE_PROJECT_DIR, CLAUDE_TOOL_INPUT_*, and other hook context
+- **Decision Control**: Properly use exit codes (0=approve, 2=block) and JSON decision objects
+- **Common Use Cases**: Format files, validate commands, send notifications, log operations, enforce policies
 
-| Mode | Vulnerabilities Detected | Confidence Threshold | Action |
-|------|--------------------------|---------------------|--------|
-| Basic | SQL Injection, XSS | 70% | Warning + Recommendation |
-| Advanced | Basic + Dependency Scanning | 85% | Blocking Notification |
-| Comprehensive | Advanced + Deep Code Analysis | 95% | Detailed Remediation Guidance |
+## Quick Workflow
 
-## Components
+1. Identify the hook event type based on the desired trigger point
+2. Create the hook script in `.claude/hooks/` (Python or Bash)
+3. Make script executable (`chmod +x`)
+4. Add hook configuration to `.claude/settings.json` or `.claude/settings.local.json`
+5. Test the hook with relevant tool operations
+6. Verify proper exit codes and error messages
 
-| Component | Purpose | Location |
-|-----------|---------|----------|
-| `post-edit-handler.sh` | Validation wrapper | `.claude/skills/hook-pipeline/` |
-| `feedback-resolver.sh` | Auto-resolution engine | `.claude/skills/hook-pipeline/` |
-| `security-scanner.sh` | Security vulnerability scanner | `.claude/skills/hook-pipeline/` |
-| `auto-resolve.sh` | Convenience wrapper | `.claude/skills/hook-pipeline/` |
-| `invoke-post-edit.sh` | Simple invocation | `.claude/hooks/` |
-| `post-edit-pipeline.js` | Core validation engine | `config/hooks/` |
+## Hook Event Types
 
-## Security Scanning Usage
+- **PreToolUse**: Runs before tool execution (can block/modify)
+- **PostToolUse**: Runs after tool execution (validation/cleanup)
+- **UserPromptSubmit**: Validates user prompts before processing
+- **Stop**: Controls whether Claude continues working
+- **SubagentStop**: Controls sub-agent continuation
+- **SessionStart**: Runs at session initialization
+- **Notification**: Responds to system notifications
+- **PermissionRequest**: Auto-approves/denies permission dialogs
 
-```bash
-# Basic scan of a file
-./.claude/skills/hook-pipeline/security-scanner.sh src/example.ts
+## Exit Codes
 
-# Detailed scan with configuration
-./.claude/skills/hook-pipeline/security-scanner.sh \
-  src/example.ts \
-  --config .claude/skills/hook-pipeline/security-scan.json \
-  --mode advanced
-```
+- **0**: Approve/Success - operation continues
+- **2**: Block - operation blocked with error message
+- **Other**: Error - operation fails
 
-### Security Scan Configuration
+## Reference Documentation
 
-Create `.claude/skills/hook-pipeline/security-scan.json`:
-```json
-{
-  "version": "1.4.0",
-  "modes": {
-    "basic": {
-      "checks": [
-        "SQL_INJECTION",
-        "XSS_VULNERABILITY",
-        "HARDCODED_SECRETS"
-      ]
-    },
-    "advanced": {
-      "checks": [
-        "SQL_INJECTION",
-        "XSS_VULNERABILITY",
-        "HARDCODED_SECRETS",
-        "INSECURE_DEPENDENCIES",
-        "POTENTIAL_RCE"
-      ]
-    }
-  }
-}
-```
-
-## Redis Security Event Notifications
-
-When security vulnerabilities are detected, the scanner publishes to:
-`swarm:security:vulnerabilities`
-
-Event Payload:
-```json
-{
-  "file": "src/example.ts",
-  "confidence": 85,
-  "vulnerabilities": [
-    "SQL_INJECTION",
-    "HARDCODED_SECRETS"
-  ],
-  "timestamp": 1729276694
-}
-```
-
-## Performance Metrics (v1.4.0)
-
-| Metric | Target | Current |
-|--------|--------|---------|
-| Hook execution time | <200ms | ~180ms |
-| Redis security event delivery | <100ms | ~90ms |
-| Security scan confidence | >85% | 88% |
-| Vulnerability detection rate | >90% | 92% |
-
-## The rest of the documentation remains unchanged from the previous version
-[Remaining content is identical to the previous SKILL.md file, with the metadata and overview updated]
-
-## Version History
-
-- **1.4.0** (2025-10-18): Integrated comprehensive security scanning
-- **1.3.0** (2025-10-17): Refined auto-resolution mechanisms
-- **1.2.0** (2025-10-15): Enhanced validation pipeline
-- **1.0.0** (2025-09-15): Initial hook pipeline implementation
+- **Detailed Workflows & Patterns**: See `reference.md` in this directory
+- **Real-World Usage Examples**: See `examples.md` in this directory
+- **Hook Configuration Guide**: `.claude/hooks/doc-standards-reminder.sh` (example)

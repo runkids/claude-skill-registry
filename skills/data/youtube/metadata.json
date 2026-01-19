@@ -1,7 +1,7 @@
 {
   "name": "youtube",
-  "repo": "leovigna/jarvis-template",
-  "path": ".claude/skills/youtube/SKILL.md",
-  "source": "github.com/leovigna/jarvis-template",
-  "downloaded_at": "2026-01-17T01:11:08.303085Z"
+  "repo": "ericmjl/skills",
+  "path": "skills/youtube/SKILL.md",
+  "source": "github.com/ericmjl/skills",
+  "downloaded_at": "2026-01-19T02:49:25.191075Z"
 }

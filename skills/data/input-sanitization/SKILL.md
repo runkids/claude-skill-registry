@@ -1,161 +1,462 @@
 ---
 name: input-sanitization
-description: |
-  ユーザー入力のサニタイズとセキュリティ対策を専門とするスキル。
-  XSS、SQLインジェクション、コマンドインジェクションなどの攻撃を防止。
-
-  Anchors:
-  • OWASP Top 10 / 適用: インジェクション対策 / 目的: 主要脆弱性の予防
-  • Web Application Hacker's Handbook / 適用: 入力検証 / 目的: 攻撃ベクトル理解
-
-  Trigger:
-  Use when handling user input, building database queries, processing file uploads, or generating dynamic HTML content.
-  XSS, SQL injection, command injection, sanitization, validation, escape
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
+description: Эксперт по санитизации ввода. Используй для XSS prevention, encoding, validation и security headers.
 ---
 
-# Input Sanitization
+# Input Sanitization Expert
 
-## 概要
+Expert in input validation, sanitization, and encoding for secure applications.
 
-ユーザー入力のサニタイズとセキュリティ対策を専門とするスキル。
-XSS、SQLインジェクション、コマンドインジェクションなどの攻撃を防止し、
-安全なデータ処理を実現します。
+## Core Principles
 
-詳細な手順や背景は `references/Level1_basics.md` と `references/Level2_intermediate.md` を参照してください。
+### Validation vs Sanitization vs Encoding
 
-## ワークフロー
+- **Validation**: Reject invalid input entirely (preferred)
+- **Sanitization**: Clean/modify input to make it safe
+- **Encoding**: Transform input for safe use in specific contexts
+- Apply in order: Validate first, sanitize if needed, encode for output context
 
-### Phase 1: 脆弱性スキャンと分析
+### Defense in Depth
 
-**目的**: コードベースをスキャンし、入力サニタイズが必要な箇所を特定
+- Never rely on client-side validation alone
+- Implement validation at multiple layers (input, business logic, data access)
+- Use allowlists over denylists when possible
+- Fail securely - reject invalid input rather than attempting to fix it
 
-**アクション**:
+## Input Validation Strategies
 
-1. `scripts/scan-vulnerabilities.mjs` で脆弱性スキャン実行
-2. XSS、SQLインジェクション、コマンドインジェクションのリスク箇所を特定
-3. 優先度に基づいて対策計画を立案
+### Strict Validation Patterns (Python)
 
-**参照**: `references/Level1_basics.md`
+```python
+import re
+from typing import Optional
 
-### Phase 2: セキュリティ対策実装
+class InputValidator:
+    """Strict input validation using allowlist patterns."""
 
-**目的**: 特定した脆弱性に対する適切なサニタイズを実装
+    PATTERNS = {
+        'email': r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+        'username': r'^[a-zA-Z0-9_]{3,20}$',
+        'phone': r'^\+?1?[0-9]{10,14}$',
+        'alphanumeric': r'^[a-zA-Z0-9]+$',
+        'safe_filename': r'^[a-zA-Z0-9._-]+$',
+        'uuid': r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$',
+        'slug': r'^[a-z0-9]+(?:-[a-z0-9]+)*$'
+    }
 
-**アクション（種類別）**:
+    @staticmethod
+    def validate_input(value: str, pattern_type: str, max_length: int = 255) -> Optional[str]:
+        """Validate input against allowlist pattern."""
+        if not value or len(value) > max_length:
+            return None
 
-- **XSS対策**: `agents/prevent-xss.md` を参照
-  - HTMLエスケープ実装、CSP設定、DOMPurify導入
-- **SQLインジェクション対策**: `agents/prevent-sql-injection.md` を参照
-  - パラメータ化クエリ、Drizzle ORM活用、入力検証
-- **コマンドインジェクション対策**: `agents/prevent-command-injection.md` を参照
-  - execFile()使用、ホワイトリスト検証
-- **ファイルアップロード対策**: `agents/validate-file-upload.md` を参照
-  - MIME検証、パストラバーサル防止
+        pattern = InputValidator.PATTERNS.get(pattern_type)
+        if pattern and re.match(pattern, value):
+            return value.strip()
+        return None
 
-### Phase 3: 検証と記録
+    @staticmethod
+    def validate_integer(value: str, min_val: int = None, max_val: int = None) -> Optional[int]:
+        """Validate and convert string to integer with bounds checking."""
+        try:
+            num = int(value)
+            if min_val is not None and num < min_val:
+                return None
+            if max_val is not None and num > max_val:
+                return None
+            return num
+        except (ValueError, TypeError):
+            return None
 
-**目的**: 実装したセキュリティ対策の検証と完了記録
-
-**アクション**:
-
-1. `scripts/scan-vulnerabilities.mjs` で再スキャン（脆弱性ゼロ確認）
-2. セキュリティレビューレポート作成
-3. `scripts/log_usage.mjs` で記録
-
-## ベストプラクティス
-
-### すべきこと
-
-- ユーザー入力を処理するAPIエンドポイント設計時
-- HTMLコンテンツを動的に生成する際
-- データベースクエリを構築する際
-- ファイルアップロード機能を実装する際
-
-### 避けるべきこと
-
-- ユーザー入力を直接SQLクエリに連結
-- innerHTMLで未検証コンテンツ挿入
-- サニタイズせずにシェルコマンド実行
-- クライアント側のみの検証に依存
-
-## Task仕様ナビ
-
-| Task                     | 起動タイミング          | 入力               | 出力                     | 参照エージェント                      |
-| ------------------------ | ----------------------- | ------------------ | ------------------------ | ------------------------------------- |
-| XSS対策                  | innerHTML使用箇所検出時 | 対象コンポーネント | XSS対策実装レポート      | `agents/prevent-xss.md`               |
-| SQLインジェクション対策  | DB操作コード発見時      | クエリ実行コード   | SQL対策レポート          | `agents/prevent-sql-injection.md`     |
-| コマンドインジェクション | child_process使用検出時 | プロセス実行コード | コマンド対策レポート     | `agents/prevent-command-injection.md` |
-| ファイルアップロード検証 | アップロード機能実装時  | アップロード処理   | アップロード検証レポート | `agents/validate-file-upload.md`      |
-
-**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリの対応ファイルを参照
-
-## リソース参照
-
-### references/（詳細知識）
-
-| リソース     | パス                                       | 内容                |
-| ------------ | ------------------------------------------ | ------------------- |
-| 基礎知識     | references/Level1_basics.md                | サニタイズ基本概念  |
-| 実務ガイド   | references/Level2_intermediate.md          | 実装パターン        |
-| XSS対策      | references/xss-prevention.md               | HTMLエスケープ・CSP |
-| SQL対策      | references/sql-injection-prevention.md     | パラメータ化クエリ  |
-| コマンド対策 | references/command-injection-prevention.md | execFileパターン    |
-| ファイル対策 | references/file-upload-security.md         | アップロード検証    |
-
-### scripts/（決定論的処理）
-
-| スクリプト               | 用途           | 使用例                                        |
-| ------------------------ | -------------- | --------------------------------------------- |
-| scan-vulnerabilities.mjs | 脆弱性スキャン | `node scripts/scan-vulnerabilities.mjs`       |
-| log_usage.mjs            | 使用記録       | `node scripts/log_usage.mjs --result success` |
-
-### assets/（テンプレート）
-
-| テンプレート          | 用途                     |
-| --------------------- | ------------------------ |
-| sanitization-utils.ts | サニタイズユーティリティ |
-
-## コマンドリファレンス
-
-### リソース読み取り
-
-```bash
-cat .claude/skills/input-sanitization/references/Level1_basics.md
-cat .claude/skills/input-sanitization/references/Level2_intermediate.md
-cat .claude/skills/input-sanitization/references/Level3_advanced.md
-cat .claude/skills/input-sanitization/references/Level4_expert.md
-cat .claude/skills/input-sanitization/references/command-injection-prevention.md
-cat .claude/skills/input-sanitization/references/file-upload-security.md
-cat .claude/skills/input-sanitization/references/legacy-skill.md
-cat .claude/skills/input-sanitization/references/sql-injection-prevention.md
-cat .claude/skills/input-sanitization/references/xss-prevention.md
+    @staticmethod
+    def validate_enum(value: str, allowed_values: set) -> Optional[str]:
+        """Validate value against allowed set."""
+        if value in allowed_values:
+            return value
+        return None
 ```
 
-### スクリプト実行
+### JavaScript/TypeScript Validation
 
-```bash
-node .claude/skills/input-sanitization/scripts/log_usage.mjs --help
-node .claude/skills/input-sanitization/scripts/scan-vulnerabilities.mjs --help
-node .claude/skills/input-sanitization/scripts/validate-skill.mjs --help
+```typescript
+class InputValidator {
+  private static readonly PATTERNS: Record<string, RegExp> = {
+    email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    username: /^[a-zA-Z0-9_]{3,20}$/,
+    phone: /^\+?1?[0-9]{10,14}$/,
+    alphanumeric: /^[a-zA-Z0-9]+$/,
+    uuid: /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
+  };
+
+  static validate(value: string, type: string, maxLength = 255): string | null {
+    if (!value || value.length > maxLength) {
+      return null;
+    }
+
+    const pattern = this.PATTERNS[type];
+    if (pattern && pattern.test(value)) {
+      return value.trim();
+    }
+    return null;
+  }
+
+  static validateInteger(value: string, min?: number, max?: number): number | null {
+    const num = parseInt(value, 10);
+    if (isNaN(num)) return null;
+    if (min !== undefined && num < min) return null;
+    if (max !== undefined && num > max) return null;
+    return num;
+  }
+
+  static sanitizeHtml(input: string): string {
+    const map: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;',
+      '/': '&#x2F;'
+    };
+    return input.replace(/[&<>"'/]/g, char => map[char]);
+  }
+}
 ```
 
-### テンプレート参照
+## Context-Specific Encoding
 
-```bash
-cat .claude/skills/input-sanitization/assets/sanitization-utils.ts
+### HTML Output Encoding
+
+```python
+import html
+from markupsafe import escape
+
+def safe_html_output(user_input: str) -> str:
+    """Encode for HTML context."""
+    return html.escape(user_input, quote=True)
+
+def safe_html_attribute(user_input: str) -> str:
+    """Encode for HTML attribute context - more restrictive."""
+    encoded = html.escape(user_input, quote=True)
+    # Additional encoding for attribute-specific risks
+    encoded = encoded.replace("'", "&#x27;").replace("`", "&#x60;")
+    return encoded
+
+def safe_html_url(user_input: str) -> str:
+    """Encode URL for use in href/src attributes."""
+    from urllib.parse import quote
+    # Only allow safe URL schemes
+    if not user_input.lower().startswith(('http://', 'https://', '/')):
+        return '#'
+    return quote(user_input, safe=':/?&=#')
 ```
 
-## 変更履歴
+### JavaScript Context Encoding
 
-| Version | Date       | Changes                                        |
-| ------- | ---------- | ---------------------------------------------- |
-| 2.1.0   | 2026-01-02 | ワークフローをPhase別に再構成、agents/参照追加 |
-| 2.0.0   | 2026-01-02 | 18-skills.md完全準拠、Task仕様ナビ追加         |
-| 1.0.0   | 2025-12-24 | 初版                                           |
+```javascript
+class JSEncoder {
+    static encodeForJS(input) {
+        if (typeof input !== 'string') {
+            input = String(input);
+        }
+
+        return input
+            .replace(/\\/g, '\\\\')
+            .replace(/'/g, "\\'")
+            .replace(/"/g, '\\"')
+            .replace(/\n/g, '\\n')
+            .replace(/\r/g, '\\r')
+            .replace(/\t/g, '\\t')
+            .replace(/</g, '\\u003c')
+            .replace(/>/g, '\\u003e');
+    }
+
+    static safeJSONStringify(obj) {
+        return JSON.stringify(obj)
+            .replace(/</g, '\\u003c')
+            .replace(/>/g, '\\u003e')
+            .replace(/&/g, '\\u0026');
+    }
+
+    static encodeForHTMLAttribute(input) {
+        return input
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#x27;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+}
+```
+
+### SQL Context - Parameterized Queries
+
+```python
+import sqlite3
+from typing import List, Any, Optional
+
+class SafeDatabaseAccess:
+    """Always use parameterized queries - never string concatenation."""
+
+    def __init__(self, db_path: str):
+        self.db_path = db_path
+
+    def safe_query(self, query: str, params: tuple = ()) -> List[Any]:
+        """Execute query with parameters - prevents SQL injection."""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            # Parameters are automatically escaped
+            cursor.execute(query, params)
+            return cursor.fetchall()
+
+    def get_user_by_email(self, email: str) -> Optional[dict]:
+        """Example: safe parameterized query."""
+        # Validate email first
+        if not InputValidator.validate_input(email, 'email'):
+            return None
+
+        # Use ? placeholder - NEVER f-string or .format()
+        query = "SELECT id, username, email FROM users WHERE email = ?"
+        results = self.safe_query(query, (email,))
+
+        if results:
+            return dict(zip(['id', 'username', 'email'], results[0]))
+        return None
+
+    # WRONG - SQL Injection vulnerable:
+    # query = f"SELECT * FROM users WHERE email = '{email}'"
+    # query = "SELECT * FROM users WHERE email = '%s'" % email
+```
+
+## File Upload Sanitization
+
+```python
+import os
+import hashlib
+import magic
+from pathlib import Path
+from typing import Optional
+
+class FileUploadSanitizer:
+    """Secure file upload handling."""
+
+    ALLOWED_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.pdf', '.txt', '.docx'}
+    ALLOWED_MIME_TYPES = {
+        'image/jpeg', 'image/png', 'image/gif',
+        'application/pdf', 'text/plain',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    }
+    MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
+
+    @staticmethod
+    def sanitize_filename(filename: str) -> str:
+        """Generate safe filename."""
+        # Remove path components (directory traversal prevention)
+        filename = os.path.basename(filename)
+
+        # Remove dangerous characters - allowlist approach
+        safe_chars = "-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        filename = ''.join(c for c in filename if c in safe_chars)
+
+        # Limit length
+        if len(filename) > 100:
+            name, ext = os.path.splitext(filename)
+            filename = name[:95] + ext
+
+        return filename or "unnamed_file"
+
+    @classmethod
+    def validate_upload(cls, file_data: bytes, filename: str, content_type: str) -> dict:
+        """Comprehensive file upload validation."""
+        result = {'valid': False, 'errors': [], 'safe_filename': None}
+
+        # Check file size
+        if len(file_data) > cls.MAX_FILE_SIZE:
+            result['errors'].append(f"File too large: {len(file_data)} bytes (max: {cls.MAX_FILE_SIZE})")
+
+        # Check extension
+        ext = Path(filename).suffix.lower()
+        if ext not in cls.ALLOWED_EXTENSIONS:
+            result['errors'].append(f"Extension not allowed: {ext}")
+
+        # Check declared MIME type
+        if content_type not in cls.ALLOWED_MIME_TYPES:
+            result['errors'].append(f"MIME type not allowed: {content_type}")
+
+        # Verify actual content type matches (magic bytes)
+        try:
+            detected_mime = magic.from_buffer(file_data, mime=True)
+            if detected_mime != content_type:
+                result['errors'].append(f"MIME type mismatch: declared={content_type}, detected={detected_mime}")
+        except Exception:
+            result['errors'].append("Could not verify file content type")
+
+        result['valid'] = len(result['errors']) == 0
+        result['safe_filename'] = cls.sanitize_filename(filename)
+
+        return result
+
+    @staticmethod
+    def generate_safe_path(base_dir: str, filename: str) -> str:
+        """Generate unique, safe file path."""
+        safe_name = FileUploadSanitizer.sanitize_filename(filename)
+        # Add hash to prevent overwriting
+        hash_prefix = hashlib.md5(os.urandom(16)).hexdigest()[:8]
+        name, ext = os.path.splitext(safe_name)
+        return os.path.join(base_dir, f"{name}_{hash_prefix}{ext}")
+```
+
+## URL and Path Sanitization
+
+```python
+from urllib.parse import urlparse, quote
+import os.path
+
+class URLSanitizer:
+    @staticmethod
+    def validate_redirect_url(url: str, allowed_hosts: set) -> Optional[str]:
+        """Validate redirect URLs to prevent open redirects."""
+        try:
+            parsed = urlparse(url)
+
+            # Only allow specific schemes
+            if parsed.scheme not in ('http', 'https', ''):
+                return None
+
+            # For relative URLs
+            if not parsed.netloc:
+                # Prevent protocol-relative URLs (//evil.com)
+                if url.startswith('//'):
+                    return None
+                return url
+
+            # Check against allowlist of hosts
+            if parsed.netloc not in allowed_hosts:
+                return None
+
+            return url
+        except Exception:
+            return None
+
+    @staticmethod
+    def sanitize_path_parameter(path: str, base_dir: str) -> Optional[str]:
+        """Prevent directory traversal attacks."""
+        # Normalize the path
+        normalized = os.path.normpath(path)
+
+        # Check for directory traversal attempts
+        if '..' in normalized or normalized.startswith('/') or normalized.startswith('\\'):
+            return None
+
+        # Ensure path stays within base directory
+        full_path = os.path.abspath(os.path.join(base_dir, normalized))
+        base_abs = os.path.abspath(base_dir)
+
+        if not full_path.startswith(base_abs + os.sep):
+            return None
+
+        return normalized
+```
+
+## Content Security Policy Headers
+
+```python
+from flask import Flask, Response
+
+def apply_security_headers(response: Response) -> Response:
+    """Apply comprehensive security headers."""
+
+    response.headers.update({
+        # Content Security Policy - prevent XSS
+        'Content-Security-Policy': '; '.join([
+            "default-src 'self'",
+            "script-src 'self' https://trusted-cdn.com",
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+            "img-src 'self' data: https:",
+            "font-src 'self' https://fonts.gstatic.com",
+            "connect-src 'self' https://api.example.com",
+            "frame-ancestors 'none'",
+            "base-uri 'self'",
+            "form-action 'self'"
+        ]),
+
+        # Prevent MIME type sniffing
+        'X-Content-Type-Options': 'nosniff',
+
+        # Clickjacking protection
+        'X-Frame-Options': 'DENY',
+
+        # XSS filter (legacy browsers)
+        'X-XSS-Protection': '1; mode=block',
+
+        # Force HTTPS
+        'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+
+        # Referrer policy
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+
+        # Permissions policy
+        'Permissions-Policy': 'geolocation=(), microphone=(), camera=()'
+    })
+
+    return response
+
+
+# Express.js equivalent
+'''
+const helmet = require('helmet');
+
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "https://trusted-cdn.com"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            imgSrc: ["'self'", "data:", "https:"],
+            frameAncestors: ["'none'"]
+        }
+    },
+    hsts: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true
+    }
+}));
+'''
+```
+
+## XSS Prevention Checklist
+
+```yaml
+Output Encoding:
+  - HTML body: Use HTML entity encoding
+  - HTML attributes: Use attribute encoding, always quote values
+  - JavaScript: Use JavaScript encoding, prefer JSON.stringify
+  - CSS: Use CSS encoding
+  - URLs: Use URL encoding
+
+Input Validation:
+  - Validate type, length, format, range
+  - Use allowlists over denylists
+  - Reject invalid input, don't sanitize
+
+Security Headers:
+  - Implement Content Security Policy
+  - Set X-Content-Type-Options: nosniff
+  - Set X-Frame-Options: DENY
+  - Enable HSTS
+
+Framework Protections:
+  - Use auto-escaping template engines
+  - Enable CSRF protection
+  - Use HttpOnly and Secure cookie flags
+  - Implement SameSite cookie attribute
+```
+
+## Лучшие практики
+
+1. **Validate at server** — никогда не доверяйте client-side валидации
+2. **Allowlist approach** — определяйте допустимое, не запрещённое
+3. **Context-aware encoding** — разные контексты требуют разного encoding
+4. **Parameterized queries** — никогда не конкатенируйте SQL
+5. **Defense in depth** — валидация на каждом уровне
+6. **Fail securely** — отклоняйте invalid input, не пытайтесь исправить

@@ -1,7 +1,7 @@
 {
   "name": "ai-sdk-ui",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/ai-sdk-ui/skills/ai-sdk-ui/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-17T03:58:36.440170Z"
+  "repo": "jackspace/ClaudeSkillz",
+  "path": "skills/ai-sdk-ui/SKILL.md",
+  "source": "github.com/jackspace/ClaudeSkillz",
+  "downloaded_at": "2026-01-19T03:42:47.709334Z"
 }

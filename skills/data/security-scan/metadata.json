@@ -1,7 +1,7 @@
 {
   "name": "security-scan",
-  "repo": "cosmix/loom",
-  "path": "skills/security-scan/SKILL.md",
-  "source": "github.com/cosmix/loom",
-  "downloaded_at": "2026-01-17T03:56:35.052861Z"
+  "repo": "mehdic/bazinga",
+  "path": ".claude/skills/security-scan/SKILL.md",
+  "source": "github.com/mehdic/bazinga",
+  "downloaded_at": "2026-01-19T04:20:17.932129Z"
 }

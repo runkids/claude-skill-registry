@@ -1,112 +1,192 @@
 ---
 name: typescript-patterns
-description: Apply when writing TypeScript code requiring type safety, utility types, discriminated unions, or generic patterns.
-version: 1.0.0
-tokens: ~800
-confidence: high
-sources:
-  - https://www.typescriptlang.org/docs/handbook/2/types-from-types.html
-  - https://www.typescriptlang.org/docs/handbook/utility-types.html
-last_validated: 2025-01-10
-next_review: 2025-01-24
-tags: [typescript, patterns, types]
+description: TypeScript best practices. Use when writing TypeScript code for backend services, API handlers, or shared utilities. Applies async/await patterns, typed errors, and strict type safety.
 ---
 
-## When to Use
-
-Apply when writing TypeScript code requiring type safety, utility types, discriminated unions, or generic patterns.
+# TypeScript Best Practices
 
 ## Patterns
 
-### Pattern 1: Discriminated Unions
+### Async/Await Pattern
+Always use async/await, never callbacks or .then():
+
 ```typescript
-// Source: https://www.typescriptlang.org/docs/handbook/2/narrowing.html
-type Result<T> =
+// Good
+async function createTask(data: CreateTaskRequest): Promise<Task> {
+  const task = await db.insert(tasks).values(data).returning();
+  return task[0];
+}
+
+// Bad
+function createTask(data: CreateTaskRequest): Promise<Task> {
+  return db.insert(tasks).values(data).returning().then(result => result[0]);
+}
+```
+
+### Error Handling
+Always use typed errors:
+
+```typescript
+class EntityNotFoundError extends Error {
+  constructor(entityType: string, id: string | number) {
+    super(`${entityType} ${id} not found`);
+    this.name = 'EntityNotFoundError';
+  }
+}
+
+// Usage
+async function getTask(id: number): Promise<Task> {
+  const task = await db.query.tasks.findFirst({ where: eq(tasks.id, id) });
+  if (!task) throw new EntityNotFoundError('Task', id);
+  return task;
+}
+```
+
+### Type Safety
+Use strict TypeScript, never 'any':
+
+```typescript
+// Good
+interface CreateTaskRequest {
+  title: string;
+  description?: string;
+  epicId?: number;
+}
+
+// Bad
+function createTask(data: any) { ... }
+```
+
+### API Response Pattern
+All API responses follow this structure:
+
+```typescript
+type ApiResponse<T> =
   | { success: true; data: T }
   | { success: false; error: string };
 
-function handle<T>(result: Result<T>) {
-  if (result.success) {
-    console.log(result.data); // T - narrowed
-  } else {
-    console.log(result.error); // string - narrowed
+// Usage
+app.get('/tasks/:id', async (req, res) => {
+  try {
+    const task = await getTask(Number(req.params.id));
+    res.json({ success: true, data: task });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+```
+
+### Discriminated Unions
+Use discriminated unions for type-safe state handling:
+
+```typescript
+type RequestState<T> =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: T }
+  | { status: 'error'; error: string };
+
+// Usage
+function handleState<T>(state: RequestState<T>) {
+  switch (state.status) {
+    case 'idle':
+      return 'Not started';
+    case 'loading':
+      return 'Loading...';
+    case 'success':
+      return state.data; // TypeScript knows data exists
+    case 'error':
+      return state.error; // TypeScript knows error exists
   }
 }
 ```
 
-### Pattern 2: Utility Types
-```typescript
-// Source: https://www.typescriptlang.org/docs/handbook/utility-types.html
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+### Utility Types
+Use built-in utility types effectively:
 
-type CreateUser = Omit<User, 'id'>;           // { name, email }
-type UpdateUser = Partial<Omit<User, 'id'>>;  // { name?, email? }
-type UserKeys = keyof User;                    // 'id' | 'name' | 'email'
-type ReadonlyUser = Readonly<User>;           // all props readonly
+```typescript
+// Partial - all properties optional
+type UpdateTaskRequest = Partial<CreateTaskRequest>;
+
+// Pick - select specific properties
+type TaskSummary = Pick<Task, 'id' | 'title' | 'status'>;
+
+// Omit - exclude specific properties
+type CreateTaskInput = Omit<Task, 'id' | 'createdAt' | 'updatedAt'>;
+
+// Required - all properties required
+type RequiredConfig = Required<OptionalConfig>;
+
+// Record - typed object with specific keys
+type StatusCounts = Record<TaskStatus, number>;
 ```
 
-### Pattern 3: Generic Constraints
+### Generics
+Use generics for reusable, type-safe functions:
+
 ```typescript
-// Source: https://www.typescriptlang.org/docs/handbook/2/generics.html
-function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
-  return obj[key];
+// Generic repository pattern
+interface Repository<T, ID> {
+  findById(id: ID): Promise<T | null>;
+  findAll(): Promise<T[]>;
+  save(entity: T): Promise<T>;
+  delete(id: ID): Promise<void>;
 }
 
-const user = { name: 'John', age: 30 };
-const name = getProperty(user, 'name'); // string
-```
-
-### Pattern 4: Type Guards
-```typescript
-// Source: https://www.typescriptlang.org/docs/handbook/2/narrowing.html
-function isString(value: unknown): value is string {
-  return typeof value === 'string';
-}
-
-function process(value: unknown) {
-  if (isString(value)) {
-    console.log(value.toUpperCase()); // value is string
+// Generic API handler
+async function handleRequest<T>(
+  fn: () => Promise<T>,
+  res: Response
+): Promise<void> {
+  try {
+    const data = await fn();
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
   }
 }
 ```
 
-### Pattern 5: Mapped Types
-```typescript
-// Source: https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
-type Getters<T> = {
-  [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K];
-};
+## File Organization
 
-interface Person { name: string; age: number; }
-type PersonGetters = Getters<Person>;
-// { getName: () => string; getAge: () => number; }
+```
+src/
+├── types/          # Shared TypeScript types
+├── services/       # Business logic
+├── routes/         # API endpoints
+├── db/             # Database schema & migrations
+└── utils/          # Helper functions
 ```
 
-### Pattern 6: const Assertions
-```typescript
-// Source: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html
-const routes = ['home', 'about', 'contact'] as const;
-type Route = typeof routes[number]; // 'home' | 'about' | 'contact'
+## Import Best Practices
 
-const config = { env: 'prod', port: 3000 } as const;
-// { readonly env: 'prod'; readonly port: 3000; }
+```typescript
+// Good - explicit imports
+import { Task, TaskStatus } from './types';
+import { createTask, updateTask } from './services/taskService';
+
+// Bad - wildcard imports
+import * as types from './types';
+import * as taskService from './services/taskService';
 ```
 
-## Anti-Patterns
+## Null Handling
 
-- **`any` type** - Use `unknown` and narrow with type guards
-- **Type assertions (`as`)** - Prefer type guards for runtime safety
-- **Overly complex generics** - Simplify; readability > cleverness
-- **Missing `strict` mode** - Enable in tsconfig.json
+```typescript
+// Use nullish coalescing
+const name = user.name ?? 'Anonymous';
 
-## Verification Checklist
+// Use optional chaining
+const city = user.address?.city;
 
-- [ ] `strict: true` in tsconfig.json
-- [ ] No `any` without justification
-- [ ] Type guards for runtime checks
-- [ ] Utility types used over manual definitions
-- [ ] Generics have constraints where needed
+// Type guards for narrowing
+function isTask(obj: unknown): obj is Task {
+  return typeof obj === 'object' && obj !== null && 'id' in obj && 'title' in obj;
+}
+```

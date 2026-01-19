@@ -1,243 +1,192 @@
 ---
 name: report-writing
-description: |
-  Complete report writing capability combining reading, note-taking, validation, and formatting.
-  LOAD THIS SKILL WHEN: User needs "寫報告", "write report", "整理成報告", "產出文件" | has source materials to summarize | creating academic document.
-  CAPABILITIES: PDF reading, structured notes, content validation, format checking.
-  COMPOSITE SKILL: Combines pdf-reader + note-writer + content-validator + report-formatter.
+description: 작업 완료 후 상세 리포트 문서를 작성. 변경 이력, 영향도 분석, 검증 결과를 문서화할 때 사용. 파일명 규칙 YYYY-MM-DD-<제목>-report.md
+allowed-tools: Read, Glob, Grep, Write
+license: MIT
+metadata:
+  author: antigravity-team
+  version: "1.0"
 ---
 
-# 讀寫報告能力 (Report Writing)
+# Report Writing
 
-## 描述
+작업 완료 후 상세 리포트를 작성하는 스킬입니다.
 
-**組合能力**：整合 PDF 讀取、筆記撰寫、內容驗證和格式化，提供完整的報告撰寫流程。
+## Core Principle
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                  Report Writing (組合能力)                           │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│  ┌────────────┐   ┌────────────┐   ┌──────────────┐   ┌──────────┐ │
-│  │ pdf-reader │ → │ note-writer│ → │content-valid.│ → │report-fmt│ │
-│  │  (讀取)    │   │  (撰寫)    │   │   (驗證)     │   │ (格式化) │ │
-│  └────────────┘   └────────────┘   └──────────────┘   └──────────┘ │
-│        │               │                  │                │        │
-│        ▼               ▼                  ▼                ▼        │
-│    原始文本        結構化筆記          驗證報告         最終報告    │
-│                                                                      │
-│  ┌──────────────────────────────────────────────────────────────┐   │
-│  │                    🔄 迴圈處理多個 PDF                        │   │
-│  └──────────────────────────────────────────────────────────────┘   │
-│                                                                      │
-└─────────────────────────────────────────────────────────────────────┘
-```
+> **"작업의 '무엇'과 '왜'를 기록하여 6개월 후에도 추적 가능하게"**
 
-## 觸發條件
-
-- 「寫報告」「整理這些文獻」「產出讀書報告」
-- "write report", "create document", "summarize papers"
-- 有 PDF 或文獻內容需要整理成報告
-
-## 組成技能
-
-| 順序 | 技能 | 路徑 | 迴圈 |
-|------|------|------|------|
-| 1 | `pdf-reader` | `.claude/skills/pdf-reader/SKILL.md` | 每個 PDF 一次 |
-| 2 | `note-writer` | `.claude/skills/note-writer/SKILL.md` | 每個來源一次 |
-| 3 | `content-validator` | `.claude/skills/content-validator/SKILL.md` | 單次 |
-| 4 | `report-formatter` | `.claude/skills/report-formatter/SKILL.md` | 單次 |
-
-## 執行流程
-
-### 標準流程
+## 파일명 규칙 (필수)
 
 ```
-Step 1: 收集來源材料
-    ↓
-    PDF 檔案 / PMID 清單 / URL
-    ↓
-Step 2: 讀取來源 (pdf-reader) [🔄 迴圈]
-    ↓
-    for each source:
-        content = pdf-reader.read(source)
-        checkpoint.update(source, "read")
-    ↓
-Step 3: 撰寫筆記 (note-writer) [🔄 迴圈]
-    ↓
-    for each content:
-        note = note-writer.write(content)
-        checkpoint.update(source, "noted")
-    ↓
-Step 4: 整合筆記
-    ↓
-    combined_notes = merge_notes(all_notes)
-    ↓
-Step 5: 驗證內容 (content-validator)
-    ↓
-    validation_report = content-validator.validate(combined_notes, sources)
-    if validation_report.has_errors:
-        fix_errors()
-    ↓
-Step 6: 格式化 (report-formatter)
-    ↓
-    final_report = report-formatter.format(combined_notes)
-    ↓
-Output: 最終報告 (.md)
+docs/reports/YYYY-MM-DD-<제목>-report.md
 ```
 
-### 迴圈處理多 PDF
+예시:
+- `2024-12-24-path-renaming-report.md`
+- `2024-12-20-security-audit-report.md`
+- `2024-12-15-migration-complete-report.md`
 
-```python
-# Checkpoint 追蹤處理進度
-checkpoint = {
-    "capability": "report-writing",
-    "total_sources": len(pdf_files),
-    "processed": []
-}
+## 리포트 구조
 
-for pdf in pdf_files:
-    # Step 1: 讀取
-    content = pdf_reader.read(pdf)
-    
-    # Step 2: 撰寫筆記
-    note = note_writer.write(content)
-    
-    # Step 3: 更新 checkpoint
-    checkpoint["processed"].append({
-        "file": pdf,
-        "status": "completed",
-        "note_path": note.path
-    })
-    save_checkpoint(checkpoint)
-    
-    # 如果處理中斷，可從 checkpoint 恢復
-```
-
-## 輸出格式
-
-### 報告模板
+### 필수 섹션
 
 ```markdown
-# [報告標題]
+# 🔄 [작업 제목] 리포트
 
-> **建立日期**: 2024-12-22
-> **來源數量**: 5 篇文獻
-> **驗證狀態**: ✅ 已驗證
-
----
-
-## 摘要
-
-[整體摘要，綜合所有來源的重點]
-
-## 1. 背景
-
-[研究背景和問題陳述]
-
-## 2. 方法
-
-[各研究的方法概述]
-
-### 2.1 研究設計
-### 2.2 納入排除標準
-### 2.3 結果指標
-
-## 3. 結果
-
-[主要發現的整合]
-
-### 3.1 [主題 1]
-### 3.2 [主題 2]
-### 3.3 [主題 3]
-
-## 4. 討論
-
-[綜合討論和比較]
-
-## 5. 結論
-
-[主要結論和建議]
-
-## 6. 參考文獻
-
-1. Author A, et al. (2024). Title. Journal. PMID: 12345678
-2. Author B, et al. (2023). Title. Journal. PMID: 87654321
-...
+**작성일**: YYYY-MM-DD
+**작업자**: [작업자명]
+**스킬 사용**: [사용한 스킬 목록]
 
 ---
 
-## 附錄：驗證報告
+## 📋 변경 개요
 
-| 來源 | 驗證狀態 | 備註 |
-|------|----------|------|
-| Paper 1 | ✅ | 所有數據已核實 |
-| Paper 2 | ⚠️ | 統計值已修正 |
+| 항목 | 내용 |
+|------|------|
+| **변경 사유** | [왜 이 작업이 필요했는지] |
+| **변경 내용** | [무엇을 변경했는지] |
+| **영향 범위** | [어디에 영향을 미치는지] |
+| **상태** | ✅ 완료 / 🔄 진행중 / ❌ 실패 |
+
+---
+
+## 🔧 변경된 파일 목록
+
+### 📝 수정된 파일
+
+| # | 파일 | 변경 내용 | 변경 유형 |
+|---|------|----------|----------|
+| 1 | `파일경로` | 변경 설명 | 🔧 Refactor |
+
+---
+
+## 🔍 상세 변경 내역
+
+### 파일명
+
+\`\`\`diff
+- 이전 내용
++ 변경된 내용
+\`\`\`
+
+---
+
+## ✅ 검증 완료
+
+\`\`\`bash
+# 검증 명령어 및 결과
+\`\`\`
+
+---
+
+## 📌 후속 작업
+
+- [ ] 후속 작업 1
+- [ ] 후속 작업 2
 ```
 
-## Checkpoint 機制
+## 변경 유형 분류
 
-```json
-{
-  "capability": "report-writing",
-  "status": "in-progress",
-  "started_at": "2024-12-22T10:00:00",
-  "progress": {
-    "total_sources": 5,
-    "read": 3,
-    "noted": 2,
-    "validated": 0,
-    "formatted": 0
-  },
-  "currentSource": "paper3.pdf",
-  "currentStep": "reading",
-  "processed": [
-    {"file": "paper1.pdf", "status": "noted", "note": "notes/paper1.md"},
-    {"file": "paper2.pdf", "status": "noted", "note": "notes/paper2.md"},
-    {"file": "paper3.pdf", "status": "reading"}
-  ],
-  "errors": []
-}
+| Prefix | 이모지 | 설명 |
+|--------|--------|------|
+| Feature | ✨ | 새로운 기능 추가 |
+| Fix | 🐛 | 버그 수정 |
+| Refactor | 🔧 | 코드 리팩토링 |
+| Docs | 📚 | 문서 변경 |
+| Performance | ⚡ | 성능 개선 |
+| Security | 🔒 | 보안 관련 |
+| Breaking | 💥 | 호환성 깨짐 |
+| Delete | 🗑️ | 파일/기능 삭제 |
+
+## Before/After 패턴
+
+복잡한 변경에는 Before/After 비교 포함:
+
+```markdown
+### Before/After 구조
+
+\`\`\`
+Before                          After
+──────────────────              ──────────────────
+.old-folder/                    .new-folder/
+├── files/                      ├── files/ ✏️
+└── config/                     └── config/
+\`\`\`
 ```
 
-## 使用範例
+## 영향도 분석 섹션
 
-**範例 1：單篇報告**
+```markdown
+## 📊 영향도 분석
 
-```
-用戶：「讀取 paper.pdf 並寫成讀書報告」
-執行：
-1. pdf-reader: 讀取 PDF
-2. note-writer: 撰寫結構化筆記
-3. content-validator: 驗證準確性
-4. report-formatter: 格式化輸出
-```
+### 직접 영향
+- 영향 1
+- 영향 2
 
-**範例 2：多篇整合報告**
+### 간접 영향
+- 의존성 변경
+- 설정 파일 업데이트 필요
 
-```
-用戶：「整合這 5 篇 PDF 寫成綜述報告」
-執行：
-1. for each PDF:
-   - pdf-reader: 讀取
-   - note-writer: 筆記
-   - checkpoint: 記錄進度
-2. 整合所有筆記
-3. content-validator: 驗證
-4. report-formatter: 格式化
+### 유지된 항목
+| 항목 | 사유 |
+|------|------|
+| 항목1 | 변경하지 않은 이유 |
 ```
 
-**範例 3：從 PMID 產出報告**
+## 다이어그램 (선택)
 
+Mermaid로 아키텍처 변경 시각화:
+
+```markdown
+\`\`\`mermaid
+graph LR
+    A[Before] --> B[Change]
+    B --> C[After]
+\`\`\`
 ```
-用戶：「根據這些 PMID 寫報告：38353755, 37864754」
-執行：
-1. 取得全文連結
-2. pdf-reader: 讀取 PMC 全文
-3. note-writer + validator + formatter
+
+## Workflow
+
+### 1. 정보 수집
+
+```bash
+# 변경된 파일 확인
+git status --porcelain
+
+# 변경 내용 확인
+git diff --name-only HEAD
 ```
 
-## 相關能力
+### 2. 리포트 초안 작성
 
-- `literature-retrieval` - 文獻檢索能力
-- `literature-review` (cp.write_report) - 文獻評讀能力 = literature-retrieval + 本能力
+필수 섹션 구조에 맞춰 작성
+
+### 3. 검증 결과 추가
+
+실제 검증 명령어와 결과 포함
+
+### 4. 후속 작업 정리
+
+남은 작업 체크리스트로 정리
+
+## 관련 스킬
+
+리포트 작성 시 함께 활용:
+
+| 스킬 | 활용 |
+|------|------|
+| `changelog-generator` | 변경 분류, 이모지 체계 |
+| `adr-log` | 결정 기록, 대안 분석 |
+| `writing-plans` | 태스크 구조화 |
+
+## Checklist
+
+리포트 작성 완료 전 확인:
+
+- [ ] 파일명이 `YYYY-MM-DD-<제목>-report.md` 형식
+- [ ] 변경 개요 테이블 작성
+- [ ] 모든 변경 파일 목록화
+- [ ] diff 형식 상세 내역 포함
+- [ ] 검증 명령어/결과 포함
+- [ ] 후속 작업 체크리스트 작성

@@ -1,7 +1,7 @@
 {
   "name": "video-hook-generator",
   "repo": "nicepkg/ai-workflow",
-  "path": "video-creator-workflow/.claude/skills/video-hook-generator/SKILL.md",
+  "path": "workflows/video-creator-workflow/.claude/skills/video-hook-generator/SKILL.md",
   "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-17T02:05:47.127941Z"
+  "downloaded_at": "2026-01-19T03:26:17.889803Z"
 }

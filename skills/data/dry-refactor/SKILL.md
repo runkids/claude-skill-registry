@@ -1,95 +1,96 @@
 ---
 name: dry-refactor
-description: This skill should be used when the user asks to "refactor duplicate code", "apply DRY principles", "eliminate code repetition", "extract common functionality", or mentions code duplication, similar patterns, repeated logic, or reusable abstractions.
-context: fork
-agent: Plan
+description: Use when user asks to "remove duplicates", "DRY up code", "extract common logic", "consolidate repeated code", or when /dry scan finds duplicates. Provides language-specific refactoring guidance.
+user-invocable: false
 ---
 
-# DRY Refactoring
+# DRY Refactoring Guide
 
-## Process
+Help users eliminate code duplication by extracting shared logic into reusable modules.
 
-1. **Identify** - Exact copies, similar patterns, parallel hierarchies, naming patterns (`data1`/`data2`, `handleXClick`)
-2. **Analyze** - Coupling, cohesion, frequency (Rule of Three: wait for 3+ occurrences), volatility
-3. **Refactor** - Choose technique below, extract incrementally, test after each step
+## When This Applies
 
-## Techniques
+- User mentions "duplicates", "DRY", "repeated code", "copy-paste"
+- `/bluera-base:dry scan` found duplicates that need refactoring
+- Code review identified similar patterns across files
 
-**Extract Function** - Same logic in multiple places
+## When Duplication is Acceptable
 
-```ts
-getFullName(user: User) => `${user.firstName} ${user.lastName}`
+Not all duplication is bad. Keep duplicates when:
+
+1. **Test code**: Explicit test cases can repeat for clarity
+2. **Generated code**: Don't DRY generated files
+3. **Incidental similarity**: Coincidentally similar code that may diverge
+4. **Coupling cost**: Extraction would create tight coupling between unrelated modules
+
+## Refactoring Workflow
+
+### 1. Analyze the Duplicates
+
+```bash
+# Run scan if not already done
+/bluera-base:dry scan
+
+# Review the report
+/bluera-base:dry report
 ```
 
-**Extract Variable** - Repeated expression
+### 2. Categorize Each Duplicate
 
-```ts
-const isWorkingAge = user.age >= 18 && user.age < 65;
-```
+| Category | Action |
+|----------|--------|
+| **Exact copy** | Extract immediately |
+| **Near-duplicate** | Parameterize differences, then extract |
+| **Structural** | Consider codegen/templates |
+| **Coincidental** | Leave as-is, document why |
 
-**Parameterize** - Code differs only in values
+### 3. Choose Extraction Target
 
-```ts
-validateField(value: string, pattern: RegExp)
-// Use: validateField(email, EMAIL_REGEX)
-```
+| Scope | Target |
+|-------|--------|
+| Same file | Local function/method |
+| Same module/package | Shared utility file |
+| Across modules | New shared module |
+| Across repos | Shared library/package |
 
-**Extract Class** - Related functions scattered
+### 4. Execute Extraction
 
-```ts
-class UserRewards {
-  calculateDiscount(user, amount) { }
-  getLoyaltyPoints(user) { }
-}
-```
+1. Create the shared abstraction
+2. Move one instance, verify tests pass
+3. Replace remaining instances
+4. Update imports/exports
+5. Run tests after each replacement
 
-**Polymorphism** - Repeated switch/if-else
+### 5. Validate
 
-```ts
-interface PaymentProcessor { process(amount: number): void }
-class CreditProcessor implements PaymentProcessor { }
-```
+- [ ] All tests pass
+- [ ] No circular dependencies introduced
+- [ ] Public API unchanged (if applicable)
+- [ ] Code is actually simpler (not over-abstracted)
 
-**Strategy Pattern** - Duplicated algorithm selection
+## Anti-patterns to Avoid
 
-```ts
-const strategies = { date: byDate, name: byName };
-items.sort(strategies[sortType] ?? byPriority);
-```
+1. **Wrong abstraction**: Forcing unrelated code together
+2. **Over-parameterization**: Too many config options
+3. **Premature extraction**: Extracting before patterns stabilize
+4. **Leaky abstraction**: Exposing implementation details
 
-**Pull Up Method** - Identical methods in subclasses
+## Language-Specific Patterns
 
-```ts
-class BaseUser { getDisplayName() { } }
-class AdminUser extends BaseUser { }
-```
+See `@dry-refactor/references/patterns.md` for detailed examples:
 
-## Detection
+| Language | Primary Pattern |
+|----------|-----------------|
+| JS/TS | Module export, barrel index |
+| Python | Module with **init**.py |
+| Rust | Submodule with pub use |
+| Go | Same-package separate file |
 
-**Code Smells**: Look for numbered variables (`data1`, `data2`), parallel function names (`handleXClick`), near-identical code differing only in constants, repeated validation/error handling, parallel class structures, large switches in multiple places, repeated null checks, magic numbers
+## Report Integration
 
-**Rule of Three**: Wait for 3+ occurrences before abstracting
+When `/bluera-base:dry scan` identifies duplicates:
 
-## When NOT to DRY
-
-- **Coincidental similarity** - Avoid abstracting different domains/business rules that happen to look alike (will diverge)
-- **Premature abstraction** - Wait until pattern is clear; early abstraction often guesses wrong
-- **Single use** - Skip abstraction when code appears 1-2 times and is unlikely to grow
-- **Test clarity** - Prefer readable test setup over DRY
-- **Over-engineering** - Avoid abstracting every 2-3 line similarity
-
-## Patterns
-
-- **Configuration over code** - Use data structures to eliminate conditionals
-- **Template Method** - Define skeleton in base, vary steps in subclasses
-- **Dependency Injection** - Parameterize dependencies to reduce coupling
-- **Builder** - Construct complex objects incrementally
-
-## Best Practices
-
-- Refactor only after tests pass (green)
-- Apply one refactoring at a time
-- Commit changes frequently
-- Name abstractions for intent, not implementation
-- Consider performance impact of abstractions
-- Review abstractions with team before finalizing
+1. Review the report at `.bluera/bluera-base/state/dry-report.md`
+2. Start with highest-impact duplicates (most tokens/instances)
+3. Use suggested extraction targets from the report
+4. Re-run `/bluera-base:dry scan` after refactoring to verify reduction

@@ -1,639 +1,373 @@
 ---
 name: mermaid-diagrams
-description: Create and maintain architecture diagrams using Mermaid syntax for system architecture, workflows, database schemas, and sequence diagrams. Use when visualizing system components, data flows, or documenting architecture.
-allowed-tools: Read, Edit, Write, Bash, Grep, Glob
+description: Create diagrams and visualizations using Mermaid syntax. Use when generating flowcharts, sequence diagrams, class diagrams, entity-relationship diagrams, Gantt charts, or any visual documentation. Triggers on Mermaid, flowchart, sequence diagram, class diagram, ER diagram, Gantt chart, diagram, visualization.
 ---
 
-# Mermaid Diagrams Skill
+# Mermaid Diagrams
 
-This skill helps you create and maintain architecture diagrams using Mermaid syntax.
+Create diagrams and visualizations using Mermaid markdown syntax.
 
-## When to Use This Skill
+## Quick Reference
 
-- Visualizing system architecture
-- Documenting data flows and workflows
-- Creating database entity-relationship diagrams
-- Sequence diagrams for API interactions
-- State diagrams for workflows
-- Flowcharts for decision logic
-- Updating architecture documentation
+Mermaid diagrams are written in markdown code blocks with `mermaid` as the language identifier.
 
-## Mermaid Overview
-
-Mermaid is a diagramming and charting tool that uses text-based syntax:
-- **Text-Based**: Diagrams defined in plain text
-- **Version Control**: Track changes in git
-- **Easy Updates**: Modify diagrams like code
-- **Multiple Types**: Flowcharts, sequence, ER, class, state, etc.
-- **Integration**: Works in Markdown, GitHub, and many other platforms
-
-## Diagram Types
-
-### 1. System Architecture (Flowchart)
+## Flowchart
 
 ```mermaid
+flowchart TD
+    A[Start] --> B{Is it valid?}
+    B -->|Yes| C[Process data]
+    B -->|No| D[Show error]
+    C --> E[Save to database]
+    D --> F[Return to input]
+    E --> G[End]
+    F --> A
+```
+
+### Flowchart Syntax
+```
+flowchart TD          %% TD = top-down, LR = left-right, RL, BT
+    A[Rectangle]      %% Square brackets = rectangle
+    B(Rounded)        %% Parentheses = rounded rectangle
+    C{Diamond}        %% Curly braces = diamond/decision
+    D[[Subroutine]]   %% Double brackets = subroutine
+    E[(Database)]     %% Cylinder shape
+    F((Circle))       %% Double parentheses = circle
+    G>Asymmetric]     %% Flag shape
+
+    A --> B           %% Arrow
+    B --- C           %% Line without arrow
+    C -.-> D          %% Dotted arrow
+    D ==> E           %% Thick arrow
+    E --text--> F     %% Arrow with label
+    F -->|label| G    %% Alternative label syntax
+```
+
+### Subgraphs
+```mermaid
 flowchart TB
-    subgraph Internet
-        User[User/Browser]
+    subgraph Frontend
+        A[React App] --> B[Components]
+        B --> C[Hooks]
     end
-
-    subgraph Cloudflare
-        DNS[DNS]
-        CDN[CDN/Caching]
+    
+    subgraph Backend
+        D[API Server] --> E[Database]
     end
-
-    subgraph AWS["AWS (ap-southeast-1)"]
-        subgraph API Service
-            ALB[Application Load Balancer]
-            Lambda[Lambda Function<br/>Hono API]
-        end
-
-        subgraph Data Layer
-            RDS[(PostgreSQL<br/>RDS)]
-            Redis[(Redis<br/>Upstash)]
-        end
-
-        subgraph Web App
-            NextJS[Next.js App<br/>Lambda@Edge]
-        end
-
-        subgraph Storage
-            S3[S3 Bucket<br/>Static Assets]
-        end
-    end
-
-    subgraph External Services
-        LTA[LTA DataMall API]
-        QStash[QStash<br/>Workflow Engine]
-        Gemini[Google Gemini<br/>AI Service]
-        Social[Social Media APIs]
-    end
-
-    User --> DNS
-    DNS --> CDN
-    CDN --> NextJS
-    CDN --> ALB
-    ALB --> Lambda
-    Lambda --> RDS
-    Lambda --> Redis
-    Lambda --> QStash
-    Lambda --> LTA
-    QStash --> Lambda
-    Lambda --> Gemini
-    Lambda --> Social
-    NextJS --> Lambda
-    NextJS --> S3
+    
+    A -->|HTTP| D
 ```
 
-**Source file:**
-```
-// apps/docs/diagrams/system-architecture.mmd
-flowchart TB
-    User[User/Browser] --> DNS[Cloudflare DNS]
-    DNS --> NextJS[Next.js App]
-    // ... rest of diagram
-```
-
-### 2. Workflow Sequence Diagram
+## Sequence Diagram
 
 ```mermaid
 sequenceDiagram
-    participant QStash as QStash Cron
-    participant Workflow as Update Workflow
-    participant LTA as LTA DataMall
-    participant DB as PostgreSQL
-    participant Redis as Redis Cache
-    participant Gemini as Gemini AI
-    participant Social as Social Media
+    participant U as User
+    participant C as Client
+    participant S as Server
+    participant D as Database
 
-    QStash->>Workflow: Trigger (Daily 10 AM)
-
-    alt Data Update
-        Workflow->>LTA: Fetch car data
-        LTA-->>Workflow: Car records
-        Workflow->>DB: Save car data
-        Workflow->>Redis: Invalidate cache
-    end
-
-    alt Blog Generation
-        Workflow->>DB: Get latest data
-        DB-->>Workflow: Data for analysis
-        Workflow->>Gemini: Generate blog post
-        Gemini-->>Workflow: Blog content
-        Workflow->>DB: Save blog post
-    end
-
-    alt Social Media
-        Workflow->>DB: Get latest post
-        DB-->>Workflow: Post content
-        Workflow->>Social: Post to platforms
-        Social-->>Workflow: Success
-    end
-
-    Workflow-->>QStash: Complete
+    U->>C: Click submit
+    C->>S: POST /api/data
+    activate S
+    S->>D: INSERT query
+    D-->>S: Success
+    S-->>C: 200 OK
+    deactivate S
+    C-->>U: Show success message
 ```
 
-**Source file:**
+### Sequence Diagram Syntax
 ```
-// apps/docs/diagrams/workflow-sequence.mmd
 sequenceDiagram
-    participant QStash
-    participant Workflow
-    // ... rest of diagram
+    participant A as Alice
+    participant B as Bob
+
+    A->>B: Solid line with arrow
+    A-->>B: Dotted line with arrow
+    A-)B: Solid line with open arrow
+    A--)B: Dotted line with open arrow
+    
+    activate B          %% Activation box
+    B->>A: Response
+    deactivate B
+    
+    Note over A,B: This is a note
+    Note right of A: Note on right
+    
+    alt Condition true
+        A->>B: Do this
+    else Condition false
+        A->>B: Do that
+    end
+    
+    loop Every minute
+        A->>B: Ping
+    end
+    
+    opt Optional action
+        A->>B: Maybe do this
+    end
 ```
 
-### 3. Database Entity-Relationship Diagram
-
-```mermaid
-erDiagram
-    CARS {
-        uuid id PK
-        string make
-        string model
-        string month
-        int number
-        string vehicleType
-        string fuelType
-        timestamp createdAt
-    }
-
-    COE {
-        uuid id PK
-        string month
-        int biddingNo
-        string vehicleClass
-        int quota
-        int bidsReceived
-        int premiumAmount
-        timestamp createdAt
-    }
-
-    POSTS {
-        uuid id PK
-        string title
-        string slug UK
-        text content
-        text excerpt
-        string status
-        timestamp publishedAt
-        timestamp createdAt
-    }
-
-    ANALYTICS {
-        uuid id PK
-        string path
-        string referrer
-        string userAgent
-        string country
-        timestamp timestamp
-    }
-
-    POSTS ||--o{ ANALYTICS : "tracks visits"
-```
-
-**Source file:**
-```
-// apps/docs/diagrams/database-erd.mmd
-erDiagram
-    CARS {
-        uuid id PK
-        // ... rest of schema
-    }
-```
-
-### 4. API Architecture
-
-```mermaid
-graph LR
-    Client[Client] --> API[API Gateway]
-
-    API --> V1[v1 Routes]
-
-    V1 --> Cars[Cars Endpoints]
-    V1 --> COE[COE Endpoints]
-    V1 --> Blog[Blog Endpoints]
-    V1 --> Health[Health Check]
-
-    Cars --> CarService[Car Service]
-    COE --> COEService[COE Service]
-    Blog --> BlogService[Blog Service]
-
-    CarService --> DB[(Database)]
-    COEService --> DB
-    BlogService --> DB
-
-    CarService --> Cache[(Redis)]
-    COEService --> Cache
-    BlogService --> Cache
-```
-
-### 5. State Diagram (Workflow States)
-
-```mermaid
-stateDiagram-v2
-    [*] --> Scheduled
-    Scheduled --> Running: Trigger
-    Running --> FetchingData: Start
-    FetchingData --> ProcessingData: Data Received
-    FetchingData --> Failed: API Error
-    ProcessingData --> SavingData: Processed
-    SavingData --> GeneratingBlog: Saved
-    GeneratingBlog --> PostingToSocial: Generated
-    PostingToSocial --> Completed: Posted
-    PostingToSocial --> PartiallyCompleted: Some Failed
-    Failed --> [*]
-    Completed --> [*]
-    PartiallyCompleted --> [*]
-```
-
-### 6. Class Diagram (TypeScript Interfaces)
+## Class Diagram
 
 ```mermaid
 classDiagram
-    class Car {
+    class User {
         +String id
-        +String make
-        +String model
-        +String month
-        +Number number
-        +String vehicleType
-        +String fuelType
+        +String name
+        +String email
+        +login()
+        +logout()
     }
-
-    class COE {
+    
+    class Order {
         +String id
-        +String month
-        +Number biddingNo
-        +String vehicleClass
-        +Number quota
-        +Number bidsReceived
-        +Number premiumAmount
+        +Date createdAt
+        +calculateTotal()
     }
-
-    class BlogPost {
+    
+    class Product {
         +String id
-        +String title
-        +String slug
-        +String content
-        +String excerpt
-        +String status
-        +Date publishedAt
+        +String name
+        +Number price
     }
-
-    class Analytics {
-        +String id
-        +String path
-        +String referrer
-        +Date timestamp
-    }
-
-    BlogPost "1" --> "*" Analytics : tracks
+    
+    User "1" --> "*" Order : places
+    Order "*" --> "*" Product : contains
 ```
 
-## Creating Diagrams
-
-### File Organization
-
+### Class Diagram Syntax
 ```
-docs/
-├── diagrams/                    # Source .mmd files
-│   ├── system.mmd
-│   ├── workflows.mmd
-│   ├── database.mmd
-│   ├── api.mmd
-│   ├── infrastructure.mmd
-│   └── social.mmd
-└── architecture/                # Markdown docs with embedded diagrams
-    ├── system.md
-    ├── workflows.md
-    ├── database.md
-    ├── api.md
-    ├── infrastructure.md
-    └── social.md
+classDiagram
+    class ClassName {
+        +publicField
+        -privateField
+        #protectedField
+        ~packageField
+        +publicMethod()
+        -privateMethod()
+    }
+    
+    ClassA <|-- ClassB : Inheritance
+    ClassC *-- ClassD : Composition
+    ClassE o-- ClassF : Aggregation
+    ClassG --> ClassH : Association
+    ClassI ..> ClassJ : Dependency
+    ClassK ..|> ClassL : Realization
 ```
 
-### Embed in Markdown Docs
-
-```markdown
-# System Architecture
-
-The system consists of the following components:
+## Entity Relationship Diagram
 
 ```mermaid
-flowchart TB
-    User[User/Browser] --> DNS[Cloudflare DNS]
-    DNS --> NextJS[Next.js App]
-    DNS --> API[Hono API]
-    // ... rest of diagram
-\```
-
-## Components
-
-### Frontend
-- Next.js 16 with App Router
-- Deployed on AWS Lambda@Edge
-- Static assets on S3 + CloudFront
-
-### Backend
-- Hono API on AWS Lambda
-- PostgreSQL on RDS
-- Redis caching with Upstash
+erDiagram
+    USER ||--o{ ORDER : places
+    ORDER ||--|{ LINE_ITEM : contains
+    PRODUCT ||--o{ LINE_ITEM : "is in"
+    
+    USER {
+        string id PK
+        string email UK
+        string name
+        datetime created_at
+    }
+    
+    ORDER {
+        string id PK
+        string user_id FK
+        datetime created_at
+        string status
+    }
+    
+    PRODUCT {
+        string id PK
+        string name
+        decimal price
+    }
+    
+    LINE_ITEM {
+        string id PK
+        string order_id FK
+        string product_id FK
+        int quantity
+    }
 ```
 
-## Common Patterns
+### ER Diagram Cardinality
+```
+||--||   One to one
+||--o{   One to zero or more
+||--|{   One to one or more
+}o--o{   Zero or more to zero or more
+```
 
-### System Overview
+## Gantt Chart
 
 ```mermaid
-flowchart TB
-    subgraph Frontend
-        Web[Next.js Web App]
-        Admin[Admin Panel]
-    end
-
-    subgraph Backend
-        API[Hono API]
-        Workflows[QStash Workflows]
-    end
-
-    subgraph Data
-        DB[(PostgreSQL)]
-        Cache[(Redis)]
-    end
-
-    subgraph External
-        LTA[LTA DataMall]
-        AI[Gemini AI]
-    end
-
-    Web --> API
-    Admin --> API
-    API --> DB
-    API --> Cache
-    Workflows --> LTA
-    Workflows --> AI
-    Workflows --> DB
+gantt
+    title Project Timeline
+    dateFormat YYYY-MM-DD
+    
+    section Planning
+    Requirements    :a1, 2024-01-01, 7d
+    Design          :a2, after a1, 14d
+    
+    section Development
+    Backend API     :b1, after a2, 21d
+    Frontend        :b2, after a2, 28d
+    Integration     :b3, after b1, 7d
+    
+    section Testing
+    QA Testing      :c1, after b3, 14d
+    Bug Fixes       :c2, after c1, 7d
+    
+    section Launch
+    Deployment      :milestone, after c2, 0d
 ```
 
-### Data Flow
+## State Diagram
+
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Processing: Submit
+    Processing --> Success: Valid
+    Processing --> Error: Invalid
+    Success --> Idle: Reset
+    Error --> Idle: Retry
+    Success --> [*]
+```
+
+## Pie Chart
+
+```mermaid
+pie title Browser Market Share
+    "Chrome" : 65
+    "Safari" : 19
+    "Firefox" : 10
+    "Edge" : 4
+    "Other" : 2
+```
+
+## Git Graph
+
+```mermaid
+gitGraph
+    commit
+    commit
+    branch feature
+    checkout feature
+    commit
+    commit
+    checkout main
+    merge feature
+    commit
+    branch hotfix
+    checkout hotfix
+    commit
+    checkout main
+    merge hotfix
+```
+
+## User Journey
+
+```mermaid
+journey
+    title User Checkout Experience
+    section Browse
+        View products: 5: User
+        Add to cart: 4: User
+    section Checkout
+        Enter shipping: 3: User
+        Enter payment: 2: User
+        Confirm order: 5: User
+    section Post-Purchase
+        Receive confirmation: 5: User, System
+        Track shipment: 4: User
+```
+
+## Mindmap
+
+```mermaid
+mindmap
+    root((Project))
+        Frontend
+            React
+            TypeScript
+            Tailwind
+        Backend
+            Node.js
+            PostgreSQL
+            Redis
+        DevOps
+            Docker
+            Kubernetes
+            CI/CD
+```
+
+## Styling
 
 ```mermaid
 flowchart LR
-    A[LTA DataMall] -->|Fetch| B[Workflow]
-    B -->|Transform| C[Processing]
-    C -->|Save| D[(Database)]
-    D -->|Cache| E[(Redis)]
-    E -->|Serve| F[API]
-    F -->|Response| G[Client]
+    A[Start]:::green --> B[Process]:::blue --> C[End]:::red
+    
+    classDef green fill:#22c55e,color:#fff
+    classDef blue fill:#3b82f6,color:#fff
+    classDef red fill:#ef4444,color:#fff
 ```
 
-### Request Flow
+## React Component
 
-```mermaid
-sequenceDiagram
-    Client->>+API: GET /api/v1/cars/makes
-    API->>+Cache: Check cache
-    Cache-->>-API: Cache miss
-    API->>+DB: Query database
-    DB-->>-API: Results
-    API->>Cache: Store in cache
-    API-->>-Client: JSON response
+```tsx
+import mermaid from 'mermaid';
+import { useEffect, useRef } from 'react';
+
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'neutral', // default, dark, forest, neutral
+  securityLevel: 'loose',
+});
+
+interface MermaidProps {
+  chart: string;
+  id?: string;
+}
+
+export function Mermaid({ chart, id = 'mermaid-diagram' }: MermaidProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      mermaid.render(id, chart).then(({ svg }) => {
+        if (ref.current) {
+          ref.current.innerHTML = svg;
+        }
+      });
+    }
+  }, [chart, id]);
+
+  return <div ref={ref} className="mermaid-container" />;
+}
+
+// Usage
+<Mermaid
+  chart={`
+    flowchart LR
+      A --> B --> C
+  `}
+/>
 ```
 
-### Deployment Pipeline
+## Tips
 
-```mermaid
-flowchart LR
-    A[Git Push] --> B[GitHub Actions]
-    B --> C{Branch?}
-    C -->|main| D[Production]
-    C -->|staging| E[Staging]
-    C -->|dev| F[Development]
-    D --> G[Deploy API]
-    D --> H[Deploy Web]
-    G --> I[Run Migrations]
-    H --> J[Invalidate CDN]
-```
+1. **Direction**: Use `TD` (top-down), `LR` (left-right), `BT` (bottom-top), `RL` (right-left)
+2. **Comments**: Use `%%` for comments
+3. **Quotes**: Use quotes for labels with special characters: `A["Label with (parentheses)"]`
+4. **Line breaks**: Use `<br/>` for multi-line labels
 
-## Styling Diagrams
+## Resources
 
-### Colors and Themes
-
-```mermaid
-flowchart TB
-    A[Start]:::green --> B{Decision}:::yellow
-    B -->|Yes| C[Success]:::green
-    B -->|No| D[Error]:::red
-
-    classDef green fill:#0D9373,stroke:#07C983,color:#fff
-    classDef yellow fill:#FDB022,stroke:#F59E0B,color:#000
-    classDef red fill:#DC2626,stroke:#B91C1C,color:#fff
-```
-
-### Subgraphs for Organization
-
-```mermaid
-flowchart TB
-    subgraph AWS
-        subgraph Compute
-            Lambda[Lambda]
-            ECS[ECS]
-        end
-
-        subgraph Storage
-            S3[S3]
-            RDS[(RDS)]
-        end
-    end
-
-    Lambda --> S3
-    Lambda --> RDS
-```
-
-## Best Practices
-
-### 1. Use Meaningful Labels
-
-```mermaid
-# ❌ Unclear labels
-A --> B
-B --> C
-
-# ✅ Clear labels
-User[User] --> API[API Gateway]
-API --> DB[(Database)]
-```
-
-### 2. Group Related Components
-
-```mermaid
-# ✅ Organized with subgraphs
-flowchart TB
-    subgraph Frontend
-        Web[Web App]
-        Mobile[Mobile App]
-    end
-
-    subgraph Backend
-        API[API]
-        Workers[Workers]
-    end
-
-    Web --> API
-    Mobile --> API
-```
-
-### 3. Add Arrows for Data Flow
-
-```mermaid
-# ❌ No direction
-A -- B
-
-# ✅ Shows direction
-A -->|Request| B
-B -->|Response| A
-```
-
-### 4. Use Appropriate Diagram Types
-
-- **Flowchart**: System architecture, data flow
-- **Sequence**: API interactions, workflows
-- **ER Diagram**: Database schemas
-- **State**: Workflow states, FSM
-- **Class**: TypeScript interfaces, OOP
-
-## Exporting Diagrams
-
-### PNG/SVG Export
-
-```bash
-# Install mermaid-cli
-pnpm add -g @mermaid-js/mermaid-cli
-
-# Generate PNG
-mmdc -i diagram.mmd -o diagram.png
-
-# Generate SVG
-mmdc -i diagram.mmd -o diagram.svg
-
-# Generate PDF
-mmdc -i diagram.mmd -o diagram.pdf
-```
-
-### Batch Export
-
-```bash
-# Export all diagrams
-for file in diagrams/*.mmd; do
-  mmdc -i "$file" -o "${file%.mmd}.png"
-done
-```
-
-## Updating Diagrams
-
-### Workflow
-
-1. Edit source `.mmd` file in `docs/diagrams/`
-2. Update corresponding Markdown file in `docs/architecture/`
-3. Preview in GitHub or VS Code
-4. Commit changes
-
-```bash
-# Edit diagram
-vim docs/diagrams/system.mmd
-
-# Update documentation
-vim docs/architecture/system.md
-
-# Commit
-git add docs/diagrams/system.mmd
-git add docs/architecture/system.md
-git commit -m "docs: update system architecture diagram"
-```
-
-## Troubleshooting
-
-### Syntax Errors
-
-```mermaid
-# ❌ Invalid syntax
-flowchart TB
-    A -> B  # Wrong arrow syntax
-
-# ✅ Correct syntax
-flowchart TB
-    A --> B
-```
-
-### Layout Issues
-
-```mermaid
-# ❌ Unclear layout
-flowchart LR
-    A --> B --> C --> D --> E
-
-# ✅ Better layout with subgraphs
-flowchart TB
-    A --> B
-    B --> C
-
-    subgraph Processing
-        C --> D
-        D --> E
-    end
-```
-
-### Diagram Not Rendering
-
-```markdown
-# Issue: Mermaid not rendering
-# Solution: Ensure proper code fence
-
-# ❌ Wrong
-\```mermaid
-graph TD
-\```
-
-# ✅ Correct
-\```mermaid
-flowchart TD
-    A --> B
-\```
-```
-
-## Live Editors
-
-### Online Editors
-
-- **Mermaid Live Editor**: https://mermaid.live
-- **GitHub**: Renders mermaid in markdown
-
-### VS Code Extensions
-
-```bash
-# Install Mermaid extension
-# Search: "Mermaid Markdown Syntax Highlighting"
-```
-
-## References
-
-- Mermaid Documentation: https://mermaid.js.org
-- Flowchart Syntax: https://mermaid.js.org/syntax/flowchart.html
-- Sequence Diagrams: https://mermaid.js.org/syntax/sequenceDiagram.html
-- ER Diagrams: https://mermaid.js.org/syntax/entityRelationshipDiagram.html
-- State Diagrams: https://mermaid.js.org/syntax/stateDiagram.html
-- Related files:
-  - `docs/diagrams/` - Source diagram files
-  - `docs/architecture/` - Documentation with diagrams
-  - Root CLAUDE.md - Documentation guidelines
-
-## Best Practices Summary
-
-1. **Source Control**: Keep `.mmd` files in `diagrams/` directory
-2. **Meaningful Labels**: Use clear, descriptive node labels
-3. **Subgraphs**: Group related components for clarity
-4. **Appropriate Types**: Choose the right diagram type for the purpose
-5. **Consistent Style**: Use consistent colors and formatting
-6. **Data Flow**: Show direction with arrows
-7. **Documentation**: Embed diagrams in relevant docs
-8. **Keep Updated**: Update diagrams when architecture changes
+- **Mermaid Docs**: https://mermaid.js.org/
+- **Live Editor**: https://mermaid.live
+- **GitHub Support**: Mermaid works natively in GitHub markdown

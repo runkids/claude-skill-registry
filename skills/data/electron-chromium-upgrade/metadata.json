@@ -1,7 +1,7 @@
 {
   "name": "electron-chromium-upgrade",
-  "repo": "manageryzy/electron",
+  "repo": "electron/electron",
   "path": ".claude/skills/electron-chromium-upgrade/SKILL.md",
-  "source": "github.com/manageryzy/electron",
-  "downloaded_at": "2026-01-17T04:02:47.344703Z"
+  "source": "github.com/electron/electron",
+  "downloaded_at": "2026-01-19T04:14:54.920130Z"
 }

@@ -1,254 +1,175 @@
 ---
 name: security-scan
-description: Quick routine security checks for secrets, dependencies, and common vulnerabilities. Run frequently during development. Triggers: security scan, quick scan, secrets check, vulnerability check, security check, pre-commit security, routine security.
-allowed-tools: Read, Grep, Glob, Bash
+description: "Run comprehensive security vulnerability scans when reviewing code. Automatically uses basic mode (fast, high/medium severity only) for first reviews, advanced mode (comprehensive, all severities) for iterations. Detects SQL injection, XSS, hardcoded secrets, insecure dependencies. Use before approving any code changes or pull requests."
+version: 1.0.0
+allowed-tools: [Bash, Read]
 ---
 
-# Security Scan
+# Security Scanning Skill
 
-## Overview
+You are the security-scan skill. When invoked, you run appropriate security scanners based on project language and provide structured security reports.
 
-This skill provides quick, routine security checks that should be run frequently during development. These are lightweight scans designed to catch common issues early, not comprehensive audits.
+## When to Invoke This Skill
 
-## When to Use
+**Invoke this skill when:**
+- Tech Lead is reviewing code changes
+- Before approving pull requests
+- Security-sensitive code modified (auth, database, API endpoints)
+- Before deployment to production
+- Reviewing dependencies or third-party code
 
-- **Before commits**: Quick check for secrets and obvious issues
-- **During PR review**: Verify no new vulnerabilities introduced
-- **Regular intervals**: Daily/weekly automated checks
-- **After dependency updates**: Verify no new CVEs
-- **Quick sanity checks**: Fast verification during development
+**Do NOT invoke when:**
+- Documentation-only changes
+- Test file changes only
+- Non-code changes (README, config, .gitignore)
+- Work-in-progress drafts not ready for review
 
-For comprehensive security work, use the `security-audit` skill or invoke the `security-engineer` agent.
+---
 
-## Quick Scan Checklist
+## Your Task
 
-Run these checks in order of priority:
+When invoked:
+1. Execute the security scan script
+2. Read the generated security report
+3. Return a summary to the calling agent
 
-### 1. Secret Detection (Critical)
+---
+
+## Step 1: Execute Security Scan Script
+
+Use the **Bash** tool to run the pre-built security scanning script.
+
+**On Unix/macOS:**
+```bash
+bash .claude/skills/security-scan/scripts/scan.sh
+```
+
+**On Windows (PowerShell):**
+```powershell
+pwsh .claude/skills/security-scan/scripts/scan.ps1
+```
+
+> **Cross-platform detection:** Check if running on Windows (`$env:OS` contains "Windows" or `uname` doesn't exist) and run the appropriate script.
+
+The script automatically determines scan mode:
+- **Basic mode** (default): Fast scan, high/medium severity only (5-10 seconds)
+- **Advanced mode**: Comprehensive scan, all severities (30-60 seconds)
+
+Mode selection is controlled by `SECURITY_SCAN_MODE` environment variable (set by Tech Lead based on revision count).
+
+The script will:
+- Detect project language (Python, JavaScript, Go, Ruby, Java)
+- Run appropriate security scanner (bandit, npm audit, gosec, brakeman, spotbugs)
+- Parse results and categorize by severity
+- Generate `bazinga/artifacts/{SESSION_ID}/skills/security_scan.json`
+
+---
+
+## Step 2: Read Generated Report
+
+Use the **Read** tool to read:
 
 ```bash
-# Check for hardcoded secrets with grep patterns
-# API keys
-grep -rn --include="*.{js,ts,py,go,java,rb,php}" \
-  -E "(api[_-]?key|apikey)\s*[:=]\s*['\"][a-zA-Z0-9]{16,}" .
-
-# AWS credentials
-grep -rn --include="*.{js,ts,py,go,java,rb,php,env,yaml,yml,json}" \
-  -E "(AKIA|ABIA|ACCA|ASIA)[A-Z0-9]{16}" .
-
-# Private keys
-grep -rn --include="*.{pem,key,env}" \
-  -E "-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----" .
-
-# Generic secrets
-grep -rn --include="*.{js,ts,py,go,java,rb,php}" \
-  -E "(password|secret|token)\s*[:=]\s*['\"][^'\"]{8,}" .
+bazinga/artifacts/{SESSION_ID}/skills/security_scan.json
 ```
 
-**Better: Use dedicated tools**
+Extract key information:
+- `scan_mode` - Basic or advanced
+- `status` - success/partial/error
+- `critical_issues`, `high_issues`, `medium_issues` - Issue counts
+- `issues` - Array of security findings with file/line/recommendation
 
-```bash
-# TruffleHog (recommended)
-trufflehog filesystem --directory=. --only-verified --no-update
+---
 
-# GitLeaks
-gitleaks detect --source=. --no-git
+## Step 3: Return Summary
 
-# git-secrets (if installed)
-git secrets --scan
+Return a concise summary to the calling agent:
+
+```
+Security Scan Report ({mode} mode):
+- Tool: {tool_name}
+- Critical issues: {count}
+- High issues: {count}
+- Medium issues: {count}
+
+{If issues found:}
+Top issues:
+1. {severity}: {issue title} ({file}:{line})
+2. {severity}: {issue title} ({file}:{line})
+3. {severity}: {issue title} ({file}:{line})
+
+Details saved to: bazinga/artifacts/{SESSION_ID}/skills/security_scan.json
 ```
 
-### 2. Dependency Vulnerabilities (High)
+---
 
-```bash
-# Node.js
-npm audit --audit-level=high
-# or
-yarn audit --level high
+## Example Invocation
 
-# Python
-pip-audit
-# or
-safety check
+**Scenario: First Review (Basic Mode)**
 
-# Go
-govulncheck ./...
+Input: Tech Lead reviewing auth changes before deployment
 
-# Rust
-cargo audit
+Expected output:
+```
+Security Scan Report (basic mode):
+- Tool: bandit
+- Critical issues: 0
+- High issues: 2
+- Medium issues: 5
 
-# Ruby
-bundle audit check --update
+Top issues:
+1. HIGH: SQL injection risk (auth.py:45)
+2. HIGH: Hardcoded secret detected (config.py:12)
+3. MEDIUM: Weak random number generation (token.py:89)
 
-# .NET
-dotnet list package --vulnerable --include-transitive
+Details saved to: bazinga/artifacts/{SESSION_ID}/skills/security_scan.json
 ```
 
-### 3. Quick Static Analysis (Medium)
+**Scenario: Persistent Issues (Advanced Mode)**
 
-```bash
-# Multi-language with Semgrep (fast defaults)
-semgrep --config=p/security-audit --config=p/secrets .
+Input: Tech Lead reviewing after 2nd revision
 
-# Python only
-bandit -r . -ll  # Only high severity
+Expected output:
+```
+Security Scan Report (advanced mode):
+- Tool: bandit + semgrep
+- Critical issues: 1
+- High issues: 3
+- Medium issues: 8
+- Low issues: 12
 
-# JavaScript/TypeScript
-npx eslint . --ext .js,.ts --no-eslintrc \
-  --plugin security --rule 'security/detect-object-injection: error'
+Top issues:
+1. CRITICAL: Remote code execution vulnerability (upload.py:156)
+2. HIGH: Authentication bypass possible (middleware.py:78)
+3. HIGH: XSS vulnerability in user input (forms.py:45)
 
-# Go
-gosec -severity high ./...
+Details saved to: bazinga/artifacts/{SESSION_ID}/skills/security_scan.json
 ```
 
-### 4. Configuration Checks (Medium)
+---
 
-```bash
-# Docker
-hadolint Dockerfile
+## Error Handling
 
-# Terraform
-tfsec . --minimum-severity HIGH
+**If security tool not installed:**
+- Script attempts auto-installation
+- Falls back gracefully if installation fails
+- Returns error with installation instructions
 
-# Kubernetes
-kubesec scan deployment.yaml
+**If scan fails:**
+- Check `status` field in report (will be "error" or "partial")
+- Empty issues array with status="error" means scan FAILED, not that code is secure
+- Return error details to calling agent
 
-# General config
-checkov -f config.yaml --check HIGH
-```
+**If no issues found:**
+- Return successful report with 0 issues
+- Status: "success"
 
-## Pre-Commit Hook Setup
+---
 
-Add to `.pre-commit-config.yaml`:
+## Notes
 
-```yaml
-repos:
-  - repo: https://github.com/trufflesecurity/trufflehog
-    rev: v3.63.0
-    hooks:
-      - id: trufflehog
-        entry: trufflehog filesystem --no-update --fail --only-verified
-        args: ["--directory=."]
-
-  - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.18.0
-    hooks:
-      - id: gitleaks
-
-  - repo: https://github.com/returntocorp/semgrep
-    rev: v1.52.0
-    hooks:
-      - id: semgrep
-        args: ["--config=p/secrets", "--error"]
-```
-
-## CI/CD Integration
-
-### GitHub Actions
-
-```yaml
-name: Security Scan
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-
-jobs:
-  security-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Secret Scan
-        uses: trufflesecurity/trufflehog@main
-        with:
-          extra_args: --only-verified
-
-      - name: Dependency Scan
-        run: |
-          npm audit --audit-level=high || true
-          # Add other package managers as needed
-
-      - name: SAST
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: p/security-audit p/secrets
-```
-
-## Scan Result Interpretation
-
-### Severity Levels
-
-| Level | Action | Timeline |
-|-------|--------|----------|
-| **Critical** | Block merge, fix immediately | Hours |
-| **High** | Should fix before merge | Days |
-| **Medium** | Plan to fix | Sprint |
-| **Low** | Track, fix opportunistically | Backlog |
-
-### Common False Positives
-
-**Secret Detection**:
-- Test fixtures with fake keys
-- Documentation examples
-- Base64-encoded non-secrets
-- UUIDs and random IDs
-
-**Dependency Scans**:
-- Dev-only dependencies
-- Unused code paths
-- Already-mitigated issues
-
-### Triaging Results
-
-```markdown
-## Scan Results Triage
-
-### Confirmed Issues
-| Finding | Severity | File | Action |
-|---------|----------|------|--------|
-| Hardcoded API key | Critical | config.js:42 | Remove, rotate key |
-| lodash CVE | High | package.json | Update to 4.17.21 |
-
-### False Positives
-| Finding | Reason | Action |
-|---------|--------|--------|
-| test_api_key | Test fixture | Add to .gitleaksignore |
-| dev dependency CVE | Not in prod | Document acceptance |
-
-### Accepted Risks
-| Finding | Justification | Reviewer |
-|---------|---------------|----------|
-| Low CVE in CLI tool | Internal use only | @security |
-```
-
-## Quick Commands Reference
-
-```bash
-# One-liner: Quick secret + dependency check
-npm audit --audit-level=high && gitleaks detect --no-git
-
-# Python projects
-pip-audit && bandit -r src/ -ll
-
-# Go projects
-govulncheck ./... && gosec -severity high ./...
-
-# Full quick scan (if tools installed)
-trufflehog filesystem . --only-verified && \
-npm audit --audit-level=high && \
-semgrep --config=p/security-audit --config=p/secrets .
-```
-
-## Escalation
-
-Escalate to full `security-audit` or `security-engineer` when:
-
-- Critical findings discovered
-- Unusual or complex vulnerabilities
-- Architecture-level security concerns
-- Compliance-related questions
-- Incident response needed
+- The script (446+ lines) handles all language detection, tool installation, and scanning
+- Supports both bash (Linux/Mac) and PowerShell (Windows)
+- Basic mode prioritizes speed, advanced mode prioritizes thoroughness
+- Always check the `status` field before interpreting results
+- Tools may produce false positives - findings should be reviewed by humans

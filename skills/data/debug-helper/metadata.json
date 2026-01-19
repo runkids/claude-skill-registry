@@ -1,7 +1,7 @@
 {
   "name": "debug-helper",
-  "repo": "enoch-robinson/agent-skill-collection",
-  "path": "skills/development/debug-helper/SKILL.md",
-  "source": "github.com/enoch-robinson/agent-skill-collection",
-  "downloaded_at": "2026-01-17T04:03:32.049567Z"
+  "repo": "einverne/dotfiles",
+  "path": "claude/skills/debug-helper/SKILL.md",
+  "source": "github.com/einverne/dotfiles",
+  "downloaded_at": "2026-01-19T01:10:16.105007Z"
 }

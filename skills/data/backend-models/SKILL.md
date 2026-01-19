@@ -1,29 +1,26 @@
 ---
 name: Backend Models
-description: Define database models and schemas with proper data types, constraints, relationships, and validation rules for PostgreSQL (Supabase/Bun.sql) and Firestore (Firebase). Use this skill when creating or modifying database models, ORM entity definitions, Prisma schemas, or Firestore document structures. Apply when working on model files (models/*.ts, entities/*.ts, schema.prisma, models/*.py, Models/*.cs), defining database relationships, setting up validation rules, or implementing data integrity constraints. This skill ensures snake_case naming for SQL and camelCase for NoSQL, required timestamps (created_at/updated_at), UUIDs for SQL and auto-generated IDs for Firestore, foreign key constraints with indexed columns, Row Level Security (RLS) policies for Supabase, strict Firestore security rules, normalized data for SQL (3NF) with denormalization for Firestore read performance, and pgvector setup for AI embeddings.
+description: Define and configure database models with proper naming, relationships, timestamps, data types, constraints, and validation. Use this skill when creating or editing model files in app/Models/, Eloquent model classes, model relationships (hasMany, belongsTo, etc.), database table structures, model attributes and casts, model factories, or seeders. Use when working on model validation logic, database constraints, foreign key relationships, indexes, scopes, accessors, mutators, or any ORM-related model configuration.
 ---
 
 # Backend Models
 
-## When to use this skill:
-
-- When creating new database model or entity definitions
-- When modifying existing ORM models or Prisma schema definitions
-- When working on model files (models/*.ts, entities/*.ts, schema.prisma, models/*.py, Models/*.cs)
-- When defining relationships between database entities (one-to-many, many-to-many)
-- When adding database constraints (NOT NULL, UNIQUE, foreign keys)
-- When implementing model-level validation rules
-- When setting up timestamps (created_at, updated_at) on tables
-- When choosing appropriate data types for fields
-- When adding indexes to foreign keys or frequently queried columns
-- When balancing normalization with practical query performance needs
-- When configuring Supabase Row Level Security (RLS) policies
-- When writing Firestore security rules for document validation
-- When setting up pgvector columns and HNSW indexes for AI embeddings
-- When designing Firestore subcollections vs root collections
-- When implementing query-driven data modeling for NoSQL
-
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle backend models.
+
+## When to use this skill
+
+- When creating or editing model files in `app/Models/` or similar model directories
+- When defining Eloquent model classes and their properties
+- When configuring model relationships (hasMany, belongsTo, belongsToMany, hasOne, morphTo, etc.)
+- When setting up model casts, fillable properties, or hidden attributes
+- When implementing model validation rules or business logic
+- When configuring database timestamps (created_at, updated_at) on models
+- When defining model scopes (query scopes, local scopes, global scopes)
+- When creating model factories for testing or seeding
+- When writing database seeders that use models
+- When implementing model accessors or mutators for attribute transformation
+- When setting up soft deletes or other model traits
+- When configuring model events or observers
 
 ## Instructions
 

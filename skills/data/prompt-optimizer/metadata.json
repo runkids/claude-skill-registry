@@ -1,7 +1,7 @@
 {
   "name": "prompt-optimizer",
-  "repo": "viktorvan/dot-files",
-  "path": "opencode/skill/prompt-optimizer/SKILL.md",
-  "source": "github.com/viktorvan/dot-files",
-  "downloaded_at": "2026-01-17T03:31:43.441170Z"
+  "repo": "hikanner/agent-skills",
+  "path": "prompt-optimizer/SKILL.md",
+  "source": "github.com/hikanner/agent-skills",
+  "downloaded_at": "2026-01-19T02:55:23.860591Z"
 }

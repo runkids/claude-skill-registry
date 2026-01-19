@@ -1,208 +1,426 @@
 ---
-name: ultrathink
-description: Elevates thinking for complex problems with intellectual honesty. Activates deep analysis while avoiding performative contrarianism. Use when facing decisions that deserve more than the first answer, require trade-off evaluation, or benefit from rigorous self-checking before responding.
+name: skill-developer
+description: Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, modifying skill-rules.json, understanding trigger patterns, working with hooks, debugging skill activation, or implementing progressive disclosure. Covers skill structure, YAML frontmatter, trigger types (keywords, intent patterns, file paths, content patterns), enforcement levels (block, suggest, warn), hook mechanisms (UserPromptSubmit, PreToolUse), session tracking, and the 500-line rule.
 ---
 
-# Ultrathink
+# Skill Developer Guide
 
-*Slow down. Think clearly. Be useful.*
+## Purpose
 
-<purpose>
-Elevate thinking for complex problems through intellectual honesty. Deep analysis without performative contrarianism.
-</purpose>
+Comprehensive guide for creating and managing skills in Claude Code with auto-activation system, following Anthropic's official best practices including the 500-line rule and progressive disclosure pattern.
 
-<when_to_activate>
-Activate when:
-- The problem deserves more than the first answer that comes to mind
-- Multiple valid approaches exist and trade-offs matter
-- You're about to give advice that will affect real decisions
-- Requirements are ambiguous and need clarification before action
+## When to Use This Skill
 
-**Trigger phrases:** "ultrathink", "think deeper", "what's the best approach", "help me decide", "trade-offs"
-</when_to_activate>
-
----
-
-## The Mindset
-
-You're not here to impress. You're here to help.
-
-Deep thinking isn't about finding clever contrarian takes. It's about seeing clearly what's actually true and actually useful.
-
-The best answer often isn't the most sophisticated one—it's the one that correctly identifies what matters and ignores what doesn't.
+Automatically activates when you mention:
+- Creating or adding skills
+- Modifying skill triggers or rules
+- Understanding how skill activation works
+- Debugging skill activation issues
+- Working with skill-rules.json
+- Hook system mechanics
+- Claude Code best practices
+- Progressive disclosure
+- YAML frontmatter
+- 500-line rule
 
 ---
 
-## Before You Respond: The Pre-Flight Check
+## System Overview
 
-### 1. What do I actually know here?
-- What context has the user given me?
-- What am I assuming that I should ask about?
-- Where are the gaps in my understanding?
+### Two-Hook Architecture
 
-### 2. What's the user's actual situation?
-- What constraints are they operating under?
-- What's their timeline?
-- Where is their bottleneck? (Don't guess—ask if unclear)
+**1. UserPromptSubmit Hook** (Proactive Suggestions)
+- **File**: `.claude/hooks/skill-activation-prompt.ts`
+- **Trigger**: BEFORE Claude sees user's prompt
+- **Purpose**: Suggest relevant skills based on keywords + intent patterns
+- **Method**: Injects formatted reminder as context (stdout → Claude's input)
+- **Use Cases**: Topic-based skills, implicit work detection
 
-### 3. Am I about to perform or help?
-- Is this insight actually useful, or does it just sound smart?
-- Am I critiquing because there's a real problem, or because finding flaws feels like adding value?
-- Would I give this advice to a friend, or is it "advice-shaped content"?
+**2. Stop Hook - Error Handling Reminder** (Gentle Reminders)
+- **File**: `.claude/hooks/error-handling-reminder.ts`
+- **Trigger**: AFTER Claude finishes responding
+- **Purpose**: Gentle reminder to self-assess error handling in code written
+- **Method**: Analyzes edited files for risky patterns, displays reminder if needed
+- **Use Cases**: Error handling awareness without blocking friction
 
----
+**Philosophy Change (2025-10-27):** We moved away from blocking PreToolUse for Sentry/error handling. Instead, use gentle post-response reminders that don't block workflow but maintain code quality awareness.
 
-## The Process
+### Configuration File
 
-### Step 1: Steel-Man First
+**Location**: `.claude/skills/skill-rules.json`
 
-Before identifying gaps, acknowledge what works:
-- What's solid about the current approach?
-- What should definitely be kept?
-- What has the user (or source material) gotten right?
-
-This isn't politeness. It's calibration. If you can't articulate what's good, you don't understand it well enough to critique.
-
-### Step 2: Identify What Actually Matters
-
-Not every gap is worth fixing. Ask:
-- Is this a real problem or a theoretical one?
-- If they ignored this gap entirely, what would actually happen?
-- Does fixing this have a meaningful impact on outcomes?
-
-Rank issues by **practical impact**, not intellectual interest.
-
-### Step 3: Distinguish Situations
-
-The right answer depends on context:
-
-| If the user is... | Focus on... |
-|-------------------|-------------|
-| Exploring options | Trade-offs, alternatives, key considerations |
-| Ready to act | The 2-3 things that matter most |
-| Stuck | The bottleneck, not the whole system |
-| Validating an approach | Honest assessment: what works, what doesn't |
-
-### Step 4: End With Action
-
-Every response should answer: "What would I actually do?"
-
-Not "here are 17 considerations" but "given everything, here's what matters."
-
-If you can't give a clear recommendation, say why—what information would you need to have an opinion?
+Defines:
+- All skills and their trigger conditions
+- Enforcement levels (block, suggest, warn)
+- File path patterns (glob)
+- Content detection patterns (regex)
+- Skip conditions (session tracking, file markers, env vars)
 
 ---
 
-## The Integrity Checks
+## Skill Types
 
-### Check 1: The Friend Test
-> Would I give this advice to a friend in this situation, or am I optimizing for sounding thorough?
+### 1. Guardrail Skills
 
-### Check 2: The Contrarian Test
-> Am I disagreeing because I see something they missed, or because disagreeing feels like insight?
+**Purpose:** Enforce critical best practices that prevent errors
 
-### Check 3: The Usefulness Test
-> If they follow this advice, will their situation improve? Or is this "interesting but not actionable"?
+**Characteristics:**
+- Type: `"guardrail"`
+- Enforcement: `"block"`
+- Priority: `"critical"` or `"high"`
+- Block file edits until skill used
+- Prevent common mistakes (column names, critical errors)
+- Session-aware (don't repeat nag in same session)
 
-### Check 4: The Honesty Test
-> What do I actually not know here? Am I presenting confidence I haven't earned?
+**Examples:**
+- `database-verification` - Verify table/column names before Prisma queries
+- `frontend-dev-guidelines` - Enforce React/TypeScript patterns
+
+**When to Use:**
+- Mistakes that cause runtime errors
+- Data integrity concerns
+- Critical compatibility issues
+
+### 2. Domain Skills
+
+**Purpose:** Provide comprehensive guidance for specific areas
+
+**Characteristics:**
+- Type: `"domain"`
+- Enforcement: `"suggest"`
+- Priority: `"high"` or `"medium"`
+- Advisory, not mandatory
+- Topic or domain-specific
+- Comprehensive documentation
+
+**Examples:**
+- `backend-dev-guidelines` - Node.js/Express/TypeScript patterns
+- `frontend-dev-guidelines` - React/TypeScript best practices
+- `error-tracking` - Sentry integration guidance
+
+**When to Use:**
+- Complex systems requiring deep knowledge
+- Best practices documentation
+- Architectural patterns
+- How-to guides
 
 ---
 
-## What Ultrathink Is NOT
+## Quick Start: Creating a New Skill
 
-- Finding clever contrarian angles
-- Questioning assumptions for the sake of it
-- Producing impressive-sounding frameworks
-- Optimizing for "this sounds like deep thinking"
-- Critiquing before understanding
-- Roaming without constraints
+### Step 1: Create Skill File
 
-## What Ultrathink IS
+**Location:** `.claude/skills/{skill-name}/SKILL.md`
 
-- Slowing down to see clearly
-- Acknowledging what works before finding fault
-- Separating real problems from theoretical ones
-- Giving advice you'd actually follow yourself
-- Being honest about uncertainty
-- Ending with clarity, not complexity
-
+**Template:**
+```markdown
+---
+name: my-new-skill
+description: Brief description including keywords that trigger this skill. Mention topics, file types, and use cases. Be explicit about trigger terms.
 ---
 
-## The Hierarchy
+# My New Skill
 
-When principles conflict, this is the order:
+## Purpose
+What this skill helps with
 
-```
-Usefulness → Honesty → Clarity → Completeness → Elegance
+## When to Use
+Specific scenarios and conditions
+
+## Key Information
+The actual guidance, documentation, patterns, examples
 ```
 
-Never sacrifice what's above for what's below.
+**Best Practices:**
+- ✅ **Name**: Lowercase, hyphens, gerund form (verb + -ing) preferred
+- ✅ **Description**: Include ALL trigger keywords/phrases (max 1024 chars)
+- ✅ **Content**: Under 500 lines - use reference files for details
+- ✅ **Examples**: Real code examples
+- ✅ **Structure**: Clear headings, lists, code blocks
+
+### Step 2: Add to skill-rules.json
+
+See [SKILL_RULES_REFERENCE.md](SKILL_RULES_REFERENCE.md) for complete schema.
+
+**Basic Template:**
+```json
+{
+  "my-new-skill": {
+    "type": "domain",
+    "enforcement": "suggest",
+    "priority": "medium",
+    "promptTriggers": {
+      "keywords": ["keyword1", "keyword2"],
+      "intentPatterns": ["(create|add).*?something"]
+    }
+  }
+}
+```
+
+### Step 3: Test Triggers
+
+**Test UserPromptSubmit:**
+```bash
+echo '{"session_id":"test","prompt":"your test prompt"}' | \
+  npx tsx .claude/hooks/skill-activation-prompt.ts
+```
+
+**Test PreToolUse:**
+```bash
+cat <<'EOF' | npx tsx .claude/hooks/skill-verification-guard.ts
+{"session_id":"test","tool_name":"Edit","tool_input":{"file_path":"test.ts"}}
+EOF
+```
+
+### Step 4: Refine Patterns
+
+Based on testing:
+- Add missing keywords
+- Refine intent patterns to reduce false positives
+- Adjust file path patterns
+- Test content patterns against actual files
+
+### Step 5: Follow Anthropic Best Practices
+
+✅ Keep SKILL.md under 500 lines
+✅ Use progressive disclosure with reference files
+✅ Add table of contents to reference files > 100 lines
+✅ Write detailed description with trigger keywords
+✅ Test with 3+ real scenarios before documenting
+✅ Iterate based on actual usage
 
 ---
 
-## Output Format
+## Enforcement Levels
 
-When ultrathinking, structure responses as:
+### BLOCK (Critical Guardrails)
 
-### Understanding
-What I understand about your situation. Questions I'd want to clarify.
+- Physically prevents Edit/Write tool execution
+- Exit code 2 from hook, stderr → Claude
+- Claude sees message and must use skill to proceed
+- **Use For**: Critical mistakes, data integrity, security issues
 
-### What's Working
-Steel-man of the current approach. What's solid and should be kept.
+**Example:** Database column name verification
 
-### What Would Actually Move the Needle
-The 2-3 things that matter. Why they matter. Distinguish: real problems vs. theoretical gaps.
+### SUGGEST (Recommended)
 
-### What I'd Actually Do
-Concrete, actionable. Not "consider X" but "do X because Y."
+- Reminder injected before Claude sees prompt
+- Claude is aware of relevant skills
+- Not enforced, just advisory
+- **Use For**: Domain guidance, best practices, how-to guides
 
-### What I'm Uncertain About
-Honest accounting of where I'm guessing or assuming.
+**Example:** Frontend development guidelines
 
----
+### WARN (Optional)
 
-<skill_compositions>
-## Skill Compositions
+- Low priority suggestions
+- Advisory only, minimal enforcement
+- **Use For**: Nice-to-have suggestions, informational reminders
 
-Ultrathink amplifies other skills through rigorous, honest analysis.
-
-### ultrathink + dmitrii-writing-style
-**Creates**: Content that's strategically sound and authentically voiced
-
-Use when writing case studies, proposals, or content that needs clear structure AND genuine voice. Apply the same honesty standards to prose.
-
-### ultrathink + serghei-qa
-**Creates**: The design-then-stress-test pattern
-
-First, ultrathink the approach with intellectual honesty. Then unleash Serghei to find what you missed. The combination catches both strategic errors and implementation gaps.
-
-### ultrathink + generate-variant
-**Creates**: Job applications with genuine fit assessment
-
-Don't just customize—honestly evaluate: does this experience actually map to this role? What's the authentic story? Where are the real gaps vs. the strengths?
-
-### ultrathink + cv-knowledge-query
-**Creates**: Grounded insight before creation
-
-Before building anything, understand what actually exists. What patterns are real? What stories have evidence? What claims can be supported?
-
-### ultrathink + run-tests
-**Creates**: Verified conclusions
-
-Analysis isn't complete until tested. After ultrathinking a solution, prove it works. Reality is the final check.
-</skill_compositions>
+**Rarely used** - most skills are either BLOCK or SUGGEST.
 
 ---
 
-## The Meta-Rule
+## Skip Conditions & User Control
 
-The goal isn't to think more. It's to think *better*.
+### 1. Session Tracking
 
-Better means: clearer, more honest, more useful, more calibrated to reality.
+**Purpose:** Don't nag repeatedly in same session
 
-If your response doesn't help the user make a better decision or take better action, it's not ultrathinking—it's noise.
+**How it works:**
+- First edit → Hook blocks, updates session state
+- Second edit (same session) → Hook allows
+- Different session → Blocks again
+
+**State File:** `.claude/hooks/state/skills-used-{session_id}.json`
+
+### 2. File Markers
+
+**Purpose:** Permanent skip for verified files
+
+**Marker:** `// @skip-validation`
+
+**Usage:**
+```typescript
+// @skip-validation
+import { PrismaService } from './prisma';
+// This file has been manually verified
+```
+
+**NOTE:** Use sparingly - defeats the purpose if overused
+
+### 3. Environment Variables
+
+**Purpose:** Emergency disable, temporary override
+
+**Global disable:**
+```bash
+export SKIP_SKILL_GUARDRAILS=true  # Disables ALL PreToolUse blocks
+```
+
+**Skill-specific:**
+```bash
+export SKIP_DB_VERIFICATION=true
+export SKIP_ERROR_REMINDER=true
+```
 
 ---
 
-*Now: what are we actually trying to solve?*
+## Testing Checklist
+
+When creating a new skill, verify:
+
+- [ ] Skill file created in `.claude/skills/{name}/SKILL.md`
+- [ ] Proper frontmatter with name and description
+- [ ] Entry added to `skill-rules.json`
+- [ ] Keywords tested with real prompts
+- [ ] Intent patterns tested with variations
+- [ ] File path patterns tested with actual files
+- [ ] Content patterns tested against file contents
+- [ ] Block message is clear and actionable (if guardrail)
+- [ ] Skip conditions configured appropriately
+- [ ] Priority level matches importance
+- [ ] No false positives in testing
+- [ ] No false negatives in testing
+- [ ] Performance is acceptable (<100ms or <200ms)
+- [ ] JSON syntax validated: `jq . skill-rules.json`
+- [ ] **SKILL.md under 500 lines** ⭐
+- [ ] Reference files created if needed
+- [ ] Table of contents added to files > 100 lines
+
+---
+
+## Reference Files
+
+For detailed information on specific topics, see:
+
+### [TRIGGER_TYPES.md](TRIGGER_TYPES.md)
+Complete guide to all trigger types:
+- Keyword triggers (explicit topic matching)
+- Intent patterns (implicit action detection)
+- File path triggers (glob patterns)
+- Content patterns (regex in files)
+- Best practices and examples for each
+- Common pitfalls and testing strategies
+
+### [SKILL_RULES_REFERENCE.md](SKILL_RULES_REFERENCE.md)
+Complete skill-rules.json schema:
+- Full TypeScript interface definitions
+- Field-by-field explanations
+- Complete guardrail skill example
+- Complete domain skill example
+- Validation guide and common errors
+
+### [HOOK_MECHANISMS.md](HOOK_MECHANISMS.md)
+Deep dive into hook internals:
+- UserPromptSubmit flow (detailed)
+- PreToolUse flow (detailed)
+- Exit code behavior table (CRITICAL)
+- Session state management
+- Performance considerations
+
+### [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+Comprehensive debugging guide:
+- Skill not triggering (UserPromptSubmit)
+- PreToolUse not blocking
+- False positives (too many triggers)
+- Hook not executing at all
+- Performance issues
+
+### [PATTERNS_LIBRARY.md](PATTERNS_LIBRARY.md)
+Ready-to-use pattern collection:
+- Intent pattern library (regex)
+- File path pattern library (glob)
+- Content pattern library (regex)
+- Organized by use case
+- Copy-paste ready
+
+### [ADVANCED.md](ADVANCED.md)
+Future enhancements and ideas:
+- Dynamic rule updates
+- Skill dependencies
+- Conditional enforcement
+- Skill analytics
+- Skill versioning
+
+---
+
+## Quick Reference Summary
+
+### Create New Skill (5 Steps)
+
+1. Create `.claude/skills/{name}/SKILL.md` with frontmatter
+2. Add entry to `.claude/skills/skill-rules.json`
+3. Test with `npx tsx` commands
+4. Refine patterns based on testing
+5. Keep SKILL.md under 500 lines
+
+### Trigger Types
+
+- **Keywords**: Explicit topic mentions
+- **Intent**: Implicit action detection
+- **File Paths**: Location-based activation
+- **Content**: Technology-specific detection
+
+See [TRIGGER_TYPES.md](TRIGGER_TYPES.md) for complete details.
+
+### Enforcement
+
+- **BLOCK**: Exit code 2, critical only
+- **SUGGEST**: Inject context, most common
+- **WARN**: Advisory, rarely used
+
+### Skip Conditions
+
+- **Session tracking**: Automatic (prevents repeated nags)
+- **File markers**: `// @skip-validation` (permanent skip)
+- **Env vars**: `SKIP_SKILL_GUARDRAILS` (emergency disable)
+
+### Anthropic Best Practices
+
+✅ **500-line rule**: Keep SKILL.md under 500 lines
+✅ **Progressive disclosure**: Use reference files for details
+✅ **Table of contents**: Add to reference files > 100 lines
+✅ **One level deep**: Don't nest references deeply
+✅ **Rich descriptions**: Include all trigger keywords (max 1024 chars)
+✅ **Test first**: Build 3+ evaluations before extensive documentation
+✅ **Gerund naming**: Prefer verb + -ing (e.g., "processing-pdfs")
+
+### Troubleshoot
+
+Test hooks manually:
+```bash
+# UserPromptSubmit
+echo '{"prompt":"test"}' | npx tsx .claude/hooks/skill-activation-prompt.ts
+
+# PreToolUse
+cat <<'EOF' | npx tsx .claude/hooks/skill-verification-guard.ts
+{"tool_name":"Edit","tool_input":{"file_path":"test.ts"}}
+EOF
+```
+
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for complete debugging guide.
+
+---
+
+## Related Files
+
+**Configuration:**
+- `.claude/skills/skill-rules.json` - Master configuration
+- `.claude/hooks/state/` - Session tracking
+- `.claude/settings.json` - Hook registration
+
+**Hooks:**
+- `.claude/hooks/skill-activation-prompt.ts` - UserPromptSubmit
+- `.claude/hooks/error-handling-reminder.ts` - Stop event (gentle reminders)
+
+**All Skills:**
+- `.claude/skills/*/SKILL.md` - Skill content files
+
+---
+
+**Skill Status**: COMPLETE - Restructured following Anthropic best practices ✅
+**Line Count**: < 500 (following 500-line rule) ✅
+**Progressive Disclosure**: Reference files for detailed information ✅
+
+**Next**: Create more skills, refine patterns based on usage

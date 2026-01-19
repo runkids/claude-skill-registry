@@ -1,7 +1,7 @@
 {
   "name": "iterative-review",
   "repo": "takemo101/compose-workflow",
-  "path": ".claude/skills/iterative-review/SKILL.md",
+  "path": ".opencode/skill/iterative-review/SKILL.md",
   "source": "github.com/takemo101/compose-workflow",
-  "downloaded_at": "2026-01-17T03:54:12.166226Z"
+  "downloaded_at": "2026-01-19T01:50:30.485483Z"
 }

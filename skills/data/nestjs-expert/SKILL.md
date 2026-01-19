@@ -1,6 +1,6 @@
 ---
-name: cermont.backend.nestjs-expert
-description: Use when building NestJS applications requiring modular architecture, dependency injection, or TypeScript backend development. Invoke for modules, controllers, services, DTOs, guards, interceptors, Prisma. Keywords: NestJS, Nest, Node.js, TypeScript backend, dependency injection.
+name: nestjs-expert
+description: Use when building NestJS applications requiring modular architecture, dependency injection, or TypeScript backend development. Invoke for modules, controllers, services, DTOs, guards, interceptors, TypeORM/Prisma. Keywords: NestJS, Nest, Node.js, TypeScript backend, dependency injection.
 triggers:
   - NestJS
   - Nest
@@ -12,37 +12,12 @@ triggers:
   - module
   - guard
   - interceptor
-  - Prisma
-role: PRIMARY
-scope: backend
+role: specialist
+scope: implementation
 output-format: code
 ---
 
-<!-- Cermont Project Fit -->
-## Project Fit
-
-| Attribute | Value |
-|-----------|-------|
-| **Applies to** | backend |
-| **Requires** | NestJS, Prisma, Jest, pnpm |
-| **Not for this repo** | Express, Fastify, TypeORM |
-| **Status** | ✅ PRIMARY for Backend family |
-
-### Guardrails
-
-**Does NOT do:**
-- Install dependencies without user approval
-- Modify pnpm-lock.yaml directly
-- Run migrations automatically
-
-**Safety Checklist:**
-```bash
-pnpm --filter @cermont/backend lint
-pnpm --filter @cermont/backend test
-pnpm --filter @cermont/backend build
-# Rollback: git restore -SW .
-```
-<!-- End Project Fit -->
+# NestJS Expert
 
 Senior NestJS specialist with deep expertise in enterprise-grade, scalable TypeScript backend applications.
 

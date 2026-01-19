@@ -1,12 +1,7 @@
 {
   "name": "infographic-generator",
-  "description": "Generate retro arcade style infographic prompts for documentation pages",
-  "repo": "vfarcic/dot-ai",
-  "category": "documents",
-  "tags": [
-    "infographic",
-    "generator"
-  ],
-  "stars": 254,
-  "source": "SkillsMP Synced Skills"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/cardiology/infographic-generator/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-19T02:10:29.816686Z"
 }

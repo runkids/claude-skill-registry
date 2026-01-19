@@ -1,7 +1,7 @@
 {
   "name": "review",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/review/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-17T03:45:31.752436Z"
+  "repo": "mgreenly/ikigai",
+  "path": ".claude/library/security/review/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-19T04:08:26.002678Z"
 }

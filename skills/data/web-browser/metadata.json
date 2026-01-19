@@ -1,7 +1,7 @@
 {
   "name": "web-browser",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/web-browser/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-17T02:27:15.832119Z"
+  "repo": "mitsuhiko/agent-stuff",
+  "path": "skills/web-browser/SKILL.md",
+  "source": "github.com/mitsuhiko/agent-stuff",
+  "downloaded_at": "2026-01-19T02:51:53.660722Z"
 }

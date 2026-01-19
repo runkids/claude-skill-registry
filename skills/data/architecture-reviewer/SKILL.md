@@ -1,85 +1,134 @@
 ---
 name: architecture-reviewer
-description: Reviews code architecture for design issues including poor separation of concerns, tight coupling, missing abstractions, design pattern violations, scalability concerns, and maintainability issues. Returns structured architecture review reports with improvement suggestions.
+description: Review software architecture for SOLID principles, design patterns, scalability, and maintainability. Use when evaluating system design or planning refactoring.
 ---
 
 # Architecture Reviewer Skill
 
-## Instructions
+システムアーキテクチャを評価し、設計改善を提案するスキルです。
 
-1. Review code architecture and design
-2. Check separation of concerns
-3. Identify tight coupling between components
-4. Look for missing abstractions
-5. Check for design pattern violations
-6. Assess scalability concerns
-7. Review maintainability
-8. Return structured architecture reports with:
-   - File path and line numbers (if applicable)
-   - Architecture issue type
-   - Current design
-   - Suggested improvement
-   - Reason and impact
-   - Priority (usually Should-Fix or Nice-to-Have)
+## 概要
 
-## Examples
+SOLID原則、デザインパターン、マイクロサービス設計等の観点からアーキテクチャをレビューします。
 
-**Input:** Business logic mixed with presentation
-**Output:**
-```markdown
-### ARCH-001
-- **File**: `components/TaskList.jsx`
-- **Lines**: 45-60
-- **Priority**: Should-Fix
-- **Issue**: Business logic mixed with presentation layer
-- **Current Code**:
-  ```javascript
-  function TaskList({ tasks }) {
-      const filteredTasks = tasks.filter(task => {
-          // Complex business logic here
-          return task.status === 'active' && 
-                 task.priority > 5 && 
-                 new Date(task.dueDate) > new Date();
-      });
-      return <div>{/* render */}</div>;
-  }
-  ```
-- **Suggested Fix**:
-  ```javascript
-  // Move to utils/taskFilters.js
-  function filterActiveHighPriorityTasks(tasks) {
-      return tasks.filter(task => 
-          task.status === 'active' && 
-          task.priority > 5 && 
-          new Date(task.dueDate) > new Date()
-      );
-  }
-  
-  // In component
-  function TaskList({ tasks }) {
-      const filteredTasks = filterActiveHighPriorityTasks(tasks);
-      return <div>{/* render */}</div>;
-  }
-  ```
-- **Reason**: Separating business logic from presentation improves testability and maintainability
-- **Impact**: Makes code easier to test, reuse, and modify
+## 主な機能
+
+- **SOLID原則評価**: 単一責任、開放閉鎖、リスコフ置換等
+- **デザインパターン**: 適切なパターンの適用状況
+- **レイヤー分離**: プレゼンテーション、ビジネス、データ層
+- **依存性管理**: 依存性注入、循環依存の検出
+- **スケーラビリティ**: 水平・垂直スケーリング
+- **マイクロサービス**: サービス境界、通信パターン
+- **データベース設計**: 正規化、インデックス、パーティショニング
+
+## 使用方法
+
+```
+このアーキテクチャをレビュー：
+[アーキテクチャ図またはコード]
+
+評価項目:
+- SOLID原則
+- スケーラビリティ
+- 保守性
 ```
 
-## Architecture Issues to Detect
+## レビュー観点
 
-- **Separation of Concerns**: Business logic mixed with presentation/data layers
-- **Tight Coupling**: Components/modules too dependent on each other
-- **Missing Abstractions**: Code duplication, missing interfaces/abstract classes
-- **Design Pattern Violations**: Not following appropriate design patterns
-- **Scalability Concerns**: Architecture that won't scale
-- **Maintainability Issues**: Code that's hard to understand or modify
-- **Single Responsibility**: Classes/functions doing too much
-- **Dependency Management**: Circular dependencies, too many dependencies
-- **Code Organization**: Poor file/folder structure
-- **Interface Design**: Poor API/interface design
+### 1. SOLID原則
 
-## Priority Guidelines
+**単一責任原則（SRP）**:
+```typescript
+// ❌ 複数の責任
+class User {
+  saveToDatabase() {}
+  sendEmail() {}
+  generateReport() {}
+}
 
-- **Must-Fix**: Architecture issues that cause bugs or block scalability
-- **Should-Fix**: Architecture improvements that enhance maintainability
-- **Nice-to-Have**: Refactoring opportunities and design improvements
+// ✅ 単一責任
+class User {}
+class UserRepository {
+  save(user: User) {}
+}
+class EmailService {
+  send(to: string) {}
+}
+class ReportGenerator {
+  generate(user: User) {}
+}
+```
+
+**依存性逆転（DIP）**:
+```python
+# ❌ 具象に依存
+class UserService:
+    def __init__(self):
+        self.db = MySQLDatabase()  # 具象クラス
+
+# ✅ 抽象に依存
+class UserService:
+    def __init__(self, database: DatabaseInterface):
+        self.db = database  # インターフェース
+```
+
+### 2. レイヤー構造
+
+```
+┌─────────────────────────────┐
+│   Presentation Layer        │  UI, API Endpoints
+├─────────────────────────────┤
+│   Application Layer         │  Use Cases, Orchestration
+├─────────────────────────────┤
+│   Domain Layer              │  Business Logic, Entities
+├─────────────────────────────┤
+│   Infrastructure Layer      │  Database, External APIs
+└─────────────────────────────┘
+```
+
+### 3. マイクロサービス設計
+
+```
+推奨パターン:
+- API Gateway: 単一エントリーポイント
+- Service Discovery: 動的サービス検出
+- Circuit Breaker: 障害の連鎖防止
+- Event Sourcing: イベント駆動
+- CQRS: コマンドとクエリの分離
+```
+
+## 出力例
+
+```markdown
+# アーキテクチャレビュー結果
+
+## 総合評価: B+
+
+### 良好な点
+✅ クリーンアーキテクチャの採用
+✅ 適切な依存性注入
+✅ レイヤー分離が明確
+
+### 改善点
+
+#### [HIGH] 循環依存の存在
+**場所**: OrderService ↔ PaymentService
+**影響**: テスタビリティの低下、デプロイの複雑化
+**推奨**: イベント駆動アーキテクチャに変更
+
+#### [MEDIUM] 単一責任原則違反
+**場所**: UserController
+**問題**: 認証、認可、ビジネスロジックが混在
+**推奨**: 責務を分離
+
+### アーキテクチャ提案
+
+1. **イベント駆動への移行**: サービス間の結合度削減
+2. **CQRS導入**: 読み書きの分離で性能向上
+3. **キャッシュ層追加**: Redis で頻繁な読み取り最適化
+```
+
+## バージョン情報
+
+- スキルバージョン: 1.0.0
+- 最終更新: 2025-01-22

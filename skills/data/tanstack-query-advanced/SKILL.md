@@ -1,225 +1,445 @@
 ---
 name: tanstack-query-advanced
-description: Advanced TanStack Query patterns including useInfiniteQuery, QueryClient operations, and optimistic updates. Use for infinite scroll, optimistic UI, or advanced caching scenarios.
+description: Advanced TanStack Query v5 patterns for infinite queries, optimistic updates, prefetching, gcTime, and queryOptions
+tags: [tanstack-query, react-query, caching, infinite-scroll, optimistic-updates, prefetching, suspense]
+context: fork
+agent: frontend-ui-developer
+version: 1.0.0
+allowed-tools: [Read, Write, Grep, Glob]
+author: SkillForge
+user-invocable: false
 ---
 
 # TanStack Query Advanced
 
-## useInfiniteQuery
+Production patterns for TanStack Query v5 - server state management done right.
+
+## When to Use
+
+- Infinite scroll / pagination
+- Optimistic UI updates
+- Prefetching for instant navigation
+- Complex cache invalidation
+- Dependent/parallel queries
+- Mutations with rollback
+
+## Core Patterns
+
+### 1. Infinite Queries (Cursor-Based)
 
 ```typescript
-const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-  useInfiniteQuery({
-    queryKey: ['users', 'infinite'],
-    queryFn: ({ pageParam = 1 }) =>
-      api((client) =>
-        client.GET('/api/users', {
-          params: {
-            query: { 'page[number]': pageParam },
-          },
-        }),
-      ),
-    getNextPageParam: (lastPage) =>
-      lastPage.meta?.page < lastPage.meta?.pages
-        ? lastPage.meta.page + 1
-        : undefined,
-    initialPageParam: 1,
-  })
+import { useInfiniteQuery } from '@tanstack/react-query';
 
-// All pages data
-const allUsers = computed(
-  () => data.value?.pages.flatMap((page) => page.data) || [],
-)
-```
+interface Page {
+  items: Item[];
+  nextCursor: string | null;
+}
 
-## Infinite Scroll UI
+function useInfiniteItems() {
+  return useInfiniteQuery({
+    queryKey: ['items'],
+    queryFn: async ({ pageParam }): Promise<Page> => {
+      const res = await fetch(`/api/items?cursor=${pageParam ?? ''}`);
+      return res.json();
+    },
+    initialPageParam: null as string | null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getPreviousPageParam: (firstPage) => firstPage.prevCursor,
+  });
+}
 
-```vue
-<div v-for="user in allUsers" :key="user.id">
-  {{ user.name }}
-</div>
+// Component
+function ItemList() {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteItems();
 
-<nord-button
-  v-if="hasNextPage"
-  :loading="isFetchingNextPage"
-  @click="fetchNextPage"
->
-  Load More
-</nord-button>
-```
-
-## Optimistic Updates
-
-```typescript
-const queryClient = useQueryClient()
-
-const { mutate } = useMutation({
-  mutationFn: updateUser,
-  onMutate: async (newUser) => {
-    // Cancel outgoing refetches
-    await queryClient.cancelQueries({ queryKey: ['users', newUser.id] })
-
-    // Snapshot previous value
-    const previousUser = queryClient.getQueryData(['users', newUser.id])
-
-    // Optimistically update
-    queryClient.setQueryData(['users', newUser.id], newUser)
-
-    return { previousUser }
-  },
-  onError: (err, newUser, context) => {
-    // Rollback on error
-    queryClient.setQueryData(['users', newUser.id], context?.previousUser)
-  },
-  onSettled: (_, __, newUser) => {
-    // Refetch after mutation
-    queryClient.invalidateQueries({ queryKey: ['users', newUser.id] })
-  },
-})
-```
-
-## Prefetch Queries
-
-```typescript
-const queryClient = useQueryClient()
-
-// Prefetch on hover
-const handleHover = (userId: string) => {
-  queryClient.prefetchQuery({
-    queryKey: ['users', userId],
-    queryFn: () => fetchUser(userId),
-  })
+  return (
+    <>
+      {data?.pages.flatMap((page) => page.items.map((item) => (
+        <ItemCard key={item.id} item={item} />
+      )))}
+      <button
+        onClick={() => fetchNextPage()}
+        disabled={!hasNextPage || isFetchingNextPage}
+      >
+        {isFetchingNextPage ? 'Loading...' : hasNextPage ? 'Load More' : 'No more'}
+      </button>
+    </>
+  );
 }
 ```
 
-## Set Query Data
+### 2. Optimistic Updates
 
 ```typescript
-const queryClient = useQueryClient()
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-// Manually set cache data
-queryClient.setQueryData(['users', '123'], newUserData)
+function useUpdateTodo() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateTodo,
+    onMutate: async (newTodo) => {
+      // Cancel outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ['todos', newTodo.id] });
+
+      // Snapshot previous value
+      const previousTodo = queryClient.getQueryData(['todos', newTodo.id]);
+
+      // Optimistically update
+      queryClient.setQueryData(['todos', newTodo.id], newTodo);
+
+      // Return context for rollback
+      return { previousTodo };
+    },
+    onError: (err, newTodo, context) => {
+      // Rollback on error
+      queryClient.setQueryData(['todos', newTodo.id], context?.previousTodo);
+    },
+    onSettled: (data, error, variables) => {
+      // Always refetch after error or success
+      queryClient.invalidateQueries({ queryKey: ['todos', variables.id] });
+    },
+  });
+}
 ```
 
-## Get Query Data
+### 3. Prefetching Patterns
 
 ```typescript
-const queryClient = useQueryClient()
+// Prefetch on hover
+function UserLink({ userId }: { userId: string }) {
+  const queryClient = useQueryClient();
 
-// Read from cache
-const cachedUser = queryClient.getQueryData(['users', '123'])
+  const prefetchUser = () => {
+    queryClient.prefetchQuery({
+      queryKey: ['user', userId],
+      queryFn: () => fetchUser(userId),
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    });
+  };
+
+  return (
+    <Link to={`/users/${userId}`} onMouseEnter={prefetchUser}>
+      View User
+    </Link>
+  );
+}
+
+// Prefetch in loader (React Router)
+export const loader = (queryClient: QueryClient) => async ({ params }) => {
+  await queryClient.ensureQueryData({
+    queryKey: ['user', params.id],
+    queryFn: () => fetchUser(params.id),
+  });
+  return null;
+};
 ```
 
-## Remove Queries
+### 4. Smart Cache Invalidation
 
 ```typescript
-const queryClient = useQueryClient()
+const queryClient = useQueryClient();
 
-// Remove from cache
-queryClient.removeQueries({ queryKey: ['users', '123'] })
+// Invalidate exact query
+queryClient.invalidateQueries({ queryKey: ['todos', 1] });
+
+// Invalidate all todos queries
+queryClient.invalidateQueries({ queryKey: ['todos'] });
+
+// Invalidate with predicate
+queryClient.invalidateQueries({
+  predicate: (query) =>
+    query.queryKey[0] === 'todos' &&
+    (query.queryKey[1] as Todo)?.status === 'done',
+});
+
+// Invalidate and refetch immediately
+queryClient.refetchQueries({ queryKey: ['todos'], type: 'active' });
+
+// Remove from cache entirely
+queryClient.removeQueries({ queryKey: ['todos', 1] });
 ```
 
-## Reset Queries
+### 5. Dependent Queries
 
 ```typescript
-const queryClient = useQueryClient()
+function useUserPosts(userId: string) {
+  // First query
+  const userQuery = useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetchUser(userId),
+  });
 
-// Reset to initial state
-queryClient.resetQueries({ queryKey: ['users'] })
+  // Dependent query - only runs when user is loaded
+  const postsQuery = useQuery({
+    queryKey: ['posts', userId],
+    queryFn: () => fetchUserPosts(userId),
+    enabled: !!userQuery.data, // Only fetch when user exists
+  });
+
+  return { user: userQuery.data, posts: postsQuery.data };
+}
 ```
 
-## Parallel Queries
+### 6. Parallel Queries
 
 ```typescript
-const { data: users } = useQuery({
-  queryKey: ['users'],
-  queryFn: fetchUsers,
-})
+import { useQueries } from '@tanstack/react-query';
 
-const { data: departments } = useQuery({
-  queryKey: ['departments'],
-  queryFn: fetchDepartments,
-})
-
-const { data: roles } = useQuery({
-  queryKey: ['roles'],
-  queryFn: fetchRoles,
-})
-
-// All run in parallel
-```
-
-## useQueries (Dynamic Multiple)
-
-```typescript
-const userIds = ref(['1', '2', '3'])
-
-const queries = useQueries({
-  queries: computed(() =>
-    userIds.value.map((id) => ({
-      queryKey: ['users', id],
+function useMultipleUsers(userIds: string[]) {
+  return useQueries({
+    queries: userIds.map((id) => ({
+      queryKey: ['user', id],
       queryFn: () => fetchUser(id),
+      staleTime: 5 * 60 * 1000,
     })),
-  ),
-})
-
-// Access results
-const allUsers = computed(() =>
-  queries.value.map((q) => q.data).filter(Boolean),
-)
+    combine: (results) => ({
+      users: results.map((r) => r.data).filter(Boolean),
+      pending: results.some((r) => r.isPending),
+      error: results.find((r) => r.error)?.error,
+    }),
+  });
+}
 ```
 
-## Mutation with Multiple Invalidations
+### 7. Query Deduplication & Batching
 
 ```typescript
-const { mutate } = useMutation({
-  mutationFn: createConsultation,
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: consultationKeys.all })
-    queryClient.invalidateQueries({ queryKey: patientKeys.all })
-    queryClient.invalidateQueries({ queryKey: clientKeys.all })
-  },
-})
-```
-
-## Query Cancellation
-
-```typescript
-const { data, refetch } = useQuery({
-  queryKey: ['users'],
-  queryFn: async ({ signal }) => {
-    const response = await fetch('/api/users', { signal })
-    return response.json()
-  },
-})
-
-// Cancel if component unmounts
-onUnmounted(() => {
-  queryClient.cancelQueries({ queryKey: ['users'] })
-})
-```
-
-## Global Query Defaults
-
-```typescript
-// In nuxt.config.ts or plugin
+// Configure in QueryClient
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5,
-      refetchOnWindowFocus: true,
-      retry: 1,
+      staleTime: 1000 * 60, // 1 minute
+      gcTime: 1000 * 60 * 5, // 5 minutes (formerly cacheTime)
+      refetchOnWindowFocus: false,
+      retry: 3,
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     },
   },
-})
+});
 ```
 
-## Suspense Mode
+### 8. Suspense Integration
 
 ```typescript
-const { data } = useQuery({
-  queryKey: ['users'],
-  queryFn: fetchUsers,
-  suspense: true, // Throws promise for Suspense boundary
-})
+import { useSuspenseQuery } from '@tanstack/react-query';
+
+function UserProfile({ userId }: { userId: string }) {
+  // This will suspend until data is ready
+  const { data: user } = useSuspenseQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetchUser(userId),
+  });
+
+  return <div>{user.name}</div>;
+}
+
+// Wrap with Suspense
+<Suspense fallback={<Skeleton />}>
+  <UserProfile userId="123" />
+</Suspense>
 ```
+
+### 9. Mutation State Tracking
+
+```typescript
+import { useMutationState } from '@tanstack/react-query';
+
+function PendingTodos() {
+  // Track all pending todo mutations
+  const pendingMutations = useMutationState({
+    filters: { mutationKey: ['addTodo'], status: 'pending' },
+    select: (mutation) => mutation.state.variables as Todo,
+  });
+
+  return (
+    <>
+      {pendingMutations.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} isPending />
+      ))}
+    </>
+  );
+}
+```
+
+## Configuration Best Practices
+
+```typescript
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60,       // Data fresh for 1 min
+      gcTime: 1000 * 60 * 5,      // Cache for 5 min
+      refetchOnWindowFocus: true, // Refetch on tab focus
+      refetchOnReconnect: true,   // Refetch on network reconnect
+      retry: 3,                   // Retry failed requests
+    },
+    mutations: {
+      retry: 1,
+      onError: (error) => toast.error(error.message),
+    },
+  },
+});
+```
+
+## Quick Reference
+
+```typescript
+// ✅ Create typed query with queryOptions helper (v5)
+const userQueryOptions = (id: string) => queryOptions({
+  queryKey: ['user', id] as const,
+  queryFn: () => fetchUser(id),
+  staleTime: 5 * 60 * 1000,
+});
+
+// ✅ Use the query options for consistency
+const { data } = useQuery(userQueryOptions(userId));
+await queryClient.prefetchQuery(userQueryOptions(userId));
+await queryClient.ensureQueryData(userQueryOptions(userId));
+
+// ✅ v5: isPending instead of isLoading (initial load only)
+if (isPending) return <Skeleton />;
+
+// ✅ v5: gcTime instead of cacheTime
+gcTime: 5 * 60 * 1000,
+
+// ✅ useSuspenseQuery for Suspense integration
+const { data } = useSuspenseQuery(userQueryOptions(userId));
+
+// ✅ Selective invalidation
+queryClient.invalidateQueries({ queryKey: ['todos'], exact: true });
+
+// ❌ NEVER destructure useQuery result at call site
+const { data, isLoading } = useQuery({ queryKey: ['users'] }); // BAD - recreates object
+
+// ❌ NEVER use string keys
+useQuery({ queryKey: 'users' }); // BAD - use arrays
+
+// ❌ NEVER store server state in Zustand
+const useStore = create((set) => ({ users: [] })); // BAD - use React Query
+```
+
+## Key Decisions
+
+| Decision | Option A | Option B | Recommendation |
+|----------|----------|----------|----------------|
+| Query key structure | String | Array | **Array** - supports hierarchy and serialization |
+| Cache timing | staleTime | gcTime | **Both** - staleTime for freshness, gcTime for memory |
+| Loading state | isLoading | isPending | **isPending** (v5) - isLoading includes background refetches |
+| Query definition | Inline | queryOptions | **queryOptions** - reusable for prefetch/loader/useQuery |
+| Suspense | useQuery + loading | useSuspenseQuery | **useSuspenseQuery** for React 18+ Suspense |
+| Optimistic updates | setQueryData only | setQueryData + invalidate | **Both** - optimistic then reconcile |
+| Parallel queries | Multiple useQuery | useQueries | **useQueries** - combined loading/error state |
+| Infinite queries | Manual pagination | useInfiniteQuery | **useInfiniteQuery** - built-in cursor handling |
+
+## Anti-Patterns (FORBIDDEN)
+
+```typescript
+// ❌ FORBIDDEN: Storing server state in Zustand/Redux
+const useStore = create((set) => ({
+  users: [],  // Server state belongs in React Query!
+  fetchUsers: async () => {
+    const users = await api.getUsers();
+    set({ users }); // Stale data, no background refetch
+  },
+}));
+
+// ❌ FORBIDDEN: String query keys
+useQuery({
+  queryKey: 'todos',  // Must be an array!
+  queryFn: fetchTodos,
+});
+
+// ❌ FORBIDDEN: Using deprecated cacheTime (v5)
+useQuery({
+  queryKey: ['todos'],
+  cacheTime: 5 * 60 * 1000,  // WRONG - use gcTime in v5
+});
+
+// ❌ FORBIDDEN: Using isLoading for initial state (v5)
+// isLoading = isPending && isFetching (includes background refetch)
+if (isLoading) return <Skeleton />;  // WRONG - use isPending
+
+// ❌ FORBIDDEN: Over-invalidating after mutations
+useMutation({
+  mutationFn: updateTodo,
+  onSuccess: () => {
+    queryClient.invalidateQueries(); // Invalidates EVERYTHING!
+  },
+});
+
+// ❌ FORBIDDEN: Forgetting to cancel queries in optimistic updates
+useMutation({
+  onMutate: async (newTodo) => {
+    // Missing: await queryClient.cancelQueries(...)
+    const previous = queryClient.getQueryData(['todos']);
+    queryClient.setQueryData(['todos'], (old) => [...old, newTodo]);
+    return { previous };
+  },
+});
+
+// ❌ FORBIDDEN: Not returning context from onMutate
+useMutation({
+  onMutate: async (newTodo) => {
+    const previous = queryClient.getQueryData(['todos']);
+    queryClient.setQueryData(['todos'], (old) => [...old, newTodo]);
+    // Missing: return { previous }; // Required for rollback!
+  },
+  onError: (err, newTodo, context) => {
+    queryClient.setQueryData(['todos'], context?.previous); // context is undefined!
+  },
+});
+
+// ❌ FORBIDDEN: Mutating cache data directly
+queryClient.setQueryData(['todos'], (old) => {
+  old.push(newTodo);  // WRONG - mutates existing array
+  return old;
+});
+// ✅ CORRECT: Return new array
+queryClient.setQueryData(['todos'], (old) => [...old, newTodo]);
+
+// ❌ FORBIDDEN: Fetching inside useEffect
+useEffect(() => {
+  fetch('/api/users').then(setUsers);  // Use React Query instead!
+}, []);
+```
+
+## Related Skills
+
+- `zustand-patterns` - Client state management (use alongside React Query for server state)
+- `form-state-patterns` - Form state with React Hook Form (integrate mutation status)
+- `msw-mocking` - Mock Service Worker for testing queries without network
+- `react-server-components-framework` - RSC hydration with React Query
+
+## Capability Details
+
+### infinite-queries
+**Keywords**: infinite, pagination, cursor, load more, scroll, pages
+**Solves**: Implementing cursor-based pagination with automatic page management
+
+### optimistic-updates
+**Keywords**: optimistic, instant, rollback, onMutate, setQueryData, cancel
+**Solves**: Showing immediate UI feedback before server confirmation with rollback
+
+### prefetching
+**Keywords**: prefetch, hover, preload, ensureQueryData, loader, navigation
+**Solves**: Loading data before it's needed for instant navigation
+
+### cache-invalidation
+**Keywords**: invalidate, refetch, stale, fresh, gcTime, staleTime, exact
+**Solves**: Keeping cache in sync with server after mutations
+
+### suspense-integration
+**Keywords**: suspense, useSuspenseQuery, streaming, fallback, boundary
+**Solves**: Integrating with React Suspense for declarative loading states
+
+### parallel-queries
+**Keywords**: useQueries, parallel, concurrent, combine, batch
+**Solves**: Fetching multiple independent queries with combined state
+
+## References
+
+- `references/cache-strategies.md` - Cache invalidation patterns
+- `templates/query-hooks-template.ts` - Production query hook template
+- `checklists/tanstack-checklist.md` - Implementation checklist
+- `examples/tanstack-examples.md` - Real-world usage examples

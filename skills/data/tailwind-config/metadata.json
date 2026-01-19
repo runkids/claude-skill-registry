@@ -1,7 +1,7 @@
 {
   "name": "tailwind-config",
-  "repo": "metasaver/metasaver-marketplace",
-  "path": "plugins/metasaver-core/skills/config/workspace/tailwind-config/SKILL.md",
-  "source": "github.com/metasaver/metasaver-marketplace",
-  "downloaded_at": "2026-01-17T02:44:49.754740Z"
+  "repo": "sgcarstrends/sgcarstrends",
+  "path": ".claude/skills/tailwind-config/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-19T02:55:38.053980Z"
 }

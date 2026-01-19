@@ -1,702 +1,581 @@
 ---
-name: "Better Auth Integrator"
-description: "Implement full Better Auth registration/login with JWT tokens and protect routes when authentication is mentioned"
-version: "1.0.0"
+name: better-auth-setup
+description: Guide implementation of OAuth 2.1 / OIDC authentication using Better Auth with the OIDC Provider plugin. Use this skill when setting up centralized authentication for multiple apps, implementing SSO across a platform, creating an OAuth authorization server, or integrating Better Auth as an identity provider. Covers PKCE for public clients, JWKS configuration, token management, email verification, and common pitfalls like preserving PKCE parameters during sign-in redirects.
 ---
 
-# Better Auth Integrator Skill
+# Better Auth OAuth/OIDC Setup Skill
 
 ## Purpose
+Guide implementation of OAuth 2.1 / OIDC authentication using Better Auth with the OIDC Provider plugin.
 
-Automatically implement complete authentication system with JWT tokens, user registration, login, logout, route protection, and session management when the user requests authentication for the Phase II full-stack todo application.
+## When to Use
+- Setting up centralized authentication for multiple apps
+- Implementing SSO (Single Sign-On) across a platform
+- Creating an OAuth authorization server
+- Integrating Better Auth as an identity provider
 
-## When This Skill Triggers
+## Key Questions to Ask
 
-Use this skill when the user asks to:
-- "Set up authentication"
-- "Implement login and registration"
-- "Add JWT auth"
-- "Protect routes with authentication"
-- "Create user authentication flow"
-- Any request to implement auth, login, signup, or session management
+1. **Architecture**
+   - How many apps will use this auth server?
+   - Is this for first-party apps only or third-party OAuth clients too?
+   - Do you need dynamic client registration?
 
-## Prerequisites
+2. **Database**
+   - Which database? (Postgres recommended with Neon for serverless)
+   - Need user profiles beyond core auth fields?
 
-Before implementing auth:
-1. Read `specs/phase-2/spec.md` for auth requirements
-2. Read `.specify/memory/constitution.md` for security standards (§VII)
-3. Verify both `backend/` and `frontend/` projects exist
-4. Ensure User model exists in database
-5. Install required packages (PyJWT, bcrypt, jose)
+3. **Features**
+   - Role-based access control needed?
+   - Admin dashboard for user management?
+   - Consent screen for third-party apps?
 
-## Step-by-Step Procedure
+## Implementation Checklist
 
-### Step 1: Install Dependencies
-
-**Backend:**
-```bash
-cd backend
-pip install python-jose[cryptography] passlib[bcrypt] python-multipart
-```
-
-**Frontend:**
-```bash
-cd frontend
-npm install jose
-```
-
-### Step 2: Create Security Utilities (Backend)
-
-```python
-# app/utils/security.py
-from datetime import datetime, timedelta
-from typing import Optional
-from jose import JWTError, jwt
-from passlib.context import CryptContext
-from app.config import settings
-
-# Password hashing context
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-def hash_password(password: str) -> str:
-    """
-    Hash a password using bcrypt.
-
-    Args:
-        password: Plain text password
-
-    Returns:
-        Hashed password string
-    """
-    return pwd_context.hash(password)
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """
-    Verify a password against its hash.
-
-    Args:
-        plain_password: Plain text password from user input
-        hashed_password: Stored hashed password
-
-    Returns:
-        True if password matches, False otherwise
-    """
-    return pwd_context.verify(plain_password, hashed_password)
-
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
-    """
-    Create a JWT access token.
-
-    Args:
-        data: Data to encode in token (usually {"sub": user_id})
-        expires_delta: Optional custom expiration time
-
-    Returns:
-        Encoded JWT token string
-    """
-    to_encode = data.copy()
-
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(
-            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
-        )
-
-    to_encode.update({
-        "exp": expire,
-        "iat": datetime.utcnow(),
-        "type": "access",
-    })
-
-    encoded_jwt = jwt.encode(
-        to_encode,
-        settings.SECRET_KEY,
-        algorithm=settings.ALGORITHM,
-    )
-    return encoded_jwt
-
-def create_refresh_token(data: dict) -> str:
-    """
-    Create a JWT refresh token (longer expiration).
-
-    Args:
-        data: Data to encode in token
-
-    Returns:
-        Encoded JWT refresh token
-    """
-    to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(
-        days=settings.REFRESH_TOKEN_EXPIRE_DAYS
-    )
-
-    to_encode.update({
-        "exp": expire,
-        "iat": datetime.utcnow(),
-        "type": "refresh",
-    })
-
-    encoded_jwt = jwt.encode(
-        to_encode,
-        settings.SECRET_KEY,
-        algorithm=settings.ALGORITHM,
-    )
-    return encoded_jwt
-
-def decode_access_token(token: str) -> Optional[dict]:
-    """
-    Decode and verify a JWT access token.
-
-    Args:
-        token: JWT token string
-
-    Returns:
-        Decoded payload dict if valid, None if invalid
-    """
-    try:
-        payload = jwt.decode(
-            token,
-            settings.SECRET_KEY,
-            algorithms=[settings.ALGORITHM],
-        )
-
-        # Verify token type
-        if payload.get("type") != "access":
-            return None
-
-        return payload
-
-    except JWTError:
-        return None
-
-def validate_password_strength(password: str) -> tuple[bool, str]:
-    """
-    Validate password meets security requirements.
-
-    Requirements:
-        - Minimum 8 characters
-        - At least one uppercase letter
-        - At least one lowercase letter
-        - At least one number
-
-    Args:
-        password: Password to validate
-
-    Returns:
-        Tuple of (is_valid, error_message)
-    """
-    import re
-
-    if len(password) < 8:
-        return False, "Password must be at least 8 characters"
-    if not re.search(r"[A-Z]", password):
-        return False, "Password must contain at least one uppercase letter"
-    if not re.search(r"[a-z]", password):
-        return False, "Password must contain at least one lowercase letter"
-    if not re.search(r"\d", password):
-        return False, "Password must contain at least one number"
-
-    return True, "Password is valid"
-```
-
-### Step 3: Create Auth Dependency
-
-```python
-# app/dependencies/auth.py
-from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from sqlmodel import Session
-from app.models.user import User
-from app.utils.security import decode_access_token
-from app.dependencies.database import get_session
-
-security = HTTPBearer()
-
-async def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
-    session: Session = Depends(get_session),
-) -> User:
-    """
-    Extract and verify JWT token, return current authenticated user.
-
-    This dependency should be used to protect endpoints:
-        @router.get("/protected")
-        async def protected_route(user: User = Depends(get_current_user)):
-            return {"user_id": user.id}
-
-    Args:
-        credentials: HTTP Bearer credentials from Authorization header
-        session: Database session
-
-    Returns:
-        Current authenticated User object
-
-    Raises:
-        HTTPException: 401 if token is invalid or user not found
-    """
-    token = credentials.credentials
-
-    # Decode and verify token
-    payload = decode_access_token(token)
-    if payload is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-
-    # Extract user ID from token
-    user_id: str = payload.get("sub")
-    if user_id is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token payload",
-        )
-
-    # Fetch user from database
-    user = session.get(User, int(user_id))
-    if user is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User not found",
-        )
-
-    # Check if user is active
-    if not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="User account is inactive",
-        )
-
-    return user
-```
-
-### Step 4: Create Auth Schemas
-
-```python
-# app/schemas/auth.py
-from pydantic import BaseModel, EmailStr, Field
-
-class UserRegister(BaseModel):
-    """Schema for user registration."""
-    email: EmailStr = Field(..., description="User email address")
-    password: str = Field(..., min_length=8, description="Password (min 8 chars)")
-    name: str = Field(..., min_length=1, max_length=255, description="Full name")
-
-class UserLogin(BaseModel):
-    """Schema for user login."""
-    email: EmailStr
-    password: str
-
-class TokenResponse(BaseModel):
-    """Schema for token response."""
-    access_token: str
-    refresh_token: str
-    token_type: str = "bearer"
-
-class RefreshTokenRequest(BaseModel):
-    """Schema for refresh token request."""
-    refresh_token: str
-```
-
-### Step 5: Create Auth Router (Backend)
-
-```python
-# app/routers/auth.py
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session, select
-from app.models.user import User
-from app.schemas.auth import UserRegister, UserLogin, TokenResponse, RefreshTokenRequest
-from app.schemas.user import UserResponse
-from app.utils.security import (
-    hash_password,
-    verify_password,
-    create_access_token,
-    create_refresh_token,
-    validate_password_strength,
-    decode_access_token,
-)
-from app.dependencies.database import get_session
-from app.dependencies.auth import get_current_user
-
-router = APIRouter(
-    prefix="/auth",
-    tags=["authentication"],
-)
-
-@router.post(
-    "/register",
-    response_model=UserResponse,
-    status_code=status.HTTP_201_CREATED,
-    summary="Register a new user",
-)
-async def register(
-    user_data: UserRegister,
-    session: Session = Depends(get_session),
-):
-    """
-    Register a new user account.
-
-    Requirements:
-        - Email must be unique
-        - Password must meet strength requirements (8+ chars, upper, lower, number)
-
-    Returns:
-        Created user object (without password)
-    """
-    # Check if user already exists
-    existing_user = session.exec(
-        select(User).where(User.email == user_data.email)
-    ).first()
-
-    if existing_user:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered",
-        )
-
-    # Validate password strength
-    is_valid, message = validate_password_strength(user_data.password)
-    if not is_valid:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=message,
-        )
-
-    # Create user
-    user = User(
-        email=user_data.email,
-        name=user_data.name,
-        hashed_password=hash_password(user_data.password),
-    )
-    session.add(user)
-    session.commit()
-    session.refresh(user)
-
-    return user
-
-@router.post(
-    "/login",
-    response_model=TokenResponse,
-    summary="Login and receive tokens",
-)
-async def login(
-    credentials: UserLogin,
-    session: Session = Depends(get_session),
-):
-    """
-    Login with email and password.
-
-    Returns:
-        Access token (short-lived) and refresh token (long-lived)
-
-    Security:
-        - Uses generic error message to prevent user enumeration
-        - Verifies password with constant-time comparison (bcrypt)
-    """
-    # Find user by email
-    user = session.exec(
-        select(User).where(User.email == credentials.email)
-    ).first()
-
-    # Generic error message (don't reveal if user exists)
-    if not user or not verify_password(credentials.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-
-    # Check if user is active
-    if not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User account is inactive",
-        )
-
-    # Generate tokens
-    access_token = create_access_token(data={"sub": str(user.id)})
-    refresh_token = create_refresh_token(data={"sub": str(user.id)})
-
-    return TokenResponse(
-        access_token=access_token,
-        refresh_token=refresh_token,
-    )
-
-@router.post(
-    "/refresh",
-    response_model=TokenResponse,
-    summary="Refresh access token",
-)
-async def refresh_token(
-    request: RefreshTokenRequest,
-    session: Session = Depends(get_session),
-):
-    """
-    Get a new access token using a refresh token.
-
-    Use this when access token expires.
-    """
-    payload = decode_access_token(request.refresh_token)
-
-    if not payload or payload.get("type") != "refresh":
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid refresh token",
-        )
-
-    user_id = payload.get("sub")
-    user = session.get(User, int(user_id))
-
-    if not user or not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User not found or inactive",
-        )
-
-    # Generate new tokens
-    access_token = create_access_token(data={"sub": str(user.id)})
-    new_refresh_token = create_refresh_token(data={"sub": str(user.id)})
-
-    return TokenResponse(
-        access_token=access_token,
-        refresh_token=new_refresh_token,
-    )
-
-@router.get(
-    "/me",
-    response_model=UserResponse,
-    summary="Get current user profile",
-)
-async def get_current_user_profile(
-    current_user: User = Depends(get_current_user),
-):
-    """
-    Get the profile of the currently authenticated user.
-
-    Requires valid JWT token in Authorization header.
-    """
-    return current_user
-```
-
-### Step 6: Create Auth Context (Frontend)
+### 1. Auth Server Setup (Public Client with PKCE)
 
 ```typescript
-// app/contexts/AuthContext.tsx
-'use client';
+// src/lib/auth.ts
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { oidcProvider } from "better-auth/plugins/oidc-provider";
+import { admin } from "better-auth/plugins/admin";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useRouter } from 'next/navigation';
+export const auth = betterAuth({
+  database: drizzleAdapter(db, { provider: "pg", schema }),
 
-interface User {
-  id: number;
-  email: string;
-  name: string;
-}
+  emailAndPassword: { enabled: true },
 
-interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
-  logout: () => void;
-  isLoading: boolean;
-}
+  session: {
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
+    updateAge: 60 * 60 * 24,     // Refresh daily
+  },
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+  trustedOrigins: process.env.ALLOWED_ORIGINS?.split(","),
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    // Check for existing token on mount
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      try {
-        const response = await fetch('http://localhost:8000/auth/me', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-
-        if (response.ok) {
-          const userData = await response.json();
-          setUser(userData);
-        } else {
-          // Token invalid, clear it
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('refresh_token');
-        }
-      } catch (error) {
-        console.error('Auth check failed:', error);
-      }
-    }
-    setIsLoading(false);
-  };
-
-  const register = async (email: string, password: string, name: string) => {
-    const response = await fetch('http://localhost:8000/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, name }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.detail || 'Registration failed');
-    }
-
-    // After registration, login automatically
-    await login(email, password);
-  };
-
-  const login = async (email: string, password: string) => {
-    const response = await fetch('http://localhost:8000/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Invalid credentials');
-    }
-
-    const data = await response.json();
-    localStorage.setItem('access_token', data.access_token);
-    localStorage.setItem('refresh_token', data.refresh_token);
-
-    // Fetch user profile
-    const userResponse = await fetch('http://localhost:8000/auth/me', {
-      headers: {
-        'Authorization': `Bearer ${data.access_token}`,
+  plugins: [
+    oidcProvider({
+      loginPage: "/auth/sign-in",
+      consentPage: "/auth/consent",
+      trustedClients: [{
+        clientId: "your-app",
+        // No clientSecret for public clients - use PKCE instead
+        type: "public",  // Public client for SPAs
+        redirectUrls: ["http://localhost:3000/auth/callback"],  // Note: lowercase 'urls'
+        skipConsent: true,  // First-party apps
+      }],
+      // Add custom claims to userinfo
+      async getAdditionalUserInfoClaim(user) {
+        return { role: user.role };
       },
-    });
-
-    const userData = await userResponse.json();
-    setUser(userData);
-  };
-
-  const logout = () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    setUser(null);
-    router.push('/login');
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, login, register, logout, isLoading }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
-  }
-  return context;
-}
+    }),
+    admin({
+      defaultRole: "user",
+      adminRoles: ["admin"],
+    }),
+  ],
+});
 ```
 
-### Step 7: Create Middleware (Frontend)
+### 2. OAuth Client with PKCE (Recommended for SPAs)
 
 ```typescript
-// middleware.ts
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+// Client app: src/lib/auth-client.ts
 
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get('access_token')?.value ||
-                request.headers.get('authorization')?.split(' ')[1];
-
-  const isAuthPage = request.nextUrl.pathname.startsWith('/login') ||
-                     request.nextUrl.pathname.startsWith('/register');
-  const isProtectedPage = request.nextUrl.pathname.startsWith('/dashboard');
-
-  // Redirect authenticated users away from auth pages
-  if (isAuthPage && token) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
-  }
-
-  // Redirect unauthenticated users to login
-  if (isProtectedPage && !token) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-
-  return NextResponse.next();
+// PKCE helpers
+function generateCodeVerifier(): string {
+  const array = new Uint8Array(32);
+  crypto.getRandomValues(array);
+  return base64UrlEncode(array);
 }
 
-export const config = {
-  matcher: ['/dashboard/:path*', '/login', '/register'],
+async function generateCodeChallenge(verifier: string): Promise<string> {
+  const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier));
+  return base64UrlEncode(new Uint8Array(hash));
+}
+
+// Authorization URL with PKCE
+export async function getOAuthAuthorizationUrl(state: string) {
+  const codeVerifier = generateCodeVerifier();
+  const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+  // Store verifier for token exchange
+  sessionStorage.setItem('pkce_code_verifier', codeVerifier);
+
+  const params = new URLSearchParams({
+    client_id: 'your-app',
+    redirect_uri: 'http://localhost:3000/auth/callback',
+    response_type: 'code',
+    scope: 'openid profile email',
+    state,
+    code_challenge: codeChallenge,
+    code_challenge_method: 'S256',
+  });
+  return `${AUTH_SERVER_URL}/api/auth/oauth2/authorize?${params}`;
+}
+
+// Callback: exchange code for tokens with PKCE (no client_secret!)
+const codeVerifier = sessionStorage.getItem('pkce_code_verifier');
+const tokenResponse = await fetch(`${AUTH_SERVER_URL}/api/auth/oauth2/token`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  body: new URLSearchParams({
+    grant_type: 'authorization_code',
+    code,
+    redirect_uri: 'http://localhost:3000/auth/callback',
+    client_id: 'your-app',
+    code_verifier: codeVerifier,  // PKCE: verifier instead of secret
+  }),
+});
+sessionStorage.removeItem('pkce_code_verifier');
+```
+
+### 3. Session Management (Client)
+
+```typescript
+// AuthContext.tsx pattern
+const checkSession = async () => {
+  const accessToken = localStorage.getItem('access_token');
+  if (accessToken) {
+    const response = await fetch(`${AUTH_URL}/api/auth/oauth2/userinfo`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (response.ok) {
+      setSession({ user: await response.json() });
+    } else {
+      localStorage.removeItem('access_token');
+    }
+  }
+};
+
+const signOut = () => {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  setSession(null);
+  window.location.href = '/';
 };
 ```
 
-## Output Format
+### 4. Admin-Only Client Registration (Custom Endpoint)
 
-### Generated Files Structure
+Better Auth's built-in `/api/auth/oauth2/register` endpoint allows dynamic client registration but doesn't enforce admin-only access. For production environments where you want to control who can register OAuth clients, create a custom admin-only endpoint:
+
+```typescript
+// src/app/api/admin/clients/register/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { db } from "@/lib/db";
+import { oauthApplication } from "@/lib/db/schema";
+import crypto from "crypto";
+
+function generateClientId(): string {
+  return crypto.randomBytes(24).toString("base64url");
+}
+
+function generateClientSecret(): string {
+  return crypto.randomBytes(32).toString("base64url");
+}
+
+export async function POST(request: NextRequest) {
+  // Check if user is authenticated and is admin
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (session.user.role !== "admin") {
+    return NextResponse.json({ error: "Forbidden - admin only" }, { status: 403 });
+  }
+
+  const { name, redirectUrls, clientType } = await request.json();
+  const isPublic = clientType === "public";
+
+  const newClient = {
+    id: crypto.randomUUID(),
+    clientId: generateClientId(),
+    clientSecret: isPublic ? null : generateClientSecret(), // null for public
+    name,
+    redirectURLs: redirectUrls.join(","), // Note: capital URLs
+    type: isPublic ? "public" : "confidential",
+    disabled: false,
+    metadata: JSON.stringify({
+      token_endpoint_auth_method: isPublic ? "none" : "client_secret_post",
+      grant_types: ["authorization_code", "refresh_token"],
+    }),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  await db.insert(oauthApplication).values(newClient);
+
+  return NextResponse.json({
+    client_id: newClient.clientId,
+    client_secret: isPublic ? null : newClient.clientSecret,
+    client_type: isPublic ? "public" : "confidential",
+  });
+}
 ```
-backend/
-├── app/
-│   ├── routers/
-│   │   └── auth.py              # Auth endpoints
-│   ├── schemas/
-│   │   └── auth.py              # Auth schemas
-│   ├── dependencies/
-│   │   └── auth.py              # get_current_user
-│   └── utils/
-│       └── security.py          # JWT & password utils
 
-frontend/
-├── app/
-│   ├── contexts/
-│   │   └── AuthContext.tsx      # Auth state management
-│   ├── login/
-│   │   └── page.tsx             # Login page
-│   └── register/
-│       └── page.tsx             # Register page
-└── middleware.ts                # Route protection
+**Usage**: Admin users can now register clients via:
+```bash
+curl -X POST http://localhost:3001/api/admin/clients/register \
+  -H "Content-Type: application/json" \
+  -H "Cookie: session-cookie" \
+  -d '{
+    "name": "My New App",
+    "redirectUrls": ["http://localhost:4000/callback"],
+    "clientType": "public"
+  }'
 ```
 
-## Quality Criteria
+### 5. Seeding Trusted Public Client
 
-**Security (CRITICAL):**
-- ✅ Passwords hashed with bcrypt (12+ rounds)
-- ✅ JWT signed with strong secret (256-bit)
-- ✅ Tokens have expiration times
-- ✅ Generic error messages (don't reveal user existence)
-- ✅ HTTPS in production
-- ✅ No passwords in logs or responses
+For first-party apps (like robolearn-interface), you'll want to seed a trusted public client during setup. Provide three methods:
 
-**Functionality:**
-- ✅ Registration creates new users
-- ✅ Login returns valid tokens
-- ✅ Token refresh works
-- ✅ Protected routes require auth
-- ✅ Logout clears tokens
-- ✅ User profile endpoint works
+**Option 1: SQL Script (Recommended for production)**
+```sql
+-- scripts/seed-public-client.sql
+INSERT INTO oauth_application (
+  id, client_id, client_secret, name, redirect_urls,
+  type, disabled, metadata, created_at, updated_at
+) VALUES (
+  'robolearn-public-client-id',
+  'robolearn-public-client',
+  NULL, -- No secret for public client (PKCE only)
+  'RoboLearn Public Client',
+  'http://localhost:3000/auth/callback',
+  'public',
+  false,
+  '{"token_endpoint_auth_method":"none","grant_types":["authorization_code","refresh_token"]}',
+  NOW(),
+  NOW()
+)
+ON CONFLICT (client_id) DO UPDATE SET
+  name = EXCLUDED.name,
+  redirect_urls = EXCLUDED.redirect_urls,
+  updated_at = NOW();
+```
 
-**User Experience:**
-- ✅ Clear error messages
-- ✅ Loading states during auth
-- ✅ Redirect after login/logout
-- ✅ Password strength validation
-- ✅ Remember user across sessions
+**Option 2: TypeScript Seed Script**
+```typescript
+// scripts/seed-public-client.ts
+import { drizzle } from "drizzle-orm/neon-serverless";
+import { neonConfig, Pool } from "@neondatabase/serverless";
+import { oauthApplication } from "../src/lib/db/schema";
+import ws from "ws";
 
-## Success Indicators
+neonConfig.webSocketConstructor = ws;
 
-The skill execution is successful when:
-- ✅ Users can register with secure passwords
-- ✅ Login returns valid JWT tokens
-- ✅ Protected endpoints require authentication (401 without token)
-- ✅ Tokens can be refreshed before expiration
-- ✅ Frontend redirects work correctly
-- ✅ User state persists across page refreshes
-- ✅ Logout clears all tokens and redirects
-- ✅ No security vulnerabilities (OWASP Top 10)
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const db = drizzle(pool);
+
+await db.insert(oauthApplication).values({
+  id: "robolearn-public-client-id",
+  clientId: "robolearn-public-client",
+  clientSecret: null,
+  name: "RoboLearn Public Client",
+  redirectURLs: "http://localhost:3000/auth/callback",
+  type: "public",
+  disabled: false,
+  metadata: JSON.stringify({
+    token_endpoint_auth_method: "none",
+    grant_types: ["authorization_code", "refresh_token"],
+  }),
+  createdAt: new Date(),
+  updatedAt: new Date(),
+}).onConflictDoUpdate({
+  target: oauthApplication.clientId,
+  set: { name: "RoboLearn Public Client", updatedAt: new Date() },
+});
+
+console.log("✓ Seeded robolearn-public-client");
+await pool.end();
+```
+
+Run: `npx tsx scripts/seed-public-client.ts`
+
+**Option 3: Admin API Endpoint**
+```typescript
+// src/app/api/admin/seed-public-client/route.ts
+export async function POST(request: NextRequest) {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (session?.user.role !== "admin") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  // Same seed logic as TypeScript script above
+  // ...
+
+  return NextResponse.json({ success: true });
+}
+```
+
+### 6. Email Verification Setup (Optional but Recommended)
+
+Better Auth supports email verification via multiple providers. Use a fallback strategy for reliability:
+
+```typescript
+// src/lib/auth.ts
+import { Resend } from "resend";
+import * as nodemailer from "nodemailer";
+
+// Email configuration - supports multiple providers
+const EMAIL_FROM = process.env.EMAIL_FROM ||
+                   process.env.RESEND_FROM_EMAIL ||
+                   process.env.SMTP_FROM;
+
+// Provider 1: SMTP (Google Gmail, custom SMTP)
+const smtpConfigured = !!(
+  process.env.SMTP_HOST &&
+  process.env.SMTP_USER &&
+  process.env.SMTP_PASS
+);
+
+const smtpTransport = smtpConfigured
+  ? nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || "587"),
+      secure: process.env.SMTP_SECURE === "true",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    })
+  : null;
+
+// Provider 2: Resend
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
+
+const emailEnabled = !!(EMAIL_FROM && (smtpTransport || resend));
+
+// Generic email sender - tries SMTP first, then Resend
+async function sendEmail({ to, subject, html }: {
+  to: string;
+  subject: string;
+  html: string
+}) {
+  if (!emailEnabled || !EMAIL_FROM) {
+    console.warn("[Auth] Email not configured - skipping");
+    return;
+  }
+
+  // Priority 1: SMTP
+  if (smtpTransport) {
+    await smtpTransport.sendMail({ from: EMAIL_FROM, to, subject, html });
+    return;
+  }
+
+  // Priority 2: Resend
+  if (resend) {
+    await resend.emails.send({ from: EMAIL_FROM, to, subject, html });
+    return;
+  }
+}
+
+export const auth = betterAuth({
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: true,
+    ...(emailEnabled && {
+      sendResetPassword: async ({ user, url }) => {
+        await sendEmail({
+          to: user.email,
+          subject: "Reset your password",
+          html: `<a href="${url}">Reset Password</a>`,
+        });
+      },
+    }),
+  },
+
+  emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
+    expiresIn: 3600, // 1 hour
+    sendVerificationEmail: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Verify your email",
+        html: `<a href="${url}">Verify Email</a>`,
+      });
+    },
+  },
+});
+```
+
+**Environment Variables**:
+```env
+# Option 1: Resend (free tier: 100/day)
+RESEND_API_KEY=re_xxxxxxxxx
+RESEND_FROM_EMAIL=onboarding@resend.dev
+
+# Option 2: SMTP (Gmail - requires app password)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your@gmail.com
+SMTP_PASS=app-password
+EMAIL_FROM=your@gmail.com
+```
+
+**Gmail App Password**: https://myaccount.google.com/apppasswords
+
+## JWKS (JSON Web Key Set) Configuration
+
+For production-scale deployments, enable JWKS for client-side token verification:
+
+```typescript
+import { jwt } from "better-auth/plugins";
+
+plugins: [
+  // JWT Plugin - Enables JWKS endpoint for asymmetric key signing (RS256)
+  jwt({
+    jwks: {
+      keyPairConfig: {
+        alg: "RS256", // RSA with SHA-256 - standard for OIDC/JWKS
+      },
+      disablePrivateKeyEncryption: true, // Disable encryption for simplicity
+    },
+  }),
+  
+  oidcProvider({
+    useJWTPlugin: true, // Enable JWT plugin integration
+    accessTokenExpiresIn: 60 * 60 * 6, // 6 hours
+    refreshTokenExpiresIn: 60 * 60 * 24 * 7, // 7 days
+    codeExpiresIn: 600, // 10 minutes
+    // ... other config
+  }),
+]
+```
+
+**Benefits**:
+- **Offline token verification**: Clients verify ID tokens locally using JWKS public keys
+- **Reduced server load**: No per-request userinfo calls needed
+- **Better scalability**: Handles 10,000+ users per app without hitting auth server
+- **OIDC compliant**: Standard RS256 signing with JWKS endpoint
+
+**Client-side implementation**:
+```typescript
+// Client verifies ID token using JWKS (no server call!)
+const payload = await verifyIDToken(idToken, authUrl, clientId);
+if (payload) {
+  // Token is valid, extract user info from token
+  const user = extractUserFromToken(payload);
+  // No need to call /userinfo endpoint!
+}
+```
+
+## Token Expiry Configuration
+
+Configure OAuth token expiration times:
+
+```typescript
+oidcProvider({
+  accessTokenExpiresIn: 60 * 60 * 6,        // 6 hours (21600 seconds)
+  refreshTokenExpiresIn: 60 * 60 * 24 * 7,  // 7 days (604800 seconds)
+  codeExpiresIn: 600,                        // 10 minutes (authorization code)
+})
+```
+
+**Recommendations**:
+- **Access tokens**: 1-6 hours (balance security vs. refresh frequency)
+- **Refresh tokens**: 7-30 days (longer for better UX)
+- **Authorization codes**: 10 minutes (OAuth standard)
+
+## Common Pitfalls
+
+### 1. PKCE Parameters Lost During Sign-In Redirect
+
+When the OAuth authorization endpoint redirects to a sign-in page, the sign-in form must preserve PKCE parameters and forward them after successful authentication:
+
+```typescript
+// In sign-in-form.tsx - MUST extract and preserve PKCE params
+const codeChallenge = searchParams.get("code_challenge");
+const codeChallengeMethod = searchParams.get("code_challenge_method");
+
+// After successful sign-in, rebuild OAuth URL WITH PKCE params
+if (clientId && redirectUri && responseType) {
+  const oauthParams = new URLSearchParams({
+    client_id: clientId,
+    redirect_uri: redirectUri,
+    response_type: responseType,
+    ...(scope && { scope }),
+    ...(state && { state }),
+    ...(codeChallenge && { code_challenge: codeChallenge }),  // CRITICAL!
+    ...(codeChallengeMethod && { code_challenge_method: codeChallengeMethod }),
+  });
+  window.location.href = `/api/auth/oauth2/authorize?${oauthParams.toString()}`;
+}
+```
+
+**Symptom**: "code verification failed" error on first login or after logout
+**Cause**: Sign-in form drops PKCE parameters when rebuilding OAuth URL
+**Fix**: Extract and include code_challenge and code_challenge_method in redirect
+
+### 2. Wrong Property Name
+```typescript
+// WRONG - causes "Cannot read properties of undefined (reading 'find')"
+redirectURLs: ["http://..."]
+
+// CORRECT
+redirectUrls: ["http://..."]
+```
+
+### 3. Cookie vs Token Auth Confusion
+- OAuth clients should ONLY use tokens from localStorage
+- Don't fall back to cookie-based session checking
+- Cookie sessions are for the auth server itself
+
+### 4. CORS Configuration
+```typescript
+// Auth server must trust client origins
+trustedOrigins: ["http://localhost:3000", "https://your-app.com"]
+
+// Environment variable
+ALLOWED_ORIGINS=http://localhost:3000,https://your-app.com
+```
+
+### 5. Logout Scope
+- OAuth standard: client clears its own tokens
+- Auth server session stays active (SSO pattern)
+- Don't try to clear auth server session from client
+
+## Database Schema (Drizzle)
+
+Required tables for OIDC Provider:
+- `user` - Core user data
+- `session` - Server sessions
+- `account` - Auth provider accounts
+- `oauth_application` - Registered OAuth clients
+- `oauth_access_token` - Issued tokens
+- `oauth_consent` - User consent records
+
+## Testing Checklist
+
+1. [ ] OIDC Discovery endpoint works: `GET /.well-known/openid-configuration`
+2. [ ] Authorization redirects to login when unauthenticated
+3. [ ] Authorization returns code after login
+4. [ ] Token exchange returns access_token
+5. [ ] UserInfo returns user data with valid token
+6. [ ] Sign out clears tokens and redirects
+
+## Security Checklist
+
+- [ ] HTTPS in production
+- [ ] Strong BETTER_AUTH_SECRET (32+ chars)
+- [ ] PKCE enabled for public clients (SPAs, mobile apps)
+- [ ] No client secrets in browser code (use PKCE instead)
+- [ ] Exact redirect URI matching
+- [ ] Rate limiting enabled
+- [ ] CORS properly configured via `trustedOrigins`
+- [ ] Token refresh implemented for long sessions
+- [ ] Global logout option for multi-app SSO
+- [ ] Email verification required (`requireEmailVerification: true`)
+- [ ] Admin-only client registration endpoint
+- [ ] Public clients have `clientSecret = null` in database
+- [ ] JWKS keys rotated periodically (automatic with Better Auth)
+- [ ] JWKS endpoint accessible at `/api/auth/jwks`
+- [ ] Client-side token verification implemented (reduces server load)
+- [ ] Token expiry configured appropriately (6h access, 7d refresh)

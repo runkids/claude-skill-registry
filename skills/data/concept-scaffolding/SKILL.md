@@ -1,15 +1,60 @@
 ---
 name: concept-scaffolding
-description: This skill should be used when scaffolding complex concepts for learners. It applies cognitive load architecture principles to break down concepts into digestible pieces while respecting learning science limits.
-version: "3.0.0"
+description: Design progressive learning sequences that build foundational understanding before complexity. Use when breaking complex concepts into steps, managing cognitive load, or validating prerequisite understanding. Applies Bloom's progression and tier-based cognitive limits (CEFR A1-C2).
 ---
 
 # Concept Scaffolding Skill v3.0 (Reasoning-Activated)
 
 **Version**: 3.0.0
 **Pattern**: Persona + Questions + Principles
-**Layer**: 1 (Manual Foundation)
+**Layer**: 1-2 (Manual Foundation + AI Collaboration)
 **Activation Mode**: Reasoning (not prediction)
+
+---
+
+## Quick Reference
+
+**When to use**: Designing the PROGRESSION of a lesson or chapter
+**Complements**: `learning-objectives` (which defines outcomes) + `code-example-generator` (which creates worked examples)
+**Output**: Scaffolding plan with 3-7 steps, cognitive load per step, validation checkpoints
+
+**Key Decisions**:
+1. How many steps? (3-7 optimal; based on concept complexity, not convenience)
+2. How many concepts per step? (Tier-based: A1-A2 = 2-4, B1 = 3-5, B2+ = 4-7)
+3. What validates understanding at each step? (Micro-checks prevent false progress)
+4. Where does AI help? (Heavy scaffolding in L1, graduated in L2)
+
+## Concept-Scaffolding vs Learning-Objectives
+
+These skills work TOGETHER but solve different problems:
+
+| Aspect | Learning-Objectives | Concept-Scaffolding |
+|--------|-------------------|-------------------|
+| **Question** | What will students DO? | How will students LEARN it? |
+| **Output** | Measurable outcomes + assessments | Step-by-step progression + load limits |
+| **Timing** | Define BEFORE designing lesson | Design AFTER defining objectives |
+| **Workflow** | 1. Write learning objectives (outcomes) 2. Design scaffolding to reach those outcomes (progression) 3. Write lesson content following scaffolding 4. Align assessments to objectives |
+
+**Example**: Teaching Python decorators
+
+```
+Learning Objectives:
+- Students will implement a decorator given a specification (Create level, Bloom's)
+- Students will identify when to use decorators vs. alternative patterns (Analyze level)
+
+Concept Scaffolding:
+- Step 1: Functions as objects (prerequisite)
+- Step 2: Closures (builds on Step 1)
+- Step 3: Wrapper pattern (core)
+- Step 4: Decorator syntax (syntax sugar, light)
+- Step 5: Parameterized decorators (extension, optional)
+
+→ Assessment: Can they implement @retry(max_attempts)? (validates both objectives)
+```
+
+**Bottom line**:
+- Use `learning-objectives` to define WHAT is testable
+- Use `concept-scaffolding` to design HOW to make it learnable
 
 ---
 
@@ -264,8 +309,8 @@ This skill works with:
 **Layer**: 2 (AI-Assisted)
 
 ## Prerequisite Check
-- Functions as first-class objects (Chapter N)
-- Function scope and closures (Chapter N)
+- Functions as first-class objects (Chapter 12)
+- Function scope and closures (Chapter 13)
 
 ---
 

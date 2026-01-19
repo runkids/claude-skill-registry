@@ -1,7 +1,7 @@
 {
   "name": "repoprompt",
-  "repo": "namesreallyblank/Clorch",
-  "path": "skills/repoprompt/SKILL.md",
-  "source": "github.com/namesreallyblank/Clorch",
-  "downloaded_at": "2026-01-17T04:07:09.271767Z"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/repoprompt/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-19T03:31:24.812217Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "secrets-manager",
-  "repo": "itsmostafa/aws-agent-skills",
-  "path": "skills/secrets-manager/SKILL.md",
-  "source": "github.com/itsmostafa/aws-agent-skills",
-  "downloaded_at": "2026-01-17T03:15:05.484888Z"
+  "repo": "rknall/claude-skills",
+  "path": "secrets-manager/SKILL.md",
+  "source": "github.com/rknall/claude-skills",
+  "downloaded_at": "2026-01-19T02:49:43.974922Z"
 }

@@ -1,115 +1,96 @@
 ---
 name: web-search
-description: Use web search to get latest market information and industry trends. Suitable for getting vertical short drama market trends, hot topic analysis, success case research
-category: knowledge-research
-version: 2.1.0
-last_updated: 2026-01-11
+description: "Search the web using the agent's built-in WebSearch tool. Use when you need to find current information, verify facts, or research topics. No API key required. Keywords: search, web, internet, lookup, find, research, current events, facts."
 license: MIT
-compatibility: Claude Code 1.0+
-maintainer: Gong Fan
-allowed-tools:
-  - WebSearch
-model: opus
-changelog:
-  - version: 2.1.0
-    date: 2026-01-11
-    changes:
-      - type: improved
-        content: Optimized description field to be more concise and comply with imperative language standards
-      - type: changed
-        content: Changed model to opus
-      - type: improved
-        content: Optimized descriptions for functionality, usage scenarios, core steps, input requirements, and output format to comply with imperative language standards
-      - type: added
-        content: Added constraints, examples, and detailed documentation sections
-  - version: 2.0.0
-    date: 2026-01-11
-    changes:
-      - type: breaking
-        content: Restructured according to Agent Skills official specifications
-      - type: improved
-        content: Optimized description, used imperative language, streamlined main content
-      - type: added
-        content: Added license and compatibility optional fields
-      - type: added
-        content: Added allowed-tools (WebSearch) and model fields
-  - version: 1.0.0
-    date: 2026-01-10
-    changes:
-      - type: added
-        content: Initial version
+compatibility: Works with any agent that has WebSearch capability
+metadata:
+  author: jwynia
+  version: "1.0"
 ---
 
-# Vertical Short Drama Web Search Expert
+# Web Search
 
-## Functionality
+Search the web using the agent's built-in WebSearch capability. No external API keys required.
 
-Use web search capabilities to get latest market information and industry trends, providing accurate web search and information retrieval services.
+## When to Use This Skill
 
-## Usage Scenarios
+Use this skill when:
+- You need to find current information not in your training data
+- The user asks about recent events, news, or updates
+- You need to verify facts or find sources
+- Research requires real-time web data
 
-- Get vertical short drama market trend analysis
-- Research hot topics and success cases
-- Track industry policies and platform algorithm changes
-- Collect content creation and commercial operation techniques
+Do NOT use this skill when:
+- Information is already in your knowledge base
+- You're working with local files or code
+- You need advanced filtering (use `web-search-tavily` instead)
+- A more specific research skill applies
 
-## Core Capabilities
+## How to Search
 
-1. **Web Search**: Conduct accurate web searches to get latest market information and industry trends
-2. **Information Organization**: Intelligently classify and organize search results, extracting key information and core points
-3. **Content Summary**: Deeply analyze and summarize search results, providing practical recommendations and insights
+Use the agent's built-in **WebSearch** tool directly. The tool accepts a query string and returns relevant web results.
 
-## Workflow
+### Basic Search
 
-1. **Execute Search**: Build precise queries based on user needs and conduct web searches
-2. **Intelligent Summary**: Analyze search result relevance and importance, generating structured summary reports
+Simply invoke WebSearch with your query:
 
-## Specialized Areas
+```
+Query: "React 19 new features"
+```
 
-### Vertical Short Drama Market
-- Market trends and user preference analysis
-- Hit short drama case studies
-- Platform policies and algorithm changes
-- Production cost and revenue analysis
+### Effective Query Strategies
 
-### Content Creation
-- Hot topics and element analysis
-- Creation techniques and methodologies
-- Character design and plot design
+**Be specific and include context:**
+- Bad: "react hooks"
+- Good: "React 19 useActionState hook tutorial"
 
-### Commercial Operations
-- Marketing strategies and promotion methods
-- User growth and retention techniques
-- Monetization models and profit analysis
+**Include the year for current information:**
+- Bad: "best TypeScript practices"
+- Good: "TypeScript best practices 2025"
 
-## Input Requirements
+**Use domain-specific terms:**
+- Bad: "how to make website fast"
+- Good: "web performance optimization Core Web Vitals"
 
-- Clear web search keywords or questions
-- Optionally specify search scope
+### When to Search Multiple Times
 
-## Output Requirements
+Search iteratively when:
+1. Initial results are too broad → Refine with more specific terms
+2. Looking for multiple perspectives → Search different phrasings
+3. Verifying facts → Search for corroborating sources
+4. Deep research → Start broad, then drill into specifics
 
-- Clear titles and categories
-- Complete time background and context
-- Accurate citation of key data
-- Practical recommendations and action guides
+## Output Handling
 
-## Constraints
+After receiving search results:
 
-- Search results must come from the web; do not query knowledge base
-- Information organization must be objective and accurate; avoid subjective commentary
-- Output content should be structured and easy to understand and apply
+1. **Cite sources** - Always include URLs when sharing information
+2. **Synthesize** - Combine information from multiple results
+3. **Verify** - Cross-reference claims across sources
+4. **Date-check** - Note publication dates for time-sensitive information
 
-## Examples
+### Source Attribution Format
 
-See `{baseDir}/references/examples.md` for detailed examples. This file contains complete outputs and analysis explanations for various web search scenarios.
+When sharing information from search results:
 
----
+```
+According to [Source Name](URL), ...
 
-## Version History
+Sources:
+- [Title 1](url1)
+- [Title 2](url2)
+```
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 2.1.0 | 2026-01-11 | Optimized description field; changed model to opus; optimized descriptions for functionality, usage scenarios, core steps, input requirements, and output format; added constraints, examples, and detailed documentation sections |
-| 2.0.0 | 2026-01-11 | Restructured according to official specifications |
-| 1.0.0 | 2026-01-10 | Initial version |
+## Limitations
+
+- Results depend on the agent's WebSearch implementation
+- Cannot access paywalled or login-required content
+- May not have the most recent information (depends on indexing)
+- No domain filtering or relevance scoring (use `web-search-tavily` for these features)
+
+## Related Skills
+
+- **web-search-tavily** - Advanced search with API key, domain filtering, and relevance scores
+- **research-workflow** - Structured research with planning and synthesis
+- **fact-check** - Verify specific claims against sources
+- **claim-investigation** - Investigate viral claims and social media content

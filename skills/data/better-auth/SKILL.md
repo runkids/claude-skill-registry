@@ -1,74 +1,165 @@
 ---
 name: better-auth
-description: Implement authentication and authorization with Better Auth - a framework-agnostic TypeScript authentication framework. Features include email/password authentication with verification, OAuth providers (Google, GitHub, Discord, etc.), two-factor authentication (TOTP, SMS), passkeys/WebAuthn support, session management, role-based access control (RBAC), rate limiting, and database adapters. Use when adding authentication to applications, implementing OAuth flows, setting up 2FA/MFA, managing user sessions, configuring authorization rules, or building secure authentication systems for web applications.
+description: Guide for implementing Better Auth - a framework-agnostic authentication and authorization framework for TypeScript. Use when adding authentication features like email/password, OAuth, 2FA, passkeys, or advanced auth functionality to applications.
 license: MIT
-version: 2.0.0
+version: 1.0.0
 ---
 
 # Better Auth Skill
 
-Better Auth is comprehensive, framework-agnostic authentication/authorization framework for TypeScript with built-in email/password, social OAuth, and powerful plugin ecosystem for advanced features.
+Better Auth is a comprehensive, framework-agnostic authentication and authorization framework for TypeScript that provides built-in support for email/password authentication, social sign-on, and a powerful plugin ecosystem for advanced features.
 
-## When to Use
+## When to Use This Skill
 
-- Implementing auth in TypeScript/JavaScript applications
+Use this skill when:
+- Implementing authentication in TypeScript/JavaScript applications
 - Adding email/password or social OAuth authentication
-- Setting up 2FA, passkeys, magic links, advanced auth features
-- Building multi-tenant apps with organization support
-- Managing sessions and user lifecycle
+- Setting up 2FA, passkeys, magic links, or other advanced auth features
+- Building multi-tenant applications with organization support
+- Implementing session management and user management
 - Working with any framework (Next.js, Nuxt, SvelteKit, Remix, Astro, Hono, Express, etc.)
 
-## Quick Start
+## Core Concepts
 
-### Installation
+### Key Features
+
+- **Framework Agnostic**: Works with any framework (Next.js, Nuxt, Svelte, Remix, Hono, Express, etc.)
+- **Built-in Auth Methods**: Email/password and OAuth 2.0 social providers
+- **Plugin Ecosystem**: Easy-to-add advanced features (2FA, passkeys, magic link, username, email OTP, organization, etc.)
+- **Database Flexibility**: Supports SQLite, PostgreSQL, MySQL, MongoDB, and more
+- **ORM Support**: Built-in adapters for Drizzle, Prisma, Kysely, and MongoDB
+- **Type Safety**: Full TypeScript support with excellent type inference
+- **Session Management**: Built-in session handling for both client and server
+
+### Architecture
+
+Better Auth follows a client-server architecture:
+1. **Server Instance** (`better-auth`): Handles auth logic, database operations, and API routes
+2. **Client Instance** (`better-auth/client`): Provides hooks and methods for authentication
+3. **Plugins**: Extend both server and client functionality
+
+## Installation & Setup
+
+### Step 1: Install Package
 
 ```bash
 npm install better-auth
-# or pnpm/yarn/bun add better-auth
+# or
+pnpm add better-auth
+# or
+yarn add better-auth
+# or
+bun add better-auth
 ```
 
-### Environment Setup
+### Step 2: Environment Variables
 
-Create `.env`:
+Create `.env` file:
+
 ```env
-BETTER_AUTH_SECRET=<generated-secret-32-chars-min>
+BETTER_AUTH_SECRET=<generated-secret-key>
 BETTER_AUTH_URL=http://localhost:3000
 ```
 
-### Basic Server Setup
+Generate secret: Use openssl or a random string generator (min 32 characters).
 
-Create `auth.ts` (root, lib/, utils/, or under src/app/server/):
+### Step 3: Create Auth Server Instance
+
+Create `auth.ts` in project root, `lib/`, `utils/`, or nested under `src/`, `app/`, or `server/`:
 
 ```ts
 import { betterAuth } from "better-auth";
 
 export const auth = betterAuth({
   database: {
-    // See references/database-integration.md
+    // Database configuration
   },
   emailAndPassword: {
     enabled: true,
-    autoSignIn: true
+    autoSignIn: true // Users auto sign-in after signup
   },
   socialProviders: {
     github: {
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    },
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }
   }
 });
 ```
 
-### Database Schema
+### Step 4: Database Configuration
 
-```bash
-npx @better-auth/cli generate  # Generate schema/migrations
-npx @better-auth/cli migrate   # Apply migrations (Kysely only)
+Choose your database setup:
+
+**Direct Database Connection:**
+
+```ts
+import { betterAuth } from "better-auth";
+import Database from "better-sqlite3";
+// or import { Pool } from "pg";
+// or import { createPool } from "mysql2/promise";
+
+export const auth = betterAuth({
+  database: new Database("./sqlite.db"),
+  // or: new Pool({ connectionString: process.env.DATABASE_URL })
+  // or: createPool({ host: "localhost", user: "root", ... })
+});
 ```
 
-### Mount API Handler
+**ORM Adapter:**
 
-**Next.js App Router:**
+```ts
+// Drizzle
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { db } from "@/db";
+
+export const auth = betterAuth({
+  database: drizzleAdapter(db, {
+    provider: "pg", // or "mysql", "sqlite"
+  }),
+});
+
+// Prisma
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+export const auth = betterAuth({
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
+});
+
+// MongoDB
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
+import { client } from "@/db";
+
+export const auth = betterAuth({
+  database: mongodbAdapter(client),
+});
+```
+
+### Step 5: Create Database Schema
+
+Use Better Auth CLI:
+
+```bash
+# Generate schema/migration files
+npx @better-auth/cli generate
+
+# Or migrate directly (Kysely adapter only)
+npx @better-auth/cli migrate
+```
+
+### Step 6: Mount API Handler
+
+Create catch-all route for `/api/auth/*`:
+
+**Next.js (App Router):**
 ```ts
 // app/api/auth/[...all]/route.ts
 import { auth } from "@/lib/auth";
@@ -77,9 +168,47 @@ import { toNextJsHandler } from "better-auth/next-js";
 export const { POST, GET } = toNextJsHandler(auth);
 ```
 
-**Other frameworks:** See references/email-password-auth.md#framework-setup
+**Nuxt:**
+```ts
+// server/api/auth/[...all].ts
+import { auth } from "~/utils/auth";
 
-### Client Setup
+export default defineEventHandler((event) => {
+  return auth.handler(toWebRequest(event));
+});
+```
+
+**SvelteKit:**
+```ts
+// hooks.server.ts
+import { auth } from "$lib/auth";
+import { svelteKitHandler } from "better-auth/svelte-kit";
+
+export async function handle({ event, resolve }) {
+  return svelteKitHandler({ event, resolve, auth });
+}
+```
+
+**Hono:**
+```ts
+import { Hono } from "hono";
+import { auth } from "./auth";
+
+const app = new Hono();
+app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
+```
+
+**Express:**
+```ts
+import express from "express";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./auth";
+
+const app = express();
+app.all("/api/auth/*", toNodeHandler(auth));
+```
+
+### Step 7: Create Client Instance
 
 Create `auth-client.ts`:
 
@@ -91,114 +220,500 @@ export const authClient = createAuthClient({
 });
 ```
 
-### Basic Usage
+## Authentication Methods
 
+### Email & Password
+
+**Server Configuration:**
 ```ts
-// Sign up
-await authClient.signUp.email({
-  email: "user@example.com",
-  password: "secure123",
-  name: "John Doe"
+export const auth = betterAuth({
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: true, // default: true
+  }
 });
-
-// Sign in
-await authClient.signIn.email({
-  email: "user@example.com",
-  password: "secure123"
-});
-
-// OAuth
-await authClient.signIn.social({ provider: "github" });
-
-// Session
-const { data: session } = authClient.useSession(); // React/Vue/Svelte
-const { data: session } = await authClient.getSession(); // Vanilla JS
 ```
 
-## Feature Selection Matrix
+**Client Usage:**
 
-| Feature | Plugin Required | Use Case | Reference |
-|---------|----------------|----------|-----------|
-| Email/Password | No (built-in) | Basic auth | [email-password-auth.md](./references/email-password-auth.md) |
-| OAuth (GitHub, Google, etc.) | No (built-in) | Social login | [oauth-providers.md](./references/oauth-providers.md) |
-| Email Verification | No (built-in) | Verify email addresses | [email-password-auth.md](./references/email-password-auth.md#email-verification) |
-| Password Reset | No (built-in) | Forgot password flow | [email-password-auth.md](./references/email-password-auth.md#password-reset) |
-| Two-Factor Auth (2FA/TOTP) | Yes (`twoFactor`) | Enhanced security | [advanced-features.md](./references/advanced-features.md#two-factor-authentication) |
-| Passkeys/WebAuthn | Yes (`passkey`) | Passwordless auth | [advanced-features.md](./references/advanced-features.md#passkeys-webauthn) |
-| Magic Link | Yes (`magicLink`) | Email-based login | [advanced-features.md](./references/advanced-features.md#magic-link) |
-| Username Auth | Yes (`username`) | Username login | [email-password-auth.md](./references/email-password-auth.md#username-authentication) |
-| Organizations/Multi-tenant | Yes (`organization`) | Team/org features | [advanced-features.md](./references/advanced-features.md#organizations) |
-| Rate Limiting | No (built-in) | Prevent abuse | [advanced-features.md](./references/advanced-features.md#rate-limiting) |
-| Session Management | No (built-in) | User sessions | [advanced-features.md](./references/advanced-features.md#session-management) |
+```ts
+// Sign Up
+const { data, error } = await authClient.signUp.email({
+  email: "user@example.com",
+  password: "securePassword123",
+  name: "John Doe",
+  image: "https://example.com/avatar.jpg", // optional
+  callbackURL: "/dashboard" // optional
+}, {
+  onSuccess: (ctx) => {
+    // redirect or show success
+  },
+  onError: (ctx) => {
+    alert(ctx.error.message);
+  }
+});
 
-## Auth Method Selection Guide
+// Sign In
+const { data, error } = await authClient.signIn.email({
+  email: "user@example.com",
+  password: "securePassword123",
+  callbackURL: "/dashboard",
+  rememberMe: true // default: true
+});
+```
 
-**Choose Email/Password when:**
-- Building standard web app with traditional auth
-- Need full control over user credentials
-- Targeting users who prefer email-based accounts
+### Social OAuth
 
-**Choose OAuth when:**
-- Want quick signup with minimal friction
-- Users already have social accounts
-- Need access to social profile data
+**Server Configuration:**
+```ts
+export const auth = betterAuth({
+  socialProviders: {
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    },
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    },
+    // Other providers: apple, discord, facebook, etc.
+  }
+});
+```
 
-**Choose Passkeys when:**
-- Want passwordless experience
-- Targeting modern browsers/devices
-- Security is top priority
+**Client Usage:**
+```ts
+await authClient.signIn.social({
+  provider: "github",
+  callbackURL: "/dashboard",
+  errorCallbackURL: "/error",
+  newUserCallbackURL: "/welcome",
+});
+```
 
-**Choose Magic Link when:**
-- Want passwordless without WebAuthn complexity
-- Targeting email-first users
-- Need temporary access links
+### Sign Out
 
-**Combine Multiple Methods when:**
-- Want flexibility for different user preferences
-- Building enterprise apps with various auth requirements
-- Need progressive enhancement (start simple, add more options)
+```ts
+await authClient.signOut({
+  fetchOptions: {
+    onSuccess: () => {
+      router.push("/login");
+    }
+  }
+});
+```
 
-## Core Architecture
+## Session Management
 
-Better Auth uses client-server architecture:
-1. **Server** (`better-auth`): Handles auth logic, database ops, API routes
-2. **Client** (`better-auth/client`): Provides hooks/methods for frontend
-3. **Plugins**: Extend both server/client functionality
+### Client-Side Session
 
-## Implementation Checklist
+**Using Hooks (React/Vue/Svelte/Solid):**
 
-- [ ] Install `better-auth` package
-- [ ] Set environment variables (SECRET, URL)
-- [ ] Create auth server instance with database config
-- [ ] Run schema migration (`npx @better-auth/cli generate`)
-- [ ] Mount API handler in framework
-- [ ] Create client instance
-- [ ] Implement sign-up/sign-in UI
-- [ ] Add session management to components
-- [ ] Set up protected routes/middleware
-- [ ] Add plugins as needed (regenerate schema after)
-- [ ] Test complete auth flow
-- [ ] Configure email sending (verification/reset)
-- [ ] Enable rate limiting for production
-- [ ] Set up error handling
+```tsx
+// React
+import { authClient } from "@/lib/auth-client";
 
-## Reference Documentation
+export function UserProfile() {
+  const { data: session, isPending, error } = authClient.useSession();
 
-### Core Authentication
-- [Email/Password Authentication](./references/email-password-auth.md) - Email/password setup, verification, password reset, username auth
-- [OAuth Providers](./references/oauth-providers.md) - Social login setup, provider configuration, token management
-- [Database Integration](./references/database-integration.md) - Database adapters, schema setup, migrations
+  if (isPending) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
-### Advanced Features
-- [Advanced Features](./references/advanced-features.md) - 2FA/MFA, passkeys, magic links, organizations, rate limiting, session management
+  return <div>Welcome, {session?.user.name}!</div>;
+}
 
-## Scripts
+// Vue
+<script setup>
+import { authClient } from "~/lib/auth-client";
+const session = authClient.useSession();
+</script>
 
-- `scripts/better_auth_init.py` - Initialize Better Auth configuration with interactive setup
+<template>
+  <div v-if="session.data">{{ session.data.user.email }}</div>
+</template>
+
+// Svelte
+<script>
+import { authClient } from "$lib/auth-client";
+const session = authClient.useSession();
+</script>
+
+<p>{$session.data?.user.email}</p>
+```
+
+**Using getSession:**
+```ts
+const { data: session, error } = await authClient.getSession();
+```
+
+### Server-Side Session
+
+```ts
+// Next.js
+import { auth } from "./auth";
+import { headers } from "next/headers";
+
+const session = await auth.api.getSession({
+  headers: await headers()
+});
+
+// Hono
+app.get("/protected", async (c) => {
+  const session = await auth.api.getSession({
+    headers: c.req.raw.headers
+  });
+
+  if (!session) {
+    return c.json({ error: "Unauthorized" }, 401);
+  }
+
+  return c.json({ user: session.user });
+});
+```
+
+## Plugin System
+
+Better Auth's plugin system allows adding advanced features easily.
+
+### Using Plugins
+
+**Server-Side:**
+```ts
+import { betterAuth } from "better-auth";
+import { twoFactor, organization, username } from "better-auth/plugins";
+
+export const auth = betterAuth({
+  plugins: [
+    twoFactor(),
+    organization(),
+    username(),
+  ]
+});
+```
+
+**Client-Side:**
+```ts
+import { createAuthClient } from "better-auth/client";
+import {
+  twoFactorClient,
+  organizationClient,
+  usernameClient
+} from "better-auth/client/plugins";
+
+export const authClient = createAuthClient({
+  plugins: [
+    twoFactorClient({
+      twoFactorPage: "/two-factor"
+    }),
+    organizationClient(),
+    usernameClient()
+  ]
+});
+```
+
+**After Adding Plugins:**
+```bash
+# Regenerate schema
+npx @better-auth/cli generate
+
+# Apply migration
+npx @better-auth/cli migrate
+```
+
+### Popular Plugins
+
+#### Two-Factor Authentication (2FA)
+
+```ts
+// Server
+import { twoFactor } from "better-auth/plugins";
+
+export const auth = betterAuth({
+  plugins: [twoFactor()]
+});
+
+// Client
+import { twoFactorClient } from "better-auth/client/plugins";
+
+export const authClient = createAuthClient({
+  plugins: [
+    twoFactorClient({ twoFactorPage: "/two-factor" })
+  ]
+});
+
+// Usage
+await authClient.twoFactor.enable({ password: "userPassword" });
+await authClient.twoFactor.verifyTOTP({
+  code: "123456",
+  trustDevice: true
+});
+```
+
+#### Username Authentication
+
+```ts
+// Server
+import { username } from "better-auth/plugins";
+
+export const auth = betterAuth({
+  plugins: [username()]
+});
+
+// Client
+import { usernameClient } from "better-auth/client/plugins";
+
+// Sign up with username
+await authClient.signUp.username({
+  username: "johndoe",
+  password: "securePassword123",
+  name: "John Doe"
+});
+```
+
+#### Magic Link
+
+```ts
+import { magicLink } from "better-auth/plugins";
+
+export const auth = betterAuth({
+  plugins: [
+    magicLink({
+      sendMagicLink: async ({ email, url }) => {
+        // Send email with magic link
+        await sendEmail(email, url);
+      }
+    })
+  ]
+});
+```
+
+#### Passkey (WebAuthn)
+
+```ts
+import { passkey } from "better-auth/plugins";
+
+export const auth = betterAuth({
+  plugins: [passkey()]
+});
+
+// Client
+await authClient.passkey.register();
+await authClient.passkey.signIn();
+```
+
+#### Organization/Multi-Tenancy
+
+```ts
+import { organization } from "better-auth/plugins";
+
+export const auth = betterAuth({
+  plugins: [organization()]
+});
+
+// Client
+await authClient.organization.create({
+  name: "Acme Corp",
+  slug: "acme"
+});
+
+await authClient.organization.inviteMember({
+  organizationId: "org-id",
+  email: "user@example.com",
+  role: "member"
+});
+```
+
+## Advanced Configuration
+
+### Email Verification
+
+```ts
+export const auth = betterAuth({
+  emailVerification: {
+    sendVerificationEmail: async ({ user, url }) => {
+      await sendEmail(user.email, url);
+    },
+    sendOnSignUp: true
+  }
+});
+```
+
+### Rate Limiting
+
+```ts
+export const auth = betterAuth({
+  rateLimit: {
+    enabled: true,
+    window: 60, // seconds
+    max: 10 // requests
+  }
+});
+```
+
+### Custom Session Expiration
+
+```ts
+export const auth = betterAuth({
+  session: {
+    expiresIn: 60 * 60 * 24 * 7, // 7 days in seconds
+    updateAge: 60 * 60 * 24 // Update every 24 hours
+  }
+});
+```
+
+### CORS Configuration
+
+```ts
+export const auth = betterAuth({
+  advanced: {
+    corsOptions: {
+      origin: ["https://example.com"],
+      credentials: true
+    }
+  }
+});
+```
+
+## Database Schema
+
+### Core Tables
+
+Better Auth requires these core tables:
+- `user`: User accounts
+- `session`: Active sessions
+- `account`: OAuth provider connections
+- `verification`: Email verification tokens
+
+**Auto-generate with CLI:**
+```bash
+npx @better-auth/cli generate
+```
+
+**Manual schema available in docs:** Check `/docs/concepts/database#core-schema`
+
+## Best Practices
+
+1. **Environment Variables**: Always use environment variables for secrets
+2. **HTTPS in Production**: Set `BETTER_AUTH_URL` to HTTPS URL
+3. **Session Security**: Use secure cookies in production
+4. **Error Handling**: Implement proper error handling on client and server
+5. **Type Safety**: Leverage TypeScript types for better DX
+6. **Plugin Order**: Some plugins depend on others, check documentation
+7. **Database Migrations**: Always run migrations after adding plugins
+8. **Rate Limiting**: Enable rate limiting for production
+9. **Email Verification**: Implement email verification for security
+10. **Password Requirements**: Customize password validation as needed
+
+## Common Patterns
+
+### Protected Routes (Server-Side)
+
+```ts
+// Next.js middleware
+import { auth } from "@/lib/auth";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function middleware(request: NextRequest) {
+  const session = await auth.api.getSession({
+    headers: request.headers
+  });
+
+  if (!session) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/dashboard/:path*"]
+};
+```
+
+### User Profile Updates
+
+```ts
+await authClient.updateUser({
+  name: "New Name",
+  image: "https://example.com/new-avatar.jpg"
+});
+```
+
+### Password Management
+
+```ts
+// Change password
+await authClient.changePassword({
+  currentPassword: "oldPassword",
+  newPassword: "newPassword"
+});
+
+// Reset password (forgot password)
+await authClient.forgetPassword({
+  email: "user@example.com",
+  redirectTo: "/reset-password"
+});
+
+await authClient.resetPassword({
+  token: "reset-token",
+  password: "newPassword"
+});
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **"Unable to find auth instance"**
+   - Ensure `auth.ts` is in correct location (root, lib/, utils/)
+   - Export auth instance as `auth` or default export
+
+2. **Database connection errors**
+   - Verify database credentials
+   - Check if database server is running
+   - Ensure correct adapter for your database
+
+3. **CORS errors**
+   - Configure `corsOptions` in advanced settings
+   - Ensure client and server URLs match
+
+4. **Plugin not working**
+   - Run migrations after adding plugins
+   - Check plugin is added to both server and client
+   - Verify plugin configuration
+
+## Framework-Specific Guides
+
+- **Next.js**: Use Next.js plugin for server actions
+- **Nuxt**: Configure server middleware
+- **SvelteKit**: Use hooks.server.ts
+- **Astro**: Set up API routes properly
+- **Hono/Express**: Use appropriate node handlers
 
 ## Resources
 
-- Docs: https://www.better-auth.com/docs
+- Documentation: https://www.better-auth.com/docs
 - GitHub: https://github.com/better-auth/better-auth
 - Plugins: https://www.better-auth.com/docs/plugins
 - Examples: https://www.better-auth.com/docs/examples
+
+## Implementation Checklist
+
+When implementing Better Auth:
+
+- [ ] Install `better-auth` package
+- [ ] Set up environment variables (SECRET, URL)
+- [ ] Create auth server instance
+- [ ] Configure database/adapter
+- [ ] Run schema migration
+- [ ] Configure authentication methods
+- [ ] Mount API handler
+- [ ] Create client instance
+- [ ] Implement sign-up/sign-in UI
+- [ ] Add session management
+- [ ] Set up protected routes
+- [ ] Add plugins as needed
+- [ ] Test authentication flow
+- [ ] Configure email sending (if needed)
+- [ ] Set up error handling
+- [ ] Enable rate limiting for production

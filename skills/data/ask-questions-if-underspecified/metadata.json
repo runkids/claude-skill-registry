@@ -1,7 +1,7 @@
 {
   "name": "ask-questions-if-underspecified",
-  "repo": "skillcreatorai/Ai-Agent-Skills",
-  "path": "skills/ask-questions-if-underspecified/SKILL.md",
-  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
-  "downloaded_at": "2026-01-17T03:09:38.798170Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/ask-questions-if-underspecified/skills/ask-questions-if-underspecified/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-19T03:24:07.337344Z"
 }

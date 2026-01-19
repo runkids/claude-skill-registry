@@ -1,7 +1,7 @@
 {
   "name": "verify",
-  "repo": "yonatangross/skillforge-claude-plugin",
-  "path": "skills/verify/SKILL.md",
-  "source": "github.com/yonatangross/skillforge-claude-plugin",
-  "downloaded_at": "2026-01-17T01:47:53.572762Z"
+  "repo": "agentage/desktop",
+  "path": ".github/skills/verify/SKILL.md",
+  "source": "github.com/agentage/desktop",
+  "downloaded_at": "2026-01-19T03:35:53.794547Z"
 }

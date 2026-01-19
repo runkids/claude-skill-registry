@@ -1,8 +1,7 @@
 {
   "name": "ai-governance",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "AI governance and responsible AI planning including EU AI Act classification, NIST AI RMF, and AI ethics frameworks",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:59.935530Z"
+  "path": "plugins/security/skills/ai-governance/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-19T03:27:16.905863Z"
 }

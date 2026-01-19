@@ -1,13 +1,7 @@
 {
   "name": "font-pairing-suggester",
-  "description": "Recommend font combinations for different use cases. Provide Google Fonts alternatives to premium fonts with hierarchy examples.",
-  "repo": "OneWave-AI/claude-skills",
-  "category": "data",
-  "tags": [
-    "font",
-    "pairing",
-    "suggester"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/talk-to-slidev-workflow/.claude/skills/font-pairing-suggester/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-19T03:26:20.657967Z"
 }

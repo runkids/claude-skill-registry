@@ -1,7 +1,7 @@
 {
   "name": "frontend",
-  "repo": "tidemann/st44-home",
-  "path": ".claude/skills/frontend/SKILL.md",
-  "source": "github.com/tidemann/st44-home",
-  "downloaded_at": "2026-01-17T02:33:13.981998Z"
+  "repo": "CreativeEntelechy/trading-agent",
+  "path": ".agent/skills/frontend/lightweight-charts-skill.md",
+  "source": "github.com/CreativeEntelechy/trading-agent",
+  "downloaded_at": "2026-01-19T03:00:19.706887Z"
 }

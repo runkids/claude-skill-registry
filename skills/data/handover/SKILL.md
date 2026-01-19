@@ -1,57 +1,42 @@
 ---
 name: handover
-description: 保守・運用引継ぎ書を作成する。運用移行、引き継ぎ時に使う。
-phase: closing
-pmbok-area: integration
+description: Use when starting a session (resume previous work) or ending a session (create handover for next). Automatically detects mode based on conversation state. Cascades through completed handovers via Haiku subagents until finding incomplete work.
 ---
 
-## 目的
+# Handover Skill
 
-プロジェクト成果物の保守・運用に必要な情報を引き継ぐ。
+Context-aware handover management: resume previous work or create a handover for the next session.
 
-## トリガー語
+## Mode Detection
 
-- 「引継ぎ書を作成」
-- 「運用移行ドキュメント」
-- 「ハンドオーバー」
+Determine mode based on conversation state:
 
----
+| Conversation State | Mode | Action |
+|-------------------|------|--------|
+| Empty or minimal (just `/handover`) | **Process** | Read `reference/process-mode.md` |
+| Progress has been made | **Create** | Read `reference/create-mode.md` |
 
-## 入力で最初に聞くこと
+## Process Mode
 
-| # | 質問 | 必須 |
-|---|------|------|
-| 1 | **プロジェクト名**は？ | ✓ |
-| 2 | **引継ぎ先**は？ | ✓ |
+Resume from latest incomplete handover. Uses Haiku subagents to cascade through completed handovers.
 
----
+**Critical**: Process mode handles ONE handover per session. After finding incomplete work, STOP cascading and begin implementation.
 
-## 手順
+**See**:
+- `reference/process-mode.md` - Cascade workflow and Haiku subagent prompt
+- `reference/human-decision-workflow.md` - **MANDATORY** when handover requires human decisions with subagent recommendations (counter-recommend, executive summaries)
 
-### Step 1: 引継ぎ対象の整理
-### Step 2: 運用手順書の作成
-### Step 3: 連絡先・エスカレーションパスの整理
-### Step 4: 保存
-- `workspace/{ProjectName}/docs/Handover.md`
+## Create Mode
 
----
+Generate handover from conversation for the next session.
 
-## 成果物
+**Arguments:**
+- `file` - Write to file only, suppress chat output
+- `chat` - Output to chat only, skip file creation
+- (none) - Both file and chat (default)
 
-| 成果物 | 保存先 |
-|--------|--------|
-| 引継ぎ書 | `workspace/{ProjectName}/docs/Handover.md` |
-
----
-
-## 検証（完了条件）
-
-- [ ] 全成果物が一覧化されている
-- [ ] 運用手順が記載されている
-- [ ] 連絡先が明記されている
-
----
-
-## 参照
-
-- Command: `.claude/commands/02_aipjm_05_closing_02_handover.md`
+**See**: `reference/create-mode.md` for full workflow including:
+- Pre-creation analysis (task separation, dependencies)
+- Dependency blocking instructions
+- Output format template
+- File numbering rules

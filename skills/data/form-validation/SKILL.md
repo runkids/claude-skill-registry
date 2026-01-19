@@ -1,425 +1,504 @@
 ---
 name: form-validation
-description: Implement form validation using React Hook Form, Formik, Vee-Validate, and custom validators. Use when building robust form handling with real-time validation.
+description: Schema-first validation with Zod, timing patterns (reward early, punish late), async validation, and error message design. Use when implementing form validation for any framework. The foundation skill that all framework-specific skills depend on.
 ---
 
 # Form Validation
 
-## Overview
+Schema-first validation using Zod as the single source of truth for both runtime validation and TypeScript types.
 
-Implement comprehensive form validation including client-side validation, server-side synchronization, and real-time error feedback with TypeScript type safety.
-
-## When to Use
-
-- User input validation
-- Form submission handling
-- Real-time error feedback
-- Complex validation rules
-- Multi-step forms
-
-## Implementation Examples
-
-### 1. **React Hook Form with TypeScript**
+## Quick Start
 
 ```typescript
-// types/form.ts
-export interface LoginFormData {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-}
+import { z } from 'zod';
 
-export interface RegisterFormData {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  name: string;
-  terms: boolean;
-}
+// 1. Define schema (validation + types in one place)
+const schema = z.object({
+  email: z.string().min(1, 'Required').email('Invalid email'),
+  age: z.number().positive().optional()
+});
 
-// components/LoginForm.tsx
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { LoginFormData } from '../types/form';
+// 2. Infer TypeScript types (never manually define)
+type FormData = z.infer<typeof schema>;
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-export const LoginForm: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    watch
-  } = useForm<LoginFormData>({
-    defaultValues: {
-      email: '',
-      password: '',
-      rememberMe: false
-    }
-  });
-
-  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      });
-      if (!response.ok) throw new Error('Login failed');
-      // Handle success
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Email</label>
-        <input
-          type="email"
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value: emailRegex,
-              message: 'Invalid email format'
-            }
-          })}
-        />
-        {errors.email && <span className="error">{errors.email.message}</span>}
-      </div>
-
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          {...register('password', {
-            required: 'Password is required',
-            minLength: {
-              value: 8,
-              message: 'Password must be at least 8 characters'
-            }
-          })}
-        />
-        {errors.password && <span className="error">{errors.password.message}</span>}
-      </div>
-
-      <div>
-        <label>
-          <input type="checkbox" {...register('rememberMe')} />
-          Remember me
-        </label>
-      </div>
-
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Logging in...' : 'Login'}
-      </button>
-    </form>
-  );
-};
-
-// Custom validator
-const usePasswordStrength = () => {
-  return (password: string): boolean | string => {
-    if (password.length < 8) return 'At least 8 characters';
-    if (!/[A-Z]/.test(password)) return 'At least one uppercase letter';
-    if (!/[0-9]/.test(password)) return 'At least one number';
-    return true;
-  };
-};
+// 3. Use with form library
+import { zodResolver } from '@hookform/resolvers/zod';
+const { register } = useForm<FormData>({
+  resolver: zodResolver(schema)
+});
 ```
 
-### 2. **Formik with Yup Validation**
+## Core Principle: Reward Early, Punish Late
+
+This is the optimal validation timing pattern backed by UX research:
+
+| Event | Show Valid (✓) | Show Invalid (✗) | Why |
+|-------|----------------|------------------|-----|
+| On input | ✅ Immediately | ❌ Never | Don't yell while typing |
+| On blur | ✅ Immediately | ✅ Yes | User finished, show errors |
+| During correction | ✅ Immediately | ✅ Real-time | Let them fix quickly |
+
+### Implementation
 
 ```typescript
-// validationSchema.ts
-import * as Yup from 'yup';
-
-export const registerValidationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Email is required'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .matches(/[A-Z]/, 'Must contain uppercase letter')
-    .matches(/[0-9]/, 'Must contain number')
-    .required('Password is required'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Confirm password is required'),
-  name: Yup.string()
-    .min(2, 'Name too short')
-    .required('Name is required'),
-  terms: Yup.boolean()
-    .oneOf([true], 'You must accept terms')
-    .required()
+// React Hook Form
+useForm({
+  mode: 'onBlur',           // First validation on blur (punish late)
+  reValidateMode: 'onChange' // Re-validate on change (real-time correction)
 });
 
-// components/RegisterForm.tsx
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { registerValidationSchema } from '../validationSchema';
-import { RegisterFormData } from '../types/form';
-
-export const RegisterForm: React.FC = () => {
-  const initialValues: RegisterFormData = {
-    email: '',
-    password: '',
-    confirmPassword: '',
-    name: '',
-    terms: false
-  };
-
-  const handleSubmit = async (
-    values: RegisterFormData,
-    { setSubmitting, setFieldError }: any
-  ) => {
-    try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        body: JSON.stringify(values)
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        if (error.emailExists) {
-          setFieldError('email', 'Email already registered');
-        }
-        throw new Error(error.message);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={registerValidationSchema}
-      onSubmit={handleSubmit}
-    >
-      {({ isSubmitting, isValid }) => (
-        <Form>
-          <div>
-            <label htmlFor="name">Name</label>
-            <Field name="name" type="text" />
-            <ErrorMessage name="name" component="span" className="error" />
-          </div>
-
-          <div>
-            <label htmlFor="email">Email</label>
-            <Field name="email" type="email" />
-            <ErrorMessage name="email" component="span" className="error" />
-          </div>
-
-          <div>
-            <label htmlFor="password">Password</label>
-            <Field name="password" type="password" />
-            <ErrorMessage name="password" component="span" className="error" />
-          </div>
-
-          <div>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <Field name="confirmPassword" type="password" />
-            <ErrorMessage name="confirmPassword" component="span" className="error" />
-          </div>
-
-          <div>
-            <label>
-              <Field name="terms" type="checkbox" />
-              I agree to terms
-            </label>
-            <ErrorMessage name="terms" component="span" className="error" />
-          </div>
-
-          <button type="submit" disabled={isSubmitting || !isValid}>
-            {isSubmitting ? 'Registering...' : 'Register'}
-          </button>
-        </Form>
-      )}
-    </Formik>
-  );
-};
-```
-
-### 3. **Vue Vee-Validate**
-
-```typescript
-// validationRules.ts
-import { defineRule } from 'vee-validate';
-import { email, required, min, confirmed } from '@vee-validate/rules';
-
-defineRule('required', required);
-defineRule('email', email);
-defineRule('min', min);
-defineRule('confirmed', confirmed);
-defineRule('password-strength', (value: string) => {
-  if (value.length < 8) return 'Password must be at least 8 characters';
-  if (!/[A-Z]/.test(value)) return 'Must contain uppercase letter';
-  if (!/[0-9]/.test(value)) return 'Must contain number';
-  return true;
-});
-
-// components/LoginForm.vue
-<template>
-  <Form @submit="onSubmit" :validation-schema="validationSchema">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <Field name="email" type="email" as="input" class="form-control" />
-      <ErrorMessage name="email" class="error" />
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password</label>
-      <Field name="password" type="password" as="input" class="form-control" />
-      <ErrorMessage name="password" class="error" />
-    </div>
-
-    <button type="submit" :disabled="isSubmitting">
-      {{ isSubmitting ? 'Logging in...' : 'Login' }}
-    </button>
-  </Form>
-</template>
-
-<script setup lang="ts">
-import { Form, Field, ErrorMessage } from 'vee-validate';
-import { object, string } from 'yup';
-import { ref } from 'vue';
-
-const isSubmitting = ref(false);
-
-const validationSchema = object({
-  email: string().email('Invalid email').required('Email is required'),
-  password: string().required('Password is required')
-});
-
-const onSubmit = async (values: any) => {
-  isSubmitting.value = true;
-  try {
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify(values)
-    });
-    if (!response.ok) throw new Error('Login failed');
-  } catch (error) {
-    console.error(error);
-  } finally {
-    isSubmitting.value = false;
+// TanStack Form
+useForm({
+  validators: {
+    onBlur: schema,          // Validate on blur
+    onChange: schema         // Re-validate on change (after touched)
   }
-};
-</script>
+});
 ```
 
-### 4. **Custom Validator Hook**
+## Zod Schema Patterns
+
+### Basic Types
 
 ```typescript
-// hooks/useFieldValidator.ts
-import { useState, useCallback } from 'react';
+import { z } from 'zod';
 
-export interface ValidationRule {
-  validate: (value: any) => boolean | string;
-  message: string;
-}
+// Strings
+z.string()                          // Any string
+z.string().min(1, 'Required')       // Non-empty (better than .nonempty())
+z.string().email('Invalid email')
+z.string().url('Invalid URL')
+z.string().uuid('Invalid ID')
+z.string().regex(/^\d{5}$/, 'Invalid ZIP')
 
-export interface FieldError {
-  isValid: boolean;
-  message: string | null;
-}
+// Numbers
+z.number()                          // Any number
+z.number().positive('Must be positive')
+z.number().int('Must be whole number')
+z.number().min(0).max(100)
 
-export const useFieldValidator = (rules: ValidationRule[] = []) => {
-  const [error, setError] = useState<FieldError>({
-    isValid: true,
-    message: null
-  });
+// Booleans
+z.boolean()
+z.literal(true)                     // Must be exactly true
 
-  const validate = useCallback((value: any) => {
-    for (const rule of rules) {
-      const result = rule.validate(value);
-      if (result !== true) {
-        setError({
-          isValid: false,
-          message: typeof result === 'string' ? result : rule.message
-        });
-        return false;
-      }
+// Enums
+z.enum(['admin', 'user', 'guest'])
+
+// Arrays
+z.array(z.string())
+z.array(z.string()).min(1, 'Select at least one')
+
+// Objects
+z.object({
+  name: z.string(),
+  email: z.string().email()
+})
+```
+
+### Common Form Schemas
+
+```typescript
+// schemas/auth.ts
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Please enter your email')
+    .email('Please enter a valid email'),
+  password: z
+    .string()
+    .min(1, 'Please enter your password'),
+  rememberMe: z.boolean().optional().default(false)
+});
+
+export const registrationSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email'),
+  password: z
+    .string()
+    .min(1, 'Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .regex(/[A-Z]/, 'Include at least one uppercase letter')
+    .regex(/[a-z]/, 'Include at least one lowercase letter')
+    .regex(/[0-9]/, 'Include at least one number'),
+  confirmPassword: z
+    .string()
+    .min(1, 'Please confirm your password')
+}).refine(data => data.password === data.confirmPassword, {
+  message: 'Passwords do not match',
+  path: ['confirmPassword']
+});
+
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email')
+});
+
+export const resetPasswordSchema = z.object({
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters'),
+  confirmPassword: z.string()
+}).refine(data => data.password === data.confirmPassword, {
+  message: 'Passwords do not match',
+  path: ['confirmPassword']
+});
+```
+
+```typescript
+// schemas/profile.ts
+export const profileSchema = z.object({
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  email: z.string().email('Invalid email'),
+  phone: z
+    .string()
+    .regex(/^\+?[\d\s-()]+$/, 'Invalid phone number')
+    .optional()
+    .or(z.literal('')),
+  bio: z
+    .string()
+    .max(500, 'Bio must be 500 characters or less')
+    .optional()
+});
+
+export const addressSchema = z.object({
+  street: z.string().min(1, 'Street address is required'),
+  city: z.string().min(1, 'City is required'),
+  state: z.string().min(1, 'State is required'),
+  zip: z.string().regex(/^\d{5}(-\d{4})?$/, 'Invalid ZIP code'),
+  country: z.string().min(1, 'Country is required').default('US')
+});
+```
+
+```typescript
+// schemas/payment.ts
+export const paymentSchema = z.object({
+  cardName: z.string().min(1, 'Name on card is required'),
+  cardNumber: z
+    .string()
+    .regex(/^\d{13,19}$/, 'Invalid card number')
+    .refine(val => luhnCheck(val), 'Invalid card number'),
+  expMonth: z
+    .string()
+    .regex(/^(0[1-9]|1[0-2])$/, 'Invalid month'),
+  expYear: z
+    .string()
+    .regex(/^\d{2}$/, 'Invalid year')
+    .refine(val => {
+      const year = parseInt(val, 10) + 2000;
+      return year >= new Date().getFullYear();
+    }, 'Card has expired'),
+  cvc: z.string().regex(/^\d{3,4}$/, 'Invalid CVC')
+});
+
+// Luhn algorithm for card validation
+function luhnCheck(cardNumber: string): boolean {
+  let sum = 0;
+  let isEven = false;
+  
+  for (let i = cardNumber.length - 1; i >= 0; i--) {
+    let digit = parseInt(cardNumber[i], 10);
+    
+    if (isEven) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
     }
+    
+    sum += digit;
+    isEven = !isEven;
+  }
+  
+  return sum % 10 === 0;
+}
+```
 
-    setError({
-      isValid: true,
-      message: null
-    });
+### Advanced Patterns
+
+#### Conditional Validation
+
+```typescript
+const orderSchema = z.object({
+  deliveryMethod: z.enum(['shipping', 'pickup']),
+  address: z.object({
+    street: z.string(),
+    city: z.string(),
+    zip: z.string()
+  }).optional()
+}).refine(
+  data => {
+    if (data.deliveryMethod === 'shipping') {
+      return data.address?.street && data.address?.city && data.address?.zip;
+    }
     return true;
-  }, [rules]);
+  },
+  {
+    message: 'Address is required for shipping',
+    path: ['address']
+  }
+);
+```
 
-  const clearError = useCallback(() => {
-    setError({
-      isValid: true,
-      message: null
+#### Cross-Field Validation
+
+```typescript
+const dateRangeSchema = z.object({
+  startDate: z.date(),
+  endDate: z.date()
+}).refine(
+  data => data.endDate >= data.startDate,
+  {
+    message: 'End date must be after start date',
+    path: ['endDate']
+  }
+);
+```
+
+#### Schema Composition
+
+```typescript
+// Base schemas
+const nameSchema = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1)
+});
+
+const contactSchema = z.object({
+  email: z.string().email(),
+  phone: z.string().optional()
+});
+
+// Composed schema
+const userSchema = nameSchema.merge(contactSchema).extend({
+  role: z.enum(['admin', 'user'])
+});
+```
+
+## Async Validation
+
+For server-side checks (username availability, email uniqueness):
+
+```typescript
+// With Zod refine
+const usernameSchema = z
+  .string()
+  .min(3, 'Username must be at least 3 characters')
+  .refine(
+    async (username) => {
+      const response = await fetch(`/api/check-username?u=${encodeURIComponent(username)}`);
+      const { available } = await response.json();
+      return available;
+    },
+    { message: 'This username is already taken' }
+  );
+
+// With TanStack Form (built-in debouncing)
+const form = useForm({
+  defaultValues: { username: '' },
+  validators: {
+    onChangeAsyncDebounceMs: 500,
+    onChangeAsync: async ({ value }) => {
+      const response = await fetch(`/api/check-username?u=${value.username}`);
+      const { available } = await response.json();
+      if (!available) {
+        return { fields: { username: 'Username is taken' } };
+      }
+      return undefined;
+    }
+  }
+});
+```
+
+### Debounced Validation Helper
+
+```typescript
+// utils/debounced-validator.ts
+export function createDebouncedValidator<T>(
+  validator: (value: T) => Promise<string | undefined>,
+  delay: number = 500
+) {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  let latestValue: T;
+  
+  return (value: T): Promise<string | undefined> => {
+    latestValue = value;
+    
+    return new Promise((resolve) => {
+      clearTimeout(timeoutId);
+      
+      timeoutId = setTimeout(async () => {
+        // Only validate if this is still the latest value
+        if (value === latestValue) {
+          const error = await validator(value);
+          resolve(error);
+        } else {
+          resolve(undefined);
+        }
+      }, delay);
     });
-  }, []);
+  };
+}
 
-  return { error, validate, clearError };
+// Usage
+const checkUsername = createDebouncedValidator(async (username: string) => {
+  const response = await fetch(`/api/check-username?u=${username}`);
+  const { available } = await response.json();
+  return available ? undefined : 'Username is taken';
+}, 500);
+```
+
+## Error Messages
+
+### Principles
+
+1. **Specific**: Tell users exactly what's wrong
+2. **Actionable**: Tell users how to fix it
+3. **Contextual**: Reference the field name
+4. **Friendly**: Don't blame the user
+
+### Examples
+
+```typescript
+// ❌ BAD: Generic, unhelpful
+const badSchema = z.object({
+  email: z.string().email(),        // "Invalid"
+  password: z.string().min(8),       // "Too short"
+  phone: z.string().regex(/^\d+$/)   // "Invalid"
+});
+
+// ✅ GOOD: Specific, actionable
+const goodSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Please enter your email address')
+    .email('Please enter a valid email (e.g., name@example.com)'),
+  password: z
+    .string()
+    .min(1, 'Please create a password')
+    .min(8, 'Password must be at least 8 characters'),
+  phone: z
+    .string()
+    .regex(/^\d{10}$/, 'Please enter a 10-digit phone number')
+});
+```
+
+### Message Templates
+
+```typescript
+// utils/validation-messages.ts
+export const messages = {
+  required: (field: string) => `Please enter your ${field}`,
+  email: 'Please enter a valid email address',
+  minLength: (field: string, min: number) => 
+    `${field} must be at least ${min} characters`,
+  maxLength: (field: string, max: number) => 
+    `${field} must be ${max} characters or less`,
+  pattern: (field: string, example: string) => 
+    `Please enter a valid ${field} (e.g., ${example})`,
+  match: (field: string) => `${field} fields must match`,
+  unique: (field: string) => `This ${field} is already in use`,
+  future: (field: string) => `${field} must be a future date`,
+  past: (field: string) => `${field} must be a past date`
 };
 
 // Usage
-const { error: emailError, validate: validateEmail } = useFieldValidator([
-  {
-    validate: (v) => v.length > 0,
-    message: 'Email is required'
-  },
-  {
-    validate: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
-    message: 'Invalid email format'
-  }
-]);
-```
-
-### 5. **Server-Side Validation Integration**
-
-```typescript
-// Async server validation
-const useAsyncValidation = () => {
-  const validateEmail = async (email: string) => {
-    const response = await fetch(`/api/validate/email?email=${email}`);
-    const { available } = await response.json();
-    return available ? true : 'Email already registered';
-  };
-
-  const validateUsername = async (username: string) => {
-    const response = await fetch(`/api/validate/username?username=${username}`);
-    const { available } = await response.json();
-    return available ? true : 'Username taken';
-  };
-
-  return { validateEmail, validateUsername };
-};
-
-// React Hook Form with async validation
-const { validateEmail } = useAsyncValidation();
-
-register('email', {
-  required: 'Email required',
-  validate: async (value) => {
-    return await validateEmail(value);
-  }
+const schema = z.object({
+  email: z
+    .string()
+    .min(1, messages.required('email'))
+    .email(messages.email),
+  password: z
+    .string()
+    .min(1, messages.required('password'))
+    .min(8, messages.minLength('Password', 8))
 });
 ```
 
-## Best Practices
+## Validation Timing Utility
 
-- Validate on both client and server
-- Provide real-time feedback
-- Use TypeScript for type safety
-- Implement custom validators for complex rules
-- Handle async validation properly
-- Show clear error messages
-- Preserve user input on validation failure
-- Test validation rules thoroughly
-- Use schema validation (Yup, Zod)
+```typescript
+// utils/validation-timing.ts
+export type ValidationMode = 'onBlur' | 'onChange' | 'onSubmit' | 'all';
 
-## Resources
+export interface ValidationTimingConfig {
+  /** When to first show errors */
+  showErrorsOn: ValidationMode;
+  /** When to re-validate after first error */
+  revalidateOn: ValidationMode;
+  /** Debounce delay for onChange (ms) */
+  debounceMs?: number;
+}
 
-- [React Hook Form](https://react-hook-form.com/)
-- [Formik Documentation](https://formik.org/)
-- [Vee-Validate](https://vee-validate.logaretm.com/)
-- [Yup Validation](https://github.com/jquense/yup)
-- [Zod Schema Validation](https://zod.dev/)
+export const TIMING_PRESETS = {
+  /** Default: Reward early, punish late */
+  standard: {
+    showErrorsOn: 'onBlur',
+    revalidateOn: 'onChange'
+  } as ValidationTimingConfig,
+  
+  /** For password strength, character counts */
+  realtime: {
+    showErrorsOn: 'onChange',
+    revalidateOn: 'onChange'
+  } as ValidationTimingConfig,
+  
+  /** For simple, short forms */
+  submitOnly: {
+    showErrorsOn: 'onSubmit',
+    revalidateOn: 'onSubmit'
+  } as ValidationTimingConfig,
+  
+  /** For expensive async validation */
+  debounced: {
+    showErrorsOn: 'onBlur',
+    revalidateOn: 'onChange',
+    debounceMs: 500
+  } as ValidationTimingConfig
+} as const;
+
+// React Hook Form mapping
+export function toRHFConfig(timing: ValidationTimingConfig) {
+  return {
+    mode: timing.showErrorsOn === 'all' ? 'all' : timing.showErrorsOn,
+    reValidateMode: timing.revalidateOn === 'all' ? 'onChange' : timing.revalidateOn
+  };
+}
+```
+
+## File Structure
+
+```
+form-validation/
+├── SKILL.md
+├── references/
+│   ├── zod-patterns.md         # Deep-dive Zod patterns
+│   ├── timing-research.md      # UX research on validation timing
+│   └── error-message-guide.md  # Writing good error messages
+└── scripts/
+    ├── schemas/
+    │   ├── auth.ts             # Login, registration, password reset
+    │   ├── profile.ts          # User profile, addresses
+    │   ├── payment.ts          # Credit cards, billing
+    │   └── common.ts           # Reusable field schemas
+    ├── validation-timing.ts    # Timing utilities
+    ├── async-validator.ts      # Debounced async validation
+    └── messages.ts             # Error message templates
+```
+
+## Framework Integration
+
+| Framework | Adapter | Import |
+|-----------|---------|--------|
+| React Hook Form | @hookform/resolvers/zod | `zodResolver(schema)` |
+| TanStack Form | @tanstack/zod-form-adapter | `zodValidator()` |
+| VeeValidate | @vee-validate/zod | `toTypedSchema(schema)` |
+| Vanilla | Direct | `schema.safeParse(data)` |
+
+## Reference
+
+- `references/zod-patterns.md` — Complete Zod API patterns
+- `references/timing-research.md` — UX research backing timing decisions
+- `references/error-message-guide.md` — Writing effective error messages

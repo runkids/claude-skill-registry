@@ -1,71 +1,53 @@
 ---
-name: art
-description: |
-  Complete visual content system for PAI.
-  Tron-meets-Excalidraw aesthetic - dark backgrounds, neon accents, hand-drawn sketch style.
-
-# Skill Triggers
-triggers:
-  - USE WHEN user wants to create visual content, illustrations, or diagrams
-  - USE WHEN user mentions art, header images, visualizations, or any visual request
-  - USE WHEN user references mermaid, flowchart, technical diagram, or infographic
-
-# Workflow Routing
-workflows:
-  - USE WHEN user wants blog header or editorial illustration: workflows/workflow.md
-  - USE WHEN user wants visualization or is unsure which format: workflows/visualize.md
-  - USE WHEN user wants mermaid flowchart or sequence diagram: workflows/mermaid.md
-  - USE WHEN user wants technical or architecture diagram: workflows/technical-diagrams.md
-  - USE WHEN user wants taxonomy or classification grid: workflows/taxonomies.md
-  - USE WHEN user wants timeline or chronological progression: workflows/timelines.md
-  - USE WHEN user wants framework or 2x2 matrix: workflows/frameworks.md
-  - USE WHEN user wants comparison or X vs Y: workflows/comparisons.md
-  - USE WHEN user wants annotated screenshot: workflows/annotated-screenshots.md
-  - USE WHEN user wants recipe card or step-by-step: workflows/recipe-cards.md
-  - USE WHEN user wants aphorism or quote card: workflows/aphorisms.md
-  - USE WHEN user wants conceptual map or territory: workflows/maps.md
-  - USE WHEN user wants stat card or big number visual: workflows/stats.md
-  - USE WHEN user wants comic or sequential panels: workflows/comics.md
+name: Art
+description: Visual content generation with Excalidraw hand-drawn aesthetic. USE WHEN user wants diagrams, visualizations, comics, or editorial illustrations.
 ---
 
 # Art Skill
 
-Complete visual content system using the **PAI Visual Aesthetic**.
+Visual content generation system using **Excalidraw hand-drawn** aesthetic with dark-mode, tech-forward color palette.
+
+## Output Location
+
+```
+ALL GENERATED IMAGES GO TO ~/Downloads/ FIRST
+Preview in Finder/Preview before final placement
+Only copy to project directories after review
+```
+
+## Workflow Routing
+
+Route to the appropriate workflow based on the request:
+
+  - Technical or architecture diagram -> `Workflows/TechnicalDiagrams.md`
+  - Blog header or editorial illustration -> `Workflows/Essay.md`
+  - Comic or sequential panels -> `Workflows/Comics.md`
 
 ---
 
 ## Core Aesthetic
 
-**Tron-meets-Excalidraw** - Digital warmth combining:
-- Hand-drawn Excalidraw-style sketch lines (NOT clean vectors)
-- Dark slate backgrounds for modern contrast
-- Neon orange (warmth) + cyan (tech) accents
-- Subtle glows on key elements
+**Excalidraw Hand-Drawn** - Clean, approachable technical illustrations with:
+- Slightly wobbly hand-drawn lines (NOT perfect vectors)
+- Simple shapes with organic imperfections
+- Consistent hand-lettered typography style
+- Dark mode backgrounds with bright accents
 
-**Full aesthetic documentation:** `${PAI_DIR}/skills/CORE/aesthetic.md`
-
-**This is the SINGLE SOURCE OF TRUTH for all visual styling.**
+**Full aesthetic documentation:** `$PAI_DIR/skills/Art/Aesthetic.md`
 
 ---
 
-## Workflow Routing
+## Color System
 
-| Content Type | Workflow |
-|--------------|----------|
-| Blog headers / Editorial | `workflows/workflow.md` |
-| Adaptive orchestrator | `workflows/visualize.md` |
-| Flowcharts / Sequences | `workflows/mermaid.md` |
-| Architecture diagrams | `workflows/technical-diagrams.md` |
-| Classification grids | `workflows/taxonomies.md` |
-| Chronological | `workflows/timelines.md` |
-| 2x2 matrices | `workflows/frameworks.md` |
-| X vs Y | `workflows/comparisons.md` |
-| Screenshot markup | `workflows/annotated-screenshots.md` |
-| Step-by-step | `workflows/recipe-cards.md` |
-| Quote cards | `workflows/aphorisms.md` |
-| Idea territories | `workflows/maps.md` |
-| Big numbers | `workflows/stats.md` |
-| Sequential panels | `workflows/comics.md` |
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Background | `#0a0a0f` | Primary dark background |
+| PAI Blue | `#4a90d9` | Key elements, primary accents |
+| Electric Cyan | `#22d3ee` | Flows, connections, secondary |
+| Accent Purple | `#8b5cf6` | Highlights, callouts (10-15%) |
+| Text White | `#e5e7eb` | Primary text, labels |
+| Surface | `#1a1a2e` | Cards, panels |
+| Line Work | `#94a3b8` | Hand-drawn borders |
 
 ---
 
@@ -74,50 +56,40 @@ Complete visual content system using the **PAI Visual Aesthetic**.
 **Default model:** nano-banana-pro (Gemini 3 Pro)
 
 ```bash
-bun run ${PAI_DIR}/skills/art/tools/generate-ulart-image.ts \
+bun run $PAI_DIR/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "[PROMPT]" \
   --size 2K \
-  --aspect-ratio 1:1 \
-  --output /path/to/output.png
+  --aspect-ratio 16:9 \
+  --output ~/Downloads/output.png
 ```
 
-### Alternative Models
-
-| Model | When to Use |
-|-------|-------------|
-| **flux** | Maximum quality |
-| **gpt-image-1** | Different interpretation |
-
-**API keys in:** `${PAI_DIR}/.env`
-- `REPLICATE_API_TOKEN` - Flux and Nano Banana
-- `OPENAI_API_KEY` - GPT-image-1
-- `GOOGLE_API_KEY` - Nano Banana Pro
-- `REMOVEBG_API_KEY` - Background removal
+**API keys in:** `$PAI_DIR/.env` (single source of truth for all authentication)
 
 ---
 
-## Quick Decision Tree
+## Examples
 
+**Example 1: Technical diagram**
 ```
-What does user need?
-
-├─ Unsure which approach? → VISUALIZE (analyzes & orchestrates)
-├─ Flowchart/sequence/state diagram? → MERMAID
-├─ Abstract metaphor for article? → Editorial (workflow.md)
-├─ System/architecture with labels? → Technical Diagram
-├─ Categories in grid? → Taxonomy
-├─ Change over time? → Timeline
-├─ 2x2 matrix or mental model? → Framework
-├─ Side-by-side contrast? → Comparison
-├─ Markup existing screenshot? → Annotated Screenshot
-├─ Step-by-step process? → Recipe Card
-├─ Quote as social visual? → Aphorism
-├─ Idea territories as map? → Conceptual Map
-├─ Single striking number? → Stat Card
-└─ Multi-panel story? → Comic
+User: "create a diagram showing the auth flow"
+-> Invokes TECHNICALDIAGRAMS workflow
+-> Creates Excalidraw-style architecture visual
+-> Outputs PNG with dark background, blue accents
 ```
 
----
+**Example 2: Blog header**
+```
+User: "create a header for my post about AI agents"
+-> Invokes ESSAY workflow
+-> Generates hand-drawn illustration
+-> Saves to ~/Downloads/ for preview
+```
 
-**For complete visual styling rules, ALWAYS read:** `${PAI_DIR}/skills/CORE/aesthetic.md`
+**Example 3: Comic strip**
+```
+User: "create a comic showing the before/after of using AI"
+-> Invokes COMICS workflow
+-> Creates 3-4 panel sequential narrative
+-> Editorial style, not cartoonish
+```

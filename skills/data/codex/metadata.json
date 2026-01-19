@@ -1,7 +1,7 @@
 {
   "name": "codex",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/codex/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-17T02:27:04.136676Z"
+  "repo": "jackspace/ClaudeSkillz",
+  "path": "skills/codex/SKILL.md",
+  "source": "github.com/jackspace/ClaudeSkillz",
+  "downloaded_at": "2026-01-19T03:42:53.358802Z"
 }

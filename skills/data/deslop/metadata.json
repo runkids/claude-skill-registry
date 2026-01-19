@@ -1,7 +1,7 @@
 {
   "name": "deslop",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/sentry/deslop/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-17T02:43:47.128856Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/deslop/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-19T02:08:03.378028Z"
 }

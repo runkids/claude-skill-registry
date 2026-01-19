@@ -1,6 +1,6 @@
 ---
 name: planning
-description: Use when you need to plan technical solutions that are scalable, secure, and maintainable.
+description: "Technical implementation planning and architecture design. Capabilities: feature planning, system architecture, technical evaluation, implementation roadmaps, requirement breakdown, trade-off analysis, codebase analysis, solution design. Actions: plan, architect, design, evaluate, breakdown technical solutions. Keywords: implementation plan, technical design, architecture, system design, roadmap, requirements analysis, trade-offs, technical evaluation, feature planning, solution design, scalability, security, maintainability, sprint planning, task breakdown. Use when: planning new features, designing system architecture, evaluating technical approaches, creating implementation roadmaps, breaking down complex requirements, assessing technical trade-offs."
 license: MIT
 ---
 
@@ -61,7 +61,7 @@ Load: `references/output-standards.md`
 **Plan Directory Structure**
 ```
 plans/
-└── {date}-plan-name/
+└── YYYYMMDD-HHmm-plan-name/
     ├── research/
     │   ├── researcher-XX-report.md
     │   └── ...
@@ -75,33 +75,6 @@ plans/
     ├── phase-XX-phase-name-here.md
     └── ...
 ```
-
-## Active Plan State
-
-Prevents version proliferation by tracking current working plan via session state.
-
-### Active vs Suggested Plans
-
-Check the `## Plan Context` section injected by hooks:
-- **"Plan: {path}"** = Active plan, explicitly set via `set-active-plan.cjs` - use for reports
-- **"Suggested: {path}"** = Branch-matched, hint only - do NOT auto-use
-- **"Plan: none"** = No active plan
-
-### Rules
-
-1. **If "Plan:" shows a path**: Ask "Continue with existing plan? [Y/n]"
-2. **If "Suggested:" shows a path**: Inform user, ask if they want to activate or create new
-3. **If "Plan: none"**: Create new plan using naming from `## Naming` section
-4. **Update on create**: Run `node .claude/scripts/set-active-plan.cjs {plan-dir}`
-
-### Report Output Location
-
-All agents writing reports MUST:
-1. Check `## Naming` section injected by hooks for the computed naming pattern
-2. Active plans use plan-specific reports path
-3. Suggested plans use default reports path (not plan folder)
-
-**Important:** Suggested plans do NOT get plan-specific reports - this prevents pollution of old plan folders.
 
 ## Quality Standards
 

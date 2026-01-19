@@ -1,207 +1,480 @@
 ---
-name: Game Sprint Planner
-description: Plan development sprints for Stapledons Voyage game features. Analyzes design docs, estimates effort considering AILANG constraints, and creates realistic sprint plans. Use when user asks to "plan sprint" or estimate game feature timelines.
+name: AILANG Sprint Planner
+description: Analyze design docs, calculate velocity from recent work, and create realistic sprint plans with day-by-day breakdowns. Use when user asks to "plan sprint", "create sprint plan", or wants to estimate development timeline.
 ---
 
-# Game Sprint Planner
+# AILANG Sprint Planner
 
-Create comprehensive sprint plans for Stapledons Voyage game development.
+Create comprehensive, data-driven sprint plans by analyzing design documentation, current implementation status, and recent velocity.
 
 ## Quick Start
 
 **Most common usage:**
 ```bash
-# User says: "Plan a sprint to implement NPC movement"
+# User says: "Plan the next sprint based on v0.4.0 roadmap"
 # This skill will:
-# 1. Check current AILANG module status
-# 2. Review known limitations from CLAUDE.md
-# 3. Estimate effort (AILANG code + Go engine)
-# 4. Create day-by-day task breakdown
-# 5. Include AILANG feedback checkpoints
+# 1. Read design doc (design_docs/planned/v0.4-roadmap.md)
+# 2. Analyze CHANGELOG for recent velocity
+# 3. Review current implementation status
+# 4. Propose realistic milestones with LOC estimates
+# 5. Create day-by-day task breakdown
 ```
 
 ## When to Use This Skill
 
 Invoke this skill when:
-- User says "plan sprint", "estimate feature timeline"
-- User wants to prioritize game development work
-- Before starting a new game feature
-- Assessing scope of AILANG workarounds needed
+- User says "plan sprint", "create sprint plan", "plan next phase"
+- User asks to estimate timeline for a feature or design doc
+- User wants to know how long implementation will take
+- User needs to prioritize work for upcoming development
 
-## Project-Specific Context
+## Documentation URLs
 
-### Architecture (from CLAUDE.md)
+When planning sprints that involve adding error messages, help text, or documentation links:
+
+**Website**: https://ailang.sunholo.com/
+
+**Documentation Source**: The website documentation lives in this repo at `docs/`
+- Markdown files: `docs/docs/` (guides, reference, etc.)
+- Static assets: `docs/static/`
+- Docusaurus config: `docs/docusaurus.config.js`
+
+**Common Documentation Paths**:
+- Language syntax: `/docs/reference/language-syntax`
+- Module system: `/docs/guides/module_execution`
+- Getting started: `/docs/guides/getting-started`
+- REPL guide: `/docs/guides/getting-started#repl`
+- Implementation status: `/docs/reference/implementation-status`
+- Benchmarking: `/docs/guides/benchmarking`
+- Evaluation: `/docs/guides/evaluation/README`
+
+**Full URL Example**:
 ```
-sim/*.ail        → AILANG game logic (manually edit)
-sim_gen/*.go     → Generated Go (OK - contains game types)
-game_views/*.go  → Game-specific rendering helpers (NEW)
-engine/*.go      → Generic Go/Ebiten rendering (reusable)
-cmd/game/main.go → Game loop
-```
-
-### ⚠️ Engine Genericization Rule
-
-**Before planning engine work, ask:** Could a different game use this unchanged?
-
-| If YES | If NO |
-|--------|-------|
-| → OK for `engine/` | → Must go in `game_views/` or AILANG |
-
-**sim_gen/ is fine** - Generated from AILANG, game-specific types belong there.
-
-**engine/ must be generic** - No deck names, planet names, crew roles, or game concepts.
-
-**game_views/** - New layer for game-specific rendering (DomeRenderer, DeckStackRenderer).
-
-### Engine Capabilities Reference
-
-**IMPORTANT:** Before estimating effort, review what's already built:
-
-| Reference | Contents |
-|-----------|----------|
-| [engine-capabilities.md](../../../design_docs/reference/engine-capabilities.md) | Complete engine reference (DrawCmd types, effects, shaders, physics) |
-| [gr-effects.md](../../../design_docs/implemented/v0_1_0/gr-effects.md) | GR physics, shader uniforms, danger levels |
-| [ai-handler-system.md](../../../design_docs/implemented/v0_1_0/ai-handler-system.md) | AI effect, multimodal APIs |
-
-**Key Available Capabilities:**
-- **DrawCmd**: Sprite, Rect, Text, IsoTile, IsoEntity, GalaxyBg, Star, Ui (Panel/Button/Label/Portrait/Slider/ProgressBar), Line, Circle, TextWrapped
-- **Effects**: Debug, Rand, Clock, AI (Claude/Gemini/stub)
-- **Assets**: Animated sprites, Audio (OGG/WAV), Fonts (TTF with scaling)
-- **Shaders**: SR warp, GR warp, bloom, vignette, CRT
-- **Physics**: Lorentz factor, time dilation, gravitational redshift
-
-### Current AILANG Limitations
-Before planning, check CLAUDE.md for:
-- Module imports not working
-- Recursion depth limits
-- No RNG effect documented
-- No Array type (O(1) access)
-- Record update syntax issues
-
-## Sprint Planning Workflow
-
-### 1. Assess Current State
-
-```bash
-# Check AILANG modules compile
-for f in sim/*.ail; do ailang check "$f"; done
-
-# Check for messages from AILANG team
-ailang messages list --unread
+https://ailang.sunholo.com/docs/reference/language-syntax
 ```
 
-### 2. Identify Work Scope
+**Best Practices**:
+- When planning features that include documentation links, verify the URLs exist before including them in sprint estimates
+- Look in `docs/docs/` to verify the file exists locally
+- Use `ls docs/docs/reference/` or `ls docs/docs/guides/` to find available pages
 
-For each game feature, estimate:
-- **AILANG code**: Types, functions needed in `sim/*.ail`
-- **game_views code**: Game-specific rendering helpers (if needed)
-- **Engine code**: Generic Go/Ebiten changes (should be rare!)
-- **Workarounds**: AILANG limitations to navigate
-- **Testing**: How to verify it works
+## Role in Long-Running Agent Pattern
 
-**Engine Genericization Check:**
-Before adding to `engine/`, verify it's not game-specific:
-- ❌ References decks, planets, crew roles → `game_views/`
-- ❌ Hardcodes game data → AILANG
-- ✅ Generic DrawCmd rendering → `engine/`
-- ✅ Asset loading, camera, shaders → `engine/`
+**sprint-planner acts as the "Initializer" agent** in the two-phase pattern from [Anthropic's long-running agent article](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents):
 
-### 3. Example Sprint Plan
+- **Initializer (sprint-planner)**: Creates infrastructure for execution
+  - Analyzes design docs and calculates velocity
+  - Creates markdown sprint plan (human-readable)
+  - **NEW**: Creates JSON progress file (machine-readable)
+  - Sets up session resumption infrastructure
+  - Sends handoff message to sprint-executor
 
-```markdown
-# Sprint: NPC Movement (3 days)
+- **Coding Agent (sprint-executor)**: Works incrementally across sessions
+  - Reads JSON progress file on each session start
+  - Updates only `passes` field as milestones complete
+  - Can pause/resume work across multiple sessions
 
-## Goal
-Implement basic NPC movement on the world grid.
-
-## Day 1: AILANG Types & Functions
-- [ ] Define Direction type in sim/world.ail
-- [ ] Add moveNpc function to sim/npc_ai.ail
-- [ ] Test with `ailang check`
-- [ ] Report any AILANG issues encountered
-
-## Day 2: Step Integration
-- [ ] Update step function to process NPC moves
-- [ ] Handle movement input from FrameInput
-- [ ] Test with `ailang run --entry step`
-
-## Day 3: Engine Rendering
-- [ ] Update Go rendering to show NPCs
-- [ ] Test with `make run`
-- [ ] Document any performance issues
-
-## AILANG Feedback Checkpoint
-After sprint, report:
-- Bugs encountered
-- Features that would have helped
-- Documentation gaps
-```
-
-### 4. AILANG Complexity Multipliers
-
-When estimating effort, consider these multipliers:
-
-| Factor | Multiplier | Example |
-|--------|------------|---------|
-| Module imports broken | 1.5x | Must duplicate types |
-| Deep recursion needed | 2x | Grid operations |
-| No RNG available | +0.5 days | Random behaviors |
-| New ADT types | 1.2x | Pattern matching complexity |
-
-### 5. Include Feedback Checkpoints
-
-Every sprint should include:
-1. **Start**: Check inbox for AILANG team responses
-2. **Mid-sprint**: Report blockers immediately
-3. **End**: Send summary of issues encountered
-
-## Handoff to sprint-executor
-
-After sprint plan is approved:
-
-```bash
-# Check and acknowledge any pending messages
-ailang messages list --unread
-ailang messages ack <msg-id>
-
-# Send plan ready notification (optional)
-ailang messages send sprint-executor '{
-  "type": "plan_ready",
-  "sprint_id": "npc-movement",
-  "days": 3,
-  "milestones": ["types", "step-integration", "rendering"]
-}'
-```
+This separation enables **multi-session continuity** - sprints can span days or weeks with Claude resuming work from where it left off.
 
 ## Available Scripts
 
-### `scripts/analyze_velocity.sh`
-Analyze recent development velocity from git commits.
+### `scripts/analyze_velocity.sh [days]`
+Analyze recent development velocity from CHANGELOG and git commits.
 
-### `scripts/create_sprint_json.sh <sprint_id> <plan_md>`
-Create JSON progress file for multi-session execution.
+**Usage:**
+```bash
+# Analyze last 7 days (default)
+.claude/skills/sprint-planner/scripts/analyze_velocity.sh
+
+# Analyze last 14 days
+.claude/skills/sprint-planner/scripts/analyze_velocity.sh 14
+```
+
+**Output:**
+```
+Analyzing velocity for last 7 days...
+
+=== Recent CHANGELOG Entries ===
+Total: ~1,200 LOC
+Total: ~800 LOC
+
+=== Recent Commits (last 7 days) ===
+abc1234 Complete M-DX1.5: Migrate all builtins
+def5678 Add Type Builder DSL
+
+=== Files Changed (last 7 days) ===
+15 files changed, 1200 insertions(+), 300 deletions(-)
+
+=== Velocity Summary ===
+Based on CHANGELOG entries and git history, estimate:
+- Average LOC/day from recent milestones
+- Typical milestone duration
+- Current development pace
+```
+
+### `scripts/create_sprint_json.sh <sprint_id> <sprint_plan_md> [design_doc_md]`
+**NEW**: Create structured JSON progress file for multi-session sprint execution.
+
+**Usage:**
+```bash
+# Create JSON progress file from sprint plan
+.claude/skills/sprint-planner/scripts/create_sprint_json.sh \
+  "M-S1" \
+  "design_docs/planned/v0_4_0/m-s1-sprint-plan.md" \
+  "design_docs/planned/v0_4_0/m-s1-parser-improvements.md"
+```
+
+**What it does:**
+- Creates `.ailang/state/sprints/sprint_<id>.json` with feature list
+- Implements "constrained modification" pattern (only `passes` field changes)
+- Enables session resumption via structured state
+- Provides template for milestone details (to be filled in)
+
+**Output:**
+- JSON progress file at `.ailang/state/sprints/sprint_<id>.json`
+- Validation check
+- Next steps instructions (edit JSON, send handoff message)
+
+**File Organization:**
+Sprint JSON files are stored in `.ailang/state/sprints/` to keep the state directory organized.
+
+**Integration with sprint-executor:**
+After creating the JSON file, sprint-executor can:
+- Resume work across multiple Claude Code sessions
+- Track progress programmatically
+- Update velocity metrics automatically
+
+## Sprint Planning Workflow
+
+**CRITICAL: Always end by handing off to sprint-executor after user approval!**
+
+### 1. Read and Analyze Design Document
+
+**Input**: Path to design doc (e.g., `design_docs/planned/v0.4-roadmap.md`)
+
+**What to extract:**
+- Completed milestones (marked ✅)
+- Remaining milestones (marked ❌, ⏳, 📋)
+- Target metrics (LOC estimates, timeline, acceptance criteria)
+- Dependencies between milestones
+
+### 2. Review Current Implementation Status
+
+**Check these sources:**
+- `CHANGELOG.md` - Recent features and LOC counts
+- `git log --oneline --since="1 week ago"` - Actual commits
+- `make test-coverage-badge` - Current test coverage
+- Design doc vs reality - gaps or partial implementations
+
+### 3. Analyze Recent Velocity
+
+**Use the velocity script:**
+```bash
+.claude/skills/sprint-planner/scripts/analyze_velocity.sh
+```
+
+**Calculate:**
+- LOC per day from recent milestones
+- Average milestone duration
+- Actual completion rate vs estimates
+
+### 4. Identify Remaining Work
+
+**List incomplete milestones with:**
+- Dependencies (what blocks what)
+- Estimated effort (from design doc)
+- Priority (based on dependencies, critical path)
+- Current velocity (can we realistically do this?)
+
+### 5. Propose Sprint Plan
+
+**Use the template:**
+See [`resources/sprint_plan_template.md`](resources/sprint_plan_template.md)
+
+**Include:**
+- **Sprint Summary**: Goal, duration, key deliverables
+- **Milestone Breakdown**: For each milestone:
+  - Name and description
+  - Estimated LOC (implementation + tests)
+  - **Example files to create/update** (CRITICAL - required for every new feature)
+  - Dependencies
+  - Acceptance criteria
+  - Risk factors
+- **Task List**: Day-by-day breakdown (if < 1 week) or weekly (if longer)
+- **Success Metrics**:
+  - Test coverage target
+  - **Example files created and verified working** (CRITICAL - see CLAUDE.md)
+  - Docs to update
+
+### 6. Present for Feedback
+
+**Show user:**
+- Proposed milestones with estimates
+- Assumptions made
+- Areas where input is needed
+- Realistic timeline based on actual velocity
+
+**Be ready to revise** based on user priorities or constraints.
+
+### 7. Finalize and Document
+
+**Once approved:**
+```bash
+# Create sprint plan document (markdown - human-readable)
+# Naming: M-<type><number>.md (M-P1 for parser, M-T1 for types, etc.)
+```
+
+**Include in sprint plan:**
+- Goal and motivation
+- Technical approach
+- Day-by-day implementation plan
+- Acceptance criteria
+- Estimated LOC
+- Dependencies
+
+**NEW: Create JSON progress file (machine-readable):**
+```bash
+# Create structured progress file for multi-session execution
+.claude/skills/sprint-planner/scripts/create_sprint_json.sh \
+  "<sprint-id>" \
+  "design_docs/planned/vX_Y/<sprint-id>-plan.md" \
+  "design_docs/planned/vX_Y/<feature>-design.md"
+```
+
+### 8. MANDATORY: Populate JSON with Real Milestones
+
+**The script creates a TEMPLATE - you MUST populate it with real data!**
+
+The `create_sprint_json.sh` script generates placeholder content. **Before handing off to sprint-executor, you MUST edit the JSON file to include actual milestones.**
+
+**Required edits to `.ailang/state/sprints/sprint_<id>.json`:**
+
+1. **Replace placeholder features array** with real milestones:
+   ```json
+   "features": [
+     {
+       "id": "M1_ACTUAL_NAME",
+       "description": "Real description from your sprint plan",
+       "estimated_loc": 150,
+       "dependencies": [],
+       "acceptance_criteria": [
+         "Actual criterion from sprint plan",
+         "Another real criterion"
+       ],
+       "passes": null,
+       "started": null,
+       "completed": null,
+       "notes": null
+     }
+   ]
+   ```
+
+2. **Update velocity estimates** to match your sprint plan:
+   ```json
+   "velocity": {
+     "target_loc_per_day": 150,
+     "estimated_total_loc": 670,
+     "estimated_days": 4
+   }
+   ```
+
+**Validation checklist before handoff:**
+- [ ] No milestone has `"id": "MILESTONE_ID"` (placeholder)
+- [ ] Each milestone has real acceptance criteria (not "Criterion 1")
+- [ ] `estimated_total_loc` matches sum of milestone LOC
+- [ ] `estimated_days` matches sprint plan duration
+- [ ] At least 2 milestones defined
+
+**sprint-executor will REJECT the sprint if placeholders remain!**
+
+### 8.1. Link GitHub Issues (Automatic via ailang messages)
+
+**The script automatically discovers related GitHub issues using `ailang messages` integration.**
+
+The `create_sprint_json.sh` script automatically:
+1. **Syncs GitHub issues** via `ailang messages import-github`
+2. Extracts message IDs from the design doc's "Bug Report" field (pattern: `msg_YYYYMMDD_HHMMSS_hash`)
+3. **Queries local messages** for issues matching design doc keywords
+4. Extracts explicit `#123` references from the design doc
+5. Adds `github_issues: [...]` to the sprint JSON
+
+**Why link GitHub issues?**
+- Development commits use `refs #123` to link without closing
+- Final commit uses `Fixes #123` to AUTO-CLOSE issue on merge
+- Issues are updated with links to commits/PRs
+- Audit trail from bug report → design doc → sprint → commits → release
+
+**Important: "refs" vs "Fixes"**
+- `refs #17` - Links commit to issue (NO auto-close) - use during development
+- `Fixes #17`, `Closes #17`, `Resolves #17` - AUTO-CLOSES issue when merged - use in final commit
+
+**Deduplication:** `ailang messages import-github` checks existing issues by number before importing. Issues are never duplicated.
+
+**Manual linking (if auto-extraction misses issues):**
+```bash
+# Add GitHub issues to sprint JSON
+jq '.github_issues = [17, 42]' .ailang/state/sprints/sprint_<id>.json > tmp && mv tmp .ailang/state/sprints/sprint_<id>.json
+```
+
+**Example JSON with linked issues:**
+```json
+{
+  "sprint_id": "M-BUG-FIX",
+  "github_issues": [17, 42],
+  "features": [...]
+}
+```
+
+**Workflow with GitHub integration:**
+1. External project sends bug report: `ailang messages send user "Bug: ..." --type bug --github`
+2. GitHub issue #17 is created and linked to message
+3. Design doc references message ID: `**Bug Report**: msg_20251210_..._abc123`
+4. `create_sprint_json.sh` extracts message ID, looks up issue #17, adds to JSON
+5. Sprint-executor includes `refs #17` in milestone commits (links, no close)
+6. Final sprint commit uses `Fixes #17` to auto-close issue on merge
+
+### 9. ALWAYS Hand Off to sprint-executor
+
+**CRITICAL: After creating an approved sprint plan, ALWAYS hand off to sprint-executor immediately.**
+
+This is the standard workflow:
+1. **sprint-planner** (this skill): Creates plan + JSON progress file
+2. **sprint-executor** (implementation agent): Executes the plan with TDD
+
+**Send handoff message:**
+```bash
+ailang agent send sprint-executor '{
+  "type": "plan_ready",
+  "correlation_id": "sprint_<sprint-id>_<date>",
+  "sprint_id": "<sprint-id>",
+  "plan_path": "design_docs/planned/vX_Y/<sprint-id>-plan.md",
+  "progress_path": ".ailang/state/sprints/sprint_<id>.json",
+  "estimated_duration": "X days (Y hours)",
+  "milestones": [
+    {"id": "M1", "name": "...", "estimated_hours": X},
+    {"id": "M2", "name": "...", "estimated_hours": Y}
+  ],
+  "discovery": "Key findings from analysis",
+  "total_loc_estimate": N,
+  "risk_level": "low|medium|high"
+}'
+```
+
+**Why this workflow?**
+- sprint-executor specializes in TDD, continuous linting, progress tracking
+- Enables multi-session work (sprints can span days/weeks)
+- Proper separation of concerns: planning vs execution
+
+**Optional: Commit before handoff:**
+```bash
+git add design_docs/YYYYMMDD/M-<milestone>.md
+git add .ailang/state/sprints/sprint_<id>.json
+git commit -m "Add M-<milestone> sprint plan with JSON progress tracking"
+```
+
+## Analysis Framework
+
+### Design Doc Analysis Checklist
+- [ ] Current status: What's ✅ vs ❌ vs ⏳
+- [ ] Timeline: Days/weeks remaining, velocity metrics
+- [ ] Priority matrix: Critical vs nice-to-have
+- [ ] Deferred items: Features pushed to later versions
+- [ ] Technical debt: Known issues or limitations
+
+### Implementation Analysis Checklist
+- [ ] CHANGELOG.md: Recent features, LOC counts, test counts
+- [ ] Git history: Actual work done (not just documented)
+- [ ] Test files: Coverage, test counts, test patterns
+- [ ] Code files: Actual implementation, not just stubs
+- [ ] TODO/FIXME: Inline comments about future work
+- [ ] **Example files: What works vs what's broken** (check `examples/` directory)
+- [ ] **Example coverage: Does every new feature have a working example?** (CRITICAL)
+
+### Gap Analysis Checklist
+- [ ] Features in design doc but not implemented
+- [ ] Features implemented but not in design doc
+- [ ] Estimated LOC vs actual LOC (for velocity)
+- [ ] Planned vs actual timeline
+- [ ] Test coverage gaps
+- [ ] Documentation gaps
+
+## Resources
+
+### Sprint Plan Template
+See [`resources/sprint_plan_template.md`](resources/sprint_plan_template.md) for complete sprint plan structure.
 
 ## Best Practices
 
-### 1. Start Small
-- First sprint should be simple (1-2 days)
-- Build confidence with AILANG before complex features
+### 1. Be Conservative with Estimates
+- Use actual velocity from recent work
+- Add 20-30% buffer for unknowns
+- Don't promise more than recent velocity suggests
 
-### 2. Test AILANG Early
-- Run `ailang check` after every file change
-- Don't let compilation errors pile up
+### 2. Prioritize Ruthlessly
+- Focus on highest-value items first
+- Don't try to do everything in one sprint
+- Defer nice-to-haves to future sprints
 
-### 3. Document Workarounds
-- When AILANG lacks a feature, document the workaround
-- Report to AILANG team so they know the pain points
+### 3. Make Tasks Concrete
+- ❌ "Implement X" is too vague
+- ✅ "Write parser for X syntax (~100 LOC) + 15 test cases" is concrete
+- Each task should be achievable in 1 day or less
 
-### 4. Plan for Feedback Loop
-- Budget time for reporting issues
-- Check inbox for responses during sprint
+### 4. Consider Technical Debt
+- Don't just add features, also fix issues
+- Balance new work with quality improvements
+- Factor in time for bug fixes and refactoring
+
+### 5. Plan for Testing
+- Every feature needs tests
+- Test LOC is usually 30-50% of implementation LOC
+- Include test writing in timeline estimates
+
+### 6. Document Assumptions
+- Make implicit assumptions explicit
+- Note areas of uncertainty
+- Highlight where you need user input
+
+### 7. Verify Design Doc Has Systemic Analysis
+
+**Before planning a sprint for a bug fix, verify the design doc addresses systemic issues.**
+
+The `design-doc-creator` skill includes guidance for auditing related code paths before writing a design doc. If the design doc only fixes the reported symptom without checking for similar gaps, send it back for revision.
+
+**Quick check:** Does the design doc mention:
+- [ ] Search for similar code paths performed?
+- [ ] Other types/cases checked for same gap?
+- [ ] Unified fix covering all cases (not just reported one)?
+
+**If not:** Ask user to revise design doc before planning sprint.
+
+See `design-doc-creator` skill for full systemic analysis checklist.
+
+## Output Format
+
+See [`resources/sprint_plan_template.md`](resources/sprint_plan_template.md) for full template.
+
+**Key sections:**
+- Summary (goal, duration, risk level)
+- Current status analysis (completed, velocity, remaining)
+- Proposed milestones (with tasks, criteria, risks)
+- Success metrics
+- Dependencies and open questions
+
+## Progressive Disclosure
+
+This skill loads information progressively:
+
+1. **Always loaded**: This SKILL.md file (YAML frontmatter + workflow)
+2. **Execute as needed**: Scripts in `scripts/` (velocity analysis)
+3. **Load on demand**: `resources/sprint_plan_template.md` (template)
+
+Scripts execute without loading into context window, saving tokens.
 
 ## Notes
 
-- This project tests AILANG as much as it builds a game
-- Sprint velocity includes AILANG issue reporting time
-- Use `ailang prompt` output as reference for planning
-- Check CLAUDE.md for known limitations before estimating
+- This skill is interactive - expect back-and-forth with user
+- Sprint plans should be realistic, not aspirational
+- Use actual data (velocity, LOC counts) over guesses
+- Update design docs as reality diverges from plan
+- Don't commit plan until approved by user

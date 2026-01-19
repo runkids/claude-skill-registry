@@ -4,17 +4,9 @@ description: "Data format specialist covering TOON encoding, JSON/YAML optimizat
 version: 2.0.0
 category: "library"
 modularized: true
-user-invocable: false
 tags: ['formats', 'data', 'toon', 'serialization', 'validation', 'optimization']
-updated: 2026-01-08
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: "Read, Write, Edit, Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
+updated: 2026-01-06
 status: "active"
 author: "MoAI-ADK Team"
 ---

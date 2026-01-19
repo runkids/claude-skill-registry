@@ -1,198 +1,137 @@
 ---
 name: workflow-router
-description: Goal-based workflow orchestration - routes tasks to specialist agents based on user goals
+description: Determine next agent based on state machine rules. Use AFTER receiving any BAZINGA agent response to decide what to do next.
+version: 1.0.0
+author: BAZINGA Team
+tags: [orchestration, routing, workflow]
+allowed-tools: [Bash]
 ---
 
-# Workflow Router
+# Workflow Router Skill
 
-You are a goal-based workflow orchestrator. Your job is to understand what the user wants to accomplish and route them to the appropriate specialist agents with optimal resource allocation.
+You are the workflow-router skill. Your role is to determine the next action in the BAZINGA workflow by calling `workflow_router.py`, which reads from the state machine configuration.
 
-## When to Use
+## Overview
 
-Use this skill when:
-- User wants to start a new task but hasn't specified a workflow
-- User asks "how should I approach this?"
-- User mentions wanting to explore, plan, build, or fix something
-- You need to orchestrate multiple agents for a complex task
+This skill determines what to do after receiving an agent response by:
+- Reading transitions from database (seeded from transitions.json)
+- Applying testing mode rules (skip QA if disabled/minimal)
+- Applying escalation rules (escalate to SSE after N failures)
+- Applying security rules (force SSE for security tasks)
+- Returning JSON with next action
 
-## Workflow Process
+## Prerequisites
 
-### Step 1: Goal Selection
+- Database must be initialized (`bazinga/bazinga.db` exists)
+- Config must be seeded (run `config-seeder` skill at session start)
 
-First, determine the user's primary goal. Use the AskUserQuestion tool:
+## When to Invoke This Skill
 
-```
-questions=[{
-  "question": "What's your primary goal for this task?",
-  "header": "Goal",
-  "options": [
-    {"label": "Research", "description": "Understand/explore something - investigate unfamiliar code, libraries, or concepts"},
-    {"label": "Plan", "description": "Design/architect a solution - create implementation plans, break down complex problems"},
-    {"label": "Build", "description": "Implement/code something - write new features, create components, implement from a plan"},
-    {"label": "Fix", "description": "Debug/fix an issue - investigate and resolve bugs, debug failing tests"}
-  ],
-  "multiSelect": false
-}]
-```
+- **AFTER** receiving any agent response
+- When orchestrator needs to decide what to do next based on agent's status code
+- Examples:
+  - Developer returned "READY_FOR_QA" → Route to QA Expert
+  - QA returned "PASS" → Route to Tech Lead
+  - Tech Lead returned "APPROVED" → Check phase, maybe route to PM
 
-If the user's intent is clear from context, you may infer the goal. Otherwise, ask explicitly using the tool above.
+## Your Task
 
-### Step 2: Plan Detection
+When invoked, you must:
 
-Before proceeding, check for existing plans:
+### Step 1: Extract Parameters
+
+Parse from the agent's response and current state:
+- `current_agent`: Agent that just responded (developer, qa_expert, tech_lead, etc.)
+- `status`: Status code from response (READY_FOR_QA, PASS, APPROVED, etc.)
+- `session_id`: Current session ID
+- `group_id`: Current group ID
+- `testing_mode`: full, minimal, or disabled
+
+### Step 2: Call the Python Script
 
 ```bash
-ls thoughts/shared/plans/*.md 2>/dev/null
+python3 .claude/skills/workflow-router/scripts/workflow_router.py \
+  --current-agent "{current_agent}" \
+  --status "{status}" \
+  --session-id "{session_id}" \
+  --group-id "{group_id}" \
+  --testing-mode "{testing_mode}"
 ```
 
-If plans exist:
-- For **Build** goal: Ask if they want to implement an existing plan
-- For **Plan** goal: Mention existing plans to avoid duplication
-- For **Research/Fix**: Proceed as normal
+### Step 3: Parse and Return Result
 
-### Step 3: Resource Allocation
+The script outputs JSON:
 
-Determine how many agents to use. Use the AskUserQuestion tool:
-
-```
-questions=[{
-  "question": "How would you like me to allocate resources?",
-  "header": "Resources",
-  "options": [
-    {"label": "Conservative", "description": "1-2 agents, sequential execution - minimal context usage, best for simple tasks"},
-    {"label": "Balanced (Recommended)", "description": "Appropriate agents for the task, some parallelism - best for most tasks"},
-    {"label": "Aggressive", "description": "Max parallel agents working simultaneously - best for time-critical tasks"},
-    {"label": "Auto", "description": "System decides based on task complexity"}
-  ],
-  "multiSelect": false
-}]
+```json
+{
+  "success": true,
+  "current_agent": "developer",
+  "response_status": "READY_FOR_QA",
+  "next_agent": "qa_expert",
+  "action": "spawn",
+  "model": "sonnet",
+  "group_id": "AUTH",
+  "session_id": "bazinga_xxx",
+  "include_context": ["dev_output", "test_results"]
+}
 ```
 
-Default to **Balanced** if not specified or if user selects Auto.
+Return this JSON to the orchestrator.
 
-### Step 4: Specialist Mapping
+## Actions Explained
 
-Route to the appropriate specialist based on goal:
+| Action | What Orchestrator Should Do |
+|--------|----------------------------|
+| `spawn` | Use prompt-builder, then spawn single agent |
+| `respawn` | Re-spawn same agent type with feedback |
+| `spawn_batch` | Spawn multiple developers for `groups_to_spawn` |
+| `validate_then_end` | Invoke bazinga-validator skill, then route based on verdict |
+| `pause_for_user` | Surface clarification question to user |
+| `end_session` | Mark session complete, no more spawns |
 
-| Goal | Primary Agent | Alias | Description |
-|------|---------------|-------|-------------|
-| **Research** | oracle | Librarian | Comprehensive research using MCP tools (nia, perplexity, repoprompt, firecrawl) |
-| **Plan** | plan-agent | Oracle | Create implementation plans with phased approach |
-| **Build** | kraken | Kraken | Implementation agent - handles coding tasks via Task tool |
-| **Fix** | debug-agent | Sentinel | Investigate issues using codebase exploration and logs |
+## Validator Workflow
 
-**Fix workflow special case:** For Fix goals, first spawn debug-agent (Sentinel) to investigate. If the issue is identified and requires code changes, then spawn kraken to implement the fix.
+When PM sends BAZINGA, the orchestrator invokes `bazinga-validator`. After validator returns:
 
-### Step 5: Confirmation
-
-Before executing, show a summary and confirm using the AskUserQuestion tool:
-
-First, display the execution summary:
-
+**Orchestrator calls workflow-router skill:**
 ```
-## Execution Summary
-
-**Goal:** [Research/Plan/Build/Fix]
-**Resource Allocation:** [Conservative/Balanced/Aggressive]
-**Agent(s) to spawn:** [agent names]
-
-**What will happen:**
-- [Brief description of what the agent(s) will do]
-- [Expected output/deliverable]
+workflow-router, determine next action:
+Current agent: validator
+Status: ACCEPT  # or REJECT
+Session ID: {session_id}
 ```
+Then invoke: `Skill(command: "workflow-router")`
 
-Then use the AskUserQuestion tool for confirmation:
+**Note:** Validator is session-scoped - omit `group_id` (not needed for routing).
 
-```
-questions=[{
-  "question": "Ready to proceed with this workflow?",
-  "header": "Confirm",
-  "options": [
-    {"label": "Yes, proceed", "description": "Run the workflow with the settings above"},
-    {"label": "Adjust settings", "description": "Go back and modify goal or resource allocation"}
-  ],
-  "multiSelect": false
-}]
-```
+**Transitions defined in `workflow/transitions.json` → `validator` section:**
+- `ACCEPT` → `end_session` action → Complete shutdown protocol
+- `REJECT` → `spawn` action with `next_agent: project_manager` → PM fixes issues
 
-Wait for user confirmation before spawning agents. If user selects "Adjust settings", return to the relevant step.
+**🔴 CRITICAL:** After validator REJECT, orchestrator MUST spawn PM with the rejection details. Do NOT stop!
 
-## Agent Spawn Examples
+## Special Flags in Result
 
-### Research (Librarian)
-```
-Task(
-  subagent_type="oracle",
-  prompt="""
-  Research: [topic]
+| Flag | Meaning |
+|------|---------|
+| `groups_to_spawn` | Array of group IDs to spawn in parallel |
+| `escalation_applied` | True if escalated to SSE due to failures |
+| `escalation_reason` | Why escalation happened |
+| `skip_reason` | Why QA was skipped (testing mode) |
+| `phase_check` | "continue" or "complete" after merge |
+| `security_override` | True if security task forced SSE |
+| `bypass_qa` | True if QA should be skipped (RE tasks) |
 
-  Scope: [what to investigate]
-  Output: Create a handoff with findings at thoughts/handoffs/<session>/
-  """
-)
-```
+## Output Format
 
-### Plan (Oracle)
-```
-Task(
-  subagent_type="plan-agent",
-  prompt="""
-  Create implementation plan for: [feature/task]
+JSON object with routing decision. Parse and execute the `action`.
 
-  Context: [relevant context]
-  Output: Save plan to thoughts/shared/plans/
-  """
-)
-```
+## Error Handling
 
-### Build (Kraken)
+| Error | Meaning |
+|-------|---------|
+| `success: false` | Unknown transition - check `fallback_action` |
+| Unknown status | Route to Tech Lead for manual handling |
+| Database not found | Cannot route - needs config seeding |
 
-**If plan exists:** Run pre-mortem before implementation:
-```
-/premortem deep <plan-path>
-```
-
-This identifies risks and blocks if HIGH severity issues found. User can accept, mitigate, or research solutions.
-
-**After premortem passes:**
-```
-Task(
-  subagent_type="kraken",
-  prompt="""
-  Implement: [task]
-
-  Plan location: [if applicable]
-  Tests: Run tests after implementation
-  """
-)
-```
-
-### Fix (Sentinel then Kraken)
-```
-# Step 1: Investigate
-Task(
-  subagent_type="debug-agent",
-  prompt="""
-  Investigate: [issue description]
-
-  Symptoms: [what's failing]
-  Output: Diagnosis and recommended fix
-  """
-)
-
-# Step 2: If fix identified, spawn kraken
-Task(
-  subagent_type="kraken",
-  prompt="""
-  Fix: [issue based on Sentinel's diagnosis]
-  """
-)
-```
-
-## Tips
-
-- **Infer when possible:** If the user says "this test is failing", that's clearly a Fix goal
-- **Be adaptive:** Start with Balanced allocation; scale up if task proves complex
-- **Chain agents:** For complex tasks, Research -> Plan -> Premortem -> Build is the recommended flow
-- **Run premortem:** Before Build, always run `/premortem deep` on the plan to catch risks early
-- **Preserve context:** Use handoffs between agents to maintain continuity
+If routing fails, use the `fallback_action` in the error response.

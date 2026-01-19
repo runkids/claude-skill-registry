@@ -1,233 +1,154 @@
 ---
 name: create-pr
-description: Create a PR for this branch. ALWAYS links related issues and uses closing keywords to auto-close them on merge.
+description: Creates GitHub pull requests with properly formatted titles that pass the check-pr-title CI validation. Use when creating PRs, submitting changes for review, or when the user says /pr or asks to create a pull request.
+allowed-tools: Bash(git:*), Bash(gh:*), Read, Grep, Glob
 ---
 
-# Create a PR
+# Create Pull Request
 
-## ⚠️ MANDATORY: Issue Linking
+Creates GitHub PRs with titles that pass n8n's `check-pr-title` CI validation.
 
-**Every PR MUST link to related issues and use closing keywords.**
-
-- PRs without issue links are incomplete
-- Use `Closes #X` or `Fixes #X` to auto-close issues on merge
-- Reference ALL related issues, even if not closing them
-
-## Instructions
-
-### Step 1: Identify Related Issues
-
-```bash
-# Check current branch name for issue hints
-git branch --show-current
-
-# Search for related issues
-gh issue list --search "relevant keywords"
-
-# View specific issue
-gh issue view <number>
-```
-
-**Find ALL issues this PR addresses:**
-- Issues explicitly being fixed
-- Issues partially addressed
-- Related issues for context
-
-### Step 2: Gather Context
-
-```bash
-# See what changed
-git log main..HEAD --oneline
-git diff main..HEAD --stat
-
-# Get commit messages for context
-git log main..HEAD --format="%s%n%b"
-```
-
-### Step 3: Create PR with Issue Links
-
-Use the `writing-clearly-and-concisely` skill for clear writing, then follow [pr_guide](pr_guide.md).
-
-```bash
-gh pr create --title "[type]: [emoji] [description]" --body "$(cat <<'EOF'
-[Two-sentence summary of what and why]
-
-## Key Changes
-- [Change 1]
-- [Change 2]
-
-## Related Issues
-
-**Closes:**
-- Closes #X - [brief description of what's fixed]
-- Closes #Y - [brief description]
-
-**Related (not closing):**
-- Related to #Z - [why related]
-- See also #W - [context]
-
-## Testing
-- [How it was tested]
-
-## Files Changed
-- [List key files]
-EOF
-)"
-```
-
-### Issue Linking Keywords
-
-GitHub recognizes these keywords to auto-close issues on merge:
-
-| Keyword | Example | Effect |
-|---------|---------|--------|
-| `Closes` | `Closes #123` | Closes issue when PR merges |
-| `Fixes` | `Fixes #123` | Closes issue when PR merges |
-| `Resolves` | `Resolves #123` | Closes issue when PR merges |
-
-**Use format**: `Closes #X - brief description`
-
-### Step 4: Verify Issue Links
-
-After creating PR:
-
-```bash
-# Verify the PR shows linked issues
-gh pr view <number> --json closingIssuesReferences
-
-# Check the issue shows the PR link
-gh issue view <number>
-```
-
----
-
-## PR Description Template
-
-```markdown
-[Two-sentence summary: what changed and why it was needed]
-
-## Key Changes
-- [Most important change]
-- [Second important change]
-- [Third important change]
-
-## Related Issues
-
-**Closes:**
-- Closes #X - [what requirement this addresses]
-- Fixes #Y - [what bug this fixes]
-
-**Related:**
-- Related to #Z - [provides context but doesn't close]
-
-## Testing
-- [Manual testing performed]
-- [Automated tests added/passing]
-
-## Architectural Impact
-[If significant: explain system-wide effects]
-
-## Files Changed
-- `path/to/file1.ts` - [what changed]
-- `path/to/file2.ts` - [what changed]
-```
-
----
-
-## Anti-Patterns
+## PR Title Format
 
 ```
-❌ WRONG:
-gh pr create --title "Fix bug" --body "Fixed the thing"
-
-❌ WRONG:
-"Related: #123" (no closing keyword, issue won't close)
-
-❌ WRONG:
-No mention of any issues at all
-
-✅ CORRECT:
-gh pr create --title "fix: 🔧 Resolve auth token expiration" --body "
-Fixes session timeout by implementing token refresh.
-
-## Related Issues
-- Closes #123 - Auth token expires incorrectly
-- Closes #124 - Users logged out unexpectedly
-- Related to #100 - Auth system overhaul (partial)
-"
+<type>(<scope>): <summary>
 ```
 
----
+### Types (required)
 
-## Mermaid Diagrams in PRs
+| Type       | Description                                      | Changelog |
+|------------|--------------------------------------------------|-----------|
+| `feat`     | New feature                                      | Yes       |
+| `fix`      | Bug fix                                          | Yes       |
+| `perf`     | Performance improvement                          | Yes       |
+| `test`     | Adding/correcting tests                          | No        |
+| `docs`     | Documentation only                               | No        |
+| `refactor` | Code change (no bug fix or feature)              | No        |
+| `build`    | Build system or dependencies                     | No        |
+| `ci`       | CI configuration                                 | No        |
+| `chore`    | Routine tasks, maintenance                       | No        |
 
-**Use Mermaid diagrams to visualize changes, flows, and architectural impacts.**
+### Scopes (optional but recommended)
 
-GitHub renders Mermaid natively. Include diagrams when:
-- Showing before/after state changes
-- Illustrating new data flows
-- Explaining component interactions
-- Depicting architectural changes
+- `API` - Public API changes
+- `benchmark` - Benchmark CLI changes
+- `core` - Core/backend/private API
+- `editor` - Editor UI changes
+- `* Node` - Specific node (e.g., `Slack Node`, `GitHub Node`)
 
-### When to Include Diagrams
+### Summary Rules
 
-| PR Type | Diagram Use |
-|---------|-------------|
-| Bug fix | Before/after flow showing fix |
-| New feature | User journey or data flow |
-| Refactor | Component dependency changes |
-| API changes | Request/response sequence |
+- Use imperative present tense: "Add" not "Added"
+- Capitalize first letter
+- No period at the end
+- No ticket IDs (e.g., N8N-1234)
+- Add `(no-changelog)` suffix to exclude from changelog
 
-### Example: PR with Diagram
+## Steps
 
-````markdown
-## Key Changes
+1. **Check current state**:
+   ```bash
+   git status
+   git diff --stat
+   git log origin/master..HEAD --oneline
+   ```
 
-Added token refresh flow when session expires.
+2. **Analyze changes** to determine:
+   - Type: What kind of change is this?
+   - Scope: Which package/area is affected?
+   - Summary: What does the change do?
 
-### New Authentication Flow
+3. **Push branch if needed**:
+   ```bash
+   git push -u origin HEAD
+   ```
 
-```mermaid
-sequenceDiagram
-    participant C as Client
-    participant A as Auth Service
-    participant D as Database
+4. **Create PR** using gh CLI with the template from `.github/pull_request_template.md`:
+   ```bash
+   gh pr create --draft --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'
+   ## Summary
 
-    C->>A: Request with expired token
-    A-->>C: 401 Token Expired
-    C->>A: POST /refresh with refresh_token
-    A->>D: Validate refresh token
-    D-->>A: Token valid
-    A-->>C: New access token
-    C->>A: Retry original request
-    A-->>C: 200 Success
+   <Describe what the PR does and how to test. Photos and videos are recommended.>
+
+   ## Related Linear tickets, Github issues, and Community forum posts
+
+   <!-- Link to Linear ticket: https://linear.app/n8n/issue/[TICKET-ID] -->
+   <!-- Use "closes #<issue-number>", "fixes #<issue-number>", or "resolves #<issue-number>" to automatically close issues -->
+
+   ## Review / Merge checklist
+
+   - [ ] PR title and summary are descriptive. ([conventions](../blob/master/.github/pull_request_title_conventions.md))
+   - [ ] [Docs updated](https://github.com/n8n-io/n8n-docs) or follow-up ticket created.
+   - [ ] Tests included.
+   - [ ] PR Labeled with `release/backport` (if the PR is an urgent fix that needs to be backported)
+   EOF
+   )"
+   ```
+
+## PR Body Guidelines
+
+Based on `.github/pull_request_template.md`:
+
+### Summary Section
+- Describe what the PR does
+- Explain how to test the changes
+- Include screenshots/videos for UI changes
+
+### Related Links Section
+- Link to Linear ticket: `https://linear.app/n8n/issue/[TICKET-ID]`
+- Link to GitHub issues using keywords to auto-close:
+  - `closes #123` / `fixes #123` / `resolves #123`
+- Link to Community forum posts if applicable
+
+### Checklist
+All items should be addressed before merging:
+- PR title follows conventions
+- Docs updated or follow-up ticket created
+- Tests included (bugs need regression tests, features need coverage)
+- `release/backport` label added if urgent fix needs backporting
+
+## Examples
+
+### Feature in editor
+```
+feat(editor): Add workflow performance metrics display
 ```
 
-## Related Issues
-- Closes #123 - Token expiration handling
-````
-
-### Diagram Types for PRs
-
-```markdown
-## Flow changes: flowchart
-## API interactions: sequenceDiagram
-## State machines: stateDiagram-v2
-## Data models: erDiagram
+### Bug fix in core
+```
+fix(core): Resolve memory leak in execution engine
 ```
 
-**Tips:**
-- Keep diagrams focused (5-10 nodes)
-- Show the change, not entire system
-- Before/after pairs are powerful
-- Embed in PR body, not as links
+### Node-specific change
+```
+fix(Slack Node): Handle rate limiting in message send
+```
 
----
+### Breaking change (add exclamation mark before colon)
+```
+feat(API)!: Remove deprecated v1 endpoints
+```
 
-## Quick Reference
+### No changelog entry
+```
+refactor(core): Simplify error handling (no-changelog)
+```
 
-1. **Find issues**: `gh issue list --search "keywords"`
-2. **Create PR with closing keywords**: `Closes #X`, `Fixes #X`
-3. **Always include**: Related Issues section in PR body
-4. **Verify**: `gh pr view --json closingIssuesReferences`
-5. **Add Mermaid diagrams** for complex changes
+### No scope (affects multiple areas)
+```
+chore: Update dependencies to latest versions
+```
+
+## Validation
+
+The PR title must match this pattern:
+```
+^(feat|fix|perf|test|docs|refactor|build|ci|chore|revert)(\([a-zA-Z0-9 ]+( Node)?\))?!?: [A-Z].+[^.]$
+```
+
+Key validation rules:
+- Type must be one of the allowed types
+- Scope is optional but must be in parentheses if present
+- Exclamation mark for breaking changes goes before the colon
+- Summary must start with capital letter
+- Summary must not end with a period

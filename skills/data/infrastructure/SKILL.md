@@ -1,185 +1,166 @@
 ---
-name: deploy
-description: |
-  Deploy projects to staging or production environments. Repo-agnostic deployment
-  orchestration using SSH MCP for VPS operations and Cloudflare for DNS/SSL.
-  Reads project configuration from deployments.registry.json.
-examples:
-  - "/deploy"
-  - "/deploy staging"
-  - "/deploy production --project=tribevibe"
-  - "/deploy status"
-  - "/deploy rollback"
+name: infrastructure
+description: Manage infrastructure as code. Use when provisioning resources, managing cloud infrastructure, or setting up environments. Covers Terraform and IaC patterns.
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
-# Infrastructure Deployment Skill
+# Infrastructure as Code
 
-Deploy any registered project to staging or production environments with full verification.
+## Principles
 
-## Prerequisites
+1. **Everything in Code**: No manual changes
+2. **Version Controlled**: All changes tracked
+3. **Idempotent**: Safe to run multiple times
+4. **Tested**: Validate before apply
 
-- SSH MCP configured for target VPS (passphrase-free keys)
-- Docker + docker-compose on VPS
-- Cloudflare CLI (wrangler) for DNS operations
-- Project registered in `deployments.registry.json`
+## Terraform Basics
 
-## Usage
-
-```bash
-/deploy                          # Interactive: select project + environment
-/deploy staging                  # Deploy current project to staging
-/deploy production               # Deploy current project to production
-/deploy status                   # Check deployment status across all projects
-/deploy rollback                 # Rollback last deployment
-/deploy --project=tribevibe staging   # Deploy specific project
+### Project Structure
+```
+infrastructure/
+├── main.tf           # Main configuration
+├── variables.tf      # Input variables
+├── outputs.tf        # Output values
+├── providers.tf      # Provider config
+├── terraform.tfvars  # Variable values
+└── modules/
+    └── vpc/          # Reusable modules
 ```
 
-## Configuration
+### Example: AWS VPC
 
-Projects are defined in `.claude-toolkit/.claude/skills/infrastructure/deployments.registry.json`:
-
-```json
-{
-  "projects": {
-    "projectname": {
-      "vps": { "host": "x.x.x.x", "user": "root", "sshKeyName": "key_name" },
-      "environments": {
-        "staging": { "domain": "...", "dockerCompose": "..." },
-        "production": { "domain": "...", "dockerCompose": "..." }
-      }
+```hcl
+# providers.tf
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
     }
+  }
+}
+
+# main.tf
+resource "aws_vpc" "main" {
+  cidr_block = var.vpc_cidr
+
+  tags = {
+    Name        = "${var.project}-vpc"
+    Environment = var.environment
+  }
+}
+
+# variables.tf
+variable "vpc_cidr" {
+  description = "CIDR block for VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+```
+
+## Workflows
+
+```bash
+# Initialize
+terraform init
+
+# Plan changes
+terraform plan -out=tfplan
+
+# Apply changes
+terraform apply tfplan
+
+# Destroy resources
+terraform destroy
+```
+
+## Best Practices
+
+1. **Use Remote State**: Store state in S3/GCS
+2. **Lock State**: Prevent concurrent modifications
+3. **Use Modules**: Reusable infrastructure components
+4. **Environment Separation**: Separate state per environment
+5. **Secret Management**: Never store secrets in code
+
+## State Management
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket         = "terraform-state-bucket"
+    key            = "prod/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
   }
 }
 ```
 
-## Workflow
+## ECS/Fargate
 
-### 1. Pre-Deployment Checks
+```hcl
+# Task Definition
+resource "aws_ecs_task_definition" "app" {
+  family                   = "${var.project}-task"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = 256
+  memory                   = 512
+  execution_role_arn       = aws_iam_role.ecs_execution.arn
 
-```bash
-# Read registry to get project config
-REGISTRY=".claude-toolkit/.claude/skills/infrastructure/deployments.registry.json"
+  container_definitions = jsonencode([{
+    name  = "app"
+    image = "${aws_ecr_repository.app.repository_url}:latest"
+    portMappings = [{
+      containerPort = 8080
+      protocol      = "tcp"
+    }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = aws_cloudwatch_log_group.app.name
+        awslogs-region        = var.aws_region
+        awslogs-stream-prefix = "app"
+      }
+    }
+  }])
+}
 
-# Detect current project from git remote or CLAUDE.md
-PROJECT=$(git remote get-url origin | grep -oP '(?<=/)[^/]+(?=\.git)')
+# ECS Service
+resource "aws_ecs_service" "app" {
+  name            = "${var.project}-service"
+  cluster         = aws_ecs_cluster.main.id
+  task_definition = aws_ecs_task_definition.app.arn
+  desired_count   = var.app_count
+  launch_type     = "FARGATE"
 
-# Verify VPS connectivity
-ssh -o ConnectTimeout=5 ${USER}@${HOST} "echo 'VPS accessible'"
-
-# Verify Docker is running
-ssh ${USER}@${HOST} "docker info > /dev/null 2>&1"
-```
-
-### 2. Build & Push (if using CI)
-
-```bash
-# Trigger GitHub Actions deployment workflow
-gh workflow run deploy-${ENV}.yml --ref ${BRANCH}
-
-# Or build locally and push
-docker build -t ${PROJECT}-api:${VERSION} .
-docker push ghcr.io/${ORG}/${PROJECT}-api:${VERSION}
-```
-
-### 3. Deploy to VPS
-
-```bash
-# SSH to VPS and deploy
-ssh ${USER}@${HOST} << 'DEPLOY'
-  cd ${DOCKER_COMPOSE_PATH}
-
-  # Backup database before deployment
-  docker exec ${DB_CONTAINER} pg_dump -U postgres ${DB_NAME} > /backup/${PROJECT}_$(date +%Y%m%d_%H%M%S).sql
-
-  # Pull latest images
-  docker compose pull
-
-  # Rolling restart (zero-downtime if configured)
-  docker compose up -d --remove-orphans
-
-  # Wait for health checks
-  sleep 10
-  docker compose ps
-DEPLOY
-```
-
-### 4. Post-Deployment Verification
-
-```bash
-# Health check
-curl -f https://${API_DOMAIN}/health || echo "FAILED"
-
-# Check container status
-ssh ${USER}@${HOST} "docker ps --format 'table {{.Names}}\t{{.Status}}'"
-
-# Check recent logs for errors
-ssh ${USER}@${HOST} "docker logs ${API_CONTAINER} --tail 50 | grep -i error"
-```
-
-### 5. Rollback (if needed)
-
-```bash
-# Rollback to previous image
-ssh ${USER}@${HOST} << 'ROLLBACK'
-  cd ${DOCKER_COMPOSE_PATH}
-  docker compose down
-  docker tag ${PROJECT}-api:previous ${PROJECT}-api:latest
-  docker compose up -d
-ROLLBACK
-
-# Or restore database
-ssh ${USER}@${HOST} "cat /backup/${PROJECT}_LATEST.sql | docker exec -i ${DB_CONTAINER} psql -U postgres ${DB_NAME}"
-```
-
-## MCP Integration
-
-This skill uses SSH MCP for secure VPS access:
-
-```json
-{
-  "id": "project-vps",
-  "command": "npx ssh-mcp",
-  "args": ["--host=${HOST}", "--user=${USER}", "--key=${SSH_KEY_PATH}"]
+  network_configuration {
+    subnets         = aws_subnet.private[*].id
+    security_groups = [aws_security_group.app.id]
+  }
 }
 ```
 
-Tool reference: `mcp__project-vps__exec`
+## S3 Buckets
 
-## Safety Rules
+```hcl
+resource "aws_s3_bucket" "assets" {
+  bucket = "${var.project}-assets-${var.environment}"
+}
 
-- NEVER deploy to production without staging verification first
-- ALWAYS backup database before deployment
-- ALWAYS verify health checks after deployment
-- NEVER skip rollback plan
-- ALWAYS monitor logs for 10-15 minutes post-deploy
+resource "aws_s3_bucket_versioning" "assets" {
+  bucket = aws_s3_bucket.assets.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
 
-## Output Format
-
-```markdown
-# Deployment Report
-
-**Project**: ${project}
-**Environment**: ${environment}
-**Status**: SUCCESS | FAILED | ROLLED_BACK
-
-## Services
-| Service | Status | Health |
-|---------|--------|--------|
-| api     | Up 2m  | 200 OK |
-| web     | Up 2m  | 200 OK |
-| db      | Up 5h  | Connected |
-
-## Health Checks
-- API: https://api.example.com/health - 200 OK (45ms)
-- Web: https://example.com - 200 OK (120ms)
-
-## Actions Taken
-1. Pulled latest images
-2. Backed up database
-3. Deployed via docker compose
-4. Verified health checks
-
-## Next Steps
-- Monitor Seq logs: https://seq.example.com
-- Run smoke tests
+resource "aws_s3_bucket_server_side_encryption_configuration" "assets" {
+  bucket = aws_s3_bucket.assets.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
 ```

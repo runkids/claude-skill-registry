@@ -1,7 +1,7 @@
 {
   "name": "docker-helper",
-  "repo": "enoch-robinson/agent-skill-collection",
-  "path": "skills/development/docker-helper/SKILL.md",
-  "source": "github.com/enoch-robinson/agent-skill-collection",
-  "downloaded_at": "2026-01-17T04:03:32.319806Z"
+  "repo": "CuriousLearner/devkit",
+  "path": "skills/docker-helper/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-19T03:53:38.581364Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "ffmpeg",
-  "repo": "einverne/dotfiles",
-  "path": "claude/skills/ffmpeg/SKILL.md",
-  "source": "github.com/einverne/dotfiles",
-  "downloaded_at": "2026-01-17T03:54:55.066946Z"
+  "repo": "alex-tgk/saasquatch",
+  "path": ".claude/skills/ffmpeg/SKILL.md",
+  "source": "github.com/alex-tgk/saasquatch",
+  "downloaded_at": "2026-01-19T04:17:54.043414Z"
 }

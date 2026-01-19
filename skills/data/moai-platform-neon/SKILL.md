@@ -4,20 +4,10 @@ description: "Neon serverless PostgreSQL specialist covering auto-scaling, datab
 version: 2.0.0
 category: "platform"
 modularized: true
-user-invocable: false
 tags: ['neon', 'postgresql', 'serverless', 'branching', 'auto-scaling']
 context7-libraries: ['/neondatabase/neon']
 related-skills: ['moai-platform-supabase', 'moai-lang-typescript', 'moai-domain-database']
-updated: 2026-01-08
-status: "active"
-allowed-tools:
-  - Read
-  - Write
-  - Bash
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: "Read, Write, Bash, Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
 ---
 
 # moai-platform-neon: Neon Serverless PostgreSQL Specialist

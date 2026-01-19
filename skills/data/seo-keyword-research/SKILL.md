@@ -1,378 +1,393 @@
 ---
-name: seo-keyword-research
-description: Deep competitive keyword research and SEO strategy. Takes a primary keyword and researches supporting keywords, competitor analysis, search intent, and per-page keyword mapping. Outputs docs/seo-analysis.md. Triggers on "keyword research", "SEO research", "SEO strategy", "competitive analysis", "rank for keyword".
+name: researching-seo-keywords
+description: Expands keyword lists and analyzes search intent for content strategy. Use when the user asks about keyword research, search intent, long-tail keywords, keyword gaps, or SEO content planning.
 ---
 
-# SEO Keyword Research & Competitive Analysis
+# SEO Keyword Research Assistant
 
-Comprehensive keyword research to rank for competitive markets.
+## When to use this skill
 
-## Prerequisites
-
-- docs/sitemap.md should exist (run sitemap-structure skill first)
-- User provides primary keyword they want to rank for
+- User asks for keyword research
+- User needs keyword variations
+- User wants to analyze search intent
+- User mentions finding content gaps
+- User needs low-competition keywords
 
 ## Workflow
 
-1. **Gather Input** - Primary keyword, location, business type, competitors (if known)
-2. **Competitive Analysis** - Analyze top 5 ranking competitors via WebSearch
-3. **Keyword Discovery** - Find primary, secondary, long-tail, local, question, and semantic keywords
-4. **Intent Classification** - Categorize every keyword by search intent
-5. **SERP Analysis** - Understand what Google rewards for target keywords
-6. **Keyword Mapping** - Assign keywords to pages from docs/sitemap.md
-7. **Content Gap Analysis** - Find opportunities competitors miss
-8. **Write Output** - Create docs/seo-analysis.md
+- [ ] Identify seed keywords
+- [ ] Generate variations and long-tails
+- [ ] Classify search intent
+- [ ] Identify opportunities
+- [ ] Group by topic clusters
+- [ ] Prioritize for content
 
-## Input Template
+## Instructions
 
-```
-Primary Keyword: [The main keyword you want to rank for]
-Location: [Target geographic area]
-Business Type: [Industry/niche]
-Known Competitors: [URLs of competitors, if known - optional]
-```
+### Step 1: Gather Seed Keywords
 
----
+**Required inputs:**
 
-## Keyword Research Process (WebSearch)
+| Field              | Purpose                   |
+| ------------------ | ------------------------- |
+| Main topic/product | Core focus area           |
+| Target audience    | Who you're reaching       |
+| Business goal      | Traffic, leads, sales     |
+| Competitors        | For gap analysis          |
+| Current rankings   | What you already rank for |
 
-### Step 1: Competitor Discovery
+**Seed keyword sources:**
 
-**Search queries to run:**
-1. `[primary keyword]` - See who ranks #1-5
-2. `[primary keyword] [location]` - Local competitors
-3. `[primary keyword] site:google.ch` or `site:google.de` - Regional results
-4. `best [service] [location]` - Review/comparison sites
+| Source                | How to Use            |
+| --------------------- | --------------------- |
+| Product/service names | Direct terms          |
+| Customer questions    | Support tickets, FAQs |
+| Competitor content    | What they rank for    |
+| Industry terms        | Jargon, acronyms      |
+| Problem statements    | Pain points           |
 
-**For each top 5 competitor, note:**
-- Domain URL
-- Title tag content
-- Meta description
-- Their apparent primary keyword
-- Content depth (comprehensive or thin?)
+### Step 2: Generate Keyword Variations
 
-### Step 2: Competitor Analysis Framework
+**Variation types:**
 
-For each top 5 competitor, analyze:
+| Type       | Formula                   | Example (seed: "email marketing")     |
+| ---------- | ------------------------- | ------------------------------------- |
+| Long-tail  | [seed] + [modifier]       | "email marketing for small business"  |
+| Question   | [question word] + [seed]  | "how to start email marketing"        |
+| Comparison | [seed] vs [alternative]   | "email marketing vs social media"     |
+| Best/top   | best [seed] + [qualifier] | "best email marketing software 2026"  |
+| How-to     | how to [action] + [seed]  | "how to improve email marketing"      |
+| Guide      | [seed] + guide/tutorial   | "email marketing guide for beginners" |
+| Tool       | [seed] + tool/software    | "email marketing automation tools"    |
+| Cost       | [seed] + cost/pricing     | "email marketing software pricing"    |
 
-| Analysis Point | What to Look For |
-|----------------|------------------|
-| Title Tags | Keywords used, format, length (50-60 chars) |
-| Meta Descriptions | CTAs, keywords, unique selling points |
-| H1 Headlines | Primary keyword placement |
-| Content Structure | H2/H3 topics they cover |
-| Page Count | How many pages, what topics |
-| Content Depth | Word count, comprehensiveness |
-| Unique Content | What they do that others don't |
-| Weaknesses | Gaps we can exploit |
+**Modifier categories:**
 
-### Step 3: Keyword Discovery
+| Category | Modifiers                                         |
+| -------- | ------------------------------------------------- |
+| Intent   | buy, compare, review, learn, find                 |
+| Time     | 2026, today, now, quick, fast                     |
+| Quality  | best, top, free, cheap, premium                   |
+| Audience | for beginners, for developers, for small business |
+| Location | near me, in [city], [country]                     |
+| Format   | template, checklist, guide, examples              |
 
-**Search queries to run:**
+### Step 3: Search Intent Classification
 
-```
-[primary keyword] + related searches
-[primary keyword] + "wie", "was", "warum" (informational intent)
-[primary keyword] + "kaufen", "buchen", "bestellen" (transactional intent)
-[primary keyword] + "vergleich", "test", "erfahrung" (commercial investigation)
-[primary keyword] + [location variations]
-[primary keyword] + [service variations]
-```
+**Intent types:**
 
-**Keyword types to find:**
+| Intent        | Signal Words                   | Content Type           | Funnel Stage           |
+| ------------- | ------------------------------ | ---------------------- | ---------------------- |
+| Informational | how, what, why, guide, learn   | Blog, guide, tutorial  | Top (awareness)        |
+| Navigational  | [brand name], login, website   | Landing page, homepage | Middle                 |
+| Commercial    | best, review, compare, vs, top | Comparison, review     | Middle (consideration) |
+| Transactional | buy, price, discount, order    | Product page, pricing  | Bottom (decision)      |
 
-| Type | Description | Example | Priority |
-|------|-------------|---------|----------|
-| Primary | Main target, high competition | "Webdesign Zürich" | Must rank |
-| Secondary | Supporting, medium competition | "Website erstellen lassen" | Should rank |
-| Long-tail | Specific, lower competition | "Webdesign Agentur für KMU Zürich" | Quick wins |
-| Local | Geographic variations | "Webdesign Winterthur" | Expansion |
-| Semantic (LSI) | Related concepts | "Webentwicklung", "Homepage erstellen" | Natural use |
-| Question | FAQ opportunities | "Was kostet eine Website?" | Content |
-
-### Step 4: Search Intent Classification
-
-**Classify EVERY keyword by intent:**
-
-| Intent | Signal Words (DE) | Signal Words (EN) | User Goal | Content Type |
-|--------|-------------------|-------------------|-----------|--------------|
-| Transactional | kaufen, buchen, bestellen, preis | buy, book, order, price | Ready to buy | Service pages, pricing |
-| Commercial Investigation | vergleich, beste, test, erfahrung | comparison, best, review | Comparing options | Comparison, reviews |
-| Informational | wie, was, warum, anleitung | how, what, why, guide | Learning | Blog, FAQ, guides |
-| Navigational | [brand name], [company] | [brand name], [company] | Find specific site | Homepage, about |
-
-### Step 5: SERP Feature Analysis
-
-For primary keywords, note what Google shows:
-
-| SERP Feature | Impact on Strategy |
-|--------------|-------------------|
-| Featured Snippet | Target with structured content (lists, tables) |
-| Local Pack (Map) | Need Google Business Profile optimized |
-| Images | Optimize image ALT text, consider gallery |
-| Videos | Consider video content creation |
-| People Also Ask | FAQ content opportunities |
-| Related Searches | Long-tail keyword ideas |
-
-### Step 6: Keyword Difficulty Assessment
-
-**Estimate difficulty based on:**
-
-| Factor | Low Difficulty | High Difficulty |
-|--------|----------------|-----------------|
-| Competitor Authority | Small local sites | Major brands/portals |
-| Content Quality | Thin/outdated content | Comprehensive guides |
-| Backlink Profiles | Few backlinks | Many quality backlinks |
-| SERP Features | Organic results only | Many SERP features |
-| Search Volume | Under 500/month | Over 5000/month |
-
-**Difficulty Rating:**
-- **Easy**: Local competitors, thin content, low authority - Target immediately
-- **Medium**: Mix of local and regional competitors - Target with quality content
-- **Hard**: National brands, comprehensive content - Long-term target
-- **Very Hard**: Major portals, Wikipedia, government sites - Consider alternatives
-
-### Step 7: Per-Page Keyword Mapping
-
-Read docs/sitemap.md and assign keywords to each page:
-
-| Page | Primary Keyword | Secondary Keywords | Long-tail Keywords |
-|------|-----------------|--------------------|--------------------|
-| Homepage | [main keyword] | [2-3 supporting] | [2-3 specific] |
-| Services | [service keyword] | [service variations] | [specific services] |
-| About | [brand + location] | [trust keywords] | [differentiators] |
-| Contact | [contact + location] | [booking keywords] | [specific CTAs] |
-
-**Rules:**
-- ONE primary keyword per page (avoid cannibalization)
-- Related keywords support the primary
-- Different intent = different page
-- Homepage: brand + main service + location
-- Service pages: specific service + location
-
-### Step 8: Content Gap Analysis
-
-Identify opportunities competitors miss:
-
-1. **Topics they don't cover** - Missing service pages, FAQ topics
-2. **Questions they don't answer** - Use "People Also Ask" for ideas
-3. **Local pages they lack** - Neighborhood/region targeting
-4. **Content depth gaps** - Thin content you can expand on
-5. **Fresh content opportunities** - Outdated competitor content
-
----
-
-## Output Format: docs/seo-analysis.md
+**Intent identification patterns:**
 
 ```markdown
-# SEO Analysis - [Business Name]
+## Informational Intent
 
-## Executive Summary
+- "how to [action]"
+- "what is [topic]"
+- "why does [thing happen]"
+- "[topic] explained"
+- "[topic] tutorial"
 
-**Primary Keyword:** [keyword]
-**Target Position:** Top 3 within [X months]
-**Competitive Landscape:** [Easy/Medium/Hard]
-**Key Opportunities:** [1-2 sentence summary]
+## Commercial Investigation
 
----
+- "best [product category]"
+- "[product A] vs [product B]"
+- "[product] review"
+- "[product] alternatives"
+- "top 10 [products]"
 
-## Competitor Analysis
+## Transactional Intent
 
-### Market Overview
+- "buy [product]"
+- "[product] price"
+- "[product] discount code"
+- "[product] free trial"
+- "order [product] online"
 
-| Rank | Competitor | Domain | Key Strength | Key Weakness |
-|------|------------|--------|--------------|--------------|
-| 1 | [Name] | [URL] | [strength] | [weakness] |
-| 2 | [Name] | [URL] | [strength] | [weakness] |
-| 3 | [Name] | [URL] | [strength] | [weakness] |
-| 4 | [Name] | [URL] | [strength] | [weakness] |
-| 5 | [Name] | [URL] | [strength] | [weakness] |
+## Navigational Intent
 
-### Competitor Content Analysis
-
-**[Competitor 1 - Current #1]**
-- Title: "[their title tag]"
-- H1: "[their H1]"
-- Content Focus: [topics they cover]
-- Strengths: [what works]
-- Weaknesses: [gaps to exploit]
-
-[Repeat for top 3 competitors]
-
-### Competitive Advantages We Can Exploit
-
-1. [Gap 1 - e.g., "No competitor has comprehensive pricing transparency"]
-2. [Gap 2 - e.g., "All competitors have slow, outdated sites"]
-3. [Gap 3 - e.g., "No one targets [specific long-tail keyword]"]
-
----
-
-## Keyword Strategy
-
-### Primary Keywords (Target: Position 1-3)
-
-| Keyword | Difficulty | Intent | Target Page |
-|---------|------------|--------|-------------|
-| [keyword] | [Easy/Med/Hard] | [Trans/Comm/Info] | [page route] |
-
-### Secondary Keywords (Target: Position 1-10)
-
-| Keyword | Difficulty | Intent | Target Page |
-|---------|------------|--------|-------------|
-| [keyword] | [difficulty] | [intent] | [page route] |
-
-### Long-tail Keywords (Quick Wins)
-
-| Keyword | Intent | Target Page | Content Angle |
-|---------|--------|-------------|---------------|
-| [keyword] | [intent] | [page route] | [how to use it] |
-
-### Local Keywords
-
-| Keyword | Target Page | Priority |
-|---------|-------------|----------|
-| [service] [city] | [page route] | [P1/P2] |
-| [service] [region] | [page route] | [P1/P2] |
-
-### Question Keywords (FAQ Opportunities)
-
-| Question | Intent | Where to Answer |
-|----------|--------|-----------------|
-| Was kostet [service]? | Commercial | Pricing page / FAQ |
-| Wie funktioniert [service]? | Informational | Services page / FAQ |
-| [Service] vs [alternative]? | Commercial | Blog / Comparison |
-
-### Semantic Keywords (LSI)
-
-Use these naturally throughout content:
-- [semantic keyword 1]
-- [semantic keyword 2]
-- [semantic keyword 3]
-- [semantic keyword 4]
-
----
-
-## Per-Page Optimization Guide
-
-### Homepage `/`
-
-**Primary Keyword:** [keyword]
-**Search Intent:** [Transactional/Navigational]
-
-| Element | Recommendation |
-|---------|----------------|
-| Title (50-60 chars) | [Primary Keyword] - [Brand] - [Benefit] |
-| Meta Description (150-160 chars) | [Description with keyword, USP, and CTA] |
-| H1 | [Primary keyword naturally integrated] |
-| H2 Topics | [List of H2s to include] |
-| Keyword Density | 1-2% for primary, natural for secondary |
-| Internal Links | Link to: [pages to link] |
-
-**Secondary Keywords to Include:**
-- [keyword 1] - use in [section]
-- [keyword 2] - use in [section]
-
-### Services Page `/dienstleistungen`
-
-**Primary Keyword:** [keyword]
-**Search Intent:** [intent]
-
-| Element | Recommendation |
-|---------|----------------|
-| Title (50-60 chars) | [recommendation] |
-| Meta Description (150-160 chars) | [recommendation] |
-| H1 | [recommendation] |
-| H2 Topics | [list] |
-
-**Secondary Keywords to Include:**
-- [keyword] - use in [section]
-
-### About Page `/ueber-uns`
-
-[Same format]
-
-### Contact Page `/kontakt`
-
-[Same format]
-
----
-
-## Content Gap Opportunities
-
-### Pages Competitors Have That We Should Consider
-
-| Page Topic | Competitor Example | Potential Value |
-|------------|-------------------|-----------------|
-| [topic] | [competitor URL] | [why valuable] |
-
-### Topics No Competitor Covers Well
-
-| Topic | Keyword Opportunity | Recommended Content |
-|-------|---------------------|---------------------|
-| [topic] | [keyword] | [content type] |
-
-### Blog/Content Ideas (Future)
-
-| Topic | Target Keyword | Search Intent |
-|-------|----------------|---------------|
-| [topic] | [keyword] | [intent] |
-
----
-
-## SERP Features Strategy
-
-| Feature | Target Keywords | How to Optimize |
-|---------|-----------------|-----------------|
-| Featured Snippet | [keywords] | [strategy] |
-| Local Pack | [keywords] | Google Business Profile |
-| People Also Ask | [questions] | FAQ section |
-
----
-
-## Implementation Priority
-
-### Phase 1: Foundation (Launch)
-- [ ] Optimize homepage for [primary keyword]
-- [ ] Optimize services page for [service keywords]
-- [ ] Implement all meta titles/descriptions
-- [ ] Add FAQ schema for question keywords
-
-### Phase 2: Expansion (Month 1-3)
-- [ ] Target long-tail keywords with content
-- [ ] Build local pages for [locations] if needed
-- [ ] Create content for gap opportunities
-
-### Phase 3: Authority (Month 3-6)
-- [ ] Blog content for informational keywords
-- [ ] Build backlinks for [target keywords]
-- [ ] Local SEO (Google Business Profile)
-
----
-
-## Success Metrics
-
-| Metric | Current | 3-Month Target | 6-Month Target |
-|--------|---------|----------------|----------------|
-| Primary Keyword Rank | - | Top 10 | Top 3 |
-| Organic Traffic | 0 | [target] | [target] |
-| Pages Indexed | 0 | [all pages] | [all pages] |
+- "[brand] login"
+- "[brand] website"
+- "[brand] support"
 ```
 
+### Step 4: Keyword Opportunity Analysis
+
+**Opportunity scoring:**
+
+| Factor             | Low Competition Signal                     |
+| ------------------ | ------------------------------------------ |
+| Search volume      | 100-1,000/month (sweet spot for new sites) |
+| Keyword difficulty | Under 30 (tool-dependent)                  |
+| SERP features      | Few featured snippets, no ads              |
+| Top results        | Forums, outdated content, thin pages       |
+| Domain authority   | Low DA sites ranking                       |
+
+**Opportunity matrix:**
+
+| Volume | Difficulty | Priority              |
+| ------ | ---------- | --------------------- |
+| High   | Low        | 🔥 Top priority       |
+| Medium | Low        | ✅ Quick wins         |
+| High   | Medium     | 📈 Long-term targets  |
+| Low    | Low        | ⚡ Easy content       |
+| High   | High       | 🎯 Authority builders |
+| Low    | High       | ❌ Skip               |
+
+### Step 5: Question-Based Keywords
+
+**Question patterns to generate:**
+
+| Question Word | Focus                    |
+| ------------- | ------------------------ |
+| How           | Process, tutorial        |
+| What          | Definition, explanation  |
+| Why           | Reasoning, benefits      |
+| When          | Timing, triggers         |
+| Where         | Location, source         |
+| Which         | Comparison, selection    |
+| Can/Could     | Possibility, capability  |
+| Should        | Recommendation, advice   |
+| Is/Are        | Verification, validation |
+
+**Question generation template:**
+
+```markdown
+## Questions for: [Seed Keyword]
+
+### How questions
+
+- How to [action with keyword]?
+- How does [keyword] work?
+- How much does [keyword] cost?
+- How long does [keyword] take?
+
+### What questions
+
+- What is [keyword]?
+- What are the benefits of [keyword]?
+- What is the best [keyword]?
+- What [keyword] should I use?
+
+### Why questions
+
+- Why is [keyword] important?
+- Why use [keyword]?
+- Why does [keyword] fail?
+
+### Comparison questions
+
+- [Keyword A] vs [Keyword B]?
+- Is [keyword] better than [alternative]?
+- What's the difference between [A] and [B]?
+```
+
+### Step 6: Topic Cluster Organization
+
+**Cluster structure:**
+
+```markdown
+## Topic Cluster: [Pillar Topic]
+
+### Pillar Page (main keyword)
+
+- Target: [High-volume keyword]
+- Intent: [Informational/Commercial]
+- Content: Comprehensive guide (3,000+ words)
+
+### Cluster Content (supporting pages)
+
+| Topic        | Keyword   | Intent   | Internal Link |
+| ------------ | --------- | -------- | ------------- |
+| [Subtopic 1] | [keyword] | [intent] | → Pillar      |
+| [Subtopic 2] | [keyword] | [intent] | → Pillar      |
+| [Subtopic 3] | [keyword] | [intent] | → Pillar      |
+| [Subtopic 4] | [keyword] | [intent] | → Pillar      |
+```
+
+**Cluster example:**
+
+```markdown
+## Topic Cluster: Email Marketing
+
+### Pillar Page
+
+- Target: "email marketing guide"
+- Intent: Informational
+- Content: Ultimate Guide to Email Marketing
+
+### Cluster Content
+
+| Topic           | Keyword                         | Intent        |
+| --------------- | ------------------------------- | ------------- |
+| Getting started | "how to start email marketing"  | Informational |
+| Tools           | "best email marketing software" | Commercial    |
+| Templates       | "email marketing templates"     | Informational |
+| Automation      | "email marketing automation"    | Commercial    |
+| Metrics         | "email marketing KPIs"          | Informational |
+| B2B focus       | "b2b email marketing"           | Commercial    |
+| List building   | "how to build email list"       | Informational |
+```
+
+### Step 7: Competitor Gap Analysis
+
+**Gap analysis template:**
+
+```markdown
+## Competitor Keyword Gap Analysis
+
+### Competitors Analyzed
+
+1. [Competitor 1 URL]
+2. [Competitor 2 URL]
+3. [Competitor 3 URL]
+
+### Keywords They Rank For (You Don't)
+
+| Keyword   | Volume | Difficulty | Competitor  | Priority   |
+| --------- | ------ | ---------- | ----------- | ---------- |
+| [keyword] | [vol]  | [KD]       | [who ranks] | [priority] |
+
+### Content Gaps Identified
+
+| Topic   | Competitor Coverage | Your Coverage | Action        |
+| ------- | ------------------- | ------------- | ------------- |
+| [topic] | 3 articles          | 0 articles    | Create pillar |
+| [topic] | 1 article           | Outdated      | Update        |
+| [topic] | None                | None          | First mover   |
+```
+
+### Step 8: Keyword Prioritization
+
+**Prioritization framework:**
+
+| Criteria             | Weight | Score (1-5) |
+| -------------------- | ------ | ----------- |
+| Search volume        | 20%    |             |
+| Keyword difficulty   | 25%    |             |
+| Business relevance   | 25%    |             |
+| Conversion potential | 20%    |             |
+| Content gap          | 10%    |             |
+
+**Priority tiers:**
+
+```markdown
+## Keyword Priorities
+
+### Tier 1: Immediate (This Month)
+
+- Low difficulty + high relevance
+- Quick wins for traffic
+  | Keyword | Volume | KD | Intent |
+  |---------|--------|----|----|
+
+### Tier 2: Short-term (1-3 Months)
+
+- Medium difficulty + commercial intent
+- Revenue-driving content
+  | Keyword | Volume | KD | Intent |
+  |---------|--------|----|----|
+
+### Tier 3: Long-term (3-6 Months)
+
+- High difficulty + high volume
+- Authority-building pillar content
+  | Keyword | Volume | KD | Intent |
+  |---------|--------|----|----|
+```
+
+## Output Format
+
+```markdown
+## Keyword Research: [Topic/Niche]
+
+**Seed keywords:** [List of seeds]
+**Target audience:** [Who you're reaching]
+**Business goal:** [Traffic/Leads/Sales]
+
 ---
 
-## Rules
+### Keyword List
 
-1. **ALWAYS use WebSearch** for real competitor data - don't guess
-2. **Classify EVERY keyword** by search intent
-3. **Map EVERY keyword** to a specific page
-4. **Identify at least 3** competitive gaps
-5. **Provide actionable per-page** recommendations
-6. **Prioritize quick wins** (long-tail) alongside primary keywords
-7. **One primary keyword per page** - avoid cannibalization
+| Keyword | Volume | KD  | Intent | Priority |
+| ------- | ------ | --- | ------ | -------- |
+|         |        |     |        |          |
 
-## What This Skill Does NOT Do
+### By Search Intent
 
-- Create the sitemap (use sitemap-structure skill first)
-- Write the actual content (use seo-content-optimization skill)
-- Implement technical SEO (use technical-seo skill)
-- Generate page content (provides strategy only)
+**Informational:**
+
+- [keywords]
+
+**Commercial:**
+
+- [keywords]
+
+**Transactional:**
+
+- [keywords]
+
+---
+
+### Topic Clusters
+
+[Cluster organization]
+
+---
+
+### Question Keywords
+
+[Question-based keywords for FAQ/content]
+
+---
+
+### Quick Wins (Low KD, Decent Volume)
+
+| Keyword | Volume | KD  | Content Type |
+| ------- | ------ | --- | ------------ |
+|         |        |     |              |
+
+---
+
+### Content Recommendations
+
+1. [Recommendation 1]
+2. [Recommendation 2]
+3. [Recommendation 3]
+```
+
+## Validation
+
+Before completing:
+
+- [ ] Keywords classified by intent
+- [ ] Volume and difficulty included
+- [ ] Question keywords generated
+- [ ] Topic clusters organized
+- [ ] Priority tiers assigned
+- [ ] Quick wins identified
+- [ ] Content recommendations provided
+- [ ] Competitor gaps noted
+
+## Error Handling
+
+- **No seed keywords**: Ask for main product/service or topic area.
+- **Too broad**: Narrow with audience, location, or specific use case.
+- **No volume data**: Note as "volume unknown" and prioritize by relevance.
+- **All high difficulty**: Focus on long-tail variations or question keywords.
+- **No competitors identified**: Search top 3 ranking for seed keywords.
+
+## Resources
+
+- [Ahrefs](https://ahrefs.com/) - Keyword research and competitor analysis
+- [SEMrush](https://www.semrush.com/) - Keyword gap and difficulty
+- [Ubersuggest](https://neilpatel.com/ubersuggest/) - Free keyword ideas
+- [AnswerThePublic](https://answerthepublic.com/) - Question keywords
+- [AlsoAsked](https://alsoasked.com/) - People Also Ask data
+- [Google Search Console](https://search.google.com/search-console) - Current rankings

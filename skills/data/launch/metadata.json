@@ -1,7 +1,7 @@
 {
   "name": "launch",
-  "repo": "eddiebe147/claude-settings",
-  "path": "skills/id8labs/launch/SKILL.md",
-  "source": "github.com/eddiebe147/claude-settings",
-  "downloaded_at": "2026-01-17T03:33:58.438987Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/product-manager-workflow/.claude/skills/launch/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-19T03:26:09.964191Z"
 }

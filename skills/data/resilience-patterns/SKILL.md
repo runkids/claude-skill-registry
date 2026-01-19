@@ -1,443 +1,304 @@
 ---
 name: resilience-patterns
-description: Circuit breaker, retry, and DLQ patterns for .NET using Polly and Brighter. Use when implementing fault tolerance, handling transient failures, configuring retry strategies, or setting up dead letter queues. Includes Polly HttpClient patterns and Brighter message handler resilience.
-allowed-tools: Read, Write, Glob, Grep, Bash, Skill
+description: Production-grade fault tolerance for distributed systems. Use when implementing circuit breakers, retry with exponential backoff, bulkhead isolation patterns, or building resilience into LLM API integrations.
+context: fork
+agent: backend-system-architect
+version: 1.0.0
+author: SkillForge AI Agent Hub
+tags: [resilience, circuit-breaker, bulkhead, retry, fault-tolerance]
+user-invocable: false
 ---
 
 # Resilience Patterns Skill
 
-## Overview
-
-This skill provides guidance on implementing resilience patterns in .NET applications. It covers both synchronous resilience (HTTP clients, service calls) using Polly and asynchronous resilience (message handlers) using Brighter.
-
-**Key Principle:** Design for failure. Systems should gracefully handle transient faults, prevent cascade failures, and provide meaningful fallback behavior.
+Production-grade resilience patterns for distributed systems and LLM-based workflows. Covers circuit breakers, bulkheads, retry strategies, and LLM-specific resilience techniques.
 
 ## When to Use This Skill
 
-**Keywords:** resilience, circuit breaker, retry, polly, brighter, fault tolerance, transient failure, DLQ, dead letter queue, timeout, bulkhead, fallback, http client resilience
+- Building fault-tolerant multi-agent systems
+- Implementing LLM API integrations with proper error handling
+- Designing distributed workflows that need graceful degradation
+- Adding observability to failure scenarios
+- Protecting systems from cascade failures
 
-**Use this skill when:**
+## Core Patterns
 
-- Implementing HTTP client resilience
-- Configuring retry policies for transient failures
-- Setting up circuit breakers to prevent cascade failures
-- Designing message handler error handling
-- Implementing dead letter queue patterns
-- Adding timeout policies to service calls
-- Configuring bulkhead isolation
+### 1. Circuit Breaker Pattern (reference: circuit-breaker.md)
 
-## Resilience Strategy Overview
+Prevents cascade failures by "tripping" when a service exceeds failure thresholds.
 
-### Synchronous Resilience (Polly)
-
-For HTTP calls and synchronous service communication:
-
-| Pattern | Purpose | When to Use |
-| --- | --- | --- |
-| **Retry** | Retry failed operations | Transient failures (network, 503, timeouts) |
-| **Circuit Breaker** | Stop calling failing services | Repeated failures indicate service is down |
-| **Timeout** | Bound operation time | Prevent indefinite waits |
-| **Bulkhead** | Isolate failures | Prevent one caller from exhausting resources |
-| **Fallback** | Provide alternative | Graceful degradation |
-
-### Asynchronous Resilience (Brighter)
-
-For message-based and async operations:
-
-| Pattern | Purpose | When to Use |
-| --- | --- | --- |
-| **Retry** | Redeliver failed messages | Transient processing failures |
-| **Dead Letter Queue** | Park unprocessable messages | Poison messages, business rule failures |
-| **Circuit Breaker** | Stop processing temporarily | Downstream service unavailable |
-| **Timeout** | Bound handler execution | Prevent handler blocking |
-
-## Quick Start: Polly v8 with HttpClient
-
-### Basic Setup
-
-```csharp
-// Program.cs or Startup.cs
-builder.Services.AddHttpClient<IOrderService, OrderService>()
-    .AddStandardResilienceHandler();
+```
++-------------------------------------------------------------------+
+|                    Circuit Breaker States                         |
++-------------------------------------------------------------------+
+|                                                                   |
+|    +----------+     failures >= threshold    +----------+         |
+|    |  CLOSED  | ----------------------------> |   OPEN   |        |
+|    | (normal) |                              | (reject) |         |
+|    +----+-----+                              +----+-----+         |
+|         |                                         |               |
+|         | success                    timeout      |               |
+|         |                            expires      |               |
+|         |         +------------+                  |               |
+|         |         | HALF_OPEN  |<-----------------+               |
+|         +---------+  (probe)   |                                  |
+|                   +------------+                                  |
+|                                                                   |
+|   CLOSED:    Allow requests, count failures                       |
+|   OPEN:      Reject immediately, return fallback                  |
+|   HALF_OPEN: Allow probe request to test recovery                 |
+|                                                                   |
++-------------------------------------------------------------------+
 ```
 
-The `AddStandardResilienceHandler()` adds a preconfigured pipeline with:
+**Key Configuration:**
+- `failure_threshold`: Failures before opening (default: 5)
+- `recovery_timeout`: Seconds before attempting recovery (default: 30)
+- `half_open_requests`: Probes to allow in half-open (default: 1)
 
-- Rate limiter
-- Total request timeout
-- Retry (exponential backoff)
-- Circuit breaker
-- Attempt timeout
+### 2. Bulkhead Pattern (reference: bulkhead-pattern.md)
 
-### Custom Configuration
+Isolates failures by partitioning resources into independent pools.
 
-```csharp
-builder.Services.AddHttpClient<IOrderService, OrderService>()
-    .AddResilienceHandler("custom-pipeline", builder =>
-    {
-        // Retry with exponential backoff
-        builder.AddRetry(new HttpRetryStrategyOptions
-        {
-            MaxRetryAttempts = 3,
-            Delay = TimeSpan.FromSeconds(1),
-            BackoffType = DelayBackoffType.Exponential,
-            UseJitter = true,
-            ShouldHandle = new PredicateBuilder<HttpResponseMessage>()
-                .Handle<HttpRequestException>()
-                .HandleResult(r => r.StatusCode == HttpStatusCode.ServiceUnavailable)
-        });
-
-        // Circuit breaker
-        builder.AddCircuitBreaker(new HttpCircuitBreakerStrategyOptions
-        {
-            FailureRatio = 0.5,
-            MinimumThroughput = 10,
-            SamplingDuration = TimeSpan.FromSeconds(30),
-            BreakDuration = TimeSpan.FromSeconds(30)
-        });
-
-        // Timeout per attempt
-        builder.AddTimeout(TimeSpan.FromSeconds(10));
-    });
+```
++-------------------------------------------------------------------+
+|                      Bulkhead Isolation                           |
++-------------------------------------------------------------------+
+|                                                                   |
+|   +------------------+  +------------------+                      |
+|   | TIER 1: Critical |  | TIER 2: Standard |                      |
+|   |  (5 workers)     |  |  (3 workers)     |                      |
+|   |  +-+ +-+ +-+     |  |  +-+ +-+ +-+     |                      |
+|   |  |#| |#| | |     |  |  |#| | | | |     |                      |
+|   |  +-+ +-+ +-+     |  |  +-+ +-+ +-+     |                      |
+|   |  +-+ +-+         |  |                  |                      |
+|   |  | | | |         |  |  Queue: 2        |                      |
+|   |  +-+ +-+         |  |                  |                      |
+|   |  Queue: 0        |  +------------------+                      |
+|   +------------------+                                            |
+|                                                                   |
+|   +------------------+                                            |
+|   | TIER 3: Optional |   # = Active request                       |
+|   |  (2 workers)     |     = Available slot                       |
+|   |  +-+ +-+         |                                            |
+|   |  |#| |#| FULL!   |   Tier 1: synthesis, quality_gate          |
+|   |  +-+ +-+         |   Tier 2: analysis agents                  |
+|   |  Queue: 5        |   Tier 3: enrichment, optional features    |
+|   +------------------+                                            |
+|                                                                   |
++-------------------------------------------------------------------+
 ```
 
-**Detailed Polly patterns:** See `references/polly-patterns.md`
+**Tier Configuration (SkillForge):**
+| Tier | Workers | Queue | Timeout | Use Case |
+|------|---------|-------|---------|----------|
+| 1 (Critical) | 5 | 10 | 300s | Synthesis, quality gate |
+| 2 (Standard) | 3 | 5 | 120s | Content analysis agents |
+| 3 (Optional) | 2 | 3 | 60s | Enrichment, caching |
 
-## Quick Start: Brighter Message Handler
+### 3. Retry Strategies (reference: retry-strategies.md)
 
-### Basic Retry Policy
+Intelligent retry logic with exponential backoff and jitter.
 
-```csharp
-public class OrderCreatedHandler : RequestHandler<OrderCreated>
-{
-    [UsePolicy("retry-policy", step: 1)]
-    public override OrderCreated Handle(OrderCreated command)
-    {
-        // Process order
-        return base.Handle(command);
-    }
+```
++-------------------------------------------------------------------+
+|                   Exponential Backoff + Jitter                    |
++-------------------------------------------------------------------+
+|                                                                   |
+|   Attempt 1:  --> X (fail)                                        |
+|               wait: 1s +/- 0.5s                                   |
+|                                                                   |
+|   Attempt 2:  --> X (fail)                                        |
+|               wait: 2s +/- 1s                                     |
+|                                                                   |
+|   Attempt 3:  --> X (fail)                                        |
+|               wait: 4s +/- 2s                                     |
+|                                                                   |
+|   Attempt 4:  --> OK (success)                                    |
+|                                                                   |
+|   Formula: delay = min(base * 2^attempt, max_delay) * jitter      |
+|   Jitter:  random(0.5, 1.5) to prevent thundering herd            |
+|                                                                   |
++-------------------------------------------------------------------+
+```
+
+**Error Classification for Retries:**
+```python
+RETRYABLE_ERRORS = {
+    # HTTP/Network
+    408, 429, 500, 502, 503, 504,  # HTTP status codes
+    ConnectionError, TimeoutError,  # Network errors
+
+    # LLM-specific
+    "rate_limit_exceeded",
+    "model_overloaded",
+    "context_length_exceeded",  # Retry with truncation
+}
+
+NON_RETRYABLE_ERRORS = {
+    400, 401, 403, 404,  # Client errors
+    "invalid_api_key",
+    "content_policy_violation",
+    "invalid_request_error",
 }
 ```
 
-### Policy Registry Setup
+### 4. LLM-Specific Resilience (reference: llm-resilience.md)
 
-```csharp
-var policyRegistry = new PolicyRegistry
-{
-    {
-        "retry-policy",
-        Policy
-            .Handle<Exception>()
-            .WaitAndRetry(
-                retryCount: 3,
-                sleepDurationProvider: attempt =>
-                    TimeSpan.FromSeconds(Math.Pow(2, attempt)))
-    }
-};
+Patterns specific to LLM API integrations.
 
-services.AddBrighter()
-    .UseExternalBus(/* config */)
-    .UsePolicyRegistry(policyRegistry);
+```
++-------------------------------------------------------------------+
+|                    LLM Fallback Chain                             |
++-------------------------------------------------------------------+
+|                                                                   |
+|   Request --> [Primary Model] --success--> Response               |
+|                     |                                             |
+|                   fail                                            |
+|                     v                                             |
+|               [Fallback Model] --success--> Response              |
+|                     |                                             |
+|                   fail                                            |
+|                     v                                             |
+|               [Cached Response] --hit--> Response                 |
+|                     |                                             |
+|                   miss                                            |
+|                     v                                             |
+|               [Default Response] --> Graceful Degradation         |
+|                                                                   |
+|   Example Chain:                                                  |
+|   1. claude-sonnet-4-20250514 (primary)                           |
+|   2. gpt-4o-mini (fallback)                                       |
+|   3. Semantic cache lookup                                        |
+|   4. "Analysis unavailable" + partial results                     |
+|                                                                   |
++-------------------------------------------------------------------+
 ```
 
-**Detailed Brighter patterns:** See `references/brighter-resilience.md`
-
-## Pattern Decision Tree
-
-### When to Use Retry
-
-**Use retry when:**
-
-- Failure is likely transient (network blip, temporary 503)
-- Operation is idempotent
-- Delay between retries is acceptable
-
-**Don't use retry when:**
-
-- Failure is business logic (validation error, 400 Bad Request)
-- Operation is not idempotent (unless with idempotency key)
-- Immediate response required
-
-### When to Use Circuit Breaker
-
-**Use circuit breaker when:**
-
-- Calling external services that might be down
-- Need to fail fast instead of waiting
-- Want to prevent cascade failures
-- Service recovery needs time
-
-**Configuration guidance:** See `references/circuit-breaker-config.md`
-
-### When to Use DLQ
-
-**Use DLQ when:**
-
-- Message cannot be processed after max retries
-- Business rule prevents processing
-- Manual intervention needed
-- Audit trail required for failures
-
-**DLQ patterns:** See `references/dlq-patterns.md`
-
-## Retry Strategy Patterns
-
-### Immediate Retry
-
-For very transient failures:
-
-```csharp
-.AddRetry(new RetryStrategyOptions
-{
-    MaxRetryAttempts = 2,
-    Delay = TimeSpan.Zero  // Immediate retry
-});
+**Token Budget Management:**
+```
++-------------------------------------------------------------------+
+|                     Token Budget Guard                            |
++-------------------------------------------------------------------+
+|                                                                   |
+|   Input: 8,000 tokens                                             |
+|   +---------------------------------------------+                 |
+|   |#################################            |                 |
+|   +---------------------------------------------+                 |
+|                                          ^                        |
+|                                          |                        |
+|                                    Context Limit (16K)            |
+|                                                                   |
+|   Strategy when approaching limit:                                |
+|   1. Summarize earlier context (compress 4:1)                     |
+|   2. Drop low-priority content (optional fields)                  |
+|   3. Split into multiple requests                                 |
+|   4. Fail fast with "content too large" error                     |
+|                                                                   |
++-------------------------------------------------------------------+
 ```
 
-### Exponential Backoff
+## Quick Reference
 
-For transient failures that need time:
+| Pattern | When to Use | Key Benefit |
+|---------|-------------|-------------|
+| Circuit Breaker | External service calls | Prevent cascade failures |
+| Bulkhead | Multi-tenant/multi-agent | Isolate failures |
+| Retry + Backoff | Transient failures | Automatic recovery |
+| Fallback Chain | Critical operations | Graceful degradation |
+| Token Budget | LLM calls | Cost control, prevent failures |
 
-```csharp
-.AddRetry(new RetryStrategyOptions
-{
-    MaxRetryAttempts = 4,
-    Delay = TimeSpan.FromSeconds(1),
-    BackoffType = DelayBackoffType.Exponential,
-    UseJitter = true  // Prevents thundering herd
-});
-```
+## SkillForge Integration Points
 
-**Delays:** 1s → 2s → 4s → 8s (with jitter)
+1. **Workflow Agents**: Each agent wrapped with circuit breaker + bulkhead tier
+2. **LLM Calls**: All model invocations use fallback chain + retry logic
+3. **External APIs**: Circuit breaker on YouTube, arXiv, GitHub APIs
+4. **Database Ops**: Bulkhead isolation for read vs write operations
 
-### Linear Backoff
+## Files in This Skill
 
-For rate-limited services:
+### References (Conceptual Guides)
+- `references/circuit-breaker.md` - Deep dive on circuit breaker pattern
+- `references/bulkhead-pattern.md` - Bulkhead isolation strategies
+- `references/retry-strategies.md` - Retry algorithms and error classification
+- `references/llm-resilience.md` - LLM-specific patterns
+- `references/error-classification.md` - How to categorize errors
 
-```csharp
-.AddRetry(new RetryStrategyOptions
-{
-    MaxRetryAttempts = 3,
-    Delay = TimeSpan.FromSeconds(2),
-    BackoffType = DelayBackoffType.Linear
-});
-```
+### Templates (Code Patterns)
+- `templates/circuit-breaker.py` - Ready-to-use circuit breaker class
+- `templates/bulkhead.py` - Semaphore-based bulkhead implementation
+- `templates/retry-handler.py` - Configurable retry decorator
+- `templates/llm-fallback-chain.py` - Multi-model fallback pattern
+- `templates/token-budget.py` - Token budget guard implementation
 
-**Delays:** 2s → 4s → 6s
+### Examples
+- `examples/skillforge-workflow-resilience.md` - Full SkillForge integration example
 
-**Full retry strategies:** See `references/retry-strategies.md`
+### Checklists
+- `checklists/pre-deployment-resilience.md` - Production readiness checklist
+- `checklists/circuit-breaker-setup.md` - Circuit breaker configuration guide
 
-## Circuit Breaker Configuration
+## 2025 Best Practices
 
-### Conservative (Sensitive Service)
+1. **Adaptive Thresholds**: Use sliding windows, not fixed counters
+2. **Observability First**: Every circuit trip = alert + metric + trace
+3. **Graceful Degradation**: Always have a fallback, even if partial
+4. **Health Endpoints**: Separate health check from circuit state
+5. **Chaos Testing**: Regularly test failure scenarios in staging
 
-```csharp
-.AddCircuitBreaker(new CircuitBreakerStrategyOptions
-{
-    FailureRatio = 0.25,        // Open after 25% failures
-    MinimumThroughput = 5,       // Need at least 5 calls to evaluate
-    SamplingDuration = TimeSpan.FromSeconds(10),
-    BreakDuration = TimeSpan.FromSeconds(60)  // Stay open 60s
-});
-```
-
-### Aggressive (High Availability)
-
-```csharp
-.AddCircuitBreaker(new CircuitBreakerStrategyOptions
-{
-    FailureRatio = 0.5,          // Open after 50% failures
-    MinimumThroughput = 20,      // Need 20 calls before evaluation
-    SamplingDuration = TimeSpan.FromSeconds(30),
-    BreakDuration = TimeSpan.FromSeconds(15)  // Quick recovery attempt
-});
-```
-
-**Detailed configuration:** See `references/circuit-breaker-config.md`
-
-## Dead Letter Queue Pattern
-
-### When Message Processing Fails
-
-```text
-1. Message received
-2. Handler attempts processing
-3. Failure occurs
-4. Retry policy applied (1...N attempts)
-5. All retries exhausted
-6. Message moved to DLQ
-7. Alert/monitoring triggered
-8. Manual investigation
-```
-
-### Brighter DLQ Setup
-
-```csharp
-services.AddBrighter()
-    .UseExternalBus(config =>
-    {
-        config.Publication.RequeueDelayInMs = 500;
-        config.Publication.RequeueCount = 3;
-        // After 3 requeues, message goes to DLQ
-    });
-```
-
-**Full DLQ patterns:** See `references/dlq-patterns.md`
-
-## Combined Patterns
-
-### HTTP Client with Full Resilience
-
-```csharp
-builder.Services.AddHttpClient<IPaymentGateway, PaymentGateway>()
-    .AddResilienceHandler("payment-gateway", builder =>
-    {
-        // Order matters: outer to inner
-
-        // 1. Total timeout (outer boundary)
-        builder.AddTimeout(TimeSpan.FromSeconds(30));
-
-        // 2. Retry (with circuit breaker inside)
-        builder.AddRetry(new HttpRetryStrategyOptions
-        {
-            MaxRetryAttempts = 3,
-            Delay = TimeSpan.FromMilliseconds(500),
-            BackoffType = DelayBackoffType.Exponential,
-            UseJitter = true
-        });
-
-        // 3. Circuit breaker
-        builder.AddCircuitBreaker(new HttpCircuitBreakerStrategyOptions
-        {
-            FailureRatio = 0.5,
-            MinimumThroughput = 10,
-            BreakDuration = TimeSpan.FromSeconds(30)
-        });
-
-        // 4. Per-attempt timeout (inner)
-        builder.AddTimeout(TimeSpan.FromSeconds(5));
-    });
-```
-
-### Message Handler with Fallback
-
-```csharp
-public class ProcessPaymentHandler : RequestHandler<ProcessPayment>
-{
-    [UsePolicy("circuit-breaker", step: 1)]
-    [UsePolicy("retry", step: 2)]
-    [UsePolicy("fallback", step: 3)]
-    public override ProcessPayment Handle(ProcessPayment command)
-    {
-        _paymentService.Process(command);
-        return base.Handle(command);
-    }
-}
-```
-
-## Observability
-
-### Polly Telemetry
-
-```csharp
-services.AddResiliencePipeline("my-pipeline", builder =>
-{
-    builder.AddRetry(/* options */)
-        .ConfigureTelemetry(LoggerFactory.Create(b => b.AddConsole()));
-});
-```
-
-### Key Metrics to Monitor
-
-| Metric | Purpose | Alert Threshold |
-| --- | --- | --- |
-| Retry count | Track transient failures | > 3 per minute |
-| Circuit state | Track service health | State = Open |
-| DLQ depth | Track processing failures | > 0 |
-| Timeout rate | Track slow services | > 5% |
-
-## Anti-Patterns
-
-### Over-Retrying
-
-**Problem:** Retrying too many times, too quickly.
-
-```csharp
-// BAD: 10 immediate retries
-.AddRetry(new RetryStrategyOptions { MaxRetryAttempts = 10 });
-```
-
-**Fix:** Use exponential backoff, limit retries:
-
-```csharp
-// GOOD: 3 retries with backoff
-.AddRetry(new RetryStrategyOptions
-{
-    MaxRetryAttempts = 3,
-    Delay = TimeSpan.FromSeconds(1),
-    BackoffType = DelayBackoffType.Exponential
-});
-```
-
-### Retrying Non-Transient Failures
-
-**Problem:** Retrying business logic failures.
-
-```csharp
-// BAD: Retrying 400 Bad Request
-ShouldHandle = new PredicateBuilder<HttpResponseMessage>()
-    .HandleResult(r => !r.IsSuccessStatusCode)
-```
-
-**Fix:** Only retry transient failures:
-
-```csharp
-// GOOD: Only retry transient HTTP codes
-ShouldHandle = new PredicateBuilder<HttpResponseMessage>()
-    .Handle<HttpRequestException>()
-    .HandleResult(r => r.StatusCode is
-        HttpStatusCode.ServiceUnavailable or
-        HttpStatusCode.GatewayTimeout or
-        HttpStatusCode.RequestTimeout)
-```
-
-### Missing Circuit Breaker
-
-**Problem:** Retrying endlessly when service is down.
-
-**Fix:** Always pair retry with circuit breaker for external calls.
-
-### DLQ as Black Hole
-
-**Problem:** Messages go to DLQ and are never processed.
-
-**Fix:**
-
-- Monitor DLQ depth
-- Set up alerts
-- Implement replay mechanism
-- Document investigation procedures
-
-## References
-
-- `references/polly-patterns.md` - Comprehensive Polly v8 patterns
-- `references/circuit-breaker-config.md` - Circuit breaker configuration guide
-- `references/retry-strategies.md` - Retry strategy patterns
-- `references/brighter-resilience.md` - Brighter message handler resilience
-- `references/dlq-patterns.md` - Dead letter queue patterns
+---
 
 ## Related Skills
 
-- `fitness-functions` - Test resilience with performance fitness functions
-- `modular-architecture` - Isolate resilience concerns by module
-- `adr-management` - Document resilience decisions
+- `observability-monitoring` - Metrics and alerting for circuit breaker state changes
+- `caching-strategies` - Cache as fallback layer in degradation scenarios
+- `error-handling-rfc9457` - Structured error responses for resilience failures
+- `background-jobs` - Async processing with retry and failure handling
+
+## Key Decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Circuit breaker recovery | Half-open probe | Gradual recovery, prevents immediate re-failure |
+| Retry algorithm | Exponential backoff + jitter | Prevents thundering herd, respects rate limits |
+| Bulkhead isolation | Semaphore-based tiers | Simple, efficient, prioritizes critical operations |
+| LLM fallback | Model chain with cache | Graceful degradation, cost optimization, availability |
 
 ---
 
-**Last Updated:** 2025-12-22
+## Capability Details
 
-## Version History
+### circuit-breaker
+**Keywords:** circuit breaker, failure threshold, cascade failure, trip, half-open
+**Solves:**
+- Prevent cascade failures when external services fail
+- Automatically recover when services come back online
+- Fail fast instead of waiting for timeouts
 
-- **v1.0.0** (2025-12-26): Initial release
+### bulkhead
+**Keywords:** bulkhead, isolation, semaphore, thread pool, resource pool, tier
+**Solves:**
+- Isolate failures to prevent entire system crashes
+- Prioritize critical operations over optional ones
+- Limit concurrent requests to protect resources
 
----
+### retry-strategies
+**Keywords:** retry, backoff, exponential, jitter, thundering herd
+**Solves:**
+- Handle transient failures automatically
+- Avoid overwhelming recovering services
+- Classify errors as retryable vs non-retryable
+
+### llm-resilience
+**Keywords:** LLM, fallback, model, token budget, rate limit, context length
+**Solves:**
+- Handle LLM API rate limits gracefully
+- Fall back to alternative models when primary fails
+- Manage token budgets to prevent context overflow
+
+### error-classification
+**Keywords:** error, retryable, transient, permanent, classification
+**Solves:**
+- Determine which errors should be retried
+- Categorize errors by severity and recoverability
+- Map HTTP status codes to resilience actions

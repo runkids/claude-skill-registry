@@ -1,325 +1,290 @@
 ---
-name: "moai-domain-backend"
-description: "Backend development specialist covering API design, database integration, microservices architecture, and modern backend patterns"
-version: 1.0.0
-category: "domain"
-modularized: false
-user-invocable: false
-tags: ['backend', 'api', 'database', 'microservices', 'architecture']
-updated: 2026-01-08
+name: moai-domain-backend
+description: Provides backend architecture and scaling guidance; use when the project targets server-side APIs or infrastructure design decisions.
 allowed-tools:
   - Read
-  - Write
-  - Edit
   - Bash
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
-status: "active"
-author: "MoAI-ADK Team"
 ---
 
-# Backend Development Specialist
+# Backend Expert
 
-## Quick Reference (30 seconds)
+## Skill Metadata
+| Field | Value |
+| ----- | ----- |
+| Version | 2.0.0 |
+| Created | 2025-10-22 |
+| Updated | 2025-10-22 |
+| Allowed tools | Read (read_file), Bash (terminal) |
+| Auto-load | On demand for backend architecture requests |
+| Trigger cues | Service layering, API orchestration, caching, background job design, cloud-native patterns, Kubernetes, Istio, observability, microservices, serverless, event-driven architecture. |
+| Tier | 4 |
 
-Backend Development Mastery - Comprehensive backend development patterns covering API design, database integration, microservices, and modern architecture patterns.
+## What it does
 
-Core Capabilities:
-- API Design: REST, GraphQL, gRPC with OpenAPI 3.1
-- Database Integration: PostgreSQL, MongoDB, Redis, caching strategies
-- Microservices: Service mesh, distributed patterns, event-driven architecture
-- Security: Authentication, authorization, OWASP compliance
-- Performance: Caching, optimization, monitoring, scaling
+Provides expertise in backend server architecture, RESTful API design, caching strategies, database optimization, cloud-native patterns, observability, and horizontal/vertical scalability patterns with modern tooling (Kubernetes, Istio, OpenTelemetry, Prometheus).
 
-When to Use:
-- Backend API development and architecture
-- Database design and optimization
-- Microservices implementation
-- Performance optimization and scaling
-- Security integration for backend systems
+## When to use
 
----
+- Engages when backend or service-architecture questions come up.
+- "Backend architecture", "API design", "Caching strategy", "Scalability", "Kubernetes", "Observability"
+- Automatically invoked when working with backend projects
+- Backend SPEC implementation (`/alfred:2-run`)
+- Cloud-native architecture planning
+- Microservices design and orchestration
 
-## Implementation Guide
+## How it works
 
-### API Design Patterns
+### Server Architecture Patterns
 
-RESTful API Architecture:
-```python
-from fastapi import FastAPI, Depends, HTTPException
-from fastapi.security import HTTPBearer
-from pydantic import BaseModel
-from typing import List, Optional
+**Layered Architecture**:
+- **Controller → Service → Repository** pattern
+- Clear separation of concerns
+- Testable business logic
+- Database abstraction layer
 
-app = FastAPI(title="Modern API", version="2.0.0")
-security = HTTPBearer()
+**Microservices**:
+- **Service decomposition**: Domain-driven design boundaries
+- **Container orchestration**: Kubernetes 1.31.x
+- **Service mesh**: Istio 1.21.x for traffic management, security, observability
+- **Inter-service communication**: REST, gRPC, message queues
+- **API Gateway**: Kong, Ambassador, Traefik
+- **Service discovery**: Kubernetes DNS, Consul
 
-class UserResponse(BaseModel):
- id: int
- email: str
- name: str
+**Monoliths**:
+- When appropriate (small team, low complexity, rapid prototyping)
+- Modular monolith patterns
+- Clear internal boundaries for future extraction
 
-@app.get("/users", response_model=List[UserResponse])
-async def list_users(token: str = Depends(security)):
- """List users with authentication."""
- return await user_service.get_all_users()
+**Serverless**:
+- **AWS Lambda**: Event-driven functions
+- **Google Cloud Functions**: HTTP and event triggers
+- **Azure Functions**: Durable Functions for workflows
+- Cold start mitigation strategies
+- Stateless design principles
 
-@app.post("/users", response_model=UserResponse)
-async def create_user(user: UserCreate):
- """Create new user with validation."""
- return await user_service.create(user)
-```
+**Event-Driven Architecture**:
+- **CQRS**: Command Query Responsibility Segregation
+- **Event Sourcing**: Immutable event logs
+- **Apache Kafka 3.7.x**: Distributed streaming platform
+- **RabbitMQ 3.13.x**: Message broker
+- **Event versioning**: Schema evolution strategies
 
-GraphQL Implementation:
-```python
-import strawberry
-from typing import List
+### API Design
 
-@strawberry.type
-class User:
- id: int
- email: str
- name: str
+**RESTful APIs**:
+- **Resource-based**: Nouns over verbs
+- **HTTP methods**: GET, POST, PUT, PATCH, DELETE
+- **Stateless**: No server-side session
+- **HATEOAS**: Hypermedia as the Engine of Application State
+- **Pagination**: Cursor-based or offset-based
+- **Filtering**: Query parameters for resource selection
 
-@strawberry.type
-class Query:
- @strawberry.field
- async def users(self) -> List[User]:
- return await user_service.get_all_users()
+**GraphQL**:
+- **Schema-first**: Type definitions drive development
+- **Resolver patterns**: Efficient data fetching
+- **DataLoader**: Batching and caching
+- **Subscriptions**: Real-time updates via WebSockets
 
-schema = strawberry.Schema(query=Query)
-```
+**gRPC**:
+- **Protocol Buffers**: Strongly-typed contracts
+- **HTTP/2**: Multiplexing, server push
+- **Streaming**: Unary, server-streaming, client-streaming, bidirectional
 
-### Database Integration Patterns
+**WebSockets**:
+- **Bidirectional communication**: Real-time updates
+- **Connection management**: Heartbeats, reconnection
+- **Authentication**: Token-based or session-based
 
-PostgreSQL with SQLAlchemy:
-```python
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+### Security (OWASP API Security Top 10 2023)
 
-Base = declarative_base()
-
-class User(Base):
- __tablename__ = "users"
-
- id = Column(Integer, primary_key=True)
- email = Column(String, unique=True)
- name = Column(String)
-
-# Connection pooling and optimization
-engine = create_engine(
- DATABASE_URL,
- pool_size=20,
- max_overflow=30,
- pool_pre_ping=True
-)
-```
-
-MongoDB with Motor:
-```python
-from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import IndexModel
-
-class UserService:
- def __init__(self, client: AsyncIOMotorClient):
- self.db = client.myapp
- self.users = self.db.users
-
- # Index optimization
- self.users.create_indexes([
- IndexModel("email", unique=True),
- IndexModel("created_at")
- ])
-
- async def create_user(self, user_data: dict) -> str:
- result = await self.users.insert_one(user_data)
- return str(result.inserted_id)
-```
-
-### Microservices Architecture
-
-Service Discovery with Consul:
-```python
-import consul
-
-class ServiceRegistry:
- def __init__(self, consul_host="localhost", consul_port=8500):
- self.consul = consul.Consul(host=consul_host, port=consul_port)
-
- def register_service(self, service_name: str, service_id: str, port: int):
- self.consul.agent.service.register(
- name=service_name,
- service_id=service_id,
- port=port,
- check=consul.Check.http(f"http://localhost:{port}/health", interval="10s")
- )
-
- def discover_service(self, service_name: str) -> List[str]:
- _, services = self.consul.health.service(service_name, passing=True)
- return [f"{s['Service']['Address']}:{s['Service']['Port']}" for s in services]
-```
-
-Event-Driven Architecture:
-```python
-import asyncio
-from aio_pika import connect_robust
-
-class EventBus:
- def __init__(self, amqp_url: str):
- self.connection = None
- self.channel = None
- self.amqp_url = amqp_url
-
- async def connect(self):
- self.connection = await connect_robust(self.amqp_url)
- self.channel = await self.connection.channel()
-
- async def publish_event(self, event_type: str, data: dict):
- await self.channel.default_exchange.publish(
- aio_pika.Message(
- json.dumps({"type": event_type, "data": data}).encode(),
- content_type="application/json"
- ),
- routing_key=event_type
- )
-```
-
----
-
-## Advanced Patterns
+- **API1:2023 Broken Object Level Authorization**: Verify user permissions
+- **API2:2023 Broken Authentication**: Strong auth mechanisms
+- **API3:2023 Broken Object Property Level Authorization**: Filter sensitive fields
+- **API4:2023 Unrestricted Resource Consumption**: Rate limiting, pagination
+- **API5:2023 Broken Function Level Authorization**: Role-based access control
+- **API6:2023 Unrestricted Access to Sensitive Business Flows**: Anti-automation
+- **API7:2023 Server Side Request Forgery**: Validate URLs, whitelist
+- **API8:2023 Security Misconfiguration**: Secure defaults, hardening
+- **API9:2023 Improper Inventory Management**: API versioning, documentation
+- **API10:2023 Unsafe Consumption of APIs**: Validate external API responses
 
 ### Caching Strategies
 
-Redis Integration:
-```python
-import redis.asyncio as redis
-from functools import wraps
-import json
-import hashlib
+**Redis 7.2.x**:
+- **In-memory data store**: Key-value, hashes, lists, sets
+- **Pub/Sub**: Real-time messaging
+- **Lua scripting**: Atomic operations
+- **Redis Cluster**: Horizontal scaling
+- **Persistence**: RDB snapshots, AOF logs
 
-class CacheManager:
- def __init__(self, redis_url: str):
- self.redis = redis.from_url(redis_url)
+**Memcached 1.6.x**:
+- **Distributed caching**: Simple key-value store
+- **LRU eviction**: Automatic memory management
+- **Multi-threaded**: High concurrency
 
- def cache_result(self, ttl: int = 3600):
- def decorator(func):
- @wraps(func)
- async def wrapper(*args, kwargs):
- cache_key = self._generate_cache_key(func.__name__, args, kwargs)
+**Cache Patterns**:
+- **Cache-aside**: Application manages cache
+- **Write-through**: Write to cache and database
+- **Write-behind**: Asynchronous database writes
+- **Refresh-ahead**: Proactive cache warming
 
- # Try to get from cache
- cached = await self.redis.get(cache_key)
- if cached:
- return json.loads(cached)
+**CDN Caching**:
+- **CloudFlare**, **CloudFront**, **Fastly**
+- **Edge caching**: Geographically distributed
+- **Cache invalidation**: Purge, TTL
 
- # Execute function and cache result
- result = await func(*args, kwargs)
- await self.redis.setex(
- cache_key,
- ttl,
- json.dumps(result, default=str)
- )
- return result
- return wrapper
- return decorator
-```
+### Database Optimization
 
-### Security Implementation
+**PostgreSQL 16.x**:
+- **EXPLAIN ANALYZE**: Query plan analysis
+- **Connection pooling**: PgBouncer, pgpool-II
+- **Read replicas**: Streaming replication
+- **Partitioning**: Table partitioning for large datasets
+- **JSONB indexing**: GIN, GiST indexes
 
-JWT Authentication:
-```python
-import jwt
-from datetime import datetime, timedelta
-from passlib.context import CryptContext
+**MongoDB 8.0.x**:
+- **Aggregation pipeline**: Complex queries
+- **Sharding**: Horizontal scaling
+- **Read concern/Write concern**: Consistency tuning
+- **Change streams**: Real-time data feeds
 
-class SecurityManager:
- def __init__(self, secret_key: str):
- self.secret_key = secret_key
- self.pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+**Cassandra 4.1.x**:
+- **Wide-column store**: Time-series data
+- **Tunable consistency**: CAP theorem trade-offs
+- **Data modeling**: Partition keys, clustering columns
 
- def hash_password(self, password: str) -> str:
- return self.pwd_context.hash(password)
+**Redis 7.2.x** (as database):
+- **RediSearch**: Full-text search
+- **RedisJSON**: Native JSON support
+- **RedisTimeSeries**: Time-series data
 
- def verify_password(self, plain_password: str, hashed_password: str) -> bool:
- return self.pwd_context.verify(plain_password, hashed_password)
+### Cloud-Native Patterns
 
- def create_access_token(self, data: dict, expires_delta: timedelta = None) -> str:
- to_encode = data.copy()
- if expires_delta:
- expire = datetime.utcnow() + expires_delta
- else:
- expire = datetime.utcnow() + timedelta(minutes=15)
+**Kubernetes 1.31.x**:
+- **Deployments**: Rolling updates, rollbacks
+- **StatefulSets**: Persistent storage for databases
+- **Services**: ClusterIP, NodePort, LoadBalancer
+- **Ingress**: HTTP/HTTPS routing
+- **ConfigMaps/Secrets**: Configuration management
+- **Horizontal Pod Autoscaler**: CPU/memory-based scaling
+- **Vertical Pod Autoscaler**: Resource request optimization
 
- to_encode.update({"exp": expire})
- return jwt.encode(to_encode, self.secret_key, algorithm="HS256")
-```
+**Istio 1.21.x Service Mesh**:
+- **Traffic management**: Canary deployments, A/B testing
+- **Security**: mTLS, authorization policies
+- **Observability**: Distributed tracing, metrics
+- **Resilience**: Circuit breaking, retries, timeouts
 
-### Performance Optimization
+**Docker 27.0+**:
+- **Multi-stage builds**: Smaller images
+- **BuildKit**: Efficient caching
+- **Docker Compose**: Local development
+- **Image scanning**: Vulnerability detection
 
-Database Connection Pooling:
-```python
-from sqlalchemy.pool import QueuePool
-from sqlalchemy import event
+### Observability Stack (2025-10-22)
 
-def create_optimized_engine(database_url: str):
- engine = create_engine(
- database_url,
- poolclass=QueuePool,
- pool_size=20,
- max_overflow=30,
- pool_pre_ping=True,
- pool_recycle=3600,
- echo=False
- )
+**OpenTelemetry 1.24.0**:
+- **Unified telemetry**: Traces, metrics, logs
+- **Language SDKs**: Auto-instrumentation
+- **Collector**: Vendor-agnostic pipeline
+- **Context propagation**: Distributed tracing
 
- @event.listens_for(engine, "before_cursor_execute")
- def receive_before_cursor_execute(conn, cursor, statement, parameters, context, executemany):
- context._query_start_time = time.time()
+**Prometheus 2.48.x**:
+- **Metrics collection**: Pull-based
+- **PromQL**: Query language
+- **Alertmanager**: Alert routing
+- **Service discovery**: Kubernetes integration
 
- @event.listens_for(engine, "after_cursor_execute")
- def receive_after_cursor_execute(conn, cursor, statement, parameters, context, executemany):
- total = time.time() - context._query_start_time
- if total > 0.1: # Log slow queries
- logger.warning(f"Slow query: {total:.2f}s - {statement[:100]}")
+**Jaeger 1.51.x**:
+- **Distributed tracing**: Request flow visualization
+- **Span analysis**: Latency breakdown
+- **Service dependency graph**: Architecture mapping
 
- return engine
-```
+**ELK Stack**:
+- **Elasticsearch 8.x**: Log search and analytics
+- **Logstash 8.x**: Log aggregation and transformation
+- **Kibana 8.x**: Visualization and dashboards
+- **Filebeat 8.x**: Log shipping
 
----
+**Grafana 10.x**:
+- **Unified dashboards**: Metrics, logs, traces
+- **Data source plugins**: Prometheus, Loki, Tempo
+- **Alerting**: Multi-channel notifications
 
-## Works Well With
+### Scalability Patterns
 
-- moai-domain-frontend - Full-stack development integration
-- moai-domain-database - Advanced database patterns
-- moai-foundation-core - MCP server development patterns for backend services
-- moai-quality-security - Security validation and compliance
-- moai-foundation-core - Core architectural principles
+**Horizontal Scaling**:
+- **Load balancers**: NGINX, HAProxy, AWS ALB
+- **Stateless services**: No local state
+- **Session management**: Redis, database
 
----
+**Vertical Scaling**:
+- **Resource limits**: CPU, memory allocation
+- **Database connection pooling**: Reduce overhead
 
-## Technology Stack
+**Async Processing**:
+- **Apache Kafka 3.7.x**: Event streaming
+- **RabbitMQ 3.13.x**: Task queues
+- **Celery**: Python task queue
+- **Bull/BullMQ**: Node.js job queues
 
-Primary Technologies:
-- Languages: Python 3.13+, Node.js 20+, Go 1.23
-- Frameworks: FastAPI, Django, Express.js, Gin
-- Databases: PostgreSQL 16+, MongoDB 7+, Redis 7+
-- Message Queues: RabbitMQ, Apache Kafka, Redis Pub/Sub
-- Containerization: Docker, Kubernetes
-- Monitoring: Prometheus, Grafana, OpenTelemetry
+**Rate Limiting**:
+- **Token bucket**: Fixed rate with burst
+- **Sliding window**: Time-based limits
+- **Distributed rate limiting**: Redis-based
 
-Integration Patterns:
-- RESTful APIs with OpenAPI 3.1
-- GraphQL with Apollo Federation
-- gRPC for high-performance services
-- Event-driven architecture with CQRS
-- API Gateway patterns
-- Circuit breakers and resilience patterns
+## Examples
 
----
+See `examples.md` for production-ready patterns:
+- Microservices with Kubernetes 1.31 + Istio 1.21
+- Event-driven with Kafka 3.7
+- Serverless with AWS Lambda
+- Observability with OpenTelemetry 1.24 + Prometheus 2.48
 
-Status: Production Ready
-Last Updated: 2025-11-30
-Maintained by: MoAI-ADK Backend Team
+## Inputs
+- Domain-specific design documents and user requirements.
+- Project technology stack and operational constraints.
+- Performance, scalability, and availability requirements.
+
+## Outputs
+- Domain-specific architecture or implementation guidelines.
+- Recommended list of associated sub-agents/skills.
+- Tool version recommendations and deployment strategies.
+
+## Failure Modes
+- When the domain document does not exist or is ambiguous.
+- When the project strategy is unconfirmed and cannot be specified.
+- When performance/scalability requirements are not quantified.
+
+## Dependencies
+- `.moai/project/` document and latest technical briefing are required.
+- `reference.md` for architecture decision matrices.
+- `examples.md` for production patterns.
+
+## References
+- AWS. "AWS Well-Architected Framework." https://docs.aws.amazon.com/wellarchitected/latest/framework/ (accessed 2025-10-22).
+- Heroku. "The Twelve-Factor App." https://12factor.net/ (accessed 2025-10-22).
+- OWASP. "API Security Top 10 2023." https://owasp.org/API-Security/editions/2023/en/0x11-t10/ (accessed 2025-10-22).
+- Kubernetes. "Kubernetes Documentation." https://kubernetes.io/docs/ (accessed 2025-10-22).
+- OpenTelemetry. "OpenTelemetry Documentation." https://opentelemetry.io/docs/ (accessed 2025-10-22).
+- Istio. "Istio Documentation." https://istio.io/latest/docs/ (accessed 2025-10-22).
+
+## Changelog
+- 2025-10-22: v2.0.0 - Added cloud-native patterns (Kubernetes 1.31, Istio 1.21), observability stack (OpenTelemetry 1.24, Prometheus 2.48, Jaeger 1.51), OWASP API Security Top 10 2023, latest database versions (PostgreSQL 16, MongoDB 8, Redis 7.2, Cassandra 4.1).
+- 2025-03-29: v1.0.0 - Codified input/output and failure responses for domain skills.
+
+## Works well with
+
+- moai-alfred-trust-validation (backend testing)
+- moai-domain-web-api (API design)
+- moai-domain-database (database optimization)
+- moai-domain-devops (CI/CD, infrastructure)
+- moai-domain-security (OWASP, SAST)
+
+## Best Practices
+- Record supporting documentation (version/link) for each domain decision.
+- Review performance, security, and operational requirements simultaneously at an early stage.
+- Use observability stack from day one (OpenTelemetry + Prometheus + Jaeger).
+- Apply OWASP API Security Top 10 2023 guidelines.
+- Choose architecture patterns based on team size, complexity, and operational maturity.
+- Test scalability patterns with realistic load (k6, Gatling).

@@ -1,7 +1,7 @@
 {
   "name": "gh-fix-ci",
-  "repo": "ComposioHQ/awesome-codex-skills",
-  "path": "gh-fix-ci/SKILL.md",
-  "source": "github.com/ComposioHQ/awesome-codex-skills",
-  "downloaded_at": "2026-01-17T03:59:46.117036Z"
+  "repo": "OutlineDriven/odin-claude-plugin",
+  "path": "skills/gh-fix-ci/SKILL.md",
+  "source": "github.com/OutlineDriven/odin-claude-plugin",
+  "downloaded_at": "2026-01-19T03:32:39.062176Z"
 }

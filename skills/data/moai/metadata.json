@@ -1,7 +1,7 @@
 {
   "name": "moai",
-  "repo": "zellycloud/zyflow",
+  "repo": "modu-ai/cc-plugins",
   "path": ".claude/agents/moai/builder-skill.md",
-  "source": "github.com/zellycloud/zyflow",
-  "downloaded_at": "2026-01-17T03:46:22.871492Z"
+  "source": "github.com/modu-ai/cc-plugins",
+  "downloaded_at": "2026-01-19T03:57:52.523110Z"
 }

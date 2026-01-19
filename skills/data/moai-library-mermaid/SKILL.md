@@ -4,15 +4,7 @@ description: "Enterprise Mermaid diagramming skill for Claude Code using MCP Pla
 version: 7.0.0
 category: "library"
 modularized: true
-user-invocable: false
-updated: 2026-01-08
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: "Read, Grep, Glob, Bash, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
 ---
 
 ## Quick Reference

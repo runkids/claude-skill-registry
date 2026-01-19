@@ -1,28 +1,26 @@
 ---
 name: Frontend Components
-description: Structure React 19+ components following best practices for organization, state management, props handling, and code readability with top-down structure and single responsibility principle. Use this skill when creating new React components, refactoring existing components, organizing component logic, managing component state, defining prop interfaces (IComponentProps with I prefix), or implementing component patterns. Apply when working on React component files (*.tsx, *.jsx), Shadcn/ui components, or any frontend component implementations. This skill ensures predictable top-down structure (imports → types/interfaces → component → hooks → derived values → JSX), proper props destructuring with defaults in function signature, manageable component size (split at >300 lines), composition via Shadcn Slot pattern (asChild prop), React 19 patterns (use() hook for promises, useActionState for forms, useOptimistic for immediate feedback), no manual useMemo/useCallback (React Compiler handles memoization), Server Components as default for data fetching, early returns for loading/error states, and components that pass the scroll test.
+description: Build reusable, composable UI components with single responsibilities, clear prop interfaces, proper state management, and minimal coupling. Use this skill when creating or editing React components (.tsx, .jsx files), when designing component APIs with props, when implementing component composition patterns, when managing local component state, when building shadcn/ui components, when creating shared UI components in resources/js/Components/, when implementing component documentation, or when refactoring large components into smaller, focused pieces.
 ---
 
 # Frontend Components
 
-## When to use this skill:
-
-- When creating new React components with React 19+ features
-- When refactoring large components into smaller ones (>300 lines)
-- When organizing component structure and code order (top-down readability)
-- When defining component props with TypeScript interfaces (IComponentProps)
-- When implementing state management with useState, useOptimistic, or Zustand
-- When using composition patterns with Shadcn/ui Slot and asChild prop
-- When handling conditional rendering and early returns
-- When using React 19 Actions API (useActionState, useFormStatus) for forms
-- When using the use() hook to unwrap promises in Server Components
-- When extracting reusable component logic into custom hooks
-- When working on component files (*.tsx, *.jsx, components/*.*)
-- When reviewing component structure for readability (scroll test)
-- When deciding between local state, lifted state, or global state (Zustand)
-- When implementing optimistic UI updates with useOptimistic
-
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle frontend components.
+
+## When to use this skill
+
+- When creating new React components in `.tsx` or `.jsx` files
+- When editing existing components in `resources/js/Components/` or similar directories
+- When designing component prop interfaces and TypeScript types
+- When implementing component composition by combining smaller components
+- When managing component state (useState, useReducer, etc.)
+- When building or customizing shadcn/ui components
+- When creating reusable UI components (buttons, cards, modals, forms, etc.)
+- When refactoring monolithic components into smaller, focused pieces
+- When implementing component documentation or usage examples
+- When deciding between local state and lifting state up to parent components
+- When defining component naming conventions
+- When encapsulating component internal logic and exposing minimal APIs
 
 ## Instructions
 

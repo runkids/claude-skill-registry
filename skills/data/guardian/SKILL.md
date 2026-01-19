@@ -36,11 +36,96 @@ Budget Whisperer Check:
   Recommendation: Wrap in db.batch() with max 1000 statements per batch.
 ```
 
-### R2 Write Operations
+### D1 Read Operations (Row Read Explosion)
+**CRITICAL**: D1's primary danger for solo devs is **Row Reads**, not writes. Unoptimized queries can trigger millions of reads per page view. One user hit the 5 million daily limit just by browsing their own site.
+
+If suggesting code that includes `SELECT`, `.all()`, `.first()`, or database reads:
+1. **Check for WHERE clause** - SELECT without WHERE causes full table scans
+2. **Verify indexed columns** - WHERE on non-indexed column = full scan
+3. **Check for LIMIT** - Unbounded queries can read entire tables
+4. **Consider caching** - High-traffic reads should use KV cache first
+5. **Cite**: `TRAP-D1-004` from COST_SENSITIVE_RESOURCES.md
+
+```
+Row Read Explosion Check:
+- Detected: D1 SELECT query in proposed code
+- Pattern: SELECT * FROM users WHERE status = 'active'
+- Index Check: ❌ No index on 'status' column
+- Warning: [STATIC:COST_WATCHLIST] TRAP-D1-004
+  Unindexed query detected. With 100K rows, each request reads 100K rows.
+  At 1K requests/day = 100M rows/day = $25/day (Free tier: 5B/month = 166M/day)
+  Recommendation:
+  1. CREATE INDEX idx_users_status ON users(status)
+  2. Add LIMIT clause: LIMIT 100
+  3. For high-traffic endpoints, use KV-Cache-First pattern
+```
+
+**KV-Cache-First Pattern Detection**:
+For high-traffic endpoints (>100 requests/minute), always suggest:
+```typescript
+// EXPENSIVE: Direct D1 read on every request
+const users = await db.prepare('SELECT * FROM users WHERE status = ?').bind('active').all();
+// 1000 req/min × 100K rows = 6B rows/hour = $1.50/hour
+
+// OPTIMIZED: KV cache with D1 fallback
+const cacheKey = `users:active:${page}`;
+let users = await env.KV.get(cacheKey, 'json');
+if (!users) {
+  users = await db.prepare('SELECT * FROM users WHERE status = ? LIMIT 100').bind('active').all();
+  await env.KV.put(cacheKey, JSON.stringify(users), { expirationTtl: 60 });
+}
+// KV reads: $0.50/M, cache hit = no D1 cost
+```
+
+### R2 Write Operations (Class A)
 If suggesting code that includes `.put()`:
 1. **Check loop context** - Is `.put()` inside a loop or frequently called handler?
 2. **Search for buffering** - Any aggregation before write?
 3. **Cite**: `TRAP-R2-001` from COST_SENSITIVE_RESOURCES.md
+
+### R2 Read Operations (Class B)
+If suggesting code that includes `.get()` for public assets:
+1. **Check caching** - Is response cached at the edge?
+2. **Check Cache-Control headers** - Are objects served with proper cache headers?
+3. **Cite**: `TRAP-R2-003` from COST_SENSITIVE_RESOURCES.md
+
+```
+R2 Class B Cost Check:
+- Detected: Public R2 bucket serving assets
+- Pattern: await bucket.get(key) in request handler
+- Caching: ❌ No Cache-Control headers, no CDN cache
+- Warning: [STATIC:COST_WATCHLIST] TRAP-R2-003
+  Every request = $0.36/M Class B operation.
+  At 10M requests/month = $3.60/month (Free tier: 10M)
+  Recommendation:
+  1. Add Cache-Control: public, max-age=31536000 for static assets
+  2. Use Cache Rules or Cache API to cache at edge
+  3. See: r2-cdn-cache pattern
+```
+
+### R2 Infrequent Access (IA) Storage Trap
+**CRITICAL WARNING**: If code or config uses R2 Infrequent Access storage class:
+
+```
+R2 IA Billing Trap Check:
+- Detected: R2 Infrequent Access storage usage
+- Warning: [STATIC:COST_WATCHLIST] TRAP-R2-004 (CRITICAL)
+  ⚠️ R2 IA has MINIMUM BILLING UNITS.
+  A single operation can incur $9.00 minimum charge.
+
+  Explanation: Cloudflare rounds up to next billing unit.
+  1 file retrieval = rounds to minimum = $9.00
+
+  Safe Usage:
+  ✅ True cold storage (backups, archives)
+  ✅ Large files (>100MB) where retrieval cost is amortized
+  ✅ Objects never accessed after upload
+
+  Dangerous Usage:
+  ❌ Any bucket with regular read operations
+  ❌ Small files that might be accessed
+  ❌ User-facing asset storage
+```
 
 ### Durable Objects Usage
 If suggesting DO architecture:
@@ -58,7 +143,10 @@ If suggesting DO architecture:
 |-----------------|-----------|-------------------|
 | Durable Objects | Any usage | "DO charges ~$0.15/GB-month storage + $0.50/M requests. Consider KV for simple key-value." |
 | R2 Class A ops | >1M/month | "R2 writes cost $4.50/M. Buffer writes or use presigned URLs for client uploads." |
+| R2 Class B ops | >10M/month | "R2 reads cost $0.36/M. For public buckets, add Cache Rules to serve from CDN (free)." |
+| R2 Infrequent Access | Any usage | "⚠️ R2 IA has minimum billing units. A single operation may incur $9.00 minimum charge." |
 | D1 Writes | >10M/month | "D1 writes cost $1/M. Detected pattern suggests >$10/mo. Batch to ≤1,000 rows." |
+| D1 Reads (unindexed) | Any unindexed query | "⚠️ Unindexed D1 query causes full table scan. 100K rows × 1K req = 100M reads/day." |
 | Workers AI (>8B) | Any usage | "Large models (Llama 11B+) cost $0.68/M tokens. Use 8B or smaller for bulk." |
 | Vectorize | >1M vectors | "Approaching 5M vector limit. Plan sharding strategy." |
 | KV Writes | >5M/month | "KV writes cost $5/M (10× reads). Consider D1 or R2 for write-heavy." |
@@ -126,6 +214,9 @@ If suggesting DO architecture:
 | BUDGET004 | Large AI model | MEDIUM | Workers AI with >8B parameter model |
 | BUDGET005 | KV write-heavy | MEDIUM | >5M KV writes/month pattern |
 | BUDGET006 | Vectorize scaling | INFO | >1M vectors - warn about 5M limit |
+| BUDGET007 | D1 row read explosion | CRITICAL | SELECT without index/LIMIT on high-traffic endpoint |
+| BUDGET008 | R2 Class B without cache | MEDIUM | Public R2 bucket reads without CDN caching |
+| BUDGET009 | R2 Infrequent Access trap | HIGH | R2 IA storage with minimum charge risk |
 
 ### Privacy Audit Rules
 
@@ -136,6 +227,21 @@ If suggesting DO architecture:
 | PRIV003 | AI prompts PII | HIGH | AI bindings without redaction middleware |
 | PRIV004 | R2 public access | HIGH | R2 bucket without authentication |
 | PRIV005 | Analytics PII | MEDIUM | User identifiers in Analytics Engine writes |
+
+### Loop-Sensitive Resource Audit Rules (Billing Safety)
+
+**CRITICAL**: Infinite loops are direct billing multipliers. These rules detect patterns that could cause runaway costs.
+
+| ID | Name | Severity | Check |
+|----|------|----------|-------|
+| LOOP001 | Missing cpu_ms limit | HIGH | No `limits.cpu_ms` in wrangler config |
+| LOOP002 | D1 query in loop | CRITICAL | SQL operations inside for/while/forEach blocks |
+| LOOP003 | R2 write in loop | HIGH | `.put()` calls inside iteration without buffering |
+| LOOP004 | DO setInterval | HIGH | `setInterval` in Durable Object without termination |
+| LOOP005 | Worker self-fetch | CRITICAL | `fetch()` to same Worker URL without depth limit |
+| LOOP006 | Queue no DLQ | HIGH | Queue consumer without dead_letter_queue (retry loop) |
+| LOOP007 | Unbounded while | CRITICAL | `while(true)` or `for(;;)` without break condition |
+| LOOP008 | High retry count | MEDIUM | Queue `max_retries > 2` (cost multiplier) |
 
 ## Audit Workflow
 
@@ -208,6 +314,112 @@ For privacy-sensitive patterns:
 3. Verify AI prompts have redaction middleware
 4. Check R2 bucket access controls
 5. Review Analytics Engine write patterns
+```
+
+### Step 5d: Run Loop-Sensitive Resource Audit (Billing Safety)
+
+**CRITICAL**: These checks prevent "denial-of-wallet" attacks from runaway loops.
+
+```
+For loop-sensitive patterns:
+
+1. Check wrangler config for `limits.cpu_ms`:
+   - Missing → LOOP001 (HIGH)
+   - Suggest: Add limits.cpu_ms based on use case
+
+2. Scan code for D1 queries in loops:
+   Pattern: for|while|forEach.*\.prepare\(|\.run\(|\.first\(
+   - Found in loop → LOOP002 (CRITICAL)
+   - Cite: TRAP-D1-001 (N+1 query cost explosion)
+   - Fix: Use db.batch() or QueryBatcher pattern
+
+3. Scan code for R2 writes in loops:
+   Pattern: for|while|forEach.*\.put\(
+   - Found in loop → LOOP003 (HIGH)
+   - Cite: TRAP-R2-001 (Class A op explosion)
+   - Fix: Buffer writes, use batch upload
+
+4. Scan Durable Objects for setInterval:
+   Pattern: setInterval\(
+   - Found without clearInterval or alarm() → LOOP004 (HIGH)
+   - Duration billing continues while interval runs
+   - Fix: Use state.storage.setAlarm() for hibernation
+
+5. Scan for Worker self-fetch patterns:
+   Pattern: fetch\(.*request\.url|fetch\(.*self
+   - Missing X-Recursion-Depth handling → LOOP005 (CRITICAL)
+   - Reference: @skills/loop-breaker/SKILL.md
+
+6. Check queue config for DLQ:
+   - Consumer without dead_letter_queue → LOOP006 (HIGH)
+   - Each retry = additional message cost
+
+7. Scan for unbounded loops:
+   Pattern: while\s*\(\s*true\s*\)|for\s*\(\s*;\s*;\s*\)
+   - No break/return condition visible → LOOP007 (CRITICAL)
+
+8. Check queue max_retries:
+   - max_retries > 2 → LOOP008 (MEDIUM)
+   - Cost impact: (retries + 1) × message cost
+```
+
+### Loop-Sensitive Resource Audit Output
+
+When loop issues are found, include in the audit output:
+
+```markdown
+## Loop-Sensitive Resource Audit (Billing Safety)
+
+> **CRITICAL**: Detected patterns that could cause runaway billing.
+
+| ID | Location | Issue | Est. Cost Impact |
+|----|----------|-------|------------------|
+| LOOP002 | src/handlers/import.ts:45 | D1 query in forEach loop | $0.01 per 1K iterations |
+| LOOP005 | src/webhook.ts:23 | fetch(request.url) without depth limit | Unbounded |
+
+### LOOP002: D1 Query in Loop (CRITICAL)
+
+**Location**: `src/handlers/import.ts:45`
+
+**Pattern Detected**:
+```typescript
+for (const item of items) {
+  await db.prepare('INSERT INTO items ...').run();  // N queries
+}
+```
+
+**Cost Analysis**:
+- 10,000 items = 10,000 D1 write operations
+- Cost: 10,000 × $1/M = $0.01 per batch
+- At scale: 1M items/day = $1/day = $30/month
+
+**Fix**: [STATIC:COST_WATCHLIST] TRAP-D1-001
+```typescript
+// Use db.batch() - 1 operation per 1000 items
+const statements = items.map(item =>
+  db.prepare('INSERT INTO items ...').bind(item.name)
+);
+await db.batch(statements);
+```
+
+### LOOP005: Worker Self-Fetch (CRITICAL)
+
+**Location**: `src/webhook.ts:23`
+
+**Pattern Detected**:
+```typescript
+const response = await fetch(request.url, { ... });
+```
+
+**Risk**: Infinite recursion if this webhook triggers itself.
+
+**Fix**: Add recursion depth middleware
+```typescript
+import { recursionGuard } from './middleware/recursion-guard';
+app.use('*', recursionGuard({ maxDepth: 3 }));
+```
+
+See: @skills/loop-breaker/SKILL.md
 ```
 
 ### Step 6: Calculate Score

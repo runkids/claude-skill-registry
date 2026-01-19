@@ -1,7 +1,7 @@
 {
   "name": "deploy-automation",
-  "repo": "timequity/plugins",
-  "path": "vibe-coder/skills/deploy-automation/SKILL.md",
-  "source": "github.com/timequity/plugins",
-  "downloaded_at": "2026-01-17T02:24:47.386555Z"
+  "repo": "timequity/vibe-coder",
+  "path": "skills/deploy-automation/SKILL.md",
+  "source": "github.com/timequity/vibe-coder",
+  "downloaded_at": "2026-01-19T03:30:52.240708Z"
 }

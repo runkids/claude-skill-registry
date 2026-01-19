@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-vectorize",
-  "repo": "jezweb/claude-skills",
-  "path": "skills/cloudflare-vectorize/SKILL.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-01-17T03:02:32.054706Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/cloudflare-vectorize/skills/cloudflare-vectorize/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-19T03:47:57.833424Z"
 }

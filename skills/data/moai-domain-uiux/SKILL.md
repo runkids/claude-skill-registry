@@ -4,17 +4,11 @@ description: "Domain UI/UX Expert - Enterprise design systems, component archite
 version: 2.0.0
 category: "domain"
 modularized: true
-user-invocable: false
 tags: ['domain', 'uiux', 'design-systems', 'accessibility', 'components', 'icons', 'theming']
 aliases: ['moai-foundation-uiux']
-updated: 2026-01-08
+updated: 2025-11-30
 status: "active"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
+allowed-tools: "Read, Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
 ---
 
 ## Quick Reference (30 seconds)

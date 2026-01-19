@@ -1,7 +1,7 @@
 {
   "name": "agentuity-cli-cloud-db-sql",
-  "repo": "agentuity/examples",
-  "path": "training-v1/deep-research-v1/.agents/skills/agentuity-cli-cloud-db-sql/SKILL.md",
-  "source": "github.com/agentuity/examples",
-  "downloaded_at": "2026-01-17T03:53:48.687261Z"
+  "repo": "agentuity/sdk-explorer",
+  "path": ".agents/skills/agentuity-cli-cloud-db-sql/SKILL.md",
+  "source": "github.com/agentuity/sdk-explorer",
+  "downloaded_at": "2026-01-19T03:22:43.618598Z"
 }

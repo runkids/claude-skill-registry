@@ -1,259 +1,138 @@
 ---
 name: deployment-orchestrator
-description: Manage staging/production environments, rollbacks, and disaster recovery. Use when deploying, setting up environments, or recovering from incidents.
+description: Automated deployment orchestration supporting multiple environments, infrastructure as code, CI/CD pipeline management, rollback procedures, and monitoring integration. Use when Claude needs to manage deployments, configure infrastructure, orchestrate release processes, or ensure deployment reliability across different environments.
 ---
 
-# Deployment Orchestration
+# Deployment Orchestrator
 
-## When to Use
+## Overview
+This skill orchestrates automated deployments across multiple environments with support for infrastructure as code, rollback procedures, and comprehensive monitoring integration.
 
-- Deploying to production
-- Setting up new environments
-- Rolling back failed deployments
-- Disaster recovery
-- Environment configuration
+## When to Use This Skill
+- Managing deployments across development, staging, and production
+- Configuring infrastructure as code (IaC)
+- Orchestrating CI/CD pipelines
+- Implementing blue-green or canary deployment strategies
+- Managing rollback procedures
+- Integrating deployment monitoring and alerting
 
-## Quick Reference
+## Supported Platforms
+- Kubernetes and container orchestration
+- AWS (EC2, ECS, EKS, Lambda, CloudFormation)
+- Azure (VMs, AKS, ARM templates)
+- Google Cloud Platform (GKE, Compute Engine)
+- Docker and containerization
+- Serverless platforms (Vercel, Netlify, AWS Amplify)
 
-### Vercel Deployment (AinexSuite)
+## Deployment Strategies
 
-```bash
-# Deploy single app to production
-cd apps/journal && vercel --prod
+### Blue-Green Deployment
+- Maintain two identical production environments
+- Switch traffic between environments
+- Enable rapid rollbacks
+- Minimize downtime
 
-# Deploy all apps
-pnpm deploy
+### Canary Deployment
+- Gradually shift traffic to new version
+- Monitor metrics during rollout
+- Automatically rollback on failures
+- Control rollout percentage
 
-# Deploy preview (PR preview)
-vercel
+### Rolling Deployment
+- Update instances incrementally
+- Maintain service availability
+- Control deployment pace
+- Monitor health during rollout
 
-# Check deployment status
-vercel ls
+### Recreate Deployment
+- Terminate old instances before creating new
+- Ensure clean state transitions
+- Suitable for stateless applications
+- Complete environment refresh
 
-# View deployment logs
-vercel logs <deployment-url>
-```
+## Infrastructure as Code
+- Terraform configurations
+- CloudFormation templates
+- ARM templates for Azure
+- Kubernetes manifests
+- Docker Compose files
+- Serverless framework configurations
 
-### Pre-Deployment Checklist
+## CI/CD Pipeline Components
 
-```bash
-# 1. Run full build locally
-pnpm build
+### Build Phase
+- Source code compilation
+- Dependency management
+- Artifact creation
+- Security scanning
 
-# 2. Run linting
-pnpm lint
+### Test Phase
+- Unit and integration tests
+- Security scans
+- Performance testing
+- Compliance checks
 
-# 3. Check for TypeScript errors
-pnpm --filter @ainexsuite/types build
-cd apps/journal && npx tsc --noEmit
+### Deploy Phase
+- Environment provisioning
+- Application deployment
+- Configuration management
+- Health checks
 
-# 4. Review environment variables
-vercel env ls
+### Post-Deploy Phase
+- Smoke testing
+- Monitoring setup
+- Alert configuration
+- Rollback preparation
 
-# 5. Check git status
-git status
-git log --oneline -5
-```
+## Monitoring and Observability
+- Application performance monitoring (APM)
+- Infrastructure monitoring
+- Log aggregation and analysis
+- Health check endpoints
+- Business metric tracking
+- Error rate monitoring
 
-### Environment Configuration
+## Rollback Procedures
+- Automated rollback triggers
+- Manual rollback capabilities
+- Database migration reversals
+- Configuration restoration
+- Traffic switching procedures
 
-```typescript
-// Environment variable structure for AinexSuite
-// .env.local (never commit)
-NEXT_PUBLIC_FIREBASE_API_KEY = xxx;
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN = xxx;
-NEXT_PUBLIC_FIREBASE_PROJECT_ID = xxx;
-FIREBASE_ADMIN_PRIVATE_KEY = xxx;
-FIREBASE_ADMIN_CLIENT_EMAIL = xxx;
+## Environment Management
+- Development: Rapid iteration, feature testing
+- Staging: Pre-production validation
+- Production: Live user traffic
+- Disaster recovery: Backup and failover
 
-// Vercel environment setup
-// Development, Preview, Production scopes
-```
+## Security Considerations
+- Secret management
+- Access control and permissions
+- Network security
+- Image scanning and signing
+- Compliance validation
 
-```bash
-# Add environment variable to Vercel
-vercel env add VARIABLE_NAME
+## Best Practices
+- Immutable infrastructure
+- Infrastructure testing
+- Drift detection
+- Cost optimization
+- Multi-region deployments
+- Automated scaling policies
 
-# Pull env vars locally
-vercel env pull .env.local
+## Quality Gates
+- Health check success rates
+- Performance benchmark compliance
+- Security scan results
+- Configuration validation
+- Resource utilization limits
 
-# List all env vars
-vercel env ls
-```
+## Scripts Available
+- `scripts/deploy-application.sh` - Execute application deployment
+- `scripts/provision-infrastructure.js` - Provision infrastructure as code
+- `scripts/rollback-deployment.sh` - Initiate deployment rollback
+- `scripts/health-check.js` - Perform post-deployment health checks
 
-### Rollback Procedures
-
-```bash
-# 1. List recent deployments
-vercel ls
-
-# 2. Get deployment details
-vercel inspect <deployment-url>
-
-# 3. Promote previous deployment to production
-vercel promote <previous-deployment-url>
-
-# Alternative: Redeploy from specific commit
-git checkout <commit-hash>
-vercel --prod
-```
-
-### Deployment Scripts
-
-```json
-// package.json scripts
-{
-  "scripts": {
-    "deploy": "vercel --prod",
-    "deploy:preview": "vercel",
-    "deploy:all": "turbo run deploy",
-    "predeploy": "pnpm build && pnpm lint"
-  }
-}
-```
-
-### Vercel Project Configuration
-
-```json
-// vercel.json
-{
-  "buildCommand": "pnpm build",
-  "installCommand": "pnpm install",
-  "framework": "nextjs",
-  "regions": ["sfo1"],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
-      ]
-    }
-  ],
-  "rewrites": [{ "source": "/api/:path*", "destination": "/api/:path*" }]
-}
-```
-
-### Firebase Deployment
-
-```bash
-# Deploy Firestore rules
-firebase deploy --only firestore:rules
-
-# Deploy all Firebase resources
-firebase deploy
-
-# Deploy specific functions
-firebase deploy --only functions:functionName
-
-# View function logs
-firebase functions:log --only functionName
-```
-
-### Health Check Endpoint
-
-```typescript
-// app/api/health/route.ts
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  const health = {
-    status: "healthy",
-    timestamp: new Date().toISOString(),
-    version: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || "local",
-    uptime: process.uptime(),
-  };
-
-  // Check critical dependencies
-  try {
-    // Verify Firebase connection
-    // await db.collection('_health').limit(1).get();
-    health.database = "connected";
-  } catch {
-    health.database = "error";
-    health.status = "degraded";
-  }
-
-  return NextResponse.json(health);
-}
-```
-
-## Production Deployment Checklist
-
-### Before Deploy
-
-- [ ] All tests pass locally
-- [ ] `pnpm build` succeeds
-- [ ] `pnpm lint` passes
-- [ ] Environment variables verified
-- [ ] Database migrations applied (if any)
-- [ ] Breaking changes documented
-
-### During Deploy
-
-- [ ] Monitor deployment logs
-- [ ] Watch for build errors
-- [ ] Note deployment URL
-
-### After Deploy
-
-- [ ] Verify health endpoint responds
-- [ ] Test critical user flows
-- [ ] Check error monitoring (no new errors)
-- [ ] Verify analytics tracking
-- [ ] Confirm environment variables loaded
-
-### If Issues Occur
-
-- [ ] Check Vercel deployment logs
-- [ ] Review recent commits
-- [ ] Rollback if critical
-- [ ] Document incident
-
-## Incident Response
-
-### Severity Levels
-
-| Level | Description                  | Response Time |
-| ----- | ---------------------------- | ------------- |
-| P1    | Site down, data loss         | Immediate     |
-| P2    | Major feature broken         | < 1 hour      |
-| P3    | Minor bug, workaround exists | < 4 hours     |
-| P4    | Cosmetic, low impact         | Next sprint   |
-
-### Response Steps
-
-1. **Assess**: Determine severity and scope
-2. **Communicate**: Update status page if needed
-3. **Mitigate**: Rollback or hotfix
-4. **Investigate**: Find root cause
-5. **Document**: Write post-mortem
-
-### Quick Rollback
-
-```bash
-# List last 5 deployments
-vercel ls --limit 5
-
-# Promote last known good deployment
-vercel promote <deployment-url> --yes
-
-# Verify rollback
-curl https://your-app.vercel.app/api/health
-```
-
-## Environment Matrix
-
-| App     | Dev Port | Production URL         | Status Page |
-| ------- | -------- | ---------------------- | ----------- |
-| main    | 3000     | ainexspace.com         | /api/health |
-| journal | 3002     | journal.ainexspace.com | /api/health |
-| notes   | 3001     | notes.ainexspace.com   | /api/health |
-| todo    | 3003     | todo.ainexspace.com    | /api/health |
-| ...     | ...      | ...                    | ...         |
-
-## See Also
-
-- [runbooks/deploy.md](runbooks/deploy.md) - Detailed deployment runbook
-- [runbooks/rollback.md](runbooks/rollback.md) - Rollback procedures
-- [runbooks/incident.md](runbooks/incident.md) - Incident response guide
+## References
+- `references/deployment-strategies.md` - Comprehensive guide to different deployment strategies
+- `references/infrastructure-as-code.md` - Infrastructure as code best practices and guidelines

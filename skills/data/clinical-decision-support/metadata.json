@@ -1,7 +1,7 @@
 {
   "name": "clinical-decision-support",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/clinical-decision-support/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-17T01:26:13.887599Z"
+  "repo": "K-Dense-AI/claude-scientific-writer",
+  "path": "scientific_writer/.claude/skills/clinical-decision-support/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-writer",
+  "downloaded_at": "2026-01-19T03:54:15.223340Z"
 }

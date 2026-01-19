@@ -1,12 +1,7 @@
 {
   "name": "unit-tests",
-  "description": "Write pytest tests using Test-Driven Development (TDD). Use when implementing features, fixing bugs, or when the user mentions testing, TDD, or pytest. Tests should be written BEFORE implementation co",
-  "repo": "preludetech/Freedom-LS",
-  "category": "testing",
-  "tags": [
-    "unit",
-    "tests"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "andrelandgraf/fullstackrecipes",
+  "path": ".cursor/skills/unit-tests/SKILL.md",
+  "source": "github.com/andrelandgraf/fullstackrecipes",
+  "downloaded_at": "2026-01-19T01:09:10.767889Z"
 }

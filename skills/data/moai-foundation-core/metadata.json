@@ -1,7 +1,7 @@
 {
   "name": "moai-foundation-core",
-  "repo": "zellycloud/zyflow",
+  "repo": "modu-ai/cc-plugins",
   "path": ".claude/skills/moai-foundation-core/SKILL.md",
-  "source": "github.com/zellycloud/zyflow",
-  "downloaded_at": "2026-01-17T03:46:25.218443Z"
+  "source": "github.com/modu-ai/cc-plugins",
+  "downloaded_at": "2026-01-19T03:58:00.529513Z"
 }

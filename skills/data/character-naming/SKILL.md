@@ -5,9 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: fiction
-  mode: diagnostic+generator
 ---
 
 # Character Naming: Breaking the Chen Proliferation

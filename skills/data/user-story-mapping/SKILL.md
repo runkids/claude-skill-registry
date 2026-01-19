@@ -1,236 +1,244 @@
 ---
 name: user-story-mapping
-description: "Jeff Patton's User Story Mapping technique for Agile discovery. Visualizes user journey as a map, identifies backbone activities, walking skeleton, and release slices. Use when organizing requirements into deliverable increments or defining MVP scope."
-allowed-tools: Read, Write, Glob, Grep, Task
+description: |
+  ユーザーストーリーマッピングの専門スキル。
+  バックボーン設計、リリース計画、ストーリー分割を提供します。
+
+  Anchors:
+  • 『User Story Mapping: Discover the Whole Story, Build the Right Product』（Jeff Patton）/ 適用: 要件可視化 / 目的: プロダクト理解
+  • 『The Pragmatic Programmer』（Andrew Hunt, David Thomas）/ 適用: 実践的改善 / 目的: 品質維持
+
+  Trigger:
+  ユーザーストーリーマッピング実施、要件可視化、バックログ整理、プロダクト開発計画立案時に使用
+
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
-# User Story Mapping
+# ユーザーストーリーマッピングスキル
 
-User Story Mapping is Jeff Patton's technique for organizing user stories into a visual map that shows the complete user experience and helps slice work into releases.
+## 概要
 
-## When to Use This Skill
+ユーザーストーリーマッピングは、ユーザー視点から要件を体系的に構造化し、プロダクト開発の価値提供の流れを可視化する手法です。エピック、ユーザーストーリー、タスクの階層構造を明確にし、優先順位付けを通じて効果的なバックログを構築します。
 
-**Keywords:** story map, user story map, backbone, walking skeleton, MVP, release planning, user journey, story slicing, Jeff Patton, Agile discovery
+このスキルを活用することで、チーム全体が共通の理解を持ち、MVPから段階的な機能展開まで、戦略的なプロダクト開発が実現できます。
 
-**Use this skill when:**
+詳細な実行手順は、`references/Level1_basics.md`（基本構造）および`references/Level2_intermediate.md`（実務適用）を参照してください。
 
-- Organizing elicited requirements into deliverable increments
-- Defining MVP scope from a large set of requirements
-- Visualizing the user journey across features
-- Planning releases with clear user value
-- Slicing large epics into shippable stories
-- Communicating product vision to stakeholders
+## ワークフロー
 
-## Core Concepts
+### Phase 1: 要件と対象範囲の定義
 
-### The Map Structure
+**目的**: マッピング対象となるプロダクト要件と制約条件を明確にする
 
-```text
-TIME / USER JOURNEY →
-─────────────────────────────────────────────────────────────────
-BACKBONE (Activities)   │  Search   │  Browse   │  Purchase  │  Track
-                        │           │           │            │
-─────────────────────────────────────────────────────────────────
-WALKING SKELETON        │  Basic    │  List     │  Cart +    │  Order
-(Minimum Path)          │  Search   │  View     │  Checkout  │  Status
-─────────────────────────────────────────────────────────────────
-Release 1               │  Filters  │  Details  │  Payment   │  Email
-                        │           │  Page     │  Options   │  Notify
-─────────────────────────────────────────────────────────────────
-Release 2               │  Saved    │  Compare  │  Wishlist  │  Tracking
-                        │  Searches │  Items    │            │  Map
-─────────────────────────────────────────────────────────────────
-Release 3 (Nice-to-have)│  AI       │  AR       │  One-Click │  Delivery
-                        │  Suggest  │  Preview  │  Buy       │  Photos
-```
+**Task**: `agents/requirements-scoping.md`
 
-### Key Elements
+**入力**:
 
-| Element | Description |
-| ------- | ----------- |
-| **Backbone** | High-level user activities in sequence (left-to-right = time) |
-| **Walking Skeleton** | Minimum functionality for each activity (first viable path) |
-| **User Tasks** | Stories under each activity, ordered by priority (top-to-bottom) |
-| **Release Slices** | Horizontal lines grouping stories into releases |
-| **Personas** | Different user types may have different paths |
+- プロダクト概要、ステークホルダー情報
 
-## Creating a Story Map
+**出力**:
 
-### Step 1: Define the Backbone
+- マッピング仕様書（ペルソナ、機能領域、制約を含む）
 
-Identify high-level activities the user performs:
+**アクション**:
 
-```yaml
-backbone_questions:
-  - "What does the user do first?"
-  - "What happens next in their journey?"
-  - "What are all the major activities?"
-  - "Is there a natural sequence or flow?"
-```
+1. マッピング対象のプロダクト概要を把握する
+2. ペルソナ（ユーザー種別）を定義する
+3. プロダクトの主要機能領域を列挙する
+4. 技術制約、スケジュール制約などを整理する
+5. `assets/backlog-priority-template.md` の構造を確認する
 
-### Step 2: Identify the Walking Skeleton
+**期待成果物**:
 
-For each backbone activity, what's the minimum viable implementation?
+- マッピング対象の仕様書（ペルソナ、機能領域、制約を含む）
 
-```yaml
-walking_skeleton_criteria:
-  - Enables the user to complete the activity (barely)
-  - End-to-end slice through the system
-  - Testable and demonstrable
-  - Foundation for incremental enhancement
-```
+**完了条件**:
 
-### Step 3: Fill in User Tasks
+- [ ] ペルソナが最低3種類以上定義されている
+- [ ] 主要機能領域が5つ以上列挙されている
+- [ ] 制約条件が明確に記述されている
 
-Under each activity, list user tasks/stories:
+### Phase 2: ストーリーマップの構築
 
-```yaml
-task_placement:
-  vertical_order: "Priority (most important at top)"
-  horizontal_alignment: "Which activity does this belong to?"
-  dependencies: "Does this need something from another column?"
-```
+**目的**: ユーザージャーニーに沿ってエピック、ストーリー、タスクを階層的に構造化する
 
-### Step 4: Draw Release Slices
+**Task**: `agents/story-map-construction.md`
 
-Group stories into releases with clear user value:
+**入力**:
 
-```yaml
-release_criteria:
-  release_1_mvp:
-    - Walking skeleton + minimal enhancements
-    - "What can we build and ship first?"
-    - Validates core value proposition
+- マッピング仕様書（Phase 1の出力）
 
-  release_2:
-    - Improves on MVP based on feedback
-    - Adds important but not critical features
+**出力**:
 
-  future_releases:
-    - Nice-to-have features
-    - Competitive differentiation
-    - Edge cases and polish
-```
+- ユーザーストーリーマップ（エピック→ストーリー→タスク構造）
 
-## Output Formats
+**アクション**:
 
-### Mermaid Diagram (Default)
+1. ペルソナごとのユーザージャーニーを描く
+2. 各ジャーニーにおける主要なエピック（大きな機能単位）を特定する
+3. エピックをユーザーストーリーに分割する
+4. 各ストーリーを実装可能なタスクまで細分化する
+5. `assets/epic-template.md` と `assets/user-story-template.md` に従って記述する
 
-The `/story-map` command generates Mermaid flowcharts:
+**期待成果物**:
 
-```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe'}}}%%
-flowchart LR
-    subgraph Backbone["User Journey (Backbone)"]
-        A1[Search] --> A2[Browse] --> A3[Purchase] --> A4[Track]
-    end
+- 完全なユーザーストーリーマップ（エピック→ストーリー→タスク）
+- マッピング図または構造化ドキュメント
 
-    subgraph R0["Walking Skeleton"]
-        A1 --- S1[Basic Search]
-        A2 --- S2[List View]
-        A3 --- S3[Cart + Checkout]
-        A4 --- S4[Order Status]
-    end
+**完了条件**:
 
-    subgraph R1["Release 1"]
-        S1 --- R1S1[Filters]
-        S2 --- R1S2[Details Page]
-        S3 --- R1S3[Payment Options]
-        S4 --- R1S4[Email Notify]
-    end
-```
+- [ ] すべてのペルソナのジャーニーがマップされている
+- [ ] エピックが明確に境界分けされている
+- [ ] 各ストーリーが「As a [role], I want to [action], so that [benefit]」形式で記述されている
+- [ ] マップ全体の一貫性が確認されている
 
-### YAML Export
+### Phase 3: 優先順位付けと妥当性検証
 
-```yaml
-story_map:
-  title: "E-commerce Platform"
-  personas: ["shopper", "power-user"]
+**目的**: マップの妥当性を検証し、実装順序を決定する
 
-  backbone:
-    - id: search
-      name: "Search Products"
-      walking_skeleton: "Basic keyword search"
+**Task**: `agents/prioritization-validation.md`
 
-    - id: browse
-      name: "Browse Catalog"
-      walking_skeleton: "List view with thumbnails"
+**入力**:
 
-  releases:
-    - name: "MVP"
-      stories:
-        - activity: search
-          stories: ["Basic Search", "Filters"]
-        - activity: browse
-          stories: ["List View", "Details Page"]
-```
+- ユーザーストーリーマップ（Phase 2の出力）
 
-## Integration with Elicitation
+**出力**:
 
-### From Elicited Requirements
+- 優先順位付きバックログ、MVP定義書、リリース計画
 
-```text
-1. Load synthesized requirements from /discover
-2. Identify user activities from functional requirements
-3. Map requirements to backbone activities
-4. Prioritize within each activity
-5. Slice into releases
-```
+**アクション**:
 
-### Workflow
+1. 各ストーリーのビジネス価値を評価する
+2. 実装コストを見積もる
+3. 優先順位付けアルゴリズム（MoSCoW法、RICE法など）を適用する
+4. MVPに含まれるストーリーを特定する
+5. リリース計画を段階化する（Phase 1、2、3...）
+6. ステークホルダーとの検証を実施する
+
+**期待成果物**:
+
+- 優先順位付けされたバックログ
+- MVP定義書
+- リリース計画（段階化されたロードマップ）
+
+**完了条件**:
+
+- [ ] すべてのストーリーに優先度が付与されている
+- [ ] MVPスコープが明確に定義されている
+- [ ] リリース段階が明記されている
+- [ ] ステークホルダー承認が得られている
+
+### Phase 4: 記録と評価
+
+**目的**: スキル使用実績を記録し、継続的改善に貢献する
+
+**背景**: スキルの成長には使用データの蓄積が不可欠
+
+**ゴール**: 実行記録が保存され、メトリクスが更新された状態
+
+**読み込むスキル**: なし
+
+**アクション**:
+
+1. 使用したスキルの `scripts/log_usage.mjs` を実行
+
+   ```bash
+   node .claude/skills/user-story-mapping/scripts/log_usage.mjs \
+     --result success \
+     --phase "ストーリーマップの構築" \
+     --agent "req-analyst"
+   ```
+
+2. スクリプトが自動的に以下を実行:
+   - LOGS.md に実行記録を追記
+   - EVALS.json のメトリクスを更新
+   - レベルアップ条件をチェック
+   - 条件充足時にSKILL.mdのlevelを更新
+   - CHANGELOG.mdに記録
+
+**期待成果物**:
+
+- 更新されたLOGS.md
+- 更新されたEVALS.json
+- （条件充足時）更新されたSKILL.mdとCHANGELOG.md
+
+**完了条件**:
+
+- [ ] log_usage.mjsがexit code 0で終了
+- [ ] LOGS.mdに新規エントリが追記されている
+
+## Task仕様（ナビゲーション）
+
+| Task                         | 役割                 | 参照先                                |
+| ---------------------------- | -------------------- | ------------------------------------- |
+| requirements-scoping.md      | 要件と対象範囲の定義 | `agents/requirements-scoping.md`      |
+| story-map-construction.md    | ストーリーマップ構築 | `agents/story-map-construction.md`    |
+| prioritization-validation.md | 優先順位付けと検証   | `agents/prioritization-validation.md` |
+
+## ベストプラクティス
+
+### すべきこと
+
+- ペルソナを具体的かつ多様に定義する（最低3種類以上）
+- ユーザーの痛点と価値を常に意識する
+- エピック、ストーリー、タスクの階層を厳密に区分する
+- 定期的にステークホルダーと検証する
+- 優先順位付けの根拠を明確に記述する
+- MVPスコープを早期に定義し、段階的な展開を計画する
+
+### 避けるべきこと
+
+- ビジネス視点のみでユーザー視点を無視する
+- 機能要件をストーリーとして直接記述する（ユーザーゴールが欠ける）
+- マッピング段階で詳細な技術仕様を決定する
+- 優先順位付けの基準を曖昧なままにする
+- 一度定義したストーリーを定期的に見直さない
+- リソース、スケジュール制約を無視して過度に詳細化する
+
+## リソース参照
+
+### レベル別ガイド
+
+- **`references/Level1_basics.md`**: ユーザーストーリーの基本構造、ペルソナ定義、GWT形式の理解
+- **`references/Level2_intermediate.md`**: マッピング実務、優先順位付けアルゴリズム、複数ペルソナ間の調整
+- **`references/Level3_advanced.md`**: Progressive Disclosure、トークン最適化、複数チーム間の効率的なマッピング
+- **`references/Level4_expert.md`**: フィードバックループ設計、スキル自己進化の仕組み、評価基準の改善
+
+### スクリプト実行リファレンス
 
 ```bash
-# Elicit requirements first
-/requirements-elicitation:discover "e-commerce platform"
+# 実行記録の追記とレベル評価
+node .claude/skills/user-story-mapping/scripts/log_usage.mjs --result success --phase "ストーリーマップ構築"
 
-# Create story map from requirements
-/requirements-elicitation:story-map --domain "e-commerce"
+# スキル構造の検証
+node .claude/skills/user-story-mapping/scripts/validate-skill.mjs
 
-# Export map to visualization
-/requirements-elicitation:story-map --domain "e-commerce" --format mermaid
+# ヘルプ表示
+node .claude/skills/user-story-mapping/scripts/log_usage.mjs --help
 ```
 
-## Best Practices
+### テンプレート参照
 
-### DO
+- **`assets/user-story-template.md`**: ユーザーストーリー作成用テンプレート（GWT形式、受け入れ基準を含む）
+- **`assets/epic-template.md`**: エピック定義テンプレート（ビジネス目標、包含ストーリーを含む）
+- **`assets/backlog-priority-template.md`**: バックログ優先順位付けテンプレート（RICE法、MoSCoW法対応）
 
-- Include stakeholders in mapping sessions
-- Keep backbone at 5-10 activities
-- Make walking skeleton truly minimal
-- Slice releases for user value, not technical convenience
-- Revisit and update as you learn
+## 関連スキル
 
-### DON'T
+- **`.claude/skills/backlog-management/SKILL.md`**: バックログの段階的な構造化と管理手法（ストーリーマップの実装化に活用）
+- **`.claude/skills/requirement-analysis/SKILL.md`**: 複雑な要件分析と合意形成（マッピング前の要件整理に活用）
+- **`.claude/skills/user-story-writing/SKILL.md`**: より詳細なストーリー記述技法
 
-- Over-detail the map initially
-- Organize by technical layer (UI, API, DB)
-- Skip the walking skeleton (it's the foundation)
-- Make releases too large
-- Treat the map as immutable
+## 変更履歴
 
-## Related Commands
-
-- `/story-map` - Generate story maps from elicited requirements
-- `/journey-map` - Customer journey visualization (complementary)
-- `/discover` - Elicit requirements before mapping
-- `/gaps` - Check for missing coverage
-
-## References
-
-**For detailed guidance:**
-
-- [Mapping Techniques](references/mapping-techniques.md) - Detailed mapping workflows
-- [Release Planning](references/release-planning.md) - Slicing strategies and MVP definition
-
-**External:**
-
-- Jeff Patton's "User Story Mapping" book
-- [jpattonassociates.com](https://jpattonassociates.com)
-
-## Version History
-
-- v1.0.0 (2025-12-26): Initial release - User Story Mapping skill
-
----
-
-**Last Updated:** 2025-12-26
+| Version | Date       | Changes                                         |
+| ------- | ---------- | ----------------------------------------------- |
+| 2.1.0   | 2026-01-01 | agents/作成、Task仕様書追加、ワークフロー簡素化 |
+| 2.0.0   | 2025-12-31 | 18-skills.md仕様準拠、Phase別ワークフロー追加   |
+| 1.0.0   | 2025-12-24 | Spec alignment and required artifacts added     |

@@ -1,7 +1,7 @@
 {
   "name": "database-sharding",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/database-sharding/skills/database-sharding/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-17T03:58:32.452364Z"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/database-sharding/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-19T02:26:28.663937Z"
 }

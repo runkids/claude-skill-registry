@@ -1,7 +1,7 @@
 {
   "name": "vercel-deployment",
-  "repo": "MUmerRazzaq/fast-next-todo",
+  "repo": "erichowens/some_claude_skills",
   "path": ".claude/skills/vercel-deployment/SKILL.md",
-  "source": "github.com/MUmerRazzaq/fast-next-todo",
-  "downloaded_at": "2026-01-17T03:58:17.454665Z"
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-19T02:38:39.503751Z"
 }

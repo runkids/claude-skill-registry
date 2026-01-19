@@ -1,16 +1,40 @@
 ---
 name: mcp-servers
-description: Speech feedback to user via MCP audio servers. Use when providing status updates or asking questions.
+description: "Model Context Protocol integration for external tools (GitHub, filesystem, SPARQL)."
+allowed_tools: "Read"
 ---
 
-# MCP Speech Feedback
+# MCP Server Integration
 
-## When to Use
-- Providing status updates to the user
-- Asking clarifying questions
-- Reporting completion of tasks
-- Presenting choices to the user
+## Overview
 
-## Speech Guidelines
-@speech.md
-@speak.md
+Model Context Protocol connects LLMs to external tools:
+- **GitHub**: Issues, PRs, repositories
+- **Filesystem**: Enhanced file operations
+- **Custom**: SPARQL, validation, domain-specific
+
+## Configuration
+
+In `.claude/settings.json`:
+
+```json
+{
+  "mcp_servers": {
+    "github": {
+      "command": "mcp-server-github",
+      "env": {"GITHUB_TOKEN": "${GITHUB_TOKEN}"}
+    },
+    "filesystem": {
+      "command": "mcp-server-filesystem",
+      "args": ["/home/user/ggen"]
+    }
+  }
+}
+```
+
+## Status
+
+Currently disabled in ggen (can be enabled per project needs).
+
+## Reference
+See `.claude/settings.json` mcp_servers section for configuration.

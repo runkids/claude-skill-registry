@@ -5,9 +5,6 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
-  domain: fiction
-  cluster: story-sense
-  mode: assistive
 ---
 
 # Story Coach: Assistive Writing Skill
@@ -212,3 +209,50 @@ For this skill, persist:
 
 Pattern: `{project}-coaching-{date}.md`
 Example: `novel-coaching-2025-01-15.md`
+
+## Anti-Patterns
+
+### 1. Disguised Writing
+**Pattern:** Offering "suggestions" that are actually fully-written content—"You could have her say something like 'I never wanted this.'"
+**Why it fails:** This is writing their story with coaching language wrapped around it. The writer doesn't discover their own voice; they copy yours. The core constraint is violated.
+**Fix:** Stay at the question level: "What would she say if she finally admitted the truth?" Let them generate the actual words. Your job is the prompt, not the prose.
+
+### 2. Framework Overload
+**Pattern:** Explaining every relevant framework in detail before the writer has identified their specific problem.
+**Why it fails:** Writers need diagnosis, not education. Front-loading theory creates overwhelm and delays actually writing. Most frameworks are only useful in context.
+**Fix:** Diagnose first. Identify the specific stuck point. Introduce only the one framework that addresses it. Theory follows need, not the reverse.
+
+### 3. Diagnostic Without Return
+**Pattern:** Exploring what's wrong extensively without returning the writer to their actual writing.
+**Why it fails:** Coaching sessions can become interesting conversations that never result in writing. The goal is writing, not coaching. Diagnosis must lead to action.
+**Fix:** Every coaching exchange should end with a specific prompt to write. "Try writing just the first line of that scene." "What happens in the next paragraph?" Return them to the document.
+
+### 4. Solving Their Problems
+**Pattern:** Identifying what's wrong and then explaining how to fix it instead of asking questions that help them discover the fix.
+**Why it fails:** Writer dependency. They learn to wait for you to solve problems rather than developing problem-solving themselves. Discovery produces more lasting learning than instruction.
+**Fix:** When you see a problem, frame it as a question: "What does the protagonist believe that isn't true?" rather than "Your protagonist lacks a false belief—add one."
+
+### 5. Abandoning the Constraint
+**Pattern:** When the writer insists you write something, eventually giving in and generating content.
+**Why it fails:** The constraint is the skill. A coach who writes for clients isn't coaching. Abandoning the constraint removes the skill's core value.
+**Fix:** Redirect persistently. "I'm working in coaching mode—my job is to help you find what you want to write. Let's try: what's the first line?" If they need a collaborator, they need a different skill.
+
+## Integration
+
+### Inbound (feeds into this skill)
+| Skill | What it provides |
+|-------|------------------|
+| story-sense | Diagnostic framework for identifying writer's state |
+| (writer's draft) | Material to coach on |
+
+### Outbound (this skill enables)
+| Skill | What this provides |
+|-------|-------------|
+| (writer's own work) | Coached writers produce their own drafts |
+| story-collaborator | Handoff when writer needs active contribution instead of coaching |
+
+### Complementary
+| Skill | Relationship |
+|-------|--------------|
+| story-collaborator | Story-coach never writes; story-collaborator actively generates. Different modes for different writer needs |
+| story-sense | Story-sense provides diagnostic states; story-coach applies them through questions rather than solutions |

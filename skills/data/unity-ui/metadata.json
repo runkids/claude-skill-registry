@@ -1,7 +1,7 @@
 {
   "name": "unity-ui",
-  "repo": "creator-hian/claude-code-plugins",
-  "path": "unity-plugin/skills/unity-ui/SKILL.md",
-  "source": "github.com/creator-hian/claude-code-plugins",
-  "downloaded_at": "2026-01-17T02:41:23.839267Z"
+  "repo": "BreakerOfStems/claude-skills",
+  "path": "skills/unity-ui/SKILL.md",
+  "source": "github.com/BreakerOfStems/claude-skills",
+  "downloaded_at": "2026-01-19T02:13:24.404594Z"
 }

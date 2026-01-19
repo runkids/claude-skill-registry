@@ -1,189 +1,109 @@
 ---
 name: dashlane
-description: Access passwords, secure notes, secrets and OTP codes from Dashlane vault.
-homepage: https://cli.dashlane.com
-metadata: {"clawdbot":{"emoji":"🔐","requires":{"bins":["dcli"]}}}
+description: Password manager with dark web monitoring and VPN.
+category: utilities
 ---
+# Dashlane Skill
 
-# Dashlane CLI
+Password manager with dark web monitoring and VPN.
 
-Access your Dashlane vault from the command line. Read-only access to passwords, secure notes, secrets and OTP codes.
-
-## Installation
-
-```bash
-brew install dashlane/tap/dashlane-cli
-```
-
-## Authentication
-
-First sync to trigger authentication:
-```bash
-dcli sync
-```
-
-**Steps:**
-1. Enter your Dashlane email
-2. **⚠️ IMPORTANT: Open the URL shown in your browser** (device registration)
-3. Enter the code received by email
-4. Enter your Master Password
-
-Check current account:
-```bash
-dcli accounts whoami
-```
-
-## Get a Password
+## Quick Install
 
 ```bash
-# Search by URL or title (copies password to clipboard by default)
-dcli p mywebsite
-dcli password mywebsite
-
-# Get specific field
-dcli p mywebsite -f login      # Username/login
-dcli p mywebsite -f email      # Email
-dcli p mywebsite -f otp        # TOTP 2FA code
-dcli p mywebsite -f password   # Password (default)
-
-# Output formats
-dcli p mywebsite -o clipboard  # Copy to clipboard (default)
-dcli p mywebsite -o console    # Print to stdout
-dcli p mywebsite -o json       # Full JSON output (all matches)
-
-# Search by specific fields
-dcli p url=example.com
-dcli p title=MyBank
-dcli p id=xxxxxx               # By vault ID
-dcli p url=site1 title=site2   # Multiple filters (OR)
+curl -sSL https://canifi.com/skills/dashlane/install.sh | bash
 ```
 
-## Get a Secure Note
+Or manually:
+```bash
+cp -r skills/dashlane ~/.canifi/skills/
+```
+
+## Setup
+
+Configure via [canifi-env](https://canifi.com/setup/scripts):
 
 ```bash
-dcli note [filters]
-dcli n [filters]               # Shorthand
+# First, ensure canifi-env is installed:
+# curl -sSL https://canifi.com/install.sh | bash
 
-# Filter by title (default)
-dcli n my-note
-dcli n title=api-keys
-
-# Output formats: text (default), json
-dcli n my-note -o json
+canifi-env set DASHLANE_EMAIL "your_email"
+canifi-env set DASHLANE_PASSWORD "your_password"
 ```
 
-## Get a Secret
+## Privacy & Authentication
 
-Dashlane secrets are a dedicated content type for sensitive data.
+**Your credentials, your choice.** Canifi LifeOS respects your privacy.
 
+### Option 1: Manual Browser Login (Recommended)
+If you prefer not to share credentials with Claude Code:
+1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
+2. Login to the service manually in the Playwright-controlled Chrome window
+3. Claude will use your authenticated session without ever seeing your password
+
+### Option 2: Environment Variables
+If you're comfortable sharing credentials, you can store them locally:
 ```bash
-dcli secret [filters]
-
-# Filter by title (default)
-dcli secret api_keys
-dcli secret title=api_keys -o json
+canifi-env set SERVICE_EMAIL "your-email"
+canifi-env set SERVICE_PASSWORD "your-password"
 ```
 
-## Other Commands
+**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
 
-```bash
-# Sync vault manually (auto-sync every hour by default)
-dcli sync
+## Capabilities
 
-# Lock the vault (requires master password to unlock)
-dcli lock
+1. **Access Passwords**: Retrieve credentials
+2. **Store Logins**: Save new passwords
+3. **Password Health**: Security scoring
+4. **Dark Web Monitor**: Breach detection
+5. **Secure Notes**: Store sensitive info
 
-# Logout completely
-dcli logout
+## Usage Examples
 
-# Backup vault to current directory
-dcli backup
-dcli backup --directory /path/to/backup
+### Get Password
+```
+User: "Get my Twitter password"
+Assistant: Retrieves from Dashlane
 ```
 
-## Configuration
-
-```bash
-# Save master password in OS keychain (default: true)
-dcli configure save-master-password true
-
-# Disable auto-sync
-dcli configure disable-auto-sync true
-
-# Enable biometrics unlock (macOS only)
-dcli configure user-presence --method biometrics
-
-# Disable user presence check
-dcli configure user-presence --method none
+### Check Breaches
+```
+User: "Have any of my accounts been breached?"
+Assistant: Returns dark web monitoring results
 ```
 
-## Persistence by Platform
-
-### macOS
-Master password is stored in the **Keychain** by default. Survives reboots.
-```bash
-dcli configure save-master-password true
+### Password Health
+```
+User: "Show my password health score"
+Assistant: Returns security analysis
 ```
 
-### Linux (server/headless)
-No native keychain. Options:
-1. **Environment variable** (less secure, but simple):
-   ```bash
-   export DASHLANE_MASTER_PASSWORD="..."
-   ```
-2. **Local encrypted file**: `save-master-password true` stores in `~/.local/share/dcli/`
-3. **External secret manager** (Vault, AWS Secrets, etc.) to inject the variable
-
-### Docker / CI
-Use the `DASHLANE_MASTER_PASSWORD` environment variable passed to the container.
-```bash
-docker run -e DASHLANE_MASTER_PASSWORD="..." myimage
+### Save Note
+```
+User: "Save this secure note"
+Assistant: Stores in Dashlane
 ```
 
-### SSO / Passwordless
-Not supported by dcli yet — requires a classic master password.
+## Authentication Flow
 
-## Advanced: Inject Secrets
+1. Account-based authentication
+2. CLI available
+3. Browser automation backup
+4. Biometric support
 
-```bash
-# Inject secrets into environment variables
-dcli exec -- mycommand
+## Error Handling
 
-# Inject into templated files
-dcli inject < template.txt > output.txt
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Login Failed | Invalid credentials | Check account |
+| Item Not Found | Search miss | Verify name |
+| Sync Error | Connection | Retry |
+| Premium Required | Feature limit | Upgrade plan |
 
-# Read secret by path
-dcli read "dl://vault/secret-id"
-```
+## Notes
 
-## Examples
-
-### Get OTP for 2FA
-```bash
-dcli p github -f otp
-# Returns: 123456 (25s remaining)
-```
-
-### SSH Keys from Vault
-Store private key in a secure note, then:
-```bash
-dcli n SSH_KEY | ssh-add -
-```
-
-### Scripting
-```bash
-# Get password for a script
-PASSWORD=$(dcli p myservice -o console)
-
-# Get JSON and parse with jq
-dcli p myservice -o json | jq -r '.[0].password'
-```
-
-## Troubleshooting
-
-- **Locked?** Run `dcli sync` to unlock
-- **SSO users:** Need Chrome installed + visual interface
-- **Password-less:** Not supported yet
-- **Debug mode:** `dcli --debug <command>`
-
-Docs: https://cli.dashlane.com
+- Dark web monitoring
+- Password health
+- VPN included (premium)
+- Identity dashboard
+- No public API
+- Form autofill

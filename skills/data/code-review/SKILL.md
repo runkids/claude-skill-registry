@@ -1,143 +1,156 @@
 ---
 name: code-review
-description: Use when receiving code review feedback (especially if unclear or technically questionable), when completing tasks or major features requiring review before proceeding, or before making any completion/success claims. Covers three practices - receiving feedback with technical rigor over performative agreement, requesting reviews via code-reviewer subagent, and verification gates requiring evidence before any status claims. Essential for subagent-driven development, pull requests, and preventing false completion claims.
+description: Automated code review for pull requests using specialized review patterns.
+version: 1.0.0
 ---
+
 
 # Code Review
 
-Guide proper code review practices emphasizing technical rigor, evidence-based claims, and verification over performative responses.
+## Review Categories
 
-## Overview
+### 1. Security Review
+Check for:
+- SQL injection vulnerabilities
+- XSS (Cross-Site Scripting)
+- Command injection
+- Insecure deserialization
+- Hardcoded secrets/credentials
+- Improper authentication/authorization
+- Insecure direct object references
 
-Code review requires three distinct practices:
+### 2. Performance Review
+Check for:
+- N+1 queries
+- Missing database indexes
+- Unnecessary re-renders (React)
+- Memory leaks
+- Blocking operations in async code
+- Missing caching opportunities
+- Large bundle sizes
 
-1. **Receiving feedback** - Technical evaluation over performative agreement
-2. **Requesting reviews** - Systematic review via code-reviewer subagent
-3. **Verification gates** - Evidence before any completion claims
+### 3. Code Quality Review
+Check for:
+- Code duplication (DRY violations)
+- Functions doing too much (SRP violations)
+- Deep nesting / complex conditionals
+- Magic numbers/strings
+- Poor naming
+- Missing error handling
+- Incomplete type coverage
 
-Each practice has specific triggers and protocols detailed in reference files.
+### 4. Testing Review
+Check for:
+- Missing test coverage for new code
+- Tests that don't test behavior
+- Flaky test patterns
+- Missing edge cases
+- Mocked external dependencies
 
-## Core Principle
+## Review Output Format
 
-Always honoring **YAGNI**, **KISS**, and **DRY** principles.
-**Be honest, be brutal, straight to the point, and be concise.**
+```markdown
+## Code Review Summary
 
-**Technical correctness over social comfort.** Verify before implementing. Ask before assuming. Evidence before claims.
+### 🔴 Critical (Must Fix)
+- **[File:Line]** [Issue description]
+  - **Why:** [Explanation]
+  - **Fix:** [Suggested fix]
 
-## When to Use This Skill
+### 🟡 Suggestions (Should Consider)
+- **[File:Line]** [Issue description]
+  - **Why:** [Explanation]
+  - **Fix:** [Suggested fix]
 
-### Receiving Feedback
-Trigger when:
-- Receiving code review comments from any source
-- Feedback seems unclear or technically questionable
-- Multiple review items need prioritization
-- External reviewer lacks full context
-- Suggestion conflicts with existing decisions
+### 🟢 Nits (Optional)
+- **[File:Line]** [Minor suggestion]
 
-**Reference:** `references/code-review-reception.md`
-
-### Requesting Review
-Trigger when:
-- Completing tasks in subagent-driven development (after EACH task)
-- Finishing major features or refactors
-- Before merging to main branch
-- Stuck and need fresh perspective
-- After fixing complex bugs
-
-**Reference:** `references/requesting-code-review.md`
-
-### Verification Gates
-Trigger when:
-- About to claim tests pass, build succeeds, or work is complete
-- Before committing, pushing, or creating PRs
-- Moving to next task
-- Any statement suggesting success/completion
-- Expressing satisfaction with work
-
-**Reference:** `references/verification-before-completion.md`
-
-## Quick Decision Tree
-
-```
-SITUATION?
-│
-├─ Received feedback
-│  ├─ Unclear items? → STOP, ask for clarification first
-│  ├─ From human partner? → Understand, then implement
-│  └─ From external reviewer? → Verify technically before implementing
-│
-├─ Completed work
-│  ├─ Major feature/task? → Request code-reviewer subagent review
-│  └─ Before merge? → Request code-reviewer subagent review
-│
-└─ About to claim status
-   ├─ Have fresh verification? → State claim WITH evidence
-   └─ No fresh verification? → RUN verification command first
+### ✅ What's Good
+- [Positive feedback on good patterns]
 ```
 
-## Receiving Feedback Protocol
+## Common Patterns to Flag
 
-### Response Pattern
-READ → UNDERSTAND → VERIFY → EVALUATE → RESPOND → IMPLEMENT
+### Security
+```javascript
+// BAD: SQL injection
+const query = `SELECT * FROM users WHERE id = ${userId}`;
 
-### Key Rules
-- ❌ No performative agreement: "You're absolutely right!", "Great point!", "Thanks for [anything]"
-- ❌ No implementation before verification
-- ✅ Restate requirement, ask questions, push back with technical reasoning, or just start working
-- ✅ If unclear: STOP and ask for clarification on ALL unclear items first
-- ✅ YAGNI check: grep for usage before implementing suggested "proper" features
+// GOOD: Parameterized query
+const query = 'SELECT * FROM users WHERE id = $1';
+await db.query(query, [userId]);
+```
 
-### Source Handling
-- **Human partner:** Trusted - implement after understanding, no performative agreement
-- **External reviewers:** Verify technically correct, check for breakage, push back if wrong
+### Performance
+```javascript
+// BAD: N+1 query
+users.forEach(async user => {
+  const posts = await getPosts(user.id);
+});
 
-**Full protocol:** `references/code-review-reception.md`
+// GOOD: Batch query
+const userIds = users.map(u => u.id);
+const posts = await getPostsForUsers(userIds);
+```
 
-## Requesting Review Protocol
+### Error Handling
+```javascript
+// BAD: Swallowing errors
+try {
+  await riskyOperation();
+} catch (e) {}
 
-### When to Request
-- After each task in subagent-driven development
-- After major feature completion
-- Before merge to main
+// GOOD: Handle or propagate
+try {
+  await riskyOperation();
+} catch (e) {
+  logger.error('Operation failed', { error: e });
+  throw new AppError('Operation failed', { cause: e });
+}
+```
 
-### Process
-1. Get git SHAs: `BASE_SHA=$(git rev-parse HEAD~1)` and `HEAD_SHA=$(git rev-parse HEAD)`
-2. Dispatch code-reviewer subagent via Task tool with: WHAT_WAS_IMPLEMENTED, PLAN_OR_REQUIREMENTS, BASE_SHA, HEAD_SHA, DESCRIPTION
-3. Act on feedback: Fix Critical immediately, Important before proceeding, note Minor for later
+## Review Checklist
 
-**Full protocol:** `references/requesting-code-review.md`
+- [ ] No hardcoded secrets
+- [ ] Input validation present
+- [ ] Error handling complete
+- [ ] Types/interfaces defined
+- [ ] Tests added for new code
+- [ ] No obvious performance issues
+- [ ] Code is readable and documented
+- [ ] Breaking changes documented
 
-## Verification Gates Protocol
 
-### The Iron Law
-**NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE**
 
-### Gate Function
-IDENTIFY command → RUN full command → READ output → VERIFY confirms claim → THEN claim
+## Scientific Skill Interleaving
 
-Skip any step = lying, not verifying
+This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
 
-### Requirements
-- Tests pass: Test output shows 0 failures
-- Build succeeds: Build command exit 0
-- Bug fixed: Test original symptom passes
-- Requirements met: Line-by-line checklist verified
+### Graph Theory
+- **networkx** [○] via bicomodule
+  - Universal graph hub
 
-### Red Flags - STOP
-Using "should"/"probably"/"seems to", expressing satisfaction before verification, committing without verification, trusting agent reports, ANY wording implying success without running verification
+### Bibliography References
 
-**Full protocol:** `references/verification-before-completion.md`
+- `dynamical-systems`: 41 citations in bib.duckdb
 
-## Integration with Workflows
+## Cat# Integration
 
-- **Subagent-Driven:** Review after EACH task, verify before moving to next
-- **Pull Requests:** Verify tests pass, request code-reviewer review before merge
-- **General:** Apply verification gates before any status claims, push back on invalid feedback
+This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:
 
-## Bottom Line
+```
+Trit: -1 (MINUS)
+Home: Prof
+Poly Op: ⊗
+Kan Role: Adj
+Color: #FF6B6B
+```
 
-1. Technical rigor over social performance - No performative agreement
-2. Systematic review processes - Use code-reviewer subagent
-3. Evidence before claims - Verification gates always
+### GF(3) Naturality
 
-Verify. Question. Then implement. Evidence. Then claim.
+The skill participates in triads satisfying:
+```
+(-1) + (0) + (+1) ≡ 0 (mod 3)
+```
+
+This ensures compositional coherence in the Cat# equipment structure.

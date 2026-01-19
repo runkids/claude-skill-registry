@@ -1,7 +1,7 @@
 {
   "name": "testing-skills-with-subagents",
-  "repo": "vinceh/recipe",
-  "path": ".claude/skills/testing-skills-with-subagents/SKILL.md",
-  "source": "github.com/vinceh/recipe",
-  "downloaded_at": "2026-01-17T04:01:49.630844Z"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/meta/testing-skills-with-subagents/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-01-19T03:39:48.617574Z"
 }

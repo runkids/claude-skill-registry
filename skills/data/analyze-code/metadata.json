@@ -1,7 +1,7 @@
 {
   "name": "analyze-code",
-  "repo": "yangsi7/nikita",
-  "path": ".claude/skills/analyze-code/SKILL.md",
-  "source": "github.com/yangsi7/nikita",
-  "downloaded_at": "2026-01-14T01:57:20.878181Z"
+  "repo": "doodledood/claude-code-plugins",
+  "path": "claude-plugins/consultant/skills/analyze-code/SKILL.md",
+  "source": "github.com/doodledood/claude-code-plugins",
+  "downloaded_at": "2026-01-19T02:33:48.504403Z"
 }

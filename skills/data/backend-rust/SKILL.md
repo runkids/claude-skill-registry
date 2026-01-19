@@ -109,6 +109,10 @@ Versions in this skill are examples — verify current versions via Context7 or 
 
 ## Project Setup
 
+**Rust version**: 1.85+ required (edition 2024 support). Current stable: 1.91.0.
+
+**NOTE**: Rust edition 2024 is stable since Rust 1.85 (February 2025). Always use `edition = "2024"` for new projects.
+
 ```bash
 cargo new my-api
 cd my-api
@@ -119,7 +123,7 @@ cd my-api
 [package]
 name = "my-api"
 version = "0.1.0"
-edition = "2024"
+edition = "2024"  # Stable since Rust 1.85 (Feb 2025)
 
 [dependencies]
 axum = "0.8"

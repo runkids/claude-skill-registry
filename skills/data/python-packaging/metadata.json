@@ -1,7 +1,7 @@
 {
   "name": "python-packaging",
-  "repo": "wshobson/agents",
-  "path": "plugins/python-development/skills/python-packaging/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-17T03:59:13.330943Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/python-development/skills/python-packaging/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-19T03:12:53.176299Z"
 }

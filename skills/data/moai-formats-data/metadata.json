@@ -1,7 +1,7 @@
 {
   "name": "moai-formats-data",
-  "repo": "zellycloud/zyflow",
+  "repo": "modu-ai/cc-plugins",
   "path": ".claude/skills/moai-formats-data/SKILL.md",
-  "source": "github.com/zellycloud/zyflow",
-  "downloaded_at": "2026-01-17T03:46:27.204733Z"
+  "source": "github.com/modu-ai/cc-plugins",
+  "downloaded_at": "2026-01-19T03:58:01.145594Z"
 }

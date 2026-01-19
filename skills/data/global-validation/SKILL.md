@@ -1,29 +1,26 @@
 ---
 name: Global Validation
-description: Implement comprehensive validation using Zod schemas for type-safe validation on both client and server, with server-side validation as the security boundary (never trust client input). Use this skill when validating user inputs, creating API endpoints that accept data, implementing forms, defining data schemas, validating file uploads, creating validation middleware, implementing Firestore security rules or Supabase RLS, or writing validation rules for any user-provided data. Apply when working on API route handlers, form components with React Hook Form, validation middleware, Zod schema definitions (schemas/*.ts, validation/*.ts), Firestore security rules (firestore.rules), Supabase RLS policies, or any code that accepts external input. This skill ensures server-side validation always (client-side is for UX only), Zod for schema validation with TypeScript type inference (z.infer<typeof schema>), validation middleware factory for Express/Bun APIs, React Hook Form + zodResolver for forms, user-friendly error messages (not technical jargon), input sanitization with DOMPurify for HTML content, file upload validation (type whitelist, size limits with multer), Firestore security rules with data type and length validation, FluentValidation for .NET APIs, database-level constraints enforcement, fail-early validation principles, and environment variable validation with Zod on application startup.
+description: Implement server-side validation with allowlists, specific error messages, type checking, and sanitization to prevent security vulnerabilities and ensure data integrity. Use this skill when creating or editing form request classes, when validating API inputs, when implementing validation rules in controllers or services, when writing client-side validation for user experience, when sanitizing user input to prevent injection attacks, when validating business rules, when implementing error message display, or when ensuring consistent validation across all application entry points.
 ---
 
 # Global Validation
 
-## When to use this skill:
-
-- When creating API endpoints that accept request bodies
-- When implementing validation middleware factory for Express/Bun/Hono
-- When defining Zod schemas for data validation with type inference
-- When creating forms with React Hook Form and zodResolver
-- When validating file uploads (MIME type whitelist, size limits with multer)
-- When writing Firestore security rules (firestore.rules) for database validation
-- When writing Supabase Row Level Security (RLS) policies
-- When implementing input sanitization with DOMPurify to prevent XSS
-- When adding validation to service layer methods (fail-early)
-- When creating custom Zod refinements (e.g., password complexity) or transforms (e.g., string to Date)
-- When writing user-friendly validation error messages (not technical jargon)
-- When validating environment variables with Zod on application startup
-- When working on any code that accepts user input or external data
-- When implementing FluentValidation for .NET API validation
-- When creating complex nested schemas with arrays and optional fields
-
 This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle global validation.
+
+## When to use this skill
+
+- When creating form request classes in `app/Http/Requests/` for validation logic
+- When implementing validation rules in controllers, services, or API endpoints
+- When validating user input from web forms or API requests
+- When writing client-side validation for immediate user feedback (while ensuring server-side validation)
+- When implementing allowlist-based validation (defining what's allowed)
+- When sanitizing user input to prevent SQL injection, XSS, or command injection
+- When creating specific, actionable error messages for validation failures
+- When validating data types, formats, ranges, and required fields
+- When implementing business rule validation (e.g., sufficient balance, valid date ranges)
+- When ensuring consistent validation across web forms, API endpoints, and background jobs
+- When validating file uploads, sizes, and formats
+- When implementing custom validation rules or validators
 
 ## Instructions
 

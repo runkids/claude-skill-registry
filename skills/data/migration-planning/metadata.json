@@ -1,8 +1,7 @@
 {
   "name": "migration-planning",
-  "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Plan ETL/ELT pipelines, data migrations, change data capture, and rollback strategies.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:02.050175Z"
+  "repo": "AmnadTaowsoam/cerebratechai-claude-skills",
+  "path": "59-architecture-decision/migration-planning/SKILL.md",
+  "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
+  "downloaded_at": "2026-01-19T02:22:00.937118Z"
 }

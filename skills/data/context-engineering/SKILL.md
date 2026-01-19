@@ -1,373 +1,406 @@
 ---
 name: context-engineering
-description: Strategies for managing LLM context windows effectively in AI agents. Use when building agents that handle long conversations, multi-step tasks, tool orchestration, or need to maintain coherence across extended interactions.
+description: Context engineering and prompt patterns for AI agents
+allowed-tools: Read, Grep, Write, Edit, Bash, WebSearch
 ---
 
-# Context Engineering
+# SKILL.md - Context Engineering & AI Agent Skills
 
-Context engineering is the discipline of curating and maintaining the optimal set of tokens during LLM inference. Unlike prompt engineering (crafting individual prompts), context engineering focuses on what information enters the context window and when.
+> **核心理念**: 2025年不再是"Prompt Engineering"，而是**"Context Engineering"** —— 设计动态系统，为AI模型提供最相关的上下文信息。
+
+---
 
 ## Table of Contents
 
-- [Core Principles](#core-principles)
-- [Context Management Strategies](#context-management-strategies)
-- [System Prompt Design](#system-prompt-design)
-- [Tool Design for Context Efficiency](#tool-design-for-context-efficiency)
-- [Long-Horizon Task Patterns](#long-horizon-task-patterns)
-- [Implementation Patterns](#implementation-patterns)
-- [Best Practices](#best-practices)
-- [References](#references)
+1. [Core Principles](#core-principles)
+2. [Context Engineering Patterns](#context-engineering-patterns)
+3. [High-Frequency Scenarios](#high-frequency-scenarios)
+4. [Best Practice Templates](#best-practice-templates)
+5. [Anti-Patterns](#anti-patterns)
+6. [Quality Checklist](#quality-checklist)
+
+---
 
 ## Core Principles
 
-### Context as a Finite Resource
+### Design Philosophy
 
-LLMs have limited "attention budgets." As context length increases, models experience **context rot**—decreased ability to accurately recall information. The goal is finding the smallest possible set of high-signal tokens that maximize desired outcomes.
+| Principle | Description | Example |
+|-----------|-------------|---------|
+| **简洁优雅** | Minimal code for maximum function | 3 similar lines > premature abstraction |
+| **高效纯粹** | Single responsibility per component | Database tables: minimal & maintainable |
+| **失败安全** | Edge cases first, not afterthought | Validate before processing |
+| **显式记录** | Formulas and results must be traceable | KPI calculations: formula + amount recorded |
 
-```
-Effective Context = Relevant Information / Total Tokens
-```
+### Context Engineering Three Laws
 
-**Key insight**: More context isn't better. The right context is better.
+1. **稳定前缀定律**: System prompts remain stable, avoid frequent modifications
+2. **追加式定律**: Recorded data is append-only, never modified
+3. **缓存标记定律**: Explicit cache boundaries to avoid redundant computation
 
-### The Context Pollution Problem
+---
 
-Every token added to context has costs:
-- Increased latency and compute
-- Diluted attention to important information
-- Higher risk of hallucination from conflicting data
-- Reduced model performance on retrieval tasks
+## Context Engineering Patterns
 
-## Context Management Strategies
-
-### 1. Context Trimming
-
-Drop older conversation turns, keeping only the last N turns.
-
-| Aspect | Details |
-|--------|---------|
-| **Mechanism** | Sliding window over conversation history |
-| **Pros** | Deterministic, zero latency, preserves recent context verbatim |
-| **Cons** | Abrupt loss of long-range context, "amnesia" effect |
-| **Best for** | Independent tasks, short interactions, predictable workflows |
-
-```python
-def trim_context(messages: list, keep_last_n: int = 10) -> list:
-    """Keep system message + last N turns."""
-    system_msgs = [m for m in messages if m["role"] == "system"]
-    other_msgs = [m for m in messages if m["role"] != "system"]
-    return system_msgs + other_msgs[-keep_last_n:]
-```
-
-### 2. Context Summarization
-
-Compress prior messages into structured summaries.
-
-| Aspect | Details |
-|--------|---------|
-| **Mechanism** | LLM generates summary of older context |
-| **Pros** | Retains long-range memory, smoother UX, scalable |
-| **Cons** | Summarization bias risk, added latency, potential compounding errors |
-| **Best for** | Complex multi-step tasks, long-horizon interactions |
-
-```python
-SUMMARIZATION_PROMPT = """Summarize the conversation so far, preserving:
-1. Key decisions made
-2. Important context established
-3. Current task state and goals
-4. Any constraints or preferences expressed
-
-Be concise but complete. Output as structured markdown."""
-
-async def summarize_context(messages: list, model) -> str:
-    """Generate a summary of conversation history."""
-    conversation_text = format_messages_for_summary(messages)
-    response = await model.generate(
-        system=SUMMARIZATION_PROMPT,
-        user=conversation_text
-    )
-    return response.content
-```
-
-### 3. Hybrid Approach
-
-Combine trimming and summarization for optimal balance.
-
-```python
-class HybridContextManager:
-    def __init__(
-        self,
-        keep_recent: int = 5,      # Recent turns to keep verbatim
-        summary_threshold: int = 20, # When to trigger summarization
-    ):
-        self.keep_recent = keep_recent
-        self.summary_threshold = summary_threshold
-        self.running_summary = ""
-
-    def process(self, messages: list) -> list:
-        if len(messages) < self.summary_threshold:
-            return messages
-
-        # Summarize older messages
-        old_messages = messages[:-self.keep_recent]
-        self.running_summary = summarize(old_messages, self.running_summary)
-
-        # Return summary + recent messages
-        return [
-            {"role": "system", "content": f"Previous context:\n{self.running_summary}"},
-            *messages[-self.keep_recent:]
-        ]
-```
-
-## System Prompt Design
-
-### Principles for Context-Efficient Prompts
-
-1. **Clear and direct language**: Avoid ambiguity that requires clarification turns
-2. **Structured sections**: Organize by purpose (role, capabilities, constraints)
-3. **Minimal yet comprehensive**: Include only what affects behavior
-4. **Self-contained instructions**: Reduce need for context retrieval
-
-### Example Structure
+### Pattern 1: Structured Task Decomposition
 
 ```markdown
-# Role
-You are [specific role] that [primary function].
+# Task: [Concise Title]
 
-# Capabilities
-- [Capability 1 with scope]
-- [Capability 2 with scope]
+## Context
+- Project: [Project Name]
+- Current State: [Description]
+- Goal: [Clear Objective]
 
-# Constraints
-- [Hard constraint]
-- [Preference]
+## Constraints
+- Must: [Hard requirements]
+- Must Not: [Explicit prohibitions]
+- Optimize: [Concise, elegant, efficient, pure]
 
-# Output Format
-[Specific format requirements]
+## Acceptance Criteria
+- [ ] [Testable criterion 1]
+- [ ] [Testable criterion 2]
 ```
 
-## Tool Design for Context Efficiency
+### Pattern 2: Business Logic Review
 
-### Just-in-Time Context Loading
+```markdown
+# Business Logic Review: [System Name]
 
-Instead of front-loading all possible context, load information dynamically as needed.
+## Core Rules
+1. [Rule 1 - Dynamically adjustable]
+2. [Rule 2 - Calculation method]
+3. [Rule 3 - Traceability requirements]
 
-```python
-# Anti-pattern: Loading everything upfront
-context = load_all_user_data()  # Large, mostly unused
-context += load_all_documents()  # Even larger
+## Review Focus
+- Correctness: Business logic compliant with specifications
+- Completeness: All scenarios covered
+- Traceability: Calculation process recorded
+- Maintainability: Code is clean and clear
 
-# Better: Just-in-time retrieval
-tools = [
-    Tool(
-        name="get_user_preference",
-        description="Get specific user preference by key",
-        # Only fetches what's needed when asked
-    ),
-    Tool(
-        name="search_documents",
-        description="Search documents by query",
-        # Returns relevant subset
-    ),
-]
+## Optimization Suggestions
+- [If any] Clearly implementable improvements
 ```
 
-### Tool Design Principles
+### Pattern 3: Data Integration MVP
 
-1. **Self-contained**: Each tool returns complete, usable information
-2. **Scoped**: Tools do one thing well
-3. **Descriptive**: Names and descriptions guide LLM toward correct usage
-4. **Error-robust**: Return informative errors that don't pollute context
+```markdown
+# MVP Data Integration: [Module Name]
 
-```python
-# Well-designed tool
-def search_codebase(query: str, max_results: int = 5) -> str:
-    """Search codebase for relevant code snippets.
+## Database Design Principles
+- Table Count: As few as possible (simple & maintainable)
+- Fields: Explicit naming, avoid abbreviations
+- Relations: Foreign keys when necessary, avoid over-normalization
 
-    Args:
-        query: Natural language description of what to find
-        max_results: Maximum snippets to return (default 5)
+## Integration Steps
+1. Build independent MVP modules
+2. Identify shared data
+3. Minimize table integration
+4. Automate calculation logic
 
-    Returns:
-        Formatted code snippets with file paths and line numbers,
-        or 'No results found' if nothing matches.
-    """
-    results = perform_search(query, limit=max_results)
-    if not results:
-        return "No results found for query."
-    return format_results(results)  # Concise, structured output
+## Testing & Validation
+- [ ] Data integrity
+- [ ] Calculation accuracy
+- [ ] Edge case handling
 ```
 
-## Long-Horizon Task Patterns
+---
 
-### Pattern 1: Compaction
+## High-Frequency Scenarios
 
-Periodically compress conversation history to reclaim context space.
+### Scenario 1: Code Review
 
-```python
-async def compaction_loop(agent, messages, task):
-    while not task.complete:
-        # Process next step
-        response = await agent.run(messages)
-        messages.append(response)
+```markdown
+Use code-reviewer skill to check code modifications:
 
-        # Compact when approaching limit
-        if estimate_tokens(messages) > TOKEN_LIMIT * 0.8:
-            summary = await summarize_context(messages[:-3])
-            messages = [
-                {"role": "system", "content": agent.system_prompt},
-                {"role": "assistant", "content": f"Summary of progress:\n{summary}"},
-                *messages[-3:]  # Keep recent context
-            ]
+1. **Business Logic**: Correct and complete
+2. **Security**: No vulnerabilities (OWASP Top 10)
+3. **Performance**: Obvious optimization opportunities
+4. **Maintainability**: Code is concise and elegant
 
-    return messages
+**Key**: Ignore trivial details, focus on clearly implementable improvements.
+Implementation: Concise, elegant, efficient, pure
 ```
 
-### Pattern 2: Structured Note-Taking
+### Scenario 2: Financial System Review
 
-Agent maintains external notes, retrieving as needed.
+```markdown
+# Financial System Audit Focus
 
-```python
-class NoteTakingAgent:
-    def __init__(self):
-        self.notes = {}  # Key-value store outside context
+## Business Logic Validation
+- [ ] Amount calculation formulas correct
+- [ ] Debit-credit balance verification
+- [ ] Tax/fee rates dynamically configurable
+- [ ] Multi-currency support (if needed)
 
-    async def run(self, messages):
-        tools = [
-            Tool("save_note", self.save_note, "Save information for later"),
-            Tool("get_note", self.get_note, "Retrieve saved information"),
-            Tool("list_notes", self.list_notes, "List all saved note keys"),
-        ]
-        return await self.agent.run(messages, tools=tools)
+## Data Integrity
+- [ ] Transaction logs never lost
+- [ ] Balance changes traceable
+- [ ] Audit logs complete
+- [ ] Abnormal transactions marked
 
-    def save_note(self, key: str, content: str) -> str:
-        self.notes[key] = content
-        return f"Saved note: {key}"
-
-    def get_note(self, key: str) -> str:
-        return self.notes.get(key, f"No note found for key: {key}")
+## Database Design
+- Minimal table count (simple & maintainable)
+- Necessary indexes established
+- Foreign key constraints properly set
 ```
 
-### Pattern 3: Sub-Agent Architecture
+### Scenario 3: KPI System Review
 
-Delegate focused tasks to specialized agents with clean context.
+```markdown
+# KPI System Three Key Points
 
-```python
-class OrchestratorAgent:
-    def __init__(self):
-        self.sub_agents = {
-            "researcher": ResearchAgent(),
-            "coder": CodingAgent(),
-            "reviewer": ReviewAgent(),
-        }
+## 1. Dynamic Bonus Ratio
+- Monthly bonus ratios configurable
+- Historical configurations preserved
+- Effective time clearly defined
 
-    async def delegate(self, task: str, agent_type: str) -> str:
-        """Delegate to sub-agent, receive condensed summary."""
-        agent = self.sub_agents[agent_type]
+## 2. Excess Calculation Method
+- Salesperson excess = Monthly high option fee
+- Calculation formula explicitly recorded
+- Results verifiable
 
-        # Sub-agent works with fresh context
-        result = await agent.run(task)
-
-        # Return only essential findings to main context
-        return result.summary  # Not the full conversation
+## 3. Traceable Design
+- Recorded data never modified
+- Calculation formulas explicitly defined
+- Result amounts traceable
 ```
 
-**Benefits**:
-- Each sub-agent has focused, clean context
-- Main agent receives condensed results
-- Parallelization opportunities
-- Failure isolation
+### Scenario 4: Frontend Testing
 
-## Implementation Patterns
+```markdown
+# Minimal Viable Testing Plan
 
-### Session Memory Manager
+## Pre-Test Preparation
+1. Confirm backend APIs working
+2. Prepare test dataset
+3. Clear browser cache
 
-```python
-class SessionMemory:
-    def __init__(
-        self,
-        keep_last_n_turns: int = 5,
-        context_limit: int = 100_000,  # tokens
-        summarizer = None,
-    ):
-        self.keep_last_n_turns = keep_last_n_turns
-        self.context_limit = context_limit
-        self.summarizer = summarizer
-        self.messages = []
-        self.summary = ""
+## Test Steps
+1. **Functional Test**: [Specific steps]
+   - Expected: [Clear expectation]
+   - Actual: [Record actual]
+   - Pass: ✓ / ✗
 
-    async def add_message(self, message: dict):
-        self.messages.append(message)
-        await self._maybe_compact()
+2. **Boundary Test**: [Extreme values]
+   - Expected: [Clear expectation]
 
-    async def _maybe_compact(self):
-        current_tokens = estimate_tokens(self.messages)
-
-        if current_tokens > self.context_limit * 0.8:
-            # Summarize all but recent messages
-            old_messages = self.messages[:-self.keep_last_n_turns]
-            new_summary = await self.summarizer.summarize(
-                old_messages,
-                previous_summary=self.summary
-            )
-            self.summary = new_summary
-            self.messages = self.messages[-self.keep_last_n_turns:]
-
-    def get_context(self) -> list:
-        context = []
-        if self.summary:
-            context.append({
-                "role": "system",
-                "content": f"Conversation summary:\n{self.summary}"
-            })
-        context.extend(self.messages)
-        return context
+## Issue Debugging
+If not as expected:
+1. Check console errors
+2. Check network requests
+3. Check backend logs
+4. Gradually narrow scope
 ```
 
-### Token Estimation
+### Scenario 5: Document Conversion
 
-```python
-def estimate_tokens(messages: list) -> int:
-    """Rough token estimation (4 chars ≈ 1 token for English)."""
-    total_chars = sum(
-        len(m.get("content", ""))
-        for m in messages
-    )
-    return total_chars // 4
+```markdown
+# PDF → Markdown Conversion Requirements
 
-def estimate_tokens_accurate(messages: list, model: str) -> int:
-    """Accurate token count using tiktoken."""
-    import tiktoken
-    encoding = tiktoken.encoding_for_model(model)
-    return sum(
-        len(encoding.encode(m.get("content", "")))
-        for m in messages
-    )
+## Information Completeness
+- [ ] Text content (including tables)
+- [ ] Images and charts
+- [ ] Format hierarchy (headings, lists)
+- [ ] Page/chapter references
+
+## Readability Optimization
+- Standard Markdown syntax
+- Tables converted to Markdown
+- Code blocks with syntax highlighting
+- Add table of contents with anchors
+
+## Output Format
+- Standard CommonMark syntax
+- UTF-8 encoding
+- Filename: [original_name].md
 ```
 
-## Best Practices
+---
 
-1. **Treat context as precious**: Every token has a cost. Include only information that improves task performance.
+## Best Practice Templates
 
-2. **Use progressive disclosure**: Start minimal, expand context only when needed via tools.
+### Template A: Deep Analysis Mode
 
-3. **Design for recoverability**: Agents should be able to reconstruct critical context from external sources.
+When encountering unfamiliar code or problems:
 
-4. **Monitor context health**: Track token usage, retrieval accuracy, and task completion rates.
+```markdown
+# Deep Analysis: [Topic]
 
-5. **Prefer structured over raw data**: JSON, markdown tables, and clear formatting improve information density.
+## Step 1: Understand Current State
+- [ ] Read relevant code files
+- [ ] Search docs and best practices
+- [ ] Review similar implementations
 
-6. **Implement graceful degradation**: When context limits approach, prioritize recent and high-signal information.
+## Step 2: Locate Problem
+- [ ] Narrow problem scope
+- [ ] Confirm reproduction steps
+- [ ] Collect error information
 
-7. **Test with long conversations**: Validate agent behavior after many turns, not just initial interactions.
+## Step 3: Design Solution
+- [ ] List possible approaches
+- [ ] Evaluate pros/cons
+- [ ] Select best approach
 
-8. **Separate concerns**: Use different context regions for system instructions, user history, and tool outputs.
+## Step 4: Verify Results
+- [ ] Unit tests
+- [ ] Integration tests
+- [ ] Regression tests
+```
 
-9. **Version your summaries**: When compacting, maintain enough structure to debug summarization issues.
+### Template B: User Friendliness Review
 
-10. **Measure and iterate**: Context engineering is empirical—test what information actually improves outcomes.
+```markdown
+# UI/UX Consistency Review
 
-## References
+## Consistency Check
+- [ ] Terminology unified (same concept = same wording)
+- [ ] Interaction patterns consistent (save/cancel/delete positions)
+- [ ] Visual styles consistent (colors/fonts/spacing)
+- [ ] Feedback mechanisms consistent (success/error messages)
 
-- [reference/evaluation-strategies.md](reference/evaluation-strategies.md) - Testing context management effectiveness
-- [reference/summarization-patterns.md](reference/summarization-patterns.md) - Detailed summarization implementations
+## User Friendliness
+- [ ] Minimize operation steps
+- [ ] Error messages clear and specific
+- [ ] Loading states have feedback
+- [ ] Key information highlighted
+
+## Accessibility
+- [ ] Keyboard navigation support
+- [ ] Focus management reasonable
+- [ ] Contrast meets standards
+```
+
+### Template C: Progress Sync Template
+
+```markdown
+# Progress Update: [Feature/Module]
+
+## Completed
+- ✅ [Specific completed tasks]
+
+## In Progress
+- 🔄 [Current task] (Progress: X%)
+
+## Issues
+- ⚠️ [Issue description]
+- Impact: [Impact scope]
+- Solution: [Planned solution]
+
+## Next Steps
+- 📋 [Planned tasks]
+```
+
+---
+
+## Anti-Patterns
+
+### Patterns to Avoid
+
+| Anti-Pattern | Problem | Correct Approach |
+|--------------|---------|------------------|
+| Over-abstraction | Creating utilities for 3 uses | Copy-paste, abstract when >3 |
+| Premature optimization | Planning for hypothetical needs | YAGNI principle, add when needed |
+| Silent failures | Errors swallowed silently | Explicit handling or propagate up |
+| Magic numbers | Hard-coded constants | Extract to named constants |
+| Nesting hell | 5-layer if nesting | Early returns, guard clauses |
+
+### Common Traps
+
+1. **Over-commenting**: Code should be self-documenting; comments explain "why" not "what"
+2. **Ignoring edges**: Only handling happy path, exceptions unhandled
+3. **Database over-design**: Too many tables, complex relationships hard to maintain
+4. **Insufficient testing**: Only normal flow tested, edges uncovered
+5. **Poor communication**: Not asking when stuck, blindly trying
+
+---
+
+## Quality Checklist
+
+### Code Quality
+
+- [ ] Business logic correct and complete
+- [ ] No security vulnerabilities (injection, XSS, etc.)
+- [ ] Error handling comprehensive
+- [ ] Code concise and readable
+- [ ] Naming clear and accurate
+- [ ] No code duplication
+
+### Data Integrity
+
+- [ ] Calculation formulas explicitly recorded
+- [ ] Results traceable and verifiable
+- [ ] Historical data never modified
+- [ ] Abnormal data marked
+- [ ] Transaction consistency guaranteed
+
+### User Experience
+
+- [ ] Workflow concise
+- [ ] Error messages clear
+- [ ] Loading state feedback
+- [ ] Interface style consistent
+- [ ] Key information prominent
+
+---
+
+## Sources
+
+### Context Engineering
+- [Effective Context Engineering for AI Agents - Anthropic](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+- [Context Engineering for AI Agents: Lessons from Building Manus](https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)
+- [Context Engineering in LLM-Based Agents](https://jtanruan.medium.com/context-engineering-in-llm-based-agents-d670d6b439bc)
+
+### Prompt Engineering
+- [10 Best Practices for Building Reliable AI Agents in 2025](https://www.uipath.com/blog/ai/agent-builder-best-practices)
+- [Prompt Engineering Guide](https://www.promptingguide.ai/)
+- [OpenAI Prompt Engineering Documentation](https://platform.openai.com/docs/guides/prompt-engineering)
+
+### Code Review Automation
+- [AI Code Review Implementation Best Practices - Graphite](https://graphite.com/guides/ai-code-review-implementation-best-practices)
+- [AI Code Review with Claude Skills Guide](https://medium.com/@r0r1/ai-code-review-with-claude-skills-from-diy-to-team-ready-636966cb8e36)
+
+### MVP & Data Integration
+- [7 Key Steps for MVP Development in Banking and Finance](https://medium.com/@KMSSolutions/7-key-steps-for-effective-mvp-development-in-banking-and-finance-ebc12434628a)
+- [System Integration Best Practices](https://cadabra.studio/blog/system-integration-guide)
+
+---
+
+## Appendix: Quick Commands
+
+### Claude Code Skills
+
+```bash
+# Code review
+/code-reviewer
+
+# Debug assistant
+/debugging-assistant
+
+# Git analysis
+/git-analyzer
+
+# Product management
+/product-manager
+
+# UI/UX principles
+/ui-ux-principles
+
+# Context engineering (this skill)
+/context-engineering
+
+# Commit code
+/commit [message]
+
+# Add rule
+/add-rule
+
+# Analyze document
+/analyze-doc
+```
+
+---
+
+**Version**: 1.0.0
+**Updated**: 2025-01-01
+**Maintainer**: Veld Team

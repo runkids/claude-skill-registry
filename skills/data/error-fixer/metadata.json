@@ -1,7 +1,7 @@
 {
   "name": "error-fixer",
-  "repo": "shiiman/claude-code-plugins",
-  "path": "plugins/shiiman-go/skills/error-fixer/SKILL.md",
-  "source": "github.com/shiiman/claude-code-plugins",
-  "downloaded_at": "2026-01-17T03:40:09.009672Z"
+  "repo": "Spectaculous-Code/raamattu-nyt",
+  "path": ".claude/skills/error-fixer/skill.md",
+  "source": "github.com/Spectaculous-Code/raamattu-nyt",
+  "downloaded_at": "2026-01-19T02:49:03.715400Z"
 }

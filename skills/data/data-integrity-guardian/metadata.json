@@ -1,7 +1,7 @@
 {
   "name": "data-integrity-guardian",
-  "repo": "Acurioustractor/empathy-ledger-v2",
-  "path": ".claude/skills/local/data-integrity-guardian/skill.md",
-  "source": "github.com/Acurioustractor/empathy-ledger-v2",
-  "downloaded_at": "2026-01-17T02:21:56.006241Z"
+  "repo": "jovermier/claude-code-plugins-ip-labs",
+  "path": "plugins/dev/agents/review/data-integrity-guardian/SKILL.md",
+  "source": "github.com/jovermier/claude-code-plugins-ip-labs",
+  "downloaded_at": "2026-01-19T03:04:52.575005Z"
 }

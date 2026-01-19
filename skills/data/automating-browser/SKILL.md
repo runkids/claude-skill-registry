@@ -1,195 +1,146 @@
 ---
 name: automating-browser
-description: >
-  claude-in-chrome MCPツールを使用したインタラクティブブラウザ自動化。
-  最適な用途: デモ、ドキュメントGIF、手動テスト、ライブブラウザ制御。
-  CI/CDでの自動E2Eテストには、代わりにwebapp-testingスキルを使用。
-  トリガー: browser automation, ブラウザ自動化, screenshot, スクリーンショット,
-  form fill, フォーム入力, click, navigate, GIF recording, GIF録画,
-  ブラウザ操作, Chrome, demo, デモ, live browser.
-allowed-tools: Read, Glob, mcp__claude-in-chrome__*
+description: "Controls Chrome browser: takes screenshots, clicks buttons, fills forms, downloads images, inspects pages, captures network requests, checks console errors, debugs API issues. Use when: 'screenshot', 'click', 'fill form', 'download image', 'check browser', 'look at screen', 'capture page', 'check for errors', 'debug network', 'API failing', 'console errors'. Provides MCP tool discovery for 70 tabz_* browser automation tools."
 ---
 
-# ブラウザ自動化ガイド
+# Tabz MCP - Browser Automation
 
-claude-in-chrome MCP拡張機能を使用したインタラクティブなブラウザ制御。
+## Overview
 
-## 目的
+Control Chrome browser programmatically via the Tabz MCP server. 70 tools for screenshots, interaction, network debugging, and more.
 
-以下のための**インタラクティブ**ブラウザ自動化を有効化:
+## Tool Discovery (Claude Code)
 
-- デモ録画とGIFドキュメント
-- ライブブラウザフィードバック付き手動テスト
-- フォーム入力とリアルタイムインタラクション
-- 視覚的検証のためのスクリーンショットキャプチャ
-- 現在のブラウザからのWebデータ抽出
+Use MCPSearch to load tools before calling them:
 
-## このスキルの使用タイミング
+```
+# Search for tools
+MCPSearch with query: "screenshot"
 
-| ユースケース                     | このスキル | webapp-testing（公式） |
-| -------------------------------- | ---------- | ---------------------- |
-| GIF録画/デモ                     | [最適]     | [非対応]               |
-| 手動テスト/検証                  | [最適]     | [OK]                   |
-| CI/CD自動テスト                  | [OK]       | [最適]                 |
-| サーバーライフサイクル付きテスト | [非対応]   | [最適] with_server.py  |
-| 既存Chromeセッションの使用       | [対応]     | [非対応]               |
+# Load specific tool
+MCPSearch with query: "select:mcp__tabz__tabz_screenshot"
 
-**クイック判断**: 「見せて検証」→このスキル、「自動化して実行」→webapp-testing
-
-## はじめに
-
-### 1. タブコンテキスト必須
-
-**常にここから開始**:
-
-```text
-mcp__claude-in-chrome__tabs_context_mcp
+# Then call it
+mcp__tabz__tabz_screenshot
 ```
 
-これにより、後続の操作に使用可能なタブIDが提供される。
+## Browser Debugging (Common Issues)
 
-### 2. タブの作成または再利用
+### Check Console Errors
 
-```markdown
-# 新しいタブを作成
-
-mcp**claude-in-chrome**tabs_create_mcp
-
-# またはコンテキストから既存のタブを使用
+```
+MCPSearch: select:mcp__tabz__tabz_get_console_logs
+mcp__tabz__tabz_get_console_logs with level="error"
 ```
 
-### 3. ナビゲーション
+### Debug Network/API Issues
 
-```text
-mcp__claude-in-chrome__navigate
-  url: "https://example.com"
-  tabId: {tabs_context_mcpから取得}
+```
+# 1. Enable capture BEFORE triggering the action
+MCPSearch: select:mcp__tabz__tabz_enable_network_capture
+mcp__tabz__tabz_enable_network_capture
+
+# 2. Trigger the action (click button, navigate, etc.)
+
+# 3. Get failed requests
+MCPSearch: select:mcp__tabz__tabz_get_network_requests
+mcp__tabz__tabz_get_network_requests with statusFilter="error"
+
+# Or filter by URL pattern
+mcp__tabz__tabz_get_network_requests with filter="api.example.com"
 ```
 
-## コアツール
+### Screenshot for Visual QA
 
-| ツール             | 目的                        |
-| ------------------ | --------------------------- |
-| `tabs_context_mcp` | 利用可能なタブを取得        |
-| `tabs_create_mcp`  | 新しいタブを作成            |
-| `navigate`         | URLに移動                   |
-| `read_page`        | ページ構造を取得            |
-| `find`             | 自然言語での要素検索        |
-| `form_input`       | フォームフィールドを入力    |
-| `computer`         | マウス/キーボードアクション |
-| `get_page_text`    | テキストコンテンツを抽出    |
-| `gif_creator`      | インタラクションを録画      |
-
-## ページコンテンツの読み取り
-
-| ツール                                   | ユースケース                            |
-| ---------------------------------------- | --------------------------------------- |
-| `read_page`                              | アクセシビリティツリー（DOM構造）を取得 |
-| `read_page` with `filter: "interactive"` | ボタン、リンク、入力のみ                |
-| `find`                                   | 自然言語での要素検索                    |
-| `get_page_text`                          | 記事/メインテキストを抽出               |
-
-### 例: インタラクティブ要素の読み取り
-
-```text
-mcp__claude-in-chrome__read_page
-  tabId: 123
-  filter: "interactive"
+```
+MCPSearch: select:mcp__tabz__tabz_screenshot
+mcp__tabz__tabz_screenshot
+# Returns file path - use Read tool to view
 ```
 
-## 一般的なパターン
+### Check Page State
 
-### フォーム入力
+```
+MCPSearch: select:mcp__tabz__tabz_get_page_info
+mcp__tabz__tabz_get_page_info
+# Returns URL, title, loading state
 
-1. `read_page` with `filter: "interactive"` で入力を検索
-2. 入力の `ref_id` を特定（例: `ref_1`, `ref_2`）
-3. `form_input` で ref と値を指定
-
-```text
-mcp__claude-in-chrome__form_input
-  tabId: 123
-  ref: "ref_5"
-  value: "user@example.com"
+MCPSearch: select:mcp__tabz__tabz_get_element
+mcp__tabz__tabz_get_element with selector="#error-message" includeStyles=true
 ```
 
-### クリックアクション
+## Tool Categories
 
-```text
-mcp__claude-in-chrome__computer
-  tabId: 123
-  action: "left_click"
-  ref: "ref_10"  # または座標: [100, 200]
+Use `MCPSearch with query: "tabz"` to discover all available tools. Categories:
+
+| Category | Tools | Purpose |
+|----------|-------|---------|
+| Tab Management | `list_tabs`, `switch_tab`, `rename_tab`, `open_url` | Navigate tabs |
+| Tab Groups | `create_group`, `add_to_group`, `ungroup_tabs` | Organize tabs |
+| Windows | `list_windows`, `create_window`, `tile_windows` | Window management |
+| Audio | `speak`, `list_voices`, `play_audio` | TTS notifications |
+| Page Info | `get_page_info`, `get_element`, `get_dom_tree` | Inspect content |
+| Interaction | `click`, `fill` | Click/type |
+| Screenshots | `screenshot`, `screenshot_full` | Capture visuals |
+| Downloads | `download_image`, `download_file` | Save files |
+| Network | `enable_network_capture`, `get_network_requests` | Debug APIs |
+| Console | `get_console_logs`, `execute_script` | Debug JS |
+| Emulation | `emulate_device`, `emulate_geolocation` | Responsive testing |
+
+## Tab Groups (Parallel Workers)
+
+When multiple Claude workers run in parallel, each MUST create their own named group:
+
+```
+# Create unique group for this worker
+MCPSearch: select:mcp__tabz__tabz_create_group
+mcp__tabz__tabz_create_group with tabIds=[123,456] title="ISSUE-ID: Research" color="blue"
+
+# Add more tabs later
+mcp__tabz__tabz_add_to_group with groupId=12345 tabIds=[789]
+
+# Cleanup when done
+mcp__tabz__tabz_ungroup_tabs with tabIds=[123,456,789]
 ```
 
-### スクリーンショットキャプチャ
+**Group colors:** grey, blue, red, yellow, green, pink, purple, cyan
 
-```text
-mcp__claude-in-chrome__computer
-  tabId: 123
-  action: "screenshot"
+## Quick Patterns
+
+**Screenshot:**
+```
+mcp__tabz__tabz_screenshot
 ```
 
-### GIF録画
-
-1. 録画開始
-2. スクリーンショット撮影（初期フレーム）
-3. アクション実行
-4. スクリーンショット撮影（最終フレーム）
-5. 録画停止
-6. エクスポート
-
-```markdown
-# 開始
-
-mcp**claude-in-chrome**gif_creator
-tabId: 123
-action: "start_recording"
-
-# ... スクリーンショット付きでアクション実行 ...
-
-# 停止
-
-mcp**claude-in-chrome**gif_creator
-tabId: 123
-action: "stop_recording"
-
-# エクスポート
-
-mcp**claude-in-chrome**gif_creator
-tabId: 123
-action: "export"
-download: true
-filename: "workflow-demo.gif"
+**Click:**
+```
+mcp__tabz__tabz_click with selector="button.submit"
 ```
 
-## 詳細参照
+**Fill form:**
+```
+mcp__tabz__tabz_fill with selector="#email" value="test@example.com"
+```
 
-| 参照                                                                              | 目的                             |
-| --------------------------------------------------------------------------------- | -------------------------------- |
-| [@./references/claude-in-chrome-tools.md](./references/claude-in-chrome-tools.md) | 完全なツールドキュメント         |
-| [@./references/common-patterns.md](./references/common-patterns.md)               | 再利用可能なワークフローパターン |
-| [@./references/e2e-testing.md](./references/e2e-testing.md)                       | E2Eテスト方法論                  |
+**Switch tab:**
+```
+mcp__tabz__tabz_list_tabs  # Get tab IDs (large integers like 1762556601)
+mcp__tabz__tabz_switch_tab with tabId=1762556601
+```
 
-## セキュリティ注意事項
+**TTS notification:**
+```
+mcp__tabz__tabz_speak with text="Done!" priority="high"
+```
 
-- 複数ドメイン操作には常に `update_plan` を使用
-- 機密データ処理にはユーザー確認が必要
-- 金融情報を含むフォームを自動送信しない
-- ボット検出システム（CAPTCHA）に注意
+## Important Notes
 
-## 参照
+1. **Tab IDs**: Chrome tab IDs are large integers (e.g., `1762556601`), not 1, 2, 3
+2. **Always load tools first**: Use MCPSearch before calling any mcp__tabz__ tool
+3. **Network capture**: Enable BEFORE the page makes requests
+4. **Screenshots**: Return file paths - use Read tool to view
+5. **Selectors**: CSS selectors - `#id`, `.class`, `button[type="submit"]`
 
-### 関連スキル
+## Resources
 
-- `webapp-testing`（公式） - Playwright E2E自動テスト（CI/CD最適化）
-- `utilizing-cli-tools` - CLIツールガイド
-- `generating-tdd-tests` - テスト設計
-
-### 使用コマンド
-
-- `/e2e` - E2Eテスト + ドキュメント生成
-- `/test` - E2Eテスト実行（ブラウザテスト含む）
-
-### 参照
-
-- `/example-skills:webapp-testing` - 公式スキル（Playwright + with_server.py）
+See `references/workflows.md` for more patterns.

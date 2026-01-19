@@ -1,231 +1,739 @@
 ---
 name: e2e-testing
-description: chrome-devtools MCPサーバーを使ったE2Eテストの実施・デバッグを行う。「E2Eテストを実施」「画面をテスト」「ユーザーフローを確認」「ブラウザで動作確認」「画面の表示を検証」などの依頼時に使用。ログインフロー、フォーム送信、ページ遷移などのユーザー操作をインタラクティブにテストする。
+description: End-to-end testing patterns and best practices for web applications using Playwright and Cypress. Covers Page Object Model, test fixtures, selector strategies, async handling, visual regression testing, and flaky test prevention. Use when setting up E2E tests, debugging test failures, or improving test reliability. Trigger keywords: e2e testing, end-to-end tests, Playwright, Cypress, Page Object Model, test fixtures, selectors, data-testid, async tests, visual regression, flaky tests, browser testing.
 ---
 
-# E2E Testing Skill
+# E2E Testing
 
-chrome-devtools MCPサーバーを使用したE2Eテストの実施を支援する。
+## Overview
 
-## 概要
+End-to-end (E2E) testing validates complete user flows through the application, ensuring all components work together correctly. This skill covers modern E2E testing patterns using Playwright and Cypress, including architectural patterns, selector strategies, and techniques for building reliable, maintainable test suites.
 
-このスキルはchrome-devtools MCPサーバーを使い、実際のブラウザを操作してE2Eテストを実施する。Playwrightなどのテストフレームワークではなく、MCPツールを直接使用してインタラクティブにテストを行う。
+## Instructions
 
-## 前提条件
+### 1. Choose Your Framework
 
-- 開発サーバーが起動していること（`pnpm dev`）
-- chrome-devtools MCPサーバーが有効であること
-- Chromeブラウザが利用可能であること
+**Playwright vs Cypress Comparison:**
 
-## テスト実施ワークフロー
+| Feature              | Playwright                    | Cypress               |
+| -------------------- | ----------------------------- | --------------------- |
+| Multi-browser        | Chrome, Firefox, Safari, Edge | Chrome, Firefox, Edge |
+| Multi-tab/window     | Yes                           | Limited               |
+| Network interception | Powerful                      | Good                  |
+| Parallel execution   | Built-in                      | Requires Dashboard    |
+| Language support     | JS, TS, Python, .NET, Java    | JS, TS                |
+| iframes              | Full support                  | Limited               |
+| Mobile emulation     | Excellent                     | Basic                 |
 
-### 1. 開発サーバー起動確認
+**Playwright Setup:**
 
 ```bash
-# サーバーが起動しているか確認、なければ起動
-pnpm dev
+npm init playwright@latest
 ```
 
-### 2. ブラウザツールの有効化
+```typescript
+// playwright.config.ts
+import { defineConfig, devices } from "@playwright/test";
 
-テスト開始前に必要なツールカテゴリを有効化:
-
-- `activate_browser_navigation_tools` - ページ作成・遷移
-- `activate_snapshot_and_screenshot_tools` - スクリーンショット・スナップショット
-- `activate_form_interaction_tools` - フォーム入力・キー操作
-- `activate_element_interaction_tools` - ドラッグ・ホバー
-
-### 3. テスト実施フロー
-
-```
-1. ページを開く/遷移する
-2. スナップショットで要素のuidを取得
-3. 要素を操作（クリック、入力など）
-4. 結果を検証（テキスト確認、スクリーンショット）
-5. 次のステップへ
-```
-
-## 主要MCPツール
-
-### ナビゲーション系（activate_browser_navigation_tools）
-
-| ツール | 用途 |
-|--------|------|
-| ページ作成 | 新しいブラウザページを開く |
-| URL遷移 | 指定URLへ移動 |
-| ページ一覧 | 開いているページを確認 |
-| ページ選択 | 操作対象ページを切り替え |
-
-### スナップショット系（activate_snapshot_and_screenshot_tools）
-
-| ツール | 用途 |
-|--------|------|
-| `mcp_chrome-devtoo_take_screenshot` | スクリーンショット撮影 |
-| テキストスナップショット | ページ構造とuid取得（操作に必須） |
-
-### 操作系
-
-| ツール | 用途 |
-|--------|------|
-| `mcp_chrome-devtoo_click` | 要素をクリック |
-| `mcp_chrome-devtoo_fill` | テキスト入力・セレクト選択 |
-| `mcp_chrome-devtoo_wait_for` | テキスト出現まで待機 |
-| `mcp_chrome-devtoo_evaluate_script` | JavaScript実行 |
-
-### その他
-
-| ツール | 用途 |
-|--------|------|
-| `mcp_chrome-devtoo_emulate` | ネットワーク・位置情報エミュレート |
-| `mcp_chrome-devtoo_resize_page` | 画面サイズ変更（レスポンシブ確認） |
-| `mcp_chrome-devtoo_handle_dialog` | ダイアログ処理 |
-| `mcp_chrome-devtoo_upload_file` | ファイルアップロード |
-
-## テストパターン
-
-### パターン1: ページ表示確認
-
-```
-1. activate_browser_navigation_tools でナビゲーションツール有効化
-2. ページを http://localhost:3000/[path] に遷移
-3. activate_snapshot_and_screenshot_tools でスナップショットツール有効化
-4. テキストスナップショットで内容確認
-5. 期待する要素・テキストが存在するか検証
-6. 必要に応じてスクリーンショット撮影
+export default defineConfig({
+  testDir: "./e2e",
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+  reporter: [["html"], ["junit", { outputFile: "results.xml" }]],
+  use: {
+    baseURL: "http://localhost:3000",
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+  },
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } },
+    { name: "mobile", use: { ...devices["iPhone 13"] } },
+  ],
+  webServer: {
+    command: "npm run dev",
+    url: "http://localhost:3000",
+    reuseExistingServer: !process.env.CI,
+  },
+});
 ```
 
-### パターン2: フォーム入力・送信
+**Cypress Setup:**
 
-```
-1. 対象ページに遷移
-2. テキストスナップショットでフォーム要素のuidを取得
-3. mcp_chrome-devtoo_fill で各フィールドに値を入力
-   - uid: スナップショットから取得した要素ID
-   - value: 入力する値
-4. mcp_chrome-devtoo_click で送信ボタンをクリック
-5. mcp_chrome-devtoo_wait_for で結果表示を待機
-6. 結果を検証
+```bash
+npm install cypress --save-dev
 ```
 
-### パターン3: 認証フロー
+```typescript
+// cypress.config.ts
+import { defineConfig } from "cypress";
 
-```
-1. /login ページに遷移
-2. スナップショットでメール/パスワード入力欄のuidを取得
-3. mcp_chrome-devtoo_fill でメールアドレス入力
-4. mcp_chrome-devtoo_fill でパスワード入力
-5. mcp_chrome-devtoo_click でログインボタンクリック
-6. mcp_chrome-devtoo_wait_for でダッシュボード表示を待機
-7. URL・表示内容を検証
-```
-
-### パターン4: ナビゲーション検証
-
-```
-1. 起点ページに遷移
-2. スナップショットでリンク要素のuidを取得
-3. mcp_chrome-devtoo_click でリンクをクリック
-4. 遷移先URLを確認
-5. スナップショットで遷移先の内容を検証
+export default defineConfig({
+  e2e: {
+    baseUrl: "http://localhost:3000",
+    viewportWidth: 1280,
+    viewportHeight: 720,
+    video: false,
+    screenshotOnRunFailure: true,
+    retries: { runMode: 2, openMode: 0 },
+    setupNodeEvents(on, config) {
+      // Task plugins
+    },
+  },
+});
 ```
 
-### パターン5: レスポンシブ確認
+### 2. Implement Page Object Model (POM)
 
-```
-1. mcp_chrome-devtoo_resize_page でサイズ変更
-   - モバイル: width=375, height=667
-   - タブレット: width=768, height=1024
-   - デスクトップ: width=1280, height=800
-2. スクリーンショットで表示確認
-3. レイアウト崩れがないか検証
-```
+**Playwright Page Object:**
 
-## 検証方法
+```typescript
+// e2e/pages/LoginPage.ts
+import { Page, Locator } from "@playwright/test";
 
-### テキスト検証
+export class LoginPage {
+  readonly page: Page;
+  readonly emailInput: Locator;
+  readonly passwordInput: Locator;
+  readonly submitButton: Locator;
+  readonly errorMessage: Locator;
 
-```
-1. テキストスナップショットを取得
-2. 期待するテキストが含まれているか確認
-3. または mcp_chrome-devtoo_wait_for で特定テキストの出現を待機
-```
+  constructor(page: Page) {
+    this.page = page;
+    this.emailInput = page.getByLabel("Email");
+    this.passwordInput = page.getByLabel("Password");
+    this.submitButton = page.getByRole("button", { name: "Sign in" });
+    this.errorMessage = page.getByRole("alert");
+  }
 
-### 視覚的検証
+  async goto() {
+    await this.page.goto("/login");
+  }
 
-```
-1. mcp_chrome-devtoo_take_screenshot でスクリーンショット取得
-2. 表示を目視確認
-3. 必要に応じてファイルに保存（filePath指定）
-```
+  async login(email: string, password: string) {
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+    await this.submitButton.click();
+  }
 
-### JavaScript実行による検証
-
-```javascript
-// mcp_chrome-devtoo_evaluate_script で実行
-() => {
-  return {
-    title: document.title,
-    url: window.location.href,
-    elementExists: !!document.querySelector('[data-testid="target"]'),
-    inputValue: document.querySelector('input[name="email"]')?.value
-  };
+  async getErrorMessage(): Promise<string> {
+    return (await this.errorMessage.textContent()) ?? "";
+  }
 }
 ```
 
-## このプロジェクトの主要テスト対象
+**Cypress Page Object:**
 
-| 機能 | パス | 主要シナリオ |
-|------|------|-------------|
-| ログイン | `/login` | メール認証、エラー表示 |
-| 診断フロー | `/dashboard/diagnosis` | 6ステップ入力、送信 |
-| 検索 | `/dashboard/search` | キーワード検索、結果表示 |
-| 比較 | `/dashboard/compare` | 製品選択、比較表示 |
-| 提案書 | `/dashboard/proposal` | 生成、エクスポート |
+```typescript
+// cypress/pages/LoginPage.ts
+export class LoginPage {
+  visit() {
+    cy.visit("/login");
+    return this;
+  }
 
-## よくある問題と対処
+  getEmailInput() {
+    return cy.findByLabelText("Email");
+  }
 
-| 症状 | 原因 | 対処 |
-|------|------|------|
-| 要素が見つからない | uidが古い | スナップショット再取得 |
-| クリックが効かない | 要素が非表示/覆われている | スクロール or 待機 |
-| 入力できない | 要素タイプ不正 | fillではなくevaluate_script使用 |
-| タイムアウト | 処理遅延 | wait_for で明示的に待機 |
-| ダイアログで停止 | 未処理のalert/confirm | handle_dialog で処理 |
+  getPasswordInput() {
+    return cy.findByLabelText("Password");
+  }
 
-## テスト実施チェックリスト
+  getSubmitButton() {
+    return cy.findByRole("button", { name: "Sign in" });
+  }
 
-- [ ] 開発サーバーが起動しているか
-- [ ] 必要なツールカテゴリを有効化したか
-- [ ] 操作前にスナップショットでuidを取得したか
-- [ ] 非同期処理後はwait_forで待機したか
-- [ ] エラーケースもテストしたか
-- [ ] スクリーンショットで結果を記録したか
+  login(email: string, password: string) {
+    this.getEmailInput().type(email);
+    this.getPasswordInput().type(password);
+    this.getSubmitButton().click();
+    return this;
+  }
+}
+```
 
-## このプロジェクトの主要テスト対象
+**Page Object Composition:**
 
-| 機能 | パス | 主要シナリオ |
-|------|------|-------------|
-| ログイン | `/login` | メール認証、エラー表示 |
-| 診断フロー | `/dashboard/diagnosis` | 6ステップ入力、送信 |
-| 検索 | `/dashboard/search` | キーワード検索、結果表示 |
-| 比較 | `/dashboard/compare` | 製品選択、比較表示 |
-| 提案書 | `/dashboard/proposal` | 生成、エクスポート |
+```typescript
+// e2e/pages/index.ts
+import { Page } from "@playwright/test";
+import { LoginPage } from "./LoginPage";
+import { DashboardPage } from "./DashboardPage";
+import { CheckoutPage } from "./CheckoutPage";
 
-## よくある問題と対処
+export class App {
+  readonly login: LoginPage;
+  readonly dashboard: DashboardPage;
+  readonly checkout: CheckoutPage;
 
-| 症状 | 原因 | 対処 |
-|------|------|------|
-| 要素が見つからない | uidが古い | スナップショット再取得 |
-| クリックが効かない | 要素が非表示/覆われている | スクロール or 待機 |
-| 入力できない | 要素タイプ不正 | fillではなくevaluate_script使用 |
-| タイムアウト | 処理遅延 | wait_for で明示的に待機 |
-| ダイアログで停止 | 未処理のalert/confirm | handle_dialog で処理 |
+  constructor(page: Page) {
+    this.login = new LoginPage(page);
+    this.dashboard = new DashboardPage(page);
+    this.checkout = new CheckoutPage(page);
+  }
+}
 
-## テスト実施チェックリスト
+// Usage in tests
+test("user can complete purchase", async ({ page }) => {
+  const app = new App(page);
+  await app.login.goto();
+  await app.login.login("user@example.com", "password");
+  await app.dashboard.selectProduct("Widget");
+  await app.checkout.completePayment();
+});
+```
 
-- [ ] 開発サーバーが起動しているか
-- [ ] 必要なツールカテゴリを有効化したか
-- [ ] 操作前にスナップショットでuidを取得したか
-- [ ] 非同期処理後はwait_forで待機したか
-- [ ] エラーケースもテストしたか
-- [ ] スクリーンショットで結果を記録したか
+### 3. Manage Test Fixtures and Data
+
+**Playwright Fixtures:**
+
+```typescript
+// e2e/fixtures/auth.fixture.ts
+import { test as base } from "@playwright/test";
+import { LoginPage } from "../pages/LoginPage";
+
+type AuthFixtures = {
+  authenticatedPage: Page;
+  loginPage: LoginPage;
+};
+
+export const test = base.extend<AuthFixtures>({
+  loginPage: async ({ page }, use) => {
+    const loginPage = new LoginPage(page);
+    await use(loginPage);
+  },
+
+  authenticatedPage: async ({ page }, use) => {
+    // Set up authenticated state
+    await page.goto("/login");
+    await page.getByLabel("Email").fill("test@example.com");
+    await page.getByLabel("Password").fill("password123");
+    await page.getByRole("button", { name: "Sign in" }).click();
+    await page.waitForURL("/dashboard");
+
+    await use(page);
+  },
+});
+
+// Or use storage state for faster auth
+export const test = base.extend<AuthFixtures>({
+  authenticatedPage: async ({ browser }, use) => {
+    const context = await browser.newContext({
+      storageState: "e2e/.auth/user.json",
+    });
+    const page = await context.newPage();
+    await use(page);
+    await context.close();
+  },
+});
+```
+
+**Test Data Factories:**
+
+```typescript
+// e2e/fixtures/factories.ts
+import { faker } from "@faker-js/faker";
+
+export const UserFactory = {
+  create(overrides = {}) {
+    return {
+      email: faker.internet.email(),
+      password: faker.internet.password({ length: 12 }),
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+      ...overrides,
+    };
+  },
+
+  createAdmin(overrides = {}) {
+    return this.create({ role: "admin", ...overrides });
+  },
+};
+
+export const ProductFactory = {
+  create(overrides = {}) {
+    return {
+      name: faker.commerce.productName(),
+      price: parseFloat(faker.commerce.price()),
+      description: faker.commerce.productDescription(),
+      sku: faker.string.alphanumeric(8).toUpperCase(),
+      ...overrides,
+    };
+  },
+};
+```
+
+**Database Seeding:**
+
+```typescript
+// e2e/fixtures/database.ts
+import { test as base } from "@playwright/test";
+import { prisma } from "../../src/lib/prisma";
+import { UserFactory, ProductFactory } from "./factories";
+
+export const test = base.extend({
+  testUser: async ({}, use) => {
+    const userData = UserFactory.create();
+    const user = await prisma.user.create({ data: userData });
+
+    await use(user);
+
+    // Cleanup after test
+    await prisma.user.delete({ where: { id: user.id } });
+  },
+
+  seededProducts: async ({}, use) => {
+    const products = await Promise.all(
+      Array.from({ length: 5 }, () =>
+        prisma.product.create({ data: ProductFactory.create() }),
+      ),
+    );
+
+    await use(products);
+
+    await prisma.product.deleteMany({
+      where: { id: { in: products.map((p) => p.id) } },
+    });
+  },
+});
+```
+
+### 4. Apply Selector Strategies
+
+**Selector Priority (Best to Worst):**
+
+1. Accessibility roles and labels
+2. data-testid attributes
+3. Text content
+4. CSS selectors
+5. XPath (avoid)
+
+**Playwright Selector Examples:**
+
+```typescript
+// Preferred: Accessibility-based selectors
+page.getByRole("button", { name: "Submit" });
+page.getByRole("textbox", { name: "Email" });
+page.getByRole("link", { name: "Learn more" });
+page.getByLabel("Password");
+page.getByPlaceholder("Enter your email");
+page.getByText("Welcome back");
+
+// Good: Test IDs for complex elements
+page.getByTestId("user-avatar");
+page.getByTestId("product-card-123");
+
+// Acceptable: CSS for structural selection
+page.locator("table tbody tr:first-child");
+page.locator(".modal-content");
+
+// Chaining locators
+page
+  .getByTestId("product-list")
+  .getByRole("listitem")
+  .filter({ hasText: "Widget" })
+  .getByRole("button", { name: "Add to cart" });
+```
+
+**Adding Test IDs to Components:**
+
+```tsx
+// React component with test IDs
+function ProductCard({ product }: { product: Product }) {
+  return (
+    <div data-testid={`product-card-${product.id}`}>
+      <h3 data-testid="product-name">{product.name}</h3>
+      <span data-testid="product-price">${product.price}</span>
+      <button data-testid="add-to-cart-btn">Add to Cart</button>
+    </div>
+  );
+}
+
+// Strip test IDs in production
+// babel.config.js
+module.exports = {
+  env: {
+    production: {
+      plugins: [["react-remove-properties", { properties: ["data-testid"] }]],
+    },
+  },
+};
+```
+
+### 5. Handle Async Operations and Waits
+
+**Auto-waiting in Playwright:**
+
+```typescript
+// Playwright auto-waits for actionability
+await page.getByRole("button").click(); // Waits for visible, enabled, stable
+
+// Explicit waits when needed
+await page.waitForURL("/dashboard");
+await page.waitForResponse("/api/users");
+await page.waitForLoadState("networkidle");
+
+// Wait for specific conditions
+await expect(page.getByTestId("loading")).toBeHidden();
+await expect(page.getByRole("table")).toBeVisible();
+```
+
+**Network Request Handling:**
+
+```typescript
+// Wait for API response
+const responsePromise = page.waitForResponse("/api/products");
+await page.getByRole("button", { name: "Load Products" }).click();
+const response = await responsePromise;
+expect(response.status()).toBe(200);
+
+// Mock API responses
+await page.route("/api/products", async (route) => {
+  await route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify([{ id: 1, name: "Mocked Product" }]),
+  });
+});
+
+// Intercept and modify
+await page.route("/api/user", async (route) => {
+  const response = await route.fetch();
+  const json = await response.json();
+  json.isAdmin = true;
+  await route.fulfill({ response, json });
+});
+```
+
+**Handling Loading States:**
+
+```typescript
+// Wait for loading to complete
+async function waitForDataLoad(page: Page) {
+  // Option 1: Wait for loading indicator to disappear
+  await page.getByTestId("loading-spinner").waitFor({ state: "hidden" });
+
+  // Option 2: Wait for data to appear
+  await expect(page.getByRole("table")).toHaveCount(1);
+
+  // Option 3: Wait for network idle
+  await page.waitForLoadState("networkidle");
+}
+```
+
+### 6. Implement Visual Regression Testing
+
+**Playwright Visual Comparisons:**
+
+```typescript
+// Basic screenshot comparison
+test("homepage visual", async ({ page }) => {
+  await page.goto("/");
+  await expect(page).toHaveScreenshot("homepage.png");
+});
+
+// Component screenshot
+test("button states", async ({ page }) => {
+  await page.goto("/components/button");
+
+  const button = page.getByRole("button", { name: "Click me" });
+  await expect(button).toHaveScreenshot("button-default.png");
+
+  await button.hover();
+  await expect(button).toHaveScreenshot("button-hover.png");
+});
+
+// Full page with options
+test("full page visual", async ({ page }) => {
+  await page.goto("/dashboard");
+  await expect(page).toHaveScreenshot("dashboard.png", {
+    fullPage: true,
+    mask: [page.getByTestId("dynamic-timestamp")],
+    maxDiffPixelRatio: 0.01,
+  });
+});
+```
+
+**Visual Testing Configuration:**
+
+```typescript
+// playwright.config.ts
+export default defineConfig({
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixels: 100,
+      maxDiffPixelRatio: 0.01,
+      threshold: 0.2,
+      animations: "disabled",
+    },
+  },
+  use: {
+    // Consistent viewport for visual tests
+    viewport: { width: 1280, height: 720 },
+  },
+});
+```
+
+**Handling Dynamic Content:**
+
+```typescript
+// Mask dynamic elements
+await expect(page).toHaveScreenshot({
+  mask: [
+    page.getByTestId("current-date"),
+    page.getByTestId("user-avatar"),
+    page.locator(".advertisement"),
+  ],
+});
+
+// Freeze animations and time
+await page.emulateMedia({ reducedMotion: "reduce" });
+await page.clock.setFixedTime(new Date("2024-01-15T10:00:00"));
+```
+
+### 7. Prevent Flaky Tests
+
+**Common Flakiness Causes and Solutions:**
+
+```typescript
+// BAD: Race condition with timing
+await page.click("#submit");
+await page.waitForTimeout(2000); // Arbitrary wait
+expect(await page.textContent(".result")).toBe("Success");
+
+// GOOD: Wait for actual condition
+await page.click("#submit");
+await expect(page.getByText("Success")).toBeVisible();
+```
+
+```typescript
+// BAD: Dependent on element order
+const items = await page.locator(".list-item").all();
+await items[2].click(); // Index might change
+
+// GOOD: Select by content
+await page.getByRole("listitem").filter({ hasText: "Target Item" }).click();
+```
+
+```typescript
+// BAD: Not waiting for navigation
+await page.click('a[href="/dashboard"]');
+await expect(page.locator(".dashboard")).toBeVisible();
+
+// GOOD: Explicit navigation wait
+await page.click('a[href="/dashboard"]');
+await page.waitForURL("/dashboard");
+await expect(page.locator(".dashboard")).toBeVisible();
+```
+
+**Test Isolation:**
+
+```typescript
+// Each test should start fresh
+test.beforeEach(async ({ page }) => {
+  // Clear storage
+  await page.context().clearCookies();
+  await page.evaluate(() => localStorage.clear());
+
+  // Reset to known state
+  await page.goto("/");
+});
+
+// Use unique data per test
+test("create user", async ({ page }) => {
+  const uniqueEmail = `test-${Date.now()}@example.com`;
+  // ...
+});
+```
+
+**Retry Strategies:**
+
+```typescript
+// playwright.config.ts
+export default defineConfig({
+  retries: process.env.CI ? 2 : 0,
+  use: {
+    trace: "on-first-retry", // Capture trace on retry
+  },
+});
+
+// Test-specific retry
+test("potentially flaky test", async ({ page }) => {
+  test.info().annotations.push({ type: "retries", description: "3" });
+  // ...
+});
+```
+
+**Debugging Flaky Tests:**
+
+```typescript
+// Enable tracing
+await context.tracing.start({ screenshots: true, snapshots: true });
+// ... run test
+await context.tracing.stop({ path: "trace.zip" });
+
+// View trace
+// npx playwright show-trace trace.zip
+
+// Add debugging pauses
+await page.pause(); // Opens inspector
+```
+
+## Best Practices
+
+1. **Keep Tests Independent**
+   - No shared state between tests
+   - Each test sets up and tears down its own data
+   - Tests can run in any order
+
+2. **Use Descriptive Test Names**
+
+   ```typescript
+   // Good
+   test('user sees error message when submitting empty form', ...);
+   // Bad
+   test('form validation', ...);
+   ```
+
+3. **Follow AAA Pattern**
+
+   ```typescript
+   test("product added to cart", async ({ page }) => {
+     // Arrange
+     await page.goto("/products");
+
+     // Act
+     await page
+       .getByTestId("product-1")
+       .getByRole("button", { name: "Add" })
+       .click();
+
+     // Assert
+     await expect(page.getByTestId("cart-count")).toHaveText("1");
+   });
+   ```
+
+4. **Minimize Test Scope**
+   - Test one user flow per test
+   - Break complex flows into smaller tests
+   - Use fixtures for common setup
+
+5. **Handle Flakiness Proactively**
+   - Review and fix flaky tests immediately
+   - Use proper waits, never arbitrary timeouts
+   - Isolate tests from external dependencies
+
+6. **Maintain Test Data**
+   - Use factories for consistent test data
+   - Clean up after tests
+   - Avoid hardcoded IDs or values
+
+## Examples
+
+### Example: Complete E2E Test Suite
+
+```typescript
+// e2e/checkout.spec.ts
+import { test, expect } from "@playwright/test";
+import { App } from "./pages";
+import { UserFactory, ProductFactory } from "./fixtures/factories";
+
+test.describe("Checkout Flow", () => {
+  let app: App;
+
+  test.beforeEach(async ({ page }) => {
+    app = new App(page);
+  });
+
+  test("guest user can complete checkout", async ({ page }) => {
+    // Navigate to product
+    await page.goto("/products");
+    await page
+      .getByTestId("product-card")
+      .first()
+      .getByRole("button", { name: "Add to Cart" })
+      .click();
+
+    // Verify cart updated
+    await expect(page.getByTestId("cart-count")).toHaveText("1");
+
+    // Go to checkout
+    await page.getByRole("link", { name: "Checkout" }).click();
+    await page.waitForURL("/checkout");
+
+    // Fill shipping info
+    await page.getByLabel("Email").fill("guest@example.com");
+    await page.getByLabel("Address").fill("123 Test St");
+    await page.getByLabel("City").fill("Test City");
+    await page.getByRole("button", { name: "Continue" }).click();
+
+    // Fill payment (test mode)
+    await page.getByLabel("Card number").fill("4242424242424242");
+    await page.getByLabel("Expiry").fill("12/25");
+    await page.getByLabel("CVC").fill("123");
+
+    // Complete order
+    await page.getByRole("button", { name: "Place Order" }).click();
+
+    // Verify success
+    await expect(
+      page.getByRole("heading", { name: "Order Confirmed" }),
+    ).toBeVisible();
+    await expect(page.getByTestId("order-number")).toBeVisible();
+  });
+
+  test("shows validation errors for invalid payment", async ({ page }) => {
+    // Setup: Add item and go to payment
+    await page.goto("/checkout?items=product-1");
+    await page.getByLabel("Email").fill("test@example.com");
+    await page.getByRole("button", { name: "Continue" }).click();
+
+    // Enter invalid card
+    await page.getByLabel("Card number").fill("1234567890123456");
+    await page.getByRole("button", { name: "Place Order" }).click();
+
+    // Verify error
+    await expect(page.getByRole("alert")).toContainText("Invalid card number");
+  });
+});
+```
+
+### Example: API Mocking for Edge Cases
+
+```typescript
+// e2e/error-handling.spec.ts
+import { test, expect } from "@playwright/test";
+
+test.describe("Error Handling", () => {
+  test("shows friendly error when API fails", async ({ page }) => {
+    // Mock API failure
+    await page.route("/api/products", (route) =>
+      route.fulfill({ status: 500, body: "Internal Server Error" }),
+    );
+
+    await page.goto("/products");
+
+    await expect(page.getByRole("alert")).toContainText(
+      "Unable to load products. Please try again.",
+    );
+    await expect(page.getByRole("button", { name: "Retry" })).toBeVisible();
+  });
+
+  test("handles network timeout gracefully", async ({ page }) => {
+    // Simulate slow network
+    await page.route("/api/products", async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 30000));
+      await route.continue();
+    });
+
+    await page.goto("/products");
+
+    await expect(page.getByText("Loading...")).toBeVisible();
+    // Verify timeout handling after reasonable wait
+  });
+});
+```

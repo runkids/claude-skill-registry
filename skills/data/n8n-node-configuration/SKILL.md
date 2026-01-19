@@ -783,3 +783,11 @@ For comprehensive guides on specific topics:
 - **n8n Validation Expert** - Interpret validation errors
 - **n8n Expression Syntax** - Configure expression fields
 - **n8n Workflow Patterns** - Apply patterns with proper configuration
+
+## When to use this skill
+
+Operation-aware node configuration guidance. Use when configuring nodes, understanding property dependencies, determining required fields, choosing between get_node detail levels, or learning common configuration patterns by node type.
+
+## How to use this skill
+
+Refer to the instructions above or standard agent usage for this skill type.

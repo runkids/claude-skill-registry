@@ -1,133 +1,81 @@
 ---
 name: design
-description: UI/UX design guidelines for interactions, animation, layout, accessibility, and visual design. Use when building UI components, designing user experiences, or implementing user-facing features.
+description: UX and CX design workflows for wireframing, prototyping, and customer journey mapping. Use when creating wireframes, designing user interfaces, prototyping interactions, mapping customer journeys, or conducting UX/CX design work. Used in PDLC Feature-Refinement workflow for Story_And_Design_Start and Prototyping nodes by UX-Designer and CX-Designer agents.
 ---
 
-# Design System Guidelines
+# Design Skill
 
-Follow Apple, Linear, and Vercel as design inspirations. Ask yourself "How would Apple, Linear, or Vercel design this?"
+You are conducting UX and CX design work to create user-centered interfaces and experiences. This skill provides workflows for wireframing, prototyping, and journey mapping.
 
-When designing React components, also use the [compound-components skill](../compound-components/SKILL.md) to build the components.
+## Available Workflows
 
-## Interactions
+### 1. Wireframing (`workflows/wireframing.md`)
+Create low-fidelity wireframes to establish layout and information architecture.
+- **Use for**: Early design exploration, layout planning, component structure
+- **Output**: F07-wireframes.md artifact (or HTML wireframe)
+- **Agent**: UXDesigner
 
-### Keyboard
+### 2. Prototyping (`workflows/prototyping.md`)
+Build interactive prototypes to validate user flows and interactions.
+- **Use for**: User testing, stakeholder demos, interaction validation
+- **Output**: F08-prototype.md or interactive HTML prototype
+- **Agent**: UXDesigner
 
-- MUST: Full keyboard support per [WAI-ARIA APG](https://www.w3.org/WAI/ARIA/apg/patterns/)
-- MUST: Visible focus rings (`:focus-visible`; group with `:focus-within`)
-- MUST: Manage focus (trap, move, and return) per APG patterns
+### 3. Journey Mapping (`workflows/journey-mapping.md`)
+Map customer journey to understand touchpoints, emotions, and pain points.
+- **Use for**: Understanding end-to-end experience, identifying improvement opportunities
+- **Output**: F09-customer-journey.md artifact
+- **Agent**: CXDesigner
 
-### Targets & Input
+## Workflow Selection
 
-- MUST: Hit target >=24px (mobile >=44px). If visual <24px, expand hit area
-- MUST: Mobile `<input>` font-size >=16px or set:
-  ```html
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
-  />
-  ```
-- NEVER: Disable browser zoom
-- MUST: `touch-action: manipulation` to prevent double-tap zoom; set `-webkit-tap-highlight-color` to match design
+**Feature Refinement Phase (Story_And_Design_Start node)**:
+1. Start with `wireframing` for initial layout and structure
+2. Progress to `prototyping` for interaction design
+3. Use `journey-mapping` for multi-step or cross-channel experiences
 
-### Inputs & Forms
+**Story Elaboration Phase**:
+- Wireframes and prototypes inform user story creation
+- Journey maps identify story boundaries and flows
 
-- MUST: Hydration-safe inputs (no lost focus/value)
-- NEVER: Block paste in `<input>/<textarea>`
-- MUST: Loading buttons show spinner and keep original label
-- MUST: Enter submits focused text input. In `<textarea>`, Cmd/Ctrl+Enter submits; Enter adds newline
-- MUST: Keep submit enabled until request starts; then disable, show spinner, use idempotency key
-- MUST: Don't block typing; accept free text and validate after
-- MUST: Allow submitting incomplete forms to surface validation
-- MUST: Errors inline next to fields; on submit, focus first error
-- MUST: `autocomplete` + meaningful `name`; correct `type` and `inputmode`
-- SHOULD: Disable spellcheck for emails/codes/usernames
-- SHOULD: Placeholders end with ellipsis and show example pattern (eg, `+1 (123) 456-7890`, `sk-012345...`)
-- MUST: Warn on unsaved changes before navigation
-- MUST: Compatible with password managers & 2FA; allow pasting one-time codes
-- MUST: Trim values to handle text expansion trailing spaces
-- MUST: No dead zones on checkboxes/radios; label+control share one generous hit target
+**Design Review Phase (Story_Design_Review node)**:
+- Validate alignment between stories and design artifacts
+- Ensure consistent user experience across features
 
-### State & Navigation
+## Context Resources
 
-- MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels). Prefer libs like [nuqs](https://nuqs.dev)
-- MUST: Back/Forward restores scroll
-- MUST: Links are links--use `<a>/<Link>` for navigation (support Cmd/Ctrl/middle-click)
+- **design-patterns.md** - Common UX patterns, component libraries, interaction standards
+- **journey-map-templates.md** - Customer journey map structures and examples
 
-### Feedback
+## Tools Required
 
-- SHOULD: Optimistic UI; reconcile on response; on failure show error and rollback or offer Undo
-- MUST: Confirm destructive actions or provide Undo window
-- MUST: Use polite `aria-live` for toasts/inline validation
-- SHOULD: Ellipsis (`...`) for options that open follow-ups (eg, "Rename...")
+- **Write** - Create design documentation and wireframe descriptions
+- **Read** - Review requirements, stories, and existing design system
+- **frontend-design skill** - For creating interactive HTML prototypes (optional)
 
-### Touch/Drag/Scroll
+## Integration Points
 
-- MUST: Design forgiving interactions (generous targets, clear affordances; avoid finickiness)
-- MUST: Delay first tooltip in a group; subsequent peers no delay
-- MUST: Intentional `overscroll-behavior: contain` in modals/drawers
-- MUST: During drag, disable text selection and set `inert` on dragged element/containers
-- MUST: No "dead-looking" interactive zones--if it looks clickable, it is
+**Depends on**:
+- `specification-writing` - Feature PRD and user stories
+- `discovery` - Stakeholder insights and user research
+- `frontend-design` - Interactive prototype creation (optional)
 
-### Autofocus
+**Feeds into**:
+- `architecture/workflows/design-frontend.md` - Frontend architecture design
+- `implementation` - Development using design specs
+- `quality` - Design review and validation
 
-- SHOULD: Autofocus on desktop when there's a single primary input; rarely on mobile (to avoid layout shift)
+**Used by agents**:
+- UXDesigner (wireframing, prototyping)
+- CXDesigner (journey mapping)
+- ProductManager (design review and alignment)
 
-## Animation
+## Output Standards
 
-- MUST: Honor `prefers-reduced-motion` (provide reduced variant)
-- SHOULD: Prefer CSS > Web Animations API > JS libraries
-- MUST: Animate compositor-friendly props (`transform`, `opacity`); avoid layout/repaint props (`top/left/width/height`)
-- SHOULD: Animate only to clarify cause/effect or add deliberate delight
-- SHOULD: Choose easing to match the change (size/distance/trigger)
-- MUST: Animations are interruptible and input-driven (avoid autoplay)
-- MUST: Correct `transform-origin` (motion starts where it "physically" should)
-
-## Layout
-
-- SHOULD: Optical alignment; adjust by +/-1px when perception beats geometry
-- MUST: Deliberate alignment to grid/baseline/edges/optical centers--no accidental placement
-- SHOULD: Balance icon/text lockups (stroke/weight/size/spacing/color)
-- MUST: Verify mobile, laptop, ultra-wide (simulate ultra-wide at 50% zoom)
-- MUST: Respect safe areas (use `env(safe-area-inset-*)`)
-- MUST: Avoid unwanted scrollbars; fix overflows
-
-## Content & Accessibility
-
-- SHOULD: Inline help first; tooltips last resort
-- MUST: Skeletons mirror final content to avoid layout shift
-- MUST: `<title>` matches current context
-- MUST: No dead ends; always offer next step/recovery
-- MUST: Design empty/sparse/dense/error states
-- SHOULD: Curly quotes (" "); avoid widows/orphans
-- MUST: Tabular numbers for comparisons (`font-variant-numeric: tabular-nums` or a monospace font)
-- MUST: Redundant status cues (not color-only); icons have text labels
-- MUST: Don't ship the schema--visuals may omit labels but accessible names still exist
-- MUST: Use the ellipsis character `...` (not `..`)
-- MUST: `scroll-margin-top` on headings for anchored links; include a "Skip to content" link; hierarchical `<h1-h6>`
-- MUST: Resilient to user-generated content (short/avg/very long)
-- MUST: Locale-aware dates/times/numbers/currency
-- MUST: Accurate names (`aria-label`), decorative elements `aria-hidden`, verify in the Accessibility Tree
-- MUST: Icon-only buttons have descriptive `aria-label`
-- MUST: Prefer native semantics (`button`, `a`, `label`, `table`) before ARIA
-- SHOULD: Right-clicking the nav logo surfaces brand assets
-- MUST: Use non-breaking spaces to glue terms: `10&nbsp;MB`, `Cmd&nbsp;+&nbsp;K`, `Vercel&nbsp;SDK`
-
-## Visual Design
-
-- SHOULD: Layered shadows (ambient + direct)
-- SHOULD: Crisp edges via semi-transparent borders + shadows
-- SHOULD: Nested radii: child <= parent; concentric
-- SHOULD: Hue consistency: tint borders/shadows/text toward bg hue
-- MUST: Accessible charts (color-blind-friendly palettes)
-- MUST: Meet contrast--prefer [APCA](https://apcacontrast.com/) over WCAG 2
-- MUST: Increase contrast on `:hover/:active/:focus`
-- SHOULD: Match browser UI to bg
-- SHOULD: Avoid gradient banding (use masks when needed)
-
-## Performance (UX)
-
-- SHOULD: Test iOS Low Power Mode and macOS Safari
-- MUST: Mutations (`POST/PATCH/DELETE`) target <500 ms
-- MUST: Preload only above-the-fold images; lazy-load the rest
-- MUST: Prevent CLS from images (explicit dimensions or reserved space)
+All design artifacts must:
+1. Be based on user research and stakeholder insights
+2. Follow accessibility best practices (WCAG guidelines)
+3. Align with existing design system (if applicable)
+4. Include rationale for design decisions
+5. Be testable with users or stakeholders
+6. Be stored in `/docs/workflow/artifacts/`

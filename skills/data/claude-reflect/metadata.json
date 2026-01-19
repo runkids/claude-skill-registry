@@ -1,7 +1,7 @@
 {
   "name": "claude-reflect",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "plugins/community/claude-reflect/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-17T04:00:05.633622Z"
+  "repo": "BayramAnnakov/claude-reflect",
+  "path": "SKILL.md",
+  "source": "github.com/BayramAnnakov/claude-reflect",
+  "downloaded_at": "2026-01-19T02:37:54.885309Z"
 }
