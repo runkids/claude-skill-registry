@@ -1,7 +1,7 @@
 {
   "name": "spec-kit-skill",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/spec-kit-skill/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-01-19T03:23:15.058559Z"
+  "repo": "feiskyer/claude-code-settings",
+  "path": "plugins/spec-kit-skill/skills/spec-kit-skill/SKILL.md",
+  "source": "github.com/feiskyer/claude-code-settings",
+  "downloaded_at": "2026-01-20T02:31:31.995515Z"
 }

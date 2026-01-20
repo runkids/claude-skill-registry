@@ -1,9 +1,7 @@
 {
   "name": "rspress-nav",
-  "description": "Configure RSPress navigation bars and sidebars with _nav.json and _meta.json files. Use when setting up navigation, organizing sidebar sections, or configuring collapsible menu items.",
-  "repo": "savvy-web/developer-docs",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "savvy-web/rslib-builder",
+  "path": ".claude/skills/rspress-nav/SKILL.md",
+  "source": "github.com/savvy-web/rslib-builder",
+  "downloaded_at": "2026-01-20T01:47:15.952474Z"
 }

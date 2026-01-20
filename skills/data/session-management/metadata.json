@@ -1,7 +1,7 @@
 {
   "name": "session-management",
-  "repo": "daishiman/AIWorkflowOrchestrator",
-  "path": "docs/99-claude/skills/session-management/SKILL.md",
-  "source": "github.com/daishiman/AIWorkflowOrchestrator",
-  "downloaded_at": "2026-01-19T03:07:33.043399Z"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/session-management/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-20T02:46:15.388161Z"
 }

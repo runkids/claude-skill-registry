@@ -1,9 +1,7 @@
 {
   "name": "brand-analyzer",
-  "description": "This skill should be used when the user requests brand analysis, brand guidelines creation, brand audits, or establishing brand identity and consistency standards. It provides comprehensive frameworks",
-  "repo": "agent-trust-protocol/atp-core",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "merllinsbeard/ai-claude-skills-collection",
+  "path": "content/brand-analyzer/SKILL.md",
+  "source": "github.com/merllinsbeard/ai-claude-skills-collection",
+  "downloaded_at": "2026-01-20T03:05:08.975400Z"
 }

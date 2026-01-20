@@ -1,1059 +1,678 @@
 ---
 name: caching-strategy
-description: Cache expensive operations to avoid redundant work across workflow phases. Caches project docs (15min TTL), npm info (60min), grep results (30min), token counts (until file modified), web searches (15min). Auto-triggers when detecting repeated reads of same files or repeated API calls. Saves 20-40% execution time.
+description: Implement efficient caching strategies using Redis, Memcached, CDN, and cache invalidation patterns. Use when optimizing application performance, reducing database load, or improving response times.
 ---
 
-<objective>
-The caching-strategy skill eliminates redundant work by intelligently caching expensive operations across workflow phases, reducing execution time by 20-40%.
+# Caching Strategy
 
-Repeated work wastes time and resources:
-- Reading docs/project/api-strategy.md 5 times in /plan phase (5× file I/O)
-- Searching codebase for "user" pattern 3 times (3× grep execution)
-- Fetching npm package info for same package repeatedly (3× network calls)
-- Counting tokens in spec.md every phase (5× token calculation)
-- Web searching "React hooks best practices" multiple times (3× API calls)
+## Overview
 
-This skill implements smart caching with:
-1. **File read cache**: Cache file contents until file modified (mtime check)
-2. **Search result cache**: Cache grep/glob results for 30 minutes
-3. **Network request cache**: Cache npm/web API calls for 15-60 minutes
-4. **Computed value cache**: Cache expensive calculations until inputs change
-5. **Automatic invalidation**: TTL expiration + file modification detection
+Implement effective caching strategies to improve application performance, reduce latency, and decrease load on backend systems.
 
-The result: 20-40% faster workflow execution with zero behavior changes (transparent caching).
-</objective>
+## When to Use
 
-<quick_start>
-<cacheable_operations>
-**High-value caching targets** (biggest time savings):
+- Reducing database query load
+- Improving API response times
+- Handling high traffic loads
+- Caching expensive computations
+- Storing session data
+- CDN integration for static assets
+- Implementing distributed caching
+- Rate limiting and throttling
 
-1. **Project documentation reads** (15min TTL):
-   - `docs/project/api-strategy.md`
-   - `docs/project/system-architecture.md`
-   - `docs/project/tech-stack.md`
-   - Read once per phase, not 5× per phase
+## Caching Layers
 
-2. **Codebase searches** (30min TTL):
-   - Grep: `"user"` in `**/*.ts` → Cache results
-   - Glob: `**/components/**/*.tsx` → Cache file list
-   - Repeated in anti-duplication, implementation, review
-
-3. **Package registry queries** (60min TTL):
-   - npm info for package versions
-   - Dependency metadata
-   - Rarely changes during single workflow
-
-4. **Web searches** (15min TTL):
-   - Documentation lookups
-   - Error message searches
-   - Best practice research
-
-5. **Token counts** (until file modified):
-   - spec.md token count
-   - plan.md token count
-   - Recompute only when file changes
-</cacheable_operations>
-
-<basic_workflow>
-**Before caching**:
 ```
-Phase 1 (/plan):
-  - Read api-strategy.md (250ms)
-  - Read tech-stack.md (200ms)
-  - Read api-strategy.md again (250ms) ← Redundant
-  - Grep "user" in codebase (3s)
-Total: 3.7s
+┌─────────────────────────────────────────┐
+│         Client Browser Cache            │
+├─────────────────────────────────────────┤
+│              CDN Cache                  │
+├─────────────────────────────────────────┤
+│      Application Memory Cache           │
+├─────────────────────────────────────────┤
+│      Distributed Cache (Redis)          │
+├─────────────────────────────────────────┤
+│            Database                     │
+└─────────────────────────────────────────┘
 ```
 
-**After caching**:
-```
-Phase 1 (/plan):
-  - Read api-strategy.md (250ms) → Cache
-  - Read tech-stack.md (200ms) → Cache
-  - Read api-strategy.md (from cache: 5ms) ← Cached!
-  - Grep "user" (3s) → Cache
-Total: 3.45s saved 250ms (6.7%)
-```
+## Implementation Examples
 
-**Across multiple phases**:
-```
-/plan:   Read api-strategy.md (250ms) → Cache
-/tasks:  Read api-strategy.md (from cache: 5ms) ← Saved 245ms
-/impl:   Read api-strategy.md (from cache: 5ms) ← Saved 245ms
-/opt:    Read api-strategy.md (from cache: 5ms) ← Saved 245ms
-
-Total saved: 735ms on single file across 4 phases
-```
-</basic_workflow>
-
-<immediate_value>
-**Typical /feature workflow** (7 phases):
-
-**Without caching**:
-```
-Phase reads:
-- api-strategy.md: 7 reads × 250ms = 1.75s
-- tech-stack.md: 5 reads × 200ms = 1s
-- spec.md: 10 reads × 150ms = 1.5s
-- Grep "user": 3 searches × 3s = 9s
-- npm info react: 2 calls × 500ms = 1s
-Total redundant work: 14.25s
-```
-
-**With caching**:
-```
-Phase reads:
-- api-strategy.md: 1 read (250ms) + 6 cache hits (30ms) = 280ms
-- tech-stack.md: 1 read (200ms) + 4 cache hits (20ms) = 220ms
-- spec.md: 1 read (150ms) + 9 cache hits (45ms) = 195ms
-- Grep "user": 1 search (3s) + 2 cache hits (10ms) = 3.01s
-- npm info react: 1 call (500ms) + 1 cache hit (5ms) = 505ms
-Total with caching: 4.21s
-
-Time saved: 14.25s - 4.21s = 10.04s (70% reduction)
-```
-
-**Savings scale with workflow length**:
-- Single phase: 5-10% faster
-- Full /feature (7 phases): 20-30% faster
-- /epic (20+ phases): 30-40% faster
-</immediate_value>
-</quick_start>
-
-<workflow>
-<step number="1">
-**Detect cacheable operation**
-
-Identify operations that are:
-- **Idempotent**: Same input → Same output
-- **Expensive**: Takes >100ms
-- **Repeated**: Called 2+ times
-- **Predictable**: Output doesn't change rapidly
-
-**Cacheable**:
-- File reads (same file, unchanged content)
-- Codebase searches (same pattern, unchanged code)
-- API calls (package info, docs, rarely changes)
-- Expensive computations (token counts, parsing)
-
-**Not cacheable**:
-- User input (unpredictable)
-- Current time/date (changes constantly)
-- Random values
-- System state (memory, CPU)
-- Database queries (data changes frequently)
-</step>
-
-<step number="2">
-**Generate cache key**
-
-Create unique key for each cacheable operation:
-
-**File reads**:
-```
-Cache key: `file:${absolutePath}`
-Example: "file:/project/docs/api-strategy.md"
-```
-
-**Grep searches**:
-```
-Cache key: `grep:${pattern}:${path}:${options}`
-Example: "grep:user:**/*.ts:case-insensitive"
-```
-
-**Glob patterns**:
-```
-Cache key: `glob:${pattern}:${cwd}`
-Example: "glob:**/components/**/*.tsx:/project"
-```
-
-**npm queries**:
-```
-Cache key: `npm:${operation}:${package}`
-Example: "npm:info:react"
-```
-
-**Web searches**:
-```
-Cache key: `web:${query}:${engine}`
-Example: "web:React hooks best practices:google"
-```
-
-**Token counts**:
-```
-Cache key: `tokens:${filePath}:${mtime}`
-Example: "tokens:/project/spec.md:1704067200"
-```
-
-See [references/cache-key-strategies.md](references/cache-key-strategies.md) for comprehensive patterns.
-</step>
-
-<step number="3">
-**Check cache before executing**
-
-Before expensive operation:
+### 1. **Redis Cache Implementation (Node.js)**
 
 ```typescript
-function readFile(path: string): string {
-  const cacheKey = `file:${path}`;
+import Redis from 'ioredis';
 
-  // Check cache
-  const cached = cache.get(cacheKey);
-  if (cached && !isExpired(cached) && !isFileModified(path, cached.mtime)) {
-    logger.debug('Cache HIT', { key: cacheKey });
-    return cached.value;
+interface CacheOptions {
+  ttl?: number; // Time to live in seconds
+  prefix?: string;
+}
+
+class CacheService {
+  private redis: Redis;
+  private defaultTTL = 3600; // 1 hour
+
+  constructor(redisUrl: string) {
+    this.redis = new Redis(redisUrl, {
+      retryStrategy: (times) => {
+        const delay = Math.min(times * 50, 2000);
+        return delay;
+      },
+      maxRetriesPerRequest: 3
+    });
+
+    this.redis.on('connect', () => {
+      console.log('Redis connected');
+    });
+
+    this.redis.on('error', (error) => {
+      console.error('Redis error:', error);
+    });
   }
 
-  // Cache MISS - execute operation
-  logger.debug('Cache MISS', { key: cacheKey });
-  const content = fs.readFileSync(path, 'utf-8');
-  const mtime = fs.statSync(path).mtimeMs;
+  /**
+   * Get cached value
+   */
+  async get<T>(key: string): Promise<T | null> {
+    try {
+      const value = await this.redis.get(key);
+      if (!value) return null;
 
-  // Store in cache
-  cache.set(cacheKey, {
-    value: content,
-    mtime: mtime,
-    cachedAt: Date.now(),
-    ttl: 15 * 60 * 1000  // 15 minutes
-  });
+      return JSON.parse(value) as T;
+    } catch (error) {
+      console.error(`Cache get error for key ${key}:`, error);
+      return null;
+    }
+  }
 
-  return content;
+  /**
+   * Set cached value
+   */
+  async set(
+    key: string,
+    value: any,
+    options: CacheOptions = {}
+  ): Promise<boolean> {
+    try {
+      const ttl = options.ttl || this.defaultTTL;
+      const serialized = JSON.stringify(value);
+
+      if (ttl > 0) {
+        await this.redis.setex(key, ttl, serialized);
+      } else {
+        await this.redis.set(key, serialized);
+      }
+
+      return true;
+    } catch (error) {
+      console.error(`Cache set error for key ${key}:`, error);
+      return false;
+    }
+  }
+
+  /**
+   * Delete cached value
+   */
+  async delete(key: string): Promise<boolean> {
+    try {
+      await this.redis.del(key);
+      return true;
+    } catch (error) {
+      console.error(`Cache delete error for key ${key}:`, error);
+      return false;
+    }
+  }
+
+  /**
+   * Delete multiple keys by pattern
+   */
+  async deletePattern(pattern: string): Promise<number> {
+    try {
+      const keys = await this.redis.keys(pattern);
+      if (keys.length === 0) return 0;
+
+      await this.redis.del(...keys);
+      return keys.length;
+    } catch (error) {
+      console.error(`Cache delete pattern error for ${pattern}:`, error);
+      return 0;
+    }
+  }
+
+  /**
+   * Get or set pattern - fetch from cache or compute and cache
+   */
+  async getOrSet<T>(
+    key: string,
+    fetchFn: () => Promise<T>,
+    options: CacheOptions = {}
+  ): Promise<T> {
+    // Try to get from cache
+    const cached = await this.get<T>(key);
+    if (cached !== null) {
+      return cached;
+    }
+
+    // Fetch and cache
+    const value = await fetchFn();
+    await this.set(key, value, options);
+
+    return value;
+  }
+
+  /**
+   * Implement cache-aside pattern with stale-while-revalidate
+   */
+  async getStaleWhileRevalidate<T>(
+    key: string,
+    fetchFn: () => Promise<T>,
+    options: {
+      ttl: number;
+      staleTime: number;
+    }
+  ): Promise<T> {
+    const cacheKey = `cache:${key}`;
+    const timestampKey = `cache:${key}:timestamp`;
+
+    const [cached, timestamp] = await Promise.all([
+      this.get<T>(cacheKey),
+      this.redis.get(timestampKey)
+    ]);
+
+    const now = Date.now();
+    const age = timestamp ? now - parseInt(timestamp) : Infinity;
+
+    // Return cached if fresh
+    if (cached !== null && age < options.ttl * 1000) {
+      return cached;
+    }
+
+    // Return stale while revalidating in background
+    if (cached !== null && age < options.staleTime * 1000) {
+      // Background revalidation
+      fetchFn()
+        .then(async (fresh) => {
+          await this.set(cacheKey, fresh, { ttl: options.ttl });
+          await this.redis.set(timestampKey, now.toString());
+        })
+        .catch(console.error);
+
+      return cached;
+    }
+
+    // Fetch fresh data
+    const fresh = await fetchFn();
+    await Promise.all([
+      this.set(cacheKey, fresh, { ttl: options.ttl }),
+      this.redis.set(timestampKey, now.toString())
+    ]);
+
+    return fresh;
+  }
+
+  /**
+   * Increment counter with TTL
+   */
+  async increment(key: string, ttl?: number): Promise<number> {
+    const count = await this.redis.incr(key);
+
+    if (count === 1 && ttl) {
+      await this.redis.expire(key, ttl);
+    }
+
+    return count;
+  }
+
+  /**
+   * Check if key exists
+   */
+  async exists(key: string): Promise<boolean> {
+    const result = await this.redis.exists(key);
+    return result === 1;
+  }
+
+  /**
+   * Get remaining TTL
+   */
+  async ttl(key: string): Promise<number> {
+    return await this.redis.ttl(key);
+  }
+
+  /**
+   * Close connection
+   */
+  async disconnect(): Promise<void> {
+    await this.redis.quit();
+  }
+}
+
+// Usage
+const cache = new CacheService('redis://localhost:6379');
+
+// Simple get/set
+await cache.set('user:123', { name: 'John', age: 30 }, { ttl: 3600 });
+const user = await cache.get('user:123');
+
+// Get or set pattern
+const posts = await cache.getOrSet(
+  'posts:recent',
+  async () => {
+    return await database.query('SELECT * FROM posts ORDER BY created_at DESC LIMIT 10');
+  },
+  { ttl: 300 }
+);
+
+// Stale-while-revalidate
+const data = await cache.getStaleWhileRevalidate(
+  'expensive-query',
+  async () => await runExpensiveQuery(),
+  { ttl: 300, staleTime: 600 }
+);
+```
+
+### 2. **Cache Decorator (Python)**
+
+```python
+import functools
+import json
+import hashlib
+from typing import Any, Callable, Optional
+from redis import Redis
+import time
+
+class CacheDecorator:
+    def __init__(self, redis_client: Redis, ttl: int = 3600):
+        self.redis = redis_client
+        self.ttl = ttl
+
+    def cache_key(self, func: Callable, *args, **kwargs) -> str:
+        """Generate cache key from function name and arguments."""
+        # Create deterministic key from function and arguments
+        key_parts = [
+            func.__module__,
+            func.__name__,
+            str(args),
+            str(sorted(kwargs.items()))
+        ]
+        key_string = ':'.join(key_parts)
+        key_hash = hashlib.md5(key_string.encode()).hexdigest()
+        return f"cache:{func.__name__}:{key_hash}"
+
+    def __call__(self, func: Callable) -> Callable:
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            # Generate cache key
+            cache_key = self.cache_key(func, *args, **kwargs)
+
+            # Try to get from cache
+            cached = self.redis.get(cache_key)
+            if cached:
+                print(f"Cache HIT: {cache_key}")
+                return json.loads(cached)
+
+            # Cache miss - execute function
+            print(f"Cache MISS: {cache_key}")
+            result = func(*args, **kwargs)
+
+            # Store in cache
+            self.redis.setex(
+                cache_key,
+                self.ttl,
+                json.dumps(result)
+            )
+
+            return result
+
+        # Add cache invalidation method
+        def invalidate(*args, **kwargs):
+            cache_key = self.cache_key(func, *args, **kwargs)
+            self.redis.delete(cache_key)
+
+        wrapper.invalidate = invalidate
+        return wrapper
+
+
+# Usage
+redis = Redis(host='localhost', port=6379, db=0)
+cache = CacheDecorator(redis, ttl=300)
+
+@cache
+def get_user_profile(user_id: int) -> dict:
+    """Fetch user profile from database."""
+    print(f"Fetching user {user_id} from database...")
+    # Simulate database query
+    time.sleep(1)
+    return {
+        'id': user_id,
+        'name': 'John Doe',
+        'email': 'john@example.com'
+    }
+
+# First call - cache miss
+profile = get_user_profile(123)  # Takes 1 second
+
+# Second call - cache hit
+profile = get_user_profile(123)  # Instant
+
+# Invalidate cache
+get_user_profile.invalidate(123)
+```
+
+### 3. **Multi-Level Cache**
+
+```typescript
+interface CacheLevel {
+  get(key: string): Promise<any>;
+  set(key: string, value: any, ttl?: number): Promise<void>;
+  delete(key: string): Promise<void>;
+}
+
+class MemoryCache implements CacheLevel {
+  private cache = new Map<string, { value: any; expiry: number }>();
+
+  async get(key: string): Promise<any> {
+    const item = this.cache.get(key);
+    if (!item) return null;
+
+    if (Date.now() > item.expiry) {
+      this.cache.delete(key);
+      return null;
+    }
+
+    return item.value;
+  }
+
+  async set(key: string, value: any, ttl: number = 60): Promise<void> {
+    this.cache.set(key, {
+      value,
+      expiry: Date.now() + ttl * 1000
+    });
+  }
+
+  async delete(key: string): Promise<void> {
+    this.cache.delete(key);
+  }
+
+  clear(): void {
+    this.cache.clear();
+  }
+}
+
+class RedisCache implements CacheLevel {
+  constructor(private redis: Redis) {}
+
+  async get(key: string): Promise<any> {
+    const value = await this.redis.get(key);
+    return value ? JSON.parse(value) : null;
+  }
+
+  async set(key: string, value: any, ttl: number = 3600): Promise<void> {
+    await this.redis.setex(key, ttl, JSON.stringify(value));
+  }
+
+  async delete(key: string): Promise<void> {
+    await this.redis.del(key);
+  }
+}
+
+class MultiLevelCache {
+  private levels: CacheLevel[];
+
+  constructor(levels: CacheLevel[]) {
+    this.levels = levels; // Ordered from fastest to slowest
+  }
+
+  async get<T>(key: string): Promise<T | null> {
+    for (let i = 0; i < this.levels.length; i++) {
+      const value = await this.levels[i].get(key);
+
+      if (value !== null) {
+        // Backfill faster caches
+        for (let j = 0; j < i; j++) {
+          await this.levels[j].set(key, value);
+        }
+
+        return value as T;
+      }
+    }
+
+    return null;
+  }
+
+  async set(key: string, value: any, ttl?: number): Promise<void> {
+    // Set in all cache levels
+    await Promise.all(
+      this.levels.map(level => level.set(key, value, ttl))
+    );
+  }
+
+  async delete(key: string): Promise<void> {
+    await Promise.all(
+      this.levels.map(level => level.delete(key))
+    );
+  }
+}
+
+// Usage
+const cache = new MultiLevelCache([
+  new MemoryCache(),
+  new RedisCache(redis)
+]);
+
+// Get from fastest available cache
+const data = await cache.get('user:123');
+
+// Set in all caches
+await cache.set('user:123', userData, 3600);
+```
+
+### 4. **Cache Invalidation Strategies**
+
+```typescript
+class CacheInvalidation {
+  constructor(private cache: CacheService) {}
+
+  /**
+   * Time-based invalidation (TTL)
+   */
+  async setWithTTL(key: string, value: any, seconds: number): Promise<void> {
+    await this.cache.set(key, value, { ttl: seconds });
+  }
+
+  /**
+   * Tag-based invalidation
+   */
+  async setWithTags(
+    key: string,
+    value: any,
+    tags: string[]
+  ): Promise<void> {
+    // Store value
+    await this.cache.set(key, value);
+
+    // Store tag associations
+    for (const tag of tags) {
+      await this.cache.redis.sadd(`tag:${tag}`, key);
+    }
+  }
+
+  async invalidateByTag(tag: string): Promise<number> {
+    // Get all keys with this tag
+    const keys = await this.cache.redis.smembers(`tag:${tag}`);
+
+    if (keys.length === 0) return 0;
+
+    // Delete all keys
+    await Promise.all(
+      keys.map(key => this.cache.delete(key))
+    );
+
+    // Delete tag set
+    await this.cache.redis.del(`tag:${tag}`);
+
+    return keys.length;
+  }
+
+  /**
+   * Event-based invalidation
+   */
+  async invalidateOnEvent(
+    entity: string,
+    id: string,
+    event: 'create' | 'update' | 'delete'
+  ): Promise<void> {
+    const patterns = [
+      `${entity}:${id}`,
+      `${entity}:${id}:*`,
+      `${entity}:list:*`,
+      `${entity}:count`
+    ];
+
+    for (const pattern of patterns) {
+      await this.cache.deletePattern(pattern);
+    }
+  }
+
+  /**
+   * Version-based invalidation
+   */
+  async setVersioned(
+    key: string,
+    value: any,
+    version: number
+  ): Promise<void> {
+    const versionedKey = `${key}:v${version}`;
+    await this.cache.set(versionedKey, value);
+    await this.cache.set(`${key}:version`, version);
+  }
+
+  async getVersioned(key: string): Promise<any> {
+    const version = await this.cache.get<number>(`${key}:version`);
+    if (!version) return null;
+
+    return await this.cache.get(`${key}:v${version}`);
+  }
 }
 ```
 
-**Cache check logic**:
-1. Generate cache key
-2. Look up in cache
-3. If found AND not expired AND input unchanged → Return cached value
-4. If not found OR expired OR input changed → Execute operation, cache result
-</step>
+### 5. **HTTP Caching Headers**
 
-<step number="4">
-**Set appropriate TTL**
-
-Different operations have different freshness requirements:
-
-**Immutable** (cache indefinitely):
-- npm package versions (once published, never changes)
-- Historical git commits
-- Published documentation versions
-
-**Stable** (60min TTL):
-- npm package metadata (latest version)
-- Project documentation (rarely changes during workflow)
-- Codebase structure (files/directories)
-
-**Dynamic** (15min TTL):
-- Web search results
-- API documentation (may update)
-- Error message searches
-
-**File-based** (cache until modified):
-- File reads → Check mtime
-- Token counts → Recompute if file changed
-- Parsed AST → Recompute if source changed
-
-**Session-based** (cache for entire workflow):
-- User preferences
-- Environment variables
-- Project configuration
-
-TTL guidelines:
-- **Too short**: Cache miss overhead negates benefits
-- **Too long**: Stale data causes incorrect results
-- **Sweet spot**: Long enough to avoid repeated work, short enough to stay fresh
-</step>
-
-<step number="5">
-**Invalidate on changes**
-
-Automatically invalidate cache when inputs change:
-
-**File modification**:
 ```typescript
-function isCacheValid(cacheEntry, filePath) {
-  const currentMtime = fs.statSync(filePath).mtimeMs;
-  return cacheEntry.mtime === currentMtime;
+import express from 'express';
+
+const app = express();
+
+// Cache-Control middleware
+function cacheControl(maxAge: number, options: {
+  private?: boolean;
+  noStore?: boolean;
+  noCache?: boolean;
+  mustRevalidate?: boolean;
+  staleWhileRevalidate?: number;
+} = {}) {
+  return (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const directives: string[] = [];
+
+    if (options.noStore) {
+      directives.push('no-store');
+    } else if (options.noCache) {
+      directives.push('no-cache');
+    } else {
+      directives.push(options.private ? 'private' : 'public');
+      directives.push(`max-age=${maxAge}`);
+
+      if (options.staleWhileRevalidate) {
+        directives.push(`stale-while-revalidate=${options.staleWhileRevalidate}`);
+      }
+    }
+
+    if (options.mustRevalidate) {
+      directives.push('must-revalidate');
+    }
+
+    res.setHeader('Cache-Control', directives.join(', '));
+    next();
+  };
 }
 
-// Before returning cached file content
-if (!isCacheValid(cached, filePath)) {
-  // File modified - invalidate cache
-  cache.delete(cacheKey);
-  // Re-read file
-}
-```
+// Static assets - long cache
+app.use('/static', cacheControl(31536000), express.static('public'));
 
-**TTL expiration**:
-```typescript
-function isExpired(cacheEntry) {
-  const age = Date.now() - cacheEntry.cachedAt;
-  return age > cacheEntry.ttl;
-}
-```
+// API - short cache with revalidation
+app.get('/api/data',
+  cacheControl(60, { staleWhileRevalidate: 300 }),
+  (req, res) => {
+    res.json({ data: 'cached for 60s' });
+  }
+);
 
-**Manual invalidation**:
-```typescript
-// When user saves file
-onFileSave((filePath) => {
-  cache.invalidatePattern(`file:${filePath}*`);
-  cache.invalidatePattern(`grep:*`);  // File change may affect search results
+// Dynamic content - no cache
+app.get('/api/user/profile',
+  cacheControl(0, { private: true, noCache: true }),
+  (req, res) => {
+    res.json({ user: 'always fresh' });
+  }
+);
+
+// ETag support
+app.get('/api/resource/:id', async (req, res) => {
+  const resource = await getResource(req.params.id);
+  const etag = generateETag(resource);
+
+  res.setHeader('ETag', etag);
+
+  // Check if client has current version
+  if (req.headers['if-none-match'] === etag) {
+    return res.status(304).end();
+  }
+
+  res.json(resource);
 });
 
-// When switching git branch
-onBranchChange(() => {
-  cache.clear();  // Full invalidation
-});
-```
-
-**Dependency invalidation**:
-```typescript
-// If spec.md changes, invalidate token count
-onFileChange('spec.md', () => {
-  cache.delete('tokens:spec.md');
-});
-```
-</step>
-
-<step number="6">
-**Monitor cache effectiveness**
-
-Track metrics to optimize caching strategy:
-
-**Hit rate**:
-```
-Hit rate = Cache hits / (Cache hits + Cache misses)
-
-Good: >60% hit rate
-Great: >80% hit rate
-Excellent: >90% hit rate
-```
-
-**Time savings**:
-```
-Time saved = Σ(Cache hit time - Original operation time)
-
-Example:
-- 10 file reads from cache (50ms) vs disk (250ms)
-- Saved: 10 × (250ms - 50ms) = 2000ms (2 seconds)
-```
-
-**Cache size**:
-```
-Monitor memory usage
-- Target: <50MB cache size
-- Evict oldest entries if exceeds limit (LRU eviction)
-```
-
-**Metrics to log**:
-```typescript
-{
-  cacheHits: 145,
-  cacheMisses: 23,
-  hitRate: 0.863,  // 86.3%
-  timeSaved: 12450,  // 12.45 seconds
-  cacheSize: 34.2,  // MB
-  topKeys: [
-    { key: 'file:api-strategy.md', hits: 24 },
-    { key: 'grep:user:**/*.ts', hits: 12 }
-  ]
+function generateETag(data: any): string {
+  return require('crypto')
+    .createHash('md5')
+    .update(JSON.stringify(data))
+    .digest('hex');
 }
 ```
 
-See [references/cache-monitoring.md](references/cache-monitoring.md) for dashboard setup.
-</step>
-</workflow>
-
-<cache_types>
-<file_read_cache>
-**When to use**: Reading same file multiple times in workflow
-
-**Implementation**:
-```typescript
-const fileCache = new Map();
-
-function readFileCached(path: string): string {
-  const cacheKey = `file:${path}`;
-  const stat = fs.statSync(path);
-  const currentMtime = stat.mtimeMs;
-
-  const cached = fileCache.get(cacheKey);
-  if (cached && cached.mtime === currentMtime) {
-    return cached.content;  // Cache HIT
-  }
-
-  // Cache MISS
-  const content = fs.readFileSync(path, 'utf-8');
-  fileCache.set(cacheKey, {
-    content,
-    mtime: currentMtime,
-    size: stat.size
-  });
-
-  return content;
-}
-```
-
-**Use cases**:
-- Project docs (api-strategy.md, tech-stack.md)
-- Spec files (spec.md, plan.md, tasks.md)
-- Configuration files (package.json, tsconfig.json)
-
-**Invalidation**: File mtime changes
-
-**Expected hit rate**: 70-90% (files read multiple times per phase)
-</file_read_cache>
-
-<search_result_cache>
-**When to use**: Repeated grep/glob searches
-
-**Implementation**:
-```typescript
-const searchCache = new Map();
-const SEARCH_TTL = 30 * 60 * 1000;  // 30 minutes
-
-function grepCached(pattern: string, path: string, options: any): string[] {
-  const cacheKey = `grep:${pattern}:${path}:${JSON.stringify(options)}`;
-
-  const cached = searchCache.get(cacheKey);
-  if (cached && Date.now() - cached.timestamp < SEARCH_TTL) {
-    return cached.results;  // Cache HIT
-  }
-
-  // Cache MISS
-  const results = execGrep(pattern, path, options);
-  searchCache.set(cacheKey, {
-    results,
-    timestamp: Date.now()
-  });
-
-  return results;
-}
-```
-
-**Use cases**:
-- Anti-duplication searches (same pattern multiple times)
-- Dependency analysis (finding imports/exports)
-- Code review (finding patterns across codebase)
-
-**Invalidation**: 30min TTL or file modifications in search path
-
-**Expected hit rate**: 40-60% (searches often repeated in same phase)
-</search_result_cache>
-
-<network_request_cache>
-**When to use**: API calls with stable results
-
-**Implementation**:
-```typescript
-const networkCache = new Map();
-
-async function npmInfoCached(packageName: string): Promise<any> {
-  const cacheKey = `npm:info:${packageName}`;
-  const NPM_TTL = 60 * 60 * 1000;  // 60 minutes
-
-  const cached = networkCache.get(cacheKey);
-  if (cached && Date.now() - cached.timestamp < NPM_TTL) {
-    return cached.data;  // Cache HIT
-  }
-
-  // Cache MISS
-  const data = await execCommand(`npm info ${packageName} --json`);
-  networkCache.set(cacheKey, {
-    data,
-    timestamp: Date.now()
-  });
-
-  return data;
-}
-```
-
-**Use cases**:
-- npm package info
-- Web documentation fetches
-- GitHub API calls (repo info, release data)
-
-**Invalidation**: 15-60min TTL (depends on data volatility)
-
-**Expected hit rate**: 50-70% (packages queried multiple times)
-</network_request_cache>
-
-<computed_value_cache>
-**When to use**: Expensive calculations with same inputs
-
-**Implementation**:
-```typescript
-const computeCache = new Map();
-
-function countTokensCached(filePath: string): number {
-  const stat = fs.statSync(filePath);
-  const cacheKey = `tokens:${filePath}:${stat.mtimeMs}`;
-
-  const cached = computeCache.get(cacheKey);
-  if (cached) {
-    return cached.count;  // Cache HIT
-  }
-
-  // Cache MISS
-  const content = fs.readFileSync(filePath, 'utf-8');
-  const count = tokenizer.count(content);  // Expensive operation
-
-  computeCache.set(cacheKey, { count });
-  return count;
-}
-```
-
-**Use cases**:
-- Token counting
-- Code parsing/AST generation
-- Complexity analysis
-- Checksum calculation
-
-**Invalidation**: Input file mtime changes
-
-**Expected hit rate**: 60-80% (same files analyzed repeatedly)
-</computed_value_cache>
-
-<web_search_cache>
-**When to use**: Web searches for documentation/errors
-
-**Implementation**:
-```typescript
-const webCache = new Map();
-const WEB_TTL = 15 * 60 * 1000;  // 15 minutes
-
-async function webSearchCached(query: string): Promise<any> {
-  const cacheKey = `web:${query}`;
-
-  const cached = webCache.get(cacheKey);
-  if (cached && Date.now() - cached.timestamp < WEB_TTL) {
-    return cached.results;  // Cache HIT
-  }
-
-  // Cache MISS
-  const results = await performWebSearch(query);
-  webCache.set(cacheKey, {
-    results,
-    timestamp: Date.now()
-  });
-
-  return results;
-}
-```
-
-**Use cases**:
-- Documentation lookups
-- Error message searches
-- Best practice research
-- Library usage examples
-
-**Invalidation**: 15min TTL
-
-**Expected hit rate**: 30-50% (searches often unique, but some repeated)
-</web_search_cache>
-</cache_types>
-
-<auto_trigger_conditions>
-<when_to_cache>
-**Operation characteristics**:
-- Takes >100ms to execute
-- Called 2+ times with same inputs
-- Idempotent (same input → same output)
-- Results don't change rapidly
-
-**Detection patterns**:
-
-**Repeated file reads**:
-```
-Phase activity log:
-- Read api-strategy.md
-- Read tech-stack.md
-- Read api-strategy.md  ← DUPLICATE (trigger caching)
-```
-
-**Repeated searches**:
-```
-Search history:
-- Grep "user" in **/*.ts
-- ... (other work)
-- Grep "user" in **/*.ts  ← DUPLICATE (trigger caching)
-```
-
-**Repeated API calls**:
-```
-Network calls:
-- npm info react
-- ... (other work)
-- npm info react  ← DUPLICATE (trigger caching)
-```
-
-**Expensive computations**:
-```
-Computation log:
-- Count tokens in spec.md (took 350ms)
-- ... (other work)
-- Count tokens in spec.md  ← EXPENSIVE + DUPLICATE (trigger caching)
-```
-</when_to_cache>
-
-<when_not_to_cache>
-**Operation characteristics**:
-- Non-idempotent (random, time-based, stateful)
-- Fast (<50ms execution time)
-- Called once (no repetition)
-- Results change frequently
-
-**Examples**:
-
-**Don't cache**:
-- User input (unpredictable)
-- `Date.now()` (always changes)
-- Random values (`Math.random()`)
-- Database queries (data changes)
-- File writes (side effects)
-- Environment variables modified by user
-
-**Don't cache** (too fast):
-- Simple string operations
-- Array lookups
-- Map/Set operations
-- Variable assignments
-</when_not_to_cache>
-
-<proactive_caching>
-**Pre-cache common operations**:
-
-At workflow start (/feature):
-```typescript
-async function precacheCommonDocs() {
-  // Pre-load project docs (will be needed in /plan, /tasks, /implement)
-  await Promise.all([
-    readFileCached('docs/project/api-strategy.md'),
-    readFileCached('docs/project/tech-stack.md'),
-    readFileCached('docs/project/system-architecture.md')
-  ]);
-  // Now cached for all phases
-}
-```
-
-**Prefetch based on workflow phase**:
-
-```typescript
-// When entering /plan phase
-async function prefetchForPlanPhase() {
-  // Plan phase always needs these
-  await Promise.all([
-    readFileCached('docs/project/api-strategy.md'),
-    readFileCached('docs/project/data-architecture.md'),
-    grepCached('interface.*Props', '**/*.tsx', {})  // Common search
-  ]);
-}
-```
-
-**Warm cache from previous phase**:
-
-```typescript
-// /tasks phase uses output from /plan phase
-function warmCacheForTasks() {
-  // spec.md and plan.md already read in /plan - should be cached
-  readFileCached('specs/NNN-slug/spec.md');
-  readFileCached('specs/NNN-slug/plan.md');
-}
-```
-</proactive_caching>
-</auto_trigger_conditions>
-
-<examples>
-<example name="file-read-optimization">
-**Scenario**: /plan phase reads api-strategy.md 5 times
-
-**Without caching**:
-```typescript
-// /plan phase workflow
-const apiStrategy1 = readFile('docs/project/api-strategy.md');  // 250ms (disk read)
-// ... analyze versioning strategy
-
-const apiStrategy2 = readFile('docs/project/api-strategy.md');  // 250ms (disk read again)
-// ... check deprecation policy
-
-const apiStrategy3 = readFile('docs/project/api-strategy.md');  // 250ms (disk read again)
-// ... validate breaking change rules
-
-const apiStrategy4 = readFile('docs/project/api-strategy.md');  // 250ms (disk read again)
-// ... generate plan section
-
-const apiStrategy5 = readFile('docs/project/api-strategy.md');  // 250ms (disk read again)
-// ... final validation
-
-Total time: 1250ms (1.25 seconds)
-```
-
-**With caching**:
-```typescript
-// First read: Cache MISS (read from disk)
-const apiStrategy1 = readFileCached('docs/project/api-strategy.md');  // 250ms
-// Store in cache with mtime
-
-// Subsequent reads: Cache HIT (read from memory)
-const apiStrategy2 = readFileCached('docs/project/api-strategy.md');  // 5ms
-const apiStrategy3 = readFileCached('docs/project/api-strategy.md');  // 5ms
-const apiStrategy4 = readFileCached('docs/project/api-strategy.md');  // 5ms
-const apiStrategy5 = readFileCached('docs/project/api-strategy.md');  // 5ms
-
-Total time: 270ms
-Time saved: 980ms (78% reduction)
-```
-
-**Cache invalidation**:
-```typescript
-// If user edits api-strategy.md during /plan phase
-fs.writeFileSync('docs/project/api-strategy.md', newContent);
-
-// Next read detects mtime change
-const apiStrategy6 = readFileCached('docs/project/api-strategy.md');
-// mtime changed → Cache MISS → Re-read from disk (250ms)
-// Update cache with new content
-```
-</example>
-
-<example name="grep-search-optimization">
-**Scenario**: Anti-duplication searches for "user" pattern 3 times
-
-**Without caching**:
-```typescript
-// Task 1: Create user endpoint
-const results1 = grep('"user"', '**/*.ts');  // 3000ms (scan entire codebase)
-
-// Task 2: Create user service
-const results2 = grep('"user"', '**/*.ts');  // 3000ms (scan again)
-
-// Task 3: Create user model
-const results3 = grep('"user"', '**/*.ts');  // 3000ms (scan again)
-
-Total time: 9000ms (9 seconds)
-```
-
-**With caching**:
-```typescript
-// Task 1: Cache MISS (execute grep)
-const results1 = grepCached('"user"', '**/*.ts');  // 3000ms
-// Store results in cache (30min TTL)
-
-// Task 2: Cache HIT (return cached results)
-const results2 = grepCached('"user"', '**/*.ts');  // 10ms
-
-// Task 3: Cache HIT (return cached results)
-const results3 = grepCached('"user"', '**/*.ts');  // 10ms
-
-Total time: 3020ms
-Time saved: 5980ms (66% reduction)
-```
-
-**Cache invalidation**:
-```typescript
-// If new file created with "user" in it
-fs.writeFileSync('src/services/UserService.ts', content);
-
-// Search cache invalidated (codebase changed)
-cache.invalidatePattern('grep:*');
-
-// Next grep: Cache MISS (re-execute)
-const results4 = grepCached('"user"', '**/*.ts');  // 3000ms
-// Picks up new UserService.ts file
-```
-</example>
-
-<example name="npm-info-optimization">
-**Scenario**: Dependency curator checks react package 3 times
-
-**Without caching**:
-```typescript
-// Check current version
-const info1 = await execCommand('npm info react --json');  // 500ms (network call)
-
-// Check for vulnerabilities
-const info2 = await execCommand('npm info react --json');  // 500ms (network call again)
-
-// Check peer dependencies
-const info3 = await execCommand('npm info react --json');  // 500ms (network call again)
-
-Total time: 1500ms
-```
-
-**With caching**:
-```typescript
-// First call: Cache MISS (network call)
-const info1 = await npmInfoCached('react');  // 500ms
-// Store in cache (60min TTL)
-
-// Subsequent calls: Cache HIT (return cached data)
-const info2 = await npmInfoCached('react');  // 5ms
-const info3 = await npmInfoCached('react');  // 5ms
-
-Total time: 510ms
-Time saved: 990ms (66% reduction)
-```
-
-**TTL expiration**:
-```typescript
-// After 60 minutes (TTL expired)
-const info4 = await npmInfoCached('react');  // 500ms (re-fetch)
-// Update cache with latest package info
-```
-</example>
-
-<example name="token-count-optimization">
-**Scenario**: Token budget checks across 4 phases
-
-**Without caching**:
-```typescript
-// /plan phase: Check token budget
-const tokens1 = countTokens('specs/001/spec.md');  // 350ms (tokenize entire file)
-
-// /tasks phase: Check token budget
-const tokens2 = countTokens('specs/001/spec.md');  // 350ms (tokenize again)
-
-// /implement phase: Check token budget
-const tokens3 = countTokens('specs/001/spec.md');  // 350ms (tokenize again)
-
-// /optimize phase: Check token budget
-const tokens4 = countTokens('specs/001/spec.md');  // 350ms (tokenize again)
-
-Total time: 1400ms (1.4 seconds)
-```
-
-**With caching**:
-```typescript
-// /plan phase: Cache MISS (compute tokens)
-const tokens1 = countTokensCached('specs/001/spec.md');  // 350ms
-// Cache key includes mtime: "tokens:spec.md:1704067200"
-
-// /tasks phase: Cache HIT (spec.md unchanged)
-const tokens2 = countTokensCached('specs/001/spec.md');  // 5ms
-
-// /implement phase: Cache HIT (spec.md unchanged)
-const tokens3 = countTokensCached('specs/001/spec.md');  // 5ms
-
-// /optimize phase: Cache HIT (spec.md unchanged)
-const tokens4 = countTokensCached('specs/001/spec.md');  // 5ms
-
-Total time: 365ms
-Time saved: 1035ms (74% reduction)
-```
-
-**Cache invalidation on file modification**:
-```typescript
-// User updates spec.md during /implement
-fs.writeFileSync('specs/001/spec.md', updatedContent);
-
-// mtime changes: 1704067200 → 1704067500
-
-// Next token count: Cache key mismatch
-const tokens5 = countTokensCached('specs/001/spec.md');
-// New key: "tokens:spec.md:1704067500" (not in cache)
-// Cache MISS → Recompute (350ms)
-```
-</example>
-</examples>
-
-<anti_patterns>
-<anti_pattern name="caching-non-idempotent-operations">
-**Problem**: Caching operations that change on each call
-
-**Bad approach**:
-```typescript
-// Caching timestamp (always changes)
-const timestamp = cacheable(() => Date.now());  // WRONG
-```
-
-**Correct approach**:
-```typescript
-// Don't cache non-idempotent operations
-const timestamp = Date.now();  // No caching
-```
-
-**Rule**: Only cache idempotent operations (same input → same output).
-</anti_pattern>
-
-<anti_pattern name="overly-aggressive-caching">
-**Problem**: Caching everything, including fast operations
-
-**Bad approach**:
-```typescript
-// Caching simple string operations
-const uppercased = cacheable((str) => str.toUpperCase());  // WRONG (too fast)
-```
-
-**Correct approach**:
-```typescript
-// Don't cache operations faster than cache overhead
-const uppercased = str.toUpperCase();  // Direct call
-```
-
-**Rule**: Only cache operations taking >100ms.
-</anti_pattern>
-
-<anti_pattern name="stale-cache-serving">
-**Problem**: Serving stale data because TTL too long
-
-**Bad approach**:
-```typescript
-// Caching file content for 24 hours
-const FILE_TTL = 24 * 60 * 60 * 1000;  // WRONG (file may change)
-```
-
-**Correct approach**:
-```typescript
-// Check file mtime instead of long TTL
-function isCacheValid(cached, filePath) {
-  const currentMtime = fs.statSync(filePath).mtimeMs;
-  return cached.mtime === currentMtime;
-}
-```
-
-**Rule**: For file-based caching, check mtime. For network caching, use appropriate TTL (15-60min).
-</anti_pattern>
-
-<anti_pattern name="unbounded-cache-growth">
-**Problem**: Cache grows without limit, exhausts memory
-
-**Bad approach**:
-```typescript
-// No size limit or eviction policy
-cache.set(key, value);  // Keeps growing forever
-```
-
-**Correct approach**:
-```typescript
-// LRU cache with size limit
-const cache = new LRU({ max: 500, maxSize: 50 * 1024 * 1024 });  // 500 entries, 50MB max
-```
-
-**Rule**: Set cache size limits and use LRU eviction.
-</anti_pattern>
-
-<anti_pattern name="ignoring-cache-invalidation">
-**Problem**: Not invalidating cache when inputs change
-
-**Bad approach**:
-```typescript
-// File changes but cache not invalidated
-fs.writeFileSync('api-strategy.md', newContent);
-const cached = readFileCached('api-strategy.md');  // Returns old content!
-```
-
-**Correct approach**:
-```typescript
-// Invalidate on file write
-fs.writeFileSync('api-strategy.md', newContent);
-cache.invalidate('file:api-strategy.md');
-const fresh = readFileCached('api-strategy.md');  // Re-reads new content
-```
-
-**Rule**: Invalidate cache when inputs change (file mtime, TTL expiration, manual invalidation).
-</anti_pattern>
-</anti_patterns>
-
-<validation>
-<success_indicators>
-Caching strategy successfully applied when:
-
-1. **Hit rate**: >60% cache hit rate (most operations served from cache)
-2. **Time savings**: 20-40% reduction in workflow execution time
-3. **Zero staleness**: No stale data served (proper invalidation)
-4. **Memory usage**: Cache size <50MB (efficient memory use)
-5. **Transparent**: Behavior identical to non-cached version (correctness maintained)
-6. **Measurable**: Cache metrics logged (hits, misses, time saved)
-</success_indicators>
-
-<metrics>
-Track caching effectiveness:
-
-**Hit rate metrics**:
-```typescript
-{
-  totalRequests: 200,
-  cacheHits: 145,
-  cacheMisses: 55,
-  hitRate: 0.725  // 72.5%
-}
-```
-
-**Time savings**:
-```typescript
-{
-  totalTimeWithCache: 12.3,  // seconds
-  totalTimeWithoutCache: 18.7,  // seconds (estimated)
-  timeSaved: 6.4,  // seconds (34% reduction)
-  timeSavedPercent: 34.2
-}
-```
-
-**Cache size**:
-```typescript
-{
-  entries: 347,
-  sizeBytes: 42_534_912,  // 42MB
-  sizeMB: 40.6
-}
-```
-
-**Top cached operations**:
-```typescript
-{
-  topKeys: [
-    { key: 'file:api-strategy.md', hits: 24, timeSaved: 5800 },
-    { key: 'grep:user:**/*.ts', hits: 12, timeSaved: 35800 },
-    { key: 'npm:info:react', hits: 8, timeSaved: 3960 }
-  ]
-}
-```
-</metrics>
-
-<validation_checklist>
-Before deploying caching:
-
-- [ ] Operations are idempotent (same input → same output)
-- [ ] TTLs appropriate for data volatility
-- [ ] Invalidation triggers configured (file mtime, manual)
-- [ ] Cache size limits set (prevent memory exhaustion)
-- [ ] Metrics collection enabled (hit rate, time saved)
-- [ ] Behavior identical to non-cached (correctness verified)
-- [ ] Hit rate >60% (confirms caching is effective)
-- [ ] Time savings >20% (confirms performance benefit)
-</validation_checklist>
-</validation>
-
-<reference_guides>
-For deeper topics, see reference files:
-
-**Cache key strategies**: [references/cache-key-strategies.md](references/cache-key-strategies.md)
-- Generating unique cache keys
-- Handling complex inputs
-- Collision avoidance
-
-**Cache monitoring**: [references/cache-monitoring.md](references/cache-monitoring.md)
-- Setting up metrics dashboard
-- Analyzing cache effectiveness
-- Optimizing hit rates
-
-**Implementation patterns**: [references/implementation-patterns.md](references/implementation-patterns.md)
-- In-memory cache (Map, LRU)
-- Persistent cache (Redis, file-based)
-- Distributed cache (multi-process)
-</reference_guides>
-
-<success_criteria>
-The caching-strategy skill is successfully applied when:
-
-1. **Auto-detection**: Repeated operations automatically trigger caching
-2. **Appropriate caching**: Only expensive (>100ms), idempotent, repeated operations cached
-3. **Correct TTLs**: File-based (mtime check), network (15-60min), computed (until input changes)
-4. **Proper invalidation**: Cache invalidated when inputs change (file mtime, TTL, manual)
-5. **High hit rate**: >60% of cacheable operations served from cache
-6. **Significant savings**: 20-40% reduction in workflow execution time
-7. **Memory efficient**: Cache size <50MB, LRU eviction when needed
-8. **Transparent behavior**: Cached operations produce identical results to non-cached
-9. **Measurable impact**: Metrics show time saved, hit rates, cache effectiveness
-10. **Zero staleness**: No stale data served (all invalidation triggers working)
-</success_criteria>
+## Best Practices
+
+### ✅ DO
+- Set appropriate TTL values
+- Implement cache warming for critical data
+- Use cache-aside pattern for reads
+- Monitor cache hit rates
+- Implement graceful degradation on cache failure
+- Use compression for large cached values
+- Namespace cache keys properly
+- Implement cache stampede prevention
+- Use consistent hashing for distributed caching
+- Monitor cache memory usage
+
+### ❌ DON'T
+- Cache everything indiscriminately
+- Use caching as a fix for poor database design
+- Store sensitive data without encryption
+- Forget to handle cache misses
+- Set TTL too long for frequently changing data
+- Ignore cache invalidation strategies
+- Cache without monitoring
+- Store large objects without consideration
+
+## Cache Strategies
+
+| Strategy | Description | Use Case |
+|----------|-------------|----------|
+| **Cache-Aside** | Application checks cache, loads from DB on miss | General purpose |
+| **Write-Through** | Write to cache and DB simultaneously | Strong consistency needed |
+| **Write-Behind** | Write to cache, async write to DB | High write throughput |
+| **Refresh-Ahead** | Proactively refresh before expiry | Predictable access patterns |
+| **Read-Through** | Cache loads from DB automatically | Simplified code |
+
+## Resources
+
+- [Redis Documentation](https://redis.io/documentation)
+- [Cache-Control Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)
+- [Caching Best Practices](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/BestPractices.html)

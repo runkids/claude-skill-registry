@@ -1,7 +1,7 @@
 {
   "name": "qlty-check",
-  "repo": "parcadei/Continuous-Claude-v3",
+  "repo": "tfunk1030/vibe",
   "path": ".claude/skills/qlty-check/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-19T03:31:30.634561Z"
+  "source": "github.com/tfunk1030/vibe",
+  "downloaded_at": "2026-01-20T03:46:54.939491Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "openai-api",
-  "repo": "timequity/vibe-coder",
-  "path": "skills/openai-api/SKILL.md",
-  "source": "github.com/timequity/vibe-coder",
-  "downloaded_at": "2026-01-19T03:30:44.966710Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/skills/openai-api/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-20T03:24:00.035677Z"
 }

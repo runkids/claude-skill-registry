@@ -1,6 +1,10 @@
 ---
 name: terraform-skill
 description: Use when working with Terraform or OpenTofu - creating modules, writing tests (native test framework, Terratest), setting up CI/CD pipelines, reviewing configurations, choosing between testing approaches, debugging state issues, implementing security scanning (trivy, checkov), or making infrastructure-as-code architecture decisions
+license: Apache-2.0
+metadata:
+  author: Anton Babenko
+  version: 1.5.0
 ---
 
 # Terraform Skill for Claude
@@ -492,14 +496,6 @@ variable "backup_days" {
 
 Both are fully supported by this skill. For licensing, governance, and feature comparison, see [Quick Reference: Terraform vs OpenTofu](references/quick-reference.md#terraform-vs-opentofu-comparison).
 
-## Additional Resources
-
-**Official:** [Terraform Testing](https://developer.hashicorp.com/terraform/language/tests) | [OpenTofu Docs](https://opentofu.org/docs/) | [HashiCorp Best Practices](https://developer.hashicorp.com/terraform/cloud-docs/recommended-practices)
-
-**Community:** [terraform-best-practices.com](https://terraform-best-practices.com) | [Terratest](https://terratest.gruntwork.io/docs/) | [Google Cloud Best Practices](https://cloud.google.com/docs/terraform/best-practices)
-
-**Tools:** [pre-commit-terraform](https://github.com/antonbabenko/pre-commit-terraform) | [terraform-docs](https://terraform-docs.io/) | [terraform-switcher](https://github.com/warrensbox/terraform-switcher) | [TFLint](https://github.com/terraform-linters/tflint) | [Trivy](https://github.com/aquasecurity/trivy)
-
 ## Detailed Guides
 
 This skill uses **progressive disclosure** - essential information is in this main file, detailed guides are available when needed:
@@ -513,31 +509,8 @@ This skill uses **progressive disclosure** - essential information is in this ma
 
 **How to use:** When you need detailed information on a topic, reference the appropriate guide. Claude will load it on demand to provide comprehensive guidance.
 
-## License & Attribution
+## License
 
 This skill is licensed under the **Apache License 2.0**. See the LICENSE file for full terms.
 
 **Copyright © 2026 Anton Babenko**
-
-### Sources
-
-This skill synthesizes best practices from:
-- **[terraform-best-practices.com](https://terraform-best-practices.com)** by Anton Babenko
-- **[Compliance.tf](https://compliance.tf)** - Terraform Compliance for Cloud-Native Enterprise (production experience)
-- Official HashiCorp Terraform and OpenTofu documentation
-- Google Cloud Terraform Best Practices
-- AWS Terraform Best Practices
-- Community contributions
-
-### Attribution
-
-If you create derivative works or skills based on this skill, please include:
-```
-Based on terraform-skill by Anton Babenko
-https://github.com/antonbabenko/terraform-skill
-terraform-best-practices.com | Compliance.tf
-```
-
-### About the author
-
-Anton Babenko ([@antonbabenko on X](https://x.com/antonbabenko)) is an AWS Hero and the creator of [terraform-best-practices.com](https://terraform-best-practices.com). Anton is the founder of [Compliance.tf](https://compliance.tf), which helps teams build compliant Terraform for cloud-native enterprises. Anton also curates [weekly.tf](https://weekly.tf), the Terraform Weekly newsletter, and maintains the [terraform-aws-modules](https://github.com/terraform-aws-modules) project.

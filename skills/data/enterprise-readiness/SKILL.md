@@ -1,6 +1,6 @@
 ---
 name: enterprise-readiness
-description: "Assess and enhance software projects for enterprise-grade security, quality, and automation. Use when evaluating projects for production readiness, implementing supply chain security (SLSA, signing, SBOMs), hardening CI/CD pipelines, or establishing quality gates. Aligned with OpenSSF Scorecard, Best Practices Badge (all levels), SLSA, and S2C2F. By Netresearch."
+description: "Assess and enhance software projects for enterprise-grade security, quality, and automation. This skill should be used when evaluating projects for production readiness, implementing supply chain security (SLSA, signing, SBOMs), hardening CI/CD pipelines, establishing quality gates, reviewing code or PRs, writing documentation (ADRs, changelogs, migration guides), or pursuing OpenSSF Best Practices Badge. Aligned with OpenSSF Scorecard, Best Practices Badge (all levels), SLSA, and S2C2F. By Netresearch."
 ---
 
 # Enterprise Readiness Assessment
@@ -12,6 +12,9 @@ description: "Assess and enhance software projects for enterprise-grade security
 - Hardening CI/CD pipelines
 - Establishing quality gates
 - Pursuing OpenSSF Best Practices Badge (Passing/Silver/Gold)
+- Reviewing code or PRs for quality
+- Writing ADRs, changelogs, or migration guides
+- Configuring Git hooks or CI pipelines
 
 ## Assessment Workflow
 
@@ -30,6 +33,32 @@ description: "Assess and enhance software projects for enterprise-grade security
 | `references/go.md` | Go projects (20 pts) |
 | `references/openssf-badge-silver.md` | Pursuing Silver badge |
 | `references/openssf-badge-gold.md` | Pursuing Gold badge |
+
+## Quality & Process References (Language-Agnostic)
+
+| Reference | When to Load |
+|-----------|--------------|
+| `references/code-review.md` | Code review, PR quality checks |
+| `references/documentation.md` | ADRs, API docs, migration guides, changelogs |
+| `references/ci-patterns.md` | CI/CD pipelines, Git hooks, quality gates |
+
+### Explicit Content Triggers
+
+When reviewing PRs or code, load `references/code-review.md` for the comprehensive checklist covering test resource management, state mutation, defensive enum handling, documentation accuracy, and defensive code coverage.
+
+When writing ADRs (Architecture Decision Records), load `references/documentation.md` for templates, file organization, and required sections (Context, Decision, Consequences, Alternatives).
+
+When writing changelogs or release notes, load `references/documentation.md` for Keep a Changelog format and conventional commit mapping.
+
+When writing API documentation or migration guides, load `references/documentation.md` for structure patterns and completeness checklists.
+
+When configuring CI/CD pipelines, load `references/ci-patterns.md` for comprehensive pipeline structure, job ordering, and quality gates.
+
+When setting up Git hooks (pre-commit/pre-push), load `references/ci-patterns.md` for the hook division strategy and Lefthook configuration.
+
+When enforcing coverage thresholds, load `references/ci-patterns.md` for threshold tables and enforcement patterns.
+
+When handling signed commits with rebase-only merge, load `references/ci-patterns.md` for the local fast-forward merge workflow.
 
 ## Implementation Guides
 
@@ -86,6 +115,17 @@ Copy workflows to `.github/workflows/` and pin action versions with SHA hashes.
 | 70-79 | C | Development Ready |
 | 60-69 | D | Basic |
 | <60 | F | Not Ready |
+
+## Code Review Quick Checklist
+
+Before approving PRs, verify (see `references/code-review.md` for details):
+
+- [ ] **One resource per test** - No duplicate instances
+- [ ] **State mutation complete** - Tracking fields updated after operations
+- [ ] **Defensive enum handling** - `Valid()` method, `default` case, tested
+- [ ] **Documentation accurate** - Claims match benchmarks, trade-offs noted
+- [ ] **Platform code marked** - Limitations documented, alternatives provided
+- [ ] **Defensive code tested** - Error paths and edge cases covered
 
 ## Critical Rules
 

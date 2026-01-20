@@ -1,7 +1,7 @@
 {
   "name": "review-pr",
-  "repo": "sasamuku/dotfiles",
+  "repo": "abyssparanoia/rapid-go",
   "path": ".claude/skills/review-pr/SKILL.md",
-  "source": "github.com/sasamuku/dotfiles",
-  "downloaded_at": "2026-01-19T01:05:24.225517Z"
+  "source": "github.com/abyssparanoia/rapid-go",
+  "downloaded_at": "2026-01-20T03:35:43.705894Z"
 }

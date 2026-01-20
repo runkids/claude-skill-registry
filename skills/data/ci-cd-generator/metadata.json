@@ -1,7 +1,7 @@
 {
   "name": "ci-cd-generator",
-  "repo": "flight505/storybook-assistant",
-  "path": "skills/ci-cd-generator/SKILL.md",
-  "source": "github.com/flight505/storybook-assistant",
-  "downloaded_at": "2026-01-19T03:34:50.708800Z"
+  "repo": "ntaksh42/agents",
+  "path": ".claude/skills/ci-cd-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-20T03:00:02.633118Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "backlog-management",
-  "repo": "wmeints/promptyard",
-  "path": ".claude/skills/backlog-management/SKILL.md",
-  "source": "github.com/wmeints/promptyard",
-  "downloaded_at": "2026-01-19T03:49:43.113240Z"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/backlog-management/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-20T01:41:10.850132Z"
 }

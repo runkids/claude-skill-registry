@@ -1,7 +1,7 @@
 {
   "name": "plugin-settings",
-  "repo": "pur3v4d3r/pur3-pkb-codebase",
-  "path": ".claude/skills/plugin-settings/SKILL.md",
-  "source": "github.com/pur3v4d3r/pur3-pkb-codebase",
-  "downloaded_at": "2026-01-19T04:15:08.931269Z"
+  "repo": "bagherhosseini/Claude_Code_skills",
+  "path": "skills/plugin-dev/skills/plugin-settings/SKILL.md",
+  "source": "github.com/bagherhosseini/Claude_Code_skills",
+  "downloaded_at": "2026-01-20T02:18:51.439369Z"
 }

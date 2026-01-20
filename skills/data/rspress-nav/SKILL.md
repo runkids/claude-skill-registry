@@ -2,6 +2,7 @@
 name: rspress-nav
 description: Configure RSPress navigation bars and sidebars with _nav.json and _meta.json files. Use when setting up navigation, organizing sidebar sections, or configuring collapsible menu items.
 allowed-tools: Read, Write, Edit, Glob, Grep
+agent: rspress-doc-agent
 ---
 
 # RSPress Navigation Configuration

@@ -1,7 +1,7 @@
 {
   "name": "customer-insights",
-  "repo": "ZhiruiFeng/LocalAgentCrew",
-  "path": ".claude/skills/customer-insights/SKILL.md",
-  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
-  "downloaded_at": "2026-01-19T04:02:25.703837Z"
+  "repo": "gtmagents/gtm-agents",
+  "path": "plugins/customer-marketing/skills/customer-insights/SKILL.md",
+  "source": "github.com/gtmagents/gtm-agents",
+  "downloaded_at": "2026-01-20T01:48:19.947672Z"
 }

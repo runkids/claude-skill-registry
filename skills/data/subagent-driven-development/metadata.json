@@ -1,7 +1,7 @@
 {
   "name": "subagent-driven-development",
-  "repo": "araaking/opencode-kuli-pro",
-  "path": "skills/subagent-driven-development/SKILL.md",
-  "source": "github.com/araaking/opencode-kuli-pro",
-  "downloaded_at": "2026-01-19T04:19:41.023132Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": ".claude/skills/superpowers/subagent-driven-development/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-20T04:03:49.172847Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "openalex-database",
-  "repo": "Sologa/codex-pipeline",
-  "path": ".codex/skills/openalex-database/SKILL.md",
-  "source": "github.com/Sologa/codex-pipeline",
-  "downloaded_at": "2026-01-19T01:35:09.927261Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/scientific/openalex-database/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-20T01:18:53.449802Z"
 }

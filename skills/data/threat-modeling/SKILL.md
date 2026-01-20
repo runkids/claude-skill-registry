@@ -1,769 +1,486 @@
 ---
 name: threat-modeling
-description: Threat modeling methodologies (STRIDE, DREAD), attack trees, threat modeling as code, and integration with SDLC for proactive security design
-allowed-tools: Read, Grep, Glob, Write, Edit, Task, mcp__perplexity__*, mcp__context7__*, mcp__microsoft-learn__*
+description: Structured security analysis using OWASP Four-Question Framework and STRIDE methodology. Generates threat matrices with risk ratings, mitigations, and prioritization. Use for attack surface analysis, security architecture review, or when asking what can go wrong.
+license: MIT
+metadata:
+  version: 1.0.0
+  model: claude-sonnet-4-5
 ---
 
 # Threat Modeling
 
-Systematic approach to identifying, quantifying, and addressing security threats in software systems.
-
-## When to Use This Skill
-
-**Keywords:** threat modeling, STRIDE, DREAD, attack trees, security design, risk assessment, threat analysis, data flow diagram, trust boundary, attack surface, threat enumeration
-
-**Use this skill when:**
-
-- Designing new systems or features
-- Conducting security architecture reviews
-- Identifying potential attack vectors
-- Prioritizing security investments
-- Documenting security assumptions
-- Integrating security into SDLC
-- Creating threat models as code
-
-## Quick Decision Tree
-
-1. **Starting a threat model?** → Begin with [Threat Modeling Process](#threat-modeling-process)
-2. **Identifying threats?** → Use [STRIDE methodology](#stride-methodology)
-3. **Prioritizing threats?** → Apply [DREAD scoring](#dread-risk-scoring) or [Attack Trees](#attack-trees)
-4. **Automating threat models?** → See [references/threat-modeling-tools.md](references/threat-modeling-tools.md)
-5. **Specific architecture patterns?** → See [Architecture-Specific Threats](#architecture-specific-threats)
-
-## Threat Modeling Process
-
-```text
-┌─────────────────────────────────────────────────────────────────┐
-│                    THREAT MODELING WORKFLOW                      │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  1. DECOMPOSE        2. IDENTIFY         3. PRIORITIZE          │
-│  ┌──────────┐       ┌──────────┐        ┌──────────┐           │
-│  │ System   │──────▶│ Threats  │───────▶│ Risks    │           │
-│  │ Model    │       │ (STRIDE) │        │ (DREAD)  │           │
-│  └──────────┘       └──────────┘        └──────────┘           │
-│       │                   │                   │                  │
-│       ▼                   ▼                   ▼                  │
-│  ┌──────────┐       ┌──────────┐        ┌──────────┐           │
-│  │ DFD      │       │ Attack   │        │ Counter- │           │
-│  │ Trust    │       │ Trees    │        │ measures │           │
-│  │ Boundary │       │ Patterns │        │ Backlog  │           │
-│  └──────────┘       └──────────┘        └──────────┘           │
-│                                                                  │
-│  4. DOCUMENT ──────▶ 5. VALIDATE ──────▶ 6. ITERATE            │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### Step 1: System Decomposition
-
-Create a Data Flow Diagram (DFD) with these elements:
-
-| Element | Symbol | Description |
-|---------|--------|-------------|
-| External Entity | Rectangle | Users, external systems |
-| Process | Circle | Code that transforms data |
-| Data Store | Parallel lines | Databases, files, caches |
-| Data Flow | Arrow | Data movement |
-| Trust Boundary | Dashed line | Security perimeter |
-
-```csharp
-// Example: E-commerce system decomposition
-public enum ElementType
-{
-    ExternalEntity, Process, DataStore, DataFlow
-}
-
-/// <summary>Defines a security perimeter</summary>
-public sealed record TrustBoundary(
-    string Id,
-    string Name,
-    string Description,
-    IReadOnlyList<string> Elements);  // IDs of contained elements
-
-/// <summary>Data Flow Diagram element</summary>
-public sealed record DfdElement
-{
-    public required string Id { get; init; }
-    public required string Name { get; init; }
-    public required ElementType ElementType { get; init; }
-    public string? TrustBoundary { get; init; }
-    public string Description { get; init; } = "";
-}
-
-/// <summary>Connection between elements</summary>
-public sealed record DataFlow
-{
-    public required string Id { get; init; }
-    public required string Source { get; init; }
-    public required string Destination { get; init; }
-    public required string DataType { get; init; }
-    public required string Protocol { get; init; }
-    public bool Encrypted { get; init; }
-    public bool Authenticated { get; init; }
-}
-
-/// <summary>Complete system model for threat analysis</summary>
-public sealed class SystemModel(string name)
-{
-    public string Name => name;
-    private readonly Dictionary<string, DfdElement> _elements = new();
-    private readonly List<DataFlow> _flows = [];
-    private readonly List<TrustBoundary> _trustBoundaries = [];
-
-    public IReadOnlyDictionary<string, DfdElement> Elements => _elements;
-    public IReadOnlyList<DataFlow> Flows => _flows;
-    public IReadOnlyList<TrustBoundary> TrustBoundaries => _trustBoundaries;
-
-    public void AddElement(DfdElement element) => _elements[element.Id] = element;
-    public void AddFlow(DataFlow flow) => _flows.Add(flow);
-    public void AddTrustBoundary(TrustBoundary boundary) => _trustBoundaries.Add(boundary);
-
-    /// <summary>Identify flows that cross trust boundaries - high-risk areas</summary>
-    public IReadOnlyList<DataFlow> GetCrossBoundaryFlows()
-    {
-        var crossBoundary = new List<DataFlow>();
-        foreach (var flow in _flows)
-        {
-            var sourceBoundary = _elements[flow.Source].TrustBoundary;
-            var destBoundary = _elements[flow.Destination].TrustBoundary;
-            if (sourceBoundary != destBoundary)
-                crossBoundary.Add(flow);
-        }
-        return crossBoundary;
-    }
-}
-
-// Example usage
-var model = new SystemModel("E-Commerce Platform");
-
-// Define elements
-model.AddElement(new DfdElement
-{
-    Id = "user",
-    Name = "Customer",
-    ElementType = ElementType.ExternalEntity,
-    TrustBoundary = "internet",
-    Description = "End user accessing via browser"
-});
-
-model.AddElement(new DfdElement
-{
-    Id = "web_app",
-    Name = "Web Application",
-    ElementType = ElementType.Process,
-    TrustBoundary = "dmz",
-    Description = "Frontend web server"
-});
-
-model.AddElement(new DfdElement
-{
-    Id = "api",
-    Name = "API Gateway",
-    ElementType = ElementType.Process,
-    TrustBoundary = "internal",
-    Description = "Backend API services"
-});
-
-model.AddElement(new DfdElement
-{
-    Id = "db",
-    Name = "Database",
-    ElementType = ElementType.DataStore,
-    TrustBoundary = "internal",
-    Description = "Customer and order data"
-});
-
-// Define flows
-model.AddFlow(new DataFlow
-{
-    Id = "f1",
-    Source = "user",
-    Destination = "web_app",
-    DataType = "HTTP Request",
-    Protocol = "HTTPS",
-    Encrypted = true,
-    Authenticated = false
-});
-
-// Find high-risk flows
-var riskyFlows = model.GetCrossBoundaryFlows();
-```
-
-## STRIDE Methodology
-
-STRIDE is a threat classification framework for systematic threat identification:
-
-| Category | Threat | Security Property | Example |
-|----------|--------|-------------------|---------|
-| **S**poofing | Impersonating someone/something | Authentication | Stolen credentials, session hijacking |
-| **T**ampering | Modifying data or code | Integrity | SQL injection, file modification |
-| **R**epudiation | Denying actions | Non-repudiation | Missing audit logs |
-| **I**nformation Disclosure | Exposing information | Confidentiality | Data breach, verbose errors |
-| **D**enial of Service | Disrupting availability | Availability | Resource exhaustion, DDoS |
-| **E**levation of Privilege | Gaining unauthorized access | Authorization | Privilege escalation, IDOR |
-
-### STRIDE-per-Element Analysis
-
-Apply STRIDE to each DFD element:
-
-```csharp
-using System.Collections.Frozen;
-
-public enum StrideCategory
-{
-    Spoofing, Tampering, Repudiation, InformationDisclosure, DenialOfService, ElevationOfPrivilege
-}
-
-/// <summary>Which STRIDE categories apply to which element types</summary>
-public static class StrideApplicability
-{
-    public static readonly FrozenDictionary<ElementType, StrideCategory[]> Map =
-        new Dictionary<ElementType, StrideCategory[]>
-        {
-            [ElementType.ExternalEntity] =
-                [StrideCategory.Spoofing, StrideCategory.Repudiation],
-            [ElementType.Process] =
-                [StrideCategory.Spoofing, StrideCategory.Tampering, StrideCategory.Repudiation,
-                 StrideCategory.InformationDisclosure, StrideCategory.DenialOfService,
-                 StrideCategory.ElevationOfPrivilege],
-            [ElementType.DataStore] =
-                [StrideCategory.Tampering, StrideCategory.Repudiation,
-                 StrideCategory.InformationDisclosure, StrideCategory.DenialOfService],
-            [ElementType.DataFlow] =
-                [StrideCategory.Tampering, StrideCategory.InformationDisclosure,
-                 StrideCategory.DenialOfService]
-        }.ToFrozenDictionary();
-}
-
-/// <summary>Identified threat</summary>
-public sealed record Threat
-{
-    public required string Id { get; init; }
-    public required StrideCategory Category { get; init; }
-    public required string ElementId { get; init; }
-    public required string Title { get; init; }
-    public required string Description { get; init; }
-    public required string AttackVector { get; init; }
-    public string Impact { get; init; } = "";
-    public string Likelihood { get; init; } = "Medium";
-    public IReadOnlyList<string> Mitigations { get; init; } = [];
-}
-
-/// <summary>Threat template for generation</summary>
-public sealed record ThreatTemplate(
-    string TitleFormat, string DescriptionFormat, string AttackVector, string[] Mitigations);
-
-/// <summary>Systematic STRIDE threat identification</summary>
-public sealed class StrideAnalyzer(SystemModel model)
-{
-    private readonly List<Threat> _threats = [];
-    private int _threatCounter;
-
-    private static readonly Dictionary<(ElementType, StrideCategory), ThreatTemplate> Templates = new()
-    {
-        [(ElementType.Process, StrideCategory.Spoofing)] = new(
-            "Spoofing of {0}",
-            "Attacker impersonates {0} to gain unauthorized access",
-            "Credential theft, session hijacking, certificate forgery",
-            ["Strong authentication", "Certificate pinning", "Session management"]),
-        [(ElementType.Process, StrideCategory.Tampering)] = new(
-            "Tampering with {0}",
-            "Attacker modifies data processed by {0}",
-            "Input manipulation, code injection, memory corruption",
-            ["Input validation", "Integrity checks", "Code signing"]),
-        [(ElementType.DataStore, StrideCategory.InformationDisclosure)] = new(
-            "Information disclosure from {0}",
-            "Sensitive data exposed from {0}",
-            "SQL injection, misconfiguration, backup exposure",
-            ["Encryption at rest", "Access controls", "Data masking"])
-    };
-
-    /// <summary>Perform STRIDE analysis on all elements</summary>
-    public IReadOnlyList<Threat> Analyze()
-    {
-        // Analyze elements
-        foreach (var element in model.Elements.Values)
-        {
-            if (StrideApplicability.Map.TryGetValue(element.ElementType, out var categories))
-            {
-                foreach (var category in categories)
-                    _threats.AddRange(IdentifyThreats(element, category));
-            }
-        }
-
-        // Analyze data flows
-        if (StrideApplicability.Map.TryGetValue(ElementType.DataFlow, out var flowCategories))
-        {
-            foreach (var flow in model.Flows)
-            {
-                foreach (var category in flowCategories)
-                    _threats.AddRange(IdentifyFlowThreats(flow, category));
-            }
-        }
-
-        return _threats;
-    }
-
-    private IEnumerable<Threat> IdentifyThreats(DfdElement element, StrideCategory category)
-    {
-        var key = (element.ElementType, category);
-        if (!Templates.TryGetValue(key, out var template))
-            yield break;
-
-        _threatCounter++;
-        yield return new Threat
-        {
-            Id = $"T{_threatCounter:D3}",
-            Category = category,
-            ElementId = element.Id,
-            Title = string.Format(template.TitleFormat, element.Name),
-            Description = string.Format(template.DescriptionFormat, element.Name),
-            AttackVector = template.AttackVector,
-            Mitigations = template.Mitigations
-        };
-    }
-
-    private IEnumerable<Threat> IdentifyFlowThreats(DataFlow flow, StrideCategory category)
-    {
-        if (category == StrideCategory.InformationDisclosure && !flow.Encrypted)
-        {
-            _threatCounter++;
-            yield return new Threat
-            {
-                Id = $"T{_threatCounter:D3}",
-                Category = category,
-                ElementId = flow.Id,
-                Title = $"Unencrypted data flow: {flow.Source} -> {flow.Destination}",
-                Description = $"Data ({flow.DataType}) transmitted without encryption",
-                AttackVector = "Network sniffing, man-in-the-middle",
-                Impact = "High - Data exposure",
-                Mitigations = ["Enable TLS", "Use VPN", "Encrypt at application layer"]
-            };
-        }
-
-        if (category == StrideCategory.Tampering && !flow.Authenticated)
-        {
-            _threatCounter++;
-            yield return new Threat
-            {
-                Id = $"T{_threatCounter:D3}",
-                Category = category,
-                ElementId = flow.Id,
-                Title = $"Unauthenticated data flow: {flow.Source} -> {flow.Destination}",
-                Description = "Data flow lacks authentication - source cannot be verified",
-                AttackVector = "Message injection, replay attacks",
-                Impact = "Medium - Data integrity compromise",
-                Mitigations = ["Mutual TLS", "Message signing", "API authentication"]
-            };
-        }
-    }
-}
-```
-
-**For detailed STRIDE analysis with examples**, see [references/stride-methodology.md](references/stride-methodology.md).
-
-## DREAD Risk Scoring
-
-DREAD provides quantitative risk assessment for prioritization:
-
-| Factor | Description | Scale |
-|--------|-------------|-------|
-| **D**amage | Impact if exploited | 1-10 |
-| **R**eproducibility | Ease of reproducing attack | 1-10 |
-| **E**xploitability | Effort required to exploit | 1-10 |
-| **A**ffected Users | Scope of impact | 1-10 |
-| **D**iscoverability | Likelihood of finding vulnerability | 1-10 |
-
-```csharp
-/// <summary>DREAD risk scoring</summary>
-public readonly struct DreadScore
-{
-    public int Damage { get; }           // 1-10
-    public int Reproducibility { get; }  // 1-10
-    public int Exploitability { get; }   // 1-10
-    public int AffectedUsers { get; }    // 1-10
-    public int Discoverability { get; }  // 1-10
-
-    public DreadScore(int damage, int reproducibility, int exploitability,
-                      int affectedUsers, int discoverability)
-    {
-        ValidateRange(damage, nameof(damage));
-        ValidateRange(reproducibility, nameof(reproducibility));
-        ValidateRange(exploitability, nameof(exploitability));
-        ValidateRange(affectedUsers, nameof(affectedUsers));
-        ValidateRange(discoverability, nameof(discoverability));
-
-        Damage = damage;
-        Reproducibility = reproducibility;
-        Exploitability = exploitability;
-        AffectedUsers = affectedUsers;
-        Discoverability = discoverability;
-    }
-
-    private static void ValidateRange(int value, string name)
-    {
-        if (value is < 1 or > 10)
-            throw new ArgumentOutOfRangeException(name, $"{name} must be between 1-10");
-    }
-
-    /// <summary>Calculate average DREAD score</summary>
-    public double Total => (Damage + Reproducibility + Exploitability +
-                           AffectedUsers + Discoverability) / 5.0;
-
-    /// <summary>Categorize risk level</summary>
-    public string RiskLevel => Total switch
-    {
-        >= 8 => "Critical",
-        >= 6 => "High",
-        >= 4 => "Medium",
-        _ => "Low"
-    };
-}
-
-/// <summary>Prioritize threats using DREAD scoring</summary>
-public sealed class ThreatPrioritizer
-{
-    private readonly List<(Threat Threat, DreadScore Score)> _scoredThreats = [];
-
-    public void ScoreThreat(Threat threat, DreadScore score) =>
-        _scoredThreats.Add((threat, score));
-
-    /// <summary>Return threats sorted by risk (highest first)</summary>
-    public IReadOnlyList<(Threat Threat, DreadScore Score)> GetPrioritizedList() =>
-        _scoredThreats.OrderByDescending(x => x.Score.Total).ToList();
-
-    /// <summary>Generate risk matrix summary</summary>
-    public Dictionary<string, List<string>> GenerateRiskMatrix()
-    {
-        var matrix = new Dictionary<string, List<string>>
-        {
-            ["Critical"] = [], ["High"] = [], ["Medium"] = [], ["Low"] = []
-        };
-        foreach (var (threat, score) in _scoredThreats)
-            matrix[score.RiskLevel].Add(threat.Id);
-        return matrix;
-    }
-}
-
-// Example scoring
-var sqlInjectionScore = new DreadScore(
-    damage: 9,           // Full database compromise
-    reproducibility: 8,  // Easily reproducible with tools
-    exploitability: 7,   // Well-known techniques
-    affectedUsers: 10,   // All users potentially affected
-    discoverability: 6   // Requires testing to find
-);
-
-Console.WriteLine($"Risk Score: {sqlInjectionScore.Total}");    // 8.0
-Console.WriteLine($"Risk Level: {sqlInjectionScore.RiskLevel}"); // Critical
-```
-
-### Alternative: CVSS-Based Scoring
-
-For compatibility with industry standards, map to CVSS:
-
-```csharp
-/// <summary>CVSS 3.1 Base Score components</summary>
-public sealed record CvssVector
-{
-    public required string AttackVector { get; init; }       // N, A, L, P
-    public required string AttackComplexity { get; init; }   // L, H
-    public required string PrivilegesRequired { get; init; } // N, L, H
-    public required string UserInteraction { get; init; }    // N, R
-    public required string Scope { get; init; }              // U, C
-    public required string Confidentiality { get; init; }    // N, L, H
-    public required string Integrity { get; init; }          // N, L, H
-    public required string Availability { get; init; }       // N, L, H
-
-    public string ToVectorString() =>
-        $"CVSS:3.1/AV:{AttackVector}/AC:{AttackComplexity}/" +
-        $"PR:{PrivilegesRequired}/UI:{UserInteraction}/" +
-        $"S:{Scope}/C:{Confidentiality}/I:{Integrity}/A:{Availability}";
-}
-```
-
-## Attack Trees
-
-Attack trees visualize how an attacker might achieve a goal:
-
-```text
-                    ┌─────────────────────┐
-                    │ Steal Customer Data │ (Goal)
-                    └─────────────────────┘
-                              │
-              ┌───────────────┼───────────────┐
-              │               │               │
-              ▼               ▼               ▼
-      ┌───────────┐   ┌───────────┐   ┌───────────┐
-      │ SQL       │   │ Phishing  │   │ Insider   │
-      │ Injection │   │ Attack    │   │ Threat    │
-      │ [OR]      │   │ [OR]      │   │ [OR]      │
-      └───────────┘   └───────────┘   └───────────┘
-            │               │               │
-      ┌─────┴─────┐   ┌─────┴─────┐   ┌─────┴─────┐
-      │           │   │           │   │           │
-      ▼           ▼   ▼           ▼   ▼           ▼
-  ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐
-  │Find   │ │Exploit│ │Send   │ │Harvest│ │Bribe  │ │Access │
-  │Vuln   │ │Input  │ │Fake   │ │Creds  │ │Staff  │ │After  │
-  │Endpoint│ │Field  │ │Emails │ │Site   │ │       │ │Hours  │
-  │[AND]  │ │[AND]  │ │[AND]  │ │[AND]  │ │[OR]   │ │[OR]   │
-  └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘
-```
-
-```csharp
-public enum NodeOperator
-{
-    And,  // All children must succeed
-    Or    // Any child can succeed
-}
-
-/// <summary>Node in attack tree</summary>
-public sealed class AttackNode
-{
-    public required string Id { get; init; }
-    public required string Description { get; init; }
-    public NodeOperator Operator { get; init; } = NodeOperator.Or;
-    public double Cost { get; init; }           // Estimated attack cost
-    public double Probability { get; init; } = 0.5;  // Success probability
-    public string SkillRequired { get; init; } = "Medium";
-    public List<AttackNode> Children { get; } = [];
-    public List<string> Countermeasures { get; init; } = [];
-
-    public void AddChild(AttackNode child) => Children.Add(child);
-
-    /// <summary>Calculate probability based on operator and children</summary>
-    public double CalculateProbability()
-    {
-        if (Children.Count == 0)
-            return Probability;
-
-        var childProbs = Children.Select(c => c.CalculateProbability()).ToList();
-
-        if (Operator == NodeOperator.And)
-        {
-            // All must succeed - multiply probabilities
-            return childProbs.Aggregate(1.0, (acc, p) => acc * p);
-        }
-        else // OR
-        {
-            // Any can succeed - 1 - (all fail)
-            return 1.0 - childProbs.Aggregate(1.0, (acc, p) => acc * (1 - p));
-        }
-    }
-
-    /// <summary>Calculate minimum attack cost</summary>
-    public double CalculateMinCost()
-    {
-        if (Children.Count == 0)
-            return Cost;
-
-        var childCosts = Children.Select(c => c.CalculateMinCost()).ToList();
-
-        if (Operator == NodeOperator.And)
-        {
-            // Must complete all - sum costs
-            return childCosts.Sum();
-        }
-        else // OR
-        {
-            // Choose cheapest path
-            return childCosts.Min();
-        }
-    }
-}
-
-/// <summary>Analyze attack trees for risk assessment</summary>
-public sealed class AttackTreeAnalyzer(AttackNode root)
-{
-    /// <summary>Find the least expensive attack path</summary>
-    public IReadOnlyList<AttackNode> FindCheapestPath() => FindPath(root, minimizeCost: true);
-
-    /// <summary>Find the most probable attack path</summary>
-    public IReadOnlyList<AttackNode> FindMostLikelyPath() => FindPath(root, minimizeCost: false);
-
-    private static List<AttackNode> FindPath(AttackNode node, bool minimizeCost)
-    {
-        var path = new List<AttackNode> { node };
-
-        if (node.Children.Count == 0)
-            return path;
-
-        if (node.Operator == NodeOperator.And)
-        {
-            // Must traverse all children
-            foreach (var child in node.Children)
-                path.AddRange(FindPath(child, minimizeCost));
-        }
-        else // OR
-        {
-            // Choose best child
-            var bestChild = minimizeCost
-                ? node.Children.MinBy(c => c.CalculateMinCost())!
-                : node.Children.MaxBy(c => c.CalculateProbability())!;
-            path.AddRange(FindPath(bestChild, minimizeCost));
-        }
-
-        return path;
-    }
-
-    /// <summary>Collect all countermeasures from tree</summary>
-    public HashSet<string> GetAllCountermeasures() => CollectCountermeasures(root);
-
-    private static HashSet<string> CollectCountermeasures(AttackNode node)
-    {
-        var measures = new HashSet<string>(node.Countermeasures);
-        foreach (var child in node.Children)
-            measures.UnionWith(CollectCountermeasures(child));
-        return measures;
-    }
-}
-
-// Example: Build attack tree
-var rootNode = new AttackNode
-{
-    Id = "goal",
-    Description = "Steal Customer Data",
-    Operator = NodeOperator.Or
-};
-
-var sqlInjection = new AttackNode
-{
-    Id = "sqli",
-    Description = "SQL Injection Attack",
-    Operator = NodeOperator.And,
-    Countermeasures = ["Parameterized queries", "WAF", "Input validation"]
-};
-
-sqlInjection.AddChild(new AttackNode
-{
-    Id = "find_vuln",
-    Description = "Find vulnerable endpoint",
-    Cost = 100,
-    Probability = 0.7,
-    SkillRequired = "Medium"
-});
-
-sqlInjection.AddChild(new AttackNode
-{
-    Id = "exploit",
-    Description = "Exploit injection point",
-    Cost = 200,
-    Probability = 0.8,
-    SkillRequired = "High"
-});
-
-rootNode.AddChild(sqlInjection);
-
-// Analyze
-var analyzer = new AttackTreeAnalyzer(rootNode);
-Console.WriteLine($"Overall attack probability: {rootNode.CalculateProbability():P2}");
-Console.WriteLine($"Minimum attack cost: ${rootNode.CalculateMinCost()}");
-Console.WriteLine($"Countermeasures needed: {string.Join(", ", analyzer.GetAllCountermeasures())}");
-```
-
-## Architecture-Specific Threats
-
-### Microservices Architecture
-
-| Component | Key Threats | Mitigations |
-|-----------|-------------|-------------|
-| API Gateway | DDoS, injection, auth bypass | Rate limiting, WAF, OAuth |
-| Service Mesh | mTLS bypass, sidecar compromise | Certificate rotation, network policies |
-| Message Queue | Message tampering, replay | Message signing, idempotency |
-| Service Discovery | Registry poisoning | Secure registration, health checks |
-
-### Serverless Architecture
-
-| Component | Key Threats | Mitigations |
-|-----------|-------------|-------------|
-| Functions | Cold start attacks, injection | Input validation, minimal permissions |
-| Event Sources | Event injection, DoS | Source validation, rate limiting |
-| Shared Tenancy | Noisy neighbor, data leakage | Isolation, encryption |
-
-### Container/Kubernetes Architecture
-
-| Component | Key Threats | Mitigations |
-|-----------|-------------|-------------|
-| Container Runtime | Escape, privilege escalation | Rootless, seccomp, AppArmor |
-| Orchestrator | API server compromise | RBAC, audit logging, network policies |
-| Registry | Image tampering, supply chain | Image signing, vulnerability scanning |
-
-## SDLC Integration
-
-### When to Threat Model
-
-| Phase | Activity | Output |
-|-------|----------|--------|
-| Design | Initial threat model | Threat register, DFD |
-| Development | Update for changes | Updated threats, security tests |
-| Code Review | Verify mitigations | Security checklist |
-| Testing | Validate mitigations | Penetration test plan |
-| Release | Final review | Risk acceptance, residual risks |
-| Operations | Incident analysis | Updated threat model |
-
-### Lightweight Threat Modeling
-
-For agile environments, use rapid threat modeling:
-
-```yaml
-# threat-model.yaml - Minimal threat model per feature
-feature: User Authentication
-date: 2024-01-15
-author: security-team
-
-assets:
-  - name: User credentials
-    classification: Confidential
-  - name: Session tokens
-    classification: Internal
-
-threats:
-  - id: AUTH-001
-    category: Spoofing
-    description: Credential stuffing attack
-    risk: High
-    mitigation: Rate limiting, MFA, breach detection
-
-  - id: AUTH-002
-    category: Information Disclosure
-    description: Token exposure in logs
-    risk: Medium
-    mitigation: Token redaction, structured logging
-
-mitigations_implemented:
-  - Argon2id password hashing
-  - JWT with short expiration
-  - Refresh token rotation
-
-open_risks:
-  - Legacy systems using MD5 (migration planned Q2)
-```
-
-## Security Checklist
-
-Before finalizing threat model:
-
-- [ ] All trust boundaries identified
-- [ ] STRIDE applied to each element
-- [ ] Data flows across boundaries encrypted
-- [ ] Authentication at trust boundary crossings
-- [ ] Risks prioritized (DREAD/CVSS)
-- [ ] Mitigations mapped to threats
-- [ ] Residual risks documented
-- [ ] Model reviewed by stakeholders
-- [ ] Integration with issue tracking
-
-## References
-
-- [STRIDE Methodology Deep Dive](references/stride-methodology.md) - Detailed analysis with examples
-- [Threat Modeling Tools](references/threat-modeling-tools.md) - pytm, threagile, automation
-
-## Version History
-
-- **v1.0.0** (2025-12-26): Initial release with STRIDE, DREAD, attack trees, architecture patterns
+Systematic identification, documentation, and mitigation of security threats.
+
+## Triggers
+
+| Phrase | Context |
+|--------|---------|
+| `threat model` | Starting or updating a threat model |
+| `attack surface analysis` | Identifying exposure points |
+| `security architecture review` | Reviewing design for vulnerabilities |
+| `STRIDE analysis` | Applying STRIDE methodology |
+| `what can go wrong` | Brainstorming security concerns |
+
+## Quick Reference
+
+| Input | Output | Destination |
+|-------|--------|-------------|
+| Architecture diagram or description | Threat matrix with STRIDE categories | `.agents/security/threat-models/` |
+| Component list | Trust boundary analysis | `.agents/security/threat-models/` |
+| Data flow description | Data flow diagram threats | `.agents/security/threat-models/` |
+| Prior threat model | Updated model with delta analysis | `.agents/security/threat-models/` |
 
 ---
 
-**Last Updated:** 2025-12-26
+## Process Overview
+
+```text
+                         OWASP Four-Question Framework
+                         =============================
+
+          Q1: What are we        Q2: What can         Q3: What do we      Q4: Did we do
+          working on?            go wrong?            do about it?        a good job?
+               |                      |                    |                   |
+               v                      v                    v                   v
+        +-----------+          +------------+        +-----------+       +----------+
+        | Phase 1   |          | Phase 2    |        | Phase 3   |       | Phase 4  |
+        | Scope &   |  ----->  | Threat     | -----> | Mitigation| ----> | Validate |
+        | Decompose |          | Identify   |        | Strategy  |       | Model    |
+        +-----------+          +------------+        +-----------+       +----------+
+              |                      |                    |                   |
+              v                      v                    v                   v
+        Trust Boundaries       STRIDE Matrix         Prioritized         Threat Model
+        Data Flows             Kill Chains           Mitigations         Document
+        Assets                 Attack Trees          Risk Ratings
+```
+
+---
+
+## Phase 1: Scope and Decompose
+
+> OWASP Q1: What are we working on?
+
+### 1.1 Define Scope
+
+Determine what you are threat modeling:
+
+| Scope Level | Examples | Typical Depth |
+|-------------|----------|---------------|
+| **Sprint** | Single feature, API endpoint | 1-2 hours |
+| **Component** | Auth module, payment service | Half day |
+| **System** | Entire application | 1-2 days |
+| **Enterprise** | Multiple systems | Multi-day workshop |
+
+Document scope in the threat model header:
+
+```markdown
+## Scope
+
+- **Subject**: [Feature/Component/System name]
+- **Boundaries**: [What is IN scope and OUT of scope]
+- **Stakeholders**: [Who requested, who will review]
+- **Date**: [When analysis performed]
+- **Version**: [Model version for tracking changes]
+```
+
+### 1.2 Create Architecture Model
+
+Choose appropriate diagram type:
+
+| Diagram Type | Best For | Tools |
+|--------------|----------|-------|
+| **Data Flow Diagram (DFD)** | Most threat models | Mermaid, draw.io |
+| **Component Diagram** | Service boundaries | Mermaid, PlantUML |
+| **Sequence Diagram** | Auth/data flows | Mermaid |
+| **Deployment Diagram** | Infrastructure threats | Mermaid |
+
+**Required DFD Elements:**
+
+```text
++----------+     HTTPS      +----------+     SQL       +----------+
+| External | -------------> |  Process | ------------> |  Data    |
+|  Entity  |                |          |               |  Store   |
++----------+                +----------+               +----------+
+     |                           |
+     |     Trust Boundary        |
+     +---------------------------+
+```
+
+- **External Entities**: Users, third-party systems (outside your control)
+- **Processes**: Code that transforms data (your application)
+- **Data Stores**: Databases, files, caches (where data persists)
+- **Data Flows**: Arrows showing data movement (labeled with protocol)
+- **Trust Boundaries**: Dashed lines showing privilege changes
+
+### 1.3 Identify Assets
+
+List what attackers want:
+
+| Asset Category | Examples |
+|----------------|----------|
+| **Data** | PII, credentials, financial, health |
+| **Compute** | CPU cycles, storage, network bandwidth |
+| **Access** | Admin privileges, API keys, tokens |
+| **Reputation** | Brand trust, user confidence |
+| **Availability** | Service uptime, response time |
+
+### 1.4 Map Trust Boundaries
+
+Identify where privilege levels change:
+
+- Network boundaries (internet to internal)
+- Process boundaries (user to kernel)
+- Authentication boundaries (anonymous to authenticated)
+- Authorization boundaries (user to admin)
+
+---
+
+## Phase 2: Threat Identification
+
+> OWASP Q2: What can go wrong?
+
+### 2.1 Apply STRIDE per Element
+
+For each element in your diagram, apply STRIDE:
+
+| Category | Definition | Applies To | Example Questions |
+|----------|------------|------------|-------------------|
+| **S**poofing | Pretending to be someone else | External entities, data flows | Can an attacker impersonate a user? |
+| **T**ampering | Modifying data or code | Processes, data stores, data flows | Can data be modified in transit/at rest? |
+| **R**epudiation | Denying an action | Processes | Can users deny performing actions? |
+| **I**nfo Disclosure | Exposing information | Data stores, data flows | Can sensitive data leak? |
+| **D**enial of Service | Making service unavailable | Processes, data stores | Can resources be exhausted? |
+| **E**levation of Privilege | Gaining unauthorized access | Processes | Can users escalate privileges? |
+
+**STRIDE Applicability Matrix:**
+
+| Element Type | S | T | R | I | D | E |
+|--------------|---|---|---|---|---|---|
+| External Entity | X | | | | | |
+| Process | X | X | X | X | X | X |
+| Data Store | | X | | X | X | |
+| Data Flow | | X | | X | X | |
+
+### 2.2 Build Threat Matrix
+
+Use the generate script to create a structured matrix:
+
+```bash
+python .claude/skills/threat-modeling/scripts/generate_threat_matrix.py \
+    --scope "Authentication Service" \
+    --output .agents/security/threat-models/auth-threats.md
+```
+
+**Manual Format:**
+
+```markdown
+## Threat Matrix
+
+| ID | Element | STRIDE | Threat | Likelihood | Impact | Risk |
+|----|---------|--------|--------|------------|--------|------|
+| T001 | Login API | S | Credential stuffing | High | High | Critical |
+| T002 | Session Store | T | Session fixation | Medium | High | High |
+| T003 | Audit Log | R | Log tampering | Low | Medium | Medium |
+```
+
+### 2.3 Apply Attack Trees (Optional)
+
+For complex threats, decompose with attack trees:
+
+```text
+              [Steal User Data]
+                    |
+        +-----------+-----------+
+        |                       |
+   [SQL Injection]      [Compromised API Key]
+        |                       |
+   +----+----+             +----+----+
+   |         |             |         |
+[Error]  [Blind]      [Phishing]  [Git Leak]
+```
+
+### 2.4 Apply Kill Chains (Optional)
+
+Map attacker progression for sophisticated threats:
+
+| Phase | Attacker Action | Detection Opportunity |
+|-------|-----------------|----------------------|
+| Recon | Port scanning | Network monitoring |
+| Weaponize | Craft exploit | Threat intelligence |
+| Deliver | Send phishing email | Email filtering |
+| Exploit | Execute payload | Endpoint detection |
+| Install | Persist access | File integrity monitoring |
+| Command | Establish C2 | Network anomaly detection |
+| Action | Exfiltrate data | DLP, egress monitoring |
+
+---
+
+## Phase 3: Mitigation Strategy
+
+> OWASP Q3: What are we going to do about it?
+
+### 3.1 Risk Rating
+
+Calculate risk for prioritization:
+
+```text
+Risk = Likelihood x Impact
+
+Likelihood Scale:
+  High (3)   = Exploitable with public tools, no auth required
+  Medium (2) = Requires some skill or access
+  Low (1)    = Requires significant effort or insider access
+
+Impact Scale:
+  High (3)   = Data breach, system compromise, regulatory violation
+  Medium (2) = Limited data exposure, service degradation
+  Low (1)    = Minor inconvenience, no sensitive data
+```
+
+**Risk Matrix:**
+
+|              | Impact: Low | Impact: Medium | Impact: High |
+|--------------|-------------|----------------|--------------|
+| **High** Likelihood | Medium | High | Critical |
+| **Medium** Likelihood | Low | Medium | High |
+| **Low** Likelihood | Low | Low | Medium |
+
+### 3.2 Select Mitigation Strategy
+
+| Strategy | When to Use | Example |
+|----------|-------------|---------|
+| **Mitigate** | Risk can be reduced to acceptable level | Add input validation |
+| **Accept** | Cost of mitigation exceeds risk | Low-impact, unlikely threat |
+| **Transfer** | Someone else can manage risk better | Cyber insurance, third-party service |
+| **Eliminate** | Remove the vulnerable component | Drop unused feature |
+
+### 3.3 Document Mitigations
+
+For each threat, document:
+
+```markdown
+### T001: Credential Stuffing on Login API
+
+**Risk**: Critical (High Likelihood x High Impact)
+
+**Mitigations**:
+
+1. **Implement rate limiting** (Mitigate)
+   - Max 5 attempts per IP per minute
+   - Progressive delays after failures
+   - Status: Planned for Sprint 23
+
+2. **Add CAPTCHA after failures** (Mitigate)
+   - Trigger after 3 failed attempts
+   - Status: In progress
+
+3. **Enable MFA** (Mitigate)
+   - TOTP or WebAuthn
+   - Status: Blocked on product decision
+
+**Residual Risk**: Medium (after mitigations applied)
+```
+
+### 3.4 Generate Mitigation Roadmap
+
+```bash
+python .claude/skills/threat-modeling/scripts/generate_mitigation_roadmap.py \
+    --input .agents/security/threat-models/auth-threats.md \
+    --output .agents/security/threat-models/auth-roadmap.md
+```
+
+---
+
+## Phase 4: Validation
+
+> OWASP Q4: Did we do a good job?
+
+### 4.1 Model Validation
+
+Run the validation script:
+
+```bash
+python .claude/skills/threat-modeling/scripts/validate_threat_model.py \
+    .agents/security/threat-models/auth-threats.md
+```
+
+**Validation Checks:**
+
+- [ ] All components have at least one threat identified
+- [ ] All trust boundaries are crossed by at least one data flow
+- [ ] All STRIDE categories considered for applicable elements
+- [ ] All Critical/High risks have mitigations planned
+- [ ] No orphaned threats (threats without parent component)
+
+### 4.2 Peer Review
+
+Request review from:
+
+- Security team member
+- Architect familiar with the system
+- Developer implementing mitigations
+
+### 4.3 Schedule Updates
+
+Threat models are living documents. Update when:
+
+- New features added
+- Architecture changes
+- Security incident occurs
+- During regular security reviews (quarterly recommended)
+
+---
+
+## Scripts
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `generate_threat_matrix.py` | Create structured threat matrix | `python scripts/generate_threat_matrix.py --scope "Name" --output path.md` |
+| `generate_mitigation_roadmap.py` | Create prioritized roadmap | `python scripts/generate_mitigation_roadmap.py --input threats.md --output roadmap.md` |
+| `validate_threat_model.py` | Validate model completeness | `python scripts/validate_threat_model.py <model.md>` |
+
+### Exit Codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | Success / Validation passed |
+| 1 | General failure |
+| 10 | Validation failed (missing required elements) |
+
+---
+
+## Templates
+
+### Threat Model Document
+
+Use the template at: `templates/threat-model-template.md`
+
+### Threat Entry
+
+```markdown
+### T{NNN}: {Threat Title}
+
+**Element**: {Component name from DFD}
+**STRIDE**: {S/T/R/I/D/E}
+**Description**: {What the threat is}
+
+**Attack Scenario**:
+1. Attacker does X
+2. System responds with Y
+3. Attacker achieves Z
+
+**Likelihood**: {High/Medium/Low} - {Justification}
+**Impact**: {High/Medium/Low} - {Justification}
+**Risk**: {Critical/High/Medium/Low}
+
+**Mitigations**:
+- [ ] {Mitigation 1} - {Status}
+- [ ] {Mitigation 2} - {Status}
+
+**Residual Risk**: {After mitigations}
+**References**: {CVEs, OWASP links, etc.}
+```
+
+---
+
+## Integration with Agent System
+
+### Related Agents
+
+| Agent | Relationship |
+|-------|--------------|
+| **security** | Invoke for detailed vulnerability analysis |
+| **architect** | Review threat model during design |
+| **analyst** | Research specific attack patterns |
+| **qa** | Include threat scenarios in test strategy |
+
+### Memory Integration
+
+Query Forgetful memory for prior threat models:
+
+```python
+mcp__forgetful__execute_forgetful_tool("query_memory", {
+    "query": "threat model authentication",
+    "query_context": "Finding prior security analysis"
+})
+```
+
+Store threat model summaries:
+
+```python
+mcp__forgetful__execute_forgetful_tool("create_memory", {
+    "title": "Auth Service Threat Model Summary",
+    "content": "Key threats: credential stuffing, session hijacking...",
+    "context": "Security analysis Q1 2026",
+    "keywords": ["threat-model", "authentication", "STRIDE"],
+    "tags": ["security"],
+    "importance": 8,
+    "project_ids": [1]
+})
+```
+
+---
+
+## Anti-Patterns
+
+| Avoid | Why | Instead |
+|-------|-----|---------|
+| Threat model once and forget | Security landscape evolves | Schedule regular updates |
+| Skip trust boundary analysis | Miss privilege escalation paths | Always map boundaries first |
+| Generic threats only | Not actionable | Be specific to your system |
+| No risk ratings | Cannot prioritize | Rate every threat |
+| Mitigations without owners | Never implemented | Assign owners and deadlines |
+| Copy-paste from templates | Miss system-specific threats | Use templates as starting points |
+
+---
+
+## References
+
+- [OWASP Threat Modeling](https://owasp.org/www-community/Threat_Modeling)
+- [Microsoft STRIDE](https://docs.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats)
+- [Attack Trees (Schneier)](https://www.schneier.com/academic/archives/1999/12/attack_trees.html)
+- [Lockheed Martin Cyber Kill Chain](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html)
+
+---
+
+## Verification
+
+### Success Criteria
+
+| Criterion | Verification |
+|-----------|--------------|
+| All components have threats | Validation script check |
+| All STRIDE categories considered | Validation script check |
+| All Critical/High risks have mitigations | Validation script check |
+| Risk ratings consistent | Manual review |
+| Peer review completed | Stakeholder sign-off |
+
+### Verification Command
+
+```bash
+python .claude/skills/threat-modeling/scripts/validate_threat_model.py <model.md>
+```
+
+Exit code 0 indicates a valid, complete threat model.
+
+---
+
+## Extension Points
+
+| Extension | How to Add |
+|-----------|------------|
+| Custom STRIDE questions | Add to `references/stride-methodology.md` |
+| New risk rating methodology | Add to `references/risk-rating-guide.md` |
+| Additional threat categories | Extend STRIDE sections in template |
+| Custom validation rules | Modify `validate_threat_model.py` |
+| Integration with SAST tools | Add script in `scripts/` |
+
+---
+
+## Related Skills
+
+| Skill | Relationship |
+|-------|--------------|
+| `security-detection` | Triggers threat model review on sensitive file changes |
+| `codeql-scan` | Validates code against identified threats |
+| `adr-review` | Security agent reviews architecture decisions |

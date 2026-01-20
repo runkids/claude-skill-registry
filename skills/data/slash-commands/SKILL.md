@@ -1,208 +1,191 @@
 ---
 name: slash-commands
-description: Best practices for creating Claude Code slash commands. Use this skill when creating, editing, or improving custom slash commands for Claude Code. Covers frontmatter configuration, dynamic features ($ARGUMENTS, bash execution, file references), command patterns (git workflows, multi-agent orchestration, code review), and helps decide when to use slash commands vs skills vs subagents.
+description: Create and use Claude Code slash commands - quick prompts, bash execution, file references
+allowed-tools: [Read, Write, Bash]
+user-invocable: false
 ---
 
-# Claude Code Slash Commands
+# Slash Commands Reference
 
-This skill provides guidance for creating effective custom slash commands in Claude Code.
+Create and use user-triggered prompts with `/command-name` syntax.
 
-## Quick Reference
+## When to Use
 
-**Locations:**
-- Project commands: `.claude/commands/` (shared via git)
-- Personal commands: `~/.claude/commands/` (user-specific)
+- "How do I create a slash command?"
+- "What slash commands are available?"
+- "Add bash to my command"
+- "Use file references in commands"
+- "Slash commands vs skills"
 
-**File format:** Markdown (`.md`) with optional YAML frontmatter
+## Built-in Commands
 
-**Command name:** Derived from filename (`commit.md` → `/commit`)
+| Command | Purpose |
+|---------|---------|
+| `/clear` | Clear conversation history |
+| `/compact` | Compact conversation with focus |
+| `/config` | Open settings interface |
+| `/cost` | Show token usage |
+| `/agents` | Manage sub-agents |
+| `/mcp` | Manage MCP servers |
+| `/memory` | Edit CLAUDE.md files |
+| `/model` | Select AI model |
+| `/review` | Request code review |
+| `/resume` | Resume session |
+| `/help` | Get usage help |
 
-## Frontmatter Options
+## Creating Commands
 
-See `references/frontmatter.md` for complete documentation.
-
-Essential fields:
-```yaml
----
-allowed-tools: Bash(git add:*), Bash(git commit:*)  # Tool permissions
-description: Brief description shown in /help        # Required for model invocation
-argument-hint: "[branch-name] [commit-type]"        # Shown in autocomplete
-model: claude-haiku-4-5                             # Override session model
-disable-model-invocation: true                      # Prevent auto-invocation
----
-```
-
-## Dynamic Features
-
-### Arguments
-
-**All arguments:** `$ARGUMENTS` captures everything after the command
-```markdown
-Fix issue #$ARGUMENTS following our coding standards
-# /fix-issue 123 high-priority → "123 high-priority"
-```
-
-**Positional:** `$1`, `$2`, `$3`... for specific arguments
-```markdown
-Review PR #$1 with priority $2 and assign to $3
-# /review-pr 456 high alice → $1="456", $2="high", $3="alice"
-```
-
-### Bash Context Injection
-
-Use `!` prefix to execute bash and inject output as context:
-```markdown
-## Context
-- Current git status: !`git status`
-- Current branch: !`git branch --show-current`
-- Recent commits: !`git log --oneline -10`
-```
-
-**Important:** Requires `allowed-tools` with `Bash` tool in frontmatter.
-
-### File References
-
-Use `@` prefix to include file contents:
-```markdown
-Review the implementation in @src/utils/helpers.js
-Compare @src/old-version.js with @src/new-version.js
-```
-
-## Command Patterns
-
-See `references/patterns.md` for detailed patterns with full examples.
-
-### Pattern 1: Simple Task
-
-For quick, focused operations:
-```markdown
+### Project Commands
+```bash
+mkdir -p .claude/commands
+cat > .claude/commands/optimize.md << 'EOF'
 ---
 description: Analyze code for performance issues
 ---
 
-Analyze this code for performance issues and suggest optimizations.
-Focus on: time complexity, memory usage, unnecessary operations.
+Review this code for:
+- Performance bottlenecks
+- Memory leaks
+- Caching opportunities
+EOF
 ```
 
-### Pattern 2: Git Workflow
+### Personal Commands
+```bash
+mkdir -p ~/.claude/commands
+cat > ~/.claude/commands/review.md << 'EOF'
+---
+description: Security-focused code review
+---
 
-For git operations with context:
+Check for vulnerabilities:
+- Input validation
+- SQL injection
+- XSS risks
+EOF
+```
+
+## Command File Format
+
+```yaml
+---
+description: Brief description for /help
+allowed-tools: [Bash, Read, Write]  # Optional
+argument-hint: "[file] [type]"       # Optional
+---
+
+Your markdown instructions here.
+Use $1, $2 for arguments or $ARGUMENTS for all.
+```
+
+## Bash Execution
+
+Run bash before loading prompt with `!` prefix:
+
+```yaml
+---
+allowed-tools: Bash(git:*), Bash(grep:*)
+description: Git commit helper
+---
+
+Current status: !`git status`
+Staged changes: !`git diff --staged`
+Recent commits: !`git log --oneline -5`
+
+Based on these changes, suggest a commit message.
+```
+
+**Rules:**
+- Must declare `allowed-tools: Bash(...)` in frontmatter
+- Use backticks: `` !`command` ``
+- Output is included in Claude's context
+
+## File References
+
+Include files with `@` prefix:
+
 ```markdown
----
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
-description: Create a git commit
----
+Review against @.claude/STYLE_GUIDE.md
 
-## Context
-- Current git status: !`git status`
-- Current git diff: !`git diff HEAD`
-- Current branch: !`git branch --show-current`
+Compare:
+- @src/old.js
+- @src/new.js
 
-## Your task
-Based on the above changes, create a single commit with an appropriate message.
+Refactor files matching @src/**/*.util.ts
 ```
 
-### Pattern 3: Multi-Agent Orchestration
+## Arguments
 
-For complex tasks requiring parallel work:
-```markdown
+```yaml
 ---
-allowed-tools: Bash(gh:*), TodoWrite
-description: Find duplicate GitHub issues
+argument-hint: "[pr-number] [priority]"
 ---
 
-Find duplicates for issue $ARGUMENTS.
+Review PR #$1 with priority: $2
 
-Follow these steps precisely:
-1. Use an agent to view the issue and return a summary
-2. Launch 5 parallel agents to search for duplicates using diverse keywords
-3. Feed results into another agent to filter false positives
-4. Comment on the issue with up to 3 likely duplicates
-
-Notes (tell your agents too):
-- Use `gh` for GitHub interactions
-- Do not use other tools beyond `gh`
+# Or use all arguments:
+Fix issue #$ARGUMENTS
 ```
 
-### Pattern 4: Structured Review
-
-For comprehensive analysis workflows:
-```markdown
----
-description: "Comprehensive code review"
-argument-hint: "[review-aspects]"
-allowed-tools: ["Bash", "Glob", "Grep", "Read", "Task"]
----
-
-# Code Review
-
-**Review Aspects (optional):** "$ARGUMENTS"
-
-## Workflow:
-1. **Determine Scope** - Check git status for changed files
-2. **Run Reviews** - Execute applicable review agents
-3. **Aggregate Results** - Summarize findings by severity
-4. **Provide Action Plan** - Organize fixes by priority
+**Usage:**
+```bash
+/review-pr 456 high
+# $1 = "456", $2 = "high"
 ```
 
-## Writing Guidelines
+## Namespacing
 
-1. **Use imperative language:** "Create", "Execute", "Based on..."
-2. **Be explicit about constraints:** Include what NOT to do
-3. **Specify output format:** Provide templates for structured output
-4. **Enable multi-tool efficiency:** Tell Claude it can use multiple tools in one response
-5. **Include a Notes section:** For edge cases and important constraints
+Organize with subdirectories:
 
-## When to Use Slash Commands vs Skills vs Subagents
+```
+.claude/commands/
+├── frontend/
+│   └── component.md    → /component (project:frontend)
+└── backend/
+    └── endpoint.md     → /endpoint (project:backend)
+```
 
-See `references/decision-guide.md` for detailed comparison.
+## MCP Slash Commands
 
-**Quick decision framework:**
+MCP servers expose prompts as commands:
 
-| Use Case | Best Choice |
-|----------|-------------|
-| Quick, repeatable task you trigger manually | Slash Command |
-| Complex workflow with scripts/templates | Skill |
-| Parallel execution with isolated context | Subagent |
-| Team-shared workflow checked into git | Slash Command |
-| Domain expertise Claude should auto-discover | Skill |
-| Specialized role (security auditor, etc.) | Subagent |
+```bash
+/mcp__github__list_prs
+/mcp__github__pr_review 456
+/mcp__jira__create_issue "Bug" high
+```
 
-**Key distinctions:**
-- **Commands:** User-invoked (`/command`), simple prompts, manual trigger
-- **Skills:** Model-invoked (Claude decides), rich context, scripts/assets
-- **Subagents:** Own context window, parallel work, delegated tasks
+## Slash Commands vs Skills
 
-## Templates
+| Aspect | Slash Commands | Skills |
+|--------|----------------|--------|
+| Invocation | Explicit: `/command` | Auto-discovered |
+| Files | Single .md file | Directory with SKILL.md |
+| Use Case | Quick prompts | Complex workflows |
 
-Use templates in `assets/templates/` as starting points:
-- `simple-command.md` - Basic single-purpose command
-- `git-workflow.md` - Git operations with context injection
-- `multi-agent.md` - Orchestration with parallel agents
-- `review-command.md` - Comprehensive review workflow
+**Use slash commands for:** Frequently typed prompts, simple templates
+**Use skills for:** Complex workflows, multiple files, auto-discovery
 
-## Best Practices from Anthropic
+## Example: Complete Git Commit Command
 
-1. **Granular tool permissions:** Use wildcards for flexibility
-   ```yaml
-   allowed-tools: Bash(git add:*), Bash(git commit:*)
-   ```
+```yaml
+---
+description: Generate semantic commit message
+allowed-tools: Bash(git:*), Read
+argument-hint: "[type]"
+---
 
-2. **Context injection:** Pre-load relevant state with bash execution
+# Semantic Commit Generator
 
-3. **Clear task structure:** Use `## Your task` or `## Your Task` section
+Staged files: !`git diff --name-only --cached`
 
-4. **Explicit constraints:** Include prohibitions
-   ```markdown
-   Do not use any other tools or do anything else.
-   Do not send any other text or messages besides these tool calls.
-   ```
+Diff preview:
+!`git diff --cached | head -100`
 
-5. **Output format specification:** Provide exact templates for structured output
+Generate a conventional commit message.
+Type: $1 (feat/fix/docs/style/refactor/perf/test/chore)
 
-6. **Agent instructions:** When using subagents, include notes they should follow
-   ```markdown
-   Notes (be sure to tell this to your agents, too):
-   - Use `gh` for GitHub interactions
-   - Make a todo list first
-   ```
+Format: `<type>(<scope>): <subject>`
+```
+
+**Usage:** `/commit feat`

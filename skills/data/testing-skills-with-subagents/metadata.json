@@ -1,7 +1,7 @@
 {
   "name": "testing-skills-with-subagents",
-  "repo": "liauw-media/household-expense-tracker",
-  "path": ".claude/skills/meta/testing-skills-with-subagents/SKILL.md",
-  "source": "github.com/liauw-media/household-expense-tracker",
-  "downloaded_at": "2026-01-19T03:39:48.617574Z"
+  "repo": "WesleyMFrederick/cc-workflows",
+  "path": ".claude/skills/testing-skills-with-subagents/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-20T03:54:24.291372Z"
 }

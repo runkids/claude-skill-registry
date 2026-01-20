@@ -1,9 +1,7 @@
 {
   "name": "portfolio-code-review",
-  "description": "Code review for Paweł Lipowczan portfolio project (React+Vite+Tailwind SPA). Use when user wants to review code changes, pull requests, commits, or modifications in portfolio project. Verifies archite",
   "repo": "plipowczan/portfolio",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/portfolio-code-review/SKILL.md",
+  "source": "github.com/plipowczan/portfolio",
+  "downloaded_at": "2026-01-20T01:23:01.607316Z"
 }

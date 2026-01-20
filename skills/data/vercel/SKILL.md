@@ -1,140 +1,204 @@
 ---
 name: vercel
-description: Check deployments, monitor domains, view analytics, and manage projects on Vercel
-category: devops
+description: Deploy and configure applications on Vercel. Use when deploying Next.js apps, configuring serverless functions, setting up edge functions, or managing Vercel projects. Triggers on Vercel, deploy, serverless, edge function, Next.js deployment.
 ---
 
-# Vercel Skill
+# Vercel Deployment
 
-## Overview
-Enables Claude to access Vercel to check deployment status, monitor domain configurations, view analytics, and manage frontend project deployments on this leading deployment platform.
+Deploy and scale applications on Vercel's edge network.
 
-## Quick Install
-
-```bash
-curl -sSL https://canifi.com/skills/vercel/install.sh | bash
-```
-
-Or manually:
-```bash
-cp -r skills/vercel ~/.canifi/skills/
-```
-
-## Setup
-
-Configure via [canifi-env](https://canifi.com/setup/scripts):
+## Quick Start
 
 ```bash
-# First, ensure canifi-env is installed:
-# curl -sSL https://canifi.com/install.sh | bash
+# Install Vercel CLI
+npm i -g vercel
 
-canifi-env set VERCEL_EMAIL "your-email@example.com"
+# Deploy
+vercel
+
+# Production deploy
+vercel --prod
 ```
 
-## Privacy & Authentication
+## vercel.json Configuration
 
-**Your credentials, your choice.** Canifi LifeOS respects your privacy.
+```json
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "regions": ["iad1", "sfo1"],
+  "functions": {
+    "api/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/:path*" },
+    { "source": "/:path*", "destination": "/" }
+  ],
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "@database-url"
+  }
+}
+```
 
-### Option 1: Manual Browser Login (Recommended)
-If you prefer not to share credentials with Claude Code:
-1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
-2. Login to the service manually in the Playwright-controlled Chrome window
-3. Claude will use your authenticated session without ever seeing your password
+## Serverless Functions
 
-### Option 2: Environment Variables
-If you're comfortable sharing credentials, you can store them locally:
+```typescript
+// api/hello.ts
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  const { name = 'World' } = req.query;
+  res.status(200).json({ message: `Hello ${name}!` });
+}
+```
+
+## Edge Functions
+
+```typescript
+// api/edge.ts
+export const config = {
+  runtime: 'edge',
+};
+
+export default function handler(request: Request) {
+  return new Response(JSON.stringify({ message: 'Hello from Edge!' }), {
+    headers: { 'content-type': 'application/json' },
+  });
+}
+```
+
+## Next.js App Router
+
+```typescript
+// app/api/route.ts
+import { NextResponse } from 'next/server';
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const name = searchParams.get('name') ?? 'World';
+  
+  return NextResponse.json({ message: `Hello ${name}!` });
+}
+
+export async function POST(request: Request) {
+  const body = await request.json();
+  return NextResponse.json({ received: body });
+}
+```
+
+## ISR (Incremental Static Regeneration)
+
+```typescript
+// app/posts/[id]/page.tsx
+export const revalidate = 60; // Revalidate every 60 seconds
+
+export async function generateStaticParams() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ id: post.id }));
+}
+
+export default async function Post({ params }: { params: { id: string } }) {
+  const post = await getPost(params.id);
+  return <article>{post.content}</article>;
+}
+```
+
+## Vercel KV (Redis)
+
+```typescript
+import { kv } from '@vercel/kv';
+
+// Set
+await kv.set('user:123', { name: 'Alice', visits: 0 });
+
+// Get
+const user = await kv.get('user:123');
+
+// Increment
+await kv.incr('user:123:visits');
+
+// Hash operations
+await kv.hset('session:abc', { userId: '123', expires: Date.now() + 3600000 });
+const session = await kv.hgetall('session:abc');
+```
+
+## Vercel Postgres
+
+```typescript
+import { sql } from '@vercel/postgres';
+
+// Query
+const { rows } = await sql`SELECT * FROM users WHERE id = ${userId}`;
+
+// Insert
+await sql`INSERT INTO users (name, email) VALUES (${name}, ${email})`;
+
+// Transaction
+await sql.query('BEGIN');
+try {
+  await sql`UPDATE accounts SET balance = balance - ${amount} WHERE id = ${from}`;
+  await sql`UPDATE accounts SET balance = balance + ${amount} WHERE id = ${to}`;
+  await sql.query('COMMIT');
+} catch (e) {
+  await sql.query('ROLLBACK');
+  throw e;
+}
+```
+
+## Environment Variables
+
 ```bash
-canifi-env set SERVICE_EMAIL "your-email"
-canifi-env set SERVICE_PASSWORD "your-password"
+# Add secret
+vercel env add DATABASE_URL production
+
+# Pull env vars locally
+vercel env pull .env.local
+
+# List env vars
+vercel env ls
 ```
 
-**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
+## Cron Jobs
 
-## Capabilities
-- View deployment status and history
-- Check domain configurations
-- Monitor Web Vitals and analytics
-- View build logs
-- Check environment variables
-- Manage project settings
-
-## Usage Examples
-
-### Example 1: Check Deployment Status
-```
-User: "What's the latest deployment status?"
-Claude: I'll check your Vercel deployments.
-- Opens vercel.com via Playwright MCP
-- Logs into account
-- Latest deployment:
-  - Project: my-app
-  - Status: Ready
-  - URL: my-app-abc123.vercel.app
-  - Duration: 45s
-  - Branch: main
-- Preview deployments: 3 active
+```json
+// vercel.json
+{
+  "crons": [
+    {
+      "path": "/api/daily-job",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
 ```
 
-### Example 2: Check Domain Status
-```
-User: "Are my domains working?"
-Claude: I'll check your domain configuration.
-- Views domains section
-- Domains:
-  - myapp.com: Valid SSL, pointing correctly
-  - api.myapp.com: Valid SSL, edge function
-  - staging.myapp.com: Preview branch
-- SSL: All certificates valid
-- DNS: All records configured
-```
-
-### Example 3: View Analytics
-```
-User: "How's the site performance?"
-Claude: I'll check Web Vitals.
-- Views Analytics tab
-- Web Vitals (last 7 days):
-  - LCP: 1.2s (Good)
-  - FID: 15ms (Good)
-  - CLS: 0.05 (Good)
-- Traffic: 45,000 visits
-- Top pages: /, /about, /products
-- Edge regions: All healthy
+```typescript
+// api/daily-job.ts
+export default function handler(req, res) {
+  // Verify it's from Vercel Cron
+  if (req.headers['authorization'] !== `Bearer ${process.env.CRON_SECRET}`) {
+    return res.status(401).end();
+  }
+  
+  // Run job
+  await runDailyJob();
+  res.status(200).end();
+}
 ```
 
-## Authentication Flow
-1. Navigate to vercel.com via Playwright MCP
-2. Sign in with email or GitHub
-3. Enter password or OAuth
-4. Handle 2FA if enabled
-5. Maintain session for dashboard access
+## Resources
 
-## Error Handling
-- Login Failed: Try GitHub OAuth
-- Deployment Failed: Check build logs
-- Domain Issue: Verify DNS settings
-- Session Expired: Re-authenticate
-- Rate Limited: Wait and retry
-- Build Error: Check function logs
-
-## Self-Improvement Instructions
-After each interaction:
-- Track deployment patterns
-- Note common issues
-- Log analytics preferences
-- Document UI changes
-
-Suggest updates when:
-- Vercel updates dashboard
-- New features added
-- Edge features expand
-- Analytics updated
-
-## Notes
-- Optimized for Next.js
-- Edge Functions supported
-- Preview deployments automatic
-- Environment per branch
-- Analytics built-in
-- Team collaboration
-- Free tier generous
+- **Vercel Docs**: https://vercel.com/docs
+- **Next.js on Vercel**: https://vercel.com/docs/frameworks/nextjs

@@ -1,47 +1,60 @@
 ---
 name: github
-description: "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries."
+description: Automation of GitHub tasks using the gh CLI and REST API. Includes pagination strategies, payload construction, and rate limit management. Triggers: github, gh-cli, github-api, rate-limit, pagination, pull-request.
 ---
 
-# GitHub Skill
+# GitHub API and CLI
 
-Use the `gh` CLI to interact with GitHub. Always specify `--repo owner/repo` when not in a git directory, or use URLs directly.
+## Overview
+Managing GitHub at scale requires moving beyond the web UI to the `gh` CLI and the REST API. This skill focuses on high-efficiency operations like bulk querying with pagination and managing API quotas.
 
-## Pull Requests
+## When to Use
+- **Bulk Operations**: Fetching all issues or PRs across a large repository.
+- **CI/CD Automation**: Creating issues or comments programmatically.
+- **Compliance/Auditing**: Checking rate limits or repository permissions.
 
-Check CI status on a PR:
-```bash
-gh pr checks 55 --repo owner/repo
-```
+## Decision Tree
+1. Is it a standard task (e.g., creating a PR, checking issue status)? 
+   - YES: Use `gh` CLI commands.
+2. Do you need custom data fields or specific API endpoints? 
+   - YES: Use `gh api` with `--jq`.
+3. Are there more than 100 results? 
+   - YES: Use `--paginate` and `--slurp`.
 
-List recent workflow runs:
-```bash
-gh run list --repo owner/repo --limit 10
-```
+## Workflows
 
-View a run and see which steps failed:
-```bash
-gh run view <run-id> --repo owner/repo
-```
+### 1. Bulk Querying with Pagination
+1. Construct a `gh api` call to a list endpoint (e.g., `repos/{owner}/{repo}/issues`).
+2. Add the `--paginate` flag to ensure all pages are fetched.
+3. Use `--slurp` to group results and `--jq` to filter for specific fields like `.[] | {title, user: .user.login}`.
 
-View logs for failed steps only:
-```bash
-gh run view <run-id> --repo owner/repo --log-failed
-```
+### 2. Automated Issue Creation
+1. Run `gh auth login` to establish credentials.
+2. Define the issue payload using `-f title="Bug Report"` and `-f body=@issue_template.md`.
+3. Execute the POST request to `repos/{owner}/{repo}/issues` using the `gh` CLI.
 
-## API for Advanced Queries
+### 3. Handling API Rate Limits
+1. Query the rate limit status using `gh api rate_limit`.
+2. Inspect the `X-RateLimit-Reset` header in response objects to determine when the quota refreshes.
+3. Implement exponential backoff in scripts when a 403 Forbidden (rate limited) status is encountered.
 
-The `gh api` command is useful for accessing data not available through other subcommands.
+## Non-Obvious Insights
+- **Magic Type Conversion**: In the `gh` CLI, the `-F/--field` flag automatically converts literals like `true`, `false`, `null`, and integers to their JSON types.
+- **User-Agent Requirement**: All direct REST API requests MUST include a valid `User-Agent` header, or GitHub will reject them.
+- **Path Placeholders**: Using `{owner}`, `{repo}`, and `{branch}` in `gh api` arguments automatically pulls values from the local repository context.
 
-Get PR with specific fields:
-```bash
-gh api repos/owner/repo/pulls/55 --jq '.title, .state, .user.login'
-```
+## Evidence
+- "In --paginate mode, all pages of results will sequentially be requested until there are no more pages..." - [gh CLI Docs](https://cli.github.com/manual/gh_api)
+- "All API requests must include a valid User-Agent header... Requests with no User-Agent header will be rejected." - [GitHub Docs](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting)
+- "Placeholder values {owner}, {repo}, and {branch} in the endpoint argument will get replaced with values from the repository..." - [gh CLI Docs](https://cli.github.com/manual/gh_api)
 
-## JSON Output
+## Scripts
+- `scripts/github_tool.py`: Python wrapper for rate limit checking and pagination.
+- `scripts/github_tool.js`: Node.js script using the `gh` CLI for bulk querying.
 
-Most commands support `--json` for structured output.  You can use `--jq` to filter:
+## Dependencies
+- `gh` (GitHub CLI)
+- `jq` (Recommended for processing JSON outputs)
 
-```bash
-gh issue list --repo owner/repo --json number,title --jq '.[] | "\(.number): \(.title)"'
-```
+## References
+- [references/README.md](references/README.md)

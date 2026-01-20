@@ -1,7 +1,7 @@
 {
   "name": "work-delegator",
-  "repo": "rysweet/azlin",
+  "repo": "rysweet/azure-tenant-grapher",
   "path": ".claude/skills/work-delegator/skill.md",
-  "source": "github.com/rysweet/azlin",
-  "downloaded_at": "2026-01-19T04:00:18.956834Z"
+  "source": "github.com/rysweet/azure-tenant-grapher",
+  "downloaded_at": "2026-01-20T02:13:49.641178Z"
 }

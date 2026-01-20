@@ -1,7 +1,7 @@
 {
   "name": "rings",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/math/abstract-algebra/rings/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-19T03:31:27.777146Z"
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/math/abstract-algebra/rings/SKILL.md",
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-20T03:31:27.412458Z"
 }

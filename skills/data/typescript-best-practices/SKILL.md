@@ -1,355 +1,270 @@
 ---
 name: typescript-best-practices
-description: "Guide AI agents through TypeScript coding best practices including type safety, error handling, code organization, and architecture patterns. This skill should be used when generating TypeScript code, reviewing TypeScript files, creating new TypeScript modules, refactoring JavaScript to TypeScript, or when the user asks about TypeScript patterns, types, or coding standards. Keywords: typescript, types, coding standards, best practices, type safety, generics, architecture, refactoring."
-license: MIT
-compatibility: Requires Deno for analysis scripts. Applicable to any TypeScript codebase.
-metadata:
-  author: agent-skills
-  version: "1.0"
+description: Provides TypeScript patterns for type-first development, making illegal states unrepresentable, exhaustive handling, and runtime validation. Must use when reading or writing TypeScript/JavaScript files.
 ---
 
 # TypeScript Best Practices
 
-Guide AI agents in writing high-quality TypeScript code. This skill provides coding standards, architecture patterns, and tools for analysis and scaffolding.
+## Pair with React Best Practices
 
-## When to Use This Skill
+When working with React components (`.tsx`, `.jsx` files or `@react` imports), always load `react-best-practices` alongside this skill. This skill covers TypeScript fundamentals; React-specific patterns (effects, hooks, refs, component design) are in the dedicated React skill.
 
-Use this skill when:
-- Generating new TypeScript code
-- Reviewing TypeScript files for quality issues
-- Creating new modules, services, or components
-- Refactoring JavaScript to TypeScript
-- Answering questions about TypeScript patterns or types
-- Designing APIs or interfaces
+## Type-First Development
 
-Do NOT use this skill when:
-- Working with pure JavaScript (no TypeScript)
-- Debugging runtime errors (use debugging tools)
-- Framework-specific patterns (React, Vue, etc. - use framework skills)
+Types define the contract before implementation. Follow this workflow:
 
-## Core Principles
+1. **Define the data model** - types, interfaces, and schemas first
+2. **Define function signatures** - input/output types before logic
+3. **Implement to satisfy types** - let the compiler guide completeness
+4. **Validate at boundaries** - runtime checks where data enters the system
 
-### 1. Type Safety First
+### Make Illegal States Unrepresentable
 
-Maximize compile-time error detection:
+Use the type system to prevent invalid states at compile time.
 
-```typescript
-// Prefer unknown over any for unknown types
-function processInput(data: unknown): string {
-  if (typeof data === "string") return data;
-  if (typeof data === "number") return String(data);
-  throw new Error("Unsupported type");
-}
+**Discriminated unions for mutually exclusive states:**
+```ts
+// Good: only valid combinations possible
+type RequestState<T> =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: T }
+  | { status: 'error'; error: Error };
 
-// Explicit return types for public APIs
-export function calculateTotal(items: ReadonlyArray<Item>): number {
-  return items.reduce((sum, item) => sum + item.price, 0);
-}
-
-// Use const assertions for literal types
-const CONFIG = {
-  mode: "production",
-  version: 1,
-} as const;
+// Bad: allows invalid combinations like { loading: true, error: Error }
+type RequestState<T> = {
+  loading: boolean;
+  data?: T;
+  error?: Error;
+};
 ```
 
-### 2. Immutability by Default
+**Branded types for domain primitives:**
+```ts
+type UserId = string & { readonly __brand: 'UserId' };
+type OrderId = string & { readonly __brand: 'OrderId' };
 
-Prevent accidental mutations:
+// Compiler prevents passing OrderId where UserId expected
+function getUser(id: UserId): Promise<User> { /* ... */ }
 
-```typescript
-// Use readonly for object properties
-interface User {
-  readonly id: string;
-  readonly email: string;
-  name: string; // Only mutable if intentional
-}
-
-// Use ReadonlyArray for collections
-function processItems(items: ReadonlyArray<Item>): ReadonlyArray<Result> {
-  return items.map(transform);
-}
-
-// Prefer spreading over mutation
-function updateUser(user: User, name: string): User {
-  return { ...user, name };
+function createUserId(id: string): UserId {
+  return id as UserId;
 }
 ```
 
-### 3. Error Handling with Types
+**Const assertions for literal unions:**
+```ts
+const ROLES = ['admin', 'user', 'guest'] as const;
+type Role = typeof ROLES[number]; // 'admin' | 'user' | 'guest'
 
-Use the type system for error handling:
-
-```typescript
-// Result type for recoverable errors
-type Result<T, E = Error> =
-  | { success: true; value: T }
-  | { success: false; error: E };
-
-// Typed error classes
-class ValidationError extends Error {
-  constructor(
-    message: string,
-    readonly field: string,
-    readonly code: string
-  ) {
-    super(message);
-    this.name = "ValidationError";
-  }
-}
-
-// Function with Result return type
-function parseConfig(input: string): Result<Config, ValidationError> {
-  try {
-    const data = JSON.parse(input);
-    if (!isValidConfig(data)) {
-      return {
-        success: false,
-        error: new ValidationError("Invalid config", "root", "INVALID_FORMAT"),
-      };
-    }
-    return { success: true, value: data };
-  } catch {
-    return {
-      success: false,
-      error: new ValidationError("Parse failed", "root", "PARSE_ERROR"),
-    };
-  }
+// Array and type stay in sync automatically
+function isValidRole(role: string): role is Role {
+  return ROLES.includes(role as Role);
 }
 ```
 
-### 4. Code Organization
-
-Structure code for maintainability:
-
-```typescript
-// One concept per file
-// user.ts - User type and related utilities
-export interface User {
-  readonly id: string;
-  readonly email: string;
-  readonly createdAt: Date;
-}
-
-export function createUser(email: string): User {
-  return {
-    id: crypto.randomUUID(),
-    email,
-    createdAt: new Date(),
-  };
-}
-
-// Explicit exports (no barrel file wildcards)
-// index.ts
-export { User, createUser } from "./user.ts";
-export { validateEmail } from "./validation.ts";
-```
-
-## Quick Reference
-
-| Category | Prefer | Avoid |
-|----------|--------|-------|
-| Unknown types | `unknown` | `any` |
-| Collections | `ReadonlyArray<T>` | `T[]` for inputs |
-| Objects | `Readonly<T>` | Mutable by default |
-| Null checks | Optional chaining `?.` | `!= null` |
-| Type narrowing | Type guards | `as` assertions |
-| Return types | Explicit on exports | Inferred on exports |
-| Enums | String literal unions | Numeric enums |
-| Imports | Named imports | Default imports |
-| Errors | Result types | Throwing for flow control |
-| Loops | `for...of`, `.map()` | `for...in` on arrays |
-
-## Code Generation Guidelines
-
-When generating TypeScript code, follow these patterns:
-
-### Module Structure
-
-```typescript
-/**
- * Module description
- * @module module-name
- */
-
-// === Types ===
-export interface ModuleOptions {
-  readonly setting: string;
-}
-
-export interface ModuleResult {
-  readonly data: unknown;
-}
-
-// === Constants ===
-const DEFAULT_OPTIONS: ModuleOptions = {
-  setting: "default",
+**Required vs optional fields - be explicit:**
+```ts
+// Creation: some fields required
+type CreateUser = {
+  email: string;
+  name: string;
 };
 
-// === Implementation ===
-export function processData(
-  input: unknown,
-  options: Partial<ModuleOptions> = {}
-): ModuleResult {
-  const opts = { ...DEFAULT_OPTIONS, ...options };
-  // Implementation
-  return { data: input };
+// Update: all fields optional
+type UpdateUser = Partial<CreateUser>;
+
+// Database row: all fields present
+type User = CreateUser & {
+  id: UserId;
+  createdAt: Date;
+};
+```
+
+## Module Structure
+
+Prefer smaller, focused files: one component, hook, or utility per file. Split when a file handles multiple concerns or exceeds ~200 lines. Colocate tests with implementation (`foo.test.ts` alongside `foo.ts`). Group related files by feature rather than by type.
+
+## Functional Patterns
+
+- Prefer `const` over `let`; use `readonly` and `Readonly<T>` for immutable data.
+- Use `array.map/filter/reduce` over `for` loops; chain transformations in pipelines.
+- Write pure functions for business logic; isolate side effects in dedicated modules.
+- Avoid mutating function parameters; return new objects/arrays instead.
+
+## Instructions
+
+- Enable `strict` mode; model data with interfaces and types. Strong typing catches bugs at compile time.
+- Every code path returns a value or throws; use exhaustive `switch` with `never` checks in default. Unhandled cases become compile errors.
+- Propagate errors with context; catching requires re-throwing or returning a meaningful result. Hidden failures delay debugging.
+- Handle edge cases explicitly: empty arrays, null/undefined inputs, boundary values. Defensive checks prevent runtime surprises.
+- Use `await` for async calls; wrap external calls with contextual error messages. Unhandled rejections crash Node processes.
+- Add or update focused tests when changing logic; test behavior, not implementation details.
+
+## Examples
+
+Explicit failure for unimplemented logic:
+```ts
+export function buildWidget(widgetType: string): never {
+  throw new Error(`buildWidget not implemented for type: ${widgetType}`);
 }
 ```
 
-### Function Design
+Exhaustive switch with never check:
+```ts
+type Status = "active" | "inactive";
 
-```typescript
-// Pure functions preferred
-function transform(input: Input): Output {
-  // No side effects, same input = same output
-  return { ...input, processed: true };
-}
-
-// Explicit parameter types
-function fetchUser(id: string, options?: FetchOptions): Promise<User> {
-  // Implementation
-}
-
-// Use function overloads for complex signatures
-function parse(input: string): ParsedData;
-function parse(input: Buffer): ParsedData;
-function parse(input: string | Buffer): ParsedData {
-  // Implementation
+export function processStatus(status: Status): string {
+  switch (status) {
+    case "active":
+      return "processing";
+    case "inactive":
+      return "skipped";
+    default: {
+      const _exhaustive: never = status;
+      throw new Error(`unhandled status: ${_exhaustive}`);
+    }
+  }
 }
 ```
 
-### Interface Design
-
-```typescript
-// Prefer interfaces for object shapes
-interface UserData {
-  readonly id: string;
-  readonly email: string;
-}
-
-// Use type for unions and intersections
-type UserRole = "admin" | "user" | "guest";
-type AdminUser = UserData & { readonly role: "admin" };
-
-// Document with JSDoc
-/**
- * Configuration for the API client
- * @property baseUrl - The base URL for API requests
- * @property timeout - Request timeout in milliseconds
- */
-interface ApiConfig {
-  readonly baseUrl: string;
-  readonly timeout?: number;
+Wrap external calls with context:
+```ts
+export async function fetchWidget(id: string): Promise<Widget> {
+  const response = await fetch(`/api/widgets/${id}`);
+  if (!response.ok) {
+    throw new Error(`fetch widget ${id} failed: ${response.status}`);
+  }
+  return response.json();
 }
 ```
 
-## Common Anti-Patterns
+Debug logging with namespaced logger:
+```ts
+import debug from "debug";
 
-Avoid these patterns when generating code:
+const log = debug("myapp:widgets");
 
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| `any` type | Disables type checking | Use `unknown` and narrow |
-| `as` assertions | Runtime errors | Use type guards |
-| Non-null `!` | Null pointer errors | Optional chaining `?.` |
-| Mutable params | Unexpected mutations | `Readonly<T>` |
-| Magic strings | Typos, no autocomplete | String literal types |
-| God classes | Hard to test/maintain | Single responsibility |
-| Circular deps | Build/runtime issues | Dependency inversion |
-| Index signatures | Lose type info | Explicit properties |
-
-See `references/anti-patterns/common-mistakes.md` for detailed examples.
-
-## Scripts Reference
-
-### analyze.ts
-
-Analyze TypeScript code for quality issues:
-
-```bash
-deno run --allow-read scripts/analyze.ts <path> [options]
-
-Options:
-  --strict        Enable all checks
-  --json          Output JSON for programmatic use
-  --fix-hints     Show suggested fixes
-
-Examples:
-  # Analyze a file
-  deno run --allow-read scripts/analyze.ts ./src/utils.ts
-
-  # Analyze directory with strict mode
-  deno run --allow-read scripts/analyze.ts ./src --strict
-
-  # JSON output for CI
-  deno run --allow-read scripts/analyze.ts ./src --json
+export function createWidget(name: string): Widget {
+  log("creating widget: %s", name);
+  const widget = { id: crypto.randomUUID(), name };
+  log("created widget: %s", widget.id);
+  return widget;
+}
 ```
 
-### generate-types.ts
+## Runtime Validation with Zod
 
-Generate TypeScript types from JSON data:
+- Define schemas as single source of truth; infer TypeScript types with `z.infer<>`. Avoid duplicating types and schemas.
+- Use `safeParse` for user input where failure is expected; use `parse` at trust boundaries where invalid data is a bug.
+- Compose schemas with `.extend()`, `.pick()`, `.omit()`, `.merge()` for DRY definitions.
+- Add `.transform()` for data normalization at parse time (trim strings, parse dates).
+- Include descriptive error messages; use `.refine()` for custom validation logic.
 
-```bash
-deno run --allow-read --allow-write scripts/generate-types.ts <input> [options]
+### Examples
 
-Options:
-  --name <name>   Root type name (default: inferred)
-  --output <path> Output file path
-  --readonly      Generate readonly types
-  --interface     Use interface instead of type
+Schema as source of truth with type inference:
+```ts
+import { z } from "zod";
 
-Examples:
-  # Generate from JSON file
-  deno run --allow-read scripts/generate-types.ts ./data.json --name Config
+const UserSchema = z.object({
+  id: z.string().uuid(),
+  email: z.string().email(),
+  name: z.string().min(1),
+  createdAt: z.string().transform((s) => new Date(s)),
+});
 
-  # Generate readonly interface
-  deno run --allow-read --allow-write scripts/generate-types.ts ./api-response.json \
-    --interface --readonly --output ./types/api.ts
+type User = z.infer<typeof UserSchema>;
 ```
 
-### scaffold-module.ts
+Return parse results to callers (never swallow errors):
+```ts
+import { z, SafeParseReturnType } from "zod";
 
-Create properly structured TypeScript modules:
+export function parseUserInput(raw: unknown): SafeParseReturnType<unknown, User> {
+  return UserSchema.safeParse(raw);
+}
 
-```bash
-deno run --allow-read --allow-write scripts/scaffold-module.ts [options]
-
-Options:
-  --name <name>   Module name (required)
-  --path <path>   Target directory (default: ./src)
-  --type <type>   Type: service, util, component
-  --with-tests    Include test file
-
-Examples:
-  # Create a utility module
-  deno run --allow-read --allow-write scripts/scaffold-module.ts \
-    --name "string-utils" --type util
-
-  # Create a service with tests
-  deno run --allow-read --allow-write scripts/scaffold-module.ts \
-    --name "user-service" --type service --with-tests
+// Caller handles both success and error:
+const result = parseUserInput(formData);
+if (!result.success) {
+  setErrors(result.error.flatten().fieldErrors);
+  return;
+}
+await submitUser(result.data);
 ```
 
-## Additional Resources
+Strict parsing at trust boundaries:
+```ts
+export async function fetchUser(id: string): Promise<User> {
+  const response = await fetch(`/api/users/${id}`);
+  if (!response.ok) {
+    throw new Error(`fetch user ${id} failed: ${response.status}`);
+  }
+  const data = await response.json();
+  return UserSchema.parse(data); // throws if API contract violated
+}
+```
 
-### Type System Deep Dives
-- `references/type-system/advanced-types.md` - Generics, conditional types, mapped types
-- `references/type-system/type-guards.md` - Type narrowing techniques
-- `references/type-system/utility-types.md` - Built-in utility types
+Schema composition:
+```ts
+const CreateUserSchema = UserSchema.omit({ id: true, createdAt: true });
+const UpdateUserSchema = CreateUserSchema.partial();
+const UserWithPostsSchema = UserSchema.extend({
+  posts: z.array(PostSchema),
+});
+```
 
-### Pattern Guides
-- `references/patterns/error-handling.md` - Result types, typed errors
-- `references/patterns/async-patterns.md` - Async/await best practices
-- `references/patterns/functional-patterns.md` - Immutability, composition
-- `references/patterns/module-patterns.md` - Exports, dependency injection
+## Configuration
 
-### Architecture
-- `references/architecture/project-structure.md` - Directory organization
-- `references/architecture/api-design.md` - Interface design, versioning
+- Load config from environment variables at startup; validate with Zod before use. Invalid config should crash immediately.
+- Define a typed config object as single source of truth; avoid accessing `process.env` throughout the codebase.
+- Use sensible defaults for development; require explicit values for production secrets.
 
-### Templates
-- `assets/templates/module-template.ts.md` - Module starter template
-- `assets/templates/service-template.ts.md` - Service class template
-- `assets/tsconfig-presets/strict.json` - Maximum strictness config
-- `assets/tsconfig-presets/recommended.json` - Balanced defaults
+### Examples
+
+Typed config with Zod validation:
+```ts
+import { z } from "zod";
+
+const ConfigSchema = z.object({
+  PORT: z.coerce.number().default(3000),
+  DATABASE_URL: z.string().url(),
+  API_KEY: z.string().min(1),
+  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+});
+
+export const config = ConfigSchema.parse(process.env);
+```
+
+Access config values (not process.env directly):
+```ts
+import { config } from "./config";
+
+const server = app.listen(config.PORT);
+const db = connect(config.DATABASE_URL);
+```
+
+## Optional: type-fest
+
+For advanced type utilities beyond TypeScript builtins, consider [type-fest](https://github.com/sindresorhus/type-fest):
+
+- `Opaque<T, Token>` - cleaner branded types than manual `& { __brand }` pattern
+- `PartialDeep<T>` - recursive partial for nested objects
+- `ReadonlyDeep<T>` - recursive readonly for immutable data
+- `LiteralUnion<Literals, Fallback>` - literals with autocomplete + string fallback
+- `SetRequired<T, K>` / `SetOptional<T, K>` - targeted field modifications
+- `Simplify<T>` - flatten complex intersection types in IDE tooltips
+
+```ts
+import type { Opaque, PartialDeep, SetRequired } from 'type-fest';
+
+// Branded type (cleaner than manual approach)
+type UserId = Opaque<string, 'UserId'>;
+
+// Deep partial for patch operations
+type UserPatch = PartialDeep<User>;
+
+// Make specific fields required
+type UserWithEmail = SetRequired<Partial<User>, 'email'>;
+```

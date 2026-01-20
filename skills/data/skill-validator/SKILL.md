@@ -13,6 +13,21 @@ description: |
 
 Validate any skill against production-level quality criteria.
 
+## Before Implementation
+
+| Source | Gather |
+|--------|--------|
+| **Skill Directory** | SKILL.md, references/, scripts/, assets/ |
+| **Skill Type** | Builder, Guide, Automation, Analyzer, or Validator |
+| **Conversation** | Validation purpose (audit, improvement, review) |
+
+## What This Skill Does NOT Do
+
+- Test skills in production environments
+- Automatically fix identified issues
+- Validate skill runtime behavior (only structure/content)
+- Replace human judgment on domain accuracy
+
 ## Validation Workflow
 
 ### Phase 1: Gather Context
@@ -48,7 +63,7 @@ Evaluate against **9 criteria categories**. Each criterion scores 0-3:
 | **SKILL.md exists** | Root file present |
 | **Line count** | <500 lines (context is precious) |
 | **Frontmatter complete** | `name` and `description` present in YAML |
-| **Name constraints** | Lowercase, numbers, hyphens only; ≤64 chars; matches directory |
+| **Name constraints** | 1-64 chars; lowercase alphanumeric + hyphens; no consecutive hyphens; can't start/end with hyphen; must match directory name |
 | **Description format** | [What] + [When] format; ≤1024 chars |
 | **Description style** | Third-person: "This skill should be used when..." |
 | **No extraneous files** | No README.md, CHANGELOG.md, LICENSE in skill dir |

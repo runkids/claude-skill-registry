@@ -1,11 +1,7 @@
 {
   "name": "visual-qa",
-  "description": "Use when making UI/styling changes and need to verify no visual regressions - provides screenshot capture, comparison, vision model scoring, and video recording for animations",
-  "repo": "chriscarrollsmith/chriscarrollsmith.github.io",
-  "category": "design",
-  "tags": [
-    "visual"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "GGPrompts/my-plugins",
+  "path": "plugins/tools/conductor/skills/visual-qa/SKILL.md",
+  "source": "github.com/GGPrompts/my-plugins",
+  "downloaded_at": "2026-01-20T00:54:44.915821Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "fabric",
-  "repo": "danielmiessler/PAIPlugin",
-  "path": "skills/fabric/SKILL.md",
-  "source": "github.com/danielmiessler/PAIPlugin",
-  "downloaded_at": "2026-01-14T03:39:26.025567Z"
+  "repo": "Microck/ordinary-claude-skills",
+  "path": "skills_all/fabric/SKILL.md",
+  "source": "github.com/Microck/ordinary-claude-skills",
+  "downloaded_at": "2026-01-20T02:15:33.370814Z"
 }

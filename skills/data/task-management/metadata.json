@@ -1,7 +1,7 @@
 {
   "name": "task-management",
-  "repo": "ZhiruiFeng/LocalAgentCrew",
+  "repo": "Zeliper/z-coder",
   "path": ".claude/skills/task-management/SKILL.md",
-  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
-  "downloaded_at": "2026-01-19T04:02:25.442224Z"
+  "source": "github.com/Zeliper/z-coder",
+  "downloaded_at": "2026-01-20T03:07:22.370799Z"
 }

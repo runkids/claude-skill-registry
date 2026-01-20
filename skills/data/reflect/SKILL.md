@@ -1,391 +1,674 @@
 ---
-
 name: reflect
-description: Use this skill when capturing user corrections, feedback, or learnings from a session to permanently improve other skills. This includes when users correct skill selection, suggest better approaches, validate successful patterns, or identify mistakes that should never be repeated. Invoked automatically by work-command-center at session end when feedback is detected.
+description: Extract learnings from session corrections and patterns, update skill files with persistent memory. Implements Loop 1.5 - per-session micro-learning between execution and meta-optimization.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: sonnet
+x-version: 1.0.1
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
+x-loop: 1.5
+x-last-reflection: 2026-01-05T00:00:00Z
+x-reflection-count: 1
 ---
 
-# Reflect - Continuous Skill Improvement System
+### L1 Improvement
+- Created as new skill following Skill Forge v3.2 required sections
+- Implements Loop 1.5 (Session Reflection) to fill gap between Loop 1 (Execution) and Loop 3 (Meta-Loop)
+- Integrates with Memory MCP, Skill Forge, and Ralph Wiggum stop hooks
 
-## Philosophy: "Correct Once, Never Again"
+---
 
-This meta-skill embodies a core principle: AI should learn from corrections rather than repeating mistakes across sessions. Reflect captures human guidance during sessions and permanently encodes it into skill definitions, creating a self-improving orchestration system.
 
-## How It Works
 
-### Three-Level Confidence System
+---
 
-Reflect analyzes session conversations and classifies feedback into three confidence levels:
+## LIBRARY-FIRST PROTOCOL (MANDATORY)
 
-**HIGH Confidence (Critical Corrections)**
-- Pattern: "Use X instead of Y", "Never do Z", "Always check A before B"
-- Creates: "Critical Corrections" section in target skill
-- Example: "Always validate with OpenStudio docs first, not Unmet Hours"
+**Before writing ANY code, you MUST check:**
 
-**MEDIUM Confidence (Best Practices)**
-- Pattern: "Yes, perfect!", "Exactly right", "This is the correct approach"
-- Creates: "Best Practices" section in target skill
-- Example: "User confirmed: Running energyplus-assistant for QA/QC before simulation works well"
+### Step 1: Library Catalog
+- Location: `.claude/library/catalog.json`
+- If match >70%: REUSE or ADAPT
 
-**LOW Confidence (Considerations)**
-- Pattern: "Have you considered...", "Might want to...", "Could also..."
-- Creates: "Considerations" section in target skill
-- Example: "User suggested: Check for HVAC autosizing before running simulation"
+### Step 2: Patterns Guide
+- Location: `.claude/docs/inventories/LIBRARY-PATTERNS-GUIDE.md`
+- If pattern exists: FOLLOW documented approach
 
-### Learning Storage Architecture
+### Step 3: Existing Projects
+- Location: `D:\Projects\*`
+- If found: EXTRACT and adapt
 
-Each skill can have a companion `.reflect.yaml` file storing accumulated learnings:
+### Decision Matrix
+| Match | Action |
+|-------|--------|
+| Library >90% | REUSE directly |
+| Library 70-90% | ADAPT minimally |
+| Pattern exists | FOLLOW pattern |
+| In project | EXTRACT |
+| No match | BUILD (add to library after) |
 
+---
+
+## TIER 1: CRITICAL SECTIONS
+
+### Overview
+
+The Reflect skill solves a fundamental limitation of LLMs: **they don't learn from session to session**. Every conversation starts from zero, causing the same mistakes to recur and forcing users to repeat corrections endlessly.
+
+**Philosophy**: Corrections are signals. Approvals are confirmations. Both should be captured, classified, and persisted into skill files where they become permanent knowledge that survives across sessions.
+
+**Methodology**: 7-phase extraction and update pipeline that:
+1. Detects learning signals in conversation
+2. Maps them to invoked skills
+3. Classifies confidence levels (VERIX-aligned)
+4. Proposes skill file updates
+5. Applies changes via Skill Forge patterns
+6. Stores in Memory MCP for Meta-Loop aggregation
+7. Commits to Git for version tracking
+
+**Value Proposition**: Correct once, never again. Transform ephemeral session corrections into persistent skill improvements that compound over time.
+
+### Core Principles
+
+The Reflect skill operates on 5 core principles:
+
+#### Principle 1: Signals Over Commands
+**Corrections are the strongest learning signals.** When a user says "No, use X instead", this is more valuable than explicit instructions because it reveals a gap between expectation and delivery.
+
+In practice:
+- Parse conversation for correction patterns (negation + alternative)
+- Weight corrections higher than approvals
+- Track correction frequency per skill
+
+#### Principle 2: Evidence-Based Confidence
+**All learnings must have VERIX-aligned confidence ceilings.** Don't overclaim certainty from limited evidence.
+
+In practice:
+- HIGH (0.90): Explicit "always/never" rules from user
+- MEDIUM (0.75): Patterns confirmed across 2+ occurrences
+- LOW (0.55): Single observations requiring review
+
+#### Principle 3: Skill File as Memory
+**Store learnings in SKILL.md, not in embeddings.** Skill files are human-readable, version-controlled, and immediately effective.
+
+In practice:
+- Add LEARNED PATTERNS section to skill files
+- Increment x-version on each update
+- Track x-last-reflection timestamp
+
+#### Principle 4: Safe by Default
+**Preview all changes before applying.** HIGH confidence changes require explicit approval; automation only for MEDIUM/LOW.
+
+In practice:
+- Show diff preview before any edit
+- Require Y/N for HIGH confidence learnings
+- Enable auto-apply only when reflect-on is active
+
+#### Principle 5: Feed the Meta-Loop
+**Session learnings aggregate into system optimization.** Micro-learning feeds macro-optimization.
+
+In practice:
+- Store all learnings in Memory MCP
+- Tag with WHO/WHEN/PROJECT/WHY
+- Meta-Loop queries and aggregates every 3 days
+
+### When to Use
+
+**Use Reflect when:**
+- You've corrected Claude's output during a session
+- A skill produced good results you want to reinforce
+- You notice recurring mistakes across sessions
+- You want to capture style or preference cues
+- Session is ending and you want to preserve learnings
+- You see explicit rules emerge ("always X", "never Y")
+
+**Do NOT use Reflect when:**
+- Conversation is trivial (< 5 exchanges)
+- No skills were invoked in session
+- User explicitly says "don't remember this"
+- Target is the eval-harness (FORBIDDEN - stays frozen)
+- Changes would bypass existing safety gates
+
+### Main Workflow
+
+#### Phase 1: Signal Detection
+**Purpose**: Scan conversation for learning signals
+**Agent**: intent-parser (from registry)
+
+**Input Contract**:
 ```yaml
-skill_name: energyplus-assistant
-last_updated: 2026-01-12T10:30:00Z
-
-critical_corrections:
-  - pattern: "User corrected: Always validate with OpenStudio docs first"
-    fix: "Check OpenStudio 3.9 docs BEFORE Unmet Hours forums"
-    timestamp: 2026-01-12T10:30:00Z
-    session_id: "20260112-0930"
-
-best_practices:
-  - pattern: "User approved: QA/QC workflow finds 90% of issues"
-    practice: "Run validation checklist: geometry → HVAC → schedules → constructions"
-    timestamp: 2026-01-12T11:15:00Z
-    session_id: "20260112-0930"
-
-orchestration_learnings:
-  - task_description: "validate energy model"
-    skill_chosen: running-openstudio-models
-    outcome: wrong_skill
-    correct_skill: energyplus-assistant
-    reasoning: "Running models is for simulations, validation is assistant's job"
-    timestamp: 2026-01-12T10:45:00Z
+inputs:
+  conversation_context: string  # Full session transcript
+  invoked_skills: list[string]  # Skills used in session
 ```
 
-## When to Use This Skill
+**Process**:
+1. Parse conversation for signal patterns
+2. Classify each signal by type and strength
+3. Extract the learning content
 
-**Automatic Invocation (Primary):**
-- work-command-center invokes Reflect at session end
-- WCC asks: "Any corrections or learnings to capture from this session?"
-- If yes → Reflect analyzes conversation → Proposes updates
+**Signal Types**:
+| Type | Pattern | Confidence |
+|------|---------|------------|
+| Correction | "No, use X", "That's wrong", "Actually..." | HIGH (0.90) |
+| Explicit Rule | "Always do X", "Never do Y" | HIGH (0.90) |
+| Approval | "Perfect", "Yes, exactly", "That's right" | MEDIUM (0.75) |
+| Rejection | User rejected proposed solution | MEDIUM (0.75) |
+| Style Cue | Formatting or naming preferences | LOW (0.55) |
+| Observation | Implicit preference detected | LOW (0.55) |
 
-**Manual Invocation (Secondary):**
-- User explicitly says "reflect on this" or "capture that learning"
-- After receiving significant correction mid-session
-- When user wants to codify a new best practice immediately
+**Output Contract**:
+```yaml
+outputs:
+  signals: list[Signal]
+  Signal:
+    type: correction|explicit_rule|approval|rejection|style_cue|observation
+    content: string  # The actual learning
+    context: string  # Surrounding context
+    confidence: float  # 0.55-0.90
+    ground: string  # Evidence source
+```
 
-**DO NOT Use For:**
-- General conversation or questions (not corrections)
-- One-off situational advice (not repeatable patterns)
-- User expressing preferences without correction context
+#### Phase 2: Skill Mapping
+**Purpose**: Map signals to the skills they apply to
+**Agent**: skill-mapper (custom logic)
 
-## Integration with Work-Command-Center
+**Process**:
+1. Parse conversation for Skill() invocations
+2. Check command history for /skill-name calls
+3. Match each signal to its relevant skill
+4. Handle multi-skill sessions (separate updates per skill)
 
-Reflect is deeply integrated into WCC's session lifecycle:
+**Output Contract**:
+```yaml
+outputs:
+  skill_signals: dict[skill_name, list[Signal]]
+```
 
-### Session End Protocol (WCC Integration Point)
+#### Phase 3: Confidence Classification
+**Purpose**: Apply VERIX-aligned confidence levels
+**Agent**: prompt-architect patterns
 
-Added to WCC's session-end protocol as step 2.5:
+**Classification Rules**:
+```
+HIGH   [conf:0.90] = Explicit "never/always" rules
+                      Direct corrections with clear alternative
+                      User used emphatic language
 
+MEDIUM [conf:0.75] = Successful patterns (2+ confirmations)
+                      Single strong approval
+                      Rejection with implicit preference
+
+LOW    [conf:0.55] = Single observations
+                      Style cues without explicit statement
+                      Inferred preferences
+```
+
+**Ceiling Enforcement**:
+- Never exceed 0.95 (observation ceiling)
+- Report-based learnings max 0.70
+- Inference-based learnings max 0.70
+
+#### Phase 4: Change Proposal
+**Purpose**: Generate proposed skill file updates
+**Agent**: skill-forge patterns
+
+**Process**:
+1. Read current SKILL.md for target skill
+2. Check if LEARNED PATTERNS section exists (create if not)
+3. Generate diff showing proposed additions
+4. Format commit message
+
+**Output Format**:
 ```markdown
-2.5. **Invoke Reflect (if feedback detected)**:
-   - Ask: "Any corrections or learnings to capture from this session?"
-   - If yes: Invoke reflect skill
-   - Reflect proposes skill updates → user approves → skills improve
+## Proposed Updates
+
+**Skill: {skill_name}** (v{old} -> v{new})
+
+### Signals Detected
+- {count} corrections (HIGH)
+- {count} approvals (MEDIUM)
+- {count} observations (LOW)
+
+### Diff Preview
+```diff
++ ### High Confidence [conf:0.90]
++ - {learning content} [ground:{source}:{date}]
 ```
 
-### Orchestration Learning
+### Commit Message
+reflect({skill}): [{LEVEL}] {description}
 
-Reflect can learn from WCC's delegation decisions:
-
-**Pattern Detected:**
-```
-User: "validate the energy model"
-WCC: Delegates to running-openstudio-models
-User: "No, I need validation, not simulation"
-WCC: Corrects to energyplus-assistant
+---
+[Y] Accept  [N] Reject  [E] Edit with natural language
 ```
 
-**Learning Captured:**
-```yaml
-orchestration_learnings:
-  - keywords: ["validate", "energy model"]
-    incorrect_skill: running-openstudio-models
-    correct_skill: energyplus-assistant
-    disambiguation: "validate = QA/QC (assistant), simulate = run (models)"
+#### Phase 5: Apply Updates
+**Purpose**: Safely update skill files
+**Agent**: skill-forge
+
+**Process**:
+1. If approved (manual) or auto-mode enabled:
+2. Read skill file
+3. Find or create LEARNED PATTERNS section
+4. Append new learnings under appropriate confidence level
+5. Increment x-version in frontmatter
+6. Set x-last-reflection to current timestamp
+7. Increment x-reflection-count
+8. Write updated file
+
+**LEARNED PATTERNS Section Format**:
+```markdown
+## LEARNED PATTERNS
+
+### High Confidence [conf:0.90]
+- ALWAYS check for SQL injection vulnerabilities [ground:user-correction:2026-01-05]
+- NEVER use inline styles in components [ground:user-correction:2026-01-03]
+
+### Medium Confidence [conf:0.75]
+- Prefer async/await over .then() chains [ground:approval-pattern:3-sessions]
+- Use descriptive variable names in examples [ground:approval-pattern:2-sessions]
+
+### Low Confidence [conf:0.55]
+- User may prefer verbose error messages [ground:observation:1-session]
 ```
 
-## Technical Workflow
+#### Phase 6: Memory MCP Storage
+**Purpose**: Persist learnings for Meta-Loop aggregation
+**Agent**: memory-mcp integration
 
-### Step 1: Pattern Detection
-
-Reflect analyzes conversation transcript:
-
-```javascript
-// reflect-engine.js analyzes chat messages
-const patterns = detectFeedbackPatterns(transcript);
-// Returns: [
-//   { type: 'correction', confidence: 'HIGH', skill: 'energyplus-assistant', ... },
-//   { type: 'approval', confidence: 'MEDIUM', skill: 'writing-proposals', ... }
-// ]
-```
-
-### Step 2: YAML Generation
-
-Creates learning entries:
-
-```javascript
-// skill-updater.js generates YAML
-const learning = {
-  skill_name: 'energyplus-assistant',
-  critical_corrections: [
+**Storage Format**:
+```json
+{
+  "WHO": "reflect-skill:{session_id}",
+  "WHEN": "{ISO8601_timestamp}",
+  "PROJECT": "{project_name}",
+  "WHY": "session-learning",
+  "x-skill": "{skill_name}",
+  "x-version-before": "{old_version}",
+  "x-version-after": "{new_version}",
+  "x-signals": {
+    "corrections": 2,
+    "approvals": 1,
+    "observations": 1
+  },
+  "x-learnings": [
     {
-      pattern: "User corrected: Check OpenStudio docs first",
-      fix: "Always consult OpenStudio 3.9 docs before Unmet Hours",
-      timestamp: new Date().toISOString()
+      "content": "ALWAYS check for SQL injection",
+      "confidence": 0.90,
+      "ground": "user-correction",
+      "category": "HIGH"
     }
   ]
-};
+}
 ```
 
-### Step 3: Skill Update Proposal
+**Storage Path**: `sessions/reflect/{project}/{skill}/{timestamp}`
 
-Proposes SKILL.md diff:
+#### Phase 7: Git Commit (Optional)
+**Purpose**: Version the skill evolution
+**Agent**: bash git commands
+
+**Commit Format**:
+```
+reflect({skill_name}): [{LEVEL}] {description}
+
+- Added {n} learnings from session
+- Confidence levels: HIGH:{n}, MEDIUM:{n}, LOW:{n}
+- Evidence: user-correction, approval-pattern, observation
+
+Generated by reflect skill v1.0.0
+```
+
+---
+
+## TIER 2: ESSENTIAL SECTIONS
+
+### Pattern Recognition
+
+Different session types require different reflection approaches:
+
+#### Debugging Session
+**Patterns**: "bug", "fix", "error", "not working"
+**Common Corrections**: Framework choice, error handling patterns, edge cases
+**Key Focus**: What was the root cause? What pattern prevents recurrence?
+**Approach**: Extract diagnostic insights and prevention rules
+
+#### Code Review Session
+**Patterns**: "review", "check", "looks good", "change this"
+**Common Corrections**: Style violations, security concerns, naming
+**Key Focus**: What standards emerged? What was consistently flagged?
+**Approach**: Extract style rules and security patterns
+
+#### Feature Development Session
+**Patterns**: "build", "create", "implement", "add"
+**Common Corrections**: Architecture choices, component usage, API patterns
+**Key Focus**: What design decisions worked? What was rejected?
+**Approach**: Extract architectural preferences and component rules
+
+#### Documentation Session
+**Patterns**: "document", "explain", "readme", "describe"
+**Common Corrections**: Tone, structure, level of detail
+**Key Focus**: What style resonated? What format preferred?
+**Approach**: Extract documentation style guide entries
+
+### Advanced Techniques
+
+#### Multi-Session Pattern Detection
+Track signals across sessions to identify recurring patterns:
+- Query Memory MCP for similar signals in past 7 days
+- If same correction appears 3+ times, escalate to HIGH confidence
+- Detect conflicting signals and flag for resolution
+
+#### Negative Space Analysis
+Learn from what was NOT corrected:
+- If user didn't correct a pattern, it's implicitly approved
+- Track approval-by-silence for frequently used patterns
+- Lower confidence (0.55) but valuable signal
+
+#### Skill Dependency Tracking
+When correcting skill A, check impact on skills that depend on it:
+- Build dependency graph from skill index
+- Warn if update might conflict with downstream skills
+- Suggest propagating changes to related skills
+
+#### Conflict Resolution
+Handle contradictory signals:
+- Newer signals override older (recency bias)
+- Higher confidence overrides lower
+- If true conflict, ask user to resolve
+- Store conflict history for pattern analysis
+
+### Common Anti-Patterns
+
+| Anti-Pattern | Problem | Solution |
+|--------------|---------|----------|
+| **Over-Learning** | Capturing every small preference | Only persist signals that appear 2+ times or are explicit rules |
+| **Under-Confidence** | All learnings at LOW confidence | Explicit "always/never" statements are HIGH; don't downgrade |
+| **Eval-Harness Modification** | Attempting to update frozen harness | BLOCK: eval-harness never self-improves |
+| **Silent Updates** | Applying changes without preview | ALWAYS show diff and require confirmation for HIGH |
+| **Orphan Learnings** | Storing in Memory but not SKILL.md | Write to BOTH: skill file for immediate effect, Memory for aggregation |
+| **Version Skip** | Not incrementing x-version | ALWAYS bump version on any skill file change |
+
+### Practical Guidelines
+
+#### Full vs Quick Mode
+
+**Full Mode** (default for manual /reflect):
+- Scan entire conversation
+- Detect all signal types
+- Generate comprehensive diff
+- Require approval for each change
+- Commit to git with detailed message
+
+**Quick Mode** (/reflect --quick or auto mode):
+- Focus on explicit corrections only
+- Skip style cues and observations
+- Auto-apply MEDIUM/LOW changes
+- Batch commit at end of session
+
+#### Decision Points
+
+**When to ask user**:
+- Conflicting signals detected
+- HIGH confidence change proposed
+- Same correction already exists (confirm override)
+- Signal maps to multiple skills
+
+**When to auto-apply**:
+- reflect-on is enabled
+- Confidence is MEDIUM or LOW
+- No conflicts detected
+- Clear skill mapping
+
+---
+
+## TIER 3: INTEGRATION SECTIONS
+
+### Cross-Skill Coordination
+
+#### Upstream Skills (provide input)
+| Skill | When Used Before | What It Provides |
+|-------|------------------|------------------|
+| intent-analyzer | Before reflection | Parsed user intent for signal context |
+| prompt-architect | For constraint classification | HARD/SOFT/INFERRED distinction |
+
+#### Downstream Skills (use output)
+| Skill | When Used After | What It Does |
+|-------|-----------------|--------------|
+| skill-forge | After signal classification | Applies safe SKILL.md updates |
+| bootstrap-loop | During Meta-Loop | Aggregates learnings for optimization |
+
+#### Parallel Skills (work together)
+| Skill | When Used Together | How They Coordinate |
+|-------|-------------------|---------------------|
+| memory-manager | During storage phase | Stores in Memory MCP |
+| github-integration | During commit phase | Handles git operations |
+
+### MCP Requirements
+
+**Required**:
+- **memory-mcp**: Store learnings for cross-session retrieval and Meta-Loop aggregation
+  - WHY: Central persistence layer for all learnings
+  - Tag: WHO=reflect-skill:{session}, WHY=session-learning
+
+**Optional**:
+- **sequential-thinking**: For complex multi-signal analysis
+  - WHY: Helps reason through conflicting signals
+- **vector-search**: For finding similar past learnings
+  - WHY: Detect patterns across sessions
+
+### Input/Output Contracts
+
+```yaml
+inputs:
+  # Required
+  trigger: manual | automatic  # How reflect was invoked
+
+  # Optional
+  skill_name: string  # Target specific skill (else detect from session)
+  mode: full | quick  # Reflection depth
+  auto_apply: boolean  # Skip approval for MEDIUM/LOW (requires reflect-on)
+
+outputs:
+  # Always returned
+  signals_detected: list[Signal]
+  skills_updated: list[string]
+  learnings_stored: list[MemoryKey]
+
+  # If changes made
+  skill_diffs: dict[skill_name, diff_preview]
+  version_changes: dict[skill_name, {old: string, new: string}]
+
+  # If git enabled
+  commit_hash: string
+  commit_message: string
+```
+
+### Recursive Improvement
+
+**Role in Meta-Loop**:
+The reflect skill is ITSELF subject to Meta-Loop optimization:
+- Store self-reflections about signal detection accuracy
+- Track false positive rate (learnings user rejected)
+- Track coverage (signals user added manually)
+
+**Eval Harness Integration**:
+- reflect skill is NOT part of frozen eval harness
+- CAN be improved via bootstrap-loop
+- MUST NOT modify eval-harness when reflecting on it
+
+**Memory Namespace**:
+- Store at: `skills/tooling/reflect/{project}/{timestamp}`
+- Retrieve via: query for x-skill=reflect, WHY=self-improvement
+
+---
+
+## TIER 4: CLOSURE SECTIONS
+
+### Examples
+
+#### Example 1: Manual Reflection After Debugging Session
+
+```
+User: /reflect
+
+Claude: Analyzing session for learning signals...
+
+## Session Reflection Report
+
+### Signals Detected
+- 2 corrections (HIGH confidence)
+- 1 approval (MEDIUM confidence)
+- 1 observation (LOW confidence)
+
+### Proposed Updates
+
+**Skill: debug** (v2.1.0 -> v2.1.1)
 
 ```diff
-# energyplus-assistant
-
-## Critical Corrections
-
-+### Always Validate with Official Documentation First
-+Before consulting community resources like Unmet Hours, check:
-+1. OpenStudio 3.9 official documentation
-+2. EnergyPlus Engineering Reference
-+3. NREL measure documentation
++ ## LEARNED PATTERNS
 +
-+Community forums are helpful but official docs are authoritative.
-+(Learned: 2026-01-12, Session: 20260112-0930)
-
-## Core Workflow
-...
++ ### High Confidence [conf:0.90]
++ - ALWAYS check for null pointer exceptions before accessing object properties [ground:user-correction:2026-01-05]
++ - Use structured logging instead of console.log in production code [ground:user-correction:2026-01-05]
++
++ ### Medium Confidence [conf:0.75]
++ - Prefer try-catch blocks around async operations [ground:approval-pattern:2026-01-05]
++
++ ### Low Confidence [conf:0.55]
++ - User may prefer detailed stack traces in error messages [ground:observation:2026-01-05]
 ```
 
-### Step 4: User Approval
+### Commit Message
+reflect(debug): [HIGH] Add null check and structured logging rules
 
-Shows proposed changes:
-- Displays diff
-- Explains reasoning
-- Asks for approval
+---
+[Y] Accept  [N] Reject  [E] Edit with natural language
 
-### Step 5: Application
+User: Y
 
-If approved:
-1. Writes `.reflect.yaml` (learning storage)
-2. Updates skill's SKILL.md (human-readable)
-3. Creates Git commit with learning description
-4. Preserves timestamped backup
+Claude: Updates applied successfully.
+- Updated: skills/delivery/debug/SKILL.md (v2.1.0 -> v2.1.1)
+- Stored: sessions/reflect/my-project/debug/2026-01-05T10:30:00Z
+- Committed: reflect(debug): [HIGH] Add null check and structured logging rules
 
-## File Structure
-
-```
-.claude/skills/reflect/
-├── SKILL.md                           # This file
-├── reflect-engine.js                  # Pattern detection engine
-├── skill-updater.js                   # Applies learnings to skills
-├── learning-schema.yaml               # YAML structure specification
-└── templates/
-    └── skill-learning-template.yaml   # Template for new learnings
+Confidence: 0.85 (ceiling: observation 0.95)
 ```
 
-### Skill Learning Storage (Per-Skill)
+#### Example 2: Automatic Reflection via Stop Hook
 
 ```
-.claude/skills/energyplus-assistant/
-├── SKILL.md                    # Main skill definition
-└── .reflect.yaml               # Accumulated learnings (optional)
+[Session ending - reflect-on is enabled]
+
+==========================================
+   SESSION REFLECTION (Automatic)
+==========================================
+
+Detected 3 learning signals across 2 skills.
+
+Skill: code-review
+  + [MEDIUM] Prefer early returns over nested conditionals
+
+Skill: tester
+  + [LOW] Integration tests should mock external APIs
+  + [LOW] Use descriptive test names
+
+Auto-applied 3 MEDIUM/LOW learnings.
+Stored in Memory MCP.
+Git commit: reflect(code-review,tester): [MEDIUM] Session learnings
+
+Next session will include these patterns.
 ```
 
-## Usage Examples
+#### Example 3: Targeting Specific Skill
 
-### Example 1: Correction (HIGH Confidence)
-
-**Conversation:**
 ```
-User: "Run the energy model validation"
-WCC: [Delegates to running-openstudio-models]
-User: "No, I don't want to run it, I want to validate the IDF file"
-WCC: [Corrects to energyplus-assistant]
-[Later at session end]
-WCC: "Any learnings to capture?"
-User: "Yes, capture that validation vs running distinction"
-```
+User: /reflect code-review
 
-**Reflect Action:**
-- Detects correction: validation → energyplus-assistant (not running-openstudio-models)
-- Creates orchestration learning in WCC's .reflect.yaml
-- Updates skill-orchestration-guide.md with disambiguation
-- Next session: WCC correctly suggests energyplus-assistant for "validation"
+Claude: Reflecting on code-review skill specifically...
 
-### Example 2: Approval (MEDIUM Confidence)
+### Signals for code-review
 
-**Conversation:**
-```
-User: "Create energy audit proposal"
-WCC: [Delegates to writing-proposals]
-Writing-Proposals: [Generates proposal with pricing from service-types.md]
-User: "Perfect! That's exactly the format I needed"
-[Later at session end]
-WCC: "Any learnings to capture?"
-User: "Yes, that proposal workflow was spot-on"
+Found 4 signals:
+1. [HIGH] "Never approve PRs with console.log statements" - user-correction
+2. [MEDIUM] Security review phase appreciated - approval
+3. [MEDIUM] Diff-only output format works well - approval
+4. [LOW] May prefer bullet points over paragraphs - observation
+
+Propose adding to skills/quality/code-review/SKILL.md?
+[Y] Accept  [N] Reject  [E] Edit
 ```
 
-**Reflect Action:**
-- Detects approval: writing-proposals workflow validated
-- Adds to best_practices in writing-proposals/.reflect.yaml
-- Updates SKILL.md with "Validated Workflow" example
-- Reinforces existing approach
+### Troubleshooting
 
-### Example 3: Consideration (LOW Confidence)
+| Problem | Solution |
+|---------|----------|
+| **No signals detected** | Ensure conversation had corrections or approvals. Trivial sessions may not have learnings. |
+| **Skill not found** | Verify skill was invoked via Skill() or /command. Check skill-index.json. |
+| **Memory MCP unavailable** | Learnings still applied to skill files. Retry memory storage later. |
+| **Git commit failed** | Check git status. Ensure no merge conflicts. Manual commit may be needed. |
+| **Conflicting learnings** | User must resolve. Show both versions and ask which to keep. |
+| **Permission denied on skill file** | Check file permissions. May need elevated access. |
+| **x-version not incrementing** | Ensure YAML frontmatter is valid. Check for parsing errors. |
 
-**Conversation:**
-```
-User: "Diagnose this energy model error"
-Diagnosing-Energy-Models: [Runs diagnostics]
-User: "Have you considered checking the weather file compatibility first? That's caught me before"
-```
+### Conclusion
 
-**Reflect Action:**
-- Detects suggestion: check weather file compatibility early
-- Adds to considerations in diagnosing-energy-models/.reflect.yaml
-- Updates SKILL.md with "Additional Checks" section
-- Doesn't override existing workflow, adds to checklist
+The Reflect skill transforms ephemeral session corrections into persistent knowledge by implementing **Loop 1.5** - a per-session micro-learning layer that bridges immediate execution (Loop 1) and long-term optimization (Loop 3).
 
-## Safety & Validation
+Key capabilities:
+- **Signal Detection**: Automatically identifies corrections, approvals, and patterns
+- **Confidence Classification**: VERIX-aligned levels (HIGH/MEDIUM/LOW) prevent overclaiming
+- **Safe Updates**: Preview-first approach with approval gates for critical changes
+- **Memory Integration**: Feeds Meta-Loop for system-wide optimization
+- **Version Control**: Git tracking enables rollback and evolution analysis
 
-### Safeguards
+By capturing learnings at the session level and persisting them in skill files, the Reflect skill enables a self-improving development experience where corrections compound into expertise over time.
 
-1. **User Approval Required:** No skill changes without explicit user confirmation
-2. **Git Commits:** Every change committed with descriptive message
-3. **Timestamped Backups:** Original skill files preserved with timestamps
-4. **YAML Validation:** Schema validation before applying changes
-5. **Rollback Support:** Git history enables easy rollback
+### Completion Verification
 
-### Validation Checklist
+- [x] YAML frontmatter with x-version, x-category, x-vcl-compliance
+- [x] Overview with philosophy, methodology, value proposition
+- [x] Core Principles (5 principles with "In practice" items)
+- [x] When to Use with use/don't-use criteria
+- [x] Main Workflow with 7 phases, agents, input/output contracts
+- [x] Pattern Recognition for different session types
+- [x] Advanced Techniques (multi-session, negative space, dependencies, conflicts)
+- [x] Common Anti-Patterns table with Problem/Solution
+- [x] Practical Guidelines for full/quick modes
+- [x] Cross-Skill Coordination (upstream/downstream/parallel)
+- [x] MCP Requirements with WHY explanations
+- [x] Input/Output Contracts in YAML
+- [x] Recursive Improvement integration
+- [x] Examples (3 complete scenarios)
+- [x] Troubleshooting table
+- [x] Conclusion summarizing value
+- [x] Completion Verification checklist
 
-Before applying learning:
-- [ ] Pattern confidence level assigned correctly
-- [ ] Target skill identified accurately
-- [ ] Proposed change preserves existing SKILL.md structure
-- [ ] YAML syntax valid (if creating .reflect.yaml)
-- [ ] User has reviewed and approved diff
-- [ ] Git commit message explains learning clearly
-
-## Reflect Engine Commands
-
-### Analyze Session
-
-```bash
-node .claude/skills/reflect/reflect-engine.js analyze \
-  --transcript path/to/conversation.json \
-  --output path/to/learnings.yaml
-```
-
-### Propose Update
-
-```bash
-node .claude/skills/reflect/skill-updater.js propose \
-  --skill energyplus-assistant \
-  --learning path/to/learnings.yaml \
-  --show-diff
-```
-
-### Apply Learning
-
-```bash
-node .claude/skills/reflect/skill-updater.js apply \
-  --skill energyplus-assistant \
-  --learning path/to/learnings.yaml \
-  --commit-message "Learn: Always check OpenStudio docs first"
-```
-
-## Integration with Skill Development
-
-### Skill-Builder Integration
-
-When creating new skills, skill-builder should:
-1. Include placeholder sections for learnings
-2. Document Reflect integration points
-3. Explain how skill will learn over time
-
-### Learning Sections in Skills
-
-Skills updated by Reflect should have sections:
-
-```markdown
-## Critical Corrections
-
-(Learned patterns from user corrections)
-
-## Best Practices
-
-(Validated approaches from user approvals)
-
-## Considerations
-
-(Suggestions to keep in mind)
-```
-
-## Performance Metrics
-
-Track learning effectiveness:
-
-- **Learning Rate:** % of corrections successfully captured
-- **Application Rate:** % of learnings applied after approval
-- **Repetition Reduction:** % decrease in repeated mistakes
-- **User Satisfaction:** Feedback on learning accuracy
-
-Target metrics:
-- 80%+ correction detection
-- 90%+ user approval of proposed updates
-- 50%+ reduction in repeated corrections over 3 months
-
-## Future Enhancements
-
-Potential improvements:
-- Cross-skill pattern detection (learning applies to multiple skills)
-- Confidence adjustment (learn from false positives/negatives)
-- Automatic testing (verify learnings don't break existing functionality)
-- Learning export/import (share learnings across teams)
-- AI-generated learning summaries (weekly digest of improvements)
-
-- Consider: Add learning confidence threshold setting where users could control which confidence levels get auto-applied vs requiring approval
-
-## Saving Next Steps
-
-When Reflect work is complete or paused:
-
-```bash
-node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
-  --skill "reflect" \
-  --content "## Priority Tasks
-1. Review pending learning proposals
-2. Apply approved learnings to skills
-3. Test updated skills"
-```
-
-See: `.claude/skills/work-command-center/skill-next-steps-convention.md`
+Confidence: 0.85 (ceiling: observation 0.95) - New skill created following Skill Forge v3.2 required sections with full Tier 1-4 coverage.
 
 ---
 
-## Quick Reference
+## LEARNED PATTERNS
 
-**Detect correction:** Look for "use X instead", "never do Y", "always check Z"
-**Detect approval:** Look for "perfect!", "exactly right", "that worked well"
-**Detect suggestion:** Look for "consider...", "might want to...", "could also..."
-
-**Store learning:** `.reflect.yaml` per skill
-**Update skill:** SKILL.md sections (Critical Corrections, Best Practices, Considerations)
-**Commit change:** Git with descriptive message
-**Validate:** User approval required always
+### Low Confidence [conf:0.55]
+- Self-test on creation session validates the workflow and demonstrates dogfooding [ground:observation:2026-01-05]
+  - Context: User requested immediate test after skill creation
+  - Action: Offer to run /reflect on the creation session as final validation step
 
 ---
 
-Last Updated: 2026-01-12
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+[[HON:teineigo]] [[MOR:root:R-F-L]] [[COM:Reflect+Skill+Loop]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/reflect]]
+
+[define|neutral] REFLECT_SKILL := Per-session micro-learning that extracts corrections and patterns, updates skill files, and stores in Memory MCP for Meta-Loop aggregation [ground:skill-definition] [conf:0.85] [state:confirmed]
+
+[define|neutral] LOOP_1.5 := Session-level reflection layer between Loop 1 (Execution) and Loop 3 (Meta-Loop) that captures immediate learnings [ground:architecture-design] [conf:0.88] [state:confirmed]
+
+[direct|emphatic] EVAL_HARNESS_FROZEN := Reflect skill MUST NOT modify eval-harness; it is frozen per Bootstrap Loop rules [ground:bootstrap-loop-policy] [conf:0.99] [state:confirmed]
+
+[direct|emphatic] CONFIDENCE_CEILINGS := {HIGH:0.90, MEDIUM:0.75, LOW:0.55}; never exceed observation ceiling (0.95) [ground:verix-spec] [conf:0.95] [state:confirmed]
+
+[commit|confident] <promise>REFLECT_SKILL_VCL_V3.1.1_COMPLIANT</promise> [ground:self-check] [conf:0.88] [state:confirmed]

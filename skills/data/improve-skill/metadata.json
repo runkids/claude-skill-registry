@@ -1,7 +1,7 @@
 {
   "name": "improve-skill",
-  "repo": "mitsuhiko/agent-stuff",
-  "path": "skills/improve-skill/SKILL.md",
-  "source": "github.com/mitsuhiko/agent-stuff",
-  "downloaded_at": "2026-01-19T02:51:53.964392Z"
+  "repo": "alexanderop/workoutTracker",
+  "path": ".claude/skills/improve-skill/SKILL.md",
+  "source": "github.com/alexanderop/workoutTracker",
+  "downloaded_at": "2026-01-20T03:44:56.990333Z"
 }

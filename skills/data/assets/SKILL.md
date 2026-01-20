@@ -1,416 +1,470 @@
 ---
-name: assets
-description: Plutonium assets and theming - TailwindCSS configuration, custom styling, and component themes
+name: kanban-tui
+description: Task management with dependency tracking for Claude agents. Use for complex multi-step tasks (>5 steps OR task dependencies exist). User can explicitly request with "kanban"/"ktui". DEFAULT to TodoWrite for simple linear tasks (<5 steps, no dependencies). Requires ktui CLI.
 ---
 
-# Plutonium Assets & Theming
+# Kanban-TUI Agent Skill
 
-Plutonium uses TailwindCSS 4 for styling with a customizable theme system for components.
+## Quick Decision: Which Tool?
 
-## Asset Configuration
-
-Configure assets in the initializer:
-
-```ruby
-# config/initializers/plutonium.rb
-Plutonium.configure do |config|
-  config.load_defaults 1.0
-
-  # Custom assets
-  config.assets.stylesheet = "application"    # Your CSS file
-  config.assets.script = "application"        # Your JS file
-  config.assets.logo = "my_logo.png"          # Logo image
-  config.assets.favicon = "my_favicon.ico"    # Favicon
-end
+```
+User mentioned "kanban"/"ktui"? → YES → Use kanban-tui
+                ↓ NO
+Task has >5 sequential steps? → YES → Use kanban-tui
+                ↓ NO
+Subtasks depend on each other? → YES → Use kanban-tui
+                ↓ NO
+Work spans multiple sessions? → YES → Use kanban-tui (persistent board)
+                ↓ NO
+Simple linear task (<5 steps)? → YES → Use TodoWrite (default)
 ```
 
-## Setup Custom Assets
+### When to Choose: Comparison
 
-Run the assets generator to set up your own TailwindCSS build:
+| Scenario | Tool | Why |
+|----------|------|-----|
+| Fix single bug (3 steps) | TodoWrite | Simple, linear, no dependencies |
+| Implement feature (8 steps with dependencies) | kanban-tui | Complex, dependencies needed |
+| Refactor across 10+ files | kanban-tui | Long-running, checkpoint tracking |
+| Add error handling to one function | TodoWrite | Single concern, fast |
+| Build authentication system | kanban-tui | Multi-component, sequential deps |
+| Update documentation | TodoWrite | Single file, straightforward |
+| Multi-session project work | kanban-tui | Persistent board across sessions |
+
+## Quick Start for Agents
 
 ```bash
-rails generate pu:core:assets
+# SETUP (run once per task/project)
+ktui board create "Feature Name" --icon ":rocket:" --set-active
+
+# Extract column IDs (REQUIRED - board-specific)
+READY=$(ktui column list --json | jq -r '.[] | select(.name=="Ready") | .column_id')
+DOING=$(ktui column list --json | jq -r '.[] | select(.name=="Doing") | .column_id')
+DONE=$(ktui column list --json | jq -r '.[] | select(.name=="Done") | .column_id')
+
+# Create tasks with dependencies
+ktui task create "Design schema" --column $READY                     # Returns task_id=1
+ktui task create "Implement models" --depends-on 1 --column $READY  # Returns task_id=2
+ktui task create "Create API" --depends-on 2 --column $READY        # Returns task_id=3
+
+# WORK LOOP (automated dependency handling)
+while true; do
+  # Get next unblocked task
+  NEXT=$(ktui task list --actionable --json | jq -r '.[0] | .task_id')
+  [ "$NEXT" = "null" ] && break
+
+  # Execute task
+  ktui task move $NEXT $DOING
+  # === DO THE ACTUAL WORK HERE ===
+  ktui task move $NEXT $DONE
+done
 ```
 
-This:
-1. Installs required npm packages (`@radioactive-labs/plutonium`, TailwindCSS plugins)
-2. Creates `tailwind.config.js` that extends Plutonium's config
-3. Imports Plutonium CSS into your `application.tailwind.css`
-4. Registers Plutonium's Stimulus controllers
-5. Updates Plutonium config to use your assets
+## Critical Rules
 
-## TailwindCSS Configuration
+1. **NEVER launch interactive TUI** - CLI only (use --help, --json, --no-confirm flags)
+2. **Column IDs are board-specific** - Re-extract after EVERY board switch/creation
+3. **Task IDs are globally unique** - Same task_id works across all boards
+4. **Default to --json with jq** - Fallback to text parsing if jq unavailable
+5. **Keep 1 task in Doing at a time** - Complete before starting next
+6. **Use --actionable flag** - Auto-filters blocked tasks
+7. **Mark Done immediately** - Don't batch completions
 
-### Generated Config
+## Core Commands Reference
 
-```javascript
-// tailwind.config.js
-const { execSync } = require('child_process');
-const plutoniumGemPath = execSync("bundle show plutonium").toString().trim();
-const plutoniumTailwindConfig = require(`${plutoniumGemPath}/tailwind.options.js`)
+```bash
+# Board Management
+ktui board create "Name" --icon ":emoji:" --set-active  # Create + activate
+ktui board list [--json]                                # List all boards
+ktui board activate <board_id>                          # Switch active board
 
-module.exports = {
-  darkMode: plutoniumTailwindConfig.darkMode,
-  plugins: [
-    // Add your plugins here
-  ].concat(plutoniumTailwindConfig.plugins),
-  theme: plutoniumTailwindConfig.merge(
-    plutoniumTailwindConfig.theme,
-    {
-      // Your custom theme overrides
-    },
-  ),
-  content: [
-    `${__dirname}/app/**/*.{erb,haml,html,slim,rb}`,
-    `${__dirname}/app/javascript/**/*.js`,
-    `${__dirname}/packages/**/app/**/*.{erb,haml,html,slim,rb}`,
-  ].concat(plutoniumTailwindConfig.content),
+# Column Operations (board-specific IDs)
+ktui column list [--json] [--board]                              # List columns for active board
+
+# Task Operations
+ktui task create "Title" --column <col_id> [--description "Details"] [--depends-on <task_id>]
+ktui task list [--json] [--actionable]                  # --actionable = unblocked only
+ktui task move <task_id> <col_id> [--force]            # Move task between columns
+ktui task update <task_id> --title "New" [--description "Details"]
+ktui task delete <task_id> --no-confirm                # Delete without prompt
+```
+
+## Column ID Rules (Board-Specific)
+
+**Critical concept:** Column IDs are local to each board, NOT global.
+
+```
+Board "Frontend" (ID: 1)          Board "Backend" (ID: 2)
+  ├─ Ready (column_id: 5)           ├─ Ready (column_id: 9)   ← Different ID!
+  ├─ Doing (column_id: 6)           ├─ Doing (column_id: 10)
+  └─ Done  (column_id: 7)           └─ Done  (column_id: 11)
+```
+
+**MUST re-extract column IDs after:**
+- Creating new board with `--set-active`
+- Running `ktui board activate <board_id>`
+- Any board switch operation
+
+### ID Extraction Pattern
+
+```bash
+# With jq (preferred)
+READY=$(ktui column list --json | jq -r '.[] | select(.name=="Ready") | .column_id')
+DOING=$(ktui column list --json | jq -r '.[] | select(.name=="Doing") | .column_id')
+DONE=$(ktui column list --json | jq -r '.[] | select(.name=="Done") | .column_id')
+
+# Without jq (fallback)
+READY=$(ktui column list | grep "Ready" | sed 's/.*ID: \([0-9]*\).*/\1/')
+DOING=$(ktui column list | grep "Doing" | sed 's/.*ID: \([0-9]*\).*/\1/')
+DONE=$(ktui column list | grep "Done" | sed 's/.*ID: \([0-9]*\).*/\1/')
+
+# Validate extraction
+if [ -z "$READY" ] || [ -z "$DOING" ] || [ -z "$DONE" ]; then
+  echo "ERROR: Column ID extraction failed" >&2
+  exit 1
+fi
+```
+
+## Task JSON Structure
+
+```json
+{
+  "task_id": 1,           // Globally unique
+  "title": "Task title",
+  "column": 5,            // Board-specific column ID
+  "description": "...",
+  "blocked_by": [2, 3],   // Tasks that must complete first
+  "blocking": [4, 5],     // Tasks waiting on this one
+  "is_blocked": true,     // Can this task start now?
+  "has_dependents": true, // Will completing this unblock others?
+  "finished": false       // In Done/Archive column?
 }
 ```
 
-### Customizing Colors
+## State Extraction Patterns
 
-Override Plutonium's color palette:
+```bash
+# Get active board ID
+BOARD_ID=$(ktui board list --json | jq -r '.[] | select(.active==true) | .board_id')
 
-```javascript
-// tailwind.config.js
-theme: plutoniumTailwindConfig.merge(
-  plutoniumTailwindConfig.theme,
-  {
-    extend: {
-      colors: {
-        primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',  // Your brand color
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-          950: '#172554',
-        },
-        secondary: {
-          // Your secondary palette
-        },
-      },
-    },
-  },
-),
+# Get next actionable task
+NEXT=$(ktui task list --actionable --json | jq -r '.[0] | .task_id')
+
+# Check if specific task is blocked
+IS_BLOCKED=$(ktui task list --json | jq -r '.[] | select(.task_id==5) | .is_blocked')
+
+# Get tasks blocking task 5
+BLOCKERS=$(ktui task list --json | jq -r '.[] | select(.task_id==5) | .blocked_by[]')
+
+# Verify active board name
+ktui board list --json | jq -r '.[] | select(.active==true) | .name'
 ```
 
-### Default Color Palette
+## Task Naming Standards
 
-Plutonium includes these semantic colors:
+**Use imperative mood (command form):**
 
-| Color | Usage |
-|-------|-------|
-| `primary` | Primary brand color (turquoise by default) |
-| `secondary` | Secondary color (navy by default) |
-| `success` | Success states (green) |
-| `info` | Informational states (blue) |
-| `warning` | Warning states (amber) |
-| `danger` | Error/danger states (red) |
-| `accent` | Accent highlights (coral pink) |
+✅ GOOD:
+- "Implement OAuth login"
+- "Fix memory leak in parser"
+- "Add unit tests for UserService"
+- "Refactor database connection pool"
 
-### Dark Mode
+❌ BAD:
+- "OAuth" (noun, not actionable)
+- "Working on tests" (status description)
+- "The parser issue" (vague)
+- "Fix stuff" (not specific)
 
-Plutonium uses `selector` strategy for dark mode:
+**Break large tasks into dependency chains:**
 
-```javascript
-darkMode: "selector"
+Instead of: "Implement entire authentication system"
+
+Create chain:
+1. "Design auth database schema" (no deps)
+2. "Implement User model" (depends on 1)
+3. "Create auth API endpoints" (depends on 2)
+4. "Add JWT token handling" (depends on 3)
+5. "Write auth integration tests" (depends on 4)
+
+## Standard Agent Workflow
+
+### 1. Setup Phase
+
+```bash
+# Create/activate board
+ktui board create "Feature: User Authentication" --icon ":lock:" --set-active
+
+# Extract column IDs
+READY=$(ktui column list --json | jq -r '.[] | select(.name=="Ready") | .column_id')
+DOING=$(ktui column list --json | jq -r '.[] | select(.name=="Doing") | .column_id')
+DONE=$(ktui column list --json | jq -r '.[] | select(.name=="Done") | .column_id')
+
+# Validate
+[ -z "$READY" ] && echo "ERROR: Column extraction failed" && exit 1
 ```
 
-Toggle dark mode by adding/removing the `dark` class on `<html>`:
+### 2. Task Creation Phase
 
-```javascript
-// Toggle dark mode
-document.documentElement.classList.toggle('dark');
+```bash
+# Parallel tasks (no dependencies)
+ktui task create "Setup test environment" --column $READY
+ktui task create "Create user fixtures" --column $READY
+
+# Sequential dependency chain
+ktui task create "Design schema" --column $READY                      # task_id=1
+ktui task create "Implement models" --depends-on 1 --column $READY   # task_id=2
+ktui task create "Create endpoints" --depends-on 2 --column $READY   # task_id=3
+ktui task create "Add validation" --depends-on 3 --column $READY     # task_id=4
+ktui task create "Write tests" --depends-on 4 --column $READY        # task_id=5
 ```
 
-Plutonium includes a color mode selector component that handles this automatically.
+### 3. Execution Loop
 
-## CSS Imports
+```bash
+while true; do
+  # Get next unblocked task (--actionable filters automatically)
+  NEXT=$(ktui task list --actionable --json | jq -r '.[0] | .task_id')
 
-### Application Stylesheet
+  # Exit when no tasks remain
+  [ "$NEXT" = "null" ] && break
 
-```css
-/* app/assets/stylesheets/application.tailwind.css */
-@import "gem:plutonium/src/css/plutonium.css";
+  # Move to Doing (only 1 task in Doing at a time)
+  ktui task move $NEXT $DOING
 
-@import "tailwindcss";
-@config '../../../tailwind.config.js';
+  # === PERFORM ACTUAL WORK ===
+  # - Read files, write code, run tests
+  # - Only proceed to Done when 100% complete
 
-/* Your custom styles */
+  # Move to Done (immediately after completion)
+  ktui task move $NEXT $DONE
+
+  # Completion automatically unblocks dependent tasks
+done
+
+# Inform user
+echo "All tasks completed successfully"
 ```
 
-### What Plutonium CSS Includes
+## Error Handling
 
-- Core utility classes
-- EasyMDE (markdown editor) styles
-- Slim Select styles
-- International telephone input styles
-- Flatpickr (date picker) styles
+### Command Not Found
 
-## Component Themes
-
-Plutonium components use a theme system based on Phlexi. Each component type has a theme class with named style tokens.
-
-### Form Theme
-
-```ruby
-class PostDefinition < ResourceDefinition
-  class Form < Form
-    class Theme < Plutonium::UI::Form::Theme
-      def self.theme
-        super.merge({
-          # Container
-          base: "bg-white dark:bg-gray-800 shadow-md rounded-lg p-6",
-          fields_wrapper: "grid grid-cols-2 gap-6",
-          actions_wrapper: "flex justify-end mt-6 space-x-2",
-
-          # Labels
-          label: "block mb-2 text-base font-bold",
-          invalid_label: "text-red-700 dark:text-red-500",
-          valid_label: "text-green-700 dark:text-green-500",
-          neutral_label: "text-gray-500 dark:text-gray-400",
-
-          # Inputs
-          input: "w-full p-2 border rounded-md shadow-sm",
-          invalid_input: "bg-red-50 border-red-500 text-red-900",
-          valid_input: "bg-green-50 border-green-500 text-green-900",
-          neutral_input: "border-gray-300 dark:border-gray-600",
-
-          # Hints & Errors
-          hint: "mt-2 text-sm text-gray-500",
-          error: "mt-2 text-sm text-red-600",
-
-          # Buttons
-          button: "px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700",
-        })
-      end
-    end
-  end
-end
+```bash
+# Try ktui directly
+if ! command -v ktui &> /dev/null; then
+  # Try uvx wrapper
+  if command -v uvx &> /dev/null; then
+    alias ktui="uvx kanban-tui"
+  else
+    # Inform user and fallback
+    echo "kanban-tui not available. Install: pipx install kanban-tui"
+    echo "Falling back to TodoWrite for this session."
+    exit 1
+  fi
+fi
 ```
 
-### Display Theme
+### Column Not Found
 
-```ruby
-class PostDefinition < ResourceDefinition
-  class Display < Display
-    class Theme < Plutonium::UI::Display::Theme
-      def self.theme
-        super.merge({
-          fields_wrapper: "grid grid-cols-3 gap-8",
-          label: "text-sm font-bold text-gray-500 mb-1",
-          string: "text-lg text-gray-900 dark:text-white",
-          link: "text-primary-600 hover:underline",
-          markdown: "prose dark:prose-invert max-w-none",
-        })
-      end
-    end
-  end
-end
+```bash
+# Symptom: "Error: Column ID X does not exist"
+# Cause: Wrong board active OR stale column IDs
+# Fix: Re-extract column IDs
+READY=$(ktui column list --json | jq -r '.[] | select(.name=="Ready") | .column_id')
+
+# Verify correct board is active
+ktui board list --json | jq -r '.[] | select(.active==true) | .name'
 ```
 
-### Table Theme
+### Task Blocked
 
-```ruby
-class PostDefinition < ResourceDefinition
-  class Table < Table
-    class Theme < Plutonium::UI::Table::Theme
-      def self.theme
-        super.merge({
-          wrapper: "overflow-x-auto shadow-md rounded-lg",
-          base: "w-full text-sm text-gray-500",
-          header: "text-xs uppercase bg-gray-100 dark:bg-gray-700",
-          header_cell: "px-6 py-3",
-          body_row: "bg-white border-b dark:bg-gray-800",
-          body_cell: "px-6 py-4",
-        })
-      end
-    end
-  end
-end
+```bash
+# Symptom: "Error: Task X is blocked by tasks [Y, Z]"
+# Option 1: Complete blocking tasks first (PREFERRED)
+BLOCKERS=$(ktui task list --json | jq -r '.[] | select(.task_id==5) | .blocked_by[]')
+# Work through blockers sequentially
+
+# Option 2: Use --force (ONLY with user authorization)
+# Inform user: "Task 5 blocked by tasks [2, 3]. User approved --force override."
+ktui task move 5 $DOING --force
 ```
 
-### Theme Keys Reference
+### jq Not Available
 
-#### Form Theme Keys
+```bash
+if ! command -v jq &> /dev/null; then
+  # Use text parsing fallback
+  READY=$(ktui column list | grep "Ready" | sed 's/.*ID: \([0-9]*\).*/\1/')
 
-| Key | Description |
-|-----|-------------|
-| `base` | Form container |
-| `fields_wrapper` | Grid wrapper for fields |
-| `actions_wrapper` | Submit button container |
-| `wrapper` | Individual field wrapper |
-| `inner_wrapper` | Inner field wrapper |
-| `label` | Label base styles |
-| `invalid_label` | Label when field invalid |
-| `valid_label` | Label when field valid |
-| `neutral_label` | Label default state |
-| `input` | Input base styles |
-| `invalid_input` | Input when invalid |
-| `valid_input` | Input when valid |
-| `neutral_input` | Input default state |
-| `hint` | Hint text |
-| `error` | Error message |
-| `button` | Submit button |
-| `checkbox` | Checkbox input |
-| `select` | Select dropdown |
-
-#### Display Theme Keys
-
-| Key | Description |
-|-----|-------------|
-| `fields_wrapper` | Grid wrapper |
-| `label` | Field label |
-| `description` | Field description |
-| `string` | String values |
-| `text` | Text values |
-| `link` | URL links |
-| `email` | Email links |
-| `phone` | Phone links |
-| `markdown` | Markdown content |
-| `json` | JSON display |
-
-#### Table Theme Keys
-
-| Key | Description |
-|-----|-------------|
-| `wrapper` | Table container |
-| `base` | Table element |
-| `header` | Header row |
-| `header_cell` | Header cell |
-| `body_row` | Body row |
-| `body_cell` | Body cell |
-| `sort_icon` | Sort indicator |
-
-## Using Tokens in Components
-
-### The `tokens` Helper
-
-Conditionally apply classes:
-
-```ruby
-class MyComponent < Plutonium::UI::Component::Base
-  def initialize(active:)
-    @active = active
-  end
-
-  def view_template
-    div(class: tokens(
-      "base-class",
-      active?: "bg-primary-500 text-white",
-      inactive?: "bg-gray-200 text-gray-700"
-    )) {
-      "Content"
-    }
-  end
-
-  private
-
-  def active? = @active
-  def inactive? = !@active
-end
+  # Or inform user
+  echo "Recommend installing jq for better parsing:"
+  echo "  macOS: brew install jq"
+  echo "  Linux: apt install jq"
+fi
 ```
 
-### The `classes` Helper
+## Validation Checkpoints
 
-Returns a hash suitable for splatting:
+### After Board Creation/Switch
 
-```ruby
-div(**classes("p-4", "rounded", active?: "ring-2")) { }
-# => <div class="p-4 rounded ring-2">
+```bash
+# Re-extract column IDs (MANDATORY)
+READY=$(ktui column list --json | jq -r '.[] | select(.name=="Ready") | .column_id')
+DOING=$(ktui column list --json | jq -r '.[] | select(.name=="Doing") | .column_id')
+DONE=$(ktui column list --json | jq -r '.[] | select(.name=="Done") | .column_id')
+
+# Verify active board
+ACTIVE=$(ktui board list --json | jq -r '.[] | select(.active==true) | .name')
+echo "Active board: $ACTIVE"
 ```
 
-### Conditional Tokens with Hash
+### Before Task Move
 
-```ruby
-tokens(
-  "base",
-  condition?: { then: "if-true", else: "if-false" }
-)
+```bash
+# If not using --actionable, check blocked status
+IS_BLOCKED=$(ktui task list --json | jq -r '.[] | select(.task_id==5) | .is_blocked')
+
+if [ "$IS_BLOCKED" = "true" ]; then
+  BLOCKERS=$(ktui task list --json | jq -r '.[] | select(.task_id==5) | .blocked_by[]')
+  echo "Task 5 blocked by: $BLOCKERS"
+  # Complete blockers first OR get user approval for --force
+fi
 ```
 
-## Stimulus Controllers
+### Before Marking Done
 
-Plutonium includes Stimulus controllers. Register them in your application:
+**Only mark Done when:**
+- Implementation is 100% complete
+- Tests pass (if applicable)
+- No errors or warnings
+- Task requirements fully met
 
-```javascript
-// app/javascript/controllers/index.js
-import { application } from "./application"
+**If incomplete:**
+- Keep in Doing
+- Inform user of blockers/issues
+- NEVER mark Done prematurely
 
-import { registerControllers } from "@radioactive-labs/plutonium"
-registerControllers(application)
+## Force Flag Protocol
 
-// Your custom controllers...
+### NEVER use --force to:
+- Skip prerequisite work
+- Hide dependency problems
+- Rush through incomplete tasks
+
+### ONLY use --force when:
+- User explicitly authorizes: "User approved --force for task 5"
+- Blocking task deleted/obsolete: "Task 3 deleted, unblocking task 5"
+- Documented reason: "Design changed, old blocker no longer relevant"
+
+### When using --force, ALWAYS:
+1. Inform user which task was force-moved
+2. List what blocked it (task IDs/titles)
+3. Explain why override was necessary
+4. Ask user if uncertain
+
+## User Communication
+
+### Inform User When:
+- Board created/switched (name, column count)
+- Task blocked by dependencies (list blocking task IDs)
+- Using --force flag (explain reason)
+- Error encountered (provide fix steps)
+- All tasks completed (summary)
+- ktui unavailable (installation instructions)
+
+### Work Silently When:
+- Moving tasks between columns (routine ops)
+- Extracting IDs (internal state)
+- Validating state (automated checks)
+
+### Never:
+- Hide errors to "keep working"
+- Mark incomplete tasks as Done
+- Use --force without justification
+- Create vague task names
+
+## Anti-Patterns
+
+❌ **Caching column IDs across boards** - IDs are board-specific
+❌ **Hardcoding IDs** - `ktui task move 5 7` (unmaintainable)
+❌ **Skipping validation** - Always check command success
+❌ **Batch completing tasks** - Mark Done immediately after completion
+❌ **Vague task titles** - Must be specific and actionable
+❌ **Launching interactive TUI** - Use CLI flags only
+❌ **Multiple tasks in Doing** - Complete current task first
+
+## Quick Troubleshooting
+
+| Symptom | Diagnosis | Fix |
+|---------|-----------|-----|
+| "Column not found" | Wrong board active or stale IDs | `ktui column list --json \| jq ...` |
+| "Task is blocked" | Dependencies not complete | Check: `jq '.[] \| select(.task_id==X) \| .blocked_by'` |
+| "Board not active" | No active board set | `ktui board activate <board_id>` |
+| "Command not found" | ktui not installed | Try `uvx kanban-tui` or inform user |
+| JSON parse fails | Missing --json flag | Add --json, check jq installed |
+| Tasks not showing | Wrong board active | Verify: `ktui board list --json` |
+
+## Success Indicators
+
+Commands return exit codes:
+- **0** = Success
+- **Non-zero** = Error (check stderr)
+
+Always check exit codes for critical operations:
+```bash
+if ! ktui task move 5 $DONE; then
+  echo "Failed to move task 5 to Done" >&2
+  # Diagnose: Is it blocked? Wrong column ID? Wrong board?
+  IS_BLOCKED=$(ktui task list --json | jq -r '.[] | select(.task_id==5) | .is_blocked')
+  echo "Task blocked: $IS_BLOCKED"
+fi
 ```
 
-### Available Controllers
+## Complete Example: Feature Implementation
 
-- `color-mode` - Dark/light mode toggle
-- `form` - Form handling (pre-submit, etc.)
-- `nested-resource-form-fields` - Nested form management
-- `slim-select` - Enhanced select boxes
-- `flatpickr` - Date/time pickers
-- `easymde` - Markdown editor
-- Various UI controllers
+```bash
+# 1. SETUP
+ktui board create "Feature: API Rate Limiting" --icon ":stopwatch:" --set-active
+READY=$(ktui column list --json | jq -r '.[] | select(.name=="Ready") | .column_id')
+DOING=$(ktui column list --json | jq -r '.[] | select(.name=="Doing") | .column_id')
+DONE=$(ktui column list --json | jq -r '.[] | select(.name=="Done") | .column_id')
 
-## Custom Stimulus Controllers
+# 2. CREATE TASK CHAIN
+ktui task create "Design rate limit config schema" --column $READY                    # ID: 1
+ktui task create "Implement RateLimiter middleware" --depends-on 1 --column $READY   # ID: 2
+ktui task create "Add Redis caching for limits" --depends-on 2 --column $READY       # ID: 3
+ktui task create "Create rate limit API endpoints" --depends-on 3 --column $READY    # ID: 4
+ktui task create "Write integration tests" --depends-on 4 --column $READY            # ID: 5
+ktui task create "Update API documentation" --depends-on 5 --column $READY           # ID: 6
 
-Add your own controllers alongside Plutonium's:
+# 3. EXECUTE (automatic dependency handling)
+while true; do
+  NEXT=$(ktui task list --actionable --json | jq -r '.[0] | .task_id')
+  [ "$NEXT" = "null" ] && break
 
-```javascript
-// app/javascript/controllers/custom_controller.js
-import { Controller } from "@hotwired/stimulus"
+  ktui task move $NEXT $DOING
+  # Agent performs implementation work here
+  ktui task move $NEXT $DONE
+done
 
-export default class extends Controller {
-  connect() {
-    console.log("Custom controller connected")
-  }
-}
+echo "Feature complete: API Rate Limiting (6 tasks)"
 ```
 
-Register in your index:
+## Summary
 
-```javascript
-import CustomController from "./custom_controller"
-application.register("custom", CustomController)
-```
+1. **Choose Tool**: Use kanban-tui for >5 steps OR dependencies; TodoWrite for simple tasks
+2. **Setup**: Create board → Extract column IDs → Validate
+3. **Plan**: Create tasks with imperative titles + dependencies
+4. **Execute**: Loop through --actionable tasks → Doing → Work → Done
+5. **Validate**: Re-extract IDs after board switches, check exit codes
+6. **Communicate**: Inform user at checkpoints, explain --force usage
+7. **Persist**: Board survives across sessions for long-running work
 
-## Typography
+**Benefits over TodoWrite:**
+- Dependency tracking prevents ordering errors
+- Persistent state across sessions
+- Automatic blocking/unblocking
+- Better for complex multi-step implementations
 
-Plutonium uses Lato font by default. The layout loads it from Google Fonts.
-
-Override in your layout:
-
-```ruby
-class MyLayout < Plutonium::UI::Layout::ResourceLayout
-  def render_fonts
-    # Your custom fonts
-    link(rel: "preconnect", href: "https://fonts.googleapis.com")
-    link(href: "https://fonts.googleapis.com/css2?family=Inter&display=swap", rel: "stylesheet")
-  end
-end
-```
-
-Update Tailwind config:
-
-```javascript
-theme: {
-  fontFamily: {
-    'body': ['Inter', 'sans-serif'],
-    'sans': ['Inter', 'sans-serif'],
-  }
-}
-```
-
-## Related Skills
-
-- `views` - Layout customization
-- `forms` - Form theming
-- `installation` - Initial setup
+<!-- Version: KANBAN_TUI_VERSION -->

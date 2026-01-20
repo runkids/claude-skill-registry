@@ -1,7 +1,7 @@
 {
   "name": "project-development",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/project-development/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-19T04:05:41.560545Z"
+  "repo": "freitasp1/claude-code-skills",
+  "path": "skills/project-development/SKILL.md",
+  "source": "github.com/freitasp1/claude-code-skills",
+  "downloaded_at": "2026-01-20T03:35:35.385335Z"
 }

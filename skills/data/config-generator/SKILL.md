@@ -1,762 +1,768 @@
 ---
-name: config-generator
-description: Generate master configuration files in ai-state/config that map web app use cases, code components, and user interactions to their corresponding config structure, enabling rapid discovery and AI-driven propagation
-tier: Tier 1 - Core Foundation
+name: "GitLab Stack Config Generator"
+description: "Generates service-specific configuration files for GitLab stack projects in ./config directory, using .env as the primary configuration source. Creates nginx, PostgreSQL, Redis, and custom service configs with strict validation for secrets, paths, and Docker best practices. Use when setting up service configurations, creating config templates, or ensuring configs follow stack patterns."
 ---
 
-# Config Generator Skill
+# GitLab Stack Config Generator
 
-## Purpose
+This skill generates and manages service-specific configuration files for GitLab stack projects, ensuring configurations follow proper patterns, use .env for all variables, and never contain secrets.
 
-Generates master configuration files that define the structure, components, relationships, and interdependencies for web application features. These configs serve as single sources of truth that enable:
+## When to Use This Skill
 
-1. **Human rapid discovery** - Quickly understand what's touched or impacted by a given set of documents or events
-2. **AI systematic propagation** - Enable AI agents to propagate changes across all affected parts of the system
-3. **Bidirectional sync** - Keep documentation and implementation synchronized
+Activate this skill when the user requests:
+- Generate configuration files for services (nginx, PostgreSQL, Redis, etc.)
+- Create config templates for new services
+- Set up ./config directory structure
+- Validate existing configuration files
+- Ensure configs use .env variables correctly
+- Check that configs don't contain secrets
+- Set up project meta files (CLAUDE.md, .gitignore, .dockerignore)
+- Sync .env and .env.example
 
-## When to Use
+## Core Configuration Principles
 
-Invoke this skill when you need to create a configuration document for:
-- A new feature or use case in a web application
-- A set of code components that work together
-- User interaction flows that span multiple parts of the system
-- Any complex operation that involves multiple files, APIs, or components
+**CRITICAL RULES**:
 
-## Tier
+1. **./env is Configuration Source**: All configuration variables in .env (NOT in config files)
+2. **No Secrets in Configs**: NEVER put secrets in configuration files (use secrets-manager)
+3. **Service Directories**: Each service gets `./config/service-name/` directory
+4. **Flat Inside Service**: Config files flat inside service directory
+5. **.env Sync**: .env and .env.example MUST always match
+6. **Path Validation**: All referenced paths must exist
+7. **Docker Validation**: Use docker-validation skill for Docker configs
+8. **Project Meta Files**: CLAUDE.md, .gitignore, .dockerignore required
 
-**Tier 1** - Core Foundation (used during planning and implementation phases)
+## Configuration Workflow
 
-## Input Parameters
+### Phase 1: Understanding Requirements
 
-The skill expects one or more of the following:
+**Step 1: Determine What to Generate**
 
-### 1. Use Case Input
-```yaml
-use_case:
-  name: "user-authentication-flow"
-  description: "Complete user authentication including registration, login, password reset"
-  user_role: "end-user"
-  entry_points: ["registration page", "login page", "forgot password link"]
-  success_criteria: "User can register, login, and reset password securely"
-```
+Ask the user (or infer):
+- Which services need configuration?
+- New configs or updating existing?
+- Production, development, or both?
+- Which templates to use (if any)?
 
-### 2. Code Components Input
-```yaml
-code_components:
-  - type: "api-endpoint"
-    path: "backend/api/auth/register.py"
-    purpose: "Handle user registration"
-    dependencies: ["database/models/user.py", "utils/email_validator.py"]
+**Step 2: Check Current State**
 
-  - type: "component"
-    path: "frontend/components/LoginForm.tsx"
-    purpose: "User login UI"
-    dependencies: ["api/auth.ts", "hooks/useAuth.ts"]
+1. Does ./config directory exist?
+2. Does .env exist?
+3. Does .env.example exist?
+4. Do service directories already exist?
+5. Are meta files present (CLAUDE.md, .gitignore, .dockerignore)?
 
-  - type: "database-model"
-    path: "backend/models/user.py"
-    purpose: "User data schema"
-    dependencies: []
-```
+### Phase 2: Directory Structure Setup
 
-### 3. User Interaction Input
-```yaml
-user_interaction:
-  user_type: "authenticated-user"
-  interaction_name: "task-management-workflow"
-  steps:
-    - action: "Create new task"
-      triggers: ["POST /api/tasks"]
-      ui_components: ["TaskForm.tsx", "TaskList.tsx"]
-
-    - action: "Update task status"
-      triggers: ["PATCH /api/tasks/:id"]
-      ui_components: ["TaskCard.tsx"]
-
-    - action: "Delete task"
-      triggers: ["DELETE /api/tasks/:id"]
-      ui_components: ["TaskCard.tsx", "DeleteConfirmModal.tsx"]
-```
-
-## Process
-
-### Step 1: Analyze Input
-
-**Parse and understand what's being configured:**
-
-For use cases:
-- Identify all user roles involved
-- Map user journeys and interaction points
-- Determine success/failure paths
-- List affected systems (frontend, backend, database, external services)
-
-For code components:
-- Build dependency graph
-- Identify circular dependencies
-- Map data flow (request → response)
-- Categorize by context (backend, frontend, test, deployment)
-
-For user interactions:
-- Map UI to API to data layer
-- Identify state changes
-- List side effects (emails, notifications, logs)
-- Determine rollback/error handling needs
-
-### Step 2: Discover Related Files
-
-**Systematically search the codebase:**
+**Step 1: Create ./config Directory**
 
 ```bash
-# Find related backend files
-find . -path "./backend/*" -name "*{keyword}*"
-
-# Find related frontend files
-find . -path "./frontend/*" -name "*{keyword}*"
-
-# Find related tests
-find . -path "./tests/*" -name "*{keyword}*" -o -path "*/regressions/*" -name "*{keyword}*"
-
-# Search for API endpoints
-grep -r "api/{endpoint}" --include="*.py" --include="*.ts" --include="*.js"
-
-# Search for component usage
-grep -r "import.*{ComponentName}" --include="*.tsx" --include="*.ts" --include="*.jsx"
+mkdir -p ./config
+chmod 755 ./config
 ```
 
-**Build complete inventory of:**
-- All files that must be created
-- All files that must be modified
-- All tests that must be written
-- All documentation that must be updated
+**Step 2: Create Service Directories**
 
-### Step 3: Map Relationships
+For each service (e.g., nginx, postgres, redis):
 
-**Create relationship matrix showing:**
-
-**File-to-File Dependencies:**
-```
-Component A → imports → Component B
-API Endpoint → calls → Database Model
-Frontend Hook → fetches from → API Route
+```bash
+mkdir -p ./config/nginx
+mkdir -p ./config/postgres
+mkdir -p ./config/redis
+chmod 755 ./config/*
 ```
 
-**Event-to-Impact Mapping:**
+**Directory Structure**:
 ```
-When: User clicks "Create Task"
-Then:
-  - Frontend: TaskForm.tsx validates input
-  - API: POST /api/tasks endpoint called
-  - Backend: TaskController.create() invoked
-  - Database: tasks table INSERT
-  - State: Redux store updated
-  - UI: TaskList.tsx re-renders
-  - Side Effects: Notification sent
-```
-
-**Change-Propagation Paths:**
-```
-If: tasks table schema changes
-Then propagate to:
-  - backend/models/task.py (update model)
-  - backend/migrations/ (create migration)
-  - backend/api/tasks.py (update serialization)
-  - frontend/types/task.ts (update TypeScript types)
-  - frontend/components/TaskForm.tsx (update form fields)
-  - tests/backend/test_tasks.py (update test fixtures)
-  - tests/frontend/TaskForm.test.tsx (update component tests)
-  - ai-state/regressions/backend/test_tasks_regression.py
+./config/
+├── nginx/
+│   ├── nginx.conf
+│   ├── ssl/
+│   │   └── (SSL configs, not certificates)
+│   └── conf.d/
+│       └── default.conf
+├── postgres/
+│   ├── postgresql.conf
+│   └── init.sql
+├── redis/
+│   └── redis.conf
+└── app/
+    └── settings.yml
 ```
 
-### Step 4: Define Configuration Structure
+**Principles**:
+- One directory per service
+- Flat structure inside each service directory
+- Subdirectories only when logically needed (e.g., nginx/ssl/, nginx/conf.d/)
 
-**Create hierarchical structure matching the pattern:**
+### Phase 3: Meta Files Generation
+
+**CRITICAL**: Always ensure these files exist
+
+**Step 1: Generate CLAUDE.md**
+
+Create `CLAUDE.md` in project root:
 
 ```markdown
-# {Feature/UseCase} Configuration Reference
+# CLAUDE.md
 
-**Version:** 1.0 | **Updated:** {date} | **System:** Khujta Sphere Framework
+This file provides guidance when working with code in this repository.
 
-> **Purpose:** Master configuration for {feature} that defines structure, components, and relationships. Enables rapid discovery for humans and systematic propagation for AI.
+## Repository Purpose
+
+[Brief description of the stack project]
+
+## Stack Architecture
+
+This is a GitLab stack project following these principles:
+
+- **Configuration**: All variables in .env, configs in ./config
+- **Secrets**: All secrets in ./secrets via Docker secrets
+- **Structure**: Standard directories (./config, ./secrets, ./_temporary)
+- **Docker**: Modern Docker Compose (no version field)
+- **Ownership**: No root-owned files
+
+## Working with This Stack
+
+### Configuration Files
+
+All service configurations are in `./config/[service-name]/` directories.
+Configuration values are loaded from `.env` file.
+
+### Environment Variables
+
+- `.env` contains all configuration (NOT secrets)
+- `.env.example` must match `.env` exactly (critical requirement)
+- Update both files when adding new variables
+
+### Secrets Management
+
+All secrets are managed via Docker secrets:
+- Location: `./secrets/` directory
+- Never in .env or docker-compose.yml
+- Use secrets-manager skill for secret operations
+
+### Docker Commands
+
+```bash
+# Start stack
+docker compose up -d
+
+# View logs
+docker compose logs -f
+
+# Stop stack
+docker compose down
+```
+
+## Important Rules
+
+### Git Commits
+
+**CRITICAL**: When creating commit messages, NEVER mention "Claude" or "Claude Code" in the commit message.
+
+Good commit messages:
+- "Add nginx configuration for SSL termination"
+- "Update PostgreSQL settings for production"
+- "Fix Redis persistence configuration"
+
+Bad commit messages:
+- "Claude added nginx config"  ❌
+- "Asked Claude to update settings"  ❌
+
+### File Permissions
+
+All files must be owned by the current user (not root):
+```bash
+# Check ownership
+find . -user root -type f
+
+# Fix if needed
+sudo chown -R $(id -u):$(id -g) .
+```
+
+### Validation
+
+Before deployment, always run:
+```bash
+# Validate entire stack
+[validation command]
+
+# Check secrets
+[secrets validation command]
+```
+
+## Directory Structure
+
+```
+./
+├── docker-compose.yml      # Main compose file (NO version field)
+├── .env                    # Configuration variables
+├── .env.example            # Template (must match .env)
+├── CLAUDE.md               # This file
+├── .gitignore              # Git exclusions
+├── .dockerignore           # Docker build exclusions
+├── config/                 # Service configurations
+│   ├── nginx/
+│   ├── postgres/
+│   └── redis/
+├── secrets/                # Docker secrets (NOT in git)
+│   └── .gitkeep
+└── _temporary/             # Transient files (NOT in git)
+```
+
+## Skills Available
+
+- **stack-validator**: Validate entire stack before deployment
+- **secrets-manager**: Manage Docker secrets securely
+- **config-generator**: Generate/update service configurations
+- **docker-validation**: Validate Docker configs
 
 ---
 
-## Quick Reference
-
-| Aspect | Value | Code Location |
-|--------|-------|---------------|
-| **Feature Entry Point** | {main UI component or API} | {file path} |
-| **Backend Handler** | {controller/service} | {file path} |
-| **Database Models** | {model names} | {file paths} |
-| **Frontend Components** | {component names} | {file paths} |
-| **Test Coverage** | {test locations} | {file paths} |
-| **Related Docs** | {documentation} | {doc paths} |
-
----
-
-## Components Involved
-
-### Component 1: {Name}
-
-**Location:** `{file path}`
-
-**Purpose:** {What this component does}
-
-**Type:** {API endpoint | UI component | Database model | Service | Utility}
-
-**Dependencies:**
-- {dependency 1} - {file path} - {why needed}
-- {dependency 2} - {file path} - {why needed}
-
-**Used By:**
-- {dependent 1} - {file path} - {how it's used}
-- {dependent 2} - {file path} - {how it's used}
-
-**Key Exports:**
-```typescript
-// For TS/JS components
-export function functionName(params): ReturnType
-export interface TypeName { ... }
+*Last updated: [date]*
 ```
 
-```python
-# For Python components
-def function_name(params) -> ReturnType:
-class ClassName:
+**Step 2: Generate/Update .gitignore**
+
+```gitignore
+# Secrets - NEVER commit
+/secrets/
+/secrets/*
+!secrets/.gitkeep
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary
+/_temporary/
+/_temporary/*
+
+# Docker
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+dist/
+build/
+node_modules/
+vendor/
+
+# Backup files
+*.backup
+*.old
+*.bak
 ```
 
-**Propagation:**
-| Change Type | Files to Update | What to Change |
-|-------------|-----------------|----------------|
-| Add field | {list of files} | {specific changes needed} |
-| Modify validation | {list of files} | {specific changes needed} |
-| Change API contract | {list of files} | {specific changes needed} |
+**Step 3: Generate .dockerignore**
 
-**Code Reference:**
-- Main implementation: [{file}:{line_start}-{line_end}]({relative_path}#L{line_start}-L{line_end})
-- Tests: [{test_file}:{line_start}-{line_end}]({relative_path}#L{line_start}-L{line_end})
+```dockerignore
+# Git
+.git/
+.gitignore
 
----
+# Environment
+.env
+.env.*
 
-## Use Case Flow
+# Secrets
+secrets/
 
-### Flow 1: {User Action Name}
+# Temporary
+_temporary/
 
-**Trigger:** {What initiates this flow - user action, API call, scheduled job}
+# Documentation
+*.md
+CLAUDE.md
 
-**Actor:** {User type or system component}
+# IDE
+.vscode/
+.idea/
 
-**Steps:**
+# OS
+.DS_Store
+Thumbs.db
 
-1. **{Step Name}** - {Description}
-   - Files involved: {list}
-   - Data transformations: {input → output}
-   - Validation rules: {list}
-   - Error conditions: {list}
+# Dependencies (if not needed in build)
+node_modules/
+vendor/
 
-2. **{Step Name}** - {Description}
-   - Files involved: {list}
-   - Data transformations: {input → output}
-   - Side effects: {emails, logs, notifications}
-   - Success criteria: {what success looks like}
-
-**Sequence Diagram:**
-```mermaid
-sequenceDiagram
-    participant User
-    participant Frontend as {Component}
-    participant API as {Endpoint}
-    participant Service as {Service}
-    participant DB as {Database}
-
-    User->>Frontend: {action}
-    Frontend->>API: {HTTP method} {endpoint}
-    API->>Service: {method call}
-    Service->>DB: {query}
-    DB-->>Service: {result}
-    Service-->>API: {response data}
-    API-->>Frontend: {HTTP response}
-    Frontend-->>User: {UI update}
+# Logs
+*.log
+logs/
 ```
 
-**Error Handling:**
-| Error Condition | Where Caught | User Message | Logged As |
-|-----------------|--------------|--------------|-----------|
-| {error 1} | {file:line} | {message} | {log level + details} |
-| {error 2} | {file:line} | {message} | {log level + details} |
+### Phase 4: Service Configuration Generation
 
-**Rollback Strategy:**
-- {What happens on failure}
-- {How to undo partial changes}
-- {Transaction boundaries}
+**Common Services**: nginx, PostgreSQL, Redis
 
----
+For each service, follow this pattern:
 
-## Data Flow
+**Step 1: Determine Configuration Needs**
 
-### Data Model: {Entity Name}
+Ask user:
+- Use template or custom?
+- Which features to enable?
+- Production or development settings?
 
-**Database Schema:**
-```sql
-CREATE TABLE {table_name} (
-  {field}: {type} {constraints},
-  ...
-);
-```
+**Step 2: Identify Required .env Variables**
 
-**Backend Model:**
-```python
-class {ModelName}:
-    {field}: {type}  # {description}
-```
+For each service, list all .env variables needed:
 
-**Frontend Type:**
-```typescript
-interface {TypeName} {
-  {field}: {type};  // {description}
+Example for nginx:
+- NGINX_PORT
+- NGINX_HOST
+- NGINX_SSL_ENABLED
+- APP_HOST
+- APP_PORT
+
+**Step 3: Generate Configuration File**
+
+**CRITICAL**: Use environment variable placeholders (`${VAR_NAME}`)
+
+Example nginx.conf:
+```nginx
+# Nginx Configuration
+# Loads variables from .env
+
+upstream app {
+    server ${APP_HOST}:${APP_PORT};
+}
+
+server {
+    listen ${NGINX_PORT};
+    server_name ${NGINX_HOST};
+
+    # SSL configuration
+    # SSL certificates loaded from Docker secrets
+    # ssl_certificate /run/secrets/ssl_cert;
+    # ssl_certificate_key /run/secrets/ssl_key;
+
+    location / {
+        proxy_pass http://app;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
 }
 ```
 
-**Transformations:**
+**Step 4: Update .env**
 
-| Layer | Format | Location | Notes |
-|-------|--------|----------|-------|
-| Database | SQL row | {table} | {constraints} |
-| Backend Model | Python object | {model file} | {ORM details} |
-| API Response | JSON | {endpoint} | {serialization} |
-| Frontend Type | TypeScript | {type file} | {validation} |
+Add all required variables:
 
-**Propagation - Schema Change:**
-| Change | Impact Files | Required Updates |
-|--------|--------------|------------------|
-| Add field | {list all files} | {specific changes per file} |
-| Rename field | {list all files} | {specific changes per file} |
-| Change type | {list all files} | {specific changes per file} |
-| Add constraint | {list all files} | {specific changes per file} |
-
----
-
-## Testing Requirements
-
-### Test Coverage Map
-
-**Backend Tests:**
-| Test Type | File Location | What's Tested | Required Tests |
-|-----------|---------------|---------------|----------------|
-| Unit | {path} | {component} | {list} |
-| Integration | {path} | {flow} | {list} |
-| Regression | ai-state/regressions/backend/ | {critical paths} | {list} |
-
-**Frontend Tests:**
-| Test Type | File Location | What's Tested | Required Tests |
-|-----------|---------------|---------------|----------------|
-| Component | {path} | {component} | {list} |
-| Integration | {path} | {user flow} | {list} |
-| E2E | {path} | {full workflow} | {list} |
-| Regression | ai-state/regressions/frontend/ | {critical paths} | {list} |
-
-**Test Data:**
-```yaml
-fixtures:
-  - name: {fixture_name}
-    location: {path}
-    purpose: {what it's for}
-    data: {sample data structure}
-```
-
----
-
-## Configuration & Environment
-
-**Environment Variables:**
 ```bash
-# Required for this feature
-{VAR_NAME}={description}
-{VAR_NAME}={description}
+# Nginx Configuration
+NGINX_PORT=80
+NGINX_HOST=localhost
+NGINX_SSL_ENABLED=false
+APP_HOST=app
+APP_PORT=8080
 ```
 
-**Feature Flags:**
+**Step 5: Update .env.example**
+
+**CRITICAL**: Must match .env exactly:
+
+```bash
+# Nginx Configuration
+NGINX_PORT=80
+NGINX_HOST=localhost
+NGINX_SSL_ENABLED=false
+APP_HOST=app
+APP_PORT=8080
+```
+
+**Step 6: Update docker-compose.yml**
+
+Add volume mount for config:
+
 ```yaml
-feature_flags:
-  - name: {flag_name}
-    default: {true|false}
-    purpose: {what it controls}
-    files_affected: [{list}]
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "${NGINX_PORT}:80"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    environment:
+      # Variables loaded from .env automatically
+      NGINX_HOST: ${NGINX_HOST}
+      APP_HOST: ${APP_HOST}
+      APP_PORT: ${APP_PORT}
 ```
 
-**External Dependencies:**
-| Dependency | Version | Purpose | Fallback Strategy |
-|------------|---------|---------|-------------------|
-| {library} | {version} | {why needed} | {what if unavailable} |
+### Phase 5: Configuration Validation
+
+**Step 1: Syntax Validation**
+
+For each config file type:
+
+**Nginx**:
+```bash
+# Test nginx config
+docker run --rm -v $(pwd)/config/nginx:/etc/nginx:ro nginx:alpine nginx -t
+```
+
+**PostgreSQL**:
+```bash
+# Check SQL syntax
+# Parse init.sql for syntax errors
+```
+
+**Redis**:
+```bash
+# Test redis config
+docker run --rm -v $(pwd)/config/redis:/usr/local/etc/redis:ro redis:alpine redis-server --test-memory 1024
+```
+
+**Step 2: Secret Detection** (CRITICAL)
+
+Scan all config files for secrets:
+
+```bash
+# Check for common secret patterns
+grep -r -iE "(password|secret|key|token|api_key)" ./config/
+
+# If found, this is CRITICAL SECURITY ISSUE
+# Must use secrets-manager to fix
+```
+
+**Step 3: Path Validation**
+
+Check that all referenced paths exist:
+
+1. Config files reference other files?
+2. Volume mounts in docker-compose.yml?
+3. All paths exist?
+
+**Step 4: .env Synchronization** (CRITICAL)
+
+```bash
+# Extract variable names from .env
+env_vars=$(grep -E "^[A-Z_]+" .env | cut -d'=' -f1 | sort)
+
+# Extract from .env.example
+example_vars=$(grep -E "^[A-Z_]+" .env.example | cut -d'=' -f1 | sort)
+
+# Compare
+diff <(echo "$env_vars") <(echo "$example_vars")
+
+# If any difference, this is CRITICAL ERROR
+```
+
+**Step 5: Docker Validation**
+
+**CRITICAL**: Use docker-validation skill:
+
+```
+"Validate docker-compose.yml using docker-validation skill"
+```
+
+Address all findings before completing.
+
+### Phase 6: Template Selection
+
+**Step 1: Offer Templates**
+
+For nginx, PostgreSQL, Redis, offer these options:
+
+**Nginx Templates**:
+1. **Simple Reverse Proxy** (default)
+   - Basic proxy to backend service
+   - No SSL
+   - Minimal config
+
+2. **SSL Termination**
+   - HTTPS enabled
+   - SSL certificates from Docker secrets
+   - HTTP to HTTPS redirect
+
+3. **Static + Proxy**
+   - Serve static files
+   - Proxy API requests
+   - Caching headers
+
+4. **Custom**
+   - User provides requirements
+   - Generate custom config
+
+**PostgreSQL Templates**:
+1. **Basic** (default)
+   - Standard settings
+   - Simple init.sql
+   - Development friendly
+
+2. **Production**
+   - Optimized settings
+   - Connection pooling
+   - Performance tuning
+
+3. **With Extensions**
+   - PostGIS, UUID, etc.
+   - Extension-specific config
+   - Init scripts for extensions
+
+4. **Custom**
+   - User-specified
+
+**Redis Templates**:
+1. **Cache** (default)
+   - No persistence
+   - Memory-only
+   - Fast
+
+2. **Persistent**
+   - RDB snapshots
+   - AOF logging
+   - Data durability
+
+3. **Pub/Sub**
+   - Optimized for messaging
+   - No persistence
+   - High throughput
+
+4. **Custom**
+   - User requirements
+
+**Step 2: Generate from Template**
+
+Based on user selection, generate appropriate config with:
+- Required .env variables
+- Proper docker-compose.yml integration
+- README section documenting the config
+
+### Phase 7: Validation Report
+
+After generation, provide comprehensive report:
+
+```
+📝 Configuration Generation Report
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Meta Files
+✅ CLAUDE.md created
+✅ .gitignore updated
+✅ .dockerignore created
+
+✅ Directory Structure
+✅ ./config/nginx created
+✅ ./config/postgres created
+✅ ./config/redis created
+
+📄 Generated Configurations
+
+Nginx (Simple Reverse Proxy):
+✅ ./config/nginx/nginx.conf
+✅ Variables added to .env (3)
+✅ .env.example synced
+✅ docker-compose.yml updated
+✅ Syntax validation: PASS
+
+PostgreSQL (Basic):
+✅ ./config/postgres/postgresql.conf
+✅ ./config/postgres/init.sql
+✅ Variables added to .env (5)
+✅ .env.example synced
+✅ docker-compose.yml updated
+
+Redis (Cache):
+✅ ./config/redis/redis.conf
+✅ Variables added to .env (2)
+✅ .env.example synced
+✅ docker-compose.yml updated
+
+🔐 Security Validation
+✅ No secrets in config files
+✅ All secrets in ./secrets (via secrets-manager)
+✅ Configs use .env variables only
+
+✅ Path Validation
+✅ All referenced paths exist
+✅ Volume mounts valid
+
+✅ .env Synchronization
+✅ .env and .env.example match (10 variables)
+
+🐳 Docker Validation
+✅ docker-compose.yml syntax valid
+✅ All volume mounts exist
+✅ No deprecated syntax
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ Configuration generation complete!
+
+Next Steps:
+1. Review generated configurations
+2. Customize as needed
+3. Run: docker compose config (validate)
+4. Run: docker compose up -d
+```
+
+## Service-Specific Patterns
+
+### Nginx Configuration
+
+**Always include**:
+- Environment variable placeholders
+- Upstream backend reference
+- Basic security headers
+- Logging configuration
+
+**Never include**:
+- Hardcoded IPs or hosts
+- SSL certificate content (use Docker secrets)
+- Passwords or tokens
+
+**Example variables**:
+```bash
+NGINX_PORT=80
+NGINX_HOST=localhost
+NGINX_WORKER_PROCESSES=auto
+NGINX_WORKER_CONNECTIONS=1024
+APP_BACKEND_HOST=app
+APP_BACKEND_PORT=8080
+```
+
+### PostgreSQL Configuration
+
+**Always include**:
+- Init scripts for database/user creation
+- Basic performance tuning
+- Connection limits
+- Logging settings
+
+**Never include**:
+- Passwords (use Docker secrets)
+- Production database names in dev
+- Hardcoded connection strings
+
+**Example variables**:
+```bash
+POSTGRES_DB=myapp_db
+POSTGRES_USER=myapp_user
+# POSTGRES_PASSWORD in ./secrets/db_password
+POSTGRES_MAX_CONNECTIONS=100
+POSTGRES_SHARED_BUFFERS=256MB
+```
+
+### Redis Configuration
+
+**Always include**:
+- Persistence settings
+- Memory limits
+- Network bindings
+
+**Never include**:
+- Passwords (use Docker secrets if needed)
+- Hardcoded master/slave IPs
+
+**Example variables**:
+```bash
+REDIS_PORT=6379
+REDIS_MAXMEMORY=256mb
+REDIS_MAXMEMORY_POLICY=allkeys-lru
+REDIS_SAVE_ENABLED=false
+```
+
+## Integration with Companion Skills
+
+### secrets-manager
+**When to call**:
+- Secrets detected in config files → CRITICAL
+- Need to reference secrets in configs
+- SSL certificates or private keys needed
+
+### docker-validation
+**When to call**:
+- After updating docker-compose.yml (ALWAYS)
+- Before completing generation
+- User requests validation
+
+### stack-validator
+**When to call**:
+- After generation complete
+- Validate entire stack
+- Ensure all patterns followed
+
+## Important Notes
+
+- **No Secrets**: NEVER put secrets in config files
+- **.env Source**: All configuration from .env
+- **.env Sync**: .env and .env.example must match
+- **Docker Validation**: Always use docker-validation skill
+- **CLAUDE.md Rule**: Must specify no "Claude" in commit messages
+- **Templates Optional**: User chooses defaults or custom
+- **Path Validation**: All paths must exist
+
+## Example Workflow
+
+```
+User: "Generate nginx and PostgreSQL configs"
+
+1. Check current state
+   - ./config missing → create it
+   - .env exists
+   - .env.example exists
+   - CLAUDE.md missing → create it
+
+2. Generate meta files
+   - Create CLAUDE.md
+   - Update .gitignore
+   - Create .dockerignore
+
+3. Ask user for templates
+   "Which templates would you like?
+    - Nginx: [Simple Reverse Proxy], SSL Termination, Static + Proxy, Custom
+    - PostgreSQL: [Basic], Production, With Extensions, Custom"
+
+4. User selects: Simple Reverse Proxy, Basic
+
+5. Generate nginx config
+   - Create ./config/nginx/nginx.conf
+   - Add variables to .env
+   - Sync .env.example
+   - Update docker-compose.yml
+   - Validate syntax
+
+6. Generate PostgreSQL config
+   - Create ./config/postgres/postgresql.conf
+   - Create ./config/postgres/init.sql
+   - Add variables to .env
+   - Sync .env.example
+   - Update docker-compose.yml
+
+7. Run validations
+   - Secret detection: PASS
+   - Path validation: PASS
+   - .env sync check: PASS
+   - Docker validation (via docker-validation skill): PASS
+
+8. Generate report
+   - Show all created files
+   - List .env variables added
+   - Confirmation that validations passed
+
+9. Next steps
+   - Suggest testing: docker compose config
+   - Recommend: docker compose up -d
+```
 
 ---
 
-## Event Impact Analysis
-
-### Event: {Event Name}
-
-**What triggers it:** {description}
-
-**Immediate impacts:**
-- {File 1}: {what changes}
-- {File 2}: {what changes}
-- {File 3}: {what changes}
-
-**Cascading impacts:**
-```
-File A change
-  → triggers File B update (because: {dependency})
-    → triggers File C update (because: {dependency})
-      → requires File D update (because: {dependency})
-```
-
-**Validation checklist after this event:**
-- [ ] {Check 1 - what to verify}
-- [ ] {Check 2 - what to verify}
-- [ ] {Check 3 - what to verify}
-- [ ] {Check 4 - what to verify}
-
----
-
-## Modification Workflows
-
-### Workflow 1: Adding {Capability}
-
-**Use Case:** {When you'd do this}
-
-**Steps:**
-
-1. **Backend Changes**
-   - [ ] Update {file} - {specific change}
-   - [ ] Update {file} - {specific change}
-   - [ ] Create migration: {migration description}
-   - [ ] Add tests: {test file}
-
-2. **Frontend Changes**
-   - [ ] Update {file} - {specific change}
-   - [ ] Update {file} - {specific change}
-   - [ ] Add tests: {test file}
-
-3. **Integration**
-   - [ ] Update API contract: {file}
-   - [ ] Update TypeScript types: {file}
-   - [ ] Test integration: {how to verify}
-
-4. **Validation**
-   - [ ] Run backend tests: {command}
-   - [ ] Run frontend tests: {command}
-   - [ ] Manual verification: {steps}
-
-**Propagation Checklist:**
-```yaml
-backend:
-  - file: {path}
-    change: {description}
-    lines: {line range or function name}
-
-frontend:
-  - file: {path}
-    change: {description}
-    lines: {line range or function name}
-
-tests:
-  - file: {path}
-    change: {description}
-    type: {unit|integration|e2e}
-
-docs:
-  - file: {path}
-    change: {description}
-```
-
----
-
-## Related Documentation
-
-- [Component Implementation Guide]({path})
-- [API Documentation]({path})
-- [Database Schema Docs]({path})
-- [Testing Strategy]({path})
-
----
-
-## Version History
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0 | {date} | Initial configuration for {feature} |
-
----
-
-## Summary
-
-This configuration defines all components, relationships, and workflows for {feature}. Use this document to:
-
-1. **Understand structure** - See all components and how they connect
-2. **Track impacts** - Know what changes when a file is modified
-3. **Propagate changes** - Follow checklists to update all affected files
-4. **Ensure completeness** - Verify all related tests and docs are updated
-
-**Remember:** Update this config first when making architectural changes, then propagate to implementation files using the provided workflows.
-```
-
-### Step 5: Generate Visual Diagrams
-
-**Include Mermaid diagrams for:**
-
-**Architecture Overview:**
-```mermaid
-graph TB
-    subgraph Frontend
-        UI[User Interface]
-        State[State Management]
-        API_Client[API Client]
-    end
-
-    subgraph Backend
-        Routes[API Routes]
-        Controllers[Controllers]
-        Services[Services]
-        Models[Models]
-    end
-
-    subgraph Data
-        DB[(Database)]
-        Cache[(Cache)]
-    end
-
-    UI --> State
-    State --> API_Client
-    API_Client --> Routes
-    Routes --> Controllers
-    Controllers --> Services
-    Services --> Models
-    Models --> DB
-    Services --> Cache
-```
-
-**Data Flow Diagram:**
-```mermaid
-flowchart LR
-    Input[User Input] --> Validate[Validation]
-    Validate --> |Valid| Process[Process Request]
-    Validate --> |Invalid| Error1[Return Error]
-    Process --> DB[Database Write]
-    DB --> |Success| Response[Success Response]
-    DB --> |Failure| Error2[Return Error]
-    Response --> Update[Update UI]
-```
-
-**Dependency Graph:**
-```mermaid
-graph LR
-    A[Component A] --> B[Component B]
-    A --> C[Component C]
-    B --> D[Shared Util]
-    C --> D
-    D --> E[External Lib]
-```
-
-### Step 6: Write Configuration File
-
-**Save to:** `ai-state/config/{feature-name}-config.md`
-
-**Naming conventions:**
-- Use kebab-case: `user-authentication-config.md`
-- Be specific: `task-crud-operations-config.md` not `tasks-config.md`
-- Include scope: `backend-api-setup-config.md` vs `frontend-routing-config.md`
-
-**File structure requirements:**
-- Must include "Quick Reference" table
-- Must include "Propagation" tables for each component
-- Must include at least one Mermaid diagram
-- Must include "Modification Workflows" section
-- Must include "Version History" table
-
-### Step 7: Validate Configuration
-
-**Completeness checks:**
-- [ ] All referenced files exist or are marked as "to be created"
-- [ ] All dependencies are documented
-- [ ] All propagation paths are traced
-- [ ] All modification workflows have checklists
-- [ ] All diagrams render correctly
-
-**Accuracy checks:**
-- [ ] File paths are correct relative to project root
-- [ ] Line number references are accurate (use code scanning)
-- [ ] Component relationships match actual code
-- [ ] Data flow matches implementation
-
-**Utility checks:**
-- [ ] A human can understand what's impacted by a change
-- [ ] An AI can follow propagation tables to make changes
-- [ ] Modification workflows are actionable
-- [ ] Quick reference table provides fast lookup
-
-## Output Format
-
-The skill generates a single markdown file at `ai-state/config/{feature-name}-config.md` following the structure defined in Step 4.
-
-**Success criteria:**
-- Configuration file is comprehensive (all components documented)
-- Configuration file is accurate (matches actual codebase)
-- Configuration file is actionable (provides clear modification workflows)
-- Configuration file is maintainable (easy to update when code changes)
-
-## Integration Points
-
-**Input from:**
-- User specifications
-- Existing codebase analysis
-- `ai-state/active/tasks.yaml` - task context
-- `ai-state/standards/*.md` - coding standards
-- `.claude/docs/config/*.md` - configuration patterns
-
-**Output to:**
-- `ai-state/config/{feature}-config.md` - generated configuration
-- Used by human developers for understanding
-- Used by AI agents for propagation
-- Referenced in modification workflows
-
-## Examples
-
-### Example 1: User Authentication Config
-
-**Input:**
-```yaml
-use_case:
-  name: "user-authentication"
-  description: "User registration, login, JWT tokens"
-  entry_points: ["POST /api/auth/register", "POST /api/auth/login"]
-```
-
-**Output:** `ai-state/config/user-authentication-config.md`
-
-Key sections:
-- Backend: auth routes, user model, JWT service
-- Frontend: LoginForm, RegisterForm, useAuth hook
-- Database: users table schema
-- Flow diagrams: registration flow, login flow
-- Propagation: what changes when adding OAuth
-
-### Example 2: Task CRUD Config
-
-**Input:**
-```yaml
-code_components:
-  - path: "backend/api/tasks.py"
-    type: "api-endpoint"
-  - path: "frontend/components/TaskList.tsx"
-    type: "component"
-```
-
-**Output:** `ai-state/config/task-crud-operations-config.md`
-
-Key sections:
-- CRUD endpoints: GET, POST, PATCH, DELETE /api/tasks
-- Frontend components: TaskList, TaskForm, TaskCard
-- Data flow: UI → API → Database
-- Propagation: adding new task field
-
-### Example 3: Multi-Step User Workflow
-
-**Input:**
-```yaml
-user_interaction:
-  interaction_name: "order-checkout-flow"
-  steps:
-    - action: "Add items to cart"
-    - action: "Enter shipping info"
-    - action: "Enter payment info"
-    - action: "Confirm order"
-```
-
-**Output:** `ai-state/config/order-checkout-flow-config.md`
-
-Key sections:
-- Multi-step sequence diagram
-- State management across steps
-- Error handling at each step
-- Rollback strategy for failures
-
-## Best Practices
-
-1. **Start broad, then narrow:**
-   - Map entire feature first
-   - Then detail each component
-   - Finally add propagation tables
-
-2. **Use code scanning, not assumptions:**
-   - Use Grep/Glob tools to find actual files
-   - Verify line numbers before documenting
-   - Check dependencies with import analysis
-
-3. **Think bidirectionally:**
-   - Document "uses" and "used by"
-   - Map both forward and backward dependencies
-   - Consider circular dependencies
-
-4. **Make it actionable:**
-   - Every propagation table should have specific file:line references
-   - Every workflow should have checkboxes
-   - Every change should have validation steps
-
-5. **Keep it fresh:**
-   - Add version history entries
-   - Update when code structure changes
-   - Reference from commit messages
-
-## Phase-Specific Behavior
-
-**Prototype Phase:**
-- Focus on happy path flows
-- Minimal error handling documentation
-- Basic component relationships
-
-**MVP Phase:**
-- Add error handling paths
-- Document validation rules
-- Include rollback strategies
-
-**Growth Phase:**
-- Add performance considerations
-- Document caching strategies
-- Include monitoring/observability
-
-**Scale Phase:**
-- Add security hardening notes
-- Document disaster recovery
-- Include multi-region considerations
-
-## Quality Standards
-
-- **Completeness:** All components documented, no orphaned files
-- **Accuracy:** File paths and line numbers verified
-- **Clarity:** Non-technical stakeholders can understand flows
-- **Actionability:** AI agents can execute propagation tables
-- **Maintainability:** Easy to update as code evolves
-
-## Troubleshooting
-
-**Issue:** Configuration is too large (>2000 lines)
-**Solution:** Split into multiple configs by feature area or layer (backend-config.md, frontend-config.md)
-
-**Issue:** Hard to keep file paths accurate
-**Solution:** Use relative paths from project root, add validation script
-
-**Issue:** Propagation tables are incomplete
-**Solution:** Use dependency graph tools, trace all imports
-
-**Issue:** Modification workflows are too generic
-**Solution:** Base workflows on actual past changes, be specific
-
-## Related Skills
-
-- **standards-creator** - Creates implementation standards (this creates structural configs)
-- **write-plan** - Creates tasks.yaml (this creates feature configs)
-- **execute-tasks** - Executes tasks (uses configs for propagation)
-- **brainstorm** - Refines requirements (input to this skill)
-
-## Version
-
-**1.0** - Initial config-generator skill for creating master configuration files
+*This skill generates service configurations following GitLab stack patterns with strict validation.*

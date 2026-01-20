@@ -170,20 +170,20 @@ FOSMVVM's `LeafDataRepresentable` conformance handles Localizable types automati
 
 ### Pattern 3: Display Values vs Identifiers
 
-ViewModels should provide both:
+ViewModels should provide both raw values (for data attributes) and localized strings (for display). For enum localization, see the [Enum Localization Pattern](../fosmvvm-viewmodel-generator/SKILL.md#enum-localization-pattern).
 
 ```swift
 @ViewModel
 public struct {Entity}CardViewModel {
     public let id: ModelIdType              // For data-{entity}-id
     public let status: {Entity}Status       // Raw enum for data-status
-    @LocalizedString public var statusDisplayName  // For visible text
+    public let statusDisplay: LocalizableString  // Localized (stored, not @LocalizedString)
 }
 ```
 
 ```html
-<div data-status="#(card.status)">           <!-- Raw: "queued" -->
-    <span class="badge">#(card.statusDisplayName)</span>  <!-- Localized: "In Queue" -->
+<div data-status="#(card.status)">           <!-- Raw: "queued" for JS -->
+    <span class="badge">#(card.statusDisplay)</span>  <!-- Localized: "In Queue" -->
 </div>
 ```
 
@@ -295,6 +295,82 @@ Sources/{WebAppTarget}/Resources/Views/
 
 ---
 
+## Leaf Built-in Functions
+
+Leaf provides useful functions for working with arrays:
+
+```html
+<!-- Count items -->
+#if(count(cards) > 0):
+<p>You have #count(cards) cards</p>
+#endif
+
+<!-- Check if array contains value -->
+#if(contains(statuses, "active")):
+<span class="badge">Active</span>
+#endif
+```
+
+### Loop Variables
+
+Inside `#for` loops, Leaf provides progress variables:
+
+```html
+#for(item in items):
+    #if(isFirst):<span class="first">#endif
+    #(item.name)
+    #if(!isLast):, #endif
+#endfor
+```
+
+| Variable | Description |
+|----------|-------------|
+| `isFirst` | True on first iteration |
+| `isLast` | True on last iteration |
+| `index` | Current iteration (0-based) |
+
+### Array Index Access
+
+Direct array subscripts (`array[0]`) are not documented in Leaf. For accessing specific elements, pre-compute in the ViewModel:
+
+```swift
+public let firstCard: CardViewModel?
+
+public init(cards: [CardViewModel]) {
+    self.cards = cards
+    self.firstCard = cards.first
+}
+```
+
+---
+
+## Codable and Computed Properties
+
+Swift's synthesized `Codable` only encodes **stored properties**. Since ViewModels are passed to Leaf via Codable encoding, computed properties won't be available.
+
+```swift
+// Computed property - NOT encoded by Codable, invisible in Leaf
+public var hasCards: Bool { !cards.isEmpty }
+
+// Stored property - encoded by Codable, available in Leaf
+public let hasCards: Bool
+```
+
+If you need a derived value in a Leaf template, calculate it in `init()` and store it:
+
+```swift
+public let hasCards: Bool
+public let cardCount: Int
+
+public init(cards: [CardViewModel]) {
+    self.cards = cards
+    self.hasCards = !cards.isEmpty
+    self.cardCount = cards.count
+}
+```
+
+---
+
 ## Common Mistakes
 
 ### Missing Data Attributes
@@ -339,6 +415,46 @@ Sources/{WebAppTarget}/Resources/Views/
 
 <!-- GOOD - ViewModel provides localized value -->
 <span class="status">#(card.statusDisplayName)</span>
+```
+
+### Concatenating Localized Values
+
+```html
+<!-- BAD - breaks RTL languages and locale-specific word order -->
+#(conversation.messageCount) #(conversation.messagesLabel)
+
+<!-- GOOD - ViewModel composes via @LocalizedSubs -->
+#(conversation.messageCountDisplay)
+```
+
+Template-level concatenation assumes left-to-right order. Use `@LocalizedSubs` in the ViewModel so YAML can define locale-appropriate ordering:
+
+```yaml
+en:
+  ConversationViewModel:
+    messageCountDisplay: "%{messageCount} %{messagesLabel}"
+ar:
+  ConversationViewModel:
+    messageCountDisplay: "%{messagesLabel} %{messageCount}"
+```
+
+### Formatting Dates in Templates
+
+```html
+<!-- BAD - hardcoded format, not locale-aware, concatenation issue -->
+<span>#(content.createdPrefix) #date(content.createdAt, "MMM d, yyyy")</span>
+
+<!-- GOOD - LocalizableDate handles locale formatting, @LocalizedSubs composes -->
+<span>#(content.createdDisplay)</span>
+```
+
+Use `LocalizableDate` in the ViewModel - it formats according to user locale. If combining with a prefix, use `@LocalizedSubs`:
+
+```swift
+public let createdAt: LocalizableDate
+
+@LocalizedSubs(\.createdPrefix, \.createdAt)
+public var createdDisplay
 ```
 
 ### Mismatched Filenames
@@ -422,3 +538,5 @@ Use [reference.md](reference.md) templates as starting point.
 |---------|------|---------|
 | 1.0 | 2025-12-24 | Initial Kairos-specific skill |
 | 2.0 | 2025-12-27 | Generalized for FOSMVVM, added View-ViewModel alignment principle, full-page templates, architecture connection |
+| 2.1 | 2026-01-08 | Added Leaf Built-in Functions section (count, contains, loop variables). Clarified Codable/computed properties. Corrected earlier false claims about #count() not working. |
+| 2.2 | 2026-01-19 | Updated Pattern 3 to use stored LocalizableString for dynamic enum displays; linked to Enum Localization Pattern. Added anti-patterns for concatenating localized values and formatting dates in templates. |

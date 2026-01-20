@@ -1,30 +1,30 @@
 ---
 name: changelog-generator
-description: Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns hours of manual changelog writing into minutes of automated generation.
+description: 通过分析提交历史、分类更改并将技术提交转换为清晰的、面向客户的发布说明，自动从 git 提交创建面向用户的更新日志。将数小时的手动更新日志编写工作缩短为几分钟的自动生成。
 ---
 
 # Changelog Generator
 
-This skill transforms technical git commits into polished, user-friendly changelogs that your customers and users will actually understand and appreciate.
+此技能将技术性的 git 提交转换为精美的、用户友好的更新日志，您的客户和用户将能够真正理解和欣赏。
 
 ## When to Use This Skill
 
-- Preparing release notes for a new version
-- Creating weekly or monthly product update summaries
-- Documenting changes for customers
-- Writing changelog entries for app store submissions
-- Generating update notifications
-- Creating internal release documentation
-- Maintaining a public changelog/product updates page
+- 为新版本准备发布说明
+- 创建每周或每月的产品更新摘要
+- 为客户记录更改
+- 为应用商店提交编写更新日志条目
+- 生成更新通知
+- 创建内部发布文档
+- 维护公共更新日志/产品更新页面
 
 ## What This Skill Does
 
-1. **Scans Git History**: Analyzes commits from a specific time period or between versions
-2. **Categorizes Changes**: Groups commits into logical categories (features, improvements, bug fixes, breaking changes, security)
-3. **Translates Technical → User-Friendly**: Converts developer commits into customer language
-4. **Formats Professionally**: Creates clean, structured changelog entries
-5. **Filters Noise**: Excludes internal commits (refactoring, tests, etc.)
-6. **Follows Best Practices**: Applies changelog guidelines and your brand voice
+1. **扫描 Git 历史**: 分析特定时间段或版本之间的提交
+2. **分类更改**: 将提交分组到逻辑类别（功能、改进、错误修复、重大更改、安全）
+3. **技术 → 用户友好**: 将开发人员提交转换为客户语言
+4. **专业格式化**: 创建清晰、结构化的更新日志条目
+5. **过滤噪音**: 排除内部提交（重构、测试等）
+6. **遵循最佳实践**: 应用更新日志指南和您的品牌声音
 
 ## How to Use
 

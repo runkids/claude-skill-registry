@@ -1,7 +1,7 @@
 {
   "name": "open-sets",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/math/topology/open-sets/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-19T03:31:27.458003Z"
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/math/topology/open-sets/SKILL.md",
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-20T03:31:27.190153Z"
 }

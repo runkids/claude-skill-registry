@@ -1,7 +1,7 @@
 {
   "name": "when-using-advanced-swarm-use-swarm-advanced",
-  "repo": "DNYoussef/ai-chrome-extension",
-  "path": ".claude/skills/workflow/when-using-advanced-swarm-use-swarm-advanced/SKILL.md",
-  "source": "github.com/DNYoussef/ai-chrome-extension",
-  "downloaded_at": "2026-01-19T03:56:02.183024Z"
+  "repo": "DNYoussef/context-cascade",
+  "path": "skills/orchestration/when-using-advanced-swarm-use-swarm-advanced/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-20T04:01:39.520383Z"
 }

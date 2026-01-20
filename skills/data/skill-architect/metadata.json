@@ -1,7 +1,7 @@
 {
   "name": "skill-architect",
-  "repo": "jovermier/claude-code-plugins-ip-labs",
-  "path": "plugins/dev/skills/skill-architect/SKILL.md",
-  "source": "github.com/jovermier/claude-code-plugins-ip-labs",
-  "downloaded_at": "2026-01-19T03:04:50.572001Z"
+  "repo": "erichowens/some_claude_skills",
+  "path": ".claude/skills/skill-architect/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-20T02:11:34.366096Z"
 }

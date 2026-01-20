@@ -1,64 +1,237 @@
-<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->
 ---
 name: hypothesis
-description: Defines a testable hypothesis with clear success metrics and validation approach. Use when forming assumptions to test, designing experiments, or aligning team on what success looks like.
-license: Apache-2.0
-metadata:
-  category: ideation
-  frameworks: [triple-diamond, lean-startup, design-thinking]
-  author: product-on-purpose
-  version: "1.0.0"
+description: Use Hypothesis for property-based testing to automatically generate comprehensive test cases, find edge cases, and write more robust tests with minimal example shrinking. Includes Polars parametric testing integration.
 ---
 
-# Hypothesis
+# Hypothesis - Property-Based Testing
 
-A hypothesis is a testable prediction about how a change will affect user behavior or business outcomes. It transforms assumptions into explicit statements that can be validated or invalidated through experimentation. Well-formed hypotheses prevent teams from building features based on untested beliefs and create shared understanding of what success looks like.
+Property-based testing framework that generates test cases automatically, finds minimal failing examples through shrinking, and verifies invariants.
 
-## When to Use
+**Official Docs:** https://hypothesis.readthedocs.io/en/latest/
 
-- After problem framing, before committing to a solution
-- When designing experiments or A/B tests
-- When team members have differing assumptions about user behavior
-- Before investing significant engineering resources in a feature
-- When pivoting direction and need to validate the new approach
+**Key Features:**
 
-## Instructions
+- Automatic test data generation from strategies
+- Minimal failing example shrinking
+- Stateful testing with rule-based state machines
+- pytest integration
+- Deterministic reproducibility
 
-When asked to create a hypothesis, follow these steps:
+## Quick Start
 
-1. **State the Belief**
-   Articulate what you believe will happen. Use the structured format: "We believe that [action/change] for [target user] will [expected outcome]." Be specific about the intervention — vague hypotheses can't be tested.
+```python
+from hypothesis import given
+from hypothesis import strategies as st
 
-2. **Identify the Target User**
-   Define who this hypothesis applies to. A hypothesis about "users" is too broad. Specify the segment: new users in their first week, power users with 10+ sessions, churned users returning, etc.
 
-3. **Define the Expected Outcome**
-   What behavior change or result do you expect? Frame it in terms of user actions (complete onboarding, make a purchase, return within 7 days) rather than internal metrics when possible.
+@given(st.integers())
+def test_property(x):
+    """Test properties that should always hold"""
+    assert abs(x) >= 0
 
-4. **Set Success Metrics**
-   Choose a primary metric that directly measures the expected outcome. Include secondary metrics that provide context and guardrail metrics that ensure you're not causing harm elsewhere.
 
-5. **Describe Validation Approach**
-   How will you test this hypothesis? A/B test, user interviews, prototype testing, cohort analysis? Be specific about sample size, duration, and statistical requirements.
+@given(st.lists(st.integers()))
+def test_list_property(lst):
+    sorted_lst = sorted(lst)
+    assert len(sorted_lst) == len(lst)
+    # Check monotonic property
+    for i in range(len(sorted_lst) - 1):
+        assert sorted_lst[i] <= sorted_lst[i + 1]
+```
 
-6. **Document Risks and Assumptions**
-   What could invalidate this hypothesis beyond the test results? What are you assuming to be true that you haven't validated?
+## Strategies
 
-## Output Format
+**Full reference:** https://hypothesis.readthedocs.io/en/latest/data.html
 
-Use the template in `references/TEMPLATE.md` to structure the output.
+Common strategies:
 
-## Quality Checklist
+- Primitives: `st.integers()`, `st.floats()`, `st.text()`, `st.booleans()`
+- Collections: `st.lists()`, `st.dictionaries()`, `st.tuples()`, `st.sets()`
+- Dates/Times: `st.dates()`, `st.datetimes()`, `st.timedeltas()`
+- Combinators: `st.one_of()`, `st.sampled_from()`, `st.recursive()`
+- Type-based: `st.from_type(MyClass)`
 
-Before finalizing, verify:
+### Composite Strategies
 
-- [ ] Hypothesis is falsifiable (possible to prove wrong)
-- [ ] Success metric has a specific numeric target
-- [ ] Target user segment is clearly defined
-- [ ] Validation approach is practical and time-bound
-- [ ] Pass/fail criteria are unambiguous
-- [ ] Hypothesis doesn't assume the solution works
+```python
+from hypothesis import strategies as st
+from hypothesis.strategies import composite
 
-## Examples
 
-See `references/EXAMPLE.md` for a completed example.
+@composite
+def user_strategy(draw):
+    age = draw(st.integers(min_value=18, max_value=100))
+    name = draw(st.text(min_size=1))
+    return {"name": name, "age": age, "is_adult": age >= 18}
+
+
+@given(user_strategy())
+def test_user(user):
+    assert user["is_adult"] == (user["age"] >= 18)
+```
+
+### Strategy Combinators
+
+```python
+st.integers().filter(lambda x: x % 2 == 0)  # Filter
+st.integers().map(str)  # Transform
+st.one_of(st.integers(), st.text())  # Choose between strategies
+st.sampled_from([1, 2, 3, 4, 5])  # Pick from collection
+st.from_type(MyClass)  # Infer from type hints
+st.builds(MyClass, arg1=st.integers())  # Build instances
+```
+
+## Settings
+
+```python
+from hypothesis import given, settings
+from hypothesis import strategies as st
+
+
+@given(st.integers())
+@settings(
+    max_examples=1000,  # Default: 100
+    deadline=None,  # Remove time limit
+    derandomize=True,  # Deterministic ordering
+)
+def test_example(x):
+    pass
+
+
+# Profiles for different environments
+settings.register_profile("dev", max_examples=10)
+settings.register_profile("ci", max_examples=1000, deadline=None)
+# Activate: HYPOTHESIS_PROFILE=ci pytest
+```
+
+**Full settings reference:** https://hypothesis.readthedocs.io/en/latest/settings.html
+
+## Helpers
+
+```python
+from hypothesis import given, assume, note, example, seed
+
+
+@given(st.integers(), st.integers())
+def test_division(x, y):
+    assume(y != 0)  # Skip invalid cases (prefer .filter() instead)
+    note(f"Testing {x} / {y}")  # Add debug info
+    assert (x / y) * y == x
+
+
+@given(st.integers())
+@example(0)  # Always test specific cases
+@seed(12345)  # Reproducible run
+def test_something(x):
+    pass
+```
+
+## Stateful Testing
+
+For testing complex stateful systems with rule-based state machines.
+
+```python
+from hypothesis.stateful import RuleBasedStateMachine, rule, invariant
+from hypothesis import strategies as st
+
+
+class MyStateMachine(RuleBasedStateMachine):
+    def __init__(self):
+        super().__init__()
+        self.data = []
+
+    @rule(value=st.integers())
+    def add(self, value):
+        self.data.append(value)
+
+    @invariant()
+    def check_invariant(self):
+        assert isinstance(self.data, list)
+
+
+TestMachine = MyStateMachine.TestCase
+```
+
+**Full stateful testing guide:** https://hypothesis.readthedocs.io/en/latest/stateful.html
+
+## Polars Integration
+
+Polars provides built-in parametric testing strategies for generating DataFrames.
+
+**Official docs:** https://docs.pola.rs/api/python/stable/reference/api/polars.testing.parametric.dataframes.html
+
+```python
+from hypothesis import given
+import polars as pl
+from polars.testing.parametric import dataframes, column
+
+
+# Generate DataFrames with specific column schemas
+@given(
+    dataframes(
+        cols=[
+            column("id", dtype=pl.Int64),
+            column("name", dtype=pl.String),
+            column("value", dtype=pl.Float64),
+        ],
+        min_size=1,
+        max_size=100,
+    )
+)
+def test_dataframe_property(df: pl.DataFrame):
+    """Test properties of DataFrame operations"""
+    assert df.shape[0] >= 1
+    assert set(df.columns) == {"id", "name", "value"}
+    assert df["id"].dtype == pl.Int64
+
+
+# With Narwhals wrapper
+import narwhals as nw
+
+
+@given(dataframes(cols=[column("a", dtype=pl.Int64)]))
+def test_narwhals_operation(df: pl.DataFrame):
+    nw_df = nw.from_native(df)
+    result = nw_df.select(nw.col("a") * 2)
+    assert result.shape[0] == nw_df.shape[0]
+```
+
+**Key functions:**
+
+- `dataframes()`: Generate DataFrames with specified columns
+- `column(name, dtype, ...)`: Define column schemas with constraints
+- `series()`: Generate standalone Series
+
+**Column constraints:**
+
+- `null_probability`: Control null value frequency
+- `min_size`/`max_size`: Control row count
+- `allow_null`: Enable/disable nulls
+- `unique`: Generate unique values
+- `strategy`: Custom strategy for column values
+
+## Best Practices
+
+- **Use constraints over filters**: `st.integers(min_value=0)` not `st.integers().filter(lambda x: x >= 0)`
+- **Test properties, not examples**: Focus on invariants that always hold
+- **Combine with `@example()`**: Test specific edge cases explicitly
+- **Avoid `assume()` overuse**: Makes tests slow; use filtered strategies
+- **Document properties**: Clear docstrings explain what invariant is tested
+- **Set size limits**: Always bound collection sizes to prevent memory issues
+- **Use `.hypothesis/` in `.gitignore`**: Stores example database locally
+
+## Troubleshooting
+
+Common issues and solutions:
+
+- **HealthCheck failures**: Too many rejected examples → use constrained strategies or `suppress_health_check`
+- **Flaky tests**: Non-deterministic code → use `@seed()` or `@settings(derandomize=True)`
+- **Slow tests**: Too many examples → reduce `max_examples` or use profiles
+- **Deadline exceeded**: Complex operations → increase `deadline` or set to `None`
+
+## Resources
+
+- Main docs: https://hypothesis.readthedocs.io/
+- Strategies: https://hypothesis.readthedocs.io/en/latest/data.html
+- Stateful testing: https://hypothesis.readthedocs.io/en/latest/stateful.html
+- Ghost writer (auto-generate tests): `hypothesis write mymodule.myfunction`

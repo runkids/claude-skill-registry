@@ -8,7 +8,7 @@
 - phase: 5.1
 
 ## Description
-Interactive review and refinement gate after prd-to-tasks generation. Allows human review, discussion, and fine-tuning before proceeding with full automation.
+Interactive review and refinement gate after PRD-to-Tasks generation. Allows human review, discussion, and fine-tuning before proceeding with full automation.
 
 ## Activation Criteria
 - Triggered after PRD_TO_TASKS_V1 completes
@@ -149,7 +149,7 @@ def validate_before_approval():
 ## Integration Points
 
 ### Inputs
-- tasks.json from prd-to-tasks
+- tasks.json from PRD-to-Tasks
 - PRD.md for reference
 - User feedback and refinements
 

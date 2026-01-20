@@ -1,542 +1,350 @@
 ---
 name: orchestrate
-description: Orchestrate large multi-workstream projects using git worktrees for parallel development. Load MasterSpec, allocate worktrees, dispatch implementers, monitor convergence, process merge queue.
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Task
+description: >
+  Orchestrate tasks from a 0N_TASKS.md file with enforced memory-first pre-hooks,
+  quality-gate post-hooks, and session archiving. BLOCKS if unresolved questions exist.
+  Use when user says "run the tasks", "execute the task file", or "orchestrate".
+allowed-tools: Bash, Read, orchestrate
+triggers:
+  - orchestrate
+  - run the tasks
+  - execute the task file
+  - run 0N_TASKS
+  - execute tasks.md
+  - run each task
+  - start the task list
+metadata:
+  short-description: Execute task list with enforced hooks (memory recall + quality gate)
 ---
 
-# Orchestrate Skill
+# Task Orchestration Skill
 
-## Purpose
+Execute tasks from a collaborative **task file** (e.g., `0N_TASKS.md`) with **enforced** hooks:
 
-Orchestrate large multi-workstream projects (orchestrator workflow) using git worktrees for true parallel development. This skill coordinates the facilitator agent to manage worktree allocation, dependency ordering, subagent execution, and auto-merge after convergence gates pass.
+- **Questions/Blockers Gate**: BLOCKS execution if unresolved questions exist
+- **Memory-first Pre-hook**: Queries memory BEFORE each task (not optional)
+- **Quality-gate Post-hook**: Runs tests AFTER each task (must pass)
+- **Session Archiving**: Stores completed session for future recall
+
+## The Collaborative Workflow
+
+```mermaid
+flowchart TB
+    subgraph Phase1["PHASE 1: Collaborate on Task File"]
+        H1[Human: I need to refactor auth] --> A1[Agent creates 0N_TASKS.md]
+        A1 --> Q1["## Questions/Blockers<br/>- Which auth method?<br/>- Backwards compat?"]
+        Q1 --> H2[Human answers questions]
+        H2 --> Q2["Questions resolved → None"]
+    end
+
+    subgraph Phase2["PHASE 2: Execute via orchestrate tool"]
+        O1["orchestrate({ taskFile })"] --> Check{Questions<br/>exist?}
+        Check -->|Yes| Block[BLOCKED - Clarify first]
+        Check -->|No| Loop["For each task:"]
+        Loop --> Pre["PRE-HOOK: memory recall"]
+        Pre --> Exec["Execute: pi --no-session"]
+        Exec --> SelfCheck["SELF-CHECK: quality-gate.sh (Agent uses this)"]
+        SelfCheck --> Exec
+        Exec --> Post["POST-HOOK: quality-gate.sh (System verifies)"]
+        Post --> Pass{Tests<br/>pass?}
+        Pass -->|Yes| Update["Update: [ ] → [x]"]
+        Pass -->|No| Fail[Task FAILED]
+        Update --> Next{More<br/>tasks?}
+        Next -->|Yes| Loop
+        Next -->|No| Done[All complete]
+    end
+
+    subgraph Phase3["PHASE 3: Archive"]
+        Archive["episodic-archiver<br/>→ Future recall enabled"]
+    end
+
+    Phase1 --> Phase2
+    Done --> Phase3
+```
+
+## Critical: Questions/Blockers Section
+
+The orchestrator **BLOCKS** execution if unresolved questions exist:
+
+```markdown
+## Questions/Blockers
+
+- Which database should we use? (blocks Task 3)
+- Do we need backwards compatibility?
+```
+
+**To proceed**: Answer the questions and either:
+
+- Remove the items
+- Change to "None" or "N/A"
+
+This forces collaborative clarification BEFORE coding starts.
+
+## Sanity-First Collaboration (Crucial Dependencies)
+
+> **NEW**: For non-standard APIs, create sanity scripts BEFORE marking Questions/Blockers as resolved.
+
+When a task requires libraries/APIs beyond standard ones (`json`, `pathlib`, `typing`, etc.), the agent must:
+
+### Phase 1a: Dependency Identification
+
+```mermaid
+flowchart LR
+    A[Task identified] --> B{Non-standard APIs?}
+    B -->|No| C[Skip to Questions]
+    B -->|Yes| D[Research with skills]
+    D --> E[Create sanity script]
+    E --> F[Human verifies]
+    F --> G[Then resolve Questions]
+```
+
+### Research Skill Priority
+
+1. **brave-search** (free) - General patterns, StackOverflow, blog posts
+2. **Context7** (free) - Library-specific documentation chunks
+3. **perplexity** (paid) - Complex research, comparisons (use sparingly)
+
+### Sanity Script Requirements
+
+Each non-standard dependency gets a script in `tools/tasks_loop/sanity/`:
+
+```python
+# sanity/{library}.py - Agent REFERENCES this when implementing
+"""
+PURPOSE: Working example with correct parameters
+DOCUMENTATION: Context7 query used, last verified date
+"""
+# Must show: imports, parameters with values, expected output, edge cases
+# Exit codes: 0=PASS, 1=FAIL, 42=CLARIFY (needs human)
+```
+
+**Example**: Before using Camelot for table extraction, create `sanity/camelot_table_extraction.py` that shows:
+
+- Both `lattice` and `stream` modes
+- `line_scale`, `edge_tol`, `row_tol` parameters with valid values
+- How to check accuracy scores
+- Known issues (ghostscript dependency, etc.)
+
+### Task File with Dependencies
+
+```markdown
+## Crucial Dependencies
+
+| Library    | API/Method         | Sanity Script          | Status       |
+| ---------- | ------------------ | ---------------------- | ------------ |
+| camelot    | `read_pdf()`       | `sanity/camelot.py`    | [x] verified |
+| pdfplumber | `extract_tables()` | `sanity/pdfplumber.py` | [ ] pending  |
+
+## Questions/Blockers
+
+- [ ] All sanity scripts must pass before this resolves to "None"
+```
+
+### Why This Matters
+
+1. **Agent learns from working examples** - Not just "use camelot" but exactly how
+2. **Parameters are documented** - `line_scale=40` with explanation of why
+3. **Edge cases captured** - "Needs ghostscript installed"
+4. **Human verification** - Confirms the script actually works
+5. **Future agents benefit** - Sanity scripts persist for recall
+
+## Task File Format: 0N_TASKS.md
+
+```markdown
+# Task List: <Project/Feature Name>
+
+## Context
+
+<Brief description of what we're trying to accomplish>
+
+## Tasks
+
+- [ ] **Task 1**: <Clear, actionable description>
+
+  - Agent: general-purpose
+  - Parallel: 0
+  - Dependencies: none
+  - Notes: <any context>
+
+- [ ] **Task 2**: <Description>
+
+  - Agent: general-purpose
+  - Parallel: 1
+  - Dependencies: Task 1
+  - Notes: <context>
+
+- [ ] **Task 3**: <Description>
+  - Agent: explore
+  - Parallel: 1
+  - Dependencies: none
+
+## Completion Criteria
+
+<How do we know we're done?>
+
+## Questions/Blockers
+
+None - all questions resolved.
+```
+
+## The orchestrate Tool
+
+### Basic Usage
+
+```typescript
+orchestrate({
+  taskFile: "01_TASKS.md", // Path to task file
+  continueOnError: false, // Stop on first failure (default)
+  archive: true, // Archive on completion (default)
+  taskTimeoutMs: 1800000, // 30 min per task (default)
+});
+```
+
+### What Happens
+
+1. **Parse**: Read and validate task file
+2. **Block Check**: STOP if Questions/Blockers section has items
+3. **For Each Task**:
+   - **PRE-HOOK**: `~/.pi/agent/skills/memory/run.sh recall --q "<task>"`
+     - If solutions found → injected as context in task prompt
+     - Agent decides how to use prior knowledge
+   - **EXECUTE**: `pi --mode json -p --no-session "<task prompt>"`
+     - Protected context, no session bleed
+     - **INSTRUCTION**: "Run quality-gate.sh to self-verify before finishing"
+     - Agent config provides system prompt
+   - **POST-HOOK**: `quality-gate.sh`
+     - Auto-detects project (Python/Node/Go/Rust)
+     - Runs tests/checks
+     - Task FAILS if tests don't pass
+   - **UPDATE**: Mark checkbox `[x]` in task file
+4. **Archive**: Store session via episodic-archiver
+
+### Memory Recall Context
+
+When memory finds prior solutions, they're injected into the task prompt:
+
+```markdown
+## Memory Recall (Prior Solutions Found)
+
+The following relevant solutions were found in memory. Review and adapt as needed:
+
+1. **Problem**: OAuth token refresh failing silently
+   **Solution**: Add explicit error handling in refreshToken(), log failures
+
+---
+
+## Context
+
+...rest of task prompt...
+```
+
+The agent sees this context and decides whether to apply, adapt, or ignore it.
+
+### Quality Gate Enforcement
+
+After each task, `quality-gate.sh` runs:
+
+```bash
+# Auto-detects project type and runs:
+# - Python: pytest -q -x
+# - Node: npm test
+# - Go: go test ./...
+# - Rust: cargo check
+# - Makefile: make test (or make smokes)
+```
+
+If tests fail:
+
+- Task status = `failed`
+- Error output included in results
+- Orchestration stops (unless `continueOnError: true`)
 
 ## When to Use
 
-Use this skill when:
+| Trigger                   | Action                                   |
+| ------------------------- | ---------------------------------------- |
+| "Let's plan this"         | Collaborate on task file (don't run yet) |
+| "Run the tasks"           | Execute via orchestrate tool             |
+| "Orchestrate 01_TASKS.md" | Execute specific file                    |
+| Unresolved questions      | BLOCKED - clarify first                  |
 
-- MasterSpec has been approved (3+ workstreams)
-- Multiple workstreams need to execute in parallel
-- Workstreams have dependencies that require ordered execution
-- Git worktrees will enable isolated, parallel development
+## Agent Selection
 
-**Trigger**: After MasterSpec approval in orchestrator workflow
+Specify agent per task in the task file:
 
-## Orchestration Flow
+| Agent             | Use For                                      |
+| ----------------- | -------------------------------------------- |
+| `general-purpose` | Code changes, bug fixes, implementation      |
+| `explore`         | Research, code exploration, finding patterns |
 
-### 1. Load MasterSpec
+Agent configs live at `~/.pi/agent/agents/<name>.md` with:
 
-```bash
-# Load approved MasterSpec
-cat .claude/specs/active/<slug>/master.md
-```
+- Frontmatter: name, description, tools, model
+- Body: System prompt with instructions
 
-**Extract**:
-
-- Workstream Overview (IDs, titles, dependencies)
-- Contract Registry
-- Dependency Graph
-- Worktree Allocation Strategy (if present)
-
-### 2. Invoke Facilitator for Worktree Allocation
-
-If MasterSpec doesn't have worktree allocation strategy, dispatch facilitator to analyze and allocate:
-
-```javascript
-Task({
-  description: 'Allocate worktrees for MasterSpec',
-  prompt: `
-Analyze the MasterSpec at .claude/specs/active/<slug>/master.md and determine worktree allocation.
-
-**Workstreams**:
-- ws-1: <title> (dependencies: <deps>)
-- ws-2: <title> (dependencies: <deps>)
-- ws-3: <title> (dependencies: <deps>)
-
-**Your task**:
-1. Analyze dependency graph
-2. Identify independent workstreams (separate worktrees)
-3. Identify tightly coupled workstreams (shared worktrees)
-4. Apply allocation heuristics (see facilitator agent guidelines)
-5. Document allocation strategy in MasterSpec
-6. Initialize session.json with worktree_allocation
-  `,
-  subagent_type: 'facilitator',
-});
-```
-
-### 3. Create Worktrees
-
-For each worktree in allocation strategy:
-
-```bash
-# Get repository name
-REPO_NAME=$(basename $(pwd))
-
-# Create worktree-1
-git worktree add ../${REPO_NAME}-ws-1 -b feature/ws-1-<slug>
-
-# Create worktree-2
-git worktree add ../${REPO_NAME}-ws-2 -b feature/ws-2-<slug>
-
-# Verify creation
-git worktree list
-```
-
-**Update session.json**:
-
-```json
-{
-  "worktree_allocation": {
-    "strategy": "ws-1 and ws-4 share worktree (tight coupling), ws-2 and ws-3 isolated",
-    "worktrees": [
-      {
-        "id": "worktree-1",
-        "path": "/Users/matthewlin/Desktop/Personal Projects/engineering-assistant-ws-1",
-        "branch": "feature/ws-1-backend-api",
-        "workstreams": ["ws-1", "ws-4"],
-        "status": "active",
-        "created_at": "2026-01-02T15:35:00Z"
-      }
-    ]
-  }
-}
-```
-
-### 4. Evaluate Initial Workstream Readiness
-
-For each workstream, determine if ready to start:
-
-**Ready** (no dependencies):
-
-- ws-1: No dependencies → Ready to start
-- ws-3: No dependencies → Ready to start
-
-**Blocked** (has dependencies):
-
-- ws-2: Depends on ws-1 → Blocked
-- ws-4: Depends on ws-1 → Blocked (but shares worktree with ws-1)
-
-**Update session.json**:
-
-```json
-{
-  "workstream_execution": {
-    "workstreams": [
-      {
-        "id": "ws-1",
-        "title": "Backend API",
-        "worktree_id": "worktree-1",
-        "dependencies": [],
-        "status": "ready"
-      },
-      {
-        "id": "ws-2",
-        "title": "Frontend UI",
-        "worktree_id": "worktree-2",
-        "dependencies": ["ws-1"],
-        "status": "blocked",
-        "blocking_reason": "Waiting for ws-1 to merge (dependency)"
-      }
-    ]
-  }
-}
-```
-
-### 5. Dispatch Implementers and Test-Writers
-
-For each **ready** workstream, dispatch implementer and test-writer in parallel:
-
-```javascript
-// ws-1 is ready
-const ws1Impl = Task({
-  description: 'Implement ws-1 in worktree-1',
-  prompt: `
-You are implementing workstream ws-1.
-
-## EXECUTION CONTEXT
-
-**Worktree**: worktree-1
-**Path**: /Users/matthewlin/Desktop/Personal Projects/engineering-assistant-ws-1
-**Branch**: feature/ws-1-backend-api
-**Workstream**: ws-1 (Backend API)
-
-## CRITICAL INSTRUCTIONS
-
-1. **Working Directory**: All operations MUST occur in the worktree path above
-2. **Isolation**: Do NOT modify files in the main worktree
-3. **Spec Location**: .claude/specs/active/<slug>/ws-1.md
-
-${
-  ws1.sharedWorktree
-    ? `
-## SHARED WORKTREE NOTICE
-This worktree is shared with: ws-4 (Integration Tests)
-Coordinate with test-writer: you implement, they test (parallel execution)
-`
-    : ''
-}
-
-## YOUR TASK
-Implement WorkstreamSpec ws-1 following standard implementation process.
-  `,
-  subagent_type: 'implementer',
-  run_in_background: true,
-});
-
-const ws1Tests = Task({
-  description: 'Write tests for ws-1 in worktree-1',
-  prompt: `
-You are writing tests for workstream ws-1.
-
-## EXECUTION CONTEXT
-
-**Worktree**: worktree-1
-**Path**: /Users/matthewlin/Desktop/Personal Projects/engineering-assistant-ws-1
-**Branch**: feature/ws-1-backend-api
-**Workstream**: ws-1 (Backend API)
-
-## YOUR TASK
-Write tests for all acceptance criteria in ws-1 spec.
-  `,
-  subagent_type: 'test-writer',
-  run_in_background: true,
-});
-```
-
-**Update session state**:
-
-```json
-{
-  "workstream_execution": {
-    "workstreams": [
-      {
-        "id": "ws-1",
-        "status": "in_progress"
-      }
-    ]
-  }
-}
-```
-
-### 6. Monitor Subagent Completion
-
-Poll background tasks for completion:
-
-```javascript
-// Wait for both implementer and test-writer
-const ws1ImplResult = TaskOutput({ task_id: ws1Impl.task_id, block: true });
-const ws1TestsResult = TaskOutput({ task_id: ws1Tests.task_id, block: true });
-
-// Both complete → Ready for convergence validation
-```
-
-### 7. Run Convergence Validation
-
-Dispatch unifier to validate workstream:
-
-```javascript
-Task({
-  description: 'Validate ws-1 convergence in worktree-1',
-  prompt: `
-Validate convergence for workstream ws-1.
-
-## EXECUTION CONTEXT
-
-**Worktree**: worktree-1
-**Path**: /Users/matthewlin/Desktop/Personal Projects/engineering-assistant-ws-1
-**Spec**: .claude/specs/active/<slug>/ws-1.md
-
-## VALIDATION REQUIREMENTS
-
-- All tasks complete
-- All ACs implemented
-- All tests passing
-- Contract registry validated (if ws-1 owns contracts)
-
-Produce convergence report with CONVERGED or NOT_CONVERGED status.
-  `,
-  subagent_type: 'unifier',
-});
-```
-
-**If CONVERGED**:
-
-- Update workstream status: "converged"
-- Proceed to security review
-
-**If NOT_CONVERGED**:
-
-- Iteration count < 3 → Fix issues, re-run unifier
-- Iteration count >= 3 → Escalate to user
-
-### 8. Run Security Review
-
-```javascript
-Task({
-  description: 'Security review for ws-1 in worktree-1',
-  prompt: `
-Review workstream ws-1 for security vulnerabilities.
-
-**Worktree**: worktree-1
-**Path**: /Users/matthewlin/Desktop/Personal Projects/engineering-assistant-ws-1
-
-Check: OWASP Top 10, input validation, auth/authz, secrets handling.
-  `,
-  subagent_type: 'security-reviewer',
-});
-```
-
-**If PASSED**:
-
-- Update convergence_status.security_reviewed: true
-- Add to merge queue
-
-**If FAILED (Critical/High severity)**:
-
-- Block merge
-- Escalate to user with findings
-
-### 9. Process Merge Queue
-
-For each workstream in merge queue (FIFO, respecting dependencies):
-
-**Pre-Merge Checks**:
-
-```bash
-# Switch to worktree
-cd /Users/matthewlin/Desktop/Personal\ Projects/engineering-assistant-ws-1
-
-# Re-run tests (ensure still passing)
-npm test
-
-# Check for conflicts with main
-git fetch origin main
-git merge --no-commit --no-ff origin/main
-if [ $? -ne 0 ]; then
-  git merge --abort
-  # Handle conflict (see facilitator error handling)
-else
-  git merge --abort  # Dry run successful
-fi
-```
-
-**Execute Merge**:
-
-```bash
-# Commit any uncommitted changes in worktree
-git add .
-git commit -m "feat(ws-1): implement Backend API
-
-Implements WorkstreamSpec ws-1 from <slug>
-
-Acceptance Criteria:
-- AC1.1: <criterion> ✅
-- AC1.2: <criterion> ✅
-
-Tests: 15 passing
-Coverage: 92%
-Convergence: PASSED
-Security: PASSED
-
-🤖 Generated with Claude Code
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
-
-# Switch to main worktree
-cd /Users/matthewlin/Desktop/Personal\ Projects/engineering-assistant
-
-# Merge with --no-ff
-git merge --no-ff feature/ws-1-backend-api -m "Merge ws-1: Backend API
-
-Implements WorkstreamSpec ws-1
-
-Contracts Provided:
-- contract-backend-api: src/api/server.ts
-
-Dependencies: none
-Next: ws-2 can now proceed (dependency satisfied)"
-
-# Push to remote
-git push origin main
-```
-
-**Update session state**:
-
-```json
-{
-  "workstream_execution": {
-    "workstreams": [
-      {
-        "id": "ws-1",
-        "status": "merged",
-        "merge_timestamp": "2026-01-02T16:20:00Z"
-      }
-    ]
-  }
-}
-```
-
-### 10. Unblock Dependent Workstreams
-
-After ws-1 merges, evaluate dependent workstreams:
-
-```javascript
-// Find workstreams that depend on ws-1
-const dependents = workstreams.filter((ws) => ws.dependencies.includes('ws-1'));
-
-for (const ws of dependents) {
-  // Check if all dependencies now satisfied
-  const allDepsMerged = ws.dependencies.every(
-    (dep) => getWorkstream(dep).status === 'merged',
-  );
-
-  if (allDepsMerged) {
-    // Unblock and dispatch
-    updateWorkstreamStatus(ws.id, 'ready', null);
-    dispatchImplementer(ws.id, ws.worktree_id);
-  }
-}
-```
-
-**Example**:
+## Example Full Flow
 
 ```
-ws-1: merged ✅
-ws-2: ready (dependency satisfied) → Dispatch implementer to worktree-2
-ws-4: ready (dependency satisfied, shares worktree-1 with ws-1) → Dispatch test-writer to worktree-1
+User: "I need to fix the auth bug and add tests"
+
+Agent: "I'll create a task file. First, some questions:
+- Which auth system? OAuth, JWT, or session?
+- Unit tests or integration tests?"
+
+User: "OAuth, unit tests"
+
+Agent: [Creates 01_TASKS.md]
+
+# Task List: Fix OAuth Auth Bug
+
+## Context
+Fix the OAuth token refresh bug and add unit tests.
+
+## Tasks
+- [ ] **Task 1**: Investigate OAuth token refresh failure
+  - Agent: explore
+  - Dependencies: none
+
+- [ ] **Task 2**: Fix the token refresh logic
+  - Agent: general-purpose
+  - Dependencies: Task 1
+
+- [ ] **Task 3**: Add unit tests for token refresh
+  - Agent: general-purpose
+  - Dependencies: Task 2
+
+## Questions/Blockers
+None - resolved above.
+
+User: "Run the tasks"
+
+Agent: [Calls orchestrate({ taskFile: "01_TASKS.md" })]
+
+→ Task 1: Memory recall finds prior OAuth issues, injects context
+          Explore agent investigates, reports findings
+          Quality gate: N/A for explore (no code changes)
+          ✓ Complete
+
+→ Task 2: Memory recall provides solutions from Task 1
+          General-purpose fixes the bug
+          Quality gate: pytest runs, all tests pass
+          ✓ Complete
+
+→ Task 3: Memory recall finds test patterns
+          General-purpose adds tests
+          Quality gate: pytest runs, new tests pass
+          ✓ Complete
+
+→ Archive: Session stored to episodic memory
+
+"All 3 tasks complete. Session archived for future recall."
 ```
 
-### 11. Repeat for All Workstreams
+## Key Principles
 
-Continue cycle for each workstream:
-
-1. Monitor completion
-2. Run convergence validation
-3. Run security review
-4. Add to merge queue
-5. Merge to main
-6. Unblock dependents
-
-Until all workstreams merged.
-
-### 12. Cleanup Worktrees
-
-After all workstreams merged:
-
-```bash
-# Remove all worktrees
-git worktree remove ../engineering-assistant-ws-1
-git worktree remove ../engineering-assistant-ws-2
-git worktree remove ../engineering-assistant-ws-3
-
-# Delete branches
-git branch -d feature/ws-1-backend-api
-git branch -d feature/ws-2-frontend-ui
-git branch -d feature/ws-3-database-schema
-
-# Verify cleanup
-git worktree list  # Should only show main worktree
-```
-
-**Update session state**:
-
-```json
-{
-  "worktree_allocation": {
-    "worktrees": []
-  }
-}
-```
-
-### 13. Final Integration Validation
-
-After all workstreams merged, run final validation:
-
-```bash
-# Full test suite on main
-npm test
-
-# Integration tests
-npm run test:integration
-
-# Build verification
-npm run build
-```
-
-If all pass → Mark orchestrator task complete.
-
-## Error Handling
-
-### Merge Conflicts
-
-If merge conflict detected:
-
-1. Check if contract-based (favor contract owner)
-2. Otherwise, escalate to user with conflict details
-3. Preserve both worktrees for manual resolution
-
-### Failed Convergence (3+ iterations)
-
-If workstream fails convergence after 3 iterations:
-
-1. Update workstream status: "blocked"
-2. Preserve worktree for debugging
-3. Escalate to user with validation results
-
-### Security Failures (Critical/High)
-
-If security review finds critical/high severity issues:
-
-1. Block merge
-2. Report findings to user
-3. Wait for fixes, then re-validate
-
-## State Management
-
-Throughout orchestration, maintain session.json with:
-
-- `worktree_allocation`: All active worktrees
-- `workstream_execution`: Status of each workstream
-- `merge_queue`: Workstreams ready to merge
-
-Update after:
-
-- Worktree creation
-- Workstream status changes
-- Convergence validation
-- Merge completion
-- Cleanup
-
-## Success Criteria
-
-Orchestrator task complete when:
-
-- ✅ All workstreams merged to main
-- ✅ All worktrees cleaned up
-- ✅ Integration tests passing
-- ✅ No merge conflicts remain
-- ✅ MasterSpec Decision & Work Log updated
-
-## Example Session
-
-**User Request**: "Add real-time notifications"
-
-**MasterSpec**: 3 workstreams
-
-- ws-1: WebSocket Server (no deps)
-- ws-2: Frontend Client (depends on ws-1)
-- ws-3: Notification Service (depends on ws-1)
-
-**Orchestration**:
-
-1. Load MasterSpec ✅
-2. Allocate worktrees (3 separate) ✅
-3. Create worktrees ✅
-4. Dispatch ws-1 (ready) ✅
-5. ws-1 converges → Merge ✅
-6. Unblock ws-2, ws-3 ✅
-7. Dispatch ws-2, ws-3 (parallel) ✅
-8. ws-2 converges → Merge ✅
-9. ws-3 converges → Merge ✅
-10. Cleanup worktrees ✅
-11. Final validation ✅
-12. Complete ✅
+1. **Clarify FIRST** - Questions/Blockers section forces this
+2. **Sanity BEFORE** - Non-standard APIs get verified sanity scripts
+3. **Memory BEFORE** - Pre-hook always runs, provides context
+4. **Quality AFTER** - Post-hook always runs, tests must pass
+5. **Isolated Context** - Each task runs in `--no-session` mode
+6. **Archive at End** - Enables future recall of solutions

@@ -1,7 +1,7 @@
 {
   "name": "docs-maintenance",
-  "repo": "jeffrigby/somepulp-agents",
-  "path": "plugins/codebase-health/skills/docs-maintenance/SKILL.md",
-  "source": "github.com/jeffrigby/somepulp-agents",
-  "downloaded_at": "2026-01-19T02:28:59.802601Z"
+  "repo": "doraemonkeys/sloc-guard",
+  "path": ".claude/skills/docs-maintenance/SKILL.md",
+  "source": "github.com/doraemonkeys/sloc-guard",
+  "downloaded_at": "2026-01-20T01:59:48.103141Z"
 }

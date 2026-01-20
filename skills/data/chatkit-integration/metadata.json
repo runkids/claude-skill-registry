@@ -1,7 +1,7 @@
 {
   "name": "chatkit-integration",
-  "repo": "mjunaidca/mjs-agent-skills",
-  "path": "docs/taskflow-vault/skills/engineering/chatkit-integration/SKILL.md",
-  "source": "github.com/mjunaidca/mjs-agent-skills",
-  "downloaded_at": "2026-01-19T04:12:51.744290Z"
+  "repo": "mjunaidca/robolearn",
+  "path": ".claude/skills/chatkit-integration/SKILL.md",
+  "source": "github.com/mjunaidca/robolearn",
+  "downloaded_at": "2026-01-20T02:11:51.557028Z"
 }

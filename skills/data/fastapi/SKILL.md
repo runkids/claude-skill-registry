@@ -1,233 +1,337 @@
 ---
 name: fastapi
-description: FastAPI development including async endpoints, Pydantic models, dependency injection, and OpenAPI documentation. Activate for FastAPI apps, async Python APIs, and modern Python web services.
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
+description: FastAPI patterns for building high-performance Python APIs. Covers routing, dependency injection, Pydantic models, background tasks, WebSockets, testing, and production deployment.
 ---
 
 # FastAPI Skill
 
-Provides comprehensive FastAPI development capabilities for the Golden Armada AI Agent Fleet Platform.
+Modern FastAPI patterns for building high-performance Python APIs.
 
-## When to Use This Skill
+## Quick Start
 
-Activate this skill when working with:
-- FastAPI application development
-- Async endpoint implementation
-- Pydantic model definitions
-- Dependency injection patterns
-- OpenAPI/Swagger documentation
+### Installation
 
-## Quick Reference
+```bash
+# pip
+pip install fastapi uvicorn[standard]
 
-### Run Commands
-\`\`\`bash
-# Development
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+# poetry
+poetry add fastapi uvicorn[standard]
 
-# Production
-uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
+# uv
+uv add fastapi uvicorn[standard]
+```
 
-# With Gunicorn
-gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
-\`\`\`
+### Run Development Server
 
-## Application Structure
+```bash
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
 
-\`\`\`
+## Project Structure
+
+```
 app/
-├── main.py
-├── config.py
-├── dependencies.py
-├── routers/
+├── __init__.py
+├── main.py              # FastAPI app entry
+├── config.py            # Settings/configuration
+├── database.py          # DB connection
+├── models/              # SQLModel/SQLAlchemy models
 │   ├── __init__.py
-│   ├── agents.py
+│   └── task.py
+├── schemas/             # Pydantic schemas
+│   ├── __init__.py
+│   └── task.py
+├── routers/             # API routes
+│   ├── __init__.py
 │   └── tasks.py
-├── models/
+├── services/            # Business logic
 │   ├── __init__.py
-│   ├── agent.py
-│   └── task.py
-├── schemas/
+│   └── task_service.py
+├── dependencies/        # Shared dependencies
 │   ├── __init__.py
-│   ├── agent.py
-│   └── task.py
-└── services/
-    ├── __init__.py
-    └── llm_service.py
-\`\`\`
+│   └── auth.py
+└── tests/
+    └── test_tasks.py
+```
 
-## Basic Application
+## Key Concepts
 
-\`\`\`python
-# main.py
+| Concept | Guide |
+|---------|-------|
+| **Routing** | [reference/routing.md](reference/routing.md) |
+| **Dependencies** | [reference/dependencies.md](reference/dependencies.md) |
+| **Pydantic Models** | [reference/pydantic.md](reference/pydantic.md) |
+| **Background Tasks** | [reference/background-tasks.md](reference/background-tasks.md) |
+| **WebSockets** | [reference/websockets.md](reference/websockets.md) |
+
+## Examples
+
+| Pattern | Guide |
+|---------|-------|
+| **CRUD Operations** | [examples/crud.md](examples/crud.md) |
+| **Authentication** | [examples/authentication.md](examples/authentication.md) |
+| **File Upload** | [examples/file-upload.md](examples/file-upload.md) |
+| **Testing** | [examples/testing.md](examples/testing.md) |
+
+## Templates
+
+| Template | Purpose |
+|----------|---------|
+| [templates/main.py](templates/main.py) | App entry point |
+| [templates/router.py](templates/router.py) | Router template |
+| [templates/config.py](templates/config.py) | Settings with Pydantic |
+
+## Basic App
+
+```python
+# app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from contextlib import asynccontextmanager
-
-from app.routers import agents, tasks
-from app.config import settings
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup
-    print("Starting up...")
-    yield
-    # Shutdown
-    print("Shutting down...")
 
 app = FastAPI(
-    title="Golden Armada Agent API",
+    title="My API",
+    description="API description",
     version="1.0.0",
-    lifespan=lifespan
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.allowed_origins,
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(agents.router, prefix="/api/v1/agents", tags=["agents"])
-app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["tasks"])
-
 @app.get("/health")
-async def health_check():
-    return {"status": "healthy", "service": "golden-armada"}
-\`\`\`
+async def health():
+    return {"status": "healthy"}
+```
 
-## Pydantic Schemas
+## Routers
 
-\`\`\`python
-# schemas/agent.py
-from pydantic import BaseModel, Field
-from typing import Optional
-from enum import Enum
+```python
+# app/routers/tasks.py
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlmodel import Session, select
+from app.database import get_session
+from app.models import Task
+from app.schemas import TaskCreate, TaskRead, TaskUpdate
+from app.dependencies.auth import get_current_user, User
 
-class AgentType(str, Enum):
-    CLAUDE = "claude"
-    GPT = "gpt"
-    GEMINI = "gemini"
+router = APIRouter(prefix="/api/tasks", tags=["tasks"])
 
-class AgentBase(BaseModel):
-    name: str = Field(..., min_length=1, max_length=100)
-    type: AgentType
-    description: Optional[str] = None
 
-class AgentCreate(AgentBase):
-    pass
-
-class AgentResponse(AgentBase):
-    id: str
-    status: str
-    created_at: datetime
-
-    model_config = ConfigDict(from_attributes=True)
-\`\`\`
-
-## Router Example
-
-\`\`\`python
-# routers/agents.py
-from fastapi import APIRouter, HTTPException, Depends, status
-from typing import List
-
-from app.schemas.agent import AgentCreate, AgentResponse
-from app.services.agent_service import AgentService
-from app.dependencies import get_agent_service
-
-router = APIRouter()
-
-@router.post("/", response_model=AgentResponse, status_code=status.HTTP_201_CREATED)
-async def create_agent(
-    agent: AgentCreate,
-    service: AgentService = Depends(get_agent_service)
+@router.get("", response_model=list[TaskRead])
+async def get_tasks(
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
 ):
-    """Create a new agent."""
-    return await service.create(agent)
+    statement = select(Task).where(Task.user_id == user.id)
+    return session.exec(statement).all()
 
-@router.get("/", response_model=List[AgentResponse])
-async def list_agents(
-    skip: int = 0,
-    limit: int = 100,
-    service: AgentService = Depends(get_agent_service)
-):
-    """List all agents."""
-    return await service.list(skip=skip, limit=limit)
 
-@router.get("/{agent_id}", response_model=AgentResponse)
-async def get_agent(
-    agent_id: str,
-    service: AgentService = Depends(get_agent_service)
+@router.post("", response_model=TaskRead, status_code=status.HTTP_201_CREATED)
+async def create_task(
+    task_data: TaskCreate,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
 ):
-    """Get agent by ID."""
-    agent = await service.get(agent_id)
-    if not agent:
-        raise HTTPException(status_code=404, detail="Agent not found")
-    return agent
-\`\`\`
+    task = Task(**task_data.model_dump(), user_id=user.id)
+    session.add(task)
+    session.commit()
+    session.refresh(task)
+    return task
+
+
+@router.get("/{task_id}", response_model=TaskRead)
+async def get_task(
+    task_id: int,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+):
+    task = session.get(Task, task_id)
+    if not task or task.user_id != user.id:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task
+
+
+@router.patch("/{task_id}", response_model=TaskRead)
+async def update_task(
+    task_id: int,
+    task_data: TaskUpdate,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+):
+    task = session.get(Task, task_id)
+    if not task or task.user_id != user.id:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    for key, value in task_data.model_dump(exclude_unset=True).items():
+        setattr(task, key, value)
+
+    session.add(task)
+    session.commit()
+    session.refresh(task)
+    return task
+
+
+@router.delete("/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_task(
+    task_id: int,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+):
+    task = session.get(Task, task_id)
+    if not task or task.user_id != user.id:
+        raise HTTPException(status_code=404, detail="Task not found")
+    session.delete(task)
+    session.commit()
+```
 
 ## Dependency Injection
 
-\`\`\`python
-# dependencies.py
-from functools import lru_cache
-from typing import Annotated
-from fastapi import Depends
+```python
+# app/dependencies/auth.py
+from fastapi import Depends, HTTPException, Header
+from dataclasses import dataclass
 
-from app.config import Settings
-from app.services.agent_service import AgentService
-from app.services.llm_service import LLMService
+@dataclass
+class User:
+    id: str
+    email: str
 
-@lru_cache
-def get_settings():
-    return Settings()
+async def get_current_user(
+    authorization: str = Header(..., alias="Authorization")
+) -> User:
+    # Verify JWT token
+    # ... verification logic ...
+    return User(id="user_123", email="user@example.com")
 
-async def get_llm_service(
-    settings: Annotated[Settings, Depends(get_settings)]
-) -> LLMService:
-    return LLMService(api_key=settings.anthropic_api_key)
 
-async def get_agent_service(
-    llm_service: Annotated[LLMService, Depends(get_llm_service)]
-) -> AgentService:
-    return AgentService(llm_service=llm_service)
-\`\`\`
+def require_role(role: str):
+    async def checker(user: User = Depends(get_current_user)):
+        if user.role != role:
+            raise HTTPException(status_code=403, detail="Forbidden")
+        return user
+    return checker
+```
+
+## Pydantic Schemas
+
+```python
+# app/schemas/task.py
+from pydantic import BaseModel, Field
+from datetime import datetime
+from typing import Optional
+
+
+class TaskCreate(BaseModel):
+    title: str = Field(..., min_length=1, max_length=200)
+    description: Optional[str] = None
+
+
+class TaskUpdate(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=200)
+    description: Optional[str] = None
+    completed: Optional[bool] = None
+
+
+class TaskRead(BaseModel):
+    id: int
+    title: str
+    description: Optional[str]
+    completed: bool
+    user_id: str
+    created_at: datetime
+    updated_at: datetime
+
+    model_config = {"from_attributes": True}
+```
 
 ## Background Tasks
 
-\`\`\`python
+```python
 from fastapi import BackgroundTasks
 
-@router.post("/tasks/{task_id}/execute")
-async def execute_task(
-    task_id: str,
+def send_email(email: str, message: str):
+    # Send email logic
+    pass
+
+@router.post("/notify")
+async def notify(
+    email: str,
     background_tasks: BackgroundTasks,
-    service: TaskService = Depends(get_task_service)
 ):
-    background_tasks.add_task(service.execute_async, task_id)
-    return {"status": "accepted", "task_id": task_id}
-\`\`\`
+    background_tasks.add_task(send_email, email, "Hello!")
+    return {"message": "Notification queued"}
+```
 
-## WebSocket Support
+## Configuration
 
-\`\`\`python
-from fastapi import WebSocket, WebSocketDisconnect
+```python
+# app/config.py
+from pydantic_settings import BaseSettings
+from functools import lru_cache
 
-@router.websocket("/ws/{agent_id}")
-async def agent_websocket(websocket: WebSocket, agent_id: str):
-    await websocket.accept()
-    try:
-        while True:
-            data = await websocket.receive_text()
-            response = await process_message(agent_id, data)
-            await websocket.send_text(response)
-    except WebSocketDisconnect:
-        print(f"Agent {agent_id} disconnected")
-\`\`\`
+
+class Settings(BaseSettings):
+    database_url: str
+    better_auth_url: str = "http://localhost:3000"
+    debug: bool = False
+
+    model_config = {"env_file": ".env"}
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()
+```
+
+## Error Handling
+
+```python
+from fastapi import HTTPException, Request
+from fastapi.responses import JSONResponse
+
+
+class AppException(Exception):
+    def __init__(self, status_code: int, detail: str):
+        self.status_code = status_code
+        self.detail = detail
+
+
+@app.exception_handler(AppException)
+async def app_exception_handler(request: Request, exc: AppException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail},
+    )
+```
+
+## Testing
+
+```python
+# tests/test_tasks.py
+import pytest
+from fastapi.testclient import TestClient
+from app.main import app
+
+client = TestClient(app)
+
+
+def test_health():
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "healthy"}
+
+
+def test_create_task(auth_headers):
+    response = client.post(
+        "/api/tasks",
+        json={"title": "Test task"},
+        headers=auth_headers,
+    )
+    assert response.status_code == 201
+    assert response.json()["title"] == "Test task"
+```

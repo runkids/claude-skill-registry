@@ -1,7 +1,7 @@
 {
   "name": "pitch-deck",
-  "repo": "mamba-mental/agent-skill-manager",
-  "path": ".claude/skills/pitch-deck/SKILL.md",
-  "source": "github.com/mamba-mental/agent-skill-manager",
-  "downloaded_at": "2026-01-14T01:45:01.527504Z"
+  "repo": "merllinsbeard/ai-claude-skills-collection",
+  "path": "content/pitch-deck/SKILL.md",
+  "source": "github.com/merllinsbeard/ai-claude-skills-collection",
+  "downloaded_at": "2026-01-20T03:05:02.098361Z"
 }

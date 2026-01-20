@@ -1,1415 +1,476 @@
 ---
-name: react-patterns
-version: 2.0.0
-description: Comprehensive React 19 patterns expert covering Server Components, Actions, use() hook, useOptimistic, useFormStatus, useFormState, React Compiler, concurrent features, Suspense, and modern TypeScript development. Proactively use for any React development, component architecture, state management, performance optimization, or when implementing React 19's latest features.
-language: typescript,javascript,tsx,jsx
-framework: react
-license: MIT
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob
-tags: [react, react-19, typescript, javascript, jsx, tsx, hooks, server-components, actions, suspense, concurrent-rendering, react-compiler, use-optimistic, form-actions]
-category: frontend
-subcategories: [components, hooks, state-management, performance, server-components, forms, testing]
+name: react
+description: Core React 19 patterns including hooks, Suspense, lazy loading, component structure, TypeScript best practices, and performance optimization. Use when working with React components, hooks, lazy loading, Suspense boundaries, or React-specific TypeScript patterns.
 ---
 
-# React Development Patterns
+# React Core Patterns
 
-Expert guide for building modern React 19 applications with new concurrent features, Server Components, Actions, and advanced patterns.
+## Purpose
 
-## When to Use
+Essential React 19 patterns for building modern applications with hooks, Suspense, lazy loading, and TypeScript.
 
-- Building React 19 components with TypeScript/JavaScript
-- Managing component state with useState and useReducer
-- Handling side effects with useEffect
-- Optimizing performance with useMemo and useCallback
-- Creating custom hooks for reusable logic
-- Implementing component composition patterns
-- Working with refs using useRef
-- Using React 19's new features (use(), useOptimistic, useFormStatus)
-- Implementing Server Components and Actions
-- Working with Suspense and concurrent rendering
-- Building forms with new form hooks
+**Note**: React 19 (released December 2024) breaking changes:
+- `forwardRef` no longer needed - pass `ref` as a prop directly
+- `propTypes` removed (silently ignored)
+- New JSX transform required
+- `React.FC` type discouraged - use direct function components instead
+
+## When to Use This Skill
+
+- Creating React components
+- Using React hooks (useState, useEffect, useCallback, useMemo)
+- Implementing lazy loading and code splitting
+- Working with Suspense boundaries
+- React-specific TypeScript patterns
+- Performance optimization with React
+
+---
+
+## Quick Start
+
+### Component Structure Template
+
+```typescript
+import { useState, useCallback } from 'react';
+
+interface Props {
+  userId: string;
+  onUpdate?: (data: UserData) => void;
+}
+
+interface UserData {
+  name: string;
+  email: string;
+}
+
+function UserProfile({ userId, onUpdate }: Props) {
+  const [data, setData] = useState<UserData | null>(null);
+
+  const handleUpdate = useCallback((newData: UserData) => {
+    setData(newData);
+    onUpdate?.(newData);
+  }, [onUpdate]);
+
+  return (
+    <div>
+      {/* Component content */}
+    </div>
+  );
+}
+
+export default UserProfile;
+```
+
+### Component Checklist
+
+Creating a React component? Follow this:
+
+- [ ] Use function components with typed props (not `React.FC`)
+- [ ] Define interfaces for Props and local state
+- [ ] Use `useCallback` for event handlers passed to children
+- [ ] Use `useMemo` for expensive computations
+- [ ] Lazy load if heavy component: `lazy(() => import())`
+- [ ] Wrap lazy components in `<Suspense>` with fallback
+- [ ] Default export at bottom
+- [ ] No conditional hooks (hooks must be called in same order)
+- [ ] Pass `ref` as a prop (no `forwardRef` needed in React 19)
+
+---
 
 ## Core Hooks Patterns
 
-### useState - State Management
-
-Basic state declaration and updates:
+### useState
 
 ```typescript
-import { useState } from 'react';
+// Simple state
+const [count, setCount] = useState<number>(0);
 
-function Counter() {
-  const [count, setCount] = useState(0);
-  
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Count: {count}
-    </button>
-  );
-}
+// Object state
+const [user, setUser] = useState<User | null>(null);
+
+// Array state
+const [items, setItems] = useState<Item[]>([]);
+
+// Functional updates when depending on previous state
+setCount(prev => prev + 1);
+setItems(prev => [...prev, newItem]);
 ```
 
-State with initializer function (expensive computation):
+### useCallback
 
 ```typescript
-const [state, setState] = useState(() => {
-  const initialState = computeExpensiveValue();
-  return initialState;
-});
+// Wrap functions passed to child components
+const handleClick = useCallback((id: string) => {
+  console.log('Clicked:', id);
+}, []); // Empty deps if no dependencies
+
+// With dependencies
+const handleUpdate = useCallback((data: FormData) => {
+  apiCall(userId, data);
+}, [userId]); // Re-create when userId changes
 ```
 
-Multiple state variables:
+### useMemo
 
 ```typescript
-function UserProfile() {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState(0);
-  const [email, setEmail] = useState('');
-  
-  return (
-    <form>
-      <input value={name} onChange={e => setName(e.target.value)} />
-      <input type="number" value={age} onChange={e => setAge(Number(e.target.value))} />
-      <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
-    </form>
-  );
-}
+// Expensive computation
+const sortedItems = useMemo(() => {
+  return items.sort((a, b) => a.score - b.score);
+}, [items]);
+
+// Derived state
+const totalPrice = useMemo(() => {
+  return cart.reduce((sum, item) => sum + item.price, 0);
+}, [cart]);
 ```
 
-### useEffect - Side Effects
-
-Basic effect with cleanup:
+### useEffect
 
 ```typescript
-import { useEffect } from 'react';
+// Run once on mount
+useEffect(() => {
+  fetchData();
+}, []);
 
-function ChatRoom({ roomId }: { roomId: string }) {
-  useEffect(() => {
-    const connection = createConnection(roomId);
-    connection.connect();
-    
-    // Cleanup function
-    return () => {
-      connection.disconnect();
-    };
-  }, [roomId]); // Dependency array
-  
-  return <div>Connected to {roomId}</div>;
-}
+// Run when dependency changes
+useEffect(() => {
+  if (userId) {
+    loadUserData(userId);
+  }
+}, [userId]);
+
+// Cleanup
+useEffect(() => {
+  const subscription = subscribe(userId);
+  return () => subscription.unsubscribe();
+}, [userId]);
 ```
 
-Effect with multiple dependencies:
+---
+
+## Lazy Loading & Code Splitting
+
+### Basic Lazy Loading
 
 ```typescript
-function ChatRoom({ roomId, serverUrl }: { roomId: string; serverUrl: string }) {
-  useEffect(() => {
-    const connection = createConnection(serverUrl, roomId);
-    connection.connect();
-    
-    return () => connection.disconnect();
-  }, [roomId, serverUrl]); // Re-run when either changes
-  
-  return <h1>Welcome to {roomId}</h1>;
-}
-```
+import React, { Suspense } from 'react';
 
-Effect for subscriptions:
+// Lazy load heavy component
+const HeavyChart = React.lazy(() => import('./HeavyChart'));
 
-```typescript
-function StatusBar() {
-  const [isOnline, setIsOnline] = useState(true);
-  
-  useEffect(() => {
-    function handleOnline() {
-      setIsOnline(true);
-    }
-    
-    function handleOffline() {
-      setIsOnline(false);
-    }
-    
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []); // Empty array = run once on mount
-  
-  return <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1>;
-}
-```
-
-### useRef - Persistent References
-
-Storing mutable values without re-renders:
-
-```typescript
-import { useRef } from 'react';
-
-function Timer() {
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  
-  const startTimer = () => {
-    intervalRef.current = setInterval(() => {
-      console.log('Tick');
-    }, 1000);
-  };
-  
-  const stopTimer = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-  };
-  
-  return (
-    <>
-      <button onClick={startTimer}>Start</button>
-      <button onClick={stopTimer}>Stop</button>
-    </>
-  );
-}
-```
-
-DOM element references:
-
-```typescript
-function TextInput() {
-  const inputRef = useRef<HTMLInputElement>(null);
-  
-  const focusInput = () => {
-    inputRef.current?.focus();
-  };
-  
-  return (
-    <>
-      <input ref={inputRef} type="text" />
-      <button onClick={focusInput}>Focus Input</button>
-    </>
-  );
-}
-```
-
-## Custom Hooks Pattern
-
-Extract reusable logic into custom hooks:
-
-```typescript
-// useOnlineStatus.ts
-import { useState, useEffect } from 'react';
-
-export function useOnlineStatus() {
-  const [isOnline, setIsOnline] = useState(true);
-  
-  useEffect(() => {
-    function handleOnline() {
-      setIsOnline(true);
-    }
-    
-    function handleOffline() {
-      setIsOnline(false);
-    }
-    
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
-  
-  return isOnline;
-}
-
-// Usage in components
-function StatusBar() {
-  const isOnline = useOnlineStatus();
-  return <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1>;
-}
-
-function SaveButton() {
-  const isOnline = useOnlineStatus();
-  return (
-    <button disabled={!isOnline}>
-      {isOnline ? 'Save' : 'Reconnecting...'}
-    </button>
-  );
-}
-```
-
-Custom hook with parameters:
-
-```typescript
-// useChatRoom.ts
-import { useEffect } from 'react';
-
-interface ChatOptions {
-  serverUrl: string;
-  roomId: string;
-}
-
-export function useChatRoom({ serverUrl, roomId }: ChatOptions) {
-  useEffect(() => {
-    const connection = createConnection(serverUrl, roomId);
-    connection.connect();
-    
-    return () => connection.disconnect();
-  }, [serverUrl, roomId]);
-}
-
-// Usage
-function ChatRoom({ roomId }: { roomId: string }) {
-  const [serverUrl, setServerUrl] = useState('https://localhost:1234');
-  
-  useChatRoom({ serverUrl, roomId });
-  
-  return (
-    <>
-      <input value={serverUrl} onChange={e => setServerUrl(e.target.value)} />
-      <h1>Welcome to {roomId}</h1>
-    </>
-  );
-}
-```
-
-## Component Composition Patterns
-
-### Props and Children
-
-Basic component with props:
-
-```typescript
-interface ButtonProps {
-  variant?: 'primary' | 'secondary';
-  size?: 'sm' | 'md' | 'lg';
-  onClick?: () => void;
-  children: React.ReactNode;
-}
-
-function Button({ variant = 'primary', size = 'md', onClick, children }: ButtonProps) {
-  return (
-    <button 
-      className={`btn btn-${variant} btn-${size}`}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-```
-
-Composition with children:
-
-```typescript
-interface CardProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-function Card({ children, className = '' }: CardProps) {
-  return (
-    <div className={`card ${className}`}>
-      {children}
-    </div>
-  );
-}
-
-// Usage
-function UserProfile() {
-  return (
-    <Card>
-      <h2>John Doe</h2>
-      <p>Software Engineer</p>
-    </Card>
-  );
-}
-```
-
-### Lifting State Up
-
-Shared state between siblings:
-
-```typescript
-function Parent() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  
-  return (
-    <>
-      <Panel
-        isActive={activeIndex === 0}
-        onShow={() => setActiveIndex(0)}
-      >
-        Panel 1 content
-      </Panel>
-      <Panel
-        isActive={activeIndex === 1}
-        onShow={() => setActiveIndex(1)}
-      >
-        Panel 2 content
-      </Panel>
-    </>
-  );
-}
-
-interface PanelProps {
-  isActive: boolean;
-  onShow: () => void;
-  children: React.ReactNode;
-}
-
-function Panel({ isActive, onShow, children }: PanelProps) {
+function Dashboard() {
   return (
     <div>
-      <button onClick={onShow}>Show</button>
-      {isActive && <div>{children}</div>}
+      <h1>Dashboard</h1>
+      <Suspense fallback={<div>Loading chart...</div>}>
+        <HeavyChart />
+      </Suspense>
     </div>
   );
 }
 ```
+
+### Multiple Lazy Components
+
+```typescript
+const AdminPanel = React.lazy(() => import('./AdminPanel'));
+const UserSettings = React.lazy(() => import('./UserSettings'));
+const Reports = React.lazy(() => import('./Reports'));
+
+function App() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/settings" element={<UserSettings />} />
+        <Route path="/reports" element={<Reports />} />
+      </Routes>
+    </Suspense>
+  );
+}
+```
+
+### Feature-Based Code Splitting
+
+```typescript
+// features/auth/index.tsx
+export { default } from './AuthFeature';
+
+// Lazy load entire feature
+const AuthFeature = React.lazy(() => import('~/features/auth'));
+
+<Suspense fallback={<FeatureLoader />}>
+  <AuthFeature />
+</Suspense>
+```
+
+---
+
+## Suspense Patterns
+
+### Suspense Boundaries
+
+```typescript
+// Wrap data-fetching components
+<Suspense fallback={<Skeleton />}>
+  <UserProfile userId={id} />
+</Suspense>
+
+// Nested Suspense for granular loading
+<Suspense fallback={<PageLoader />}>
+  <Header />
+  <Suspense fallback={<ContentSkeleton />}>
+    <MainContent />
+  </Suspense>
+  <Footer />
+</Suspense>
+```
+
+### Error Boundaries with Suspense
+
+```typescript
+import { ErrorBoundary } from 'react-error-boundary';
+
+<ErrorBoundary fallback={<ErrorFallback />}>
+  <Suspense fallback={<Loading />}>
+    <DataComponent />
+  </Suspense>
+</ErrorBoundary>
+```
+
+---
+
+## TypeScript Patterns
+
+### Component Props
+
+```typescript
+// Basic props
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+}
+
+// Props with children
+interface CardProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+// Props with specific child types
+interface ListProps {
+  children: React.ReactElement<ItemProps> | React.ReactElement<ItemProps>[];
+}
+
+// Props with event handlers
+interface FormProps {
+  onSubmit: (data: FormData) => void;
+  onChange?: (field: string, value: unknown) => void;
+}
+```
+
+### Hooks TypeScript
+
+```typescript
+// useState with type
+const [user, setUser] = useState<User | null>(null);
+const [items, setItems] = useState<Item[]>([]);
+
+// useRef with type
+const inputRef = useRef<HTMLInputElement>(null);
+const timerRef = useRef<number | null>(null);
+
+// Custom hook with return type
+function useUser(id: string): { user: User | null; loading: boolean } {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // ... implementation
+
+  return { user, loading };
+}
+```
+
+---
 
 ## Performance Optimization
 
-### Avoid Unnecessary Effects
-
-❌ Bad - Using effect for derived state:
+### React.memo
 
 ```typescript
-function TodoList({ todos }: { todos: Todo[] }) {
-  const [visibleTodos, setVisibleTodos] = useState<Todo[]>([]);
-  
-  useEffect(() => {
-    setVisibleTodos(todos.filter(t => !t.completed));
-  }, [todos]); // Unnecessary effect
-  
-  return <ul>{/* ... */}</ul>;
-}
-```
-
-✅ Good - Compute during render:
-
-```typescript
-function TodoList({ todos }: { todos: Todo[] }) {
-  const visibleTodos = todos.filter(t => !t.completed); // Direct computation
-  
-  return <ul>{/* ... */}</ul>;
-}
-```
-
-### useMemo for Expensive Computations
-
-```typescript
-import { useMemo } from 'react';
-
-function DataTable({ data }: { data: Item[] }) {
-  const sortedData = useMemo(() => {
-    return [...data].sort((a, b) => a.name.localeCompare(b.name));
-  }, [data]); // Only recompute when data changes
-  
-  return <table>{/* render sortedData */}</table>;
-}
-```
-
-### useCallback for Function Stability
-
-```typescript
-import { useCallback } from 'react';
-
-function Parent() {
-  const [count, setCount] = useState(0);
-  
-  const handleClick = useCallback(() => {
-    console.log('Clicked', count);
-  }, [count]); // Recreate only when count changes
-  
-  return <ExpensiveChild onClick={handleClick} />;
-}
-```
-
-## TypeScript Best Practices
-
-### Type-Safe Props
-
-```typescript
-interface UserProps {
-  id: string;
-  name: string;
-  email: string;
-  age?: number; // Optional
-}
-
-function User({ id, name, email, age }: UserProps) {
+// Memoize component to prevent unnecessary re-renders
+const UserCard = React.memo<UserCardProps>(({ user, onUpdate }) => {
   return (
     <div>
-      <h2>{name}</h2>
-      <p>{email}</p>
-      {age && <p>Age: {age}</p>}
+      <h3>{user.name}</h3>
+      <button onClick={() => onUpdate(user.id)}>Update</button>
     </div>
   );
-}
+});
+
+// Custom comparison function
+const UserCard = React.memo(UserCardComponent, (prevProps, nextProps) => {
+  return prevProps.user.id === nextProps.user.id;
+});
 ```
 
-### Generic Components
+### Avoiding Re-renders
 
 ```typescript
-interface ListProps<T> {
-  items: T[];
-  renderItem: (item: T) => React.ReactNode;
+// ❌ Bad: Creates new function on every render
+function Parent() {
+  return <Child onClick={() => console.log('clicked')} />;
 }
 
-function List<T>({ items, renderItem }: ListProps<T>) {
-  return (
-    <ul>
-      {items.map((item, index) => (
-        <li key={index}>{renderItem(item)}</li>
-      ))}
-    </ul>
-  );
-}
+// ✅ Good: Stable function reference
+function Parent() {
+  const handleClick = useCallback(() => {
+    console.log('clicked');
+  }, []);
 
-// Usage
-<List 
-  items={users}
-  renderItem={(user) => <span>{user.name}</span>}
-/>
-```
-
-### Event Handlers
-
-```typescript
-function Form() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Handle form submission
-  };
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
-  
-  return (
-    <form onSubmit={handleSubmit}>
-      <input onChange={handleChange} />
-    </form>
-  );
+  return <Child onClick={handleClick} />;
 }
 ```
+
+---
 
 ## Common Patterns
-
-### Controlled Components
-
-```typescript
-function ControlledInput() {
-  const [value, setValue] = useState('');
-  
-  return (
-    <input 
-      value={value}
-      onChange={e => setValue(e.target.value)}
-    />
-  );
-}
-```
 
 ### Conditional Rendering
 
 ```typescript
-function Greeting({ isLoggedIn }: { isLoggedIn: boolean }) {
-  return (
-    <div>
-      {isLoggedIn ? (
-        <UserGreeting />
-      ) : (
-        <GuestGreeting />
-      )}
-    </div>
-  );
+// Ternary operator
+{isLoading ? <Spinner /> : <Content />}
+
+// Logical AND
+{error && <ErrorMessage error={error} />}
+
+// Nullish coalescing
+{user ?? <GuestView />}
+
+// Early return for loading states
+function Component() {
+  const { data } = useSomeHook();
+
+  // ❌ Avoid early returns for loading - breaks hooks rules
+  // Use Suspense instead
+
+  return <div>{data.map(...)}</div>;
 }
 ```
 
 ### Lists and Keys
 
 ```typescript
-function UserList({ users }: { users: User[] }) {
-  return (
-    <ul>
-      {users.map(user => (
-        <li key={user.id}>
-          {user.name}
-        </li>
-      ))}
-    </ul>
-  );
-}
+// Always use stable keys
+{items.map(item => (
+  <ItemCard key={item.id} item={item} />
+))}
+
+// Never use index as key if list can reorder
+// ❌ Bad
+{items.map((item, index) => (
+  <ItemCard key={index} item={item} />
+))}
 ```
 
-## Best Practices
+---
 
-### General React Best Practices
+## File Organization
 
-1. **Dependency Arrays**: Always specify correct dependencies in useEffect
-2. **State Structure**: Keep state minimal and avoid redundant state
-3. **Component Size**: Keep components small and focused
-4. **Custom Hooks**: Extract complex logic into reusable custom hooks
-5. **TypeScript**: Use TypeScript for type safety
-6. **Keys**: Use stable IDs as keys for list items, not array indices
-7. **Immutability**: Never mutate state directly
-8. **Effects**: Use effects only for synchronization with external systems
-9. **Performance**: Profile before optimizing with useMemo/useCallback
+### Feature-Based Structure
 
-### React 19 Specific Best Practices
-
-1. **Server Components**: Use Server Components for data fetching and static content
-2. **Client Components**: Mark components as 'use client' only when necessary
-3. **Actions**: Use Server Actions for mutations and form submissions
-4. **Optimistic Updates**: Implement useOptimistic for better UX
-5. **use() Hook**: Use for reading promises and context conditionally
-6. **Form State**: Use useFormState and useFormStatus for complex forms
-7. **Concurrent Features**: Leverage useTransition for non-urgent updates
-8. **Error Boundaries**: Implement proper error handling with error boundaries
-
-## Common Pitfalls
-
-### General React Pitfalls
-
-❌ **Missing Dependencies**:
-```typescript
-useEffect(() => {
-  // Uses 'count' but doesn't include it in deps
-  console.log(count);
-}, []); // Wrong!
+```
+src/
+├── features/
+│   ├── auth/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── types/
+│   │   └── index.tsx
+│   └── posts/
+│       ├── components/
+│       ├── hooks/
+│       ├── types/
+│       └── index.tsx
+├── components/  # Shared components
+├── hooks/       # Shared hooks
+└── types/       # Shared types
 ```
 
-❌ **Mutating State**:
-```typescript
-const [items, setItems] = useState([]);
-items.push(newItem); // Wrong! Mutates state
-setItems(items); // Won't trigger re-render
+### Component Co-location
+
+```
+features/posts/
+├── components/
+│   ├── PostCard.tsx
+│   ├── PostList.tsx
+│   └── PostForm.tsx
+├── hooks/
+│   ├── usePost.ts
+│   └── usePosts.ts
+├── types/
+│   └── post.ts
+└── index.tsx  # Public API
 ```
 
-✅ **Correct Approach**:
-```typescript
-setItems([...items, newItem]); // Create new array
-```
+---
 
-### React 19 Specific Pitfalls
+## Common Mistakes to Avoid
 
-❌ **Using use() outside of render**:
-```typescript
-// Wrong!
-function handleClick() {
-  const data = use(promise); // Error: use() can only be called in render
-}
-```
-
-✅ **Correct usage**:
-```tsx
-function Component({ promise }) {
-  const data = use(promise); // Correct: called during render
-  return <div>{data}</div>;
-}
-```
-
-❌ **Forgetting 'use server' directive**:
-```typescript
-// Wrong - missing 'use server'
-export async function myAction() {
-  // This will run on the client!
-}
-```
-
-✅ **Correct Server Action**:
-```typescript
-'use server'; // Must be at the top
-
-export async function myAction() {
-  // Now runs on the server
-}
-```
-
-❌ **Mixing Server and Client logic incorrectly**:
-```tsx
-// Wrong - trying to use browser APIs in Server Component
-export default async function ServerComponent() {
-  const width = window.innerWidth; // Error: window is not defined
-  return <div>{width}</div>;
-}
-```
-
-✅ **Correct separation**:
-```tsx
-// Server Component for data
-export default async function ServerComponent() {
-  const data = await fetchData();
-  return <ClientComponent data={data} />;
-}
-
-// Client Component for browser APIs
-'use client';
-
-function ClientComponent({ data }) {
-  const [width, setWidth] = useState(window.innerWidth);
-  // Handle resize logic...
-  return <div>{width}</div>;
-}
-```
-
-## React 19 New Features
-
-### use() Hook - Reading Resources
-
-The `use()` hook reads the value from a resource like a Promise or Context:
+### 1. Conditional Hooks
 
 ```typescript
-import { use } from 'react';
-
-// Reading a Promise in a component
-function MessageComponent({ messagePromise }) {
-  const message = use(messagePromise);
-  return <p>{message}</p>;
-}
-
-// Reading Context conditionally
-function Button() {
+// ❌ Never do this
+function Component({ condition }) {
   if (condition) {
-    const theme = use(ThemeContext);
-    return <button className={theme}>Click</button>;
+    const [state, setState] = useState(0); // Breaks rules of hooks
   }
-  return <button>Click</button>;
+}
+
+// ✅ Do this
+function Component({ condition }) {
+  const [state, setState] = useState(0);
+  // Use state conditionally, not the hook
 }
 ```
 
-### useOptimistic Hook - Optimistic UI Updates
-
-Manage optimistic UI updates for async operations:
+### 2. Missing Dependencies
 
 ```typescript
-import { useOptimistic } from 'react';
+// ❌ Bad: Missing dependency
+useEffect(() => {
+  fetchUser(userId);
+}, []); // userId should be in deps
 
-function TodoList({ todos, addTodo }) {
-  const [optimisticTodos, addOptimisticTodo] = useOptimistic(
-    todos,
-    (state, newTodo) => [...state, newTodo]
-  );
-
-  const handleSubmit = async (formData) => {
-    const newTodo = { id: Date.now(), text: formData.get('text') };
-
-    // Optimistically add to UI
-    addOptimisticTodo(newTodo);
-
-    // Actually add to backend
-    await addTodo(newTodo);
-  };
-
-  return (
-    <form action={handleSubmit}>
-      {optimisticTodos.map(todo => (
-        <div key={todo.id}>{todo.text}</div>
-      ))}
-      <input type="text" name="text" />
-      <button type="submit">Add Todo</button>
-    </form>
-  );
-}
+// ✅ Good: All dependencies listed
+useEffect(() => {
+  fetchUser(userId);
+}, [userId]);
 ```
 
-### useFormStatus Hook - Form State
-
-Access form submission status from child components:
+### 3. Mutating State
 
 ```typescript
-import { useFormStatus } from 'react';
+// ❌ Bad: Mutating state directly
+const handleAdd = () => {
+  items.push(newItem); // Don't mutate
+  setItems(items);
+};
 
-function SubmitButton() {
-  const { pending, data } = useFormStatus();
-
-  return (
-    <button type="submit" disabled={pending}>
-      {pending ? 'Submitting...' : 'Submit'}
-    </button>
-  );
-}
-
-function ContactForm() {
-  return (
-    <form action={submitForm}>
-      <input name="email" type="email" />
-      <SubmitButton />
-    </form>
-  );
-}
-```
-
-### useFormState Hook - Form State Management
-
-Manage form state with error handling:
-
-```typescript
-import { useFormState } from 'react';
-
-async function submitAction(prevState: string | null, formData: FormData) {
-  const email = formData.get('email') as string;
-
-  if (!email.includes('@')) {
-    return 'Invalid email address';
-  }
-
-  await submitToDatabase(email);
-  return null;
-}
-
-function EmailForm() {
-  const [state, formAction] = useFormState(submitAction, null);
-
-  return (
-    <form action={formAction}>
-      <input name="email" type="email" />
-      <button type="submit">Subscribe</button>
-      {state && <p className="error">{state}</p>}
-    </form>
-  );
-}
-```
-
-### Server Actions
-
-Define server-side functions for form handling:
-
-```typescript
-// app/actions.ts
-'use server';
-
-import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
-
-export async function createPost(formData: FormData) {
-  const title = formData.get('title') as string;
-  const content = formData.get('content') as string;
-
-  // Validate input
-  if (!title || !content) {
-    return { error: 'Title and content are required' };
-  }
-
-  // Save to database
-  const post = await db.post.create({
-    data: { title, content }
-  });
-
-  // Update cache and redirect
-  revalidatePath('/posts');
-  redirect(`/posts/${post.id}`);
-}
-```
-
-### Server Components
-
-Components that run exclusively on the server:
-
-```typescript
-// app/posts/page.tsx - Server Component
-async function PostsPage() {
-  // Server-side data fetching
-  const posts = await db.post.findMany({
-    orderBy: { createdAt: 'desc' },
-    take: 10
-  });
-
-  return (
-    <div>
-      <h1>Latest Posts</h1>
-      <PostsList posts={posts} />
-    </div>
-  );
-}
-
-// Client Component for interactivity
-'use client';
-
-function PostsList({ posts }: { posts: Post[] }) {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-
-  return (
-    <ul>
-      {posts.map(post => (
-        <li
-          key={post.id}
-          onClick={() => setSelectedId(post.id)}
-          className={selectedId === post.id ? 'selected' : ''}
-        >
-          {post.title}
-        </li>
-      ))}
-    </ul>
-  );
-}
-```
-
-## React Compiler
-
-### Automatic Optimization
-
-React Compiler automatically optimizes your components:
-
-```typescript
-// Before React Compiler - manual memoization needed
-const ExpensiveComponent = memo(function ExpensiveComponent({
-  data,
-  onUpdate
-}) {
-  const processedData = useMemo(() => {
-    return data.map(item => ({
-      ...item,
-      computed: expensiveCalculation(item)
-    }));
-  }, [data]);
-
-  const handleClick = useCallback((id) => {
-    onUpdate(id);
-  }, [onUpdate]);
-
-  return (
-    <div>
-      {processedData.map(item => (
-        <Item
-          key={item.id}
-          item={item}
-          onClick={handleClick}
-        />
-      ))}
-    </div>
-  );
-});
-
-// After React Compiler - no manual optimization needed
-function ExpensiveComponent({ data, onUpdate }) {
-  const processedData = data.map(item => ({
-    ...item,
-    computed: expensiveCalculation(item)
-  }));
-
-  const handleClick = (id) => {
-    onUpdate(id);
-  };
-
-  return (
-    <div>
-      {processedData.map(item => (
-        <Item
-          key={item.id}
-          item={item}
-          onClick={handleClick}
-        />
-      ))}
-    </div>
-  );
-}
-```
-
-### Installation and Setup
-
-```bash
-# Install React Compiler
-npm install -D babel-plugin-react-compiler@latest
-
-# Install ESLint plugin for validation
-npm install -D eslint-plugin-react-hooks@latest
-```
-
-```javascript
-// babel.config.js
-module.exports = {
-  plugins: [
-    'babel-plugin-react-compiler', // Must run first!
-    // ... other plugins
-  ],
+// ✅ Good: Create new array
+const handleAdd = () => {
+  setItems([...items, newItem]);
 };
 ```
 
-```javascript
-// vite.config.js for Vite users
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-
-export default defineConfig({
-  plugins: [
-    react({
-      babel: {
-        plugins: ['babel-plugin-react-compiler'],
-      },
-    }),
-  ],
-});
-```
-
-### Compiler Configuration
-
-```javascript
-// babel.config.js with compiler options
-module.exports = {
-  plugins: [
-    [
-      'babel-plugin-react-compiler',
-      {
-        // Enable compilation for specific files
-        target: '18', // or '19'
-        // Debug mode for development
-        debug: process.env.NODE_ENV === 'development'
-      }
-    ],
-  ],
-};
-
-// Incremental adoption with overrides
-module.exports = {
-  plugins: [],
-  overrides: [
-    {
-      test: './src/components/**/*.{js,jsx,ts,tsx}',
-      plugins: ['babel-plugin-react-compiler']
-    }
-  ]
-};
-```
-
-## Advanced Server Components Patterns
-
-### Mixed Server/Client Architecture
-
-```typescript
-// Server Component for data fetching
-async function ProductPage({ id }: { id: string }) {
-  const product = await fetchProduct(id);
-  const related = await fetchRelatedProducts(id);
-
-  return (
-    <div>
-      <ProductDetails product={product} />
-      <ProductGallery images={product.images} />
-      <RelatedProducts products={related} />
-    </div>
-  );
-}
-
-// Client Component for interactivity
-'use client';
-
-function ProductDetails({ product }: { product: Product }) {
-  const [quantity, setQuantity] = useState(1);
-  const [isAdded, setIsAdded] = useState(false);
-
-  return (
-    <div>
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>${product.price}</p>
-
-      <QuantitySelector
-        value={quantity}
-        onChange={setQuantity}
-      />
-
-      <AddToCartButton
-        productId={product.id}
-        quantity={quantity}
-        onAdded={() => setIsAdded(true)}
-      />
-
-      {isAdded && <p>Added to cart!</p>}
-    </div>
-  );
-}
-```
-
-### Server Actions with Validation
-
-```typescript
-'use server';
-
-import { z } from 'zod';
-
-const checkoutSchema = z.object({
-  items: z.array(z.object({
-    productId: z.string(),
-    quantity: z.number().min(1)
-  })),
-  shippingAddress: z.object({
-    street: z.string().min(1),
-    city: z.string().min(1),
-    zipCode: z.string().regex(/^\d{5}$/)
-  }),
-  paymentMethod: z.enum(['credit', 'paypal', 'apple'])
-});
-
-export async function processCheckout(
-  prevState: any,
-  formData: FormData
-) {
-  // Extract and validate data
-  const rawData = {
-    items: JSON.parse(formData.get('items') as string),
-    shippingAddress: {
-      street: formData.get('street'),
-      city: formData.get('city'),
-      zipCode: formData.get('zipCode')
-    },
-    paymentMethod: formData.get('paymentMethod')
-  };
-
-  const result = checkoutSchema.safeParse(rawData);
-
-  if (!result.success) {
-    return {
-      error: 'Validation failed',
-      fieldErrors: result.error.flatten().fieldErrors
-    };
-  }
-
-  try {
-    // Process payment
-    const order = await createOrder(result.data);
-
-    // Update inventory
-    await updateInventory(result.data.items);
-
-    // Send confirmation
-    await sendConfirmationEmail(order);
-
-    // Revalidate cache
-    revalidatePath('/orders');
-
-    return { success: true, orderId: order.id };
-  } catch (error) {
-    return { error: 'Payment failed' };
-  }
-}
-```
-
-## Concurrent Features
-
-### useTransition for Non-Urgent Updates
-
-```typescript
-import { useTransition, useState } from 'react';
-
-function SearchableList({ items }: { items: Item[] }) {
-  const [query, setQuery] = useState('');
-  const [isPending, startTransition] = useTransition();
-  const [filteredItems, setFilteredItems] = useState(items);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Update input immediately
-    setQuery(e.target.value);
-
-    // Transition the filter operation
-    startTransition(() => {
-      setFilteredItems(
-        items.filter(item =>
-          item.name.toLowerCase().includes(e.target.value.toLowerCase())
-        )
-      );
-    });
-  };
-
-  return (
-    <div>
-      <input
-        type="text"
-        value={query}
-        onChange={handleChange}
-        placeholder="Search items..."
-      />
-
-      {isPending && <div className="loading">Filtering...</div>}
-
-      <ul>
-        {filteredItems.map(item => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-```
-
-### useDeferredValue for Expensive UI
-
-```typescript
-import { useDeferredValue, useMemo } from 'react';
-
-function DataGrid({ data }: { data: DataRow[] }) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const deferredSearchTerm = useDeferredValue(searchTerm);
-
-  const filteredData = useMemo(() => {
-    return data.filter(row =>
-      Object.values(row).some(value =>
-        String(value).toLowerCase().includes(deferredSearchTerm.toLowerCase())
-      )
-    );
-  }, [data, deferredSearchTerm]);
-
-  return (
-    <div>
-      <input
-        value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)}
-        placeholder="Search..."
-        className={searchTerm !== deferredSearchTerm ? 'stale' : ''}
-      />
-
-      <DataGridRows
-        data={filteredData}
-        isStale={searchTerm !== deferredSearchTerm}
-      />
-    </div>
-  );
-}
-```
-
-## Testing React 19 Features
-
-### Testing Server Actions
-
-```typescript
-import { render, screen, fireEvent } from '@testing-library/react';
-import { jest } from '@jest/globals';
-import ContactForm from './ContactForm';
-
-// Mock server action
-const mockSubmitForm = jest.fn();
-
-describe('ContactForm', () => {
-  it('submits form with server action', async () => {
-    render(<ContactForm />);
-
-    fireEvent.change(screen.getByLabelText('Email'), {
-      target: { value: 'test@example.com' }
-    });
-
-    fireEvent.click(screen.getByText('Submit'));
-
-    expect(mockSubmitForm).toHaveBeenCalledWith(
-      expect.any(FormData)
-    );
-  });
-
-  it('shows loading state during submission', async () => {
-    mockSubmitForm.mockImplementation(() => new Promise(resolve => setTimeout(resolve, 100)));
-
-    render(<ContactForm />);
-
-    fireEvent.click(screen.getByText('Submit'));
-
-    expect(screen.getByText('Submitting...')).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(screen.getByText('Submit')).toBeInTheDocument();
-    });
-  });
-});
-```
-
-### Testing Optimistic Updates
-
-```typescript
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { jest } from '@jest/globals';
-import TodoList from './TodoList';
-
-describe('useOptimistic', () => {
-  it('shows optimistic update immediately', async () => {
-    const mockAddTodo = jest.fn(() => new Promise(resolve => setTimeout(resolve, 100)));
-
-    render(
-      <TodoList
-        todos={[]}
-        addTodo={mockAddTodo}
-      />
-    );
-
-    fireEvent.change(screen.getByPlaceholderText('Add a todo'), {
-      target: { value: 'New todo' }
-    });
-
-    fireEvent.click(screen.getByText('Add'));
-
-    // Optimistic update appears immediately
-    expect(screen.getByText('New todo')).toBeInTheDocument();
-
-    // Wait for actual submission
-    await waitFor(() => {
-      expect(mockAddTodo).toHaveBeenCalledWith({
-        id: expect.any(Number),
-        text: 'New todo'
-      });
-    });
-  });
-});
-```
-
-## Performance Best Practices
-
-### React Compiler Guidelines
-
-1. **Write Standard React Code**: The compiler works best with idiomatic React patterns
-2. **Avoid Manual Memoization**: Let the compiler handle useMemo, useCallback, and memo
-3. **Keep Components Pure**: Avoid side effects in render
-4. **Use Stable References**: Pass stable objects as props
-
-```typescript
-// Good: Clean, idiomatic React
-function ProductCard({ product, onAddToCart }) {
-  const [quantity, setQuantity] = useState(1);
-
-  const handleAdd = () => {
-    onAddToCart(product.id, quantity);
-  };
-
-  return (
-    <div>
-      <h3>{product.name}</h3>
-      <p>${product.price}</p>
-      <input
-        type="number"
-        value={quantity}
-        onChange={e => setQuantity(Number(e.target.value))}
-        min="1"
-      />
-      <button onClick={handleAdd}>Add to Cart</button>
-    </div>
-  );
-}
-
-// Avoid: Manual optimization
-function ProductCard({ product, onAddToCart }) {
-  const [quantity, setQuantity] = useState(1);
-
-  const handleAdd = useCallback(() => {
-    onAddToCart(product.id, quantity);
-  }, [product.id, quantity, onAddToCart]);
-
-  return (
-    <div>
-      <h3>{product.name}</h3>
-      <p>${product.price}</p>
-      <QuantityInput
-        value={quantity}
-        onChange={setQuantity}
-      />
-      <button onClick={handleAdd}>Add to Cart</button>
-    </div>
-  );
-}
-```
-
-### Server Components Best Practices
-
-1. **Keep Server Components Server-Only**: No event handlers, hooks, or browser APIs
-2. **Minimize Client Components**: Only use 'use client' when necessary
-3. **Pass Data as Props**: Serialize data when passing from Server to Client
-4. **Use Server Actions for Mutations**: Keep data operations on the server
-
-```typescript
-// Good: Server Component for static content
-async function ProductPage({ id }: { id: string }) {
-  const product = await fetchProduct(id);
-
-  return (
-    <article>
-      <header>
-        <h1>{product.name}</h1>
-        <p>{product.description}</p>
-      </header>
-
-      <img
-        src={product.imageUrl}
-        alt={product.name}
-        width={600}
-        height={400}
-      />
-
-      <PriceDisplay price={product.price} />
-      <AddToCartForm productId={product.id} />
-    </article>
-  );
-}
-
-// Client Component only for interactivity
-'use client';
-
-function AddToCartForm({ productId }: { productId: string }) {
-  const [isAdding, setIsAdding] = useState(false);
-
-  async function handleSubmit() {
-    setIsAdding(true);
-    await addToCart(productId);
-    setIsAdding(false);
-  }
-
-  return (
-    <form action={handleSubmit}>
-      <button type="submit" disabled={isAdding}>
-        {isAdding ? 'Adding...' : 'Add to Cart'}
-      </button>
-    </form>
-  );
-}
-```
-
-## Migration Guide
-
-### From React 18 to 19
-
-1. **Update Dependencies**:
-```bash
-npm install react@19 react-dom@19
-```
-
-2. **Adopt Server Components**:
-   - Identify data-fetching components
-   - Remove client-side code from Server Components
-   - Add 'use client' directive where needed
-
-3. **Replace Manual Optimistic Updates**:
-```typescript
-// Before
-function TodoList({ todos, addTodo }) {
-  const [optimisticTodos, setOptimisticTodos] = useState(todos);
-
-  const handleAdd = async (text) => {
-    const newTodo = { id: Date.now(), text };
-    setOptimisticTodos([...optimisticTodos, newTodo]);
-    await addTodo(newTodo);
-  };
-}
-
-// After
-function TodoList({ todos, addTodo }) {
-  const [optimisticTodos, addOptimisticTodo] = useOptimistic(
-    todos,
-    (state, newTodo) => [...state, newTodo]
-  );
-
-  const handleAdd = async (formData) => {
-    const newTodo = { id: Date.now(), text: formData.get('text') };
-    addOptimisticTodo(newTodo);
-    await addTodo(newTodo);
-  };
-}
-```
-
-4. **Enable React Compiler**:
-   - Install babel-plugin-react-compiler
-   - Remove manual memoization
-   - Let the compiler optimize automatically
-
-## References
-
-- React 19 Official Docs: https://react.dev/blog/2024/04/25/react-19
-- React Server Components: https://react.dev/reference/rsc/server-components
-- React Compiler: https://react.dev/learn/react-compiler
-- TypeScript with React: https://react-typescript-cheatsheet.netlify.app/
+---
+
+## Additional Resources
+
+For more detailed patterns, see:
+- [component-patterns.md](resources/component-patterns.md) - Advanced component patterns
+- [performance.md](resources/performance.md) - Performance optimization techniques
+- [typescript-patterns.md](resources/typescript-patterns.md) - TypeScript best practices
+- [hooks-patterns.md](resources/hooks-patterns.md) - Custom hooks and advanced patterns

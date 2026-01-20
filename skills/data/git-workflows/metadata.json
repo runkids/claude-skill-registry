@@ -1,7 +1,7 @@
 {
   "name": "git-workflows",
-  "repo": "Lobbi-Docs/claude",
-  "path": ".claude/skills/git-workflows/SKILL.md",
-  "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-01-19T04:20:29.449464Z"
+  "repo": "hgeldenhuys/claude-code-sdk",
+  "path": "skills/git-workflows/SKILL.md",
+  "source": "github.com/hgeldenhuys/claude-code-sdk",
+  "downloaded_at": "2026-01-20T01:20:17.828876Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "test-coverage",
-  "repo": "mehdic/bazinga",
-  "path": ".claude/skills/test-coverage/SKILL.md",
-  "source": "github.com/mehdic/bazinga",
-  "downloaded_at": "2026-01-19T04:20:18.086833Z"
+  "repo": "takish/dotfiles",
+  "path": "dot_claude/skills/test-coverage/SKILL.md",
+  "source": "github.com/takish/dotfiles",
+  "downloaded_at": "2026-01-20T02:43:50.428672Z"
 }

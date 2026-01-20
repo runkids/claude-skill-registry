@@ -1,7 +1,7 @@
 {
   "name": "scientific-critical-thinking",
-  "repo": "K-Dense-AI/claude-scientific-writer",
-  "path": "scientific_writer/.claude/skills/scientific-critical-thinking/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-writer",
-  "downloaded_at": "2026-01-19T03:54:15.687971Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/scientific-critical-thinking/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-20T03:11:33.183037Z"
 }

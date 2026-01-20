@@ -31,7 +31,7 @@ When helping users work with database access in C#, follow these guidelines:
 
 7. **PostgreSQL Arrays**: For native PostgreSQL, use native array support. For ODBC, use the array literal helper functions
 
-8. **PgQuery Tool**: Reference the PgQuery tool (`Y:\CSharpDLLs\PgQuery\PgQuery.exe` or `C:\Users\matthew.heath\Git\PgQuery`) for executing ad-hoc PostgreSQL queries with JSON configuration support
+8. **PgQuery Tool**: Reference the PgQuery tool (`C:\Users\matthew.heath\Git\RocsMiddleware\PgQuery`) for executing ad-hoc PostgreSQL queries
 
 ## Examples
 
@@ -66,13 +66,11 @@ Claude: I'll use Npgsql for direct PostgreSQL access:
 User: Can you run this query on PostgreSQL and show me the results?
 
 Claude: I'll use the PgQuery tool to execute your query:
-- Command: PgQuery --config <config.json> --sql "QUERY" or --file script.sql
-- JSON configuration for database connection settings
-- Can save to file with --output flag
-- Formatted table output with row counts
-- Supports both SELECT queries and UPDATE/INSERT/DELETE commands
+- Command: PgQuery "YOUR SQL QUERY"
+- Can save to file with -o flag
+- Formatted table output
 
-[Executes: PgQuery --config "R:\JsonParams\mydb.config.json" --sql "SELECT * FROM products LIMIT 10"]
+[Executes: PgQuery "SELECT * FROM products LIMIT 10"]
 ```
 
 ### Example 4: Type-Safe Mapping with ExecuteAndMap
@@ -137,10 +135,6 @@ command.Parameters.Add(new OdbcParameter("p1", minTimestamp));
 - Unix timestamp handling
 
 ### Exportmaster ODBC Access (DBISAM)
-
-documentation for the sql dialect is here
-
-https://www.elevatesoft.com/manual?action=topics&id=dbisam4&product=rsdelphi&version=XE&section=sql_reference
 
 **Connection String**: `DSN=Exportmaster`
 **Parameter Style**: `?` placeholders
@@ -456,136 +450,52 @@ public static string PreparePostgresQuery(string sqlQuery, Dictionary<string, ob
 
 ## PgQuery Command-Line Tool
 
-**Location**: `Y:\CSharpDLLs\PgQuery\PgQuery.exe` (production) or `C:\Users\matthew.heath\Git\PgQuery` (development)
-**Purpose**: Ad-hoc PostgreSQL query execution with JSON-based configuration and formatted output
-**Repository**: `gogs@dw.ramsden-international.com:matthew.heath/PgQuery.git`
-
-### Key Features
-
-- **JSON Configuration**: Database connection settings stored in reusable config files
-- **Query & Non-Query Support**: Executes SELECT queries with formatted output, or UPDATE/INSERT/DELETE commands with affected row counts
-- **File or Inline SQL**: Run SQL from command-line arguments or external `.sql` files
-- **Output Export**: Save query results to text files
-- **Network Deployment**: Release builds automatically deploy to `\\rivsts05\Software\CSharpDLLs\PgQuery\` (mapped as `Y:\CSharpDLLs\PgQuery\`)
-
-### Configuration Format
-
-Create a JSON configuration file with database connection settings:
-
-```json
-{
-  "host": "rivsprod01",
-  "database": "x3rocs",
-  "username": "jordan",
-  "password": null,
-  "port": 5432
-}
-```
-
-**Example Config Locations**:
-- `R:\JsonParams\CRMPollerFixer.config.json`
-- `R:\JsonParams\mydb.config.json`
+**Location**: `C:\Users\matthew.heath\Git\RocsMiddleware\PgQuery`
+**Purpose**: Ad-hoc PostgreSQL query execution with formatted output
+**Connection**: `Host=rivsprod01;Database=x3rocs;Username=jordan`
 
 ### Usage Patterns
 
 ```bash
 # Execute SQL directly
-PgQuery --config "R:\JsonParams\mydb.config.json" --sql "SELECT * FROM products LIMIT 10"
+PgQuery "SELECT * FROM products LIMIT 10"
 
 # Execute SQL from file
-PgQuery --config "R:\JsonParams\mydb.config.json" --file query.sql
+PgQuery -f query.sql
 
 # Save output to file
-PgQuery -c "R:\JsonParams\mydb.config.json" -s "SELECT * FROM products" -o results.txt
-PgQuery -c "R:\JsonParams\mydb.config.json" -f query.sql -o results.txt
-
-# Execute UPDATE/INSERT/DELETE commands
-PgQuery --config "R:\JsonParams\mydb.config.json" --sql "UPDATE orders SET status = 'shipped' WHERE order_id = 12345"
+PgQuery "SELECT * FROM products" -o results.txt
+PgQuery -f query.sql -o results.txt
 ```
 
-### Command-Line Options
-
-| Option | Short | Description | Required |
-|--------|-------|-------------|----------|
-| `--config` | `-c` | Path to JSON configuration file | Yes |
-| `--sql` | `-s` | SQL query string to execute | Yes* |
-| `--file` | `-f` | Path to SQL script file | Yes* |
-| `--output` | `-o` | Path to output file for results | No |
-
-\* Either `--sql` or `--file` must be provided
-
-### Output Examples
-
-**SELECT Query Output**:
-```
-username                 email                    active
----------------------------------------------------------------------------------
-john.doe                 john@example.com         true
-jane.smith               jane@example.com         true
-
-(2 rows)
-```
-
-**Non-Query Command Output** (UPDATE/INSERT/DELETE):
-```
-(5 row(s) affected)
-```
-
-Supported non-query commands: UPDATE, INSERT, DELETE, CREATE, DROP, ALTER, TRUNCATE
-
-### Implementation Details
-
-**Framework**: .NET 9.0
-**Database Driver**: Npgsql 8.0.6
-**Configuration**: System.Text.Json 9.0.0
+### Implementation (PgQuery/Program.cs)
 
 ```csharp
 using Npgsql;
-using System.Text.Json;
 
-// Load configuration from JSON
-var config = JsonSerializer.Deserialize<Config>(File.ReadAllText(configPath));
-var connString = config.GetConnectionString();
+var connString = "Host=rivsprod01;Database=x3rocs;Username=jordan";
 
 using var conn = new NpgsqlConnection(connString);
 conn.Open();
 
-// Detect non-query commands (UPDATE, INSERT, DELETE, etc.)
-if (sql.TrimStart().StartsWith("UPDATE", StringComparison.OrdinalIgnoreCase) ||
-    sql.TrimStart().StartsWith("INSERT", StringComparison.OrdinalIgnoreCase) ||
-    sql.TrimStart().StartsWith("DELETE", StringComparison.OrdinalIgnoreCase))
-{
-    using var cmd = new NpgsqlCommand(sql, conn);
-    int affected = cmd.ExecuteNonQuery();
-    Console.WriteLine($"({affected} row(s) affected)");
-}
-else
-{
-    // SELECT queries - formatted table output
-    using var cmd = new NpgsqlCommand(sql, conn);
-    using var reader = cmd.ExecuteReader();
+using var cmd = new NpgsqlCommand(sql, conn);
+using var reader = cmd.ExecuteReader();
 
-    // Print column headers
+// Formatted table output
+for (int i = 0; i < reader.FieldCount; i++)
+{
+    Console.Write(reader.GetName(i).PadRight(25));
+}
+Console.WriteLine();
+
+while (reader.Read())
+{
     for (int i = 0; i < reader.FieldCount; i++)
     {
-        Console.Write(reader.GetName(i).PadRight(25));
+        var value = reader.IsDBNull(i) ? "NULL" : reader.GetValue(i).ToString();
+        Console.Write((value ?? "NULL").PadRight(25));
     }
     Console.WriteLine();
-
-    // Print rows
-    int rowCount = 0;
-    while (reader.Read())
-    {
-        for (int i = 0; i < reader.FieldCount; i++)
-        {
-            var value = reader.IsDBNull(i) ? "NULL" : reader.GetValue(i).ToString();
-            Console.Write((value ?? "NULL").PadRight(25));
-        }
-        Console.WriteLine();
-        rowCount++;
-    }
-
-    Console.WriteLine($"\n({rowCount} rows)");
 }
 ```
 
@@ -594,8 +504,6 @@ else
 - Testing SQL before integrating into code
 - Exploring database schema and data
 - Generating reports to file
-- Running UPDATE/INSERT/DELETE commands with affected row counts
-- Working with different database configurations via JSON files
 
 ## ExecuteAndMap Pattern Implementation
 
@@ -772,7 +680,6 @@ catch (Exception ex)
 - Continue using ODBC
 - No native C# driver available
 - ODBC provides all needed features
-- You can run the CLI with "Y:\Data Warehouse\duckdb\duckdb.exe"
 
 **Exportmaster**
 - Continue using ODBC

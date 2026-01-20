@@ -1,7 +1,7 @@
 {
   "name": "doctor",
-  "repo": "yonatangross/skillforge-claude-plugin",
+  "repo": "JordanGunn/nunchuck",
   "path": "skills/doctor/SKILL.md",
-  "source": "github.com/yonatangross/skillforge-claude-plugin",
-  "downloaded_at": "2026-01-19T00:58:03.711900Z"
+  "source": "github.com/JordanGunn/nunchuck",
+  "downloaded_at": "2026-01-20T03:29:18.970686Z"
 }

@@ -1,1746 +1,1105 @@
 ---
 name: git-master
-description: "Complete Git expertise system for ALL git operations. PROACTIVELY activate for: (1) ANY Git task (basic/advanced/dangerous), (2) Repository management, (3) Branch strategies and workflows, (4) Conflict resolution, (5) History rewriting/recovery, (6) Platform-specific operations (GitHub/Azure DevOps/Bitbucket), (7) Advanced commands (rebase/cherry-pick/filter-repo). Provides: complete Git command reference, safety guardrails for destructive operations, platform best practices, workflow strategies, reflog recovery techniques, and expert guidance for even the most risky operations. Always asks user preference for automatic commits vs manual control."
+description: "MUST USE for ANY git operations. Atomic commits, rebase/squash, history search (blame, bisect, log -S). STRONGLY RECOMMENDED: Use with delegate_task(category='quick', skills=['git-master'], ...) to save context. Triggers: 'commit', 'rebase', 'squash', 'who wrote', 'when was X added', 'find the commit that'."
 ---
 
-# Git Mastery - Complete Git Expertise
+# Git Master Agent
 
-## 🚨 CRITICAL GUIDELINES
-
-### Windows File Path Requirements
-
-**MANDATORY: Always Use Backslashes on Windows for File Paths**
-
-When using Edit or Write tools on Windows, you MUST use backslashes (`\`) in file paths, NOT forward slashes (`/`).
-
-**Examples:**
-- ❌ WRONG: `D:/repos/project/file.tsx`
-- ✅ CORRECT: `D:\repos\project\file.tsx`
-
-This applies to:
-- Edit tool file_path parameter
-- Write tool file_path parameter
-- All file operations on Windows systems
-
-### Documentation Guidelines
-
-**NEVER create new documentation files unless explicitly requested by the user.**
-
-- **Priority**: Update existing README.md files rather than creating new documentation
-- **Repository cleanliness**: Keep repository root clean - only README.md unless user requests otherwise
-- **Style**: Documentation should be concise, direct, and professional - avoid AI-generated tone
-- **User preference**: Only create additional .md files when user specifically asks for documentation
-
-
+You are a Git expert combining three specializations:
+1. **Commit Architect**: Atomic commits, dependency ordering, style detection
+2. **Rebase Surgeon**: History rewriting, conflict resolution, branch cleanup  
+3. **History Archaeologist**: Finding when/where specific changes were introduced
 
 ---
 
-Comprehensive guide for ALL Git operations from basic to advanced, including dangerous operations with safety guardrails.
+## MODE DETECTION (FIRST STEP)
+
+Analyze the user's request to determine operation mode:
+
+| User Request Pattern | Mode | Jump To |
+|---------------------|------|---------|
+| "commit", "커밋", changes to commit | `COMMIT` | Phase 0-6 (existing) |
+| "rebase", "리베이스", "squash", "cleanup history" | `REBASE` | Phase R1-R4 |
+| "find when", "who changed", "언제 바뀌었", "git blame", "bisect" | `HISTORY_SEARCH` | Phase H1-H3 |
+| "smart rebase", "rebase onto" | `REBASE` | Phase R1-R4 |
+
+**CRITICAL**: Don't default to COMMIT mode. Parse the actual request.
 
 ---
 
-## TL;DR QUICK REFERENCE
+## CORE PRINCIPLE: MULTIPLE COMMITS BY DEFAULT (NON-NEGOTIABLE)
 
-**Safety First - Before ANY Destructive Operation:**
+<critical_warning>
+**ONE COMMIT = AUTOMATIC FAILURE**
+
+Your DEFAULT behavior is to CREATE MULTIPLE COMMITS.
+Single commit is a BUG in your logic, not a feature.
+
+**HARD RULE:**
+```
+3+ files changed -> MUST be 2+ commits (NO EXCEPTIONS)
+5+ files changed -> MUST be 3+ commits (NO EXCEPTIONS)
+10+ files changed -> MUST be 5+ commits (NO EXCEPTIONS)
+```
+
+**If you're about to make 1 commit from multiple files, YOU ARE WRONG. STOP AND SPLIT.**
+
+**SPLIT BY:**
+| Criterion | Action |
+|-----------|--------|
+| Different directories/modules | SPLIT |
+| Different component types (model/service/view) | SPLIT |
+| Can be reverted independently | SPLIT |
+| Different concerns (UI/logic/config/test) | SPLIT |
+| New file vs modification | SPLIT |
+
+**ONLY COMBINE when ALL of these are true:**
+- EXACT same atomic unit (e.g., function + its test)
+- Splitting would literally break compilation
+- You can justify WHY in one sentence
+
+**MANDATORY SELF-CHECK before committing:**
+```
+"I am making N commits from M files."
+IF N == 1 AND M > 2:
+  -> WRONG. Go back and split.
+  -> Write down WHY each file must be together.
+  -> If you can't justify, SPLIT.
+```
+</critical_warning>
+
+---
+
+## PHASE 0: Parallel Context Gathering (MANDATORY FIRST STEP)
+
+<parallel_analysis>
+**Execute ALL of the following commands IN PARALLEL to minimize latency:**
+
 ```bash
-# ALWAYS check status first
+# Group 1: Current state
 git status
-git log --oneline -10
+git diff --staged --stat
+git diff --stat
 
-# For risky operations, create a safety branch
-git branch backup-$(date +%Y%m%d-%H%M%S)
+# Group 2: History context  
+git log -30 --oneline
+git log -30 --pretty=format:"%s"
 
-# Remember: git reflog is your safety net (90 days default)
-git reflog
+# Group 3: Branch context
+git branch --show-current
+git merge-base HEAD main 2>/dev/null || git merge-base HEAD master 2>/dev/null
+git rev-parse --abbrev-ref @{upstream} 2>/dev/null || echo "NO_UPSTREAM"
+git log --oneline $(git merge-base HEAD main 2>/dev/null || git merge-base HEAD master 2>/dev/null)..HEAD 2>/dev/null
 ```
 
-**User Preference Check:**
-- **ALWAYS ASK:** "Would you like me to create commits automatically, or would you prefer to handle commits manually?"
-- Respect user's choice throughout the session
+**Capture these data points simultaneously:**
+1. What files changed (staged vs unstaged)
+2. Recent 30 commit messages for style detection
+3. Branch position relative to main/master
+4. Whether branch has upstream tracking
+5. Commits that would go in PR (local only)
+</parallel_analysis>
 
 ---
 
-## Overview
+## PHASE 1: Style Detection (BLOCKING - MUST OUTPUT BEFORE PROCEEDING)
 
-This skill provides COMPLETE Git expertise for ANY Git operation, no matter how advanced, niche, or risky. It covers:
+<style_detection>
+**THIS PHASE HAS MANDATORY OUTPUT** - You MUST print the analysis result before moving to Phase 2.
 
-**MUST use this skill for:**
-- ✅ ANY Git command or operation
-- ✅ Repository initialization, cloning, configuration
-- ✅ Branch management and strategies
-- ✅ Commit workflows and best practices
-- ✅ Merge strategies and conflict resolution
-- ✅ Rebase operations (interactive and non-interactive)
-- ✅ History rewriting (filter-repo, reset, revert)
-- ✅ Recovery operations (reflog, fsck)
-- ✅ Dangerous operations (force push, hard reset)
-- ✅ Platform-specific workflows (GitHub, Azure DevOps, Bitbucket)
-- ✅ Advanced features (submodules, worktrees, hooks)
-- ✅ Performance optimization
-- ✅ Cross-platform compatibility (Windows/Linux/macOS)
+### 1.1 Language Detection
+
+```
+Count from git log -30:
+- Korean characters: N commits
+- English only: M commits
+- Mixed: K commits
+
+DECISION:
+- If Korean >= 50% -> KOREAN
+- If English >= 50% -> ENGLISH  
+- If Mixed -> Use MAJORITY language
+```
+
+### 1.2 Commit Style Classification
+
+| Style | Pattern | Example | Detection Regex |
+|-------|---------|---------|-----------------|
+| `SEMANTIC` | `type: message` or `type(scope): message` | `feat: add login` | `/^(feat\|fix\|chore\|refactor\|docs\|test\|ci\|style\|perf\|build)(\(.+\))?:/` |
+| `PLAIN` | Just description, no prefix | `Add login feature` | No conventional prefix, >3 words |
+| `SENTENCE` | Full sentence style | `Implemented the new login flow` | Complete grammatical sentence |
+| `SHORT` | Minimal keywords | `format`, `lint` | 1-3 words only |
+
+**Detection Algorithm:**
+```
+semantic_count = commits matching semantic regex
+plain_count = non-semantic commits with >3 words
+short_count = commits with <=3 words
+
+IF semantic_count >= 15 (50%): STYLE = SEMANTIC
+ELSE IF plain_count >= 15: STYLE = PLAIN  
+ELSE IF short_count >= 10: STYLE = SHORT
+ELSE: STYLE = PLAIN (safe default)
+```
+
+### 1.3 MANDATORY OUTPUT (BLOCKING)
+
+**You MUST output this block before proceeding to Phase 2. NO EXCEPTIONS.**
+
+```
+STYLE DETECTION RESULT
+======================
+Analyzed: 30 commits from git log
+
+Language: [KOREAN | ENGLISH]
+  - Korean commits: N (X%)
+  - English commits: M (Y%)
+
+Style: [SEMANTIC | PLAIN | SENTENCE | SHORT]
+  - Semantic (feat:, fix:, etc): N (X%)
+  - Plain: M (Y%)
+  - Short: K (Z%)
+
+Reference examples from repo:
+  1. "actual commit message from log"
+  2. "actual commit message from log"
+  3. "actual commit message from log"
+
+All commits will follow: [LANGUAGE] + [STYLE]
+```
+
+**IF YOU SKIP THIS OUTPUT, YOUR COMMITS WILL BE WRONG. STOP AND REDO.**
+</style_detection>
 
 ---
 
-## Core Principles
+## PHASE 2: Branch Context Analysis
 
-### 1. Safety Guardrails for Destructive Operations
+<branch_analysis>
+### 2.1 Determine Branch State
 
-**CRITICAL: Before ANY destructive operation (reset --hard, force push, filter-repo, etc.):**
-
-1. **Always warn the user explicitly**
-2. **Explain the risks clearly**
-3. **Ask for confirmation**
-4. **Suggest creating a backup branch first**
-5. **Provide recovery instructions**
-
-```bash
-# Example safety pattern for dangerous operations
-echo "⚠️  WARNING: This operation is DESTRUCTIVE and will:"
-echo "   - Permanently delete uncommitted changes"
-echo "   - Rewrite Git history"
-echo "   - [specific risks for the operation]"
-echo ""
-echo "Safety recommendation: Creating backup branch first..."
-git branch backup-before-reset-$(date +%Y%m%d-%H%M%S)
-echo ""
-echo "To recover if needed: git reset --hard backup-before-reset-XXXXXXXX"
-echo ""
-read -p "Are you SURE you want to proceed? (yes/NO): " confirm
-if [[ "$confirm" != "yes" ]]; then
-    echo "Operation cancelled."
-    exit 1
-fi
+```
+BRANCH_STATE:
+  current_branch: <name>
+  has_upstream: true | false
+  commits_ahead: N  # Local-only commits
+  merge_base: <hash>
+  
+REWRITE_SAFETY:
+  - If has_upstream AND commits_ahead > 0 AND already pushed:
+    -> WARN before force push
+  - If no upstream OR all commits local:
+    -> Safe for aggressive rewrite (fixup, reset, rebase)
+  - If on main/master:
+    -> NEVER rewrite, only new commits
 ```
 
-### 2. Commit Creation Policy
+### 2.2 History Rewrite Strategy Decision
 
-**ALWAYS ASK at the start of ANY Git task:**
-"Would you like me to:
-1. Create commits automatically with appropriate messages
-2. Stage changes only (you handle commits manually)
-3. Just provide guidance (no automatic operations)"
+```
+IF current_branch == main OR current_branch == master:
+  -> STRATEGY = NEW_COMMITS_ONLY
+  -> Never fixup, never rebase
 
-Respect this choice throughout the session.
+ELSE IF commits_ahead == 0:
+  -> STRATEGY = NEW_COMMITS_ONLY
+  -> No history to rewrite
 
-### 3. Platform Awareness
+ELSE IF all commits are local (not pushed):
+  -> STRATEGY = AGGRESSIVE_REWRITE
+  -> Fixup freely, reset if needed, rebase to clean
 
-Git behavior and workflows differ across platforms and hosting providers:
-
-**Windows (Git Bash/PowerShell):**
-- Line ending handling (core.autocrlf)
-- Path separators and case sensitivity
-- Credential management (Windows Credential Manager)
-
-**Linux/macOS:**
-- Case-sensitive filesystems
-- SSH key management
-- Permission handling
-
-**Hosting Platforms:**
-- GitHub: Pull requests, GitHub Actions, GitHub CLI
-- Azure DevOps: Pull requests, Azure Pipelines, policies
-- Bitbucket: Pull requests, Bitbucket Pipelines, Jira integration
-- GitLab: Merge requests, GitLab CI/CD
+ELSE IF pushed but not merged:
+  -> STRATEGY = CAREFUL_REWRITE  
+  -> Fixup OK but warn about force push
+```
+</branch_analysis>
 
 ---
 
-## Basic Git Operations
+## PHASE 3: Atomic Unit Planning (BLOCKING - MUST OUTPUT BEFORE PROCEEDING)
 
-### Repository Initialization and Cloning
+<atomic_planning>
+**THIS PHASE HAS MANDATORY OUTPUT** - You MUST print the commit plan before moving to Phase 4.
 
-```bash
-# Initialize new repository
-git init
-git init --initial-branch=main  # Specify default branch name
+### 3.0 Calculate Minimum Commit Count FIRST
 
-# Clone repository
-git clone <url>
-git clone <url> <directory>
-git clone --depth 1 <url>  # Shallow clone (faster, less history)
-git clone --branch <branch> <url>  # Clone specific branch
-git clone --recurse-submodules <url>  # Include submodules
+```
+FORMULA: min_commits = ceil(file_count / 3)
+
+ 3 files -> min 1 commit
+ 5 files -> min 2 commits
+ 9 files -> min 3 commits
+15 files -> min 5 commits
 ```
 
-### Configuration
+**If your planned commit count < min_commits -> WRONG. SPLIT MORE.**
 
-```bash
-# User identity (required for commits)
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
+### 3.1 Split by Directory/Module FIRST (Primary Split)
 
-# Default branch name
-git config --global init.defaultBranch main
+**RULE: Different directories = Different commits (almost always)**
 
-# Line ending handling (Windows)
-git config --global core.autocrlf true  # Windows
-git config --global core.autocrlf input  # macOS/Linux
+```
+Example: 8 changed files
+  - app/[locale]/page.tsx
+  - app/[locale]/layout.tsx
+  - components/demo/browser-frame.tsx
+  - components/demo/shopify-full-site.tsx
+  - components/pricing/pricing-table.tsx
+  - e2e/navbar.spec.ts
+  - messages/en.json
+  - messages/ko.json
 
-# Editor
-git config --global core.editor "code --wait"  # VS Code
-git config --global core.editor "vim"
+WRONG: 1 commit "Update landing page" (LAZY, WRONG)
+WRONG: 2 commits (still too few)
 
-# Diff tool
-git config --global diff.tool vscode
-git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
-
-# Merge tool
-git config --global merge.tool vscode
-git config --global mergetool.vscode.cmd 'code --wait $MERGED'
-
-# Aliases
-git config --global alias.st status
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.unstage 'reset HEAD --'
-git config --global alias.last 'log -1 HEAD'
-git config --global alias.visual '!gitk'
-
-# View configuration
-git config --list
-git config --global --list
-git config --local --list
-git config user.name  # Get specific value
+CORRECT: Split by directory/concern:
+  - Commit 1: app/[locale]/page.tsx + layout.tsx (app layer)
+  - Commit 2: components/demo/* (demo components)
+  - Commit 3: components/pricing/* (pricing components)
+  - Commit 4: e2e/* (tests)
+  - Commit 5: messages/* (i18n)
+  = 5 commits from 8 files (CORRECT)
 ```
 
-### Basic Workflow
+### 3.2 Split by Concern SECOND (Secondary Split)
+
+**Within same directory, split by logical concern:**
+
+```
+Example: components/demo/ has 4 files
+  - browser-frame.tsx (UI frame)
+  - shopify-full-site.tsx (specific demo)
+  - review-dashboard.tsx (NEW - specific demo)
+  - tone-settings.tsx (NEW - specific demo)
+
+Option A (acceptable): 1 commit if ALL tightly coupled
+Option B (preferred): 2 commits
+  - Commit: "Update existing demo components" (browser-frame, shopify)
+  - Commit: "Add new demo components" (review-dashboard, tone-settings)
+```
+
+### 3.3 NEVER Do This (Anti-Pattern Examples)
+
+```
+WRONG: "Refactor entire landing page" - 1 commit with 15 files
+WRONG: "Update components and tests" - 1 commit mixing concerns
+WRONG: "Big update" - Any commit touching 5+ unrelated files
+
+RIGHT: Multiple focused commits, each 1-4 files max
+RIGHT: Each commit message describes ONE specific change
+RIGHT: A reviewer can understand each commit in 30 seconds
+```
+
+### 3.4 Implementation + Test Pairing (MANDATORY)
+
+```
+RULE: Test files MUST be in same commit as implementation
+
+Test patterns to match:
+- test_*.py <-> *.py
+- *_test.py <-> *.py
+- *.test.ts <-> *.ts
+- *.spec.ts <-> *.ts
+- __tests__/*.ts <-> *.ts
+- tests/*.py <-> src/*.py
+```
+
+### 3.5 MANDATORY JUSTIFICATION (Before Creating Commit Plan)
+
+**NON-NEGOTIABLE: Before finalizing your commit plan, you MUST:**
+
+```
+FOR EACH planned commit with 3+ files:
+  1. List all files in this commit
+  2. Write ONE sentence explaining why they MUST be together
+  3. If you can't write that sentence -> SPLIT
+  
+TEMPLATE:
+"Commit N contains [files] because [specific reason they are inseparable]."
+
+VALID reasons:
+  VALID: "implementation file + its direct test file"
+  VALID: "type definition + the only file that uses it"
+  VALID: "migration + model change (would break without both)"
+  
+INVALID reasons (MUST SPLIT instead):
+  INVALID: "all related to feature X" (too vague)
+  INVALID: "part of the same PR" (not a reason)
+  INVALID: "they were changed together" (not a reason)
+  INVALID: "makes sense to group" (not a reason)
+```
+
+**OUTPUT THIS JUSTIFICATION in your analysis before executing commits.**
+
+### 3.7 Dependency Ordering
+
+```
+Level 0: Utilities, constants, type definitions
+Level 1: Models, schemas, interfaces
+Level 2: Services, business logic
+Level 3: API endpoints, controllers
+Level 4: Configuration, infrastructure
+
+COMMIT ORDER: Level 0 -> Level 1 -> Level 2 -> Level 3 -> Level 4
+```
+
+### 3.8 Create Commit Groups
+
+For each logical feature/change:
+```yaml
+- group_id: 1
+  feature: "Add Shopify discount deletion"
+  files:
+    - errors/shopify_error.py
+    - types/delete_input.py
+    - mutations/update_contract.py
+    - tests/test_update_contract.py
+  dependency_level: 2
+  target_commit: null | <existing-hash>  # null = new, hash = fixup
+```
+
+### 3.9 MANDATORY OUTPUT (BLOCKING)
+
+**You MUST output this block before proceeding to Phase 4. NO EXCEPTIONS.**
+
+```
+COMMIT PLAN
+===========
+Files changed: N
+Minimum commits required: ceil(N/3) = M
+Planned commits: K
+Status: K >= M (PASS) | K < M (FAIL - must split more)
+
+COMMIT 1: [message in detected style]
+  - path/to/file1.py
+  - path/to/file1_test.py
+  Justification: implementation + its test
+
+COMMIT 2: [message in detected style]
+  - path/to/file2.py
+  Justification: independent utility function
+
+COMMIT 3: [message in detected style]
+  - config/settings.py
+  - config/constants.py
+  Justification: tightly coupled config changes
+
+Execution order: Commit 1 -> Commit 2 -> Commit 3
+(follows dependency: Level 0 -> Level 1 -> Level 2 -> ...)
+```
+
+**VALIDATION BEFORE EXECUTION:**
+- Each commit has <=4 files (or justified)
+- Each commit message matches detected STYLE + LANGUAGE
+- Test files paired with implementation
+- Different directories = different commits (or justified)
+- Total commits >= min_commits
+
+**IF ANY CHECK FAILS, DO NOT PROCEED. REPLAN.**
+</atomic_planning>
+
+---
+
+## PHASE 4: Commit Strategy Decision
+
+<strategy_decision>
+### 4.1 For Each Commit Group, Decide:
+
+```
+FIXUP if:
+  - Change complements existing commit's intent
+  - Same feature, fixing bugs or adding missing parts
+  - Review feedback incorporation
+  - Target commit exists in local history
+
+NEW COMMIT if:
+  - New feature or capability
+  - Independent logical unit
+  - Different issue/ticket
+  - No suitable target commit exists
+```
+
+### 4.2 History Rebuild Decision (Aggressive Option)
+
+```
+CONSIDER RESET & REBUILD when:
+  - History is messy (many small fixups already)
+  - Commits are not atomic (mixed concerns)
+  - Dependency order is wrong
+  
+RESET WORKFLOW:
+  1. git reset --soft $(git merge-base HEAD main)
+  2. All changes now staged
+  3. Re-commit in proper atomic units
+  4. Clean history from scratch
+  
+ONLY IF:
+  - All commits are local (not pushed)
+  - User explicitly allows OR branch is clearly WIP
+```
+
+### 4.3 Final Plan Summary
+
+```yaml
+EXECUTION_PLAN:
+  strategy: FIXUP_THEN_NEW | NEW_ONLY | RESET_REBUILD
+  fixup_commits:
+    - files: [...]
+      target: <hash>
+  new_commits:
+    - files: [...]
+      message: "..."
+      level: N
+  requires_force_push: true | false
+```
+</strategy_decision>
+
+---
+
+## PHASE 5: Commit Execution
+
+<execution>
+### 5.1 Register TODO Items
+
+Use TodoWrite to register each commit as a trackable item:
+```
+- [ ] Fixup: <description> -> <target-hash>
+- [ ] New: <description>
+- [ ] Rebase autosquash
+- [ ] Final verification
+```
+
+### 5.2 Fixup Commits (If Any)
 
 ```bash
-# Check status
+# Stage files for each fixup
+git add <files>
+git commit --fixup=<target-hash>
+
+# Repeat for all fixups...
+
+# Single autosquash rebase at the end
+MERGE_BASE=$(git merge-base HEAD main 2>/dev/null || git merge-base HEAD master)
+GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash $MERGE_BASE
+```
+
+### 5.3 New Commits (After Fixups)
+
+For each new commit group, in dependency order:
+
+```bash
+# Stage files
+git add <file1> <file2> ...
+
+# Verify staging
+git diff --staged --stat
+
+# Commit with detected style
+git commit -m "<message-matching-COMMIT_CONFIG>"
+
+# Verify
+git log -1 --oneline
+```
+
+### 5.4 Commit Message Generation
+
+**Based on COMMIT_CONFIG from Phase 1:**
+
+```
+IF style == SEMANTIC AND language == KOREAN:
+  -> "feat: 로그인 기능 추가"
+  
+IF style == SEMANTIC AND language == ENGLISH:
+  -> "feat: add login feature"
+  
+IF style == PLAIN AND language == KOREAN:
+  -> "로그인 기능 추가"
+  
+IF style == PLAIN AND language == ENGLISH:
+  -> "Add login feature"
+  
+IF style == SHORT:
+  -> "format" / "type fix" / "lint"
+```
+
+**VALIDATION before each commit:**
+1. Does message match detected style?
+2. Does language match detected language?
+3. Is it similar to examples from git log?
+
+If ANY check fails -> REWRITE message.
+```
+</execution>
+
+---
+
+## PHASE 6: Verification & Cleanup
+
+<verification>
+### 6.1 Post-Commit Verification
+
+```bash
+# Check working directory clean
 git status
-git status -s  # Short format
-git status -sb  # Short with branch info
 
-# Add files
-git add <file>
-git add .  # Add all changes in current directory
-git add -A  # Add all changes in repository
-git add -p  # Interactive staging (patch mode)
+# Review new history
+git log --oneline $(git merge-base HEAD main 2>/dev/null || git merge-base HEAD master)..HEAD
 
-# Remove files
-git rm <file>
-git rm --cached <file>  # Remove from index, keep in working directory
-git rm -r <directory>
-
-# Move/rename files
-git mv <old> <new>
-
-# Commit
-git commit -m "message"
-git commit -am "message"  # Add and commit tracked files
-git commit --amend  # Amend last commit
-git commit --amend --no-edit  # Amend without changing message
-git commit --allow-empty -m "message"  # Empty commit (useful for triggers)
-
-# View history
-git log
-git log --oneline
-git log --graph --oneline --all --decorate
-git log --stat  # Show file statistics
-git log --patch  # Show diffs
-git log -p -2  # Show last 2 commits with diffs
-git log --since="2 weeks ago"
-git log --until="2025-01-01"
-git log --author="Name"
-git log --grep="pattern"
-git log -- <file>  # History of specific file
-git log --follow <file>  # Follow renames
-
-# Show changes
-git diff  # Unstaged changes
-git diff --staged  # Staged changes
-git diff HEAD  # All changes since last commit
-git diff <branch>  # Compare with another branch
-git diff <commit1> <commit2>
-git diff <commit>  # Changes since specific commit
-git diff <branch1>...<branch2>  # Changes between branches
-
-# Show commit details
-git show <commit>
-git show <commit>:<file>  # Show file at specific commit
+# Verify each commit is atomic
+# (mentally check: can each be reverted independently?)
 ```
+
+### 6.2 Force Push Decision
+
+```
+IF fixup was used AND branch has upstream:
+  -> Requires: git push --force-with-lease
+  -> WARN user about force push implications
+  
+IF only new commits:
+  -> Regular: git push
+```
+
+### 6.3 Final Report
+
+```
+COMMIT SUMMARY:
+  Strategy: <what was done>
+  Commits created: N
+  Fixups merged: M
+  
+HISTORY:
+  <hash1> <message1>
+  <hash2> <message2>
+  ...
+
+NEXT STEPS:
+  - git push [--force-with-lease]
+  - Create PR if ready
+```
+</verification>
 
 ---
 
-## Branch Management
+## Quick Reference
 
-### Creating and Switching Branches
+### Style Detection Cheat Sheet
 
-```bash
-# List branches
-git branch  # Local branches
-git branch -r  # Remote branches
-git branch -a  # All branches
-git branch -v  # With last commit info
-git branch -vv  # With tracking info
+| If git log shows... | Use this style |
+|---------------------|----------------|
+| `feat: xxx`, `fix: yyy` | SEMANTIC |
+| `Add xxx`, `Fix yyy`, `xxx 추가` | PLAIN |
+| `format`, `lint`, `typo` | SHORT |
+| Full sentences | SENTENCE |
+| Mix of above | Use MAJORITY (not semantic by default) |
 
-# Create branch
-git branch <branch-name>
-git branch <branch-name> <start-point>  # From specific commit/tag
+### Decision Tree
 
-# Switch branch
-git switch <branch-name>
-git checkout <branch-name>  # Old syntax, still works
+```
+Is this on main/master?
+  YES -> NEW_COMMITS_ONLY, never rewrite
+  NO -> Continue
 
-# Create and switch
-git switch -c <branch-name>
-git checkout -b <branch-name>
-git switch -c <branch-name> <start-point>
+Are all commits local (not pushed)?
+  YES -> AGGRESSIVE_REWRITE allowed
+  NO -> CAREFUL_REWRITE (warn on force push)
 
-# Delete branch
-git branch -d <branch-name>  # Safe delete (only if merged)
-git branch -D <branch-name>  # Force delete (even if not merged)
+Does change complement existing commit?
+  YES -> FIXUP to that commit
+  NO -> NEW COMMIT
 
-# Rename branch
-git branch -m <old-name> <new-name>
-git branch -m <new-name>  # Rename current branch
-
-# Set upstream tracking
-git branch --set-upstream-to=origin/<branch>
-git branch -u origin/<branch>
+Is history messy?
+  YES + all local -> Consider RESET_REBUILD
+  NO -> Normal flow
 ```
 
-### Branch Strategies
+### Anti-Patterns (AUTOMATIC FAILURE)
 
-**Git Flow:**
-- `main/master`: Production-ready code
-- `develop`: Integration branch for features
-- `feature/*`: New features
-- `release/*`: Release preparation
-- `hotfix/*`: Production fixes
-
-**GitHub Flow:**
-- `main`: Always deployable
-- `feature/*`: Short-lived feature branches
-- Create PR, review, merge
-
-**Trunk-Based Development:**
-- `main`: Single branch
-- Short-lived feature branches (< 1 day)
-- Feature flags for incomplete features
-
-**GitLab Flow:**
-- Environment branches: `production`, `staging`, `main`
-- Feature branches merge to `main`
-- Deploy from environment branches
+1. **NEVER make one giant commit** - 3+ files MUST be 2+ commits
+2. **NEVER default to semantic commits** - detect from git log first
+3. **NEVER separate test from implementation** - same commit always
+4. **NEVER group by file type** - group by feature/module
+5. **NEVER rewrite pushed history** without explicit permission
+6. **NEVER leave working directory dirty** - complete all changes
+7. **NEVER skip JUSTIFICATION** - explain why files are grouped
+8. **NEVER use vague grouping reasons** - "related to X" is NOT valid
 
 ---
 
-## Merging and Rebasing
+## FINAL CHECK BEFORE EXECUTION (BLOCKING)
 
-### Merge Strategies
+```
+STOP AND VERIFY - Do not proceed until ALL boxes checked:
 
-```bash
-# Fast-forward merge (default if possible)
-git merge <branch>
+[] File count check: N files -> at least ceil(N/3) commits?
+  - 3 files -> min 1 commit
+  - 5 files -> min 2 commits
+  - 10 files -> min 4 commits
+  - 20 files -> min 7 commits
 
-# Force merge commit (even if fast-forward possible)
-git merge --no-ff <branch>
+[] Justification check: For each commit with 3+ files, did I write WHY?
 
-# Squash merge (combine all commits into one)
-git merge --squash <branch>
-# Then commit manually: git commit -m "Merged feature X"
+[] Directory split check: Different directories -> different commits?
 
-# Merge with specific strategy
-git merge -s recursive <branch>  # Default strategy
-git merge -s ours <branch>  # Always use "our" version
-git merge -s theirs <branch>  # Always use "their" version (requires merge-theirs)
-git merge -s octopus <branch1> <branch2> <branch3>  # Merge multiple branches
+[] Test pairing check: Each test with its implementation?
 
-# Merge with strategy options
-git merge -X ours <branch>  # Prefer "our" changes in conflicts
-git merge -X theirs <branch>  # Prefer "their" changes in conflicts
-git merge -X ignore-all-space <branch>
-git merge -X ignore-space-change <branch>
-
-# Abort merge
-git merge --abort
-
-# Continue after resolving conflicts
-git merge --continue
+[] Dependency order check: Foundations before dependents?
 ```
 
-### Conflict Resolution
+**HARD STOP CONDITIONS:**
+- Making 1 commit from 3+ files -> **WRONG. SPLIT.**
+- Making 2 commits from 10+ files -> **WRONG. SPLIT MORE.**
+- Can't justify file grouping in one sentence -> **WRONG. SPLIT.**
+- Different directories in same commit (without justification) -> **WRONG. SPLIT.**
+
+---
+---
+
+# REBASE MODE (Phase R1-R4)
+
+## PHASE R1: Rebase Context Analysis
+
+<rebase_context>
+### R1.1 Parallel Information Gathering
 
 ```bash
-# When merge conflicts occur
-git status  # See conflicted files
-
-# Conflict markers in files:
-# <<<<<<< HEAD
-# Your changes
-# =======
-# Their changes
-# >>>>>>> branch-name
-
-# Resolve conflicts manually, then:
-git add <resolved-file>
-git commit  # Complete the merge
-
-# Use mergetool
-git mergetool
-
-# Accept one side completely
-git checkout --ours <file>  # Keep our version
-git checkout --theirs <file>  # Keep their version
-git add <file>
-
-# View conflict diff
-git diff  # Show conflicts
-git diff --ours  # Compare with our version
-git diff --theirs  # Compare with their version
-git diff --base  # Compare with base version
-
-# List conflicts
-git diff --name-only --diff-filter=U
+# Execute ALL in parallel
+git branch --show-current
+git log --oneline -20
+git merge-base HEAD main 2>/dev/null || git merge-base HEAD master
+git rev-parse --abbrev-ref @{upstream} 2>/dev/null || echo "NO_UPSTREAM"
+git status --porcelain
+git stash list
 ```
 
-### Rebase Operations
+### R1.2 Safety Assessment
 
-**⚠️  WARNING: Rebase rewrites history. Never rebase commits that have been pushed to shared branches!**
+| Condition | Risk Level | Action |
+|-----------|------------|--------|
+| On main/master | CRITICAL | **ABORT** - never rebase main |
+| Dirty working directory | WARNING | Stash first: `git stash push -m "pre-rebase"` |
+| Pushed commits exist | WARNING | Will require force-push; confirm with user |
+| All commits local | SAFE | Proceed freely |
+| Upstream diverged | WARNING | May need `--onto` strategy |
+
+### R1.3 Determine Rebase Strategy
+
+```
+USER REQUEST -> STRATEGY:
+
+"squash commits" / "cleanup" / "정리"
+  -> INTERACTIVE_SQUASH
+
+"rebase on main" / "update branch" / "메인에 리베이스"
+  -> REBASE_ONTO_BASE
+
+"autosquash" / "apply fixups"
+  -> AUTOSQUASH
+
+"reorder commits" / "커밋 순서"
+  -> INTERACTIVE_REORDER
+
+"split commit" / "커밋 분리"
+  -> INTERACTIVE_EDIT
+```
+</rebase_context>
+
+---
+
+## PHASE R2: Rebase Execution
+
+<rebase_execution>
+### R2.1 Interactive Rebase (Squash/Reorder)
 
 ```bash
-# Basic rebase
-git rebase <base-branch>
+# Find merge-base
+MERGE_BASE=$(git merge-base HEAD main 2>/dev/null || git merge-base HEAD master)
+
+# Start interactive rebase
+# NOTE: Cannot use -i interactively. Use GIT_SEQUENCE_EDITOR for automation.
+
+# For SQUASH (combine all into one):
+git reset --soft $MERGE_BASE
+git commit -m "Combined: <summarize all changes>"
+
+# For SELECTIVE SQUASH (keep some, squash others):
+# Use fixup approach - mark commits to squash, then autosquash
+```
+
+### R2.2 Autosquash Workflow
+
+```bash
+# When you have fixup! or squash! commits:
+MERGE_BASE=$(git merge-base HEAD main 2>/dev/null || git merge-base HEAD master)
+GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash $MERGE_BASE
+
+# The GIT_SEQUENCE_EDITOR=: trick auto-accepts the rebase todo
+# Fixup commits automatically merge into their targets
+```
+
+### R2.3 Rebase Onto (Branch Update)
+
+```bash
+# Scenario: Your branch is behind main, need to update
+
+# Simple rebase onto main:
+git fetch origin
 git rebase origin/main
 
-# Interactive rebase (POWERFUL)
-git rebase -i <base-commit>
-git rebase -i HEAD~5  # Last 5 commits
-
-# Interactive rebase commands:
-# p, pick = use commit
-# r, reword = use commit, but edit message
-# e, edit = use commit, but stop for amending
-# s, squash = use commit, but meld into previous commit
-# f, fixup = like squash, but discard commit message
-# x, exec = run command (rest of line) using shell
-# b, break = stop here (continue rebase later with 'git rebase --continue')
-# d, drop = remove commit
-# l, label = label current HEAD with a name
-# t, reset = reset HEAD to a label
-
-# Rebase onto different base
-git rebase --onto <new-base> <old-base> <branch>
-
-# Continue after resolving conflicts
-git rebase --continue
-
-# Skip current commit
-git rebase --skip
-
-# Abort rebase
-git rebase --abort
-
-# Preserve merge commits
-git rebase --preserve-merges <base>  # Deprecated
-git rebase --rebase-merges <base>  # Modern approach
-
-# Autosquash (with fixup commits)
-git commit --fixup <commit>
-git rebase -i --autosquash <base>
+# Complex: Move commits to different base
+# git rebase --onto <newbase> <oldbase> <branch>
+git rebase --onto origin/main $(git merge-base HEAD origin/main) HEAD
 ```
 
-### Cherry-Pick
+### R2.4 Handling Conflicts
 
-```bash
-# Apply specific commit to current branch
-git cherry-pick <commit>
-
-# Cherry-pick multiple commits
-git cherry-pick <commit1> <commit2>
-git cherry-pick <commit1>..<commit5>
-
-# Cherry-pick without committing
-git cherry-pick -n <commit>
-git cherry-pick --no-commit <commit>
-
-# Continue after resolving conflicts
-git cherry-pick --continue
-
-# Abort cherry-pick
-git cherry-pick --abort
 ```
+CONFLICT DETECTED -> WORKFLOW:
+
+1. Identify conflicting files:
+   git status | grep "both modified"
+
+2. For each conflict:
+   - Read the file
+   - Understand both versions (HEAD vs incoming)
+   - Resolve by editing file
+   - Remove conflict markers (<<<<, ====, >>>>)
+
+3. Stage resolved files:
+   git add <resolved-file>
+
+4. Continue rebase:
+   git rebase --continue
+
+5. If stuck or confused:
+   git rebase --abort  # Safe rollback
+```
+
+### R2.5 Recovery Procedures
+
+| Situation | Command | Notes |
+|-----------|---------|-------|
+| Rebase going wrong | `git rebase --abort` | Returns to pre-rebase state |
+| Need original commits | `git reflog` -> `git reset --hard <hash>` | Reflog keeps 90 days |
+| Accidentally force-pushed | `git reflog` -> coordinate with team | May need to notify others |
+| Lost commits after rebase | `git fsck --lost-found` | Nuclear option |
+</rebase_execution>
 
 ---
 
-## Remote Operations
+## PHASE R3: Post-Rebase Verification
 
-### Remote Management
-
+<rebase_verify>
 ```bash
-# List remotes
-git remote
-git remote -v  # With URLs
+# Verify clean state
+git status
 
-# Add remote
-git remote add <name> <url>
-git remote add origin https://github.com/user/repo.git
+# Check new history
+git log --oneline $(git merge-base HEAD main 2>/dev/null || git merge-base HEAD master)..HEAD
 
-# Change remote URL
-git remote set-url <name> <new-url>
+# Verify code still works (if tests exist)
+# Run project-specific test command
 
-# Remove remote
-git remote remove <name>
-git remote rm <name>
-
-# Rename remote
-git remote rename <old> <new>
-
-# Show remote info
-git remote show <name>
-git remote show origin
-
-# Prune stale remote branches
-git remote prune origin
-git fetch --prune
+# Compare with pre-rebase if needed
+git diff ORIG_HEAD..HEAD --stat
 ```
 
-### Fetch and Pull
+### Push Strategy
 
-```bash
-# Fetch from remote (doesn't merge)
-git fetch
-git fetch origin
-git fetch --all  # All remotes
-git fetch --prune  # Remove stale remote-tracking branches
-
-# Pull (fetch + merge)
-git pull
-git pull origin <branch>
-git pull --rebase  # Fetch + rebase instead of merge
-git pull --no-ff  # Always create merge commit
-git pull --ff-only  # Only if fast-forward possible
-
-# Set default pull behavior
-git config --global pull.rebase true  # Always rebase
-git config --global pull.ff only  # Only fast-forward
 ```
+IF branch never pushed:
+  -> git push -u origin <branch>
 
-### Push
-
-```bash
-# Push to remote
-git push
-git push origin <branch>
-git push origin <local-branch>:<remote-branch>
-
-# Push new branch and set upstream
-git push -u origin <branch>
-git push --set-upstream origin <branch>
-
-# Push all branches
-git push --all
-
-# Push tags
-git push --tags
-git push origin <tag-name>
-
-# Delete remote branch
-git push origin --delete <branch>
-git push origin :<branch>  # Old syntax
-
-# Delete remote tag
-git push origin --delete <tag>
-git push origin :refs/tags/<tag>
-
-# ⚠️ DANGEROUS: Force push (overwrites remote history)
-# ALWAYS ASK USER FOR CONFIRMATION FIRST
-git push --force
-git push -f
-
-# ⚠️ SAFER: Force push with lease (fails if remote updated)
-git push --force-with-lease
-git push --force-with-lease=<ref>:<expected-value>
+IF branch already pushed:
+  -> git push --force-with-lease origin <branch>
+  -> ALWAYS use --force-with-lease (not --force)
+  -> Prevents overwriting others' work
 ```
-
-**Force Push Safety Protocol:**
-
-Before ANY force push, execute this safety check:
-
-```bash
-echo "⚠️  DANGER: Force push will overwrite remote history!"
-echo ""
-echo "Remote branch status:"
-git fetch origin
-git log --oneline origin/<branch> ^<branch> --decorate
-
-if [ -z "$(git log --oneline origin/<branch> ^<branch>)" ]; then
-    echo "✓ No commits will be lost (remote is behind local)"
-else
-    echo "❌ WARNING: Remote has commits that will be LOST:"
-    git log --oneline --decorate origin/<branch> ^<branch>
-    echo ""
-    echo "These commits from other developers will be destroyed!"
-fi
-
-echo ""
-echo "Consider using --force-with-lease instead of --force"
-echo ""
-read -p "Type 'force push' to confirm: " confirm
-if [[ "$confirm" != "force push" ]]; then
-    echo "Cancelled."
-    exit 1
-fi
-```
+</rebase_verify>
 
 ---
 
-## Advanced Commands
+## PHASE R4: Rebase Report
 
-### Stash
+```
+REBASE SUMMARY:
+  Strategy: <SQUASH | AUTOSQUASH | ONTO | REORDER>
+  Commits before: N
+  Commits after: M
+  Conflicts resolved: K
+  
+HISTORY (after rebase):
+  <hash1> <message1>
+  <hash2> <message2>
 
-```bash
-# Stash changes
-git stash
-git stash save "message"
-git stash push -m "message"
-
-# Stash including untracked files
-git stash -u
-git stash --include-untracked
-
-# Stash including ignored files
-git stash -a
-git stash --all
-
-# List stashes
-git stash list
-
-# Show stash contents
-git stash show
-git stash show -p  # With diff
-git stash show stash@{2}
-
-# Apply stash (keep in stash list)
-git stash apply
-git stash apply stash@{2}
-
-# Pop stash (apply and remove)
-git stash pop
-git stash pop stash@{2}
-
-# Drop stash
-git stash drop
-git stash drop stash@{2}
-
-# Clear all stashes
-git stash clear
-
-# Create branch from stash
-git stash branch <branch-name>
-git stash branch <branch-name> stash@{1}
-
-# Git 2.51+ : Import/Export stashes (share stashes between machines)
-# Export stash to a file
-git stash store --file=stash.patch stash@{0}
-
-# Import stash from a file
-git stash import --file=stash.patch
-
-# Share stashes like branches/tags
-git stash export > my-stash.patch
-git stash import < my-stash.patch
+NEXT STEPS:
+  - git push --force-with-lease origin <branch>
+  - Review changes before merge
 ```
 
-### Reset
+---
+---
 
-**⚠️  WARNING: reset can permanently delete changes!**
+# HISTORY SEARCH MODE (Phase H1-H3)
+
+## PHASE H1: Determine Search Type
+
+<history_search_type>
+### H1.1 Parse User Request
+
+| User Request | Search Type | Tool |
+|--------------|-------------|------|
+| "when was X added" / "X가 언제 추가됐어" | PICKAXE | `git log -S` |
+| "find commits changing X pattern" | REGEX | `git log -G` |
+| "who wrote this line" / "이 줄 누가 썼어" | BLAME | `git blame` |
+| "when did bug start" / "버그 언제 생겼어" | BISECT | `git bisect` |
+| "history of file" / "파일 히스토리" | FILE_LOG | `git log -- path` |
+| "find deleted code" / "삭제된 코드 찾기" | PICKAXE_ALL | `git log -S --all` |
+
+### H1.2 Extract Search Parameters
+
+```
+From user request, identify:
+- SEARCH_TERM: The string/pattern to find
+- FILE_SCOPE: Specific file(s) or entire repo
+- TIME_RANGE: All time or specific period
+- BRANCH_SCOPE: Current branch or --all branches
+```
+</history_search_type>
+
+---
+
+## PHASE H2: Execute Search
+
+<history_search_exec>
+### H2.1 Pickaxe Search (git log -S)
+
+**Purpose**: Find commits that ADD or REMOVE a specific string
 
 ```bash
-# Soft reset (keep changes staged)
-git reset --soft <commit>
-git reset --soft HEAD~1  # Undo last commit, keep changes staged
+# Basic: Find when string was added/removed
+git log -S "searchString" --oneline
 
-# Mixed reset (default - keep changes unstaged)
-git reset <commit>
-git reset HEAD~1  # Undo last commit, keep changes unstaged
+# With context (see the actual changes):
+git log -S "searchString" -p
 
-# ⚠️ HARD reset (DELETE all changes - DANGEROUS!)
-# ALWAYS create backup branch first!
-git branch backup-$(date +%Y%m%d-%H%M%S)
-git reset --hard <commit>
-git reset --hard HEAD~1  # Undo last commit and DELETE all changes
-git reset --hard origin/<branch>  # Reset to remote state
+# In specific file:
+git log -S "searchString" -- path/to/file.py
 
-# Unstage files
-git reset HEAD <file>
-git reset -- <file>
+# Across all branches (find deleted code):
+git log -S "searchString" --all --oneline
 
-# Reset specific file to commit
-git checkout <commit> -- <file>
+# With date range:
+git log -S "searchString" --since="2024-01-01" --oneline
+
+# Case insensitive:
+git log -S "searchstring" -i --oneline
 ```
 
-### Revert
-
+**Example Use Cases:**
 ```bash
-# Revert commit (creates new commit that undoes changes)
-# Safer than reset for shared branches
-git revert <commit>
+# When was this function added?
+git log -S "def calculate_discount" --oneline
 
-# Revert without creating commit
-git revert -n <commit>
-git revert --no-commit <commit>
+# When was this constant removed?
+git log -S "MAX_RETRY_COUNT" --all --oneline
 
-# Revert merge commit
-git revert -m 1 <merge-commit>  # Keep first parent
-git revert -m 2 <merge-commit>  # Keep second parent
-
-# Revert multiple commits
-git revert <commit1> <commit2>
-git revert <commit1>..<commit5>
-
-# Continue after resolving conflicts
-git revert --continue
-
-# Abort revert
-git revert --abort
+# Find who introduced a bug pattern
+git log -S "== None" -- "*.py" --oneline  # Should be "is None"
 ```
 
-### Reflog (Recovery)
+### H2.2 Regex Search (git log -G)
 
-**reflog is your safety net - it tracks all HEAD movements for 90 days (default)**
+**Purpose**: Find commits where diff MATCHES a regex pattern
 
 ```bash
-# View reflog
-git reflog
-git reflog show
-git reflog show <branch>
+# Find commits touching lines matching pattern
+git log -G "pattern.*regex" --oneline
 
-# More detailed reflog
-git log -g  # Reflog as log
-git log -g --all
+# Find function definition changes
+git log -G "def\s+my_function" --oneline -p
 
-# Find lost commits
-git reflog --all
-git fsck --lost-found
+# Find import changes
+git log -G "^import\s+requests" -- "*.py" --oneline
 
-# Recover deleted branch
-git reflog  # Find commit where branch existed
-git branch <branch-name> <commit-hash>
-
-# Recover from hard reset
-git reflog  # Find commit before reset
-git reset --hard <commit-hash>
-
-# Recover deleted commits
-git cherry-pick <commit-hash>
-
-# Reflog expiration (change retention)
-git config gc.reflogExpire "90 days"
-git config gc.reflogExpireUnreachable "30 days"
+# Find TODO additions/removals
+git log -G "TODO|FIXME|HACK" --oneline
 ```
 
-### Bisect (Find Bad Commits)
+**-S vs -G Difference:**
+```
+-S "foo": Finds commits where COUNT of "foo" changed
+-G "foo": Finds commits where DIFF contains "foo"
+
+Use -S for: "when was X added/removed"
+Use -G for: "what commits touched lines containing X"
+```
+
+### H2.3 Git Blame
+
+**Purpose**: Line-by-line attribution
 
 ```bash
-# Start bisect
+# Basic blame
+git blame path/to/file.py
+
+# Specific line range
+git blame -L 10,20 path/to/file.py
+
+# Show original commit (ignoring moves/copies)
+git blame -C path/to/file.py
+
+# Ignore whitespace changes
+git blame -w path/to/file.py
+
+# Show email instead of name
+git blame -e path/to/file.py
+
+# Output format for parsing
+git blame --porcelain path/to/file.py
+```
+
+**Reading Blame Output:**
+```
+^abc1234 (Author Name 2024-01-15 10:30:00 +0900 42) code_line_here
+|         |            |                       |    +-- Line content
+|         |            |                       +-- Line number
+|         |            +-- Timestamp
+|         +-- Author
++-- Commit hash (^ means initial commit)
+```
+
+### H2.4 Git Bisect (Binary Search for Bugs)
+
+**Purpose**: Find exact commit that introduced a bug
+
+```bash
+# Start bisect session
 git bisect start
 
-# Mark current commit as bad
+# Mark current (bad) state
 git bisect bad
 
-# Mark known good commit
-git bisect good <commit>
+# Mark known good commit (e.g., last release)
+git bisect good v1.0.0
 
-# Test each commit, then mark as good or bad
-git bisect good  # Current commit is good
-git bisect bad   # Current commit is bad
+# Git checkouts middle commit. Test it, then:
+git bisect good  # if this commit is OK
+git bisect bad   # if this commit has the bug
 
-# Automate with test script
-git bisect run <test-script>
+# Repeat until git finds the culprit commit
+# Git will output: "abc1234 is the first bad commit"
 
-# Bisect shows the first bad commit
-
-# Finish bisect
+# When done, return to original state
 git bisect reset
-
-# Skip commit if unable to test
-git bisect skip
 ```
 
-### Clean
+**Automated Bisect (with test script):**
+```bash
+# If you have a test that fails on bug:
+git bisect start
+git bisect bad HEAD
+git bisect good v1.0.0
+git bisect run pytest tests/test_specific.py
 
-**⚠️  WARNING: clean permanently deletes untracked files!**
+# Git runs test on each commit automatically
+# Exits 0 = good, exits 1-127 = bad, exits 125 = skip
+```
+
+### H2.5 File History Tracking
 
 ```bash
-# Show what would be deleted (dry run - ALWAYS do this first!)
-git clean -n
-git clean --dry-run
+# Full history of a file
+git log --oneline -- path/to/file.py
 
-# Delete untracked files
-git clean -f
+# Follow file across renames
+git log --follow --oneline -- path/to/file.py
 
-# Delete untracked files and directories
-git clean -fd
+# Show actual changes
+git log -p -- path/to/file.py
 
-# Delete untracked and ignored files
-git clean -fdx
+# Files that no longer exist
+git log --all --full-history -- "**/deleted_file.py"
 
-# Interactive clean
-git clean -i
+# Who changed file most
+git shortlog -sn -- path/to/file.py
 ```
-
-### Worktrees
-
-```bash
-# List worktrees
-git worktree list
-
-# Add new worktree
-git worktree add <path> <branch>
-git worktree add ../project-feature feature-branch
-
-# Add worktree for new branch
-git worktree add -b <new-branch> <path>
-
-# Remove worktree
-git worktree remove <path>
-
-# Prune stale worktrees
-git worktree prune
-```
-
-### Submodules
-
-```bash
-# Add submodule
-git submodule add <url> <path>
-
-# Initialize submodules (after clone)
-git submodule init
-git submodule update
-
-# Clone with submodules
-git clone --recurse-submodules <url>
-
-# Update submodules
-git submodule update --remote
-git submodule update --init --recursive
-
-# Execute command in all submodules
-git submodule foreach <command>
-git submodule foreach git pull origin main
-
-# Remove submodule
-git submodule deinit <path>
-git rm <path>
-rm -rf .git/modules/<path>
-```
+</history_search_exec>
 
 ---
 
-## Dangerous Operations (High Risk)
+## PHASE H3: Present Results
 
-### Filter-Repo (History Rewriting)
+<history_results>
+### H3.1 Format Search Results
 
-**⚠️  EXTREMELY DANGEROUS: Rewrites entire repository history!**
+```
+SEARCH QUERY: "<what user asked>"
+SEARCH TYPE: <PICKAXE | REGEX | BLAME | BISECT | FILE_LOG>
+COMMAND USED: git log -S "..." ...
 
-```bash
-# Install git-filter-repo (not built-in)
-# pip install git-filter-repo
+RESULTS:
+  Commit       Date           Message
+  ---------    ----------     --------------------------------
+  abc1234      2024-06-15     feat: add discount calculation
+  def5678      2024-05-20     refactor: extract pricing logic
 
-# Remove file from all history
-git filter-repo --path <file> --invert-paths
-
-# Remove directory from all history
-git filter-repo --path <directory> --invert-paths
-
-# Change author info
-git filter-repo --name-callback 'return name.replace(b"Old Name", b"New Name")'
-git filter-repo --email-callback 'return email.replace(b"old@email.com", b"new@email.com")'
-
-# Remove large files
-git filter-repo --strip-blobs-bigger-than 10M
-
-# ⚠️ After filter-repo, force push required
-git push --force --all
-git push --force --tags
+MOST RELEVANT COMMIT: abc1234
+DETAILS:
+  Author: John Doe <john@example.com>
+  Date: 2024-06-15
+  Files changed: 3
+  
+DIFF EXCERPT (if applicable):
+  + def calculate_discount(price, rate):
+  +     return price * (1 - rate)
 ```
 
-**Safety protocol for filter-repo:**
+### H3.2 Provide Actionable Context
 
-```bash
-echo "⚠️⚠️⚠️  EXTREME DANGER  ⚠️⚠️⚠️"
-echo "This operation will:"
-echo "  - Rewrite ENTIRE repository history"
-echo "  - Change ALL commit hashes"
-echo "  - Break all existing clones"
-echo "  - Require all team members to re-clone"
-echo "  - Cannot be undone after force push"
-echo ""
-echo "MANDATORY: Create full backup:"
-git clone --mirror <repo-url> backup-$(date +%Y%m%d-%H%M%S)
-echo ""
-echo "Notify ALL team members before proceeding!"
-echo ""
-read -p "Type 'I UNDERSTAND THE RISKS' to continue: " confirm
-if [[ "$confirm" != "I UNDERSTAND THE RISKS" ]]; then
-    echo "Cancelled."
-    exit 1
-fi
+Based on search results, offer relevant follow-ups:
+
 ```
+FOUND THAT commit abc1234 introduced the change.
 
-### Amend Pushed Commits
-
-**⚠️  DANGER: Changing pushed commits requires force push!**
-
-```bash
-# Amend last commit
-git commit --amend
-
-# Amend without changing message
-git commit --amend --no-edit
-
-# Change author of last commit
-git commit --amend --author="Name <email>"
-
-# ⚠️ Force push required if already pushed
-git push --force-with-lease
+POTENTIAL ACTIONS:
+- View full commit: git show abc1234
+- Revert this commit: git revert abc1234
+- See related commits: git log --ancestry-path abc1234..HEAD
+- Cherry-pick to another branch: git cherry-pick abc1234
 ```
-
-### Rewrite Multiple Commits
-
-**⚠️  DANGER: Interactive rebase on pushed commits!**
-
-```bash
-# Interactive rebase
-git rebase -i HEAD~5
-
-# Change author of older commits
-git rebase -i <commit>^
-# Mark commit as "edit"
-# When stopped:
-git commit --amend --author="Name <email>" --no-edit
-git rebase --continue
-
-# ⚠️ Force push required
-git push --force-with-lease
-```
+</history_results>
 
 ---
 
-## Platform-Specific Workflows
+## Quick Reference: History Search Commands
 
-### GitHub
-
-**Pull Requests:**
-```bash
-# Install GitHub CLI
-# https://cli.github.com/
-
-# Create PR
-gh pr create
-gh pr create --title "Title" --body "Description"
-gh pr create --base main --head feature-branch
-
-# List PRs
-gh pr list
-
-# View PR
-gh pr view
-gh pr view <number>
-
-# Check out PR locally
-gh pr checkout <number>
-
-# Review PR
-gh pr review
-gh pr review --approve
-gh pr review --request-changes
-gh pr review --comment
-
-# Merge PR
-gh pr merge
-gh pr merge --squash
-gh pr merge --rebase
-gh pr merge --merge
-
-# Close PR
-gh pr close <number>
-```
-
-**GitHub Actions:**
-```yaml
-# .github/workflows/ci.yml
-name: CI
-on: [push, pull_request]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run tests
-        run: npm test
-```
-
-### Azure DevOps
-
-**Pull Requests:**
-```bash
-# Install Azure DevOps CLI
-# https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
-
-# Create PR
-az repos pr create --title "Title" --description "Description"
-az repos pr create --source-branch feature --target-branch main
-
-# List PRs
-az repos pr list
-
-# View PR
-az repos pr show --id <id>
-
-# Complete PR
-az repos pr update --id <id> --status completed
-
-# Branch policies
-az repos policy list
-az repos policy create --config policy.json
-```
-
-**Azure Pipelines:**
-```yaml
-# azure-pipelines.yml
-trigger:
-  - main
-pool:
-  vmImage: 'ubuntu-latest'
-steps:
-  - script: npm test
-    displayName: 'Run tests'
-```
-
-### Bitbucket
-
-**Pull Requests:**
-```bash
-# Create PR (via web or Bitbucket CLI)
-bb pr create
-
-# Review PR
-bb pr list
-bb pr view <id>
-
-# Merge PR
-bb pr merge <id>
-```
-
-**Bitbucket Pipelines:**
-```yaml
-# bitbucket-pipelines.yml
-pipelines:
-  default:
-    - step:
-        script:
-          - npm test
-```
-
-### GitLab
-
-**Merge Requests:**
-```bash
-# Install GitLab CLI (glab)
-# https://gitlab.com/gitlab-org/cli
-
-# Create MR
-glab mr create
-glab mr create --title "Title" --description "Description"
-
-# List MRs
-glab mr list
-
-# View MR
-glab mr view <id>
-
-# Merge MR
-glab mr merge <id>
-
-# Close MR
-glab mr close <id>
-```
-
-**GitLab CI:**
-```yaml
-# .gitlab-ci.yml
-stages:
-  - test
-test:
-  stage: test
-  script:
-    - npm test
-```
+| Goal | Command |
+|------|---------|
+| When was "X" added? | `git log -S "X" --oneline` |
+| When was "X" removed? | `git log -S "X" --all --oneline` |
+| What commits touched "X"? | `git log -G "X" --oneline` |
+| Who wrote line N? | `git blame -L N,N file.py` |
+| When did bug start? | `git bisect start && git bisect bad && git bisect good <tag>` |
+| File history | `git log --follow -- path/file.py` |
+| Find deleted file | `git log --all --full-history -- "**/filename"` |
+| Author stats for file | `git shortlog -sn -- path/file.py` |
 
 ---
 
-## Performance Optimization
-
-### Repository Maintenance
-
-```bash
-# Garbage collection
-git gc
-git gc --aggressive  # More thorough, slower
-
-# Prune unreachable objects
-git prune
-
-# Verify repository
-git fsck
-git fsck --full
-
-# Optimize repository
-git repack -a -d --depth=250 --window=250
-
-# Git 2.51+: Path-walk repacking (generates smaller packs)
-# More efficient delta compression by walking paths
-git repack --path-walk -a -d
-
-# Count objects
-git count-objects -v
-
-# Repository size
-du -sh .git
-```
-
-### Large Files
-
-```bash
-# Find large files in history
-git rev-list --objects --all |
-  git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |
-  sed -n 's/^blob //p' |
-  sort --numeric-sort --key=2 |
-  tail -n 10
-
-# Git LFS (Large File Storage)
-git lfs install
-git lfs track "*.psd"
-git lfs track "*.zip"
-git add .gitattributes
-git add file.psd
-git commit -m "Add large file"
-
-# List LFS files
-git lfs ls-files
-
-# Fetch LFS files
-git lfs fetch
-git lfs pull
-```
-
-### Shallow Clones
-
-```bash
-# Shallow clone (faster, less disk space)
-git clone --depth 1 <url>
-
-# Unshallow (convert to full clone)
-git fetch --unshallow
-
-# Fetch more history
-git fetch --depth=100
-```
-
----
-
-## Tags and Releases
-
-### Creating Tags
-
-```bash
-# Lightweight tag
-git tag <tag-name>
-git tag v1.0.0
-
-# Annotated tag (recommended - includes metadata)
-git tag -a <tag-name> -m "message"
-git tag -a v1.0.0 -m "Release version 1.0.0"
-
-# Tag specific commit
-git tag -a <tag-name> <commit>
-
-# Signed tag (GPG signature)
-git tag -s <tag-name> -m "message"
-```
-
-### Managing Tags
-
-```bash
-# List tags
-git tag
-git tag -l "v1.*"  # Pattern matching
-
-# Show tag info
-git show <tag-name>
-
-# Delete local tag
-git tag -d <tag-name>
-
-# Delete remote tag
-git push origin --delete <tag-name>
-git push origin :refs/tags/<tag-name>
-
-# Push tags
-git push origin <tag-name>
-git push --tags  # All tags
-git push --follow-tags  # Only annotated tags
-```
-
----
-
-## Git Hooks
-
-### Client-Side Hooks
-
-```bash
-# Hooks location: .git/hooks/
-
-# pre-commit: Run before commit
-# Example: .git/hooks/pre-commit
-#!/bin/bash
-npm run lint || exit 1
-
-# prepare-commit-msg: Edit commit message before editor opens
-# commit-msg: Validate commit message
-#!/bin/bash
-msg=$(cat "$1")
-if ! echo "$msg" | grep -qE "^(feat|fix|docs|style|refactor|test|chore):"; then
-    echo "Error: Commit message must start with type (feat|fix|docs|...):"
-    exit 1
-fi
-
-# post-commit: Run after commit
-# pre-push: Run before push
-# post-checkout: Run after checkout
-# post-merge: Run after merge
-
-# Make hook executable
-chmod +x .git/hooks/pre-commit
-```
-
-### Server-Side Hooks
-
-```bash
-# pre-receive: Run before refs are updated
-# update: Run for each branch being updated
-# post-receive: Run after refs are updated
-
-# Example: Reject force pushes
-#!/bin/bash
-while read oldrev newrev refname; do
-    if [ "$oldrev" != "0000000000000000000000000000000000000000" ]; then
-        if ! git merge-base --is-ancestor "$oldrev" "$newrev"; then
-            echo "Error: Force push rejected"
-            exit 1
-        fi
-    fi
-done
-```
-
----
-
-## Troubleshooting and Recovery
-
-### Common Problems
-
-**Detached HEAD:**
-```bash
-# You're in detached HEAD state
-git branch temp  # Create branch at current commit
-git switch main
-git merge temp
-git branch -d temp
-```
-
-**Merge conflicts:**
-```bash
-# During merge/rebase
-git status  # See conflicted files
-# Edit files to resolve conflicts
-git add <resolved-files>
-git merge --continue  # or git rebase --continue
-
-# Abort and start over
-git merge --abort
-git rebase --abort
-```
-
-**Accidentally deleted branch:**
-```bash
-# Find branch in reflog
-git reflog
-# Create branch at commit
-git branch <branch-name> <commit-hash>
-```
-
-**Committed to wrong branch:**
-```bash
-# Move commit to correct branch
-git switch correct-branch
-git cherry-pick <commit>
-git switch wrong-branch
-git reset --hard HEAD~1  # Remove from wrong branch
-```
-
-**Pushed sensitive data:**
-```bash
-# ⚠️ URGENT: Remove from history immediately
-git filter-repo --path <sensitive-file> --invert-paths
-git push --force --all
-# Then: Rotate compromised credentials immediately!
-```
-
-**Large commit by mistake:**
-```bash
-# Before pushing
-git reset --soft HEAD~1
-git reset HEAD <large-file>
-git commit -m "message"
-
-# After pushing - use filter-repo or BFG
-```
-
-### Recovery Scenarios
-
-**Recover after hard reset:**
-```bash
-git reflog
-git reset --hard <commit-before-reset>
-```
-
-**Recover deleted file:**
-```bash
-git log --all --full-history -- <file>
-git checkout <commit>^ -- <file>
-```
-
-**Recover deleted commits:**
-```bash
-git reflog  # Find commit hash
-git cherry-pick <commit>
-# or
-git merge <commit>
-# or
-git reset --hard <commit>
-```
-
-**Recover from corrupted repository:**
-```bash
-# Verify corruption
-git fsck --full
-
-# Attempt repair
-git gc --aggressive
-
-# Last resort: clone from remote
-```
-
----
-
-## Best Practices
-
-### Commit Messages
-
-**Conventional Commits format:**
-```
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
-```
-
-**Types:**
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation
-- `style`: Formatting (no code change)
-- `refactor`: Code restructuring
-- `test`: Adding tests
-- `chore`: Maintenance
-
-**Example:**
-```
-feat(auth): add OAuth2 authentication
-
-Implement OAuth2 flow for Google and GitHub providers.
-Includes token refresh and revocation.
-
-Closes #123
-```
-
-### Branching Best Practices
-
-1. **Keep branches short-lived** (< 2 days ideal)
-2. **Use descriptive names**: `feature/user-auth`, `fix/header-crash`
-3. **One purpose per branch**
-4. **Rebase before merge** to keep history clean
-5. **Delete merged branches**
-
-### Workflow Best Practices
-
-1. **Commit often** (small, logical chunks)
-2. **Pull before push** (stay up to date)
-3. **Review before commit** (`git diff --staged`)
-4. **Write meaningful messages**
-5. **Test before commit**
-6. **Never commit secrets** (use `.gitignore`, environment variables)
-
-### .gitignore Best Practices
-
-```gitignore
-# Environment files
-.env
-.env.local
-*.env
-
-# Dependencies
-node_modules/
-vendor/
-venv/
-
-# Build outputs
-dist/
-build/
-*.exe
-*.dll
-*.so
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-logs/
-
-# Temporary files
-tmp/
-temp/
-*.tmp
-```
-
----
-
-## Security Best Practices
-
-### Credential Management
-
-```bash
-# Store credentials (cache for 1 hour)
-git config --global credential.helper cache
-git config --global credential.helper 'cache --timeout=3600'
-
-# Store credentials (permanent - use with caution)
-git config --global credential.helper store
-
-# Windows: Use Credential Manager
-git config --global credential.helper wincred
-
-# macOS: Use Keychain
-git config --global credential.helper osxkeychain
-
-# Linux: Use libsecret
-git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
-```
-
-### SSH Keys
-
-```bash
-# Generate SSH key
-ssh-keygen -t ed25519 -C "your_email@example.com"
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"  # If ed25519 not supported
-
-# Start ssh-agent
-eval "$(ssh-agent -s)"
-
-# Add key to ssh-agent
-ssh-add ~/.ssh/id_ed25519
-
-# Test connection
-ssh -T git@github.com
-ssh -T git@ssh.dev.azure.com
-```
-
-### GPG Signing
-
-```bash
-# Generate GPG key
-gpg --full-generate-key
-
-# List keys
-gpg --list-secret-keys --keyid-format LONG
-
-# Configure Git to sign commits
-git config --global user.signingkey <key-id>
-git config --global commit.gpgsign true
-
-# Sign commits
-git commit -S -m "message"
-
-# Verify signatures
-git log --show-signature
-```
-
-### Preventing Secrets
-
-```bash
-# Git-secrets (AWS tool)
-git secrets --install
-git secrets --register-aws
-
-# Gitleaks
-gitleaks detect
-
-# Pre-commit hook
-#!/bin/bash
-if git diff --cached | grep -E "(password|secret|api_key)" ; then
-    echo "Potential secret detected!"
-    exit 1
-fi
-```
-
----
-
-## Cross-Platform Considerations
-
-### Line Endings
-
-```bash
-# Windows (CRLF in working directory, LF in repository)
-git config --global core.autocrlf true
-
-# macOS/Linux (LF everywhere)
-git config --global core.autocrlf input
-
-# No conversion (not recommended)
-git config --global core.autocrlf false
-
-# Use .gitattributes for consistency
-# .gitattributes:
-* text=auto
-*.sh text eol=lf
-*.bat text eol=crlf
-```
-
-### Case Sensitivity
-
-```bash
-# macOS/Windows: Case-insensitive filesystems
-# Linux: Case-sensitive filesystem
-
-# Enable case sensitivity in Git
-git config --global core.ignorecase false
-
-# Rename file (case-only change)
-git mv --force myfile.txt MyFile.txt
-```
-
-### Path Handling
-
-```bash
-# Git always uses forward slashes internally
-# Works on all platforms:
-git add src/components/Header.jsx
-
-# Windows-specific tools may need backslashes in some contexts
-```
-
-### Git Bash / MINGW Path Conversion (Windows)
-
-**CRITICAL: Git Bash is the primary Git environment on Windows!**
-
-Git Bash (MINGW/MSYS2) automatically converts Unix-style paths to Windows paths for native executables, which can cause issues with Git operations.
-
-**Path Conversion Behavior:**
-```bash
-# Automatic conversions that occur:
-/foo          → C:/Program Files/Git/usr/foo
-/foo:/bar     → C:\msys64\foo;C:\msys64\bar
---dir=/foo    → --dir=C:/msys64/foo
-
-# What triggers conversion:
-# ✓ Leading forward slash (/) in arguments
-# ✓ Colon-separated path lists
-# ✓ Arguments after - or , with path components
-
-# What's exempt from conversion:
-# ✓ Arguments containing = (variable assignments)
-# ✓ Drive specifiers (C:)
-# ✓ Arguments with ; (already Windows format)
-# ✓ Arguments starting with // (Windows switches)
-```
-
-**Controlling Path Conversion:**
-
-```bash
-# Method 1: MSYS_NO_PATHCONV (Git for Windows only)
-# Disable ALL path conversion for a command
-MSYS_NO_PATHCONV=1 git command --option=/path
-
-# Permanently disable (use with caution - can break scripts)
-export MSYS_NO_PATHCONV=1
-
-# Method 2: MSYS2_ARG_CONV_EXCL (MSYS2)
-# Exclude specific argument patterns
-export MSYS2_ARG_CONV_EXCL="*"              # Exclude everything
-export MSYS2_ARG_CONV_EXCL="--dir=;/test"  # Specific prefixes
-
-# Method 3: Manual conversion with cygpath
-cygpath -u "C:\path"     # → Unix format: /c/path
-cygpath -w "/c/path"     # → Windows format: C:\path
-cygpath -m "/c/path"     # → Mixed format: C:/path
-
-# Method 4: Workarounds
-# Use double slashes: //e //s instead of /e /s
-# Use dash notation: -e -s instead of /e /s
-# Quote paths with spaces: "/c/Program Files/file.txt"
-```
-
-**Shell Detection in Git Workflows:**
-
-```bash
-# Method 1: $MSYSTEM (Most Reliable for Git Bash)
-case "$MSYSTEM" in
-  MINGW64)  echo "Git Bash 64-bit" ;;
-  MINGW32)  echo "Git Bash 32-bit" ;;
-  MSYS)     echo "MSYS environment" ;;
-esac
-
-# Method 2: uname -s (Portable)
-case "$(uname -s)" in
-  MINGW64_NT*)  echo "Git Bash 64-bit" ;;
-  MINGW32_NT*)  echo "Git Bash 32-bit" ;;
-  MSYS_NT*)     echo "MSYS" ;;
-  CYGWIN*)      echo "Cygwin" ;;
-  Darwin*)      echo "macOS" ;;
-  Linux*)       echo "Linux" ;;
-esac
-
-# Method 3: $OSTYPE (Bash-only, fast)
-case "$OSTYPE" in
-  msys*)       echo "Git Bash/MSYS" ;;
-  cygwin*)     echo "Cygwin" ;;
-  darwin*)     echo "macOS" ;;
-  linux-gnu*)  echo "Linux" ;;
-esac
-```
-
-**Git Bash Path Issues & Solutions:**
-
-```bash
-# Issue: Git commands with paths fail in Git Bash
-# Example: git log --follow /path/to/file fails
-
-# Solution 1: Use relative paths
-git log --follow ./path/to/file
-
-# Solution 2: Disable path conversion
-MSYS_NO_PATHCONV=1 git log --follow /path/to/file
-
-# Solution 3: Use Windows-style paths
-git log --follow C:/path/to/file
-
-# Issue: Spaces in paths (Program Files)
-# Solution: Always quote paths
-git add "/c/Program Files/project/file.txt"
-
-# Issue: Drive letter duplication (D:\dev → D:\d\dev)
-# Solution: Use cygpath for conversion
-file=$(cygpath -u "D:\dev\file.txt")
-git add "$file"
-```
-
-**Git Bash Best Practices:**
-
-1. **Always use forward slashes in Git commands** - Git handles them on all platforms
-2. **Quote paths with spaces** - Essential in Git Bash
-3. **Use relative paths when possible** - Avoids conversion issues
-4. **Detect shell environment** - Use $MSYSTEM for Git Bash detection
-5. **Test scripts on Git Bash** - Primary Windows Git environment
-6. **Use MSYS_NO_PATHCONV selectively** - Only when needed, not globally
-
----
-
-## Success Criteria
-
-A Git workflow using this skill should:
-
-1. ✓ ALWAYS ask user preference for automatic commits vs manual
-2. ✓ ALWAYS warn before destructive operations
-3. ✓ ALWAYS create backup branches before risky operations
-4. ✓ ALWAYS explain recovery procedures
-5. ✓ Use appropriate branch strategy for the project
-6. ✓ Write meaningful commit messages
-7. ✓ Keep commit history clean and linear
-8. ✓ Never commit secrets or large binary files
-9. ✓ Test code before committing
-10. ✓ Know how to recover from any mistake
-
----
-
-## Emergency Recovery Reference
-
-**Quick recovery commands:**
-
-```bash
-# Undo last commit (keep changes)
-git reset --soft HEAD~1
-
-# Undo changes to file
-git checkout -- <file>
-
-# Recover deleted branch
-git reflog
-git branch <name> <commit>
-
-# Undo force push (if recent)
-git reflog
-git reset --hard <commit-before-push>
-git push --force-with-lease
-
-# Recover from hard reset
-git reflog
-git reset --hard <commit-before-reset>
-
-# Find lost commits
-git fsck --lost-found
-git reflog --all
-
-# Recover deleted file
-git log --all --full-history -- <file>
-git checkout <commit>^ -- <file>
-```
-
----
-
-## When to Use This Skill
-
-**Always activate for:**
-- Any Git command or operation
-- Repository management questions
-- Branch strategy decisions
-- Merge conflict resolution
-- History rewriting needs
-- Recovery from Git mistakes
-- Platform-specific Git questions
-- Dangerous operations (with appropriate warnings)
-
-**Key indicators:**
-- User mentions Git, GitHub, GitLab, Bitbucket, Azure DevOps
-- Version control questions
-- Commit, push, pull, merge, rebase operations
-- Branch management
-- History modification
-- Recovery scenarios
-
----
-
-This skill provides COMPLETE Git expertise. Combined with the reference files and safety guardrails, you have the knowledge to handle ANY Git operation safely and effectively.
+## Anti-Patterns (ALL MODES)
+
+### Commit Mode
+- One commit for many files -> SPLIT
+- Default to semantic style -> DETECT first
+
+### Rebase Mode
+- Rebase main/master -> NEVER
+- `--force` instead of `--force-with-lease` -> DANGEROUS
+- Rebase without stashing dirty files -> WILL FAIL
+
+### History Search Mode
+- `-S` when `-G` is appropriate -> Wrong results
+- Blame without `-C` on moved code -> Wrong attribution
+- Bisect without proper good/bad boundaries -> Wasted time

@@ -1,7 +1,7 @@
 {
   "name": "when-releasing-new-product-orchestrate-product-launch",
-  "repo": "DNYoussef/ai-chrome-extension",
-  "path": ".claude/skills/when-releasing-new-product-orchestrate-product-launch/SKILL.md",
-  "source": "github.com/DNYoussef/ai-chrome-extension",
-  "downloaded_at": "2026-01-19T03:55:58.211865Z"
+  "repo": "DNYoussef/context-cascade",
+  "path": "skills/orchestration/when-releasing-new-product-orchestrate-product-launch/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-20T04:01:42.678718Z"
 }

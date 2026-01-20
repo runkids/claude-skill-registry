@@ -1,7 +1,7 @@
 {
   "name": "describe_pr",
-  "repo": "parcadei/Continuous-Claude-v3",
+  "repo": "tfunk1030/vibe",
   "path": ".claude/skills/describe_pr/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-19T03:31:25.476296Z"
+  "source": "github.com/tfunk1030/vibe",
+  "downloaded_at": "2026-01-20T03:46:55.818647Z"
 }

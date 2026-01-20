@@ -1,5 +1,6 @@
 ---
 name: content-research-writer
+category: business-productivity
 description: Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing process from solo effort to collaborative partnership.
 ---
 
@@ -9,7 +10,7 @@ This skill acts as your writing partner, helping you research, outline, draft, a
 
 ## When to Use This Skill
 
-- Writing blog posts, articles, or newsletters,reports
+- Writing blog posts, articles, or newsletters
 - Creating educational content or tutorials
 - Drafting thought leadership pieces
 - Researching and writing case studies

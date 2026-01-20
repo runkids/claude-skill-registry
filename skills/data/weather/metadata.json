@@ -1,7 +1,7 @@
 {
   "name": "weather",
-  "repo": "clawdbot/clawdbot",
-  "path": "skills/weather/SKILL.md",
-  "source": "github.com/clawdbot/clawdbot",
-  "downloaded_at": "2026-01-19T03:58:59.613112Z"
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/weather/SKILL.md",
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-20T03:19:57.363245Z"
 }

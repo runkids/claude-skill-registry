@@ -1,58 +1,111 @@
 ---
 name: verify
-description: Run project verification checks (type-check, lint, unit tests, e2e tests, build). Use this skill when the user asks to verify the project, run checks, or validate code quality.
+description: 'Manifest verification runner. Spawns parallel verifiers for Global Invariants and Acceptance Criteria. Called by /do, not directly by users.'
+user-invocable: false
 ---
 
-# Verify Project Skill
+# /verify - Manifest Verification Runner
 
-## Purpose
+## Goal
 
-Run comprehensive project verification checks including type-checking, linting, unit tests, e2e tests, and build validation.
+Run all verification methods from a Manifest. Spawn one verifier agent per criterion in parallel. Report results grouped by type.
 
-## When to Use
+## Input
 
-- User asks to verify project
-- User asks to run checks/tests
-- Before committing/pushing changes
-- After code changes
-- Before creating a PR
+`$ARGUMENTS` = "<manifest-file-path> <execution-log-path> [--scope=files]"
 
-## Steps
+## Principles
 
-1. **Run unit tests & build verification**
+1. **Don't run checks yourself** - Spawn agents to verify. You orchestrate, they verify.
 
-   ```bash
-   npm run verify
-   ```
+2. **Single parallel launch** - All criteria in one call, slow ones first (tests, builds, reviewers before lint/typecheck).
 
-   This runs: `type-check`, `lint`, `test`, and `build`
+3. **Global failures are critical** - Highlight prominently. Task can't succeed while these fail.
 
-2. **Run e2e tests** (optional, recommended before release)
+4. **Actionable feedback** - Pass through file:line, expected vs actual, fix hints.
 
-   ```bash
-   npm run test:e2e
-   ```
+## What to Do
 
-3. **Report results**
-   - ✅ All passed
-   - ❌ Show failures and fix them
+**Parse inputs** - Extract all criteria with verification methods from manifest. Read execution log for context.
 
-## Available Scripts
+**Categorize by method:**
+- `bash`: Shell commands (tests, lint, typecheck)
+- `subagent`: Reviewer agents
+- `codebase`: Code pattern checks
+- `manual`: Set aside for human verification
 
-### Core Verification
+**Launch verifiers** - One Task per criterion, all in parallel. Use the agent type specified in the manifest's verification block. Pass criterion ID, description, verification method, and relevant context.
 
-- `npm run verify` - runs type-check + lint + test + build
-- `npm run type-check` - TypeScript validation
-- `npm run lint` - ESLint check
-- `npm run lint:fix` - Auto-fix linting issues
-- `npm run test` - Run Jest unit tests
-- `npm run test:e2e` - Run Playwright e2e tests
-- `npm run build` - Build all packages
+**Collect and report results** - Group by Global Invariants first, then by Deliverable.
 
-## Quality Gates
+## Decision Logic
 
-- ✅ Type check must pass
-- ✅ Linting must pass (no warnings)
-- ✅ All unit tests must pass
-- ✅ Build must succeed
-- ✅ E2E tests should pass (before release)
+```
+if any Global Invariant failed:
+    → Return ALL failures, globals highlighted prominently
+
+elif any AC failed:
+    → Return failures grouped by deliverable
+
+elif all automated pass AND manual exists:
+    → Return manual criteria, hint to call /escalate
+
+elif all pass:
+    → Call /done
+```
+
+## Output Format
+
+**On failure:**
+```markdown
+## Verification Results
+
+### Global Invariants
+
+#### Failed (N)
+- **INV-G1**: [description]
+  Method: [method]
+  [failure details with location, expected/actual, fix hint]
+
+#### Passed (M)
+- INV-G2, INV-G3
+
+---
+
+### Deliverable 1: [Name]
+
+#### Failed
+- **AC-1.2**: [description]
+  [failure details]
+
+#### Passed
+- AC-1.1
+
+---
+
+**Summary:**
+- Global Invariants: X/Y failed (fix first)
+- Deliverable 1: A/B ACs failed
+```
+
+**On success with manual:**
+```markdown
+## Verification Results
+
+All automated criteria pass.
+
+### Manual Verification Required
+- **AC-1.3**: [description] - How to verify: [from manifest]
+
+Call /escalate to surface for human review.
+```
+
+**On full success:**
+Call `/done`.
+
+## Criterion Types
+
+| Type | Pattern | Failure Impact |
+|------|---------|----------------|
+| Global Invariant | INV-G{N} | Task fails |
+| Acceptance Criteria | AC-{D}.{N} | Deliverable incomplete |

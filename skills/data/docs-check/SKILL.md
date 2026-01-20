@@ -1,83 +1,225 @@
 ---
 name: docs-check
-description: "Analyze git diff to identify code changes requiring documentation updates. Categorizes changes (database/schema, API endpoints, components, configuration, authentication) and suggests relevant documentation files to review. Use when: (1) After making code changes, (2) Before committing significant changes, (3) When adding new features or modifying APIs, (4) During PR preparation, (5) When working with database schemas, API routes, components, or configuration files, (6) To ensure documentation stays synchronized with code changes, (7) For documentation sync and maintenance, or (8) For pre-commit documentation checks. Triggers: check docs, docs check, documentation check, update docs, sync documentation, what docs need updating, check if docs are up to date, after code changes, before committing."
+description: "Documentation check checkpoint for conductor gates. Analyzes code changes to determine if documentation needs updating. Returns structured result with pass/fail status and documentation suggestions."
+user-invocable: true
 ---
 
-# Documentation Check
+# Docs Check Checkpoint
 
-## Tools
+Documentation checkpoint that verifies docs are up-to-date with code changes.
 
-- `ada::docs:check` - Analyzes git diff and suggests documentation updates
+## What This Skill Does
 
-## What It Detects
-
-The tool categorizes changes and suggests relevant documentation files:
-
-- **Database/Schema changes** → suggests `.docs/db/` files
-- **API changes** → suggests `.docs/api/` and `.docs/workflow/` files
-- **Component/UI changes** → suggests component documentation
-- **Configuration changes** → suggests setup/install documentation
-- **Authentication changes** → suggests auth documentation
-- **Test changes** → suggests test documentation
-- And more...
+1. Analyzes what changed in the code
+2. Identifies documentation-relevant changes
+3. Checks if corresponding docs exist and are current
+4. Suggests documentation updates if needed
+5. Writes result to checkpoint file
 
 ## Workflow
 
-1. **Run check**: `bash skills/docs-check/scripts/check-docs.sh` (or `--verbose` for details)
-   - Analyzes git diff for code changes requiring documentation updates
-
-2. **Review output**: Categorized changes with suggested documentation files
-
-3. **Validate structure**: Read `references/documentation-guide.md` to verify existing docs follow standards
-
-4. **Update documentation**: Use `skills/docs-write/SKILL.md` workflow, reference `references/documentation-guide.md` for requirements
-
-5. **Verify**: Re-run check until all suggestions addressed
-
-### Integration with Other Skills
-
-- Run after `ada::code-review` to check if reviewed changes need documentation
-- Run before `ada::code-quality` finalization to ensure docs are updated with code
-- Use during PR preparation to ensure documentation is complete
-
-## Examples
-
-### Example 1: Basic Usage
+### Step 1: Get Changed Files
 
 ```bash
-bash skills/docs-check/scripts/check-docs.sh
+# For uncommitted changes
+git diff --name-only HEAD
+git diff --name-only --cached
+
+# For branch diff
+git diff --name-only main...HEAD
 ```
 
-### Example 2: Verbose Mode
+### Step 2: Categorize Changes
+
+Identify what type of changes were made:
+
+| Change Type | Documentation Impact |
+|-------------|---------------------|
+| New API endpoint | API docs needed |
+| New CLI command | Usage docs needed |
+| Config schema change | Config docs needed |
+| Breaking change | Migration guide needed |
+| New feature | README/feature docs |
+| Bug fix | Usually no docs needed |
+| Refactor (no API change) | No docs needed |
+
+### Step 3: Check Existing Documentation
+
+Look for docs that might need updates:
 
 ```bash
-bash skills/docs-check/scripts/check-docs.sh --verbose
+# Common doc locations
+ls README.md CHANGELOG.md docs/ *.md 2>/dev/null
+
+# API docs
+ls docs/API.md docs/api/ swagger.yaml openapi.yaml 2>/dev/null
+
+# Check if changed files have corresponding docs
+# e.g., if routes/api.js changed, check docs/API.md
 ```
 
-## References
+### Step 4: Analyze Documentation Gaps
 
-**REQUIRED READING**: Always load `references/documentation-guide.md` to:
-1. **Validate existing documentation** - Check if suggested docs follow correct structure, style, and alignment
-2. **Guide updates** - Reference standards when writing or updating documentation
+For each significant change, check:
 
-The guide contains all standards, examples, patterns, and requirements. Do not make assumptions about documentation format, style, or structure - always reference the guide.
+1. **API changes** - Is there API documentation? Does it cover new endpoints?
+2. **Config changes** - Are new config options documented?
+3. **Breaking changes** - Is there a migration guide?
+4. **New features** - Is the feature documented for users?
+5. **CHANGELOG** - Is there a changelog entry?
 
-- **Documentation Guide**: `references/documentation-guide.md` - **REQUIRED**: Complete documentation standards, style, structure, and examples. Load this file to validate existing docs and guide updates.
-- **docs-write skill**: `skills/docs-write/SKILL.md` - Complete workflow for writing/updating documentation
+### Step 5: Create Structured Result
 
-## Output
+```json
+{
+  "checkpoint": "docs-check",
+  "timestamp": "2026-01-19T12:00:00Z",
+  "passed": true,
+  "changes_analyzed": 5,
+  "suggestions": [
+    {
+      "type": "api",
+      "file": "docs/API.md",
+      "message": "New endpoint POST /api/spawn should be documented",
+      "priority": "high"
+    },
+    {
+      "type": "changelog",
+      "file": "CHANGELOG.md",
+      "message": "Consider adding changelog entry for new feature",
+      "priority": "medium"
+    }
+  ],
+  "summary": "2 documentation suggestions. None are blocking."
+}
+```
 
-The tool outputs:
-- Changed code files organized by category
-- Suggested documentation files to review
-- Guidance on what needs to be updated
+**Result Fields:**
+- `passed`: true if no critical documentation missing
+- `changes_analyzed`: number of changed files analyzed
+- `suggestions`: array of `{type, file, message, priority: "high"|"medium"|"low"}`
+- `summary`: brief human-readable summary
 
-## Best Practices
+### Step 6: Write Checkpoint File
 
-- Run this check before committing significant changes
-- **Always load `references/documentation-guide.md`** to validate documentation structure and alignment
-- Verify existing documentation follows guide standards (style, structure, format) - not just detect what needs updating
-- Review the [Documentation Guide](references/documentation-guide.md) to understand what changes require documentation
-- Update documentation in the same PR as code changes
-- Fix structure/alignment issues when updating content
-- Use the verbose mode for more detailed information
+```bash
+mkdir -p .checkpoints
+cat > .checkpoints/docs-check.json << 'EOF'
+{
+  "checkpoint": "docs-check",
+  ...
+}
+EOF
+```
+
+## Decision Criteria
+
+**Pass if:**
+- No critical documentation gaps
+- Minor suggestions are acceptable
+
+**Fail if:**
+- Breaking changes without migration guide
+- New public API without documentation
+- README claims features that don't exist
+
+**Suggestion priorities:**
+- `high`: Should be documented before merge
+- `medium`: Should be documented soon
+- `low`: Nice to have, not blocking
+
+## Documentation Patterns to Check
+
+### API Changes
+
+If files like `routes/*.js`, `api/*.ts`, `endpoints/*` changed:
+- Check `docs/API.md` or similar
+- Look for OpenAPI/Swagger specs
+- Verify new endpoints are documented
+
+### Configuration Changes
+
+If files like `config.js`, `.env.example`, `settings.json` changed:
+- Check README configuration section
+- Verify new options are documented
+- Check for breaking config changes
+
+### CLI Changes
+
+If argument parsing or command files changed:
+- Check `--help` output accuracy
+- Verify README usage section
+- Check man pages if applicable
+
+### Breaking Changes
+
+Indicators of breaking changes:
+- Removed or renamed exports
+- Changed function signatures
+- Modified config schema
+- Database migration files
+
+### CHANGELOG
+
+For any user-visible change:
+- Should have CHANGELOG entry
+- Entry should mention issue ID if applicable
+- Breaking changes should be clearly marked
+
+## Example Usage
+
+When invoked as `/docs-check`:
+
+```
+Running Docs Check checkpoint...
+
+Analyzing changed files...
+Found 8 changed files:
+- backend/routes/api.js (modified)
+- backend/modules/spawn-handler.js (new)
+- extension/hooks/useSpawn.ts (new)
+- README.md (modified)
+- docs/API.md (not modified)
+
+Checking documentation coverage...
+
+API changes detected:
+- New endpoint: POST /api/spawn
+- docs/API.md does not document this endpoint
+
+New feature detected:
+- Spawn functionality added
+- README.md was updated (good!)
+
+Result:
+{
+  "passed": true,
+  "suggestions": [
+    {
+      "type": "api",
+      "file": "docs/API.md",
+      "message": "Document POST /api/spawn endpoint",
+      "priority": "high"
+    }
+  ],
+  "summary": "1 high-priority suggestion: API docs need update"
+}
+
+Checkpoint result written to .checkpoints/docs-check.json
+```
+
+## Files to Always Check
+
+| Project Type | Doc Files |
+|--------------|-----------|
+| Node.js | `README.md`, `CHANGELOG.md`, `docs/`, `API.md` |
+| Python | `README.md`, `docs/`, `CHANGELOG.md`, `*.rst` |
+| Rust | `README.md`, `CHANGELOG.md`, `docs/` |
+| Go | `README.md`, `doc.go`, `docs/` |
+
+## Notes
+
+- This checkpoint is advisory by default (suggestions don't block)
+- For strict projects, configure to fail on high-priority suggestions
+- Always check CHANGELOG for any user-visible changes
+- Breaking changes MUST have documentation before merge

@@ -1,112 +1,33 @@
 ---
 name: performance
-description: Analyzes performance, identifies bottlenecks, suggests and implements optimizations
-triggers:
-  - optimize
-  - performance
-  - slow
-  - speed up
-  - bottleneck
-  - profile
+description: Performance - Core Web Vitals, bundle size. Use when optimizing speed.
 ---
 
-# Performance Skill
+# Performance Guideline
 
-You are the **Performance Agent** specialized in performance analysis and optimization.
+## Tech Stack
 
-## Capabilities
-- Performance bottleneck identification
-- Algorithm complexity analysis
-- Memory usage optimization
-- I/O and network optimization
-- Caching strategy design
-- Profiling and benchmarking
+* **Framework**: Next.js (with Turbopack)
+* **Platform**: Vercel
+* **Tooling**: Bun
 
-## When to Activate
-Activate this skill when the user reports:
-- "Optimize this code"
-- "Performance is slow"
-- "Speed up the X function"
-- "Find the bottleneck in Y"
-- "Profile the Z module"
+## Non-Negotiables
 
-## Process
+* Core Web Vitals must meet thresholds (LCP < 2.5s, CLS < 0.1, INP < 200ms)
+* Performance regressions must be detectable
+* JavaScript bundle size must be monitored and optimized
 
-1. **Analyze**: Review code for performance issues
-2. **Identify**: Find bottlenecks and anti-patterns
-3. **Measure**: Profile if tools available
-4. **Optimize**: Implement targeted improvements
-5. **Verify**: Measure improvement impact
-6. **Document**: Explain trade-offs made
+## Context
 
-## Performance Analysis Areas
+Performance is a feature. Slow products feel broken, even when they're correct. Users don't read loading spinners — they leave. Every 100ms of latency costs engagement.
 
-### Algorithm Complexity
-- Time complexity (Big O)
-- Space complexity
-- Unnecessary iterations
-- Inefficient data structures
+Don't just measure — understand. Where does time go? What's blocking the critical path? What would make the product feel instant? Sometimes small architectural changes have bigger impact than optimization.
 
-### Memory
-- Memory leaks
-- Excessive allocations
-- Large object retention
-- Garbage collection pressure
+## Driving Questions
 
-### I/O Operations
-- Blocking I/O
-- Unnecessary disk operations
-- Network call overhead
-- Database query efficiency
-
-### Concurrency
-- Parallelization opportunities
-- Async/await optimization
-- Thread pool usage
-- Lock contention
-
-### Caching
-- Missing cache opportunities
-- Cache invalidation issues
-- Cache size and eviction
-- Memoization candidates
-
-## Common Anti-Patterns
-- N+1 query problems
-- Synchronous operations that could be async
-- Repeated calculations
-- Unnecessary object creation in loops
-- String concatenation in loops
-- Missing indexes on database queries
-
-## Output Format
-
-Present performance analysis clearly:
-
-### Current Performance Issues
-List identified bottlenecks with `file:line` references
-
-### Complexity Analysis
-Analyze time/space complexity of key operations
-
-### Optimization Opportunities
-Specific suggestions with expected impact
-
-### Implemented Optimizations
-Describe changes made
-
-### Performance Impact
-Estimate or measure improvement
-
-### Trade-offs
-Discuss any compromises (readability vs performance)
-
-### Recommendations
-Additional optimization suggestions
-
-## Optimization Priorities
-1. Algorithmic improvements (biggest impact)
-2. I/O and database optimizations
-3. Caching and memoization
-4. Memory optimizations
-5. Micro-optimizations (last resort)
+* What makes the product feel slow to users?
+* Where are the biggest bottlenecks in the critical user journeys?
+* What's in the critical rendering path that shouldn't be?
+* How large is the JavaScript bundle, and what's bloating it?
+* What database queries are slow, and why?
+* If we could make one thing 10x faster, what would have the most impact?

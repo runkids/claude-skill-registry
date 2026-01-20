@@ -126,14 +126,14 @@ When building ANY workflow, follow this checklist:
 - [ ] Configure error handling
 
 ### Validation Phase
-- [ ] Validate each node configuration (validate_node)
+- [ ] Validate each node configuration (validate_node_operation)
 - [ ] Validate complete workflow (validate_workflow)
 - [ ] Test with sample data
 - [ ] Handle edge cases (empty data, errors)
 
 ### Deployment Phase
 - [ ] Review workflow settings (execution order, timeout, error handling)
-- [ ] Activate workflow using `activateWorkflow` operation
+- [ ] Activate workflow ⚠️ **Manual activation required in n8n UI** (API/MCP cannot activate)
 - [ ] Monitor first executions
 - [ ] Document workflow purpose and data flow
 
@@ -225,10 +225,8 @@ These skills work together with Workflow Patterns:
 
 **n8n MCP Tools Expert** - Use to:
 - Find nodes for your pattern (search_nodes)
-- Understand node operations (get_node)
+- Understand node operations (get_node_essentials)
 - Create workflows (n8n_create_workflow)
-- Deploy templates (n8n_deploy_template)
-- Use ai_agents_guide for AI pattern guidance
 
 **n8n Expression Syntax** - Use to:
 - Write expressions in transformation nodes
@@ -409,7 +407,3 @@ Use `search_templates` and `get_template` from n8n-mcp tools to find examples!
 - n8n Expression Syntax - Write expressions correctly
 - n8n Validation Expert - Validate and fix errors
 - n8n Node Configuration - Configure specific operations
-
-## How to use this skill
-
-Refer to the instructions above or standard agent usage for this skill type.

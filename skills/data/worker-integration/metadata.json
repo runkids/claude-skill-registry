@@ -1,7 +1,7 @@
 {
   "name": "worker-integration",
-  "repo": "QUXTech/claude-flow",
-  "path": ".claude/skills/worker-integration/skill.md",
-  "source": "github.com/QUXTech/claude-flow",
-  "downloaded_at": "2026-01-19T03:16:26.308404Z"
+  "repo": "ruvnet/claude-flow",
+  "path": "v3/@claude-flow/cli/.claude/skills/worker-integration/skill.md",
+  "source": "github.com/ruvnet/claude-flow",
+  "downloaded_at": "2026-01-20T03:06:16.885559Z"
 }

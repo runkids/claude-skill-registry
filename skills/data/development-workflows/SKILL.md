@@ -1,186 +1,594 @@
 ---
-name: development-workflows
-description: Polibaseの開発ワークフローとパターンを説明します。Docker-first開発、環境変数管理、新機能追加手順など、日常的な開発作業のベストプラクティスをカバーします。
+name: Development Workflows
+description: Modern development process patterns for shipping faster with higher quality
+version: 1.0.0
+license: MIT
+tier: community
 ---
 
-# Development Workflows（開発ワークフロー）
+# Development Workflows
 
-## 目的
-Polibaseの開発パターン、ワークフロー、ベストプラクティスを理解し、効率的で一貫性のある開発を実現します。
+> **Ship faster, with fewer bugs, and less stress**
 
-## いつアクティベートするか
-このスキルは以下の場合に自動的にアクティベートされます：
-- 新機能の実装を開始する時
-- ユーザーが「新機能」「フィーチャー追加」「開発フロー」と言った時
-- セットアップや環境構築時
-- Docker関連の作業時
+This skill provides battle-tested workflows for modern software development, from feature inception to production deployment.
 
-## 開発パターン
+## Core Principles
 
-### 1. Docker-first開発
+### 1. Small Batches
+Smaller changes are easier to review, test, and rollback. Ship often.
 
-**すべてのコマンドはDockerコンテナ内で実行します**
+### 2. Automation Over Documentation
+If you have to remember to do something, automate it instead.
 
-#### 基本パターン
-```bash
-# コマンド実行の基本形
-docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] exec sagebase <command>
+### 3. Fail Fast, Learn Faster
+Catch issues early. The cost of a bug increases 10x at each stage.
 
-# 例: Pythonスクリプト実行
-docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] exec sagebase uv run python src/script.py
+## Development Lifecycle
 
-# 例: テスト実行
-docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] exec sagebase uv run pytest
+### The Feature Flow
 
-# 例: データベース接続
-docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] exec postgres psql -U sagebase_user -d sagebase_db
+```
+┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
+│  PLAN    │───▶│  BUILD   │───▶│  VERIFY  │───▶│  SHIP    │
+└──────────┘    └──────────┘    └──────────┘    └──────────┘
+     │               │               │               │
+     ▼               ▼               ▼               ▼
+  - Specs         - Code          - Code review   - Deploy
+  - Design        - Tests         - QA testing    - Monitor
+  - Tasks         - Docs          - Staging       - Iterate
 ```
 
-#### ショートカット（just コマンド）
-```bash
-# just を使った短縮形
-just exec uv run python src/script.py
-just test
-just db
+## Feature Development Workflow
+
+### Phase 1: Planning
+
+**Input:** User story or requirement
+**Output:** Clear, scoped tasks ready for development
+
+```yaml
+Planning Checklist:
+  [ ] Requirement clearly understood
+  [ ] Scope defined (what's IN and OUT)
+  [ ] Technical approach decided
+  [ ] Tasks broken down (max 4 hours each)
+  [ ] Dependencies identified
+  [ ] Acceptance criteria written
+  [ ] Edge cases documented
 ```
 
-#### 理由
-- 環境の一貫性
-- 依存関係の管理
-- CI/CDとの整合性
-- チーム全体で同じ環境
+**Task Template:**
 
-### 2. Multi-phase Processing
+```markdown
+## Task: [Title]
 
-**処理は必ず決められた順序で実行します**
+### Context
+[Why are we doing this?]
 
-#### 議事録処理の順序
-```bash
-# ステップ1: 議事録を分割
-docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] exec sagebase uv run sagebase process-minutes
+### Requirements
+- [ ] Requirement 1
+- [ ] Requirement 2
 
-# ステップ2: 話者を抽出
-docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] exec sagebase uv run python src/extract_speakers_from_minutes.py
+### Technical Approach
+[How will we implement this?]
 
-# ステップ3: 話者をマッチング
-docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] exec sagebase uv run python update_speaker_links_llm.py
+### Acceptance Criteria
+- [ ] AC 1
+- [ ] AC 2
+
+### Out of Scope
+- Not doing X
+- Not doing Y
+
+### Dependencies
+- Needs API from [other task]
 ```
 
-**⚠️ この順序を変更しないこと！**
+### Phase 2: Building
 
-#### Web Scraping → GCS → Processing
-```bash
-# ステップ1: スクレイピング + GCS アップロード
-docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] exec sagebase uv run sagebase scrape-minutes --upload-to-gcs
+**Input:** Planned tasks
+**Output:** Working code with tests
 
-# ステップ2: GCSから処理
-docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] exec sagebase uv run sagebase process-minutes --meeting-id <id>
+```yaml
+Building Workflow:
+  1. Create branch:
+     git checkout -b feature/description
 
-# ステップ3: 以降は標準フローと同じ
+  2. Implement in small commits:
+     - Each commit should build and pass tests
+     - Commit messages describe the "why"
+
+  3. Write tests alongside code:
+     - Unit tests for logic
+     - Integration tests for flows
+     - No code without tests
+
+  4. Self-review before PR:
+     - Run linter
+     - Check for debug code
+     - Review diff yourself
 ```
 
-### 3. 環境変数の使い分け
+**Commit Message Format:**
 
-#### Docker環境
-```bash
-# docker-compose.yml で定義
-DATABASE_URL=postgresql://sagebase_user:sagebase_password@postgres:5432/sagebase_db
-GOOGLE_API_KEY=${GOOGLE_API_KEY}
+```
+type(scope): short description
+
+[optional body]
+- What changed
+- Why it changed
+
+[optional footer]
+Closes #123
 ```
 
-#### ローカル環境
-```bash
-# .env ファイルで定義
-DATABASE_URL=postgresql://sagebase_user:sagebase_password@localhost:5432/sagebase_db
-GOOGLE_API_KEY=your-api-key-here
+Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`, `perf`
+
+### Phase 3: Verification
+
+**Input:** Feature branch with code
+**Output:** Verified, approved code
+
+```yaml
+Verification Steps:
+
+  Code Review:
+    - [ ] Meets requirements
+    - [ ] Code is readable
+    - [ ] No obvious bugs
+    - [ ] Tests are meaningful
+    - [ ] No security issues
+    - [ ] Performance acceptable
+
+  Automated Testing:
+    - [ ] Unit tests pass
+    - [ ] Integration tests pass
+    - [ ] E2E tests pass (if applicable)
+    - [ ] Linting passes
+    - [ ] Type checking passes
+
+  QA Testing:
+    - [ ] Happy path works
+    - [ ] Edge cases handled
+    - [ ] Error states work
+    - [ ] Cross-browser (if web)
+    - [ ] Responsive (if web)
+    - [ ] Accessibility checked
 ```
 
-**注意:** DATABASE_URLのホスト名が異なります
-- Docker: `postgres` (サービス名)
-- ローカル: `localhost`
+### Phase 4: Shipping
 
-### 4. 新機能追加の手順
+**Input:** Verified code
+**Output:** Feature in production
 
-Clean Architectureに従って、内側から外側へ実装します：
+```yaml
+Shipping Workflow:
 
-#### ステップ1: Domain層
-```bash
-# Entity定義
-src/domain/entities/new_entity.py
+  Pre-Deploy:
+    - [ ] All checks pass
+    - [ ] PR approved
+    - [ ] No merge conflicts
 
-# Repository Interface定義
-src/domain/repositories/i_new_entity_repository.py
+  Deploy:
+    - [ ] Merge to main
+    - [ ] Automatic deployment triggers
+    - [ ] Watch deployment logs
 
-# Domain Service（必要な場合）
-src/domain/services/new_entity_domain_service.py
+  Post-Deploy:
+    - [ ] Verify in production
+    - [ ] Check error monitoring
+    - [ ] Confirm metrics normal
+    - [ ] Update ticket/task status
 ```
 
-#### ステップ2: Application層
-```bash
-# UseCase実装
-src/application/usecases/manage_new_entity_usecase.py
+## Git Workflow
 
-# DTO定義
-src/application/dtos/new_entity_dto.py
+### Branch Strategy (GitHub Flow)
+
+```
+main ─────●─────●─────●─────●─────●─────●─────▶
+           \       /         \       /
+feature/a  ●──●──●            \     /
+                               \   /
+feature/b                      ●──●──●
 ```
 
-#### ステップ3: Infrastructure層
-```bash
-# Repository実装
-src/infrastructure/persistence/new_entity_repository_impl.py
+**Rules:**
+- `main` is always deployable
+- All work on feature branches
+- PRs required for merging to main
+- Branches deleted after merge
 
-# マイグレーション作成
-database/migrations/XXX_create_new_entity.sql
+### Branch Naming
+
+```yaml
+Pattern: type/description
+
+Types:
+  feature/ - New functionality
+  fix/ - Bug fixes
+  refactor/ - Code improvements
+  docs/ - Documentation
+  test/ - Test additions
+  chore/ - Maintenance
+
+Examples:
+  feature/user-authentication
+  fix/login-redirect-loop
+  refactor/api-client-cleanup
 ```
 
-#### ステップ4: Interfaces層
-```bash
-# CLI追加（必要な場合）
-src/interfaces/cli/new_entity_commands.py
+### Pull Request Template
 
-# Web UI追加（必要な場合）
-src/interfaces/web/streamlit/views/new_entity_view.py
+```markdown
+## Summary
+[Brief description of changes]
+
+## Type of Change
+- [ ] Feature (new functionality)
+- [ ] Bug fix (non-breaking change fixing an issue)
+- [ ] Refactor (no functional changes)
+- [ ] Documentation
+- [ ] Tests
+
+## Changes Made
+- Change 1
+- Change 2
+
+## Testing Done
+- [ ] Unit tests
+- [ ] Integration tests
+- [ ] Manual testing
+
+## Screenshots (if UI changes)
+[Add screenshots]
+
+## Checklist
+- [ ] Code follows style guidelines
+- [ ] Self-review completed
+- [ ] Tests added for changes
+- [ ] Documentation updated
+- [ ] No console.logs or debug code
 ```
 
-#### ステップ5: テスト
-```bash
-# 各層のテスト作成
-tests/unit/domain/test_new_entity.py
-tests/unit/application/test_manage_new_entity_usecase.py
-tests/integration/test_new_entity_repository.py
+## Code Review
+
+### Reviewer Checklist
+
+```yaml
+Code Quality:
+  - [ ] Code is readable and understandable
+  - [ ] Functions/methods are appropriately sized
+  - [ ] No code duplication
+  - [ ] Names are clear and meaningful
+  - [ ] Comments explain "why" not "what"
+
+Correctness:
+  - [ ] Logic is correct
+  - [ ] Edge cases handled
+  - [ ] Error handling appropriate
+  - [ ] No race conditions
+
+Security:
+  - [ ] No hardcoded secrets
+  - [ ] Input validation present
+  - [ ] No injection vulnerabilities
+  - [ ] Auth/authz properly handled
+
+Performance:
+  - [ ] No obvious performance issues
+  - [ ] Appropriate data structures
+  - [ ] Database queries efficient
+
+Tests:
+  - [ ] Tests actually test the feature
+  - [ ] Test cases are meaningful
+  - [ ] Edge cases covered
 ```
 
-## クイックチェックリスト
+### Review Comment Levels
 
-### 環境セットアップ
-- [ ] **Dockerが起動しているか**
-- [ ] **`.env` ファイルが存在するか** (`cp .env.example .env`)
-- [ ] **GOOGLE_API_KEYが設定されているか**
-- [ ] **コンテナが起動しているか** (`docker compose -f docker/docker-compose.yml [-f docker/docker-compose.override.yml] up -d`)
+```yaml
+Levels:
+  blocking: "This must be fixed before merge"
+    Example: "Security issue: user input not sanitized"
 
-### 新機能実装前
-- [ ] **Domain層から開始するか**
-- [ ] **Repository Interfaceを定義したか**
-- [ ] **DTOを定義したか**
-- [ ] **マイグレーションファイルを作成したか**
+  suggestion: "Consider this improvement"
+    Example: "Could extract this into a function"
 
-### 実装中
-- [ ] **Docker内でコマンド実行しているか**
-- [ ] **処理順序を守っているか**
-- [ ] **環境変数を正しく使い分けているか**
+  question: "Help me understand"
+    Example: "Why do we need this null check?"
 
-### 実装後
-- [ ] **各層のテストを書いたか**
-- [ ] **ドキュメントを更新したか**
-- [ ] **マイグレーションをテストしたか** (`./reset-database.sh`)
+  nitpick: "Minor preference, optional"
+    Example: "nit: could rename to be clearer"
 
-## 詳細リファレンス
+  praise: "Highlight good work"
+    Example: "Nice solution to this edge case!"
+```
 
-詳細なワークフローとトラブルシューティングは [reference.md](reference.md) を参照してください。
+## Testing Strategy
 
-## 関連スキル
+### Test Pyramid
 
-- [clean-architecture-checker](../clean-architecture-checker/): アーキテクチャガイド
-- [test-writer](../test-writer/): テスト作成ガイド
-- [migration-helper](../migration-helper/): データベース移行ガイド
-- [data-processing-workflows](../data-processing-workflows/): データ処理フロー
+```
+                    ╱╲
+                   ╱  ╲
+                  ╱ E2E╲      Few, slow, expensive
+                 ╱──────╲
+                ╱        ╲
+               ╱Integration╲   Some, medium speed
+              ╱────────────╲
+             ╱              ╲
+            ╱     Unit       ╲  Many, fast, cheap
+           ╱──────────────────╲
+```
+
+### Test Types
+
+```yaml
+Unit Tests:
+  What: Individual functions/components in isolation
+  Speed: Fast (< 100ms each)
+  Coverage: High (80%+ of logic)
+  Tools: Jest, Vitest, pytest
+
+Integration Tests:
+  What: Multiple units working together
+  Speed: Medium (seconds)
+  Coverage: Key flows and interfaces
+  Tools: Jest, pytest, Supertest
+
+E2E Tests:
+  What: Full user journeys
+  Speed: Slow (minutes)
+  Coverage: Critical paths only
+  Tools: Playwright, Cypress
+```
+
+### What to Test
+
+```yaml
+Always Test:
+  - Business logic
+  - Complex algorithms
+  - State machines
+  - API contracts
+  - Auth/authz flows
+  - Payment flows
+  - Data transformations
+
+Don't Over-Test:
+  - Simple getters/setters
+  - Framework code
+  - Third-party libraries
+  - UI layout (unless critical)
+```
+
+## CI/CD Pipeline
+
+### Standard Pipeline
+
+```
+┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐
+│  LINT    │──▶│  TEST    │──▶│  BUILD   │──▶│  DEPLOY  │
+└──────────┘   └──────────┘   └──────────┘   └──────────┘
+     │              │              │              │
+     ▼              ▼              ▼              ▼
+  ESLint        Unit tests      Bundle        Staging
+  TypeScript    Integration     Docker        Production
+  Prettier      E2E (subset)    Artifacts
+```
+
+### GitHub Actions Example
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npm run test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npm run build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - run: echo "Deploy to production"
+```
+
+## Debugging Workflow
+
+### Bug Investigation Process
+
+```yaml
+1. Reproduce:
+   - Get exact steps to reproduce
+   - Identify affected environments
+   - Note any error messages
+
+2. Isolate:
+   - Narrow down affected code area
+   - Check recent changes (git blame)
+   - Eliminate variables
+
+3. Understand:
+   - Add logging/debugging
+   - Trace execution path
+   - Check assumptions
+
+4. Fix:
+   - Make minimal change
+   - Verify fix doesn't break else
+   - Add regression test
+
+5. Document:
+   - Update ticket with findings
+   - Consider if docs need update
+   - Share learnings if applicable
+```
+
+### Debugging Commands
+
+```bash
+# Git
+git log --oneline -20           # Recent commits
+git log -p path/to/file         # File history with diffs
+git blame path/to/file          # Who changed what
+git bisect start                # Binary search for bug
+
+# Node/JavaScript
+DEBUG=* npm run dev             # Enable debug logging
+node --inspect script.js        # Chrome DevTools
+
+# Network
+curl -v http://api/endpoint     # Verbose HTTP
+nc -zv host port                # Test connection
+
+# Process
+lsof -i :3000                   # What's using port
+ps aux | grep process           # Find process
+```
+
+## Environment Management
+
+### Environment Types
+
+```yaml
+Local:
+  Purpose: Developer machine
+  Data: Local/mock data
+  Config: .env.local
+
+Development:
+  Purpose: Shared dev testing
+  Data: Seeded test data
+  Config: Automatic from CI
+
+Staging:
+  Purpose: Pre-production verification
+  Data: Production-like (anonymized)
+  Config: Environment variables
+
+Production:
+  Purpose: Live users
+  Data: Real data
+  Config: Secrets manager
+```
+
+### Environment Variables
+
+```yaml
+# .env.example (committed)
+DATABASE_URL=postgresql://localhost:5432/app
+API_KEY=your-api-key-here
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# .env.local (gitignored)
+DATABASE_URL=postgresql://user:pass@localhost:5432/app
+API_KEY=actual-api-key
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+**Rules:**
+- Never commit secrets
+- Use `.env.example` as template
+- Different values per environment
+- Prefix public values appropriately
+
+## Incident Response
+
+### When Things Go Wrong
+
+```yaml
+1. Assess:
+   - Is production affected?
+   - How many users impacted?
+   - Is it getting worse?
+
+2. Communicate:
+   - Update status page
+   - Notify stakeholders
+   - Create incident channel
+
+3. Mitigate:
+   - Can we rollback?
+   - Can we feature flag off?
+   - Can we scale up?
+
+4. Fix:
+   - Identify root cause
+   - Implement fix
+   - Deploy carefully
+
+5. Learn:
+   - Write post-mortem
+   - Identify preventions
+   - Update runbooks
+```
+
+### Post-Mortem Template
+
+```markdown
+# Incident Post-Mortem: [Title]
+
+## Summary
+[1-2 sentence description]
+
+## Timeline
+- HH:MM - Incident began
+- HH:MM - Detected via [how]
+- HH:MM - Investigation started
+- HH:MM - Root cause identified
+- HH:MM - Fix deployed
+- HH:MM - Incident resolved
+
+## Impact
+- [X] users affected
+- [Y] minutes of downtime
+- [Z] failed transactions
+
+## Root Cause
+[What actually went wrong]
+
+## Resolution
+[What we did to fix it]
+
+## Prevention
+- [ ] Action item 1
+- [ ] Action item 2
+
+## Lessons Learned
+[What we learned]
+```
+
+---
+
+*"Process exists to enable, not restrict. If a process doesn't help you ship better software, change it."*

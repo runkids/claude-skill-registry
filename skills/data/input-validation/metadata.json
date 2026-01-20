@@ -1,7 +1,7 @@
 {
   "name": "input-validation",
-  "repo": "mgreenly/ikigai",
-  "path": ".claude/library/security/input-validation/SKILL.md",
-  "source": "github.com/mgreenly/ikigai",
-  "downloaded_at": "2026-01-19T04:08:29.865905Z"
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/input-validation/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-20T01:39:04.692489Z"
 }

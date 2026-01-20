@@ -1,118 +1,179 @@
 ---
-skill_name: architecture
-description: Authoritative source for all architecture design workflows (System, Backend, Frontend, Database, Security). Provides standardized patterns, templates, and design frameworks for consistent architecture documentation across all projects.
-version: 1.0.0
-created: 2025-12-09
+name: Architecture Design
+description: Design system architecture, create technical specifications, and make architectural decisions
+triggers:
+  - "design architecture"
+  - "system design"
+  - "technical spec"
+  - "architecture"
+  - "design system"
 ---
 
-# Architecture Skill
+# Architecture Design Skill
 
-You are an expert software architect with deep experience in system design, backend architecture, frontend architecture, data modeling, and security design. This skill provides standardized workflows, patterns, and templates for creating comprehensive architecture documentation.
+Create robust system architectures, technical specifications, and make informed architectural decisions.
 
-## Workflow Selection
+## Capabilities
 
-Based on what the user needs, invoke the appropriate workflow:
+- System architecture design
+- Technical specification writing
+- Technology stack selection
+- Database schema design
+- API design
+- Microservices vs monolith decisions
+- Scalability planning
+- Performance optimization strategy
 
-### System Architecture
-**When**: User needs high-level system architecture design across all components
-**Invoke**: `workflows/design-system.md`
-**Output**: System architecture document (02-architecture.md)
-**Used by**: principal-architect agent
+## Architecture Patterns
 
-### Backend Architecture
-**When**: User needs API, service layer, or backend component design
-**Invoke**: `workflows/design-backend.md`
-**Output**: Backend design documents (02-architecture.md, 04-backend-design.md)
-**Used by**: backend-architect agent
-
-### Frontend Architecture
-**When**: User needs frontend component, state management, or UI architecture design
-**Invoke**: `workflows/design-frontend.md`
-**Output**: Frontend design document (05-frontend-design.md)
-**Used by**: frontend-architect agent
-**References**: frontend-design skill for UI component aesthetics
-
-### Database Architecture
-**When**: User needs data modeling, schema design, or persistence strategy
-**Invoke**: `workflows/design-database.md`
-**Output**: Data design document (03-data-design.md)
-**Used by**: db-admin agent
-
-### Security Architecture
-**When**: User needs security, authentication, authorization, or compliance design
-**Invoke**: `workflows/design-security.md`
-**Output**: Security design document (06-security-design.md)
-**Used by**: security-architect agent
-
-## Pattern Resources
-
-Common architectural patterns are documented in `context/patterns/`:
-
-- `api-patterns.md` - REST API design, GraphQL patterns, versioning
-- `data-patterns.md` - Data modeling, schema design, migration strategies
-- `security-patterns.md` - Authentication, authorization, RLS, encryption
-- `integration-patterns.md` - Service integration, event-driven, messaging
-
-## Template Resources
-
-All workflows reference these templates for consistent document structure:
-
-- `architecture-doc.md` - System architecture document template (02-architecture.md)
-- `api-spec-doc.md` - API/Backend specification template (04-backend-design.md)
-- `frontend-doc.md` - Frontend design template (05-frontend-design.md)
-- `database-doc.md` - Data design template (03-data-design.md)
-- `security-doc.md` - Security design template (06-security-design.md)
-
-## Integration Points
-
-### Depends On
-- **specification-writing skill**: Uses document generation patterns and naming conventions
-- **frontend-design skill**: Referenced by frontend workflow for UI component design
-
-### Used By
-- **feature-architect**: Orchestrates multiple architecture workflows for complete feature design
-- **backend-architect**: Uses design-backend workflow
-- **frontend-architect**: Uses design-frontend workflow
-- **db-admin**: Uses design-database workflow
-- **security-architect**: Uses design-security workflow
-- **principal-architect**: Uses design-system workflow
-
-## Usage Pattern
-
-Agents reference this skill using:
-
-```markdown
-## Your Process
-1. Analyze feature requirements from PRD
-2. Review project research report (00-research-report.md)
-3. Invoke architecture skill workflow: architecture/workflows/design-{domain}.md
-4. Apply patterns from: architecture/context/patterns/{pattern-type}.md
-5. Use template: architecture/context/templates/{template-name}.md
-6. Generate documentation at /docs/plan/{epic-key}/{feature-key}/
+### For SaaS Applications
+```
+Frontend (Next.js 14)
+  ↓ API Routes
+Backend Services
+  ↓ Database
+PostgreSQL (Supabase)
+  + Auth
+  + Realtime
+  + Storage
 ```
 
-## Quality Standards
+### For Multi-Agent Systems
+```
+User Request
+  ↓
+Supervisor Agent (LangGraph)
+  ↓
+Specialized Agents (Parallel)
+  ↓
+State Persistence (Checkpoints)
+  ↓
+Aggregated Response
+```
 
-All architecture documents must:
-- Be design specifications, NOT implementation code
-- Use prose descriptions and Mermaid diagrams, not code blocks
-- Follow the NO CODE principle (describe interfaces, don't implement them)
-- Align with existing project patterns from research reports
-- Include concrete specifications (field names, types, validation rules)
-- Consider all WAF pillars: Security, Reliability, Performance, Cost, Operations
-- Document trade-offs and design decisions explicitly
-- Cross-reference related architecture documents
+### For Scraping Projects
+```
+Input (URLs)
+  ↓
+Playwright (Browser Automation)
+  ↓
+Data Extraction
+  ↓
+Transformation
+  ↓
+Storage (JSON/Database)
+```
 
-## Architecture Principles
+## Design Process
 
-1. **Contract-First**: Define interfaces before implementation
-2. **Consistency**: Follow patterns from project research reports
-3. **Completeness**: All required sections must be documented
-4. **Clarity**: Specifications must be unambiguous and actionable
-5. **Integration**: Backend, frontend, data, and security designs must align
-6. **Scalability**: Consider growth and evolution from the start
-7. **Security**: Security is not an afterthought, it's built into design
+### 1. Requirements Analysis
+- Understand user needs
+- Define success criteria
+- Identify constraints (cost, time, tech)
+- List non-functional requirements
+
+### 2. Technology Selection
+```bash
+"Using Deep Research skill:
+ Research best options for: {requirement}
+ Compare: {option A} vs {option B} vs {option C}
+ Consider: performance, cost, DX, community support
+ Recommend: Best option with justification"
+```
+
+### 3. Architecture Documentation
+Create: `docs/ARCHITECTURE.md`
+
+```markdown
+# System Architecture
+
+## Overview
+[High-level description]
+
+## Tech Stack
+- Frontend: {technology} - {reason}
+- Backend: {technology} - {reason}
+- Database: {technology} - {reason}
+
+## Architecture Diagram
+```mermaid
+graph TD
+    A[User] --> B[Frontend]
+    B --> C[API]
+    C --> D[Database]
+```
+
+## Key Design Decisions
+1. **Decision**: Why we chose X over Y
+2. **Decision**: Why we structured Z this way
+
+## Scalability Strategy
+- Current: Supports X users
+- Future: Can scale to Y users via Z approach
+
+## Security Considerations
+- Auth: {approach}
+- Data: {encryption, RLS}
+- API: {rate limiting, validation}
+```
+
+### 4. Database Schema Design
+```sql
+-- Core entities
+CREATE TABLE users (...);
+CREATE TABLE main_entity (...);
+
+-- Relationships
+CREATE TABLE user_entity_mapping (...);
+
+-- Always enable RLS
+ALTER TABLE main_entity ENABLE ROW LEVEL SECURITY;
+```
+
+## Architecture Review Checklist
+
+Before finalizing architecture:
+- [ ] Meets all functional requirements
+- [ ] Scalable to expected user load
+- [ ] Cost-effective for current stage
+- [ ] Security best practices followed
+- [ ] Developer experience is good
+- [ ] Deployment strategy defined
+- [ ] Monitoring/observability planned
+- [ ] Backup/disaster recovery considered
+
+## Common Architecture Decisions
+
+### Monolith vs Microservices
+**Use Monolith** (95% of projects):
+- Faster development
+- Simpler deployment
+- Lower overhead
+- Better for MVP/early stage
+
+**Use Microservices**:
+- Team >50 engineers
+- Clear domain boundaries
+- Need independent scaling
+- Proven product-market fit
+
+### Database Choice
+**Supabase** (PostgreSQL + extras):
+- Auth built-in
+- RLS for security
+- Realtime subscriptions
+- Good free tier
+
+**Plain PostgreSQL**:
+- More control
+- Lower cost at scale
+- Custom infrastructure
+
+**MongoDB**:
+- Document-based data
+- Flexible schema
+- Horizontal scaling
 
 ---
 
-*For detailed usage instructions, see [README.md](./README.md)*
+**Remember**: Perfect is the enemy of good. Start simple, scale when needed!

@@ -1,7 +1,7 @@
 {
   "name": "test-coverage-improver",
-  "repo": "openai/openai-agents-python",
+  "repo": "zaziedlm/openai-agents-python",
   "path": ".codex/skills/test-coverage-improver/SKILL.md",
-  "source": "github.com/openai/openai-agents-python",
-  "downloaded_at": "2026-01-19T03:45:11.467740Z"
+  "source": "github.com/zaziedlm/openai-agents-python",
+  "downloaded_at": "2026-01-20T03:22:01.597679Z"
 }

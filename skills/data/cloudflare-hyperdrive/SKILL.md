@@ -1,284 +1,493 @@
 ---
 name: cloudflare-hyperdrive
-description: Cloudflare Hyperdrive for Workers-to-database connections with pooling and caching. Use for PostgreSQL/MySQL, Drizzle/Prisma, or encountering pool errors, TLS issues, connection refused.
-
-  Keywords: hyperdrive, cloudflare hyperdrive, workers hyperdrive, postgres workers, mysql workers, connection pooling, query caching, node-postgres, pg, postgres.js, mysql2, drizzle hyperdrive, prisma hyperdrive, workers rds, workers aurora, workers neon, workers supabase, database acceleration, hybrid architecture, cloudflare tunnel database, wrangler hyperdrive, hyperdrive bindings, local development hyperdrive
-license: MIT
-metadata:
-  version: "2.0.0"
-  last_verified: "2025-11-18"
-  production_tested: true
-  token_savings: "~58%"
-  errors_prevented: 6
-  templates_included: 0
-  references_included: 1
+description: |
+  Connect Workers to PostgreSQL/MySQL with Hyperdrive's global pooling and caching. Use when: connecting to existing databases, setting up connection pools, using node-postgres/mysql2, integrating Drizzle/Prisma, or troubleshooting pool acquisition failures, TLS errors, or nodejs_compat missing.
+user-invocable: true
 ---
 
 # Cloudflare Hyperdrive
 
-**Status**: Production Ready ✅ | **Last Verified**: 2025-11-18
+**Status**: Production Ready ✅
+**Last Updated**: 2026-01-09
+**Dependencies**: cloudflare-worker-base (recommended for Worker setup)
+**Latest Versions**: wrangler@4.58.0, pg@8.16.3+ (minimum), postgres@3.4.8, mysql2@3.16.0
 
----
-
-## What Is Hyperdrive?
-
-Connect Workers to existing PostgreSQL/MySQL databases:
-- Global connection pooling
-- Query caching
-- Reduced latency
-- Works with node-postgres, postgres.js, mysql2
+**Recent Updates (2025)**:
+- **July 2025**: Configurable connection counts (min 5, max ~20 Free/~100 Paid)
+- **May 2025**: 5x faster cache hits (regional prepared statement caching), FedRAMP Moderate authorization
+- **April 2025**: Free plan availability (10 configs), MySQL GA support
+- **March 2025**: 90% latency reduction (pools near database), IP access control (standard CF IP ranges)
+- **nodejs_compat_v2**: pg driver no longer requires node_compat mode (auto-enabled with compatibility_date 2024-09-23+)
+- **Limits**: 25 Hyperdrive configurations per account (Paid), 10 per account (Free)
 
 ---
 
 ## Quick Start (5 Minutes)
 
-### 1. Create Hyperdrive Config
+### 1. Create Hyperdrive Configuration
 
 ```bash
-bunx wrangler hyperdrive create my-db \
-  --connection-string="postgres://user:pass@host:5432/database"
+# For PostgreSQL
+npx wrangler hyperdrive create my-postgres-db \
+  --connection-string="postgres://user:password@db-host.cloud:5432/database"
+
+# For MySQL
+npx wrangler hyperdrive create my-mysql-db \
+  --connection-string="mysql://user:password@db-host.cloud:3306/database"
+
+# Output:
+# ✅ Successfully created Hyperdrive configuration
+#
+# [[hyperdrive]]
+# binding = "HYPERDRIVE"
+# id = "a76a99bc-7901-48c9-9c15-c4b11b559606"
 ```
 
-Save the `id`!
+**Save the `id` value** - you'll need it in the next step!
 
-### 2. Configure Binding
+---
+
+### 2. Configure Bindings in wrangler.jsonc
+
+Add to your `wrangler.jsonc`:
 
 ```jsonc
 {
   "name": "my-worker",
   "main": "src/index.ts",
   "compatibility_date": "2024-09-23",
-  "compatibility_flags": ["nodejs_compat"],  // REQUIRED!
+  "compatibility_flags": ["nodejs_compat"],  // REQUIRED for database drivers
   "hyperdrive": [
     {
-      "binding": "HYPERDRIVE",
-      "id": "<ID_FROM_STEP_1>"
+      "binding": "HYPERDRIVE",                     // Available as env.HYPERDRIVE
+      "id": "a76a99bc-7901-48c9-9c15-c4b11b559606"  // From wrangler hyperdrive create
     }
   ]
 }
 ```
 
-### 3. Install Driver
+**CRITICAL:**
+- `nodejs_compat` flag is **REQUIRED** for all database drivers
+- `binding` is how you access Hyperdrive in code (`env.HYPERDRIVE`)
+- `id` is the Hyperdrive configuration ID (NOT your database ID)
+
+---
+
+### 3. Install Database Driver
 
 ```bash
-bun add pg  # or postgres, or mysql2
+# For PostgreSQL (choose one)
+npm install pg           # node-postgres (most common)
+npm install postgres     # postgres.js (modern, minimum v3.4.5)
+
+# For MySQL
+npm install mysql2       # mysql2 (minimum v3.13.0)
 ```
 
-### 4. Query Database
+---
 
+### 4. Query Your Database
+
+**PostgreSQL with node-postgres (pg):**
 ```typescript
-import { Client } from 'pg';
+import { Client } from "pg";
+
+type Bindings = {
+  HYPERDRIVE: Hyperdrive;
+};
 
 export default {
-  async fetch(request, env, ctx) {
-    const client = new Client({ connectionString: env.HYPERDRIVE.connectionString });
+  async fetch(request: Request, env: Bindings, ctx: ExecutionContext) {
+    const client = new Client({
+      connectionString: env.HYPERDRIVE.connectionString
+    });
+
     await client.connect();
 
-    const result = await client.query('SELECT * FROM users LIMIT 10');
-    await client.end();
-
-    return Response.json(result.rows);
+    try {
+      const result = await client.query('SELECT * FROM users LIMIT 10');
+      return Response.json({ users: result.rows });
+    } finally {
+      // Clean up connection AFTER response is sent
+      ctx.waitUntil(client.end());
+    }
   }
 };
 ```
 
-**Load `references/setup-guide.md` for complete walkthrough.**
+**MySQL with mysql2:**
+```typescript
+import { createConnection } from "mysql2/promise";
+
+export default {
+  async fetch(request: Request, env: Bindings, ctx: ExecutionContext) {
+    const connection = await createConnection({
+      host: env.HYPERDRIVE.host,
+      user: env.HYPERDRIVE.user,
+      password: env.HYPERDRIVE.password,
+      database: env.HYPERDRIVE.database,
+      port: env.HYPERDRIVE.port,
+      disableEval: true  // REQUIRED for Workers (eval() not supported)
+    });
+
+    try {
+      const [rows] = await connection.query('SELECT * FROM users LIMIT 10');
+      return Response.json({ users: rows });
+    } finally {
+      ctx.waitUntil(connection.end());
+    }
+  }
+};
+```
+
+---
+
+### 5. Deploy
+
+```bash
+npx wrangler deploy
+```
+
+**That's it!** Your Worker now connects to your existing database via Hyperdrive with:
+- ✅ Global connection pooling
+- ✅ Automatic query caching
+- ✅ Reduced latency (eliminates 7 round trips)
+
+---
+
+## How Hyperdrive Works
+
+Hyperdrive eliminates 7 connection round trips (TCP + TLS + auth) by:
+- Edge connection setup near Worker (low latency)
+- Connection pooling near database (March 2025: 90% latency reduction)
+- Query caching at edge (May 2025: 5x faster cache hits)
+
+**Result**: Single-region databases feel globally distributed.
+
+---
+
+## Setup Steps
+
+### Prerequisites
+
+- Cloudflare account with Workers access
+- PostgreSQL (v9.0-17.x) or MySQL (v5.7-8.x) database
+- Database accessible via public internet (TLS/SSL required) or private network (Cloudflare Tunnel)
+- **April 2025**: Available on Free plan (10 configs) and Paid plan (25 configs)
+
+### Connection String Formats
+
+```bash
+# PostgreSQL
+postgres://user:password@host:5432/database
+postgres://user:password@host:5432/database?sslmode=require
+
+# MySQL
+mysql://user:password@host:3306/database
+
+# URL-encode special chars: p@ssw$rd → p%40ssw%24rd
+```
+
+---
+
+## Connection Patterns
+
+### Single Connection (pg.Client)
+```typescript
+const client = new Client({ connectionString: env.HYPERDRIVE.connectionString });
+await client.connect();
+const result = await client.query('SELECT ...');
+ctx.waitUntil(client.end());  // CRITICAL: Non-blocking cleanup
+```
+**Use for**: Simple queries, single query per request
+
+### Connection Pool (pg.Pool)
+```typescript
+const pool = new Pool({
+  connectionString: env.HYPERDRIVE.connectionString,
+  max: 5  // CRITICAL: Workers limit is 6 connections (July 2025: configurable ~20 Free, ~100 Paid)
+});
+const [result1, result2] = await Promise.all([
+  pool.query('SELECT ...'),
+  pool.query('SELECT ...')
+]);
+ctx.waitUntil(pool.end());
+```
+**Use for**: Parallel queries in single request
+
+### Connection Cleanup Rule
+**ALWAYS use `ctx.waitUntil(client.end())`** - non-blocking cleanup after response sent
+**NEVER use `await client.end()`** - blocks response, adds latency
+
+---
+
+## ORM Integration
+
+### Drizzle ORM
+```typescript
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+
+const sql = postgres(env.HYPERDRIVE.connectionString, { max: 5 });
+const db = drizzle(sql);
+const allUsers = await db.select().from(users);
+ctx.waitUntil(sql.end());
+```
+
+### Prisma ORM
+```typescript
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "@prisma/client";
+import { Pool } from "pg";
+
+const pool = new Pool({ connectionString: env.HYPERDRIVE.connectionString, max: 5 });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
+const users = await prisma.user.findMany();
+ctx.waitUntil(pool.end());
+```
+**Note**: Prisma requires driver adapters (`@prisma/adapter-pg`).
+
+---
+
+## Local Development
+
+**Option 1: Environment Variable (Recommended)**
+```bash
+export CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE="postgres://user:password@localhost:5432/local_db"
+npx wrangler dev
+```
+Safe to commit config, no credentials in wrangler.jsonc.
+
+**Option 2: localConnectionString in wrangler.jsonc**
+```jsonc
+{ "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "prod-id", "localConnectionString": "postgres://..." }] }
+```
+⚠️ Don't commit credentials to version control.
+
+**Option 3: Remote Development**
+```bash
+npx wrangler dev --remote  # ⚠️ Uses PRODUCTION database
+```
+
+---
+
+## Query Caching
+
+**Cached**: SELECT (non-mutating queries)
+**NOT Cached**: INSERT, UPDATE, DELETE, volatile functions (LASTVAL, LAST_INSERT_ID)
+
+**May 2025**: 5x faster cache hits via regional prepared statement caching.
+
+**Critical for postgres.js:**
+```typescript
+const sql = postgres(env.HYPERDRIVE.connectionString, {
+  prepare: true  // REQUIRED for caching
+});
+```
+
+**Check cache status:**
+```typescript
+response.headers.get('cf-cache-status');  // HIT, MISS, BYPASS, EXPIRED
+```
+
+---
+
+## TLS/SSL Configuration
+
+**SSL Modes**: `require` (default), `verify-ca` (verify CA), `verify-full` (verify CA + hostname)
+
+**Server Certificates (verify-ca/verify-full):**
+```bash
+npx wrangler cert upload certificate-authority --ca-cert root-ca.pem --name my-ca-cert
+npx wrangler hyperdrive create my-db --connection-string="postgres://..." --ca-certificate-id <ID> --sslmode verify-full
+```
+
+**Client Certificates (mTLS):**
+```bash
+npx wrangler cert upload mtls-certificate --cert client-cert.pem --key client-key.pem --name my-cert
+npx wrangler hyperdrive create my-db --connection-string="postgres://..." --mtls-certificate-id <ID>
+```
+
+---
+
+## Private Database Access (Cloudflare Tunnel)
+
+Connect to databases in private networks (VPCs, on-premises):
+
+```bash
+# 1. Install cloudflared (macOS: brew install cloudflare/cloudflare/cloudflared)
+# 2. Create tunnel
+cloudflared tunnel create my-db-tunnel
+
+# 3. Configure config.yml
+# tunnel: <TUNNEL_ID>
+# ingress:
+#   - hostname: db.example.com
+#     service: tcp://localhost:5432
+
+# 4. Run tunnel
+cloudflared tunnel run my-db-tunnel
+
+# 5. Create Hyperdrive
+npx wrangler hyperdrive create my-private-db --connection-string="postgres://user:password@db.example.com:5432/database"
+```
 
 ---
 
 ## Critical Rules
 
-### Always Do ✅
+### Always Do
 
-1. **Enable nodejs_compat** flag (required!)
-2. **Use env.HYPERDRIVE.connectionString** (not original DB string)
-3. **Close connections** after queries
-4. **Handle errors** explicitly
-5. **Use connection pooling** (built-in)
-6. **Test locally** with wrangler dev
-7. **Monitor query performance**
-8. **Use prepared statements**
-9. **Enable query caching** (automatic)
-10. **Secure connection strings** (use secrets)
+✅ Include `nodejs_compat` in `compatibility_flags`
+✅ Use `ctx.waitUntil(client.end())` for connection cleanup
+✅ Set `max: 5` for connection pools (Workers limit: 6)
+✅ Enable TLS/SSL on your database (Hyperdrive requires it)
+✅ Use prepared statements for caching (postgres.js: `prepare: true`)
+✅ Set `disableEval: true` for mysql2 driver
+✅ Handle errors gracefully with try/catch
+✅ Use environment variables for local development connection strings
+✅ Test locally with `wrangler dev` before deploying
 
-### Never Do ❌
+### Never Do
 
-1. **Never skip nodejs_compat** (drivers won't work)
-2. **Never use original DB connection string** in Workers
-3. **Never leave connections open** (pool exhaustion)
-4. **Never skip error handling** (DB can fail)
-5. **Never hardcode credentials** in code
-6. **Never exceed connection limits**
-7. **Never use eval/Function** (blocked in Workers)
-8. **Never skip TLS** for production DBs
-9. **Never use blocking queries** (Worker timeout)
-10. **Never expose DB errors** to users
+❌ Skip `nodejs_compat` flag (causes "No such module" errors)
+❌ Use private IP addresses directly (use Cloudflare Tunnel instead)
+❌ Use `await client.end()` (blocks response, use `ctx.waitUntil()`)
+❌ Set connection pool max > 5 (exceeds Workers' 6 connection limit)
+❌ Wrap all queries in transactions (limits connection multiplexing)
+❌ Use SQL-level PREPARE/EXECUTE/DEALLOCATE (unsupported)
+❌ Use advisory locks, LISTEN/NOTIFY (PostgreSQL unsupported features)
+❌ Use multi-statement queries in MySQL (unsupported)
+❌ Commit database credentials to version control
 
 ---
 
-## Database Drivers
+## Wrangler Commands Reference
 
-### PostgreSQL (node-postgres)
+```bash
+# Create Hyperdrive configuration
+wrangler hyperdrive create <name> --connection-string="postgres://..."
 
-```typescript
-import { Client } from 'pg';
+# List all Hyperdrive configurations
+wrangler hyperdrive list
 
-const client = new Client({ connectionString: env.HYPERDRIVE.connectionString });
-await client.connect();
-const result = await client.query('SELECT * FROM users');
-await client.end();
-```
+# Get details of a configuration
+wrangler hyperdrive get <hyperdrive-id>
 
-### PostgreSQL (postgres.js)
+# Update connection string
+wrangler hyperdrive update <hyperdrive-id> --connection-string="postgres://..."
 
-```typescript
-import postgres from 'postgres';
+# Delete configuration
+wrangler hyperdrive delete <hyperdrive-id>
 
-const sql = postgres(env.HYPERDRIVE.connectionString);
-const users = await sql`SELECT * FROM users`;
-```
+# Upload CA certificate
+wrangler cert upload certificate-authority --ca-cert <file>.pem --name <name>
 
-### MySQL
-
-```typescript
-import mysql from 'mysql2/promise';
-
-const connection = await mysql.createConnection(env.HYPERDRIVE.connectionString);
-const [rows] = await connection.execute('SELECT * FROM users');
-await connection.end();
-```
-
----
-
-## With Drizzle ORM
-
-```typescript
-import { drizzle } from 'drizzle-orm/node-postgres';
-import { Client } from 'pg';
-
-const client = new Client({ connectionString: env.HYPERDRIVE.connectionString });
-await client.connect();
-
-const db = drizzle(client);
-const users = await db.select().from(usersTable);
-
-await client.end();
-```
-
----
-
-## Common Use Cases
-
-### Use Case 1: Read-Only Queries
-
-```typescript
-export default {
-  async fetch(request, env, ctx) {
-    const client = new Client({ connectionString: env.HYPERDRIVE.connectionString });
-    await client.connect();
-
-    const users = await client.query('SELECT * FROM users WHERE active = true');
-    await client.end();
-
-    return Response.json(users.rows);
-  }
-};
-```
-
-### Use Case 2: Parameterized Queries
-
-```typescript
-const userId = new URL(request.url).searchParams.get('id');
-
-const client = new Client({ connectionString: env.HYPERDRIVE.connectionString });
-await client.connect();
-
-const result = await client.query(
-  'SELECT * FROM users WHERE id = $1',
-  [userId]
-);
-
-await client.end();
-```
-
-### Use Case 3: Transactions
-
-```typescript
-const client = new Client({ connectionString: env.HYPERDRIVE.connectionString });
-await client.connect();
-
-try {
-  await client.query('BEGIN');
-  await client.query('UPDATE accounts SET balance = balance - 100 WHERE id = $1', [1]);
-  await client.query('UPDATE accounts SET balance = balance + 100 WHERE id = $1', [2]);
-  await client.query('COMMIT');
-} catch (e) {
-  await client.query('ROLLBACK');
-  throw e;
-} finally {
-  await client.end();
-}
+# Upload client certificate pair
+wrangler cert upload mtls-certificate --cert <cert>.pem --key <key>.pem --name <name>
 ```
 
 ---
 
 ## Supported Databases
 
-**PostgreSQL:**
-- Amazon RDS
-- Amazon Aurora
-- Neon
-- Supabase
-- Railway
-- Render
-- DigitalOcean
-- Any PostgreSQL 11+
+**PostgreSQL (v9.0-17.x)**: AWS RDS/Aurora, Google Cloud SQL, Azure, Neon, Supabase, PlanetScale, Timescale, CockroachDB, Materialize, Fly.io, pgEdge, Prisma Postgres
 
-**MySQL:**
-- Amazon RDS
-- Amazon Aurora
-- PlanetScale
-- Any MySQL 5.7+
+**MySQL (v5.7-8.x)**: AWS RDS/Aurora, Google Cloud SQL, Azure, PlanetScale, MariaDB (April 2025 GA)
+
+**NOT Supported**: SQL Server, MongoDB, Oracle
 
 ---
 
-## Official Documentation
+## Unsupported Features
 
-- **Hyperdrive Overview**: https://developers.cloudflare.com/hyperdrive/
-- **Get Started**: https://developers.cloudflare.com/hyperdrive/get-started/
-- **Configuration**: https://developers.cloudflare.com/hyperdrive/configuration/
+### PostgreSQL
+- SQL-level prepared statements (`PREPARE`, `EXECUTE`, `DEALLOCATE`)
+- Advisory locks
+- `LISTEN` and `NOTIFY`
+- Per-session state modifications
 
----
+### MySQL
+- Non-UTF8 characters in queries
+- `USE` statements
+- Multi-statement queries
+- Protocol-level prepared statements (`COM_STMT_PREPARE`)
+- `COM_INIT_DB` messages
+- Auth plugins other than `caching_sha2_password` or `mysql_native_password`
 
-## Bundled Resources
-
-**References** (`references/`):
-- `setup-guide.md` - Complete setup walkthrough (create config, bind, query)
-- `connection-pooling.md` - Connection pool configuration and best practices
-- `query-caching.md` - Query caching strategies and optimization
-- `drizzle-integration.md` - Drizzle ORM integration patterns
-- `prisma-integration.md` - Prisma ORM integration patterns
-- `supported-databases.md` - Complete list of supported PostgreSQL and MySQL providers
-- `tls-ssl-setup.md` - TLS/SSL configuration for secure connections
-- `troubleshooting.md` - Common issues and solutions
-- `wrangler-commands.md` - Complete wrangler CLI commands for Hyperdrive
-
-**Templates** (`templates/`):
-- `postgres-basic.ts` - Basic PostgreSQL with node-postgres
-- `postgres-js.ts` - PostgreSQL with postgres.js driver
-- `postgres-pool.ts` - PostgreSQL with connection pooling
-- `mysql2-basic.ts` - MySQL with mysql2 driver
-- `drizzle-postgres.ts` - Drizzle ORM with PostgreSQL
-- `drizzle-mysql.ts` - Drizzle ORM with MySQL
-- `prisma-postgres.ts` - Prisma ORM with PostgreSQL
-- `local-dev-setup.sh` - Local development setup script
-- `wrangler-hyperdrive-config.jsonc` - Wrangler configuration example
+**Workaround**: For unsupported features, create a second direct client connection (without Hyperdrive).
 
 ---
 
-**Questions? Issues?**
+## Performance Best Practices
 
-1. Check `references/setup-guide.md` for complete setup
-2. Verify nodejs_compat flag enabled
-3. Ensure using env.HYPERDRIVE.connectionString
-4. Check connection properly closed
+1. **Avoid long-running transactions** - Limits connection multiplexing
+2. **Use prepared statements** - Enables query caching (postgres.js: `prepare: true`)
+3. **Set max: 5 for pools** - Stays within Workers' 6 connection limit
+4. **Disable fetch_types if not needed** - Reduces latency (postgres.js)
+5. **Use ctx.waitUntil() for cleanup** - Non-blocking connection close
+6. **Cache-friendly queries** - Prefer SELECT over complex joins
+7. **Index frequently queried columns** - Improves query performance
+8. **Monitor with Hyperdrive analytics** - Track cache hit ratios and latency
+
+---
+
+## Troubleshooting
+
+See `references/troubleshooting.md` for complete error reference with solutions.
+
+**Quick fixes:**
+
+| Error | Solution |
+|-------|----------|
+| "No such module 'node:*'" | Add `nodejs_compat` to compatibility_flags |
+| "TLS not supported by database" | Enable SSL/TLS on your database |
+| "Connection refused" | Check firewall rules, allow public internet or use Tunnel |
+| "Failed to acquire connection" | Use `ctx.waitUntil()` for cleanup, avoid long transactions |
+| "Code generation from strings disallowed" | Set `disableEval: true` in mysql2 config |
+| "Bad hostname" | Verify DNS resolves, check for typos |
+| "Invalid database credentials" | Check username/password (case-sensitive) |
+
+---
+
+## Metrics and Analytics
+
+[Hyperdrive Dashboard](https://dash.cloudflare.com/?to=/:account/workers/hyperdrive) → Select config → Metrics tab
+
+**Available**: Query count, cache hit ratio, query latency (p50/p95/p99), connection latency, query/result bytes, error rate
+
+---
+
+## Credential Rotation
+
+```bash
+# Option 1: Create new config (zero downtime)
+wrangler hyperdrive create my-db-v2 --connection-string="postgres://new-creds..."
+# Update wrangler.jsonc, deploy, delete old config
+
+# Option 2: Update existing
+wrangler hyperdrive update <id> --connection-string="postgres://new-creds..."
+```
+
+**Best practice**: Separate configs for staging/production.
+
+---
+
+## References
+
+- [Official Documentation](https://developers.cloudflare.com/hyperdrive/)
+- [Get Started Guide](https://developers.cloudflare.com/hyperdrive/get-started/)
+- [How Hyperdrive Works](https://developers.cloudflare.com/hyperdrive/configuration/how-hyperdrive-works/)
+- [Query Caching](https://developers.cloudflare.com/hyperdrive/configuration/query-caching/)
+- [Local Development](https://developers.cloudflare.com/hyperdrive/configuration/local-development/)
+- [TLS/SSL Certificates](https://developers.cloudflare.com/hyperdrive/configuration/tls-ssl-certificates-for-hyperdrive/)
+- [Troubleshooting Guide](https://developers.cloudflare.com/hyperdrive/observability/troubleshooting/)
+- [Wrangler Commands](https://developers.cloudflare.com/hyperdrive/reference/wrangler-commands/)
+- [Supported Databases](https://developers.cloudflare.com/hyperdrive/reference/supported-databases-and-features/)
+
+---
+
+**Last Updated**: 2026-01-09
+**Package Versions**: wrangler@4.58.0, pg@8.16.3+ (minimum), postgres@3.4.8, mysql2@3.16.0
+**Production Tested**: Based on official Cloudflare documentation and community examples

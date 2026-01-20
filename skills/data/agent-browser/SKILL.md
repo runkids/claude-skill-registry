@@ -5,6 +5,13 @@ description: Automates browser interactions for web testing, form filling, scree
 
 # Browser Automation with agent-browser
 
+## Install
+
+```bash
+npm install -g agent-browser
+agent-browser install
+```
+
 ## Quick start
 
 ```bash

@@ -1,6 +1,6 @@
 ---
 name: md2wechat
-description: Convert Markdown articles to WeChat Official Account formatted HTML with styled CSS and optionally upload to draft box. Supports API mode for quick conversion and AI mode for beautiful themed layouts (autumn-warm, spring-fresh, ocean-calm). NEW: Also supports assisted writing with customizable creator styles (default: Dan Koe - profound, sharp, grounded). Users can add custom styles in writers/ directory. Use when user wants to write articles, convert markdown to WeChat format, or publish to WeChat Official Account.
+description: Convert Markdown articles to WeChat Official Account formatted HTML with styled CSS and optionally upload to draft box. Supports API mode for quick conversion and AI mode for beautiful themed layouts (autumn-warm, spring-fresh, ocean-calm). Also supports assisted writing with customizable creator styles (default: Dan Koe - profound, sharp, grounded) and AI trace removal (humanizer) to make AI-generated text sound more natural. Users can add custom styles in writers/ directory. Use when user wants to write articles, convert markdown to WeChat format, remove AI writing traces, or publish to WeChat Official Account.
 ---
 
 # MD to WeChat
@@ -89,6 +89,28 @@ I will:
 ```
 "Generate a cover image for my article about self-discipline"
 "Create a Victorian woodcut style cover for my philosophy piece"
+```
+
+#### AI Writing Trace Removal (Humanizer)
+
+```
+"Remove AI traces from this article: article.md"
+"Humanize this text to make it sound more natural"
+"Remove AI writing traces with gentle intensity"
+"Rewrite this to sound less like AI generated"
+```
+
+I will:
+1. Read the text to identify AI writing patterns (24 types)
+2. Remove or rewrite problematic phrases
+3. Inject natural human-like expressions
+4. Preserve core meaning and tone
+5. Return quality score (5 dimensions, /50)
+
+**Humanizer can be combined with writing styles:**
+```
+"Write with Dan Koe style and remove AI traces"
+"Use dan-koe style, then humanize the result"
 ```
 
 #### List Available Styles
@@ -530,7 +552,8 @@ A story about memories...
 - [Style Themes](references/themes.md) - Detailed style prompts for AI themes
 - [HTML Guide](references/html-guide.md) - WeChat HTML constraints and best practices
 - [Image Syntax](references/image-syntax.md) - Image reference syntax and generation
-- [Writing Guide](references/writing-guide.md) - Writer style assistant documentation 🆕
+- [Writing Guide](references/writing-guide.md) - Writer style assistant documentation
+- [Humanizer](references/humanizer.md) - AI writing trace removal documentation 🆕
 - [WeChat API](references/wechat-api.md) - API reference
 
 ---
@@ -695,4 +718,13 @@ bash skill/md2wechat/scripts/run.sh write --style dan-koe
 
 # Generate cover prompt only
 bash skill/md2wechat/scripts/run.sh write --style dan-koe --cover-only
+
+# Remove AI writing traces (humanize)
+bash skill/md2wechat/scripts/run.sh humanize article.md
+
+# Humanize with intensity
+bash skill/md2wechat/scripts/run.sh humanize article.md --intensity aggressive
+
+# Write with humanize
+bash skill/md2wechat/scripts/run.sh write --style dan-koe --humanize
 ```

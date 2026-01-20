@@ -1,429 +1,406 @@
 ---
 name: i18n
-description: Internationalization with i18next for UI translations and JSONB for database content. Use when adding translations, working with localized content, or implementing multi-language features.
+description: Internationalization and translation management. Use when adding new translations, updating existing content, creating new language support, or working with locale routing.
 ---
 
-# i18n Helper
+# i18n (Internationalization)
 
-Complete internationalization guide for this application.
+**CRITICAL: NEVER use the Edit tool on JSON locale files.** Multi-byte UTF-8 characters (Japanese, etc.) cause crashes. ALWAYS use `apply-inline` command from the translation-helper.ts script to update translations.
 
-## Supported Languages
+## Quick Reference
 
-| Code | Language          | URL Pattern    |
-| ---- | ----------------- | -------------- |
-| `en` | English (default) | `/en/products` |
-| `fr` | French            | `/fr/products` |
-| `id` | Indonesian        | `/id/products` |
+### Directory Structure
 
-## Two Types of i18n
+```
+i18n/
+├── config.ts              # Locale configuration, supported locales
+└── (future files)
 
-### 1. UI Translations (i18next)
+i18n.config.ts             # next-intl request configuration
 
-Static strings in the interface: buttons, labels, messages.
+locales/
+├── en/
+│   └── common.json        # English translations
+└── es/
+    └── common.json        # Spanish translations
 
-```typescript
-import { useTranslation } from 'react-i18next'
+app/[locale]/              # Locale-aware routes
+├── layout.tsx             # IntlProvider wrapper
+├── page.tsx               # Homepage
+└── ...                    # Other pages
 
-function MyComponent() {
-  const { t } = useTranslation()
-
-  return (
-    <div>
-      <h1>{t('Welcome')}</h1>
-      <button>{t('Add to Cart')}</button>
-    </div>
-  )
-}
+middleware.ts              # Locale detection and routing
 ```
 
-### 2. Database Content (JSONB)
+### Key Files
 
-Dynamic content stored in the database: product names, descriptions.
+| File                           | Purpose                                                          |
+| ------------------------------ | ---------------------------------------------------------------- |
+| `i18n/config.ts`               | Defines `SUPPORTED_LOCALES`, `DEFAULT_LOCALE`, `isValidLocale()` |
+| `i18n.config.ts`               | next-intl server config with `getRequestConfig`                  |
+| `locales/{locale}/common.json` | Translation strings organized by namespace                       |
+| `middleware.ts`                | Detects locale from URL/cookie/header, handles routing           |
 
-```typescript
-type LocalizedString = { en: string; fr?: string; id?: string }
+## Adding New Translation Keys
 
-// In database schema
-name: jsonb('name').$type<LocalizedString>().notNull()
+### 1. Add to English First
 
-// Usage
-const productName = product.name[currentLang] || product.name.en
-```
-
-## Adding UI Translations
-
-### 1. Add Keys to Locale Files
+Edit `locales/en/common.json`:
 
 ```json
-// src/i18n/locales/en.json
 {
-  "Welcome": "Welcome",
-  "Add to Cart": "Add to Cart",
-  "{{count}} items": "{{count}} items",
-  "{{count}} items_one": "1 item",
-  "{{count}} items_other": "{{count}} items"
-}
-
-// src/i18n/locales/fr.json
-{
-  "Welcome": "Bienvenue",
-  "Add to Cart": "Ajouter au panier",
-  "{{count}} items_one": "1 article",
-  "{{count}} items_other": "{{count}} articles"
-}
-
-// src/i18n/locales/id.json
-{
-  "Welcome": "Selamat datang",
-  "Add to Cart": "Tambah ke Keranjang",
-  "{{count}} items": "{{count}} barang"
+  "namespace": {
+    "newKey": "English text here",
+    "anotherKey": "More text"
+  }
 }
 ```
 
-### 2. Use in Components
+### 2. Add to All Other Locales
+
+Edit `locales/es/common.json` (and any other supported locales):
+
+```json
+{
+  "namespace": {
+    "newKey": "Texto en español aquí",
+    "anotherKey": "Más texto"
+  }
+}
+```
+
+### 3. Use in Component
+
+**Client Component:**
+
+```tsx
+'use client';
+import { useTranslations } from 'next-intl';
+
+export function MyComponent() {
+  const t = useTranslations('namespace');
+  return <p>{t('newKey')}</p>;
+}
+```
+
+**Server Component:**
+
+```tsx
+import { getTranslations } from 'next-intl/server';
+
+export default async function MyPage() {
+  const t = await getTranslations('namespace');
+  return <p>{t('newKey')}</p>;
+}
+```
+
+## Translation Namespaces
+
+Organize translations by feature/area:
+
+| Namespace   | Purpose            | Example Keys                          |
+| ----------- | ------------------ | ------------------------------------- |
+| `common`    | Shared UI elements | `loading`, `error`, `submit`          |
+| `nav`       | Navigation items   | `features`, `pricing`, `signIn`       |
+| `footer`    | Footer content     | `privacy`, `terms`, `copyright`       |
+| `homepage`  | Landing page       | `heroTitle`, `ctaButton`              |
+| `dashboard` | Dashboard UI       | `credits`, `history`, `settings`      |
+| `auth`      | Auth forms         | `email`, `password`, `forgotPassword` |
+
+## Adding a New Language
+
+### 1. Update Locale Config
+
+Edit `i18n/config.ts`:
 
 ```typescript
-import { useTranslation } from 'react-i18next'
+export const SUPPORTED_LOCALES = ['en', 'es', 'fr'] as const; // Add 'fr'
 
-function CartSummary({ itemCount }: { itemCount: number }) {
-  const { t } = useTranslation()
+export const locales = {
+  en: { label: 'English', country: 'US' },
+  es: { label: 'Español', country: 'ES' },
+  fr: { label: 'Français', country: 'FR' }, // Add French
+} as const;
+```
 
+### 2. Add Flag Import (if using LocaleSwitcher)
+
+Edit `client/components/i18n/LocaleSwitcher.tsx`:
+
+```typescript
+import { US, ES, FR } from 'country-flag-icons/react/3x2';
+
+const FlagComponents = {
+  US,
+  ES,
+  FR, // Add FR
+} as const;
+```
+
+### 3. Create Translation File
+
+Create `locales/fr/common.json`:
+
+```json
+{
+  "nav": {
+    "features": "Fonctionnalités",
+    "pricing": "Tarifs"
+  }
+  // Copy structure from en/common.json and translate
+}
+```
+
+### 4. Update Layout Metadata
+
+Edit `app/[locale]/layout.tsx` alternates:
+
+```typescript
+alternates: {
+  languages: {
+    en: '/',
+    es: '/es/',
+    fr: '/fr/', // Add French
+  },
+},
+```
+
+## Translating a Component
+
+### Before (Hardcoded)
+
+```tsx
+export function PricingCard() {
   return (
     <div>
-      <h2>{t('Cart')}</h2>
-      <p>{t('{{count}} items', { count: itemCount })}</p>
+      <h2>Pro Plan</h2>
+      <p>Best for professionals</p>
+      <button>Get Started</button>
     </div>
-  )
+  );
 }
 ```
 
-### 3. Scan for Missing Keys
+### After (Translated)
 
-```bash
-yarn locales:scan
+1. Add translations to `locales/en/common.json`:
+
+```json
+{
+  "pricing": {
+    "proPlan": "Pro Plan",
+    "proDescription": "Best for professionals",
+    "getStarted": "Get Started"
+  }
+}
 ```
 
-## Translation Patterns
+2. Add to `locales/es/common.json`:
 
-### Basic Translation
-
-```typescript
-t('Hello') // "Hello" or localized version
+```json
+{
+  "pricing": {
+    "proPlan": "Plan Pro",
+    "proDescription": "Ideal para profesionales",
+    "getStarted": "Comenzar"
+  }
+}
 ```
 
-### With Interpolation
+3. Update component:
 
-```typescript
-t('Hello {{name}}', { name: 'John' }) // "Hello John"
-t('Price: {{price}}', { price: '$99.99' }) // "Price: $99.99"
+```tsx
+'use client';
+import { useTranslations } from 'next-intl';
+
+export function PricingCard() {
+  const t = useTranslations('pricing');
+  return (
+    <div>
+      <h2>{t('proPlan')}</h2>
+      <p>{t('proDescription')}</p>
+      <button>{t('getStarted')}</button>
+    </div>
+  );
+}
+```
+
+## Dynamic Values & Pluralization
+
+### Interpolation
+
+```json
+{
+  "greeting": "Hello, {name}!"
+}
+```
+
+```tsx
+t('greeting', { name: 'John' }); // "Hello, John!"
 ```
 
 ### Pluralization
 
 ```json
-// en.json
 {
-  "{{count}} selected_one": "1 selected",
-  "{{count}} selected_other": "{{count}} selected",
-  "{{count}} selected_zero": "None selected"
+  "credits": "{count, plural, =0 {No credits} =1 {1 credit} other {# credits}}"
 }
 ```
 
-```typescript
-t('{{count}} selected', { count: 0 }) // "None selected"
-t('{{count}} selected', { count: 1 }) // "1 selected"
-t('{{count}} selected', { count: 5 }) // "5 selected"
+```tsx
+t('credits', { count: 5 }); // "5 credits"
 ```
 
-### Nested Keys
+## URL Routing Rules
+
+| URL           | Locale | Behavior                              |
+| ------------- | ------ | ------------------------------------- |
+| `/`           | `en`   | English (default, no prefix)          |
+| `/es/`        | `es`   | Spanish (explicit prefix)             |
+| `/pricing`    | `en`   | Internally rewritten to `/en/pricing` |
+| `/es/pricing` | `es`   | Spanish pricing page                  |
+
+## Middleware Locale Detection Priority
+
+1. **URL Path** - `/es/...` → Spanish
+2. **Cookie** - `locale=es` → Spanish
+3. **Accept-Language Header** - Browser preference
+4. **Default** - English (`en`)
+
+## Common Issues
+
+### Translation Not Showing
+
+1. Check key exists in JSON file
+2. Verify namespace matches: `useTranslations('namespace')`
+3. Ensure component is wrapped by `NextIntlClientProvider`
+4. Check for typos in key path
+
+### Locale Not Switching
+
+1. Verify locale is in `SUPPORTED_LOCALES`
+2. Check middleware routing logic
+3. Ensure cookie is being set on switch
+4. Use `window.location.href` not `router.push` for full reload
+
+### Missing Translation Warning
+
+If a key is missing, next-intl shows the key name. Add missing translations or use fallback:
+
+```tsx
+t('maybeNotExist', { default: 'Fallback text' });
+```
+
+## Checking Translations
+
+### Quick Check
+
+Run the translation checker to verify completeness:
+
+```bash
+yarn i18n:check
+```
+
+This checks all locales for:
+
+- Missing translation files
+- Missing translation keys
+- Untranslated content (values identical to English)
+
+### Script Options
+
+The check script supports various options for targeted checks:
+
+```bash
+# Check specific locale only
+yarn i18n:check --locale de
+
+# Check specific namespace only
+yarn i18n:check --namespace pricing
+
+# Combine filters
+yarn i18n:check --locale de --namespace pricing
+
+# Output as JSON (useful for CI/CD)
+yarn i18n:check --json
+
+# Show verbose output (all checked items, not just missing)
+yarn i18n:check --verbose
+
+# Show debug info (file structure, key counts)
+yarn i18n:check --debug
+
+# Check only missing keys, not files
+yarn i18n:check --keys-only
+
+# Check only missing files, not keys
+yarn i18n:check --files-only
+```
+
+### Understanding the Report
+
+The check report shows:
+
+| Section                  | Description                                                                       |
+| ------------------------ | --------------------------------------------------------------------------------- |
+| **Missing Files**        | Translation files that don't exist for a locale (e.g., `pt/pricing.json` missing) |
+| **Missing Keys**         | Keys present in English but missing in other locales                              |
+| **Untranslated Content** | Keys where the value matches English exactly (may need translation)               |
+| **Extra Files**          | Files in locale that don't exist in English (warnings)                            |
+| **Extra Keys**           | Keys in locale that don't exist in English (warnings)                             |
+
+### CI/CD Integration
+
+The script exits with error code 1 if issues are found, making it suitable for CI/CD:
 
 ```json
 {
-  "errors": {
-    "required": "This field is required",
-    "email": "Please enter a valid email"
+  "scripts": {
+    "i18n:check": "tsx scripts/check-translations.ts",
+    "verify": "npm run tsc && npm run lint && npm run i18n:check"
   }
 }
 ```
 
-```typescript
-t('errors.required') // "This field is required"
+### Reference Locale
+
+- **Reference**: English (`en`) is the source of truth
+- All other locales are compared against English
+- Always add new keys to English first, then translate
+
+### Common Workflows
+
+**Before committing translations:**
+
+```bash
+yarn i18n:check
 ```
 
-## Database Localized Content
+**After adding new translation keys:**
 
-### Schema Definition
+```bash
+# Check all locales for the new keys
+yarn i18n:check --namespace <your-namespace>
 
-```typescript
-// src/db/schema.ts
-type LocalizedString = { en: string; fr?: string; id?: string }
-
-export const products = pgTable('products', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  name: jsonb('name').$type<LocalizedString>().notNull(),
-  description: jsonb('description').$type<LocalizedString>(),
-  metaTitle: jsonb('meta_title').$type<LocalizedString>(),
-  metaDescription: jsonb('meta_description').$type<LocalizedString>(),
-})
+# Check specific locale
+yarn i18n:check --locale pt --namespace <your-namespace>
 ```
 
-### Creating Localized Content
+**Debugging translation issues:**
 
-```typescript
-// API endpoint
-const body = await request.json()
-const { name, description } = body
+```bash
+# See full file structure and key counts
+yarn i18n:check --debug
 
-// Validate English is present
-if (!name?.en?.trim()) {
-  return simpleErrorResponse('Name (English) is required')
-}
-
-await db.insert(products).values({
-  name: {
-    en: name.en,
-    fr: name.fr || undefined,
-    id: name.id || undefined,
-  },
-  description: description || undefined,
-})
+# See all checked items
+yarn i18n:check --verbose
 ```
 
-### Displaying Localized Content
+## Checklist for New Translations
 
-```typescript
-import { useParams } from '@tanstack/react-router'
-
-function ProductName({ product }: { product: Product }) {
-  const { lang } = useParams({ from: '/$lang' })
-
-  // Fallback to English if translation missing
-  const name = product.name[lang as keyof typeof product.name] || product.name.en
-
-  return <h1>{name}</h1>
-}
-```
-
-### Helper Function
-
-```typescript
-// src/lib/i18n.ts
-export function getLocalizedValue<T extends Record<string, unknown>>(
-  obj: T | null | undefined,
-  lang: string,
-  fallback: string = '',
-): string {
-  if (!obj) return fallback
-
-  const value = obj[lang as keyof T] || obj['en' as keyof T]
-  return typeof value === 'string' ? value : fallback
-}
-
-// Usage
-const name = getLocalizedValue(product.name, lang)
-const description = getLocalizedValue(
-  product.description,
-  lang,
-  'No description',
-)
-```
-
-## Multi-Language Admin Forms
-
-### Tab-Based Locale Editor
-
-```typescript
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-
-const LOCALES = ['en', 'fr', 'id'] as const
-
-function LocalizedInput({
-  value,
-  onChange,
-  label,
-}: {
-  value: LocalizedString
-  onChange: (value: LocalizedString) => void
-  label: string
-}) {
-  return (
-    <div className="space-y-2">
-      <Label>{label}</Label>
-      <Tabs defaultValue="en">
-        <TabsList>
-          {LOCALES.map((locale) => (
-            <TabsTrigger key={locale} value={locale}>
-              {locale.toUpperCase()}
-              {locale === 'en' && <span className="text-red-500 ml-1">*</span>}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        {LOCALES.map((locale) => (
-          <TabsContent key={locale} value={locale}>
-            <Input
-              value={value[locale] || ''}
-              onChange={(e) =>
-                onChange({ ...value, [locale]: e.target.value })
-              }
-              placeholder={`${label} (${locale.toUpperCase()})`}
-            />
-          </TabsContent>
-        ))}
-      </Tabs>
-    </div>
-  )
-}
-```
-
-### Usage in Product Form
-
-```typescript
-function ProductForm() {
-  const [name, setName] = useState<LocalizedString>({ en: '' })
-  const [description, setDescription] = useState<LocalizedString>({ en: '' })
-
-  return (
-    <form>
-      <LocalizedInput
-        value={name}
-        onChange={setName}
-        label="Product Name"
-      />
-      <LocalizedInput
-        value={description}
-        onChange={setDescription}
-        label="Description"
-      />
-    </form>
-  )
-}
-```
-
-## URL-Based Language Switching
-
-### Route Structure
-
-```
-src/routes/
-├── $lang/                    # Language prefix
-│   ├── index.tsx             # /$lang/
-│   ├── products/
-│   │   ├── index.tsx         # /$lang/products
-│   │   └── $handle.tsx       # /$lang/products/:handle
-│   └── cart.tsx              # /$lang/cart
-```
-
-### Language Switcher Component
-
-```typescript
-import { Link, useParams, useLocation } from '@tanstack/react-router'
-
-const languages = [
-  { code: 'en', label: 'English' },
-  { code: 'fr', label: 'Français' },
-  { code: 'id', label: 'Indonesia' },
-]
-
-function LanguageSwitcher() {
-  const { lang } = useParams({ from: '/$lang' })
-  const location = useLocation()
-
-  // Replace language in current path
-  const switchPath = (newLang: string) => {
-    return location.pathname.replace(`/${lang}`, `/${newLang}`)
-  }
-
-  return (
-    <div className="flex gap-2">
-      {languages.map((language) => (
-        <Link
-          key={language.code}
-          to={switchPath(language.code)}
-          className={lang === language.code ? 'font-bold' : ''}
-        >
-          {language.label}
-        </Link>
-      ))}
-    </div>
-  )
-}
-```
-
-### Sync i18next with URL
-
-```typescript
-// In layout component
-import { useEffect } from 'react'
-import { useParams } from '@tanstack/react-router'
-import { changeLanguage } from '@/lib/i18n'
-
-function Layout() {
-  const { lang } = useParams({ from: '/$lang' })
-
-  useEffect(() => {
-    changeLanguage(lang)
-  }, [lang])
-
-  return <Outlet />
-}
-```
-
-## SEO with Localized Content
-
-```typescript
-function ProductPage({ product }: { product: Product }) {
-  const { lang } = useParams({ from: '/$lang' })
-
-  const title = getLocalizedValue(product.metaTitle, lang)
-    || getLocalizedValue(product.name, lang)
-  const description = getLocalizedValue(product.metaDescription, lang)
-    || getLocalizedValue(product.description, lang)
-
-  return (
-    <>
-      <head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <link rel="alternate" hreflang="en" href={`/en/products/${product.handle}`} />
-        <link rel="alternate" hreflang="fr" href={`/fr/products/${product.handle}`} />
-        <link rel="alternate" hreflang="id" href={`/id/products/${product.handle}`} />
-      </head>
-      {/* ... */}
-    </>
-  )
-}
-```
-
-## Common Translation Keys
-
-```json
-{
-  "common": {
-    "Save": "Save",
-    "Cancel": "Cancel",
-    "Delete": "Delete",
-    "Edit": "Edit",
-    "Loading": "Loading...",
-    "Error": "Error",
-    "Success": "Success"
-  },
-  "validation": {
-    "Required": "This field is required",
-    "Invalid email": "Please enter a valid email",
-    "Too short": "Must be at least {{min}} characters"
-  },
-  "cart": {
-    "Add to Cart": "Add to Cart",
-    "Remove": "Remove",
-    "Empty cart": "Your cart is empty",
-    "Checkout": "Checkout"
-  }
-}
-```
-
-## See Also
-
-- `src/lib/i18n.ts` - i18next setup
-- `src/i18n/locales/` - Translation files
-- `src/routes/$lang/` - Localized routes
-- `forms` skill - Localized form inputs
+- [ ] Added key to `locales/en/common.json`
+- [ ] Added translation to all other locale files (`es`, etc.)
+- [ ] Used correct namespace in component
+- [ ] Tested in all supported languages
+- [ ] Ran `yarn i18n:check` to verify completeness
+- [ ] Ran `yarn verify` before committing

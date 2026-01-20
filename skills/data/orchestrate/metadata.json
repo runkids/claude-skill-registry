@@ -1,7 +1,7 @@
 {
   "name": "orchestrate",
-  "repo": "matthew-plusprogramming/monorepo",
-  "path": ".claude/skills/orchestrate/SKILL.md",
-  "source": "github.com/matthew-plusprogramming/monorepo",
-  "downloaded_at": "2026-01-14T02:51:05.864559Z"
+  "repo": "grahama1970/agent-skills",
+  "path": "skills/orchestrate/SKILL.md",
+  "source": "github.com/grahama1970/agent-skills",
+  "downloaded_at": "2026-01-20T04:01:47.696986Z"
 }

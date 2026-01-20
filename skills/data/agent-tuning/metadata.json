@@ -1,7 +1,7 @@
 {
   "name": "agent-tuning",
-  "repo": "onesmartguy/next-level-real-estate",
-  "path": ".claude/skills/agent-tuning/SKILL.md",
-  "source": "github.com/onesmartguy/next-level-real-estate",
-  "downloaded_at": "2026-01-14T02:03:53.954430Z"
+  "repo": "wildwasser/opencode-agents",
+  "path": ".opencode/skills/agent-tuning/SKILL.md",
+  "source": "github.com/wildwasser/opencode-agents",
+  "downloaded_at": "2026-01-20T03:48:26.790865Z"
 }

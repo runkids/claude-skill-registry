@@ -1,7 +1,7 @@
 {
   "name": "storybook",
-  "repo": "lambda-curry/devagent",
-  "path": ".devagent/plugins/ralph/skills/storybook/SKILL.md",
-  "source": "github.com/lambda-curry/devagent",
-  "downloaded_at": "2026-01-19T03:14:39.183008Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/testing/storybook/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-20T03:24:01.698973Z"
 }

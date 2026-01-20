@@ -1,508 +1,357 @@
 ---
 name: codex-review
-description: OpenAI Codex CLI code review with GPT-5.2-Codex, CI/CD integration
+description: Perform code reviews using OpenAI Codex CLI to identify bugs, security vulnerabilities, performance issues, and code quality problems. Use when the user asks to review code, check for issues, security audit, or before committing. Requires Codex CLI installed.
+allowed-tools: Bash, Read, Grep, Glob
 ---
 
-# OpenAI Codex Code Review Skill
+# Codex Review Skill
 
-*Load with: base.md + code-review.md*
+Use OpenAI Codex CLI to perform automated code reviews that identify issues and suggest improvements. This is a **read-only** analysis skill.
 
-Use OpenAI's Codex CLI for specialized code review with GPT-5.2-Codex - trained specifically for detecting bugs, security flaws, and code quality issues.
+## When to Use
 
-**Sources:** [Codex CLI](https://developers.openai.com/codex/cli/) | [GitHub](https://github.com/openai/codex) | [Code Review Cookbook](https://cookbook.openai.com/examples/codex/build_code_review_with_codex_sdk)
+- User asks to "review" code
+- User wants to check for bugs or issues
+- User mentions "security", "performance", or "quality"
+- Before committing code
+- During pull request review
+- User asks "what's wrong with this code?"
+
+## Prerequisites
+
+Verify Codex CLI is available:
+
+```bash
+codex --version  # Should display installed version
+```
+
+## Basic Usage
+
+### Step 1: Determine Scope
+
+What to review:
+
+- Uncommitted changes (default)
+- Specific file(s)
+- Last commit
+- Pull request
+- Entire codebase
+
+### Step 2: Check Current State
+
+```bash
+git status          # See what's changed
+git diff --stat     # Summary of changes
+git diff            # Detailed changes
+```
+
+### Step 3: Execute Codex Review
+
+Run Codex with review-focused prompt:
+
+```bash
+codex --sandbox=read-only exec "Perform comprehensive code review of [SCOPE].
+
+Check for:
+1. CRITICAL ISSUES (must fix):
+   - Security vulnerabilities (SQL injection, XSS, CSRF, etc.)
+   - Potential runtime errors
+   - Data loss risks
+   - Breaking changes
+
+2. IMPORTANT ISSUES (should fix):
+   - Logic bugs
+   - Performance problems
+   - Type safety gaps
+   - Error handling issues
+
+3. SUGGESTIONS (consider):
+   - Code quality improvements
+   - Refactoring opportunities
+   - Better patterns
+   - Documentation needs
+
+4. POSITIVE OBSERVATIONS:
+   - Best practices followed
+   - Good patterns used
+
+For each issue:
+- Severity level (Critical/Important/Suggestion)
+- File path and line number
+- Clear description of the problem
+- Why it's a problem
+- How to fix it
+
+Do NOT make any changes - this is review only."
+```
+
+### Step 4: Present Findings
+
+Organize results by severity:
+
+- 🔴 Critical Issues
+- 🟡 Important Issues
+- 🟢 Suggestions
+- ✅ Positive Observations
+
+## Example Reviews
+
+### Review Uncommitted Changes
+
+```bash
+codex --sandbox=read-only exec "Review all uncommitted changes for:
+- Bugs and logic errors
+- Security vulnerabilities
+- Performance issues
+- Code quality problems
+- Missing error handling
+Do NOT modify code."
+```
+
+### Security-Focused Review
+
+```bash
+codex --sandbox=read-only exec "Security review of src/auth/*.ts:
+- SQL injection vulnerabilities
+- XSS vulnerabilities
+- Authentication bypass
+- Authorization flaws
+- Secrets in code
+- Input validation gaps
+Provide severity level and fix suggestions. Do NOT modify code."
+```
+
+### Performance Review
+
+```bash
+codex --sandbox=read-only exec "Performance review of src/components/*.tsx:
+- Unnecessary re-renders
+- Missing React.memo, useMemo, useCallback
+- Inefficient algorithms
+- Memory leaks
+- Large bundle impacts
+Provide specific optimization suggestions. Do NOT modify code."
+```
+
+### Pre-Commit Review
+
+```bash
+codex --sandbox=read-only exec "Quick review of staged changes for:
+- console.log statements
+- Commented-out code
+- Unused imports
+- TODO comments
+- Missing error handling
+- Type errors
+Exit with error if critical issues found. Do NOT modify code."
+```
+
+## Review Focus Areas
+
+### General Review
+
+```bash
+# Comprehensive review of all aspects
+codex --sandbox=read-only exec "Comprehensive review covering: security, performance, code quality, architecture, testing, accessibility. Do NOT modify code."
+```
+
+### Security Audit
+
+```bash
+# OWASP Top 10 and security best practices
+codex --sandbox=read-only exec "Security audit focusing on: SQL injection, XSS, CSRF, authentication, authorization, secrets, input validation. Do NOT modify code."
+```
+
+### Architecture Review
+
+```bash
+# SOLID principles and design patterns
+codex --sandbox=read-only exec "Architecture review: SOLID principles, separation of concerns, dependency management, code organization, design patterns. Do NOT modify code."
+```
+
+### Accessibility Review
+
+```bash
+# WCAG compliance
+codex --sandbox=read-only exec "Accessibility review: ARIA labels, keyboard navigation, screen reader support, color contrast, semantic HTML. Do NOT modify code."
+```
+
+## Output Format
+
+Structure review results:
+
+````markdown
+# Code Review: [Scope]
+
+## Summary
+
+- Files reviewed: 3
+- Issues found: 5 (Critical: 1, Important: 2, Suggestions: 2)
+- Estimated fix time: 2 hours
+
+## 🔴 Critical Issues (Fix Immediately)
+
+### src/auth/login.ts:45 - SQL Injection Vulnerability
+
+**Severity:** Critical
+**Category:** Security
+
+**Problem:**
+Direct string interpolation in SQL query allows SQL injection.
+
+**Why it matters:**
+Attacker can execute arbitrary SQL commands, steal data, or drop tables.
+
+**How to fix:**
+Use parameterized queries:
+
+```typescript
+// Before (vulnerable)
+db.query(`SELECT * FROM users WHERE email = '${email}'`);
+
+// After (safe)
+db.query("SELECT * FROM users WHERE email = ?", [email]);
+```
+````
 
 ---
 
-## Why Codex for Code Review?
+## 🟡 Important Issues (Should Fix)
 
-| Feature | Benefit |
-|---------|---------|
-| **GPT-5.2-Codex** | Specialized training for code review |
-| **88% detection rate** | Bugs, security flaws, style issues (LiveCodeBench) |
-| **Structured output** | JSON schema for consistent findings |
-| **GitHub native** | `@codex review` in PR comments |
-| **Headless mode** | CI/CD automation without TUI |
+[Same format as critical]
 
 ---
 
-## Installation
+## 🟢 Suggestions (Consider Improving)
 
-### Prerequisites
-
-```bash
-# Check Node.js version (requires 22+)
-node --version
-
-# Install Node.js 22 if needed
-# macOS
-brew install node@22
-
-# Or via nvm
-nvm install 22
-nvm use 22
-```
-
-### Install Codex CLI
-
-```bash
-# Via npm (recommended)
-npm install -g @openai/codex
-
-# Via Homebrew (macOS)
-brew install --cask codex
-
-# Verify installation
-codex --version
-```
-
-### Authentication
-
-**Option 1: ChatGPT Subscription** (Plus, Pro, Team, Edu, Enterprise)
-```bash
-codex
-# Follow prompts to sign in with ChatGPT account
-```
-
-**Option 2: OpenAI API Key**
-```bash
-# Set environment variable
-export OPENAI_API_KEY=sk-proj-...
-
-# Or add to shell profile
-echo 'export OPENAI_API_KEY=sk-proj-...' >> ~/.zshrc
-
-# Run Codex
-codex
-```
-
-### Shell Completions (Optional)
-
-```bash
-# Bash
-codex completion bash >> ~/.bashrc
-
-# Zsh
-codex completion zsh >> ~/.zshrc
-
-# Fish
-codex completion fish > ~/.config/fish/completions/codex.fish
-```
+[Same format]
 
 ---
 
-## Interactive Code Review
+## ✅ Positive Observations
 
-### Launch Review Mode
-
-```bash
-# Start Codex
-codex
-
-# In the TUI, type:
-/review
-```
-
-### Review Presets
-
-| Preset | Use Case |
-|--------|----------|
-| **Review against base branch** | Before opening PR - diffs against upstream |
-| **Review uncommitted changes** | Before committing - staged + unstaged + untracked |
-| **Review a commit** | Analyze specific SHA from history |
-| **Custom instructions** | e.g., "Focus on security vulnerabilities" |
-
-### Example Session
-
-```
-$ codex
-> /review
-
-Select review type:
-❯ Review against a base branch
-  Review uncommitted changes
-  Review a commit
-  Custom review instructions
-
-Select base branch: main
-
-Reviewing changes...
-
-┌─────────────────────────────────────────────────────────────┐
-│ CODE REVIEW FINDINGS                                        │
-├─────────────────────────────────────────────────────────────┤
-│ 🔴 CRITICAL: SQL Injection vulnerability                    │
-│    File: src/api/users.ts:45                                │
-│    Issue: User input directly interpolated in query         │
-│    Fix: Use parameterized queries                           │
-├─────────────────────────────────────────────────────────────┤
-│ 🟠 HIGH: Missing authentication check                       │
-│    File: src/api/admin.ts:23                                │
-│    Issue: Admin endpoint accessible without auth            │
-│    Fix: Add requireAuth middleware                          │
-├─────────────────────────────────────────────────────────────┤
-│ 🟡 MEDIUM: Inefficient database query                       │
-│    File: src/services/orders.ts:89                          │
-│    Issue: N+1 query pattern in loop                         │
-│    Fix: Use batch query or JOIN                             │
-└─────────────────────────────────────────────────────────────┘
-```
+- src/utils/validation.ts:23 - Excellent input sanitization
+- src/hooks/useAuth.ts:67 - Proper cleanup in useEffect
 
 ---
 
-## Headless Mode (Automation)
+## Recommended Actions
 
-### Basic Usage
+1. **Immediate:** Fix SQL injection in auth/login.ts:45
+2. **Soon:** Address performance issue in components/UserList.tsx
+3. **Consider:** Refactor large function at utils/helpers.ts:120
 
+```
+
+## Best Practices
+
+✅ **DO:**
+- Categorize by severity (Critical/Important/Suggestion)
+- Include specific file paths and line numbers
+- Explain WHY something is a problem
+- Provide clear fix suggestions
+- Note positive observations too
+
+❌ **DON'T:**
+- Make code modifications (use codex-exec for that)
+- Skip verification of findings
+- Report false positives without investigation
+- Be purely negative without noting good practices
+
+## Verification
+
+After getting Codex's review:
+1. Verify file paths and line numbers are correct
+2. Check if issues are real (not false positives)
+3. Assess severity appropriately
+4. Add context from your knowledge of the code
+
+## Error Handling
+
+**If Codex not found:**
+```
+
+Codex CLI is not available. Ensure it's installed and in your PATH.
+
+````
+
+**If too many issues:**
+- Focus on critical issues first
+- Group related issues
+- Break into multiple focused reviews
+
+**If false positives:**
+- Manually verify each issue
+- Filter out non-issues
+- Clarify with more specific review scope
+
+## Integration Patterns
+
+### Pre-Commit Hook
 ```bash
-# Simple review
-codex exec "review the code for bugs and security issues"
+#!/bin/bash
+# .git/hooks/pre-commit
+codex --sandbox=read-only exec "Quick review of staged changes for critical issues" --yes
+exit $?
+````
 
-# Review with JSON output
-codex exec --json "review uncommitted changes" > review.json
-
-# Save final message to file
-codex exec --output-last-message review.txt "review the diff against main"
-```
-
-### Full Automation (CI/CD)
-
-```bash
-# Full auto mode (use only in isolated runners!)
-codex exec \
-  --full-auto \
-  --json \
-  --output-last-message findings.txt \
-  --sandbox read-only \
-  -m gpt-5.2-codex \
-  "Review this code for bugs, security issues, and performance problems"
-```
-
-### Structured Output with Schema
-
-```bash
-# Define output schema
-cat > review-schema.json << 'EOF'
-{
-  "type": "object",
-  "properties": {
-    "findings": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "severity": { "enum": ["critical", "high", "medium", "low"] },
-          "title": { "type": "string" },
-          "file": { "type": "string" },
-          "line": { "type": "integer" },
-          "description": { "type": "string" },
-          "suggestion": { "type": "string" }
-        },
-        "required": ["severity", "title", "file", "description"]
-      }
-    },
-    "summary": { "type": "string" },
-    "approved": { "type": "boolean" }
-  },
-  "required": ["findings", "summary", "approved"]
-}
-EOF
-
-# Run with schema validation
-codex exec \
-  --output-schema review-schema.json \
-  --output-last-message review.json \
-  "Review the staged changes and output findings"
-```
-
----
-
-## GitHub Integration
-
-### Option 1: PR Comment Trigger
-
-In any pull request, add a comment:
-```
-@codex review
-```
-
-Codex will respond with a standard GitHub code review.
-
-### Option 2: GitHub Action
+### CI/CD Pipeline
 
 ```yaml
-# .github/workflows/codex-review.yml
-name: Codex Code Review
-
-on:
-  pull_request:
-    types: [opened, synchronize]
-
-jobs:
-  review:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Codex Review
-        uses: openai/codex-action@main
-        with:
-          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
-          model: gpt-5.2-codex
-          safety_strategy: drop-sudo
+# GitHub Actions example
+- name: Codex Review
+  run: |
+    codex --sandbox=read-only exec "Review PR changes for security and quality" > review.md
 ```
 
-### Option 3: Manual Headless in CI
+## Review Checklist Templates
 
-```yaml
-# .github/workflows/codex-review.yml
-name: Codex Code Review
+### General Checklist
 
-on:
-  pull_request:
-
-jobs:
-  review:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Install Codex CLI
-        run: npm install -g @openai/codex
-
-      - name: Run Review
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          # Get diff
-          git diff origin/${{ github.base_ref }}...HEAD > diff.txt
-
-          # Run Codex review
-          codex exec \
-            --full-auto \
-            --sandbox read-only \
-            --output-last-message review.md \
-            "Review this git diff for bugs, security issues, and code quality: $(cat diff.txt)"
-
-      - name: Post Review Comment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const review = fs.readFileSync('review.md', 'utf8');
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: `## 🤖 Codex Code Review\n\n${review}`
-            });
 ```
+- [ ] No console.log or debug statements
+- [ ] No commented-out code
+- [ ] All imports are used
+- [ ] No TODO comments (or tracked in issues)
+- [ ] Error handling present
+- [ ] TypeScript types complete
+- [ ] No security vulnerabilities
+- [ ] Tests pass
+```
+
+### Security Checklist
+
+```
+- [ ] No SQL injection risks
+- [ ] No XSS vulnerabilities
+- [ ] Input validation present
+- [ ] No secrets in code
+- [ ] Authentication/authorization correct
+- [ ] HTTPS enforced
+- [ ] CSRF protection enabled
+```
+
+## Related Skills
+
+- **codex-ask**: For understanding code before reviewing
+- **codex-exec**: For fixing issues found in review
+
+## Tips for Better Reviews
+
+1. **Be specific**: "Review src/auth.ts for security" vs "Review code"
+2. **Define scope**: Specific files > entire codebase
+3. **Choose focus**: Security audit vs general review
+4. **Iterate**: Review → Fix → Re-review
+5. **Combine skills**: codex-ask → codex-review → codex-exec
+
+## Limitations
+
+- Static analysis only (cannot run code)
+- May generate false positives
+- Cannot understand business logic
+- Cannot test runtime behavior
+- Limited by context window size
 
 ---
 
-## GitLab CI/CD
-
-```yaml
-# .gitlab-ci.yml
-codex-review:
-  image: node:22
-  stage: review
-  script:
-    - npm install -g @openai/codex
-    - |
-      codex exec \
-        --full-auto \
-        --sandbox read-only \
-        --output-last-message review.md \
-        "Review the merge request changes for bugs and security issues"
-    - cat review.md
-  artifacts:
-    paths:
-      - review.md
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-```
-
----
-
-## Jenkins Pipeline
-
-```groovy
-pipeline {
-    agent any
-
-    environment {
-        OPENAI_API_KEY = credentials('openai-api-key')
-    }
-
-    stages {
-        stage('Install Codex') {
-            steps {
-                sh 'npm install -g @openai/codex'
-            }
-        }
-
-        stage('Code Review') {
-            steps {
-                sh '''
-                    codex exec \
-                      --full-auto \
-                      --sandbox read-only \
-                      --output-last-message review.md \
-                      "Review the code changes for bugs and security issues"
-                '''
-            }
-        }
-
-        stage('Publish Results') {
-            steps {
-                archiveArtifacts artifacts: 'review.md'
-                script {
-                    def review = readFile('review.md')
-                    echo "Code Review Results:\n${review}"
-                }
-            }
-        }
-    }
-}
-```
-
----
-
-## Configuration
-
-### Config File
-
-```toml
-# ~/.codex/config.toml
-
-[model]
-default = "gpt-5.2-codex"  # Best for code review
-
-[sandbox]
-default = "read-only"  # Safe for reviews
-
-[review]
-# Custom review instructions applied to all reviews
-instructions = """
-Focus on:
-1. Security vulnerabilities (OWASP Top 10)
-2. Performance issues (N+1 queries, memory leaks)
-3. Error handling gaps
-4. Type safety issues
-"""
-```
-
-### Per-Project Config
-
-```toml
-# .codex/config.toml (in project root)
-
-[review]
-instructions = """
-This is a Python FastAPI project. Focus on:
-- Async/await correctness
-- Pydantic model validation
-- SQL injection via SQLAlchemy
-- Authentication/authorization gaps
-"""
-```
-
----
-
-## CLI Quick Reference
-
-```bash
-# Interactive
-codex                          # Start TUI
-/review                        # Open review presets
-
-# Headless
-codex exec "prompt"            # Non-interactive execution
-codex exec --json "prompt"     # JSON output
-codex exec --full-auto "prompt"  # No approval prompts
-
-# Key Flags
---output-last-message FILE     # Save response to file
---output-schema FILE           # Validate against JSON schema
---sandbox read-only            # Restrict file access
--m gpt-5.2-codex              # Use best review model
---json                         # Machine-readable output
-
-# Resume
-codex exec resume SESSION_ID   # Continue previous session
-```
-
----
-
-## Comparison: Claude vs Codex Review
-
-| Aspect | Claude (Built-in) | Codex CLI |
-|--------|-------------------|-----------|
-| **Setup** | None (already in Claude Code) | Install CLI + auth |
-| **Model** | Claude | GPT-5.2-Codex (specialized) |
-| **Context** | Full conversation context | Fresh context per review |
-| **Integration** | Native | GitHub, GitLab, Jenkins |
-| **Output** | Markdown | JSON schema support |
-| **Best for** | Quick reviews, in-flow | CI/CD, critical PRs |
-
----
-
-## Security Considerations
-
-### CI/CD Safety
-
-```yaml
-# Always use these flags in CI/CD:
---sandbox read-only           # Prevent file modifications
---safety-strategy drop-sudo   # Revoke elevated permissions
-```
-
-### API Key Protection
-
-```yaml
-# GitHub Actions - use secrets
-env:
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-# Never hardcode keys
-# Never echo keys in logs
-```
-
-### Public Repositories
-
-For public repos, use `drop-sudo` safety strategy to prevent Codex from reading its own API key during execution.
-
----
-
-## Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| `codex: command not found` | Run `npm install -g @openai/codex` |
-| `Node.js version error` | Upgrade to Node.js 22+ |
-| `Authentication failed` | Re-run `codex` and sign in again |
-| `API key invalid` | Check `OPENAI_API_KEY` env var |
-| `Timeout in CI` | Add `--timeout 300` flag |
-| `Rate limited` | Reduce frequency or upgrade plan |
-
----
-
-## Anti-Patterns
-
-- **Using `--dangerously-bypass-approvals-and-sandbox` casually** - Only in isolated CI runners
-- **Exposing API keys in logs** - Use secrets management
-- **Skipping sandbox in CI** - Always use `--sandbox read-only`
-- **Ignoring findings** - Review and address or document exceptions
-- **Running on every commit** - Use on PRs only to save costs
+**Remember**: This skill is READ-ONLY. To fix issues found, use the `codex-exec` skill.

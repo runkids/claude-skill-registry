@@ -1,7 +1,7 @@
 {
   "name": "gh-fix-ci",
-  "repo": "OutlineDriven/odin-claude-plugin",
-  "path": "skills/gh-fix-ci/SKILL.md",
-  "source": "github.com/OutlineDriven/odin-claude-plugin",
-  "downloaded_at": "2026-01-19T03:32:39.062176Z"
+  "repo": "cuba6112/skillfactory",
+  "path": ".claude/skills/gh-fix-ci/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-20T04:06:00.512303Z"
 }

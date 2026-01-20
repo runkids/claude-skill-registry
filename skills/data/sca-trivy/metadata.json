@@ -1,7 +1,7 @@
 {
   "name": "sca-trivy",
-  "repo": "AgentSecOps/SecOpsAgentKit",
-  "path": "skills/devsecops/sca-trivy/SKILL.md",
-  "source": "github.com/AgentSecOps/SecOpsAgentKit",
-  "downloaded_at": "2026-01-19T02:08:59.440824Z"
+  "repo": "rohunj/claude-build-workflow",
+  "path": "skills/security/sca-trivy/SKILL.md",
+  "source": "github.com/rohunj/claude-build-workflow",
+  "downloaded_at": "2026-01-20T03:37:43.042575Z"
 }

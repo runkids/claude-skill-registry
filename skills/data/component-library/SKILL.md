@@ -1,221 +1,135 @@
 ---
 name: component-library
-description: Comprehensive React component library with 30+ production-ready components using shadcn/ui architecture, CVA variants, Radix UI primitives, and Tailwind CSS. Use when users need to (1) Create React UI components with modern patterns, (2) Build complete component systems with consistent design, (3) Implement accessible, responsive, dark-mode-ready components, (4) Generate form components with React Hook Form integration, (5) Create data display components like tables, cards, charts, or (6) Build navigation, layout, or feedback components. Provides instant generation of customizable components that would otherwise take 20-45 minutes each to hand-code.
+description: Conditionally installs GitHub Packages component library at latest version. Adds to package.json when user requests it.
 ---
 
-# Component Library - shadcn/ui Architecture
+# Component Library Installation Skill
 
-Generate production-ready React components with shadcn/ui patterns, saving 8-10 hours per project.
+## Purpose
+Add and configure the component library dependency in package.json when user requests it.
 
-## Quick Start
+**Execution Context**: This skill runs as a separate step (Phase 1, Step 4) after package.json is generated.
 
-When generating components:
-1. Create `/components/ui/` directory structure
-2. Generate `lib/utils.ts` with cn() helper first
-3. Create requested components with full TypeScript, variants, and accessibility
-4. Include example usage for each component
+## ⚠️ CONDITIONAL SKILL - READ CAREFULLY
 
-## Core Setup Files
+**Execute this skill ONLY if**: `include_component_library: yes`
 
-### Always generate these first:
+**If `include_component_library: no`**: 
+- **SKIP this skill entirely**
+- Move to next skill
 
-**lib/utils.ts** - Essential cn() helper:
-```typescript
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+## Input Parameters
+From configuration:
+- `include_component_library` - Boolean flag (`yes` or `no`)
+- `component_library` - Name of the component library package (default: `@RoyalAholdDelhaize/pdl-spectrum-component-library-web`)
+- `component_library_version` - Always fetch latest version from npm registry
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-```
+## Package.json Format
 
-**components.json** - Component registry:
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "default",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "app/globals.css",
-    "baseColor": "slate",
-    "cssVariables": true
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils"
-  }
-}
-```
+**Important**: The component library uses an npm alias format in package.json:
 
-## Component Categories
-
-### Form Components
-- **Input** - Text input with variants (default, ghost, underline)
-- **Select** - Custom dropdown with search, multi-select options  
-- **Checkbox** - With indeterminate state support
-- **Radio** - Radio groups with custom styling
-- **Switch** - Toggle switches with labels
-- **Textarea** - Auto-resize, character count variants
-- **DatePicker** - Calendar integration, range selection
-- **FileUpload** - Drag & drop, preview, progress
-- **Slider** - Range input with marks, tooltips
-- **Form** - React Hook Form wrapper with validation
-
-### Display Components  
-- **Card** - Container with header/footer slots
-- **Table** - Sortable, filterable, pagination
-- **Badge** - Status indicators with variants
-- **Avatar** - Image/initials with fallback
-- **Progress** - Linear and circular variants
-- **Skeleton** - Loading states
-- **Separator** - Visual dividers
-- **ScrollArea** - Custom scrollbars
-
-### Feedback Components
-- **Alert** - Info/warning/error/success states
-- **Toast** - Notifications with actions
-- **Dialog/Modal** - Accessible overlays
-- **Tooltip** - Hover information
-- **Popover** - Positioned content
-- **AlertDialog** - Confirmation dialogs
-
-### Navigation Components
-- **Navigation** - Responsive nav with mobile menu
-- **Tabs** - Tab panels with keyboard nav
-- **Breadcrumb** - Path navigation
-- **Pagination** - Page controls
-- **CommandMenu** - Command palette (⌘K)
-- **ContextMenu** - Right-click menus
-- **DropdownMenu** - Action menus
-
-### Layout Components
-- **Accordion** - Collapsible sections
-- **Collapsible** - Show/hide content
-- **ResizablePanels** - Draggable split panes
-- **Sheet** - Slide-out panels
-- **AspectRatio** - Maintain ratios
-
-## Component Implementation Patterns
-
-### Use CVA for all variants:
-```typescript
-import { cva, type VariantProps } from "class-variance-authority"
-
-const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
-```
-
-### Accessibility Requirements:
-- ARIA labels and roles on all interactive elements
-- Keyboard navigation (Tab, Arrow keys, Enter, Escape)
-- Focus management and trapping for modals
-- Screen reader announcements
-- Semantic HTML elements
-
-### Dark Mode Support:
-- Use Tailwind dark: modifier
-- CSS variables for theme colors
-- Smooth transitions between modes
-
-### Responsive Design:
-- Mobile-first approach
-- Container queries where appropriate
-- Touch-friendly tap targets (min 44x44px)
-- Responsive typography scale
-
-## Dependencies
-
-Include in package.json:
 ```json
 {
   "dependencies": {
-    "@radix-ui/react-accordion": "^1.1.2",
-    "@radix-ui/react-alert-dialog": "^1.0.5",
-    "@radix-ui/react-avatar": "^1.0.4",
-    "@radix-ui/react-checkbox": "^1.0.4",
-    "@radix-ui/react-dialog": "^1.0.5",
-    "@radix-ui/react-dropdown-menu": "^2.0.6",
-    "@radix-ui/react-label": "^2.0.2",
-    "@radix-ui/react-popover": "^1.0.7",
-    "@radix-ui/react-progress": "^1.0.3",
-    "@radix-ui/react-radio-group": "^1.1.3",
-    "@radix-ui/react-select": "^2.0.0",
-    "@radix-ui/react-separator": "^1.0.3",
-    "@radix-ui/react-slider": "^1.1.2",
-    "@radix-ui/react-switch": "^1.0.3",
-    "@radix-ui/react-tabs": "^1.0.4",
-    "@radix-ui/react-toast": "^1.1.5",
-    "@radix-ui/react-tooltip": "^1.0.7",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "cmdk": "^0.2.0",
-    "date-fns": "^2.30.0",
-    "lucide-react": "^0.263.1",
-    "react-day-picker": "^8.8.0",
-    "react-hook-form": "^7.45.4",
-    "tailwind-merge": "^1.14.0",
-    "tailwindcss-animate": "^1.0.7"
+    "@royalaholddelhaize/pdl-spectrum-component-library-web": "npm:@RoyalAholdDelhaize/pdl-spectrum-component-library-web@^{version}"
   }
 }
 ```
 
-## Implementation Workflow
+**Why the alias?**
+- **Key (lowercase)**: `@royalaholddelhaize/pdl-spectrum-component-library-web` - npm convention for lowercase scopes
+- **Value (original case)**: `npm:@RoyalAholdDelhaize/pdl-spectrum-component-library-web@^{version}` - actual package name
 
-1. **Assess Requirements**: Identify which components are needed
-2. **Generate Base Files**: Create utils.ts and components.json
-3. **Create Components**: Generate requested components with all features
-4. **Provide Examples**: Include usage examples for each component
-5. **Document Props**: Add TypeScript interfaces with JSDoc comments
+**Manual installation command**:
+```bash
+npm install @RoyalAholdDelhaize/pdl-spectrum-component-library-web
+```
+npm automatically creates the alias format in package.json.
 
-## Advanced Patterns
+## Key Rule
+**Component library dependency is added to package.json when**: `include_component_library: yes`
 
-For complex requirements, see:
-- **references/form-patterns.md** - Advanced form handling
-- **references/data-tables.md** - Complex table implementations  
-- **references/animation-patterns.md** - Framer Motion integration
-- **references/testing-setup.md** - Component testing patterns
+**If fetching latest version fails**:
+- Skip installation
+- Inform user that GitHub token is missing
+- Provide setup instructions
+- Continue with project generation
 
-## Performance Optimization
+## Implementation Steps
 
-- Use React.memo for expensive components
-- Implement virtual scrolling for long lists
-- Lazy load heavy components
-- Optimize bundle size with tree shaking
-- Use CSS containment for layout stability
+**⚠️ CRITICAL**: Component library packages use `npm show`, NOT `npm view`
+- Reason: GitHub Packages authentication works best with `npm show`
+- All other packages use `npm view` (see package-json skill)
 
-## Component Generation Tips
+### Step 1: Conditional Check
 
-When generating components:
-- Include all variant combinations
-- Add proper TypeScript types
-- Implement keyboard shortcuts
-- Include loading and error states
-- Provide Storybook stories structure
-- Add comprehensive prop documentation
-- Include accessibility attributes
-- Test with screen readers
+```javascript
+// ONLY execute if user requested component library
+if (userConfig.include_component_library !== 'yes') {
+  console.log('⏭️  Skipping component library - not requested');
+  return; // Exit this skill
+}
+```
+
+### Step 2: Read Existing package.json
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+
+// Read the generated package.json
+const packageJsonPath = path.join(process.cwd(), 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+```
+
+### Step 3: Fetch Latest Version and Add to Dependencies
+
+```javascript
+if (userConfig.include_component_library === 'yes') {
+  const { execSync } = require('child_process');
+  
+  try {
+    // Fetch latest version from npm registry
+    // IMPORTANT: Component library packages MUST use 'npm show', not 'npm view'
+    // This is the standard for GitHub Packages authentication
+    // Note: Uses npm show without --registry flag to respect ~/.npmrc authentication
+    const latestVersion = execSync(
+      'npm show @RoyalAholdDelhaize/pdl-spectrum-component-library-web version',
+      { encoding: 'utf-8' }
+    ).trim();
+    
+    userConfig.component_library_version = `^${latestVersion}`;
+    
+    // Add to dependencies using npm alias format
+    // Key: lowercase scope (npm convention)
+    // Value: npm:{original case package}@{version}
+    const aliasKey = '@royalaholddelhaize/pdl-spectrum-component-library-web';
+    const aliasValue = `npm:@RoyalAholdDelhaize/pdl-spectrum-component-library-web@${userConfig.component_library_version}`;
+    
+    // Add to package.json dependencies
+    packageJson.dependencies[aliasKey] = aliasValue;
+    
+    // Write updated package.json
+    fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+    
+    console.log(`✓ Component library configured: ${aliasKey} → ${aliasValue}`);
+    
+  } catch (error) {
+    // If fetching version fails, inform user and skip installation
+    console.log('\n⚠️  GitHub token is missing. Skipping component library installation.');
+    console.log('📖 To install the component library later, configure a GitHub token:');
+    console.log('   https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-with-a-personal-access-token\n');
+    
+    // Skip installation - do not add to dependencies
+    userConfig.include_component_library = 'no';
+    return;
+  }
+}
+```
+
+## Validation Checklist
+
+- [ ] Verify `include_component_library` flag checked before execution
+- [ ] Verify latest version fetched successfully before adding to package.json
+- [ ] Verify user informed with setup instructions if fetch fails
+- [ ] Verify component library added to package.json only when fetch succeeds

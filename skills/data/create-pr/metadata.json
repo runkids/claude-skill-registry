@@ -1,7 +1,7 @@
 {
   "name": "create-pr",
-  "repo": "greptileai/n8n-mirror",
-  "path": ".claude/skills/create-pr/SKILL.md",
-  "source": "github.com/greptileai/n8n-mirror",
-  "downloaded_at": "2026-01-19T04:00:15.281517Z"
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/davila7/create-pr/SKILL.md",
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-20T04:04:55.823817Z"
 }

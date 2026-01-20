@@ -1,93 +1,44 @@
 ---
 name: spec-writing
 description: |
-
-Triggers: specification, user-stories, requirements, speckit, acceptance-criteria
-  Create clear, testable specifications with user stories and acceptance criteria.
-
-  Triggers: spec writing, feature specification, requirements, user stories
-  Use when: creating new specifications or writing acceptance criteria
-  DO NOT use when: generating implementation tasks - use task-planning.
-category: specification
-tags: [speckit, specification, requirements, user-stories, acceptance-criteria]
-dependencies:
-  - spec-kit:shared
-  - superpowers:brainstorming
-tools: []
-usage_patterns:
-  - feature-specification
-  - requirements-documentation
-  - user-story-creation
-complexity: intermediate
-estimated_tokens: 1200
-progressive_loading: true
-modules:
-  - success-criteria-patterns
-  - specification-structure
+  Execute this skill should be used when the user asks about "writing specs", "specs.md format", "how to write specifications", "sprint requirements", "testing configuration", "scope definition", or needs guidance on creating effective sprint specifications for agentic development. Use when appropriate context detected. Trigger with relevant phrases based on skill purpose.
+allowed-tools: Read
+version: 1.0.0
+author: Damien Laine <damien.laine@gmail.com>
+license: MIT
 ---
 
 # Spec Writing
 
 ## Overview
 
-Create clear, complete, and testable specifications from natural language feature descriptions. Specifications focus on user value and business needs, avoiding implementation details.
+This skill provides automated assistance for the described functionality.
 
-## When to Use
+## Prerequisites
 
-- Creating new feature specifications
-- Refining existing specifications
-- Writing user stories and acceptance criteria
-- Defining success criteria
+- Appropriate file access permissions
+- Required dependencies installed
 
-## Core Principles
+## Instructions
 
-Focus on user value and business needs rather than implementation details. Avoid specifying technology choices in requirement definitions unless strictly necessary. Ensure every requirement is testable and verifiable with measurable criteria. Limit clarification markers; make informed assumptions based on industry standards and document them explicitly.
+1. Invoke this skill when the trigger conditions are met
+2. Provide necessary context and parameters
+3. Review the generated output
+4. Apply modifications as needed
 
-## Specification Structure
+## Output
 
-### Mandatory Sections
-1. **Overview/Context**: What problem does this solve?
-2. **User Scenarios**: Who uses it and how?
-3. **Functional Requirements**: What must it do?
-4. **Success Criteria**: How do we know it works?
+The skill produces structured output relevant to the task.
 
-### Optional Sections
-- Non-Functional Requirements (when performance/security critical)
-- Edge Cases (when special handling needed)
-- Dependencies (when external systems involved)
-- Assumptions (when decisions made with incomplete info)
+## Error Handling
 
-**See**: `specification-structure` module for detailed templates and guidelines
+See `{baseDir}/references/errors.md` for comprehensive error handling.
 
-## Quality Checklist
+## Examples
 
-- [ ] No implementation details present
-- [ ] Requirements are testable and unambiguous
-- [ ] Success criteria are measurable
-- [ ] User scenarios cover primary flows
-- [ ] Edge cases identified
-- [ ] Scope clearly bounded
+See `{baseDir}/references/examples.md` for detailed examples.
 
-## Success Criteria Quick Reference
+## Resources
 
-### Good (User-focused, Measurable, Technology-agnostic)
-- "Users complete checkout in under 3 minutes"
-- "System supports 10,000 concurrent users"
-- "95% of searches return results in under 1 second"
-
-### Bad (Implementation-focused, Internal metrics)
-- "API response time under 200ms" -> Use: "Pages load in under 2 seconds"
-- "Redis cache hit rate above 80%" -> Use: "Frequently accessed data loads with no noticeable delay"
-- "React components render efficiently" -> Use: "UI updates appear with no visible frame drops"
-
-**See**: `success-criteria-patterns` module for detailed examples and conversion process
-
-## Related Skills
-
-- `speckit-orchestrator`: Workflow coordination
-- `task-planning`: Converting specs to tasks
-## Troubleshooting
-
-### Common Issues
-
-If specifications are too vague, use the `success-criteria-patterns` module to enforce measurable outcomes. If implementation details leak into specs, review against the "Core Principles" and refactor to focus on user behavior.
+- Project documentation
+- Related skills and commands

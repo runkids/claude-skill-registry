@@ -1,6 +1,11 @@
 ---
 name: project-session-management
-description: Session state and context handoff management with SESSION.md tracking. Use for multi-session projects, resuming after context clear, phase tracking, or encountering handoff protocol, session recovery, phase progress, checkpoint errors.
+description: >
+  Manages session state and context handoffs for multi-session projects using the Session Handoff
+  Protocol. Creates and maintains SESSION.md to track phase progress, git checkpoints, and next
+  actions across context clears. Integrates with project-planning skill to convert
+  IMPLEMENTATION_PHASES.md into trackable session state. Use when starting new projects after
+  planning, resuming work after context clear, or managing complex multi-phase implementations.
 
   Keywords: session management, SESSION.md, session handoff protocol, context handoff, multi-session projects, phase tracking, git checkpoints, session state tracking, resume work, context clear, phase progress tracking, implementation phases, verification stage, debugging stage, next action tracking, work continuity, session recovery, context management, phased implementation tracking
 license: MIT
@@ -62,61 +67,15 @@ Phase 3: Tasks API (estimated 4 hours)
 
 ### Before Ending Any Session
 
-**Option A: Automated (Recommended)**
-- Run `/wrap-session` command to automate the entire wrap-up process
-
-**Option B: Manual**
 1. ✅ **Update SESSION.md** with current phase progress
 2. ✅ **Create git checkpoint commit** (see format below)
 3. ✅ **Update "Next Action"** to be concrete (file + line + what to do)
 
 ### When Resuming
 
-**Option A: Automated (Recommended)**
-- Run `/continue-session` command to load context and continue from "Next Action"
-
-**Option B: Manual**
 1. ✅ **Read SESSION.md** to understand current state
 2. ✅ **Check "Next Action"** for concrete starting point
 3. ✅ **Continue from that point**
-
----
-
-## 🤖 Automation Commands
-
-Two slash commands are available to automate session management:
-
-### `/wrap-session`
-**Use when**: Ending a work session (context getting full or natural stopping point)
-
-**What it does**:
-1. Uses Task agent to analyze current session state
-2. Updates SESSION.md with progress
-3. Detects and updates relevant docs (CHANGELOG.md, ARCHITECTURE.md, etc.)
-4. Creates structured git checkpoint commit
-5. Outputs handoff summary
-6. Optionally pushes to remote
-
-**Example**: User types `/wrap-session` → Claude automates entire wrap-up process
-
-**Token savings**: ~2-3 minutes saved per wrap-up (10-15 manual steps → 1 command)
-
-### `/continue-session`
-**Use when**: Starting a new session after context clear
-
-**What it does**:
-1. Uses Explore agent to load session context (SESSION.md + planning docs)
-2. Shows recent git history (last 5 commits)
-3. Displays formatted session summary (phase, progress, Next Action)
-4. Shows verification criteria if in "Verification" stage
-5. Optionally opens "Next Action" file
-6. Asks permission to continue or adjust direction
-
-**Example**: User types `/continue-session` → Claude loads all context and resumes work
-
-**Token savings**: ~1-2 minutes saved per resume (5-8 manual reads → 1 command)
-
-**Note**: These commands use Claude Code's built-in Task and Explore agents for efficient automation. Manual workflow steps are still available below if you prefer direct control.
 
 ---
 

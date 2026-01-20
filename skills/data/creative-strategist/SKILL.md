@@ -1,423 +1,345 @@
 ---
 name: creative-strategist
-description: Strategic consultant for hackathons, competitions, and new projects. Provides deep research-driven ideation with multiple differentiated options, feasibility analysis, and strategic recommendations. Use when the user needs creative ideas for challenges, asks "what should I build?", requests project brainstorming, or needs strategic decision-making for competitions with specific criteria.
+description: Research visual direction and develop your creative style. Use when establishing brand aesthetics, finding your visual identity, or planning creative direction for your assets. Integrates with Image Generation and other creative skills for automated asset creation.
 ---
 
-# Creative Strategist
+# Creative Strategist Skill
 
-Strategic consultant specializing in transforming competition requirements and project constraints into actionable, innovative solutions through systematic research, creative ideation, and strategic analysis.
+## Overview
 
-## Core Capabilities
+Creative Strategist helps you define your visual direction before generating assets. This skill ensures all your creative outputs maintain consistent style and aesthetic.
 
-### 1. Deep Requirements Analysis
+**Keywords**: visual direction, creative strategy, brand aesthetics, style guide, visual identity, creative planning, mood boards
 
-Extract and structure the true objectives from user requests:
+## Core Methodology
 
-**Identify core elements:**
-- Primary objectives and success metrics
-- Explicit constraints (time, resources, technology)
-- Implicit constraints (user expertise, infrastructure)
-- Evaluation criteria and weighted priorities
-- Target audience and usage context
+Your creative strategy has three layers:
 
-**Clarify ambiguities:**
-- Ask targeted questions to uncover unstated assumptions
-- Validate understanding of competition categories or project goals
-- Confirm technical and non-technical constraints
+1. **Visual Research** — Find inspiration and reference styles
+2. **Style Definition** — Define your unique visual direction
+3. **Consistency Framework** — Ensure all assets match
 
-### 2. Multi-Dimensional Research
+## Visual Research Process
 
-Conduct thorough investigation before ideation:
+### Step 1: Identify Your Aesthetic
 
-**Market & Trend Analysis:**
-- Current trends in the relevant domain (e.g., AI, web3, mobile)
-- Recent successful projects in similar categories
-- Emerging technologies that match the timeframe and constraints
-- User behavior patterns and market gaps
+Answer these questions:
 
-**Competitive Landscape:**
-- Analyze similar solutions and their approaches
-- Identify differentiation opportunities
-- Find underserved niches or novel angles
+- **Primary Style**: Photorealistic, minimalist, maximalist, illustrative, abstract?
+- **Color Palette**: What colors define your brand?
+- **Mood**: Professional, playful, serious, energetic, calm?
+- **Target Audience**: What aesthetics appeal to them?
+- **Industry Standards**: What do competitors use?
 
-**Technical Feasibility:**
-- Assess implementation complexity vs. available time
-- Identify required skills and tools
-- Evaluate existing libraries, APIs, and frameworks
-- Consider technical risks and mitigation strategies
+### Step 2: Gather References
 
-### 3. Structured Ideation Process
+Create a mood board with:
+- 5-10 reference images from your industry
+- 5-10 reference images from outside your industry (inspiration)
+- Color palettes that resonate
+- Typography and design elements
+- Photography styles and compositions
 
-Generate 3-5 differentiated options, each with comprehensive analysis:
+### Step 3: Identify Common Patterns
 
-**For each option, provide:**
+What do your references have in common?
+- Lighting style (natural, studio, dramatic, soft)
+- Color temperature (warm, cool, neutral)
+- Composition (centered, rule of thirds, dynamic)
+- Texture and detail level
+- Emotional tone
 
-**A. Core Concept**
-- One-sentence pitch
-- Key innovation or differentiation point
-- Primary value proposition
+## Style Definition Framework
 
-**B. Technical Implementation**
-- Technology stack and architecture overview
-- Key technical components
-- Implementation complexity (Low/Medium/High)
-- Development time estimate
-- Critical technical risks
+### Define Your Visual Direction
 
-**C. Evaluation Criteria Analysis**
-- Score against each provided criterion (if applicable)
-- Strengths relative to evaluation rubric
-- Potential weaknesses and mitigation approaches
-
-**D. Differentiation & Impact**
-- What makes this unique vs. existing solutions
-- Wow factor and demonstration potential
-- Long-term viability and scalability
-- User experience highlights
-
-**E. Risk Assessment**
-- Technical risks (API limits, complexity, dependencies)
-- Scope risks (feature creep, time constraints)
-- Execution risks (unfamiliar technology, integration challenges)
-- Mitigation strategies for key risks
-
-### 4. Strategic Recommendation
-
-Synthesize analysis into actionable guidance:
-
-**Comparison Matrix:**
-Create a table comparing all options across:
-- Evaluation criteria fit
-- Implementation feasibility
-- Innovation level
-- Time-to-demo
-- Risk level
-- Competitive advantage
-
-**Recommendation Rationale:**
-- Identify the optimal choice based on user's strengths and constraints
-- Explain the strategic reasoning
-- Provide alternative recommendations for different priority scenarios (e.g., "If prioritizing innovation over feasibility...")
-
-**Implementation Roadmap:**
-- Phased development approach (MVP → enhancements)
-- Critical path items and dependencies
-- Feature prioritization
-- Risk mitigation checkpoints
-- Success metrics to track
-
-## Workflow
-
-Follow this systematic process for every strategic ideation request:
-
-### Phase 1: Understanding (5-10 questions)
+**Brand Aesthetic Profile:**
 
 ```
-1. Clarify the challenge or opportunity
-   - What is the competition/project about?
-   - What are the explicit requirements and constraints?
-   - What are the evaluation criteria?
-
-2. Understand the context
-   - Who is the target user/audience?
-   - What is the timeline?
-   - What technical resources/expertise are available?
-
-3. Identify priorities
-   - What matters most: innovation, feasibility, impact, or completeness?
-   - Are there must-have features or technologies?
+Primary Style: [photorealistic/minimalist/illustrative/abstract/maximalist]
+Color Palette: [list 3-5 primary colors]
+Mood: [professional/playful/serious/energetic/calm/luxurious/casual]
+Lighting: [natural/studio/dramatic/soft/mixed]
+Composition: [centered/rule of thirds/dynamic/symmetrical/asymmetrical]
+Detail Level: [minimal/moderate/detailed/hyper-detailed]
+Texture: [smooth/textured/mixed]
+Target Audience: [description]
+Unique Elements: [what makes yours different]
 ```
 
-### Phase 2: Research (Systematic investigation)
+### Create Your Style Guide
 
-```
-1. Conduct web research
-   - Recent trends in the relevant domain
-   - Successful examples from similar competitions
-   - Available tools, APIs, and frameworks
-   - User needs and pain points in the target area
+Document:
+1. **Visual Examples** — 3-5 reference images
+2. **Color Codes** — Hex codes for your palette
+3. **Typography** — Font choices and usage
+4. **Photography Style** — Lighting, composition, mood
+5. **Illustration Style** — If applicable
+6. **Prohibited Elements** — What NOT to do
+7. **Consistency Rules** — How to maintain style
 
-2. Analyze competitive landscape
-   - What solutions already exist?
-   - What approaches are oversaturated?
-   - Where are the gaps and opportunities?
+## Consistency Framework
 
-3. Assess technical landscape
-   - What's technically achievable in the timeframe?
-   - Which technologies offer the best ROI?
-   - What are the common pitfalls?
-```
+### The 3-Part Consistency Check
 
-### Phase 3: Ideation (Generate diverse options)
+Before generating assets, verify:
 
-```
-1. Generate 3-5 distinct concepts
-   - Ensure variety in approach, complexity, and innovation level
-   - Consider different risk-reward profiles
-   - Range from safe-but-solid to ambitious-but-risky
+1. **Style Match** — Does it match my aesthetic?
+2. **Quality Level** — Is it the right quality?
+3. **Brand Alignment** — Does it represent my brand?
 
-2. Develop each concept thoroughly
-   - Core concept and unique angle
-   - Technical architecture and components
-   - Implementation roadmap
-   - Risk analysis
-```
+### Style Variations
 
-### Phase 4: Analysis (Evaluate and compare)
+You can have multiple styles for different contexts:
 
-```
-1. Score against evaluation criteria
-   - Objectively assess each option
-   - Identify relative strengths and weaknesses
+- **Primary Style** — Main brand aesthetic
+- **Secondary Style** — Alternative for variety
+- **Accent Style** — Special occasions or campaigns
 
-2. Create comparison matrix
-   - Visualize tradeoffs across options
-   - Highlight key differentiators
+## Claude Code Integration
 
-3. Assess feasibility vs. impact
-   - Balance innovation with achievability
-   - Consider user's capabilities and constraints
-```
+### How to Use with Claude Code
 
-### Phase 5: Recommendation (Strategic guidance)
+When you ask Claude to generate assets, it will use this skill to:
 
-```
-1. Provide clear recommendation
-   - Primary choice with strong rationale
-   - Alternative options for different scenarios
+1. **Read your style guide** from the Creative Strategist
+2. **Craft detailed prompts** based on your aesthetic
+3. **Call the automation system** to generate images
+4. **Save organized assets** to your project
 
-2. Outline implementation approach
-   - MVP scope and timeline
-   - Critical path and dependencies
-   - Feature prioritization strategy
-   - Risk mitigation plan
+### Setup Instructions for Claude Code
 
-3. Define success metrics
-   - How to measure progress
-   - What "good" looks like at each milestone
+**Step 1: Ensure automation system is installed**
+
+```bash
+# The automation system should be in your project:
+# vibe-creative-automation/
+#   ├── fal_api.py
+#   ├── creative_cli.py
+#   ├── claude_integration.py
+#   └── requirements.txt
 ```
 
-## Output Format
+**Step 2: Set environment variable**
 
-Structure all strategic ideation outputs consistently:
-
-```markdown
-# Strategic Analysis: [Competition/Project Name]
-
-## 1. Requirements Analysis Summary
-
-**Primary Objective:** [Core goal]
-
-**Key Constraints:**
-- [Constraint 1]
-- [Constraint 2]
-
-**Evaluation Criteria:** [If provided]
-- [Criterion 1]: [Weight/Importance]
-- [Criterion 2]: [Weight/Importance]
-
-**Target Audience:** [Who will use/judge this]
-
-**Success Factors:** [What will make this successful]
-
----
-
-## 2. Strategic Options
-
-### Option 1: [Compelling Name]
-
-**Core Concept:** [One-sentence pitch]
-
-**Differentiation:** [What makes this unique]
-
-**Technical Approach:**
-- Stack: [Technologies]
-- Key Components: [Architecture highlights]
-- Complexity: [Low/Medium/High]
-- Estimated Timeline: [Development time]
-
-**Evaluation Fit:**
-- [Criterion 1]: [Score/Analysis]
-- [Criterion 2]: [Score/Analysis]
-
-**Strengths:**
-- [Key advantage 1]
-- [Key advantage 2]
-
-**Risks & Mitigations:**
-- [Risk 1]: [Mitigation approach]
-- [Risk 2]: [Mitigation approach]
-
-**Innovation Level:** [Conservative/Moderate/Ambitious]
-
----
-
-[Repeat for Options 2-5]
-
----
-
-## 3. Comparison Matrix
-
-| Criterion | Option 1 | Option 2 | Option 3 | Option 4 | Option 5 |
-|-----------|----------|----------|----------|----------|----------|
-| [Criterion 1] | [Score] | [Score] | [Score] | [Score] | [Score] |
-| Feasibility | [Score] | [Score] | [Score] | [Score] | [Score] |
-| Innovation | [Score] | [Score] | [Score] | [Score] | [Score] |
-| Time-to-Demo | [Score] | [Score] | [Score] | [Score] | [Score] |
-| Risk Level | [Score] | [Score] | [Score] | [Score] | [Score] |
-
----
-
-## 4. Strategic Recommendation
-
-**Primary Recommendation: [Option X]**
-
-**Rationale:**
-[Explain why this option is optimal given the user's situation, capabilities, and constraints. Reference specific evaluation criteria and strategic advantages.]
-
-**Alternative Scenarios:**
-- If prioritizing innovation: [Alternative recommendation]
-- If minimizing risk: [Alternative recommendation]
-- If maximizing speed: [Alternative recommendation]
-
----
-
-## 5. Implementation Roadmap
-
-**MVP Scope (Core Features):**
-1. [Critical feature 1]
-2. [Critical feature 2]
-3. [Critical feature 3]
-
-**Development Phases:**
-
-**Phase 1 (Days 1-2): Foundation**
-- [Task 1]
-- [Task 2]
-
-**Phase 2 (Days 3-4): Core Features**
-- [Task 1]
-- [Task 2]
-
-**Phase 3 (Days 5-6): Polish & Demo Prep**
-- [Task 1]
-- [Task 2]
-
-**Critical Path Items:**
-- [Must-complete item 1]
-- [Must-complete item 2]
-
-**Risk Mitigation Checkpoints:**
-- Day 2: [Validate critical assumption]
-- Day 4: [Confirm integration works]
-- Day 6: [Ensure demo readiness]
-
----
-
-## 6. Success Metrics
-
-**Development Metrics:**
-- [Metric 1]: [Target]
-- [Metric 2]: [Target]
-
-**Demo/Presentation Metrics:**
-- [Metric 1]: [Target]
-- [Metric 2]: [Target]
-
-**Evaluation Criteria Targets:**
-- [Criterion 1]: [Target score/outcome]
-- [Criterion 2]: [Target score/outcome]
+```bash
+export FAL_API_KEY="your_fal_api_key_here"
 ```
 
-## Example Scenarios
+**Step 3: Install dependencies**
 
-### Scenario: Hackathon with Multiple Categories
+```bash
+pip install requests
+```
 
-**User Request:** "Help me choose a category and idea for this hackathon. Categories are: Resurrection (revive old tech), Frankenstein (combine existing tools), Skeleton Crew (minimal resources), Costume Contest (best UI). Evaluation: Potential Value (40%), Implementation (30%), Quality & Design (30%)."
+### Claude Code Example: Generate Assets Using Your Style
 
-**Strategic Approach:**
+```python
+# Claude Code will use this pattern to generate assets
 
-1. **Analyze each category** for opportunity and competition density
-2. **Research recent trends** in each category space
-3. **Generate 1-2 ideas per category** that match the user's skills
-4. **Evaluate against weighted criteria** (40% value, 30% implementation, 30% design)
-5. **Recommend category + idea** with highest scoring potential
-6. **Provide implementation roadmap** optimized for the evaluation rubric
+from claude_integration import generate_product, generate_social, generate_brand
 
-### Scenario: New Project Ideation
+# Your Creative Strategist style guide (define this once)
+YOUR_STYLE = {
+    "primary_style": "photorealistic",
+    "color_palette": ["#FF6B35", "#004E89", "#F7F7F7"],
+    "mood": "professional and energetic",
+    "lighting": "studio lighting with rim light",
+    "composition": "centered with dynamic elements",
+    "detail_level": "highly detailed",
+    "target_audience": "tech professionals aged 25-45"
+}
 
-**User Request:** "I want to build a SaaS product that uses AI. What should I make?"
+# Generate product photo using your style
+result = generate_product(
+    product_name="Your Product",
+    description="Your product description here",
+    style=f"{YOUR_STYLE['primary_style']}, {YOUR_STYLE['mood']}, {YOUR_STYLE['lighting']}",
+    num_variations=3
+)
 
-**Strategic Approach:**
+print(f"Generated: {result['images']}")
+```
 
-1. **Clarify constraints:** Budget? Timeline? Target market? Technical skills?
-2. **Research market gaps:** What AI SaaS categories are underserved?
-3. **Identify user pain points:** What problems need solving?
-4. **Generate 4-5 concepts** across different niches (productivity, creative tools, data analysis, automation)
-5. **Evaluate market fit:** Demand, competition, monetization potential
-6. **Recommend based on user's position:** Skills, resources, and strategic goals
-7. **Outline MVP approach:** Fastest path to validate market demand
+### How Claude Code Uses This Skill
 
-### Scenario: Competition with Specific Tech Requirements
+When you ask: **"Generate 3 product photos for my luxury watch"**
 
-**User Request:** "Build something using Reddit API and Devvit platform for the Reddit Developer Games. Must use WebView and run on Reddit."
+Claude will:
 
-**Strategic Approach:**
+1. **Read Creative Strategist** to get your style guide
+2. **Extract your aesthetic** (photorealistic, luxury, professional, etc.)
+3. **Craft detailed prompt** like:
+   ```
+   "A luxury leather watch with gold accents, photorealistic, 
+   professional and elegant, studio lighting with rim light, 
+   centered composition, highly detailed, 4K, sharp focus"
+   ```
+4. **Call automation system** to generate images
+5. **Save to organized folder** like `assets/product-photography/luxury-watch/`
+6. **Show you results** with file paths
 
-1. **Research Devvit constraints:** API limitations, WebView capabilities, successful examples
-2. **Analyze Reddit user needs:** What do communities want? What's missing?
-3. **Generate ideas** that leverage Reddit's unique features (communities, voting, real-time)
-4. **Evaluate technical feasibility:** What's achievable within Devvit's sandbox?
-5. **Prioritize viral potential:** What will get upvotes and engagement?
-6. **Recommend approach** that balances novelty, utility, and demo appeal
-7. **Provide Devvit-specific roadmap:** Account for platform quirks and best practices
+### Integration with Other Skills
 
-## Key Principles
+**Creative Strategist → Image Generation:**
+- Provides style parameters for prompting
 
-### 1. Research Before Ideating
-Never skip research. Even 15 minutes of investigation yields better ideas than pure brainstorming.
+**Creative Strategist → Product Photography:**
+- Defines photography aesthetic and lighting
 
-### 2. Diverse Options with Clear Tradeoffs
-Provide genuinely different approaches, not minor variations. Make tradeoffs explicit.
+**Creative Strategist → Social Graphics:**
+- Sets color palette and mood for social content
 
-### 3. Grounded in Reality
-Every recommendation must be achievable given the stated constraints. Ambitious is good; impossible is not.
+**Creative Strategist → Brand Asset:**
+- Establishes brand visual identity
 
-### 4. Strategic, Not Just Creative
-Ideas should align with evaluation criteria, user strengths, and competitive positioning—not just be "cool."
+**Creative Strategist → All Other Skills:**
+- Foundation for consistent creative output
 
-### 5. Actionable Guidance
-Users should be able to start implementation immediately after receiving recommendations. Provide concrete next steps.
+## Practical Examples
 
-### 6. Honest Risk Assessment
-Surface risks proactively with mitigation strategies. Better to adjust scope early than fail late.
+### Example 1: E-Commerce Brand
 
-## Integration with Other Tools
+**Your Style Guide:**
+```
+Primary Style: Photorealistic
+Color Palette: Gold, White, Navy Blue
+Mood: Luxury and Professional
+Lighting: Studio lighting with soft shadows
+Composition: Centered with negative space
+Detail Level: Highly detailed
+Texture: Smooth and refined
+```
 
-When relevant, leverage:
+**When Claude generates assets:**
+```python
+# Claude Code will automatically craft prompts like:
+"Luxury product on white background, gold and navy accents, 
+studio lighting, centered composition, highly detailed, 4K, 
+professional product photography"
+```
 
-- **WebSearch:** For trend analysis, competitive research, and technical investigation
-- **WebFetch:** For deep-diving into specific references, documentation, or examples
-- **Task delegation:** For complex multi-domain research requiring specialized agents
+### Example 2: Tech Startup
 
-## Calibration Notes
+**Your Style Guide:**
+```
+Primary Style: Minimalist with Modern Illustration
+Color Palette: Blue, Purple, White
+Mood: Innovative and Energetic
+Lighting: Bright and clean
+Composition: Dynamic and asymmetrical
+Detail Level: Moderate
+Texture: Clean with subtle gradients
+```
 
-**Adjust depth based on context:**
-- Quick competition (24-48hr hackathon): Focus on speed and demo appeal
-- Extended timeline (weeks/months): Include scaling and long-term viability
-- Undefined project: Emphasize market validation and iteration strategy
-- Clear requirements: Focus on optimization and differentiation
+**When Claude generates assets:**
+```python
+# Claude Code will automatically craft prompts like:
+"Modern tech illustration, minimalist style, blue and purple 
+colors, dynamic composition, clean aesthetic, energetic mood, 
+professional quality"
+```
 
-**Match innovation level to risk tolerance:**
-- Risk-averse user: Prioritize proven patterns with novel twists
-- Risk-tolerant user: Include ambitious, high-upside options
-- Unknown risk tolerance: Provide range of conservative to ambitious options
+### Example 3: Personal Brand
 
-**Adapt to technical expertise:**
-- Beginner: Suggest established tools and frameworks with good documentation
-- Intermediate: Balance new technology exploration with familiar foundations
-- Expert: Consider cutting-edge approaches and custom implementations
+**Your Style Guide:**
+```
+Primary Style: Photorealistic with Warm Tones
+Color Palette: Warm Gold, Cream, Charcoal
+Mood: Approachable and Professional
+Lighting: Natural and soft
+Composition: Rule of thirds
+Detail Level: Detailed but not busy
+Texture: Warm and inviting
+```
+
+**When Claude generates assets:**
+```python
+# Claude Code will automatically craft prompts like:
+"Professional portrait with warm lighting, rule of thirds 
+composition, approachable mood, natural aesthetic, warm 
+gold and cream tones, 4K quality"
+```
+
+## How to Set Up Your Style Guide
+
+### Step 1: Define Your Aesthetic
+
+Answer these questions and save the answers:
+
+```
+What is your primary visual style?
+What are your 3-5 brand colors?
+What mood do you want to convey?
+What lighting style appeals to you?
+What composition style do you prefer?
+How detailed should assets be?
+What textures appeal to you?
+Who is your target audience?
+What makes your style unique?
+```
+
+### Step 2: Gather References
+
+Find 10-15 reference images that match your aesthetic and save them.
+
+### Step 3: Create Your Style Document
+
+Create a document with:
+- Your answers to the questions above
+- Links to or descriptions of your reference images
+- Your color palette with hex codes
+- Any specific style rules or prohibitions
+
+### Step 4: Share with Claude
+
+When working with Claude, share your style guide. Claude will:
+- Remember your aesthetic
+- Use it for all asset generation
+- Maintain consistency across all outputs
+- Adapt it for different asset types
+
+## Integration Checklist
+
+Before generating assets with Claude Code:
+
+- [ ] Creative Strategist skill is enabled
+- [ ] Your style guide is documented
+- [ ] FAL_API_KEY environment variable is set
+- [ ] Automation system files are in your project
+- [ ] Dependencies are installed (`pip install requests`)
+- [ ] You've tested the API connection (`python creative_cli.py test`)
+
+## Tips for Success
+
+1. **Be Specific** — The more detailed your style guide, the better the results
+2. **Use References** — Share actual images that match your aesthetic
+3. **Document Colors** — Use hex codes for exact color matching
+4. **Test Variations** — Generate multiple variations to find the best style
+5. **Iterate** — Refine your style guide based on results
+6. **Stay Consistent** — Use the same style guide for all assets
+7. **Update Regularly** — Evolve your style as your brand grows
+
+## Common Mistakes to Avoid
+
+❌ **Vague descriptions** — Be specific about your aesthetic  
+❌ **Inconsistent references** — Use consistent reference images  
+❌ **Ignoring color codes** — Use exact hex codes  
+❌ **Mixing too many styles** — Keep primary style focused  
+❌ **Not testing** — Always test your style with sample assets  
+❌ **Forgetting mood** — Mood is crucial for consistency  
+❌ **Ignoring target audience** — Style should appeal to your audience
+
+## Next Steps
+
+1. **Define Your Aesthetic** — Answer the questions above
+2. **Gather References** — Find 10-15 matching images
+3. **Create Your Style Guide** — Document everything
+4. **Share with Claude** — Give Claude your style guide
+5. **Generate Test Assets** — Create a few test assets
+6. **Refine** — Adjust based on results
+7. **Maintain** — Keep style guide updated
 
 ---
 
-**Remember:** The goal is not to generate the most ideas, but to provide the most strategic, well-researched, and actionable recommendations that maximize the user's chance of success given their unique situation.
+**Your Creative Strategist foundation is set. Now use Image Generation and other creative skills to generate consistent, professional assets. 🎨**

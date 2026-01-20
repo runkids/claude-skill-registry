@@ -1,7 +1,7 @@
 {
   "name": "n8n-mcp-tools-expert",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/n8n-mcp-tools-expert/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-19T04:05:42.453701Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/n8n-mcp-tools-expert/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-20T03:11:29.940402Z"
 }

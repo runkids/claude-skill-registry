@@ -1,369 +1,604 @@
 ---
 name: server-actions
-description: This skill should be used when the user asks about "Server Actions", "form handling in Next.js", "mutations", "useFormState", "useFormStatus", "revalidatePath", "revalidateTag", or needs guidance on data mutations and form submissions in Next.js App Router.
-version: 1.0.0
+description: Create or update Next.js server actions for blog and analytics functionality. Use when adding form handlers, data mutations, or server-side logic in the web app.
+allowed-tools: Read, Edit, Write, Grep, Glob
 ---
 
-# Next.js Server Actions
+# Server Actions Skill
 
-## Overview
+This skill helps you work with Next.js server actions in `apps/web/src/actions/`.
 
-Server Actions are asynchronous functions that execute on the server. They can be called from Client and Server Components for data mutations, form submissions, and other server-side operations.
+## When to Use This Skill
 
-## Defining Server Actions
+- Creating form submission handlers
+- Implementing data mutations (create, update, delete)
+- Server-side validation and processing
+- Database operations from the client
+- File uploads and processing
+- Revalidating cached data
 
-### In Server Components
+## Server Actions Overview
 
-Use the `'use server'` directive inside an async function:
+Server Actions are asynchronous functions that run on the server but can be called from client or server components.
 
-```tsx
-// app/page.tsx (Server Component)
-export default function Page() {
-  async function createPost(formData: FormData) {
-    'use server'
-    const title = formData.get('title') as string
-    await db.post.create({ data: { title } })
+```
+apps/web/src/actions/
+├── blog.ts              # Blog post actions
+├── analytics.ts         # Analytics tracking actions
+└── revalidate.ts        # Cache revalidation actions
+```
+
+## Key Patterns
+
+### 1. Basic Server Action
+
+```typescript
+// app/actions/blog.ts
+"use server";
+
+import { db } from "@sgcarstrends/database";
+import { posts } from "@sgcarstrends/database/schema";
+import { revalidatePath } from "next/cache";
+
+export async function createBlogPost(formData: FormData) {
+  const title = formData.get("title") as string;
+  const content = formData.get("content") as string;
+
+  // Server-side validation
+  if (!title || !content) {
+    return { error: "Title and content are required" };
   }
 
+  // Database operation
+  const [post] = await db
+    .insert(posts)
+    .values({
+      title,
+      content,
+      publishedAt: new Date(),
+    })
+    .returning();
+
+  // Revalidate the blog page
+  revalidatePath("/blog");
+
+  return { success: true, post };
+}
+```
+
+### 2. Form Integration
+
+**With useFormState (Client Component):**
+
+```typescript
+"use client";
+
+import { useFormState, useFormStatus } from "react-dom";
+import { createBlogPost } from "@/actions/blog";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
   return (
-    <form action={createPost}>
-      <input name="title" />
-      <button type="submit">Create</button>
-    </form>
-  )
-}
-```
-
-### In Separate Files
-
-Mark the entire file with `'use server'`:
-
-```tsx
-// app/actions.ts
-'use server'
-
-export async function createPost(formData: FormData) {
-  const title = formData.get('title') as string
-  await db.post.create({ data: { title } })
+    <button disabled={pending}>
+      {pending ? "Creating..." : "Create Post"}
+    </button>
+  );
 }
 
-export async function deletePost(id: string) {
-  await db.post.delete({ where: { id } })
-}
-```
-
-## Form Handling
-
-### Basic Form
-
-```tsx
-// app/actions.ts
-'use server'
-
-export async function submitContact(formData: FormData) {
-  const name = formData.get('name') as string
-  const email = formData.get('email') as string
-  const message = formData.get('message') as string
-
-  await db.contact.create({
-    data: { name, email, message }
-  })
-}
-
-// app/contact/page.tsx
-import { submitContact } from '@/app/actions'
-
-export default function ContactPage() {
-  return (
-    <form action={submitContact}>
-      <input name="name" required />
-      <input name="email" type="email" required />
-      <textarea name="message" required />
-      <button type="submit">Send</button>
-    </form>
-  )
-}
-```
-
-### With Validation (Zod)
-
-```tsx
-// app/actions.ts
-'use server'
-
-import { z } from 'zod'
-
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-})
-
-export async function signup(formData: FormData) {
-  const parsed = schema.safeParse({
-    email: formData.get('email'),
-    password: formData.get('password'),
-  })
-
-  if (!parsed.success) {
-    return { error: parsed.error.flatten() }
-  }
-
-  await createUser(parsed.data)
-  return { success: true }
-}
-```
-
-## useFormState Hook
-
-Handle form state and errors:
-
-```tsx
-// app/signup/page.tsx
-'use client'
-
-import { useFormState } from 'react-dom'
-import { signup } from '@/app/actions'
-
-const initialState = {
-  error: null,
-  success: false,
-}
-
-export default function SignupPage() {
-  const [state, formAction] = useFormState(signup, initialState)
+export default function CreatePostForm() {
+  const [state, formAction] = useFormState(createBlogPost, null);
 
   return (
     <form action={formAction}>
-      <input name="email" type="email" />
-      <input name="password" type="password" />
-      {state.error && (
-        <p className="text-red-500">{state.error}</p>
-      )}
-      <button type="submit">Sign Up</button>
-    </form>
-  )
-}
-
-// app/actions.ts
-'use server'
-
-export async function signup(prevState: any, formData: FormData) {
-  const email = formData.get('email') as string
-
-  if (!email.includes('@')) {
-    return { error: 'Invalid email', success: false }
-  }
-
-  await createUser({ email })
-  return { error: null, success: true }
-}
-```
-
-## useFormStatus Hook
-
-Show loading states during submission:
-
-```tsx
-// components/submit-button.tsx
-'use client'
-
-import { useFormStatus } from 'react-dom'
-
-export function SubmitButton() {
-  const { pending } = useFormStatus()
-
-  return (
-    <button type="submit" disabled={pending}>
-      {pending ? 'Submitting...' : 'Submit'}
-    </button>
-  )
-}
-
-// Usage in form
-import { SubmitButton } from '@/components/submit-button'
-
-export default function Form() {
-  return (
-    <form action={submitAction}>
-      <input name="title" />
+      <input name="title" placeholder="Title" required />
+      <textarea name="content" placeholder="Content" required />
+      {state?.error && <p className="error">{state.error}</p>}
       <SubmitButton />
     </form>
-  )
+  );
 }
 ```
 
-## Revalidation
+**Progressive Enhancement (Server Component):**
 
-### revalidatePath
+```typescript
+// app/blog/create/page.tsx
+import { createBlogPost } from "@/actions/blog";
 
-Revalidate a specific path:
-
-```tsx
-'use server'
-
-import { revalidatePath } from 'next/cache'
-
-export async function createPost(formData: FormData) {
-  await db.post.create({ data: { ... } })
-
-  // Revalidate the posts list page
-  revalidatePath('/posts')
-
-  // Revalidate a dynamic route
-  revalidatePath('/posts/[slug]', 'page')
-
-  // Revalidate all paths under /posts
-  revalidatePath('/posts', 'layout')
+export default function CreatePost() {
+  return (
+    <form action={createBlogPost}>
+      <input name="title" placeholder="Title" required />
+      <textarea name="content" placeholder="Content" required />
+      <button type="submit">Create Post</button>
+    </form>
+  );
 }
 ```
 
-### revalidateTag
+### 3. Input Validation with Zod
 
-Revalidate by cache tag:
+```typescript
+"use server";
 
-```tsx
-// Fetching with tags
-const posts = await fetch('https://api.example.com/posts', {
-  next: { tags: ['posts'] }
-})
+import { z } from "zod";
 
-// Server Action
-'use server'
+const blogPostSchema = z.object({
+  title: z.string().min(1).max(200),
+  content: z.string().min(10),
+  tags: z.array(z.string()).optional(),
+  published: z.boolean().default(false),
+});
 
-import { revalidateTag } from 'next/cache'
+export async function createBlogPost(formData: FormData) {
+  // Parse and validate
+  const rawData = {
+    title: formData.get("title"),
+    content: formData.get("content"),
+    tags: formData.getAll("tags"),
+    published: formData.get("published") === "true",
+  };
 
-export async function createPost(formData: FormData) {
-  await db.post.create({ data: { ... } })
-  revalidateTag('posts')
+  const result = blogPostSchema.safeParse(rawData);
+
+  if (!result.success) {
+    return {
+      error: "Validation failed",
+      issues: result.error.issues,
+    };
+  }
+
+  // Use validated data
+  const validData = result.data;
+  await db.insert(posts).values(validData);
+
+  return { success: true };
 }
 ```
 
-## Redirects After Actions
+### 4. Type-Safe Server Actions
 
-```tsx
-'use server'
+Use typed parameters instead of FormData:
 
-import { redirect } from 'next/navigation'
+```typescript
+"use server";
 
-export async function createPost(formData: FormData) {
-  const post = await db.post.create({ data: { ... } })
+import { z } from "zod";
 
-  // Redirect to the new post
-  redirect(`/posts/${post.slug}`)
+const updatePostSchema = z.object({
+  id: z.string(),
+  title: z.string().min(1),
+  content: z.string().min(10),
+});
+
+type UpdatePostInput = z.infer<typeof updatePostSchema>;
+
+export async function updateBlogPost(input: UpdatePostInput) {
+  // Validate input
+  const validData = updatePostSchema.parse(input);
+
+  // Update database
+  await db
+    .update(posts)
+    .set({
+      title: validData.title,
+      content: validData.content,
+      updatedAt: new Date(),
+    })
+    .where(eq(posts.id, validData.id));
+
+  revalidatePath(`/blog/${validData.id}`);
+  return { success: true };
+}
+
+// Client usage with type safety
+// const result = await updateBlogPost({ id: "1", title: "New Title", content: "Content" });
+```
+
+### 5. Authentication in Server Actions
+
+```typescript
+"use server";
+
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+async function getUser() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("auth_token");
+
+  if (!token) {
+    redirect("/login");
+  }
+
+  // Verify token and get user
+  const user = await verifyToken(token.value);
+  return user;
+}
+
+export async function deleteBlogPost(postId: string) {
+  const user = await getUser();
+
+  // Check authorization
+  const post = await db.query.posts.findFirst({
+    where: eq(posts.id, postId),
+  });
+
+  if (post?.authorId !== user.id) {
+    return { error: "Unauthorized" };
+  }
+
+  // Delete post
+  await db.delete(posts).where(eq(posts.id, postId));
+  revalidatePath("/blog");
+
+  return { success: true };
 }
 ```
 
-## Optimistic Updates
+### 6. File Upload Actions
 
-Update UI immediately while action completes:
+```typescript
+"use server";
 
-```tsx
-'use client'
+import { put } from "@vercel/blob";
 
-import { useOptimistic } from 'react'
-import { addTodo } from '@/app/actions'
+export async function uploadImage(formData: FormData) {
+  const file = formData.get("image") as File;
 
-export function TodoList({ todos }: { todos: Todo[] }) {
-  const [optimisticTodos, addOptimisticTodo] = useOptimistic(
-    todos,
-    (state, newTodo: string) => [
-      ...state,
-      { id: 'temp', title: newTodo, completed: false }
-    ]
-  )
+  if (!file) {
+    return { error: "No file provided" };
+  }
 
-  async function handleSubmit(formData: FormData) {
-    const title = formData.get('title') as string
-    addOptimisticTodo(title) // Update UI immediately
-    await addTodo(formData)  // Server action
+  // Validate file type
+  if (!file.type.startsWith("image/")) {
+    return { error: "File must be an image" };
+  }
+
+  // Validate file size (5MB max)
+  if (file.size > 5 * 1024 * 1024) {
+    return { error: "File size must be less than 5MB" };
+  }
+
+  // Upload to Vercel Blob
+  const blob = await put(file.name, file, {
+    access: "public",
+  });
+
+  return { success: true, url: blob.url };
+}
+```
+
+## Common Tasks
+
+### Creating Analytics Action
+
+```typescript
+// app/actions/analytics.ts
+"use server";
+
+import { db } from "@sgcarstrends/database";
+import { analyticsTable } from "@sgcarstrends/database/schema";
+
+export async function trackPageView(path: string) {
+  try {
+    await db.insert(analyticsTable).values({
+      event: "page_view",
+      path,
+      timestamp: new Date(),
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Analytics tracking failed:", error);
+    return { success: false };
+  }
+}
+
+// Client usage
+"use client";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { trackPageView } from "@/actions/analytics";
+
+export function Analytics() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    trackPageView(pathname);
+  }, [pathname]);
+
+  return null;
+}
+```
+
+### Cache Revalidation Actions
+
+```typescript
+// app/actions/revalidate.ts
+"use server";
+
+import { revalidatePath, revalidateTag } from "next/cache";
+
+export async function revalidateBlogPosts() {
+  revalidatePath("/blog");
+  revalidateTag("blog-posts");
+  return { success: true };
+}
+
+export async function revalidateCarData() {
+  revalidatePath("/data");
+  revalidateTag("car-data");
+  return { success: true };
+}
+
+// Client usage
+"use client";
+import { revalidateBlogPosts } from "@/actions/revalidate";
+
+export function RefreshButton() {
+  return (
+    <button onClick={() => revalidateBlogPosts()}>
+      Refresh Blog Posts
+    </button>
+  );
+}
+```
+
+### Optimistic Updates
+
+```typescript
+"use client";
+
+import { useOptimistic } from "react";
+import { updatePostLikes } from "@/actions/blog";
+
+export function LikeButton({ postId, initialLikes }: Props) {
+  const [optimisticLikes, setOptimisticLikes] = useOptimistic(
+    initialLikes,
+    (state, newLikes: number) => newLikes
+  );
+
+  async function handleLike() {
+    // Update UI immediately
+    setOptimisticLikes(optimisticLikes + 1);
+
+    // Update server
+    await updatePostLikes(postId, optimisticLikes + 1);
   }
 
   return (
-    <>
-      <form action={handleSubmit}>
-        <input name="title" />
-        <button>Add</button>
-      </form>
-      <ul>
-        {optimisticTodos.map(todo => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul>
-    </>
-  )
-}
-```
-
-## Non-Form Usage
-
-Call Server Actions programmatically:
-
-```tsx
-'use client'
-
-import { deletePost } from '@/app/actions'
-
-export function DeleteButton({ id }: { id: string }) {
-  return (
-    <button onClick={() => deletePost(id)}>
-      Delete
+    <button onClick={handleLike}>
+      ❤️ {optimisticLikes}
     </button>
-  )
+  );
 }
 ```
 
 ## Error Handling
 
-```tsx
-'use server'
+### Graceful Error Handling
 
-export async function createPost(formData: FormData) {
+```typescript
+"use server";
+
+export async function createBlogPost(input: BlogPostInput) {
   try {
-    await db.post.create({ data: { ... } })
-    return { success: true }
+    // Validate
+    const validData = blogPostSchema.parse(input);
+
+    // Database operation
+    const [post] = await db
+      .insert(posts)
+      .values(validData)
+      .returning();
+
+    revalidatePath("/blog");
+    return { success: true, data: post };
   } catch (error) {
-    if (error instanceof PrismaClientKnownRequestError) {
-      if (error.code === 'P2002') {
-        return { error: 'A post with this title already exists' }
-      }
+    if (error instanceof z.ZodError) {
+      return {
+        success: false,
+        error: "Validation failed",
+        issues: error.issues,
+      };
     }
-    return { error: 'Failed to create post' }
+
+    if (error instanceof DatabaseError) {
+      return {
+        success: false,
+        error: "Database error occurred",
+      };
+    }
+
+    console.error("Unexpected error:", error);
+    return {
+      success: false,
+      error: "An unexpected error occurred",
+    };
   }
 }
 ```
 
-## Security Considerations
+### Client-Side Error Display
 
-1. **Always validate input** - Never trust client data
-2. **Check authentication** - Verify user is authorized
-3. **Use CSRF protection** - Built-in with Server Actions
-4. **Sanitize output** - Prevent XSS attacks
+```typescript
+"use client";
 
-```tsx
-'use server'
+import { useFormState } from "react-dom";
+import { createBlogPost } from "@/actions/blog";
 
-import { auth } from '@/lib/auth'
+export default function CreatePostForm() {
+  const [state, formAction] = useFormState(createBlogPost, null);
 
-export async function deletePost(id: string) {
-  const session = await auth()
+  return (
+    <form action={formAction}>
+      {/* Form fields */}
 
-  if (!session) {
-    throw new Error('Unauthorized')
-  }
+      {state?.error && (
+        <div className="error">
+          <p>{state.error}</p>
+          {state.issues && (
+            <ul>
+              {state.issues.map((issue, i) => (
+                <li key={i}>{issue.message}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
 
-  const post = await db.post.findUnique({ where: { id } })
-
-  if (post.authorId !== session.user.id) {
-    throw new Error('Forbidden')
-  }
-
-  await db.post.delete({ where: { id } })
+      <button type="submit">Submit</button>
+    </form>
+  );
 }
 ```
 
-## Resources
+## Testing Server Actions
 
-For detailed patterns, see:
-- `references/form-handling.md` - Advanced form patterns
-- `references/revalidation.md` - Cache revalidation strategies
-- `examples/mutation-patterns.md` - Complete mutation examples
+```typescript
+// __tests__/actions/blog.test.ts
+import { describe, it, expect, vi } from "vitest";
+import { createBlogPost } from "@/actions/blog";
+
+vi.mock("@sgcarstrends/database", () => ({
+  db: {
+    insert: vi.fn().mockReturnValue({
+      values: vi.fn().mockReturnValue({
+        returning: vi.fn().mockResolvedValue([{ id: "1", title: "Test" }]),
+      }),
+    }),
+  },
+}));
+
+describe("createBlogPost", () => {
+  it("creates a blog post successfully", async () => {
+    const formData = new FormData();
+    formData.set("title", "Test Post");
+    formData.set("content", "Test content");
+
+    const result = await createBlogPost(formData);
+
+    expect(result.success).toBe(true);
+    expect(result.post).toBeDefined();
+  });
+
+  it("returns error for missing title", async () => {
+    const formData = new FormData();
+    formData.set("content", "Test content");
+
+    const result = await createBlogPost(formData);
+
+    expect(result.error).toBeDefined();
+  });
+});
+```
+
+Run tests:
+```bash
+pnpm -F @sgcarstrends/web test -- src/actions
+```
+
+## Security Best Practices
+
+### 1. Always Validate Input
+
+```typescript
+"use server";
+
+export async function updateProfile(formData: FormData) {
+  // ❌ Never trust client input directly
+  // const data = Object.fromEntries(formData);
+
+  // ✅ Always validate
+  const schema = z.object({
+    name: z.string().min(1).max(100),
+    email: z.string().email(),
+  });
+
+  const result = schema.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+  });
+
+  if (!result.success) {
+    return { error: "Invalid input" };
+  }
+
+  // Use validated data
+  await updateUser(result.data);
+}
+```
+
+### 2. Implement Rate Limiting
+
+```typescript
+"use server";
+
+import { Ratelimit } from "@upstash/ratelimit";
+import { redis } from "@sgcarstrends/utils/redis";
+
+const ratelimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(5, "10 s"),
+});
+
+export async function sendContactForm(formData: FormData) {
+  const ip = headers().get("x-forwarded-for") ?? "unknown";
+  const { success } = await ratelimit.limit(ip);
+
+  if (!success) {
+    return { error: "Rate limit exceeded" };
+  }
+
+  // Process form...
+}
+```
+
+### 3. Sanitize Input
+
+```typescript
+"use server";
+
+import sanitizeHtml from "sanitize-html";
+
+export async function createBlogPost(formData: FormData) {
+  const content = formData.get("content") as string;
+
+  // Sanitize HTML content
+  const cleanContent = sanitizeHtml(content, {
+    allowedTags: ["b", "i", "em", "strong", "a", "p"],
+    allowedAttributes: {
+      a: ["href"],
+    },
+  });
+
+  await db.insert(posts).values({ content: cleanContent });
+}
+```
+
+## Performance Tips
+
+1. **Keep actions lightweight**: Move heavy logic to background jobs
+2. **Use revalidatePath sparingly**: Only revalidate what changed
+3. **Batch operations**: Combine multiple database queries
+4. **Cache expensive operations**: Use memoization for repeated calls
+
+## References
+
+- Next.js Server Actions: Use nextjs_docs MCP tool
+- Related files:
+  - `apps/web/src/actions/` - All server actions
+  - `apps/web/src/app/` - Page components using actions
+  - `apps/web/CLAUDE.md` - Web app documentation
+
+## Best Practices
+
+1. **"use server" directive**: Always at top of action file
+2. **Type safety**: Use Zod for validation and type inference
+3. **Error handling**: Return structured error objects
+4. **Security**: Validate, authenticate, authorize
+5. **Revalidation**: Update cache after mutations
+6. **Testing**: Write tests for all server actions
+7. **Naming**: Use descriptive action names (createPost, updateProfile)
+8. **Logging**: Log errors and important operations

@@ -1,41 +1,273 @@
 ---
 name: planner
-description: Planner role for the ikigai project
+description: Interactive planning and execution for complex tasks. Use when breaking down multi-step projects (planning) or executing approved plans through delegation (execution). Planning creates milestones with specifications; execution delegates to specialized agents.
+license: MIT
+metadata:
+version: 1.0.0
+model: claude-opus-4-5
 ---
 
-# Planner
+# Planner Skill
 
-**Purpose:** Create implementation plans and task files for unattended execution.
+## Purpose
 
-## Responsibilities
+Two workflows for complex tasks:
 
-1. **Analyze** - Understand requirements from user stories and research
-2. **Design** - Create architecture and implementation approach
-3. **Break Down** - Split into smallest testable, executable tasks
-4. **Author Tasks** - Write complete task files with all context needed
+1. **Planning workflow** (planner.py): Create and review implementation plans
+2. **Execution workflow** (executor.py): Execute approved plans through delegation
 
-## Outputs
+## Invocation Routing
 
-- `cdd/plan/*.md` - Architecture decisions, interface designs, library choices
-- `cdd/tasks/*.md` - Individual task files for orchestration
-- `cdd/tasks/order.json` - Execution order and task metadata
+**Invoke planner.py** when user asks to:
 
-## Plan Content
+- "plan", "design", "architect" a feature
+- "review" an existing plan
+- Break down a complex task into milestones
 
-Plans define the coordination layer between tasks - the contracts that independent tasks must agree on. Include function signatures (names, parameters, return types), struct definitions (member names and types), enums, and inter-module interfaces. Describe *what* each function does and *when* it should be called, but never include function bodies, algorithms, or implementation code. The plan answers "what is the interface?" while tasks answer "how do I implement it?"
+**Invoke executor.py** when user asks to:
 
-## Mindset
+- "execute", "implement", "run" a plan
+- "resume" or "continue" execution
+- Provides a plan file path for implementation
 
-- Spend generously planning to save massively during execution
-- Tasks execute unattended - include everything the sub-agent needs
-- No numeric prefixes in filenames - order.json defines sequence
+---
 
-## Verification Prompts
+## When to Use
 
-Before considering a plan complete, verify each of these:
+Use the planner skill when the task has:
 
-**Integration specification:** When the plan involves replacing existing code with new code, verify the integration is fully specified. Trace the complete call chain from existing callers to new functions. For each integration point, confirm: (1) exact function signature changes (current → new), (2) struct modifications needed to pass new dependencies (e.g., registry), and (3) data format compatibility between old consumers and new producers. Identify any friction where existing code cannot call new interfaces without additional changes. Document missing specifications as gaps.
+- Multiple milestones with dependencies
+- Architectural decisions requiring documentation
+- Migration steps that need coordination
+- Complexity that benefits from forced reflection pauses
 
-**No function bodies:** Verify plan documents do not contain function implementation code. Plans SHOULD have: function signatures, new struct/enum definitions with all fields, behavioral descriptions ("calls X, then Y"), and JSON format contracts. Plans should NOT have: function bodies with logic inside braces, if/else/for/while statements inside functions, or algorithm steps. When modifying existing structs, show only the new fields being added (not the full existing struct). Exception: removal-specification.md may show exact code to find/replace since it's a patch specification.
+## When to Skip
 
-**Test strategy defined:** Verify the plan specifies what should be tested and how. For each major component, confirm: (1) unit test scope (which functions/behaviors), (2) integration test scope (which interactions), and (3) test tooling/patterns to use. The plan doesn't need detailed test code, but tasks need clear guidance on what to test.
+Skip the planner skill when the task is:
+
+- Single-step with obvious implementation
+- A quick fix or minor change
+- Already well-specified by the user
+
+---
+
+# PLANNING WORKFLOW (planner.py)
+
+## Workflow Overview
+
+```
+PLANNING PHASE (steps 1-N)
+    |
+    v
+Write plan to file
+    |
+    v
+REVIEW PHASE (steps 1-2)
+    |-- Step 1: @agent-technical-writer (plan-annotation)
+    |-- Step 2: @agent-quality-reviewer (plan-review)
+    v
+APPROVED --> Execution workflow
+```
+
+## Preconditions
+
+Before invoking step 1, you MUST have:
+
+1. **Plan file path** - If user did not specify, ASK before proceeding
+2. **Clear problem statement** - What needs to be accomplished
+
+## Invocation
+
+```bash
+python3 scripts/planner.py \
+  --step-number 1 \
+  --total-steps <estimated_steps> \
+  --thoughts "<your thinking about the problem>"
+```
+
+### Arguments
+
+| Argument        | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `--phase`       | Workflow phase: `planning` (default) or `review` |
+| `--step-number` | Current step (starts at 1)                       |
+| `--total-steps` | Estimated total steps for this phase             |
+| `--thoughts`    | Your thinking, findings, and progress            |
+
+## Planning Workflow
+
+1. Confirm preconditions (plan file path, problem statement)
+2. Invoke step 1 immediately
+3. Complete REQUIRED ACTIONS from output
+4. Invoke next step with your thoughts
+5. Repeat until `STATUS: phase_complete`
+6. Write plan to file using format below
+
+## Phase Transition: Planning to Review
+
+When planning phase completes, the script outputs an explicit `ACTION REQUIRED`
+marker:
+
+```
+============================================
+>>> ACTION REQUIRED: INVOKE REVIEW PHASE <<<
+============================================
+```
+
+**You MUST invoke the review phase before proceeding to execution.**
+
+The review phase ensures:
+
+- Temporally contaminated comments are fixed (via @agent-technical-writer)
+- Code snippets have WHY comments (via @agent-technical-writer)
+- Plan is validated for production risks (via @agent-quality-reviewer)
+- Documentation needs are identified
+
+## Review Phase
+
+After writing the plan file, transition to review phase:
+
+```bash
+python3 scripts/planner.py \
+  --phase review \
+  --step-number 1 \
+  --total-steps 2 \
+  --thoughts "Plan written to [path/to/plan.md]"
+```
+
+### Review Step 1: Technical Writer
+
+Delegate to @agent-technical-writer with mode: `plan-annotation`
+
+### Review Step 2: Quality Reviewer
+
+Delegate to @agent-quality-reviewer with mode: `plan-review`
+
+### After Review
+
+- **PASS / PASS_WITH_CONCERNS**: Ready for execution workflow
+- **NEEDS_CHANGES**: Return to planning phase to address issues
+
+---
+
+# EXECUTION WORKFLOW (executor.py)
+
+## Workflow Overview
+
+```
+Step 1: Execution Planning
+    |
+    v
+Step 2: Reconciliation (conditional, if prior work signaled)
+    |
+    v
+Step 3: Milestone Execution (repeat until all complete)
+    |
+    v
+Step 4: Post-Implementation QR
+    |
+    v
+QR issues? --YES--> Step 5: Issue Resolution --> delegate fixes --> Step 4
+    |
+    NO
+    v
+Step 6: Documentation
+    |
+    v
+Step 7: Retrospective
+```
+
+## Preconditions
+
+Before invoking step 1, you MUST have:
+
+1. **Approved plan file** - Plan that passed review phase
+2. **Clear context window** - User should /clear before execution
+
+## Invocation
+
+```bash
+python3 scripts/executor.py \
+  --plan-file PATH \
+  --step-number 1 \
+  --total-steps 7 \
+  --thoughts "<user's request and context>"
+```
+
+### Arguments
+
+| Argument        | Description                      |
+| --------------- | -------------------------------- |
+| `--plan-file`   | Path to the approved plan file   |
+| `--step-number` | Current step (1-7)               |
+| `--total-steps` | Always 7 for executor            |
+| `--thoughts`    | Your current thinking and status |
+
+## Execution Steps
+
+| Step | Name                   | Purpose                                       |
+| ---- | ---------------------- | --------------------------------------------- |
+| 1    | Execution Planning     | Analyze plan, detect reconciliation, strategy |
+| 2    | Reconciliation         | (conditional) Validate existing code vs plan  |
+| 3    | Milestone Execution    | Delegate to agents, run tests (repeat)        |
+| 4    | Post-Implementation QR | Quality review of implemented code            |
+| 5    | Issue Resolution       | (conditional) Present issues, collect fixes   |
+| 6    | Documentation          | TW pass for CLAUDE.md, README.md              |
+| 7    | Retrospective          | Present execution summary                     |
+
+Note: Step 3 may be re-invoked multiple times until all milestones complete.
+Step 4 may loop back through step 5 until QR passes.
+
+---
+
+## Resources
+
+| Resource                              | Purpose                                            |
+| ------------------------------------- | -------------------------------------------------- |
+| `resources/plan-format.md`            | Plan template (injected at planning completion)    |
+| `resources/diff-format.md`            | Authoritative specification for code change format |
+| `resources/temporal-contamination.md` | Detecting/fixing temporally contaminated comments  |
+| `resources/default-conventions.md`    | Default conventions when project docs are silent   |
+
+Note: Execution guidance is embedded directly in `scripts/executor.py` (not in
+separate resource files) since it's only used by that script.
+
+---
+
+## Quick Reference
+
+```bash
+# === PLANNING WORKFLOW ===
+
+# Start planning
+python3 scripts/planner.py --step-number 1 --total-steps 4 --thoughts "..."
+
+# Continue planning
+python3 scripts/planner.py --step-number 2 --total-steps 4 --thoughts "..."
+
+# Start review (after plan written)
+python3 scripts/planner.py --phase review --step-number 1 --total-steps 2 \
+  --thoughts "Plan at plans/feature.md"
+
+# Continue review
+python3 scripts/planner.py --phase review --step-number 2 --total-steps 2 \
+  --thoughts "TW done, ready for QR"
+
+# === EXECUTION WORKFLOW ===
+
+# Start execution
+python3 scripts/executor.py --plan-file plans/feature.md --step-number 1 \
+  --total-steps 7 --thoughts "Execute the feature plan"
+
+# Continue milestone execution
+python3 scripts/executor.py --plan-file plans/feature.md --step-number 3 \
+  --total-steps 7 --thoughts "Completed M1, M2. Executing M3..."
+
+# After QR passes
+python3 scripts/executor.py --plan-file plans/feature.md --step-number 6 \
+  --total-steps 7 --thoughts "QR passed. Running documentation."
+
+# Generate retrospective
+python3 scripts/executor.py --plan-file plans/feature.md --step-number 7 \
+  --total-steps 7 --thoughts "Execution complete. Generating retrospective."
+```

@@ -1,180 +1,130 @@
 ---
 name: unity-ui
-description: Make UI changes by editing prefabs and scenes carefully without a GUI
+description: Build and optimize Unity UI with UI Toolkit and UGUI. Masters responsive layouts, event systems, and performance optimization. Use for UI implementation, Canvas optimization, or cross-platform UI challenges.
+requires:
+  - csharp-plugin:csharp-code-style
 ---
 
-# Unity UI Skill
+# Unity UI - User Interface Systems
 
-Edit Unity UI assets (prefabs, scenes) without visual tools.
+## Overview
 
-> **See also**: [Shared Conventions](../shared/CONVENTIONS.md) | [Safety Guidelines](../shared/SAFETY.md)
+Unity UI systems covering both UI Toolkit (modern) and UGUI (Canvas-based legacy).
 
-## Purpose
+**Foundation Required**: `unity-csharp-fundamentals` (TryGetComponent, FindAnyObjectByType, null-safe coding)
 
-Make targeted UI changes by editing YAML asset files, minimizing serialization churn.
+**Core Topics**:
+- UI Toolkit (UIElements) for editor and runtime
+- UGUI (Canvas) for game UI
+- Responsive layouts and anchors
+- Event systems
+- UI performance optimization
+- Data binding patterns
 
-## Understanding Unity UI Assets
+## Quick Start
 
-Unity scenes and prefabs are serialized as YAML:
-- `.unity` - Scene files
-- `.prefab` - Prefab files
-- `.asset` - ScriptableObjects, other assets
+### UGUI Button
 
-## Key Principle: Minimal Diffs
+```csharp
+using UnityEngine.UI;
 
-UI work creates large diffs if not careful. Follow these rules:
+public class UIController : MonoBehaviour
+{
+    [SerializeField] private Button mActionButton;
+    [SerializeField] private Text mStatusText;
 
-### 1. Small Changes Per Commit
+    void Start()
+    {
+        mActionButton.onClick.AddListener(OnButtonClick);
+    }
 
-One logical change at a time:
-- ✅ "Add health bar to HUD"
-- ❌ "Update entire HUD layout"
-
-### 2. Avoid Reserializing Entire Scenes
-
-Opening a scene in Unity Editor can reserialize everything. When editing YAML directly:
-- Only modify the specific components you need
-- Don't reformat or reorder unrelated objects
-- Keep surrounding YAML intact
-
-### 3. Use Dedicated UI Prefabs
-
-Instead of embedding UI in main scenes:
-
-```
-Assets/
-  Prefabs/
-    UI/
-      HUD.prefab           # Main HUD
-      HealthBar.prefab     # Reusable health bar
-      Dialogs/
-        ConfirmDialog.prefab
+    void OnButtonClick()
+    {
+        mStatusText.text = "Button clicked!";
+    }
+}
 ```
 
-Benefits:
-- Changes isolated to one prefab
-- Smaller diffs
-- Easier merge conflicts
+### UI Toolkit (Runtime)
 
-## YAML Structure Basics
+```csharp
+using UnityEngine.UIElements;
 
-### GameObject in Scene/Prefab
+public class UIController : MonoBehaviour
+{
+    void OnEnable()
+    {
+        UIDocument uiDocument;
+        if (TryGetComponent(out uiDocument))
+        {
+            VisualElement root = uiDocument.rootVisualElement;
+            Button button = root.Q<Button>("action-button");
+            button.clicked += OnButtonClick;
+        }
+    }
 
-```yaml
---- !u!1 &123456789
-GameObject:
-  m_Name: HealthBar
-  m_Component:
-  - component: {fileID: 123456790}  # Transform
-  - component: {fileID: 123456791}  # Image
-  - component: {fileID: 123456792}  # Custom script
+    void OnButtonClick()
+    {
+        Debug.Log("Button clicked!");
+    }
+}
 ```
 
-### RectTransform (UI positioning)
+## UI Systems Comparison
 
-```yaml
---- !u!224 &123456790
-RectTransform:
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -50}
-  m_SizeDelta: {x: 200, y: 30}
-  m_Pivot: {x: 0, y: 1}
+| Feature | UI Toolkit | UGUI |
+|---------|-----------|------|
+| Performance | Better | Good |
+| Styling | USS (CSS-like) | Inspector |
+| Layout | Flexbox | RectTransform |
+| Best For | Complex UI, tools | Game UI |
+| Learning Curve | Steeper | Easier |
+
+## Canvas Optimization (UGUI)
+
+```csharp
+// Separate static and dynamic UI into different canvases
+// Static canvas: rarely changes
+// Dynamic canvas: updates frequently
+
+// Disable raycasting on non-interactive elements
+[SerializeField] private Image mBackground;
+
+void Start()
+{
+    mBackground.raycastTarget = false; // Not clickable
+}
+
+// Use CanvasGroup for fade effects (TryGetComponent for null-safe access)
+CanvasGroup canvasGroup;
+if (panel.TryGetComponent(out canvasGroup))
+{
+    canvasGroup.alpha = 0.5f; // Fade without rebuilding Canvas
+}
 ```
 
-### Image Component
+## Responsive Layout
 
-```yaml
---- !u!114 &123456791
-MonoBehaviour:
-  m_Script: {fileID: 11500000, guid: <image-guid>, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: <sprite-guid>, type: 3}
-  m_Type: 1  # 0=Simple, 1=Sliced, 2=Tiled, 3=Filled
+```csharp
+// Use anchors for responsive design
+// Anchor presets: Stretch, Top-Left, Center, etc.
+
+// Canvas Scaler settings (TryGetComponent pattern)
+CanvasScaler scaler;
+if (TryGetComponent(out scaler))
+{
+    scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+    scaler.referenceResolution = new Vector2(1920, 1080);
+    scaler.matchWidthOrHeight = 0.5f; // Balance between width/height
+}
 ```
 
-## Safe Editing Workflow
+## Best Practices
 
-### Step 1: Identify Target
-
-Find the object to modify:
-```bash
-grep -n "m_Name: HealthBar" Assets/Prefabs/UI/HUD.prefab
-```
-
-### Step 2: Make Targeted Edit
-
-Edit only necessary fields. Example - change position:
-
-```yaml
-# Before
-m_AnchoredPosition: {x: 100, y: -50}
-
-# After
-m_AnchoredPosition: {x: 150, y: -50}
-```
-
-### Step 3: Verify YAML Valid
-
-```bash
-# Check for syntax errors (basic)
-python3 -c "import yaml; yaml.safe_load(open('Assets/Prefabs/UI/HUD.prefab'))"
-```
-
-### Step 4: Commit Small
-
-```bash
-git add Assets/Prefabs/UI/HUD.prefab
-git commit -m "Move health bar position"
-```
-
-## Common UI Tasks
-
-### Add Text to Existing UI
-
-Find parent, note its fileID, add new GameObject referencing parent.
-
-### Change Color
-
-```yaml
-m_Color: {r: 1, g: 0.5, b: 0, a: 1}  # Orange
-```
-
-### Change Anchoring
-
-```yaml
-# Top-left anchored
-m_AnchorMin: {x: 0, y: 1}
-m_AnchorMax: {x: 0, y: 1}
-
-# Stretch horizontal, top
-m_AnchorMin: {x: 0, y: 1}
-m_AnchorMax: {x: 1, y: 1}
-
-# Center
-m_AnchorMin: {x: 0.5, y: 0.5}
-m_AnchorMax: {x: 0.5, y: 0.5}
-```
-
-## Visual Verification (Headless Limitation)
-
-Since VPS is headless, cannot visually verify UI. Generate a checklist for user:
-
-```markdown
-## UI Verification Checklist
-
-Please verify locally:
-- [ ] Health bar visible in top-left corner
-- [ ] Health bar is 200x30 pixels
-- [ ] Health bar color is green (#00FF00)
-- [ ] Text shows "100/100" format
-- [ ] Bar fills correctly when health changes
-```
-
-## Policies
-
-- **Minimal diffs** - change only what's necessary
-- **Prefab isolation** - edit prefabs, not scene-embedded UI
-- **No blind reserialize** - don't open scenes just to "check"
-- **Verification checklist** - always provide visual verification steps
-- **Git status before/after** - verify diff is reasonable size
+1. **Separate canvases**: Static vs dynamic content
+2. **Disable raycasts**: On non-interactive elements
+3. **Use CanvasGroup**: For fade effects without rebuild
+4. **Atlas textures**: Pack UI sprites for batching
+5. **Hide instead of destroy**: Pool UI elements
+6. **Test multiple resolutions**: Ensure responsive design
+7. **Profile UI**: Check Canvas rebuild overhead

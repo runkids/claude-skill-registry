@@ -1,7 +1,7 @@
 {
   "name": "gpui-element",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/gpui-element/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-19T02:08:15.677277Z"
+  "repo": "longbridge/gpui-component",
+  "path": ".claude/skills/gpui-element/SKILL.md",
+  "source": "github.com/longbridge/gpui-component",
+  "downloaded_at": "2026-01-20T01:29:21.558559Z"
 }

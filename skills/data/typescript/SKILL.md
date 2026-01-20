@@ -2,11 +2,14 @@
 name: typescript
 description: >
   TypeScript strict patterns and best practices.
-  Trigger: When writing TypeScript code - types, interfaces, generics.
+  Trigger: When implementing or refactoring TypeScript in .ts/.tsx (types, interfaces, generics, const maps, type guards, removing any, tightening unknown).
 license: Apache-2.0
 metadata:
-  author: gentleman-programming
+  author: prowler-cloud
   version: "1.0"
+  scope: [root, ui]
+  auto_invoke: "Writing TypeScript types/interfaces"
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
 ---
 
 ## Const Types Pattern (REQUIRED)
@@ -105,6 +108,3 @@ function isUser(value: unknown): value is User {
 import type { User } from "./types";
 import { createUser, type Config } from "./utils";
 ```
-
-## Keywords
-typescript, ts, types, interfaces, generics, strict mode, utility types

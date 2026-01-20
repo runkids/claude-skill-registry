@@ -1,7 +1,7 @@
 {
   "name": "audit-and-fix",
-  "repo": "WhatIfWeDigDeeper/claude-template",
+  "repo": "WhatIfWeDigDeeper/application-tracker",
   "path": ".claude/skills/audit-and-fix/SKILL.md",
-  "source": "github.com/WhatIfWeDigDeeper/claude-template",
-  "downloaded_at": "2026-01-19T02:06:48.713769Z"
+  "source": "github.com/WhatIfWeDigDeeper/application-tracker",
+  "downloaded_at": "2026-01-20T03:49:00.115494Z"
 }

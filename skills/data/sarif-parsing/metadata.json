@@ -1,7 +1,7 @@
 {
   "name": "sarif-parsing",
-  "repo": "plurigrid/asi",
-  "path": "skills/sarif-parsing/SKILL.md",
-  "source": "github.com/plurigrid/asi",
-  "downloaded_at": "2026-01-19T04:21:43.053480Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/static-analysis/skills/sarif-parsing/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-20T02:04:21.575677Z"
 }

@@ -1,244 +1,353 @@
 ---
-name: risk-assessor
-description: Perform comprehensive risk assessments on OSCAL systems including threat modeling, vulnerability analysis, risk scoring, and POA&M generation. Use this skill to evaluate security posture and prioritize remediation efforts.
+name: Risk Assessor
+slug: risk-assessor
+description: Identify, analyze, and mitigate project risks using systematic risk management frameworks
+category: project
+complexity: complex
+version: "1.0.0"
+author: "ID8Labs"
+triggers:
+  - "assess risks"
+  - "identify risks"
+  - "risk analysis"
+  - "risk management"
+  - "what could go wrong"
+tags:
+  - risk
+  - assessment
+  - mitigation
+  - planning
+  - management
 ---
 
-# Risk Assessor Skill
+# Risk Assessor
 
-Perform comprehensive risk assessments based on OSCAL data, including threat identification, vulnerability analysis, risk scoring, and remediation recommendations.
+The Risk Assessor skill helps teams proactively identify, analyze, prioritize, and mitigate project risks before they become problems. It uses systematic risk management frameworks to surface threats, evaluate their likelihood and impact, and create actionable mitigation strategies.
 
-## When to Use This Skill
+This skill excels at conducting pre-mortem exercises, creating risk registers, assessing probability and impact, developing contingency plans, and establishing early warning indicators to catch risks before they derail projects.
 
-Use this skill when you need to:
-- Assess overall security risk posture
-- Identify and score individual risks
-- Generate risk-based POA&M items
-- Prioritize remediation efforts
-- Perform threat modeling
-- Analyze vulnerability impact
+Risk Assessor follows the principle that the best time to handle a risk is before it becomes a crisis. Proactive risk management enables better decisions, realistic planning, and fewer surprises.
 
----
+## Core Workflows
 
-## ⛔ Authoritative Data Requirement
+### Workflow 1: Conduct Risk Assessment
 
-Risk assessment requires **user-provided documents** — not training knowledge.
+**Steps:**
+1. **Risk Identification**
+   - **Pre-mortem exercise**: Imagine project failed; what caused it?
+   - **Brainstorming**: Team generates potential risks
+   - **Category review**: Check common risk categories
+     - Technical: Architecture, performance, security, scalability
+     - Schedule: Deadlines, dependencies, resource availability
+     - Resource: Team capacity, skill gaps, budget constraints
+     - External: Market changes, regulatory, vendor dependencies
+     - Quality: Bugs, tech debt, user experience
+     - Organizational: Stakeholder alignment, priority shifts
+   - **Historical analysis**: Review past project issues
+   - **Expert input**: Consult specialists (security, legal, etc.)
 
-### What You MUST Have
-| Data Type | Source | Why Required |
-|-----------|--------|-------------|
-| Control baseline | User's profile/catalog | Defines what controls are required |
-| SSP or control inventory | User-provided | Shows what's implemented |
-| Vulnerability data | User's scan results | Actual findings, not assumed |
-| Asset information | User-provided | System boundaries and data types |
+2. **Risk Documentation**
+   - For each risk, document:
+     - **Description**: What is the risk?
+     - **Category**: What type of risk?
+     - **Trigger**: What would cause this risk to occur?
+     - **Impact**: What happens if risk occurs?
+     - **Owner**: Who monitors and manages this risk?
 
-### What You Can Provide (Methodology)
-- Risk calculation formulas (Likelihood × Impact)
-- Scoring frameworks (the process)
-- Report templates and formats
-- General threat categories (STRIDE, etc.)
-- Prioritization methodologies
+3. **Probability Assessment**
+   - Rate likelihood of occurrence:
+     - **Low (1)**: < 10% chance
+     - **Medium (2)**: 10-50% chance
+     - **High (3)**: > 50% chance
+   - Base on data, experience, and expert judgment
+   - Document assumptions behind probability
 
-### What You CANNOT Provide
-- Specific control requirements (must come from catalog)
-- Baseline comparisons without the baseline document
-- Gap analysis without both baseline AND SSP
-- Vulnerability details without scan data
+4. **Impact Assessment**
+   - Rate severity if risk occurs:
+     - **Low (1)**: Minor delay or cost increase
+     - **Medium (2)**: Significant schedule or scope impact
+     - **High (3)**: Project failure or major business impact
+   - Consider multiple dimensions: time, cost, quality, reputation
+   - Use worst-case scenario thinking
 
-### If Missing Required Data
+5. **Risk Prioritization**
+   - Calculate Risk Score = Probability × Impact
+   - Prioritize by score (1-9 scale):
+     - **Critical (7-9)**: Address immediately
+     - **High (4-6)**: Develop mitigation plan
+     - **Medium (2-3)**: Monitor regularly
+     - **Low (1)**: Track but no active mitigation
+   - Focus on top 5-10 highest-priority risks
+
+**Output:** Risk register with identified, assessed, and prioritized risks.
+
+### Workflow 2: Develop Mitigation Strategies
+
+**For each high-priority risk:**
+
+1. **Choose Strategy Type**
+   - **Avoid**: Eliminate the risk (change approach, remove feature)
+   - **Mitigate**: Reduce probability or impact (add testing, hire expert)
+   - **Transfer**: Shift risk to third party (insurance, vendor SLA)
+   - **Accept**: Acknowledge risk, plan response if occurs
+
+2. **Create Mitigation Plan**
+   - Specific actions to reduce risk
+   - Assign owners and due dates
+   - Define success criteria
+   - Estimate cost and effort
+   - Identify dependencies
+
+3. **Develop Contingency Plan**
+   - "If risk occurs, we will..."
+   - Fallback options and alternatives
+   - Recovery time objectives
+   - Communication plan for stakeholders
+   - Resource requirements
+
+4. **Define Early Warning Indicators**
+   - Leading indicators that risk is materializing
+   - Monitoring frequency and method
+   - Threshold for triggering contingency
+   - Who watches and who gets alerted
+
+**Output:** Risk mitigation and contingency plans with clear ownership.
+
+### Workflow 3: Monitor and Update Risks
+
+**Weekly:**
+1. Review early warning indicators
+2. Update probability/impact if conditions change
+3. Check status of mitigation actions
+4. Add newly identified risks
+5. Close resolved or obsolete risks
+
+**Monthly:**
+1. Full risk register review
+2. Assess effectiveness of mitigations
+3. Report top risks to stakeholders
+4. Adjust priorities based on new information
+5. Update contingency plans
+
+**When triggered:**
+- If risk occurs, activate contingency plan
+- Document what happened and lessons learned
+- Update risk models for future projects
+
+### Workflow 4: Pre-Mortem Exercise
+
+**Facilitated team session (60 min):**
+
+1. **Set the Stage (5 min)**
+   - "Imagine it's 6 months from now and this project failed spectacularly"
+   - "We're conducting a post-mortem to understand what went wrong"
+   - "What caused the failure?"
+
+2. **Individual Brainstorm (10 min)**
+   - Each person silently writes failure scenarios
+   - Encourage creative and uncomfortable thinking
+   - No censoring or filtering
+
+3. **Share Round-Robin (20 min)**
+   - Each person shares their scenarios
+   - Capture all on shared board
+   - No debate or defense, just listen
+
+4. **Group and Prioritize (15 min)**
+   - Cluster similar failure modes
+   - Vote on most likely or most impactful
+   - Identify top 5-10 failure scenarios
+
+5. **Convert to Risks (10 min)**
+   - Reframe failures as current risks
+   - Add to risk register
+   - Assign initial owners
+
+**Output:** List of identified risks from team's collective wisdom.
+
+## Quick Reference
+
+| Action | Command/Trigger |
+|--------|-----------------|
+| Assess risks | "assess risks for [project]" |
+| Pre-mortem | "run pre-mortem for [project]" |
+| Risk register | "create risk register" |
+| Update risks | "update risk status" |
+| Top risks | "what are the top risks" |
+| Mitigation plan | "create mitigation plan for [risk]" |
+| Contingency plan | "plan contingency for [risk]" |
+| Risk report | "generate risk report" |
+
+## Best Practices
+
+- **Make it safe**: Encourage honest risk identification; reward raising concerns early
+- **Think like a pessimist**: When identifying risks, assume Murphy's Law (what can go wrong, will)
+- **Quantify when possible**: Use data and metrics, not just gut feel, for probability and impact
+- **Focus on top risks**: Can't mitigate everything; focus on highest-priority risks
+- **Own every risk**: Each risk needs a named owner who monitors and drives mitigation
+- **Plan before crisis**: Contingency plans made in calm are better than in panic
+- **Review regularly**: Risks evolve; weekly review keeps register current and actionable
+- **Learn from history**: Past project failures are excellent teachers for future risk identification
+- **Update probability as you learn**: As project progresses, adjust probabilities based on new information
+- **Don't ignore uncomfortable truths**: The risks you avoid discussing are often the most dangerous
+- **Communicate transparently**: Share top risks with stakeholders; surprises destroy trust
+- **Balance paranoia and progress**: Risk management shouldn't paralyze; it should inform action
+
+## Risk Categories Checklist
+
+### Technical Risks
+- [ ] Unproven or new technology
+- [ ] Performance or scalability concerns
+- [ ] Security vulnerabilities
+- [ ] Integration complexity
+- [ ] Technical debt burden
+- [ ] Infrastructure reliability
+- [ ] Data migration challenges
+
+### Schedule Risks
+- [ ] Aggressive or unrealistic timeline
+- [ ] Dependencies on other teams/projects
+- [ ] Key milestones misaligned
+- [ ] Underestimated complexity
+- [ ] Holiday or vacation conflicts
+- [ ] External deadline pressure
+
+### Resource Risks
+- [ ] Insufficient team capacity
+- [ ] Key person dependencies (bus factor)
+- [ ] Skill gaps or training needs
+- [ ] Budget constraints
+- [ ] Competing priorities
+- [ ] Attrition or turnover
+
+### External Risks
+- [ ] Vendor reliability or changes
+- [ ] Regulatory or compliance changes
+- [ ] Market condition shifts
+- [ ] Competitor actions
+- [ ] Customer demand uncertainty
+- [ ] Third-party API stability
+
+### Quality Risks
+- [ ] Inadequate testing coverage
+- [ ] Complex or unclear requirements
+- [ ] Poor code quality or architecture
+- [ ] User experience concerns
+- [ ] Accessibility or compliance gaps
+- [ ] Browser/device compatibility
+
+### Organizational Risks
+- [ ] Stakeholder misalignment
+- [ ] Unclear decision-making authority
+- [ ] Changing priorities mid-project
+- [ ] Political or organizational dynamics
+- [ ] Communication breakdowns
+- [ ] Cross-team coordination challenges
+
+## Risk Matrix
+
 ```
-I cannot assess risks without:
-• Your SSP or control implementation inventory
-• The baseline profile your system must meet (e.g., FedRAMP Moderate)
-• [For gap analysis] Both documents to compare
+                    IMPACT
+              Low (1)  Med (2)  High (3)
+PROBABILITY
+High (3)      3 (H)    6 (H)    9 (C)
+Med (2)       2 (M)    4 (H)    6 (H)
+Low (1)       1 (L)    2 (M)    3 (H)
 
-Please provide these documents. I will not guess at control
-requirements or make assumptions about your implementation status.
+C = Critical  (7-9): Immediate action required
+H = High      (4-6): Develop mitigation plan
+M = Medium    (2-3): Monitor regularly
+L = Low       (1):   Track in register
 ```
 
----
-
-## Risk Levels
-
-| Level | Score Range | Description | Response Time |
-|-------|-------------|-------------|---------------|
-| Very Low | 0-10 | Minimal risk | Monitor |
-| Low | 11-30 | Minor risk | 90 days |
-| Moderate | 31-60 | Significant risk | 60 days |
-| High | 61-80 | Serious risk | 30 days |
-| Very High | 81-100 | Critical risk | Immediate |
-
-## Risk Calculation
-
-Risk = Likelihood × Impact
-
-### Likelihood Factors
-- Threat source capability
-- Attack complexity
-- Existing controls
-- Historical incidents
-- Exposure level
-
-### Impact Factors
-- Confidentiality impact
-- Integrity impact
-- Availability impact
-- Financial impact
-- Regulatory impact
-
-## Threat Sources
-
-| Source | Category | Examples |
-|--------|----------|----------|
-| Adversarial | External attackers | Nation states, criminals, hacktivists |
-| Accidental | Human error | Misconfigurations, mistakes |
-| Structural | System failures | Hardware, software, dependencies |
-| Environmental | External events | Natural disasters, power loss |
-
-## Risk Assessment Process
-
-### Step 1: Inventory Assets
-Identify system components and data:
-- System boundaries
-- Data types and sensitivity
-- Critical functions
-- Dependencies
-
-### Step 2: Identify Threats
-For each asset, identify potential threats:
-- Who might attack?
-- What methods would they use?
-- What's their motivation?
-
-### Step 3: Identify Vulnerabilities
-Analyze weaknesses:
-- Missing or weak controls
-- Configuration issues
-- Known CVEs
-- Process gaps
-
-### Step 4: Assess Current Controls
-Review implemented controls:
-- Are controls in place?
-- Are they operating effectively?
-- What gaps exist?
-
-### Step 5: Calculate Risk Scores
-For each threat-vulnerability pair:
-1. Estimate likelihood (1-10)
-2. Estimate impact (1-10)
-3. Calculate: Risk = Likelihood × Impact
-4. Determine risk level
-
-### Step 6: Prioritize Risks
-Rank risks by:
-1. Risk score (highest first)
-2. Ease of exploitation
-3. Asset criticality
-4. Regulatory requirements
-
-### Step 7: Generate Recommendations
-For each risk:
-- Identify mitigation options
-- Estimate effort and cost
-- Recommend actions
-- Set target dates
-
-## Control Gap Analysis
-
-### Baseline Comparison
-Compare implemented controls against baseline:
-- Required controls (from profile)
-- Implemented controls (from SSP)
-- Gap = Required - Implemented
-
-### Effectiveness Assessment
-For implemented controls:
-- Fully effective
-- Partially effective
-- Not effective
-- Not assessed
-
-## Risk Report Format
+## Mitigation Strategy Decision Tree
 
 ```
-RISK ASSESSMENT REPORT
-======================
-System: [System Name]
-Assessment Date: [Date]
-Assessor: [Name/AI]
+Can we eliminate this risk entirely?
+  YES → AVOID strategy (change approach)
+  NO ↓
 
-EXECUTIVE SUMMARY
------------------
-Overall Risk Level: [LEVEL]
-Critical Risks: X
-High Risks: Y
-Moderate Risks: Z
+Can we significantly reduce probability or impact?
+  YES → MITIGATE strategy (take action)
+  NO ↓
 
-TOP RISKS
----------
-1. [RISK-001] Unauthorized Access via Weak Authentication
-   Likelihood: High (8/10)
-   Impact: High (9/10)
-   Risk Score: 72 (HIGH)
-   Affected Controls: IA-2, IA-5
-   Recommendation: Implement MFA within 30 days
+Can someone else manage this better?
+  YES → TRANSFER strategy (outsource, insure)
+  NO ↓
 
-2. [RISK-002] Data Exposure from Misconfigured Storage
-   Likelihood: Moderate (6/10)
-   Impact: Very High (10/10)
-   Risk Score: 60 (MODERATE)
-   Affected Controls: SC-28, AC-3
-   Recommendation: Enable encryption, restrict access
-
-CONTROL GAPS
-------------
-Missing Controls: 5
-- CM-6: Configuration settings not documented
-- SI-4: No automated monitoring
-...
-
-POA&M ITEMS
------------
-1. Implement multi-factor authentication
-   Milestone: Complete by [date]
-   Resources: IAM team, 40 hours
-   
-2. Configure storage encryption
-   Milestone: Complete by [date]
-   Resources: Cloud team, 20 hours
+ACCEPT strategy (plan contingency)
 ```
 
-## POAM Generation
+## Risk Register Template
 
-For each identified risk, generate POA&M item:
+```markdown
+## Risk Register - [Project Name]
 
-```yaml
-poam_item:
-  id: POAM-2024-001
-  title: Implement Multi-Factor Authentication
-  description: Address IA-2 weakness in user authentication
-  risk_level: HIGH
-  weakness: Lack of MFA exposes accounts to credential theft
-  remediation: Deploy MFA for all privileged accounts
-  milestone: 2024-03-01
-  resources:
-    - IAM Administrator
-    - 40 hours effort
-  dependencies:
-    - Identity provider upgrade
-  status: planned
+Last Updated: [Date]
+
+### Critical Risks (Score 7-9)
+
+#### R-001: [Risk Title]
+- **Description**: [What is the risk?]
+- **Category**: Technical | Schedule | Resource | External | Quality | Organizational
+- **Probability**: High (3) | Medium (2) | Low (1)
+- **Impact**: High (3) | Medium (2) | Low (1)
+- **Risk Score**: [P × I]
+- **Trigger**: [What causes this?]
+- **Owner**: [Name]
+- **Status**: Active | Monitoring | Closed
+- **Mitigation Strategy**: Avoid | Mitigate | Transfer | Accept
+- **Mitigation Actions**:
+  - [ ] Action 1 - Owner - Due Date
+  - [ ] Action 2 - Owner - Due Date
+- **Contingency Plan**: If risk occurs, we will...
+- **Early Warning Indicators**: [What to watch for]
+- **Last Reviewed**: [Date]
+
+### High Risks (Score 4-6)
+[Same format as above]
+
+### Medium Risks (Score 2-3)
+[Same format as above]
 ```
 
-## Example Usage
+## Common Project Risks & Mitigations
 
-When asked "Assess the security risks in this SSP":
+### Risk: Key Developer Leaves Mid-Project
+- **Mitigation**: Pair programming, documentation, knowledge sharing
+- **Contingency**: Contractor backup, timeline extension
+- **Indicator**: Team member disengagement, job searching signals
 
-1. Parse the SSP document
-2. Extract system characteristics
-3. List implemented controls
-4. Identify control gaps vs baseline
-5. For each gap, assess risk
-6. Calculate risk scores
-7. Rank by severity
-8. Generate remediation recommendations
-9. Produce POA&M items for high risks
+### Risk: Requirements Change Significantly
+- **Mitigation**: Agile approach, frequent stakeholder check-ins, MVP focus
+- **Contingency**: Scope negotiation, timeline adjustment
+- **Indicator**: Stakeholder dissatisfaction, market feedback
+
+### Risk: Third-Party API Becomes Unreliable
+- **Mitigation**: Implement caching, retry logic, circuit breakers
+- **Contingency**: Alternative vendor, build in-house
+- **Indicator**: Increased error rates, latency spikes
+
+### Risk: Performance Doesn't Meet Requirements
+- **Mitigation**: Early performance testing, architecture review
+- **Contingency**: Optimization sprint, infrastructure scaling
+- **Indicator**: Load test failures, user complaints
+
+### Risk: Security Vulnerability Discovered
+- **Mitigation**: Security reviews, penetration testing, dependency scanning
+- **Contingency**: Incident response plan, rollback procedure
+- **Indicator**: Security alerts, CVE notifications
+
+### Risk: Project Runs Over Budget
+- **Mitigation**: Accurate estimation, buffer allocation, cost tracking
+- **Contingency**: Scope reduction, additional funding request
+- **Indicator**: Burn rate exceeds projections
+
+## Integration Points
+
+- **Project Planner**: Identifies risks during planning phase
+- **Sprint Planner**: Reviews risks at sprint planning
+- **Task Manager**: Tracks mitigation action items
+- **Retrospective Facilitator**: Captures risk learnings
+- **Stakeholder Communication**: Reports risk status
+- **Incident Management**: Triggers contingency plans

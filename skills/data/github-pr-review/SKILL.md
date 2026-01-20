@@ -1,243 +1,484 @@
 ---
 name: github-pr-review
-description: Handles PR review comments and feedback resolution. Use when user wants to resolve PR comments, handle review feedback, fix review comments, address PR review, check review status, respond to reviewer, or verify PR readiness. Fetches comments via GitHub CLI, classifies by severity, applies fixes with user confirmation, commits with proper format, replies to threads.
+description: Comprehensive GitHub PR review with inline suggestions, approval/rejection criteria, and technology-agnostic checklists. Triggers when reviewing PRs, analyzing code changes, or when user requests PR review. ALWAYS approve or request changes after review.
 ---
 
-# GitHub PR Review
+# GitHub PR Review with Suggested Changes
 
-Resolves Pull Request review comments with severity-based prioritization, fix application, and thread replies.
+## Skill Purpose
 
-## Quick Start
+This skill enables comprehensive GitHub pull request reviews with **actionable suggested changes** that developers can apply directly through GitHub's web UI using the "Commit suggestion" button.
 
-```bash
-# 1. Check project-specific instructions
-cat .claude/CLAUDE.md 2>/dev/null | head -50  # Review project conventions
+**Key Features:**
+- Code review with comprehensive checklists (security, quality, performance)
+- Inline suggested changes using ````suggestion` blocks
+- **Approval decision logic** (APPROVE / REQUEST_CHANGES / COMMENT)
+- GitHub API integration for programmatic review comments
+- Batch suggestion support for efficient fixes
+- Integration with tech-specific skills (Unity, React Native, etc.)
 
-# 2. Get PR and repo info
-PR=$(gh pr view --json number -q '.number')
-REPO=$(gh repo view --json nameWithOwner -q '.nameWithOwner')
+## ⚠️ CRITICAL: Always Approve or Request Changes
 
-# 3. Fetch and list comments by severity
-gh api repos/$REPO/pulls/$PR/comments | python3 -c "
-import json, sys
-comments = [c for c in json.load(sys.stdin) if not c.get('in_reply_to_id')]
-def sev(b): return 'CRITICAL' if 'critical' in b.lower() else 'HIGH' if 'high' in b.lower() else 'MEDIUM' if 'medium' in b.lower() else 'LOW'
-for s in ['CRITICAL','HIGH','MEDIUM','LOW']:
-    cs = [c for c in comments if sev(c['body'])==s]
-    if cs: print(f'{s} ({len(cs)}): ' + ', '.join(f\"#{c['id]}\" for c in cs))
-"
-
-# 4. For each comment: read -> analyze -> fix -> verify -> commit -> reply
-# 5. Run tests: make test (or project-specific command)
-# 6. Push when all fixes verified
-```
-
-## Pre-Review Checklist
-
-Before processing comments, verify:
-
-1. **Project conventions**: Read `.claude/CLAUDE.md`, `.kiro/steering/`, or similar
-2. **Commit format**: Check `git log --oneline -5` for project style
-3. **Test command**: Identify test runner (`make test`, `pytest`, `npm test`)
-4. **Branch status**: `git status` to ensure clean working tree
-
-## Core Workflow
-
-### 1. Fetch PR Comments
+**After every PR review, you MUST submit a review decision:**
 
 ```bash
-PR=$(gh pr view --json number -q '.number')
-REPO=$(gh repo view --json nameWithOwner -q '.nameWithOwner')
-gh api repos/$REPO/pulls/$PR/comments > /tmp/pr_comments.json
+# Approve (no critical/high issues)
+gh pr review $PR --repo $REPO --approve --body "..."
+
+# Request changes (critical/high issues found)
+gh pr review $PR --repo $REPO --request-changes --body "..."
+
+# Comment only (medium issues, can merge)
+gh pr review $PR --repo $REPO --comment --body "..."
 ```
 
-### 2. Classify by Severity
+**See:** [Approval Criteria](references/approval-criteria.md) for decision tree.
 
-Process in order: CRITICAL > HIGH > MEDIUM > LOW
+## When This Skill Triggers
 
-| Severity | Indicators | Action |
-|----------|------------|--------|
-| CRITICAL | `critical.svg`, "security", "vulnerability" | Must fix |
-| HIGH | `high-priority.svg`, "High Severity" | Should fix |
-| MEDIUM | `medium-priority.svg`, "Medium Severity" | Recommended |
-| LOW | `low-priority.svg`, "style", "nit" | Optional |
+**Automatically triggers when:**
+- User asks to "review PR" or "review pull request"
+- User provides a GitHub PR URL for review
+- User asks to "check PR" or "analyze PR changes"
+- User requests code review with suggestions
+- User asks "help review this PR"
 
-### 3. Process Each Comment
+**Manual trigger:**
+- User explicitly invokes the skill with `/github-pr-review`
 
-For each comment:
+## Quick Reference
 
-**a. Show context**
+### GitHub Suggested Changes Syntax
+
+```markdown
+Add nullable directive at the top of the file.
+
+\`\`\`suggestion
+#nullable enable
+
+namespace YourNamespace
+\`\`\`
 ```
-Comment #123456789 (HIGH) - app/auth.py:45
-"The validation logic should use constant-time comparison..."
-```
 
-**b. Read affected code and propose fix**
+**Result:** Shows a "Commit suggestion" button in GitHub UI that applies the change when clicked.
 
-**c. Confirm with user before applying**
+## How It Works
 
-**d. Apply fix if approved**
-
-**e. Verify fix addresses ALL issues in the comment**
-
-### 4. Commit Changes
-
-Use **git-commit skill** format for review fixes:
+### Step 1: Fetch PR Details
 
 ```bash
-git add <files>
-git commit -m "fix(scope): address review comment #ID
+# Get PR information
+gh pr view <PR_NUMBER> --repo <OWNER/REPO> --json title,body,files,commits
 
-Brief explanation of what was wrong and how it's fixed.
-Addresses review comment #123456789."
+# Get PR diff
+gh pr diff <PR_NUMBER> --repo <OWNER/REPO>
 ```
 
-**Review fix commit rules** (see git-commit skill for full details):
-- First line: `type(scope): subject` (max 50 chars)
-- Types: `fix`, `refactor`, `security`, `test`, `style`, `perf`
-- Reference the comment ID in body
-- Explain what was wrong and how it's fixed
+### Step 2: Analyze Code Changes
 
-### 5. Reply to Thread
+- Review against coding standards (e.g., `theone-unity-standards`)
+- Identify issues by severity (Critical, Important, Suggestions)
+- Categorize issues by file and line number
+
+### Step 3: Create Inline Suggestions
+
+**Use GitHub API to add inline comments with suggestions:**
 
 ```bash
-COMMIT=$(git rev-parse --short HEAD)
-gh api repos/$REPO/pulls/$PR/comments \
-  --input - <<< '{"body": "Fixed in '"$COMMIT"'. Replaced set lookup with hmac.compare_digest.", "in_reply_to": 123456789}'
+# Get latest commit ID
+COMMIT_ID=$(gh pr view <PR> --repo <REPO> --json commits --jq '.commits[-1].oid')
+
+# Add inline suggestion comment
+gh api \
+  --method POST \
+  -H "Accept: application/vnd.github+json" \
+  /repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/comments \
+  -f body="<suggestion text with \`\`\`suggestion block>" \
+  -f commit_id="$COMMIT_ID" \
+  -f path="<file_path>" \
+  -F position=<line_number>
 ```
 
-**Standard Reply Templates**:
+### Step 4: Add Summary Comment
 
-| Situation | Template |
-|-----------|----------|
-| Fixed | `Fixed in [hash]. [brief description of fix]` |
-| Won't fix | `Won't fix: [reason - e.g., out of scope, acceptable risk]` |
-| By design | `By design: [explanation of why current behavior is intentional]` |
-| Deferred | `Deferred to [issue/task number]. Will address in future iteration.` |
-| Acknowledged | `Acknowledged. [brief note, e.g., "acceptable for MVP"]` |
+Add a general comment explaining:
+- Number of suggestions added
+- How to apply suggestions (individual or batch)
+- What issues will be resolved
 
-No emojis. Keep it minimal and professional.
+## Suggestion Types
 
-### 6. Run Tests
+### 1. Single-Line Suggestions
+
+```markdown
+Fix access modifier.
+
+\`\`\`suggestion
+public sealed class MyClass
+\`\`\`
+```
+
+### 2. Multi-Line Suggestions
+
+```markdown
+Add nullable directive and fix class.
+
+\`\`\`suggestion
+#nullable enable
+
+namespace MyNamespace
+{
+    public sealed class MyClass
+    {
+        // class body
+    }
+}
+\`\`\`
+```
+
+### 3. Complete File Replacements
+
+For major refactoring, provide complete fixed file in expandable section:
+
+```markdown
+<details>
+<summary>Click to expand: Complete fixed file</summary>
+
+\`\`\`csharp
+// entire file content
+\`\`\`
+</details>
+```
+
+## Best Practices
+
+### ✅ DO:
+
+1. **Use inline suggestions for fixable issues**
+   - Syntax errors, formatting issues
+   - Missing keywords, modifiers
+   - Simple refactoring
+
+2. **Add suggestions at correct line positions**
+   - Use `gh pr diff` to find exact line numbers
+   - Use `position` parameter (diff position, not file line number)
+
+3. **Group related changes**
+   - Combine related fixes in one suggestion block
+   - Example: Add `#nullable enable` + `sealed` keyword together
+
+4. **Provide context**
+   - Explain WHY the change is needed
+   - Reference coding standards or best practices
+
+5. **Use batch suggestions for multiple fixes**
+   - Tell developer about "Add suggestion to batch" option
+   - Allows applying all suggestions in one commit
+
+### ❌ DON'T:
+
+1. **Don't suggest changes for non-fixable issues**
+   - Architectural problems requiring discussion
+   - Design pattern changes
+   - Use regular comments for these
+
+2. **Don't create overlapping suggestions**
+   - Each suggestion should apply cleanly
+   - Avoid suggesting same lines multiple times
+
+3. **Don't suggest changes without explanation**
+   - Always include WHY the change is needed
+   - Link to relevant documentation or standards
+
+## GitHub API Position Calculation
+
+**Important:** The `position` parameter is the **diff position**, not the file line number.
 
 ```bash
-make test  # or project-specific command
+# Get diff to see positions
+gh pr diff <PR_NUMBER> --repo <OWNER/REPO>
+
+# Position starts at 1 for first changed line
+# Increments for each line in the diff (context + changes)
 ```
 
-All tests must pass before pushing.
+**Example:**
+```diff
+@@ -0,0 +1,10 @@
++namespace MyNamespace    # position: 1
++{                        # position: 2
++    public class Foo     # position: 3
++    {                    # position: 4
+```
 
-### 7. Push
+## Common Review Patterns
+
+### Pattern 1: Missing Nullable Directive
+
+**Issue:** Missing `#nullable enable`
+**Location:** Line 1 (before namespace)
+**Position:** Usually 1
+
+```markdown
+Add \`#nullable enable\` directive at the top of the file.
+
+\`\`\`suggestion
+#nullable enable
+
+namespace YourNamespace
+\`\`\`
+```
+
+### Pattern 2: Missing Sealed Keyword
+
+**Issue:** Class should be `sealed`
+**Location:** Class declaration line
+**Position:** Find in diff
+
+```markdown
+Add \`sealed\` keyword to prevent inheritance.
+
+\`\`\`suggestion
+    public sealed class YourClass
+\`\`\`
+```
+
+### Pattern 3: Fields to Properties
+
+**Issue:** Public fields instead of properties
+**Location:** Field declaration lines
+**Position:** Find in diff
+
+```markdown
+Convert field to property with getter.
+
+\`\`\`suggestion
+        public Dictionary<string, int> MyProperty { get; } = new();
+\`\`\`
+```
+
+### Pattern 4: Remove Region Comments
+
+**Issue:** Using `#region` / `#endregion`
+**Location:** Region block
+**Position:** Find in diff
+
+```markdown
+Remove \`#region\` comments - code should be self-organizing.
+
+\`\`\`suggestion
+        private readonly UserDataManager userDataManager;
+
+        public MyController(UserDataManager userDataManager)
+        {
+            this.userDataManager = userDataManager;
+        }
+\`\`\`
+```
+
+## Complete Workflow Example
 
 ```bash
-git push
+# 1. Get PR details
+PR_NUMBER=984
+REPO="The1Studio/TheOneFeature"
+COMMIT_ID=$(gh pr view $PR_NUMBER --repo $REPO --json commits --jq '.commits[-1].oid')
+
+# 2. Review code (use theone-unity-standards skill)
+# ... analyze code against standards ...
+
+# 3. Add suggestion for file1
+gh api \
+  --method POST \
+  -H "Accept: application/vnd.github+json" \
+  /repos/$REPO/pulls/$PR_NUMBER/comments \
+  -f body="Add \`#nullable enable\` directive.
+
+\`\`\`suggestion
+#nullable enable
+
+namespace MyNamespace
+\`\`\`" \
+  -f commit_id="$COMMIT_ID" \
+  -f path="path/to/file1.cs" \
+  -F position=1
+
+# 4. Add suggestion for file2
+# ... repeat for each issue ...
+
+# 5. Add summary comment
+gh pr comment $PR_NUMBER --repo $REPO --body "## ✅ Suggestions Ready
+
+I've added 6 inline suggestions. Go to Files Changed tab and click 'Commit suggestion' on each, or use 'Add suggestion to batch' to apply all at once."
 ```
 
-### 8. Submit Review (Optional)
+## Integration with Other Skills
 
-After addressing all comments, formally submit a review:
+**Works best with:**
+- `theone-unity-standards` - For Unity C# code reviews
+- `theone-react-native-standards` - For React Native reviews
+- `theone-cocos-standards` - For Cocos reviews
+- `code-review` - For internal review practices (receiving feedback)
+- `docs-seeker` - For finding latest library documentation
+
+**Example workflow:**
+1. User provides PR URL
+2. Apply general checklists ([Review Checklists](references/review-checklists.md))
+3. Trigger tech-specific skill (e.g., `theone-unity-standards`) for detailed analysis
+4. Create inline suggestions using `github-pr-review`
+5. Submit review decision (APPROVE/REQUEST_CHANGES) per [Approval Criteria](references/approval-criteria.md)
+6. Developer applies suggestions via GitHub UI
+
+## Review Process
+
+### Step 0: Apply Review Checklists
+
+Before diving into code, run through technology-agnostic checklists:
+
+**See:** [Review Checklists](references/review-checklists.md)
+
+1. 🔒 Security checklist (secrets, injection, auth)
+2. ✅ Correctness checklist (logic, state, API)
+3. 🧪 Testing checklist (coverage, quality)
+4. 🧹 Quality checklist (structure, DRY)
+5. ⚡ Performance checklist (queries, memory)
+6. 📚 Documentation checklist
+
+## Troubleshooting
+
+### Issue: "404 Not Found" when creating suggestion
+
+**Cause:** Wrong `position` value
+**Fix:** Verify position in diff output
 
 ```bash
-# Approve the PR (use after all comments resolved)
-gh pr review $PR --approve --body "All review comments addressed. Ready to merge."
-
-# Or request changes if issues remain
-gh pr review $PR --request-changes --body "Addressed X comments, Y issues remain."
-
-# Or just comment without approval decision
-gh pr review $PR --comment --body "Partial progress: fixed A and B, working on C."
+gh pr diff <PR> --repo <REPO> | less
+# Count lines from @@ hunk header
 ```
 
-**When to use each**:
-- `--approve`: All comments addressed, PR is ready
-- `--request-changes`: Critical issues remain unresolved
-- `--comment`: Progress update, no approval decision yet
+### Issue: Suggestion doesn't show "Commit suggestion" button
 
-## Batch Commit Strategy
+**Cause:** Invalid ````suggestion` syntax
+**Fix:** Ensure proper markdown formatting:
+- Three backticks
+- Word "suggestion" (lowercase)
+- Proper code indentation inside block
 
-Organize commits by impact when addressing multiple comments:
+### Issue: Suggestion applies but breaks code
 
-| Change Type | Strategy |
-|-------------|----------|
-| Functional (CRITICAL/HIGH) | Separate commit per fix |
-| Cosmetic (MEDIUM/LOW) | Single batch commit |
+**Cause:** Incorrect indentation or incomplete context
+**Fix:**
+- Match existing file indentation exactly
+- Include enough context lines
+- Test suggestion locally first
 
-**Workflow:**
-1. Fix CRITICAL/HIGH → separate commits each
-2. Collect all cosmetic fixes
-3. Apply cosmetics → single `style:` commit
-4. Run tests once
-5. Push all together
+## Summary
 
-## Pre-Merge Checklist
+This skill automates comprehensive GitHub PR reviews with actionable suggestions:
 
-Before closing/merging PR, verify (or use **github-pr-merge** skill for automated validation):
+1. ✅ Applies technology-agnostic review checklists
+2. ✅ Fetches PR details and diff
+3. ✅ Analyzes code against standards (general + tech-specific)
+4. ✅ Creates inline suggestions with ````suggestion` blocks
+5. ✅ Uses GitHub API for programmatic comments
+6. ✅ **Submits review decision (APPROVE/REQUEST_CHANGES)**
+7. ✅ Enables one-click fixes via GitHub UI
 
-- [ ] All CRITICAL and HIGH comments addressed
-- [ ] All MEDIUM comments addressed or justified skip
-- [ ] Replies posted to all resolved threads
-- [ ] Tests passing (`make test` or equivalent)
-- [ ] Linting passing (`make lint` or equivalent)
-- [ ] CI checks green (`gh pr checks`)
-- [ ] No unresolved conversations
+**Result:** Faster, more efficient PR reviews with instant applicability AND clear approval status.
 
-**TIP**: After resolving all comments, use the `github-pr-merge` skill to execute the merge with full pre-merge validation.
+## Skill References
 
-## Reply to Threads API
+| Reference | Purpose |
+|-----------|---------|
+| [Approval Criteria](references/approval-criteria.md) | Decision tree for APPROVE/REQUEST_CHANGES |
+| [Review Checklists](references/review-checklists.md) | Technology-agnostic security, quality, performance checklists |
+| [API Reference](references/api-reference.md) | GitHub API commands and examples |
+| [Workflow Examples](references/workflow-examples.md) | Complete review workflow examples |
 
-**Important**: Use `--input -` with JSON for `in_reply_to`:
+## ClaudeAssistant Automated Review Service
+
+For **The1Studio** repositories, you can trigger automated PR reviews via webhook:
+
+### Triggering Automated Review
 
 ```bash
-# Correct syntax
-gh api repos/$REPO/pulls/$PR/comments \
-  --input - <<< '{"body": "Fixed in abc123. Brief explanation.", "in_reply_to": 123456789}'
+# Simply comment on any PR:
+/review
+
+# The webhook will:
+# 1. Fetch PR files and diffs
+# 2. Run Claude Code review with inline suggestions
+# 3. Post review with "Apply suggestion" buttons
 ```
 
-**Do NOT use**: `-f in_reply_to=...` (doesn't work)
+### How It Works
 
-## Avoiding Review Loops
+```
+┌──────────────────────────────────────────────────────────────┐
+│  GitHub PR Comment "/review"                                  │
+│            ↓                                                  │
+│  Webhook → github-review-service (port 16300)                │
+│            ↓                                                  │
+│  Fetch PR files → Generate prompt with diffs                 │
+│            ↓                                                  │
+│  claude-service (port 16304) → Claude Code analysis          │
+│            ↓                                                  │
+│  Post inline comments with ```suggestion blocks              │
+│            ↓                                                  │
+│  GitHub shows "Apply suggestion" button on each comment      │
+└──────────────────────────────────────────────────────────────┘
+```
 
-When bots review every push:
+### Inline Suggestions Format
 
-1. **Batch fixes**: Accumulate all fixes, push once
-2. **Draft PR**: Convert to draft during fixes
-3. **Commit keywords**: Some bots respect `[skip ci]` or `[skip review]`
+The service generates suggestions in GitHub's format:
 
-## Severity Detection
+```markdown
+🔵 **Suggestion**
 
-**Gemini badges**:
-- `critical.svg` -> CRITICAL
-- `high-priority.svg` -> HIGH
-- `medium-priority.svg` -> MEDIUM
-- `low-priority.svg` -> LOW
+Add `sealed` keyword to prevent inheritance.
 
-**Cursor comments**:
-- `<!-- **High Severity** -->` -> HIGH
-- `<!-- **Medium Severity** -->` -> MEDIUM
+\`\`\`suggestion
+public sealed class MyClass
+\`\`\`
 
-**Fallback keywords**: "security", "vulnerability", "injection" -> CRITICAL
+**Category:** CodeQuality
+```
 
-## Important Rules
+**Result:** Users see "Apply suggestion" button and can commit fixes with one click.
 
-- **ALWAYS** read project conventions (CLAUDE.md, etc.) before starting
-- **ALWAYS** confirm before modifying files
-- **ALWAYS** verify ALL issues in multi-issue comments are fixed
-- **ALWAYS** run tests before pushing
-- **ALWAYS** reply to resolved threads using standard templates
-- **ALWAYS** submit formal review (`gh pr review`) after addressing all comments
-- **NEVER** use emojis in commit messages or thread replies
-- **NEVER** skip HIGH/CRITICAL comments without explicit user approval
-- **Functional fixes** -> separate commits (one per fix)
-- **Cosmetic fixes** -> batch into single `style:` commit
+### Service Architecture
 
-## Related Skills
+| Service | Port | Purpose |
+|---------|------|---------|
+| github-review-service | 16300 | Webhook handler, review orchestration |
+| claude-service | 16304 | Claude Code API gateway |
+| postgres | 16305 | Review history storage |
+| dashboard | 16302 | Monitoring UI |
 
-- **git-commit** - Commit message format and conventions (use for review fix commits)
-- **github-pr-merge** - Execute merge after review is complete (use after fixing all comments)
+### Deduplication
 
-## When to use this skill
+- Reviews are deduplicated by commit SHA
+- Same commit won't be reviewed twice
+- Merged PRs can trigger but may skip if already reviewed
 
-Handles PR review comments and feedback resolution. Use when user wants to resolve PR comments, handle review feedback, fix review comments, address PR review, check review status, respond to reviewer, or verify PR readiness. Fetches comments via GitHub CLI, classifies by severity, applies fixes with user confirmation, commits with proper format, replies to threads.
+### Manual API Trigger
 
-## How to use this skill
+```bash
+# If webhook not working, trigger via API:
+curl -X POST http://localhost:16300/api/review \
+  -H "Content-Type: application/json" \
+  -d '{
+    "owner": "The1Studio",
+    "repo": "YourRepo",
+    "prNumber": 123,
+    "installationId": 95277005
+  }'
+```
 
-Refer to the instructions above or standard agent usage for this skill type.
+## External References
+
+- [GitHub Suggested Changes](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request)
+- [GitHub API - PR Review Comments](https://docs.github.com/en/rest/pulls/comments)
+- [TheOne Studio Standards](../theone-unity-standards/SKILL.md)
+- [ClaudeAssistant Repository](https://github.com/The1Studio/ClaudeAssistant)

@@ -1,386 +1,354 @@
 ---
 name: github-issues
-description: |
-  Local-first GitHub issue planning and synchronization system. Use this skill when planning projects locally, creating issue files in .issues/, working with the /plan-issue, /update-issue, /sync-issue, /list-issues, or /work-issue commands, or synchronizing local plans with GitHub issues. Covers frontmatter schema, file structure conventions, sub-issue management, and gh CLI operations.
+description: Query and search GitHub issues using gh CLI with web fallback. Supports filtering by labels, state, assignees, and full-text search. Use when troubleshooting errors, checking if an issue is already reported, or finding workarounds.
+allowed-tools: Bash, Read, Glob, Grep, WebFetch, WebSearch
 ---
 
-# GitHub Issues Planning System
+# GitHub Issues Lookup
 
-A local-first system for planning projects and synchronizing with GitHub issues. Plan and iterate locally, then sync to GitHub when ready.
+Query and search GitHub issues for troubleshooting, bug tracking, and finding workarounds. Supports `gh` CLI with automatic web fallback.
 
-## Quick Reference
+## Overview
 
-### Commands
+This skill provides comprehensive guidance for querying GitHub issues from any repository. It prioritizes the GitHub CLI (`gh`) for fast, reliable access with automatic fallback to web-based methods when gh is unavailable.
 
-| Command | Purpose |
-|---------|---------|
-| `/plan-issue <prompt>` | Create new issue plan from prompt |
-| `/update-issue <path> <prompt>` | Update existing plan |
-| `/sync-issue <path>` | Sync local ↔ GitHub |
-| `/list-issues` | List all local issue plans |
-| `/work-issue <path> <prompt>` | Set up context to work on an issue |
+**Core value:** Quickly find relevant issues when troubleshooting errors, checking if bugs are already reported, or discovering workarounds for known problems.
 
-### File Locations
+## When to Use This Skill
 
-- **Issue files**: `.issues/` directory (gitignored)
-- **Simple issues**: `.issues/YYYY-MM-slug.md`
-- **Multi-phase projects**: `.issues/YYYY-MM-slug/` directory
+This skill should be used when:
 
-## Frontmatter Schema
+- **Troubleshooting errors** - Search for issues matching error messages or symptoms
+- **Checking if issue exists** - Before reporting a bug, search for duplicates
+- **Finding workarounds** - Discover solutions from issue discussions
+- **Tracking features** - Search for feature requests and their status
+- **Understanding history** - Find closed issues explaining past decisions
 
-### Single Issue
+**Trigger keywords:** github issues, search issues, find issue, bug report, issue lookup, gh issue, troubleshoot, workaround, known issue
 
-```yaml
+## Prerequisites
+
+**Recommended (not required):**
+
+- **GitHub CLI (gh)** - Install from <https://cli.github.com/>
+- **Authentication** - Run `gh auth login` for private repos
+
+The skill works without `gh` by falling back to web-based methods.
+
+## Quick Start
+
+### Search Issues (gh CLI)
+
+```bash
+# Check if gh is available
+gh --version
+
+# Search for issues by keyword
+gh issue list --repo owner/repo --search "keyword" --state all
+
+# Filter by label
+gh issue list --repo owner/repo --label "bug" --state open
+
+# View specific issue
+gh issue view 11984 --repo owner/repo
+
+# Search with multiple terms
+gh issue list --repo owner/repo --search "error message here" --limit 20
+```
+
+### Search Issues (Web Fallback)
+
+When gh is unavailable, use WebSearch or WebFetch:
+
+```text
+# Search via web (using WebSearch tool)
+Search: "site:github.com/owner/repo/issues keyword"
+
+# Direct URL pattern
+https://github.com/owner/repo/issues?q=keyword
+```
+
+## Core Capabilities
+
+### 1. Basic Issue Search
+
+Search issues by keywords, matching title and body text.
+
+**gh CLI:**
+
+```bash
+# Basic keyword search (all states)
+gh issue list --repo anthropics/claude-code --search "path doubling" --state all
+
+# Open issues only
+gh issue list --repo anthropics/claude-code --search "path doubling" --state open
+
+# Closed issues only
+gh issue list --repo anthropics/claude-code --search "path doubling" --state closed
+```
+
+**For detailed query syntax:** See [references/query-patterns.md](references/query-patterns.md)
+
 ---
-repo: org/repo           # Auto-detected from git remote
-issue: 123               # GitHub issue number (null if draft)
-state: draft             # draft | open | closed
-labels:
-  - enhancement
-  - priority:high
-created: 2025-01-15T10:30:00Z
-updated: 2025-01-15T14:20:00Z
+
+### 2. Filter by Labels
+
+Narrow results using repository labels.
+
+```bash
+# Single label
+gh issue list --repo owner/repo --label "bug"
+
+# Multiple labels (AND)
+gh issue list --repo owner/repo --label "bug" --label "high-priority"
+
+# Common label patterns
+gh issue list --repo owner/repo --label "enhancement" --state open
+gh issue list --repo owner/repo --label "documentation"
+```
+
 ---
+
+### 3. Filter by Assignee/Author
+
+Find issues by who created or is assigned to them.
+
+```bash
+# By assignee
+gh issue list --repo owner/repo --assignee username
+
+# By author
+gh issue list --repo owner/repo --author username
+
+# Combined filters
+gh issue list --repo owner/repo --author username --state closed
 ```
 
-### Parent Issue (with sub-issues)
-
-```yaml
 ---
-repo: org/repo
-issue: 123
-state: open
-labels:
-  - epic
-sub_issues:              # Ordered list - execution sequence
-  - 01-database-schema.md
-  - 02-api-endpoints.md
-  - 03-frontend-ui.md
-created: 2025-01-15T10:30:00Z
-updated: 2025-01-15T14:20:00Z
+
+### 4. View Issue Details
+
+Get full issue content including description and comments.
+
+```bash
+# View issue (opens in terminal)
+gh issue view 11984 --repo anthropics/claude-code
+
+# View with comments
+gh issue view 11984 --repo anthropics/claude-code --comments
+
+# JSON output for parsing
+gh issue view 11984 --repo anthropics/claude-code --json title,body,comments
+```
+
 ---
+
+### 5. Web Fallback Strategy
+
+When gh CLI is unavailable, fall back to web-based methods.
+
+**Detection:**
+
+```bash
+# Check if gh is available
+if command -v gh &> /dev/null; then
+    echo "gh available"
+else
+    echo "falling back to web"
+fi
 ```
 
-### Field Reference
+**Web methods (in order of preference):**
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `repo` | string | GitHub repo in `org/repo` format. Auto-detected from git remote |
-| `issue` | number \| null | GitHub issue number. `null` for drafts not yet pushed |
-| `state` | enum | `draft` (local only), `open`, or `closed` |
-| `labels` | string[] | GitHub labels to apply |
-| `sub_issues` | string[] | Ordered list of sub-issue filenames (parent issues only) |
-| `created` | ISO 8601 | Creation timestamp |
-| `updated` | ISO 8601 | Last modification timestamp |
+1. **WebSearch tool**: `site:github.com/owner/repo/issues keyword`
+2. **firecrawl MCP**: Scrape GitHub search results
+3. **Direct URL**: `https://github.com/owner/repo/issues?q=keyword`
 
-## File Structure
+**For detailed fallback guidance:** See [references/web-fallback.md](references/web-fallback.md)
 
-### Simple Issue (single file)
+---
 
-For straightforward issues without phases:
+## Output Formats
 
-```
-.issues/
-└── 2025-01-user-auth.md
-```
+The skill supports three output formats:
 
-### Multi-Phase Project (directory)
+### Compact (default)
 
-For complex projects with ordered phases:
+One line per issue, good for scanning:
 
-```
-.issues/
-└── 2025-01-api-migration/
-    ├── 00-parent.md           # Parent issue with overview
-    ├── 01-deprecate-v1.md     # Phase 1
-    ├── 02-implement-v2.md     # Phase 2
-    └── 03-remove-v1.md        # Phase 3
+```text
+#11984 [open] Path doubling in PowerShell hooks (bug, hooks)
+#11523 [closed] Fix memory leak in long sessions (bug, fixed)
+#10892 [open] Add custom status line support (enhancement)
 ```
 
-**Naming conventions**:
-- Date prefix: `YYYY-MM-`
-- Slug: lowercase, hyphens for spaces
-- Sub-issues: Two-digit prefix (00, 01, 02, ...) for ordering
-- Parent file: Always `00-parent.md`
+### Table
 
-## Markdown Content Structure
-
-### Required Sections
+Markdown table format for structured display:
 
 ```markdown
-# Title
-
-<high-level description - becomes the GitHub issue body intro>
-
-## Research
-
-<background research and analysis of current codebase state>
-- What exists today
-- What needs to change
-- Dependencies and constraints
-- Related code locations
-
-## Proposed Design
-
-<description of the design to implement>
-- Architecture decisions
-- API changes
-- User-facing changes
-
-## Implementation Details
-
-<how this will be implemented>
-- Step-by-step implementation approach
-- Files to modify
-- Testing strategy
+| # | State | Title | Labels |
+| --- | --- | --- | --- |
+| 11984 | open | Path doubling in PowerShell hooks | bug, hooks |
+| 11523 | closed | Fix memory leak in long sessions | bug, fixed |
 ```
 
-### Parent Issue Additional Section
+### Detailed
 
-Parent issues include a **Contents** section linking to sub-issues:
+Full information for deep investigation:
 
 ```markdown
-## Contents
+### #11984 - Path doubling in PowerShell hooks
+**State:** open | **Labels:** bug, hooks | **Created:** 2024-12-01
+**URL:** https://github.com/anthropics/claude-code/issues/11984
 
-Links to sub-issues in execution order:
-
-1. [Deprecate V1 endpoints](./01-deprecate-v1.md) - #124
-2. [Implement V2 API](./02-implement-v2.md) - #125
-3. [Remove V1 code](./03-remove-v1.md) - #126
+When using cd && in PowerShell, paths get doubled...
 ```
 
-## Writing Effective Issue Plans
+---
 
-### Research Section Best Practices
+## Common Workflows
 
-- Include specific file paths and line numbers
-- Document current behavior vs desired behavior
-- List dependencies that might be affected
-- Note any technical debt or constraints
+### Troubleshooting an Error
 
-### Design Section Best Practices
-
-- Focus on the "what" and "why", not implementation details
-- Include diagrams or ASCII art for complex flows
-- Document trade-offs considered
-- Reference relevant patterns in the codebase
-
-### Implementation Section Best Practices
-
-- Break into discrete, testable steps
-- Each step should be achievable in a single PR
-- Include acceptance criteria
-- Note testing requirements
-
-### When to Use Sub-Issues
-
-Convert to multi-phase when:
-- Project requires multiple PRs
-- Work can/should be parallelized
-- Different reviewers needed for different phases
-- Project spans multiple systems or packages
-
-## GitHub Synchronization
-
-### Draft → Open Workflow
-
-1. Create plan locally with `/plan-issue`
-2. Iterate with `/update-issue` until ready
-3. Run `/sync-issue` to create GitHub issue
-4. Frontmatter updates with issue number and state
-
-### Sync Behavior
-
-**For drafts (issue: null)**:
-- Creates new GitHub issue
-- Updates frontmatter with issue number
-- Sets state to `open`
-
-**For existing issues**:
-- Fetches current GitHub state
-- Compares local vs remote content
-- Shows diff if different
-- Asks user to push, pull, or skip
-
-### Parent-Child Linking
-
-When syncing parent issues with sub-issues:
-1. Create all sub-issues first (they need issue IDs)
-2. Create the parent issue
-3. Link sub-issues to parent using the Sub-Issues REST API
-4. Parent body includes task list with sub-issue links
-
-**Important**: GitHub's sub-issues feature uses the issue's internal `id` (a large integer like `3731549400`), not the issue `number` (like `#346`).
-
-## gh CLI Reference
-
-### Auto-detect Repository
+1. Extract key terms from error message
+2. Search issues with those terms
+3. Check both open and closed issues
+4. Look for workarounds in comments
 
 ```bash
-git remote get-url origin | sed 's/.*github.com[:/]\(.*\)\.git/\1/'
+# Example: Troubleshoot a specific error
+gh issue list --repo anthropics/claude-code --search "ENOENT" --state all --limit 10
 ```
 
-### Create Issue
+### Before Reporting a Bug
+
+1. Search for existing issues with similar symptoms
+2. Check closed issues for past fixes
+3. If duplicate exists, add your context as a comment
 
 ```bash
-gh issue create \
-  --repo org/repo \
-  --title "Issue Title" \
-  --body "Issue body content" \
-  --label "label1,label2"
+# Search before reporting
+gh issue list --repo owner/repo --search "feature not working" --state all
 ```
 
-### View Issue (JSON)
+### Finding Workarounds
+
+1. Search closed issues with your problem keywords
+2. Look for issues with "workaround" or "solution" in body
+3. Check issue comments for community solutions
 
 ```bash
-gh issue view 123 --repo org/repo --json title,body,state,labels
+# Find workarounds
+gh issue list --repo owner/repo --search "workaround" --state closed --label "bug"
 ```
 
-### Update Issue
+---
 
-```bash
-gh issue edit 123 \
-  --repo org/repo \
-  --title "New Title" \
-  --body "New body content"
+## Error Handling
+
+### gh not installed
+
+```text
+Error: gh: command not found
+
+Solution: Install GitHub CLI from https://cli.github.com/
+  - macOS: brew install gh
+  - Windows: winget install --id GitHub.cli
+  - Linux: See https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+
+Alternatively, falling back to web-based search...
 ```
 
-### Manage Labels
+### Not authenticated
 
-```bash
-# Add labels
-gh issue edit 123 --repo org/repo --add-label "label1,label2"
+```text
+Error: gh requires authentication
 
-# Remove labels
-gh issue edit 123 --repo org/repo --remove-label "label1"
+Solution: Run `gh auth login` and follow the prompts.
+For public repos, web fallback can be used without authentication.
 ```
 
-### Change State
+### Rate limited
 
-```bash
-# Close issue
-gh issue close 123 --repo org/repo
+```text
+Error: API rate limit exceeded
 
-# Reopen issue
-gh issue reopen 123 --repo org/repo
+Solution: Wait 60 seconds before retrying.
+Authenticated requests have higher limits (5000/hour vs 60/hour).
 ```
 
-### List Issues
+### No results found
 
-```bash
-gh issue list --repo org/repo --json number,title,state,labels
+```text
+No issues found matching "very specific query"
+
+Suggestions:
+- Try broader search terms
+- Remove filters (state, label)
+- Check spelling
+- Search closed issues too (--state all)
 ```
 
-## Sub-Issues REST API
+---
 
-GitHub's sub-issues feature allows hierarchical issue organization. The `gh` CLI doesn't have built-in sub-issue commands, so use the REST API via `gh api`.
+## References
 
-### Get Issue ID
+**Detailed Guides:**
 
-Sub-issues API requires the issue's internal `id`, not the `number`. Get it from the issue JSON:
+- [references/gh-cli-guide.md](references/gh-cli-guide.md) - Installation, authentication, advanced usage
+- [references/query-patterns.md](references/query-patterns.md) - Search syntax and filter examples
+- [references/web-fallback.md](references/web-fallback.md) - Web-based fallback strategies
 
-```bash
-# Get the internal id for issue #123
-gh api repos/org/repo/issues/123 --jq '.id'
-# Returns: 3731549400
-```
+**Related Agents:**
 
-### Add Sub-Issue to Parent
+- **history-reviewer** agent - Git history exploration and summarization
 
-Link a sub-issue to a parent issue:
+---
 
-```bash
-# Get the sub-issue's internal id first
-SUB_ISSUE_ID=$(gh api repos/org/repo/issues/456 --jq '.id')
+## Test Scenarios
 
-# Add as sub-issue to parent #123
-gh api repos/org/repo/issues/123/sub_issues \
-  -X POST \
-  --input - <<< "{\"sub_issue_id\": $SUB_ISSUE_ID}"
-```
+### Scenario 1: Basic issue search
 
-**Important**: The `sub_issue_id` must be an integer, not a string. Use `--input` with JSON to ensure correct typing (the `-f` flag sends strings).
+**Query:** "Search for issues about hooks in the Claude Code repo"
 
-### List Sub-Issues
+**Expected Behavior:**
 
-```bash
-gh api repos/org/repo/issues/123/sub_issues --jq '.[].number'
-```
+- Skill activates on "issues", "hooks", "Claude Code"
+- Checks if gh CLI is available
+- Runs `gh issue list --repo anthropics/claude-code --search "hooks" --state all`
+- Returns formatted results
 
-### Remove Sub-Issue
+### Scenario 2: Troubleshooting error
 
-```bash
-SUB_ISSUE_ID=$(gh api repos/org/repo/issues/456 --jq '.id')
+**Query:** "I'm getting a path doubling error in PowerShell. Is this a known issue?"
 
-gh api repos/org/repo/issues/123/sub_issues/$SUB_ISSUE_ID -X DELETE
-```
+**Expected Behavior:**
 
-### Get Parent Issue
+- Skill activates on "error", "known issue", "PowerShell"
+- Searches for related issues
+- Finds #11984 and similar
+- Provides workaround if available
 
-Check if an issue has a parent:
+### Scenario 3: Fallback to web
 
-```bash
-gh api repos/org/repo/issues/456/parent --jq '.number'
-```
+**Query:** "Search for issues but gh isn't installed"
 
-### Sync Workflow for Multi-Phase Projects
+**Expected Behavior:**
 
-When syncing a directory with parent and sub-issues:
+- Detects gh not available
+- Falls back to WebSearch with `site:github.com/owner/repo/issues`
+- Returns results in same format
 
-1. **Create sub-issues first** (in order):
-   ```bash
-   for file in 01-*.md 02-*.md 03-*.md; do
-     gh issue create --repo org/repo --title "..." --body "..."
-   done
-   ```
+## Version History
 
-2. **Create parent issue**:
-   ```bash
-   gh issue create --repo org/repo --title "..." --body "..."
-   ```
+- **v1.0.0** (2025-12-26): Initial release
 
-3. **Link sub-issues to parent**:
-   ```bash
-   PARENT_NUM=123
+---
 
-   for SUB_NUM in 124 125 126; do
-     SUB_ID=$(gh api repos/org/repo/issues/$SUB_NUM --jq '.id')
-     gh api repos/org/repo/issues/$PARENT_NUM/sub_issues \
-       -X POST \
-       --input - <<< "{\"sub_issue_id\": $SUB_ID}"
-   done
-   ```
+## Last Updated
 
-4. **Update local frontmatter** with issue numbers and set `state: open`
+**Date:** 2025-12-05
+**Model:** claude-opus-4-5-20251101
 
-### Sub-Issues Limits
-
-- Maximum 100 sub-issues per parent
-- Maximum 8 levels of nesting
-- Sub-issues can be in different repositories (cross-repo)
-
-## Troubleshooting
-
-### "Not logged in to GitHub"
-
-Run `gh auth login` to authenticate.
-
-### "Repository not found"
-
-- Check that the repo in frontmatter matches GitHub
-- Ensure you have access to the repository
-- Verify git remote is configured correctly
-
-### Sync Conflicts
-
-When local and remote differ:
-1. Review the diff shown
-2. Choose to push (overwrite GitHub) or pull (overwrite local)
-3. If unsure, skip and manually resolve
-
-### Missing Issue Number After Sync
-
-Check that:
-- `gh issue create` completed successfully
-- Network connectivity during sync
-- GitHub API rate limits not exceeded
+**Audit Status:** NEW - Pending initial audit

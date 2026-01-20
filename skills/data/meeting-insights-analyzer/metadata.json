@@ -1,7 +1,7 @@
 {
   "name": "meeting-insights-analyzer",
-  "repo": "davepoon/buildwithclaude",
-  "path": "plugins/all-skills/skills/meeting-insights-analyzer/SKILL.md",
-  "source": "github.com/davepoon/buildwithclaude",
-  "downloaded_at": "2026-01-19T04:09:35.706480Z"
+  "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+  "path": ".claude/skills/meeting-insights-analyzer/SKILL.md",
+  "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
+  "downloaded_at": "2026-01-20T03:45:11.793909Z"
 }

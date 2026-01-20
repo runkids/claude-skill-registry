@@ -1,25 +1,33 @@
 ---
 name: test-skill
-description: A simple test skill that creates a greeting file
-allowed-tools: Write Read
-model: sonnet
+description: Brief description of what this skill does and when to use it.
+license: MIT
+metadata:
+  author: your-name
+  version: "1.0"
 ---
 
 # Test Skill
 
-This is a simple test skill to verify skillet is working correctly.
+## When to use this skill
 
-## Task
+Use this skill when the user needs to...
 
-Create a todo list item:
+## Instructions
 
-1. Check if the greeting.txt file exists
-2. Write a new version of the greeting.txt file with the content
+1. First step
+2. Second step
+3. Third step
+
+## Examples
+
+### Example 1
 
 ```
-Hello from Skillet!
-This file was created by Claude Code through the skillet CLI.
-Date: [current date]
+Example input or command
 ```
 
-After creating the file, read it back and confirm the contents were written correctly.
+## Best practices
+
+- Best practice 1
+- Best practice 2

@@ -1,7 +1,7 @@
 {
   "name": "assets",
-  "repo": "radioactive-labs/plutonium-core",
-  "path": ".claude/skills/assets/SKILL.md",
-  "source": "github.com/radioactive-labs/plutonium-core",
-  "downloaded_at": "2026-01-19T01:04:32.818655Z"
+  "repo": "Zaloog/kanban-tui",
+  "path": "src/kanban_tui/assets/SKILL.md",
+  "source": "github.com/Zaloog/kanban-tui",
+  "downloaded_at": "2026-01-20T01:35:52.052716Z"
 }

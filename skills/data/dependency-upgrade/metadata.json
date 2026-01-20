@@ -1,7 +1,7 @@
 {
   "name": "dependency-upgrade",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/dependency-upgrade/skills/dependency-upgrade/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-19T03:47:56.514479Z"
+  "repo": "sgcarstrends/sgcarstrends",
+  "path": ".claude/skills/dependency-upgrade/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-20T03:51:19.716146Z"
 }

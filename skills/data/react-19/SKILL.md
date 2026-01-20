@@ -2,11 +2,14 @@
 name: react-19
 description: >
   React 19 patterns with React Compiler.
-  Trigger: When writing React components - no useMemo/useCallback needed.
+  Trigger: When writing React 19 components/hooks in .tsx (React Compiler rules, hook patterns, refs as props). If using Next.js App Router/Server Actions, also use nextjs-15.
 license: Apache-2.0
 metadata:
-  author: gentleman-programming
+  author: prowler-cloud
   version: "1.0"
+  scope: [root, ui]
+  auto_invoke: "Writing React components"
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
 ---
 
 ## No Manual Memoization (REQUIRED)
@@ -119,6 +122,3 @@ function Input({ ref, ...props }) {
 // ❌ Old way (unnecessary now)
 const Input = forwardRef((props, ref) => <input ref={ref} {...props} />);
 ```
-
-## Keywords
-react, react 19, compiler, useMemo, useCallback, server components, use hook

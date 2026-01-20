@@ -1,9 +1,7 @@
 {
   "name": "lsp-setup",
-  "description": "Detects, installs, and configures LSP language servers for code intelligence. Use when setting up LSP, needing go-to-definition, find references, hover docs, symbols, diagnostics, or code navigation. ",
-  "repo": "nbarthelemy/simdeck",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "rysweet/amplihack",
+  "path": ".claude/skills/lsp-setup/SKILL.md",
+  "source": "github.com/rysweet/amplihack",
+  "downloaded_at": "2026-01-20T01:37:52.892794Z"
 }

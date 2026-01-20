@@ -1,12 +1,7 @@
 {
   "name": "board-manager",
-  "description": "Manage GitHub Project board items - add issues, update status, move between columns. Use when user asks to add issues to board, change status, or organize the project.",
-  "repo": "rollercoaster-dev/monorepo",
-  "category": "development",
-  "tags": [
-    "board",
-    "manager"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "joeczar/code-graph-mcp",
+  "path": ".claude/skills/board-manager/SKILL.md",
+  "source": "github.com/joeczar/code-graph-mcp",
+  "downloaded_at": "2026-01-20T02:56:31.273578Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "slidev-presentations",
-  "description": "Creates Slidev markdown presentations for developers. Activates for: slides with code highlighting, technical talks, conference presentations, workshop materials, live coding decks, or markdown-based ",
-  "repo": "clearfunction/cf-devtools",
-  "category": "development",
-  "tags": [
-    "slidev",
-    "presentations"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/talk-to-slidev-workflow/.claude/skills/slidev-presentations/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-20T03:46:23.595709Z"
 }

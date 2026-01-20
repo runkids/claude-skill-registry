@@ -1,7 +1,7 @@
 {
   "name": "bird",
-  "repo": "clawdbot/clawdbot",
-  "path": "skills/bird/SKILL.md",
-  "source": "github.com/clawdbot/clawdbot",
-  "downloaded_at": "2026-01-19T03:58:57.168488Z"
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/bird/SKILL.md",
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-20T03:19:51.088939Z"
 }

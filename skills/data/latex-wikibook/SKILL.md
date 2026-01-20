@@ -1,6 +1,6 @@
 ---
 name: latex-wikibook
-description: Comprehensive LaTeX documentation from Wikibooks - server-rendered HTML with full tutorial content
+description: Comprehensive assistance with latex-wikibook
 ---
 
 # Latex-Wikibook Skill
@@ -26,16 +26,7 @@ This skill should be triggered when:
 
 This skill includes comprehensive documentation in `references/`:
 
-- **document_structure.md** - Document Structure documentation
-- **getting_started.md** - Getting Started documentation
-- **graphics_programming.md** - Graphics Programming documentation
-- **mathematics.md** - Mathematics documentation
-- **programming.md** - Programming documentation
-- **references_links.md** - References Links documentation
-- **special_documents.md** - Special Documents documentation
-- **tables_graphics.md** - Tables Graphics documentation
-- **technical.md** - Technical documentation
-- **text_formatting.md** - Text Formatting documentation
+- **other.md** - Other documentation
 
 Use `view` to read specific reference files when detailed information is needed.
 

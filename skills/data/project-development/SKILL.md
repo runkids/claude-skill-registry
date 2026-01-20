@@ -1,6 +1,6 @@
 ---
 name: project-development
-description: This skill should be used when the user asks to "start an LLM project", "design batch pipeline", "evaluate task-model fit", "structure agent project", or mentions pipeline architecture, agent-assisted development, cost estimation, or choosing between LLM and traditional approaches.
+description: Design and build LLM-powered projects from ideation through deployment. Use when starting new agent projects, choosing between LLM and traditional approaches, or structuring batch processing pipelines.
 ---
 
 # Project Development Methodology
@@ -266,7 +266,7 @@ Build for change:
 
 **Premature optimization**: Adding caching, parallelization, and optimization before the basic pipeline works correctly.
 
-## How to use this skill
+## Examples
 
 **Example 1: Batch Analysis Pipeline (Karpathy's HN Time Capsule)**
 
@@ -288,7 +288,7 @@ Before: 17 specialized tools, 80% success rate, 274s average execution.
 
 After: 2 tools (bash + SQL), 100% success rate, 77s average execution.
 
-Key insight: The semantic layer was already good documentation. the AI Assistant just needed access to read files directly.
+Key insight: The semantic layer was already good documentation. Claude just needed access to read files directly.
 
 See [Case Studies](./references/case-studies.md) for detailed analysis.
 
@@ -340,6 +340,3 @@ External resources:
 **Author**: Agent Skills for Context Engineering Contributors
 **Version**: 1.0.0
 
-## When to use this skill
-
-This skill should be used when the user asks to "start an LLM project", "design batch pipeline", "evaluate task-model fit", "structure agent project", or mentions pipeline architecture, agent-assisted development, cost estimation, or choosing between LLM and traditional approaches.

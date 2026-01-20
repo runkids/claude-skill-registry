@@ -1,7 +1,7 @@
 {
   "name": "pr-review",
-  "repo": "OneKeyHQ/app-monorepo",
+  "repo": "jonit-dev/pixelperfect",
   "path": ".claude/skills/pr-review/SKILL.md",
-  "source": "github.com/OneKeyHQ/app-monorepo",
-  "downloaded_at": "2026-01-19T03:50:41.997523Z"
+  "source": "github.com/jonit-dev/pixelperfect",
+  "downloaded_at": "2026-01-20T03:58:51.142095Z"
 }

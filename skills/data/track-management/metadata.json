@@ -1,7 +1,7 @@
 {
   "name": "track-management",
-  "repo": "wshobson/agents",
-  "path": "plugins/conductor/skills/track-management/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-19T02:05:27.296274Z"
+  "repo": "as4584/antigravity-skills",
+  "path": "agents-wshobson/plugins/conductor/skills/track-management/SKILL.md",
+  "source": "github.com/as4584/antigravity-skills",
+  "downloaded_at": "2026-01-20T02:34:47.195258Z"
 }

@@ -1,72 +1,29 @@
 ---
 name: discovery
-description: Market research, feasibility analysis, and context gathering workflows for product discovery phase. Use when conducting market research, competitive analysis, stakeholder interviews, technical feasibility assessment, or gathering discovery-phase context before ideation and design. Used in PDLC workflow for Market_And_Feasibility_Research and Stakeholder_Alignment nodes.
+description: Feature discovery - competitive analysis. Use when exploring features.
 ---
 
-# Discovery Skill
+# Discovery Guideline
 
-You are conducting discovery research to gather market, stakeholder, and technical context before product design. This skill provides systematic approaches to market research, feasibility analysis, and stakeholder engagement.
+## Tech Stack
 
-## Available Workflows
+* Research across the product's full stack as needed
 
-### 1. Market Research (`workflows/market-research.md`)
-Conduct competitive analysis, market sizing, and opportunity assessment.
-- **Use for**: Understanding market landscape, competitors, positioning
-- **Output**: D02-market-research.md artifact
-- **Agent**: Researcher
+## Non-Negotiables
 
-### 2. Feasibility Analysis (`workflows/feasibility-analysis.md`)
-Assess technical, operational, and business feasibility of proposed solutions.
-- **Use for**: Risk assessment, constraint analysis, viability evaluation
-- **Output**: D05-feasibility-report.md artifact
-- **Agent**: Architect (technical), BusinessAnalyst (business)
+* None — this is pure exploration
 
-### 3. Stakeholder Research (`workflows/stakeholder-research.md`)
-Gather stakeholder insights, interview users, document requirements.
-- **Use for**: User research, stakeholder alignment, requirements gathering
-- **Output**: D06-stakeholder-insights.md artifact
-- **Agent**: BusinessAnalyst
+## Context
 
-## Workflow Selection
+Discovery is about finding what's missing, what's possible, and what would make the product significantly more competitive. It's not about fixing bugs — it's about identifying opportunities that don't yet exist.
 
-**Early PDLC Phase (after vision, before ideation)**:
-1. Start with `market-research` to understand landscape
-2. Use `stakeholder-research` to gather user/stakeholder needs
-3. Complete with `feasibility-analysis` to assess viability
+Look at competitors, market trends, user expectations, and technological possibilities. What would make users choose this product over alternatives? What capabilities would unlock new business models?
 
-**Feature Refinement Phase**:
-1. Use `stakeholder-research` for feature-specific feedback
-2. Use `feasibility-analysis` for technical risk assessment
+## Driving Questions
 
-## Context Resources
-
-- **research-techniques.md** - Interview templates, survey design, competitive analysis frameworks
-- **feasibility-frameworks.md** - Technical feasibility checklists, risk assessment matrices
-
-## Tools Required
-
-- **WebSearch** - Market research, competitor analysis, technology research
-- **Read** - Review existing documentation and context
-- **Write** - Create discovery artifacts
-- **Grep/Glob** - Search existing codebase for technical feasibility
-
-## Integration Points
-
-**Feeds into**:
-- `brainstorming` - Market insights inform solution ideation
-- `specification-writing` - Research findings shape PRD content
-- `architecture` - Feasibility reports guide architecture decisions
-
-**Used by agents**:
-- Researcher (market research, competitive analysis)
-- BusinessAnalyst (stakeholder research, requirements)
-- Architect (technical feasibility assessment)
-
-## Output Standards
-
-All discovery artifacts must:
-1. Be evidence-based with sources cited
-2. Include concrete findings, not speculation
-3. Provide actionable insights and recommendations
-4. Document assumptions and limitations
-5. Be stored in `/docs/workflow/artifacts/`
+* What are competitors doing that we're not?
+* What do users expect based on industry standards that we lack?
+* What integrations would add significant value?
+* What pricing models are common in the market and how do we compare?
+* What technical capabilities could enable new business models?
+* What would make this product a category leader rather than a follower?

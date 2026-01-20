@@ -1,9 +1,7 @@
 {
   "name": "llm-cost-optimization",
-  "description": "Reduce LLM API costs without sacrificing quality. Covers prompt caching (Anthropic), local response caching, prompt compression, debouncing triggers, and cost analysis. Use when building LLM-powered f",
-  "repo": "ebiyy/traylingo",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "AmnadTaowsoam/cerebratechai-claude-skills",
+  "path": "42-cost-engineering/llm-cost-optimization/SKILL.md",
+  "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
+  "downloaded_at": "2026-01-20T02:40:50.321623Z"
 }

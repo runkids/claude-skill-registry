@@ -1,7 +1,7 @@
 {
   "name": "typescript-testing",
-  "repo": "ilude/claude-code-config",
+  "repo": "shinpr/claude-code-workflows",
   "path": "skills/typescript-testing/SKILL.md",
-  "source": "github.com/ilude/claude-code-config",
-  "downloaded_at": "2026-01-19T03:57:08.175018Z"
+  "source": "github.com/shinpr/claude-code-workflows",
+  "downloaded_at": "2026-01-20T03:45:42.824202Z"
 }

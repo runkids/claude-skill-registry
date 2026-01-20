@@ -1,7 +1,7 @@
 {
   "name": "test-strategy",
-  "repo": "cosmix/loom",
-  "path": "skills/test-strategy/SKILL.md",
-  "source": "github.com/cosmix/loom",
-  "downloaded_at": "2026-01-19T03:47:43.178818Z"
+  "repo": "turbobeest/squawk",
+  "path": ".claude/skills/test-strategy/SKILL.md",
+  "source": "github.com/turbobeest/squawk",
+  "downloaded_at": "2026-01-20T03:51:15.981700Z"
 }

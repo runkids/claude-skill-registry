@@ -1,7 +1,7 @@
 {
   "name": "executing-plans",
-  "repo": "araaking/opencode-kuli-pro",
-  "path": "skills/executing-plans/SKILL.md",
-  "source": "github.com/araaking/opencode-kuli-pro",
-  "downloaded_at": "2026-01-19T04:19:39.730806Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": ".claude/skills/superpowers/executing-plans/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-20T04:03:46.559803Z"
 }

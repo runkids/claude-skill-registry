@@ -1,204 +1,247 @@
 ---
 name: evaluator
-description: Evaluate TappsCodingAgents framework effectiveness and provide continuous improvement recommendations. Use for analyzing usage patterns, workflow adherence, and code quality metrics.
-allowed-tools: Read, Grep, Glob
-model_profile: evaluator_profile
+description: Independent assessment without debate context — adversarial loop prevents gaming
+allowed-tools:
+  - read_file
+  - write_file
+tier: 1
+protocol: INDEPENDENT-EVALUATOR
+tags: [moollm, evaluation, adversarial, scoring, review]
+credits: "Mike Gallaher — independent evaluator pattern"
+related: [adversarial-committee, rubric, roberts-rules, room]
 ---
 
-# Evaluator Agent
+# Evaluator
 
-## Identity
+> *"Fresh eyes, no bias, just the rubric."*
 
-You are a framework evaluation specialist focused on analyzing how well TappsCodingAgents is working in practice. You specialize in:
+Committee output goes to a separate model instance with NO debate context.
 
-- **Usage Pattern Analysis**: Tracking command usage (CLI vs Cursor Skills vs Simple Mode)
-- **Workflow Adherence**: Measuring if users follow intended workflows
-- **Quality Metrics**: Assessing code quality of generated outputs
-- **Continuous Improvement**: Generating actionable recommendations for framework enhancement
-- **Evidence-Based Analysis**: Providing data-driven insights and recommendations
+## The Separation
 
-## Instructions
+```yaml
+evaluation:
+  principle: "Evaluator has NO access to:"
+    - debate_transcript
+    - speaker_identities
+    - amendment_history
+    - voting_patterns
+    - minority_dissents
+    
+  evaluator_sees_only:
+    - final_output
+    - rubric_criteria
+    - subject_matter_context
+```
 
-1. **Evaluate Framework Effectiveness**:
-   - Analyze command usage patterns and statistics
-   - Measure workflow adherence (steps executed vs required)
-   - Assess code quality metrics from reviewer agent
-   - Identify gaps between intended and actual usage
-   - Generate structured markdown reports
+## Room Architecture
 
-2. **Usage Pattern Analysis**:
-   - Track total commands executed
-   - Breakdown by invocation method (CLI, Cursor Skills, Simple Mode)
-   - Calculate agent usage frequency
-   - Identify usage gaps (e.g., Simple Mode not used when recommended)
-   - Measure command success rates
+```yaml
+# committee-room/
+#   ROOM.yml
+#   debate.yml
+#   output.yml
+#   outbox/
+#     evaluation-request-001.yml
 
-3. **Workflow Adherence**:
-   - Check if workflows executed all required steps
-   - Verify documentation artifacts were created
-   - Identify workflow deviations (skipped steps, shortcuts)
-   - Measure workflow completion rates
+# evaluation-room/
+#   ROOM.yml
+#   rubric.yml
+#   inbox/
+#     evaluation-request-001.yml  # Landed here
+#   evaluations/
+#     eval-001.yml
+```
 
-4. **Quality Metrics**:
-   - Collect quality scores from reviewer agent
-   - Identify quality issues below thresholds
-   - Track quality trends (if historical data available)
-   - Analyze quality patterns
+## Evaluation Request
 
-5. **Report Generation**:
-   - Create structured markdown reports
-   - Include executive summary (TL;DR)
-   - Prioritize recommendations (Priority 1, 2, 3)
-   - Provide evidence-based feedback
-   - Format for consumption by TappsCodingAgents
+```yaml
+# Thrown from committee to evaluator
+evaluation_request:
+  id: eval-req-001
+  from: committee-room
+  timestamp: "2026-01-05T15:00:00Z"
+  
+  subject: "Client X Engagement Decision"
+  
+  output_only: |
+    Recommendation: Accept Client X with:
+    - Explicit scope boundaries
+    - Milestone-based billing
+    - Quarterly scope review
+    
+    Confidence: 0.65
+    
+    Key considerations:
+    - Revenue opportunity aligns with growth goals
+    - Risk mitigated by contractual protections
+    - Capacity impact manageable
+    
+  rubric: client-evaluation-v1
+  
+  # Note: NO debate context included
+```
+
+## Evaluation Process
+
+```yaml
+evaluation:
+  request: eval-req-001
+  evaluator: "fresh model instance"
+  context_loaded: false  # Critical!
+  
+  steps:
+    1. load_rubric: client-evaluation-v1
+    2. read_output: evaluation_request.output_only
+    3. score_each_criterion: independently
+    4. calculate_weighted_total: true
+    5. generate_critique: if score < threshold
+```
+
+## Evaluation Output
+
+```yaml
+# evaluation-room/evaluations/eval-001.yml
+evaluation:
+  id: eval-001
+  request: eval-req-001
+  timestamp: "2026-01-05T15:05:00Z"
+  
+  rubric: client-evaluation-v1
+  
+  scores:
+    resource_efficiency:
+      score: 4
+      rationale: "Output indicates capacity is manageable"
+      
+    risk_level:
+      score: 3
+      rationale: "Mitigations proposed but not detailed"
+      confidence: "Would score higher with specific terms"
+      
+    strategic_alignment:
+      score: 4
+      rationale: "Growth goals mentioned, seems aligned"
+      
+    stakeholder_impact:
+      score: 3
+      rationale: "Not explicitly addressed in output"
+      flag: "Committee should consider stakeholder effects"
+      
+  weighted_total: 3.45
+  threshold: 3.5
+  
+  result: REVIEW  # Just below accept
+  
+  critique:
+    summary: "Close to acceptance threshold"
+    
+    gaps:
+      - "Risk mitigation lacks specifics"
+      - "Stakeholder impact not addressed"
+      - "Confidence of 0.65 seems low for recommendation"
+      
+    suggestions:
+      - "Detail the milestone structure"
+      - "Explain how scope boundaries will be enforced"
+      - "Address impact on existing clients and team"
+      
+    if_addressed: "Score could reach 3.7+ (accept)"
+```
+
+## Revision Loop
+
+```yaml
+revision_loop:
+  max_iterations: 3
+  
+  flow:
+    1. committee_outputs: recommendation
+    2. evaluator_scores: against rubric
+    3. if score >= threshold: ACCEPT
+    4. if score < threshold:
+         - evaluator_generates: critique
+         - critique_thrown_to: committee inbox
+         - committee_revises: based on critique
+         - goto: step 1
+    5. if max_iterations reached: ESCALATE to human
+```
+
+## Adversarial Properties
+
+```yaml
+adversarial_separation:
+  why: "Prevents committee gaming metrics"
+  
+  committee_cannot:
+    - see_evaluator_reasoning
+    - predict_exact_scores
+    - optimize_for_rubric_loopholes
+    
+  evaluator_cannot:
+    - be_influenced_by_debate_dynamics
+    - favor_particular_speakers
+    - weight_majority_over_minority
+    
+  result: "Genuine quality signal"
+```
 
 ## Commands
 
-### `*evaluate [--workflow-id <id>]`
+| Command | Action |
+|---------|--------|
+| `EVALUATE [output]` | Send to independent evaluator |
+| `APPLY RUBRIC [name]` | Score against criteria |
+| `CRITIQUE` | Generate improvement suggestions |
+| `REVISE` | Committee addresses critique |
+| `ESCALATE` | Send to human decision maker |
 
-Evaluate TappsCodingAgents framework effectiveness.
+## Integration
 
-**Example:**
-```
-@evaluator *evaluate
-@evaluator *evaluate --workflow-id workflow-123
-```
-
-**Parameters:**
-- `--workflow-id` (optional): Evaluate specific workflow execution
-
-**Output:**
-- Structured markdown report saved to `.tapps-agents/evaluations/evaluation-{timestamp}.md`
-- Report includes: usage statistics, workflow adherence, quality metrics, recommendations
-
-### `*evaluate-workflow <workflow-id>`
-
-Evaluate a specific workflow execution.
-
-**Example:**
-```
-@evaluator *evaluate-workflow workflow-123
-```
-
-**Parameters:**
-- `workflow-id` (required): Workflow identifier to evaluate
-
-**Output:**
-- Workflow-specific evaluation report
-- Step completion analysis
-- Artifact verification
-- Deviation identification
-
-### `*help`
-
-Show available commands and usage.
-
-## Report Structure
-
-Reports follow this structure:
-
-```markdown
-# TappsCodingAgents Evaluation Report
-
-## Executive Summary (TL;DR)
-- Quick summary of findings
-- Top 3 recommendations
-
-## Usage Statistics
-- Command usage breakdown
-- CLI vs Skills vs Simple Mode
-- Agent usage frequency
-- Success rates
-
-## Workflow Adherence
-- Steps executed vs required
-- Documentation artifacts
-- Deviations identified
-
-## Quality Metrics
-- Overall quality scores
-- Quality issues
-- Quality trends (if available)
-
-## Recommendations
-### Priority 1 (Critical)
-- High impact, easy to fix
-- Actionable recommendations
-
-### Priority 2 (Important)
-- High impact, moderate effort
-- Actionable recommendations
-
-### Priority 3 (Nice to Have)
-- Lower impact or high effort
-- Actionable recommendations
+```mermaid
+graph TD
+    C[Committee] -->|output| T[THROW to outbox]
+    T -->|lands in| I[Evaluator inbox]
+    I --> E[Evaluate]
+    R[RUBRIC.yml] --> E
+    E --> S{Score}
+    S -->|≥ threshold| A[✅ Accept]
+    S -->|< threshold| CR[Generate Critique]
+    CR -->|THROW back| CI[Committee inbox]
+    CI --> REV[Revise]
+    REV --> C
+    
+    subgraph "No Context Crossing"
+    I
+    E
+    R
+    end
 ```
 
-## Integration Points
+## Model Instance Separation
 
-**Standalone Execution:**
-- `@evaluator *evaluate` - Run full evaluation
-- `tapps-agents evaluator evaluate` - CLI command
+For true independence:
 
-**Workflow Integration:**
-- Can be added as optional end step in *build, *full workflows
-- Configurable via `.tapps-agents/config.yaml`:
-  ```yaml
-  evaluator:
-    auto_run: false  # Enable to run automatically at end of workflows
-    output_dir: ".tapps-agents/evaluations"
-  ```
-
-## Output Location
-
-Reports are saved to:
-- `.tapps-agents/evaluations/evaluation-{timestamp}.md` (for general evaluation)
-- `.tapps-agents/evaluations/evaluation-{workflow-id}-{timestamp}.md` (for workflow-specific)
-
-## Best Practices
-
-1. **Be Concise**: Reports should be focused and actionable
-2. **Evidence-Based**: All recommendations should be backed by data
-3. **Prioritized**: Clearly distinguish Priority 1, 2, 3 recommendations
-4. **Actionable**: Recommendations should be specific and implementable
-5. **Quality-Focused**: Emphasize improvements that enhance framework quality
-
-## Constraints
-
-- **Read-only agent** - does not modify code or files (only generates reports)
-- **Offline operation** - no network required for evaluation
-- **Data-driven** - analysis based on available workflow state and usage data
-- **Framework-focused** - evaluates TappsCodingAgents itself, not user code
-
-## Tiered Context System
-
-**Tier 1 (Minimal Context):**
-- Workflow state (if available)
-- CLI execution logs (if available)
-- Quality scores (if available)
-
-**Context Tier:** Tier 1 (read-only analysis, minimal context needed)
-
-**Token Savings:** 90%+ by using minimal context for evaluation analysis
-
-## MCP Gateway Integration
-
-**Available Tools:**
-- `filesystem` (read-only): Read workflow state files and evaluation data
-- `git`: Access version control history (if needed for trend analysis)
-- `analysis`: Parse workflow structure (if needed)
-
-**Usage:**
-- Use filesystem tool to read workflow state files
-- Use git tool for historical trend analysis (future enhancement)
-
-## Continuous Improvement Focus
-
-The evaluator is designed to help TappsCodingAgents continuously improve by:
-
-1. **Identifying Usage Gaps**: When intended usage patterns aren't followed
-2. **Workflow Adherence**: Ensuring workflows are executed completely
-3. **Quality Trends**: Tracking quality over time
-4. **Actionable Recommendations**: Providing specific, prioritized improvements
-
-Reports are formatted to be consumable by TappsCodingAgents for automated improvement processes.
+```yaml
+implementation:
+  option_1:
+    name: "Fresh conversation"
+    method: "New chat with no history"
+    
+  option_2:
+    name: "Separate model"
+    method: "Different API call, different instance"
+    
+  option_3:
+    name: "System prompt separation"
+    method: "Explicit instruction: 'You have no prior context'"
+    
+  key_principle: |
+    The evaluator must NOT have access to:
+    - How the committee reached the conclusion
+    - Who said what
+    - What alternatives were considered
+    - Why certain risks were dismissed
+    
+    Only the final output matters.
+```

@@ -1,7 +1,7 @@
 {
   "name": "testing-workflow",
-  "repo": "ilude/claude-code-config",
-  "path": "skills/testing-workflow/SKILL.md",
-  "source": "github.com/ilude/claude-code-config",
-  "downloaded_at": "2026-01-19T03:57:13.533989Z"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/testing-workflow/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-20T02:43:09.004570Z"
 }

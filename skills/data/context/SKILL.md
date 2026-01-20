@@ -1,244 +1,399 @@
 ---
-name: orchestration
-category: context
-version: 2.0.0
-description: Master orchestrator routing to specialized agents - Australian-first
-author: Unite Group
-priority: 1
-triggers:
-  - any_task
-requires:
-  - verification/verification-first.skill.md
-  - verification/error-handling.skill.md
-  - australian/australian-context.skill.md
+name: context
+description: Runtime context passed to compiled closures — the world as seen from inside
+allowed-tools:
+  - read_file
+  - write_file
+tier: 1
+protocol: RUNTIME-CONTEXT
+tags: [moollm, runtime, context, closure, state, primitive]
+related: [object, adventure, room, buff, simulation]
+adversary: global-state
 ---
 
-# Orchestrator Agent
+# Context
 
-## Purpose
-Route all incoming tasks to the appropriate agent/skill and enforce verification-first development with Australian context.
+> *"The context IS the world as seen from inside the closure."*
+> — Dave Ungar, on lexical scope
 
-## Core Principles
+---
 
-### 1. Verification Before Progress
-- NEVER mark a task complete without proof it works
-- Run actual tests, not assumed success
-- Broken = broken, not "almost working"
+## What Is It?
 
-### 2. Honest Status Reporting
-- Report actual state, not optimistic interpretation
-- If something failed, say it failed
-- Include error messages verbatim
+The **world** object is passed to every compiled closure. It provides:
 
-### 3. Root Cause Analysis
-- Identify WHY something failed before attempting fixes
-- Don't apply random fixes hoping one works
-- Document the actual cause
+1. **Standard keys** — Always present (adventure, player, room, turn)
+2. **Extended keys** — Contextual (object, target, npc)
+3. **Skill namespaces** — Skills register state under `world.skills.skill_name`
+4. **Utility functions** — API for interacting with the world
 
-### 4. Australian-First Routing
-- ALL tasks automatically load Australian context
-- en-AU spelling enforced everywhere
-- Design tokens validated against locked values
-- Truth Finder invoked for any content
+### Why "world" not "ctx"?
 
-## Task Routing
+- More evocative — closures see the WORLD
+- Self-documenting — `world.player`, `world.room`
+- Matches the mental model
 
-### Frontend Tasks
-- **Agent**: `.claude/agents/frontend-specialist/`
-- **Skills**: `frontend/nextjs.skill.md`, `design/design-system.skill.md`
-- **Verify**: Build passes, no TypeScript errors, component renders, NO Lucide icons
+---
 
-### Backend Tasks
-- **Agent**: `.claude/agents/backend-specialist/`
-- **Skills**: `backend/langgraph.skill.md`, `backend/fastapi.skill.md`, `backend/advanced-tool-use.skill.md`
-- **Verify**: Tests pass, API responds correctly, no runtime errors
+## Standard Keys
 
-### Database Tasks
-- **Agent**: `.claude/agents/database-specialist/`
-- **Skills**: `database/supabase.skill.md`, `database/migrations.skill.md`
-- **Verify**: Migration runs, queries return expected results, RLS policies tested
+Always present in every world:
 
-### SEO Tasks
-- **Agent**: `.claude/agents/seo-intelligence/`
-- **Skills**: `search-dominance/search-dominance.skill.md`, `search-dominance/blue-ocean.skill.md`, `australian/geo-australian.skill.md`
-- **Verify**: Australian market focus (Brisbane → Sydney → Melbourne), GEO optimization applied
+```javascript
+world.turn           // Current simulation turn
+world.timestamp      // ISO timestamp
 
-### Content Tasks
-- **Agent**: `.claude/agents/truth-finder/`
-- **Skills**: `verification/truth-finder.skill.md`
-- **Verify**: Confidence score ≥75%, citations generated, Australian sources prioritized
+world.adventure      // Root adventure state
+  .name
+  .flags             // Global boolean flags
+  .world_state       // Global key/value state
 
-### Specification Tasks
-- **Agent**: `.claude/agents/spec-builder/`
-- **Skills**: `design/foundation-first.skill.md`, `context/project-context.skill.md`
-- **Verify**: 6-phase interview complete, acceptance criteria defined, design system referenced
+world.player         // Current player
+  .id
+  .name
+  .location          // Path to current room
+  .inventory         // Array of item ids
+  .buffs             // Active buffs
 
-## Multi-Agent Patterns
+world.room           // Current room
+  .id
+  .name
+  .path
+  .exits
+  .objects
+  .is_dark
+  .is_dangerous
 
-### Pattern 1: Plan → Parallelize → Integrate
-For independent subtasks (e.g., frontend + backend for a feature):
-
-```python
-async def orchestrate_complex_task(self, task: Task):
-    # 1. PLAN
-    plan = await self.create_execution_plan(task)
-    subtasks = plan.decompose_into_subtasks()
-
-    # 2. PARALLELIZE
-    subagents = []
-    for subtask in subtasks:
-        agent_type = self.select_agent_type(subtask)
-        agent = await self.spawn_subagent(
-            agent_type,
-            subtask,
-            context=self.partition_context(subtask)
-        )
-        subagents.append(agent)
-
-    # 3. MONITOR
-    results = await self.monitor_and_collect(subagents)
-
-    # 4. INTEGRATE
-    integrated = await self.merge_results(results)
-
-    # 5. VERIFY (Independent)
-    verification = await self.independent_verify(integrated)
-
-    return verification
+world.party          // Party state
+  .members
+  .leader
 ```
 
-### Pattern 2: Sequential with Feedback
-For dependent tasks (e.g., spec → implementation → verification):
+---
 
-```python
-async def orchestrate_sequential(self, task: Task):
-    # 1. Specification
-    spec = await self.spawn_subagent("spec-builder", task)
+## Extended Keys
 
-    # 2. Review spec with user (if needed)
-    if spec.needs_clarification:
-        spec = await self.get_user_feedback(spec)
+Present when relevant:
 
-    # 3. Implementation
-    implementation = await self.spawn_subagent(
-        self.select_implementation_agent(spec),
-        spec.implementation_plan
-    )
+```javascript
+// When running object simulate/methods:
+world.object         // The object being simulated
+  .id
+  .state             // Object's mutable state
+  // Methods are bound: world.consume_fuel(1)
 
-    # 4. Verification
-    verification = await self.spawn_subagent(
-        "verification",
-        implementation.verification_plan
-    )
+// When action targets something:
+world.target         // The target
+  .id
+  .type              // "object", "character", "room"
 
-    # 5. If verification fails, feedback loop
-    if not verification.passed:
-        return await self.orchestrate_sequential(
-            task.with_context(verification.feedback)
-        )
-
-    return verification
+// When NPC is simulating:
+world.npc            // The NPC
+  .id
+  .goals
+  .state
 ```
 
-### Pattern 3: Specialized Worker Delegation
-For narrow, deep expertise tasks:
+---
 
-```python
-async def delegate_to_specialist(self, task: Task):
-    # Identify the specialist
-    specialist = self.match_specialist(task)
+## Skill State Namespaces
 
-    # Provide ONLY relevant context (context partitioning)
-    relevant_context = self.partition_context(task, specialist)
+Skills register state under `world.skills.<skill_name>` using **underscores**:
 
-    # Spawn with pre-loaded skills
-    result = await self.spawn_subagent(
-        specialist,
-        task,
-        context=relevant_context,
-        skills=self.select_skills(specialist)
-    )
+```javascript
+// Skill "economy" → world.skills.economy
+world.skills.economy.gold        // 100
 
-    return result
+// Skill "pie-menu" → world.skills.pie_menu (underscore!)
+world.skills.pie_menu.last_selection  // "north"
+
+// Skill "time" → world.skills.time
+world.skills.time.hour           // 14
+world.skills.time.phase          // "afternoon"
 ```
 
-## Context Partitioning
+**Why underscores?** Dashes aren't valid JS/Python identifiers. `foo-bar` skill → `foo_bar` namespace.
 
-Provide ONLY relevant context to each subagent to optimize token usage:
+This keeps skill state organized and avoids collisions.
 
-```python
-def partition_context(self, task: Task, agent_type: str) -> Context:
-    """Provide only what the agent needs."""
+---
 
-    base_context = {
-        "task": task,
-        "australian_context": self.get_australian_context(),  # Always included
-        "verification_required": True  # Always included
+## Utility Functions
+
+Methods bound to world for interaction:
+
+### Narrative
+
+```javascript
+world.emit("The lamp dies!")              // Show message
+world.narrate("Darkness falls.", "dramatic")
+```
+
+### Events
+
+```javascript
+world.trigger_event("GRUE_APPROACHES", { room: world.room.path })
+```
+
+### Inventory
+
+```javascript
+world.has("brass-key")                    // true/false
+world.give("gold-coins")                  // Add to inventory
+world.take("used-potion")                 // Remove from inventory
+```
+
+### Flags
+
+```javascript
+world.flag("dragon_slain")                // Get flag
+world.set_flag("treasure_found", true)    // Set flag
+```
+
+### State
+
+```javascript
+world.get("object.state.fuel")            // Get by path
+world.set("object.state.lit", true)       // Set by path
+```
+
+### Navigation
+
+```javascript
+world.go("../maze/room-a/")               // Move player
+world.can_go("north")                     // Check exit
+```
+
+### Buffs
+
+```javascript
+world.add_buff({ name: "Caffeinated", effect: { energy: +2 }, duration: 5 })
+world.remove_buff("caffeinated")
+world.has_buff("grue_immunity")
+```
+
+### Logging
+
+```javascript
+world.log("Debug: fuel = " + world.object.state.fuel)
+```
+
+---
+
+## Example: Lamp Simulate
+
+```javascript
+simulate_js: (world) => {
+  if (world.object.state.lit) {
+    world.consume_fuel(1);                  // Call object method
+    
+    if (world.object.state.fuel <= 0) {
+      world.extinguish();                   // Call object method
+      world.emit("The lamp sputters and dies!");
+      
+      if (world.room.is_dark && world.room.is_dangerous) {
+        world.trigger_event("GRUE_APPROACHES");
+      }
     }
-
-    if agent_type == "frontend-specialist":
-        return {
-            **base_context,
-            "files": self.identify_relevant_files(task, ["*.tsx", "*.css"]),
-            "skills": ["nextjs.skill.md", "design-system.skill.md"],
-            "design_tokens": self.load_design_tokens()
-        }
-
-    if agent_type == "seo-intelligence":
-        return {
-            **base_context,
-            "market_focus": "Australian",
-            "primary_locations": ["Brisbane", "Sydney", "Melbourne"],
-            "skills": ["search-dominance.skill.md", "geo-australian.skill.md"],
-            "trusted_sources": self.load_trusted_sources()
-        }
-
-    # ... other agent types
+  }
+}
 ```
 
-## Verification Checklist
+---
 
-Before marking ANY task complete:
+## Example: Guard Expression
 
-- [ ] Code compiles/builds without errors
-- [ ] Relevant tests pass (or new tests written and passing)
-- [ ] Functionality manually verified
-- [ ] No regressions in existing functionality
-- [ ] Error handling covers edge cases
-- [ ] Australian context applied (en-AU, dates, currency)
-- [ ] Design tokens validated (NO Lucide icons)
-- [ ] Truth Finder verified content (if applicable)
+```yaml
+guard: "player has the key AND room is not dark"
+guard_js: (world) => world.has("brass-key") && !world.room.is_dark
+```
 
-## Escalation
+---
 
-If a task cannot be completed after 3 attempts:
-1. Document exactly what was tried
-2. Document exactly what failed
-3. Identify what information is missing
-4. Ask for clarification before proceeding
+## Example: Score Calculation
 
-## Australian Context Integration
+```yaml
+score_if: "player is tired OR room is dark"
+score_if_js: (world) => world.has_buff("tired") || world.room.is_dark
+```
 
-Orchestrator ensures ALL agents receive:
-- **Language**: en-AU defaults (colour, organisation, licence)
-- **Formats**: DD/MM/YYYY, AUD currency, 04XX XXX XXX phone
-- **Regulations**: Privacy Act 1988, WCAG 2.1 AA, SafeWork Australia
-- **Design**: 2025-2026 aesthetic, NO Lucide icons
-- **SEO**: Brisbane → Sydney → Melbourne → Australia-wide
-- **Sources**: .gov.au, .edu.au prioritized
+---
 
-## Hook Integration
+## Example: Skill State
 
-Orchestrator triggers:
-- `pre-agent-dispatch.hook.md` - Before spawning subagent (context partitioning)
-- `post-verification.hook.md` - After verification complete (evidence collection)
-- `pre-response.hook.md` - Before every response (loads Australian context)
+```yaml
+# Skill "economy" needs to check gold
+guard: "player has at least 10 gold"
+guard_js: (world) => world.skills.economy.gold >= 10
 
-## Token Optimization
+# Skill "pie-menu" checks last selection
+score_if: "last pie menu selection was north"
+score_if_js: (world) => world.skills.pie_menu.last_selection === "north"
+```
 
-**Critical**: Minimize context per agent to maximize token efficiency:
-- Partition context (ONLY relevant files/skills)
-- Use agent specialization (narrow focus)
-- Parallelize independent tasks
-- Cache frequently used data (design tokens, trusted sources)
-- Summarize results from subagents before integrating
+---
+
+## Design Principles
+
+### Structured, Not Arbitrary
+
+world is NOT just a bag of key/values. It has defined structure:
+- Standard keys are always present
+- Extended keys appear in context
+- Skills namespace their state (with underscores!)
+- Functions are bound methods
+
+### Skill Namespaces (Underscores!)
+
+Skills don't pollute root world. They register under `world.skills.skill_name`:
+
+```javascript
+// Skill "economy" → world.skills.economy
+world.skills.economy.gold
+world.skills.economy.currency
+
+// Skill "pie-menu" → world.skills.pie_menu (underscore!)
+world.skills.pie_menu.last_selection
+world.skills.pie_menu.hover_direction
+
+// Skill "foo-bar" → world.skills.foo_bar
+world.skills.foo_bar.some_state
+```
+
+**Rule:** `skill-name` with dashes → `skill_name` with underscores in namespace.
+
+### Methods Are Bound
+
+Object methods appear as functions on world:
+
+```javascript
+// Object defines:
+methods:
+  consume_fuel: "reduce fuel by amount"
+
+// At runtime, method is bound:
+world.consume_fuel(1)  // Works!
+```
+
+---
+
+## Related Skills
+
+- [object](../object/) — Provides ctx.object
+- [room](../room/) — Provides ctx.room
+- [adventure](../adventure/) — Provides ctx.adventure
+- [buff](../buff/) — Used by ctx.add_buff/has_buff
+
+---
+
+## Dual Runtime: Python + JavaScript
+
+**CRITICAL:** We always generate BOTH `_js` AND `_py` versions of compiled expressions.
+
+```yaml
+# Natural language
+guard: "player has the key AND room is not dark"
+
+# BOTH generated:
+guard_js: (world) => world.has("brass-key") && !world.room.is_dark
+guard_py: lambda world: world.has("brass-key") and not world.room.is_dark
+```
+
+### Why Dual Runtimes?
+
+| Runtime | Purpose |
+|---------|---------|
+| **Python** | Server-side simulation, testing, LLM tethering |
+| **JavaScript** | Browser runtime, standalone play |
+
+### Keeping Them In Sync
+
+1. **Same semantics** — Both should produce identical results
+2. **Same world structure** — `world.player`, `world.room`, etc.
+3. **Same utility functions** — `world.has()`, `world.emit()`, etc.
+4. **Generated together** — LLM produces both in one pass
+
+### The Compilation Event
+
+```yaml
+- event: COMPILE_EXPRESSION
+  field: guard
+  source: "player has the key"
+  targets:
+    - field: guard_js
+      language: javascript
+    - field: guard_py
+      language: python
+  expected_type: boolean
+```
+
+### Python Runtime Class
+
+```python
+class World:
+    """Python runtime context — mirrors JavaScript World class."""
+    
+    def __init__(self, adventure_data):
+        self.turn = 0
+        self.adventure = adventure_data
+        self.player = adventure_data['player']
+        self.room = None  # Set on navigation
+        self.party = adventure_data['party']
+        self.object = None  # Set during object simulation
+        self.skills = {}  # Skill state namespaces
+        
+    def has(self, item_id: str) -> bool:
+        return item_id in self.player.get('inventory', [])
+        
+    def flag(self, name: str) -> bool:
+        return self.adventure.get('flags', {}).get(name, False)
+        
+    def emit(self, message: str):
+        print(message)  # Or queue for output
+        
+    def trigger_event(self, name: str, data=None):
+        # Event system handles this
+        pass
+```
+
+### JavaScript Runtime Class
+
+```javascript
+class World {
+  /** JavaScript runtime context — mirrors Python World class. */
+  
+  constructor(adventureData) {
+    this.turn = 0;
+    this.adventure = adventureData;
+    this.player = adventureData.player;
+    this.room = null;  // Set on navigation
+    this.party = adventureData.party;
+    this.object = null;  // Set during object simulation
+    this.skills = {};  // Skill state namespaces
+  }
+  
+  has(itemId) {
+    return (this.player.inventory || []).includes(itemId);
+  }
+  
+  flag(name) {
+    return (this.adventure.flags || {})[name] || false;
+  }
+  
+  emit(message) {
+    console.log(message);  // Or queue for UI
+  }
+  
+  triggerEvent(name, data) {
+    // Event system handles this
+  }
+}
+```
+
+---
+
+## Protocol Symbol
+
+```
+RUNTIME-CONTEXT — The world passed to closures (Python + JavaScript)
+```

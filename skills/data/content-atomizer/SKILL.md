@@ -1,362 +1,201 @@
 ---
 name: content-atomizer
-description: Transform long-form content into 15+ platform-ready assets. One article becomes threads, carousels, audiograms, video scripts, quizzes, discussion prompts, and more.
-triggers:
-  - atomize content
-  - repurpose content
-  - content atomizer
-  - turn article into
-  - repurpose article
-  - content repurposing
-allowed-tools: Read, Write, Edit, Grep, Glob, WebSearch, AskUserQuestion
+description: Repurpose one piece of content into 15+ pieces for different platforms. Use when maximizing content reach, building social media presence, or getting more value from your content creation.
 ---
 
-# Content Atomizer
+# Content Atomizer Skill
 
-Transform one piece of long-form content into 19 platform-ready distribution assets across social, video, audio, written, and interactive formats.
+## Overview
 
-## What This Produces
+Content Atomizer is the skill of taking one piece of content and breaking it into many pieces for different platforms. This skill teaches you to maximize content reach.
 
-**1 long-form piece → 19 platform-ready assets**
+**Keywords**: content repurposing, content distribution, social media content, multi-channel content, content strategy, content multiplication
 
-- 6 social (Thread, LinkedIn, IG, Short Post, Threads, Pinterest)
-- 5 video/audio (Video, TikTok, Shorts, Audiogram, Podcast)
-- 3 written (Email, Blog spin-offs, SEO snippets)
-- 5 interactive/visual (Quiz, Discussion, Challenge, Infographic, Quotes)
+## Core Methodology
 
-## Input
+The principle is simple: **One piece of content, many formats and platforms.**
 
-Ask the user to provide:
-1. **Source content** - URL, file path, or paste the content directly
-2. **Target platforms** - Which outputs they want (default: all)
-3. **Audience context** - Who is this for? (optional but helpful)
+A 2,000-word blog post can become:
+- 10 social media posts
+- 1 email newsletter
+- 3 short-form videos
+- 1 infographic
+- 1 podcast episode
+- 1 slide deck
+- 5 LinkedIn posts
+- 1 Twitter thread
 
-If the user just pastes content, proceed immediately. Don't over-ask.
+Your voice stays consistent, but the format and length adapt to each platform.
 
-## Output Formats
+## The 15 Content Formats
 
-**19 formats across 5 categories.** Templates in `resources/`:
-- `social-templates.yaml` - Twitter, LinkedIn, IG, Threads, Pinterest
-- `video-audio-templates.yaml` - Video, TikTok, Shorts, Audiogram, Podcast
-- `written-templates.yaml` - Email, Blog spin-offs, SEO snippets
-- `interactive-templates.yaml` - Quiz, Discussion, Challenge
-- `visual-templates.yaml` - Infographic, Quote graphics
+### Format 1: LinkedIn Posts (5-7 posts)
 
-### Social Formats (6)
-| # | Format | Best For | Key Rule |
-|---|--------|----------|----------|
-| 1 | Twitter/X Thread | Big ideas, educational | First tweet = 90% of success |
-| 2 | LinkedIn Carousel | Professional depth | Max 30 words per slide |
-| 3 | Instagram Carousel | Visual learners | Save + Share focus |
-| 4 | Short-Form Post | Quick wins | Under 100 char hook |
-| 5 | Threads (Meta) | Authentic takes | No hard CTAs |
-| 6 | Pinterest Pin | Evergreen traffic | Keyword in first 40 chars |
+**Length**: 100-200 words  
+**Format**: Text + 1-2 images/video  
+**Structure**: Hook + Story/Insight + Lesson + CTA
 
-### Video & Audio Formats (5)
-| # | Format | Best For | Key Rule |
-|---|--------|----------|----------|
-| 7 | Video Script (60s) | General short-form | Hook works with sound OFF |
-| 8 | TikTok Script | Trend-driven content | Completion rate is everything |
-| 9 | YouTube Shorts | SEO-driven video | First 2 lines of description matter |
-| 10 | Audiogram Script | Podcast promotion | One idea only, 45 seconds |
-| 11 | Podcast Outline | Deep-dive expansion | 15-20 min from one article |
+### Format 2: Twitter/X Threads (2-3 threads)
 
-### Written Formats (3)
-| # | Format | Best For | Key Rule |
-|---|--------|----------|----------|
-| 12 | Email Excerpt | Newsletter/nurture | P.S. always gets read |
-| 13 | Blog Spin-Offs | Content cluster SEO | 5 derivative articles |
-| 14 | SEO Snippets | Featured snippet capture | Answer query in 40-60 words |
+**Length**: 5-10 tweets per thread  
+**Format**: Text  
+**Structure**: Hook tweet + Explanation tweets + Conclusion
 
-### Interactive & Community (3)
-| # | Format | Best For | Key Rule |
-|---|--------|----------|----------|
-| 15 | Quiz/Poll | Engagement + education | Deploy across IG/LinkedIn/X |
-| 16 | Discussion Prompts | Reddit/Discord/Slack | Question format, seed with your take |
-| 17 | Challenge Prompt | UGC generation | You go first with example |
+### Format 3: Instagram Captions (3-5 posts)
 
-### Visual Assets - Copy Only (2)
-| # | Format | Best For | Key Rule |
-|---|--------|----------|----------|
-| 18 | Infographic Outline | Designer handoff | Include chart type suggestions |
-| 19 | Quote Graphics List | Social visuals | 5-10 standalone quotes |
+**Length**: 100-150 words  
+**Format**: Image + Caption  
+**Structure**: Hook + Story/Insight + Lesson + CTA
 
-## Atomization Process
+### Format 4: TikTok/Short-Form Video Scripts (3-5 videos)
 
-### Step 1: Extract Core Elements
+**Length**: 30-60 seconds  
+**Format**: Video script  
+**Structure**: Hook (3s) + Problem (5-10s) + Insight (10-15s) + CTA (3-5s)
 
-From the source content, identify:
-- **Central thesis** - The one big idea (1 sentence)
-- **Key insights** - 3-7 supporting points
-- **Stories/examples** - Concrete illustrations
-- **Data/stats** - Quotable numbers
-- **Contrarian angles** - What goes against common belief
-- **Actionable takeaways** - What reader can DO
+### Format 5: Email Newsletter (1 email)
 
-### Step 2: Platform Mapping
+**Length**: 300-500 words  
+**Format**: Email  
+**Structure**: Hook + Story/Insight + Lesson + CTA
 
-| Element | Best Formats | Buyer Stage |
-|---------|--------------|-------------|
-| Central thesis | LinkedIn post, Video hook, Audiogram | Awareness |
-| Key insights | Thread, Carousel, Podcast segment | Awareness/Consideration |
-| Stories | TikTok, Video script, Discussion prompt | Awareness |
-| Data/stats | Infographic, Pinterest, Quote graphic | Consideration |
-| Contrarian take | Tweet, Threads, Reddit post | Awareness |
-| Actionable takeaways | Email, Challenge, Quiz | Consideration/Decision |
-| How-to steps | YouTube Shorts, Blog spin-off, Carousel | Decision |
-| Social proof | Case study excerpt, Quote graphic | Decision |
+### Format 6: Podcast Episode Clips (2-3 clips)
 
-### Step 2b: Buyer Journey Mapping
+**Length**: 30-90 seconds  
+**Format**: Audio clip + Transcript  
+**Structure**: Hook + Insight + Takeaway
 
-Map each asset to the customer journey:
+### Format 7: YouTube Shorts (3-5 videos)
+
+**Length**: 15-60 seconds  
+**Format**: Vertical video  
+**Structure**: Hook (2s) + Content + CTA (3s)
+
+### Format 8: Infographic (1 infographic)
+
+**Format**: Visual representation  
+**Content**: Main headline + 3-5 key points + Visual elements
+
+### Format 9: Slide Deck (1 deck)
+
+**Length**: 10-15 slides  
+**Structure**: Title + Problem + 3-5 Content Slides + Conclusion + CTA
+
+### Format 10: Quote Graphics (5-10 graphics)
+
+**Format**: Image + Quote text  
+**Content**: One key quote + Attribution + Branded design
+
+### Format 11: Carousel Posts (2-3 carousels)
+
+**Length**: 5-10 slides per carousel  
+**Format**: Multi-slide post  
+**Structure**: Hook + 3-5 Content Slides + CTA
+
+### Format 12: Blog Post Snippets (3-5 snippets)
+
+**Length**: 300-500 words each  
+**Format**: Extracted section  
+**Content**: One key section + Link to full post
+
+### Format 13: Case Study (1 case study)
+
+**Length**: 1,000-1,500 words  
+**Format**: Detailed story  
+**Structure**: Situation + Action + Result + Lesson
+
+### Format 14: FAQ/Explainer (1 document)
+
+**Length**: 500-1,000 words  
+**Format**: Q&A format  
+**Structure**: 5-10 questions + Clear answers
+
+### Format 15: Webinar Outline (1 outline)
+
+**Length**: 45-60 minute webinar  
+**Format**: Detailed outline  
+**Structure**: Intro (5m) + Problem (10m) + Solution (20m) + Examples (10m) + Q&A (10m) + CTA (5m)
+
+## The Atomization Process
+
+### Step 1: Choose Your Seed Content
+
+Pick one piece of content that:
+- Is substantial and valuable
+- Reflects your positioning and voice
+- Has multiple key ideas
+
+### Step 2: Extract Core Ideas
+
+Break your content into 5-10 core ideas:
 
 ```
-AWARENESS (Top of Funnel)
-├── Twitter/X Thread - hook with big idea
-├── TikTok/Reels - pattern interrupt
-├── Audiogram - quotable insight
-├── Discussion prompts - start conversations
-└── Threads post - authentic take
-
-CONSIDERATION (Middle of Funnel)
-├── LinkedIn Carousel - educational depth
-├── Podcast outline - deep dive
-├── Infographic - visual summary
-├── Blog spin-offs - SEO capture
-├── Quiz/Poll - engagement + education
-└── YouTube Shorts - how-to snippets
-
-DECISION (Bottom of Funnel)
-├── Email excerpt - direct CTA
-├── Pinterest pin - save for later
-├── SEO snippets - capture search intent
-├── Challenge prompt - activation
-└── Quote graphics - social proof
+Idea 1: [Main concept]
+Idea 2: [Key framework]
+Idea 3: [Example or story]
+Idea 4: [Surprising insight]
+Idea 5: [Actionable takeaway]
 ```
 
-**Strategy:** Release awareness content first, then consideration, then decision. Don't blast all at once.
+### Step 3: Plan Your Atomization
 
-### Step 3: Generate Assets
+Decide which formats to use:
 
-Create each format using the templates above. Customize hooks for each platform's audience.
-
-## Quick Mode vs. Deep Mode
-
-### Quick Mode (Default)
-Just atomize the content using the templates. Fast, reliable, good enough.
-
-### Deep Mode
-When user asks for "optimized" or "researched" versions:
-1. Use WebSearch to find top-performing content in their niche
-2. Analyze current platform algorithm priorities
-3. Customize hooks based on what's working NOW
-4. Add platform-specific hashtag/timing recommendations
-
-## Output Format
-
-```markdown
-# CONTENT ATOMIZATION: [Title]
-
-## Source Summary
-[1-2 sentence summary of original content]
-
-## Central Thesis
-[The one big idea]
-
-## Key Insights Extracted
-1. [Insight]
-2. [Insight]
-3. [Insight]
-(etc.)
-
----
-
-# SOCIAL FORMATS
-
-## 1. TWITTER/X THREAD
-[Full thread with numbering]
-
-## 2. LINKEDIN CAROUSEL
-[Slide-by-slide content]
-
-## 3. INSTAGRAM CAROUSEL
-[Slide-by-slide content]
-
-## 4. SHORT-FORM POST
-[Universal single post]
-
-## 5. THREADS (META) POST
-[Conversational thread]
-
-## 6. PINTEREST PIN
-[Title, description, visual concept]
-
----
-
-# VIDEO & AUDIO FORMATS
-
-## 7. VIDEO SCRIPT (60s)
-[Full script with timing]
-
-## 8. TIKTOK SCRIPT
-[Platform-native with hooks]
-
-## 9. YOUTUBE SHORTS DESCRIPTION
-[SEO-optimized]
-
-## 10. AUDIOGRAM SCRIPT
-[45-second audio excerpt]
-
-## 11. PODCAST EPISODE OUTLINE
-[15-20 min expansion]
-
----
-
-# WRITTEN FORMATS
-
-## 12. EMAIL EXCERPT
-[Complete email with subject options]
-
-## 13. BLOG SPIN-OFF IDEAS
-[5 derivative article concepts]
-
-## 14. SEO SNIPPET VARIATIONS
-[Featured snippet optimized]
-
----
-
-# INTERACTIVE & COMMUNITY
-
-## 15. QUIZ/POLL PROMPTS
-[Questions and poll options]
-
-## 16. DISCUSSION PROMPTS
-[Reddit/Discord/community posts]
-
-## 17. CHALLENGE PROMPT
-[UGC activation]
-
----
-
-# VISUAL ASSETS (Copy Only)
-
-## 18. INFOGRAPHIC OUTLINE
-[Structured for designer]
-
-## 19. QUOTE GRAPHICS LIST
-[5-10 pull quotes]
-
----
-
-## DISTRIBUTION CHECKLIST
-
-### Awareness Phase (Days 1-3)
-- [ ] Twitter/X thread posted
-- [ ] TikTok script recorded
-- [ ] Audiogram created and shared
-- [ ] Threads post published
-- [ ] Discussion prompt seeded in community
-
-### Consideration Phase (Days 4-7)
-- [ ] LinkedIn carousel published
-- [ ] YouTube Short uploaded
-- [ ] Instagram carousel posted
-- [ ] Podcast episode scheduled
-- [ ] Quiz/poll launched
-- [ ] Blog spin-off #1 drafted
-
-### Decision Phase (Days 8-14)
-- [ ] Email excerpt sent to list
-- [ ] Pinterest pin published
-- [ ] Challenge prompt launched
-- [ ] SEO snippets added to original
-- [ ] Quote graphics shared
-
----
-
-## STAGGERED RELEASE CALENDAR
-
-| Day | Platform | Asset | Buyer Stage | Optimal Time |
-|-----|----------|-------|-------------|--------------|
-| Day 1 | Twitter/X | Thread | Awareness | 9am or 12pm |
-| Day 1 | TikTok | Video | Awareness | 7pm |
-| Day 2 | Threads | Post | Awareness | 10am |
-| Day 2 | Reddit/Discord | Discussion | Awareness | Evening |
-| Day 3 | LinkedIn | Carousel | Consideration | 8am Tue-Thu |
-| Day 4 | Instagram | Carousel | Consideration | 11am or 7pm |
-| Day 5 | YouTube | Short | Consideration | 3pm |
-| Day 5 | Podcast | Episode | Consideration | Release day |
-| Day 7 | Email | Excerpt | Decision | Tue/Thu 10am |
-| Day 7 | Pinterest | Pin | Decision | 8pm Sat |
-| Day 10 | Twitter/X | Challenge | Decision | 12pm |
-| Day 14 | Blog | Spin-off | Decision | Anytime |
-
-**Staggered Release Strategy:**
-- Never publish more than 2 platforms same day
-- Space awareness → consideration → decision
-- Repurpose top performer into more formats
-- Week 2: Evaluate and double down on winners
+```
+LinkedIn Posts: 5 posts (Ideas 1-5)
+Twitter Threads: 2 threads (Ideas 1-2, 3-4)
+Email: 1 email (All ideas)
+TikTok: 3 videos (Ideas 1, 3, 5)
+Quote Graphics: 5 graphics (Key quotes)
 ```
 
-## Platform Algorithm Notes (2025-2026)
+### Step 4: Create Your Atomic Content
 
-| Platform | Algorithm Priority | What to Optimize |
-|----------|-------------------|------------------|
-| Twitter/X | Replies, quotes, bookmarks | Controversial hooks, question endings |
-| LinkedIn | Dwell time, comments | First line hook, carousel saves |
-| Instagram | Saves, shares, watch time | Reels completion, carousel swipes |
-| TikTok | Completion rate, shares | First 2 seconds, save prompts |
-| YouTube Shorts | Watch time, subscribe clicks | Hook + payoff loop |
-| Pinterest | Saves, click-through | Keyword-rich descriptions |
-| Threads | Replies, reposts | Authentic voice, no hard CTAs |
-| Podcast | Completion, reviews | Strong intro, clear segments |
+Use prompts with Claude to generate all formats at once.
 
-**Universal 2025-2026 Trends:**
-- "Follow for more" CTAs penalized across platforms
-- Saves/bookmarks weighted higher than likes
-- Completion rate matters more than views
-- Native content outperforms cross-posted
-- Carousels/threads outperform single posts
+### Step 5: Distribute Across Platforms
 
-## Quality Checklist
+Schedule your atomic content:
 
-Before delivering, verify:
+```
+Monday: LinkedIn Post 1
+Tuesday: Twitter Thread 1
+Wednesday: Email Newsletter
+Thursday: TikTok Video 1
+Friday: LinkedIn Post 2
+Saturday: Instagram Post 1
+Sunday: Quote Graphic 1
+```
 
-### Format Quality
-- [ ] Each format uses platform-native conventions
-- [ ] Hooks are DIFFERENT across platforms (not copy-paste)
-- [ ] Video scripts are speakable (read aloud test)
-- [ ] Carousels work standalone (no context needed)
-- [ ] Audio scripts work with sound OFF (text overlays noted)
+## How to Use This Skill
 
-### Content Quality
-- [ ] No AI-slop phrases ("In today's landscape", "Let's dive in", "Game-changer")
-- [ ] Each piece has ONE clear takeaway
-- [ ] CTAs are platform-appropriate (soft for TikTok/Threads, direct for email)
-- [ ] Hooks create genuine curiosity, not clickbait
+1. **First Time**: Choose one blog post or video and atomize it
+2. **With Claude**: Use prompts to create all atomic content
+3. **In Projects**: Reference this framework for every piece
+4. **Refinement**: Track which formats drive most engagement
 
-### Strategic Quality
-- [ ] Assets mapped to buyer journey stages
-- [ ] Staggered release calendar makes sense
-- [ ] High-value formats prioritized (not just easy ones)
-- [ ] Internal linking strategy for blog spin-offs
+## Integration with Other Skills
 
-## What This Skill Does NOT Do
+Content Atomizer works with:
+- **SEO Content** — Your blog posts become seed content
+- **Brand Voice** — Your voice stays consistent
+- **Newsletter** — Your newsletter content gets repurposed
+- **Email Sequences** — Your email content gets repurposed
 
-- **Design visuals** - Provides copy/outlines for infographics, not actual graphics
-- **Schedule posts** - Provides content and timing guidance, not automation
-- **Write the original** - Atomizes existing content only (use `content-writer` for original)
-- **Record audio/video** - Provides scripts, not production
-- **Post to platforms** - Provides content, user must publish
+## Common Pitfalls
 
-## When to Use This vs. Other Skills
+**Exact Duplication** — Don't copy-paste. Adapt for each platform.  
+**Wrong Format** — A 500-word essay doesn't work on TikTok.  
+**Losing Your Voice** — Adapt format, not voice.  
+**Too Much Content** — You don't need all 15 formats. Pick 5-7.  
+**No Consistency** — Atomize regularly to build momentum.
 
-| Use `content-atomizer` when... | Use other skills when... |
-|-------------------------------|--------------------------|
-| You have finished long-form content | Creating original content (`content-writer`) |
-| Need multi-platform distribution | Single platform strategy (`linkedin-content`) |
-| Want to maximize one piece's reach | Building content calendar (`content-calendar`) |
-| Repurposing newsletters, articles | Writing from scratch (`viral-content`) |
-| Need 15+ assets from one piece | Need just 1-2 quick posts |
-| Strategic buyer-journey mapping | Quick social post (`hook-writer`) |
-| Full atomization with calendar | Just need quote graphics |
+## Time Savings
+
+**Traditional**: 7.5 hours for 5 pieces  
+**Atomization**: 6 hours for 15+ pieces  
+**Savings**: 1.5 hours per cycle, 78 hours per year
+
+## Next Steps
+
+Once you're consistently atomizing content, move to Skill 10: Orchestrator to manage all skills together.

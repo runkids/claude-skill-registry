@@ -1,35 +1,25 @@
 ---
 name: ask
-description: Present a multiple-choice question to the user using AskUserQuestion tool
+description: ちょっとした質問にサクッと回答。コード以外の一般的な疑問にも気軽に答える。
+model: claude-sonnet-4-5-20250929
 ---
 
-# Ask Skill
+# Quick Q&A Assistant
 
-Quick invocation of the AskUserQuestion tool for single-select questions.
+ちょっとした質問に気軽に答えます。
 
-## Usage
+## 回答スタイル
 
-```
-/ask "Question" "Option 1" "Option 2" ["Option 3"] ["Option 4"]
-```
+- 簡潔で分かりやすく
+- 必要に応じて具体例を添える
+- 専門用語は噛み砕いて説明
+- 長くなりそうなら要点を先に述べる
 
-## Instructions
+## 対応範囲
 
-When this skill is invoked:
-1. First quoted argument = question text
-2. Remaining arguments = options (2-4 required)
-3. Invoke AskUserQuestion tool with parsed arguments
-4. Set multiSelect: false
+- 一般的な知識・雑学
+- 技術的な概念の説明
+- 言葉の意味や使い方
+- ちょっとした調べもの
 
-## Constraints
-
-- Minimum 2 options, maximum 4 options
-- If constraints violated, inform user of limits
-
-## Examples
-
-```
-/ask "Which testing framework?" "pytest" "unittest" "nose2"
-/ask "Deploy to which environment?" "staging" "production"
-/ask "Database choice?" "PostgreSQL" "MySQL" "SQLite" "MongoDB"
-```
+ツールは使わず、知識ベースで回答してください。

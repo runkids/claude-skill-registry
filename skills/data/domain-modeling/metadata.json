@@ -1,7 +1,7 @@
 {
   "name": "domain-modeling",
-  "repo": "daishiman/AIWorkflowOrchestrator",
-  "path": "docs/99-claude/skills/domain-modeling/SKILL.md",
-  "source": "github.com/daishiman/AIWorkflowOrchestrator",
-  "downloaded_at": "2026-01-19T03:07:30.644307Z"
+  "repo": "proflead/codex-skills-library",
+  "path": "skills/architecture/domain-modeling/SKILL.md",
+  "source": "github.com/proflead/codex-skills-library",
+  "downloaded_at": "2026-01-20T02:43:26.869935Z"
 }

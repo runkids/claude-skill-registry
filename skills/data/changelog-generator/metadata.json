@@ -1,7 +1,7 @@
 {
   "name": "changelog-generator",
-  "repo": "pur3v4d3r/pur3-pkb-codebase",
-  "path": "__LOCAL-REPO/__skills/changelog-generator/SKILL.md",
-  "source": "github.com/pur3v4d3r/pur3-pkb-codebase",
-  "downloaded_at": "2026-01-19T04:15:11.646931Z"
+  "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+  "path": ".claude/skills/changelog-generator/SKILL.md",
+  "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
+  "downloaded_at": "2026-01-20T03:45:03.679823Z"
 }

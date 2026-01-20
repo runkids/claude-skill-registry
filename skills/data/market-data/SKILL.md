@@ -1,317 +1,320 @@
 ---
 name: market-data
-description: Fetches real-time and historical stock market data from authorized APIs including prices, fundamentals, news, and economic data
-triggers:
-  - stock price
-  - get quote
-  - market data
-  - stock data
-  - historical prices
-  - stock news
-  - earnings calendar
-  - economic calendar
-  - real-time data
+description: Access US stock market data including price bars, news with sentiment, and company details via eng0 data API. Use when user asks for stock prices, OHLCV data, price history, stock news, or company information. Triggers include "stock price", "price history", "OHLCV", "stock news", "company info", "market data", "ticker data". Do NOT use for SEC filings (use sec-edgar-skill instead).
 ---
 
-# Market Data Skill
+# Market Data API
 
-You are the **Market Data Agent** specialized in fetching real-time and historical financial market data from authorized APIs.
+Access US stock market data through eng0's data proxy service.
 
-## Capabilities
-- Real-time stock quotes and market data
-- Historical price data (OHLCV)
-- Company fundamental data (financials, ratios)
-- Market news and company news
-- Earnings calendar data
-- Economic calendar events
-- Technical indicator data
-- Index and sector data
+## Base URL
 
-## When to Activate
-Activate this skill when the user requests:
-- "What's the price of AAPL?"
-- "Get me a quote for Tesla"
-- "Historical prices for MSFT"
-- "Latest news on Amazon"
-- "When is NVDA earnings?"
-- "Economic data releases today"
-- "Market data for my watchlist"
-
-## Process
-
-1. **Identify Data Need**: Determine what data type is requested
-2. **Select Data Source**: Choose appropriate API based on data type
-3. **Fetch Data**: Retrieve data from authorized sources
-4. **Validate Response**: Verify data quality and completeness
-5. **Format Output**: Present data in clear, structured format
-
-## Data Sources & Capabilities
-
-### Real-Time Quotes (Finnhub)
-**API**: `https://finnhub.io/api/v1`
-**Rate Limit**: 60 calls/minute
-
-```markdown
-## Stock Quote: {TICKER}
-
-**{Company Name}**
-**Last Updated**: {Timestamp}
-
-| Metric | Value |
-|--------|-------|
-| Current Price | ${current_price} |
-| Change | ${change} ({change_pct}%) |
-| Open | ${open} |
-| High | ${high} |
-| Low | ${low} |
-| Previous Close | ${prev_close} |
-| Volume | {volume} |
-| 52-Week High | ${high_52w} |
-| 52-Week Low | ${low_52w} |
-
-**Status**: {Pre-Market / Market Open / After Hours / Closed}
+```
+https://api.eng0.ai/api/data
 ```
 
-### Historical Data (Alpha Vantage)
-**API**: `https://www.alphavantage.co/query`
-**Rate Limit**: 5 calls/minute
+## Data Coverage
 
-```markdown
-## Historical Prices: {TICKER}
-
-**Period**: {Start Date} to {End Date}
-**Frequency**: {Daily / Weekly / Monthly}
-
-| Date | Open | High | Low | Close | Volume |
-|------|------|------|-----|-------|--------|
-| {date} | ${o} | ${h} | ${l} | ${c} | {vol} |
-| {date} | ${o} | ${h} | ${l} | ${c} | {vol} |
-...
-
-### Summary Statistics
-- **Period Return**: {return}%
-- **High**: ${high} on {date}
-- **Low**: ${low} on {date}
-- **Average Volume**: {avg_vol}
-```
-
-### Fundamental Data (Financial Modeling Prep)
-**API**: `https://financialmodelingprep.com/api/v3`
-**Rate Limit**: 250 calls/day
-
-```markdown
-## Company Fundamentals: {TICKER}
-
-**{Company Name}**
-**Last Updated**: {Date}
-
-### Valuation Metrics
-| Metric | Value |
-|--------|-------|
-| Market Cap | ${market_cap}B |
-| Enterprise Value | ${ev}B |
-| P/E Ratio | {pe} |
-| PEG Ratio | {peg} |
-| P/B Ratio | {pb} |
-| P/S Ratio | {ps} |
-| EV/EBITDA | {ev_ebitda} |
-
-### Profitability Metrics
-| Metric | Value |
-|--------|-------|
-| Gross Margin | {gross_margin}% |
-| Operating Margin | {op_margin}% |
-| Net Margin | {net_margin}% |
-| ROE | {roe}% |
-| ROA | {roa}% |
-
-### Financial Health
-| Metric | Value |
-|--------|-------|
-| Current Ratio | {current_ratio} |
-| Debt/Equity | {debt_equity} |
-| Interest Coverage | {int_coverage}x |
-
-### Dividend Info
-| Metric | Value |
-|--------|-------|
-| Dividend Yield | {div_yield}% |
-| Payout Ratio | {payout}% |
-| Ex-Dividend Date | {ex_date} |
-```
-
-### Company News (Finnhub)
-```markdown
-## Recent News: {TICKER}
-
-**{Company Name}** | Last {N} articles
+- **All US stock tickers**
+- **5 years of historical data**
+- **100% market coverage**
+- **15-minute delayed quotes**
 
 ---
 
-### {Headline 1}
-**Source**: {source} | **Date**: {date}
-{Summary}
-[Read more]({url})
+## Available Endpoints
+
+| Endpoint | Purpose |
+|----------|---------|
+| `POST /stocks/bars` | OHLCV price bars (1min to 1week intervals) |
+| `POST /stocks/news` | News articles with sentiment analysis |
+| `POST /stocks/details` | Company information and market cap |
+| `GET /schema` | API schema discovery |
 
 ---
 
-### {Headline 2}
-**Source**: {source} | **Date**: {date}
-{Summary}
-[Read more]({url})
+## Get Price Bars
+
+Retrieve OHLCV (Open, High, Low, Close, Volume) bars for a stock.
+
+```bash
+curl -X POST https://api.eng0.ai/api/data/stocks/bars \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ticker": "AAPL",
+    "interval": "1day",
+    "from": "2024-12-01",
+    "to": "2024-12-31"
+  }'
+```
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `ticker` | string | Yes | Stock symbol (e.g., `AAPL`, `MSFT`) |
+| `interval` | string | Yes | `1min`, `5min`, `15min`, `30min`, `1hour`, `4hour`, `1day`, `1week` |
+| `from` | date | Yes | Start date (`YYYY-MM-DD`) |
+| `to` | date | Yes | End date (`YYYY-MM-DD`) |
+
+**Response:**
+```json
+{
+  "ticker": "AAPL",
+  "count": 21,
+  "bars": [
+    {
+      "t": "2024-12-02T05:00:00.000Z",
+      "o": 237.27,
+      "h": 240.79,
+      "l": 237.16,
+      "c": 239.59,
+      "v": 48137103,
+      "vw": 239.4992,
+      "n": 469685
+    }
+  ]
+}
+```
+
+**Response Fields:**
+
+| Field | Description |
+|-------|-------------|
+| `t` | Timestamp (ISO 8601 UTC) |
+| `o` | Open price |
+| `h` | High price |
+| `l` | Low price |
+| `c` | Close price |
+| `v` | Volume |
+| `vw` | Volume-weighted average price |
+| `n` | Number of transactions |
 
 ---
 
-### {Headline 3}
-**Source**: {source} | **Date**: {date}
-{Summary}
-[Read more]({url})
+## Get News
+
+Retrieve financial news articles with sentiment analysis.
+
+```bash
+curl -X POST https://api.eng0.ai/api/data/stocks/news \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ticker": "TSLA",
+    "limit": 5
+  }'
 ```
 
-### Earnings Calendar (Finnhub)
-```markdown
-## Earnings Calendar
+**Parameters:**
 
-### Upcoming Earnings: {Date Range}
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `ticker` | string | Yes | Stock symbol |
+| `limit` | number | No | Max articles (default: 10, max: 100) |
 
-| Date | Company | Symbol | Time | EPS Est | Rev Est |
-|------|---------|--------|------|---------|---------|
-| {date} | {company} | {ticker} | {BMO/AMC} | ${eps} | ${rev}B |
-| {date} | {company} | {ticker} | {BMO/AMC} | ${eps} | ${rev}B |
-...
-
-### Past Earnings (Last Week)
-
-| Date | Company | Symbol | EPS Act | EPS Est | Surprise |
-|------|---------|--------|---------|---------|----------|
-| {date} | {company} | {ticker} | ${act} | ${est} | {+/-}% |
-...
+**Response:**
+```json
+{
+  "count": 5,
+  "articles": [
+    {
+      "title": "Tesla Stock Rises on Strong Delivery Numbers",
+      "description": "Tesla reported better-than-expected Q4 deliveries...",
+      "author": "John Smith",
+      "publisher": "Reuters",
+      "publishedAt": "2025-01-06T14:30:00Z",
+      "url": "https://...",
+      "tickers": ["TSLA"],
+      "keywords": ["electric vehicles", "deliveries"],
+      "sentiment": "positive",
+      "sentimentReasoning": "Article discusses strong delivery numbers and positive market reaction."
+    }
+  ]
+}
 ```
 
-### Economic Calendar (Finnhub)
-```markdown
-## Economic Calendar
+**Sentiment Values:** `positive`, `negative`, `neutral`
 
-### Today's Events: {Date}
+---
 
-| Time (ET) | Event | Country | Actual | Forecast | Previous |
-|-----------|-------|---------|--------|----------|----------|
-| {time} | {event} | {country} | {actual} | {forecast} | {previous} |
-...
+## Get Company Details
 
-### Upcoming This Week
+Retrieve company information for a stock ticker.
 
-| Date | Time | Event | Importance |
-|------|------|-------|------------|
-| {date} | {time} | {event} | {High/Medium/Low} |
-...
+```bash
+curl -X POST https://api.eng0.ai/api/data/stocks/details \
+  -H "Content-Type: application/json" \
+  -d '{"ticker": "AAPL"}'
 ```
 
-### Market Indices
-```markdown
-## Market Overview
+**Parameters:**
 
-### Major Indices
-| Index | Level | Change | % Change |
-|-------|-------|--------|----------|
-| S&P 500 | {level} | {change} | {pct}% |
-| Nasdaq | {level} | {change} | {pct}% |
-| Dow Jones | {level} | {change} | {pct}% |
-| Russell 2000 | {level} | {change} | {pct}% |
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `ticker` | string | Yes | Stock symbol |
 
-### Sector Performance
-| Sector | Performance |
-|--------|-------------|
-| {sector} | {+/-}X.XX% |
-...
-
-### Market Sentiment
-- **VIX**: {level} ({change})
-- **Put/Call Ratio**: {ratio}
+**Response:**
+```json
+{
+  "ticker": "AAPL",
+  "name": "Apple Inc.",
+  "description": "Apple Inc. designs, manufactures, and markets smartphones...",
+  "market": "stocks",
+  "primaryExchange": "XNAS",
+  "type": "CS",
+  "currencyName": "usd",
+  "marketCap": 3949128102780,
+  "listDate": "1980-12-12",
+  "sicDescription": "ELECTRONIC COMPUTERS",
+  "homepage": "https://www.apple.com",
+  "totalEmployees": 164000
+}
 ```
 
-### Batch Quotes (Multiple Stocks)
-```markdown
-## Watchlist Quotes
+---
 
-**Updated**: {Timestamp}
+## Common Workflows
 
-| Symbol | Company | Price | Change | % Change | Volume |
-|--------|---------|-------|--------|----------|--------|
-| {tick} | {name} | ${price} | ${chg} | {pct}% | {vol} |
-| {tick} | {name} | ${price} | ${chg} | {pct}% | {vol} |
-| {tick} | {name} | ${price} | ${chg} | {pct}% | {vol} |
-...
+### Get Last 30 Days of Daily Prices
 
-**Market Status**: {Pre-Market / Open / After Hours / Closed}
+```bash
+curl -X POST https://api.eng0.ai/api/data/stocks/bars \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ticker": "NVDA",
+    "interval": "1day",
+    "from": "2024-12-07",
+    "to": "2025-01-07"
+  }'
 ```
 
-## Data Freshness Guidelines
+### Get Intraday Data (1-minute bars)
 
-| Data Type | Freshness | Cache Duration |
-|-----------|-----------|----------------|
-| Real-time Quotes | Live (market hours) | 15 seconds |
-| Historical Daily | End of day | 24 hours |
-| Fundamentals | Quarterly | 24-48 hours |
-| News | Real-time | 1 hour |
-| Earnings Calendar | Weekly update | 24 hours |
-| Economic Calendar | Daily update | 12 hours |
+```bash
+curl -X POST https://api.eng0.ai/api/data/stocks/bars \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ticker": "AAPL",
+    "interval": "1min",
+    "from": "2025-01-06",
+    "to": "2025-01-06"
+  }'
+```
 
-## API Rate Limit Management
+### Get Weekly Bars for 1 Year
 
-### Finnhub (Primary)
-- **Limit**: 60 calls/minute
-- **Best For**: Real-time quotes, news, calendars
-- **Strategy**: Use for most requests, ample capacity
+```bash
+curl -X POST https://api.eng0.ai/api/data/stocks/bars \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ticker": "MSFT",
+    "interval": "1week",
+    "from": "2024-01-01",
+    "to": "2025-01-01"
+  }'
+```
 
-### Alpha Vantage (Historical)
-- **Limit**: 5 calls/minute, 500/day
-- **Best For**: Historical price data
-- **Strategy**: Queue requests, cache results
+### Get Recent News with Sentiment
 
-### Financial Modeling Prep (Fundamentals)
-- **Limit**: 250 calls/day
-- **Best For**: Financial statements, ratios
-- **Strategy**: Daily batch updates, aggressive caching
+```bash
+curl -X POST https://api.eng0.ai/api/data/stocks/news \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ticker": "GOOGL",
+    "limit": 20
+  }'
+```
+
+---
+
+## Using with Python
+
+```python
+import requests
+
+BASE_URL = "https://api.eng0.ai/api/data"
+
+def get_price_bars(ticker: str, interval: str, from_date: str, to_date: str):
+    """Get OHLCV price bars for a stock."""
+    response = requests.post(
+        f"{BASE_URL}/stocks/bars",
+        json={
+            "ticker": ticker,
+            "interval": interval,
+            "from": from_date,
+            "to": to_date
+        }
+    )
+    return response.json()
+
+def get_news(ticker: str, limit: int = 10):
+    """Get news articles with sentiment for a stock."""
+    response = requests.post(
+        f"{BASE_URL}/stocks/news",
+        json={"ticker": ticker, "limit": limit}
+    )
+    return response.json()
+
+def get_company_details(ticker: str):
+    """Get company information."""
+    response = requests.post(
+        f"{BASE_URL}/stocks/details",
+        json={"ticker": ticker}
+    )
+    return response.json()
+
+# Examples
+bars = get_price_bars("AAPL", "1day", "2024-12-01", "2024-12-31")
+print(f"Got {bars['count']} bars for {bars['ticker']}")
+
+news = get_news("TSLA", limit=5)
+for article in news['articles']:
+    print(f"[{article['sentiment']}] {article['title']}")
+
+details = get_company_details("NVDA")
+print(f"{details['name']}: Market Cap ${details['marketCap']:,}")
+```
+
+---
 
 ## Error Handling
 
-```markdown
-## Data Request Status
-
-**Request**: {What was requested}
-**Status**: {Success / Partial / Failed}
-
-{If Failed}
-⚠️ **Error**: {Error description}
-**Reason**: {API limit reached / Symbol not found / Service unavailable}
-**Suggestion**: {Try again in X minutes / Check symbol / Use alternative source}
-
-{If Partial}
-ℹ️ **Note**: Some data unavailable
-**Available**: {What was retrieved}
-**Missing**: {What couldn't be retrieved}
+**Invalid Parameters:**
+```json
+{
+  "error": "Invalid parameters",
+  "message": "Missing required parameter: ticker"
+}
 ```
 
-## Output Guidelines
+**Unknown Operation:**
+```json
+{
+  "error": "Unknown operation",
+  "message": "Operation 'invalid' not found. Available: bars, news, details"
+}
+```
 
-### Data Presentation
-- Always include timestamps
-- Note if data is delayed
-- Format numbers clearly ($1,234.56)
-- Use tables for multiple data points
-- Include data source attribution
+---
 
-### Status Indicators
-- 🟢 Real-time data
-- 🟡 Delayed data (15-20 min)
-- 🔴 Stale data (>1 hour)
-- ⚠️ Data unavailable
+## Important Notes
 
-## Constraints
-- Only use authorized API sources
-- Respect rate limits
-- Note data delays clearly
-- Don't expose API credentials
-- Validate data before presenting
-- This is data retrieval, not advice
+- **Tickers must be UPPERCASE** (e.g., `AAPL`, not `aapl`)
+- **All timestamps are UTC** (ISO 8601 format)
+- **Price data is 15-minute delayed**
+- **Historical data available for 5 years**
+- **No rate limits** (use responsibly)
+
+---
+
+## Combining with Other Skills
+
+This skill provides **market data**. Combine with:
+
+- **sec-edgar-skill** (EdgarTools) → SEC filings, financial statements
+- **financial-deep-research** → Full research workflow and reports
+
+**Example combined workflow:**
+1. Get company details and recent price bars (this skill)
+2. Get SEC filings and financial statements (sec-edgar-skill)
+3. Generate comprehensive research report (financial-deep-research)

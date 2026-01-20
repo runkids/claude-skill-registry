@@ -1,7 +1,7 @@
 {
   "name": "testing-strategy",
-  "repo": "nicholasgriffintn/claude-code",
-  "path": "skills/testing-strategy/SKILL.md",
-  "source": "github.com/nicholasgriffintn/claude-code",
-  "downloaded_at": "2026-01-19T03:50:47.149001Z"
+  "repo": "oalkabouss/fullstack-agent-skills",
+  "path": ".opencode/skills/testing-strategy/SKILL.md",
+  "source": "github.com/oalkabouss/fullstack-agent-skills",
+  "downloaded_at": "2026-01-20T03:56:32.685441Z"
 }

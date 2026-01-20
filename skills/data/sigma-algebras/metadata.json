@@ -1,7 +1,7 @@
 {
   "name": "sigma-algebras",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/math/measure-theory/sigma-algebras/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-19T03:31:28.627543Z"
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/math/measure-theory/sigma-algebras/SKILL.md",
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-20T03:31:27.932836Z"
 }

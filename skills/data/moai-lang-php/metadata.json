@@ -1,7 +1,7 @@
 {
   "name": "moai-lang-php",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-lang-php/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-19T03:59:14.472768Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-lang-php/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-20T04:03:45.734948Z"
 }

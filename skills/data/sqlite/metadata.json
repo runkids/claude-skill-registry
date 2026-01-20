@@ -1,7 +1,7 @@
 {
   "name": "sqlite",
-  "repo": "oriolrius/pki-manager-web",
-  "path": ".claude/skills/sqlite/SKILL.md",
-  "source": "github.com/oriolrius/pki-manager-web",
-  "downloaded_at": "2026-01-19T03:12:38.792766Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/databases-orms/sqlite/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-20T03:24:06.975892Z"
 }

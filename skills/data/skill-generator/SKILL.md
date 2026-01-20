@@ -1,220 +1,169 @@
 ---
 name: skill-generator
-description: Meta-skill that creates new skills. Use when user repeatedly explains the same workflow, or mentions "save this as a skill", "remember this process", or "create a skill for this".
+description: Generate new skills with standardized structure and frontmatter. Triggers: SG, new skill, 新增 skill, 建立技能, create skill, 新技能, 產生技能, generate skill, 技能模板, skill template, add skill, 加技能, make skill.
+category: meta
 version: 1.0.0
+compatibility:
+  - claude-code
+  - github-copilot
+  - vscode
+allowed-tools:
+  - read_file
+  - create_file
+  - list_dir
 ---
 
-# Skill Generator (Meta-Skill)
+# Skill 生成器
 
-**This skill creates other skills.**
+## 描述
 
-## When to Use
-- User repeats similar instructions 2+ times in conversation
-- User says "remember this", "save this workflow", "create a skill"
-- You notice a pattern that should be automated
-- User provides detailed methodology that should be reusable
+自動生成符合標準的 SKILL.md 和資料夾結構。
 
-## Detection Patterns
-Track these signals:
-1. **Repetition**: Same request type appears multiple times
-2. **Detailed Instructions**: User explains step-by-step how to do something
-3. **Explicit Request**: "Make this a skill", "Remember this process"
-4. **API/Documentation Lookups**: User asks for current docs repeatedly
+## 觸發條件
 
-## Auto-Generation Process
+- 「新增 skill」「建立技能」「create skill」「SG」
 
-### Step 1: Detect Pattern
-After conversation where user explains methodology:
-```bash
-# Record the pattern
-./skill-learner record \
-  "User's request description" \
-  "User's detailed instructions on how they want it done"
+## 標準格式規範
+
+### YAML Frontmatter（必要）
+
+```yaml
+---
+name: skill-name          # kebab-case 必須（小寫 + 連字號）
+description: 描述         # 包含 WHAT + WHEN + Triggers
+category: core            # core/workflow/meta/integration
+version: 1.0.0            # SemVer
+compatibility:            # 支援的平台（可選）
+  - claude-code
+  - github-copilot
+  - vscode
+allowed-tools:            # 可使用的工具（可選）
+  - read_file
+  - write_file
+orchestrates:             # 組合的其他 skills（workflow 用）
+  - skill-a
+  - skill-b
+---
 ```
 
-### Step 2: Acknowledge to User
+### 命名規則
+
+| 規則 | 正確 ✅ | 錯誤 ❌ |
+|------|---------|---------|
+| kebab-case | `code-reviewer` | `codeReviewer`, `CodeReviewer` |
+| 小寫 | `git-precommit` | `Git-Precommit` |
+| 有意義 | `test-generator` | `tg`, `testgen` |
+| 無底線 | `memory-bank` | `memory_bank` |
+
+### 資料夾結構
+
 ```
-🎓 I notice you've explained this workflow [N] times.
-I'm tracking this pattern and will create a reusable skill after one more similar request.
-This will let me automatically handle this in the future without needing detailed instructions.
+.claude/skills/
+└── skill-name/
+    ├── SKILL.md           # 主要技能定義（必要）
+    ├── references/        # 詳細參考文檔（可選）
+    │   ├── examples.md
+    │   └── api.md
+    ├── templates/         # 範本檔案（可選）
+    │   └── template.py
+    └── scripts/           # 輔助腳本（可選）
+        └── helper.ps1
 ```
 
-### Step 3: Generate Skill (after threshold)
-System automatically creates `.claude/skills/auto-[intent]-[id]/SKILL.md`
+## 生成流程
 
-### Step 4: Confirm with User
+### Step 1: 收集資訊
+
 ```
-✅ I've created a new skill for [intent]!
-
-From now on, when you ask about [trigger phrases], I'll automatically:
-1. [Step 1 from user's instructions]
-2. [Step 2 from user's instructions]
-3. [Step 3 from user's instructions]
-
-The skill is saved in .claude/skills/auto-[name]/ and improves with each use.
-You can edit it anytime to refine the approach.
+❓ Skill 名稱：[輸入名稱，會自動轉 kebab-case]
+❓ 描述：[一句話描述 + 觸發詞]
+❓ 類別：[core/workflow/meta/integration]
+❓ 需要額外資料夾嗎？[references/templates/scripts]
 ```
 
-## Special Cases
+### Step 2: 驗證
 
-### API Documentation Skill
-If user asks for API docs 2+ times:
+- ✅ 名稱是 kebab-case
+- ✅ 名稱不重複
+- ✅ 描述包含觸發詞
+- ✅ 類別有效
+
+### Step 3: 生成
+
+```
+📁 建立 .claude/skills/{name}/
+📄 建立 .claude/skills/{name}/SKILL.md
+📁 建立子資料夾（如需要）
+📝 更新 AGENTS.md skills 清單
+```
+
+## 使用範例
+
+```
+「新增 skill: api-tester」
+「SG 建立 docker 管理技能」
+「create skill for database migrations」
+```
+
+## 輸出範本
+
+當你說「新增 skill: example-skill」，我會生成：
 
 ```markdown
 ---
-name: auto-api-docs-lookup
-description: Always search web for current API documentation. Use whenever API, SDK, or technical documentation is mentioned.
-allowed-tools: [web_search, web_fetch, bash_tool, view]
+name: example-skill
+description: [描述]. Triggers: [觸發詞列表].
+category: core
+version: 1.0.0
+compatibility:
+  - claude-code
+  - github-copilot
+  - vscode
 ---
 
-# API Documentation Lookup
+# [Skill 名稱]
 
-## When to Use
-- User mentions API, SDK, library documentation
-- Technical integration questions
-- "Latest" or "current" version queries
+## 描述
 
-## Process (Auto-search enabled)
-1. **ALWAYS web_search first**: "[library name] official documentation [current year]"
-2. Prioritize official sources (github.com/org/repo, docs.library.com)
-3. Use web_fetch to read full current docs
-4. Cross-reference version compatibility
-5. Cite sources with dates
+[詳細描述]
 
-## User Instruction
-[User's explained methodology goes here]
+## 觸發條件
+
+- 「[觸發詞 1]」「[觸發詞 2]」
+
+## 執行流程
+
+[流程圖或步驟]
+
+## 參數
+
+| 參數 | 說明 | 預設 |
+|------|------|------|
+| `--option` | 說明 | false |
+
+## 使用範例
+
+```
+[範例 1]
+[範例 2]
 ```
 
-### Analysis Skill
-If user repeatedly explains analysis approach:
+## 輸出格式
 
-```markdown
----
-name: auto-analysis-methodology
-description: Analysis workflow based on user's preferred methodology. Use when user asks to "analyze", "evaluate", or "assess".
----
-
-# Analysis Methodology
-
-## When to Use
-- "Analyze this..."
-- "Evaluate the..."
-- "Break down..."
-
-## User's Preferred Approach
-[Captured from user's repeated instructions]:
-1. [Step they always mention first]
-2. [Their second step]
-3. [How they want results formatted]
-
-## Validation
-[How user checks if analysis is complete]
+```
+[預期輸出格式]
+```
 ```
 
-## Skill Improvement Loop
-After each use of an auto-generated skill:
+## Token 預算指南
 
-```python
-# In your response, include:
-"""
-📊 Skill Usage Feedback
+| 項目 | 建議 | 上限 |
+|------|------|------|
+| SKILL.md 總行數 | < 300 行 | 500 行 |
+| SKILL.md Token | < 3000 | 5000 |
+| 單個區塊 | < 50 行 | 100 行 |
 
-This used the auto-generated '[skill-name]' skill.
-
-Did this match your expectations? If not, I can refine the skill by:
-- Adding more detail
-- Adjusting the methodology
-- Including additional validation steps
-
-Just say "improve the [skill-name] skill" and explain what to change.
-"""
-```
-
-## Commands for Users
-
-```bash
-# Track a new pattern
-./skill-learner track
-
-# See what's being learned
-./skill-learner list
-
-# Manually create skill from current conversation
-./skill-learner record "what user asked" "how they explained to do it"
-```
-
-## Integration with Claude Code
-
-When user interacts with you:
-1. **After response**: Check if this is a repetitive pattern
-2. **Call**: `./skill-learner record "user_request" "your_methodology"`
-3. **System**: Auto-generates skill at threshold
-4. **Next time**: Skill is automatically invoked
-
-## Example Workflow
-
-**First Request:**
-```
-User: "Can you analyze this BRD? First read the executive summary, then assess market fit, then evaluate technical feasibility."
-Claude: [Follows instructions, provides analysis]
-Claude (internal): Records pattern via skill-learner
-```
-
-**Second Similar Request:**
-```
-User: "Analyze this other BRD following the same approach."
-Claude: "🎓 I'm tracking this analysis pattern. One more similar request and I'll create a reusable skill."
-Claude: [Executes analysis, records pattern]
-Claude (internal): Skill auto-generated!
-```
-
-**Third Request:**
-```
-User: "Analyze the new warehouse BRD."
-Claude: "✅ Using your custom analysis methodology skill..."
-Claude: [Auto-invokes the learned skill, no detailed instructions needed]
-```
-
-## Maintenance
-
-Skills are stored in `.claude/learning/patterns.json` - this tracks:
-- Pattern signatures
-- Occurrence counts
-- Example requests
-- Generated skills
-
-Clean up old patterns:
-```bash
-# Review learned patterns
-./skill-learner list
-
-# Edit/remove if needed
-nano .claude/learning/patterns.json
-```
-
-## Real-World Examples for Project Conductor
-
-### Example 1: BRD Analysis Pattern
-```bash
-# First time: You explain in detail how to analyze BRDs
-# Second time: You explain again (slightly different BRD)
-# System: Auto-creates "auto-analysis-methodology" skill
-# Third time: Just say "analyze this BRD" - skill auto-invokes!
-```
-
-### Example 2: API Documentation
-```bash
-# You ask: "What's the latest Express.js middleware documentation?"
-# Claude: web_search → web_fetch → provides answer
-# You ask again: "Check Socket.io docs for new authentication methods"
-# System: Creates "auto-api-docs-lookup" skill with web-search enabled
-# Future: Any API question automatically searches current docs first
-```
-
-### Example 3: Deployment Checklist
-```bash
-# You ask: "Help me deploy to production - check env vars, run tests, build Docker"
-# You ask again: "Deploy the staging environment following same steps"
-# System: Creates "auto-deployment-checklist" skill
-# Future: "Deploy to [env]" auto-invokes comprehensive checklist
-```
+如果內容過長：
+1. 拆分到 `references/` 子資料夾
+2. 使用連結引用
+3. 精簡主要邏輯

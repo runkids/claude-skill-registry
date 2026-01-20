@@ -1,156 +1,70 @@
 ---
-name: code-review
-description: Automated code review for pull requests using specialized review patterns.
-version: 1.0.0
+name: code-review-specialist
+description: Comprehensive code review with security, performance, and quality analysis. Use when users ask to review code, analyze code quality, evaluate pull requests, or mention code review, security analysis, or performance optimization.
 ---
 
+# Code Review Skill
 
-# Code Review
+This skill provides comprehensive code review capabilities focusing on:
 
-## Review Categories
+1. **Security Analysis**
+   - Authentication/authorization issues
+   - Data exposure risks
+   - Injection vulnerabilities
+   - Cryptographic weaknesses
+   - Sensitive data logging
 
-### 1. Security Review
-Check for:
-- SQL injection vulnerabilities
-- XSS (Cross-Site Scripting)
-- Command injection
-- Insecure deserialization
-- Hardcoded secrets/credentials
-- Improper authentication/authorization
-- Insecure direct object references
+2. **Performance Review**
+   - Algorithm efficiency (Big O analysis)
+   - Memory optimization
+   - Database query optimization
+   - Caching opportunities
+   - Concurrency issues
 
-### 2. Performance Review
-Check for:
-- N+1 queries
-- Missing database indexes
-- Unnecessary re-renders (React)
-- Memory leaks
-- Blocking operations in async code
-- Missing caching opportunities
-- Large bundle sizes
+3. **Code Quality**
+   - SOLID principles
+   - Design patterns
+   - Naming conventions
+   - Documentation
+   - Test coverage
 
-### 3. Code Quality Review
-Check for:
-- Code duplication (DRY violations)
-- Functions doing too much (SRP violations)
-- Deep nesting / complex conditionals
-- Magic numbers/strings
-- Poor naming
-- Missing error handling
-- Incomplete type coverage
+4. **Maintainability**
+   - Code readability
+   - Function size (should be < 50 lines)
+   - Cyclomatic complexity
+   - Dependency management
+   - Type safety
 
-### 4. Testing Review
-Check for:
-- Missing test coverage for new code
-- Tests that don't test behavior
-- Flaky test patterns
-- Missing edge cases
-- Mocked external dependencies
+## Review Template
 
-## Review Output Format
+For each piece of code reviewed, provide:
 
-```markdown
-## Code Review Summary
+### Summary
+- Overall quality assessment (1-5)
+- Key findings count
+- Recommended priority areas
 
-### 🔴 Critical (Must Fix)
-- **[File:Line]** [Issue description]
-  - **Why:** [Explanation]
-  - **Fix:** [Suggested fix]
+### Critical Issues (if any)
+- **Issue**: Clear description
+- **Location**: File and line number
+- **Impact**: Why this matters
+- **Severity**: Critical/High/Medium
+- **Fix**: Code example
 
-### 🟡 Suggestions (Should Consider)
-- **[File:Line]** [Issue description]
-  - **Why:** [Explanation]
-  - **Fix:** [Suggested fix]
+### Findings by Category
 
-### 🟢 Nits (Optional)
-- **[File:Line]** [Minor suggestion]
+#### Security (if issues found)
+List security vulnerabilities with examples
 
-### ✅ What's Good
-- [Positive feedback on good patterns]
-```
+#### Performance (if issues found)
+List performance problems with complexity analysis
 
-## Common Patterns to Flag
+#### Quality (if issues found)
+List code quality issues with refactoring suggestions
 
-### Security
-```javascript
-// BAD: SQL injection
-const query = `SELECT * FROM users WHERE id = ${userId}`;
+#### Maintainability (if issues found)
+List maintainability problems with improvements
 
-// GOOD: Parameterized query
-const query = 'SELECT * FROM users WHERE id = $1';
-await db.query(query, [userId]);
-```
+## Version History
 
-### Performance
-```javascript
-// BAD: N+1 query
-users.forEach(async user => {
-  const posts = await getPosts(user.id);
-});
-
-// GOOD: Batch query
-const userIds = users.map(u => u.id);
-const posts = await getPostsForUsers(userIds);
-```
-
-### Error Handling
-```javascript
-// BAD: Swallowing errors
-try {
-  await riskyOperation();
-} catch (e) {}
-
-// GOOD: Handle or propagate
-try {
-  await riskyOperation();
-} catch (e) {
-  logger.error('Operation failed', { error: e });
-  throw new AppError('Operation failed', { cause: e });
-}
-```
-
-## Review Checklist
-
-- [ ] No hardcoded secrets
-- [ ] Input validation present
-- [ ] Error handling complete
-- [ ] Types/interfaces defined
-- [ ] Tests added for new code
-- [ ] No obvious performance issues
-- [ ] Code is readable and documented
-- [ ] Breaking changes documented
-
-
-
-## Scientific Skill Interleaving
-
-This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
-
-### Graph Theory
-- **networkx** [○] via bicomodule
-  - Universal graph hub
-
-### Bibliography References
-
-- `dynamical-systems`: 41 citations in bib.duckdb
-
-## Cat# Integration
-
-This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:
-
-```
-Trit: -1 (MINUS)
-Home: Prof
-Poly Op: ⊗
-Kan Role: Adj
-Color: #FF6B6B
-```
-
-### GF(3) Naturality
-
-The skill participates in triads satisfying:
-```
-(-1) + (0) + (+1) ≡ 0 (mod 3)
-```
-
-This ensures compositional coherence in the Cat# equipment structure.
+- v1.0.0 (2024-12-10): Initial release with security, performance, quality, and maintainability analysis

@@ -1,7 +1,7 @@
 {
   "name": "php-modernization",
-  "repo": "netresearch/claude-code-marketplace",
-  "path": "skills/php-modernization/skills/php-modernization/SKILL.md",
-  "source": "github.com/netresearch/claude-code-marketplace",
-  "downloaded_at": "2026-01-19T02:40:06.250602Z"
+  "repo": "netresearch/php-modernization-skill",
+  "path": "skills/php-modernization/SKILL.md",
+  "source": "github.com/netresearch/php-modernization-skill",
+  "downloaded_at": "2026-01-20T01:29:30.541165Z"
 }

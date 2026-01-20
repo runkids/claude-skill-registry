@@ -1,7 +1,7 @@
 {
   "name": "ultrathink-orchestrator",
-  "repo": "rysweet/azlin",
+  "repo": "rysweet/azure-tenant-grapher",
   "path": ".claude/skills/ultrathink-orchestrator/SKILL.md",
-  "source": "github.com/rysweet/azlin",
-  "downloaded_at": "2026-01-19T04:00:23.075090Z"
+  "source": "github.com/rysweet/azure-tenant-grapher",
+  "downloaded_at": "2026-01-20T02:13:50.166110Z"
 }

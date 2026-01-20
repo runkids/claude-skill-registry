@@ -1,7 +1,7 @@
 {
   "name": "migrations",
-  "repo": "antoineschaller/cortex-skills",
+  "repo": "JaveedIshaq/ai-workflow-orchestrator",
   "path": "skills/supabase/migrations/SKILL.md",
-  "source": "github.com/antoineschaller/cortex-skills",
-  "downloaded_at": "2026-01-19T03:24:12.405736Z"
+  "source": "github.com/JaveedIshaq/ai-workflow-orchestrator",
+  "downloaded_at": "2026-01-20T03:07:06.240829Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "prompting",
-  "repo": "Hieubkav/wincellarCloneBackend",
-  "path": ".factory/skills/prompting/SKILL.md",
-  "source": "github.com/Hieubkav/wincellarCloneBackend",
-  "downloaded_at": "2026-01-19T03:13:20.365385Z"
+  "repo": "hongbietcode/synthetic-claude",
+  "path": "plugins/content-creation/skills/prompting/SKILL.md",
+  "source": "github.com/hongbietcode/synthetic-claude",
+  "downloaded_at": "2026-01-20T00:59:04.678980Z"
 }

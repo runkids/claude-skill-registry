@@ -1,125 +1,68 @@
+<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->
 ---
 name: user-stories
-description: User Stories skill for the ikigai project
+description: Generates user stories with clear acceptance criteria from product requirements or feature descriptions. Use when breaking down features for sprint planning, writing tickets, or communicating requirements to engineering.
+license: Apache-2.0
+metadata:
+  category: specification
+  frameworks: [triple-diamond, lean-startup, design-thinking]
+  author: product-on-purpose
+  version: "1.0.0"
 ---
 
 # User Stories
 
-## Description
+User stories are concise descriptions of functionality from the user's perspective. They capture who needs something, what they need, and why — without prescribing how to build it. Good user stories enable teams to break large features into estimable, deliverable increments while maintaining focus on user value.
 
-Format specification for writing user stories that document terminal interactions.
+## When to Use
 
-## Format
+- After PRD approval, when breaking down features for implementation
+- During sprint planning to create actionable work items
+- When writing tickets for engineering teams
+- When communicating requirements to stakeholders in accessible terms
+- When prioritizing a backlog based on user value
 
-Each user story is a single markdown file with the following structure:
+## Instructions
 
-### Title (H1)
+When asked to create user stories, follow these steps:
 
-The name of the user story.
+1. **Understand the Feature Context**
+   Review the PRD or feature description. Understand the overall goal, target users, and scope boundaries. User stories should trace back to documented requirements.
 
-### Description (H2)
+2. **Identify User Personas**
+   Determine which users interact with this feature. Each story should be written for a specific persona, not generic "users." Different personas may need different stories for the same feature.
 
-A brief 2-4 sentence overview of what the user story demonstrates.
+3. **Break Down by User Goal**
+   Decompose the feature into distinct user goals. Each story should deliver a complete, valuable capability — something the user can actually do when the story is done.
 
-### Transcript (H2)
+4. **Write Story Statements**
+   Use the format: "As a [persona], I want [action] so that [benefit]." The benefit clause is critical — it explains why this matters and helps prioritize.
 
-A `text` code block showing the terminal output exactly as it appears to the user.
+5. **Define Acceptance Criteria**
+   Write specific, testable criteria using Given/When/Then format. Acceptance criteria define "done" — if all criteria pass, the story is complete.
 
-- Use `>` prefix for user input
-- Model responses appear without prefix
-- Tool calls and results are shown as the user sees them
+6. **Apply INVEST Criteria**
+   Validate each story against INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable. Revise stories that don't meet these criteria.
 
-```text
-> user input here
+7. **Add Context and Notes**
+   Include relevant design references, technical considerations, and dependencies. These help implementers understand the full picture.
 
-model response here
-```
+## Output Format
 
-### Walkthrough (H2)
+Use the template in `references/TEMPLATE.md` to structure the output.
 
-A numbered list explaining step-by-step what happens during the interaction. Keep descriptions concise. Reference detailed JSON in the Reference section using markdown links:
+## Quality Checklist
 
-```markdown
-2. Client builds request (see [Request A](#request-a))
-```
+Before finalizing, verify:
 
-### Multiple Transcript Blocks
+- [ ] Each story follows "As a... I want... so that..." format
+- [ ] Stories are independent (can be built in any order)
+- [ ] Acceptance criteria use Given/When/Then format
+- [ ] Each criterion is testable (someone can verify pass/fail)
+- [ ] Stories are small enough to complete in one sprint
+- [ ] No implementation details in the story statement
+- [ ] Benefit clause explains why this matters to the user
 
-If the story uses `/clear` or `/rewind` to change history, use multiple transcript/walkthrough pairs interleaved:
+## Examples
 
-```markdown
-## Transcript
-
-```text
-> first interaction
-```
-
-## Walkthrough
-
-1. Step one
-2. Step two
-
-## Transcript
-
-```text
-> /clear
-> second interaction after clear
-```
-
-## Walkthrough
-
-1. Clear command resets history
-2. New interaction begins
-```
-
-### Reference (H2)
-
-Full JSON payloads referenced in the walkthrough. Use H3 headings with anchor-friendly names:
-
-```markdown
-## Reference
-
-### Request A
-
-```json
-{ ... full JSON ... }
-```
-
-### Response A
-
-```json
-{ ... full JSON ... }
-```
-```
-
-## Output Location
-
-User stories are stored in `cdd/user-stories/`:
-
-```
-cdd/
-├── README.md           # High-level description of release features
-├── user-stories/
-│   ├── README.md       # Index/overview of user stories
-│   ├── story-1.md      # Individual user story (user actions and system responses)
-│   ├── story-2.md
-│   └── ...
-└── ...                 # Other files/directories (ignored by this skill)
-```
-
-**Note:** The `cdd/` directory may contain other files and directories beyond those listed above. This skill only works with `cdd/user-stories/` and may reference `cdd/README.md`. Other content is permitted and will be ignored.
-
-- `cdd/README.md` - High-level description of release features
-- `cdd/user-stories/README.md` - Index/overview with brief descriptions
-- Individual story files - User actions and system responses with transcript and walkthrough
-
-Update the README.md as you add user stories to keep the overview current.
-
-## Rules
-
-- One user story per document
-- Assume empty message history at start (only system prompt exists)
-- Keep model responses short - long responses make discussion harder
-- Show exactly what the user sees in transcripts
-- Put implementation details (JSON payloads) in Reference section
-- Use sequential naming for references: Request A, Response A, Request B, etc.
+See `references/EXAMPLE.md` for a completed example.

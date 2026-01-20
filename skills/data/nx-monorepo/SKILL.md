@@ -1,26 +1,32 @@
 ---
 name: nx-monorepo
-description: |
-  Nx monorepo management skill for AI-native development. This skill should be used when working with Nx workspaces, project graphs, affected detection, code generation, and caching. Use when: analyzing dependencies, running affected commands, generating code, configuring Nx Cloud, or optimizing build performance. Invoke nx-mcp tools for documentation queries.
-version: "1.0.0"
+description: Nx monorepo management skill for AI-native development. This skill should be used when working with Nx workspaces, project graphs, affected detection, code generation, and caching. Use when analyzing dependencies, running affected commands, generating code, configuring Nx Cloud, or optimizing build performance. Invoke nx-mcp tools for documentation queries.
 ---
 
 # Nx Monorepo
 
 ## Overview
 
-This skill provides expert-level capabilities for Nx monorepo management. Nx is the standard build orchestrator for this AI-native platform due to its official MCP server integration.
+This skill provides expert-level capabilities for Nx monorepo management. Nx is the standard build orchestrator for this AI-native platform.
 
-**Why Nx**: Official MCP server, TypeScript-native, 5-minute setup, auto-generates CLAUDE.md/AGENTS.md for AI assistants.
+**Why Nx**: TypeScript-native, 5-minute setup, auto-generates CLAUDE.md/AGENTS.md for AI assistants, excellent CLI tooling.
 
-## MCP Tools Available
+## Documentation Lookup (On-Demand MCP)
 
+Query Nx documentation via on-demand MCP (no persistent server, 0 startup tokens):
+
+```bash
+# Query Nx docs
+bash scripts/nx-docs.sh "how to configure caching"
+bash scripts/nx-docs.sh "affected command options"
+
+# List available plugins
+bash scripts/nx-plugins.sh
 ```
-nx_docs          - Query Nx documentation
-nx_available_plugins - List official Nx plugins (NOT installed by default)
-```
 
-**Key Insight**: MCP provides documentation lookup. Use **Nx CLI** for all operations.
+**How it works**: Scripts spawn `nx-mcp` on-demand via stdio, avoiding persistent MCP connections that consume startup tokens.
+
+**Key Insight**: Use **Nx CLI** for operations, scripts for documentation lookup.
 
 ## Core CLI Commands
 

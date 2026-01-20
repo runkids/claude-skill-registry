@@ -1,12 +1,7 @@
 {
   "name": "docs-check",
-  "description": "Analyze git diff to identify code changes requiring documentation updates. Categorizes changes (database/schema, API endpoints, components, configuration, authentication) and suggests relevant documen",
-  "repo": "LukasStrickler/ai-dev-atelier",
-  "category": "data",
-  "tags": [
-    "docs",
-    "check"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "GGPrompts/my-plugins",
+  "path": "plugins/tools/conductor/skills/docs-check/SKILL.md",
+  "source": "github.com/GGPrompts/my-plugins",
+  "downloaded_at": "2026-01-20T00:54:47.290966Z"
 }

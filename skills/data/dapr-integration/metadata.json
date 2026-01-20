@@ -1,7 +1,7 @@
 {
   "name": "dapr-integration",
-  "repo": "mjunaidca/mjs-agent-skills",
-  "path": "docs/taskflow-vault/skills/engineering/dapr-integration/skill.md",
-  "source": "github.com/mjunaidca/mjs-agent-skills",
-  "downloaded_at": "2026-01-19T04:12:45.257740Z"
+  "repo": "maneeshanif/todo-spec-driven",
+  "path": ".claude/skills/dapr-integration/SKILL.md",
+  "source": "github.com/maneeshanif/todo-spec-driven",
+  "downloaded_at": "2026-01-20T03:00:37.858965Z"
 }

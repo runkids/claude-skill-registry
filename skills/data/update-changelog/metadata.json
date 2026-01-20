@@ -1,12 +1,7 @@
 {
   "name": "update-changelog",
-  "description": "Updates notes/changelog.md based on git history. Use when user says \"update changelog\", \"changelog entry\", \"release version\", \"release X.Y.Z\", or runs /update-changelog.",
-  "repo": "Wizard1209/letta-client-bot",
-  "category": "development",
-  "tags": [
-    "update",
-    "changelog"
-  ],
-  "stars": 6,
-  "source": "local"
+  "repo": "mystilleef/llm-agent-skills",
+  "path": "skills/update-changelog/SKILL.md",
+  "source": "github.com/mystilleef/llm-agent-skills",
+  "downloaded_at": "2026-01-20T01:23:16.099484Z"
 }

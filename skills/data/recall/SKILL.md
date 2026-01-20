@@ -1,219 +1,52 @@
 ---
 name: recall
-description: Deep search across all past Claude Code sessions for decisions, solutions, and discussions
-version: 0.6.0
-triggers:
-  - "I forgot"
-  - "do you remember"
-  - "what did we decide"
-  - "we discussed this before"
-  - "I need to recall"
-  - "search my memory"
-  - "/recall"
-tools:
-  - Bash
-  - Read
+description: Auto-activates at session start to surface relevant learnings. Use when starting work in a domain to recall past insights from ~/.claude/learnings/.
 ---
 
-# Recall: Self-Memory Retrieval
+# Recall Skill
 
-> **STOP. READ THIS FIRST.**
->
-> **THE ONLY COMMAND YOU MAY USE IS:**
-> ```
-> transcript recall "your query"
-> ```
->
-> **YOU MUST NOT USE:**
-> - `rg` - FORBIDDEN
-> - `grep` - FORBIDDEN
-> - `find` - FORBIDDEN
-> - `cat ~/.claude/` - FORBIDDEN
-> - Any direct file access to `~/.claude/projects/` - FORBIDDEN
->
-> If you use any forbidden command, you are violating this skill's requirements.
+Surface relevant learnings from past sessions.
 
-## Why This Matters
+## When This Skill Activates
 
-The `transcript` CLI:
-- Handles JSONL parsing correctly
-- Groups results by session
-- Shows timestamps and context
-- Finds related skills automatically
-- Auto-synthesizes complex queries with LLM
+- Session start (new or resumed)
+- Before substantial work in a domain
+- When soul skill's Silent Audit prompts "Learnings recalled?"
+- Explicitly via `/hope:recall [context]`
 
-Raw tools like `rg` return unreadable JSON blobs and miss context. **Using them is a failure mode.**
+## Input
 
-## The Command
+Optional context hint (e.g., "hooks", "testing", "typescript"). If empty, infer from current project/conversation.
 
-```bash
-transcript recall "your query"
-```
+## Process
 
-That's it. Run this command. Read the output. Done.
+1. **Read learnings files** using the Read tool:
 
-## Tiered Retrieval
+   - `~/.claude/learnings/failures.jsonl`
+   - `~/.claude/learnings/discoveries.jsonl`
+   - `~/.claude/learnings/constraints.jsonl`
 
-Recall uses intelligent tiering to match retrieval strategy to query complexity:
+   If files don't exist, skip silently.
 
-### Fast Path (default)
-- SQLite FTS search
-- Returns in 1-2 seconds
-- Best for simple keyword lookups
+2. **Filter by relevance**:
 
-### Deep Path (auto or --deep)
-- Fast path + LLM synthesis
-- Returns in 5-10 seconds
-- Best for complex questions requiring cross-session analysis
+   - Match `context` field against provided hint or inferred domain
+   - Match `applies_to` tags against current work
+   - Prioritize recent entries (last 30 days)
+   - Prioritize high-confidence discoveries (>= 0.8)
 
-### Auto-Escalation
+3. **Output format**:
 
-The command automatically escalates to deep path when:
-- **Match count > 50** - Too many results to scan manually
-- **Results span > 7 days** - Long time range suggests complex topic
-- **Query is a question** - Starts with what/why/how/did/do/etc.
-- **Session count > 5** - Information spread across many sessions
+### Relevant Failures
 
-### Controlling Escalation
+- **[context]**: [failure] → Prevention: [prevention]
 
-```bash
-# Force deep path (LLM synthesis) even for simple queries
-transcript recall "caching" --deep
-transcript recall "caching" -D
+### Relevant Discoveries
 
-# Force fast path (skip synthesis) even when criteria would trigger escalation
-transcript recall "why did we choose redis" --fast
-transcript recall "why did we choose redis" -F
-```
+- **[context]** (confidence: X): [discovery]
 
-**Note:** `--fast` takes precedence over `--deep` if both are specified.
+### Active Constraints
 
-### Options
+- **[context]**: [constraint] (permanent: yes/no)
 
-```bash
-transcript recall "query" --max-sessions 5    # Limit sessions shown (default: 5)
-transcript recall "query" --context 3         # Matches per session (default: 3)
-transcript recall "query" --limit 100         # Total matches to search (default: 100)
-transcript recall "query" --deep              # Force LLM synthesis
-transcript recall "query" --fast              # Skip LLM synthesis
-transcript recall "query" --json              # Output as JSON (includes synthesis if applicable)
-```
-
-## Examples
-
-### Simple keyword lookup (fast path)
-```bash
-transcript recall "caching"
-```
-Returns grouped results in 1-2 seconds.
-
-### Question query (auto-escalates to deep path)
-```bash
-transcript recall "why did we decide to use Redis?"
-```
-Auto-detects question pattern, runs synthesis, returns synthesized answer with citations.
-
-### Force deep analysis
-```bash
-transcript recall "authentication patterns" --deep
-```
-Forces LLM synthesis even if auto-escalation criteria not met.
-
-### Skip synthesis for speed
-```bash
-transcript recall "how does the login flow work" --fast
-```
-Skips synthesis despite question pattern, returns fast path results only.
-
-## Understanding the Output
-
-### Fast Path Output
-```
-🔍 Recall: "caching"
-
-Found 12 matches across 3 sessions
-⏩ Fast path: No escalation criteria met
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📁 happy-hippo (5 matches)
-   Jan 15, 10:30 AM - 11:45 AM
-
-   [10:32 AM] assistant   Line 245
-   Implemented Redis caching layer with 60-second TTL...
-
-   → transcript happy-hippo --search "caching" --human
-```
-
-### Deep Path Output
-```
-🔍 Recall: "why did we choose Redis?"
-
-Found 28 matches across 4 sessions
-⚡ Deep path: Query is a question
-
-[... fast path results ...]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🤖 Synthesized Answer
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Based on your past sessions, you chose Redis for caching because:
-
-1. **Performance requirements** [1] - The dashboard needed sub-100ms response times
-2. **Existing infrastructure** [2] - You already had Redis running for session storage
-3. **TTL support** [3] - Native expiration simplified cache invalidation logic
-
-───────────────────────────────────────────────────────────
-📚 Sources
-
-  [1] happy-hippo (Jan 15, 2026)
-      → transcript happy-hippo --search "why did we choose Redis?" --human
-  [2] clever-cat (Jan 10, 2026)
-      → transcript clever-cat --search "why did we choose Redis?" --human
-```
-
-## Workflow
-
-```
-User asks about past discussion
-         ↓
-transcript recall "topic"     ← START HERE, ALWAYS
-         ↓
-Check path indicator (⏩ Fast or ⚡ Deep)
-         ↓
-Read the grouped output (and synthesis if deep)
-         ↓
-Need more detail? → Use drill-down command from output
-         ↓
-Respond to user with findings
-```
-
-## Common Mistakes (DO NOT DO THESE)
-
-```bash
-# WRONG - Do not use rg
-rg "sandbox" ~/.claude/projects/
-
-# WRONG - Do not use grep
-grep -r "sandbox" ~/.claude/
-
-# WRONG - Do not use find
-find ~/.claude -name "*.jsonl" | xargs grep sandbox
-
-# WRONG - Do not cat jsonl files directly
-cat ~/.claude/projects/*/abc123.jsonl | grep sandbox
-```
-
-```bash
-# CORRECT - Use transcript recall
-transcript recall "sandbox"
-```
-
-## Summary
-
-1. **USE:** `transcript recall "query"`
-2. **DO NOT USE:** `rg`, `grep`, `find`, `cat` on transcript files
-3. Let auto-escalation work - it detects when synthesis is needed
-4. Use `--deep` to force synthesis, `--fast` to skip it
-5. Read the grouped output (and synthesis if provided)
-6. Drill down if needed using commands from the output
+4. **If no relevant learnings**: Report "No learnings found for [context]"

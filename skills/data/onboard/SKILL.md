@@ -1,181 +1,57 @@
 ---
 name: onboard
-description: Generate comprehensive codebase onboarding guides. Use when someone needs to understand a new codebase, when asked to explain the architecture, or when the user says "onboard", "/onboard", "explain this codebase", or asks for help understanding how a project works. Analyzes project structure, patterns, and key files to produce a complete onboarding document.
+description: Analyze brownfield codebase and create initial continuity ledger
 ---
 
-# Codebase Onboarding Generator
+# Onboard - Project Discovery & Ledger Creation
 
-Turn weeks of confusion into minutes of clarity.
+Analyze a brownfield codebase and create an initial continuity ledger.
 
-## Workflow
+## When to Use
 
-1. Analyze project structure (files, directories, patterns)
-2. Identify architecture (frameworks, data flow, entry points)
-3. Find key files and patterns
-4. Generate onboarding guide
+- First time working in an existing project
+- User says "onboard", "analyze this project", "get familiar with codebase"
+- After running `init-project.sh` in a new project
 
-## Step 1: Analyze Project Structure
+## How to Use
 
-```bash
-# Directory structure (excluding noise)
-find . -type f \( -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.go" -o -name "*.rs" \) | grep -v node_modules | grep -v __pycache__ | grep -v .git | head -100
+**Spawn the onboard agent:**
 
-# Package/dependency info
-cat package.json pyproject.toml Cargo.toml go.mod 2>/dev/null
-
-# Configuration files
-ls -la *.config.* .env* tsconfig.json 2>/dev/null
-```
-
-## Step 2: Identify Architecture
-
-Look for and read:
-- **Entry points**: `main.py`, `index.ts`, `App.tsx`, `main.go`
-- **Config**: Environment variables, settings files
-- **Core logic**: `src/`, `lib/`, `pkg/`, `internal/`
-- **API layer**: `routes/`, `api/`, `handlers/`, `controllers/`
-- **Data layer**: `models/`, `schemas/`, `db/`, `repositories/`
-- **Tests**: `tests/`, `__tests__/`, `*_test.go`
-
-## Step 3: Identify Key Patterns
-
-Common patterns to look for:
-- **Auth**: How authentication/authorization works
-- **Data flow**: Request → processing → storage → response
-- **State management**: How state is managed (Redux, Context, etc.)
-- **Error handling**: How errors are caught and reported
-- **Configuration**: How config/env vars are loaded
-
-## Step 4: Generate Guide
-
-Use this template:
-
-```markdown
-# Onboarding Guide: [Project Name]
-
-> [One sentence: what this project does]
-
-## Quick Start
-
-```bash
-# Clone and setup
-git clone <repo>
-cd <project>
-[install commands]
-[run commands]
-```
-
-## Architecture Overview
-
-[2-3 sentences describing the high-level architecture]
+Use the Task tool with `subagent_type: "general-purpose"` and this prompt:
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   [Layer]   │────▶│   [Layer]   │────▶│   [Layer]   │
-└─────────────┘     └─────────────┘     └─────────────┘
+Onboard me to this project.
+
+Read and follow the instructions in .claude/agents/onboard.md exactly.
+
+1. Check if thoughts/ledgers/ exists (if not, tell me to run init-project.sh)
+2. Set RepoPrompt workspace to this project, then explore:
+   rp-cli -e "workspace switch \"$CLAUDE_PROJECT_DIR\""
+   rp-cli -e 'tree'
+   rp-cli -e 'structure .'
+   rp-cli -e 'builder "understand the codebase architecture"'
+3. If rp-cli not available, fall back to bash (find, ls, etc.)
+4. Detect tech stack
+5. Ask me about my goals using AskUserQuestion
+6. Create a continuity ledger at thoughts/ledgers/CONTINUITY_CLAUDE-<project>.md
 ```
 
-## Directory Structure
+## Why an Agent?
 
-| Directory | Purpose |
-|-----------|---------|
-| `src/` | [What's in here] |
-| `lib/` | [What's in here] |
-| `tests/` | [What's in here] |
+The onboard process:
+- Requires multiple exploration steps (RepoPrompt builder is slow)
+- Should not pollute main context with codebase dumps
+- Returns a clean summary + creates the ledger
 
-## Key Files
+## Output
 
-| File | Purpose | Read When |
-|------|---------|-----------|
-| `src/index.ts` | App entry point | Understanding startup |
-| `src/config.ts` | Configuration | Changing settings |
-| `src/db/schema.ts` | Database schema | Working with data |
+- Continuity ledger created at `thoughts/ledgers/CONTINUITY_CLAUDE-<name>.md`
+- User has clear starting context
+- Ready to begin work with full project awareness
 
-## Core Concepts
+## Notes
 
-### [Concept 1: e.g., Authentication]
-
-[How it works, key files involved, important decisions]
-
-### [Concept 2: e.g., Data Flow]
-
-[How data moves through the system]
-
-### [Concept 3: e.g., API Design]
-
-[How the API is structured]
-
-## Common Tasks
-
-### Adding a new API endpoint
-
-1. Create route in `src/routes/`
-2. Add handler in `src/handlers/`
-3. Add tests in `tests/`
-
-### Adding a new database table
-
-1. Add schema in `src/db/schema.ts`
-2. Run migration: `npm run migrate`
-3. Create model in `src/models/`
-
-### Running tests
-
-```bash
-npm test           # All tests
-npm test -- auth   # Specific tests
-```
-
-## Environment Setup
-
-| Variable | Purpose | Example |
-|----------|---------|---------|
-| `DATABASE_URL` | Database connection | `postgres://...` |
-| `API_KEY` | External API auth | `sk-...` |
-
-## Gotchas & Tribal Knowledge
-
-- ⚠️ [Thing that's not obvious but important]
-- ⚠️ [Common mistake to avoid]
-- 💡 [Helpful tip]
-
-## Resources
-
-- [Link to design docs]
-- [Link to API docs]
-- [Link to runbooks]
-
----
-
-<sub>📚 Onboarding guide generated with [agent-resources](https://github.com/kasperjunge/agent-resources) • `uvx add-skill kasperjunge/onboard`</sub>
-```
-
-## Section Guidelines
-
-### Architecture Overview
-- Keep it high-level (boxes and arrows)
-- Focus on major components only
-- Show data/request flow
-
-### Key Files
-- Include the "Read When" column
-- Limit to 5-10 most important files
-- Focus on files new devs will touch first
-
-### Common Tasks
-- Write as step-by-step instructions
-- Cover the tasks new devs do first
-- Include exact commands
-
-### Gotchas
-- Things that waste hours if unknown
-- Non-obvious decisions and why
-- Common mistakes from past devs
-
-## Adapt to Project Type
-
-**Backend API**: Focus on routes, middleware, database
-**Frontend App**: Focus on components, state, styling
-**CLI Tool**: Focus on commands, arguments, configuration
-**Library**: Focus on public API, usage patterns
-**Monorepo**: Add section on package relationships
+- This skill is for BROWNFIELD projects (existing code)
+- For greenfield, use `/create_plan` instead
+- Ledger can be updated anytime with `/continuity_ledger`
+- RepoPrompt requires the app running with MCP Server enabled

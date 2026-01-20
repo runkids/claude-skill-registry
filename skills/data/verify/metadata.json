@@ -1,7 +1,7 @@
 {
   "name": "verify",
-  "repo": "agentage/desktop",
-  "path": ".github/skills/verify/SKILL.md",
-  "source": "github.com/agentage/desktop",
-  "downloaded_at": "2026-01-19T03:35:53.794547Z"
+  "repo": "doodledood/claude-code-plugins",
+  "path": "claude-plugins/vibe-experimental/skills/verify/SKILL.md",
+  "source": "github.com/doodledood/claude-code-plugins",
+  "downloaded_at": "2026-01-20T02:27:14.123428Z"
 }

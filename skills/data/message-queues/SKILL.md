@@ -1,442 +1,348 @@
 ---
 name: message-queues
-description: Message queue systems for game servers including Kafka, RabbitMQ, and actor models
-sasmp_version: "1.3.0"
-version: "2.0.0"
-bonded_agent: 01-game-server-architect
-bond_type: SECONDARY_BOND
-
-# Parameters
-parameters:
-  required:
-    - queue_system
-  optional:
-    - batch_size
-    - ack_mode
-  validation:
-    queue_system:
-      type: string
-      enum: [kafka, rabbitmq, redis_pubsub, nats, sqs]
-    batch_size:
-      type: integer
-      min: 1
-      max: 1000
-      default: 100
-    ack_mode:
-      type: string
-      enum: [auto, manual, batch]
-      default: manual
-
-# Retry Configuration
-retry_config:
-  max_attempts: 5
-  backoff: exponential
-  initial_delay_ms: 100
-  max_delay_ms: 30000
-  retryable_errors:
-    - CONNECTION_LOST
-    - BROKER_UNAVAILABLE
-
-# Observability
-observability:
-  logging:
-    level: info
-    fields: [queue, topic, partition, offset]
-  metrics:
-    - name: messages_published_total
-      type: counter
-    - name: messages_consumed_total
-      type: counter
-    - name: consumer_lag
-      type: gauge
-    - name: processing_duration_ms
-      type: histogram
+description: Message queue patterns with RabbitMQ, Redis Streams, and Kafka. Use when implementing async communication, pub/sub systems, event-driven microservices, or reliable message delivery.
+context: fork
+agent: event-driven-architect
+version: 2.0.0
+tags: [message-queue, rabbitmq, redis-streams, kafka, faststream, pub-sub, async, event-driven, 2026]
+allowed-tools: [Read, Write, Bash, Grep, Glob]
+author: SkillForge
+user-invocable: false
 ---
 
-# Message Queues for Game Servers
+# Message Queue Patterns (2026)
 
-Implement **asynchronous messaging** for scalable game server architecture.
+Asynchronous communication patterns for distributed systems using RabbitMQ, Redis Streams, Kafka, and FastStream.
 
-## Queue Systems Comparison
+## When to Use
 
-| System | Throughput | Latency | Ordering | Use Case |
-|--------|------------|---------|----------|----------|
-| **Kafka** | Very High | Medium | Partition | Analytics, events |
-| **RabbitMQ** | High | Low | Queue | Game events |
-| **Redis Pub/Sub** | Very High | Very Low | None | Real-time updates |
-| **NATS** | Very High | Ultra Low | Stream | Game state sync |
-| **SQS** | High | Medium | FIFO option | Cloud native |
+- Decoupling services in microservices architecture
+- Implementing pub/sub and work queue patterns
+- Building event-driven systems with reliable delivery
+- Load leveling and buffering between services
+- Task distribution across multiple workers
+- High-throughput event streaming (Kafka)
 
-## Apache Kafka for Game Analytics
+## Quick Reference
 
-```java
-// Producer configuration
-Properties producerProps = new Properties();
-producerProps.put("bootstrap.servers", "kafka:9092");
-producerProps.put("key.serializer", StringSerializer.class.getName());
-producerProps.put("value.serializer", JsonSerializer.class.getName());
-producerProps.put("acks", "all");  // Durability
-producerProps.put("retries", 3);
-producerProps.put("linger.ms", 5);  // Batch for throughput
-producerProps.put("batch.size", 16384);
-
-KafkaProducer<String, GameEvent> producer = new KafkaProducer<>(producerProps);
-
-// Publish game events
-public void publishEvent(GameEvent event) {
-    ProducerRecord<String, GameEvent> record = new ProducerRecord<>(
-        "game-events",           // topic
-        event.getPlayerId(),     // key (for partition affinity)
-        event                    // value
-    );
-
-    producer.send(record, (metadata, exception) -> {
-        if (exception != null) {
-            log.error("Failed to publish event", exception);
-            // Retry or dead-letter queue
-        }
-    });
-}
-
-// Consumer for analytics
-Properties consumerProps = new Properties();
-consumerProps.put("bootstrap.servers", "kafka:9092");
-consumerProps.put("group.id", "analytics-consumer");
-consumerProps.put("auto.offset.reset", "earliest");
-consumerProps.put("enable.auto.commit", false);  // Manual commits
-
-KafkaConsumer<String, GameEvent> consumer = new KafkaConsumer<>(consumerProps);
-consumer.subscribe(List.of("game-events"));
-
-while (running) {
-    ConsumerRecords<String, GameEvent> records = consumer.poll(Duration.ofMillis(100));
-
-    for (ConsumerRecord<String, GameEvent> record : records) {
-        processEvent(record.value());
-    }
-
-    consumer.commitSync();  // Commit after processing
-}
-```
-
-## RabbitMQ for Game Commands
-
-```go
-// Connection with retry
-func connectRabbitMQ() (*amqp.Connection, error) {
-    var conn *amqp.Connection
-    var err error
-
-    for i := 0; i < 5; i++ {
-        conn, err = amqp.Dial("amqp://guest:guest@localhost:5672/")
-        if err == nil {
-            return conn, nil
-        }
-        time.Sleep(time.Second * time.Duration(1<<i))  // Exponential backoff
-    }
-    return nil, fmt.Errorf("failed to connect after retries: %w", err)
-}
-
-// Publisher
-func publishMatchEvent(ch *amqp.Channel, event MatchEvent) error {
-    body, err := json.Marshal(event)
-    if err != nil {
-        return err
-    }
-
-    return ch.Publish(
-        "game-exchange",    // exchange
-        "match.created",    // routing key
-        false,              // mandatory
-        false,              // immediate
-        amqp.Publishing{
-            ContentType:  "application/json",
-            Body:         body,
-            DeliveryMode: amqp.Persistent,  // Survive broker restart
-            MessageId:    uuid.New().String(),
-            Timestamp:    time.Now(),
-        },
-    )
-}
-
-// Consumer with manual ack
-func consumeMatchEvents(ch *amqp.Channel) error {
-    msgs, err := ch.Consume(
-        "match-events",  // queue
-        "",              // consumer tag
-        false,           // auto-ack (false = manual)
-        false,           // exclusive
-        false,           // no-local
-        false,           // no-wait
-        nil,             // args
-    )
-    if err != nil {
-        return err
-    }
-
-    for msg := range msgs {
-        var event MatchEvent
-        if err := json.Unmarshal(msg.Body, &event); err != nil {
-            msg.Nack(false, false)  // Don't requeue malformed messages
-            continue
-        }
-
-        if err := processMatchEvent(event); err != nil {
-            msg.Nack(false, true)  // Requeue for retry
-            continue
-        }
-
-        msg.Ack(false)  // Acknowledge successful processing
-    }
-    return nil
-}
-```
-
-## Redis Pub/Sub for Real-Time
+### FastStream: Unified API (2026 Recommended)
 
 ```python
-import redis
+# pip install faststream[kafka,rabbit,redis]
+from faststream import FastStream
+from faststream.kafka import KafkaBroker
+from pydantic import BaseModel
+
+broker = KafkaBroker("localhost:9092")
+app = FastStream(broker)
+
+class OrderCreated(BaseModel):
+    order_id: str
+    customer_id: str
+    total: float
+
+@broker.subscriber("orders.created")
+async def handle_order(event: OrderCreated):
+    """Automatic Pydantic validation and deserialization."""
+    print(f"Processing order {event.order_id}")
+    await process_order(event)
+
+@broker.publisher("orders.processed")
+async def publish_processed(order_id: str) -> dict:
+    return {"order_id": order_id, "status": "processed"}
+
+# Run with: faststream run app:app
+```
+
+### Kafka Producer (aiokafka)
+
+```python
+from aiokafka import AIOKafkaProducer
 import json
-from concurrent.futures import ThreadPoolExecutor
 
-# Publisher (Game Server)
-class GameStatePublisher:
-    def __init__(self):
-        self.redis = redis.Redis(host='localhost', port=6379)
+class KafkaPublisher:
+    def __init__(self, bootstrap_servers: str):
+        self.bootstrap_servers = bootstrap_servers
+        self._producer: AIOKafkaProducer | None = None
 
-    def broadcast_state(self, game_id: str, state: dict):
-        channel = f"game:{game_id}"
-        self.redis.publish(channel, json.dumps(state))
+    async def start(self):
+        self._producer = AIOKafkaProducer(
+            bootstrap_servers=self.bootstrap_servers,
+            value_serializer=lambda v: json.dumps(v).encode(),
+            acks="all",  # Wait for all replicas
+            enable_idempotence=True,  # Exactly-once semantics
+        )
+        await self._producer.start()
 
-    def broadcast_chat(self, game_id: str, message: dict):
-        channel = f"chat:{game_id}"
-        self.redis.publish(channel, json.dumps(message))
+    async def publish(
+        self,
+        topic: str,
+        value: dict,
+        key: str | None = None,
+    ):
+        await self._producer.send_and_wait(
+            topic,
+            value=value,
+            key=key.encode() if key else None,
+        )
 
-# Subscriber (Client Gateway)
-class GameStateSubscriber:
-    def __init__(self, game_id: str, callback):
-        self.redis = redis.Redis(host='localhost', port=6379)
-        self.pubsub = self.redis.pubsub()
-        self.callback = callback
-        self.game_id = game_id
-
-    def subscribe(self):
-        self.pubsub.subscribe(f"game:{self.game_id}")
-
-        for message in self.pubsub.listen():
-            if message['type'] == 'message':
-                data = json.loads(message['data'])
-                self.callback(data)
-
-    def unsubscribe(self):
-        self.pubsub.unsubscribe()
-        self.pubsub.close()
-
-# Usage with connection pool
-pool = redis.ConnectionPool(host='localhost', port=6379, max_connections=100)
-redis_client = redis.Redis(connection_pool=pool)
+    async def stop(self):
+        await self._producer.stop()
 ```
 
-## NATS for Low-Latency Messaging
+### Kafka Consumer with Consumer Group
 
-```go
-// NATS JetStream for persistent messaging
-func setupNATS() (*nats.Conn, nats.JetStreamContext, error) {
-    nc, err := nats.Connect("nats://localhost:4222",
-        nats.RetryOnFailedConnect(true),
-        nats.MaxReconnects(10),
-        nats.ReconnectWait(time.Second),
-    )
-    if err != nil {
-        return nil, nil, err
-    }
+```python
+from aiokafka import AIOKafkaConsumer
+from aiokafka.errors import OffsetOutOfRangeError
 
-    js, err := nc.JetStream()
-    if err != nil {
-        return nil, nil, err
-    }
+class KafkaConsumer:
+    def __init__(
+        self,
+        topic: str,
+        group_id: str,
+        bootstrap_servers: str,
+    ):
+        self.consumer = AIOKafkaConsumer(
+            topic,
+            bootstrap_servers=bootstrap_servers,
+            group_id=group_id,
+            auto_offset_reset="earliest",
+            enable_auto_commit=False,  # Manual commit for reliability
+            value_deserializer=lambda v: json.loads(v.decode()),
+        )
 
-    // Create stream for game events
-    _, err = js.AddStream(&nats.StreamConfig{
-        Name:       "GAME_EVENTS",
-        Subjects:   []string{"game.>"},
-        Retention:  nats.LimitsPolicy,
-        MaxAge:     time.Hour * 24,
-        Storage:    nats.FileStorage,
-        Replicas:   3,
-    })
-
-    return nc, js, err
-}
-
-// Publish with acknowledgment
-func publishGameEvent(js nats.JetStreamContext, event GameEvent) error {
-    data, _ := json.Marshal(event)
-
-    ack, err := js.Publish(
-        fmt.Sprintf("game.%s.%s", event.GameID, event.Type),
-        data,
-    )
-    if err != nil {
-        return err
-    }
-
-    log.Printf("Published: seq=%d", ack.Sequence)
-    return nil
-}
-
-// Durable consumer
-func consumeGameEvents(js nats.JetStreamContext) error {
-    sub, err := js.Subscribe("game.>",
-        func(msg *nats.Msg) {
-            var event GameEvent
-            json.Unmarshal(msg.Data, &event)
-            processEvent(event)
-            msg.Ack()
-        },
-        nats.Durable("game-processor"),
-        nats.ManualAck(),
-        nats.AckWait(time.Second*30),
-    )
-    if err != nil {
-        return err
-    }
-    defer sub.Unsubscribe()
-
-    <-make(chan struct{})  // Block forever
-    return nil
-}
+    async def consume(self, handler):
+        await self.consumer.start()
+        try:
+            async for msg in self.consumer:
+                try:
+                    await handler(msg.value, msg.key, msg.partition)
+                    await self.consumer.commit()
+                except Exception as e:
+                    # Handle or send to DLQ
+                    await self.send_to_dlq(msg, e)
+        finally:
+            await self.consumer.stop()
 ```
 
-## Actor Model (Akka/Orleans)
+### RabbitMQ Publisher
 
-```csharp
-// Orleans Grain (Virtual Actor)
-public interface IPlayerGrain : IGrainWithStringKey
-{
-    Task<PlayerState> GetState();
-    Task<bool> TakeDamage(int amount, string sourceId);
-    Task<bool> ApplyBuff(Buff buff);
-}
+```python
+import aio_pika
+from aio_pika import Message, DeliveryMode
 
-public class PlayerGrain : Grain, IPlayerGrain
-{
-    private readonly IPersistentState<PlayerState> _state;
-    private readonly ILogger<PlayerGrain> _logger;
+class RabbitMQPublisher:
+    def __init__(self, url: str):
+        self.url = url
+        self._connection = None
+        self._channel = None
 
-    public PlayerGrain(
-        [PersistentState("player", "gameStore")] IPersistentState<PlayerState> state,
-        ILogger<PlayerGrain> logger)
-    {
-        _state = state;
-        _logger = logger;
-    }
+    async def connect(self):
+        self._connection = await aio_pika.connect_robust(self.url)
+        self._channel = await self._connection.channel()
+        await self._channel.set_qos(prefetch_count=10)
 
-    public Task<PlayerState> GetState() => Task.FromResult(_state.State);
-
-    public async Task<bool> TakeDamage(int amount, string sourceId)
-    {
-        _state.State.Health -= amount;
-
-        if (_state.State.Health <= 0)
-        {
-            // Notify game grain about death
-            var gameGrain = GrainFactory.GetGrain<IGameGrain>(_state.State.GameId);
-            await gameGrain.OnPlayerDeath(this.GetPrimaryKeyString(), sourceId);
-        }
-
-        await _state.WriteStateAsync();
-        return _state.State.Health > 0;
-    }
-}
-
-// Silo configuration
-var host = new HostBuilder()
-    .UseOrleans(siloBuilder =>
-    {
-        siloBuilder
-            .UseLocalhostClustering()
-            .AddRedisGrainStorage("gameStore", options =>
-            {
-                options.ConnectionString = "localhost:6379";
-            })
-            .ConfigureLogging(logging => logging.AddConsole());
-    })
-    .Build();
+    async def publish(self, exchange: str, routing_key: str, message: dict):
+        exchange_obj = await self._channel.get_exchange(exchange)
+        await exchange_obj.publish(
+            Message(
+                body=json.dumps(message).encode(),
+                delivery_mode=DeliveryMode.PERSISTENT,
+                content_type="application/json"
+            ),
+            routing_key=routing_key
+        )
 ```
 
-## Use Case Mapping
+### RabbitMQ Consumer with Retry
 
-| Use Case | Recommended | Reason |
-|----------|-------------|--------|
-| Cross-server chat | RabbitMQ | Reliable delivery |
-| Analytics pipeline | Kafka | High throughput, replay |
-| Real-time state | Redis Pub/Sub | Ultra-low latency |
-| Distributed game state | Orleans/Akka | Location transparency |
-| Match results | Kafka | Ordered, durable |
-| Notifications | NATS | Simple, fast |
-
-## Troubleshooting
-
-### Common Failure Modes
-
-| Error | Root Cause | Solution |
-|-------|------------|----------|
-| Consumer lag | Slow processing | Scale consumers |
-| Message loss | Auto-ack before process | Manual ack |
-| Duplicate processing | At-least-once | Idempotent handlers |
-| Broker unavailable | Single point | Cluster mode |
-
-### Debug Checklist
-
-```bash
-# Kafka consumer lag
-kafka-consumer-groups.sh --bootstrap-server localhost:9092 \
-  --describe --group analytics-consumer
-
-# RabbitMQ queue status
-rabbitmqctl list_queues name messages consumers
-
-# Redis pub/sub channels
-redis-cli PUBSUB CHANNELS "game:*"
-
-# NATS stream info
-nats stream info GAME_EVENTS
+```python
+class RabbitMQConsumer:
+    async def consume(self, queue_name: str, handler, max_retries: int = 3):
+        queue = await self._channel.get_queue(queue_name)
+        async with queue.iterator() as queue_iter:
+            async for message in queue_iter:
+                async with message.process(requeue=False):
+                    try:
+                        body = json.loads(message.body.decode())
+                        await handler(body)
+                    except Exception as e:
+                        retry_count = message.headers.get("x-retry-count", 0)
+                        if retry_count < max_retries:
+                            await self.publish(exchange, routing_key, body,
+                                headers={"x-retry-count": retry_count + 1})
+                        else:
+                            await self.publish("dlx", "failed", body,
+                                headers={"x-error": str(e)})
 ```
 
-## Unit Test Template
+### Redis Streams Consumer Group
 
-```go
-func TestMessagePublishing(t *testing.T) {
-    // Setup test broker (use testcontainers)
-    container := setupRabbitMQContainer(t)
-    defer container.Terminate(context.Background())
+```python
+import redis.asyncio as redis
 
-    conn, _ := amqp.Dial(container.URI)
-    ch, _ := conn.Channel()
+class RedisStreamConsumer:
+    def __init__(self, url: str, stream: str, group: str, consumer: str):
+        self.redis = redis.from_url(url)
+        self.stream, self.group, self.consumer = stream, group, consumer
 
-    // Publish test event
-    event := MatchEvent{
-        MatchID:   "match-123",
-        EventType: "created",
-    }
-    err := publishMatchEvent(ch, event)
-    require.NoError(t, err)
+    async def setup(self):
+        try:
+            await self.redis.xgroup_create(self.stream, self.group, "0", mkstream=True)
+        except redis.ResponseError as e:
+            if "BUSYGROUP" not in str(e): raise
 
-    // Verify message received
-    msgs, _ := ch.Consume("match-events", "", true, false, false, false, nil)
-    select {
-    case msg := <-msgs:
-        var received MatchEvent
-        json.Unmarshal(msg.Body, &received)
-        assert.Equal(t, event.MatchID, received.MatchID)
-    case <-time.After(time.Second * 5):
-        t.Fatal("timeout waiting for message")
-    }
-}
+    async def consume(self, handler):
+        while True:
+            messages = await self.redis.xreadgroup(
+                groupname=self.group, consumername=self.consumer,
+                streams={self.stream: ">"}, count=10, block=5000
+            )
+            for stream, stream_messages in messages:
+                for message_id, data in stream_messages:
+                    try:
+                        await handler(message_id, data)
+                        await self.redis.xack(self.stream, self.group, message_id)
+                    except Exception:
+                        pass  # Message redelivered on restart
 ```
 
-## Resources
+### "Just Use Postgres" Pattern
 
-- `assets/` - Queue configurations
-- `references/` - Messaging patterns
+```python
+# For simpler use cases - Postgres LISTEN/NOTIFY + FOR UPDATE SKIP LOCKED
+from sqlalchemy import text
+
+class PostgresQueue:
+    """Simple queue using Postgres - good for moderate throughput."""
+
+    async def publish(self, db: AsyncSession, channel: str, payload: dict):
+        await db.execute(
+            text("SELECT pg_notify(:channel, :payload)"),
+            {"channel": channel, "payload": json.dumps(payload)}
+        )
+
+    async def get_next_job(self, db: AsyncSession) -> dict | None:
+        """Get next job with advisory lock."""
+        result = await db.execute(text("""
+            SELECT id, payload FROM job_queue
+            WHERE status = 'pending'
+            ORDER BY created_at
+            FOR UPDATE SKIP LOCKED
+            LIMIT 1
+        """))
+        return result.first()
+```
+
+## Key Decisions
+
+| Technology | Best For | Throughput | Ordering | Persistence |
+|------------|----------|------------|----------|-------------|
+| **Kafka** | Event streaming, logs, high-volume | 100K+ msg/s | Partition-level | Excellent |
+| **RabbitMQ** | Task queues, RPC, routing | ~50K msg/s | Queue-level | Good |
+| **Redis Streams** | Real-time, simple streaming | ~100K msg/s | Stream-level | Good (AOF) |
+| **Postgres** | Moderate volume, simplicity | ~10K msg/s | Query-defined | Excellent |
+
+### When to Choose Each
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                     DECISION FLOWCHART                                  │
+├────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  Need > 50K msg/s?                                                     │
+│      YES → Kafka (partitioned, replicated)                             │
+│      NO ↓                                                              │
+│                                                                         │
+│  Need complex routing (topic, headers)?                                │
+│      YES → RabbitMQ (exchanges, bindings)                              │
+│      NO ↓                                                              │
+│                                                                         │
+│  Need real-time + simple?                                              │
+│      YES → Redis Streams (XREAD, consumer groups)                      │
+│      NO ↓                                                              │
+│                                                                         │
+│  Already using Postgres + < 10K msg/s?                                 │
+│      YES → Postgres (LISTEN/NOTIFY + FOR UPDATE SKIP LOCKED)           │
+│      NO → Re-evaluate requirements                                     │
+│                                                                         │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+## Anti-Patterns (FORBIDDEN)
+
+```python
+# NEVER process without acknowledgment
+async for msg in consumer:
+    process(msg)  # Message lost on failure!
+
+# NEVER use sync calls in handlers
+def handle(msg):
+    requests.post(url, data=msg)  # Blocks event loop!
+
+# NEVER ignore ordering when required
+await publish("orders", {"order_id": "123"})  # No partition key!
+
+# NEVER store large payloads
+await publish("files", {"content": large_bytes})  # Use URL reference!
+
+# NEVER skip dead letter handling
+except Exception:
+    pass  # Failed messages vanish!
+
+# NEVER choose Kafka for simple task queue
+# RabbitMQ or Redis is simpler for work distribution
+
+# NEVER use Redis Streams when strict delivery matters
+# Use RabbitMQ or Kafka for guaranteed delivery
+```
+
+## Related Skills
+
+- `outbox-pattern` - Transactional outbox for reliable publishing
+- `background-jobs` - Celery/ARQ task processing
+- `streaming-api-patterns` - SSE/WebSocket real-time
+- `observability-monitoring` - Queue metrics and alerting
+- `event-sourcing` - Event store and CQRS patterns
+
+## Capability Details
+
+### kafka-streaming
+**Keywords:** kafka, aiokafka, partition, consumer group, exactly-once, offset
+**Solves:**
+- How do I set up Kafka producers/consumers?
+- Partition key selection for ordering
+- Exactly-once semantics with idempotence
+- Consumer group rebalancing
+
+### rabbitmq-messaging
+**Keywords:** rabbitmq, amqp, aio-pika, exchange, queue, topic, fanout, routing
+**Solves:**
+- How do I set up RabbitMQ pub/sub?
+- Exchange types and queue binding
+- Dead letter queue configuration
+- Message persistence and acknowledgment
+
+### redis-streams
+**Keywords:** redis streams, xadd, xread, xreadgroup, consumer group, xack
+**Solves:**
+- How do I use Redis Streams?
+- Consumer group setup and message claiming
+- Stream trimming and retention
+- At-least-once delivery patterns
+
+### faststream-framework
+**Keywords:** faststream, unified api, pydantic, asyncapi, broker
+**Solves:**
+- Unified API for Kafka/RabbitMQ/Redis
+- Automatic Pydantic serialization
+- AsyncAPI documentation generation
+- Dependency injection for handlers
+
+### postgres-queue
+**Keywords:** postgres queue, listen notify, skip locked, simple queue
+**Solves:**
+- When to use Postgres instead of dedicated queue
+- LISTEN/NOTIFY for pub/sub
+- FOR UPDATE SKIP LOCKED for job queue

@@ -1,7 +1,7 @@
 {
   "name": "skill-installer",
-  "repo": "pianzhu/my-claude-skills",
-  "path": "skills/.system/skill-installer/SKILL.md",
-  "source": "github.com/pianzhu/my-claude-skills",
-  "downloaded_at": "2026-01-19T03:55:03.518977Z"
+  "repo": "grahama1970/agent-skills",
+  "path": ".system/skill-installer/SKILL.md",
+  "source": "github.com/grahama1970/agent-skills",
+  "downloaded_at": "2026-01-20T04:01:46.148058Z"
 }

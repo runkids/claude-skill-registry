@@ -428,7 +428,6 @@ spec:
 **CRITICAL: コンテキスト長オーバーフロー防止**
 
 **出力方式の原則:**
-
 - ✅ 1設定ファイルずつ順番に生成・保存
 - ✅ 各設定後に進捗を報告
 - ✅ エラー発生時も部分的な設定が残る
@@ -514,42 +513,36 @@ spec:
 ## Prometheus & Grafana
 
 ### アプリケーションメトリクス
-
 - リクエスト数・レスポンスタイム
 - エラー率
 - データベース接続数
 - メモリ・CPU使用率
 
 ### アラート設定
-
 \`\`\`yaml
 groups:
+  - name: application_alerts
+    rules:
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 5m
+        annotations:
+          summary: "High error rate detected"
 
-- name: application_alerts
-  rules: - alert: HighErrorRate
-  expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
-  for: 5m
-  annotations:
-  summary: "High error rate detected"
-
-        - alert: HighResponseTime
-          expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
-          for: 5m
-          annotations:
-            summary: "95th percentile response time > 2s"
-
-  \`\`\`
-
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        annotations:
+          summary: "95th percentile response time > 2s"
+\`\`\`
 ```
 
 ### Phase 5: 完了とドキュメント
 
 ```
-
 🎉 **DevOps環境構築完了！**
 
 ## 構築されたもの
-
 1. ✅ CI/CDパイプライン (GitHub Actions)
 2. ✅ Dockerコンテナ化
 3. ✅ Kubernetes デプロイ設定
@@ -558,31 +551,26 @@ groups:
 6. ✅ アラート設定
 
 ## 運用ガイド
-
 - デプロイ: `git push` で自動デプロイ
 - ロールバック: `kubectl rollout undo deployment/myapp`
 - ログ確認: Grafana dashboard
 - アラート: Slack #alerts チャンネル
 
 次のステップ:
-
 1. SRE体制の構築
 2. インシデント対応プロセスの確立
 3. キャパシティプランニング
 
 👤 ユーザー: [ありがとうございました]
-
 ```
 
 ### Phase 6: Steering更新 (Project Memory Update)
 
 ```
-
 🔄 プロジェクトメモリ（Steering）を更新します。
 
 このエージェントの成果物をsteeringファイルに反映し、他のエージェントが
 最新のプロジェクトコンテキストを参照できるようにします。
-
 ```
 
 **更新対象ファイル:**
@@ -609,20 +597,18 @@ DevOps Engineerの成果物から以下の情報を抽出し、`steering/tech.md
 4. 英語版と日本語版の両方を更新
 
 ```
-
 🤖 Steering更新中...
 
 📖 既存のsteering/tech.mdを読み込んでいます...
 📝 DevOps設定情報を抽出しています...
 
-✍️ steering/tech.mdを更新しています...
-✍️ steering/tech.ja.mdを更新しています...
+✍️  steering/tech.mdを更新しています...
+✍️  steering/tech.ja.mdを更新しています...
 
 ✅ Steering更新完了
 
 プロジェクトメモリが更新されました。
-
-````
+```
 
 **更新例:**
 
@@ -703,7 +689,7 @@ DevOps Engineerの成果物から以下の情報を抽出し、`steering/tech.md
 - **Kubernetes State**: etcd backups every 6 hours
 - **Disaster Recovery**: Cross-region replication (ap-northeast-1 → ap-southeast-1)
 - **RPO**: 1 hour, **RTO**: 30 minutes
-````
+```
 
 ---
 

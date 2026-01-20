@@ -1,54 +1,206 @@
 ---
 name: qa-engineer
-description: QA Automation Engineer skill. Use this to write or refactor unit tests. Ensures tests follow the project's xUnit, FluentAssertions, and Moq standards.
+description: Assist QA Engineers with test planning, test case generation from acceptance criteria, coverage analysis, and regression test identification. Use when creating test plans, generating test cases, analyzing test coverage, or identifying regression risks. Triggers on keywords like "test plan", "test cases", "test spec", "test coverage", "regression", "QA", "testing strategy", "edge cases".
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash, TodoWrite
 ---
 
-# Test Generation Skill
+# QA Engineer Assistant
 
-## Overview
+Help QA Engineers create comprehensive test specifications, generate test cases from acceptance criteria, and ensure adequate test coverage.
 
-Unit tests are located in `src/MoreSpeakers.Tests/`. We prioritize high coverage of Managers and critical PageModels.
+---
 
-## Tooling Stack
+## Core Capabilities
 
--   **Framework**: xUnit
--   **Assertions**: FluentAssertions (`result.Should().Be(...)`)
--   **Mocking**: Moq (`new Mock<IMyInterface>()`)
--   **Data Generation**: Bogus (`new Faker<User>()`)
+### 1. Test Planning
+- Define test scope and strategy
+- Identify test environments and data needs
+- Plan regression test suites
 
-## Test Structure
+### 2. Test Case Generation
 
-### Naming Convention
-`MethodName_Scenario_ExpectedResult`
+#### From Acceptance Criteria
+Convert GIVEN/WHEN/THEN to test cases:
+```
+AC: Given user is logged in
+    When user clicks logout
+    Then user is redirected to login page
 
-Example: `CreateUser_WhenEmailExists_ShouldReturnError`
-
-### Arrange-Act-Assert Pattern
-
-```csharp
-[Fact]
-public async Task CreateUser_ShouldReturnId_WhenDataIsValid()
-{
-    // Arrange
-    var mockRepo = new Mock<IUserDataStore>();
-    var user = new UserFaker().Generate(); // Using Bogus
-    mockRepo.Setup(r => r.SaveAsync(It.IsAny<User>())).ReturnsAsync(user);
-
-    var sut = new UserManager(mockRepo.Object);
-
-    // Act
-    var result = await sut.CreateAsync(user);
-
-    // Assert
-    result.Should().NotBeNull();
-    result.Id.Should().Be(user.Id);
-    mockRepo.Verify(r => r.SaveAsync(It.IsAny<User>()), Times.Once);
-}
+TC: TC-AUTH-001: Successful logout
+    Precondition: User authenticated
+    Steps:
+      1. Click logout button
+      2. Observe redirect
+    Expected: Login page displayed
+    Evidence: {file}:{line}
 ```
 
-## Guidelines
+### 3. Test Types
 
-1.  **Mock External Dependencies**: Never hit the real database or external APIs in unit tests. Use `Mock<T>`.
-2.  **No Magic Strings**: Use constants or `nameof()` where possible.
-3.  **Async**: Use `async Task` for all tests involving async methods.
-4.  **Coverage**: Focus on business logic in `MoreSpeakers.Managers`. UI logic in `PageModels` should be tested for state changes, not HTML rendering.
+| Type | Purpose | When |
+|------|---------|------|
+| Unit | Single function | During dev |
+| Integration | Component interaction | After merge |
+| E2E | Full user flow | Before release |
+| Regression | Existing functionality | Every sprint |
+| Smoke | Critical paths | Every deploy |
+| Performance | Load/stress | Pre-release |
+
+### 4. Coverage Analysis
+- Map test cases to requirements
+- Identify coverage gaps
+- Calculate coverage percentage
+
+---
+
+## Test Case Format
+
+### Standard Format
+```markdown
+#### TC-{MOD}-{NNN}: {Descriptive title}
+- **Priority:** P1 | P2 | P3
+- **Type:** Positive | Negative | Boundary | Integration
+- **Preconditions:** {Setup required}
+- **Test Data:** {Data requirements}
+
+**Steps:**
+1. {Action step}
+2. {Action step}
+3. {Verification step}
+
+**Expected Result:**
+- {Observable outcome}
+
+**Evidence:** `{FilePath}:{LineNumber}`
+```
+
+### Gherkin Format
+```markdown
+#### TC-{MOD}-{NNN}: {Title}
+- **Priority:** P1
+- **Type:** Positive
+
+**Given** {precondition}
+**And** {additional setup}
+**When** {user action}
+**Then** {expected outcome}
+**And** {additional verification}
+
+**Evidence:** `{FilePath}:{LineNumber}`
+```
+
+---
+
+## Workflow Integration
+
+### Creating Test Spec from PBI
+When user runs `/test-spec {pbi-file}`:
+1. Read PBI and acceptance criteria
+2. Identify test scenarios (positive, negative, edge)
+3. Create test specification structure
+4. Save to `team-artifacts/test-specs/`
+
+### Generating Test Cases
+When user runs `/test-cases {test-spec-file}`:
+1. Read test specification
+2. Generate detailed test cases
+3. Assign TC IDs (TC-{MOD}-{NNN})
+4. Find code evidence for each case
+5. Update test spec with cases
+
+---
+
+## Test ID Conventions
+
+### Module Codes
+| Module | Code |
+|--------|------|
+| bravoTALENTS | TAL |
+| bravoGROWTH | GRO |
+| bravoSURVEYS | SUR |
+| bravoINSIGHTS | INS |
+| Accounts | ACC |
+| Common | COM |
+
+### ID Format
+```
+TC-{MOD}-{NNN}
+
+Examples:
+TC-TAL-001  # bravoTALENTS test case 1
+TC-GRO-015  # bravoGROWTH test case 15
+TC-ACC-101  # Accounts integration test
+TC-COM-201  # Common edge case
+```
+
+---
+
+## Edge Case Categories
+
+### Input Validation
+- Empty/null values
+- Boundary values (min, max, min-1, max+1)
+- Invalid formats
+- SQL injection attempts
+- XSS payloads
+
+### State-Based
+- First use (empty state)
+- Maximum capacity
+- Concurrent access
+- Session timeout
+
+### Integration
+- Service unavailable
+- Network timeout
+- Partial data response
+- Rate limiting
+
+---
+
+## Evidence Requirements
+
+**MANDATORY**: Every test case must have code evidence.
+
+### Valid Evidence Formats
+```
+{RelativeFilePath}:{LineNumber}
+{RelativeFilePath}:{StartLine}-{EndLine}
+```
+
+### Finding Evidence
+1. Search for error messages in `ErrorMessage.cs`
+2. Find validation logic in Command handlers
+3. Locate frontend validation in components
+4. Reference entity constraints
+
+---
+
+## Output Conventions
+
+### File Naming
+```
+{YYMMDD}-qa-testspec-{feature-slug}.md
+```
+
+### Test Spec Structure
+1. Overview
+2. Test Summary (counts)
+3. Functional Tests
+4. Integration Tests
+5. Edge Cases
+6. Test Data Requirements
+7. Regression Impact
+8. Sign-Off
+
+---
+
+## Quality Checklist
+
+Before completing QA artifacts:
+- [ ] Every test case has TC-{MOD}-{NNN} ID
+- [ ] Every test case has Evidence field with file:line
+- [ ] Test summary counts match actual test cases
+- [ ] At least 3 categories: positive, negative, edge
+- [ ] Regression impact identified
+- [ ] Test data requirements documented

@@ -1,7 +1,7 @@
 {
   "name": "skill-developer",
-  "repo": "Mavrick91/tanstack-start-app",
-  "path": ".claude/skills/skill-developer/SKILL.md",
-  "source": "github.com/Mavrick91/tanstack-start-app",
-  "downloaded_at": "2026-01-19T03:53:11.930104Z"
+  "repo": "Squirrelfishcityhall150/claude-code-kit",
+  "path": "cli/core/skills/skill-developer/SKILL.md",
+  "source": "github.com/Squirrelfishcityhall150/claude-code-kit",
+  "downloaded_at": "2026-01-20T04:05:19.091257Z"
 }

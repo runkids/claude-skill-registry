@@ -1,7 +1,7 @@
 {
   "name": "dummy",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/dummy/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-19T02:08:02.737595Z"
+  "repo": "mlflow/dev",
+  "path": "mlflow/assistant/skills/dummy/SKILL.md",
+  "source": "github.com/mlflow/dev",
+  "downloaded_at": "2026-01-20T03:13:14.896891Z"
 }

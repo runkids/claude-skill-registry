@@ -1,6 +1,6 @@
 ---
 name: webnovel-write
-description: Writes webnovel chapters (3000-5000 words) using v5.0 dual-agent architecture. Context Agent gathers context, writer produces pure text (no XML tags), review agents report issues, polish fixes problems, Data Agent extracts entities with AI.
+description: Writes webnovel chapters (3000-5000 words) using v5.1 dual-agent architecture. Context Agent gathers context, writer produces pure text (no XML tags), review agents report issues, polish fixes problems, Data Agent extracts entities with AI.
 allowed-tools: Read Write Edit Grep Bash Task
 ---
 
@@ -11,7 +11,7 @@ allowed-tools: Read Write Edit Grep Bash Task
 ⚠️ **强制要求**: 开始写作前，**必须复制以下清单**到回复中并逐项勾选。跳过任何步骤视为工作流不完整。
 
 ```
-章节创作进度 (v5.0)：
+章节创作进度 (v5.1)：
 - [ ] Step 1: Context Agent 搜集上下文
 - [ ] Step 2: 生成章节内容 (纯正文，3000-5000字)
 - [ ] Step 3: 审查 (5个Agent并行，输出汇总表格)
@@ -43,13 +43,13 @@ allowed-tools: Read Write Edit Grep Bash Task
 
 **Agent 自动完成**:
 1. 读取本章大纲，分析需要什么信息
-2. 读取 state.json 获取主角状态（使用 entities_v3 格式）
-3. 调用 data_modules.index_manager 查询相关实体
+2. 读取 state.json 获取主角状态快照
+3. 调用 index.db (v5.1 schema) 查询相关实体和别名
 4. 调用 data_modules.rag_adapter 语义检索
 5. Grep 设定集搜索相关设定
 6. 评估伏笔紧急度
 7. 选择风格样本
-8. 组装上下文包 JSON
+8. 组装上下文包 JSON (v5.1)
 
 **输出**：上下文包 JSON，包含：
 - `core`: 大纲、主角快照、最近摘要
@@ -86,6 +86,14 @@ cat "${CLAUDE_PLUGIN_ROOT}/skills/webnovel-write/references/core-constraints.md"
 | 情感戏 | 大纲含告白/冲突/羁绊 | `cat "${CLAUDE_PLUGIN_ROOT}/skills/webnovel-write/references/writing/emotion-psychology.md"` |
 | 对话密集 | 预估对话 >50% | `cat "${CLAUDE_PLUGIN_ROOT}/skills/webnovel-write/references/writing/dialogue-writing.md"` |
 | 复杂场景 | 新地点/大场面描写 | `cat "${CLAUDE_PLUGIN_ROOT}/skills/webnovel-write/references/writing/scene-description.md"` |
+| 欲念描写 | 大纲含暧昧/亲密/情欲场景 | `cat "${CLAUDE_PLUGIN_ROOT}/skills/webnovel-write/references/writing/desire-description.md"` |
+
+**可选加载题材风格参考**（用户指定时加载）:
+```bash
+# 如需特定题材的写作风格参考，可按需加载 genres 目录下的对应文件
+# 示例: cat "${CLAUDE_PLUGIN_ROOT}/genres/修仙/修仙-writing-style.md"
+# 可用题材: 修仙、系统流、都市异能、狗血言情、知乎短篇、古言、现实题材、规则怪谈等
+```
 
 **输出格式**:
 - Markdown 文件: `正文/第{NNNN}章.md`
@@ -269,8 +277,8 @@ cat "${CLAUDE_PLUGIN_ROOT}/skills/webnovel-write/references/writing/typesetting.
 
 **Agent 自动完成**:
 
-1. **AI 实体提取**
-   - 调用 LLM 从正文中语义提取实体
+1. **AI 实体提取**（Agent 内置，无需外部 LLM）
+   - 从正文中语义提取实体
    - 匹配已有实体库，识别新实体
    - 识别状态变化（境界/位置/关系）
 
@@ -280,9 +288,9 @@ cat "${CLAUDE_PLUGIN_ROOT}/skills/webnovel-write/references/writing/typesetting.
    - 低置信度 (<0.5): 标记待人工确认
 
 3. **写入存储**
-   - 更新 state.json (实体 + 状态)
-   - 更新 index.db (索引)
-   - 注册新别名到 alias_index
+   - 更新 state.json (精简状态)
+   - 更新 index.db (v5.1 schema: entities/aliases/state_changes)
+   - 注册新别名到 aliases 表
 
 4. **AI 场景切片**
    - 按地点/时间/视角切分场景
@@ -328,6 +336,7 @@ git add . && git commit -m "Ch{chapter_num}: {title}"
 **状态变化**: {实力/位置/关系}
 **伏笔**: [埋设] / [回收]
 **承接点**: {下章衔接}
+**压扬比例**: 压{X}扬{Y} ({genre}类型标准)
 ```
 
 ---

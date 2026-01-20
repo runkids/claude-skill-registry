@@ -1,7 +1,7 @@
 {
   "name": "skill",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "templates/skill/SKILL.md.template",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-19T04:05:36.130470Z"
+  "repo": "michsindlinger/agent-os-extended",
+  "path": "agent-os/workflows/skill/add-skill.md",
+  "source": "github.com/michsindlinger/agent-os-extended",
+  "downloaded_at": "2026-01-20T03:56:19.269911Z"
 }

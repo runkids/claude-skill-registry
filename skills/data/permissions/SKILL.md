@@ -1,891 +1,446 @@
 ---
 name: permissions
-description: Multi-tenant permission checking for Wasp applications. Use when implementing authorization, access control, or role-based permissions. Includes organization/department/role patterns and permission helper functions.
-triggers:
-  [
-    "permission",
-    "authorization",
-    "access control",
-    "role",
-    "MANAGER",
-    "MEMBER",
-    "VIEWER",
-    "canAccess",
-    "canEdit",
-    "multi-tenant",
-    "department",
-    "organization",
-  ]
-version: 1.0
-last_updated: 2025-10-18
-allowed_tools: [Read, Write, Edit]
+description: Use when implementing authorization, access control, RBAC, role-based permissions, guards, policies, row-level security, guest access, or protecting API endpoints. Covers Guard system, roles, permissions, policies, and data filtering.
 ---
 
-# Permissions Skill
+# Permissions and Access Control
 
-## Quick Reference
+Bknd provides a comprehensive authorization system built on Guard, roles, permissions, and policies. This system controls who can access what in your application.
 
-**When to use this skill:**
+## What You'll Learn
 
-- Implementing permission checks in operations
-- Setting up role-based access control
-- Working with multi-tenant data (organizations/departments)
-- Checking organization or department access
-- Filtering data by user permissions
-- Enforcing hierarchical access (parent/child departments)
+- Configure the Guard and roles
+- Define permissions with allow, deny, and filter effects
+- Use policies for row-level security
+- Implement guest access for public endpoints
+- Filter data based on user context
 
-**Key patterns:**
+## Core Concepts
 
-- `canAccessDocument()` - Check if user can view document
-- `canEditDocument()` - Check if user can edit document
-- `canDeleteDocument()` - Check if user can delete document
-- `getUserOrgRole()` - Get user's role in organization
-- `getUserRoleInDepartment()` - Get user's role in department
-- `isDepartmentManager()` - Check if user manages department
-- `isOrgAdmin()` - Check if user is org owner/admin
-
-## Multi-Tenancy Architecture
-
-**Structure:**
+Bknd's authorization follows this hierarchy:
 
 ```
-Organization (many) → Departments (hierarchical tree via parentId)
-                          ↓
-                    Users ↔ Departments (many-to-many via UserDepartment)
-                          ↓
-                    DepartmentRole: MANAGER | MEMBER | VIEWER
-                    OrganizationRole: OWNER | ADMIN | MEMBER
+Guard (evaluates)
+  └─> Roles (group permissions)
+      └─> Permissions (define what's allowed)
+          └─> Policies (conditional logic)
 ```
 
-**Key concepts:**
+- **Guard**: Evaluates permissions against user context
+- **Roles**: Group permissions and define default behavior
+- **Permissions**: Grant access with allow, deny, or filter effects
+- **Policies**: Add conditional logic to permissions
 
-- Organizations contain multiple departments
-- Departments can have parent/child relationships (hierarchical)
-- Users belong to departments via UserDepartment junction table
-- Each user has a role per department (MANAGER, MEMBER, or VIEWER)
-- Users can have roles in multiple departments
-- Organization-level roles (OWNER, ADMIN) grant access to all departments
+## Enabling Authorization
 
-## Database Schema
-
-```prisma
-model Organization {
-  id          String       @id @default(uuid())
-  name        String
-  departments Department[]
-  members     OrganizationMember[]
-}
-
-model OrganizationMember {
-  id             String       @id @default(uuid())
-  userId         String
-  user           User         @relation(fields: [userId], references: [id])
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id])
-  role           OrganizationRole
-
-  @@unique([userId, organizationId])
-}
-
-enum OrganizationRole {
-  OWNER
-  ADMIN
-  MEMBER
-}
-
-model Department {
-  id              String           @id @default(uuid())
-  name            String
-  organizationId  String
-  organization    Organization     @relation(fields: [organizationId], references: [id])
-  parentId        String?
-  parent          Department?      @relation("DepartmentHierarchy", fields: [parentId], references: [id])
-  children        Department[]     @relation("DepartmentHierarchy")
-  userDepartments UserDepartment[]
-}
-
-model UserDepartment {
-  id           String         @id @default(uuid())
-  userId       String
-  user         User           @relation(fields: [userId], references: [id])
-  departmentId String
-  department   Department     @relation(fields: [departmentId], references: [id])
-  role         DepartmentRole
-
-  @@unique([userId, departmentId])
-}
-
-enum DepartmentRole {
-  MANAGER
-  MEMBER
-  VIEWER
-}
-```
-
-## Core Permission Helpers
-
-### Organization-Level Permissions
+The Guard is automatically enabled when you enable auth:
 
 ```typescript
-import { HttpError } from "wasp/server";
+import { em, entity, text, boolean } from "bknd";
 
-/**
- * Get user's role in organization
- * @returns 'OWNER' | 'ADMIN' | 'MEMBER' | 'NONE'
- */
-async function getUserOrgRole(
-  userId: string,
-  organizationId: string,
-  context,
-): Promise<string> {
-  const membership = await context.entities.OrganizationMember.findUnique({
-    where: {
-      userId_organizationId: {
-        userId,
-        organizationId,
+const schema = em({
+  posts: entity("posts", {
+    title: text().required(),
+    content: text(),
+    published: boolean(),
+  }),
+});
+
+export default {
+  config: {
+    data: schema.toJSON(),
+    auth: {
+      enabled: true,
+      jwt: {
+        issuer: "my-app",
       },
-    },
-  });
-
-  return membership?.role || "NONE";
-}
-
-/**
- * Check if user is organization owner or admin
- */
-async function isOrgAdmin(
-  userId: string,
-  organizationId: string,
-  context,
-): Promise<boolean> {
-  const role = await getUserOrgRole(userId, organizationId, context);
-  return ["OWNER", "ADMIN"].includes(role);
-}
-
-/**
- * Check if user can access organization
- */
-async function canAccessOrganization(
-  userId: string,
-  organizationId: string,
-  context,
-): Promise<boolean> {
-  const role = await getUserOrgRole(userId, organizationId, context);
-  return role !== "NONE";
-}
-```
-
-### Department-Level Permissions
-
-```typescript
-/**
- * Get user's role in specific department
- * @returns 'MANAGER' | 'MEMBER' | 'VIEWER' | null
- */
-async function getUserRoleInDepartment(
-  userId: string,
-  departmentId: string,
-  context,
-): Promise<string | null> {
-  const membership = await context.entities.UserDepartment.findUnique({
-    where: {
-      userId_departmentId: {
-        userId,
-        departmentId,
-      },
-    },
-  });
-
-  return membership?.role || null;
-}
-
-/**
- * Check if user is department manager
- */
-async function isDepartmentManager(
-  userId: string,
-  departmentId: string,
-  context,
-): Promise<boolean> {
-  const role = await getUserRoleInDepartment(userId, departmentId, context);
-  return role === "MANAGER";
-}
-
-/**
- * Check if user can access department
- * Includes hierarchical access (parent departments)
- */
-async function canAccessDepartment(
-  userId: string,
-  departmentId: string,
-  context,
-): Promise<boolean> {
-  // Get department with parent chain
-  const department = await context.entities.Department.findUnique({
-    where: { id: departmentId },
-    include: { parent: true },
-  });
-
-  if (!department) return false;
-
-  // Check organization access
-  const hasOrgAccess = await canAccessOrganization(
-    userId,
-    department.organizationId,
-    context,
-  );
-  if (!hasOrgAccess) return false;
-
-  // Org admins can access all departments
-  const isAdmin = await isOrgAdmin(userId, department.organizationId, context);
-  if (isAdmin) return true;
-
-  // Check direct membership
-  const role = await getUserRoleInDepartment(userId, departmentId, context);
-  if (role) return true;
-
-  // Check parent department membership (hierarchical)
-  if (department.parentId) {
-    return await canAccessDepartment(userId, department.parentId, context);
-  }
-
-  return false;
-}
-```
-
-### Resource-Level Permissions (A3 Example)
-
-```typescript
-/**
- * Check if user can access document
- * Access granted if:
- * - User is the author
- * - User is org OWNER/ADMIN
- * - User is in department (any role: MANAGER, MEMBER, VIEWER)
- */
-async function canAccessDocument(
-  userId: string,
-  a3: Document,
-  context,
-): Promise<boolean> {
-  // 1. Author can always access
-  if (a3.authorId === userId) return true;
-
-  // 2. Org admins can access
-  const orgRole = await getUserOrgRole(userId, a3.organizationId, context);
-  if (["OWNER", "ADMIN"].includes(orgRole)) return true;
-
-  // 3. Department members can access (any role)
-  const deptRole = await getUserRoleInDepartment(
-    userId,
-    a3.departmentId,
-    context,
-  );
-  return deptRole !== null;
-}
-
-/**
- * Check if user can edit document
- * Edit permissions:
- * - Author can edit
- * - Org OWNER/ADMIN can edit
- * - Department MANAGER can edit
- * - Department MEMBER can edit their own
- * - VIEWER cannot edit
- */
-async function canEditDocument(
-  userId: string,
-  a3: Document,
-  context,
-): Promise<boolean> {
-  // Author can always edit
-  if (a3.authorId === userId) return true;
-
-  // Org admins can edit
-  const orgRole = await getUserOrgRole(userId, a3.organizationId, context);
-  if (["OWNER", "ADMIN"].includes(orgRole)) return true;
-
-  // Department managers can edit
-  const deptRole = await getUserRoleInDepartment(
-    userId,
-    a3.departmentId,
-    context,
-  );
-  if (deptRole === "MANAGER") return true;
-
-  // Members cannot edit others' A3s
-  // Viewers cannot edit
-  return false;
-}
-
-/**
- * Check if user can delete document
- * Delete permissions:
- * - Author can delete
- * - Org OWNER/ADMIN can delete
- * - Department MANAGER can delete
- */
-async function canDeleteDocument(
-  userId: string,
-  a3: Document,
-  context,
-): Promise<boolean> {
-  // Author can delete
-  if (a3.authorId === userId) return true;
-
-  // Org admins can delete
-  const orgRole = await getUserOrgRole(userId, a3.organizationId, context);
-  if (["OWNER", "ADMIN"].includes(orgRole)) return true;
-
-  // Department managers can delete
-  const deptRole = await getUserRoleInDepartment(
-    userId,
-    a3.departmentId,
-    context,
-  );
-  if (deptRole === "MANAGER") return true;
-
-  return false;
-}
-```
-
-## Usage in Operations
-
-### Standard Operation Pattern
-
-**ALWAYS follow this order:**
-
-1. Auth check (401)
-2. Fetch resource
-3. Existence check (404)
-4. Permission check (403)
-5. Validation (400)
-6. Perform operation
-
-### Query with Permission Check
-
-```typescript
-import type { GetDocument } from "wasp/server/operations";
-import type { Document } from "wasp/entities";
-import { HttpError } from "wasp/server";
-
-export const getDocument: GetDocument<{ id: string }, Document> = async (
-  args,
-  context,
-) => {
-  // 1. Auth check
-  if (!context.user) throw new HttpError(401);
-
-  // 2. Fetch resource
-  const a3 = await context.entities.Document.findUnique({
-    where: { id: args.id },
-    include: {
-      author: { select: { id: true, username: true } },
-      department: true,
-      organization: true,
-    },
-  });
-
-  // 3. Existence check
-  if (!a3) throw new HttpError(404, "document not found");
-
-  // 4. Permission check using helper
-  const hasAccess = await canAccessDocument(context.user.id, a3, context);
-  if (!hasAccess) {
-    throw new HttpError(403, "Not authorized to access this document");
-  }
-
-  // 5. Return resource
-  return a3;
-};
-```
-
-### Query with Permission Filtering
-
-```typescript
-import type { GetDocuments } from "wasp/server/operations";
-import type { Document } from "wasp/entities";
-
-export const getDocuments: GetDocuments<void, Document[]> = async (
-  args,
-  context,
-) => {
-  if (!context.user) throw new HttpError(401);
-
-  // Get all departments user has access to
-  const userDepts = await context.entities.UserDepartment.findMany({
-    where: { userId: context.user.id },
-  });
-
-  const deptIds = userDepts.map((ud) => ud.departmentId);
-
-  // Return A3s from accessible departments
-  return context.entities.Document.findMany({
-    where: {
-      OR: [
-        // Own documents
-        { authorId: context.user.id },
-        // Department documents
-        { departmentId: { in: deptIds } },
-      ],
-    },
-    include: {
-      department: true,
-      author: { select: { id: true, username: true } },
-    },
-    orderBy: { createdAt: "desc" },
-  });
-};
-```
-
-### Action with Edit Permission Check
-
-```typescript
-import type { UpdateA3 } from "wasp/server/operations";
-
-export const updateA3: UpdateA3 = async (args, context) => {
-  // 1. Auth check
-  if (!context.user) throw new HttpError(401);
-
-  // 2. Fetch resource
-  const a3 = await context.entities.Document.findUnique({
-    where: { id: args.id },
-  });
-
-  // 3. Existence check
-  if (!a3) throw new HttpError(404, "document not found");
-
-  // 4. Permission check (can edit?)
-  const canEdit = await canEditDocument(context.user.id, a3, context);
-  if (!canEdit) {
-    throw new HttpError(403, "Not authorized to edit this document");
-  }
-
-  // 5. Update
-  return context.entities.Document.update({
-    where: { id: args.id },
-    data: args.data,
-  });
-};
-```
-
-### Action with Manager-Only Permission
-
-```typescript
-import type { DeleteA3 } from "wasp/server/operations";
-
-export const deleteA3: DeleteA3 = async (args, context) => {
-  if (!context.user) throw new HttpError(401);
-
-  const a3 = await context.entities.Document.findUnique({
-    where: { id: args.id },
-  });
-
-  if (!a3) throw new HttpError(404, "document not found");
-
-  // Only MANAGER can delete
-  const canDelete = await canDeleteDocument(context.user.id, a3, context);
-  if (!canDelete) {
-    throw new HttpError(403, "Only department managers can delete documents");
-  }
-
-  return context.entities.Document.delete({
-    where: { id: args.id },
-  });
-};
-```
-
-### Create Resource with Role Check
-
-```typescript
-import type { CreateA3 } from "wasp/server/operations";
-
-export const createA3: CreateA3 = async (args, context) => {
-  if (!context.user) throw new HttpError(401);
-
-  // Check user has at least MEMBER role in department
-  const role = await getUserRoleInDepartment(
-    context.user.id,
-    args.departmentId,
-    context,
-  );
-
-  if (role !== "MANAGER" && role !== "MEMBER") {
-    throw new HttpError(403, "Need MEMBER or MANAGER role to create documents");
-  }
-
-  return context.entities.Document.create({
-    data: {
-      ...args.data,
-      departmentId: args.departmentId,
-      authorId: context.user.id,
-    },
-  });
-};
-```
-
-## Advanced Patterns
-
-### Batch Permission Checks
-
-```typescript
-/**
- * Get all permissions for A3 at once
- * Useful for UI rendering (show/hide buttons)
- */
-async function getDocumentPermissions(
-  userId: string,
-  a3: Document,
-  context,
-): Promise<{
-  canView: boolean;
-  canEdit: boolean;
-  canDelete: boolean;
-  canShare: boolean;
-}> {
-  const [canView, canEdit, canDelete] = await Promise.all([
-    canAccessDocument(userId, a3, context),
-    canEditDocument(userId, a3, context),
-    canDeleteDocument(userId, a3, context),
-  ]);
-
-  return {
-    canView,
-    canEdit,
-    canDelete,
-    canShare: canEdit, // Share requires edit permission
-  };
-}
-```
-
-### Filter Multiple Resources
-
-```typescript
-/**
- * Filter A3 IDs to only those user can access
- * More efficient than checking one by one
- */
-async function filterAccessibleA3s(
-  userId: string,
-  a3Ids: string[],
-  context,
-): Promise<string[]> {
-  const a3Documents = await context.entities.Document.findMany({
-    where: { id: { in: a3Ids } },
-  });
-
-  const accessChecks = await Promise.all(
-    a3Documents.map(async (a3) => ({
-      id: a3.id,
-      hasAccess: await canAccessDocument(userId, a3, context),
-    })),
-  );
-
-  return accessChecks
-    .filter((check) => check.hasAccess)
-    .map((check) => check.id);
-}
-```
-
-### Query-Level Filtering (Optimal)
-
-```typescript
-/**
- * Get all documents user can access
- * Uses database-level filtering for efficiency
- */
-async function getAccessibleDocuments(
-  userId: string,
-  context,
-): Promise<Document[]> {
-  // Get user's organizations
-  const orgMemberships = await context.entities.OrganizationMember.findMany({
-    where: { userId },
-  });
-  const orgIds = orgMemberships.map((m) => m.organizationId);
-
-  // Get user's departments
-  const deptMemberships = await context.entities.UserDepartment.findMany({
-    where: { userId },
-  });
-  const deptIds = deptMemberships.map((m) => m.departmentId);
-
-  // Query with permission filter
-  return await context.entities.Document.findMany({
-    where: {
-      OR: [
-        // Own documents
-        { authorId: userId },
-        // Organization documents (if admin)
+      roles: [
         {
-          AND: [
-            { organizationId: { in: orgIds } },
+          name: "guest",
+          is_default: true,
+          implicit_allow: false,
+          permissions: [
             {
-              organization: {
-                members: {
-                  some: {
-                    userId,
-                    role: { in: ["OWNER", "ADMIN"] },
-                  },
+              permission: "entityRead",
+              effect: "allow",
+              policies: [
+                {
+                  condition: { entity: "posts" },
+                  effect: "filter",
+                  filter: { published: true },
                 },
-              },
+              ],
             },
           ],
         },
-        // Department documents
-        { departmentId: { in: deptIds } },
       ],
     },
-    include: {
-      author: { select: { id: true, username: true } },
-      department: true,
-      organization: true,
-    },
-    orderBy: { updatedAt: "desc" },
-  });
+  },
+};
+```
+
+## Defining Roles
+
+Roles group permissions together and set default behavior:
+
+```typescript
+{
+  name: "admin",
+  is_default: false,
+  implicit_allow: true,
+  permissions: [],
 }
 ```
 
-## Permission Patterns by Role
+| Property | Type | Description |
+|----------|------|-------------|
+| `name` | string | Unique role identifier |
+| `is_default` | boolean | Assigned to users without explicit role |
+| `implicit_allow` | boolean | Allow all permissions (security risk) |
+| `permissions` | array | List of permissions for this role |
 
-### Organization Roles
+## Permission Effects
 
-**OWNER:**
+Permissions define what's allowed with three effects:
 
-- Full organization access
-- Can manage all departments
-- Can edit/delete all resources
-- Can manage organization settings
-- Can add/remove admins
+### Allow Effect
 
-**ADMIN:**
-
-- Full organization access
-- Can manage all departments
-- Can edit/delete all resources
-- Cannot modify owner permissions
-
-**MEMBER:**
-
-- Basic organization access
-- Access determined by department roles
-- Cannot manage organization settings
-
-### Department Roles
-
-**MANAGER:**
-
-- View all department resources
-- Edit all department resources
-- Delete department resources
-- Manage department members
-- Access child departments (hierarchical)
-
-**MEMBER:**
-
-- View department resources
-- Edit own resources
-- Create new resources
-- Cannot delete resources (manager only)
-- Cannot manage members (manager only)
-
-**VIEWER:**
-
-- View department resources
-- Cannot edit resources
-- Cannot create resources
-- Cannot delete resources
-- Cannot manage members
-
-## Common Permission Patterns
-
-### Owner Can Edit Their Own
+Grants access when conditions are met:
 
 ```typescript
-// Users can edit their own resources, managers can edit all
-export const updateA3 = async (args, context) => {
-  if (!context.user) throw new HttpError(401);
-
-  const a3 = await context.entities.Document.findUnique({
-    where: { id: args.id },
-  });
-  if (!a3) throw new HttpError(404);
-
-  const isOwner = a3.authorId === context.user.id;
-  const isManager = await isDepartmentManager(
-    context.user.id,
-    a3.departmentId,
-    context,
-  );
-
-  if (!isOwner && !isManager) {
-    throw new HttpError(403, "Can only edit your own documents");
-  }
-
-  return context.entities.Document.update({
-    where: { id: args.id },
-    data: args.data,
-  });
-};
+{
+  permission: "data.entity.read",
+  effect: "allow",
+  policies: [
+    {
+      condition: { entity: "posts" },
+      effect: "allow",
+    },
+  ],
+}
 ```
 
-### Manager-Only Actions
+### Deny Effect
+
+Revokes access (takes precedence over allow):
 
 ```typescript
-// Only department managers can perform this action
-export const archiveA3 = async (args, context) => {
-  if (!context.user) throw new HttpError(401);
-
-  const a3 = await context.entities.Document.findUnique({
-    where: { id: args.id },
-  });
-  if (!a3) throw new HttpError(404);
-
-  const isManager = await isDepartmentManager(
-    context.user.id,
-    a3.departmentId,
-    context,
-  );
-
-  if (!isManager) {
-    throw new HttpError(403, "Only department managers can archive documents");
-  }
-
-  return context.entities.Document.update({
-    where: { id: args.id },
-    data: { status: "ARCHIVED" },
-  });
-};
+{
+  permission: "data.entity.delete",
+  effect: "deny",
+  policies: [
+    {
+      condition: { entity: "posts" },
+      effect: "deny",
+    },
+  ],
+}
 ```
 
-### Hierarchical Department Access
+### Filter Effect
+
+Filters data based on query criteria (row-level security):
 
 ```typescript
-/**
- * Get all child departments recursively
- */
-async function getChildDepartments(deptId: string, context): Promise<string[]> {
-  const dept = await context.entities.Department.findUnique({
-    where: { id: deptId },
-    include: {
-      children: {
-        include: { children: true },
+{
+  permission: "data.entity.read",
+  effect: "allow",
+  policies: [
+    {
+      condition: { entity: "posts" },
+      effect: "filter",
+      filter: { author_id: "@auth.user.id" },
+    },
+  ],
+}
+```
+
+## Common Patterns
+
+### Public Read, Authenticated Write
+
+```typescript
+{
+  auth: {
+    enabled: true,
+    roles: [
+      {
+        name: "guest",
+        is_default: true,
+        implicit_allow: false,
+        permissions: [
+          {
+            permission: "data.entity.read",
+            effect: "allow",
+            policies: [
+              {
+                condition: { entity: "posts" },
+                effect: "filter",
+                filter: { published: true },
+              },
+            ],
+          },
+        ],
       },
-    },
-  });
-
-  if (!dept) return [];
-
-  const childIds: string[] = [];
-
-  function collectChildren(dept: any) {
-    if (dept.children) {
-      dept.children.forEach((child) => {
-        childIds.push(child.id);
-        collectChildren(child);
-      });
-    }
-  }
-
-  collectChildren(dept);
-  return [deptId, ...childIds];
+      {
+        name: "user",
+        is_default: false,
+        implicit_allow: false,
+        permissions: [
+          {
+            permission: "data.entity.create",
+            effect: "allow",
+            policies: [
+              {
+                condition: { entity: "posts" },
+                effect: "allow",
+              },
+            ],
+          },
+          {
+            permission: "data.entity.update",
+            effect: "allow",
+            policies: [
+              {
+                condition: { entity: "posts" },
+                effect: "filter",
+                filter: { author_id: "@auth.user.id" },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 }
 ```
 
-## Critical Rules
+### User-Own Data Pattern
+
+Users can only read and modify their own data:
+
+```typescript
+{
+  name: "user",
+  permissions: [
+    {
+      permission: "data.entity.read",
+      effect: "allow",
+      policies: [
+        {
+          condition: { entity: "posts" },
+          effect: "filter",
+          filter: { author_id: "@auth.user.id" },
+        },
+      ],
+    },
+    {
+      permission: "data.entity.update",
+      effect: "allow",
+      policies: [
+        {
+          condition: { entity: "posts" },
+          effect: "filter",
+          filter: { author_id: "@auth.user.id" },
+        },
+      ],
+    },
+    {
+      permission: "data.entity.delete",
+      effect: "allow",
+      policies: [
+        {
+          condition: { entity: "posts" },
+          effect: "filter",
+          filter: { author_id: "@auth.user.id" },
+        },
+      ],
+    },
+  ],
+}
+```
+
+### Multi-Tenant Isolation
+
+Each tenant sees only their data:
+
+```typescript
+{
+  name: "user",
+  permissions: [
+    {
+      permission: "data.entity.read",
+      effect: "allow",
+      policies: [
+        {
+          condition: { entity: "*" },
+          effect: "filter",
+          filter: { tenant_id: "@auth.user.tenant_id" },
+        },
+      ],
+    },
+  ],
+}
+```
+
+## Policy Variables
+
+Policies support dynamic variable substitution using `@variable` syntax:
+
+### Available Variables
+
+| Variable | Source | Example |
+|----------|--------|---------|
+| `@auth.user.id` | Authenticated user's ID | `@auth.user.id` |
+| `@auth.user.role` | User's role name | `@auth.user.role` |
+| `@auth.user.*` | Any user property | `@auth.user.email`, `@auth.user.tenant_id` |
+| `@ctx.*` | Guard config context | Custom context variables |
+
+### Example: User-Owned Data
+
+```typescript
+filter: {
+  author_id: "@auth.user.id",
+}
+```
+
+### Example: Time-Based Access
+
+```typescript
+filter: {
+  start_date: { $lte: "@ctx.now" },
+  end_date: { $gte: "@ctx.now" },
+}
+```
+
+### Example: Multi-Tenant with Public Content
+
+```typescript
+filter: {
+  $or: [
+    { published: true },
+    { tenant_id: "@auth.user.tenant_id" },
+  ],
+}
+```
+
+## Data Permissions
+
+Bknd provides built-in permissions for data operations:
+
+| Permission | Description | Filterable |
+|------------|-------------|------------|
+| `data.entity.read` | Read entity data | Yes |
+| `data.entity.create` | Create new entity records | Yes |
+| `data.entity.update` | Update entity records | Yes |
+| `data.entity.delete` | Delete entity records | Yes |
+
+All data permissions support the `filter` effect for row-level security.
+
+## Schema Permissions
+
+Schema operations are protected by system permissions:
+
+```typescript
+{
+  permission: "system.schema.read",
+  effect: "allow",
+  policies: [],
+}
+```
+
+Protects:
+- `GET /api/system/schema` - Get current schema
+- `GET /api/data/schema` - Get data schema
+
+## Testing Permissions
+
+Create test users to verify access control. Use HTTP API to test with auth context:
+
+```typescript
+import { createApp } from "bknd";
+
+const app = createApp({
+  connection: { url: "file:test.db" },
+  config: {
+    data: schema.toJSON(),
+    auth: {
+      enabled: true,
+      jwt: {
+        secret: "test-secret",
+      },
+      roles: [
+        // Your roles configuration
+      ],
+    },
+  },
+});
+await app.build();
+
+// Create test data via mutator (bypasses permissions)
+await app.em.mutator("posts").insertMany([
+  { title: "Public Post", published: true },
+  { title: "Private Post", published: false },
+]);
+
+// Test as guest (no authentication)
+const guestResponse = await app.server.request("/api/data/entity/posts");
+const guestPosts = await guestResponse.json();
+console.log("Guest sees:", guestPosts.data); // Only published posts
+
+// Create authenticated user and test
+const user = await app.createUser({
+  email: "user@example.com",
+  password: "password123",
+});
+
+const token = await app.auth.login(user.email, "password123");
+
+// Test as authenticated user with JWT
+const userResponse = await app.server.request("/api/data/entity/posts", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+const userPosts = await userResponse.json();
+console.log("User sees:", userPosts.data);
+```
+
+## DOs and DON'Ts
 
 **DO:**
+- Use `implicit_allow: false` for production roles (require explicit permissions)
+- Use `filter` effect for row-level security
+- Test with both guest and authenticated contexts
+- Define `is_default` role for unauthenticated access
+- Use policy filters for complex access rules
 
-- ✅ Check permissions AFTER auth and existence checks
-- ✅ Use permission helpers for consistency
-- ✅ Filter queries by accessible departments
-- ✅ Include VIEWER role in read operations
-- ✅ Check role hierarchy (OWNER > ADMIN > MANAGER > MEMBER > VIEWER)
-- ✅ Handle hierarchical departments (parent access)
-- ✅ Enforce permissions server-side ALWAYS
-- ✅ Return 403 for permission failures (not 404)
+**DON'T:**
+- Use `implicit_allow: true` unless you truly need all access
+- Forget to set `is_default: true` for guest role
+- Mix allow and deny in the same permission (deny takes precedence)
+- Skip testing edge cases (what happens with null user context?)
+- Hardcode user IDs in filters (use `@user.id` instead)
 
-**NEVER:**
+## Common Issues
 
-- ❌ Skip permission checks in operations
-- ❌ Hardcode role checks (use helpers)
-- ❌ Forget VIEWER role in read operations
-- ❌ Allow clients to bypass permissions
-- ❌ Trust client-side permission checks (cosmetic only!)
-- ❌ Return 404 when resource exists but user lacks permission (use 403)
-- ❌ Implement permission logic in client code
+**Guests can't access anything:**
+- Ensure `auth.enabled: true` (required for Guard)
+- Check `is_default: true` is set on a role
+- Verify `implicit_allow: false` (explicit permissions required)
 
-## HTTP Status Code Usage
+**Users accessing protected data:**
+- Check `filter` conditions match your data structure
+- Verify policy variables (`@auth.user.id`) are resolving correctly
+- Ensure no `implicit_allow: true` roles are assigned
 
-**Permission-related status codes:**
+**Public endpoints returning 403:**
+- Verify guest role has the required permission
+- Check policy conditions are met
+- Debug with `console.log(ctx.get("auth"))` to see user context
 
-- **401 Unauthorized** - Not authenticated (`!context.user`)
-- **403 Forbidden** - Authenticated but lacks permission
-- **404 Not Found** - Resource doesn't exist OR user lacks permission to know it exists
+## Next Steps
 
-**Best practice:**
-
-- Use 403 when you want user to know resource exists but they can't access it
-- Use 404 when you want to hide resource existence from unauthorized users
-- Always use 401 for missing authentication
-
-## Client-Side Usage
-
-```typescript
-// React component using permission helpers
-import { useQuery } from 'wasp/client/operations'
-import { getDocument, getDocumentPermissions } from 'wasp/client/operations'
-
-function DocumentPage({ a3Id }: { a3Id: string }) {
-  // Fetch document
-  const { data: a3, isLoading } = useQuery(getDocument, { id: a3Id })
-
-  // Fetch permissions
-  const { data: permissions } = useQuery(getDocumentPermissions, { a3Id })
-
-  if (isLoading) return <div>Loading...</div>
-  if (!a3) return <div>Not found</div>
-
-  return (
-    <div>
-      <h1>{a3.title}</h1>
-
-      {/* Conditionally render based on permissions */}
-      {permissions?.canEdit && (
-        <button onClick={() => editA3()}>Edit</button>
-      )}
-
-      {permissions?.canDelete && (
-        <button onClick={() => deleteA3()}>Delete</button>
-      )}
-
-      {permissions?.canShare && (
-        <button onClick={() => shareA3()}>Share</button>
-      )}
-
-      {!permissions?.canEdit && (
-        <div className="text-gray-500">Read-only access</div>
-      )}
-    </div>
-  )
-}
-```
-
-**Remember:** Client-side checks are for UX only. Always enforce permissions server-side.
-
-## References
-
-**Complete implementation examples:**
-
-- `.claude/templates/permission-helpers.ts` (623 lines)
-  - Lines 1-150: Core helpers
-  - Lines 151-330: Organization/department helpers
-  - Lines 331-427: Usage in operations
-  - Lines 428-539: Advanced patterns
-  - Lines 540-583: Client-side usage
-
-**Related documentation:**
-
-- `CLAUDE.md#architecture` - Multi-tenancy architecture overview
-- `CLAUDE.md#error-handling` - HTTP status codes and error patterns
-- `.claude/templates/operations-patterns.ts` - Complete operation examples
+- **[Auth](auth)** - Configure authentication strategies
+- **[Data Schema](data-schema)** - Define your data model
+- **[Query](query)** - Learn the query system

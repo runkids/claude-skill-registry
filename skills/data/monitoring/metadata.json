@@ -1,7 +1,7 @@
 {
   "name": "monitoring",
-  "repo": "liauw-media/CodeAssist",
-  "path": "skills/observability/monitoring/SKILL.md",
-  "source": "github.com/liauw-media/CodeAssist",
-  "downloaded_at": "2026-01-19T03:08:23.965076Z"
+  "repo": "METR/inspect-action",
+  "path": ".claude/skills/monitoring/SKILL.md",
+  "source": "github.com/METR/inspect-action",
+  "downloaded_at": "2026-01-20T03:57:18.258702Z"
 }

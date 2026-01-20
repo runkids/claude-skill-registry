@@ -1,113 +1,426 @@
 ---
-name: refactor
-description: >-
-  ユーザーが「リファクタリング」「コードを整理」「可読性を上げて」「きれいにして」「保守性を改善」等と要求した時に発動。
-  機能を変更せずに、コードの保守性・可読性・パフォーマンスを向上させる。
-  テストが存在する場合は必ずテストをパスすることを確認し、機能不変を保証する。
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash
+name: code-refactor
+description: Systematic code refactoring based on Martin Fowler's methodology. Use when users ask to refactor code, improve code structure, reduce technical debt, clean up legacy code, eliminate code smells, or improve code maintainability. This skill guides through a phased approach with research, planning, and safe incremental implementation.
 ---
 
-### 手順
-1. **対象の特定**: リファクタリング対象のファイル/関数を特定
-2. **既存テストの確認**:
-   - 対応する `*_test.go` を確認
-   - `go test ./...` を実行してベースライン確立（全テストがパスすることを確認）
-3. **リファクタリング計画**: 以下の観点で改善機会を特定
-   - 命名改善（変数名、関数名の明確化）
-   - 関数分割（長すぎる関数、複数の責任を持つ関数）
-   - 重複コード削除（DRY原則）
-   - 複雑な条件式の簡素化
-   - マジックナンバーの定数化
-   - エラーハンドリングの改善
-4. **リファクタリング実施**: 小さなステップで段階的に変更
-5. **テスト実行**: 各ステップ後に `go test ./...` で機能不変を確認
-6. **コード品質確認**:
-   - `go fmt ./...` でフォーマット
-   - `go vet ./...` で静的解析
-7. **コミット**: 変更が成功したら、適切なメッセージでコミット（`refactor: ...`形式）
+# Code Refactoring Skill
 
-### リファクタリングパターン
+A systematic approach to refactoring code based on Martin Fowler's *Refactoring: Improving the Design of Existing Code* (2nd Edition). This skill emphasizes safe, incremental changes backed by tests.
 
-#### 1. 命名改善
-```go
-// Before
-func f(n []int) int { ... }
+> "Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code yet improves its internal structure." — Martin Fowler
 
-// After
-func Sum(numbers []int) int { ... }
+## Core Principles
+
+1. **Behavior Preservation**: External behavior must remain unchanged
+2. **Small Steps**: Make tiny, testable changes
+3. **Test-Driven**: Tests are the safety net
+4. **Continuous**: Refactoring is ongoing, not a one-time event
+5. **Collaborative**: User approval required at each phase
+
+## Workflow Overview
+
+```
+Phase 1: Research & Analysis
+    ↓
+Phase 2: Test Coverage Assessment
+    ↓
+Phase 3: Code Smell Identification
+    ↓
+Phase 4: Refactoring Plan Creation
+    ↓
+Phase 5: Incremental Implementation
+    ↓
+Phase 6: Review & Iteration
 ```
 
-#### 2. 関数分割
-```go
-// Before: 1つの関数が複数の責任
-func ProcessData(data []byte) error {
-    // バリデーション
-    // パース
-    // 変換
-    // 保存
+---
+
+## Phase 1: Research & Analysis
+
+### Objectives
+- Understand the codebase structure and purpose
+- Identify the scope of refactoring
+- Gather context about business requirements
+
+### Questions to Ask User
+Before starting, clarify:
+
+1. **Scope**: Which files/modules/functions need refactoring?
+2. **Goals**: What problems are you trying to solve? (readability, performance, maintainability)
+3. **Constraints**: Are there any areas that should NOT be changed?
+4. **Timeline pressure**: Is this blocking other work?
+5. **Test status**: Do tests exist? Are they passing?
+
+### Actions
+- [ ] Read and understand the target code
+- [ ] Identify dependencies and integrations
+- [ ] Document current architecture
+- [ ] Note any existing technical debt markers (TODOs, FIXMEs)
+
+### Output
+Present findings to user:
+- Code structure summary
+- Identified problem areas
+- Initial recommendations
+- **Request approval to proceed**
+
+---
+
+## Phase 2: Test Coverage Assessment
+
+### Why Tests Matter
+> "Refactoring without tests is like driving without a seatbelt." — Martin Fowler
+
+Tests are the **key enabler** of safe refactoring. Without them, you risk introducing bugs.
+
+### Assessment Steps
+
+1. **Check for existing tests**
+   ```bash
+   # Look for test files
+   find . -name "*test*" -o -name "*spec*" | head -20
+   ```
+
+2. **Run existing tests**
+   ```bash
+   # JavaScript/TypeScript
+   npm test
+
+   # Python
+   pytest -v
+
+   # Java
+   mvn test
+   ```
+
+3. **Check coverage (if available)**
+   ```bash
+   # JavaScript
+   npm run test:coverage
+
+   # Python
+   pytest --cov=.
+   ```
+
+### Decision Point: Ask User
+
+**If tests exist and pass:**
+- Proceed to Phase 3
+
+**If tests are missing or incomplete:**
+Present options:
+1. Write tests first (recommended)
+2. Add tests incrementally during refactoring
+3. Proceed without tests (risky - requires user acknowledgment)
+
+**If tests are failing:**
+- STOP. Fix failing tests before refactoring
+- Ask user: Should we fix tests first?
+
+### Test Writing Guidelines (if needed)
+
+For each function being refactored, ensure tests cover:
+- Happy path (normal operation)
+- Edge cases (empty inputs, null, boundaries)
+- Error scenarios (invalid inputs, exceptions)
+
+Use the "red-green-refactor" cycle:
+1. Write failing test (red)
+2. Make it pass (green)
+3. Refactor
+
+---
+
+## Phase 3: Code Smell Identification
+
+### What Are Code Smells?
+Symptoms of deeper problems in code. They're not bugs, but indicators that the code could be improved.
+
+### Common Code Smells to Check
+
+See [references/code-smells.md](references/code-smells.md) for the complete catalog.
+
+#### Quick Reference
+
+| Smell | Signs | Impact |
+|-------|-------|--------|
+| **Long Method** | Methods > 30-50 lines | Hard to understand, test, maintain |
+| **Duplicated Code** | Same logic in multiple places | Bug fixes needed in multiple places |
+| **Large Class** | Class with too many responsibilities | Violates Single Responsibility |
+| **Feature Envy** | Method uses another class's data more | Poor encapsulation |
+| **Primitive Obsession** | Overuse of primitives instead of objects | Missing domain concepts |
+| **Long Parameter List** | Methods with 4+ parameters | Hard to call correctly |
+| **Data Clumps** | Same data items appearing together | Missing abstraction |
+| **Switch Statements** | Complex switch/if-else chains | Hard to extend |
+| **Speculative Generality** | Code "just in case" | Unnecessary complexity |
+| **Dead Code** | Unused code | Confusion, maintenance burden |
+
+### Analysis Steps
+
+1. **Automated Analysis** (if scripts available)
+   ```bash
+   python scripts/detect-smells.py <file>
+   ```
+
+2. **Manual Review**
+   - Walk through code systematically
+   - Note each smell with location and severity
+   - Categorize by impact (Critical/High/Medium/Low)
+
+3. **Prioritization**
+   Focus on smells that:
+   - Block current development
+   - Cause bugs or confusion
+   - Affect most-changed code paths
+
+### Output: Smell Report
+
+Present to user:
+- List of identified smells with locations
+- Severity assessment for each
+- Recommended priority order
+- **Request approval on priorities**
+
+---
+
+## Phase 4: Refactoring Plan Creation
+
+### Selecting Refactorings
+
+For each smell, select an appropriate refactoring from the catalog.
+
+See [references/refactoring-catalog.md](references/refactoring-catalog.md) for the complete list.
+
+#### Smell-to-Refactoring Mapping
+
+| Code Smell | Recommended Refactoring(s) |
+|------------|---------------------------|
+| Long Method | Extract Method, Replace Temp with Query |
+| Duplicated Code | Extract Method, Pull Up Method, Form Template Method |
+| Large Class | Extract Class, Extract Subclass |
+| Feature Envy | Move Method, Move Field |
+| Primitive Obsession | Replace Primitive with Object, Replace Type Code with Class |
+| Long Parameter List | Introduce Parameter Object, Preserve Whole Object |
+| Data Clumps | Extract Class, Introduce Parameter Object |
+| Switch Statements | Replace Conditional with Polymorphism |
+| Speculative Generality | Collapse Hierarchy, Inline Class, Remove Dead Code |
+| Dead Code | Remove Dead Code |
+
+### Plan Structure
+
+Use the template at [templates/refactoring-plan.md](templates/refactoring-plan.md).
+
+For each refactoring:
+1. **Target**: What code will change
+2. **Smell**: What problem it addresses
+3. **Refactoring**: Which technique to apply
+4. **Steps**: Detailed micro-steps
+5. **Risks**: What could go wrong
+6. **Rollback**: How to undo if needed
+
+### Phased Approach
+
+**CRITICAL**: Introduce refactoring gradually in phases.
+
+**Phase A: Quick Wins** (Low risk, high value)
+- Rename variables for clarity
+- Extract obvious duplicate code
+- Remove dead code
+
+**Phase B: Structural Improvements** (Medium risk)
+- Extract methods from long functions
+- Introduce parameter objects
+- Move methods to appropriate classes
+
+**Phase C: Architectural Changes** (Higher risk)
+- Replace conditionals with polymorphism
+- Extract classes
+- Introduce design patterns
+
+### Decision Point: Present Plan to User
+
+Before implementation:
+- Show complete refactoring plan
+- Explain each phase and its risks
+- Get explicit approval for each phase
+- **Ask**: "Should I proceed with Phase A?"
+
+---
+
+## Phase 5: Incremental Implementation
+
+### The Golden Rule
+> "Change → Test → Green? → Commit → Next step"
+
+### Implementation Rhythm
+
+For each refactoring step:
+
+1. **Pre-check**
+   - Tests are passing (green)
+   - Code compiles
+
+2. **Make ONE small change**
+   - Follow the mechanics from the catalog
+   - Keep changes minimal
+
+3. **Verify**
+   - Run tests immediately
+   - Check for compilation errors
+
+4. **If tests pass (green)**
+   - Commit with descriptive message
+   - Move to next step
+
+5. **If tests fail (red)**
+   - STOP immediately
+   - Undo the change
+   - Analyze what went wrong
+   - Ask user if unclear
+
+### Commit Strategy
+
+Each commit should be:
+- **Atomic**: One logical change
+- **Reversible**: Easy to revert
+- **Descriptive**: Clear commit message
+
+Example commit messages:
+```
+refactor: Extract calculateTotal() from processOrder()
+refactor: Rename 'x' to 'customerCount' for clarity
+refactor: Remove unused validateOldFormat() method
+```
+
+### Progress Reporting
+
+After each sub-phase, report to user:
+- Changes made
+- Tests still passing?
+- Any issues encountered
+- **Ask**: "Continue with next batch?"
+
+---
+
+## Phase 6: Review & Iteration
+
+### Post-Refactoring Checklist
+
+- [ ] All tests passing
+- [ ] No new warnings/errors
+- [ ] Code compiles successfully
+- [ ] Behavior unchanged (manual verification)
+- [ ] Documentation updated if needed
+- [ ] Commit history is clean
+
+### Metrics Comparison
+
+Run complexity analysis before and after:
+```bash
+python scripts/analyze-complexity.py <file>
+```
+
+Present improvements:
+- Lines of code change
+- Cyclomatic complexity change
+- Maintainability index change
+
+### User Review
+
+Present final results:
+- Summary of all changes
+- Before/after code comparison
+- Metrics improvements
+- Remaining technical debt
+- **Ask**: "Are you satisfied with these changes?"
+
+### Next Steps
+
+Discuss with user:
+- Additional smells to address?
+- Schedule follow-up refactoring?
+- Apply similar changes elsewhere?
+
+---
+
+## Important Guidelines
+
+### When to STOP and Ask
+
+Always pause and consult user when:
+- Unsure about business logic
+- Change might affect external APIs
+- Test coverage is inadequate
+- Significant architectural decision needed
+- Risk level increases
+- You encounter unexpected complexity
+
+### Safety Rules
+
+1. **Never refactor without tests** (unless user explicitly acknowledges risk)
+2. **Never make big changes** - break into tiny steps
+3. **Never skip the test run** after each change
+4. **Never continue if tests fail** - fix or rollback first
+5. **Never assume** - when in doubt, ask
+
+### What NOT to Do
+
+- Don't combine refactoring with feature additions
+- Don't refactor during production emergencies
+- Don't refactor code you don't understand
+- Don't over-engineer - keep it simple
+- Don't refactor everything at once
+
+---
+
+## Quick Start Example
+
+### Scenario: Long Method with Duplication
+
+**Before:**
+```javascript
+function processOrder(order) {
+  // 150 lines of code with:
+  // - Duplicated validation logic
+  // - Inline calculations
+  // - Mixed responsibilities
 }
-
-// After: 単一責任に分割
-func ValidateData(data []byte) error { ... }
-func ParseData(data []byte) (*Data, error) { ... }
-func TransformData(data *Data) *Result { ... }
-func SaveResult(result *Result) error { ... }
 ```
 
-#### 3. 重複削除
-```go
-// Before: 重複コード
-func AddUser(u User) { db.Insert("users", u) }
-func AddPost(p Post) { db.Insert("posts", p) }
+**Refactoring Steps:**
 
-// After: 汎用化
-func Add[T any](table string, entity T) { db.Insert(table, entity) }
+1. **Ensure tests exist** for processOrder()
+2. **Extract** validation into validateOrder()
+3. **Test** - should pass
+4. **Extract** calculation into calculateOrderTotal()
+5. **Test** - should pass
+6. **Extract** notification into notifyCustomer()
+7. **Test** - should pass
+8. **Review** - processOrder() now orchestrates 3 clear functions
+
+**After:**
+```javascript
+function processOrder(order) {
+  validateOrder(order);
+  const total = calculateOrderTotal(order);
+  notifyCustomer(order, total);
+  return { order, total };
+}
 ```
 
-#### 4. マジックナンバーの定数化
-```go
-// Before
-if len(items) > 100 { ... }
+---
 
-// After
-const MaxItems = 100
-if len(items) > MaxItems { ... }
-```
+## References
 
-### 重要な原則
-- ✅ **機能不変**: 外部から見た動作は一切変更しない
-- ✅ **テストファースト**: リファクタ前に必ずテストを実行
-- ✅ **小さなステップ**: 一度に多くを変更しない
-- ✅ **継続的な検証**: 各ステップ後にテスト実行
-- ❌ **新機能追加**: リファクタリングと機能追加は分離
+- [Code Smells Catalog](references/code-smells.md) - Complete list of code smells
+- [Refactoring Catalog](references/refactoring-catalog.md) - Refactoring techniques
+- [Refactoring Plan Template](templates/refactoring-plan.md) - Planning template
 
-### リファクタリング対象の優先順位
-1. **High**: 複雑度が高く、バグを生みやすい箇所
-2. **Medium**: 頻繁に変更される箇所
-3. **Low**: 安定していて変更頻度が低い箇所
+## Scripts
 
-### 出力例
-```markdown
-# Refactoring Report
+- `scripts/analyze-complexity.py` - Analyze code complexity metrics
+- `scripts/detect-smells.py` - Automated smell detection
 
-## Target
-- File: `pkg/calc/sum.go`
+## Version History
 
-## Changes Applied
-1. ✅ Improved function naming clarity
-2. ✅ Added nil check for defensive programming
-3. ✅ Simplified loop condition
-
-## Test Results
-✅ All tests pass (before and after)
-- Tests run: 5
-- Coverage: 85% (unchanged)
-
-## Performance Impact
-No performance regression detected
-```
-
-### ベストプラクティス
-- リファクタリング前後でベンチマークを取る（パフォーマンス改善の場合）
-- コミットメッセージに「何を」「なぜ」を明記
-- レビューしやすいように、変更を論理的に分割
+- v1.0.0 (2025-01-15): Initial release with Fowler methodology, phased approach, user consultation points

@@ -1,212 +1,538 @@
 ---
 name: plugin-validator
-description: Validate Claude Code plugin structure, manifests, frontmatter, and dependencies. Use when user mentions "validate plugin", "check plugin health", "plugin broken", "plugin not loading", "plugin errors", "plugin.json invalid", "agent not working", "check plugin structure", or reports plugin-related issues.
+description: 生成したプラグイン全体の整合性・完全性を検証する。プラグイン検証時、品質チェック時、またはユーザーがプラグイン検証、整合性確認、完全性チェック、品質保証、バリデーションに言及した際に使用する。
 ---
 
 # Plugin Validator
 
-## Validation Checks
+## 概要
 
-### 1. Manifest Validation
-- [ ] plugin.json exists at correct location
-- [ ] Valid JSON syntax
-- [ ] Required fields present (name, description, version)
-- [ ] Semantic versioning format (X.Y.Z)
-- [ ] Array fields properly formatted (agents, commands, skills)
-- [ ] No duplicate entries
+このSkillは、生成したプラグイン全体の整合性・完全性を検証する。プラグインのディレクトリ構造、ファイル形式、要素間の整合性、ドキュメント品質を確認し、問題を検出して改善提案を行う。
 
-### 2. Structure Validation
-- [ ] Referenced agents exist at specified paths
-- [ ] Referenced commands exist at specified paths
-- [ ] Referenced skills exist at specified paths
-- [ ] File paths are relative (not absolute)
-- [ ] No broken file references
-- [ ] Directory structure follows conventions
+## 責任範囲
 
-### 3. Frontmatter Validation
-- [ ] YAML syntax is valid
-- [ ] Required fields present (name, description)
-- [ ] Field values match allowed types
-- [ ] Tools list is valid (if specified)
-- [ ] Model value is valid (sonnet|opus|haiku|inherit)
-- [ ] No conflicting or deprecated fields
+このSkillは以下の範囲をカバーする:
 
-### 4. Dependency Validation
-- [ ] No circular dependencies between agents/skills
-- [ ] Skill references resolve correctly
-- [ ] Tool permissions are valid
-- [ ] Cross-references between components exist
-- [ ] External dependencies documented
+- プラグインディレクトリ構造の検証
+- 必須ファイルの存在確認
+- フロントマター形式の検証
+- 要素間の整合性検証
+- ドキュメント品質の検証（markdownlint）
+- アーキテクチャ規約の遵守確認
+- 検証レポートの作成
 
-### 5. Configuration Validation
-- [ ] No conflicting settings between components
-- [ ] File permissions are readable
-- [ ] No duplicate agent/command names
-- [ ] Version consistency across files
-- [ ] Repository metadata accurate
+## ワークフロー
 
-## Process
+### フェーズ1: プラグイン読込
 
-1. **Identify plugin location**
-   ```bash
-   # Find plugin.json
-   find . -name "plugin.json" -o -name ".claude-plugin/plugin.json"
-   ```
+プラグインディレクトリを読み込み、全ファイルを収集する。
 
-2. **Run manifest validation**
-   - Parse JSON syntax
-   - Check required fields
-   - Validate semver format
-   - Verify array structures
+**実施内容:**
 
-3. **Validate file structure**
-   - Read manifest file references
-   - Check each referenced file exists
-   - Verify paths are relative
-   - Check directory conventions
+1. プラグインディレクトリのパスを確認する
+2. ディレクトリ構造を読み込む
+3. 全ファイルのリストを作成する
+4. 各ファイルの内容を読み込む
+5. フロントマター情報を抽出する
 
-4. **Check frontmatter**
-   - For each agent/command file
-   - Parse YAML frontmatter
-   - Validate required fields
-   - Check field value constraints
+**確認対象:**
 
-5. **Analyze dependencies**
-   - Build dependency graph
-   - Detect circular references
-   - Validate skill references
-   - Check tool usage patterns
+- README.md（プラグインルート）
+- agents/*.md
+- skills/*/SKILL.md
+- commands/*.md
+- .claudeignore（オプション）
 
-6. **Report findings**
-   - Categorize by severity (critical, warning, info)
-   - Provide specific file/line references
-   - Suggest fixes with examples
-   - Prioritize by impact
+**良い例:**
 
-## Validation Severity Levels
+```markdown
+【プラグイン読込結果】
 
-### CRITICAL (Plugin won't load)
-- Invalid JSON in plugin.json
-- Missing required fields (name, description, version)
-- Referenced files don't exist
-- Invalid YAML in frontmatter
-- Circular dependencies
+プラグイン名: database-design-plugin
+プラグインディレクトリ: D:\projects\database-design-plugin
 
-### WARNING (Plugin may malfunction)
-- Invalid semver format
-- Deprecated field usage
-- Missing optional but recommended fields
-- Inconsistent naming conventions
-- Potential conflicts
+ファイル構造:
+database-design-plugin/
+  README.md
+  agents/
+    database-design-agent/
+      AGENT.md
+  skills/
+    entity-definition-collector/
+      SKILL.md
+    normalization-processor/
+      SKILL.md
+    er-diagram-generator/
+      SKILL.md
+    table-definition-writer/
+      SKILL.md
+    ddl-script-generator/
+      SKILL.md
+    database-naming-conventions/
+      SKILL.md
+    normalization-rules/
+      SKILL.md
+  commands/
+    design-database/
+      COMMAND.md
+    generate-schema/
+      COMMAND.md
 
-### INFO (Best practice suggestions)
-- Missing documentation
-- Version mismatch across files
-- Code style inconsistencies
-- Missing cross-references
-- Optimization opportunities
-
-## Examples
-
-✅ **Good trigger**: "Validate the waypoint plugin"
-✅ **Good trigger**: "Check why my plugin isn't loading"
-✅ **Good trigger**: "Plugin health check for claire"
-✅ **Good trigger**: "My agent file has errors"
-
-❌ **Bad trigger**: "Create a new plugin" (creation, not validation)
-❌ **Bad trigger**: "Update plugin version" (modification, not validation)
-❌ **Bad trigger**: "Install plugin" (installation, not validation)
-
-## Common Issues and Fixes
-
-### Issue: Plugin not loading
-**Check:**
-- plugin.json exists in correct location
-- JSON syntax is valid
-- Required fields present
-- Version follows semver
-
-**Fix:**
-```bash
-# Validate JSON syntax
-python3 -m json.tool plugin.json
-
-# Check location
-test -f .claude-plugin/plugin.json || test -f plugin.json
+ファイル数:
+- README.md: 1個
+- AGENT.md: 1個
+- SKILL.md: 7個
+- COMMAND.md: 2個
+- 合計: 11個
 ```
 
-### Issue: Agent not working
-**Check:**
-- Agent file exists at path in plugin.json
-- YAML frontmatter is valid
-- Required fields (name, description) present
-- Tools list is valid
+**悪い例:**
 
-**Fix:**
-```bash
-# Check agent path
-grep '"agents"' plugin.json
+```markdown
+【プラグイン読込結果】
 
-# Validate YAML (first 20 lines typically contain frontmatter)
-head -20 agents/my-agent.md
+何かファイルがある
 ```
 
-### Issue: Circular dependencies
-**Check:**
-- Agent A references skill B
-- Skill B references agent A
-- Build dependency graph
+### フェーズ2: 構造検証
 
-**Fix:**
-- Restructure to remove circular reference
-- Extract shared logic to separate component
-- Document dependency rationale
+プラグインのディレクトリ構造とファイル形式が正しいか検証する。
 
-## Supporting Files
+**実施内容:**
 
-For detailed validation rules, see:
-- [manifest.md](references/manifest.md) - plugin.json validation rules
-- [frontmatter.md](references/frontmatter.md) - YAML frontmatter validation
-- [structure.md](references/structure.md) - File structure conventions
-- [dependencies.md](references/dependencies.md) - Dependency analysis
+1. 必須ファイルの存在を確認する
+2. ディレクトリ構造が規約に従っているか確認する
+3. ファイル名が規約に従っているか確認する
+4. フロントマター形式が正しいか確認する
+5. 必須フロントマターフィールドの存在を確認する
 
-## Quick Reference
+**検証項目:**
 
-### Valid plugin.json structure
-```json
-{
-  "name": "plugin-name",
-  "description": "Plugin description",
-  "version": "1.0.0",
-  "agents": ["./agents/agent-name.md"],
-  "commands": ["./commands/command-name.md"],
-  "skills": ["./skills/skill-name"]
-}
+- README.md が存在するか
+- agents/, skills/, commands/ ディレクトリが存在するか
+- 各要素がサブディレクトリに配置されているか
+- AGENT.md, SKILL.md, COMMAND.md のファイル名が正しいか
+- フロントマターが正しくパースできるか
+- 必須フィールド（name, description）が存在するか
+
+**良い例:**
+
+```markdown
+【構造検証結果】
+
+必須ファイル: ✓ OK
+- ✓ README.md が存在する
+- ✓ agents/ ディレクトリが存在する
+- ✓ skills/ ディレクトリが存在する
+- ✓ commands/ ディレクトリが存在する
+
+ディレクトリ構造: ✓ OK
+- ✓ agents/database-design-agent.md
+- ✓ skills/entity-definition-collector/SKILL.md
+- ✓ skills/normalization-processor/SKILL.md
+- ✓ skills/er-diagram-generator/SKILL.md
+- ✓ skills/table-definition-writer/SKILL.md
+- ✓ skills/ddl-script-generator/SKILL.md
+- ✓ skills/database-naming-conventions/SKILL.md
+- ✓ skills/normalization-rules/SKILL.md
+- ✓ commands/design-database.md
+- ✓ commands/generate-schema.md
+
+フロントマター形式: ✓ OK
+- ✓ 全てのファイルでフロントマターがパースできる
+
+必須フィールド: ✓ OK
+- ✓ 全てのファイルで name フィールドが存在する
+- ✓ 全てのファイルで description フィールドが存在する
+
+エージェント固有フィールド: ✓ OK
+- ✓ database-design-agent に tools フィールドが存在する
+
+構造検証: 合格
 ```
 
-### Valid agent/command frontmatter
-```yaml
----
-name: component-name
-description: Component description
-tools: Read, Write, Bash
-model: sonnet
----
+**悪い例（問題がある場合）:**
+
+```markdown
+【構造検証結果】
+
+必須ファイル: ✗ NG
+- ✗ README.md が存在しない
+
+ディレクトリ構造: ✗ NG
+- ✗ agents/database-design-agent.md が存在しない
+- ✗ skills/entity-collector.md（ファイル名が SKILL.md ではない）
+
+フロントマター形式: ✗ NG
+- ✗ agents/database-design-agent.md でフロントマターがパースできない
+
+必須フィールド: ✗ NG
+- ✗ skills/entity-definition-collector/SKILL.md に description フィールドが存在しない
+
+構造検証: 不合格（4個の問題）
 ```
 
-### Validation command pattern
-```bash
-# Validate plugin at current directory
-ls -la .claude-plugin/plugin.json plugin.json
+### フェーズ3: 整合性検証
 
-# Check all referenced files
-grep -o '"[^"]*\.md"' plugin.json | while read file; do
-    test -f "${file//\"/}" && echo "✓ $file" || echo "✗ $file"
-done
+要素間の整合性を検証する。
+
+**実施内容:**
+
+1. コマンドが参照するエージェントが存在するか確認する
+2. コマンドが参照するスキルが存在するか確認する
+3. 要素名の一貫性を確認する（ファイル名とフロントマターのname）
+4. 循環依存がないか確認する
+5. アーキテクチャ規約の遵守を確認する
+
+**検証項目:**
+
+- コマンドが参照するエージェントが実在するか
+- コマンドが参照するスキルが実在するか
+- ディレクトリ名とフロントマターのnameが一致するか
+- エージェントが他の要素を直接参照していないか
+- スキルが他のスキルを参照していないか
+- 循環依存がないか
+
+**良い例:**
+
+```markdown
+【整合性検証結果】
+
+エージェント参照: ✓ OK
+- ✓ design-database が参照する database-design-agent は存在する
+- ✓ generate-schema が参照する database-design-agent は存在する
+
+スキル参照: ✓ OK
+- ✓ design-database が参照する全てのスキル（7個）が存在する
+- ✓ generate-schema が参照する全てのスキル（4個）が存在する
+
+要素名の一貫性: ✓ OK
+- ✓ ディレクトリ名とフロントマターのnameが全て一致する
+
+循環依存: ✓ OK
+- ✓ 循環依存は検出されませんでした
+
+アーキテクチャ規約: ✓ OK
+- ✓ エージェントは他の要素を直接参照していない
+- ✓ スキルは他のスキルを参照していない
+- ✓ コマンドのみがエージェントとスキルを参照している
+
+整合性検証: 合格
 ```
 
-## Related
+**悪い例（問題がある場合）:**
 
-- Agent: `claire-plugin-manager` for plugin management and health checks
-- Skill: `doc-validator` for documentation validation
-- Commands: Claude Code plugin system documentation
+```markdown
+【整合性検証結果】
+
+エージェント参照: ✗ NG
+- ✗ design-database が参照する db-agent が存在しない
+
+スキル参照: ✗ NG
+- ✗ design-database が参照する entity-collector が存在しない
+
+要素名の一貫性: ✗ NG
+- ✗ agents/database-design-agent/ のnameが "db-agent" になっている
+
+循環依存: ✗ NG
+- ✗ skill-a → skill-b → skill-c → skill-a の循環依存が検出された
+
+アーキテクチャ規約: ✗ NG
+- ✗ database-design-agent が entity-definition-collector を直接参照している
+- ✗ normalization-processor が database-naming-conventions を参照している
+
+整合性検証: 不合格（6個の問題）
+```
+
+### フェーズ4: 品質検証
+
+ドキュメントの品質を検証する。
+
+**実施内容:**
+
+1. markdownlint検証を実施する
+2. 必須セクションの存在を確認する
+3. セクションの順序を確認する
+4. ドキュメントの充実度を評価する
+5. 良い例/悪い例の存在を確認する（該当する場合）
+
+**検証項目:**
+
+- markdownlintエラーがないか
+- 必須セクション（概要、責任範囲、ワークフローなど）が存在するか
+- セクションの順序が正しいか
+- 各セクションに内容が記述されているか
+- 良い例/悪い例が記述されているか（ワークフロースキル、コンベンションスキル）
+
+**良い例:**
+
+```markdown
+【品質検証結果】
+
+markdownlint検証: ✓ OK
+- ✓ 全てのファイルでmarkdownlintエラーなし
+
+必須セクション: ✓ OK
+エージェント:
+- ✓ database-design-agent: 役割、責任範囲、注意事項が存在する
+
+スキル（ワークフロー）:
+- ✓ entity-definition-collector: 概要、責任範囲、ワークフロー、アウトプットが存在する
+- ✓ normalization-processor: 概要、責任範囲、ワークフロー、アウトプットが存在する
+- ✓ er-diagram-generator: 概要、責任範囲、ワークフロー、アウトプットが存在する
+- ✓ table-definition-writer: 概要、責任範囲、ワークフロー、アウトプットが存在する
+- ✓ ddl-script-generator: 概要、責任範囲、ワークフロー、アウトプットが存在する
+
+スキル（コンベンション）:
+- ✓ database-naming-conventions: 概要、責任範囲、カテゴリ別規約が存在する
+- ✓ normalization-rules: 概要、責任範囲、カテゴリ別規約が存在する
+
+コマンド:
+- ✓ design-database: 概要、使用するエージェント、使用するスキル、実行フローが存在する
+- ✓ generate-schema: 概要、使用するエージェント、使用するスキル、実行フローが存在する
+
+ドキュメント充実度: ✓ 優良
+- ✓ 全てのセクションに詳細な内容が記述されている
+- ✓ ワークフロースキルに良い例/悪い例が記述されている
+- ✓ コンベンションスキルに良い例/悪い例が記述されている
+- ✓ チェックリストが詳細に記述されている
+
+品質検証: 合格
+```
+
+**悪い例（問題がある場合）:**
+
+```markdown
+【品質検証結果】
+
+markdownlint検証: ✗ NG
+- ✗ entity-definition-collector/SKILL.md: MD009（行末の空白）
+- ✗ normalization-processor/SKILL.md: MD013（行の長さ）
+- ✗ design-database/COMMAND.md: MD022（見出しの前後の空行）
+
+必須セクション: ✗ NG
+- ✗ entity-definition-collector: ワークフローセクションが存在しない
+- ✗ normalization-processor: アウトプットセクションが存在しない
+
+ドキュメント充実度: △ 改善の余地あり
+- △ 概要セクションの記述が不十分（2ファイル）
+- △ ワークフロースキルに良い例/悪い例が記述されていない（3ファイル）
+- △ チェックリストが簡素すぎる（4ファイル）
+
+品質検証: 不合格（8個の問題）
+```
+
+### フェーズ5: レポート作成
+
+検証結果をまとめ、改善提案をレポートとして作成する。
+
+**実施内容:**
+
+1. 全ての検証結果をサマリー化する
+2. 検出された問題を重要度別に分類する
+3. 各問題の改善方法を提案する
+4. プラグインの品質スコアを算出する
+5. 次のステップを案内する
+
+**提示形式:**
+
+```markdown
+【プラグイン検証レポート】
+
+プラグイン名: database-design-plugin
+検証日時: 2025-11-15
+
+【総合評価】
+
+総合スコア: 95/100（優良）
+
+内訳:
+- 構造検証: 25/25 ✓
+- 整合性検証: 25/25 ✓
+- 品質検証: 20/25 △
+- アーキテクチャ規約: 25/25 ✓
+
+評価: 優良
+- プラグインは高品質で、リリース可能な状態です
+
+【検証結果サマリー】
+
+構造検証: ✓ 合格
+- 必須ファイル: OK
+- ディレクトリ構造: OK
+- フロントマター形式: OK
+- 必須フィールド: OK
+
+整合性検証: ✓ 合格
+- エージェント参照: OK
+- スキル参照: OK
+- 要素名の一貫性: OK
+- 循環依存: OK
+- アーキテクチャ規約: OK
+
+品質検証: △ 改善の余地あり
+- markdownlint検証: OK
+- 必須セクション: OK
+- ドキュメント充実度: 一部改善の余地あり
+
+【検出された問題】
+
+重要度1（必須修正）: 0個
+
+重要度2（推奨修正）: 2個
+1. ワークフロースキルの一部で良い例/悪い例が不足している
+   - 対象: er-diagram-generator, table-definition-writer
+   - 改善方法: 各フェーズに良い例/悪い例を追加する
+
+2. チェックリストの粒度が粗い
+   - 対象: ddl-script-generator
+   - 改善方法: チェックリストをより詳細にする
+
+重要度3（任意修正）: 0個
+
+【改善提案】
+
+1. ワークフロースキルに良い例/悪い例を追加する
+   - er-diagram-generator: ER図の良い例/悪い例
+   - table-definition-writer: テーブル定義書の良い例/悪い例
+
+2. チェックリストを詳細化する
+   - ddl-script-generator: DDLスクリプト生成時のチェックリストを詳細にする
+
+3. README.mdを充実させる（推奨）
+   - プラグインの概要、使い方、コマンド一覧を追加する
+
+【次のステップ】
+
+1. 検出された問題を修正する（任意）
+2. プラグインをパッケージングする（plugin-packager スキルを使用）
+3. プラグインをリリースする
+
+【詳細レポート】
+
+（各検証フェーズの詳細結果を添付）
+```
+
+**良い例:**
+
+検証結果が明確で、問題点、改善提案、次のステップが示されている。
+
+**悪い例:**
+
+```markdown
+【プラグイン検証レポート】
+
+検証した
+問題なし
+```
+
+## アウトプット
+
+このスキルは以下を生成する:
+
+- **プラグイン検証レポート**: 構造、整合性、品質の検証結果をまとめたレポート
+- **問題リスト**: 検出された問題と改善方法のリスト
+- **品質スコア**: プラグインの品質を数値化したスコア
+
+## 想定されるエラーと対処法
+
+### エラー1: 必須ファイルが存在しない
+
+**検出例:**
+
+```markdown
+README.md が存在しない
+```
+
+**対処法:**
+
+- README.md を作成する
+- プラグインの概要、使い方、コマンド一覧を記述する
+
+### エラー2: フロントマターが不正
+
+**検出例:**
+
+```markdown
+フロントマターがパースできない
+```
+
+**対処法:**
+
+- フロントマターの形式を確認する（YAML形式）
+- 必須フィールド（name, description）が存在するか確認する
+- インデントやコロンの位置を確認する
+
+### エラー3: 循環依存が検出された
+
+**検出例:**
+
+```markdown
+skill-a → skill-b → skill-a
+```
+
+**対処法:**
+
+- スキル間の参照を削除する
+- 共通の処理をコンベンションスキルに分離する
+- コマンドで依存関係を管理する
+
+## ベストプラクティス
+
+- 定期的にプラグインを検証する
+- 問題を早期に検出して修正する
+- markdownlintエラーをゼロにする
+- アーキテクチャ規約を遵守する
+- ドキュメントを充実させる（良い例/悪い例、チェックリスト）
+- README.mdを詳細に記述する
+
+## チェックリスト
+
+### プラグイン読込完了時
+
+- [ ] プラグインディレクトリのパスが確認されている
+- [ ] ディレクトリ構造が読み込まれている
+- [ ] 全ファイルのリストが作成されている
+- [ ] 各ファイルの内容が読み込まれている
+- [ ] フロントマター情報が抽出されている
+
+### 構造検証完了時
+
+- [ ] 必須ファイルの存在が確認されている
+- [ ] ディレクトリ構造が規約に従っているか確認されている
+- [ ] ファイル名が規約に従っているか確認されている
+- [ ] フロントマター形式が正しいか確認されている
+- [ ] 必須フロントマターフィールドの存在が確認されている
+
+### 整合性検証完了時
+
+- [ ] コマンドが参照するエージェントの存在が確認されている
+- [ ] コマンドが参照するスキルの存在が確認されている
+- [ ] 要素名の一貫性が確認されている
+- [ ] 循環依存がないか確認されている
+- [ ] アーキテクチャ規約の遵守が確認されている
+
+### 品質検証完了時
+
+- [ ] markdownlint検証が実施されている
+- [ ] 必須セクションの存在が確認されている
+- [ ] セクションの順序が確認されている
+- [ ] ドキュメントの充実度が評価されている
+- [ ] 良い例/悪い例の存在が確認されている（該当する場合）
+
+### レポート作成完了時
+
+- [ ] 全ての検証結果がサマリー化されている
+- [ ] 検出された問題が重要度別に分類されている
+- [ ] 各問題の改善方法が提案されている
+- [ ] プラグインの品質スコアが算出されている
+- [ ] 次のステップが案内されている
+- [ ] ユーザーの承認を得ている
+
+### 最終確認
+
+- [ ] プラグイン検証レポートが作成されている
+- [ ] 問題リストが作成されている
+- [ ] 品質スコアが算出されている
+- [ ] すべてのアウトプットが明確で理解しやすい
+- [ ] ユーザーが次のステップに進める状態になっている

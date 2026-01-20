@@ -1,7 +1,7 @@
 {
   "name": "treatment-plans",
-  "repo": "K-Dense-AI/claude-scientific-writer",
-  "path": "scientific_writer/.claude/skills/treatment-plans/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-writer",
-  "downloaded_at": "2026-01-19T03:54:10.299109Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/treatment-plans/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-20T03:11:28.095532Z"
 }

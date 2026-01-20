@@ -1,207 +1,362 @@
 ---
-name: Task Manager
-slug: task-manager
-description: Organize, prioritize, and track tasks with intelligent delegation and progress monitoring
-category: project
-complexity: simple
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "manage tasks"
-  - "organize tasks"
-  - "prioritize work"
-  - "what should I work on"
-  - "task list"
-  - "create task"
-tags:
-  - tasks
-  - productivity
-  - prioritization
-  - delegation
-  - tracking
+name: task-manager
+description: 统一任务管理技能，使用 GitHub Issues 管理所有 Agent 任务，支持任务创建、更新、追踪和完成
+version: 1.0.0
 ---
 
-# Task Manager
+# 任务管理技能 (Task Manager)
 
-The Task Manager skill helps you organize, prioritize, and track tasks efficiently using proven productivity frameworks like Eisenhower Matrix, GTD (Getting Things Done), and MoSCoW prioritization. It ensures work is properly sequenced, delegated, and tracked to completion.
+## 触发条件
+当用户提到以下内容时自动触发:
+- "任务管理"
+- "创建任务"
+- "更新任务"
+- "任务追踪"
+- "完成任务"
+- "gh issue"
 
-This skill excels at breaking down large projects into actionable tasks, identifying dependencies, estimating effort, and helping you focus on high-impact work. It integrates with your existing project management tools and provides clear daily/weekly task views.
+## 核心能力
 
-Task Manager emphasizes clarity (well-defined tasks), ownership (clear assignees), and progress visibility (real-time status tracking).
+### 任务创建
 
-## Core Workflows
+```bash
+# 创建标准任务
+gh issue create \
+  --title "[类型] 任务标题" \
+  --body "任务描述" \
+  --label "enhancement"
 
-### Workflow 1: Daily Task Organization
-
-**Steps:**
-1. **Capture** - Collect all pending tasks from:
-   - Project plans and backlogs
-   - Email and Slack messages
-   - Meeting notes and action items
-   - Bug reports and support tickets
-   - Personal ideas and commitments
-
-2. **Clarify** - For each task:
-   - Write clear, actionable description starting with a verb
-   - Estimate effort (S/M/L or hours)
-   - Identify any dependencies or blockers
-   - Assign to person or role
-   - Add due date if time-sensitive
-
-3. **Organize** - Categorize by:
-   - **Priority**: Critical, High, Medium, Low
-   - **Type**: Feature, Bug, Chore, Spike
-   - **Status**: Todo, In Progress, Blocked, Done
-   - **Project/Epic**: Which larger effort does this belong to?
-
-4. **Prioritize** - Use Eisenhower Matrix:
-   - **Urgent + Important**: Do today (top 3 tasks)
-   - **Important + Not Urgent**: Schedule this week
-   - **Urgent + Not Important**: Delegate or automate
-   - **Neither**: Defer or delete
-
-5. **Execute** - Focus on:
-   - Starting with highest-impact task
-   - Completing one task before starting another
-   - Updating status as you progress
-   - Communicating blockers immediately
-
-6. **Review** - End of day:
-   - Mark completed tasks as done
-   - Move unfinished work to tomorrow
-   - Note any learnings or obstacles
-   - Prep tomorrow's top 3 tasks
-
-**Output:** Prioritized daily task list with clear next actions.
-
-### Workflow 2: Weekly Task Planning
-
-**Steps:**
-1. Review project milestones and sprint goals
-2. Identify this week's key deliverables (3-5 max)
-3. Break deliverables into daily tasks
-4. Estimate total effort vs. available capacity
-5. Adjust scope or timeline if over-committed
-6. Schedule deep work blocks for complex tasks
-7. Reserve 20% capacity for interruptions and emergencies
-
-**Output:** Week-at-a-glance task board with daily breakdown.
-
-### Workflow 3: Task Delegation
-
-**Steps:**
-1. Identify tasks that can be delegated
-2. Match task to person with right skills and capacity
-3. Provide clear context and acceptance criteria
-4. Set expectations on timeline and check-ins
-5. Create tracking mechanism for delegated work
-6. Follow up at agreed intervals
-
-### Workflow 4: Backlog Grooming
-
-**Steps:**
-1. Review all tasks in backlog (weekly or bi-weekly)
-2. Archive or delete obsolete tasks
-3. Update priorities based on current goals
-4. Break down vague tasks into specific actions
-5. Identify quick wins (< 1 hour tasks)
-6. Flag tasks that need more information
-
-## Quick Reference
-
-| Action | Command/Trigger |
-|--------|-----------------|
-| Create task | "add task: [description]" |
-| Prioritize tasks | "prioritize my tasks" |
-| Show today's work | "what should I work on today" |
-| Weekly plan | "plan this week's tasks" |
-| Delegate task | "delegate [task] to [person]" |
-| Update status | "mark [task] as [status]" |
-| Show blockers | "what's blocked" |
-| Quick wins | "show me quick wins" |
-| Review backlog | "groom backlog" |
-| Estimate effort | "estimate [task]" |
-
-## Best Practices
-
-- **Make tasks atomic**: Each task should be completable in 4-8 hours max; if larger, break it down
-- **Use action verbs**: Start every task with a verb (Build, Fix, Write, Review, Test, Deploy)
-- **Define "done"**: Every task needs clear acceptance criteria so you know when it's complete
-- **Limit WIP**: Work on 1-3 tasks at a time; multitasking destroys productivity
-- **Track blockers immediately**: Don't let blocked tasks sit silently; escalate and communicate
-- **Time-box tasks**: If a task is taking 2x estimated time, stop and reassess approach
-- **Batch similar tasks**: Group related tasks (all code reviews, all email responses) to reduce context switching
-- **Protect deep work**: Block 2-4 hour chunks for complex tasks; no meetings or interruptions
-- **Review daily**: Spend 10 minutes at end of day reviewing progress and planning tomorrow
-- **Celebrate completions**: Acknowledge finished tasks; builds momentum and morale
-- **Use templates**: Create task templates for recurring work (code review, bug triage, deployment)
-- **Link to context**: Include links to relevant docs, PRs, issues, or designs in task description
-
-## Prioritization Frameworks
-
-### Eisenhower Matrix
-```
-                URGENT              NOT URGENT
-IMPORTANT    |  DO NOW           |  SCHEDULE    |
-             |  (Crises, fires)  |  (Planning)  |
-             |-------------------|--------------|
-NOT          |  DELEGATE         |  ELIMINATE   |
-IMPORTANT    |  (Interruptions)  |  (Busywork)  |
+# 创建带里程碑的任务
+gh issue create \
+  --title "[类型] 任务标题" \
+  --body "任务描述" \
+  --milestone "Q1-2025" \
+  --label "priority/high"
 ```
 
-### MoSCoW Method
-- **Must Have**: Non-negotiable for release
-- **Should Have**: Important but not critical
-- **Could Have**: Nice to have if time permits
-- **Won't Have**: Out of scope for this iteration
+### 任务标签体系
 
-### RICE Scoring
-Score = (Reach × Impact × Confidence) / Effort
-- Reach: How many users affected
-- Impact: How much it helps (0.25, 0.5, 1, 2, 3)
-- Confidence: How sure are you (%, as decimal)
-- Effort: Person-weeks required
+| 标签 | 描述 | 使用场景 |
+|------|------|----------|
+| `enhancement` | 新功能/改进 | 功能开发、优化 |
+| `bug` | 缺陷修复 | Bug 修复 |
+| `documentation` | 文档更新 | 文档编写 |
+| `infrastructure` | 基础设施 | 运维、部署 |
+| `security` | 安全相关 | 安全修复 |
+| `priority/high` | 高优先级 | 紧急任务 |
+| `priority/medium` | 中优先级 | 普通任务 |
+| `priority/low` | 低优先级 | 长期任务 |
 
-### Value vs. Effort
+### 任务类型前缀
+
+| 前缀 | Agent | 示例 |
+|------|-------|------|
+| `[CEO]` | 首席执行官 | `[CEO] 制定 Q1 战略` |
+| `[COO]` | 首席运营官 | `[COO] 市场推广计划` |
+| `[CFO]` | 财务总监 | `[CFO] 年度预算` |
+| `[CTO]` | 首席技术官 | `[CTO] 架构升级` |
+| `[CIO]` | 首席信息官 | `[CIO] 安全审计` |
+| `[PM]` | 产品经理 | `[PM] 用户需求分析` |
+| `[DESIGN]` | 设计师 | `[DESIGN] UI 更新` |
+| `[LEGAL]` | 法务顾问 | `[LEGAL] 合同审核` |
+| `[MKT]` | 市场运营 | `[MKT] 社交媒体活动` |
+
+### 任务状态管理
+
+```bash
+# 查看所有待办任务
+gh issue list --state open
+
+# 查看已关闭任务
+gh issue list --state closed
+
+# 查看特定标签任务
+gh issue list --label "enhancement"
+
+# 查看特定里程碑任务
+gh issue list --milestone "Q1-2025"
+
+# 更新任务状态
+gh issue close <issue-number>        # 关闭任务
+gh issue reopen <issue-number>       # 重新开启
+
+# 添加标签
+gh issue edit <issue-number> --add-label "priority/high"
+
+# 分配任务
+gh issue edit <issue-number> --assignee "liubinbin"
 ```
-         HIGH VALUE
-            |
-    QUICK WINS | BIG BETS
-            |
-  --------- + ---------- EFFORT
-            |
-  TIME SINKS | LOW VALUE
-            |
-       LOW VALUE
+
+### 任务详情模板
+
 ```
-Priority order: Quick Wins > Big Bets > Low Value > Time Sinks
+## 任务描述
+[描述任务的目标和背景]
 
-## Task Sizing Guide
+## 验收标准
+- [ ] 标准 1
+- [ ] 标准 2
+- [ ] 标准 3
 
-| Size | Duration | Complexity | Example |
-|------|----------|------------|---------|
-| XS | 15-30 min | Trivial | Fix typo, update config |
-| S | 1-2 hours | Simple | Write documentation, simple bug fix |
-| M | 4-8 hours | Moderate | Build new component, API endpoint |
-| L | 1-2 days | Complex | Feature integration, performance optimization |
-| XL | 3-5 days | Very Complex | Major refactor, new service |
+## 相关资源
+- 文档链接
+- 相关 Issue
+- 设计稿
 
-**If task is > 5 days**: Break it down into smaller tasks.
+## 预计工时
+X 小时
 
-## Status Definitions
+## 实际工时
+Y 小时
 
-- **Todo**: Ready to start, all dependencies met
-- **In Progress**: Currently being worked on
-- **Blocked**: Waiting on dependency or decision
-- **In Review**: Work complete, awaiting approval
-- **Done**: Shipped to production or accepted by stakeholder
-- **Deferred**: Postponed to future sprint/release
+## 任务状态
+- [ ] 待开始
+- [ ] 进行中
+- [ ] 待审核
+- [ ] 已完成
+```
 
-## Integration Points
+## 使用流程
 
-- **Project Planner**: Pulls tasks from project plans
-- **Sprint Planner**: Organizes tasks into sprints
-- **GitHub Issues**: Syncs with issue tracker
-- **TodoWrite tool**: Uses built-in task tracking
-- **Calendar**: Schedules time blocks for tasks
-- **Slack/Discord**: Sends task notifications and updates
+### 1. 日常任务管理
+
+```
+每日工作开始:
+├── gh issue list --state open               # 查看待办任务
+├── 选择优先级最高的任务
+└── 开始执行
+
+任务执行中:
+├── 更新任务进度 (如需要)
+└── 记录实际工时
+
+每日工作结束:
+├── 更新任务状态
+└── 创建明日任务 (如需要)
+```
+
+### 2. 周度任务回顾
+
+```
+每周五:
+├── gh issue list --state open --label "enhancement"  # 检查功能任务
+├── gh issue list --state open --label "bug"          # 检查 Bug
+├── 关闭已完成任务
+├── 更新待处理任务状态
+└── 创建下周任务
+```
+
+### 3. 任务规划
+
+```bash
+# 创建季度里程碑
+gh issue create \
+  --title "[规划] Q1 2025 里程碑" \
+  --body "第一季度目标设定" \
+  --milestone "Q1-2025"
+
+# 关联相关任务
+gh issue edit <issue-number> --milestone "Q1-2025"
+```
+
+## 各 Agent 任务管理
+
+### CEO Agent 任务
+
+```bash
+# 战略规划
+gh issue create --title "[CEO] 制定年度战略" --body "..." --label "strategy"
+
+# 重大决策
+gh issue create --title "[CEO] 产品方向决策" --body "..." --label "decision"
+```
+
+### COO Agent 任务
+
+```bash
+# 运营管理
+gh issue create --title "[COO] 优化运营流程" --body "..." --label "operations"
+
+# 市场活动
+gh issue create --title "[COO] 春节营销活动" --body "..." --label "marketing"
+```
+
+### CFO Agent 任务
+
+```bash
+# 财务管理
+gh issue create --title "[CFO] 年度预算编制" --body "..." --label "finance"
+
+# 成本分析
+gh issue create --title "[CFO] Q1 成本分析" --body "..." --label "analysis"
+```
+
+### CTO Agent 任务
+
+```bash
+# 技术规划
+gh issue create --title "[CTO] 技术路线图" --body "..." --label "planning"
+
+# 架构升级
+gh issue create --title "[CTO] 微服务改造" --body "..." --label "architecture"
+```
+
+### CIO Agent 任务
+
+```bash
+# IT 运维
+gh issue create --title "[CIO] 服务器监控配置" --body "..." --label "infrastructure"
+
+# 安全合规
+gh issue create --title "[CIO] 安全审计" --body "..." --label "security"
+```
+
+### 产品经理任务
+
+```bash
+# 需求分析
+gh issue create --title "[PM] 用户调研" --body "..." --label "research"
+
+# 产品规划
+gh issue create --title "[PM] v2.0 功能规划" --body "..." --label "planning"
+```
+
+### 设计师任务
+
+```bash
+# UI 设计
+gh issue create --title "[DESIGN] 首页改版" --body "..." --label "design"
+
+# 交互优化
+gh issue create --title "[DESIGN] 登录流程优化" --body "..." --label "ux"
+```
+
+### 法务顾问任务
+
+```bash
+# 合同审核
+gh issue create --title "[LEGAL] 供应商合同审核" --body "..." --label "contract"
+
+# 合规检查
+gh issue create --title "[LEGAL] GDPR 合规" --body "..." --label "compliance"
+```
+
+### 市场运营任务
+
+```bash
+# 内容创作
+gh issue create --title "[MKT] 产品介绍文章" --body "..." --label "content"
+
+# 社交媒体
+gh issue create --title "[MKT] 小红书推广" --body "..." --label "social"
+```
+
+## 批量操作
+
+### 批量创建任务
+
+```bash
+# 创建多个任务
+gh issue create --title "[TASK] 任务1" --body "..."
+gh issue create --title "[TASK] 任务2" --body "..."
+gh issue create --title "[TASK] 任务3" --body "..."
+```
+
+### 批量更新状态
+
+```bash
+# 查看并关闭已完成任务
+gh issue list --state open --assignee "liubinbin" --json number,title
+# 手动确认后关闭
+gh issue close <number>
+```
+
+### 任务统计
+
+```bash
+# 统计任务数量
+gh issue list --state open | wc -l
+
+# 统计各标签任务
+gh issue list --state open --label "bug" | wc -l
+gh issue list --state open --label "enhancement" | wc -l
+
+# 导出任务列表
+gh issue list --state open --json number,title,labels,assignee > tasks.json
+```
+
+## 输出模板
+
+### 任务报告模板
+
+```
+# 任务报告
+
+## 报告周期
+- 开始日期: YYYY-MM-DD
+- 结束日期: YYYY-MM-DD
+
+## 任务完成情况
+| 任务 | 状态 | 工时 |
+|------|------|------|
+| XXX | ✅ 完成 | 4h |
+| XXX | 🔄 进行中 | 2h |
+| XXX | ⏳ 待开始 | - |
+
+## 新建任务
+- [ ] 任务1
+- [ ] 任务2
+
+## 待处理任务
+- [ ] 任务1
+- [ ] 任务2
+
+## 下周计划
+- [ ] 计划1
+- [ ] 计划2
+```
+
+## GitHub Actions 集成
+
+```yaml
+# .github/workflows/task-management.yml
+name: Task Management
+on:
+  issues:
+    types: [opened, closed, labeled]
+jobs:
+  track-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log task event
+        run: |
+          echo "Issue ${{ github.event.issue.number }} - ${{ github.event.issue.title }}"
+          echo "Action: ${{ github.event.action }}"
+          echo "Labels: ${{ join(github.event.issue.labels.*.name, ', ') }}"
+```
+
+## 最佳实践
+
+### 任务命名规范
+- 使用 `[Agent前缀]` 标识任务来源
+- 使用英语描述，简洁明了
+- 包含关键信息: 什么+做什么
+
+### 任务描述规范
+- 说明任务背景和目标
+- 列出具体验收标准
+- 预估工时，便于排期
+
+### 任务更新规范
+- 每日更新任务进度
+- 完成后立即关闭
+- 记录实际工时，便于复盘
+
+## KPI 指标
+
+| 指标 | 目标值 | 测量频率 |
+|------|--------|----------|
+| 任务完成率 | 90%+ | 每周 |
+| 按时完成率 | 80%+ | 每周 |
+| 平均任务周期 | <3 天 | 每周 |
+| 任务工时准确度 | ±20% | 每月 |

@@ -1,7 +1,7 @@
 {
   "name": "harness-platform",
   "repo": "Lobbi-Docs/claude",
-  "path": "plugins/jira-orchestrator/skills/harness-platform/SKILL.md",
+  "path": ".claude/plugins/jira-orchestrator/skills/harness-platform/SKILL.md",
   "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-01-19T04:20:31.485746Z"
+  "downloaded_at": "2026-01-20T03:10:53.029612Z"
 }

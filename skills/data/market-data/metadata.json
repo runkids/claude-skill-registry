@@ -1,7 +1,7 @@
 {
   "name": "market-data",
-  "repo": "ZhiruiFeng/LocalAgentCrew",
-  "path": ".claude/skills/market-data/SKILL.md",
-  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
-  "downloaded_at": "2026-01-19T04:02:24.428464Z"
+  "repo": "rebyteai-template/rebyte-skills",
+  "path": "market-data/SKILL.md",
+  "source": "github.com/rebyteai-template/rebyte-skills",
+  "downloaded_at": "2026-01-20T02:38:43.186028Z"
 }

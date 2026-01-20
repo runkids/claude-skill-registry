@@ -1,7 +1,7 @@
 {
   "name": "when-configuring-sandbox-security-use-sandbox-configurator",
-  "repo": "DNYoussef/ai-chrome-extension",
-  "path": ".claude/skills/specialized-tools/when-configuring-sandbox-security-use-sandbox-configurator/SKILL.md",
-  "source": "github.com/DNYoussef/ai-chrome-extension",
-  "downloaded_at": "2026-01-19T03:56:01.443935Z"
+  "repo": "DNYoussef/context-cascade",
+  "path": "skills/security/when-configuring-sandbox-security-use-sandbox-configurator/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-20T04:01:42.586869Z"
 }

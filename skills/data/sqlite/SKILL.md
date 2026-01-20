@@ -1,768 +1,460 @@
 ---
-name: SQLite
-description: Expert guidance for SQLite database with better-sqlite3 Node.js driver including database setup, queries, transactions, migrations, performance optimization, and integration with TypeScript. Use this when working with embedded databases, better-sqlite3 driver, or SQLite operations.
+name: sqlite
+description: Integrates SQLite embedded database with Node.js using better-sqlite3 for synchronous operations or the native Node.js SQLite module. Use when building applications with local storage, embedded databases, or when user mentions SQLite, better-sqlite3, or embedded SQL.
 ---
 
-# SQLite with better-sqlite3
+# SQLite
 
-Expert assistance with SQLite database operations using the better-sqlite3 Node.js driver.
+Embedded SQL database for Node.js with zero configuration and serverless architecture.
 
-## Overview
-
-SQLite is a lightweight, embedded SQL database engine:
-- **Zero Configuration**: No server setup required, single file database
-- **ACID Compliant**: Full transaction support with rollback
-- **High Performance**: Excellent for read-heavy workloads
-- **Portable**: Single file, easy backup and distribution
-- **better-sqlite3**: Synchronous Node.js driver, faster than async alternatives
-
-## Installation
+## Quick Start
 
 ```bash
-# Install better-sqlite3
+# Install better-sqlite3 (recommended)
 npm install better-sqlite3
-npm install --save-dev @types/better-sqlite3
+npm install -D @types/better-sqlite3
 
-# Optional: SQLite CLI tools
-# Ubuntu/Debian
-sudo apt-get install sqlite3
-
-# macOS
-brew install sqlite3
+# Or use native Node.js SQLite (experimental, Node 22.5+)
+# No installation needed, but requires --experimental-sqlite flag
 ```
 
-## Basic Setup
+## better-sqlite3
 
-### Initialize Database
+### Connection
 
 ```typescript
 import Database from 'better-sqlite3';
 
-// Create or open database
-const db = new Database('mydb.sqlite');
+// Open database (creates if doesn't exist)
+const db = new Database('app.db');
 
-// In-memory database (for testing)
+// With options
+const db = new Database('app.db', {
+  readonly: false,
+  fileMustExist: false,
+  timeout: 5000,
+  verbose: console.log, // Log all queries
+});
+
+// In-memory database
 const memDb = new Database(':memory:');
-
-// Read-only mode
-const readDb = new Database('mydb.sqlite', { readonly: true });
 
 // Enable WAL mode for better concurrency
 db.pragma('journal_mode = WAL');
 
-// Close database
-db.close();
+// Close on exit
+process.on('exit', () => db.close());
+process.on('SIGHUP', () => process.exit(128 + 1));
+process.on('SIGINT', () => process.exit(128 + 2));
+process.on('SIGTERM', () => process.exit(128 + 15));
 ```
 
-### Database Configuration
+### Schema Setup
 
 ```typescript
-import Database from 'better-sqlite3';
-
-const db = new Database('mydb.sqlite', {
-  verbose: console.log, // Log every SQL statement
-  fileMustExist: false, // Create if doesn't exist
-});
-
-// Recommended pragmas
-db.pragma('journal_mode = WAL'); // Write-Ahead Logging
-db.pragma('synchronous = NORMAL'); // Balance safety/performance
-db.pragma('foreign_keys = ON'); // Enable foreign keys
-db.pragma('temp_store = MEMORY'); // Use memory for temp tables
-```
-
-## Creating Tables
-
-### Basic Table Creation
-
-```typescript
-// Create table
+// Create tables
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
-    id TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE,
-    created_at INTEGER NOT NULL DEFAULT (unixepoch())
-  )
-`);
-
-// Create index
-db.exec(`
-  CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)
-`);
-```
-
-### Complex Schema
-
-```typescript
-db.exec(`
-  CREATE TABLE IF NOT EXISTS certificate_authorities (
-    id TEXT PRIMARY KEY,
-    subject_dn TEXT NOT NULL,
-    serial_number TEXT NOT NULL UNIQUE,
-    not_before INTEGER NOT NULL,
-    not_after INTEGER NOT NULL,
-    kms_key_id TEXT NOT NULL,
-    certificate_pem TEXT NOT NULL,
-    is_root BOOLEAN NOT NULL DEFAULT 0,
-    parent_ca_id TEXT REFERENCES certificate_authorities(id),
-    status TEXT NOT NULL CHECK(status IN ('active', 'revoked', 'expired')),
-    created_at INTEGER NOT NULL DEFAULT (unixepoch()),
-    updated_at INTEGER NOT NULL DEFAULT (unixepoch())
+    email TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    role TEXT DEFAULT 'user' CHECK(role IN ('user', 'admin')),
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
   );
 
-  CREATE TABLE IF NOT EXISTS certificates (
-    id TEXT PRIMARY KEY,
-    ca_id TEXT NOT NULL REFERENCES certificate_authorities(id) ON DELETE CASCADE,
-    subject_dn TEXT NOT NULL,
-    serial_number TEXT NOT NULL UNIQUE,
-    not_before INTEGER NOT NULL,
-    not_after INTEGER NOT NULL,
-    certificate_pem TEXT NOT NULL,
-    status TEXT NOT NULL CHECK(status IN ('active', 'revoked', 'expired')),
-    revocation_date INTEGER,
-    revocation_reason TEXT,
-    created_at INTEGER NOT NULL DEFAULT (unixepoch()),
-    updated_at INTEGER NOT NULL DEFAULT (unixepoch())
+  CREATE TABLE IF NOT EXISTS posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    content TEXT,
+    author_id INTEGER NOT NULL,
+    published INTEGER DEFAULT 0,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
   );
 
-  CREATE INDEX IF NOT EXISTS idx_certificates_ca_id ON certificates(ca_id);
-  CREATE INDEX IF NOT EXISTS idx_certificates_status ON certificates(status);
-  CREATE INDEX IF NOT EXISTS idx_certificates_serial ON certificates(serial_number);
+  CREATE INDEX IF NOT EXISTS idx_posts_author ON posts(author_id);
+  CREATE INDEX IF NOT EXISTS idx_posts_published ON posts(published);
 `);
+
+// Enable foreign keys
+db.pragma('foreign_keys = ON');
 ```
 
-## Queries
-
-### Prepared Statements
+### Basic CRUD
 
 ```typescript
-// SELECT query
-const getUser = db.prepare('SELECT * FROM users WHERE id = ?');
-const user = getUser.get('user-123');
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password_hash: string;
+  role: 'user' | 'admin';
+  created_at: string;
+  updated_at: string;
+}
 
-// SELECT all
-const getAllUsers = db.prepare('SELECT * FROM users');
-const users = getAllUsers.all();
-
-// SELECT with multiple parameters
-const findUsers = db.prepare('SELECT * FROM users WHERE name LIKE ? AND created_at > ?');
-const results = findUsers.all('%John%', 1640000000);
-
-// Named parameters
-const getUserByEmail = db.prepare('SELECT * FROM users WHERE email = @email');
-const user = getUserByEmail.get({ email: 'john@example.com' });
-```
-
-### Insert Operations
-
-```typescript
-// Single insert
+// Insert
 const insertUser = db.prepare(`
-  INSERT INTO users (id, name, email)
-  VALUES (?, ?, ?)
+  INSERT INTO users (name, email, password_hash)
+  VALUES (@name, @email, @password_hash)
 `);
 
-const info = insertUser.run('user-123', 'John Doe', 'john@example.com');
-console.log(`Inserted ${info.changes} rows, last ID: ${info.lastInsertRowid}`);
-
-// Insert with RETURNING (SQLite 3.35+)
-const insertUserReturning = db.prepare(`
-  INSERT INTO users (id, name, email)
-  VALUES (?, ?, ?)
-  RETURNING *
-`);
-
-const newUser = insertUserReturning.get('user-456', 'Jane Doe', 'jane@example.com');
-console.log('Created user:', newUser);
-
-// Bulk insert (fast)
-const insert = db.prepare('INSERT INTO users (id, name, email) VALUES (?, ?, ?)');
-const insertMany = db.transaction((users) => {
-  for (const user of users) {
-    insert.run(user.id, user.name, user.email);
-  }
+const result = insertUser.run({
+  name: 'Alice',
+  email: 'alice@example.com',
+  password_hash: 'hashed_password',
 });
 
-insertMany([
-  { id: '1', name: 'Alice', email: 'alice@example.com' },
-  { id: '2', name: 'Bob', email: 'bob@example.com' },
-  { id: '3', name: 'Charlie', email: 'charlie@example.com' },
-]);
-```
+console.log('Inserted ID:', result.lastInsertRowid);
+console.log('Rows affected:', result.changes);
 
-### Update Operations
+// Select one
+const getUser = db.prepare('SELECT * FROM users WHERE id = ?');
+const user = getUser.get(1) as User | undefined;
 
-```typescript
+// Select all
+const getAllUsers = db.prepare('SELECT * FROM users');
+const users = getAllUsers.all() as User[];
+
+// Select with named params
+const getUserByEmail = db.prepare('SELECT * FROM users WHERE email = @email');
+const user = getUserByEmail.get({ email: 'alice@example.com' }) as User | undefined;
+
 // Update
 const updateUser = db.prepare(`
   UPDATE users
-  SET name = ?, email = ?
-  WHERE id = ?
+  SET name = @name, updated_at = CURRENT_TIMESTAMP
+  WHERE id = @id
 `);
 
-const info = updateUser.run('John Smith', 'john.smith@example.com', 'user-123');
-console.log(`Updated ${info.changes} rows`);
+updateUser.run({ id: 1, name: 'Alice Smith' });
 
-// Update with RETURNING
-const updateReturning = db.prepare(`
-  UPDATE users
-  SET name = ?
-  WHERE id = ?
-  RETURNING *
-`);
-
-const updatedUser = updateReturning.get('New Name', 'user-123');
-```
-
-### Delete Operations
-
-```typescript
 // Delete
 const deleteUser = db.prepare('DELETE FROM users WHERE id = ?');
-const info = deleteUser.run('user-123');
-console.log(`Deleted ${info.changes} rows`);
+deleteUser.run(1);
 
-// Delete with condition
-const deleteOldUsers = db.prepare(`
-  DELETE FROM users
-  WHERE created_at < ?
-`);
-
-const info = deleteOldUsers.run(Date.now() - 86400000); // 24 hours ago
+// Iterate (memory efficient for large results)
+const iterateUsers = db.prepare('SELECT * FROM users');
+for (const user of iterateUsers.iterate()) {
+  console.log((user as User).name);
+}
 ```
 
-## Transactions
-
-### Basic Transactions
+### Prepared Statements with Types
 
 ```typescript
-// Define transaction
-const transferFunds = db.transaction((fromId, toId, amount) => {
-  const debit = db.prepare('UPDATE accounts SET balance = balance - ? WHERE id = ?');
-  const credit = db.prepare('UPDATE accounts SET balance = balance + ? WHERE id = ?');
+interface CreateUserParams {
+  name: string;
+  email: string;
+  password_hash: string;
+}
 
-  debit.run(amount, fromId);
-  credit.run(amount, toId);
-});
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  created_at: string;
+}
 
-// Execute transaction (atomic)
-transferFunds('account-1', 'account-2', 100);
+// Type-safe repository
+class UserRepository {
+  private insertStmt = db.prepare<CreateUserParams>(`
+    INSERT INTO users (name, email, password_hash)
+    VALUES (@name, @email, @password_hash)
+  `);
+
+  private getByIdStmt = db.prepare<[number], User>(`
+    SELECT id, name, email, role, created_at
+    FROM users WHERE id = ?
+  `);
+
+  private getByEmailStmt = db.prepare<{ email: string }, User>(`
+    SELECT id, name, email, role, created_at
+    FROM users WHERE email = @email
+  `);
+
+  private updateStmt = db.prepare<{ id: number; name: string }>(`
+    UPDATE users SET name = @name, updated_at = CURRENT_TIMESTAMP
+    WHERE id = @id
+  `);
+
+  private deleteStmt = db.prepare<[number]>('DELETE FROM users WHERE id = ?');
+
+  create(data: CreateUserParams): number {
+    const result = this.insertStmt.run(data);
+    return Number(result.lastInsertRowid);
+  }
+
+  getById(id: number): User | undefined {
+    return this.getByIdStmt.get(id);
+  }
+
+  getByEmail(email: string): User | undefined {
+    return this.getByEmailStmt.get({ email });
+  }
+
+  update(id: number, name: string): boolean {
+    const result = this.updateStmt.run({ id, name });
+    return result.changes > 0;
+  }
+
+  delete(id: number): boolean {
+    const result = this.deleteStmt.run(id);
+    return result.changes > 0;
+  }
+}
+
+const userRepo = new UserRepository();
 ```
 
-### Complex Transactions
+### Transactions
 
 ```typescript
-const createOrder = db.transaction((order, items) => {
-  // Insert order
-  const insertOrder = db.prepare(`
-    INSERT INTO orders (id, user_id, total)
-    VALUES (?, ?, ?)
-    RETURNING *
-  `);
+// Implicit transaction (single statement)
+db.prepare('INSERT INTO users (name, email) VALUES (?, ?)').run('Bob', 'bob@example.com');
 
-  const newOrder = insertOrder.get(order.id, order.userId, order.total);
-
-  // Insert order items
-  const insertItem = db.prepare(`
-    INSERT INTO order_items (order_id, product_id, quantity, price)
-    VALUES (?, ?, ?, ?)
-  `);
-
-  for (const item of items) {
-    insertItem.run(newOrder.id, item.productId, item.quantity, item.price);
+// Explicit transaction
+const insertMany = db.transaction((users: CreateUserParams[]) => {
+  for (const user of users) {
+    insertUser.run(user);
   }
-
-  // Update inventory
-  const updateInventory = db.prepare(`
-    UPDATE products
-    SET stock = stock - ?
-    WHERE id = ?
-  `);
-
-  for (const item of items) {
-    updateInventory.run(item.quantity, item.productId);
-  }
-
-  return newOrder;
+  return users.length;
 });
 
 // Use transaction
-const order = createOrder(
-  { id: 'order-1', userId: 'user-1', total: 150.00 },
-  [
-    { productId: 'prod-1', quantity: 2, price: 50.00 },
-    { productId: 'prod-2', quantity: 1, price: 50.00 },
-  ]
-);
+const count = insertMany([
+  { name: 'User 1', email: 'user1@example.com', password_hash: 'hash1' },
+  { name: 'User 2', email: 'user2@example.com', password_hash: 'hash2' },
+  { name: 'User 3', email: 'user3@example.com', password_hash: 'hash3' },
+]);
+
+// Transaction with rollback on error
+const transfer = db.transaction((fromId: number, toId: number, amount: number) => {
+  const from = db.prepare('SELECT balance FROM accounts WHERE id = ?').get(fromId);
+  if (!from || from.balance < amount) {
+    throw new Error('Insufficient funds');
+  }
+
+  db.prepare('UPDATE accounts SET balance = balance - ? WHERE id = ?').run(amount, fromId);
+  db.prepare('UPDATE accounts SET balance = balance + ? WHERE id = ?').run(amount, toId);
+
+  return { success: true };
+});
+
+try {
+  transfer(1, 2, 100);
+} catch (error) {
+  console.error('Transfer failed:', error.message);
+  // Transaction is automatically rolled back
+}
+
+// Nested transactions (savepoints)
+const outerTransaction = db.transaction(() => {
+  insertUser.run({ name: 'Outer', email: 'outer@example.com', password_hash: 'hash' });
+
+  try {
+    const innerTransaction = db.transaction(() => {
+      insertUser.run({ name: 'Inner', email: 'inner@example.com', password_hash: 'hash' });
+      throw new Error('Rollback inner');
+    });
+    innerTransaction();
+  } catch {
+    // Inner rolled back, outer continues
+  }
+
+  return 'completed';
+});
 ```
 
-### Transaction Options
+### Aggregates and Functions
 
 ```typescript
-// Immediate transaction (lock immediately)
-const immediateTransaction = db.transaction((data) => {
-  // Operations
-});
-immediateTransaction.immediate(); // Optional: make it immediate
-
-// Deferred transaction (default)
-const deferredTransaction = db.transaction((data) => {
-  // Operations
-});
-deferredTransaction.deferred(); // Optional: make it deferred
-
-// Exclusive transaction
-const exclusiveTransaction = db.transaction((data) => {
-  // Operations
-});
-exclusiveTransaction.exclusive(); // Lock database exclusively
-```
-
-## Advanced Queries
-
-### Joins
-
-```typescript
-const getUsersWithOrders = db.prepare(`
+// Built-in aggregates
+const stats = db.prepare(`
   SELECT
-    u.id, u.name, u.email,
-    COUNT(o.id) as order_count,
-    SUM(o.total) as total_spent
-  FROM users u
-  LEFT JOIN orders o ON u.id = o.user_id
-  GROUP BY u.id
-`);
-
-const results = getUsersWithOrders.all();
-```
-
-### Subqueries
-
-```typescript
-const getTopCustomers = db.prepare(`
-  SELECT *
+    COUNT(*) as total,
+    COUNT(CASE WHEN role = 'admin' THEN 1 END) as admins,
+    MIN(created_at) as oldest,
+    MAX(created_at) as newest
   FROM users
-  WHERE id IN (
-    SELECT user_id
-    FROM orders
-    GROUP BY user_id
-    HAVING SUM(total) > ?
-  )
-`);
+`).get();
 
-const topCustomers = getTopCustomers.all(1000);
+// User-defined function
+db.function('lower_case', (str: string) => str?.toLowerCase());
+
+const result = db.prepare("SELECT lower_case(name) as name FROM users").all();
+
+// Aggregate function
+db.aggregate('concat_names', {
+  start: () => [],
+  step: (arr: string[], name: string) => { arr.push(name); return arr; },
+  result: (arr: string[]) => arr.join(', '),
+});
+
+const names = db.prepare('SELECT concat_names(name) as names FROM users').get();
 ```
 
-### Full-Text Search (FTS5)
+### Migrations
 
 ```typescript
-// Create FTS table
-db.exec(`
-  CREATE VIRTUAL TABLE documents_fts USING fts5(
-    title,
-    content,
-    content=documents,
-    content_rowid=id
-  );
-
-  -- Populate FTS index
-  INSERT INTO documents_fts(rowid, title, content)
-  SELECT id, title, content FROM documents;
-`);
-
-// Search
-const search = db.prepare(`
-  SELECT *
-  FROM documents d
-  JOIN documents_fts fts ON d.id = fts.rowid
-  WHERE documents_fts MATCH ?
-  ORDER BY rank
-`);
-
-const results = search.all('security AND encryption');
-```
-
-### JSON Operations (SQLite 3.38+)
-
-```typescript
-// Store JSON
-const insertWithJson = db.prepare(`
-  INSERT INTO users (id, name, metadata)
-  VALUES (?, ?, json(?))
-`);
-
-insertWithJson.run('user-1', 'John', JSON.stringify({ role: 'admin', age: 30 }));
-
-// Query JSON
-const getAdmins = db.prepare(`
-  SELECT *
-  FROM users
-  WHERE json_extract(metadata, '$.role') = 'admin'
-`);
-
-const admins = getAdmins.all();
-```
-
-## TypeScript Integration
-
-### Type-Safe Queries
-
-```typescript
-import Database from 'better-sqlite3';
-
-interface User {
-  id: string;
+// Simple migration system
+interface Migration {
+  version: number;
   name: string;
-  email: string;
-  created_at: number;
+  up: string;
+  down: string;
 }
 
-const db = new Database('mydb.sqlite');
-
-// Type-safe prepared statements
-const getUserById = db.prepare<[string], User>('SELECT * FROM users WHERE id = ?');
-const user: User | undefined = getUserById.get('user-123');
-
-const getAllUsers = db.prepare<[], User>('SELECT * FROM users');
-const users: User[] = getAllUsers.all();
-
-// Insert with types
-interface InsertUser {
-  id: string;
-  name: string;
-  email: string;
-}
-
-const insertUser = db.prepare<[string, string, string]>(`
-  INSERT INTO users (id, name, email)
-  VALUES (?, ?, ?)
-`);
-
-function createUser(user: InsertUser) {
-  return insertUser.run(user.id, user.name, user.email);
-}
-```
-
-### Database Class Wrapper
-
-```typescript
-import Database from 'better-sqlite3';
-
-export class DatabaseClient {
-  private db: Database.Database;
-
-  constructor(filename: string) {
-    this.db = new Database(filename);
-    this.db.pragma('journal_mode = WAL');
-    this.db.pragma('foreign_keys = ON');
-  }
-
-  getUserById(id: string): User | undefined {
-    const stmt = this.db.prepare<[string], User>('SELECT * FROM users WHERE id = ?');
-    return stmt.get(id);
-  }
-
-  createUser(user: InsertUser): User {
-    const stmt = this.db.prepare<[string, string, string]>(`
-      INSERT INTO users (id, name, email)
-      VALUES (?, ?, ?)
-      RETURNING *
-    `);
-    return stmt.get(user.id, user.name, user.email)!;
-  }
-
-  close() {
-    this.db.close();
-  }
-}
-```
-
-## Migrations
-
-### Manual Migrations
-
-```typescript
-const migrations = [
-  // Migration 1
-  `CREATE TABLE users (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE
-  )`,
-
-  // Migration 2
-  `ALTER TABLE users ADD COLUMN created_at INTEGER DEFAULT (unixepoch())`,
-
-  // Migration 3
-  `CREATE INDEX idx_users_email ON users(email)`,
+const migrations: Migration[] = [
+  {
+    version: 1,
+    name: 'create_users',
+    up: `
+      CREATE TABLE users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      );
+    `,
+    down: 'DROP TABLE users;',
+  },
+  {
+    version: 2,
+    name: 'add_user_role',
+    up: `ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user';`,
+    down: `ALTER TABLE users DROP COLUMN role;`,
+  },
 ];
 
 function migrate(db: Database.Database) {
   // Create migrations table
   db.exec(`
     CREATE TABLE IF NOT EXISTS migrations (
-      id INTEGER PRIMARY KEY,
-      applied_at INTEGER NOT NULL DEFAULT (unixepoch())
-    )
+      version INTEGER PRIMARY KEY,
+      name TEXT NOT NULL,
+      applied_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
-  const getCurrentVersion = db.prepare('SELECT MAX(id) as version FROM migrations');
-  const currentVersion = (getCurrentVersion.get() as any).version || 0;
+  const applied = db.prepare('SELECT version FROM migrations').all() as { version: number }[];
+  const appliedVersions = new Set(applied.map(m => m.version));
 
-  const insertMigration = db.prepare('INSERT INTO migrations (id) VALUES (?)');
+  const pending = migrations.filter(m => !appliedVersions.has(m.version));
 
-  // Run pending migrations
-  const runMigrations = db.transaction(() => {
-    for (let i = currentVersion; i < migrations.length; i++) {
-      console.log(`Running migration ${i + 1}`);
-      db.exec(migrations[i]);
-      insertMigration.run(i + 1);
-    }
+  if (pending.length === 0) {
+    console.log('No pending migrations');
+    return;
+  }
+
+  const applyMigration = db.transaction((migration: Migration) => {
+    console.log(`Applying migration ${migration.version}: ${migration.name}`);
+    db.exec(migration.up);
+    db.prepare('INSERT INTO migrations (version, name) VALUES (?, ?)').run(
+      migration.version,
+      migration.name
+    );
   });
 
-  runMigrations();
+  for (const migration of pending.sort((a, b) => a.version - b.version)) {
+    applyMigration(migration);
+  }
+
+  console.log(`Applied ${pending.length} migration(s)`);
 }
 
-// Run migrations
 migrate(db);
 ```
 
-## Performance Optimization
-
-### Indexes
+### Backup and Restore
 
 ```typescript
-// Create indexes for frequently queried columns
+// Backup to file
+db.backup('backup.db')
+  .then(() => console.log('Backup complete'))
+  .catch((err) => console.error('Backup failed:', err));
+
+// Backup with progress
+db.backup('backup.db').then((progress) => {
+  console.log(`${progress.totalPages} pages to copy`);
+}).progress(({ totalPages, remainingPages }) => {
+  console.log(`Progress: ${totalPages - remainingPages}/${totalPages}`);
+});
+
+// Vacuum (reclaim space)
+db.pragma('vacuum');
+
+// Integrity check
+const integrity = db.pragma('integrity_check');
+if (integrity[0].integrity_check !== 'ok') {
+  console.error('Database corruption detected!');
+}
+```
+
+## Native Node.js SQLite (Experimental)
+
+```typescript
+// Requires Node.js 22.5+ with --experimental-sqlite flag
+import { DatabaseSync } from 'node:sqlite';
+
+// Open database
+const db = new DatabaseSync(':memory:');
+
+// Execute SQL
 db.exec(`
-  CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
-  CREATE INDEX IF NOT EXISTS idx_orders_user_id ON orders(user_id);
-  CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at);
-
-  -- Composite index
-  CREATE INDEX IF NOT EXISTS idx_orders_user_status
-    ON orders(user_id, status);
-
-  -- Partial index (SQLite 3.8+)
-  CREATE INDEX IF NOT EXISTS idx_active_users
-    ON users(email) WHERE status = 'active';
+  CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
+  )
 `);
 
-// Analyze query performance
-db.exec('ANALYZE');
+// Prepared statement
+const insert = db.prepare('INSERT INTO users (name) VALUES (?)');
+insert.run('Alice');
+
+const select = db.prepare('SELECT * FROM users WHERE id = ?');
+const user = select.get(1);
+
+// Close
+db.close();
 ```
 
-### Query Optimization
+## Performance Tips
 
 ```typescript
-// Use EXPLAIN QUERY PLAN
-const plan = db.prepare('EXPLAIN QUERY PLAN SELECT * FROM users WHERE email = ?');
-console.log(plan.all('john@example.com'));
+// 1. Use WAL mode
+db.pragma('journal_mode = WAL');
 
-// Batch operations in transactions
-const insertMany = db.transaction((users) => {
-  const insert = db.prepare('INSERT INTO users (id, name, email) VALUES (?, ?, ?)');
-  for (const user of users) {
-    insert.run(user.id, user.name, user.email);
+// 2. Batch inserts in transactions
+const insertBatch = db.transaction((items: Item[]) => {
+  for (const item of items) {
+    insertStmt.run(item);
   }
 });
+insertBatch(items); // Much faster than individual inserts
 
-// This is ~1000x faster than individual inserts
-insertMany(largeUserArray);
+// 3. Use EXPLAIN to analyze queries
+const plan = db.prepare('EXPLAIN QUERY PLAN SELECT * FROM users WHERE email = ?').all('test@example.com');
+console.log(plan);
+
+// 4. Create appropriate indexes
+db.exec('CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)');
+
+// 5. Use .pluck() for single column results
+const names = db.prepare('SELECT name FROM users').pluck().all();
+// ['Alice', 'Bob', 'Charlie'] instead of [{name: 'Alice'}, ...]
+
+// 6. Use .expand() for duplicate column names
+const expanded = db.prepare('SELECT u.*, p.* FROM users u JOIN posts p ON u.id = p.author_id').expand().all();
+
+// 7. Disable synchronous for speed (less safe)
+db.pragma('synchronous = OFF'); // Only for non-critical data
 ```
 
-### Connection Settings
+## Reference Files
 
-```typescript
-// Optimize for performance
-db.pragma('cache_size = -64000'); // 64MB cache
-db.pragma('temp_store = MEMORY');
-db.pragma('mmap_size = 30000000000'); // 30GB memory-mapped I/O
-db.pragma('page_size = 4096'); // Match OS page size
-
-// Check settings
-console.log(db.pragma('cache_size', { simple: true }));
-console.log(db.pragma('page_size', { simple: true }));
-```
-
-## Backup and Restore
-
-### Backup Database
-
-```typescript
-import fs from 'fs';
-
-// Simple file copy (database must be closed or in WAL mode)
-function backupDatabase(source: string, dest: string) {
-  fs.copyFileSync(source, dest);
-  // Also copy WAL and SHM files if they exist
-  if (fs.existsSync(`${source}-wal`)) {
-    fs.copyFileSync(`${source}-wal`, `${dest}-wal`);
-  }
-  if (fs.existsSync(`${source}-shm`)) {
-    fs.copyFileSync(`${source}-shm`, `${dest}-shm`);
-  }
-}
-
-// Online backup using VACUUM INTO (SQLite 3.27+)
-function vacuumBackup(db: Database.Database, dest: string) {
-  db.prepare(`VACUUM INTO ?`).run(dest);
-}
-
-// Export to SQL
-function exportToSql(db: Database.Database, filename: string) {
-  const tables = db.prepare(`
-    SELECT name FROM sqlite_master
-    WHERE type='table' AND name NOT LIKE 'sqlite_%'
-  `).all() as { name: string }[];
-
-  let sql = '';
-  for (const { name } of tables) {
-    // Get CREATE statement
-    const createStmt = db.prepare(`
-      SELECT sql FROM sqlite_master WHERE name = ?
-    `).get(name) as { sql: string };
-    sql += createStmt.sql + ';\n\n';
-
-    // Get data
-    const rows = db.prepare(`SELECT * FROM ${name}`).all();
-    for (const row of rows) {
-      const values = Object.values(row).map(v =>
-        typeof v === 'string' ? `'${v.replace(/'/g, "''")}'` : v
-      ).join(', ');
-      sql += `INSERT INTO ${name} VALUES (${values});\n`;
-    }
-    sql += '\n';
-  }
-
-  fs.writeFileSync(filename, sql);
-}
-```
-
-## Error Handling
-
-```typescript
-import Database from 'better-sqlite3';
-
-try {
-  const result = db.prepare('INSERT INTO users (id, email) VALUES (?, ?)').run('1', 'test@example.com');
-} catch (error) {
-  if (error instanceof Database.SqliteError) {
-    switch (error.code) {
-      case 'SQLITE_CONSTRAINT_UNIQUE':
-        console.error('Unique constraint violation');
-        break;
-      case 'SQLITE_CONSTRAINT_FOREIGNKEY':
-        console.error('Foreign key constraint violation');
-        break;
-      default:
-        console.error('Database error:', error.message);
-    }
-  }
-}
-```
-
-## Testing
-
-```typescript
-import Database from 'better-sqlite3';
-
-// Use in-memory database for tests
-let testDb: Database.Database;
-
-beforeEach(() => {
-  testDb = new Database(':memory:');
-  testDb.pragma('foreign_keys = ON');
-
-  // Setup schema
-  testDb.exec(`
-    CREATE TABLE users (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL UNIQUE
-    )
-  `);
-});
-
-afterEach(() => {
-  testDb.close();
-});
-
-test('creates user', () => {
-  const insert = testDb.prepare('INSERT INTO users VALUES (?, ?, ?)');
-  const info = insert.run('1', 'John', 'john@example.com');
-
-  expect(info.changes).toBe(1);
-
-  const user = testDb.prepare('SELECT * FROM users WHERE id = ?').get('1');
-  expect(user).toEqual({ id: '1', name: 'John', email: 'john@example.com' });
-});
-```
-
-## Best Practices
-
-1. **Use WAL Mode**: Better concurrency with `journal_mode = WAL`
-2. **Enable Foreign Keys**: Always set `foreign_keys = ON`
-3. **Use Transactions**: Batch operations in transactions for performance
-4. **Prepared Statements**: Reuse prepared statements for frequently executed queries
-5. **Index Strategically**: Index columns used in WHERE, JOIN, ORDER BY
-6. **Regular VACUUM**: Run `VACUUM` periodically to defragment
-7. **Backup Regularly**: Implement automated backup strategy
-8. **Monitor Size**: SQLite works best under 1TB
-9. **Connection Pooling**: Use single connection per process (better-sqlite3 is synchronous)
-10. **Error Handling**: Handle constraint violations gracefully
-
-## Common Patterns
-
-### Repository Pattern
-
-```typescript
-export class UserRepository {
-  private db: Database.Database;
-
-  private getByIdStmt: Database.Statement<[string]>;
-  private getAllStmt: Database.Statement<[]>;
-  private insertStmt: Database.Statement<[string, string, string]>;
-  private updateStmt: Database.Statement<[string, string, string]>;
-  private deleteStmt: Database.Statement<[string]>;
-
-  constructor(db: Database.Database) {
-    this.db = db;
-
-    // Prepare statements once
-    this.getByIdStmt = db.prepare('SELECT * FROM users WHERE id = ?');
-    this.getAllStmt = db.prepare('SELECT * FROM users');
-    this.insertStmt = db.prepare('INSERT INTO users (id, name, email) VALUES (?, ?, ?) RETURNING *');
-    this.updateStmt = db.prepare('UPDATE users SET name = ?, email = ? WHERE id = ? RETURNING *');
-    this.deleteStmt = db.prepare('DELETE FROM users WHERE id = ?');
-  }
-
-  findById(id: string): User | undefined {
-    return this.getByIdStmt.get(id) as User | undefined;
-  }
-
-  findAll(): User[] {
-    return this.getAllStmt.all() as User[];
-  }
-
-  create(user: Omit<User, 'created_at'>): User {
-    return this.insertStmt.get(user.id, user.name, user.email) as User;
-  }
-
-  update(id: string, data: Partial<User>): User | undefined {
-    return this.updateStmt.get(data.name, data.email, id) as User | undefined;
-  }
-
-  delete(id: string): boolean {
-    const info = this.deleteStmt.run(id);
-    return info.changes > 0;
-  }
-}
-```
-
-## Resources
-
-- SQLite Documentation: https://www.sqlite.org/docs.html
-- better-sqlite3 Documentation: https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md
-- SQLite Tutorial: https://www.sqlitetutorial.net/
-- Performance Tips: https://www.sqlite.org/performance.html
+- [migrations.md](references/migrations.md) - Database migration patterns
+- [performance.md](references/performance.md) - Optimization strategies

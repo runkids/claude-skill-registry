@@ -1,7 +1,7 @@
 {
   "name": "imsg",
-  "repo": "clawdbot/clawdbot",
-  "path": "skills/imsg/SKILL.md",
-  "source": "github.com/clawdbot/clawdbot",
-  "downloaded_at": "2026-01-19T03:58:56.822754Z"
+  "repo": "clawdbot/skills",
+  "path": "skills/steipete/imsg/SKILL.md",
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-20T03:19:51.441358Z"
 }

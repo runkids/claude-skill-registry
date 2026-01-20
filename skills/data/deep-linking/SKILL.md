@@ -1,30 +1,77 @@
 ---
-name: Deep Linking
-description: URL schemes and deep link handling
+name: deep-linking
+description: Universal Links, App Links, and URL scheme configuration.
 ---
 
 # Deep Linking
 
 ## URL Schemes
 
-| Scheme | Platform | Example |
-|--------|----------|---------|
-| `paperand://` | Both | `paperand://manga/123` |
-| `paperback://` | Both | `paperback://source/add?url=...` |
+```json
+// app.json
+{
+  "expo": {
+    "scheme": "myapp"
+  }
+}
+```
 
-## App Config
+```typescript
+// Handle myapp://path
+import * as Linking from 'expo-linking';
+
+const url = Linking.createURL('path/to/screen', {
+  queryParams: { id: '123' },
+});
+// myapp://path/to/screen?id=123
+```
+
+## Universal Links (iOS)
 
 ```json
 // app.json
 {
   "expo": {
-    "scheme": "paperand",
+    "ios": {
+      "associatedDomains": ["applinks:example.com"]
+    }
+  }
+}
+```
+
+```json
+// /.well-known/apple-app-site-association
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAM_ID.com.example.app",
+        "paths": ["/product/*", "/user/*"]
+      }
+    ]
+  }
+}
+```
+
+## App Links (Android)
+
+```json
+// app.json
+{
+  "expo": {
     "android": {
       "intentFilters": [
         {
           "action": "VIEW",
           "autoVerify": true,
-          "data": [{ "scheme": "paperback" }],
+          "data": [
+            {
+              "scheme": "https",
+              "host": "example.com",
+              "pathPrefix": "/product"
+            }
+          ],
           "category": ["BROWSABLE", "DEFAULT"]
         }
       ]
@@ -33,110 +80,43 @@ description: URL schemes and deep link handling
 }
 ```
 
-## Handle Deep Links
-
-```typescript
-import * as Linking from 'expo-linking';
-
-// Get initial URL (app opened via link)
-const initialUrl = await Linking.getInitialURL();
-if (initialUrl) {
-  handleDeepLink(initialUrl);
-}
-
-// Listen for links while app is open
-useEffect(() => {
-  const subscription = Linking.addEventListener('url', ({ url }) => {
-    handleDeepLink(url);
-  });
-  return () => subscription.remove();
-}, []);
-```
-
-## Parse Deep Links
-
-```typescript
-function handleDeepLink(url: string) {
-  const parsed = Linking.parse(url);
-  // { scheme: 'paperand', path: 'manga/123', queryParams: {} }
-
-  const [action, id] = parsed.path?.split('/') || [];
-
-  switch (action) {
-    case 'manga':
-      navigation.navigate('MangaDetail', { mangaId: id });
-      break;
-    case 'chapter':
-      navigation.navigate('Reader', { chapterId: id });
-      break;
-    case 'source':
-      if (parsed.queryParams?.url) {
-        handleAddSource(parsed.queryParams.url);
-      }
-      break;
+```json
+// /.well-known/assetlinks.json
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.example.app",
+    "sha256_cert_fingerprints": ["..."]
   }
+}]
+```
+
+## Expo Router
+
+```typescript
+// app/_layout.tsx
+export default function Layout() {
+  return (
+    <Stack>
+      <Stack.Screen name="product/[id]" />
+    </Stack>
+  );
+}
+
+// app/product/[id].tsx
+export default function ProductScreen() {
+  const { id } = useLocalSearchParams();
+  // https://example.com/product/123 -> id = "123"
 }
 ```
 
-## Deep Link Service
-
-```typescript
-// services/deepLinkService.ts
-import * as Linking from 'expo-linking';
-
-export const deepLinkService = {
-  async handleUrl(url: string) {
-    const parsed = Linking.parse(url);
-    return parsed;
-  },
-
-  createMangaLink(mangaId: string): string {
-    return Linking.createURL(`manga/${mangaId}`);
-  },
-
-  createSourceLink(repoUrl: string): string {
-    return Linking.createURL('source/add', {
-      queryParams: { url: repoUrl },
-    });
-  },
-};
-```
-
-## Paperback Source Links
-
-Handle Paperback-style source repository links:
-
-```typescript
-// paperback://addRepo?name=MyRepo&url=https://...
-function handlePaperbackLink(url: string) {
-  const parsed = Linking.parse(url);
-  
-  if (parsed.path === 'addRepo') {
-    const { name, url: repoUrl } = parsed.queryParams;
-    navigation.navigate('AddRepository', { name, url: repoUrl });
-  }
-}
-```
-
-## Share Links
-
-```typescript
-import * as Sharing from 'expo-sharing';
-
-async function shareManga(manga: Manga) {
-  const link = deepLinkService.createMangaLink(manga.id);
-  await Sharing.shareAsync(link, {
-    dialogTitle: `Share ${manga.title}`,
-  });
-}
-```
-
-## Testing Deep Links
+## Testing
 
 ```bash
-# Android
-adb shell am start -a android.intent.action.VIEW -d "paperand://manga/123"
-
 # iOS Simulator
-xcrun simctl openurl booted "paperand://manga/123"
+xcrun simctl openurl booted "myapp://product/123"
+
+# Android Emulator
+adb shell am start -a android.intent.action.VIEW -d "myapp://product/123"
 ```

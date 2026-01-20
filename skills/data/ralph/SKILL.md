@@ -1,137 +1,257 @@
 ---
 name: ralph
-description: Ralph loop - iterative goal completion harness
+description: "Convert PRDs to prd.json format for the Ralph autonomous agent system. Use when you have an existing PRD and need to convert it to Ralph's JSON format. Triggers on: convert this prd, turn this into ralph format, create prd.json from this, ralph json."
 ---
 
-# Ralph
+# Ralph PRD Converter
 
-Braindead agentic loop that iteratively works toward a goal until done or time expires. Named after Ralph Wiggum - just keep trying until it works.
+Converts existing PRDs to the prd.json format that Ralph uses for autonomous execution.
 
-## Philosophy
+---
 
-No sophisticated planning. No complex orchestration. Just:
-1. Read the goal
-2. Try to make progress
-3. Commit progress
-4. Repeat until DONE
+## The Job
 
-History provides learning without complex state management. Time budget prevents runaway costs.
+Take a PRD (markdown file or text) and convert it to `prd.json` in your ralph directory.
 
-## Usage
+---
 
-```bash
-.claude/harness/ralph/run \
-  --goal=path/to/goal.md \
-  [--duration=4h] \
-  [--model=sonnet] \
-  [--reasoning=low] \
-  [--spinner] \
-  [--continue] \
-  [--no-art]
+## Output Format
+
+```json
+{
+  "project": "[Project Name]",
+  "branchName": "ralph/[feature-name-kebab-case]",
+  "description": "[Feature description from PRD title/intro]",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "[Story title]",
+      "description": "As a [user], I want [feature] so that [benefit]",
+      "acceptanceCriteria": [
+        "Criterion 1",
+        "Criterion 2",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}
 ```
 
-**Flags:**
-- `--goal` - Path to goal markdown file (required)
-- `--duration` - Time budget (e.g., `4h`, `200m`); unlimited if omitted
-- `--model` - `haiku`, `sonnet`, `opus` (default: `sonnet`)
-- `--reasoning` - `none`, `low`, `med`, `high` (default: `low`)
-- `--spinner` - Enable progress spinner (off by default)
-- `--continue` - Continue from existing progress
-- `--no-art` - Suppress ASCII art in header
+---
 
-**Reasoning levels** (fraction of model's max thinking budget):
-- `none` = 0 (no thinking)
-- `low` = 25% of max
-- `med` = 50% of max
-- `high` = 100% of max
+## Story Size: The Number One Rule
 
-## Goal File Format
+**Each story must be completable in ONE Ralph iteration (one context window).**
 
-Markdown file with required `## Objective` section:
+Ralph spawns a fresh Amp instance per iteration with no memory of previous work. If a story is too big, the LLM runs out of context before finishing and produces broken code.
 
+### Right-sized stories:
+- Add a database column and migration
+- Add a UI component to an existing page
+- Update a server action with new logic
+- Add a filter dropdown to a list
+
+### Too big (split these):
+- "Build the entire dashboard" - Split into: schema, queries, UI components, filters
+- "Add authentication" - Split into: schema, middleware, login UI, session handling
+- "Refactor the API" - Split into one story per endpoint or pattern
+
+**Rule of thumb:** If you cannot describe the change in 2-3 sentences, it is too big.
+
+---
+
+## Story Ordering: Dependencies First
+
+Stories execute in priority order. Earlier stories must not depend on later ones.
+
+**Correct order:**
+1. Schema/database changes (migrations)
+2. Server actions / backend logic
+3. UI components that use the backend
+4. Dashboard/summary views that aggregate data
+
+**Wrong order:**
+1. UI component (depends on schema that does not exist yet)
+2. Schema change
+
+---
+
+## Acceptance Criteria: Must Be Verifiable
+
+Each criterion must be something Ralph can CHECK, not something vague.
+
+### Good criteria (verifiable):
+- "Add `status` column to tasks table with default 'pending'"
+- "Filter dropdown has options: All, Active, Completed"
+- "Clicking delete shows confirmation dialog"
+- "Typecheck passes"
+- "Tests pass"
+
+### Bad criteria (vague):
+- "Works correctly"
+- "User can do X easily"
+- "Good UX"
+- "Handles edge cases"
+
+### Always include as final criterion:
+```
+"Typecheck passes"
+```
+
+For stories with testable logic, also include:
+```
+"Tests pass"
+```
+
+### For stories that change UI, also include:
+```
+"Verify in browser using dev-browser skill"
+```
+
+Frontend stories are NOT complete until visually verified. Ralph will use the dev-browser skill to navigate to the page, interact with the UI, and confirm changes work.
+
+---
+
+## Conversion Rules
+
+1. **Each user story becomes one JSON entry**
+2. **IDs**: Sequential (US-001, US-002, etc.)
+3. **Priority**: Based on dependency order, then document order
+4. **All stories**: `passes: false` and empty `notes`
+5. **branchName**: Derive from feature name, kebab-case, prefixed with `ralph/`
+6. **Always add**: "Typecheck passes" to every story's acceptance criteria
+
+---
+
+## Splitting Large PRDs
+
+If a PRD has big features, split them:
+
+**Original:**
+> "Add user notification system"
+
+**Split into:**
+1. US-001: Add notifications table to database
+2. US-002: Create notification service for sending notifications
+3. US-003: Add notification bell icon to header
+4. US-004: Create notification dropdown panel
+5. US-005: Add mark-as-read functionality
+6. US-006: Add notification preferences page
+
+Each is one focused change that can be completed and verified independently.
+
+---
+
+## Example
+
+**Input PRD:**
 ```markdown
-## Objective
+# Task Status Feature
 
-Brief description of what needs to be accomplished.
+Add ability to mark tasks with different statuses.
 
-## Reference
-
-Optional pointers to specs, plans, or other context.
-
-## Outcomes
-
-Optional list of specific outcomes that indicate completion.
-
-## Acceptance
-
-Optional acceptance criteria (e.g., `check-build` passes).
+## Requirements
+- Toggle between pending/in-progress/done on task list
+- Filter list by status
+- Show status badge on each task
+- Persist status in database
 ```
 
-**Required:** `## Objective` section must exist.
-
-**State files** are derived from the goal file name:
-- `<base>-goal.md` → `<base>-progress.jsonl`, `<base>-summary.md`
-- Example: `rel-08/ralph-code-removal-goal.md` produces:
-  - `rel-08/ralph-code-removal-progress.jsonl`
-  - `rel-08/ralph-code-removal-summary.md`
-
-## Progress File Format
-
-JSONL (one JSON object per line):
-
-```jsonl
-{"iteration":1,"timestamp":"2026-01-11T08:37:27-06:00","progress":"Removed tool_dispatcher.c from Makefile"}
-{"iteration":2,"timestamp":"2026-01-11T08:42:49-06:00","progress":"Deleted src/tool_bash.c and updated headers"}
-{"iteration":3,"timestamp":"2026-01-11T08:51:20-06:00","progress":"DONE"}
+**Output prd.json:**
+```json
+{
+  "project": "TaskApp",
+  "branchName": "ralph/task-status",
+  "description": "Task Status Feature - Track task progress with status indicators",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Add status field to tasks table",
+      "description": "As a developer, I need to store task status in the database.",
+      "acceptanceCriteria": [
+        "Add status column: 'pending' | 'in_progress' | 'done' (default 'pending')",
+        "Generate and run migration successfully",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-002",
+      "title": "Display status badge on task cards",
+      "description": "As a user, I want to see task status at a glance.",
+      "acceptanceCriteria": [
+        "Each task card shows colored status badge",
+        "Badge colors: gray=pending, blue=in_progress, green=done",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Add status toggle to task list rows",
+      "description": "As a user, I want to change task status directly from the list.",
+      "acceptanceCriteria": [
+        "Each row has status dropdown or toggle",
+        "Changing status saves immediately",
+        "UI updates without page refresh",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-004",
+      "title": "Filter tasks by status",
+      "description": "As a user, I want to filter the list to see only certain statuses.",
+      "acceptanceCriteria": [
+        "Filter dropdown: All | Pending | In Progress | Done",
+        "Filter persists in URL params",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}
 ```
 
-**Fields:**
-- `iteration` - Iteration number
-- `timestamp` - ISO 8601 timestamp
-- `progress` - What was accomplished or `DONE` when complete
+---
 
-## Summary File
+## Archiving Previous Runs
 
-Auto-generated markdown summarizing progress. Updated every 10 iterations by a summarizer agent. Provides condensed context for the worker agent without loading full history.
+**Before writing a new prd.json, check if there is an existing one from a different feature:**
 
-## Loop Behavior
+1. Read the current `prd.json` if it exists
+2. Check if `branchName` differs from the new feature's branch name
+3. If different AND `progress.txt` has content beyond the header:
+   - Create archive folder: `archive/YYYY-MM-DD-feature-name/`
+   - Copy current `prd.json` and `progress.txt` to archive
+   - Reset `progress.txt` with fresh header
 
-1. **Validate** - Ensure goal file has `## Objective` section
-2. **Initialize** - Create empty progress/summary files (or load if `--continue`)
-3. **Handle dirty state** - If working copy has changes, commit them
-4. **Work iteration** - Agent reads goal + history, makes progress, returns progress string
-5. **Commit** - Changes committed via `jj commit`
-6. **Record** - Progress appended to progress file
-7. **Summarize** - Every 10 iterations, summarizer condenses history
-8. **Repeat** - Until `DONE` returned or time expires
+**The ralph.sh script handles this automatically** when you run it, but if you are manually updating prd.json between runs, archive first.
 
-**Termination:**
-- Agent returns `DONE`
-- Time budget expires
-- Manual interrupt (Ctrl+C)
+---
 
-## Writing Goals
+## Checklist Before Saving
 
-**State the objective clearly:**
-- Good: "Remove all internal tool implementation code. After completion, tool calls return stub responses."
-- Bad: "Clean up the tool system"
+Before writing prd.json, verify:
 
-**Include acceptance criteria:**
-- Good: "`check-build` → `{\"ok\": true}`"
-- Bad: "Tests should pass"
-
-**Reference detailed specs:**
-- Good: "`rel-08/plan/removal-specification.md` - detailed spec with exact changes"
-- Bad: Inline the entire spec in the goal file
-
-**List concrete outcomes:**
-- Good: "`src/repl_tool.c` - tool dispatch returns stub error JSON"
-- Bad: "Tool dispatch should be stubbed out"
-
-## Tips
-
-- Start with generous time budget - ralph may need multiple iterations
-- Use `--continue` to resume after interruption
-- Check progress file to see what's been accomplished
-- Goal files should be outcome-focused, not action-focused
-- Trust the agent to discover implementation details
+- [ ] **Previous run archived** (if prd.json exists with different branchName, archive it first)
+- [ ] Each story is completable in one iteration (small enough)
+- [ ] Stories are ordered by dependency (schema to backend to UI)
+- [ ] Every story has "Typecheck passes" as criterion
+- [ ] UI stories have "Verify in browser using dev-browser skill" as criterion
+- [ ] Acceptance criteria are verifiable (not vague)
+- [ ] No story depends on a later story

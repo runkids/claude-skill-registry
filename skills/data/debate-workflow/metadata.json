@@ -1,7 +1,7 @@
 {
   "name": "debate-workflow",
-  "repo": "rysweet/azlin",
+  "repo": "rysweet/azure-tenant-grapher",
   "path": ".claude/skills/debate-workflow/SKILL.md",
-  "source": "github.com/rysweet/azlin",
-  "downloaded_at": "2026-01-19T04:00:18.791524Z"
+  "source": "github.com/rysweet/azure-tenant-grapher",
+  "downloaded_at": "2026-01-20T02:13:53.772207Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "stock-screener",
-  "repo": "nicepkg/ai-workflow",
-  "path": "workflows/stock-trader-workflow/.claude/skills/stock-screener/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-19T03:26:11.304762Z"
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "path": "stock-screener/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-20T01:55:56.466505Z"
 }

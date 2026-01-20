@@ -1,7 +1,7 @@
 {
   "name": "worktree",
-  "repo": "mattg101/SolidLink",
-  "path": "docs/dev/.agent/skills/worktree/SKILL.md",
-  "source": "github.com/mattg101/SolidLink",
-  "downloaded_at": "2026-01-19T02:57:56.534647Z"
+  "repo": "KanayaActa/ai-driven-dev-template",
+  "path": ".claude/skills/worktree/SKILL.md",
+  "source": "github.com/KanayaActa/ai-driven-dev-template",
+  "downloaded_at": "2026-01-20T03:38:39.706823Z"
 }

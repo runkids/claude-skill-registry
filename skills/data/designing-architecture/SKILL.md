@@ -1,336 +1,285 @@
 ---
-name: designing-architecture
-description: Guides software architecture decisions, design patterns, and system design principles. Use when designing systems, choosing patterns, or making architectural decisions.
-license: MIT
-compatibility: opencode
-metadata:
-  category: design
-  audience: developers
+parallel_threshold: null
+timeout_minutes: 60
+zones:
+  system:
+    path: .claude
+    permission: none
+  state:
+    paths: [loa-grimoire, .beads]
+    permission: read-write
+  app:
+    paths: [src, lib, app]
+    permission: read
 ---
 
-# Designing Architecture
+# Architecture Designer
 
-Principles and patterns for designing maintainable, scalable, and robust software systems.
+<objective>
+Transform Product Requirements Documents (PRDs) into comprehensive, actionable Software Design Documents (SDDs) that serve as the definitive technical blueprint for engineering teams during sprint planning and implementation. Generate `loa-grimoire/sdd.md`.
+</objective>
 
-## When to Use This Skill
+<zone_constraints>
+## Zone Constraints
 
-- Designing new systems or features
-- Choosing between architectural patterns
-- Making technology decisions
-- Reviewing system design
-- Planning for scalability
-- Refactoring legacy systems
+This skill operates under **Managed Scaffolding**:
 
----
+| Zone | Permission | Notes |
+|------|------------|-------|
+| `.claude/` | NONE | System zone - never suggest edits |
+| `loa-grimoire/`, `.beads/` | Read/Write | State zone - project memory |
+| `src/`, `lib/`, `app/` | Read-only | App zone - requires user confirmation |
 
-## Core Architecture Principles
+**NEVER** suggest modifications to `.claude/`. Direct users to `.claude/overrides/` or `.loa.config.yaml`.
+</zone_constraints>
 
-### SOLID Principles
+<integrity_precheck>
+## Integrity Pre-Check (MANDATORY)
 
-| Principle | Summary | Violation Sign |
-|-----------|---------|----------------|
-| **S**ingle Responsibility | One reason to change | Class does too many things |
-| **O**pen/Closed | Open for extension, closed for modification | Modifying existing code for new features |
-| **L**iskov Substitution | Subtypes replaceable for base types | Overrides break parent behavior |
-| **I**nterface Segregation | Small, focused interfaces | Classes implement unused methods |
-| **D**ependency Inversion | Depend on abstractions | High-level modules depend on low-level |
+Before ANY operation, verify System Zone integrity:
 
-### The Dependency Rule
+1. Check config: `yq eval '.integrity_enforcement' .loa.config.yaml`
+2. If `strict` and drift detected -> **HALT** and report
+3. If `warn` -> Log warning and proceed with caution
+</integrity_precheck>
 
+<factual_grounding>
+## Factual Grounding (MANDATORY)
+
+Before ANY synthesis, planning, or recommendation:
+
+1. **Extract quotes**: Pull word-for-word text from source files
+2. **Cite explicitly**: `"[exact quote]" (file.md:L45)`
+3. **Flag assumptions**: Prefix ungrounded claims with `[ASSUMPTION]`
+
+**Grounded Example:**
 ```
-Outer layers depend on inner layers, NEVER the reverse.
-
-┌─────────────────────────────────────┐
-│     Frameworks & Drivers           │  ← Database, Web, UI
-├─────────────────────────────────────┤
-│     Interface Adapters             │  ← Controllers, Presenters, Gateways
-├─────────────────────────────────────┤
-│     Application Business Rules     │  ← Use Cases
-├─────────────────────────────────────┤
-│     Enterprise Business Rules      │  ← Entities
-└─────────────────────────────────────┘
-
-Dependencies point INWARD only.
-```
-
----
-
-## Architectural Patterns
-
-### Layered Architecture
-
-```
-┌─────────────────────────────────────┐
-│     Presentation Layer             │  ← UI, API Controllers
-├─────────────────────────────────────┤
-│     Application Layer              │  ← Use Cases, Services
-├─────────────────────────────────────┤
-│     Domain Layer                   │  ← Business Logic, Entities
-├─────────────────────────────────────┤
-│     Infrastructure Layer           │  ← Database, External APIs
-└─────────────────────────────────────┘
+The SDD specifies "PostgreSQL 15 with pgvector extension" (sdd.md:L123)
 ```
 
-**Use when**: Traditional applications, clear separation needed
-**Avoid when**: High-performance needs, event-driven systems
-
-### Hexagonal Architecture (Ports & Adapters)
-
+**Ungrounded Example:**
 ```
-           ┌───────────────┐
-           │   Primary     │
-           │   Adapters    │  ← REST API, CLI, GraphQL
-           └───────┬───────┘
-                   │
-        ┌──────────▼──────────┐
-        │                     │
-        │   ┌───────────┐     │
-        │   │   Core    │     │
-Primary │   │  Domain   │     │ Secondary
-Ports   │   │  Logic    │     │ Ports
-        │   └───────────┘     │
-        │                     │
-        └──────────┬──────────┘
-                   │
-           ┌───────▼───────┐
-           │   Secondary   │
-           │   Adapters    │  ← Database, Message Queue, External API
-           └───────────────┘
+[ASSUMPTION] The database likely needs connection pooling
 ```
+</factual_grounding>
 
-**Use when**: Testability is critical, multiple interfaces needed
-**Avoid when**: Simple CRUD applications
+<structured_memory_protocol>
+## Structured Memory Protocol
 
-### Microservices Architecture
+### On Session Start
+1. Read `loa-grimoire/NOTES.md`
+2. Restore context from "Session Continuity" section
+3. Check for resolved blockers
 
+### During Execution
+1. Log decisions to "Decision Log"
+2. Add discovered issues to "Technical Debt"
+3. Update sub-goal status
+4. **Apply Tool Result Clearing** after each tool-heavy operation
+
+### Before Compaction / Session End
+1. Summarize session in "Session Continuity"
+2. Ensure all blockers documented
+3. Verify all raw tool outputs have been decayed
+</structured_memory_protocol>
+
+<tool_result_clearing>
+## Tool Result Clearing
+
+After tool-heavy operations (grep, cat, tree, API calls):
+1. **Synthesize**: Extract key info to NOTES.md or discovery/
+2. **Summarize**: Replace raw output with one-line summary
+3. **Clear**: Release raw data from active reasoning
+
+Example:
 ```
-┌─────────┐  ┌─────────┐  ┌─────────┐
-│ Service │  │ Service │  │ Service │
-│    A    │  │    B    │  │    C    │
-└────┬────┘  └────┬────┘  └────┬────┘
-     │            │            │
-     └────────────┴────────────┘
-                  │
-           ┌──────▼──────┐
-           │   Message   │
-           │    Bus      │
-           └─────────────┘
+# Raw grep: 500 tokens -> After decay: 30 tokens
+"Found 47 AuthService refs across 12 files. Key locations in NOTES.md."
 ```
+</tool_result_clearing>
 
-**Use when**: Independent scaling, team autonomy, polyglot needs
-**Avoid when**: Small teams, simple domains, tight coupling required
+<trajectory_logging>
+## Trajectory Logging
 
-### Event-Driven Architecture
+Log each significant step to `loa-grimoire/a2a/trajectory/{agent}-{date}.jsonl`:
 
+```json
+{"timestamp": "...", "agent": "...", "action": "...", "reasoning": "...", "grounding": {...}}
 ```
-Event Source → Event Bus → Event Handlers
-     │              │              │
-     ▼              ▼              ▼
-  Produces    Routes Events    Consumes
-  Events      (Kafka, RabbitMQ)  Events
-```
+</trajectory_logging>
 
-**Use when**: Async processing, decoupling, audit trails
-**Avoid when**: Immediate consistency required, simple workflows
+<kernel_framework>
+## Task (N - Narrow Scope)
+Transform PRD into comprehensive Software Design Document (SDD). Generate `loa-grimoire/sdd.md`.
 
----
+## Context (L - Logical Structure)
+- **Input**: `loa-grimoire/prd.md` (product requirements)
+- **Integration context**: `loa-grimoire/a2a/integration-context.md` (if exists) for past experiments, tech decisions, team structure
+- **Current state**: PRD with functional/non-functional requirements
+- **Desired state**: Complete technical blueprint for engineering teams
 
-## Design Patterns
+## Constraints (E - Explicit)
+- DO NOT start design until you've read `loa-grimoire/a2a/integration-context.md` (if exists) and `loa-grimoire/prd.md`
+- DO NOT make technology choices without justification
+- DO NOT skip clarification questions if requirements are ambiguous
+- DO NOT design without considering: scale, budget, timeline, team expertise, existing systems
+- DO cross-reference past experiments from integration context before proposing solutions
+- DO ask about missing constraints (budget, timeline, team size/expertise)
+- DO document all assumptions if information isn't provided
 
-### Creational Patterns
+## Verification (E - Easy to Verify)
+**Success** = Complete SDD saved to `loa-grimoire/sdd.md` with all required sections + sprint-ready for engineers
 
-| Pattern | Purpose | When to Use |
-|---------|---------|-------------|
-| **Factory** | Create objects without specifying class | Object creation logic is complex |
-| **Builder** | Construct complex objects step-by-step | Many optional parameters |
-| **Singleton** | Single instance globally | Shared resource (use sparingly) |
-| **Dependency Injection** | Inject dependencies externally | Testability, loose coupling |
+Required sections:
+- System Architecture (with component diagram)
+- Software Stack (with justifications)
+- Database Design (with sample schemas)
+- UI Design (page structure, flows, components)
+- API Specifications
+- Error Handling Strategy
+- Testing Strategy
+- Development Phases
+- Risks & Mitigation
 
-### Structural Patterns
+## Reproducibility (R - Reproducible Results)
+- Specify exact versions: NOT "React" → "React 18.2.0"
+- Include concrete schema examples: NOT "user table" → full DDL with types/indexes
+- Reference specific architectural patterns: NOT "modern architecture" → "microservices with API gateway"
+- Document specific scale targets: NOT "scalable" → "handle 10K concurrent users, 1M records"
+</kernel_framework>
 
-| Pattern | Purpose | When to Use |
-|---------|---------|-------------|
-| **Adapter** | Convert interface to another | Integrating incompatible systems |
-| **Decorator** | Add behavior dynamically | Extending functionality without inheritance |
-| **Facade** | Simplified interface to complex system | Hiding complexity |
-| **Repository** | Abstract data access | Separating domain from persistence |
+<uncertainty_protocol>
+- If requirements are ambiguous, ASK for clarification before proceeding
+- If technical constraints are missing (budget, timeline, team size), ASK explicitly
+- Say "I don't know" when lacking information to make a sound recommendation
+- State assumptions explicitly when proceeding with incomplete information
+- Flag technology choices that need validation: "This assumes team familiarity with [X]"
+</uncertainty_protocol>
 
-### Behavioral Patterns
+<grounding_requirements>
+Before designing architecture:
+1. Read `loa-grimoire/a2a/integration-context.md` (if exists) for organizational context
+2. Read `loa-grimoire/prd.md` completely—extract all requirements
+3. Quote specific requirements when justifying design decisions: `> From prd.md: "..."`
+4. Cross-reference past experiments and learnings before proposing solutions
+5. Validate scale requirements explicitly match PRD non-functional requirements
+</grounding_requirements>
 
-| Pattern | Purpose | When to Use |
-|---------|---------|-------------|
-| **Strategy** | Interchangeable algorithms | Multiple ways to do something |
-| **Observer** | Notify dependents of changes | Event systems, reactive updates |
-| **Command** | Encapsulate actions as objects | Undo/redo, queuing, logging |
-| **Chain of Responsibility** | Pass request along handlers | Middleware, validation chains |
+<citation_requirements>
+- All technology choices include version numbers
+- Reference external documentation with absolute URLs
+- Cite architectural patterns with authoritative sources
+- Link to OWASP/security standards for security decisions
+</citation_requirements>
 
----
+<workflow>
+## Phase 0: Integration Context Check (CRITICAL—DO THIS FIRST)
 
-## Domain-Driven Design Concepts
+Check if `loa-grimoire/a2a/integration-context.md` exists:
 
-### Strategic Design
-
-| Concept | Definition | Example |
-|---------|------------|---------|
-| **Bounded Context** | Explicit boundary for a domain model | Order context, Shipping context |
-| **Ubiquitous Language** | Shared vocabulary between devs and domain experts | "Order", "Line Item", "Fulfillment" |
-| **Context Map** | How bounded contexts relate | Customer shared between Sales and Support |
-
-### Tactical Patterns
-
-| Pattern | Purpose | Example |
-|---------|---------|---------|
-| **Entity** | Object with identity | User, Order |
-| **Value Object** | Object without identity | Money, Address |
-| **Aggregate** | Cluster of entities with root | Order + LineItems |
-| **Domain Event** | Something that happened | OrderPlaced, PaymentReceived |
-| **Repository** | Collection-like access to aggregates | OrderRepository |
-| **Domain Service** | Logic that doesn't fit entities | PricingService |
-
----
-
-## System Design Considerations
-
-### Scalability Patterns
-
-| Pattern | Description | Trade-off |
-|---------|-------------|-----------|
-| **Horizontal Scaling** | Add more instances | Statelessness required |
-| **Vertical Scaling** | Bigger machines | Hardware limits |
-| **Caching** | Store computed results | Cache invalidation |
-| **Database Sharding** | Split data across DBs | Query complexity |
-| **Read Replicas** | Separate read/write | Eventual consistency |
-| **CDN** | Edge content delivery | Static content only |
-
-### Resilience Patterns
-
-| Pattern | Purpose | Implementation |
-|---------|---------|----------------|
-| **Circuit Breaker** | Prevent cascade failures | Fail fast when downstream is down |
-| **Retry with Backoff** | Handle transient failures | Exponential delay between retries |
-| **Bulkhead** | Isolate failures | Separate thread pools per dependency |
-| **Timeout** | Bound waiting time | Max wait for responses |
-| **Fallback** | Graceful degradation | Default behavior when service unavailable |
-
-### Data Consistency Patterns
-
-| Pattern | Consistency | Use When |
-|---------|-------------|----------|
-| **ACID Transactions** | Strong | Financial data, critical operations |
-| **Saga** | Eventual | Distributed transactions |
-| **Event Sourcing** | Eventual | Audit trails, complex state |
-| **CQRS** | Eventual | Different read/write models |
-
----
-
-## Technology Decision Framework
-
-### When to Use a Database
-
-| Need | Recommended | Avoid |
-|------|-------------|-------|
-| Relational data, ACID | PostgreSQL, MySQL | MongoDB |
-| Document storage, flexible schema | MongoDB, DynamoDB | Relational |
-| Key-value, high speed | Redis, Memcached | Relational |
-| Time series | InfluxDB, TimescaleDB | Generic SQL |
-| Graph relationships | Neo4j, Neptune | Relational (for complex) |
-| Search | Elasticsearch, Meilisearch | Full table scans |
-
-### When to Use Message Queues
-
-| Need | Pattern |
-|------|---------|
-| Async processing | Queue (SQS, RabbitMQ) |
-| Event broadcasting | Pub/Sub (SNS, Kafka) |
-| Task scheduling | Delayed queues |
-| Load leveling | Queue with workers |
-| Event sourcing | Log-based (Kafka) |
-
----
-
-## Architecture Decision Records (ADR)
-
-### Template
-
-```markdown
-# ADR-001: [Title]
-
-## Status
-[Proposed | Accepted | Deprecated | Superseded by ADR-XXX]
-
-## Context
-[Why is this decision needed?]
-
-## Decision
-[What is the decision?]
-
-## Consequences
-### Positive
-- [Benefit 1]
-- [Benefit 2]
-
-### Negative
-- [Trade-off 1]
-- [Trade-off 2]
-
-## Alternatives Considered
-1. [Alternative 1] - [Why rejected]
-2. [Alternative 2] - [Why rejected]
+```bash
+[ -f "loa-grimoire/a2a/integration-context.md" ] && echo "EXISTS" || echo "MISSING"
 ```
 
----
+**If EXISTS**, read it to understand:
+- Past experiments: Technical approaches tried before
+- Technology decisions: Historical choices and outcomes
+- Team structure: Which teams will implement (affects architecture)
+- Existing systems: Current tech stack and integration constraints
+- Available MCP tools: Organizational tools to leverage
 
-## Anti-Patterns to Avoid
+**If MISSING**, proceed with standard workflow.
 
-1. **Big Ball of Mud** - No clear structure, everything depends on everything
-2. **Golden Hammer** - Using one pattern for all problems
-3. **Premature Optimization** - Designing for scale before proving need
-4. **Analysis Paralysis** - Over-designing, never shipping
-5. **Distributed Monolith** - Microservices with tight coupling
-6. **Anemic Domain Model** - Entities with only getters/setters
-7. **God Object** - One class that does everything
-8. **Leaky Abstraction** - Implementation details leak through interfaces
+## Phase 1: PRD Analysis
 
----
+1. Read `loa-grimoire/prd.md` thoroughly
+2. Extract:
+   - Functional requirements
+   - Non-functional requirements (performance, scale, security)
+   - Constraints and business objectives
+3. Identify ambiguities, gaps, or areas requiring clarification
+4. **If integration context exists**: Cross-reference with past experiments
 
-## Decision Checklist
+## Phase 2: Clarification Phase
 
-Before finalizing an architecture decision, verify:
+Before proceeding with design, ask targeted questions about:
+- Unclear requirements or edge cases
+- Missing technical constraints (budget, timeline, team size/expertise)
+- Scale expectations (user volume, data volume, growth projections)
+- Integration requirements with existing systems
+- Security, compliance, or regulatory requirements
+- Performance expectations and SLAs
 
-- [ ] Does it solve the actual problem?
-- [ ] Is it the simplest solution that works?
-- [ ] Can the team maintain it?
-- [ ] Does it align with existing patterns?
-- [ ] Is it testable?
-- [ ] Can it evolve as requirements change?
-- [ ] Are the trade-offs acceptable?
-- [ ] Is the decision documented?
+Wait for responses before finalizing design decisions.
+Document any assumptions you need to make if information isn't provided.
 
----
+## Phase 3: Architecture Design
 
-## Quick Reference
+Design a system architecture that is:
+- Scalable and maintainable
+- Aligned with modern best practices
+- Appropriate for the project's scale and constraints
+- Clear enough for engineers to understand component relationships
 
-```
-SOLID:
-  S - Single Responsibility
-  O - Open/Closed
-  L - Liskov Substitution
-  I - Interface Segregation
-  D - Dependency Inversion
+Consider:
+- Microservices vs monolithic approaches based on project needs
+- Clear boundaries between system components
+- Deployment, monitoring, and observability
 
-PATTERNS:
-  Layered     → Simple, clear separation
-  Hexagonal   → Testable, adaptable
-  Microservices → Scalable, independent
-  Event-Driven  → Decoupled, async
+## Phase 4: SDD Creation
 
-DDD BUILDING BLOCKS:
-  Entity, Value Object, Aggregate
-  Repository, Domain Event, Domain Service
+Generate comprehensive document using template from `resources/templates/sdd-template.md`.
 
-SCALABILITY:
-  Horizontal scaling, Caching, Sharding, CDN
+Required sections:
+1. Project Architecture
+2. Software Stack
+3. Database Design
+4. UI Design
+5. API Specifications
+6. Error Handling Strategy
+7. Testing Strategy
+8. Development Phases
+9. Known Risks and Mitigation
+10. Open Questions
 
-RESILIENCE:
-  Circuit Breaker, Retry, Bulkhead, Timeout
-```
+Save to `loa-grimoire/sdd.md`.
+</workflow>
+
+<output_format>
+See `resources/templates/sdd-template.md` for full structure.
+
+Key sections include:
+- System Overview with component diagram
+- Architectural Pattern with justification
+- Software Stack with versions and rationale
+- Database schemas with DDL examples
+- API endpoint specifications
+- Error handling and testing strategies
+- Development phases for sprint planning
+</output_format>
+
+<success_criteria>
+- **Specific**: Every technology choice has version and justification
+- **Measurable**: Scale targets are quantified (users, requests/sec, data volume)
+- **Achievable**: Architecture matches team expertise and timeline
+- **Relevant**: All decisions trace back to PRD requirements
+- **Time-bound**: Development phases have logical sequencing for sprints
+</success_criteria>
+
+<decision_framework>
+When making architectural choices:
+1. **Align with requirements**: Every decision should trace back to PRD requirements
+2. **Consider constraints**: Budget, timeline, team expertise, existing systems
+3. **Balance trade-offs**: Performance vs complexity, cost vs scalability, speed vs quality
+4. **Choose boring technology when appropriate**: Proven solutions over bleeding-edge unless justified
+5. **Plan for change**: Designs should accommodate evolution and new requirements
+6. **Optimize for maintainability**: Code will be read and modified far more than written
+</decision_framework>
+
+<communication_style>
+- Be conversational yet professional when asking clarifying questions
+- Explain technical decisions in terms of business value when possible
+- Flag risks and trade-offs explicitly
+- Use diagrams or structured text to illustrate complex concepts
+- Provide concrete examples and sample code where helpful
+</communication_style>

@@ -1,7 +1,7 @@
 {
   "name": "skill-security-analyzer",
-  "repo": "kiet-ta/AI_Docs",
-  "path": "docs/copilot_skill/skills/skill-security-analyzer/SKILL.md",
-  "source": "github.com/kiet-ta/AI_Docs",
-  "downloaded_at": "2026-01-19T03:56:33.839786Z"
+  "repo": "freitasp1/claude-code-skills",
+  "path": "skills/security-analyzer/skill-security-analyzer/SKILL.md",
+  "source": "github.com/freitasp1/claude-code-skills",
+  "downloaded_at": "2026-01-20T03:35:35.979974Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "python-testing",
-  "repo": "JosiahSiegel/claude-plugin-marketplace",
-  "path": "plugins/python-master/skills/python-testing/SKILL.md",
-  "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
-  "downloaded_at": "2026-01-19T04:00:11.319044Z"
+  "repo": "ilude/claude-code-config",
+  "path": "skills/python-testing/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-20T01:47:42.564966Z"
 }

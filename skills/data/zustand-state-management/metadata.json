@@ -1,7 +1,7 @@
 {
   "name": "zustand-state-management",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/zustand-state-management/skills/zustand-state-management/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-19T03:47:48.536354Z"
+  "repo": "jackspace/ClaudeSkillz",
+  "path": "skills/zustand-state-management/SKILL.md",
+  "source": "github.com/jackspace/ClaudeSkillz",
+  "downloaded_at": "2026-01-20T03:10:25.181585Z"
 }

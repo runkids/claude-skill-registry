@@ -1,7 +1,7 @@
 {
   "name": "cicd-patterns",
-  "repo": "antoineschaller/cortex-skills",
+  "repo": "JaveedIshaq/ai-workflow-orchestrator",
   "path": "templates/skills/cicd-patterns/SKILL.md",
-  "source": "github.com/antoineschaller/cortex-skills",
-  "downloaded_at": "2026-01-19T03:24:14.287780Z"
+  "source": "github.com/JaveedIshaq/ai-workflow-orchestrator",
+  "downloaded_at": "2026-01-20T03:07:07.365096Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "doc-generator",
-  "repo": "ainexllc/ainexsuite",
-  "path": ".claude/skills/doc-generator/SKILL.md",
-  "source": "github.com/ainexllc/ainexsuite",
-  "downloaded_at": "2026-01-19T04:03:26.993196Z"
+  "repo": "luongnv89/claude-howto",
+  "path": "03-skills/doc-generator/SKILL.md",
+  "source": "github.com/luongnv89/claude-howto",
+  "downloaded_at": "2026-01-20T04:06:47.630958Z"
 }

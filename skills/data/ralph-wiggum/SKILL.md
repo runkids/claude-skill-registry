@@ -1,169 +1,297 @@
 ---
 name: ralph-wiggum
-description: Implements the Ralph Wiggum autonomous iteration technique with deliberate context management. Use when building greenfield projects, iterating on well-defined tasks, or when continuous autonomous development is needed. Manages context like memory - tracks allocations, prevents redlining, and knows when to start fresh.
-license: MIT
-compatibility: Designed for Cursor (nightly). Requires bash, jq, git.
-metadata:
-  author: Based on Geoffrey Huntley's Ralph technique
-  version: "1.0.0"
-  original: https://ghuntley.com/ralph/
+description: Autonomous AI coding loop for unattended development - lets Claude work continuously on tasks while you sleep, with mandatory sandbox enforcement for safety
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Task
+  - TodoWrite
 ---
 
-# Ralph Wiggum: Autonomous Iteration with Context Engineering
+# Ralph Wiggum Mode
 
-Ralph is a technique for autonomous AI development. In its purest form, Ralph is a loop that repeatedly feeds the same prompt to an AI agent, letting it iterate on a task until completion. The key insight is that **context is like memory** - when you `malloc()` data into the context window, it cannot be `free()`'d except by starting fresh.
+"Me fail English? That's unpossible!" - Ralph Wiggum
 
-## Core Philosophy
+Ralph Wiggum Mode is an autonomous AI coding loop that enables Claude Code to work continuously on tasks without human intervention. Named after the persistently optimistic Simpsons character, this technique lets Claude work "overnight shifts" while you sleep.
 
-> "That's the beauty of Ralph - the technique is deterministically bad in an undeterministic world."
+## Key Principle
 
-Ralph will make mistakes. That's expected. Each mistake is an opportunity to add a "sign" (guardrail) that prevents that mistake in the future. Like tuning a guitar, you adjust Ralph until it plays the right notes.
+**Progress persists in files and git, not in the LLM's context window.**
 
-### The malloc/free Metaphor
+When context fills up, the loop restarts Claude with fresh context. The new instance picks up from the filesystem state (your code, git history, and task tracking files).
 
-- **Context is memory**: Everything loaded into the LLM's context window stays there
-- **You cannot free() context**: The only way to clear context is to start a new conversation
-- **One task per context**: Mixed concerns lead to autoregressive failure
-- **Don't redline**: Pushing context to limits degrades performance
-- **Gutter detection**: Once the bowling ball is in the gutter, start fresh
+## When to Use This Skill
 
-## How This Skill Works
+Use Ralph Wiggum mode for:
+- Overnight feature development
+- Bug bashes (fixing multiple issues)
+- Test coverage improvement
+- Refactoring large codebases
+- Documentation generation
+- Any multi-step task you'd like completed while away
 
-### State Files (The Persistent Memory)
+## Security Model
 
-Ralph tracks state in files, NOT in context:
+**CRITICAL: Ralph requires a sandboxed environment.**
+
+Ralph uses `--dangerously-skip-permissions` which can:
+- Delete files without confirmation
+- Read credentials (~/.ssh, ~/.aws)
+- Make network requests
+- Run arbitrary commands
+
+**Ralph will REFUSE to start unless it detects:**
+- Container environment (Docker/Kubernetes)
+- Network isolation (cannot reach internet)
+- Non-root user
+- No access to sensitive paths
+
+## Quick Start
+
+### 1. Initialize Ralph in Your Project
+
+```bash
+# Run the init script to scaffold Ralph files
+./ralph-init.sh
+```
+
+This creates:
+- `RALPH_PROMPT.md` - The prompt fed to Claude each iteration
+- `IMPLEMENTATION_PLAN.md` - Task tracking file
+- `ralph.sh` - The main loop script
+- `ralph-sandbox.sh` - Docker wrapper
+- `Dockerfile.ralph` - Sandbox container definition
+
+### 2. Define Your Work
+
+```bash
+# Create specs directory for requirements
+mkdir -p specs
+
+# Write your requirements
+cat > specs/my-feature.md << 'EOF'
+## Feature: User Dashboard
+
+### Requirements
+- Show user's recent activity
+- Display usage statistics
+- Allow date range filtering
+EOF
+
+# Update the implementation plan
+cat > IMPLEMENTATION_PLAN.md << 'EOF'
+## Tasks
+
+- [ ] Create Dashboard component
+- [ ] Add activity feed API endpoint
+- [ ] Implement date range picker
+- [ ] Write tests for dashboard
+EOF
+```
+
+### 3. Run Ralph (In Sandbox)
+
+```bash
+# Recommended: Use the Docker wrapper
+./ralph-sandbox.sh
+
+# With iteration limit
+./ralph-sandbox.sh . 20
+
+# Check progress from another terminal
+tail -f ralph.log
+git log --oneline -10
+```
+
+### 4. Review Results
+
+```bash
+# See what Ralph did
+git log --oneline
+
+# Check task completion
+cat IMPLEMENTATION_PLAN.md
+
+# Verify tests pass
+pytest
+```
+
+## How It Works
 
 ```
-.ralph/
-├── state.md           # Current iteration, task, completion criteria
-├── guardrails.md      # Accumulated "signs" from observed failures  
-├── context-log.md     # What's been loaded into context
-├── failures.md        # Failure patterns for learning
-└── progress.md        # What's been accomplished
+┌─────────────────────────────────────────────────────────────────┐
+│                    EXTERNAL BASH LOOP                            │
+│                                                                  │
+│   while :; do                                                    │
+│       ┌─────────────────────────────────────────────────┐       │
+│       │           CLAUDE SESSION                         │       │
+│       │                                                  │       │
+│       │  1. Read RALPH_PROMPT.md                        │       │
+│       │  2. Check IMPLEMENTATION_PLAN.md                │       │
+│       │  3. Pick a task, implement it                   │       │
+│       │  4. Run tests, commit changes                   │       │
+│       │  5. Context fills → Session ends                │       │
+│       └─────────────────────────────────────────────────┘       │
+│                           ↓                                      │
+│       Git commit saves progress                                  │
+│       Loop restarts with fresh context                           │
+│   done                                                           │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-### The Iteration Cycle
+## Files Reference
 
-1. **Read state files** to understand current task and progress
-2. **Check guardrails** for relevant "signs" to follow
-3. **Work on the task** - implement, test, refine
-4. **Update progress** in files (not just context)
-5. **Commit checkpoint** via git
-6. **Evaluate completion** against criteria
-7. **If not complete**: Signal for next iteration
-8. **If stuck**: Detect gutter, suggest fresh context
+### RALPH_PROMPT.md
 
-### Guardrails ("Signs")
-
-When Ralph makes a mistake, add a sign:
+The prompt loaded each iteration. Customize this for your use case:
 
 ```markdown
-## Sign: Don't Jump Off The Slide
-- **Trigger**: When implementing authentication
-- **Instruction**: Always validate tokens before trusting claims
-- **Added after**: Iteration 5 - security vulnerability introduced
+# Ralph Mode Instructions
+
+You are operating in autonomous Ralph mode.
+
+## Each Iteration
+1. Read IMPLEMENTATION_PLAN.md and git log
+2. Pick ONE pending task, mark it in-progress
+3. Implement fully with tests
+4. Mark complete, commit changes
+
+## Rules
+- Never skip tests
+- Commit after each meaningful change
+- If blocked, document why and continue
 ```
 
-Signs accumulate in `guardrails.md` and are injected into future iterations.
+### IMPLEMENTATION_PLAN.md
 
-## Usage
-
-### Starting a Ralph Loop
-
-Create a `RALPH_TASK.md` file in your project root:
+Persistent task tracking (survives context resets):
 
 ```markdown
----
-task: Build a REST API for task management
-completion_criteria:
-  - All CRUD endpoints working
-  - Input validation implemented
-  - Tests passing with >80% coverage
-  - API documentation complete
-max_iterations: 50
----
+## Tasks
 
-## Requirements
-
-Build a task management API with the following endpoints:
-- POST /tasks - Create a task
-- GET /tasks - List all tasks
-- GET /tasks/:id - Get a task
-- PUT /tasks/:id - Update a task
-- DELETE /tasks/:id - Delete a task
-
-## Constraints
-
-- Use TypeScript
-- Use Express.js
-- Use SQLite for storage
-- Follow REST conventions
+- [x] Task 1 (completed in iteration 1)
+- [x] Task 2 (completed in iteration 2)
+- [ ] Task 3 (in progress)
+- [ ] Task 4 (pending)
 ```
 
-Then tell Cursor: "Start a Ralph loop on this task"
+### ralph.sh
 
-### Monitoring Progress
+The main loop with sandbox enforcement. Key features:
+- Refuses to run outside sandbox
+- Configurable iteration limits
+- Git commits after each iteration
+- Graceful shutdown handling
 
-Check `.ralph/progress.md` to see what's been accomplished:
+### ralph-sandbox.sh
 
-```markdown
-## Iteration 1
-- Created project structure
-- Implemented POST /tasks endpoint
-- Status: Partial progress
+Docker wrapper that:
+- Builds sandbox image if needed
+- Mounts only project directory
+- Disables network (`--network none`)
+- Sets resource limits (memory, CPU, PIDs)
+- Drops all capabilities
 
-## Iteration 2
-- Added GET endpoints
-- Fixed validation bug
-- Status: Continuing
+## Configuration
+
+### Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `RALPH_MAX_ITERATIONS` | `0` (unlimited) | Stop after N iterations |
+| `RALPH_MODEL` | `sonnet` | Claude model to use |
+| `RALPH_COST_LIMIT` | `50.00` | Max spend in USD (with cost monitor hook) |
+| `ANTHROPIC_API_KEY` | optional | API key (not needed with Claude Code subscription) |
+
+### Sandbox Override (Dangerous)
+
+Only for custom sandbox environments you've verified:
+
+```bash
+RALPH_I_KNOW_WHAT_IM_DOING=sandboxed ./ralph.sh
 ```
-
-### When to Start Fresh
-
-Ralph will detect "gutter" situations:
-- Same error repeated 3+ times
-- Context approaching limits
-- Circular failure patterns
-
-When detected, Ralph will suggest: "Context is polluted. Recommend starting fresh conversation."
 
 ## Best Practices
 
-### 1. Clear Completion Criteria
+### Prompt Engineering
 
-❌ Bad: "Make a good API"
-✅ Good: "All tests passing, coverage >80%, docs complete"
+1. **Be specific** - Tell Claude exactly what to do each iteration
+2. **Single task focus** - "Pick ONE task" prevents context bloat
+3. **Require tests** - Include testing in the prompt
+4. **Track progress** - Use IMPLEMENTATION_PLAN.md as shared state
 
-### 2. Incremental Goals
+### Task Decomposition
 
-❌ Bad: "Build complete e-commerce platform"
-✅ Good: Phase 1: Auth, Phase 2: Products, Phase 3: Cart
+Break large tasks into small, atomic pieces:
 
-### 3. Let Failures Teach
+```markdown
+## Bad
+- [ ] Implement user authentication
 
-Don't intervene too quickly. Let Ralph fail, then add signs.
+## Good
+- [ ] Create User model with email, password_hash
+- [ ] Add POST /api/register endpoint
+- [ ] Add POST /api/login endpoint
+- [ ] Add password reset flow
+- [ ] Add JWT middleware
+- [ ] Write auth tests
+```
 
-### 4. Trust the Files
+### Monitoring
 
-Progress is in files and git, not in your head or the context.
+```bash
+# Watch iterations in real-time
+tail -f ralph.log
 
-### 5. Fresh Context is Cheap
+# Check commits
+watch -n 5 'git log --oneline -10'
 
-Don't hesitate to start fresh. State persists in files.
+# Monitor resource usage
+docker stats
+```
 
-## Integration with Cursor Hooks
+## Safety Hooks (Recommended)
 
-This skill uses Cursor hooks for:
+Install these hooks for additional safety:
 
-- **beforeSubmitPrompt**: Inject guardrails and context awareness
-- **beforeReadFile**: Track context allocations
-- **afterFileEdit**: Update progress tracking
-- **stop**: Evaluate completion, trigger next iteration or fresh start
+```bash
+# Block dangerous operations
+skillz hooks install ralph-safety-check
 
-See `scripts/` for hook implementations.
+# Track API costs
+skillz hooks install ralph-cost-monitor
+```
 
-## Learn More
+## Troubleshooting
 
-- Original technique: https://ghuntley.com/ralph/
-- Context engineering: https://ghuntley.com/gutter/
-- malloc/free metaphor: https://ghuntley.com/allocations/
+### Ralph won't start
+
+Check sandbox detection output. You need at least 3 checks passing:
+- Container detected
+- Network isolated
+- Non-root user
+- No sensitive path access
+
+### Ralph gets stuck on a task
+
+1. Check `ralph.log` for errors
+2. Update `IMPLEMENTATION_PLAN.md` to unblock
+3. Add clarifying notes to `RALPH_PROMPT.md`
+
+### Runaway iterations
+
+Set `MAX_ITERATIONS` or use the cost monitor hook:
+
+```bash
+./ralph-sandbox.sh . 20  # Stop after 20 iterations
+```
+
+## References
+
+- [Original Ralph Wiggum Technique](https://github.com/ghuntley/how-to-ralph-wiggum)
+- [Geoffrey Huntley's Blog](https://ghuntley.com/ralph/)
+- [VentureBeat Coverage](https://venturebeat.com/technology/how-ralph-wiggum-went-from-the-simpsons-to-the-biggest-name-in-ai-right-now)

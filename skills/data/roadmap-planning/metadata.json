@@ -1,12 +1,7 @@
 {
   "name": "roadmap-planning",
-  "description": "Use when planning strategic roadmaps across the autonomous startups.studio ecosystem - creates hierarchical beads issues across repos/submodules from top-level vision down to component sub-roadmaps fo",
-  "repo": "dot-do/todo.mdx",
-  "category": "development",
-  "tags": [
-    "roadmap",
-    "planning"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "AmnadTaowsoam/cerebratechai-claude-skills",
+  "path": "49-portfolio-management/roadmap-planning/SKILL.md",
+  "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
+  "downloaded_at": "2026-01-20T02:40:49.482189Z"
 }

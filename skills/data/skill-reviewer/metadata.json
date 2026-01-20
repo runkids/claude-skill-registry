@@ -1,7 +1,7 @@
 {
   "name": "skill-reviewer",
-  "repo": "jovermier/claude-code-plugins-ip-labs",
-  "path": "plugins/dev/skills/skill-reviewer/SKILL.md",
-  "source": "github.com/jovermier/claude-code-plugins-ip-labs",
-  "downloaded_at": "2026-01-19T03:04:50.082805Z"
+  "repo": "goldeneggg/dotfiles",
+  "path": "claude-linux/.claude/skills/skill-reviewer/SKILL.md",
+  "source": "github.com/goldeneggg/dotfiles",
+  "downloaded_at": "2026-01-20T03:26:16.821756Z"
 }

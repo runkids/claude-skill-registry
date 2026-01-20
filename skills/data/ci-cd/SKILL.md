@@ -1,349 +1,378 @@
+# CI/CD Pipeline Skill
+
+> **Category**: Operations
+> **Last Updated**: January 2026
+
 ---
-name: ci-cd
-description: Designs and implements CI/CD pipelines for automated testing, building, and deployment. Trigger keywords: ci/cd, pipeline, github actions, gitlab ci, jenkins, deployment, workflow, automation.
-allowed-tools: Read, Grep, Glob, Edit, Write, Bash
+
+## Purpose
+
+Document and interact with GitHub Actions CI/CD workflows. Provides guidance on checking build status, understanding pipeline stages, and integrating with deployment workflows.
+
 ---
 
-# CI/CD
+## Key Terminology
 
-## Overview
+Understanding the distinction between CI, deployment, and sync:
 
-This skill covers continuous integration and deployment pipeline design across various platforms including GitHub Actions, GitLab CI, and Jenkins. It focuses on automation, testing, and reliable deployments.
+| Term | What It Means | Workflow |
+|------|---------------|----------|
+| **CI (Continuous Integration)** | Build, test, code quality checks | `sdap-ci.yml` |
+| **Staging Deployment** | Deploy to staging environment | `deploy-staging.yml` (separate workflow) |
+| **Production Deployment** | Deploy to production | `deploy-to-azure.yml` (manual trigger) |
+| **Merge to Master** | Push changes to origin/master | Git operation (not a workflow) |
+| **Sync Main Repo** | Pull origin/master to local main repo | Git operation (needed for worktrees) |
 
-## Instructions
+### Important Distinctions
 
-### 1. Analyze Requirements
+1. **CI ≠ Staging Deployment**: CI validates code quality. Staging deployment is a *separate* workflow that runs *after* CI passes on master.
 
-- Identify build and test requirements
-- Determine deployment targets
-- Plan environment strategy
-- Define quality gates
+2. **"Merge to master" updates origin/master** but does NOT:
+   - Trigger staging deployment immediately (CI runs first)
+   - Sync the main repo's local master (must be done explicitly when using worktrees)
 
-### 2. Design Pipeline
+3. **Staging deployment triggers automatically** after CI passes on master, but may fail independently of CI.
 
-- Structure stages logically
-- Optimize for speed (parallelization)
-- Handle secrets securely
-- Plan for rollbacks
+---
 
-### 3. Implement Automation
+## Applies When
 
-- Write pipeline configuration
-- Set up testing stages
-- Configure deployment steps
-- Add notifications
+- Checking CI status after pushing code
+- Waiting for build/test results before merging
+- Troubleshooting failed workflows
+- Understanding deployment pipeline
+- **Trigger phrases**: "check CI", "build status", "workflow failed", "deployment status", "CI/CD"
 
-### 4. Ensure Reliability
+---
 
-- Add retry logic
-- Implement health checks
-- Configure alerts
-- Document procedures
+## Quick Reference
 
-## Best Practices
+### Check CI Status
 
-1. **Fail Fast**: Run quick checks early
-2. **Parallelize**: Run independent jobs concurrently
-3. **Cache Dependencies**: Speed up builds
-4. **Secure Secrets**: Use vault/secret managers
-5. **Environment Parity**: Keep environments similar
-6. **Immutable Artifacts**: Build once, deploy everywhere
-7. **Automated Rollback**: Have recovery procedures
+```powershell
+# Check all checks for current PR
+gh pr checks
 
-## Examples
+# Check specific PR
+gh pr checks 123
 
-### Example 1: GitHub Actions Workflow
+# View workflow run details
+gh run view
 
-```yaml
-name: CI/CD Pipeline
+# List recent workflow runs
+gh run list --limit 5
 
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-
-env:
-  NODE_VERSION: "20"
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run linter
-        run: npm run lint
-
-  test:
-    runs-on: ubuntu-latest
-    needs: lint
-    services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test -- --coverage
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test
-
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/lcov.info
-
-  build:
-    runs-on: ubuntu-latest
-    needs: test
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=sha,prefix=
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-  deploy-staging:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/develop'
-    environment: staging
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Deploy to staging
-        uses: azure/k8s-deploy@v4
-        with:
-          namespace: staging
-          manifests: |
-            k8s/deployment.yaml
-            k8s/service.yaml
-          images: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-
-  deploy-production:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    environment: production
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Deploy to production
-        uses: azure/k8s-deploy@v4
-        with:
-          namespace: production
-          manifests: |
-            k8s/deployment.yaml
-            k8s/service.yaml
-          images: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          strategy: canary
-          percentage: 20
+# Watch a running workflow
+gh run watch
 ```
 
-### Example 2: GitLab CI Pipeline
+### Common Actions
 
-```yaml
-stages:
-  - validate
-  - test
-  - build
-  - deploy
+| Action | Command |
+|--------|---------|
+| View PR checks | `gh pr checks` |
+| View run details | `gh run view {run-id}` |
+| Download artifacts | `gh run download {run-id}` |
+| Re-run failed jobs | `gh run rerun {run-id} --failed` |
+| Cancel a run | `gh run cancel {run-id}` |
+| Trigger workflow manually | `gh workflow run {workflow-name}` |
 
-variables:
-  DOCKER_TLS_CERTDIR: "/certs"
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+---
 
-.node-base:
-  image: node:20-alpine
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - node_modules/
+## GitHub Workflows Overview
 
-lint:
-  stage: validate
-  extends: .node-base
-  script:
-    - npm ci
-    - npm run lint
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_COMMIT_BRANCH == "main"
+### Primary CI Pipeline: `sdap-ci.yml`
 
-test:
-  stage: test
-  extends: .node-base
-  services:
-    - postgres:16
-  variables:
-    POSTGRES_DB: test
-    POSTGRES_USER: runner
-    POSTGRES_PASSWORD: runner
-    DATABASE_URL: postgresql://runner:runner@postgres:5432/test
-  script:
-    - npm ci
-    - npm test -- --coverage
-  coverage: '/Lines\s*:\s*(\d+\.?\d*)%/'
-  artifacts:
-    reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: coverage/cobertura-coverage.xml
-      junit: junit.xml
+**Triggers**: Push to `main`/`master`, Pull requests
 
-build:
-  stage: build
-  image: docker:24
-  services:
-    - docker:24-dind
-  script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_COMMIT_BRANCH == "develop"
+| Job | Purpose | Blocking? |
+|-----|---------|-----------|
+| `security-scan` | Trivy vulnerability scanner | Yes |
+| `build-test` | Build + test (Debug & Release) | Yes |
+| `code-quality` | Format check, ADR tests, plugin size, dependencies | Yes |
+| `integration-readiness` | Package artifacts for deployment | Yes |
+| `adr-pr-comment` | Post ADR violations to PR (non-blocking) | No |
+| `summary` | Pipeline summary report | No |
 
-deploy-staging:
-  stage: deploy
-  image: bitnami/kubectl:latest
-  script:
-    - kubectl set image deployment/app app=$IMAGE_TAG -n staging
-    - kubectl rollout status deployment/app -n staging --timeout=300s
-  environment:
-    name: staging
-    url: https://staging.example.com
-  rules:
-    - if: $CI_COMMIT_BRANCH == "develop"
+**Key Checks**:
+- Trivy security scan uploads to GitHub Security tab
+- `dotnet format --verify-no-changes` for code style
+- NetArchTest ADR validation (`Spaarke.ArchTests`)
+- Plugin assembly size limit (1MB per ADR-002)
+- Vulnerable package detection
 
-deploy-production:
-  stage: deploy
-  image: bitnami/kubectl:latest
-  script:
-    - kubectl set image deployment/app app=$IMAGE_TAG -n production
-    - kubectl rollout status deployment/app -n production --timeout=300s
-  environment:
-    name: production
-    url: https://example.com
-  when: manual
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+### Deployment: `deploy-to-azure.yml`
+
+**Triggers**: Manual (`workflow_dispatch`), After `sdap-ci.yml` succeeds on master
+
+| Job | Purpose |
+|-----|---------|
+| `deploy-infrastructure` | Deploy Bicep templates to Azure |
+| `deploy-api` | Deploy BFF API to App Service |
+| `smoke-test` | Verify `/ping` endpoint responds |
+| `notify` | Deployment summary |
+
+**Prerequisites**:
+- Azure OIDC authentication configured
+- `AZURE_CLIENT_ID`, `AZURE_SUBSCRIPTION_ID`, `AZURE_TENANT_ID` secrets set
+- Environment: `production`
+
+### Staging Deployment: `deploy-staging.yml`
+
+**Triggers**: Manual, After `sdap-ci.yml` succeeds on master
+
+| Job | Purpose |
+|-----|---------|
+| `deploy-api` | Deploy API to staging App Service |
+| `deploy-plugins` | Deploy Dataverse plugins via PAC CLI |
+| `integration-tests` | Run integration tests against staging |
+| `notify` | Deployment summary |
+
+**Prerequisites**:
+- `STAGING_APP_NAME` secret configured
+- `POWER_PLATFORM_*` secrets for plugin deployment
+- Environment: `staging`
+
+### ADR Compliance Audit: `adr-audit.yml`
+
+**Triggers**: Manual, Weekly (Monday 9 AM UTC)
+
+| Job | Purpose |
+|-----|---------|
+| `audit` | Run NetArchTest ADR validations |
+| | Parse results and create/update tracking issue |
+
+**Behavior**:
+- Creates GitHub issue with `architecture`, `technical-debt`, `adr-audit` labels
+- Updates existing issue if open
+- Closes issue automatically when all violations resolved
+- Groups violations by ADR number
+
+### Supporting Workflows
+
+| Workflow | Purpose | Triggers |
+|----------|---------|----------|
+| `build-only.yml` | Simple build + artifact upload | Push to main, manual |
+| `dotnet.yml` | .NET build validation | (Legacy) |
+| `test.yml` | Test runner | (Legacy) |
+| `auto-add-to-project.yml` | Auto-add issues/PRs to GitHub Project | Issue/PR events |
+
+---
+
+## Workflow Integration Points
+
+### Before Merging a PR
+
+```
+1. Push changes (triggers sdap-ci.yml)
+2. Wait for all checks to pass:
+   gh pr checks --watch
+3. Review any ADR violation comments
+4. Merge when all checks green
 ```
 
-### Example 3: Reusable Workflow (GitHub Actions)
+### After Merge to Master
 
-```yaml
-# .github/workflows/reusable-deploy.yml
-name: Reusable Deploy Workflow
+```
+1. sdap-ci.yml runs on master
+2. If successful, deploy-staging.yml triggers automatically
+3. Monitor staging deployment:
+   gh run list --workflow=deploy-staging.yml
+4. Verify staging health:
+   curl https://{staging-app}.azurewebsites.net/ping
+```
 
-on:
-  workflow_call:
-    inputs:
-      environment:
-        required: true
-        type: string
-      image-tag:
-        required: true
-        type: string
-    secrets:
-      KUBE_CONFIG:
-        required: true
+### Manual Production Deployment
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+```
+1. Verify staging is healthy
+2. Trigger production deployment:
+   gh workflow run deploy-to-azure.yml
+3. Monitor deployment:
+   gh run watch
+4. Verify production health:
+   curl https://{prod-app}.azurewebsites.net/ping
+```
 
-    steps:
-      - uses: actions/checkout@v4
+---
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
+## CI/CD Workflow Diagram
 
-      - name: Configure kubeconfig
-        run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Developer Workflow                        │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  /push-to-github                                                 │
+│  - Code review, ADR check (local)                               │
+│  - Commit and push                                               │
+│  - Create PR                                                     │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  sdap-ci.yml (Automatic on PR/Push)                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
+│  │ security-scan│  │ build-test   │  │ code-quality │          │
+│  │ (Trivy)      │  │ (Debug/Rel)  │  │ (ADR, format)│          │
+│  └──────────────┘  └──────────────┘  └──────────────┘          │
+│         │                  │                  │                  │
+│         └──────────────────┼──────────────────┘                  │
+│                            ▼                                     │
+│                ┌──────────────────────┐                         │
+│                │ integration-readiness │                         │
+│                │ (Package artifacts)   │                         │
+│                └──────────────────────┘                         │
+│                            │                                     │
+│         ┌──────────────────┼──────────────────┐                 │
+│         ▼                  ▼                  ▼                  │
+│  ┌────────────┐    ┌────────────┐    ┌────────────┐            │
+│  │adr-pr-comm │    │  summary   │    │ artifacts  │            │
+│  │(PR comment)│    │  (report)  │    │ (30 days)  │            │
+│  └────────────┘    └────────────┘    └────────────┘            │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              │ (on master merge)
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  deploy-staging.yml (Automatic after CI success)                │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
+│  │ deploy-api   │─▶│deploy-plugins│─▶│ integration  │          │
+│  │ (App Service)│  │ (PAC CLI)    │  │ tests        │          │
+│  └──────────────┘  └──────────────┘  └──────────────┘          │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              │ (manual trigger)
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  deploy-to-azure.yml (Manual production deployment)             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
+│  │ deploy-infra │─▶│ deploy-api   │─▶│ smoke-test   │          │
+│  │ (Bicep)      │  │ (App Service)│  │ (/ping)      │          │
+│  └──────────────┘  └──────────────┘  └──────────────┘          │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-      - name: Deploy
-        run: |
-          kubectl set image deployment/app \
-            app=${{ inputs.image-tag }} \
-            -n ${{ inputs.environment }}
+---
 
-          kubectl rollout status deployment/app \
-            -n ${{ inputs.environment }} \
-            --timeout=300s
+## Troubleshooting
 
-      - name: Verify deployment
-        run: |
-          kubectl get pods -n ${{ inputs.environment }} -l app=app
-          kubectl logs -n ${{ inputs.environment }} -l app=app --tail=50
+### Common CI Failures
+
+| Failure | Cause | Fix |
+|---------|-------|-----|
+| `security-scan` | Vulnerable dependency | Update package or add to allowlist |
+| `build-test` | Compilation error | Fix code errors locally |
+| `code-quality` format | Code style violation | Run `dotnet format` locally |
+| `code-quality` ADR | Architecture violation | Run `/adr-check` locally, fix violations |
+| `code-quality` plugin size | Plugin >1MB | Reduce dependencies per ADR-002 |
+| `code-quality` vulnerable | Package vulnerability | Update or replace vulnerable package |
+
+### View Detailed Logs
+
+```powershell
+# Get run ID from list
+gh run list --workflow=sdap-ci.yml
+
+# View full logs
+gh run view {run-id} --log
+
+# View specific job logs
+gh run view {run-id} --log --job={job-id}
+
+# Download logs
+gh run view {run-id} --log > ci-logs.txt
+```
+
+### Re-run Failed Jobs
+
+```powershell
+# Re-run only failed jobs
+gh run rerun {run-id} --failed
+
+# Re-run entire workflow
+gh run rerun {run-id}
+```
+
+---
+
+## Required Secrets
+
+### CI Pipeline (sdap-ci.yml)
+No secrets required - runs in read-only mode.
+
+### Staging Deployment
+| Secret | Purpose |
+|--------|---------|
+| `AZURE_CLIENT_ID` | Azure OIDC app ID |
+| `AZURE_SUBSCRIPTION_ID` | Azure subscription |
+| `AZURE_TENANT_ID` | Azure AD tenant |
+| `STAGING_APP_NAME` | App Service name |
+| `POWER_PLATFORM_URL` | Dataverse environment URL |
+| `POWER_PLATFORM_CLIENT_ID` | Dataverse app ID |
+| `POWER_PLATFORM_CLIENT_SECRET` | Dataverse app secret |
+| `STAGING_TEST_CLIENT_ID` | Integration test credentials |
+| `STAGING_TEST_CLIENT_SECRET` | Integration test credentials |
+
+### Production Deployment
+| Secret | Purpose |
+|--------|---------|
+| `AZURE_CLIENT_ID` | Azure OIDC app ID |
+| `AZURE_SUBSCRIPTION_ID` | Azure subscription |
+| `AZURE_TENANT_ID` | Azure AD tenant |
+| `AZURE_RESOURCE_GROUP` | Target resource group |
+| `AZURE_APP_SERVICE_NAME` | App Service name |
+
+---
+
+## Integration with Skills
+
+| Skill | CI/CD Integration |
+|-------|-------------------|
+| `push-to-github` | After push, check `gh pr checks` before merge |
+| `adr-check` | Local validation mirrors `code-quality` ADR tests |
+| `azure-deploy` | Manual deployment uses same process as `deploy-to-azure.yml` |
+| `dataverse-deploy` | Plugin deployment mirrors `deploy-staging.yml` |
+| `code-review` | Quality gates run same checks as `code-quality` job |
+
+---
+
+## Related Skills
+
+- `push-to-github` - Push code and create PRs
+- `pull-from-github` - Pull latest changes
+- `azure-deploy` - Manual Azure deployments
+- `dataverse-deploy` - Manual Dataverse deployments
+- `adr-check` - Local ADR validation
+
+---
+
+## Tips for AI
+
+- Always check `gh pr checks` before suggesting merge
+- If CI fails, read logs with `gh run view {id} --log` before suggesting fixes
+- ADR violations in CI mirror local `/adr-check` - use same fix guidance
+- Staging deploys automatically after master merge - no manual trigger needed
+- Production deployment requires manual trigger - never auto-deploy to prod
+- Use `gh run watch` to monitor long-running deployments
+
+### Worktree Considerations
+
+- After merging to master from a worktree, **always sync the main repo**
+- CI passing does NOT mean the main repo is synced - these are separate concerns
+- When user asks to "merge to master and sync", ensure BOTH operations complete:
+  1. Push to origin/master (triggers CI → staging)
+  2. Pull origin/master to main repo's local master
+- Report full status: CI status, staging deployment status, AND main repo sync status
+
+### Complete Merge Flow (Worktree)
+
+```
+1. Push branch:master → updates origin/master
+2. CI runs on master → monitor with gh run watch
+3. If CI passes → staging deployment triggers automatically
+4. Sync main repo → cd {main-repo} && git pull origin master
+5. Report all statuses to user
 ```

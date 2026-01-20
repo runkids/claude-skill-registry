@@ -88,63 +88,14 @@ Stage 4: Go/No-Go Decision
 Stage 5: Generate Report & Signal
 ```
 
-## MCP Browser Tools Integration
-
-This skill leverages Playwright MCP browser tools for automated E2E testing:
-
-```yaml
-required_tools:
-  - browser_navigate: Navigate to application pages
-  - browser_click: Interact with UI elements
-  - browser_type: Enter text into form fields
-  - browser_fill_form: Complete multi-field forms
-  - browser_snapshot: Get accessibility tree for validation
-  - browser_take_screenshot: Capture visual state
-  - browser_evaluate: Execute custom JavaScript
-  - browser_wait_for: Wait for conditions
-  - browser_console_messages: Capture errors
-  - browser_network_requests: Monitor API calls
-```
-
-### Browser Tool Usage Patterns
-
-**User Journey Testing:**
-```
-browser_navigate → browser_snapshot → browser_click → browser_type → browser_snapshot
-```
-
-**Form Submission Testing:**
-```
-browser_navigate → browser_fill_form → browser_click (submit) → browser_wait_for → browser_snapshot
-```
-
-**Visual Regression:**
-```
-browser_navigate → browser_take_screenshot → compare with baseline
-```
-
-**Accessibility Validation:**
-```
-browser_navigate → browser_snapshot (returns accessibility tree) → validate roles/names
-```
-
-## Integrated Skills
-
-This skill coordinates with:
-
-| Skill | Purpose | Activation |
-|-------|---------|------------|
-| `VISUAL_REGRESSION_V1` | Screenshot comparison | After E2E passes |
-| `ACCESSIBILITY_AUDITOR_V1` | WCAG compliance | During E2E validation |
-
 ## E2E Test Coverage
 
 **Per workflow:**
 - ✅ Happy path
 - ✅ Error scenarios
 - ✅ Edge cases
-- ✅ Chrome, Firefox, Safari (via MCP browser tools)
-- ✅ iOS & Android viewports (via browser_resize)
+- ✅ Chrome, Firefox, Safari
+- ✅ iOS & Android viewports
 
 ## Visual Validation (PRD Section 8.3)
 

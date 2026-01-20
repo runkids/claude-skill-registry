@@ -1,7 +1,7 @@
 {
   "name": "image-generation",
-  "repo": "SherifEldeeb/agentskills",
-  "path": "skills/baseline/image-generation/SKILL.md",
-  "source": "github.com/SherifEldeeb/agentskills",
-  "downloaded_at": "2026-01-19T03:42:10.597593Z"
+  "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "path": ".claude/skills/image-generation/SKILL.md",
+  "source": "github.com/agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "downloaded_at": "2026-01-20T04:04:11.433488Z"
 }

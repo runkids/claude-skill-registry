@@ -1,81 +1,213 @@
 ---
 name: image-optimization
-description: Optimizes images for web performance using modern formats, responsive techniques, and lazy loading strategies. Use when improving page load times, implementing responsive images, or preparing assets for production deployment.
-license: MIT
+description: Optimize images for web to reduce file size without sacrificing quality. Use compression, modern formats, and responsive techniques for faster loading.
 ---
 
 # Image Optimization
 
-Optimize images for web performance with modern formats and responsive techniques.
+## Overview
 
-## Format Selection
+Images typically comprise 50% of page weight. Optimization dramatically improves performance, especially on mobile networks.
 
-| Format | Best For | Compression |
-|--------|----------|-------------|
-| JPEG | Photos | Lossy, 50-70% reduction |
-| PNG | Icons, transparency | Lossless, 10-30% |
-| WebP | Modern browsers | 25-35% better than JPEG |
-| AVIF | Next-gen | 50% better than JPEG |
-| SVG | Logos, icons | Vector, scalable |
+## When to Use
 
-## Responsive Images
+- Website optimization
+- Responsive image implementation
+- Performance improvement
+- Mobile experience enhancement
+- Before deployment
 
-```html
-<picture>
-  <source srcset="image.avif" type="image/avif">
-  <source srcset="image.webp" type="image/webp">
-  <img
-    src="image.jpg"
-    srcset="image-400.jpg 400w, image-800.jpg 800w, image-1200.jpg 1200w"
-    sizes="(max-width: 600px) 100vw, 50vw"
-    alt="Description"
-    loading="lazy"
-    decoding="async"
-  >
-</picture>
+## Instructions
+
+### 1. **Image Compression & Formats**
+
+```yaml
+Format Selection:
+
+JPEG:
+  Best for: Photographs, complex images
+  Compression: Lossy (quality 70-85)
+  Size: ~50-70% reduction
+  Tools: ImageMagick, TinyJPEG
+  Command: convert image.jpg -quality 75 optimized.jpg
+
+PNG:
+  Best for: Icons, screenshots, transparent images
+  Compression: Lossless
+  Size: 10-30% reduction
+  Tools: PNGQuant, OptiPNG
+  Command: optipng -o3 image.png
+
+WebP:
+  Best for: Modern browsers (90% support)
+  Compression: 25-35% better than JPEG/PNG
+  Fallback: Use <picture> element
+  Tools: cwebp
+  Command: cwebp -q 75 image.jpg -o image.webp
+
+SVG:
+  Best for: Icons, logos, simple graphics
+  Compression: Minify XML
+  Scalable: Works at any size
+  Tools: SVGO
+  Command: svgo image.svg --output optimized.svg
+
+---
+
+Compression Levels:
+
+Conservative (95% quality):
+  JPEG: 85-90 quality
+  PNG: Lossless
+  Use: High-value images
+
+Moderate (90% quality):
+  JPEG: 75-80 quality
+  PNG: Quantized to 256 colors
+  Use: General images
+
+Aggressive (80% quality):
+  JPEG: 60-70 quality
+  PNG: Reduced colors
+  Use: Thumbnails, backgrounds
 ```
 
-## Lazy Loading
+### 2. **Responsive Images**
 
 ```html
-<!-- Native lazy loading -->
-<img src="image.jpg" loading="lazy" alt="Description">
+<!-- Responsive image techniques -->
 
-<!-- With blur placeholder -->
+<!-- srcset: Let browser choose -->
 <img
-  src="placeholder-blur.jpg"
-  data-src="image.jpg"
-  class="lazy"
+  src="image.jpg"
+  srcset="
+    small.jpg 480w,
+    medium.jpg 768w,
+    large.jpg 1200w
+  "
+  sizes="
+    (max-width: 480px) 100vw,
+    (max-width: 768px) 90vw,
+    80vw
+  "
   alt="Description"
->
+/>
+
+<!-- picture: Format selection -->
+<picture>
+  <source srcset="image.webp" type="image/webp">
+  <source srcset="image.jpg" type="image/jpeg">
+  <img src="image.jpg" alt="Description">
+</picture>
+
+<!-- Lazy loading -->
+<img
+  src="placeholder.jpg"
+  loading="lazy"
+  alt="Description"
+/>
 ```
 
-## Build Pipeline (Sharp)
+### 3. **Optimization Process**
 
-```javascript
-const sharp = require('sharp');
+```yaml
+Workflow:
 
-async function optimizeImage(input, output) {
-  await sharp(input)
-    .resize(1200, null, { withoutEnlargement: true })
-    .webp({ quality: 80 })
-    .toFile(output);
-}
+1. Preparation
+  - Export at correct size (don't scale in HTML)
+  - Use appropriate format
+  - Batch process similar images
+
+2. Compression
+  - Lossy: TinyJPEG/TinyPNG
+  - Lossless: ImageMagick
+  - Target: <100KB for main images
+  - Thumbnails: <20KB
+
+3. Format Conversion
+  - WebP with JPEG fallback
+  - Consider PNG for transparency
+  - SVG for scalable graphics
+
+4. Implementation
+  - Use srcset for responsive
+  - Lazy load below-fold
+  - Optimize critical images first
+  - Monitor file sizes in CI/CD
+
+5. Validation
+  - Check file sizes in DevTools
+  - Test on slow networks
+  - Verify quality acceptable
+  - Measure performance impact
+
+---
+
+Quick Wins:
+
+Remove EXIF data (saves 20-50KB):
+  identify -verbose image.jpg | grep -i exif
+  convert image.jpg -strip image-clean.jpg
+
+Convert to WebP (25-35% smaller):
+  cwebp -q 75 *.jpg
+
+Batch compress with ImageMagick:
+  mogrify -quality 75 -resize 1920x1080 *.jpg
+
+Expected Results:
+  - Homepage: 850KB → 300KB images
+  - Performance: 3s → 1.5s load time
+  - Mobile: Significant improvement on 3G
 ```
 
-## Performance Targets
+### 4. **Monitoring & Best Practices**
 
-| Asset Type | Target Size |
-|------------|-------------|
-| Hero image | <200KB |
-| Thumbnail | <30KB |
-| Total images | <500KB |
+```yaml
+Performance Targets:
 
-## Optimization Checklist
+Hero Image: <200KB
+Thumbnail: <30KB
+Icon: <5KB
+Total images: <500KB
+Target gzipped: <300KB
 
-- [ ] Use WebP with JPEG fallback
-- [ ] Implement responsive srcset
-- [ ] Enable lazy loading for below-fold
-- [ ] Compress at quality 70-85
-- [ ] Serve from CDN
-- [ ] Set proper cache headers
+Tools:
+  - ImageOptim (Mac)
+  - ImageMagick (CLI)
+  - TinyJPEG/TinyPNG (web)
+  - Squoosh (web)
+  - Lighthouse (audit)
+
+Checklist:
+  [ ] All images optimized
+  [ ] WebP with fallback
+  [ ] Responsive srcset
+  [ ] Lazy loading implemented
+  [ ] Correct format per image
+  [ ] File size <100KB each
+  [ ] Benchmarks established
+  [ ] Monitoring in place
+  [ ] Documented process
+
+Tips:
+  - Optimize before uploading
+  - Use CDN with image optimization
+  - Consider Image CDN (Imgix, Cloudinary)
+  - Batch process during build
+  - Monitor image additions
+  - Test real devices on 3G
+```
+
+## Key Points
+
+- JPEG for photos, PNG for graphics, SVG for icons
+- WebP saves 25-35% vs JPEG/PNG
+- Responsive images adapt to device
+- Lazy loading defers off-screen images
+- Remove EXIF and metadata
+- Batch optimize before deployment
+- Monitor image file sizes
+- Measure performance impact
+- Set strict targets per image type
+- Use image CDN for global optimization

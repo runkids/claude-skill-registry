@@ -1,77 +1,53 @@
----
 name: sql
-description: Run SQL queries against the WordPress development database. Use when querying database tables, inspecting Simple History events, checking WordPress data, or debugging database issues.
+description: Query the fact/dim schemas in Postgres from any shell
 ---
 
-# Run SQL Queries
+# sql CLI
 
-You are tasked with running SQL queries against the WordPress development database.
+`sql` is a thin wrapper around `psql` that already knows the warehouse DSN. Use it when you are done exploring tables via the `subjects`/`tables` skills and want to slice the loaded tables inside Postgres.
 
-## Prerequisites
+The loaders in `varro/data/disk_to_db/*` create:
 
-- Database credentials are stored in `CLAUDE.local.md` under "Database Access"
-- Docker compose services must be running
-- Commands must be run from the docker-compose project directory
+- `fact.<table_id>`: processed denmark statistics fact tables (lower-case, ASCII-safe columns, `tid` parsed to dates/quarters).
+- `dim.<dimension_id>`: dimension tables with the standard `kode`, `niveau`, `titel` columns. 
 
-## Command Pattern
+## Quick start
 
 ```bash
-docker compose exec mariadb mysql -u<USER> -p<PASSWORD> <DATABASE> -e "YOUR_SQL_HERE"
+sql "\conninfo"                                   # confirm DSN
+sql "\dn"                                         # list schemas (fact, dim, public)
+sql "\d+ fact.folk1a"                             # describe table, comments include dim links
+sql "SET search_path TO fact, dim, public; SELECT * FROM folk1a LIMIT 5;"
 ```
 
-Refer to `CLAUDE.local.md` for the actual credentials and connection details.
+## Run ad-hoc analysis
 
-## Examples
-
-### Show all tables
 ```bash
-docker compose exec mariadb mysql -u<USER> -p<PASSWORD> <DATABASE> -e "SHOW TABLES;"
+# Fact slice
+sql "SELECT tid, omrade, indhold FROM fact.folk1a WHERE kon = 1 ORDER BY tid DESC LIMIT 10;"
+
+# Join to dimension labels (dimension tables always expose kode/niveau/titel)
+sql <<'SQL'
+SELECT f.tid, n.titel AS omrade, f.indhold
+FROM fact.folk1a AS f
+JOIN dim.nuts AS n ON f.omrade = n.kode
+WHERE f.kon = 1 AND n.niveau = 2
+ORDER BY f.tid DESC, n.titel
+LIMIT 20;
+SQL
 ```
 
-### Query Simple History events
+Tips:
+
+- The ingest scripts build indexes on every non-measure column, so filters on foreign keys (e.g., `omrade`, `tid`) are cheap.
+
+## Exporting results
+
 ```bash
-docker compose exec mariadb mysql -u<USER> -p<PASSWORD> <DATABASE> -e "SELECT * FROM wp_simple_history ORDER BY id DESC LIMIT 10;"
+sql --csv -c "SELECT * FROM fact.folk1a LIMIT 100" > folk1a_sample.csv
+sql -A -F $'\t' -c "SELECT kode, titel FROM dim.nuts LIMIT 20" > nuts.tsv
 ```
 
-### Describe a table structure
-```bash
-docker compose exec mariadb mysql -u<USER> -p<PASSWORD> <DATABASE> -e "DESCRIBE wp_simple_history;"
-```
+Exit codes bubble up from `psql`, so failed queries stop scripts immediately (`ON_ERROR_STOP=1`). Output respects `psql` defaults: tabular for interactive use, unaligned/no headers when piped. Use `\?` inside `sql` for the full list of meta-commands.
 
-### Count records
-```bash
-docker compose exec mariadb mysql -u<USER> -p<PASSWORD> <DATABASE> -e "SELECT COUNT(*) FROM wp_posts;"
-```
-
-## Table Prefixes
-
-The database contains multiple WordPress installations with different prefixes:
-
-| Prefix | Installation |
-|--------|--------------|
-| `wp_` | Main install (wordpress_mariadb) |
-| `wp_nightly_` | Nightly build |
-| `wp_6_0_` to `wp_6_6_` | Version-specific installs |
-| `wp_multisite_` | Multisite install |
-| `wp_php74_` | PHP 7.4 install |
-| `wp_subfolder_` | Subfolder install |
-
-## Simple History Tables
-
-The main Simple History tables (using `wp_` prefix):
-
-- `wp_simple_history` - Main events table
-- `wp_simple_history_contexts` - Event context/metadata
-
-## Instructions
-
-1. Read credentials from `CLAUDE.local.md`
-2. Ask the user what SQL query they want to run (if not specified)
-3. Run the query using the command pattern above
-4. Display the results
-5. Offer to run follow-up queries if needed
-
-## Notes
-
-- For complex queries, consider using `\G` at the end for vertical output
-- Be careful with UPDATE/DELETE queries - always confirm with user first
+If a column in a fact table links to a dim table then this will be noted as a comment on the table

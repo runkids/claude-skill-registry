@@ -1,7 +1,7 @@
 {
   "name": "code-quality-gate",
-  "repo": "drillan/note-mcp",
-  "path": ".claude/skills/code-quality-gate/SKILL.md",
-  "source": "github.com/drillan/note-mcp",
-  "downloaded_at": "2026-01-19T03:27:30.889362Z"
+  "repo": "freitasp1/claude-code-skills",
+  "path": "skills/code-quality-gate/SKILL.md",
+  "source": "github.com/freitasp1/claude-code-skills",
+  "downloaded_at": "2026-01-20T03:35:35.016630Z"
 }

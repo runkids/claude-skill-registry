@@ -126,12 +126,24 @@ optimizeDeps: {
 
 ### PostCSS/Tailwind Resolution
 
-**Error**: `Cannot find module 'tailwindcss'`
+**Error**: `[plugin:vite:css] [postcss] Cannot find package 'postcss'` or `Cannot find module 'tailwindcss'`
 
-**Fix**: Move `postcss.config.js` to app directory:
+**Cause**: Build toolchain dependency not available in Lovable preview (installs only production deps).
+
+**Quick fix**:
 ```bash
-mv postcss.config.js apps/[app-name]/postcss.config.js
+# Add to root package.json dependencies (not devDependencies)
+npm install --save postcss autoprefixer tailwindcss
+git add package.json package-lock.json
+git push
 ```
+
+**Full playbook**: See `references/postcss-white-screen-playbook.md` for complete triage checklist covering:
+- Dependency placement verification
+- Lockfile consistency
+- PostCSS config conflicts (root vs app-level)
+- Tailwind v4 plugin requirements
+- Prevention guardrails
 
 ### Workspace Package Resolution
 
@@ -264,7 +276,43 @@ vi.mock("@/integrations/supabase/client", () => ({
 - Use "Rebuild" in Lovable UI to clear cache
 - 504 errors = Lovable infrastructure issue, retry or add to optimizeDeps
 
+## Pre-Push Checklist
+
+**Before pushing, always run:**
+```bash
+npm ci --dry-run
+```
+This catches lockfile drift which is the #1 cause of Lovable white screens.
+
+## Health Check Page
+
+A `/health` page exists (`src/main.tsx`) for diagnosing white screens:
+
+| /health result | Meaning |
+|----------------|---------|
+| Green ✅ visible | Preview serves static files, but React app crashes during initialization |
+| Page doesn't load | Preview isn't serving at all (build/deploy issue) |
+
+Use this to quickly distinguish between:
+1. **React crash** (health shows ✅) → Check console for JS errors, likely code bug
+2. **Build/serve failure** (health doesn't load) → Check lockfile, deps, PostCSS
+
 ## Reference Files
+
+- **`Docs/16-DEBUG-LOVABLE-WHITE.md`** - Comprehensive white screen playbook (project-level docs):
+  - Golden rule: white screen ≠ UI bug
+  - Root causes ranked by frequency
+  - Step-by-step fix checklist
+  - Prevention strategies (CI guardrails)
+  - Runtime error logging architecture (globalErrorLogger, DebugErrorOverlay)
+  - /health page diagnostics
+
+- **`references/postcss-white-screen-playbook.md`** - Complete triage for "Cannot find package 'postcss'" errors:
+  - Root cause analysis (dependency placement, Tailwind v4, config conflicts)
+  - Step-by-step verification checklist
+  - Quick fix commands
+  - Prevention guardrails (CI checks, single config rule)
+  - AI agent prompt for automated diagnosis
 
 - **`references/working-examples.md`** - Complete working configuration files for diffing:
   - AppEntry.tsx (correct vs incorrect patterns)
@@ -289,8 +337,11 @@ vi.mock("@/integrations/supabase/client", () => ({
 
 ## Quick Pattern Matching
 
-| Error Signal | Likely Case Study |
-|--------------|-------------------|
+| Error Signal | Likely Fix |
+|--------------|------------|
+| `[postcss] Cannot find package 'postcss'` | **PostCSS playbook** - deps in root package.json |
+| `/health` shows ✅ but app white | React crash - check console for JS errors |
+| `/health` doesn't load | Build/serve failure - check lockfile, deps |
 | 504 status code | Case 1: optimizeDeps |
 | `Failed to fetch dynamically imported module` | Case 2: AppEntry export |
 | `PGRST205` / table not found | Case 3: schema() |

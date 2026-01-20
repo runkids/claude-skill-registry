@@ -1,453 +1,636 @@
 ---
 name: skill-architect
-description: Orchestrates complete skill lifecycle from creation to optimization. Use for comprehensive skill development, reviewing skills, or managing skill quality.
-skills: skill-generator, skill-reviewer, skill-optimizer
+description: Authoritative meta-skill for creating, auditing, and improving Agent Skills. Combines skill-coach expertise with skill-creator workflows. Use for skill creation, validation, improvement, activation debugging, and progressive disclosure design. NOT for general Claude Code features, runtime debugging, or non-skill coding.
+allowed-tools: Read,Write,Edit,Bash
 ---
 
-# Skill Architect
+# Skill Architect: The Authoritative Meta-Skill
 
-## Purpose
+The unified authority for creating expert-level Agent Skills. Combines systematic workflow from skill-creator with domain expertise encoding from skill-coach.
 
-Meta-orchestrator for the complete Claude Code skill lifecycle. Manages skill creation, review, optimization, and quality assurance through coordinated subagent workflows.
+## Philosophy
+
+**Great skills are progressive disclosure machines** that encode real domain expertise (shibboleths), not just surface instructions. They activate precisely, teach efficiently, and make users productive immediately.
+
+---
+
+## When to Use This Skill
+
+✅ **Use for**:
+- Creating new skills from scratch
+- Auditing/reviewing existing skills
+- Improving activation rates
+- Adding domain expertise
+- Debugging why skills don't activate
+- Encoding anti-patterns and shibboleths
+- Building self-contained tools (scripts, MCPs, subagents)
+
+❌ **NOT for**:
+- General Claude Code features (slash commands, MCPs)
+- Non-skill coding advice
+- Debugging runtime errors (use domain-specific skills)
+- Template generation without domain expertise
+
+---
+
+## Quick Wins (Immediate Improvements)
+
+For existing skills, apply these in order:
+
+1. **Add NOT clause** → Prevent false activation
+2. **Check line count** → SKILL.md should be &lt;500 lines
+3. **Add 1-2 anti-patterns** → Prevent common mistakes
+4. **Remove dead files** → Delete unreferenced scripts/references
+5. **Test activation** → Write queries that should/shouldn't trigger
+
+Run validation:
+```bash
+python scripts/validate_skill.py <path>
+python scripts/check_self_contained.py <path>
+```
+
+---
+
+## What Makes a Great Skill
+
+Great skills have these 7 qualities:
+
+1. **Activate precisely** - Specific keywords + NOT clause
+2. **Encode shibboleths** - Expert knowledge that separates novice from expert
+3. **Surface anti-patterns** - "If you see X, that's wrong because Y, use Z"
+4. **Capture temporal knowledge** - "Pre-2024: X. 2024+: Y"
+5. **Know their limits** - "Use for A, B, C. NOT for D, E, F"
+6. **Provide decision trees** - Not templates, but "If X then A, if Y then B"
+7. **Stay under 500 lines** - Core in SKILL.md, deep dives in `/references`
+
+---
+
+## Progressive Disclosure Principle
+
+Skills use a three-level loading system:
+
+| Level | Content | Size | When Loaded |
+|-------|---------|------|-------------|
+| 1. Metadata | `name` + `description` | ~100 tokens | Always in context |
+| 2. SKILL.md | Core instructions | &lt;5k tokens | When skill triggers |
+| 3. Resources | Scripts, references, assets | Unlimited | As Claude needs them |
+
+**Critical**: Keep SKILL.md under 500 lines. Move details to `/references`.
+
+---
+
+## Skill Structure
+
+### Mandatory
+```
+your-skill/
+└── SKILL.md           # Core instructions (max 500 lines)
+```
+
+### Strongly Recommended (Self-Contained Skills)
+```
+├── scripts/           # Working code - NOT templates
+├── mcp-server/        # Custom MCP if external APIs needed
+├── agents/            # Subagent definitions for orchestration
+├── references/        # Deep dives on domain knowledge
+└── CHANGELOG.md       # Version history
+```
+
+**Philosophy**: Skills with working tools are immediately useful.
+
+---
+
+## SKILL.md Template
+
+```markdown
+---
+name: your-skill-name
+description: [What] [When] [Triggers]. NOT for [Exclusions].
+allowed-tools: Read,Write  # Minimal only
+---
+
+# Skill Name
+[One sentence purpose]
 
 ## When to Use
+✅ Use for: [A, B, C with specific keywords]
+❌ NOT for: [D, E, F - be explicit]
 
-- User asks to "manage skills" or "oversee skill development"
-- Complete skill lifecycle management
-- Quality assurance for skill libraries
-- Team skill development workflows
-- Comprehensive skill audits
+## Core Instructions
+[Step-by-step decision trees, not templates]
 
-## Available Subagents
+## Common Anti-Patterns
+### [Pattern Name]
+**Novice thinking**: [Wrong assumption]
+**Reality**: [Why it's wrong]
+**Correct approach**: [Better way]
+**Timeline**: [When this changed]
 
-This orchestrator coordinates three specialized skills:
-
-1. **@skill-generator** - Creates new skills from descriptions
-2. **@skill-reviewer** - Reviews skills for quality and best practices
-3. **@skill-optimizer** - Refactors skills using PDA
-
-## Workflows
-
-### Workflow 1: Create and Review
-
-**Use when:** Creating a new skill with quality assurance
-
-```
-1. @skill-generator
-   - Generate SKILL.md from user description
-   - Create directory structure
-   - Apply best practices
-
-2. @skill-reviewer
-   - Review generated skill
-   - Identify any issues
-   - Provide quality score
-
-3. Report and Iterate (if needed)
-   - Present skill to user
-   - Address review feedback
-   - Finalize skill
+## References
+- `/references/deep-dive.md` - [When to consult]
 ```
 
-**Trigger phrases:**
-- "Create a skill for X and review it"
-- "Generate and check a new skill"
-- "Make a skill for X with quality check"
+---
 
-### Workflow 2: Audit and Optimize
+## Description Formula
 
-**Use when:** Improving existing skills
+**[What] [When] [Keywords] NOT for [Exclusions]**
 
-```
-1. @skill-reviewer
-   - Review existing skill
-   - Identify improvement opportunities
-   - Calculate potential savings
+**Examples**:
 
-2. @skill-optimizer
-   - Apply recommended improvements
-   - Implement PDA refactoring
-   - Optimize token usage
+❌ **Bad**: "Helps with images"
+⚠️ **Better**: "Image processing with CLIP"
+✅ **Good**: "CLIP semantic search. Use for image-text matching, zero-shot classification. Activate on 'CLIP', 'embeddings', 'similarity'. NOT for counting objects, spatial reasoning, or fine-grained classification."
 
-3. Validation
-   - Compare before/after
-   - Verify functionality preserved
-   - Report improvements
-```
+---
 
-**Trigger phrases:**
-- "Audit this skill and optimize it"
-- "Review and improve this skill"
-- "Check and fix this skill"
+## Frontmatter Rules (CRITICAL)
 
-### Workflow 3: Complete Lifecycle
+**Only these keys are allowed by Claude's skill marketplace:**
 
-**Use when:** End-to-end skill development
+| Key | Required | Purpose |
+|-----|----------|---------|
+| `name` | ✅ | Lowercase-hyphenated identifier |
+| `description` | ✅ | Activation keywords + NOT clause |
+| `allowed-tools` | ⚠️ | Comma-separated tool names |
+| `license` | ❌ | e.g., "MIT" |
+| `metadata` | ❌ | Custom key-value pairs |
 
-```
-1. Requirements Gathering
-   - Understand skill purpose
-   - Identify use cases
-   - Determine scope
-
-2. @skill-generator
-   - Create initial skill
-   - Structure content
-   - Add examples
-
-3. @skill-reviewer
-   - Quality assessment
-   - Best practices check
-   - Improvement recommendations
-
-4. @skill-optimizer (if needed)
-   - Apply optimizations
-   - Implement PDA
-   - Reduce token usage
-
-5. Final Review
-   - Validate improvements
-   - Confirm quality standards
-   - Deliver production-ready skill
+**Invalid keys that WILL FAIL upload**:
+```yaml
+# ❌ WRONG - These break skill upload
+integrates_with: [...]
+triggers: [...]
+tools: Read,Write  # Use 'allowed-tools' instead
+outputs: [...]
+coordinates_with: [...]
+python_dependencies: [...]
 ```
 
-**Trigger phrases:**
-- "Create a production-ready skill for X"
-- "Develop a complete skill from scratch"
-- "Build and validate a skill"
+**Move custom info to body** under appropriate headings.
 
-### Workflow 4: Skill Library Audit
+---
 
-**Use when:** Reviewing multiple skills
+## The 6-Step Skill Creation Process
 
+### Step 1: Understand with Concrete Examples
+
+Skip only if usage patterns are already clear.
+
+**Ask**:
+- "What functionality should this skill support?"
+- "Can you give examples of how it would be used?"
+- "What would trigger this skill?"
+
+**Example queries** (for an image-editor skill):
+- "Remove red-eye from this image"
+- "Rotate this photo 90 degrees"
+- "Adjust brightness and contrast"
+
+Conclude when you have 3-5 concrete examples.
+
+---
+
+### Step 2: Plan Reusable Contents
+
+For each example, analyze:
+1. How to execute from scratch
+2. What scripts/references/assets would help with repeated execution
+
+**Example analyses**:
+
+| Skill | Example | Needs |
+|-------|---------|-------|
+| pdf-editor | "Rotate this PDF" | `scripts/rotate_pdf.py` |
+| frontend-builder | "Build a todo app" | `assets/hello-world/` template |
+| big-query | "How many users logged in?" | `references/schema.md` |
+| photo-expert | "Improve composition" | `scripts/analyze_composition.py` |
+
+**Shibboleths to encode**:
+- Domain-specific algorithms
+- Common pitfalls and anti-patterns
+- Temporal knowledge (what changed when)
+- Framework evolution patterns
+
+---
+
+### Step 3: Initialize the Skill
+
+**For new skills**, run the init script:
+```bash
+scripts/init_skill.py <skill-name> --path <output-directory>
 ```
-1. Discover Skills
-   - Find all skills in .claude/skills/
-   - List each skill with metadata
 
-2. @skill-reviewer (parallel)
-   - Review each skill
-   - Generate quality scores
-   - Identify common issues
+This creates:
+- SKILL.md template with proper frontmatter
+- Example `scripts/`, `references/`, `assets/` directories
+- TODO placeholders to customize
 
-3. Aggregate Report
-   - Overall quality assessment
-   - Prioritized improvements
-   - Token savings opportunities
+**For existing skills**, skip to Step 4.
 
-4. Recommendations
-   - Which skills need optimization
-   - Which skills are excellent
-   - Best practices to share
+---
+
+### Step 4: Edit the Skill
+
+#### Write in Imperative/Infinitive Form
+Use objective, instructional language:
+- ✅ "To accomplish X, do Y"
+- ✅ "When Z occurs, execute A"
+- ❌ "You should do X"
+- ❌ "If you need to do Z"
+
+#### Start with Reusable Contents
+
+Implement in this order:
+1. **Scripts** (`scripts/`) - Working code for repeatable operations
+2. **References** (`references/`) - Domain knowledge, schemas, detailed guides
+3. **Assets** (`assets/`) - Templates, boilerplate, files used in output
+
+**Delete example files** that aren't needed.
+
+#### Update SKILL.md
+
+Answer these questions:
+1. **Purpose**: What is this skill for? (1-2 sentences)
+2. **When to use**: Specific triggers and exclusions
+3. **How to use**: Reference all bundled resources so Claude knows they exist
+4. **Anti-patterns**: What mistakes do novices make?
+5. **Temporal context**: What changed and when?
+
+---
+
+### Step 5: Validate and Package
+
+```bash
+# Validate structure and content
+python scripts/validate_skill.py <path>
+
+# Check self-contained tool completeness
+python scripts/check_self_contained.py <path>
+
+# Package for distribution (validates first)
+python scripts/package_skill.py <path/to/skill-folder>
 ```
 
-**Trigger phrases:**
-- "Audit all my skills"
-- "Review my skill library"
-- "Check all skills for quality"
+Fix all ERRORS, then WARNINGS, then SUGGESTIONS.
 
-## Output Format
+---
 
-### For Creation Workflows
+### Step 6: Iterate
+
+After real-world use:
+1. Notice struggles or inefficiencies
+2. Identify how SKILL.md or bundled resources should improve
+3. Implement changes and test again
+4. Update CHANGELOG.md
+
+**Recursive self-improvement**: Use this skill to improve skills.
+
+---
+
+## Encoding Shibboleths (Expert Knowledge)
+
+### What Are Shibboleths?
+
+Knowledge that separates novices from experts - things LLMs get wrong because training data includes:
+- Outdated patterns
+- Oversimplified tutorials
+- Cargo-culted code
+
+### Shibboleth Template
 
 ```markdown
-# Skill Creation Complete
+### Anti-Pattern: [Name]
 
-## Skill Overview
-**Name:** [skill-name]
-**Location:** .claude/skills/[skill-name]/
-**Size:** [X] KB
+**Novice thinking**: "[Wrong assumption]"
 
-## Quality Assessment
-**Score:** [X/10]
-**PDA Compliance:** Yes/No
-**Status:** Ready for use / Needs improvements
+**Reality**: [Fundamental reason it's wrong, with research/data]
 
-## What Was Created
-1. SKILL.md - Main orchestrator
-2. reference/ - Detailed documentation
-3. scripts/ - Utility scripts (if applicable)
+**Timeline**:
+- [Date range]: [Old approach] was common
+- [Date]: [Change event]
+- [Current]: [New approach]
 
-## Usage
-Invoke with: [example invocation]
+**What to use instead**:
+| Task | Tool | Why |
+|------|------|-----|
+| [Use case] | [Correct tool] | [Reason] |
 
-## Next Steps
-- [ ] Test the skill
-- [ ] Adjust if needed
-- [ ] Add to version control
+**LLM mistake**: [Why LLMs suggest old pattern]
+**How to detect**: [Validation rule]
 ```
 
-### For Optimization Workflows
+### Example Shibboleths to Encode
 
-```markdown
-# Skill Optimization Complete
+1. **Framework Evolution**
+   - React: Class components → Hooks → Server Components
+   - Next.js: Pages Router → App Router
+   - State management: Redux → Zustand/Jotai/React Query
 
-## Summary
-**Skill:** [skill-name]
-**Original Size:** [X] KB
-**Optimized Size:** [Y] KB
-**Token Savings:** [Z]%
+2. **Model Selection**
+   - CLIP limitations (can't count, can't do spatial reasoning)
+   - Embedding model specialization (text vs code vs multi-lingual)
+   - Model versioning (ada-002 vs text-embedding-3-large)
 
-## Improvements Made
-### Structure
-- [Changes]
+3. **Tool Architecture**
+   - When to use MCP vs Scripts vs Subagents
+   - Premature abstraction anti-pattern
+   - Self-contained tool benefits
 
-### Content
-- [Changes]
+---
 
-### Token Efficiency
-- [Changes]
+## Self-Contained Tools
 
-## Quality Improvements
-**Before:** Score [X]/10
-**After:** Score [Y]/10
+### Decision Matrix
 
-## Cost Impact
-At 100 requests/day:
-- Before: $[cost]/year
-- After: $[new cost]/year
-- Saved: $[savings]/year
+| Need | Use |
+|------|-----|
+| External API + auth | MCP Server |
+| Multi-step workflow | Subagents |
+| Repeatable operation | Scripts |
+| Domain validation | Scripts |
+| Templates/boilerplate | Assets |
+| Deep reference docs | References |
 
-## Validation
-✅ Functionality preserved
-✅ All links work
-✅ Performance improved
+### Scripts
+
+**Requirements**:
+1. Actually work (not templates or pseudocode)
+2. Minimal dependencies (prefer stdlib)
+3. Clear interface (CLI args or stdin/stdout)
+4. Error handling (graceful failures)
+5. README (how to install and run)
+
+**Example**:
+```python
+#!/usr/bin/env python3
+"""
+Domain Analyzer
+Usage: python analyze.py <input>
+Dependencies: pip install numpy
+"""
+import sys
+
+def analyze(input_path):
+    # Import here for helpful error
+    try:
+        import numpy as np
+    except ImportError:
+        print("Install: pip install numpy")
+        sys.exit(1)
+
+    # Actual implementation
+    result = {"score": 0.85}
+    return result
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print(f"Usage: {sys.argv[0]} <input>")
+        sys.exit(1)
+
+    result = analyze(sys.argv[1])
+    for k, v in result.items():
+        print(f"{k}: {v}")
 ```
 
-### For Audit Workflows
+### MCP Servers
 
-```markdown
-# Skill Library Audit Report
+**When to build**:
+- External API with authentication
+- Stateful connections (WebSocket, database)
+- Real-time data streams
+- Security boundaries (credentials, OAuth)
 
-## Overview
-**Total Skills:** [N]
-**Average Score:** [X]/10
-**Skills Needing Work:** [N]
-
-## Skills by Quality
-
-### Excellent (9-10)
-- [skill-1]
-- [skill-2]
-
-### Good (7-8)
-- [skill-3]
-- [skill-4]
-
-### Needs Improvement (5-6)
-- [skill-5]
-- [skill-6]
-
-### Poor (1-4)
-- [skill-7]
-- [skill-8]
-
-## Common Issues Found
-1. [Issue] - [Count] skills affected
-2. [Issue] - [Count] skills affected
-
-## Prioritized Recommendations
-
-### P1 (Critical)
-- [Recommendations]
-
-### P2 (Important)
-- [Recommendations]
-
-### P3 (Nice-to-Have)
-- [Recommendations]
-
-## Token Optimization Opportunity
-**Current Usage:** [X] MB/day
-**Potential Savings:** [Y] MB/day ([Z]%)
-**Annual Cost Savings:** $[amount]
-
-## Next Steps
-1. Address P1 issues
-2. Optimize skills with low scores
-3. Apply best practices to all skills
+**Structure**:
+```
+mcp-server/
+├── src/index.ts       # Server implementation
+├── package.json       # Dependencies
+├── tsconfig.json      # Config
+└── README.md          # Setup instructions
 ```
 
-## Quality Gates
+**Minimal MCP template**: See `/references/mcp-template.md`
 
-Each workflow includes quality checks:
+### Subagents
 
-### Creation Quality Gates
-- [ ] YAML frontmatter valid
-- [ ] Description specific and actionable
-- [ ] Clear instructions with examples
-- [ ] Appropriate use of PDA
-- [ ] No reserved words in name
-- [ ] File paths use forward slashes
+**When to define**:
+- Multi-step workflows
+- Different phases need different tool access
+- Orchestration logic is complex
 
-### Optimization Quality Gates
-- [ ] Token savings achieved
-- [ ] Functionality preserved
-- [ ] Links verified working
-- [ ] Structure improved
-- [ ] User experience enhanced
+**Definition format**: See `/references/subagent-template.md`
 
-### Review Quality Gates
-- [ ] All dimensions evaluated
-- [ ] Severity classification applied
-- [ ] Recommendations actionable
-- [ ] Token savings calculated
-- [ ] Report comprehensive
+---
 
-## Best Practices Applied
+## Common Workflows
 
-This orchestrator ensures:
+### Create Skill from Expertise
 
-1. **Progressive Disclosure**
-   - Skills use PDA when appropriate
-   - Token-efficient design
-   - On-demand loading
+1. Define scope: What expertise? Keywords? Exclusions?
+2. Write description with keywords and NOT clause
+3. Encode anti-patterns and shibboleths
+4. Add decision trees (not just instructions)
+5. Build working tools (scripts/MCP/subagents)
+6. Test activation thoroughly
 
-2. **Quality Standards**
-   - Consistent structure
-   - Clear documentation
-   - Actionable examples
+### Debug Activation Issues
 
-3. **Best Practices**
-   - Gerund naming
-   - Third-person descriptions
-   - Forward slash paths
-   - Single responsibility
-
-4. **Token Optimization**
-   - Minimal SKILL.md size
-   - Reference files for details
-   - Scripts for mechanical work
-
-## Integration
-
-This orchestrator works with:
-
-- **skill-generator** - For skill creation
-- **skill-reviewer** - For quality assessment
-- **skill-optimizer** - For improvement
-
-## Advanced Features
-
-### Batch Operations
-
-Process multiple skills:
-
+**Flowchart**:
 ```
-> Audit and optimize all skills in .claude/skills/
-# Runs @skill-reviewer on each
-# Runs @skill-optimizer on those needing improvement
-# Generates aggregate report
+Skill not activating?
+├── Check description has specific keywords
+│   ├── NO → Add "Activate on: keyword1, keyword2"
+│   └── YES → Query contains those keywords?
+│       ├── NO → Add missing variations
+│       └── YES → Conflicting NOT clause?
+│           ├── YES → Narrow exclusions
+│           └── NO → Check file structure
+│               └── Wrong location → Move to .claude/skills/
+
+Skill activating when it shouldn't?
+├── Missing NOT clause?
+│   ├── YES → Add "NOT for: exclusion1, exclusion2"
+│   └── NO → NOT clause too narrow
+│       └── Expand based on false positives
 ```
 
-### Skill Templates
+Run: `python scripts/test_activation.py <path>`
 
-Create from templates:
+### Improve Existing Skill
+
+1. Run `python scripts/validate_skill.py <path>`
+2. Run `python scripts/check_self_contained.py <path>`
+3. Address ERRORS → WARNINGS → SUGGESTIONS
+4. Add missing shibboleths and anti-patterns
+5. Ensure &lt;500 lines in SKILL.md
+6. Re-validate until clean
+7. Update CHANGELOG.md
+
+---
+
+## Tool Permissions
+
+**Guidelines**:
+- Read-only: `Read,Grep,Glob`
+- File modifier: `Read,Write,Edit`
+- Build integration: `Read,Write,Bash(npm:*,git:*)`
+- ⚠️ **Never**: Unrestricted `Bash` for untrusted skills
+
+**Principle**: Least privilege - only grant what's needed.
+
+---
+
+## Decision Trees
+
+### When to Create a NEW Skill?
+
+✅ **Create when**:
+- Domain expertise not in existing skills
+- Pattern repeats across 3+ projects
+- Anti-patterns you want to prevent
+- Shibboleths to encode
+
+❌ **Don't create when**:
+- One-time task → Just do it directly
+- Existing skill could be extended → Improve that one
+- No real expertise to encode → Not worth it
+
+### Skill vs Subagent vs MCP vs Script?
+
+| Type | Purpose | State | Auth | Example |
+|------|---------|-------|------|---------|
+| **Skill** | Domain expertise, decision trees | None | None | react-server-components |
+| **Script** | Repeatable operations | None | None | validate_skill.py |
+| **Subagent** | Multi-step workflows | Session | Inherited | research-coordinator |
+| **MCP** | External APIs, auth | Persistent | Required | github-mcp-server |
+
+---
+
+## Anti-Patterns to Avoid
+
+### 1. Skill as Documentation Dump
+
+❌ **Wrong**: 50-page tutorial in SKILL.md
+✅ **Right**: Decision trees + anti-patterns in SKILL.md, details in `/references`
+
+### 2. Missing "When NOT to Use"
+
+❌ **Wrong**: `description: "Processes images using computer vision"`
+✅ **Right**: `description: "CLIP semantic search. NOT for generation, editing, OCR, counting."`
+
+### 3. Phantom Tools
+
+❌ **Wrong**: SKILL.md references `scripts/analyze.py` that doesn't exist
+✅ **Right**: Only reference tools that exist and work
+
+### 4. Template Soup
+
+❌ **Wrong**: Scripts with `# TODO: implement` comments
+✅ **Right**: Ship working code or don't ship at all
+
+### 5. No Validation Script
+
+❌ **Wrong**: Instructions with no way to check correctness
+✅ **Right**: Include `scripts/validate.py` for pre-flight checks
+
+### 6. Overly Permissive Tools
+
+❌ **Wrong**: `allowed-tools: Bash`
+✅ **Right**: `allowed-tools: Bash(git:*,npm:run),Read,Write`
+
+### 7. Ignoring Temporal Knowledge
+
+❌ **Wrong**: "Use useEffect for componentDidMount"
+✅ **Right**: "Pre-React 18: useEffect=didMount. React 18+: runs TWICE in dev. Use refs for run-once."
+
+---
+
+## Success Metrics
+
+| Metric | Target | How to Measure |
+|--------|--------|----------------|
+| Correct activation | &gt;90% | Test queries that should trigger |
+| False positive rate | &lt;5% | Test queries that shouldn't trigger |
+| Token usage | &lt;5k | SKILL.md size + typical reference loads |
+| Time to productive | &lt;5 min | User can start working immediately |
+| Anti-pattern prevention | &gt;80% | Users avoid documented mistakes |
+
+---
+
+## Validation Checklist
+
+Before packaging a skill:
 
 ```
-> Create a generator skill following the generator template
-# Uses predefined pattern
-# Applies best practices automatically
-# Delivers consistent structure
+□ SKILL.md exists and is &lt;500 lines
+□ Frontmatter has name, description, allowed-tools
+□ Description includes specific keywords
+□ Description includes NOT clause for exclusions
+□ At least 1 anti-pattern documented
+□ All referenced scripts/tools actually exist
+□ Scripts have clear installation instructions
+□ Scripts handle errors gracefully
+□ If MCP needed, server is complete and tested
+□ If subagents needed, prompts are defined
+□ CHANGELOG.md exists with version history
+□ Validation scripts pass without errors
 ```
 
-### Continuous Improvement
+---
 
-Ongoing quality management:
+## Reference Files
 
-```
-> Set up skill quality monitoring
-# Establishes quality baseline
-# Recommends regular reviews
-# Tracks improvements over time
-```
+For deep dives on specific topics:
 
-## Examples
+| File | Contents |
+|------|----------|
+| `references/antipatterns.md` | Shibboleths and case studies |
+| `references/self-contained-tools.md` | Scripts, MCP, subagent patterns |
+| `references/validation-checklist.md` | Complete review guide |
+| `references/scoring-rubric.md` | Quantitative evaluation (0-10) |
+| `references/mcp-template.md` | Minimal MCP server starter |
+| `references/subagent-template.md` | Agent definition format |
 
-### Example 1: Create Complete Skill
+---
 
-**User:** "Create a production-ready skill for processing JSON files with validation and transformation"
+## Real-World Case Studies
 
-**Workflow:**
-```
-1. @skill-generator
-   Creates: json-processor/
-   ├── SKILL.md (4KB orchestrator)
-   ├── reference/
-   │   ├── json-schema.md
-   │   ├── transformations.md
-   │   └── validation.md
-   └── scripts/
-       ├── validate.py
-       └── transform.py
+### Case Study 1: Photo Expert Explosion
 
-2. @skill-reviewer
-   Score: 9/10
-   PDA Compliance: Yes
-   Status: Ready for use
+**Problem**: Single skill for ALL photo operations (800+ lines)
+**Symptoms**: Activated on "photo" anywhere, wrong advice given
+**Root cause**: "Everything Skill" anti-pattern
+**Resolution**: Split into 5 focused skills (CLIP, composition, color theory, collage, event detection)
+**Lesson**: One domain ≠ one skill. Split by expertise type.
 
-3. Report
-   Skill created and validated
-   All quality gates passed
-   Ready for production use
-```
+### Case Study 2: The Phantom MCP
 
-### Example 2: Optimize Poor Skill
+**Problem**: SKILL.md referenced non-existent MCP server
+**Symptoms**: Users ran commands that didn't exist
+**Root cause**: Reference Illusion anti-pattern
+**Resolution**: Added `check_self_contained.py` to CI
+**Lesson**: Don't promise tools you don't deliver.
 
-**User:** "This 50KB skill is slow and expensive. Fix it."
+### Case Study 3: The Time Bomb
 
-**Workflow:**
-```
-1. @skill-reviewer
-   Score: 3/10
-   Issues: Monolithic, no PDA, token-inefficient
-   Recommendation: Major refactor
+**Problem**: Temporal knowledge became stale (React hooks advice from 2023)
+**Symptoms**: Skill became actively harmful in 2024
+**Root cause**: Missing temporal markers
+**Resolution**: Added "Pre-React 18 vs React 18+" sections
+**Lesson**: Date your knowledge. Update quarterly.
 
-2. @skill-optimizer
-   Before: 50KB SKILL.md
-   After: 3KB SKILL.md + reference/ files
-   Savings: 84%
+---
 
-3. Validation
-   Functionality: Preserved
-   Performance: 5x faster
-   Cost: $12/day → $2/day
-```
+## This Skill Guides
 
-### Example 3: Library Audit
+- ✅ Skill creation from expertise
+- ✅ Skill auditing and improvement
+- ✅ Anti-pattern detection and prevention
+- ✅ Progressive disclosure design
+- ✅ Domain expertise encoding (shibboleths)
+- ✅ Self-contained tool implementation
+- ✅ Activation debugging and optimization
+- ✅ Validation and packaging workflows
 
-**User:** "Review all my skills and tell me what needs improvement"
-
-**Workflow:**
-```
-1. Discovery
-   Found 12 skills
-
-2. @skill-reviewer (parallel)
-   3 Excellent (9-10)
-   5 Good (7-8)
-   3 Fair (5-6)
-   1 Poor (2)
-
-3. @skill-optimizer (for 4 low-scoring skills)
-   Average improvement: 73% token reduction
-
-4. Report
-   Overall quality improved from 6.5 to 8.2
-   Projected annual savings: $1,200
-```
-
-## See Also
-
-- [SKILL_GENERATOR.md](.claude/skills/skill-generator/SKILL.md) - Create skills
-- [SKILL_REVIEWER.md](.claude/skills/skill-reviewer/SKILL.md) - Review skills
-- [SKILL_OPTIMIZER.md](.claude/skills/skill-optimizer/SKILL.md) - Optimize skills
-- [CLAUDE_SKILLS_ARCHITECTURE.md](../../../docs/CLAUDE_SKILLS_ARCHITECTURE.md) - Reference documentation
-- [docs/README.md](../../../docs/README.md) - All documentation
-
-## Sources
-
-Based on:
-- [CLAUDE_SKILLS_ARCHITECTURE.md](../../../docs/CLAUDE_SKILLS_ARCHITECTURE.md)
-- [AGENTS_WORKFLOWS.md](../../../docs/AGENTS_WORKFLOWS.md)
-- Progressive Disclosure Architecture principles
+**Use this skill to create skills that make users immediately productive.**

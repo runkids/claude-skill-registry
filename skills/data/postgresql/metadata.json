@@ -1,7 +1,7 @@
 {
   "name": "postgresql",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/postgresql/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-19T04:05:36.598576Z"
+  "repo": "mgd34msu/goodvibes-gemini",
+  "path": "skills/postgresql/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-gemini",
+  "downloaded_at": "2026-01-20T02:54:49.128807Z"
 }

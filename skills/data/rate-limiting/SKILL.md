@@ -1,1002 +1,945 @@
 ---
 name: rate-limiting
-description: API rate limiting and quota management implementation. Use when implementing request throttling, API quotas, backpressure handling, or protection against abuse. Keywords: rate limiting, throttling, token bucket, sliding window, leaky bucket, quota, Redis, backpressure, API limits, DDoS protection.
+description: Implement and optimize rate limiting for APIs and routes. Use when protecting endpoints, preventing abuse, or managing resource usage across different user tiers.
 ---
 
-# Rate Limiting
+# Rate Limiting Implementation Guide
 
 ## Overview
 
-Rate limiting is a technique to control the rate of requests a client can make to an API. It protects services from abuse, ensures fair usage, and maintains system stability. This skill covers algorithms, implementation patterns, and best practices for distributed rate limiting.
+Rate limiting protects your API from abuse, ensures fair resource usage, and prevents denial of service attacks. This skill covers implementing rate limiting with sliding window algorithms, tier-based limits, and edge deployment patterns.
 
-## Key Concepts
+## Core Concepts
 
-### Rate Limiting Algorithms
+### Sliding Window Algorithm
 
-**Token Bucket Algorithm:**
-
-The token bucket allows bursts while maintaining an average rate.
+The sliding window algorithm provides smooth rate limiting by tracking request timestamps within a moving time window.
 
 ```typescript
-class TokenBucket {
-  private tokens: number;
-  private lastRefill: number;
-
-  constructor(
-    private capacity: number, // Maximum tokens
-    private refillRate: number, // Tokens per second
-  ) {
-    this.tokens = capacity;
-    this.lastRefill = Date.now();
-  }
-
-  private refill(): void {
-    const now = Date.now();
-    const elapsed = (now - this.lastRefill) / 1000;
-    const tokensToAdd = elapsed * this.refillRate;
-
-    this.tokens = Math.min(this.capacity, this.tokens + tokensToAdd);
-    this.lastRefill = now;
-  }
-
-  consume(tokens: number = 1): boolean {
-    this.refill();
-
-    if (this.tokens >= tokens) {
-      this.tokens -= tokens;
-      return true;
-    }
-    return false;
-  }
-
-  getState(): { tokens: number; capacity: number } {
-    this.refill();
-    return { tokens: this.tokens, capacity: this.capacity };
-  }
+interface IRateLimitEntry {
+  timestamps: number[];
 }
 
-// Usage: 100 requests/minute with burst of 10
-const bucket = new TokenBucket(10, 100 / 60);
-```
-
-**Sliding Window Log Algorithm:**
-
-Precise rate limiting by tracking individual request timestamps.
-
-```typescript
-class SlidingWindowLog {
-  private requests: number[] = [];
-
-  constructor(
-    private windowMs: number, // Window size in milliseconds
-    private maxRequests: number, // Max requests per window
-  ) {}
-
-  isAllowed(): boolean {
-    const now = Date.now();
-    const windowStart = now - this.windowMs;
-
-    // Remove expired entries
-    this.requests = this.requests.filter((ts) => ts > windowStart);
-
-    if (this.requests.length < this.maxRequests) {
-      this.requests.push(now);
-      return true;
-    }
-
-    return false;
-  }
-
-  getRemainingRequests(): number {
-    const now = Date.now();
-    const windowStart = now - this.windowMs;
-    this.requests = this.requests.filter((ts) => ts > windowStart);
-    return Math.max(0, this.maxRequests - this.requests.length);
-  }
-
-  getResetTime(): number {
-    if (this.requests.length === 0) return 0;
-    return this.requests[0] + this.windowMs;
-  }
+interface IRateLimitResult {
+  success: boolean;
+  remaining: number;
+  reset: number;
 }
-```
 
-**Sliding Window Counter Algorithm:**
+function createRateLimiter(limit: number, windowMs: number) {
+  const store = new Map<string, IRateLimitEntry>();
 
-Memory-efficient approximation using weighted counters.
+  // Cleanup old entries periodically
+  setInterval(
+    () => {
+      const now = Date.now();
+      const fiveMinutesAgo = now - 5 * 60 * 1000;
 
-```typescript
-class SlidingWindowCounter {
-  private previousCount: number = 0;
-  private currentCount: number = 0;
-  private windowStart: number;
-
-  constructor(
-    private windowMs: number,
-    private maxRequests: number,
-  ) {
-    this.windowStart = Date.now();
-  }
-
-  isAllowed(): boolean {
-    const now = Date.now();
-    const elapsed = now - this.windowStart;
-
-    // Check if we've moved to a new window
-    if (elapsed >= this.windowMs) {
-      const windowsPassed = Math.floor(elapsed / this.windowMs);
-      if (windowsPassed === 1) {
-        this.previousCount = this.currentCount;
-      } else {
-        this.previousCount = 0;
+      for (const [key, entry] of store.entries()) {
+        entry.timestamps = entry.timestamps.filter(t => t > fiveMinutesAgo);
+        if (entry.timestamps.length === 0) {
+          store.delete(key);
+        }
       }
-      this.currentCount = 0;
-      this.windowStart = now - (elapsed % this.windowMs);
+    },
+    5 * 60 * 1000
+  );
+
+  return async (identifier: string): Promise<IRateLimitResult> => {
+    const now = Date.now();
+    const windowStart = now - windowMs;
+
+    let entry = store.get(identifier);
+    if (!entry) {
+      entry = { timestamps: [] };
+      store.set(identifier, entry);
     }
 
-    // Calculate weighted count
-    const windowProgress = (now - this.windowStart) / this.windowMs;
-    const weightedCount =
-      this.previousCount * (1 - windowProgress) + this.currentCount;
+    // Remove timestamps outside current window
+    entry.timestamps = entry.timestamps.filter(t => t > windowStart);
 
-    if (weightedCount < this.maxRequests) {
-      this.currentCount++;
-      return true;
+    // Check if limit exceeded
+    if (entry.timestamps.length >= limit) {
+      const oldestTimestamp = entry.timestamps[0];
+      const resetTime = oldestTimestamp + windowMs;
+
+      return {
+        success: false,
+        remaining: 0,
+        reset: resetTime,
+      };
     }
 
-    return false;
-  }
-}
-```
+    // Add current timestamp
+    entry.timestamps.push(now);
 
-**Leaky Bucket Algorithm:**
-
-Smooths out bursts by processing requests at a constant rate.
-
-```typescript
-class LeakyBucket {
-  private queue: Array<() => void> = [];
-  private processing: boolean = false;
-
-  constructor(
-    private capacity: number, // Queue size
-    private leakRate: number, // Requests processed per second
-  ) {}
-
-  async add(request: () => Promise<void>): Promise<boolean> {
-    if (this.queue.length >= this.capacity) {
-      return false; // Queue full, reject
-    }
-
-    return new Promise((resolve) => {
-      this.queue.push(async () => {
-        await request();
-        resolve(true);
-      });
-
-      this.processQueue();
-    });
-  }
-
-  private async processQueue(): Promise<void> {
-    if (this.processing || this.queue.length === 0) return;
-
-    this.processing = true;
-
-    while (this.queue.length > 0) {
-      const request = this.queue.shift();
-      if (request) {
-        await request();
-        await this.delay(1000 / this.leakRate);
-      }
-    }
-
-    this.processing = false;
-  }
-
-  private delay(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-}
-```
-
-### API Quota Management
-
-**Tiered Quota System:**
-
-```typescript
-interface QuotaTier {
-  name: string;
-  limits: {
-    requestsPerMinute: number;
-    requestsPerDay: number;
-    burstSize: number;
+    return {
+      success: true,
+      remaining: limit - entry.timestamps.length,
+      reset: now + windowMs,
+    };
   };
-  features: string[];
+}
+```
+
+### Rate Limit Configurations
+
+Different endpoints and user tiers require different limits:
+
+```typescript
+// Base rate limiters
+export const rateLimit = {
+  limit: createRateLimiter(50, 10 * 1000), // 50 requests per 10 seconds
+};
+
+export const publicRateLimit = {
+  limit: createRateLimiter(10, 10 * 1000), // 10 requests per 10 seconds
+};
+
+export const upscaleRateLimit = {
+  limit: createRateLimiter(5, 60 * 1000), // 5 requests per minute
+};
+
+// Tier-based rate limiters
+export const tierRateLimits = {
+  free: createRateLimiter(10, 60 * 1000), // 10 requests per minute
+  starter: createRateLimiter(30, 60 * 1000), // 30 requests per minute
+  hobby: createRateLimiter(60, 60 * 1000), // 60 requests per minute
+  pro: createRateLimiter(120, 60 * 1000), // 120 requests per minute
+  enterprise: createRateLimiter(500, 60 * 1000), // 500 requests per minute
+};
+```
+
+## Middleware Patterns
+
+### IP-Based Rate Limiting
+
+For public endpoints and anonymous users:
+
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+
+export function getClientIp(req: NextRequest): string {
+  // Cloudflare-specific header (most reliable on Cloudflare)
+  const cfConnectingIp = req.headers.get('cf-connecting-ip');
+  if (cfConnectingIp) return cfConnectingIp;
+
+  // Standard forwarded header
+  const xForwardedFor = req.headers.get('x-forwarded-for');
+  if (xForwardedFor) {
+    const firstIp = xForwardedFor.split(',')[0]?.trim();
+    if (firstIp) return firstIp;
+  }
+
+  // Alternative header
+  const xRealIp = req.headers.get('x-real-ip');
+  if (xRealIp) return xRealIp;
+
+  return 'unknown';
 }
 
-const quotaTiers: Record<string, QuotaTier> = {
-  free: {
-    name: "Free",
-    limits: {
-      requestsPerMinute: 10,
-      requestsPerDay: 1000,
-      burstSize: 5,
-    },
-    features: ["basic-api"],
+export async function applyPublicRateLimit(
+  req: NextRequest,
+  res: NextResponse
+): Promise<NextResponse | null> {
+  const ip = getClientIp(req);
+  const { success, remaining, reset } = await publicRateLimit.limit(ip);
+
+  const rateLimitHeaders = createRateLimitHeaders(10, remaining, reset);
+
+  if (!success) {
+    return NextResponse.json(
+      {
+        error: 'Too many requests',
+        details: {
+          retryAfter: Math.ceil((reset - Date.now()) / 1000),
+        },
+      },
+      {
+        status: 429,
+        headers: rateLimitHeaders,
+      }
+    );
+  }
+
+  // Add headers to successful response
+  Object.entries(rateLimitHeaders).forEach(([key, value]) => {
+    if (key !== 'Retry-After') {
+      res.headers.set(key, value);
+    }
+  });
+
+  return null;
+}
+```
+
+### User-Based Rate Limiting
+
+For authenticated users with different tiers:
+
+```typescript
+interface IRateLimitHeaders {
+  'X-RateLimit-Limit': string;
+  'X-RateLimit-Remaining': string;
+  'X-RateLimit-Reset': string;
+  'Retry-After': string;
+}
+
+export function createRateLimitHeaders(
+  limit: number,
+  remaining: number,
+  reset: number
+): IRateLimitHeaders {
+  return {
+    'X-RateLimit-Limit': limit.toString(),
+    'X-RateLimit-Remaining': remaining.toString(),
+    'X-RateLimit-Reset': new Date(reset).toISOString(),
+    'Retry-After': Math.ceil((reset - Date.now()) / 1000).toString(),
+  };
+}
+
+export async function applyUserRateLimit(
+  userId: string,
+  userTier: string,
+  res: NextResponse
+): Promise<NextResponse | null> {
+  // Get rate limiter based on user tier
+  const tierLimiter = tierRateLimits[userTier] || tierRateLimits.free;
+  const tierLimits = {
+    free: 10,
+    starter: 30,
+    hobby: 60,
+    pro: 120,
+    enterprise: 500,
+  };
+
+  const limit = tierLimits[userTier] || tierLimits.free;
+  const { success, remaining, reset } = await tierLimiter(userId);
+
+  const rateLimitHeaders = createRateLimitHeaders(limit, remaining, reset);
+
+  if (!success) {
+    return NextResponse.json(
+      {
+        error: 'Rate limit exceeded',
+        details: {
+          tier: userTier,
+          limit,
+          reset: new Date(reset).toISOString(),
+          retryAfter: Math.ceil((reset - Date.now()) / 1000),
+        },
+      },
+      {
+        status: 429,
+        headers: rateLimitHeaders,
+      }
+    );
+  }
+
+  // Add headers to successful response
+  Object.entries(rateLimitHeaders).forEach(([key, value]) => {
+    if (key !== 'Retry-After') {
+      res.headers.set(key, value);
+    }
+  });
+
+  return null;
+}
+```
+
+### Route Middleware Integration
+
+```typescript
+// middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { applyPublicRateLimit } from '@lib/middleware/rateLimit';
+
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+
+  // Apply rate limiting to API routes
+  if (req.nextUrl.pathname.startsWith('/api/')) {
+    const rateLimitResponse = await applyPublicRateLimit(req, res);
+    if (rateLimitResponse) {
+      return rateLimitResponse;
+    }
+  }
+
+  return res;
+}
+```
+
+## API Route Protection
+
+### Individual Route Protection
+
+```typescript
+// app/api/upscale/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { getAuthenticatedUser } from '@server/middleware/getAuthenticatedUser';
+import { applyUserRateLimit, upscaleRateLimit } from '@lib/middleware/rateLimit';
+
+export async function POST(req: NextRequest) {
+  const res = NextResponse.next();
+
+  // Check authentication
+  const user = await getAuthenticatedUser(req);
+  if (!user) {
+    return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
+  }
+
+  // Apply user-based rate limit
+  const userRateLimitResponse = await applyUserRateLimit(user.id, user.subscription.tier, res);
+  if (userRateLimitResponse) {
+    return userRateLimitResponse;
+  }
+
+  // Apply additional upscale-specific rate limit
+  const upscaleResponse = await upscaleRateLimit.limit(user.id);
+  if (!upscaleResponse.success) {
+    return NextResponse.json(
+      {
+        error: 'Upscale rate limit exceeded',
+        details: {
+          reset: new Date(upscaleResponse.reset).toISOString(),
+        },
+      },
+      {
+        status: 429,
+        headers: createRateLimitHeaders(5, upscaleResponse.remaining, upscaleResponse.reset),
+      }
+    );
+  }
+
+  // Process the request...
+  return res;
+}
+```
+
+## Tier-Based Rate Limiting
+
+### Configuration with Subscription Tiers
+
+```typescript
+// shared/config/rate-limit.config.ts
+import { SUBSCRIPTION_CONFIG } from './subscription.config';
+
+export const RATE_LIMIT_CONFIG = {
+  // Default limits per minute
+  defaultLimits: {
+    free: 10, // 10 requests per minute
+    starter: 30, // 30 requests per minute
+    hobby: 60, // 60 requests per minute
+    pro: 120, // 120 requests per minute
+    enterprise: 500, // 500 requests per minute
   },
-  pro: {
-    name: "Professional",
-    limits: {
-      requestsPerMinute: 100,
-      requestsPerDay: 50000,
-      burstSize: 20,
-    },
-    features: ["basic-api", "advanced-api", "webhooks"],
+
+  // Endpoint-specific multipliers
+  endpointMultipliers: {
+    '/api/upscale': 0.5, // Half the normal limit
+    '/api/analyze-image': 1.5, // 1.5x the normal limit
+    '/api/models': 2.0, // 2x the normal limit
   },
-  enterprise: {
-    name: "Enterprise",
-    limits: {
-      requestsPerMinute: 1000,
-      requestsPerDay: 1000000,
-      burstSize: 100,
+
+  // Time windows (in milliseconds)
+  windows: {
+    default: 60 * 1000, // 1 minute
+    strict: 60 * 1000, // 1 minute
+    lenient: 60 * 1000 * 5, // 5 minutes
+  },
+
+  // Special routes with custom limits
+  customLimits: {
+    '/api/upscale': {
+      free: 5,
+      starter: 15,
+      hobby: 30,
+      pro: 60,
+      enterprise: 250,
+      window: 60 * 1000, // 1 minute
     },
-    features: ["basic-api", "advanced-api", "webhooks", "bulk-api"],
+    '/api/webhooks/stripe': {
+      // Higher limits for webhooks to handle bursts
+      free: 100,
+      starter: 500,
+      hobby: 1000,
+      pro: 2000,
+      enterprise: 5000,
+      window: 60 * 1000, // 1 minute
+    },
   },
 };
 
-class QuotaManager {
-  constructor(private redis: Redis) {}
-
-  async checkQuota(
-    userId: string,
-    tier: string,
-  ): Promise<{ allowed: boolean; remaining: number; resetAt: number }> {
-    const config = quotaTiers[tier];
-    if (!config) throw new Error(`Unknown tier: ${tier}`);
-
-    const minuteKey = `quota:${userId}:minute`;
-    const dayKey = `quota:${userId}:day`;
-
-    const [minuteCount, dayCount] = await Promise.all([
-      this.redis.get(minuteKey),
-      this.redis.get(dayKey),
-    ]);
-
-    const currentMinute = parseInt(minuteCount || "0");
-    const currentDay = parseInt(dayCount || "0");
-
-    if (currentMinute >= config.limits.requestsPerMinute) {
-      const ttl = await this.redis.ttl(minuteKey);
-      return { allowed: false, remaining: 0, resetAt: Date.now() + ttl * 1000 };
-    }
-
-    if (currentDay >= config.limits.requestsPerDay) {
-      const ttl = await this.redis.ttl(dayKey);
-      return { allowed: false, remaining: 0, resetAt: Date.now() + ttl * 1000 };
-    }
-
-    // Increment counters
-    const pipeline = this.redis.pipeline();
-    pipeline.incr(minuteKey);
-    pipeline.expire(minuteKey, 60);
-    pipeline.incr(dayKey);
-    pipeline.expire(dayKey, 86400);
-    await pipeline.exec();
-
+export function getRateLimitForTier(
+  tier: string,
+  endpoint?: string
+): { limit: number; window: number } {
+  // Check for custom endpoint limits
+  if (endpoint && RATE_LIMIT_CONFIG.customLimits[endpoint]) {
+    const custom = RATE_LIMIT_CONFIG.customLimits[endpoint];
     return {
-      allowed: true,
-      remaining: config.limits.requestsPerMinute - currentMinute - 1,
-      resetAt: Date.now() + 60000,
+      limit: custom[tier] || custom.free,
+      window: custom.window,
     };
   }
+
+  // Apply endpoint multiplier
+  let baseLimit = RATE_LIMIT_CONFIG.defaultLimits[tier] || RATE_LIMIT_CONFIG.defaultLimits.free;
+
+  if (endpoint && RATE_LIMIT_CONFIG.endpointMultipliers[endpoint]) {
+    baseLimit = Math.floor(baseLimit * RATE_LIMIT_CONFIG.endpointMultipliers[endpoint]);
+  }
+
+  return {
+    limit: baseLimit,
+    window: RATE_LIMIT_CONFIG.windows.default,
+  };
 }
 ```
 
-### Per-User vs Per-IP Limiting
+## Edge Deployment Patterns
 
-**Combined Strategy:**
+### Cloudflare Workers Adaptation
 
-```typescript
-interface RateLimitConfig {
-  authenticated: {
-    requestsPerMinute: number;
-    requestsPerHour: number;
-  };
-  anonymous: {
-    requestsPerMinute: number;
-    requestsPerHour: number;
-  };
-  ipBased: {
-    requestsPerMinute: number;
-    maxConnectionsPerIP: number;
-  };
-}
-
-class HybridRateLimiter {
-  constructor(
-    private redis: Redis,
-    private config: RateLimitConfig,
-  ) {}
-
-  async check(
-    ip: string,
-    userId?: string,
-  ): Promise<{ allowed: boolean; retryAfter?: number }> {
-    // Always check IP-based limits first (DDoS protection)
-    const ipResult = await this.checkIPLimit(ip);
-    if (!ipResult.allowed) {
-      return ipResult;
-    }
-
-    // Then check user or anonymous limits
-    if (userId) {
-      return this.checkUserLimit(userId);
-    } else {
-      return this.checkAnonymousLimit(ip);
-    }
-  }
-
-  private async checkIPLimit(
-    ip: string,
-  ): Promise<{ allowed: boolean; retryAfter?: number }> {
-    const key = `ratelimit:ip:${ip}`;
-    const count = await this.redis.incr(key);
-
-    if (count === 1) {
-      await this.redis.expire(key, 60);
-    }
-
-    if (count > this.config.ipBased.requestsPerMinute) {
-      const ttl = await this.redis.ttl(key);
-      return { allowed: false, retryAfter: ttl };
-    }
-
-    return { allowed: true };
-  }
-
-  private async checkUserLimit(
-    userId: string,
-  ): Promise<{ allowed: boolean; retryAfter?: number }> {
-    const minuteKey = `ratelimit:user:${userId}:minute`;
-    const hourKey = `ratelimit:user:${userId}:hour`;
-
-    const [minuteCount, hourCount] = await Promise.all([
-      this.incrementWithExpiry(minuteKey, 60),
-      this.incrementWithExpiry(hourKey, 3600),
-    ]);
-
-    if (minuteCount > this.config.authenticated.requestsPerMinute) {
-      const ttl = await this.redis.ttl(minuteKey);
-      return { allowed: false, retryAfter: ttl };
-    }
-
-    if (hourCount > this.config.authenticated.requestsPerHour) {
-      const ttl = await this.redis.ttl(hourKey);
-      return { allowed: false, retryAfter: ttl };
-    }
-
-    return { allowed: true };
-  }
-
-  private async incrementWithExpiry(
-    key: string,
-    expiry: number,
-  ): Promise<number> {
-    const count = await this.redis.incr(key);
-    if (count === 1) {
-      await this.redis.expire(key, expiry);
-    }
-    return count;
-  }
-}
-```
-
-### Distributed Rate Limiting (Redis)
-
-**Redis-Based Sliding Window:**
+For edge deployment with Cloudflare Workers, adapt the rate limiting for 10ms CPU limits:
 
 ```typescript
-import Redis from "ioredis";
+// Cloudflare Workers optimized rate limiting
+export class EdgeRateLimiter {
+  private kv: KVNamespace;
+  private durableObjectId: string;
 
-class DistributedRateLimiter {
-  private redis: Redis;
-
-  constructor(redisUrl: string) {
-    this.redis = new Redis(redisUrl);
+  constructor(kv: KVNamespace, durableObjectId: string) {
+    this.kv = kv;
+    this.durableObjectId = durableObjectId;
   }
 
-  async isAllowed(
-    key: string,
-    limit: number,
-    windowSeconds: number,
-  ): Promise<{ allowed: boolean; remaining: number; resetAt: number }> {
+  async limit(identifier: string, limit: number, window: number): Promise<IRateLimitResult> {
+    // Use Durable Objects for distributed rate limiting
+    const id = this.durableObjectId;
+    const stub = this.durableObjects.get(id);
+
+    return stub.fetch(
+      new Request('https://rate-limit', {
+        method: 'POST',
+        headers: {
+          identifier: identifier,
+          limit: limit.toString(),
+          window: window.toString(),
+        },
+      })
+    );
+  }
+}
+
+// Durable Object for rate limiting
+export class RateLimitDurableObject {
+  private storage: DurableObjectStorage;
+  private state: {
+    [identifier: string]: {
+      timestamps: number[];
+      lastCleanup: number;
+    };
+  } = {};
+
+  constructor(state: DurableObjectState) {
+    this.storage = state.storage;
+  }
+
+  async fetch(request: Request): Promise<Response> {
+    const identifier = request.headers.get('identifier');
+    const limit = parseInt(request.headers.get('limit') || '10');
+    const window = parseInt(request.headers.get('window') || '60000');
+
     const now = Date.now();
-    const windowStart = now - windowSeconds * 1000;
-    const redisKey = `ratelimit:${key}`;
+    const windowStart = now - window;
 
-    // Use Lua script for atomic operation
-    const luaScript = `
-      local key = KEYS[1]
-      local now = tonumber(ARGV[1])
-      local window_start = tonumber(ARGV[2])
-      local limit = tonumber(ARGV[3])
-      local window_seconds = tonumber(ARGV[4])
+    // Load or initialize state
+    if (!this.state[identifier]) {
+      const stored = await this.storage.get(identifier);
+      this.state[identifier] = stored || {
+        timestamps: [],
+        lastCleanup: now,
+      };
+    }
 
-      -- Remove old entries
-      redis.call('ZREMRANGEBYSCORE', key, '-inf', window_start)
+    const entry = this.state[identifier];
 
-      -- Count current entries
-      local count = redis.call('ZCARD', key)
+    // Periodic cleanup
+    if (now - entry.lastCleanup > 5 * 60 * 1000) {
+      entry.timestamps = entry.timestamps.filter(t => t > windowStart);
+      entry.lastCleanup = now;
+      await this.storage.put(identifier, entry);
+    }
 
-      if count < limit then
-        -- Add new entry
-        redis.call('ZADD', key, now, now .. '-' .. math.random())
-        redis.call('EXPIRE', key, window_seconds)
-        return {1, limit - count - 1}
-      else
-        -- Get oldest entry for reset time
-        local oldest = redis.call('ZRANGE', key, 0, 0, 'WITHSCORES')
-        local reset_at = oldest[2] and (oldest[2] + window_seconds * 1000) or (now + window_seconds * 1000)
-        return {0, 0, reset_at}
-      end
-    `;
+    // Filter timestamps
+    entry.timestamps = entry.timestamps.filter(t => t > windowStart);
 
-    const result = (await this.redis.eval(
-      luaScript,
-      1,
-      redisKey,
-      now.toString(),
-      windowStart.toString(),
-      limit.toString(),
-      windowSeconds.toString(),
-    )) as number[];
+    // Check limit
+    if (entry.timestamps.length >= limit) {
+      const oldestTimestamp = entry.timestamps[0];
+      const resetTime = oldestTimestamp + window;
 
-    return {
-      allowed: result[0] === 1,
-      remaining: result[1],
-      resetAt: result[2] || now + windowSeconds * 1000,
-    };
-  }
-}
-```
+      return Response.json({
+        success: false,
+        remaining: 0,
+        reset: resetTime,
+      });
+    }
 
-**Redis Cluster Support:**
+    // Add timestamp
+    entry.timestamps.push(now);
+    await this.storage.put(identifier, entry);
 
-```typescript
-class ClusterRateLimiter {
-  private cluster: Redis.Cluster;
-
-  constructor(nodes: { host: string; port: number }[]) {
-    this.cluster = new Redis.Cluster(nodes, {
-      redisOptions: {
-        password: process.env.REDIS_PASSWORD,
-      },
-      scaleReads: "slave",
+    return Response.json({
+      success: true,
+      remaining: limit - entry.timestamps.length,
+      reset: now + window,
     });
   }
-
-  async checkLimit(
-    identifier: string,
-    limit: number,
-    windowMs: number,
-  ): Promise<boolean> {
-    // Use hash tags to ensure all keys for a user go to same slot
-    const key = `{ratelimit:${identifier}}:counter`;
-
-    const count = await this.cluster.incr(key);
-    if (count === 1) {
-      await this.cluster.pexpire(key, windowMs);
-    }
-
-    return count <= limit;
-  }
 }
 ```
 
-### Backpressure Patterns
+### KV-Based Rate Limiting
 
-**Circuit Breaker with Rate Limiting:**
-
-```typescript
-enum CircuitState {
-  CLOSED = "CLOSED",
-  OPEN = "OPEN",
-  HALF_OPEN = "HALF_OPEN",
-}
-
-class CircuitBreaker {
-  private state: CircuitState = CircuitState.CLOSED;
-  private failures: number = 0;
-  private lastFailure: number = 0;
-  private successCount: number = 0;
-
-  constructor(
-    private failureThreshold: number = 5,
-    private resetTimeout: number = 30000,
-    private halfOpenSuccessThreshold: number = 3,
-  ) {}
-
-  async execute<T>(fn: () => Promise<T>): Promise<T> {
-    if (this.state === CircuitState.OPEN) {
-      if (Date.now() - this.lastFailure >= this.resetTimeout) {
-        this.state = CircuitState.HALF_OPEN;
-        this.successCount = 0;
-      } else {
-        throw new Error("Circuit breaker is OPEN");
-      }
-    }
-
-    try {
-      const result = await fn();
-      this.onSuccess();
-      return result;
-    } catch (error) {
-      this.onFailure();
-      throw error;
-    }
-  }
-
-  private onSuccess(): void {
-    if (this.state === CircuitState.HALF_OPEN) {
-      this.successCount++;
-      if (this.successCount >= this.halfOpenSuccessThreshold) {
-        this.state = CircuitState.CLOSED;
-        this.failures = 0;
-      }
-    } else {
-      this.failures = 0;
-    }
-  }
-
-  private onFailure(): void {
-    this.failures++;
-    this.lastFailure = Date.now();
-
-    if (this.failures >= this.failureThreshold) {
-      this.state = CircuitState.OPEN;
-    }
-  }
-
-  getState(): CircuitState {
-    return this.state;
-  }
-}
-```
-
-**Adaptive Rate Limiting:**
+For simpler edge rate limiting using Cloudflare KV:
 
 ```typescript
-class AdaptiveRateLimiter {
-  private currentLimit: number;
-  private successRate: number = 1;
-  private window: { success: boolean; timestamp: number }[] = [];
+// KV-based rate limiting (simpler but less precise)
+export class KVRateLimiter {
+  private kv: KVNamespace;
 
-  constructor(
-    private minLimit: number,
-    private maxLimit: number,
-    private targetSuccessRate: number = 0.95,
-    private windowSize: number = 100,
-  ) {
-    this.currentLimit = maxLimit;
+  constructor(kv: KVNamespace) {
+    this.kv = kv;
   }
 
-  recordResult(success: boolean): void {
+  async limit(identifier: string, limit: number, window: number): Promise<IRateLimitResult> {
     const now = Date.now();
-    this.window.push({ success, timestamp: now });
+    const windowStart = now - window;
+    const key = `rate_limit:${identifier}:${Math.floor(now / window)}`;
 
-    // Keep window size manageable
-    if (this.window.length > this.windowSize) {
-      this.window.shift();
+    const current = await this.kv.get(key);
+    const count = parseInt(current || '0');
+
+    if (count >= limit) {
+      const resetTime = Math.ceil(now / window) * window + window;
+
+      return {
+        success: false,
+        remaining: 0,
+        reset: resetTime,
+      };
     }
 
-    this.adjustLimit();
-  }
+    // Increment counter
+    const newCount = count + 1;
+    await this.kv.put(key, newCount.toString(), {
+      expirationTtl: Math.ceil(window / 1000),
+    });
 
-  private adjustLimit(): void {
-    if (this.window.length < 10) return;
-
-    const successes = this.window.filter((r) => r.success).length;
-    this.successRate = successes / this.window.length;
-
-    if (this.successRate < this.targetSuccessRate) {
-      // Reduce limit when success rate drops
-      this.currentLimit = Math.max(
-        this.minLimit,
-        Math.floor(this.currentLimit * 0.9),
-      );
-    } else if (this.successRate > this.targetSuccessRate + 0.02) {
-      // Slowly increase limit when stable
-      this.currentLimit = Math.min(
-        this.maxLimit,
-        Math.ceil(this.currentLimit * 1.05),
-      );
-    }
-  }
-
-  getCurrentLimit(): number {
-    return this.currentLimit;
-  }
-
-  getSuccessRate(): number {
-    return this.successRate;
-  }
-}
-```
-
-### Rate Limit Headers and Client Communication
-
-**Standard Headers:**
-
-```typescript
-interface RateLimitInfo {
-  limit: number;
-  remaining: number;
-  reset: number; // Unix timestamp
-  retryAfter?: number; // Seconds
-}
-
-function setRateLimitHeaders(res: Response, info: RateLimitInfo): void {
-  // Standard headers
-  res.setHeader("X-RateLimit-Limit", info.limit.toString());
-  res.setHeader("X-RateLimit-Remaining", info.remaining.toString());
-  res.setHeader("X-RateLimit-Reset", info.reset.toString());
-
-  // Draft IETF standard headers
-  res.setHeader("RateLimit-Limit", info.limit.toString());
-  res.setHeader("RateLimit-Remaining", info.remaining.toString());
-  res.setHeader("RateLimit-Reset", info.reset.toString());
-
-  if (info.retryAfter !== undefined) {
-    res.setHeader("Retry-After", info.retryAfter.toString());
-  }
-}
-
-// Response body for 429 errors
-interface RateLimitErrorResponse {
-  error: {
-    code: "RATE_LIMIT_EXCEEDED";
-    message: string;
-    retryAfter: number;
-    limit: number;
-    resetAt: string;
-  };
-}
-
-function createRateLimitError(info: RateLimitInfo): RateLimitErrorResponse {
-  return {
-    error: {
-      code: "RATE_LIMIT_EXCEEDED",
-      message: `Rate limit exceeded. Please retry after ${info.retryAfter} seconds.`,
-      retryAfter: info.retryAfter!,
-      limit: info.limit,
-      resetAt: new Date(info.reset * 1000).toISOString(),
-    },
-  };
-}
-```
-
-**Express Middleware:**
-
-```typescript
-import { Request, Response, NextFunction } from "express";
-
-interface RateLimiterOptions {
-  windowMs: number;
-  max: number;
-  keyGenerator?: (req: Request) => string;
-  skip?: (req: Request) => boolean;
-  handler?: (req: Request, res: Response) => void;
-}
-
-function createRateLimiter(options: RateLimiterOptions) {
-  const limiter = new DistributedRateLimiter(process.env.REDIS_URL!);
-
-  return async (req: Request, res: Response, next: NextFunction) => {
-    // Skip if configured
-    if (options.skip?.(req)) {
-      return next();
-    }
-
-    const key = options.keyGenerator?.(req) || req.ip;
-    const result = await limiter.isAllowed(
-      key,
-      options.max,
-      options.windowMs / 1000,
-    );
-
-    const info: RateLimitInfo = {
-      limit: options.max,
-      remaining: result.remaining,
-      reset: Math.ceil(result.resetAt / 1000),
+    return {
+      success: true,
+      remaining: limit - newCount,
+      reset: Math.ceil(now / window) * window + window,
     };
-
-    setRateLimitHeaders(res, info);
-
-    if (!result.allowed) {
-      info.retryAfter = Math.ceil((result.resetAt - Date.now()) / 1000);
-
-      if (options.handler) {
-        return options.handler(req, res);
-      }
-
-      return res.status(429).json(createRateLimitError(info));
-    }
-
-    next();
-  };
+  }
 }
-
-// Usage
-app.use(
-  "/api/",
-  createRateLimiter({
-    windowMs: 60 * 1000, // 1 minute
-    max: 100,
-    keyGenerator: (req) => req.user?.id || req.ip,
-    skip: (req) => req.path === "/api/health",
-  }),
-);
 ```
 
-### Graceful Degradation
+## Testing Strategies
 
-**Priority-Based Degradation:**
+### Unit Testing Rate Limiters
 
 ```typescript
-enum RequestPriority {
-  CRITICAL = 1, // Health checks, auth
-  HIGH = 2, // User-initiated actions
-  NORMAL = 3, // Regular API calls
-  LOW = 4, // Background tasks
-  BATCH = 5, // Bulk operations
-}
+// tests/unit/rate-limit.test.ts
+import { describe, test, expect, beforeEach, vi } from 'vitest';
+import { createRateLimiter } from '../../server/rateLimit';
 
-class PriorityRateLimiter {
-  private limiters: Map<RequestPriority, TokenBucket> = new Map();
-  private systemLoad: number = 0;
+describe('Rate Limiting', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  test('should allow requests within limit', async () => {
+    const limiter = createRateLimiter(5, 1000); // 5 requests per second
+    const identifier = 'test_user';
+
+    for (let i = 0; i < 5; i++) {
+      const result = await limiter(identifier);
+      expect(result.success).toBe(true);
+      expect(result.remaining).toBe(5 - i - 1);
+    }
+  });
+
+  test('should block requests exceeding limit', async () => {
+    const limiter = createRateLimiter(3, 1000);
+    const identifier = 'test_user';
+
+    // Use up the limit
+    for (let i = 0; i < 3; i++) {
+      await limiter(identifier);
+    }
+
+    // Next request should be blocked
+    const result = await limiter(identifier);
+    expect(result.success).toBe(false);
+    expect(result.remaining).toBe(0);
+  });
+
+  test('should reset after window expires', async () => {
+    const limiter = createRateLimiter(2, 1000); // 2 requests per second
+    const identifier = 'test_user';
+
+    // Use up the limit
+    await limiter(identifier);
+    await limiter(identifier);
+
+    // Should be blocked
+    let result = await limiter(identifier);
+    expect(result.success).toBe(false);
+
+    // Advance time by window
+    vi.advanceTimersByTime(1000);
+
+    // Should be allowed again
+    result = await limiter(identifier);
+    expect(result.success).toBe(true);
+    expect(result.remaining).toBe(1);
+  });
+
+  test('should handle multiple identifiers independently', async () => {
+    const limiter = createRateLimiter(2, 1000);
+
+    // User 1 uses their limit
+    await limiter('user1');
+    await limiter('user1');
+
+    // User 2 should still have their full limit
+    const result = await limiter('user2');
+    expect(result.success).toBe(true);
+    expect(result.remaining).toBe(1);
+  });
+});
+```
+
+### Integration Testing with API Routes
+
+```typescript
+// tests/api/rate-limiting.api.spec.ts
+import { test, expect } from '@playwright/test';
+import { ApiClient } from '../helpers';
+
+test.describe('API Rate Limiting', () => {
+  test('should rate limit public endpoints by IP', async ({ request }) => {
+    const api = new ApiClient(request);
+
+    // Make requests up to the limit
+    const responses = [];
+    for (let i = 0; i < 12; i++) {
+      // Exceeds 10 request limit
+      const response = await api.get('/api/models');
+      responses.push(response);
+    }
+
+    // First 10 should succeed
+    for (let i = 0; i < 10; i++) {
+      await responses[i].expectStatus(200);
+    }
+
+    // Subsequent requests should be rate limited
+    for (let i = 10; i < 12; i++) {
+      await responses[i].expectStatus(429);
+      await responses[i].expectErrorCode('TOO_MANY_REQUESTS');
+    }
+  });
+
+  test('should apply tier-based rate limiting for authenticated users', async ({ request }) => {
+    const api = new ApiClient(request);
+
+    // Create users with different tiers
+    const freeUser = await api.createUser({ tier: 'free' });
+    const proUser = await api.createUser({ tier: 'pro' });
+
+    // Test free user limit
+    const freeApi = api.withAuth(freeUser.token);
+    let successCount = 0;
+
+    for (let i = 0; i < 15; i++) {
+      const response = await freeApi.get('/api/models');
+      if (response.status() === 200) successCount++;
+    }
+
+    expect(successCount).toBeLessThanOrEqual(10); // Free tier limit
+
+    // Test pro user limit
+    const proApi = api.withAuth(proUser.token);
+    successCount = 0;
+
+    for (let i = 0; i < 130; i++) {
+      const response = await proApi.get('/api/models');
+      if (response.status() === 200) successCount++;
+    }
+
+    expect(successCount).toBeLessThanOrEqual(120); // Pro tier limit
+  });
+});
+```
+
+## Performance Optimization
+
+### Memory Management
+
+```typescript
+// Optimized rate limiting with memory cleanup
+export class OptimizedRateLimiter {
+  private store = new Map<string, IRateLimitEntry>();
+  private cleanupInterval: NodeJS.Timeout;
 
   constructor() {
-    // Different limits per priority
-    this.limiters.set(RequestPriority.CRITICAL, new TokenBucket(1000, 100));
-    this.limiters.set(RequestPriority.HIGH, new TokenBucket(500, 50));
-    this.limiters.set(RequestPriority.NORMAL, new TokenBucket(200, 20));
-    this.limiters.set(RequestPriority.LOW, new TokenBucket(50, 5));
-    this.limiters.set(RequestPriority.BATCH, new TokenBucket(10, 1));
+    // Clean up old entries every 5 minutes
+    this.cleanupInterval = setInterval(
+      () => {
+        this.cleanup();
+      },
+      5 * 60 * 1000
+    );
   }
 
-  setSystemLoad(load: number): void {
-    this.systemLoad = Math.max(0, Math.min(1, load));
+  private cleanup() {
+    const now = Date.now();
+    const fiveMinutesAgo = now - 5 * 60 * 1000;
+
+    for (const [key, entry] of this.store.entries()) {
+      // Filter old timestamps
+      entry.timestamps = entry.timestamps.filter(t => t > fiveMinutesAgo);
+
+      // Remove empty entries
+      if (entry.timestamps.length === 0) {
+        this.store.delete(key);
+      }
+    }
   }
 
-  canProcess(priority: RequestPriority): boolean {
-    // Under high load, reject low-priority requests
-    if (this.systemLoad > 0.8 && priority > RequestPriority.HIGH) {
-      return false;
+  destroy() {
+    if (this.cleanupInterval) {
+      clearInterval(this.cleanupInterval);
     }
-    if (this.systemLoad > 0.9 && priority > RequestPriority.CRITICAL) {
-      return false;
-    }
-
-    const limiter = this.limiters.get(priority);
-    return limiter?.consume() ?? false;
   }
 }
 ```
 
-**Feature Flag Integration:**
+### Concurrent Request Handling
 
 ```typescript
-class DegradationManager {
-  private degradedFeatures: Set<string> = new Set();
+// Handle concurrent requests safely
+export class ConcurrentSafeRateLimiter {
+  private locks = new Map<string, Promise<void>>();
 
-  async checkAndDegrade(
-    feature: string,
-    fallback: () => Promise<any>,
-  ): Promise<any> {
-    if (this.degradedFeatures.has(feature)) {
-      return fallback();
+  async limit(identifier: string, limit: number, window: number): Promise<IRateLimitResult> {
+    // Wait for any existing operation on this identifier
+    if (this.locks.has(identifier)) {
+      await this.locks.get(identifier);
     }
-    return null; // Continue with normal execution
+
+    // Create a new lock for this operation
+    const lockPromise = this.performLimiting(identifier, limit, window);
+    this.locks.set(identifier, lockPromise);
+
+    try {
+      return await lockPromise;
+    } finally {
+      this.locks.delete(identifier);
+    }
   }
 
-  enableDegradedMode(feature: string): void {
-    this.degradedFeatures.add(feature);
-    console.log(`Degraded mode enabled for: ${feature}`);
-  }
-
-  disableDegradedMode(feature: string): void {
-    this.degradedFeatures.delete(feature);
-    console.log(`Degraded mode disabled for: ${feature}`);
-  }
-
-  isDegraded(feature: string): boolean {
-    return this.degradedFeatures.has(feature);
+  private async performLimiting(
+    identifier: string,
+    limit: number,
+    window: number
+  ): Promise<IRateLimitResult> {
+    // Implement the actual rate limiting logic here
+    // This ensures only one operation runs per identifier at a time
+    const now = Date.now();
+    // ... rate limiting implementation
   }
 }
 ```
 
 ## Best Practices
 
-### Algorithm Selection
+### 1. Layered Rate Limiting
 
-- **Token Bucket**: Best for allowing bursts while maintaining average rate
-- **Sliding Window**: Best for precise rate limiting without bursts
-- **Leaky Bucket**: Best for smoothing out traffic to downstream services
-
-### Redis Configuration
-
-- Use Redis Cluster for high availability
-- Set appropriate memory limits and eviction policies
-- Use Lua scripts for atomic operations
-- Monitor Redis latency and connection pool
-
-### Client Experience
-
-- Always return rate limit headers
-- Provide clear error messages with retry timing
-- Consider implementing client-side rate limiting
-- Document rate limits in API documentation
-
-### Monitoring
-
-- Track rate limit hits by endpoint and user
-- Alert on sudden spikes in rate limiting
-- Monitor for distributed attack patterns
-- Log rate limit events for debugging
-
-### Security
-
-- Implement IP-based limits as first line of defense
-- Use authenticated rate limits for legitimate users
-- Consider geographic rate limiting for region-specific abuse
-- Implement CAPTCHA for suspicious patterns
-
-## Examples
-
-### Complete Express Rate Limiting Setup
+Apply multiple layers of rate limiting for comprehensive protection:
 
 ```typescript
-import express from "express";
-import Redis from "ioredis";
+// Apply multiple rate limits in sequence
+export async function applyLayeredRateLimit(req: Request, user: IUser) {
+  // 1. Global IP-based limit
+  const ipLimit = await applyPublicRateLimit(req);
+  if (ipLimit) return ipLimit;
 
-const app = express();
-const redis = new Redis(process.env.REDIS_URL);
+  // 2. User-based limit
+  const userLimit = await applyUserRateLimit(user.id, user.tier);
+  if (userLimit) return userLimit;
 
-// Rate limiter factory
-function rateLimiter(config: {
-  points: number;
-  duration: number;
-  keyPrefix: string;
-}) {
-  return async (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction,
-  ) => {
-    const key = `${config.keyPrefix}:${req.user?.id || req.ip}`;
+  // 3. Endpoint-specific limit
+  const endpointLimit = await applyEndpointLimit(req.url, user);
+  if (endpointLimit) return endpointLimit;
 
-    try {
-      const current = await redis.incr(key);
-
-      if (current === 1) {
-        await redis.expire(key, config.duration);
-      }
-
-      const ttl = await redis.ttl(key);
-      const remaining = Math.max(0, config.points - current);
-
-      res.set({
-        "X-RateLimit-Limit": config.points.toString(),
-        "X-RateLimit-Remaining": remaining.toString(),
-        "X-RateLimit-Reset": (Math.floor(Date.now() / 1000) + ttl).toString(),
-      });
-
-      if (current > config.points) {
-        res.set("Retry-After", ttl.toString());
-        return res.status(429).json({
-          error: "Too Many Requests",
-          retryAfter: ttl,
-        });
-      }
-
-      next();
-    } catch (error) {
-      // Fail open if Redis is unavailable
-      console.error("Rate limiter error:", error);
-      next();
-    }
-  };
+  return null; // All checks passed
 }
-
-// Apply different limits to different endpoints
-app.use(
-  "/api/auth",
-  rateLimiter({ points: 5, duration: 60, keyPrefix: "auth" }),
-);
-app.use(
-  "/api/search",
-  rateLimiter({ points: 30, duration: 60, keyPrefix: "search" }),
-);
-app.use("/api", rateLimiter({ points: 100, duration: 60, keyPrefix: "api" }));
-
-app.listen(3000);
 ```
 
-### Client-Side Rate Limit Handling
+### 2. Graceful Degradation
+
+Handle rate limit failures gracefully:
 
 ```typescript
-class APIClient {
-  private retryAfter: number = 0;
+export async function safeRateLimit(identifier: string): Promise<IRateLimitResult> {
+  try {
+    return await rateLimit.limit(identifier);
+  } catch (error) {
+    // Log error but allow request through
+    console.error('Rate limiting error:', error);
 
-  async request<T>(url: string, options?: RequestInit): Promise<T> {
-    // Check if we're in a rate-limited state
-    if (this.retryAfter > Date.now()) {
-      const waitTime = this.retryAfter - Date.now();
-      throw new Error(
-        `Rate limited. Retry after ${Math.ceil(waitTime / 1000)}s`,
-      );
-    }
-
-    const response = await fetch(url, options);
-
-    // Update rate limit state from headers
-    const remaining = response.headers.get("X-RateLimit-Remaining");
-    const reset = response.headers.get("X-RateLimit-Reset");
-
-    if (response.status === 429) {
-      const retryAfter = response.headers.get("Retry-After");
-      this.retryAfter = Date.now() + parseInt(retryAfter || "60") * 1000;
-
-      const body = await response.json();
-      throw new RateLimitError(body.error, parseInt(retryAfter || "60"));
-    }
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    return response.json();
+    return {
+      success: true,
+      remaining: 100, // Generous fallback
+      reset: Date.now() + 60000,
+    };
   }
+}
+```
 
-  async requestWithRetry<T>(
-    url: string,
-    options?: RequestInit,
-    maxRetries: number = 3,
-  ): Promise<T> {
-    let lastError: Error | null = null;
+### 3. Monitoring and Alerting
 
-    for (let i = 0; i < maxRetries; i++) {
-      try {
-        return await this.request<T>(url, options);
-      } catch (error) {
-        lastError = error as Error;
+Monitor rate limit violations:
 
-        if (error instanceof RateLimitError) {
-          // Wait for the retry-after period
-          await this.delay(error.retryAfter * 1000);
-        } else {
-          // Exponential backoff for other errors
-          await this.delay(Math.pow(2, i) * 1000);
-        }
-      }
+```typescript
+export class RateLimitMonitor {
+  private violations = new Map<string, number>();
+
+  async logViolation(identifier: string, endpoint: string, tier?: string) {
+    const key = `${identifier}:${endpoint}`;
+    const count = (this.violations.get(key) || 0) + 1;
+    this.violations.set(key, count);
+
+    // Alert on repeated violations
+    if (count === 5) {
+      await this.sendAlert({
+        type: 'RATE_LIMIT_VIOLATION',
+        identifier,
+        endpoint,
+        tier,
+        violationCount: count,
+      });
     }
 
-    throw lastError;
+    // Cleanup old violations
+    this.cleanupViolations();
   }
+}
+```
 
-  private delay(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+### 4. Cache Headers
+
+Add cache headers to rate limited responses:
+
+```typescript
+export function createRateLimitResponse(limit: number, remaining: number, reset: number) {
+  return NextResponse.json(
+    {
+      error: 'Rate limit exceeded',
+      retryAfter: Math.ceil((reset - Date.now()) / 1000),
+    },
+    {
+      status: 429,
+      headers: {
+        'X-RateLimit-Limit': limit.toString(),
+        'X-RateLimit-Remaining': remaining.toString(),
+        'X-RateLimit-Reset': new Date(reset).toISOString(),
+        'Retry-After': Math.ceil((reset - Date.now()) / 1000).toString(),
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+      },
+    }
+  );
+}
+```
+
+## Migration Path
+
+### From In-Memory to Edge Storage
+
+```typescript
+// Abstract rate limiter interface
+interface IRateLimiter {
+  limit(identifier: string, limit: number, window: number): Promise<IRateLimitResult>;
+}
+
+// In-memory implementation (development)
+class InMemoryRateLimiter implements IRateLimiter {
+  private store = new Map<string, IRateLimitEntry>();
+
+  async limit(identifier: string, limit: number, window: number): Promise<IRateLimitResult> {
+    // In-memory implementation
   }
 }
 
-class RateLimitError extends Error {
-  constructor(
-    message: string,
-    public retryAfter: number,
-  ) {
-    super(message);
-    this.name = "RateLimitError";
+// Edge implementation (production)
+class EdgeRateLimiter implements IRateLimiter {
+  private kv: KVNamespace;
+
+  async limit(identifier: string, limit: number, window: number): Promise<IRateLimitResult> {
+    // Edge KV implementation
+  }
+}
+
+// Factory function
+export function createRateLimiter(): IRateLimiter {
+  if (process.env.NODE_ENV === 'production' && process.env.CLOUDFLARE_WORKER) {
+    return new EdgeRateLimiter(/* KV namespace */);
+  }
+
+  return new InMemoryRateLimiter();
+}
+```
+
+### Gradual Rollout
+
+```typescript
+// Feature flag for edge rate limiting
+export class HybridRateLimiter {
+  private inMemory: InMemoryRateLimiter;
+  private edge: EdgeRateLimiter;
+  private edgeEnabled: boolean;
+
+  constructor(edgeEnabled: boolean = false) {
+    this.inMemory = new InMemoryRateLimiter();
+    this.edge = new EdgeRateLimiter();
+    this.edgeEnabled = edgeEnabled;
+  }
+
+  async limit(identifier: string, limit: number, window: number): Promise<IRateLimitResult> {
+    if (this.edgeEnabled) {
+      try {
+        return await this.edge.limit(identifier, limit, window);
+      } catch (error) {
+        // Fallback to in-memory
+        console.error('Edge rate limiting failed, falling back:', error);
+        return await this.inMemory.limit(identifier, limit, window);
+      }
+    }
+
+    return await this.inMemory.limit(identifier, limit, window);
+  }
+
+  enableEdge() {
+    this.edgeEnabled = true;
   }
 }
 ```

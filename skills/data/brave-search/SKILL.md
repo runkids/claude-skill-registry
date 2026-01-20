@@ -1,54 +1,79 @@
 ---
 name: brave-search
-description: Structured Brave Search web queries and summarizer workflows for MCP-style agents.
+description: >
+  Free web and local search via Brave Search API. Use when user says "brave search",
+  "search with brave", "brave web search", "brave local search", "local search",
+  "find businesses near", or "near me".
+allowed-tools: Bash, Read
+triggers:
+  - brave search
+  - search with brave
+  - brave web search
+  - brave local search
+  - local search
+  - find businesses near
+  - find restaurants near
+  - near me
+  - free search
+metadata:
+  short-description: Web + local search via Brave API
 ---
 
-# Purpose
+# Brave Search
 
-Provide deterministic wrappers around Brave Search’s web and summarizer endpoints. Use the web workflow to retrieve structured SERP data (web pages, FAQs, discussions, news, videos). Use the summarizer workflow to turn Brave’s aggregated findings into a concise narrative when the subscription permits summarization.
+Web and local search using the Brave Search API. Returns raw results (not LLM-summarized).
 
-# When to Use
+## Prerequisites
 
-- Run web fact-finding on current events, product comparisons, research digests, or perspective gathering when Google/Bing responses are insufficient.
-- Request the summarizer only after a prior web search produced a `summarizer_key`, and the user explicitly wants a Brave-generated synthesis.
+- `BRAVE_API_KEY` or `BRAVE_SEARCH_API_KEY` in environment or `.env`
+- Install CLI deps: `pip install typer`
 
-# Configuration Requirements
+## When to Use
 
-- Set `BRAVE_SEARCH_API_KEY` in the execution environment. The value populates the `X-Subscription-Token` header.
-- Prefer secure storage through the project’s secrets tooling before launching the script.
-- All invocations must use `uv run` to respect the project’s Python environment.
+- You need raw web results without LLM synthesis
+- You want local business info (addresses, ratings, phone numbers)
+- You want a second opinion vs other search tools
 
-# Workflows
+## Quick Start
 
-## A. Web Search (results only)
+```bash
+# Web search (JSON by default)
+python .agents/skills/brave-search/brave_search.py web "site:openai.com gpt-4o"
 
-1. Prepare JSON containing at least `"query"`. Optional keys include `country`, `search_lang`, `ui_lang`, `count`, `offset`, `safesearch`, `freshness`, `text_decorations`, `spellcheck`, `result_filter`, `goggles`, `units`, and `extra_snippets`.
-2. Run `uv run scripts/brave_search.py web --params-json '<JSON>'`.
-3. Consume `web_results`, `faq_results`, `discussions_results`, `news_results`, and `video_results` from the JSON output. Each section mirrors the Brave MCP tool’s simplified records.
-4. If `ok` is `false` with `"No web results found"`, broaden or restate the query before retrying.
+# Local search
+python .agents/skills/brave-search/brave_search.py local "coffee near Cambridge MA" --no-json
+```
 
-## B. Web Search with Summarizer Key
+## CLI Usage
 
-1. Follow workflow A but add `"summary": true` to the JSON payload.
-2. The script automatically requests `result_filter=summarizer`. Inspect the response’s `summarizer_key`.
-3. Store the key and cite the original `web_results` when answering detailed questions while preparing for a summarizer follow-up.
+```bash
+python .agents/skills/brave-search/brave_search.py web "query" [--count N] [--offset N] [--json/--no-json]
+python .agents/skills/brave-search/brave_search.py local "query" [--count N] [--json/--no-json]
+```
 
-## C. Summarizer
+## Python API
 
-1. Ensure a recent workflow B run produced a `summarizer_key`.
-2. Build JSON like `{"key": "<summarizer_key>", "entity_info": false, "inline_references": true}`. Optional overrides: `poll_interval_ms` (default 50) and `max_attempts` (default 20).
-3. Run `uv run scripts/brave_search.py summarizer --params-json '<JSON>'`.
-4. Use `summary_text` as the main synthesis. Supplement with `enrichments`, `followups`, and `entities_infos` for deeper context or suggested next steps.
-5. If the summarizer fails, rely on the previously collected `web_results` to craft a manual answer.
+```python
+from brave_search import web_search, local_search
 
-# Error Handling and Fallbacks
+results = web_search("site:openai.com gpt-4o", count=5)
+local = local_search("pizza near Boston", count=5)
+```
 
-- Missing API key: the script emits `ok: false` with an explicit description; set the environment variable and rerun.
-- HTTP or Brave-side errors: review the `details` object, adjust parameters, or pause if throttled.
-- Summarizer polling timeout: rerun the web search to refresh the key, or answer using raw web data.
+## Agent Tool Usage (MCP)
 
-# References
+If MCP tools are available, prefer:
+- `mcp__brave-search__brave_web_search` for general web queries
+- `mcp__brave-search__brave_local_search` for places/nearby queries
 
-- `references/brave_web_search_params.md` — exhaustive parameter definitions and sample payloads.
-- `references/brave_summarizer_workflow.md` — polling logic, summary message schema, and tuning guidance.
-- `references/brave_search_examples.md` — end-to-end scenarios demonstrating combined web and summarizer usage.
+## Examples
+
+```bash
+python .agents/skills/brave-search/brave_search.py web "ArangoDB ArangoSearch BM25"
+python .agents/skills/brave-search/brave_search.py local "restaurants near Pike Place Market" --no-json
+```
+
+## Tips
+
+- Use `--no-json` for quick human-readable output
+- Local search falls back to web if no locations are found

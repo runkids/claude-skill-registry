@@ -1,257 +1,274 @@
 ---
 name: github-pr-manager
-description: Comprehensive pull request management with swarm coordination for automated reviews, testing, and merge workflows. Use for PR lifecycle management, multi-reviewer coordination, conflict resolution, and intelligent branch management.
+description: Create, view, and merge GitHub pull requests with validation. Use when creating PRs from branches, checking PR status, or merging approved PRs with cleanup.
 ---
 
-# GitHub PR Manager Skill
+# GitHub PR Manager
 
-## Overview
+## Instructions
 
-Manage the complete pull request lifecycle with swarm coordination. This skill handles PR creation, multi-reviewer coordination, automated testing integration, conflict resolution, and intelligent merge strategies.
+### When to Invoke This Skill
+- Creating a pull request after implementing changes
+- Checking status of an existing PR (mergeable, checks, reviews)
+- Merging an approved PR
+- Validating PR state before operations
 
-## Quick Start
+### Capabilities
 
-```bash
-# Check GitHub CLI authentication
-gh auth status
+1. **Create Pull Request**
+   - Generate PR from current branch
+   - Create descriptive title and body
+   - Link to related issues
+   - Add appropriate labels
 
-# Create a PR with description
-gh pr create --title "Feature: New API endpoint" --body "Implementation details..." --base main
+2. **View PR Status**
+   - Check if PR is open/closed/merged
+   - Verify mergeable state
+   - Review CI check status
+   - Check review approvals
 
-# Review PR status
-gh pr status
+3. **Merge Pull Request**
+   - Squash merge with single commit
+   - Auto-delete remote branch
+   - Validate before merging
 
-# List open PRs
-gh pr list --state open
+### Standard Workflows
+
+#### Creating a PR
+
+1. **Verify Current Branch**
+   ```bash
+   git branch --show-current
+   ```
+   Ensure you're on a feature branch, not main/master
+
+2. **Push Branch** (if not already pushed)
+   ```bash
+   git push -u origin HEAD
+   ```
+
+3. **Create PR**
+   ```bash
+   gh pr create --title "<type>: <description>" --body "$(cat <<'EOF'
+   ## Summary
+   Resolves #<issue_number>
+
+   <Brief description of changes>
+
+   ## Changes Made
+   - <List key changes>
+
+   ## Testing
+   - <How to test these changes>
+
+   🤖 Generated with [Claude Code](https://claude.com/claude-code)
+   EOF
+   )"
+   ```
+
+#### Checking PR Status
+
+1. **Fetch PR Information**
+   ```bash
+   gh pr view <pr_number> --json state,mergeable,statusCheckRollup,reviewDecision
+   ```
+
+2. **Interpret Results**
+   - `state`: "OPEN", "CLOSED", "MERGED"
+   - `mergeable`: "MERGEABLE", "CONFLICTING", "UNKNOWN"
+   - `reviewDecision`: "APPROVED", "CHANGES_REQUESTED", "REVIEW_REQUIRED"
+
+#### Merging a PR
+
+1. **Validate PR State**
+   ```bash
+   gh pr view <pr_number> --json headRefName,state,mergeable
+   ```
+   - Verify state is "OPEN"
+   - Verify mergeable is "MERGEABLE"
+   - Extract branch name for cleanup
+
+2. **Detect Environment and Perform Squash Merge**
+
+   **Check if in worktree:**
+   ```bash
+   # Worktrees have .git as a file, main repos have .git as a directory
+   if [ -f .git ]; then
+     echo "📍 Worktree detected"
+     IN_WORKTREE=true
+   else
+     echo "📍 Main repository detected"
+     IN_WORKTREE=false
+   fi
+   ```
+
+   **Merge with conditional branch deletion:**
+   ```bash
+   if [ "$IN_WORKTREE" = "true" ]; then
+     # In worktree: merge without --delete-branch (would fail trying to checkout main)
+     gh pr merge <pr_number> --squash
+     echo "Note: Remote branch NOT auto-deleted (worktree limitation)"
+   else
+     # In main repo: merge with automatic branch deletion
+     gh pr merge <pr_number> --squash --delete-branch
+   fi
+   ```
+
+   **Why different approaches:**
+   - `--delete-branch` flag attempts to checkout main after deletion
+   - This fails in worktrees where main is already checked out in root
+   - Manual cleanup is safer and more explicit in worktree workflows
+
+3. **Update Local Repository**
+
+   **Switch to main (if not in worktree):**
+   ```bash
+   if [ "$IN_WORKTREE" = "false" ]; then
+     git checkout main
+   fi
+   ```
+
+   **Pull latest changes:**
+   ```bash
+   git pull origin main
+   ```
+
+   **Note**: In worktree environments:
+   - Main is checked out in the root repository
+   - Cannot checkout a branch that's active elsewhere
+   - Worktree cleanup is handled by orchestrator or worktree-manager skill
+
+4. **Clean Up Branches**
+
+   **Delete remote branch (if in worktree and not already deleted):**
+   ```bash
+   if [ "$IN_WORKTREE" = "true" ]; then
+     # Manually delete remote branch
+     git push origin --delete <branch-name>
+   fi
+   ```
+
+   **Delete local branch** (if still exists)
+   ```bash
+   # Check if branch still exists
+   git branch --list <branch-name>
+
+   # Delete only if exists
+   if git branch --list <branch-name> | grep -q <branch-name>; then
+     git branch -d <branch-name>
+   fi
+   ```
+   **Note**: The `--delete-branch` flag usually handles this, but verify to ensure cleanup
+
+### Error Handling
+
+**Authentication Issues:**
+- Run: `gh auth status`
+- If not authenticated: `gh auth login`
+
+**PR Not Mergeable:**
+- Check for conflicts: Inform user to resolve merge conflicts
+- Check for failing CI: Wait for checks to pass
+- Check for required reviews: Request reviews from team
+
+**Branch Deletion Fails:**
+- Branch may be protected
+- User may have the branch checked out
+- Branch may not exist locally (already deleted or never checked out)
+- Always check branch existence before deletion
+- Ignore "branch not found" errors - treat as already cleaned up
+
+**Worktree Environment:**
+- In git worktrees, `.git` is a file (not directory) pointing to actual git dir
+- Cannot checkout main because it's active in root repository
+- Skill automatically detects worktrees and skips checkout step
+- Branch deletion still works normally from worktrees
+- Pull operation fetches latest changes without switching branches
+- Worktree cleanup should be handled separately (use worktree-manager skill)
+
+### PR Title and Body Standards
+
+**Title Format:**
+```
+<type>: <brief description>
 ```
 
-## When to Use
+Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `perf`
 
-- Creating and managing pull requests
-- Coordinating multi-reviewer workflows
-- Resolving merge conflicts
-- Automating PR testing and validation
-- Managing branch synchronization
-- Batch PR operations across repositories
+**Body Format:**
+```markdown
+## Summary
+Resolves #<issue>
 
-## Core Capabilities
+<1-2 sentence description>
 
-| Capability | Description |
-|------------|-------------|
-| Multi-reviewer coordination | Swarm agents for parallel code review |
-| Automated conflict resolution | Intelligent merge strategies |
-| Comprehensive testing | Integration with CI/CD validation |
-| Real-time progress tracking | GitHub issue coordination |
-| Branch management | Synchronization and cleanup |
+## Changes Made
+- <Bullet list of key changes>
 
-## Usage Examples
+## Testing
+- <How changes were tested>
+- <Manual test steps if needed>
 
-### 1. Create PR with Swarm Coordination
+## Screenshots (if UI changes)
+<Optional screenshots>
 
-```javascript
-// Initialize review swarm
-mcp__claude-flow__swarm_init({ topology: "mesh", maxAgents: 4 })
-mcp__claude-flow__agent_spawn({ type: "reviewer", name: "Code Quality Reviewer" })
-mcp__claude-flow__agent_spawn({ type: "tester", name: "Testing Agent" })
-mcp__claude-flow__agent_spawn({ type: "coordinator", name: "PR Coordinator" })
-
-// Orchestrate review process
-mcp__claude-flow__task_orchestrate({
-  task: "Complete PR review with testing and validation",
-  strategy: "parallel",
-  priority: "high"
-})
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
 
-### 2. Create and Manage PR with gh CLI
+## Examples
 
-```bash
-# Create PR
-gh pr create \
-  --repo owner/repo \
-  --title "feat: Integration between packages" \
-  --head feature-branch \
-  --base main \
-  --body "## Summary
-- Added new integration
-- Updated dependencies
-- Fixed compatibility issues"
-
-# View PR details
-gh pr view 54 --json files,additions,deletions,title,body
-
-# Add reviewers
-gh pr edit 54 --add-reviewer user1,user2
-
-# Check PR status
-gh pr checks 54
+### Example 1: Create PR from feature branch
+```
+User: "Create a PR for this feature"
+Action:
+1. Verify on feature branch
+2. Push if needed
+3. Create PR with structured body linking to issue
+Output: PR URL and number
 ```
 
-### 3. Review and Approve PR
-
-```bash
-# Get PR diff
-gh pr diff 54
-
-# Approve PR
-gh pr review 54 --approve --body "LGTM! All checks pass."
-
-# Request changes
-gh pr review 54 --request-changes --body "Please address the following..."
-
-# Comment on PR
-gh pr comment 54 --body "Consider refactoring this section."
+### Example 2: Check PR status before merging
+```
+User: "Is PR #123 ready to merge?"
+Action:
+1. Fetch PR status
+2. Check mergeable state, CI status, reviews
+Output: "PR #123 is ready to merge" or list blockers
 ```
 
-### 4. Merge PR with Validation
-
-```bash
-# Check merge readiness
-gh pr status
-
-# Merge with squash
-gh pr merge 54 --squash --delete-branch \
-  --subject "feat: Complete integration" \
-  --body "Comprehensive integration with swarm coordination"
-
-# Merge with rebase
-gh pr merge 54 --rebase --delete-branch
+### Example 3: Merge approved PR
 ```
-
-### 5. Batch PR Operations
-
-```javascript
-[Single Message - Complete PR Management]:
-  // Initialize coordination
-  mcp__claude-flow__swarm_init({ topology: "hierarchical", maxAgents: 5 })
-  mcp__claude-flow__agent_spawn({ type: "reviewer", name: "Senior Reviewer" })
-  mcp__claude-flow__agent_spawn({ type: "tester", name: "QA Engineer" })
-  mcp__claude-flow__agent_spawn({ type: "coordinator", name: "Merge Coordinator" })
-
-  // Create and manage PR
-  Bash("gh pr create --repo owner/repo --title '...' --head '...' --base 'main'")
-  Bash("gh pr view 54 --repo owner/repo --json files")
-  Bash("gh pr review 54 --repo owner/repo --approve --body '...'")
-
-  // Execute tests and validation
-  Bash("npm test && npm run lint && npm run build")
-
-  // Track progress
-  TodoWrite({ todos: [
-    { id: "review", content: "Complete code review", status: "completed" },
-    { id: "test", content: "Run test suite", status: "completed" },
-    { id: "merge", content: "Merge when ready", status: "pending" }
-  ]})
+User: "Merge PR #123"
+Action:
+1. Validate PR state and extract branch name
+2. Squash merge with branch deletion
+3. Switch to main and pull
+4. Verify local branch cleanup (check existence first)
+Output: "PR #123 merged successfully, branch cleaned up"
 ```
-
-## MCP Tool Integration
-
-### Swarm Initialization
-
-```javascript
-mcp__claude-flow__swarm_init({
-    topology: "mesh",  // mesh, hierarchical, star, ring
-    maxAgents: 4,
-    strategy: "balanced"
-})
+### Example 4: Merge PR from worktree
 ```
+User: "Merge PR #789"
+Context: Working in worktree at worktrees/issue-275/
+Action:
+1. Validate PR state (gh pr view 789 --json headRefName,state,mergeable)
+2. Extract branch name: fix/issue-275
+3. Detect worktree environment (test -f .git returns true)
+4. Squash merge WITHOUT --delete-branch (gh pr merge 789 --squash)
+5. Skip checkout to main (would fail in worktree)
+6. Pull latest changes (git pull origin main)
+7. Manually delete remote branch (git push origin --delete fix/issue-275)
+8. Verify local branch cleanup
 
-### Agent Spawning
+Output:
+"📍 Worktree detected
+Merging PR #789...
+Note: Remote branch NOT auto-deleted (worktree limitation)
+PR #789 merged successfully
+Pulled latest changes from main
+Deleting remote branch fix/issue-275...
+Remote branch deleted
+Ready for worktree cleanup"
 
-```javascript
-mcp__claude-flow__agent_spawn({
-    type: "reviewer",
-    name: "PR Reviewer",
-    capabilities: ["code-review", "security-audit", "performance-check"]
-})
+Note: The worktree itself should be cleaned up using worktree-manager skill after merge
 ```
-
-### Memory Coordination
-
-```javascript
-// Store PR state
-mcp__claude-flow__memory_usage({
-    action: "store",
-    key: "pr/54/status",
-    value: JSON.stringify({
-        timestamp: Date.now(),
-        status: "approved",
-        reviewers: ["user1", "user2"]
-    })
-})
-
-// Retrieve PR state
-mcp__claude-flow__memory_usage({
-    action: "retrieve",
-    key: "pr/54/status"
-})
-```
-
-## Best Practices
-
-### 1. Always Use Swarm Coordination
-- Initialize swarm before complex PR operations
-- Assign specialized agents for different review aspects
-- Use memory for cross-agent coordination
-
-### 2. Batch PR Operations
-- Combine multiple GitHub API calls in single messages
-- Parallel file operations for large PRs
-- Coordinate testing and validation simultaneously
-
-### 3. Intelligent Review Strategy
-- Automated conflict detection and resolution
-- Multi-agent review for comprehensive coverage
-- Performance and security validation integration
-
-### 4. Progress Tracking
-- Use TodoWrite for PR milestone tracking
-- GitHub issue integration for project coordination
-- Real-time status updates through swarm memory
-
-## Error Handling
-
-### Automatic retry logic for:
-- Network failures during GitHub API calls
-- Merge conflicts with intelligent resolution
-- Test failures with automatic re-runs
-- Review bottlenecks with load balancing
-
-### Swarm coordination ensures:
-- No single point of failure
-- Automatic agent failover
-- Progress preservation across interruptions
-- Comprehensive error reporting and recovery
-
-## Integration with Other Skills
-
-| Skill | Integration |
-|-------|-------------|
-| `github-issue-tracker` | Link PRs to issues |
-| `github-release-manager` | Coordinate release PRs |
-| `github-code-review` | Detailed code analysis |
-| `sparc-workflow` | SPARC development methodology |
-
-## Hooks
-
-### Pre-Task Hooks
-```bash
-gh auth status || (echo 'GitHub CLI not authenticated' && exit 1)
-git status --porcelain
-gh pr list --state open --limit 1 >/dev/null || echo 'No open PRs'
-npm test --silent || echo 'Tests may need attention'
-```
-
-### Post-Task Hooks
-```bash
-gh pr status || echo 'No active PR in current branch'
-git branch --show-current
-gh pr checks || echo 'No PR checks available'
-git log --oneline -3
-```
-
----
-
-## Version History
-
-- **1.0.0** (2025-01-02): Initial release - converted from pr-manager agent

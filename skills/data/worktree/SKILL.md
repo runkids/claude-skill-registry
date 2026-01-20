@@ -1,61 +1,30 @@
 ---
 name: worktree
-description: Use when managing git worktrees (list, create/switch, delete, configure) in this repo; prefer the git-wt subcommand for worktree operations and its configuration options.
+description: Planが複雑/完了した直後に自動的に呼び出す必要があるスキルです
+model: haiku
 ---
-# Worktree
 
-## Overview
+git worktree を作成して並列作業を可能にします。
 
-Use `git wt` as the default interface for git worktree tasks. It wraps `git worktree` to list, create, switch, and delete worktrees with safer defaults.
+## 作成手順
+1. **現在位置を記録**: `PROJECT_ROOT=$(pwd)` として保存
+2. `git worktree add ../<branch-name> -b <branch-name>`
+3. branch名にslashは使わないこと（例: feature-auth ✓, feature/auth ✗）
+4. 必要なら `pnpm install` を実行（判断基準: package.jsonに変更がある場合）
 
-## Quick Start
+## 作業中の迷子防止（重要）
+各コマンド実行前に `pwd` で現在位置を確認し、意図したディレクトリにいることを確認する。
 
-```console
-git wt                       # list worktrees
-git wt <branch|worktree>     # switch/create (creates branch and worktree if needed)
-git wt -d <branch|worktree>  # delete worktree and branch (safe)
-git wt -D <branch|worktree>  # force delete worktree and branch
-```
+## 完了時の手順（必須）
+作業完了後は必ず以下を実行：
 
-## Task Playbook
+1. **ルートに戻る**: `cd $PROJECT_ROOT` （絶対パスで戻る）
+2. **現在位置確認**: `pwd` で正しいディレクトリにいることを確認
+3. **クリーンアップ**: `git worktree remove ../<branch-name>`
+4. **残存確認**: `git worktree list` でworktreeが残っていないことを確認
 
-### List worktrees
-
-Run `git wt` and parse the output. Use this to confirm names and paths before switching or deleting.
-
-### Create or switch worktree
-
-Prefer `git wt <branch|worktree>` for both actions. It will create the branch/worktree if missing, otherwise switch to it.
-
-If staying in the current directory matters, use `--nocd`:
-
-```console
-git wt --nocd feature-branch
-```
-
-### Delete worktree
-
-Use `git wt -d <branch|worktree>` for a safe delete. Only use `-D` if explicitly requested or when cleanup must be forced.
-
-## Configuration Guidance
-
-Use `git config` for defaults; override with flags when needed.
-
-- `wt.basedir` / `--basedir`: set the worktree base directory (default is `../{gitroot}-wt`).
-- `wt.copyignored` / `--copyignored`: copy gitignored files (for example, `.env`) when creating.
-- `wt.copyuntracked` / `--copyuntracked`: copy untracked files on create.
-- `wt.copymodified` / `--copymodified`: copy modified tracked files on create.
-- `wt.nocopy` / `--nocopy`: exclude files from copying (gitignore syntax).
-- `wt.copy` / `--copy`: always copy specific patterns even if ignored.
-- `wt.hook` / `--hook`: run commands after creating a new worktree.
-- `wt.nocd` / `--nocd`: prevent automatic directory switching.
-
-## Shell Integration
-
-When asked to enable shell integration, use the appropriate init command:
-
-```powershell
-Invoke-Expression (git wt --init powershell | Out-String)
-```
-
-Use `--nocd` with `--init` to enable completion without wrapping `git` when required.
+## 注意
+- worktree ごとに node_modules が必要になる場合がある
+- 長期間放置するとディスクを圧迫する
+- 作業完了時のクリーンアップを忘れないこと
+- **迷子になったら**: `git worktree list` で全worktreeの場所を確認

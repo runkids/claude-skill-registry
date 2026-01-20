@@ -1,7 +1,7 @@
 {
   "name": "theater-detection-audit",
-  "repo": "DNYoussef/ai-chrome-extension",
-  "path": ".claude/skills/theater-detection-audit/SKILL.md",
-  "source": "github.com/DNYoussef/ai-chrome-extension",
-  "downloaded_at": "2026-01-19T03:55:49.751856Z"
+  "repo": "DNYoussef/context-cascade",
+  "path": "skills/quality/theater-detection-audit/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-20T04:01:39.094449Z"
 }

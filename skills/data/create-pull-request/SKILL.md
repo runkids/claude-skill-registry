@@ -1,353 +1,97 @@
 ---
 name: create-pull-request
-description: |
-  Create GitHub pull request with atomic Beads issue closure. MUST BE USED for opening PRs.
-  Asks if work is complete - if YES, closes Beads issue BEFORE creating PR (JSONL merges atomically with code).
-  If NO, creates draft PR with issue still open. Automatically links Beads tracking and includes Feature-Key.
-  Use when user wants to open a PR, submit work for review, merge into master, or prepare for deployment,
-  or when user mentions "ready for review", "create PR", "open PR", "merge conflicts", "CI checks needed",
-  "branch ahead of master", PR creation, opening pull requests, deployment preparation, or submitting for team review.
-tags: [workflow, github, pr, beads, review]
-allowed-tools:
-  - mcp__plugin_beads_beads__*
-  - Bash(git:*)
-  - Bash(gh:*)
-  - Bash(bd:*)
-  - Bash(scripts/bd-link-pr:*)
+description: Create pull requests following project conventions. Use when: (1) creating a PR with gh pr create, (2) writing commit messages, (3) need branch naming guidance. Covers branch naming patterns, PR title/body format, and pre-commit checks.
 ---
 
-# Create Pull Request
+# PR Creation Quick Reference
 
-Open GitHub PR with Beads integration (<10 seconds total).
+## Branch Naming
 
-## Workflow
+| Type | Pattern | Example |
+|------|---------|---------|
+| Feature | `feature/{description}` | `feature/impl-admin-example-api` |
+| Bugfix | `fix/{description}` | `fix/example-creation-error` |
+| Chore | `chore/{description}` | `chore/update-dependencies` |
 
-### 1. Extract and Validate Feature Key
+## PR Title
+
+Use English. Be concise and descriptive.
+
+```
+Implement AdminService.GetExample
+Add validation for Example create API
+Fix null pointer in tenant lookup
+```
+
+## PR Body Template
+
+```markdown
+## Proposed Changes
+
+- Brief description of what was changed
+
+## Implementation
+
+{Verification details - curl commands, CLI output, or file changes}
+```
+
+## Implementation Section Examples
+
+### API Endpoint
+
+```markdown
+## Implementation
+
+### POST /admin/v1/tenants/{tenant_id}/examples
+
+curl -X POST "http://localhost:8080/admin/v1/tenants/xxx/examples" \
+    -H "Authorization: Bearer {token}" \
+    -H "Content-Type: application/json" \
+    -d '{"name": "Test", "description": "Test desc"}'
+
+Response:
+{"example": {"id": "xxx", "name": "Test", "created_at": "2025-01-01T00:00:00Z"}}
+```
+
+### Non-API Changes
+
+```markdown
+## Implementation
+
+- Updated `internal/domain/model/example.go` with new validation
+- Added unit tests in `example_test.go`
+- Regenerated mocks with `make generate.mock`
+```
+
+## Pre-PR Checklist
 
 ```bash
-CURRENT_BRANCH=$(git branch --show-current)
-
-# Validate branch naming convention
-# Allow dots for hierarchical IDs (e.g., feature-bd-xyz.1.2)
-if [[ ! "$CURRENT_BRANCH" =~ ^feature-bd-[a-zA-Z0-9.-]+$ ]]; then
-  echo "❌ Branch name doesn't follow convention"
-  echo ""
-  echo "Current branch: $CURRENT_BRANCH"
-  echo "Expected format: feature-bd-<ID> (e.g., feature-bd-xyz or feature-bd-xyz.1.2)"
-  echo ""
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "Recovery options:"
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo ""
-  echo "Option 1: Rename branch to match Beads issue"
-  echo "  1. Find your Beads issue:"
-  echo "     bd list --status open"
-  echo ""
-  echo "  2. Rename branch:"
-  echo "     git branch -m feature-bd-<ID>"
-  echo ""
-  echo "  3. If pushed to remote:"
-  echo "     git push origin :$CURRENT_BRANCH  # Delete old"
-  echo "     git push -u origin feature-bd-<ID>  # Push new"
-  echo ""
-  echo "Option 2: Create Beads issue for current work"
-  echo "  1. Extract descriptive name:"
-  DESCRIPTIVE_NAME=$(echo "$CURRENT_BRANCH" | sed 's/^feature-//')
-  echo "     Title: $DESCRIPTIVE_NAME"
-  echo ""
-  echo "  2. Create issue:"
-  echo "     bd create '$DESCRIPTIVE_NAME' --type feature --priority 2"
-  echo "     # Returns: bd-xyz"
-  echo ""
-  echo "  3. Rename branch to match:"
-  echo "     git branch -m feature-bd-xyz"
-  echo ""
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "Why this matters:"
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "- Enables automatic PR-to-Beads linking"
-  echo "- Provides commit history tracking via Feature-Key"
-  echo "- Supports multi-developer coordination"
-  echo "- Enforces Issue-First workflow"
-  echo ""
-  exit 1
-fi
-
-# Extract FEATURE_KEY from feature-bd-<ID> pattern
-FEATURE_KEY=$(echo "$CURRENT_BRANCH" | sed 's/^feature-//')
+make lint.go     # Must pass
+make test        # Must pass
 ```
 
-**Why validate:**
-- Enforces convention (feature-bd-xyz)
-- Prevents silent failures downstream
-- Provides clear recovery steps
-- Educates on Issue-First workflow
+If applicable:
+- `make migrate.up` - after DB changes
+- `make generate.buf` - after proto changes
+- `make generate.mock` - after repository interface changes
 
-### 2. Get Beads Context
-Use MCP tool:
-```
-mcp__plugin_beads_beads__set_context(workspace_root="/path/to/project")
-issue = mcp__plugin_beads_beads__show(issue_id=<FEATURE_KEY>)
-```
-
-If not found, create proactively:
-```
-mcp__plugin_beads_beads__create(
-  title=<FEATURE_KEY>,
-  issue_type="feature",
-  id=<FEATURE_KEY>,
-  priority=2
-)
-```
-
-**Detect epic vs feature:**
-- If issue is epic → PR closes all child tasks, not epic itself
-- If issue is feature → PR closes the feature directly
-- Check: `issue.dependents` to find child tasks
-
-### 2.5. Ask if Work is Complete (CRITICAL)
-
-**Decision point:** Is work complete and ready to merge?
+## Create PR Command
 
 ```bash
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🔍 WORK COMPLETION CHECK"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
-echo "Is this work complete and ready to merge?"
-echo ""
-echo "✅ YES → Close Beads issue, create PR for merge"
-echo "⏸️  NO  → Leave open, create draft PR for feedback"
-echo ""
-read -p "Complete? (y/n): " COMPLETE
-echo ""
+gh pr create --title "Implement feature" --body "$(cat <<'EOF'
+## Proposed Changes
+
+- Implemented new feature
+
+## Implementation
+
+{Details}
+EOF
+)"
 ```
 
-**If YES (work complete):**
-```bash
-# Close Beads issue BEFORE creating PR
-echo "Closing Beads issue ${FEATURE_KEY}..."
-bd close ${FEATURE_KEY} --reason "Work complete, ready for review in PR"
+## Important Notes
 
-# Export and commit JSONL to feature branch
-echo "Syncing Beads state to feature branch..."
-bd sync
-
-# Push to include JSONL in PR
-echo "Pushing branch with JSONL..."
-git push
-
-echo ""
-echo "✅ Issue closed and JSONL committed to feature branch"
-echo "   → JSONL will merge atomically with code"
-echo ""
-```
-
-**If NO (work in progress):**
-```bash
-# Leave issue as in_progress
-echo "ℹ️  Keeping ${FEATURE_KEY} as in_progress"
-echo "   → PR will be marked as draft"
-echo ""
-
-DRAFT_FLAG="--draft"
-```
-
-**Why this is critical:**
-- **Atomic merge:** JSONL closes issue on feature branch → merges with code
-- **No post-merge mutations:** Never need to modify JSONL on master
-- **Prevents hook conflicts:** All Beads state changes happen on feature branch
-- **Clear workflow:** Close issue = "ready to ship", open issue = "work in progress"
-
-### 2.6. Validate Docs (Epics/Features Only)
-
-**Check if docs exist and are linked:**
-
-```bash
-DOC_DIR="docs/${FEATURE_KEY}"
-
-if [ "$issue.type" = "epic" ] || [ "$issue.type" = "feature" ]; then
-  # Check if docs directory exists
-  if [ -d "$DOC_DIR" ]; then
-    # Check if linked to Beads
-    CURRENT_REF=$(bd show ${FEATURE_KEY} --json | jq -r '.external_ref // ""')
-
-    if [ -z "$CURRENT_REF" ] || [ "$CURRENT_REF" = "null" ]; then
-      echo "ℹ️  Docs exist but not linked to Beads"
-      echo "   Auto-linking: ${FEATURE_KEY} ↔ ${DOC_DIR}/"
-      bd update ${FEATURE_KEY} --external-ref "docs:${DOC_DIR}/"
-    fi
-
-    # Check if docs updated recently (within last 7 days)
-    LAST_COMMIT=$(git log -1 --format=%at -- "$DOC_DIR")
-    NOW=$(date +%s)
-    DAYS_AGO=$(( ($NOW - $LAST_COMMIT) / 86400 ))
-
-    if [ $DAYS_AGO -gt 7 ]; then
-      echo ""
-      echo "⚠️  Docs may be stale (last updated ${DAYS_AGO} days ago)"
-      echo "   Consider reviewing: $DOC_DIR/"
-      echo ""
-    else
-      echo "✅ Docs updated recently ($DAYS_AGO days ago)"
-    fi
-  else
-    # No docs directory - informational only
-    echo "ℹ️  No docs/ directory for ${FEATURE_KEY}"
-    echo "   (OK for small features, recommended for epics)"
-  fi
-fi
-```
-
-**Why informational:**
-- Non-blocking (doesn't prevent PR creation)
-- Epics/features benefit from docs, but not required
-- Tasks/bugs don't need separate docs
-- User controls doc creation timing
-
-**What this checks:**
-- ✅ Docs exist? → Auto-link to Beads if not linked
-- ✅ Docs recent? → Warn if stale (>7 days)
-- ℹ️ No docs? → Informational (not error)
-
-### 3. Push Branch
-```bash
-# Check if branch exists on remote
-if ! git ls-remote --heads origin <branch>:
-  git push -u origin <branch>
-```
-
-### 4. Create PR with gh CLI
-
-**Prepare doc link:**
-```bash
-DOC_DIR="docs/${FEATURE_KEY}"
-if [ -d "$DOC_DIR" ]; then
-  DOC_LINK="📄 Design docs: [\`$DOC_DIR/\`]($DOC_DIR/)"
-else
-  DOC_LINK="📄 No docs/ directory (tracked in Beads only)"
-fi
-```
-
-**For Features:**
-```bash
-gh pr create \
-  ${DRAFT_FLAG} \
-  --title "{FEATURE_KEY}: Feature implementation" \
-  --body "
-## Feature
-
-{FEATURE_KEY}
-
-## Beads Issue
-
-$(if [ -z "$DRAFT_FLAG" ]; then echo "Closes: bd-{ID}"; else echo "Related: bd-{ID} (in progress)"; fi)
-
-See: `.beads/issues.jsonl` (line with id: bd-{ID})
-
-## Documentation
-
-${DOC_LINK}
-
-## Next Steps
-
-- Dev environment: Auto-deploying
-- CI checks: Running in background
-- Review: $(if [ -z "$DRAFT_FLAG" ]; then echo "Ready once CI passes"; else echo "Ready when work complete"; fi)
-
----
-
-🤖 Generated with Claude Code
-Co-Authored-By: Claude <noreply@anthropic.com>
-  " \
-  --base master
-```
-
-**For Epics (closes child tasks, not epic):**
-```bash
-gh pr create \
-  --title "{FEATURE_KEY}: Epic implementation" \
-  --body "
-## Epic
-
-{FEATURE_KEY}
-
-## Beads Issues
-
-**This PR completes the following tasks:**
-- Closes: bd-{ID}.1 (Research)
-- Closes: bd-{ID}.2 (Spec)
-- Closes: bd-{ID}.3 (Implementation)
-- Closes: bd-{ID}.4 (Testing)
-
-**Epic:** bd-{ID} (remains open for future work)
-
-See: `.beads/issues.jsonl`
-
-## Documentation
-
-${DOC_LINK}
-
-## Next Steps
-
-- Dev environment: Auto-deploying
-- CI checks: Running in background
-- Review: Ready once CI passes
-
----
-
-🤖 Generated with Claude Code
-Co-Authored-By: Claude <noreply@anthropic.com>
-  " \
-  --base master
-```
-
-### 5. Link PR to Beads
-```bash
-PR_NUMBER=$(gh pr view --json number -q .number)
-
-# Use helper script if available
-scripts/bd-link-pr $PR_NUMBER
-
-# Or update via MCP
-mcp__plugin_beads_beads__update(
-  issue_id=<FEATURE_KEY>,
-  status="in_progress",
-  external_ref="PR#{PR_NUMBER}"
-)
-```
-
-### 6. Confirm to User
-```
-✅ PR#{PR_NUMBER} created
-✅ CI running in background
-✅ Dev environment deploying
-
-Check status: gh pr view {PR_NUMBER}
-Test in dev: dev.yourapp.com/pr-{PR_NUMBER}
-```
-
-## Best Practices
-
-- **Create Beads issue if missing** - Never block on missing metadata
-- **Use gh CLI** - More reliable than API calls
-- **Link PR bidirectionally** - Beads → PR and PR → Beads
-- **Trust async validation** - CI runs in background
-
-## What Happens Next (Automatic)
-
-- ✅ CI runs full test suite
-- ✅ Dev environment auto-deploys PR
-- ✅ GitHub posts check results
-- ✅ Danger bot comments with guidance
-
-**User can test immediately** in dev environment while CI runs.
-
-## What This DOESN'T Do
-
-- ❌ Wait for CI (runs async)
-- ❌ Run tests locally (CI handles it)
-- ❌ Validate deployment (environments handle it)
-
-**Philosophy:** Fast PR creation + Trust the pipeline
+- Do NOT add AI attribution (no "Generated with Claude Code" or "Co-Authored-By: Claude")
+- Keep commit messages and PR descriptions clean
+- Run `self-review` skill before creating PR to catch issues early

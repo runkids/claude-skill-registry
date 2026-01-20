@@ -1,7 +1,7 @@
 {
   "name": "worker-handover",
-  "repo": "troykelly/claude-skills",
+  "repo": "troykelly/codex-skills",
   "path": "skills/worker-handover/SKILL.md",
-  "source": "github.com/troykelly/claude-skills",
-  "downloaded_at": "2026-01-19T04:19:48.723671Z"
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-20T03:45:47.440486Z"
 }

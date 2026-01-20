@@ -1,102 +1,141 @@
 ---
 name: skills-sync
-description:
-  Manage and synchronize AI agent skills from local SKILL.md files and remote Git repositories,
-  generating Cursor rules with Agent Skills specification XML. This skill should be used when users
-  need to sync skills, add/remove skill repositories, or set up the skills infrastructure.
+description: >
+  Sync skills across all IDEs (Pi, Codex, Claude Code, Antigravity) using the
+  canonical agent-skills repo. Use "sync skills", "broadcast skills", or "pull skills".
+allowed-tools: Bash, Read
+triggers:
+  - sync skills
+  - broadcast skills
+  - push skills
+  - pull skills
+  - update shared skills
+metadata:
+  short-description: Sync skills across all IDEs via agent-skills repo
 ---
 
-# Skills Sync
+# Skills Sync Skill
 
-## Overview
+Synchronize skills across **all IDEs and projects** using a central canonical repository.
 
-Synchronizes AI agent skills from local directories and Git repositories, generating
-`.cursor/rules/skills.mdc` for Cursor IDE integration.
+## Architecture
 
-## Usage
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                     CANONICAL REPO (Source of Truth)                │
+│           ~/workspace/experiments/agent-skills/skills               │
+└─────────────────────────────────────────────────────────────────────┘
+                                  │
+                    skills-broadcast push
+                                  │
+       ┌──────────────────────────┼──────────────────────────┐
+       ▼                          ▼                          ▼
+┌─────────────┐          ┌─────────────┐          ┌─────────────┐
+│   Pi Agent  │          │    Codex    │          │ Claude Code │
+│ ~/.pi/agent │          │   ~/.codex  │          │  ~/.claude  │
+│   /skills   │          │   /skills   │          │  /commands  │
+└─────────────┘          └─────────────┘          └─────────────┘
+       │                          │                          │
+       ▼                          ▼                          ▼
+┌─────────────┐          ┌─────────────┐          ┌─────────────┐
+│ Antigravity │          │   pi-mono   │          │   memory    │
+│  ~/.gemini  │          │ .pi/skills  │          │.agents/skill│
+│   /skills   │          │             │          │             │
+└─────────────┘          └─────────────┘          └─────────────┘
+```
 
-**First time setup** (installs uv if needed, then installs skills-sync as a tool):
+## Quick Start
 
 ```bash
-python3 .claude/skills/skills-sync/scripts/skills_sync.py
+# Add to PATH (one-time)
+echo 'export PATH="$HOME/workspace/experiments/agent-skills:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+# Check current sync status
+skills-broadcast status
+
+# Edit skill anywhere, then broadcast to all IDEs
+skills-broadcast push
+
+# Pull latest skills into current project
+skills-broadcast pull
 ```
 
-**Subsequent runs:**
+## Commands
+
+| Command                             | Description                          |
+| ----------------------------------- | ------------------------------------ |
+| `skills-broadcast push`             | Push local → canonical → all targets |
+| `skills-broadcast push --from PATH` | Push from specific location          |
+| `skills-broadcast pull`             | Pull canonical → current project     |
+| `skills-broadcast status`           | Show all targets and sync state      |
+| `skills-broadcast targets`          | List registered broadcast targets    |
+
+## Supported IDEs
+
+| IDE             | Skill Location       | Status      |
+| --------------- | -------------------- | ----------- |
+| **Pi**          | `~/.pi/agent/skills` | ✓ Supported |
+| **Codex**       | `~/.codex/skills`    | ✓ Supported |
+| **Claude Code** | `~/.claude/commands` | ✓ Supported |
+| **Antigravity** | `~/.gemini/skills`   | ✓ Supported |
+
+## Workflow: Edit Anywhere
+
+1. **Edit** skill in any IDE or project
+2. **Run** `skills-broadcast push` from that location
+3. **Changes flow**: Local → agent-skills repo → All registered targets
 
 ```bash
-skills-sync
+# Example: Edit assess skill in pi-mono, broadcast to all
+cd ~/workspace/experiments/pi-mono
+vim .pi/skills/assess/SKILL.md
+skills-broadcast push
+
+# Or specify source explicitly
+skills-broadcast push --from ~/.codex/skills
 ```
 
-The script auto-detects the project root by walking up the directory tree.
+## Configuration
 
-## Skill Locations (Precedence Order)
+Override defaults via environment variables:
 
-| Priority    | Location                      | Type    |
-| ----------- | ----------------------------- | ------- |
-| 1 (highest) | `$PROJECT/.cortex/skills/`    | Project |
-| 2           | `$PROJECT/.claude/skills/`    | Project |
-| 3           | `~/.snowflake/cortex/skills/` | Global  |
-| 4 (lowest)  | `~/.claude/skills/`           | Global  |
+```bash
+# Custom canonical repo location
+export SKILLS_CANONICAL_REPO="$HOME/my-skills-repo"
 
-Higher precedence locations override skills with the same name from lower locations.
+# Custom broadcast targets (colon-separated)
+export SKILLS_BROADCAST_TARGETS="$HOME/.pi/agent/skills:$HOME/.codex/skills"
 
-## Repository Configuration
-
-Place `repos.txt` in any skill directory to sync skills from Git repositories:
-
-```text
-https://github.com/anthropics/skills
-https://github.com/your-org/your-skills-repo
-# Comments start with #
+# Auto-commit to canonical repo after push
+export SKILLS_BROADCAST_AUTOCOMMIT=1
 ```
 
-The script checks all four skill locations for `repos.txt` files and deduplicates URLs.
+## Legacy: skills-sync (Deprecated)
 
-### Repository Skill Extraction
+The old `skills-sync` script is still available but superseded by `skills-broadcast`:
 
-Skills are extracted ONLY from `.cortex/skills/*/SKILL.md` and `.claude/skills/*/SKILL.md` paths
-within repositories. Extracted skills are placed in `~/.snowflake/cortex/skills/` with a repo prefix
-(e.g., `skills-dbt-core/`).
+```bash
+# Old way (still works)
+.agents/skills/skills-sync/skills-sync push --fanout
 
-## Managing Repositories
-
-**Add Repository:** Add URL to `repos.txt`, run `skills-sync`
-
-**Remove Repository:** Delete URL from `repos.txt`, run `skills-sync`, optionally delete extracted
-skills from `~/.snowflake/cortex/skills/<repo>-<skill>/`
-
-## Output
-
-The script generates `.cursor/rules/skills.mdc` containing `<available_skills>` XML that Cursor
-loads automatically for all AI interactions.
-
-## Sync Process
-
-1. Read `repos.txt` from all locations, deduplicate URLs
-2. Clone/update repositories to `~/.snowflake/.cache/repos/`
-3. Extract skills to `~/.snowflake/cortex/skills/` with repo prefix
-4. Scan all four skill locations with precedence rules
-5. Validate skills using Agent Skills CLI
-6. Generate `.cursor/rules/skills.mdc` with embedded XML
-7. Clean up old marker-delimited sections from `AGENTS.md`
-
-## Requirements
-
-- Python 3.8+
-- uv (auto-installed when running as script)
-- Git (auto-installed if missing)
-
-When run as a Python script, it auto-installs uv, then installs itself as a uv tool. Git is
-auto-installed if missing using the appropriate method for your platform.
+# New way (recommended)
+skills-broadcast push
+```
 
 ## Troubleshooting
 
-**Skills not appearing:** Verify SKILL.md exists in immediate child directory with valid
-frontmatter:
+**Target directory missing?**
 
-```yaml
----
-name: my-skill
-description: What this skill does and when to use it
----
-```
+- The script creates missing directories automatically
+- Parent directory must exist
+
+**Changes not appearing in IDE?**
+
+- Some IDEs cache skills; restart the IDE
+- Check `skills-broadcast status` to verify sync
+
+**Conflicts between IDEs?**
+
+- Always push from the most recently edited location
+- Run `skills-broadcast push --from <newest>` explicitly

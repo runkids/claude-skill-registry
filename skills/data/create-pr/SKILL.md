@@ -1,154 +1,157 @@
 ---
 name: create-pr
-description: Creates GitHub pull requests with properly formatted titles that pass the check-pr-title CI validation. Use when creating PRs, submitting changes for review, or when the user says /pr or asks to create a pull request.
-allowed-tools: Bash(git:*), Bash(gh:*), Read, Grep, Glob
+description: Create pull requests following Sentry conventions. Use when opening PRs, writing PR descriptions, or preparing changes for review. Follows Sentry's code review guidelines.
 ---
 
 # Create Pull Request
 
-Creates GitHub PRs with titles that pass n8n's `check-pr-title` CI validation.
+Create pull requests following Sentry's engineering practices.
 
-## PR Title Format
+**Requires**: GitHub CLI (`gh`) authenticated and available.
 
-```
-<type>(<scope>): <summary>
-```
+## Process
 
-### Types (required)
+### Step 1: Verify Branch State
 
-| Type       | Description                                      | Changelog |
-|------------|--------------------------------------------------|-----------|
-| `feat`     | New feature                                      | Yes       |
-| `fix`      | Bug fix                                          | Yes       |
-| `perf`     | Performance improvement                          | Yes       |
-| `test`     | Adding/correcting tests                          | No        |
-| `docs`     | Documentation only                               | No        |
-| `refactor` | Code change (no bug fix or feature)              | No        |
-| `build`    | Build system or dependencies                     | No        |
-| `ci`       | CI configuration                                 | No        |
-| `chore`    | Routine tasks, maintenance                       | No        |
-
-### Scopes (optional but recommended)
-
-- `API` - Public API changes
-- `benchmark` - Benchmark CLI changes
-- `core` - Core/backend/private API
-- `editor` - Editor UI changes
-- `* Node` - Specific node (e.g., `Slack Node`, `GitHub Node`)
-
-### Summary Rules
-
-- Use imperative present tense: "Add" not "Added"
-- Capitalize first letter
-- No period at the end
-- No ticket IDs (e.g., N8N-1234)
-- Add `(no-changelog)` suffix to exclude from changelog
-
-## Steps
-
-1. **Check current state**:
-   ```bash
-   git status
-   git diff --stat
-   git log origin/master..HEAD --oneline
-   ```
-
-2. **Analyze changes** to determine:
-   - Type: What kind of change is this?
-   - Scope: Which package/area is affected?
-   - Summary: What does the change do?
-
-3. **Push branch if needed**:
-   ```bash
-   git push -u origin HEAD
-   ```
-
-4. **Create PR** using gh CLI with the template from `.github/pull_request_template.md`:
-   ```bash
-   gh pr create --draft --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'
-   ## Summary
-
-   <Describe what the PR does and how to test. Photos and videos are recommended.>
-
-   ## Related Linear tickets, Github issues, and Community forum posts
-
-   <!-- Link to Linear ticket: https://linear.app/n8n/issue/[TICKET-ID] -->
-   <!-- Use "closes #<issue-number>", "fixes #<issue-number>", or "resolves #<issue-number>" to automatically close issues -->
-
-   ## Review / Merge checklist
-
-   - [ ] PR title and summary are descriptive. ([conventions](../blob/master/.github/pull_request_title_conventions.md))
-   - [ ] [Docs updated](https://github.com/n8n-io/n8n-docs) or follow-up ticket created.
-   - [ ] Tests included.
-   - [ ] PR Labeled with `release/backport` (if the PR is an urgent fix that needs to be backported)
-   EOF
-   )"
-   ```
-
-## PR Body Guidelines
-
-Based on `.github/pull_request_template.md`:
-
-### Summary Section
-- Describe what the PR does
-- Explain how to test the changes
-- Include screenshots/videos for UI changes
-
-### Related Links Section
-- Link to Linear ticket: `https://linear.app/n8n/issue/[TICKET-ID]`
-- Link to GitHub issues using keywords to auto-close:
-  - `closes #123` / `fixes #123` / `resolves #123`
-- Link to Community forum posts if applicable
-
-### Checklist
-All items should be addressed before merging:
-- PR title follows conventions
-- Docs updated or follow-up ticket created
-- Tests included (bugs need regression tests, features need coverage)
-- `release/backport` label added if urgent fix needs backporting
-
-## Examples
-
-### Feature in editor
-```
-feat(editor): Add workflow performance metrics display
+```bash
+# Check current branch and status
+git status
+git log main..HEAD --oneline
 ```
 
-### Bug fix in core
-```
-fix(core): Resolve memory leak in execution engine
+Ensure:
+- All changes are committed
+- Branch is up to date with remote
+- Changes are rebased on main if needed
+
+### Step 2: Analyze Changes
+
+Review what will be included in the PR:
+
+```bash
+# See all commits that will be in the PR
+git log main..HEAD
+
+# See the full diff
+git diff main...HEAD
 ```
 
-### Node-specific change
-```
-fix(Slack Node): Handle rate limiting in message send
+Understand the scope and purpose of all changes before writing the description.
+
+### Step 3: Write the PR Description
+
+Follow this structure:
+
+```markdown
+<brief description of what the PR does>
+
+<why these changes are being made - the motivation>
+
+<alternative approaches considered, if any>
+
+<any additional context reviewers need>
 ```
 
-### Breaking change (add exclamation mark before colon)
-```
-feat(API)!: Remove deprecated v1 endpoints
+**Do NOT include:**
+- "Test plan" sections
+- Checkbox lists of testing steps
+- Redundant summaries of the diff
+
+**Do include:**
+- Clear explanation of what and why
+- Links to relevant issues or tickets
+- Context that isn't obvious from the code
+- Notes on specific areas that need careful review
+
+### Step 4: Create the PR
+
+```bash
+gh pr create --title "<type>(<scope>): <description>" --body "$(cat <<'EOF'
+<description body here>
+EOF
+)"
 ```
 
-### No changelog entry
-```
-refactor(core): Simplify error handling (no-changelog)
+**Title format** follows commit conventions:
+- `feat(scope): Add new feature`
+- `fix(scope): Fix the bug`
+- `ref: Refactor something`
+
+### Step 5: Add Reviewers (if known)
+
+```bash
+# Request review from specific people
+gh pr edit --add-reviewer username1,username2
+
+# Or request from a team
+gh pr edit --add-reviewer @getsentry/team-name
 ```
 
-### No scope (affects multiple areas)
-```
-chore: Update dependencies to latest versions
+Limit to 1-3 reviewers to maintain clear ownership.
+
+## PR Description Examples
+
+### Feature PR
+
+```markdown
+Add Slack thread replies for alert notifications
+
+When an alert is updated or resolved, we now post a reply to the original
+Slack thread instead of creating a new message. This keeps related
+notifications grouped and reduces channel noise.
+
+Previously considered posting edits to the original message, but threading
+better preserves the timeline of events and works when the original message
+is older than Slack's edit window.
+
+Refs SENTRY-1234
 ```
 
-## Validation
+### Bug Fix PR
 
-The PR title must match this pattern:
-```
-^(feat|fix|perf|test|docs|refactor|build|ci|chore|revert)(\([a-zA-Z0-9 ]+( Node)?\))?!?: [A-Z].+[^.]$
+```markdown
+Handle null response in user API endpoint
+
+The user endpoint could return null for soft-deleted accounts, causing
+dashboard crashes when accessing user properties. This adds a null check
+and returns a proper 404 response.
+
+Found while investigating SENTRY-5678.
+
+Fixes SENTRY-5678
 ```
 
-Key validation rules:
-- Type must be one of the allowed types
-- Scope is optional but must be in parentheses if present
-- Exclamation mark for breaking changes goes before the colon
-- Summary must start with capital letter
-- Summary must not end with a period
+### Refactor PR
+
+```markdown
+Extract validation logic to shared module
+
+Moves duplicate validation code from the alerts, issues, and projects
+endpoints into a shared validator class. No behavior change.
+
+This prepares for adding new validation rules in SENTRY-9999 without
+duplicating logic across endpoints.
+```
+
+## Issue References
+
+Reference issues in the PR body:
+
+| Syntax | Effect |
+|--------|--------|
+| `Fixes #1234` | Closes GitHub issue on merge |
+| `Fixes SENTRY-1234` | Closes Sentry issue |
+| `Refs GH-1234` | Links without closing |
+| `Refs LINEAR-ABC-123` | Links Linear issue |
+
+## Guidelines
+
+- **One PR per feature/fix** - Don't bundle unrelated changes
+- **Keep PRs reviewable** - Smaller PRs get faster, better reviews
+- **Explain the why** - Code shows what; description explains why
+- **Mark WIP early** - Use draft PRs for early feedback
+
+## References
+
+- [Sentry Code Review Guidelines](https://develop.sentry.dev/engineering-practices/code-review/)
+- [Sentry Commit Messages](https://develop.sentry.dev/engineering-practices/commit-messages/)

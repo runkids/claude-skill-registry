@@ -1,7 +1,7 @@
 {
   "name": "gen-env",
-  "repo": "0xBigBoss/claude-code",
-  "path": ".claude/skills/gen-env/SKILL.md",
-  "source": "github.com/0xBigBoss/claude-code",
-  "downloaded_at": "2026-01-19T01:20:19.920238Z"
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/0xbigboss/gen-env/SKILL.md",
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-20T04:04:55.166336Z"
 }

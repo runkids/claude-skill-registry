@@ -1,201 +1,134 @@
 ---
 name: pr-reviewer
-description: Review GitHub pull requests for code quality, security, and best practices. Use for automated PR feedback and approval workflows.
-tools: Read, Write, Bash, Glob, Grep
+description: Review code changes in GitHub pull requests or local git branches against main branch. This skill should be used when users request code review for PRs or branch changes in git repositories.
 ---
 
-# PR Reviewer Skill
+# pr-reviewer
 
-## Purpose
+Git/GitHubを用いたアプリケーション開発における包括的なコードレビューを実施し、コード品質、セキュリティ、ベストプラクティスに焦点を当てます。
 
-Single responsibility: Review GitHub pull requests for quality, security, and adherence to project standards. (BP-4)
+**注意: このSkillを使用する際のユーザーとのやり取りはすべて日本語で行います。**
 
-## Grounding Checkpoint (Archetype 1 Mitigation)
+## このSkillを使用するタイミング
 
-Before executing, VERIFY:
+以下の場合にこのSkillを使用します：
 
-- [ ] gh CLI is installed and authenticated
-- [ ] PR number or URL is valid
-- [ ] Repository has review permissions
-- [ ] Review criteria are defined
+- ユーザーがリポジトリとPR番号を指定してGitHub PRのレビューを依頼した場合
+- ユーザーがローカルブランチの変更をmainブランチと比較したレビューを依頼した場合
+- ユーザーが最近の変更に対するコード品質評価を求めた場合
+- ユーザーがコーディング規約への準拠についてフィードバックを必要としている場合
 
-**DO NOT submit reviews without understanding the full diff.**
+## 目的
 
-## Uncertainty Escalation (Archetype 2 Mitigation)
+git管理されたリポジトリに対して徹底的なコードレビューを実施し、潜在的な問題の特定、改善提案、クラウドアプリケーション開発のコーディング規約とベストプラクティスへの準拠を確認します。
 
-ASK USER instead of guessing when:
+## レビュープロセス
 
-- Review scope unclear (security only vs full review)
-- Approval authority undefined
-- Conflicting with existing reviews
-- Breaking changes detected
+### 1. コード変更とコンテキストの取得
 
-**NEVER approve PRs automatically without user confirmation.**
+レビュー対象に応じて適切なdiffスクリプトを実行します：
 
-## Context Scope (Archetype 3 Mitigation)
-
-| Context Type | Included | Excluded |
-|--------------|----------|----------|
-| RELEVANT | PR diff, commit messages, linked issues | Unrelated files |
-| PERIPHERAL | Project standards, CI status | Other PRs |
-| DISTRACTOR | Historical PRs | Fork activity |
-
-## Workflow Steps
-
-### Step 1: Fetch PR Details (Grounding)
+**GitHub PRレビューの場合：**
 
 ```bash
-# Get PR information
-gh pr view <number> --json title,body,author,files,additions,deletions,commits,reviews
-
-# Get diff
-gh pr diff <number>
-
-# Check CI status
-gh pr checks <number>
+scripts/diff.sh --repo {repo} --pr {pr_num}
 ```
 
-### Step 2: Analyze Changes
+- `{repo}`: "owner/name" 形式のリポジトリ（例: "goldeneggg/biz"）
+- `{pr_num}`: プルリクエスト番号
+
+また、コンテキストを理解するためにPRの説明を取得します：
 
 ```bash
-# List changed files
-gh pr view <number> --json files --jq '.files[].path'
-
-# Get diff stats
-gh pr view <number> --json additions,deletions --jq '"\(.additions) additions, \(.deletions) deletions"'
-
-# Check for sensitive files
-gh pr diff <number> | grep -E "(\.env|password|secret|key)" && echo "⚠️ Sensitive patterns detected"
+gh pr view {pr_num} --repo {repo} --json title,body --jq '.title + "\n\n" + .body'
 ```
 
-### Step 3: Review Categories
+**ローカルブランチレビューの場合：**
 
-**Code Quality:**
 ```bash
-# Check for common issues
-gh pr diff <number> | grep -E "(console\.log|debugger|TODO|FIXME)" | head -20
+scripts/diff.sh --branch {target_branch} --base {base_branch}
 ```
 
-**Security:**
-```bash
-# Security patterns
-gh pr diff <number> | grep -E "(eval\(|innerHTML|dangerouslySetInnerHTML|exec\()" | head -10
-```
+- `{target_branch}`: レビュー対象のブランチ（例: "fix-ai"）
+- `{base_branch}`: 比較元のベースブランチ（デフォルト: "main"）
 
-**Tests:**
-```bash
-# Check test coverage
-gh pr view <number> --json files --jq '.files[] | select(.path | test("test|spec")) | .path'
-```
+**オプションのoutlineパラメータ：**
 
-### Step 4: Submit Review
+- `{outline}`: ユーザーが提供する変更の概要やコンテキスト
+- ユーザーから提供された場合、これを変更内容を理解するための主要なコンテキストとして使用
+- PRレビューで提供されない場合、上記で取得したPRの説明を使用
+- ブランチレビューで提供されない場合、diff自体からコンテキストを推測
 
-**Comment only:**
-```bash
-gh pr review <number> --comment --body "$(cat <<'EOF'
-## Code Review
+### 2. 変更内容の理解
 
-### Summary
-[Overview of changes]
+- **まず**、outline/コンテキストを読みます：
+  - PRレビューの場合: `{outline}` が提供されていればそれを使用、なければPRの説明を使用
+  - ブランチレビューの場合: `{outline}` が提供されていればそれを使用、なければdiffから推測
 
-### Observations
-- Point 1
-- Point 2
+- **次に**、diff出力を分析して、どのコードが変更・追加・削除されたかを理解
+- コンテキストと実際のコード変更の両方に基づいて、変更の範囲と目的を特定
+- 言語固有の規約についてはプロジェクトドキュメント（CLAUDE.md）のコンテキストを考慮
 
-### Questions
-- Question 1?
-EOF
-)"
-```
+### 3. レビューの実施
 
-**Request changes:**
-```bash
-gh pr review <number> --request-changes --body "Changes needed: [reason]"
-```
+以下の観点で変更を検証します：
 
-**Approve:**
-```bash
-gh pr review <number> --approve --body "LGTM! ✅"
-```
+**コード品質：**
 
-## Recovery Protocol (Archetype 4 Mitigation)
+- 変更が新しいバグや問題を導入していないか確認
+- 適切なエラーハンドリングパターンをチェック
+- コードの可読性と保守性を評価
+- 命名規則とコード構成を検証
 
-On error:
+**コーディング規約：**
 
-1. **PAUSE** - Don't submit partial reviews
-2. **DIAGNOSE** - Check error type:
-   - `Not found` → Verify PR number
-   - `Permission denied` → Check repo access
-   - `Review already exists` → Update existing
-   - `CI pending` → Wait or note in review
-3. **ADAPT** - Adjust review scope
-4. **RETRY** - With corrected parameters (max 3 attempts)
-5. **ESCALATE** - Report issues to user
+- CLAUDE.mdのプロジェクト固有のコーディング規約への準拠を確認
+- 適切なコードフォーマットと構造を検証
+- インポート順序をチェック（stdlib → external → internal）
+- テストカバレッジとテストパターンを検証
 
-## Checkpoint Support
+**セキュリティ：**
 
-State saved to: `.aiwg/working/checkpoints/pr-reviewer/`
+- 潜在的なセキュリティ脆弱性を特定
+- ハードコードされた秘密情報や認証情報をチェック
+- 適切な入力バリデーションを検証
+- セキュリティクリティカルな操作での暗号ライブラリの適切な使用を確認
 
-```
-checkpoints/pr-reviewer/
-├── pr_details.json          # PR metadata
-├── diff_analysis.json       # Change analysis
-├── security_scan.json       # Security findings
-└── review_draft.md          # Draft review
-```
+**ベストプラクティス：**
 
-## Review Template
+- 言語固有のベストプラクティスへの準拠を評価
+- 適切な並行処理パターンをチェック（該当する場合）
+- 適切なエラーハンドリングとロギングを検証
+- リソース管理とクリーンアップを検証
 
-```markdown
-## Code Review: PR #<number>
+**追加の考慮事項：**
 
-### Summary
-<Brief overview of the PR purpose and changes>
+- 必要に応じてMCPツール（fetch、context7）を使用して外部ソースから最新の公式仕様とベストプラクティスを収集
+- Go 1.25+コードベースのプロジェクト固有のガイドラインはCLAUDE.mdを参照
 
-### Review Checklist
-- [ ] Code follows project style guide
-- [ ] Tests added/updated for changes
-- [ ] Documentation updated if needed
-- [ ] No security vulnerabilities introduced
-- [ ] CI checks passing
+### 4. フィードバックの提供
 
-### Observations
+フィードバックは以下の構造で日本語で提供します：
 
-#### ✅ Strengths
-- Point 1
-- Point 2
+**問題点（優先度別）:**
 
-#### ⚠️ Concerns
-- Concern 1 (file:line)
-- Concern 2 (file:line)
+- 内容: 具体的な問題の説明
+- 期待される内容や動作との差異: 現状と期待される動作のギャップ
+- 根拠となる文献: 参考文献（該当する場合）
 
-#### ❓ Questions
-- Question about design choice?
+**改善点（優先度別）:**
 
-### Recommendation
-- [ ] Approve
-- [ ] Request changes
-- [ ] Comment only
+- 内容: 改善提案
+- 具体的な改善方法: 具体的な改善アプローチ
 
-### Line Comments
-| File | Line | Comment |
-|------|------|---------|
-| src/foo.ts | 42 | Consider using const |
-```
+**その他の報告事項（もしあれば）:**
 
-## Common Commands
+- 追加の観察事項や推奨事項
 
-| Command | Purpose |
-|---------|---------|
-| `gh pr view <n>` | View PR details |
-| `gh pr diff <n>` | View diff |
-| `gh pr checks <n>` | CI status |
-| `gh pr review <n>` | Submit review |
-| `gh pr comment <n>` | Add comment |
-| `gh pr merge <n>` | Merge PR |
+## ガイドライン
 
-## References
-
-- GitHub CLI PR commands: https://cli.github.com/manual/gh_pr
-- REF-001: Production-Grade Agentic Workflows (BP-4)
-- REF-002: LLM Failure Modes (Archetype 2 over-helpfulness)
+- **重要: ユーザーとのすべてのコミュニケーションは日本語で行う必要があります** - 質問、フィードバック、説明、その他すべてのやり取り
+- 必要に応じてMCPツール（fetch、context7、WebFetch、WebSearch）を使用して外部ソースから最新の公式仕様とベストプラクティスを収集
+- 不明点は必ずユーザーに確認してから進める
+- レビュータスクは徹底的かつ粘り強く完了させる
+- 開発者がコード品質を向上させるのに役立つ実用的なフィードバックに焦点を当てる

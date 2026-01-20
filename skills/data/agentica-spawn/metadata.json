@@ -1,7 +1,7 @@
 {
   "name": "agentica-spawn",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/agentica-spawn/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-19T03:31:33.745532Z"
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/agentica-spawn/SKILL.md",
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-20T03:31:30.980565Z"
 }

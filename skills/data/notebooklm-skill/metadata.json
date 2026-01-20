@@ -1,7 +1,7 @@
 {
   "name": "notebooklm-skill",
-  "repo": "miethe/skillmeat",
-  "path": ".claude/skills/notebooklm-skill/SKILL.md",
-  "source": "github.com/miethe/skillmeat",
-  "downloaded_at": "2026-01-19T03:44:26.647451Z"
+  "repo": "zircote/.claude",
+  "path": "skills/notebooklm-skill/SKILL.md",
+  "source": "github.com/zircote/.claude",
+  "downloaded_at": "2026-01-20T02:23:01.984877Z"
 }

@@ -1,82 +1,187 @@
 ---
 name: visual-qa
-description: Use when making UI/styling changes and need to verify no visual regressions - provides screenshot capture, comparison, vision model scoring, and video recording for animations
+description: "Visual QA checkpoint for conductor gates. Uses tabz MCP tools to check browser console errors, take screenshots, and identify obvious UI issues. Returns structured result with pass/fail status and captured screenshots."
+user-invocable: true
 ---
 
-# Visual QA
+# Visual QA Checkpoint
 
-## Overview
+Visual quality assurance checkpoint that uses browser automation to verify the UI.
 
-Capture screenshots before/after changes, compare pixel diffs, score with vision models. Use video capture for animations.
+## What This Skill Does
 
-## Quick Reference
+1. Checks browser console for errors
+2. Takes screenshot of current page
+3. Analyzes for obvious visual issues
+4. Writes result to checkpoint file
 
-| Task | Command |
-|------|---------|
-| **Capture baseline** | `bun visual_qa/capture_anchors.mjs --base-url http://localhost:4321 --start-dev --label baseline "#about" "/cv"` |
-| **Capture candidate** | Same command with `--label candidate` (auto-compares to baseline) |
-| **Add CSS labels** | Add `--annotate` flag to overlay selector labels |
-| **Score screenshot** | `llm -m openrouter/qwen/qwen2.5-vl-32b-instruct -a image.png "$(cat visual_qa/standard_rubric.md) Score this."` |
-| **Compare two images** | `llm -m ... -a baseline.png -a candidate.png "Compare. Flag regressions."` |
-| **Record video** | See Animation Workflow below |
+## Prerequisites
 
-## Core Workflow
+- TabzChrome extension running
+- Application loaded in browser tab
+- `tabz` MCP server connected
 
-1. **Before changes**: Capture baseline screenshots
-2. **Make changes**: Edit CSS/components
-3. **After changes**: Capture candidate (auto-compares)
-4. **Review diffs**: Only images marked as changed need review
-5. **Score if needed**: Use vision model to score or compare
+## Workflow
 
-## Animation Workflow
-
-**Use video capture when:** Testing animations, transitions, or interactive UI state changes.
-
-**Do NOT use for routine testing** - video burns tokens. Screenshots suffice for static content.
-
-```javascript
-// In Playwright test or script:
-const context = await browser.newContext({
-  recordVideo: { dir: 'visual_qa/videos/' }
-});
-const page = await context.newPage();
-await page.goto('http://localhost:4321/#about');
-await page.waitForTimeout(5000); // Capture full animation cycle
-await context.close(); // Video saved on close
-```
-
-**Analyze with vision model (use Gemini for video):**
-```bash
-llm -m gemini/gemini-flash-latest \
-    -a visual_qa/videos/recording.webm \
-    "This is a 5-second recording of a fade animation. Is the timing smooth? Any visual glitches?"
-```
-
-## Extending the Rubric
-
-Add custom metrics (max score increases by 2 per metric):
+### Step 1: Check Console Errors
 
 ```bash
-llm -m openrouter/qwen/qwen2.5-vl-32b-instruct \
-    -a image.png \
-    "$(cat visual_qa/standard_rubric.md)
-
-6. Animation smoothness
-   - 0: Janky, stuttering, or inconsistent timing
-   - 1: Generally smooth with minor hesitations
-   - 2: Buttery smooth, professional feel
-
-Score all 6 metrics (0-12 max)."
+# Get console logs filtered for errors
+mcp-cli info tabz/tabz_get_console_logs
+mcp-cli call tabz/tabz_get_console_logs '{"level": "error"}'
 ```
 
-## Interpreting Scores
+**Important:** Console errors don't automatically fail - evaluate if they're blocking:
+- JS runtime errors that prevent functionality = FAIL
+- 404s for optional resources = WARNING
+- Deprecation warnings = INFO
 
-- **Score drop with intentional content change**: Not a regression if layout remains clean
-- **Score drop without content change**: Investigate specific metrics that dropped
-- **Use comparison prompt** to identify specific regressions rather than just scores
+### Step 2: Take Screenshot
 
-## Files
+```bash
+# Capture current page state
+mcp-cli info tabz/tabz_screenshot
+mcp-cli call tabz/tabz_screenshot '{}'
+```
 
-- `visual_qa/capture_anchors.mjs` - Screenshot capture at all breakpoints
-- `visual_qa/compare_images.mjs` - Pixel diff comparison
-- `visual_qa/standard_rubric.md` - 5-metric scoring rubric (0-10)
+The screenshot file path is returned. Read it to visually inspect the page.
+
+### Step 3: Check Page State
+
+```bash
+# Verify page loaded correctly
+mcp-cli info tabz/tabz_get_page_info
+mcp-cli call tabz/tabz_get_page_info '{}'
+```
+
+Verify:
+- Page title is not error page
+- URL matches expected
+- Page is not stuck loading
+
+### Step 4: Optional - Check Network Errors
+
+If functionality seems broken:
+
+```bash
+# Enable capture first (if not already)
+mcp-cli call tabz/tabz_enable_network_capture '{}'
+
+# Trigger the problematic action, then:
+mcp-cli call tabz/tabz_get_network_requests '{"statusMin": 400}'
+```
+
+### Step 5: Parse and Write Result
+
+Create structured result:
+
+```json
+{
+  "checkpoint": "visual-qa",
+  "timestamp": "2026-01-19T12:00:00Z",
+  "passed": true,
+  "issues": [],
+  "screenshots": ["/path/to/screenshot.png"],
+  "console_errors": 0,
+  "summary": "Page loads correctly, no visual issues detected"
+}
+```
+
+**Result Fields:**
+- `passed`: true if no blocking visual/console issues
+- `issues`: array of `{severity: "error"|"warning"|"info", message: string, type: "console"|"visual"|"network"}`
+- `screenshots`: array of screenshot file paths
+- `console_errors`: count of console errors found
+- `summary`: brief human-readable summary
+
+### Step 6: Write Checkpoint File
+
+```bash
+mkdir -p .checkpoints
+cat > .checkpoints/visual-qa.json << 'EOF'
+{
+  "checkpoint": "visual-qa",
+  "timestamp": "...",
+  "passed": true,
+  "issues": [],
+  "screenshots": [...],
+  "console_errors": 0,
+  "summary": "..."
+}
+EOF
+```
+
+## Decision Criteria
+
+**Pass if:**
+- Page loads without critical console errors
+- No obvious visual breakage (blank page, missing components)
+- Key functionality appears present
+
+**Fail if:**
+- JS errors prevent page from rendering
+- Page shows error state or blank
+- Critical UI elements missing
+- API calls failing (5xx errors)
+
+**Warning (pass with notes) if:**
+- Non-critical console warnings
+- Minor styling issues
+- Slow load times
+
+## Visual Inspection Guidelines
+
+When viewing the screenshot, check for:
+
+1. **Layout integrity** - Is content properly positioned?
+2. **Text readability** - Is text visible, correct font/size?
+3. **Interactive elements** - Are buttons/links visible?
+4. **Error states** - Any error messages displayed?
+5. **Responsive fit** - Does content fit the viewport?
+
+## Example Usage
+
+When invoked as `/visual-qa`:
+
+```
+Running Visual QA checkpoint...
+
+Checking console for errors...
+Found 0 errors, 2 warnings.
+
+Taking screenshot...
+Screenshot saved to /tmp/tabz-screenshot-123.png
+[Viewing screenshot...]
+
+Page appears to load correctly. Navigation visible, content renders.
+
+Checking page info...
+Title: "My App - Dashboard"
+URL: http://localhost:3000/dashboard
+Status: Complete
+
+Result:
+{
+  "passed": true,
+  "issues": [
+    {"severity": "warning", "message": "React DevTools warning", "type": "console"}
+  ],
+  "screenshots": ["/tmp/tabz-screenshot-123.png"],
+  "console_errors": 0,
+  "summary": "Page loads correctly. Minor console warnings only."
+}
+
+Checkpoint result written to .checkpoints/visual-qa.json
+```
+
+## Troubleshooting
+
+**No MCP connection:**
+```bash
+mcp-cli tools tabz  # Should list tabz_* tools
+```
+
+**Screenshot fails:**
+- Ensure Chrome tab is focused
+- Check TabzChrome extension is active
+- Verify localhost:8129 backend is running

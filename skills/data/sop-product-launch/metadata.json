@@ -1,7 +1,7 @@
 {
   "name": "sop-product-launch",
-  "repo": "DNYoussef/ai-chrome-extension",
-  "path": ".claude/skills/sop-product-launch/SKILL.md",
-  "source": "github.com/DNYoussef/ai-chrome-extension",
-  "downloaded_at": "2026-01-19T03:55:49.609511Z"
+  "repo": "DNYoussef/context-cascade",
+  "path": "skills/operations/sop-product-launch/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-20T04:01:41.442395Z"
 }

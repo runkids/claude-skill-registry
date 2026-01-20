@@ -1,135 +1,92 @@
 ---
 name: do
-description: 'Autonomous execution from definition file. Works toward acceptance criteria, auto-verifies, prevents premature stopping. Use when you have a definition file from /define and want hands-off execution.'
+description: 'Manifest executor. Iterates through Deliverables satisfying Acceptance Criteria, then verifies all ACs and Global Invariants pass. Use when you have a manifest from /define.'
 user-invocable: true
 ---
 
-# /do - Autonomous Criteria-Driven Execution
+# /do - Manifest Executor
 
-You are executing a definition file autonomously. Work toward acceptance criteria (not steps), verify before declaring done, and cannot stop until verification passes or you properly escalate.
+## Goal
+
+Execute a Manifest: satisfy all Deliverables' Acceptance Criteria, then verify everything passes (including Global Invariants).
 
 ## Input
 
-`$ARGUMENTS` = definition file path (REQUIRED)
+`$ARGUMENTS` = manifest file path (REQUIRED)
 
-Example: `/do /tmp/define-1234567890.md`
+If no arguments: Output error "Usage: /do <manifest-file-path>"
 
-If no arguments: Output error "Usage: /do <definition-file-path>"
+## Principles
 
-## Process
+1. **ACs define success, not the path** - Work toward acceptance criteria however makes sense. The manifest says WHAT, you decide HOW.
 
-### 1. Read and Validate Definition
+2. **Target failures specifically** - On verification failure, fix the specific failing criterion. Don't restart from scratch. Don't touch passing criteria.
 
-Read the definition file from `$ARGUMENTS`:
-- If file not found → output clear error and stop
-- If file invalid (missing criteria section) → output clear error and stop
+3. **Respect tradeoffs** - When values conflict, check the manifest's "Tradeoffs & Preferences" section and apply.
 
-Extract:
-- All criteria (AC-N, R-N, E-N)
-- Verification methods for each
-- Examples (accepted/rejected)
-- Task-specific subagent definitions
+## Constraints
 
-### 2. Initialize
+**Create todo list immediately** - Track deliverables and their ACs. Use `D{N}:` prefix to indicate which deliverable. Expand as work reveals sub-tasks.
 
-Create execution log: `/tmp/do-log-{timestamp}.md`
+**Create execution log** - Write to `/tmp/do-log-{timestamp}.md`. Log what you're working on, approaches tried, results. This is your working memory.
 
-Write initial state:
+**Write to log as you go** - After each significant action, update the log. Don't wait until the end.
+
+**Must call /verify** - Can't declare done without verification. When all deliverables addressed:
+```
+Skill("vibe-experimental:verify", "/tmp/manifest-{ts}.md /tmp/do-log-{ts}.md")
+```
+
+**Refresh before completion** - Read the full log before outputting final summary.
+
+## What to Do
+
+**Read the manifest** - Extract intent, global invariants, deliverables with their ACs, tradeoffs.
+
+**Work through deliverables** - For each, satisfy its acceptance criteria. Log your work.
+
+**Call /verify** - When all deliverables addressed, verify everything passes.
+
+**Handle failures** - Fix specific failing criteria, call /verify again. Loop until pass.
+
+**Escalate when stuck** - If you've tried 3+ approaches on a criterion and can't satisfy it:
+```
+Skill("vibe-experimental:escalate", "[criterion ID] blocking after 3 attempts")
+```
+
+## Log Structure
+
 ```markdown
 # Execution Log
 
-Definition: [definition file path]
+Manifest: [path]
 Started: [timestamp]
 
-## Criteria Status
-- [ ] AC-1: [description]
-- [ ] AC-2: [description]
-- [ ] R-1: [description]
-...
+## Intent
+**Goal:** [from manifest]
 
-## Attempts
-(will be filled as work progresses)
+## Deliverable 1: [Name]
+
+### AC-1.1: [description]
+- Approach: [what you tried]
+- Result: [outcome]
+
+### Status: [COMPLETE/IN PROGRESS]
+
+## Verification Attempts
+
+### Attempt 1
+- Results: [summary]
+- Action: [what to fix]
 ```
 
-Create TodoWrite with criteria to satisfy:
-```
-- [ ] Create log /tmp/do-log-{timestamp}.md
-- [ ] Satisfy AC-1: [brief]→log; done when implemented + attempt logged
-- [ ] Satisfy AC-2: [brief]→log; done when implemented + attempt logged
-- [ ] Satisfy R-1: [brief]→log; done when not violated + attempt logged
-- [ ] (expand: sub-tasks as discovered)
-- [ ] Call /verify; done when all criteria verified
-- [ ] (expand: fix failures from /verify—loop until pass)
-- [ ] Refresh log + output summary; done when user sees final status
-```
-
-### 3. Work Toward Criteria
-
-Work to satisfy the criteria. You decide how—the criteria define success, not the path to it.
-
-Log when completing each work todo—capture key decisions, blockers hit, solutions found.
-
-Log format:
-```markdown
-### AC-1: [description]
-- Attempt 1: [what you tried]
-  Result: [outcome]
-```
-
-### 4. Call /verify When Ready
-
-When you believe all criteria are addressed:
+## Flow
 
 ```
-Use the Skill tool to verify: Skill("vibe-experimental:verify", "/tmp/define-{ts}.md /tmp/do-log-{ts}.md")
-```
-
-### 5. Handle Verification Results
-
-**/verify returns failures:**
-- Read the specific failures
-- Target ONLY the failing criteria
-- Do NOT restart from scratch
-- Do NOT touch passing criteria
-- Update log with new attempts
-- Call /verify again when fixed
-
-**/verify returns success:**
-- /verify will call /done automatically
-- You're finished
-
-**/verify returns manual criteria:**
-- All automated criteria pass
-- Manual criteria need human verification
-- Call /escalate to surface them and allow stop
-
-### 6. Escalation (When Genuinely Stuck)
-
-If you've tried 3+ approaches and can't satisfy a criterion:
-
-```
-Use the Skill tool to escalate: Skill("vibe-experimental:escalate", "AC-N blocking after 3 attempts")
-```
-
-/escalate requires /verify to have been called first.
-
-## Critical Rules
-
-1. **Definition file required** - fail clearly if not provided
-2. **Criteria-driven** - criteria define success, you decide how
-3. **Log attempts** - each todo includes `→log` discipline
-4. **Must call /verify** - can't declare done without verification
-5. **Target failures** - on failure, fix specific criteria, don't restart
-6. **Proper escalation** - /escalate only after /verify, with evidence
-
-## Example Flow
-
-```
-1. /do /tmp/define-123.md
-2. Read definition, create log, create todos
-3. Work toward criteria (logging significant attempts)
-4. Skill("vibe-experimental:verify", "...")
-5. If failures → fix specific criteria → retry verify
-6. All pass → /verify calls /done
-7. Refresh log → output summary → stop allowed
+1. Read manifest
+2. Create todos + log
+3. For each deliverable: work toward ACs, log progress
+4. Call /verify
+5. If failures: fix specific criteria, /verify again
+6. All pass: /verify calls /done
 ```

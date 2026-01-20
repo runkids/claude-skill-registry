@@ -2,6 +2,7 @@
 name: rspress-frontmatter
 description: Configure RSPress frontmatter for documentation pages. Use when setting up page metadata, controlling layout options, or configuring home page hero/features sections.
 allowed-tools: Read, Write, Edit, Glob
+agent: rspress-doc-agent
 ---
 
 # RSPress Frontmatter Configuration

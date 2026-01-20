@@ -1,7 +1,7 @@
 {
   "name": "deployment-workflow",
-  "repo": "Acurioustractor/empathy-ledger-v2",
-  "path": ".claude/skills/local/deployment-workflow/skill.md",
-  "source": "github.com/Acurioustractor/empathy-ledger-v2",
-  "downloaded_at": "2026-01-19T02:50:09.752788Z"
+  "repo": "mpolatcan/ccbell-sound-generator",
+  "path": ".gemini/skills/deployment-workflow/SKILL.md",
+  "source": "github.com/mpolatcan/ccbell-sound-generator",
+  "downloaded_at": "2026-01-20T03:47:02.821894Z"
 }

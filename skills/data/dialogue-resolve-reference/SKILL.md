@@ -14,6 +14,7 @@ Use this skill when you need to:
 - Look up a project document by its ID (THY-001, REF-001, STR-001, ADR-001)
 - Find a decision or observation log entry
 - Retrieve a task's details
+- Look up a process definition, instance, or execution log
 
 **Do NOT use for:**
 - External URLs → use WebFetch
@@ -31,6 +32,9 @@ Default locations:
 - Decisions: `.dialogue/logs/decisions/` (per-file)
 - Observations: `.dialogue/logs/observations/` (per-file)
 - Tasks: `.dialogue/tasks/` (per-file)
+- Process definitions: `plugin/processes/`
+- Process instances: `.dialogue/processes/`
+- Execution logs: `.dialogue/logs/executions/`
 
 ## How to Resolve a Reference
 
@@ -88,6 +92,14 @@ ${CLAUDE_PLUGIN_ROOT}/skills/dialogue-resolve-reference/scripts/resolve-referenc
 | `DOC-NNN` | Documentation | `.dialogue/tasks/{id}.yaml` | `DOC-001` |
 | `VAL-NNN` | Validation | `.dialogue/tasks/{id}.yaml` | `VAL-001` |
 
+### Process Execution (Resolvable)
+
+| Pattern | Type | Location | Example |
+|---------|------|----------|---------|
+| `PROC-P.S` | Process Definition | `plugin/processes/process-*.yaml` | `PROC-3.1` |
+| `PINST-YYYYMMDD-HHMMSS` | Process Instance | `.dialogue/processes/{id}.yaml` | `PINST-20260118-143052` |
+| `EXEC-YYYYMMDD-HHMMSS` | Execution Log | `.dialogue/logs/executions/{id}.yaml` | `EXEC-20260118-143055` |
+
 ### Actors (Metadata Only)
 
 | Pattern | Type | Example |
@@ -129,6 +141,21 @@ ${CLAUDE_PLUGIN_ROOT}/skills/dialogue-resolve-reference/scripts/resolve-referenc
 ### Get Task Metadata
 ```bash
 ${CLAUDE_PLUGIN_ROOT}/skills/dialogue-resolve-reference/scripts/resolve-reference.sh SH-002 metadata
+```
+
+### Look Up a Process Definition
+```bash
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-resolve-reference/scripts/resolve-reference.sh PROC-3.1
+```
+
+### Find a Process Instance
+```bash
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-resolve-reference/scripts/resolve-reference.sh PINST-20260118-143052
+```
+
+### Get Execution Log Path
+```bash
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-resolve-reference/scripts/resolve-reference.sh EXEC-20260118-143055 path
 ```
 
 ## Output

@@ -1,741 +1,485 @@
 ---
 name: prisma
-description: Provides type-safe database access with Prisma ORM including schema definition, migrations, queries, and relations. Use when setting up database connections, defining data models, writing queries, or managing database migrations.
+description: Prisma ORM patterns including Prisma Client usage, queries, mutations, relations, transactions, and schema management. Use when working with Prisma database operations or schema definitions.
 ---
 
-# Prisma
+# Prisma ORM Patterns
 
-Type-safe ORM for Node.js and TypeScript with auto-generated queries, migrations, and database introspection.
+## Purpose
 
-## Quick Start
+Complete patterns for using Prisma ORM effectively, including query optimization, transaction handling, and the repository pattern for clean data access.
 
-**Install Prisma:**
-```bash
-npm install prisma --save-dev
-npm install @prisma/client
-npx prisma init
+## When to Use This Skill
+
+- Working with Prisma Client for database queries
+- Creating repositories for data access
+- Using transactions
+- Query optimization and N+1 prevention
+- Handling Prisma errors
+
+---
+
+## Basic Prisma Usage
+
+### Core Query Patterns
+
+```typescript
+import { PrismaService } from '@project-lifecycle-portal/database';
+
+// Always use PrismaService.main
+if (!PrismaService.isAvailable) {
+    throw new Error('Prisma client not initialized');
+}
+
+// Find one
+const user = await PrismaService.main.user.findUnique({
+    where: { id: userId },
+});
+
+// Find many with filters
+const users = await PrismaService.main.user.findMany({
+    where: { isActive: true },
+    orderBy: { createdAt: 'desc' },
+    take: 10,
+});
+
+// Create
+const newUser = await PrismaService.main.user.create({
+    data: {
+        email: 'user@example.com',
+        name: 'John Doe',
+    },
+});
+
+// Update
+const updated = await PrismaService.main.user.update({
+    where: { id: userId },
+    data: { name: 'Jane Doe' },
+});
+
+// Delete
+await PrismaService.main.user.delete({
+    where: { id: userId },
+});
 ```
 
-**Essential files:**
-```
-prisma/
-  schema.prisma    # Data model and configuration
-  migrations/      # Database migrations
-```
+### Complex Filtering
 
-## Schema Definition
+```typescript
+// Multiple conditions
+const users = await PrismaService.main.user.findMany({
+    where: {
+        email: { contains: '@example.com' },
+        isActive: true,
+        createdAt: { gte: new Date('2024-01-01') },
+    },
+});
 
-### Basic Schema
-
-```prisma
-// prisma/schema.prisma
-
-// Database connection
-datasource db {
-  provider = "postgresql"  // postgresql, mysql, sqlite, mongodb, sqlserver
-  url      = env("DATABASE_URL")
-}
-
-// Client generator
-generator client {
-  provider = "prisma-client-js"
-}
-
-// Data models
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  password  String
-  role      Role     @default(USER)
-  posts     Post[]
-  profile   Profile?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("users")  // Table name in database
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-  tags      Tag[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([authorId])
-  @@map("posts")
-}
-
-model Profile {
-  id     String  @id @default(cuid())
-  bio    String?
-  avatar String?
-  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String  @unique
-
-  @@map("profiles")
-}
-
-model Tag {
-  id    String @id @default(cuid())
-  name  String @unique
-  posts Post[]
-
-  @@map("tags")
-}
-
-enum Role {
-  USER
-  ADMIN
-  MODERATOR
-}
+// AND/OR conditions
+const posts = await PrismaService.main.post.findMany({
+    where: {
+        AND: [
+            { published: true },
+            { author: { isActive: true } },
+        ],
+        OR: [
+            { title: { contains: 'prisma' } },
+            { content: { contains: 'prisma' } },
+        ],
+    },
+});
 ```
 
-### Field Types
+---
 
-| Prisma Type | PostgreSQL | MySQL | SQLite |
-|-------------|------------|-------|--------|
-| String | text | varchar(191) | TEXT |
-| Int | integer | int | INTEGER |
-| BigInt | bigint | bigint | BIGINT |
-| Float | double precision | double | REAL |
-| Decimal | decimal(65,30) | decimal(65,30) | DECIMAL |
-| Boolean | boolean | tinyint(1) | INTEGER |
-| DateTime | timestamp(3) | datetime(3) | DATETIME |
-| Json | jsonb | json | TEXT |
-| Bytes | bytea | longblob | BLOB |
+## Repository Pattern
 
-### Field Attributes
+### When to Use Repositories
 
-```prisma
-model Example {
-  // Primary key
-  id String @id @default(cuid())
+✅ **Use repositories when:**
+- Complex queries with joins/includes
+- Query used in multiple places
+- Need to mock for testing
 
-  // Auto-increment
-  sequence Int @id @default(autoincrement())
+❌ **Skip repositories for:**
+- Simple one-off queries
+- Prototyping
 
-  // UUID
-  uuid String @id @default(uuid())
+### Repository Template
 
-  // Unique constraint
-  email String @unique
+```typescript
+import { PrismaService } from '@project-lifecycle-portal/database';
+import type { User, Prisma } from '@prisma/client';
 
-  // Default value
-  role String @default("user")
+export class UserRepository {
+    async findById(id: string): Promise<User | null> {
+        return PrismaService.main.user.findUnique({
+            where: { id },
+            include: { profile: true },
+        });
+    }
 
-  // Optional field
-  bio String?
+    async findByEmail(email: string): Promise<User | null> {
+        return PrismaService.main.user.findUnique({
+            where: { email },
+        });
+    }
 
-  // Database column name
-  firstName String @map("first_name")
+    async findActive(): Promise<User[]> {
+        return PrismaService.main.user.findMany({
+            where: { isActive: true },
+            orderBy: { createdAt: 'desc' },
+        });
+    }
 
-  // Timestamps
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    async create(data: Prisma.UserCreateInput): Promise<User> {
+        return PrismaService.main.user.create({ data });
+    }
 
-  // Database-level default
-  dbDefault String @default(dbgenerated("gen_random_uuid()"))
+    async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+        return PrismaService.main.user.update({ where: { id }, data });
+    }
+
+    async delete(id: string): Promise<void> {
+        await PrismaService.main.user.delete({ where: { id } });
+    }
 }
 ```
 
-### Model Attributes
+### Using in Service
 
-```prisma
-model Post {
-  id       String @id
-  authorId String
-  slug     String
-  title    String
+```typescript
+export class UserService {
+    private userRepository: UserRepository;
 
-  // Composite unique constraint
-  @@unique([authorId, slug])
+    constructor() {
+        this.userRepository = new UserRepository();
+    }
 
-  // Index
-  @@index([authorId])
-
-  // Composite primary key
-  // @@id([field1, field2])
-
-  // Table name
-  @@map("blog_posts")
+    async getById(id: string): Promise<User> {
+        const user = await this.userRepository.findById(id);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        return user;
+    }
 }
 ```
+
+---
+
+## Transaction Patterns
+
+### Simple Transaction
+
+```typescript
+const result = await PrismaService.main.$transaction(async (tx) => {
+    const user = await tx.user.create({
+        data: { email: 'user@example.com', name: 'John' },
+    });
+
+    const profile = await tx.userProfile.create({
+        data: { userId: user.id, bio: 'Developer' },
+    });
+
+    return { user, profile };
+});
+```
+
+### Interactive Transaction
+
+```typescript
+const result = await PrismaService.main.$transaction(
+    async (tx) => {
+        const user = await tx.user.findUnique({ where: { id: userId } });
+        if (!user) throw new Error('User not found');
+
+        const updated = await tx.user.update({
+            where: { id: userId },
+            data: { lastLogin: new Date() },
+        });
+
+        await tx.auditLog.create({
+            data: { userId, action: 'LOGIN', timestamp: new Date() },
+        });
+
+        return updated;
+    },
+    {
+        maxWait: 5000,   // Wait max 5s to start
+        timeout: 10000,  // Timeout after 10s
+    }
+);
+```
+
+---
+
+## Query Optimization
+
+### Use select to Limit Fields
+
+```typescript
+// ❌ Fetches all fields
+const users = await PrismaService.main.user.findMany();
+
+// ✅ Only fetch needed fields
+const users = await PrismaService.main.user.findMany({
+    select: {
+        id: true,
+        email: true,
+        name: true,
+    },
+});
+
+// ✅ Select with relations
+const users = await PrismaService.main.user.findMany({
+    select: {
+        id: true,
+        email: true,
+        profile: {
+            select: { firstName: true, lastName: true },
+        },
+    },
+});
+```
+
+### Use include Carefully
+
+```typescript
+// ❌ Excessive includes
+const user = await PrismaService.main.user.findUnique({
+    where: { id },
+    include: {
+        posts: { include: { comments: true } },
+        workflows: { include: { steps: { include: { actions: true } } } },
+    },
+});
+
+// ✅ Only include what you need
+const user = await PrismaService.main.user.findUnique({
+    where: { id },
+    include: { profile: true },
+});
+```
+
+---
+
+## N+1 Query Prevention
+
+### Problem
+
+```typescript
+// ❌ N+1 Query Problem
+const users = await PrismaService.main.user.findMany(); // 1 query
+
+for (const user of users) {
+    // N additional queries
+    const profile = await PrismaService.main.userProfile.findUnique({
+        where: { userId: user.id },
+    });
+}
+```
+
+### Solution 1: Use include
+
+```typescript
+// ✅ Single query with include
+const users = await PrismaService.main.user.findMany({
+    include: { profile: true },
+});
+
+for (const user of users) {
+    console.log(user.profile.bio);
+}
+```
+
+### Solution 2: Batch Query
+
+```typescript
+// ✅ Batch query
+const users = await PrismaService.main.user.findMany();
+const userIds = users.map(u => u.id);
+
+const profiles = await PrismaService.main.userProfile.findMany({
+    where: { userId: { in: userIds } },
+});
+
+const profileMap = new Map(profiles.map(p => [p.userId, p]));
+```
+
+---
 
 ## Relations
 
-### One-to-One
-
-```prisma
-model User {
-  id      String   @id @default(cuid())
-  profile Profile?
-}
-
-model Profile {
-  id     String @id @default(cuid())
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @unique  // Foreign key + unique = one-to-one
-}
-```
-
 ### One-to-Many
 
-```prisma
-model User {
-  id    String @id @default(cuid())
-  posts Post[]  // One user has many posts
-}
-
-model Post {
-  id       String @id @default(cuid())
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String // Foreign key
-
-  @@index([authorId])
-}
-```
-
-### Many-to-Many
-
-```prisma
-// Implicit (Prisma manages join table)
-model Post {
-  id   String @id @default(cuid())
-  tags Tag[]
-}
-
-model Tag {
-  id    String @id @default(cuid())
-  posts Post[]
-}
-
-// Explicit (custom join table)
-model Post {
-  id   String    @id @default(cuid())
-  tags PostTag[]
-}
-
-model Tag {
-  id    String    @id @default(cuid())
-  posts PostTag[]
-}
-
-model PostTag {
-  post      Post     @relation(fields: [postId], references: [id])
-  postId    String
-  tag       Tag      @relation(fields: [tagId], references: [id])
-  tagId     String
-  assignedAt DateTime @default(now())
-
-  @@id([postId, tagId])
-}
-```
-
-### Self-Relations
-
-```prisma
-model User {
-  id         String  @id @default(cuid())
-  name       String
-  followedBy User[]  @relation("Follows")
-  following  User[]  @relation("Follows")
-}
-
-model Category {
-  id       String     @id @default(cuid())
-  name     String
-  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
-  parentId String?
-  children Category[] @relation("CategoryHierarchy")
-}
-```
-
-## Migrations
-
-### Development Workflow
-
-```bash
-# Create and apply migration
-npx prisma migrate dev --name init
-
-# Apply pending migrations
-npx prisma migrate dev
-
-# Reset database (drops all data)
-npx prisma migrate reset
-
-# Generate Prisma Client (without migration)
-npx prisma generate
-```
-
-### Production
-
-```bash
-# Apply migrations (CI/CD)
-npx prisma migrate deploy
-
-# Check migration status
-npx prisma migrate status
-```
-
-### Prototyping
-
-```bash
-# Push schema changes without migration (dev only)
-npx prisma db push
-
-# Pull existing database schema
-npx prisma db pull
-```
-
-## Prisma Client
-
-### Setup
-
 ```typescript
-// lib/prisma.ts
-import { PrismaClient } from '@prisma/client';
-
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
-
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['query'] : [],
-  });
-
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = prisma;
-}
-```
-
-### CRUD Operations
-
-#### Create
-
-```typescript
-// Create single record
-const user = await prisma.user.create({
-  data: {
-    email: 'alice@example.com',
-    name: 'Alice',
-    password: hashedPassword,
-  },
-});
-
-// Create with relation
-const userWithProfile = await prisma.user.create({
-  data: {
-    email: 'bob@example.com',
-    name: 'Bob',
-    password: hashedPassword,
-    profile: {
-      create: {
-        bio: 'Hello!',
-      },
+// Get user with posts
+const user = await PrismaService.main.user.findUnique({
+    where: { id: userId },
+    include: {
+        posts: {
+            where: { published: true },
+            orderBy: { createdAt: 'desc' },
+            take: 10,
+        },
     },
-  },
-  include: {
-    profile: true,
-  },
-});
-
-// Create many
-const users = await prisma.user.createMany({
-  data: [
-    { email: 'user1@example.com', name: 'User 1', password: 'hash1' },
-    { email: 'user2@example.com', name: 'User 2', password: 'hash2' },
-  ],
-  skipDuplicates: true,
 });
 ```
 
-#### Read
+### Nested Writes
 
 ```typescript
-// Find unique
-const user = await prisma.user.findUnique({
-  where: { email: 'alice@example.com' },
-});
-
-// Find unique or throw
-const user = await prisma.user.findUniqueOrThrow({
-  where: { id: 'user-id' },
-});
-
-// Find first matching
-const post = await prisma.post.findFirst({
-  where: { published: true },
-  orderBy: { createdAt: 'desc' },
-});
-
-// Find many
-const users = await prisma.user.findMany({
-  where: {
-    email: { contains: '@example.com' },
-    role: 'USER',
-  },
-  orderBy: { createdAt: 'desc' },
-  take: 10,
-  skip: 0,
-});
-
-// With relations
-const userWithPosts = await prisma.user.findUnique({
-  where: { id: 'user-id' },
-  include: {
-    posts: {
-      where: { published: true },
-      orderBy: { createdAt: 'desc' },
+// Create user with profile
+const user = await PrismaService.main.user.create({
+    data: {
+        email: 'user@example.com',
+        name: 'John Doe',
+        profile: {
+            create: {
+                bio: 'Developer',
+                avatar: 'avatar.jpg',
+            },
+        },
     },
-    profile: true,
-  },
+    include: { profile: true },
 });
 
-// Select specific fields
-const userNames = await prisma.user.findMany({
-  select: {
-    id: true,
-    name: true,
-    email: true,
-  },
-});
-```
-
-#### Update
-
-```typescript
-// Update single
-const user = await prisma.user.update({
-  where: { id: 'user-id' },
-  data: { name: 'New Name' },
-});
-
-// Update many
-const result = await prisma.user.updateMany({
-  where: { role: 'USER' },
-  data: { role: 'ADMIN' },
-});
-
-// Upsert (create or update)
-const user = await prisma.user.upsert({
-  where: { email: 'alice@example.com' },
-  update: { name: 'Alice Updated' },
-  create: {
-    email: 'alice@example.com',
-    name: 'Alice',
-    password: 'hash',
-  },
-});
-
-// Update relation
-const user = await prisma.user.update({
-  where: { id: 'user-id' },
-  data: {
-    profile: {
-      update: { bio: 'Updated bio' },
+// Update with nested updates
+const user = await PrismaService.main.user.update({
+    where: { id: userId },
+    data: {
+        name: 'Jane Doe',
+        profile: {
+            update: { bio: 'Senior developer' },
+        },
     },
-  },
 });
 ```
 
-#### Delete
+---
+
+## Error Handling
+
+### Prisma Error Codes
 
 ```typescript
-// Delete single
-const user = await prisma.user.delete({
-  where: { id: 'user-id' },
-});
+import { Prisma } from '@prisma/client';
 
-// Delete many
-const result = await prisma.user.deleteMany({
-  where: { role: 'USER' },
-});
+try {
+    await PrismaService.main.user.create({
+        data: { email: 'user@example.com' },
+    });
+} catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        // P2002: Unique constraint violation
+        if (error.code === 'P2002') {
+            throw new ConflictError('Email already exists');
+        }
 
-// Cascade delete (configured in schema)
-const user = await prisma.user.delete({
-  where: { id: 'user-id' },
-  // Profile is deleted automatically if onDelete: Cascade
-});
+        // P2003: Foreign key constraint failed
+        if (error.code === 'P2003') {
+            throw new ValidationError('Invalid reference');
+        }
+
+        // P2025: Record not found
+        if (error.code === 'P2025') {
+            throw new NotFoundError('Record not found');
+        }
+    }
+
+    Sentry.captureException(error);
+    throw error;
+}
 ```
 
-### Filtering
+### Common Error Codes
 
-```typescript
-const posts = await prisma.post.findMany({
-  where: {
-    // Exact match
-    published: true,
+| Code | Meaning |
+|------|---------|
+| P2002 | Unique constraint violation |
+| P2003 | Foreign key constraint failed |
+| P2025 | Record not found |
+| P2014 | Relation violation |
 
-    // String filters
-    title: { contains: 'prisma', mode: 'insensitive' },
-    content: { startsWith: 'Hello' },
+---
 
-    // Number filters
-    views: { gte: 100, lt: 1000 },
-
-    // Date filters
-    createdAt: { gte: new Date('2024-01-01') },
-
-    // Relation filters
-    author: {
-      email: { endsWith: '@example.com' },
-    },
-
-    // OR
-    OR: [
-      { title: { contains: 'prisma' } },
-      { content: { contains: 'database' } },
-    ],
-
-    // AND
-    AND: [
-      { published: true },
-      { views: { gte: 100 } },
-    ],
-
-    // NOT
-    NOT: { author: { role: 'ADMIN' } },
-
-    // Array contains (PostgreSQL)
-    tags: { some: { name: 'typescript' } },
-  },
-});
-```
-
-### Pagination
-
-```typescript
-// Offset pagination
-const page = 1;
-const pageSize = 10;
-
-const [posts, total] = await prisma.$transaction([
-  prisma.post.findMany({
-    skip: (page - 1) * pageSize,
-    take: pageSize,
-    orderBy: { createdAt: 'desc' },
-  }),
-  prisma.post.count(),
-]);
-
-const totalPages = Math.ceil(total / pageSize);
-
-// Cursor pagination
-const posts = await prisma.post.findMany({
-  take: 10,
-  skip: 1, // Skip cursor
-  cursor: { id: lastPostId },
-  orderBy: { createdAt: 'desc' },
-});
-```
-
-### Transactions
-
-```typescript
-// Interactive transaction
-const result = await prisma.$transaction(async (tx) => {
-  const user = await tx.user.create({
-    data: { email: 'alice@example.com', name: 'Alice', password: 'hash' },
-  });
-
-  const post = await tx.post.create({
-    data: { title: 'First Post', authorId: user.id },
-  });
-
-  return { user, post };
-});
-
-// Batch transaction
-const [users, posts] = await prisma.$transaction([
-  prisma.user.findMany(),
-  prisma.post.findMany(),
-]);
-```
+## Advanced Patterns
 
 ### Aggregations
 
 ```typescript
 // Count
-const count = await prisma.post.count({
-  where: { published: true },
+const count = await PrismaService.main.user.count({
+    where: { isActive: true },
 });
 
 // Aggregate
-const result = await prisma.post.aggregate({
-  _count: true,
-  _avg: { views: true },
-  _sum: { views: true },
-  _min: { views: true },
-  _max: { views: true },
-  where: { published: true },
+const stats = await PrismaService.main.post.aggregate({
+    _count: true,
+    _avg: { views: true },
+    _sum: { likes: true },
+    where: { published: true },
 });
 
 // Group by
-const grouped = await prisma.post.groupBy({
-  by: ['authorId'],
-  _count: { id: true },
-  _avg: { views: true },
-  orderBy: { _count: { id: 'desc' } },
+const postsByAuthor = await PrismaService.main.post.groupBy({
+    by: ['authorId'],
+    _count: { id: true },
 });
 ```
 
-### Raw Queries
+### Upsert
 
 ```typescript
-// Raw query
-const users = await prisma.$queryRaw<User[]>`
-  SELECT * FROM users WHERE email LIKE ${`%@example.com`}
-`;
-
-// Raw execute
-const result = await prisma.$executeRaw`
-  UPDATE users SET role = 'ADMIN' WHERE id = ${userId}
-`;
-
-// Typed raw query
-import { Prisma } from '@prisma/client';
-
-const email = 'alice@example.com';
-const users = await prisma.$queryRaw(
-  Prisma.sql`SELECT * FROM users WHERE email = ${email}`
-);
-```
-
-## Seeding
-
-```typescript
-// prisma/seed.ts
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-async function main() {
-  // Clean existing data
-  await prisma.post.deleteMany();
-  await prisma.user.deleteMany();
-
-  // Create users
-  const alice = await prisma.user.create({
-    data: {
-      email: 'alice@example.com',
-      name: 'Alice',
-      password: 'hashed_password',
-      posts: {
-        create: [
-          { title: 'First Post', published: true },
-          { title: 'Draft Post', published: false },
-        ],
-      },
+// Update if exists, create if not
+const user = await PrismaService.main.user.upsert({
+    where: { email: 'user@example.com' },
+    update: { lastLogin: new Date() },
+    create: {
+        email: 'user@example.com',
+        name: 'John Doe',
     },
-  });
-
-  console.log({ alice });
-}
-
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+});
 ```
 
-```json
-// package.json
-{
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
-  }
-}
-```
+---
 
-```bash
-npx prisma db seed
-```
-
-## Common Patterns
-
-### Soft Delete
-
-```prisma
-model Post {
-  id        String    @id @default(cuid())
-  title     String
-  deletedAt DateTime?
-
-  @@index([deletedAt])
-}
-```
+## TypeScript Patterns
 
 ```typescript
-// Soft delete
-await prisma.post.update({
-  where: { id: postId },
-  data: { deletedAt: new Date() },
-});
+import type { User, Prisma } from '@prisma/client';
 
-// Query excluding deleted
-const posts = await prisma.post.findMany({
-  where: { deletedAt: null },
-});
-```
+// Create input type
+const createUser = async (data: Prisma.UserCreateInput): Promise<User> => {
+    return PrismaService.main.user.create({ data });
+};
 
-### Middleware
+// Include type
+type UserWithProfile = Prisma.UserGetPayload<{
+    include: { profile: true };
+}>;
 
-```typescript
-const prisma = new PrismaClient();
-
-// Soft delete middleware
-prisma.$use(async (params, next) => {
-  if (params.model === 'Post') {
-    if (params.action === 'delete') {
-      params.action = 'update';
-      params.args['data'] = { deletedAt: new Date() };
-    }
-
-    if (params.action === 'findMany' || params.action === 'findFirst') {
-      params.args['where'] = {
-        ...params.args['where'],
-        deletedAt: null,
-      };
-    }
-  }
-
-  return next(params);
+const user: UserWithProfile = await PrismaService.main.user.findUnique({
+    where: { id },
+    include: { profile: true },
 });
 ```
+
+---
 
 ## Best Practices
 
-1. **Use singleton pattern** - Prevent multiple client instances
-2. **Enable query logging** - In development for debugging
-3. **Use transactions** - For related operations
-4. **Add indexes** - On frequently queried fields
-5. **Use select/include wisely** - Only fetch needed data
+1. **Always Use PrismaService.main** - Never create new PrismaClient instances
+2. **Use Repositories for Complex Queries** - Keep data access organized
+3. **Select Only Needed Fields** - Improve performance with select
+4. **Prevent N+1 Queries** - Use include or batch queries
+5. **Use Transactions** - Ensure atomicity for multi-step operations
+6. **Handle Errors** - Check for specific Prisma error codes
 
-## Common Mistakes
+---
 
-| Mistake | Fix |
-|---------|-----|
-| Creating multiple clients | Use singleton pattern |
-| N+1 queries | Use include/select with relations |
-| No indexes | Add @@index to foreign keys |
-| Ignoring migrations | Always use migrate dev |
-| Raw strings in queries | Use Prisma.sql for safety |
-
-## Reference Files
-
-- [references/relations.md](references/relations.md) - Relation patterns
-- [references/queries.md](references/queries.md) - Advanced query patterns
-- [references/migrations.md](references/migrations.md) - Migration strategies
+**Related Skills:**
+- **backend-dev-guidelines** - Complete backend architecture guide
+- **nodejs** - Core Node.js patterns and async handling
+- **express** - Express.js routing and middleware

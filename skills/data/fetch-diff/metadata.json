@@ -1,7 +1,7 @@
 {
   "name": "fetch-diff",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/fetch-diff/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-19T02:08:08.711957Z"
+  "repo": "mlflow/dev",
+  "path": ".claude/skills/fetch-diff/SKILL.md",
+  "source": "github.com/mlflow/dev",
+  "downloaded_at": "2026-01-20T03:13:15.078318Z"
 }

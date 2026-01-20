@@ -1,7 +1,7 @@
 {
   "name": "docs-generator",
-  "repo": "jfarid27/open-eth-terminal",
-  "path": ".gemini/skills/docs-generator/SKILL.md",
-  "source": "github.com/jfarid27/open-eth-terminal",
-  "downloaded_at": "2026-01-19T03:58:07.937901Z"
+  "repo": "ajianaz/skills-collection",
+  "path": "skills/docs-generator/SKILL.md",
+  "source": "github.com/ajianaz/skills-collection",
+  "downloaded_at": "2026-01-20T02:53:16.529174Z"
 }

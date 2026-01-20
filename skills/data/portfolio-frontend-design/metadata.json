@@ -1,9 +1,7 @@
 {
   "name": "portfolio-frontend-design",
-  "description": "Frontend design system dla projektu portfolio Pawla Lipowczana (React 19 + Vite 7 + Tailwind CSS 3 + Framer Motion 12). Uzyj przy tworzeniu nowych komponentow, stron, sekcji lub modyfikacji UI w portf",
   "repo": "plipowczan/portfolio",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/portfolio-frontend-design/SKILL.md",
+  "source": "github.com/plipowczan/portfolio",
+  "downloaded_at": "2026-01-20T01:23:01.784251Z"
 }

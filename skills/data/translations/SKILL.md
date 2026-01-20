@@ -1,158 +1,131 @@
 ---
-name: translations
-description: Work with internationalization using next-intl and PO files. Use when handling translations, i18n, PO files, getExtracted, useExtracted, translating content, or when the user needs to add or modify translations.
+name: shopify-translations
+description: Manage Shopify store translations with French as source language. Use when working with translation files, updating translations, or managing multi-language Shopify content. Triggers on "translate", "translations", "localization", "i18n", "French to German/Italian/English".
 ---
 
-# Internationalization (i18n) Workflow
+# Shopify Translations Management
 
-## Overview
+Two separate translation systems - use the right one for each case.
 
-This project uses `next-intl` with PO file extraction. Translations are extracted from the codebase using `pnpm build`.
+## Two Translation Systems
 
-## Key Functions
+| System | Use For | Location |
+|--------|---------|----------|
+| **API Translations** | Merchant-editable content, block settings | `translations-to-edit.json` |
+| **Locale Files** | Hardcoded theme text, labels, buttons | `shopify-theme/locales/*.json` |
 
-- **Server Components**: Use `getExtracted` (no locale needed)
-- **Client Components**: Use `useExtracted`
-- **Metadata/Server Actions**: Use `getExtracted` with locale parameter
+## 1. API Translations (Merchant Content)
 
-## Critical Rules
+French (fr_original) as source → German, Italian, English.
 
-### 1. No Dynamic Values in Translation Keys
+### Structure
 
-**IMPORTANT**: The `t` function from `getExtracted`/`useExtracted` does NOT support dynamic values.
-
-```tsx
-// BAD: Dynamic key - will NOT work
-const category = getCategory();
-t(category); // Error!
-t(MYLABELS[category]);
-
-// GOOD: String literals only
-t("Arts courses");
-t("Business courses");
-t("Technology courses");
-```
-
-### 2. String Interpolation IS Supported
-
-You CAN use string interpolation for dynamic values within translations:
-
-```tsx
-// GOOD: Interpolation with static key
-t("Explore all {category} courses", { category: "arts" });
-t("Welcome, {name}!", { name: user.name });
-t("{count} items remaining", { count: 5 });
-```
-
-### 3. Don't Pass `t` Function Around
-
-You can't pass the `t` function to other functions or components:
-
-```tsx
-// BAD: Passing t function
-function myFunction(t, label) {
-  return t(label);
-}
-myFunction(t, "Some label");
-
-// GOOD: Call t directly
-function myFunction(translatedLabel: string) {
-  return translatedLabel;
-}
-myFunction(t("Some label"));
-```
-
-### 4. Locale Parameter Rules
-
-```tsx
-// Server Component - no locale needed
-const t = await getExtracted();
-t("Hello");
-
-// generateMetadata - needs locale
-export async function generateMetadata({ params }) {
-  const { locale } = await params;
-  const t = await getExtracted(locale);
-  return { title: t("Page Title") };
+```json
+{
+  "key": "section.page.json.heading:id",
+  "fr_original": "Design Gratuit",
+  "de_fixed": "Kostenlose Gestaltung",
+  "de_status": "completed",
+  "it_fixed": "Design Gratuito",
+  "it_status": "completed",
+  "en_fixed": "Free Design",
+  "en_status": "completed"
 }
 ```
 
-## Workflow for Adding Translations
+### Status Values
+- `pending` - Not yet translated
+- `completed` - Ready to publish
+- `verified` - Reviewed and approved
 
-1. **Add translation call in code**:
+### Commands
 
-   ```tsx
-   const t = await getExtracted();
-   return <h1>{t("New page title")}</h1>;
-   ```
-
-2. **Run build to extract translations**:
-
-   ```bash
-   pnpm build
-   ```
-
-   This updates PO files with new strings.
-
-3. **Translate empty strings in PO files**:
-
-   - Find PO files in `apps/{app}/src/i18n/locales/`
-   - Fill in empty `msgstr` values
-
-4. **Check for missing translations**:
-   ```bash
-   pnpm i18n:check
-   ```
-
-## Handling MISSING_TRANSLATION Errors
-
-When you see a `MISSING_TRANSLATION` error:
-
-1. Go to the relevant PO file
-2. Find the empty `msgstr` for the string
-3. Add the translation
-
-```po
-# Before
-msgid "Welcome to Zoonk"
-msgstr ""
-
-# After
-msgid "Welcome to Zoonk"
-msgstr "Bem-vindo ao Zoonk"
+```bash
+npm run translations:myarmy:extract   # Extract from Shopify
+npm run translations:myarmy:review    # Generate review report
+npm run translations:myarmy:translate # Auto-translate (needs OPENAI_API_KEY)
+npm run translations:myarmy:publish   # Publish to Shopify
+npm run translations:myarmy:backup    # Create backup
+npm run translations:myarmy:workflow  # Full workflow
 ```
 
-**Never create new translations in PO files manually** - only extract them using `pnpm build`. If you're on an environment where you can't run `pnpm build`, just ignore this i18n step.
+## 2. Locale Files (Theme Code)
 
-## Updating app-error.ts Files
+For hardcoded theme text only - stored in Git.
 
-When updating `app-error.ts` files:
+### File Locations
 
-1. Add the new error code
-2. Update `error-messages.ts` to include the new error code
-3. Run `pnpm build` to update PO files
-
-## Common Patterns
-
-### Conditional Text
-
-```tsx
-// Use separate translation keys
-const status = isActive ? t("Active") : t("Inactive");
+```
+shopify-theme/locales/
+├── en.default.json  # English source
+├── fr.json          # French
+├── de.json          # German
+└── it.json          # Italian
 ```
 
-### Pluralization
+### Key Structure (3-level nested)
 
-```tsx
-// Use interpolation with count
-t("{count} item", { count: 1 }); // "1 item"
-t("{count} items", { count: 5 }); // "5 items"
+```json
+{
+  "products": {
+    "benefits": {
+      "lifetime_guarantee": "Lifetime Guarantee",
+      "lifetime_description": "Yes, you read that right..."
+    }
+  }
+}
 ```
 
-### Rich Text (with components)
+### Usage in Liquid
 
-```tsx
-t.rich("Read our {link}", {
-  link: (chunks) => <Link href="/terms">{chunks}</Link>,
-});
+```liquid
+{{ 'products.benefits.lifetime_guarantee' | t }}
+{{ 'products.benefits.lifetime_description' | t: default: 'Fallback' }}
+```
+
+### Deployment
+
+```bash
+# Push locale files to production
+shopify theme push --theme=185946079581 --store=087ffd-4a.myshopify.com \
+  --allow-live --only="locales/"
+```
+
+## When to Use Which
+
+| Content Type | Use |
+|--------------|-----|
+| Section titles, labels | Locale files |
+| Error messages | Locale files |
+| Button text | Locale files |
+| Block settings content | API translations |
+| Product descriptions | API translations |
+| Merchant-editable text | API translations |
+
+## Swiss Military Terminology
+
+Always use:
+- ✅ **badge** (NOT "écusson")
+- ✅ **section** (NOT "peloton")
+
+## Key Rules
+
+**DO:**
+- Keep French as source (fr_original)
+- Keep all 4 locale files in sync
+- Review before publishing
+- Create backups before major changes
+
+**DON'T:**
+- Edit fr_original directly
+- Mix the two translation systems
+- Skip review step
+- Forget to update all language files
+
+## Environment Variables
+
+```bash
+SHOPIFY_ACCESS_TOKEN=shpat_...
+SHOPIFY_STORE_DOMAIN=087ffd-4a.myshopify.com
+OPENAI_API_KEY=sk-...  # Optional, for auto-translation
 ```

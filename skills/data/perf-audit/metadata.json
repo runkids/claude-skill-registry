@@ -1,7 +1,7 @@
 {
   "name": "perf-audit",
-  "repo": "WhatIfWeDigDeeper/claude-template",
+  "repo": "WhatIfWeDigDeeper/application-tracker",
   "path": ".claude/skills/perf-audit/SKILL.md",
-  "source": "github.com/WhatIfWeDigDeeper/claude-template",
-  "downloaded_at": "2026-01-19T02:06:47.979907Z"
+  "source": "github.com/WhatIfWeDigDeeper/application-tracker",
+  "downloaded_at": "2026-01-20T03:48:59.500759Z"
 }

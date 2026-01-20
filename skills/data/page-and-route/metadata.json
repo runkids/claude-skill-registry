@@ -1,7 +1,7 @@
 {
   "name": "page-and-route",
-  "repo": "OneKeyHQ/app-monorepo",
-  "path": ".claude/skills/page-and-route/SKILL.md",
-  "source": "github.com/OneKeyHQ/app-monorepo",
-  "downloaded_at": "2026-01-19T03:50:39.580526Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/page-and-route/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-20T01:38:21.438866Z"
 }

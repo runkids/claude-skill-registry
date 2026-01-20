@@ -1,7 +1,7 @@
 {
   "name": "when-mapping-dependencies-use-dependency-mapper",
-  "repo": "DNYoussef/ai-chrome-extension",
-  "path": ".claude/skills/dependencies/when-mapping-dependencies-use-dependency-mapper/SKILL.md",
-  "source": "github.com/DNYoussef/ai-chrome-extension",
-  "downloaded_at": "2026-01-19T03:56:02.041680Z"
+  "repo": "DNYoussef/context-cascade",
+  "path": "skills/tooling/when-mapping-dependencies-use-dependency-mapper/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-20T04:01:41.953573Z"
 }

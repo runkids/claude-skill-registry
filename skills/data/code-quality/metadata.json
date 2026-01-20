@@ -1,7 +1,7 @@
 {
   "name": "code-quality",
-  "repo": "Lobbi-Docs/claude",
-  "path": "plugins/team-accelerator/skills/code-quality/SKILL.md",
-  "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-01-19T04:20:39.083478Z"
+  "repo": "SylphxAI/flow",
+  "path": "packages/flow/assets/skills/code-quality/SKILL.md",
+  "source": "github.com/SylphxAI/flow",
+  "downloaded_at": "2026-01-20T03:58:36.932885Z"
 }

@@ -1,18 +1,19 @@
 ---
 name: hono-routing
 description: |
-  Build type-safe APIs with Hono for Cloudflare Workers, Deno, Bun, Node.js. Routing, middleware, validation (Zod/Valibot), RPC, streaming (SSE), WebSocket, security (CSRF, secureHeaders).
+  Build type-safe APIs with Hono - fast, lightweight routing for Cloudflare Workers, Deno, Bun, and Node.js. Set up routing patterns, middleware composition, request validation (Zod/Valibot/Typia/ArkType), RPC client/server with full type inference, and error handling with HTTPException.
 
-  Use when: building Hono APIs, streaming SSE, WebSocket, validation, RPC. Troubleshoot: validation hooks, RPC types, middleware chains.
-user-invocable: true
+  Use when: building APIs with Hono, setting up request validation with schema libraries, creating type-safe RPC client/server communication, implementing custom middleware chains, handling errors with HTTPException, extending context with custom variables, or troubleshooting middleware type inference issues, validation hook confusion, RPC performance problems, or middleware response typing errors.
+
+license: MIT
 ---
 
 # Hono Routing & Middleware
 
 **Status**: Production Ready ✅
-**Last Updated**: 2026-01-06
+**Last Updated**: 2025-10-22
 **Dependencies**: None (framework-agnostic)
-**Latest Versions**: hono@4.11.3, zod@4.3.5, valibot@1.2.0, @hono/zod-validator@0.7.6, @hono/valibot-validator@0.6.1
+**Latest Versions**: hono@4.10.2, zod@4.1.12, valibot@1.1.0, @hono/zod-validator@0.7.4, @hono/valibot-validator@0.5.3
 
 ---
 
@@ -21,7 +22,7 @@ user-invocable: true
 ### 1. Install Hono
 
 ```bash
-npm install hono@4.11.3
+npm install hono@4.10.2
 ```
 
 **Why Hono:**
@@ -52,7 +53,7 @@ export default app
 ### 3. Add Request Validation
 
 ```bash
-npm install zod@4.3.5 @hono/zod-validator@0.7.6
+npm install zod@4.1.12 @hono/zod-validator@0.7.4
 ```
 
 ```typescript
@@ -77,9 +78,40 @@ app.post('/user', zValidator('json', schema), (c) => {
 
 ---
 
-## The 4-Part Hono Mastery Guide
+## The 6-Part Hono Mastery Guide
 
 ### Part 1: Routing Patterns
+
+#### Basic Routes
+
+```typescript
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+// GET request
+app.get('/posts', (c) => c.json({ posts: [] }))
+
+// POST request
+app.post('/posts', (c) => c.json({ created: true }))
+
+// PUT request
+app.put('/posts/:id', (c) => c.json({ updated: true }))
+
+// DELETE request
+app.delete('/posts/:id', (c) => c.json({ deleted: true }))
+
+// Multiple methods
+app.on(['GET', 'POST'], '/multi', (c) => c.text('GET or POST'))
+
+// All methods
+app.all('/catch-all', (c) => c.text('Any method'))
+```
+
+**Key Points:**
+- Always return a Response (c.json, c.text, c.html, etc.)
+- Routes are matched in order (first match wins)
+- Use specific routes before wildcard routes
 
 #### Route Parameters
 
@@ -130,6 +162,22 @@ app.get('/search', (c) => {
 - Provide defaults for optional params
 - Parse numbers/booleans from query strings
 
+#### Wildcard Routes
+
+```typescript
+// Match any path after /api/
+app.get('/api/*', (c) => {
+  const path = c.req.param('*')
+  return c.json({ catchAll: path })
+})
+
+// Named wildcard
+app.get('/files/:filepath{.+}', (c) => {
+  const filepath = c.req.param('filepath')
+  return c.json({ file: filepath })
+})
+```
+
 #### Route Grouping (Sub-apps)
 
 ```typescript
@@ -153,20 +201,42 @@ app.route('/api', api)
 
 ---
 
-### Part 2: Middleware & Validation
+### Part 2: Middleware Composition
 
-**CRITICAL Middleware Rule:**
-- **Always call `await next()`** in middleware to continue the chain
-- Return early (without calling `next()`) to prevent handler execution
-- Check `c.error` AFTER `next()` for error handling
+#### Middleware Flow
 
 ```typescript
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+// Global middleware (runs for all routes)
+app.use('*', async (c, next) => {
+  console.log(`[${c.req.method}] ${c.req.url}`)
+  await next() // CRITICAL: Must call next()
+  console.log('Response sent')
+})
+
+// Route-specific middleware
 app.use('/admin/*', async (c, next) => {
+  // Auth check
   const token = c.req.header('Authorization')
-  if (!token) return c.json({ error: 'Unauthorized' }, 401)
-  await next() // Required!
+  if (!token) {
+    return c.json({ error: 'Unauthorized' }, 401)
+  }
+  await next()
+})
+
+app.get('/admin/dashboard', (c) => {
+  return c.json({ message: 'Admin Dashboard' })
 })
 ```
+
+**CRITICAL:**
+- **Always call `await next()`** in middleware
+- Middleware runs BEFORE the handler
+- Return early to prevent handler execution
+- Check `c.error` AFTER `next()` for error handling
 
 #### Built-in Middleware
 
@@ -208,152 +278,81 @@ app.use(
 
 **Built-in Middleware Reference**: See `references/middleware-catalog.md`
 
-#### Streaming Helpers (SSE, AI Responses)
+#### Middleware Chaining
 
 ```typescript
-import { Hono } from 'hono'
-import { stream, streamText, streamSSE } from 'hono/streaming'
+// Multiple middleware in sequence
+app.get(
+  '/protected',
+  authMiddleware,
+  rateLimitMiddleware,
+  (c) => {
+    return c.json({ data: 'Protected data' })
+  }
+)
 
-const app = new Hono()
+// Middleware factory pattern
+const authMiddleware = async (c, next) => {
+  const token = c.req.header('Authorization')
+  if (!token) {
+    throw new HTTPException(401, { message: 'Unauthorized' })
+  }
 
-// Binary streaming
-app.get('/download', (c) => {
-  return stream(c, async (stream) => {
-    await stream.write(new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f]))
-    await stream.pipe(readableStream)
-  })
-})
+  // Set user in context
+  c.set('user', { id: 1, name: 'Alice' })
 
-// Text streaming (AI responses)
-app.get('/ai', (c) => {
-  return streamText(c, async (stream) => {
-    for await (const chunk of aiResponse) {
-      await stream.write(chunk)
-      await stream.sleep(50) // Rate limit if needed
-    }
-  })
-})
+  await next()
+}
 
-// Server-Sent Events (real-time updates)
-app.get('/sse', (c) => {
-  return streamSSE(c, async (stream) => {
-    let id = 0
-    while (true) {
-      await stream.writeSSE({
-        data: JSON.stringify({ time: Date.now() }),
-        event: 'update',
-        id: String(id++),
-      })
-      await stream.sleep(1000)
-    }
-  })
-})
+const rateLimitMiddleware = async (c, next) => {
+  // Rate limit logic
+  await next()
+}
 ```
 
-**Use Cases:**
-- `stream()` - Binary files, video, audio
-- `streamText()` - AI chat responses, typewriter effects
-- `streamSSE()` - Real-time notifications, live feeds
+**Why Chain Middleware:**
+- Separation of concerns
+- Reusable across routes
+- Clear execution order
 
-#### WebSocket Helper
+#### Custom Middleware
 
 ```typescript
-import { Hono } from 'hono'
-import { upgradeWebSocket } from 'hono/cloudflare-workers' // Platform-specific!
+// Timing middleware
+const timing = async (c, next) => {
+  const start = Date.now()
+  await next()
+  const elapsed = Date.now() - start
+  c.res.headers.set('X-Response-Time', `${elapsed}ms`)
+}
 
-const app = new Hono()
+// Request ID middleware
+const requestId = async (c, next) => {
+  const id = crypto.randomUUID()
+  c.set('requestId', id)
+  await next()
+  c.res.headers.set('X-Request-ID', id)
+}
 
-app.get('/ws', upgradeWebSocket((c) => ({
-  onMessage(event, ws) {
-    console.log(`Message: ${event.data}`)
-    ws.send(`Echo: ${event.data}`)
-  },
-  onClose: () => console.log('Closed'),
-  onError: (event) => console.error('Error:', event),
-  // onOpen is NOT supported on Cloudflare Workers!
-})))
+// Error logging middleware
+const errorLogger = async (c, next) => {
+  await next()
+  if (c.error) {
+    console.error('Error:', c.error)
+    // Send to error tracking service
+  }
+}
 
-export default app
+app.use('*', timing)
+app.use('*', requestId)
+app.use('*', errorLogger)
 ```
 
-**⚠️ Cloudflare Workers WebSocket Caveats:**
-- Import from `hono/cloudflare-workers` (not `hono/ws`)
-- `onOpen` callback is **NOT supported** (Cloudflare limitation)
-- CORS/header-modifying middleware conflicts with WebSocket routes
-- Use route grouping to exclude WebSocket routes from CORS:
-
-```typescript
-const api = new Hono()
-api.use('*', cors()) // CORS for API only
-app.route('/api', api)
-app.get('/ws', upgradeWebSocket(...)) // No CORS on WebSocket
-```
-
-#### Security Middleware
-
-```typescript
-import { Hono } from 'hono'
-import { secureHeaders } from 'hono/secure-headers'
-import { csrf } from 'hono/csrf'
-
-const app = new Hono()
-
-// Security headers (X-Frame-Options, CSP, HSTS, etc.)
-app.use('*', secureHeaders({
-  xFrameOptions: 'DENY',
-  xXssProtection: '1; mode=block',
-  contentSecurityPolicy: {
-    defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "'unsafe-inline'"],
-  },
-}))
-
-// CSRF protection (validates Origin header)
-app.use('/api/*', csrf({
-  origin: ['https://example.com', 'https://admin.example.com'],
-}))
-```
-
-**Security Middleware Options:**
-
-| Middleware | Purpose |
-|------------|---------|
-| `secureHeaders` | X-Frame-Options, CSP, HSTS, XSS protection |
-| `csrf` | CSRF via Origin/Sec-Fetch-Site validation |
-| `bearerAuth` | Bearer token authentication |
-| `basicAuth` | HTTP Basic authentication |
-| `ipRestriction` | IP allowlist/blocklist |
-
-#### Combine Middleware
-
-Compose middleware with conditional logic:
-
-```typescript
-import { Hono } from 'hono'
-import { some, every, except } from 'hono/combine'
-import { bearerAuth } from 'hono/bearer-auth'
-import { ipRestriction } from 'hono/ip-restriction'
-
-const app = new Hono()
-
-// some: ANY middleware must pass (OR logic)
-app.use('/admin/*', some(
-  bearerAuth({ token: 'admin-token' }),
-  ipRestriction({ allowList: ['10.0.0.0/8'] }),
-))
-
-// every: ALL middleware must pass (AND logic)
-app.use('/secure/*', every(
-  bearerAuth({ token: 'secret' }),
-  ipRestriction({ allowList: ['192.168.1.0/24'] }),
-))
-
-// except: Skip middleware for certain paths
-app.use('*', except(
-  ['/health', '/metrics'],
-  logger(),
-))
-```
+**Best Practices:**
+- Keep middleware focused (single responsibility)
+- Use `c.set()` to share data between middleware
+- Check `c.error` AFTER `next()` for error handling
+- Return early to short-circuit execution
 
 ---
 
@@ -448,7 +447,7 @@ app.get('/', (c) => {
 #### Validation with Zod
 
 ```bash
-npm install zod@4.3.5 @hono/zod-validator@0.7.6
+npm install zod@4.1.12 @hono/zod-validator@0.7.4
 ```
 
 ```typescript
@@ -558,7 +557,7 @@ app.post(
 #### Validation with Valibot
 
 ```bash
-npm install valibot@1.2.0 @hono/valibot-validator@0.6.1
+npm install valibot@1.1.0 @hono/valibot-validator@0.5.3
 ```
 
 ```typescript
@@ -865,6 +864,69 @@ app.notFound((c) => {
 })
 ```
 
+#### Error Handling Best Practices
+
+```typescript
+import { Hono } from 'hono'
+import { HTTPException } from 'hono/http-exception'
+
+const app = new Hono()
+
+// Validation errors
+app.post('/users', zValidator('json', schema), (c) => {
+  // zValidator automatically returns 400 on validation failure
+  const data = c.req.valid('json')
+  return c.json({ data })
+})
+
+// Authorization errors
+app.use('/admin/*', async (c, next) => {
+  const token = c.req.header('Authorization')
+  if (!token) {
+    throw new HTTPException(401, { message: 'Unauthorized' })
+  }
+  await next()
+})
+
+// Not found errors
+app.get('/users/:id', async (c) => {
+  const id = c.req.param('id')
+  const user = await db.getUser(id)
+
+  if (!user) {
+    throw new HTTPException(404, { message: 'User not found' })
+  }
+
+  return c.json({ user })
+})
+
+// Server errors
+app.get('/data', async (c) => {
+  try {
+    const data = await fetchExternalAPI()
+    return c.json({ data })
+  } catch (error) {
+    // Let onError handle it
+    throw error
+  }
+})
+
+// Global error handler
+app.onError((err, c) => {
+  if (err instanceof HTTPException) {
+    return err.getResponse()
+  }
+
+  console.error('Unexpected error:', err)
+  return c.json({ error: 'Internal Server Error' }, 500)
+})
+
+// 404 handler
+app.notFound((c) => {
+  return c.json({ error: 'Not Found' }, 404)
+})
+```
+
 ---
 
 ## Critical Rules
@@ -1035,7 +1097,7 @@ app.get('/', (c) => {
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "hono": "^4.11.3"
+    "hono": "^4.10.2"
   },
   "devDependencies": {
     "typescript": "^5.9.0",
@@ -1050,9 +1112,9 @@ app.get('/', (c) => {
 ```json
 {
   "dependencies": {
-    "hono": "^4.11.3",
-    "zod": "^4.3.5",
-    "@hono/zod-validator": "^0.7.6"
+    "hono": "^4.10.2",
+    "zod": "^4.1.12",
+    "@hono/zod-validator": "^0.7.4"
   }
 }
 ```
@@ -1062,9 +1124,9 @@ app.get('/', (c) => {
 ```json
 {
   "dependencies": {
-    "hono": "^4.11.3",
-    "valibot": "^1.2.0",
-    "@hono/valibot-validator": "^0.6.1"
+    "hono": "^4.10.2",
+    "valibot": "^1.1.0",
+    "@hono/valibot-validator": "^0.5.3"
   }
 }
 ```
@@ -1074,11 +1136,11 @@ app.get('/', (c) => {
 ```json
 {
   "dependencies": {
-    "hono": "^4.11.3",
-    "zod": "^4.3.5",
-    "valibot": "^1.2.0",
-    "@hono/zod-validator": "^0.7.6",
-    "@hono/valibot-validator": "^0.6.1",
+    "hono": "^4.10.2",
+    "zod": "^4.1.12",
+    "valibot": "^1.1.0",
+    "@hono/zod-validator": "^0.7.4",
+    "@hono/valibot-validator": "^0.5.3",
     "@hono/typia-validator": "^0.1.2",
     "@hono/arktype-validator": "^2.0.1"
   }
@@ -1151,18 +1213,18 @@ For deeper understanding, see:
 
 ---
 
-## Dependencies (Latest Verified 2025-11-26)
+## Dependencies (Latest Verified 2025-10-22)
 
 ```json
 {
   "dependencies": {
-    "hono": "^4.11.3"
+    "hono": "^4.10.2"
   },
   "optionalDependencies": {
-    "zod": "^4.3.5",
-    "valibot": "^1.2.0",
-    "@hono/zod-validator": "^0.7.6",
-    "@hono/valibot-validator": "^0.6.1",
+    "zod": "^4.1.12",
+    "valibot": "^1.1.0",
+    "@hono/zod-validator": "^0.7.4",
+    "@hono/valibot-validator": "^0.5.3",
     "@hono/typia-validator": "^0.1.2",
     "@hono/arktype-validator": "^2.0.1"
   },

@@ -1,7 +1,7 @@
 {
   "name": "applying-brand-guidelines",
-  "repo": "aRustyDev/dotfiles",
-  "path": ".ai/docs/.todo/claude-cookbooks/skills/custom_skills/applying-brand-guidelines/SKILL.md",
-  "source": "github.com/aRustyDev/dotfiles",
-  "downloaded_at": "2026-01-19T03:12:59.602898Z"
+  "repo": "anthropics/claude-cookbooks",
+  "path": "skills/custom_skills/applying-brand-guidelines/SKILL.md",
+  "source": "github.com/anthropics/claude-cookbooks",
+  "downloaded_at": "2026-01-20T03:13:22.352711Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "project-planning",
-  "repo": "htooayelwinict/claude-config",
-  "path": "skills/project-planning/SKILL.md",
-  "source": "github.com/htooayelwinict/claude-config",
-  "downloaded_at": "2026-01-19T04:20:10.915337Z"
+  "repo": "ByronWilliamsCPA/rag-processor",
+  "path": ".claude/skills/project-planning/SKILL.md",
+  "source": "github.com/ByronWilliamsCPA/rag-processor",
+  "downloaded_at": "2026-01-20T04:02:39.434067Z"
 }

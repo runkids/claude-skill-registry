@@ -1,6 +1,6 @@
 ---
 name: tool-design
-description: Design tools that agents can use effectively, including when to reduce tool complexity. Use when creating, optimizing, or reducing agent tool sets.
+description: This skill should be used when the user asks to "design agent tools", "create tool descriptions", "reduce tool complexity", "implement MCP tools", or mentions tool consolidation, architectural reduction, tool naming conventions, or agent-tool interfaces.
 ---
 
 # Tool Design for Agents

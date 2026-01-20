@@ -1,7 +1,7 @@
 {
   "name": "ossfuzz",
-  "repo": "plurigrid/asi",
-  "path": "skills/ossfuzz/SKILL.md",
-  "source": "github.com/plurigrid/asi",
-  "downloaded_at": "2026-01-19T04:21:34.163791Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/testing-handbook-skills/skills/ossfuzz/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-20T02:04:24.172985Z"
 }

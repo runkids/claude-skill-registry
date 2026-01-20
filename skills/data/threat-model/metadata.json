@@ -1,7 +1,7 @@
 {
   "name": "threat-model",
-  "repo": "mgreenly/ikigai",
-  "path": ".claude/library/security/threat-model/SKILL.md",
-  "source": "github.com/mgreenly/ikigai",
-  "downloaded_at": "2026-01-19T04:08:28.319147Z"
+  "repo": "cosmix/loom",
+  "path": "skills/threat-model/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-20T01:15:07.746395Z"
 }

@@ -10,116 +10,56 @@ allowed-tools: Bash, Read
 
 Add issues to the project board and update their status. This skill has **write permissions** for board operations.
 
-## When Claude Should Use This
+## When to Use This
 
 - User asks "add this issue to the board"
 - User asks "move #X to In Progress"
 - User asks "update status of issue"
-- User asks "put this in the backlog"
 - After creating a new issue (auto-add to board)
 - After completing work (move to Done)
 
 ## Project Board Configuration
 
-**Project:** Monorepo Development (#11)
-**URL:** https://github.com/orgs/rollercoaster-dev/projects/11
+**Project:** code-graph-mcp Development (#8)
+**URL:** https://github.com/users/joeczar/projects/8
 
 ### IDs Reference
 
-| Resource        | ID                               |
-| --------------- | -------------------------------- |
-| Project ID      | `PVT_kwDOB1lz3c4BI2yZ`           |
-| Status Field ID | `PVTSSF_lADOB1lz3c4BI2yZzg5MUx4` |
+| Resource | ID |
+|----------|-----|
+| Project ID | `PVT_kwHOAbYJAM4BM5GY` |
+| Status Field ID | `PVTSSF_lAHOAbYJAM4BM5GYzg8C2zk` |
 
 ### Status Option IDs
 
-| Status      | Option ID  | Description                 |
-| ----------- | ---------- | --------------------------- |
-| Backlog     | `8b7bb58f` | Not ready / needs triage    |
-| Next        | `266160c2` | Ready to pick up            |
-| In Progress | `3e320f16` | Currently being worked on   |
-| Blocked     | `51c2af7b` | PR created, awaiting review |
-| Done        | `56048761` | Merged to main              |
-
-## Helper Functions
-
-These reusable functions simplify board operations:
-
-### Get Item ID for Issue
-
-```bash
-get_item_id_for_issue() {
-  local issue_number=$1
-  gh api graphql -f query='
-    query {
-      organization(login: "rollercoaster-dev") {
-        projectV2(number: 11) {
-          items(first: 100) {
-            nodes {
-              id
-              content { ... on Issue { number } }
-            }
-          }
-        }
-      }
-    }' | jq -r ".data.organization.projectV2.items.nodes[] | select(.content.number == $issue_number) | .id"
-}
-```
-
-### Update Board Status (with validation)
-
-```bash
-update_board_status() {
-  local item_id=$1
-  local option_id=$2
-  local status_name=$3
-
-  RESULT=$(gh api graphql \
-    -f projectId="PVT_kwDOB1lz3c4BI2yZ" \
-    -f itemId="$item_id" \
-    -f fieldId="PVTSSF_lADOB1lz3c4BI2yZzg5MUx4" \
-    -f optionId="$option_id" \
-    -f query='mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
-      updateProjectV2ItemFieldValue(input: {
-        projectId: $projectId
-        itemId: $itemId
-        fieldId: $fieldId
-        value: { singleSelectOptionId: $optionId }
-      }) {
-        projectV2Item { id }
-      }
-    }' 2>&1)
-
-  # Validate response - check for GraphQL errors
-  if echo "$RESULT" | jq -e '.errors | length > 0' > /dev/null 2>&1; then
-    echo "ERROR: Board update failed (GraphQL error)"
-    return 1
-  elif echo "$RESULT" | jq -e '.data.updateProjectV2ItemFieldValue.projectV2Item.id' > /dev/null 2>&1; then
-    echo "Board Update: Issue moved to '$status_name'"
-    return 0
-  else
-    echo "ERROR: Board update failed (unexpected response)"
-    return 1
-  fi
-}
-```
+| Status | Option ID | Description |
+|--------|-----------|-------------|
+| Todo | `f75ad846` | Not started |
+| In Progress | `47fc9ee4` | Currently working |
+| Done | `98236657` | Completed |
 
 ## Commands
 
 ### Add Issue to Project Board
 
 ```bash
-gh project item-add 11 --owner rollercoaster-dev --url https://github.com/rollercoaster-dev/monorepo/issues/<number>
+gh project item-add 8 --owner joeczar --url https://github.com/joeczar/code-graph-mcp/issues/<number>
 ```
 
 ### Get Item ID for an Issue
 
 ```bash
-# Using GraphQL (more reliable - doesn't require read:org scope)
+gh project item-list 8 --owner joeczar --format json | \
+  jq -r '.items[] | select(.content.number == <issue-number>) | .id'
+```
+
+Or via GraphQL:
+
+```bash
 gh api graphql -f query='
   query {
-    organization(login: "rollercoaster-dev") {
-      projectV2(number: 11) {
+    user(login: "joeczar") {
+      projectV2(number: 8) {
         items(first: 100) {
           nodes {
             id
@@ -128,17 +68,16 @@ gh api graphql -f query='
         }
       }
     }
-  }' | jq -r '.data.organization.projectV2.items.nodes[] | select(.content.number == <issue-number>) | .id'
+  }' | jq -r '.data.user.projectV2.items.nodes[] | select(.content.number == <issue-number>) | .id'
 ```
 
 ### Update Issue Status
 
 ```bash
-# Use GraphQL mutation (avoids OAuth scope issues with gh project item-edit)
 gh api graphql \
-  -f projectId="PVT_kwDOB1lz3c4BI2yZ" \
+  -f projectId="PVT_kwHOAbYJAM4BM5GY" \
   -f itemId="<item-id>" \
-  -f fieldId="PVTSSF_lADOB1lz3c4BI2yZzg5MUx4" \
+  -f fieldId="PVTSSF_lAHOAbYJAM4BM5GYzg8C2zk" \
   -f optionId="<option-id>" \
   -f query='mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
     updateProjectV2ItemFieldValue(input: {
@@ -155,77 +94,100 @@ gh api graphql \
 ### Remove Issue from Project
 
 ```bash
-gh project item-delete 11 --owner rollercoaster-dev --id <item-id>
+gh project item-delete 8 --owner joeczar --id <item-id>
 ```
 
-## Workflow Examples
+## Helper Functions
 
-### Add New Issue and Set Status
+### Move Issue to Status
 
 ```bash
-# 1. Add to project using GraphQL mutation
-ISSUE_NODE_ID=$(gh issue view 123 --json id -q .id)
-gh api graphql -f query='
-  mutation($projectId: ID!, $contentId: ID!) {
-    addProjectV2ItemById(input: {
+move_issue_status() {
+  local issue_number=$1
+  local option_id=$2  # f75ad846=Todo, 47fc9ee4=InProgress, 98236657=Done
+  local status_name=$3
+
+  # Get item ID
+  local item_id=$(gh project item-list 8 --owner joeczar --format json | \
+    jq -r '.items[] | select(.content.number == '$issue_number') | .id')
+
+  if [ -z "$item_id" ]; then
+    echo "Issue #$issue_number not found on project board"
+    return 1
+  fi
+
+  # Update status
+  gh api graphql \
+    -f projectId="PVT_kwHOAbYJAM4BM5GY" \
+    -f itemId="$item_id" \
+    -f fieldId="PVTSSF_lAHOAbYJAM4BM5GYzg8C2zk" \
+    -f optionId="$option_id" \
+    -f query='mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+      updateProjectV2ItemFieldValue(input: {
+        projectId: $projectId
+        itemId: $itemId
+        fieldId: $fieldId
+        value: { singleSelectOptionId: $optionId }
+      }) { projectV2Item { id } }
+    }'
+
+  echo "Moved #$issue_number to $status_name"
+}
+
+# Usage:
+# move_issue_status 12 "47fc9ee4" "In Progress"
+# move_issue_status 12 "98236657" "Done"
+```
+
+## Workflow Integration
+
+### Start Working on Issue
+
+1. Add issue to project (if not already)
+2. Set status to "In Progress"
+
+```bash
+# Add to project
+gh project item-add 8 --owner joeczar --url "https://github.com/joeczar/code-graph-mcp/issues/<number>"
+
+# Get item ID and move to In Progress
+ITEM_ID=$(gh project item-list 8 --owner joeczar --format json | \
+  jq -r '.items[] | select(.content.number == <number>) | .id')
+
+gh api graphql \
+  -f projectId="PVT_kwHOAbYJAM4BM5GY" \
+  -f itemId="$ITEM_ID" \
+  -f fieldId="PVTSSF_lAHOAbYJAM4BM5GYzg8C2zk" \
+  -f optionId="47fc9ee4" \
+  -f query='mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+    updateProjectV2ItemFieldValue(input: {
       projectId: $projectId
-      contentId: $contentId
-    }) { item { id } }
-  }' -f projectId="PVT_kwDOB1lz3c4BI2yZ" -f contentId="$ISSUE_NODE_ID" 2>/dev/null || true
-
-# 2. Get item ID and set status using helper functions
-ITEM_ID=$(get_item_id_for_issue 123)
-update_board_status "$ITEM_ID" "266160c2" "Next"
+      itemId: $itemId
+      fieldId: $fieldId
+      value: { singleSelectOptionId: $optionId }
+    }) { projectV2Item { id } }
+  }'
 ```
 
-### Move Issue to In Progress
+### Complete Issue
 
-```bash
-# Using helper functions
-ITEM_ID=$(get_item_id_for_issue <issue-number>)
-update_board_status "$ITEM_ID" "3e320f16" "In Progress"
-```
-
-### Move Issue to Blocked (after PR creation)
-
-```bash
-ITEM_ID=$(get_item_id_for_issue <issue-number>)
-update_board_status "$ITEM_ID" "51c2af7b" "Blocked"
-```
-
-### Move Issue to Done (after merge)
-
-```bash
-ITEM_ID=$(get_item_id_for_issue <issue-number>)
-update_board_status "$ITEM_ID" "56048761" "Done"
-```
+Set status to "Done" (PR merge will auto-close issue).
 
 ## Status Mapping
 
-| Action               | Status      | Option ID  |
-| -------------------- | ----------- | ---------- |
-| New issue, not ready | Backlog     | `8b7bb58f` |
-| Ready to work        | Next        | `266160c2` |
-| Started work         | In Progress | `3e320f16` |
-| PR created           | Blocked     | `51c2af7b` |
-| PR merged            | Done        | `56048761` |
-
-## Output Format
-
-After operations, confirm:
-
-```markdown
-**Board Update:** Issue #X moved to [Status]
-**URL:** https://github.com/orgs/rollercoaster-dev/projects/11
-```
+| Action | Status | Option ID |
+|--------|--------|-----------|
+| New issue, not started | Todo | `f75ad846` |
+| Started work | In Progress | `47fc9ee4` |
+| PR merged | Done | `98236657` |
 
 ## Query Current IDs (if they change)
 
 ```bash
 gh api graphql -f query='
 query {
-  organization(login: "rollercoaster-dev") {
-    projectV2(number: 11) {
+  user(login: "joeczar") {
+    projectV2(number: 8) {
       id
       field(name: "Status") {
         ... on ProjectV2SingleSelectField {
@@ -236,4 +198,13 @@ query {
     }
   }
 }'
+```
+
+## Output Format
+
+After operations, confirm:
+
+```markdown
+**Board Update:** Issue #X moved to [Status]
+**URL:** https://github.com/users/joeczar/projects/8
 ```

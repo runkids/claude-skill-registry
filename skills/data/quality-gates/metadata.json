@@ -1,7 +1,7 @@
 {
   "name": "quality-gates",
-  "repo": "involvex/involvex-claude-marketplace",
-  "path": "plugins/orchestration/skills/quality-gates/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-01-19T02:31:28.717900Z"
+  "repo": "claudeforge/orchestrator",
+  "path": "skills/quality-gates/SKILL.md",
+  "source": "github.com/claudeforge/orchestrator",
+  "downloaded_at": "2026-01-20T03:16:31.718681Z"
 }

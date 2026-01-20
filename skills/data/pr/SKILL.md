@@ -1,146 +1,232 @@
 ---
 name: pr
-description: Generate comprehensive PR descriptions from git diffs. Use when creating or updating pull requests, when asked to write a PR description, or when the user says "pr", "/pr", or asks for help with their pull request. Analyzes staged/unstaged changes and commit history to produce thorough, reviewer-friendly descriptions.
+description: PR作成Skill。仕様レビュー用または実装レビュー用のPRを作成。/spec や spec-workflow から呼び出される。
 ---
 
-# PR Description Generator
+# /pr Skill - プルリクエスト作成
 
-Generate pull request descriptions that reviewers love and that get PRs merged faster.
+SDDワークフローにおけるPR作成を担当するSkill。
+仕様策定・実装それぞれのフェーズで適切なPRを作成します。
 
-## Workflow
+## 発動条件
 
-1. Gather context (diff, commits, branch info)
-2. Analyze changes (what, why, impact)
-3. Generate description
-4. Create PR with gh CLI
+- `/pr` コマンドで明示的に呼び出し
+- `/spec` Skill から自動呼び出し（仕様策定完了時）
+- `spec-workflow` Skill から自動呼び出し（実装完了時）
 
-## Step 1: Gather Context
+## PRタイトル規則
 
-```bash
-# Determine base branch
-git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main"
+### 仕様策定用
 
-# Get full diff from base
-git diff main...HEAD
-
-# Get commit history with full messages
-git log main..HEAD --format="%B---"
-
-# Check for related issues/tickets in commits
-git log main..HEAD --oneline | grep -iE "(fix|close|resolve|ref)[s]?\s*#"
+```
+spec: {アクションタイトル}
 ```
 
-## Step 2: Analyze Changes
+例: `spec: ユーザー認証機能の仕様策定`
 
-For each significant change, identify:
+### 実装用
 
-| Aspect | Question |
-|--------|----------|
-| **What** | What code changed? |
-| **Why** | What problem does this solve? |
-| **How** | What approach was taken? |
-| **Impact** | What does this affect? |
-| **Risk** | What could go wrong? |
+```
+impl: {アクションタイトル}
+```
 
-Look for clues in:
-- Commit messages (especially first lines)
-- Code comments and TODOs
-- Test file names (reveal intent)
-- Deleted code (what was wrong?)
+例: `impl: ユーザー認証機能の実装`
 
-## Step 3: Generate Description
+## ワークフロー
+
+```
+┌─────────────────────────────────────────────────┐
+│  1. 変更確認                                    │
+│     - git status で変更内容を確認               │
+│     - git diff で差分を確認                     │
+│                                                 │
+│  2. コミット確認                                │
+│     - 未コミットの変更があればコミット          │
+│     - コミットメッセージを生成                  │
+│                                                 │
+│  3. リモートへプッシュ                          │
+│     git push -u origin {branch-name}            │
+│                                                 │
+│  4. PR内容生成                                  │
+│     - タイトル: 規則に従って生成                │
+│     - サマリー: 変更内容の要約                  │
+│     - テストプラン: 検証項目                    │
+│                                                 │
+│  5. ユーザー確認                                │
+│     「このPRを作成しますか？」                  │
+│                                                 │
+│  6. PR作成                                      │
+│     gh pr create                                │
+│                                                 │
+│  7. 完了通知                                    │
+│     PR URLを表示                                │
+└─────────────────────────────────────────────────┘
+```
+
+## パラメータ
+
+| パラメータ | 必須 | 説明 | 例 |
+|-----------|------|------|-----|
+| type | Yes | PRタイプ | `spec` or `impl` |
+| action-id | No | アクションID（ブランチ名から自動取得可） | `001-01-01` |
+| base | No | ベースブランチ（デフォルト: main） | `main` |
+
+## PRテンプレート
+
+### 仕様策定用
 
 ```markdown
 ## Summary
 
-[1-2 sentences: What does this PR do and why? Lead with the WHY.]
+- {アクションID} の仕様を策定
+- {生成したファイル一覧}
 
-## Changes
+## 変更内容
 
-[Group by feature/area, not by file]
+- specs/phases/{id}.md: フェーズ定義
+- specs/tasks/{id}.md: タスク定義
+- specs/actions/{id}.md: アクション定義
 
-- **[Component]**: What changed and why
-- **[Component]**: What changed and why
+## レビュー観点
 
-## Testing
+- [ ] ユーザーストーリーが明確か
+- [ ] ACがEARS記法で記述されているか
+- [ ] 依存関係が整理されているか
+- [ ] スコープが適切か
 
-[Be specific about what was verified]
-
-- [ ] Unit tests pass
-- [ ] Tested [specific user flow]
-- [ ] Verified [edge case]
-
-## Reviewers
-
-[Optional: Guide the review]
-
-- Focus on: [specific area needing attention]
-- Question: [any decisions you're unsure about]
-
----
-*Generated with [agent-resources](https://github.com/kasperjunge/agent-resources)*
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
 
-### Quality Standards
+### 実装用
 
-**Summary**
-- Lead with WHY, not WHAT
-- Be specific: "Fix login timeout causing 5% of users to fail" > "Fix bug"
-- One PR = one purpose
+```markdown
+## Summary
 
-**Changes**
-- Group logically (by feature, not file)
-- Highlight breaking changes with **BREAKING:**
-- Note migrations or setup steps
+- {アクションID} を実装
+- {実装した機能の概要}
 
-**Testing**
-- Include manual testing steps
-- Flag areas needing extra review
-- Note what ISN'T tested
+## 変更内容
 
-## Step 4: Create PR
+- {変更ファイル一覧}
+
+## Test plan
+
+- [ ] 全ACのテストが通過
+- [ ] TDDサイクルを遵守
+- [ ] スコープ外の変更なし
+
+## AC確認
+
+- [x] {AC1}
+- [x] {AC2}
+- [x] {AC3}
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+```
+
+## 使用例
+
+### 直接呼び出し
+
+```
+ユーザー: /pr
+
+Claude: 現在のブランチ: impl/001-01-01-user-auth
+
+        以下のPRを作成しますか？
+
+        タイトル: impl: ユーザー認証機能の実装
+        ベース: main
+
+        ## Summary
+        - 001-01-01 を実装
+        - ログイン/ログアウト機能
+
+        ## Test plan
+        - [ ] 全ACのテストが通過
+        ...
+
+ユーザー: OK
+
+Claude: ✅ PRを作成しました
+        URL: https://github.com/user/repo/pull/123
+```
+
+### /spec からの自動呼び出し
+
+```
+[/spec Skill 内部]
+→ ファイル生成完了後に /pr を発火
+→ type: spec
+→ 仕様レビュー用PRを作成
+```
+
+### spec-workflow からの自動呼び出し
+
+```
+[spec-workflow Skill 内部]
+→ 実装完了・AC全チェック後に /pr を発火
+→ type: impl
+→ 実装レビュー用PRを作成
+```
+
+## 実行コマンド
 
 ```bash
-gh pr create --title "<type>: <description>" --body "$(cat <<'EOF'
-<generated description>
-EOF
-)"
+# 変更確認
+git status
+git diff
+
+# コミット（必要な場合）
+git add .
+git commit -m "..."
+
+# プッシュ
+git push -u origin {branch-name}
+
+# PR作成
+gh pr create --title "{title}" --body "{body}"
 ```
 
-For draft PRs: add `--draft`
-For specific reviewers: add `--reviewer @username`
+## エラーハンドリング
 
-## Examples
+### 変更がない場合
 
-### Good Summary
-> Implement rate limiting on auth endpoints to prevent brute force attacks. Limits to 5 attempts/minute with exponential backoff, reducing attack surface without impacting legitimate users.
+```
+Claude: コミットする変更がありません。
 
-### Bad Summary
-> Fix auth issues
+対応案:
+1. 作業を続ける
+2. 既存のコミットでPRを作成
 
-### Good Changes
-```markdown
-## Changes
-
-- **Rate Limiter**: Add Redis-backed rate limiting middleware
-- **Auth Routes**: Apply limiter to /login, /register, /reset-password
-- **Config**: New RATE_LIMIT_* environment variables with sensible defaults
-- **Monitoring**: Add rate limit metrics to Datadog dashboard
+どれを選択しますか？
 ```
 
-### Bad Changes
-```markdown
-## Changes
+### リモートに既にPRがある場合
 
-- Changed auth.ts
-- Updated config
-- Added middleware
+```
+Claude: このブランチには既にPRが存在します。
+        URL: https://github.com/user/repo/pull/123
+
+対応案:
+1. 既存のPRを更新（追加コミットをプッシュ）
+2. 既存のPRを閉じて新規作成
+
+どれを選択しますか？
 ```
 
-## Edge Cases
+### gh CLI が未認証の場合
 
-**Large PRs**: Add "Overview" section, consider splitting
-**Refactoring**: Emphasize behavior unchanged, explain structural changes
-**Bug fixes**: Include symptoms, root cause, fix approach
-**Dependencies**: Note new deps and why chosen
-**Migrations**: Include rollback steps
+```
+Claude: GitHub CLIが認証されていません。
+
+以下のコマンドで認証してください:
+gh auth login
+```
+
+## 禁止事項
+
+- ユーザー確認なしのPR作成
+- テスト未通過でのPR作成（impl時）
+- 空のPR作成
+- ベースブランチへの直接プッシュ

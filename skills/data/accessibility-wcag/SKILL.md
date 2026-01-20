@@ -1,298 +1,125 @@
 ---
 name: accessibility-wcag
-description: Enforce WCAG 2.2 accessibility standards. Use when creating UI components, reviewing frontend code, or when accessibility issues are detected. Covers semantic HTML, ARIA, keyboard navigation, and color contrast.
-allowed-tools: Read, Glob, Grep, Edit, Write, Bash
-license: MIT
-metadata:
-  author: antigravity-team
-  version: "1.0"
+description: |
+  WCAG準拠のアクセシビリティ設計を整理し、インクルーシブなUI実装と検証を支援するスキル。
+  要件整理、実装方針、監査手順を一貫して整理する。
+
+  Anchors:
+  • WCAG 2.1 Guidelines / 適用: アクセシビリティ基準 / 目的: 準拠確認
+  • WAI-ARIA Authoring Practices / 適用: ウィジェット実装 / 目的: ARIA実装指針
+  • Inclusive Design Patterns (Heydon Pickering) / 適用: 実装パターン / 目的: ベストプラクティス
+
+  Trigger:
+  Use when implementing accessibility, ensuring WCAG compliance, or designing ARIA and screen reader support.
+  accessibility, WCAG, ARIA, screen reader, inclusive design
 ---
 
-# Accessibility (WCAG 2.2)
-
-웹 접근성 표준 WCAG 2.2를 준수하도록 강제하는 스킬입니다.
-
-## 2025 Context
-
-> **WCAG 2.2는 2023년 10월 ISO 표준(ISO/IEC 40500)으로 채택되었습니다.**
-> **유럽 접근성법(EAA)은 2025년 6월부터 시행됩니다.**
-
-## Core Principles (POUR)
-
-| 원칙 | 설명 | 예시 |
-|------|------|------|
-| **P**erceivable | 인지 가능 | 대체 텍스트, 자막, 색상 대비 |
-| **O**perable | 조작 가능 | 키보드 접근, 충분한 시간 |
-| **U**nderstandable | 이해 가능 | 명확한 언어, 예측 가능한 동작 |
-| **R**obust | 견고함 | 보조 기술 호환성 |
-
-## Rules
-
-### 1. Semantic HTML (필수)
-
-```tsx
-// ❌ BAD: div 남용
-<div onClick={handleClick}>버튼</div>
-<div class="header">제목</div>
-
-// ✅ GOOD: 시맨틱 태그 사용
-<button onClick={handleClick}>버튼</button>
-<h1>제목</h1>
-```
-
-### 2. 이미지 대체 텍스트 (필수)
-
-```tsx
-// ❌ BAD: alt 누락 또는 의미 없음
-<img src="logo.png" />
-<img src="chart.png" alt="이미지" />
-
-// ✅ GOOD: 의미 있는 alt
-<img src="logo.png" alt="회사명 로고" />
-<img src="chart.png" alt="2024년 매출 증가 추이 그래프" />
-
-// ✅ 장식용 이미지는 빈 alt
-<img src="decoration.png" alt="" role="presentation" />
-```
-
-### 3. 키보드 접근성 (필수)
-
-```tsx
-// ❌ BAD: 키보드 접근 불가
-<div onClick={handleClick} style={{ cursor: 'pointer' }}>
-  클릭
-</div>
-
-// ✅ GOOD: 키보드 접근 가능
-<button onClick={handleClick}>클릭</button>
-
-// 또는 커스텀 요소 사용 시
-<div
-  role="button"
-  tabIndex={0}
-  onClick={handleClick}
-  onKeyDown={(e) => e.key === 'Enter' && handleClick()}
->
-  클릭
-</div>
-```
-
-### 4. 포커스 관리
-
-```tsx
-// ❌ BAD: 포커스 스타일 제거
-button:focus {
-  outline: none;
-}
-
-// ✅ GOOD: 명확한 포커스 표시
-button:focus {
-  outline: 2px solid #005fcc;
-  outline-offset: 2px;
-}
-
-button:focus-visible {
-  outline: 2px solid #005fcc;
-}
-```
-
-### 5. 색상 대비 (WCAG AA 기준)
-
-| 텍스트 크기 | 최소 대비율 |
-|------------|------------|
-| 일반 텍스트 | 4.5:1 |
-| 큰 텍스트 (18pt+, 14pt bold+) | 3:1 |
-| UI 컴포넌트/그래픽 | 3:1 |
-
-```css
-/* ❌ BAD: 낮은 대비 */
-.text {
-  color: #999;  /* 회색 on 흰색 = 2.85:1 */
-  background: #fff;
-}
-
-/* ✅ GOOD: 충분한 대비 */
-.text {
-  color: #595959;  /* 4.54:1 */
-  background: #fff;
-}
-```
-
-### 6. 폼 레이블 (필수)
-
-```tsx
-// ❌ BAD: 레이블 없음
-<input type="email" placeholder="이메일" />
-
-// ✅ GOOD: 명시적 레이블
-<label htmlFor="email">이메일</label>
-<input id="email" type="email" />
-
-// 또는 aria-label 사용
-<input type="email" aria-label="이메일 주소" placeholder="이메일" />
-```
-
-### 7. ARIA 역할 및 속성
-
-```tsx
-// 모달 다이얼로그
-<div
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="modal-title"
->
-  <h2 id="modal-title">확인</h2>
-  ...
-</div>
-
-// 알림 메시지
-<div role="alert" aria-live="polite">
-  저장되었습니다.
-</div>
-
-// 로딩 상태
-<button aria-busy={isLoading} disabled={isLoading}>
-  {isLoading ? '처리 중...' : '제출'}
-</button>
-```
-
-### 8. 건너뛰기 링크
-
-```tsx
-// 페이지 상단에 추가
-<a href="#main-content" className="skip-link">
-  본문으로 건너뛰기
-</a>
-
-// CSS
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  z-index: 100;
-}
-
-.skip-link:focus {
-  top: 0;
-}
-```
-
-## WCAG 2.2 신규 기준
-
-### 2.4.11 Focus Not Obscured (AA)
-
-```tsx
-// ❌ BAD: 고정 헤더가 포커스 요소를 가림
-.header { position: fixed; top: 0; }
-
-// ✅ GOOD: scroll-margin으로 여유 공간 확보
-:target {
-  scroll-margin-top: 80px;
-}
-
-*:focus {
-  scroll-margin-top: 80px;
-}
-```
-
-### 2.5.7 Dragging Movements (AA)
-
-```tsx
-// ❌ BAD: 드래그만 지원
-<DraggableList onDrag={handleReorder} />
-
-// ✅ GOOD: 드래그 + 버튼 대안 제공
-<DraggableList onDrag={handleReorder}>
-  <button onClick={moveUp}>위로 이동</button>
-  <button onClick={moveDown}>아래로 이동</button>
-</DraggableList>
-```
-
-### 2.5.8 Target Size (AA)
-
-```css
-/* 최소 터치 타겟: 24x24px (AA), 44x44px 권장 */
-button, a, input[type="checkbox"] {
-  min-width: 44px;
-  min-height: 44px;
-}
-```
-
-## 테스트 도구
-
-### 자동화 도구
-
-```bash
-# axe-core (React)
-npm install @axe-core/react
-
-# eslint-plugin-jsx-a11y
-npm install eslint-plugin-jsx-a11y --save-dev
-
-# Lighthouse CI
-npm install -g @lhci/cli
-lhci autorun
-```
-
-### eslint 설정
-
-```json
-{
-  "extends": ["plugin:jsx-a11y/recommended"],
-  "rules": {
-    "jsx-a11y/alt-text": "error",
-    "jsx-a11y/anchor-is-valid": "error",
-    "jsx-a11y/click-events-have-key-events": "error",
-    "jsx-a11y/no-static-element-interactions": "error"
-  }
-}
-```
-
-### 수동 테스트 체크리스트
-
-- [ ] 키보드만으로 모든 기능 사용 가능
-- [ ] Tab 순서가 논리적
-- [ ] 포커스 표시가 명확함
-- [ ] 스크린 리더로 내용 이해 가능
-- [ ] 200% 확대해도 콘텐츠 손실 없음
-- [ ] 색상만으로 정보 전달하지 않음
-
-## Workflow
-
-### 1. 컴포넌트 작성 시
-
-```
-체크포인트:
-1. 시맨틱 HTML 사용했는가?
-2. 키보드 접근 가능한가?
-3. 적절한 ARIA 속성이 있는가?
-4. 포커스 스타일이 있는가?
-```
-
-### 2. 코드 리뷰 시
-
-```
-접근성 체크:
-1. img에 alt 있는가?
-2. form에 label 있는가?
-3. 색상 대비 충분한가?
-4. 터치 타겟 크기 충분한가?
-```
-
-## Checklist
-
-- [ ] 시맨틱 HTML 태그 사용
-- [ ] 모든 이미지에 의미 있는 alt
-- [ ] 폼 요소에 label 연결
-- [ ] 키보드만으로 조작 가능
-- [ ] 포커스 표시 명확
-- [ ] 색상 대비 4.5:1 이상
-- [ ] 터치 타겟 44x44px 이상
-- [ ] 건너뛰기 링크 제공
-- [ ] axe/Lighthouse 테스트 통과
-
-## References
-
-- [WCAG 2.2](https://www.w3.org/TR/WCAG22/)
-- [WAI-ARIA 1.2](https://www.w3.org/TR/wai-aria-1.2/)
-- [eslint-plugin-jsx-a11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)
+# accessibility-wcag
+
+## 概要
+
+WCAG準拠のアクセシビリティ設計を整理し、インクルーシブなUI実装と検証を支援する。
+
+## ワークフロー
+
+### Phase 1: 要件整理
+
+**目的**: 目標レベルと対象範囲を明確化する。
+
+**アクション**:
+
+1. 対象UIとユーザー層を整理する。
+2. WCAGレベル（A/AA/AAA）を確認する。
+3. 参照ガイドとテンプレートを確認する。
+
+**Task**: `agents/analyze-accessibility-requirements.md` を参照
+
+### Phase 2: 実装設計
+
+**目的**: アクセシビリティ実装方針を具体化する。
+
+**アクション**:
+
+1. セマンティクスとARIAの方針を整理する。
+2. キーボード操作とフォーカス管理を設計する。
+3. テンプレートで表現を統一する。
+
+**Task**: `agents/design-accessibility-solution.md` を参照
+
+### Phase 3: 検証と記録
+
+**目的**: 監査結果を検証し、記録を残す。
+
+**アクション**:
+
+1. 監査スクリプトで自動検証を行う。
+2. チェックリストで手動検証を行う。
+3. ログと評価情報を更新する。
+
+**Task**: `agents/validate-accessibility.md` を参照
+
+## Task仕様ナビ
+
+| Task                               | 起動タイミング | 入力         | 出力                   |
+| ---------------------------------- | -------------- | ------------ | ---------------------- |
+| analyze-accessibility-requirements | Phase 1開始時  | 対象/目標    | 要件整理メモ、範囲一覧 |
+| design-accessibility-solution      | Phase 2開始時  | 要件整理メモ | 実装方針、対応項目     |
+| validate-accessibility             | Phase 3開始時  | 実装方針     | 検証レポート、改善方針 |
+
+**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリを参照
+
+## ベストプラクティス
+
+### すべきこと
+
+| 推奨事項                 | 理由                       |
+| ------------------------ | -------------------------- |
+| WCAG目標を明確にする     | 合格基準が明確になるため   |
+| キーボード操作を保証する | 全ユーザーが操作できるため |
+| 検証と記録を実施する     | 改善が継続できるため       |
+
+### 避けるべきこと
+
+| 禁止事項             | 問題点           |
+| -------------------- | ---------------- |
+| 色だけで情報を伝える | 判別不能になる   |
+| 見出し構造を飛ばす   | 読み上げが崩れる |
+| 記録を残さない       | 改善が続かない   |
+
+## リソース参照
+
+### scripts/（決定論的処理）
+
+| スクリプト                   | 機能                         |
+| ---------------------------- | ---------------------------- |
+| `scripts/a11y-audit.mjs`     | アクセシビリティ監査         |
+| `scripts/log_usage.mjs`      | 使用記録と評価メトリクス更新 |
+| `scripts/validate-skill.mjs` | スキル構造の検証             |
+
+### references/（詳細知識）
+
+| リソース     | パス                                                                   | 読込条件           |
+| ------------ | ---------------------------------------------------------------------- | ------------------ |
+| レベル1 基礎 | [references/Level1_basics.md](references/Level1_basics.md)             | 初回整理時         |
+| レベル2 実務 | [references/Level2_intermediate.md](references/Level2_intermediate.md) | 実務適用時         |
+| レベル3 応用 | [references/Level3_advanced.md](references/Level3_advanced.md)         | 複雑UI時           |
+| レベル4 専門 | [references/Level4_expert.md](references/Level4_expert.md)             | 改善ループ時       |
+| ARIAパターン | [references/aria-patterns.md](references/aria-patterns.md)             | ウィジェット実装時 |
+| WCAGチェック | [references/wcag-checklist.md](references/wcag-checklist.md)           | 準拠確認時         |
+| テストガイド | [references/testing-guide.md](references/testing-guide.md)             | 検証実施時         |
+| 要求仕様索引 | [references/requirements-index.md](references/requirements-index.md)   | 要件参照時         |
+| 旧スキル     | [references/legacy-skill.md](references/legacy-skill.md)               | 互換確認時         |
+
+### assets/（テンプレート・素材）
+
+| アセット                              | 用途                       |
+| ------------------------------------- | -------------------------- |
+| `assets/accessible-form-template.tsx` | アクセシブルフォーム実装例 |
+
+### 運用ファイル
+
+| ファイル       | 目的                       |
+| -------------- | -------------------------- |
+| `EVALS.json`   | レベル評価・メトリクス管理 |
+| `LOGS.md`      | 実行ログの蓄積             |
+| `CHANGELOG.md` | 改善履歴の記録             |

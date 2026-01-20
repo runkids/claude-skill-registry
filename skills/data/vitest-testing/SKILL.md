@@ -1,238 +1,151 @@
 ---
 name: vitest-testing
-description: Modern TypeScript/JavaScript testing with Vitest. Fast unit and integration tests, native ESM support, Vite-powered HMR, and comprehensive mocking. Use for testing TS/JS projects.
-allowed-tools: Bash, Read, Edit, Write, Grep, Glob, TodoWrite
+description: Vitest unit testing for TypeScript/JavaScript in Oh My Brand! theme. Test setup, Web Component testing, mocking patterns, and coverage. Use when writing unit tests for frontend code.
+metadata:
+  author: Wesley Smits
+  version: "1.0.0"
 ---
 
 # Vitest Testing
 
-Expert knowledge for testing JavaScript/TypeScript projects using Vitest - a blazingly fast testing framework powered by Vite.
+Unit testing TypeScript/JavaScript code with Vitest for the Oh My Brand! WordPress FSE theme.
 
-## Quick Start
+---
 
-### Installation
+## When to Use
 
-```bash
-# Using Bun (recommended)
-bun add -d vitest
+- Writing unit tests for Web Components
+- Testing utility functions (debounce, throttle, etc.)
+- Mocking browser APIs (IntersectionObserver, matchMedia)
+- Achieving code coverage requirements
 
-# Using npm
-npm install -D vitest
-```
+---
 
-### Configuration
+## Configuration
 
-```typescript
-// vitest.config.ts
-import { defineConfig } from 'vitest/config'
+| File | Template | Purpose |
+|------|----------|---------|
+| [vitest.config.ts](references/vitest.config.ts) | Vitest configuration | Test settings and coverage |
+| [setup.ts](references/setup.ts) | Test setup | Browser API mocks |
 
-export default defineConfig({
-  test: {
-    globals: true,
-    environment: 'node', // or 'jsdom'
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      thresholds: { lines: 80, functions: 80, branches: 80 },
-    },
-    include: ['**/*.{test,spec}.{js,ts,jsx,tsx}'],
-  },
-})
-```
+---
 
-## Running Tests
+## Test Templates
 
-```bash
-# Run all tests (prefer bun)
-bun test
+| Template | Purpose |
+|----------|---------|
+| [web-component.test.ts](references/web-component.test.ts) | Web Component tests |
+| [debounce.test.ts](references/debounce.test.ts) | Utility function tests |
+| [mocking-patterns.ts](references/mocking-patterns.ts) | Mocking examples |
 
-# Watch mode (default)
-bun test --watch
+---
 
-# Run once (CI mode)
-bun test --run
-
-# With coverage
-bun test --coverage
-
-# Specific file
-bun test src/utils/math.test.ts
-
-# Pattern matching
-bun test --grep="calculates sum"
-
-# UI mode (interactive)
-bun test --ui
-
-# Verbose output
-bun test --reporter=verbose
-```
-
-## Writing Tests
-
-### Basic Structure
+## Test Structure
 
 ```typescript
-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { add, subtract } from './math'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
-describe('Math utilities', () => {
-  beforeEach(() => {
-    // Setup before each test
-  })
+describe('ComponentName', () => {
+    let element: HTMLElement;
 
-  it('adds two numbers correctly', () => {
-    expect(add(2, 3)).toBe(5)
-  })
+    beforeEach(() => {
+        document.body.innerHTML = `<my-component></my-component>`;
+        element = document.querySelector('my-component')!;
+    });
 
-  it('subtracts two numbers correctly', () => {
-    expect(subtract(5, 3)).toBe(2)
-  })
-})
+    afterEach(() => {
+        document.body.innerHTML = '';
+    });
+
+    it('should initialize correctly', () => {
+        expect(element).toBeDefined();
+    });
+});
 ```
 
-### Parametrized Tests
+---
+
+## Mock Patterns Quick Reference
+
+### Mock Functions
 
 ```typescript
-describe.each([
-  { input: 2, expected: 4 },
-  { input: 3, expected: 9 },
-])('square function', ({ input, expected }) => {
-  it(`squares ${input} to ${expected}`, () => {
-    expect(square(input)).toBe(expected)
-  })
-})
+const mockFn = vi.fn();
+mockFn.mockReturnValue('value');
+mockFn.mockResolvedValue({ data: [] });
+expect(mockFn).toHaveBeenCalledWith('arg');
 ```
 
-## Assertions
+### Mock Timers
 
 ```typescript
-// Equality
-expect(value).toBe(expected)
-expect(value).toEqual(expected)
-
-// Truthiness
-expect(value).toBeTruthy()
-expect(value).toBeNull()
-expect(value).toBeDefined()
-
-// Numbers
-expect(number).toBeGreaterThan(3)
-expect(number).toBeCloseTo(0.3, 1)
-
-// Strings/Arrays
-expect(string).toMatch(/pattern/)
-expect(array).toContain(item)
-
-// Objects
-expect(object).toHaveProperty('key')
-expect(object).toMatchObject({ a: 1 })
-
-// Exceptions
-expect(() => throwError()).toThrow('message')
-
-// Promises
-await expect(promise).resolves.toBe(value)
-await expect(promise).rejects.toThrow()
+vi.useFakeTimers();
+vi.advanceTimersByTime(100);
+vi.useRealTimers();
 ```
 
-## Mocking
-
-### Function Mocks
+### Spy on Methods
 
 ```typescript
-import { vi } from 'vitest'
-
-const mockFn = vi.fn()
-mockFn.mockReturnValue(42)
-mockFn.mockResolvedValue('async result')
-mockFn.mockImplementation((x) => x * 2)
-
-expect(mockFn).toHaveBeenCalled()
-expect(mockFn).toHaveBeenCalledWith('arg')
+const spy = vi.spyOn(object, 'method');
+spy.mockReturnValue('mocked');
+expect(spy).toHaveBeenCalled();
 ```
 
-### Module Mocking
+See [mocking-patterns.ts](references/mocking-patterns.ts) for complete examples.
 
-```typescript
-vi.mock('./api', () => ({
-  fetchUser: vi.fn(() => ({ id: 1, name: 'Test User' })),
-}))
-
-import { fetchUser } from './api'
-
-beforeEach(() => {
-  vi.clearAllMocks()
-})
-```
-
-### Timers
-
-```typescript
-beforeEach(() => vi.useFakeTimers())
-afterEach(() => vi.restoreAllMocks())
-
-it('advances timers', () => {
-  const callback = vi.fn()
-  setTimeout(callback, 1000)
-  vi.advanceTimersByTime(1000)
-  expect(callback).toHaveBeenCalledOnce()
-})
-
-it('mocks dates', () => {
-  const date = new Date('2024-01-01')
-  vi.setSystemTime(date)
-  expect(Date.now()).toBe(date.getTime())
-})
-```
+---
 
 ## Coverage
 
-```bash
-# Generate coverage report
-bun test --coverage
+### Thresholds
 
-# HTML report
-bun test --coverage --coverage.reporter=html
-open coverage/index.html
+| Metric | Threshold |
+|--------|-----------|
+| Statements | 80% |
+| Branches | 80% |
+| Functions | 80% |
+| Lines | 80% |
 
-# Check against thresholds
-bun test --coverage --coverage.thresholds.lines=90
-```
+### What to Test
 
-## Integration Testing
+**Always test:**
+- Public methods and functions
+- Edge cases (empty arrays, null values)
+- Error handling paths
+- User interactions
+- Attribute change callbacks
 
-```typescript
-import request from 'supertest'
-import { app } from './app'
+**Don't test:**
+- Third-party library internals
+- Private implementation details
+- Simple getters/setters
 
-describe('API endpoints', () => {
-  it('creates a user', async () => {
-    const response = await request(app)
-      .post('/api/users')
-      .send({ name: 'John' })
-      .expect(201)
+---
 
-    expect(response.body).toMatchObject({
-      id: expect.any(Number),
-      name: 'John',
-    })
-  })
-})
-```
+## Running Tests
 
-## Best Practices
+| Command | Purpose |
+|---------|---------|
+| `pnpm test` | Run all tests |
+| `pnpm run test:watch` | Watch mode |
+| `pnpm run test:coverage` | With coverage |
+| `pnpm test -- --testNamePattern="nav"` | Filter by name |
+| `pnpm test src/blocks/gallery/` | Specific directory |
 
-- One test file per source file: `math.ts` → `math.test.ts`
-- Group related tests with `describe()` blocks
-- Use descriptive test names
-- Mock only external dependencies
-- Use `concurrent` tests for independent async tests
-- Share expensive fixtures with `beforeAll()`
-- Aim for 80%+ coverage but don't chase 100%
+---
 
-## See Also
+## Related Skills
 
-- `test-quality-analysis` - Detecting test smells
-- `playwright-testing` - E2E testing
-- `mutation-testing` - Validate test effectiveness
+- [typescript-standards](../typescript-standards/SKILL.md) - TypeScript conventions
+- [web-components](../web-components/SKILL.md) - Web Component patterns
+- [phpunit-testing](../phpunit-testing/SKILL.md) - PHP unit testing
+- [playwright-testing](../playwright-testing/SKILL.md) - E2E testing
+
+---
+
+## References
+
+- [Vitest Documentation](https://vitest.dev/)
+- [Testing Library](https://testing-library.com/)
+- [Web Components Testing](https://open-wc.org/docs/testing/testing-package/)

@@ -1,7 +1,7 @@
 {
   "name": "framework-detector",
-  "repo": "FortiumPartners/ensemble",
-  "path": "packages/core/skills/framework-detector/SKILL.md",
-  "source": "github.com/FortiumPartners/ensemble",
-  "downloaded_at": "2026-01-19T01:30:24.744869Z"
+  "repo": "FortiumPartners/ai-mesh",
+  "path": "skills/framework-detector/SKILL.md",
+  "source": "github.com/FortiumPartners/ai-mesh",
+  "downloaded_at": "2026-01-20T02:35:04.514225Z"
 }

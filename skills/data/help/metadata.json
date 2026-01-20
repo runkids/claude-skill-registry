@@ -1,7 +1,7 @@
 {
   "name": "help",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/help/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-19T03:31:21.471525Z"
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/help/SKILL.md",
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-20T03:31:22.955071Z"
 }

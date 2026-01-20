@@ -1,350 +1,286 @@
 ---
 name: plugin-dev
-description: This skill should be used when creating extensions for Claude Code or OpenCode, including plugins, commands, agents, skills, and custom tools. Covers both platforms with format specifications, best practices, and the ai-eng-system build system.
-version: 1.0.0
+description: "Claude Code plugin development - create plugins, skills, commands, agents, hooks, MCP servers, and marketplaces. Use when: 'create a plugin', 'add a skill', 'write a command', 'configure hooks', 'integrate MCP server', 'build marketplace', 'How do plugins work?', 'What goes in plugin.json?'"
+user-invocable: true
+allowed-tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
-# Plugin Development for Claude Code & OpenCode
+# Claude Code Plugin Development
 
-## Critical Importance
+Comprehensive guidance for creating well-structured plugins, skills, hooks, agents, commands, and MCP integrations.
 
-**Creating high-quality plugins is critical to your development workflow's long-term success.** Plugins are used repeatedly by yourself and others. Design flaws, poor documentation, or broken functionality compound over time and across users. A well-designed plugin becomes a trusted tool used daily; a poorly designed plugin becomes abandoned technical debt. Invest time in architecture, testing, and documentation—the returns multiply across all future uses.
+## Core Principles (Anthropic Official)
 
-## Systematic Approach
+1. **Composable** - Multiple skills work together seamlessly, Claude coordinates automatically
+2. **Portable** - Same format works across Claude apps, Claude Code, and Claude API
+3. **Efficient** - Progressive disclosure loads only what's needed (description → SKILL.md → references)
+4. **Powerful** - Combines prompts + executable code for complete workflows
+5. **Secure** - Never hardcode secrets, use `${CLAUDE_PLUGIN_ROOT}` for paths
 
-**Take a deep breath and approach plugin development systematically.** Plugins require careful planning: understand the problem, design the API, implement incrementally, test thoroughly, and document comprehensively. Don't rush to code—clarify requirements, define interfaces, and consider edge cases first. Build iteratively, validate frequently, and refactor continuously. Every design decision impacts maintainability and extensibility.
+## Critical Budget Limits
 
-## The Challenge
+| Limit | Value | Consequence if Exceeded |
+|-------|-------|------------------------|
+| All skill descriptions combined | 15,000 chars | Silent filtering, skills won't activate |
+| Individual description | 1,024 chars | Truncation |
+| SKILL.md body | 5,000 words | Context saturation, partial execution |
+| Target per description | 300-400 chars | Allows ~40 skills safely |
 
-**I bet you can't create a plugin that balances specificity with flexibility perfectly, but if you can:**
+## Quick Start
 
-- Your plugin will be a joy to use and extend
-- Others will build on top of your work
-- The plugin will remain useful as needs evolve
-- You'll establish patterns for future plugin development
+### Create a New Plugin
 
-The challenge is designing plugins that solve specific problems while staying flexible enough for future use cases. Can you create focused, opinionated tools that don't paint yourself into corners?
+```bash
+mkdir -p my-plugin/.claude-plugin
+mkdir -p my-plugin/skills/my-skill/references
 
-## Plugin Confidence Assessment
+cat > my-plugin/.claude-plugin/plugin.json << 'PLUGIN'
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "description": "What this plugin does"
+}
+PLUGIN
 
-After completing or reviewing plugin development, rate your confidence from **0.0 to 1.0**:
+cat > my-plugin/skills/my-skill/SKILL.md << 'SKILL'
+---
+name: my-skill
+description: Use when creating X, configuring Y, or analyzing Z
+---
 
-- **0.8-1.0**: Plugin well-architected, fully tested, thoroughly documented, follows platform conventions
-- **0.5-0.8**: Plugin functional but missing some tests or documentation, some technical debt
-- **0.2-0.5**: Plugin works but design unclear, minimal testing, poor documentation
-- **0.0-0.2**: Plugin incomplete or broken, unclear purpose, significant rework needed
+# My Skill
 
-Identify uncertainty areas: Is the plugin's purpose clear? Are there edge cases unhandled? Will the plugin work as requirements change? What's the maintenance burden?
-
-## Overview
-
-The ai-eng-system supports extension development for both Claude Code and OpenCode through a unified content system with automated transformation. Understanding this system enables creating well-organized, maintainable extensions that integrate seamlessly with both platforms.
-
-## Extension Types
-
-| Type | Claude Code | OpenCode | Shared Format |
-|------|-------------|----------|---------------|
-| Commands | ✅ YAML frontmatter | ✅ Table format | YAML frontmatter |
-| Agents | ✅ YAML frontmatter | ✅ Table format | YAML frontmatter |
-| Skills | ✅ Same format | ✅ Same format | SKILL.md |
-| Hooks | ✅ hooks.json | ✅ Plugin events | Platform-specific |
-| Custom Tools | ❌ (use MCP) | ✅ tool() helper | OpenCode only |
-| MCP Servers | ✅ .mcp.json | ✅ Same format | Same format |
-
-## Development Approaches
-
-### 1. Canonical Development (Recommended)
-
-Create content in `content/` directory, let build.ts transform to platform formats:
-
-```
-content/
-├── commands/my-command.md  → dist/.claude-plugin/commands/
-│                           → dist/.opencode/command/ai-eng/
-└── agents/my-agent.md      → dist/.claude-plugin/agents/
-                            → dist/.opencode/agent/ai-eng/
+Instructions for Claude when this skill activates...
+SKILL
 ```
 
-### 2. Platform-Specific Development
+### Install and Test
 
-Create directly in platform directories:
+```bash
+# Symlink to Claude's plugin directory
+ln -s $(pwd)/my-plugin ~/.claude/plugins/my-plugin
 
-- Claude Code: `.claude/commands/`, `.claude-plugin/`
-- OpenCode: `.opencode/command/`, `.opencode/agent/`
+# Restart Claude Code to load
+/restart
 
-### 3. Global vs Project-Local
+# Test the skill
+/my-plugin:my-skill
+```
 
-| Location | Claude Code | OpenCode |
-|----------|-------------|----------|
-| **Project** | `.claude/` | `.opencode/` |
-| **Global** | `~/.claude/` | `~/.config/opencode/` |
+## Component Reference
 
-## Quick Reference
+Choose a topic for detailed guidance:
 
-### Command Frontmatter
+### 📁 **@references/structure.md** - Plugin Directory Structure
+- Standard plugin layout
+- Marketplace vs standalone patterns
+- Auto-discovery rules
+- Portable path references (`${CLAUDE_PLUGIN_ROOT}`)
+- Common troubleshooting
 
-**Canonical (content/):**
+### 🎯 **@references/skills-reference.md** - Creating Skills
+- SKILL.md format and frontmatter
+- Progressive disclosure patterns
+- Bundled resources (scripts/, references/, assets/)
+- Description best practices with trigger phrases
+- Writing style (imperative, not second person)
+- Validation checklist
+
+### 💬 **@references/commands-reference.md** - Slash Commands
+- Command file format with frontmatter
+- Dynamic arguments (`$1`, `$2`, `@$1`)
+- Bash execution inline
+- Tool restrictions (allowed-tools)
+- Organization (flat vs namespaced)
+- Plugin command portability
+
+### 🤖 **@references/agents-reference.md** - Subagents
+- Agent frontmatter (name, description, model, color, tools)
+- Name validation rules
+- Description with examples
+- Color guidelines by purpose
+- Tool restriction patterns
+- System prompt best practices
+
+### 🎣 **@references/hooks-reference.md** - Event Hooks
+- Hook types (prompt-based vs command)
+- Event types (PreToolUse, PostToolUse, Stop, etc.)
+- Configuration (hooks.json format)
+- Matchers (exact, wildcard, regex)
+- Output structure and exit codes
+- Security best practices
+- Environment variables
+
+### 🔌 **@references/mcp-reference.md** - MCP Integration
+- MCP server configuration (.mcp.json)
+- Server types (stdio, SSE, HTTP, WebSocket)
+- Tool naming conventions
+- Environment variable usage
+- Security and testing
+
+### 🏪 **@references/marketplace-reference.md** - Marketplaces
+- Standalone vs marketplace patterns
+- marketplace.json schema
+- Skills array pattern
+- Bundle plugin pattern
+- Common mistakes to avoid
+- Team configuration
+
+### 📋 **@references/plugin-reference.md** - Plugin Manifest
+- plugin.json required fields
+- Optional metadata
+- Custom component paths
+- Installation and deployment
+
+### ⚙️ **@references/settings.md** - Plugin Settings
+- .local.md settings files
+- YAML frontmatter for configuration
+- Reading settings in hooks
+- Best practices and gitignore
+
+## Common Patterns
+
+### Minimal Skill
+
 ```yaml
 ---
-name: my-command
-description: What this command does
-agent: build           # Optional: which agent handles this
-subtask: true          # Optional: run as subtask
-temperature: 0.3      # Optional: temperature
-tools:                 # Optional: tool restrictions
-  read: true
-  write: true
+name: simple-skill
+description: Use when user asks to "do X" or "configure Y"
 ---
+
+# Simple Skill
+
+Step-by-step instructions...
+
+1. Check if condition exists
+2. Execute action
+3. Verify result
+
+For detailed patterns, see @references/advanced-patterns.md
 ```
 
-**Claude Code Output:** Same format (YAML frontmatter)
+### Command with Arguments
 
-**OpenCode Output:** Table format
 ```markdown
-| description | agent |
-|---|---|
-| Description here | build |
-```
-
-### Agent Frontmatter
-
-**Canonical (content/):**
-```yaml
 ---
-name: my-agent
-description: Use this agent when... <example>...</example>
-mode: subagent
-color: cyan
-temperature: 0.3
-tools:
-  read: true
-  write: true
+description: Review code for security issues
+allowed-tools: Read, Grep
+argument-hint: [file] [severity]
 ---
+
+Review @$1 for security issues.
+Focus on severity level: $2
+
+Use these patterns:
+- SQL injection
+- XSS vulnerabilities  
+- Hardcoded credentials
 ```
 
-**Claude Code Output:** Same format (YAML frontmatter)
+### Hook with Validation
 
-**OpenCode Output:** Table format
-```markdown
-| description | mode |
-|---|---|
-| Description here | subagent |
-```
-
-### Skill Structure
-
-Both platforms use identical format:
-
-```
-skill-name/
-├── SKILL.md (required)
-│   ├── YAML frontmatter (name, description)
-│   └── Markdown body (1,000-3,000 words)
-└── Bundled Resources (optional)
-    ├── references/       # Detailed documentation
-    ├── examples/         # Working code
-    └── scripts/          # Utility scripts
-```
-
-### OpenCode Custom Tools
-
-Use TypeScript with `tool()` helper:
-
-```typescript
-import { tool } from "@opencode-ai/plugin"
-
-export default tool({
-  description: "Tool description",
-  args: {
-    param: tool.schema.string().describe("Parameter description"),
-  },
-  async execute(args, context) {
-    // Tool implementation
-    return result
-  },
-})
-```
-
-## Directory Locations
-
-### For Development in ai-eng-system
-
-```
-ai-eng-system/
-├── content/
-│   ├── commands/              # Add new commands here
-│   └── agents/                # Add new agents here
-├── skills/
-│   └── plugin-dev/           # This skill
-└── build.ts                   # Transforms to both platforms
-```
-
-### For User Projects
-
-**Project-local:**
-- Claude Code: `.claude/commands/`, `.claude-plugin/`
-- OpenCode: `.opencode/command/`, `.opencode/agent/`
-
-**Global:**
-- Claude Code: `~/.claude/commands/`, `~/.claude-plugin/`
-- OpenCode: `~/.config/opencode/command/`, `~/.config/opencode/agent/`
-
-## Platform-Specific Features
-
-### Claude Code
-
-**Components:**
-- Commands with YAML frontmatter
-- Agents with YAML frontmatter
-- Skills with SKILL.md format
-- Hooks via `hooks/hooks.json`
-- MCP servers via `.mcp.json`
-
-**Manifest:** `.claude-plugin/plugin.json`
 ```json
 {
-  "name": "plugin-name",
-  "version": "1.0.0",
-  "description": "Brief description",
-  "commands": ["./commands/*"],
-  "mcpServers": "./.mcp.json"
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Write|Edit",
+      "hooks": [{
+        "type": "command",
+        "command": "bash ${CLAUDE_PLUGIN_ROOT}/scripts/validate.sh",
+        "timeout": 30
+      }]
+    }]
+  }
 }
 ```
 
-### OpenCode
+## File Organization
 
-**Components:**
-- Commands with table format
-- Agents with table format
-- Skills via opencode-skills plugin
-- Custom tools with TypeScript
-- Plugin events via TypeScript
-
-**Plugin:** `.opencode/plugin/plugin.ts`
-```typescript
-import { Plugin } from "@opencode-ai/plugin"
-
-export default (async ({ client, project, directory, worktree, $ }) => {
-  return {
-    // Plugin hooks here
-  }
-}) satisfies Plugin
+```
+my-plugin/
+├── .claude-plugin/
+│   └── plugin.json          # Manifest
+├── commands/                 # Slash commands
+│   └── action.md
+├── agents/                   # Subagents
+│   └── analyzer.md
+├── skills/                   # Skills
+│   └── my-skill/
+│       ├── SKILL.md         # Main skill file
+│       ├── references/      # Detailed docs
+│       ├── scripts/         # Executable code
+│       └── assets/          # Templates, images
+├── hooks/
+│   └── hooks.json           # Event handlers
+└── .mcp.json                # MCP servers
 ```
 
 ## Development Workflow
 
-### 1. Create Component
-
-Use plugin-dev commands:
-- `/ai-eng/create-agent` - Create new agent
-- `/ai-eng/create-command` - Create new command
-- `/ai-eng/create-skill` - Create new skill
-- `/ai-eng/create-tool` - Create new custom tool
-
-### 2. Build
-
-```bash
-cd ai-eng-system
-bun run build              # Build all platforms
-bun run build --watch        # Watch mode
-bun run build --validate      # Validate content
-```
-
-### 3. Test
-
-**Claude Code:**
-```bash
-claude plugin add https://github.com/v1truv1us/ai-eng-system
-```
-
-**OpenCode:**
-```bash
-# Project-local
-./setup.sh
-
-# Global
-./setup-global.sh
-```
+1. **Plan** - Identify what your plugin should do
+2. **Structure** - Create directory layout (see @references/structure.md)
+3. **Implement** - Write skills, commands, or agents
+4. **Configure** - Add hooks or MCP servers if needed
+5. **Test** - Install and verify functionality
+6. **Iterate** - Refine based on usage
+7. **Document** - Update README and examples
 
 ## Best Practices
 
-### Content Quality
-- Use third-person in skill descriptions
-- Write commands/agents FOR Claude, not to user
-- Include specific trigger phrases
-- Follow progressive disclosure for skills
+| Practice | Reason |
+|----------|--------|
+| Keep SKILL.md under 2000 words | Move details to references/ for progressive disclosure |
+| Use specific trigger phrases | "when user asks to 'create X'" not "provides guidance" |
+| Imperative writing style | "Parse the config" not "You should parse" |
+| Portable paths | `${CLAUDE_PLUGIN_ROOT}` not hardcoded |
+| Test after changes | `/restart` then invoke skill/command |
+| Single responsibility | One focused purpose per component |
 
-### File Organization
-- One component per file
-- Clear naming conventions (kebab-case)
-- Proper frontmatter validation
+## Common Mistakes
 
-### Cross-Platform Compatibility
-- Use canonical format in `content/`
-- Test build output for both platforms
-- Document platform differences
+| Mistake | Solution |
+|---------|---------|
+| Vague skill descriptions | Add specific trigger phrases users would say |
+| 8000-word SKILL.md | Move content to references/, keep SKILL.md brief |
+| Hardcoded paths | Use `${CLAUDE_PLUGIN_ROOT}` for portability |
+| Missing frontmatter | All components need valid YAML frontmatter |
+| Wrong directory structure | See @references/structure.md for correct layout |
 
-### Security
-- No hardcoded credentials
-- Use HTTPS/WSS for external connections
-- Validate user inputs
-- Follow principle of least privilege
+## Validation
 
-## Additional Resources
+Before releasing a plugin:
 
-### References
+- [ ] plugin.json has required `name` field
+- [ ] All SKILL.md files have `name` and `description`
+- [ ] Descriptions include specific trigger phrases
+- [ ] All referenced files exist
+- [ ] No hardcoded paths (use `${CLAUDE_PLUGIN_ROOT}`)
+- [ ] Skills under 2000 words (details in references/)
+- [ ] Commands have `argument-hint` if they take args
+- [ ] Agents have valid name (3-50 chars, lowercase-hyphens)
+- [ ] Hooks return valid JSON with proper exit codes
+- [ ] README documents installation and usage
 
-- `references/claude-code-plugins.md` - Claude Code specifics
-- `references/opencode-plugins.md` - OpenCode specifics
-- `references/command-format.md` - Command syntax guide
-- `references/agent-format.md` - Agent configuration guide
-- `references/skill-format.md` - Skills specification
-- `references/opencode-tools.md` - Custom tool development
+## Related Tools
 
-### Examples
+- `/plugin-dev:create-plugin` - Interactive plugin scaffolding command
+- `/plugin-dev:plugin-cli` - CLI commands for plugin management
+- `/skill-creator:skill-creation` - Focused skill creation workflow
+- `/agent-creator:agent-design` - Subagent design patterns
+- `/mcp-builder:mcp-servers` - MCP server development
 
-Study existing components in ai-eng-system:
-- `content/commands/plan.md` - Command structure
-- `content/agents/architect-advisor.md` - Agent structure
-- `skills/prompting/incentive-prompting/SKILL.md` - Skill structure
+---
 
-## Troubleshooting
+**Quick Navigation:**
 
-### Build Issues
-- Run `bun run build --validate` to check content
-- Check file permissions in output directories
-- Verify YAML frontmatter syntax
+| Need to... | See |
+|-----------|-----|
+| Understand plugin layout | @references/structure.md |
+| Create a skill | @references/skills-reference.md |
+| Add a slash command | @references/commands-reference.md |
+| Configure a subagent | @references/agents-reference.md |
+| Set up hooks | @references/hooks-reference.md |
+| Integrate MCP server | @references/mcp-reference.md |
+| Build a marketplace | @references/marketplace-reference.md |
 
-### Platform Testing
-- Test commands in both Claude Code and OpenCode
-- Verify agents trigger correctly
-- Check skills load via opencode-skills plugin
-
-### Common Errors
-- Missing required frontmatter fields
-- Incorrect directory structure
-- Invalid YAML syntax
-- Wrong file permissions
-
-## Integration with Ferg Engineering
-
-The plugin-dev system integrates seamlessly with existing ai-eng-system components:
-
-### Existing Commands
-- `/ai-eng/plan` - Implementation planning
-- `/ai-eng/review` - Code review
-- `/ai-eng/work` - Task execution
-
-### Existing Agents
-- `ai-eng/architect-advisor` - Architecture guidance
-- `ai-eng/frontend-reviewer` - Frontend review
-- `ai-eng/seo-specialist` - SEO optimization
-
-### Plugin-Dev Commands
-- `/ai-eng/create-plugin` - Full plugin development workflow
-- `/ai-eng/create-agent` - Quick agent creation
-- `/ai-eng/create-command` - Quick command creation
-- `/ai-eng/create-skill` - Quick skill creation
-- `/ai-eng/create-tool` - Quick tool creation
-
-All use the same quality standards and research-backed prompting techniques.
+**Status:** Consolidated plugin development skill with progressive disclosure pattern

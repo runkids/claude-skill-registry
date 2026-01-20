@@ -1,96 +1,54 @@
 ---
 name: brainstorming
-description: Brainstorm and advise on technical decisions using structured process and MCP helpers. EXCLUSIVE to brainstormer agent. Does NOT implement — only advises.
-allowed-tools: Read, Grep, Glob, Bash, WebFetch, mcp_gemini-bridge, mcp_context7
+description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
 ---
-# Brainstorming
 
-**Exclusive to:** `brainstormer` agent
+# Brainstorming Ideas Into Designs
 
-> ⚠️ **CRITICAL**: This skill is for brainstorming and advising ONLY. Do NOT implement solutions.
+## Overview
 
-## MCP Helpers (Brain + Memory)
+Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
 
-### 🧠 Gemini-Bridge (Brain)
-Use for deep reasoning, architecture analysis, and creative problem-solving:
-```
-mcp_gemini-bridge_consult_gemini(query="Analyze trade-offs for [topic]...", directory=".")
-```
+Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
 
-### 📚 Context7 (Memory)
-Use for up-to-date library docs and best practices:
-```
-mcp_context7_resolve-library-id(libraryName="[lib]", query="[topic]")
-mcp_context7_query-docs(libraryId="/[id]", query="[specific question]")
-```
+## The Process
 
-## Instructions
+**Understanding the idea:**
+- Check out the current project state first (files, docs, recent commits)
+- Ask questions one at a time to refine the idea
+- Prefer multiple choice questions when possible, but open-ended is fine too
+- Only one question per message - if a topic needs more exploration, break it into multiple questions
+- Focus on understanding: purpose, constraints, success criteria
 
-1. **Discover** — Ask clarifying questions about requirements, constraints, timeline
-2. **Research** — Gather information from codebase and external sources
-3. **Analyze** — Evaluate multiple approaches with pros/cons
-4. **Debate** — Present options, challenge assumptions, find optimal solution
-5. **Consensus** — Ensure alignment on chosen approach
-6. **Document** — Create comprehensive summary report
+**Exploring approaches:**
+- Propose 2-3 different approaches with trade-offs
+- Present options conversationally with your recommendation and reasoning
+- Lead with your recommended option and explain why
 
-## Output Template
+**Presenting the design:**
+- Once you believe you understand what you're building, present the design
+- Break it into sections of 200-300 words
+- Ask after each section whether it looks right so far
+- Cover: architecture, components, data flow, error handling, testing
+- Be ready to go back and clarify if something doesn't make sense
 
-```markdown
-# Brainstorm Summary: [Topic]
+## After the Design
 
-## Problem Statement
-[Description]
+**Documentation:**
+- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
+- Use elements-of-style:writing-clearly-and-concisely skill if available
+- Commit the design document to git
 
-### Requirements
-- [Requirement]
+**Implementation (if continuing):**
+- Ask: "Ready to set up for implementation?"
+- Use superpowers:using-git-worktrees to create isolated workspace
+- Use superpowers:writing-plans to create detailed implementation plan
 
-### Constraints
-- [Constraint]
+## Key Principles
 
-## Evaluated Approaches
-
-### Option A: [Name]
-| Pros | Cons |
-|------|------|
-| [Pro] | [Con] |
-
-### Option B: [Name]
-[Same structure]
-
-## Recommended Solution
-[Decision and rationale]
-
-## Risks & Mitigations
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-
-## Success Metrics
-- [ ] [Metric]
-
-## Next Steps
-1. [Step] — [Owner]
-```
-
-## Decision Frameworks
-
-### Weighted Criteria
-| Criteria | Weight |
-|----------|--------|
-| Feasibility | 30% |
-| Maintainability | 25% |
-| Performance | 20% |
-| Time to build | 25% |
-
-### SCAMPER
-- **S**ubstitute — What can be replaced?
-- **C**ombine — What can be merged?
-- **A**dapt — What can we borrow?
-- **M**odify — What can change?
-- **P**ut to other uses — New applications?
-- **E**liminate — What can be removed?
-- **R**everse — What if opposite?
-
-## Examples
-- "Brainstorm architecture for feature X"
-- "Compare these two technical approaches"
-- "Help me decide between options"
+- **One question at a time** - Don't overwhelm with multiple questions
+- **Multiple choice preferred** - Easier to answer than open-ended when possible
+- **YAGNI ruthlessly** - Remove unnecessary features from all designs
+- **Explore alternatives** - Always propose 2-3 approaches before settling
+- **Incremental validation** - Present design in sections, validate each
+- **Be flexible** - Go back and clarify when something doesn't make sense

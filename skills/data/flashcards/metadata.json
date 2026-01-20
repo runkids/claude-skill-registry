@@ -1,11 +1,7 @@
 {
   "name": "flashcards",
-  "description": "Create printable PDF flashcards optimized for double-sided printing with a 2x5 grid layout. Use when users request to create flashcards, study cards, or memory cards for any subject. Supports both dup",
-  "repo": "dwfennell/claude-skills",
-  "category": "productivity",
-  "tags": [
-    "flashcards"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "TaylorHuston/local-life-manager",
+  "path": ".claude/skills/flashcards/SKILL.md",
+  "source": "github.com/TaylorHuston/local-life-manager",
+  "downloaded_at": "2026-01-20T02:58:32.593899Z"
 }

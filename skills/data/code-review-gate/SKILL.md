@@ -151,7 +151,7 @@ Review Checklist:
   [ ] Test coverage verified
 
 Actions:
-  - "approve" - Proceed to Phase 9
+  - "approve" - Proceed to Phase 6
   - "reject [reason]" - Return to implementation
   - "comment [file:line] [note]" - Add review comment
   - "show [file]" - Display file contents

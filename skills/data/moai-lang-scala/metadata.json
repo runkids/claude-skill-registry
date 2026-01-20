@@ -1,7 +1,7 @@
 {
   "name": "moai-lang-scala",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-lang-scala/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-19T03:59:18.841845Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-lang-scala/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-20T04:03:48.805588Z"
 }

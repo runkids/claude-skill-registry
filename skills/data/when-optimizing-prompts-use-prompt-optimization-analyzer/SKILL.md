@@ -1,21 +1,113 @@
+/*============================================================================*/
+/* WHEN-OPTIMIZING-PROMPTS-USE-PROMPT-OPTIMIZATION-ANALYZER SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: when-optimizing-prompts-use-prompt-optimization-analyzer
 version: 1.0.0
-description: Active diagnostic tool for analyzing prompt quality, detecting anti-patterns, identifying token waste, and providing optimization recommendations
+description: |
+  [assert|neutral] Active diagnostic tool for analyzing prompt quality, detecting anti-patterns, identifying token waste, and providing optimization recommendations [ground:given] [conf:0.95] [state:confirmed]
+category: foundry
 tags:
-  - meta-tool
-  - prompt-engineering
-  - optimization
-  - analysis
-  - diagnostics
-complexity: MEDIUM
-agents_required:
-  - code-analyzer
-  - researcher
-auto_trigger: false
+- meta-tool
+- prompt-engineering
+- optimization
+- analysis
+- diagnostics
+author: ruv
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute when-optimizing-prompts-use-prompt-optimization-analyzer workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic foundry processes"
 ---
 
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "when-optimizing-prompts-use-prompt-optimization-analyzer",
+  category: "foundry",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["when-optimizing-prompts-use-prompt-optimization-analyzer", "foundry", "workflow"],
+  context: "user needs when-optimizing-prompts-use-prompt-optimization-analyzer capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
+
+<!-- SKILL SOP IMPROVEMENT v1.0 -->
+## Skill Execution Criteria
+
+### When to Use This Skill
+- [AUTO-EXTRACTED from skill description and content]
+- [Task patterns this skill is optimized for]
+- [Workflow contexts where this skill excels]
+
+### When NOT to Use This Skill
+- [Situations where alternative skills are better suited]
+- [Anti-patterns that indicate wrong skill choice]
+- [Edge cases this skill doesn't handle well]
+
+### Success Criteria
+- primary_outcome: "[SKILL-SPECIFIC measurable result based on skill purpose]"
+- [assert|neutral] quality_threshold: 0.85 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- verification_method: "[How to validate skill executed correctly and produced expected outcome]"
+
+### Edge Cases
+- case: "Ambiguous or incomplete input"
+  handling: "Request clarification, document assumptions, proceed with explicit constraints"
+- case: "Conflicting requirements or constraints"
+  handling: "Surface conflict to user, propose resolution options, document trade-offs"
+- case: "Insufficient context for quality execution"
+  handling: "Flag missing information, provide template for needed context, proceed with documented limitations"
+
+### Skill Guardrails
+NEVER:
+  - "[SKILL-SPECIFIC anti-pattern that breaks methodology]"
+  - "[Common mistake that degrades output quality]"
+  - "[Shortcut that compromises skill effectiveness]"
+ALWAYS:
+  - "[SKILL-SPECIFIC requirement for successful execution]"
+  - "[Critical step that must not be skipped]"
+  - "[Quality check that ensures reliable output]"
+
+### Evidence-Based Execution
+self_consistency: "After completing this skill, verify output quality by [SKILL-SPECIFIC validation approach]"
+program_of_thought: "Decompose this skill execution into: [SKILL-SPECIFIC sequential steps]"
+plan_and_solve: "Plan: [SKILL-SPECIFIC planning phase] -> Execute: [SKILL-SPECIFIC execution phase] -> Verify: [SKILL-SPECIFIC verification phase]"
+<!-- END SKILL SOP IMPROVEMENT -->
+
 # Prompt Optimization Analyzer
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+
 
 **Purpose:** Analyze prompt quality and provide actionable optimization recommendations to reduce token waste, improve clarity, and enhance effectiveness.
 
@@ -78,399 +170,67 @@ function analyzeTokenWaste(promptText) {
     totalWords: promptText.split(/\s+/).length,
     totalChars: promptText.length,
     redundancyScore: 0,
-    verbosityScore: 0,
-    issues: []
-  };
-
-  // Detect phrase repetition
-  const phrases = extractPhrases(promptText, 3); // 3-word phrases
-  const phraseCounts = countOccurrences(phrases);
-  const repeated = Object.entries(phraseCounts).filter(([_, count]) => count > 2);
-
-  if (repeated.length > 0) {
-    metrics.redundancyScore += repeated.length * 10;
-    metrics.issues.push({
-      type: "redundancy",
-      severity: "medium",
-      count: repeated.length,
-      examples: repeated.slice(0, 3).map(([phrase]) => phrase)
-    });
-  }
-
-  // Measure verbosity
-  const avgWordLength = promptText.split(/\s+/)
-    .reduce((sum, word) => sum + word.length, 0) / metrics.totalWords;
-
-  if (avgWordLength > 6) {
-    metrics.verbosityScore += 20;
-    metrics.issues.push({
-      type: "verbosity",
-      severity: "low",
-      avgWordLength: avgWordLength.toFixed(2),
-      suggestion: "Consider shorter, clearer words"
-    });
-  }
-
-  // Detect filler words
-  const fillerWords = ["very", "really", "just", "actually", "basically", "simply"];
-  const fillerCount = fillerWords.reduce((count, filler) => {
-    const regex = new RegExp(`\\b${filler}\\b`, 'gi');
-    return count + (promptText.match(regex) || []).length;
-  }, 0);
-
-  if (fillerCount > 5) {
-    metrics.redundancyScore += fillerCount * 2;
-    metrics.issues.push({
-      type: "filler-words",
-      severity: "low",
-      count: fillerCount,
-      suggestion: "Remove unnecessary filler words"
-    });
-  }
-
-  return metrics;
-}
-
-function extractPhrases(text, wordCount) {
-  const words = text.toLowerCase().split(/\s+/);
-  const phrases = [];
-  for (let i = 0; i <= words.length - wordCount; i++) {
-    phrases.push(words.slice(i, i + wordCount).join(' '));
-  }
-  return phrases;
-}
-
-function countOccurrences(items) {
-  return items.reduce((counts, item) => {
-    counts[item] = (counts[item] || 0) + 1;
-    return counts;
-  }, {});
-}
-```
-
-### Phase 2: Anti-Pattern Detection
-
-**Common Anti-Patterns:**
-
-1. **Vague Instructions**
-   - ❌ "Make it better"
-   - ✅ "Reduce token count by 20% while maintaining clarity"
-
-2. **Ambiguous Terminology**
-   - ❌ "Handle errors appropriately"
-   - ✅ "Catch exceptions, log to memory, return user-friendly message"
-
-3. **Conflicting Requirements**
-   - ❌ "Be concise but provide detailed explanations"
-   - ✅ "Provide concise summaries with optional detail links"
-
-4. **Missing Context**
-   - ❌ "Use the standard format"
-   - ✅ "Use JSON format: {type, severity, description}"
-
-5. **Over-Specification**
-   - ❌ "Always use exactly 4 spaces, never tabs, indent 2 levels..."
-   - ✅ "Follow project .editorconfig settings"
-
-**Detection Script:**
-```javascript
-function detectAntiPatterns(promptText) {
-  const patterns = [];
-
-  // Vague instruction markers
-  const vagueMarkers = ["better", "good", "appropriate", "proper", "suitable"];
-  vagueMarkers.forEach(marker => {
-    if (new RegExp(`\\b${marker}\\b`, 'i').test(promptText)) {
-      patterns.push({
-        type: "vague-instruction",
-        marker: marker,
-        severity: "high",
-        suggestion: "Replace with specific, measurable criteria"
-      });
-    }
-  });
-
-  // Missing definitions
-  const technicalTerms = promptText.match(/\b[A-Z][A-Za-z]*(?:[A-Z][a-z]*)+\b/g) || [];
-  const definedTerms = (promptText.match(/\*\*[^*]+\*\*:/g) || []).length;
-
-  if (technicalTerms.length > 5 && definedTerms < technicalTerms.length * 0.3) {
-    patterns.push({
-      type: "undefined-jargon",
-      severity: "medium",
-      technicalTermCount: technicalTerms.length,
-      definedCount: definedTerms,
-      suggestion: "Add definitions for technical terms"
-    });
-  }
-
-  // Conflicting modal verbs
-  const mustStatements = (promptText.match(/\b(must|required|mandatory)\b/gi) || []).length;
-  const shouldStatements = (promptText.match(/\b(should|recommended|optional)\b/gi) || []).length;
-
-  if (mustStatements > 10 && shouldStatements > 10) {
-    patterns.push({
-      type: "requirement-confusion",
-      severity: "medium",
-      mustCount: mustStatements,
-      shouldCount: shouldStatements,
-      suggestion: "Separate MUST vs SHOULD requirements clearly"
-    });
-  }
-
-  return patterns;
-}
-```
-
-### Phase 3: Trigger Analysis
-
-```javascript
-function analyzeTriggers(triggerText) {
-  const issues = [];
-
-  // Check clarity
-  if (!triggerText.includes("when") && !triggerText.includes("if")) {
-    issues.push({
-      type: "unclear-condition",
-      severity: "high",
-      suggestion: "Use explicit 'when' or 'if' conditions"
-    });
-  }
-
-  // Check specificity
-  const vagueTerms = ["thing", "stuff", "something", "anything"];
-  vagueTerms.forEach(term => {
-    if (new RegExp(`\\b${term}\\b`, 'i').test(triggerText)) {
-      issues.push({
-        type: "vague-trigger",
-        term: term,
-        severity: "high",
-        suggestion: "Replace with specific entity or action"
-      });
-    }
-  });
-
-  // Check scope
-  if (triggerText.split(/\s+/).length < 5) {
-    issues.push({
-      type: "too-narrow",
-      severity: "medium",
-      wordCount: triggerText.split(/\s+/).length,
-      suggestion: "Consider broader applicability"
-    });
-  }
-
-  return issues;
-}
-```
-
-### Phase 4: Optimization Recommendations
-
-**Code Analyzer Agent Task:**
-```bash
-# Spawn analyzer agent
-# Agent instructions:
-# 1. Analyze prompt structure and flow
-# 2. Identify optimization opportunities
-# 3. Generate before/after comparisons
-# 4. Calculate token savings
-# 5. Store recommendations in memory
-
-npx claude-flow@alpha memory store --key "optimization/recommendations" --value "{
-  \"structural\": [...],
-  \"content\": [...],
-  \"examples\": [...],
-  \"estimated_savings\": \"X tokens (Y%)\"
-}"
-```
-
-### Phase 5: Before/After Comparison
-
-**Optimization Report Format:**
-
-```markdown
-## Prompt Optimization Report
-
-### Original Metrics
-- Total tokens: <count>
-- Redundancy score: <0-100>
-- Verbosity score: <0-100>
-- Anti-patterns found: <count>
-
-### Issues Detected
-
-#### High Severity
-1. [Type] <description>
-   - Location: <section>
-   - Impact: <token/clarity impact>
-   - Fix: <recommendation>
-
-#### Medium Severity
-...
-
-#### Low Severity
-...
-
-### Recommended Changes
-
-#### Structural
-- [ ] Reorganize sections for logical flow
-- [ ] Consolidate redundant examples
-- [ ] Extract repetitive content to references
-
-#### Content
-- [ ] Replace vague terms with specific criteria
-- [ ] Add missing definitions
-- [ ] Remove filler words (identified: <count>)
-
-#### Examples
-- [ ] Reduce example count from <old> to <new>
-- [ ] Consolidate similar examples
-- [ ] Add missing edge cases
-
-### Estimated Improvements
-- Token reduction: <count> tokens (<percentage>%)
-- Clarity score: +<points>
-- Maintainability: +<points>
-
-### Before/After Comparison
-
-**Before (excerpt):**
-```
-<original problematic section>
-```
-
-**After (optimized):**
-```
-<optimized version>
-```
-
-**Savings:** <tokens> tokens, <improvement description>
-```
-
-## Concrete Example: Real Analysis
-
-### Input Prompt (Fragment)
-```markdown
-You are a code reviewer. Your job is to review code and make sure it's good.
-You should look at the code and find problems. When you find problems, you
-should tell the user about them. Make sure to check for bugs and also check
-for style issues. You should be thorough and careful. Don't miss anything
-important. Always be professional and constructive in your feedback. Try to
-help the developer improve. Make suggestions that are actually helpful and
-not just critical. Be nice but also be honest. Make sure your reviews are
-really good and comprehensive.
-```
-
-### Analysis Output
-
-**Token Waste Analysis:**
-```json
-{
-  "totalWords": 98,
-  "totalTokens": 124,
-  "redundancyScore": 45,
-  "verbosityScore": 30,
-  "issues": [
-    {
-      "type": "redundancy",
-      "severity": "high",
-      "examples": [
-        "make sure" (3 occurrences),
-        "you should" (4 occurrences),
-        "be [adjective]" (3 occurrences)
-      ]
-    },
-    {
-      "type": "vague-instructions",
-      "severity": "high",
-      "examples": [
-        "good", "thorough", "careful", "helpful",
-        "important", "professional", "constructive"
-      ]
-    },
-    {
-      "type": "filler-words",
-      "severity": "medium",
-      "count": 8,
-      "examples": ["really", "actually", "just"]
-    }
-  ]
-}
-```
-
-**Optimization Recommendations:**
-1. Remove repeated "you should" → use imperative mood
-2. Replace vague terms with specific criteria
-3. Consolidate feedback guidelines into structured list
-4. Remove redundant emphasis phrases
-
-### Optimized Output
-```markdown
-You are a code reviewer analyzing pull requests for quality and correctness.
-
-Review Process:
-1. Scan for logic errors, null checks, edge cases
-2. Verify style compliance (linting, formatting)
-3. Assess test coverage (>80% target)
-4. Check documentation completeness
-
-Feedback Format:
-- Issue: [category] - [specific finding]
-- Impact: [low/medium/high]
-- Fix: [concrete suggestion with code example]
-
-Tone: Professional, constructive, solution-focused
-```
-
-**Results:**
-- Original: 124 tokens
-- Optimized: 67 tokens
-- Savings: 57 tokens (46% reduction)
-- Clarity: Improved (specific criteria vs. vague terms)
-- Actionability: Improved (structured process vs. general instructions)
-
-## Integration with Development Workflow
-
-### Pre-Publish Checklist
-```bash
-# 1. Analyze new skill
-npx claude-flow@alpha hooks pre-task --description "Optimizing new skill prompt"
-
-# 2. Run analysis (spawn analyzer agent)
-# Agent performs full analysis as documented above
-
-# 3. Review recommendations
-npx claude-flow@alpha memory retrieve --key "optimization/recommendations"
-
-# 4. Apply fixes
-# Make recommended changes to skill
-
-# 5. Re-analyze and verify improvements
-# Re-run analysis, compare metrics
-
-# 6. Store final metrics
-npx claude-flow@alpha hooks post-task --task-id "skill-optimization"
-```
-
-## Success Metrics
-
-- Token reduction: 20-50% typical
-- Clarity score: +30-50 points
-- Trigger precision: 90%+ accuracy
-- Anti-pattern elimination: 100% high-severity
-- Maintainability: Easier to update and extend
-
-## Related Skills
-
-- `when-analyzing-skill-gaps-use-skill-gap-analyzer` - Analyze overall library
-- `when-managing-token-budget-use-token-budget-advisor` - Budget planning
-- `prompt-architect` - Advanced prompt engineering
-
-## Notes
-
-- Run before publishing new skills
-- Re-analyze periodically (monthly maintenance)
-- Track improvements over time
-- Share optimization patterns across team
-- Update analysis scripts as new anti-patterns emerge
+    verbosityScore: 
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/foundry/when-optimizing-prompts-use-prompt-optimization-analyzer/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "when-optimizing-prompts-use-prompt-optimization-analyzer-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>WHEN_OPTIMIZING_PROMPTS_USE_PROMPT_OPTIMIZATION_ANALYZER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

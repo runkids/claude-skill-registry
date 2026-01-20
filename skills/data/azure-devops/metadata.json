@@ -1,7 +1,7 @@
 {
   "name": "azure-devops",
-  "repo": "rysweet/azlin",
+  "repo": "NotMyself/claude-stack-dotnet",
   "path": ".claude/skills/azure-devops/SKILL.md",
-  "source": "github.com/rysweet/azlin",
-  "downloaded_at": "2026-01-19T04:00:19.820311Z"
+  "source": "github.com/NotMyself/claude-stack-dotnet",
+  "downloaded_at": "2026-01-20T03:42:38.469763Z"
 }

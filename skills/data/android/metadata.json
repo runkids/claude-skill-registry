@@ -1,7 +1,7 @@
 {
   "name": "android",
-  "repo": "i3roly/firefox-dynasty",
+  "repo": "mozilla/enterprise-firefox",
   "path": ".claude/skills/android/SKILL.md",
-  "source": "github.com/i3roly/firefox-dynasty",
-  "downloaded_at": "2026-01-19T04:17:36.817356Z"
+  "source": "github.com/mozilla/enterprise-firefox",
+  "downloaded_at": "2026-01-20T03:23:06.609616Z"
 }

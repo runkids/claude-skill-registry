@@ -1,378 +1,300 @@
 ---
 name: skill-reviewer
-description: Reviews Claude Code skills for quality, best practices, and improvement opportunities. Use when evaluating skills, checking for PDA compliance, or identifying optimization opportunities.
-allowed-tools: Read, Glob
+description: |
+  既存スキルの品質をレビューし、改善提案を行うスキル。
+  以下の状況で使用:
+  (1) ユーザーが「[スキル名]をレビューして」「[スキル名]の品質を確認して」と依頼した時
+  (2) ユーザーが明示的に「/skill-reviewer」を実行した時
+  (3) スキル開発完了後、公開前の最終チェックを求められた時
 ---
 
 # Skill Reviewer
 
-## Purpose
+既存スキルの品質をレビューし、チェックリストに基づいて改善提案を行う。
 
-Comprehensive review of Claude Code skills to ensure they follow best practices, use Progressive Disclosure Architecture (PDA) appropriately, and provide optimal user experience.
+## ペルソナ
 
-## When to Use
+スキル設計とプロンプトエンジニアリングのシニアアーキテクト。
+Progressive Disclosure原則とAnthropicのベストプラクティスに精通。
 
-- User asks to "review this skill" or "check this skill"
-- Evaluating skill quality before publishing
-- Identifying improvement opportunities
-- Checking for PDA compliance
-- Validating skill structure and conventions
+## ゴール
 
-## Review Dimensions
+開発されたスキルを本番環境で使用可能なレベルに引き上げる。
 
-### 1. Structure & Organization
+## ワークフロー
 
-**Check:**
-- [ ] SKILL.md exists in correct location
-- [ ] YAML frontmatter is valid and properly formatted
-- [ ] Name follows conventions (lowercase, hyphens, <64 chars)
-- [ ] Description is specific and includes trigger terms
-- [ ] Description is under 1024 characters
-- [ ] Description is in third person
+1. **スキル情報の取得**: ユーザーにレビュー対象スキルを確認
+2. **ファイル読み込み**: SKILL.md、references/、scripts/、assets/を探索
+3. **チェックリスト評価**: 各フェーズの項目を順次確認
+4. **対話形式レポート**: 問題点と改善提案を段階的に提示
+5. **優先度付け**: Critical/High/Medium/Lowで優先順位を提示
 
-**Common Issues:**
-- Invalid YAML (missing `---`, wrong indentation)
-- Reserved words in name (anthropic, claude)
-- Vague description ("helps with documents")
-- Description too long (>1024 chars)
+## チェックリストの活用
 
-### 2. Content Quality
+詳細なチェック項目は `references/check-list.md` を参照。
 
-**Check:**
-- [ ] Clear purpose statement
-- [ ] Numbered step-by-step instructions
-- [ ] Concrete examples with inputs/outputs
-- [ ] Appropriate level of detail
-- [ ] Consistent terminology
+### 評価フェーズ
 
-**Common Issues:**
-- Missing examples
-- Abstract guidance without concrete steps
-- Inconsistent terminology
-- Too much or too little detail
+レビューは以下の4フェーズで実施:
 
-### 3. Progressive Disclosure (PDA) Compliance
+#### 1. 事前準備フェーズ
 
-**Check:**
-- [ ] SKILL.md is under 500 lines
-- [ ] SKILL.md is under 10KB (ideally 3-5KB)
-- [ ] Large content split into reference/ files
-- [ ] References are one level deep from SKILL.md
-- [ ] Links to detailed docs are clear
+以下の観点で評価:
 
-**PDA Assessment:**
-```
-If SKILL.md < 5KB: ✅ Basic structure is fine
-If SKILL.md 5-10KB: ⚠️ Consider progressive disclosure
-If SKILL.md > 10KB: ❌ Should use PDA
-If SKILL.md > 20KB: ❌❌ Strongly recommend PDA refactor
-```
+- **要件の理解**: スキルの目的が1-2文で明確に説明できるか、具体的シナリオが3つ以上あるか、境界が明確か
+- **ユースケースの定義**: 実際のユーザー発話を想定しているか、動作が段階的に説明されているか、成功基準が検証可能か、エッジケースが想定されているか
+- **リソースの計画**: 参照資料・スクリプト・アセットの必要性と分類が適切か
+- **メタデータの設計**: name、descriptionの形式と内容が適切か
+- **実装スタイルの指定**: Degrees of Freedom、エラーハンドリング、ユーザーインタラクション、出力形式が明確か
+- **トリガーの検証**: トリガーパターンが5-10個あり、具体的で適切な範囲か
 
-**Common Issues:**
-- Monolithic SKILL.md with all content inline
-- Deeply nested references (SKILL.md → advanced.md → details.md)
-- Missing progressive disclosure for large content
+#### 2. 実装フェーズ
 
-### 4. File Organization
+以下の観点で評価:
 
-**Check:**
-- [ ] Forward slashes in all paths (cross-platform)
-- [ ] Descriptive file names (not doc1.md, doc2.md)
-- [ ] Scripts in scripts/ directory
-- [ ] Reference docs in reference/ directory
-- [ ] No Windows-style backslashes
+- **frontmatter完全性**: YAML構文が正しいか、必須フィールド（name、description）が含まれるか
+- **body明瞭性**: 命令形で記述されているか、500行以内に収まっているか、参照ファイルへのリンクが明示されているか
+- **resources構成**: references/、scripts/、assets/が適切に分類・配置されているか
 
-**Common Issues:**
-- Mixed path separators
-- Generic file names
-- Scripts and docs in wrong locations
+#### 3. 検証フェーズ
 
-### 5. Best Practices
+以下の観点で評価:
 
-**Check:**
-- [ ] Single responsibility (one clear purpose)
-- [ ] Error handling guidance
-- [ ] Security considerations (if applicable)
-- [ ] Dependencies documented
-- [ ] Troubleshooting section
+- **トリガー動作**: descriptionに記載されたトリガーが実際に機能するか
+- **エラーハンドリング**: 異常系の挙動が文書化されているか
+- **出力形式**: 期待される出力が具体的に説明されているか
 
-**Common Issues:**
-- Too broad scope ("does everything")
-- Missing error handling
-- Undocumented dependencies
+#### 4. 公開前フェーズ
 
-### 6. Token Efficiency
+以下の観点で評価:
 
-**Check:**
-- [ ] Progressive disclosure used appropriately
-- [ ] Reference files loaded on-demand
-- [ ] Scripts for mechanical work
-- [ ] No redundant information
+- **ドキュメント完全性**: README.md等の余分なファイルがないか、必要な情報が揃っているか
+- **保守性**: 他の開発者が理解・修正できる構造か
 
-**Efficiency Assessment:**
-```
-Excellent: 80-95% token savings (PDA well applied)
-Good: 50-79% token savings (PDA partially applied)
-Fair: 20-49% token savings (some optimization)
-Poor: 0-19% token savings (encyclopedia approach)
-```
+詳細な評価基準は `references/check-list.md` を確認すること。
 
-## Review Process
+## レビュー実行プロセス
 
-1. **Read SKILL.md**
-   - Parse YAML frontmatter
-   - Check structure and organization
-   - Evaluate content quality
+### ステップ1: スキル特定とファイル探索
 
-2. **Check File Structure**
-   - List all files in skill directory
-   - Verify organization
-   - Check file naming
+1. レビュー対象のスキル名を確認（ユーザーから明示的に指定されていない場合は質問）
+2. スキルのディレクトリパスを特定（例: `.claude/skills/skill-name/`）
+3. 以下のファイル・ディレクトリを探索:
+   - `SKILL.md`（必須）
+   - `references/`（オプション）
+   - `scripts/`（オプション）
+   - `assets/`（オプション）
+4. 各ファイルの内容を読み込み、構成を把握
 
-3. **Assess PDA Compliance**
-   - Estimate SKILL.md size
-   - Check for reference/ directory
-   - Evaluate progressive disclosure
+### ステップ2: チェックリスト評価
 
-4. **Identify Issues**
-   - Categorize by severity (P1/P2/P3)
-   - Provide specific recommendations
-   - Suggest concrete fixes
+`references/check-list.md` を読み込み、各フェーズの項目を順次確認。
 
-5. **Generate Report**
-   - Overall quality score
-   - Detailed findings by dimension
-   - Prioritized recommendations
-   - Estimated token savings from improvements
+各項目について以下のいずれかで判定:
 
-## Output Format
+- ✅ **PASS**: 基準を満たしている
+- ⚠️ **WARNING**: 改善推奨（必須ではないが品質向上のため）
+- ❌ **FAIL**: 改善必須（基準を満たしていない）
+
+評価時のポイント:
+
+- **全項目を一度に評価しない**: フェーズごとに区切って段階的に評価
+- **具体的な根拠を示す**: 「不足」ではなく「SKILL.mdのX行目にY情報がない」と具体的に指摘
+- **改善案を提示**: 問題点だけでなく、具体的な改善例を提示
+
+### ステップ3: 対話形式レポート提示
+
+フェーズごとに結果をセクション分けして提示:
 
 ```markdown
-# Skill Review Report
+## 📋 レビュー開始: [スキル名]
 
-## Overall Assessment
-**Score:** [X/10]
-**PDA Compliance:** [Yes/No/Partial]
-**Recommendation:** [Approve/Improve/Refactor]
+**概要**: [スキルの目的を1-2文で要約]
 
-## Findings by Dimension
+---
 
-### Structure & Organization
-[Issues found, if any]
+## 🔍 事前準備フェーズの評価
 
-### Content Quality
-[Issues found, if any]
+### 要件の理解
 
-### PDA Compliance
-[Current state, recommendations]
+✅ **スキルの目的**: 明確（"XXXを実行する"と1文で説明可能）
 
-### File Organization
-[Issues found, if any]
+⚠️ **具体的シナリオ**: 2つしか想定されていない
+   **推奨**: 最低3つのユースケースを文書化
 
-### Best Practices
-[Issues found, if any]
+❌ **境界の明確化**: スキルの範囲が不明瞭
+   **問題**: SKILL.mdに「何を含まないか」の記述がない
+   **改善案**:
+   ```markdown
+   ## スキルの範囲
 
-### Token Efficiency
-[Current efficiency, potential savings]
+   このスキルは以下を含む:
+   - ...
 
-## Prioritized Recommendations
+   このスキルは以下を含まない:
+   - ...
+   ```
+   **優先度**: Medium
 
-### P1 (Critical - Must Fix)
-[Blocking issues]
+### ユースケースの定義
 
-### P2 (Important - Should Fix)
-[Significant improvements]
+✅ **実際のユーザー発話**: 想定されている（description参照）
 
-### P3 (Nice-to-Have)
-[Minor optimizations]
+❌ **エッジケース**: 異常系の想定が不足
+   **問題**: SKILL.mdに失敗パターンの記述なし
+   **改善案**:
+   ```markdown
+   ## エラーハンドリング
 
-## Token Savings Estimate
-[Current vs optimized comparison]
+   - ファイルが見つからない場合: エラーメッセージを表示してユーザーに確認
+   - パーミッションエラー: sudo実行を提案
+   - タイムアウト: リトライ回数と間隔を指定
+   ```
+   **優先度**: High
+
+---
+
+## 📝 実装フェーズの評価
+
+### frontmatter完全性
+
+✅ **YAML構文**: 正しい
+
+❌ **description**: トリガー例が不足
+   **問題**: descriptionに具体的なトリガーパターンが1つしかない
+   **改善案**:
+   ```yaml
+   description: |
+     既存スキルの品質をレビューし、改善提案を行うスキル。
+     以下の状況で使用:
+     (1) ユーザーが「[スキル名]をレビューして」「[スキル名]の品質を確認して」「[スキル名]を評価して」と依頼した時
+     (2) ユーザーが明示的に「/skill-reviewer [スキル名]」を実行した時
+     (3) スキル開発完了後、「公開前にチェックして」「最終確認して」と求められた時
+     (4) スキル改善時、「どこを直すべきか教えて」と相談された時
+   ```
+   **優先度**: High
+
+### body明瞭性
+
+✅ **命令形記述**: 全て命令形で記述されている
+
+⚠️ **行数**: 520行（500行以内推奨を超過）
+   **推奨**: 詳細な例や説明をreferences/に分離
+   **優先度**: Low
+
+---
+
+## 🧪 検証フェーズの評価
+
+### トリガー動作
+
+✅ **description記載トリガー**: 想定通りに機能
+
+### 出力形式
+
+✅ **具体的な出力例**: SKILL.mdに記載されている
+
+---
+
+## 📤 公開前フェーズの評価
+
+### ドキュメント完全性
+
+✅ **余分なファイルなし**: README.md等の不要ファイルがない
+
+### 保守性
+
+✅ **理解しやすい構造**: 他の開発者が修正可能
+
+---
+
+## 📊 総合評価
+
+### 問題サマリー
+
+- 🔴 Critical: 0件
+- 🟠 High: 2件
+- 🟡 Medium: 1件
+- 🟢 Low: 1件
+
+### 🎯 優先改善アクション
+
+1. **[High]** エッジケースの文書化
+   - **実施内容**: SKILL.mdにエラーハンドリングセクション追加
+   - **期待効果**: ユーザーが問題発生時の挙動を予測可能に
+
+2. **[High]** トリガーパターンの拡充
+   - **実施内容**: descriptionに5-10個の具体例を追加
+   - **期待効果**: スキル発動の精度向上、誤トリガー削減
+
+3. **[Medium]** スキルの境界明確化
+   - **実施内容**: SKILL.mdに「含む/含まない」セクション追加
+   - **期待効果**: ユーザーの期待値調整、他スキルとの棲み分け明確化
+
+4. **[Low]** SKILL.md行数削減
+   - **実施内容**: 詳細な例や補足説明をreferences/に移動
+   - **期待効果**: トークン効率向上、Progressive Disclosure原則準拠
 ```
 
-## Quality Scoring
+### ステップ4: 総括と優先アクション
 
-**Excellent (9-10):**
-- All best practices followed
-- PDA optimally applied
-- Clear, concise, actionable
-- Token savings >80%
+全フェーズの評価完了後、以下を提示:
 
-**Good (7-8):**
-- Most best practices followed
-- PDA appropriately used
-- Minor improvements possible
-- Token savings 50-80%
+1. **問題サマリー**: Critical/High/Medium/Lowごとの件数
+2. **優先改善アクション**: 優先度順に並べた具体的なアクション（実施内容と期待効果を明記）
 
-**Fair (5-6):**
-- Some best practices missing
-- PDA partially applied or not needed
-- Several improvements recommended
-- Token savings 20-50%
+## 出力形式
 
-**Poor (1-4):**
-- Many best practices violated
-- PDA not applied when needed
-- Significant refactoring needed
-- Token savings <20%
+対話形式で段階的にフィードバックを提供:
 
-## Common Recommendations
+1. **フェーズごとの評価**: 各フェーズの結果を順次提示（一度に全て出力しない）
+2. **問題検出時の即座提案**: 問題を見つけたら即座に改善提案を提示
+3. **最後に優先度付きリスト**: 全評価完了後、優先度順のアクションリストを提示
 
-### For Structure Issues
-- "Fix YAML frontmatter formatting"
-- "Rename skill to follow conventions"
-- "Rewrite description to be more specific"
-- "Add missing examples"
+### 出力例テンプレート
 
-### For PDA Issues
-- "Split large SKILL.md using progressive disclosure"
-- "Move detailed docs to reference/ files"
-- "Create on-demand loading structure"
-- "Reduce SKILL.md to <5KB"
+ステップ3の例を参照。
 
-### For Organization Issues
-- "Reorganize files into standard structure"
-- "Rename files to be more descriptive"
-- "Convert paths to forward slashes"
-- "Move scripts to scripts/ directory"
+重要ポイント:
 
-### For Content Issues
-- "Add concrete examples with inputs/outputs"
-- "Include error handling guidance"
-- "Add troubleshooting section"
-- "Document dependencies"
+- **絵文字の活用**: 📋 🔍 📝 🧪 📤 📊 🎯 ✅ ⚠️ ❌ 🔴 🟠 🟡 🟢 等で視認性向上
+- **セクション分け**: フェーズごとに明確に区切る（`---`使用）
+- **具体的な改善案**: コードブロックや箇条書きで具体例を提示
+- **優先度の明示**: Critical/High/Medium/Lowを各問題に付与
 
-## Severity Classification
+## 注意事項
 
-**P1 (Critical):**
-- Blocks usage or understanding
-- Fundamental flaws in structure
-- Missing essential information
-- Security vulnerabilities
+### トークン効率
 
-**P2 (Important):**
-- Should be addressed
-- Significant gaps
-- Risky approaches
-- Performance issues
+- `references/check-list.md`は小さい（56行）ため、初回に全体読み込み
+- 対象スキルのreferences/が複数ある場合、内容を推測してから選択的読み込み
+- SKILL.mdと対象スキルのファイル群はGlobで探索→必要箇所のみRead
 
-**P3 (Nice-to-Have):**
-- Consider for polish
-- Minor improvements
-- Optimizations
-- Style consistency
+### Progressive Disclosure原則
 
-## Integration with Other Skills
+- 全項目を一度に評価せず、フェーズごとに区切る
+- 問題が多い場合は重要度順に段階的提示（一度に10個以上の問題を提示しない）
+- 詳細なチェック基準は`references/check-list.md`に委譲
 
-After review, recommend:
-- **skill-generator** - If major restructuring needed
-- **skill-optimizer** - If PDA refactor recommended
-- **manual review** - For nuanced decisions
+### 具体性
 
-## Examples
+- 抽象的指摘（「不十分」「改善が必要」）ではなく、具体的な問題箇所と改善案を提示
+- 改善案はコード例や文言例で示す
+- 優先度の根拠を明確に説明（「なぜHighなのか」）
 
-### Example 1: Excellent Skill
+### 対話形式の重視
 
-**Input:** Well-structured skill with PDA
+- 一方的なレポート出力ではなく、ユーザーとの対話を促す
+- 問題検出時は「この部分を改善しますか?」と確認
+- 優先度の高い問題から順に提示し、ユーザーの反応を見て次に進む
 
-**Review:**
-```
-# Skill Review Report
+## チェックリスト詳細参照
 
-## Overall Assessment
-**Score:** 9/10
-**PDA Compliance:** Yes
-**Recommendation:** Approve
+各フェーズの詳細なチェック項目は `references/check-list.md` を確認すること。
 
-### Findings
-All dimensions met or exceeded standards.
-Minor suggestion: Add troubleshooting section.
+主要チェックポイント:
 
-### Token Efficiency
-Current: 3KB + on-demand loading
-Savings: 92%
-```
-
-### Example 2: Needs PDA Refactor
-
-**Input:** 50KB monolithic SKILL.md
-
-**Review:**
-```
-# Skill Review Report
-
-## Overall Assessment
-**Score:** 4/10
-**PDA Compliance:** No
-**Recommendation:** Refactor with PDA
-
-### PDA Compliance
-**Current:** 50KB monolithic file
-**Recommended:** Split using progressive disclosure
-
-### Token Savings Estimate
-**Current:** 50KB per request
-**Optimized:** 3KB + 8KB average = 11KB
-**Savings:** 78% (39KB per request)
-
-### P1 Recommendations
-- Split SKILL.md into orchestrator + reference files
-- Create reference/ directory for detailed docs
-- Implement on-demand loading pattern
-```
-
-## Quality Checklist Template
-
-```markdown
-## Review Checklist
-
-### YAML Frontmatter
-- [ ] Valid format (starts/ends with `---`)
-- [ ] Name: lowercase, hyphens, <64 chars
-- [ ] No reserved words (anthropic, claude)
-- [ ] Description: specific, includes triggers
-- [ ] Description: <1024 characters
-- [ ] Description: third person
-- [ ] Allowed tools: appropriate for skill
-
-### Content Structure
-- [ ] Clear purpose statement
-- [ ] Numbered process steps
-- [ ] Concrete examples
-- [ ] Error handling guidance
-- [ ] Troubleshooting section
-
-### PDA Compliance
-- [ ] SKILL.md <500 lines
-- [ ] SKILL.md <10KB
-- [ ] Progressive disclosure used if >10KB
-- [ ] References one level deep
-- [ ] On-demand loading implemented
-
-### File Organization
-- [ ] Standard directory structure
-- [ ] Forward slash paths
-- [ ] Descriptive file names
-- [ ] Scripts in scripts/
-- [ ] References in reference/
-
-### Best Practices
-- [ ] Single responsibility
-- [ ] Consistent terminology
-- [ ] Dependencies documented
-- [ ] Security considered
-- [ ] Token efficient
-```
-
-## See Also
-
-- [SKILL_GENERATOR.md](.claude/skills/skill-generator/SKILL.md) - Create new skills
-- [SKILL_OPTIMIZER.md](.claude/skills/skill-optimizer/SKILL.md) - Optimize existing skills
-- [SKILL_ARCHITECT.md](.claude/skills/skill-architect/SKILL.md) - Complete workflow
-- [CLAUDE_SKILLS_ARCHITECTURE.md](../../../docs/CLAUDE_SKILLS_ARCHITECTURE.md) - Reference documentation
-
-## Sources
-
-Based on:
-- [CLAUDE_SKILLS_ARCHITECTURE.md](../../../docs/CLAUDE_SKILLS_ARCHITECTURE.md)
-- Official Anthropic skill authoring best practices
+- **事前準備**: 要件の理解、ユースケース定義、リソース計画、メタデータ設計、実装スタイル、トリガー検証
+- **実装**: frontmatter完全性、body明瞭性、resources構成
+- **検証**: トリガー動作、エラーハンドリング、出力形式
+- **公開前**: ドキュメント完全性、保守性

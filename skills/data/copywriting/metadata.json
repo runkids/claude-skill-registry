@@ -1,7 +1,7 @@
 {
   "name": "copywriting",
-  "repo": "dengineproblem/agents-monorepo",
-  "path": ".claude/skills/copywriting/SKILL.md",
-  "source": "github.com/dengineproblem/agents-monorepo",
-  "downloaded_at": "2026-01-19T03:37:41.881826Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/copywriting/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-20T03:59:44.821824Z"
 }

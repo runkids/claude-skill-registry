@@ -1,7 +1,7 @@
 {
   "name": "debug",
-  "repo": "ZhiruiFeng/LocalAgentCrew",
+  "repo": "WhatIfWeDigDeeper/application-tracker",
   "path": ".claude/skills/debug/SKILL.md",
-  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
-  "downloaded_at": "2026-01-19T04:02:23.655139Z"
+  "source": "github.com/WhatIfWeDigDeeper/application-tracker",
+  "downloaded_at": "2026-01-20T03:48:59.061559Z"
 }

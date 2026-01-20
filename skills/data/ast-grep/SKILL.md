@@ -1,242 +1,183 @@
 ---
 name: ast-grep
-description: Guide for writing ast-grep rules to perform structural code search and analysis. Use when users need to search codebases using Abstract Syntax Tree (AST) patterns, find specific code structures, or perform complex code queries that go beyond simple text search. This skill should be used when users ask to search for code patterns, find specific language constructs, or locate code with particular structural characteristics.
+description: 语法感知的代码搜索、linting 和重写工具。支持基于 AST 的结构化代码搜索和批量代码转换。
 ---
 
-# ast-grep Code Search
+# AST-Grep
 
-## Overview
+AST-Grep (ast-grep/sg) 是一个快速且用户友好的工具，用于代码搜索、linting 和大规模代码重写。
 
-This skill helps translate natural language queries into ast-grep rules for structural code search. ast-grep uses Abstract Syntax Tree (AST) patterns to match code based on its structure rather than just text, enabling powerful and precise code search across large codebases.
+## 执行环境
 
-## When to Use This Skill
+| 路径类型 | 说明 |
+|---------|------|
+| **使用方式** | 命令行工具，需要安装 ast-grep |
+| **调用场景** | 语法感知的代码搜索、结构化代码分析、批量代码转换 |
+| **工作目录** | 项目根目录 |
 
-Use this skill when users:
+## 安装
 
-- Need to search for code patterns using structural matching (e.g., "find all async functions that don't have error handling")
-- Want to locate specific language constructs (e.g., "find all function calls with specific parameters")
-- Request searches that require understanding code structure rather than just text
-- Ask to search for code with particular AST characteristics
-- Need to perform complex code queries that traditional text search cannot handle
+```bash
+# macOS
+brew install ast-grep
 
-## General Workflow
+# Linux
+cargo install ast-grep
 
-Follow this process to help users write effective ast-grep rules:
-
-### Step 1: Understand the Query
-
-Clearly understand what the user wants to find. Ask clarifying questions if needed:
-
-- What specific code pattern or structure are they looking for?
-- Which programming language?
-- Are there specific edge cases or variations to consider?
-- What should be included or excluded from matches?
-
-### Step 2: Create Example Code
-
-Write a simple code snippet that represents what the user wants to match. Save this to a temporary file for testing.
-
-**Example:**
-If searching for "async functions that use await", create a test file:
-
-```javascript
-// test_example.js
-async function example() {
-  const result = await fetchData();
-  return result;
-}
+# 验证安装
+ast-grep --version
 ```
 
-### Step 3: Write the ast-grep Rule
+## 核心功能
 
-Translate the pattern into an ast-grep rule. Start simple and add complexity as needed.
+### 1. 语法感知搜索
 
-**Key principles:**
+使用 AST（抽象语法树）进行代码搜索，而非简单的文本匹配。
 
-- Always use `stopBy: end` for relational rules (`inside`, `has`) to ensure search goes to the end of the direction
-- Use `pattern` for simple structures
-- Use `kind` with `has`/`inside` for complex structures
-- Break complex queries into smaller sub-rules using `all`, `any`, or `not`
+```bash
+# 搜索特定模式
+ast-grep --lang python -p "def $FUNC($$$ARGS):"
 
-**Example rule file (test_rule.yml):**
+# 搜索函数调用
+ast-grep --lang ts -p "console.log($$$MSG)"
+
+# 搜索条件语句
+ast-grep --lang ts -p "if ($$COND) { $$$BODY }"
+```
+
+### 2. 代码 Linting
+
+基于 AST 的代码检查，比传统 linter 更精确。
+
+```bash
+# 扫描项目
+ast-grep scan -r sgconfig.yml
+
+# 扫描特定目录
+ast-grep scan src/
+
+# 扫描特定文件
+ast-grep scan src/main.ts
+```
+
+### 3. 代码重写
+
+批量转换代码模式。
+
+```bash
+# 简单替换
+ast-grep run -p "oldFunction($$$ARGS)" -r "newFunction($$ARGS)" --lang ts
+
+# 复杂转换（使用 YAML 规则）
+ast-grep run -r rule.yml
+```
+
+### 4. 规则测试
+
+测试 ast-grep 规则是否正确。
+
+```bash
+# 测试规则
+ast-grep test -r rule.yml
+
+# 测试特定模式
+ast-grep test -p "pattern" --lang ts
+```
+
+## 规则开发流程
+
+### 通用流程
+
+1. **理解查询**：明确用户需求，必要时询问更多细节
+2. **编写示例**：编写匹配查询的简单代码示例
+3. **编写规则**：编写匹配示例的 ast-grep 规则
+4. **测试规则**：使用 `test_match_code_rule` 验证规则
+   - 如果不匹配，移除部分子规则并调试
+   - 如果使用 `inside` 或 `has`，确保使用 `stopBy: end`
+5. **搜索代码**：使用规则搜索代码库
+
+### 规则开发步骤
+
+1. **分解查询**：将用户查询分解为更小的部分
+2. **识别子规则**：识别可用于匹配代码的子规则
+3. **组合规则**：使用关系规则或组合规则组合子规则
+4. **调试规则**：如果规则不匹配示例代码，移除部分子规则并调试不匹配的部分
+5. **使用工具**：使用 ast-grep mcp 工具转储 AST 或转储模式查询
+6. **测试规则**：使用 ast-grep mcp 工具针对示例代码片段测试规则
+
+## 规则类型
+
+### 1. 原子规则
+
+匹配单个 AST 节点，基于内在属性。
+
+#### `pattern` - 模式匹配
 
 ```yaml
-id: async-with-await
-language: javascript
-rule:
-  kind: function_declaration
-  has:
-    pattern: await $EXPR
-    stopBy: end
+# 字符串模式
+pattern: console.log($ARG)
+
+# 对象模式（更精细的控制）
+pattern:
+  selector: field_definition
+  context: class { $F }
+  strictness: relaxed
 ```
 
-See `references/rule_reference.md` for comprehensive rule documentation.
+#### `kind` - 节点类型匹配
 
-### Step 4: Test the Rule
-
-Use ast-grep CLI to verify the rule matches the example code. There are two main approaches:
-
-**Option A: Test with inline rules (for quick iterations)**
-
-```bash
-echo "async function test() { await fetch(); }" | ast-grep scan --inline-rules "id: test
-language: javascript
-rule:
-  kind: function_declaration
-  has:
-    pattern: await \$EXPR
-    stopBy: end" --stdin
+```yaml
+kind: call_expression
 ```
 
-**Option B: Test with rule files (recommended for complex rules)**
+#### `regex` - 正则表达式匹配
 
-```bash
-ast-grep scan --rule test_rule.yml test_example.js
+```yaml
+regex: ^[a-z]+$
 ```
 
-**Debugging if no matches:**
+#### `nthChild` - 位置匹配
 
-1. Simplify the rule (remove sub-rules)
-2. Add `stopBy: end` to relational rules if not present
-3. Use `--debug-query` to understand the AST structure (see below)
-4. Check if `kind` values are correct for the language
+```yaml
+# 数字
+nthChild: 1
 
-### Step 5: Search the Codebase
+# An+B 公式
+nthChild: 2n+1
 
-Once the rule matches the example code correctly, search the actual codebase:
-
-**For simple pattern searches:**
-
-```bash
-ast-grep run --pattern 'console.log($ARG)' --lang javascript /path/to/project
+# 对象形式
+nthChild:
+  position: 1
+  reverse: true
+  ofRule:
+    kind: function_declaration
 ```
 
-**For complex rule-based searches:**
+#### `range` - 范围匹配
 
-```bash
-ast-grep scan --rule my_rule.yml /path/to/project
+```yaml
+range:
+  start:
+    line: 0
+    column: 0
+  end:
+    line: 0
+    column: 10
 ```
 
-**For inline rules (without creating files):**
+### 2. 关系规则
 
-```bash
-ast-grep scan --inline-rules "id: my-rule
-language: javascript
-rule:
-  pattern: \$PATTERN" /path/to/project
+基于目标节点与其他节点的关系过滤目标。
+
+#### `inside` - 在父节点内
+
+```yaml
+inside:
+  pattern: class $C { $$$ }
+  stopBy: end
 ```
 
-## ast-grep CLI Commands
-
-### Inspect Code Structure (--debug-query)
-
-Dump the AST structure to understand how code is parsed:
-
-```bash
-ast-grep run --pattern 'async function example() { await fetch(); }' \
-  --lang javascript \
-  --debug-query=cst
-```
-
-**Available formats:**
-
-- `cst`: Concrete Syntax Tree (shows all nodes including punctuation)
-- `ast`: Abstract Syntax Tree (shows only named nodes)
-- `pattern`: Shows how ast-grep interprets your pattern
-
-**Use this to:**
-
-- Find the correct `kind` values for nodes
-- Understand the structure of code you want to match
-- Debug why patterns aren't matching
-
-**Example:**
-
-```bash
-# See the structure of your target code
-ast-grep run --pattern 'class User { constructor() {} }' \
-  --lang javascript \
-  --debug-query=cst
-
-# See how ast-grep interprets your pattern
-ast-grep run --pattern 'class $NAME { $$$BODY }' \
-  --lang javascript \
-  --debug-query=pattern
-```
-
-### Test Rules (scan with --stdin)
-
-Test a rule against code snippet without creating files:
-
-```bash
-echo "const x = await fetch();" | ast-grep scan --inline-rules "id: test
-language: javascript
-rule:
-  pattern: await \$EXPR" --stdin
-```
-
-**Add --json for structured output:**
-
-```bash
-echo "const x = await fetch();" | ast-grep scan --inline-rules "..." --stdin --json
-```
-
-### Search with Patterns (run)
-
-Simple pattern-based search for single AST node matches:
-
-```bash
-# Basic pattern search
-ast-grep run --pattern 'console.log($ARG)' --lang javascript .
-
-# Search specific files
-ast-grep run --pattern 'class $NAME' --lang python /path/to/project
-
-# JSON output for programmatic use
-ast-grep run --pattern 'function $NAME($$$)' --lang javascript --json .
-```
-
-**When to use:**
-
-- Simple, single-node matches
-- Quick searches without complex logic
-- When you don't need relational rules (inside/has)
-
-### Search with Rules (scan)
-
-YAML rule-based search for complex structural queries:
-
-```bash
-# With rule file
-ast-grep scan --rule my_rule.yml /path/to/project
-
-# With inline rules
-ast-grep scan --inline-rules "id: find-async
-language: javascript
-rule:
-  kind: function_declaration
-  has:
-    pattern: await \$EXPR
-    stopBy: end" /path/to/project
-
-# JSON output
-ast-grep scan --rule my_rule.yml --json /path/to/project
-```
-
-**When to use:**
-
-- Complex structural searches
-- Relational rules (inside, has, precedes, follows)
-- Composite logic (all, any, not)
-- When you need the power of full YAML rules
-
-**Tip:** For relational rules (inside/has), always add `stopBy: end` to ensure complete traversal.
-
-## Tips for Writing Effective Rules
-
-### Always Use stopBy: end
-
-For relational rules, always use `stopBy: end` unless there's a specific reason not to:
+#### `has` - 包含子节点
 
 ```yaml
 has:
@@ -244,105 +185,309 @@ has:
   stopBy: end
 ```
 
-This ensures the search traverses the entire subtree rather than stopping at the first non-matching node.
+#### `precedes` - 在节点之前
 
-### Start Simple, Then Add Complexity
-
-Begin with the simplest rule that could work:
-
-1. Try a `pattern` first
-2. If that doesn't work, try `kind` to match the node type
-3. Add relational rules (`has`, `inside`) as needed
-4. Combine with composite rules (`all`, `any`, `not`) for complex logic
-
-### Use the Right Rule Type
-
-- **Pattern**: For simple, direct code matching (e.g., `console.log($ARG)`)
-- **Kind + Relational**: For complex structures (e.g., "function containing await")
-- **Composite**: For logical combinations (e.g., "function with await but not in try-catch")
-
-### Debug with AST Inspection
-
-When rules don't match:
-
-1. Use `--debug-query=cst` to see the actual AST structure
-2. Check if metavariables are being detected correctly
-3. Verify the node `kind` matches what you expect
-4. Ensure relational rules are searching in the right direction
-
-### Escaping in Inline Rules
-
-When using `--inline-rules`, escape metavariables in shell commands:
-
-- Use `\$VAR` instead of `$VAR` (shell interprets `$` as variable)
-- Or use single quotes: `'$VAR'` works in most shells
-
-**Example:**
-
-```bash
-# Correct: escaped $
-ast-grep scan --inline-rules "rule: {pattern: 'console.log(\$ARG)'}" .
-
-# Or use single quotes
-ast-grep scan --inline-rules 'rule: {pattern: "console.log($ARG)"}' .
+```yaml
+precedes:
+  pattern: return $VAL
 ```
 
-## Common Use Cases
+#### `follows` - 在节点之后
 
-### Find Functions with Specific Content
+```yaml
+follows:
+  pattern: import $M from '$P'
+```
 
-Find async functions that use await:
+#### `stopBy` - 搜索终止控制
 
-```bash
-ast-grep scan --inline-rules "id: async-await
-language: javascript
+```yaml
+# neighbor（默认）：在直接周围节点不匹配时停止
+stopBy: neighbor
+
+# end：搜索到方向末尾（inside 为根，has 为叶子）
+stopBy: end
+
+# 规则对象：在周围节点匹配提供的规则时停止（包含）
+stopBy:
+  pattern: class $END
+```
+
+#### `field` - 字段匹配
+
+```yaml
+has:
+  field: operator
+  pattern: $$OP
+```
+
+### 3. 组合规则
+
+使用逻辑操作组合其他规则。
+
+#### `all` - 逻辑与（AND）
+
+```yaml
+all:
+  - kind: call_expression
+  - pattern: console.log($ARG)
+```
+
+#### `any` - 逻辑或（OR）
+
+```yaml
+any:
+  - pattern: console.log($ARG)
+  - pattern: console.warn($ARG)
+  - pattern: console.error($ARG)
+```
+
+#### `not` - 逻辑非（NOT）
+
+```yaml
+not:
+  pattern: console.log($ARG)
+```
+
+#### `matches` - 规则重用
+
+```yaml
+matches: my-utility-rule-id
+```
+
+## 元变量
+
+### `$VAR` - 单个命名节点捕获
+
+```yaml
+# 有效
+pattern: console.log($GREETING)
+
+# 匹配
+console.log('Hello World')
+```
+
+### `$$VAR` - 单个未命名节点捕获
+
+```yaml
+# 匹配操作符
+rule:
+  kind: binary_expression
+  has:
+    field: operator
+    pattern: $$OP
+```
+
+### `$$$VAR` - 多节点捕获
+
+```yaml
+# 匹配零个或多个节点（非贪婪）
+pattern: console.log($$$)
+
+# 匹配可变参数
+pattern: function $FUNC($$$ARGS) { $$$ }
+```
+
+### `_VAR` - 非捕获元变量
+
+```yaml
+# 不捕获，可以匹配不同内容
+pattern: $_FUNC($_FUNC)
+
+# 匹配
+test(a)
+testFunc(1 + 1)
+```
+
+## 编写规则的最佳实践
+
+1. **始终使用 `stopBy: end`**：对于关系规则，确保搜索到方向末尾
+
+```yaml
+has:
+  pattern: await $EXPR
+  stopBy: end
+```
+
+2. **简单结构使用 pattern**：代码结构简单时直接使用模式
+
+```yaml
+pattern: console.log($ARG)
+```
+
+3. **复杂结构使用 rule**：代码结构复杂时使用规则分解
+
+```yaml
+rule:
+  kind: function_declaration
+  has:
+    pattern: await $EXPR
+```
+
+4. **使用 kind 调试**：如果 pattern 不工作，先用 kind 匹配节点类型
+
+```yaml
+# 先确认节点类型
+kind: call_expression
+
+# 再使用 has 或 inside
+has:
+  pattern: console.log($ARG)
+```
+
+5. **关系规则无匹配时添加 stopBy**：确保搜索到末尾
+
+```yaml
+inside:
+  pattern: class $C { $$$ }
+  stopBy: end
+```
+
+## YAML 规则配置
+
+### 简单规则
+
+```yaml
+# rule.yml
+id: no-console-log
+language: ts
+rule:
+  pattern: console.log($$$MSG)
+```
+
+### 复杂规则
+
+```yaml
+# complex-rule.yml
+id: prefer-const
+language: ts
 rule:
   all:
-    - kind: function_declaration
-    - has:
-        pattern: await \$EXPR
-        stopBy: end" /path/to/project
+    - pattern: let $VAR = $INIT
+    - not:
+        pattern: $VAR = $EXPR
 ```
 
-### Find Code Inside Specific Contexts
+### 带修复的规则
 
-Find console.log inside class methods:
-
-```bash
-ast-grep scan --inline-rules "id: console-in-class
-language: javascript
+```yaml
+# fix-rule.yml
+id: no-var
+language: ts
 rule:
-  pattern: console.log(\$\$\$)
-  inside:
-    kind: method_definition
-    stopBy: end" /path/to/project
+  pattern: var $VAR = $INIT
+fix: const $VAR = $INIT
 ```
 
-### Find Code Missing Expected Patterns
+### 使用关系规则
 
-Find async functions without try-catch:
-
-```bash
-ast-grep scan --inline-rules "id: async-no-trycatch
-language: javascript
+```yaml
+# async-without-await.yml
+id: async-without-await
+language: ts
 rule:
   all:
-    - kind: function_declaration
-    - has:
-        pattern: await \$EXPR
-        stopBy: end
+    - pattern: async function $FUNC($$$ARGS) { $$$BODY }
     - not:
         has:
-          pattern: try { \$\$\$ } catch (\$E) { \$\$\$ }
-          stopBy: end" /path/to/project
+          pattern: await
+          stopBy: end
 ```
 
-## Resources
+## 常用场景
 
-### references/
+### 1. 查找特定代码模式
 
-Contains detailed documentation for ast-grep rule syntax:
+```bash
+# 查找所有 console.log
+ast-grep -p "console.log($$$MSG)" --lang ts
 
-- `rule_reference.md`: Comprehensive ast-grep rule documentation covering atomic rules, relational rules, composite rules, and metavariables
+# 查找所有未使用的变量
+ast-grep -p "let $VAR = $INIT" --lang ts | grep -v "$VAR ="
+```
 
-Load these references when detailed rule syntax information is needed.
+### 2. 重构代码
+
+```bash
+# 替换 var 为 const
+ast-grep run -p "var $VAR = $INIT" -r "const $VAR = $INIT" --lang ts
+
+# 重命名函数
+ast-grep run -p "oldFunc($$$ARGS)" -r "newFunc($$ARGS)" --lang ts
+```
+
+### 3. 代码审计
+
+```bash
+# 查找潜在的安全问题
+ast-grep -p "eval($$$EXPR)" --lang js
+
+# 查找 SQL 注入风险
+ast-grep -p "query('$$SQL')" --lang py
+```
+
+### 4. API 迁移
+
+```bash
+# 迁移旧 API 到新 API
+ast-grep run -p "oldApi($$$ARGS)" -r "newApi($$ARGS)" --lang ts
+
+# 批量更新导入
+ast-grep run -p "from 'old-lib' import $$IMPORT" -r "from 'new-lib' import $$IMPORT" --lang ts
+```
+
+## 与其他工具对比
+
+| 特性 | ast-grep | grep | ripgrep |
+|------|----------|------|---------|
+| 语法感知 | 是 | 否 | 否 |
+| 代码结构理解 | 是 | 否 | 否 |
+| 跨语言支持 | 是 | 否 | 否 |
+| 性能 | 快 | 快 | 最快 |
+| 重写功能 | 是 | 否 | 否 |
+
+## 参考资源
+
+- 官方文档: https://ast-grep.github.io/
+- GitHub: https://github.com/ast-grep/ast-grep
+- 规则示例: https://ast-grep.github.io/catalog/
+- Playground: https://ast-grep.github.io/playground/
+- MCP 服务器: https://github.com/ast-grep/ast-grep-mcp
+
+## 集成 Pi 工作流
+
+### Phase 1: 上下文检索
+
+当需要理解代码结构时，使用 ast-grep 进行语法感知搜索：
+
+```bash
+# 查找特定模式
+ast-grep -p "pattern" --lang <language>
+```
+
+### Phase 4: 编码实施
+
+使用 ast-grep 进行批量代码转换：
+
+```bash
+# 应用重构规则
+ast-grep run -r rule.yml
+```
+
+### Phase 5: 审计
+
+使用 ast-grep 验证代码质量：
+
+```bash
+# 扫描潜在问题
+ast-grep scan -r sgconfig.yml
+```
+
+## 注意事项
+
+- ast-grep 需要安装才能使用
+- 模式语法需要熟悉 AST 结构
+- 复杂规则建议先测试再应用
+- 大规模重构前建议备份代码
+- 使用 `stopBy: end` 确保关系规则搜索完整
+- 元变量必须符合语法要求（$VAR, $$VAR, $$$VAR）

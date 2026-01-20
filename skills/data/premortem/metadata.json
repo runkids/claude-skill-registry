@@ -1,7 +1,7 @@
 {
   "name": "premortem",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/premortem/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-19T03:31:24.513302Z"
+  "repo": "wildwasser/opencode-agents",
+  "path": ".opencode/skills/premortem/SKILL.md",
+  "source": "github.com/wildwasser/opencode-agents",
+  "downloaded_at": "2026-01-20T03:48:25.960063Z"
 }

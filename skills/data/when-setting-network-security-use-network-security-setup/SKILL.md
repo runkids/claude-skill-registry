@@ -1,239 +1,169 @@
-# Network Security Setup SOP
+/*============================================================================*/
+/* WHEN-SETTING-NETWORK-SECURITY-USE-NETWORK-SECURITY-SETUP SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
 
-```yaml
-metadata:
-  skill_name: when-setting-network-security-use-network-security-setup
-  version: 1.0.0
-  category: specialized-tools
-  difficulty: intermediate
-  estimated_duration: 25-45 minutes
-  trigger_patterns:
-    - "network security"
-    - "configure network isolation"
-    - "trusted domains"
-    - "firewall rules"
-    - "network access control"
-  dependencies:
-    - Claude Code sandbox
-    - Network configuration access
-  agents:
-    - security-manager
-    - cicd-engineer
-  success_criteria:
-    - Trusted domains configured
-    - Access policies implemented
-    - Environment variables set
-    - Network tests passing
-    - Documentation complete
-```
+---
+name: when-setting-network-security-use-network-security-setup
+version: 1.0.0
+description: |
+  [assert|neutral] ```yaml [ground:given] [conf:0.95] [state:confirmed]
+category: security
+tags:
+- security
+- compliance
+- safety
+author: ruv
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute when-setting-network-security-use-network-security-setup workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic security processes"
+---
 
-## Overview
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
 
-Configure Claude Code sandbox network isolation with trusted domains, custom access policies, and environment variables for secure network communication.
+[define|neutral] SKILL := {
+  name: "when-setting-network-security-use-network-security-setup",
+  category: "security",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Agent Responsibilities
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
 
-### security-manager
-- Design network security architecture
-- Define trusted domains and policies
-- Validate security configurations
-- Create security documentation
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
 
-### cicd-engineer
-- Implement network configurations
-- Deploy firewall rules
-- Setup environment variables
-- Create monitoring tools
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
 
-## Phase 1: Audit Network Requirements
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
 
-Identify required network access, external dependencies, and security constraints.
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["when-setting-network-security-use-network-security-setup", "security", "workflow"],
+  context: "user needs when-setting-network-security-use-network-security-setup capability"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-```bash
-mkdir -p network-security/{policies,config,tests,docs}
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
-# Document network requirements
-cat > network-security/docs/NETWORK-REQUIREMENTS.md << 'EOF'
-# Network Access Requirements
+## When to Use This Skill
 
-## External Dependencies
-- Anthropic API (api.anthropic.com)
-- GitHub (github.com, *.github.com)
-- NPM Registry (npmjs.org)
-- PyPI (pypi.org)
-- Docker Hub (docker.io)
+Use this skill when configuring sandbox network isolation, setting up trusted domain whitelists, implementing zero-trust network policies for AI code execution, configuring corporate proxies and internal registries, or preventing data exfiltration through network controls.
 
-## Required Ports
-- Outbound: 80 (HTTP), 443 (HTTPS), 22 (SSH)
-- Inbound: 3000, 5000, 8000, 8080 (Application)
+## When NOT to Use This Skill
 
-## Protocols
-- Allowed: HTTP/HTTPS, SSH, Git
-- Blocked: FTP, Telnet, SMTP
+Do NOT use for production network security (use infrastructure-as-code instead), configuring firewall rules on live systems, bypassing organizational network policies, or setting up VPNs and network routing (use networking specialists). Avoid for troubleshooting network connectivity issues unrelated to sandbox security.
 
-## Rate Limits
-- 100 requests/minute
-- Burst: 150 requests
-EOF
-```
+## Success Criteria
+- [assert|neutral] Trusted domain whitelist validated (all required domains accessible, untrusted blocked) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- [assert|neutral] Network isolation prevents data exfiltration attacks (tested with simulated exfil) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- [assert|neutral] Internal registries accessible through proper proxy configuration [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- [assert|neutral] Environment variables secured (no secrets in config files) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- [assert|neutral] Zero false positives (legitimate development work unblocked) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- [assert|neutral] Package installations succeed from approved registries [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- [assert|neutral] Build and deployment commands execute without network errors [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+- [assert|neutral] Validation tests pass (npm install, git clone, API calls to approved domains) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
 
-## Phase 2: Design Security Policies
+## Edge Cases & Challenges
 
-Create comprehensive network security policies with allow/deny rules.
+- Corporate proxies requiring NTLM authentication
+- Split-tunnel VPNs with mixed internal/external traffic
+- CDN domains changing dynamically (*.cloudfront.net wildcards)
+- WebSocket connections requiring separate allowlisting
+- DNS resolution failures in isolated environments
+- IPv6 vs IPv4 routing differences
+- Localhost binding restrictions breaking development servers
+- Proxy auto-configuration (PAC) files with complex logic
 
-```bash
-cat > network-security/policies/network-policy.json << 'EOF'
-{
-  "network_security": {
-    "mode": "whitelist",
-    "trusted_domains": [
-      "*.anthropic.com",
-      "api.openai.com", 
-      "github.com",
-      "*.github.com",
-      "raw.githubusercontent.com",
-      "npmjs.org",
-      "registry.npmjs.org",
-      "pypi.org",
-      "files.pythonhosted.org",
-      "docker.io",
-      "registry-1.docker.io"
-    ],
-    "blocked_domains": [
-      "*.malicious.com",
-      "suspicious.net"
-    ],
-    "allowed_ports": {
-      "outbound": [80, 443, 22],
-      "inbound": [3000, 5000, 8000, 8080]
-    },
-    "rate_limiting": {
-      "enabled": true,
-      "requests_per_minute": 100,
-      "burst": 150
-    },
-    "dns_filtering": {
-      "enabled": true,
-      "block_private_ips": true,
-      "block_localhost_bypass": true
-    }
-  }
-}
-EOF
-```
+## Guardrails (CRITICAL SECURITY RULES)
+- [assert|emphatic] NEVER: disable network isolation without security review [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|emphatic] NEVER: add untrusted domains to whitelist without validation [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|emphatic] NEVER: store secrets (API keys, passwords) in sandbox configuration files [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|emphatic] NEVER: bypass proxy settings to access restricted resources [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|emphatic] NEVER: allow wildcard domain patterns without justification (*.com = insecure) [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|neutral] ALWAYS: validate domain ownership before whitelisting [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|neutral] ALWAYS: use HTTPS for external domains (enforce TLS) [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|neutral] ALWAYS: document why each domain is trusted (justification required) [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|neutral] ALWAYS: test that untrusted domains are blocked (negative testing) [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|neutral] ALWAYS: use environment variable references for secrets (not plaintext) [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|neutral] ALWAYS: maintain audit logs of network policy changes [ground:policy] [conf:0.98] [state:confirmed]
+- [assert|neutral] ALWAYS: validate network policies after configuration changes [ground:policy] [conf:0.98] [state:confirmed]
 
-## Phase 3: Implement Network Isolation
+## Evidence-Based Validation
 
-Deploy firewall rules, DNS filtering, and access controls.
+All network security configurations MUST be validate
 
-```bash
-cat > network-security/config/configure-network.sh << 'EOF'
-#!/bin/bash
-set -e
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-echo "Configuring network security..."
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Configure firewall (iptables)
-iptables -P INPUT DROP
-iptables -P OUTPUT DROP
-iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 22 -j ACCEPT
-iptables -A INPUT -p tcp --dport 3000 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8000 -j ACCEPT
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-# DNS filtering
-cat >> /etc/hosts << 'HOSTS'
-127.0.0.1 malicious.com
-127.0.0.1 suspicious.net
-HOSTS
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-# Environment variables
-cat > /etc/environment.d/network-security.conf << 'ENV'
-HTTPS_PROXY=""
-NO_PROXY="localhost,127.0.0.1"
-TRUSTED_DOMAINS="anthropic.com,github.com,npmjs.org,pypi.org,docker.io"
-ENV
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-echo "Network security configured"
-EOF
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/security/when-setting-network-security-use-network-security-setup/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-chmod +x network-security/config/configure-network.sh
-```
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "when-setting-network-security-use-network-security-setup-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Phase 4: Test Access Controls
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-Validate network policies through comprehensive testing.
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-```bash
-cat > network-security/tests/network-tests.sh << 'EOF'
-#!/bin/bash
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-echo "Testing Network Security..."
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-# Test trusted domain access
-curl -s --max-time 5 https://api.anthropic.com && echo "✓ Trusted domain accessible"
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-# Test blocked domain
-! curl -s --max-time 5 https://malicious.com && echo "✓ Blocked domain inaccessible"
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-# Test allowed ports
-nc -zv localhost 3000 && echo "✓ Port 3000 accessible"
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-echo "Network tests complete"
-EOF
-
-chmod +x network-security/tests/network-tests.sh
-```
-
-## Phase 5: Document Configuration
-
-Create comprehensive documentation for network security setup.
-
-```bash
-cat > network-security/docs/DEPLOYMENT.md << 'EOF'
-# Network Security Deployment
-
-## Quick Start
-1. Review requirements
-2. Deploy configuration: `./network-security/config/configure-network.sh`
-3. Test policies: `./network-security/tests/network-tests.sh`
-4. Monitor: Check logs for violations
-
-## Trusted Domains
-- Anthropic API
-- GitHub
-- NPM/PyPI
-- Docker Hub
-
-## Monitoring
-- Connection logs: `/var/log/connections.log`
-- Firewall logs: `/var/log/firewall.log`
-- DNS queries: `/var/log/dns.log`
-
-## Maintenance
-- Review monthly
-- Update trusted domains as needed
-- Audit logs weekly
-EOF
-```
-
-## Workflow Summary
-
-**Duration:** 25-45 minutes
-
-**Deliverables:**
-- Network security policies
-- Firewall configuration
-- DNS filtering
-- Test suite
-- Documentation
-
-## Best Practices
-
-1. **Whitelist Approach**: Deny by default
-2. **Least Privilege**: Minimal access
-3. **Regular Testing**: Weekly validation
-4. **Continuous Monitoring**: Real-time logs
-5. **Documentation**: Keep updated
-
+[commit|confident] <promise>WHEN_SETTING_NETWORK_SECURITY_USE_NETWORK_SECURITY_SETUP_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

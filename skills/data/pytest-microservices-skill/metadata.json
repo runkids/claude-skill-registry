@@ -1,7 +1,7 @@
 {
   "name": "pytest-microservices-skill",
-  "repo": "cdragos/claude-skills",
-  "path": "pytest-microservices-skill/SKILL.md",
-  "source": "github.com/cdragos/claude-skills",
-  "downloaded_at": "2026-01-19T02:16:28.697038Z"
+  "repo": "cdragos/agentarium",
+  "path": "skills/pytest-microservices-skill/SKILL.md",
+  "source": "github.com/cdragos/agentarium",
+  "downloaded_at": "2026-01-20T02:31:17.282389Z"
 }

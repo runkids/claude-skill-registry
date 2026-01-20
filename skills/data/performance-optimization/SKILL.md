@@ -1,302 +1,609 @@
 ---
 name: performance-optimization
-description: |
-  性能优化技能：诊断和优化 React 前端、API 响应、数据库查询性能。
-  Use when: 页面加载慢、组件渲染卡顿、API 响应超时、数据库查询慢。
-  Triggers: "性能", "优化", "慢", "卡顿", "加载", "响应时间", "渲染"
-category: optimization
-triggers:
-  - 性能
-  - 优化
-  - 慢
-  - 卡顿
-  - 加载
-  - 响应时间
-  - 渲染
-  - performance
-  - slow
-  - lag
+description: Expert guide for optimizing Next.js performance - images, fonts, code splitting, caching, and Core Web Vitals. Use when improving load times or debugging performance issues.
 ---
 
-# Performance Optimization (性能优化师)
+# Performance Optimization Skill
 
-> ⚡ **核心理念**: 性能优化要有数据支撑，先测量再优化，避免过早优化。
+## Overview
 
-## 🔴 第一原则：测量优先
+This skill helps you optimize your Next.js application for maximum performance. From image optimization to code splitting, this covers all the techniques you need to achieve excellent Core Web Vitals scores.
 
-**不要凭感觉优化，用数据说话！**
+## Core Web Vitals
 
+### 1. Largest Contentful Paint (LCP)
+Target: < 2.5s
+
+**Optimize:**
+- Use `next/image` for images
+- Implement proper caching
+- Use CDN for static assets
+- Optimize server response time
+- Reduce render-blocking resources
+
+### 2. First Input Delay (FID) / Interaction to Next Paint (INP)
+Target: < 100ms / < 200ms
+
+**Optimize:**
+- Minimize JavaScript execution
+- Code split large bundles
+- Use Web Workers for heavy tasks
+- Defer non-critical JavaScript
+- Optimize event handlers
+
+### 3. Cumulative Layout Shift (CLS)
+Target: < 0.1
+
+**Optimize:**
+- Set image dimensions
+- Reserve space for ads
+- Avoid inserting content above existing content
+- Use `transform` instead of layout properties
+
+## Image Optimization
+
+### Next.js Image Component
+```typescript
+import Image from 'next/image'
+
+// ✅ Optimized
+export function OptimizedImage() {
+  return (
+    <Image
+      src="/hero.jpg"
+      alt="Hero image"
+      width={1200}
+      height={600}
+      priority  // For above-fold images
+      quality={85}  // Default: 75
+      placeholder="blur"
+      blurDataURL="data:image/..." // Or import for static
+    />
+  )
+}
+
+// For external images, configure domains
+// next.config.js
+module.exports = {
+  images: {
+    domains: ['example.com'],
+    // Or use remotePatterns for more control
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.example.com',
+      },
+    ],
+  },
+}
 ```
-❌ 错误思路: "这个组件看起来慢，加个 memo 吧"
-✅ 正确思路: "用 Profiler 测量后发现这个组件重渲染 50 次，需要优化"
 
-❌ 错误思路: "数据库查询应该加索引"  
-✅ 正确思路: "EXPLAIN 分析显示全表扫描，需要在 user_id 列加索引"
+### Responsive Images
+```typescript
+<Image
+  src="/hero.jpg"
+  alt="Hero"
+  fill
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  style={{ objectFit: 'cover' }}
+  priority
+/>
 ```
 
-**优化优先级**: 架构问题 > 算法问题 > 代码问题 > 微优化
+### Image Formats
+```typescript
+// next.config.js
+module.exports = {
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
+}
+```
+
+## Font Optimization
+
+### Using next/font
+```typescript
+// app/layout.tsx
+import { Inter, Roboto_Mono } from 'next/font/google'
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto-mono',
+})
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" className={`${inter.variable} ${robotoMono.variable}`}>
+      <body className="font-sans">{children}</body>
+    </html>
+  )
+}
+
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+        mono: ['var(--font-roboto-mono)'],
+      },
+    },
+  },
+}
+```
+
+### Local Fonts
+```typescript
+import localFont from 'next/font/local'
+
+const customFont = localFont({
+  src: './fonts/custom-font.woff2',
+  display: 'swap',
+  variable: '--font-custom',
+})
+```
+
+## Code Splitting
+
+### Dynamic Imports
+```typescript
+import dynamic from 'next/dynamic'
+
+// Load component only when needed
+const HeavyComponent = dynamic(() => import('@/components/heavy-component'), {
+  loading: () => <p>Loading...</p>,
+  ssr: false,  // Disable SSR for this component
+})
+
+export function Page() {
+  return (
+    <div>
+      <HeavyComponent />
+    </div>
+  )
+}
+```
+
+### Conditional Loading
+```typescript
+'use client'
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
+
+const Chart = dynamic(() => import('@/components/chart'), {
+  ssr: false,
+})
+
+export function Dashboard() {
+  const [showChart, setShowChart] = useState(false)
+
+  return (
+    <div>
+      <button onClick={() => setShowChart(true)}>Show Chart</button>
+      {showChart && <Chart />}
+    </div>
+  )
+}
+```
+
+### Named Exports
+```typescript
+const ComponentA = dynamic(() =>
+  import('@/components/bundle').then((mod) => mod.ComponentA)
+)
+```
+
+## React Optimization
+
+### React.memo
+```typescript
+import { memo } from 'react'
+
+// Only re-renders if props change
+const ExpensiveComponent = memo(function ExpensiveComponent({
+  data,
+}: {
+  data: Data
+}) {
+  return <div>{/* Expensive rendering */}</div>
+})
+
+// Custom comparison
+const MemoizedComponent = memo(
+  Component,
+  (prevProps, nextProps) => {
+    return prevProps.id === nextProps.id
+  }
+)
+```
+
+### useMemo
+```typescript
+'use client'
+import { useMemo } from 'react'
+
+export function DataTable({ items }: { items: Item[] }) {
+  // Only recalculate when items change
+  const sortedItems = useMemo(() => {
+    return items.sort((a, b) => a.name.localeCompare(b.name))
+  }, [items])
+
+  return (
+    <table>
+      {sortedItems.map((item) => (
+        <tr key={item.id}>
+          <td>{item.name}</td>
+        </tr>
+      ))}
+    </table>
+  )
+}
+```
+
+### useCallback
+```typescript
+'use client'
+import { useCallback, useState } from 'react'
+
+export function Parent() {
+  const [count, setCount] = useState(0)
+
+  // Stable function reference
+  const handleClick = useCallback(() => {
+    console.log('clicked')
+  }, [])
+
+  return <Child onClick={handleClick} />
+}
+```
+
+## Caching Strategies
+
+### API Route Caching
+```typescript
+// app/api/data/route.ts
+export async function GET() {
+  const data = await fetchData()
+
+  return Response.json(data, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30',
+    },
+  })
+}
+```
+
+### Data Fetching Caching
+```typescript
+// Revalidate every hour
+const data = await fetch('https://api.example.com/data', {
+  next: { revalidate: 3600 },
+})
+
+// Never cache (always fresh)
+const data = await fetch('https://api.example.com/data', {
+  cache: 'no-store',
+})
+
+// Cache forever
+const data = await fetch('https://api.example.com/data', {
+  cache: 'force-cache',
+})
+```
+
+### Tag-based Revalidation
+```typescript
+// Tag the fetch
+const data = await fetch('https://api.example.com/posts', {
+  next: { tags: ['posts'] },
+})
+
+// Revalidate all 'posts' fetches
+import { revalidateTag } from 'next/cache'
+
+export async function POST() {
+  // Mutate data
+  await createPost()
+  // Revalidate
+  revalidateTag('posts')
+}
+```
+
+## Bundle Optimization
+
+### Analyze Bundle
+```bash
+# Add to package.json
+{
+  "scripts": {
+    "analyze": "ANALYZE=true next build"
+  }
+}
+
+# Install bundle analyzer
+npm install @next/bundle-analyzer
+```
+
+```javascript
+// next.config.js
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+module.exports = withBundleAnalyzer({
+  // Your config
+})
+```
+
+### Tree Shaking
+```typescript
+// ❌ Bad - Imports entire library
+import _ from 'lodash'
+
+// ✅ Good - Only imports what you need
+import debounce from 'lodash/debounce'
+```
+
+### Remove Unused Dependencies
+```bash
+# Find unused dependencies
+npx depcheck
+
+# Remove them
+npm uninstall unused-package
+```
+
+## Streaming and Suspense
+
+### Streaming Components
+```typescript
+// app/dashboard/page.tsx
+import { Suspense } from 'react'
+
+async function SlowComponent() {
+  const data = await slowFetch()
+  return <div>{data}</div>
+}
+
+export default function Dashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <Suspense fallback={<Loading />}>
+        <SlowComponent />
+      </Suspense>
+    </div>
+  )
+}
+```
+
+### Multiple Suspense Boundaries
+```typescript
+export default function Page() {
+  return (
+    <div>
+      <Suspense fallback={<HeaderSkeleton />}>
+        <Header />
+      </Suspense>
+
+      <Suspense fallback={<ContentSkeleton />}>
+        <Content />
+      </Suspense>
+
+      <Suspense fallback={<SidebarSkeleton />}>
+        <Sidebar />
+      </Suspense>
+    </div>
+  )
+}
+```
+
+## Database Query Optimization
+
+### Use Prisma Efficiently
+```typescript
+// ❌ Bad - N+1 query problem
+const users = await prisma.user.findMany()
+for (const user of users) {
+  const posts = await prisma.post.findMany({ where: { userId: user.id } })
+}
+
+// ✅ Good - Single query with include
+const users = await prisma.user.findMany({
+  include: {
+    posts: true,
+  },
+})
+
+// ✅ Better - Select only what you need
+const users = await prisma.user.findMany({
+  select: {
+    id: true,
+    name: true,
+    posts: {
+      select: {
+        id: true,
+        title: true,
+      },
+    },
+  },
+})
+```
+
+### Database Indexes
+```prisma
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  userId    String
+  createdAt DateTime @default(now())
+
+  // Add indexes for frequently queried fields
+  @@index([userId])
+  @@index([createdAt])
+  @@index([userId, createdAt])
+}
+```
+
+## Prerendering Strategies
+
+### Static Site Generation (SSG)
+```typescript
+// Fully static - generated at build time
+export default async function Page() {
+  const data = await fetch('https://api.example.com/data')
+  return <div>{/* Render data */}</div>
+}
+```
+
+### Incremental Static Regeneration (ISR)
+```typescript
+// Revalidate every 60 seconds
+export const revalidate = 60
+
+export default async function Page() {
+  const data = await fetch('https://api.example.com/data')
+  return <div>{/* Render data */}</div>
+}
+```
+
+### Dynamic Rendering
+```typescript
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
+
+export default async function Page() {
+  const data = await fetch('https://api.example.com/data', {
+    cache: 'no-store',
+  })
+  return <div>{/* Render data */}</div>
+}
+```
+
+## Lazy Loading
+
+### Images
+```typescript
+<Image
+  src="/image.jpg"
+  alt="Image"
+  width={500}
+  height={300}
+  loading="lazy"  // Default behavior
+/>
+```
+
+### Components on Scroll
+```typescript
+'use client'
+import { useEffect, useState, useRef } from 'react'
+import dynamic from 'next/dynamic'
+
+const HeavyComponent = dynamic(() => import('@/components/heavy'))
+
+export function LazySection() {
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref}>
+      {isVisible ? <HeavyComponent /> : <div>Loading...</div>}
+    </div>
+  )
+}
+```
+
+## Performance Monitoring
+
+### Measuring Performance
+```typescript
+'use client'
+import { useEffect } from 'react'
+
+export function PerformanceMonitor() {
+  useEffect(() => {
+    // Measure LCP
+    new PerformanceObserver((list) => {
+      const entries = list.getEntries()
+      const lastEntry = entries[entries.length - 1]
+      console.log('LCP:', lastEntry.renderTime || lastEntry.loadTime)
+    }).observe({ type: 'largest-contentful-paint', buffered: true })
+
+    // Measure FID
+    new PerformanceObserver((list) => {
+      const entries = list.getEntries()
+      entries.forEach((entry) => {
+        console.log('FID:', entry.processingStart - entry.startTime)
+      })
+    }).observe({ type: 'first-input', buffered: true })
+
+    // Measure CLS
+    let clsScore = 0
+    new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (!entry.hadRecentInput) {
+          clsScore += entry.value
+        }
+      }
+      console.log('CLS:', clsScore)
+    }).observe({ type: 'layout-shift', buffered: true })
+  }, [])
+
+  return null
+}
+```
+
+## Best Practices Checklist
+
+- [ ] Use `next/image` for all images
+- [ ] Optimize fonts with `next/font`
+- [ ] Implement code splitting for large components
+- [ ] Use React.memo for expensive components
+- [ ] Implement proper caching strategies
+- [ ] Set up Suspense boundaries
+- [ ] Optimize database queries
+- [ ] Enable ISR for semi-static content
+- [ ] Lazy load below-the-fold content
+- [ ] Monitor Core Web Vitals
+- [ ] Minimize JavaScript bundle size
+- [ ] Use CDN for static assets
+- [ ] Implement proper loading states
+- [ ] Test on slow 3G connections
 
 ## When to Use This Skill
 
-使用此技能当你遇到：
-- 页面首次加载时间过长 (>3s)
-- 组件交互响应迟钝 (>100ms)
-- API 响应时间过长 (>500ms)
-- 数据库查询超时或慢查询
-- 内存占用持续增长
-- 用户反馈"卡顿"、"慢"
-
-## Not For / Boundaries
-
-此技能不适用于：
-- 功能尚未完成的代码（先完成再优化）
-- 没有性能问题的代码（避免过早优化）
-- 一次性脚本或工具（投入产出比低）
-
----
-
-## Quick Reference
-
-### 🎯 性能诊断工作流
-
-```
-问题报告 → 复现问题 → 测量基准 → 定位瓶颈 → 实施优化 → 验证效果
-              ↓
-         无法复现 → 收集更多信息（环境、数据量、操作步骤）
-```
-
-### 📋 性能诊断清单
-
-#### 前端性能检查
-
-| 检查项 | 工具 | 合格标准 |
-|--------|------|----------|
-| 首次内容绘制 (FCP) | Lighthouse | <1.8s |
-| 最大内容绘制 (LCP) | Lighthouse | <2.5s |
-| 首次输入延迟 (FID) | Lighthouse | <100ms |
-| 累积布局偏移 (CLS) | Lighthouse | <0.1 |
-| 组件重渲染次数 | React DevTools | 无不必要渲染 |
-| Bundle 大小 | webpack-bundle-analyzer | <200KB (gzip) |
-| 图片优化 | Lighthouse | 使用 WebP/AVIF |
-
-#### API 性能检查
-
-| 检查项 | 工具 | 合格标准 |
-|--------|------|----------|
-| 响应时间 (P50) | 监控系统 | <200ms |
-| 响应时间 (P99) | 监控系统 | <1000ms |
-| 响应体大小 | Network Tab | <100KB |
-| 请求数量 | Network Tab | 首屏 <20 个 |
-| 缓存命中率 | 监控系统 | >80% |
-
-#### 数据库性能检查
-
-| 检查项 | 工具 | 合格标准 |
-|--------|------|----------|
-| 查询时间 | EXPLAIN ANALYZE | <100ms |
-| 扫描行数 | EXPLAIN | 使用索引 |
-| 连接数 | 数据库监控 | <80% 最大连接 |
-| 慢查询数量 | 慢查询日志 | 0 |
-
-### 🔧 常见性能问题速查
-
-| 症状 | 可能原因 | 解决方案 |
-|------|----------|----------|
-| 页面白屏时间长 | Bundle 过大 | 代码分割、懒加载 |
-| 滚动卡顿 | 列表未虚拟化 | 使用 react-window |
-| 输入延迟 | 频繁重渲染 | useMemo/useCallback |
-| API 慢 | N+1 查询 | 批量查询、DataLoader |
-| 数据库慢 | 缺少索引 | 添加复合索引 |
-| 内存泄漏 | 未清理订阅 | useEffect cleanup |
-
----
-
-## 性能优化工作流
-
-### Phase 1: 问题定位
-
-```bash
-# 1. 前端性能分析
-# 使用 Chrome DevTools Performance 面板录制
-# 使用 React DevTools Profiler 分析组件
-
-# 2. API 性能分析
-# 使用 Network 面板查看请求瀑布图
-# 检查响应时间和响应体大小
-
-# 3. 数据库性能分析
-# 使用 EXPLAIN ANALYZE 分析查询计划
-EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'test@example.com';
-```
-
-### Phase 2: 基准测量
-
-```typescript
-// 前端性能测量
-import { Profiler } from 'react';
-
-function onRenderCallback(
-  id: string,
-  phase: 'mount' | 'update',
-  actualDuration: number,
-  baseDuration: number,
-) {
-  console.log(`${id} ${phase}: ${actualDuration.toFixed(2)}ms`);
-}
-
-<Profiler id="MyComponent" onRender={onRenderCallback}>
-  <MyComponent />
-</Profiler>
-```
-
-```typescript
-// API 性能测量
-const start = performance.now();
-const response = await fetch('/api/data');
-const duration = performance.now() - start;
-console.log(`API 响应时间: ${duration.toFixed(2)}ms`);
-```
-
-### Phase 3: 实施优化
-
-根据定位的问题类型，参考对应的优化指南：
-
-- **React 组件优化** → `references/react-patterns.md`
-- **API 响应优化** → `references/api-optimization.md`
-- **数据库查询优化** → `references/query-optimization.md`
-
-### Phase 4: 效果验证
-
-```bash
-# 1. 对比优化前后的指标
-# 2. 使用 Playwright 进行性能回归测试
-# 3. 监控生产环境指标变化
-```
-
----
-
-## Examples
-
-### Example 1: 列表渲染卡顿
-
-**Input:** "用户列表页面滚动时很卡，有 1000+ 条数据"
-
-**诊断:**
-1. 打开 React DevTools Profiler
-2. 发现每次滚动都重渲染所有列表项
-3. 问题：未使用虚拟列表
-
-**解决方案:**
-```bash
-pnpm add @tanstack/react-virtual
-```
-
-```typescript
-import { useVirtualizer } from '@tanstack/react-virtual';
-
-function UserList({ users }: { users: User[] }) {
-  const parentRef = useRef<HTMLDivElement>(null);
-  
-  const virtualizer = useVirtualizer({
-    count: users.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 50,
-  });
-
-  return (
-    <div ref={parentRef} style={{ height: '400px', overflow: 'auto' }}>
-      <div style={{ height: `${virtualizer.getTotalSize()}px`, position: 'relative' }}>
-        {virtualizer.getVirtualItems().map((virtualItem) => (
-          <div
-            key={virtualItem.key}
-            style={{
-              position: 'absolute',
-              top: 0,
-              transform: `translateY(${virtualItem.start}px)`,
-            }}
-          >
-            <UserCard user={users[virtualItem.index]} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-```
-
-### Example 2: API 响应慢
-
-**Input:** "获取用户详情的 API 响应需要 2 秒"
-
-**诊断:**
-1. 检查 API 日志，发现多次数据库查询
-2. 问题：N+1 查询（获取用户后，逐个获取关联数据）
-
-**解决方案:**
-```typescript
-// ❌ 优化前：N+1 查询
-const users = await db.select().from(usersTable);
-for (const user of users) {
-  user.posts = await db.select().from(postsTable).where(eq(postsTable.userId, user.id));
-}
-
-// ✅ 优化后：JOIN 查询
-const usersWithPosts = await db
-  .select()
-  .from(usersTable)
-  .leftJoin(postsTable, eq(usersTable.id, postsTable.userId));
-```
-
-### Example 3: 组件频繁重渲染
-
-**Input:** "输入框打字时整个表单都在闪烁"
-
-**诊断:**
-1. React DevTools 显示父组件每次输入都重渲染
-2. 问题：状态提升过高，导致无关组件重渲染
-
-**解决方案:**
-```typescript
-// ❌ 优化前：状态在父组件
-function Form() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  
-  return (
-    <div>
-      <NameInput value={name} onChange={setName} />
-      <EmailInput value={email} onChange={setEmail} />
-      <ExpensiveComponent /> {/* 每次输入都重渲染 */}
-    </div>
-  );
-}
-
-// ✅ 优化后：状态下沉 + memo
-const ExpensiveComponent = memo(function ExpensiveComponent() {
-  // ...
-});
-
-function NameInput() {
-  const [name, setName] = useState(''); // 状态下沉到子组件
-  return <input value={name} onChange={(e) => setName(e.target.value)} />;
-}
-```
-
----
-
-## References
-
-- `references/index.md`: 导航索引
-- `references/react-patterns.md`: React 性能优化模式
-- `references/api-optimization.md`: API 响应优化策略
-- `references/query-optimization.md`: Drizzle ORM 查询优化
-
----
-
-## Maintenance
-
-- **Sources**: React 官方文档, Web Vitals, Drizzle ORM 文档
-- **Last Updated**: 2025-01-01
-- **Known Limits**: 
-  - 性能标准因项目而异，需根据实际情况调整
-  - 某些优化可能增加代码复杂度，需权衡
+Invoke this skill when:
+- Optimizing page load times
+- Improving Core Web Vitals scores
+- Reducing bundle size
+- Debugging performance issues
+- Setting up caching strategies
+- Implementing lazy loading
+- Optimizing images or fonts
+- Improving database query performance

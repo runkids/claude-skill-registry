@@ -1,394 +1,156 @@
 ---
 name: deep-analysis
-description: Analytical thinking patterns for comprehensive evaluation, code audits, security analysis, and performance reviews. Provides structured templates for thorough investigation with extended thinking support.
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
-  - Task
-  - WebFetch
-  - WebSearch
-dependencies:
-  - extended-thinking
-  - complex-reasoning
-triggers:
-  - analyze
-  - audit
-  - review
-  - assess
-  - evaluate
-  - investigate
-  - deep dive
-  - comprehensive review
-  - security analysis
-  - performance analysis
-  - code audit
+description: "Execute high-density analysis on complex ideas/tasks. Move from 'Vague' to 'Verified' by producing: constraints -> core modules -> facts vs assumptions -> ASCII flow maps (boundary + critical path) -> latticework lens sweep -> micro->macro causal chains -> pre-mortem failure modes. Use when analyzing system architecture, validating technical ideas, or decomposing a thorny problem before designing solutions."
 ---
 
-# Deep Analysis Skill
+# Architectural Analysis
 
-Comprehensive analytical templates for thorough investigation, audits, and evaluations leveraging extended thinking capabilities.
+## Overview
 
-## When to Use
+Execute high-density analysis to transform vague ideas into a verified problem map: constraints, core modules, facts vs assumptions, relationship flows, causal chains, and failure modes. Focus on analysis artifacts that unlock the next workflow step, not a full design.
 
-- **Code audits** requiring systematic review
-- **Security assessments** and threat modeling
-- **Performance analysis** and optimization planning
-- **Architecture reviews** and technical debt assessment
-- **Incident post-mortems** and root cause analysis
-- **Compliance audits** and risk assessments
+**Style:** Code-like, Concise, No "AI explaining itself". Pure signal.
 
-## Analysis Templates
+## Critical Rules
 
-### Code Audit Template
+- **NO FLUFF** - Output must be dense, actionable, and structured
+- **VISUALIZE** - Use terminal-friendly ASCII maps (`->`) for structural mappings
+- **ANALYZE, DON'T BUILD** - Prefer maps, drivers, and failure modes over implementation plans unless explicitly requested
+- **RUTHLESSNESS** - Challenge assumptions at every step. Never confirm user biases
+- **LATTICEWORK** - Validate the map with 3-5 lenses; look for convergence/tension/blind spots/surprises
+- **LANGUAGE** - Default output in Simplified Chinese; avoid English abbreviations in node names and labels
 
-```markdown
-## Code Audit Report
+Output modes:
+- Default: produce sections 0-5.
+- Quick map (info-poor/time-boxed): produce 0/1/3/5 + top 3 unknowns that would change the map.
 
-**Repository**: [repo-name]
-**Scope**: [files/modules audited]
-**Date**: [YYYY-MM-DD]
-**Auditor**: Claude + [Human reviewer]
+## NEVER
 
-### Executive Summary
-[2-3 sentence overview of findings]
+- NEVER ship a solution-first plan; produce a map that enables the next step.
+- NEVER mix facts and assumptions; label unknowns explicitly or the map lies.
+- NEVER include non-CORE modules in the flow map; it hides the real bottleneck.
+- NEVER write the flow map as a dense paragraph; it must be laid out line-by-line.
+- NEVER use English abbreviations for flow nodes; use clear Chinese nouns instead.
+- NEVER exceed terminal constraints (aim <= 80 cols, <= 20 lines) or it becomes unreadable.
 
-### Audit Criteria
-- [ ] Code quality and maintainability
-- [ ] Security vulnerabilities
-- [ ] Performance concerns
-- [ ] Test coverage
-- [ ] Documentation completeness
-- [ ] Dependency health
+## The Process
 
-### Critical Findings
-| ID | Severity | Location | Issue | Recommendation |
-|----|----------|----------|-------|----------------|
-| C1 | Critical | file:line | [Issue] | [Fix] |
-| C2 | Critical | file:line | [Issue] | [Fix] |
+**PHASE 0: CALIBRATION (The Anchor)**
 
-### High Priority Findings
-| ID | Severity | Location | Issue | Recommendation |
-|----|----------|----------|-------|----------------|
-| H1 | High | file:line | [Issue] | [Fix] |
+- Bind constraints strictly.
+- If constraints are missing: assume "MVP/Prototype Stage" (low cost, high iteration) and proceed.
+- If the prompt starts with a solution: rewrite as "problem statement + constraints" before proceeding.
+- Output: One-sentence problem statement + constraint list (incl. explicit unknowns).
 
-### Medium Priority Findings
-[...]
+**PHASE 1: DECOMPOSITION (The Pareto Slice)**
 
-### Low Priority / Suggestions
-[...]
+- Decompose into modules and interfaces (treat each module as a black box).
+- Identify the Pareto CORE (top risk/weight); mark the rest as later.
+- Output: CORE module list with 1-line rationale each.
 
-### Metrics
-| Metric | Value | Target | Status |
-|--------|-------|--------|--------|
-| Test Coverage | 75% | 80% | ⚠️ |
-| Cyclomatic Complexity | 12 | <10 | ⚠️ |
-| Technical Debt | 4.2d | <3d | ❌ |
-| Security Score | 8/10 | 9/10 | ⚠️ |
+**PHASE 2: EXCAVATION (First Principles)**
 
-### Recommendations
-1. **Immediate**: [Critical fixes]
-2. **Short-term**: [Within sprint]
-3. **Long-term**: [Tech debt reduction]
+For CORE modules identified in Phase 1:
+- Separate facts vs assumptions; name the irreducible constraints/invariants.
+- Locate the dominant bottleneck (ask "why not 10x?" to expose limits).
+- Output: Compact fact/assumption list per CORE module.
 
-### Sign-off
-- [ ] All critical issues addressed
-- [ ] High priority issues have timeline
-- [ ] Audit findings documented in backlog
+**PHASE 3: RE-ARCHITECTING (Structural Evolution)**
+
+Reassemble components based on First Principles findings, NOT original assumptions:
+- Pipeline: CORE modules -> boundary context -> internal critical path -> prune -> output flow map
+- Prune redundant hops found in Phase 2 (keep it minimal, not exhaustive).
+- Output: Console-friendly flow map using `->` (CORE only, 6-15 lines):
+  - Boundary context (vertical chain)
+  - Internal critical path (one main chain)
+
+Flow map conventions (ASCII only):
+- Use Chinese noun phrases for node names; avoid English abbreviations.
+- Prefer the single critical path over full coverage; do not force branches/merges.
+- Layout as a vertical chain: one node per line, connect with `->` on the next line.
+- Keep it readable: <= 80 cols per line, <= 20 lines total.
+
+Template (vertical chain):
+边界:
+参与者
+ -> 入口
+ -> 系统
+ -> 外部依赖
+
+关键路径:
+输入
+ -> 核心模块
+ -> 状态/存储
+ -> 输出
+
+**PHASE 4: OSCILLATION (Zoom In/Out)**
+
+- Pipeline: macro frame -> latticework check -> key drivers -> causal chains -> leverage points
+- Rule: derive top-down hypotheses, validate bottom-up via key driver mechanics
+- Macro frame: boundary + lifecycle + stakeholders + metrics + constraints
+  - Lifecycle stage: prototype -> growth -> scale -> decline (pick one)
+- Latticework check (internal, do NOT expand in output):
+  - Assume the role of 查理·芒格.
+  - Cross-check with at least 3 mental models: 激励机制, 二阶效应, 机会成本, 安全边际, 能力圈(认知边界).
+  - Extract only the synthesized signals for output: 收敛 / 张力 / 空白 / 惊喜
+- Key drivers (1-3): mechanism + invariants + stress failures + cost model
+- Output:
+  - 2-4 causal chains: `微观机制 -> 宏观结果` (标签: **收敛/张力/空白/惊喜**)
+  - Leverage points (micro changes that shift macro materially)
+
+**PHASE 5: INVERSION (The Pre-Mortem)**
+
+- Assume the proposed approach has FAILED CATASTROPHICALLY 6 months post-launch.
+- Ask "How exactly did it break?" (race conditions, cost explosion, user rejection).
+- Use Phase 0 constraints to sharpen the failure story.
+- Output: "致命点" (fatal flaws) + "缓解假设" (testable preventions).
+
+## Output Format
+
+```
+### 0.约束条件 (假设/给定)
+问题: [一句话问题陈述]
+约束: [硬约束列表]
+未知: [会改变分析结论的关键未知]
+
+### 1.核心模块 (帕累托前 20%)
+[模块名]: [一句话说明为何这是核心]
+[模块名]: [一句话说明为何这是核心]
+
+### 2.第一性原理真相
+[模块A] [根本限制/真相]
+[模块B] [根本限制/真相]
+
+### 3.逻辑流程图
+控制台风格（使用 `->`，中文节点名，避免英文缩写；每行一个节点）:
+边界:
+参与者
+ -> 入口
+ -> 系统
+ -> 外部依赖
+
+关键路径:
+输入
+ -> 核心模块
+ -> 状态/存储
+ -> 输出
+
+### 4.对齐检查（格栅快速校验）
+宏观: [边界/生命周期/参与方/成功指标/硬约束]
+关键驱动: [1-3 个主导机制]
+格栅结论: 收敛[...]；张力[...]；空白[...]；惊喜[...]
+因果链: [微观机制 -> 宏观结果 | 标签: 收敛/张力/空白/惊喜 | 杠杆点: ...]
+
+### 5.事前验尸 (失败检查)
+* 最薄弱环节: [具体组件]
+* 失败模式: [如何崩溃] -> 缓解假设: [可验证的缓解假设]
 ```
 
-### Security Threat Model Template
+## Key Principles
 
-```markdown
-## Threat Model: [System/Component Name]
-
-**Version**: [1.0]
-**Last Updated**: [YYYY-MM-DD]
-**Classification**: [Internal/Confidential]
-
-### System Overview
-[Brief description of the system being modeled]
-
-### Assets
-| Asset | Description | Sensitivity | Owner |
-|-------|-------------|-------------|-------|
-| User Data | PII, credentials | Critical | Auth Team |
-| API Keys | Service credentials | High | DevOps |
-| Business Data | Transactions | High | Product |
-
-### Trust Boundaries
-```
-┌─────────────────────────────────────────┐
-│           External (Untrusted)          │
-│  [Internet Users] [Third-party APIs]    │
-└──────────────────┬──────────────────────┘
-                   │ WAF/Load Balancer
-┌──────────────────┴──────────────────────┐
-│              DMZ (Semi-trusted)         │
-│  [API Gateway] [CDN] [Public Services]  │
-└──────────────────┬──────────────────────┘
-                   │ Internal Firewall
-┌──────────────────┴──────────────────────┐
-│           Internal (Trusted)            │
-│  [App Servers] [Databases] [Queues]     │
-└─────────────────────────────────────────┘
-```
-
-### Threat Categories (STRIDE)
-
-#### Spoofing
-| Threat | Likelihood | Impact | Mitigation |
-|--------|------------|--------|------------|
-| Credential theft | Medium | High | MFA, rate limiting |
-| Session hijacking | Low | High | Secure cookies, HTTPS |
-
-#### Tampering
-| Threat | Likelihood | Impact | Mitigation |
-|--------|------------|--------|------------|
-| SQL injection | Medium | Critical | Parameterized queries |
-| Data modification | Low | High | Integrity checks |
-
-#### Repudiation
-[...]
-
-#### Information Disclosure
-[...]
-
-#### Denial of Service
-[...]
-
-#### Elevation of Privilege
-[...]
-
-### Attack Vectors
-1. **Vector 1**: [Description]
-   - Entry point: [Where]
-   - Technique: [How]
-   - Mitigation: [Defense]
-
-### Risk Matrix
-| Threat | Likelihood | Impact | Risk Score | Priority |
-|--------|------------|--------|------------|----------|
-| T1     | High       | Critical | 9 | P1 |
-| T2     | Medium     | High | 6 | P2 |
-| T3     | Low        | Medium | 3 | P3 |
-
-### Security Controls
-| Control | Type | Status | Coverage |
-|---------|------|--------|----------|
-| WAF | Preventive | ✅ Active | External |
-| SAST | Detective | ✅ CI/CD | Code |
-| DAST | Detective | ⚠️ Partial | Runtime |
-| Encryption | Preventive | ✅ Active | Data |
-
-### Recommendations
-1. [Priority 1 recommendations]
-2. [Priority 2 recommendations]
-3. [Priority 3 recommendations]
-```
-
-### Performance Analysis Template
-
-```markdown
-## Performance Analysis Report
-
-**System**: [System name]
-**Period**: [Date range]
-**Environment**: [Production/Staging]
-
-### Executive Summary
-[Key findings and recommendations]
-
-### Performance Metrics
-
-#### Response Times
-| Endpoint | P50 | P95 | P99 | Target | Status |
-|----------|-----|-----|-----|--------|--------|
-| /api/users | 45ms | 120ms | 350ms | <200ms | ✅ |
-| /api/search | 230ms | 890ms | 2.1s | <500ms | ❌ |
-| /api/reports | 1.2s | 3.4s | 8.2s | <2s | ❌ |
-
-#### Throughput
-| Service | Current RPS | Peak RPS | Capacity | Utilization |
-|---------|-------------|----------|----------|-------------|
-| API | 1,200 | 2,400 | 5,000 | 48% |
-| Worker | 500 | 800 | 1,000 | 80% |
-
-#### Resource Utilization
-| Resource | Average | Peak | Threshold | Status |
-|----------|---------|------|-----------|--------|
-| CPU | 45% | 78% | 80% | ⚠️ |
-| Memory | 62% | 85% | 85% | ⚠️ |
-| Disk I/O | 30% | 55% | 70% | ✅ |
-| Network | 25% | 40% | 60% | ✅ |
-
-### Bottleneck Analysis
-
-#### Identified Bottlenecks
-1. **Database Queries** (High Impact)
-   - Location: `/api/search` endpoint
-   - Cause: Missing index on `created_at` column
-   - Impact: 890ms P95 latency
-   - Fix: Add composite index
-
-2. **Memory Pressure** (Medium Impact)
-   - Location: Report generation service
-   - Cause: Large dataset loading into memory
-   - Impact: GC pauses, OOM risks
-   - Fix: Implement streaming/pagination
-
-### Load Test Results
-| Scenario | Users | Duration | Errors | Avg Response |
-|----------|-------|----------|--------|--------------|
-| Baseline | 100 | 10min | 0% | 120ms |
-| Normal | 500 | 30min | 0.1% | 180ms |
-| Peak | 1000 | 15min | 2.3% | 450ms |
-| Stress | 2000 | 5min | 15% | 2.1s |
-
-### Optimization Recommendations
-
-#### Quick Wins (This Sprint)
-1. Add database indexes - Expected: 40% improvement
-2. Enable query caching - Expected: 25% improvement
-3. Optimize N+1 queries - Expected: 30% improvement
-
-#### Medium Term (Next Quarter)
-1. Implement read replicas
-2. Add CDN for static assets
-3. Optimize serialization
-
-#### Long Term (6+ Months)
-1. Service decomposition
-2. Event-driven architecture
-3. Edge computing deployment
-
-### Capacity Planning
-| Timeframe | Expected Load | Current Capacity | Gap | Action |
-|-----------|---------------|------------------|-----|--------|
-| 3 months | +25% | 5,000 RPS | ✅ | Monitor |
-| 6 months | +50% | 5,000 RPS | ⚠️ | Scale |
-| 12 months | +100% | 5,000 RPS | ❌ | Redesign |
-```
-
-### Architecture Review Template
-
-```markdown
-## Architecture Review
-
-**System**: [System name]
-**Version**: [Current architecture version]
-**Review Date**: [YYYY-MM-DD]
-**Participants**: [Team members]
-
-### Current Architecture
-
-#### System Diagram
-```
-[Include architecture diagram or ASCII representation]
-```
-
-#### Components
-| Component | Purpose | Technology | Owner |
-|-----------|---------|------------|-------|
-| API Gateway | Request routing | Kong | Platform |
-| Auth Service | Authentication | Keycloak | Security |
-| Core API | Business logic | Python/FastAPI | Backend |
-| Database | Data persistence | PostgreSQL | Data |
-
-#### Data Flow
-1. User request → API Gateway
-2. API Gateway → Auth validation
-3. Auth → Core API
-4. Core API → Database
-5. Response → User
-
-### Evaluation Criteria
-
-#### Scalability
-| Aspect | Current | Target | Gap | Score |
-|--------|---------|--------|-----|-------|
-| Horizontal scaling | Manual | Auto | Yes | 6/10 |
-| Database scaling | Single | Sharded | Yes | 5/10 |
-| Caching | Redis | Distributed | No | 8/10 |
-
-#### Reliability
-| Aspect | Current | Target | Gap | Score |
-|--------|---------|--------|-----|-------|
-| Availability | 99.5% | 99.9% | Yes | 7/10 |
-| Disaster recovery | Manual | Auto | Yes | 5/10 |
-| Data backup | Daily | Real-time | Yes | 6/10 |
-
-#### Maintainability
-| Aspect | Current | Target | Gap | Score |
-|--------|---------|--------|-----|-------|
-| Code modularity | Medium | High | Yes | 6/10 |
-| Documentation | Partial | Complete | Yes | 5/10 |
-| Test coverage | 70% | 85% | Yes | 7/10 |
-
-### Technical Debt Assessment
-| Item | Impact | Effort | Priority | Age |
-|------|--------|--------|----------|-----|
-| Legacy auth system | High | High | P1 | 2y |
-| Monolithic API | Medium | High | P2 | 1.5y |
-| Missing monitoring | Medium | Low | P1 | 1y |
-
-### Recommendations
-
-#### Immediate (0-3 months)
-1. [Recommendation 1]
-2. [Recommendation 2]
-
-#### Short-term (3-6 months)
-1. [Recommendation 1]
-2. [Recommendation 2]
-
-#### Long-term (6-12 months)
-1. [Recommendation 1]
-2. [Recommendation 2]
-
-### Decision Log
-| Decision | Rationale | Alternatives Considered | Date |
-|----------|-----------|------------------------|------|
-| [Decision 1] | [Why] | [Options] | [Date] |
-```
-
-## Integration with Extended Thinking
-
-For deep analysis tasks, use maximum thinking budget:
-
-```python
-response = client.messages.create(
-    model="claude-opus-4-5-20250514",
-    max_tokens=32000,
-    thinking={
-        "type": "enabled",
-        "budget_tokens": 25000  # Maximum budget for deep analysis
-    },
-    system="""You are a senior technical analyst performing a
-    comprehensive review. Use structured analysis templates and
-    document all findings systematically.""",
-    messages=[{
-        "role": "user",
-        "content": "Perform a security threat model for..."
-    }]
-)
-```
-
-## Best Practices
-
-1. **Use appropriate templates**: Match template to analysis type
-2. **Be systematic**: Follow the template structure completely
-3. **Quantify findings**: Use metrics and severity ratings
-4. **Prioritize actionable**: Focus on findings that can be fixed
-5. **Document evidence**: Link to specific code/logs/data
-6. **Track progress**: Update findings as they're addressed
-
-## See Also
-
-- [[extended-thinking]] - Enable deep reasoning capabilities
-- [[complex-reasoning]] - Reasoning frameworks
-- [[testing]] - Validation strategies
-- [[debugging]] - Issue investigation
+- **Pareto Focus** - Keep CORE only; park the rest
+- **Fact vs Assumption** - Turn debates into checkable statements
+- **Latticework** - Cross-check with 3-5 lenses; synthesize signals
+- **Causal Mapping** - Express micro->macro via chains and leverage points
+- **Inversion Thinking** - Assume failure first, then work backwards
+- **Terminal First** - Use ASCII maps (`->`) only; no rich diagrams

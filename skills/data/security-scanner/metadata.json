@@ -1,7 +1,7 @@
 {
   "name": "security-scanner",
-  "repo": "j0KZ/mcp-agents",
-  "path": "starter-kit/template/.claude/skills/security-scanner/SKILL.md",
-  "source": "github.com/j0KZ/mcp-agents",
-  "downloaded_at": "2026-01-19T03:12:18.705933Z"
+  "repo": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
+  "path": "plugins/dapr/skills/security-scanner/SKILL.md",
+  "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
+  "downloaded_at": "2026-01-20T03:42:17.717355Z"
 }

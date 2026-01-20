@@ -2,11 +2,14 @@
 name: zustand-5
 description: >
   Zustand 5 state management patterns.
-  Trigger: When managing React state with Zustand.
+  Trigger: When implementing client-side state with Zustand (stores, selectors, persist middleware, slices).
 license: Apache-2.0
 metadata:
-  author: gentleman-programming
+  author: prowler-cloud
   version: "1.0"
+  scope: [root, ui]
+  auto_invoke: "Using Zustand stores"
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
 ---
 
 ## Basic Store
@@ -217,6 +220,3 @@ const unsubscribe = useCounterStore.subscribe(
   (state) => console.log("Count changed:", state.count)
 );
 ```
-
-## Keywords
-zustand, state management, react, store, persist, middleware

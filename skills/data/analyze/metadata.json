@@ -1,7 +1,7 @@
 {
   "name": "analyze",
-  "repo": "pianzhu/my-claude-skills",
-  "path": "skills/HelloAgents/analyze/SKILL.md",
-  "source": "github.com/pianzhu/my-claude-skills",
-  "downloaded_at": "2026-01-19T03:55:01.770531Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/analyze/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-20T03:41:47.463420Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "create-database-migration",
-  "repo": "iBoostAI/Ghost",
+  "repo": "TryGhost/Ghost",
   "path": ".claude/skills/create-database-migration/SKILL.md",
-  "source": "github.com/iBoostAI/Ghost",
-  "downloaded_at": "2026-01-19T03:10:04.630580Z"
+  "source": "github.com/TryGhost/Ghost",
+  "downloaded_at": "2026-01-20T03:09:04.618538Z"
 }

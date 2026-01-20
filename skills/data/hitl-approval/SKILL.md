@@ -1,243 +1,208 @@
 ---
 name: hitl-approval
-description: Use when presenting a plan/summary to user and requesting explicit approval before proceeding. Generic approval gate for /audit, /build, /architect, /debug commands. Checks for auto-approve conditions ("do without approval" in prompt).
+description: Implement human-in-the-loop approval flows. Use when adding Slack approvals, dashboard review queues, action gating, or trust-based auto-approval.
+allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 
-# HITL Approval Skill
+# Human-in-the-Loop Approval
 
-> **ROOT AGENT ONLY** - Uses AskUserQuestion, runs only from root agent.
+Core differentiator: **agent proposes, human approves**. Every sensitive action requires human approval until trust is established.
 
-**Purpose:** Present plan/summary to user and get explicit approval before proceeding
-**Trigger:** Decision point requiring human validation
-**Inputs:** summary, affectedFiles, approach
-**Outputs:** approved (boolean), feedback (string)
-
----
-
-## Purpose & Use Cases
-
-Use this skill as a **generic approval gate** for any major decision:
-
-- **After /build analysis** → Approve implementation approach
-- **After /audit findings** → Approve remediation plan
-- **After /architect design** → Approve technical direction
-- **After /debug investigation** → Approve fix strategy
-
----
-
-## When Approval Auto-Approves
-
-Approval auto-approves (requires no user intervention) if ANY condition is met:
-
-| Condition                             | Auto-Approve?     |
-| ------------------------------------- | ----------------- |
-| Prompt contains "do without approval" | Yes               |
-| Prompt contains "just do it"          | Yes               |
-| Otherwise                             | Requires approval |
-
----
-
-## Workflow
-
-### Step 1: Check Auto-Approve Conditions
+## Architecture Overview
 
 ```
-IF prompt contains "do without approval" OR "just do it":
-    RETURN { approved: true, feedback: null }
-
-CONTINUE to Step 2
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│  Agent Tool     │ ──▶ │ requestApproval  │ ──▶ │  Slack Message  │
+│  proposes       │     │ workflow         │     │  with buttons   │
+└─────────────────┘     └──────────────────┘     └─────────────────┘
+                                                          │
+                                                          ▼
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│  Action         │ ◀── │ executeApproved  │ ◀── │  Interactions   │
+│  executed       │     │ Action workflow  │     │  handler        │
+└─────────────────┘     └──────────────────┘     └─────────────────┘
 ```
 
-### Step 2: Present Summary to User
+## Approval Surfaces
 
-Format the summary clearly with sections:
+| Surface | Use Case | Capabilities |
+|---------|----------|--------------|
+| **Slack** | Real-time push notifications | Approve/reject buttons, rejection reason modal |
+| **Dashboard** | Bulk review, audit trail | Queue view, search, bulk actions |
+| **Front Plugin** | In-context approval | View customer data, quick actions |
 
+## Inngest Events
+
+| Event | Trigger | Data |
+|-------|---------|------|
+| `support/approval.requested` | Agent proposes action | actionId, conversationId, appId, action, agentReasoning |
+| `support/approval.decided` | Human clicks button | **actionId**, decision, decidedBy, decidedAt |
+| `support/action.approved` | Human approves | actionId, approvedBy, approvedAt |
+| `support/action.rejected` | Human rejects | actionId, rejectedBy, rejectedAt, reason? |
+
+**IMPORTANT**: The `waitForEvent` match uses `data.actionId` - ensure all events use `actionId` consistently (not `approvalId`).
+
+## Slack Block Kit Builder
+
+Build approval messages with `buildApprovalBlocks`:
+
+```typescript
+import { buildApprovalBlocks } from '@skillrecordings/core/slack/approval-blocks'
+
+const blocks = buildApprovalBlocks({
+  actionId: 'action-123',
+  conversationId: 'conv-456',
+  appId: 'total-typescript',
+  actionType: 'issue_refund',
+  parameters: { orderId: 'order-789', amount: 99.00 },
+  agentReasoning: 'Customer within 30-day refund window',
+})
+// Returns: header, reasoning section, parameters, approve/reject buttons
 ```
-APPROVAL NEEDED
-════════════════════════════════════════
 
-📋 Summary:
-{summary text}
-
-📁 Affected Files:
-{list of files}
-
-🛠️  Approach:
-{approach description}
-
-Ready to proceed?
+Button metadata structure (embedded in value):
+```typescript
+{ actionId, conversationId, appId }
 ```
 
-### Step 3: Ask for Approval
+## Slack Client (Lazy Init)
 
-Use AskUserQuestion tool with two options:
+```typescript
+import { postApprovalMessage, updateApprovalMessage } from '@skillrecordings/core/slack/client'
 
-- **APPROVE** → Continue to next phase
-- **REVISE** → Collect feedback → Return to caller
+// Post approval message to channel
+const { ts, channel } = await postApprovalMessage(
+  process.env.SLACK_APPROVAL_CHANNEL,
+  blocks,
+  'Approval needed for Issue Refund'
+)
 
-### Step 4: Handle Response
+// Update message after decision
+await updateApprovalMessage(channel, ts, updatedBlocks, 'Approved')
+```
 
-**If APPROVED:**
+## Slack Interactions Handler (Next.js App Router)
 
-```json
-{
-  "approved": true,
-  "feedback": null
+```typescript
+// apps/slack/app/api/slack/interactions/route.ts
+import { verifySlackSignature } from '../../../../lib/verify-signature'
+import { inngest, SUPPORT_APPROVAL_DECIDED, SUPPORT_ACTION_APPROVED } from '@skillrecordings/core/inngest'
+
+export async function POST(request: Request) {
+  const body = await request.text()
+  const signature = request.headers.get('x-slack-signature') ?? ''
+  const timestamp = request.headers.get('x-slack-request-timestamp') ?? ''
+
+  // Verify signature (HMAC-SHA256, 5-min replay protection)
+  if (!verifySlackSignature({ signature, timestamp, body })) {
+    return new Response('Invalid signature', { status: 401 })
+  }
+
+  // Parse URL-encoded payload
+  const params = new URLSearchParams(body)
+  const payload = JSON.parse(params.get('payload') ?? '{}')
+
+  if (payload.type === 'block_actions') {
+    const action = payload.actions[0]
+    const metadata = JSON.parse(action.value)
+
+    if (action.action_id === 'approve_action') {
+      await inngest.send([
+        { name: SUPPORT_APPROVAL_DECIDED, data: { approvalId: metadata.actionId, decision: 'approved', ... } },
+        { name: SUPPORT_ACTION_APPROVED, data: { actionId: metadata.actionId, ... } },
+      ])
+    }
+  }
+
+  return new Response('OK', { status: 200 }) // Slack requires quick 200
 }
 ```
 
-**If APPROVED WITH REVISIONS:**
+## Signature Verification
 
-```json
-{
-  "approved": false,
-  "feedback": "User requested changes to approach - needs optimization for database queries"
+```typescript
+import { verifySlackSignature } from 'apps/slack/lib/verify-signature'
+
+// Returns true if valid, false if invalid/expired
+// Throws if SLACK_SIGNING_SECRET missing
+const isValid = verifySlackSignature({
+  signature: request.headers.get('x-slack-signature'),
+  timestamp: request.headers.get('x-slack-request-timestamp'),
+  body: rawRequestBody,
+  // secret defaults to process.env.SLACK_SIGNING_SECRET
+})
+```
+
+Key features:
+- HMAC-SHA256 with timing-safe comparison (prevents timing attacks)
+- 5-minute replay protection
+- Validates v0= signature prefix
+
+## Authority Levels
+
+```typescript
+// AUTO-APPROVE (execute immediately)
+- Magic link requests
+- Password reset requests
+- Refunds within 30 days of purchase
+- Transfers within 14 days of purchase
+- Email/name updates
+
+// REQUIRE-APPROVAL (draft action, wait for human)
+- Refunds 30-45 days after purchase
+- Transfers after 14 days
+- Bulk seat management
+- Account deletions
+
+// ALWAYS-ESCALATE (flag for human, do not act)
+- Angry/frustrated customers (sentiment detection)
+- Legal language (lawsuit, lawyer, etc.)
+- Repeated failed interactions
+- Anything uncertain
+```
+
+## Draft Comparison (HITL Scoring)
+
+Track how much humans modify agent drafts to build trust:
+
+```typescript
+function diffScore(draft: string, sent: string): 'unmodified' | 'edited' | 'rewritten' {
+  const draftTokens = new Set(tokenize(draft))
+  const sentTokens = new Set(tokenize(sent))
+  const intersection = [...draftTokens].filter(t => sentTokens.has(t))
+  const overlap = intersection.length / Math.max(draftTokens.size, sentTokens.size)
+
+  if (overlap > 0.95) return 'unmodified'  // Trust++
+  if (overlap > 0.50) return 'edited'       // Trust neutral
+  return 'rewritten'                         // Trust--
 }
 ```
 
-### Step 5: Return Control to Caller
+## Trust Decay
 
-Return control to calling agent with:
+Trust score uses exponential decay with 30-day half-life. High-trust agents can auto-send drafts.
 
-- `approved: true|false`
-- `feedback: string` (user's requested changes, if revisions needed)
+## File Locations
 
-Calling agent proceeds with:
+| File | Purpose |
+|------|---------|
+| `packages/core/src/slack/approval-blocks.ts` | Block Kit message builder |
+| `packages/core/src/slack/client.ts` | Slack WebClient singleton (lazy init) |
+| `packages/core/src/inngest/workflows/request-approval.ts` | Approval request workflow |
+| `packages/core/src/inngest/workflows/execute-approved-action.ts` | Execute after approval |
+| `apps/slack/app/api/slack/interactions/route.ts` | Button click handler |
+| `apps/slack/lib/verify-signature.ts` | HMAC signature verification |
+| `packages/database/src/schema.ts` | ApprovalRequestsTable, ActionsTable |
 
-- Execute (if approved)
-- Revise based on feedback and re-submit for approval
-- Loop back to investigation phase with updated approach
+## Environment Variables
 
----
+| Variable | Purpose |
+|----------|---------|
+| `SLACK_BOT_TOKEN` | Slack WebClient authentication |
+| `SLACK_SIGNING_SECRET` | Request signature verification |
+| `SLACK_APPROVAL_CHANNEL` | Channel ID for posting approvals |
 
-## HITL Tool Enforcement
+## Reference Docs
 
-HITL gates MUST use AskUserQuestion tool. Prose questions are rejected.
-
-**Correct HITL:**
-
-```
-Use AskUserQuestion tool with:
-- question: "Approve PRD package for implementation?"
-- options: ["Approve", "Request Changes"]
-```
-
-**Incorrect HITL (REJECTED):**
-
-```
-"Ready to proceed? Let me know if you'd like any changes."
-```
-
-**Why:** Prose questions allow agents to continue without explicit user consent. The AskUserQuestion tool creates a blocking gate that ensures user acknowledgment before proceeding.
-
-**Detection:** Commands check for AskUserQuestion tool call in agent response. Prose-only responses trigger loop back with instruction to use tool.
-
----
-
-## Input Schema
-
-```json
-{
-  "summary": "string (2-5 sentences describing what will happen)",
-  "affectedFiles": "string[] (list of file paths or patterns)",
-  "approach": "string (3-5 sentences explaining HOW it will be done)"
-}
-```
-
----
-
-## Output Schema
-
-```json
-{
-  "approved": "boolean",
-  "feedback": "string | null (only if approved=false)"
-}
-```
-
----
-
-## Examples
-
-### Example 1: Change (Requires Approval)
-
-```
-Inputs:
-{
-  "summary": "Refactor database schema to support multi-tenancy. Affects 12 tables, requires data migration.",
-  "affectedFiles": [
-    "src/db/schema.ts",
-    "src/migrations/",
-    "src/services/user.service.ts",
-    "src/services/team.service.ts"
-  ],
-  "approach": "1. Create new schema with tenant_id column. 2. Write migration script. 3. Deploy with blue-green strategy."
-}
-
-Processing:
-  - Show approval request to user
-
-User sees:
-────────────────────────────────────────
-APPROVAL NEEDED
-════════════════════════════════════════
-
-📋 Summary:
-Refactor database schema to support multi-tenancy. Affects 12 tables, requires data migration.
-
-📁 Affected Files:
-- src/db/schema.ts
-- src/migrations/
-- src/services/user.service.ts
-- src/services/team.service.ts
-
-🛠️  Approach:
-1. Create new schema with tenant_id column.
-2. Write migration script.
-3. Deploy with blue-green strategy.
-
-Ready to proceed?
-
-User clicks: YES
-
-Output:
-{
-  "approved": true,
-  "feedback": null
-}
-```
-
-### Example 2: Approval Denied with Feedback
-
-```
-User clicks: NO, requesting changes
-
-Follow-up prompt appears:
-"What changes would you like? Be specific."
-
-User responds:
-"Don't deploy with blue-green yet. Need to test with read-only mode first."
-
-Output:
-{
-  "approved": false,
-  "feedback": "Don't deploy with blue-green yet. Need to test with read-only mode first."
-}
-```
-
----
-
-## Integration
-
-**Called by:** /audit, /build, /architect, /debug commands
-**Calls:** AskUserQuestion tool
-**Returns:** approved (boolean), feedback (string or null)
-**Previous phase:** Analysis/investigation/design complete
-**Next phase:** Execution (if approved) or revision (if rejected)
-
----
-
-## Notes
-
-- **Always honor explicit user instructions** in the original prompt about approval
-- **AskUserQuestion** is required for this skill (runs in root agent context only)
+For full details, see:
+- `docs/support-app-prd/66-hitl.md`

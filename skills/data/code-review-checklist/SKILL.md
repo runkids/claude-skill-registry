@@ -1,127 +1,109 @@
 ---
 name: code-review-checklist
-description: |
-  Review code changes for correctness, security, performance, and maintainability. Use for PR reviews,
-  code audits, pre-merge checks, or quality validation of Laravel + React + Python code. EXCLUSIVE to reviewer agent.
-allowed-tools: Read, Grep, Glob, Bash, mcp_context7
+description: Code review guidelines covering code quality, security, and best practices.
+allowed-tools: Read, Glob, Grep
 ---
+
 # Code Review Checklist
 
-**Exclusive to:** `reviewer` agent
+## Quick Review Checklist
 
-## 📚 Context7 (Memory) — Up-to-Date Docs
+### Correctness
+- [ ] Code does what it's supposed to do
+- [ ] Edge cases handled
+- [ ] Error handling in place
+- [ ] No obvious bugs
 
-Lookup best practices and anti-patterns:
-```
-mcp_context7_resolve-library-id(libraryName="[library]", query="best practices")
-mcp_context7_query-docs(libraryId="/[resolved-id]", query="[specific pattern to validate]")
-```
+### Security
+- [ ] Input validated and sanitized
+- [ ] No SQL/NoSQL injection vulnerabilities
+- [ ] No XSS or CSRF vulnerabilities
+- [ ] No hardcoded secrets or sensitive credentials
+- [ ] **AI-Specific:** Protection against Prompt Injection (if applicable)
+- [ ] **AI-Specific:** Outputs are sanitized before being used in critical sinks
 
-## Validation Loop (MANDATORY)
+### Performance
+- [ ] No N+1 queries
+- [ ] No unnecessary loops
+- [ ] Appropriate caching
+- [ ] Bundle size impact considered
 
-Before completing any review, verify the codebase passes all checks:
-```bash
-composer test           # All PHP tests pass
-npm run types          # No TypeScript errors
-npm run lint           # No linting errors
-./vendor/bin/pint --test  # PHP style OK
-```
+### Code Quality
+- [ ] Clear naming
+- [ ] DRY - no duplicate code
+- [ ] SOLID principles followed
+- [ ] Appropriate abstraction level
 
-Report any failures as Critical findings.
+### Testing
+- [ ] Unit tests for new code
+- [ ] Edge cases tested
+- [ ] Tests readable and maintainable
 
-## Instructions
+### Documentation
+- [ ] Complex logic commented
+- [ ] Public APIs documented
+- [ ] README updated if needed
 
-1. Review against project standards in `docs/code-standards.md`
-2. Run through the checklist below
-3. Report issues by severity (Critical → Warning → Suggestion)
+## AI & LLM Review Patterns (2025)
 
-## Review Checklist
+### Logic & Hallucinations
+- [ ] **Chain of Thought:** Does the logic follow a verifiable path?
+- [ ] **Edge Cases:** Did the AI account for empty states, timeouts, and partial failures?
+- [ ] **External State:** Is the code making safe assumptions about file systems or networks?
 
-### ✅ Correctness
-- [ ] Logic handles edge cases
-- [ ] Error handling is appropriate
-- [ ] Types are correct (no `any` unless justified)
-- [ ] Tests cover new/changed behavior
-- [ ] No dead code or unused imports
-
-### 🔒 Security (OWASP)
-- [ ] No secrets or credentials in code
-- [ ] User input validated and sanitized
-- [ ] Authorization checks in place
-- [ ] No SQL injection (use Eloquent/query builder)
-- [ ] No XSS (proper escaping, sanitization)
-- [ ] CSRF protection enabled
-- [ ] Rate limiting considered
-
-### ⚡ Performance
-- [ ] No N+1 queries (use eager loading: `with()`)
-- [ ] No unnecessary database calls
-- [ ] Large datasets are paginated
-- [ ] Indexes exist for filtered/joined columns
-
-### 🧹 Maintainability
-- [ ] Follows patterns in `docs/code-standards.md`
-- [ ] Names are clear and consistent
-- [ ] No unnecessary complexity
-- [ ] DRY — no copy-paste duplication
-
-### 🎨 Frontend
-- [ ] Uses existing shadcn/ui components
-- [ ] Loading and error states handled
-- [ ] Accessible (keyboard, labels, contrast)
-- [ ] Responsive (mobile + desktop)
-
-### 📝 Documentation
-- [ ] Code comments for non-obvious logic
-- [ ] Docs updated if behavior changed
-- [ ] Types documented with JSDoc if complex
-
-## Laravel Security Checks
-
-| Check | Verify |
-|-------|--------|
-| Mass assignment | `$fillable` or `$guarded` defined |
-| Authorization | Policy or Gate used |
-| Validation | FormRequest with rules |
-| CSRF | `@csrf` in forms |
-| SQL injection | No raw queries with user input |
-
-## React Security Checks
-
-| Check | Verify |
-|-------|--------|
-| XSS | No `dangerouslySetInnerHTML` |
-| Props | TypeScript interfaces used |
-| Secrets | No sensitive data in client |
-
-## Severity Guide
-
-| Level | Criteria | Action |
-|-------|----------|--------|
-| 🚨 Critical | Security flaw, data loss, breaks functionality | Block merge |
-| ⚠️ Warning | Performance issue, code smell, missing test | Request fix |
-| 💡 Suggestion | Style improvement, better pattern | Optional |
-
-## Output Format
-
+### Prompt Engineering Review
 ```markdown
-## 🔍 Review Summary
-[One paragraph overview]
+// ❌ Vague prompt in code
+const response = await ai.generate(userInput);
 
-## 🚨 Critical (must fix)
-1. [Issue]: [File:Line] — [Why critical]
-
-## ⚠️ Warnings (should fix)
-1. [Issue]: [File:Line] — [Recommendation]
-
-## 💡 Suggestions (nice to have)
-1. [Suggestion]: [File:Line] — [Improvement]
-
-## ✅ What's Good
-- [Positive observation]
+// ✅ Structured & Safe prompt
+const response = await ai.generate({
+  system: "You are a specialized parser...",
+  input: sanitize(userInput),
+  schema: ResponseSchema
+});
 ```
 
-## Examples
-- "Review this PR before merge"
-- "Check this code for security issues"
-- "Audit changes for performance"
+## Anti-Patterns to Flag
+
+```typescript
+// ❌ Magic numbers
+if (status === 3) { ... }
+
+// ✅ Named constants
+if (status === Status.ACTIVE) { ... }
+
+// ❌ Deep nesting
+if (a) { if (b) { if (c) { ... } } }
+
+// ✅ Early returns
+if (!a) return;
+if (!b) return;
+if (!c) return;
+// do work
+
+// ❌ Long functions (100+ lines)
+// ✅ Small, focused functions
+
+// ❌ any type
+const data: any = ...
+
+// ✅ Proper types
+const data: UserData = ...
+```
+
+## Review Comments Guide
+
+```
+// Blocking issues use 🔴
+🔴 BLOCKING: SQL injection vulnerability here
+
+// Important suggestions use 🟡
+🟡 SUGGESTION: Consider using useMemo for performance
+
+// Minor nits use 🟢
+🟢 NIT: Prefer const over let for immutable variable
+
+// Questions use ❓
+❓ QUESTION: What happens if user is null here?
+```

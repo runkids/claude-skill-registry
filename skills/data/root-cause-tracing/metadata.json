@@ -1,7 +1,7 @@
 {
   "name": "root-cause-tracing",
-  "repo": "alex-tgk/saasquatch",
-  "path": ".claude/skills/debugging/root-cause-tracing/SKILL.md",
-  "source": "github.com/alex-tgk/saasquatch",
-  "downloaded_at": "2026-01-19T04:17:58.208792Z"
+  "repo": "WesleyMFrederick/cc-workflows",
+  "path": ".claude/skills/root-cause-tracing/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-20T03:54:23.352708Z"
 }

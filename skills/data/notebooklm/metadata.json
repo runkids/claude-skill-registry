@@ -1,7 +1,7 @@
 {
   "name": "notebooklm",
-  "repo": "samhvw8/dotfiles",
-  "path": "dot_claude/skills/notebooklm/executable_SKILL.md",
-  "source": "github.com/samhvw8/dotfiles",
-  "downloaded_at": "2026-01-19T03:13:44.208039Z"
+  "repo": "ronnycoding/.claude",
+  "path": "skills/notebooklm/skill.md",
+  "source": "github.com/ronnycoding/.claude",
+  "downloaded_at": "2026-01-20T03:16:36.874522Z"
 }

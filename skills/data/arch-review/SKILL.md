@@ -1,140 +1,107 @@
 ---
 name: arch-review
-description: |
-  新機能やコード変更時にアーキテクチャの妥当性を検証する。
-  簡易DDD構成、レイヤー分離、依存方向の正しさをチェック。
+description: アーキテクチャレビュー。SOLID/YAGNI/DRY/KISS原則に基づき、オーバーエンジニアリングを避けた実践的な設計改善を提案する。
+model: claude-opus-4-5-20251101
 ---
 
-# Architecture Review Skill
+# Architecture Review
 
-コード変更時にアーキテクチャの妥当性を検証する。
+オーバーエンジニアリングを避けた、実践的なアーキテクチャレビューを行います。
 
-## レイヤー構成（簡易 DDD）
+## 基本姿勢
 
-```text
-┌─────────────────────────────────────────────────┐
-│              Presentation Layer                 │
-│         (app/**/*.tsx - Pages/UI)               │
-└────────────────────┬────────────────────────────┘
-                     │ 呼び出し可
-┌────────────────────▼────────────────────────────┐
-│              Application Layer                  │
-│      (app/api/**/*.ts - Route Handlers)         │
-└────────────────────┬────────────────────────────┘
-                     │ 呼び出し可
-┌────────────────────▼────────────────────────────┐
-│               Domain Layer                      │
-│     (src/modules/**/service.ts - Services)      │
-└────────────────────┬────────────────────────────┘
-                     │ 呼び出し可
-┌────────────────────▼────────────────────────────┐
-│            Infrastructure Layer                 │
-│  (src/db/drizzle.ts, src/lib/auth.ts - DB/Auth) │
-└─────────────────────────────────────────────────┘
+**「動くコードは正義」** - 完璧な設計より、適切な設計を目指す。
+
+- クリーンアーキテクチャは理想だが、大抵やり過ぎ
+- 抽象化は「3回同じパターンが出たら」検討
+- 将来の要件を予測しすぎない
+
+## レビュー原則
+
+### 採用する原則
+
+| 原則 | 適用基準 | やり過ぎライン |
+|------|----------|----------------|
+| **SRP** | 1クラス1責務 | 責務を細かく分けすぎてクラス爆発 |
+| **OCP** | 拡張ポイントが明確な箇所のみ | Strategy全部入り |
+| **DIP** | 外部依存（DB, API）の境界 | 全てにInterface |
+| **DRY** | 3回以上の重複 | 似てるだけで共通化 |
+| **YAGNI** | 今必要なものだけ | 将来のための抽象化 |
+| **KISS** | 最もシンプルな解法 | 「エレガント」な解法 |
+
+### 軽視してよい原則
+
+- **LSP**: 継承より合成を使えば問題にならない
+- **ISP**: 巨大なInterfaceがない限り不要
+
+## アーキテクチャパターン評価
+
+```
+推奨度: シンプルMVC > レイヤード > ヘキサゴナル > クリーン
+        ←─────── プロジェクト規模 ───────→
 ```
 
-## ディレクトリと責務
+| パターン | 適用条件 | 避けるべき状況 |
+|----------|----------|----------------|
+| **シンプルMVC** | 小〜中規模、CRUD中心 | 複雑なドメインロジック |
+| **レイヤード** | 中規模、明確な層分離が必要 | 層間の依存が単純な場合 |
+| **ヘキサゴナル** | 外部依存が多い、テスト重視 | 外部依存が少ない |
+| **クリーン** | 大規模、長期保守、複雑なドメイン | ほとんどのプロジェクト |
 
-| ディレクトリ | 責務 | 配置するもの |
-| ----------- | ---- | ----------- |
-| `app/(app)/**/*.tsx` | Presentation | ページ、UI コンポーネント |
-| `app/api/**/*.ts` | Application | Route Handlers、認可チェック |
-| `src/modules/**/` | Domain | サービス、型定義、ビジネスロジック |
-| `src/db/` | Infrastructure | スキーマ、DB クライアント |
-| `src/lib/` | Infrastructure | 認証、共通ユーティリティ |
-| `src/components/` | Presentation | 共通 UI コンポーネント |
-| `src/hooks/` | Presentation | カスタムフック |
+## チェックポイント
 
-## 検証チェックリスト
+### 🔴 即座に修正が必要
 
-### 1. レイヤー違反がないか
+- 循環参照
+- 神クラス（500行超、10メソッド超）
+- 外部依存の直接呼び出しがビジネスロジックに混在
+- シークレットのハードコード
 
-- [ ] Presentation → Infrastructure への直接依存がない
-- [ ] Domain Layer が Presentation に依存していない
-- [ ] API Route が DB を直接操作せず Service を経由している
+### 🟡 改善を推奨
 
-### 2. モジュール構成が正しいか
+- 1ファイル300行超
+- 3箇所以上の重複コード
+- ネストが4段以上
+- 曖昧な命名（data, info, manager, handler）
 
-新規機能の場合、以下の構成になっているか：
+### 🟢 現状維持でOK
 
-```text
-src/modules/{feature}/
-├── service.ts      # ビジネスロジック
-├── types.ts        # 型定義
-└── __tests__/      # テスト
+- 2箇所だけの類似コード → 共通化しない
+- 将来使うかもしれない拡張ポイント → 作らない
+- 「念のため」のInterface → 不要
+
+## 出力形式
+
+```markdown
+## アーキテクチャレビュー結果
+
+### 現状評価
+- パターン: [検出されたパターン]
+- 規模感: [小/中/大]
+- 適合度: [適切 / やや過剰 / 不足]
+
+### 🔴 Critical（要修正）
+[問題] → [修正案]
+
+### 🟡 Warning（改善推奨）
+[問題] → [修正案]
+
+### 🟢 Good（このままでOK）
+- [あえて抽象化しなくてよい箇所]
+- [シンプルなままで正解な箇所]
+
+### オーバーエンジニアリング警告
+[不要な抽象化、過剰な設計パターンの指摘]
 ```
 
-### 3. API エンドポイントの配置
+## アンチパターン検出
 
-```text
-app/api/
-├── me/{feature}/           # 認証必須の個人リソース
-│   ├── route.ts           # GET（一覧）, POST（作成）
-│   └── [id]/route.ts      # GET, PUT, DELETE（個別）
-└── {feature}/              # 公開リソース
-```
+**やり過ぎサイン:**
+- `interface` が `impl` と1:1対応
+- `Factory` が1種類しか生成しない
+- `Strategy` が2パターンしかない
+- `Repository` が `findAll` と `findById` だけ
+- 3層以上の継承階層
+- DTO↔Entity変換が機械的コピー
 
-### 4. 依存の方向
-
-```text
-許可される依存:
-  app/api/* → src/modules/*/service.ts → src/db/*
-  app/(app)/* → src/hooks/* → app/api/*
-
-禁止される依存:
-  src/modules/* → app/*
-  src/db/* → src/modules/*
-  src/lib/* → app/*
-```
-
-## 違反パターンと修正例
-
-### NG: API Route で DB 直接操作
-
-```typescript
-// app/api/me/cards/route.ts - NG
-import { db } from "@/db/drizzle";
-const cards = await db.select().from(cardsTable);
-```
-
-### OK: Service 経由
-
-```typescript
-// app/api/me/cards/route.ts - OK
-import { getCards } from "@/modules/cards/service";
-const cards = await getCards(userId);
-```
-
-### NG: コンポーネントで DB アクセス
-
-```typescript
-// app/(app)/cards/page.tsx - NG
-import { db } from "@/db/drizzle";
-```
-
-### OK: API 経由またはフック経由
-
-```typescript
-// app/(app)/cards/page.tsx - OK
-import { useCards } from "@/hooks/use-cards";
-```
-
-## 新機能追加時の確認事項
-
-1. **配置場所は適切か**
-   - ビジネスロジック → `src/modules/{feature}/service.ts`
-   - 型定義 → `src/modules/{feature}/types.ts`
-   - API → `app/api/me/{feature}/route.ts`
-
-2. **依存方向は正しいか**
-   - 上位レイヤーから下位レイヤーへの一方向
-
-3. **責務が分離されているか**
-   - API: 認証・認可、リクエスト検証、レスポンス整形
-   - Service: ビジネスロジック、トランザクション
-   - DB: データアクセスのみ
-
-## 参照
-
-- [docs/architecture.md](../../docs/architecture.md)
-- [.claude/agents/arch.md](../agents/arch.md)
+**これらは「将来のため」ではなく「今の複雑さ」**

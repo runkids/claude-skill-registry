@@ -1,17 +1,17 @@
 ---
 name: railway
-description: Deploy applications on Railway platform. Use when deploying containerized apps, setting up databases, configuring private networking, or managing Railway projects. Triggers on Railway, railway.app, deploy container, Railway database.
+description: Deploys applications on Railway with zero-config detection, databases, and automatic CI/CD. Use when deploying Node.js apps, setting up databases, or needing simple PaaS deployment.
 ---
 
-# Railway Deployment
+# Railway
 
-Deploy and manage applications on Railway's platform.
+Modern deployment platform with zero-config builds, instant databases, and automatic CI/CD.
 
 ## Quick Start
 
 ```bash
-# Install Railway CLI
-npm i -g @railway/cli
+# Install CLI
+npm install -g @railway/cli
 
 # Login
 railway login
@@ -21,180 +21,357 @@ railway init
 
 # Deploy
 railway up
+
+# Get deployment URL
+railway domain
 ```
 
-## railway.toml Configuration
+## Deployment Methods
 
-```toml
-[build]
-builder = "nixpacks"
-buildCommand = "npm run build"
+### From GitHub
 
-[deploy]
-startCommand = "npm start"
-healthcheckPath = "/health"
-healthcheckTimeout = 300
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 3
+1. Connect GitHub account at railway.app
+2. Select repository
+3. Railway auto-detects framework
+4. Automatic deploys on push
 
-[service]
-internalPort = 3000
+### From CLI
+
+```bash
+# Link to existing project
+railway link
+
+# Deploy current directory
+railway up
+
+# Deploy with logs
+railway up --detach
 ```
 
-## Nixpacks Configuration
+### From Template
 
-```toml
-# nixpacks.toml
-[phases.setup]
-nixPkgs = ["nodejs-18_x", "python311"]
+Use Railway's template gallery for pre-configured stacks.
 
-[phases.install]
-cmds = ["npm ci"]
+## Project Configuration
 
-[phases.build]
-cmds = ["npm run build"]
+### railway.json
 
-[start]
-cmd = "npm start"
+```json
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "npm run build"
+  },
+  "deploy": {
+    "startCommand": "npm start",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 300,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3
+  }
+}
 ```
+
+### Environment Detection
+
+Railway automatically detects:
+- **Node.js** - package.json
+- **Python** - requirements.txt, Pipfile
+- **Go** - go.mod
+- **Ruby** - Gemfile
+- **Rust** - Cargo.toml
+- **Docker** - Dockerfile
 
 ## Environment Variables
 
+### CLI
+
 ```bash
 # Set variable
-railway variables set DATABASE_URL="postgres://..."
+railway variables set API_KEY=secret
 
-# Set from file
-railway variables set < .env
+# Set multiple
+railway variables set API_KEY=secret DB_URL=postgres://...
 
-# Link to service
-railway service
-railway variables set API_KEY="secret"
+# List variables
+railway variables
+
+# Delete variable
+railway variables delete API_KEY
 ```
 
-## Database Services
+### Dashboard
 
-### PostgreSQL
+1. Select service
+2. Variables tab
+3. Add key-value pairs
+4. Redeploy for changes
+
+### Reference Variables
+
+```bash
+# Reference other services
+DATABASE_URL=${{Postgres.DATABASE_URL}}
+REDIS_URL=${{Redis.REDIS_URL}}
+```
+
+## Databases
+
+### Provision Database
+
 ```bash
 # Add PostgreSQL
-railway add -d postgres
+railway add postgresql
 
-# Get connection string
-railway variables get DATABASE_URL
+# Add MySQL
+railway add mysql
+
+# Add Redis
+railway add redis
+
+# Add MongoDB
+railway add mongodb
 ```
 
-### Redis
-```bash
-railway add -d redis
-# Access via REDIS_URL
-```
+### Connection Strings
 
-### MySQL
-```bash
-railway add -d mysql
-# Access via MYSQL_URL
-```
+Automatically available as environment variables:
 
-## Private Networking
+| Service | Variable |
+|---------|----------|
+| PostgreSQL | `DATABASE_URL`, `PGHOST`, `PGPORT`, etc. |
+| MySQL | `MYSQL_URL`, `MYSQLHOST`, etc. |
+| Redis | `REDIS_URL`, `REDISHOST`, etc. |
+| MongoDB | `MONGO_URL` |
 
-```yaml
-# Services can communicate via internal DNS
-# Format: ${{service-name}}.railway.internal
-
-# Example: API calling database service
-DATABASE_HOST: ${{postgres.railway.internal}}
-DATABASE_PORT: 5432
-```
-
-## Volumes (Persistent Storage)
+### Database Management
 
 ```bash
-# Create volume
-railway volume create my-data
+# Connect to database shell
+railway connect
 
-# Mount in service
-railway volume attach my-data:/app/data
+# Run database migrations
+railway run npm run migrate
 ```
 
-In code:
-```javascript
-// Data persists across deploys
-const dataPath = '/app/data';
-fs.writeFileSync(`${dataPath}/file.json`, JSON.stringify(data));
+## Node.js Deployment
+
+### package.json
+
+```json
+{
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "engines": {
+    "node": "20"
+  }
+}
 ```
 
-## Cron Jobs
+### Express/Fastify
 
-```toml
-# railway.toml
-[deploy]
-startCommand = "node cron.js"
-cronSchedule = "0 */6 * * *"  # Every 6 hours
+```typescript
+// Use PORT from environment
+const port = process.env.PORT || 3000;
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server running on port ${port}`);
+});
 ```
 
-## Multi-Service Setup
+## Next.js Deployment
 
-```
-my-project/
-├── api/
-│   ├── railway.toml
-│   └── ...
-├── worker/
-│   ├── railway.toml
-│   └── ...
-└── frontend/
-    ├── railway.toml
-    └── ...
+```json
+{
+  "scripts": {
+    "build": "next build",
+    "start": "next start -p $PORT"
+  }
+}
 ```
 
-Deploy each:
-```bash
-cd api && railway up
-cd ../worker && railway up
-cd ../frontend && railway up
-```
+Railway automatically:
+- Detects Next.js
+- Runs build
+- Starts with correct PORT
 
-## Dockerfile Deploy
+## Dockerfile Deployment
+
+### Basic Dockerfile
 
 ```dockerfile
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
+
 COPY package*.json ./
 RUN npm ci --only=production
+
 COPY . .
+RUN npm run build
 
 EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
-```toml
-# railway.toml
-[build]
-builder = "dockerfile"
-dockerfilePath = "./Dockerfile"
+### Multi-stage Build
+
+```dockerfile
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+EXPOSE 3000
+CMD ["node", "dist/index.js"]
 ```
 
-## Health Checks
+## Custom Domains
+
+### Add Domain
+
+```bash
+railway domain
+# Returns: your-app.up.railway.app
+
+# Or add custom domain in dashboard
+# 1. Service settings > Domains
+# 2. Add custom domain
+# 3. Configure DNS (CNAME to railway.app)
+```
+
+### DNS Configuration
+
+```
+CNAME your-app.up.railway.app
+```
+
+## Scaling
+
+### Horizontal Scaling
+
+Configure in dashboard:
+- Instance count
+- Resource limits (CPU, RAM)
+
+### Auto-scaling
+
+Railway Pro plans support auto-scaling based on:
+- CPU usage
+- Memory usage
+- Request count
+
+## Healthchecks
+
+### Configuration
+
+```json
+{
+  "deploy": {
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 300
+  }
+}
+```
+
+### Endpoint
 
 ```typescript
-// Express health endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'healthy',
-    timestamp: new Date().toISOString()
-  });
+  res.status(200).json({ status: 'healthy' });
 });
 ```
 
-```toml
-# railway.toml
-[deploy]
-healthcheckPath = "/health"
-healthcheckTimeout = 100
+## Logs & Monitoring
+
+### CLI
+
+```bash
+# Stream logs
+railway logs
+
+# Follow logs
+railway logs -f
+
+# Specific service
+railway logs --service my-service
 ```
 
-## Resources
+### Dashboard
 
-- **Railway Docs**: https://docs.railway.app
-- **Railway CLI**: https://docs.railway.app/develop/cli
+Real-time logs, metrics, and deployment history in the Railway dashboard.
+
+## Preview Environments
+
+### Pull Request Previews
+
+Enable in project settings:
+1. Settings > Environments
+2. Enable PR environments
+3. Each PR gets isolated environment
+
+### Environment Variables per Environment
+
+```bash
+# Production
+railway variables set --environment production API_URL=https://api.example.com
+
+# Staging
+railway variables set --environment staging API_URL=https://staging-api.example.com
+```
+
+## CLI Commands
+
+```bash
+# Project management
+railway init          # Initialize new project
+railway link          # Link to existing project
+railway unlink        # Unlink project
+
+# Deployment
+railway up            # Deploy current directory
+railway up --detach   # Deploy without logs
+
+# Variables
+railway variables     # List variables
+railway variables set KEY=value
+
+# Database
+railway add postgresql  # Add database
+railway connect        # Connect to database
+
+# Logs & shell
+railway logs          # View logs
+railway run <cmd>     # Run command in Railway env
+railway shell         # Interactive shell
+
+# Domains
+railway domain        # Get/create domain
+```
+
+## Monorepo Support
+
+### Root Configuration
+
+```json
+{
+  "build": {
+    "rootDirectory": "apps/api"
+  }
+}
+```
+
+### Multiple Services
+
+Deploy each app as separate Railway service, all in same project.
+
+See [references/configuration.md](references/configuration.md) for complete configuration options.

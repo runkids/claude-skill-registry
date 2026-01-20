@@ -1,98 +1,93 @@
 ---
-source: skills/claude-code/testing-guide/SKILL.md
-source_version: 1.1.0
-translation_version: 1.1.0
-last_synced: 2025-12-29
-status: current
 name: testing-guide
 description: |
   Testing pyramid and test writing standards for UT/IT/ST/E2E.
   Supports ISTQB and Industry Pyramid frameworks.
   Use when: writing tests, discussing test coverage, test strategy, or test naming.
-  Keywords: test, unit, integration, e2e, coverage, mock, ISTQB, SIT, 测试, 单元, 集成, 端对端.
+  Keywords: test, unit, integration, e2e, coverage, mock, ISTQB, SIT, 測試, 單元, 整合, 端對端.
 ---
 
-# 测试指南
+# Testing Guide
 
-> **语言**: [English](../../../../../skills/claude-code/testing-guide/SKILL.md) | 简体中文
+> **Language**: English | [繁體中文](../../../locales/zh-TW/skills/claude-code/testing-guide/SKILL.md)
 
-**版本**: 1.1.0
-**最後更新**: 2025-12-29
-**適用範圍**: Claude Code Skills
+**Version**: 1.1.0
+**Last Updated**: 2025-12-29
+**Applicability**: Claude Code Skills
 
 ---
 
-## 目的
+## Purpose
 
-本 Skill 提供测试金字塔标准和系统化测试的最佳实踐，支援 ISTQB 和业界通行金字塔框架。
+This skill provides testing pyramid standards and best practices for systematic testing, supporting both ISTQB and Industry Pyramid frameworks.
 
-## 框架选择
+## Framework Selection
 
-| 框架 | 层级 | 適用場景 |
+| Framework | Levels | Best For |
 |-----------|--------|----------|
-| **ISTQB** | UT → IT/SIT → ST → AT/UAT | 企业级、合規性、正式 QA |
-| **业界通行金字塔** | UT (70%) → IT (20%) → E2E (10%) | 敏捷、DevOps、CI/CD |
+| **ISTQB** | UT → IT/SIT → ST → AT/UAT | Enterprise, compliance, formal QA |
+| **Industry Pyramid** | UT (70%) → IT (20%) → E2E (10%) | Agile, DevOps, CI/CD |
 
-**集成测试縮写说明：**
-- **IT** (Integration Testing)：敏捷/DevOps 社群常用
-- **SIT** (System Integration Testing)：企业/ISTQB 環境常用
-- 兩者指的是相同的测试层级
+**Note on Integration Testing abbreviation:**
+- **IT** (Integration Testing): Agile/DevOps communities
+- **SIT** (System Integration Testing): Enterprise/ISTQB contexts
+- Both refer to the same testing level
 
-## 快速參考
+## Quick Reference
 
-### 测试金字塔（业界标准）
+### Testing Pyramid (Industry Standard)
 
 ```
               ┌─────────┐
-              │   E2E   │  ← 10%（較少、較慢）
+              │   E2E   │  ← 10% (Fewer, slower)
              ─┴─────────┴─
             ┌─────────────┐
-            │   IT/SIT    │  ← 20%（集成测试）
+            │   IT/SIT    │  ← 20% (Integration)
            ─┴─────────────┴─
           ┌─────────────────┐
-          │       UT        │  ← 70%（单元测试）
+          │       UT        │  ← 70% (Unit)
           └─────────────────┘
 ```
 
-### 测试层级概覽
+### Test Levels Overview
 
-| 层级 | 範圍 | 速度 | 相依性 |
+| Level | Scope | Speed | Dependencies |
 |-------|-------|-------|-------------|
-| **UT** | 单一函式/类别 | < 100ms | Mock |
-| **IT/SIT** | 元件互动 | 1-10秒 | 真实数据庫（容器化） |
-| **ST** | 完整系统（ISTQB） | 分鐘级 | 类生产環境 |
-| **E2E** | 使用者旅程 | 30秒+ | 所有真实環境 |
-| **AT/UAT** | 业务验证（ISTQB） | 视情况 | 所有真实環境 |
+| **UT** | Single function/class | < 100ms | Mocked |
+| **IT/SIT** | Component interaction | 1-10s | Real DB (containerized) |
+| **ST** | Full system (ISTQB) | Minutes | Production-like |
+| **E2E** | User journeys | 30s+ | Everything real |
+| **AT/UAT** | Business validation (ISTQB) | Varies | Everything real |
 
-### 覆蓋率目標
+### Coverage Targets
 
-| 指標 | 最低要求 | 建议值 |
+| Metric | Minimum | Recommended |
 |--------|---------|-------------|
-| 行覆蓋率 | 70% | 85% |
-| 分支覆蓋率 | 60% | 80% |
-| 函式覆蓋率 | 80% | 90% |
+| Line | 70% | 85% |
+| Branch | 60% | 80% |
+| Function | 80% | 90% |
 
-## 详细指南
+## Detailed Guidelines
 
-完整标准請參考：
-- [测试金字塔](./testing-pyramid.md)
+For complete standards, see:
+- [Testing Pyramid](./testing-pyramid.md)
 
-### AI 優化格式（Token 高效）
+### AI-Optimized Format (Token-Efficient)
 
-供 AI 助理使用，請採用 YAML 格式文件以減少 Token 使用量：
-- 基礎标准：`ai/standards/testing.ai.yaml`
-- 框架选项：
-  - ISTQB 框架：`ai/options/testing/istqb-framework.ai.yaml`
-  - 业界通行金字塔：`ai/options/testing/industry-pyramid.ai.yaml`
-- 测试层级选项：
-  - 单元测试：`ai/options/testing/unit-testing.ai.yaml`
-  - 集成测试：`ai/options/testing/integration-testing.ai.yaml`
-  - 系统测试：`ai/options/testing/system-testing.ai.yaml`
-  - E2E 测试：`ai/options/testing/e2e-testing.ai.yaml`
+For AI assistants, use the YAML format files for reduced token usage:
+- Base standard: `ai/standards/testing.ai.yaml`
+- Framework options:
+  - ISTQB Framework: `ai/options/testing/istqb-framework.ai.yaml`
+  - Industry Pyramid: `ai/options/testing/industry-pyramid.ai.yaml`
+- Test level options:
+  - Unit Testing: `ai/options/testing/unit-testing.ai.yaml`
+  - Integration Testing: `ai/options/testing/integration-testing.ai.yaml`
+  - System Testing: `ai/options/testing/system-testing.ai.yaml`
+  - E2E Testing: `ai/options/testing/e2e-testing.ai.yaml`
 
-## 命名慣例
+## Naming Conventions
 
-### 文件命名
+### File Naming
 
 ```
 [ClassName]Tests.cs       # C#
@@ -101,7 +96,7 @@ description: |
 [class_name]_test.go      # Go
 ```
 
-### 方法命名
+### Method Naming
 
 ```
 [MethodName]_[Scenario]_[ExpectedResult]()
@@ -109,74 +104,163 @@ should_[behavior]_when_[condition]()
 test_[method]_[scenario]_[expected]()
 ```
 
-## 测试替身
+## Test Doubles
 
-| 类型 | 用途 | 使用时机 |
+| Type | Purpose | When to Use |
 |------|---------|-------------|
-| **Stub** | 回传预定義值 | 固定 API 响应 |
-| **Mock** | 验证互动 | 检查方法是否被呼叫 |
-| **Fake** | 簡化实作 | 记忆体数据庫 |
-| **Spy** | 记录呼叫、委派 | 部分 Mock |
+| **Stub** | Returns predefined values | Fixed API responses |
+| **Mock** | Verifies interactions | Check method called |
+| **Fake** | Simplified implementation | In-memory database |
+| **Spy** | Records calls, delegates | Partial mocking |
 
-### 何时使用
+### When to Use What
 
-- **UT**: 对所有外部相依使用 mock/stub
-- **IT**: 数据庫使用 fake，外部 API 使用 stub
-- **ST**: 真实元件，僅对外部服务使用 fake
-- **E2E**: 全部使用真实環境
+- **UT**: Use mocks/stubs for all external deps
+- **IT**: Use fakes for DB, stubs for external APIs
+- **ST**: Real components, fake only external services
+- **E2E**: Real everything
 
-## AAA 模式
+## AAA Pattern
 
 ```typescript
 test('method_scenario_expected', () => {
-    // Arrange - 设置测试数据
+    // Arrange - Setup test data
     const input = createTestInput();
     const sut = new SystemUnderTest();
 
-    // Act - 执行行为
+    // Act - Execute behavior
     const result = sut.execute(input);
 
-    // Assert - 验证結果
+    // Assert - Verify result
     expect(result).toBe(expected);
 });
 ```
 
-## FIRST 原則
+## FIRST Principles
 
-- **F**ast（快速） - 测试执行快速
-- **I**ndependent（獨立） - 测试之间不互相影響
-- **R**epeatable（可重複） - 每次执行結果相同
-- **S**elf-validating（自我验证） - 明确的通過/失败
-- **T**imely（及时） - 与产品代码一起撰写
+- **F**ast - Tests run quickly
+- **I**ndependent - Tests don't affect each other
+- **R**epeatable - Same result every time
+- **S**elf-validating - Clear pass/fail
+- **T**imely - Written with production code
 
-## 应避免的反模式
+## Anti-Patterns to Avoid
 
-- ❌ 测试相依（测试必須按順序执行）
-- ❌ 不穩定测试（有时通過、有时失败）
-- ❌ 测试实作細节
-- ❌ 過度 Mock
-- ❌ 缺少斷言
-- ❌ 魔術數字/字串
+- ❌ Test Interdependence (tests must run in order)
+- ❌ Flaky Tests (sometimes pass, sometimes fail)
+- ❌ Testing Implementation Details
+- ❌ Over-Mocking
+- ❌ Missing Assertions
+- ❌ Magic Numbers/Strings
 
 ---
 
-## 设置偵测
+## Testing Theory Essentials (YAML Compressed)
 
-本 Skill 支援项目特定设置。
+```yaml
+# === ISTQB FUNDAMENTALS ===
+terminology:
+  error: "Human mistake in thinking"
+  defect: "Bug in code (caused by error)"
+  failure: "System behaves incorrectly (caused by defect)"
+  chain: "Error → Defect → Failure"
 
-### 偵测順序
+oracle_problem:
+  definition: "How do we know the expected result is correct?"
+  approaches:
+    - specification_oracle: "Compare against spec"
+    - reference_oracle: "Compare against reference impl"
+    - consistency_oracle: "Same input → same output"
+    - heuristic_oracle: "Reasonable approximation"
 
-1. 检查 `CONTRIBUTING.md` 的「停用 Skills」區段
-   - 如果列出此 Skill，則为該项目停用
-2. 检查 `CONTRIBUTING.md` 的「测试标准」區段
-3. 若未找到，**预设使用标准覆蓋率目標**
+# === STATIC vs DYNAMIC ===
+static_testing:
+  definition: "Examine without executing"
+  techniques: [reviews, walkthroughs, inspections, static_analysis]
+  finds: "Defects before runtime"
+  examples: [ESLint, SonarQube, code_review]
 
-### 首次设置
+dynamic_testing:
+  definition: "Execute and observe behavior"
+  techniques: [unit, integration, system, acceptance]
+  finds: "Failures during execution"
 
-若未找到设置且上下文不清楚时：
+# === TEST DESIGN TECHNIQUES ===
+black_box:
+  equivalence_partitioning:
+    principle: "Divide inputs into equivalent classes"
+    example: "Age: [<0 invalid], [0-17 minor], [18-64 adult], [65+ senior]"
+  boundary_value:
+    principle: "Test at boundaries of partitions"
+    example: "Age: test -1, 0, 17, 18, 64, 65"
+  decision_table:
+    principle: "Combinations of conditions → actions"
+    use: "Complex business rules"
+  state_transition:
+    principle: "Valid sequences of states"
+    use: "Workflow, state machines"
 
-1. 詢問使用者：「此项目尚未设置测试标准。您想要自订覆蓋率目標嗎？」
-2. 使用者选择後，建议在 `CONTRIBUTING.md` 中记录：
+white_box:
+  statement_coverage: "Every statement executed once"
+  branch_coverage: "Every decision branch taken"
+  condition_coverage: "Every condition T/F"
+  path_coverage: "Every possible path (often impractical)"
+
+# === RISK-BASED TESTING ===
+risk_assessment:
+  likelihood: "How likely to fail?"
+  impact: "How bad if fails?"
+  priority: "likelihood × impact"
+
+risk_matrix:
+  high_high: "Test extensively, first priority"
+  high_low: "Good coverage"
+  low_high: "Good coverage"
+  low_low: "Basic coverage"
+
+# === DEFECT MANAGEMENT ===
+defect_lifecycle:
+  states: [new, assigned, in_progress, fixed, verified, closed]
+  reopen_trigger: "Verification fails"
+
+severity_vs_priority:
+  severity: "Technical impact (critical/major/minor/trivial)"
+  priority: "Business urgency (high/medium/low)"
+  example: "Typo on login page: low severity, high priority (brand)"
+
+# === TEST ENVIRONMENT ===
+isolation_levels:
+  unit: "In-memory, mocked deps"
+  integration: "Containerized DB (Docker)"
+  staging: "Production-like, isolated"
+  production: "Real, feature flags for testing"
+
+test_data_strategies:
+  fixtures: "Static predefined data"
+  factories: "Dynamic generation (faker)"
+  snapshots: "Sanitized production copy"
+  synthetic: "Algorithm-generated edge cases"
+```
+
+---
+
+## Configuration Detection
+
+This skill supports project-specific configuration.
+
+### Detection Order
+
+1. Check `CONTRIBUTING.md` for "Disabled Skills" section
+   - If this skill is listed, it is disabled for this project
+2. Check `CONTRIBUTING.md` for "Testing Standards" section
+3. If not found, **default to standard coverage targets**
+
+### First-Time Setup
+
+If no configuration found and context is unclear:
+
+1. Ask the user: "This project hasn't configured testing standards. Would you like to customize coverage targets?"
+2. After user selection, suggest documenting in `CONTRIBUTING.md`:
 
 ```markdown
 ## Testing Standards
@@ -189,9 +273,9 @@ test('method_scenario_expected', () => {
 | Function | 85% |
 ```
 
-### 设置範例
+### Configuration Example
 
-在项目的 `CONTRIBUTING.md` 中：
+In project's `CONTRIBUTING.md`:
 
 ```markdown
 ## Testing Standards
@@ -211,24 +295,23 @@ test('method_scenario_expected', () => {
 
 ---
 
-## 相关标准
+## Related Standards
 
-- [测试标准](../../core/testing-standards.md)
-- [程序码审查检查清单](../../core/code-review-checklist.md)
+- [Testing Standards](../../core/testing-standards.md)
+- [Code Review Checklist](../../core/code-review-checklist.md)
 
 ---
 
-## 版本历史
+## Version History
 
-| 版本 | 日期 | 变更内容 |
+| Version | Date | Changes |
 |---------|------|---------|
-| 1.1.0 | 2025-12-29 | 新增：框架选择（ISTQB/业界通行金字塔）、IT/SIT 縮写说明 |
-| 1.0.0 | 2025-12-24 | 新增：标准區段（目的、相关标准、版本历史、授权） |
+| 1.0.0 | 2025-12-24 | Added: Standard sections (Purpose, Related Standards, Version History, License) |
 
 ---
 
-## 授权
+## License
 
-本 Skill 以 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 授权發布。
+This skill is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-**來源**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)
+**Source**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)

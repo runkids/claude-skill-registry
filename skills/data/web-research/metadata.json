@@ -1,7 +1,7 @@
 {
   "name": "web-research",
-  "repo": "DougTrajano/pydantic-ai-skills",
-  "path": "examples/skills/web-research/SKILL.md",
-  "source": "github.com/DougTrajano/pydantic-ai-skills",
-  "downloaded_at": "2026-01-19T04:08:55.062460Z"
+  "repo": "doodledood/claude-code-plugins",
+  "path": "claude-plugins/vibe-workflow/skills/web-research/SKILL.md",
+  "source": "github.com/doodledood/claude-code-plugins",
+  "downloaded_at": "2026-01-20T02:27:11.887612Z"
 }
