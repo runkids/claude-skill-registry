@@ -61,7 +61,7 @@ Use this to scan through changes efficiently:
 - [ ] Everything `^:private` unless used elsewhere
 - [ ] No `declare` when avoidable (public functions near end)
 - [ ] Functions under 20 lines when possible
-- [ ] No blank, non-comment lines within definition forms (except pairwise constructs in `let`/`cond`)
+- [ ] No blank lines within definition forms (except pairwise constructs in `let`/`cond`)
 - [ ] Lines ≤ 120 characters
 
 ### Tests

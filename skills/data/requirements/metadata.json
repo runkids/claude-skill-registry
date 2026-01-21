@@ -1,7 +1,7 @@
 {
   "name": "requirements",
-  "repo": "nicepkg/ai-workflow",
-  "path": "workflows/product-manager-workflow/.claude/skills/requirements/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-20T03:46:19.370559Z"
+  "repo": "pluginagentmarketplace/custom-plugin-product-manager",
+  "path": "skills/requirements/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-product-manager",
+  "downloaded_at": "2026-01-21T03:46:47.766230Z"
 }

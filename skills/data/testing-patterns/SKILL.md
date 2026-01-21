@@ -1,178 +1,272 @@
 ---
 name: testing-patterns
-description: Testing patterns and principles. Unit, integration, mocking strategies.
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash
+description: Testing patterns for Jest and Playwright. Use when writing tests, setting up test fixtures, or validating RLS enforcement. Routes to existing test conventions and provides evidence templates.
 ---
 
-# Testing Patterns
+# Testing Patterns Skill
 
-> Principles for reliable test suites.
+## Purpose
 
----
+Guide consistent and effective testing. Routes to existing test patterns and provides evidence templates for Linear.
 
-## 1. Testing Pyramid
+## When This Skill Applies
+
+Invoke this skill when:
+
+- Writing new unit tests
+- Creating integration tests
+- Setting up test fixtures with RLS
+- Running test suites
+- Packaging test evidence for Linear
+
+## Critical Rules
+
+### ❌ FORBIDDEN Patterns
+
+```typescript
+// FORBIDDEN: Direct Prisma calls in tests (bypass RLS)
+const user = await prisma.user.findUnique({ where: { user_id } });
+
+// FORBIDDEN: Shared test state (causes flaky tests)
+let sharedUser: User;
+beforeAll(() => { sharedUser = createUser(); });
+
+// FORBIDDEN: Hard-coded IDs (test pollution)
+const userId = "user-123";
+
+// FORBIDDEN: Missing cleanup (leaky tests)
+it("creates user", async () => {
+  await prisma.user.create({ data: userData });
+  // No cleanup!
+});
+```
+
+### ✅ CORRECT Patterns
+
+```typescript
+// CORRECT: Use RLS context helpers
+const user = await withSystemContext(prisma, "test", async (client) => {
+  return client.user.findUnique({ where: { user_id } });
+});
+
+// CORRECT: Isolated test state per test
+beforeEach(() => {
+  const testUser = createTestUser();
+});
+
+// CORRECT: Unique identifiers
+const userId = `user-${crypto.randomUUID()}`;
+const email = `test-${Date.now()}@example.com`;
+
+// CORRECT: Proper cleanup
+afterEach(async () => {
+  await withSystemContext(prisma, "test", async (client) => {
+    await client.user.deleteMany({ where: { email: { contains: "test-" } } });
+  });
+});
+```
+
+## Test Directory Structure
 
 ```
-        /\          E2E (Few)
-       /  \         Critical flows
-      /----\
-     /      \       Integration (Some)
-    /--------\      API, DB queries
-   /          \
-  /------------\    Unit (Many)
-                    Functions, classes
+__tests__/
+├── unit/              # Fast, isolated tests
+│   ├── components/    # React component tests
+│   ├── lib/           # Library function tests
+│   ├── services/      # Service layer tests
+│   └── user/          # User helper tests
+├── integration/       # API and database tests
+├── database/          # Database helper tests
+├── e2e/               # End-to-end tests (Playwright)
+├── payments/          # Payment flow tests
+└── setup.ts           # Global test setup
 ```
 
----
+## Configuration Files
 
-## 2. AAA Pattern
+- **Jest Config**: `jest.config.js`
+- **Test Setup**: `__tests__/setup.ts`
+- **Playwright Config**: `playwright.config.ts`
 
-| Step | Purpose |
-|------|---------|
-| **Arrange** | Set up test data |
-| **Act** | Execute code under test |
-| **Assert** | Verify outcome |
+## RLS-Aware Testing
 
----
+### Setting Up Test Context
 
-## 3. Test Type Selection
+Always use RLS context helpers in tests:
 
-### When to Use Each
+```typescript
+import { withUserContext, withSystemContext } from "@/lib/rls-context";
+import { prisma } from "@/lib/prisma";
 
-| Type | Best For | Speed |
-|------|----------|-------|
-| **Unit** | Pure functions, logic | Fast (<50ms) |
-| **Integration** | API, DB, services | Medium |
-| **E2E** | Critical user flows | Slow |
+describe("User payments", () => {
+  const testUserId = "test-user-123";
 
----
+  beforeEach(async () => {
+    // Create test user with RLS context
+    await withSystemContext(prisma, "test", async (client) => {
+      await client.user.create({
+        data: {
+          user_id: testUserId,
+          email: `test-${Date.now()}@example.com`,
+          first_name: "Test",
+          last_name: "User",
+        },
+      });
+    });
+  });
 
-## 4. Unit Test Principles
+  it("should only see own payments", async () => {
+    const payments = await withUserContext(
+      prisma,
+      testUserId,
+      async (client) => {
+        return client.payments.findMany();
+      },
+    );
+    // RLS ensures only this user's payments returned
+    expect(payments.every((p) => p.user_id === testUserId)).toBe(true);
+  });
+});
+```
 
-### Good Unit Tests
+### Test Isolation
 
-| Principle | Meaning |
-|-----------|---------|
-| Fast | < 100ms each |
-| Isolated | No external deps |
-| Repeatable | Same result always |
-| Self-checking | No manual verification |
-| Timely | Written with code |
+Use unique identifiers to prevent test pollution:
 
-### What to Unit Test
+```typescript
+const uniqueEmail = `test-${Date.now()}@example.com`;
+const uniqueUserId = `user-${crypto.randomUUID()}`;
+```
 
-| Test | Don't Test |
-|------|------------|
-| Business logic | Framework code |
-| Edge cases | Third-party libs |
-| Error handling | Simple getters |
+## Test Commands
 
----
+```bash
+# Run all unit tests
+yarn test:unit
 
-## 5. Integration Test Principles
+# Run integration tests
+yarn test:integration
 
-### What to Test
+# Run specific test file
+yarn jest __tests__/unit/components/my-component.test.tsx
 
-| Area | Focus |
-|------|-------|
-| API endpoints | Request/response |
-| Database | Queries, transactions |
-| External services | Contracts |
+# Run tests matching pattern
+yarn jest --testNamePattern="should handle"
 
-### Setup/Teardown
+# Run with coverage
+yarn test:unit --coverage
 
-| Phase | Action |
-|-------|--------|
-| Before All | Connect resources |
-| Before Each | Reset state |
-| After Each | Clean up |
-| After All | Disconnect |
+# Run E2E tests
+yarn test:e2e
+```
 
----
+## Common Patterns
 
-## 6. Mocking Principles
+### Component Testing
 
-### When to Mock
+```typescript
+import { render, screen, fireEvent } from "@testing-library/react";
+import { MyComponent } from "@/components/my-component";
 
-| Mock | Don't Mock |
-|------|------------|
-| External APIs | The code under test |
-| Database (unit) | Simple dependencies |
-| Time/random | Pure functions |
-| Network | In-memory stores |
+describe("MyComponent", () => {
+  it("renders correctly", () => {
+    render(<MyComponent />);
+    expect(screen.getByRole("button")).toBeInTheDocument();
+  });
 
-### Mock Types
+  it("handles click events", async () => {
+    const onClickMock = jest.fn();
+    render(<MyComponent onClick={onClickMock} />);
 
-| Type | Use |
-|------|-----|
-| Stub | Return fixed values |
-| Spy | Track calls |
-| Mock | Set expectations |
-| Fake | Simplified implementation |
+    fireEvent.click(screen.getByRole("button"));
+    expect(onClickMock).toHaveBeenCalledTimes(1);
+  });
+});
+```
 
----
+### API Route Testing
 
-## 7. Test Organization
+```typescript
+import { GET } from "@/app/api/my-route/route";
+import { NextRequest } from "next/server";
 
-### Naming
+describe("GET /api/my-route", () => {
+  it("returns 200 with data", async () => {
+    const request = new NextRequest("http://localhost:3000/api/my-route");
+    const response = await GET(request);
 
-| Pattern | Example |
-|---------|---------|
-| Should behavior | "should return error when..." |
-| When condition | "when user not found..." |
-| Given-when-then | "given X, when Y, then Z" |
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data).toHaveProperty("success", true);
+  });
+});
+```
 
-### Grouping
+### Mocking Prisma
 
-| Level | Use |
-|-------|-----|
-| describe | Group related tests |
-| it/test | Individual case |
-| beforeEach | Common setup |
+```typescript
+jest.mock("@/lib/prisma", () => ({
+  prisma: {
+    user: {
+      findUnique: jest.fn(),
+      create: jest.fn(),
+    },
+  },
+}));
+```
 
----
+## Evidence Template for Linear
 
-## 8. Test Data
+When completing test work, attach this evidence block:
 
-### Strategies
+```markdown
+**Test Execution Evidence**
 
-| Approach | Use |
-|----------|-----|
-| Factories | Generate test data |
-| Fixtures | Predefined datasets |
-| Builders | Fluent object creation |
+**Test Suite**: [unit/integration/e2e]
+**Files Changed**: [list files]
 
-### Principles
+**Test Results:**
 
-- Use realistic data
-- Randomize non-essential values (faker)
-- Share common fixtures
-- Keep data minimal
+- Total Tests: [X]
+- Passed: [X]
+- Failed: [0]
+- Skipped: [X]
 
----
+**Coverage** (if applicable):
 
-## 9. Best Practices
+- Statements: X%
+- Branches: X%
+- Functions: X%
+- Lines: X%
 
-| Practice | Why |
-|----------|-----|
-| One assert per test | Clear failure reason |
-| Independent tests | No order dependency |
-| Fast tests | Run frequently |
-| Descriptive names | Self-documenting |
-| Clean up | Avoid side effects |
+**Commands Run:**
 
----
+\`\`\`bash
+yarn test:unit --coverage
+\`\`\`
 
-## 10. Anti-Patterns
+**Output:**
+[Paste relevant test output]
+```
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Test implementation | Test behavior |
-| Duplicate test code | Use factories |
-| Complex test setup | Simplify or split |
-| Ignore flaky tests | Fix root cause |
-| Skip cleanup | Reset state |
+## Pre-Push Validation
 
----
+Always run before pushing:
 
-> **Remember:** Tests are documentation. If someone can't understand what the code does from the tests, rewrite them.
+```bash
+yarn ci:validate
+```
+
+This runs:
+
+- Type checking
+- ESLint
+- Unit tests
+- Format check
+
+## Authoritative References
+
+- **Jest Config**: `jest.config.js`
+- **Test Setup**: `__tests__/setup.ts`
+- **RLS Context**: `lib/rls-context.ts`
+- **CI Validation**: `package.json` scripts

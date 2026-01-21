@@ -1,7 +1,6 @@
 ---
 name: technical-debt
 description: This skill provides patterns for identifying, categorizing, and tracking technical debt. It includes scoring methodologies, YAML schemas for tracking files, and strategies for systematic debt resolution.
-context: fork
 ---
 
 # Technical Debt Skill

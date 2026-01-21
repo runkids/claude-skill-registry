@@ -1,810 +1,420 @@
 ---
 name: accessibility-compliance
-description: Implement WCAG 2.1 AA accessibility compliance with ARIA labels, keyboard navigation, screen reader support, and color contrast. Use when ensuring accessibility or fixing a11y issues.
-allowed-tools: Read, Write, Edit, Bash, Glob
+description: Implement WCAG 2.2 compliant interfaces with mobile accessibility, inclusive design patterns, and assistive technology support. Use when auditing accessibility, implementing ARIA patterns, building for screen readers, or ensuring inclusive user experiences.
 ---
 
-You implement WCAG 2.1 AA accessibility compliance for the QA Team Portal.
+# Accessibility Compliance
 
-## Requirements from PROJECT_PLAN.md
+Master accessibility implementation to create inclusive experiences that work for everyone, including users with disabilities.
 
-- **Standard:** WCAG 2.1 AA compliance
-- Keyboard navigation support
-- Screen reader compatibility
-- Color contrast standards (4.5:1 for text)
-- ARIA labels on interactive elements
-- Focus indicators visible
-- Accessible forms and error messages
+## When to Use This Skill
 
-## WCAG 2.1 AA Requirements
+- Implementing WCAG 2.2 Level AA or AAA compliance
+- Building screen reader accessible interfaces
+- Adding keyboard navigation to interactive components
+- Implementing focus management and focus trapping
+- Creating accessible forms with proper labeling
+- Supporting reduced motion and high contrast preferences
+- Building mobile accessibility features (iOS VoiceOver, Android TalkBack)
+- Conducting accessibility audits and fixing violations
 
-### Perceivable
-1. Text alternatives for non-text content
-2. Captions for audio/video
-3. Content can be presented in different ways
-4. Color contrast minimum 4.5:1 (text), 3:1 (large text, UI components)
+## Core Capabilities
 
-### Operable
-1. Keyboard accessible (all functionality)
-2. Enough time to read/use content
-3. No content that causes seizures (flashing < 3 times per second)
-4. Navigation and finding content
+### 1. WCAG 2.2 Guidelines
 
-### Understandable
-1. Readable and understandable text
-2. Predictable operation
-3. Input assistance (labels, error messages)
+- Perceivable: Content must be presentable in different ways
+- Operable: Interface must be navigable with keyboard and assistive tech
+- Understandable: Content and operation must be clear
+- Robust: Content must work with current and future assistive technologies
 
-### Robust
-1. Compatible with assistive technologies
-2. Valid HTML
-3. Name, role, value for UI components
+### 2. ARIA Patterns
 
-## Implementation
-
-### 1. Semantic HTML
-
-**Use proper HTML5 elements:**
-
-```typescript
-// ❌ Wrong: Divs for everything
-<div className="button" onClick={handleClick}>Click me</div>
-<div className="nav">
-  <div>Home</div>
-  <div>About</div>
-</div>
-
-// ✅ Correct: Semantic elements
-<button onClick={handleClick}>Click me</button>
-<nav>
-  <a href="/">Home</a>
-  <a href="/about">About</a>
-</nav>
-
-// ✅ Proper document structure
-<header>
-  <nav>...</nav>
-</header>
-<main>
-  <article>
-    <h1>Page Title</h1>
-    <section>
-      <h2>Section Title</h2>
-      <p>Content</p>
-    </section>
-  </article>
-</main>
-<footer>...</footer>
-```
-
-### 2. ARIA Labels and Roles
-
-**Location:** `frontend/src/components/Navigation.tsx`
-
-```typescript
-export const Navigation = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
-  return (
-    <header role="banner">
-      <nav role="navigation" aria-label="Main navigation">
-        <div className="container">
-          <a href="/" aria-label="QA Team Portal Home">
-            <img src="/logo.svg" alt="Evoke Logo" />
-            <span>QA Team Portal</span>
-          </a>
-
-          {/* Desktop Menu */}
-          <ul role="menubar" className="hidden md:flex">
-            <li role="none">
-              <a href="#team" role="menuitem">Team</a>
-            </li>
-            <li role="none">
-              <a href="#updates" role="menuitem">Updates</a>
-            </li>
-            <li role="none">
-              <a href="#tools" role="menuitem">Tools</a>
-            </li>
-          </ul>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-menu"
-          >
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div
-            id="mobile-menu"
-            role="menu"
-            aria-label="Mobile navigation"
-          >
-            <a href="#team" role="menuitem">Team</a>
-            <a href="#updates" role="menuitem">Updates</a>
-            <a href="#tools" role="menuitem">Tools</a>
-          </div>
-        )}
-      </nav>
-    </header>
-  )
-}
-```
+- Roles: Define element purpose (button, dialog, navigation)
+- States: Indicate current condition (expanded, selected, disabled)
+- Properties: Describe relationships and additional info (labelledby, describedby)
+- Live regions: Announce dynamic content changes
 
 ### 3. Keyboard Navigation
 
-**Focus Management:**
+- Focus order and tab sequence
+- Focus indicators and visible focus states
+- Keyboard shortcuts and hotkeys
+- Focus trapping for modals and dialogs
 
-```typescript
-// frontend/src/components/Modal.tsx
-import { useEffect, useRef } from 'react'
+### 4. Screen Reader Support
 
-export const Modal = ({ isOpen, onClose, children }) => {
-  const modalRef = useRef<HTMLDivElement>(null)
-  const previousFocusRef = useRef<HTMLElement | null>(null)
+- Semantic HTML structure
+- Alternative text for images
+- Proper heading hierarchy
+- Skip links and landmarks
 
-  useEffect(() => {
-    if (isOpen) {
-      // Store previous focus
-      previousFocusRef.current = document.activeElement as HTMLElement
+### 5. Mobile Accessibility
 
-      // Focus first focusable element in modal
-      const focusableElements = modalRef.current?.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      )
-      if (focusableElements && focusableElements.length > 0) {
-        (focusableElements[0] as HTMLElement).focus()
-      }
+- Touch target sizing (44x44dp minimum)
+- VoiceOver and TalkBack compatibility
+- Gesture alternatives
+- Dynamic Type support
 
-      // Trap focus inside modal
-      const handleTab = (e: KeyboardEvent) => {
-        if (e.key !== 'Tab') return
+## Quick Reference
 
-        const focusableContent = modalRef.current?.querySelectorAll(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        )
+### WCAG 2.2 Success Criteria Checklist
 
-        if (!focusableContent || focusableContent.length === 0) return
+| Level | Criterion | Description                                          |
+| ----- | --------- | ---------------------------------------------------- |
+| A     | 1.1.1     | Non-text content has text alternatives               |
+| A     | 1.3.1     | Info and relationships programmatically determinable |
+| A     | 2.1.1     | All functionality keyboard accessible                |
+| A     | 2.4.1     | Skip to main content mechanism                       |
+| AA    | 1.4.3     | Contrast ratio 4.5:1 (text), 3:1 (large text)        |
+| AA    | 1.4.11    | Non-text contrast 3:1                                |
+| AA    | 2.4.7     | Focus visible                                        |
+| AA    | 2.5.8     | Target size minimum 24x24px (NEW in 2.2)             |
+| AAA   | 1.4.6     | Enhanced contrast 7:1                                |
+| AAA   | 2.5.5     | Target size minimum 44x44px                          |
 
-        const firstElement = focusableContent[0] as HTMLElement
-        const lastElement = focusableContent[focusableContent.length - 1] as HTMLElement
+## Key Patterns
 
-        if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
-            lastElement.focus()
-            e.preventDefault()
-          }
-        } else {
-          if (document.activeElement === lastElement) {
-            firstElement.focus()
-            e.preventDefault()
-          }
-        }
-      }
+### Pattern 1: Accessible Button
 
-      document.addEventListener('keydown', handleTab)
+```tsx
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary";
+  isLoading?: boolean;
+}
 
-      return () => {
-        document.removeEventListener('keydown', handleTab)
-        // Restore previous focus
-        previousFocusRef.current?.focus()
-      }
-    }
-  }, [isOpen])
+function AccessibleButton({
+  children,
+  variant = "primary",
+  isLoading = false,
+  disabled,
+  ...props
+}: ButtonProps) {
+  return (
+    <button
+      // Disable when loading
+      disabled={disabled || isLoading}
+      // Announce loading state to screen readers
+      aria-busy={isLoading}
+      // Describe the button's current state
+      aria-disabled={disabled || isLoading}
+      className={cn(
+        // Visible focus ring
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        // Minimum touch target size (44x44px)
+        "min-h-[44px] min-w-[44px]",
+        variant === "primary" && "bg-primary text-primary-foreground",
+        (disabled || isLoading) && "opacity-50 cursor-not-allowed",
+      )}
+      {...props}
+    >
+      {isLoading ? (
+        <>
+          <span className="sr-only">Loading</span>
+          <Spinner aria-hidden="true" />
+        </>
+      ) : (
+        children
+      )}
+    </button>
+  );
+}
+```
+
+### Pattern 2: Accessible Modal Dialog
+
+```tsx
+import * as React from "react";
+import { FocusTrap } from "@headlessui/react";
+
+interface DialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}
+
+function AccessibleDialog({ isOpen, onClose, title, children }: DialogProps) {
+  const titleId = React.useId();
+  const descriptionId = React.useId();
 
   // Close on Escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose()
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
       }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
+  // Prevent body scroll when open
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
-  }, [isOpen, onClose])
-
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-labelledby="modal-title"
-      ref={modalRef}
-      className="fixed inset-0 z-50"
+      aria-labelledby={titleId}
+      aria-describedby={descriptionId}
     >
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50"
-        onClick={onClose}
         aria-hidden="true"
+        onClick={onClose}
       />
 
-      {/* Modal Content */}
-      <div className="fixed inset-0 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg max-w-md w-full p-6">
-          <h2 id="modal-title" className="text-2xl font-bold mb-4">
-            Modal Title
-          </h2>
-          {children}
-          <button onClick={onClose} className="mt-4">
-            Close
-          </button>
+      {/* Focus trap container */}
+      <FocusTrap>
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="bg-background rounded-lg shadow-lg max-w-md w-full p-6">
+            <h2 id={titleId} className="text-lg font-semibold">
+              {title}
+            </h2>
+            <div id={descriptionId}>{children}</div>
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4"
+              aria-label="Close dialog"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
         </div>
-      </div>
+      </FocusTrap>
     </div>
-  )
+  );
 }
 ```
 
-**Skip to Main Content:**
+### Pattern 3: Accessible Form
 
-```typescript
-// frontend/src/components/SkipToContent.tsx
-export const SkipToContent = () => {
+```tsx
+function AccessibleForm() {
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
+
+  return (
+    <form aria-describedby="form-errors" noValidate>
+      {/* Error summary for screen readers */}
+      {Object.keys(errors).length > 0 && (
+        <div
+          id="form-errors"
+          role="alert"
+          aria-live="assertive"
+          className="bg-destructive/10 border border-destructive p-4 rounded-md mb-4"
+        >
+          <h2 className="font-semibold text-destructive">
+            Please fix the following errors:
+          </h2>
+          <ul className="list-disc list-inside mt-2">
+            {Object.entries(errors).map(([field, message]) => (
+              <li key={field}>
+                <a href={`#${field}`} className="underline">
+                  {message}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Required field with error */}
+      <div className="space-y-2">
+        <label htmlFor="email" className="block font-medium">
+          Email address
+          <span aria-hidden="true" className="text-destructive ml-1">
+            *
+          </span>
+          <span className="sr-only">(required)</span>
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          aria-required="true"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : "email-hint"}
+          className={cn(
+            "w-full px-3 py-2 border rounded-md",
+            errors.email && "border-destructive",
+          )}
+        />
+        {errors.email ? (
+          <p id="email-error" className="text-sm text-destructive" role="alert">
+            {errors.email}
+          </p>
+        ) : (
+          <p id="email-hint" className="text-sm text-muted-foreground">
+            We'll never share your email.
+          </p>
+        )}
+      </div>
+
+      <button type="submit" className="mt-4">
+        Submit
+      </button>
+    </form>
+  );
+}
+```
+
+### Pattern 4: Skip Navigation Link
+
+```tsx
+function SkipLink() {
   return (
     <a
       href="#main-content"
-      className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded"
+      className={cn(
+        // Hidden by default, visible on focus
+        "sr-only focus:not-sr-only",
+        "focus:absolute focus:top-4 focus:left-4 focus:z-50",
+        "focus:bg-background focus:px-4 focus:py-2 focus:rounded-md",
+        "focus:ring-2 focus:ring-primary",
+      )}
     >
       Skip to main content
     </a>
-  )
+  );
 }
 
-// Usage in App.tsx
-<SkipToContent />
-<Header />
-<main id="main-content">
-  {/* Page content */}
-</main>
-```
-
-### 4. Form Accessibility
-
-**Accessible Form:**
-
-```typescript
-// frontend/src/components/forms/AccessibleForm.tsx
-export const LoginForm = () => {
-  const [errors, setErrors] = useState<Record<string, string>>({})
-
+// In layout
+function Layout({ children }) {
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <div className="space-y-4">
-        {/* Email Field */}
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium mb-2"
-          >
-            Email <span aria-label="required" className="text-error">*</span>
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            aria-required="true"
-            aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? "email-error" : undefined}
-            className={cn(
-              "w-full px-3 py-2 border rounded-lg",
-              errors.email ? "border-error" : "border-input"
-            )}
-          />
-          {errors.email && (
-            <p
-              id="email-error"
-              role="alert"
-              className="text-sm text-error mt-1"
-            >
-              {errors.email}
-            </p>
-          )}
-        </div>
-
-        {/* Password Field */}
-        <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium mb-2"
-          >
-            Password <span aria-label="required" className="text-error">*</span>
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            required
-            aria-required="true"
-            aria-invalid={!!errors.password}
-            aria-describedby={errors.password ? "password-error password-requirements" : "password-requirements"}
-            className={cn(
-              "w-full px-3 py-2 border rounded-lg",
-              errors.password ? "border-error" : "border-input"
-            )}
-          />
-          <p id="password-requirements" className="text-xs text-muted-foreground mt-1">
-            Password must be at least 12 characters
-          </p>
-          {errors.password && (
-            <p
-              id="password-error"
-              role="alert"
-              className="text-sm text-error mt-1"
-            >
-              {errors.password}
-            </p>
-          )}
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        >
-          Sign In
-        </button>
-      </div>
-
-      {/* Form-level error */}
-      {errors.form && (
-        <div
-          role="alert"
-          aria-live="assertive"
-          className="mt-4 p-3 bg-error-light text-error rounded-lg"
-        >
-          {errors.form}
-        </div>
-      )}
-    </form>
-  )
+    <>
+      <SkipLink />
+      <header>...</header>
+      <nav aria-label="Main navigation">...</nav>
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
+      <footer>...</footer>
+    </>
+  );
 }
 ```
 
-### 5. Focus Indicators
+### Pattern 5: Live Region for Announcements
 
-**Custom Focus Styles:**
+```tsx
+function useAnnounce() {
+  const [message, setMessage] = React.useState("");
 
-```css
-/* frontend/src/index.css */
+  const announce = React.useCallback(
+    (text: string, priority: "polite" | "assertive" = "polite") => {
+      setMessage(""); // Clear first to ensure re-announcement
+      setTimeout(() => setMessage(text), 100);
+    },
+    [],
+  );
 
-/* Remove default outline and add custom focus ring */
-*:focus {
-  outline: none;
-}
-
-*:focus-visible {
-  outline: 2px solid hsl(var(--ring));
-  outline-offset: 2px;
-}
-
-/* Button focus styles */
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid hsl(var(--ring));
-  outline-offset: 2px;
-}
-
-/* Input focus styles */
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 2px solid hsl(var(--ring));
-  outline-offset: 2px;
-  border-color: hsl(var(--ring));
-}
-
-/* Skip to content link */
-.skip-to-content:focus {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 9999;
-  padding: 0.75rem 1rem;
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  border-radius: 0.375rem;
-}
-```
-
-### 6. Color Contrast
-
-**Check and Fix Contrast:**
-
-```typescript
-// Use colors that meet WCAG AA standards
-
-// ❌ Bad: Low contrast (2.5:1)
-<p className="text-gray-400 bg-gray-200">Low contrast text</p>
-
-// ✅ Good: High contrast (4.5:1+)
-<p className="text-gray-900 bg-gray-100">High contrast text</p>
-
-// ✅ Good: Using theme colors with proper contrast
-<p className="text-foreground bg-background">Theme colors</p>
-<button className="bg-primary text-primary-foreground">Button</button>
-
-// For links, ensure visible distinction
-<a href="#" className="text-primary underline hover:text-primary/90">
-  Link text
-</a>
-```
-
-**Contrast Checker Function:**
-
-```typescript
-// frontend/src/utils/colorContrast.ts
-export const getContrastRatio = (color1: string, color2: string): number => {
-  const getLuminance = (color: string) => {
-    // Convert hex to RGB
-    const rgb = parseInt(color.slice(1), 16)
-    const r = (rgb >> 16) & 0xff
-    const g = (rgb >> 8) & 0xff
-    const b = (rgb >> 0) & 0xff
-
-    // Calculate relative luminance
-    const [rs, gs, bs] = [r, g, b].map(c => {
-      c = c / 255
-      return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
-    })
-
-    return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs
-  }
-
-  const lum1 = getLuminance(color1)
-  const lum2 = getLuminance(color2)
-
-  const lighter = Math.max(lum1, lum2)
-  const darker = Math.min(lum1, lum2)
-
-  return (lighter + 0.05) / (darker + 0.05)
-}
-
-export const meetsWCAGAA = (color1: string, color2: string, isLargeText: boolean = false): boolean => {
-  const contrast = getContrastRatio(color1, color2)
-  return isLargeText ? contrast >= 3 : contrast >= 4.5
-}
-
-// Usage
-console.log(meetsWCAGAA('#0066CC', '#FFFFFF')) // true (7.4:1)
-console.log(meetsWCAGAA('#808080', '#FFFFFF')) // false (3.9:1)
-```
-
-### 7. Images and Alt Text
-
-```typescript
-// ❌ Bad: Missing alt text
-<img src="/team/john.jpg" />
-
-// ✅ Good: Descriptive alt text
-<img src="/team/john.jpg" alt="John Doe, Senior QA Engineer" />
-
-// ✅ Decorative images
-<img src="/decoration.svg" alt="" aria-hidden="true" />
-
-// ✅ Complex images with longer descriptions
-<figure>
-  <img
-    src="/chart.png"
-    alt="Bar chart showing test coverage by module"
-    aria-describedby="chart-desc"
-  />
-  <figcaption id="chart-desc">
-    The chart shows test coverage percentages for each module:
-    Authentication (95%), User Management (88%), Reports (76%),
-    Settings (92%).
-  </figcaption>
-</figure>
-```
-
-### 8. Live Regions for Dynamic Content
-
-```typescript
-// frontend/src/components/StatusMessage.tsx
-export const StatusMessage = ({ message, type }: { message: string; type: 'success' | 'error' | 'info' }) => {
-  return (
+  const Announcer = () => (
     <div
       role="status"
-      aria-live={type === 'error' ? 'assertive' : 'polite'}
+      aria-live="polite"
       aria-atomic="true"
-      className={cn(
-        "p-4 rounded-lg",
-        {
-          'bg-success-light text-success': type === 'success',
-          'bg-error-light text-error': type === 'error',
-          'bg-blue-50 text-blue-900': type === 'info',
-        }
-      )}
+      className="sr-only"
     >
       {message}
     </div>
-  )
+  );
+
+  return { announce, Announcer };
 }
 
 // Usage
-<StatusMessage
-  message="Team member created successfully"
-  type="success"
-/>
-```
+function SearchResults({ results, isLoading }) {
+  const { announce, Announcer } = useAnnounce();
 
-### 9. Accessible Data Tables
+  React.useEffect(() => {
+    if (!isLoading && results) {
+      announce(`${results.length} results found`);
+    }
+  }, [results, isLoading, announce]);
 
-```typescript
-// frontend/src/components/admin/AccessibleTable.tsx
-export const TeamMembersTable = ({ members }: { members: TeamMember[] }) => {
   return (
-    <table role="table" aria-label="Team members list">
-      <caption className="sr-only">
-        List of {members.length} team members
-      </caption>
-      <thead>
-        <tr>
-          <th scope="col">Photo</th>
-          <th scope="col">Name</th>
-          <th scope="col">Role</th>
-          <th scope="col">Email</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {members.map((member, index) => (
-          <tr key={member.id}>
-            <td>
-              <img
-                src={member.photo_url}
-                alt={`${member.name}'s profile photo`}
-                className="w-12 h-12 rounded-full"
-              />
-            </td>
-            <th scope="row">{member.name}</th>
-            <td>{member.role}</td>
-            <td>{member.email}</td>
-            <td>
-              <button
-                aria-label={`Edit ${member.name}`}
-                className="mr-2"
-              >
-                Edit
-              </button>
-              <button
-                aria-label={`Delete ${member.name}`}
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  )
+    <>
+      <Announcer />
+      <ul>{/* results */}</ul>
+    </>
+  );
 }
 ```
 
-### 10. Screen Reader Only Text
-
-```css
-/* frontend/src/index.css */
-
-/* Screen reader only class */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-/* Show on focus (for skip links) */
-.sr-only:focus {
-  position: static;
-  width: auto;
-  height: auto;
-  padding: initial;
-  margin: initial;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
-}
-```
+## Color Contrast Requirements
 
 ```typescript
-// Usage
-<span className="sr-only">Current page</span>
-<button aria-label="Close menu">
-  <X aria-hidden="true" />
-  <span className="sr-only">Close</span>
-</button>
+// Contrast ratio utilities
+function getContrastRatio(foreground: string, background: string): number {
+  const fgLuminance = getLuminance(foreground);
+  const bgLuminance = getLuminance(background);
+  const lighter = Math.max(fgLuminance, bgLuminance);
+  const darker = Math.min(fgLuminance, bgLuminance);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+// WCAG requirements
+const CONTRAST_REQUIREMENTS = {
+  // Normal text (<18pt or <14pt bold)
+  normalText: {
+    AA: 4.5,
+    AAA: 7,
+  },
+  // Large text (>=18pt or >=14pt bold)
+  largeText: {
+    AA: 3,
+    AAA: 4.5,
+  },
+  // UI components and graphics
+  uiComponents: {
+    AA: 3,
+  },
+};
 ```
 
-## Accessibility Testing
+## Best Practices
 
-### 1. Automated Testing with axe-core
+1. **Use Semantic HTML**: Prefer native elements over ARIA when possible
+2. **Test with Real Users**: Include people with disabilities in user testing
+3. **Keyboard First**: Design interactions to work without a mouse
+4. **Don't Disable Focus Styles**: Style them, don't remove them
+5. **Provide Text Alternatives**: All non-text content needs descriptions
+6. **Support Zoom**: Content should work at 200% zoom
+7. **Announce Changes**: Use live regions for dynamic content
+8. **Respect Preferences**: Honor prefers-reduced-motion and prefers-contrast
 
-```bash
-cd frontend
-npm install -D @axe-core/playwright
-```
+## Common Issues
 
-```python
-# tests/e2e/test_accessibility.py
-from axe_playwright_python import Axe
+- **Missing alt text**: Images without descriptions
+- **Poor color contrast**: Text hard to read against background
+- **Keyboard traps**: Focus stuck in component
+- **Missing labels**: Form inputs without associated labels
+- **Auto-playing media**: Content that plays without user initiation
+- **Inaccessible custom controls**: Recreating native functionality poorly
+- **Missing skip links**: No way to bypass repetitive content
+- **Focus order issues**: Tab order doesn't match visual order
 
-def test_homepage_accessibility(page):
-    """Test homepage accessibility."""
-    page.goto('http://localhost:5173')
+## Testing Tools
 
-    # Run axe accessibility scan
-    axe = Axe()
-    results = axe.run(page)
+- **Automated**: axe DevTools, WAVE, Lighthouse
+- **Manual**: VoiceOver (macOS/iOS), NVDA/JAWS (Windows), TalkBack (Android)
+- **Simulators**: NoCoffee (vision), Silktide (various disabilities)
 
-    violations = results['violations']
+## Resources
 
-    if violations:
-        print(f"\nFound {len(violations)} accessibility violations:\n")
-        for violation in violations:
-            print(f"❌ {violation['id']}: {violation['description']}")
-            print(f"   Impact: {violation['impact']}")
-            print(f"   Help: {violation['helpUrl']}")
-            print(f"   Affected nodes: {len(violation['nodes'])}\n")
-
-    # Assert no violations
-    assert len(violations) == 0, f"Found {len(violations)} accessibility violations"
-
-def test_admin_login_accessibility(page):
-    """Test login form accessibility."""
-    page.goto('http://localhost:5173/admin/login')
-
-    axe = Axe()
-    results = axe.run(page)
-
-    assert len(results['violations']) == 0
-```
-
-### 2. Keyboard Navigation Testing
-
-```python
-# tests/e2e/test_keyboard_navigation.py
-def test_keyboard_navigation(page):
-    """Test keyboard navigation through the page."""
-    page.goto('http://localhost:5173')
-
-    # Start from top
-    page.keyboard.press('Tab')
-
-    # Should focus skip link first
-    expect(page.locator('.skip-to-content')).to_be_focused()
-
-    # Tab through navigation
-    page.keyboard.press('Tab')
-    expect(page.locator('nav a:nth-child(1)')).to_be_focused()
-
-    # Test Enter key activation
-    page.keyboard.press('Enter')
-    # Should navigate
-
-def test_modal_focus_trap(page):
-    """Test focus is trapped inside modal."""
-    page.goto('http://localhost:5173/admin/team-members')
-
-    # Open modal
-    page.click('button:has-text("Add Team Member")')
-
-    # Tab through all focusable elements
-    # Last Tab should cycle back to first element
-    for _ in range(10):
-        page.keyboard.press('Tab')
-
-    # Focus should still be inside modal
-    assert page.locator('[role="dialog"]').evaluate('el => el.contains(document.activeElement)')
-
-    # Escape should close modal
-    page.keyboard.press('Escape')
-    expect(page.locator('[role="dialog"]')).not_to_be_visible()
-```
-
-### 3. Screen Reader Testing
-
-**Test with actual screen readers:**
-- **macOS:** VoiceOver (Cmd+F5)
-- **Windows:** NVDA (free), JAWS (paid)
-- **Linux:** Orca
-
-**Test checklist:**
-- [ ] All images have appropriate alt text
-- [ ] All form inputs have labels
-- [ ] Error messages are announced
-- [ ] Dynamic content changes are announced (aria-live)
-- [ ] Headings structure is logical
-- [ ] Landmarks are properly identified (header, nav, main, footer)
-- [ ] Lists are properly marked up
-
-### 4. Color Contrast Testing
-
-```bash
-# Install contrast checker
-npm install -D axe-core
-
-# Run contrast check
-npx axe http://localhost:5173 --rules=color-contrast
-```
-
-## WCAG 2.1 AA Checklist
-
-### Perceivable
-- [ ] All images have alt text
-- [ ] Videos have captions (if applicable)
-- [ ] Color is not the only means of conveying information
-- [ ] Text contrast >= 4.5:1 (normal), >= 3:1 (large text 18pt+)
-- [ ] Text can be resized to 200% without loss of content
-- [ ] Images of text avoided (use real text)
-
-### Operable
-- [ ] All functionality available via keyboard
-- [ ] No keyboard trap
-- [ ] Skip to main content link present
-- [ ] Page titles are descriptive
-- [ ] Link purpose clear from link text or context
-- [ ] Multiple ways to find pages (navigation, search, sitemap)
-- [ ] Headings and labels are descriptive
-- [ ] Focus indicator visible
-- [ ] No time limits (or user can extend)
-- [ ] No content flashing more than 3 times per second
-
-### Understandable
-- [ ] Language of page declared (html lang="en")
-- [ ] Language of parts declared if different
-- [ ] Navigation is consistent across pages
-- [ ] Labels or instructions provided for user input
-- [ ] Error messages are clear and helpful
-- [ ] Error prevention for important actions (confirmation)
-- [ ] Form fields have visible labels
-- [ ] Required fields are indicated
-
-### Robust
-- [ ] HTML validates (use W3C validator)
-- [ ] Name, role, value available for all UI components
-- [ ] Status messages programmatically determinable (aria-live)
-- [ ] Works with assistive technologies
-
-## Accessibility Resources
-
-**Tools:**
-- **axe DevTools:** Browser extension for accessibility testing
-- **Lighthouse:** Built into Chrome DevTools
-- **WAVE:** Web accessibility evaluation tool
-- **Color Contrast Analyzer:** Check color combinations
-- **Screen readers:** NVDA (Windows), VoiceOver (macOS), JAWS (Windows)
-
-**Documentation:**
-- WCAG 2.1: https://www.w3.org/WAI/WCAG21/quickref/
-- ARIA Authoring Practices: https://www.w3.org/WAI/ARIA/apg/
-- MDN Accessibility: https://developer.mozilla.org/en-US/docs/Web/Accessibility
-
-## Report
-
-✅ WCAG 2.1 AA compliance achieved
-✅ All images have descriptive alt text
-✅ Semantic HTML used throughout
-✅ ARIA labels added to interactive elements
-✅ Keyboard navigation fully functional
-✅ Focus indicators visible and clear
-✅ Color contrast meets 4.5:1 minimum
-✅ Forms fully accessible with proper labels
-✅ Screen reader tested (VoiceOver/NVDA)
-✅ Skip to content link implemented
-✅ No accessibility violations found (axe-core)
-✅ Automated tests passing
+- [WCAG 2.2 Guidelines](https://www.w3.org/WAI/WCAG22/quickref/)
+- [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
+- [A11y Project Checklist](https://www.a11yproject.com/checklist/)
+- [Inclusive Components](https://inclusive-components.design/)
+- [Deque University](https://dequeuniversity.com/)

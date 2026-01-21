@@ -1,7 +1,7 @@
 {
   "name": "rate-limiting",
-  "repo": "jonit-dev/pixelperfect",
-  "path": ".claude/skills/rate-limiting/SKILL.md",
-  "source": "github.com/jonit-dev/pixelperfect",
-  "downloaded_at": "2026-01-20T03:58:53.790413Z"
+  "repo": "MakFly/superpowers-symfony",
+  "path": "skills/rate-limiting/SKILL.md",
+  "source": "github.com/MakFly/superpowers-symfony",
+  "downloaded_at": "2026-01-21T03:31:18.149370Z"
 }

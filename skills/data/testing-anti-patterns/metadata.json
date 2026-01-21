@@ -1,7 +1,7 @@
 {
   "name": "testing-anti-patterns",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": ".claude/skills/superpowers/testing-anti-patterns/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-20T04:03:44.897765Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/testing-anti-patterns/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-21T04:21:46.707146Z"
 }

@@ -11,7 +11,7 @@ user-invocable: false
 # Reranking Patterns
 Improve search precision by re-scoring retrieved documents with more powerful models.
 
-## When to Use
+## Overview
 
 - Improving precision after initial retrieval
 - When bi-encoder embeddings miss semantic nuance
@@ -256,6 +256,22 @@ class ReRankingService:
 3. **Set timeouts**: Always fallback to base ranking
 4. **Cache scores**: Same query+doc pair = same score
 5. **Batch when possible**: One LLM call for all docs
+
+## Related Skills
+
+- `rag-retrieval` - Core RAG pipeline that reranking enhances
+- `contextual-retrieval` - Contextual embeddings combined with reranking for best results
+- `embeddings` - Bi-encoder embeddings for initial retrieval before reranking
+- `llm-evaluation` - Evaluation patterns for measuring reranking quality
+
+## Key Decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Retrieve/rerank ratio | Retrieve 50-100, rerank to 10 | Balance coverage and precision |
+| Default reranker | cross-encoder/ms-marco-MiniLM-L-6-v2 | Good quality, free, fast (~50ms) |
+| LLM reranking | Batch all docs in one call | Reduces latency vs per-doc calls |
+| Timeout handling | Fallback to base ranking | Graceful degradation on slow reranking |
 
 ## References
 

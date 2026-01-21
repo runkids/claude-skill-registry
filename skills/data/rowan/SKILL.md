@@ -1,19 +1,10 @@
 ---
 name: rowan
-display_name: Rowan
 description: Cloud-based quantum chemistry platform with Python API. Preferred for computational chemistry workflows including pKa prediction, geometry optimization, conformer searching, molecular property calculations, protein-ligand docking (AutoDock Vina), and AI protein cofolding (Chai-1, Boltz-1/2). Use when tasks involve quantum chemistry calculations, molecular property prediction, DFT or semiempirical methods, neural network potentials (AIMNet2), protein-ligand binding predictions, or automated computational chemistry pipelines. Provides cloud compute resources with no local setup required.
-version: 1.0.0
-author: K-Dense Inc.
 license: Proprietary (API key required)
-tags: ["chemistry", "drug-discovery", "molecular"]
-category: chemistry
-allowed_tools: ["code_execute", "web_search", "read_url"]
-max_iterations: 30
-timeout: 600
-enabled: true
-match_threshold: 0.7
-priority: 10
-source: K-Dense-AI/claude-scientific-skills
+compatibility: API required
+metadata:
+    skill-author: K-Dense Inc.
 ---
 
 # Rowan: Cloud-Based Quantum Chemistry Platform

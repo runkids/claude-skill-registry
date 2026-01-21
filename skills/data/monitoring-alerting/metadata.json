@@ -1,7 +1,7 @@
 {
   "name": "monitoring-alerting",
-  "repo": "ricardoroche/ricardos-claude-code",
-  "path": ".claude/skills/monitoring-alerting/SKILL.md",
-  "source": "github.com/ricardoroche/ricardos-claude-code",
-  "downloaded_at": "2026-01-20T03:49:19.219378Z"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/monitoring-alerting/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-21T02:43:07.017170Z"
 }

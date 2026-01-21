@@ -1,7 +1,7 @@
 {
   "name": "advanced-evaluation",
-  "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-  "path": "skills/advanced-evaluation/SKILL.md",
-  "source": "github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
-  "downloaded_at": "2026-01-20T03:32:17.992896Z"
+  "repo": "5dlabs/cto",
+  "path": "templates/skills/context/advanced-evaluation/SKILL.md",
+  "source": "github.com/5dlabs/cto",
+  "downloaded_at": "2026-01-21T01:45:13.012345Z"
 }

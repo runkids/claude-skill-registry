@@ -1,123 +1,237 @@
 ---
-name: pr-review
-description: Structured PR review with scoring, bug detection, and actionable feedback. Use when reviewing pull requests or code changes.
+description: Review pull requests including bot suggestions and CI checks
+triggers:
+  - review pr
+  - check pr
+  - review pull request
+  - checkout pr
+  - check pull request
+  - review github pr
 ---
 
-# PR Review Skill
+# Pull Request Review Workflow
 
-Provide a clear, concise, and actionable review of Pull Requests. Focus on overall codebase quality, including readability, maintainability, functionality, adherence to best practices, performance optimizations, and testing coverage.
+Complete workflow for reviewing pull requests, including checking out the code, reviewing bot suggestions, and verifying builds.
 
-## Focus Areas
+## Quick PR Checkout
 
-1. **Code Quality:** Assess readability, organization, and maintainability.
-2. **Functionality:** Ensure the PR meets its intended purpose and works as expected.
-3. **Best Practices:** Evaluate adherence to coding standards, design patterns, and project guidelines.
-4. **Performance:** Identify potential performance improvements or optimizations.
-5. **Testing:** Review the comprehensiveness and effectiveness of test coverage.
-6. **Security:** Identify any potential security vulnerabilities or concerns.
-7. **Bugs Found:** List any bugs identified in the PR.
+```bash
+# Checkout a PR by number
+gh pr checkout <PR_NUMBER>
 
-## Critical Instructions
+# View PR details
+gh pr view <PR_NUMBER>
 
-- If you have nothing to say about a particular section, omit it from the review.
-- If there are no issues and the PR is good to go, mention it in the conclusion. No unnecessary feedback.
-- Avoid minor nitpicks and repetitive feedback.
-
-## Scoring Criteria
-
-| Score  | Level         | Criteria                                                                                        |
-| ------ | ------------- | ----------------------------------------------------------------------------------------------- |
-| 90-100 | Exceptional   | Clean, efficient, well-documented. >90% test coverage. No security issues. Optimal performance. |
-| 75-89  | High Quality  | Well-structured, maintainable. 70-90% test coverage. Minor optimization opportunities.          |
-| 60-74  | Average       | Functional but needs improvement. 40-70% test coverage. Some code duplication.                  |
-| 40-59  | Below Average | Significant structural issues. <40% test coverage. Multiple security concerns.                  |
-| 0-39   | Poor          | Major architectural problems. Missing/broken tests. Critical security vulnerabilities.          |
-
-## Review Template
-
-```markdown
-### AI Review Summary
-
-**Score:** [0-100]
-
-_Brief summary of the PR purpose and main changes._
-
-**Key changes:**
-
-- Change 1
-- Change 2
-
----
-
-**Key Strengths**
-
-- **[Area]:** Description of strength
-- **[Area]:** Description of strength
-
----
-
-**Areas for Improvement** (if any)
-
-- **[Issue]:**
-  _Suggestion:_ Actionable recommendation
-
----
-
-**Bugs Found** (if any)
-
-| Bug Name              | Affected Files | Description | Confidence      |
-| --------------------- | -------------- | ----------- | --------------- |
-| [Bug Link](#bug-name) | `path/file.ts` | Description | High/Medium/Low |
-
-### Bug Details
-
-#### Bug: [Bug Name](#bug-name)
-
-- **Affected Files:** `path/file.ts`
-- **Description:** Detailed explanation
-- **Confidence:** High/Medium/Low
-
----
-
-**Issues Found** (if any)
-
-| Issue Type          | Issue Name                | Affected Components | Description | Severity        |
-| ------------------- | ------------------------- | ------------------- | ----------- | --------------- |
-| Performance/Testing | [Issue Link](#issue-name) | Component           | Description | High/Medium/Low |
-
-### Issue Details
-
-#### Issue: [Issue Name](#issue-name)
-
-- **Type:** Performance/Testing
-- **Affected Components:** `path/file.ts`
-- **Description:** Detailed explanation
-- **Severity:** High/Medium/Low
-
----
-
-**Performance Considerations** (if any)
-
-- **[Optimization]:** Actionable suggestion
-
----
-
-**Testing** (if any)
-
-- **[Coverage Gap]:** Suggestion for additional tests
-
----
-
-**Conclusion**
-
-_Summary of overall quality and readiness for merging._
+# Check CI/build status
+gh pr checks <PR_NUMBER>
 ```
 
-## Best Practices
+## Full Review Process
 
-- Use clear and concise language
-- Limit each section to 2-3 critical points
-- Use bullet points and clear headings
-- Provide actionable suggestions, not just complaints
-- Link bug/issue names to their details sections
-- Focus on impact, not style preferences
+### 1. Fetch PR Information
+
+```bash
+# View PR description and metadata
+gh pr view <PR_NUMBER>
+
+# View PR diff
+gh pr diff <PR_NUMBER>
+
+# List all PR comments
+gh pr view <PR_NUMBER> --comments
+```
+
+### 2. Checkout PR Code
+
+```bash
+# Checkout the PR branch
+gh pr checkout <PR_NUMBER>
+
+# Verify you're on the correct branch
+git branch --show-current
+```
+
+### 3. Review Bot Comments **CAREFULLY**
+
+**CRITICAL:** Bot suggestions require careful human evaluation.
+
+When reviewing bot comments (from GitHub bots, linters, or AI assistants):
+
+#### DO:
+- ✅ Read each suggestion carefully and understand what it's proposing
+- ✅ Evaluate whether the suggestion improves code quality
+- ✅ Check if the suggestion aligns with project coding standards
+- ✅ Verify the suggestion doesn't break functionality
+- ✅ Test changes if accepting bot suggestions
+- ✅ Consider context the bot might not understand
+
+#### DON'T:
+- ❌ Accept all bot suggestions blindly
+- ❌ Assume the bot understands project-specific conventions
+- ❌ Let the bot override your engineering judgment
+- ❌ Accept suggestions that reduce code clarity
+- ❌ Apply suggestions without understanding them
+
+#### Common Bot Suggestion Categories:
+
+1. **Code Style/Formatting**
+   - Usually safe to accept if consistent with project style
+   - Verify it doesn't conflict with existing patterns
+
+2. **Performance Optimizations**
+   - Evaluate whether the optimization is meaningful
+   - Check for potential side effects or edge cases
+
+3. **Security/Bug Fixes**
+   - These are high-priority but verify the fix is correct
+   - Ensure the fix doesn't introduce new issues
+
+4. **Refactoring Suggestions**
+   - Consider whether the refactoring improves readability
+   - Check if it aligns with project architecture
+
+5. **Dependency Updates**
+   - Verify compatibility with existing code
+   - Check for breaking changes in changelogs
+
+### 4. Check Build Status
+
+```bash
+# Check all CI checks
+gh pr checks <PR_NUMBER>
+
+# List recent workflow runs
+gh run list --limit 5
+
+# View specific workflow run
+gh run view <RUN_ID>
+```
+
+### 5. Test Locally
+
+**For firmware changes:**
+```bash
+cd inav
+./build.sh SITL  # or specific target
+```
+
+**For configurator changes:**
+```bash
+cd inav-configurator
+NODE_ENV=development npm start
+```
+
+### 6. Review Checklist
+
+Use this checklist when reviewing PRs:
+
+- [ ] Code follows project conventions and style
+- [ ] Changes are well-documented (comments, commit messages)
+- [ ] No unnecessary or debug code left in
+- [ ] All CI checks passing
+- [ ] Bot suggestions reviewed and valid ones addressed
+- [ ] Invalid bot suggestions documented/dismissed
+- [ ] Changes tested locally if significant
+- [ ] No breaking changes (or properly documented if unavoidable)
+- [ ] Related issues/PRs referenced
+
+## Viewing PR Comments
+
+```bash
+# View all comments including bot suggestions
+gh api repos/iNavFlight/inav/pulls/<PR_NUMBER>/comments
+
+# For configurator repo
+gh api repos/iNavFlight/inav-configurator/pulls/<PR_NUMBER>/comments
+```
+
+## Adding Review Comments
+
+```bash
+# Leave a review comment
+gh pr review <PR_NUMBER> --comment -b "Your comment here"
+
+# Approve PR
+gh pr review <PR_NUMBER> --approve -b "LGTM! Changes look good."
+
+# Request changes
+gh pr review <PR_NUMBER> --request-changes -b "Please address..."
+```
+
+## Common Review Scenarios
+
+### Bot Suggested Too Many Changes
+
+If a bot has suggested many changes:
+1. Group suggestions by category (style, performance, bugs)
+2. Evaluate each category separately
+3. Accept valid categories as a group
+4. Document why certain suggestions were rejected
+5. Provide clear feedback to PR author
+
+### Build Failures
+
+If CI checks are failing:
+1. Check `gh pr checks <PR_NUMBER>` for specific failures
+2. View workflow logs: `gh run view <RUN_ID> --log`
+3. Reproduce locally if needed
+4. Provide specific guidance on fixes
+
+### Merge Conflicts
+
+If PR has conflicts:
+1. PR author should resolve conflicts
+2. Verify conflict resolution doesn't break functionality
+3. Re-test after conflicts are resolved
+
+## After Review
+
+```bash
+# Return to your working branch
+git checkout <YOUR_BRANCH>
+
+# Or return to master
+git checkout master
+```
+
+## Example Review Workflow
+
+```bash
+# 1. Check out PR #2433
+gh pr checkout 2433
+
+# 2. View PR and comments
+gh pr view 2433 --comments
+
+# 3. Review bot suggestions carefully
+# (Read through comments, evaluate each suggestion)
+
+# 4. Check builds
+gh pr checks 2433
+
+# 5. Test locally
+cd inav-configurator
+NODE_ENV=development npm start
+
+# 6. Leave review
+gh pr review 2433 --approve -b "Reviewed bot suggestions. Accepted valid ones, documented rejected ones. Code looks good!"
+
+# 7. Return to your branch
+git checkout master
+```
+
+## Resources
+
+- **GitHub CLI docs:** `gh pr --help`
+- **Project review guidelines:** Check `claude/COMMUNICATION.md` for standards
+- **Recent PR reviews:** See `claude/projects/review-pr*/` for examples
+
+---
+
+## Related Skills
+
+- **git-workflow** - Checkout PR branches and manage git operations
+- **create-pr** - Create your own pull requests
+- **check-builds** - Check CI build status for PRs under review
+- **run-configurator** - Test configurator PRs locally
+- **build-sitl** - Build and test firmware PRs

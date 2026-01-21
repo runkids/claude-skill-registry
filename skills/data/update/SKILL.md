@@ -1,99 +1,67 @@
 ---
-description: Update Clorch to the latest version
+name: update
+description: "Updates DeepWork standard jobs in src/ and syncs to installed locations. Use when modifying deepwork_jobs or deepwork_rules."
 ---
 
-# Update Clorch
+# update
 
-Update your Clorch installation to the latest version.
+**Multi-step workflow**: Updates DeepWork standard jobs in src/ and syncs to installed locations. Use when modifying deepwork_jobs or deepwork_rules.
 
-## Process
+> **CRITICAL**: Always invoke steps using the Skill tool. Never copy/paste step instructions directly.
 
-### Step 1: Check Current Version
+A workflow for maintaining standard jobs bundled with DeepWork. Standard jobs
+(like `deepwork_jobs` and `deepwork_rules`) are source-controlled in
+`src/deepwork/standard_jobs/` and must be edited there—never in `.deepwork/jobs/`
+or `.claude/commands/` directly.
 
-```bash
-# Get current installed version
-current=$(cat ~/.claude/VERSION 2>/dev/null || echo "unknown")
-echo "Current version: $current"
+This job guides you through:
+1. Identifying which standard job(s) to update from conversation context
+2. Making changes in the correct source location (`src/deepwork/standard_jobs/[job_name]/`)
+3. Running `deepwork install` to propagate changes to `.deepwork/` and command directories
+4. Verifying the sync completed successfully
 
-# Get latest version from GitHub
-latest=$(curl -s https://api.github.com/repos/namesreallyblank/Clorch/releases/latest 2>/dev/null | grep '"tag_name"' | sed 's/.*"v\([^"]*\)".*/\1/' || echo "unknown")
-echo "Latest version: $latest"
+Use this job whenever you need to modify job.yml files, step instructions, or hooks
+for any standard job in the DeepWork repository.
+
+
+## Available Steps
+
+1. **job** - Edits standard job source files in src/ and runs deepwork install to sync changes. Use when updating job.yml or step instructions.
+
+## Execution Instructions
+
+### Step 1: Analyze Intent
+
+Parse any text following `/update` to determine user intent:
+- "job" or related terms → start at `update.job`
+
+### Step 2: Invoke Starting Step
+
+Use the Skill tool to invoke the identified starting step:
+```
+Skill tool: update.job
 ```
 
-### Step 2: Compare Versions
+### Step 3: Continue Workflow Automatically
 
-If current == latest:
-```
-╭─────────────────────────────────────╮
-│ ✓ Clorch is up to date (v{version}) │
-╰─────────────────────────────────────╯
-```
+After each step completes:
+1. Check if there's a next step in the sequence
+2. Invoke the next step using the Skill tool
+3. Repeat until workflow is complete or user intervenes
 
-If current < latest:
-```
-╭─────────────────────────────────────╮
-│ ⚡ Update available: v{current} → v{latest}
-│
-│ Changes in v{latest}:
-│ {changelog summary}
-│
-│ Update now? (y/n)
-╰─────────────────────────────────────╯
-```
+### Handling Ambiguous Intent
 
-### Step 3: Perform Update (if confirmed)
+If user intent is unclear, use AskUserQuestion to clarify:
+- Present available steps as numbered options
+- Let user select the starting point
 
-```bash
-# Find Clorch installation directory
-CLORCH_DIR="${CLORCH_SOURCE:-$HOME/Projects/Clorch}"
+## Guardrails
 
-if [ -d "$CLORCH_DIR/.git" ]; then
-    echo "Updating from $CLORCH_DIR..."
-    cd "$CLORCH_DIR"
-    git fetch origin
-    git pull origin main
-    ./install.sh
-    echo "Update complete!"
-else
-    echo "Clorch source not found at $CLORCH_DIR"
-    echo "Set CLORCH_SOURCE environment variable to your Clorch repo path"
-    echo "Or clone fresh: git clone https://github.com/namesreallyblank/Clorch.git"
-fi
-```
+- Do NOT copy/paste step instructions directly; always use the Skill tool to invoke steps
+- Do NOT skip steps in the workflow unless the user explicitly requests it
+- Do NOT proceed to the next step if the current step's outputs are incomplete
+- Do NOT make assumptions about user intent; ask for clarification when ambiguous
 
-### Step 4: Verify Update
+## Context Files
 
-```bash
-# Confirm new version
-new_version=$(cat ~/.claude/VERSION 2>/dev/null)
-echo "Now running Clorch v$new_version"
-```
-
-## Parameters
-
-- `/update` - Check and update interactively
-- `/update --check` - Only check, don't update
-- `/update --force` - Update without confirmation
-
-## Environment Variables
-
-| Variable | Default | Purpose |
-|----------|---------|---------|
-| `CLORCH_SOURCE` | `~/Projects/Clorch` | Path to Clorch git repo |
-
-## What Gets Updated
-
-- Global skills in `~/.claude/skills/`
-- Global agents in `~/.claude/agents/`
-- Global hooks in `~/.claude/hooks/`
-- Global rules in `~/.claude/rules/`
-- VERSION file
-
-**Note:** Project-specific agents in `.claude/agents/` are NOT touched. Use `/update-project` after updating to sync project agents.
-
-## Post-Update
-
-After updating:
-1. **Restart Claude Code** - Required to load new skills/agents
-2. **Run `/update-project`** - Update project-specific agents (optional)
-3. **Check changelog** - See what's new in the update
+- Job definition: `.deepwork/jobs/update/job.yml`

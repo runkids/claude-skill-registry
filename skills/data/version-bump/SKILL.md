@@ -1,90 +1,98 @@
 ---
 name: version-bump
-description: Increment app version numbers. Use when user asks to bump version, increment version, or prepare a release.
+description: Determines appropriate semantic version bumps based on changes. Use when deciding version numbers, evaluating breaking changes, or planning releases. Triggers on terms like "version", "semver", "breaking change", "major/minor/patch".
 ---
 
-# Version Bump
+# Semantic Versioning Skill
 
-## Action
-
-When this skill is invoked:
-1. Read current version from `mac-app/macos-host/Info.plist`
-2. Increment CFBundleShortVersionString (bump the last number, e.g., `0.2.0-alpha.10` → `0.2.0-alpha.11`)
-3. Increment CFBundleVersion build number (e.g., `11` → `12`)
-4. Apply the changes to Info.plist
-5. Report the version change to the user
-
-## Single Source of Truth
-
-All version information comes from:
-```
-mac-app/macos-host/Info.plist
-```
-
-Two version fields:
-- **CFBundleShortVersionString**: Display version (e.g., `0.2.0-alpha.4`)
-- **CFBundleVersion**: Build number (e.g., `5`) - must be incremented for every release
-
-## How to Update Version
-
-1. Edit `mac-app/macos-host/Info.plist`
-2. Update both fields:
-
-```xml
-<key>CFBundleShortVersionString</key>
-<string>0.2.0-alpha.5</string>
-<key>CFBundleVersion</key>
-<string>6</string>
-```
-
-**Important**: Always increment CFBundleVersion. Sparkle uses this numeric value to determine if an update is available.
+This skill helps determine appropriate version bumps following [Semantic Versioning](https://semver.org/).
 
 ## Version Format
 
-Follow semantic versioning with optional pre-release identifiers:
-- `MAJOR.MINOR.PATCH` for stable releases (e.g., `1.0.0`)
-- `MAJOR.MINOR.PATCH-alpha.N` for alpha releases (e.g., `0.2.0-alpha.4`)
-- `MAJOR.MINOR.PATCH-beta.N` for beta releases (e.g., `0.2.0-beta.1`)
-
-## Release Process
-
-1. Update version in `Info.plist` (both fields)
-2. Commit the change
-3. Push to main
-4. Go to GitHub Actions and manually trigger the "Release macOS App" workflow
-5. The workflow will:
-   - Read version from Info.plist
-   - Build and sign the app
-   - Notarize with Apple
-   - Create GitHub release with tag `v{version}`
-   - Update the appcast at releases.nomendex.com
-
-## Where Version is Used
-
-| Location | Source | Purpose |
-|----------|--------|---------|
-| Info.plist | Manual edit | Single source of truth |
-| GitHub Release | Workflow reads Info.plist | Release tag and assets |
-| Appcast XML | Workflow reads Info.plist | Sparkle update detection |
-| UI Sidebar | `/api/version` endpoint | Display to user |
-
-## API Endpoint
-
-The sidecar serves version info at `/api/version`:
-```json
-{
-  "version": "0.2.0-alpha.4",
-  "buildNumber": "5"
-}
+```
+MAJOR.MINOR.PATCH
 ```
 
-This reads from Info.plist at runtime, checking multiple paths for dev vs bundled app.
+- **MAJOR**: Breaking changes
+- **MINOR**: New features, backwards compatible
+- **PATCH**: Bug fixes, backwards compatible
 
-## Sparkle Update Detection
+## Version Bump Decision Tree
 
-Sparkle compares CFBundleVersion (build number) to determine updates:
-- Current app: build `5`
-- Appcast shows: build `6`
-- Result: Update available
+### MAJOR (X.0.0) - Breaking Changes
 
-This is why CFBundleVersion must always increase, even for the same display version.
+Bump MAJOR when you make incompatible API changes:
+
+- Removed public functions, methods, or types
+- Changed function signatures (parameters, return types)
+- Renamed public APIs
+- Changed default behavior that breaks existing usage
+- Removed CLI flags or changed their meaning
+- Changed configuration file format incompatibly
+
+### MINOR (0.X.0) - New Features
+
+Bump MINOR when you add functionality in a backwards compatible manner:
+
+- New commands or subcommands
+- New CLI flags
+- New configuration options
+- New output formats
+- New integrations or providers
+
+### PATCH (0.0.X) - Bug Fixes
+
+Bump PATCH when you make backwards compatible bug fixes:
+
+- Fix incorrect behavior
+- Fix crashes or errors
+- Performance improvements (no API changes)
+- Documentation fixes
+- Internal refactoring (no behavior changes)
+
+## Quick Reference
+
+| Change Type                      | Version Bump |
+|----------------------------------|--------------|
+| Breaking API change              | MAJOR        |
+| Removed feature                  | MAJOR        |
+| New command/feature              | MINOR        |
+| New CLI flag                     | MINOR        |
+| New provider/integration         | MINOR        |
+| Bug fix                          | PATCH        |
+| Performance fix                  | PATCH        |
+| Documentation only               | PATCH        |
+| Refactoring (no behavior change) | PATCH        |
+
+## Pre-1.0 Versioning
+
+For versions < 1.0.0 (like this project):
+- MINOR can include breaking changes
+- PATCH is for bug fixes and small features
+- More flexibility before reaching stability
+
+## Instructions
+
+1. Review all changes since last release:
+   ```bash
+   git log --oneline $(git describe --tags --abbrev=0)..HEAD
+   ```
+
+2. Check for breaking changes:
+   - Removed or renamed public APIs?
+   - Changed default behaviors?
+   - Incompatible configuration changes?
+
+3. If breaking changes exist -> MAJOR bump
+
+4. If new features exist -> MINOR bump
+
+5. If only fixes/refactoring -> PATCH bump
+
+## Version Update Locations
+
+When bumping version, update:
+
+1. **Cargo.toml** - `version = "X.Y.Z"`
+2. **CHANGELOG.md** - Add `## [X.Y.Z] - YYYY-MM-DD` section
+3. **Version links** - Update comparison URLs at bottom of CHANGELOG.md

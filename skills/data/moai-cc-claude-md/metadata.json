@@ -1,7 +1,7 @@
 {
   "name": "moai-cc-claude-md",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-cc-claude-md/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-20T03:30:11.453465Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-cc-claude-md/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-21T03:35:46.760185Z"
 }

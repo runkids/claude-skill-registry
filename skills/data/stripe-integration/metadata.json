@@ -1,7 +1,7 @@
 {
   "name": "stripe-integration",
-  "repo": "jonit-dev/pixelperfect",
-  "path": ".claude/skills/stripe-integration/SKILL.md",
-  "source": "github.com/jonit-dev/pixelperfect",
-  "downloaded_at": "2026-01-20T03:58:52.981569Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/payment-processing/skills/stripe-integration/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:10:58.134636Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "deployment-orchestrator",
-  "repo": "ainexllc/ainexsuite",
-  "path": ".claude/skills/deployment-orchestrator/SKILL.md",
-  "source": "github.com/ainexllc/ainexsuite",
-  "downloaded_at": "2026-01-20T04:00:38.191704Z"
+  "repo": "turbobeest/cursor-dev-system",
+  "path": "skills/deployment-orchestrator/SKILL.md",
+  "source": "github.com/turbobeest/cursor-dev-system",
+  "downloaded_at": "2026-01-21T04:07:50.997399Z"
 }

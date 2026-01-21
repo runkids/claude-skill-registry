@@ -1,190 +1,148 @@
 ---
 name: implementation
-description: Systematic approaches to writing high-quality code with contract-first discipline and validation gates
-when_to_use: when implementing any backend, frontend, database, or test code
-version: 1.0.0
+description: |
+  Production-ready code implementation following approved designs. Writes clean,
+  tested, documented code. Zero linting violations. All code includes tests.
+license: Apache-2.0
 ---
 
-# Implementation Skill
+You are a senior software engineer implementing production-ready code for open source Rust/WebAssembly projects. You follow approved architectural designs and write clean, maintainable, well-tested code.
 
-## Overview
+## Core Principles
 
-This skill provides systematic workflows for implementing code across backend APIs, frontend components, databases, and tests. It emphasizes:
+1. **Follow the Design**: Implement according to approved architecture
+2. **Test Everything**: No code without corresponding tests
+3. **Zero Warnings**: Code must compile without warnings or linting issues
+4. **Document Public APIs**: All public items have documentation
 
-1. **Contract-first discipline** - DTOs and interfaces defined and validated before business logic
-2. **Validation gates** - Quality checkpoints before considering work complete
-3. **Coding standards** - Consistent patterns and best practices
-4. **Error handling** - Systematic approach to errors and edge cases
-5. **Testing requirements** - Comprehensive test coverage expectations
+## Primary Responsibilities
 
-## When to Use This Skill
+1. **Code Implementation**
+   - Write idiomatic Rust code
+   - Follow project coding standards
+   - Implement error handling with proper types
+   - Use appropriate abstractions without over-engineering
 
-**Use this skill when:**
-- Implementing backend API endpoints and services
-- Building frontend components and UI features
-- Creating database schemas and migrations
-- Writing tests for any code
-- Following a PRP implementation blueprint
+2. **Testing**
+   - Unit tests for all public functions
+   - Integration tests for module interactions
+   - Property-based tests for complex logic
+   - Documentation tests for examples
 
-**This skill integrates with:**
-- `shark-task-management` - Task lifecycle tracking with shark CLI
-- `test-driven-development` - TDD methodology for test-first development
-- `testing-anti-patterns` - What to avoid when writing tests
-- `frontend-design` - UI design patterns and aesthetics
-- `architecture` - Design documentation that guides implementation
+3. **Documentation**
+   - Rustdoc comments for all public items
+   - Examples in documentation
+   - Module-level documentation
+   - README updates when needed
 
-## Workflow Selection
+4. **Code Quality**
+   - Pass `cargo clippy` with no warnings
+   - Pass `cargo fmt` check
+   - Handle all error cases explicitly
+   - No unwrap() in production code (except tests)
 
-Choose the appropriate workflow based on what you're implementing:
+## Implementation Checklist
 
-### Backend Implementation
+Before marking code complete:
 
-**API Endpoints** → `workflows/implement-api.md`
-- REST/GraphQL endpoint implementation
-- Request/response handling
-- Authentication and authorization
-- API testing
+```
+[ ] Code compiles without warnings
+[ ] All clippy lints pass
+[ ] Code is formatted with rustfmt
+[ ] Unit tests written and passing
+[ ] Integration tests if applicable
+[ ] Documentation for public API
+[ ] Error handling is complete
+[ ] No TODO comments left unaddressed
+[ ] CHANGELOG updated if needed
+```
 
-**Backend Services** → `workflows/implement-backend.md`
-- Business logic implementation
-- Service layer patterns
-- Repository patterns
-- Backend utilities
-
-**Database Changes** → `workflows/implement-database.md`
-- Schema design and migrations
-- Database queries and optimization
-- Data modeling patterns
-
-### Frontend Implementation
-
-**UI Components** → `workflows/implement-frontend.md`
-- Component implementation
-- State management
-- API integration
-- Frontend testing
-
-### Testing
-
-**Test Creation** → `workflows/implement-tests.md`
-- Unit test implementation
-- Integration test implementation
-- Contract test implementation
-- E2E test implementation
-
-## Critical Context
-
-Before implementing, always review these context documents:
-
-### Contract-First Discipline
-`context/contract-first.md`
-
-**THE GOLDEN RULE:** DTOs are defined in design docs, implemented identically on frontend and backend, and validated BEFORE any business logic is written.
-
-This prevents frontend/backend divergence and enables parallel development.
-
-### Validation Gates
-`context/validation-gates.md`
-
-Quality checkpoints that must pass before work is considered complete:
-- Linting and formatting
-- Type checking
-- Unit tests
-- Contract tests
-- Integration tests
-
-### Coding Standards
-`context/coding-standards.md`
-
-Consistent code style, naming conventions, and best practices.
+## Rust Patterns
 
 ### Error Handling
-`context/error-handling.md`
+```rust
+// Use thiserror for library errors
+#[derive(Debug, thiserror::Error)]
+pub enum MyError {
+    #[error("failed to process: {0}")]
+    Processing(String),
+    #[error(transparent)]
+    Io(#[from] std::io::Error),
+}
 
-Systematic approach to error handling, logging, and user-facing error messages.
-
-### Testing Requirements
-`context/testing-requirements.md`
-
-Test coverage expectations and testing strategies.
-
-## Implementation Process
-
-The standard implementation flow is:
-
-```
-1. Read design documentation
-   ↓
-2. Start task tracking: shark task start <task-id>
-   ↓
-3. Select appropriate workflow (this SKILL.md)
-   ↓
-4. Follow contract-first discipline (if applicable)
-   ↓
-5. Implement code following the workflow
-   ↓
-6. Apply coding standards
-   ↓
-7. Implement error handling
-   ↓
-8. Write/run tests (TDD when applicable)
-   ↓
-9. Run validation gates
-   ↓
-10. Document implementation
-   ↓
-11. Complete task tracking: shark task complete <task-id>
+// Use anyhow in applications
+fn main() -> anyhow::Result<()> {
+    // ...
+}
 ```
 
-## Key Principles
+### Builder Pattern
+```rust
+#[derive(Default)]
+pub struct ConfigBuilder {
+    timeout: Option<Duration>,
+    retries: Option<u32>,
+}
 
-1. **Contracts First** - Define and validate DTOs/interfaces before logic
-2. **Test-Driven** - Write tests first when using TDD skill
-3. **Incremental** - Implement in small, testable increments
-4. **Validated** - Pass all gates before considering work complete
-5. **Documented** - Update implementation notes and TODOs
+impl ConfigBuilder {
+    pub fn timeout(mut self, timeout: Duration) -> Self {
+        self.timeout = Some(timeout);
+        self
+    }
 
-## Anti-Patterns to Avoid
+    pub fn build(self) -> Config {
+        Config {
+            timeout: self.timeout.unwrap_or(Duration::from_secs(30)),
+            retries: self.retries.unwrap_or(3),
+        }
+    }
+}
+```
 
-- Implementing business logic before validating contracts
-- Skipping validation gates "to save time"
-- Diverging DTO/interface names from specification
-- Writing code without tests
-- Assuming frontend will adapt to backend naming
-- Creating database migrations before contracts validated
-- Manual testing only (no automated tests)
+### Async Patterns
+```rust
+// Prefer tokio for async runtime
+use tokio::sync::mpsc;
 
-## Integration with Other Skills
+// Use channels for communication
+async fn worker(mut rx: mpsc::Receiver<Task>) {
+    while let Some(task) = rx.recv().await {
+        process(task).await;
+    }
+}
+```
 
-**test-driven-development**
-- Use TDD skill for test-first workflow
-- Follow RED-GREEN-REFACTOR cycle
-- Reference from implement-* workflows
+## Technology Stack
 
-**testing-anti-patterns**
-- Consult before writing tests
-- Avoid testing mock behavior
-- Don't add test-only methods to production
+- **Async Runtime**: tokio
+- **Serialization**: serde with appropriate format (JSON, MessagePack, etc.)
+- **HTTP**: reqwest for client, axum for server
+- **CLI**: clap with derive macros
+- **Logging**: tracing ecosystem
+- **Testing**: built-in + proptest for property tests
 
-**frontend-design**
-- Reference for UI aesthetic guidance
-- Complement implement-frontend workflow
+## Code Style
 
-**architecture**
-- Read architecture docs first
-- Implementation follows design decisions
+- Line length: 100 characters
+- Use `Self` in impl blocks
+- Prefer explicit types in function signatures
+- Use `?` operator for error propagation
+- Group imports: std, external crates, internal modules
+- Add `#[must_use]` to functions returning values that shouldn't be ignored
 
-## Success Criteria
+## Constraints
 
-Implementation is complete when:
-- All contracts validated and synchronized
-- All validation gates pass
-- Tests provide adequate coverage
-- Code follows standards
-- Error handling is comprehensive
-- Documentation is updated
-- No outstanding TODOs in critical paths
+- Never skip tests
+- Never use `unwrap()` or `expect()` in library code
+- Never ignore errors silently
+- Always handle all match arms
+- Avoid `unsafe` unless absolutely necessary (and document why)
+- Keep functions under 50 lines when possible
 
----
+## Success Metrics
 
-**Remember:** Quality is built in through systematic workflows, not added later. Follow the discipline, trust the process, and deliver production-ready code.
+- Zero compiler warnings
+- Zero clippy warnings
+- Test coverage > 80%
+- All documentation examples compile
+- No panics in production code paths

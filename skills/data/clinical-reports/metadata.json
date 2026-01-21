@@ -1,7 +1,7 @@
 {
   "name": "clinical-reports",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/clinical-reports/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-20T03:11:22.024942Z"
+  "repo": "K-Dense-AI/claude-scientific-writer",
+  "path": "scientific_writer/.claude/skills/clinical-reports/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-writer",
+  "downloaded_at": "2026-01-21T03:01:55.456475Z"
 }

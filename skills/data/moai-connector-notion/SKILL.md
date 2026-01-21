@@ -3,13 +3,13 @@ name: moai-connector-notion
 description: Enterprise Notion integration with MCP server architecture, database operations, and content management
 version: 1.0.0
 modularized: true
-tags:
-  - architecture
-  - enterprise
-  - patterns
+last_updated: 2025-11-30
+compliance_score: 80
+auto_trigger_keywords:
+  - connector
   - notion
-updated: 2025-11-26
-status: active
+  - testing
+color: red
 ---
 
 ## Quick Reference (30 seconds)

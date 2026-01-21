@@ -1,18 +1,14 @@
 ---
 name: moai-connector-mcp
-aliases: [moai-mcp-development]
-category: connector
 description: MCP 1.0+ Custom Server Development with FastMCP Framework
 version: 3.0.0
 modularized: true
-tags:
+last_updated: 2025-11-30
+compliance_score: 70
+auto_trigger_keywords:
   - connector
-  - mcp-development
-  - fastmcp
-  - server-development
-  - protocol
-updated: 2025-11-27
-status: active
+  - mcp
+color: red
 ---
 
 ## Quick Reference

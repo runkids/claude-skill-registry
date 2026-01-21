@@ -1,390 +1,265 @@
 ---
 name: core-web-vitals
-description: Optimize Core Web Vitals (LCP, INP, CLS) for better page experience and search ranking. Use when asked to "improve Core Web Vitals", "fix LCP", "reduce CLS", "optimize INP", "page experience optimization", or "fix layout shifts".
-license: MIT
-metadata:
-  author: web-quality-skills
-  version: "1.0"
+description: Core Web Vitals optimization for LCP, INP, CLS with 2025/2026 thresholds, performance budgets, and RUM. Use when improving page performance, diagnosing CWV regressions, or setting performance budgets.
+tags: [performance, core-web-vitals, lcp, inp, cls, lighthouse, rum, web-vitals]
+context: fork
+agent: frontend-ui-developer
+version: 1.0.0
+allowed-tools: [Read, Write, Grep, Glob, Bash]
+author: SkillForge
+user-invocable: false
 ---
 
-# Core Web Vitals optimization
+# Core Web Vitals
 
-Targeted optimization for the three Core Web Vitals metrics that affect Google Search ranking and user experience.
+Performance optimization for Google's Core Web Vitals - LCP, INP, CLS with 2025 thresholds.
 
-## The three metrics
+## Core Web Vitals Thresholds (2025)
 
-| Metric | Measures | Good | Needs work | Poor |
-|--------|----------|------|------------|------|
-| **LCP** | Loading | ≤ 2.5s | 2.5s – 4s | > 4s |
-| **INP** | Interactivity | ≤ 200ms | 200ms – 500ms | > 500ms |
-| **CLS** | Visual Stability | ≤ 0.1 | 0.1 – 0.25 | > 0.25 |
+| Metric | Good | Needs Improvement | Poor |
+|--------|------|-------------------|------|
+| LCP (Largest Contentful Paint) | ≤ 2.5s | ≤ 4.0s | > 4.0s |
+| INP (Interaction to Next Paint) | ≤ 200ms | ≤ 500ms | > 500ms |
+| CLS (Cumulative Layout Shift) | ≤ 0.1 | ≤ 0.25 | > 0.25 |
 
-Google measures at the **75th percentile** — 75% of page visits must meet "Good" thresholds.
+> **Note**: INP replaced FID (First Input Delay) in March 2024 as the official responsiveness metric.
 
----
+### Upcoming 2026 Stricter Thresholds (Q4 2025 rollout)
 
-## LCP: Largest Contentful Paint
+| Metric | Current Good | 2026 Good |
+|--------|--------------|-----------|
+| LCP | ≤ 2.5s | ≤ 2.0s |
+| INP | ≤ 200ms | ≤ 150ms |
+| CLS | ≤ 0.1 | ≤ 0.08 |
 
-LCP measures when the largest visible content element renders. Usually this is:
-- Hero image or video
-- Large text block
-- Background image
-- `<svg>` element
+Plan for stricter thresholds now to maintain search rankings.
 
-### Common LCP issues
+## LCP Optimization
 
-**1. Slow server response (TTFB > 800ms)**
-```
-Fix: CDN, caching, optimized backend, edge rendering
-```
+### 1. Identify LCP Element
 
-**2. Render-blocking resources**
-```html
-<!-- ❌ Blocks rendering -->
-<link rel="stylesheet" href="/all-styles.css">
-
-<!-- ✅ Critical CSS inlined, rest deferred -->
-<style>/* Critical above-fold CSS */</style>
-<link rel="preload" href="/styles.css" as="style" 
-      onload="this.onload=null;this.rel='stylesheet'">
-```
-
-**3. Slow resource load times**
-```html
-<!-- ❌ No hints, discovered late -->
-<img src="/hero.jpg" alt="Hero">
-
-<!-- ✅ Preloaded with high priority -->
-<link rel="preload" href="/hero.webp" as="image" fetchpriority="high">
-<img src="/hero.webp" alt="Hero" fetchpriority="high">
-```
-
-**4. Client-side rendering delays**
 ```javascript
-// ❌ Content loads after JavaScript
-useEffect(() => {
-  fetch('/api/hero-text').then(r => r.json()).then(setHeroText);
-}, []);
-
-// ✅ Server-side or static rendering
-// Use SSR, SSG, or streaming to send HTML with content
-export async function getServerSideProps() {
-  const heroText = await fetchHeroText();
-  return { props: { heroText } };
-}
-```
-
-### LCP optimization checklist
-
-```markdown
-- [ ] TTFB < 800ms (use CDN, edge caching)
-- [ ] LCP image preloaded with fetchpriority="high"
-- [ ] LCP image optimized (WebP/AVIF, correct size)
-- [ ] Critical CSS inlined (< 14KB)
-- [ ] No render-blocking JavaScript in <head>
-- [ ] Fonts don't block text rendering (font-display: swap)
-- [ ] LCP element in initial HTML (not JS-rendered)
-```
-
-### LCP element identification
-```javascript
-// Find your LCP element
-new PerformanceObserver((list) => {
-  const entries = list.getEntries();
+// Find LCP element in DevTools
+new PerformanceObserver((entryList) => {
+  const entries = entryList.getEntries();
   const lastEntry = entries[entries.length - 1];
   console.log('LCP element:', lastEntry.element);
   console.log('LCP time:', lastEntry.startTime);
 }).observe({ type: 'largest-contentful-paint', buffered: true });
 ```
 
----
+### 2. Optimize LCP Images
 
-## INP: Interaction to Next Paint
+```tsx
+// Priority loading for hero image
+<img
+  src="/hero.webp"
+  alt="Hero"
+  fetchpriority="high"
+  loading="eager"
+  decoding="async"
+/>
 
-INP measures responsiveness across ALL interactions (clicks, taps, key presses) during a page visit. It reports the worst interaction (at 98th percentile for high-traffic pages).
+// Next.js Image with priority
+import Image from 'next/image';
 
-### INP breakdown
+<Image
+  src="/hero.webp"
+  alt="Hero"
+  priority
+  sizes="100vw"
+  quality={85}
+/>
+```
 
-Total INP = **Input Delay** + **Processing Time** + **Presentation Delay**
+### 3. Preload Critical Resources
 
-| Phase | Target | Optimization |
-|-------|--------|--------------|
-| Input Delay | < 50ms | Reduce main thread blocking |
-| Processing | < 100ms | Optimize event handlers |
-| Presentation | < 50ms | Minimize rendering work |
+```html
+<!-- Preload LCP image -->
+<link rel="preload" as="image" href="/hero.webp" fetchpriority="high" />
 
-### Common INP issues
+<!-- Preload critical font -->
+<link rel="preload" as="font" href="/fonts/inter.woff2" type="font/woff2" crossorigin />
 
-**1. Long tasks blocking main thread**
-```javascript
-// ❌ Long synchronous task
-function processLargeArray(items) {
-  items.forEach(item => expensiveOperation(item));
+<!-- Preconnect to critical origins -->
+<link rel="preconnect" href="https://api.example.com" />
+<link rel="dns-prefetch" href="https://analytics.example.com" />
+```
+
+### 4. Server-Side Rendering
+
+```typescript
+// Next.js - ensure SSR for LCP content
+export default async function Page() {
+  const data = await fetchCriticalData();
+  return <HeroSection data={data} />; // Rendered on server
 }
 
-// ✅ Break into chunks with yielding
-async function processLargeArray(items) {
-  const CHUNK_SIZE = 100;
-  for (let i = 0; i < items.length; i += CHUNK_SIZE) {
-    const chunk = items.slice(i, i + CHUNK_SIZE);
-    chunk.forEach(item => expensiveOperation(item));
-    
-    // Yield to main thread
-    await new Promise(r => setTimeout(r, 0));
-    // Or use scheduler.yield() when available
-  }
-}
+// Avoid client-only LCP content
+// BAD: LCP content loaded client-side
+const [data, setData] = useState(null);
+useEffect(() => { fetchData().then(setData); }, []);
 ```
 
-**2. Heavy event handlers**
-```javascript
-// ❌ All work in handler
-button.addEventListener('click', () => {
-  // Heavy computation
-  const result = calculateComplexThing();
-  // DOM updates
-  updateUI(result);
-  // Analytics
-  trackEvent('click');
-});
+## INP Optimization
 
-// ✅ Prioritize visual feedback
-button.addEventListener('click', () => {
-  // Immediate visual feedback
-  button.classList.add('loading');
-  
-  // Defer non-critical work
-  requestAnimationFrame(() => {
-    const result = calculateComplexThing();
-    updateUI(result);
-  });
-  
-  // Use requestIdleCallback for analytics
-  requestIdleCallback(() => trackEvent('click'));
-});
-```
+### 1. Break Up Long Tasks
 
-**3. Third-party scripts**
-```javascript
-// ❌ Eagerly loaded, blocks interactions
-<script src="https://heavy-widget.com/widget.js"></script>
-
-// ✅ Lazy loaded on interaction or visibility
-const loadWidget = () => {
-  import('https://heavy-widget.com/widget.js')
-    .then(widget => widget.init());
-};
-button.addEventListener('click', loadWidget, { once: true });
-```
-
-**4. Excessive re-renders (React/Vue)**
-```javascript
-// ❌ Re-renders entire tree
-function App() {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <Counter count={count} />
-      <ExpensiveComponent /> {/* Re-renders on every count change */}
-    </div>
-  );
+```typescript
+// BAD: Long synchronous task (blocks main thread)
+function processLargeArray(items: Item[]) {
+  items.forEach(processItem); // Blocks for entire duration
 }
 
-// ✅ Memoized expensive components
-const MemoizedExpensive = React.memo(ExpensiveComponent);
-
-function App() {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <Counter count={count} />
-      <MemoizedExpensive />
-    </div>
-  );
-}
-```
-
-### INP optimization checklist
-
-```markdown
-- [ ] No tasks > 50ms on main thread
-- [ ] Event handlers complete quickly (< 100ms)
-- [ ] Visual feedback provided immediately
-- [ ] Heavy work deferred with requestIdleCallback
-- [ ] Third-party scripts don't block interactions
-- [ ] Debounced input handlers where appropriate
-- [ ] Web Workers for CPU-intensive operations
-```
-
-### INP debugging
-```javascript
-// Identify slow interactions
-new PerformanceObserver((list) => {
-  for (const entry of list.getEntries()) {
-    if (entry.duration > 200) {
-      console.warn('Slow interaction:', {
-        type: entry.name,
-        duration: entry.duration,
-        processingStart: entry.processingStart,
-        processingEnd: entry.processingEnd,
-        target: entry.target
-      });
+// GOOD: Yield to main thread
+async function processLargeArray(items: Item[]) {
+  for (const item of items) {
+    processItem(item);
+    // Yield every 50ms to allow paint
+    if (performance.now() % 50 < 1) {
+      await scheduler.yield?.() ?? new Promise(r => setTimeout(r, 0));
     }
   }
-}).observe({ type: 'event', buffered: true, durationThreshold: 16 });
+}
 ```
 
----
+### 2. Use Transitions for Non-Urgent Updates
 
-## CLS: Cumulative Layout Shift
+```typescript
+import { useTransition, useDeferredValue } from 'react';
 
-CLS measures unexpected layout shifts. A shift occurs when a visible element changes position between frames without user interaction.
+function SearchResults() {
+  const [query, setQuery] = useState('');
+  const [isPending, startTransition] = useTransition();
 
-**CLS Formula:** `impact fraction × distance fraction`
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // Urgent: Update input immediately
+    setQuery(e.target.value);
 
-### Common CLS causes
+    // Non-urgent: Defer expensive filter
+    startTransition(() => {
+      setFilteredResults(filterResults(e.target.value));
+    });
+  };
 
-**1. Images without dimensions**
-```html
-<!-- ❌ Causes layout shift when loaded -->
-<img src="photo.jpg" alt="Photo">
-
-<!-- ✅ Space reserved -->
-<img src="photo.jpg" alt="Photo" width="800" height="600">
-
-<!-- ✅ Or use aspect-ratio -->
-<img src="photo.jpg" alt="Photo" style="aspect-ratio: 4/3; width: 100%;">
+  return (
+    <>
+      <input value={query} onChange={handleChange} />
+      {isPending && <Spinner />}
+      <ResultsList results={filteredResults} />
+    </>
+  );
+}
 ```
 
-**2. Ads, embeds, and iframes**
-```html
-<!-- ❌ Unknown size until loaded -->
-<iframe src="https://ad-network.com/ad"></iframe>
+### 3. Optimize Event Handlers
 
-<!-- ✅ Reserve space with min-height -->
-<div style="min-height: 250px;">
-  <iframe src="https://ad-network.com/ad" height="250"></iframe>
-</div>
+```typescript
+// BAD: Heavy computation in click handler
+<button onClick={() => {
+  const result = heavyComputation(); // Blocks paint
+  setResult(result);
+}}>Calculate</button>
 
-<!-- ✅ Or use aspect-ratio container -->
-<div style="aspect-ratio: 16/9;">
-  <iframe src="https://youtube.com/embed/..." 
-          style="width: 100%; height: 100%;"></iframe>
-</div>
-```
-
-**3. Dynamically injected content**
-```javascript
-// ❌ Inserts content above viewport
-notifications.prepend(newNotification);
-
-// ✅ Insert below viewport or use transform
-const insertBelow = viewport.bottom < newNotification.top;
-if (insertBelow) {
-  notifications.prepend(newNotification);
-} else {
-  // Animate in without shifting
-  newNotification.style.transform = 'translateY(-100%)';
-  notifications.prepend(newNotification);
-  requestAnimationFrame(() => {
-    newNotification.style.transform = '';
+// GOOD: Defer heavy work
+<button onClick={() => {
+  setLoading(true);
+  requestIdleCallback(() => {
+    const result = heavyComputation();
+    setResult(result);
+    setLoading(false);
   });
+}}>Calculate</button>
+```
+
+## CLS Optimization
+
+### 1. Reserve Space for Dynamic Content
+
+```css
+/* Reserve space for images */
+.image-container {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+/* Reserve space for ads */
+.ad-slot {
+  min-height: 250px;
 }
 ```
 
-**4. Web fonts causing FOUT**
+### 2. Explicit Dimensions
+
+```tsx
+// Always set width and height
+<img src="/photo.jpg" width={800} height={600} alt="Photo" />
+
+// Next.js Image handles this automatically
+<Image src="/photo.jpg" width={800} height={600} alt="Photo" />
+
+// For responsive images
+<Image src="/photo.jpg" fill sizes="(max-width: 768px) 100vw, 50vw" />
+```
+
+### 3. Avoid Layout-Shifting Fonts
+
 ```css
-/* ❌ Font swap shifts text */
+/* Use font-display: optional for non-critical fonts */
 @font-face {
-  font-family: 'Custom';
-  src: url('custom.woff2') format('woff2');
+  font-family: 'CustomFont';
+  src: url('/fonts/custom.woff2') format('woff2');
+  font-display: optional; /* Prevents flash of unstyled text */
 }
 
-/* ✅ Optional font (no shift if slow) */
+/* Or use size-adjust for fallback */
 @font-face {
-  font-family: 'Custom';
-  src: url('custom.woff2') format('woff2');
-  font-display: optional;
-}
-
-/* ✅ Or match fallback metrics */
-@font-face {
-  font-family: 'Custom';
-  src: url('custom.woff2') format('woff2');
-  font-display: swap;
-  size-adjust: 105%; /* Match fallback size */
+  font-family: 'Fallback';
+  src: local('Arial');
+  size-adjust: 105%;
   ascent-override: 95%;
-  descent-override: 20%;
 }
 ```
 
-**5. Animations triggering layout**
+### 4. Animations That Don't Cause Layout Shift
+
 ```css
-/* ❌ Animates layout properties */
-.animate {
-  transition: height 0.3s, width 0.3s;
+/* BAD: Changes layout properties */
+.expanding {
+  height: 0;
+  transition: height 0.3s;
+}
+.expanding.open {
+  height: 200px; /* Causes layout shift */
 }
 
-/* ✅ Use transform instead */
-.animate {
+/* GOOD: Use transform */
+.expanding {
+  transform: scaleY(0);
+  transform-origin: top;
   transition: transform 0.3s;
 }
-.animate.expanded {
-  transform: scale(1.2);
+.expanding.open {
+  transform: scaleY(1);
 }
 ```
 
-### CLS optimization checklist
+## Real User Monitoring (RUM)
 
-```markdown
-- [ ] All images have width/height or aspect-ratio
-- [ ] All videos/embeds have reserved space
-- [ ] Ads have min-height containers
-- [ ] Fonts use font-display: optional or matched metrics
-- [ ] Dynamic content inserted below viewport
-- [ ] Animations use transform/opacity only
-- [ ] No content injected above existing content
-```
+```typescript
+// web-vitals library
+import { onLCP, onINP, onCLS } from 'web-vitals';
 
-### CLS debugging
-```javascript
-// Track layout shifts
-new PerformanceObserver((list) => {
-  for (const entry of list.getEntries()) {
-    if (!entry.hadRecentInput) {
-      console.log('Layout shift:', entry.value);
-      entry.sources?.forEach(source => {
-        console.log('  Shifted element:', source.node);
-        console.log('  Previous rect:', source.previousRect);
-        console.log('  Current rect:', source.currentRect);
-      });
-    }
-  }
-}).observe({ type: 'layout-shift', buffered: true });
-```
-
----
-
-## Measurement tools
-
-### Lab testing
-- **Chrome DevTools** → Performance panel, Lighthouse
-- **WebPageTest** → Detailed waterfall, filmstrip
-- **Lighthouse CLI** → `npx lighthouse <url>`
-
-### Field data (real users)
-- **Chrome User Experience Report (CrUX)** → BigQuery or API
-- **Search Console** → Core Web Vitals report
-- **web-vitals library** → Send to your analytics
-
-```javascript
-import {onLCP, onINP, onCLS} from 'web-vitals';
-
-function sendToAnalytics({name, value, rating}) {
-  gtag('event', name, {
-    event_category: 'Web Vitals',
-    value: Math.round(name === 'CLS' ? value * 1000 : value),
-    event_label: rating
+function sendToAnalytics(metric: Metric) {
+  fetch('/api/vitals', {
+    method: 'POST',
+    body: JSON.stringify({
+      name: metric.name,
+      value: metric.value,
+      rating: metric.rating,
+      navigationType: metric.navigationType,
+    }),
+    keepalive: true, // Send even if page unloads
   });
 }
 
@@ -393,49 +268,197 @@ onINP(sendToAnalytics);
 onCLS(sendToAnalytics);
 ```
 
----
+## Performance Budgets
 
-## Framework quick fixes
-
-### Next.js
-```jsx
-// LCP: Use next/image with priority
-import Image from 'next/image';
-<Image src="/hero.jpg" priority fill alt="Hero" />
-
-// INP: Use dynamic imports
-const HeavyComponent = dynamic(() => import('./Heavy'), { ssr: false });
-
-// CLS: Image component handles dimensions automatically
+```json
+// lighthouse-budget.json
+{
+  "resourceSizes": [
+    { "resourceType": "script", "budget": 150 },
+    { "resourceType": "image", "budget": 300 },
+    { "resourceType": "total", "budget": 500 }
+  ],
+  "timings": [
+    { "metric": "largest-contentful-paint", "budget": 2500 },
+    { "metric": "cumulative-layout-shift", "budget": 0.1 }
+  ]
+}
 ```
 
-### React
-```jsx
-// LCP: Preload in head
-<link rel="preload" href="/hero.jpg" as="image" fetchpriority="high" />
+```typescript
+// webpack-budget.config.js
+module.exports = {
+  performance: {
+    maxAssetSize: 150000, // 150kb
+    maxEntrypointSize: 250000, // 250kb
+    hints: 'error', // Fail build if exceeded
+  },
+};
+```
 
-// INP: Memoize and useTransition
+## Debugging Tools
+
+| Tool | Use Case |
+|------|----------|
+| Chrome DevTools Performance | Identify long tasks, layout shifts |
+| Lighthouse | Lab data, recommendations |
+| PageSpeed Insights | Field data + lab data |
+| Web Vitals Extension | Real-time vitals overlay |
+| Chrome UX Report | Real user data by origin |
+
+## Quick Reference
+
+```typescript
+// ✅ LCP: Preload and prioritize hero image
+<link rel="preload" as="image" href="/hero.webp" fetchpriority="high" />
+<Image src="/hero.webp" priority fill sizes="100vw" />
+
+// ✅ INP: Use transitions for expensive updates
 const [isPending, startTransition] = useTransition();
-startTransition(() => setExpensiveState(newValue));
+const deferredQuery = useDeferredValue(query);
 
-// CLS: Always specify dimensions in img tags
+// ✅ CLS: Always set dimensions, reserve space
+<img src="/photo.jpg" width={800} height={600} alt="Photo" />
+<div className="min-h-[250px]">{/* Reserved space */}</div>
+
+// ✅ RUM: Send metrics reliably
+navigator.sendBeacon('/api/vitals', JSON.stringify(metric));
+
+// ✅ Font loading: Prevent FOUT/FOIT
+@font-face {
+  font-display: optional; // or swap with size-adjust
+}
+
+// ❌ NEVER: Client-side fetch for LCP content
+useEffect(() => { fetchHeroData().then(setData); }, []);
+
+// ❌ NEVER: Missing dimensions on images
+<img src="/photo.jpg" alt="Photo" /> // Causes CLS
+
+// ❌ NEVER: Heavy computation in event handlers
+onClick={() => { heavyComputation(); setResult(result); }}
 ```
 
-### Vue/Nuxt
-```vue
-<!-- LCP: Use nuxt/image with preload -->
-<NuxtImg src="/hero.jpg" preload loading="eager" />
+## Key Decisions
 
-<!-- INP: Use async components -->
-<component :is="() => import('./Heavy.vue')" />
+| Decision | Option A | Option B | Recommendation |
+|----------|----------|----------|----------------|
+| LCP content rendering | Client-side | SSR/SSG | **SSR/SSG** - Critical content must be in initial HTML |
+| Image format | JPEG/PNG | WebP/AVIF | **WebP** (AVIF for modern browsers) - 25-50% smaller |
+| Font loading | swap | optional | **optional** for non-critical, **swap** with fallback metrics |
+| INP optimization | Debounce | useTransition | **useTransition** - React 18+ native, better UX |
+| Monitoring | Lab only | Lab + Field | **Lab + Field** - Real user data is ground truth |
+| Performance budget | Soft warning | Hard fail | **Hard fail** in CI - Prevents regression |
 
-<!-- CLS: Use aspect-ratio CSS -->
-<img :style="{ aspectRatio: '16/9' }" />
+## Anti-Patterns (FORBIDDEN)
+
+```typescript
+// ❌ FORBIDDEN: LCP element rendered client-side
+function Hero() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetchHeroContent().then(setData);  // LCP waits for JS + fetch!
+  }, []);
+  return data ? <HeroImage src={data.image} /> : <Skeleton />;
+}
+
+// ❌ FORBIDDEN: Images without dimensions
+<img src="/photo.jpg" alt="Photo" />  // Browser can't reserve space
+// ✅ CORRECT: Always provide width/height
+<img src="/photo.jpg" width={800} height={600} alt="Photo" />
+
+// ❌ FORBIDDEN: Lazy loading LCP image
+<img src="/hero.webp" loading="lazy" />  // Delays LCP!
+// ✅ CORRECT: Eager load with high priority
+<img src="/hero.webp" fetchpriority="high" loading="eager" />
+
+// ❌ FORBIDDEN: Blocking main thread in handlers
+<button onClick={() => {
+  const result = expensiveOperation();  // Blocks INP!
+  setResult(result);
+}}>Calculate</button>
+// ✅ CORRECT: Defer heavy work
+<button onClick={() => {
+  startTransition(() => {
+    const result = expensiveOperation();
+    setResult(result);
+  });
+}}>Calculate</button>
+
+// ❌ FORBIDDEN: Layout-shifting animations
+.sidebar {
+  width: 0;
+  transition: width 0.3s;  // Causes layout shift!
+}
+// ✅ CORRECT: Use transform
+.sidebar {
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+}
+
+// ❌ FORBIDDEN: Inserting content above viewport
+function Banner() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setShow(true), 1000);  // CLS!
+  }, []);
+  return show ? <div className="fixed top-0">Banner</div> : null;
+}
+
+// ❌ FORBIDDEN: Font flash without fallback
+@font-face {
+  font-family: 'Custom';
+  src: url('/custom.woff2');
+  font-display: block;  // Shows nothing until font loads
+}
+
+// ❌ FORBIDDEN: Only measuring in lab environment
+// Lab data != real user experience
+// Always combine Lighthouse with RUM (web-vitals library)
+
+// ❌ FORBIDDEN: Third-party scripts blocking render
+<script src="https://slow-analytics.com/script.js"></script>
+// ✅ CORRECT: Defer or async non-critical scripts
+<script src="https://analytics.com/script.js" defer></script>
 ```
+
+## Related Skills
+
+- `image-optimization` - Comprehensive image optimization strategies
+- `observability-monitoring` - Production monitoring and alerting
+- `react-server-components-framework` - SSR/RSC for LCP optimization
+- `frontend-ui-developer` - Modern frontend patterns
+- `accessibility-specialist` - Performance intersects with a11y (skip links, focus management)
+
+## Capability Details
+
+### lcp-optimization
+**Keywords**: LCP, largest-contentful-paint, hero, preload, priority, SSR, TTFB
+**Solves**: Slow initial render, delayed hero content, poor Time to First Byte
+
+### inp-optimization
+**Keywords**: INP, interaction, responsiveness, long-task, transition, yield, scheduler
+**Solves**: Slow button responses, janky scrolling, blocked main thread
+
+### cls-prevention
+**Keywords**: CLS, layout-shift, dimensions, aspect-ratio, font-display, skeleton
+**Solves**: Content jumping, image pop-in, font flash, ad insertion shifts
+
+### rum-monitoring
+**Keywords**: RUM, web-vitals, field-data, analytics, sendBeacon, percentile
+**Solves**: Understanding real user experience, identifying regressions, alerting
+
+### performance-budgets
+**Keywords**: budget, webpack, lighthouse-ci, bundle-size, threshold, regression
+**Solves**: Preventing performance degradation, enforcing standards, CI integration
+
+### 2026-thresholds
+**Keywords**: 2026, stricter, LCP-2.0s, INP-150ms, CLS-0.08, future-proof
+**Solves**: Preparing for Google's stricter thresholds before they become ranking factors
 
 ## References
 
-- [web.dev LCP](https://web.dev/articles/lcp)
-- [web.dev INP](https://web.dev/articles/inp)
-- [web.dev CLS](https://web.dev/articles/cls)
-- [Performance skill](../performance/SKILL.md)
+- `references/rum-setup.md` - Complete RUM implementation
+- `templates/performance-monitoring.ts` - Monitoring template
+- `checklists/cwv-checklist.md` - Optimization checklist
+- `examples/cwv-examples.md` - Real-world optimization examples

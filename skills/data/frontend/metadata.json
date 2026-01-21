@@ -1,7 +1,7 @@
 {
   "name": "frontend",
-  "repo": "CreativeEntelechy/trading-agent",
-  "path": ".agent/skills/frontend/lightweight-charts-skill.md",
-  "source": "github.com/CreativeEntelechy/trading-agent",
-  "downloaded_at": "2026-01-20T03:26:06.034915Z"
+  "repo": "pluginagentmarketplace/custom-plugin-typescript",
+  "path": "skills/frontend/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-typescript",
+  "downloaded_at": "2026-01-21T02:38:47.515271Z"
 }

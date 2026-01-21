@@ -1,716 +1,237 @@
 ---
-name: tailwind-css-patterns
-description: Comprehensive Tailwind CSS utility-first styling patterns including responsive design, layout utilities, flexbox, grid, spacing, typography, colors, and modern CSS best practices. Use when styling React/Vue/Svelte components, building responsive layouts, implementing design systems, or optimizing CSS workflow.
-language: html,tsx,jsx,vue,svelte
-framework: tailwindcss
-license: MIT
+name: "Tailwind CSS"
+description: "Utility-first CSS framework for rapidly building custom user interfaces"
+when_to_use: "When you need to style HTML/React components with utility classes, create responsive layouts, or build UI components with Tailwind CSS"
+requirements: ["Node.js", "Tailwind CSS installed", "PostCSS configuration"]
 ---
 
-# Tailwind CSS Development Patterns
+# Tailwind CSS
 
-Expert guide for building modern, responsive user interfaces with Tailwind CSS utility-first framework. Covers v4.1+ features including CSS-first configuration, custom utilities, and enhanced developer experience.
-
-## When to Use
-
-- Styling React/HTML components with utility classes
-- Building responsive layouts with breakpoints
-- Implementing flexbox and grid layouts
-- Managing spacing, colors, and typography
-- Creating custom design systems
-- Optimizing for mobile-first design
-- Building dark mode interfaces
-
-## Core Concepts
-
-### Utility-First Approach
-
-Apply styles directly in markup using utility classes:
+## Quick Start
 
 ```html
-<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-  Click me
-</button>
+<!-- Basic card component -->
+<div class="max-w-sm mx-auto bg-white rounded-xl shadow-md p-6">
+  <h2 class="text-xl font-bold text-gray-800 mb-2">Card Title</h2>
+  <p class="text-gray-600">Card content goes here</p>
+  <button
+    class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  >
+    Action
+  </button>
+</div>
+```
+
+```jsx
+// React component example
+function Button({ variant = "primary", children, ...props }) {
+  const baseClasses = "font-semibold py-2 px-4 rounded transition-colors";
+  const variantClasses = {
+    primary: "bg-blue-500 hover:bg-blue-700 text-white",
+    secondary: "bg-gray-200 hover:bg-gray-300 text-gray-800",
+  };
+
+  return (
+    <button className={`${baseClasses} ${variantClasses[variant]}`} {...props}>
+      {children}
+    </button>
+  );
+}
+```
+
+## Common Patterns
+
+### Layout Systems
+
+```html
+<!-- Flexbox centering -->
+<div class="flex items-center justify-center min-h-screen">
+  <div class="text-center">Centered content</div>
+</div>
+
+<!-- Grid layout -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="bg-white p-6 rounded-lg shadow">Item 1</div>
+  <div class="bg-white p-6 rounded-lg shadow">Item 2</div>
+  <div class="bg-white p-6 rounded-lg shadow">Item 3</div>
+</div>
+
+<!-- Responsive container -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Content -->
+</div>
 ```
 
 ### Responsive Design
 
-Mobile-first breakpoints with prefixes:
-
 ```html
+<!-- Responsive text sizing -->
+<h1 class="text-2xl md:text-3xl lg:text-4xl font-bold">Responsive Heading</h1>
+
+<!-- Responsive spacing -->
+<div class="py-4 sm:py-6 lg:py-8">
+  <!-- Content with responsive padding -->
+</div>
+
+<!-- Mobile-first approach -->
 <div class="w-full md:w-1/2 lg:w-1/3">
   <!-- Full width on mobile, half on tablet, third on desktop -->
 </div>
 ```
 
-Breakpoint prefixes:
-- `sm:` - 640px and above
-- `md:` - 768px and above
-- `lg:` - 1024px and above
-- `xl:` - 1280px and above
-- `2xl:` - 1536px and above
-
-## Layout Utilities
-
-### Flexbox Layouts
-
-Basic flex container:
+### Component Patterns
 
 ```html
-<div class="flex items-center justify-between">
-  <div>Left</div>
-  <div>Center</div>
-  <div>Right</div>
-</div>
-```
-
-Responsive flex direction:
-
-```html
-<div class="flex flex-col md:flex-row gap-4">
-  <div class="flex-1">Item 1</div>
-  <div class="flex-1">Item 2</div>
-  <div class="flex-1">Item 3</div>
-</div>
-```
-
-Common flex patterns:
-
-```html
-<!-- Center content -->
-<div class="flex items-center justify-center min-h-screen">
-  <div>Centered Content</div>
-</div>
-
-<!-- Space between items -->
-<div class="flex justify-between items-center">
-  <span>Left</span>
-  <span>Right</span>
-</div>
-
-<!-- Vertical stack with gap -->
-<div class="flex flex-col gap-4">
-  <div>Item 1</div>
-  <div>Item 2</div>
-</div>
-```
-
-### Grid Layouts
-
-Basic grid:
-
-```html
-<div class="grid grid-cols-3 gap-4">
-  <div>Column 1</div>
-  <div>Column 2</div>
-  <div>Column 3</div>
-</div>
-```
-
-Responsive grid:
-
-```html
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-  <!-- 1 column mobile, 2 tablet, 4 desktop -->
-  <div>Item 1</div>
-  <div>Item 2</div>
-  <div>Item 3</div>
-  <div>Item 4</div>
-</div>
-```
-
-Auto-fit columns:
-
-```html
-<div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
-  <!-- Automatically fit columns based on container width -->
-</div>
-```
-
-### Container & Max Width
-
-Centered container with max width:
-
-```html
-<div class="container mx-auto px-4 max-w-7xl">
-  <!-- Centered content with padding -->
-</div>
-```
-
-Responsive max width:
-
-```html
-<div class="w-full max-w-md mx-auto">
-  <!-- Max 448px width, centered -->
-</div>
-```
-
-## Spacing
-
-### Padding & Margin
-
-Uniform spacing:
-
-```html
-<div class="p-4">Padding all sides</div>
-<div class="m-4">Margin all sides</div>
-```
-
-Individual sides:
-
-```html
-<div class="pt-4 pr-8 pb-4 pl-8">
-  <!-- Top 1rem, Right 2rem, Bottom 1rem, Left 2rem -->
-</div>
-```
-
-Axis-based spacing:
-
-```html
-<div class="px-4 py-8">
-  <!-- Horizontal padding 1rem, Vertical padding 2rem -->
-</div>
-```
-
-Responsive spacing:
-
-```html
-<div class="p-4 md:p-8 lg:p-12">
-  <!-- Increases padding at larger breakpoints -->
-</div>
-```
-
-Space between children:
-
-```html
-<div class="space-y-4">
-  <div>Item 1</div>
-  <div>Item 2</div>
-  <div>Item 3</div>
-</div>
-```
-
-## Typography
-
-### Font Size & Weight
-
-```html
-<h1 class="text-4xl font-bold">Large Heading</h1>
-<h2 class="text-2xl font-semibold">Subheading</h2>
-<p class="text-base font-normal">Body text</p>
-<small class="text-sm text-gray-600">Small text</small>
-```
-
-Responsive typography:
-
-```html
-<h1 class="text-2xl md:text-4xl lg:text-6xl font-bold">
-  Responsive Heading
-</h1>
-```
-
-### Line Height & Letter Spacing
-
-```html
-<p class="leading-relaxed tracking-wide">
-  Text with relaxed line height and wide letter spacing
-</p>
-```
-
-### Text Alignment
-
-```html
-<p class="text-left md:text-center">
-  Left aligned on mobile, centered on tablet+
-</p>
-```
-
-## Colors
-
-### Background Colors
-
-```html
-<div class="bg-blue-500">Blue background</div>
-<div class="bg-gray-100">Light gray background</div>
-<div class="bg-gradient-to-r from-blue-500 to-purple-600">
-  Gradient background
-</div>
-```
-
-### Text Colors
-
-```html
-<p class="text-gray-900">Dark text</p>
-<p class="text-blue-600">Blue text</p>
-<p class="text-red-500">Error text</p>
-```
-
-### Opacity
-
-```html
-<div class="bg-blue-500 bg-opacity-50">
-  Semi-transparent blue
-</div>
-```
-
-## Interactive States
-
-### Hover States
-
-```html
-<button class="bg-blue-500 hover:bg-blue-700 transition">
-  Hover me
-</button>
-
-<a class="text-blue-600 hover:text-blue-800 hover:underline">
-  Hover link
-</a>
-```
-
-### Focus States
-
-```html
-<input class="border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none">
-```
-
-### Active & Disabled States
-
-```html
-<button class="bg-blue-500 active:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed">
-  Button
-</button>
-```
-
-### Group Hover
-
-```html
-<div class="group">
-  <img class="group-hover:opacity-75" src="image.jpg" />
-  <p class="group-hover:text-blue-600">Hover the parent</p>
-</div>
-```
-
-## Component Patterns
-
-### Card Component
-
-```html
-<div class="bg-white rounded-lg shadow-lg overflow-hidden">
-  <img class="w-full h-48 object-cover" src="image.jpg" alt="Card image" />
-  <div class="p-6">
-    <h3 class="text-xl font-bold mb-2">Card Title</h3>
-    <p class="text-gray-700 mb-4">Card description text goes here.</p>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Action
-    </button>
-  </div>
-</div>
-```
-
-### Responsive User Card
-
-```html
-<div class="max-w-sm mx-auto bg-white rounded-xl shadow-lg overflow-hidden sm:flex sm:max-w-2xl">
-  <img class="h-48 w-full object-cover sm:h-auto sm:w-48" 
-       src="profile.jpg" 
-       alt="Profile" />
-  <div class="p-8">
-    <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-      Product Engineer
-    </div>
-    <h2 class="mt-1 text-xl font-semibold text-gray-900">
-      John Doe
-    </h2>
-    <p class="mt-2 text-gray-500">
-      Building amazing products with modern technology.
-    </p>
-    <button class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
-      Contact
-    </button>
-  </div>
-</div>
-```
-
-### Navigation Bar
-
-```html
+<!-- Navigation bar -->
 <nav class="bg-white shadow-lg">
-  <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center h-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
       <div class="flex items-center">
-        <a href="#" class="text-xl font-bold text-gray-800">Logo</a>
+        <div class="text-xl font-bold text-gray-800">Logo</div>
       </div>
-      <div class="hidden md:flex space-x-8">
-        <a href="#" class="text-gray-700 hover:text-blue-600 transition">Home</a>
-        <a href="#" class="text-gray-700 hover:text-blue-600 transition">About</a>
-        <a href="#" class="text-gray-700 hover:text-blue-600 transition">Services</a>
-        <a href="#" class="text-gray-700 hover:text-blue-600 transition">Contact</a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#" class="text-gray-600 hover:text-gray-800">Home</a>
+        <a href="#" class="text-gray-600 hover:text-gray-800">About</a>
+        <a href="#" class="text-gray-600 hover:text-gray-800">Contact</a>
       </div>
-      <button class="md:hidden">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
     </div>
   </div>
 </nav>
+
+<!-- Form inputs -->
+<div class="space-y-4">
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+    <input
+      type="email"
+      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+    />
+  </div>
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+    <textarea
+      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      rows="4"
+    ></textarea>
+  </div>
+</div>
+
+<!-- Card with hover effects -->
+<div
+  class="transform transition-all duration-200 hover:scale-105 hover:shadow-xl"
+>
+  <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+    <img src="image.jpg" alt="Card image" class="w-full h-48 object-cover" />
+    <div class="p-6">
+      <h3 class="text-lg font-semibold mb-2">Card Title</h3>
+      <p class="text-gray-600">Card description with hover effects</p>
+    </div>
+  </div>
+</div>
 ```
 
-### Form Elements
+### Utility Combinations
 
 ```html
-<form class="space-y-6 max-w-md mx-auto">
-  <div>
-    <label class="block text-sm font-medium text-gray-700 mb-2">
-      Email
-    </label>
-    <input 
-      type="email" 
-      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-      placeholder="you@example.com"
-    />
-  </div>
-  
-  <div>
-    <label class="block text-sm font-medium text-gray-700 mb-2">
-      Password
-    </label>
-    <input 
-      type="password" 
-      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-    />
-  </div>
-  
-  <div class="flex items-center">
-    <input type="checkbox" class="mr-2" />
-    <label class="text-sm text-gray-600">Remember me</label>
-  </div>
-  
-  <button 
-    type="submit"
-    class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+<!-- Text with gradient -->
+<div
+  class="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent"
+>
+  Gradient Text
+</div>
+
+<!-- Glass morphism effect -->
+<div class="backdrop-blur-md bg-white/20 border border-white/30 rounded-lg p-6">
+  Glass effect card
+</div>
+
+<!-- Custom spacing with arbitrary values -->
+<div class="p-[2.5rem] m-[1.75rem]">Custom padding and margin</div>
+
+<!-- Aspect ratio containers -->
+<div class="aspect-w-16 aspect-h-9">
+  <iframe src="video-url" class="w-full h-full"></iframe>
+</div>
+```
+
+### Dark Mode
+
+```html
+<!-- Dark mode aware component -->
+<div
+  class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg p-6"
+>
+  <h2 class="text-xl font-bold mb-4">Dark Mode Compatible</h2>
+  <p class="text-gray-600 dark:text-gray-300">
+    This content adapts to dark/light theme
+  </p>
+</div>
+
+<!-- Toggle button -->
+<button
+  class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded"
+>
+  Toggle Theme
+</button>
+```
+
+## Interactive Elements
+
+```html
+<!-- Buttons with states -->
+<button
+  class="bg-blue-500 hover:bg-blue-700 active:bg-blue-800 text-white font-bold py-2 px-4 rounded transition-colors"
+>
+  Interactive Button
+</button>
+
+<!-- Dropdown menu -->
+<div class="relative">
+  <button
+    class="bg-white border border-gray-300 rounded-md px-4 py-2 text-left"
   >
-    Sign In
+    Select Option
   </button>
-</form>
-```
-
-### Modal/Dialog
-
-```html
-<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-  <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-xl font-bold">Modal Title</h3>
-      <button class="text-gray-500 hover:text-gray-700">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-    </div>
-    <p class="text-gray-700 mb-6">
-      Modal content goes here.
-    </p>
-    <div class="flex justify-end space-x-4">
-      <button class="px-4 py-2 text-gray-600 hover:text-gray-800">
-        Cancel
-      </button>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-        Confirm
-      </button>
-    </div>
+  <div
+    class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg"
+  >
+    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 1</a>
+    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 2</a>
   </div>
 </div>
 ```
 
-## Responsive Design Patterns
-
-### Mobile-First Responsive Layout
+## Animation & Transitions
 
 ```html
-<div class="container mx-auto px-4">
-  <!-- Hero Section -->
-  <div class="flex flex-col md:flex-row items-center gap-8 py-12">
-    <div class="flex-1">
-      <h1 class="text-3xl md:text-5xl font-bold mb-4">
-        Welcome to Our Site
-      </h1>
-      <p class="text-lg text-gray-600 mb-6">
-        Build amazing things with Tailwind CSS
-      </p>
-      <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
-        Get Started
-      </button>
-    </div>
-    <div class="flex-1">
-      <img src="hero.jpg" class="w-full rounded-lg shadow-lg" />
-    </div>
-  </div>
+<!-- Fade in animation -->
+<div class="animate-fade-in opacity-0 animation-fill-forwards">
+  Fade in content
 </div>
+
+<!-- Smooth transitions -->
+<div class="transform transition-transform duration-300 hover:translate-x-2">
+  Slide on hover
+</div>
+
+<!-- Loading spinner -->
+<div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
 ```
 
-### Responsive Grid Gallery
+## Custom CSS Integration
 
-```html
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-  <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
-    <img src="image1.jpg" class="w-full h-full object-cover hover:scale-105 transition" />
-  </div>
-  <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
-    <img src="image2.jpg" class="w-full h-full object-cover hover:scale-105 transition" />
-  </div>
-  <!-- More items... -->
-</div>
-```
-
-## Dark Mode
-
-### Basic Dark Mode Support
-
-```html
-<div class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-  <h1 class="text-gray-900 dark:text-white">Title</h1>
-  <p class="text-gray-600 dark:text-gray-400">Description</p>
-</div>
-```
-
-Enable dark mode in tailwind.config.js:
-
-```javascript
+```css
+/* tailwind.config.js */
 module.exports = {
-  darkMode: 'class', // or 'media'
-  // ...
-}
-```
-
-## Animations & Transitions
-
-### Basic Transitions
-
-```html
-<button class="bg-blue-500 hover:bg-blue-700 transition duration-300">
-  Smooth transition
-</button>
-```
-
-### Transform Effects
-
-```html
-<div class="transform hover:scale-110 transition duration-300">
-  Scale on hover
-</div>
-
-<img class="transform hover:rotate-6 transition duration-300" />
-```
-
-### Built-in Animations
-
-```html
-<div class="animate-spin">Spinning</div>
-<div class="animate-pulse">Pulsing</div>
-<div class="animate-bounce">Bouncing</div>
-```
-
-## Performance Optimization
-
-### Bundle Size Optimization
-
-Configure content sources for optimal purging:
-
-```javascript
-// tailwind.config.js
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,vue,svelte}",
-    "./node_modules/@mycompany/ui-lib/**/*.{js,ts,jsx,tsx}",
-  ],
-  // Enable JIT for faster builds
-  jit: true,
-}
-```
-
-### CSS Optimization Techniques
-
-```html
-<!-- Use content-visibility for offscreen content -->
-<div class="content-visibility-auto">
-  <div>Heavy content that's initially offscreen</div>
-</div>
-
-<!-- Optimize images with aspect-ratio -->
-<img class="aspect-video w-full object-cover" src="video.jpg" alt="Video thumbnail" />
-
-<!-- Use contain for paint optimization -->
-<div class="contain-layout">
-  Complex layout that doesn't affect outside elements
-</div>
-```
-
-### Development Performance
-
-```css
-/* Enable CSS-first configuration in v4.1 */
-@import "tailwindcss";
-
-@theme {
-  /* Define once, use everywhere */
-  --color-brand: #3b82f6;
-  --font-mono: "Fira Code", monospace;
-}
-
-/* Critical CSS for above-the-fold content */
-@layer critical {
-  .hero-title {
-    @apply text-4xl md:text-6xl font-bold;
-  }
-}
-```
-
-## Accessibility Guidelines
-
-### Focus Management
-
-```html
-<!-- Custom focus styles that meet WCAG AA -->
-<button class="focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-offset-2">
-  Accessible Button
-</button>
-
-<!-- Skip links for keyboard navigation -->
-<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4">
-  Skip to main content
-</a>
-```
-
-### Screen Reader Support
-
-```html
-<!-- Semantic buttons with ARIA labels -->
-<button aria-label="Close dialog" class="p-2">
-  <svg class="w-5 h-5" fill="none" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-  </svg>
-</button>
-
-<!-- Descriptive links -->
-<a href="/docs" aria-describedby="docs-description">
-  Documentation
-</a>
-<p id="docs-description" class="sr-only">
-  Learn how to use our API and integration guides
-</p>
-```
-
-### Color Contrast
-
-```html
-<!-- Ensure sufficient contrast ratios -->
-<div class="bg-gray-900 text-white">
-  High contrast text (WCAG AAA)
-</div>
-
-<div class="bg-blue-500 text-blue-100">
-  Good contrast on colored backgrounds
-</div>
-
-<!-- Use contrast utilities for testing -->
-<div class="bg-red-500 text-white contrast-more:bg-red-600 contrast-more:text-red-100">
-  Adjusts for high contrast mode
-</div>
-```
-
-### Motion Preferences
-
-```html
-<!-- Respect prefers-reduced-motion -->
-<div class="transform transition-transform motion-reduce:transition-none">
-  Doesn't animate when user prefers reduced motion
-</div>
-
-<!-- Conditional animations -->
-<div class="animate-pulse motion-safe:hover:animate-spin">
-  Only animates when motion is preferred
-</div>
-```
-
-## Best Practices
-
-1. **Mobile-First**: Start with mobile styles, add responsive prefixes for larger screens
-2. **Consistent Spacing**: Use Tailwind's spacing scale (4, 8, 12, 16, etc.)
-3. **Color Palette**: Stick to Tailwind's color system for consistency
-4. **Component Extraction**: Extract repeated patterns into components
-5. **Utility Composition**: Prefer utility classes over @apply for better maintainability
-6. **Semantic HTML**: Use proper HTML elements with Tailwind classes
-7. **Performance**: Configure content paths correctly for optimal CSS purging
-8. **Accessibility**: Include focus styles, ARIA labels, and respect user preferences
-9. **CSS-First Config**: Use @theme directive for v4.1+ instead of JavaScript config
-10. **Custom Utilities**: Create reusable utilities with @utility for complex patterns
-
-## Configuration
-
-### CSS-First Configuration (v4.1+)
-
-Use the `@theme` directive for CSS-based configuration:
-
-```css
-/* src/styles.css */
-@import "tailwindcss";
-
-@theme {
-  /* Custom colors */
-  --color-brand-50: #f0f9ff;
-  --color-brand-500: #3b82f6;
-  --color-brand-900: #1e3a8a;
-
-  /* Custom fonts */
-  --font-display: "Inter", system-ui, sans-serif;
-  --font-mono: "Fira Code", monospace;
-
-  /* Custom spacing */
-  --spacing-128: 32rem;
-
-  /* Custom animations */
-  --animate-fade-in: fadeIn 0.5s ease-in-out;
-
-  /* Custom breakpoints */
-  --breakpoint-3xl: 1920px;
-}
-
-/* Define custom animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Custom utilities */
-@utility content-auto {
-  content-visibility: auto;
-}
-```
-
-### JavaScript Configuration (Legacy)
-
-```javascript
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,vue,svelte}",
-  ],
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f9ff',
-          500: '#3b82f6',
-          900: '#1e3a8a',
-        },
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        brand: '#3B82F6',
+        'brand-dark': '#1E40AF',
       },
       spacing: {
-        '128': '32rem',
+        '72': '18rem',
+        '84': '21rem',
       },
     },
   },
@@ -718,95 +239,24 @@ export default {
 }
 ```
 
-### Vite Integration (v4.1+)
-
-```javascript
-// vite.config.ts
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  plugins: [
-    tailwindcss(),
-  ],
-})
-```
-
-## Advanced v4.1 Features
-
-### Native CSS Custom Properties
-
 ```html
-<div class="bg-[var(--color-brand-500)] text-[var(--color-white)]">
-  Using CSS custom properties directly
-</div>
+<!-- Using custom theme values -->
+<div class="bg-brand text-white p-4">Custom brand color</div>
+<div class="p-72">Custom spacing</div>
 ```
 
-### Enhanced Arbitrary Values
+## Best Practices
 
-```html
-<!-- Complex grid with custom tracks -->
-<div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
-  Responsive grid without custom CSS
-</div>
+1. **Component-based approach**: Extract repeated class combinations into components
+2. **Mobile-first**: Use responsive prefixes (`md:`, `lg:`) to enhance mobile designs
+3. **Consistent spacing**: Use the spacing scale (`p-4`, `m-6`, `gap-8`) consistently
+4. **Semantic naming**: Use utility classes that describe their function
+5. **Responsive images**: Always include `object-cover` or `object-contain` for images
 
-<!-- Custom animation timing -->
-<div class="animate-bounce ease-[cubic-bezier(0.68,-0.55,0.265,1.55)]">
-  Bounce with custom easing
-</div>
-```
+## Performance Tips
 
-### Container Queries
-
-```html
-<!-- Component that responds to its container size -->
-<div class="@container">
-  <div class="@lg:text-xl @2xl:text-2xl">
-    Text size based on container, not viewport
-  </div>
-</div>
-```
-
-## Common Patterns with React/JSX
-
-```tsx
-import { useState } from 'react';
-
-function Button({ 
-  variant = 'primary', 
-  size = 'md', 
-  children 
-}: {
-  variant?: 'primary' | 'secondary';
-  size?: 'sm' | 'md' | 'lg';
-  children: React.ReactNode;
-}) {
-  const baseClasses = 'font-semibold rounded transition';
-  
-  const variantClasses = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700',
-    secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
-  };
-  
-  const sizeClasses = {
-    sm: 'px-3 py-1 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg',
-  };
-  
-  return (
-    <button 
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`}
-    >
-      {children}
-    </button>
-  );
-}
-```
-
-## References
-
-- Tailwind CSS Docs: https://tailwindcss.com/docs
-- Tailwind UI: https://tailwindui.com
-- Tailwind Play: https://play.tailwindcss.com
-- Headless UI: https://headlessui.com
+- Use PurgeCSS/JIT mode to remove unused utilities
+- Group related classes together
+- Use CSS variables for dynamic values
+- Leverage container queries for component-based responsive design
+- Consider using `@apply` sparingly for truly reusable patterns

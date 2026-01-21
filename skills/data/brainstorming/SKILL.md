@@ -1,54 +1,58 @@
 ---
-name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+name: ctx-brainstorming
+description: Rapid ideation skill adapted from obra/superpowers to kick off cortex sessions. Use when defining scope, aligning on goals, or exploring solution space before coding.
+license: MIT (obra/superpowers)
+command: /ctx:brainstorm
 ---
 
-# Brainstorming Ideas Into Designs
+# `/ctx:brainstorm`
 
-## Overview
+Ported from obra/superpowers (MIT). Optimized for cortex so brainstorming outputs flow directly into Supersaiyan visuals and the Task TUI.
 
-Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
+## When to run
 
-Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
+- **Before touching code**: align on problem, success signals, blockers.
+- **After big context shifts**: new stakeholder, major dependency change, fresh repo checkout.
+- **When you feel stuck**: broaden solution space before diving back in.
 
-## The Process
+## Inputs you need
 
-**Understanding the idea:**
-- Check out the current project state first (files, docs, recent commits)
-- Ask questions one at a time to refine the idea
-- Prefer multiple choice questions when possible, but open-ended is fine too
-- Only one question per message - if a topic needs more exploration, break it into multiple questions
-- Focus on understanding: purpose, constraints, success criteria
+- Current goal or ticket reference.
+- Repo hints: relevant `modes/` (e.g., `modes/Super_Saiyan.md`) and `scenarios/` if they exist.
+- Constraints (deadline, platforms, regulatory, etc.).
 
-**Exploring approaches:**
-- Propose 2-3 different approaches with trade-offs
-- Present options conversationally with your recommendation and reasoning
-- Lead with your recommended option and explain why
+## Steps
 
-**Presenting the design:**
-- Once you believe you understand what you're building, present the design
-- Break it into sections of 200-300 words
-- Ask after each section whether it looks right so far
-- Cover: architecture, components, data flow, error handling, testing
-- Be ready to go back and clarify if something doesn't make sense
+1. **Set the stage**
+   - Load `modes/Super_Saiyan.md` (CTRL+P → "Super Saiyan Mode") for visual/tone context.
+   - Skim any `scenarios/ideation/*.md` tied to the feature.
+2. **Map the landscape**
+   - List known goals, success metrics, blockers, unknowns.
+   - Capture existing assets (agents, rules, workflows) that might help.
+3. **Generate options**
+   - Expand at least three distinct approaches (different modes, agents, or workflows).
+   - Note pros/cons, risk, required verification per approach.
+4. **Select candidate plan**
+   - Pick the best approach and flag what still needs validation.
+5. **Seed Tasks**
+   - Open the Task view (`T`) and add top-level tasks from the brainstorming takeaways (or run `/ctx:plan` next to formalize).
 
-## After the Design
+## Output format
 
-**Documentation:**
-- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- Use elements-of-style:writing-clearly-and-concisely skill if available
-- Commit the design document to git
+```
+### Problem / Goal
+### Success Signals
+### Constraints / Risks
+### Existing Assets
+### Options
+- Option A …
+- Option B …
+- Option C …
+### Chosen Direction & Next Checks
+```
 
-**Implementation (if continuing):**
-- Ask: "Ready to set up for implementation?"
-- Use superpowers:using-git-worktrees to create isolated workspace
-- Use superpowers:writing-plans to create detailed implementation plan
+Paste the summary into the chat (or save under `scenarios/`). Then move to `/ctx:plan`.
 
-## Key Principles
+## Resources
 
-- **One question at a time** - Don't overwhelm with multiple questions
-- **Multiple choice preferred** - Easier to answer than open-ended when possible
-- **YAGNI ruthlessly** - Remove unnecessary features from all designs
-- **Explore alternatives** - Always propose 2-3 approaches before settling
-- **Incremental validation** - Present design in sections, validate each
-- **Be flexible** - Go back and clarify when something doesn't make sense
+- See `skills/collaboration/brainstorming/resources/examples.md` for ready-made follow-up prompts.

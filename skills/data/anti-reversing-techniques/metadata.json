@@ -1,7 +1,7 @@
 {
   "name": "anti-reversing-techniques",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/anti-reversing-techniques/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-20T02:53:56.952672Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/reverse-engineering/skills/anti-reversing-techniques/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:11:02.408725Z"
 }

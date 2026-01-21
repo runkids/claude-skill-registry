@@ -1,7 +1,7 @@
 {
   "name": "technical-writing",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "path": ".claude/skills/technical-writing/SKILL.md",
-  "source": "github.com/proffesor-for-testing/agentic-qe",
-  "downloaded_at": "2026-01-20T04:05:02.617336Z"
+  "repo": "cosmix/loom",
+  "path": "skills/technical-writing/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-21T03:13:38.125486Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "youtube-transcribe-skill",
-  "repo": "feiskyer/claude-code-settings",
-  "path": "plugins/youtube-transcribe-skill/skills/youtube-transcribe-skill/SKILL.md",
-  "source": "github.com/feiskyer/claude-code-settings",
-  "downloaded_at": "2026-01-20T02:31:32.265620Z"
+  "repo": "feiskyer/codex-settings",
+  "path": "skills/youtube-transcribe-skill/SKILL.md",
+  "source": "github.com/feiskyer/codex-settings",
+  "downloaded_at": "2026-01-21T03:37:20.549796Z"
 }

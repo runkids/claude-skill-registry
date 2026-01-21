@@ -1,7 +1,7 @@
 {
   "name": "pptx-generator",
-  "repo": "ntaksh42/agents",
-  "path": ".claude/skills/pptx-generator/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-20T03:00:02.115611Z"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/document-processing/presentation/pptx-generator/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-21T03:40:37.696227Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-kv",
-  "repo": "jezweb/claude-skills",
-  "path": "skills/cloudflare-kv/SKILL.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-01-20T01:50:54.143717Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/cloudflare-kv/skills/cloudflare-kv/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:46.965733Z"
 }

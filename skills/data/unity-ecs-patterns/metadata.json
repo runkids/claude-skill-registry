@@ -1,7 +1,7 @@
 {
   "name": "unity-ecs-patterns",
-  "repo": "as4584/antigravity-skills",
-  "path": "agents-wshobson/plugins/game-development/skills/unity-ecs-patterns/SKILL.md",
-  "source": "github.com/as4584/antigravity-skills",
-  "downloaded_at": "2026-01-20T02:34:48.088249Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/game-development/skills/unity-ecs-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:10:57.569344Z"
 }

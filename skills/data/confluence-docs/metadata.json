@@ -1,7 +1,7 @@
 {
   "name": "confluence-docs",
-  "repo": "bybren-llc/wtfb-safe-agentic-workflow",
+  "repo": "bybren-llc/safe-agentic-workflow",
   "path": ".gemini/skills/confluence-docs/SKILL.md",
-  "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
-  "downloaded_at": "2026-01-20T03:31:11.920098Z"
+  "source": "github.com/bybren-llc/safe-agentic-workflow",
+  "downloaded_at": "2026-01-21T03:57:27.018453Z"
 }

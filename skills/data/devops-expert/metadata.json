@@ -1,7 +1,7 @@
 {
   "name": "devops-expert",
-  "repo": "ryu-qqq/AuthHub",
-  "path": ".claude/skills/devops-expert/SKILL.md",
-  "source": "github.com/ryu-qqq/AuthHub",
-  "downloaded_at": "2026-01-20T02:58:43.144948Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/devops/devops-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-21T01:47:36.791185Z"
 }

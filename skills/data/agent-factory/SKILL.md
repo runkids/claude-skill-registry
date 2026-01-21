@@ -1,268 +1,426 @@
 ---
 name: agent-factory
-description: Claude Code agent generation system that creates custom agents and sub-agents with enhanced YAML frontmatter, tool access patterns, and MCP integration support following proven production patterns
+description: Create new PAI agents using AGENT_FACTORY.md patterns. Guides through archetype selection (Researcher, Validator, Generator, Critic, Synthesizer), validates against CONSTITUTION.md, and generates agent specifications following established templates.
+model_tier: opus
+parallel_hints:
+  can_parallel_with: [skill-factory]
+  must_serialize_with: []
+  preferred_batch_size: 1
+context_hints:
+  max_file_context: 60
+  compression_level: 1
+  requires_git_context: true
+  requires_db_context: false
+escalation_triggers:
+  - pattern: "Full Execute"
+    reason: "Full Execute authority requires ARCHITECT approval"
+  - pattern: "CONSTITUTION.*violation"
+    reason: "Constitution violations require governance review"
+  - keyword: ["overlap", "conflict", "bypass"]
+    reason: "Agent conflicts need human resolution"
 ---
 
-# Agent Factory
+# Agent Factory Skill
 
-A comprehensive system for generating production-ready Claude Code agents and sub-agents. This skill provides templates, standards, and generation tools to create custom agents that seamlessly integrate with Claude Code's agent system.
+Meta-skill for creating new PAI (Personal AI) agents using established archetypes and templates.
 
-## What This Skill Does
+## When This Skill Activates
 
-This skill helps you create custom Claude Code agents for any domain or workflow. It generates properly formatted agent files that Claude Code can automatically discover and invoke when relevant.
+- User requests creation of a new agent
+- Need to extend PAI system with specialized capability
+- Orchestrator identifies gap requiring new agent
+- Existing agents cannot handle emerging responsibility
+- `/agent-factory` command invoked
 
-### Capabilities
+## Prerequisites
 
-1. **Generate Custom Agents** - Create specialized agents for any domain (frontend, backend, testing, product, etc.)
-2. **Enhanced YAML Frontmatter** - Rich metadata including color coding, field categorization, expertise levels
-3. **Tool Access Guidance** - Recommends optimal tool configurations based on agent type
-4. **MCP Integration** - Suggests relevant MCP server tools for enhanced capabilities
-5. **Execution Pattern Assignment** - Ensures proper parallel/sequential execution for safety
-6. **Validation** - Checks agent configuration against best practices
+- Read access to `.claude/Agents/AGENT_FACTORY.md` (archetype patterns)
+- Read access to `.claude/Agents/TOOLSMITH.md` (agent template)
+- Read access to `.claude/CONSTITUTION.md` (governance rules)
+- Read access to existing agents for pattern reference
 
-## Agent Types Supported
-
-### Strategic Agents (Lightweight, Parallel-Safe)
-- **Purpose**: Planning, research, analysis
-- **Tools**: Read, Write, Grep only
-- **Execution**: 4-5 agents can run in parallel
-- **Color**: Blue
-- **Examples**: product-planner, market-researcher, architect
-
-### Implementation Agents (Full Tools, Coordinated)
-- **Purpose**: Code writing, feature building
-- **Tools**: Read, Write, Edit, Bash, Grep, Glob
-- **Execution**: 2-3 agents coordinated
-- **Color**: Green
-- **Examples**: frontend-developer, backend-developer, api-builder
-
-### Quality Agents (Heavy Bash, Sequential Only)
-- **Purpose**: Testing, validation, review
-- **Tools**: Read, Write, Edit, Bash, Grep, Glob
-- **Execution**: 1 agent at a time (NEVER parallel)
-- **Color**: Red
-- **Examples**: test-runner, code-reviewer, security-auditor
-
-### Coordination Agents (Lightweight, Orchestration)
-- **Purpose**: Manages other agents, validates integration
-- **Tools**: Read, Write, Grep
-- **Execution**: Orchestrates others
-- **Color**: Purple
-- **Examples**: fullstack-coordinator, workflow-manager
-
-## Enhanced YAML Frontmatter
-
-Every generated agent includes rich metadata:
-
-```yaml
 ---
-name: agent-name-kebab-case
-description: When to invoke this agent
-tools: Read, Write, Edit  # Comma-separated
-model: sonnet  # sonnet|opus|haiku|inherit
-color: green  # Visual categorization
-field: frontend  # Domain area
-expertise: expert  # beginner|intermediate|expert
-mcp_tools: mcp__playwright  # MCP integrations
----
-```
 
-### Field Categories
+## Agent Creation Workflow
 
-**Development**: `frontend`, `backend`, `fullstack`, `mobile`, `devops`
-**Quality**: `testing`, `security`, `performance`
-**Strategic**: `product`, `architecture`, `research`, `design`
-**Domain**: `data`, `ai`, `content`, `finance`, `infrastructure`
-
-### Color Coding
-
-- **Blue**: Strategic/planning agents
-- **Green**: Implementation/development agents
-- **Red**: Quality/testing agents
-- **Purple**: Coordination/orchestration agents
-- **Orange**: Domain-specific specialists
-
-### Expertise Levels
-
-- **Beginner**: Simple, focused tasks
-- **Intermediate**: Moderate complexity workflows
-- **Expert**: Advanced, complex operations
-
-## How to Use
-
-### Quick Start
-
-1. **Open the prompt template**: [documentation/templates/AGENTS_FACTORY_PROMPT.md](../../documentation/templates/AGENTS_FACTORY_PROMPT.md)
-2. **Scroll to bottom** - Find template variables
-3. **Fill in your details**:
-   ```
-   AGENT_NAME: my-custom-agent
-   DESCRIPTION: What this agent does and when to invoke it
-   DOMAIN_FIELD: frontend
-   TOOLS_NEEDED: Read, Write, Edit, Bash
-   ```
-4. **Copy entire prompt** - Include filled variables
-5. **Paste into Claude** - Claude.ai, Claude Code, or API
-6. **Receive agent file** - Complete .md file ready to use
-7. **Install agent** - Copy to `.claude/agents/` or `~/.claude/agents/`
-
-### Example Invocation
+### Phase 1: Requirements Gathering
 
 ```
-@agent-factory
+1. Clarify Agent Purpose
+   - What problem does this agent solve?
+   - What responsibilities will it have?
+   - What is its scope (files/directories owned)?
+   - Who will this agent interact with?
 
-Create a custom agent:
-Name: api-integration-specialist
-Type: Implementation
-Domain: backend
-Description: API integration expert for third-party services
-Capabilities: OAuth, REST clients, error handling
-Tools: Read, Write, Edit, Bash
-MCP: mcp__github
+2. Identify Gaps
+   - Does an existing agent already cover this?
+   - Can an existing agent be extended instead?
+   - Is this truly a new responsibility?
+
+3. Define Success Criteria
+   - How will we measure agent effectiveness?
+   - What are the key performance indicators?
 ```
 
-**Output**: Complete `.claude/agents/api-integration-specialist.md` file
+### Phase 2: Archetype Selection
 
-## Generated Agent Structure
+Choose ONE archetype from AGENT_FACTORY.md:
 
-Each generated agent is a single Markdown file:
+| Archetype | Purpose | Personality | Use When |
+|-----------|---------|-------------|----------|
+| **Researcher** | Explore, investigate, synthesize | Curious, thorough, patient | Need to understand, analyze, report |
+| **Validator** | Verify, check constraints | Meticulous, rule-focused, conservative | Need to ensure correctness, compliance |
+| **Generator** | Create solutions, produce output | Creative, pragmatic, iterative | Need to build, implement, generate |
+| **Critic** | Find flaws, test edge cases | Adversarial, skeptical, thorough | Need to stress-test, find weaknesses |
+| **Synthesizer** | Combine outputs, resolve conflicts | Integrative, diplomatic, clear | Need to merge, summarize, decide |
+
+**Selection Questions:**
+1. Does this agent primarily READ or WRITE?
+   - READ-heavy → Researcher or Validator
+   - WRITE-heavy → Generator
+   - BOTH → Consider Synthesizer
+
+2. Is the agent's role defensive or constructive?
+   - Defensive (prevent problems) → Validator or Critic
+   - Constructive (create solutions) → Generator or Researcher
+
+3. Does the agent work alone or coordinate others?
+   - Independent work → Any archetype
+   - Coordination role → Synthesizer
+
+### Phase 3: Authority Level Determination
+
+Determine decision authority tier:
+
+| Level | Can Do | Cannot Do | Example |
+|-------|--------|-----------|---------|
+| **Propose-Only** | Analyze, recommend | Execute changes | META_UPDATER |
+| **Execute with Safeguards** | Execute after validation | Bypass safety checks | SCHEDULER |
+| **Full Execute** | Execute independently | N/A (highest tier) | Reserved for ops |
+
+**Authority Rules from CONSTITUTION.md:**
+- All agents can: read code, run tests, create branches
+- Approval required for: code edits, git operations, deployments
+- Forbidden always: bypass ACGME, disable security, merge to main without PR
+
+### Phase 4: Specification Drafting
+
+Use the Agent Specification Template from TOOLSMITH.md:
 
 ```markdown
----
-name: custom-agent
-description: Triggers auto-invocation
-tools: Read, Write, Edit
-model: sonnet
-color: green
-field: backend
-expertise: expert
-mcp_tools: mcp__github
----
+# <AGENT_NAME> Agent
 
-You are a [role] specializing in [domain].
-
-When invoked:
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-[Detailed instructions]
-[Checklists]
-[Best practices]
-[Output format]
-```
-
-## Integration Workflows
-
-### Workflow 1: Feature Development
-```
-1. product-planner → Creates requirements
-2. frontend-developer + backend-developer → Build (parallel)
-3. test-runner → Validates (sequential)
-4. code-reviewer → Reviews (sequential)
-```
-
-### Workflow 2: Bug Fix
-```
-1. debugger → Analyzes issue
-2. [appropriate-dev-agent] → Fixes
-3. test-runner → Validates fix
-```
-
-### Workflow 3: Code Review
-```
-1. code-reviewer → Quality review (can run solo)
-2. security-auditor → Security scan (can run solo)
-```
-
-## MCP Tool Integration
-
-Common MCP servers to integrate:
-
-- **mcp__github**: PR reviews, issues, repo operations
-- **mcp__playwright**: E2E testing, screenshots, browser automation
-- **mcp__context7**: Documentation search, knowledge queries
-- **mcp__filesystem**: Advanced file operations
-- **Custom MCP servers**: Any user-configured MCP tools
-
-Agents automatically reference MCP tools in their capabilities when configured.
-
-## Safety & Performance
-
-### Process Monitoring
-
-Agents consume system resources. Monitor with:
-```bash
-ps aux | grep -E "mcp|npm|claude" | wc -l
-```
-
-**Safe ranges:**
-- 15-20: Strategic agents (parallel)
-- 20-30: Implementation agents (coordinated)
-- 12-18: Quality agents (sequential)
-
-**Warnings:**
-- >30: Reduce parallelization
-- >60: Critical - restart system
-
-### Execution Rules
-
-✅ **Safe**: 4-5 strategic agents in parallel
-✅ **Safe**: 2-3 implementation agents coordinated
-❌ **Unsafe**: Quality agents in parallel (crashes system)
-
-## Best Practices
-
-1. **Keep agents focused** - One clear responsibility per agent
-2. **Use descriptive descriptions** - Enables auto-invocation
-3. **Follow tool access patterns** - Match tools to agent type
-4. **Specify execution pattern** - Prevents performance issues
-5. **Leverage MCP tools** - Enhance agent capabilities
-6. **Test agents incrementally** - Start simple, add complexity
-7. **Version control agents** - Check project agents into git
-
-## Limitations
-
-- Agents are templates - customize for your specific needs
-- Tool suggestions are guidelines, not requirements
-- MCP tools require servers to be configured
-- Performance depends on system resources
-- Generated agents need testing in your environment
-
-## Installation
-
-**Generated Agent Files:**
-
-Place in one of these locations:
-
-**Project agents** (shared with team):
-```bash
-.claude/agents/custom-agent.md
-```
-
-**Personal agents** (available everywhere):
-```bash
-~/.claude/agents/custom-agent.md
-```
-
-## When to Use This Skill
-
-**Create custom agents for:**
-- Domain-specific workflows (data science, ML, finance)
-- Team-specific conventions (your code style, testing approach)
-- Specialized tools or frameworks (Shopify, AWS, Kubernetes)
-- Custom MCP server integrations
-- Rapid prototyping of agent ideas
-
-**Use the AGENTS_FACTORY_PROMPT.md template when:**
-- You need multiple related agents
-- You want consistent agent patterns
-- You're building an agentic framework
-- You want to test agent concepts quickly
+> **Role:** <one-line role description>
+> **Authority Level:** <Propose-Only | Execute with Safeguards | Full Execute>
+> **Archetype:** <Researcher | Validator | Generator | Critic | Synthesizer>
+> **Status:** Active
 
 ---
 
-**Version**: 1.0.0
-**Last Updated**: October 22, 2025
-**Compatibility**: Claude Code (agents system)
-**Template Location**: [documentation/templates/AGENTS_FACTORY_PROMPT.md](../../documentation/templates/AGENTS_FACTORY_PROMPT.md)
+## Charter
+
+<2-3 paragraphs describing the agent's purpose and responsibilities>
+
+**Primary Responsibilities:**
+- <responsibility 1>
+- <responsibility 2>
+- <responsibility 3>
+
+**Scope:**
+- <files/directories this agent owns>
+
+**Philosophy:**
+"<guiding principle in quotes>"
+
+---
+
+## Personality Traits
+
+**<Trait 1 Category>**
+- <trait description>
+
+**<Trait 2 Category>**
+- <trait description>
+
+**Communication Style**
+- <how agent communicates>
+
+---
+
+## Decision Authority
+
+### Can Independently Execute
+<numbered list of autonomous actions>
+
+### Requires Approval (Create PR, Don't Merge)
+<numbered list of actions requiring review>
+
+### Must Escalate
+<numbered list of actions that must be escalated>
+
+---
+
+## Key Workflows
+
+### Workflow 1: <Name>
+```
+<step-by-step workflow>
+```
+
+### Workflow 2: <Name>
+```
+<step-by-step workflow>
+```
+
+---
+
+## Escalation Rules
+
+| Situation | Escalate To | Reason |
+|-----------|-------------|--------|
+| <situation> | <agent/role> | <reason> |
+
+---
+
+## Success Metrics
+
+### <Category 1>
+- **<Metric>:** <target value>
+
+### <Category 2>
+- **<Metric>:** <target value>
+
+---
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0.0 | YYYY-MM-DD | Initial <AGENT_NAME> specification |
+
+---
+
+**Next Review:** <date 3-6 months out>
+```
+
+### Phase 5: Validation
+
+Before finalizing, verify against CONSTITUTION.md:
+
+**Governance Checklist:**
+- [ ] Agent respects constraint hierarchy (Regulatory > Institutional > Optimization)
+- [ ] Agent cannot bypass ACGME rules (Section III.A)
+- [ ] Agent follows security defense-in-depth (Section V)
+- [ ] Agent respects autonomy boundaries (Section VI)
+- [ ] Agent has clear escalation rules
+- [ ] Agent follows error handling requirements (Section IX)
+- [ ] Agent has defined rollback procedures for state changes
+
+**Consistency Checklist:**
+- [ ] Naming follows conventions (UPPER_SNAKE_CASE for agents)
+- [ ] Authority level matches archetype
+- [ ] Skills access matches responsibilities
+- [ ] No overlap with existing agents
+- [ ] Workflows are complete and actionable
+
+### Phase 6: Creation
+
+1. **Create Agent Specification:**
+   ```
+   File: .claude/Agents/<AGENT_NAME>.md
+   ```
+
+2. **Create PR for Review:**
+   - Title: `agent: Add <AGENT_NAME> agent specification`
+   - Description: Problem statement, archetype rationale, scope
+   - Reviewers: ARCHITECT (required), affected agents (optional)
+
+3. **Document in Index:**
+   - Update agent index if exists
+   - Add to relevant documentation
+
+---
+
+## Example: Creating a SECURITY_AUDITOR Agent
+
+**Step 1: Requirements**
+```
+Problem: Need dedicated security review capability
+Responsibilities: Audit code for vulnerabilities, check HIPAA compliance
+Scope: All code touching auth, data, secrets
+Success: Zero security incidents from reviewed code
+```
+
+**Step 2: Archetype Selection**
+```
+Q: Read or Write heavy? → READ (auditing, not implementing)
+Q: Defensive or constructive? → DEFENSIVE (finding problems)
+Q: Independent or coordinating? → INDEPENDENT
+
+→ Best match: CRITIC (adversarial, finds flaws) or VALIDATOR (checks rules)
+→ Decision: VALIDATOR (security has defined rules to check)
+```
+
+**Step 3: Authority**
+```
+Level: Propose-Only
+- Can: Analyze code, run security scans, report findings
+- Cannot: Block deployments (only recommend)
+- Escalate: Critical vulnerabilities → ARCHITECT + Faculty
+```
+
+**Step 4: Specification**
+```markdown
+# SECURITY_AUDITOR Agent
+
+> **Role:** Security Vulnerability Detection & Compliance Verification
+> **Authority Level:** Propose-Only (Cannot Block, Only Report)
+> **Archetype:** Validator
+> **Status:** Active
+
+## Charter
+
+The SECURITY_AUDITOR agent is responsible for proactively identifying
+security vulnerabilities, verifying HIPAA compliance, and ensuring
+military OPSEC/PERSEC requirements are met...
+
+[... rest of specification ...]
+```
+
+**Step 5: Validation**
+- [x] Respects CONSTITUTION rules
+- [x] No ACGME bypass capability
+- [x] Follows security guidelines
+- [x] Clear escalation to ARCHITECT
+- [x] Naming: SECURITY_AUDITOR (UPPER_SNAKE_CASE)
+
+**Step 6: Create PR**
+```bash
+git checkout -b agent/add-security-auditor
+# Create file: .claude/Agents/SECURITY_AUDITOR.md
+git add .claude/Agents/SECURITY_AUDITOR.md
+git commit -m "agent: Add SECURITY_AUDITOR agent specification"
+git push -u origin agent/add-security-auditor
+gh pr create --title "agent: Add SECURITY_AUDITOR agent" \
+  --body "Adds security audit specialist..."
+```
+
+---
+
+## Archetype Deep Dive
+
+### Researcher Agents
+
+**Best For:** Investigation, analysis, documentation, learning
+**Personality Traits:** Curious, thorough, patient, synthesizing
+**Skills Access:** Read-only (cannot modify, only observe)
+**Output Format:** Reports, summaries, recommendations
+
+**Example Researchers:**
+- CODEBASE_ANALYST: Understand code patterns
+- COMPLIANCE_INVESTIGATOR: Research regulatory requirements
+- PERFORMANCE_PROFILER: Analyze bottlenecks
+
+### Validator Agents
+
+**Best For:** Compliance checking, rule enforcement, quality gates
+**Personality Traits:** Meticulous, conservative, rule-focused
+**Skills Access:** Validation tools, limited execution
+**Output Format:** Pass/fail, violation reports, compliance scores
+
+**Example Validators:**
+- ACGME_VALIDATOR: Check work hour compliance
+- CODE_QUALITY_GATE: Enforce standards before merge
+- CREDENTIAL_CHECKER: Verify personnel qualifications
+
+### Generator Agents
+
+**Best For:** Creating solutions, implementing features, producing output
+**Personality Traits:** Creative, pragmatic, iterative, solution-oriented
+**Skills Access:** Full access within scope
+**Output Format:** Code, schedules, proposals, artifacts
+
+**Example Generators:**
+- SCHEDULER: Generate compliant schedules
+- TEST_GENERATOR: Create comprehensive test suites
+- MIGRATION_BUILDER: Create database migrations
+
+### Critic Agents
+
+**Best For:** Finding bugs, stress testing, adversarial analysis
+**Personality Traits:** Adversarial, skeptical, edge-case-focused
+**Skills Access:** Testing tools, simulation capabilities
+**Output Format:** Bug reports, vulnerability assessments
+
+**Example Critics:**
+- CHAOS_ENGINEER: Test resilience under failure
+- EDGE_CASE_FINDER: Discover boundary conditions
+- SECURITY_PENETRATOR: Find attack vectors
+
+### Synthesizer Agents
+
+**Best For:** Combining outputs, resolving conflicts, making decisions
+**Personality Traits:** Integrative, diplomatic, decision-making
+**Skills Access:** Read access to all, limited write
+**Output Format:** Unified reports, decisions, action plans
+
+**Example Synthesizers:**
+- ORCHESTRATOR: Coordinate multiple agents
+- REPORT_CONSOLIDATOR: Merge findings into executive summary
+- CONFLICT_RESOLVER: Resolve contradicting recommendations
+
+---
+
+## Common Mistakes to Avoid
+
+1. **Overlapping Scope**
+   - Check existing agents before creating new ones
+   - If overlap exists, extend existing agent instead
+
+2. **Excessive Authority**
+   - Start with Propose-Only, upgrade if needed
+   - Validators shouldn't Generator authority
+
+3. **Vague Responsibilities**
+   - Be specific: "validate ACGME 80-hour rule" not "check things"
+   - Define measurable success criteria
+
+4. **Missing Escalation Rules**
+   - Every agent must know when to ask for help
+   - Define specific scenarios, not just "when in doubt"
+
+5. **Ignoring CONSTITUTION.md**
+   - All agents bound by Constitution
+   - Re-read Section VI (Agent Autonomy) before finalizing
+
+---
+
+## Integration with Other Skills
+
+### With TOOLSMITH
+When agent needs associated skill:
+1. Create agent spec (this skill)
+2. Invoke TOOLSMITH to create supporting skill
+3. Link skill to agent in spec
+
+### With code-review
+Before merging agent spec:
+1. Create PR with agent spec
+2. code-review validates format and consistency
+3. ARCHITECT reviews authority and scope
+
+### With test-writer
+For testable agent behaviors:
+1. Define expected behaviors in spec
+2. test-writer creates behavior tests
+3. Validate agent against tests
+
+---
+
+## References
+
+- `.claude/Agents/AGENT_FACTORY.md` - Full archetype definitions
+- `.claude/Agents/TOOLSMITH.md` - Agent template structure
+- `.claude/CONSTITUTION.md` - Governance rules (MUST READ)
+- `.claude/Agents/SCHEDULER.md` - Example operational agent
+- `.claude/Agents/META_UPDATER.md` - Example propose-only agent

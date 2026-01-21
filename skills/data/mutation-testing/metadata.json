@@ -1,7 +1,7 @@
 {
   "name": "mutation-testing",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "path": ".claude/skills/mutation-testing/SKILL.md",
-  "source": "github.com/proffesor-for-testing/agentic-qe",
-  "downloaded_at": "2026-01-20T04:05:01.850897Z"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/mutation-testing/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-21T04:01:40.503193Z"
 }

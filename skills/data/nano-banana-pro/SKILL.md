@@ -1,247 +1,130 @@
 ---
 name: nano-banana-pro
-description: Generate images with Google's Nano Banana Pro (Gemini 3 Pro Image). Use when generating AI images via Gemini API, creating professional visuals, or building image generation features. Triggers on Nano Banana Pro, Gemini 3 Pro Image, gemini-3-pro-image-preview, Google image generation.
+description: Generate/edit images with Nano Banana Pro (Gemini 3 Pro Image). Use for image create/modify requests incl. edits. Supports text-to-image + image-to-image; 1K/2K/4K; use --input-image.
 ---
 
-# Nano Banana Pro (Gemini 3 Pro Image)
+# Nano Banana Pro Image Generation & Editing
 
-Generate high-quality images with Google's Gemini 3 Pro Image API.
+Generate new images or edit existing ones using Google's Nano Banana Pro API (Gemini 3 Pro Image).
 
-## Overview
+## Usage
 
-**Nano Banana Pro** is the marketing name for **Gemini 3 Pro Image** (`gemini-3-pro-image-preview`), Google's state-of-the-art image generation and editing model built on Gemini 3 Pro.
+Run the script using absolute path (do NOT cd to skill directory first):
 
-## Quick Start
-
-### Get API Key
-1. Go to [Google AI Studio](https://aistudio.google.com)
-2. Click "Get API Key"
-3. Store securely as environment variable
-
-### Basic Image Generation (Python)
-```python
-from google import genai
-from google.genai import types
-
-client = genai.Client(api_key="YOUR_GEMINI_API_KEY")
-
-response = client.models.generate_content(
-    model="gemini-3-pro-image-preview",
-    contents="A serene Japanese garden with cherry blossoms and a koi pond",
-    config=types.GenerateContentConfig(
-        response_modalities=['TEXT', 'IMAGE']
-    )
-)
-
-# Process response
-for part in response.candidates[0].content.parts:
-    if hasattr(part, 'text'):
-        print(f"Description: {part.text}")
-    elif hasattr(part, 'inline_data'):
-        # Save image
-        image_data = part.inline_data.data  # Base64 encoded
-        mime_type = part.inline_data.mime_type  # image/png
-        
-        import base64
-        with open("output.png", "wb") as f:
-            f.write(base64.b64decode(image_data))
-```
-
-### REST API (cURL)
+**Generate new image:**
 ```bash
-curl -s -X POST \
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent" \
-  -H "x-goog-api-key: $GEMINI_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "contents": [{
-      "role": "user",
-      "parts": [{"text": "Create a vibrant infographic about photosynthesis"}]
-    }],
-    "generationConfig": {
-      "responseModalities": ["TEXT", "IMAGE"]
-    }
-  }'
+uv run ~/.codex/skills/nano-banana-pro/scripts/generate_image.py --prompt "your image description" --filename "output-name.png" [--resolution 1K|2K|4K] [--api-key KEY]
 ```
 
-### TypeScript/JavaScript
-```typescript
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-
-async function generateImage(prompt: string) {
-  const response = await fetch(
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent',
-    {
-      method: 'POST',
-      headers: {
-        'x-goog-api-key': GEMINI_API_KEY!,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: [{ 
-          role: 'user', 
-          parts: [{ text: prompt }] 
-        }],
-        generationConfig: {
-          responseModalities: ['TEXT', 'IMAGE'],
-        },
-      }),
-    }
-  );
-
-  const data = await response.json();
-  return data;
-}
+**Edit existing image:**
+```bash
+uv run ~/.codex/skills/nano-banana-pro/scripts/generate_image.py --prompt "editing instructions" --filename "output-name.png" --input-image "path/to/input.png" [--resolution 1K|2K|4K] [--api-key KEY]
 ```
 
-## Configuration Options
+**Important:** Always run from the user's current working directory so images are saved where the user is working, not in the skill directory.
 
-### Image Configuration
-```python
-response = client.models.generate_content(
-    model="gemini-3-pro-image-preview",
-    contents="Professional product photo of a coffee mug",
-    config=types.GenerateContentConfig(
-        response_modalities=['TEXT', 'IMAGE'],
-        image_config=types.ImageConfig(
-            aspect_ratio="16:9",  # Options: 1:1, 3:2, 16:9, 9:16, 21:9
-            image_size="2K"       # Options: 1K, 2K, 4K
-        )
-    )
-)
+## Default Workflow (draft → iterate → final)
+
+Goal: fast iteration without burning time on 4K until the prompt is correct.
+
+- Draft (1K): quick feedback loop
+  - `uv run ~/.codex/skills/nano-banana-pro/scripts/generate_image.py --prompt "<draft prompt>" --filename "yyyy-mm-dd-hh-mm-ss-draft.png" --resolution 1K`
+- Iterate: adjust prompt in small diffs; keep filename new per run
+  - If editing: keep the same `--input-image` for every iteration until you’re happy.
+- Final (4K): only when prompt is locked
+  - `uv run ~/.codex/skills/nano-banana-pro/scripts/generate_image.py --prompt "<final prompt>" --filename "yyyy-mm-dd-hh-mm-ss-final.png" --resolution 4K`
+
+## Resolution Options
+
+The Gemini 3 Pro Image API supports three resolutions (uppercase K required):
+
+- **1K** (default) - ~1024px resolution
+- **2K** - ~2048px resolution
+- **4K** - ~4096px resolution
+
+Map user requests to API parameters:
+- No mention of resolution → `1K`
+- "low resolution", "1080", "1080p", "1K" → `1K`
+- "2K", "2048", "normal", "medium resolution" → `2K`
+- "high resolution", "high-res", "hi-res", "4K", "ultra" → `4K`
+
+## API Key
+
+The script checks for API key in this order:
+1. `--api-key` argument (use if user provided key in chat)
+2. `GEMINI_API_KEY` environment variable
+
+If neither is available, the script exits with an error message.
+
+## Preflight + Common Failures (fast fixes)
+
+- Preflight:
+  - `command -v uv` (must exist)
+  - `test -n \"$GEMINI_API_KEY\"` (or pass `--api-key`)
+  - If editing: `test -f \"path/to/input.png\"`
+
+- Common failures:
+  - `Error: No API key provided.` → set `GEMINI_API_KEY` or pass `--api-key`
+  - `Error loading input image:` → wrong path / unreadable file; verify `--input-image` points to a real image
+  - “quota/permission/403” style API errors → wrong key, no access, or quota exceeded; try a different key/account
+
+## Filename Generation
+
+Generate filenames with the pattern: `yyyy-mm-dd-hh-mm-ss-name.png`
+
+**Format:** `{timestamp}-{descriptive-name}.png`
+- Timestamp: Current date/time in format `yyyy-mm-dd-hh-mm-ss` (24-hour format)
+- Name: Descriptive lowercase text with hyphens
+- Keep the descriptive part concise (1-5 words typically)
+- Use context from user's prompt or conversation
+- If unclear, use random identifier (e.g., `x9k2`, `a7b3`)
+
+Examples:
+- Prompt "A serene Japanese garden" → `2025-11-23-14-23-05-japanese-garden.png`
+- Prompt "sunset over mountains" → `2025-11-23-15-30-12-sunset-mountains.png`
+- Prompt "create an image of a robot" → `2025-11-23-16-45-33-robot.png`
+- Unclear context → `2025-11-23-17-12-48-x9k2.png`
+
+## Image Editing
+
+When the user wants to modify an existing image:
+1. Check if they provide an image path or reference an image in the current directory
+2. Use `--input-image` parameter with the path to the image
+3. The prompt should contain editing instructions (e.g., "make the sky more dramatic", "remove the person", "change to cartoon style")
+4. Common editing tasks: add/remove elements, change style, adjust colors, blur background, etc.
+
+## Prompt Handling
+
+**For generation:** Pass user's image description as-is to `--prompt`. Only rework if clearly insufficient.
+
+**For editing:** Pass editing instructions in `--prompt` (e.g., "add a rainbow in the sky", "make it look like a watercolor painting")
+
+Preserve user's creative intent in both cases.
+
+## Prompt Templates (high hit-rate)
+
+Use templates when the user is vague or when edits must be precise.
+
+- Generation template:
+  - “Create an image of: <subject>. Style: <style>. Composition: <camera/shot>. Lighting: <lighting>. Background: <background>. Color palette: <palette>. Avoid: <list>.”
+
+- Editing template (preserve everything else):
+  - “Change ONLY: <single change>. Keep identical: subject, composition/crop, pose, lighting, color palette, background, text, and overall style. Do not add new objects. If text exists, keep it unchanged.”
+
+## Output
+
+- Saves PNG to current directory (or specified path if filename includes directory)
+- Script outputs the full path to the generated image
+- **Do not read the image back** - just inform the user of the saved path
+
+## Examples
+
+**Generate new image:**
+```bash
+uv run ~/.codex/skills/nano-banana-pro/scripts/generate_image.py --prompt "A serene Japanese garden with cherry blossoms" --filename "2025-11-23-14-23-05-japanese-garden.png" --resolution 4K
 ```
 
-### With Google Search Grounding
-```python
-response = client.models.generate_content(
-    model="gemini-3-pro-image-preview",
-    contents="Create an infographic showing today's stock market trends",
-    config=types.GenerateContentConfig(
-        response_modalities=['TEXT', 'IMAGE'],
-        tools=[{"google_search": {}}]  # Enable search grounding
-    )
-)
+**Edit existing image:**
+```bash
+uv run ~/.codex/skills/nano-banana-pro/scripts/generate_image.py --prompt "make the sky more dramatic with storm clouds" --filename "2025-11-23-14-25-30-dramatic-sky.png" --input-image "original-photo.jpg" --resolution 2K
 ```
-
-## Multi-Turn Conversations (Iterative Editing)
-
-```python
-# Create a chat session
-chat = client.chats.create(
-    model="gemini-3-pro-image-preview",
-    config=types.GenerateContentConfig(
-        response_modalities=['TEXT', 'IMAGE'],
-        tools=[{"google_search": {}}]
-    )
-)
-
-# Initial generation
-response1 = chat.send_message(
-    "Create a vibrant infographic explaining photosynthesis"
-)
-
-# Edit the image
-response2 = chat.send_message(
-    "Update this infographic to be in Spanish. Keep all other elements the same."
-)
-```
-
-## Key Capabilities
-
-### 1. Superior Text Rendering
-```python
-response = client.models.generate_content(
-    model="gemini-3-pro-image-preview",
-    contents="""Create a professional poster with:
-    - Title: "Annual Tech Summit 2025"
-    - Date: March 15-17, 2025
-    - Location: San Francisco Convention Center
-    """,
-    config=types.GenerateContentConfig(
-        response_modalities=['TEXT', 'IMAGE']
-    )
-)
-```
-
-### 2. Character Consistency (Up to 5 Subjects)
-```python
-import base64
-
-def load_image(path: str) -> str:
-    with open(path, "rb") as f:
-        return base64.b64encode(f.read()).decode()
-
-character_ref = load_image("character.png")
-
-response = client.models.generate_content(
-    model="gemini-3-pro-image-preview",
-    contents=[
-        {"text": "Generate an image of this person at a tech conference"},
-        {"inline_data": {"mime_type": "image/png", "data": character_ref}}
-    ],
-    config=types.GenerateContentConfig(
-        response_modalities=['TEXT', 'IMAGE']
-    )
-)
-```
-
-## Next.js API Route
-
-```typescript
-// app/api/generate-image/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-
-export async function POST(request: NextRequest) {
-  const { prompt, aspectRatio = '1:1', imageSize = '2K' } = await request.json();
-
-  try {
-    const response = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent',
-      {
-        method: 'POST',
-        headers: {
-          'x-goog-api-key': process.env.GEMINI_API_KEY!,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contents: [{ role: 'user', parts: [{ text: prompt }] }],
-          generationConfig: {
-            responseModalities: ['TEXT', 'IMAGE'],
-            imageConfig: { aspectRatio, imageSize },
-          },
-        }),
-      }
-    );
-
-    const data = await response.json();
-    const parts = data.candidates?.[0]?.content?.parts || [];
-    const imagePart = parts.find((p: any) => p.inline_data);
-
-    return NextResponse.json({
-      image: imagePart ? {
-        data: imagePart.inline_data.data,
-        mimeType: imagePart.inline_data.mime_type,
-        url: `data:${imagePart.inline_data.mime_type};base64,${imagePart.inline_data.data}`,
-      } : null,
-    });
-  } catch (error) {
-    return NextResponse.json({ error: 'Generation failed' }, { status: 500 });
-  }
-}
-```
-
-## Model Comparison
-
-| Feature | Nano Banana (2.5 Flash) | Nano Banana Pro (3 Pro Image) |
-|---------|-------------------------|-------------------------------|
-| Model ID | gemini-2.5-flash-image | gemini-3-pro-image-preview |
-| Quality | Good | Best |
-| Speed | Faster | Slower |
-| Cost | Lower | Higher |
-| Best For | Previews, high-volume | Production, professional |
-
-## Resources
-
-- **Documentation**: https://ai.google.dev/gemini-api/docs/image-generation
-- **Google AI Studio**: https://aistudio.google.com
-- **Prompt Guide**: https://ai.google.dev/gemini-api/docs/prompting-intro

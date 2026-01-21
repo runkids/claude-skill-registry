@@ -1,25 +1,6 @@
 ---
 name: aws-cost-operations
 description: This skill provides AWS cost optimization, monitoring, and operational best practices with integrated MCP servers for billing analysis, cost estimation, observability, and security assessment.
-skills:
-  - aws-mcp-setup
-allowed-tools:
-  - mcp__pricing__*
-  - mcp__costexp__*
-  - mcp__cw__*
-  - mcp__aws-mcp__*
-  - mcp__awsdocs__*
-  - Bash(aws ce *)
-  - Bash(aws cloudwatch *)
-  - Bash(aws logs *)
-  - Bash(aws budgets *)
-  - Bash(aws cloudtrail *)
-  - Bash(aws sts get-caller-identity)
-hooks:
-  PreToolUse:
-    - matcher: Bash(aws ce *)
-      command: aws sts get-caller-identity --query Account --output text
-      once: true
 ---
 
 # AWS Cost & Operations
@@ -38,7 +19,7 @@ This skill provides comprehensive guidance for AWS cost optimization, monitoring
    - `mcp__aws-mcp__aws___get_regional_availability` - Check service availability
 
 2. **If AWS MCP tools are unavailable**:
-   - Guide user to configure AWS MCP using the `aws-mcp-setup` skill (auto-loaded as dependency)
+   - Guide user to configure AWS MCP: See [AWS MCP Setup Guide](../../docs/aws-mcp-setup.md)
    - Help determine which option fits their environment:
      - Has uvx + AWS credentials → Full AWS MCP Server
      - No Python/credentials → AWS Documentation MCP (no auth)

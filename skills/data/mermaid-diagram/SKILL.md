@@ -1,283 +1,191 @@
 ---
 name: mermaid-diagram
-description: Generate Mermaid diagrams including flowcharts, sequence diagrams, and class diagrams. Use when creating visual diagrams in documentation.
+description: Mermaid 플로우/시퀀스 다이어그램이 필요할 때
 ---
 
-# Mermaid Diagram Skill
+# Mermaid 다이어그램 스킬
 
-Mermaid記法でダイアグラムを生成するスキルです。
+> Mermaid 문법을 사용하여 다이어그램을 생성합니다.
+> 포트폴리오의 **프로세스 흐름, 시퀀스 다이어그램** 작성에 적합합니다.
 
-## 概要
+---
 
-フローチャート、シーケンス図、ガントチャート等をテキストから生成します。
+## 언제 이 방식을 사용하는가?
 
-## 主な機能
+| 상황 | Mermaid 적합 |
+|------|-------------|
+| **플로우차트** | 비즈니스 로직, 의사결정 트리, 프로세스 흐름 |
+| **시퀀스 다이어그램** | API 호출 흐름, 시스템 간 통신 (포트폴리오 핵심) |
+| **ER 다이어그램** | 데이터베이스 스키마, 엔티티 관계 |
+| **상태 다이어그램** | 상태 머신, 주문 라이프사이클 |
+| **C4 다이어그램** | 시스템 컨텍스트, 컨테이너 구조 |
 
-- **フローチャート**: プロセスフロー
-- **シーケンス図**: インタラクション
-- **クラス図**: UML クラス図
-- **ER図**: データベース設計
-- **ガントチャート**: プロジェクト管理
-- **パイチャート**: 割合表示
-- **状態遷移図**: ステートマシン
-- **ジャーニーマップ**: ユーザージャーニー
+## 장점
 
-## 使用方法
+- 텍스트 기반 문법으로 빠른 작성
+- 자동 레이아웃 (노드 배치 자동화)
+- 복잡한 분기/조건 표현 용이
+- Git 버전 관리 용이
+- 20개 이상의 다이어그램 유형 지원
 
-```
-以下のプロセスのフローチャートをMermaidで作成：
-1. ユーザー登録
-2. メール検証
-3. プロフィール設定
-```
+## 단점
 
-## ダイアグラムタイプ
+- 세밀한 레이아웃 조정 어려움 → `/svg-diagram` 사용
+- 커스텀 스타일 제한적
+- Mermaid CLI 설치 필요 (SVG 파일 생성 시)
 
-### フローチャート
+---
+
+## 지원 다이어그램
+
+### 기본 (자주 사용)
+
+| 유형 | 키워드 | 용도 |
+|------|--------|------|
+| **Flowchart** | `flowchart` | 흐름도, 프로세스, 의사결정 |
+| **Sequence Diagram** | `sequenceDiagram` | API 흐름, 시스템 간 통신 |
+| **Class Diagram** | `classDiagram` | 클래스 관계, UML |
+| **State Diagram** | `stateDiagram-v2` | 상태 머신, 라이프사이클 |
+| **ER Diagram** | `erDiagram` | DB 스키마, 테이블 관계 |
+
+### 고급
+
+| 유형 | 키워드 | 용도 |
+|------|--------|------|
+| **Gantt Chart** | `gantt` | 프로젝트 일정 |
+| **GitGraph** | `gitGraph` | Git 브랜치 시각화 |
+| **C4 Diagram** | `C4Context` | 시스템 아키텍처 |
+| **Mindmap** | `mindmap` | 개념 정리 |
+| **Quadrant Chart** | `quadrantChart` | 기술 평가 매트릭스 |
+| **XY Chart** | `xychart-beta` | 수치 데이터, 트래픽 |
+
+> **전체 문법**: `references/syntax.md` 참조
+
+---
+
+## 용도별 다이어그램 선택
+
+| 용도 | 추천 다이어그램 |
+|------|----------------|
+| **로직/흐름 설명** | Flowchart |
+| **API/통신 흐름** | Sequence |
+| **시스템 구조** | Architecture / C4 / Block |
+| **클래스 관계** | Class Diagram |
+| **상태 변화** | State Diagram |
+| **DB 스키마** | ER Diagram |
+| **일정/타임라인** | Gantt / Timeline |
+| **Git 브랜치** | GitGraph |
+| **기술 평가** | Quadrant Chart |
+
+---
+
+## 빠른 시작 예시
+
+### Flowchart
 
 ```mermaid
-graph TD
-    A[開始] --> B{条件分岐}
-    B -->|Yes| C[処理A]
-    B -->|No| D[処理B]
-    C --> E[終了]
+flowchart TD
+    A[시작] --> B{조건}
+    B -->|Yes| C[처리 1]
+    B -->|No| D[처리 2]
+    C --> E[종료]
     D --> E
 ```
 
-```
-graph TD
-    A[開始] --> B{条件分岐}
-    B -->|Yes| C[処理A]
-    B -->|No| D[処理B]
-    C --> E[終了]
-    D --> E
-```
-
-### シーケンス図
+### Sequence Diagram
 
 ```mermaid
 sequenceDiagram
-    participant User
-    participant Frontend
-    participant Backend
-    participant Database
+    participant C as Client
+    participant S as Server
+    participant D as Database
 
-    User->>Frontend: ログイン
-    Frontend->>Backend: POST /api/login
-    Backend->>Database: SELECT user
-    Database-->>Backend: User data
-    Backend-->>Frontend: JWT token
-    Frontend-->>User: ログイン成功
+    C->>S: HTTP Request
+    S->>D: Query
+    D-->>S: Result
+    S-->>C: HTTP Response
 ```
 
-```
-sequenceDiagram
-    participant User
-    participant Frontend
-    participant Backend
-    participant Database
-
-    User->>Frontend: ログイン
-    Frontend->>Backend: POST /api/login
-    Backend->>Database: SELECT user
-    Database-->>Backend: User data
-    Backend-->>Frontend: JWT token
-    Frontend-->>User: ログイン成功
-```
-
-### クラス図
-
-```mermaid
-classDiagram
-    class User {
-        +String id
-        +String name
-        +String email
-        +login()
-        +logout()
-    }
-    class Order {
-        +String id
-        +Date date
-        +Float total
-        +addItem()
-        +removeItem()
-    }
-    User "1" --> "*" Order : places
-```
-
-```
-classDiagram
-    class User {
-        +String id
-        +String name
-        +String email
-        +login()
-        +logout()
-    }
-    class Order {
-        +String id
-        +Date date
-        +Float total
-        +addItem()
-        +removeItem()
-    }
-    User "1" --> "*" Order : places
-```
-
-### ER図
+### ER Diagram
 
 ```mermaid
 erDiagram
     USER ||--o{ ORDER : places
     ORDER ||--|{ ORDER_ITEM : contains
-    PRODUCT ||--o{ ORDER_ITEM : "ordered in"
-
     USER {
-        int id PK
+        long id PK
         string name
-        string email
-    }
-    ORDER {
-        int id PK
-        int user_id FK
-        date created_at
-    }
-    ORDER_ITEM {
-        int order_id FK
-        int product_id FK
-        int quantity
-    }
-    PRODUCT {
-        int id PK
-        string name
-        decimal price
     }
 ```
 
-```
-erDiagram
-    USER ||--o{ ORDER : places
-    ORDER ||--|{ ORDER_ITEM : contains
-    PRODUCT ||--o{ ORDER_ITEM : "ordered in"
+---
 
-    USER {
-        int id PK
-        string name
-        string email
-    }
-```
-
-### ガントチャート
-
-```mermaid
-gantt
-    title プロジェクトスケジュール
-    dateFormat  YYYY-MM-DD
-    section フェーズ1
-    要件定義           :a1, 2024-01-01, 30d
-    設計               :a2, after a1, 20d
-    section フェーズ2
-    開発               :b1, after a2, 60d
-    テスト             :b2, after b1, 30d
-    section デプロイ
-    リリース準備       :c1, after b2, 10d
-    本番リリース       :milestone, c2, after c1, 1d
-```
+## 파일 구조
 
 ```
-gantt
-    title プロジェクトスケジュール
-    dateFormat  YYYY-MM-DD
-    section フェーズ1
-    要件定義           :a1, 2024-01-01, 30d
-    設計               :a2, after a1, 20d
+docs/career/portfolio/
+├── portfolio.md
+└── images/
+    ├── api-sequence.mmd        # Mermaid 소스 (선택)
+    ├── api-sequence.svg        # 생성된 SVG
+    └── order-flow.svg
 ```
 
-### 状態遷移図
+### 파일명 규칙
 
-```mermaid
-stateDiagram-v2
-    [*] --> Draft
-    Draft --> Review : Submit
-    Review --> Approved : Approve
-    Review --> Draft : Reject
-    Approved --> Published : Publish
-    Published --> [*]
-```
+| 유형 | 파일명 예시 |
+|------|------------|
+| 시퀀스 다이어그램 | `{feature}-sequence.svg` |
+| 플로우차트 | `{process}-flow.svg` |
+| ER 다이어그램 | `{domain}-er.svg` |
 
-```
-stateDiagram-v2
-    [*] --> Draft
-    Draft --> Review : Submit
-    Review --> Approved : Approve
-    Review --> Draft : Reject
-    Approved --> Published : Publish
-    Published --> [*]
-```
+---
 
-### パイチャート
+## 작성 절차
 
-```mermaid
-pie title 売上構成
-    "製品A" : 42
-    "製品B" : 30
-    "製品C" : 18
-    "その他" : 10
-```
+1. **Mermaid 코드 작성**: `.mmd` 파일 또는 마크다운 코드 블록
+2. **SVG 변환**: `mmdc -i diagram.mmd -o diagram.svg`
+3. **파일 저장**: `docs/career/portfolio/images/`
+4. **마크다운에서 참조**: `![설명](./images/{diagram-name}.svg)`
+5. **git add 실행**
 
-```
-pie title 売上構成
-    "製品A" : 42
-    "製品B" : 30
-    "製品C" : 18
-    "その他" : 10
-```
+---
 
-### ユーザージャーニー
+## 주의사항
 
-```mermaid
-journey
-    title ユーザー登録のジャーニー
-    section 発見
-      ランディングページ訪問: 5: User
-      機能を確認: 4: User
-    section 登録
-      サインアップクリック: 3: User
-      情報入力: 2: User
-      メール認証: 3: User
-    section 利用開始
-      チュートリアル: 4: User
-      初回利用: 5: User
-```
+1. **파일명**: kebab-case 사용 (예: `api-sequence.svg`)
+2. **위치**: `docs/career/portfolio/images/` 폴더에 저장
+3. **한글**: 일부 폰트에서 깨질 수 있음 - 테스트 필요
+4. **복잡한 레이아웃**: 자동 배치가 마음에 안 들면 `/svg-diagram` 사용
 
-## HTMLへの埋め込み
+---
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true });</script>
-</head>
-<body>
-  <div class="mermaid">
-    graph TD
-        A[開始] --> B[処理]
-        B --> C[終了]
-  </div>
-</body>
-</html>
-```
+## 체크리스트
 
-## ベストプラクティス
+- [ ] 다이어그램 유형이 목적에 적합한가?
+- [ ] 파일명이 kebab-case인가?
+- [ ] SVG 파일이 `images/` 폴더에 있는가?
+- [ ] 마크다운에서 올바르게 참조했는가?
+- [ ] git add 실행했는가?
 
-1. **明確なラベル**: ノード名を分かりやすく
-2. **方向性**: TD（上下）、LR（左右）を適切に選択
-3. **色分け**: 重要な部分を強調
-4. **コメント**: 複雑な図には説明を追加
+---
 
-## バージョン情報
+## 참조 문서
 
-- スキルバージョン: 1.0.0
-- 最終更新: 2025-01-22
+| 문서 | 내용 |
+|------|------|
+| `references/syntax.md` | 모든 다이어그램 문법 상세 |
+| `references/cli-styling.md` | CLI 사용법, 테마, 스타일링 |
+
+## 외부 자료
+
+- [Mermaid 공식 문서](https://mermaid.js.org/)
+- [Mermaid Live Editor](https://mermaid.live/)
+
+---
+
+## 관련 스킬
+
+- `/write-portfolio`: 포트폴리오 작성 (다이어그램 포함)
+- `/svg-diagram`: SVG 직접 생성 (정교한 레이아웃)
+- `/export`: PDF 내보내기

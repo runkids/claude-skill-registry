@@ -1,7 +1,7 @@
 {
   "name": "worklog",
-  "repo": "lajarre/dotfiles",
-  "path": ".claude/skills/worklog/SKILL.md",
-  "source": "github.com/lajarre/dotfiles",
-  "downloaded_at": "2026-01-20T04:07:07.511299Z"
+  "repo": "arlenagreer/claude_configuration_docs",
+  "path": "skills/worklog/SKILL.md",
+  "source": "github.com/arlenagreer/claude_configuration_docs",
+  "downloaded_at": "2026-01-21T01:56:41.879796Z"
 }

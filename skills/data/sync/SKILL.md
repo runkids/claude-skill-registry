@@ -1,46 +1,66 @@
 ---
 name: sync
-description: Real-time sync with Supabase, Loro CRDT, and IndexedDB. Use when working on files in src/lib/sync/.
+description: Check for drift between repo and running system. Use when checking if scripts or Samara are out of sync, verifying system integrity, or before/after rebuilds. Trigger words: sync, organism sync, check drift, system drift, repo sync.
+context: fork
+allowed-tools:
+  - Bash
+  - Read
+  - Grep
 ---
 
-# Sync Guidelines
+# Sync Skill
 
-## Core Principles
+Check for drift between the repo and running system, and optionally fix it.
 
-1. **Server is source of truth** - IndexedDB is a cache
-2. **All ops kept forever** - no pruning, enables full audit trail
-3. **Shallow snapshots for fast start** - performance only, not compaction
-4. **Encryption at rest** - server sees encrypted blobs + plaintext version metadata
+## What This Does
 
-## Persistence Flow
+Runs the `sync-organism` script to detect differences between:
+- `~/Developer/samara-main/` (the repo/genome)
+- `~/.claude-mind/` (the running organism)
+- `/Applications/Samara.app` (the built app)
 
-| Event            | IndexedDB              | Server                    |
-| ---------------- | ---------------------- | ------------------------- |
-| Local change     | **Immediate**          | **Throttled** (~2s)       |
-| Tab hidden/close | Immediate              | Flush pending             |
-| Cold start       | Load snapshot → usable | Background sync           |
+## Running the Check
 
-## Critical Rules
+```bash
+~/.claude-mind/bin/sync-organism
+```
 
-1. **IndexedDB writes immediate** - crash safety
-2. **Server pushes throttled** - use `lodash-es` throttle, ~2s
-3. **Encrypt before storage** - never plaintext in IndexedDB or server
-4. **Version vector plaintext** - enables server filtering without decryption
-5. **`has_unpushed` flag critical** - server must send ops (not snapshot) if client has local changes
-6. **Flush on visibility change** - don't lose data on tab switch
+## What It Checks
 
-## Key Details
+1. **Samara.app Signing** - Correct Team ID (G4XVD3J52J)
+2. **Skills Symlinks** - All skills properly linked from repo
+3. **Script Drift** - Differences between repo and runtime scripts
+4. **Samara Source** - Whether installed app matches source code
 
-- loro-mirror auto-commits on `setState()` - no manual debouncing
-- `subscribeLocalUpdates` fires after each commit with binary update
-- Snapshot refresh: ops > 1000 OR bytes > 1MB (not time-based)
+## When to Use
 
-## Conflict Resolution
+- After making changes to scripts in either location
+- Before/after `update-samara` rebuilds
+- During wake cycles (for monitoring)
+- When something "should work but doesn't"
 
-Loro handles automatically: last-write-wins per field, set union for arrays.
+## Output Example
 
-## UI States
+```
+## Samara.app Signing
+[OK] Samara.app signed with correct Team ID: G4XVD3J52J
 
-- **Saved** - all pushed
-- **Saving...** - pending in buffer
-- **Offline** - can't reach server
+## Skills Symlinks
+[OK] 10 skills properly symlinked
+
+## Script Drift Analysis
+[OK] All shared scripts are identical
+
+## Samara.app Source Check
+[OK] Samara.app is up to date with source
+
+SUMMARY
+Total drift: 0 issues
+```
+
+## Fixing Drift
+
+If drift is detected, the script shows commands to fix it. Common fixes:
+- Copy runtime script to repo: `cp ~/.claude-mind/bin/X ~/Developer/samara-main/scripts/`
+- Rebuild Samara: `~/.claude-mind/bin/update-samara`
+- Recreate symlinks: Run `sync-skills` or manually create symlinks

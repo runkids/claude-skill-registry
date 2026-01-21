@@ -1,7 +1,7 @@
 {
   "name": "moai-nextra-architecture",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": "skills/moai-nextra-architecture/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-20T04:03:47.624776Z"
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-nextra-architecture/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-21T02:29:39.724161Z"
 }

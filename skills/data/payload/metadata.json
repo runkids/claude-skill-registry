@@ -1,7 +1,7 @@
 {
   "name": "payload",
-  "repo": "mgd34msu/goodvibes-plugin",
-  "path": "plugins/goodvibes/skills/webdev/skills/payload/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-plugin",
-  "downloaded_at": "2026-01-20T03:23:58.555071Z"
+  "repo": "payloadcms/payload",
+  "path": "tools/claude-plugin/skills/payload/SKILL.md",
+  "source": "github.com/payloadcms/payload",
+  "downloaded_at": "2026-01-21T03:27:55.577706Z"
 }

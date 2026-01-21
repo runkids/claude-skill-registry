@@ -1,7 +1,7 @@
 {
   "name": "worktree-management",
-  "repo": "JacobPEvans/ai-assistant-instructions",
-  "path": "agentsmd/skills/worktree-management/SKILL.md",
-  "source": "github.com/JacobPEvans/ai-assistant-instructions",
-  "downloaded_at": "2026-01-20T01:39:16.508873Z"
+  "repo": "JoernStoehler/msc-viterbo",
+  "path": ".claude/skills/worktree-management/SKILL.md",
+  "source": "github.com/JoernStoehler/msc-viterbo",
+  "downloaded_at": "2026-01-21T03:52:21.245927Z"
 }

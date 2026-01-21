@@ -1,111 +1,175 @@
 ---
 name: security-scan
-description: Scan code for OWASP vulnerabilities and security issues.
-  Use for security-sensitive implementations.
+description: "Run comprehensive security vulnerability scans when reviewing code. Automatically uses basic mode (fast, high/medium severity only) for first reviews, advanced mode (comprehensive, all severities) for iterations. Detects SQL injection, XSS, hardcoded secrets, insecure dependencies. Use before approving any code changes or pull requests."
+version: 1.0.0
+allowed-tools: [Bash, Read]
 ---
 
-# Security Scan Skill
+# Security Scanning Skill
 
-## Purpose
-Identify and prevent security vulnerabilities.
+You are the security-scan skill. When invoked, you run appropriate security scanners based on project language and provide structured security reports.
 
-## OWASP Top 10 Checklist
-Reference: [checklists/owasp-top-10.md](checklists/owasp-top-10.md)
+## When to Invoke This Skill
 
-### A01: Broken Access Control
-- [ ] Authorization on all endpoints
-- [ ] Deny by default
-- [ ] Rate limiting implemented
-- [ ] CORS properly configured
+**Invoke this skill when:**
+- Tech Lead is reviewing code changes
+- Before approving pull requests
+- Security-sensitive code modified (auth, database, API endpoints)
+- Before deployment to production
+- Reviewing dependencies or third-party code
 
-### A02: Cryptographic Failures
-- [ ] Data encrypted in transit (HTTPS)
-- [ ] Sensitive data encrypted at rest
-- [ ] Strong algorithms used
-- [ ] Keys properly managed
+**Do NOT invoke when:**
+- Documentation-only changes
+- Test file changes only
+- Non-code changes (README, config, .gitignore)
+- Work-in-progress drafts not ready for review
 
-### A03: Injection
-- [ ] Parameterized queries
-- [ ] Input validation
-- [ ] Output encoding
-- [ ] No eval() with user input
+---
 
-## Authentication Checklist
-Reference: [checklists/auth-security.md](checklists/auth-security.md)
-- [ ] Passwords hashed (bcrypt/argon2)
-- [ ] Session properly managed
-- [ ] Tokens securely stored
-- [ ] Logout invalidates session
+## Your Task
 
-## Data Validation Checklist
-Reference: [checklists/data-validation.md](checklists/data-validation.md)
-- [ ] All input validated
-- [ ] Type checking enforced
-- [ ] Size limits set
-- [ ] Format validation done
+When invoked:
+1. Execute the security scan script
+2. Read the generated security report
+3. Return a summary to the calling agent
 
-## Automated Scan Script
-Run: [scripts/security-scan.sh](scripts/security-scan.sh)
+---
 
+## Step 1: Execute Security Scan Script
+
+Use the **Bash** tool to run the pre-built security scanning script.
+
+**On Unix/macOS:**
 ```bash
-#!/bin/bash
-# Run dependency audit
-npm audit
-
-# Run static analysis (if available)
-npx eslint --plugin security .
-
-# Check for secrets
-npx secretlint .
+bash .claude/skills/security-scan/scripts/scan.sh
 ```
 
-## Vulnerability Severity Levels
+**On Windows (PowerShell):**
+```powershell
+pwsh .claude/skills/security-scan/scripts/scan.ps1
+```
 
-### Critical
-- Remote code execution
-- SQL injection
-- Authentication bypass
-- Sensitive data exposure
+> **Cross-platform detection:** Check if running on Windows (`$env:OS` contains "Windows" or `uname` doesn't exist) and run the appropriate script.
 
-### High
-- Cross-site scripting (XSS)
-- Cross-site request forgery (CSRF)
-- Insecure deserialization
-- Privilege escalation
+The script automatically determines scan mode:
+- **Basic mode** (default): Fast scan, high/medium severity only (5-10 seconds)
+- **Advanced mode**: Comprehensive scan, all severities (30-60 seconds)
 
-### Medium
-- Information disclosure
-- Missing encryption
-- Weak session management
-- Insufficient logging
+Mode selection is controlled by `SECURITY_SCAN_MODE` environment variable (set by Tech Lead based on revision count).
 
-### Low
-- Missing security headers
-- Verbose error messages
-- Outdated dependencies (no known exploits)
+The script will:
+- Detect project language (Python, JavaScript, Go, Ruby, Java)
+- Run appropriate security scanner (bandit, npm audit, gosec, brakeman, spotbugs)
+- Parse results and categorize by severity
+- Generate `bazinga/artifacts/{SESSION_ID}/skills/security_scan.json`
 
-## Security Report Format
+---
 
-Save to: `docs/reviews/security-audit-{session}.md`
+## Step 2: Read Generated Report
 
-## Remediation Process
+Use the **Read** tool to read:
 
-1. **Critical/High**: Fix immediately, block merge
-2. **Medium**: Fix before release
-3. **Low**: Track in backlog
+```bash
+bazinga/artifacts/{SESSION_ID}/skills/security_scan.json
+```
 
-## Best Practices
+Extract key information:
+- `scan_mode` - Basic or advanced
+- `status` - success/partial/error
+- `critical_issues`, `high_issues`, `medium_issues` - Issue counts
+- `issues` - Array of security findings with file/line/recommendation
 
-### Do
-- Use parameterized queries
-- Validate all input
-- Encode all output
-- Use security headers
-- Keep dependencies updated
+---
 
-### Don't
-- Hardcode secrets
-- Trust user input
-- Expose stack traces
-- Use weak algorithms
-- Skip authentication checks
+## Step 3: Return Summary
+
+Return a concise summary to the calling agent:
+
+```
+Security Scan Report ({mode} mode):
+- Tool: {tool_name}
+- Critical issues: {count}
+- High issues: {count}
+- Medium issues: {count}
+
+{If issues found:}
+Top issues:
+1. {severity}: {issue title} ({file}:{line})
+2. {severity}: {issue title} ({file}:{line})
+3. {severity}: {issue title} ({file}:{line})
+
+Details saved to: bazinga/artifacts/{SESSION_ID}/skills/security_scan.json
+```
+
+---
+
+## Example Invocation
+
+**Scenario: First Review (Basic Mode)**
+
+Input: Tech Lead reviewing auth changes before deployment
+
+Expected output:
+```
+Security Scan Report (basic mode):
+- Tool: bandit
+- Critical issues: 0
+- High issues: 2
+- Medium issues: 5
+
+Top issues:
+1. HIGH: SQL injection risk (auth.py:45)
+2. HIGH: Hardcoded secret detected (config.py:12)
+3. MEDIUM: Weak random number generation (token.py:89)
+
+Details saved to: bazinga/artifacts/{SESSION_ID}/skills/security_scan.json
+```
+
+**Scenario: Persistent Issues (Advanced Mode)**
+
+Input: Tech Lead reviewing after 2nd revision
+
+Expected output:
+```
+Security Scan Report (advanced mode):
+- Tool: bandit + semgrep
+- Critical issues: 1
+- High issues: 3
+- Medium issues: 8
+- Low issues: 12
+
+Top issues:
+1. CRITICAL: Remote code execution vulnerability (upload.py:156)
+2. HIGH: Authentication bypass possible (middleware.py:78)
+3. HIGH: XSS vulnerability in user input (forms.py:45)
+
+Details saved to: bazinga/artifacts/{SESSION_ID}/skills/security_scan.json
+```
+
+---
+
+## Error Handling
+
+**If security tool not installed:**
+- Script attempts auto-installation
+- Falls back gracefully if installation fails
+- Returns error with installation instructions
+
+**If scan fails:**
+- Check `status` field in report (will be "error" or "partial")
+- Empty issues array with status="error" means scan FAILED, not that code is secure
+- Return error details to calling agent
+
+**If no issues found:**
+- Return successful report with 0 issues
+- Status: "success"
+
+---
+
+## Notes
+
+- The script (446+ lines) handles all language detection, tool installation, and scanning
+- Supports both bash (Linux/Mac) and PowerShell (Windows)
+- Basic mode prioritizes speed, advanced mode prioritizes thoroughness
+- Always check the `status` field before interpreting results
+- Tools may produce false positives - findings should be reviewed by humans

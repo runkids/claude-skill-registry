@@ -1,7 +1,7 @@
 {
   "name": "config-generator",
-  "repo": "rknall/claude-skills",
-  "path": "config-generator/SKILL.md",
-  "source": "github.com/rknall/claude-skills",
-  "downloaded_at": "2026-01-20T01:28:19.035128Z"
+  "repo": "Brownbull/taskflow",
+  "path": ".claude/skills/core/config-generator/skill.md",
+  "source": "github.com/Brownbull/taskflow",
+  "downloaded_at": "2026-01-21T01:34:35.311960Z"
 }

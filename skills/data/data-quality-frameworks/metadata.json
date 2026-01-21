@@ -1,7 +1,7 @@
 {
   "name": "data-quality-frameworks",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/data-quality-frameworks/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-20T02:53:55.301598Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/data-engineering/skills/data-quality-frameworks/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:10:59.680141Z"
 }

@@ -1,109 +1,152 @@
 ---
 name: property-based-testing
-description: Provides guidance for property-based testing across multiple languages and smart contracts. Use when writing tests, reviewing code with serialization/validation/parsing patterns, designing features, or when property-based testing would provide stronger coverage than example-based tests.
+description: Property-based testing with Hypothesis for discovering edge cases automatically. Use when testing invariants, finding boundary conditions, implementing stateful testing, or validating data transformations.
+context: fork
+agent: test-generator
+version: 1.0.0
+tags: [hypothesis, property-testing, fuzzing, python, testing, 2026]
+author: SkillForge
+user-invocable: false
 ---
 
-# Property-Based Testing Guide
+# Property-Based Testing with Hypothesis
 
-Use this skill proactively during development when you encounter patterns where PBT provides stronger coverage than example-based tests.
+Discover edge cases automatically by testing properties instead of examples.
 
-## When to Invoke (Automatic Detection)
+## Overview
 
-**Invoke this skill when you detect:**
+- Testing functions with many possible inputs
+- Validating invariants that must hold for all inputs
+- Finding boundary conditions and edge cases
+- Testing serialization/deserialization roundtrips
+- Stateful testing of APIs and state machines
 
-- **Serialization pairs**: `encode`/`decode`, `serialize`/`deserialize`, `toJSON`/`fromJSON`, `pack`/`unpack`
-- **Parsers**: URL parsing, config parsing, protocol parsing, string-to-structured-data
-- **Normalization**: `normalize`, `sanitize`, `clean`, `canonicalize`, `format`
-- **Validators**: `is_valid`, `validate`, `check_*` (especially with normalizers)
-- **Data structures**: Custom collections with `add`/`remove`/`get` operations
-- **Mathematical/algorithmic**: Pure functions, sorting, ordering, comparators
-- **Smart contracts**: Solidity/Vyper contracts, token operations, state invariants, access control
+## Quick Reference
 
-**Priority by pattern:**
+### Example-Based vs Property-Based
 
-| Pattern | Property | Priority |
-|---------|----------|----------|
-| encode/decode pair | Roundtrip | HIGH |
-| Pure function | Multiple | HIGH |
-| Validator | Valid after normalize | MEDIUM |
-| Sorting/ordering | Idempotence + ordering | MEDIUM |
-| Normalization | Idempotence | MEDIUM |
-| Builder/factory | Output invariants | LOW |
-| Smart contract | State invariants | HIGH |
+```python
+# Example-based: Test specific inputs
+def test_sort_examples():
+    assert sort([3, 1, 2]) == [1, 2, 3]
+    # But what about [-1], [1.5, 2.5], ...?
 
-## When NOT to Use
+# Property-based: Test properties for ALL inputs
+from hypothesis import given
+from hypothesis import strategies as st
 
-Do NOT use this skill for:
-- Simple CRUD operations without transformation logic
-- One-off scripts or throwaway code
-- Code with side effects that cannot be isolated (network calls, database writes)
-- Tests where specific example cases are sufficient and edge cases are well-understood
-- Integration or end-to-end testing (PBT is best for unit/component testing)
-
-## Property Catalog (Quick Reference)
-
-| Property | Formula | When to Use |
-|----------|---------|-------------|
-| **Roundtrip** | `decode(encode(x)) == x` | Serialization, conversion pairs |
-| **Idempotence** | `f(f(x)) == f(x)` | Normalization, formatting, sorting |
-| **Invariant** | Property holds before/after | Any transformation |
-| **Commutativity** | `f(a, b) == f(b, a)` | Binary/set operations |
-| **Associativity** | `f(f(a,b), c) == f(a, f(b,c))` | Combining operations |
-| **Identity** | `f(x, identity) == x` | Operations with neutral element |
-| **Inverse** | `f(g(x)) == x` | encrypt/decrypt, compress/decompress |
-| **Oracle** | `new_impl(x) == reference(x)` | Optimization, refactoring |
-| **Easy to Verify** | `is_sorted(sort(x))` | Complex algorithms |
-| **No Exception** | No crash on valid input | Baseline property |
-
-**Strength hierarchy** (weakest to strongest):
-No Exception → Type Preservation → Invariant → Idempotence → Roundtrip
-
-## Decision Tree
-
-Based on the current task, read the appropriate section:
-
-```
-TASK: Writing new tests
-  → Read [{baseDir}/references/generating.md]({baseDir}/references/generating.md) (test generation patterns and examples)
-  → Then [{baseDir}/references/strategies.md]({baseDir}/references/strategies.md) if input generation is complex
-
-TASK: Designing a new feature
-  → Read [{baseDir}/references/design.md]({baseDir}/references/design.md) (Property-Driven Development approach)
-
-TASK: Code is difficult to test (mixed I/O, missing inverses)
-  → Read [{baseDir}/references/refactoring.md]({baseDir}/references/refactoring.md) (refactoring patterns for testability)
-
-TASK: Reviewing existing PBT tests
-  → Read [{baseDir}/references/reviewing.md]({baseDir}/references/reviewing.md) (quality checklist and anti-patterns)
-
-TASK: Need library reference
-  → Read [{baseDir}/references/libraries.md]({baseDir}/references/libraries.md) (PBT libraries by language, includes smart contract tools)
+@given(st.lists(st.integers()))
+def test_sort_properties(lst):
+    result = sort(lst)
+    assert len(result) == len(lst)  # Same length
+    assert all(result[i] <= result[i+1] for i in range(len(result)-1))  # Ordered
 ```
 
-## How to Suggest PBT
+See [strategies-guide.md](references/strategies-guide.md) for complete strategy reference.
 
-When you detect a high-value pattern while writing tests, **offer PBT as an option**:
+### Common Strategies
 
-> "I notice `encode_message`/`decode_message` is a serialization pair. Property-based testing with a roundtrip property would provide stronger coverage than example tests. Want me to use that approach?"
+```python
+from hypothesis import strategies as st
 
-**If codebase already uses a PBT library** (Hypothesis, fast-check, proptest, Echidna), be more direct:
+st.integers(min_value=0, max_value=100)  # Bounded integers
+st.text(min_size=1, max_size=50)         # Bounded text
+st.lists(st.integers(), max_size=10)     # Bounded lists
+st.from_regex(r"[a-z]+@[a-z]+\.[a-z]+")  # Pattern-based
 
-> "This codebase uses Hypothesis. I'll write property-based tests for this serialization pair using a roundtrip property."
+# Composite for domain objects
+@st.composite
+def user_strategy(draw):
+    return User(
+        name=draw(st.text(min_size=1, max_size=50)),
+        age=draw(st.integers(min_value=0, max_value=150)),
+    )
+```
 
-**If user declines**, write good example-based tests without further prompting.
+### Common Properties
 
-## When NOT to Use PBT
+```python
+# Roundtrip (encode/decode)
+@given(st.dictionaries(st.text(), st.integers()))
+def test_json_roundtrip(data):
+    assert json.loads(json.dumps(data)) == data
 
-- Simple CRUD without complex validation
-- UI/presentation logic
-- Integration tests requiring complex external setup
-- Prototyping where requirements are fluid
-- User explicitly requests example-based tests only
+# Idempotence
+@given(st.text())
+def test_normalize_idempotent(text):
+    assert normalize(normalize(text)) == normalize(text)
 
-## Red Flags
+# Oracle (compare to known implementation)
+@given(st.lists(st.integers()))
+def test_sort_matches_builtin(lst):
+    assert our_sort(lst) == sorted(lst)
+```
 
-- Recommending trivial getters/setters
-- Missing paired operations (encode without decode)
-- Ignoring type hints (well-typed = easier to test)
-- Overwhelming user with candidates (limit to top 5-10)
-- Being pushy after user declines
+See [stateful-testing.md](references/stateful-testing.md) for state machine testing.
+
+## Key Decisions
+
+| Decision | Recommendation |
+|----------|----------------|
+| Strategy design | Composite strategies for domain objects |
+| Example count | 100 for CI, 10 for dev, 1000 for release |
+| Database tests | Use explicit mode, limit examples |
+| Deadline | Disable for slow tests, 200ms default |
+| Stateful tests | RuleBasedStateMachine for state machines |
+
+## Anti-Patterns (FORBIDDEN)
+
+```python
+# NEVER ignore failing examples
+@given(st.integers())
+def test_bad(x):
+    if x == 42:
+        return  # WRONG - hiding failure!
+
+# NEVER use filter with low hit rate
+st.integers().filter(lambda x: x % 1000 == 0)  # WRONG - very slow
+
+# NEVER test with unbounded inputs
+@given(st.text())  # WRONG - includes 10MB strings
+def test_username(name):
+    User(name=name)
+
+# NEVER mutate strategy results
+@given(st.lists(st.integers()))
+def test_mutating(lst):
+    lst.append(42)  # WRONG - mutates generated data
+```
+
+## Related Skills
+
+- `pytest-advanced` - Custom markers and parallel execution
+- `unit-testing` - Basic testing patterns
+- `contract-testing` - API contract testing with Pact
+
+## References
+
+- [Strategies Guide](references/strategies-guide.md) - Complete strategy reference
+- [Stateful Testing](references/stateful-testing.md) - State machine patterns
+- [Hypothesis Conftest](templates/hypothesis-conftest.py) - Production setup
+
+## Capability Details
+
+### strategies
+**Keywords:** strategy, hypothesis, generator, from_type, composite
+**Solves:** Generate test data, create strategies for custom types
+
+### properties
+**Keywords:** property, invariant, roundtrip, idempotent, oracle
+**Solves:** What properties to test, roundtrips, invariants
+
+### stateful
+**Keywords:** stateful, state machine, RuleBasedStateMachine, rule
+**Solves:** Test stateful systems, model state transitions
+
+### schemathesis
+**Keywords:** schemathesis, openapi, api testing, fuzzing
+**Solves:** Fuzz test API endpoints, generate from OpenAPI spec
+
+### hypothesis-settings
+**Keywords:** max_examples, deadline, profile, suppress_health_check
+**Solves:** Configure for CI vs dev, speed up slow tests

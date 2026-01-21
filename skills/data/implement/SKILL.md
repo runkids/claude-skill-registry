@@ -1,243 +1,295 @@
 ---
 name: implement
-description: Implement and refactor code to match UI/UX flow diagrams (full stack)
-allowed-tools:
-  - Read
-  - Glob
-  - Grep
-  - Write
-  - Edit
-  - Task
-  - Bash(npm run build:*)
-  - Bash(npm test:*)
-  - Bash(npx nx build:*)
-  - Bash(npx nx test:*)
-  - Bash(npx nx lint:*)
-  - Bash(npx tsc:*)
-  - Bash(npx vitest:*)
-  - Bash(npx nx run global-schema-shared:generate-schema)
-  - Bash(git status:*)
-  - Bash(git diff:*)
-  - Bash(git log:*)
-  - WebFetch
+description: "Execute implementation workflow phase by phase. Use after analysis passes. Triggers on: start implementation, implement feature, begin coding."
 ---
 
-# Implementation Skill
+# Implementation Workflow Executor
 
-## Purpose
-Implement code following the planned architecture:
-- Read Bill of Materials (BOM) from description.md
-- Follow interface designs
-- Implement tests per test-plan.md
+Guide systematic implementation of features using TDD and quality-first approach.
 
-**IMPORTANT**: Read planning docs first. Follow existing patterns.
+> **Note:** This skill uses generic placeholders. Adapt commands and paths to your project:
+> - Quality commands: Check your `package.json`, `Makefile`, or build config
+> - File paths: Adjust based on your project structure
+> - Examples show common conventions - your project may differ
 
-## Modes
+---
 
-### Standalone Mode
-Invoked directly: `/implement "task description"`
+## SpecKit Workflow
 
-### Feature Mode (PREFERRED)
-Called by `/feature` skill during Phase 5:
+This skill is **Step 6 of 6** in the Relentless workflow:
 
+specify → plan → tasks → convert → analyze → **implement**
+
+Prerequisites:
+- `spec.md` - Feature specification
+- `plan.md` - Technical implementation plan
+- `tasks.md` - User stories with acceptance criteria
+- `prd.json` - Converted PRD with routing metadata
+- `checklist.md` - Quality validation checklist
+- Analysis must PASS (run `/relentless.analyze` first)
+
+---
+
+## The Job
+
+Implement user stories one at a time, following strict TDD and updating all tracking files.
+
+---
+
+## Before You Start
+
+1. **Read the Constitution** - Review your project's constitution (if exists) for governance principles
+2. **Read prompt.md** - Review workflow guidelines (if exists)
+3. **Read progress.txt** - Check learnings from previous iterations
+4. **Review artifacts** - Ensure spec.md, plan.md, tasks.md, prd.json, checklist.md exist
+5. **Verify Analysis Passed** - Run `/relentless.analyze` if not already done
+6. **Identify Quality Commands** - Find your project's typecheck, lint, and test commands
+7. **Check Branch** - Verify you're on the correct branch from PRD `branchName`
+
+---
+
+## CRITICAL: Quality Gates (Non-Negotiable)
+
+Before marking ANY story as complete, ALL quality checks must pass.
+
+**Find your project's commands** (examples for different ecosystems):
+
+```bash
+# JavaScript/TypeScript (npm/yarn/bun/pnpm):
+npm run typecheck && npm run lint && npm test
+
+# Python:
+mypy . && ruff check . && pytest
+
+# Go:
+go build ./... && golangci-lint run && go test ./...
+
+# Rust:
+cargo check && cargo clippy && cargo test
 ```
-/implement docs/features/{feature-name}/
+
+**Requirements:**
+- Typecheck: 0 errors
+- Lint: 0 errors AND 0 warnings
+- Tests: All pass
+
+**If ANY check fails, DO NOT mark the story as complete. Fix the issues first.**
+
+---
+
+## TDD Workflow (MANDATORY)
+
+For EVERY story, follow strict Test-Driven Development:
+
+### Step 1: Write Failing Tests First (RED)
+```bash
+# Create test file if needed
+# Write tests that define expected behavior
+# Run your test command - tests MUST fail initially
 ```
 
-**REQUIRES**: Path to feature folder with completed architecture and TODO checklist in todos.md.
+### Step 2: Implement Minimum Code (GREEN)
+```bash
+# Write only enough code to pass tests
+# Run tests - they MUST pass now
+```
 
-## Workflow
+### Step 3: Refactor
+```bash
+# Clean up while keeping tests green
+# Run tests - they MUST still pass
+```
 
-### Feature Mode Workflow (when called by /feature)
+**Do NOT skip TDD. Tests are contracts that validate your implementation.**
 
-1. **Read feature folder** (provided as argument)
-   - Read `todos.md` for TODO checklist
-   - Read `description.md` for source locations
-   - Read `journey.md` for architecture and UI/UX wireframes
+---
 
-2. **Verify prerequisites**:
-   - journey.md contains **approved UI/UX wireframes**
-   - journey.md contains architecture diagrams
-   - todos.md has `## Active TODOs` section with checkboxes
+## Research Phase (if story has `research: true`)
 
-3. **Follow the TODO checklist**:
-   - Read `## Active TODOs` section in todos.md
-   - Work through items IN ORDER
-   - After completing each item:
-     - Update todos.md to check off `[x]` the item
-     - Update `**Status**:` to "In Progress"
-   - When all items done, set status to "Complete"
+If the current story has `research: true` in prd.json and no research file exists yet:
 
-4. **If user requests changes**:
-   - STOP current work
-   - Update todos.md with the change
-   - Add/modify TODO items if needed
-   - Continue implementation
+1. **Explore the codebase** - Find relevant files, patterns, and dependencies
+2. **Document findings** in `relentless/features/<feature>/research/<story-id>.md`:
+   - Existing patterns that should be followed
+   - Files that will likely need modification
+   - Dependencies and integration points
+   - Potential gotchas or edge cases
+   - Recommended implementation approach
+3. **Do NOT implement** - only research and document
+4. Save your findings to the research file and end your turn
 
-5. **Verify each layer** before moving to next
+---
 
-6. **Run full verification**: build, lint, test
+## Per-Story Implementation Flow
 
-### TODO Checklist Rules (CRITICAL)
+For each story (in dependency order):
 
-**MUST follow these rules:**
-- Never skip TODO items
-- Never work on items out of order (unless dependencies require it)
-- Always update todos.md after completing an item
-- If blocked on an item, note it in todos.md and ask user
-- User changes = update todos.md FIRST, then continue
+### 1. Identify the Story
+- Read `prd.json` to find the next story where `passes: false`
+- Check dependencies are met (dependent stories have `passes: true`)
+- Read the story's acceptance criteria
+- Check routing metadata (complexity, model assigned)
 
-### TODO Item Format
+### 2. Find Relevant Checklist Items
+- Open `checklist.md`
+- Find items tagged with `[US-XXX]` for this story
+- Note any governance/compliance items
+- **Ensure Quality Gates and TDD items are included**
 
-Each TODO item is self-contained with all info needed:
+### 3. Implement with TDD
+Follow the TDD workflow above for each acceptance criterion.
 
+### 4. Update tasks.md
+As you complete each criterion:
 ```markdown
-- [ ] **TODO-XXX**: {Action} | File: `{path}` | Depends: {TODO-YYY or none}
-  - What: {detailed description}
-  - Why: {purpose}
-  - How: {implementation details}
-  - Accept: {acceptance criteria}
+# Change from:
+- [ ] Criterion text
+
+# To:
+- [x] Criterion text
 ```
 
-## Full Stack Scope
+### 5. Update checklist.md
+For each verified checklist item:
+```markdown
+# Change from:
+- [ ] CHK-XXX [US-001] Description
 
-| Layer             | Location                                        |
-|-------------------|-------------------------------------------------|
-| Routes            | `src/app/{feature}/{feature}-routing-module.ts` |
-| Features          | `src/app/{feature}`                             |
-| Shared Components | `src/app/shared/components`                     |
-| Shared Directives | `src/app/shared/directives`                     |
+# To:
+- [x] CHK-XXX [US-001] Description
+```
 
-## Verification Commands
+### 6. Run Quality Checks
+```bash
+# Run your project's quality commands
+# All must pass with 0 errors/warnings
+```
+
+### 7. Commit Changes
+```bash
+git add -A
+git commit -m "feat: US-XXX - Story Title"
+```
+
+### 8. Update prd.json
+Set the story's `passes` field to `true`:
+```json
+{
+  "id": "US-001",
+  "title": "...",
+  "passes": true,  // <- Change from false to true
+  ...
+}
+```
+
+### 9. Update progress.txt
+Append progress entry:
+```markdown
+## [Date] - US-XXX: Story Title
+
+**Implemented:**
+- What was built
+- Key decisions made
+
+**Files Changed:**
+- path/to/file (new/modified)
+
+**Tests Added:**
+- path/to/test.file
+
+**Learnings:**
+- Patterns discovered
+- Gotchas encountered
+
+**Constitution Compliance:**
+- [list principles followed]
+
+---
+```
+
+---
+
+## Check for Queued Prompts
+
+Between iterations, check `.queue.txt` for user input:
 
 ```bash
-# Build
-npm run build
-
-# Lint
-npm run lint
-
-# Tests
-npm run test
+# If .queue.txt exists, read and process it
+# Acknowledge in progress.txt
+# Process in FIFO order
 ```
 
 ---
 
-## Implementation Standards
+## File Update Summary
 
-**CRITICAL: Follow Approved UI/UX Wireframes**
+After completing each story, these files MUST be updated:
 
-Before implementing any frontend code, verify against journey.md:
-- **Field visibility**: Only show fields confirmed in UI/UX review
-- **Loading behavior**: Use approved pattern (eager/lazy) for relations
-- **URL architecture**: Implement confirmed URL params
-- **Component split**: Follow planned split (one component per file, ~150 lines max)
+| File | Update |
+|------|--------|
+| `tasks.md` | Check off `- [x]` completed acceptance criteria |
+| `checklist.md` | Check off `- [x]` verified checklist items |
+| `prd.json` | Set `"passes": true` for the story |
+| `progress.txt` | Append progress entry with learnings |
 
 ---
 
-### 3. Tests (MANDATORY - NOT OPTIONAL)
-```bash
-# Read test-plan.md
-# Implement EVERY T-{FEAT}-* test case
-# Run tests to verify they pass
+## Implementation Phases
 
-describe('T-FEAT-001: Feature happy path', () => {
-  it('should return data', () => { /* ... */ });
-});
+### Phase 0: Setup
+- Infrastructure, tooling, configuration
+- Usually US-001 type stories
+
+### Phase 1: Foundation
+- Data models, types, schemas
+- Base utilities and helpers
+- Core infrastructure
+
+### Phase 2: User Stories
+- Feature implementation
+- Follow dependency order strictly
+
+### Phase 3: Polish
+- E2E tests
+- Documentation
+- Performance optimization
+
+---
+
+## Stop Condition
+
+After completing a user story, check if ALL stories have `passes: true`.
+
+**If ALL stories are complete and passing, output:**
+```
+<promise>COMPLETE</promise>
 ```
 
-**Tests are NOT optional.** Implementation is NOT complete until tests pass.
-
-### 4. Quality Verification
-See "Quality Verification" section below.
+**If there are still stories with `passes: false`, end your response normally** (another iteration will pick up the next story).
 
 ---
 
-## Verification Sequence
+## Common Pitfalls to Avoid
 
-```bash
-# 1. Lint
-npm run lint
-
-# 2. Test
-npm run test
-
-# 3. Build
-npm run build
-```
-
-**Run after each layer**, not just at the end.
+1. **Skipping TDD** - Never implement without tests first
+2. **Suppressing lints** - Fix issues properly, don't disable rules
+3. **Large commits** - Keep commits focused and atomic
+4. **Missing typecheck** - Always run typecheck before commit
+5. **Ignoring progress.txt** - Read learnings from previous iterations
+6. **Not checking queue** - Always check `.queue.txt` for user input
+7. **Skipping analysis** - Run `/relentless.analyze` before implementing
+8. **Ignoring routing metadata** - Check story complexity and model assignment
 
 ---
 
-## Code Style Check (MANDATORY - BLOCKING)
+## Notes
 
-After completing implementation, run codestyle check:
-
-```
-/codestyle --integration {implemented-files-or-folder}
-```
-
-### What Gets Checked
-- Naming conventions (files, components, types)
-- Import order and patterns
-- Testing compliance
-
-### Severity Levels
-
-| Level | Action                      |
-|-------|-----------------------------|
-| **CRITICAL** | MUST fix before continuing  |
-| **ERROR** | Should fix before merge     |
-| **WARNING** | Advisory, can proceed       |
-
----
-
-## Quality Verification (MANDATORY - BLOCKING)
-
-Before marking feature complete, verify ALL quality standards.
-
-### Pre-Completion Checklist
-
-1. **Read** `.claude/skills/QUALITY-STANDARDS.md`
-2. **Check EVERY item** below:
-
-### UI Checklist
-- [ ] Implementation matches approved wireframes in journey.md
-- [ ] Only approved fields are displayed (no extras)
-- [ ] URL architecture matches plan
-- [ ] Component split follows plan (one per file, ~150 lines)
-- [ ] No component duplication (check shared first)
-- [ ] **Styling uses SCSS files** (NO inline styles)
-- [ ] CSS variables used for colors (NO hardcoded values)
-- [ ] Responsive design with CSS media queries
-
-### Test Checklist (BLOCKING)
-- [ ] All T-{FEAT}-* tests from test-plan.md implemented
-- [ ] Tests pass: `npm run test`
-- [ ] Coverage meets targets (80% hooks, 70% resolvers)
-
----
-
-## Completion Rules
-
-### When to Mark Complete
-
-Feature is complete ONLY when:
-1. ✅ All TODO items checked off
-2. ✅ All tests implemented AND passing
-3. ✅ Quality verification checklist complete
-4. ✅ Build passes
-5. ✅ Lint passes
-
-### When to BLOCK Completion
-
-**DO NOT mark complete if:**
-- ❌ Tests are failing
-- ❌ Tests are not implemented
-- ❌ Quality checklist has unchecked items
-- ❌ Build or lint fails
-
-If blocked, continue implementation until all items pass.
-
----
+- Work on ONE story at a time
+- Follow dependency order strictly
+- Never skip TDD - tests come FIRST
+- Never skip quality checks
+- Commit after each story
+- Update ALL tracking files
+- Check `.queue.txt` for mid-run input
+- This is a guided workflow for systematic implementation
+- **Adapt all commands and paths to your project's specific setup**

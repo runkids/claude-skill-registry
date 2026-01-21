@@ -1,7 +1,7 @@
 {
   "name": "color-palette-extractor",
-  "repo": "nicepkg/ai-workflow",
-  "path": "workflows/talk-to-slidev-workflow/.claude/skills/color-palette-extractor/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-20T03:46:25.726935Z"
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "path": "color-palette-extractor/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-21T03:40:51.702938Z"
 }

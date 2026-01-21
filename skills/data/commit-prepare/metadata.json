@@ -1,7 +1,7 @@
 {
   "name": "commit-prepare",
-  "repo": "ByronWilliamsCPA/rag-processor",
+  "repo": "ByronWilliamsCPA/fragrance-rater",
   "path": ".claude/skills/commit-prepare/SKILL.md",
-  "source": "github.com/ByronWilliamsCPA/rag-processor",
-  "downloaded_at": "2026-01-20T04:02:39.350530Z"
+  "source": "github.com/ByronWilliamsCPA/fragrance-rater",
+  "downloaded_at": "2026-01-21T03:55:20.400122Z"
 }

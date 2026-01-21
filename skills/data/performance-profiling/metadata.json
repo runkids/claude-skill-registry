@@ -1,7 +1,7 @@
 {
   "name": "performance-profiling",
-  "repo": "sgcarstrends/sgcarstrends",
-  "path": ".claude/skills/performance-profiling/SKILL.md",
-  "source": "github.com/sgcarstrends/sgcarstrends",
-  "downloaded_at": "2026-01-20T03:51:22.366340Z"
+  "repo": "GrupoUS/gpus",
+  "path": ".agent/skills/performance-profiling/SKILL.md",
+  "source": "github.com/GrupoUS/gpus",
+  "downloaded_at": "2026-01-21T03:46:10.422836Z"
 }

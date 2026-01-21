@@ -1,7 +1,7 @@
 {
   "name": "temporal-python-testing",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/temporal-python-testing/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-20T02:53:55.070215Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/backend-development/skills/temporal-python-testing/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:11:01.007412Z"
 }

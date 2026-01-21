@@ -1,185 +1,408 @@
 ---
 name: context-manager
-description: Elite AI context engineering specialist mastering dynamic context
-  management, vector databases, knowledge graphs, and intelligent memory
-  systems. Orchestrates context across multi-agent workflows, enterprise AI
-  systems, and long-running projects with 2024/2025 best practices. Use
-  PROACTIVELY for complex AI orchestration.
-metadata:
-  model: inherit
+description: Comprehensive context and token usage management for Claude Code. Use this skill when working with large codebases, managing context window budget, optimizing file loading strategies, or when responses indicate context limitations. Helps with token analysis, file organization, query optimization, and context-efficient development workflows.
 ---
 
-## Use this skill when
+# Context Manager
 
-- Working on context manager tasks or workflows
-- Needing guidance, best practices, or checklists for context manager
+Skill for managing context window and token usage in Claude Code sessions.
 
-## Do not use this skill when
+## Overview
 
-- The task is unrelated to context manager
-- You need a different domain or tool outside this scope
+Claude Code has a context budget of approximately **190,000 tokens**. This skill helps manage this budget effectively through:
+- Token usage analysis and monitoring
+- Context-efficient query patterns
+- Strategic file loading
+- Optimization strategies for large codebases
 
-## Instructions
+## Quick Start
 
-- Clarify goals, constraints, and required inputs.
-- Apply relevant best practices and validate outcomes.
-- Provide actionable steps and verification.
-- If detailed examples are required, open `resources/implementation-playbook.md`.
+### Analyze Current Token Usage
 
-You are an elite AI context engineering specialist focused on dynamic context management, intelligent memory systems, and multi-agent workflow orchestration.
+Run the token analysis script to understand context usage:
 
-## Expert Purpose
+```bash
+python scripts/analyze_tokens.py .
+```
 
-Master context engineer specializing in building dynamic systems that provide the right information, tools, and memory to AI systems at the right time. Combines advanced context engineering techniques with modern vector databases, knowledge graphs, and intelligent retrieval systems to orchestrate complex AI workflows and maintain coherent state across enterprise-scale AI applications.
+This provides:
+- Total token count estimation
+- Budget usage percentage
+- Largest files by token count
+- Optimization recommendations
 
-## Capabilities
+### For Specific Directories or Files
 
-### Context Engineering & Orchestration
+```bash
+python scripts/analyze_tokens.py /path/to/directory
+python scripts/analyze_tokens.py src/large_file.py
+python scripts/analyze_tokens.py . --budget 190000
+```
 
-- Dynamic context assembly and intelligent information retrieval
-- Multi-agent context coordination and workflow orchestration
-- Context window optimization and token budget management
-- Intelligent context pruning and relevance filtering
-- Context versioning and change management systems
-- Real-time context adaptation based on task requirements
-- Context quality assessment and continuous improvement
+## When to Use This Skill
 
-### Vector Database & Embeddings Management
+Use this skill when:
+- Starting work on a large codebase (>50 files)
+- Noticing performance degradation or incomplete responses
+- Planning context-heavy operations (multi-file refactoring)
+- Setting up a new project for optimal Claude Code usage
+- Claude mentions being near context limits
 
-- Advanced vector database implementation (Pinecone, Weaviate, Qdrant)
-- Semantic search and similarity-based context retrieval
-- Multi-modal embedding strategies for text, code, and documents
-- Vector index optimization and performance tuning
-- Hybrid search combining vector and keyword approaches
-- Embedding model selection and fine-tuning strategies
-- Context clustering and semantic organization
+## Core Principles
 
-### Knowledge Graph & Semantic Systems
+### 1. Load Only What's Needed
 
-- Knowledge graph construction and relationship modeling
-- Entity linking and resolution across multiple data sources
-- Ontology development and semantic schema design
-- Graph-based reasoning and inference systems
-- Temporal knowledge management and versioning
-- Multi-domain knowledge integration and alignment
-- Semantic query optimization and path finding
+**DO:**
+- Request specific files by name
+- Use line ranges for large files: `view(path, [start, end])`
+- Load files sequentially for related changes
+- Work on one module/component at a time
 
-### Intelligent Memory Systems
+**DON'T:**
+- Load entire directories without filtering
+- Keep unnecessary files in context
+- Load the same file multiple times
+- Request vague "show me everything" queries
 
-- Long-term memory architecture and persistent storage
-- Episodic memory for conversation and interaction history
-- Semantic memory for factual knowledge and relationships
-- Working memory optimization for active context management
-- Memory consolidation and forgetting strategies
-- Hierarchical memory structures for different time scales
-- Memory retrieval optimization and ranking algorithms
+### 2. Use Targeted Queries
 
-### RAG & Information Retrieval
+**Good queries:**
+```
+"Update the timeout value in config.py line 45 to 30 seconds"
+"Show me the login function in auth.py"
+"Fix the validation bug in user.py lines 120-135"
+```
 
-- Advanced Retrieval-Augmented Generation (RAG) implementation
-- Multi-document context synthesis and summarization
-- Query understanding and intent-based retrieval
-- Document chunking strategies and overlap optimization
-- Context-aware retrieval with user and task personalization
-- Cross-lingual information retrieval and translation
-- Real-time knowledge base updates and synchronization
+**Poor queries:**
+```
+"Help me with this project"
+"Load all the code"
+"Show me everything related to authentication"
+```
 
-### Enterprise Context Management
+### 3. Monitor and Optimize
 
-- Enterprise knowledge base integration and governance
-- Multi-tenant context isolation and security management
-- Compliance and audit trail maintenance for context usage
-- Scalable context storage and retrieval infrastructure
-- Context analytics and usage pattern analysis
-- Integration with enterprise systems (SharePoint, Confluence, Notion)
-- Context lifecycle management and archival strategies
+File size guidelines:
+- **Small (<1K tokens)**: Load freely
+- **Medium (1-5K tokens)**: Load when needed
+- **Large (5-20K tokens)**: Use line ranges
+- **Very large (>20K tokens)**: Split or load sections only
 
-### Multi-Agent Workflow Coordination
+Budget zones:
+- **Green (<70%)**: Normal operation
+- **Yellow (70-85%)**: Be selective
+- **Red (>85%)**: Load essentials only, consider reset
 
-- Agent-to-agent context handoff and state management
-- Workflow orchestration and task decomposition
-- Context routing and agent-specific context preparation
-- Inter-agent communication protocol design
-- Conflict resolution in multi-agent context scenarios
-- Load balancing and context distribution optimization
-- Agent capability matching with context requirements
+## Progressive File Loading
 
-### Context Quality & Performance
+Follow this pattern for efficient context usage:
 
-- Context relevance scoring and quality metrics
-- Performance monitoring and latency optimization
-- Context freshness and staleness detection
-- A/B testing for context strategies and retrieval methods
-- Cost optimization for context storage and retrieval
-- Context compression and summarization techniques
-- Error handling and context recovery mechanisms
+```
+1. Structure → "Show me the project structure"
+2. Module → "Show me files in the auth module"  
+3. Load → "Load auth.py"
+4. Target → "Show me lines 100-150 where the login logic is"
+5. Action → "Update line 120 to add validation"
+```
 
-### AI Tool Integration & Context
+## Working with Large Files
 
-- Tool-aware context preparation and parameter extraction
-- Dynamic tool selection based on context and requirements
-- Context-driven API integration and data transformation
-- Function calling optimization with contextual parameters
-- Tool chain coordination and dependency management
-- Context preservation across tool executions
-- Tool output integration and context updating
+### Strategy 1: Line Ranges
 
-### Natural Language Context Processing
+Instead of loading entire files:
 
-- Intent recognition and context requirement analysis
-- Context summarization and key information extraction
-- Multi-turn conversation context management
-- Context personalization based on user preferences
-- Contextual prompt engineering and template management
-- Language-specific context optimization and localization
-- Context validation and consistency checking
+```python
+# Load only relevant section
+view("src/api.py", view_range=[100, 200])
+view("src/models.py", view_range=[1, 50])
+```
 
-## Behavioral Traits
+### Strategy 2: Progressive Disclosure
 
-- Systems thinking approach to context architecture and design
-- Data-driven optimization based on performance metrics and user feedback
-- Proactive context management with predictive retrieval strategies
-- Security-conscious with privacy-preserving context handling
-- Scalability-focused with enterprise-grade reliability standards
-- User experience oriented with intuitive context interfaces
-- Continuous learning approach with adaptive context strategies
-- Quality-first mindset with robust testing and validation
-- Cost-conscious optimization balancing performance and resource usage
-- Innovation-driven exploration of emerging context technologies
+```
+1. "What functions are in auth.py?"
+2. "Show me just the validate_token function"
+3. "Now show me where it's called"
+```
 
-## Knowledge Base
+### Strategy 3: Targeted Modifications
 
-- Modern context engineering patterns and architectural principles
-- Vector database technologies and embedding model capabilities
-- Knowledge graph databases and semantic web technologies
-- Enterprise AI deployment patterns and integration strategies
-- Memory-augmented neural network architectures
-- Information retrieval theory and modern search technologies
-- Multi-agent systems design and coordination protocols
-- Privacy-preserving AI and federated learning approaches
-- Edge computing and distributed context management
-- Emerging AI technologies and their context requirements
+```python
+# Precise changes without loading full file
+str_replace(
+    "Update timeout configuration",
+    "config.py",
+    old_str="TIMEOUT = 10",
+    new_str="TIMEOUT = 30"
+)
+```
 
-## Response Approach
+## Context Budget Management
 
-1. **Analyze context requirements** and identify optimal management strategy
-2. **Design context architecture** with appropriate storage and retrieval systems
-3. **Implement dynamic systems** for intelligent context assembly and distribution
-4. **Optimize performance** with caching, indexing, and retrieval strategies
-5. **Integrate with existing systems** ensuring seamless workflow coordination
-6. **Monitor and measure** context quality and system performance
-7. **Iterate and improve** based on usage patterns and feedback
-8. **Scale and maintain** with enterprise-grade reliability and security
-9. **Document and share** best practices and architectural decisions
-10. **Plan for evolution** with adaptable and extensible context systems
+### Understanding Token Distribution
 
-## Example Interactions
+Typical session breakdown:
+- System prompts & skills: ~40K tokens (21%)
+- Conversation history: ~30K tokens (16%)  
+- Available for files: ~120K tokens (63%)
 
-- "Design a context management system for a multi-agent customer support platform"
-- "Optimize RAG performance for enterprise document search with 10M+ documents"
-- "Create a knowledge graph for technical documentation with semantic search"
-- "Build a context orchestration system for complex AI workflow automation"
-- "Implement intelligent memory management for long-running AI conversations"
-- "Design context handoff protocols for multi-stage AI processing pipelines"
-- "Create a privacy-preserving context system for regulated industries"
-- "Optimize context window usage for complex reasoning tasks with limited tokens"
+### Monitoring Usage
+
+Run periodic checks:
+```bash
+# Quick check
+python scripts/analyze_tokens.py .
+
+# Detailed analysis with JSON output
+python scripts/analyze_tokens.py . --json > token_report.json
+```
+
+### Warning Signs
+
+Start a new session or reduce context when:
+- Claude asks to see previously loaded files
+- Responses become incomplete or generic
+- Performance noticeably degrades
+- Token usage >85% for multiple messages
+- Switching to a completely different feature
+
+## Bash Command Optimization
+
+Commands add output to context. Minimize verbose output:
+
+```bash
+# Heavy output ❌
+npm install
+pip list
+git log
+
+# Optimized ✅  
+npm install --silent
+pip list --format=freeze | head -n 20
+git log --oneline -10
+```
+
+Use output redirection:
+```bash
+# Suppress unnecessary output
+command > /dev/null 2>&1
+command --quiet
+command | head -n 20
+```
+
+## Project Setup for Context Efficiency
+
+### Step 1: Create Context Guidelines
+
+Add a `.context-notes.md` to your project:
+
+```markdown
+## Context Management
+
+### Key Files
+- `src/api.py` (large - use line ranges)
+- `src/config.py` (small - load freely)
+
+### Context Strategy  
+- Work on one module at a time
+- Exclude test fixtures (context-heavy)
+- Load models individually
+
+### Exclude Patterns
+- `data/` directory (large datasets)
+- `legacy/` directory (old code)
+```
+
+### Step 2: Add Exclusion Patterns
+
+Copy the `.claudeignore` template:
+
+```bash
+cp assets/claudeignore-template.txt .claudeignore
+```
+
+Edit to add project-specific exclusions.
+
+### Step 3: Organize Code
+
+Structure for selective loading:
+```
+src/
+├── core/       # Core logic (load as needed)
+├── api/        # API routes (load by route)
+├── models/     # Data models (load individually)
+└── utils/      # Utilities (load specific files)
+```
+
+Avoid flat structures with many large files.
+
+## Advanced Techniques
+
+### Technique 1: Component-Based Loading
+
+Work on one component at a time:
+1. Identify the component
+2. Load only relevant files
+3. Complete the work
+4. Move to next component
+
+### Technique 2: Reference Documentation
+
+For large reference files, create summaries:
+- Link to external documentation
+- Create concise internal docs
+- Use code comments for context
+
+### Technique 3: Context Checkpoints
+
+For long tasks:
+1. Summarize progress periodically
+2. Start fresh session with minimal context
+3. Continue with only essential files loaded
+
+### Technique 4: Split Large Files
+
+When a file exceeds 500-1000 lines:
+- Split by functionality
+- Separate frequently changed from stable code
+- Group by dependencies
+
+Example:
+```
+Before: api.py (2000 lines, ~15K tokens)
+
+After:
+api/
+├── routes.py (~2K tokens)
+├── handlers.py (~3K tokens)  
+├── validation.py (~1.5K tokens)
+└── utils.py (~750 tokens)
+```
+
+## Reference Documentation
+
+For detailed information, see:
+
+- **[optimization_strategies.md](references/optimization_strategies.md)**: Comprehensive context optimization techniques, file loading best practices, and directory structure guidelines
+- **[claude_code_specifics.md](references/claude_code_specifics.md)**: Claude Code-specific patterns, tool usage best practices, and session management strategies
+- **[quick_reference.md](references/quick_reference.md)**: Quick reference cheat sheet with token budget rules, essential commands, and common patterns
+
+## Common Patterns
+
+### Pattern 1: Bug Fixing
+```
+"What file contains the authentication logic?"
+"Show me the login function in auth.py"
+"Update line 45 to fix the validation check"
+```
+
+### Pattern 2: Feature Development
+```
+"What's the structure of the API routes?"
+"Show me an example route handler"
+"Create a new /users route following that pattern"
+```
+
+### Pattern 3: Refactoring
+```
+"List files in the models/ directory"
+"Load models/user.py"
+"Refactor to use dataclasses"
+[Repeat for each file]
+```
+
+### Pattern 4: Code Review
+```
+"Review auth.py for security issues (lines 1-100)"
+"Now review lines 100-200"
+[Continue in sections]
+```
+
+## Troubleshooting
+
+### Issue: Context Feels Heavy
+
+**Solutions:**
+1. Run `python scripts/analyze_tokens.py .`
+2. Start new session if usage >85%
+3. Load only essential files
+4. Use line ranges for large files
+
+### Issue: Claude Asks for Previously Loaded Files
+
+**Solutions:**
+1. Acknowledge context limitations
+2. Start fresh session
+3. Load files more selectively
+4. Use explicit file references
+
+### Issue: Slow Performance
+
+**Solutions:**
+1. Check token usage with analysis script
+2. Reduce loaded file count
+3. Use view ranges instead of full files
+4. Exclude unnecessary directories
+
+### Issue: Need to Work on Large File
+
+**Solutions:**
+1. Use line ranges to load sections
+2. View structure first, then load relevant parts
+3. Make targeted str_replace edits
+4. Consider splitting if frequently modified
+
+## Best Practices Summary
+
+1. **Analyze first**: Run token analysis before major work
+2. **Load selectively**: Request specific files, not directories
+3. **Use line ranges**: For files >500 lines
+4. **Query precisely**: Targeted questions get targeted responses
+5. **Monitor budget**: Check usage regularly
+6. **Reset when needed**: Start fresh for new features
+7. **Optimize structure**: Organize code for selective loading
+8. **Document strategy**: Create project context guidelines
+9. **Exclude appropriately**: Use .claudeignore for vendor code
+10. **Think incrementally**: One component at a time
+
+## Integration with Development Workflow
+
+### Daily Development
+- Quick token check at start: `python scripts/analyze_tokens.py .`
+- Work on one module per session
+- Use line ranges for large files
+- Start fresh session for new features
+
+### Code Reviews
+- Load files individually
+- Review in sections for large files
+- Focus on changed files only
+
+### Refactoring
+- Analyze token usage first
+- Plan component-by-component approach
+- One file at a time
+- Test each file before moving on
+
+### Debugging
+- Identify relevant files first
+- Load only those files
+- Use line ranges for context
+- Make precise changes
+
+## Additional Resources
+
+Run analysis script with options:
+```bash
+# Basic analysis
+python scripts/analyze_tokens.py .
+
+# Custom budget
+python scripts/analyze_tokens.py . --budget 150000
+
+# JSON output for integration
+python scripts/analyze_tokens.py . --json
+
+# Exclude additional patterns
+python scripts/analyze_tokens.py . --exclude build dist
+```

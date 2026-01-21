@@ -1,9 +1,7 @@
 {
   "name": "web-security",
-  "description": "Exploits web application vulnerabilities. Use when working with SQL injection, XSS, SSRF, SSTI, command injection, path traversal, authentication bypass, deserialization, or any web-based CTF challeng",
-  "repo": "kiwamizamurai/cctf",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "academind/claude-code-course",
+  "path": ".claude/skills/web-security/SKILL.md",
+  "source": "github.com/academind/claude-code-course",
+  "downloaded_at": "2026-01-21T01:02:24.497445Z"
 }

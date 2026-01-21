@@ -1,7 +1,7 @@
 {
   "name": "design",
-  "repo": "jwwelbor/shark-task-manager",
-  "path": ".claude/skills/design/SKILL.md",
-  "source": "github.com/jwwelbor/shark-task-manager",
-  "downloaded_at": "2026-01-20T03:52:18.101876Z"
+  "repo": "pianzhu/my-claude-skills",
+  "path": "skills/HelloAgents/design/SKILL.md",
+  "source": "github.com/pianzhu/my-claude-skills",
+  "downloaded_at": "2026-01-21T03:26:55.641257Z"
 }

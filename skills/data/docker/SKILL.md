@@ -1,588 +1,309 @@
 ---
-name: docker
-description: Guide for using Docker - a containerization platform for building, running, and deploying applications in isolated containers. Use when containerizing applications, creating Dockerfiles, working with Docker Compose, managing images/containers, configuring networking and storage, optimizing builds, deploying to production, or implementing CI/CD pipelines with Docker.
+name: docker-containers
+description: "Docker containerization best practices. Use when building Docker images, writing Dockerfiles, configuring Docker Compose, or troubleshooting container issues."
 ---
 
-# Docker Skill
+# Docker Containerization
 
-This skill provides comprehensive guidance for working with Docker, covering containerization concepts, practical workflows, and best practices across all major technology stacks.
+Comprehensive guide for building, optimizing, and deploying containerized applications with Docker.
 
-## When to Use This Skill
+## When to Use
 
-Use this skill when:
-- Containerizing applications for any language or framework
-- Creating or optimizing Dockerfiles and Docker Compose configurations
-- Setting up development environments with Docker
-- Deploying containerized applications to production
-- Implementing CI/CD pipelines with Docker
-- Managing container networking, storage, and security
-- Troubleshooting Docker-related issues
-- Building multi-platform images
-- Implementing microservices architectures
+- Building Docker images for applications
+- Writing and optimizing Dockerfiles
+- Setting up Docker Compose for local development
+- Debugging container issues
+- Securing container deployments
+- Multi-stage builds for production
 
-## Core Docker Concepts
+## Core Concepts
 
-### Containers
-- **Lightweight, isolated processes** that bundle applications with all dependencies
-- Provide filesystem isolation via union filesystems and namespace technology
-- **Ephemeral by default** - changes are lost when container stops (unless persisted to volumes)
-- **Single responsibility principle**: each container should do one thing well
-- Multiple identical containers can run from same immutable image without conflicts
+### Dockerfile Best Practices
 
-### Images
-- **Blueprint/template for containers** - read-only filesystems + configuration
-- Composed of **layered filesystem** (immutable, reusable layers)
-- Built from Dockerfile instructions or committed from running containers
-- Stored in registries (Docker Hub, ECR, ACR, GCR, private registries)
-- **Image naming**: `REGISTRY/NAMESPACE/REPOSITORY:TAG` (e.g., `docker.io/library/nginx:latest`)
-
-### Volumes & Storage
-- **Volumes**: Docker-managed persistent storage that survives container deletion
-- **Bind mounts**: Direct mapping of host filesystem paths into containers
-- **tmpfs mounts**: In-memory storage for temporary data
-- Enable data sharing between containers and persist beyond container lifecycle
-
-### Networks
-- **Default bridge network** connects containers on same host
-- **Custom networks** allow explicit container communication with DNS resolution
-- **Host network** removes network isolation for performance
-- **Overlay networks** enable multi-host container communication (Swarm)
-- **MACVLAN/IPvlan** for containers needing direct L2/L3 network access
-
-## Dockerfile Best Practices
-
-### Essential Instructions
-
-```dockerfile
-FROM <image>:<tag>                        # Base image (use specific versions, not 'latest')
-WORKDIR /app                              # Working directory for subsequent commands
-COPY package*.json ./                     # Copy dependency files first (for caching)
-RUN npm install --production              # Execute build commands
-COPY . .                                  # Copy application code
-ENV NODE_ENV=production                   # Environment variables
-EXPOSE 3000                               # Document exposed ports
-USER node                                 # Run as non-root user (security)
-CMD ["node", "server.js"]                 # Default command when container starts
-```
-
-### Multi-Stage Builds (Critical for Production)
-
-Separate build environment from runtime environment to reduce image size and improve security:
-
+**Multi-Stage Build (Recommended):**
 ```dockerfile
 # Stage 1: Build
-FROM node:20-alpine AS build
+FROM node:20-alpine AS builder
+
 WORKDIR /app
+
+# Copy package files first (better caching)
 COPY package*.json ./
-RUN npm install
+RUN npm ci --only=production
+
+# Copy source and build
 COPY . .
 RUN npm run build
 
 # Stage 2: Production
 FROM node:20-alpine AS production
+
+# Security: Run as non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001
+
 WORKDIR /app
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/node_modules ./node_modules
-USER node
+
+# Copy only what's needed
+COPY --from=builder --chown=nextjs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./
+
+USER nextjs
+
 EXPOSE 3000
-CMD ["node", "dist/server.js"]
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+
+CMD ["node", "dist/main.js"]
 ```
 
-**Benefits**: Compiled assets without build tools in final image, smaller size, improved security
-
-### Layer Caching Optimization
-
-**Order matters!** Docker reuses layers if instruction unchanged:
-
-1. **Dependencies first** (COPY package.json, RUN npm install)
-2. **Application code last** (COPY . .)
-3. This way, code changes don't invalidate dependency layers
-
-### Security Hardening
-
+**Layer Optimization:**
 ```dockerfile
-# Use specific versions
-FROM node:20.11.0-alpine3.19
+# BAD - Creates many layers, poor caching
+RUN apt-get update
+RUN apt-get install -y curl
+RUN apt-get install -y git
+RUN rm -rf /var/lib/apt/lists/*
+
+# GOOD - Single layer, cleanup in same layer
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      curl \
+      git \
+      ca-certificates && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clean
+```
+
+### Language-Specific Dockerfiles
+
+**Node.js:**
+```dockerfile
+FROM node:20-alpine
+
+# Set production environment
+ENV NODE_ENV=production
 
 # Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
+RUN addgroup -g 1001 -S app && \
+    adduser -S -u 1001 -G app app
 
-# Set ownership
-COPY --chown=nodejs:nodejs . .
+WORKDIR /app
 
-# Switch to non-root
-USER nodejs
+# Install dependencies (cached if package.json unchanged)
+COPY --chown=app:app package*.json ./
+RUN npm ci --only=production && npm cache clean --force
 
-# Read-only root filesystem (when possible)
-# Add --read-only flag when running container
+# Copy application
+COPY --chown=app:app . .
+
+USER app
+
+EXPOSE 3000
+
+CMD ["node", "src/index.js"]
 ```
 
-### .dockerignore File
+**Python:**
+```dockerfile
+FROM python:3.12-slim
 
-Exclude unnecessary files from build context:
+# Prevent Python from writing pyc files and buffering stdout/stderr
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
-```
-node_modules
-.git
-.env
-.env.local
-*.log
-.DS_Store
-README.md
-docker-compose.yml
-.dockerignore
-Dockerfile
-dist
-coverage
-.vscode
-```
+# Create non-root user
+RUN useradd --create-home --shell /bin/bash app
 
-## Common Workflows
+WORKDIR /app
 
-### Building Images
+# Install dependencies
+COPY --chown=app:app requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-```bash
-# Build with tag
-docker build -t myapp:1.0 .
+# Copy application
+COPY --chown=app:app . .
 
-# Build targeting specific stage
-docker build -t myapp:dev --target build .
+USER app
 
-# Build with build arguments
-docker build --build-arg NODE_ENV=production -t myapp:1.0 .
+EXPOSE 8000
 
-# Build for multiple platforms
-docker buildx build --platform linux/amd64,linux/arm64 -t myapp:1.0 .
-
-# View image layers and size
-docker image history myapp:1.0
-
-# List all images
-docker image ls
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
 ```
 
-### Running Containers
+**Go:**
+```dockerfile
+# Build stage
+FROM golang:1.22-alpine AS builder
 
-```bash
-# Basic run
-docker run myapp:1.0
+WORKDIR /app
 
-# Run in background (detached)
-docker run -d --name myapp myapp:1.0
+# Download dependencies
+COPY go.mod go.sum ./
+RUN go mod download
 
-# Port mapping (host:container)
-docker run -p 8080:3000 myapp:1.0
+# Build binary
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o /app/server ./cmd/server
 
-# Environment variables
-docker run -e NODE_ENV=production -e API_KEY=secret myapp:1.0
+# Production stage - scratch for smallest image
+FROM scratch
 
-# Volume mount (named volume)
-docker run -v mydata:/app/data myapp:1.0
+# Import CA certificates for HTTPS
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
-# Bind mount (development)
-docker run -v $(pwd)/src:/app/src myapp:1.0
+# Copy binary
+COPY --from=builder /app/server /server
 
-# Custom network
-docker run --network my-network myapp:1.0
+EXPOSE 8080
 
-# Resource limits
-docker run --memory 512m --cpus 0.5 myapp:1.0
-
-# Interactive terminal
-docker run -it myapp:1.0 /bin/sh
-
-# Override entrypoint/command
-docker run --entrypoint /bin/sh myapp:1.0
-docker run myapp:1.0 custom-command --arg
+ENTRYPOINT ["/server"]
 ```
 
-### Container Management
+**PHP/Laravel:**
+```dockerfile
+FROM php:8.3-fpm-alpine
 
-```bash
-# List running containers
-docker ps
+# Install extensions
+RUN apk add --no-cache \
+    libpng-dev \
+    libzip-dev \
+    && docker-php-ext-install \
+    pdo_mysql \
+    gd \
+    zip \
+    opcache
 
-# List all containers (including stopped)
-docker ps -a
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# View logs
-docker logs myapp
-docker logs -f myapp              # Follow logs
-docker logs --tail 100 myapp      # Last 100 lines
+WORKDIR /var/www/html
 
-# Execute command in running container
-docker exec myapp ls /app
-docker exec -it myapp /bin/sh     # Interactive shell
+# Copy composer files first
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --no-scripts --no-autoloader
 
-# Stop container (graceful)
-docker stop myapp
+# Copy application
+COPY . .
 
-# Kill container (immediate)
-docker kill myapp
+# Generate autoloader
+RUN composer dump-autoload --optimize
 
-# Remove container
-docker rm myapp
-docker rm -f myapp                # Force remove running container
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# View container details
-docker inspect myapp
+USER www-data
 
-# Monitor resource usage
-docker stats myapp
+EXPOSE 9000
 
-# View container processes
-docker top myapp
-
-# Copy files to/from container
-docker cp myapp:/app/logs ./logs
-docker cp ./config.json myapp:/app/config.json
+CMD ["php-fpm"]
 ```
 
-### Image Management
+### Docker Compose
 
-```bash
-# Tag image
-docker tag myapp:1.0 registry.example.com/myapp:1.0
-
-# Push to registry
-docker login registry.example.com
-docker push registry.example.com/myapp:1.0
-
-# Pull from registry
-docker pull nginx:alpine
-
-# Remove image
-docker image rm myapp:1.0
-
-# Remove unused images
-docker image prune
-
-# Remove all unused resources (images, containers, volumes, networks)
-docker system prune -a
-
-# View disk usage
-docker system df
-```
-
-### Volume Management
-
-```bash
-# Create named volume
-docker volume create mydata
-
-# List volumes
-docker volume ls
-
-# Inspect volume
-docker volume inspect mydata
-
-# Remove volume
-docker volume rm mydata
-
-# Remove unused volumes
-docker volume prune
-```
-
-### Network Management
-
-```bash
-# Create network
-docker network create my-network
-docker network create --driver bridge my-bridge
-
-# List networks
-docker network ls
-
-# Inspect network
-docker network inspect my-network
-
-# Connect container to network
-docker network connect my-network myapp
-
-# Disconnect container from network
-docker network disconnect my-network myapp
-
-# Remove network
-docker network rm my-network
-```
-
-## Docker Compose
-
-### When to Use Compose
-
-- **Multi-container applications** (web + database + cache)
-- **Consistent development environments** across team
-- **Simplifying complex docker run commands**
-- **Managing application dependencies** and startup order
-
-### Basic Compose File Structure
-
+**Development Stack:**
 ```yaml
+# docker-compose.yml
 version: '3.8'
 
 services:
-  web:
-    build: .
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development  # Multi-stage target
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgresql://user:pass@db:5432/app
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://user:pass@db:5432/app
+      - REDIS_URL=redis://redis:6379
     depends_on:
-      - db
-      - redis
-    volumes:
-      - ./src:/app/src      # Development: live code reload
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
     networks:
       - app-network
-    restart: unless-stopped
 
   db:
-    image: postgres:15-alpine
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: app
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
+    ports:
+      - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user"]
+      test: ["CMD-SHELL", "pg_isready -U user -d app"]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app-network
 
   redis:
     image: redis:7-alpine
-    networks:
-      - app-network
     volumes:
       - redis_data:/data
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    networks:
+      - app-network
 
 volumes:
   postgres_data:
   redis_data:
+  node_modules:
 
 networks:
   app-network:
     driver: bridge
 ```
 
-### Compose Commands
-
-```bash
-# Start all services
-docker compose up
-
-# Start in background
-docker compose up -d
-
-# Build images before starting
-docker compose up --build
-
-# Scale specific service
-docker compose up -d --scale web=3
-
-# Stop all services
-docker compose down
-
-# Stop and remove volumes
-docker compose down --volumes
-
-# View logs
-docker compose logs
-docker compose logs -f web        # Follow specific service
-
-# Execute command in service
-docker compose exec web sh
-docker compose exec db psql -U user -d app
-
-# List running services
-docker compose ps
-
-# Restart service
-docker compose restart web
-
-# Pull latest images
-docker compose pull
-
-# Validate compose file
-docker compose config
-```
-
-### Development vs Production Compose
-
-**compose.yml** (base configuration):
+**Production Compose:**
 ```yaml
-services:
-  web:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - DATABASE_URL=postgresql://user:pass@db:5432/app
-```
+# docker-compose.prod.yml
+version: '3.8'
 
-**compose.override.yml** (development overrides, loaded automatically):
-```yaml
 services:
-  web:
-    volumes:
-      - ./src:/app/src      # Live code reload
-    environment:
-      - NODE_ENV=development
-      - DEBUG=true
-    command: npm run dev
-```
-
-**compose.prod.yml** (production overrides):
-```yaml
-services:
-  web:
-    image: registry.example.com/myapp:1.0
-    restart: always
-    environment:
-      - NODE_ENV=production
+  app:
+    image: ${REGISTRY}/myapp:${VERSION:-latest}
     deploy:
       replicas: 3
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512M
-```
-
-**Usage**:
-```bash
-# Development (uses compose.yml + compose.override.yml automatically)
-docker compose up
-
-# Production (explicit override)
-docker compose -f compose.yml -f compose.prod.yml up -d
-```
-
-## Language-Specific Dockerfiles
-
-### Node.js
-
-```dockerfile
-FROM node:20-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-RUN npm run build
-
-FROM node:20-alpine AS production
-WORKDIR /app
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/node_modules ./node_modules
-COPY package*.json ./
-USER node
-EXPOSE 3000
-CMD ["node", "dist/server.js"]
-```
-
-### Python
-
-```dockerfile
-FROM python:3.11-slim AS build
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-FROM python:3.11-slim AS production
-WORKDIR /app
-COPY --from=build /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
-COPY . .
-RUN adduser --disabled-password --gecos '' appuser && \
-    chown -R appuser:appuser /app
-USER appuser
-EXPOSE 8000
-CMD ["python", "app.py"]
-```
-
-### Go
-
-```dockerfile
-FROM golang:1.21-alpine AS build
-WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
-
-FROM scratch
-COPY --from=build /app/main /main
-EXPOSE 8080
-CMD ["/main"]
-```
-
-### Java (Spring Boot)
-
-```dockerfile
-FROM eclipse-temurin:21-jdk-alpine AS build
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN ./mvnw clean package -DskipTests
-
-FROM eclipse-temurin:21-jre-alpine AS production
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-RUN addgroup -g 1001 -S spring && \
-    adduser -S spring -u 1001
-USER spring
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
-```
-
-### React/Vue/Angular (Static SPA)
-
-```dockerfile
-FROM node:20-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-FROM nginx:alpine AS production
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-## Production Deployment
-
-### Health Checks
-
-**In Dockerfile**:
-```dockerfile
-HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:3000/health || exit 1
-```
-
-**In Compose**:
-```yaml
-services:
-  web:
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
-      interval: 30s
-      timeout: 3s
-      start-period: 40s
-      retries: 3
-```
-
-### Resource Limits
-
-```yaml
-services:
-  web:
-    deploy:
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+      rollback_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
       resources:
         limits:
           cpus: '0.5'
@@ -590,427 +311,308 @@ services:
         reservations:
           cpus: '0.25'
           memory: 256M
-```
-
-### Restart Policies
-
-```yaml
-services:
-  web:
-    restart: unless-stopped    # Restart unless manually stopped
-    # Other options: "no", "always", "on-failure"
-```
-
-### Logging Configuration
-
-```yaml
-services:
-  web:
+    environment:
+      - NODE_ENV=production
+    secrets:
+      - db_password
+      - api_key
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
-```
-
-### Environment Variables & Secrets
-
-**Using .env file**:
-```bash
-# .env
-DATABASE_URL=postgresql://user:pass@db:5432/app
-API_KEY=secret
-```
-
-```yaml
-services:
-  web:
-    env_file:
-      - .env
-```
-
-**Using Docker secrets** (Swarm):
-```yaml
-services:
-  web:
-    secrets:
-      - db_password
 
 secrets:
   db_password:
     external: true
+  api_key:
+    external: true
 ```
 
-### Production Checklist
+### Security Best Practices
 
-- ✅ Use specific image versions (not `latest`)
-- ✅ Run as non-root user
-- ✅ Multi-stage builds to minimize image size
-- ✅ Health checks implemented
-- ✅ Resource limits configured
-- ✅ Restart policy set
-- ✅ Logging configured
-- ✅ Secrets managed securely (not in environment variables)
-- ✅ Vulnerability scanning (Docker Scout)
-- ✅ Read-only root filesystem when possible
-- ✅ Network segmentation
-- ✅ Regular image updates
+**1. Non-Root User:**
+```dockerfile
+# Create user
+RUN addgroup -g 1001 -S appgroup && \
+    adduser -S -u 1001 -G appgroup appuser
 
-## CI/CD Integration
-
-### GitHub Actions Example
-
-```yaml
-name: Docker Build and Push
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: user/app:latest,user/app:${{ github.sha }}
-          cache-from: type=registry,ref=user/app:buildcache
-          cache-to: type=registry,ref=user/app:buildcache,mode=max
-
-      - name: Run vulnerability scan
-        uses: docker/scout-action@v1
-        with:
-          command: cves
-          image: user/app:${{ github.sha }}
+# Switch to non-root
+USER appuser
 ```
 
-## Security Best Practices
+**2. Minimal Base Images:**
+```dockerfile
+# Size comparison (Node.js example):
+# node:20        ~1GB
+# node:20-slim   ~200MB
+# node:20-alpine ~150MB
 
-### Scan for Vulnerabilities
+# Use distroless for production
+FROM gcr.io/distroless/nodejs20-debian12
+```
 
+**3. Pin Versions:**
+```dockerfile
+# BAD - Unpredictable
+FROM node:latest
+
+# GOOD - Pinned
+FROM node:20.11.0-alpine3.19
+```
+
+**4. Scan for Vulnerabilities:**
 ```bash
 # Using Docker Scout
-docker scout cves myapp:1.0
-docker scout recommendations myapp:1.0
+docker scout cves myimage:latest
 
-# Quick view
-docker scout quickview myapp:1.0
+# Using Trivy
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+  aquasec/trivy image myimage:latest
+
+# Using Snyk
+docker scan myimage:latest
 ```
 
-### Run Containers Securely
+**5. Don't Store Secrets in Images:**
+```dockerfile
+# BAD - Secret baked into image
+ENV API_KEY=secret123
 
-```bash
-# Read-only root filesystem
-docker run --read-only -v /tmp --tmpfs /run myapp:1.0
-
-# Drop all capabilities, add only needed ones
-docker run --cap-drop=ALL --cap-add=NET_BIND_SERVICE myapp:1.0
-
-# No new privileges
-docker run --security-opt=no-new-privileges myapp:1.0
-
-# Use security profiles
-docker run --security-opt apparmor=docker-default myapp:1.0
-
-# Limit resources
-docker run --memory=512m --cpus=0.5 --pids-limit=100 myapp:1.0
+# GOOD - Use build args for non-sensitive, runtime env for secrets
+ARG BUILD_VERSION
+ENV APP_VERSION=${BUILD_VERSION}
+# API_KEY provided at runtime via -e or secrets
 ```
 
-### Image Security Checklist
-
-- ✅ Start with minimal base images (Alpine, Distroless)
-- ✅ Use specific versions, not `latest`
-- ✅ Scan for vulnerabilities regularly
-- ✅ Run as non-root user
-- ✅ Don't include secrets in images (use runtime secrets)
-- ✅ Minimize attack surface (only install needed packages)
-- ✅ Use multi-stage builds (no build tools in final image)
-- ✅ Sign and verify images
-- ✅ Keep images updated
-
-## Networking Patterns
-
-### Bridge Network (Default)
-
-```bash
-# Create custom bridge network
-docker network create my-bridge
-
-# Run containers on custom bridge
-docker run -d --name web --network my-bridge nginx
-docker run -d --name db --network my-bridge postgres
-
-# Containers can communicate via container name
-# web can connect to: http://db:5432
+**6. Use .dockerignore:**
+```
+# .dockerignore
+.git
+.gitignore
+.env
+.env.*
+node_modules
+npm-debug.log
+Dockerfile*
+docker-compose*
+.dockerignore
+README.md
+.vscode
+.idea
+*.md
+tests/
+coverage/
+.nyc_output/
 ```
 
-### Container Communication
+### Health Checks
 
+**HTTP Health Check:**
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/health || exit 1
+```
+
+**TCP Health Check:**
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD nc -z localhost 3000 || exit 1
+```
+
+**Custom Script:**
+```dockerfile
+COPY healthcheck.sh /usr/local/bin/
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+  CMD /usr/local/bin/healthcheck.sh
+```
+
+### Networking
+
+**Network Types:**
+```yaml
+networks:
+  # Bridge (default) - Isolated network
+  frontend:
+    driver: bridge
+
+  # Host - Use host networking
+  hostnet:
+    driver: host
+
+  # Overlay - Multi-host (Swarm)
+  backend:
+    driver: overlay
+    attachable: true
+
+  # External - Pre-existing network
+  existing:
+    external: true
+    name: my-pre-existing-network
+```
+
+**DNS Resolution:**
 ```yaml
 services:
-  web:
+  app:
+    # Can reach db at 'db' hostname
     depends_on:
       - db
-    environment:
-      # Use service name as hostname
-      - DATABASE_URL=postgresql://user:pass@db:5432/app
 
   db:
-    image: postgres:15-alpine
+    # Accessible as 'db' within network
+    hostname: db
 ```
 
-### Port Publishing
+### Volume Management
 
-```bash
-# Publish single port
-docker run -p 8080:80 nginx
+**Named Volumes:**
+```yaml
+volumes:
+  postgres_data:
+    driver: local
 
-# Publish range of ports
-docker run -p 8080-8090:8080-8090 myapp
-
-# Publish to specific interface
-docker run -p 127.0.0.1:8080:80 nginx
-
-# Publish all exposed ports to random ports
-docker run -P nginx
+  # NFS volume
+  shared_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=nfs-server.local,rw
+      device: ":/path/to/share"
 ```
 
-## Storage Patterns
-
-### Named Volumes (Recommended for Data)
-
-```bash
-# Create and use named volume
-docker volume create app-data
-docker run -v app-data:/app/data myapp
-
-# Automatic creation
-docker run -v app-data:/app/data myapp  # Creates if doesn't exist
+**Bind Mounts:**
+```yaml
+services:
+  app:
+    volumes:
+      # Bind mount (development)
+      - ./src:/app/src:ro
+      # Named volume (persistent data)
+      - data:/app/data
+      # tmpfs (in-memory, ephemeral)
+      - type: tmpfs
+        target: /app/tmp
 ```
 
-### Bind Mounts (Development)
+### Commands Reference
 
 ```bash
-# Live code reload during development
-docker run -v $(pwd)/src:/app/src myapp
+# Build
+docker build -t myapp:latest .
+docker build -t myapp:latest --target production .
+docker build --no-cache -t myapp:latest .
 
-# Read-only bind mount
-docker run -v $(pwd)/config:/app/config:ro myapp
-```
+# Run
+docker run -d --name myapp -p 3000:3000 myapp:latest
+docker run -it --rm myapp:latest /bin/sh
+docker run -d --env-file .env myapp:latest
 
-### tmpfs Mounts (Temporary In-Memory)
+# Compose
+docker compose up -d
+docker compose up -d --build
+docker compose down -v  # Remove volumes too
+docker compose logs -f app
+docker compose exec app /bin/sh
+docker compose ps
 
-```bash
-# Store temporary data in memory
-docker run --tmpfs /tmp myapp
-```
+# Images
+docker images
+docker image prune -a  # Remove unused
+docker tag myapp:latest registry.com/myapp:v1.0.0
+docker push registry.com/myapp:v1.0.0
 
-### Volume Backup & Restore
+# Containers
+docker ps -a
+docker logs -f container_name
+docker exec -it container_name /bin/sh
+docker stats
+docker inspect container_name
 
-```bash
-# Backup volume
-docker run --rm -v app-data:/data -v $(pwd):/backup alpine \
-  tar czf /backup/backup.tar.gz /data
-
-# Restore volume
-docker run --rm -v app-data:/data -v $(pwd):/backup alpine \
-  tar xzf /backup/backup.tar.gz -C /data
-```
-
-## Troubleshooting
-
-### Debug Running Container
-
-```bash
-# View logs
-docker logs -f myapp
-docker logs --tail 100 myapp
-
-# Interactive shell
-docker exec -it myapp /bin/sh
-
-# Inspect container
-docker inspect myapp
-
-# View processes
-docker top myapp
-
-# Monitor resource usage
-docker stats myapp
-
-# View changes to filesystem
-docker diff myapp
-```
-
-### Debug Build Issues
-
-```bash
-# Build with verbose output
-docker build --progress=plain -t myapp .
-
-# Build specific stage for testing
-docker build --target build -t myapp:build .
-
-# Run failed build stage
-docker run -it myapp:build /bin/sh
-
-# Check build context
-docker build --no-cache -t myapp .
-```
-
-### Common Issues
-
-**Container exits immediately**:
-```bash
-# Check logs
-docker logs myapp
-
-# Run with interactive shell
-docker run -it myapp /bin/sh
-
-# Override entrypoint
-docker run -it --entrypoint /bin/sh myapp
-```
-
-**Cannot connect to container**:
-```bash
-# Check port mapping
-docker ps
-docker port myapp
-
-# Check network
-docker network inspect bridge
-docker inspect myapp | grep IPAddress
-
-# Check if service is listening
-docker exec myapp netstat -tulpn
-```
-
-**Out of disk space**:
-```bash
-# Check disk usage
-docker system df
-
-# Clean up
-docker system prune -a
+# Cleanup
+docker system prune -a --volumes  # Remove everything unused
 docker volume prune
-docker image prune -a
+docker network prune
+
+# Debug
+docker logs container_name --tail 100
+docker exec -it container_name /bin/sh
+docker inspect container_name
+docker events --filter container=container_name
 ```
 
-**Build cache issues**:
+### Performance Optimization
+
+**Build Cache:**
+```dockerfile
+# Order matters! Least changing first
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+```
+
+**BuildKit Features:**
+```dockerfile
+# syntax=docker/dockerfile:1
+
+# Cache mounts (persistent cache across builds)
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
+
+# Secret mounts (not stored in image)
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc \
+    npm ci
+```
+
+**Enable BuildKit:**
 ```bash
-# Force rebuild without cache
-docker build --no-cache -t myapp .
+# Environment variable
+DOCKER_BUILDKIT=1 docker build .
 
-# Clear build cache
-docker builder prune
+# Or in docker daemon config
+# /etc/docker/daemon.json
+{
+  "features": {
+    "buildkit": true
+  }
+}
 ```
 
-## Advanced Topics
+### Troubleshooting
 
-### Multi-Platform Builds
+| Issue | Solution |
+|-------|----------|
+| Build slow | Use .dockerignore, optimize layer order |
+| Image too large | Multi-stage build, alpine base, remove dev deps |
+| Container exits immediately | Check logs, verify CMD/ENTRYPOINT |
+| Permission denied | Check USER directive, volume permissions |
+| Network issues | Check network mode, expose ports correctly |
+| Cannot connect to services | Use service names as hostnames in compose |
 
-```bash
-# Setup buildx
-docker buildx create --use
+### Checklist
 
-# Build for multiple platforms
-docker buildx build --platform linux/amd64,linux/arm64 \
-  -t myapp:1.0 --push .
-```
+Before building:
+- [ ] .dockerignore is comprehensive
+- [ ] Using specific version tags (not `latest`)
+- [ ] Multi-stage build for smaller images
+- [ ] Non-root user configured
+- [ ] Health check defined
+- [ ] No secrets in Dockerfile
+- [ ] Layers optimized for caching
+- [ ] Security scan passed
 
-### Build Optimization
+## Integration
 
-```bash
-# Use BuildKit (enabled by default in recent versions)
-DOCKER_BUILDKIT=1 docker build -t myapp .
-
-# Use build cache from registry
-docker build --cache-from myapp:latest -t myapp:1.0 .
-
-# Export cache to registry
-docker build --cache-to type=registry,ref=myapp:buildcache \
-  --cache-from type=registry,ref=myapp:buildcache \
-  -t myapp:1.0 .
-```
-
-### Docker Contexts
-
-```bash
-# List contexts
-docker context ls
-
-# Create remote context
-docker context create remote --docker "host=ssh://user@remote"
-
-# Use context
-docker context use remote
-docker ps  # Now runs on remote host
-
-# Switch back to default
-docker context use default
-```
-
-## Quick Reference
-
-### Most Common Commands
-
-| Task | Command |
-|------|---------|
-| Build image | `docker build -t myapp:1.0 .` |
-| Run container | `docker run -d -p 8080:3000 myapp:1.0` |
-| View logs | `docker logs -f myapp` |
-| Shell into container | `docker exec -it myapp /bin/sh` |
-| Stop container | `docker stop myapp` |
-| Remove container | `docker rm myapp` |
-| Start Compose | `docker compose up -d` |
-| Stop Compose | `docker compose down` |
-| View Compose logs | `docker compose logs -f` |
-| Clean up all | `docker system prune -a` |
-
-### Recommended Base Images
-
-| Language/Framework | Recommended Base |
-|-------------------|------------------|
-| Node.js | `node:20-alpine` |
-| Python | `python:3.11-slim` |
-| Java | `eclipse-temurin:21-jre-alpine` |
-| Go | `scratch` (for compiled binary) |
-| .NET | `mcr.microsoft.com/dotnet/aspnet:8.0-alpine` |
-| PHP | `php:8.2-fpm-alpine` |
-| Ruby | `ruby:3.2-alpine` |
-| Static sites | `nginx:alpine` |
-
-## Additional Resources
-
-- **Official Documentation**: https://docs.docker.com
-- **Docker Hub**: https://hub.docker.com (public image registry)
-- **Best Practices**: https://docs.docker.com/develop/dev-best-practices/
-- **Security**: https://docs.docker.com/engine/security/
-- **Dockerfile Reference**: https://docs.docker.com/engine/reference/builder/
-- **Compose Specification**: https://docs.docker.com/compose/compose-file/
-
-## Summary
-
-Docker containerization provides:
-- **Consistency** across development, testing, and production
-- **Isolation** for applications and dependencies
-- **Portability** across different environments
-- **Efficiency** through layered architecture and caching
-- **Scalability** for microservices and distributed systems
-
-Follow multi-stage builds, run as non-root, use specific versions, implement health checks, scan for vulnerabilities, and configure resource limits for production-ready containerized applications.
+Works with:
+- `/devops` - Container deployment pipelines
+- `/k8s` - Kubernetes deployments
+- `ci-templates` skill - CI/CD with Docker
+- `/security` - Container security scanning

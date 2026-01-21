@@ -1,319 +1,451 @@
 ---
 name: doc-sync
-description: Synchronizes CLAUDE.md navigation indexes and README.md architecture docs across a repository. Use when asked to "sync docs", "update CLAUDE.md files", "ensure documentation is in sync", "audit documentation", or when documentation maintenance is needed after code changes.
-license: MIT
-metadata:
-version: 1.0.0
-model: claude-sonnet-4-5
+description: Synchronizes documentation across agents to reflect planning changes and status updates.
 ---
 
-# Doc Sync
+# Doc Sync Skill
 
-Maintains the CLAUDE.md navigation hierarchy and optional README.md architecture docs across a repository. This skill is self-contained and performs all documentation work directly.
+> **Purpose**: Automate document sync across agents so plan changes, progress, and open questions update in real time
+> **When to use**: After Codex Validator completes, after Requirements Completion Check, before Documentation Finalize
+> **Outputs**: `{tasksRoot}/{feature-name}/context.md`, `pending-questions.md`, `flow-report.md`
 
-## Scope Resolution
+---
 
-Determine scope FIRST:
+## Goals
 
-| User Request                                            | Scope                                     |
-| ------------------------------------------------------- | ----------------------------------------- |
-| "sync docs" / "update documentation" / no specific path | REPOSITORY-WIDE                           |
-| "sync docs in src/validator/"                           | DIRECTORY: src/validator/ and descendants |
-| "update CLAUDE.md for parser.py"                        | FILE: single file's parent directory      |
+### Problems
+- **Previous system**: docs updated only by Documentation Agent
+- **No mid-step sync**: Validator plan edits not reflected immediately
+- **Delayed feedback loop**: Implementation Agent references stale context.md
 
-For REPOSITORY-WIDE scope, perform a full audit. For narrower scopes, operate only within the specified boundary.
+### Solution
+- Update context.md immediately after Codex Validator
+- Track real-time progress (flow-report.md)
+- Centralize open questions (pending-questions.md)
 
-## CLAUDE.md Format Specification
+---
 
-### Index Format
+## Auto-trigger points
 
-Use tabular format with What and When columns:
+### 1. After Codex Validator completes
+- Apply Validator auto_apply items to context.md
+- Add new recommendations to pending-questions.md
+- Mark "Planning complete" in flow-report.md
 
+### 2. After Requirements Completion Check
+- Add incomplete items to pending-questions.md
+- Record "Implementation re-run" in flow-report.md
+
+### 3. Before Documentation Finalize
+- Final sync (ensure all docs are current)
+- Clear pending-questions.md or mark as Resolved
+- Mark flow-report.md as complete
+
+---
+
+## Input format
+
+### YAML (recommended)
+
+```yaml
+feature_name: batch-management
+updates:
+  - file: context.md
+    section: Phase 1
+    action: append
+    content: "Strengthen date input validation: limit to past 30 days"
+  - file: pending-questions.md
+    action: add_question
+    priority: MEDIUM
+    content: "Should error messages use Toast?"
+    context: "Improve user experience"
+  - file: flow-report.md
+    action: update_phase
+    phase: Planning
+    status: completed
+```
+
+### Manual trigger (user direct)
+
+```
+doc-sync start: batch-management
+  - context.md: update Phase 1
+  - pending-questions.md: add 1 item
+  - flow-report.md: Planning complete
+```
+
+---
+
+## Supported files and actions
+
+### 1. context.md
+
+#### Action: `append` (add to end of section)
+```yaml
+file: context.md
+section: Phase 1
+action: append
+content: "Strengthen date input validation: limit to past 30 days"
+```
+
+**Result**:
 ```markdown
-## Files
+## Phase 1: Mock-based UI (1h)
+1. Type definitions (15m)
+2. Mock data (10m)
+...
 
-| File        | What                           | When to read                              |
-| ----------- | ------------------------------ | ----------------------------------------- |
-| `cache.rs`  | LRU cache with O(1) operations | Implementing caching, debugging evictions |
-| `errors.rs` | Error types and Result aliases | Adding error variants, handling failures  |
-
-## Subdirectories
-
-| Directory   | What                          | When to read                              |
-| ----------- | ----------------------------- | ----------------------------------------- |
-| `config/`   | Runtime configuration loading | Adding config options, modifying defaults |
-| `handlers/` | HTTP request handlers         | Adding endpoints, modifying request flow  |
+### Validator Feedback (added 2025-12-20)
+- Strengthen date input validation: limit to past 30 days
 ```
 
-### Column Guidelines
+#### Action: `update` (edit specific content)
+```yaml
+file: context.md
+section: "Risks and Alternatives"
+action: update
+old_content: "Probability: Medium"
+new_content: "Probability: Low (API spec confirmed)"
+```
 
-- **File/Directory**: Use backticks around names: `cache.rs`, `config/`
-- **What**: Factual description of contents (nouns, not actions)
-- **When to read**: Task-oriented triggers using action verbs (implementing, debugging, modifying, adding, understanding)
-- At least one column must have content; empty cells use `-`
+#### Action: `prepend` (add to beginning of section)
+```yaml
+file: context.md
+section: "Target Files"
+action: prepend
+content: "WARN Validator recommendations applied (2025-12-20)"
+```
 
-### Trigger Quality Test
+---
 
-Given task "add a new validation rule", can an LLM scan the "When to read" column and identify the right file?
+### 2. pending-questions.md
 
-### ROOT vs SUBDIRECTORY CLAUDE.md
+#### Action: `add_question` (add a question)
+```yaml
+file: pending-questions.md
+action: add_question
+priority: HIGH
+content: "What is the allowed range for past dates?"
+context: "Validator feedback: recommend limiting to past 30 days"
+options:
+  - 30 days
+  - 60 days
+  - 90 days
+  - unlimited
+```
 
-**ROOT CLAUDE.md:**
-
+**Result**:
 ```markdown
-# [Project Name]
+## Pending Questions
 
-[One sentence: what this is]
-
-## Files
-
-| File | What | When to read |
-| ---- | ---- | ------------ |
-
-## Subdirectories
-
-| Directory | What | When to read |
-| --------- | ---- | ------------ |
-
-## Build
-
-[Copy-pasteable command]
-
-## Test
-
-[Copy-pasteable command]
-
-## Development
-
-[Setup instructions, environment requirements, workflow notes]
+### [HIGH] What is the allowed range for past dates?
+- **Found at**: 2025-12-20 09:25
+- **Context**: Validator feedback: recommend limiting to past 30 days
+- **Options**:
+  - 30 days
+  - 60 days
+  - 90 days
+  - unlimited
+- **Status**: pending
 ```
 
-**SUBDIRECTORY CLAUDE.md:**
+#### Action: `resolve_question` (resolve a question)
+```yaml
+file: pending-questions.md
+action: resolve_question
+question_id: 1
+resolution: "Decided on 30 days"
+resolved_at: "2025-12-20 09:30"
+```
 
+**Result**:
 ```markdown
-# [directory-name]/
-
-## Files
-
-| File | What | When to read |
-| ---- | ---- | ------------ |
-
-## Subdirectories
-
-| Directory | What | When to read |
-| --------- | ---- | ------------ |
+### [HIGH] ~~What is the allowed range for past dates?~~ (resolved)
+- **Decision**: 30 days
+- **Resolved at**: 2025-12-20 09:30
 ```
 
-**Critical constraint:** Subdirectory CLAUDE.md files are PURE INDEX. No prose, no overview sections, no architectural explanations. Those belong in README.md.
+#### Action: `clear` (remove all questions, for Finalize)
+```yaml
+file: pending-questions.md
+action: clear
+archive: true
+```
 
-## README.md Specification
+---
 
-### Creation Criteria (Invisible Knowledge Test)
+### 3. flow-report.md
 
-Create README.md ONLY when the directory contains knowledge NOT visible from reading the code:
+#### Action: `update_phase` (update phase status)
+```yaml
+file: flow-report.md
+action: update_phase
+phase: Planning
+status: completed
+timestamp: "2025-12-20 09:25"
+```
 
-- Multiple components interact through non-obvious contracts or protocols
-- Design tradeoffs were made that affect how code should be modified
-- The directory's structure encodes domain knowledge (e.g., processing order matters)
-- Failure modes or edge cases aren't apparent from reading individual files
-- There are "rules" developers must follow that aren't enforced by the compiler/linter
-
-**DO NOT create README.md when:**
-
-- The directory is purely organizational (just groups related files)
-- Code is self-explanatory with good function/module docs
-- You'd be restating what CLAUDE.md index entries already convey
-
-### Content Test
-
-For each sentence in README.md, ask: "Could a developer learn this by reading the source files?"
-
-- If YES: delete the sentence
-- If NO: keep it
-
-README.md earns its tokens by providing INVISIBLE knowledge: the reasoning behind the code, not descriptions of the code.
-
-### README.md Structure
-
+**Result**:
 ```markdown
-# [Component Name]
-
-## Overview
-
-[One paragraph: what problem this solves, high-level approach]
-
-## Architecture
-
-[How sub-components interact; data flow; key abstractions]
-
-## Design Decisions
-
-[Tradeoffs made and why; alternatives considered]
-
-## Invariants
-
-[Rules that must be maintained; constraints not enforced by code]
+| Phase | Status | Start | End |
+|-------|--------|-------|-----|
+| Planning | OK complete | 09:00 | 09:25 |
+| Implementation | In progress | 09:30 | - |
 ```
 
-## Workflow
-
-### Phase 1: Discovery
-
-Map directories requiring CLAUDE.md verification:
-
-```bash
-# Find all directories (excluding .git, node_modules, __pycache__, etc.)
-find . -type d \( -name .git -o -name node_modules -o -name __pycache__ -o -name .venv -o -name target -o -name dist -o -name build \) -prune -o -type d -print
+#### Action: `add_event` (add event)
+```yaml
+file: flow-report.md
+action: add_event
+event: "Validator feedback applied"
+description: "Added date validation to context.md"
+timestamp: "2025-12-20 09:25"
 ```
 
-For each directory in scope, record:
-
-1. Does CLAUDE.md exist?
-2. If yes, does it have the required table-based index structure?
-3. What files/subdirectories exist that need indexing?
-
-### Phase 2: Audit
-
-For each directory, check for drift and misplaced content:
-
-```
-<audit_check dir="[path]">
-CLAUDE.md exists: [YES/NO]
-Has table-based index: [YES/NO]
-Files in directory: [list]
-Files in index: [list]
-Missing from index: [list]
-Stale in index (file deleted): [list]
-Triggers are task-oriented: [YES/NO/PARTIAL]
-Contains misplaced content: [YES/NO] (architecture/design docs that belong in README.md)
-README.md exists: [YES/NO]
-README.md warranted: [YES/NO] (invisible knowledge present?)
-</audit_check>
-```
-
-### Phase 3: Content Migration
-
-**Critical:** If CLAUDE.md contains content that does NOT belong there, migrate it:
-
-Content that MUST be moved from CLAUDE.md to README.md:
-
-- Architecture explanations or diagrams
-- Design decision documentation
-- Component interaction descriptions
-- Overview sections with prose (in subdirectory CLAUDE.md files)
-- Invariants or rules documentation
-- Any "why" explanations beyond simple triggers
-
-Migration process:
-
-1. Identify misplaced content in CLAUDE.md
-2. Create or update README.md with the architectural content
-3. Strip CLAUDE.md down to pure index format
-4. Add README.md to the CLAUDE.md index table
-
-### Phase 4: Index Updates
-
-For each directory needing work:
-
-**Creating/Updating CLAUDE.md:**
-
-1. Use the appropriate template (ROOT or SUBDIRECTORY)
-2. Populate tables with all files and subdirectories
-3. Write "What" column: factual content description
-4. Write "When to read" column: action-oriented triggers
-5. If README.md exists, include it in the Files table
-
-**Creating README.md (only when warranted):**
-
-1. Verify invisible knowledge criteria are met
-2. Document architecture, design decisions, invariants
-3. Apply the content test: remove anything visible from code
-4. Keep under ~500 tokens
-
-### Phase 5: Verification
-
-After all updates complete, verify:
-
-1. Every directory in scope has CLAUDE.md
-2. All CLAUDE.md files use table-based index format
-3. No drift remains (files <-> index entries match)
-4. No misplaced content in CLAUDE.md (architecture docs moved to README.md)
-5. README.md files are indexed in their parent CLAUDE.md
-6. Subdirectory CLAUDE.md files contain no prose/overview sections
-
-## Output Format
-
-```
-## Doc Sync Report
-
-### Scope: [REPOSITORY-WIDE | directory path]
-
-### Changes Made
-- CREATED: [list of new CLAUDE.md files]
-- UPDATED: [list of modified CLAUDE.md files]
-- MIGRATED: [list of content moved from CLAUDE.md to README.md]
-- CREATED: [list of new README.md files]
-- FLAGGED: [any issues requiring human decision]
-
-### Verification
-- Directories audited: [count]
-- CLAUDE.md coverage: [count]/[total] (100%)
-- Drift detected: [count] entries fixed
-- Content migrations: [count] (architecture docs moved to README.md)
-- README.md files: [count] (only where warranted)
-```
-
-## Exclusions
-
-DO NOT index:
-
-- Generated files (dist/, build/, _.generated._, compiled outputs)
-- Vendored dependencies (node_modules/, vendor/, third_party/)
-- Git internals (.git/)
-- IDE/editor configs (.idea/, .vscode/ unless project-specific settings)
-
-DO index:
-
-- Hidden config files that affect development (.eslintrc, .env.example, .gitignore)
-- Test files and test directories
-- Documentation files (including README.md)
-
-## Anti-Patterns
-
-### Index Anti-Patterns
-
-**Too vague (matches everything):**
-
+**Result**:
 ```markdown
-| `config/` | Configuration | Working with configuration |
+## Key Events
+
+- [09:25] **Validator feedback applied**: added date validation to context.md
 ```
 
-**Content description instead of trigger:**
+---
 
+## Output format
+
+### Success
 ```markdown
-| `cache.rs` | Contains the LRU cache implementation | - |
+OK Doc Sync complete
+
+## Updated files
+- context.md: added Validator feedback to Phase 1
+- pending-questions.md: added 1 question (HIGH)
+- flow-report.md: marked Planning complete
+
+## Change summary
+- Validator feedback: strengthen date validation (past 30 days)
+- New question: decide past date range
+- Planning phase complete (elapsed: 25m)
+
+## Next steps
+- Implementation Agent re-check (use latest context.md)
+- Await pending-questions answers (HIGH 1 item)
 ```
 
-**Missing action verb:**
-
+### Error
 ```markdown
-| `parser.py` | Input parsing | Input parsing and format handling |
+ERROR Doc Sync failed
+
+## Error details
+- context.md: section "Phase 1" not found
+- pending-questions.md: update succeeded
+- flow-report.md: file not found (needs creation)
+
+## Action required
+- Check context.md section structure
+- Create flow-report.md manually
+
+## Partial success
+1/3 files updated
 ```
 
-### Correct Examples
+---
 
-```markdown
-| `cache.rs` | LRU cache with O(1) get/set | Implementing caching, debugging misses, tuning eviction |
-| `config/` | YAML config parsing, env overrides | Adding config options, changing defaults, debugging config loading |
+## Related agents/skills
+
+### Inputs (consumed)
+- **Codex Validator**: auto_apply, user_confirm items
+- **Moonshot Agent (Completion Check)**: incomplete_items list
+- **Documentation Agent**: final sync request
+
+### Outputs (provided)
+- **Implementation Agent**: latest context.md
+- **Moonshot Agent**: pending-questions count, flow-report status
+- **Documentation Agent**: confirmation that docs are up to date
+
+---
+
+## File structure
+
+### Document paths
+```
+{tasksRoot}/{feature-name}/
+|-- context.md              # implementation plan (real-time updates)
+|-- pending-questions.md    # open questions (real-time updates)
+`-- flow-report.md          # per-phase progress (real-time updates)
 ```
 
-## When NOT to Use This Skill
+### Archive (optional)
+```
+{tasksRoot}/{feature-name}/archives/
+|-- context-v1.md              # before Validator feedback
+|-- context-v2.md              # after Validator feedback
+`-- pending-questions-resolved.md  # resolved questions
+```
 
-- Single file documentation (inline comments, docstrings) - handle directly
-- Code comments - handle directly
-- Function/module docstrings - handle directly
-- This skill is for CLAUDE.md/README.md synchronization specifically
+---
 
-## Reference
+## Usage scenarios
 
-For additional trigger pattern examples, see `references/trigger-patterns.md`.
+### Scenario 1: Apply Codex Validator feedback automatically
+
+**Validator output**:
+```yaml
+status: pass_with_changes
+auto_apply:
+  - priority: HIGH
+    target: context.md
+    section: Phase 1
+    content: "Strengthen date input validation: limit to past 30 days"
+user_confirm:
+  - priority: MEDIUM
+    content: "Recommend changing error messages to Toast"
+```
+
+**Doc Sync run**:
+```yaml
+feature_name: batch-management
+updates:
+  - file: context.md
+    section: Phase 1
+    action: append
+    content: "### Validator Feedback (HIGH)
+- Strengthen date input validation: limit to past 30 days"
+  - file: pending-questions.md
+    action: add_question
+    priority: MEDIUM
+    content: "Should we change error messages to Toast?"
+    context: "Validator recommendation"
+  - file: flow-report.md
+    action: add_event
+    event: "Validator feedback applied"
+    description: "context.md updated + 1 pending question added"
+```
+
+**Result**:
+- Implementation Agent reads latest context.md and applies date validation
+- User answers pending-questions about Toast
+
+---
+
+### Scenario 2: Re-run after Requirements Completion Check
+
+**Moonshot Agent Completion Check result**:
+```yaml
+status: incomplete
+incomplete_items:
+  - "Add error alert"
+  - "Configure menu/permissions"
+```
+
+**Doc Sync run**:
+```yaml
+feature_name: batch-management
+updates:
+  - file: pending-questions.md
+    action: add_question
+    priority: HIGH
+    content: "Implement error alert handling"
+    context: "Completion Check: missing in preliminary agreement"
+  - file: pending-questions.md
+    action: add_question
+    priority: HIGH
+    content: "Configure menu/permissions"
+    context: "context.md Phase 3 checkpoint incomplete"
+  - file: flow-report.md
+    action: update_phase
+    phase: Implementation
+    status: "re-run required"
+```
+
+**Result**:
+- Re-run Implementation Agent (only incomplete items)
+- flow-report.md records the re-run
+
+---
+
+### Scenario 3: Final sync before Documentation Finalize
+
+**Documentation Agent request**:
+```yaml
+feature_name: batch-management
+updates:
+  - file: context.md
+    section: "Final State"
+    action: append
+    content: "- [x] All phases complete
+- [x] Verification passed
+- [x] Documentation complete"
+  - file: pending-questions.md
+    action: clear
+    archive: true
+  - file: flow-report.md
+    action: update_phase
+    phase: Documentation
+    status: completed
+```
+
+**Result**:
+- pending-questions.md cleared (resolved items moved to archives)
+- flow-report.md marked complete
+- context.md updated with final state
+
+---
+
+## Tips
+
+### 1. Avoid conflicts
+- Detect simultaneous updates by comparing timestamps
+- Notify user and resolve manually on conflict
+
+### 2. Versioning (optional)
+- Backup prior versions for important changes
+- Store as context-v1.md, context-v2.md
+
+### 3. Rollback support
+- Save snapshot before last change
+- Restore immediately on failure
+
+### 4. Verification automation
+- Validate file structure after updates
+- Check required sections are present
+
+---
+
+## Expected impact
+
+### Qualitative impact
+1. **Real-time feedback loop**: Validator -> Doc Sync -> Implementation (immediate reflection)
+2. **Document consistency**: all agents reference the latest docs
+3. **Centralized open questions**: pending-questions.md as the source of truth
+4. **Progress transparency**: real-time tracking via flow-report.md
+
+### Quantitative impact
+- **Feedback turnaround**: manual 10m -> instant (100% reduction)
+- **Doc mismatch errors**: 30% -> 0% (eliminated)
+- **Rework prevention**: instant feedback saves ~15m on average
+
+---
+
+## Implementation details
+
+### Quality bar
+- Preserve existing content (do not change section structure)
+- Prevent conflicts (detect concurrent updates)
+- Ensure atomicity (rollback on partial failure)
+- Automate validation (check structure after updates)
+
+### Error handling
+1. **Missing file**: auto-create (use template)
+2. **Missing section**: warn and append to end
+3. **Concurrent update conflict**: compare timestamps and notify user
+4. **Format error**: validation fails -> rollback
+
+### Logging
+- Record all updates in flow-report.md automatically
+- Include timestamp, changed files, change details
+- Store detailed logs on failure
+
+---
+
+**Enabling this skill keeps all docs in real-time sync.**

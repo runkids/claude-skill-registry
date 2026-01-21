@@ -1,6 +1,6 @@
 ---
 name: retrospective-base
-description: Framework for retrospectives at any time scale (daily, weekly, monthly, quarterly, yearly). Trigger with "daily retro", "weekly retro", "monthly retro", etc. Answers three questions - what worked, what didn't, how to improve. Inputs vary by scale - daily uses raw logs, weekly uses daily summaries, monthly uses weekly retros, etc. Fractal compression pattern.
+description: Framework for retrospectives at any time scale (daily, weekly, monthly, quarterly, yearly). Trigger with "daily retro", "weekly retro", "monthly retro", "[month] retro" (e.g., "december retro", "january retro"), "retro for [month]", or "end of month review". Answers three questions - what worked, what didn't, how to improve. Inputs vary by scale - daily uses raw logs, weekly uses daily summaries, monthly uses weekly retros, etc. Fractal compression pattern.
 ---
 
 # Retrospective (Base Framework)
@@ -61,7 +61,37 @@ TZ='America/New_York' date '+%A, %B %d, %Y - %I:%M %p %Z'
 
 **If inputs missing:** Note gaps, proceed with available data.
 
-### 3. Show Empty Framework First
+### Load Level Criteria from Plan
+
+When a plan document exists for the period being reviewed:
+1. Pull Level 0/1/2/3 criteria verbatim from the plan
+2. Assess each criterion individually (✓/✗)
+3. Roll up to overall level assessment
+4. This is the primary success measure - Success Metrics table is secondary detail
+
+### 3. Day-by-Day Review (Default for Weekly+)
+
+**When to use:** Weekly or longer retrospectives with daily summaries available. This is the **default** approach for weekly retros - it's valuable enough to do every time.
+
+**Purpose:** Before synthesizing patterns, walk through each day briefly. This surfaces details that might otherwise get lost and helps the user reconnect with the full week.
+
+**Process:**
+1. Present each day's summary briefly (2-3 key points per day)
+2. Ask: "Anything to add or correct for [Day]?"
+3. Let user react, add context, or say "looks right"
+4. Move to next day
+5. After walkthrough, create empty framework doc
+
+**Why this helps:**
+- Surfaces forgotten details ("Oh right, Tuesday was rough")
+- Catches summary gaps or errors
+- Warms up memory before synthesis
+- Low effort (reactions, not generation)
+- Produces condensed timeline for final doc
+
+**Keep it light:** This is orientation, not analysis. Save synthesis for the main sections.
+
+### 4. Show Empty Framework First
 
 **CRITICAL:** Create structure-only artifact and explain it to user before filling anything.
 
@@ -88,7 +118,7 @@ TZ='America/New_York' date '+%A, %B %d, %Y - %I:%M %p %Z'
 - `Quarterly-Retro-2025-Q4.md`
 - `Yearly-Retro-2025.md`
 
-### 4. Framework Structure
+### 5. Framework Structure
 
 ```markdown
 # [Scale] Retro: [Theme/Title]
@@ -106,6 +136,64 @@ TZ='America/New_York' date '+%A, %B %d, %Y - %I:%M %p %Z'
 - Key discovery
 - Primary challenge
 - Overall trajectory
+
+---
+
+## Day-by-Day Timeline (Weekly+)
+
+**Include for weekly or longer retros. Condensed reference from day-by-day review.**
+
+| Day | Date | Context Tag | Key Events |
+|-----|------|-------------|------------|
+| Mon | [Date] | [tag] | [1-2 key events] |
+| Tue | [Date] | [tag] | [1-2 key events] |
+| ... | ... | ... | ... |
+
+**Context Tag:** Optional column for domain-specific state tracking (defined in personal extension).
+
+---
+
+## Plan vs Actual (Weekly+ When Plan Exists)
+
+**Include for weekly, monthly, quarterly, yearly retros when a plan document exists.**
+
+### Theme Assessment
+**Planned theme:** [From plan]
+**Did it hold?** [Yes/Partially/No + evidence]
+
+### Success Metrics
+
+| Area | Target | Actual | Assessment |
+|------|--------|--------|------------|
+| [Priority 1] | [Goal] | [Result] | ✓ Met / ◐ Partial / ✗ Below |
+| [Priority 2] | [Goal] | [Result] | ✓ Met / ◐ Partial / ✗ Below |
+
+### Level Assessment (from [Period] Plan)
+
+**Level 0 (Foundation):** [✓ Met / ◐ Partial / ✗ Not met]
+- [Criterion 1 from plan] [✓/✗]
+- [Criterion 2 from plan] [✓/✗]
+
+**Level 1 (Base):** [✓ Met / ◐ Partial / ✗ Not met]
+- [Criterion 1 from plan] [✓/✗]
+- [Criterion 2 from plan] [✓/✗]
+
+**Level 2 (Target):** [✓ Met / ◐ Partial / ✗ Not met]
+- [Criterion 1 from plan] [✓/✗]
+
+**Level 3 (Reach):** [✓ Met / ◐ Partial / ✗ Not met] (if applicable)
+- [Criterion 1 from plan] [✓/✗]
+
+### Venn Diagram
+
+**Planned Only:**
+- [Things planned but didn't happen]
+
+**Both:**
+- [Things that happened as planned]
+
+**Actual Only:**
+- [Things that happened but weren't in the plan]
 
 ---
 
@@ -160,7 +248,7 @@ TZ='America/New_York' date '+%A, %B %d, %Y - %I:%M %p %Z'
 What are you grateful for from this [period]?
 ```
 
-### 5. Fill ONE QUESTION AT A TIME
+### 6. Fill ONE QUESTION AT A TIME
 
 **⚠️ CRITICAL: Ask one question, wait for response, update artifact, then move to next.**
 
@@ -183,7 +271,7 @@ What are you grateful for from this [period]?
 - "Retro-Retro" → one question about process
 - "Gratitude" → save for last (positive anchor)
 
-### 6. Save and Archive
+### 7. Save and Archive
 
 **Save to:** `/mnt/user-data/outputs/[filename]`
 

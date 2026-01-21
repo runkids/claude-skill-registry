@@ -1,20 +1,15 @@
 ---
 name: skill-embedding-vss
-description: P-adic ultrametric skill embeddings with MLX Snowflake Arctic, DuckDB VSS, and full SPI tracing
-license: MIT
-metadata:
-  trit: 0
-  color: '#5DE93A'
-  gf3_role: ERGODIC
-  version: 2.0.0
-  embedding_model: mlx-community/snowflake-arctic-embed-l-v2.0-8bit
-  embedding_dim: 1024
-  index_type: HNSW
-  distance_metric: padic_ultrametric
-  prime: 2
+description: P-adic ultrametric skill embeddings with MLX Snowflake Arctic, DuckDB
+version: 1.0.0
 ---
 
 # Skill Embedding VSS
+
+> **Use this skill whenever you need to compare skills for relational structure.**
+> This is the 2024 evolution of bmorphism's 2020 Levenshtein keyspace reduction:
+> *"Pairwise compare functions across all versions and determine which ones are most dissimilar."*
+> — r2con 2020 Zignatures talk
 
 Vector similarity search for Agent Skills using:
 - **P-adic ultrametric distance** (non-Archimedean, hierarchical clustering)
@@ -530,6 +525,10 @@ python padic_ultrametric.py /path/to/skills
 #   Total ops: 1296, Chain valid: True
 #   Total FLOPS: 14,998,474,752
 ```
+
+---
+
+## End-of-Skill Interface
 
 ## References
 

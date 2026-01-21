@@ -1,7 +1,7 @@
 {
   "name": "test-data-management",
-  "repo": "proffesor-for-testing/agentic-qe",
+  "repo": "pmcfadin/cqlite",
   "path": ".claude/skills/test-data-management/SKILL.md",
-  "source": "github.com/proffesor-for-testing/agentic-qe",
-  "downloaded_at": "2026-01-20T04:05:06.777875Z"
+  "source": "github.com/pmcfadin/cqlite",
+  "downloaded_at": "2026-01-21T03:58:34.144844Z"
 }

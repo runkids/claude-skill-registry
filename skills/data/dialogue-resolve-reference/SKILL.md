@@ -32,7 +32,7 @@ Default locations:
 - Decisions: `.dialogue/logs/decisions/` (per-file)
 - Observations: `.dialogue/logs/observations/` (per-file)
 - Tasks: `.dialogue/tasks/` (per-file)
-- Process definitions: `plugin/processes/`
+- Process definitions: `claude-plugin-evo/processes/`
 - Process instances: `.dialogue/processes/`
 - Execution logs: `.dialogue/logs/executions/`
 
@@ -96,7 +96,7 @@ ${CLAUDE_PLUGIN_ROOT}/skills/dialogue-resolve-reference/scripts/resolve-referenc
 
 | Pattern | Type | Location | Example |
 |---------|------|----------|---------|
-| `PROC-P.S` | Process Definition | `plugin/processes/process-*.yaml` | `PROC-3.1` |
+| `PROC-P.S` | Process Definition | `claude-plugin-evo/processes/process-*.yaml` | `PROC-3.1` |
 | `PINST-YYYYMMDD-HHMMSS` | Process Instance | `.dialogue/processes/{id}.yaml` | `PINST-20260118-143052` |
 | `EXEC-YYYYMMDD-HHMMSS` | Execution Log | `.dialogue/logs/executions/{id}.yaml` | `EXEC-20260118-143055` |
 

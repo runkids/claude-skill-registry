@@ -1,7 +1,7 @@
 {
   "name": "subagent-driven-development",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": ".claude/skills/superpowers/subagent-driven-development/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-20T04:03:49.172847Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/subagent-driven-development/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-21T04:21:48.314797Z"
 }

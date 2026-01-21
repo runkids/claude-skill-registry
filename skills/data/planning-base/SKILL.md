@@ -1,6 +1,6 @@
 ---
 name: planning-base
-description: Framework for planning at any time scale (daily, weekly, monthly, quarterly, yearly). Trigger with "plan my day", "weekly planning", "monthly planning", etc. Identifies constraints FIRST, then suggests priorities. Uses Level 0-3 success framework. Inputs vary by scale - daily uses yesterday summary, weekly uses weekly retro, monthly uses monthly retro, etc.
+description: Framework for planning at any time scale (daily, weekly, monthly, quarterly, yearly). Trigger with "plan my day", "weekly planning", "monthly planning", "[month] planning" (e.g., "january planning", "december planning"), "plan for [period]", or "let's plan [period]". Identifies constraints FIRST, then suggests priorities. Uses Level 0-3 success framework. Inputs vary by scale - daily uses yesterday summary, weekly uses weekly retro, monthly uses monthly retro, etc.
 ---
 
 # Planning (Base Framework)
@@ -75,7 +75,21 @@ Ask about:
 
 **Why this matters:** Suggesting priorities that ignore fixed constraints = plan sets user up for failure.
 
-### 4. Generate Provisional Plan
+### 4. Create Empty Framework First
+
+**⚠️ CRITICAL:** Create structure-only artifact BEFORE filling content.
+
+**Process:**
+1. Generate empty artifact with all section headers
+2. Present to user: "Here's the structure we'll fill in together"
+3. Briefly explain each section's purpose
+4. Then proceed to fill ONE SECTION AT A TIME
+
+**Why this matters:**
+- User sees the whole picture before diving in
+- Reduces cognitive load (knows what's coming)
+- Enables reactions over generation
+- Catches nuances that full-draft approach misses
 
 **After constraints identified, create initial artifact.**
 
@@ -109,6 +123,20 @@ Ask about:
 
 ---
 
+## Constraints
+
+**Fixed:**
+- [Non-negotiable deadlines, appointments]
+- [Known drains or high-effort days]
+
+**Important Dates (Weekly+):**
+
+| Date | Event | Notes |
+|------|-------|-------|
+| [Date] | [Event] | [Context] |
+
+---
+
 ## This [Period]'s Priorities
 
 Based on constraints and patterns:
@@ -123,9 +151,28 @@ Does this ordering work given [specific constraint]?
 
 ## Experiments to Try
 
-From retro "What Didn't Work":
-- [Experiment 1]
-- [Experiment 2]
+**Aligned to success levels:**
+
+**Level 0-1 (Foundation/Base):**
+- [Experiment supporting minimum viable progress]
+
+**Level 2 (Target):**
+- [Experiment for good week given capacity]
+
+**Level 3 (Reach):**
+- [Stretch experiment if everything aligns]
+
+---
+
+## Week Structure (Weekly Plans)
+
+**Include for weekly plans. Day-by-day focus mapping.**
+
+| Day | Date | Focus | Key Activities |
+|-----|------|-------|----------------|
+| Mon | [Date] | [Primary focus] | [1-2 activities] |
+| Tue | [Date] | [Primary focus] | [1-2 activities] |
+| ... | ... | ... | ... |
 
 ---
 
@@ -154,13 +201,26 @@ From retro "What Didn't Work":
 [Period-specific context, reminders, meta-observations]
 ```
 
-### 6. Fill Through Conversation
+### 6. Fill ONE SECTION AT A TIME
 
-**Pattern:**
-1. Suggest based on constraints + retro data
-2. User reacts (confirms, reorders, adds context)
-3. Update artifact in real-time
-4. Calibrate success levels together
+**⚠️ CRITICAL: Do not generate full document on first pass.**
+
+**Pattern per section:**
+1. Make suggestion based on constraints + retro data
+2. Ask ONE focused question about that suggestion
+3. Wait for user response
+4. Update artifact in real-time
+5. Confirm before moving to next section
+
+**Interpreting user responses:**
+- "proceed" / "continue" / "this is fine" = **move to NEXT SECTION**, not skip to end
+- "good enough" = section approved, move on
+- "let's discuss" = stay in this section, go deeper
+
+**Do NOT:**
+- Generate full document then ask for rubber stamp
+- Interpret "proceed" as permission to finish everything
+- Skip the conversational calibration on Success Levels
 
 **Pacing by section:**
 - "Coming From" → flows fast (pull from retro)
@@ -200,6 +260,34 @@ From retro "What Didn't Work":
 - Amazing but not required
 
 **Calibration:** Levels adapt to current capacity. Level 2 during recovery ≠ Level 2 at full capacity.
+
+**Important:** These levels become the primary assessment criteria in the retrospective. Write them clearly so future-you can assess each criterion with ✓/✗.
+
+## Decision Filter (Monthly+)
+
+**For monthly and longer plans, create a 2-question filter to test proposed activities.**
+
+Every activity should pass both questions to proceed. This prevents scope creep and keeps focus on what matters.
+
+**Template:**
+1. Does this [action aligned with theme]?
+2. Does this [build toward next milestone]?
+
+**Examples:**
+
+*Month 1 (Build Foundation):*
+1. Does this build toward the target distance/skill?
+2. Can I sustain this without injury/burnout?
+
+*Month 2 (Increase Volume):*
+1. Does this increase capacity appropriately?
+2. Does this maintain recovery balance?
+
+*Month 3 (Race Prep):*
+1. Does this prepare me for the target event?
+2. Does this avoid overtraining before the goal?
+
+**Usage:** When new opportunities or tasks arise mid-period, run them through the filter. Both YES = proceed. One NO = defer or delegate. Both NO = decline.
 
 ## Core Principles
 

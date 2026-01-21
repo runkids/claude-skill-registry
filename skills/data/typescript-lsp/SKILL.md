@@ -1,196 +1,249 @@
 ---
 name: typescript-lsp
-description: Use TypeScript LSP for code intelligence instead of grep. Always prioritize LSP tools for go-to-definition, find references, type checking, and code navigation in TypeScript/JavaScript files.
+description: Search TypeScript SYMBOLS (functions, types, classes) - NOT text. Use Glob to find files, Grep for text search, LSP for symbol search. Provides type-aware results that understand imports, exports, and relationships.
+license: ISC
+compatibility: Requires bun
+allowed-tools: Bash
+metadata:
+  file-triggers: "*.ts,*.tsx,*.js,*.jsx"
 ---
 
-# TypeScript LSP Priority
+# TypeScript LSP Skill
 
-## ⛔ CRITICAL RULE
+## Purpose
 
-**NEVER use Grep or search tools to find symbol definitions, references, or type information in TypeScript/JavaScript files.**
+This skill provides TypeScript Language Server Protocol integration for **exploring and understanding** TypeScript/JavaScript codebases. 
 
-When a user asks about a symbol (function, variable, type, class, etc.):
+**IMPORTANT**: Prefer LSP tools over Grep/Glob when working with `*.ts`, `*.tsx`, `*.js`, `*.jsx` files. LSP provides type-aware results that understand imports, exports, and symbol relationships.
 
-1. **DO NOT** use Grep first to "find" it
-2. **DO NOT** use Glob to locate files containing it
-3. **IMMEDIATELY** use the LSP tool with the appropriate operation
+Use these tools to:
+- **Explore codebases** - Find symbols, understand module structure, discover implementations
+- **Find references** - Type-aware search across the entire codebase (better than grep for symbols)
+- **Understand types** - Get full type signatures, generics, and documentation
+- **Verify before editing** - Check all usages before modifying or deleting exports
+- **Navigate code** - Jump to definitions, find implementations
 
-This is a hard requirement, not a preference. Violating this wastes tokens and provides inferior results.
+## When to Use Each Tool
 
----
+| Tool | Purpose |
+|------|---------|
+| **Glob** | Find files by pattern |
+| **Grep** | Search text content |
+| **lsp-find** | Search TypeScript symbols |
+| **lsp-hover** | Get type info + TSDoc documentation |
+| **lsp-refs** | Find all references to a symbol |
+| **lsp-analyze** | Batch analysis of file structure |
 
-**IMPORTANT**: This project has the TypeScript LSP plugin installed. Always prefer LSP tools over grep/glob for code exploration.
+### LSP vs Grep/Glob
 
-## Prerequisites
+| Task | Use LSP | Use Grep/Glob |
+|------|---------|---------------|
+| Find all usages of a function/type | ✅ `lsp-refs` | ❌ Misses re-exports, aliases |
+| Search for a symbol by name | ✅ `lsp-find` | ❌ Matches strings, comments |
+| Get type signature + TSDoc | ✅ `lsp-hover` | ❌ Not possible |
+| Understand file exports | ✅ `lsp-analyze --exports` | ❌ Doesn't resolve re-exports |
+| Find files by pattern | ❌ | ✅ `Glob` |
+| Search non-TS files (md, json) | ❌ | ✅ `Grep` |
+| Search for text in comments/strings | ❌ | ✅ `Grep` |
 
-The TypeScript language server must be installed globally:
+## When to Use
+
+**Exploring code (prefer LSP):**
+- Run `lsp-find` to search for symbols across the workspace
+- Run `lsp-symbols` to get an overview of file structure
+- Run `lsp-analyze --exports` to see what a module provides
+
+**Before editing code:**
+- Run `lsp-references` to find all usages of a symbol you plan to modify
+- Run `lsp-hover` to verify current type signatures
+
+**Before writing code:**
+- Run `lsp-find` to search for similar patterns or related symbols
+- Run `lsp-hover` on APIs you plan to use
+
+## Path Resolution
+
+All scripts accept three types of file paths:
+- **Absolute paths**: `/Users/name/project/src/file.ts`
+- **Relative paths**: `./src/file.ts` or `../other/file.ts`
+- **Package export paths**: `my-package/src/module.ts` (resolved via `Bun.resolve()`)
+
+Package export paths are recommended for portability and consistency with the package's exports field.
+
+## Scripts
+
+### Individual Scripts
+
+#### lsp-hover
+Get type information at a specific position.
 
 ```bash
-yarn global add typescript-language-server typescript
+bunx @plaited/development-skills lsp-hover <file> <line> <char>
 ```
 
-Then restart Claude Code to activate the LSP tools.
+**Arguments:**
+- `file`: Path to TypeScript/JavaScript file
+- `line`: Line number (0-indexed)
+- `char`: Character position (0-indexed)
 
-## When to Use LSP vs Grep
-
-| Task                               | Use LSP                     | Use Grep |
-| ---------------------------------- | --------------------------- | -------- |
-| Find where function is defined     | ✅ `LSP goToDefinition`     | ❌ NEVER |
-| Find all usages of a symbol        | ✅ `LSP findReferences`     | ❌ NEVER |
-| Get function signature/types       | ✅ `LSP hover`              | ❌ NEVER |
-| List symbols in a file             | ✅ `LSP documentSymbol`     | ❌ NEVER |
-| Search symbols across workspace    | ✅ `LSP workspaceSymbol`    | ❌ NEVER |
-| Find implementations               | ✅ `LSP goToImplementation` | ❌ NEVER |
-| Search for text pattern in strings | ❌                          | ✅ Grep  |
-| Find files by name                 | ❌                          | ✅ Glob  |
-| Search in non-TS files (JSON, MD)  | ❌                          | ✅ Grep  |
-
-## LSP Tool Operations
-
-Use the native `LSP` tool with these operations:
-
-### goToDefinition
-
-Find where a symbol is defined:
-
-```
-LSP(operation: "goToDefinition", filePath: "src/file.ts", line: 10, character: 5)
+**Example:**
+```bash
+bunx @plaited/development-skills lsp-hover src/utils/parser.ts 42 10
 ```
 
-Use when: "Where is X defined?", "Jump to X", "Find the source of X"
+#### lsp-symbols
+List all symbols in a file.
 
-### findReferences
-
-Find all usages of a symbol:
-
-```
-LSP(operation: "findReferences", filePath: "src/file.ts", line: 10, character: 5)
+```bash
+bunx @plaited/development-skills lsp-symbols <file>
 ```
 
-Use when: "Where is X used?", "Find all calls to X", "What uses X?"
-
-### hover
-
-Get type information and documentation:
-
-```
-LSP(operation: "hover", filePath: "src/file.ts", line: 10, character: 5)
+**Example:**
+```bash
+bunx @plaited/development-skills lsp-symbols src/utils/parser.ts
 ```
 
-Use when: "What type is X?", "What does X return?", "Show signature of X"
+#### lsp-references
+Find all references to a symbol.
 
-### documentSymbol
-
-List all symbols in a file:
-
-```
-LSP(operation: "documentSymbol", filePath: "src/file.ts", line: 1, character: 1)
+```bash
+bunx @plaited/development-skills lsp-refs <file> <line> <char>
 ```
 
-Use when: "What's in this file?", "List functions in X", "Show file structure"
-
-### workspaceSymbol
-
-Search for symbols across the entire workspace:
-
-```
-LSP(operation: "workspaceSymbol", filePath: "src/any.ts", line: 1, character: 1)
+**Example:**
+```bash
+bunx @plaited/development-skills lsp-refs src/utils/parser.ts 42 10
 ```
 
-Use when: "Find symbol X in codebase", "Where is X defined?" (when you don't know the file)
+#### lsp-find
+Search for symbols across the workspace.
 
-### goToImplementation
-
-Find implementations of interfaces/abstract methods:
-
-```
-LSP(operation: "goToImplementation", filePath: "src/file.ts", line: 10, character: 5)
+```bash
+bunx @plaited/development-skills lsp-find <query> [context-file]
 ```
 
-Use when: "What implements X?", "Find concrete implementations"
+**Arguments:**
+- `query`: Symbol name or partial name
+- `context-file`: Optional file to open for project context
 
-## Priority Order for Code Exploration
-
-1. **First**: Use LSP tools for TypeScript/JavaScript files (.ts, .tsx, .js, .jsx)
-2. **Second**: Use Read tool to view file contents
-3. **Third**: Use Grep only for text search patterns or non-TS files
-4. **Fourth**: Use Glob for finding files by name pattern
-
-## Examples
-
-### User asks: "Find formatTaxAmount and show me all references"
-
-❌ **WRONG (what you must NOT do):**
-
-```
-1. Use Grep to search for "formatTaxAmount"
-2. Then use LSP on the results
+**Example:**
+```bash
+bunx @plaited/development-skills lsp-find parseConfig
+bunx @plaited/development-skills lsp-find validateInput src/lib/validator.ts
 ```
 
-✅ **CORRECT (do this immediately):**
+### Batch Script
 
-```
-1. LSP(operation: "workspaceSymbol", ...) to find the symbol
-2. LSP(operation: "findReferences", filePath: "src/lib/tax.ts", line: 21, character: 17)
-3. LSP(operation: "hover", ...) for type info
-```
+#### lsp-analyze
+Perform multiple analyses in a single session for efficiency.
 
-### User asks: "Where is validateSession defined?"
-
-❌ **WRONG:**
-
-```
-Grep for "function validateSession" or "const validateSession"
+```bash
+bunx @plaited/development-skills lsp-analyze <file> [options]
 ```
 
-✅ **CORRECT:**
+**Options:**
+- `--symbols, -s`: List all symbols
+- `--exports, -e`: List only exported symbols
+- `--hover <line:char>`: Get type info (repeatable)
+- `--refs <line:char>`: Find references (repeatable)
+- `--all`: Run symbols + exports analysis
 
-```
-LSP(operation: "goToDefinition", filePath: "file-where-its-used.ts", line: X, character: Y)
-```
+**Examples:**
+```bash
+# Get file overview
+bunx @plaited/development-skills lsp-analyze src/utils/parser.ts --all
 
-### User asks: "What uses the hashPassword function?"
+# Check multiple positions
+bunx @plaited/development-skills lsp-analyze src/utils/parser.ts --hover 50:10 --hover 75:5
 
-❌ **WRONG:**
-
-```
-Grep for "hashPassword" across codebase
-```
-
-✅ **CORRECT:**
-
-```
-LSP(operation: "findReferences", filePath: "src/lib/auth.ts", line: 10, character: 17)
-```
-
-### User asks: "What type does calculateTax return?"
-
-❌ **WRONG:**
-
-```
-Read the entire file to find the type definition
+# Before refactoring: find all references
+bunx @plaited/development-skills lsp-analyze src/utils/parser.ts --refs 42:10
 ```
 
-✅ **CORRECT:**
+## Common Workflows
 
+### Understanding a File
+
+```bash
+# 1. Get exports overview
+bunx @plaited/development-skills lsp-analyze path/to/file.ts --exports
+
+# 2. For specific type info, hover on interesting symbols
+bunx @plaited/development-skills lsp-hover path/to/file.ts <line> <char>
 ```
-LSP(operation: "hover", filePath: "src/lib/tax.ts", line: 15, character: 17)
+
+### Before Modifying an Export
+
+```bash
+# 1. Find all references first
+bunx @plaited/development-skills lsp-refs path/to/file.ts <line> <char>
+
+# 2. Check what depends on it
+# Review the output to understand impact
 ```
 
-## Supported File Extensions
+### Finding Patterns
 
-The LSP works with:
+```bash
+# Search for similar implementations
+bunx @plaited/development-skills lsp-find handleRequest
+bunx @plaited/development-skills lsp-find parseConfig
+```
 
-- `.ts` - TypeScript
-- `.tsx` - TypeScript React
-- `.js` - JavaScript
-- `.jsx` - JavaScript React
-- `.mts`, `.cts` - ES/CommonJS TypeScript
-- `.mjs`, `.cjs` - ES/CommonJS JavaScript
+### Pre-Implementation Verification
 
-## When Grep is Still Appropriate
+```bash
+# Before writing code that uses an API, verify its signature
+bunx @plaited/development-skills lsp-hover path/to/api.ts <line> <char>
+```
 
-- Searching for text in non-code files (JSON, Markdown, etc.)
-- Finding TODO/FIXME comments
-- Searching for string literals or patterns
-- When LSP tools don't return results (symbol not typed)
+## Output Format
+
+All scripts output JSON to stdout. Errors go to stderr.
+
+**Hover output:**
+```json
+{
+  "contents": {
+    "kind": "markdown",
+    "value": "```typescript\nconst parseConfig: (options: Options) => Config\n```"
+  },
+  "range": { "start": {...}, "end": {...} }
+}
+```
+
+**Symbols output:**
+```json
+[
+  {
+    "name": "symbolName",
+    "kind": 13,
+    "range": { "start": {...}, "end": {...} }
+  }
+]
+```
+
+**Analyze output:**
+```json
+{
+  "file": "path/to/file.ts",
+  "exports": [
+    { "name": "exportName", "kind": "Constant", "line": 139 }
+  ]
+}
+```
+
+## Performance
+
+Each script invocation:
+1. Starts TypeScript Language Server (~300-500ms)
+2. Initializes LSP connection
+3. Opens document
+4. Performs query
+5. Closes and stops
+
+For multiple queries on the same file, use `lsp-analyze` to batch operations in a single session.
+
+## Related Skills
+
+- **code-documentation**: TSDoc standards for documentation

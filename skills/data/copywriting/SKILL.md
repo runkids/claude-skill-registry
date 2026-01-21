@@ -1,455 +1,321 @@
 ---
 name: copywriting
-description: When the user wants to write, rewrite, or improve marketing copy for any page — including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says "write copy for," "improve this copy," "rewrite this page," "marketing copy," "headline help," or "CTA copy." For email copy, see email-sequence. For popup copy, see popup-cro.
+description: Эксперт по копирайтингу. Используй для написания продающих текстов, заголовков, landing pages и conversion copy.
 ---
 
-# Copywriting
+# Marketing Copywriter
 
-You are an expert conversion copywriter. Your goal is to write marketing copy that is clear, compelling, and drives action.
+Эксперт по убеждающему копирайтингу и текстам для конверсии.
 
-## Before Writing
+## Core Competencies
 
-Gather this context (ask if not provided):
+### Direct Response
+- Sales pages
+- Headlines и hooks
+- Calls to Action
+- Email sequences
 
-### 1. Page Purpose
-- What type of page is this? (homepage, landing page, pricing, feature, about)
-- What is the ONE primary action you want visitors to take?
-- What's the secondary action (if any)?
+### Brand Copywriting
+- Voice development
+- Brand storytelling
+- Taglines
+- Mission statements
 
-### 2. Audience
-- Who is the ideal customer for this page?
-- What problem are they trying to solve?
-- What have they already tried?
-- What objections or hesitations do they have?
-- What language do they use to describe their problem?
+### Digital Copy
+- Landing pages
+- Ad copy (Facebook, Google)
+- Social media posts
+- Product descriptions
 
-### 3. Product/Offer
-- What are you selling or offering?
-- What makes it different from alternatives?
-- What's the key transformation or outcome?
-- Any proof points (numbers, testimonials, case studies)?
+## Persuasion Frameworks
 
-### 4. Context
-- Where is traffic coming from? (ads, organic, email)
-- What do visitors already know before arriving?
-- What messaging are they seeing before this page?
+### AIDA
 
----
+```markdown
+**Attention**: Привлеки внимание заголовком
+**Interest**: Удержи интерес историей или фактами
+**Desire**: Создай желание через выгоды
+**Action**: Призыв к действию
+```
 
-## Copywriting Principles
+**Пример:**
+```markdown
+# Устали тратить часы на отчёты? (Attention)
 
-### Clarity Over Cleverness
-- If you have to choose between clear and creative, choose clear
-- Every sentence should have one job
-- Remove words that don't add meaning
+Представьте: нажатие одной кнопки — и отчёт готов.
+Наши клиенты экономят 15 часов в неделю. (Interest)
 
-### Benefits Over Features
-- Features: What it does
-- Benefits: What that means for the customer
-- Always connect features to outcomes
+Что бы вы сделали с дополнительными 15 часами?
+Больше времени с семьёй? Новые проекты? (Desire)
 
-### Specificity Over Vagueness
-- Vague: "Save time on your workflow"
-- Specific: "Cut your weekly reporting from 4 hours to 15 minutes"
+[Начать бесплатный триал →] (Action)
+```
 
-### Customer Language Over Company Language
-- Use words your customers use
-- Avoid jargon unless your audience uses it
-- Mirror voice-of-customer from reviews, interviews, support tickets
+### PAS (Problem-Agitate-Solution)
 
-### One Idea Per Section
-- Don't try to say everything everywhere
-- Each section should advance one argument
-- Build a logical flow down the page
+```markdown
+**Problem**: Обозначь боль клиента
+**Agitate**: Усиль эмоции, покажи последствия
+**Solution**: Предложи решение
+```
 
----
+**Пример:**
+```markdown
+# Ваши клиенты уходят к конкурентам (Problem)
 
-## Writing Style Rules
+Каждый день промедления — это потерянные продажи.
+Пока вы раздумываете, конкуренты уже внедрили AI.
+К концу года это может стоить вам 40% выручки. (Agitate)
 
-Follow these core principles. For detailed editing checks and word-by-word polish, use the **copy-editing** skill after your initial draft.
-
-### Core Style Principles
-
-1. **Simple over complex** — Use everyday words. "Use" instead of "utilize," "help" instead of "facilitate."
-
-2. **Specific over vague** — Avoid words like "streamline," "optimize," "innovative" that sound good but mean nothing.
-
-3. **Active over passive** — "We generate reports" not "Reports are generated."
-
-4. **Confident over qualified** — Remove hedging words like "almost," "very," "really."
-
-5. **Show over tell** — Describe the outcome instead of using adverbs like "instantly" or "easily."
-
-6. **Honest over sensational** — Never fabricate statistics, claims, or testimonials.
-
-### Quick Quality Check
-
-Before finalizing, scan for:
-- Jargon that could confuse outsiders
-- Sentences trying to do too much (max 3 conjunctions)
-- Passive voice constructions
-- Exclamation points (remove them)
-- Marketing buzzwords without substance
-
-For a thorough line-by-line review, run the copy through the **copy-editing** skill's Seven Sweeps framework.
-
----
-
-## Best Practices
-
-### Be Direct
-Get to the point. Don't bury the value in qualifications.
-
-❌ Slack lets you share files instantly, from documents to images, directly in your conversations
-
-✅ Need to share a screenshot? Send as many documents, images, and audio files as your heart desires.
-
-### Use Rhetorical Questions
-Questions engage readers and make them think about their own situation.
-
-✅ Hate returning stuff to Amazon?
-
-✅ Need to share a screenshot?
-
-✅ Tired of chasing approvals?
-
-### Use Analogies and Metaphors
-When appropriate, analogies make abstract concepts concrete and memorable.
-
-❌ Slack lets you share files instantly, from documents to images, directly in your conversations
-
-✅ Imagine Slack's file-sharing as a digital whiteboard where everyone can post files, images, and updates in real time.
-
-### Pepper in Humor (When Appropriate)
-Puns, wit, and humor make copy memorable—but only if it fits the brand and doesn't undermine clarity.
-
----
-
-## Page Structure Framework
-
-### Above the Fold (First Screen)
-
-**Headline**
-- Your single most important message
-- Should communicate core value proposition
-- Specific > generic
-
-**Headline Formulas:**
-
-**{Achieve desirable outcome} without {pain point}**
-*Example: Understand how users are really experiencing your site without drowning in numbers*
-
-**The {opposite of usual process} way to {achieve desirable outcome}**
-*Example: The easiest way to turn your passion into income*
-
-**Never {unpleasant event} again**
-*Example: Never miss a sales opportunity again*
-
-**{Key feature/product type} for {target audience}**
-*Example: Advanced analytics for Shopify e-commerce*
-
-**{Key feature/product type} for {target audience} to {what it's used for}**
-*Example: An online whiteboard for teams to ideate and brainstorm together*
-
-**You don't have to {skills or resources} to {achieve desirable outcome}**
-*Example: With Ahrefs, you don't have to be an SEO pro to rank higher and get more traffic*
-
-**{Achieve desirable outcome} by {how product makes it possible}**
-*Example: Generate more leads by seeing which companies visit your site*
-
-**{Key benefit of your product}**
-*Example: Sound clear in online meetings*
-
-**{Question highlighting the main pain point}**
-*Example: Hate returning stuff to Amazon?*
-
-**Turn {input} into {outcome}**
-*Example: Turn your hard-earned sales into repeat customers*
-
-**Additional formulas:**
-- "[Achieve outcome] in [timeframe]"
-- "The [category] that [key differentiator]"
-- "Stop [pain]. Start [pleasure]."
-- "[Number] [people] use [product] to [outcome]"
-
-**Subheadline**
-- Expands on the headline
-- Adds specificity or addresses secondary concern
-- 1-2 sentences max
-
-**Primary CTA**
-- Action-oriented button text
-- Communicate what they get, not what they do
-- "Start Free Trial" > "Sign Up"
-- "Get Your Report" > "Submit"
-
-**Supporting Visual**
-- Product screenshot, demo, or hero image
-- Should reinforce the message, not distract
-
-### Social Proof Section
-
-Options (use 1-2):
-- Customer logos (recognizable > many)
-- Key metric ("10,000+ teams")
-- Short testimonial with attribution
-- Star rating with review count
-
-### Problem/Pain Section
-
-- Articulate the problem better than they can
-- Show you understand their situation
-- Create recognition ("that's exactly my problem")
-
-Structure:
-- "You know the feeling..." or "If you're like most [role]..."
-- Describe the specific frustrations
-- Hint at the cost of not solving it
-
-### Solution/Benefits Section
-
-- Bridge from problem to your solution
-- Focus on 3-5 key benefits (not 10)
-- Each benefit: headline + short explanation + proof point if available
-
-Format options:
-- Benefit blocks with icons
-- Before/after comparison
-- Feature → Benefit → Proof structure
-
-### How It Works Section
-
-- Reduce perceived complexity
-- 3-4 step process
-- Each step: simple action + outcome
-
-Example:
-1. "Connect your tools (2 minutes)"
-2. "Set your preferences"
-3. "Get automated reports every Monday"
-
-### Social Proof (Detailed)
-
-- Full testimonials with:
-  - Specific results
-  - Customer name, role, company
-  - Photo if possible
-- Case study snippets
-- Logos section (if not above)
-
-### Objection Handling
-
-Common objections to address:
-- "Is this right for my situation?"
-- "What if it doesn't work?"
-- "Is it hard to set up?"
-- "How is this different from X?"
-
-Formats:
-- FAQ section
-- Comparison table
-- Guarantee/promise section
-- "Built for [specific audience]" section
-
-### Final CTA Section
-
-- Recap the value proposition
-- Repeat the primary CTA
-- Add urgency if genuine (deadline, limited availability)
-- Risk reversal (guarantee, free trial, no credit card)
-
----
-
-## Landing Page Section Variety
-
-A great landing page isn't just a list of features. Use a variety of section types to create an engaging, persuasive narrative. Mix and match from these:
-
-### Section Types to Include
-
-**How It Works (Numbered Steps)**
-Walk users through the process in 3-4 clear steps. Reduces perceived complexity and shows the path to value.
-
-**Alternative/Competitor Comparison**
-Show how you stack up against the status quo or competitors. Tables, side-by-side comparisons, or "Unlike X, we..." sections.
-
-**Founder Manifesto / Our Story**
-Share why you built this and what you believe. Creates emotional connection and differentiates from faceless competitors.
-
-**Testimonials**
-Customer quotes with names, photos, and specific results. Multiple formats: quote cards, video testimonials, tweet embeds.
-
-**Case Studies**
-Deeper stories of customer success. Problem → Solution → Results format with specific metrics.
-
-**Use Cases**
-Show different ways the product is used. Helps visitors self-identify: "This is for people like me."
-
-**Personas / "Built For" Sections**
-Explicitly call out who the product is for: "Perfect for marketers," "Built for agencies," etc.
-
-**Stats and Social Proof**
-Key metrics that build credibility: "10,000+ customers," "4.9/5 rating," "$2M saved for customers."
-
-**Demo / Product Tour**
-Interactive demos, video walkthroughs, or GIF previews showing the product in action.
-
-**FAQ Section**
-Address common objections and questions. Good for SEO and reducing support burden.
-
-**Integrations / Partners**
-Show what tools you connect with. Logos build credibility and answer "Will this work with my stack?"
-
-**Pricing Preview**
-Even on non-pricing pages, a pricing teaser can move decision-makers forward.
-
-**Guarantee / Risk Reversal**
-Money-back guarantee, free trial terms, or "cancel anytime" messaging reduces friction.
-
-### Recommended Section Mix
-
-For a landing page, aim for variety. Don't just stack features:
-
-**Typical Feature-Heavy Page (Weak):**
-1. Hero
-2. Feature 1
-3. Feature 2
-4. Feature 3
-5. Feature 4
-6. CTA
-
-**Varied, Engaging Page (Strong):**
-1. Hero with clear value prop
-2. Social proof bar (logos or stats)
-3. Problem/pain section
-4. How it works (3 steps)
-5. Key benefits (2-3, not 10)
-6. Testimonial
-7. Use cases or personas
-8. Comparison to alternatives
-9. Case study snippet
-10. FAQ
-11. Final CTA with guarantee
-
----
-
-## CTA Copy Guidelines
-
-**Weak CTAs (avoid):**
-- Submit
-- Sign Up
-- Learn More
-- Click Here
-- Get Started
-
-**Strong CTAs (use):**
-- Start Free Trial
-- Get [Specific Thing]
-- See [Product] in Action
-- Create Your First [Thing]
-- Book My Demo
-- Download the Guide
-- Try It Free
-
-**CTA formula:**
-[Action Verb] + [What They Get] + [Qualifier if needed]
-
-Examples:
-- "Start My Free Trial"
-- "Get the Complete Checklist"
-- "See Pricing for My Team"
-
----
-
-## Output Format
-
-When writing copy, provide:
-
-### Page Copy
-Organized by section with clear labels:
-- Headline
-- Subheadline
+AI-ассистент автоматизирует 80% рутины за 2 недели.
+Гарантия результата или возврат денег. (Solution)
+```
+
+### 4 Ps
+
+```markdown
+**Promise**: Что получит клиент
+**Picture**: Визуализация результата
+**Proof**: Доказательства
+**Push**: Призыв к действию
+```
+
+### Before-After-Bridge
+
+```markdown
+**Before**: Текущая боль
+**After**: Желаемое состояние
+**Bridge**: Как туда попасть
+```
+
+## Headlines Templates
+
+### How-to
+
+```markdown
+- Как [достичь результата] за [время]
+- Как [известная компания] [достигла результата]
+- Как получить [желаемое] без [нежелательного]
+```
+
+### Listicles
+
+```markdown
+- 7 способов [решить проблему]
+- 5 ошибок, которые убивают [метрику]
+- 10 инструментов для [задачи]
+```
+
+### Questions
+
+```markdown
+- Вы делаете эту ошибку в [области]?
+- Почему [результат] не работает?
+- Что если [провокационное утверждение]?
+```
+
+### Commands
+
+```markdown
+- Прекратите [негативное действие]
+- Начните [позитивное действие] сегодня
+- Забудьте всё, что знали о [теме]
+```
+
+### Curiosity Gap
+
+```markdown
+- Секрет [результата], который знают только 3% компаний
+- Один трюк, который изменил [метрику] на 300%
+- Почему [неожиданная вещь] — ключ к [результату]
+```
+
+## CTA Копирайтинг
+
+### Принципы
+
+```markdown
+✅ Конкретность: "Получить бесплатный аудит" vs "Узнать больше"
+✅ Ценность: "Сэкономить 10 часов" vs "Попробовать"
+✅ Срочность: "Осталось 3 места" vs "Записаться"
+✅ Снижение риска: "Без карты • Отмена в 1 клик"
+```
+
+### Примеры CTA
+
+```markdown
+# Низкий commitment
+- Узнать больше
+- Посмотреть демо
+- Скачать гайд
+
+# Средний commitment
+- Начать бесплатный триал
+- Получить консультацию
+- Записаться на вебинар
+
+# Высокий commitment
+- Оплатить сейчас
+- Оформить подписку
+- Нанять эксперта
+```
+
+## Sales Page Structure
+
+```markdown
+1. **Headline**: Главная выгода
+2. **Subhead**: Расшифровка + для кого
+3. **Hero section**: Визуал + краткое описание
+4. **Problem**: Боли целевой аудитории
+5. **Agitation**: Усиление проблемы
+6. **Solution**: Ваш продукт как решение
+7. **Benefits**: 3-5 ключевых выгод
+8. **Features**: Что включено
+9. **Social proof**: Отзывы, логотипы, цифры
+10. **Pricing**: Планы и цены
+11. **FAQ**: Снятие возражений
+12. **Final CTA**: Последний призыв
+13. **Guarantee**: Снижение риска
+```
+
+## Email Copywriting
+
+### Subject Lines
+
+```markdown
+# Curiosity
+- Вы это уже видели?
+- Странная находка...
+- Не открывайте это письмо
+
+# Benefit
+- Ваш ROI: +340% за квартал
+- Сэкономьте 10 часов в неделю
+- Бесплатный шаблон внутри
+
+# Urgency
+- Последний шанс: скидка 50%
+- До повышения цен: 24 часа
+- 3 места осталось
+
+# Personal
+- {Имя}, персональное приглашение
+- Специально для {Компания}
+- Мы заметили, что вы...
+```
+
+### Email Structure
+
+```markdown
+**Opening**: Hook или персонализация
+**Story/Context**: Почему пишем
+**Value**: Что даём
+**CTA**: Один чёткий призыв
+**P.S.**: Дополнительный бенефит или срочность
+```
+
+## Ad Copy
+
+### Facebook Ads
+
+```markdown
+# Structure
+- Hook (первые 125 символов)
+- Problem/Solution
+- Social proof или статистика
 - CTA
-- Section headers
-- Body copy
-- Secondary CTAs
 
-### Annotations
-For key elements, explain:
-- Why you made this choice
-- What principle it applies
-- Alternatives considered
+# Example
+🔥 Устали от рутинных задач?
 
-### Alternatives
-For headlines and CTAs, provide 2-3 options:
-- Option A: [copy] — [rationale]
-- Option B: [copy] — [rationale]
-- Option C: [copy] — [rationale]
+AI-ассистент автоматизирует:
+✅ Ответы клиентам — 24/7
+✅ Обработку заявок — за секунды
+✅ Отчёты — в 1 клик
 
-### Meta Content (if relevant)
-- Page title (for SEO)
-- Meta description
+"Сэкономили 40 часов в неделю" — CEO TechCorp
 
----
+👉 Бесплатный триал 14 дней
+```
 
-## Page-Specific Guidance
+### Google Ads
 
-### Homepage Copy
-- Serve multiple audiences without being generic
-- Lead with broadest value proposition
-- Provide clear paths for different visitor intents
-- Balance "ready to buy" and "still researching"
+```markdown
+# Headlines (30 chars max)
+- AI-Ассистент для Бизнеса
+- Автоматизация за 2 Недели
+- Триал 14 Дней Бесплатно
 
-### Landing Page Copy
-- Single message, single CTA
-- Match headline to ad/traffic source
-- Complete argument on one page
-- Remove distractions (often no nav)
+# Descriptions (90 chars max)
+- Сократите рутину на 80%. 500+ компаний уже используют.
+- Внедрение без программиста. Интеграция с CRM за день.
+```
 
-### Pricing Page Copy
-- Help visitors choose the right plan
-- Clarify what's included at each level
-- Address "which is right for me?" anxiety
-- Make recommended plan obvious
+## Voice & Tone Guidelines
 
-### Feature Page Copy
-- Connect feature to benefit to outcome
-- Show use cases and examples
-- Differentiate from competitors' versions
-- Clear path to try or buy
+### Тон по сегментам
 
-### About Page Copy
-- Tell the story of why you exist
-- Connect company mission to customer benefit
-- Build trust through transparency
-- Still include a CTA (it's still a marketing page)
+| Аудитория | Тон | Пример |
+|-----------|-----|--------|
+| B2B Enterprise | Профессиональный | "Оптимизируйте бизнес-процессы" |
+| B2B SMB | Дружелюбный | "Упростите работу вашей команды" |
+| B2C | Разговорный | "Забудь о рутине навсегда!" |
+| Tech | Экспертный | "Нативная интеграция через REST API" |
 
----
+### Do's and Don'ts
 
-## Voice and Tone Considerations
+```markdown
+✅ Do:
+- Пиши для одного человека
+- Используй активный залог
+- Benefits > Features
+- Конкретные цифры
+- Простые слова
 
-Before writing, establish:
+❌ Don't:
+- Корпоративный жаргон
+- Пассивный залог
+- Длинные предложения
+- Абстрактные обещания
+- Слова-паразиты
+```
 
-**Formality level:**
-- Casual/conversational
-- Professional but friendly
-- Formal/enterprise
+## Copywriting Checklist
 
-**Brand personality:**
-- Playful or serious?
-- Bold or understated?
-- Technical or accessible?
+```markdown
+- [ ] Заголовок отвечает на "What's in it for me?"
+- [ ] Первое предложение заставляет читать дальше
+- [ ] Выгоды конкретные и измеримые
+- [ ] Есть social proof
+- [ ] CTA понятен и один
+- [ ] Нет жаргона и сложных слов
+- [ ] Возражения сняты
+- [ ] Есть срочность или ограничение
+- [ ] Текст прочитан вслух
+- [ ] Проверен на мобильной версии
+```
 
-Maintain consistency throughout, but adjust intensity:
-- Headlines can be bolder
-- Body copy should be clearer
-- CTAs should be action-oriented
+## A/B Testing Copy
 
----
+```markdown
+# Что тестировать
+1. Headlines (самый большой impact)
+2. CTA текст и цвет
+3. Social proof размещение
+4. Длина copy (long vs short)
+5. Tone of voice
 
-## Related Skills
+# Минимальная выборка
+- Email: 1000+ получателей
+- Landing: 200+ конверсий
+- Ads: 500+ кликов
+```
 
-- **copy-editing**: For polishing and improving existing copy (use after writing your first draft)
-- **page-cro**: If the page structure/strategy needs work, not just copy
-- **email-sequence**: For email copywriting
-- **popup-cro**: For popup and modal copy
-- **ab-test-setup**: To test copy variations properly
+## Лучшие практики
+
+1. **Clarity over cleverness** — ясность важнее креативности
+2. **Benefits over features** — выгоды важнее функций
+3. **One CTA per piece** — один призыв к действию
+4. **Write, then edit** — сначала пиши, потом редактируй
+5. **Read out loud** — читай вслух для проверки
+6. **Test everything** — тестируй всё, что можно

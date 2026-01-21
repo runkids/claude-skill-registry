@@ -1,7 +1,7 @@
 {
   "name": "obsidian-bases",
-  "repo": "wildwasser/opencode-agents",
-  "path": ".opencode/skills/obsidian-bases/SKILL.md",
-  "source": "github.com/wildwasser/opencode-agents",
-  "downloaded_at": "2026-01-20T03:48:27.143997Z"
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/obsidian-skills/skills/obsidian-bases/SKILL.md",
+  "source": "github.com/davepoon/buildwithclaude",
+  "downloaded_at": "2026-01-21T02:41:53.864615Z"
 }

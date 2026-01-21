@@ -1,98 +1,67 @@
 ---
 name: summarize
-description: "Compress without losing truth. Backlink to sources."
-license: MIT
-tier: 1
-allowed-tools:
-  - read_file
-  - write_file
-related: [honest-forget, session-log, memory-palace, play-learn-lift, research-notebook]
-tags: [moollm, compression, knowledge, context, backlinks]
+description: Summarize or extract text/transcripts from URLs, podcasts, and local files (great fallback for “transcribe this YouTube/video”).
+homepage: https://summarize.sh
+metadata: {"clawdbot":{"emoji":"🧾","requires":{"bins":["summarize"]},"install":[{"id":"brew","kind":"brew","formula":"steipete/tap/summarize","bins":["summarize"],"label":"Install summarize (brew)"}]}}
 ---
 
 # Summarize
 
-> **Compress without losing truth. Backlink to sources.**
+Fast CLI to summarize URLs, local files, and YouTube links.
 
-Context compression for memory management.
+## When to use (trigger phrases)
 
-> [!IMPORTANT]
-> **Always backlink.** Every summary points to its source. Never orphan knowledge.
+Use this skill immediately when the user asks any of:
+- “use summarize.sh”
+- “what’s this link/video about?”
+- “summarize this URL/article”
+- “transcribe this YouTube/video” (best-effort transcript extraction; no `yt-dlp` needed)
 
-## The Goal
+## Quick start
 
-When files are too large for context:
-1. **Summarize** — Extract key information
-2. **Backlink** — Point to original source
-3. **Prioritize** — Hot/cold hints for what matters
-4. **Preserve** — Never delete, just compress
-
-## Contents
-
-| File | Purpose |
-|------|---------|
-| [SKILL.md](./SKILL.md) | Full protocol documentation |
-| [SUMMARIES.yml.tmpl](./SUMMARIES.yml.tmpl) | Summary template |
-
-## Example
-
-```yaml
-summary:
-  source: "designs/original-design.md"
-  created: "2025-12-30"
-  
-  key_points:
-    - "Files are state, no hidden memory"
-    - "YAML comments carry meaning"
-    
-  backlink: "../designs/original-design.md"
-  full_context_needed_for:
-    - "Implementation details"
-    - "Edge cases"
+```bash
+summarize "https://example.com" --model google/gemini-3-flash-preview
+summarize "/path/to/file.pdf" --model google/gemini-3-flash-preview
+summarize "https://youtu.be/dQw4w9WgXcQ" --youtube auto
 ```
 
-## The Intertwingularity
+## YouTube: summary vs transcript
 
-Summarize enables the LIFT stage — compress wisdom for sharing.
+Best-effort transcript (URLs only):
 
-```mermaid
-graph LR
-    SUM[📝 summarize] -->|compresses| SL[📜 session-log]
-    SUM -->|compresses| RN[📓 research-notebook]
-    SUM -->|enables| HF[🌫️ honest-forget]
-    SUM -->|part of| PLL[🎮📚🚀 play-learn-lift LIFT]
-    
-    SR[🔧 self-repair] -->|triggers| SUM
+```bash
+summarize "https://youtu.be/dQw4w9WgXcQ" --youtube auto --extract-only
 ```
 
----
+If the user asked for a transcript but it’s huge, return a tight summary first, then ask which section/time range to expand.
 
-## Dovetails With
+## Model + keys
 
-### Sister Skills
-| Skill | Relationship |
-|-------|--------------|
-| [play-learn-lift/](../play-learn-lift/) | Summarize IS LIFT — share wisdom |
-| [honest-forget/](../honest-forget/) | Summarize before forgetting |
-| [session-log/](../session-log/) | Source material to compress |
-| [research-notebook/](../research-notebook/) | Findings to distill |
-| [self-repair/](../self-repair/) | Triggers when context exceeds budget |
-| [memory-palace/](../memory-palace/) | Place summaries in palace rooms |
+Set the API key for your chosen provider:
+- OpenAI: `OPENAI_API_KEY`
+- Anthropic: `ANTHROPIC_API_KEY`
+- xAI: `XAI_API_KEY`
+- Google: `GEMINI_API_KEY` (aliases: `GOOGLE_GENERATIVE_AI_API_KEY`, `GOOGLE_API_KEY`)
 
-### Protocol Symbols
-| Symbol | Link |
-|--------|------|
-| `SUMMARIZE` | [PROTOCOLS.yml](../../PROTOCOLS.yml#SUMMARIZE) |
-| `HONEST-FORGET` | [PROTOCOLS.yml](../../PROTOCOLS.yml#HONEST-FORGET) |
-| `HOT-COLD` | [PROTOCOLS.yml](../../PROTOCOLS.yml#HOT-COLD) |
+Default model is `google/gemini-3-flash-preview` if none is set.
 
-### Kernel
-- [kernel/memory-management-protocol.md](../../kernel/memory-management-protocol.md) — Full specification
+## Useful flags
 
-### Navigation
-| Direction | Destination |
-|-----------|-------------|
-| ⬆️ Up | [skills/](../) |
-| ⬆️⬆️ Root | [Project Root](../../) |
-| 🌫️ Sister | [honest-forget/](../honest-forget/) |
-| 🎮 Sister | [play-learn-lift/](../play-learn-lift/) |
+- `--length short|medium|long|xl|xxl|<chars>`
+- `--max-output-tokens <count>`
+- `--extract-only` (URLs only)
+- `--json` (machine readable)
+- `--firecrawl auto|off|always` (fallback extraction)
+- `--youtube auto` (Apify fallback if `APIFY_API_TOKEN` set)
+
+## Config
+
+Optional config file: `~/.summarize/config.json`
+
+```json
+{ "model": "openai/gpt-5.2" }
+```
+
+Optional services:
+- `FIRECRAWL_API_KEY` for blocked sites
+- `APIFY_API_TOKEN` for YouTube fallback

@@ -1,184 +1,291 @@
 ---
 name: ui-patterns
-description: UI design patterns for React + TailwindCSS. Use when creating new UI components, styling elements, implementing dark mode support, or working on any React component that needs consistent styling.
+description: Ready-to-use UI patterns library for common scenarios - stats dashboards, data tables, forms, modals, and feedback states
+user-invocable: false
 ---
 
-# UI Patterns
+# Pierre UI Patterns Library
 
-## Required: Dark Mode Support
+Ready-to-use UI patterns for common scenarios. Copy and adapt these patterns when building features.
 
-All UI components MUST support dark mode using Tailwind's `class` strategy.
+## Data Display Patterns
 
+### Stats Dashboard
 ```tsx
-// Always provide dark: variants
-className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
-```
-
-## Color System
-
-### Brand Colors (Blue) - Primary actions
-- `brand-500` / `brand-600` - Primary buttons, links
-- `brand-100` / `dark:brand-900/30` - Highlighted backgrounds
-- `brand-700` / `dark:brand-300` - Text on brand backgrounds
-
-### System Colors (Slate) - UI chrome
-- `slate-50` / `dark:slate-950` - Page backgrounds
-- `slate-100` / `dark:slate-800` - Secondary/card backgrounds
-- `slate-200` / `dark:slate-700` - Borders
-- `slate-400` - Muted text
-- `slate-700` / `dark:white` - Primary text
-
-### Semantic Colors
-- Success: `emerald-*` (done, approved)
-- Warning: `amber-*` (pending, paused)
-- Error: `red-*` (failed, stopped)
-
-## Component Classes
-
-Use pre-defined component classes for consistency:
-
-```tsx
-// Buttons
-<button className="btn btn-primary">Create</button>
-<button className="btn btn-secondary">Cancel</button>
-<button className="btn btn-ghost">Refresh</button>
-<button className="btn btn-danger">Delete</button>
-
-// Inputs
-<input className="input" />
-<textarea className="input resize-none" />
-
-// Select dropdowns
-<select className="select w-[180px]">
-  <option>Option</option>
-</select>
-
-// Cards
-<div className="card p-4">Content</div>
-```
-
-## Status Badges
-
-Use consistent status badge pattern with icons:
-
-```tsx
-const STATUS_CONFIG = {
-  backlog: { icon: "inbox", classes: "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700" },
-  ready: { icon: "circle-dashed", classes: "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700" },
-  in_progress: { icon: "timer", classes: "bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800" },
-  pending_review: { icon: "eye", classes: "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800" },
-  done: { icon: "check-circle", classes: "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800" },
-};
-
-// Badge structure
-<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border whitespace-nowrap {classes}">
-  <Icon className="w-3.5 h-3.5" />
-  {label}
-</span>
-```
-
-## Typography
-
-```tsx
-// Page titles
-<h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
-
-// Section titles
-<h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-
-// Subsection headers (uppercase)
-<h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-```
-
-## Layout Patterns
-
-### Split Pane (50/50)
-```tsx
-<div className="flex flex-1 min-h-0 overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800">
-  <div className="w-1/2 border-r border-slate-200 dark:border-slate-800 p-6 overflow-y-auto bg-white dark:bg-slate-900">
-    {/* Left panel */}
-  </div>
-  <div className="w-1/2 flex flex-col min-w-0">
-    {/* Right panel */}
-  </div>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <Card variant="stat">
+    <div className="text-3xl font-bold text-pierre-gray-900">1,234</div>
+    <div className="text-sm text-pierre-gray-500 mt-1">Total Requests</div>
+    <div className="text-xs text-pierre-green-600 mt-2">+12% from last week</div>
+  </Card>
+  <Card variant="stat">
+    <div className="text-3xl font-bold text-pierre-activity">98.5%</div>
+    <div className="text-sm text-pierre-gray-500 mt-1">Uptime</div>
+  </Card>
+  <Card variant="stat">
+    <div className="text-3xl font-bold text-pierre-violet">42ms</div>
+    <div className="text-sm text-pierre-gray-500 mt-1">Avg Response</div>
+  </Card>
 </div>
 ```
 
-### Section Card
+### Data Table with Actions
 ```tsx
-<div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-  <h3 className="text-sm font-medium text-slate-900 dark:text-white mb-3">
-    Section Title
-  </h3>
-  {/* Content */}
-</div>
+<Card>
+  <CardHeader title="API Keys" subtitle="Manage your API keys" />
+  <div className="overflow-x-auto">
+    <table className="w-full">
+      <thead>
+        <tr className="border-b border-pierre-gray-200">
+          <th className="text-left py-3 px-4 text-sm font-medium text-pierre-gray-700">Name</th>
+          <th className="text-left py-3 px-4 text-sm font-medium text-pierre-gray-700">Status</th>
+          <th className="text-right py-3 px-4 text-sm font-medium text-pierre-gray-700">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map((item) => (
+          <tr key={item.id} className="border-b border-pierre-gray-100 hover:bg-pierre-gray-50">
+            <td className="py-3 px-4">
+              <div className="font-medium text-pierre-gray-900">{item.name}</div>
+              <div className="text-sm text-pierre-gray-500">{item.description}</div>
+            </td>
+            <td className="py-3 px-4">
+              <Badge variant={item.active ? 'success' : 'secondary'}>
+                {item.active ? 'Active' : 'Inactive'}
+              </Badge>
+            </td>
+            <td className="py-3 px-4 text-right">
+              <Button variant="secondary" size="sm">Edit</Button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Card>
 ```
 
-## Modal Pattern
+## Form Patterns
 
+### Standard Form
 ```tsx
-<div className="fixed inset-0 z-50 flex items-center justify-center">
-  <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-  <div className="relative bg-white dark:bg-slate-800 rounded-lg shadow-xl w-full max-w-lg mx-4 border border-slate-200 dark:border-slate-700">
-    {/* Header */}
-    <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
-      <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Title</h2>
-      <button onClick={onClose}>...</button>
+<Card>
+  <CardHeader title="Create New Key" />
+  <form onSubmit={handleSubmit} className="space-y-4">
+    <div>
+      <label className="label">Key Name</label>
+      <input
+        type="text"
+        className="input-field"
+        placeholder="Enter key name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      {errors.name && <span className="error-text">{errors.name}</span>}
     </div>
-    {/* Body */}
-    <div className="px-6 py-4">...</div>
-    {/* Footer */}
-    <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-slate-200 dark:border-slate-700">
-      <button className="btn btn-secondary">Cancel</button>
-      <button className="btn btn-primary">Submit</button>
+
+    <div>
+      <label className="label">Description</label>
+      <textarea
+        className="input-field min-h-[100px]"
+        placeholder="Optional description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <span className="help-text">Describe what this key is used for</span>
+    </div>
+
+    <div className="flex justify-end gap-2 pt-4">
+      <Button variant="secondary" type="button" onClick={onCancel}>
+        Cancel
+      </Button>
+      <Button variant="primary" type="submit" loading={isSubmitting}>
+        {isSubmitting ? 'Creating...' : 'Create Key'}
+      </Button>
+    </div>
+  </form>
+</Card>
+```
+
+### Filter Bar
+```tsx
+<div className="flex items-center justify-between mb-6">
+  <div className="flex items-center gap-4">
+    <input
+      type="text"
+      className="input-field w-64"
+      placeholder="Search..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+    <select className="input-field w-40">
+      <option value="">All Status</option>
+      <option value="active">Active</option>
+      <option value="inactive">Inactive</option>
+    </select>
+  </div>
+  <Button variant="primary">Add New</Button>
+</div>
+```
+
+## Feedback Patterns
+
+### Success State
+```tsx
+<div className="bg-pierre-green-50 border border-pierre-green-200 rounded-lg p-4">
+  <div className="flex items-center gap-3">
+    <svg className="w-5 h-5 text-pierre-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+    </svg>
+    <div>
+      <p className="font-medium text-pierre-green-800">Success!</p>
+      <p className="text-sm text-pierre-green-700">Your changes have been saved.</p>
     </div>
   </div>
 </div>
 ```
 
-## Spacing Guidelines
-
-| Size | Usage |
-|------|-------|
-| `gap-1.5` | Icon + text in badges |
-| `gap-2` | Button groups |
-| `gap-3` | Form fields |
-| `gap-4` | Section spacing |
-| `gap-6` | Major section spacing |
-| `p-4` | Card padding |
-| `p-6` | Modal/panel padding |
-
-## Scrollbars
-
-Use `.scrollbar-thin` for custom scrollbars:
+### Error State
 ```tsx
-<div className="overflow-y-auto scrollbar-thin">
+<div className="bg-pierre-red-50 border border-pierre-red-200 rounded-lg p-4">
+  <div className="flex items-center gap-3">
+    <svg className="w-5 h-5 text-pierre-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <div>
+      <p className="font-medium text-pierre-red-800">Error</p>
+      <p className="text-sm text-pierre-red-700">{error.message}</p>
+    </div>
+  </div>
+</div>
 ```
 
-## Loading States
-
+### Empty State
 ```tsx
-// Skeleton loader
-<div className="animate-pulse bg-slate-200 dark:bg-slate-700 rounded h-4 w-32" />
-
-// Spinner
-<svg className="animate-spin h-5 w-5 text-blue-500" viewBox="0 0 24 24">
-  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-</svg>
+<div className="text-center py-12">
+  <svg className="w-12 h-12 text-pierre-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+  </svg>
+  <p className="text-lg font-medium text-pierre-gray-900 mb-1">No items yet</p>
+  <p className="text-sm text-pierre-gray-500 mb-4">Get started by creating your first item.</p>
+  <Button variant="primary">Create Item</Button>
+</div>
 ```
 
-## Empty States
+### Loading State
+```tsx
+// Full page loading
+<div className="flex items-center justify-center h-64">
+  <div className="pierre-spinner w-8 h-8" />
+</div>
+
+// Inline loading
+<Button variant="primary" loading={true}>
+  <div className="pierre-spinner mr-2" />
+  Loading...
+</Button>
+
+// Skeleton loading
+<div className="space-y-4">
+  <div className="h-4 bg-pierre-gray-200 rounded animate-pulse w-3/4" />
+  <div className="h-4 bg-pierre-gray-200 rounded animate-pulse w-1/2" />
+  <div className="h-4 bg-pierre-gray-200 rounded animate-pulse w-5/6" />
+</div>
+```
+
+## Navigation Patterns
+
+### Tabs
+```tsx
+<div className="border-b border-pierre-gray-200">
+  <nav className="flex gap-8">
+    <button
+      className={clsx('tab', activeTab === 'overview' && 'tab-active')}
+      onClick={() => setActiveTab('overview')}
+    >
+      Overview
+    </button>
+    <button
+      className={clsx('tab', activeTab === 'settings' && 'tab-active')}
+      onClick={() => setActiveTab('settings')}
+    >
+      Settings
+    </button>
+  </nav>
+</div>
+```
+
+### Breadcrumbs
+```tsx
+<nav className="flex items-center gap-2 text-sm text-pierre-gray-500 mb-6">
+  <a href="/dashboard" className="hover:text-pierre-violet">Dashboard</a>
+  <span>/</span>
+  <a href="/settings" className="hover:text-pierre-violet">Settings</a>
+  <span>/</span>
+  <span className="text-pierre-gray-900">API Keys</span>
+</nav>
+```
+
+## Modal Patterns
+
+### Confirmation Modal
+```tsx
+<ConfirmDialog
+  isOpen={showDelete}
+  onClose={() => setShowDelete(false)}
+  onConfirm={handleDelete}
+  title="Delete API Key"
+  message="Are you sure you want to delete this API key? This action cannot be undone."
+  variant="danger"
+  confirmText="Delete"
+  cancelText="Cancel"
+/>
+```
+
+### Form Modal
+```tsx
+<Modal
+  isOpen={showCreate}
+  onClose={() => setShowCreate(false)}
+  title="Create New Item"
+>
+  <form onSubmit={handleSubmit} className="space-y-4">
+    <div>
+      <label className="label">Name</label>
+      <input type="text" className="input-field" />
+    </div>
+    <ModalActions>
+      <Button variant="secondary" onClick={() => setShowCreate(false)}>
+        Cancel
+      </Button>
+      <Button variant="primary" type="submit">
+        Create
+      </Button>
+    </ModalActions>
+  </form>
+</Modal>
+```
+
+## Three Pillars Usage
+
+Use pillar colors semantically for fitness-related features:
 
 ```tsx
-<div className="flex flex-col items-center justify-center py-12 text-center">
-  <Icon className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
-  <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">
-    No items found
-  </h3>
-  <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-    Get started by creating your first item.
-  </p>
-  <button className="btn btn-primary">Create Item</button>
+// Activity (emerald) - fitness, workouts, movement
+<Badge className="bg-pierre-activity text-white">Running</Badge>
+<div className="bg-gradient-activity text-white p-4 rounded-lg">
+  Activity Summary
+</div>
+
+// Nutrition (amber) - food, meals, hydration
+<Badge className="bg-pierre-nutrition text-white">Meal Logged</Badge>
+<div className="bg-gradient-nutrition text-white p-4 rounded-lg">
+  Nutrition Overview
+</div>
+
+// Recovery (indigo) - sleep, rest, wellness
+<Badge className="bg-pierre-recovery text-white">Sleep Score</Badge>
+<div className="bg-gradient-recovery text-white p-4 rounded-lg">
+  Recovery Status
 </div>
 ```

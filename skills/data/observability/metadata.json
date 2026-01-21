@@ -1,7 +1,7 @@
 {
   "name": "observability",
-  "repo": "SylphxAI/flow",
-  "path": "packages/flow/assets/skills/observability/SKILL.md",
-  "source": "github.com/SylphxAI/flow",
-  "downloaded_at": "2026-01-20T03:58:36.761677Z"
+  "repo": "FlexNetOS/ripple-env",
+  "path": ".claude/skills/observability/SKILL.md",
+  "source": "github.com/FlexNetOS/ripple-env",
+  "downloaded_at": "2026-01-21T02:27:04.448063Z"
 }

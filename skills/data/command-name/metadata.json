@@ -1,7 +1,7 @@
 {
   "name": "command-name",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/command-name/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-20T01:38:19.926937Z"
+  "repo": "Microck/ordinary-claude-skills",
+  "path": "skills_all/command-name/SKILL.md",
+  "source": "github.com/Microck/ordinary-claude-skills",
+  "downloaded_at": "2026-01-21T00:56:03.007586Z"
 }

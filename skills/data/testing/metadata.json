@@ -1,7 +1,7 @@
 {
   "name": "testing",
-  "repo": "bearcove/pikru",
-  "path": ".claude/skills/testing/SKILL.md",
-  "source": "github.com/bearcove/pikru",
-  "downloaded_at": "2026-01-20T04:05:54.220567Z"
+  "repo": "appautomaton/agent-designer",
+  "path": ".codex/skills/testing/SKILL.md",
+  "source": "github.com/appautomaton/agent-designer",
+  "downloaded_at": "2026-01-21T04:03:44.643936Z"
 }

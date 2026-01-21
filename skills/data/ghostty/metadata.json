@@ -1,11 +1,7 @@
 {
   "name": "ghostty",
-  "description": "Configure and manage Ghostty terminal emulator settings. Use when modifying ghostty config, validating configuration, checking window settings, themes, fonts, keybindings, or troubleshooting ghostty s",
-  "repo": "whilp/dotfiles",
-  "category": "development",
-  "tags": [
-    "ghostty"
-  ],
-  "stars": 9,
-  "source": "local"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/ghostty/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-21T01:20:08.652211Z"
 }

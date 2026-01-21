@@ -1,512 +1,199 @@
 ---
 name: auto-animate
-description: Adds automatic animations to DOM changes with zero configuration using FormKit's AutoAnimate. Use when adding smooth transitions for list reordering, adding/removing elements, or quick UI polish.
+description: |
+  Zero-config animations for React, Vue, Solid, Svelte, Preact with @formkit/auto-animate (3.28kb).
+  Prevents 10+ documented errors: SSR/Next.js imports, conditional parents, missing keys, flexbox width,
+  table display, Jest/esbuild config, CSS position conflicts, Vue/Nuxt registration, Angular ESM.
+
+  Use when: animating lists/accordions/toasts/forms, troubleshooting SSR animation errors, need
+  accessible animations (auto prefers-reduced-motion), or want drop-in transitions without Motion overhead.
+license: MIT
+metadata:
+  version: 1.1.0
+  last_verified: 2025-11-22
+  package_version: 0.9.0
+  framework_support: React, Vue, Solid, Svelte, Preact
+  keywords:
+    - auto-animate
+    - "@formkit/auto-animate"
+    - formkit
+    - zero-config-animation
+    - solid support
+    - preact support
+    - ssr animation errors
+    - conditional parent error
+    - missing keys animation
+    - flexbox width animation
+    - table row animation
+    - jest auto-animate
+    - esbuild auto-animate
+    - vue nuxt auto-animate
+    - angular esm auto-animate
+    - prefers-reduced-motion
+    - accessible-animations
+    - cloudflare-workers-animation
+    - nextjs-animation-ssr
 ---
 
-# AutoAnimate
+# AutoAnimate - Error Prevention Guide
 
-Zero-config, drop-in animation utility that adds smooth transitions to any web app. 1.9KB, works with React, Vue, Svelte, Solid, and vanilla JS.
+**Package**: @formkit/auto-animate@0.9.0 (Sept 2025)
+**Frameworks**: React, Vue, Solid, Svelte, Preact
+**Last Updated**: 2025-11-22
 
-## Quick Start
+---
 
-```bash
-npm install @formkit/auto-animate
-```
+## SSR-Safe Pattern (Critical for Cloudflare Workers/Next.js)
 
-```javascript
-import autoAnimate from '@formkit/auto-animate';
+```tsx
+// Use client-only import to prevent SSR errors
+import { useState, useEffect } from "react";
 
-// Apply to any parent element
-autoAnimate(document.getElementById('list'));
-```
+export function useAutoAnimateSafe<T extends HTMLElement>() {
+  const [parent, setParent] = useState<T | null>(null);
 
-That's it. Children added, removed, or moved will animate automatically.
+  useEffect(() => {
+    if (typeof window !== "undefined" && parent) {
+      import("@formkit/auto-animate").then(({ default: autoAnimate }) => {
+        autoAnimate(parent);
+      });
+    }
+  }, [parent]);
 
-## What It Animates
-
-AutoAnimate triggers on three DOM events:
-1. **Child added** - fade in
-2. **Child removed** - fade out
-3. **Child moved** - smooth position change
-
-## React
-
-### useAutoAnimate Hook
-
-```jsx
-import { useAutoAnimate } from '@formkit/auto-animate/react';
-
-function TodoList() {
-  const [items, setItems] = useState(['Item 1', 'Item 2', 'Item 3']);
-  const [parent] = useAutoAnimate();
-
-  const addItem = () => setItems([...items, `Item ${items.length + 1}`]);
-  const removeItem = (index) => setItems(items.filter((_, i) => i !== index));
-
-  return (
-    <div>
-      <button onClick={addItem}>Add Item</button>
-      <ul ref={parent}>
-        {items.map((item, index) => (
-          <li key={item}>
-            {item}
-            <button onClick={() => removeItem(index)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  return [parent, setParent] as const;
 }
 ```
 
-### Enable/Disable Animation
+**Why this matters**: Prevents Issue #1 (SSR/Next.js import errors). AutoAnimate uses DOM APIs not available on server.
 
-```jsx
-function ToggleableAnimation() {
-  const [parent, enableAnimations] = useAutoAnimate();
-  const [isEnabled, setIsEnabled] = useState(true);
+---
 
-  const toggle = () => {
-    setIsEnabled(!isEnabled);
-    enableAnimations(!isEnabled);
-  };
+## Known Issues Prevention (10 Documented Errors)
 
-  return (
-    <>
-      <button onClick={toggle}>
-        {isEnabled ? 'Disable' : 'Enable'} Animations
-      </button>
-      <ul ref={parent}>
-        {/* items */}
-      </ul>
-    </>
-  );
-}
+This skill prevents **10+** documented issues:
+
+### Issue #1: SSR/Next.js Import Errors
+**Error**: "Can't import the named export 'useEffect' from non EcmaScript module"
+**Source**: https://github.com/formkit/auto-animate/issues/55
+**Why It Happens**: AutoAnimate uses DOM APIs not available on server
+**Prevention**: Use dynamic imports (see `templates/vite-ssr-safe.tsx`)
+
+### Issue #2: Conditional Parent Rendering
+**Error**: Animations don't work when parent is conditional
+**Source**: https://github.com/formkit/auto-animate/issues/8
+**Why It Happens**: Ref can't attach to non-existent element
+**Prevention**:
+```tsx
+// ❌ Wrong
+{showList && <ul ref={parent}>...</ul>}
+
+// ✅ Correct
+<ul ref={parent}>{showList && items.map(...)}</ul>
 ```
 
-### With Custom Options
+### Issue #3: Missing Unique Keys
+**Error**: Items don't animate correctly or flash
+**Source**: Official docs
+**Why It Happens**: React can't track which items changed
+**Prevention**: Always use unique, stable keys (`key={item.id}`)
 
-```jsx
-function CustomAnimations() {
-  const [parent] = useAutoAnimate({
-    duration: 250,
-    easing: 'ease-in-out'
-  });
+### Issue #4: Flexbox Width Issues
+**Error**: Elements snap to width instead of animating smoothly
+**Source**: Official docs
+**Why It Happens**: `flex-grow: 1` waits for surrounding content
+**Prevention**: Use explicit width instead of flex-grow for animated elements
 
-  return <ul ref={parent}>{/* items */}</ul>;
-}
-```
+### Issue #5: Table Row Display Issues
+**Error**: Table structure breaks when removing rows
+**Source**: https://github.com/formkit/auto-animate/issues/7
+**Why It Happens**: Display: table-row conflicts with animations
+**Prevention**: Apply to `<tbody>` instead of individual rows, or use div-based layouts
 
-## Vue
+### Issue #6: Jest Testing Errors
+**Error**: "Cannot find module '@formkit/auto-animate/react'"
+**Source**: https://github.com/formkit/auto-animate/issues/29
+**Why It Happens**: Jest doesn't resolve ESM exports correctly
+**Prevention**: Configure `moduleNameMapper` in jest.config.js
 
-### Directive (Global Registration)
+### Issue #7: esbuild Compatibility
+**Error**: "Path '.' not exported by package"
+**Source**: https://github.com/formkit/auto-animate/issues/36
+**Why It Happens**: ESM/CommonJS condition mismatch
+**Prevention**: Configure esbuild to handle ESM modules properly
 
-```javascript
-// main.js
-import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
+### Issue #8: CSS Position Side Effects
+**Error**: Layout breaks after adding AutoAnimate
+**Source**: Official docs
+**Why It Happens**: Parent automatically gets `position: relative`
+**Prevention**: Account for position change in CSS or set explicitly
 
-app.use(autoAnimatePlugin);
-```
+### Issue #9: Vue/Nuxt Registration Errors
+**Error**: "Failed to resolve directive: auto-animate"
+**Source**: https://github.com/formkit/auto-animate/issues/43
+**Why It Happens**: Plugin not registered correctly
+**Prevention**: Proper plugin setup in Vue/Nuxt config (see references/)
 
-```vue
-<template>
-  <ul v-auto-animate>
-    <li v-for="item in items" :key="item.id">
-      {{ item.name }}
-    </li>
-  </ul>
-</template>
-```
+### Issue #10: Angular ESM Issues
+**Error**: Build fails with "ESM-only package"
+**Source**: https://github.com/formkit/auto-animate/issues/72
+**Why It Happens**: CommonJS build environment
+**Prevention**: Configure ng-packagr for Angular Package Format
 
-### With Options
+---
 
-```vue
-<template>
-  <ul v-auto-animate="{ duration: 300 }">
-    <li v-for="item in items" :key="item.id">
-      {{ item.name }}
-    </li>
-  </ul>
-</template>
-```
+## Critical Rules (Error Prevention)
 
-### Composable
+### Always Do
 
-```vue
-<script setup>
-import { ref } from 'vue';
-import { useAutoAnimate } from '@formkit/auto-animate/vue';
+✅ **Use unique, stable keys** - `key={item.id}` not `key={index}`
+✅ **Keep parent in DOM** - Parent ref element always rendered
+✅ **Client-only for SSR** - Dynamic import for server environments
+✅ **Respect accessibility** - Keep `disrespectUserMotionPreference: false`
+✅ **Test with motion disabled** - Verify UI works without animations
+✅ **Use explicit width** - Avoid flex-grow on animated elements
+✅ **Apply to tbody for tables** - Not individual rows
 
-const [parent] = useAutoAnimate();
-const items = ref(['One', 'Two', 'Three']);
-</script>
+### Never Do
 
-<template>
-  <ul ref="parent">
-    <li v-for="item in items" :key="item">{{ item }}</li>
-  </ul>
-</template>
-```
+❌ **Conditional parent** - `{show && <ul ref={parent}>}`
+❌ **Index as key** - `key={index}` breaks animations
+❌ **Ignore SSR** - Will break in Cloudflare Workers/Next.js
+❌ **Force animations** - `disrespectUserMotionPreference: true` breaks accessibility
+❌ **Animate tables directly** - Use tbody or div-based layout
+❌ **Skip unique keys** - Required for proper animation
+❌ **Complex animations** - Use Motion instead
 
-## Svelte
+**Note**: AutoAnimate respects `prefers-reduced-motion` automatically (never disable this).
 
-```svelte
-<script>
-  import autoAnimate from '@formkit/auto-animate';
+---
 
-  let items = ['One', 'Two', 'Three'];
+## Package Versions
 
-  function addItem() {
-    items = [...items, `Item ${items.length + 1}`];
+**Latest**: @formkit/auto-animate@0.9.0 (Sept 5, 2025)
+
+```json
+{
+  "dependencies": {
+    "@formkit/auto-animate": "^0.9.0"
   }
-</script>
-
-<button on:click={addItem}>Add</button>
-
-<ul use:autoAnimate>
-  {#each items as item (item)}
-    <li>{item}</li>
-  {/each}
-</ul>
-```
-
-### With Options
-
-```svelte
-<ul use:autoAnimate={{ duration: 300, easing: 'ease-out' }}>
-  {#each items as item (item)}
-    <li>{item}</li>
-  {/each}
-</ul>
-```
-
-## Solid
-
-```jsx
-import { createAutoAnimate } from '@formkit/auto-animate/solid';
-import { createSignal, For } from 'solid-js';
-
-function List() {
-  const [parent] = createAutoAnimate();
-  const [items, setItems] = createSignal(['One', 'Two', 'Three']);
-
-  return (
-    <ul ref={parent}>
-      <For each={items()}>
-        {(item) => <li>{item}</li>}
-      </For>
-    </ul>
-  );
 }
 ```
 
-## Vanilla JavaScript
+**Framework Compatibility**: React 18+, Vue 3+, Solid, Svelte, Preact
 
-```javascript
-import autoAnimate from '@formkit/auto-animate';
+---
 
-const list = document.getElementById('my-list');
-autoAnimate(list);
+## Official Documentation
 
-// Add items dynamically - they'll animate in
-const newItem = document.createElement('li');
-newItem.textContent = 'New Item';
-list.appendChild(newItem);
-```
+- **Official Site**: https://auto-animate.formkit.com
+- **GitHub**: https://github.com/formkit/auto-animate
+- **npm**: https://www.npmjs.com/package/@formkit/auto-animate
+- **React Docs**: https://auto-animate.formkit.com/react
 
-### Toggle Animation
+---
 
-```javascript
-import autoAnimate from '@formkit/auto-animate';
+## Templates & References
 
-const list = document.getElementById('my-list');
-const controller = autoAnimate(list);
-
-// Disable
-controller.disable();
-
-// Re-enable
-controller.enable();
-
-// Check state
-console.log(controller.isEnabled());
-```
-
-## Configuration Options
-
-```javascript
-autoAnimate(element, {
-  // Duration in milliseconds (default: 250)
-  duration: 300,
-
-  // Easing function (default: 'ease-in-out')
-  easing: 'ease-out',
-
-  // Disable respecting prefers-reduced-motion
-  disrespectUserMotionPreference: false
-});
-```
-
-## Custom Animations
-
-For full control, provide a function that returns a KeyframeEffect.
-
-```javascript
-import autoAnimate from '@formkit/auto-animate';
-
-autoAnimate(element, (el, action, oldCoords, newCoords) => {
-  let keyframes;
-
-  // action: 'add' | 'remove' | 'remain'
-
-  if (action === 'add') {
-    keyframes = [
-      { transform: 'scale(0)', opacity: 0 },
-      { transform: 'scale(1)', opacity: 1 }
-    ];
-  } else if (action === 'remove') {
-    keyframes = [
-      { transform: 'scale(1)', opacity: 1 },
-      { transform: 'scale(0)', opacity: 0 }
-    ];
-  } else {
-    // 'remain' - element moved position
-    const deltaX = oldCoords.left - newCoords.left;
-    const deltaY = oldCoords.top - newCoords.top;
-
-    keyframes = [
-      { transform: `translate(${deltaX}px, ${deltaY}px)` },
-      { transform: 'translate(0, 0)' }
-    ];
-  }
-
-  return new KeyframeEffect(el, keyframes, {
-    duration: 300,
-    easing: 'ease-out'
-  });
-});
-```
-
-### Custom Animation Examples
-
-#### Slide from Left
-```javascript
-autoAnimate(element, (el, action) => {
-  if (action === 'add') {
-    return new KeyframeEffect(el, [
-      { transform: 'translateX(-100%)', opacity: 0 },
-      { transform: 'translateX(0)', opacity: 1 }
-    ], { duration: 300, easing: 'ease-out' });
-  }
-
-  if (action === 'remove') {
-    return new KeyframeEffect(el, [
-      { transform: 'translateX(0)', opacity: 1 },
-      { transform: 'translateX(100%)', opacity: 0 }
-    ], { duration: 300, easing: 'ease-in' });
-  }
-
-  // Use default for 'remain'
-  return new KeyframeEffect(el, [], { duration: 0 });
-});
-```
-
-#### Flip Animation
-```javascript
-autoAnimate(element, (el, action, oldCoords, newCoords) => {
-  if (action === 'remain') {
-    const deltaX = oldCoords.left - newCoords.left;
-    const deltaY = oldCoords.top - newCoords.top;
-    const deltaW = oldCoords.width / newCoords.width;
-    const deltaH = oldCoords.height / newCoords.height;
-
-    return new KeyframeEffect(el, [
-      {
-        transform: `translate(${deltaX}px, ${deltaY}px) scale(${deltaW}, ${deltaH})`
-      },
-      { transform: 'translate(0, 0) scale(1, 1)' }
-    ], { duration: 300, easing: 'ease-out' });
-  }
-
-  // Default for add/remove
-  return new KeyframeEffect(el, [
-    { opacity: action === 'add' ? 0 : 1 },
-    { opacity: action === 'add' ? 1 : 0 }
-  ], { duration: 200, easing: 'ease-out' });
-});
-```
-
-## Common Patterns
-
-### Animated Todo List
-
-```jsx
-function TodoList() {
-  const [parent] = useAutoAnimate();
-  const [todos, setTodos] = useState([]);
-  const [input, setInput] = useState('');
-
-  const addTodo = () => {
-    if (!input.trim()) return;
-    setTodos([...todos, { id: Date.now(), text: input }]);
-    setInput('');
-  };
-
-  const removeTodo = (id) => {
-    setTodos(todos.filter(t => t.id !== id));
-  };
-
-  return (
-    <div>
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && addTodo()}
-      />
-      <ul ref={parent}>
-        {todos.map(todo => (
-          <li key={todo.id}>
-            {todo.text}
-            <button onClick={() => removeTodo(todo.id)}>X</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-```
-
-### Sortable List
-
-```jsx
-function SortableList() {
-  const [parent] = useAutoAnimate();
-  const [items, setItems] = useState([
-    { id: 1, name: 'First' },
-    { id: 2, name: 'Second' },
-    { id: 3, name: 'Third' }
-  ]);
-
-  const moveUp = (index) => {
-    if (index === 0) return;
-    const newItems = [...items];
-    [newItems[index - 1], newItems[index]] = [newItems[index], newItems[index - 1]];
-    setItems(newItems);
-  };
-
-  const moveDown = (index) => {
-    if (index === items.length - 1) return;
-    const newItems = [...items];
-    [newItems[index], newItems[index + 1]] = [newItems[index + 1], newItems[index]];
-    setItems(newItems);
-  };
-
-  return (
-    <ul ref={parent}>
-      {items.map((item, index) => (
-        <li key={item.id}>
-          {item.name}
-          <button onClick={() => moveUp(index)}>Up</button>
-          <button onClick={() => moveDown(index)}>Down</button>
-        </li>
-      ))}
-    </ul>
-  );
-}
-```
-
-### Filter/Search Results
-
-```jsx
-function FilterableList() {
-  const [parent] = useAutoAnimate();
-  const [query, setQuery] = useState('');
-
-  const allItems = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
-  const filtered = allItems.filter(item =>
-    item.toLowerCase().includes(query.toLowerCase())
-  );
-
-  return (
-    <div>
-      <input
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Filter..."
-      />
-      <ul ref={parent}>
-        {filtered.map(item => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-```
-
-### Accordion
-
-```jsx
-function Accordion({ items }) {
-  const [openIndex, setOpenIndex] = useState(null);
-
-  return (
-    <div>
-      {items.map((item, index) => (
-        <AccordionItem
-          key={item.id}
-          item={item}
-          isOpen={openIndex === index}
-          onToggle={() => setOpenIndex(openIndex === index ? null : index)}
-        />
-      ))}
-    </div>
-  );
-}
-
-function AccordionItem({ item, isOpen, onToggle }) {
-  const [parent] = useAutoAnimate();
-
-  return (
-    <div ref={parent}>
-      <button onClick={onToggle}>
-        {item.title}
-      </button>
-      {isOpen && <div className="content">{item.content}</div>}
-    </div>
-  );
-}
-```
-
-## Accessibility
-
-AutoAnimate automatically respects `prefers-reduced-motion`:
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  /* AutoAnimate will disable animations */
-}
-```
-
-To override this behavior:
-
-```javascript
-autoAnimate(element, {
-  disrespectUserMotionPreference: true
-});
-```
-
-## Limitations
-
-- Only animates **direct children** of the parent element
-- Elements need stable keys/identity for move detection
-- CSS animations on children may conflict
-- Very rapid DOM changes may cause visual glitches
-
-## Tips
-
-1. **Always use keys** in React/Vue/Svelte for proper element tracking
-2. **Apply to parent**, not individual items
-3. **Keep durations short** (200-300ms) for snappy feel
-4. **Disable when needed** for performance-critical operations
-5. **Combine with CSS** for hover/focus states (AutoAnimate handles layout changes)
+See bundled resources:
+- `templates/` - Copy-paste examples (SSR-safe, accordion, toast, forms)
+- `references/` - CSS conflicts, SSR patterns, library comparisons

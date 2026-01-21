@@ -1,80 +1,275 @@
 ---
 name: cloudflare-turnstile
-description: |
-  Add bot protection with Turnstile (CAPTCHA alternative). Use when: protecting forms, securing login/signup, preventing spam, migrating from reCAPTCHA, integrating with React/Next.js/Hono, implementing E2E tests, or debugging CSP errors, token validation failures, or error codes 100*/300*/600*.
-user-invocable: true
+description: This skill should be used when the user asks to "add turnstile", "implement bot protection", "validate turnstile token", "fix turnstile error", "setup captcha alternative", or encounters error codes 100*/300*/600*, CSP errors, or token validation failures. Provides CAPTCHA-alternative protection for Cloudflare Workers, React, Next.js, and Hono.
+
+  Keywords: turnstile, captcha, bot protection, cloudflare challenge, siteverify, recaptcha alternative, spam prevention, form protection, cf-turnstile, turnstile widget, token validation, managed challenge, invisible challenge, @marsidev/react-turnstile, hono turnstile, workers turnstile
+license: MIT
+metadata:
+  version: "1.1.0"
+  last_verified: "2025-11-26"
+  react_turnstile_version: "1.3.1"
+  turnstile_types_version: "1.2.3"
+  errors_prevented: 12
+  templates_included: 7
+  references_included: 8
 ---
 
 # Cloudflare Turnstile
 
-**Status**: Production Ready ✅
-**Last Updated**: 2026-01-09
-**Dependencies**: None (optional: @marsidev/react-turnstile for React)
-**Latest Versions**: @marsidev/react-turnstile@1.4.1, turnstile-types@1.2.3
+**Status**: Production Ready ✅ | **Last Verified**: 2025-11-26
 
-**Recent Updates (2025)**:
-- **March 2025**: Upgraded Turnstile Analytics with TopN statistics (7 dimensions: hostnames, browsers, countries, user agents, ASNs, OS, source IPs), anomaly detection, enhanced bot behavior monitoring
-- **2025**: WCAG 2.1 AA compliance, Free plan (20 widgets, 7-day analytics), Enterprise features (unlimited widgets, ephemeral IDs, any hostname support, 30-day analytics, offlabel branding)
+**Dependencies**: None (optional: @marsidev/react-turnstile for React)
+
+**Contents**: [Quick Start](#quick-start-10-minutes) • [Critical Rules](#critical-rules) • [Top 12 Errors](#known-issues-prevention) • [Common Patterns](#common-patterns) • [When to Load References](#when-to-load-references) • [Troubleshooting](#troubleshooting)
 
 ---
 
-## Quick Start (5 Minutes)
+## Quick Start (10 Minutes)
+
+### 1. Create Turnstile Widget
+
+Get your sitekey and secret key from Cloudflare Dashboard.
 
 ```bash
-# 1. Create widget: https://dash.cloudflare.com/?to=/:account/turnstile
-#    Copy sitekey (public) and secret key (private)
+# Navigate to: https://dash.cloudflare.com/?to=/:account/turnstile
+# Create new widget → Copy sitekey (public) and secret key (private)
+```
 
-# 2. Add widget to frontend
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<form>
-  <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY"></div>
-  <button type="submit">Submit</button>
-</form>
+**Why this matters:**
+- Each widget has unique sitekey/secret pair
+- Sitekey goes in frontend (public)
+- Secret key ONLY in backend (private)
+- Use different widgets for dev/staging/production
 
-# 3. Validate token server-side (Cloudflare Workers)
-const formData = await request.formData()
-const token = formData.get('cf-turnstile-response')
+### 2. Add Widget to Frontend
 
-const verifyFormData = new FormData()
-verifyFormData.append('secret', env.TURNSTILE_SECRET_KEY)
-verifyFormData.append('response', token)
-verifyFormData.append('remoteip', request.headers.get('CF-Connecting-IP'))
+Embed the Turnstile widget in your HTML form.
 
-const result = await fetch(
-  'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-  { method: 'POST', body: verifyFormData }
-)
-
-const outcome = await result.json()
-if (!outcome.success) return new Response('Invalid', { status: 401 })
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+  <form id="myForm" action="/submit" method="POST">
+    <input type="email" name="email" required>
+    <!-- Turnstile widget renders here -->
+    <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY"></div>
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
 ```
 
 **CRITICAL:**
-- Token expires in 5 minutes, single-use only
-- ALWAYS validate server-side (Siteverify API required)
-- Never proxy/cache api.js (must load from Cloudflare CDN)
-- Use different widgets for dev/staging/production
+- Never proxy or cache `api.js` - must load from Cloudflare CDN
+- Widget auto-creates hidden input `cf-turnstile-response` with token
+- Token expires in 5 minutes
+- Each token is single-use only
 
-## Rendering Modes
+### 3. Validate Token on Server
 
-**Implicit** (auto-render on page load):
-```html
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY" data-callback="onSuccess"></div>
-```
+ALWAYS validate the token server-side. Client-side verification alone is not secure.
 
-**Explicit** (programmatic control for SPAs):
 ```typescript
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script>
-const widgetId = turnstile.render('#container', { sitekey: 'YOUR_SITE_KEY' })
-turnstile.reset(widgetId)   // Reset widget
-turnstile.getResponse(widgetId)  // Get token
+// Cloudflare Workers example
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const formData = await request.formData()
+    const token = formData.get('cf-turnstile-response')
+    const ip = request.headers.get('CF-Connecting-IP')
+
+    // Validate token with Siteverify API
+    const verifyFormData = new FormData()
+    verifyFormData.append('secret', env.TURNSTILE_SECRET_KEY)
+    verifyFormData.append('response', token)
+    verifyFormData.append('remoteip', ip)
+
+    const result = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      {
+        method: 'POST',
+        body: verifyFormData,
+      }
+    )
+
+    const outcome = await result.json()
+
+    if (!outcome.success) {
+      return new Response('Invalid Turnstile token', { status: 401 })
+    }
+
+    // Token valid - proceed with form processing
+    return new Response('Success!')
+  }
+}
 ```
 
-**React** (using @marsidev/react-turnstile):
+---
+
+## The 3-Step Setup Process
+
+### Step 1: Create Widget Configuration
+
+1. Log into Cloudflare Dashboard
+2. Navigate to Turnstile section
+3. Click "Add Site"
+4. Configure:
+   - **Widget Mode**: Managed (recommended), Non-Interactive, or Invisible
+   - **Domains**: Add allowed hostnames (e.g., example.com, localhost for dev)
+   - **Name**: Descriptive name (e.g., "Production Login Form")
+
+**Key Points:**
+- Use separate widgets for dev/staging/production
+- Restrict domains to only those you control
+- Managed mode provides best balance of security and UX
+- localhost must be explicitly added for local testing
+
+### Step 2: Client-Side Integration
+
+Choose between implicit or explicit rendering:
+
+**Implicit Rendering** (Recommended for static forms):
+```html
+<!-- 1. Load script -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<!-- 2. Add widget -->
+<div class="cf-turnstile"
+     data-sitekey="YOUR_SITE_KEY"
+     data-callback="onSuccess"
+     data-error-callback="onError"></div>
+
+<script>
+function onSuccess(token) {
+  console.log('Turnstile success:', token)
+}
+
+function onError(error) {
+  console.error('Turnstile error:', error)
+}
+</script>
+```
+
+**Explicit Rendering** (For SPAs/dynamic UIs):
+```typescript
+// 1. Load script with explicit mode
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+
+// 2. Render programmatically
+const widgetId = turnstile.render('#container', {
+  sitekey: 'YOUR_SITE_KEY',
+  callback: (token) => {
+    console.log('Token:', token)
+  },
+  'error-callback': (error) => {
+    console.error('Error:', error)
+  },
+  theme: 'auto',
+  execution: 'render', // or 'execute' for manual trigger
+})
+
+// Control lifecycle
+turnstile.reset(widgetId)        // Reset widget
+turnstile.remove(widgetId)       // Remove widget
+turnstile.execute(widgetId)      // Manually trigger challenge
+const token = turnstile.getResponse(widgetId) // Get current token
+```
+
+**React Integration** (using @marsidev/react-turnstile):
 ```tsx
 import { Turnstile } from '@marsidev/react-turnstile'
-<Turnstile siteKey={TURNSTILE_SITE_KEY} onSuccess={setToken} />
+
+export function MyForm() {
+  const [token, setToken] = useState<string>()
+
+  return (
+    <form>
+      <Turnstile
+        siteKey={TURNSTILE_SITE_KEY}
+        onSuccess={setToken}
+        onError={(error) => console.error(error)}
+      />
+      <button disabled={!token}>Submit</button>
+    </form>
+  )
+}
+```
+
+### Step 3: Server-Side Validation
+
+**MANDATORY**: Always call Siteverify API to validate tokens.
+
+```typescript
+interface TurnstileResponse {
+  success: boolean
+  challenge_ts?: string
+  hostname?: string
+  error-codes?: string[]
+  action?: string
+  cdata?: string
+}
+
+async function validateTurnstile(
+  token: string,
+  secretKey: string,
+  options?: {
+    remoteip?: string
+    idempotency_key?: string
+    expectedAction?: string
+    expectedHostname?: string
+  }
+): Promise<TurnstileResponse> {
+  const formData = new FormData()
+  formData.append('secret', secretKey)
+  formData.append('response', token)
+
+  if (options?.remoteip) {
+    formData.append('remoteip', options.remoteip)
+  }
+
+  if (options?.idempotency_key) {
+    formData.append('idempotency_key', options.idempotency_key)
+  }
+
+  const response = await fetch(
+    'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+    {
+      method: 'POST',
+      body: formData,
+    }
+  )
+
+  const result = await response.json<TurnstileResponse>()
+
+  // Additional validation
+  if (result.success) {
+    if (options?.expectedAction && result.action !== options.expectedAction) {
+      return { success: false, 'error-codes': ['action-mismatch'] }
+    }
+
+    if (options?.expectedHostname && result.hostname !== options.expectedHostname) {
+      return { success: false, 'error-codes': ['hostname-mismatch'] }
+    }
+  }
+
+  return result
+}
+
+// Usage in Cloudflare Worker
+const result = await validateTurnstile(
+  token,
+  env.TURNSTILE_SECRET_KEY,
+  {
+    remoteip: request.headers.get('CF-Connecting-IP'),
+    expectedHostname: 'example.com',
+  }
+)
+
+if (!result.success) {
+  return new Response('Turnstile validation failed', { status: 401 })
+}
 ```
 
 ---
@@ -93,6 +288,7 @@ import { Turnstile } from '@marsidev/react-turnstile'
 ✅ **Validate action/hostname** - Check additional fields when specified
 ✅ **Rotate keys periodically** - Use dashboard or API to rotate secrets
 ✅ **Monitor analytics** - Track solve rates and failures
+✅ **Validate token AFTER form submission** - Verify tokens after user completes form, not before. Premature validation creates security vulnerabilities where attackers obtain valid tokens then bypass protection
 
 ### Never Do
 
@@ -184,210 +380,74 @@ This skill prevents **12** documented issues:
 **Why It Happens**: Each token can only be validated once
 **Prevention**: Templates document single-use constraint and token refresh patterns
 
+---
+
 ## Configuration
 
-**wrangler.jsonc:**
-```jsonc
-{
-  "vars": { "TURNSTILE_SITE_KEY": "1x00000000000000000000AA" },
-  "secrets": ["TURNSTILE_SECRET_KEY"]  // Run: wrangler secret put TURNSTILE_SECRET_KEY
-}
-```
+**Wrangler (Workers)**: Load `templates/wrangler-turnstile-config.jsonc` for complete configuration. Key settings: `vars` for public sitekey (safe to commit), `secrets` for private secret key (use `wrangler secret put TURNSTILE_SECRET_KEY`).
 
-**Required CSP:**
+**CSP Directives** (if using Content Security Policy):
 ```html
 <meta http-equiv="Content-Security-Policy" content="
   script-src 'self' https://challenges.cloudflare.com;
   frame-src 'self' https://challenges.cloudflare.com;
-">
+  connect-src 'self' https://challenges.cloudflare.com;">
 ```
 
 ---
 
 ## Common Patterns
 
-### Pattern 1: Hono + Cloudflare Workers
+**Hono + Cloudflare Workers**: Server-side validation in Workers API routes with Hono framework. Load `references/common-patterns.md` #pattern-1 when building Workers endpoints requiring bot protection.
 
-```typescript
-import { Hono } from 'hono'
+**React + Next.js**: Client-side forms with @marsidev/react-turnstile integration. Load `references/common-patterns.md` #pattern-2 when integrating Turnstile with React/Next.js applications.
 
-type Bindings = {
-  TURNSTILE_SECRET_KEY: string
-  TURNSTILE_SITE_KEY: string
-}
+**E2E Testing**: Automated testing with dummy keys (Playwright, Cypress, Jest). Load `references/common-patterns.md` #pattern-3 when writing E2E tests or setting up CI/CD pipelines.
 
-const app = new Hono<{ Bindings: Bindings }>()
-
-app.post('/api/login', async (c) => {
-  const body = await c.req.formData()
-  const token = body.get('cf-turnstile-response')
-
-  if (!token) {
-    return c.text('Missing Turnstile token', 400)
-  }
-
-  // Validate token
-  const verifyFormData = new FormData()
-  verifyFormData.append('secret', c.env.TURNSTILE_SECRET_KEY)
-  verifyFormData.append('response', token.toString())
-  verifyFormData.append('remoteip', c.req.header('CF-Connecting-IP') || '')
-
-  const verifyResult = await fetch(
-    'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-    {
-      method: 'POST',
-      body: verifyFormData,
-    }
-  )
-
-  const outcome = await verifyResult.json<{ success: boolean }>()
-
-  if (!outcome.success) {
-    return c.text('Invalid Turnstile token', 401)
-  }
-
-  // Process login
-  return c.json({ message: 'Login successful' })
-})
-
-export default app
-```
-
-**When to use**: API routes in Cloudflare Workers with Hono framework
-
-### Pattern 2: React + Next.js App Router
-
-```tsx
-'use client'
-
-import { Turnstile } from '@marsidev/react-turnstile'
-import { useState } from 'react'
-
-export function ContactForm() {
-  const [token, setToken] = useState<string>()
-  const [error, setError] = useState<string>()
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-
-    if (!token) {
-      setError('Please complete the challenge')
-      return
-    }
-
-    const formData = new FormData(e.currentTarget)
-    formData.append('cf-turnstile-response', token)
-
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      body: formData,
-    })
-
-    if (!response.ok) {
-      setError('Submission failed')
-      return
-    }
-
-    // Success
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input name="email" type="email" required />
-      <textarea name="message" required />
-
-      <Turnstile
-        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-        onSuccess={setToken}
-        onError={() => setError('Challenge failed')}
-        onExpire={() => setToken(undefined)}
-      />
-
-      {error && <div className="error">{error}</div>}
-
-      <button type="submit" disabled={!token}>
-        Submit
-      </button>
-    </form>
-  )
-}
-```
-
-**When to use**: Client-side forms in Next.js with React hooks
+**Widget Lifecycle**: Programmatic widget control for SPAs (render, reset, remove, getToken). Load `references/common-patterns.md` #pattern-4 when building SPAs requiring explicit widget management.
 
 ---
 
-## Testing Keys
+## When to Load References
 
-**Dummy Sitekeys (client):**
-- Always pass: `1x00000000000000000000AA`
-- Always block: `2x00000000000000000000AB`
-- Force interactive: `3x00000000000000000000FF`
+**`references/widget-configs.md`**: Configuring widget appearance, themes, execution modes, size, language, or retry behavior.
 
-**Dummy Secret Keys (server):**
-- Always pass: `1x0000000000000000000000000000000AA`
-- Always fail: `2x0000000000000000000000000000000AA`
-- Token already spent: `3x0000000000000000000000000000000AA`
+**`references/error-codes.md`**: Debugging error codes 100*, 200*, 300*, 400*, 600* or troubleshooting client-side failures (CSP, domain errors, widget crashes).
 
----
+**`references/testing-guide.md`**: Setting up E2E tests (Playwright, Cypress), local development with dummy keys, or CI/CD pipeline integration.
 
-## Bundled Resources
+**`references/react-integration.md`**: Integrating with React, Next.js, or troubleshooting @marsidev/react-turnstile issues (Jest mocking, SSR, hooks).
 
-**Scripts:** `check-csp.sh` - Verify CSP allows Turnstile
+**`references/common-patterns.md`**: Building Hono Workers routes, React forms, E2E tests, or widget lifecycle management (explicit rendering).
 
-**References:**
-- `widget-configs.md` - All configuration options
-- `error-codes.md` - Error code troubleshooting (100*/200*/300*/400*/600*)
-- `testing-guide.md` - Testing strategies, dummy keys
-- `react-integration.md` - React/Next.js patterns
+**`references/advanced-topics.md`**: Implementing pre-clearance for SPAs, custom actions/cdata, retry strategies, or multi-widget pages.
 
-**Templates:** Complete examples for Hono, React, implicit/explicit rendering, validation
+**`references/setup-checklist.md`**: Preparing for deployment, verifying complete setup, or ensuring production readiness (14-point checklist).
 
----
+**`references/migration-guide.md`**: Migrating from reCAPTCHA (v2) or hCaptcha to Turnstile, including compat mode, API differences, and POST-only Siteverify requirement.
 
-## Advanced Features
+**`references/browser-support.md`**: Browser compatibility matrix, Safari 18 "Hide IP" workaround, Brave shields issues, and browser-specific fallbacks.
 
-**Pre-Clearance (SPAs):** Issue cookie that persists across page navigations
-```typescript
-turnstile.render('#container', {
-  sitekey: SITE_KEY,
-  callback: async (token) => {
-    await fetch('/api/pre-clearance', { method: 'POST', body: JSON.stringify({ token }) })
-  }
-})
-```
+**`references/mobile-implementation.md`**: WebView integration for iOS, Android, React Native, and Flutter, including User Agent consistency and storage persistence requirements.
 
-**Custom Actions & Data:** Track challenge types, pass custom data (max 255 chars)
-```typescript
-turnstile.render('#container', {
-  action: 'login',  // Track in analytics
-  cdata: JSON.stringify({ userId: '123' }),  // Custom payload
-})
-```
+**`templates/`**: **wrangler-turnstile-config.jsonc** (Workers env), **turnstile-widget-implicit.html** (static forms), **turnstile-widget-explicit.ts** (SPA rendering), **turnstile-server-validation.ts** (Siteverify API), **turnstile-react-component.tsx** (React integration), **turnstile-hono-route.ts** (Hono validation), **turnstile-test-config.ts** (testing setup)
 
-**Error Handling:** Use `retry: 'auto'` and `error-callback` for resilience
-```typescript
-turnstile.render('#container', {
-  retry: 'auto',
-  'retry-interval': 8000,  // ms between retries
-  'error-callback': (error) => { /* handle or show fallback */ }
-})
-```
+**`scripts/check-csp.sh`**: Verify Content Security Policy allows Turnstile (usage: `./scripts/check-csp.sh https://example.com`)
 
 ---
+
 
 ## Dependencies
 
-**Required:** None (loads from CDN)
-**React:** @marsidev/react-turnstile@1.4.1 (Cloudflare-recommended), turnstile-types@1.2.3
-**Other:** vue-turnstile, ngx-turnstile, svelte-turnstile, @nuxtjs/turnstile
+**Required**: None (Turnstile loads from Cloudflare CDN)
+
+**Optional**: @marsidev/react-turnstile@1.3.1 (React), turnstile-types@1.2.3 (TypeScript), vue-turnstile (Vue 3), ngx-turnstile (Angular), svelte-turnstile (Svelte), @nuxtjs/turnstile (Nuxt)
 
 ---
 
 ## Official Documentation
 
-- https://developers.cloudflare.com/turnstile/
-- Use `mcp__cloudflare-docs__search_cloudflare_documentation` tool
+**Turnstile**: https://developers.cloudflare.com/turnstile/ • **Get Started**: https://developers.cloudflare.com/turnstile/get-started/ • **Error Codes**: https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/error-codes/ • **Testing**: https://developers.cloudflare.com/turnstile/troubleshooting/testing/ • **Migration (reCAPTCHA)**: https://developers.cloudflare.com/turnstile/migration/recaptcha/ • **MCP**: Use `mcp__cloudflare-docs__search_cloudflare_documentation` tool
 
 ---
 
@@ -429,4 +489,8 @@ jest.mock('@marsidev/react-turnstile', () => ({
 
 ---
 
-**Errors Prevented**: 12 documented issues (Safari 18 Hide IP, Brave confetti, Next.js Jest, CSP blocking, token reuse, expiration, hostname allowlist, widget crash 300030, config error 600010, missing validation, GET request, secret exposure)
+**Token Efficiency**: ~65-70% savings vs manual integration
+
+**Errors Prevented**: 12 documented security/validation issues with complete solutions
+
+**Deployment Checklist**: Load `references/setup-checklist.md` for complete 14-point pre-deployment verification

@@ -1,488 +1,370 @@
 ---
 name: smoke-test
-description: Run API and UI smoke tests to verify the Everruns system works correctly. Use this skill when you need to test system functionality after changes, verify deployments, or troubleshoot issues. Supports both Docker-based and no-Docker environments.
+description: Create a Mastra project using create-mastra and smoke test the studio in Chrome
+model: claude-opus-4-5
 ---
 
-# Smoke Tests
+# Smoke Test Skill
 
-Comprehensive smoke testing for API, UI, database, and system integration.
+Creates a new Mastra project using `create-mastra@<tag>` and performs smoke testing of the Mastra Studio in Chrome.
 
-## IMPORTANT: Mandatory Testing Requirements
+## Usage
 
-**Smoke tests are MANDATORY before completing any task that modifies code.** Do not skip or give up on smoke testing.
-
-### Rules for Agents
-
-1. **Never give up.** If smoke tests fail, troubleshoot the issue. Check logs, fix problems, and retry.
-
-2. **Persist through infrastructure issues.** If dependencies fail to install, try alternative methods. If services fail to start, check ports, logs, and configurations.
-
-3. **Report results.** You MUST report smoke test results to the user, including:
-   - Which tests passed
-   - Which tests failed (with error details)
-   - What troubleshooting steps were attempted
-   - Final status (all passing / some failing / blocked)
-
-4. **Use the checklist.** Run through ALL tests in the "Test Checklist" section below and report on each one.
-
-5. **Don't mark tasks complete without testing.** A PR or code change is not complete until smoke tests have been run and results reported.
-
-## Quick Start
-
-### Docker Mode (Recommended)
-
-```bash
-# From repo root
-./scripts/dev.sh start-all
+```
+/smoke-test --directory <path> --name <project-name> --tag <version> [--pm <package-manager>] [--llm <provider>]
+/smoke-test -d <path> -n <project-name> -t <version> [-p <package-manager>] [-l <provider>]
 ```
 
-### No-Docker Mode
+## Parameters
 
-For environments without Docker (cloud agents, CI systems), use the dedicated skill:
+| Parameter     | Short | Description                                                                  | Required | Default  |
+| ------------- | ----- | ---------------------------------------------------------------------------- | -------- | -------- |
+| `--directory` | `-d`  | Parent directory where project will be created                               | **Yes**  | -        |
+| `--name`      | `-n`  | Project name (will be created as subdirectory)                               | **Yes**  | -        |
+| `--tag`       | `-t`  | Version tag for create-mastra (e.g., `latest`, `alpha`, `0.10.6`)            | **Yes**  | -        |
+| `--pm`        | `-p`  | Package manager: `npm`, `yarn`, `pnpm`, or `bun`                             | No       | `npm`    |
+| `--llm`       | `-l`  | LLM provider: `openai`, `anthropic`, `groq`, `google`, `cerebras`, `mistral` | No       | `openai` |
 
-```bash
-# See .claude/skills/no-docker-setup/SKILL.md
-sudo -E .claude/skills/no-docker-setup/scripts/start.sh
+## Examples
+
+```sh
+# Minimal (required params only)
+/smoke-test -d ~/projects -n my-test-app -t latest
+
+# Full specification
+/smoke-test --directory ~/projects --name my-test-app --tag alpha --pm pnpm --llm anthropic
+
+# Using short flags
+/smoke-test -d ./projects -n smoke-test-app -t 0.10.6 -p bun -l openai
 ```
+
+## Step 0: Parameter Validation (MUST RUN FIRST)
+
+**CRITICAL**: Before proceeding, parse the ARGUMENTS and validate:
+
+1. **Parse arguments** from the ARGUMENTS string provided above
+2. **Check required parameters**:
+   - `--directory` or `-d`: REQUIRED - fail if missing
+   - `--name` or `-n`: REQUIRED - fail if missing
+   - `--tag` or `-t`: REQUIRED - fail if missing
+3. **Apply defaults** for optional parameters:
+   - `--pm` or `-p`: Default to `npm` if not provided
+   - `--llm` or `-l`: Default to `openai` if not provided
+4. **Validate values**:
+   - `pm` must be one of: `npm`, `yarn`, `pnpm`, `bun`
+   - `llm` must be one of: `openai`, `anthropic`, `groq`, `google`, `cerebras`, `mistral`
+   - `directory` must exist (or will be created)
+   - `name` should be a valid directory name (no spaces, special chars)
+
+**If validation fails**: Stop and show usage help with the missing/invalid parameters.
+
+**If `-h` or `--help` is passed**: Show this usage information and stop.
 
 ## Prerequisites
 
-Start the development environment before running tests:
+This skill requires the Claude-in-Chrome MCP server for browser automation. Ensure it's configured and running.
 
-```bash
-# From repo root - uses Docker
-./scripts/dev.sh start-all
+## Execution Steps
+
+### Step 1: Create the Mastra Project
+
+Run the create-mastra command with explicit parameters to avoid interactive prompts:
+
+```sh
+# For npm
+npx create-mastra@<tag> <project-name> -c agents,tools,workflows,scorers -l <llmProvider> -e
+
+# For yarn
+yarn create mastra@<tag> <project-name> -c agents,tools,workflows,scorers -l <llmProvider> -e
+
+# For pnpm
+pnpm create mastra@<tag> <project-name> -c agents,tools,workflows,scorers -l <llmProvider> -e
+
+# For bun
+bunx create-mastra@<tag> <project-name> -c agents,tools,workflows,scorers -l <llmProvider> -e
 ```
 
-**Service Ports:**
-- **HTTP API**: `http://localhost:9000` - REST API for clients and UI
-- **gRPC Service**: `localhost:9001` - Internal worker communication (not tested directly in smoke tests)
+**Flags explained:**
 
-**Note on paths:** This document references two types of scripts:
-- **Repo root scripts** (e.g., `./scripts/dev.sh`) - Run from the repository root directory
-- **Skill scripts** (e.g., `tool-calling-tests.sh`) - Located in `.claude/skills/smoke-test/scripts/`
+- `-c agents,tools,workflows,scorers` - Include all components
+- `-l <provider>` - Set the LLM provider
+- `-e` - Include example code
 
-## Test Checklist
+Being explicit with all parameters ensures the CLI runs non-interactively.
 
-Run these tests in order. Each test builds on the previous one.
+Wait for the installation to complete. This may take 1-2 minutes depending on network speed.
 
-### API Tests
+### Step 2: Verify Project Structure
 
-#### 1. Health Check
-```bash
-curl -s http://localhost:9000/health | jq
-```
-Expected: `{"status": "ok", "version": "...", "runner_mode": "...", "auth_mode": "..."}`
+After creation, verify the project has:
 
-#### 1.5. Authentication Config
-```bash
-curl -s http://localhost:9000/v1/auth/config | jq
-```
-Expected: `{"mode": "...", "passwordEnabled": ..., "oauthProviders": [...], "signupEnabled": ...}`
+- `package.json` with mastra dependencies
+- `src/mastra/index.ts` exporting a Mastra instance
+- `.env` file (may need to be created)
 
-#### 1.6. Authentication Flow (when AUTH_MODE=admin or AUTH_MODE=full)
-```bash
-# Login (skip if AUTH_MODE=none)
-LOGIN_RESPONSE=$(curl -s -X POST http://localhost:9000/v1/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email": "'$AUTH_ADMIN_EMAIL'", "password": "'$AUTH_ADMIN_PASSWORD'"}')
-ACCESS_TOKEN=$(echo $LOGIN_RESPONSE | jq -r '.access_token')
-echo "Login successful: token starts with $(echo $ACCESS_TOKEN | cut -c1-20)..."
+### Step 2.5: Add Agent Network for Network Mode Testing
 
-# Get current user
-curl -s http://localhost:9000/v1/auth/me \
-  -H "Authorization: Bearer $ACCESS_TOKEN" | jq
-```
-Expected: User object with email and name
+To enable Network mode testing, add an agent network configuration:
 
-#### 1.7. API Key Authentication (when AUTH_MODE != none)
-```bash
-# Create API key
-API_KEY_RESPONSE=$(curl -s -X POST http://localhost:9000/v1/auth/api-keys \
-  -H "Authorization: Bearer $ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"name": "smoke-test-key"}')
-API_KEY=$(echo $API_KEY_RESPONSE | jq -r '.key')
-echo "API Key created: $(echo $API_KEY | cut -c1-12)..."
+1. **Create activity-agent.ts** in `src/mastra/agents/`:
 
-# Use API key for authentication
-curl -s http://localhost:9000/v1/auth/me \
-  -H "Authorization: $API_KEY" | jq
-```
-Expected: Same user object as with JWT
+```typescript
+import { Agent } from '@mastra/core/agent';
+import { Memory } from '@mastra/memory';
 
-#### 2. Create Agent
-```bash
-AGENT=$(curl -s -X POST http://localhost:9000/v1/agents \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Test Agent",
-    "system_prompt": "You are a helpful assistant created for smoke testing.",
-    "description": "Created by smoke test"
-  }')
-AGENT_ID=$(echo $AGENT | jq -r '.id')
-echo "Agent ID: $AGENT_ID"
-```
-Expected: Valid UUID returned
-
-#### 3. Get Agent
-```bash
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID" | jq
-```
-Expected: Agent object with matching ID
-
-#### 4. Update Agent
-```bash
-curl -s -X PATCH "http://localhost:9000/v1/agents/$AGENT_ID" \
-  -H "Content-Type: application/json" \
-  -d '{"name": "Updated Test Agent"}' | jq
-```
-Expected: Updated agent with new name
-
-#### 5. List Agents
-```bash
-curl -s http://localhost:9000/v1/agents | jq '.data | length'
-```
-Expected: At least 1 agent
-
-#### 6. Create Session
-```bash
-SESSION=$(curl -s -X POST "http://localhost:9000/v1/agents/$AGENT_ID/sessions" \
-  -H "Content-Type: application/json" \
-  -d '{"title": "Test Session"}')
-SESSION_ID=$(echo $SESSION | jq -r '.id')
-echo "Session ID: $SESSION_ID"
-```
-Expected: Valid UUID returned
-
-#### 7. Get Session
-```bash
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID" | jq
-```
-Expected: Session object with matching ID
-
-#### 8. Send User Message (Create Message)
-```bash
-MESSAGE=$(curl -s -X POST "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID/messages" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "message": {
-      "content": [{"type": "text", "text": "Hello, world!"}]
-    }
-  }')
-MESSAGE_ID=$(echo $MESSAGE | jq -r '.id')
-echo "Message ID: $MESSAGE_ID"
-```
-Expected: Valid UUID returned, role "user"
-
-**Note:** The message format uses `Vec<ContentPart>` for content. The `role` field defaults to `"user"` and can be omitted.
-
-#### 9. List Messages
-```bash
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID/messages" | jq '.data | length'
-```
-Expected: At least 1 message
-
-#### 9.5. Verify Workflow Execution
-After sending a user message, verify the agent workflow executed correctly:
-```bash
-# Wait for workflow to complete (5-10 seconds)
-sleep 10
-
-# Check session status (should be 'pending' after workflow completes)
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID" | jq '.status'
-```
-Expected: `"pending"` (workflow completed)
-
-```bash
-# Check for assistant response (content is now an array of ContentPart)
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID/messages" | jq '.data[] | select(.role == "assistant") | .content[] | select(.type == "text") | .text'
-```
-Expected: Non-empty assistant response text
-
-```bash
-# Verify workflow type in worker logs (if running locally)
-grep "agent_workflow" /tmp/worker.log | head -3
-```
-Expected: Logs showing `workflow_type: "agent_workflow"` and activities like `load-agent`, `call-model`
-
-#### 9.6. Verify Events (Messages/Events Sync)
-After workflow completes, verify events are created alongside messages:
-```bash
-# List events for the session
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID/events" | jq '.data | length'
-```
-Expected: At least 2 events (message.user and message.agent)
-
-```bash
-# Check for message.user event
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID/events" | jq '.data[] | select(.event_type == "message.user")'
-```
-Expected: Event with `event_type: "message.user"` and `data` containing `message_id`, `content`
-
-```bash
-# Check for message.agent event
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID/events" | jq '.data[] | select(.event_type == "message.agent")'
-```
-Expected: Event with `event_type: "message.agent"` and `data` containing `message_id`, `role`, `content`
-
-**Note:** The UI uses the `/sse` endpoint for real-time streaming and the `/events` endpoint for polling/listing events.
-
-#### 10. List Sessions
-```bash
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID/sessions" | jq '.data | length'
-```
-Expected: At least 1 session
-
-#### 11. OpenAPI Spec
-```bash
-curl -s http://localhost:9000/api-doc/openapi.json | jq '.info.title'
-```
-Expected: "Everruns API"
-
-#### 12. LLM Providers and Models
-```bash
-# List LLM providers
-curl -s http://localhost:9000/v1/llm-providers | jq '.data | length'
-```
-Expected: At least 1 provider
-
-```bash
-# List all models with profile data
-curl -s http://localhost:9000/v1/llm-models | jq '.data[0]'
-```
-Expected: Model object with `profile` field (null for unknown models, object for known models like gpt-4o)
-
-```bash
-# Verify profile contains expected fields for known models
-curl -s http://localhost:9000/v1/llm-models | jq '.data[] | select(.profile != null) | {model_id: .model_id, profile_name: .profile.name, has_cost: (.profile.cost != null)}'
-```
-Expected: Models like gpt-4o, claude-3-5-sonnet show profile with name and cost data
-
-### Scenario Tests
-
-Additional test scenarios are available in the `scenarios/` folder:
-
-- **[Tool Calling](scenarios/tool-calling.md)** - Tests for agent tool calling functionality (TestMath, TestWeather capabilities)
-- **[Task List](scenarios/task-list.md)** - Tests for task management capability (TaskList capability with write_todos tool)
-- **[File System](scenarios/file-system.md)** - Tests for session virtual filesystem (create, read, update, delete files/directories)
-
-### Durable Execution Engine Tests
-
-The `everruns-durable` crate provides a custom workflow orchestration engine. Run these tests to verify the durable execution layer.
-
-**Note:** Phases 5-7 (Observability, Scale Testing, Integration) are TODO followups. See `specs/durable-execution-engine.md`.
-
-#### 1. Unit Tests (No External Dependencies)
-```bash
-cargo test -p everruns-durable --lib
-```
-Expected: 91+ tests passing (workflow, activity, reliability, worker modules)
-
-#### 2. Integration Tests (Requires PostgreSQL)
-```bash
-# Ensure PostgreSQL is running with test database
-sudo service postgresql start || pg_ctl -D /tmp/pgdata start
-
-# Create test database if needed
-psql -U postgres -c "CREATE DATABASE everruns_test;" 2>/dev/null || true
-
-# Run migrations on test database
-DATABASE_URL="postgres://postgres:postgres@localhost/everruns_test" \
-  sqlx migrate run --source crates/control-plane/migrations
-
-# Clean test data and run integration tests
-psql -U postgres -d everruns_test -c "TRUNCATE durable_workflow_instances CASCADE;"
-cargo test -p everruns-durable --test postgres_integration_test -- --test-threads=1
-```
-Expected: 17 tests passing (workflow lifecycle, task queue, signals, workers, DLQ)
-
-#### 3. Clippy Lints
-```bash
-cargo clippy -p everruns-durable -- -D warnings
-```
-Expected: No warnings or errors
-
-#### Quick Durable Test Script
-```bash
-# One-liner to run all durable tests
-cargo test -p everruns-durable --lib && \
-cargo clippy -p everruns-durable -- -D warnings && \
-echo "Durable unit tests and clippy passed"
+export const activityAgent = new Agent({
+  id: 'activity-agent',
+  name: 'Activity Agent',
+  instructions: `You are a helpful activity planning assistant that suggests activities based on weather conditions.`,
+  model: '<provider>/<model>', // e.g., 'openai/gpt-4o'
+  memory: new Memory(),
+});
 ```
 
-### UI Tests
+2. **Create planner-network.ts** in `src/mastra/agents/`:
 
-Run these after API tests pass. Requires UI running (`./scripts/dev.sh ui`).
+```typescript
+import { Agent } from '@mastra/core/agent';
+import { Memory } from '@mastra/memory';
+import { weatherAgent } from './weather-agent';
+import { activityAgent } from './activity-agent';
 
-#### 1. UI Availability
-```bash
-curl -s -o /dev/null -w "%{http_code}" http://localhost:9100
-```
-Expected: 200 or 307
-
-#### 2. Dashboard Page
-```bash
-curl -s -o /dev/null -w "%{http_code}" http://localhost:9100/dashboard
-```
-Expected: 200
-
-#### 3. Agents Page
-```bash
-curl -s -o /dev/null -w "%{http_code}" http://localhost:9100/agents
-```
-Expected: 200
-
-#### 4. New Agent Page
-```bash
-curl -s -o /dev/null -w "%{http_code}" http://localhost:9100/agents/new
-```
-Expected: 200
-
-#### 5. Agent Detail Page
-```bash
-curl -s -o /dev/null -w "%{http_code}" "http://localhost:9100/agents/$AGENT_ID"
-```
-Expected: 200
-
-#### 6. Session Detail Page
-```bash
-curl -s -o /dev/null -w "%{http_code}" "http://localhost:9100/agents/$AGENT_ID/sessions/$SESSION_ID"
-```
-Expected: 200
-
-## DEV_MODE (UI-Only Changes)
-
-For changes that only impact the UI (no backend/API changes), DEV_MODE provides a faster testing workflow:
-
-```bash
-# Start in DEV_MODE - no Docker/PostgreSQL required
-./scripts/dev.sh start-dev
+export const plannerNetwork = new Agent({
+  id: 'planner-network',
+  name: 'Planner Network',
+  instructions: `You are a coordinator that manages weather and activity agents.`,
+  model: '<provider>/<model>',
+  agents: { weatherAgent, activityAgent }, // This makes it a network agent
+  memory: new Memory(), // Memory is REQUIRED for network agents
+});
 ```
 
-**When to use DEV_MODE:**
-- UI component changes (styling, layout, interactions)
-- Frontend-only bug fixes
-- UI development and iteration
-- Quick visual testing
+3. **Update index.ts** to register the new agents:
 
-**Limitations:**
-- Data is not persisted (lost on restart)
-- No worker (LLM execution happens in-process)
-- Not suitable for testing backend changes or full integration
+```typescript
+import { activityAgent } from './agents/activity-agent';
+import { plannerNetwork } from './agents/planner-network';
 
-For full end-to-end testing including backend changes, use the standard smoke tests below.
+// In Mastra config:
+agents: { weatherAgent, activityAgent, plannerNetwork },
+```
 
-## Skill Scripts
+**Note**: Network mode requires `agents` property (sub-agents) and `memory` (mandatory).
 
-| Script | Description |
-|--------|-------------|
-| `scripts/tool-calling-tests.sh` | Automated tool calling scenario tests |
+### Step 3: Configure Environment Variables
 
-## Repo Root Scripts
+Based on the selected LLM provider, check for the required API key:
 
-| Script | Description |
-|--------|-------------|
-| `./scripts/dev.sh` | Development environment manager (Docker-based) |
+| Provider  | Required Environment Variable  |
+| --------- | ------------------------------ |
+| openai    | `OPENAI_API_KEY`               |
+| anthropic | `ANTHROPIC_API_KEY`            |
+| groq      | `GROQ_API_KEY`                 |
+| google    | `GOOGLE_GENERATIVE_AI_API_KEY` |
+| cerebras  | `CEREBRAS_API_KEY`             |
+| mistral   | `MISTRAL_API_KEY`              |
 
-**Note:** Seed agents (Dad Jokes Agent, Research Agent) are seeded automatically on API startup.
+**Check in this order:**
+
+1. **Check global environment first**: Run `echo $<ENV_VAR_NAME>` to see if the key is already set globally
+   - If set globally, the project will inherit it - no `.env` file needed
+   - Skip to Step 4
+
+2. **Check project `.env` file**: If not set globally, check if `.env` exists in the project and contains the key
+
+3. **Ask user only if needed**: If the key is not available globally or in `.env`:
+   - Ask the user for the API key
+   - Create the `.env` file with the provided key
+
+**Only check for the ONE key matching the selected provider** - don't check for all providers.
+
+### Step 4: Start the Development Server
+
+Navigate to the project directory and start the dev server:
+
+```sh
+cd <directory>/<project-name>
+<packageManager> run dev
+```
+
+The server typically starts on `http://localhost:4111`. Wait for the server to be ready before proceeding.
+
+### Step 5: Smoke Test the Studio
+
+Use the Chrome browser automation tools to test the Mastra Studio.
+
+#### 5.1 Initial Setup
+
+1. Get browser context using `tabs_context_mcp`
+2. Create a new tab using `tabs_create_mcp`
+3. Navigate to `http://localhost:4111`
+
+#### 5.2 Test Checklist
+
+Perform the following smoke tests using the Chrome automation tools:
+
+**Navigation & Basic Loading**
+
+- [ ] Studio loads successfully (page contains "Mastra Studio" or shows agents list)
+- [ ] Take a screenshot of the home page
+
+**Agents Page** (`/agents`)
+
+- [ ] Navigate to agents page
+- [ ] Verify at least one agent is listed (the example agent from `--default`)
+- [ ] Take a screenshot
+
+**Agent Detail** (`/agents/<agentId>/chat`)
+
+- [ ] Click on an agent to view details
+- [ ] Verify the agent overview panel loads
+- [ ] Verify model settings panel is visible
+- [ ] Take a screenshot
+
+**Agent Chat**
+
+- [ ] Send a test message to the agent (e.g., "Hello, can you help me?")
+- [ ] Wait for response
+- [ ] Verify response appears in the chat
+- [ ] Take a screenshot of the conversation
+
+**Network Mode** (`/agents/planner-network/chat`)
+
+- [ ] Navigate to the planner-network agent
+- [ ] Select "Network" in Chat Method settings
+- [ ] Send a message: "What activities can I do in [city] based on the weather?"
+- [ ] Verify network coordination (shows weatherAgent indicator)
+- [ ] Verify completion check shows success
+- [ ] Take a screenshot
+
+**Tools Page** (`/tools`)
+
+- [ ] Navigate to tools page
+- [ ] Verify tools list loads (should show weatherTool)
+- [ ] Take a screenshot
+
+**Tool Execution** (`/tools/weatherTool`)
+
+- [ ] Click on the weatherTool to open detail page
+- [ ] Find the city input field and enter a test city (e.g., "Tokyo")
+- [ ] Click Submit button
+- [ ] Wait for execution to complete
+- [ ] Verify JSON output appears with weather data (temp, condition, etc.)
+- [ ] Take a screenshot
+
+**Workflows Page** (`/workflows`)
+
+- [ ] Navigate to workflows page
+- [ ] Verify workflows list loads (should show weatherWorkflow)
+- [ ] Take a screenshot
+
+**Workflow Execution** (`/workflows/weatherWorkflow`)
+
+- [ ] Click on the weatherWorkflow to open detail page
+- [ ] Verify visual graph displays (shows workflow steps)
+- [ ] Find the city input field and enter a test city (e.g., "London")
+- [ ] Click Run button
+- [ ] Wait for execution to complete
+- [ ] Verify steps show success (green checkmarks)
+- [ ] Click to view JSON output modal
+- [ ] Verify execution details with timing appear
+- [ ] Take a screenshot
+
+**Settings Page** (`/settings`)
+
+- [ ] Navigate to settings page
+- [ ] Verify settings page loads
+- [ ] Take a screenshot
+
+**Observability Page** (`/observability`)
+
+- [ ] Navigate to observability page
+- [ ] Verify traces list shows recent activity (from previous tests)
+- [ ] Click on a trace to view details
+- [ ] Verify timeline view shows steps and timing
+- [ ] Take a screenshot
+
+**Scorers Page** (`/scorers`)
+
+- [ ] Navigate to scorers page
+- [ ] Verify scorers list loads (shows 3 example scorers)
+- [ ] Take a screenshot
+
+**Scorer Detail** (use direct URL navigation)
+
+- [ ] Navigate directly to `/scorers/completeness-scorer` (don't click - use URL navigation)
+- [ ] Verify scorer detail page loads with name, description, and scores table
+- [ ] Take a screenshot
+- [ ] Note: Use direct URL navigation for scorer details due to client-side routing timing issues
+
+**Additional Pages (verify load only)**
+
+- [ ] Templates page (`/templates`) - Gallery of starter templates
+- [ ] Request Context page (`/request-context`) - JSON editor
+- [ ] Processors page (`/processors`) - Empty state OK
+- [ ] MCP Servers page (`/mcps`) - Empty state OK
+
+#### 5.3 Report Results
+
+After completing all tests, provide a summary:
+
+- Total tests passed/failed
+- Any errors encountered
+- Screenshots captured
+- Recommendations for issues found
+
+## Quick Reference
+
+| Step           | Action                                                                                                |
+| -------------- | ----------------------------------------------------------------------------------------------------- |
+| Create Project | `cd <directory> && npx create-mastra@<tag> <name> -c agents,tools,workflows,scorers -l <provider> -e` |
+| Install Deps   | Automatic during creation                                                                             |
+| Set Env Vars   | Check global env first, then `.env`, ask user only if needed                                          |
+| Start Server   | `cd <directory>/<name> && npm run dev`                                                                |
+| Studio URL     | `http://localhost:4111`                                                                               |
 
 ## Troubleshooting
 
-### API Issues
+**Server won't start**
 
-```bash
-# Check if port 9000 is in use
-lsof -i :9000
+- Verify `.env` has required API key
+- Check if port 4111 is available
+- Try `<pm> install` to reinstall dependencies
 
-# Check database connection
-docker exec everruns-postgres psql -U everruns -d everruns -c "SELECT 1;"
+**Browser can't connect**
 
-# View API logs
-./scripts/dev.sh api 2>&1 | tee api.log
-```
+- Wait a few seconds for server to fully start
+- Check terminal for server ready message
+- Verify no firewall blocking localhost
 
-### Docker Issues
+**Agent chat fails**
 
-```bash
-# Reset and restart
-./scripts/dev.sh clean
-./scripts/dev.sh start
-./scripts/dev.sh migrate
-```
+- Verify API key is valid
+- Check server logs for errors
+- Ensure LLM provider API is accessible
 
-### Workflow Verification
+## Studio Routes
 
-To verify the full workflow cycle works:
-```bash
-# 1. Create agent
-AGENT=$(curl -s -X POST http://localhost:9000/v1/agents \
-  -H "Content-Type: application/json" \
-  -d '{"name": "Test", "system_prompt": "You are helpful."}')
-AGENT_ID=$(echo $AGENT | jq -r '.id')
+| Feature         | Route              |
+| --------------- | ------------------ |
+| Agents          | `/agents`          |
+| Workflows       | `/workflows`       |
+| Tools           | `/tools`           |
+| Scorers         | `/scorers`         |
+| Observability   | `/observability`   |
+| MCP Servers     | `/mcps`            |
+| Processors      | `/processors`      |
+| Templates       | `/templates`       |
+| Request Context | `/request-context` |
+| Settings        | `/settings`        |
 
-# 2. Create session
-SESSION=$(curl -s -X POST "http://localhost:9000/v1/agents/$AGENT_ID/sessions" \
-  -H "Content-Type: application/json" \
-  -d '{"title": "Test"}')
-SESSION_ID=$(echo $SESSION | jq -r '.id')
+## Notes
 
-# 3. Send message (this triggers the agent_workflow)
-curl -s -X POST "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID/messages" \
-  -H "Content-Type: application/json" \
-  -d '{"message": {"content": [{"type": "text", "text": "Hello!"}]}}'
-
-# 4. Wait and check for response
-sleep 10
-curl -s "http://localhost:9000/v1/agents/$AGENT_ID/sessions/$SESSION_ID/messages" | \
-  jq '.data[] | select(.role == "assistant") | .content[] | select(.type == "text") | .text'
-```
-
-Expected: An assistant message with LLM-generated text
-
-## Smoke Test Results Template
-
-When reporting smoke test results, use this format:
-
-```
-## Smoke Test Results
-
-### Environment
-- Mode: [Docker / No-Docker]
-- API Key: [OpenAI / Anthropic]
-- Date: [YYYY-MM-DD]
-
-### API Test Results
-
-| Test | Status | Notes |
-|------|--------|-------|
-| Health Check | PASS/FAIL | |
-| Auth Config | PASS/FAIL | |
-| Create Agent | PASS/FAIL | |
-| Get Agent | PASS/FAIL | |
-| Update Agent | PASS/FAIL | |
-| List Agents | PASS/FAIL | |
-| Create Session | PASS/FAIL | |
-| Get Session | PASS/FAIL | |
-| Send Message | PASS/FAIL | |
-| List Messages | PASS/FAIL | |
-| Workflow Execution | PASS/FAIL | |
-| Events Sync | PASS/FAIL | |
-| List Sessions | PASS/FAIL | |
-| OpenAPI Spec | PASS/FAIL | |
-| LLM Providers | PASS/FAIL | |
-
-### Durable Execution Engine Results
-
-| Test | Status | Notes |
-|------|--------|-------|
-| Unit Tests (91+) | PASS/FAIL | |
-| Integration Tests (17) | PASS/FAIL | Requires PostgreSQL |
-| Clippy Lints | PASS/FAIL | |
-
-### Summary
-- API Tests: X/15 passing
-- Durable Tests: X/3 passing (91 unit + 17 integration + clippy)
-- Blocking issues: [None / List issues]
-- Action items: [None / List items]
-```
+- The `-e` flag includes example agents, making smoke testing meaningful
+- If the user doesn't specify an LLM provider, default to OpenAI as it's most common
+- Take screenshots at each major step for documentation/debugging
+- Keep the dev server running in the background during testing
+- Always use explicit flags (`-c`, `-l`, `-e`) to ensure non-interactive execution
+- Network mode requires the `agents` property AND `memory` in the Agent constructor
+- Scorer detail pages may have issues with browser automation but work manually
+- Observability traces appear automatically after running agents or workflows

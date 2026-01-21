@@ -1,7 +1,7 @@
 {
   "name": "grpc-expert",
-  "repo": "vx-daniel/tb-docs-project",
-  "path": ".claude/skills/grpc-expert/SKILL.md",
-  "source": "github.com/vx-daniel/tb-docs-project",
-  "downloaded_at": "2026-01-14T03:42:26.000740Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/api/grpc-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-21T01:47:39.242556Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "daily-morning-routine-alice-personal",
   "repo": "ZachBeta/claude-as-coach",
-  "category": "data",
-  "description": "Alice's couch-to-5K morning routine with training context and recovery protocols.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:25.676405Z"
+  "path": "examples/alice-the-athlete/skills/daily-morning-routine-alice-personal/SKILL.md",
+  "source": "github.com/ZachBeta/claude-as-coach",
+  "downloaded_at": "2026-01-21T01:12:44.976347Z"
 }

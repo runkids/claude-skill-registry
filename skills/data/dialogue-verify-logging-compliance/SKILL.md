@@ -31,11 +31,11 @@ The verification checks for:
 Review the logs directly:
 
 ```bash
-# Count recent decisions with a specific context/tag
-grep -c "context.*<process-identifier>" ${CLAUDE_PROJECT_DIR}/.dialogue/logs/decisions.yaml
+# Count decisions with a specific context/tag (per-file structure)
+grep -l "<process-identifier>" ${CLAUDE_PROJECT_DIR}/.dialogue/logs/decisions/*.yaml | wc -l
 
-# Count recent observations with a specific context/tag
-grep -c "context.*<process-identifier>" ${CLAUDE_PROJECT_DIR}/.dialogue/logs/observations.yaml
+# Count observations with a specific context/tag (per-file structure)
+grep -l "<process-identifier>" ${CLAUDE_PROJECT_DIR}/.dialogue/logs/observations/*.yaml | wc -l
 ```
 
 ### Option 2: Script-Based Verification

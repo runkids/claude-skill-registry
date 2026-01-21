@@ -1,7 +1,7 @@
 {
   "name": "moai-domain-devops",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": "skills/moai-domain-devops/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-20T04:03:43.853022Z"
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-domain-devops/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-21T02:29:33.570852Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "senior-prompt-engineer",
-  "repo": "wildwasser/opencode-agents",
-  "path": ".opencode/skills/senior-prompt-engineer/SKILL.md",
-  "source": "github.com/wildwasser/opencode-agents",
-  "downloaded_at": "2026-01-20T03:48:27.756097Z"
+  "repo": "alex-tgk/claude-init",
+  "path": ".claude/skills/senior-prompt-engineer/SKILL.md",
+  "source": "github.com/alex-tgk/claude-init",
+  "downloaded_at": "2026-01-21T04:17:39.642971Z"
 }

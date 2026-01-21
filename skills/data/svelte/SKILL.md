@@ -1,560 +1,261 @@
 ---
 name: svelte
-description: Builds UIs with Svelte 5 including runes, components, reactivity, and stores. Use when creating Svelte applications, building reactive interfaces, or working with compile-time frameworks.
+description: Svelte 5 patterns including TanStack Query mutations, shadcn-svelte components, and component composition. Use when writing Svelte components, using TanStack Query, or working with shadcn-svelte UI.
 ---
 
-# Svelte 5
+# Svelte Guidelines
 
-A framework that compiles components to efficient JavaScript at build time.
+# Mutation Pattern Preference
 
-## Quick Start
+## In Svelte Files (.svelte)
 
-**Create project:**
-```bash
-npx sv create my-app
-cd my-app
-npm install
-npm run dev
-```
+Always prefer `createMutation` from TanStack Query for mutations. This provides:
 
-## Component Basics
+- Loading states (`isPending`)
+- Error states (`isError`)
+- Success states (`isSuccess`)
+- Better UX with automatic state management
 
-```svelte
-<script lang="ts">
-  let count = $state(0);
+### The Preferred Pattern
 
-  function increment() {
-    count++;
-  }
-</script>
-
-<button onclick={increment}>
-  Count: {count}
-</button>
-
-<style>
-  button {
-    font-weight: bold;
-  }
-</style>
-```
-
-## Runes (Svelte 5)
-
-### $state - Reactive State
+Pass `onSuccess` and `onError` as the second argument to `.mutate()` to get maximum context:
 
 ```svelte
 <script lang="ts">
-  // Primitive state
-  let count = $state(0);
-  let name = $state('');
+	import { createMutation } from '@tanstack/svelte-query';
+	import * as rpc from '$lib/query';
 
-  // Object state (deeply reactive)
-  let user = $state({
-    name: 'John',
-    email: 'john@example.com',
-  });
+	// Create mutation with just .options (no parentheses!)
+	const deleteSessionMutation = createMutation(
+		rpc.sessions.deleteSession.options,
+	);
 
-  // Array state
-  let items = $state<string[]>([]);
-
-  function addItem(item: string) {
-    items.push(item); // Mutations work!
-  }
+	// Local state that we can access in callbacks
+	let isDialogOpen = $state(false);
 </script>
 
-<p>{count}</p>
-<p>{user.name}</p>
-```
-
-### $derived - Computed Values
-
-```svelte
-<script lang="ts">
-  let count = $state(0);
-  let items = $state([1, 2, 3]);
-
-  // Simple derived
-  let doubled = $derived(count * 2);
-
-  // Complex derived
-  let total = $derived(items.reduce((a, b) => a + b, 0));
-
-  // Derived with function
-  let expensive = $derived.by(() => {
-    // Complex computation
-    return items.filter(x => x > count).length;
-  });
-</script>
-
-<p>Count: {count}, Doubled: {doubled}</p>
-```
-
-### $effect - Side Effects
-
-```svelte
-<script lang="ts">
-  let count = $state(0);
-
-  // Runs when dependencies change
-  $effect(() => {
-    console.log(`Count is now ${count}`);
-  });
-
-  // With cleanup
-  $effect(() => {
-    const interval = setInterval(() => count++, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  });
-
-  // Pre-effect (runs before DOM update)
-  $effect.pre(() => {
-    console.log('Before DOM update');
-  });
-</script>
-```
-
-### $props - Component Props
-
-```svelte
-<!-- Button.svelte -->
-<script lang="ts">
-  interface Props {
-    variant?: 'primary' | 'secondary';
-    disabled?: boolean;
-    children: import('svelte').Snippet;
-  }
-
-  let { variant = 'primary', disabled = false, children }: Props = $props();
-</script>
-
-<button class={variant} {disabled}>
-  {@render children()}
-</button>
-```
-
-```svelte
-<!-- Usage -->
-<Button variant="primary">
-  Click me
+<Button
+	onclick={() => {
+		// Pass callbacks as second argument to .mutate()
+		deleteSessionMutation.mutate(
+			{ sessionId },
+			{
+				onSuccess: () => {
+					// Access local state and context
+					isDialogOpen = false;
+					toast.success('Session deleted');
+					goto('/sessions');
+				},
+				onError: (error) => {
+					toast.error(error.title, { description: error.description });
+				},
+			},
+		);
+	}}
+	disabled={deleteSessionMutation.isPending}
+>
+	{#if deleteSessionMutation.isPending}
+		Deleting...
+	{:else}
+		Delete
+	{/if}
 </Button>
 ```
 
-### $bindable - Two-way Binding Props
+### Why This Pattern?
+
+- **More context**: Access to local variables and state at the call site
+- **Better organization**: Success/error handling is co-located with the action
+- **Flexibility**: Different calls can have different success/error behaviors
+
+## In TypeScript Files (.ts)
+
+Always use `.execute()` since createMutation requires component context:
+
+```typescript
+// In a .ts file (e.g., load function, utility)
+const result = await rpc.sessions.createSession.execute({
+	body: { title: 'New Session' },
+});
+
+const { data, error } = result;
+if (error) {
+	// Handle error
+} else if (data) {
+	// Handle success
+}
+```
+
+## Exception: When to Use .execute() in Svelte Files
+
+Only use `.execute()` in Svelte files when:
+
+1. You don't need loading states
+2. You're performing a one-off operation
+3. You need fine-grained control over async flow
+
+## Inline Simple Handler Functions
+
+When a handler function only calls `.mutate()`, inline it directly:
 
 ```svelte
-<!-- Input.svelte -->
-<script lang="ts">
-  let { value = $bindable('') }: { value: string } = $props();
+<!-- Avoid: Unnecessary wrapper function -->
+<script>
+	function handleShare() {
+		shareMutation.mutate({ id });
+	}
 </script>
 
-<input bind:value />
+<!-- Good: Inline simple handlers -->
+<Button onclick={() => shareMutation.mutate({ id })}>Share</Button>
+<Button onclick={handleShare}>Share</Button>
 ```
 
+# Styling
+
+For general CSS and Tailwind guidelines, see the `styling` skill.
+
+# shadcn-svelte Best Practices
+
+## Component Organization
+
+- Use the CLI: `bunx shadcn-svelte@latest add [component]`
+- Each component in its own folder under `$lib/components/ui/` with an `index.ts` export
+- Follow kebab-case for folder names (e.g., `dialog/`, `toggle-group/`)
+- Group related sub-components in the same folder
+- When using $state, $derived, or functions only referenced once in markup, inline them directly
+
+## Import Patterns
+
+**Namespace imports** (preferred for multi-part components):
+
+```typescript
+import * as Dialog from '$lib/components/ui/dialog';
+import * as ToggleGroup from '$lib/components/ui/toggle-group';
+```
+
+**Named imports** (for single components):
+
+```typescript
+import { Button } from '$lib/components/ui/button';
+import { Input } from '$lib/components/ui/input';
+```
+
+**Lucide icons** (always use individual imports from `@lucide/svelte`):
+
+```typescript
+// Good: Individual icon imports
+import Database from '@lucide/svelte/icons/database';
+import MinusIcon from '@lucide/svelte/icons/minus';
+import MoreVerticalIcon from '@lucide/svelte/icons/more-vertical';
+
+// Bad: Don't import multiple icons from lucide-svelte
+import { Database, MinusIcon, MoreVerticalIcon } from 'lucide-svelte';
+```
+
+The path uses kebab-case (e.g., `more-vertical`, `minimize-2`), and you can name the import whatever you want (typically PascalCase with optional Icon suffix).
+
+## Styling and Customization
+
+- Always use the `cn()` utility from `$lib/utils` for combining Tailwind classes
+- Modify component code directly rather than overriding styles with complex CSS
+- Use `tailwind-variants` for component variant systems
+- Follow the `background`/`foreground` convention for colors
+- Leverage CSS variables for theme consistency
+
+## Component Usage Patterns
+
+Use proper component composition following shadcn-svelte patterns:
+
 ```svelte
-<!-- Usage -->
-<script lang="ts">
-  let name = $state('');
+<Dialog.Root bind:open={isOpen}>
+	<Dialog.Trigger>
+		<Button>Open</Button>
+	</Dialog.Trigger>
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title>Title</Dialog.Title>
+		</Dialog.Header>
+	</Dialog.Content>
+</Dialog.Root>
+```
+
+## Custom Components
+
+- When extending shadcn components, create wrapper components that maintain the design system
+- Add JSDoc comments for complex component props
+- Ensure custom components follow the same organizational patterns
+- Consider semantic appropriateness (e.g., use section headers instead of cards for page sections)
+
+# Self-Contained Component Pattern
+
+## Prefer Component Composition Over Parent State Management
+
+When building interactive components (especially with dialogs/modals), create self-contained components rather than managing state at the parent level.
+
+### The Anti-Pattern (Parent State Management)
+
+```svelte
+<!-- Parent component -->
+<script>
+	let deletingItem = $state(null);
+
+	function handleDelete(item) {
+		// delete logic
+		deletingItem = null;
+	}
 </script>
 
-<Input bind:value={name} />
+{#each items as item}
+	<Button onclick={() => (deletingItem = item)}>Delete</Button>
+{/each}
+
+<AlertDialog open={!!deletingItem}>
+	<!-- Single dialog for all items -->
+</AlertDialog>
 ```
 
-## Events
-
-### DOM Events
+### The Pattern (Self-Contained Components)
 
 ```svelte
-<script lang="ts">
-  function handleClick(event: MouseEvent) {
-    console.log('Clicked', event.target);
-  }
+<!-- DeleteItemButton.svelte -->
+<script>
+	let { item } = $props();
+	let open = $state(false);
 
-  function handleInput(event: Event) {
-    const target = event.target as HTMLInputElement;
-    console.log(target.value);
-  }
+	function handleDelete() {
+		// delete logic directly in component
+	}
 </script>
 
-<button onclick={handleClick}>Click</button>
-<input oninput={handleInput} />
+<AlertDialog.Root bind:open>
+	<AlertDialog.Trigger>
+		<Button>Delete</Button>
+	</AlertDialog.Trigger>
+	<AlertDialog.Content>
+		<!-- Dialog content -->
+	</AlertDialog.Content>
+</AlertDialog.Root>
 
-<!-- Inline handlers -->
-<button onclick={() => count++}>Increment</button>
-
-<!-- Modifiers -->
-<form onsubmit|preventDefault={handleSubmit}>
-  <button>Submit</button>
-</form>
-```
-
-### Component Events (Callbacks)
-
-```svelte
-<!-- Child.svelte -->
-<script lang="ts">
-  let { onchange }: { onchange: (value: string) => void } = $props();
-</script>
-
-<input oninput={(e) => onchange(e.target.value)} />
-```
-
-```svelte
-<!-- Parent.svelte -->
-<script lang="ts">
-  function handleChange(value: string) {
-    console.log(value);
-  }
-</script>
-
-<Child onchange={handleChange} />
-```
-
-## Control Flow
-
-### Conditionals
-
-```svelte
-{#if condition}
-  <p>True</p>
-{:else if otherCondition}
-  <p>Other</p>
-{:else}
-  <p>False</p>
-{/if}
-```
-
-### Loops
-
-```svelte
-{#each items as item, index (item.id)}
-  <li>{index}: {item.name}</li>
-{:else}
-  <p>No items</p>
+<!-- Parent component -->
+{#each items as item}
+	<DeleteItemButton {item} />
 {/each}
 ```
 
-### Await
+### Why This Pattern Works
 
-```svelte
-{#await promise}
-  <p>Loading...</p>
-{:then data}
-  <p>{data}</p>
-{:catch error}
-  <p>Error: {error.message}</p>
-{/await}
+- **No parent state pollution**: Parent doesn't need to track which item is being deleted
+- **Better encapsulation**: All delete logic lives in one place
+- **Simpler mental model**: Each row has its own delete button with its own dialog
+- **No callbacks needed**: Component handles everything internally
+- **Scales better**: Adding new actions doesn't complicate the parent
 
-<!-- Short form -->
-{#await promise then data}
-  <p>{data}</p>
-{/await}
-```
+### When to Apply This Pattern
 
-### Key Block
+- Action buttons in table rows (delete, edit, etc.)
+- Confirmation dialogs for list items
+- Any repeating UI element that needs modal interactions
+- When you find yourself passing callbacks just to update parent state
 
-```svelte
-{#key value}
-  <!-- Recreates component when value changes -->
-  <Component />
-{/key}
-```
-
-## Snippets (Svelte 5)
-
-```svelte
-<script lang="ts">
-  let items = $state(['a', 'b', 'c']);
-</script>
-
-{#snippet listItem(item: string, index: number)}
-  <li>{index}: {item}</li>
-{/snippet}
-
-<ul>
-  {#each items as item, i}
-    {@render listItem(item, i)}
-  {/each}
-</ul>
-```
-
-### Passing Snippets as Props
-
-```svelte
-<!-- List.svelte -->
-<script lang="ts">
-  import type { Snippet } from 'svelte';
-
-  interface Props {
-    items: string[];
-    row: Snippet<[string, number]>;
-  }
-
-  let { items, row }: Props = $props();
-</script>
-
-<ul>
-  {#each items as item, i}
-    {@render row(item, i)}
-  {/each}
-</ul>
-```
-
-```svelte
-<!-- Usage -->
-<List {items}>
-  {#snippet row(item, index)}
-    <li class="custom">{index}: {item}</li>
-  {/snippet}
-</List>
-```
-
-## Bindings
-
-### Form Bindings
-
-```svelte
-<script lang="ts">
-  let text = $state('');
-  let checked = $state(false);
-  let selected = $state('');
-  let group = $state<string[]>([]);
-</script>
-
-<input bind:value={text} />
-<input type="checkbox" bind:checked />
-<select bind:value={selected}>
-  <option value="a">A</option>
-  <option value="b">B</option>
-</select>
-
-<!-- Checkbox group -->
-<input type="checkbox" bind:group value="one" />
-<input type="checkbox" bind:group value="two" />
-
-<!-- Radio group -->
-<input type="radio" bind:group={selected} value="a" />
-<input type="radio" bind:group={selected} value="b" />
-```
-
-### Element Bindings
-
-```svelte
-<script lang="ts">
-  let div: HTMLDivElement;
-  let width = $state(0);
-  let height = $state(0);
-</script>
-
-<div bind:this={div} bind:clientWidth={width} bind:clientHeight={height}>
-  {width} x {height}
-</div>
-```
-
-## Lifecycle
-
-```svelte
-<script lang="ts">
-  import { onMount, onDestroy, beforeUpdate, afterUpdate } from 'svelte';
-
-  onMount(() => {
-    console.log('Mounted');
-
-    return () => {
-      console.log('Cleanup on unmount');
-    };
-  });
-
-  onDestroy(() => {
-    console.log('Destroyed');
-  });
-
-  beforeUpdate(() => {
-    console.log('Before update');
-  });
-
-  afterUpdate(() => {
-    console.log('After update');
-  });
-</script>
-```
-
-## Stores
-
-```typescript
-// stores/count.ts
-import { writable, derived, readable } from 'svelte/store';
-
-// Writable store
-export const count = writable(0);
-
-// Derived store
-export const doubled = derived(count, ($count) => $count * 2);
-
-// Readable store
-export const time = readable(new Date(), (set) => {
-  const interval = setInterval(() => set(new Date()), 1000);
-  return () => clearInterval(interval);
-});
-
-// Custom store
-function createCounter() {
-  const { subscribe, set, update } = writable(0);
-
-  return {
-    subscribe,
-    increment: () => update((n) => n + 1),
-    decrement: () => update((n) => n - 1),
-    reset: () => set(0),
-  };
-}
-
-export const counter = createCounter();
-```
-
-```svelte
-<script lang="ts">
-  import { count, doubled, counter } from './stores/count';
-</script>
-
-<!-- Auto-subscribe with $ prefix -->
-<p>Count: {$count}</p>
-<p>Doubled: {$doubled}</p>
-
-<button onclick={() => $count++}>Increment</button>
-<button onclick={counter.increment}>Counter++</button>
-```
-
-## Context
-
-```svelte
-<!-- Parent.svelte -->
-<script lang="ts">
-  import { setContext } from 'svelte';
-
-  setContext('theme', {
-    color: 'dark',
-    toggle: () => { /* ... */ },
-  });
-</script>
-```
-
-```svelte
-<!-- Child.svelte -->
-<script lang="ts">
-  import { getContext } from 'svelte';
-
-  interface ThemeContext {
-    color: string;
-    toggle: () => void;
-  }
-
-  const { color, toggle } = getContext<ThemeContext>('theme');
-</script>
-```
-
-## Actions
-
-```typescript
-// actions/clickOutside.ts
-export function clickOutside(node: HTMLElement, callback: () => void) {
-  function handleClick(event: MouseEvent) {
-    if (!node.contains(event.target as Node)) {
-      callback();
-    }
-  }
-
-  document.addEventListener('click', handleClick, true);
-
-  return {
-    destroy() {
-      document.removeEventListener('click', handleClick, true);
-    },
-  };
-}
-```
-
-```svelte
-<script lang="ts">
-  import { clickOutside } from './actions/clickOutside';
-
-  let open = $state(false);
-</script>
-
-{#if open}
-  <div use:clickOutside={() => open = false}>
-    Dropdown content
-  </div>
-{/if}
-```
-
-## Transitions
-
-```svelte
-<script lang="ts">
-  import { fade, fly, slide, scale } from 'svelte/transition';
-  import { quintOut } from 'svelte/easing';
-
-  let visible = $state(true);
-</script>
-
-{#if visible}
-  <div transition:fade={{ duration: 300 }}>
-    Fades in and out
-  </div>
-
-  <div in:fly={{ y: 200 }} out:fade>
-    Different in/out
-  </div>
-
-  <div transition:slide={{ duration: 500, easing: quintOut }}>
-    Slides
-  </div>
-{/if}
-```
-
-## Class and Style
-
-```svelte
-<script lang="ts">
-  let active = $state(false);
-  let color = $state('red');
-</script>
-
-<!-- Class shortcuts -->
-<div class:active>...</div>
-<div class:active={isActive}>...</div>
-<div class={active ? 'active' : ''}>...</div>
-
-<!-- Style shortcuts -->
-<div style:color>...</div>
-<div style:color={color}>...</div>
-<div style:--custom-property={value}>...</div>
-```
-
-## Best Practices
-
-1. **Use runes** - $state, $derived, $effect for Svelte 5
-2. **Extract logic** - Use stores or modules for shared state
-3. **Type props** - Use TypeScript interfaces
-4. **Use actions** - Reusable DOM behaviors
-5. **Prefer snippets** - Over slots for typed templates
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---------|-----|
-| Using $: in Svelte 5 | Use $derived or $effect |
-| Forgetting $state | Primitives need $state() |
-| Wrong event syntax | Use onclick not on:click (Svelte 5) |
-| Store without $ | Use $store for auto-subscribe |
-| Missing key in each | Add (item.id) for keyed each |
-
-## Reference Files
-
-- [references/runes.md](references/runes.md) - Complete runes guide
-- [references/stores.md](references/stores.md) - Store patterns
-- [references/transitions.md](references/transitions.md) - Animation guide
+The key insight: It's perfectly fine to instantiate multiple dialogs (one per row) rather than managing a single shared dialog with complex state. Modern frameworks handle this efficiently, and the code clarity is worth it.

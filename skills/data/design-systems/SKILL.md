@@ -1,585 +1,494 @@
----
-name: Design System Architecture
-description: Build consistent, scalable design systems with proper token architecture
+# Design Systems Skill
+
+```yaml
+name: design-systems-expert
+risk_level: LOW
+description: Expert in token-based theming, component APIs, design system architecture, and creating scalable design foundations
 version: 1.0.0
-license: MIT
-tier: community
+author: JARVIS AI Assistant
+tags: [design-system, tokens, theming, components, architecture]
+```
+
 ---
 
-# Design System Architecture
+## 1. Overview
 
-> **Create consistent, scalable visual languages that evolve gracefully**
+**Risk Level**: LOW-RISK
 
-This skill provides frameworks for building design systems that scale from single projects to entire organizations.
+**Justification**: Design systems produce CSS, design tokens, and component specifications without direct code execution or data processing.
 
-## Core Principles
+You are an expert in **design system architecture**. You create scalable, maintainable design foundations with token-based theming, consistent component APIs, and clear documentation.
 
-### 1. Tokens Are Truth
-Design decisions should be encoded as tokens (variables). Nothing should be hard-coded.
+### Core Expertise
+- Design token architecture
+- Component API design
+- Theme switching
+- Documentation systems
+- Version management
 
-### 2. Constraints Enable Creativity
-A good design system provides guardrails that speed up decisions, not slow them down.
+### Primary Use Cases
+- Creating design system foundations
+- Building component libraries
+- Implementing theming systems
+- Design system documentation
 
-### 3. Components Over Compositions
-Build primitives that compose into anything, not specific layouts that restrict.
+---
 
-## Token Architecture
+## 2. Core Responsibilities
 
-### The Token Hierarchy
+### Fundamental Duties
+1. **Token Architecture**: Build scalable token hierarchies
+2. **Component Design**: Create consistent, composable components
+3. **Theme Support**: Enable multiple themes
+4. **Documentation**: Keep system well-documented
+
+### Design System Principles
+- **TDD First**: Write tests for tokens and components before implementation
+- **Performance Aware**: Optimize CSS delivery, minimize repaints
+- **Single source of truth**: Tokens define all values
+- **Composability**: Components combine simply
+- **Consistency**: Same patterns throughout
+- **Extensibility**: Easy to extend, hard to break
+
+---
+
+## 3. Technical Foundation
+
+### Token Hierarchy
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     SEMANTIC TOKENS                          │
-│  (What they mean: --color-primary, --spacing-section)       │
-└────────────────────────────┬────────────────────────────────┘
-                             │ Reference
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│                     ALIAS TOKENS                             │
-│  (Design decisions: --color-brand-primary, --size-lg)       │
-└────────────────────────────┬────────────────────────────────┘
-                             │ Reference
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│                     PRIMITIVE TOKENS                         │
-│  (Raw values: --blue-500, --space-16, --font-inter)         │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────┐
+│       Semantic Tokens               │
+│  (purpose-specific references)      │
+│  --color-text-primary               │
+│  --color-bg-surface                 │
+│  --spacing-component                │
+└──────────────┬──────────────────────┘
+               │ references
+┌──────────────▼──────────────────────┐
+│       Core Tokens                   │
+│  (raw design values)                │
+│  --color-blue-500                   │
+│  --space-4                          │
+│  --font-size-base                   │
+└─────────────────────────────────────┘
 ```
 
-### Primitive Tokens
+---
 
-Raw values with no semantic meaning.
+## 4. Implementation Patterns
+
+### 4.1 Token Architecture
 
 ```css
-/* Colors - use naming that indicates value, not usage */
---gray-50: #fafafa;
---gray-100: #f5f5f5;
---gray-200: #e5e5e5;
---gray-300: #d4d4d4;
---gray-400: #a3a3a3;
---gray-500: #737373;
---gray-600: #525252;
---gray-700: #404040;
---gray-800: #262626;
---gray-900: #171717;
-
---blue-50: #eff6ff;
---blue-100: #dbeafe;
---blue-200: #bfdbfe;
---blue-300: #93c5fd;
---blue-400: #60a5fa;
---blue-500: #3b82f6;
---blue-600: #2563eb;
---blue-700: #1d4ed8;
---blue-800: #1e40af;
---blue-900: #1e3a8a;
-
-/* Spacing - use consistent scale */
---space-0: 0;
---space-1: 0.25rem;   /* 4px */
---space-2: 0.5rem;    /* 8px */
---space-3: 0.75rem;   /* 12px */
---space-4: 1rem;      /* 16px */
---space-5: 1.25rem;   /* 20px */
---space-6: 1.5rem;    /* 24px */
---space-8: 2rem;      /* 32px */
---space-10: 2.5rem;   /* 40px */
---space-12: 3rem;     /* 48px */
---space-16: 4rem;     /* 64px */
---space-20: 5rem;     /* 80px */
---space-24: 6rem;     /* 96px */
-
-/* Typography */
---font-sans: system-ui, -apple-system, sans-serif;
---font-mono: ui-monospace, monospace;
-
---text-xs: 0.75rem;    /* 12px */
---text-sm: 0.875rem;   /* 14px */
---text-base: 1rem;     /* 16px */
---text-lg: 1.125rem;   /* 18px */
---text-xl: 1.25rem;    /* 20px */
---text-2xl: 1.5rem;    /* 24px */
---text-3xl: 1.875rem;  /* 30px */
---text-4xl: 2.25rem;   /* 36px */
---text-5xl: 3rem;      /* 48px */
-
---leading-tight: 1.25;
---leading-normal: 1.5;
---leading-relaxed: 1.75;
-
---weight-normal: 400;
---weight-medium: 500;
---weight-semibold: 600;
---weight-bold: 700;
-```
-
-### Alias Tokens
-
-Design decisions that reference primitives.
-
-```css
-/* Brand colors */
---color-brand-primary: var(--blue-600);
---color-brand-primary-hover: var(--blue-700);
---color-brand-secondary: var(--gray-600);
-
-/* Size scale */
---size-xs: var(--space-2);
---size-sm: var(--space-3);
---size-md: var(--space-4);
---size-lg: var(--space-6);
---size-xl: var(--space-8);
-
-/* Radius */
---radius-none: 0;
---radius-sm: 0.125rem;
---radius-md: 0.375rem;
---radius-lg: 0.5rem;
---radius-xl: 0.75rem;
---radius-full: 9999px;
-```
-
-### Semantic Tokens
-
-Tokens that describe usage, not values.
-
-```css
-/* Backgrounds */
---color-bg-primary: var(--white);
---color-bg-secondary: var(--gray-50);
---color-bg-tertiary: var(--gray-100);
---color-bg-inverse: var(--gray-900);
-
-/* Text */
---color-text-primary: var(--gray-900);
---color-text-secondary: var(--gray-600);
---color-text-tertiary: var(--gray-400);
---color-text-inverse: var(--white);
---color-text-link: var(--color-brand-primary);
-
-/* Borders */
---color-border-default: var(--gray-200);
---color-border-strong: var(--gray-300);
---color-border-focus: var(--color-brand-primary);
-
-/* States */
---color-success: var(--green-600);
---color-warning: var(--yellow-500);
---color-error: var(--red-600);
---color-info: var(--blue-600);
-
-/* Component tokens */
---button-padding-x: var(--space-4);
---button-padding-y: var(--space-2);
---button-radius: var(--radius-md);
---button-font-weight: var(--weight-medium);
-
---input-padding: var(--space-3);
---input-border-width: 1px;
---input-radius: var(--radius-md);
-
---card-padding: var(--space-6);
---card-radius: var(--radius-lg);
---card-shadow: 0 1px 3px rgba(0,0,0,0.1);
-```
-
-## Color System
-
-### Building a Color Palette
-
-```yaml
-Color Palette Structure:
-
-  Neutrals:
-    Purpose: Text, backgrounds, borders
-    Scale: 50-900 (10 shades minimum)
-    Key values:
-      - 50: Subtle backgrounds
-      - 100-200: Secondary backgrounds
-      - 400-500: Placeholder text
-      - 600-700: Secondary text
-      - 800-900: Primary text
-
-  Brand Primary:
-    Purpose: CTAs, links, key actions
-    Scale: 50-900
-    Key values:
-      - 500-600: Main brand color
-      - 600-700: Hover states
-      - 100-200: Light backgrounds
-
-  Brand Secondary:
-    Purpose: Accents, secondary actions
-    Scale: 50-900 (can be smaller)
-
-  Semantic Colors:
-    Success: Typically green family
-    Warning: Typically yellow/amber family
-    Error: Typically red family
-    Info: Typically blue family
-```
-
-### Dark Mode Strategy
-
-```css
-/* Light theme (default) */
+/* tokens/core.css - Raw values */
 :root {
-  --color-bg-primary: var(--white);
-  --color-bg-secondary: var(--gray-50);
-  --color-text-primary: var(--gray-900);
-  --color-text-secondary: var(--gray-600);
-  --color-border-default: var(--gray-200);
+  /* Colors - Gray scale */
+  --color-gray-50: #f9fafb;
+  --color-gray-500: #6b7280;
+  --color-gray-900: #111827;
+  /* ... gray-100 through gray-800 */
+
+  /* Colors - Blue scale */
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+
+  /* Spacing (8px base): --space-0 through --space-16 */
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+
+  /* Typography */
+  --font-size-base: 1rem;
+  --font-weight-medium: 500;
+  --line-height-normal: 1.5;
+
+  /* Radii */
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+
+  /* Shadows */
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+```
+
+```css
+/* tokens/semantic.css - Purpose-specific */
+:root {
+  /* Background */
+  --color-bg-primary: var(--color-white);
+  --color-bg-secondary: var(--color-gray-50);
+
+  /* Text */
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-600);
+
+  /* Border & Interactive */
+  --color-border-default: var(--color-gray-200);
+  --color-interactive-primary: var(--color-blue-600);
+
+  /* Component spacing */
+  --spacing-component-md: var(--space-3);
+  --spacing-component-lg: var(--space-4);
+}
+```
+
+### 4.2 Theme Switching
+
+```css
+/* themes/light.css */
+:root,
+[data-theme="light"] {
+  --color-bg-primary: var(--color-white);
+  --color-text-primary: var(--color-gray-900);
+  --color-border-default: var(--color-gray-200);
 }
 
-/* Dark theme */
+/* themes/dark.css */
 [data-theme="dark"] {
-  --color-bg-primary: var(--gray-900);
-  --color-bg-secondary: var(--gray-800);
-  --color-text-primary: var(--gray-50);
-  --color-text-secondary: var(--gray-400);
-  --color-border-default: var(--gray-700);
+  --color-bg-primary: var(--color-gray-900);
+  --color-text-primary: var(--color-gray-50);
+  --color-border-default: var(--color-gray-700);
+}
+```
+
+```typescript
+// Theme switcher (condensed)
+function ThemeProvider({ children }: Props) {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") as "light" | "dark" | null;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+    setTheme(saved || (prefersDark.matches ? "dark" : "light"));
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
+  const toggle = () => {
+    const next = theme === "light" ? "dark" : "light";
+    setTheme(next);
+    localStorage.setItem("theme", next);
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggle }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+```
+
+### 4.3 Component API Design
+
+```typescript
+// Consistent prop patterns
+interface ButtonProps {
+  variant?: "primary" | "secondary" | "ghost" | "danger";
+  size?: "sm" | "md" | "lg";
+  disabled?: boolean;
+  loading?: boolean;
+  children: ReactNode;
+  onClick?: () => void;
 }
 
-/* System preference */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --color-bg-primary: var(--gray-900);
-    /* ... dark values ... */
+function Button({ variant = "primary", size = "md", ...props }: ButtonProps) {
+  return (
+    <button
+      className={cn("button", `button--${variant}`, `button--${size}`)}
+      disabled={props.disabled || props.loading}
+      onClick={props.onClick}
+    >
+      {props.children}
+    </button>
+  );
+}
+```
+
+### 4.4 Composition Patterns
+
+```typescript
+// Compound components
+function Card({ children }: { children: ReactNode }) {
+  return <div className="card">{children}</div>;
+}
+Card.Header = ({ children }) => <div className="card-header">{children}</div>;
+Card.Body = ({ children }) => <div className="card-body">{children}</div>;
+Card.Footer = ({ children }) => <div className="card-footer">{children}</div>;
+
+// Usage: <Card><Card.Header>Title</Card.Header><Card.Body>...</Card.Body></Card>
+```
+
+### 4.5 Token Export Formats
+
+```typescript
+// Export tokens in multiple formats
+const tokens = {
+  colors: { primary: "#3b82f6", secondary: "#6b7280" },
+  spacing: { sm: "8px", md: "16px", lg: "24px" }
+};
+
+// CSS Custom Properties
+function toCSS(tokens: Tokens): string {
+  let css = ":root {\n";
+  for (const [category, values] of Object.entries(tokens)) {
+    for (const [key, value] of Object.entries(values))
+      css += `  --${category}-${key}: ${value};\n`;
   }
+  return css + "}";
+}
+
+// Tailwind config
+function toTailwind(tokens: Tokens): TailwindConfig {
+  return { theme: { extend: { colors: tokens.colors, spacing: tokens.spacing } } };
 }
 ```
-
-## Typography System
-
-### Type Scale
-
-```yaml
-Typography Scale:
-
-  Display:
-    - display-2xl: 4.5rem/1.1 (72px) - Hero headlines
-    - display-xl: 3.75rem/1.1 (60px) - Major headings
-    - display-lg: 3rem/1.1 (48px) - Section headlines
-
-  Headings:
-    - heading-xl: 2.25rem/1.25 (36px) - Page titles
-    - heading-lg: 1.875rem/1.3 (30px) - Section titles
-    - heading-md: 1.5rem/1.35 (24px) - Subsections
-    - heading-sm: 1.25rem/1.4 (20px) - Card titles
-    - heading-xs: 1.125rem/1.4 (18px) - Small headings
-
-  Body:
-    - body-lg: 1.125rem/1.6 (18px) - Lead paragraphs
-    - body-md: 1rem/1.6 (16px) - Default body
-    - body-sm: 0.875rem/1.5 (14px) - Secondary text
-
-  Utility:
-    - caption: 0.75rem/1.4 (12px) - Labels, captions
-    - overline: 0.75rem/1.4 uppercase tracked - Categories
-```
-
-### Implementing Type Scale
-
-```css
-/* Type scale implementation */
-.text-display-2xl {
-  font-size: var(--text-5xl);
-  line-height: 1.1;
-  font-weight: var(--weight-bold);
-  letter-spacing: -0.02em;
-}
-
-.text-heading-xl {
-  font-size: var(--text-4xl);
-  line-height: 1.25;
-  font-weight: var(--weight-semibold);
-  letter-spacing: -0.01em;
-}
-
-.text-body-md {
-  font-size: var(--text-base);
-  line-height: 1.6;
-  font-weight: var(--weight-normal);
-}
-```
-
-## Spacing System
-
-### Spacing Scale Philosophy
-
-```yaml
-Spacing Philosophy:
-
-  Base Unit: 4px (0.25rem)
-
-  Scale Type: Geometric with adjustments
-
-  Common uses:
-    - 4px (space-1): Icon gaps, tight spacing
-    - 8px (space-2): Inline elements, button padding (y)
-    - 12px (space-3): Form inputs padding
-    - 16px (space-4): Component padding, button padding (x)
-    - 24px (space-6): Card padding, section gaps
-    - 32px (space-8): Related section spacing
-    - 48px (space-12): Unrelated section spacing
-    - 64px (space-16): Major page sections
-    - 96px (space-24): Hero/footer spacing
-```
-
-### Spacing Usage Guidelines
-
-```yaml
-Component Spacing:
-
-  Buttons:
-    Padding: space-2 space-4 (8px 16px)
-    Gap between: space-2 (8px)
-
-  Cards:
-    Padding: space-6 (24px)
-    Gap between: space-6 (24px)
-    Internal gaps: space-4 (16px)
-
-  Forms:
-    Input padding: space-3 (12px)
-    Label to input: space-2 (8px)
-    Between fields: space-6 (24px)
-
-  Lists:
-    Item padding: space-3 space-4
-    Between items: space-1 or space-2
-
-Page Spacing:
-
-  Section padding: space-16 to space-24 (64-96px)
-  Content width: max 80ch for prose
-  Grid gaps: space-6 to space-8
-```
-
-## Component Architecture
-
-### Component Anatomy
-
-```yaml
-Component Anatomy:
-
-  Button Example:
-
-    Container:
-      - Background color (semantic)
-      - Border radius (from scale)
-      - Border (optional)
-      - Padding (from scale)
-      - Min height/width
-
-    Content:
-      - Text color (semantic)
-      - Font size (from scale)
-      - Font weight (from scale)
-      - Line height
-      - Letter spacing
-
-    Icon (optional):
-      - Size (proportional)
-      - Color (inherit or specific)
-      - Spacing from text
-
-    States:
-      - Default
-      - Hover
-      - Active/Pressed
-      - Focus (keyboard)
-      - Disabled
-      - Loading
-```
-
-### Component Variants Pattern
-
-```css
-/* Base component */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--button-padding-y) var(--button-padding-x);
-  border-radius: var(--button-radius);
-  font-weight: var(--button-font-weight);
-  transition: all 150ms ease;
-}
-
-/* Variants */
-.btn-primary {
-  background: var(--color-brand-primary);
-  color: var(--color-text-inverse);
-}
-
-.btn-primary:hover {
-  background: var(--color-brand-primary-hover);
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid var(--color-border-default);
-  color: var(--color-text-primary);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--color-text-primary);
-}
-
-/* Sizes */
-.btn-sm {
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--text-sm);
-}
-
-.btn-lg {
-  padding: var(--space-3) var(--space-6);
-  font-size: var(--text-lg);
-}
-```
-
-## Tailwind Integration
-
-### Custom Tailwind Config
-
-```javascript
-// tailwind.config.js
-module.exports = {
-  theme: {
-    colors: {
-      // Map to your tokens
-      transparent: 'transparent',
-      current: 'currentColor',
-
-      // Primitives
-      gray: {
-        50: 'var(--gray-50)',
-        100: 'var(--gray-100)',
-        // ... etc
-      },
-
-      // Semantic (recommended approach)
-      bg: {
-        primary: 'var(--color-bg-primary)',
-        secondary: 'var(--color-bg-secondary)',
-        tertiary: 'var(--color-bg-tertiary)',
-      },
-      text: {
-        primary: 'var(--color-text-primary)',
-        secondary: 'var(--color-text-secondary)',
-      },
-      border: {
-        DEFAULT: 'var(--color-border-default)',
-        strong: 'var(--color-border-strong)',
-      },
-    },
-
-    spacing: {
-      0: 'var(--space-0)',
-      1: 'var(--space-1)',
-      2: 'var(--space-2)',
-      // ... etc
-    },
-
-    borderRadius: {
-      none: 'var(--radius-none)',
-      sm: 'var(--radius-sm)',
-      DEFAULT: 'var(--radius-md)',
-      lg: 'var(--radius-lg)',
-      full: 'var(--radius-full)',
-    },
-
-    fontSize: {
-      xs: ['var(--text-xs)', { lineHeight: '1.4' }],
-      sm: ['var(--text-sm)', { lineHeight: '1.5' }],
-      base: ['var(--text-base)', { lineHeight: '1.6' }],
-      // ... etc
-    },
-  },
-}
-```
-
-## Animation System
-
-### Animation Tokens
-
-```css
-/* Duration */
---duration-instant: 0ms;
---duration-fast: 100ms;
---duration-normal: 200ms;
---duration-slow: 300ms;
---duration-slower: 500ms;
-
-/* Easing */
---ease-linear: linear;
---ease-in: cubic-bezier(0.4, 0, 1, 1);
---ease-out: cubic-bezier(0, 0, 0.2, 1);
---ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
---ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-```
-
-### Common Animation Patterns
-
-```css
-/* Fade in */
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Slide up */
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Scale in */
-@keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Usage */
-.animate-fade-in {
-  animation: fade-in var(--duration-normal) var(--ease-out);
-}
-
-.animate-slide-up {
-  animation: slide-up var(--duration-normal) var(--ease-out);
-}
-```
-
-## Quality Checklist
-
-### Design System Audit
-
-- [ ] All colors use tokens (no hex values in components)
-- [ ] All spacing uses scale values
-- [ ] Typography uses defined scale
-- [ ] Components have all states defined
-- [ ] Dark mode tested
-- [ ] Accessibility contrast ratios met (4.5:1 body, 3:1 large)
-- [ ] Focus states visible
-- [ ] Motion respects prefers-reduced-motion
-- [ ] Tokens documented
-- [ ] Component API documented
 
 ---
 
-*"A design system is not a project. It's a product, serving products."*
+## 5. Quality Standards
+
+### Naming Conventions
+
+- **Core tokens**: `--{category}-{scale}` (e.g., `--color-blue-500`)
+- **Semantic tokens**: `--{category}-{property}-{variant}` (e.g., `--color-text-primary`)
+- **Component tokens**: `--{component}-{property}-{state}` (e.g., `--button-bg-hover`)
+
+### Documentation Requirements
+
+- Token values with visual examples
+- Component props and variants
+- Usage guidelines and examples
+- Do's and Don'ts
+- Accessibility notes
+
+---
+
+## 6. Implementation Workflow (TDD)
+
+### Step 1: Write Failing Test First
+
+```typescript
+// tests/tokens.test.ts
+import { describe, it, expect } from 'vitest'
+import { tokens } from '../tokens'
+
+describe('Design Tokens', () => {
+  it('should have all required color scales', () => {
+    expect(tokens.colors.gray).toBeDefined()
+    expect(tokens.colors.blue).toBeDefined()
+    expect(Object.keys(tokens.colors.gray)).toHaveLength(10)
+  })
+
+  it('should have semantic tokens referencing core tokens', () => {
+    expect(tokens.semantic.textPrimary).toBe(tokens.colors.gray[900])
+    expect(tokens.semantic.bgPrimary).toBe(tokens.colors.white)
+  })
+
+  it('should generate valid CSS custom properties', () => {
+    const css = tokens.toCSS()
+    expect(css).toContain('--color-gray-500')
+    expect(css).toContain('--color-text-primary')
+  })
+})
+
+// tests/components/Button.test.ts
+import { mount } from '@vue/test-utils'
+import { describe, it, expect } from 'vitest'
+import Button from '../components/Button.vue'
+
+describe('Button', () => {
+  it('applies variant classes correctly', () => {
+    const wrapper = mount(Button, {
+      props: { variant: 'primary' }
+    })
+    expect(wrapper.classes()).toContain('button--primary')
+  })
+
+  it('uses design tokens for styling', () => {
+    const wrapper = mount(Button)
+    const styles = getComputedStyle(wrapper.element)
+    expect(styles.getPropertyValue('--button-bg')).toBeTruthy()
+  })
+})
+```
+
+### Step 2: Implement Minimum to Pass
+
+```typescript
+// tokens/index.ts
+export const tokens = {
+  colors: {
+    gray: { 50: '#f9fafb', /* ... */ 900: '#111827' },
+    blue: { 500: '#3b82f6', 600: '#2563eb' }
+  },
+  semantic: {
+    textPrimary: '#111827',
+    bgPrimary: '#ffffff'
+  },
+  toCSS() {
+    // Generate CSS custom properties
+  }
+}
+```
+
+### Step 3: Refactor Following Patterns
+
+Apply token naming conventions and ensure semantic layer references core tokens.
+
+### Step 4: Run Full Verification
+
+```bash
+npm test -- --run                    # Run all tests
+npm run build                        # Verify CSS generation
+npm run lint:css                     # Check CSS validity
+```
+
+---
+
+## 7. Performance Patterns
+
+### 7.1 CSS Custom Properties Optimization
+
+**Bad** - Redundant property declarations:
+```css
+.button { background: var(--color-blue-500); }
+.button:hover { background: var(--color-blue-600); }
+.button:active { background: var(--color-blue-700); }
+```
+
+**Good** - Single property with state modifiers:
+```css
+.button {
+  --button-bg: var(--color-blue-500);
+  background: var(--button-bg);
+}
+.button:hover { --button-bg: var(--color-blue-600); }
+.button:active { --button-bg: var(--color-blue-700); }
+```
+
+### 7.2 Tree-Shaking Token Exports
+
+**Bad** - Importing entire token object:
+```typescript
+import { tokens } from './tokens'
+const primary = tokens.colors.blue[500]
+```
+
+**Good** - Named exports for tree-shaking:
+```typescript
+import { colorBlue500 } from './tokens/colors'
+const primary = colorBlue500
+```
+
+### 7.3 Lazy Loading Theme Files
+
+**Bad** - Loading all themes upfront:
+```typescript
+import './themes/light.css'
+import './themes/dark.css'
+import './themes/high-contrast.css'
+```
+
+**Good** - Dynamic theme loading:
+```typescript
+async function loadTheme(theme: string) {
+  await import(`./themes/${theme}.css`)
+  document.documentElement.dataset.theme = theme
+}
+```
+
+### 7.4 Token Computation Optimization
+
+**Bad** - Runtime calculations:
+```css
+.card { padding: calc(var(--space-4) * 1.5); }
+```
+
+**Good** - Pre-computed semantic tokens:
+```css
+:root { --spacing-card: 1.5rem; }
+.card { padding: var(--spacing-card); }
+```
+
+### 7.5 Responsive Image Tokens
+
+**Bad** - Fixed image sizes:
+```css
+.avatar { width: 48px; height: 48px; }
+```
+
+**Good** - Token-based responsive sizing:
+```css
+:root {
+  --avatar-size-sm: 2rem;
+  --avatar-size-md: 3rem;
+  --avatar-size-lg: 4rem;
+}
+.avatar { width: var(--avatar-size-md); aspect-ratio: 1; }
+```
+
+---
+
+## 8. Common Mistakes
+
+### ❌ Use Raw Values
+```css
+/* Bad */ .button { background: #3b82f6; padding: 12px; }
+/* Good */ .button { background: var(--color-interactive-primary); padding: var(--spacing-component-md); }
+```
+
+### ❌ Inconsistent APIs
+```typescript
+/* Bad */ <Button size="large" /> <Input sizing="lg" />
+/* Good */ <Button size="lg" /> <Input size="lg" />
+```
+
+### ❌ Skip Semantic Layer
+```css
+/* Bad */ .card { background: var(--color-gray-50); }
+/* Good */ .card { background: var(--color-bg-secondary); }
+```
+
+---
+
+## 13. Pre-Implementation Checklist
+
+### Phase 1: Before Writing Code
+- [ ] Review existing token architecture
+- [ ] Plan token hierarchy (core -> semantic -> component)
+- [ ] Define naming conventions
+- [ ] Write tests for token validation
+- [ ] Write tests for component variants
+
+### Phase 2: During Implementation
+- [ ] Core tokens defined with consistent scales
+- [ ] Semantic tokens reference core tokens
+- [ ] Component tokens where needed
+- [ ] All values use tokens (no hardcoded)
+- [ ] Theme switching tested (light/dark)
+- [ ] System preference detection works
+- [ ] Consistent prop APIs across components
+
+### Phase 3: Before Committing
+- [ ] All tests pass (`npm test`)
+- [ ] CSS builds without errors
+- [ ] No hardcoded values in components
+- [ ] Accessibility tested (contrast, focus)
+- [ ] Documentation updated
+- [ ] Migration guide if breaking changes
+
+---
+
+## 14. Summary
+
+Your goal is to create design systems that are:
+- **Scalable**: Grows without breaking
+- **Maintainable**: Changes are safe and predictable
+- **Consistent**: Same patterns everywhere
+- **Themeable**: Supports multiple themes
+
+You understand that design systems are about creating a shared language. Tokens are words, components are sentences, and patterns are grammar. Build a system that makes it easy to write great interfaces.
+
+Create foundations that empower teams to build consistent, beautiful products.

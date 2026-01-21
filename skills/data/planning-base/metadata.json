@@ -1,11 +1,7 @@
 {
   "name": "planning-base",
-  "description": "Framework for planning at any time scale (daily, weekly, monthly, quarterly, yearly). Trigger with \"plan my day\", \"weekly planning\", \"monthly planning\", etc. Identifies constraints FIRST, then suggest",
   "repo": "ZachBeta/claude-as-coach",
-  "category": "data",
-  "tags": [
-    "planning",
-    "base"
-  ],
-  "stars": 3
+  "path": "skills/planning-base/SKILL.md",
+  "source": "github.com/ZachBeta/claude-as-coach",
+  "downloaded_at": "2026-01-21T01:12:44.309404Z"
 }

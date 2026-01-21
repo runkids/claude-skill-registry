@@ -1,7 +1,7 @@
 {
   "name": "example-skill",
-  "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
-  "path": "agent-builder/skills/building-plugins/templates/full-plugin-template/skills/example-skill/SKILL.md",
-  "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
-  "downloaded_at": "2026-01-20T03:01:51.606871Z"
+  "repo": "okgoogle13/careercopilot",
+  "path": ".claude/skills/example-skill/SKILL.md",
+  "source": "github.com/okgoogle13/careercopilot",
+  "downloaded_at": "2026-01-21T03:45:59.518481Z"
 }

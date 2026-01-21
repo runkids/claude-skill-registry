@@ -1,7 +1,7 @@
 {
   "name": "git-advanced",
-  "repo": "bybren-llc/wtfb-safe-agentic-workflow",
+  "repo": "bybren-llc/safe-agentic-workflow",
   "path": ".gemini/skills/git-advanced/SKILL.md",
-  "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
-  "downloaded_at": "2026-01-20T03:31:09.692179Z"
+  "source": "github.com/bybren-llc/safe-agentic-workflow",
+  "downloaded_at": "2026-01-21T03:57:25.176148Z"
 }

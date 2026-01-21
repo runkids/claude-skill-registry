@@ -1,7 +1,7 @@
 {
   "name": "agent-coordination",
-  "repo": "bybren-llc/wtfb-safe-agentic-workflow",
+  "repo": "bybren-llc/safe-agentic-workflow",
   "path": ".claude/skills/agent-coordination/SKILL.md",
-  "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
-  "downloaded_at": "2026-01-20T03:31:10.989758Z"
+  "source": "github.com/bybren-llc/safe-agentic-workflow",
+  "downloaded_at": "2026-01-21T03:57:26.226828Z"
 }

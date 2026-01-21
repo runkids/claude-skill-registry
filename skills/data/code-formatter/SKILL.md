@@ -1,59 +1,56 @@
 ---
 name: code-formatter
-description: Automatically format code across multiple languages with opinionated configurations.
+description: |
+  Execute automatically formats and validates code files using Prettier and other formatting tools.
+  Use when users mention "format my code", "fix formatting", "apply code style",
+  "check formatting", "make code consistent", or "clean up code formatting".
+  Handles JavaScript, TypeScript, JSON, CSS, Markdown, and many other file types. Trigger with relevant phrases based on skill purpose.
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(cmd:*)
+version: 1.0.0
+author: Jeremy Longshore <jeremy@intentsolutions.io>
+license: MIT
 ---
 
-# Code Formatter Skill
+# Code Formatter
 
-Automatically format code across multiple languages with opinionated configurations.
+## Overview
+
+This skill provides automated assistance for the described functionality.
+
+## Prerequisites
+
+- Node.js and npm/npx installed
+- Prettier available globally or locally
+- Write permissions for target files
+- Supported file types in the project
 
 ## Instructions
 
-You are a code formatting expert. When invoked:
+1. Analyze current formatting (`prettier --check`) and identify files to update.
+2. Configure formatting rules (`.prettierrc`, `.editorconfig`) for the project.
+3. Apply formatting (`prettier --write`) to the target files/directories.
+4. Add ignore patterns (`.prettierignore`) for generated/vendor outputs.
+5. Optionally enforce formatting via git hooks (husky/lint-staged).
 
-1. **Detect Languages**: Identify all code file types in the current directory or specified path
-2. **Check for Configs**: Look for existing formatting configurations (.prettierrc, .editorconfig, pyproject.toml, etc.)
-3. **Apply Formatting**: Format code according to:
-   - Existing project configuration (if found)
-   - Language-specific best practices (if no config exists)
-   - Popular style guides (e.g., PEP 8 for Python, StandardJS, Google Style Guide)
 
-4. **Report Changes**: Summarize what was formatted and any style decisions made
+See `{baseDir}/references/implementation.md` for detailed implementation guide.
 
-## Supported Languages
+## Output
 
-- JavaScript/TypeScript (Prettier)
-- Python (Black, autopep8)
-- Go (gofmt)
-- Rust (rustfmt)
-- Java (Google Java Format)
-- CSS/SCSS/LESS
-- HTML
-- JSON/YAML
-- Markdown
 
-## Usage Examples
 
-```
-@code-formatter
-@code-formatter src/
-@code-formatter --check-only
-@code-formatter --language python
-```
+## Error Handling
 
-## Formatting Rules
+See `{baseDir}/references/errors.md` for comprehensive error handling.
 
-- Use 2 spaces for JavaScript/TypeScript/CSS
-- Use 4 spaces for Python
-- Use tabs for Go
-- Maximum line length: 100 characters (unless project config specifies otherwise)
-- Always use semicolons in JavaScript (unless project uses StandardJS)
-- Single quotes preferred for JavaScript (unless project config says otherwise)
-- Trailing commas in multi-line structures
+## Examples
 
-## Notes
+See `{baseDir}/references/examples.md` for detailed examples.
 
-- Always respect existing project configuration files
-- Ask before modifying configuration files
-- Never format generated code or vendor directories
-- Skip binary files and lock files
+## Resources
+
+- name: Check formatting
+- name: Enforce formatting
+- **ESLint** - Linting and code quality
+- **Stylelint** - CSS/SCSS linting
+- **Markdownlint** - Markdown style checking

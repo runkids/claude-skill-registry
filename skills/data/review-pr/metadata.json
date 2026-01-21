@@ -1,7 +1,7 @@
 {
   "name": "review-pr",
-  "repo": "abyssparanoia/rapid-go",
-  "path": ".claude/skills/review-pr/SKILL.md",
-  "source": "github.com/abyssparanoia/rapid-go",
-  "downloaded_at": "2026-01-20T03:35:43.705894Z"
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/review-pr/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-21T04:14:21.417011Z"
 }

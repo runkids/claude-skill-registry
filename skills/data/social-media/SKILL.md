@@ -1,333 +1,228 @@
 ---
 name: social-media
-description: Add or update social media posting integrations (Discord, LinkedIn, Telegram, Twitter) in workflows. Use when adding new platforms, debugging posting failures, or modifying message templates.
-allowed-tools: Read, Edit, Grep, Glob
+description: Create social media content for Twitter/X, LinkedIn, Facebook, Instagram including posts, threads, carousels, and engagement strategies. Use when writing social posts, planning content calendars, or creating viral content.
 ---
 
-# Social Media Integration Skill
+# Social Media Marketing Skill
 
-This skill helps you work with social media integrations in `apps/api/src/lib/workflows/social/`.
+## Writing Style Guidelines
 
-## When to Use This Skill
+**Be Human, Not AI:**
+- Write like a real person, not a marketing bot
+- Use natural language and conversational tone
+- Avoid buzzwords: "revolutionary", "game-changing", "seamless", "leverage"
+- Skip filler words: "basically", "essentially", "simply", "just"
 
-- Adding new social media platforms
-- Debugging posting failures
-- Updating message templates and formatting
-- Configuring webhook URLs and API credentials
-- Testing social media workflows
+**Emoji Policy:**
+- Maximum ONE emoji per post (or none)
+- Use only when it genuinely adds clarity or warmth
+- Never pile up emojis (no "Check this out! 🚀🔥💥🎉")
+- Professional platforms (LinkedIn): prefer no emoji
 
-## Supported Platforms
-
-Current integrations:
-- **Discord** - Webhook-based posting
-- **LinkedIn** - OAuth-based API posting
-- **Telegram** - Bot API posting
-- **Twitter** - API v2 posting
-
-## Architecture
-
+**What to Avoid:**
 ```
-apps/api/src/lib/workflows/social/
-├── discord.ts           # Discord webhook integration
-├── linkedin.ts          # LinkedIn API integration
-├── telegram.ts          # Telegram bot integration
-└── twitter.ts           # Twitter API integration
+❌ "🚀🔥 This GAME-CHANGING plugin will REVOLUTIONIZE your workflow!! 💥✨🎉"
+✅ "Tired of manually syncing your forms? This plugin does it automatically."
 ```
 
-## Key Patterns
+## Instructions
 
-### 1. Telegram Integration
+When creating social media content:
 
-Telegram uses Bot API with chat IDs:
+### 1. Twitter/X Posts
 
-```typescript
-export async function postToTelegram(message: string) {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
+**Single Tweet (280 chars):**
+```
+Hook line that grabs attention
 
-  if (!botToken || !chatId) {
-    throw new Error("Telegram credentials not configured");
-  }
+Key point or benefit
 
-  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+Call-to-action or question
 
-  await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: message,
-      parse_mode: "Markdown",
-      disable_web_page_preview: false,
-    }),
-  });
-}
+#relevanthashtag
 ```
 
-### 3. Twitter Integration
+**Thread Format:**
+```
+Thread: [Topic] - Everything you need to know
 
-Twitter uses OAuth 2.0 with API v2:
+1/ Hook that promises value
 
-```typescript
-export async function postToTwitter(message: string) {
-  const bearerToken = process.env.TWITTER_BEARER_TOKEN;
+2/ First key point with example
 
-  if (!bearerToken) {
-    throw new Error("Twitter bearer token not configured");
-  }
+3/ Second key point with data
 
-  const url = "https://api.twitter.com/2/tweets";
+4/ Third key point with tip
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${bearerToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ text: message }),
-  });
+5/ Summary + CTA
 
-  if (!response.ok) {
-    throw new Error(`Twitter API error: ${response.statusText}`);
-  }
-
-  return await response.json();
-}
+Like & RT if helpful! Follow for more.
 ```
 
-### 4. LinkedIn Integration
+**Engagement Tweets:**
+- Ask genuine questions
+- Share honest takes (not hot takes for engagement)
+- Create polls
+- Reply to trends (only if relevant)
 
-LinkedIn uses OAuth 2.0 with organization posting:
+### 2. LinkedIn Posts
 
-```typescript
-export async function postToLinkedIn(message: string) {
-  const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
-  const organizationId = process.env.LINKEDIN_ORG_ID;
+**Structure:**
+```
+Hook line (stops the scroll)
 
-  if (!accessToken || !organizationId) {
-    throw new Error("LinkedIn credentials not configured");
-  }
+Problem or pain point
 
-  const url = "https://api.linkedin.com/v2/ugcPosts";
+Story or insight (2-3 short paragraphs)
 
-  await fetch(url, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-      "X-Restli-Protocol-Version": "2.0.0",
-    },
-    body: JSON.stringify({
-      author: `urn:li:organization:${organizationId}`,
-      lifecycleState: "PUBLISHED",
-      specificContent: {
-        "com.linkedin.ugc.ShareContent": {
-          shareCommentary: { text: message },
-          shareMediaCategory: "NONE",
-        },
-      },
-      visibility: {
-        "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC",
-      },
-    }),
-  });
-}
+Key takeaway or lesson
+
+Call-to-action + question for engagement
+
+---
+#hashtag1 #hashtag2 #hashtag3
 ```
 
-## Message Templates
+**Content Types:**
+- Personal stories with lessons
+- Industry insights and trends
+- How-to and practical tips
+- Behind-the-scenes
+- Achievements (genuine, not humble-brag)
+- Thoughtful opinions (not controversial for engagement)
 
-Create reusable message templates:
+### 3. Instagram
 
-```typescript
-export function createCarDataMessage(data: CarRegistrationData) {
-  const { month, year, total, topMakes } = data;
+**Caption Structure:**
+```
+Hook (first line visible)
+.
+.
+.
+Value content or story (after "more")
 
-  return `🚗 Car Registration Update - ${month} ${year}
+Call-to-action
 
-📊 Total Registrations: ${total.toLocaleString()}
-🏆 Top Makes: ${topMakes.slice(0, 3).join(", ")}
-
-📈 View detailed analysis: https://sgcarstrends.com/data/${year}/${month}
-
-#SingaporeCars #CarRegistration #DataAnalytics`;
-}
-
-export function createCOEMessage(data: COEBiddingData) {
-  const { biddingNo, category, premium } = data;
-
-  return `💰 COE Bidding Results - Round ${biddingNo}
-
-Category ${category}: $${premium.toLocaleString()}
-Change: ${data.change > 0 ? "+" : ""}${data.change}%
-
-Full results: https://sgcarstrends.com/coe/${biddingNo}
-
-#COE #Singapore #CarPrices`;
-}
+.
+.
+.
+#hashtag1 #hashtag2 ... (up to 30)
 ```
 
-## Common Tasks
+**Carousel Ideas:**
+1. Step-by-step tutorials
+2. Before/after transformations
+3. Tips and tricks lists
+4. Product features
+5. Customer testimonials
 
-### Adding a New Platform
+**Reels/Stories:**
+- Hook in first 3 seconds
+- Quick value delivery
+- Trending audio (if appropriate)
+- Text overlays for accessibility
+- Clear CTA at end
 
-1. Create integration file (e.g., `instagram.ts`)
-2. Implement posting function with authentication
-3. Add environment variables for credentials
-4. Create message template
-5. Add to workflow that triggers posting
-6. Test with development credentials
+### 4. Facebook
 
-### Debugging Posting Failures
+**Post Types:**
+- Long-form stories
+- Questions for engagement
+- Live videos
+- Group discussions
+- Event promotions
 
-Check these common issues:
+**Best Practices:**
+- Native video over YouTube links
+- Engage in comments quickly
+- Use Facebook-specific features
+- Post when audience is active
 
-1. **Authentication errors**:
-   - Verify environment variables are set
-   - Check token expiration (especially OAuth)
-   - Validate API credentials in platform console
+### 5. Content Calendar Template
 
-2. **API rate limits**:
-   - Check platform rate limit documentation
-   - Implement retry logic with backoff
-   - Add rate limit tracking
+| Day | Platform | Content Type | Topic | CTA |
+|-----|----------|--------------|-------|-----|
+| Mon | Twitter | Thread | How-to | Follow |
+| Tue | LinkedIn | Story | Lesson | Comment |
+| Wed | Instagram | Carousel | Tips | Save |
+| Thu | Twitter | Poll | Opinion | Vote |
+| Fri | All | Promo | Product | Link |
 
-3. **Message formatting**:
-   - Verify character limits (Twitter: 280, LinkedIn: 3000)
-   - Check for invalid characters or formatting
-   - Test markdown/HTML support
+### 6. Hashtag Strategy
 
-4. **Network issues**:
-   - Add timeout handling
-   - Implement retry logic
-   - Log full error responses
+**Twitter:** 1-2 relevant hashtags (less is more)
+**LinkedIn:** 3-5 industry hashtags
+**Instagram:** 20-30 mixed hashtags
+  - 10 broad (1M+ posts)
+  - 10 medium (100K-1M)
+  - 10 niche (<100K)
 
-### Updating Message Templates
+### 7. Engagement Tactics
 
-1. Locate template function
-2. Update message structure
-3. Test with sample data
-4. Verify formatting on each platform:
-   - Discord: Embeds and markdown
-   - Telegram: Markdown or HTML
-   - Twitter: Plain text, URLs, hashtags
-   - LinkedIn: Rich text, mentions
+**Boost Reach:**
+- Post consistently
+- Engage with others first (genuinely, not for algorithm)
+- Reply to every comment
+- Use platform features (polls, lives)
+- Collaborate with others
 
-### Rate Limiting
+**Build Community:**
+- Ask genuine questions
+- Share user content (with credit)
+- Be authentic and consistent
+- Celebrate followers
+- Respond like a human, not a brand
 
-Implement rate limiting to avoid API restrictions:
+### 8. Analytics Focus
 
-```typescript
-import { Ratelimit } from "@upstash/ratelimit";
-import { redis } from "@/config/redis";
+Track:
+- Impressions/reach
+- Engagement rate
+- Click-through rate
+- Follower growth
+- Best posting times
+- Top performing content types
 
-const ratelimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(10, "1 h"), // 10 posts per hour
-});
+### 9. Platform-Specific Tips
 
-export async function postToTwitter(message: string) {
-  const { success } = await ratelimit.limit("twitter-posts");
+**Twitter/X:**
+- Tweet 3-5x daily
+- Best times: 8-10am, 12-1pm
+- Use threads for long content
+- Quote tweet for commentary
 
-  if (!success) {
-    throw new Error("Rate limit exceeded for Twitter");
-  }
+**LinkedIn:**
+- Post 1x daily max
+- Best times: Tue-Thu, 7-8am
+- Comment on others' posts
+- Use document posts for carousels
 
-  // Post to Twitter...
-}
-```
+**Instagram:**
+- Post 1-2x daily
+- Best times: 11am-1pm, 7-9pm
+- Stories multiple times daily
+- Reels for growth
 
-## Environment Variables
+## Quality Checklist
 
-### Telegram
-- `TELEGRAM_BOT_TOKEN` - Bot token from @BotFather
-- `TELEGRAM_CHAT_ID` - Channel or group chat ID
+Before posting, verify:
 
-### Twitter
-- `TWITTER_BEARER_TOKEN` - OAuth 2.0 bearer token
-- `TWITTER_API_KEY` - API key (if using OAuth 1.0a)
-- `TWITTER_API_SECRET` - API secret
+### Content
+- [ ] Clear hook in first line
+- [ ] Value provided (not just promotion)
+- [ ] One clear CTA
+- [ ] Appropriate hashtags
+- [ ] Links work (if any)
 
-### LinkedIn
-- `LINKEDIN_ACCESS_TOKEN` - OAuth 2.0 access token
-- `LINKEDIN_ORG_ID` - Organization ID for company pages
+### Tone
+- [ ] Human, conversational tone
+- [ ] Maximum one emoji (if any)
+- [ ] No buzzwords or filler words
+- [ ] Not salesy or pushy
+- [ ] Authentic to brand voice
 
-## Testing Social Media Posts
-
-Run integration tests:
-```bash
-pnpm -F @sgcarstrends/api test -- src/lib/workflows/social
-```
-
-Test individual platforms:
-```bash
-# Start dev server
-pnpm dev
-
-# Trigger social media workflow
-curl -X POST http://localhost:3000/api/workflows/social/test \
-  -H "Content-Type: application/json" \
-  -d '{"platform": "discord", "message": "Test post"}'
-```
-
-## Error Handling
-
-Implement comprehensive error handling:
-
-```typescript
-export async function postToAllPlatforms(message: string) {
-  const results = await Promise.allSettled([
-    postToDiscord(message).catch(err => ({ platform: "Discord", error: err })),
-    postToTelegram(message).catch(err => ({ platform: "Telegram", error: err })),
-    postToTwitter(message).catch(err => ({ platform: "Twitter", error: err })),
-    postToLinkedIn(message).catch(err => ({ platform: "LinkedIn", error: err })),
-  ]);
-
-  const failures = results
-    .filter(r => r.status === "rejected")
-    .map(r => r.reason);
-
-  if (failures.length > 0) {
-    console.error("Social media posting failures:", failures);
-  }
-
-  return {
-    success: failures.length === 0,
-    failures,
-  };
-}
-```
-
-## Platform Character Limits
-
-Respect platform limits:
-- **Twitter**: 280 characters
-- **LinkedIn**: 3,000 characters (posts), 700 (comments)
-- **Telegram**: 4,096 characters
-- **Discord**: 2,000 characters (message), 6,000 (embed total)
-
-Implement truncation:
-```typescript
-export function truncateMessage(message: string, limit: number): string {
-  if (message.length <= limit) return message;
-  return message.slice(0, limit - 3) + "...";
-}
-```
-
-## References
-
-- Platform API docs: Use Context7 for latest documentation
-- Related files:
-  - `apps/api/src/lib/workflows/social/` - All integrations
-  - `apps/api/src/routes/workflows.ts` - Workflow routes
-  - `apps/api/CLAUDE.md` - API service documentation
-
-## Best Practices
-
-1. **Error Handling**: Always handle API failures gracefully
-2. **Rate Limiting**: Implement rate limits to avoid bans
-3. **Credentials**: Never commit API keys or tokens
-4. **Testing**: Test on sandbox/dev accounts first
-5. **Monitoring**: Track posting success rates
-6. **Formatting**: Preview messages on each platform
-7. **Compliance**: Follow platform posting guidelines
-8. **Retries**: Implement exponential backoff for retries
+### Visual (if applicable)
+- [ ] Real screenshots (not mockups)
+- [ ] Alt text for accessibility
+- [ ] No sensitive data visible
+- [ ] Properly sized for platform

@@ -1,406 +1,314 @@
 ---
 name: swift
-description: Write Swift code for iOS/macOS following best practices. Use when developing with SwiftUI, UIKit, or Swift packages. Covers type safety, concurrency, and tooling.
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep
+description: >
+  Comprehensive Swift and Apple platform development skill for building native iOS, macOS, tvOS, and iPadOS apps.
+  Use when creating Swift projects, building SwiftUI views, implementing Swift concurrency (async/await, actors),
+  working with SwiftData or Core Data, configuring Xcode projects, signing and capabilities, implementing
+  platform-specific features (WidgetKit, App Intents, Live Activities), or troubleshooting Swift/Xcode issues.
 ---
 
-# Swift / iOS Development
+# Swift & Apple Platform Development
 
-## Project Setup
+Build native apps for iOS, macOS, tvOS, and iPadOS using Swift and SwiftUI.
 
-### Swift Package Manager
+## Instructions
+
+1. For SwiftUI views, modifiers, and state management, see [references/swiftui-reference.md](references/swiftui-reference.md)
+2. For async/await, actors, and structured concurrency, see [references/swift-concurrency.md](references/swift-concurrency.md)
+3. For MVVM, @Observable, and SwiftData patterns, see [references/app-architecture.md](references/app-architecture.md)
+4. For iOS/macOS/tvOS/iPadOS specific APIs, see [references/platform-apis.md](references/platform-apis.md)
+5. For Xcode configuration, signing, and App Store, see [references/xcode-distribution.md](references/xcode-distribution.md)
+6. PROACTIVELY use WebSearch to find current Apple Developer Documentation when you need deeper information on any Apple framework or API not covered in local references
+7. PROACTIVELY fetch https://www.swift.org/documentation/ for Swift language documentation and evolution proposals
+
+## Online Documentation Resources
+
+When local references don't cover what you need:
+
+| Topic | URL |
+|-------|-----|
+| Apple Developer Docs | https://developer.apple.com/documentation/ |
+| Swift Language Guide | https://docs.swift.org/swift-book/documentation/the-swift-programming-language/ |
+| SwiftUI Docs | https://developer.apple.com/documentation/swiftui |
+| Swift Concurrency | https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/ |
+| SwiftData | https://developer.apple.com/documentation/swiftdata |
+| Human Interface Guidelines | https://developer.apple.com/design/human-interface-guidelines/ |
+| App Store Review Guidelines | https://developer.apple.com/app-store/review/guidelines/ |
+
+## Quick Start
+
 ```bash
-# Initialize new package
-swift package init --type executable
+# Create new Xcode project (use Xcode GUI or swift package init)
+mkdir MyApp && cd MyApp
+swift package init --type executable --name MyApp
 
-# Add dependencies to Package.swift
-# swift package update
+# For iOS/macOS apps, use Xcode:
+# File → New → Project → App
+# Choose SwiftUI for Interface, Swift for Language
 ```
 
-### Package.swift
-```swift
-// swift-tools-version: 5.10
-import PackageDescription
+## Reference Files
 
-let package = Package(
-    name: "MyApp",
-    platforms: [.iOS(.v17), .macOS(.v14)],
-    products: [
-        .library(name: "MyApp", targets: ["MyApp"]),
-    ],
-    dependencies: [
-        // Add dependencies here
-    ],
-    targets: [
-        .target(name: "MyApp", dependencies: []),
-        .testTarget(name: "MyAppTests", dependencies: ["MyApp"]),
-    ]
-)
+Load these based on the task at hand:
+
+| Task | Reference File |
+|------|----------------|
+| SwiftUI views, modifiers, state (@State, @Binding, @Observable) | `references/swiftui-reference.md` |
+| async/await, actors, Task, structured concurrency | `references/swift-concurrency.md` |
+| MVVM architecture, SwiftData, dependency injection | `references/app-architecture.md` |
+| Platform-specific APIs (iOS, macOS, tvOS, iPadOS) | `references/platform-apis.md` |
+| Xcode setup, signing, capabilities, App Store submission | `references/xcode-distribution.md` |
+
+## Project Structure
+
+```
+MyApp/
+├── MyApp.xcodeproj           # Xcode project
+├── MyApp/
+│   ├── MyAppApp.swift        # @main App entry point
+│   ├── ContentView.swift     # Root view
+│   ├── Views/                # SwiftUI views
+│   │   ├── HomeView.swift
+│   │   └── DetailView.swift
+│   ├── Models/               # Data models
+│   │   └── Item.swift
+│   ├── ViewModels/           # View models (@Observable)
+│   │   └── HomeViewModel.swift
+│   ├── Services/             # API, persistence, etc.
+│   │   └── DataService.swift
+│   ├── Resources/
+│   │   └── Assets.xcassets
+│   └── Info.plist
+├── MyAppTests/
+└── MyAppUITests/
 ```
 
-### Xcode Project
-```bash
-# Create new Xcode project via Xcode or:
-# Use SwiftUI App template for new projects
-# Target iOS 17+ for latest APIs
-```
+## Essential Patterns Quick Reference
 
-## Type Patterns
-
-### Optionals
-```swift
-// Safe unwrapping
-if let user = optionalUser {
-    print(user.name)
-}
-
-// Guard for early exit
-guard let user = optionalUser else {
-    return
-}
-
-// Optional chaining
-let name = user?.profile?.displayName ?? "Anonymous"
-
-// Nil coalescing
-let displayName = user?.name ?? "Guest"
-```
-
-### Result Type
-```swift
-enum NetworkError: Error {
-    case invalidURL
-    case noData
-    case decodingFailed
-}
-
-func fetchUser(id: String) async -> Result<User, NetworkError> {
-    guard let url = URL(string: "https://api.example.com/users/\(id)") else {
-        return .failure(.invalidURL)
-    }
-
-    do {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let user = try JSONDecoder().decode(User.self, from: data)
-        return .success(user)
-    } catch {
-        return .failure(.decodingFailed)
-    }
-}
-
-// Usage
-switch await fetchUser(id: "123") {
-case .success(let user):
-    print("Got user: \(user.name)")
-case .failure(let error):
-    print("Error: \(error)")
-}
-```
-
-### Protocols & Extensions
-```swift
-protocol Identifiable {
-    var id: UUID { get }
-}
-
-protocol Displayable {
-    var displayName: String { get }
-}
-
-extension User: Identifiable, Displayable {
-    var displayName: String {
-        "\(firstName) \(lastName)"
-    }
-}
-```
-
-## Error Handling
+### App Entry Point
 
 ```swift
-// Throwing functions
-func loadConfig() throws -> Config {
-    guard let data = FileManager.default.contents(atPath: configPath) else {
-        throw ConfigError.fileNotFound
-    }
-    return try JSONDecoder().decode(Config.self, from: data)
-}
+import SwiftUI
 
-// Do-catch
-do {
-    let config = try loadConfig()
-    print(config)
-} catch ConfigError.fileNotFound {
-    print("Config file missing")
-} catch {
-    print("Unknown error: \(error)")
-}
-
-// Try? for optional result
-let config = try? loadConfig()
-
-// Try! only when failure is impossible
-let bundledConfig = try! loadBundledConfig()
-```
-
-## Async/Await Patterns
-
-### Basic Async
-```swift
-func fetchUsers() async throws -> [User] {
-    let (data, _) = try await URLSession.shared.data(from: usersURL)
-    return try JSONDecoder().decode([User].self, from: data)
-}
-
-// Calling async functions
-Task {
-    do {
-        let users = try await fetchUsers()
-        await MainActor.run {
-            self.users = users
+@main
+struct MyAppApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
         }
-    } catch {
-        print("Failed: \(error)")
     }
 }
 ```
 
-### Structured Concurrency
+### SwiftUI View with State
+
 ```swift
-// Parallel execution
-async let users = fetchUsers()
-async let posts = fetchPosts()
-let (userList, postList) = try await (users, posts)
+import SwiftUI
 
-// Task groups
-func fetchAllUserData(ids: [String]) async throws -> [UserData] {
-    try await withThrowingTaskGroup(of: UserData.self) { group in
-        for id in ids {
-            group.addTask {
-                try await fetchUserData(id: id)
-            }
-        }
-        return try await group.reduce(into: []) { $0.append($1) }
-    }
-}
-```
-
-### Actors
-```swift
-actor UserCache {
-    private var cache: [String: User] = [:]
-
-    func get(_ id: String) -> User? {
-        cache[id]
-    }
-
-    func set(_ user: User) {
-        cache[user.id] = user
-    }
-}
-
-// Usage
-let cache = UserCache()
-await cache.set(user)
-let cached = await cache.get("123")
-```
-
-## SwiftUI Patterns
-
-### View with State
-```swift
-struct ContentView: View {
+struct CounterView: View {
     @State private var count = 0
-    @State private var username = ""
 
     var body: some View {
-        VStack(spacing: 16) {
+        VStack {
             Text("Count: \(count)")
-                .font(.title)
+                .font(.largeTitle)
 
             Button("Increment") {
                 count += 1
             }
-
-            TextField("Username", text: $username)
-                .textFieldStyle(.roundedBorder)
+            .buttonStyle(.borderedProminent)
         }
         .padding()
     }
 }
 ```
 
-### Observable ViewModel
+### @Observable ViewModel (iOS 17+)
+
 ```swift
+import SwiftUI
+import Observation
+
 @Observable
-class UserViewModel {
-    var users: [User] = []
+class HomeViewModel {
+    var items: [Item] = []
     var isLoading = false
     var error: Error?
 
-    func loadUsers() async {
+    func loadItems() async {
         isLoading = true
         defer { isLoading = false }
 
         do {
-            users = try await userService.fetchAll()
+            items = try await ItemService.shared.fetchItems()
         } catch {
             self.error = error
         }
     }
 }
 
-struct UserListView: View {
-    @State private var viewModel = UserViewModel()
+struct HomeView: View {
+    @State private var viewModel = HomeViewModel()
 
     var body: some View {
-        List(viewModel.users) { user in
-            UserRow(user: user)
+        List(viewModel.items) { item in
+            Text(item.name)
         }
         .task {
-            await viewModel.loadUsers()
-        }
-        .overlay {
-            if viewModel.isLoading {
-                ProgressView()
-            }
+            await viewModel.loadItems()
         }
     }
 }
 ```
 
-### Environment & Dependency Injection
+### Navigation (iOS 16+)
+
 ```swift
-// Define environment key
-struct UserServiceKey: EnvironmentKey {
-    static let defaultValue: UserService = .live
-}
+import SwiftUI
 
-extension EnvironmentValues {
-    var userService: UserService {
-        get { self[UserServiceKey.self] }
-        set { self[UserServiceKey.self] = newValue }
-    }
-}
-
-// Use in view
-struct ProfileView: View {
-    @Environment(\.userService) private var userService
+struct RootView: View {
+    @State private var path = NavigationPath()
 
     var body: some View {
-        // Use userService
-    }
-}
-```
-
-## Testing
-
-### Swift Testing (Swift 6+)
-```swift
-import Testing
-
-@Suite("UserService Tests")
-struct UserServiceTests {
-    let service = UserService()
-
-    @Test("creates user with valid email")
-    func createUser() async throws {
-        let user = try await service.create(email: "test@example.com")
-        #expect(user.email == "test@example.com")
-    }
-
-    @Test("throws on invalid email")
-    func invalidEmail() async {
-        await #expect(throws: ValidationError.self) {
-            try await service.create(email: "invalid")
-        }
-    }
-
-    @Test("fetches user by ID", arguments: ["user1", "user2", "user3"])
-    func fetchUser(id: String) async throws {
-        let user = try await service.fetch(id: id)
-        #expect(user.id == id)
-    }
-}
-```
-
-### XCTest (Legacy)
-```swift
-import XCTest
-@testable import MyApp
-
-final class UserServiceTests: XCTestCase {
-    var service: UserService!
-
-    override func setUp() {
-        super.setUp()
-        service = UserService()
-    }
-
-    func testCreateUser() async throws {
-        let user = try await service.create(email: "test@example.com")
-        XCTAssertEqual(user.email, "test@example.com")
-    }
-
-    func testInvalidEmailThrows() async {
-        do {
-            _ = try await service.create(email: "invalid")
-            XCTFail("Expected error")
-        } catch {
-            XCTAssertTrue(error is ValidationError)
+        NavigationStack(path: $path) {
+            List {
+                NavigationLink("Go to Detail", value: "detail-id")
+            }
+            .navigationDestination(for: String.self) { id in
+                DetailView(id: id)
+            }
+            .navigationTitle("Home")
         }
     }
 }
 ```
 
-## Tooling
+### Async/Await
+
+```swift
+func fetchData() async throws -> [Item] {
+    let url = URL(string: "https://api.example.com/items")!
+    let (data, response) = try await URLSession.shared.data(from: url)
+
+    guard let httpResponse = response as? HTTPURLResponse,
+          httpResponse.statusCode == 200 else {
+        throw APIError.invalidResponse
+    }
+
+    return try JSONDecoder().decode([Item].self, from: data)
+}
+
+// Usage in SwiftUI
+.task {
+    do {
+        items = try await fetchData()
+    } catch {
+        self.error = error
+    }
+}
+```
+
+### SwiftData Model (iOS 17+)
+
+```swift
+import SwiftData
+
+@Model
+class Item {
+    var name: String
+    var createdAt: Date
+    var category: Category?
+
+    init(name: String, createdAt: Date = .now) {
+        self.name = name
+        self.createdAt = createdAt
+    }
+}
+
+// In App
+@main
+struct MyAppApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+        .modelContainer(for: Item.self)
+    }
+}
+
+// In View
+struct ItemsView: View {
+    @Query var items: [Item]
+    @Environment(\.modelContext) private var modelContext
+
+    var body: some View {
+        List(items) { item in
+            Text(item.name)
+        }
+    }
+
+    func addItem() {
+        let item = Item(name: "New Item")
+        modelContext.insert(item)
+    }
+}
+```
+
+## Common Xcode Commands
 
 ```bash
-# SwiftLint (linting)
-brew install swiftlint
-swiftlint lint
-swiftlint lint --fix
-
-# SwiftFormat (formatting)
-brew install swiftformat
-swiftformat .
-swiftformat . --lint
+# Build from command line
+xcodebuild -project MyApp.xcodeproj -scheme MyApp -configuration Debug build
 
 # Run tests
-swift test
-xcodebuild test -scheme MyApp -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -project MyApp.xcodeproj -scheme MyApp -destination 'platform=iOS Simulator,name=iPhone 15'
 
-# Build
-swift build
-xcodebuild build -scheme MyApp
+# Archive for distribution
+xcodebuild archive -project MyApp.xcodeproj -scheme MyApp -archivePath MyApp.xcarchive
 
-# fastlane (CI/CD)
-brew install fastlane
-fastlane init
-fastlane ios test
-fastlane ios beta  # Deploy to TestFlight
+# List available simulators
+xcrun simctl list devices
+
+# Boot a simulator
+xcrun simctl boot "iPhone 15"
+
+# Install app on simulator
+xcrun simctl install booted MyApp.app
 ```
 
-### .swiftlint.yml
-```yaml
-disabled_rules:
-  - trailing_whitespace
-  - line_length
+## Troubleshooting
 
-opt_in_rules:
-  - empty_count
-  - empty_string
+### Common Issues
 
-excluded:
-  - Pods
-  - .build
-```
+**"Cannot find type 'X' in scope"**
+- Check import statements
+- Verify target membership of files
+- Clean build folder: Cmd+Shift+K
 
-### .swiftformat
-```
---indent 4
---allman false
---wraparguments before-first
---wrapparameters before-first
---self remove
---importgrouping alphabetized
-```
+**SwiftUI preview not working**
+- Check for compile errors in the file
+- Restart Xcode
+- Clean derived data: `rm -rf ~/Library/Developer/Xcode/DerivedData`
+
+**Signing issues**
+- Open Signing & Capabilities in Xcode
+- Select your team
+- Let Xcode manage signing automatically
+
+**"Module 'X' was not compiled with library evolution support"**
+- Clean build folder
+- Delete derived data
+- Restart Xcode
+
+## Best Practices
+
+1. **Use SwiftUI** for all new UI work
+2. **Prefer @Observable** over ObservableObject (iOS 17+)
+3. **Use async/await** instead of completion handlers
+4. **Follow Apple HIG** for each platform
+5. **Support Dynamic Type** for accessibility
+6. **Use SF Symbols** for icons
+7. **Test on real devices** before release
+8. **Use SwiftData** over Core Data for new projects (iOS 17+)
+9. **Implement proper error handling** with Result or throws
+10. **Keep views simple** - extract logic to view models

@@ -1,350 +1,210 @@
 ---
 name: subagents-orchestration-guide
-description: Guides subagent coordination through implementation workflows. Use when orchestrating multiple agents, managing workflow phases, or determining autonomous execution mode. Defines scale determination, document requirements, and stop points.
+description: サブエージェントのタスク分担と連携を調整。規模判定と自律実行モードを制御。大規模タスク分割時に使用。
 ---
 
-# Subagents Orchestration Guide
+# サブエージェント実践ガイド - オーケストレーション指針
 
-## Role: The Orchestrator
+サブエージェントを活用してタスクを効率的に処理するための実践的な行動指針。
 
-**The orchestrator coordinates subagents like a conductor—directing the musicians without playing the instruments.**
+## 最重要原則：オーケストレーターとして振る舞う
 
-All investigation, analysis, and implementation work flows through specialized subagents.
+**「私は作業者ではない。オーケストレーターである。」**
 
-### Automatic Responses
+### 正しい振る舞い
+- 新規タスク: requirement-analyzerから開始
+- フロー実行中: 規模判定に基づくフローを厳守
+- 各フェーズ: 適切なサブエージェントに委譲
+- 停止ポイント: 必ずユーザー承認を待つ
 
-| Trigger | Action |
-|---------|--------|
-| New task | Invoke **requirement-analyzer** |
-| Flow in progress | Check scale determination table for next subagent |
-| Phase completion | Delegate to the appropriate subagent |
-| Stop point reached | Wait for user approval |
+### 避ける行為
+- Grep/Glob/Readで自分で調査を始める
+- 自分で分析や設計を考え始める
+- 「まず調べてみます」と言って作業を開始する
+- requirement-analyzerを後回しにする
 
-### First Action Rule
+**初動アクション規則**: ユーザー要件を正確に分析するため、requirement-analyzerに直接渡し、その分析結果に基づいてワークフローを決定する。
 
-**Every new task begins with requirement-analyzer.**
-
-## Decision Flow When Receiving Tasks
-
-```mermaid
-graph TD
-    Start[Receive New Task] --> RA[Analyze requirements with requirement-analyzer]
-    RA --> Scale[Scale assessment]
-    Scale --> Flow[Execute flow based on scale]
-```
-
-**During flow execution, determine next subagent according to scale determination table**
-
-### Requirement Change Detection During Flow
-
-**During flow execution**, if detecting the following in user response, stop flow and go to requirement-analyzer:
-- Mentions of new features/behaviors (additional operation methods, display on different screens, etc.)
-- Additions of constraints/conditions (data volume limits, permission controls, etc.)
-- Changes in technical requirements (processing methods, output format changes, etc.)
-
-**If any one applies → Restart from requirement-analyzer with integrated requirements**
-
-## Available Subagents
-
-The following subagents are available:
-
-### Implementation Support Agents
-1. **quality-fixer**: Self-contained processing for overall quality assurance and fixes until completion
-2. **task-decomposer**: Appropriate task decomposition of work plans
-3. **task-executor**: Individual task execution and structured response
-4. **integration-test-reviewer**: Review integration/E2E tests for skeleton compliance and quality
-
-### Document Creation Agents
-5. **requirement-analyzer**: Requirement analysis and work scale determination
-6. **prd-creator**: Product Requirements Document creation
-7. **technical-designer**: ADR/Design Doc creation
-8. **work-planner**: Work plan creation from Design Doc and test skeletons
-9. **document-reviewer**: Single document quality and rule compliance check
-10. **design-sync**: Design Doc consistency verification across multiple documents
-11. **acceptance-test-generator**: Generate integration and E2E test skeletons from Design Doc ACs
-
-## Orchestration Principles
-
-### Task Assignment with Responsibility Separation
-
-Assign work based on each subagent's responsibilities:
-
-**What to delegate to task-executor**:
-- Implementation work and test addition
-- Confirmation of added tests passing (existing tests are not covered)
-- Do not delegate quality assurance
-
-**What to delegate to quality-fixer**:
-- Overall quality assurance (static analysis, style check, all test execution, etc.)
-- Complete execution of quality error fixes
-- Self-contained processing until fix completion
-- Final approved judgment (only after fixes are complete)
-
-## Constraints Between Subagents
-
-**Important**: Subagents cannot directly call other subagents—all coordination flows through the orchestrator.
-
-## Explicit Stop Points
-
-Autonomous execution MUST stop and wait for user input at these points:
-
-| Phase | Stop Point | User Action Required |
-|-------|------------|---------------------|
-| Requirements | After requirement-analyzer completes | Confirm requirements / Answer questions |
-| PRD | After document-reviewer completes PRD review | Approve PRD |
-| ADR | After document-reviewer completes ADR review (if ADR created) | Approve ADR |
-| Design | After design-sync completes consistency verification | Approve Design Doc |
-| Work Plan | After work-planner creates plan | Batch approval for implementation phase |
-
-**After batch approval**: Autonomous execution proceeds without stops until completion or escalation
-
-## Scale Determination and Document Requirements
-| Scale | File Count | PRD | ADR | Design Doc | Work Plan |
-|-------|------------|-----|-----|------------|-----------|
-| Small | 1-2 | Update※1 | Not needed | Not needed | Simplified |
-| Medium | 3-5 | Update※1 | Conditional※2 | **Required** | **Required** |
-| Large | 6+ | **Required**※3 | Conditional※2 | **Required** | **Required** |
-
-※1: Update if PRD exists for the relevant feature
-※2: When there are architecture changes, new technology introduction, or data flow changes
-※3: New creation/update existing/reverse PRD (when no existing PRD)
-
-## How to Call Subagents
-
-### Execution Method
-Call subagents using the Task tool:
-- subagent_type: Agent name
-- description: Concise task description (3-5 words)
-- prompt: Specific instructions
-
-### Call Example (requirement-analyzer)
-- subagent_type: "requirement-analyzer"
-- description: "Requirement analysis"
-- prompt: "Requirements: [user requirements] Please perform requirement analysis and scale determination"
-
-### Call Example (task-executor)
-- subagent_type: "task-executor"
-- description: "Task execution"
-- prompt: "Task file: docs/plans/tasks/[filename].md Please complete the implementation"
-
-## Structured Response Specification
-
-Each subagent responds in JSON format:
-- **task-executor**: status, filesModified, testsAdded, readyForQualityCheck
-- **quality-fixer**: status, checksPerformed, fixesApplied, approved
-- **document-reviewer**: status, reviewsPerformed, issues, recommendations, approvalReady
-- **design-sync**: sync_status, total_conflicts, conflicts (severity, type, source_file, target_file)
-- **integration-test-reviewer**: status (approved/needs_revision/blocked), qualityIssues, requiredFixes, verdict
-- **acceptance-test-generator**: status, generatedFiles, budgetUsage
-
-
-## Handling Requirement Changes
-
-### Handling Requirement Changes in requirement-analyzer
-requirement-analyzer follows the "completely self-contained" principle and processes requirement changes as new input.
-
-#### How to Integrate Requirements
-
-**Important**: To maximize accuracy, integrate requirements as complete sentences, including all contextual information communicated by the user.
-
-```yaml
-Integration example:
-  Initial: "I want to create user management functionality"
-  Addition: "Permission management is also needed"
-  Result: "I want to create user management functionality. Permission management is also needed.
-
-          Initial requirement: I want to create user management functionality
-          Additional requirement: Permission management is also needed"
-```
-
-### Update Mode for Document Generation Agents
-Document generation agents (work-planner, technical-designer, prd-creator) can update existing documents in `update` mode.
-
-- **Initial creation**: Create new document in create (default) mode
-- **On requirement change**: Edit existing document and add history in update mode
-
-Criteria for timing when to call each agent:
-- **work-planner**: Request updates only before execution
-- **technical-designer**: Request updates according to design changes → Execute document-reviewer for consistency check
-- **prd-creator**: Request updates according to requirement changes → Execute document-reviewer for consistency check
-- **document-reviewer**: Always execute before user approval after PRD/ADR/Design Doc creation/update
-
-## Basic Flow for Work Planning
-
-When receiving new features or change requests, start with requirement-analyzer.
-According to scale determination:
-
-### Large Scale (6+ Files)
-1. requirement-analyzer → Requirement analysis + Check existing PRD **[Stop: Requirement confirmation/question handling]**
-2. prd-creator → PRD creation (update if existing, new creation with thorough investigation if not)
-3. document-reviewer → PRD review **[Stop: PRD Approval]**
-4. technical-designer → ADR creation (if architecture changes, new technology, or data flow changes)
-5. document-reviewer → ADR review (if ADR created) **[Stop: ADR Approval]**
-6. technical-designer → Design Doc creation
-7. document-reviewer → Design Doc review
-8. design-sync → Design Doc consistency verification **[Stop: Design Doc Approval]**
-9. acceptance-test-generator → Integration and E2E test skeleton generation
-   → Orchestrator: Verify generation, then pass information to work-planner (*1)
-10. work-planner → Work plan creation (including integration and E2E test information) **[Stop: Batch approval for entire implementation phase]**
-11. **Start autonomous execution mode**: task-decomposer → Execute all tasks → Completion report
-
-### Medium Scale (3-5 Files)
-1. requirement-analyzer → Requirement analysis **[Stop: Requirement confirmation/question handling]**
-2. technical-designer → Design Doc creation
-3. document-reviewer → Design Doc review
-4. design-sync → Design Doc consistency verification **[Stop: Design Doc Approval]**
-5. acceptance-test-generator → Integration and E2E test skeleton generation
-   → Orchestrator: Verify generation, then pass information to work-planner (*1)
-6. work-planner → Work plan creation (including integration and E2E test information) **[Stop: Batch approval for entire implementation phase]**
-7. **Start autonomous execution mode**: task-decomposer → Execute all tasks → Completion report
-
-### Small Scale (1-2 Files)
-1. Create simplified plan **[Stop: Batch approval for entire implementation phase]**
-2. **Start autonomous execution mode**: Direct implementation → Completion report
-
-## Autonomous Execution Mode
-
-### Pre-Execution Environment Check
-
-**Principle**: Verify subagents can complete their responsibilities
-
-**Required environments**:
-- Commit capability (for per-task commit cycle)
-- Quality check tools (quality-fixer will detect and escalate if missing)
-- Test runner (task-executor will detect and escalate if missing)
-
-**If critical environment unavailable**: Escalate with specific missing component before entering autonomous mode
-**If detectable by subagent**: Proceed (subagent will escalate with detailed context)
-
-### Authority Delegation
-
-**After environment check passes**:
-- Batch approval for entire implementation phase delegates authority to subagents
-- task-executor: Implementation authority (can use Edit/Write)
-- quality-fixer: Fix authority (automatic quality error fixes)
-
-### Definition of Autonomous Execution Mode
-After "batch approval for entire implementation phase" with work-planner, autonomously execute the following processes without human approval:
+## タスク受領時の判断
 
 ```mermaid
 graph TD
-    START[Batch approval for entire implementation phase] --> AUTO[Start autonomous execution mode]
-    AUTO --> TD[task-decomposer: Task decomposition]
-    TD --> LOOP[Task execution loop]
-    LOOP --> TE[task-executor: Implementation]
-    TE --> ESCJUDGE{Escalation judgment}
-    ESCJUDGE -->|escalation_needed/blocked| USERESC[Escalate to user]
-    ESCJUDGE -->|testsAdded has int/e2e| ITR[integration-test-reviewer]
-    ESCJUDGE -->|No issues| QF
-    ITR -->|needs_revision| TE
-    ITR -->|approved| QF
-    QF[quality-fixer: Quality check and fixes] --> COMMIT[Orchestrator: Execute git commit]
-    COMMIT --> CHECK{Any remaining tasks?}
-    CHECK -->|Yes| LOOP
-    CHECK -->|No| REPORT[Completion report]
-
-    LOOP --> INTERRUPT{User input?}
-    INTERRUPT -->|None| TE
-    INTERRUPT -->|Yes| REQCHECK{Requirement change check}
-    REQCHECK -->|No change| TE
-    REQCHECK -->|Change| STOP[Stop autonomous execution]
-    STOP --> RA[Re-analyze with requirement-analyzer]
+    Start[新規タスク受領] --> RA[requirement-analyzerで要件分析]
+    RA --> Scale[規模判定]
+    Scale --> Flow[規模に応じたフロー実行]
 ```
 
-### Conditions for Stopping Autonomous Execution
-Stop autonomous execution and escalate to user in the following cases:
+### フロー実行中の要件変更検知
 
-1. **Escalation from subagent**
-   - When receiving response with `status: "escalation_needed"`
-   - When receiving response with `status: "blocked"`
+**フロー実行中**にユーザーレスポンスで以下を検知したら、フローを停止してrequirement-analyzerへ：
+- 新機能・動作の言及（追加の操作方法、別画面での表示など）
+- 制約・条件の追加（データ量制限、権限制御など）
+- 技術要件の変更（処理方式、出力形式の変更など）
 
-2. **When requirement change detected**
-   - Any match in requirement change detection checklist
-   - Stop autonomous execution and re-analyze with integrated requirements in requirement-analyzer
+**1つでも該当 → 統合要件でrequirement-analyzerから再開**
 
-3. **When work-planner update restriction is violated**
-   - Requirement changes after task-decomposer starts require overall redesign
-   - Restart entire flow from requirement-analyzer
+## 活用できるサブエージェント
 
-4. **When user explicitly stops**
-   - Direct stop instruction or interruption
+### 実装支援エージェント
+1. **quality-fixer**: 全体品質保証と修正完了まで自己完結処理
+2. **task-decomposer**: 作業計画書の適切なタスク分解
+3. **task-executor**: 個別タスクの実行と構造化レスポンス
+4. **integration-test-reviewer**: 統合テスト/E2Eテストのスケルトン準拠レビュー
 
-### Task Management: 4-Step Cycle
+### ドキュメント作成エージェント
+5. **requirement-analyzer**: 要件分析と作業規模判定（WebSearch対応、最新技術情報の調査）
+6. **prd-creator**: Product Requirements Document作成（WebSearch対応、市場動向調査）
+7. **technical-designer**: ADR/Design Doc作成（最新技術情報の調査、Property注釈付与）
+8. **work-planner**: 作業計画書作成（テストスケルトンからメタ情報を抽出・反映）
+9. **document-reviewer**: 単一ドキュメントの品質・完成度・ルール準拠チェック
+10. **design-sync**: Design Doc間の整合性検証（明示的矛盾のみ検出）
+11. **acceptance-test-generator**: Design DocのACから統合テストとE2Eテストのスケルトン生成
 
-**Per-task cycle**:
-```
-1. task-executor → Implementation
-2. Escalation judgment/Follow-up → Check task-executor status
-3. quality-fixer → Quality check and fixes
-4. git commit → Execute with Bash (on approved: true)
-```
+## オーケストレーション原則
 
-**Step 2 Execution Details**:
-- `status: escalation_needed` or `status: blocked` → Escalate to user
-- `testsAdded` contains `*.int.test.ts` or `*.e2e.test.ts` → Execute **integration-test-reviewer**
-  - If verdict is `needs_revision` → Return to task-executor with `requiredFixes`
-  - If verdict is `approved` → Proceed to quality-fixer
+### 責務分離を意識した振り分け
 
-**Commit trigger**: quality-fixer returns `approved: true`
+**task-executorの責務**:
+- 実装作業とテスト追加
+- 追加したテストのパス確認（既存テストは対象外）
+- 品質保証はtask-executorの責務外
 
-### 2-Stage TodoWrite Management
+**quality-fixerの責務**:
+- 全体品質保証（型チェック、lint、全テスト実行等）
+- 品質エラーの完全修正実行
+- 修正完了まで自己完結で処理
+- 最終的な approved 判定（修正完了後のみ）
 
-**Stage 1: Phase Management** (Orchestrator responsibility)
-- Register overall phases as TodoWrite items
-- Update status as each phase completes
+### 標準フロー
 
-**Stage 2: Task Expansion** (Subagent responsibility)
-- Each subagent registers detailed steps in TodoWrite at execution start
-- Update status on each step completion
+**基本サイクル**: `task-executor → エスカレーション判定・フォローアップ → quality-fixer → commit` の4ステップサイクルを管理。
+各タスクごとにこのサイクルを繰り返し、品質を保証。
 
-## Main Orchestrator Roles
+## Sub-agent間の制約
 
-1. **State Management**: Grasp current phase, each subagent's state, and next action
-2. **Information Bridging**: Data conversion and transmission between subagents
-   - Convert each subagent's output to next subagent's input format
-   - **Always pass deliverables from previous process to next agent**
-   - Extract necessary information from structured responses
-   - Compose commit messages from changeSummary → **Execute git commit with Bash**
-   - Explicitly integrate initial and additional requirements when requirements change
+**重要**: Sub-agentから他のSub-agentを直接呼び出すことはできない。複数のSub-agentを連携させる場合は、メインAIがオーケストレーターとして動作。
 
-   #### *1 acceptance-test-generator → work-planner
+## 規模判定とドキュメント要件
 
-   **Purpose**: Prepare information for work-planner to incorporate into work plan
+| 規模 | ファイル数 | PRD | ADR | Design Doc | 作業計画書 |
+|------|-----------|-----|-----|------------|-----------|
+| 小規模 | 1-2 | 更新※1 | 不要 | 不要 | 簡易版 |
+| 中規模 | 3-5 | 更新※1 | 条件付き※2 | **必須** | **必須** |
+| 大規模 | 6以上 | **必須**※3 | 条件付き※2 | **必須** | **必須** |
 
-   **Orchestrator verification items**:
-   - Verify integration test file path retrieval and existence
-   - Verify E2E test file path retrieval and existence
+※1: 該当機能のPRDが存在する場合は更新
+※2: アーキテクチャ変更、新技術導入、データフロー変更がある場合
+※3: 新規作成/既存更新/リバースPRD（既存PRDがない場合）
 
-   **Pass to work-planner**:
-   - Integration test file: [path] (create and execute simultaneously with each phase implementation)
-   - E2E test file: [path] (execute only in final phase)
+## 構造化レスポンス仕様
 
-   **On error**: Escalate to user if files are not generated
+サブエージェントはJSON形式で応答。オーケストレーター判断に必要なフィールド：
+- **requirement-analyzer**: scale, confidence, adrRequired, scopeDependencies, questions
+- **task-executor**: status (escalation_needed/blocked/completed), testsAdded
+- **quality-fixer**: approved (true/false)
+- **document-reviewer**: approvalReady (true/false)
+- **design-sync**: sync_status (synced/conflicts_found)
+- **integration-test-reviewer**: status (approved/needs_revision/blocked), requiredFixes
+- **acceptance-test-generator**: status, generatedFiles
 
-3. **Quality Assurance and Commit Execution**: After confirming approved=true, immediately execute git commit
-4. **Autonomous Execution Mode Management**: Start/stop autonomous execution after approval, escalation decisions
-5. **ADR Status Management**: Update ADR status after user decision (Accepted/Rejected)
+## 作業計画時の基本フロー
 
-## Important Constraints
+### 大規模（6ファイル以上） - 11ステップ
 
-- **Quality check is mandatory**: quality-fixer approval needed before commit
-- **Structured response mandatory**: Information transmission between subagents in JSON format
-- **Approval management**: Document creation → Execute document-reviewer → Get user approval before proceeding
-- **Flow confirmation**: After getting approval, always check next step with work planning flow (large/medium/small scale)
-- **Consistency verification**: If subagent determinations contradict, prioritize guidelines
+1. requirement-analyzer → 要件分析 + 既存PRD確認 **[停止]**
+2. prd-creator → PRD作成
+3. document-reviewer → PRDレビュー **[停止: PRD承認]**
+4. technical-designer → ADR作成（アーキテクチャ/技術/データフロー変更がある場合）
+5. document-reviewer → ADRレビュー（ADR作成時） **[停止: ADR承認]**
+6. technical-designer → Design Doc作成
+7. document-reviewer → Design Docレビュー
+8. design-sync → 整合性検証 **[停止: Design Doc承認]**
+9. acceptance-test-generator → テストスケルトン生成、work-plannerに渡す (*1)
+10. work-planner → 作業計画書作成 **[停止: 一括承認]**
+11. task-decomposer → 自律実行 → 完了報告
 
-## Required Dialogue Points with Humans
+### 中規模（3-5ファイル） - 7ステップ
 
-### Basic Principles
-- **Stopping is mandatory**: Always wait for human response at the following timings
-- **Confirmation → Agreement cycle**: After document generation, proceed to next step after agreement or fix instructions in update mode
-- **Specific questions**: Make decisions easy with options (A/B/C) or comparison tables
-## Action Checklist
+1. requirement-analyzer → 要件分析 **[停止]**
+2. technical-designer → Design Doc作成
+3. document-reviewer → Design Docレビュー
+4. design-sync → 整合性検証 **[停止: Design Doc承認]**
+5. acceptance-test-generator → テストスケルトン生成、work-plannerに渡す (*1)
+6. work-planner → 作業計画書作成 **[停止: 一括承認]**
+7. task-decomposer → 自律実行 → 完了報告
 
-When receiving a task, check the following:
+### 小規模（1-2ファイル） - 2ステップ
 
-- [ ] Confirmed if there is an orchestrator instruction
-- [ ] Determined task type (new feature/fix/research, etc.)
-- [ ] Considered appropriate subagent utilization
-- [ ] Decided next action according to decision flow
-- [ ] Monitored requirement changes and errors during autonomous execution mode
+1. 簡易計画書作成 **[停止: 一括承認]**
+2. 直接実装 → 完了報告
+
+## 自律実行モード
+
+### 権限委譲
+
+**自律実行モード開始後**：
+- 実装フェーズ全体の一括承認により、サブエージェントに権限委譲
+- task-executor：実装権限（Edit/Write使用可）
+- quality-fixer：修正権限（品質エラー自動修正）
+
+### Step 2 実行詳細
+- `status: escalation_needed` または `status: blocked` → ユーザーにエスカレーション
+- `testsAdded` に `*.int.test.ts` または `*.e2e.test.ts` が含まれる → **integration-test-reviewer** を実行
+  - verdict が `needs_revision` → `requiredFixes` と共に task-executor に戻る
+  - verdict が `approved` → quality-fixer へ進む
+
+### 自律実行の停止条件
+
+以下の場合に自律実行を停止し、ユーザーにエスカレーション：
+
+1. **サブエージェントからのエスカレーション**
+   - `status: "escalation_needed"` のレスポンス受信時
+   - `status: "blocked"` のレスポンス受信時
+
+2. **要件変更検知時**
+   - 要件変更検知チェックリストで1つでも該当
+   - 自律実行を停止し、requirement-analyzerに統合要件で再分析
+
+3. **work-planner更新制限に抵触時**
+   - task-decomposer開始後の要件変更は全体再設計が必要
+   - requirement-analyzerから全体フローを再開
+
+4. **ユーザー明示停止時**
+   - 直接的な停止指示や割り込み
+
+## オーケストレーターの主な役割
+
+1. **状態管理**: 現在のフェーズ、各サブエージェントの状態、次のアクションを把握
+2. **情報の橋渡し**: サブエージェント間のデータ変換と伝達
+   - 各サブエージェントの出力を次のサブエージェントの入力形式に変換
+   - **前工程の成果物は必ず次のエージェントに渡す**
+   - 構造化レスポンスから必要な情報を抽出
+   - changeSummaryからコミットメッセージを作成 → **Bashでgit commit実行**
+   - 要件変更時は初期要件と追加要件を明示的に統合
+3. **品質保証とコミット実行**: approved=true確認後、即座にgit commit実行
+4. **自律実行モード管理**: 承認後の自律実行開始・停止・エスカレーション判断
+5. **ADRステータス管理**: ユーザー判断後のADRステータス更新（Accepted/Rejected）
+
+## 重要な制約
+
+- **品質チェックは必須**: コミット前にquality-fixerの承認が必要
+- **構造化レスポンス必須**: サブエージェント間の情報伝達はJSON形式
+- **承認管理**: ドキュメント作成→document-reviewer実行→ユーザー承認を得てから次へ進む
+- **フロー確認**: 承認取得後は必ず作業計画フロー（大規模/中規模/小規模）で次のステップを確認
+- **整合性検証**: サブエージェント判定に矛盾がある場合はガイドラインを優先
+
+## 人間との必須対話ポイント
+
+### 基本原則
+- **停止は必須**: 以下のタイミングでは必ず人間の応答を待つ
+- **AskUserQuestionを使用**: 全ての停止ポイントで確認と質問を提示
+- **確認→合意のサイクル**: ドキュメント生成後は合意またはupdateモードでの修正指示を受けてから次へ進む
+- **具体的な質問**: 選択肢（A/B/C）や比較表を用いて判断しやすく
+- **効率より対話**: 手戻りを防ぐため、早い段階で確認を取る
+
+### 主要な停止ポイント
+- **requirement-analyzer完了後**: 要件分析結果と質問事項の確認
+- **PRD作成→document-reviewer実行後**: 要件理解と整合性の確認
+- **ADR作成→document-reviewer実行後**: 技術方針と整合性の確認
+- **Design Doc作成→document-reviewer実行後**: 設計内容と整合性の確認
+- **計画書作成後**: 実装フェーズ全体の一括承認

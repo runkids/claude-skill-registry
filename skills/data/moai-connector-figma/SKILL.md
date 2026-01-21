@@ -3,13 +3,13 @@ name: moai-connector-figma
 description: Design System & UI Kit Development with Figma 2025, Design Tokens, and Component Documentation
 version: 1.0.0
 modularized: true
-tags:
-  - architecture
+last_updated: 2025-11-30
+compliance_score: 70
+auto_trigger_keywords:
+  - authentication
+  - connector
   - figma
-  - enterprise
-  - patterns
-updated: 2025-11-26
-status: active
+color: red
 ---
 
 ## Quick Reference (30 seconds)
@@ -204,4 +204,3 @@ Design-to-development workflow:
 
 **Skills**: Skill("moai-lang-unified"), Skill("moai-lang-html-css"), Skill("moai-system-universal")
 **Auto-loads**: Design system files, Figma projects
-

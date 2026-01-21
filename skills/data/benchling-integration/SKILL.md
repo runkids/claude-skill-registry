@@ -1,19 +1,10 @@
 ---
 name: benchling-integration
-display_name: Benchling Integration
 description: Benchling R&D platform integration. Access registry (DNA, proteins), inventory, ELN entries, workflows via API, build Benchling Apps, query Data Warehouse, for lab data management automation.
-version: 1.0.0
-author: K-Dense Inc.
 license: Unknown
-tags: ["lab-automation", "integration", "workflow"]
-category: lab-automation
-allowed_tools: ["code_execute", "web_search", "read_url"]
-max_iterations: 30
-timeout: 600
-enabled: true
-match_threshold: 0.7
-priority: 5
-source: K-Dense-AI/claude-scientific-skills
+compatibility: Requires a Benchling account and API key
+metadata:
+    skill-author: K-Dense Inc.
 ---
 
 # Benchling Integration

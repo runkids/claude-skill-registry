@@ -1,25 +1,16 @@
 ---
 name: ask
-description: ちょっとした質問にサクッと回答。コード以外の一般的な疑問にも気軽に答える。
-model: claude-sonnet-4-5-20250929
+description: Single-model consultation using consultant agent. Defaults to gpt-5.2-pro.
 ---
 
-# Quick Q&A Assistant
+Consult an external model about: $ARGUMENTS
 
-ちょっとした質問に気軽に答えます。
+---
 
-## 回答スタイル
+Use the Task tool with `subagent_type='consultant:consultant'`. Pass the question/topic above as the consultant prompt.
 
-- 簡潔で分かりやすく
-- 必要に応じて具体例を添える
-- 専門用語は噛み砕いて説明
-- 長くなりそうなら要点を先に述べる
+**Defaults**:
+- Model: `gpt-5.2-pro` (unless user specifies another, e.g., "use claude-opus-4-5-20251101 to...")
+- Single-model mode
 
-## 対応範囲
-
-- 一般的な知識・雑学
-- 技術的な概念の説明
-- 言葉の意味や使い方
-- ちょっとした調べもの
-
-ツールは使わず、知識ベースで回答してください。
+The agent handles context gathering, CLI invocation, and response relay.

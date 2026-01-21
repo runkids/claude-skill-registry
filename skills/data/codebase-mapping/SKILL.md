@@ -1,60 +1,93 @@
 ---
 name: codebase-mapping
-description: Generate structured codebase maps with dependency graphs, file
-  relationships, and architectural patterns. Use when exploring unfamiliar
-  codebases or documenting project structure.
+description: Repository structure and dependency analysis for understanding a codebase's architecture. Use when needing to (1) generate a file tree or structure map, (2) analyze import/dependency graphs, (3) identify entry points and module boundaries, (4) understand the overall layout of an unfamiliar codebase, or (5) prepare for deeper architectural analysis.
 ---
 
-# Codebase Mapping Skill
+# Codebase Mapping
 
-## Purpose
-Produce consistent, structured documentation of codebase organization.
+Maps repository structure and dependencies to enable targeted architectural analysis.
 
-## When to Use
-- Starting work on unfamiliar project
-- Onboarding new team members
-- Documenting architecture decisions
-- Before major refactoring
+## Quick Start
 
-## Output Template
-Use the template in [templates/structure-report.md](templates/structure-report.md)
+Generate a structural map:
 
-## Mapping Process
-
-### Step 1: Project Identification
-Identify project type from configuration files:
-- `package.json` → Node.js
-- `pyproject.toml` / `setup.py` → Python
-- `go.mod` → Go
-- `Cargo.toml` → Rust
-- `pom.xml` / `build.gradle` → Java
-
-### Step 2: Structure Analysis
-Map directories to their purposes:
-- `src/` or `lib/` → Source code
-- `tests/` or `__tests__/` → Test files
-- `docs/` → Documentation
-- `scripts/` → Build/utility scripts
-- `config/` → Configuration files
-
-### Step 3: Dependency Graph
-Create simplified dependency visualization:
-```
-Entry Point
-├── Core Module A
-│   ├── Utility 1
-│   └── Utility 2
-├── Core Module B
-│   └── External Lib
-└── Shared Components
+```bash
+python scripts/map_codebase.py /path/to/repo --output structure.json
 ```
 
-### Step 4: Key Files
-Identify and document:
-- Entry points (main.ts, index.js, app.py)
-- Configuration (tsconfig, eslint, etc.)
-- Environment handling
-- Build configuration
+## Process
 
-## Storage Location
-Save output to: `docs/research/codebase-map-{date}.md`
+1. **Clone or access** the target repository
+2. **Generate file tree** excluding noise (node_modules, __pycache__, .git, etc.)
+3. **Parse imports** to build dependency graph
+4. **Identify entry points** (main.py, index.ts, setup.py, pyproject.toml)
+5. **Detect boundaries** - package structure and public APIs
+
+## Output Artifacts
+
+The skill produces:
+
+- `file_tree.txt` - Annotated directory structure
+- `dependencies.json` - Import graph in adjacency list format
+- `entry_points.md` - Identified entry points with descriptions
+- `module_map.md` - Package boundaries and public interfaces
+
+## Key Patterns to Identify
+
+### Entry Point Detection
+
+Look for these patterns:
+
+- Python: `if __name__ == "__main__"`, `setup.py`, `pyproject.toml`
+- Node: `package.json` main/bin fields, `index.js`
+- Frameworks: `app.py` (Flask), `manage.py` (Django), `main.ts` (Nest)
+
+### Dependency Classification
+
+Classify imports as:
+
+- **External**: Third-party packages (from package manager)
+- **Internal**: Project modules (relative imports)
+- **Standard**: Language standard library
+
+### Noise Exclusion
+
+Always exclude:
+
+```
+node_modules/
+__pycache__/
+.git/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+```
+
+## Integration with Other Skills
+
+This skill provides the foundation for:
+
+- `data-substrate-analysis` → Focus on types.py, models.py
+- `execution-engine-analysis` → Focus on runner files
+- `control-loop-extraction` → Focus on agent.py, loop files
+- `component-model-analysis` → Focus on base classes
+
+## Example Output
+
+```markdown
+## Repository: langchain
+
+### Structure Summary
+- 342 Python modules across 28 packages
+- Primary entry: langchain/__init__.py
+- Core packages: agents, chains, llms, tools
+
+### Key Files for Analysis
+- Types: langchain/schema.py, langchain/types.py
+- Execution: langchain/agents/executor.py
+- Tools: langchain/tools/base.py
+```

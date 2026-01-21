@@ -1,7 +1,7 @@
 {
   "name": "backend",
-  "repo": "djimontyp/task-tracker",
-  "path": ".claude/skills/backend/SKILL.md",
-  "source": "github.com/djimontyp/task-tracker",
-  "downloaded_at": "2026-01-20T02:51:26.832465Z"
+  "repo": "pluginagentmarketplace/custom-plugin-typescript",
+  "path": "skills/backend/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-typescript",
+  "downloaded_at": "2026-01-21T02:38:47.361773Z"
 }

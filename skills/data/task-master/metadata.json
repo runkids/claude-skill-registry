@@ -1,12 +1,7 @@
 {
   "name": "task-master",
-  "description": "AI-powered task management for structured, specification-driven development. Use this skill when you need to manage complex projects with PRDs, break down tasks into subtasks, track dependencies, and ",
   "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-  "category": "productivity",
-  "tags": [
-    "task",
-    "master"
-  ],
-  "stars": 23,
-  "source": "local"
+  "path": ".claude/skills/task-master/SKILL.md",
+  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "downloaded_at": "2026-01-21T03:57:31.471024Z"
 }

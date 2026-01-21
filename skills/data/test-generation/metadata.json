@@ -1,7 +1,7 @@
 {
   "name": "test-generation",
-  "repo": "Junior-Frontend-dev/Hi-u-ng",
-  "path": ".claude/skills/validation/test-generation/SKILL.md",
-  "source": "github.com/Junior-Frontend-dev/Hi-u-ng",
-  "downloaded_at": "2026-01-20T03:45:59.250601Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/test-generation/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-21T04:21:49.394330Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "defi-protocol-templates",
-  "repo": "as4584/antigravity-skills",
-  "path": "agents-wshobson/plugins/blockchain-web3/skills/defi-protocol-templates/SKILL.md",
-  "source": "github.com/as4584/antigravity-skills",
-  "downloaded_at": "2026-01-20T02:34:50.937684Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/blockchain-web3/skills/defi-protocol-templates/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:10:59.284780Z"
 }

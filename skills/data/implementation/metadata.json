@@ -1,7 +1,7 @@
 {
   "name": "implementation",
-  "repo": "jwwelbor/shark-task-manager",
-  "path": ".claude/skills/implementation/SKILL.md",
-  "source": "github.com/jwwelbor/shark-task-manager",
-  "downloaded_at": "2026-01-20T03:52:18.599129Z"
+  "repo": "terraphim/codex-skills",
+  "path": "skills/implementation/SKILL.md",
+  "source": "github.com/terraphim/codex-skills",
+  "downloaded_at": "2026-01-21T03:47:05.227522Z"
 }

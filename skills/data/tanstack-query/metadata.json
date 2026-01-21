@@ -1,7 +1,7 @@
 {
   "name": "tanstack-query",
-  "repo": "Squirrelfishcityhall150/claude-code-kit",
-  "path": "cli/kits/tanstack-query/skills/tanstack-query/SKILL.md",
-  "source": "github.com/Squirrelfishcityhall150/claude-code-kit",
-  "downloaded_at": "2026-01-20T04:05:19.176760Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/tanstack-query/skills/tanstack-query/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:44.611413Z"
 }

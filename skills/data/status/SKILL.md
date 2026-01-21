@@ -1,87 +1,81 @@
 ---
 name: status
-description: "Check task status in the tracker and local artifacts. Use when the user invokes /status or asks for project/task status."
+description: System health check for Samara organism. Use when checking if Samara is running, if messages are being detected, if wake cycles are scheduled, or diagnosing permission issues. Trigger words: status, health, check, running, working, broken.
+context: fork
+allowed-tools:
+  - Bash
+  - Read
+  - Grep
 ---
 
-# Status Command
+# System Status Check
 
-Follow `CLAUDE.md`, `conventions.md`, and `ARCHITECTURE.md`.
+Perform a comprehensive health check of the Samara organism infrastructure.
 
-## Task
+## Checks to Perform
 
-Show task status from tracker and related local artifacts.
-
-## Algorithm
-
-1. If no argument: show overall project status.
-2. If argument provided: show specific task status.
-
-### Mode 1: Project Overview (no argument)
-
-Use `beads` skill to get:
-- List open tasks
-- List ready tasks (not blocked)
-- List blocked tasks
-- List in-progress tasks
-
-Output:
+### 1. Samara.app Status
+```bash
+pgrep -fl Samara
 ```
-Project Status
-==============
+- If not running, note this as critical
+- If running, check how long it's been up
 
-Stats:
-- Open tasks: <count>
-- Ready to work: <count>
-- Blocked: <count>
-- In progress: <count>
-
-Ready Tasks (can start now):
-- <id1> - <title> (P<priority>)
-- <id2> - <title> (P<priority>)
-
-Blocked Tasks:
-- <id3> - <title>
-  Blocked by: <blocker-id> (<blocker-status>)
-
-In Progress:
-- <id5> - <title>
+### 2. Recent Message Detection
+```bash
+# Check if Samara has logged recent message detection
+tail -20 ~/.claude-mind/logs/samara.log 2>/dev/null || echo "No Samara log found"
 ```
 
-### Mode 2: Specific Task (with argument)
-
-Use `beads` to get task details and dependency tree.
-
-Also check local artifacts:
-- `docs/drafts/BRIEF_*<name>*.md`
-- `docs/drafts/TASK_*<name>*.md`
-- `docs/reviews/REVIEW_*<name>*.md`
-
-Output:
+### 3. Wake Cycle Schedule
+```bash
+launchctl list | grep claude
 ```
-Task: <id> - <title>
-Status: <status>
-Type: <type>
-Priority: <priority>
+Check that these are loaded:
+- com.claude.wake-adaptive (primary scheduler, runs every 15 min)
+- com.claude.dream
 
-Description:
-<description>
-
-Dependency Tree:
-<tree output>
-
-Local Artifacts:
-- Brief: <exists/none>
-- Spec: <exists/none>
-- Review: <exists/none>
-
-Next step:
-[What needs to be done based on current stage]
+### 4. Recent Wake/Dream Logs
+```bash
+tail -10 ~/.claude-mind/logs/wake-adaptive.log 2>/dev/null
+tail -10 ~/.claude-mind/logs/wake.log 2>/dev/null
+tail -10 ~/.claude-mind/logs/dream.log 2>/dev/null
 ```
 
-## Next Step Suggestions
+### 4b. Scheduler State
+```bash
+cat ~/.claude-mind/state/scheduler-state.json 2>/dev/null || echo "No scheduler state"
+~/.claude-mind/bin/wake-scheduler status 2>/dev/null || echo "Scheduler not available"
+```
 
-Based on task status, suggest:
-- `open` + no blocker -> `/implement <id>`
-- `in_progress` -> continue implementation
-- `in_progress` + code done -> `/review <id>`
-- `needs_work` -> `/fix <id>`
+### 5. Lock File Status
+```bash
+ls -la ~/.claude-mind/claude.lock 2>/dev/null || echo "No lock file (good)"
+```
+A stale lock file can block operations.
+
+### 6. Full Disk Access Check
+```bash
+# Try to read chat.db - will fail without FDA
+ls -la ~/Library/Messages/chat.db 2>/dev/null && echo "FDA appears intact"
+```
+
+### 7. Disk Space
+```bash
+df -h ~ | tail -1
+```
+
+## Output Format
+
+Summarize findings as:
+- **Samara**: Running/Not Running
+- **Wake Adaptive**: Loaded / Not loaded
+- **Dream**: Loaded / Not loaded
+- **Last Wake**: timestamp (from scheduler state)
+- **Next Wake**: timestamp (from scheduler)
+- **Last Dream**: timestamp
+- **FDA Status**: OK / Issue
+- **Lock File**: Clear / Stale
+- **Disk**: X% used
+
+Flag any issues that need attention.

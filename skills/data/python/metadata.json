@@ -1,7 +1,7 @@
 {
   "name": "python",
-  "repo": "CreativeEntelechy/trading-agent",
-  "path": ".agent/skills/python/fast-api-skill.md",
-  "source": "github.com/CreativeEntelechy/trading-agent",
-  "downloaded_at": "2026-01-20T03:26:04.766240Z"
+  "repo": "artofrawr/claude-control",
+  "path": "skills/python/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-01-21T04:19:30.681719Z"
 }

@@ -1,340 +1,299 @@
 ---
 name: atlassian-cli
-description: Execute Atlassian CLI (acli) commands for Jira work items, projects, sprints, boards, and organization administration. Use when the user wants to manage Jira issues, projects, sprints, or perform Atlassian organization admin tasks. Covers both solo developer workflows and team collaboration patterns.
+description: Use when working with Jira or Confluence from command line, including authentication, searching issues with JQL, bulk operations, sprint reports, or creating/updating work items using acli
 ---
 
-# Atlassian CLI (acli) Skill
+# Atlassian CLI (acli)
 
-This skill provides comprehensive Atlassian CLI integration for managing Jira work items, projects, sprints, boards, and organization administration through the `acli` command-line tool.
+## Overview
 
-## Prerequisites
+The Atlassian CLI (`acli`) provides command-line access to Jira, Confluence, and other Atlassian products. **Core principle:** Always check authentication first, use correct command structure, and leverage batch operations.
 
-- Atlassian CLI (`acli`) must be installed and authenticated
-- Active internet connection for Atlassian API access
-- Appropriate permissions for your Atlassian organization/site
-- API token or OAuth credentials
+## When to Use
 
-## Quick Command Reference
+- Creating, searching, or updating Jira issues
+- Managing sprints, boards, or projects
+- Working with Confluence spaces
+- Bulk operations on multiple items
+- Generating reports in CSV/JSON format
+- Automating Atlassian workflows
 
-### Authentication Commands
+**When NOT to use:**
+- When web UI is more appropriate (one-off visual tasks)
+- When API tokens/integrations are already available
 
-```bash
-# Jira authentication
-acli jira auth login --site "mysite.atlassian.net" --email "user@example.com" --token
-acli jira auth status                        # Check authentication status
-acli jira auth switch                        # Switch between accounts
-acli jira auth logout                        # Logout
+## Authentication - FIRST STEP ALWAYS
 
-# Admin authentication (for org management)
-acli admin auth login
-acli admin auth status
-acli admin auth logout
+```dot
+digraph auth_check {
+    "User requests acli command" [shape=doublecircle];
+    "Check auth status" [shape=box];
+    "Authenticated?" [shape=diamond];
+    "Run acli command" [shape=box];
+    "Explain: acli auth login" [shape=box];
 
-# OAuth authentication (browser-based)
-acli jira auth login --web
+    "User requests acli command" -> "Check auth status";
+    "Check auth status" -> "Authenticated?";
+    "Authenticated?" -> "Run acli command" [label="yes"];
+    "Authenticated?" -> "Explain: acli auth login" [label="no"];
+}
 ```
 
-### Work Item Operations
-
+**Before ANY acli operation:**
 ```bash
-# Create work items
-acli jira workitem create --summary "Task title" --project "PROJ" --type "Task"
-acli jira workitem create-bulk               # Bulk create from file
+# Check if authenticated
+acli auth status
 
-# View and search
-acli jira workitem view --key "PROJ-123"
-acli jira workitem search --jql "project = PROJ AND status = 'In Progress'"
-
-# Edit and update
-acli jira workitem edit --key "PROJ-123" --summary "Updated title"
-acli jira workitem assign --key "PROJ-123" --assignee "user@example.com"
-acli jira workitem transition --key "PROJ-123" --status "Done"
-
-# Manage relationships
-acli jira workitem link --inward "PROJ-123" --outward "PROJ-456" --type "blocks"
-acli jira workitem clone --key "PROJ-123"
-
-# Comments and attachments
-acli jira workitem comment --key "PROJ-123" --body "Comment text"
-acli jira workitem attachment --key "PROJ-123" --file "/path/to/file.pdf"
-
-# Archive operations
-acli jira workitem archive --key "PROJ-123"
-acli jira workitem unarchive --key "PROJ-123"
-
-# Delete
-acli jira workitem delete --key "PROJ-123"
+# If not authenticated, login first
+acli auth login
 ```
 
-### Project Operations
+## Command Structure
+
+**Format:** `acli <product> <entity> <action> [flags]`
+
+**DO NOT use old-style syntax with `--action` flag.**
 
 ```bash
-# List and view projects
-acli jira project list                       # List all visible projects
-acli jira project view --key "PROJ"          # View project details
+# ❌ WRONG - old syntax that doesn't work
+acli jira --action getIssueList --jql "..."
 
-# Create and manage
-acli jira project create --name "New Project" --key "NEWP" --type "software"
-acli jira project update --key "PROJ" --name "Updated Name"
-
-# Archive and restore
-acli jira project archive --key "PROJ"
-acli jira project restore --key "PROJ"
-acli jira project delete --key "PROJ"
+# ✅ CORRECT - modern syntax
+acli jira workitem search --jql "..."
 ```
 
-### Sprint and Board Operations
+## Quick Reference
+
+### Common Products
+- `auth` - Authentication management
+- `jira` - Jira Cloud commands
+- `confluence` - Confluence Cloud commands
+- `admin` - Admin operations
+
+### Jira Entities & Actions
+
+| Entity | Common Actions | Example |
+|--------|---------------|---------|
+| `workitem` | search, create, create-bulk, edit, view, transition, assign, delete | `acli jira workitem search --jql "project = TEAM"` |
+| `project` | list, view, create, update, delete, archive | `acli jira project list` |
+| `sprint` | create, update, view, delete, list-workitems | `acli jira sprint view 123` |
+| `board` | search, get, create, delete, list-sprints | `acli jira board list-sprints --board 42` |
+| `workitem comment` | create, list, update, delete | `acli jira workitem comment create --key KEY-1 --comment "text"` |
+
+### Confluence Entities
+
+| Entity | Actions | Example |
+|--------|---------|---------|
+| `space` | list, view, create, update, archive, restore | `acli confluence space list` |
+
+## Batch Operations
+
+**Use JQL, filters, or key lists to operate on multiple items:**
 
 ```bash
-# Board management
-acli jira board search --query "Team Board"
-acli jira board list-sprints --board-id "123"
+# Edit multiple issues with JQL
+acli jira workitem edit --jql "project = MOBILE AND status = 'In Review'" --assignee "user@example.com" --yes
 
-# Sprint operations
-acli jira sprint list-workitems --sprint-id "456"
+# Transition multiple issues
+acli jira workitem transition --jql "assignee = currentUser() AND status = 'To Do'" --status "In Progress" --yes
+
+# Search with filter
+acli jira workitem search --filter 10001 --csv
+
+# Multiple keys
+acli jira workitem assign --key "KEY-1,KEY-2,KEY-3" --assignee "@me"
 ```
 
-### Filter Operations
+**Batch flags:**
+- `--jql` - JQL query for multiple items
+- `--filter` - Filter ID for saved searches
+- `--key` - Comma-separated issue keys
+- `--yes` / `-y` - Skip confirmation prompts
+- `--ignore-errors` - Continue on errors (useful for bulk ops)
+
+## Output Formats
+
+**Choose the right output format for your use case:**
 
 ```bash
-# Manage filters
-acli jira filter list                        # List my filters
-acli jira filter search --query "Open Issues"
-acli jira filter add-favourite --id "12345"
-acli jira filter change-owner --id "12345" --owner "user@example.com"
+# CSV for spreadsheets
+acli jira workitem search --jql "sprint = 42" --csv
+
+# JSON for scripts/automation
+acli jira workitem search --jql "project = API" --json
+
+# Web browser for viewing
+acli jira workitem view KEY-123 --web
+
+# Custom fields (default includes key, summary, status, etc.)
+acli jira workitem search --jql "..." --fields "key,summary,assignee,priority"
 ```
 
-### User Administration (Admin)
+**Common flags:**
+- `--csv` - CSV output (NOT --outputFormat 999)
+- `--json` - JSON output
+- `--web` - Open in web browser
+- `--fields` - Specify which fields to display (NOT --columns)
+- `--count` - Show count only
+- `--paginate` - Fetch all results
+
+## Bulk Creation
+
+**For creating multiple similar issues:**
 
 ```bash
-# User management
-acli admin user activate --email "user@example.com"
-acli admin user deactivate --email "user@example.com"
-acli admin user delete --email "user@example.com"
-acli admin user cancel-delete --email "user@example.com"
+# Generate JSON template
+acli jira workitem create --generate-json
+
+# Create from JSON file
+acli jira workitem create --from-json workitem.json
+
+# Bulk create multiple issues
+acli jira workitem create-bulk
+
+# Use file for description
+acli jira workitem create --summary "Bug title" --project API --type Bug --from-file description.txt
+
+# Use editor for interactive creation
+acli jira workitem create --editor
 ```
 
-### Custom Fields
+**Don't create bash loops with 10 individual create commands when `create-bulk` or `--from-json` exists.**
+
+## Common JQL Patterns
 
 ```bash
-# Field management
-acli jira field create --name "Custom Field" --type "text"
-acli jira field delete --id "customfield_12345"
+# Current user's issues
+--jql "assignee = currentUser()"
+
+# Specific project and status
+--jql "project = TEAM AND status = 'In Progress'"
+
+# Multiple criteria
+--jql "project = API AND type = Bug AND status != Done"
+
+# Sprint issues
+--jql "project = TEAM AND sprint = 42"
+
+# Recent updates
+--jql "project = WEBAPP AND updated >= -7d"
 ```
 
-## Command Execution Pattern
+## Common Mistakes
 
-When executing acli commands:
+| Mistake | Why It's Wrong | Correct Approach |
+|---------|---------------|-----------------|
+| Skipping auth check | Commands fail without authentication | Always run `acli auth status` first |
+| Using `--action` flag | Old syntax doesn't work in modern acli | Use `acli <product> <entity> <action>` |
+| `--outputFormat 999` | Wrong flag | Use `--csv` |
+| `--columns` parameter | Doesn't exist | Use `--fields` |
+| Bash loops for creation | Inefficient, built-in features exist | Use `create-bulk`, `--from-json` |
+| One-by-one edits | Slow for bulk operations | Use `--jql` or `--filter` with edit/transition |
+| Making up commands | Wastes time | Run `acli <product> <entity> --help` to verify |
 
-1. **Check authentication**: Verify you're authenticated with `acli jira auth status`
-2. **Use appropriate flags**: Add `--output json` for structured output when parsing is needed
-3. **Handle errors gracefully**: Parse stderr and provide clear error messages
-4. **Confirm destructive actions**: Always confirm before deleting, archiving, or removing access
-5. **Batch operations**: Use bulk commands for multiple items to improve efficiency
+## Red Flags - STOP and Check Skill
 
-Example execution:
+These indicate you're about to make a mistake:
+
+- Skipping authentication check
+- Using `--action` in your command
+- Writing bash loops for bulk operations
+- Suggesting `--outputFormat` instead of `--csv`
+- Using `--columns` instead of `--fields`
+- Making up command names without checking --help
+- "The old syntax probably still works"
+- "They're probably already authenticated"
+- "A bash loop is more flexible than built-in commands"
+
+**All of these mean: Stop, re-read this skill, use correct syntax.**
+
+## Workflow Pattern
+
+```dot
+digraph workflow {
+    "acli request" [shape=doublecircle];
+    "Check auth status" [shape=box];
+    "Authenticated?" [shape=diamond];
+    "Run acli auth login" [shape=box];
+    "Verify command with --help" [shape=box];
+    "Check for batch operation?" [shape=diamond];
+    "Use --jql/--filter/--key" [shape=box];
+    "Single operation" [shape=box];
+    "Choose output format" [shape=box];
+    "Execute command" [shape=box];
+
+    "acli request" -> "Check auth status";
+    "Check auth status" -> "Authenticated?";
+    "Authenticated?" -> "Run acli auth login" [label="no"];
+    "Run acli auth login" -> "Verify command with --help";
+    "Authenticated?" -> "Verify command with --help" [label="yes"];
+    "Verify command with --help" -> "Check for batch operation?";
+    "Check for batch operation?" -> "Use --jql/--filter/--key" [label="multiple items"];
+    "Check for batch operation?" -> "Single operation" [label="single item"];
+    "Use --jql/--filter/--key" -> "Choose output format";
+    "Single operation" -> "Choose output format";
+    "Choose output format" -> "Execute command";
+}
+```
+
+## Example Workflows
+
+### Sprint Report
 ```bash
-# Get JSON output for parsing
-acli jira workitem search --jql "project = PROJ" --output json
+# 1. Check auth
+acli auth status
 
-# Specify required parameters
-acli jira workitem create --summary "New task" --project "PROJ" --type "Task"
-
-# Bulk operations with preview
-acli jira workitem create-bulk --file issues.csv --preview
+# 2. Search sprint issues with CSV output
+acli jira workitem search --jql "project = TEAM AND sprint = 42" --fields "key,summary,status,assignee" --csv > sprint-report.csv
 ```
 
-## Detailed Guides (Load as Needed)
-
-For comprehensive workflows and advanced usage, refer to these detailed guides:
-
-### Authentication and Setup
-See [AUTH.md](AUTH.md) for:
-- Installing acli on different platforms
-- Setting up authentication (API token, OAuth)
-- Managing multiple accounts
-- Configuration and troubleshooting
-
-### Work Item Management
-See [WORKITEM.md](WORKITEM.md) for:
-- Creating and editing work items (issues)
-- Searching with JQL
-- Transitions and workflows
-- Comments, attachments, and watchers
-- Linking and cloning issues
-- Bulk operations
-
-### Project Management
-See [PROJECT.md](PROJECT.md) for:
-- Creating and configuring projects
-- Project settings and administration
-- Archiving and restoring projects
-- Project permissions and roles
-
-### Sprint and Board Management
-See [SPRINT.md](SPRINT.md) for:
-- Managing agile boards
-- Sprint planning and execution
-- Viewing sprint work items
-- Board configuration
-
-### Team Collaboration
-See [TEAM.md](TEAM.md) for:
-- Multi-developer workflows
-- Sprint planning with acli
-- Team permission management
-- Bulk operations for teams
-- Code review integration
-
-### Solo Developer Workflows
-See [SOLO-DEV.md](SOLO-DEV.md) for:
-- Personal task management
-- Quick issue creation patterns
-- Efficient solo development with acli
-- Personal automation tips
-
-## Helper Scripts
-
-The `scripts/` directory contains helper scripts for common operations:
-
-- `create-issue.sh` - Quick issue creation workflow
-- `sprint-report.sh` - Generate sprint reports
-- `bulk-assign.sh` - Bulk assign issues to team members
-- `daily-standup.sh` - Generate daily standup summaries
-
-Execute scripts as needed:
+### Bulk Status Update
 ```bash
-bash scripts/create-issue.sh "Fix bug in login"
+# 1. Check auth
+acli auth status
+
+# 2. Verify issues first
+acli jira workitem search --jql "project = MOBILE AND status = 'In Review'" --count
+
+# 3. Transition all
+acli jira workitem transition --jql "project = MOBILE AND status = 'In Review'" --status "Done" --yes
+
+# 4. Assign all
+acli jira workitem assign --jql "project = MOBILE AND status = Done" --assignee "user@example.com" --yes
 ```
 
-## Best Practices
-
-### 1. Always verify authentication
+### Create Multiple Issues
 ```bash
-# Check authentication status
-acli jira auth status
+# 1. Check auth
+acli auth status
 
-# Login if needed
-echo $JIRA_API_TOKEN | acli jira auth login --site "mysite.atlassian.net" --email "user@example.com" --token
+# 2. Generate template
+acli jira workitem create --generate-json > template.json
+
+# 3. Edit template.json with your data
+
+# 4. Create from template (repeat for each)
+acli jira workitem create --from-json issue1.json
+acli jira workitem create --from-json issue2.json
+
+# OR use create-bulk
+acli jira workitem create-bulk
 ```
 
-### 2. Use structured output for automation
-```bash
-# JSON output for parsing
-acli jira workitem search --jql "project = PROJ" --output json | jq '.issues[] | .key'
-
-# CSV output for spreadsheets
-acli jira workitem search --jql "project = PROJ" --output csv
-```
-
-### 3. Use JQL effectively
-```bash
-# Find issues assigned to you
-acli jira workitem search --jql "assignee = currentUser() AND status != Done"
-
-# Find issues updated this week
-acli jira workitem search --jql "project = PROJ AND updated >= -7d"
-
-# Complex queries
-acli jira workitem search --jql "project = PROJ AND status = 'In Progress' AND assignee = currentUser() ORDER BY priority DESC"
-```
-
-### 4. Batch operations for efficiency
-```bash
-# Edit multiple issues at once
-acli jira workitem edit --key "PROJ-1,PROJ-2,PROJ-3" --label "urgent"
-
-# Bulk create from CSV
-acli jira workitem create-bulk --file issues.csv
-```
-
-## Error Handling
-
-Common errors and solutions:
-
-**Authentication errors**:
-```bash
-# Check authentication status
-acli jira auth status
-
-# Re-authenticate
-echo $JIRA_API_TOKEN | acli jira auth login --site "mysite.atlassian.net" --email "user@example.com" --token
-```
-
-**Permission errors**:
-- Verify you have appropriate access to the project/issue
-- Check if you're using the correct authentication method (API token vs OAuth)
-- Ensure your API token has the required scopes
-
-**Invalid JQL errors**:
-- Validate JQL syntax in Jira web UI first
-- Use quotes around field values with spaces
-- Check field names are correct
-
-## Output Formatting
-
-The acli CLI supports multiple output formats:
+## Getting Help
 
 ```bash
-# JSON output (best for parsing)
-acli jira workitem view --key "PROJ-123" --output json
+# Top-level help
+acli --help
 
-# Table output (human-readable)
-acli jira workitem search --jql "project = PROJ" --output table
+# Product help
+acli jira --help
 
-# CSV output (for spreadsheets)
-acli jira project list --output csv
+# Entity help
+acli jira workitem --help
+
+# Action help
+acli jira workitem search --help
 ```
 
-## Tips and Tricks
-
-1. **Environment variables**: Store credentials in environment variables
-   ```bash
-   export JIRA_SITE="mysite.atlassian.net"
-   export JIRA_EMAIL="user@example.com"
-   export JIRA_API_TOKEN="your-token-here"
-   ```
-
-2. **Shell aliases**: Create shortcuts for common commands
-   ```bash
-   alias jira-mine='acli jira workitem search --jql "assignee = currentUser() AND status != Done"'
-   alias jira-create='acli jira workitem create --project PROJ --type Task'
-   ```
-
-3. **Piping and chaining**: Combine with other tools
-   ```bash
-   # Export to file
-   acli jira workitem search --jql "project = PROJ" --output csv > issues.csv
-
-   # Parse with jq
-   acli jira workitem view --key "PROJ-123" --output json | jq '.fields.summary'
-   ```
-
-4. **Preview mode**: Use preview for bulk operations
-   ```bash
-   acli jira workitem create-bulk --file issues.csv --preview
-   ```
-
-## When to Use This Skill
-
-Use this skill when the user wants to:
-- Create or manage Jira work items (issues, tasks, bugs, stories)
-- Manage Jira projects
-- Work with sprints and agile boards
-- Perform organization administration tasks
-- Automate Jira workflows
-- Generate reports from Jira data
-- Bulk operations on issues
-- Integrate Jira with CI/CD pipelines
-- Follow team collaboration patterns
-- Implement solo developer workflows
-
-## Next Steps
-
-Based on the user's request, load the appropriate detailed guide:
-- Authentication and setup → Load AUTH.md
-- Work item operations → Load WORKITEM.md
-- Project management → Load PROJECT.md
-- Sprint/board operations → Load SPRINT.md
-- Team collaboration → Load TEAM.md
-- Solo development → Load SOLO-DEV.md
+**When in doubt, check `--help` for exact flags and syntax.**

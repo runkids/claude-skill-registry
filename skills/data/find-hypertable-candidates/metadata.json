@@ -1,7 +1,7 @@
 {
   "name": "find-hypertable-candidates",
-  "repo": "timescale/pg-aiguide",
-  "path": "skills/find-hypertable-candidates/SKILL.md",
-  "source": "github.com/timescale/pg-aiguide",
-  "downloaded_at": "2026-01-20T03:09:11.403015Z"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/postgres-mcp/find-hypertable-candidates/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-21T02:34:51.434274Z"
 }

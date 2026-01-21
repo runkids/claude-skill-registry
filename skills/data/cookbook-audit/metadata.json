@@ -1,7 +1,7 @@
 {
   "name": "cookbook-audit",
-  "repo": "anthropics/claude-cookbooks",
-  "path": ".claude/skills/cookbook-audit/SKILL.md",
-  "source": "github.com/anthropics/claude-cookbooks",
-  "downloaded_at": "2026-01-20T03:13:22.259668Z"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/cookbook-audit/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-21T03:12:26.377902Z"
 }

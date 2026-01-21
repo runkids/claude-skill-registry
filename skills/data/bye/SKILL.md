@@ -1,10 +1,13 @@
 ---
-description: Save session and exit gracefully (unified approach)
+name: bye
+description: Save session state (continue working or exit safely)
+invokes:
+  - session-saver
 ---
 
-# Graceful Session Exit
+# Save Session
 
-When the user invokes `/bye`, you should:
+When the user invokes `/bye` or "save session", you should:
 
 ## Step 1: Save Session
 
@@ -19,20 +22,23 @@ This is the unified save mechanism - one source of truth for all hooks.
 After saving, show:
 
 ```
-Session saved to: thoughts/shared/handoffs/{date}_{topic}.yaml
+✓ Session saved to: thoughts/shared/handoffs/{date}_{topic}.yaml
 
 Summary:
 - Goal: [what you were working on]
 - Done: [key accomplishments]
 - Next: [first action item]
 
-Ready to exit? Type 'exit' or just close the terminal.
+You can:
+- Continue working (session state is checkpointed)
+- Safely exit (use `/resume` next time to pick up where you left off)
 ```
 
 ## Usage
 
-- `/bye` - full save + exit prompt
+- `/bye` - full save with summary
 - `/bye quick` - minimal save (goal/now/done/next only)
+- "save session" - same as `/bye`
 
 ## Quick Mode
 

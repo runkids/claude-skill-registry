@@ -1,7 +1,7 @@
 {
   "name": "accessibility-auditor",
-  "repo": "ainexllc/ainexsuite",
-  "path": ".claude/skills/accessibility-auditor/SKILL.md",
-  "source": "github.com/ainexllc/ainexsuite",
-  "downloaded_at": "2026-01-20T04:00:38.733670Z"
+  "repo": "WesleySmits/agent-skills",
+  "path": ".agent/skills/accessibility-auditor/SKILL.md",
+  "source": "github.com/WesleySmits/agent-skills",
+  "downloaded_at": "2026-01-21T03:00:38.158885Z"
 }

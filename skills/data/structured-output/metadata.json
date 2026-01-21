@@ -1,7 +1,7 @@
 {
   "name": "structured-output",
-  "repo": "athola/claude-night-market",
-  "path": "plugins/imbue/skills/structured-output/SKILL.md",
-  "source": "github.com/athola/claude-night-market",
-  "downloaded_at": "2026-01-20T01:02:08.380878Z"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/structured-output/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-21T02:43:05.899541Z"
 }

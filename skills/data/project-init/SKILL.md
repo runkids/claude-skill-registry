@@ -1,255 +1,295 @@
----
-name: project-init
-description: Initialize new projects using this template. Triggers: init, new, 新專案, 初始化, create project, 建立專案, bootstrap, scaffold project, setup, 設定, 起始, start, 從頭, from scratch, template, 模板, 範本, clone, fork.
-version: 2.2.0
-category: scaffold
-compatibility:
-  - claude-code
-  - github-copilot
-  - vscode
-  - codex-cli
-dependencies: []
-allowed-tools:
-  - read_file
-  - write_file
-  - create_file
-  - create_directory
-  - list_dir
-  - run_in_terminal
----
-
-# 專案初始化技能
-
-## 描述
-
-將此專案作為模板，快速初始化新專案，完整繼承法規系統和 Skills 架構。
-
-## 觸發條件
-
-- 「初始化新專案」「init」「新專案」
-- 「從模板建立專案」「template」
-- 「create new project」「bootstrap」
+# project-init
 
 ---
+description: Initialize a new project folder structure with README, plan, tasks directory, and CLAUDE.md from a design specification
+tags: [project-init, project-structure, planning, scaffolding]
+techStack: [all]
+appliesTo: ["projects/*/", "initialize project", "create project"]
+alwaysApply: false
+---
 
-## 🔧 操作步驟
+## Purpose
 
-### Step 1: 收集專案資訊
+Creates the foundational project structure under `docs/projects/{project-name}/` when starting a new development initiative. This skill implements Phase 3 (Generate) of the AI-AGENT-PLAYBOOK by producing scaffolded project artifacts from a design specification.
 
-詢問使用者：
+## When to Use
 
+- User says "initialize project", "create project", or "start project {name}"
+- A design specification exists and needs to be converted to an actionable project
+- Explicitly invoked with `/project-init {project-name}`
+
+## Inputs Required
+
+| Input | Required | Source |
+|-------|----------|--------|
+| Project path | Yes | Path to `projects/{project-name}/` folder (name derived from folder) |
+| Design specification | Yes | Must exist at `projects/{project-name}/spec.md` |
+| Complexity estimate | No | Default: "medium" - affects task granularity |
+
+### Design Spec Location
+
+The design specification should live **with the project** at:
+```
+projects/{project-name}/spec.md
+```
+
+**Workflow:**
+
+1. **Operator creates project folder**: `projects/{descriptive-project-name}/`
+2. **Operator places spec**: `projects/{project-name}/spec.md`
+3. **Invoke skill**: `/project-init projects/{project-name}` or just provide the path
+4. **Skill derives project name** from the folder name automatically
+
+**Why root-level `projects/`?**
+- Separates active project work from reference documentation
+- Operator controls naming (descriptive, meaningful names)
+- Everything about a project lives in one folder
+- Clear traceability from design → implementation
+
+## Workflow
+
+### Step 1: Validate Inputs
+```
+IF project path provided:
+  EXTRACT project-name from folder name
+ELSE:
+  ASK user for project path
+
+IF projects/{project-name}/spec.md does NOT exist:
+  → STOP - "spec.md not found. Please create projects/{project-name}/spec.md first."
+
+IF projects/{project-name}/README.md already exists:
+  → WARN - "Project already initialized. Continue anyway?"
+  → Offer to view existing project or re-initialize
+```
+
+### Step 2: Load Context
+```
+LOAD templates:
+  - docs/ai-knowledge/templates/project-README.template.md
+  - docs/ai-knowledge/templates/project-plan.template.md
+  
+LOAD projects/{project-name}/spec.md
+EXTRACT: problem statement, scope, success criteria, technical constraints
+```
+
+### Step 2.5: Discover Related Resources
+
+**Search for related skills and knowledge docs using spec.md content:**
+
+1. **Extract keywords from spec.md:**
+   - Technology names (e.g., "Azure OpenAI", "Dataverse", "React")
+   - Feature types (e.g., "API endpoint", "PCF control", "plugin")
+   - Operations (e.g., "deploy", "authentication", "caching")
+
+2. **Search `.claude/skills/INDEX.md`:**
+   - Look for skills with matching `tags` or `techStack` in their YAML frontmatter
+   - Read relevant skill files for patterns and procedures
+   - Example: If spec mentions "deploy to Dataverse" → load `dataverse-deploy` skill
+
+3. **Search `docs/ai-knowledge/`:**
+   - Look for guides matching technologies or patterns in spec
+   - Example: If spec mentions "Azure OpenAI" → search for azure, openai, embeddings tags
+   - Load relevant architecture docs and guides
+
+4. **Load referenced ADRs:**
+   - If spec.md contains ADR references (e.g., "ADR-001") → load those ADRs
+   - Check `adr-aware` skill for resource-type mappings
+
+**Output:** Brief summary of discovered resources to use during project initialization.
+
+### Step 3: Create Folder Structure
+```
+projects/{project-name}/
+├── spec.md            # Design specification (input - already exists)
+├── README.md          # Project overview (generated)
+├── plan.md            # Implementation plan (generated)
+├── CLAUDE.md          # AI context file for this project (generated)
+├── tasks/             # Task files go here
+│   └── .gitkeep
+└── notes/             # Ephemeral working files
+    ├── .gitkeep
+    ├── debug/         # Debugging session artifacts
+    ├── spikes/        # Exploratory code/research
+    ├── drafts/        # Work-in-progress content
+    └── handoffs/      # Context reset summaries
+```
+
+**Notes directory purpose**: Store temporary artifacts during development (debug logs, spike code, drafts, handoff summaries). Contents may be deleted after project completion. See `task-execution.template.md` for detailed guidance.
+
+### Step 4: Generate README.md
+Use `project-README.template.md` structure:
+- **Title**: Project name in Title Case
+- **Quick Links**: Pre-fill with plan.md and tasks/ paths
+- **Overview**: Extract from design spec or prompt user
+- **Problem Statement**: Direct copy from design spec
+- **Proposed Solution**: High-level approach from design spec
+- **Scope**: In-scope/out-of-scope from design spec
+- **Graduation Criteria**: Success criteria as checklist
+
+### Step 5: Generate plan.md
+Use `project-plan.template.md` structure:
+- **Section 1 (Overview)**: Populated from design spec
+- **Section 5 (WBS)**: Create phase structure based on complexity:
+  - Simple: 2-3 phases
+  - Medium: 4-5 phases  
+  - Complex: 6+ phases with explicit dependencies
+- **Section 7 (Risks)**: Extract from design spec constraints
+- Leave detailed task breakdown for `task-create` skill
+
+### Step 6: Generate CLAUDE.md
+Create project-specific AI context file:
 ```markdown
-請提供新專案資訊：
+# {Project Name} - AI Context
 
-1. **專案名稱**：my-awesome-project
-2. **專案描述**：一句話描述
-3. **專案類型**：
-   - [ ] Python 後端
-   - [ ] Node.js 後端
-   - [ ] React 前端
-   - [ ] Vue 前端
-   - [ ] 全端 (Monorepo)
-4. **授權類型**：MIT / Apache-2.0 / GPL-3.0
-5. **目標路徑**：~/projects/my-awesome-project
+## Project Status
+- **Phase**: Planning
+- **Last Updated**: {today}
+- **Next Action**: Run task-create to decompose plan
+
+## Key Files
+- `spec.md` - Original design specification (permanent reference)
+- `README.md` - Project overview and graduation criteria
+- `plan.md` - Implementation plan and WBS
+- `tasks/` - Individual task files (POML format)
+
+## Context Loading Rules
+1. Always load this file first when working on {project-name}
+2. Reference spec.md for design decisions and requirements
+3. Load relevant task file from tasks/ based on current work
+
+## Decisions Made
+<!-- Log key decisions here as project progresses -->
+
+## Current Constraints
+{extracted from design spec}
 ```
 
-### Step 2: 建立目錄結構
+### Step 7: Output Summary
+```
+✅ Project initialized: projects/{project-name}/
+
+Created files:
+  - README.md (project overview)
+  - plan.md (implementation plan)
+  - CLAUDE.md (AI context)
+  - tasks/.gitkeep
+  - notes/.gitkeep (with subdirectories)
+
+Existing files:
+  - spec.md (design specification - input)
+
+Next steps:
+  1. Review README.md and plan.md for accuracy
+  2. Run /task-create to decompose plan into tasks
+  3. Create feature branch and optionally draft PR (see below)
+  4. Begin Phase 1 implementation
+```
+
+### Step 8: Create Feature Branch (Recommended)
+
+After project initialization, create a feature branch for isolation:
 
 ```powershell
-# 建立專案目錄
-New-Item -ItemType Directory -Path "C:\projects\my-awesome-project" -Force
+# Create feature branch (naming matches project folder)
+git checkout -b feature/{project-name}
 
-# 建立核心目錄
-$dirs = @(
-    ".github\bylaws",
-    ".github\workflows",
-    ".github\ISSUE_TEMPLATE",
-    ".claude\skills",
-    "memory-bank",
-    "docs",
-    "tests"
-)
+# Commit project artifacts
+git add projects/{project-name}/
+git commit -m "feat({scope}): initialize {project-name} project"
 
-foreach ($dir in $dirs) {
-    New-Item -ItemType Directory -Path "C:\projects\my-awesome-project\$dir" -Force
-}
+# Push to remote
+git push -u origin feature/{project-name}
+
+# Optional: Create draft PR for visibility
+gh pr create --draft --title "feat({scope}): {project-name}" \
+  --body "## Summary\nImplementation of {project-name}\n\n## Status\n- [x] Project initialized\n- [ ] Tasks created\n- [ ] Implementation\n- [ ] Ready for review"
 ```
 
-### Step 3: 複製法規系統
+**Why create branch now?**
+- Isolates project work from master
+- Enables incremental commits during implementation
+- Draft PR provides visibility to team
+- Clean merge when project completes
 
-| 檔案/目錄 | 動作 | 說明 |
-| --------- | ---- | ---- |
-| CONSTITUTION.md | 複製 | 憲法 |
-| .github/bylaws/*.md | 複製 | 所有子法 |
-| .github/copilot-instructions.md | 複製並修改 | 更新專案名稱 |
+## Conventions
 
-### Step 4: 複製 Skills
+### Naming
+- Project folder: `kebab-case` (e.g., `sdap-refactor`, `spe-integration`)
+- Files: lowercase with hyphens
+- No abbreviations in project names unless well-known (e.g., `sdap`, `spe`)
 
-```powershell
-# 複製整個 skills 目錄
-Copy-Item -Path "D:\template\.claude\skills\*" -Destination "C:\projects\my-awesome-project\.claude\skills" -Recurse
+### Content Standards
+- README.md should be readable in under 2 minutes
+- plan.md WBS phases should map to logical milestones
+- Each phase in plan.md should have 3-7 tasks (decompose further if more)
+
+### Graduation Criteria
+Every project must have measurable graduation criteria:
+- At least one functional requirement (feature works)
+- At least one quality requirement (tests pass, no regressions)
+- Optional: performance, security, documentation requirements
+
+## Resources
+
+### Templates (Auto-loaded)
+- `docs/ai-knowledge/templates/project-README.template.md`
+- `docs/ai-knowledge/templates/project-plan.template.md`
+
+### Related Skills
+- **task-create**: Decompose plan.md into task files (run after project-init)
+- **design-to-project**: Full pipeline from design spec (includes project-init)
+
+## Examples
+
+### Example 1: Initialize from Existing Spec File
+**Trigger**: "/project-init projects/sdap-refactor" (spec already at `projects/sdap-refactor/spec.md`)
+
+**Result**:
+```
+projects/sdap-refactor/
+├── spec.md             # Already existed - used as input
+├── README.md           # Generated from spec.md
+├── plan.md             # 6 phases matching spec sections
+├── CLAUDE.md           # References spec.md as source
+├── tasks/
+└── notes/
 ```
 
-### Step 5: 初始化 Memory Bank
+### Example 2: Initialize FileViewer Enhancements
+**Trigger**: "/project-init projects/sdap-fileviewer-enhancements-1"
 
-建立空的 Memory Bank 檔案：
-
-```powershell
-$memoryFiles = @(
-    "activeContext.md",
-    "progress.md",
-    "decisionLog.md",
-    "architect.md",
-    "productContext.md",
-    "projectBrief.md",
-    "systemPatterns.md"
-)
-
-foreach ($file in $memoryFiles) {
-    New-Item -ItemType File -Path "C:\projects\my-awesome-project\memory-bank\$file" -Force
-}
+**Result**:
+```
+projects/sdap-fileviewer-enhancements-1/
+├── spec.md             # Operator placed this first
+├── README.md           # Generated with goals, scope, criteria
+├── plan.md             # Phases: BFF endpoint, PCF update, performance
+├── CLAUDE.md           # Project-specific AI context
+├── tasks/
+└── notes/
 ```
 
-**初始內容範例（activeContext.md）**：
+### Example 3: Missing Spec Error
+**Trigger**: "/project-init projects/new-feature"
 
-```markdown
-# Active Context
+**Result** (if spec.md doesn't exist):
+```
+❌ Cannot initialize: projects/new-feature/spec.md not found.
 
-> Last updated: 2026-01-15
-
-## 🎯 當前焦點
-
-專案剛初始化，尚未開始開發。
-
-## 📁 相關檔案
-
-- 待新增
-
-## ⚠️ 待解決問題
-
-- [ ] 設定開發環境
-- [ ] 定義領域模型
+Please create the spec file first:
+  1. Create folder: projects/new-feature/
+  2. Add design spec: projects/new-feature/spec.md
+  3. Re-run: /project-init projects/new-feature
 ```
 
-### Step 6: 初始化專案檔案
+## Validation Checklist
 
-**README.md**：
-
-```markdown
-# {專案名稱}
-
-> {專案描述}
-
-## ✨ 功能特色
-
-- 待新增
-
-## 📦 安裝
-
-\`\`\`bash
-# 待補充
-\`\`\`
-
-## 🚀 快速開始
-
-\`\`\`bash
-# 待補充
-\`\`\`
-
-## 📄 授權
-
-{授權類型} License
-```
-
-**CHANGELOG.md**：
-
-```markdown
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-## [Unreleased]
-
-### Added
-- 專案初始化
-```
-
-### Step 7: 初始化 Git
-
-```powershell
-cd "C:\projects\my-awesome-project"
-git init
-git add .
-git commit -m "chore: 初始化專案 (使用 template-is-all-you-need)"
-```
-
-### Step 8: 依專案類型設定
-
-#### Python 專案
-
-```powershell
-# 建立 pyproject.toml
-Copy-Item "D:\template\pyproject.toml.template" "pyproject.toml"
-
-# 建立虛擬環境
-uv venv
-uv sync --all-extras
-```
-
-#### Node.js 專案
-
-```powershell
-npm init -y
-npm install --save-dev typescript @types/node
-```
-
----
-
-## 📁 複製內容對照表
-
-| 來源 | 目標 | 動作 |
-| ---- | ---- | ---- |
-| CONSTITUTION.md | CONSTITUTION.md | 複製 |
-| .github/bylaws/*.md | .github/bylaws/*.md | 複製 |
-| .github/copilot-instructions.md | .github/copilot-instructions.md | 複製並編輯 |
-| .claude/skills/* | .claude/skills/* | 複製 |
-| memory-bank/*.md | memory-bank/*.md | 建立空檔 |
-| README.md | README.md | 重新生成 |
-| CHANGELOG.md | CHANGELOG.md | 重新生成 |
-| .gitignore | .gitignore | 複製 |
-| .git/ | .git/ | 重新初始化 |
-
----
-
-## 📊 輸出格式
-
-```
-🚀 專案初始化完成
-
-專案資訊：
-- 名稱：my-awesome-project
-- 類型：Python 後端
-- 位置：C:\projects\my-awesome-project
-
-已建立：
-- ✅ 目錄結構
-- ✅ 憲法與子法 (CONSTITUTION.md + 4 bylaws)
-- ✅ Claude Skills (19 個)
-- ✅ Memory Bank (7 個空檔案)
-- ✅ README.md / CHANGELOG.md
-- ✅ Git 初始化
-
-下一步：
-1. cd C:\projects\my-awesome-project
-2. code .
-3. 執行「更新 memory bank」記錄專案目標
-```
-
----
-
-## ⚠️ 注意事項
-
-1. **不要複製 data/ 目錄**：這是模板專案的暫存資料
-2. **重設所有版本號**：CHANGELOG 從 Unreleased 開始
-3. **清空 Memory Bank**：不要複製模板的記憶內容
-4. **更新專案名稱**：搜尋並替換所有 "template-is-all-you-need"
+Before completing project-init, verify:
+- [ ] spec.md exists and was read successfully
+- [ ] Project name derived from folder name correctly
+- [ ] README.md has problem statement from spec
+- [ ] plan.md has at least one WBS phase
+- [ ] CLAUDE.md references spec.md as source
+- [ ] Graduation criteria are measurable (not vague)
+- [ ] No PII or secrets in any generated file

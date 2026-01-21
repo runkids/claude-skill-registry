@@ -1,30 +1,35 @@
 ---
 name: moai-toolkit-essentials
-aliases: [moai-toolkit-essentials]
-category: toolkit
-description: AI-powered unified development orchestrator combining debugging, refactoring, performance optimization, code review, testing integration, and profiling into comprehensive development workflows with Context7 integration, TRUST 5 validation, and enterprise-grade automation
-version: 2.0.0
+description: AI-powered unified development orchestrator (UV scripts migrated to builder-skill-uvscript)
+version: 2.1.0
 modularized: true
-tags:
-  - toolkit
-  - quality
-  - enterprise
-  - debugging
-  - performance
-  - refactoring
-  - review
+scripts_enabled: false
+scripts_migration:
+  date: 2025-11-30
+  new_location: builder-skill-uvscript
+  reason: UV script consolidation with unified builder-skill_ prefix
+last_updated: 2025-11-30
+compliance_score: 75
+auto_trigger_keywords:
+  - essentials
   - testing
-  - profiling
-  - ai-powered
-updated: 2025-11-27
-status: active
-author: MoAI-ADK Team
-deprecated_names:
-  moai-toolkit-essentials:
-    deprecated_in: v0.32.0
-    remove_in: v0.35.0
-    message: "Use moai-toolkit-essentials instead"
+  - toolkit
+# scripts: # DEPRECATED - All 2 UV scripts migrated to builder-skill-uvscript on 2025-11-30
+color: red
 ---
+
+> **⚠️ UV Script Migration Notice**
+>
+> All 2 UV CLI scripts have been consolidated into the **`builder-skill-uvscript`** skill on 2025-11-30.
+>
+> **New script locations**:
+> - `builder-skill_debug_code.py` (previously debug_helper.py)
+> - `builder-skill_analyze_performance.py` (previously perf_analyzer.py)
+> - Find all scripts in: `.claude/skills/builder-skill-uvscript/scripts/`
+>
+> **Usage**: `uv run .claude/skills/builder-skill-uvscript/scripts/builder-skill_debug_code.py`
+>
+> This skill retains its development toolkit knowledge and patterns.
 
 ---
 
@@ -58,6 +63,66 @@ Powered Powered  Powered  Powered Powered Powered
 - Technical debt reduction initiatives
 - Automated testing and CI/CD integration
 - Cross-team development standardization
+
+---
+
+## Available Scripts
+
+This skill includes UV CLI scripts for standalone usage following the IndieDevDan pattern.
+
+### 1. debug_helper.py (240 lines)
+
+**Purpose**: Automated debugging workflow with AI-powered error diagnosis.
+
+**Usage**:
+```bash
+# Analyze error message
+uv run .claude/skills/moai-toolkit-essentials/scripts/debug_helper.py \
+    --error "AttributeError: 'NoneType' object has no attribute 'name'"
+
+# Analyze stack trace file
+uv run .claude/skills/moai-toolkit-essentials/scripts/debug_helper.py \
+    --stack-trace error.log --language python
+
+# JSON output mode
+uv run .claude/skills/moai-toolkit-essentials/scripts/debug_helper.py \
+    --code src/user_service.py --json
+```
+
+**Features**:
+- Error pattern recognition for AttributeError, TypeError, KeyError, IndexError, ValueError, ImportError
+- AI-powered root cause analysis
+- Suggested fixes with code examples
+- Step-by-step debugging guide
+- Prevention strategies
+- Dual output: human-readable + JSON
+
+### 2. perf_analyzer.py (260 lines)
+
+**Purpose**: Performance bottleneck detection and optimization suggestions.
+
+**Usage**:
+```bash
+# Analyze profile data
+uv run .claude/skills/moai-toolkit-essentials/scripts/perf_analyzer.py \
+    --profile output.prof --threshold 1.0
+
+# Analyze code file
+uv run .claude/skills/moai-toolkit-essentials/scripts/perf_analyzer.py \
+    --code src/data_processor.py
+
+# JSON output mode
+uv run .claude/skills/moai-toolkit-essentials/scripts/perf_analyzer.py \
+    --profile output.prof --json
+```
+
+**Features**:
+- Bottleneck detection from profile data or code analysis
+- Optimization strategy suggestions (generators, loop optimization, string concatenation, dict lookups)
+- Memory leak detection
+- Expected performance gains estimation
+- Implementation priority ranking
+- Dual output: human-readable + JSON
 
 ---
 

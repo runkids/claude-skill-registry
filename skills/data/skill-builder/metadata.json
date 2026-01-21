@@ -1,7 +1,7 @@
 {
   "name": "skill-builder",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "path": ".claude/skills/skill-builder/SKILL.md",
-  "source": "github.com/proffesor-for-testing/agentic-qe",
-  "downloaded_at": "2026-01-20T04:05:01.455478Z"
+  "repo": "DNYoussef/context-cascade",
+  "path": "skills/foundry/skill-builder/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-21T04:04:50.798613Z"
 }

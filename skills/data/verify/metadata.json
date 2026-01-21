@@ -1,7 +1,7 @@
 {
   "name": "verify",
-  "repo": "doodledood/claude-code-plugins",
-  "path": "claude-plugins/vibe-experimental/skills/verify/SKILL.md",
-  "source": "github.com/doodledood/claude-code-plugins",
-  "downloaded_at": "2026-01-20T02:27:14.123428Z"
+  "repo": "maxritter/claude-codepro",
+  "path": ".claude/skills/verify/SKILL.md",
+  "source": "github.com/maxritter/claude-codepro",
+  "downloaded_at": "2026-01-21T03:46:56.222187Z"
 }

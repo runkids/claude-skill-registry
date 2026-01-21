@@ -1,19 +1,9 @@
 ---
 name: latchbio-integration
-display_name: Latchbio Integration
 description: Latch platform for bioinformatics workflows. Build pipelines with Latch SDK, @workflow/@task decorators, deploy serverless workflows, LatchFile/LatchDir, Nextflow/Snakemake integration.
-version: 1.0.0
-author: K-Dense Inc.
 license: Unknown
-tags: ["lab-automation", "integration", "workflow"]
-category: lab-automation
-allowed_tools: ["code_execute"]
-max_iterations: 30
-timeout: 600
-enabled: true
-match_threshold: 0.7
-priority: 5
-source: K-Dense-AI/claude-scientific-skills
+metadata:
+    skill-author: K-Dense Inc.
 ---
 
 # LatchBio Integration

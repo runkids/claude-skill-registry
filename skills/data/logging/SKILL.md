@@ -1,145 +1,101 @@
 ---
 name: logging
-description: Implement structured logging with log levels, formatting, and debugging. Use when adding logs to applications or debugging issues.
+description: Guide logging practices based on Dave Cheney's minimalist philosophy. Use when adding log.Info/Debug/Error/Warn/Fatal calls, reviewing logging code, handling errors with log+return pattern, discussing log levels, or designing error handling strategies.
 ---
 
-# 📋 Logging Skill
+# INSTRUCTIONS
 
-## Log Levels
+Apply Dave Cheney's logging philosophy: simplify ruthlessly, handle errors properly, and log only what matters.
 
-| Level | When to Use |
-|-------|-------------|
-| ERROR | Failures that need attention |
-| WARN | Potential issues, degraded |
-| INFO | Normal operations |
-| DEBUG | Detailed debugging |
-| TRACE | Very detailed (rarely) |
+## Core Principles
 
----
+1. **Only Two Log Levels Matter**
+   - **Info**: For operators/users—things they need to know during normal operation
+   - **Debug**: For developers—controlled per-package during development
 
-## JavaScript Logging
+2. **Eliminate Unnecessary Levels**
+   | Level | Verdict | Reason |
+   |-------|---------|--------|
+   | Warning | Remove | "Nobody reads warnings"—either it's an error or info |
+   | Fatal | Avoid | Bypasses `defer`, prevents cleanup. Let errors bubble to `main()` |
+   | Error | Rethink | If handled, it's info. If not handled, return it to caller |
 
-### Console with Labels
-```javascript
-const log = {
-  error: (...args) => console.error('[ERROR]', new Date().toISOString(), ...args),
-  warn: (...args) => console.warn('[WARN]', new Date().toISOString(), ...args),
-  info: (...args) => console.log('[INFO]', new Date().toISOString(), ...args),
-  debug: (...args) => console.debug('[DEBUG]', new Date().toISOString(), ...args)
-};
+   **Exception**: Warnings from runtimes and external libraries should be logged at warning level. You don't control these sources, and their warnings often signal deprecations or upcoming breaking changes that operators need to track.
 
-// Usage
-log.info('Upload started', { file: 'video.mp4', size: 1024 });
-log.error('Upload failed', { error: err.message });
-```
+3. **The Golden Rule of Error Logging**
+   > "You should either handle the error, or pass it back to the caller."
 
-### Structured Logger
-```javascript
-class Logger {
-  constructor(name, level = 'info') {
-    this.name = name;
-    this.levels = ['error', 'warn', 'info', 'debug'];
-    this.minLevel = this.levels.indexOf(level);
-  }
+   - **Don't** log an error AND return it (causes duplicate logs up the stack)
+   - **Don't** log errors in library code (caller decides what to do)
+   - **Do** let errors bubble up to where they can be meaningfully handled
 
-  _log(level, message, data = {}) {
-    if (this.levels.indexOf(level) > this.minLevel) return;
-    
-    const entry = {
-      timestamp: new Date().toISOString(),
-      level: level.toUpperCase(),
-      logger: this.name,
-      message,
-      ...data
-    };
-    
-    console[level === 'error' ? 'error' : 'log'](JSON.stringify(entry));
-  }
+4. **Terminal Error Handlers: When Error Level IS Appropriate**
 
-  error(msg, data) { this._log('error', msg, data); }
-  warn(msg, data) { this._log('warn', msg, data); }
-  info(msg, data) { this._log('info', msg, data); }
-  debug(msg, data) { this._log('debug', msg, data); }
+   At the boundary where errors become **user-facing unexpected failures** (e.g., 5xx responses), error-level logging is correct:
+
+   - The error chain ends here—no caller to return to
+   - The user receives a generic message (for security/UX)
+   - Operators need the full error details for debugging
+
+   ```go
+   // At HTTP handler boundary - error level is appropriate
+   if err != nil {
+       log.Error("unexpected failure",
+           "error", err,
+           "request_id", requestID,
+       )
+       http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+       return
+   }
+   ```
+
+   **This is NOT the same as logging mid-stack**—this is the terminal handler where errors are finally consumed, not propagated.
+
+## Review Checklist
+
+When reviewing or writing logging code:
+
+- [ ] Is this log statement for users (info) or developers (debug)?
+- [ ] Am I logging an error AND returning it? (Remove the log)
+- [ ] Is this a terminal handler (5xx boundary)? (Error level is appropriate here)
+- [ ] Is this a warning? (Convert to info or error, or remove)
+- [ ] Is this `Fatal`/`panic` in library code? (Return error instead)
+- [ ] Does this log message help the operator understand system state?
+
+## Anti-Patterns to Avoid
+
+```go
+// BAD: Log and return (duplicate logs)
+if err != nil {
+    log.Error("failed to connect", err)
+    return err
 }
 
-const logger = new Logger('uploader', 'debug');
-logger.info('Processing file', { filename: 'video.mp4' });
+// GOOD: Just return (let caller decide)
+if err != nil {
+    return fmt.Errorf("connect: %w", err)
+}
+
+// BAD: Warning that nobody will act on
+log.Warn("connection pool running low")
+
+// GOOD: Either info (if expected) or error (if action needed)
+log.Info("connection pool at 80% capacity")
 ```
 
----
+## Structured Logging
 
-## Python Logging
+When logging is appropriate, prefer structured formats:
 
-```python
-import logging
-
-# Setup
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+```go
+// Prefer structured fields over string interpolation
+log.Info("request completed",
+    "method", r.Method,
+    "path", r.URL.Path,
+    "duration", time.Since(start),
 )
-
-logger = logging.getLogger('psi-engine')
-
-# Usage
-logger.info('Agent spawned', extra={'agent_id': 'agent_001'})
-logger.error('Task failed', exc_info=True)  # Include stack trace
 ```
 
----
+## Reference
 
-## Chrome Extension Logging
-
-```javascript
-// Filter Auto Accept logs
-function log(msg, data = {}) {
-  console.log(
-    '%c[AA v30]%c ' + msg,
-    'color: #10b981; font-weight: bold',
-    'color: inherit',
-    data
-  );
-}
-
-// Remote logging (to server)
-function remoteLog(level, message, data) {
-  fetch('/api/logs', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ level, message, data, timestamp: Date.now() })
-  }).catch(() => {}); // Silent fail
-}
-```
-
----
-
-## Best Practices
-
-| ✅ Do | ❌ Don't |
-|-------|---------|
-| Include context (ids, values) | Log sensitive data |
-| Use appropriate level | Use console.log everywhere |
-| Structure as JSON | Log entire objects |
-| Add timestamps | Leave debug logs in prod |
-| Log errors with stack | Ignore error logging |
-
----
-
-## Debug Patterns
-
-```javascript
-// Conditional debug
-const DEBUG = process.env.DEBUG === 'true';
-if (DEBUG) console.log('Detail:', data);
-
-// Performance timing
-console.time('upload');
-await uploadFile(file);
-console.timeEnd('upload');
-
-// Group related logs
-console.group('Upload Process');
-console.log('File:', file.name);
-console.log('Size:', file.size);
-console.groupEnd();
-```
+Based on: [Let's talk about logging](https://dave.cheney.net/2015/11/05/lets-talk-about-logging) by Dave Cheney (2015)

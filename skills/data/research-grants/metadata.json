@@ -1,7 +1,7 @@
 {
   "name": "research-grants",
-  "repo": "K-Dense-AI/claude-scientific-writer",
-  "path": "scientific_writer/.claude/skills/research-grants/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-writer",
-  "downloaded_at": "2026-01-20T02:19:48.997745Z"
+  "repo": "danieldekay/copilot-config-promptops",
+  "path": "skills/research-grants/SKILL.md",
+  "source": "github.com/danieldekay/copilot-config-promptops",
+  "downloaded_at": "2026-01-21T03:05:07.628266Z"
 }

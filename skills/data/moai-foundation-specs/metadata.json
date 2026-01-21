@@ -1,7 +1,7 @@
 {
   "name": "moai-foundation-specs",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-foundation-specs/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-20T03:30:09.599498Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-foundation-specs/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-21T03:35:42.461933Z"
 }

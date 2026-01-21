@@ -1,7 +1,7 @@
 {
   "name": "route-tester",
-  "repo": "Squirrelfishcityhall150/claude-code-kit",
-  "path": "cli/core/skills/route-tester/SKILL.md",
-  "source": "github.com/Squirrelfishcityhall150/claude-code-kit",
-  "downloaded_at": "2026-01-20T04:05:18.640684Z"
+  "repo": "NmBoyd/claude_setup",
+  "path": ".claude/skills/route-tester/SKILL.md",
+  "source": "github.com/NmBoyd/claude_setup",
+  "downloaded_at": "2026-01-21T03:18:36.643863Z"
 }

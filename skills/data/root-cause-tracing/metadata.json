@@ -1,7 +1,7 @@
 {
   "name": "root-cause-tracing",
-  "repo": "WesleyMFrederick/cc-workflows",
-  "path": ".claude/skills/root-cause-tracing/SKILL.md",
-  "source": "github.com/WesleyMFrederick/cc-workflows",
-  "downloaded_at": "2026-01-20T03:54:23.352708Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/root-cause-tracing/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-21T04:21:45.673409Z"
 }

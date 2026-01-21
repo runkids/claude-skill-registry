@@ -1,285 +1,145 @@
 ---
 name: refactoring
-description: Use when restructuring code without changing behavior - extract method, extract class, rename, move, inline, introduce parameter object. Triggers on keywords like "extract", "rename", "move method", "inline", "restructure", "decompose".
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob, Task, TodoWrite
-infer: true
+description: 执行代码重构（识别坏味道→选择手法→小步修改→运行测试），在保持外部行为不变前提下改进内部结构。当TDD进入REFACTOR阶段、发现代码坏味道、需要消除重复代码、优化代码结构时使用。支持提取方法、类、参数对象等重构手法。
+stage: EXECSPEC_FULFILL
+level_supported: [L1-STREAMLINED, L2-BALANCED, L3-RIGOROUS]
 ---
 
-# Code Refactoring
+# Refactoring Skill
 
-Expert code restructuring agent for EasyPlatform. Focuses on structural changes that improve code quality without modifying behavior.
+> **Scope**: EXECSPEC_FULFILL — Fulfill ExecSpec（落实 ExecSpec）
+>
+> **版本**: 0.1.0（占位）| **创建日期**: 2025-11-27
 
-## Refactoring Catalog
+---
 
-### Extract Patterns
+## 概述
 
-| Pattern                | When to Use                         | Platform Example                          |
-| ---------------------- | ----------------------------------- | ----------------------------------------- |
-| **Extract Method**     | Long method, duplicated code        | Move logic to private method              |
-| **Extract Class**      | Class has multiple responsibilities | Create Helper, Service, or Strategy class |
-| **Extract Interface**  | Need abstraction for testing/DI     | Create `I{ClassName}` interface           |
-| **Extract Expression** | Complex inline expression           | Move to Entity static expression          |
-| **Extract Validator**  | Repeated validation logic           | Create validator extension method         |
-
-### Move Patterns
-
-| Pattern               | When to Use                       | Platform Example                         |
-| --------------------- | --------------------------------- | ---------------------------------------- |
-| **Move Method**       | Method belongs to different class | Move from Handler to Helper/Entity       |
-| **Move to Extension** | Reusable repository logic         | Create `{Entity}RepositoryExtensions`    |
-| **Move to DTO**       | Mapping logic in handler          | Use `PlatformEntityDto.MapToEntity()`    |
-| **Move to Entity**    | Business logic in handler         | Add instance method or static expression |
-
-### Simplify Patterns
-
-| Pattern                     | When to Use                  | Platform Example                   |
-| --------------------------- | ---------------------------- | ---------------------------------- |
-| **Inline Variable**         | Temporary variable used once | Remove intermediate variable       |
-| **Inline Method**           | Method body is obvious       | Replace call with body             |
-| **Replace Conditional**     | Complex if/switch            | Use Strategy pattern or expression |
-| **Introduce Parameter Obj** | Method has many parameters   | Create Command/Query DTO           |
-
-## Workflow
-
-### Phase 1: Analysis
-
-1. **Identify Target**: Locate code to refactor
-2. **Map Dependencies**: Find all usages with Grep
-3. **Assess Impact**: List affected files and tests
-4. **Verify Tests**: Ensure test coverage exists
-
-### Phase 2: Plan
-
-Document refactoring plan:
-
-```markdown
-## Refactoring Plan
-
-**Target**: [file:line_number]
-**Type**: [Extract Method | Move to Extension | etc.]
-**Reason**: [Why this refactoring improves code]
-
-### Changes
-
-1. [ ] Create/modify [file]
-2. [ ] Update usages in [files]
-3. [ ] Run tests
-
-### Risks
-
-- [Potential issues]
-```
-
-### Phase 3: Execute
-
-```csharp
-// BEFORE: Logic in handler
-protected override async Task<Result> HandleAsync(Command req, CancellationToken ct)
-{
-    var isValid = entity.Status == Status.Active &&
-                  entity.User?.IsActive == true &&
-                  !entity.IsDeleted;
-    if (!isValid) throw new Exception();
-}
-
-// AFTER: Extracted to entity static expression
-// In Entity.cs
-public static Expression<Func<Entity, bool>> IsActiveExpr()
-    => e => e.Status == Status.Active &&
-            e.User != null && e.User.IsActive &&
-            !e.IsDeleted;
-
-// In Handler
-var entity = await repository.FirstOrDefaultAsync(Entity.IsActiveExpr(), ct)
-    .EnsureFound("Entity not active");
-```
-
-### Phase 4: Verify
-
-1. Run affected tests
-2. Verify no behavior change
-3. Check code compiles
-4. Review for consistency
-
-## Platform-Specific Refactorings
-
-### Handler to Helper
-
-```csharp
-// BEFORE: Reused logic in multiple handlers
-var employee = await repo.FirstOrDefaultAsync(Employee.UniqueExpr(userId, companyId), ct)
-    ?? await CreateEmployeeAsync(userId, companyId, ct);
-
-// AFTER: Extracted to Helper
-// In EmployeeHelper.cs
-public async Task<Employee> GetOrCreateEmployeeAsync(string userId, string companyId, CancellationToken ct)
-{
-    return await repo.FirstOrDefaultAsync(Employee.UniqueExpr(userId, companyId), ct)
-        ?? await CreateEmployeeAsync(userId, companyId, ct);
-}
-```
-
-### Handler to Repository Extension
-
-```csharp
-// BEFORE: Query logic in handler
-var employees = await repo.GetAllAsync(
-    e => e.CompanyId == companyId && e.Status == Status.Active && e.DepartmentIds.Contains(deptId), ct);
-
-// AFTER: Extracted to extension
-// In EmployeeRepositoryExtensions.cs
-public static async Task<List<Employee>> GetActiveByDepartmentAsync(
-    this IPlatformQueryableRootRepository<Employee> repo, string companyId, string deptId, CancellationToken ct)
-{
-    return await repo.GetAllAsync(
-        Employee.OfCompanyExpr(companyId)
-            .AndAlso(Employee.IsActiveExpr())
-            .AndAlso(e => e.DepartmentIds.Contains(deptId)), ct);
-}
-```
-
-### Mapping to DTO
-
-```csharp
-// BEFORE: Mapping in handler
-var config = new AuthConfig
-{
-    ClientId = req.Dto.ClientId,
-    Secret = encryptService.Encrypt(req.Dto.Secret)
-};
-
-// AFTER: DTO owns mapping
-// In AuthConfigDto.cs : PlatformDto<AuthConfig>
-public override AuthConfig MapToObject() => new AuthConfig
-{
-    ClientId = ClientId,
-    Secret = Secret  // Handler applies encryption
-};
-
-// In Handler
-var config = req.Dto.MapToObject()
-    .With(c => c.Secret = encryptService.Encrypt(c.Secret));
-```
-
-## Safety Checklist
-
-Before any refactoring:
-
-- [ ] Searched all usages (static + dynamic)?
-- [ ] Test coverage exists?
-- [ ] Documented in todo list?
-- [ ] Changes are incremental?
-- [ ] No behavior change verified?
-
-## Code Responsibility Refactoring (Priority Check)
-
-**Before any refactoring, verify logic is in the LOWEST appropriate layer:**
+Refactoring 是在不改变外部行为的前提下改进代码内部结构：
 
 ```
-Entity/Model (Lowest)  →  Service  →  Component/Handler (Highest)
+┌─────────────────────────────────────────────────────┐
+│              🔧 Refactoring Cycle                   │
+├─────────────────────────────────────────────────────┤
+│  识别坏味道 → 选择手法 → 小步修改 → 运行测试       │
+│  (Smell)     (Technique) (Small Step) (Verify)    │
+│       ↑                                   │        │
+│       └───────────────────────────────────┘        │
+└─────────────────────────────────────────────────────┘
 ```
 
-| Wrong Location | Move To           | Example                                     |
-| -------------- | ----------------- | ------------------------------------------- |
-| Component      | Entity/Model      | Dropdown options, display helpers, defaults |
-| Component      | Service (Factory) | Command building, data transformation       |
-| Handler        | Entity            | Business rules, static expressions          |
-| Handler        | Repository Ext    | Reusable query patterns                     |
+**核心原则**：
+- 小步前进，每步都可验证
+- 测试必须始终通过
+- 行为不变，结构改进
 
-```typescript
-// Frontend: Component → Entity refactoring
-// BEFORE: Logic in component (causes duplication)
-readonly statusTypes = [{ value: 1, label: 'Active' }, { value: 2, label: 'Inactive' }];
-getStatusClass(config) { return !config.isEnabled ? 'disabled' : 'active'; }
+---
 
-// AFTER: Logic in entity (enables reuse)
-readonly statusTypes = EntityConfiguration.getStatusTypeOptions();
-getStatusClass(config) { return config.getStatusCssClass(); }
+## 代码坏味道
+
+### 常见坏味道
+
+| 坏味道 | 信号 | 重构方向 |
+|--------|------|----------|
+| **重复代码** | 相似代码块 > 2 处 | Extract Method |
+| **过长函数** | > 20 行 | Extract Method |
+| **过大类** | > 300 行 | Extract Class |
+| **过长参数** | > 4 个参数 | Introduce Parameter Object |
+| **特性依恋** | 方法更多使用其他类数据 | Move Method |
+| **数据泥团** | 相同数据组合多处出现 | Extract Class |
+| **基本类型偏执** | 过度使用基本类型 | Replace with Object |
+| **Switch 语句** | 多处相同 switch | Replace with Polymorphism |
+
+---
+
+## 重构手法
+
+### 提取类手法
+
+```
+Extract Method      → 提取函数
+Extract Class       → 提取类
+Extract Interface   → 提取接口
+Extract Variable    → 提取变量
 ```
 
-## Component HTML Template Standard (BEM Classes)
+### 移动类手法
 
-**All UI elements in component templates MUST have BEM classes, even without styling needs.** This makes HTML self-documenting like OOP class hierarchy.
-
-```html
-<!-- ✅ CORRECT: All elements have BEM classes -->
-<div class="settings-panel">
-    <div class="settings-panel__header">
-        <h2 class="settings-panel__title">Settings</h2>
-    </div>
-    <div class="settings-panel__body">
-        <div class="settings-panel__section">
-            <label class="settings-panel__label">Option</label>
-            <input class="settings-panel__input" formControlName="option" />
-        </div>
-    </div>
-</div>
-
-<!-- ❌ WRONG: Missing BEM classes -->
-<div class="settings-panel">
-    <div>
-        <h2>Settings</h2>
-    </div>
-    <div>
-        <div>
-            <label>Option</label>
-            <input formControlName="option" />
-        </div>
-    </div>
-</div>
+```
+Move Method         → 移动方法
+Move Field          → 移动字段
+Move Class          → 移动类
 ```
 
-**Refactoring Action**: When refactoring components, ensure all HTML elements have proper BEM classes.
+### 简化类手法
 
-## Component SCSS Standard
-
-Always style both the **host element** (Angular selector) and the **main wrapper class**:
-
-```scss
-@import '~assets/scss/variables';
-
-// Host element styling - ensures Angular element is a proper block container
-my-component {
-    display: flex;
-    flex-direction: column;
-}
-
-// Main wrapper class with full styling
-.my-component {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    flex-grow: 1;
-
-    &__header {
-        // BEM child elements...
-    }
-
-    &__content {
-        flex: 1;
-        overflow-y: auto;
-    }
-}
+```
+Inline Method       → 内联方法
+Inline Class        → 内联类
+Remove Parameter    → 移除参数
+Rename              → 重命名
 ```
 
-**Why both?**
+---
 
-- **Host element**: Makes the Angular element a real layout element (not an unknown element without display)
-- **Main class**: Contains the full styling, matches the wrapper div in HTML
+## L1-STREAMLINED 检查清单
 
-```csharp
-// Backend: Handler → Entity refactoring
-// BEFORE: Logic in handler
-var isValid = entity.Status == Status.Active && entity.User?.IsActive == true;
+- [ ] 重构前测试全绿
+- [ ] 每步修改后运行测试
+- [ ] 无新功能添加
+- [ ] 代码可读性提升
 
-// AFTER: Logic in entity
-var entity = await repository.FirstOrDefaultAsync(Entity.IsActiveExpr(), ct);
+### 通过标准
+
+- 4 项全部通过（100%）
+
+---
+
+## 重构流程
+
+### 1. 准备阶段
+
+```
+□ 确保测试覆盖充分
+□ 理解现有代码行为
+□ 识别要重构的坏味道
 ```
 
-## Anti-Patterns
+### 2. 执行阶段
 
-- **Big Bang Refactoring**: Make small, incremental changes
-- **Refactoring Without Tests**: Ensure coverage first
-- **Mixing Refactoring with Features**: Do one or the other
-- **Breaking Public APIs**: Maintain backward compatibility
-- **Logic in Wrong Layer**: Leads to duplicated code - move to lowest appropriate layer
+```
+□ 选择合适的重构手法
+□ 小步修改（每步 < 5 分钟）
+□ 每步后运行测试
+□ 提交小步变更
+```
+
+### 3. 验证阶段
+
+```
+□ 所有测试通过
+□ 代码结构改善
+□ 无行为变化
+```
+
+---
+
+## >> 命令
+
+```
+>>smell_detect       # 检测代码坏味道
+>>refactor_suggest   # 建议重构手法
+>>refactor_verify    # 验证重构结果
+```
+
+---
+
+## 相关 Skills
+
+- **前置**: tdd-cycle（GREEN 后进入 REFACTOR）
+- **并行**: code-quality（质量检查）
+- **原则**: principle-dry, principle-kiss, principle-solid
+
+---
+
+**TODO**: 待细化各重构手法的详细步骤和示例

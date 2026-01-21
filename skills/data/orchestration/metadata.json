@@ -1,7 +1,7 @@
 {
   "name": "orchestration",
-  "repo": "jwwelbor/shark-task-manager",
-  "path": ".claude/skills/orchestration/SKILL.md",
-  "source": "github.com/jwwelbor/shark-task-manager",
-  "downloaded_at": "2026-01-20T03:52:19.046404Z"
+  "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+  "path": "docs/claude/skills-templates/orchestration/agent-communication-skill.md",
+  "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+  "downloaded_at": "2026-01-21T03:38:41.876773Z"
 }

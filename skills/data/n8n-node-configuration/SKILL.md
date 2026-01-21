@@ -1,6 +1,6 @@
 ---
 name: n8n-node-configuration
-description: Operation-aware node configuration guidance. Use when configuring nodes, understanding property dependencies, determining required fields, choosing between get_node detail levels, or learning common configuration patterns by node type.
+description: Operation-aware node configuration guidance. Use when configuring nodes, understanding property dependencies, determining required fields, choosing between get_node_essentials and get_node_info, or learning common configuration patterns by node type.
 ---
 
 # n8n Node Configuration
@@ -14,11 +14,11 @@ Expert guidance for operation-aware node configuration with property dependencie
 **Progressive disclosure**: Start minimal, add complexity as needed
 
 Configuration best practices:
-- `get_node` with `detail: "standard"` is the most used discovery pattern
+- get_node_essentials is the most used discovery pattern
 - 56 seconds average between configuration edits
-- Covers 95% of use cases with 1-2K tokens response
+- 91.7% success rate with essentials-based configuration
 
-**Key insight**: Most configurations need only standard detail, not full schema!
+**Key insight**: Most configurations need only essentials, not full schema!
 
 ---
 
@@ -79,20 +79,23 @@ Configuration best practices:
 
 ### 3. Progressive Discovery
 
-**Use the right detail level**:
+**Use the right tool for the right job**:
 
-1. **get_node({detail: "standard"})** - DEFAULT
-   - Quick overview (~1-2K tokens)
-   - Required fields + common options
-   - **Use first** - covers 95% of needs
+1. **get_node_essentials** (91.7% success rate)
+   - Quick overview
+   - Required fields
+   - Common options
+   - **Use first** - covers 90% of needs
 
-2. **get_node({mode: "search_properties", propertyQuery: "..."})** (for finding specific fields)
-   - Find properties by name
-   - Use when looking for auth, body, headers, etc.
+2. **get_property_dependencies** (for complex nodes)
+   - Shows what fields depend on others
+   - Reveals conditional requirements
+   - Use when essentials isn't enough
 
-3. **get_node({detail: "full"})** (complete schema)
-   - All properties (~3-8K tokens)
-   - Use only when standard detail is insufficient
+3. **get_node_info** (full schema)
+   - Complete documentation
+   - All possible fields
+   - Use when essentials + dependencies insufficient
 
 ---
 
@@ -103,13 +106,13 @@ Configuration best practices:
 ```
 1. Identify node type and operation
    ↓
-2. Use get_node (standard detail is default)
+2. Use get_node_essentials
    ↓
 3. Configure required fields
    ↓
 4. Validate configuration
    ↓
-5. If field unclear → get_node({mode: "search_properties"})
+5. If dependencies unclear → get_property_dependencies
    ↓
 6. Add optional fields as needed
    ↓
@@ -125,9 +128,9 @@ Configuration best practices:
 // Goal: POST JSON to API
 ```
 
-**Step 2**: Get node info
+**Step 2**: Get essentials
 ```javascript
-const info = get_node({
+const info = get_node_essentials({
   nodeType: "nodes-base.httpRequest"
 });
 
@@ -145,7 +148,7 @@ const info = get_node({
 
 **Step 4**: Validate
 ```javascript
-validate_node({
+validate_node_operation({
   nodeType: "nodes-base.httpRequest",
   config,
   profile: "runtime"
@@ -165,7 +168,7 @@ validate_node({
 
 **Step 6**: Validate again
 ```javascript
-validate_node({...});
+validate_node_operation({...});
 // → Error: "body required when sendBody=true"
 ```
 
@@ -188,61 +191,47 @@ validate_node({...});
 
 **Step 8**: Final validation
 ```javascript
-validate_node({...});
+validate_node_operation({...});
 // → Valid! ✅
 ```
 
 ---
 
-## get_node Detail Levels
+## get_node_essentials vs get_node_info
 
-### Standard Detail (DEFAULT - Use This!)
+### Use get_node_essentials When:
 
-**✅ Starting configuration**
+**✅ Starting configuration** (91.7% success rate)
 ```javascript
-get_node({
+get_node_essentials({
   nodeType: "nodes-base.slack"
 });
-// detail="standard" is the default
 ```
 
-**Returns** (~1-2K tokens):
+**Returns**:
 - Required fields
 - Common options
+- Basic examples
 - Operation list
-- Metadata
 
-**Use**: 95% of configuration needs
+**Fast**: ~18 seconds average (from search → essentials)
 
-### Full Detail (Use Sparingly)
+### Use get_node_info When:
 
-**✅ When standard isn't enough**
+**✅ Essentials insufficient**
 ```javascript
-get_node({
-  nodeType: "nodes-base.slack",
-  detail: "full"
+get_node_info({
+  nodeType: "nodes-base.slack"
 });
 ```
 
-**Returns** (~3-8K tokens):
-- Complete schema
+**Returns**:
+- Full schema
 - All properties
-- All nested options
+- Complete documentation
+- Advanced options
 
-**Warning**: Large response, use only when standard insufficient
-
-### Search Properties Mode
-
-**✅ Looking for specific field**
-```javascript
-get_node({
-  nodeType: "nodes-base.httpRequest",
-  mode: "search_properties",
-  propertyQuery: "auth"
-});
-```
-
-**Use**: Find authentication, headers, body fields, etc.
+**Slower**: More data to process
 
 ### Decision Tree
 
@@ -250,27 +239,27 @@ get_node({
 ┌─────────────────────────────────┐
 │ Starting new node config?       │
 ├─────────────────────────────────┤
-│ YES → get_node (standard)       │
+│ YES → get_node_essentials       │
 └─────────────────────────────────┘
          ↓
 ┌─────────────────────────────────┐
-│ Standard has what you need?     │
+│ Essentials has what you need?   │
 ├─────────────────────────────────┤
-│ YES → Configure with it         │
+│ YES → Configure with essentials │
 │ NO  → Continue                  │
 └─────────────────────────────────┘
          ↓
 ┌─────────────────────────────────┐
-│ Looking for specific field?     │
+│ Need dependency info?           │
 ├─────────────────────────────────┤
-│ YES → search_properties mode    │
+│ YES → get_property_dependencies │
 │ NO  → Continue                  │
 └─────────────────────────────────┘
          ↓
 ┌─────────────────────────────────┐
 │ Still need more details?        │
 ├─────────────────────────────────┤
-│ YES → get_node({detail: "full"})│
+│ YES → get_node_info             │
 └─────────────────────────────────┘
 ```
 
@@ -345,27 +334,30 @@ get_node({
 }
 ```
 
-### Finding Property Dependencies
+### Using get_property_dependencies
 
-**Use get_node with search_properties mode**:
+**Example**:
 ```javascript
-get_node({
-  nodeType: "nodes-base.httpRequest",
-  mode: "search_properties",
-  propertyQuery: "body"
+const deps = get_property_dependencies({
+  nodeType: "nodes-base.httpRequest"
 });
 
-// Returns property paths matching "body" with descriptions
-```
-
-**Or use full detail for complete schema**:
-```javascript
-get_node({
-  nodeType: "nodes-base.httpRequest",
-  detail: "full"
-});
-
-// Returns complete schema with displayOptions rules
+// Returns dependency tree
+{
+  "dependencies": {
+    "body": {
+      "shows_when": {
+        "sendBody": [true],
+        "method": ["POST", "PUT", "PATCH", "DELETE"]
+      }
+    },
+    "queryParameters": {
+      "shows_when": {
+        "sendQuery": [true]
+      }
+    }
+  }
+}
 ```
 
 **Use this when**: Validation fails and you don't understand why field is missing/required
@@ -390,7 +382,7 @@ get_node({
 **How to configure**:
 1. Choose resource
 2. Choose operation
-3. Use get_node to see operation-specific requirements
+3. Use get_node_essentials to see operation-specific requirements
 4. Configure required fields
 
 ### Pattern 2: HTTP-Based Nodes
@@ -581,16 +573,14 @@ body is required when:
 **How to discover**:
 ```javascript
 // Option 1: Read validation error
-validate_node({...});
+validate_node_operation({...});
 // Error: "body required when sendBody=true"
 
-// Option 2: Search for the property
-get_node({
-  nodeType: "nodes-base.httpRequest",
-  mode: "search_properties",
-  propertyQuery: "body"
+// Option 2: Check dependencies
+get_property_dependencies({
+  nodeType: "nodes-base.httpRequest"
 });
-// Shows: body property with displayOptions rules
+// Shows: body → shows_when: sendBody=[true], method=[POST,PUT,PATCH,DELETE]
 
 // Option 3: Try minimal config and iterate
 // Start without body, validation will tell you if needed
@@ -610,11 +600,10 @@ singleValue should be true when:
 
 **Manual check**:
 ```javascript
-get_node({
-  nodeType: "nodes-base.if",
-  detail: "full"
+get_property_dependencies({
+  nodeType: "nodes-base.if"
 });
-// Shows complete schema with operator-specific rules
+// Shows operator-specific dependencies
 ```
 
 ---
@@ -662,7 +651,7 @@ n8n_update_partial_workflow({...});  // YOLO
 ```javascript
 // Validate before deploying
 const config = {...};
-const result = validate_node({...});
+const result = validate_node_operation({...});
 if (result.valid) {
   n8n_update_partial_workflow({...});
 }
@@ -692,7 +681,7 @@ if (result.valid) {
 **Good**:
 ```javascript
 // Check requirements when changing operation
-get_node({
+get_node_essentials({
   nodeType: "nodes-base.slack"
 });
 // See what update operation needs (messageId, not channel)
@@ -704,24 +693,24 @@ get_node({
 
 ### ✅ Do
 
-1. **Start with get_node (standard detail)**
-   - ~1-2K tokens response
-   - Covers 95% of configuration needs
-   - Default detail level
+1. **Start with get_node_essentials**
+   - 91.7% success rate
+   - Faster than get_node_info
+   - Sufficient for most needs
 
 2. **Validate iteratively**
    - Configure → Validate → Fix → Repeat
    - Average 2-3 iterations is normal
    - Read validation errors carefully
 
-3. **Use search_properties mode when stuck**
-   - If field seems missing, search for it
+3. **Use property dependencies when stuck**
+   - If field seems missing, check dependencies
    - Understand what controls field visibility
-   - `get_node({mode: "search_properties", propertyQuery: "..."})`
+   - get_property_dependencies reveals rules
 
 4. **Respect operation context**
    - Different operations = different requirements
-   - Always check get_node when changing operation
+   - Always check essentials when changing operation
    - Don't assume configs are transferable
 
 5. **Trust auto-sanitization**
@@ -731,15 +720,15 @@ get_node({
 
 ### ❌ Don't
 
-1. **Jump to detail="full" immediately**
-   - Try standard detail first
+1. **Jump to get_node_info immediately**
+   - Try essentials first
    - Only escalate if needed
-   - Full schema is 3-8K tokens
+   - Full schema is overwhelming
 
 2. **Configure blindly**
    - Always validate before deploying
    - Understand why fields are required
-   - Use search_properties for conditional fields
+   - Check dependencies for conditional fields
 
 3. **Copy configs without understanding**
    - Different operations need different fields
@@ -765,10 +754,10 @@ For comprehensive guides on specific topics:
 ## Summary
 
 **Configuration Strategy**:
-1. Start with `get_node` (standard detail is default)
+1. Start with get_node_essentials (91.7% success)
 2. Configure required fields for operation
 3. Validate configuration
-4. Search properties if stuck
+4. Check dependencies if stuck
 5. Iterate until valid (avg 2-3 cycles)
 6. Deploy with confidence
 
@@ -783,11 +772,3 @@ For comprehensive guides on specific topics:
 - **n8n Validation Expert** - Interpret validation errors
 - **n8n Expression Syntax** - Configure expression fields
 - **n8n Workflow Patterns** - Apply patterns with proper configuration
-
-## When to use this skill
-
-Operation-aware node configuration guidance. Use when configuring nodes, understanding property dependencies, determining required fields, choosing between get_node detail levels, or learning common configuration patterns by node type.
-
-## How to use this skill
-
-Refer to the instructions above or standard agent usage for this skill type.

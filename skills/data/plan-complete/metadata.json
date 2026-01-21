@@ -1,7 +1,7 @@
 {
   "name": "plan-complete",
-  "repo": "savvy-web/rslib-builder",
-  "path": ".claude/skills/plan-complete/SKILL.md",
-  "source": "github.com/savvy-web/rslib-builder",
-  "downloaded_at": "2026-01-20T01:47:17.898012Z"
+  "repo": "brmatola/gremlins",
+  "path": "skills/plan-complete/SKILL.md",
+  "source": "github.com/brmatola/gremlins",
+  "downloaded_at": "2026-01-21T03:26:09.595287Z"
 }

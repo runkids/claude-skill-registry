@@ -1,373 +1,433 @@
 ---
 name: context-engineering
-description: Strategies for managing LLM context windows effectively in AI agents. Use when building agents that handle long conversations, multi-step tasks, tool orchestration, or need to maintain coherence across extended interactions.
+description: Use when designing agent system prompts, optimizing RAG retrieval, or when context is too expensive or slow. Reduces tokens while maintaining quality through strategic positioning and attention-aware design.
+context: fork
+version: 1.0.0
+author: SkillForge AI Agent Hub
+tags: [context, attention, optimization, llm, performance, 2026]
+user-invocable: false
 ---
 
 # Context Engineering
 
-Context engineering is the discipline of curating and maintaining the optimal set of tokens during LLM inference. Unlike prompt engineering (crafting individual prompts), context engineering focuses on what information enters the context window and when.
+**The discipline of curating the smallest high-signal token set that achieves desired outcomes.**
 
-## Table of Contents
+## Overview
 
-- [Core Principles](#core-principles)
-- [Context Management Strategies](#context-management-strategies)
-- [System Prompt Design](#system-prompt-design)
-- [Tool Design for Context Efficiency](#tool-design-for-context-efficiency)
-- [Long-Horizon Task Patterns](#long-horizon-task-patterns)
-- [Implementation Patterns](#implementation-patterns)
-- [Best Practices](#best-practices)
-- [References](#references)
+Context engineering goes beyond prompt engineering. While prompts focus on *what* you ask, context engineering focuses on *everything* the model sees—system instructions, tool definitions, documents, message history, and tool outputs.
 
-## Core Principles
+**Key Insight:** Context windows are constrained not by raw token capacity but by attention mechanics. As context grows, models experience degradation.
 
-### Context as a Finite Resource
+## Overview
 
-LLMs have limited "attention budgets." As context length increases, models experience **context rot**—decreased ability to accurately recall information. The goal is finding the smallest possible set of high-signal tokens that maximize desired outcomes.
+- Designing agent system prompts
+- Optimizing RAG retrieval pipelines
+- Managing long-running conversations
+- Building multi-agent architectures
+- Reducing token costs while maintaining quality
+
+---
+
+## The "Lost in the Middle" Phenomenon
+
+Models pay unequal attention across the context window:
 
 ```
-Effective Context = Relevant Information / Total Tokens
+Attention
+Strength   ████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░████████
+           ↑                                                      ↑
+        START              MIDDLE (weakest attention)           END
 ```
 
-**Key insight**: More context isn't better. The right context is better.
+**Practical Implications:**
 
-### The Context Pollution Problem
+| Position | Attention | Best For |
+|----------|-----------|----------|
+| START | High | System identity, critical instructions, constraints |
+| MIDDLE | Low | Background context, optional details |
+| END | High | Current task, recent messages, immediate query |
 
-Every token added to context has costs:
-- Increased latency and compute
-- Diluted attention to important information
-- Higher risk of hallucination from conflicting data
-- Reduced model performance on retrieval tasks
+---
 
-## Context Management Strategies
+## The Five Context Layers
 
-### 1. Context Trimming
+### 1. System Prompts (Identity Layer)
 
-Drop older conversation turns, keeping only the last N turns.
+Establishes agent identity at the right "altitude":
 
-| Aspect | Details |
-|--------|---------|
-| **Mechanism** | Sliding window over conversation history |
-| **Pros** | Deterministic, zero latency, preserves recent context verbatim |
-| **Cons** | Abrupt loss of long-range context, "amnesia" effect |
-| **Best for** | Independent tasks, short interactions, predictable workflows |
+```
+TOO HIGH (vague):        "You are a helpful assistant"
+TOO LOW (brittle):       "Always respond with exactly 3 bullet points..."
+OPTIMAL (principled):    "You are a senior engineer who values clarity,
+                          tests assumptions, and explains trade-offs"
+```
+
+**Best Practices:**
+- Define role and expertise level
+- State core principles (not rigid rules)
+- Include what NOT to do (boundaries)
+- Position at START of context
+
+### 2. Tool Definitions (Capability Layer)
+
+Tools steer behavior through descriptions:
 
 ```python
-def trim_context(messages: list, keep_last_n: int = 10) -> list:
-    """Keep system message + last N turns."""
-    system_msgs = [m for m in messages if m["role"] == "system"]
-    other_msgs = [m for m in messages if m["role"] != "system"]
-    return system_msgs + other_msgs[-keep_last_n:]
-```
+# ❌ BAD: Ambiguous - when would you use this?
+@tool
+def search(query: str) -> str:
+    """Search for information."""
+    pass
 
-### 2. Context Summarization
-
-Compress prior messages into structured summaries.
-
-| Aspect | Details |
-|--------|---------|
-| **Mechanism** | LLM generates summary of older context |
-| **Pros** | Retains long-range memory, smoother UX, scalable |
-| **Cons** | Summarization bias risk, added latency, potential compounding errors |
-| **Best for** | Complex multi-step tasks, long-horizon interactions |
-
-```python
-SUMMARIZATION_PROMPT = """Summarize the conversation so far, preserving:
-1. Key decisions made
-2. Important context established
-3. Current task state and goals
-4. Any constraints or preferences expressed
-
-Be concise but complete. Output as structured markdown."""
-
-async def summarize_context(messages: list, model) -> str:
-    """Generate a summary of conversation history."""
-    conversation_text = format_messages_for_summary(messages)
-    response = await model.generate(
-        system=SUMMARIZATION_PROMPT,
-        user=conversation_text
-    )
-    return response.content
-```
-
-### 3. Hybrid Approach
-
-Combine trimming and summarization for optimal balance.
-
-```python
-class HybridContextManager:
-    def __init__(
-        self,
-        keep_recent: int = 5,      # Recent turns to keep verbatim
-        summary_threshold: int = 20, # When to trigger summarization
-    ):
-        self.keep_recent = keep_recent
-        self.summary_threshold = summary_threshold
-        self.running_summary = ""
-
-    def process(self, messages: list) -> list:
-        if len(messages) < self.summary_threshold:
-            return messages
-
-        # Summarize older messages
-        old_messages = messages[:-self.keep_recent]
-        self.running_summary = summarize(old_messages, self.running_summary)
-
-        # Return summary + recent messages
-        return [
-            {"role": "system", "content": f"Previous context:\n{self.running_summary}"},
-            *messages[-self.keep_recent:]
-        ]
-```
-
-## System Prompt Design
-
-### Principles for Context-Efficient Prompts
-
-1. **Clear and direct language**: Avoid ambiguity that requires clarification turns
-2. **Structured sections**: Organize by purpose (role, capabilities, constraints)
-3. **Minimal yet comprehensive**: Include only what affects behavior
-4. **Self-contained instructions**: Reduce need for context retrieval
-
-### Example Structure
-
-```markdown
-# Role
-You are [specific role] that [primary function].
-
-# Capabilities
-- [Capability 1 with scope]
-- [Capability 2 with scope]
-
-# Constraints
-- [Hard constraint]
-- [Preference]
-
-# Output Format
-[Specific format requirements]
-```
-
-## Tool Design for Context Efficiency
-
-### Just-in-Time Context Loading
-
-Instead of front-loading all possible context, load information dynamically as needed.
-
-```python
-# Anti-pattern: Loading everything upfront
-context = load_all_user_data()  # Large, mostly unused
-context += load_all_documents()  # Even larger
-
-# Better: Just-in-time retrieval
-tools = [
-    Tool(
-        name="get_user_preference",
-        description="Get specific user preference by key",
-        # Only fetches what's needed when asked
-    ),
-    Tool(
-        name="search_documents",
-        description="Search documents by query",
-        # Returns relevant subset
-    ),
-]
-```
-
-### Tool Design Principles
-
-1. **Self-contained**: Each tool returns complete, usable information
-2. **Scoped**: Tools do one thing well
-3. **Descriptive**: Names and descriptions guide LLM toward correct usage
-4. **Error-robust**: Return informative errors that don't pollute context
-
-```python
-# Well-designed tool
-def search_codebase(query: str, max_results: int = 5) -> str:
-    """Search codebase for relevant code snippets.
-
-    Args:
-        query: Natural language description of what to find
-        max_results: Maximum snippets to return (default 5)
-
-    Returns:
-        Formatted code snippets with file paths and line numbers,
-        or 'No results found' if nothing matches.
+# ✅ GOOD: Clear trigger conditions
+@tool
+def search_documentation(query: str) -> str:
     """
-    results = perform_search(query, limit=max_results)
-    if not results:
-        return "No results found for query."
-    return format_results(results)  # Concise, structured output
+    Search internal documentation for technical answers.
+
+    USE WHEN:
+    - User asks about internal APIs or services
+    - Question requires company-specific knowledge
+    - Public information is insufficient
+
+    DO NOT USE WHEN:
+    - Question is general programming knowledge
+    - User explicitly wants external sources
+    """
+    pass
 ```
 
-## Long-Horizon Task Patterns
+**Rule:** If a human cannot definitively say which tool to use, an agent cannot either.
 
-### Pattern 1: Compaction
+### 3. Retrieved Documents (Knowledge Layer)
 
-Periodically compress conversation history to reclaim context space.
+Just-in-time loading beats pre-loading:
 
 ```python
-async def compaction_loop(agent, messages, task):
-    while not task.complete:
-        # Process next step
-        response = await agent.run(messages)
-        messages.append(response)
+# ❌ BAD: Pre-load everything
+context = load_all_documentation()  # 50k tokens!
 
-        # Compact when approaching limit
-        if estimate_tokens(messages) > TOKEN_LIMIT * 0.8:
-            summary = await summarize_context(messages[:-3])
-            messages = [
-                {"role": "system", "content": agent.system_prompt},
-                {"role": "assistant", "content": f"Summary of progress:\n{summary}"},
-                *messages[-3:]  # Keep recent context
-            ]
+# ✅ GOOD: Progressive disclosure
+def build_context(query: str) -> str:
+    # Stage 1: Lightweight retrieval (500 tokens)
+    summaries = search_summaries(query, top_k=5)
+
+    # Stage 2: Selective deep loading (only if needed)
+    if needs_detail(summaries):
+        full_docs = load_full_documents(summaries[:2])
+        return summaries + full_docs
+
+    return summaries
+```
+
+### 4. Message History (Memory Layer)
+
+Treat as scratchpad, not permanent storage:
+
+```python
+# Implement sliding window with compression
+MAX_MESSAGES = 20
+COMPRESSION_TRIGGER = 0.7  # 70% of context budget
+
+def manage_history(messages: list, budget: int) -> list:
+    current_tokens = count_tokens(messages)
+
+    if current_tokens > budget * COMPRESSION_TRIGGER:
+        # Compress older messages, keep recent
+        old = messages[:-5]
+        recent = messages[-5:]
+
+        summary = summarize(old)  # Anchored compression
+        return [summary] + recent
 
     return messages
 ```
 
-### Pattern 2: Structured Note-Taking
+### 5. Tool Outputs (Observation Layer)
 
-Agent maintains external notes, retrieving as needed.
-
-```python
-class NoteTakingAgent:
-    def __init__(self):
-        self.notes = {}  # Key-value store outside context
-
-    async def run(self, messages):
-        tools = [
-            Tool("save_note", self.save_note, "Save information for later"),
-            Tool("get_note", self.get_note, "Retrieve saved information"),
-            Tool("list_notes", self.list_notes, "List all saved note keys"),
-        ]
-        return await self.agent.run(messages, tools=tools)
-
-    def save_note(self, key: str, content: str) -> str:
-        self.notes[key] = content
-        return f"Saved note: {key}"
-
-    def get_note(self, key: str) -> str:
-        return self.notes.get(key, f"No note found for key: {key}")
-```
-
-### Pattern 3: Sub-Agent Architecture
-
-Delegate focused tasks to specialized agents with clean context.
+**Critical Finding:** Tool outputs can reach 83.9% of total context usage!
 
 ```python
-class OrchestratorAgent:
-    def __init__(self):
-        self.sub_agents = {
-            "researcher": ResearchAgent(),
-            "coder": CodingAgent(),
-            "reviewer": ReviewAgent(),
+# ❌ BAD: Return raw output
+def search_web(query: str) -> str:
+    results = web_search(query)
+    return json.dumps(results)  # Could be 10k+ tokens!
+
+# ✅ GOOD: Structured, bounded output
+def search_web(query: str) -> str:
+    results = web_search(query)
+
+    # Extract only what's needed
+    extracted = [
+        {
+            "title": r["title"],
+            "snippet": r["snippet"][:200],  # Truncate
+            "url": r["url"]
         }
+        for r in results[:5]  # Limit count
+    ]
 
-    async def delegate(self, task: str, agent_type: str) -> str:
-        """Delegate to sub-agent, receive condensed summary."""
-        agent = self.sub_agents[agent_type]
-
-        # Sub-agent works with fresh context
-        result = await agent.run(task)
-
-        # Return only essential findings to main context
-        return result.summary  # Not the full conversation
+    return json.dumps(extracted)  # ~500 tokens max
 ```
 
-**Benefits**:
-- Each sub-agent has focused, clean context
-- Main agent receives condensed results
-- Parallelization opportunities
-- Failure isolation
+---
 
-## Implementation Patterns
+## The 95% Finding
 
-### Session Memory Manager
+Research shows what actually drives agent performance:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│  TOKEN USAGE        ████████████████████████████████████  80%  │
+│  TOOL CALLS         █████  10%                                 │
+│  MODEL CHOICE       ██  5%                                     │
+│  OTHER              ██  5%                                     │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**Key Insight:** Optimize context efficiency BEFORE switching models.
+
+---
+
+## Context Budget Management
+
+### Token Budget Calculator
 
 ```python
-class SessionMemory:
-    def __init__(
-        self,
-        keep_last_n_turns: int = 5,
-        context_limit: int = 100_000,  # tokens
-        summarizer = None,
-    ):
-        self.keep_last_n_turns = keep_last_n_turns
-        self.context_limit = context_limit
-        self.summarizer = summarizer
-        self.messages = []
-        self.summary = ""
+def calculate_budget(model: str, task_type: str) -> dict:
+    """Calculate optimal token allocation."""
 
-    async def add_message(self, message: dict):
-        self.messages.append(message)
-        await self._maybe_compact()
+    MAX_CONTEXT = {
+        "gpt-4o": 128_000,
+        "claude-3": 200_000,
+        "llama-3": 128_000,
+    }
 
-    async def _maybe_compact(self):
-        current_tokens = estimate_tokens(self.messages)
+    # Reserve 20% for response generation
+    available = MAX_CONTEXT[model] * 0.8
 
-        if current_tokens > self.context_limit * 0.8:
-            # Summarize all but recent messages
-            old_messages = self.messages[:-self.keep_last_n_turns]
-            new_summary = await self.summarizer.summarize(
-                old_messages,
-                previous_summary=self.summary
-            )
-            self.summary = new_summary
-            self.messages = self.messages[-self.keep_last_n_turns:]
+    # Allocation by task type
+    ALLOCATIONS = {
+        "chat": {
+            "system": 0.05,      # 5%
+            "tools": 0.05,       # 5%
+            "history": 0.60,    # 60%
+            "retrieval": 0.20,  # 20%
+            "current": 0.10,    # 10%
+        },
+        "agent": {
+            "system": 0.10,     # 10%
+            "tools": 0.15,      # 15%
+            "history": 0.30,    # 30%
+            "retrieval": 0.25,  # 25%
+            "observations": 0.20, # 20%
+        },
+    }
 
-    def get_context(self) -> list:
-        context = []
-        if self.summary:
-            context.append({
-                "role": "system",
-                "content": f"Conversation summary:\n{self.summary}"
-            })
-        context.extend(self.messages)
-        return context
+    alloc = ALLOCATIONS[task_type]
+    return {k: int(v * available) for k, v in alloc.items()}
 ```
 
-### Token Estimation
+### Compression Triggers
 
 ```python
-def estimate_tokens(messages: list) -> int:
-    """Rough token estimation (4 chars ≈ 1 token for English)."""
-    total_chars = sum(
-        len(m.get("content", ""))
-        for m in messages
-    )
-    return total_chars // 4
-
-def estimate_tokens_accurate(messages: list, model: str) -> int:
-    """Accurate token count using tiktoken."""
-    import tiktoken
-    encoding = tiktoken.encoding_for_model(model)
-    return sum(
-        len(encoding.encode(m.get("content", "")))
-        for m in messages
-    )
+COMPRESSION_CONFIG = {
+    "trigger_threshold": 0.70,    # Start compressing at 70%
+    "target_threshold": 0.50,     # Compress down to 50%
+    "preserve_recent": 5,         # Always keep last 5 messages
+    "preserve_system": True,      # Never compress system prompt
+}
 ```
 
-## Best Practices
+---
 
-1. **Treat context as precious**: Every token has a cost. Include only information that improves task performance.
+## Attention-Aware Positioning
 
-2. **Use progressive disclosure**: Start minimal, expand context only when needed via tools.
+### Template Structure
 
-3. **Design for recoverability**: Agents should be able to reconstruct critical context from external sources.
+```markdown
+[START - HIGH ATTENTION]
+## System Identity
+You are a {role} specialized in {domain}.
 
-4. **Monitor context health**: Track token usage, retrieval accuracy, and task completion rates.
+## Critical Constraints
+- NEVER {dangerous_action}
+- ALWAYS {required_behavior}
 
-5. **Prefer structured over raw data**: JSON, markdown tables, and clear formatting improve information density.
+[MIDDLE - LOWER ATTENTION]
+## Background Context
+{retrieved_documents}
+{older_conversation_history}
 
-6. **Implement graceful degradation**: When context limits approach, prioritize recent and high-signal information.
+[END - HIGH ATTENTION]
+## Current Task
+{recent_messages}
+{user_query}
 
-7. **Test with long conversations**: Validate agent behavior after many turns, not just initial interactions.
+## Response Guidelines
+{output_format_instructions}
+```
 
-8. **Separate concerns**: Use different context regions for system instructions, user history, and tool outputs.
+### Priority Positioning Rules
 
-9. **Version your summaries**: When compacting, maintain enough structure to debug summarization issues.
+1. **Identity & Constraints** → START (immutable)
+2. **Critical instructions** → START or END
+3. **Retrieved documents** → MIDDLE (expandable)
+4. **Conversation history** → MIDDLE (compressible)
+5. **Current query** → END (always visible)
+6. **Output format** → END (guides generation)
 
-10. **Measure and iterate**: Context engineering is empirical—test what information actually improves outcomes.
+---
 
-## References
+## Metrics: Tokens-Per-Task
 
-- [reference/evaluation-strategies.md](reference/evaluation-strategies.md) - Testing context management effectiveness
-- [reference/summarization-patterns.md](reference/summarization-patterns.md) - Detailed summarization implementations
+**Optimize for total task completion, not individual requests:**
+
+```python
+@dataclass
+class TaskMetrics:
+    task_id: str
+    total_tokens: int = 0
+    request_count: int = 0
+    retrieval_tokens: int = 0
+    generation_tokens: int = 0
+
+    @property
+    def tokens_per_request(self) -> float:
+        return self.total_tokens / max(self.request_count, 1)
+
+    @property
+    def efficiency_ratio(self) -> float:
+        """Lower is better - generation vs total context."""
+        return self.generation_tokens / max(self.total_tokens, 1)
+```
+
+**Anti-pattern:** Aggressive compression that loses critical details forces expensive re-fetching, consuming MORE tokens overall.
+
+---
+
+## Common Pitfalls
+
+| Pitfall | Problem | Solution |
+|---------|---------|----------|
+| Token stuffing | "More context = better" | Quality over quantity |
+| Flat structure | No priority signaling | Use headers, positioning |
+| Static context | Same context for all queries | Dynamic, query-relevant retrieval |
+| Ignoring middle | Important info gets lost | Position critically |
+| No compression | Context grows unbounded | Sliding window + summarization |
+
+---
+
+## Integration with SkillForge
+
+### Agent System Prompts
+
+Apply attention-aware positioning to agent definitions:
+
+```markdown
+# Agent: backend-system-architect
+
+[HIGH ATTENTION - START]
+## Identity
+Senior backend architect with 15+ years experience.
+
+## Constraints
+- NEVER suggest unvalidated security patterns
+- ALWAYS consider multi-tenant isolation
+
+[LOWER ATTENTION - MIDDLE]
+## Domain Knowledge
+{dynamically_loaded_patterns}
+
+[HIGH ATTENTION - END]
+## Current Task
+{user_request}
+```
+
+### Skill Loading
+
+Progressive skill disclosure:
+
+```python
+# Stage 1: Load skill metadata only (~100 tokens)
+skill_index = load_skill_summaries()
+
+# Stage 2: Load relevant skill on demand (~500 tokens)
+if task_matches("database"):
+    full_skill = load_skill("pgvector-search")
+```
+
+---
+
+---
+
+## CC 2.1.7: MCP Auto-Discovery and Deferral
+
+### MCP Search Mode
+
+CC 2.1.7 introduces intelligent MCP tool discovery. When context usage exceeds 10% of the effective window, MCPs are automatically deferred to reduce token overhead.
+
+```
+Context < 10%:  MCP tools immediately available
+Context > 10%:  MCP tools discovered via MCPSearch (deferred loading)
+
+Savings: ~7200 tokens per session average
+```
+
+### How Auto-Deferral Works
+
+The context budget monitor tracks usage against the effective window:
+
+1. **Below 10%**: MCP tool definitions loaded in context (~1200 tokens)
+2. **Above 10%**: MCP tools deferred, available via MCPSearch on-demand
+3. **State file**: `/tmp/claude-mcp-defer-state-{session}.json`
+
+### Best Practices for MCP with Auto-Deferral
+
+1. **Use MCPs early** - Before context fills up
+2. **Batch MCP calls** - Multiple queries in one turn
+3. **Cache MCP results** - Store retrieved docs in context
+4. **Monitor statusline** - Watch for `mcp.deferred: true`
+
+### Checking MCP Deferral State
+
+```bash
+cat /tmp/claude-mcp-defer-state-${CLAUDE_SESSION_ID}.json
+```
+
+
+## Related Skills
+
+- `context-compression` - Compression strategies and anchored summarization
+- `multi-agent-orchestration` - Context isolation across agents
+- `rag-retrieval` - Optimizing retrieved document context
+- `prompt-caching` - Reducing redundant context transmission
+
+---
+
+**Version:** 1.0.0 (January 2026)
+**Based on:** Context Engineering research, BrowseComp evaluation findings
+**Key Metric:** 80% of agent performance variance explained by token usage
+
+## Capability Details
+
+### attention-mechanics
+**Keywords:** context window, attention, lost in the middle, token budget
+**Solves:**
+- Understand lost-in-the-middle effect (high attention at START/END)
+- Position critical info strategically
+- Optimize tokens-per-task not tokens-per-request
+
+### context-layers
+**Keywords:** context anatomy, context structure, five layers
+**Solves:**
+- Understand 5 context layers (system, tools, docs, history, outputs)
+- Implement just-in-time document loading
+- Manage tool output truncation
+
+### budget-allocation
+**Keywords:** token budget, context budget, allocation
+**Solves:**
+- Allocate tokens across context layers
+- Implement compression triggers at 70% utilization
+- Target 50% utilization after compression

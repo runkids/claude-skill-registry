@@ -1,7 +1,7 @@
 {
   "name": "moai-security-secrets",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": "skills/moai-security-secrets/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-20T04:03:45.462718Z"
+  "repo": "jg-chalk-io/Nora-LiveKit",
+  "path": ".claude/skills/moai-security-secrets/SKILL.md",
+  "source": "github.com/jg-chalk-io/Nora-LiveKit",
+  "downloaded_at": "2026-01-21T02:19:14.122852Z"
 }

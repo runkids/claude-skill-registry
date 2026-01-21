@@ -1,7 +1,7 @@
 {
   "name": "summarize",
-  "repo": "SimHacker/moollm",
+  "repo": "clawdbot/clawdbot",
   "path": "skills/summarize/SKILL.md",
-  "source": "github.com/SimHacker/moollm",
-  "downloaded_at": "2026-01-20T02:41:31.222105Z"
+  "source": "github.com/clawdbot/clawdbot",
+  "downloaded_at": "2026-01-21T02:52:43.334537Z"
 }

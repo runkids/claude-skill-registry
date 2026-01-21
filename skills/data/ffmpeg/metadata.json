@@ -1,7 +1,7 @@
 {
   "name": "ffmpeg",
-  "repo": "alex-tgk/saasquatch",
-  "path": ".claude/skills/ffmpeg/SKILL.md",
-  "source": "github.com/alex-tgk/saasquatch",
-  "downloaded_at": "2026-01-20T03:52:07.183505Z"
+  "repo": "plurigrid/asi",
+  "path": "skills/ffmpeg/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-21T03:35:36.085687Z"
 }

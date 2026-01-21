@@ -1,1254 +1,372 @@
 ---
 name: background-jobs
-description: Background job processing patterns including job queues, scheduled jobs, worker pools, and retry strategies. Use when implementing async processing, Celery, Bull, Sidekiq, cron jobs, task queues, job monitoring, or worker management.
+description: Async task processing with Celery, ARQ, and Redis for Python backends. Use when implementing background tasks, job queues, workers, scheduled jobs, or periodic task processing.
+context: fork
+agent: data-pipeline-engineer
+version: 1.0.0
+tags: [background-jobs, celery, arq, redis, async, python, 2026]
+author: SkillForge
+user-invocable: false
 ---
 
-# Background Jobs
+# Background Job Patterns
+
+Offload long-running tasks with async job queues.
 
 ## Overview
 
-Background jobs enable asynchronous processing of tasks outside the request-response cycle. This skill covers job queue patterns, scheduling, worker management, retry strategies, and monitoring for reliable task execution across different frameworks and languages.
+- Long-running tasks (report generation, data processing)
+- Email/notification sending
+- Scheduled/periodic tasks
+- Webhook processing
+- Data export/import pipelines
+- Non-LLM async operations (use LangGraph for LLM workflows)
 
-## Key Concepts
+## Tool Selection
 
-### Job Queue Patterns
+| Tool | Language | Best For | Complexity |
+|------|----------|----------|------------|
+| ARQ | Python (async) | FastAPI, simple jobs | Low |
+| Celery | Python | Complex workflows, enterprise | High |
+| RQ | Python | Simple Redis queues | Low |
+| Dramatiq | Python | Reliable messaging | Medium |
 
-**Bull Queue (Node.js/Redis)**:
+## ARQ (Async Redis Queue)
 
-```typescript
-import Queue, { Job, JobOptions } from "bull";
-import { Redis } from "ioredis";
-
-// Queue configuration
-interface QueueConfig {
-  name: string;
-  redis: Redis;
-  defaultJobOptions?: JobOptions;
-}
-
-// Job data interfaces
-interface EmailJobData {
-  to: string;
-  subject: string;
-  template: string;
-  context: Record<string, unknown>;
-}
-
-interface ImageProcessingJobData {
-  imageId: string;
-  operations: Array<{
-    type: "resize" | "crop" | "compress";
-    params: Record<string, unknown>;
-  }>;
-}
-
-// Queue factory
-function createQueue<T>(config: QueueConfig): Queue.Queue<T> {
-  const queue = new Queue<T>(config.name, {
-    createClient: (type) => {
-      switch (type) {
-        case "client":
-          return config.redis.duplicate();
-        case "subscriber":
-          return config.redis.duplicate();
-        case "bclient":
-          return config.redis.duplicate();
-        default:
-          return config.redis.duplicate();
-      }
-    },
-    defaultJobOptions: {
-      removeOnComplete: 100, // Keep last 100 completed jobs
-      removeOnFail: 1000, // Keep last 1000 failed jobs
-      attempts: 3,
-      backoff: {
-        type: "exponential",
-        delay: 2000,
-      },
-      ...config.defaultJobOptions,
-    },
-  });
-
-  // Global error handler
-  queue.on("error", (error) => {
-    console.error(`Queue ${config.name} error:`, error);
-  });
-
-  return queue;
-}
-
-// Email queue with typed processor
-const emailQueue = createQueue<EmailJobData>({
-  name: "email",
-  redis: new Redis(process.env.REDIS_URL),
-});
-
-// Define processor
-emailQueue.process(async (job: Job<EmailJobData>) => {
-  const { to, subject, template, context } = job.data;
-
-  // Update progress
-  await job.progress(10);
-
-  // Render template
-  const html = await renderTemplate(template, context);
-  await job.progress(50);
-
-  // Send email
-  await emailService.send({ to, subject, html });
-  await job.progress(100);
-
-  return { sent: true, messageId: `msg_${Date.now()}` };
-});
-
-// Add job with options
-async function sendEmail(
-  data: EmailJobData,
-  options?: JobOptions,
-): Promise<Job<EmailJobData>> {
-  return emailQueue.add(data, {
-    priority: options?.priority || 0,
-    delay: options?.delay || 0,
-    jobId: options?.jobId, // For deduplication
-    ...options,
-  });
-}
-
-// Bulk job addition
-async function sendBulkEmails(
-  emails: EmailJobData[],
-): Promise<Job<EmailJobData>[]> {
-  const jobs = emails.map((data, index) => ({
-    data,
-    opts: {
-      jobId: `bulk_${Date.now()}_${index}`,
-    },
-  }));
-
-  return emailQueue.addBulk(jobs);
-}
-```
-
-**Celery (Python)**:
+### Setup
 
 ```python
-from celery import Celery, Task
-from celery.exceptions import MaxRetriesExceededError
-from typing import Any, Dict, Optional
-import logging
+# backend/app/workers/arq_worker.py
+from arq import create_pool
+from arq.connections import RedisSettings
 
-# Celery configuration
-app = Celery('tasks')
-app.config_from_object({
-    'broker_url': 'redis://localhost:6379/0',
-    'result_backend': 'redis://localhost:6379/1',
-    'task_serializer': 'json',
-    'result_serializer': 'json',
-    'accept_content': ['json'],
-    'timezone': 'UTC',
-    'task_track_started': True,
-    'task_time_limit': 300,  # 5 minutes hard limit
-    'task_soft_time_limit': 240,  # 4 minutes soft limit
-    'worker_prefetch_multiplier': 4,
-    'task_acks_late': True,  # Acknowledge after task completes
-    'task_reject_on_worker_lost': True,
-})
+async def startup(ctx: dict):
+    """Initialize worker resources."""
+    ctx["db"] = await create_db_pool()
+    ctx["http"] = httpx.AsyncClient()
 
-logger = logging.getLogger(__name__)
+async def shutdown(ctx: dict):
+    """Cleanup worker resources."""
+    await ctx["db"].close()
+    await ctx["http"].aclose()
 
-# Base task with retry logic
-class BaseTask(Task):
-    autoretry_for = (Exception,)
-    retry_kwargs = {'max_retries': 3}
-    retry_backoff = True
-    retry_backoff_max = 600  # 10 minutes max
-    retry_jitter = True
+class WorkerSettings:
+    redis_settings = RedisSettings(host="redis", port=6379)
+    functions = [
+        send_email,
+        generate_report,
+        process_webhook,
+    ]
+    on_startup = startup
+    on_shutdown = shutdown
+    max_jobs = 10
+    job_timeout = 300  # 5 minutes
+```
 
-    def on_failure(self, exc, task_id, args, kwargs, einfo):
-        logger.error(f'Task {self.name}[{task_id}] failed: {exc}')
+### Task Definition
 
-    def on_retry(self, exc, task_id, args, kwargs, einfo):
-        logger.warning(f'Task {self.name}[{task_id}] retrying: {exc}')
+```python
+from arq import func
 
-    def on_success(self, retval, task_id, args, kwargs):
-        logger.info(f'Task {self.name}[{task_id}] succeeded')
-
-# Email task
-@app.task(base=BaseTask, bind=True, name='send_email')
-def send_email(
-    self,
+async def send_email(
+    ctx: dict,
     to: str,
     subject: str,
-    template: str,
-    context: Dict[str, Any]
-) -> Dict[str, Any]:
-    try:
-        # Update state
-        self.update_state(state='PROGRESS', meta={'progress': 10})
-
-        # Render template
-        html = render_template(template, context)
-        self.update_state(state='PROGRESS', meta={'progress': 50})
-
-        # Send email
-        message_id = email_service.send(to=to, subject=subject, html=html)
-        self.update_state(state='PROGRESS', meta={'progress': 100})
-
-        return {'sent': True, 'message_id': message_id}
-
-    except ConnectionError as exc:
-        raise self.retry(exc=exc, countdown=60)
-
-# Image processing with chaining
-@app.task(base=BaseTask, bind=True, name='process_image')
-def process_image(self, image_id: str, operations: list) -> Dict[str, Any]:
-    image = load_image(image_id)
-
-    for i, op in enumerate(operations):
-        progress = int((i + 1) / len(operations) * 100)
-        self.update_state(state='PROGRESS', meta={'progress': progress, 'operation': op['type']})
-
-        if op['type'] == 'resize':
-            image = resize_image(image, **op['params'])
-        elif op['type'] == 'crop':
-            image = crop_image(image, **op['params'])
-        elif op['type'] == 'compress':
-            image = compress_image(image, **op['params'])
-
-    url = save_image(image, image_id)
-    return {'url': url, 'operations_count': len(operations)}
-
-# Task chaining example
-from celery import chain, group, chord
-
-def process_order(order_id: str):
-    """Process order with chained tasks."""
-    workflow = chain(
-        validate_order.s(order_id),
-        reserve_inventory.s(),
-        process_payment.s(),
-        send_confirmation.s(),
+    body: str,
+) -> dict:
+    """Send email task."""
+    http = ctx["http"]
+    response = await http.post(
+        "https://api.sendgrid.com/v3/mail/send",
+        json={"to": to, "subject": subject, "html": body},
+        headers={"Authorization": f"Bearer {SENDGRID_KEY}"},
     )
-    return workflow.apply_async()
+    return {"status": response.status_code, "to": to}
 
-def process_bulk_images(image_ids: list):
-    """Process multiple images in parallel, then aggregate results."""
-    workflow = chord(
-        group(process_image.s(img_id, [{'type': 'resize', 'params': {'width': 800}}])
-              for img_id in image_ids),
-        aggregate_results.s()
-    )
-    return workflow.apply_async()
+async def generate_report(
+    ctx: dict,
+    report_id: str,
+    format: str = "pdf",
+) -> dict:
+    """Generate report asynchronously."""
+    db = ctx["db"]
+    data = await db.fetch_report_data(report_id)
+    pdf_bytes = await render_pdf(data)
+    await db.save_report_file(report_id, pdf_bytes)
+    return {"report_id": report_id, "size": len(pdf_bytes)}
 ```
 
-**Sidekiq (Ruby)**:
-
-```ruby
-# config/initializers/sidekiq.rb
-Sidekiq.configure_server do |config|
-  config.redis = { url: ENV['REDIS_URL'], network_timeout: 5 }
-  config.death_handlers << ->(job, ex) do
-    # Handle job failure
-    ErrorReporter.report(ex, job: job)
-  end
-end
-
-Sidekiq.configure_client do |config|
-  config.redis = { url: ENV['REDIS_URL'], network_timeout: 5 }
-end
-
-# app/workers/email_worker.rb
-class EmailWorker
-  include Sidekiq::Worker
-
-  sidekiq_options queue: :default,
-                  retry: 5,
-                  backtrace: true,
-                  dead: true
-
-  sidekiq_retry_in do |count, exception|
-    # Exponential backoff: 1, 8, 27, 64, 125 seconds
-    (count + 1) ** 3
-  end
-
-  sidekiq_retries_exhausted do |msg, exception|
-    Rails.logger.error "Job #{msg['jid']} exhausted retries: #{exception.message}"
-    DeadJobNotifier.notify(msg, exception)
-  end
-
-  def perform(to, subject, template, context)
-    html = ApplicationController.render(
-      template: template,
-      locals: context.symbolize_keys
-    )
-
-    EmailService.send(to: to, subject: subject, html: html)
-  end
-end
-
-# app/workers/batch_worker.rb
-class BatchWorker
-  include Sidekiq::Worker
-
-  def perform(batch_id)
-    batch = Batch.find(batch_id)
-
-    batch.items.find_each do |item|
-      ItemProcessor.perform_async(item.id)
-    end
-  end
-end
-
-# Using Sidekiq Batches (Pro feature)
-class ImportWorker
-  include Sidekiq::Worker
-
-  def perform(import_id)
-    import = Import.find(import_id)
-
-    batch = Sidekiq::Batch.new
-    batch.description = "Import #{import_id}"
-    batch.on(:complete, ImportCallbacks, import_id: import_id)
-
-    batch.jobs do
-      import.rows.each_with_index do |row, index|
-        ImportRowWorker.perform_async(import_id, index, row)
-      end
-    end
-  end
-end
-
-class ImportCallbacks
-  def on_complete(status, options)
-    import = Import.find(options['import_id'])
-
-    if status.failures.zero?
-      import.update!(status: 'completed')
-    else
-      import.update!(status: 'completed_with_errors', error_count: status.failures)
-    end
-  end
-end
-```
-
-### Scheduled Jobs and Cron Patterns
-
-```typescript
-// Bull scheduler
-import Queue from "bull";
-
-const scheduledQueue = new Queue("scheduled-tasks", process.env.REDIS_URL);
-
-// Repeatable jobs
-async function setupScheduledJobs(): Promise<void> {
-  // Clean up every hour
-  await scheduledQueue.add(
-    "cleanup",
-    {},
-    {
-      repeat: { cron: "0 * * * *" }, // Every hour
-      jobId: "cleanup-hourly",
-    },
-  );
-
-  // Daily report at 9 AM
-  await scheduledQueue.add(
-    "daily-report",
-    {},
-    {
-      repeat: { cron: "0 9 * * *" },
-      jobId: "daily-report",
-    },
-  );
-
-  // Every 5 minutes
-  await scheduledQueue.add(
-    "health-check",
-    {},
-    {
-      repeat: { every: 5 * 60 * 1000 }, // 5 minutes in ms
-      jobId: "health-check",
-    },
-  );
-
-  // Weekly on Sunday at midnight
-  await scheduledQueue.add(
-    "weekly-cleanup",
-    {},
-    {
-      repeat: { cron: "0 0 * * 0" },
-      jobId: "weekly-cleanup",
-    },
-  );
-}
-
-// Process scheduled jobs
-scheduledQueue.process("cleanup", async (job) => {
-  await cleanupOldRecords();
-  return { cleaned: true };
-});
-
-scheduledQueue.process("daily-report", async (job) => {
-  const report = await generateDailyReport();
-  await sendReportEmail(report);
-  return { reportId: report.id };
-});
-
-// List scheduled jobs
-async function getScheduledJobs(): Promise<
-  Array<{ name: string; next: Date; cron: string }>
-> {
-  const repeatableJobs = await scheduledQueue.getRepeatableJobs();
-
-  return repeatableJobs.map((job) => ({
-    name: job.name,
-    next: new Date(job.next),
-    cron: job.cron || `Every ${job.every}ms`,
-  }));
-}
-
-// Remove scheduled job
-async function removeScheduledJob(jobId: string): Promise<void> {
-  const jobs = await scheduledQueue.getRepeatableJobs();
-  const job = jobs.find((j) => j.id === jobId);
-
-  if (job) {
-    await scheduledQueue.removeRepeatableByKey(job.key);
-  }
-}
-```
+### Enqueue from FastAPI
 
 ```python
-# Celery Beat scheduler
-from celery import Celery
-from celery.schedules import crontab
+from arq import create_pool
+from arq.connections import RedisSettings
 
-app = Celery('tasks')
+# Dependency
+async def get_arq_pool():
+    return await create_pool(RedisSettings(host="redis"))
 
-app.conf.beat_schedule = {
-    # Every hour
-    'cleanup-hourly': {
-        'task': 'tasks.cleanup',
-        'schedule': crontab(minute=0),  # Every hour at minute 0
-    },
+@router.post("/api/v1/reports")
+async def create_report(
+    data: ReportRequest,
+    arq: ArqRedis = Depends(get_arq_pool),
+):
+    report = await service.create_report(data)
 
-    # Daily at 9 AM
-    'daily-report': {
-        'task': 'tasks.daily_report',
-        'schedule': crontab(hour=9, minute=0),
-    },
-
-    # Every 5 minutes
-    'health-check': {
-        'task': 'tasks.health_check',
-        'schedule': 300.0,  # 5 minutes in seconds
-    },
-
-    # Weekly on Sunday at midnight
-    'weekly-cleanup': {
-        'task': 'tasks.weekly_cleanup',
-        'schedule': crontab(hour=0, minute=0, day_of_week=0),
-    },
-
-    # First day of month at 6 AM
-    'monthly-report': {
-        'task': 'tasks.monthly_report',
-        'schedule': crontab(hour=6, minute=0, day_of_month=1),
-    },
-
-    # With arguments
-    'check-expiring-subscriptions': {
-        'task': 'tasks.check_subscriptions',
-        'schedule': crontab(hour=8, minute=0),
-        'args': ('expiring',),
-        'kwargs': {'days_ahead': 7},
-    },
-}
-
-# Dynamic schedule with database
-from django_celery_beat.models import PeriodicTask, CrontabSchedule
-import json
-
-def create_scheduled_task(name: str, task: str, cron: str, args: list = None, kwargs: dict = None):
-    """Create a scheduled task dynamically."""
-    # Parse cron expression
-    minute, hour, day_of_month, month, day_of_week = cron.split()
-
-    schedule, _ = CrontabSchedule.objects.get_or_create(
-        minute=minute,
-        hour=hour,
-        day_of_month=day_of_month,
-        month_of_year=month,
-        day_of_week=day_of_week,
+    # Enqueue background job
+    job = await arq.enqueue_job(
+        "generate_report",
+        report.id,
+        format=data.format,
     )
 
-    PeriodicTask.objects.update_or_create(
-        name=name,
-        defaults={
-            'task': task,
-            'crontab': schedule,
-            'args': json.dumps(args or []),
-            'kwargs': json.dumps(kwargs or {}),
-            'enabled': True,
-        },
-    )
+    return {"report_id": report.id, "job_id": job.job_id}
+
+@router.get("/api/v1/jobs/{job_id}")
+async def get_job_status(
+    job_id: str,
+    arq: ArqRedis = Depends(get_arq_pool),
+):
+    job = Job(job_id, arq)
+    status = await job.status()
+    result = await job.result() if status == JobStatus.complete else None
+    return {"job_id": job_id, "status": status, "result": result}
 ```
 
-### Worker Pool Management
+## Celery (Enterprise)
 
-```typescript
-import Queue, { Job } from "bull";
-import os from "os";
-
-interface WorkerPoolConfig {
-  concurrency: number;
-  limiter?: {
-    max: number;
-    duration: number;
-  };
-}
-
-class WorkerPool {
-  private queues: Map<string, Queue.Queue> = new Map();
-  private isShuttingDown = false;
-
-  constructor(private config: WorkerPoolConfig) {
-    // Graceful shutdown
-    process.on("SIGTERM", () => this.shutdown());
-    process.on("SIGINT", () => this.shutdown());
-  }
-
-  registerQueue<T>(
-    name: string,
-    processor: (job: Job<T>) => Promise<unknown>,
-  ): Queue.Queue<T> {
-    const queue = new Queue<T>(name, process.env.REDIS_URL!, {
-      limiter: this.config.limiter,
-    });
-
-    // Process with concurrency
-    queue.process(this.config.concurrency, async (job: Job<T>) => {
-      if (this.isShuttingDown) {
-        throw new Error("Worker shutting down");
-      }
-      return processor(job);
-    });
-
-    // Event handlers
-    queue.on("completed", (job, result) => {
-      console.log(`Job ${job.id} completed:`, result);
-    });
-
-    queue.on("failed", (job, err) => {
-      console.error(`Job ${job?.id} failed:`, err);
-    });
-
-    queue.on("stalled", (job) => {
-      console.warn(`Job ${job} stalled`);
-    });
-
-    this.queues.set(name, queue);
-    return queue;
-  }
-
-  async shutdown(): Promise<void> {
-    console.log("Initiating graceful shutdown...");
-    this.isShuttingDown = true;
-
-    // Stop accepting new jobs
-    const closePromises = Array.from(this.queues.values()).map(
-      async (queue) => {
-        await queue.pause(true); // Pause and wait for active jobs
-        await queue.close();
-      },
-    );
-
-    await Promise.all(closePromises);
-    console.log("All queues closed");
-    process.exit(0);
-  }
-
-  async getStats(): Promise<Record<string, QueueStats>> {
-    const stats: Record<string, QueueStats> = {};
-
-    for (const [name, queue] of this.queues) {
-      const [waiting, active, completed, failed, delayed] = await Promise.all([
-        queue.getWaitingCount(),
-        queue.getActiveCount(),
-        queue.getCompletedCount(),
-        queue.getFailedCount(),
-        queue.getDelayedCount(),
-      ]);
-
-      stats[name] = { waiting, active, completed, failed, delayed };
-    }
-
-    return stats;
-  }
-}
-
-interface QueueStats {
-  waiting: number;
-  active: number;
-  completed: number;
-  failed: number;
-  delayed: number;
-}
-
-// Usage
-const pool = new WorkerPool({
-  concurrency: os.cpus().length,
-  limiter: {
-    max: 100, // Max 100 jobs
-    duration: 1000, // Per second
-  },
-});
-
-pool.registerQueue<EmailJobData>("email", async (job) => {
-  await sendEmail(job.data);
-});
-
-pool.registerQueue<ImageProcessingJobData>("images", async (job) => {
-  await processImage(job.data);
-});
-```
+### Setup
 
 ```python
-# Celery worker management
+# backend/app/workers/celery_app.py
 from celery import Celery
-from celery.signals import worker_process_init, worker_shutdown
-import multiprocessing
 
-app = Celery('tasks')
-
-# Worker configuration
-app.conf.update(
-    worker_concurrency=multiprocessing.cpu_count(),
-    worker_prefetch_multiplier=2,  # Prefetch 2 tasks per worker
-    worker_max_tasks_per_child=1000,  # Restart worker after 1000 tasks
-    worker_max_memory_per_child=200000,  # 200MB limit
-    task_acks_late=True,
-    task_reject_on_worker_lost=True,
+celery_app = Celery(
+    "skillforge",
+    broker="redis://redis:6379/0",
+    backend="redis://redis:6379/1",
 )
 
-# Per-worker initialization
-@worker_process_init.connect
-def init_worker(**kwargs):
-    """Initialize resources for each worker process."""
-    # Initialize database connection pool
-    db.connect()
-    # Warm up caches
-    cache.warm_up()
-
-@worker_shutdown.connect
-def cleanup_worker(**kwargs):
-    """Clean up resources on worker shutdown."""
-    db.close()
-    cache.flush()
-
-# Task routing for specialized workers
-app.conf.task_routes = {
-    'tasks.send_email': {'queue': 'email'},
-    'tasks.process_image': {'queue': 'images'},
-    'tasks.heavy_computation': {'queue': 'compute'},
-    'tasks.*': {'queue': 'default'},
-}
-
-# Queue-specific worker command:
-# celery -A tasks worker -Q email --concurrency=4
-# celery -A tasks worker -Q images --concurrency=2
-# celery -A tasks worker -Q compute --concurrency=1
-
-# Auto-scaling with Celery
-app.conf.worker_autoscaler = 'celery.worker.autoscale:Autoscaler'
-app.conf.worker_autoscale_max = 10
-app.conf.worker_autoscale_min = 2
+celery_app.conf.update(
+    task_serializer="json",
+    accept_content=["json"],
+    result_serializer="json",
+    timezone="UTC",
+    task_track_started=True,
+    task_time_limit=600,  # 10 minutes hard limit
+    task_soft_time_limit=540,  # 9 minutes soft limit
+    worker_prefetch_multiplier=1,  # Fair distribution
+    task_acks_late=True,  # Acknowledge after completion
+    task_reject_on_worker_lost=True,
+)
 ```
 
-### Job Priorities and Fairness
+### Task Definition
 
-```typescript
-// Priority queues with Bull
-interface PriorityJobData {
-  type: string;
-  payload: unknown;
-  priority: "critical" | "high" | "normal" | "low";
-}
+```python
+from celery import shared_task
+from celery.utils.log import get_task_logger
 
-const priorityMap = {
-  critical: 1, // Highest priority (processed first)
-  high: 5,
-  normal: 10,
-  low: 20,
-};
+logger = get_task_logger(__name__)
 
-async function addPriorityJob(
-  data: PriorityJobData,
-): Promise<Job<PriorityJobData>> {
-  return queue.add(data, {
-    priority: priorityMap[data.priority],
-    // Critical jobs don't wait
-    delay: data.priority === "critical" ? 0 : undefined,
-  });
-}
+@shared_task(
+    bind=True,
+    max_retries=3,
+    default_retry_delay=60,
+    autoretry_for=(ConnectionError, TimeoutError),
+)
+def send_email(self, to: str, subject: str, body: str) -> dict:
+    """Send email with automatic retry."""
+    try:
+        response = requests.post(
+            "https://api.sendgrid.com/v3/mail/send",
+            json={"to": to, "subject": subject, "html": body},
+            headers={"Authorization": f"Bearer {SENDGRID_KEY}"},
+            timeout=30,
+        )
+        response.raise_for_status()
+        return {"status": "sent", "to": to}
+    except Exception as exc:
+        logger.error(f"Email failed: {exc}")
+        raise self.retry(exc=exc)
 
-// Fair scheduling with multiple queues
-class FairScheduler {
-  private queues: Map<string, Queue.Queue> = new Map();
-  private weights: Map<string, number> = new Map();
+@shared_task(bind=True)
+def generate_report(self, report_id: str) -> dict:
+    """Long-running report generation."""
+    self.update_state(state="PROGRESS", meta={"step": "fetching"})
+    data = fetch_report_data(report_id)
 
-  constructor(queueConfigs: Array<{ name: string; weight: number }>) {
-    for (const config of queueConfigs) {
-      const queue = new Queue(config.name, process.env.REDIS_URL!);
-      this.queues.set(config.name, queue);
-      this.weights.set(config.name, config.weight);
-    }
-  }
+    self.update_state(state="PROGRESS", meta={"step": "rendering"})
+    pdf = render_pdf(data)
 
-  // Weighted round-robin processing
-  async process(
-    handler: (queueName: string, job: Job) => Promise<void>,
-  ): Promise<void> {
-    const totalWeight = Array.from(this.weights.values()).reduce(
-      (a, b) => a + b,
-      0,
-    );
+    self.update_state(state="PROGRESS", meta={"step": "saving"})
+    save_report(report_id, pdf)
 
-    for (const [name, queue] of this.queues) {
-      const weight = this.weights.get(name)!;
-      const concurrency = Math.max(1, Math.floor((weight / totalWeight) * 10));
-
-      queue.process(concurrency, async (job) => {
-        await handler(name, job);
-      });
-    }
-  }
-}
-
-// Usage: Process premium customers first
-const scheduler = new FairScheduler([
-  { name: "premium", weight: 5 }, // 50% of capacity
-  { name: "standard", weight: 3 }, // 30% of capacity
-  { name: "free", weight: 2 }, // 20% of capacity
-]);
-
-await scheduler.process(async (queueName, job) => {
-  console.log(`Processing ${queueName} job:`, job.id);
-  await processJob(job);
-});
+    return {"report_id": report_id, "size": len(pdf)}
 ```
 
-### Idempotency and Retry Strategies
+### Chains and Groups
 
-```typescript
-import Queue, { Job, JobOptions } from "bull";
-import { createHash } from "crypto";
+```python
+from celery import chain, group, chord
 
-// Idempotency key generation
-function generateIdempotencyKey(data: unknown): string {
-  const hash = createHash("sha256");
-  hash.update(JSON.stringify(data));
-  return hash.digest("hex");
-}
+# Sequential execution
+workflow = chain(
+    extract_data.s(source_id),
+    transform_data.s(),
+    load_data.s(destination_id),
+)
+result = workflow.apply_async()
 
-// Idempotent job processor
-class IdempotentProcessor<T> {
-  private processedKeys: Set<string> = new Set();
-  private redis: Redis;
+# Parallel execution
+parallel = group(
+    process_chunk.s(chunk) for chunk in chunks
+)
+result = parallel.apply_async()
 
-  constructor(
-    private queue: Queue.Queue<T>,
-    redis: Redis,
-  ) {
-    this.redis = redis;
-  }
-
-  async process(handler: (job: Job<T>) => Promise<unknown>): Promise<void> {
-    this.queue.process(async (job: Job<T>) => {
-      const idempotencyKey = job.opts.jobId || generateIdempotencyKey(job.data);
-
-      // Check if already processed
-      const existing = await this.redis.get(`processed:${idempotencyKey}`);
-      if (existing) {
-        console.log(`Job ${job.id} already processed, skipping`);
-        return JSON.parse(existing);
-      }
-
-      // Process job
-      const result = await handler(job);
-
-      // Mark as processed with TTL
-      await this.redis.setex(
-        `processed:${idempotencyKey}`,
-        86400, // 24 hours
-        JSON.stringify(result),
-      );
-
-      return result;
-    });
-  }
-}
-
-// Custom retry strategies
-interface RetryStrategy {
-  type: "exponential" | "linear" | "fixed" | "custom";
-  baseDelay: number;
-  maxDelay?: number;
-  maxRetries: number;
-  jitter?: boolean;
-  retryOn?: (error: Error) => boolean;
-}
-
-function calculateDelay(strategy: RetryStrategy, attempt: number): number {
-  let delay: number;
-
-  switch (strategy.type) {
-    case "exponential":
-      delay = strategy.baseDelay * Math.pow(2, attempt - 1);
-      break;
-    case "linear":
-      delay = strategy.baseDelay * attempt;
-      break;
-    case "fixed":
-      delay = strategy.baseDelay;
-      break;
-    default:
-      delay = strategy.baseDelay;
-  }
-
-  // Apply max delay cap
-  if (strategy.maxDelay) {
-    delay = Math.min(delay, strategy.maxDelay);
-  }
-
-  // Add jitter (up to 20% variation)
-  if (strategy.jitter) {
-    const jitterFactor = 0.8 + Math.random() * 0.4; // 0.8 to 1.2
-    delay = Math.floor(delay * jitterFactor);
-  }
-
-  return delay;
-}
-
-// Retry with dead letter queue
-class RetryableQueue<T> {
-  private mainQueue: Queue.Queue<T>;
-  private dlq: Queue.Queue<T>;
-  private strategy: RetryStrategy;
-
-  constructor(name: string, strategy: RetryStrategy) {
-    this.mainQueue = new Queue<T>(name, process.env.REDIS_URL!);
-    this.dlq = new Queue<T>(`${name}-dlq`, process.env.REDIS_URL!);
-    this.strategy = strategy;
-  }
-
-  async process(handler: (job: Job<T>) => Promise<unknown>): Promise<void> {
-    this.mainQueue.process(async (job: Job<T>) => {
-      const attempts = job.attemptsMade;
-
-      try {
-        return await handler(job);
-      } catch (error) {
-        const err = error as Error;
-
-        // Check if error is retryable
-        if (this.strategy.retryOn && !this.strategy.retryOn(err)) {
-          await this.moveToDLQ(job, err);
-          throw err;
-        }
-
-        // Check max retries
-        if (attempts >= this.strategy.maxRetries) {
-          await this.moveToDLQ(job, err);
-          throw err;
-        }
-
-        // Retry with calculated delay
-        const delay = calculateDelay(this.strategy, attempts + 1);
-        throw new Error(`Retry in ${delay}ms: ${err.message}`);
-      }
-    });
-  }
-
-  private async moveToDLQ(job: Job<T>, error: Error): Promise<void> {
-    await this.dlq.add({
-      originalJob: job.data,
-      error: error.message,
-      failedAt: new Date().toISOString(),
-      attempts: job.attemptsMade,
-    } as unknown as T);
-  }
-
-  async retryFromDLQ(jobId: string): Promise<void> {
-    const job = await this.dlq.getJob(jobId);
-    if (!job) return;
-
-    const dlqData = job.data as unknown as { originalJob: T };
-    await this.mainQueue.add(dlqData.originalJob);
-    await job.remove();
-  }
-}
+# Parallel with callback
+chord_workflow = chord(
+    [process_chunk.s(chunk) for chunk in chunks],
+    aggregate_results.s(),
+)
+result = chord_workflow.apply_async()
 ```
 
-### Job Monitoring and Dead Jobs
-
-```typescript
-import Queue, { Job, JobCounts, JobStatus } from "bull";
-import { EventEmitter } from "events";
-
-interface JobMetrics {
-  queue: string;
-  counts: JobCounts;
-  latency: {
-    avg: number;
-    p50: number;
-    p95: number;
-    p99: number;
-  };
-  throughput: number; // jobs per minute
-  errorRate: number;
-}
-
-class JobMonitor extends EventEmitter {
-  private queues: Queue.Queue[] = [];
-  private metricsHistory: Map<string, number[]> = new Map();
-
-  addQueue(queue: Queue.Queue): void {
-    this.queues.push(queue);
-
-    queue.on("completed", (job, result) => {
-      this.recordMetric(queue.name, "completed", job);
-      this.emit("job:completed", { queue: queue.name, job, result });
-    });
-
-    queue.on("failed", (job, err) => {
-      this.recordMetric(queue.name, "failed", job!);
-      this.emit("job:failed", { queue: queue.name, job, error: err });
-
-      // Alert on high failure rate
-      this.checkErrorRate(queue.name);
-    });
-
-    queue.on("stalled", (job) => {
-      this.emit("job:stalled", { queue: queue.name, jobId: job });
-    });
-  }
-
-  private recordMetric(queueName: string, type: string, job: Job): void {
-    const duration = Date.now() - job.timestamp;
-    const key = `${queueName}:${type}:duration`;
-
-    const history = this.metricsHistory.get(key) || [];
-    history.push(duration);
-
-    // Keep last 1000 samples
-    if (history.length > 1000) {
-      history.shift();
-    }
-
-    this.metricsHistory.set(key, history);
-  }
-
-  private checkErrorRate(queueName: string): void {
-    const completed =
-      this.metricsHistory.get(`${queueName}:completed:duration`)?.length || 0;
-    const failed =
-      this.metricsHistory.get(`${queueName}:failed:duration`)?.length || 0;
-
-    if (completed + failed > 10) {
-      const errorRate = failed / (completed + failed);
-      if (errorRate > 0.1) {
-        // > 10% error rate
-        this.emit("alert:high_error_rate", { queue: queueName, errorRate });
-      }
-    }
-  }
-
-  async getMetrics(queueName: string): Promise<JobMetrics> {
-    const queue = this.queues.find((q) => q.name === queueName);
-    if (!queue) throw new Error(`Queue ${queueName} not found`);
-
-    const counts = await queue.getJobCounts();
-    const durations =
-      this.metricsHistory.get(`${queueName}:completed:duration`) || [];
-
-    return {
-      queue: queueName,
-      counts,
-      latency: this.calculateLatencyPercentiles(durations),
-      throughput: this.calculateThroughput(durations),
-      errorRate: this.calculateErrorRate(queueName),
-    };
-  }
-
-  private calculateLatencyPercentiles(
-    durations: number[],
-  ): JobMetrics["latency"] {
-    if (durations.length === 0) {
-      return { avg: 0, p50: 0, p95: 0, p99: 0 };
-    }
-
-    const sorted = [...durations].sort((a, b) => a - b);
-    const avg = sorted.reduce((a, b) => a + b, 0) / sorted.length;
-
-    return {
-      avg: Math.round(avg),
-      p50: sorted[Math.floor(sorted.length * 0.5)],
-      p95: sorted[Math.floor(sorted.length * 0.95)],
-      p99: sorted[Math.floor(sorted.length * 0.99)],
-    };
-  }
-
-  private calculateThroughput(durations: number[]): number {
-    // Jobs completed in last minute
-    const oneMinuteAgo = Date.now() - 60000;
-    const recentJobs = durations.filter((_, i) => i > durations.length - 100);
-    return recentJobs.length;
-  }
-
-  private calculateErrorRate(queueName: string): number {
-    const completed =
-      this.metricsHistory.get(`${queueName}:completed:duration`)?.length || 0;
-    const failed =
-      this.metricsHistory.get(`${queueName}:failed:duration`)?.length || 0;
-    const total = completed + failed;
-    return total > 0 ? failed / total : 0;
-  }
-
-  // Dead job management
-  async getDeadJobs(queueName: string, limit: number = 100): Promise<Job[]> {
-    const queue = this.queues.find((q) => q.name === queueName);
-    if (!queue) throw new Error(`Queue ${queueName} not found`);
-
-    return queue.getFailed(0, limit);
-  }
-
-  async retryDeadJob(queueName: string, jobId: string): Promise<void> {
-    const queue = this.queues.find((q) => q.name === queueName);
-    if (!queue) throw new Error(`Queue ${queueName} not found`);
-
-    const job = await queue.getJob(jobId);
-    if (!job) throw new Error(`Job ${jobId} not found`);
-
-    await job.retry();
-  }
-
-  async retryAllDeadJobs(queueName: string): Promise<number> {
-    const deadJobs = await this.getDeadJobs(queueName);
-    let retried = 0;
-
-    for (const job of deadJobs) {
-      try {
-        await job.retry();
-        retried++;
-      } catch (error) {
-        console.error(`Failed to retry job ${job.id}:`, error);
-      }
-    }
-
-    return retried;
-  }
-
-  async cleanDeadJobs(
-    queueName: string,
-    olderThan: number = 86400000,
-  ): Promise<number> {
-    const queue = this.queues.find((q) => q.name === queueName);
-    if (!queue) throw new Error(`Queue ${queueName} not found`);
-
-    const cleaned = await queue.clean(olderThan, "failed");
-    return cleaned.length;
-  }
-}
-
-// Dashboard API endpoints
-import express from "express";
-
-function createMonitoringRouter(monitor: JobMonitor): express.Router {
-  const router = express.Router();
-
-  router.get("/queues/:name/metrics", async (req, res) => {
-    try {
-      const metrics = await monitor.getMetrics(req.params.name);
-      res.json(metrics);
-    } catch (error) {
-      res.status(404).json({ error: (error as Error).message });
-    }
-  });
-
-  router.get("/queues/:name/dead", async (req, res) => {
-    const limit = parseInt(req.query.limit as string) || 100;
-    const jobs = await monitor.getDeadJobs(req.params.name, limit);
-    res.json(
-      jobs.map((j) => ({
-        id: j.id,
-        data: j.data,
-        failedReason: j.failedReason,
-        attemptsMade: j.attemptsMade,
-        timestamp: j.timestamp,
-      })),
-    );
-  });
-
-  router.post("/queues/:name/dead/:jobId/retry", async (req, res) => {
-    try {
-      await monitor.retryDeadJob(req.params.name, req.params.jobId);
-      res.json({ success: true });
-    } catch (error) {
-      res.status(400).json({ error: (error as Error).message });
-    }
-  });
-
-  router.post("/queues/:name/dead/retry-all", async (req, res) => {
-    const retried = await monitor.retryAllDeadJobs(req.params.name);
-    res.json({ retried });
-  });
-
-  router.delete("/queues/:name/dead", async (req, res) => {
-    const olderThan = parseInt(req.query.olderThan as string) || 86400000;
-    const cleaned = await monitor.cleanDeadJobs(req.params.name, olderThan);
-    res.json({ cleaned });
-  });
-
-  return router;
-}
-```
-
-## Best Practices
-
-1. **Idempotency**
-   - Design jobs to be safely re-executed
-   - Use unique job IDs for deduplication
-   - Store processed state externally
-
-2. **Retry Strategies**
-   - Use exponential backoff with jitter
-   - Set maximum retry limits
-   - Distinguish between retryable and non-retryable errors
-
-3. **Monitoring**
-   - Track queue depths and processing latency
-   - Alert on high error rates or growing queues
-   - Monitor worker health and memory usage
-
-4. **Graceful Shutdown**
-   - Complete in-progress jobs before shutdown
-   - Use signals (SIGTERM, SIGINT) properly
-   - Set reasonable timeouts for job completion
-
-5. **Resource Management**
-   - Set appropriate concurrency limits
-   - Use worker pools for CPU-bound tasks
-   - Implement rate limiting for external APIs
-
-## Examples
-
-### Complete Worker Service
-
-```typescript
-import Queue, { Job } from "bull";
-import { Redis } from "ioredis";
-
-interface WorkerConfig {
-  queues: Array<{
-    name: string;
-    concurrency: number;
-    processor: (job: Job) => Promise<unknown>;
-  }>;
-  redis: Redis;
-  shutdownTimeout: number;
-}
-
-class WorkerService {
-  private queues: Map<string, Queue.Queue> = new Map();
-  private isShuttingDown = false;
-  private activeJobs = 0;
-
-  constructor(private config: WorkerConfig) {}
-
-  async start(): Promise<void> {
-    // Setup queues
-    for (const queueConfig of this.config.queues) {
-      const queue = new Queue(queueConfig.name, {
-        createClient: () => this.config.redis.duplicate(),
-      });
-
-      queue.process(queueConfig.concurrency, async (job) => {
-        if (this.isShuttingDown) {
-          throw new Error("Worker shutting down");
-        }
-
-        this.activeJobs++;
-        try {
-          return await queueConfig.processor(job);
-        } finally {
-          this.activeJobs--;
-        }
-      });
-
-      this.queues.set(queueConfig.name, queue);
-    }
-
-    // Setup graceful shutdown
-    process.on("SIGTERM", () => this.shutdown());
-    process.on("SIGINT", () => this.shutdown());
-
-    console.log("Worker service started");
-  }
-
-  private async shutdown(): Promise<void> {
-    if (this.isShuttingDown) return;
-    this.isShuttingDown = true;
-
-    console.log("Shutting down worker service...");
-
-    // Pause all queues
-    await Promise.all(
-      Array.from(this.queues.values()).map((q) => q.pause(true)),
-    );
-
-    // Wait for active jobs to complete
-    const startTime = Date.now();
-    while (
-      this.activeJobs > 0 &&
-      Date.now() - startTime < this.config.shutdownTimeout
-    ) {
-      await new Promise((r) => setTimeout(r, 100));
-    }
-
-    if (this.activeJobs > 0) {
-      console.warn(`Forcing shutdown with ${this.activeJobs} active jobs`);
-    }
-
-    // Close all queues
-    await Promise.all(Array.from(this.queues.values()).map((q) => q.close()));
-
-    console.log("Worker service stopped");
-    process.exit(0);
-  }
-}
-
-// Usage
-const worker = new WorkerService({
-  redis: new Redis(process.env.REDIS_URL),
-  shutdownTimeout: 30000,
-  queues: [
-    {
-      name: "email",
-      concurrency: 5,
-      processor: async (job) => {
-        await sendEmail(job.data);
-      },
+### Periodic Tasks (Celery Beat)
+
+```python
+from celery.schedules import crontab
+
+celery_app.conf.beat_schedule = {
+    "cleanup-expired-sessions": {
+        "task": "app.workers.tasks.cleanup_sessions",
+        "schedule": crontab(minute=0, hour="*/6"),  # Every 6 hours
     },
-    {
-      name: "images",
-      concurrency: 2,
-      processor: async (job) => {
-        await processImage(job.data);
-      },
+    "generate-daily-report": {
+        "task": "app.workers.tasks.daily_report",
+        "schedule": crontab(minute=0, hour=2),  # 2 AM daily
     },
-  ],
-});
-
-worker.start();
+    "sync-external-data": {
+        "task": "app.workers.tasks.sync_data",
+        "schedule": 300.0,  # Every 5 minutes
+    },
+}
 ```
+
+## FastAPI Integration
+
+```python
+from fastapi import BackgroundTasks
+
+@router.post("/api/v1/users")
+async def create_user(
+    data: UserCreate,
+    background_tasks: BackgroundTasks,
+):
+    user = await service.create_user(data)
+
+    # Simple background task (in-process)
+    background_tasks.add_task(send_welcome_email, user.email)
+
+    return user
+
+# For distributed tasks, use ARQ/Celery
+@router.post("/api/v1/exports")
+async def create_export(
+    data: ExportRequest,
+    arq: ArqRedis = Depends(get_arq_pool),
+):
+    job = await arq.enqueue_job("export_data", data.dict())
+    return {"job_id": job.job_id}
+```
+
+## Job Status Tracking
+
+```python
+from enum import Enum
+
+class JobStatus(Enum):
+    PENDING = "pending"
+    STARTED = "started"
+    PROGRESS = "progress"
+    SUCCESS = "success"
+    FAILURE = "failure"
+    REVOKED = "revoked"
+
+@router.get("/api/v1/jobs/{job_id}")
+async def get_job(job_id: str):
+    # Celery
+    result = AsyncResult(job_id, app=celery_app)
+    return {
+        "job_id": job_id,
+        "status": result.status,
+        "result": result.result if result.ready() else None,
+        "progress": result.info if result.status == "PROGRESS" else None,
+    }
+```
+
+## Anti-Patterns (FORBIDDEN)
+
+```python
+# NEVER run long tasks synchronously
+@router.post("/api/v1/reports")
+async def create_report(data: ReportRequest):
+    pdf = await generate_pdf(data)  # Blocks for minutes!
+    return pdf
+
+# NEVER lose jobs on failure
+@shared_task
+def risky_task():
+    do_work()  # No retry, no error handling
+
+# NEVER store large results in Redis
+@shared_task
+def process_file(file_id: str) -> bytes:
+    return large_file_bytes  # Store in S3/DB instead!
+
+# NEVER use BackgroundTasks for distributed work
+background_tasks.add_task(long_running_job)  # Lost if server restarts
+```
+
+## Key Decisions
+
+| Decision | Recommendation |
+|----------|----------------|
+| Simple async | ARQ (native async) |
+| Complex workflows | Celery (chains, chords) |
+| In-process quick | FastAPI BackgroundTasks |
+| LLM workflows | LangGraph (not Celery) |
+| Result storage | Redis for status, S3/DB for data |
+| Retry strategy | Exponential backoff with jitter |
+
+## Related Skills
+
+- `langgraph-checkpoints` - LLM workflow persistence
+- `resilience-patterns` - Retry and fallback
+- `observability-monitoring` - Job metrics
+
+## Capability Details
+
+### arq-tasks
+**Keywords:** arq, async queue, redis queue, background task
+**Solves:**
+- How to run async background tasks in FastAPI?
+- Simple Redis job queue
+
+### celery-tasks
+**Keywords:** celery, task queue, distributed tasks, worker
+**Solves:**
+- Enterprise task queue
+- Complex job workflows
+
+### celery-workflows
+**Keywords:** chain, group, chord, celery workflow
+**Solves:**
+- Sequential task execution
+- Parallel task processing
+
+### periodic-tasks
+**Keywords:** periodic, scheduled, cron, celery beat
+**Solves:**
+- Run tasks on schedule
+- Cron-like job scheduling

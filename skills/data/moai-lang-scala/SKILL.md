@@ -1,125 +1,161 @@
 ---
 name: "moai-lang-scala"
-version: "2.1.0"
-created: 2025-10-22
-updated: 2025-11-02
-status: stable
-description: Scala 3.6+ best practices with ScalaTest 3.2, sbt 1.10, functional programming patterns, and Play Framework.
-keywords: ['scala', 'scalatest', 'sbt', 'functional', 'play-framework']
-allowed-tools: 
+description: "Scala 3.4+ development specialist covering Akka, Cats Effect, ZIO, and Spark patterns. Use when building distributed systems, big data pipelines, or functional programming applications."
+version: 2.1.0
+category: "language"
+modularized: true
+user-invocable: false
+tags: ["language", "scala", "akka", "cats-effect", "zio", "spark", "sbt"]
+status: "active"
+updated: 2026-01-11
+allowed-tools:
   - Read
-  - Bash
+  - Grep
+  - Glob
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
-# Lang Scala Skill
+# Scala 3.4+ Development Specialist
 
-## Skill Metadata
+Functional programming, effect systems, and big data processing for JVM applications.
 
-| Field | Value |
-| ----- | ----- |
-| **Skill Name** | moai-lang-scala |
-| **Version** | 2.1.0 (2025-11-02) |
-| **Allowed tools** | Read (read_file), Bash (terminal) |
-| **Auto-load** | On demand when keywords detected |
-| **Tier** | Language |
+## Quick Reference
 
----
+Auto-Triggers: Scala files (.scala, .sc), build files (build.sbt, project/build.properties)
 
-## What It Does
+Core Capabilities:
 
-Scala 3.6+ best practices with ScalaTest 3.2, sbt 1.10, functional programming patterns, and Play Framework.
+- Scala 3.4: Given/using, extension methods, enums, opaque types, match types
+- Akka 2.9: Typed actors, streams, clustering, persistence
+- Cats Effect 3.5: Pure FP runtime, fibers, concurrent structures
+- ZIO 2.1: Effect system, layers, streaming, error handling
+- Apache Spark 3.5: DataFrame API, SQL, structured streaming
 
-**Key capabilities**:
-- ✅ Best practices enforcement for language domain
-- ✅ TRUST 5 principles integration
-- ✅ Latest tool versions (2025-11-02)
-- ✅ TDD workflow support
-- ✅ Play Framework web application patterns
+Key Ecosystem Libraries:
 
----
-
-## When to Use
-
-**Automatic triggers**:
-- Related code discussions and file patterns
-- SPEC implementation (`/alfred:2-run`)
-- Code review requests
-
-**Manual invocation**:
-- Review code for TRUST 5 compliance
-- Design new features
-- Troubleshoot issues
+- HTTP: Http4s 0.24, Tapir 1.10
+- JSON: Circe 0.15, ZIO JSON 0.6
+- Database: Doobie 1.0, Slick 3.5, Quill 4.8
+- Streaming: FS2 3.10, ZIO Streams 2.1
+- Testing: ScalaTest, Specs2, MUnit, Weaver
 
 ---
 
-## Tool Version Matrix (2025-11-02)
+## Module Index
 
-| Tool | Version | Purpose | Status |
-|------|---------|---------|--------|
-| **Scala** | 3.6.0 | Runtime | ✅ Current |
-| **ScalaTest** | 3.2.19 | Testing | ✅ Current |
-| **sbt** | 1.10.0 | Build tool | ✅ Current |
-| **Play Framework** | 3.0.9 | Web framework | ✅ Current |
+This skill uses progressive disclosure with specialized modules:
 
----
+### Core Language
 
-## Inputs
+- [functional-programming.md](modules/functional-programming.md) - Scala 3.4 features: Given/Using, Type Classes, Enums, Opaque Types, Extension Methods
 
-- Language-specific source directories
-- Configuration files
-- Test suites and sample data
+### Effect Systems
 
-## Outputs
+- [cats-effect.md](modules/cats-effect.md) - Cats Effect 3.5: IO monad, Resources, Fibers, FS2 Streaming
+- [zio-patterns.md](modules/zio-patterns.md) - ZIO 2.1: Effects, Layers, ZIO Streams, Error handling
 
-- Test/lint execution plan
-- TRUST 5 review checkpoints
-- Migration guidance
+### Frameworks
 
-## Failure Modes
-
-- When required tools are not installed
-- When dependencies are missing
-- When test coverage falls below 85%
-
-## Dependencies
-
-- Access to project files via Read/Bash tools
-- Integration with `moai-foundation-langs` for language detection
-- Integration with `moai-foundation-trust` for quality gates
+- [akka-actors.md](modules/akka-actors.md) - Akka Typed Actors 2.9: Actors, Streams, Clustering patterns
+- [spark-data.md](modules/spark-data.md) - Apache Spark 3.5: DataFrame API, SQL, Structured Streaming
 
 ---
 
-## References (Latest Documentation)
+## Implementation Guide
 
-_Documentation links updated 2025-10-22_
+### Project Setup (SBT 1.10)
+
+In build.sbt, set ThisBuild / scalaVersion to "3.4.2" and organization. Define lazy val root project with settings including name and libraryDependencies. Add dependencies for cats-effect, zio, akka-actor-typed, http4s-ember-server, circe-generic, and scalatest for test scope. Include scalacOptions for deprecation, feature warnings, and Xfatal-warnings.
+
+### Quick Examples
+
+Extension Methods: Use extension keyword with parameter in parentheses. Define methods like words splitting on whitespace and truncate checking length before taking characters and appending ellipsis.
+
+Given and Using: Define trait with abstract method signature. Create given instance with with keyword and implement the method. Create functions with using parameter clause for implicit resolution.
+
+Enum Types: Define enum with generic type parameters and plus variance annotations. Create case entries with parameters. Define methods on enum using match expression to handle each case, returning appropriate results.
 
 ---
 
-## Changelog
+## Context7 Integration
 
-- **v2.0.0** (2025-10-22): Major update with latest tool versions, comprehensive best practices, TRUST 5 integration
-- **v1.0.0** (2025-03-29): Initial Skill release
+Library mappings for latest documentation:
+
+Core Scala:
+
+- /scala/scala3 - Scala 3.4 language reference
+- /scala/scala-library - Standard library
+
+Effect Systems:
+
+- /typelevel/cats-effect - Cats Effect 3.5 documentation
+- /typelevel/cats - Cats 2.10 functional abstractions
+- /zio/zio - ZIO 2.1 documentation
+- /zio/zio-streams - ZIO Streams 2.1
+
+Akka Ecosystem:
+
+- /akka/akka - Akka 2.9 typed actors and streams
+- /akka/akka-http - Akka HTTP REST APIs
+- /akka/alpakka - Akka connectors
+
+HTTP and Web:
+
+- /http4s/http4s - Functional HTTP server/client
+- /softwaremill/tapir - API-first design
+
+Big Data:
+
+- /apache/spark - Spark 3.5 DataFrame and SQL
+- /apache/flink - Flink 1.19 streaming
+- /apache/kafka - Kafka clients 3.7
+
+---
+
+## Testing Quick Reference
+
+ScalaTest: Extend AnyFlatSpec with Matchers. Use string description with should in for behavior. Make assertions with shouldBe for equality checks.
+
+MUnit with Cats Effect: Extend CatsEffectSuite. Define test with string name. Return IO containing assertEquals assertions.
+
+ZIO Test: Extend ZIOSpecDefault. Define spec as suite with test entries. Use for-comprehension to run effects and yield assertTrue assertions.
+
+---
+
+## Troubleshooting
+
+Common Issues:
+
+- Implicit resolution: Use scalac -explain for detailed error messages
+- Type inference: Add explicit type annotations when inference fails
+- SBT slow compilation: Enable Global / concurrentRestrictions in build.sbt
+
+Effect System Issues:
+
+- Cats Effect: Check for missing import cats.effect._ or import cats.syntax.all._
+- ZIO: Verify layer composition with ZIO.serviceWith and ZIO.serviceWithZIO
+- Akka: Review actor hierarchy and supervision strategies
 
 ---
 
 ## Works Well With
 
-- `moai-foundation-trust` (quality gates)
-- `moai-alfred-code-reviewer` (code review)
-- `moai-essentials-debug` (debugging support)
+- moai-lang-java - JVM interoperability, Spring Boot integration
+- moai-domain-backend - REST API, GraphQL, microservices patterns
+- moai-domain-database - Doobie, Slick, database patterns
+- moai-workflow-testing - ScalaTest, MUnit, property-based testing
 
 ---
 
-## Best Practices
+## Additional Resources
 
-✅ **DO**:
-- Follow language best practices
-- Use latest stable tool versions
-- Maintain test coverage ≥85%
-- Document all public APIs
+For comprehensive reference materials:
 
-❌ **DON'T**:
-- Skip quality gates
-- Use deprecated tools
-- Ignore security warnings
-- Mix testing frameworks
+- [reference.md](reference.md) - Complete Scala 3.4 coverage, Context7 mappings, performance
+- [examples.md](examples.md) - Production-ready code: Http4s, Akka, Spark patterns
+
+---
+
+Last Updated: 2026-01-11
+Status: Production Ready (v2.1.0)

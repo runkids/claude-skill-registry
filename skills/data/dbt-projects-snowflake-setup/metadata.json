@@ -1,14 +1,7 @@
 {
   "name": "dbt-projects-snowflake-setup",
-  "description": "Step-by-step setup guide for dbt Projects on Snowflake including prerequisites, external access integration, Git API integration, event table configuration, and automated scheduling. Use this skill wh",
   "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-  "category": "testing",
-  "tags": [
-    "dbt",
-    "projects",
-    "snowflake",
-    "setup"
-  ],
-  "stars": 23,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dbt-projects-snowflake-setup/SKILL.md",
+  "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
+  "downloaded_at": "2026-01-21T03:57:30.960383Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "decide",
-  "repo": "doodledood/claude-code-plugins",
-  "path": "claude-plugins/life-ops/skills/decide/SKILL.md",
-  "source": "github.com/doodledood/claude-code-plugins",
-  "downloaded_at": "2026-01-20T02:27:11.304180Z"
+  "repo": "claudeaceae/samara-main",
+  "path": ".claude/skills/decide/SKILL.md",
+  "source": "github.com/claudeaceae/samara-main",
+  "downloaded_at": "2026-01-21T04:14:40.708721Z"
 }

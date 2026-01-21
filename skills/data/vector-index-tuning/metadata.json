@@ -1,7 +1,7 @@
 {
   "name": "vector-index-tuning",
-  "repo": "as4584/antigravity-skills",
-  "path": "agents-wshobson/plugins/llm-application-dev/skills/vector-index-tuning/SKILL.md",
-  "source": "github.com/as4584/antigravity-skills",
-  "downloaded_at": "2026-01-20T02:34:50.636450Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/llm-application-dev/skills/vector-index-tuning/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:10:59.130886Z"
 }

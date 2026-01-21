@@ -1,7 +1,7 @@
 {
   "name": "docker-compose",
-  "repo": "cuba6112/skillfactory",
-  "path": "skills/docker-compose/SKILL.md",
-  "source": "github.com/cuba6112/skillfactory",
-  "downloaded_at": "2026-01-20T04:06:01.115891Z"
+  "repo": "oriolrius/nifi-cluster",
+  "path": ".claude/skills/docker-compose/SKILL.md",
+  "source": "github.com/oriolrius/nifi-cluster",
+  "downloaded_at": "2026-01-21T02:09:31.218262Z"
 }

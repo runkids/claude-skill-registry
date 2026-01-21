@@ -1,7 +1,7 @@
 {
   "name": "api-patterns",
-  "repo": "CongDon1207/AGENTS.md",
-  "path": ".agent/skills/api-patterns/SKILL.md",
-  "source": "github.com/CongDon1207/AGENTS.md",
-  "downloaded_at": "2026-01-20T03:38:29.256957Z"
+  "repo": "antoineschaller/cortex-skills",
+  "path": "templates/skills/api-patterns/SKILL.md",
+  "source": "github.com/antoineschaller/cortex-skills",
+  "downloaded_at": "2026-01-21T04:15:32.766778Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "tester",
-  "repo": "aiskillstore/marketplace",
-  "path": "skills/brownbull/tester/SKILL.md",
-  "source": "github.com/aiskillstore/marketplace",
-  "downloaded_at": "2026-01-20T04:04:51.399956Z"
+  "repo": "wtthornton/TappsCodingAgents",
+  "path": "tapps_agents/resources/claude/skills/tester/SKILL.md",
+  "source": "github.com/wtthornton/TappsCodingAgents",
+  "downloaded_at": "2026-01-21T04:13:12.459253Z"
 }

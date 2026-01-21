@@ -1,7 +1,7 @@
 {
   "name": "moai-essentials-review",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-essentials-review/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-20T03:30:15.772887Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-essentials-review/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-21T03:35:45.961412Z"
 }

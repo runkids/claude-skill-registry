@@ -1,7 +1,7 @@
 {
   "name": "postgresql",
-  "repo": "mgd34msu/goodvibes-gemini",
-  "path": "skills/postgresql/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-gemini",
-  "downloaded_at": "2026-01-20T02:54:49.128807Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/database-design/skills/postgresql/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:10:56.361393Z"
 }

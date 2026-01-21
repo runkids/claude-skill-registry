@@ -1,1104 +1,306 @@
 ---
 name: cloudflare
-description: Guide for building applications on Cloudflare's edge platform. Use when implementing serverless functions (Workers), edge databases (D1), storage (R2, KV), real-time apps (Durable Objects), AI features (Workers AI, AI Gateway), static sites (Pages), or any edge computing solutions.
-license: MIT
-version: 1.0.0
+description: Use this skill for Cloudflare Pages deployment management, cache purging, and API operations. Includes scripts for cleaning up queued deployments, managing the deployment pipeline, and interacting with Cloudflare APIs.
 ---
 
-# Cloudflare Developer Platform Skill
+# Cloudflare Pages Management
 
-Cloudflare Developer Platform is a comprehensive edge computing ecosystem for building full-stack applications on Cloudflare's global network. It includes serverless functions, databases, storage, AI/ML capabilities, and static site hosting.
+This skill provides tools and documentation for managing the EVOLEA website's Cloudflare Pages deployment.
 
-## When to Use This Skill
+## Quick Reference
 
-Use this skill when:
-- Building serverless applications on the edge
-- Implementing edge databases (D1 SQLite)
-- Working with object storage (R2) or key-value stores (KV)
-- Creating real-time applications with WebSockets (Durable Objects)
-- Integrating AI/ML capabilities (Workers AI, AI Gateway, Agents)
-- Deploying static sites with serverless functions (Pages)
-- Building full-stack applications with frameworks (Next.js, Remix, Astro, etc.)
-- Implementing message queues and background jobs (Queues)
-- Optimizing for global performance and low latency
-
-## Core Concepts
-
-### Edge Computing Platform
-
-**Cloudflare's Edge Network**: Code runs on servers globally distributed across 300+ cities, executing requests from the nearest location for ultra-low latency.
-
-**Key Components**:
-- **Workers**: Serverless functions on the edge
-- **D1**: SQLite database with global read replication
-- **KV**: Distributed key-value store with eventual consistency
-- **R2**: Object storage with zero egress fees
-- **Durable Objects**: Stateful compute with WebSocket support
-- **Queues**: Message queue system for async processing
-- **Pages**: Static site hosting with serverless functions
-- **Workers AI**: Run AI models on the edge
-- **AI Gateway**: Unified interface for AI providers
-
-### Execution Model
-
-**V8 Isolates**: Lightweight execution environments (faster than containers) with:
-- Millisecond cold starts
-- Zero infrastructure management
-- Automatic scaling
-- Pay-per-request pricing
-
-**Handler Types**:
-- `fetch`: HTTP requests
-- `scheduled`: Cron jobs
-- `queue`: Message processing
-- `tail`: Log aggregation
-- `email`: Email handling
-- `alarm`: Durable Object timers
-
-## Getting Started with Workers
-
-### Installation
+### NPM Scripts
 
 ```bash
-# Install Wrangler CLI
-npm install -g wrangler
+# Delete only queued/in-progress deployments
+npm run cf:clean-queue
 
-# Login to Cloudflare
-wrangler login
-
-# Create new project
-wrangler init my-worker
-cd my-worker
-
-# Start local development
-wrangler dev
-
-# Deploy to production
-wrangler deploy
+# Delete ALL deployments (use with caution!)
+npm run cf:clean-all
 ```
 
-### Basic Worker
+### PowerShell Direct Usage
 
-```typescript
-// src/index.ts
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    return new Response('Hello from Cloudflare Workers!');
-  }
-};
+```powershell
+# Clean queued deployments only
+.\scripts\Cancel-CloudflareDeployments.ps1 -OnlyInProgress
+
+# Clean with auto-confirm (no prompt)
+.\scripts\Cancel-CloudflareDeployments.ps1 -OnlyInProgress -Force
+
+# Delete ALL deployments
+.\scripts\Cancel-CloudflareDeployments.ps1
+
+# Custom throttle limit (default: 10)
+.\scripts\Cancel-CloudflareDeployments.ps1 -OnlyInProgress -ThrottleLimit 5
 ```
 
-### Configuration (wrangler.toml)
+---
 
-```toml
-name = "my-worker"
-main = "src/index.ts"
-compatibility_date = "2024-01-01"
+## Configuration
 
-# Environment variables
-[vars]
-ENVIRONMENT = "production"
+### Credentials File
 
-# Bindings (added per product below)
+Location: `scripts/.env.cloudflare`
+
+```env
+CF_ACCOUNT_ID=your_account_id_here
+CF_API_TOKEN=your_api_token_here
 ```
 
-### Language Support
+**Security:** This file is gitignored and should never be committed.
 
-- **JavaScript/TypeScript**: Primary language (full Node.js compatibility)
-- **Python**: Beta support via Workers Python
-- **Rust**: Compile to WebAssembly
+### Finding Your Account ID
 
-## Storage Products
+1. Go to https://dash.cloudflare.com/
+2. Click **Pages** in the sidebar
+3. Click **evolea-website**
+4. Look at the URL: `https://dash.cloudflare.com/ACCOUNT_ID/pages/view/evolea-website`
+5. Copy the 32-character hex string
 
-### D1 (SQLite Database)
+### Creating an API Token
 
-**Use Cases**: Relational data, complex queries, ACID transactions
+1. Go to https://dash.cloudflare.com/profile/api-tokens
+2. Click **Create Token**
+3. Click **Create Custom Token**
+4. Add permissions:
+   - **Account > Cloudflare Pages** → Edit
+   - **Zone > Cache Purge** → Purge (optional, for cache management)
+5. Under **Account Resources**: Select your account
+6. Click **Continue to summary** → **Create Token**
+7. Copy the token immediately (won't be shown again)
 
-**Setup**:
+---
+
+## Scripts
+
+### Cancel-CloudflareDeployments.ps1
+
+**Location:** `scripts/Cancel-CloudflareDeployments.ps1`
+
+Bulk deletes Cloudflare Pages deployments.
+
+**Parameters:**
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `-AccountId` | string | from env | Cloudflare account ID |
+| `-ApiToken` | string | from env | API token |
+| `-ProjectName` | string | `evolea-website` | Pages project name |
+| `-OnlyInProgress` | switch | false | Only delete queued/pending deployments |
+| `-Force` | switch | false | Skip confirmation prompt |
+| `-ThrottleLimit` | int | 10 | Batch size for parallel deletions |
+
+**Deployment Statuses Filtered by `-OnlyInProgress`:**
+- `active` - Currently building
+- `idle` - Waiting to start
+- `queued` - In queue
+- `pending` - Pending start
+
+**Example Output:**
+```
+=== Cloudflare Pages Bulk Deployment Cancellation ===
+Project: evolea-website
+
+Fetching deployments...
+  Page 1: Found 25 deployments (matched: 17, total collected: 17)
+  Page 2: Found 25 deployments (matched: 0, total collected: 17)
+  (Stopping early - no more queued deployments found)
+
+Found 17 deployments to delete
+
+Deleting deployments...
+--- Batch 1 of 2 ---
+[OK] Deleted: abc123...
+[OK] Deleted: def456...
+Progress: 10/17 | Rate: 0.9/sec | ETA: 8s
+
+=== Done! ===
+Deleted: 17
+Failed: 0
+Time: 0.3 minutes
+```
+
+### cancel-cloudflare-deployments.sh (Bash)
+
+**Location:** `scripts/cancel-cloudflare-deployments.sh`
+
+Linux/macOS equivalent using curl and jq. Same functionality as PowerShell version.
+
+---
+
+## Cloudflare Pages API Reference
+
+### Base URL
+```
+https://api.cloudflare.com/client/v4/accounts/{account_id}/pages/projects/{project_name}
+```
+
+### Authentication
 ```bash
-# Create database
-wrangler d1 create my-database
-
-# Add to wrangler.toml
-[[d1_databases]]
-binding = "DB"
-database_name = "my-database"
-database_id = "YOUR_DATABASE_ID"
-
-# Generate and apply schema
-wrangler d1 execute my-database --file=./schema.sql
+curl -H "Authorization: Bearer YOUR_API_TOKEN" ...
 ```
 
-**Usage**:
-```typescript
-export default {
-  async fetch(request: Request, env: Env) {
-    // Query
-    const result = await env.DB.prepare(
-      "SELECT * FROM users WHERE id = ?"
-    ).bind(userId).first();
-
-    // Insert
-    await env.DB.prepare(
-      "INSERT INTO users (name, email) VALUES (?, ?)"
-    ).bind("Alice", "alice@example.com").run();
-
-    // Batch (atomic)
-    await env.DB.batch([
-      env.DB.prepare("UPDATE accounts SET balance = balance - 100 WHERE id = ?").bind(user1),
-      env.DB.prepare("UPDATE accounts SET balance = balance + 100 WHERE id = ?").bind(user2)
-    ]);
-
-    return new Response(JSON.stringify(result));
-  }
-};
-```
-
-**Key Features**:
-- Global read replication (low-latency reads)
-- Single-writer consistency
-- Standard SQLite syntax
-- 25GB database size limit
-
-### KV (Key-Value Store)
-
-**Use Cases**: Cache, sessions, feature flags, rate limiting
-
-**Setup**:
+### List Deployments
 ```bash
-# Create namespace
-wrangler kv:namespace create MY_KV
-
-# Add to wrangler.toml
-[[kv_namespaces]]
-binding = "KV"
-id = "YOUR_NAMESPACE_ID"
+GET /deployments?page=1&per_page=25
 ```
 
-**Usage**:
-```typescript
-export default {
-  async fetch(request: Request, env: Env) {
-    // Put with TTL
-    await env.KV.put("session:token", JSON.stringify(data), {
-      expirationTtl: 3600 // 1 hour
-    });
-
-    // Get
-    const data = await env.KV.get("session:token", "json");
-
-    // Delete
-    await env.KV.delete("session:token");
-
-    // List with prefix
-    const list = await env.KV.list({ prefix: "user:123:" });
-
-    return new Response(JSON.stringify(data));
-  }
-};
-```
-
-**Key Features**:
-- Sub-millisecond reads (edge-cached)
-- Eventual consistency (~60 seconds globally)
-- 25MB value size limit
-- Automatic expiration (TTL)
-
-### R2 (Object Storage)
-
-**Use Cases**: File storage, media hosting, backups, static assets
-
-**Setup**:
+### Delete Deployment
 ```bash
-# Create bucket
-wrangler r2 bucket create my-bucket
-
-# Add to wrangler.toml
-[[r2_buckets]]
-binding = "R2_BUCKET"
-bucket_name = "my-bucket"
+DELETE /deployments/{deployment_id}?force=true
 ```
 
-**Usage**:
-```typescript
-export default {
-  async fetch(request: Request, env: Env) {
-    // Put object
-    await env.R2_BUCKET.put("path/to/file.jpg", fileBuffer, {
-      httpMetadata: {
-        contentType: "image/jpeg"
-      }
-    });
+### Important Limitations
+- Cannot delete the **latest production deployment** (delete the project instead)
+- Rate limited to ~100 requests/minute
+- Maximum `per_page` is 25 (not 100 as documented)
 
-    // Get object
-    const object = await env.R2_BUCKET.get("path/to/file.jpg");
-    if (!object) {
-      return new Response("Not found", { status: 404 });
-    }
+---
 
-    // Stream response
-    return new Response(object.body, {
-      headers: {
-        "Content-Type": object.httpMetadata?.contentType || "application/octet-stream"
-      }
-    });
+## Common Tasks
 
-    // Delete
-    await env.R2_BUCKET.delete("path/to/file.jpg");
+### Clear Build Queue
 
-    // List
-    const list = await env.R2_BUCKET.list({ prefix: "uploads/" });
-  }
-};
-```
-
-**Key Features**:
-- S3-compatible API
-- **Zero egress fees** (huge cost advantage)
-- Unlimited storage
-- 5TB object size limit
-- Multipart upload support
-
-### Durable Objects
-
-**Use Cases**: Real-time apps, WebSockets, coordination, stateful logic
-
-**Setup**:
-```toml
-# wrangler.toml
-[[durable_objects.bindings]]
-name = "COUNTER"
-class_name = "Counter"
-script_name = "my-worker"
-```
-
-**Usage**:
-```typescript
-// Define Durable Object class
-export class Counter {
-  state: DurableObjectState;
-
-  constructor(state: DurableObjectState, env: Env) {
-    this.state = state;
-  }
-
-  async fetch(request: Request) {
-    // Get current count
-    let count = (await this.state.storage.get<number>('count')) || 0;
-
-    // Increment
-    count++;
-    await this.state.storage.put('count', count);
-
-    return new Response(JSON.stringify({ count }));
-  }
-}
-
-// Use in Worker
-export default {
-  async fetch(request: Request, env: Env) {
-    // Get Durable Object instance
-    const id = env.COUNTER.idFromName("global-counter");
-    const counter = env.COUNTER.get(id);
-
-    // Forward request
-    return counter.fetch(request);
-  }
-};
-```
-
-**WebSocket Example**:
-```typescript
-export class ChatRoom {
-  state: DurableObjectState;
-  sessions: Set<WebSocket>;
-
-  constructor(state: DurableObjectState) {
-    this.state = state;
-    this.sessions = new Set();
-  }
-
-  async fetch(request: Request) {
-    const pair = new WebSocketPair();
-    const [client, server] = Object.values(pair);
-
-    this.state.acceptWebSocket(server);
-    this.sessions.add(server);
-
-    return new Response(null, { status: 101, webSocket: client });
-  }
-
-  async webSocketMessage(ws: WebSocket, message: string) {
-    // Broadcast to all connected clients
-    for (const session of this.sessions) {
-      session.send(message);
-    }
-  }
-
-  async webSocketClose(ws: WebSocket) {
-    this.sessions.delete(ws);
-  }
-}
-```
-
-**Key Features**:
-- Single-instance coordination (strong consistency)
-- Persistent storage (1GB limit on paid plans)
-- WebSocket support
-- Automatic hibernation for inactive objects
-
-### Queues
-
-**Use Cases**: Background jobs, email sending, async processing
-
-**Setup**:
-```toml
-# wrangler.toml
-[[queues.producers]]
-binding = "MY_QUEUE"
-queue = "my-queue"
-
-[[queues.consumers]]
-queue = "my-queue"
-max_batch_size = 10
-max_batch_timeout = 30
-```
-
-**Usage**:
-```typescript
-// Producer: Send messages
-export default {
-  async fetch(request: Request, env: Env) {
-    await env.MY_QUEUE.send({
-      type: 'email',
-      to: 'user@example.com',
-      subject: 'Welcome!'
-    });
-
-    return new Response('Message queued');
-  }
-};
-
-// Consumer: Process messages
-export default {
-  async queue(batch: MessageBatch<any>, env: Env) {
-    for (const message of batch.messages) {
-      try {
-        await processMessage(message.body);
-        message.ack(); // Acknowledge success
-      } catch (error) {
-        message.retry(); // Retry on failure
-      }
-    }
-  }
-};
-```
-
-**Key Features**:
-- At-least-once delivery
-- Automatic retries (exponential backoff)
-- Dead-letter queue support
-- Batch processing
-
-## AI Products
-
-### Workers AI
-
-**Use Cases**: Run AI models directly on the edge
-
-**Setup**:
-```toml
-# wrangler.toml
-[ai]
-binding = "AI"
-```
-
-**Usage**:
-```typescript
-export default {
-  async fetch(request: Request, env: Env) {
-    // Text generation
-    const response = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
-      messages: [
-        { role: 'user', content: 'What is edge computing?' }
-      ]
-    });
-
-    // Image classification
-    const imageResponse = await env.AI.run('@cf/microsoft/resnet-50', {
-      image: imageBuffer
-    });
-
-    // Text embeddings
-    const embeddings = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
-      text: 'Hello world'
-    });
-
-    return new Response(JSON.stringify(response));
-  }
-};
-```
-
-**Available Models**:
-- LLMs: Llama 3, Mistral, Gemma, Qwen
-- Image: Stable Diffusion, DALL-E, ResNet
-- Embeddings: BGE, GTE
-- Translation, summarization, sentiment analysis
-
-### AI Gateway
-
-**Use Cases**: Unified interface for AI providers with caching, rate limiting, analytics
-
-**Setup**:
-```typescript
-// OpenAI via AI Gateway
-const response = await fetch(
-  'https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/openai/chat/completions',
-  {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${env.OPENAI_API_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      model: 'gpt-4',
-      messages: [{ role: 'user', content: 'Hello!' }]
-    })
-  }
-);
-```
-
-**Features**:
-- Request caching (reduce costs)
-- Rate limiting
-- Analytics and logging
-- Supports OpenAI, Anthropic, HuggingFace, etc.
-
-### Agents
-
-**Use Cases**: Build AI agents with tools and workflows
-
-```typescript
-import { Agent } from '@cloudflare/agents';
-
-export default {
-  async fetch(request: Request, env: Env) {
-    const agent = new Agent({
-      model: '@cf/meta/llama-3-8b-instruct',
-      tools: [
-        {
-          name: 'get_weather',
-          description: 'Get current weather',
-          parameters: {
-            type: 'object',
-            properties: {
-              location: { type: 'string' }
-            }
-          },
-          handler: async ({ location }) => {
-            // Fetch weather data
-            return { temperature: 72, conditions: 'sunny' };
-          }
-        }
-      ]
-    });
-
-    const result = await agent.run('What is the weather in San Francisco?');
-    return new Response(JSON.stringify(result));
-  }
-};
-```
-
-### AI Search (RAG)
-
-**Use Cases**: Build retrieval-augmented generation applications
-
-```typescript
-import { VectorizeIndex } from '@cloudflare/workers-types';
-
-export default {
-  async fetch(request: Request, env: Env) {
-    // Generate embeddings
-    const embeddings = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
-      text: query
-    });
-
-    // Search vector database
-    const results = await env.VECTORIZE_INDEX.query(embeddings.data[0], {
-      topK: 5
-    });
-
-    // Generate response with context
-    const response = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
-      messages: [
-        {
-          role: 'system',
-          content: `Context: ${results.matches.map(m => m.metadata.text).join('\n')}`
-        },
-        { role: 'user', content: query }
-      ]
-    });
-
-    return new Response(JSON.stringify(response));
-  }
-};
-```
-
-## Cloudflare Pages
-
-### Static Sites + Serverless Functions
-
-**Deployment**:
-```bash
-# Deploy via Git (recommended)
-# Connect GitHub repo in Cloudflare dashboard
-
-# Or deploy via CLI
-wrangler pages deploy ./dist
-```
-
-### Pages Functions
-
-Directory-based routing in `functions/`:
-
-```
-functions/
-├── api/
-│   ├── users/
-│   │   └── [id].ts       # /api/users/:id
-│   └── posts.ts          # /api/posts
-└── _middleware.ts        # Global middleware
-```
-
-**Example Function**:
-```typescript
-// functions/api/users/[id].ts
-export async function onRequestGet(context) {
-  const { params, env } = context;
-  const user = await env.DB.prepare(
-    "SELECT * FROM users WHERE id = ?"
-  ).bind(params.id).first();
-
-  return new Response(JSON.stringify(user), {
-    headers: { 'Content-Type': 'application/json' }
-  });
-}
-```
-
-**Middleware**:
-```typescript
-// functions/_middleware.ts
-export async function onRequest(context) {
-  const start = Date.now();
-  const response = await context.next();
-  const duration = Date.now() - start;
-
-  console.log(`${context.request.method} ${context.request.url} - ${duration}ms`);
-  return response;
-}
-```
-
-### Framework Support
-
-**Next.js**:
-```bash
-npx create-next-app@latest my-app
-cd my-app
-npm install -D @cloudflare/next-on-pages
-npx @cloudflare/next-on-pages
-wrangler pages deploy .vercel/output/static
-```
-
-**Remix**:
-```bash
-npx create-remix@latest --template cloudflare/remix
-```
-
-**Astro**:
-```bash
-npm create astro@latest
-# Select "Cloudflare" adapter during setup
-```
-
-**SvelteKit**:
-```bash
-npm create svelte@latest
-npm install -D @sveltejs/adapter-cloudflare
-```
-
-## Wrangler CLI Essentials
-
-### Core Commands
+When deployments pile up (e.g., after multiple rapid pushes):
 
 ```bash
-# Development
-wrangler dev                    # Local development server
-wrangler dev --remote          # Dev on real Cloudflare infrastructure
-
-# Deployment
-wrangler deploy                # Deploy to production
-wrangler deploy --dry-run     # Preview changes without deploying
-
-# Logs
-wrangler tail                  # Real-time logs
-wrangler tail --format pretty # Formatted logs
-
-# Versions
-wrangler deployments list      # List deployments
-wrangler rollback [version]   # Rollback to previous version
-
-# Secrets
-wrangler secret put SECRET_NAME    # Add secret
-wrangler secret list               # List secrets
-wrangler secret delete SECRET_NAME # Delete secret
+npm run cf:clean-queue
 ```
 
-### Project Management
+This safely removes all queued/in-progress deployments while preserving completed ones.
 
+### Force Fresh Deployment
+
+1. Clean the queue first:
+   ```bash
+   npm run cf:clean-queue
+   ```
+
+2. Trigger a new build:
+   ```bash
+   git commit --allow-empty -m "Trigger rebuild"
+   git push
+   ```
+
+### Verify Deployment Status
+
+Check the Cloudflare dashboard:
+- https://dash.cloudflare.com/ → Pages → evolea-website → Deployments
+
+Or use the API:
 ```bash
-# Create projects
-wrangler init my-worker        # Create Worker
-wrangler pages project create  # Create Pages project
-
-# Database
-wrangler d1 create my-db           # Create D1 database
-wrangler d1 execute my-db --file=schema.sql
-wrangler d1 execute my-db --command="SELECT * FROM users"
-
-# KV
-wrangler kv:namespace create MY_KV
-wrangler kv:key put --binding=MY_KV "key" "value"
-wrangler kv:key get --binding=MY_KV "key"
-
-# R2
-wrangler r2 bucket create my-bucket
-wrangler r2 object put my-bucket/file.txt --file=./file.txt
+curl -s "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/pages/projects/evolea-website/deployments?per_page=5" \
+  -H "Authorization: Bearer $CF_API_TOKEN" | jq '.result[0]'
 ```
 
-## Integration Patterns
-
-### Full-Stack Application Architecture
-
-```
-┌─────────────────────────────────────────┐
-│         Cloudflare Pages (Frontend)      │
-│    Next.js / Remix / Astro / SvelteKit  │
-└──────────────────┬──────────────────────┘
-                   │
-┌──────────────────▼──────────────────────┐
-│      Workers (API Layer / BFF)          │
-│    - Routing                             │
-│    - Authentication                      │
-│    - Business logic                      │
-└─┬──────┬──────┬──────┬──────┬───────────┘
-  │      │      │      │      │
-  ▼      ▼      ▼      ▼      ▼
-┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────────────┐
-│ D1 │ │ KV │ │ R2 │ │ DO │ │ Workers AI │
-└────┘ └────┘ └────┘ └────┘ └────────────┘
-```
-
-### Polyglot Storage Pattern
-
-```typescript
-export default {
-  async fetch(request: Request, env: Env) {
-    const url = new URL(request.url);
-
-    // KV: Fast cache
-    const cached = await env.KV.get(url.pathname);
-    if (cached) return new Response(cached);
-
-    // D1: Structured data
-    const user = await env.DB.prepare(
-      "SELECT * FROM users WHERE id = ?"
-    ).bind(userId).first();
-
-    // R2: Media files
-    const avatar = await env.R2_BUCKET.get(`avatars/${user.id}.jpg`);
-
-    // Durable Objects: Real-time coordination
-    const chat = env.CHAT_ROOM.get(env.CHAT_ROOM.idFromName(roomId));
-
-    // Queue: Async processing
-    await env.EMAIL_QUEUE.send({ to: user.email, template: 'welcome' });
-
-    return new Response(JSON.stringify({ user, avatar }));
-  }
-};
-```
-
-### Authentication Pattern
-
-```typescript
-import { verifyJWT, createJWT } from './jwt';
-
-export default {
-  async fetch(request: Request, env: Env) {
-    const url = new URL(request.url);
-
-    // Login
-    if (url.pathname === '/api/login') {
-      const { email, password } = await request.json();
-
-      const user = await env.DB.prepare(
-        "SELECT * FROM users WHERE email = ?"
-      ).bind(email).first();
-
-      if (!user || !await verifyPassword(password, user.password_hash)) {
-        return new Response('Invalid credentials', { status: 401 });
-      }
-
-      const token = await createJWT({ userId: user.id }, env.JWT_SECRET);
-
-      return new Response(JSON.stringify({ token }), {
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-
-    // Protected route
-    const authHeader = request.headers.get('Authorization');
-    if (!authHeader) {
-      return new Response('Unauthorized', { status: 401 });
-    }
-
-    const token = authHeader.replace('Bearer ', '');
-    const payload = await verifyJWT(token, env.JWT_SECRET);
-
-    // Store session in KV
-    await env.KV.put(`session:${payload.userId}`, JSON.stringify(payload), {
-      expirationTtl: 86400 // 24 hours
-    });
-
-    return new Response('Authenticated');
-  }
-};
-```
-
-### Cache Strategy
-
-```typescript
-export default {
-  async fetch(request: Request, env: Env) {
-    const cache = caches.default;
-    const cacheKey = new Request(request.url);
-
-    // Check cache
-    let response = await cache.match(cacheKey);
-    if (response) return response;
-
-    // Check KV (distributed cache)
-    const kvCached = await env.KV.get(request.url);
-    if (kvCached) {
-      response = new Response(kvCached);
-      await cache.put(cacheKey, response.clone());
-      return response;
-    }
-
-    // Fetch from origin (D1, R2, etc.)
-    const data = await fetchFromOrigin(request, env);
-    response = new Response(data);
-
-    // Store in both caches
-    await cache.put(cacheKey, response.clone());
-    await env.KV.put(request.url, data, { expirationTtl: 3600 });
-
-    return response;
-  }
-};
-```
-
-## Best Practices
-
-### Performance
-
-1. **Minimize Cold Starts**: Keep Workers lightweight (<1MB bundled)
-2. **Use Bindings Over Fetch**: Direct bindings are faster than HTTP calls
-3. **Edge Caching**: Leverage KV and Cache API for frequently accessed data
-4. **Batch Operations**: Use D1 batch for multiple queries
-5. **Stream Large Responses**: Use `Response.body` streams for large files
-
-### Security
-
-1. **Secrets Management**: Use `wrangler secret` for API keys
-2. **Environment Isolation**: Separate production/staging/development
-3. **Input Validation**: Sanitize user input
-4. **Rate Limiting**: Use KV or Durable Objects for rate limiting
-5. **CORS**: Configure proper CORS headers
-
-### Cost Optimization
-
-1. **R2 for Large Files**: Zero egress fees vs S3
-2. **KV for Caching**: Reduce D1/R2 requests
-3. **Request Deduplication**: Cache identical requests
-4. **Efficient Queries**: Index D1 tables properly
-5. **Monitor Usage**: Use Cloudflare Analytics
-
-### Development Workflow
-
-1. **Local Development**: Use `wrangler dev` for testing
-2. **Type Safety**: Use TypeScript with `@cloudflare/workers-types`
-3. **Testing**: Use Vitest with `unstable_dev()`
-4. **CI/CD**: GitHub Actions with `cloudflare/wrangler-action`
-5. **Gradual Deployments**: Use percentage-based rollouts
-
-## Common Patterns
-
-### API Gateway
-
-```typescript
-import { Hono } from 'hono';
-
-const app = new Hono();
-
-app.get('/api/users/:id', async (c) => {
-  const user = await c.env.DB.prepare(
-    "SELECT * FROM users WHERE id = ?"
-  ).bind(c.req.param('id')).first();
-
-  return c.json(user);
-});
-
-app.post('/api/users', async (c) => {
-  const { name, email } = await c.req.json();
-
-  await c.env.DB.prepare(
-    "INSERT INTO users (name, email) VALUES (?, ?)"
-  ).bind(name, email).run();
-
-  return c.json({ success: true }, 201);
-});
-
-export default app;
-```
-
-### Image Transformation
-
-```typescript
-export default {
-  async fetch(request: Request, env: Env) {
-    const url = new URL(request.url);
-    const imageKey = url.pathname.replace('/images/', '');
-
-    // Get from R2
-    const object = await env.R2_BUCKET.get(imageKey);
-    if (!object) {
-      return new Response('Not found', { status: 404 });
-    }
-
-    // Transform with Cloudflare Images
-    return new Response(object.body, {
-      headers: {
-        'Content-Type': object.httpMetadata?.contentType || 'image/jpeg',
-        'Cache-Control': 'public, max-age=86400',
-        'cf-image-resize': JSON.stringify({
-          width: 800,
-          height: 600,
-          fit: 'cover'
-        })
-      }
-    });
-  }
-};
-```
-
-### Rate Limiting (KV)
-
-```typescript
-async function rateLimit(ip: string, env: Env): Promise<boolean> {
-  const key = `ratelimit:${ip}`;
-  const limit = 100; // requests per minute
-  const window = 60; // seconds
-
-  const current = await env.KV.get(key);
-  const count = current ? parseInt(current) : 0;
-
-  if (count >= limit) {
-    return false; // Rate limit exceeded
-  }
-
-  await env.KV.put(key, (count + 1).toString(), {
-    expirationTtl: window
-  });
-
-  return true;
-}
-
-export default {
-  async fetch(request: Request, env: Env) {
-    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-
-    if (!await rateLimit(ip, env)) {
-      return new Response('Rate limit exceeded', { status: 429 });
-    }
-
-    return new Response('OK');
-  }
-};
-```
-
-### Scheduled Jobs
-
-```toml
-# wrangler.toml
-[triggers]
-crons = ["0 0 * * *"] # Daily at midnight
-```
-
-```typescript
-export default {
-  async scheduled(event: ScheduledEvent, env: Env) {
-    // Cleanup old sessions
-    const sessions = await env.KV.list({ prefix: 'session:' });
-    for (const key of sessions.keys) {
-      const session = await env.KV.get(key.name, 'json');
-      if (session.expiresAt < Date.now()) {
-        await env.KV.delete(key.name);
-      }
-    }
-  }
-};
-```
+---
 
 ## Troubleshooting
 
-### Common Issues
+### "Invalid list options" Error
+The Cloudflare API only accepts `per_page` up to 25. The script handles this automatically.
 
-**"Module not found" errors**
-- Ensure dependencies are in `package.json`
-- Run `npm install` before deploying
-- Check compatibility_date in wrangler.toml
+### "400 Bad Request" with PowerShell
+If `Invoke-RestMethod` fails but curl works, the script uses curl.exe as a fallback (Windows has curl.exe built-in since Windows 10).
 
-**Database connection errors (D1)**
-- Verify database_id in wrangler.toml
-- Check database exists: `wrangler d1 list`
-- Run migrations: `wrangler d1 execute DB --file=schema.sql`
+### Rate Limiting
+If you hit rate limits, the script includes:
+- 300ms delay between page fetches
+- 1s delay between deletion batches
+- Configurable `-ThrottleLimit` parameter
 
-**KV not found errors**
-- Create namespace: `wrangler kv:namespace create MY_KV`
-- Add binding to wrangler.toml
-- Deploy after configuration changes
+### Cannot Delete Latest Deployment
+The live production deployment cannot be deleted via API. To replace it:
+1. Push a new commit to trigger a new build
+2. Wait for it to complete
+3. Then you can delete the old deployment
 
-**Cold start timeout**
-- Reduce bundle size (<1MB ideal)
-- Remove unnecessary dependencies
-- Use dynamic imports for large libraries
+### Custom Domain Shows Old Content (IMPORTANT)
 
-**CORS errors**
-- Add CORS headers to responses:
-  ```typescript
-  return new Response(data, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    }
-  });
-  ```
+**Symptoms:**
+- `evolea-website.pages.dev` shows new content
+- `www.evolea.ch` shows old/stale content
+- Cache purge doesn't help
+- `CF-Cache-Status: HIT` with very high `Age` value
 
-**Deployment fails**
-- Check wrangler version: `wrangler --version`
-- Verify authentication: `wrangler whoami`
-- Review build errors in console output
+**Root Cause:** Custom domain in Cloudflare Pages became deactivated/errored.
 
-### Debugging
-
+**Diagnosis:**
 ```bash
-# Real-time logs
-wrangler tail
-
-# Local debugging with breakpoints
-wrangler dev --local
-
-# Remote debugging
-wrangler dev --remote
-
-# Check deployment status
-wrangler deployments list
+# Check custom domain status
+curl -s "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/pages/projects/evolea-website/domains" \
+  -H "Authorization: Bearer $CF_API_TOKEN"
 ```
 
-## Decision Matrix
+Look for:
+- `"status": "deactivated"` - Domain needs reactivation
+- `"validation_data": {"status": "error"}` - Validation failed
 
-| Need | Choose |
-|------|--------|
-| Sub-millisecond reads | KV |
-| SQL queries | D1 |
-| Large files (>25MB) | R2 |
-| Real-time WebSockets | Durable Objects |
-| Async background jobs | Queues |
-| ACID transactions | D1 |
-| Strong consistency | Durable Objects |
-| Zero egress costs | R2 |
-| AI inference | Workers AI |
-| Static site hosting | Pages |
-| Serverless functions | Workers |
-| Multi-provider AI | AI Gateway |
+**Fix:**
+```bash
+# Reactivate the domain (sends PATCH request)
+curl -s -X PATCH "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/pages/projects/evolea-website/domains/www.evolea.ch" \
+  -H "Authorization: Bearer $CF_API_TOKEN" \
+  -H "Content-Type: application/json"
+```
 
-## Framework-Specific Guides
+Wait 10-30 seconds for status to change to "active", then verify site.
 
-### Next.js
-- Use `@cloudflare/next-on-pages` adapter
-- Configure `next.config.js` for edge runtime
-- Deploy via `wrangler pages deploy`
+### Cache Purge Not Working
 
-### Remix
-- Use official Cloudflare template
-- Configure `server.ts` for Workers
-- Access bindings via `context.cloudflare.env`
+If `purge_everything` doesn't clear the cache:
 
-### Astro
-- Use `@astrojs/cloudflare` adapter
-- Enable SSR in `astro.config.mjs`
-- Access env via `Astro.locals.runtime.env`
+1. **Check if it's actually a cache issue:**
+   ```bash
+   curl -sI https://www.evolea.ch/ | grep -i "cf-cache\|age:"
+   ```
 
-### SvelteKit
-- Use `@sveltejs/adapter-cloudflare`
-- Configure in `svelte.config.js`
-- Access platform via `event.platform.env`
+2. **Try purging by host:**
+   ```bash
+   curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+     -H "Authorization: Bearer $CF_API_TOKEN" \
+     -H "Content-Type: application/json" \
+     --data '{"hosts":["www.evolea.ch","evolea.ch"]}'
+   ```
 
-## Resources
+3. **If cache still shows old content**, the issue is likely the Pages custom domain, not caching!
 
-- **Documentation**: https://developers.cloudflare.com
-- **Wrangler CLI**: https://developers.cloudflare.com/workers/wrangler/
-- **Discord Community**: https://discord.cloudflare.com
-- **Examples**: https://developers.cloudflare.com/workers/examples/
-- **GitHub**: https://github.com/cloudflare
-- **Status Page**: https://www.cloudflarestatus.com
+---
 
-## Implementation Checklist
+## Dashboard Links
 
-### Workers Setup
-- [ ] Install Wrangler CLI (`npm install -g wrangler`)
-- [ ] Login to Cloudflare (`wrangler login`)
-- [ ] Create project (`wrangler init`)
-- [ ] Configure wrangler.toml
-- [ ] Add environment variables/secrets
-- [ ] Test locally (`wrangler dev`)
-- [ ] Deploy (`wrangler deploy`)
+| Resource | URL |
+|----------|-----|
+| Cloudflare Dashboard | https://dash.cloudflare.com/ |
+| Pages Project | https://dash.cloudflare.com/861cf040c6bd6d5977d6a93bc1bb6d2e/pages/view/evolea-website |
+| Deployments | https://dash.cloudflare.com/861cf040c6bd6d5977d6a93bc1bb6d2e/pages/view/evolea-website/deployments |
+| DNS Zone (evolea.ch) | https://dash.cloudflare.com/861cf040c6bd6d5977d6a93bc1bb6d2e/evolea.ch |
+| API Tokens | https://dash.cloudflare.com/profile/api-tokens |
 
-### Storage Setup (as needed)
-- [ ] Create D1 database and apply schema
-- [ ] Create KV namespace
-- [ ] Create R2 bucket
-- [ ] Configure Durable Objects
-- [ ] Set up Queues
-- [ ] Add bindings to wrangler.toml
+## Domain Configuration
 
-### Pages Setup
-- [ ] Connect Git repository or use CLI
-- [ ] Configure build settings
-- [ ] Set environment variables
-- [ ] Add Pages Functions (if needed)
-- [ ] Deploy and test
+| Domain | Type | Target | Status |
+|--------|------|--------|--------|
+| www.evolea.ch | CNAME | evolea-website.pages.dev | Primary (canonical) |
+| evolea.ch | CNAME | evolea-website.pages.dev | Redirects to www (301) |
 
-### Production Checklist
-- [ ] Set up custom domain
-- [ ] Configure DNS records
-- [ ] Enable SSL/TLS
-- [ ] Set up monitoring/analytics
-- [ ] Configure rate limiting
-- [ ] Implement error handling
-- [ ] Set up CI/CD pipeline
-- [ ] Test gradual deployments
-- [ ] Document rollback procedure
-- [ ] Configure logging/observability
+**Zone ID:** `31692bef127b39a14d1bd5787aafdd12`
+**Nameservers:** `elias.ns.cloudflare.com`, `rachel.ns.cloudflare.com`
+
+---
+
+## Related Files
+
+| File | Purpose |
+|------|---------|
+| `scripts/Cancel-CloudflareDeployments.ps1` | PowerShell deployment cleanup |
+| `scripts/cancel-cloudflare-deployments.sh` | Bash deployment cleanup |
+| `scripts/.env.cloudflare` | API credentials (gitignored) |
+| `wrangler.toml` | Cloudflare Workers/Pages config |
+| `.cloudflare-deploy-trigger` | Timestamp file for forcing rebuilds |
+
+---
+
+**Last Updated:** January 2026
+**Version:** 1.0

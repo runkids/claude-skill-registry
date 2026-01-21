@@ -223,6 +223,21 @@ If "Still being defined" or "Multiple competing framings", switch to Facilitator
 - Document alternative framings as they emerge
 - Avoid premature convergence
 
+### Phase 1 Process Suggestions
+
+When Phase 1 work is substantial, consider offering structured processes:
+
+| User Need | Suggest Process | Default Mode |
+|-----------|-----------------|--------------|
+| "I have an idea/opportunity" | PROC-1.1 Opportunity Identification | QUICK |
+| "Need to align stakeholders" | PROC-1.2 Stakeholder Alignment | QUICK |
+| "Problem isn't clear" | PROC-1.3 Problem Framing | QUICK |
+| "Need to justify investment" | PROC-1.4 Business Case | QUICK |
+
+Offer these lightly: "Would you like to work through this systematically? I can guide you through a structured process that typically takes about 15 minutes."
+
+If complexity emerges during elicitation, suggest upgrading to FULL mode.
+
 ---
 
 *Part of the Dialogue Framework*

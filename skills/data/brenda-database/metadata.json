@@ -1,7 +1,7 @@
 {
   "name": "brenda-database",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/brenda-database/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-20T01:18:52.354161Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/brenda-database/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-21T01:12:42.070003Z"
 }

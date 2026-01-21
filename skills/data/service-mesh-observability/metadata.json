@@ -1,7 +1,7 @@
 {
   "name": "service-mesh-observability",
-  "repo": "pelan05/vscode_agents_folder",
-  "path": "skills/service-mesh-observability/SKILL.md",
-  "source": "github.com/pelan05/vscode_agents_folder",
-  "downloaded_at": "2026-01-20T02:32:56.477846Z"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/cloud-infrastructure/skills/service-mesh-observability/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-21T04:02:56.626818Z"
 }

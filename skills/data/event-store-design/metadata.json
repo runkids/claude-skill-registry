@@ -1,7 +1,7 @@
 {
   "name": "event-store-design",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/event-store-design/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-20T02:53:49.053916Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/backend-development/skills/event-store-design/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:10:58.739727Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "generate-image",
-  "repo": "K-Dense-AI/claude-scientific-writer",
-  "path": "scientific_writer/.claude/skills/generate-image/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-writer",
-  "downloaded_at": "2026-01-20T02:19:47.073128Z"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/generate-image/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-21T03:12:25.876119Z"
 }

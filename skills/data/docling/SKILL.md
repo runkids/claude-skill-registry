@@ -1,250 +1,96 @@
 ---
 name: docling
-description: Convert documents (PPTX, PDF, DOCX, XLSX, images) to Markdown/JSON/HTML using IBM Docling. This skill should be used when user asks to convert, parse, or extract content from documents. Triggers on "convert pptx", "parse pdf", "extract from document", "конвертуй презентацію", "витягни з pdf".
+description: Turn ANY File (PDF, DOCX, Audio) into LLM-Knowledge in SECONDS using Docling.
+trigger: docling OR pdf parse OR rag pipeline OR document conversion OR chunking
+scope: global
 ---
 
-# Docling - Document Conversion Skill
+# Docling - Universal Document Converter
 
-Convert any document format to structured Markdown, JSON, or HTML using IBM Docling with AI-powered layout analysis.
+> [!IMPORTANT]
+> Docling is the specialized tool for the "Data Curation" step of RAG (Retrieval Augmented Generation). It turns complex, messy file formats into clean, structured Markdown that LLMs love.
 
-## Quick Start
+## 1. Core Capabilities
 
-**Batch convert directory to Markdown:**
+- **Universal Parsing**: Handles PDF, DOCX, PPTX, Images, HTML, AsciiDoc, Markdown, and Audio (via Whisper).
+- **Layout Awareness**: Understands tables, headers, footers, page numbers, and reading order in PDFs (OCR included).
+- **Hybrid Chunking**: Smart chunking strategy that uses embedding models to keep semantically related text together, rather than just splitting by character count.
+- **Export to Markdown**: The gold standard format for LLM context.
+
+## 2. Quick Start
+
+### Installation
+
 ```bash
-uv run python .claude/skills/docling/scripts/convert_docs.py \
-  --input /path/to/documents \
-  --output /path/to/output \
-  --format md
+pip install docling
+# Optional: Audio support
+pip install ffmpeg-python openai-whisper
 ```
 
-**Single file via CLI:**
-```bash
-uv run docling document.pptx --to md --output ./output
-```
+### Basic Extraction (PDF to Markdown)
 
-## Primary Use Case: Batch Conversion
-
-The main script `scripts/convert_docs.py` handles:
-- Recursive directory scanning
-- Clean filename generation (slugified, numbered)
-- Index file creation with table of contents
-- Progress tracking
-
-**Example - Convert presentation course:**
-```bash
-uv run python .claude/skills/docling/scripts/convert_docs.py \
-  --input .artifacts/presentations \
-  --output docs/course \
-  --format md \
-  --prefix "lesson"
-```
-
-## Supported Formats
-
-### Input Formats
-| Format | Extension | Notes |
-|--------|-----------|-------|
-| PowerPoint | `.pptx` | Slides extracted with structure |
-| PDF | `.pdf` | Layout analysis, OCR support |
-| Word | `.docx` | Full formatting preserved |
-| Excel | `.xlsx` | Tables converted |
-| HTML | `.html` | Structure preserved |
-| Images | `.png`, `.jpg`, `.tiff` | OCR extraction |
-| Audio | `.wav`, `.mp3` | ASR transcription |
-| Markdown | `.md` | Pass-through with parsing |
-| CSV | `.csv` | Table structure |
-
-### Output Formats
-| Format | Flag | Use Case |
-|--------|------|----------|
-| Markdown | `--to md` | Documentation, RAG |
-| JSON | `--to json` | Structured data, API |
-| HTML | `--to html` | Web publishing |
-| Text | `--to text` | Plain text extraction |
-| DocTags | `--to doctags` | Docling internal format |
-
-## CLI Reference
-
-### Basic Usage
-```bash
-# Single file
-uv run docling document.pdf --to md
-
-# Multiple files
-uv run docling file1.pdf file2.docx --to md
-
-# Directory
-uv run docling ./documents/ --to md --output ./output/
-
-# URL
-uv run docling https://example.com/doc.pdf --to md
-```
-
-### OCR Options
-```bash
-# Enable OCR (default: auto)
-uv run docling scanned.pdf --ocr --ocr-engine tesseract
-
-# Force OCR on all content
-uv run docling document.pdf --force-ocr
-
-# Specify language
-uv run docling document.pdf --ocr-lang ukr,eng
-```
-
-**OCR Engines:** `auto`, `easyocr`, `tesseract`, `tesserocr`, `rapidocr`, `ocrmac` (macOS)
-
-### Table Extraction
-```bash
-# Accurate mode (slower, better quality)
-uv run docling document.pdf --table-mode accurate
-
-# Fast mode
-uv run docling document.pdf --table-mode fast
-
-# Disable tables
-uv run docling document.pdf --no-tables
-```
-
-### Image Handling
-```bash
-# Embed images as base64
-uv run docling document.pdf --image-export-mode embedded
-
-# Save images as separate files
-uv run docling document.pdf --image-export-mode referenced
-
-# Placeholder only (no images)
-uv run docling document.pdf --image-export-mode placeholder
-```
-
-### AI Enrichment
-```bash
-# Enable code block detection
-uv run docling document.pdf --enrich-code
-
-# Enable formula recognition
-uv run docling document.pdf --enrich-formula
-
-# Enable picture classification
-uv run docling document.pdf --enrich-picture-classification
-
-# Enable picture description (VLM)
-uv run docling document.pdf --enrich-picture-description
-```
-
-### VLM Pipeline (Vision Language Model)
-```bash
-# Use VLM for complex documents
-uv run docling document.pdf --pipeline vlm --vlm-model granite_docling
-
-# Available models: granite_docling, smoldocling, got_ocr_2, granite_vision
-```
-
-### ASR Pipeline (Audio Transcription)
-```bash
-# Transcribe audio
-uv run docling audio.mp3 --pipeline asr --asr-model whisper_small
-
-# Models: whisper_tiny, whisper_small, whisper_medium, whisper_large, whisper_turbo
-```
-
-### Performance Options
-```bash
-# Multi-threading
-uv run docling document.pdf --num-threads 8
-
-# GPU acceleration
-uv run docling document.pdf --device cuda  # or mps for Apple Silicon
-
-# Timeout per document
-uv run docling document.pdf --document-timeout 300
-```
-
-## Python API
-
-### Basic Conversion
 ```python
 from docling.document_converter import DocumentConverter
 
+source = "path/to/document.pdf"  # Can be URL or local path
 converter = DocumentConverter()
-result = converter.convert("document.pptx")
+result = converter.convert(source)
 
 # Export to Markdown
-markdown = result.document.export_to_markdown()
-
-# Export to JSON
-json_data = result.document.export_to_dict()
-
-# Save directly
-result.document.save_as_markdown("output.md")
+markdown_output = result.document.export_to_markdown()
+print(markdown_output)
 ```
 
-### Batch Conversion
-```python
-from pathlib import Path
-from docling.document_converter import DocumentConverter
+## 3. Advanced Usage: Hybrid Chunking
 
-converter = DocumentConverter()
-sources = list(Path("./documents").glob("*.pdf"))
+This is the killer feature for RAG. Don't just split by characters; split by _meaning_.
 
-for result in converter.convert_all(sources):
-    if result.status.name == "SUCCESS":
-        output = Path("./output") / f"{result.input.file.stem}.md"
-        result.document.save_as_markdown(output)
-```
-
-### With Pipeline Options
-```python
-from docling.document_converter import DocumentConverter, FormatOption
-from docling.datamodel.base_models import InputFormat
-from docling.datamodel.pipeline_options import PdfPipelineOptions
-
-pdf_options = PdfPipelineOptions(
-    do_ocr=True,
-    do_table_structure=True,
-    table_structure_options={"mode": "accurate"},
-)
-
-converter = DocumentConverter(
-    format_options={
-        InputFormat.PDF: FormatOption(pipeline_options=pdf_options)
-    }
-)
-```
-
-### Chunking for RAG
 ```python
 from docling.document_converter import DocumentConverter
 from docling.chunking import HybridChunker
 
-converter = DocumentConverter()
-result = converter.convert("document.pdf")
+doc_converter = DocumentConverter()
+conv_res = doc_converter.convert("complex_report.pdf")
+doc = conv_res.document
 
-chunker = HybridChunker()
-chunks = list(chunker.chunk(result.document))
+# Initialize Hybrid Chunker
+chunker = HybridChunker(
+    tokenizer="intfloat/multilingual-e5-base" # Or other embedding model tokenizer
+)
+
+# Generate Chunks
+chunk_iter = chunker.chunk(doc)
+chunks = list(chunk_iter)
 
 for chunk in chunks:
-    print(f"Chunk: {chunk.text[:100]}...")
+    print(f"Chunk Text:\n{chunk.text}\n---\n")
+    # Store 'chunk.vector' in your DB if using embedded creation here
 ```
 
-## Troubleshooting
+## 4. Working with Audio (Transcription)
 
-| Problem | Solution |
-|---------|----------|
-| No text extracted | Enable OCR: `--ocr` or `--force-ocr` |
-| Tables not formatted | Use `--table-mode accurate` |
-| Slow processing | Use `--table-mode fast`, reduce `--num-threads` |
-| Memory errors | Reduce `--page-batch-size`, process files individually |
+Docling streamlines the audio-to-text pipeline for RAG.
 
-### Debug Options
-```bash
-uv run docling document.pdf -v     # info logging
-uv run docling document.pdf -vv    # debug logging
-uv run docling document.pdf --debug-visualize-layout  # see layout detection
+```python
+# Requires: pip install openai-whisper
+from docling.document_converter import DocumentConverter
+
+converter = DocumentConverter()
+result = converter.convert("meeting_recording.mp3")
+
+# Output includes timestamps and speaker separation if supported
+print(result.document.export_to_markdown())
 ```
+
+## 5. RAG Integration Pattern
+
+1. **Ingest**: Use `DocumentConverter` to read files from your source directory.
+2. **Process**: Convert every file (PDF, Word, Audio) into a uniform `DoclingDocument`.
+3. **Chunk**: Apply `HybridChunker` to split documents intelligently.
+4. **Embed & Store**: Send chunks to your Vector DB (PGVector, Pinecone, etc.).
+5. **Retrieve**: Query your DB for relevant chunks and feed them to the LLM.
 
 ## Resources
 
-### scripts/
-- `convert_docs.py` - Batch conversion with clean filenames and index generation
+- [Docling GitHub & Docs](https://github.com/DS4SD/docling)
+- Recommended for robust Parsing vs. "Crawl4AI" for Web Parsing.

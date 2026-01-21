@@ -1,7 +1,7 @@
 {
   "name": "property-based-testing",
-  "repo": "trailofbits/skills",
-  "path": "plugins/property-based-testing/skills/property-based-testing/SKILL.md",
-  "source": "github.com/trailofbits/skills",
-  "downloaded_at": "2026-01-20T02:04:21.924059Z"
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/property-based-testing/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-21T04:14:16.604078Z"
 }

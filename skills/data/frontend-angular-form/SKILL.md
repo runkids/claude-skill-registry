@@ -1,5 +1,5 @@
 ---
-name: frontend-angular-form
+name: angular-form
 description: Use when creating reactive forms with validation, async validators, dependent validation, and FormArrays using platform patterns.
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash
 ---

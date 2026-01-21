@@ -1,127 +1,223 @@
 ---
-name: Data Storyteller
-slug: data-storyteller
-description: Transform data and analytics into compelling narratives and presentations
-category: writing
-complexity: simple
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "data storytelling"
-  - "data narrative"
-  - "visualize story"
-  - "data presentation"
-  - "tell data story"
-tags:
-  - data
-  - storytelling
-  - narrative
-  - visualization
-  - presentation
+name: data-storyteller
+description: Transform CSV/Excel data into narrative reports with auto-generated insights, visualizations, and PDF export. Auto-detects patterns and creates plain-English summaries.
 ---
 
 # Data Storyteller
 
-Transform data and analytics into compelling narratives and presentations
+Automatically transform raw data into compelling, insight-rich reports. Upload any CSV or Excel file and get back a complete analysis with visualizations, statistical summaries, and narrative explanations - all without writing code.
 
-## When to Use This Skill
+## Core Workflow
 
-Use this skill when you need to:
-- Create compelling written content
-- Develop clear messaging and communication
-- Structure information effectively
+### 1. Load and Analyze Data
 
-**Not recommended for:**
-- Tasks requiring technical implementation
-- complex data analysis
+```python
+from scripts.data_storyteller import DataStoryteller
 
-## Quick Reference
+# Initialize with your data file
+storyteller = DataStoryteller("your_data.csv")
 
-| Action | Command/Trigger |
-|--------|-----------------|
-| Create data storyteller | `data storytelling` |
-| Review and optimize | `review data storyteller` |
-| Get best practices | `data storyteller best practices` |
+# Or from a pandas DataFrame
+import pandas as pd
+df = pd.read_csv("your_data.csv")
+storyteller = DataStoryteller(df)
+```
 
-## Core Workflows
+### 2. Generate Full Report
 
-### Workflow 1: Initial Data Storyteller Creation
+```python
+# Generate comprehensive report
+report = storyteller.generate_report()
 
-**Goal:** Create a high-quality data storyteller from scratch
+# Access components
+print(report['summary'])           # Executive summary
+print(report['insights'])          # Key findings
+print(report['statistics'])        # Statistical analysis
+print(report['visualizations'])    # Generated chart info
+```
 
-**Steps:**
-1. **Discovery** - Understand requirements and objectives
-2. **Planning** - Develop strategy and approach
-3. **Execution** - Implement the plan
-4. **Review** - Evaluate results and iterate
-5. **Optimization** - Refine based on feedback
+### 3. Export Options
 
-### Workflow 2: Advanced Data Storyteller Optimization
+```python
+# Export to PDF
+storyteller.export_pdf("analysis_report.pdf")
 
-**Goal:** Refine and optimize existing data storyteller for better results
+# Export to HTML (interactive charts)
+storyteller.export_html("analysis_report.html")
 
-**Steps:**
-1. **Research** - Gather relevant information
-2. **Analysis** - Evaluate options and approaches
-3. **Decision** - Choose the best path forward
-4. **Implementation** - Execute with precision
-5. **Measurement** - Track success metrics
+# Export charts only
+storyteller.export_charts("charts/", format="png")
+```
+
+## Quick Start Examples
+
+### Basic Analysis
+```python
+from scripts.data_storyteller import DataStoryteller
+
+# One-liner full analysis
+DataStoryteller("sales_data.csv").generate_report().export_pdf("report.pdf")
+```
+
+### Custom Analysis
+```python
+storyteller = DataStoryteller("data.csv")
+
+# Focus on specific columns
+storyteller.analyze_columns(['revenue', 'customers', 'date'])
+
+# Set analysis parameters
+report = storyteller.generate_report(
+    include_correlations=True,
+    include_outliers=True,
+    include_trends=True,
+    time_column='date',
+    chart_style='business'
+)
+```
+
+## Features
+
+### Auto-Detection
+- **Column Types**: Numeric, categorical, datetime, text, boolean
+- **Data Quality**: Missing values, duplicates, outliers
+- **Relationships**: Correlations, dependencies, groupings
+- **Time Series**: Trends, seasonality, anomalies
+
+### Generated Visualizations
+| Data Type | Charts Generated |
+|-----------|-----------------|
+| Numeric | Histogram, box plot, trend line |
+| Categorical | Bar chart, pie chart, frequency table |
+| Time Series | Line chart, decomposition, forecast |
+| Correlations | Heatmap, scatter matrix |
+| Comparisons | Grouped bar, stacked area |
+
+### Narrative Insights
+The storyteller generates plain-English insights including:
+- Executive summary of key findings
+- Notable patterns and anomalies
+- Statistical significance notes
+- Actionable recommendations
+- Data quality warnings
+
+## Output Sections
+
+### 1. Executive Summary
+High-level overview of the dataset and key findings in 2-3 paragraphs.
+
+### 2. Data Profile
+- Row/column counts
+- Memory usage
+- Missing value analysis
+- Duplicate detection
+- Data type distribution
+
+### 3. Statistical Analysis
+For each numeric column:
+- Central tendency (mean, median, mode)
+- Dispersion (std dev, IQR, range)
+- Distribution shape (skewness, kurtosis)
+- Outlier count
+
+### 4. Categorical Analysis
+For each categorical column:
+- Unique values count
+- Top/bottom categories
+- Frequency distribution
+- Category balance assessment
+
+### 5. Correlation Analysis
+- Correlation matrix with significance
+- Strongest relationships highlighted
+- Multicollinearity warnings
+
+### 6. Time-Based Analysis
+If datetime column detected:
+- Trend direction and strength
+- Seasonality patterns
+- Year-over-year comparisons
+- Growth rate calculations
+
+### 7. Visualizations
+Auto-generated charts saved to report:
+- Distribution plots
+- Trend charts
+- Comparison charts
+- Correlation heatmaps
+
+### 8. Recommendations
+Data-driven suggestions:
+- Columns needing attention
+- Potential data quality fixes
+- Analysis suggestions
+- Business implications
+
+## Chart Styles
+
+```python
+# Available styles
+styles = ['business', 'scientific', 'minimal', 'dark', 'colorful']
+
+storyteller.generate_report(chart_style='business')
+```
+
+## Configuration
+
+```python
+storyteller = DataStoryteller(df)
+
+# Configure analysis
+storyteller.config.update({
+    'max_categories': 20,       # Max categories to show
+    'outlier_method': 'iqr',    # 'iqr', 'zscore', 'isolation'
+    'correlation_threshold': 0.5,
+    'significance_level': 0.05,
+    'date_format': 'auto',      # Or specify like '%Y-%m-%d'
+    'language': 'en',           # Narrative language
+})
+```
+
+## Supported File Formats
+
+| Format | Extension | Notes |
+|--------|-----------|-------|
+| CSV | .csv | Auto-detect delimiter |
+| Excel | .xlsx, .xls | Multi-sheet support |
+| JSON | .json | Records or columnar |
+| Parquet | .parquet | For large datasets |
+| TSV | .tsv | Tab-separated |
+
+## Example Output
+
+### Sample Executive Summary
+> "This dataset contains 10,847 records across 15 columns, covering sales transactions from January 2023 to December 2024. Revenue shows a strong upward trend (+23% YoY) with clear seasonal peaks in Q4. The top 3 product categories account for 67% of total revenue. Notable finding: Customer acquisition cost has increased 15% while retention rate dropped 8%, suggesting potential profitability concerns worth investigating."
+
+### Sample Insight
+> "Strong correlation detected between marketing_spend and new_customers (r=0.78, p<0.001). However, this relationship weakens significantly after $50K monthly spend, suggesting diminishing returns beyond this threshold."
 
 ## Best Practices
 
-1. **Start with Clear Objectives**
-   Define what success looks like before beginning work.
+1. **Clean data first**: Remove obvious errors before analysis
+2. **Name columns clearly**: Helps auto-detection and narratives
+3. **Include dates**: Enables time-series analysis
+4. **Provide context**: Tell the storyteller what the data represents
 
-2. **Follow Industry Standards**
-   Leverage proven frameworks and best practices in writing.
+## Limitations
 
-3. **Iterate Based on Feedback**
-   Continuously improve based on results and user input.
+- Maximum recommended: 1M rows, 100 columns
+- Complex nested data may need flattening
+- Images/binary data not supported
+- PDF export requires reportlab package
 
-4. **Document Your Process**
-   Keep track of decisions and outcomes for future reference.
+## Dependencies
 
-5. **Focus on Quality**
-   Prioritize excellence over speed, especially in early iterations.
-
-## Checklist
-
-Before considering your work complete:
-
-- [ ] Objectives clearly defined and understood
-- [ ] Research and discovery phase completed
-- [ ] Strategy or plan documented
-- [ ] Implementation matches requirements
-- [ ] Quality standards met
-- [ ] Stakeholders informed and aligned
-- [ ] Results measured against goals
-- [ ] Documentation updated
-- [ ] Feedback collected
-- [ ] Next steps identified
-
-## Common Mistakes
-
-| Mistake | Why It's Bad | Better Approach |
-|---------|--------------|-----------------|
-| Skipping research | Leads to misaligned solutions | Invest time in understanding context |
-| Ignoring best practices | Reinventing the wheel | Study successful examples first |
-| No clear metrics | Can't measure success | Define KPIs upfront |
-
-## Integration Points
-
-- **Tools**: Integration with common writing platforms and tools
-- **Workflows**: Fits into existing content creation workflows
-- **Team**: Collaborates with content and marketing stakeholders
-
-## Success Metrics
-
-Track these metrics to measure effectiveness:
-- Quality of output
-- Time to completion
-- Stakeholder satisfaction
-- Impact on business goals
-- Reusability of approach
-
----
-
-*This skill is part of the ID8Labs Skills Marketplace. Last updated: 2026-01-07*
+```
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scipy>=1.10.0
+reportlab>=4.0.0
+openpyxl>=3.1.0
+```

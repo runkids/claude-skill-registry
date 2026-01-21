@@ -1,141 +1,98 @@
 ---
 name: design-review
-description: Review and analyze design docs for health, quality, and improvement opportunities. Use when auditing design documentation, checking doc health, or identifying areas for improvement.
-allowed-tools: Read, Glob, Bash
-context: fork
-agent: design-doc-agent
+description: Review UI components for design system compliance, accessibility, and visual consistency
+user-invocable: true
 ---
 
-# Design Documentation Review
+# Design Review
 
-Analyzes design documentation for health, quality, and actionable improvement
-opportunities.
+Perform a comprehensive design system review of the frontend changes.
 
-## Overview
+## Review Scope
 
-This skill performs comprehensive health checks on design documentation by:
+Analyze files in:
+- `frontend/src/components/` - React components
+- `frontend/src/index.css` - Component CSS definitions
+- `templates/` - OAuth HTML templates (if modified)
 
-1. Reading all design docs for a module (or all modules)
-2. Analyzing frontmatter completeness and accuracy
-3. Checking documentation quality and thoroughness
-4. Identifying missing or outdated content
-5. Finding broken cross-references
-6. Assessing status progression and maintenance
-7. Providing prioritized recommendations
+## Review Checklist
 
-## Quick Start
+### 1. Component Usage Compliance
 
-**Review single module:**
+Search for anti-patterns in changed files:
 
 ```bash
-/design-review effect-type-registry
+# Find raw button elements (should use <Button>)
+grep -r "<button" frontend/src/components/ --include="*.tsx" | grep -v "// allowed"
+
+# Find raw div cards (should use <Card>)
+grep -rE "className=\"[^\"]*border[^\"]*rounded" frontend/src/components/ --include="*.tsx"
+
+# Find custom spinners (should use pierre-spinner)
+grep -r "animate-spin" frontend/src/components/ --include="*.tsx"
+
+# Find raw hex colors (should use design tokens)
+grep -rE "bg-\[#|text-\[#|border-\[#" frontend/src/components/ --include="*.tsx"
+
+# Find non-pierre colors
+grep -rE "(bg|text|border)-(red|green|blue|yellow|purple|gray)-[0-9]" frontend/src/components/ --include="*.tsx" | grep -v "pierre-"
 ```
 
-**Review all modules:**
+### 2. CSS Completeness
 
-```bash
-/design-review all
+Verify all component variants have CSS definitions:
+- Check `Badge.tsx` variants against `.badge-*` classes in `index.css`
+- Check `Button.tsx` variants against `.btn-*` classes in `index.css`
+
+### 3. Accessibility Audit
+
+- Verify focus states use `.focus-ring` utility
+- Check for missing ARIA labels on icon buttons
+- Verify color contrast meets WCAG 2.1 AA (4.5:1)
+- Ensure touch targets are at least 44x44px
+
+### 4. Visual Consistency
+
+- Verify consistent spacing from Tailwind scale
+- Check typography follows design system
+- Verify gradients use `gradient-pierre` or pillar gradients
+- Check loading states use `pierre-spinner`
+
+## Output Format
+
+```
+=== Pierre Design System Review ===
+
+📁 Files Analyzed: [count]
+
+== Component Compliance ==
+✅/❌ Button usage: [details]
+✅/❌ Card usage: [details]
+✅/❌ Badge usage: [details]
+✅/❌ Loading states: [details]
+✅/❌ Color tokens: [details]
+
+== Accessibility ==
+✅/❌ Focus states: [details]
+✅/❌ ARIA labels: [details]
+✅/❌ Contrast ratios: [details]
+
+== CSS Completeness ==
+✅/❌ All variants defined: [details]
+
+== Issues Found ==
+1. [file:line] - [issue description]
+2. [file:line] - [issue description]
+
+== Recommendations ==
+- [specific improvement with code example]
+
+== Verdict ==
+[PASS / NEEDS WORK - X issues to address]
 ```
 
-**Detailed analysis:**
+## After Review
 
-```bash
-/design-review all --verbose
-```
+If issues are found, provide specific code fixes following the patterns in `.claude/skills/frontend-design/SKILL.md`.
 
-**Focus on specific aspect:**
-
-```bash
-/design-review rspress-plugin-api-extractor --focus=completeness
-```
-
-## Parameters
-
-### Required
-
-- `target` - Module name to review, or "all" for all modules
-
-### Optional
-
-- `verbose` - Show detailed analysis (default: false)
-- `focus` - Specific aspect: completeness | quality | references | maintenance
-
-## Workflow Overview
-
-1. **Parse Parameters** - Extract target and options
-2. **Load Configuration** - Read config for module paths and standards
-3. **Find Documents** - Glob all markdown files (skip `_` prefixed)
-4. **Analyze Each Document** - Run health checks (see
-   [analysis-checks.md](analysis-checks.md))
-5. **Calculate Scores** - Compute health scores (see
-   [scoring-reports.md](scoring-reports.md))
-6. **Generate Report** - Create comprehensive findings report
-7. **Focus Reports** - Generate targeted analysis if focus specified
-
-## Supporting Documentation
-
-### For Analysis Criteria
-
-See [analysis-checks.md](analysis-checks.md) for:
-
-- Frontmatter health check criteria (status, completeness, staleness)
-- Content quality assessment rules (overview, rationale, implementation)
-- Structure validation requirements (sections, TOC, formatting)
-- Cross-reference validation logic (related, dependencies, links)
-- Maintenance health indicators (abandonment, duplication, scope)
-
-**Load when:** Performing detailed document analysis or diagnosing specific
-issues
-
-### For Scoring and Reports
-
-See [scoring-reports.md](scoring-reports.md) for:
-
-- Health score calculation formulas (4 components: completeness, recency,
-  quality, references)
-- Scoring rubrics for each component (0-100 scale)
-- Report format templates (executive summary, findings, recommendations)
-- Priority classification system (critical, warning, info)
-- Recommendation frameworks (impact/effort matrix)
-
-**Load when:** Computing health scores or generating reports
-
-### For Usage Examples
-
-See [examples.md](examples.md) for:
-
-- Complete usage scenarios (basic, verbose, focused reviews)
-- Example outputs for different review types
-- Focus-specific reports (completeness, quality, references, maintenance)
-- Success report format
-
-**Load when:** User wants to see concrete examples or needs clarification on
-output format
-
-## Health Score Components
-
-Overall Health = (Completeness + Recency + Quality + References) / 4
-
-- 🟢 **Healthy** (80-100): Well-maintained, comprehensive documentation
-- 🟡 **Needs Attention** (60-79): Some issues, improvement recommended
-- 🔴 **Critical** (<60): Significant issues, immediate action required
-
-## Integration
-
-Use this skill with:
-
-- `/design-validate` - Fix structural/frontmatter issues first
-- `/design-update` - Apply recommended improvements
-- `/design-sync` - Address staleness and sync issues
-- `/design-prune` - Remove historical cruft identified in review
-
-## Success Criteria
-
-A successful review:
-
-- ✅ Analyzes all docs in target module(s)
-- ✅ Identifies critical issues requiring immediate action
-- ✅ Provides specific, actionable recommendations
-- ✅ Calculates accurate health scores
-- ✅ Prioritizes improvements by impact and effort
-- ✅ Gives clear next steps
+Run this review after any frontend changes before committing.

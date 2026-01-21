@@ -1,7 +1,7 @@
 {
   "name": "interaction-design",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "path": "skills/interaction-design/SKILL.md",
-  "source": "github.com/aj-geddes/useful-ai-prompts",
-  "downloaded_at": "2026-01-20T02:46:15.546290Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/interaction-design/skills/interaction-design/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:45.443482Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "subagents",
-  "description": "Execution-layer skill for spawning subagents via runAgent",
-  "repo": "CsHeng/dot-claude",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "bitwikiorg/skills.md",
+  "path": "sources/langchain/subagents/SKILL.md",
+  "source": "github.com/bitwikiorg/skills.md",
+  "downloaded_at": "2026-01-21T02:11:43.092315Z"
 }

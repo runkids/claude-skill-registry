@@ -1,395 +1,333 @@
 ---
 name: api-versioning
-description: Use when planning API versioning strategy, handling breaking changes, or managing API deprecation. Covers URL, header, and query parameter versioning approaches.
-allowed-tools: Read, Glob, Grep
+description: API versioning strategies including URL path, header, and content negotiation. Use when migrating v1 to v2, handling breaking changes, implementing deprecation or sunset policies, or managing backward compatibility.
+context: fork
+agent: backend-system-architect
+version: 1.0.0
+tags: [api, versioning, rest, fastapi, backward-compatibility, 2026]
+author: SkillForge
+user-invocable: false
 ---
 
-# API Versioning
+# API Versioning Strategies
 
-Strategies for versioning APIs, managing breaking changes, and deprecating old versions gracefully.
-
-## When to Use This Skill
-
-- Choosing an API versioning strategy
-- Planning for breaking changes
-- Deprecating API versions
-- Managing multiple API versions
-- Designing for API evolution
-
-## Why Version APIs?
-
-```text
-APIs are contracts with clients.
-Breaking changes break clients.
-
-Without versioning:
-- Change field name → All clients break
-- Remove endpoint → All clients break
-- Change behavior → Unexpected client behavior
-
-With versioning:
-- Old clients use old version
-- New clients use new version
-- Gradual migration possible
-```
-
-## Versioning Strategies
-
-### URL Path Versioning
-
-```text
-https://api.example.com/v1/users
-https://api.example.com/v2/users
-
-Pros:
-- Clear and explicit
-- Easy to understand
-- Easy to route
-- Easy to cache
-
-Cons:
-- Version embedded in client code
-- Multiple URLs for same resource
-- Not truly RESTful (URL should identify resource)
-```
-
-### Header Versioning
-
-```text
-GET /users
-Accept: application/vnd.example.v1+json
-
-or custom header:
-GET /users
-API-Version: 1
-
-Pros:
-- Clean URLs
-- More RESTful
-- Version separate from resource
-
-Cons:
-- Hidden from URL
-- Harder to test in browser
-- Requires header support
-```
-
-### Query Parameter Versioning
-
-```text
-GET /users?version=1
-GET /users?api-version=2023-01-01
-
-Pros:
-- Easy to add
-- Optional (can default)
-- Easy to test
-
-Cons:
-- Can be forgotten
-- Pollutes query string
-- Caching complexity
-```
-
-### Content Negotiation
-
-```text
-Accept: application/vnd.example+json; version=1
-
-Pros:
-- Standard HTTP mechanism
-- Flexible
-
-Cons:
-- Complex to implement
-- Hard to discover
-```
+Design APIs that evolve gracefully without breaking clients.
 
 ## Strategy Comparison
 
-| Strategy | Visibility | Implementation | Caching | Recommendation |
-| -------- | ---------- | -------------- | ------- | -------------- |
-| URL Path | High | Easy | Easy | Best for public APIs |
-| Header | Low | Medium | Medium | Good for internal APIs |
-| Query Param | Medium | Easy | Complex | Good for simple cases |
-| Content Neg | Low | Complex | Medium | Rarely used |
+| Strategy | Example | Pros | Cons |
+|----------|---------|------|------|
+| URL Path | `/api/v1/users` | Simple, visible, cacheable | URL pollution |
+| Header | `X-API-Version: 1` | Clean URLs | Hidden, harder to test |
+| Query Param | `?version=1` | Easy testing | Messy, cache issues |
+| Content-Type | `Accept: application/vnd.api.v1+json` | RESTful | Complex |
 
-## Versioning Schemes
+## URL Path Versioning (Recommended)
 
-### Integer Versions
+### FastAPI Structure
 
-```text
-v1, v2, v3
-
-Pros: Simple, clear major changes
-Cons: Coarse-grained
-
-Best for: Public APIs with infrequent breaking changes
+```
+backend/app/
+├── api/
+│   ├── v1/
+│   │   ├── __init__.py
+│   │   ├── routes/
+│   │   │   ├── users.py
+│   │   │   └── analyses.py
+│   │   └── router.py
+│   ├── v2/
+│   │   ├── __init__.py
+│   │   ├── routes/
+│   │   │   ├── users.py      # Updated schemas
+│   │   │   └── analyses.py
+│   │   └── router.py
+│   └── router.py             # Combines all versions
 ```
 
-### Semantic Versioning
+### Router Setup
 
-```text
-v1.2.3 (major.minor.patch)
+```python
+# backend/app/api/router.py
+from fastapi import APIRouter
+from app.api.v1.router import router as v1_router
+from app.api.v2.router import router as v2_router
 
-Major: Breaking changes
-Minor: New features (backward compatible)
-Patch: Bug fixes
+api_router = APIRouter()
+api_router.include_router(v1_router, prefix="/v1")
+api_router.include_router(v2_router, prefix="/v2")
 
-Pros: Fine-grained, predictable
-Cons: More complex
-
-Best for: Libraries, SDKs
+# main.py
+app.include_router(api_router, prefix="/api")
 ```
 
-### Date-Based Versioning
+### Version-Specific Schemas
 
-```text
-2023-01-15, 2023-06-01
+```python
+# v1/schemas/user.py
+class UserResponseV1(BaseModel):
+    id: str
+    name: str  # Single name field
 
-Pros: Clear when version was current
-Cons: Doesn't indicate change magnitude
-
-Best for: Frequently changing APIs (Stripe, GitHub)
-
-Example (Stripe):
-Stripe-Version: 2023-10-16
+# v2/schemas/user.py
+class UserResponseV2(BaseModel):
+    id: str
+    first_name: str  # Split into first/last
+    last_name: str
+    full_name: str   # Computed for convenience
 ```
 
-## What Requires a New Version?
+### Shared Business Logic
 
-### Breaking Changes (New Major Version)
+```python
+# services/user_service.py (version-agnostic)
+class UserService:
+    async def get_user(self, user_id: str) -> User:
+        return await self.repo.get_by_id(user_id)
 
-```text
-Always breaking:
-- Removing endpoint
-- Removing field
-- Changing field type
-- Changing field meaning
-- Renaming field
-- Adding required field
-- Changing authentication
-- Changing error format
+# v1/routes/users.py
+@router.get("/{user_id}", response_model=UserResponseV1)
+async def get_user_v1(user_id: str, service: UserService = Depends()):
+    user = await service.get_user(user_id)
+    return UserResponseV1(id=user.id, name=user.full_name)
+
+# v2/routes/users.py
+@router.get("/{user_id}", response_model=UserResponseV2)
+async def get_user_v2(user_id: str, service: UserService = Depends()):
+    user = await service.get_user(user_id)
+    return UserResponseV2(
+        id=user.id,
+        first_name=user.first_name,
+        last_name=user.last_name,
+        full_name=f"{user.first_name} {user.last_name}",
+    )
 ```
 
-### Non-Breaking Changes (No Version Needed)
+## Header-Based Versioning
 
-```text
-Safe changes:
-- Adding new endpoint
-- Adding optional field
-- Adding new enum value
-- Adding optional parameter
-- Relaxing validation
-- Adding new error codes
+```python
+from fastapi import Header, HTTPException
+
+async def get_api_version(
+    x_api_version: str = Header(default="1", alias="X-API-Version")
+) -> int:
+    try:
+        version = int(x_api_version)
+        if version not in [1, 2]:
+            raise ValueError()
+        return version
+    except ValueError:
+        raise HTTPException(400, "Invalid API version")
+
+@router.get("/users/{user_id}")
+async def get_user(
+    user_id: str,
+    version: int = Depends(get_api_version),
+    service: UserService = Depends(),
+):
+    user = await service.get_user(user_id)
+
+    if version == 1:
+        return UserResponseV1(id=user.id, name=user.full_name)
+    else:
+        return UserResponseV2(
+            id=user.id,
+            first_name=user.first_name,
+            last_name=user.last_name,
+        )
 ```
 
-## Version Management
+## Content Negotiation
 
-### Running Multiple Versions
+```python
+from fastapi import Request
 
-```text
-Option 1: Separate codebases
-/v1/* → v1 service
-/v2/* → v2 service
-
-Pros: Full isolation
-Cons: Duplication, maintenance burden
-
-Option 2: Shared codebase with branching
-if (version == 1) {
-  return formatV1(data);
-} else {
-  return formatV2(data);
+MEDIA_TYPES = {
+    "application/vnd.skillforge.v1+json": 1,
+    "application/vnd.skillforge.v2+json": 2,
+    "application/json": 2,  # Default to latest
 }
 
-Pros: Single codebase
-Cons: Code complexity grows
+async def get_version_from_accept(request: Request) -> int:
+    accept = request.headers.get("Accept", "application/json")
+    return MEDIA_TYPES.get(accept, 2)
 
-Option 3: Transformation layer
-Internal model → Version-specific transformer → Response
-
-Pros: Clean separation
-Cons: Requires transformation code
+@router.get("/users/{user_id}")
+async def get_user(
+    user_id: str,
+    version: int = Depends(get_version_from_accept),
+):
+    ...
 ```
 
-### Version Routing
+## Deprecation Headers
 
-```text
-API Gateway pattern:
+```python
+from fastapi import Response
+from datetime import date
 
-Client → Gateway → Route by version → Service
+def add_deprecation_headers(
+    response: Response,
+    deprecated_date: date,
+    sunset_date: date,
+    link: str,
+):
+    response.headers["Deprecation"] = deprecated_date.isoformat()
+    response.headers["Sunset"] = sunset_date.isoformat()
+    response.headers["Link"] = f'<{link}>; rel="successor-version"'
 
-Gateway responsibilities:
-- Parse version from URL/header
-- Route to appropriate backend
-- Transform if needed
-- Handle defaults
+# Usage in v1 endpoints
+@router.get("/users/{user_id}")
+async def get_user_v1(user_id: str, response: Response):
+    add_deprecation_headers(
+        response,
+        deprecated_date=date(2025, 1, 1),
+        sunset_date=date(2025, 7, 1),
+        link="https://api.example.com/v2/users",
+    )
+    return await service.get_user(user_id)
 ```
 
-## Deprecation Strategy
+## Version Lifecycle
 
-### Lifecycle Phases
-
-```text
-1. Current: Active development
-2. Maintained: Bug fixes only
-3. Deprecated: No changes, sunset announced
-4. Sunset: Removed
-
-Timeline example:
-v1: Current (12 months)
-v1: Maintained when v2 launches (6 months)
-v1: Deprecated (6 months)
-v1: Sunset
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     VERSION LIFECYCLE                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────┐   ┌─────────┐   ┌──────────┐   ┌─────────────┐   │
+│  │  ALPHA  │ → │  BETA   │ → │  STABLE  │ → │ DEPRECATED  │   │
+│  │ (dev)   │   │ (test)  │   │ (prod)   │   │ (sunset)    │   │
+│  └─────────┘   └─────────┘   └──────────┘   └─────────────┘   │
+│                                                                 │
+│  v3-alpha      v3-beta        v2 (current)   v1 (6 months)     │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│  POLICY:                                                        │
+│  • Deprecation notice: 3 months before sunset                   │
+│  • Sunset period: 6 months after deprecation                    │
+│  • Support: Latest stable + 1 previous version                  │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-### Deprecation Communication
+## Breaking vs Non-Breaking Changes
 
-```text
-Headers:
-Deprecation: true
-Sunset: Sat, 1 Jul 2024 00:00:00 GMT
-Link: <https://api.example.com/v2/docs>; rel="successor-version"
+### Non-Breaking (No Version Bump)
 
-Response body:
-{
-  "data": {...},
-  "_deprecation": {
-    "message": "This API version is deprecated",
-    "sunset": "2024-07-01",
-    "successor": "https://api.example.com/v2"
-  }
-}
+```python
+# Adding optional fields
+class UserResponse(BaseModel):
+    id: str
+    name: str
+    avatar_url: str | None = None  # New optional field
+
+# Adding new endpoints
+@router.get("/users/{user_id}/preferences")  # New endpoint
+
+# Adding optional query params
+@router.get("/users")
+async def list_users(
+    limit: int = 100,
+    cursor: str | None = None,  # New pagination
+):
 ```
 
-### Migration Support
+### Breaking (Requires Version Bump)
 
-```text
-Provide:
-1. Migration guide documenting all changes
-2. Mapping of old → new endpoints
-3. Code examples for common operations
-4. SDK updates with compatibility layer
-5. Sandbox environment for testing
+```python
+# Removing fields
+# Renaming fields
+# Changing field types
+# Changing URL structure
+# Changing authentication
+# Removing endpoints
+# Changing error formats
 ```
 
-## Best Practices
+## OpenAPI Per Version
 
-### Default Version
+```python
+from fastapi import FastAPI
+from fastapi.openapi.utils import get_openapi
 
-```text
-Options:
-1. Require explicit version (recommended for public APIs)
-2. Default to latest (dangerous for stability)
-3. Default to oldest supported (conservative)
+def custom_openapi_v1():
+    return get_openapi(
+        title="SkillForge API",
+        version="1.0.0",
+        routes=v1_router.routes,
+    )
 
-Recommendation: Require version, fail without it
+def custom_openapi_v2():
+    return get_openapi(
+        title="SkillForge API",
+        version="2.0.0",
+        routes=v2_router.routes,
+    )
+
+app.mount("/docs/v1", create_docs_app(custom_openapi_v1))
+app.mount("/docs/v2", create_docs_app(custom_openapi_v2))
 ```
 
-### Version in Response
+## Anti-Patterns (FORBIDDEN)
 
-```text
-Include version info in responses:
+```python
+# NEVER version internal implementation
+class UserServiceV1:  # Services should be version-agnostic
+    ...
 
-{
-  "data": {...},
-  "_meta": {
-    "api_version": "v2",
-    "deprecated": false
-  }
-}
+# NEVER break contracts without versioning
+class UserResponse(BaseModel):
+    # Changed from `name` to `full_name` without version bump!
+    full_name: str
+
+# NEVER sunset without notice
+# Just removing v1 routes one day
+
+# NEVER support too many versions (max 2-3)
+/api/v1/...  # Ancient
+/api/v2/...
+/api/v3/...
+/api/v4/...  # Too many!
 ```
 
-### Graceful Degradation
+## Key Decisions
 
-```text
-When version unknown:
-1. Return error with supported versions
-2. Redirect to documentation
-3. Return latest version with warning
-
-HTTP 400 Bad Request
-{
-  "error": "Unknown API version",
-  "supported_versions": ["v1", "v2"],
-  "documentation": "https://docs.example.com/api"
-}
-```
-
-### Testing Multiple Versions
-
-```text
-Test matrix:
-- All supported versions
-- Breaking change boundaries
-- Deprecation warnings
-- Sunset behavior
-
-Automated tests:
-- Contract tests per version
-- Backward compatibility tests
-- Migration path tests
-```
-
-## Real-World Examples
-
-### Stripe
-
-```text
-Date-based: 2023-10-16
-Header: Stripe-Version
-Default: Account's API version
-Rollback: Can pin to older version
-Upgrades: Preview in dashboard
-```
-
-### GitHub
-
-```text
-Date-based: 2022-11-28
-Header: X-GitHub-Api-Version
-Default: Latest
-Preview features: Accept header
-```
-
-### Google
-
-```text
-URL path: /v1/, /v2/
-Discovery document for each version
-Long deprecation cycles (years)
-```
-
-### Twilio
-
-```text
-Date-based: 2010-04-01
-URL path includes date
-Very long support windows
-```
-
-## Anti-Patterns
-
-```text
-1. Too many versions
-   → Consolidate, set deprecation schedule
-
-2. Breaking changes in minor versions
-   → Follow semantic versioning strictly
-
-3. No deprecation warnings
-   → Always communicate before breaking
-
-4. Instant sunset
-   → Give clients time to migrate (6-12 months minimum)
-
-5. Version per endpoint
-   → Keep all endpoints in sync per version
-```
+| Decision | Recommendation |
+|----------|----------------|
+| Strategy | URL path (`/api/v1/`) |
+| Support window | Current + 1 previous |
+| Deprecation notice | 3 months minimum |
+| Sunset period | 6 months after deprecation |
+| Breaking changes | New major version |
+| Additive changes | Same version (backward compatible) |
 
 ## Related Skills
 
-- `api-design-fundamentals` - API design patterns
-- `idempotency-patterns` - Safe API operations
-- `quality-attributes-taxonomy` - Maintainability attributes
+- `api-design-framework` - REST API patterns
+- `error-handling-rfc9457` - Consistent errors across versions
+- `observability-monitoring` - Version usage metrics
+
+## Capability Details
+
+### url-versioning
+**Keywords:** url version, path version, /v1/, /v2/
+**Solves:**
+- How to version REST APIs?
+- URL-based API versioning
+
+### header-versioning
+**Keywords:** header version, X-API-Version, custom header
+**Solves:**
+- Clean URL versioning
+- Header-based API version
+
+### deprecation
+**Keywords:** deprecation, sunset, version lifecycle, backward compatible
+**Solves:**
+- How to deprecate API versions?
+- Version sunset policy
+
+### breaking-changes
+**Keywords:** breaking change, non-breaking, backward compatible
+**Solves:**
+- What requires a version bump?
+- Breaking vs non-breaking changes

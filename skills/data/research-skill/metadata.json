@@ -1,7 +1,7 @@
 {
   "name": "research-skill",
-  "repo": "ScientiaCapital/skills",
-  "path": "active/research-skill/SKILL.md",
-  "source": "github.com/ScientiaCapital/skills",
-  "downloaded_at": "2026-01-19T03:08:02.510992Z"
+  "repo": "maxoreric/sop-engine",
+  "path": "$workflow.input.user_intent/skills/research-skill/SKILL.md",
+  "source": "github.com/maxoreric/sop-engine",
+  "downloaded_at": "2026-01-21T01:09:38.909688Z"
 }

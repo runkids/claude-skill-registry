@@ -1,11 +1,7 @@
 {
   "name": "state",
-  "description": "このワークスペースの state.md 管理、playbook 運用の専門知識。state.md の更新、focus の切り替え、done_criteria の判定、CRITIQUE の実行時に使用する。",
-  "repo": "M2AI-jp/thanks4claudecode-v2",
-  "category": "development",
-  "tags": [
-    "state"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "bitwikiorg/skills.md",
+  "path": "sources/langchain/state/SKILL.md",
+  "source": "github.com/bitwikiorg/skills.md",
+  "downloaded_at": "2026-01-21T02:11:38.769157Z"
 }

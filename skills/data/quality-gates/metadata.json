@@ -1,7 +1,7 @@
 {
   "name": "quality-gates",
-  "repo": "claudeforge/orchestrator",
+  "repo": "yonatangross/skillforge-claude-plugin",
   "path": "skills/quality-gates/SKILL.md",
-  "source": "github.com/claudeforge/orchestrator",
-  "downloaded_at": "2026-01-20T03:16:31.718681Z"
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-21T04:14:18.368383Z"
 }

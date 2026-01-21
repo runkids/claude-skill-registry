@@ -1,205 +1,192 @@
 ---
 name: repo-analyzer
-description: Code repository analysis and technical documentation generation skill
-author: Claude Code Skills Factory
-version: 1.0.0
-tags:
-  - code-analysis
-  - documentation
-  - repository
-  - technical-writing
-  - architecture
+description: Analyze GitHub repositories for structure, documentation, dependencies, and contribution patterns. Use for codebase understanding and health assessment.
+tools: Read, Write, Bash, Glob, Grep
 ---
 
-# Repo Analyzer Skill
-
-A comprehensive code repository analysis and technical documentation generation skill that scans repositories and generates detailed summary reports.
+# Repository Analyzer Skill
 
 ## Purpose
 
-This skill analyzes code repositories to generate comprehensive technical documentation including:
-- Repository overview and purpose
-- Directory structure and responsibilities
-- Technology stack and dependencies
-- Core modules and business domains
-- Key execution workflows
-- Architecture design and extension patterns
-- Onboarding guidance
-- Risk analysis and technical debt
+Single responsibility: Analyze GitHub repository structure, documentation quality, and contribution patterns for codebase understanding. (BP-4)
 
-## When to Use This Skill
+## Grounding Checkpoint (Archetype 1 Mitigation)
 
-Use this skill when you need to:
-- Understand a new codebase quickly
-- Generate technical documentation for a repository
-- Analyze repository architecture and dependencies
-- Create onboarding guides for new developers
-- Assess technical debt and maintenance risks
+Before executing, VERIFY:
 
-## How It Works
+- [ ] gh CLI is installed and authenticated
+- [ ] Repository URL or local clone exists
+- [ ] Access permissions verified (public or authenticated)
+- [ ] Analysis scope defined (structure, docs, deps, or all)
 
-The skill performs an 8-step analysis:
+**DO NOT analyze without confirming repository access.**
 
-1. **Repository Global Scan** - Scans directory structure, identifies languages, counts files
-2. **Project Positioning** - Infers project purpose from README, directory names, dependencies
-3. **Directory Structure Mapping** - Analyzes key directory responsibilities and relationships
-4. **Tech Stack Analysis** - Parses dependency files, analyzes technology choices
-5. **Core Module Abstraction** - Identifies core modules and business boundaries
-6. **Execution Flow Analysis** - Traces program startup and typical execution paths
-7. **Onboarding Path Generation** - Creates safe modification points and reading order
-8. **Risk Assessment** - Identifies potential maintenance risks and technical debt
+## Uncertainty Escalation (Archetype 2 Mitigation)
 
-## Usage
+ASK USER instead of guessing when:
 
-### Basic Usage
+- Multiple repositories to analyze - which first?
+- Private repo requires different auth
+- Analysis depth unclear (quick vs deep)
+- Specific aspects to focus on
 
-```bash
-python repo_analyzer.py /path/to/repository
-```
+**NEVER scrape repository data without user intent.**
 
-### With Output File
+## Context Scope (Archetype 3 Mitigation)
+
+| Context Type | Included | Excluded |
+|--------------|----------|----------|
+| RELEVANT | Repo structure, README, package files | Source code details |
+| PERIPHERAL | Contribution stats, issue patterns | PR content |
+| DISTRACTOR | Fork network | Unrelated repos |
+
+## Workflow Steps
+
+### Step 1: Verify Access (Grounding)
 
 ```bash
-python repo_analyzer.py /path/to/repository --output report.md
+# Check gh CLI
+gh --version
+
+# Verify authentication
+gh auth status
+
+# Check repo access
+gh repo view <owner>/<repo> --json name,description,visibility
 ```
 
-### With Custom Depth
+### Step 2: Analyze Structure
 
 ```bash
-python repo_analyzer.py /path/to/repository --depth 3
+# Repository overview
+gh repo view <owner>/<repo> --json name,description,defaultBranch,languages,topics
+
+# Directory structure
+gh api repos/<owner>/<repo>/contents | jq '.[].name'
+
+# Key files present
+for file in README.md LICENSE CONTRIBUTING.md .github/workflows; do
+  gh api repos/<owner>/<repo>/contents/$file 2>/dev/null && echo "✅ $file" || echo "❌ $file missing"
+done
 ```
 
-## Parameters
+### Step 3: Documentation Analysis
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `repository_path` | Path to the repository to analyze | Required |
-| `--output` | Output file path for the report | `repo_analysis_report.md` |
-| `--depth` | Directory scanning depth | `2` |
-| `--include-risks` | Include risk assessment section | `true` |
-| `--verbose` | Enable verbose logging | `false` |
+```bash
+# README content and quality
+gh api repos/<owner>/<repo>/readme | jq -r '.content' | base64 -d | head -100
+
+# Check for docs directory
+gh api repos/<owner>/<repo>/contents/docs 2>/dev/null | jq '.[].name'
+
+# Contributing guide
+gh api repos/<owner>/<repo>/contents/CONTRIBUTING.md 2>/dev/null
+```
+
+### Step 4: Dependency Analysis
+
+```bash
+# Package files
+gh api repos/<owner>/<repo>/contents/package.json 2>/dev/null | jq -r '.content' | base64 -d | jq '.dependencies'
+gh api repos/<owner>/<repo>/contents/requirements.txt 2>/dev/null | jq -r '.content' | base64 -d
+gh api repos/<owner>/<repo>/contents/go.mod 2>/dev/null
+
+# Dependency graph (if available)
+gh api repos/<owner>/<repo>/dependency-graph/sbom 2>/dev/null | head -50
+```
+
+### Step 5: Contribution Analysis
+
+```bash
+# Contributors
+gh api repos/<owner>/<repo>/contributors --jq '.[0:10] | .[] | "\(.login): \(.contributions) commits"'
+
+# Recent activity
+gh api repos/<owner>/<repo>/commits --jq '.[0:5] | .[] | "\(.commit.author.date): \(.commit.message | split("\n")[0])"'
+
+# Issue/PR stats
+gh api repos/<owner>/<repo> --jq '{issues: .open_issues_count, forks: .forks_count, stars: .stargazers_count}'
+```
+
+## Recovery Protocol (Archetype 4 Mitigation)
+
+On error:
+
+1. **PAUSE** - Note what data was collected
+2. **DIAGNOSE** - Check error type:
+   - `404` → Check repo name, visibility
+   - `401` → Re-authenticate with gh auth login
+   - `403` → Check rate limits or permissions
+   - `API error` → Fall back to local clone analysis
+3. **ADAPT** - Use alternative data sources
+4. **RETRY** - With different approach (max 3 attempts)
+5. **ESCALATE** - Report partial analysis
+
+## Checkpoint Support
+
+State saved to: `.aiwg/working/checkpoints/repo-analyzer/`
+
+```
+checkpoints/repo-analyzer/
+├── structure.json           # Directory structure
+├── documentation.json       # Docs assessment
+├── dependencies.json        # Dependency analysis
+├── contributions.json       # Contributor stats
+└── health_report.md         # Overall health
+```
 
 ## Output Format
 
-The skill generates a comprehensive Markdown report with the following sections:
+```markdown
+# Repository Analysis: <owner>/<repo>
 
-1. **Repository Overview** - Project type, purpose, scale, complexity
-2. **Project Structure** - Core directory responsibilities and relationships
-3. **Technology Stack** - Core frameworks, infrastructure, middleware
-4. **Core Modules & Business Domains** - Key business modules and collaboration patterns
-5. **Key Execution Workflows** - Program startup and typical request paths
-6. **Architecture Design** - Architectural style, design patterns, extension paths
-7. **Quick Start Guide** - Recommended reading order, safe modification points
-8. **Risk Points & Considerations** - Potential maintenance risks and pitfalls
+## Overview
+- **Name**: repository-name
+- **Description**: Short description
+- **Language**: TypeScript (85%), JavaScript (15%)
+- **Stars**: 1,234 | Forks: 156 | Issues: 23
 
-## Installation
+## Structure Assessment
+- [x] README.md (comprehensive)
+- [x] LICENSE (MIT)
+- [ ] CONTRIBUTING.md (missing)
+- [x] .github/workflows (3 workflows)
 
-### Project-Level Installation
+## Documentation Quality: 7/10
+- Clear installation instructions
+- API documentation present
+- Missing: troubleshooting guide
 
-```bash
-# Copy skill to project .claude directory
-cp -r generated-skills/repo-analyzer .claude/skills/
+## Dependency Health
+- Total: 45 dependencies
+- Outdated: 8
+- Vulnerabilities: 0
+
+## Activity Level: Active
+- Last commit: 2 days ago
+- Contributors: 12
+- Monthly commits: ~45
+
+## Recommendations
+1. Add CONTRIBUTING.md guide
+2. Update 8 outdated dependencies
+3. Add troubleshooting section to docs
 ```
 
-### User-Level Installation
+## Common Analysis Queries
 
-```bash
-# Copy skill to user .claude directory
-cp -r generated-skills/repo-analyzer ~/.claude/skills/
-```
+| Query | Purpose |
+|-------|---------|
+| `gh repo view` | Basic info |
+| `gh api /repos/{}/languages` | Language breakdown |
+| `gh api /repos/{}/contributors` | Contributor list |
+| `gh api /repos/{}/commits` | Recent commits |
+| `gh api /repos/{}/releases` | Release history |
+| `gh api /repos/{}/pulls` | Open PRs |
 
-## Files
+## References
 
-- `repo_analyzer.py` - Main analysis script
-- `requirements.txt` - Python dependencies
-- `SKILL.md` - This documentation file
-- `examples/` - Example analysis reports
-
-## Dependencies
-
-- Python 3.8+
-- `pyyaml` - For parsing YAML configuration files
-- `toml` - For parsing TOML configuration files
-- `chardet` - For file encoding detection
-
-## Examples
-
-### Analyze Current Repository
-
-```bash
-python repo_analyzer.py .
-```
-
-### Generate Report for Specific Path
-
-```bash
-python repo_analyzer.py /projects/my-app --output my_analysis.md
-```
-
-### Analyze with Custom Settings
-
-```bash
-python repo_analyzer.py /path/to/repo --depth 3 --include-risks false --verbose true
-```
-
-## Limitations
-
-- Analysis is based on static code structure, not runtime behavior
-- Business logic inference is limited to code organization patterns
-- Dependency analysis requires standard package manager files
-- Complex monorepos may require deeper scanning depth
-
-## Best Practices
-
-1. **Start with default settings** - Use depth=2 for most repositories
-2. **Review inferred information** - Always validate inferred project purposes
-3. **Customize for complex repos** - Increase depth for deeply nested structures
-4. **Combine with manual review** - Use the report as a starting point for deeper analysis
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Permission errors** - Ensure read access to the repository directory
-2. **Encoding issues** - The skill uses chardet to detect file encodings
-3. **Missing dependencies** - Install required packages from requirements.txt
-4. **Large repositories** - May take longer to process; consider increasing timeout
-
-### Debug Mode
-
-Enable verbose logging for detailed processing information:
-
-```bash
-python repo_analyzer.py /path/to/repo --verbose true
-```
-
-## Related Skills
-
-- `code-reviewer` - For detailed code quality analysis
-- `architecture-validator` - For architectural pattern validation
-- `dependency-auditor` - For security vulnerability scanning
-
-## Contributing
-
-To contribute to this skill:
-1. Fork the repository
-2. Create a feature branch
-3. Implement your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This skill is released under the MIT License.
-
-## Changelog
-
-### v1.0.0
-- Initial release with 8-step analysis framework
-- Support for multiple dependency file formats
-- Markdown report generation
-- Configurable scanning depth
-
----
-
-**Note**: This skill generates documentation based on code structure analysis. Always validate the generated insights with domain experts and actual code behavior.
+- GitHub CLI: https://cli.github.com/
+- GitHub API: https://docs.github.com/en/rest
+- REF-001: Production-Grade Agentic Workflows (BP-4)
+- REF-002: LLM Failure Modes (Archetype 1 grounding)

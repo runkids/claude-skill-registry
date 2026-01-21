@@ -1,299 +1,243 @@
 ---
 name: prompt-engineering
-description: Comprehensive prompt engineering techniques for Claude models. Use this skill when crafting, optimizing, or debugging prompts for Claude API, Claude Code, or any Claude-powered application. Covers system prompts, role prompting, multishot examples, chain of thought, XML structuring, long context handling, extended thinking, prompt chaining, Claude 4.x-specific best practices, and agentic orchestration including subagents, agent loops, skills, MCP integration, and multi-agent workflows.
+description: Comprehensive prompt engineering framework for designing, optimizing, and iterating LLM prompts. This skill should be used when users request prompt creation, optimization, or improvement for any LLM task, or when users need help translating vague requirements into effective prompts through collaborative dialogue and iterative refinement.
 ---
 
 # Prompt Engineering
 
-Prompt engineering techniques derived from Anthropic's official documentation for Claude models.
+## Overview
 
-## Core Principles
+This skill transforms vague user requests into precise, effective prompts through collaborative dialogue, systematic analysis, and iterative refinement. It combines proven prompt engineering techniques with a structured development process to create prompts that reliably achieve user objectives.
 
-### Be Explicit and Direct
+## Workflow Decision Tree
 
-Claude responds best to clear, specific instructions. Treat Claude like a brilliant new employee who needs explicit guidance about your norms, styles, and preferences.
+When a user requests prompt assistance, follow this decision flow:
 
-**The Golden Rule**: Show your prompt to a colleague with minimal context. If they're confused, Claude will be too.
-
-**Provide Context**:
-- What the task results will be used for
-- What audience the output is meant for
-- Where this task fits in your workflow
-- What successful completion looks like
-
-**Be Specific**: If you want only code output, say so. Use numbered steps for sequential tasks.
-
-### Use XML Tags for Structure
-
-XML tags dramatically improve Claude's accuracy by clearly separating prompt components.
-
-```xml
-<instructions>
-Your task instructions here
-</instructions>
-
-<context>
-Background information
-</context>
-
-<examples>
-<example>
-Input: X
-Output: Y
-</example>
-</examples>
+```
+User Request
+├─ "Create a prompt" / "Make a prompt" / Vague request
+│  └─ → Start with EXPLORATION PHASE
+├─ "Optimize this prompt" / Has existing prompt
+│  └─ → Start with SIMPLE OPTIMIZATION
+└─ "Fix this issue with my prompt" / Specific problem
+   └─ → Start with ANALYSIS PHASE (focused on problem)
 ```
 
-**Best Practices**:
-- Be consistent with tag names throughout prompts
-- Reference tags explicitly: "Using the data in <context> tags..."
-- Nest tags for hierarchical content: `<outer><inner></inner></outer>`
-- Combine with examples (`<examples>`) or chain of thought (`<thinking>`, `<answer>`)
+## Core Process
 
-### Use Examples (Multishot Prompting)
+### Phase 1: Exploration - Uncovering True Needs
 
-Examples are the most effective way to guide Claude's output format and style.
+Before creating any prompt, deeply understand the user's actual needs through strategic questioning. Start broad, then narrow down systematically.
 
-**Guidelines**:
-- Include 3-5 diverse, relevant examples
-- Cover edge cases and challenges
-- Wrap in `<example>` tags (nested within `<examples>` if multiple)
-- Ensure examples match desired behaviors exactly—Claude pays close attention to details
+**Initial Context Gathering:**
+- What task will this prompt accomplish?
+- Who will use it and in what environment?
+- How frequently will it be used?
+- What does success look like?
 
-## System Prompts and Role Prompting
+**Deepening Understanding:**
+- Request concrete examples of desired outputs
+- Ask about past failures or attempts
+- Identify critical success factors
+- Uncover unstated assumptions and constraints
 
-Use the `system` parameter to set Claude's role. This is the most powerful use of system prompts.
+**Technical Requirements:**
+- Model and platform constraints
+- Token limits and cost considerations
+- Response time requirements
+- Integration with other systems
 
-```python
-response = client.messages.create(
-    model="claude-sonnet-4-5-20250929",
-    system="You are a senior data scientist specializing in anomaly detection.",
-    messages=[{"role": "user", "content": "Analyze this dataset..."}]
-)
-```
+Continue exploration until the core requirements are crystal clear. Never assume—always verify.
 
-**Benefits**:
-- Enhanced accuracy in complex domains (legal, financial, technical)
-- Tailored communication style
-- Improved task focus
+### Phase 2: Analysis - Choosing the Right Strategy
 
-**Tip**: Be specific with roles. "A data scientist specializing in customer insights for Fortune 500 companies" yields better results than just "a data scientist."
+Analyze the task to determine the optimal prompting approach.
 
-## Chain of Thought (CoT) Prompting
+**Task Classification:**
 
-Encourage Claude to break down complex problems step-by-step.
+Classify the task along key dimensions:
+- **Complexity**: Simple directive vs multi-step reasoning
+- **Output Type**: Creative vs analytical vs structured
+- **Error Tolerance**: High-stakes vs experimental
+- **Frequency**: One-time vs repeated use
 
-**Three Approaches** (least to most structured):
+**Strategy Selection:**
 
-1. **Basic**: Add "Think step-by-step" to your prompt
-2. **Guided**: Outline specific thinking steps
-3. **Structured**: Use XML tags to separate reasoning from answer
+Based on classification, choose primary techniques:
+- **Simple Tasks**: Direct instructions with clear constraints
+- **Complex Reasoning**: Chain-of-thought with step-by-step breakdown
+- **Creative Tasks**: Role setting with flexible boundaries
+- **Structured Output**: Explicit format specifications with examples
+- **High-Stakes**: Self-consistency checks and validation steps
 
-```xml
-<instructions>
-Analyze this problem. Put your reasoning in <thinking> tags, then provide your final answer in <answer> tags.
-</instructions>
-```
+**Trade-off Analysis:**
 
-**When to Use**: Math, logic, analysis, complex multi-step tasks
-**When to Skip**: Simple tasks where latency matters
+Present multiple approaches with clear trade-offs:
+- Approach A: Detailed but token-heavy
+- Approach B: Concise but requires interpretation
+- Approach C: Balanced with moderate complexity
 
-## Prompt Chaining
+Always explain WHY each approach fits the specific context.
 
-Break complex tasks into smaller, sequential subtasks for improved accuracy and traceability.
+### Phase 3: Implementation - Building Iteratively
 
-**Example Workflows**:
-- Research → Outline → Draft → Edit → Format
-- Extract → Transform → Analyze → Visualize
-- Gather info → List options → Analyze → Recommend
+Create the prompt through progressive refinement, starting simple and adding complexity as needed.
 
-**Implementation**:
-- Each subtask gets one clear objective
-- Use XML tags for clean handoffs between steps
-- Debug by isolating problematic steps
+**Version 1 - Minimal Viable Prompt:**
+- Core instructions only
+- Test basic functionality
+- Identify gaps and ambiguities
 
-**Parallel Execution**: For independent subtasks, run prompts in parallel for speed.
+**Version 2 - Enhanced Clarity:**
+- Add specific examples if needed
+- Clarify ambiguous points
+- Include essential constraints
 
-## Long Context Handling
+**Version 3+ - Optimization:**
+- Refine wording for precision
+- Remove redundancy
+- Balance detail with conciseness
 
-Claude supports up to 200K tokens. For best results with large inputs:
+Document each version's changes and rationale. Store prompts in markdown files with:
+- Version history
+- Design decisions
+- Known limitations
+- Usage examples
 
-1. **Place documents at the top** of your prompt, above instructions and examples
-2. **Structure with XML tags**:
-```xml
-<document>
-  <source>document_name.pdf</source>
-  <document_content>...</document_content>
-</document>
-```
-3. **Ground responses in quotes**: Ask Claude to quote relevant sections before answering
-4. **Query at the end**: Placing your question after documents can improve quality by up to 30%
+### Phase 4: Validation - Critical Evaluation
 
-## Extended Thinking
+Rigorously evaluate the prompt against quality criteria.
 
-Extended thinking enables deep reasoning for complex problems. See `references/extended-thinking.md` for detailed guidance.
+**Essential Checks:**
+- **Clarity**: Can the instructions be misunderstood?
+- **Completeness**: Are all necessary elements present?
+- **Consistency**: Do instructions contradict each other?
+- **Efficiency**: Can anything be removed without loss?
+- **Robustness**: How does it handle edge cases?
 
-**Key Points**:
-- Start with minimum budget (1024 tokens), increase as needed
-- Use high-level instructions rather than prescriptive step-by-step guidance
-- Performs best in English; outputs can be any language
-- For thinking below minimum budget, use standard CoT with `<thinking>` tags
+**Testing Approach:**
+- Run through typical use cases
+- Test boundary conditions
+- Imagine failure modes
+- Check for unwanted behaviors
 
-**Prompting Tips**:
-```
-Please think about this thoroughly and in great detail.
-Consider multiple approaches and show your complete reasoning.
-Try different methods if your first approach doesn't work.
-```
+Be ruthlessly honest about weaknesses. If something isn't working, acknowledge it and iterate.
 
-## Agentic Orchestration
+## Simple Optimization
 
-See `references/agentic-orchestration.md` for comprehensive agent patterns.
+When optimizing an existing prompt, focus on minimal, targeted improvements:
 
-### Key Concepts
+1. **Identify Specific Issues**: What exactly isn't working?
+2. **Diagnose Root Causes**: Why is the current prompt failing?
+3. **Apply Minimal Edits**: Change only what's necessary
+4. **Preserve Working Elements**: Keep what already works well
+5. **Test Improvements**: Verify fixes don't break other aspects
 
-**Agent Loop**: The core pattern—send message, Claude requests tools, execute tools, return results, repeat until complete.
+Common optimization targets:
+- Ambiguous language → Specific instructions
+- Missing constraints → Added boundaries
+- Inconsistent outputs → Format specifications
+- Verbose responses → Length constraints
+- Off-topic responses → Clearer scope definition
 
-**Subagents**: Specialized agents with separate context for parallelization and expertise isolation. Define in `.claude/agents/` or programmatically.
+## Prompt Creation from Scratch
 
-**Skills**: Reusable filesystem-based capabilities that load on-demand. Create `SKILL.md` files with instructions, scripts, and references.
+When creating new prompts, structure them as instructions for an eager but inexperienced assistant who needs clear guidance.
 
-### Native Orchestration (Claude 4.5)
+**Essential Components:**
 
-Claude 4.5 proactively delegates to subagents when beneficial:
-```
-Only delegate to subagents when the task clearly benefits from a separate agent with a new context window.
-```
+1. **Role/Context** (if beneficial):
+   - Set perspective or expertise level
+   - Establish tone and approach
+   
+2. **Clear Objective**:
+   - State the primary goal explicitly
+   - Define success criteria
 
-### Plan-Validate-Execute Pattern
+3. **Specific Instructions**:
+   - Break complex tasks into steps
+   - Provide decision criteria
+   - Specify constraints and boundaries
 
-For high-stakes operations:
-1. Analyze requirements
-2. Create structured plan (e.g., `changes.json`)
-3. Validate plan with script
-4. Execute only if validation passes
-5. Verify results
+4. **Output Format** (when relevant):
+   - Define structure explicitly
+   - Provide format examples
+   - Specify length or detail level
 
-### Agentic Research
+5. **Examples** (when clarifying):
+   - Show desired patterns
+   - Illustrate edge cases
+   - Demonstrate style/tone
 
-```xml
-<structured_research>
-Search in a structured way. Develop competing hypotheses. Track confidence levels in progress notes. Regularly self-critique your approach. Update research notes for transparency.
-</structured_research>
-```
+## Key Techniques Reference
 
-## Claude 4.x Specific Guidance
+### Foundation Techniques
 
-See `references/claude-4-best-practices.md` for comprehensive Claude 4.x techniques.
+**Role Setting**: Establish perspective when expertise or tone matters
+- Effective for: Specialized knowledge, consistent voice
+- Example: "As an experienced code reviewer, analyze..."
 
-**Key Differences**:
-- More precise instruction following—be explicit about desired behaviors
-- Add context/motivation for better results
-- More concise, direct communication style
-- Sensitive to the word "think" when extended thinking is disabled (use "consider", "evaluate" instead)
+**Progressive Disclosure**: Start general, add detail as needed
+- Effective for: Complex multi-part tasks
+- Example: "First outline the approach, then implement each section..."
 
-### Controlling Output Format
+**Explicit Constraints**: Define boundaries clearly
+- Effective for: Preventing unwanted outputs
+- Example: "Limit response to 3 paragraphs, focus only on technical aspects"
 
-Tell Claude what to do (not what to avoid):
-- Instead of: "Do not use markdown"
-- Try: "Write in flowing prose paragraphs"
+### Advanced Techniques
 
-Use XML format indicators:
-```xml
-<smoothly_flowing_prose_paragraphs>
-Your content here
-</smoothly_flowing_prose_paragraphs>
-```
+**Chain-of-Thought**: Request reasoning before conclusions
+- Use when: Logic and transparency matter
+- Trigger: "Think step-by-step" or "Explain your reasoning"
 
-### Tool Usage
+**Few-Shot Learning**: Provide input-output examples
+- Use when: Pattern is easier shown than explained
+- Caution: 2-3 examples usually sufficient
 
-Claude 4.x benefits from explicit direction. To encourage action:
+**Self-Consistency**: Have model verify its own outputs
+- Use when: Accuracy is critical
+- Implementation: "Review your answer for errors and inconsistencies"
 
-```xml
-<default_to_action>
-Implement changes rather than only suggesting them. If intent is unclear, infer the most useful action and proceed, using tools to discover missing details.
-</default_to_action>
-```
+For detailed technique explanations and examples, consult:
+- `references/techniques.md` - Comprehensive technique catalog
+- `references/patterns.md` - Common prompt patterns
+- `references/antipatterns.md` - What to avoid
 
-To encourage caution:
+## Collaboration Principles
 
-```xml
-<do_not_act_before_instructions>
-Do not implement changes unless explicitly instructed. Default to providing information and recommendations rather than taking action.
-</do_not_act_before_instructions>
-```
+### Be a Thought Partner, Not Just an Executor
 
-### Parallel Tool Calling
+- **Bad**: "Here's your prompt" (without understanding needs)
+- **Good**: "Let me understand what you're trying to achieve first..."
 
-Claude 4.x excels at parallel execution:
+### Question Assumptions Constructively
 
-```xml
-<use_parallel_tool_calls>
-Call multiple independent tools simultaneously. Prioritize parallel calls for actions that can be done concurrently. Only use sequential calls when dependencies exist.
-</use_parallel_tool_calls>
-```
+- Surface hidden requirements through dialogue
+- Challenge unclear objectives respectfully
+- Propose alternatives when original approach seems suboptimal
 
-### Preventing Over-Engineering
+### Iterate Based on Feedback
 
-Claude Opus 4.5 may over-engineer solutions. Add explicit constraints:
+- Start with minimum viable prompt
+- Test and refine based on actual outputs
+- Document what works and what doesn't
 
-```xml
-<avoid_over_engineering>
-Only make changes directly requested or clearly necessary. Keep solutions simple. Don't add features, refactoring, or improvements beyond what was asked. Don't create helpers or abstractions for one-time operations.
-</avoid_over_engineering>
-```
+### Teach While Doing
 
-### Encouraging Code Exploration
+- Explain why certain techniques work
+- Share the reasoning behind design choices
+- Help users understand prompt engineering principles
 
-```xml
-<code_exploration>
-ALWAYS read and understand relevant files before proposing edits. Do not speculate about code you haven't inspected. Be rigorous in searching code for key facts.
-</code_exploration>
-```
+## References
 
-### Minimizing Hallucinations
+This skill includes detailed reference documentation:
 
-```xml
-<investigate_before_answering>
-Never speculate about code you have not opened. If the user references a file, read it before answering. Give grounded, hallucination-free answers.
-</investigate_before_answering>
-```
+### references/
+- `techniques.md` - Complete catalog of prompting techniques with examples
+- `patterns.md` - Reusable prompt patterns for common scenarios  
+- `antipatterns.md` - Common mistakes and how to avoid them
+- `evaluation.md` - Comprehensive quality evaluation framework
+- `examples.md` - Library of before/after prompt improvements
 
-## Multi-Context Window Workflows
-
-For tasks spanning multiple context windows:
-
-1. **First window**: Set up framework (write tests, create setup scripts)
-2. **Subsequent windows**: Iterate on todo-list
-
-**Best Practices**:
-- Write tests in structured format (e.g., `tests.json`)
-- Create setup scripts (e.g., `init.sh`) for graceful restarts
-- Use git for state tracking across sessions
-- Start fresh rather than compacting when context clears
-
-**Context Management Prompt**:
-```
-Your context window will be automatically compacted as it approaches its limit. Do not stop tasks early due to token budget concerns. Save progress and state before context refreshes. Complete tasks fully, even near budget limits.
-```
-
-## Quick Reference
-
-| Technique | When to Use |
-|-----------|-------------|
-| Role prompting | Domain-specific tasks, specialized knowledge |
-| Multishot examples | Structured outputs, specific formats |
-| XML tags | Complex prompts with multiple components |
-| Chain of thought | Math, logic, analysis, complex reasoning |
-| Prompt chaining | Multi-step tasks, content pipelines |
-| Extended thinking | Deep reasoning, verification, complex problems |
-| Parallel tool calls | Multiple independent operations |
-| Subagents | Context isolation, parallel specialized tasks |
-| Agent skills | Reusable domain expertise, complex workflows |
-| Plan-validate-execute | High-stakes operations, batch changes |
-
-## Resources
-
-- [Prompt Library](https://docs.anthropic.com/en/prompt-library)
-- [Interactive Tutorial](https://github.com/anthropics/prompt-eng-interactive-tutorial)
-- [Claude Console Prompt Generator](https://console.anthropic.com)
+Consult these references for in-depth technical details and extensive examples not included in this overview.

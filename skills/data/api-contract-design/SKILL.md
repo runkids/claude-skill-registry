@@ -1,160 +1,516 @@
 ---
 name: api-contract-design
-description: |
-  RESTful APIの設計と互換性管理を行うためのスキル。APIバージョニング、Breaking Changes対応、スキーマ設計を含む。
-
-  **Anchors**:
-  • RESTful Web APIs（Leonard Richardson）/ 適用: API設計全般 / 目的: リソース指向設計の原則の習得
-  • OpenAPI 3.1 仕様（OpenAPI Initiative）/ 適用: API契約設計 / 目的: 標準的なAPI仕様定義
-  • JSON Schema（IETF）/ 適用: スキーマ設計 / 目的: バリデーションルールの明確化
-
-  **Triggers**: API設計やAPIスキーマの定義が必要な時、バージョニング戦略を策定する時、Breaking Changes対応が必要な時、後方互換性を確保する時に使用
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
+description: Design APIs using schema-first approach with OpenAPI/Swagger. Use when creating new APIs, documenting existing ones, or when frontend/backend teams need to work in parallel. Covers OpenAPI spec, validation, and code generation.
+allowed-tools: Read, Glob, Grep, Edit, Write, Bash
+license: MIT
+metadata:
+  author: antigravity-team
+  version: "1.0"
 ---
 
-# API契約設計
+# API Contract Design
 
-## 概要
+OpenAPI(Swagger) 기반 스키마 우선 API 설계 스킬입니다.
 
-API契約（API Contract）は、クライアントとサーバー間の約束です。このスキルは、APIの設計、バージョニング、Breaking Changes対応、互換性管理を体系的に行うための指針を提供します。
+## Core Principle
 
-開発初期段階から本番運用まで、APIの品質と安定性を保証する設計原則とベストプラクティスを含みます。
+> **"코드보다 계약(Contract)이 먼저다."**
+> **"프론트엔드와 백엔드가 동시에 개발할 수 있게 API를 먼저 정의한다."**
 
-**関連リソース**:
+## Schema-First vs Code-First
 
-- `references/Level1_basics.md`: 基礎的なAPI設計原則
-- `references/Level2_intermediate.md`: 実務的な設計パターン
-- `references/Level3_advanced.md`: 高度なバージョニング戦略
-- `references/Level4_expert.md`: エンタープライズレベルの設計
+| 접근법 | 장점 | 단점 |
+|--------|------|------|
+| **Schema-First** (권장) | 병렬 개발 가능, 명확한 계약 | 초기 설계 시간 필요 |
+| Code-First | 빠른 시작 | 문서와 코드 불일치 위험 |
 
-## ワークフロー
+## OpenAPI 기본 구조
 
-### Phase 1: 目的と前提の明確化
+### `openapi.yaml`
 
-**目的**: APIの役割、対象クライアント、互換性要件を理解する
+```yaml
+openapi: 3.1.0
+info:
+  title: My API
+  version: 1.0.0
+  description: API for My Application
 
-**アクション**:
+servers:
+  - url: https://api.example.com/v1
+    description: Production
+  - url: http://localhost:3000/api
+    description: Development
 
-1. API設計の目的と対象クライアントを定義
-2. 互換性ポリシー（バージョニング戦略）を決定
-3. 既存APIとの関係を把握
-4. `references/Level1_basics.md` を確認し、適用パターンを選定
+paths:
+  /users:
+    get:
+      summary: Get all users
+      operationId: getUsers
+      tags:
+        - Users
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
-**Task**: `agents/analyze-contract-context.md` を参照
+    post:
+      summary: Create a new user
+      operationId: createUser
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 
-**成果物**: API設計方針書（仕様概要）
+  /users/{userId}:
+    get:
+      summary: Get user by ID
+      operationId: getUserById
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          $ref: '#/components/responses/NotFound'
 
-### Phase 2: API契約の設計と検証
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - email
+        - name
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        avatarUrl:
+          type: string
+          format: uri
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
 
-**目的**: 具体的なAPI契約を設計し、互換性を確保する
+    CreateUserRequest:
+      type: object
+      required:
+        - email
+        - name
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        password:
+          type: string
+          minLength: 8
 
-**アクション**:
+    UserListResponse:
+      type: object
+      required:
+        - data
+        - pagination
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
 
-1. エンドポイント、リソース、メソッドを設計
-2. リクエスト/レスポンス形式をOpenAPI仕様で定義
-3. エラーハンドリング戦略を決定
-4. Breaking Changesポリシーを策定
-5. `references/Level2_intermediate.md` を参照して設計パターンを確認
-6. サンプルAPIドキュメント（OpenAPI/Swagger）を作成
+    Pagination:
+      type: object
+      required:
+        - page
+        - limit
+        - total
+        - totalPages
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
 
-**Task**: `agents/design-contract.md` を参照
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
 
-**成果物**: OpenAPI仕様書、API設計ドキュメント、Breaking Changesガイド
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
 
-### Phase 3: 実装と検証
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
 
-**目的**: 設計したAPI契約を実装に反映し、検証する
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
 
-**アクション**:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
-1. API実装がOpenAPI仕様に準拠していることを確認
-2. バリデーションルール（JSON Schema）を実装
-3. 統合テストでクライアント互換性を検証
-4. `scripts/validate-skill.mjs` でスキル適用状況を確認
-5. `scripts/log_usage.mjs` で使用記録を保存
-
-**Task**: `agents/validate-contract.md` を参照
-
-**成果物**: 実装済みAPI、検証テスト、互換性テストレポート
-
-## Task仕様ナビ
-
-| Task                     | 説明                                | 対象                 | リソース       | Phase |
-| ------------------------ | ----------------------------------- | -------------------- | -------------- | ----- |
-| **API仕様設計**          | OpenAPI形式でのエンドポイント設計   | 新規API開発          | Level1, Level2 | 1-2   |
-| **バージョニング戦略**   | APIバージョン管理方針の策定         | API更新計画          | Level2, Level3 | 1     |
-| **Breaking Changes対応** | 互換性破壊的な変更の管理            | API改善・修正        | Level2, Level3 | 2     |
-| **スキーマ設計**         | JSON Schemaによるバリデーション設計 | データ構造定義       | Level2         | 2     |
-| **エラーハンドリング**   | API共通エラー応答の設計             | 全API                | Level1, Level2 | 2     |
-| **後方互換性確保**       | 既存クライアント対応の設計          | API改善              | Level3, Level4 | 2     |
-| **移行ガイド作成**       | バージョン間の移行手順書            | メジャーアップデート | Level3         | 2     |
-| **ドキュメント生成**     | OpenAPIからのドキュメント自動生成   | APIドキュメント      | Level2         | 3     |
-
-## ベストプラクティス
-
-### すべきこと
-
-- **事前設計**: APIコード実装前にOpenAPI仕様で設計する
-- **バージョニング戦略の明確化**: Semantic Versioningの採用と互換性ポリシーの文書化
-- **スキーマの厳密性**: JSON Schemaで入出力形式を明確に定義
-- **Breaking Changes告知**: 非互換変更の事前通知期間（Deprecation Period）を設定
-- **テスト駆動設計**: API契約テストで互換性を継続的に検証
-- **ドキュメント同期**: APIコードと仕様書の同期メカニズム構築
-- **段階的な廃止**: 旧バージョンのサポート終了予定を明示
-
-### 避けるべきこと
-
-- **事後仕様**: 実装後の仕様定義（実装に基づく仕様は変更に強くない）
-- **無通知の変更**: Breaking Changesを予告なく実施
-- **曖昧なスキーマ**: 「適当な形式」としてのAPI設計
-- **バージョン重複サポート**: 多数のバージョンを同時サポート（保守負荷増大）
-- **後付けドキュメント**: コード実装後の手作業ドキュメント作成
-- **非標準エラー形式**: API間でエラー応答形式が異なる
-- **急激な廃止**: サポート期間なしの旧バージョン廃止
-
-## リソース参照
-
-### ガイドドキュメント
-
-| リソース                            | 対象レベル   | 主なトピック                                              |
-| ----------------------------------- | ------------ | --------------------------------------------------------- |
-| `references/Level1_basics.md`       | 初心者       | REST原則、基本的なAPI設計、リソース指向設計               |
-| `references/Level2_intermediate.md` | 実務者       | 実装パターン、エラーハンドリング、バージョニング入門      |
-| `references/Level3_advanced.md`     | 上級者       | 複雑なバージョニング戦略、後方互換性設計                  |
-| `references/Level4_expert.md`       | エキスパート | エンタープライズ設計、マイグレーション戦略、大規模API管理 |
-| `references/requirements-index.md`  | 全員         | 要求仕様索引（docs/00-requirements と同期）               |
-
-### 参考資料
-
-**書籍**:
-
-- 『RESTful Web APIs』（Leonard Richardson）: リソース指向設計の原則
-
-**公式標準**:
-
-- OpenAPI 3.1 仕様: https://spec.openapis.org/
-- JSON Schema: https://json-schema.org/
-
-### スクリプト
-
-```bash
-# スキル構造の検証
-node .claude/skills/api-contract-design/scripts/validate-skill.mjs --check
-
-# 使用記録の保存
-node .claude/skills/api-contract-design/scripts/log_usage.mjs --log-task "API設計" --context "新規エンドポイント定義"
+security:
+  - BearerAuth: []
 ```
 
-## 変更履歴
+## 폴더 구조
 
-| バージョン | 日付       | 変更内容                                                      |
-| ---------- | ---------- | ------------------------------------------------------------- |
-| 3.0.0      | 2025-12-31 | agents/3ファイル追加、Phase別Task参照を追加、name修正         |
-| 2.0.0      | 2025-12-31 | 18-skills.md仕様へ完全移行、Task仕様ナビ追加、Trigger定義追加 |
-| 1.0.0      | 2025-12-24 | 初版リリース                                                  |
+```
+api/
+├── openapi.yaml          # 메인 스펙
+├── paths/                # 엔드포인트별 분리
+│   ├── users.yaml
+│   ├── posts.yaml
+│   └── auth.yaml
+├── schemas/              # 스키마 분리
+│   ├── user.yaml
+│   ├── post.yaml
+│   └── common.yaml
+└── generated/            # 자동 생성 코드
+    ├── types.ts
+    └── client.ts
+```
+
+### 분리된 스펙 (paths/users.yaml)
+
+```yaml
+# api/paths/users.yaml
+/users:
+  get:
+    $ref: '../operations/users/getUsers.yaml'
+  post:
+    $ref: '../operations/users/createUser.yaml'
+```
+
+### 메인 스펙에서 참조
+
+```yaml
+# api/openapi.yaml
+paths:
+  /users:
+    $ref: './paths/users.yaml#/~1users'
+```
+
+## TypeScript 타입 생성
+
+### openapi-typescript
+
+```bash
+npm install -D openapi-typescript
+```
+
+```bash
+# 타입 생성
+npx openapi-typescript ./api/openapi.yaml -o ./src/types/api.ts
+```
+
+### 생성된 타입 사용
+
+```typescript
+import type { paths, components } from './types/api';
+
+type User = components['schemas']['User'];
+type CreateUserRequest = components['schemas']['CreateUserRequest'];
+
+// API 응답 타입
+type GetUsersResponse = paths['/users']['get']['responses']['200']['content']['application/json'];
+```
+
+## API 클라이언트 생성
+
+### openapi-fetch (권장)
+
+```bash
+npm install openapi-fetch
+```
+
+```typescript
+// lib/api-client.ts
+import createClient from 'openapi-fetch';
+import type { paths } from './types/api';
+
+export const api = createClient<paths>({
+  baseUrl: process.env.NEXT_PUBLIC_API_URL,
+});
+
+// 사용
+const { data, error } = await api.GET('/users', {
+  params: {
+    query: { page: 1, limit: 20 },
+  },
+});
+
+const { data: user } = await api.POST('/users', {
+  body: {
+    email: 'user@example.com',
+    name: 'John',
+    password: 'password123',
+  },
+});
+```
+
+### Orval (코드 생성)
+
+```bash
+npm install -D orval
+```
+
+```typescript
+// orval.config.ts
+export default {
+  api: {
+    input: './api/openapi.yaml',
+    output: {
+      mode: 'tags-split',
+      target: './src/api',
+      schemas: './src/api/schemas',
+      client: 'react-query',
+    },
+  },
+};
+```
+
+## 요청 검증
+
+### Zod + OpenAPI
+
+```typescript
+// 스키마에서 Zod 스키마 생성
+import { z } from 'zod';
+
+// OpenAPI 스펙 기반 Zod 스키마
+export const CreateUserRequestSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(1).max(100),
+  password: z.string().min(8),
+});
+
+// API 라우트에서 검증
+export async function POST(request: Request) {
+  const body = await request.json();
+
+  const result = CreateUserRequestSchema.safeParse(body);
+  if (!result.success) {
+    return Response.json(
+      { code: 'VALIDATION_ERROR', message: result.error.message },
+      { status: 400 }
+    );
+  }
+
+  // result.data는 타입 안전
+  const user = await createUser(result.data);
+  return Response.json(user, { status: 201 });
+}
+```
+
+## API 문서 UI
+
+### Swagger UI
+
+```bash
+npm install swagger-ui-react
+```
+
+```tsx
+// app/api-docs/page.tsx
+'use client';
+
+import SwaggerUI from 'swagger-ui-react';
+import 'swagger-ui-react/swagger-ui.css';
+
+export default function ApiDocs() {
+  return <SwaggerUI url="/api/openapi.yaml" />;
+}
+```
+
+### Scalar (모던 대안)
+
+```bash
+npm install @scalar/nextjs-api-reference
+```
+
+```tsx
+// app/api-docs/page.tsx
+import { ApiReference } from '@scalar/nextjs-api-reference';
+
+export default function ApiDocs() {
+  return (
+    <ApiReference
+      configuration={{
+        spec: {
+          url: '/api/openapi.yaml',
+        },
+      }}
+    />
+  );
+}
+```
+
+## 버전 관리
+
+### URL 버전 관리
+
+```yaml
+servers:
+  - url: https://api.example.com/v1
+  - url: https://api.example.com/v2
+```
+
+### 헤더 버전 관리
+
+```yaml
+parameters:
+  - name: API-Version
+    in: header
+    schema:
+      type: string
+      enum: ['2024-01-01', '2024-06-01']
+```
+
+## Workflow
+
+### Schema-First 개발 흐름
+
+```
+1. API 스펙 작성 (openapi.yaml)
+   ↓
+2. 팀 리뷰 (PR)
+   ↓
+3. 타입 생성 (openapi-typescript)
+   ↓
+4. 병렬 개발
+   - Frontend: Mock 서버로 개발
+   - Backend: 스펙 기반 구현
+   ↓
+5. 통합 테스트
+```
+
+### Mock 서버
+
+```bash
+# Prism (Stoplight)
+npm install -D @stoplight/prism-cli
+
+# Mock 서버 실행
+npx prism mock ./api/openapi.yaml
+```
+
+## Checklist
+
+### 스펙 작성
+
+- [ ] 모든 엔드포인트 정의
+- [ ] Request/Response 스키마 정의
+- [ ] 에러 응답 정의
+- [ ] 인증 방식 정의
+- [ ] 예제 데이터 포함
+
+### 타입 안전성
+
+- [ ] TypeScript 타입 생성
+- [ ] 요청 검증 (Zod)
+- [ ] 응답 타입 체크
+
+### 문서화
+
+- [ ] API 문서 UI 제공
+- [ ] 변경 이력 관리
+- [ ] 버전 관리 전략
+
+## References
+
+- [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [openapi-typescript](https://github.com/drwpow/openapi-typescript)
+- [openapi-fetch](https://github.com/drwpow/openapi-typescript/tree/main/packages/openapi-fetch)
+- [Prism Mock Server](https://stoplight.io/open-source/prism)

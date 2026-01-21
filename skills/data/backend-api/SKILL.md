@@ -1,47 +1,27 @@
 ---
-name: backend-api
-description: Build FastAPI REST APIs with CORS, JWT auth, Pydantic validation, async endpoints, and proper error handling. Use when creating API endpoints, middleware, or backend services.
+name: Backend API
+description: Design and implement RESTful API endpoints following best practices for routing, versioning, and HTTP standards. Use this skill when creating or modifying API routes, controllers, or endpoints in files like routes/api.php, API controller files in app/Http/Controllers/Api/, controller files in app/Http/Controllers/, API resource classes, or when implementing REST API functionality. Use when working on URL structures, HTTP method handling (GET, POST, PUT, PATCH, DELETE), API versioning strategies, query parameter handling for filtering/sorting/pagination, HTTP status code responses, rate limiting configuration, or any API endpoint design decisions.
 ---
 
-# FastAPI Backend API Development
+# Backend API
 
-## Core Pattern
-```python
-from fastapi import FastAPI, HTTPException, Depends
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
-import os
+This Skill provides Claude Code with specific guidance on how to adhere to coding standards as they relate to how it should handle backend API.
 
-app = FastAPI(title="API")
+## When to use this skill
 
-# CORS from environment
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=os.getenv("CORS_ORIGINS", "").split(","),
-    allow_credentials=os.getenv("CORS_ALLOW_CREDENTIALS") == "true",
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+- When creating or editing API route definitions in `routes/api.php` or similar routing files
+- When building or modifying controllers in `app/Http/Controllers/` or controller directories
+- When building or modifying API controllers in `app/Http/Controllers/Api/` or API-specific controller directories
+- When implementing RESTful endpoints with proper HTTP methods (GET, POST, PUT, PATCH, DELETE)
+- When designing URL structures and resource-based API paths
+- When implementing API versioning (URL path versioning like `/api/v1/` or header-based versioning)
+- When configuring query parameters for filtering, sorting, pagination, or search functionality
+- When determining appropriate HTTP status codes for API responses (200, 201, 400, 404, 500, etc.)
+- When implementing rate limiting headers or API throttling
+- When creating nested resource routes or working with resource relationships in APIs
+- When writing API resource transformation classes or response formatting logic
 
-class Request(BaseModel):
-    field: str = Field(..., min_length=1)
+## Instructions
 
-@app.post("/api/{user_id}/endpoint")
-async def endpoint(user_id: str, req: Request, current_user: str = Depends(verify_jwt)):
-    if user_id != current_user:
-        raise HTTPException(status_code=403, detail="User ID mismatch")
-    return {"status": "ok"}
-```
-
-## Error Handling
-- Use `HTTPException` with proper status codes (401, 403, 404, 500)
-- Provide user-friendly error messages
-- Always use async for I/O operations
-
-## Testing
-```python
-from fastapi.testclient import TestClient
-client = TestClient(app)
-response = client.post("/api/user123/endpoint", json={"field": "value"})
-assert response.status_code == 200
-```
+For details, refer to the information provided in this file:
+[backend API](../../../agent-os/standards/backend/api.md)

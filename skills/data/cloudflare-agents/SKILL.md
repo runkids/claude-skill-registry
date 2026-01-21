@@ -1,1403 +1,900 @@
 ---
 name: cloudflare-agents
-description: |
-  Build AI agents with Cloudflare Agents SDK on Workers + Durable Objects. Includes critical guidance on choosing between Agents SDK (infrastructure/state) vs AI SDK (simpler flows).
-
-  Use when: deciding SDK choice, building WebSocket agents with state, RAG with Vectorize, MCP servers, multi-agent orchestration, or troubleshooting "Agent class must extend", "new_sqlite_classes", binding errors.
-license: MIT
-metadata:
-  keywords:
-    - Cloudflare Agents
-    - agents sdk
-    - Agent class
-    - Durable Objects agents
-    - stateful agents
-    - WebSocket agents
-    - this.setState
-    - this.sql
-    - this.schedule
-    - cron agents
-    - agent workflows
-    - browser rendering
-    - rag agents
-    - vectorize agents
-    - mcp server
-    - McpAgent
-    - model context protocol
-    - routeAgentRequest
-    - AIChatAgent
-    - streaming chat
-    - human in the loop
-    - multi-agent
-    - autonomous agents
-    - AI SDK vs Agents SDK
-    - Workers AI
-    - new_sqlite_classes
-    - migrations required
-    - binding not found
+version: "1.0.0"
+description: Cloudflare Agents SDK - Build and deploy AI-powered agents on Cloudflare's edge with real-time WebSocket communication, persistent state, SQL storage, task scheduling, MCP integration, and human-in-the-loop workflows.
 ---
 
-# Cloudflare Agents SDK
+# Cloudflare Agents SDK Skill
 
-**Status**: Production Ready ✅
-**Last Updated**: 2025-11-23
-**Dependencies**: cloudflare-worker-base (recommended)
-**Latest Versions**: agents@0.2.23 (Nov 13, 2025), @modelcontextprotocol/sdk@latest
-**Production Tested**: Cloudflare's own MCP servers (https://github.com/cloudflare/mcp-server-cloudflare)
+The Cloudflare Agents SDK enables you to build and deploy AI-powered agents that run on Cloudflare's global edge network. Agents can autonomously perform tasks, communicate with clients in real-time via WebSockets, call AI models, persist state, schedule tasks, run asynchronous workflows, browse the web, query data from databases, support human-in-the-loop interactions, and act as MCP (Model Context Protocol) servers or clients.
 
-**Recent Updates (2025)**:
-- **Sept 2025**: AI SDK v5 compatibility, automatic message migration
-- **April 2025**: MCP support (MCPAgent class), `import { context }` from agents
-- **March 2025**: Package rename (agents-sdk → agents)
+**Core Value**: Agents deploy on Cloudflare's Durable Objects - stateful micro-servers that can scale to tens of millions and run close to users for low-latency interactivity.
 
----
+## When to Use This Skill
 
-## What is Cloudflare Agents?
+This skill should be triggered when:
+- Building AI agents that need persistent state and real-time communication
+- Creating chatbots or conversational AI interfaces on Cloudflare Workers
+- Implementing WebSocket-based real-time applications
+- Deploying agents with embedded SQL databases (SQLite)
+- Scheduling tasks with delays, dates, or cron expressions
+- Building human-in-the-loop approval workflows for AI tool execution
+- Creating or connecting to MCP (Model Context Protocol) servers
+- Deploying stateful AI applications on edge infrastructure
+- Building multi-user collaborative AI applications
+- Integrating with Vercel AI SDK on Cloudflare Workers
 
-The Cloudflare Agents SDK enables building AI-powered autonomous agents that run on Cloudflare Workers + Durable Objects. Agents can:
+## Quick Reference
 
-- **Communicate in real-time** via WebSockets and Server-Sent Events
-- **Persist state** with built-in SQLite database (up to 1GB per agent)
-- **Schedule tasks** using delays, specific dates, or cron expressions
-- **Run workflows** by triggering asynchronous Cloudflare Workflows
-- **Browse the web** using Browser Rendering API + Puppeteer
-- **Implement RAG** with Vectorize vector database + Workers AI embeddings
-- **Build MCP servers** implementing the Model Context Protocol
-- **Support human-in-the-loop** patterns for review and approval
-- **Scale to millions** of independent agent instances globally
+### Installation
 
-Each agent instance is a **globally unique, stateful micro-server** that can run for seconds, minutes, or hours.
+```bash
+# Add to existing Workers project
+npm i agents
 
----
+# Or create new project from starter template
+npm create cloudflare@latest agents-starter -- --template=cloudflare/agents-starter
 
-## Do You Need Agents SDK?
+# Navigate and run
+cd agents-starter
+mv .env.local .env
+npm install
+npm run dev
+```
 
-**STOP**: Before using Agents SDK, ask yourself if you actually need it.
+### Package Imports
 
-### Use JUST Vercel AI SDK (Simpler) When:
-
-- ✅ Building a basic chat interface
-- ✅ Server-Sent Events (SSE) streaming is sufficient (one-way: server → client)
-- ✅ No persistent agent state needed (or you manage it separately with D1/KV)
-- ✅ Single-user, single-conversation scenarios
-- ✅ Just need AI responses, no complex workflows or scheduling
-
-**This covers 80% of chat applications.** For these cases, use [Vercel AI SDK](https://sdk.vercel.ai/) directly on Workers - it's simpler, requires less infrastructure, and handles streaming automatically.
-
-**Example** (no Agents SDK needed):
 ```typescript
-// worker.ts - Simple chat with AI SDK only
-import { streamText } from 'ai';
-import { openai } from '@ai-sdk/openai';
+// Core Agent classes
+import { Agent } from "agents";
+import { AIChatAgent } from "agents/ai-chat-agent";
+import { McpAgent } from "agents/mcp";
 
-export default {
-  async fetch(request: Request, env: Env) {
-    const { messages } = await request.json();
+// Client-side
+import { AgentClient } from "agents/client";
 
-    const result = streamText({
-      model: openai('gpt-4o-mini'),
-      messages
-    });
+// React hooks
+import { useAgent } from "agents/react";
+import { useAgentChat } from "agents/ai-react";
 
-    return result.toTextStreamResponse(); // Automatic SSE streaming
+// Routing
+import { routeAgentRequest, getAgentByName } from "agents";
+```
+
+### Basic Agent Setup
+
+```typescript
+import { Agent, routeAgentRequest } from "agents";
+
+// Define your Agent class
+export class MyAgent extends Agent<Env, State> {
+  // Optional: Set initial state
+  initialState = {
+    counter: 0,
+    messages: [],
+  };
+
+  // Called when agent starts or resumes
+  async onStart() {
+    console.log("Agent started");
   }
-}
 
-// client.tsx - React with built-in hooks
-import { useChat } from 'ai/react';
-
-function ChatPage() {
-  const { messages, input, handleSubmit } = useChat({ api: '/api/chat' });
-  // Done. No Agents SDK needed.
-}
-```
-
-**Result**: 100 lines of code instead of 500. No Durable Objects setup, no WebSocket complexity, no migrations.
-
----
-
-### Use Agents SDK When You Need:
-
-- ✅ **WebSocket connections** (true bidirectional real-time communication)
-- ✅ **Durable Objects** (globally unique, stateful agent instances)
-- ✅ **Built-in state persistence** (SQLite storage up to 1GB per agent)
-- ✅ **Multi-agent coordination** (agents calling and communicating with each other)
-- ✅ **Scheduled tasks** (delays, cron expressions, recurring jobs)
-- ✅ **Human-in-the-loop workflows** (approval gates, review processes)
-- ✅ **Long-running agents** (background processing, autonomous workflows)
-- ✅ **MCP servers** with stateful tool execution
-
-**This is ~20% of applications** - when you need the infrastructure that Agents SDK provides.
-
----
-
-### Key Understanding: What Agents SDK IS vs IS NOT
-
-**Agents SDK IS**:
-- 🏗️ **Infrastructure layer** for WebSocket connections, Durable Objects, and state management
-- 🔧 **Framework** for building stateful, autonomous agents
-- 📦 **Wrapper** around Durable Objects with lifecycle methods
-
-**Agents SDK IS NOT**:
-- ❌ **AI inference provider** (you bring your own: AI SDK, Workers AI, OpenAI, etc.)
-- ❌ **Streaming response handler** (use AI SDK for automatic parsing)
-- ❌ **LLM integration** (that's a separate concern)
-
-**Think of it this way**:
-- **Agents SDK** = The building (WebSockets, state, rooms)
-- **AI SDK / Workers AI** = The AI brain (inference, reasoning, responses)
-
-You can use them together (recommended for most cases), or use Workers AI directly (if you're willing to handle manual SSE parsing).
-
----
-
-### Decision Flowchart
-
-```
-Building an AI application?
-│
-├─ Need WebSocket bidirectional communication? ───────┐
-│  (Client sends while server streams, agent-initiated messages)
-│
-├─ Need Durable Objects stateful instances? ──────────┤
-│  (Globally unique agents with persistent memory)
-│
-├─ Need multi-agent coordination? ────────────────────┤
-│  (Agents calling/messaging other agents)
-│
-├─ Need scheduled tasks or cron jobs? ────────────────┤
-│  (Delayed execution, recurring tasks)
-│
-├─ Need human-in-the-loop workflows? ─────────────────┤
-│  (Approval gates, review processes)
-│
-└─ If ALL above are NO ─────────────────────────────→ Use AI SDK directly
-                                                       (Much simpler approach)
-
-   If ANY above are YES ────────────────────────────→ Use Agents SDK + AI SDK
-                                                       (More infrastructure, more power)
-```
-
----
-
-### Architecture Comparison
-
-| Feature | AI SDK Only | Agents SDK + AI SDK |
-|---------|-------------|---------------------|
-| **Setup Complexity** | 🟢 Low (npm install, done) | 🔴 Higher (Durable Objects, migrations, bindings) |
-| **Code Volume** | 🟢 ~100 lines | 🟡 ~500+ lines |
-| **Streaming** | ✅ Automatic (SSE) | ✅ Automatic (AI SDK) or manual (Workers AI) |
-| **State Management** | ⚠️ Manual (D1/KV) | ✅ Built-in (SQLite) |
-| **WebSockets** | ❌ Manual setup | ✅ Built-in |
-| **React Hooks** | ✅ useChat, useCompletion | ⚠️ Custom hooks needed |
-| **Multi-agent** | ❌ Not supported | ✅ Built-in (routeAgentRequest) |
-| **Scheduling** | ❌ External (Queue/Workflow) | ✅ Built-in (this.schedule) |
-| **Use Case** | Simple chat, completions | Complex stateful workflows |
-
----
-
-### Still Not Sure?
-
-**Start with AI SDK.** You can always migrate to Agents SDK later if you discover you need WebSockets or Durable Objects. It's easier to add infrastructure later than to remove it.
-
-**For most developers**: If you're building a chat interface and don't have specific requirements for WebSockets, multi-agent coordination, or scheduled tasks, use AI SDK directly. You'll ship faster and with less complexity.
-
-**Proceed with Agents SDK only if** you've identified a specific need for its infrastructure capabilities.
-
----
-
-## Quick Start (10 Minutes)
-
-### 1. Scaffold Project with Template
-
-```bash
-npm create cloudflare@latest my-agent -- \
-  --template=cloudflare/agents-starter \
-  --ts \
-  --git \
-  --deploy false
-```
-
-**What this creates:**
-- Complete Agent project structure
-- TypeScript configuration
-- wrangler.jsonc with Durable Objects bindings
-- Example chat agent implementation
-- React client with useAgent hook
-
-### 2. Or Add to Existing Worker
-
-```bash
-cd my-existing-worker
-npm install agents
-```
-
-**Then create an Agent class:**
-
-```typescript
-// src/index.ts
-import { Agent, AgentNamespace } from "agents";
-
-export class MyAgent extends Agent {
+  // Handle HTTP requests
   async onRequest(request: Request): Promise<Response> {
     return new Response("Hello from Agent!");
   }
+
+  // Handle WebSocket connections
+  async onConnect(connection: Connection, ctx: ConnectionContext) {
+    console.log(`Client connected: ${connection.id}`);
+  }
+
+  // Handle WebSocket messages
+  async onMessage(connection: Connection, message: WSMessage) {
+    const data = JSON.parse(message as string);
+    connection.send(JSON.stringify({ received: data }));
+  }
+
+  // Handle state updates
+  onStateUpdate(state: State, source: "server" | Connection) {
+    console.log("State updated:", state);
+  }
 }
 
-export default MyAgent;
+// Export default handler with routing
+export default {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    return routeAgentRequest(request, env);
+  },
+};
 ```
 
-### 3. Configure Durable Objects Binding
-
-Create or update `wrangler.jsonc`:
+### Configuration (wrangler.jsonc)
 
 ```jsonc
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "my-agent",
   "main": "src/index.ts",
-  "compatibility_date": "2025-10-21",
+  "compatibility_date": "2025-01-01",
   "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
   "durable_objects": {
     "bindings": [
       {
-        "name": "MyAgent",        // MUST match class name
-        "class_name": "MyAgent"   // MUST match exported class
+        "name": "MY_AGENT",
+        "class_name": "MyAgent"
       }
     ]
   },
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": ["MyAgent"]  // CRITICAL: Enables SQLite storage
+      "new_sqlite_classes": ["MyAgent"]
     }
   ]
 }
 ```
 
-**CRITICAL Configuration Rules:**
-- ✅ `name` and `class_name` **MUST be identical**
-- ✅ `new_sqlite_classes` **MUST be in first migration** (cannot add later)
-- ✅ Agent class **MUST be exported** (or binding will fail)
-- ✅ Migration tags **CANNOT be reused** (each migration needs unique tag)
+## Agent API Reference
 
-### 4. Deploy
+### Agent Class
 
-```bash
-npx wrangler@latest deploy
-```
+The base class for all agents, providing lifecycle hooks and capabilities.
 
-Your agent is now running at: `https://my-agent.<subdomain>.workers.dev`
-
----
-
-## Architecture Overview: How the Pieces Fit Together
-
-Understanding what each tool does prevents confusion and helps you choose the right combination.
-
-### The Stack
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    Your Application                      │
-│                                                          │
-│  ┌────────────────┐         ┌──────────────────────┐   │
-│  │  Agents SDK    │         │   AI Inference       │   │
-│  │  (Infra Layer) │   +     │   (Brain Layer)      │   │
-│  │                │         │                      │   │
-│  │ • WebSockets   │         │  Choose ONE:         │   │
-│  │ • Durable Objs │         │  • Vercel AI SDK ✅   │   │
-│  │ • State (SQL)  │         │  • Workers AI ⚠️      │   │
-│  │ • Scheduling   │         │  • OpenAI Direct     │   │
-│  │ • Multi-agent  │         │  • Anthropic Direct  │   │
-│  └────────────────┘         └──────────────────────┘   │
-│         ↓                             ↓                │
-│  Manages connections          Generates responses      │
-│  and state                    and handles streaming    │
-└─────────────────────────────────────────────────────────┘
-                          ↓
-              Cloudflare Workers + Durable Objects
-```
-
-### What Each Tool Provides
-
-#### 1. Agents SDK (This Skill)
-
-**Purpose**: Infrastructure for stateful, real-time agents
-
-**Provides**:
-- ✅ WebSocket connection management (bidirectional real-time)
-- ✅ Durable Objects wrapper (globally unique agent instances)
-- ✅ Built-in state persistence (SQLite up to 1GB)
-- ✅ Lifecycle methods (`onStart`, `onConnect`, `onMessage`, `onClose`)
-- ✅ Task scheduling (`this.schedule()` with cron/delays)
-- ✅ Multi-agent coordination (`routeAgentRequest()`)
-- ✅ Client libraries (`useAgent`, `AgentClient`, `agentFetch`)
-
-**Does NOT Provide**:
-- ❌ AI inference (no LLM calls)
-- ❌ Streaming response parsing (bring your own)
-- ❌ Provider integrations (OpenAI, Anthropic, etc.)
-
-**Think of it as**: The building and infrastructure (rooms, doors, plumbing) but NOT the residents (AI).
-
----
-
-#### 2. Vercel AI SDK (Recommended for AI)
-
-**Purpose**: AI inference with automatic streaming
-
-**Provides**:
-- ✅ Automatic streaming response handling (SSE parsing done for you)
-- ✅ Multi-provider support (OpenAI, Anthropic, Google, etc.)
-- ✅ React hooks (`useChat`, `useCompletion`, `useAssistant`)
-- ✅ Unified API across providers
-- ✅ Tool calling / function calling
-- ✅ Works on Cloudflare Workers ✅
-
-**Example**:
 ```typescript
-import { streamText } from 'ai';
-import { openai } from '@ai-sdk/openai';
+class Agent<Env, State> {
+  // Properties
+  env: Env;                    // Environment bindings
+  state: State;                // Current state (read-only)
+  initialState?: State;        // Optional default state
 
-const result = streamText({
-  model: openai('gpt-4o-mini'),
-  messages: [...]
-});
+  // Lifecycle hooks
+  onStart(): void | Promise<void>;
+  onRequest(request: Request): Response | Promise<Response>;
+  onConnect(connection: Connection, ctx: ConnectionContext): void;
+  onMessage(connection: Connection, message: WSMessage): void;
+  onError(connection: Connection, error: Error): void;
+  onClose(connection: Connection, code: number, reason: string, wasClean: boolean): void;
+  onStateUpdate(state: State, source: "server" | Connection): void;
 
-// Returns SSE stream - no manual parsing needed
-return result.toTextStreamResponse();
-```
+  // State management
+  setState(state: Partial<State>): void;
 
-**When to use with Agents SDK**:
-- ✅ Most chat applications
-- ✅ When you want React hooks
-- ✅ When you use multiple AI providers
-- ✅ When you want clean, abstracted AI calls
+  // SQL database
+  sql`query`: SQLResult;
 
-**Combine with Agents SDK**:
-```typescript
-import { AIChatAgent } from "agents/ai-chat-agent";
-import { streamText } from "ai";
+  // Task scheduling
+  schedule(when: number | Date | string, callback: string, data?: any): string;
+  getSchedule(id: string): Schedule | undefined;
+  getSchedules(criteria?: ScheduleCriteria): Schedule[];
+  cancelSchedule(id: string): void;
 
-export class MyAgent extends AIChatAgent<Env> {
-  async onChatMessage(onFinish) {
-    // Agents SDK provides: WebSocket, state, this.messages
-    // AI SDK provides: Automatic streaming, provider abstraction
-
-    return streamText({
-      model: openai('gpt-4o-mini'),
-      messages: this.messages  // Managed by Agents SDK
-    }).toTextStreamResponse();
-  }
+  // MCP integration
+  addMcpServer(name: string, url: string, ...): void;
+  removeMcpServer(id: string): void;
+  getMcpServers(): McpServer[];
 }
 ```
 
----
+### AIChatAgent Class
 
-#### 3. Workers AI (Alternative for AI)
-
-**Purpose**: Cloudflare's on-platform AI inference
-
-**Provides**:
-- ✅ Cost-effective inference (included in Workers subscription)
-- ✅ No external API keys needed
-- ✅ Models: LLaMA 3, Qwen, Mistral, embeddings, etc.
-- ✅ Runs on Cloudflare's network (low latency)
-
-**Does NOT Provide**:
-- ❌ Automatic streaming parsing (returns raw SSE format)
-- ❌ React hooks
-- ❌ Multi-provider abstraction
-
-**Manual parsing required**:
-```typescript
-const response = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
-  messages: [...],
-  stream: true
-});
-
-// Returns raw SSE format - YOU must parse
-for await (const chunk of response) {
-  const text = new TextDecoder().decode(chunk);  // Uint8Array → string
-  if (text.startsWith('data: ')) {              // Check SSE format
-    const data = JSON.parse(text.slice(6));     // Parse JSON
-    if (data.response) {                        // Extract .response field
-      fullResponse += data.response;
-    }
-  }
-}
-```
-
-**When to use**:
-- ✅ Cost is critical (embeddings, high-volume)
-- ✅ Need Cloudflare-specific models
-- ✅ Willing to handle manual SSE parsing
-- ✅ No external dependencies allowed
-
-**Trade-off**: Save money, spend time on manual parsing.
-
----
-
-### Recommended Combinations
-
-#### Option A: Agents SDK + Vercel AI SDK (Recommended ⭐)
-
-**Use when**: You need WebSockets/state AND want clean AI integration
+Extended Agent class for building chat interfaces with AI models.
 
 ```typescript
 import { AIChatAgent } from "agents/ai-chat-agent";
-import { streamText } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { createOpenAI } from "@ai-sdk/openai";
+import { streamText, createDataStreamResponse } from "ai";
 
 export class ChatAgent extends AIChatAgent<Env> {
-  async onChatMessage(onFinish) {
-    return streamText({
-      model: openai('gpt-4o-mini'),
-      messages: this.messages,  // Agents SDK manages history
-      onFinish
-    }).toTextStreamResponse();
-  }
-}
-```
+  async onChatMessage(onFinish: (result: any) => void) {
+    return createDataStreamResponse({
+      execute: async (dataStream) => {
+        const openai = createOpenAI({
+          apiKey: this.env.OPENAI_API_KEY,
+        });
 
-**Pros**:
-- ✅ Best developer experience
-- ✅ Automatic streaming
-- ✅ WebSockets + state from Agents SDK
-- ✅ Clean, maintainable code
+        const stream = streamText({
+          model: openai("gpt-4o"),
+          messages: this.messages,  // Built-in message history
+          onFinish,
+        });
 
-**Cons**:
-- ⚠️ Requires external API keys
-- ⚠️ Additional cost for AI provider
-
----
-
-#### Option B: Agents SDK + Workers AI
-
-**Use when**: You need WebSockets/state AND cost is critical
-
-```typescript
-import { Agent } from "agents";
-
-export class BudgetAgent extends Agent<Env> {
-  async onMessage(connection, message) {
-    const response = await this.env.AI.run('@cf/meta/llama-3-8b-instruct', {
-      messages: [...],
-      stream: true
+        stream.mergeIntoDataStream(dataStream);
+      },
     });
-
-    // Manual SSE parsing required (see Workers AI section above)
-    for await (const chunk of response) {
-      // ... manual parsing ...
-    }
   }
 }
 ```
 
-**Pros**:
-- ✅ Cost-effective
-- ✅ No external dependencies
-- ✅ WebSockets + state from Agents SDK
-
-**Cons**:
-- ❌ Manual SSE parsing complexity
-- ❌ Limited model selection
-- ❌ More code to maintain
-
----
-
-#### Option C: Just Vercel AI SDK (No Agents)
-
-**Use when**: You DON'T need WebSockets or Durable Objects
-
-```typescript
-// worker.ts - Simple Workers route
-export default {
-  async fetch(request: Request, env: Env) {
-    const { messages } = await request.json();
-
-    const result = streamText({
-      model: openai('gpt-4o-mini'),
-      messages
-    });
-
-    return result.toTextStreamResponse();
-  }
-}
-
-// client.tsx - Built-in React hooks
-import { useChat } from 'ai/react';
-
-function Chat() {
-  const { messages, input, handleSubmit } = useChat({ api: '/api/chat' });
-  return <form onSubmit={handleSubmit}>...</form>;
-}
-```
-
-**Pros**:
-- ✅ Simplest approach
-- ✅ Least code
-- ✅ Fast to implement
-- ✅ Built-in React hooks
-
-**Cons**:
-- ❌ No WebSockets (only SSE)
-- ❌ No Durable Objects state
-- ❌ No multi-agent coordination
-
-**Best for**: 80% of chat applications
-
----
-
-### Decision Matrix
-
-| Your Needs | Recommended Stack | Complexity | Cost |
-|-----------|------------------|-----------|------|
-| Simple chat, no state | AI SDK only | 🟢 Low | $$ (AI provider) |
-| Chat + WebSockets + state | Agents SDK + AI SDK | 🟡 Medium | $$$ (infra + AI) |
-| Chat + WebSockets + budget | Agents SDK + Workers AI | 🔴 High | $ (infra only) |
-| Multi-agent workflows | Agents SDK + AI SDK | 🔴 High | $$$ (infra + AI) |
-| MCP server with tools | Agents SDK (McpAgent) | 🟡 Medium | $ (infra only) |
-
----
-
-### Key Takeaway
-
-**Agents SDK is infrastructure, not AI.** You combine it with AI inference tools:
-
-- **For best DX**: Agents SDK + Vercel AI SDK ⭐
-- **For cost savings**: Agents SDK + Workers AI (accept manual parsing)
-- **For simplicity**: Just AI SDK (if you don't need WebSockets/state)
-
-The rest of this skill focuses on Agents SDK (the infrastructure layer). For AI inference patterns, see the `ai-sdk-core` or `cloudflare-workers-ai` skills.
-
----
-
-## Configuration (wrangler.jsonc)
-
-**Critical Required Configuration**:
-```jsonc
-{
-  "durable_objects": {
-    "bindings": [{ "name": "MyAgent", "class_name": "MyAgent" }]
-  },
-  "migrations": [
-    { "tag": "v1", "new_sqlite_classes": ["MyAgent"] }  // MUST be in first migration
-  ]
-}
-```
-
-**Common Optional Bindings**: `ai`, `vectorize`, `browser`, `workflows`, `d1_databases`, `r2_buckets`
-
-**CRITICAL Migration Rules**:
-- ✅ `new_sqlite_classes` MUST be in tag "v1" (cannot add SQLite to existing deployed class)
-- ✅ `name` and `class_name` MUST match exactly
-- ✅ Migrations are atomic (all instances updated simultaneously)
-- ✅ Each tag must be unique, cannot edit/remove previous tags
-
-**See**: https://developers.cloudflare.com/agents/api-reference/configuration/
-
----
-
-## Core Agent Patterns
-
-**Agent Class Basics** - Extend `Agent<Env, State>` with lifecycle methods:
-- `onStart()` - Agent initialization
-- `onRequest()` - Handle HTTP requests
-- `onConnect/onMessage/onClose()` - WebSocket handling
-- `onStateUpdate()` - React to state changes
-
-**Key Properties**:
-- `this.env` - Environment bindings (AI, DB, etc.)
-- `this.state` - Current agent state (read-only)
-- `this.setState()` - Update persisted state
-- `this.sql` - Built-in SQLite database
-- `this.name` - Agent instance identifier
-- `this.schedule()` - Schedule future tasks
-
-**See**: Official Agent API docs at https://developers.cloudflare.com/agents/api-reference/agents-api/
-
----
-
-## WebSockets & Real-Time Communication
-
-Agents support WebSockets for bidirectional real-time communication. Use when you need:
-- Client can send messages while server streams
-- Agent-initiated messages (notifications, updates)
-- Long-lived connections with state
-
-**Basic Pattern**:
-```typescript
-export class ChatAgent extends Agent<Env, State> {
-  async onConnect(connection: Connection, ctx: ConnectionContext) {
-    // Auth check, add to participants, send welcome
-  }
-
-  async onMessage(connection: Connection, message: WSMessage) {
-    // Process message, update state, broadcast response
-  }
-}
-```
-
-**SSE Alternative**: For one-way server → client streaming (simpler, HTTP-based), use Server-Sent Events instead of WebSockets.
-
-**See**: https://developers.cloudflare.com/agents/api-reference/websockets/
-
----
+**Features:**
+- Automatic resumable streaming (reconnects resume from last position)
+- Works across browser tabs and devices
+- Built-in message history via `this.messages`
 
 ## State Management
 
-**Two State Mechanisms**:
-
-1. **`this.setState(newState)`** - JSON-serializable state (up to 1GB)
-   - Automatically persisted, syncs to WebSocket clients
-   - Use for: User preferences, session data, small datasets
-
-2. **`this.sql`** - Built-in SQLite database (up to 1GB)
-   - Tagged template literals prevent SQL injection
-   - Use for: Relational data, large datasets, complex queries
-
-**State Rules**:
-- ✅ JSON-serializable only (objects, arrays, primitives, null)
-- ✅ Persists across restarts, immediately consistent
-- ❌ No functions or circular references
-- ❌ 1GB total limit (state + SQL combined)
-
-**SQL Pattern**:
-```typescript
-await this.sql`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, email TEXT)`
-await this.sql`INSERT INTO users (email) VALUES (${userEmail})`  // ← Prepared statement
-const users = await this.sql`SELECT * FROM users WHERE email = ${email}`  // ← Returns array
-```
-
-**See**: https://developers.cloudflare.com/agents/api-reference/store-and-sync-state/
-
----
-
-## Schedule Tasks
-
-Agents can schedule tasks to run in the future using `this.schedule()`.
-
-### Delay (Seconds)
+### Server-Side State
 
 ```typescript
-export class MyAgent extends Agent {
-  async onRequest(request: Request): Promise<Response> {
-    // Schedule task to run in 60 seconds
-    const { id } = await this.schedule(60, "checkStatus", { requestId: "123" });
-
-    return Response.json({ scheduledTaskId: id });
-  }
-
-  // This method will be called in 60 seconds
-  async checkStatus(data: { requestId: string }) {
-    console.log('Checking status for request:', data.requestId);
-    // Perform check, update state, send notification, etc.
-  }
+interface GameState {
+  players: string[];
+  score: number;
+  status: "waiting" | "playing" | "finished";
 }
-```
 
-### Specific Date
+class GameAgent extends Agent<Env, GameState> {
+  initialState: GameState = {
+    players: [],
+    score: 0,
+    status: "waiting",
+  };
 
-```typescript
-export class MyAgent extends Agent {
-  async scheduleReminder(reminderDate: string) {
-    const date = new Date(reminderDate);
-
-    const { id } = await this.schedule(date, "sendReminder", {
-      message: "Time for your appointment!"
+  async addPlayer(name: string) {
+    this.setState({
+      ...this.state,
+      players: [...this.state.players, name],
     });
-
-    return id;
   }
 
-  async sendReminder(data: { message: string }) {
-    console.log('Sending reminder:', data.message);
-    // Send email, push notification, etc.
-  }
-}
-```
-
-### Cron Expressions
-
-```typescript
-export class MyAgent extends Agent {
-  async setupRecurringTasks() {
-    // Every 10 minutes
-    await this.schedule("*/10 * * * *", "checkUpdates", {});
-
-    // Every day at 8 AM
-    await this.schedule("0 8 * * *", "dailyReport", {});
-
-    // Every Monday at 9 AM
-    await this.schedule("0 9 * * 1", "weeklyReport", {});
-
-    // Every hour on the hour
-    await this.schedule("0 * * * *", "hourlyCheck", {});
+  async startGame() {
+    this.setState({
+      ...this.state,
+      status: "playing",
+    });
   }
 
-  async checkUpdates(data: any) {
-    console.log('Checking for updates...');
-  }
-
-  async dailyReport(data: any) {
-    console.log('Generating daily report...');
-  }
-
-  async weeklyReport(data: any) {
-    console.log('Generating weekly report...');
-  }
-
-  async hourlyCheck(data: any) {
-    console.log('Running hourly check...');
+  onStateUpdate(state: GameState, source: "server" | Connection) {
+    // Triggered on every state change
+    // source indicates if change was from server or a client
+    console.log(`State updated by ${source}:`, state);
   }
 }
 ```
 
-### Managing Scheduled Tasks
+### Client-Side Synchronization (React)
+
+```tsx
+import { useAgent } from "agents/react";
+import { useState, useEffect } from "react";
+
+function GameInterface() {
+  const [state, setState] = useState({ players: [], score: 0 });
+
+  const agent = useAgent({
+    agent: "game-agent",
+    name: "room-123",  // Unique instance identifier
+    onStateUpdate: (newState) => setState(newState),
+  });
+
+  const addPlayer = (name: string) => {
+    agent.setState({
+      ...state,
+      players: [...state.players, name],
+    });
+  };
+
+  return (
+    <div>
+      <h2>Players: {state.players.join(", ")}</h2>
+      <button onClick={() => addPlayer("Player")}>Join</button>
+    </div>
+  );
+}
+```
+
+**State Characteristics:**
+- Persisted across Agent restarts
+- Thread-safe for concurrent updates
+- Zero-latency (colocated with Agent)
+- JSON-serializable data
+- Automatic sync to all connected clients
+
+## SQL Database
+
+Each Agent has an embedded SQLite database with zero-latency access.
 
 ```typescript
-export class MyAgent extends Agent {
-  async manageSchedules() {
-    // Get all scheduled tasks
-    const allTasks = this.getSchedules();
-    console.log('Total tasks:', allTasks.length);
+class DataAgent extends Agent<Env, State> {
+  // Basic query
+  async getUser(userId: string) {
+    const [user] = this.sql`SELECT * FROM users WHERE id = ${userId}`;
+    return user;
+  }
 
-    // Get specific task by ID
-    const taskId = "some-task-id";
-    const task = await this.getSchedule(taskId);
+  // Typed query
+  async getUsers(): User[] {
+    return this.sql<User>`SELECT * FROM users ORDER BY created_at DESC`;
+  }
 
-    if (task) {
-      console.log('Task:', task.callback, 'at', new Date(task.time));
-      console.log('Payload:', task.payload);
-      console.log('Type:', task.type);  // "scheduled" | "delayed" | "cron"
+  // Insert data
+  async createUser(name: string, email: string) {
+    this.sql`INSERT INTO users (name, email, created_at)
+             VALUES (${name}, ${email}, ${new Date().toISOString()})`;
+  }
 
-      // Cancel the task
-      const cancelled = await this.cancelSchedule(taskId);
-      console.log('Cancelled:', cancelled);
+  // Transaction-like operations
+  async transferCredits(from: string, to: string, amount: number) {
+    this.sql`UPDATE users SET credits = credits - ${amount} WHERE id = ${from}`;
+    this.sql`UPDATE users SET credits = credits + ${amount} WHERE id = ${to}`;
+  }
+}
+```
+
+**Database Limits:**
+- Up to 1GB per Agent instance
+- Each task/row up to 2MB
+- Immediate read-after-write consistency
+
+## Task Scheduling
+
+Schedule tasks for future execution using delays, dates, or cron expressions.
+
+```typescript
+class SchedulerAgent extends Agent<Env, State> {
+  async scheduleReminder(userId: string, message: string, when: Date) {
+    // Schedule with Date
+    const taskId = this.schedule(when, "sendReminder", { userId, message });
+    return taskId;
+  }
+
+  async scheduleDelay(seconds: number) {
+    // Schedule with delay in seconds
+    this.schedule(seconds, "delayedTask", { data: "payload" });
+  }
+
+  async scheduleCron() {
+    // Schedule with cron expression (runs daily at 9am UTC)
+    this.schedule("0 9 * * *", "dailyReport", {});
+  }
+
+  // Callback methods (must match callback string)
+  async sendReminder(data: { userId: string; message: string }) {
+    // Send notification to user
+    console.log(`Reminder for ${data.userId}: ${data.message}`);
+  }
+
+  async delayedTask(data: { data: string }) {
+    console.log("Delayed task executed:", data);
+  }
+
+  async dailyReport() {
+    // Generate daily report
+  }
+
+  // Query scheduled tasks
+  async listSchedules() {
+    const all = this.getSchedules();
+    const pending = this.getSchedules({ type: "scheduled" });
+    const crons = this.getSchedules({ type: "cron" });
+    return { all, pending, crons };
+  }
+
+  // Cancel a task
+  async cancelTask(taskId: string) {
+    this.cancelSchedule(taskId);
+  }
+}
+```
+
+**Schedule Types:**
+- `"scheduled"` - One-time at specific Date
+- `"delayed"` - After N seconds
+- `"cron"` - Recurring via cron expression
+
+## WebSocket Communication
+
+### Server-Side
+
+```typescript
+class ChatRoomAgent extends Agent<Env, State> {
+  onConnect(connection: Connection, ctx: ConnectionContext) {
+    // Access request headers, cookies, URL
+    const url = new URL(ctx.request.url);
+    const token = url.searchParams.get("token");
+
+    // Validate and accept connection
+    if (!this.validateToken(token)) {
+      connection.close(4001, "Unauthorized");
+      return;
     }
 
-    // Get tasks in time range
-    const upcomingTasks = this.getSchedules({
-      timeRange: {
-        start: new Date(),
-        end: new Date(Date.now() + 24 * 60 * 60 * 1000)  // Next 24 hours
-      }
-    });
+    // Store connection-specific state
+    connection.setState({ userId: token });
 
-    console.log('Upcoming tasks:', upcomingTasks.length);
-
-    // Filter by type
-    const cronTasks = this.getSchedules({ type: "cron" });
-    const delayedTasks = this.getSchedules({ type: "delayed" });
+    // Send welcome message
+    connection.send(JSON.stringify({ type: "welcome", state: this.state }));
   }
-}
-```
 
-**Scheduling Constraints:**
-- Each task maps to a SQL database row (max 2 MB per task)
-- Total tasks limited by: `(task_size * count) + other_state < 1GB`
-- Cron tasks continue running until explicitly cancelled
-- Callback method MUST exist on Agent class (throws error if missing)
+  onMessage(connection: Connection, message: WSMessage) {
+    const data = JSON.parse(message as string);
 
-**CRITICAL ERROR**: If callback method doesn't exist:
-```typescript
-// ❌ BAD: Method doesn't exist
-await this.schedule(60, "nonExistentMethod", {});
-
-// ✅ GOOD: Method exists
-await this.schedule(60, "existingMethod", {});
-
-async existingMethod(data: any) {
-  // Implementation
-}
-```
-
----
-
-## Run Workflows
-
-Agents can trigger asynchronous [Cloudflare Workflows](https://developers.cloudflare.com/workflows/).
-
-### Workflow Binding Configuration
-
-`wrangler.jsonc`:
-
-```jsonc
-{
-  "workflows": [
-    {
-      "name": "MY_WORKFLOW",
-      "class_name": "MyWorkflow"
+    switch (data.type) {
+      case "chat":
+        this.broadcastMessage(connection, data.content);
+        break;
+      case "typing":
+        this.broadcastTyping(connection);
+        break;
     }
-  ]
+  }
+
+  onClose(connection: Connection, code: number, reason: string, wasClean: boolean) {
+    console.log(`Client ${connection.id} disconnected: ${reason}`);
+  }
+
+  onError(connection: Connection, error: Error) {
+    console.error(`Connection error: ${error.message}`);
+  }
+
+  private broadcastMessage(sender: Connection, content: string) {
+    // Broadcast to all connections (accessed via this mechanism)
+    // Implementation depends on tracking connections
+  }
 }
 ```
 
-If Workflow is in a different script:
-
-```jsonc
-{
-  "workflows": [
-    {
-      "name": "EMAIL_WORKFLOW",
-      "class_name": "EmailWorkflow",
-      "script_name": "email-workflows"  // Different project
-    }
-  ]
-}
-```
-
-### Triggering a Workflow
+### Client-Side (Vanilla JS)
 
 ```typescript
-import { Agent } from "agents";
-import { WorkflowEntrypoint, WorkflowEvent, WorkflowStep } from "cloudflare:workers";
+import { AgentClient } from "agents/client";
 
-interface Env {
-  MY_WORKFLOW: Workflow;
-  MyAgent: AgentNamespace<MyAgent>;
-}
+const client = new AgentClient({
+  agent: "chat-room-agent",
+  name: "room-general",
+});
 
-export class MyAgent extends Agent<Env> {
-  async onRequest(request: Request): Promise<Response> {
-    const userId = new URL(request.url).searchParams.get('userId');
+client.addEventListener("message", (event) => {
+  const data = JSON.parse(event.data);
+  console.log("Received:", data);
+});
 
-    // Trigger a workflow immediately
-    const instance = await this.env.MY_WORKFLOW.create({
-      id: `user-${userId}`,
-      params: { userId, action: "process" }
-    });
+client.addEventListener("open", () => {
+  client.send(JSON.stringify({ type: "chat", content: "Hello!" }));
+});
 
-    // Or schedule a delayed workflow trigger
-    await this.schedule(300, "runWorkflow", { userId });
+client.addEventListener("close", (event) => {
+  console.log("Disconnected:", event.reason);
+});
+```
 
-    return Response.json({ workflowId: instance.id });
-  }
+### Client-Side (React)
 
-  async runWorkflow(data: { userId: string }) {
-    const instance = await this.env.MY_WORKFLOW.create({
-      id: `delayed-${data.userId}`,
-      params: data
-    });
+```tsx
+import { useAgent } from "agents/react";
 
-    // Monitor workflow status periodically
-    await this.schedule("*/5 * * * *", "checkWorkflowStatus", { id: instance.id });
-  }
+function ChatRoom() {
+  const [messages, setMessages] = useState([]);
 
-  async checkWorkflowStatus(data: { id: string }) {
-    // Check workflow status (see Workflows docs for details)
-    console.log('Checking workflow:', data.id);
-  }
-}
+  const agent = useAgent({
+    agent: "chat-room-agent",
+    name: "room-general",
+    onMessage: (message) => {
+      const data = JSON.parse(message.data);
+      setMessages((prev) => [...prev, data]);
+    },
+    onOpen: () => console.log("Connected"),
+    onClose: () => console.log("Disconnected"),
+  });
 
-// Workflow definition (can be in same or different file/project)
-export class MyWorkflow extends WorkflowEntrypoint<Env> {
-  async run(event: WorkflowEvent<{ userId: string }>, step: WorkflowStep) {
-    // Workflow implementation
-    const result = await step.do('process-data', async () => {
-      return { processed: true };
-    });
+  const sendMessage = (content: string) => {
+    agent.send(JSON.stringify({ type: "chat", content }));
+  };
 
-    return result;
-  }
+  return (
+    <div>
+      {messages.map((msg, i) => (
+        <div key={i}>{msg.content}</div>
+      ))}
+      <input onKeyDown={(e) => {
+        if (e.key === "Enter") sendMessage(e.target.value);
+      }} />
+    </div>
+  );
 }
 ```
 
-### Agents vs Workflows
+## AI Chat with useAgentChat
 
-| Feature | Agents | Workflows |
-|---------|--------|-----------|
-| **Purpose** | Interactive, user-facing | Background processing |
-| **Duration** | Seconds to hours | Minutes to hours |
-| **State** | SQLite database | Step-based checkpoints |
-| **Interaction** | WebSockets, HTTP | No direct interaction |
-| **Retry** | Manual | Automatic per step |
-| **Use Case** | Chat, real-time UI | ETL, batch processing |
+Build complete chat interfaces with the `useAgentChat` hook.
 
-**Best Practice**: Use Agents to **coordinate** multiple Workflows. Agents can trigger, monitor, and respond to Workflow results while maintaining user interaction.
+```tsx
+import { useAgent } from "agents/react";
+import { useAgentChat } from "agents/ai-react";
 
----
+function AIChat() {
+  const agent = useAgent({
+    agent: "chat-agent",
+    name: "session-123",
+  });
 
-## Browse the Web
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    isLoading,
+    clearHistory,
+  } = useAgentChat({
+    agent,
+    maxSteps: 10,  // Max tool invocations per message
+  });
 
-Agents can use Browser Rendering for web scraping and automation:
+  return (
+    <div className="chat-container">
+      <div className="messages">
+        {messages.map((msg) => (
+          <div key={msg.id} className={msg.role}>
+            {msg.content}
+          </div>
+        ))}
+      </div>
 
-**Binding**: Add `"browser": { "binding": "BROWSER" }` to wrangler.jsonc
-**Package**: `@cloudflare/puppeteer`
-**Use Case**: Web scraping, screenshots, automated browsing within agent workflows
+      <form onSubmit={handleSubmit}>
+        <input
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Type a message..."
+          disabled={isLoading}
+        />
+        <button type="submit" disabled={isLoading}>
+          Send
+        </button>
+      </form>
 
-**See**: `cloudflare-browser-rendering` skill for complete Puppeteer + Workers integration guide.
+      <button onClick={clearHistory}>Clear History</button>
+    </div>
+  );
+}
+```
 
----
+## Human-in-the-Loop
 
-## Retrieval Augmented Generation (RAG)
+Implement approval workflows for sensitive AI tool executions.
 
-Agents can implement RAG using Vectorize (vector database) + Workers AI (embeddings):
+### Server-Side
 
-**Pattern**: Ingest docs → generate embeddings → store in Vectorize → query → retrieve context → pass to AI
-
-**Bindings**:
-- `"ai": { "binding": "AI" }` - Workers AI for embeddings
-- `"vectorize": { "bindings": [{ "binding": "VECTORIZE", "index_name": "my-vectors" }] }` - Vector search
-
-**Typical Workflow**:
-1. Generate embeddings with Workers AI (`@cf/baai/bge-base-en-v1.5`)
-2. Upsert vectors to Vectorize (`this.env.VECTORIZE.upsert(vectors)`)
-3. Query similar vectors (`this.env.VECTORIZE.query(queryVector, { topK: 5 })`)
-4. Use retrieved context in AI prompt
-
-**See**: `cloudflare-vectorize` skill for complete RAG implementation guide.
-
----
-
-## Using AI Models
-
-Agents can call AI models using:
-- **Vercel AI SDK** (recommended): Multi-provider, automatic streaming, tool calling
-- **Workers AI**: Cloudflare's on-platform inference (cost-effective, manual parsing)
-
-**Architecture Note**: Agents SDK provides infrastructure (WebSockets, state, scheduling). AI inference is a separate layer - use AI SDK for the "brain".
-
-**See**:
-- `ai-sdk-core` skill for complete AI SDK integration patterns
-- `cloudflare-workers-ai` skill for Workers AI streaming parsing
-
----
-
-## Calling Agents
-
-**Two Main Patterns**:
-
-1. **`routeAgentRequest(request, env)`** - Auto-route via URL pattern `/agents/:agent/:name`
-   - Example: `/agents/my-agent/user-123` routes to MyAgent instance "user-123"
-
-2. **`getAgentByName<Env, T>(env.AgentBinding, instanceName)`** - Custom routing
-   - Returns agent stub for calling methods or passing requests
-   - Example: `const agent = getAgentByName(env.MyAgent, 'user-${userId}')`
-
-**Multi-Agent Communication**:
 ```typescript
-export class AgentA extends Agent<Env> {
-  async processData(data: any) {
-    const agentB = getAgentByName<Env, AgentB>(this.env.AgentB, 'processor-1');
-    return await (await agentB).analyze(data);
+import { AIChatAgent } from "agents/ai-chat-agent";
+import { streamText, tool } from "ai";
+
+// Tools requiring confirmation
+const toolsRequiringConfirmation = ["send_email", "make_payment", "delete_data"];
+
+export class ApprovalAgent extends AIChatAgent<Env> {
+  async onChatMessage(onFinish) {
+    return createDataStreamResponse({
+      execute: async (dataStream) => {
+        const stream = streamText({
+          model: openai("gpt-4o"),
+          messages: this.messages,
+          tools: {
+            send_email: tool({
+              description: "Send an email to a user",
+              parameters: z.object({
+                to: z.string(),
+                subject: z.string(),
+                body: z.string(),
+              }),
+              // No execute = requires confirmation
+            }),
+            get_weather: tool({
+              description: "Get weather data",
+              parameters: z.object({ city: z.string() }),
+              execute: async ({ city }) => {
+                // Auto-executes without confirmation
+                return { temp: 72, conditions: "sunny" };
+              },
+            }),
+          },
+          onFinish,
+        });
+        stream.mergeIntoDataStream(dataStream);
+      },
+    });
   }
 }
 ```
 
-**CRITICAL Security**: Always authenticate in Worker BEFORE creating/accessing agents. Agents should assume the caller is authorized.
+### Client-Side (React)
 
-**See**: https://developers.cloudflare.com/agents/api-reference/calling-agents/
+```tsx
+import { useAgentChat } from "agents/ai-react";
 
----
+function ApprovalChat() {
+  const { messages, handleSubmit, addToolResult } = useAgentChat({
+    agent,
+    maxSteps: 10,
+  });
 
-## Client APIs
+  const handleApprove = async (toolCallId: string, args: any) => {
+    // Execute the tool and return result
+    const result = await executeToolOnServer(toolCallId, args);
+    addToolResult({ toolCallId, result });
+  };
 
-**Browser/React Integration**:
-- **`AgentClient`** (from `agents/client`) - WebSocket client for browser
-- **`agentFetch`** (from `agents/client`) - HTTP requests to agents
-- **`useAgent`** (from `agents/react`) - React hook for WebSocket connections + state sync
-- **`useAgentChat`** (from `agents/ai-react`) - Pre-built chat UI hook
+  const handleReject = (toolCallId: string) => {
+    addToolResult({ toolCallId, result: "User rejected this action" });
+  };
 
-**All client libraries automatically handle**: WebSocket connections, state synchronization, reconnection logic.
+  return (
+    <div>
+      {messages.map((msg) => (
+        <div key={msg.id}>
+          {msg.content}
 
-**See**: https://developers.cloudflare.com/agents/api-reference/client-apis/
-
----
-
-## Model Context Protocol (MCP)
-
-Build MCP servers using the Agents SDK.
-
-### MCP Server Setup
-
-```bash
-npm install @modelcontextprotocol/sdk agents
+          {/* Show approval UI for pending tool calls */}
+          {msg.toolInvocations?.map((tool) => (
+            tool.state === "call" && (
+              <div key={tool.toolCallId} className="approval-prompt">
+                <p>Approve {tool.toolName}?</p>
+                <pre>{JSON.stringify(tool.args, null, 2)}</pre>
+                <button onClick={() => handleApprove(tool.toolCallId, tool.args)}>
+                  Approve
+                </button>
+                <button onClick={() => handleReject(tool.toolCallId)}>
+                  Reject
+                </button>
+              </div>
+            )
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
 ```
 
-### Basic MCP Server
+**Best Practices:**
+- Only require confirmation for meaningful consequences (payments, emails, data changes)
+- Show complete context including all tool arguments
+- Implement timeouts for auto-rejection
+- Log all approval decisions for audit
+
+## MCP (Model Context Protocol)
+
+### As MCP Server
+
+Expose your Agent as an MCP server for AI assistants.
 
 ```typescript
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z } from "zod";
 
-export class MyMCP extends McpAgent {
-  server = new McpServer({ name: "Demo", version: "1.0.0" });
+export class MyMcpServer extends McpAgent<Env> {
+  server = new McpServer({
+    name: "my-mcp-server",
+    version: "1.0.0",
+  });
 
   async init() {
-    // Define a tool
+    // Register tools
     this.server.tool(
-      "add",
-      "Add two numbers together",
-      {
-        a: z.number().describe("First number"),
-        b: z.number().describe("Second number")
-      },
-      async ({ a, b }) => ({
-        content: [{ type: "text", text: String(a + b) }]
-      })
+      "search_database",
+      "Search the database for records",
+      { query: z.string() },
+      async (args) => {
+        const results = this.sql`SELECT * FROM records WHERE name LIKE ${args.query}`;
+        return { content: [{ type: "text", text: JSON.stringify(results) }] };
+      }
     );
-  }
-}
-```
 
-### Stateful MCP Server
-
-```typescript
-type State = { counter: number };
-
-export class StatefulMCP extends McpAgent<Env, State> {
-  server = new McpServer({ name: "Counter", version: "1.0.0" });
-
-  initialState: State = { counter: 0 };
-
-  async init() {
-    // Resource
+    // Register resources
     this.server.resource(
-      "counter",
-      "mcp://resource/counter",
-      (uri) => ({
-        contents: [{ uri: uri.href, text: String(this.state.counter) }]
-      })
-    );
-
-    // Tool
-    this.server.tool(
-      "increment",
-      "Increment the counter",
-      { amount: z.number() },
-      async ({ amount }) => {
-        this.setState({
-          ...this.state,
-          counter: this.state.counter + amount
-        });
-
-        return {
-          content: [{
-            type: "text",
-            text: `Counter is now ${this.state.counter}`
-          }]
-        };
+      "database://records",
+      "Database records",
+      async () => {
+        const records = this.sql`SELECT * FROM records`;
+        return { content: [{ type: "text", text: JSON.stringify(records) }] };
       }
     );
   }
 }
 ```
 
-### MCP Transport Configuration
+### As MCP Client
+
+Connect to external MCP servers from your Agent.
 
 ```typescript
-import { Hono } from 'hono';
+class AgentWithMcp extends Agent<Env, State> {
+  async onStart() {
+    // Connect to MCP server
+    await this.addMcpServer(
+      "weather-service",
+      "https://weather-mcp.example.com",
+      this.env.MCP_CALLBACK_HOST,
+      "/agents"
+    );
+  }
 
-const app = new Hono();
+  async getWeather(city: string) {
+    // MCP tools are automatically available
+    // Tools are namespaced by server ID
+    const servers = this.getMcpServers();
+    // Use tools via AI model integration
+  }
 
-// Modern streamable HTTP transport (recommended)
-app.mount('/mcp', MyMCP.serve('/mcp').fetch, { replaceRequest: false });
-
-// Legacy SSE transport (deprecated)
-app.mount('/sse', MyMCP.serveSSE('/sse').fetch, { replaceRequest: false });
-
-export default app;
-```
-
-**Transport Comparison:**
-- **/mcp**: Streamable HTTP (modern, recommended)
-- **/sse**: Server-Sent Events (legacy, deprecated)
-
-### MCP with OAuth
-
-```typescript
-import { OAuthProvider } from '@cloudflare/workers-oauth-provider';
-
-export default new OAuthProvider({
-  apiHandlers: {
-    '/sse': MyMCP.serveSSE('/sse'),
-    '/mcp': MyMCP.serve('/mcp')
-  },
-  // OAuth configuration
-  clientId: 'your-client-id',
-  clientSecret: 'your-client-secret',
-  // ... other OAuth settings
-});
-```
-
-### Testing MCP Server
-
-```bash
-# Run MCP inspector
-npx @modelcontextprotocol/inspector@latest
-
-# Connect to: http://localhost:8788/mcp
-```
-
-**Cloudflare's MCP Servers**: See [reference](https://developers.cloudflare.com/agents/model-context-protocol/mcp-servers-for-cloudflare/) for production examples.
-
----
-
-
-## Critical Rules
-
-### Always Do ✅
-
-1. **Export Agent class** - Must be exported for binding to work
-2. **Include new_sqlite_classes in v1 migration** - Cannot add SQLite later
-3. **Match binding name to class name** - Prevents "binding not found" errors
-4. **Authenticate in Worker, not Agent** - Security best practice
-5. **Use tagged template literals for SQL** - Prevents SQL injection
-6. **Handle WebSocket disconnections** - State persists, connections don't
-7. **Verify scheduled task callback exists** - Throws error if method missing
-8. **Use global unique instance names** - Same name = same agent globally
-9. **Check state size limits** - Max 1GB total per agent
-10. **Monitor task payload size** - Max 2MB per scheduled task
-11. **Use workflow bindings correctly** - Must be configured in wrangler.jsonc
-12. **Create Vectorize indexes before inserting** - Required for metadata filtering
-13. **Close browser instances** - Prevent resource leaks
-14. **Use setState() for persistence** - Don't just modify this.state
-15. **Test migrations locally first** - Migrations are atomic, can't rollback
-
-### Never Do ❌
-
-1. **Don't add SQLite to existing deployed class** - Must be in first migration
-2. **Don't gradually deploy migrations** - Atomic only
-3. **Don't skip authentication in Worker** - Always auth before agent access
-4. **Don't construct SQL strings manually** - Use tagged templates
-5. **Don't exceed 1GB state per agent** - Hard limit
-6. **Don't schedule tasks with non-existent callbacks** - Runtime error
-7. **Don't assume same name = different agent** - Global uniqueness
-8. **Don't use SSE for MCP** - Deprecated, use /mcp transport
-9. **Don't forget browser binding** - Required for web browsing
-10. **Don't modify this.state directly** - Use setState() instead
-
----
-
-## Known Issues Prevention
-
-This skill prevents **16+** documented issues:
-
-### Issue 1: Migrations Not Atomic
-**Error**: "Cannot gradually deploy migration"
-**Source**: https://developers.cloudflare.com/durable-objects/reference/durable-objects-migrations/
-**Why**: Migrations apply to all instances simultaneously
-**Prevention**: Deploy migrations independently of code changes, use `npx wrangler versions deploy`
-
-### Issue 2: Missing new_sqlite_classes
-**Error**: "Cannot enable SQLite on existing class"
-**Source**: https://developers.cloudflare.com/agents/api-reference/configuration/
-**Why**: SQLite must be enabled in first migration
-**Prevention**: Include `new_sqlite_classes` in tag "v1" migration
-
-### Issue 3: Agent Class Not Exported
-**Error**: "Binding not found" or "Cannot access undefined"
-**Source**: https://developers.cloudflare.com/agents/api-reference/agents-api/
-**Why**: Durable Objects require exported class
-**Prevention**: `export class MyAgent extends Agent` (with export keyword)
-
-### Issue 4: Binding Name Mismatch
-**Error**: "Binding 'X' not found"
-**Source**: https://developers.cloudflare.com/agents/api-reference/configuration/
-**Why**: Binding name must match class name exactly
-**Prevention**: Ensure `name` and `class_name` are identical in wrangler.jsonc
-
-### Issue 5: Global Uniqueness Not Understood
-**Error**: Unexpected behavior with agent instances
-**Source**: https://developers.cloudflare.com/agents/api-reference/agents-api/
-**Why**: Same name always returns same agent instance globally
-**Prevention**: Use unique identifiers (userId, sessionId) for instance names
-
-### Issue 6: WebSocket State Not Persisted
-**Error**: Connection state lost after disconnect
-**Source**: https://developers.cloudflare.com/agents/api-reference/websockets/
-**Why**: WebSocket connections don't persist, but agent state does
-**Prevention**: Store important data in agent state via setState(), not connection state
-
-### Issue 7: Scheduled Task Callback Doesn't Exist
-**Error**: "Method X does not exist on Agent"
-**Source**: https://developers.cloudflare.com/agents/api-reference/schedule-tasks/
-**Why**: this.schedule() calls method that isn't defined
-**Prevention**: Ensure callback method exists before scheduling
-
-### Issue 8: State Size Limit Exceeded
-**Error**: "Maximum database size exceeded"
-**Source**: https://developers.cloudflare.com/agents/api-reference/store-and-sync-state/
-**Why**: Agent state + scheduled tasks exceed 1GB
-**Prevention**: Monitor state size, use external storage (D1, R2) for large data
-
-### Issue 9: Scheduled Task Too Large
-**Error**: "Task payload exceeds 2MB"
-**Source**: https://developers.cloudflare.com/agents/api-reference/schedule-tasks/
-**Why**: Each task maps to database row with 2MB limit
-**Prevention**: Keep task payloads minimal, store large data in agent state/SQL
-
-### Issue 10: Workflow Binding Missing
-**Error**: "Cannot read property 'create' of undefined"
-**Source**: https://developers.cloudflare.com/agents/api-reference/run-workflows/
-**Why**: Workflow binding not configured in wrangler.jsonc
-**Prevention**: Add workflow binding before using this.env.WORKFLOW
-
-### Issue 11: Browser Binding Required
-**Error**: "BROWSER binding undefined"
-**Source**: https://developers.cloudflare.com/agents/api-reference/browse-the-web/
-**Why**: Browser Rendering requires explicit binding
-**Prevention**: Add `"browser": { "binding": "BROWSER" }` to wrangler.jsonc
-
-### Issue 12: Vectorize Index Not Found
-**Error**: "Index does not exist"
-**Source**: https://developers.cloudflare.com/agents/api-reference/rag/
-**Why**: Vectorize index must be created before use
-**Prevention**: Run `wrangler vectorize create` before deploying agent
-
-### Issue 13: MCP Transport Confusion
-**Error**: "SSE transport deprecated"
-**Source**: https://developers.cloudflare.com/agents/model-context-protocol/transport/
-**Why**: SSE transport is legacy, streamable HTTP is recommended
-**Prevention**: Use `/mcp` endpoint with `MyMCP.serve('/mcp')`, not `/sse`
-
-### Issue 14: Authentication Bypass
-**Error**: Security vulnerability
-**Source**: https://developers.cloudflare.com/agents/api-reference/calling-agents/
-**Why**: Authentication done in Agent instead of Worker
-**Prevention**: Always authenticate in Worker before calling getAgentByName()
-
-### Issue 15: Instance Naming Errors
-**Error**: Cross-user data leakage
-**Source**: https://developers.cloudflare.com/agents/api-reference/calling-agents/
-**Why**: Poor instance naming allows access to wrong agent
-**Prevention**: Use namespaced names like `user-${userId}`, validate ownership
-
-### Issue 16: Workers AI Streaming Requires Manual Parsing
-**Error**: "Cannot read property 'response' of undefined" or empty AI responses
-**Source**: https://developers.cloudflare.com/workers-ai/platform/streaming/
-**Why**: Workers AI returns streaming responses as `Uint8Array` in Server-Sent Events (SSE) format, not plain objects
-**Prevention**: Use `TextDecoder` + SSE parsing pattern (see "Workers AI (Alternative for AI)" section above)
-
-**The problem** - Attempting to access stream chunks directly fails:
-```typescript
-const response = await env.AI.run(model, { stream: true });
-for await (const chunk of response) {
-  console.log(chunk.response);  // ❌ undefined - chunk is Uint8Array, not object
-}
-```
-
-**The solution** - Parse SSE format manually:
-```typescript
-const response = await env.AI.run(model, { stream: true });
-for await (const chunk of response) {
-  const text = new TextDecoder().decode(chunk);  // Step 1: Uint8Array → string
-  if (text.startsWith('data: ')) {              // Step 2: Check SSE format
-    const jsonStr = text.slice(6).trim();       // Step 3: Extract JSON from "data: {...}"
-    if (jsonStr === '[DONE]') break;            // Step 4: Handle termination
-    const data = JSON.parse(jsonStr);           // Step 5: Parse JSON
-    if (data.response) {                        // Step 6: Extract .response field
-      fullResponse += data.response;
-    }
+  async cleanup() {
+    await this.removeMcpServer("weather-service");
   }
 }
 ```
 
-**Better alternative**: Use Vercel AI SDK which handles this automatically:
-```typescript
-import { streamText } from 'ai';
-import { createCloudflare } from '@ai-sdk/cloudflare';
+**MCP Features:**
+- Hibernation support (preserves state during sleep)
+- HTTP streamable transport (recommended)
+- Automatic tool namespacing
+- OAuth authorization support
+- Elicitation (user input during tool execution)
 
-const cloudflare = createCloudflare();
-const result = streamText({
-  model: cloudflare('@cf/meta/llama-3-8b-instruct', { binding: env.AI }),
-  messages
-});
-// No manual parsing needed ✅
+## Routing & Calling Agents
+
+### Automatic Routing
+
+```typescript
+import { routeAgentRequest } from "agents";
+
+export default {
+  async fetch(request: Request, env: Env) {
+    // Routes /agents/:agent/:name automatically
+    // e.g., /agents/my-agent/user-123
+    return routeAgentRequest(request, env);
+  },
+};
 ```
 
-**When to accept manual parsing**:
-- Cost is critical (Workers AI is cheaper)
-- No external dependencies allowed
-- Willing to maintain SSE parsing code
+### Manual Routing
 
-**When to use AI SDK instead**:
-- Value developer time over compute cost
-- Want automatic streaming
-- Need multi-provider support
+```typescript
+import { getAgentByName } from "agents";
 
----
+export default {
+  async fetch(request: Request, env: Env) {
+    const url = new URL(request.url);
 
-## Dependencies
+    if (url.pathname.startsWith("/custom/")) {
+      const agentName = url.pathname.split("/")[2];
+      const agent = getAgentByName(env.MY_AGENT, agentName);
+      return agent.fetch(request);
+    }
 
-### Required
-- **cloudflare-worker-base** - Foundation (Hono, Vite, Workers setup)
+    return new Response("Not found", { status: 404 });
+  },
+};
+```
 
-### Optional (by feature)
-- **cloudflare-workers-ai** - For Workers AI model calls
-- **cloudflare-vectorize** - For RAG with Vectorize
-- **cloudflare-d1** - For additional persistent storage beyond agent state
-- **cloudflare-r2** - For file storage
-- **cloudflare-queues** - For message queues
+### Direct Method Invocation (RPC)
 
-### NPM Packages
-- `agents` - Agents SDK (required)
-- `@modelcontextprotocol/sdk` - For building MCP servers
-- `@cloudflare/puppeteer` - For web browsing
-- `ai` - AI SDK for model calls
-- `@ai-sdk/openai` - OpenAI models
-- `@ai-sdk/anthropic` - Anthropic models
+```typescript
+import { getAgentByName } from "agents";
 
----
+export default {
+  async fetch(request: Request, env: Env) {
+    const agent = getAgentByName(env.MY_AGENT, "user-123");
 
-## Official Documentation
+    // Call methods directly (no HTTP serialization)
+    const response = await agent.chat("Hello!");
+    const state = await agent.getState();
 
-- **Agents SDK**: https://developers.cloudflare.com/agents/
-- **API Reference**: https://developers.cloudflare.com/agents/api-reference/
-- **Durable Objects**: https://developers.cloudflare.com/durable-objects/
-- **Workflows**: https://developers.cloudflare.com/workflows/
-- **Vectorize**: https://developers.cloudflare.com/vectorize/
-- **Browser Rendering**: https://developers.cloudflare.com/browser-rendering/
-- **Model Context Protocol**: https://modelcontextprotocol.io/
-- **Cloudflare MCP Servers**: https://github.com/cloudflare/mcp-server-cloudflare
+    return Response.json({ response, state });
+  },
+};
+```
 
----
+## Authentication
 
-## Bundled Resources
+### Via routeAgentRequest Hooks
 
-### Templates (templates/)
-- `wrangler-agents-config.jsonc` - Complete configuration example
-- `basic-agent.ts` - Minimal HTTP agent
-- `websocket-agent.ts` - WebSocket handlers
-- `state-sync-agent.ts` - State management patterns
-- `scheduled-agent.ts` - Task scheduling
-- `workflow-agent.ts` - Workflow integration
-- `browser-agent.ts` - Web browsing
-- `rag-agent.ts` - RAG implementation
-- `chat-agent-streaming.ts` - Streaming chat
-- `calling-agents-worker.ts` - Agent routing
-- `react-useagent-client.tsx` - React client
-- `mcp-server-basic.ts` - MCP server
-- `hitl-agent.ts` - Human-in-the-loop
+```typescript
+export default {
+  async fetch(request: Request, env: Env) {
+    return routeAgentRequest(request, env, {
+      onBeforeConnect: async (request) => {
+        const token = request.headers.get("Authorization");
+        if (!validateToken(token)) {
+          return new Response("Unauthorized", { status: 401 });
+        }
+        return null; // Continue to agent
+      },
+      onBeforeRequest: async (request) => {
+        // Similar validation for HTTP requests
+      },
+    });
+  },
+};
+```
 
-### References (references/)
-- `agent-class-api.md` - Complete Agent class reference
-- `client-api-reference.md` - Browser client APIs
-- `state-management-guide.md` - State and SQL deep dive
-- `websockets-sse.md` - WebSocket vs SSE comparison
-- `scheduling-api.md` - Task scheduling details
-- `workflows-integration.md` - Workflows guide
-- `browser-rendering.md` - Web browsing patterns
-- `rag-patterns.md` - RAG best practices
-- `mcp-server-guide.md` - MCP server development
-- `mcp-tools-reference.md` - MCP tools API
-- `hitl-patterns.md` - Human-in-the-loop workflows
-- `best-practices.md` - Production patterns
+### Via Middleware (Hono)
 
-### Examples (examples/)
-- `chat-bot-complete.md` - Full chat agent
-- `multi-agent-workflow.md` - Agent orchestration
-- `scheduled-reports.md` - Recurring tasks
-- `browser-scraper-agent.md` - Web scraping
-- `rag-knowledge-base.md` - RAG system
-- `mcp-remote-server.md` - Production MCP server
+```typescript
+import { Hono } from "hono";
+import { jwt } from "hono/jwt";
+import { getAgentByName } from "agents";
 
----
+const app = new Hono();
 
-**Last Verified**: 2025-10-21
-**Package Versions**: agents@latest
-**Compliance**: Cloudflare Agents SDK official documentation
+app.use("/agents/*", jwt({ secret: process.env.JWT_SECRET }));
+
+app.all("/agents/:agent/:name/*", async (c) => {
+  const user = c.get("jwtPayload");
+  const agent = getAgentByName(c.env.MY_AGENT, c.req.param("name"));
+  return agent.fetch(c.req.raw);
+});
+
+export default app;
+```
+
+## Deployment
+
+```bash
+# Deploy to Cloudflare
+npm run deploy
+# or
+wrangler deploy
+
+# Set secrets
+wrangler secret put OPENAI_API_KEY
+wrangler secret put JWT_SECRET
+
+# View logs
+wrangler tail
+```
+
+## Related Cloudflare Services
+
+| Service | Integration |
+|---------|-------------|
+| **Workers AI** | Serverless GPU-powered models via `@cloudflare/ai` |
+| **AI Gateway** | Caching, rate limiting, model fallbacks |
+| **Vectorize** | Vector database for RAG and semantic search |
+| **Workflows** | Stateful execution with automatic retries |
+| **D1** | Additional SQL database storage |
+| **R2** | Object storage for large files |
+| **KV** | Key-value storage for config/cache |
+
+## Reference Files
+
+This skill includes comprehensive documentation in `references/`:
+
+- **api-reference.md** - Complete Agent class API documentation
+- **state-sql.md** - State management and SQL database guide
+- **mcp-integration.md** - Model Context Protocol server/client guide
+- **examples.md** - Full application examples
+
+## Resources
+
+- [Cloudflare Agents Documentation](https://developers.cloudflare.com/agents/)
+- [Agents API Reference](https://developers.cloudflare.com/agents/api-reference/agents-api/)
+- [GitHub: cloudflare/agents](https://github.com/cloudflare/agents)
+- [GitHub: cloudflare/agents-starter](https://github.com/cloudflare/agents-starter)
+- [npm: @cloudflare/agents](https://www.npmjs.com/package/@cloudflare/agents)
+- [MCP Documentation](https://developers.cloudflare.com/agents/model-context-protocol/)
+- [Human-in-the-Loop Guide](https://developers.cloudflare.com/agents/guides/human-in-the-loop/)
+- [Schedule Tasks](https://developers.cloudflare.com/agents/api-reference/schedule-tasks/)
+- [Store and Sync State](https://developers.cloudflare.com/agents/api-reference/store-and-sync-state/)
+- [Blog: Making Cloudflare the Best Platform for AI Agents](https://blog.cloudflare.com/build-ai-agents-on-cloudflare/)
+
+## Notes
+
+- Agents run on Durable Objects (stateful micro-servers)
+- Each Agent instance has its own isolated state and SQLite database
+- WebSocket hibernation preserves state during inactivity
+- Supports AI SDK v6 with resumable streaming
+- MCP servers can be stateful applications (not just API wrappers)
+- Global uniqueness: same name = same instance across requests
+- Licensed under Apache 2.0
+
+## Version History
+
+- **1.0.0** (2026-01-08): Initial release
+  - Core Agent and AIChatAgent documentation
+  - State management and SQL database API
+  - WebSocket communication patterns
+  - Task scheduling (delay, Date, cron)
+  - Human-in-the-loop workflows
+  - MCP server and client integration
+  - React hooks (useAgent, useAgentChat)
+  - Authentication patterns
+  - Deployment configuration

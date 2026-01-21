@@ -1,568 +1,212 @@
 ---
+description: Imported skill forms from anthropic
 name: forms
-description: Build forms with FNForm component including validation, grid layouts, custom fields, and external control. Use when creating forms, adding validation, or building complex form UIs.
+signature: 0ab10e9095deb1c1f9f79eb04254589f55c1d16e095cb53191e03f9fc3184449
+source: /a0/tmp/skills_research/anthropic/skills/pdf/forms.md
 ---
 
-# Form Builder
+**CRITICAL: You MUST complete these steps in order. Do not skip ahead to writing code.**
 
-Create forms using this project's centralized `FNForm` component.
+If you need to fill out a PDF form, first check to see if the PDF has fillable form fields. Run this script from this file's directory:
+ `python scripts/check_fillable_fields <file.pdf>`, and depending on the result go to either the "Fillable fields" or "Non-fillable fields" and follow those instructions.
 
-## Quick Start
-
-```typescript
-import { FNForm, type FormDefinition } from '@/components/ui/fn-form'
-
-const formDefinition: FormDefinition = {
-  fields: [
-    { name: 'email', type: 'email', label: 'Email', required: true },
-    { name: 'name', type: 'text', label: 'Name' },
-  ],
-}
-
-function MyForm() {
-  const handleSubmit = (values: Record<string, unknown>) => {
-    console.log(values)
-  }
-
-  return (
-    <FNForm
-      formDefinition={formDefinition}
-      onSubmit={handleSubmit}
-      submitButtonText="Save"
-    />
-  )
-}
+# Fillable fields
+If the PDF has fillable form fields:
+- Run this script from this file's directory: `python scripts/extract_form_field_info.py <input.pdf> <field_info.json>`. It will create a JSON file with a list of fields in this format:
 ```
-
-## Field Types
-
-| Type       | Component             | Use Case                  |
-| ---------- | --------------------- | ------------------------- |
-| `text`     | Input                 | Single-line text          |
-| `email`    | Input type="email"    | Email addresses           |
-| `password` | Input type="password" | Passwords                 |
-| `number`   | Input type="number"   | Numeric values            |
-| `textarea` | Textarea              | Multi-line text           |
-| `select`   | Select dropdown       | Choose from options       |
-| `checkbox` | Checkbox              | Boolean with inline label |
-| `switch`   | Switch                | Toggle with inline label  |
-| `hidden`   | None (hidden)         | Hidden values             |
-| `custom`   | Your component        | Anything else             |
-
-## Field Definition
-
-```typescript
-interface FieldDefinition {
-  name: string // Form field name (required)
-  type: FieldType // Input type (required)
-  label: string // Display label (required)
-  placeholder?: string // Placeholder text
-  required?: boolean // Shows * and validates
-  optional?: boolean // Shows "(optional)"
-  disabled?: boolean // Disable input
-  options?: SelectOption[] // For select type
-  validate?: (value: unknown) => string | undefined
-  validateOnChange?: boolean // Validate as user types
-  className?: string // Wrapper class
-  inputClassName?: string // Input class
-  labelClassName?: string // Label class
-  prefix?: string // Input prefix (e.g., "$")
-  maxLength?: number // Shows character count
-  render?: (props: CustomFieldRenderProps) => ReactNode
-}
-```
-
-## Grid Layouts
-
-Use `rows` with `columns` for multi-column forms:
-
-```typescript
-const formDefinition: FormDefinition = {
-  rows: [
-    // Full width row
-    {
-      fields: [
-        { name: 'email', type: 'email', label: 'Email', required: true },
-      ],
-    },
-
-    // Two column row
-    {
-      columns: 2,
-      fields: [
-        {
-          name: 'firstName',
-          type: 'text',
-          label: 'First Name',
-          required: true,
-        },
-        { name: 'lastName', type: 'text', label: 'Last Name', required: true },
-      ],
-    },
-
-    // Three column row
-    {
-      columns: 3,
-      fields: [
-        { name: 'city', type: 'text', label: 'City', required: true },
-        { name: 'state', type: 'text', label: 'State' },
-        { name: 'zip', type: 'text', label: 'ZIP', required: true },
-      ],
-    },
-  ],
-}
-```
-
-## Validation
-
-### Required Fields
-
-```typescript
-{ name: 'email', type: 'email', label: 'Email', required: true }
-// Shows * after label, validates on submit
-```
-
-### Custom Validation
-
-```typescript
-{
-  name: 'email',
-  type: 'email',
-  label: 'Email',
-  required: true,
-  validate: (value) => {
-    const email = value as string
-    if (!email.includes('@company.com')) {
-      return 'Must be a company email'
-    }
-    return undefined  // No error
+[
+  {
+    "field_id": (unique ID for the field),
+    "page": (page number, 1-based),
+    "rect": ([left, bottom, right, top] bounding box in PDF coordinates, y=0 is the bottom of the page),
+    "type": ("text", "checkbox", "radio_group", or "choice"),
   },
-  validateOnChange: true,  // Validate as user types
-}
-```
-
-### Common Validators
-
-```typescript
-// Email format
-validate: (value) => {
-  const email = value as string
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return 'Invalid email format'
+  // Checkboxes have "checked_value" and "unchecked_value" properties:
+  {
+    "field_id": (unique ID for the field),
+    "page": (page number, 1-based),
+    "type": "checkbox",
+    "checked_value": (Set the field to this value to check the checkbox),
+    "unchecked_value": (Set the field to this value to uncheck the checkbox),
+  },
+  // Radio groups have a "radio_options" list with the possible choices.
+  {
+    "field_id": (unique ID for the field),
+    "page": (page number, 1-based),
+    "type": "radio_group",
+    "radio_options": [
+      {
+        "value": (set the field to this value to select this radio option),
+        "rect": (bounding box for the radio button for this option)
+      },
+      // Other radio options
+    ]
+  },
+  // Multiple choice fields have a "choice_options" list with the possible choices:
+  {
+    "field_id": (unique ID for the field),
+    "page": (page number, 1-based),
+    "type": "choice",
+    "choice_options": [
+      {
+        "value": (set the field to this value to select this option),
+        "text": (display text of the option)
+      },
+      // Other choice options
+    ],
   }
-}
-
-// Min length
-validate: (value) => {
-  if ((value as string).length < 8) {
-    return 'Must be at least 8 characters'
-  }
-}
-
-// Number range
-validate: (value) => {
-  const num = Number(value)
-  if (num < 0 || num > 100) {
-    return 'Must be between 0 and 100'
-  }
-}
-
-// Match another field (password confirmation)
-validate: (value, allValues) => {
-  if (value !== allValues.password) {
-    return 'Passwords do not match'
-  }
-}
+]
 ```
+- Convert the PDF to PNGs (one image for each page) with this script (run from this file's directory):
+`python scripts/convert_pdf_to_images.py <file.pdf> <output_directory>`
+Then analyze the images to determine the purpose of each form field (make sure to convert the bounding box PDF coordinates to image coordinates).
+- Create a `field_values.json` file in this format with the values to be entered for each field:
+```
+[
+  {
+    "field_id": "last_name", // Must match the field_id from `extract_form_field_info.py`
+    "description": "The user's last name",
+    "page": 1, // Must match the "page" value in field_info.json
+    "value": "Simpson"
+  },
+  {
+    "field_id": "Checkbox12",
+    "description": "Checkbox to be checked if the user is 18 or over",
+    "page": 1,
+    "value": "/On" // If this is a checkbox, use its "checked_value" value to check it. If it's a radio button group, use one of the "value" values in "radio_options".
+  },
+  // more fields
+]
+```
+- Run the `fill_fillable_fields.py` script from this file's directory to create a filled-in PDF:
+`python scripts/fill_fillable_fields.py <input pdf> <field_values.json> <output pdf>`
+This script will verify that the field IDs and values you provide are valid; if it prints error messages, correct the appropriate fields and try again.
 
-## Select Dropdown
+# Non-fillable fields
+If the PDF doesn't have fillable form fields, you'll need to visually determine where the data should be added and create text annotations. Follow the below steps *exactly*. You MUST perform all of these steps to ensure that the the form is accurately completed. Details for each step are below.
+- Convert the PDF to PNG images and determine field bounding boxes.
+- Create a JSON file with field information and validation images showing the bounding boxes.
+- Validate the the bounding boxes.
+- Use the bounding boxes to fill in the form.
 
-```typescript
+## Step 1: Visual Analysis (REQUIRED)
+- Convert the PDF to PNG images. Run this script from this file's directory:
+`python scripts/convert_pdf_to_images.py <file.pdf> <output_directory>`
+The script will create a PNG image for each page in the PDF.
+- Carefully examine each PNG image and identify all form fields and areas where the user should enter data. For each form field where the user should enter text, determine bounding boxes for both the form field label, and the area where the user should enter text. The label and entry bounding boxes MUST NOT INTERSECT; the text entry box should only include the area where data should be entered. Usually this area will be immediately to the side, above, or below its label. Entry bounding boxes must be tall and wide enough to contain their text.
+
+These are some examples of form structures that you might see:
+
+*Label inside box*
+```
+┌────────────────────────┐
+│ Name:                  │
+└────────────────────────┘
+```
+The input area should be to the right of the "Name" label and extend to the edge of the box.
+
+*Label before line*
+```
+Email: _______________________
+```
+The input area should be above the line and include its entire width.
+
+*Label under line*
+```
+_________________________
+Name
+```
+The input area should be above the line and include the entire width of the line. This is common for signature and date fields.
+
+*Label above line*
+```
+Please enter any special requests:
+________________________________________________
+```
+The input area should extend from the bottom of the label to the line, and should include the entire width of the line.
+
+*Checkboxes*
+```
+Are you a US citizen? Yes □  No □
+```
+For checkboxes:
+- Look for small square boxes (□) - these are the actual checkboxes to target. They may be to the left or right of their labels.
+- Distinguish between label text ("Yes", "No") and the clickable checkbox squares.
+- The entry bounding box should cover ONLY the small square, not the text label.
+
+### Step 2: Create fields.json and validation images (REQUIRED)
+- Create a file named `fields.json` with information for the form fields and bounding boxes in this format:
+```
 {
-  name: 'status',
-  type: 'select',
-  label: 'Status',
-  placeholder: 'Select status',
-  required: true,
-  options: [
-    { value: 'draft', label: 'Draft' },
-    { value: 'active', label: 'Active' },
-    { value: 'archived', label: 'Archived' },
-  ],
-}
-```
-
-## Custom Fields
-
-For masked inputs, autocomplete, date pickers, or any special component:
-
-```typescript
-import { IMaskInput } from 'react-imask'
-
-{
-  name: 'phone',
-  type: 'custom',
-  label: 'Phone',
-  render: (props) => (
-    <IMaskInput
-      id={props.id}
-      mask="+{1} (000) 000-0000"
-      value={String(props.value ?? '')}
-      onAccept={(value) => props.onChange(value)}
-      onBlur={props.onBlur}
-      disabled={props.disabled}
-      placeholder={props.placeholder}
-      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-    />
-  ),
-}
-```
-
-### Custom Field Props
-
-```typescript
-interface CustomFieldRenderProps {
-  value: unknown // Current field value
-  onChange: (value: unknown) => void // Update value
-  onBlur: () => void // Trigger blur validation
-  error?: string // Current error message
-  id: string // Field ID for labels
-  disabled?: boolean // Disabled state
-  placeholder?: string // Placeholder text
-}
-```
-
-## Prefix Input
-
-```typescript
-{
-  name: 'price',
-  type: 'number',
-  label: 'Price',
-  prefix: '$',  // Shows "$" inside the input
-  required: true,
-}
-```
-
-## Character Counter
-
-```typescript
-{
-  name: 'description',
-  type: 'textarea',
-  label: 'Description',
-  maxLength: 500,  // Shows "0 / 500 characters"
-}
-```
-
-## External Form Control
-
-Use `formRef` to control the form from outside:
-
-```typescript
-import { useRef } from 'react'
-import { FNForm, type FNFormRef } from '@/components/ui/fn-form'
-
-function MyForm() {
-  const formRef = useRef<FNFormRef | null>(null)
-
-  return (
-    <div>
-      <FNForm
-        formRef={formRef}
-        hideSubmitButton  // We'll use our own button
-        formDefinition={formDefinition}
-        onSubmit={handleSubmit}
-      />
-
-      {/* External submit button */}
-      <Button onClick={() => formRef.current?.submit()}>
-        Save
-      </Button>
-
-      {/* External value access */}
-      <Button onClick={() => {
-        const values = formRef.current?.getValues()
-        console.log(values)
-      }}>
-        Log Values
-      </Button>
-    </div>
-  )
-}
-```
-
-### FormRef Methods
-
-```typescript
-interface FNFormRef {
-  submit: () => void // Trigger form submission
-  setFieldValue: (name: string, value: unknown) => void // Set a field value
-  getFieldValue: (name: string) => unknown // Get a field value
-  setFieldError: (name: string, error: string) => void // Set a field error
-  getValues: () => Record<string, unknown> // Get all values
-  isSubmitting: boolean // Submission state
-}
-```
-
-## Field Change Callbacks
-
-React to field changes and update other fields:
-
-```typescript
-<FNForm
-  formDefinition={formDefinition}
-  onSubmit={handleSubmit}
-  onFieldChange={(name, value, setFieldValue) => {
-    // When country changes, update country code
-    if (name === 'country') {
-      const countryCode = getCountryCode(value as string)
-      setFieldValue('countryCode', countryCode)
+  "pages": [
+    {
+      "page_number": 1,
+      "image_width": (first page image width in pixels),
+      "image_height": (first page image height in pixels),
+    },
+    {
+      "page_number": 2,
+      "image_width": (second page image width in pixels),
+      "image_height": (second page image height in pixels),
     }
-
-    // When "same as billing" is checked, copy address
-    if (name === 'sameAsBilling' && value === true) {
-      setFieldValue('shippingAddress', billingAddress)
+    // additional pages
+  ],
+  "form_fields": [
+    // Example for a text field.
+    {
+      "page_number": 1,
+      "description": "The user's last name should be entered here",
+      // Bounding boxes are [left, top, right, bottom]. The bounding boxes for the label and text entry should not overlap.
+      "field_label": "Last name",
+      "label_bounding_box": [30, 125, 95, 142],
+      "entry_bounding_box": [100, 125, 280, 142],
+      "entry_text": {
+        "text": "Johnson", // This text will be added as an annotation at the entry_bounding_box location
+        "font_size": 14, // optional, defaults to 14
+        "font_color": "000000", // optional, RRGGBB format, defaults to 000000 (black)
+      }
+    },
+    // Example for a checkbox. TARGET THE SQUARE for the entry bounding box, NOT THE TEXT
+    {
+      "page_number": 2,
+      "description": "Checkbox that should be checked if the user is over 18",
+      "entry_bounding_box": [140, 525, 155, 540],  // Small box over checkbox square
+      "field_label": "Yes",
+      "label_bounding_box": [100, 525, 132, 540],  // Box containing "Yes" text
+      // Use "X" to check a checkbox.
+      "entry_text": {
+        "text": "X",
+      }
     }
-  }}
-/>
-```
-
-## Custom Submit Button
-
-```typescript
-<FNForm
-  formDefinition={formDefinition}
-  onSubmit={handleSubmit}
-  renderSubmitButton={(isSubmitting) => (
-    <Button type="submit" disabled={isSubmitting} className="w-full">
-      {isSubmitting ? (
-        <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          Saving...
-        </>
-      ) : (
-        'Save Changes'
-      )}
-    </Button>
-  )}
-/>
-```
-
-## Before Submit Content
-
-Add content above the submit button:
-
-```typescript
-<FNForm
-  formDefinition={formDefinition}
-  onSubmit={handleSubmit}
-  renderBeforeSubmit={(values) => (
-    <div className="rounded-lg bg-muted p-4">
-      <p className="text-sm text-muted-foreground">
-        Total: ${calculateTotal(values)}
-      </p>
-    </div>
-  )}
-/>
-```
-
-## Complete Examples
-
-### Address Form
-
-```typescript
-const addressForm: FormDefinition = {
-  rows: [
-    {
-      columns: 2,
-      fields: [
-        {
-          name: 'firstName',
-          type: 'text',
-          label: 'First Name',
-          required: true,
-        },
-        { name: 'lastName', type: 'text', label: 'Last Name', required: true },
-      ],
-    },
-    {
-      fields: [
-        { name: 'company', type: 'text', label: 'Company', optional: true },
-      ],
-    },
-    {
-      fields: [
-        { name: 'address1', type: 'text', label: 'Address', required: true },
-      ],
-    },
-    {
-      fields: [
-        {
-          name: 'address2',
-          type: 'text',
-          label: 'Apartment, suite, etc.',
-          optional: true,
-        },
-      ],
-    },
-    {
-      columns: 3,
-      fields: [
-        { name: 'city', type: 'text', label: 'City', required: true },
-        {
-          name: 'province',
-          type: 'text',
-          label: 'State/Province',
-          required: true,
-        },
-        { name: 'zip', type: 'text', label: 'ZIP/Postal', required: true },
-      ],
-    },
-    {
-      columns: 2,
-      fields: [
-        {
-          name: 'country',
-          type: 'select',
-          label: 'Country',
-          required: true,
-          options: [
-            { value: 'US', label: 'United States' },
-            { value: 'CA', label: 'Canada' },
-            { value: 'GB', label: 'United Kingdom' },
-          ],
-        },
-        { name: 'phone', type: 'text', label: 'Phone', optional: true },
-      ],
-    },
-  ],
+    // additional form field entries
+  ]
 }
 ```
 
-### Login Form
+Create validation images by running this script from this file's directory for each page:
+`python scripts/create_validation_image.py <page_number> <path_to_fields.json> <input_image_path> <output_image_path>
 
-```typescript
-const loginForm: FormDefinition = {
-  fields: [
-    {
-      name: 'email',
-      type: 'email',
-      label: 'Email',
-      required: true,
-      placeholder: 'you@example.com',
-    },
-    {
-      name: 'password',
-      type: 'password',
-      label: 'Password',
-      required: true,
-    },
-    {
-      name: 'remember',
-      type: 'checkbox',
-      label: 'Remember me',
-    },
-  ],
-}
-```
+The validation images will have red rectangles where text should be entered, and blue rectangles covering label text.
 
-### Product Form
+### Step 3: Validate Bounding Boxes (REQUIRED)
+#### Automated intersection check
+- Verify that none of bounding boxes intersect and that the entry bounding boxes are tall enough by checking the fields.json file with the `check_bounding_boxes.py` script (run from this file's directory):
+`python scripts/check_bounding_boxes.py <JSON file>`
 
-```typescript
-const productForm: FormDefinition = {
-  rows: [
-    {
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-          label: 'Product Name',
-          required: true,
-          maxLength: 100,
-        },
-      ],
-    },
-    {
-      fields: [
-        {
-          name: 'description',
-          type: 'textarea',
-          label: 'Description',
-          maxLength: 500,
-        },
-      ],
-    },
-    {
-      columns: 2,
-      fields: [
-        {
-          name: 'price',
-          type: 'number',
-          label: 'Price',
-          prefix: '$',
-          required: true,
-          validate: (v) =>
-            Number(v) < 0 ? 'Price cannot be negative' : undefined,
-        },
-        {
-          name: 'compareAtPrice',
-          type: 'number',
-          label: 'Compare at Price',
-          prefix: '$',
-          optional: true,
-        },
-      ],
-    },
-    {
-      columns: 2,
-      fields: [
-        {
-          name: 'status',
-          type: 'select',
-          label: 'Status',
-          required: true,
-          options: [
-            { value: 'draft', label: 'Draft' },
-            { value: 'active', label: 'Active' },
-          ],
-        },
-        {
-          name: 'quantity',
-          type: 'number',
-          label: 'Quantity',
-          required: true,
-        },
-      ],
-    },
-  ],
-}
-```
+If there are errors, reanalyze the relevant fields, adjust the bounding boxes, and iterate until there are no remaining errors. Remember: label (blue) bounding boxes should contain text labels, entry (red) boxes should not.
 
-## FNForm Props
+#### Manual image inspection
+**CRITICAL: Do not proceed without visually inspecting validation images**
+- Red rectangles must ONLY cover input areas
+- Red rectangles MUST NOT contain any text
+- Blue rectangles should contain label text
+- For checkboxes:
+  - Red rectangle MUST be centered on the checkbox square
+  - Blue rectangle should cover the text label for the checkbox
 
-```typescript
-interface FNFormProps {
-  formDefinition: FormDefinition
-  onSubmit: (values: Record<string, unknown>) => void | Promise<void>
-  defaultValues?: Record<string, unknown>
-  submitButtonText?: string
-  hideSubmitButton?: boolean
-  formRef?: React.RefObject<FNFormRef | null>
-  onFieldChange?: (
-    name: string,
-    value: unknown,
-    setFieldValue: (name: string, value: unknown) => void,
-  ) => void
-  className?: string
-  renderSubmitButton?: (isSubmitting: boolean) => React.ReactNode
-  renderBeforeSubmit?: (values: Record<string, unknown>) => React.ReactNode
-}
-```
+- If any rectangles look wrong, fix fields.json, regenerate the validation images, and verify again. Repeat this process until the bounding boxes are fully accurate.
 
-## See Also
 
-- `src/components/ui/fn-form.tsx` - Component source
-- `src/routes/$lang/account/addresses.tsx` - Address form example
-- `src/routes/admin/login.tsx` - Login form example
-- `admin-crud` skill - Forms in admin context
+### Step 4: Add annotations to the PDF
+Run this script from this file's directory to create a filled-out PDF using the information in fields.json:
+`python scripts/fill_pdf_form_with_annotations.py <input_pdf_path> <path_to_fields.json> <output_pdf_path>

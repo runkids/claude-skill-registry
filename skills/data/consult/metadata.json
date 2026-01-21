@@ -1,7 +1,7 @@
 {
   "name": "consult",
-  "repo": "arttttt/CMIDCABot",
-  "path": ".codex/skills/consult/SKILL.md",
-  "source": "github.com/arttttt/CMIDCABot",
-  "downloaded_at": "2026-01-20T03:32:13.109298Z"
+  "repo": "qduc/claude-skills",
+  "path": "skills/consult/SKILL.md",
+  "source": "github.com/qduc/claude-skills",
+  "downloaded_at": "2026-01-21T02:41:41.275013Z"
 }

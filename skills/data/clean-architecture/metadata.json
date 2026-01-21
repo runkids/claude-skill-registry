@@ -1,7 +1,7 @@
 {
   "name": "clean-architecture",
-  "repo": "Lobbi-Docs/claude",
-  "path": ".claude/plugins/jira-orchestrator/skills/clean-architecture/SKILL.md",
-  "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-01-20T03:10:56.480512Z"
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/clean-architecture/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-21T04:14:21.898722Z"
 }

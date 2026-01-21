@@ -1,7 +1,7 @@
 {
   "name": "ideation",
-  "repo": "turbobeest/squawk",
-  "path": ".claude/skills/ideation/SKILL.md",
-  "source": "github.com/turbobeest/squawk",
-  "downloaded_at": "2026-01-20T03:51:12.189906Z"
+  "repo": "turbobeest/cursor-dev-system",
+  "path": "skills/ideation/SKILL.md",
+  "source": "github.com/turbobeest/cursor-dev-system",
+  "downloaded_at": "2026-01-21T04:07:50.068003Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "debugger",
-  "repo": "hnabyz-bot/fpga-work",
-  "path": ".claude/skills/debugger/SKILL.md",
-  "source": "github.com/hnabyz-bot/fpga-work",
-  "downloaded_at": "2026-01-20T03:59:31.336825Z"
+  "repo": "wtthornton/TappsCodingAgents",
+  "path": "tapps_agents/resources/claude/skills/debugger/SKILL.md",
+  "source": "github.com/wtthornton/TappsCodingAgents",
+  "downloaded_at": "2026-01-21T04:13:12.593254Z"
 }

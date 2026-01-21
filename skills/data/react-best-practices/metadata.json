@@ -1,7 +1,7 @@
 {
   "name": "react-best-practices",
-  "repo": "badass-courses/course-builder",
-  "path": ".opencode/skill/react-best-practices/SKILL.md",
-  "source": "github.com/badass-courses/course-builder",
-  "downloaded_at": "2026-01-20T04:06:08.994513Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/react-best-practices/skills/react-best-practices/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:45.925278Z"
 }

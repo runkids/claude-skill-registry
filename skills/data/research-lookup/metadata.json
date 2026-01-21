@@ -1,7 +1,7 @@
 {
   "name": "research-lookup",
-  "repo": "K-Dense-AI/claude-scientific-writer",
-  "path": "scientific_writer/.claude/skills/research-lookup/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-writer",
-  "downloaded_at": "2026-01-20T02:19:50.398304Z"
+  "repo": "danieldekay/copilot-config-promptops",
+  "path": "skills/research-lookup/SKILL.md",
+  "source": "github.com/danieldekay/copilot-config-promptops",
+  "downloaded_at": "2026-01-21T03:05:06.253421Z"
 }

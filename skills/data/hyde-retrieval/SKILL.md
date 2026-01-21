@@ -119,7 +119,7 @@ async def batch_hyde(
     return await asyncio.gather(*tasks)
 ```
 
-## When to Use HyDE
+## Overview
 
 | Scenario | Use HyDE? |
 |----------|-----------|
@@ -157,6 +157,22 @@ async def hyde_with_fallback(
 - Set tight timeouts (2-3s) with fallback
 - Keep hypothetical docs concise (100-200 tokens)
 - Combine with query decomposition for best results
+
+## Related Skills
+
+- `rag-retrieval` - Core RAG patterns that HyDE enhances for better retrieval
+- `embeddings` - Embedding models used to embed hypothetical documents
+- `query-decomposition` - Complementary technique for multi-concept queries
+- `semantic-caching` - Cache HyDE results to avoid repeated LLM calls
+
+## Key Decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Generation model | gpt-4o-mini / claude-3-haiku | Fast and cheap for hypothetical doc generation |
+| Temperature | 0.3 | Low temperature for consistent, factual hypothetical docs |
+| Max tokens | 100-200 | Concise docs match embedding sweet spot |
+| Timeout with fallback | 2-3 seconds | Graceful degradation to direct query embedding |
 
 ## References
 

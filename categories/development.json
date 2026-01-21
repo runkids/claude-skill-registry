@@ -1,7 +1,7 @@
 {
   "category": "development",
-  "count": 7398,
-  "updated_at": "2026-01-20T04:08:22.072269Z",
+  "count": 7314,
+  "updated_at": "2026-01-21T04:24:32.386920Z",
   "skills": [
     {
       "name": "context-engineering-collection",
@@ -1197,44 +1197,6 @@
         "standards"
       ],
       "stars": 93,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "ci-fix",
-      "description": "Fix GitHub Actions CI failures using GitHub CLI (gh): inspect runs/logs, identify root cause, patch workflows/code, rerun jobs, and summarize verification. Use when GitHub Actions CI is failing or nee",
-      "repo": "jMerta/codex-skills",
-      "path": "data/ci-fix",
-      "category": "development",
-      "tags": [
-        "fix"
-      ],
-      "stars": 90,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "commit-work",
-      "description": "Create high-quality git commits: review/stage intended changes, split into logical commits, and write clear commit messages (including Conventional Commits). Use when the user asks to commit, craft a ",
-      "repo": "jMerta/codex-skills",
-      "path": "data/commit-work",
-      "category": "development",
-      "tags": [
-        "commit",
-        "work"
-      ],
-      "stars": 90,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dependency-upgrader",
-      "description": "Upgrade dependencies for Java/Kotlin (Gradle/Maven) and TypeScript/Node projects with minimal risk: plan the bump, apply changes incrementally, run tests/builds, and document breaking changes. Use whe",
-      "repo": "jMerta/codex-skills",
-      "path": "data/dependency-upgrader",
-      "category": "development",
-      "tags": [
-        "dependency",
-        "upgrader"
-      ],
-      "stars": 90,
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -3045,72 +3007,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "dbt-commands",
-      "description": "dbt command-line operations, model selection syntax, Jinja patterns, troubleshooting, and debugging. Use this skill when running dbt commands, selecting specific models, debugging compilation errors, ",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-commands",
-      "category": "development",
-      "tags": [
-        "dbt",
-        "commands"
-      ],
-      "stars": 23,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dbt-core",
-      "description": "Managing dbt-core locally - installation, configuration, project setup, package management, troubleshooting, and development workflow. Use this skill for all aspects of local dbt-core development incl",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-core",
-      "category": "development",
-      "tags": [
-        "dbt",
-        "core"
-      ],
-      "stars": 23,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dbt-modeling",
-      "description": "Writing dbt models with proper CTE patterns, SQL structure, and layer-specific templates. Use this skill when writing or refactoring dbt models, implementing CTE patterns, creating staging/intermediat",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-modeling",
-      "category": "development",
-      "tags": [
-        "dbt",
-        "modeling"
-      ],
-      "stars": 23,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dbt-performance",
-      "description": "Optimizing dbt and Snowflake performance through materialization choices, clustering keys, warehouse sizing, and query optimization. Use this skill when addressing slow model builds, optimizing query ",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-performance",
-      "category": "development",
-      "tags": [
-        "dbt",
-        "performance"
-      ],
-      "stars": 23,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "dbt-projects-on-snowflake",
-      "description": "Deploying, managing, executing, and monitoring dbt projects natively within Snowflake using dbt PROJECT objects and event tables. Use this skill when you want to set up dbt development workspaces, dep",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-projects-on-snowflake",
-      "category": "development",
-      "tags": [
-        "dbt",
-        "projects",
-        "snowflake"
-      ],
-      "stars": 23,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "ide-diagnostics",
       "description": "Expert knowledge of IDE/LSP tools for code navigation, diagnostics, and refactoring. Use when working with TypeScript errors, linting issues, code navigation, or IDE operations.",
       "repo": "liby/dotfiles",
@@ -3119,19 +3015,6 @@
       "tags": [
         "ide",
         "diagnostics"
-      ],
-      "stars": 23,
-      "source": "local"
-    },
-    {
-      "name": "lit-component",
-      "description": "Guide for developing Lit web components in the Common UI v2 system (@commontools/ui/v2). Use when creating or modifying ct- prefixed components, implementing theme integration, working with Cell abstr",
-      "repo": "commontoolsinc/labs",
-      "path": "data/lit-component",
-      "category": "development",
-      "tags": [
-        "lit",
-        "component"
       ],
       "stars": 23,
       "source": "local"
@@ -3189,19 +3072,6 @@
       ],
       "stars": 22,
       "source": "local"
-    },
-    {
-      "name": "chrome-debug",
-      "description": "Use when debugging web applications in chrome via the remote debugging protocol. Provides capabilities for inspecting DOM, executing JS, taking screenshots, and automating browser interactions.",
-      "repo": "zenobi-us/dotfiles",
-      "path": "development/chrome-debug",
-      "category": "development",
-      "tags": [
-        "chrome",
-        "debug"
-      ],
-      "stars": 21,
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "ngrx-store",
@@ -4042,18 +3912,6 @@
       "tags": [
         "morphir",
         "architect"
-      ],
-      "stars": 12,
-      "source": "local"
-    },
-    {
-      "name": "pwdebug",
-      "description": "用于需要通过命令行操作真实浏览器实例进行前端调试（如导航、执行 JS、截图、元素拾取、控制台日志）且希望跨多次命令复用同一浏览器会话的场景。",
-      "repo": "DCjanus/prompts",
-      "path": "development/pwdebug",
-      "category": "development",
-      "tags": [
-        "pwdebug"
       ],
       "stars": 12,
       "source": "local"
@@ -5250,18 +5108,6 @@
       "tags": [
         "expert",
         "routing"
-      ],
-      "stars": 9,
-      "source": "local"
-    },
-    {
-      "name": "ghostty",
-      "description": "Configure and manage Ghostty terminal emulator settings. Use when modifying ghostty config, validating configuration, checking window settings, themes, fonts, keybindings, or troubleshooting ghostty s",
-      "repo": "whilp/dotfiles",
-      "path": "data/ghostty",
-      "category": "development",
-      "tags": [
-        "ghostty"
       ],
       "stars": 9,
       "source": "local"
@@ -8628,18 +8474,6 @@
       "source": "local"
     },
     {
-      "name": "nuxt-v4",
-      "description": "Production-ready Nuxt 4 framework development with SSR, composables,data fetching, server routes, and Cloudflare deployment.Use when: building Nuxt 4 applications, implementing SSR patterns,creating c",
-      "repo": "ChrisTowles/blog",
-      "path": "data/nuxt-v4",
-      "category": "development",
-      "tags": [
-        "nuxt"
-      ],
-      "stars": 3,
-      "source": "local"
-    },
-    {
       "name": "openapi-gen",
       "description": "Generate and validate Python clients from OpenAPI specs. Use for generation, validation, or troubleshooting.",
       "repo": "mindhiveoy/pyopenapi_gen",
@@ -9494,20 +9328,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "dev-work-summary",
-      "description": "Scan ~/dev recursively for git repos and report today's work with commits, branches, stats, and detailed change analysis. Use when user asks \"what did I work on\", \"show my work\", \"daily summary\", \"wha",
-      "repo": "otrebu/all-agents",
-      "path": "data/dev-work-summary",
-      "category": "development",
-      "tags": [
-        "dev",
-        "work",
-        "summary"
-      ],
-      "stars": 2,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "development-workflow-standards",
       "description": "Development process rules for this project including testing, branching, and commit standards. Use when implementing features, fixing bugs, or making any code changes.",
       "repo": "ms2sato/agent-console",
@@ -10182,19 +10002,6 @@
       "source": "local"
     },
     {
-      "name": "rust-developer",
-      "description": "Comprehensive Rust development guidelines based on 6 months of code reviews. Use when writing Rust code, debugging Rust issues, or reviewing Rust PRs. Covers error handling, file I/O safety, type safe",
-      "repo": "dwalleck/catalyst",
-      "path": "data/rust-developer",
-      "category": "development",
-      "tags": [
-        "rust",
-        "developer"
-      ],
-      "stars": 2,
-      "source": "local"
-    },
-    {
       "name": "safe-file-removal",
       "description": "Use safe-rm command to safely 'remove' files by renaming them to .obsolete instead of permanent deletion. Reversible, collision-safe, hook-compliant.",
       "repo": "phamhung075/4genthub-hooks",
@@ -10243,18 +10050,6 @@
       "category": "development",
       "tags": [
         "serverless"
-      ],
-      "stars": 2,
-      "source": "local"
-    },
-    {
-      "name": "shell",
-      "description": "Shell scripting best practices and conventions for Bash commands. Use when writing shell scripts, bash commands, or working with command-line tools on macOS.",
-      "repo": "bendrucker/claude",
-      "path": "development/shell",
-      "category": "development",
-      "tags": [
-        "shell"
       ],
       "stars": 2,
       "source": "local"
@@ -11176,19 +10971,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "bug-triage",
-      "description": "Reproduce, isolate, and fix a bug (or failing build/test), then summarize root cause, fix, and verification steps.",
-      "repo": "Nymbo/Skills",
-      "path": "development/bug-triage",
-      "category": "development",
-      "tags": [
-        "bug",
-        "triage"
-      ],
-      "stars": 1,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "build-automation",
       "description": "Build coordination wrapper for VCV Rack modules using Makefile",
       "repo": "davidorex/vcv-rack-module-creation-framework",
@@ -11427,18 +11209,6 @@
       ],
       "stars": 1,
       "source": "local"
-    },
-    {
-      "name": "claude",
-      "description": "Delegate prompts to Claude Code CLI",
-      "repo": "sbluemin/llm-interaction-patterns",
-      "path": "data/claude",
-      "category": "development",
-      "tags": [
-        "claude"
-      ],
-      "stars": 1,
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "claude-code-excellence-audit",
@@ -13372,19 +13142,6 @@
       "source": "local"
     },
     {
-      "name": "implement-plan",
-      "description": "Execute approved technical implementation plans with verification checkpoints. This skill should be used when implementing pre-approved development plans, feature implementations, or technical specifi",
-      "repo": "mhylle/claude-skills-collection",
-      "path": "development/implement-plan",
-      "category": "development",
-      "tags": [
-        "implement",
-        "plan"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
       "name": "implementation-verification",
       "description": "Use after implementation complete to verify all tasks done, update roadmap, run full test suite, and create final report - ensures implementation completeness before finishing development branch",
       "repo": "marcos-abreu/connect_kit",
@@ -15134,18 +14891,6 @@
       "source": "local"
     },
     {
-      "name": "state",
-      "description": "このワークスペースの state.md 管理、playbook 運用の専門知識。state.md の更新、focus の切り替え、done_criteria の判定、CRITIQUE の実行時に使用する。",
-      "repo": "M2AI-jp/thanks4claudecode-v2",
-      "path": "data/state",
-      "category": "development",
-      "tags": [
-        "state"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
       "name": "state-sync",
       "description": "Game state synchronization, snapshot systems, and conflict resolution for consistent multiplayer experience",
       "repo": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
@@ -16505,16 +16250,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "agent",
-      "description": "Use for PR/code reviews and any task that benefits from a dedicated tmux sub-agent with per-task git worktrees; default path for reviewing diffs (read diff → summarize → run checks/tests) with automat",
-      "repo": "gakonst/dotfiles",
-      "path": "development/agent",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "agent-33-skills-maker",
       "description": "Create Claude Desktop skills from descriptions, SOPs, or existing agents. Three modes - create from scratch, convert SOPs to skills, or migrate agents to skill format. Outputs ready-to-deploy .zip pac",
       "repo": "sellersessions/Sub-Agents",
@@ -17081,16 +16816,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "ai-data-analyst",
-      "description": "Perform comprehensive data analysis, statistical modeling, and data visualization by writing and executing self-contained Python scripts. Use when you need to analyze datasets, perform statistical tes",
-      "repo": "GrupoUS/aegiswallet",
-      "path": "development/ai-data-analyst",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ai-dev-guidelines",
       "description": "Comprehensive AI/ML development guide for LangChain, LangGraph, and ML model integration in FastAPI. Use when building LLM applications, agents, RAG systems, sentiment analysis, aspect-based analysis,",
       "repo": "siti34/SPDS-URA",
@@ -17346,16 +17071,6 @@
       "description": "Creates SLO-based alerts and operational dashboards with key charts, alert thresholds, and runbook links. Use for \"alerting\", \"dashboards\", \"SLO\", or \"monitoring\".",
       "repo": "patricio0312rev/skillset",
       "path": "development/alerting-dashboard-builder",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "alertmanager-rules-config",
-      "description": "Alertmanager Rules Config - Auto-activating skill for DevOps Advanced.Triggers on: alertmanager rules config, alertmanager rules configPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/alertmanager-rules-config",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -18077,16 +17792,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "ansible-role-creator",
-      "description": "Ansible Role Creator - Auto-activating skill for DevOps Advanced.Triggers on: ansible role creator, ansible role creatorPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/ansible-role-creator",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ansible-role-init",
       "description": "Scaffold a new Ansible role via ansible-galaxy init",
       "repo": "jphetphoumy/skillstack",
@@ -18445,16 +18150,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "api-key-auth-setup",
-      "description": "Api Key Auth Setup - Auto-activating skill for API Development.Triggers on: api key auth setup, api key auth setupPart of the API Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/api-key-auth-setup",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "api-mock-generator",
       "description": "Api Mock Generator - Auto-activating skill for API Development.Triggers on: api mock generator, api mock generatorPart of the API Development skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -18499,16 +18194,6 @@
       ],
       "stars": 0,
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "api-rate-limiting-config",
-      "description": "Api Rate Limiting Config - Auto-activating skill for API Development.Triggers on: api rate limiting config, api rate limiting configPart of the API Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/api-rate-limiting-config",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "api-route",
@@ -19798,29 +19483,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "audit-coordinator",
-      "description": "Orchestrates comprehensive audits across multiple specialized auditors for Claude Code customizations. Use when user wants complete evaluation of agents, skills, hooks, commands, output-styles, entire",
-      "repo": "philoserf/claude-code-setup",
-      "path": "data/audit-coordinator",
-      "category": "development",
-      "tags": [
-        "audit",
-        "coordinator"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "audit-performance",
-      "description": "Performance-focused audit that can run in background during implementation. Checks for inefficiencies, memory leaks, widget rebuilds. Injects P0 findings to main agent.",
-      "repo": "ferdiangunawan/rpi-stack",
-      "path": "data/audit-performance",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "audit-report",
       "description": "Template and formatting guidelines for security audit reports. Provides consistent structure for findings, severity classification, ASVS mapping, and remediation recommendations.",
       "repo": "Zate/cc-plugins",
@@ -20356,16 +20018,6 @@
       "description": "This skill guides Backblaze B2 Cloud Storage integration with OpenTofu/Terraform and B2 CLI. Use when managing B2 buckets, application keys, file uploads, lifecycle rules, or S3-compatible storage.",
       "repo": "majesticlabs-dev/majestic-marketplace",
       "path": "development/backblaze-coder",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "backend-api-patterns",
-      "description": "Backend and API implementation patterns for scalability, security, and maintainability. Use when building APIs, services, and backend infrastructure.",
-      "repo": "duyet/duyetbot-agent",
-      "path": "development/backend-api-patterns",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -21763,19 +21415,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "brand-strategy",
-      "description": "This skill should be used when translating research insights into actionable brand strategy frameworks. Use this when developing positioning statements, messaging architectures, audience strategies, o",
-      "repo": "alavida-ai/noncitizen",
-      "path": "data/brand-strategy",
-      "category": "development",
-      "tags": [
-        "brand",
-        "strategy"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "brand-values-development",
       "description": "Provides brand values frameworks, differentiation tests, discovery questions, and behavior mapping templates. Auto-activates during values definition, core values curation, and values testing. Use whe",
       "repo": "mike-coulbourn/claude-vibes",
@@ -23055,18 +22694,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cass",
-      "description": "Always search before starting any work across all coding agent session histories (Claude Code, Codex, Cursor, Gemini CLI, Aider, ChatGPT) to find whatever we've discussed before.",
-      "repo": "johnlindquist/claude",
-      "path": "data/cass",
-      "category": "development",
-      "tags": [
-        "cass"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "castella-a2a",
@@ -25535,16 +25162,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "cloudformation-template-creator",
-      "description": "Cloudformation Template Creator - Auto-activating skill for AWS Skills.Triggers on: cloudformation template creator, cloudformation template creatorPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/cloudformation-template-creator",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cloudkit-debugging",
       "description": "CloudKit sync and sharing debugging specialist. Use when encountering CloudKit sync issues, schema problems, sharing bugs, or CKRecord errors.",
       "repo": "nadavital/Cauldron",
@@ -25806,16 +25423,6 @@
       ],
       "stars": 0,
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "code-examples",
-      "description": "Find real-world code examples across millions of GitHub repositories. Use when the user wants to see how others implement something, find usage patterns, or discover code examples in the wild.",
-      "repo": "krmcbride/claude-plugins",
-      "path": "development/code-examples",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "code-executor",
@@ -27613,16 +27220,6 @@
       "source": "local"
     },
     {
-      "name": "commit-hooks",
-      "description": "Git commit フック（pre-commit/commit-msg/pre-push）の設計・実装・検証を体系化するスキル。Husky と lint-staged を軸に、品質ゲートと運用ルールを整理する。Anchors:• Pro Git / 適用: Git Hooks設計 / 目的: フック運用の基礎• Clean Code / 適用: 品質ゲート設計 / 目的: コミット品質の維持• ",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/commit-hooks",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "commit-message-creator",
       "description": "Generate standards-compliant commit messages following Conventional Commits with emojis. Use this when creating commits, reviewing commit messages, or ensuring consistent commit history.",
       "repo": "autonomous-bits/nomos-provider-terraform-remote-state",
@@ -27651,18 +27248,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "commit-pr",
-      "description": "Crea commits y pull requests. Usar cuando se necesita commitear cambios, crear PRs, escribir mensajes de commit, o gestionar branches.",
-      "repo": "JaviMaligno/oss-agent",
-      "path": "data/commit-pr",
-      "category": "development",
-      "tags": [
-        "commit"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "commit-prep-helper",
@@ -28306,16 +27891,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "conditional-request-helper",
-      "description": "Conditional Request Helper - Auto-activating skill for API Development.Triggers on: conditional request helper, conditional request helperPart of the API Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/conditional-request-helper",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "conduct-ad-research",
       "description": "Conduct comprehensive advertising research based on confirmed campaign parameters. Use web search tools (DuckDuckGo or Tavily) to gather insights on target audiences, platform trends, competitor strat",
       "repo": "feed-mob/feedmob-adpilot-mcp",
@@ -28565,7 +28140,7 @@
       "name": "consensus-building",
       "description": "From multiple perspectives, build genuine consensus on what's true",
       "repo": "agentgptsmith/MonadFramework",
-      "path": "development/consensus-building",
+      "path": "data/consensus-building",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -28586,16 +28161,6 @@
       "description": "Consolidate transcripts from a channel into a single file, sorted by date (newest first), up to 800K tokens. Use when preparing transcripts for LLM context or bulk analysis.",
       "repo": "dparedesi/YTScribe",
       "path": "development/consolidate-transcripts",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "consul-service-discovery",
-      "description": "Consul Service Discovery - Auto-activating skill for DevOps Advanced.Triggers on: consul service discovery, consul service discoveryPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/consul-service-discovery",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -29129,7 +28694,7 @@
       "name": "copilot-customization",
       "description": "GitHub Copilotカスタマイゼーションファイル（プロンプト、エージェント、インストラクション、スキル）の作成ガイド。.prompt.md、.agent.md、.instructions.md、SKILL.mdファイルをVS Codeのベストプラクティスに従って作成する際に使用してください。",
       "repo": "SuperPyonchiX/VSCodeEnv",
-      "path": "development/copilot-customization",
+      "path": "data/copilot-customization",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -30753,16 +30318,6 @@
       "description": "Exports assessments to QTI (Question and Test Interoperability) format for LMS compatibility.",
       "repo": "pauljbernard/content",
       "path": "development/curriculumqti-export",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cursor",
-      "description": "Control Cursor AI code editor via CLI. Open files, folders, diffs, and manage extensions.",
-      "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-      "path": "data/cursor",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -33150,7 +32705,7 @@
       "name": "devops-scripts",
       "description": "Write or update repository devops scripts with this project",
       "repo": "JoernStoehler/ai-forecasting-hackathon",
-      "path": "development/devops-scripts",
+      "path": "data/devops-scripts",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -34847,16 +34402,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "effect-patterns",
-      "description": "Effect-TS pattern reference for TMNL. Invoke when implementing services, schemas, atoms, or Effect-based architecture. Provides canonical file locations and pattern precedents.",
-      "repo": "creatifcoding/gbg",
-      "path": "development/effect-patterns",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "effect-ts-ai",
       "description": "Production-ready categorical AI composition using @effect/ai and the Effect ecosystem.",
       "repo": "",
@@ -35080,16 +34625,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "electron-distribution",
-      "description": "Electronアプリケーションの配布・自動更新に関する専門知識を提供するスキル。electron-builder/electron-updaterによるビルド・署名・更新配信、CI/CDリリースフロー、各種アプリストア（MAS/Microsoft Store/Snapcraft）への配布を支援する。Anchors:• electron-builder / 適用: ビルド・署名・パッケージング /",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/electron-distribution",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "electron-fsd",
       "description": "This skill should be used when developing Electron applications with Feature-Sliced Design (FSD) architecture and React 19. Triggers on requests to create components, features, entities, widgets, or p",
       "repo": "KwonCheulJin/pdf-studio-desktop",
@@ -35107,16 +34642,6 @@
       "description": "Expert knowledge of Electron Inter-Process Communication patterns for SEPilot Desktop. Use this when adding IPC handlers, creating frontend-backend communication, implementing streaming responses, or ",
       "repo": "jhl-labs/sepilot_desktop",
       "path": "development/electron-ipc-communication",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "electron-packaging",
-      "description": "Electronアプリケーションのビルド・パッケージング・配布を統一的に管理する専門知識。electron-builderによるクロスプラットフォーム対応、コード署名、インストーラー生成を支援。Anchors:• electron-builder / 適用: ビルド設定・パッケージング / 目的: クロスプラットフォーム配布• Code Signing / 適用: macOS/Windows署名 ",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/electron-packaging",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -35453,16 +34978,6 @@
       ],
       "stars": 0,
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "embedding-models",
-      "description": "Embedding model configurations and cost calculators",
-      "repo": "vanman2024/ai-dev-marketplace",
-      "path": "development/embedding-models",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "embedding-repair",
@@ -37580,16 +37095,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "filtering-query-builder",
-      "description": "Filtering Query Builder - Auto-activating skill for API Development.Triggers on: filtering query builder, filtering query builderPart of the API Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/filtering-query-builder",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "filters-building",
       "description": "\"Building table filters with query parameters, model search, and supported query patterns\"",
       "repo": "griffnb/assettradingdesk-ui",
@@ -38472,16 +37977,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "fluentd-config-generator",
-      "description": "Fluentd Config Generator - Auto-activating skill for DevOps Advanced.Triggers on: fluentd config generator, fluentd config generatorPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/fluentd-config-generator",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "fluentvalidation-patterns",
       "description": "Master FluentValidation patterns for ABP Framework including async validators, repository checks, conditional rules, localized messages, and custom validators. Use when creating input DTO validators f",
       "repo": "thapaliyabikendra/ai-artifacts",
@@ -38899,16 +38394,6 @@
       "description": "Use when user wants to create new autonomy branch from current commit or specific past iteration",
       "repo": "tilmon-engineering/claude-skills",
       "path": "development/forking-iteration",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "form-builder-helper",
-      "description": "Form Builder Helper - Auto-activating skill for Business Automation.Triggers on: form builder helper, form builder helperPart of the Business Automation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/form-builder-helper",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -40764,16 +40249,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "giil",
-      "description": "Get Image [from] Internet Link - download full-resolution images from iCloud, Dropbox, Google Photos, and Google Drive share links. Perfect for remote AI debugging workflows.",
-      "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-      "path": "data/giil",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "gin-middleware-creator",
       "description": "Gin Middleware Creator - Auto-activating skill for Backend Development.Triggers on: gin middleware creator, gin middleware creatorPart of the Backend Development skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -40851,16 +40326,6 @@
       "description": "Skill for analyzing git changes, grouping them into logical atomic commits, generating conventional commit messages, and guiding through the commit process. Use when committing changes with proper con",
       "repo": "arisng/github-copilot-fc",
       "path": "data/git-atomic-commit",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "git-best-practices",
-      "description": "Generate comprehensive, detailed git commit messages following best practices with problem explanations for fixes and complete change lists for features. Use when committing changes, writing commit me",
-      "repo": "T1nker-1220/.claude",
-      "path": "data/git-best-practices",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -41631,16 +41096,6 @@
       "description": "Build multi-architecture container images in GitHub Actions. Matrix builds (public repos with native ARM64), QEMU emulation (private repos), or ARM64 larger runners (Team/Enterprise). Uses Podman root",
       "repo": "pigfoot/claude-code-hubs",
       "path": "development/github-actions-container-build",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "github-actions-failure-debugging",
-      "description": "Guide for debugging failing GitHub Actions workflows. Use this when asked to debug failing GitHub Actions workflows.",
-      "repo": "JohnnyVicious/copilot-cli-examples",
-      "path": "development/github-actions-failure-debugging",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -43161,16 +42616,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "grafana-dashboard-creator",
-      "description": "Grafana Dashboard Creator - Auto-activating skill for DevOps Advanced.Triggers on: grafana dashboard creator, grafana dashboard creatorPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/grafana-dashboard-creator",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "grant-application-assembler",
       "description": "Compiles production-ready EU grant proposals from EU Grant Hunter briefs,UBOS narrative banks, partner commitments, and budget templates. Reuses theproven 1,850:1 ROI methodology that secured €6M Xyle",
       "repo": "PandaAllIn/UBOS_FINAL",
@@ -43237,30 +42682,10 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "graphql-mutation-builder",
-      "description": "Graphql Mutation Builder - Auto-activating skill for API Development.Triggers on: graphql mutation builder, graphql mutation builderPart of the API Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/graphql-mutation-builder",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "graphql-resolver-creator",
       "description": "Graphql Resolver Creator - Auto-activating skill for API Development.Triggers on: graphql resolver creator, graphql resolver creatorPart of the API Development skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "development/graphql-resolver-creator",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "graphql-subscription-setup",
-      "description": "Graphql Subscription Setup - Auto-activating skill for API Development.Triggers on: graphql subscription setup, graphql subscription setupPart of the API Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/graphql-subscription-setup",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -43310,7 +42735,7 @@
       "name": "gremlin-forge",
       "description": "Use this skill when creating new skills via forced conceptual collision of existing patterns. Duct-tapes jank-builder to super-collider for autopoietic meta-skill generation.",
       "repo": "agentgptsmith/MonadFramework",
-      "path": "development/gremlin-forge",
+      "path": "data/gremlin-forge",
       "category": "development",
       "tags": [
         "gremlin",
@@ -44179,16 +43604,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "history",
-      "description": "Git data you can use, not parse. Understand why code exists.",
-      "repo": "Technikhighknee/agent-workbench",
-      "path": "data/history",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "history-analyzer",
       "description": "Analyze git history for hotspots, coupling, and knowledge distribution. Use when user asks \"who knows this code\", \"what files change most\", \"hotspots\", \"bus factor\", \"knowledge silos\", or needs to und",
       "repo": "lis186/SourceAtlas",
@@ -44338,19 +43753,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "hook-audit",
-      "description": "Comprehensive audit of Claude Code hooks for correctness, safety, and performance. Use when reviewing, validating, or debugging hooks, checking JSON stdin handling, verifying exit codes (0=allow, 2=bl",
-      "repo": "philoserf/claude-code-setup",
-      "path": "data/hook-audit",
-      "category": "development",
-      "tags": [
-        "hook",
-        "audit"
-      ],
-      "stars": 0,
-      "source": "local"
     },
     {
       "name": "hook-builder",
@@ -44688,16 +44090,6 @@
       "description": "Answers questions about HyperFleet architecture, design patterns, versioning strategies, cluster lifecycle, event-driven architecture, adapter framework, and git workflow by fetching docs from the ope",
       "repo": "openshift-hyperfleet/hyperfleet-claude-plugins",
       "path": "development/hyperfleet-architecture",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "hypermedia-link-generator",
-      "description": "Hypermedia Link Generator - Auto-activating skill for API Development.Triggers on: hypermedia link generator, hypermedia link generatorPart of the API Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/hypermedia-link-generator",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -45559,18 +44951,6 @@
       "path": "development/infrastructure-security",
       "category": "development",
       "tags": [],
-      "stars": 0,
-      "source": "local"
-    },
-    {
-      "name": "init",
-      "description": "코드베이스를 분석하여 CLAUDE.md 초기화. 프로젝트 문서화, 아키텍처 개요, 코딩 표준 생성",
-      "repo": "rayvoidx/social-trend-agent",
-      "path": "data/init",
-      "category": "development",
-      "tags": [
-        "init"
-      ],
       "stars": 0,
       "source": "local"
     },
@@ -48077,16 +47457,6 @@
       "source": "local"
     },
     {
-      "name": "kpi-calculation",
-      "description": "KPI指标计算技能，包括目标拆解、达成率、增长率、时间进度等核心业务计算",
-      "repo": "alongor666/targetmanage",
-      "path": "development/kpi-calculation",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "kpi-delta",
       "description": "Configure KPI delta displays in drizzle-cube dashboards for showing metrics with change indicators and trends. Use when displaying KPIs with trends, growth rates, or comparison to previous period.",
       "repo": "cliftonc/drizzle-cube-skills",
@@ -48169,26 +47539,6 @@
       "description": "Kubernetes Ingress Config - Auto-activating skill for DevOps Advanced.Triggers on: kubernetes ingress config, kubernetes ingress configPart of the DevOps Advanced skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "development/kubernetes-ingress-config",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kubernetes-secrets-manager",
-      "description": "Kubernetes Secrets Manager - Auto-activating skill for DevOps Advanced.Triggers on: kubernetes secrets manager, kubernetes secrets managerPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/kubernetes-secrets-manager",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kubernetes-service-manager",
-      "description": "Kubernetes Service Manager - Auto-activating skill for DevOps Advanced.Triggers on: kubernetes service manager, kubernetes service managerPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/kubernetes-service-manager",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -50254,7 +49604,7 @@
       "name": "m365-agent-scaffolder",
       "description": "Quickly scaffolds new Microsoft 365 Copilot declarative agent projects using ATK CLI. Collects basic project information and creates the initial project structure. Use only when creating a new empty M",
       "repo": "sebastienlevert/m365-copilot-skills",
-      "path": "development/m365-agent-scaffolder",
+      "path": "data/m365-agent-scaffolder",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -50369,7 +49719,7 @@
       "name": "maintain-environment",
       "description": "Maintain the repo devcontainer environment and related workflow files. Use when changing .devcontainer or environment setup scripts.",
       "repo": "JoernStoehler/ai-forecasting-hackathon",
-      "path": "development/maintain-environment",
+      "path": "data/maintain-environment",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -51357,16 +50707,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "mcp-server-patterns",
-      "description": "MCPサーバー設計パターンとアーキテクチャベストプラクティス。ツール組織化、エラーハンドリング、状態管理、サーバーライフサイクル管理の実証済みパターンを提供。Anchors:• Clean Architecture / 適用: サーバー構造と依存関係管理 / 目的: テスト可能で保守性の高いコード• Domain-Driven Design / 適用: ツールドメインモデリングと境界付きコンテキス",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/mcp-server-patterns",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "mcp-spy",
       "description": "Debug MCP server communication. Use for troubleshooting MCP integrations, viewing traffic, and analyzing latency.",
       "repo": "johnlindquist/claude",
@@ -51927,16 +51267,6 @@
       "description": "Use when building micro-interactions between 100-200ms - tooltips appearing, dropdown opens, small feedback animations that feel quick but perceptible",
       "repo": "dylantarre/animation-principles",
       "path": "development/micro-100-200ms",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "microservices-expert",
-      "description": "Expert microservices architecture including service decomposition, communication patterns, and resilience",
-      "repo": "ljchg12-hue/windows-dotfiles",
-      "path": "development/microservices-expert",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -54654,16 +53984,6 @@
       "source": "local"
     },
     {
-      "name": "nix-cleanup",
-      "description": "CI workflow checks and code cleanup tools",
-      "repo": "tobi/dotnix",
-      "path": "data/nix-cleanup",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "nix-dev-shell",
       "description": "Automatically detects Nix flakes and runs commands in a dev shell environment. Use when running build, test, or development commands in projects with flake.nix. Ensures commands run with proper Nix de",
       "repo": "efficacy38/nix-dotfile",
@@ -55205,16 +54525,6 @@
       "description": "公式庫管理。觸發詞：找公式, 列出, 更新公式, 刪除公式, 公式庫。",
       "repo": "u9401066/nsforge-mcp",
       "path": "data/nsforge-formula-management",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ntm",
-      "description": "Named Tmux Manager - orchestrate multiple AI coding agents (Claude Code, Codex, Gemini) in tiled tmux panes with visual dashboards, command palette, context rotation, Agent Mail integration, and robot",
-      "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-      "path": "data/ntm",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -56561,7 +55871,7 @@
       "name": "orchestrate-subagents",
       "description": "Orchestrate parallel and/or sequential subagents working in separate git worktrees to deliver PR(s). Use when bundling multiple related GitHub issues into a single task, running best-of-3 identical at",
       "repo": "JoernStoehler/ai-forecasting-hackathon",
-      "path": "development/orchestrate-subagents",
+      "path": "data/orchestrate-subagents",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -56913,20 +56223,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "output-style-authoring",
-      "description": "Guide for authoring output-styles that transform Claude's behavior and personality. Use when creating, writing, designing, building, reviewing, or improving output-styles, persona modes, role transfor",
-      "repo": "philoserf/claude-code-setup",
-      "path": "data/output-style-authoring",
-      "category": "development",
-      "tags": [
-        "output",
-        "style",
-        "authoring"
-      ],
-      "stars": 0,
-      "source": "local"
     },
     {
       "name": "output-style-builder",
@@ -57548,7 +56844,7 @@
       "name": "pattern-synthesis",
       "description": "Extract common patterns from multiple instance outputs, find what persists",
       "repo": "agentgptsmith/MonadFramework",
-      "path": "development/pattern-synthesis",
+      "path": "data/pattern-synthesis",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -57928,16 +57224,6 @@
       "description": "Verify performance implications were considered and no obvious anti-patterns exist. Issues result in WARNINGS.",
       "repo": "DanielPodolsky/mentor-spec",
       "path": "development/performance-gate",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "performance-lighthouse-runner",
-      "description": "Performance Lighthouse Runner - Auto-activating skill for Frontend Development.Triggers on: performance lighthouse runner, performance lighthouse runnerPart of the Frontend Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/performance-lighthouse-runner",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -62366,18 +61652,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "qa-check",
-      "description": "PR作成前の品質保証チェックを実行します。Lint、テスト、ビルド、カバレッジ確認を自動で行い、合格/不合格を判定します。フロントエンドのみ、バックエンドのみ、または両方のチェックが可能です。",
-      "repo": "Crearize/ProjectTemplate",
-      "path": "data/qa-check",
-      "category": "development",
-      "tags": [
-        "check"
-      ],
-      "stars": 0,
-      "source": "local"
-    },
-    {
       "name": "qa-validation",
       "description": "Validate implementation against test cases and acceptance criteria. Use when checking if code works correctly, validating against user-provided test cases, or verifying acceptance criteria are met. Ge",
       "repo": "shvee-pandora/pnd-agents",
@@ -65086,16 +64360,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "rest-endpoint-designer",
-      "description": "Rest Endpoint Designer - Auto-activating skill for API Development.Triggers on: rest endpoint designer, rest endpoint designerPart of the API Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/rest-endpoint-designer",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "restapi-translations",
       "description": "Управление переводами REST API ключей (rest_*) для MikoPBX. Автоматически находит отсутствующие русские ключи в RestApi.php и синхронизирует их с исходным кодом. Использовать при проверке переводов AP",
       "repo": "mikopbx/Core",
@@ -66086,16 +65350,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "rp-cli",
-      "description": "Reference for rp-cli usage patterns. Consult before calling rp-cli via Bash.",
-      "repo": "GantisStorm/claude-code-pair-planning-framework",
-      "path": "development/rp-cli",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "rp2350-c-cpp",
       "description": "Expert RP2350 C/C++ development with Pico SDK, covering CMake configuration, peripheral drivers (GPIO, SPI, I2C, PWM, UART), hardware optimization, FreeRTOS integration, and bare-metal programming. Us",
       "repo": "rghamilton3/dotfiles",
@@ -66188,16 +65442,6 @@
       "description": "Analyze C++ code for real-time safety violations including heap allocations, locks, blocking calls, and unbounded operations in audio threads.",
       "repo": "chrislyons/orpheus-sdk",
       "path": "development/rtsafetyauditor",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ru",
-      "description": "Repo Updater - automation-friendly CLI for synchronizing GitHub repositories. Keep dozens or hundreds of repos in sync with a single command. Pure Bash with git plumbing, JSON output, meaningful exit ",
-      "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-      "path": "data/ru",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -66934,16 +66178,6 @@
       "description": "Implement graceful shutdown with signal handling and broadcast channels. Use when building long-running services or daemons.",
       "repo": "gar-ai/mallorn",
       "path": "development/rust-graceful-shutdown",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "rust-language",
-      "description": "Guide for writing Rust code covering ownership, borrowing, lifetimes, error handling, async programming, and Rust best practices",
-      "repo": "vinnie357/claude-skills",
-      "path": "development/rust-language",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -68128,26 +67362,6 @@
       "description": "Use when triggering animations on scroll - reveal effects, parallax, sticky headers, progress indicators, or any scroll-linked motion.",
       "repo": "dylantarre/animation-principles",
       "path": "development/scroll-animations",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "scrum-event-sprint-review",
-      "description": "Verify Definition of Done and acceptance criteria for Sprint increments. Use when completing sprints, running verification commands, or preparing for acceptance.",
-      "repo": "atusy/agentic-scrum",
-      "path": "development/scrum-event-sprint-review",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "scrum-team-developer",
-      "description": "AI Developer following TDD principles in AI-Agentic Scrum. Use when implementing PBIs, managing subtasks, or executing the TDD cycle within Scrum.",
-      "repo": "atusy/agentic-scrum",
-      "path": "development/scrum-team-developer",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -72161,16 +71375,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "ssh",
-      "description": "SSH remote access patterns and utilities. Connect to servers, manage keys, tunnels, and transfers.",
-      "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-      "path": "data/ssh",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ssh-key-manager",
       "description": "Ssh Key Manager - Auto-activating skill for DevOps Basics.Triggers on: ssh key manager, ssh key managerPart of the DevOps Basics skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -73289,16 +72493,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "subagents",
-      "description": "Execution-layer skill for spawning subagents via runAgent",
-      "repo": "CsHeng/dot-claude",
-      "path": "data/subagents",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "submitting-stacked-prs-with-jj-spr",
       "description": "Work with jj-spr for submitting and updating stacked GitHub Pull Requests. Use when the user explicitly mentions 'jj-spr', 'jj spr', 'stack pull request', 'stacked PR', or 'submit for review'. Integra",
       "repo": "edmundmiller/dotfiles",
@@ -74242,16 +73436,6 @@
       "description": "Run the SYSopGPTWSL operator kernel (repeatable sysop pipeline + diffable report + learning ledger). Use when asked to run sysop checks, collect Windows/WSL snapshots, benchmark, or produce the operat",
       "repo": "ledzepp1109/SYSopGPTWSL",
       "path": "development/sysop-kernel",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "system-create-skill",
-      "description": "Skill creation and validation framework ensuring compliance with PAI architectural standards.USE WHEN user says \"create skill\", \"create a skill\", \"new skill\", \"build skill\",\"make skill\", \"skill for X\"",
-      "repo": "multicam/qara",
-      "path": "data/system-create-skill",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -75612,30 +74796,10 @@
       "source": "local"
     },
     {
-      "name": "terraform-module-creator",
-      "description": "Terraform Module Creator - Auto-activating skill for DevOps Advanced.Triggers on: terraform module creator, terraform module creatorPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/terraform-module-creator",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "terraform-patterns",
       "description": "Terraform infrastructure as code patterns and best practices. Use when writing Terraform configurations, creating modules, managing state, or designing IaC architectures.",
       "repo": "mindmorass/reflex",
       "path": "development/terraform-patterns",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "terraform-provider-config",
-      "description": "Terraform Provider Config - Auto-activating skill for DevOps Advanced.Triggers on: terraform provider config, terraform provider configPart of the DevOps Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/terraform-provider-config",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -75866,18 +75030,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "testflight",
-      "description": "TestFlight and App Store distribution guide. Use when preparing app for TestFlight, creating production builds, or submitting to App Store Connect.",
-      "repo": "Takashi-Matsumura/webrtc-demo",
-      "path": "data/testflight",
-      "category": "development",
-      "tags": [
-        "testflight"
-      ],
-      "stars": 0,
-      "source": "local"
     },
     {
       "name": "testing-browser-compatibility",
@@ -76161,16 +75313,6 @@
       "tags": [],
       "stars": 0,
       "source": "GitHub Search API"
-    },
-    {
-      "name": "tidying",
-      "description": "Guide structural code improvements using Kent Beck's Tidy First methodology. Use when seeing messy code, before making behavioral changes, after completing features, or discussing when to clean up cod",
-      "repo": "atusy/dotfiles",
-      "path": "development/tidying",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "tilt-logs",
@@ -78077,16 +77219,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "uniswap",
-      "description": "Trade and interact with Uniswap in Python using Ape and the uniswap-sdk package.",
-      "repo": "ApeWorX/skills",
-      "path": "development/uniswap",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "unity-bootstrap",
       "description": "Bootstrap a new Unity project for a 2D management/simulation game. Use when you need to create the Unity project, choose URP/UI approach, set up folder structure, gitignore, packages (Input System/Tex",
       "repo": "nolainjin/codex_2250",
@@ -78395,16 +77527,6 @@
       "description": "Safe upgrade practices for upgradeable smart contracts. Use when planning or executing contract upgrades.",
       "repo": "IvanTorresEdge/molcajete.ai",
       "path": "development/upgrade-safety",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "upgrade-strategies",
-      "description": "アップグレード戦略の専門スキル。段階的移行、後方互換性、リスク軽減を提供します。Anchors:• 『Release It!』（Michael Nygard） / 適用: アップグレード戦略 / 目的: 安全な更新Trigger:バージョンアップグレード時、マイグレーション計画時、依存関係更新時に使用",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/upgrade-strategies",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -79384,16 +78506,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "version-control-for-docs",
-      "description": "Gitを活用したドキュメントのバージョン管理と変更履歴管理の専門スキル。ブランチ戦略、コミット規約、Changelog生成、PRレビューを提供します。Anchors:- Pro Git（Scott Chacon）/ 適用: ブランチ戦略・履歴管理 / 目的: Gitベストプラクティス- Conventional Commits / 適用: コミットメッセージ規約 / 目的: 自動化可能なコミット-",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/version-control-for-docs",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "version-controlling-global-configuration",
       "description": "Use when user asks about version controlling ~/.claude directory or syncing Claude Code settings across machines. Provides git setup instructions and .gitignore patterns to track only portable setting",
       "repo": "bbrowning/bbrowning-claude-marketplace",
@@ -79418,26 +78530,6 @@
       "description": "Implement API versioning with backward compatibility, deprecation notices, and migration paths.Use when managing API versions and backward compatibility.Trigger with phrases like \"version the API\", \"m",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "development/versioning-apis",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "versioning-strategy-helper",
-      "description": "Versioning Strategy Helper - Auto-activating skill for API Development.Triggers on: versioning strategy helper, versioning strategy helperPart of the API Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/versioning-strategy-helper",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vertex-agent-builder",
-      "description": "Build and deploy production-ready generative AI agents using Vertex AI, Gemini models, and Google Cloud infrastructure with RAG, function calling, and multi-modal capabilities. Use when appropriate co",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "development/vertex-agent-builder",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -81531,7 +80623,7 @@
       "name": "write-gh-issues-prs",
       "description": "Write GitHub issues and PRs for this repo with the established conventions. Use when drafting issue or PR content or guidance.",
       "repo": "JoernStoehler/ai-forecasting-hackathon",
-      "path": "development/write-gh-issues-prs",
+      "path": "data/write-gh-issues-prs",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -81575,7 +80667,7 @@
       "name": "write-skills",
       "description": "Create or update SKILL.md files for this repo. Use when authoring skills in .codex/skills/.",
       "repo": "JoernStoehler/ai-forecasting-hackathon",
-      "path": "development/write-skills",
+      "path": "data/write-skills",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -82203,16 +81295,6 @@
       ],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "zig",
-      "description": "Zig runbook: build/test, comptime patterns, allocators, build.zig/build.zig.zon, zero-copy parsing, C interop.",
-      "repo": "tkersey/dotfiles",
-      "path": "development/zig",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "zig-build-engineer",

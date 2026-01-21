@@ -1,65 +1,249 @@
 ---
-name: postgresql
-description: PostgreSQL DBA skill for schema design review, indexing, query tuning (EXPLAIN/ANALYZE), vacuum/autovacuum, concurrency/locking, partitioning, backup/restore, replication/HA, and safe migrations. Use for tasks like diagnosing slow queries, designing indexes and constraints, and operating Postgres in production.
+name: PostgreSQL
+description: PostgreSQL database operations using PgQuery tool for DDL execution, schema management, and query operations
 ---
 
-# postgresql
+# PostgreSQL
 
-Use this skill for PostgreSQL 相关设计、性能与运维（DBA）任务。
+This skill covers PostgreSQL database operations using the PgQuery command-line tool for executing DDL scripts, managing schemas, and running queries against PostgreSQL databases.
 
-## Defaults / assumptions to confirm
+## Instructions
 
-- Postgres version
-- Deployment: managed vs self-hosted, single instance vs HA
-- Connection pooler: pgbouncer?
-- Workload: OLTP vs OLAP, write-heavy vs read-heavy
+When helping users with PostgreSQL operations, follow these guidelines:
 
-## Workflow
+1. **Always Use PgQuery Tool**: Use `Y:/CSharpDLLs/PgQuery/PgQuery.exe` for all PostgreSQL operations. Never use `psql` or other PostgreSQL clients directly.
 
-1) Understand workload and query paths
-- Core tables, top queries, read/write ratio, growth rate.
-- Latency SLO and peak hours.
+2. **Configuration Files**: PostgreSQL connection details are stored in JSON configuration files (typically in `R:/JsonParams/`). Common configs:
+   - `x3rocs_db.json` - x3rocs database connection
+   - `dw_db.json` - Data warehouse connection
 
-2) Schema review
-- Primary key strategy (string IDs vs bigint; be explicit about external IDs).
-- Types: `TIMESTAMPTZ` for time, `NUMERIC` vs `BIGINT` vs `DECIMAL` trade-offs.
-- Constraints: `NOT NULL`, `CHECK`, `UNIQUE` where needed.
-- JSONB usage: keep structure stable; consider normalization vs JSONB.
-- Comments: require `COMMENT ON TABLE/COLUMN` for long-lived schemas.
+3. **Command Format**: Use `--config` for database connection and either `--file` for SQL files or `--sql` for inline SQL:
+   ```bash
+   Y:/CSharpDLLs/PgQuery/PgQuery.exe --config "<config-path>" --file "<sql-file-path>"
+   ```
 
-3) Index design
-- Add indexes for WHERE/JOIN/ORDER BY patterns.
-- Composite indexes aligned with left-prefix.
-- Partial indexes for sparse predicates.
-- `GIN` for JSONB/array search; `btree_gin`/`pg_trgm` if used.
-- Avoid redundant indexes and over-indexing on write-heavy tables.
+4. **DDL Execution Order**: When executing multiple DDL scripts that have dependencies:
+   - Create new tables before tables that reference them (foreign keys)
+   - Drop tables in reverse order (dependent tables first)
+   - Handle permission errors by checking if shared functions already exist
 
-4) Query tuning
-- Use `EXPLAIN (ANALYZE, BUFFERS)` to validate plans.
-- Watch for seq scans, bad estimates, bloated tables, missing stats.
-- Consider query rewrites, better predicates, and covering indexes.
+5. **Error Handling**: Common PostgreSQL errors:
+   - `42501: must be owner of function` - Shared function already exists, skip recreation
+   - `42P01: relation does not exist` - Table/view doesn't exist, check dependencies
+   - `23503: foreign key violation` - Referenced table missing or data constraint violated
 
-5) Concurrency and locking
-- Inspect lock contention; avoid long transactions.
-- Use appropriate isolation; detect deadlocks and hot rows.
+6. **Schema Organization**: Follow the project's schema organization:
+   - `x3` schema - X3 integration data (customers, contacts, etc.)
+   - `rocs` schema - ROCS application data (price discounts, etc.)
+   - `public` schema - Shared utilities and functions
 
-6) Maintenance (vacuum / bloat)
-- Ensure autovacuum is effective; tune thresholds per table if needed.
-- Monitor bloat and `n_dead_tup`; use `VACUUM (ANALYZE)` and reindex when justified.
+## Examples
 
-7) Partitioning & scaling
-- Partition only when there is pruning benefit and operational plan.
-- Time-based partitions for append-only logs; ensure indexes per partition.
-- Consider sharding only with strong requirements and stable shard key.
+### Example 1: Execute a DDL Script
+```
+User: Run the contact.sql DDL to create the new contact table
 
-8) Operations
-- Backups: base backup + WAL archiving; restore drills; retention.
-- Replication: streaming replication, lag monitoring, failover runbook.
-- Migrations: safe rollout steps, lock-time considerations, backout plan.
+Claude: I'll execute the contact.sql DDL using PgQuery:
+- Use the x3rocs database connection
+- Execute the file from the Postgresql directory
+- Handle any permission errors for shared functions
 
-## Outputs
+[Runs: Y:/CSharpDLLs/PgQuery/PgQuery.exe --config "R:/JsonParams/x3rocs_db.json" --file "c:/Users/matthew.heath/Git/RocsMiddleware/Postgresql/contact.sql"]
+```
 
-- Index/constraint plan (query → index/constraint → impact/tradeoff).
-- Migration plan (DDL, rollout sequence, verification, rollback).
-- Performance report (evidence, root cause, fixes, metrics to monitor).
+### Example 2: Execute Multiple Dependent DDL Files
+```
+User: We need to update the customer and contact tables - contact has a foreign key to customer
 
+Claude: I'll execute these in the correct order:
+1. First run customer.sql (parent table)
+2. Then run contact.sql (child table with foreign key)
+3. Report any errors
+
+[Executes customer.sql first, then contact.sql]
+```
+
+### Example 3: Run Ad-Hoc Query
+```
+User: Check if the x3.contact table exists
+
+Claude: I'll query the PostgreSQL information schema:
+
+[Runs: Y:/CSharpDLLs/PgQuery/PgQuery.exe --config "R:/JsonParams/x3rocs_db.json" --sql "SELECT table_name FROM information_schema.tables WHERE table_schema = 'x3' AND table_name = 'contact'"]
+```
+
+---
+
+# Reference Implementation Details
+
+## PgQuery Tool
+
+**Location**: `Y:/CSharpDLLs/PgQuery/PgQuery.exe` or `C:/Users/matthew.heath/Git/PgQuery`
+**Purpose**: Command-line tool for executing PostgreSQL queries and DDL scripts with JSON configuration support
+
+### Command Syntax
+
+```bash
+# Execute SQL file
+Y:/CSharpDLLs/PgQuery/PgQuery.exe --config "<config-file>" --file "<sql-file>"
+
+# Execute inline SQL
+Y:/CSharpDLLs/PgQuery/PgQuery.exe --config "<config-file>" --sql "<sql-statement>"
+```
+
+**Parameters**:
+- `--config` (required): Path to PostgreSQL connection config JSON file
+- `--file`: Path to SQL file to execute
+- `--sql`: Inline SQL statement to execute
+- Must specify either `--file` or `--sql`, not both
+
+### Configuration File Format
+
+**Location**: `R:/JsonParams/*.json`
+
+```json
+{
+  "host": "rivsprod01",
+  "port": "5432",
+  "database": "x3rocs",
+  "username": "jordan",
+  "password": "your-password"
+}
+```
+
+## Common DDL Patterns
+
+### Creating Tables with Foreign Keys
+
+**Pattern**: Always create parent tables before child tables
+
+```sql
+-- Parent table (customer.sql)
+DROP TABLE IF EXISTS x3.customer CASCADE;
+CREATE TABLE x3.customer (
+    customer_code VARCHAR(30) PRIMARY KEY,
+    customer_name VARCHAR(50) NOT NULL,
+    -- ... other fields
+);
+
+-- Child table (contact.sql) - references parent
+DROP TABLE IF EXISTS x3.contact CASCADE;
+CREATE TABLE x3.contact (
+    customer_code VARCHAR(30) NOT NULL,
+    contact_code VARCHAR(15) NOT NULL,
+    -- ... other fields
+    PRIMARY KEY (customer_code, contact_code),
+    FOREIGN KEY (customer_code) REFERENCES x3.customer(customer_code) ON DELETE CASCADE
+);
+```
+
+**Execution Order**:
+1. Execute `customer.sql` first
+2. Execute `contact.sql` second
+
+### Hash-Based Change Detection
+
+**Pattern**: Use MD5 hash triggers for detecting data changes
+
+```sql
+-- Hash column in table
+CREATE TABLE x3.customer (
+    customer_code VARCHAR(30) PRIMARY KEY,
+    -- ... data fields
+    x3_hash VARCHAR(32),  -- MD5 hash for change detection
+    updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+-- Hash calculation function
+CREATE OR REPLACE FUNCTION x3.update_customer_hash()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.x3_hash := md5(
+        COALESCE(NEW.customer_code, '') || '|' ||
+        COALESCE(NEW.customer_name, '') || '|' ||
+        -- ... concatenate all fields for hashing
+    );
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger to auto-calculate hash
+CREATE TRIGGER trg_update_customer_x3hash
+    BEFORE INSERT OR UPDATE ON x3.customer
+    FOR EACH ROW
+    EXECUTE FUNCTION x3.update_customer_hash();
+```
+
+**Key Points**:
+- MD5 is sufficient for change detection (not security)
+- 32 characters (VARCHAR(32)) for MD5 hex output
+- Exclude timestamp and hash fields from hash calculation
+- Use `||` for string concatenation with pipe delimiter
+
+### Upsert Functions
+
+**Pattern**: Stored procedures for INSERT ... ON CONFLICT DO UPDATE
+
+```sql
+CREATE OR REPLACE FUNCTION x3.upsert_contact(
+    p_customer_code VARCHAR(30),
+    p_contact_code VARCHAR(15),
+    p_title VARCHAR(20),
+    -- ... other parameters
+)
+RETURNS VOID AS $$
+BEGIN
+    INSERT INTO x3.contact (
+        customer_code, contact_code, title, -- ...
+    ) VALUES (
+        p_customer_code, p_contact_code, p_title, -- ...
+    )
+    ON CONFLICT (customer_code, contact_code)
+    DO UPDATE SET
+        title = EXCLUDED.title,
+        -- ... update all fields
+END;
+$$ LANGUAGE plpgsql;
+```
+
+## Troubleshooting
+
+### Permission Error: "must be owner of function"
+
+**Cause**: Shared function already exists and is owned by another user
+
+**Solution**: Skip recreating the shared function or comment it out in the DDL script
+
+```sql
+-- Comment out if function already exists
+-- CREATE OR REPLACE FUNCTION x3.update_updated_column()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--     NEW.updated = CURRENT_TIMESTAMP;
+--     RETURN NEW;
+-- END;
+-- $$ LANGUAGE 'plpgsql';
+```
+
+### Foreign Key Violation on Table Creation
+
+**Cause**: Referenced table doesn't exist yet
+
+**Solution**: Execute DDL files in dependency order (parent tables first)
+
+### Cascade Drop Warning
+
+**Cause**: `DROP TABLE ... CASCADE` will drop dependent objects
+
+**Solution**: This is expected behavior. The CASCADE keyword is intentional for clean rebuilds.
+
+## Best Practices
+
+1. **Always Use Absolute Paths**: PgQuery requires absolute paths for `--file` parameter
+2. **Test on Non-Production First**: Execute DDL on test databases before production
+3. **Use CASCADE on DROP**: `DROP TABLE IF EXISTS x3.customer CASCADE` ensures clean drops
+4. **Hash for Change Detection**: Use MD5 hashing to track when data changes between systems
+5. **Composite Primary Keys**: Use format `(customer_code, contact_code)` for multi-column keys
+6. **Foreign Key Cascades**: Use `ON DELETE CASCADE` for parent-child relationships
+7. **Schema Namespacing**: Keep tables organized in schemas (`x3.`, `rocs.`, etc.)
+8. **Timestamp Triggers**: Auto-update `updated` column with BEFORE UPDATE triggers

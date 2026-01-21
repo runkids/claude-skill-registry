@@ -1,109 +1,42 @@
 ---
 name: ship
-description: 変更をコミットし、Pull Requestを作成。差分を分析し、コミット→プッシュ→PR作成を一括実行する。
-model: claude-sonnet-4-5-20250929
-allowed-tools: Bash, Read, Glob, Grep
+description: Quickly add, commit, and push changes to the current branch
 ---
 
-# Ship
+# ship
 
-変更をコミットし、リモートにプッシュして Pull Request を作成します。
+Quickly add, commit, and push changes to the current branch.
 
-**ベースブランチは `develop`。`main` への PR は禁止。**
+## Arguments
 
-## Phase 0: ブランチ確認
+- `message` (optional): Commit message. If not provided, will prompt the user for one.
 
-```bash
-git branch --show-current
+## Instructions
+
+1. Run `git status` to check the current state of the repository
+2. If there are no changes to commit, inform the user and exit
+3. Parse the commit message from args:
+   - If args starts with `-m ` or `--message `, extract the message after the flag (removing quotes if present)
+   - Otherwise, treat the entire args string as the message (removing surrounding quotes if present)
+   - If args is empty or just whitespace, ask the user for a commit message using AskUserQuestion
+4. Run `git add .` to stage all changes
+5. Create a commit with the message using the git commit protocol from the system instructions:
+   - Format the message properly with a Co-Authored-By line at the end
+   - Use a heredoc for proper formatting: `git commit -m "$(cat <<'EOF'\n[message]\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)"`
+6. Run `git push` to push the changes to the remote
+7. Confirm success to the user with a summary of what was pushed (include commit message and branch)
+
+## Example Usage
+
+```
+/ship "Add new printer case study"
+/ship -m "Fix typography issues"
+/ship
 ```
 
-**main / master / develop にいる場合:**
-1. diff から変更内容を分析
-2. ブランチ名を生成（`feat/xxx`, `fix/xxx` 等）
-3. `git checkout -b <ブランチ名>`
+## Notes
 
-## Phase 1: Commit
-
-### 1-1. 状態確認
-
-以下を並列実行:
-
-```bash
-git status
-git diff
-git diff --cached
-git log -10 --oneline --no-decorate
-```
-
-### 1-2. ステージング
-
-```bash
-git add <files>
-```
-
-**除外対象:** シークレット、一時ファイル
-
-### 1-3. 変更内容の理解
-
-1. `git diff --cached --name-only` で変更ファイル確認
-2. 主要ファイルを Read で確認
-3. 変更の目的・影響範囲を把握
-
-### 1-4. コミット
-
-```bash
-git commit -m "$(cat <<'EOF'
-<prefix>: <簡潔な説明>
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude Sonnet <noreply@anthropic.com>
-EOF
-)"
-```
-
-### 1-5. 確認
-
-```bash
-git status
-git log -1 --stat
-```
-
-**コミット失敗時は Phase 2 をスキップして終了。**
-
-## Phase 2: Create PR
-
-### 2-1. プッシュ
-
-```bash
-git push -u origin HEAD
-```
-
-### 2-2. PR作成
-
-```bash
-gh pr create --draft --assignee @me --base develop \
-  --title "<タイトル>" \
-  --body "$(cat <<'EOF'
-## Summary
-<変更内容の要約>
-
-## Test plan
-<テスト方法>
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-EOF
-)"
-```
-
-### 2-3. ブラウザで開く
-
-```bash
-gh pr view --web
-```
-
-## 完了報告
-
-- コミットメッセージ
-- PR URL
-- 次のアクション
+- Always follow git safety protocols
+- Show git status before committing
+- Confirm successful push with the user
+- If push fails, report the error clearly

@@ -1,7 +1,7 @@
 {
   "name": "utils",
-  "repo": "michsindlinger/agent-os-extended",
-  "path": "agent-os/workflows/skill/utils/assemble-skill.md",
-  "source": "github.com/michsindlinger/agent-os-extended",
-  "downloaded_at": "2026-01-20T03:56:18.436157Z"
+  "repo": "bitwikiorg/skills.md",
+  "path": "sources/langchain/utils/SKILL.md",
+  "source": "github.com/bitwikiorg/skills.md",
+  "downloaded_at": "2026-01-21T02:11:39.043001Z"
 }

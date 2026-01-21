@@ -1,7 +1,7 @@
 {
   "name": "test-gap-analyzer",
-  "repo": "rysweet/azure-tenant-grapher",
+  "repo": "rysweet/azlin",
   "path": ".claude/skills/test-gap-analyzer/SKILL.md",
-  "source": "github.com/rysweet/azure-tenant-grapher",
-  "downloaded_at": "2026-01-20T02:13:56.848423Z"
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-21T02:51:19.869575Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "early-stopping-callback",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Early Stopping Callback - Auto-activating skill for ML Training.Triggers on: early stopping callback, early stopping callbackPart of the ML Training skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:09.036981Z"
+  "path": "skills/07-ml-training/early-stopping-callback/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-21T01:43:00.619063Z"
 }

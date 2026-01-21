@@ -1,7 +1,7 @@
 {
   "name": "mcp-integration",
-  "repo": "aiskillstore/marketplace",
-  "path": "skills/mcp-integration/SKILL.md",
-  "source": "github.com/aiskillstore/marketplace",
-  "downloaded_at": "2026-01-20T04:04:50.180791Z"
+  "repo": "ecielam/claude-files",
+  "path": "plugins/cache/claude-code-plugins/plugin-dev/0.1.0/skills/mcp-integration/SKILL.md",
+  "source": "github.com/ecielam/claude-files",
+  "downloaded_at": "2026-01-21T04:21:32.456196Z"
 }

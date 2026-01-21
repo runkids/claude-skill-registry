@@ -1,9 +1,7 @@
 {
   "name": "smoke-test",
-  "description": "Run API and UI smoke tests to verify the Everruns system works correctly. Use this skill when you need to test system functionality after changes, verify deployments, or troubleshoot issues. Supports ",
-  "repo": "everruns/everruns",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "mastra-ai/mastra",
+  "path": ".claude/skills/smoke-test/SKILL.md",
+  "source": "github.com/mastra-ai/mastra",
+  "downloaded_at": "2026-01-21T02:50:05.769788Z"
 }

@@ -1,26 +1,29 @@
 ---
 name: google-gemini-api
 description: |
-  Integrate Gemini API with correct current SDK (@google/genai v1.27+, NOT deprecated @google/generative-ai).
-  Supports text generation, multimodal (images/video/audio/PDFs), function calling, and thinking mode. 1M input tokens.
+  Complete guide for Google Gemini API using the CORRECT current SDK (@google/genai v1.27+, NOT the
+  deprecated @google/generative-ai). Covers text generation, multimodal inputs (text + images + video +
+  audio + PDFs), function calling, thinking mode, streaming, and system instructions with accurate 2025
+  model information (Gemini 2.5 Pro/Flash/Flash-Lite with 1M input tokens, NOT 2M).
 
-  Use when: integrating Gemini API, implementing multimodal AI, using thinking mode for reasoning, function calling
-  with parallel execution, streaming responses, deploying to Cloudflare Workers, building chat, or troubleshooting
-  SDK deprecation, context window, model not found, function calling, or multimodal format errors.
+  Use when: integrating Gemini API, implementing multimodal AI applications, using thinking mode for
+  complex reasoning, function calling with parallel execution, streaming responses, deploying to
+  Cloudflare Workers, building chat applications, or encountering SDK deprecation warnings, context window
+  errors, model not found errors, function calling failures, or multimodal format errors.
 
   Keywords: gemini api, @google/genai, gemini-2.5-pro, gemini-2.5-flash, gemini-2.5-flash-lite,
-  gemini-3-pro-preview, multimodal gemini, thinking mode, google ai, genai sdk, function calling gemini,
-  streaming gemini, gemini vision, gemini video, gemini audio, gemini pdf, system instructions,
-  multi-turn chat, DEPRECATED @google/generative-ai, gemini context window, gemini models 2025,
-  gemini 1m tokens, gemini tool use, parallel function calling, compositional function calling, gemini 3
+  multimodal gemini, thinking mode, google ai, genai sdk, function calling gemini, streaming gemini,
+  gemini vision, gemini video, gemini audio, gemini pdf, system instructions, multi-turn chat,
+  DEPRECATED @google/generative-ai, gemini context window, gemini models 2025, gemini 1m tokens,
+  gemini tool use, parallel function calling, compositional function calling
 license: MIT
 ---
 
 # Google Gemini API - Complete Guide
 
-**Version**: Phase 2 Complete + Gemini 3 ✅
+**Version**: Phase 2 Complete ✅
 **Package**: @google/genai@1.27.0 (⚠️ NOT @google/generative-ai)
-**Last Updated**: 2025-11-19 (Gemini 3 preview release)
+**Last Updated**: 2025-10-25
 
 ---
 
@@ -149,18 +152,7 @@ console.log(data.candidates[0].content.parts[0].text);
 
 ## Current Models (2025)
 
-### Gemini 3 Series (Preview - November 2025)
-
-#### gemini-3-pro-preview
-- **Context**: TBD (documentation pending)
-- **Status**: 🆕 Preview release (November 18, 2025)
-- **Description**: Google's newest and most intelligent AI model with state-of-the-art reasoning
-- **Best for**: Most complex reasoning tasks, advanced multimodal understanding, benchmark-critical applications
-- **Features**: Enhanced multimodal (text, image, video, audio, PDF), function calling, streaming
-- **Benchmark Performance**: Outperforms Gemini 2.5 Pro on every major AI benchmark
-- **⚠️ Preview**: Use for evaluation. Consider gemini-2.5-pro for production until stable release
-
-### Gemini 2.5 Series (General Availability - Stable)
+### Gemini 2.5 Series (General Availability)
 
 #### gemini-2.5-pro
 - **Context**: 1,048,576 input tokens / 65,536 output tokens
@@ -185,22 +177,20 @@ console.log(data.candidates[0].content.parts[0].text);
 
 ### Model Feature Matrix
 
-| Feature | 3-Pro (Preview) | 2.5-Pro | 2.5-Flash | 2.5-Flash-Lite |
-|---------|-----------------|---------|-----------|----------------|
-| Thinking Mode | TBD | ✅ Default ON | ✅ Default ON | ✅ Default ON |
-| Function Calling | ✅ | ✅ | ✅ | ✅ |
-| Multimodal | ✅ Enhanced | ✅ | ✅ | ✅ |
-| Streaming | ✅ | ✅ | ✅ | ✅ |
-| System Instructions | ✅ | ✅ | ✅ | ✅ |
-| Context Window | TBD | 1,048,576 in | 1,048,576 in | 1,048,576 in |
-| Output Tokens | TBD | 65,536 max | 65,536 max | 65,536 max |
-| Status | Preview | Stable | Stable | Stable |
+| Feature | Pro | Flash | Flash-Lite |
+|---------|-----|-------|------------|
+| Thinking Mode | ✅ Default ON | ✅ Default ON | ✅ Default ON |
+| Function Calling | ✅ | ✅ | ✅ |
+| Multimodal | ✅ | ✅ | ✅ |
+| Streaming | ✅ | ✅ | ✅ |
+| System Instructions | ✅ | ✅ | ✅ |
+| Context Window | 1,048,576 in | 1,048,576 in | 1,048,576 in |
+| Output Tokens | 65,536 max | 65,536 max | 65,536 max |
 
 ### ⚠️ Context Window Correction
 
-**ACCURATE (Gemini 2.5)**: Gemini 2.5 models support **1,048,576 input tokens** (NOT 2M!)
+**ACCURATE**: Gemini 2.5 models support **1,048,576 input tokens** (NOT 2M!)
 **OUTDATED**: Only Gemini 1.5 Pro (previous generation) had 2M token context window
-**GEMINI 3**: Context window specifications pending official documentation
 
 **Common mistake**: Claiming Gemini 2.5 has 2M tokens. It doesn't. This skill prevents this error.
 

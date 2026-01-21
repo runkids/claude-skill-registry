@@ -1,7 +1,7 @@
 {
   "name": "spec",
-  "repo": "arttttt/CMIDCABot",
-  "path": ".codex/skills/spec/SKILL.md",
-  "source": "github.com/arttttt/CMIDCABot",
-  "downloaded_at": "2026-01-20T03:32:12.662429Z"
+  "repo": "doodledood/claude-code-plugins",
+  "path": "claude-plugins/vibe-workflow/skills/spec/SKILL.md",
+  "source": "github.com/doodledood/claude-code-plugins",
+  "downloaded_at": "2026-01-21T03:24:11.040660Z"
 }

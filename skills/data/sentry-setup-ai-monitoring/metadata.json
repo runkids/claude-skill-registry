@@ -1,7 +1,7 @@
 {
   "name": "sentry-setup-ai-monitoring",
-  "repo": "troykelly/codex-skills",
+  "repo": "troykelly/claude-skills",
   "path": "external/skills/sentry-setup-ai-monitoring/SKILL.md",
-  "source": "github.com/troykelly/codex-skills",
-  "downloaded_at": "2026-01-20T03:45:51.732143Z"
+  "source": "github.com/troykelly/claude-skills",
+  "downloaded_at": "2026-01-21T03:54:12.388250Z"
 }

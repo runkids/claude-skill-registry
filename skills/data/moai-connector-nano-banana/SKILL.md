@@ -3,14 +3,13 @@ name: moai-connector-nano-banana
 description: Professional image generation with Google Nano Banana Pro (Gemini 3 Pro)
 version: 1.0.1
 modularized: true
-tags:
-  - enterprise
-  - patterns
-  - nano
+last_updated: 2025-11-30
+compliance_score: 70
+auto_trigger_keywords:
   - banana
-  - architecture
-updated: 2025-11-24
-status: active
+  - connector
+  - nano
+color: red
 ---
 
 ## 🎯 Quick Reference (30 seconds)

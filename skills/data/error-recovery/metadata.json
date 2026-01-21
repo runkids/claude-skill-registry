@@ -1,7 +1,7 @@
 {
   "name": "error-recovery",
-  "repo": "omerlefaruk/CasareRPA",
-  "path": ".claude/skills/error-recovery/SKILL.md",
-  "source": "github.com/omerlefaruk/CasareRPA",
-  "downloaded_at": "2026-01-20T04:07:52.334343Z"
+  "repo": "troykelly/claude-skills",
+  "path": "skills/error-recovery/SKILL.md",
+  "source": "github.com/troykelly/claude-skills",
+  "downloaded_at": "2026-01-21T03:54:11.655323Z"
 }

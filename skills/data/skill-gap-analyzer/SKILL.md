@@ -1,207 +1,325 @@
 ---
 name: skill-gap-analyzer
-description: Analyzes the user's skill library to identify coverage gaps, redundant overlaps, and optimization opportunities. Use when users want to understand their skill ecosystem, optimize their skill collection, find missing capabilities for common workflows, or reduce redundant coverage. Triggered by requests like "analyze my skills," "what skills am I missing," "are any of my skills redundant," or "optimize my skill library."
+description: |
+  Analyzes project requirements to identify missing skills and automatically creates them.
+  Enforces MCP Code Execution pattern for skills that use external tools.
+  This skill should be used when starting a new project to ensure all required skills exist.
+author: Claude Code
+version: 2.1.0
+mcp-pattern: enforced
+allowed-tools:
+  - Read
+  - Write
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Skill Gap Analyzer
 
-## Overview
+Automatically identifies and creates missing skills based on project requirements.
+**Enforces MCP Code Execution pattern** for token efficiency when skills use external tools.
 
-This skill performs systematic analysis of a user's skill library to identify gaps in capability coverage, redundant overlaps between skills, and opportunities for optimization. It compares existing skills against common workflow patterns to surface actionable recommendations for improving the skill ecosystem.
+---
 
-## Analysis Workflow
+## MANDATORY EXECUTION STEPS
 
-The skill gap analysis follows these steps:
+When this skill is invoked, you MUST execute these steps IN ORDER:
 
-1. Inventory current skills
-2. Map coverage patterns and capabilities
-3. Identify gaps against common workflows
-4. Detect redundancies and overlaps
-5. Generate prioritized recommendations
+### Step A: Read Requirements File
+```
+Read the requirements file passed as argument
+```
 
-## Step 1: Inventory Current Skills
+### Step B: Detect Technologies
+Scan for these keywords and mark detected:
 
-Begin by reviewing the complete list of available skills. Examine each skill's name and description to understand:
+| Technology | Keywords to Search |
+|------------|-------------------|
+| React | "react", "jsx", "component" |
+| Next.js | "next.js", "nextjs", "next" |
+| Express | "express", "node api", "nodejs backend" |
+| FastAPI | "fastapi", "python api", "uvicorn" |
+| PostgreSQL | "postgresql", "postgres", "pg" |
+| MongoDB | "mongodb", "mongo", "mongoose" |
+| Prisma | "prisma", "orm" |
+| Docker | "docker", "container", "dockerfile" |
+| TypeScript | "typescript", "ts", ".tsx" |
+| Jest | "jest", "test", "testing" |
+| Playwright | "playwright", "e2e", "end-to-end" |
 
-- Primary purpose and capabilities
-- Domains or file types covered
-- Workflows supported
-- Trigger patterns and use cases
+### Step C: List Existing Skills
+```bash
+ls -la .claude/skills/
+```
 
-Create a structured inventory that captures:
-- Skill name
-- Core capabilities (what it does)
-- Primary domains (e.g., documents, presentations, data analysis)
-- File type associations (e.g., .docx, .pdf, .xlsx)
-- Key workflows (e.g., creation, editing, analysis)
+### Step D: Create Missing Skills
+For EACH detected technology that doesn't have a skill:
 
-## Step 2: Map Coverage Patterns
+1. Create directory: `mkdir -p .claude/skills/{tech}-patterns`
+2. Create SKILL.md with the template below
+3. Add technology-specific content
 
-Analyze the inventory to identify coverage patterns across multiple dimensions:
+### Step E: Generate Report
+Create `.specify/skill-gap-report.json` with results
 
-**By domain:**
-- Document processing (word docs, PDFs, presentations)
-- Data and analytics (spreadsheets, databases, visualization)
-- Development (coding, debugging, testing)
-- Creative (design, content creation, media)
-- Communication (writing, presentations, reporting)
-- Research (information gathering, analysis, synthesis)
-- Business (strategy, planning, operations)
+---
 
-**By workflow stage:**
-- Creation (new artifacts from scratch)
-- Editing/modification (improving existing work)
-- Analysis (extracting insights, understanding)
-- Conversion (format transformation)
-- Automation (scripting, batch processing)
-- Quality assurance (validation, review, testing)
+## Core Workflow
 
-**By file type:**
-- Office formats (.docx, .xlsx, .pptx)
-- PDFs
-- Code files (various languages)
-- Media (images, video, audio)
-- Data formats (CSV, JSON, databases)
-- Web (HTML, React artifacts)
+### 1. Analyze Requirements
 
-## Step 3: Identify Gaps
+Extract technology requirements from the project:
 
-Compare the coverage map against common workflows to identify gaps. Consider these high-value workflow categories:
+```python
+def analyze_requirements(requirements_text: str) -> dict:
+    """Extract technologies and patterns from requirements."""
 
-**Document workflows:**
-- Creating, editing, analyzing text documents
-- Working with forms and templates
-- PDF manipulation and form-filling
-- Presentation creation and design
-- Multi-format document conversion
+    patterns = {
+        "fastapi": ["fastapi", "python api", "rest api python"],
+        "nextjs": ["next.js", "nextjs", "react frontend", "frontend"],
+        "express": ["express", "node.js api", "nodejs"],
+        "postgresql": ["postgresql", "postgres", "sql database"],
+        "mongodb": ["mongodb", "mongo", "nosql", "document database"],
+        "kafka": ["kafka", "event streaming", "message queue"],
+        "graphql": ["graphql", "graph api"],
+        "docker": ["docker", "container", "dockerfile"],
+        "kubernetes": ["kubernetes", "k8s", "kubectl"],
+        "github-actions": ["github actions", "ci/cd", "pipeline"],
+    }
 
-**Data workflows:**
-- Spreadsheet creation with formulas and formatting
-- Data analysis and visualization
-- Database querying and management
-- Report generation and dashboards
-- Financial modeling
+    # MCP-related patterns (require code execution)
+    mcp_patterns = {
+        "google-drive": ["google drive", "gdrive", "docs api"],
+        "salesforce": ["salesforce", "crm", "sfdc"],
+        "slack": ["slack", "slack api", "messaging"],
+        "github-api": ["github api", "repository api", "issues api"],
+        "database-query": ["query database", "sql queries", "data extraction"],
+        "spreadsheet": ["spreadsheet", "excel", "csv processing", "sheets"],
+        "email": ["email", "smtp", "mail api"],
+        "storage": ["s3", "cloud storage", "blob storage"],
+    }
 
-**Development workflows:**
-- Code writing and debugging
-- Testing and quality assurance
-- Documentation generation
-- Package and dependency management
-- Deployment and DevOps
+    detected = []
+    mcp_required = []
+    text_lower = requirements_text.lower()
 
-**Research workflows:**
-- Information gathering and synthesis
-- Academic paper analysis
-- Competitive research
-- Market analysis
-- Literature reviews
+    for tech, keywords in patterns.items():
+        if any(kw in text_lower for kw in keywords):
+            detected.append(tech)
 
-**Business workflows:**
-- Strategic planning documents
-- Project management artifacts
-- Stakeholder communication
-- Performance analysis
-- Process documentation
+    for mcp, keywords in mcp_patterns.items():
+        if any(kw in text_lower for kw in keywords):
+            mcp_required.append(mcp)
 
-**Creative workflows:**
-- Visual design and graphics
-- Content writing and editing
-- Brand asset creation
-- Marketing materials
-- Media editing
+    return {
+        "technologies": detected,
+        "mcp_integrations": mcp_required,
+        "requires_code_execution": len(mcp_required) > 0
+    }
+```
 
-For each gap identified, assess:
-- **Impact**: How frequently would this capability be used?
-- **Availability**: Could existing skills partially address this with modification?
-- **Complexity**: How difficult would it be to create a skill for this gap?
-- **Priority**: High (frequently needed), Medium (occasionally useful), Low (rarely needed)
+### 2. Map Technologies to Skills
 
-## Step 4: Detect Redundancies
+| Technology | Required Skill | MCP Pattern |
+|------------|---------------|-------------|
+| fastapi | `fastapi-generator` | No |
+| nextjs | `nextjs-generator` | No |
+| express | `express-generator` | No |
+| postgresql | `postgres-setup` | No |
+| mongodb | `mongodb-setup` | No |
+| kafka | `kafka-setup` | No |
+| graphql | `graphql-generator` | No |
+| docker | `docker-generator` | No |
+| kubernetes | `k8s-generator` | No |
+| github-actions | `ci-cd-generator` | No |
+| google-drive | `gdrive-integration` | **YES** |
+| salesforce | `salesforce-integration` | **YES** |
+| slack | `slack-integration` | **YES** |
+| spreadsheet | `spreadsheet-processor` | **YES** |
+| database-query | `data-extractor` | **YES** |
 
-Identify overlapping capabilities across multiple skills that may indicate redundancy:
+### 3. Check Existing Skills
 
-**Look for:**
-- Multiple skills covering the same file types with similar workflows
-- Overlapping domain coverage without clear differentiation
-- Similar trigger patterns that might cause confusion
-- Duplicated functionality that could be consolidated
+```python
+def check_existing_skills(required_skills: list) -> dict:
+    """Check which skills exist and which are missing."""
 
-**Evaluate each overlap:**
-- **Complementary**: Different skills handle different aspects well (keep both)
-- **Redundant**: Significant overlap with minimal differentiation (consider consolidating)
-- **Partially redundant**: Some overlap but each skill has unique value (clarify boundaries or merge strategically)
+    existing = []
+    missing = []
 
-**Assessment criteria:**
-- Do the skills serve distinctly different use cases?
-- Is there clear guidance on when to use each skill?
-- Would consolidation improve usability or create confusion?
-- Is the redundancy justified by specialization or different approaches?
+    for skill in required_skills:
+        skill_path = f".claude/skills/{skill}/SKILL.md"
+        if Path(skill_path).exists():
+            existing.append(skill)
+        else:
+            missing.append(skill)
 
-## Step 5: Generate Recommendations
+    return {"existing": existing, "missing": missing}
+```
 
-Synthesize findings into actionable recommendations structured in these categories:
+### 4. Detect MCP Pattern Requirements
 
-### Critical Gaps (High Priority)
-Skills that would address frequently-needed workflows currently not covered. Include:
-- Specific workflow or use case not currently supported
-- Expected frequency of use
-- Potential impact on productivity
-- Suggested skill name and core capabilities
+```python
+def requires_mcp_pattern(skill_name: str, requirements: dict) -> bool:
+    """Determine if a skill needs MCP Code Execution pattern."""
 
-### Enhancement Opportunities (Medium Priority)
-Areas where existing skills could be extended or improved:
-- Existing skill that could be enhanced
-- Specific capability additions
-- Workflows that would be better supported
+    mcp_skill_patterns = [
+        "integration", "connector", "api-client",
+        "extractor", "processor", "sync"
+    ]
 
-### Consolidation Candidates (Redundancy Reduction)
-Skills with significant overlap that could be merged or clarified:
-- Skills involved in redundancy
-- Nature of overlap
-- Recommendation to consolidate, differentiate, or maintain status quo
-- Trade-offs to consider
+    # Check if skill name suggests MCP usage
+    if any(p in skill_name for p in mcp_skill_patterns):
+        return True
 
-### Low-Priority Additions
-Nice-to-have capabilities for specialized workflows:
-- Workflow or use case
-- Why it's lower priority (infrequent use, narrow applicability)
-- Potential value if implemented
+    # Check if requirements mention external APIs
+    mcp_keywords = [
+        "external api", "third-party", "integration",
+        "fetch data", "sync data", "import from",
+        "export to", "connect to"
+    ]
 
-### Configuration Recommendations
-Suggestions for optimizing existing skills:
-- Description clarifications for better triggering
-- Boundary adjustments between overlapping skills
-- Documentation improvements
-- Cross-references between related skills
+    req_text = str(requirements).lower()
+    return any(kw in req_text for kw in mcp_keywords)
+```
 
-## Output Format
+### 5. Auto-Create Missing Skills
 
-Present analysis in a clear, scannable format:
+For each missing skill, generate using appropriate template:
 
-1. **Executive Summary**: 2-3 sentence overview of findings
-2. **Coverage Heatmap**: Visual or structured representation of where skills are concentrated vs. sparse
-3. **Critical Gaps**: Prioritized list with justification
-4. **Redundancy Analysis**: Specific overlaps with recommendations
-5. **Action Items**: Concrete next steps prioritized by impact
+**Standard Skill Template:**
+```markdown
+---
+name: {skill-name}
+description: |
+  {Description}. Triggers: {keywords}
+version: 1.0.0
+---
 
-Keep recommendations specific and actionable. Avoid vague suggestions—each recommendation should enable the user to immediately understand what to build or change and why it matters.
+# {Skill Title}
 
-## Usage Notes
+## Workflow
+1. {Step 1}
+2. {Step 2}
 
-**Trigger this skill when users ask about:**
-- "What skills am I missing?"
-- "Are my skills redundant?"
-- "How can I optimize my skill library?"
-- "What workflows aren't covered by my skills?"
-- "Analyze my skill ecosystem"
-- "Should I consolidate any skills?"
+## Code Templates
+...
+```
 
-**Don't overthink:**
-- Perfect coverage isn't the goal—focus on high-impact gaps
-- Some redundancy may be intentional and valuable
-- User-specific workflows matter more than theoretical completeness
+**MCP Code Execution Skill Template:**
+```markdown
+---
+name: {skill-name}
+description: |
+  {Description}. Uses MCP Code Execution for 98% token efficiency.
+  Triggers: {keywords}
+version: 1.0.0
+mcp-pattern: code-execution
+---
 
-**Context matters:**
-- Consider the user's actual work patterns when assessing gaps
-- Ask clarifying questions about workflows they frequently perform
-- Prioritize based on their stated needs, not generic best practices
+# {Skill Title}
+
+## MCP Servers Used
+- `{server}`: {tools}
+
+## Execution Pattern
+
+This skill uses **MCP Code Execution**:
+1. Agent writes code to `./workspace/task.ts`
+2. Code calls MCP tools in execution environment
+3. Only final summary returns to model
+
+## Directory Structure
+\`\`\`
+{skill-name}/
+├── SKILL.md
+├── servers/
+│   └── {server-name}/
+│       ├── index.ts
+│       └── {tool}.ts
+├── scripts/
+│   └── execute.py
+└── workspace/
+\`\`\`
+
+## Progressive Disclosure
+\`\`\`bash
+ls ./servers/                    # List MCP servers
+ls ./servers/{server}/           # List tools
+cat ./servers/{server}/{tool}.ts # Read definition
+\`\`\`
+
+## Code Template
+\`\`\`typescript
+import * as server from './servers/{server}';
+
+async function main() {
+  const data = await server.{tool}({ ... });
+  const filtered = data.filter(item => item.relevant);
+  console.log(\`Processed \${filtered.length} items\`);
+}
+main();
+\`\`\`
+
+## Validation
+- [ ] Code executes outside model context
+- [ ] Only summary returned (~100 tokens)
+- [ ] Large data processed in execution env
+```
+
+### 6. Output
+
+Generate report:
+
+```json
+{
+  "analyzed_requirements": "path/to/requirements.md",
+  "technologies_detected": ["fastapi", "postgresql", "kafka"],
+  "mcp_integrations_detected": ["google-drive", "salesforce"],
+  "skills_required": [
+    {"name": "fastapi-generator", "mcp_pattern": false},
+    {"name": "gdrive-integration", "mcp_pattern": true}
+  ],
+  "skills_existing": ["fastapi-generator"],
+  "skills_created": [
+    {"name": "postgres-setup", "mcp_pattern": false},
+    {"name": "gdrive-integration", "mcp_pattern": true}
+  ],
+  "mcp_pattern_enforced": true,
+  "ready_to_build": true
+}
+```
+
+## MCP Pattern Enforcement Rules
+
+When generating skills that use external tools/APIs:
+
+1. **MUST use Code Execution pattern** if:
+   - Skill fetches large documents/datasets
+   - Skill chains multiple API calls
+   - Skill processes external data
+
+2. **Skill structure MUST include**:
+   - `servers/` directory with tool wrappers
+   - `workspace/` for intermediate files
+   - Progressive disclosure (load tools on-demand)
+
+3. **Generated code MUST**:
+   - Run outside model context
+   - Filter/aggregate before returning
+   - Return only summaries (~100 tokens)
+
+4. **SKILL.md MUST include**:
+   - `mcp-pattern: code-execution` in frontmatter
+   - Tool discovery commands
+   - Code template with console.log for results
+
+## Token Efficiency Targets
+
+| Skill Type | Max Tokens |
+|------------|------------|
+| Standard skill | 500 |
+| MCP skill (code execution) | 200 |
+| Tool discovery | 100 |
+| Result summary | 100 |

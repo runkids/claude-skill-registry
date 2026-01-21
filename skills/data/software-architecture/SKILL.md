@@ -1,11 +1,11 @@
 ---
 name: software-architecture
-description: Guide for quality focused software architecture. This skill should be used when users want to write code, design architecture, analyze code, in any case that relates to software development.
+description: Guide for quality focused software architecture. This skill should be used when users want to write code, design architecture, analyze code, in any case that relates to software development. 
 ---
 
 # Software Architecture Development Skill
 
-This skill provides guidance for quality focused software development and architecture. It is based on Clean Architecture and Domain Driven Design principles.
+This skill provides guidence for quality focused software development and architecture. It is based on Clean Architecture and Domain Driven Design principles.
 
 ## Code Style Rules
 
@@ -73,3 +73,4 @@ This skill provides guidance for quality focused software development and archit
 - Avoid deep nesting (max 3 levels)
 - Keep functions focused and under 50 lines when possible
 - Keep files focused and under 200 lines of code when possible
+```

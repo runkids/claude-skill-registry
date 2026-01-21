@@ -1,7 +1,7 @@
 {
   "category": "design",
-  "count": 2413,
-  "updated_at": "2026-01-20T04:08:22.158920Z",
+  "count": 2385,
+  "updated_at": "2026-01-21T04:24:32.474053Z",
   "skills": [
     {
       "name": "benchmark-kernel",
@@ -263,46 +263,6 @@
         "template"
       ],
       "stars": 230,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "coding-guidelines-gen",
-      "description": "Generate nested AGENTS.md coding guidelines per module (monorepo-aware), detect languages/tooling, ask architecture preferences, and set up missing formatters/linters (Spotless for JVM). Use when the ",
-      "repo": "jMerta/codex-skills",
-      "path": "data/coding-guidelines-gen",
-      "category": "design",
-      "tags": [
-        "coding",
-        "guidelines",
-        "gen"
-      ],
-      "stars": 90,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "plan-work",
-      "description": "Plan work before coding: do repo research, analyze options/risks, and ask clarifying questions before proposing an implementation plan. Use when the user asks for a plan, design/approach, scope breakd",
-      "repo": "jMerta/codex-skills",
-      "path": "data/plan-work",
-      "category": "design",
-      "tags": [
-        "plan",
-        "work"
-      ],
-      "stars": 90,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "rebase-assistant",
-      "description": "Guide a safe git rebase of the current branch onto a target branch, including conflict triage and resolution steps. Use when asked to rebase, update a branch, or resolve rebase conflicts.",
-      "repo": "jMerta/codex-skills",
-      "path": "data/rebase-assistant",
-      "category": "design",
-      "tags": [
-        "rebase",
-        "assistant"
-      ],
-      "stars": 90,
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -809,19 +769,6 @@
         "business",
         "plan",
         "advisor"
-      ],
-      "stars": 13,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "figma-to-code",
-      "description": "Generate production-ready React/Next.js code from Figma designs. Instructs proper Figma MCP tool usage, component reuse strategies, and variant mapping. **CRITICAL: ALWAYS use this skill when user pro",
-      "repo": "scoobynko/claude-code-design-skills",
-      "path": "data/figma-to-code",
-      "category": "design",
-      "tags": [
-        "figma",
-        "code"
       ],
       "stars": 13,
       "source": "SkillsMP Synced Skills"
@@ -3767,16 +3714,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "accessibility-check",
-      "description": "Evaluate accessibility and WCAG compliance of UI components and pages. Use when the user asks to \"check accessibility\", \"audit a11y\", \"WCAG review\", \"screen reader test\", or needs to verify inclusive ",
-      "repo": "Dami-Randle/logidocs-certify",
-      "path": "data/accessibility-check",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "accessibility-design",
       "description": "WCAG 2.1 AA compliance patterns, screen reader compatibility, keyboard navigation, and ARIA best practices. Use when implementing accessible interfaces, reviewing UI components, or auditing accessibil",
       "repo": "rsmdt/the-startup",
@@ -4064,19 +4001,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "agent-authoring",
-      "description": "Guide for authoring, designing, and building specialized AI agents. Use when creating, updating, reviewing, or improving agents that handle specific tasks with focused expertise. Helps design AGENT.md",
-      "repo": "philoserf/claude-code-setup",
-      "path": "data/agent-authoring",
-      "category": "design",
-      "tags": [
-        "agent",
-        "authoring"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "agent-dependency-design",
       "description": "Specializes in agent dependency and interface design. Defines skill references, command coordination, and inter-agent collaboration protocols while preventing circular dependencies to build effective ",
       "repo": "daishiman/AIWorkflowOrchestrator",
@@ -4111,16 +4035,6 @@
       "description": "Designs multi-step agent workflows with tool usage, retry logic, state management, and budget controls. Provides orchestration diagrams, tool execution order, fallback strategies, and cost limits. Use",
       "repo": "patricio0312rev/skillset",
       "path": "design/agent-orchestration-planner",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "agent-persona-design",
-      "description": "実在する専門家の思想をエージェントに移植し、その専門性と思考パターンを再現するスキル。Anchors:• 『心の社会』（Marvin Minsky） / 適用: 複雑系とエージェントシステム / 目的: 小規模エージェントの集合知実現• 『ファスト&スロー』（Daniel Kahneman） / 適用: 意思決定と思考パターン / 目的: 専門家の直感と論理の統合Trigger:Use when ",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/agent-persona-design",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -4298,16 +4212,6 @@
       "description": "Detects critical product, scope, data, risk, and success ambiguities in requirements or PRDs and expresses them as structured, decision-forcing clarification questions without proposing solutions or w",
       "repo": "Z1-Test/temp-shubh-st16",
       "path": "design/ambiguity-detection",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ambiguity-elimination",
-      "description": "曖昧性検出と除去スキル。定性的・不明確な表現を具体的・測定可能な要件に変換します。Anchors:• Don't Make Me Think（Steve Krug）/ 適用: ユーザビリティ判断とUI明確性 / 目的: ユーザーが「考えずに理解できる」表現基準の提供• 5つの曖昧性パターン / 適用: 要件ドキュメント全体 / 目的: 定性的・曖昧な表現を体系的に検出・排除• 定量化フレームワーク",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/ambiguity-elimination",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -4722,21 +4626,6 @@
       "source": "https://github.com/anthropics/skills"
     },
     {
-      "name": "anthropic-web-artifacts-builder",
-      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state manag",
-      "repo": "theflysurfer/claude-skills-marketplace",
-      "path": "design/anthropic-web-artifacts-builder",
-      "category": "design",
-      "tags": [
-        "anthropic",
-        "web",
-        "artifacts",
-        "builder"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "anthropic-web-frontend-design",
       "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples inclu",
       "repo": "theflysurfer/claude-skills-marketplace",
@@ -4912,16 +4801,6 @@
       ],
       "stars": 0,
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "apple-hig-guidelines",
-      "description": "Apple Human Interface Guidelines（HIG）に基づくUI設計原則を専門とするスキル。**Anchors**:• Apple Human Interface Guidelines (Official) / 適用: iOS・macOS・watchOS・tvOS UI設計 / 目的: Apple標準UI原則• 『Don't Make Me Think』（Steve Krug",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/apple-hig-guidelines",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "apple-mail",
@@ -5789,16 +5668,6 @@
       "description": "Begin the interactive Elixir/Phoenix tutorial with guided sections and pauses for understanding",
       "repo": "spaceCabbage/elixir-phoenix-tutorial",
       "path": "design/begin",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "best-practices-curation",
-      "description": "ベストプラクティスの収集・評価・統合・更新を体系化するスキル。情報源の信頼性評価、品質スコアリング、統合パターンを用いて知識ベースを改善する。Anchors:• The Pragmatic Programmer / 適用: 実践的改善 / 目的: 継続的な品質向上• Evidence-Based Management / 適用: 評価基準 / 目的: 判断の一貫性を担保• Knowledge Ma",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/best-practices-curation",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -7090,29 +6959,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "command-arguments-system",
-      "description": "コマンド引数（$ARGUMENTS、位置引数）の設計と検証を整理し、引数仕様・検証・エラー設計を一貫して支援するスキル。引数設計方針、検証ルール、テンプレート運用を段階化する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: 引数仕様と検証の設計 / 目的: 堅牢な引数システムの確立Trigger:Use wh",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/command-arguments-system",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "command-authoring",
-      "description": "Guide for authoring, creating, writing, building, reviewing, or improving slash commands that delegate to agents or skills. Use when designing /commands for user shortcuts, fixing existing commands, o",
-      "repo": "philoserf/claude-code-setup",
-      "path": "data/command-authoring",
-      "category": "design",
-      "tags": [
-        "command",
-        "authoring"
-      ],
-      "stars": 0,
-      "source": "local"
-    },
-    {
       "name": "command-error-handling",
       "description": "コマンドのエラーハンドリング（引数検証/事前チェック/ロールバック/ユーザー確認/エラーメッセージ設計）を整理し、失敗時の安全性と説明の一貫性を支援するスキル。パターン選定、検証手順、テンプレート運用を一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: エラーハンドリング設計 / 目的: 安定し",
       "repo": "daishiman/AIWorkflowOrchestrator",
@@ -7381,16 +7227,6 @@
       "description": "This skill should be used when the user asks to 'write a rule', 'create a rule', 'make rule shorter', 'keep rules minimal', 'reduce rule size', 'optimize rule', or needs guidance on writing precise, c",
       "repo": "FrancisVarga/coconut-claude-code-plugins",
       "path": "design/concise-rule-writing",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "config",
-      "description": "Comprehensive Git configuration guide covering global settings, aliases, performance tuning, credential management, maintenance, .gitattributes, clone shortcuts, and troubleshooting. Use when configur",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "design/config",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -9047,19 +8883,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "design-expert",
-      "description": "Use for HTML/CSS layout, responsive behavior, and UI styling on the NestMind site; follow the Zed-inspired design system in css/styles.css and reuse existing patterns.",
-      "repo": "nestmind-app/docs",
-      "path": "data/design-expert",
-      "category": "design",
-      "tags": [
-        "design",
-        "expert"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "design-frontend-component",
       "description": "Use when creating React/Vue components or adding UI features. Enforces composition patterns and state management best practices.",
       "repo": "JackSmack1971/claude-code-learning-flywheel",
@@ -9433,16 +9256,6 @@
       "description": "Guides the design and analysis of hexagonal architecture (Ports & Adapters) for backend systems. Use when structuring modular applications with clean separation between business logic and infrastructu",
       "repo": "aucun6352/project-cheat-sheet",
       "path": "design/designing-hexagonal-architecture",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "designing-ui",
-      "description": "ユーザーインターフェースの設計とコンポーネント設計を支援します。ワイヤーフレーム、レイアウト設計、デザインシステム構築、レスポンシブデザイン、インタラクションパターンを提供します。美しく機能的で実装可能なインターフェース設計が必要な場合に使用してください。",
-      "repo": "sekka/dotfiles",
-      "path": "design/designing-ui",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -10875,16 +10688,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "figma-design",
-      "description": "Figma workflows, components, auto layout, constraints, prototyping, design systems, and plugin development based on Figma Plugin API documentation",
-      "repo": "manutej/luxor-claude-marketplace",
-      "path": "design/figma-design",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "figma-design-analyzer",
       "description": "Extract and analyze Figma designs to create structured design specifications. Use this skill when you need to analyze Figma nodes, extract design properties (layout, spacing, typography), classify com",
       "repo": "xtone/ai_development_tools",
@@ -11711,19 +11514,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "frontend-excellence",
-      "description": "Design systems, component libraries, responsive UI/UX, accessibility. Build premium interfaces that enterprise clients expect.",
-      "repo": "Juan-Martinez16/-git",
-      "path": "data/frontend-excellence",
-      "category": "design",
-      "tags": [
-        "frontend",
-        "excellence"
-      ],
-      "stars": 0,
-      "source": "local"
     },
     {
       "name": "frontend-for-opus-45",
@@ -13606,16 +13396,6 @@
       "description": "Deep-dive technical discovery and requirement gathering before coding. Use when a task is broad, ambiguous, or requires architectural decisions.",
       "repo": "seajhawk/cc-marketplace",
       "path": "design/interview-skill",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "interview-techniques",
-      "description": "ユーザーインタビュー、要件ヒアリング、ステークホルダー聞き取り時に使用するスキル。オープンエンド質問、要求の深掘り、前提の明確化を通じて、ユーザーの真のニーズを引き出します。Anchors:• Interviewing Users (Steve Portigal) / 適用: インタビュー設計と実施 / 目的: バイアスを避け深い洞察を得る• Just Enough Research (Erika",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/interview-techniques",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -17556,19 +17336,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "organize-folders",
-      "description": "Provides guidance on organizing folder structures and file system layouts for any project. Use when planning project organization, reorganizing messy directories, setting up folder hierarchies, creati",
-      "repo": "philoserf/claude-code-setup",
-      "path": "data/organize-folders",
-      "category": "design",
-      "tags": [
-        "organize",
-        "folders"
-      ],
-      "stars": 0,
-      "source": "local"
-    },
-    {
       "name": "ossissue-discovery",
       "description": "Phase 1 of OSS contribution - Find and evaluate suitable issues matching your skills, time, and learning goals. Filters by labels, assesses project health, and provides structured recommendations. Use",
       "repo": "devkade/collaborator",
@@ -18630,16 +18397,6 @@
       ],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "process-lifecycle-management",
-      "description": "Node.jsプロセスのライフサイクル管理を専門とするスキル。Linuxカーネルのプロセス管理思想に基づき、プロセスの生成、実行、監視、終了までの完全な制御と、シグナル処理、ゾンビプロセス回避を設計します。Anchors:• The Pragmatic Programmer（Andrew Hunt, David Thomas）/ 適用: プロセス管理 / 目的: 実践的改善と品質維持Trigger",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/process-lifecycle-management",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "process-management",
@@ -20587,16 +20344,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "scrum-event-sprint-planning",
-      "description": "Guide Sprint Planning in AI-Agentic Scrum. Use when selecting PBI, defining Sprint Goal, or breaking into subtasks.",
-      "repo": "atusy/agentic-scrum",
-      "path": "design/scrum-event-sprint-planning",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "sdd-documentation",
       "description": "ソフトウェア設計ドキュメント（SDD）を作成・管理・実装します。requirements.md、design.md、tasks.mdの作成から、タスク実行・逆順レビューまでの全工程を統括します。SDDワークフロー全体の管理が必要な場合に使用してください。",
       "repo": "windschord/claude_skils",
@@ -21042,16 +20789,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "shared-world",
-      "description": "Maintain a wiki-style world bible for collaborative fiction. Use for long-running story worlds, shared universes, membership sites, or any fiction requiring persistent canonical reference.",
-      "repo": "jwynia/the-kepler-testimonies",
-      "path": "data/shared-world",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "shared-wrapper-design",
       "description": "共有ラッパー（*Shared）と非共有本体（*）、Handle の使い分け、ArcShared+ToolboxMutex、SharedAccess/Clone の設計判断を扱う。共有の要否を判断し、shared_vs_handle ガイドに従って設計・実装する場面で使う。",
       "repo": "j5ik2o/fraktor-rs",
@@ -21440,16 +21177,6 @@
       "description": "Interpretive guidance for designing Claude Code slash commands. Helps you apply official documentation effectively and create high-quality commands. Use when creating or reviewing slash commands.",
       "repo": "racurry/neat-little-package",
       "path": "design/slash-command-design",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "slb",
-      "description": "Simultaneous Launch Button - two-person rule for destructive commands. Requires peer review before executing risky operations.",
-      "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-      "path": "data/slb",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -22463,16 +22190,6 @@
       "description": "Use when you need SVGs with selectable/customisable appearance: multiple palettes (WLILO / Obsidian / light), consistent typography, and repeatable agent-friendly pipelines. Triggers: svg theme, token",
       "repo": "metabench/copilot-dl-news",
       "path": "design/svg-theme-system",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "swagger-ui",
-      "description": "Swagger UI を用いた OpenAPI ドキュメントの公開・統合を支援するスキル。静的HTML/React/Next.js/サーバー埋め込みの構成を整理し、安全なAPI Explorerを構築する。Anchors:• OpenAPI Specification / 適用: API仕様互換 / 目的: 定義の一貫性確保• Swagger UI Documentation / 適用: UI構成",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/swagger-ui",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -23566,16 +23283,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "tool-security",
-      "description": "MCPツールとAPI統合のセキュリティ設計を体系化するスキル。脅威整理、制御設計、設定検証を通じて安全なツール運用を支援する。Anchors:• Web Application Security / 適用: 脅威モデリング / 目的: 攻撃面の整理• OWASP ASVS / 適用: セキュリティ要件 / 目的: 制御の網羅性Trigger:Use when designing tool secu",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/tool-security",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "topology-and-geometry-guide",
       "description": "Expert in point-set topology, algebraic topology, differential geometry, and geometric intuition for abstract concepts",
       "repo": "sandraschi/advanced-memory-mcp",
@@ -24506,16 +24213,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "user-centric-writing",
-      "description": "ユーザー中心のドキュメント・文章作成を専門とするスキル。読者のニーズと理解度に合わせた明確で効果的なコンテンツを作成する。Anchors:• Badass: Making Users Awesome (Kathy Sierra) / 適用: ユーザー成功の視点 / 目的: 読者を成功させる文章設計• Plain Language Guidelines / 適用: 明確で簡潔な文章 / 目的: 理解",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/user-centric-writing",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "user-experience-design",
       "description": "Comprehensive UX design patterns for Rails applications including responsive design, animations/transitions, dark mode, loading states, form UX, and performance optimization. Use this skill when imple",
       "repo": "Kaakati/rails-enterprise-dev",
@@ -24816,16 +24513,6 @@
       "description": "User research, usability heuristics, user psychology, accessibility, inclusive design, user testing, and UX metrics",
       "repo": "manutej/luxor-claude-marketplace",
       "path": "design/ux-principles",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-prototyping",
-      "description": "Create interactive single-file HTML prototypes for UX validation. Use when the user asks to create a prototype, mockup, or interactive wireframe based on specs/architecture/ux.md or any UX specificati",
-      "repo": "Emz1998/avaris-ai",
-      "path": "data/ux-prototyping",
       "category": "design",
       "tags": [],
       "stars": 0,

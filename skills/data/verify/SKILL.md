@@ -1,111 +1,274 @@
 ---
 name: verify
-description: 'Manifest verification runner. Spawns parallel verifiers for Global Invariants and Acceptance Criteria. Called by /do, not directly by users.'
-user-invocable: false
+description: Run tests and fix issues end-to-end with Claude CodePro
 ---
+# VERIFY MODE: Verification and Quality Assurance Process with Code Review
 
-# /verify - Manifest Verification Runner
+> **WARNING: DO NOT use the Task tool with any subagent_type (Explore, Plan, general-purpose).**
+> Perform ALL verification yourself using direct tool calls (Read, Grep, Glob, Bash, MCP tools).
+> Sub-agents lose context and make verification inconsistent.
 
-## Goal
+**Available MCP Tools:**
+- **Context7** - Library documentation lookup: `resolve-library-id(query, libraryName)` then `query-docs(libraryId, query)` - descriptive queries required (see `context7-docs.md`)
+- **mcp-cli** - Custom MCP servers via `mcp-cli <server>/<tool> '<json>'` for servers in `mcp_servers.json`
 
-Run all verification methods from a Manifest. Spawn one verifier agent per criterion in parallel. Report results grouped by type.
+## The Process
 
-## Input
+**Unit tests → Integration tests → Program execution (with log inspection) → Rules audit → Coverage → Quality → Code review → E2E tests → Final verification**
 
-`$ARGUMENTS` = "<manifest-file-path> <execution-log-path> [--scope=files]"
+**All test levels are MANDATORY:** Unit tests alone are insufficient. You must run integration tests AND E2E tests AND execute the actual program with real data.
 
-## Principles
+Active verification with comprehensive code review that immediately fixes issues as discovered, ensuring all tests pass, code quality is high, and system works end-to-end.
 
-1. **Don't run checks yourself** - Spawn agents to verify. You orchestrate, they verify.
+### Step 1: Run & Fix Unit Tests
 
-2. **Single parallel launch** - All criteria in one call, slow ones first (tests, builds, reviewers before lint/typecheck).
+Run unit tests and fix any failures immediately.
 
-3. **Global failures are critical** - Highlight prominently. Task can't succeed while these fail.
+**If failures:** Identify → Read test → Fix implementation → Re-run → Continue until all pass
 
-4. **Actionable feedback** - Pass through file:line, expected vs actual, fix hints.
+### Step 2: Run & Fix Integration Tests
 
-## What to Do
+Run integration tests and fix any failures immediately.
 
-**Parse inputs** - Extract all criteria with verification methods from manifest. Read execution log for context.
+**Common issues:** Database connections, mock configuration, missing test data
 
-**Categorize by method:**
-- `bash`: Shell commands (tests, lint, typecheck)
-- `subagent`: Reviewer agents
-- `codebase`: Code pattern checks
-- `manual`: Set aside for human verification
+### Step 3: Build and Execute the Actual Program (MANDATORY)
 
-**Launch verifiers** - One Task per criterion, all in parallel. Use the agent type specified in the manifest's verification block. Pass criterion ID, description, verification method, and relevant context.
+**⚠️ CRITICAL: Tests passing ≠ Program works**
 
-**Collect and report results** - Group by Global Invariants first, then by Deliverable.
+Run the actual program and verify real output.
 
-## Decision Logic
+**Execution checklist:**
+- [ ] Build/compile succeeds without warnings
+- [ ] Program starts without errors
+- [ ] **Inspect logs** - Check for errors, warnings, stack traces
+- [ ] Verify expected output matches actual output
+- [ ] Test with real/sample data, not just mocks
+
+**If bugs are found:**
+
+| Bug Type | Action |
+|----------|--------|
+| **Minor** (typo, off-by-one, missing import) | Fix immediately, re-run, continue verification |
+| **Major** (logic error, missing function, architectural issue) | Add task to plan, set PENDING, exit verify → loop back |
+
+**Rule of thumb:** If you can fix it in < 5 minutes without writing new tests, fix inline. Otherwise, add a task.
+
+### Step 3a: Feature Parity Check (if applicable)
+
+**For refactoring/migration tasks:** Verify ALL original functionality is preserved.
+
+**Process:**
+1. Compare old implementation with new implementation
+2. Create checklist of features from old code
+3. Verify each feature exists in new code
+4. Run new code and verify same behavior as old code
+
+**If features are MISSING:**
+
+This is a serious issue - the implementation is incomplete.
+
+1. **Add new tasks to the plan file:**
+   - Read the existing plan
+   - Add new tasks for each missing feature (follow existing task format)
+   - Mark new tasks with `[MISSING]` prefix in task title
+   - Update the Progress Tracking section with new task count
+   - Add note: `> Extended [Date]: Tasks X-Y added for missing features found during verification`
+
+2. **Set plan status to PENDING and increment Iterations:**
+   ```
+   Edit the plan file:
+   Status: COMPLETE  →  Status: PENDING
+   Iterations: N     →  Iterations: N+1
+   ```
+
+3. **Inform user:**
+   ```
+   🔄 Iteration N+1: Missing features detected, looping back to implement...
+
+   Found [N] missing features that need implementation:
+   - [Feature 1]
+   - [Feature 2]
+
+   The plan has been updated with [N] new tasks.
+   ```
+
+4. **EXIT verify process** - Do not continue to Step 4+. The /spec workflow will automatically loop back to /implement.
+
+### Step 4: Rules Compliance Audit
+
+**MANDATORY: Verify work complies with ALL project rules before proceeding.**
+
+#### Process
+
+1. **Discover all rules:**
+   ```
+   Glob(".claude/rules/standard/*.md") → Read each file
+   Glob(".claude/rules/custom/*.md") → Read each file
+   ```
+
+2. **For each rule file:**
+   - Read the entire file
+   - Extract the key requirements and constraints
+   - Check if each requirement was followed during implementation
+   - Note any violations
+
+3. **Classify violations:**
+   - **Fixable Now:** Can be remediated immediately (run missing commands, apply fixes)
+   - **Structural:** Cannot be fixed retroactively (missed TDD cycle, architectural issues)
+
+4. **Remediate:** Execute fixes for all fixable violations before continuing
+
+#### Output Format
 
 ```
-if any Global Invariant failed:
-    → Return ALL failures, globals highlighted prominently
+## Rules Compliance Audit
 
-elif any AC failed:
-    → Return failures grouped by deliverable
+### Rules Checked
+- `.claude/rules/standard/[filename].md` - [Brief description]
+- `.claude/rules/custom/[filename].md` - [Brief description]
+- ...
 
-elif all automated pass AND manual exists:
-    → Return manual criteria, hint to call /escalate
+### ✅ Compliant
+- [Rule file]: [Requirements that were followed]
 
-elif all pass:
-    → Call /done
+### ⚠️ Violations Found (Fixable)
+- [Rule file]: [Violation] → [Fix action to execute now]
+
+### ❌ Violations Found (Structural)
+- [Rule file]: [Violation] → [What should have been done differently]
+
+### Remediation
+[Execute each fix action listed above]
+[Show output/evidence of fixes applied]
 ```
 
-## Output Format
+#### Completion Gate
 
-**On failure:**
-```markdown
-## Verification Results
+**DO NOT proceed to Step 5 until:**
+- All rule files have been read and checked
+- All fixable violations have been remediated
+- Structural violations have been documented
 
-### Global Invariants
+**If serious structural violations exist:** Consider whether to continue or restart implementation.
 
-#### Failed (N)
-- **INV-G1**: [description]
-  Method: [method]
-  [failure details with location, expected/actual, fix hint]
+### Step 5: Call Chain Analysis
 
-#### Passed (M)
-- INV-G2, INV-G3
+**Perform deep impact analysis for all changes:**
 
----
+1. **Trace Upwards (Callers):**
+   - Identify all code that calls modified functions
+   - Verify they handle new return values/exceptions
+   - Check for breaking changes in interfaces
 
-### Deliverable 1: [Name]
+2. **Trace Downwards (Callees):**
+   - Identify all dependencies of modified code
+   - Verify correct parameter passing
+   - Check error handling from callees
 
-#### Failed
-- **AC-1.2**: [description]
-  [failure details]
+3. **Side Effect Analysis:**
+   - Database state changes
+   - Cache invalidation needs
+   - External system impacts
+   - Global state modifications
 
-#### Passed
-- AC-1.1
+### Step 6: Check Coverage
 
----
+Verify test coverage meets requirements.
 
-**Summary:**
-- Global Invariants: X/Y failed (fix first)
-- Deliverable 1: A/B ACs failed
+**If insufficient:** Identify uncovered lines → Write tests for critical paths → Verify improvement
+
+### Step 7: Run Quality Checks
+
+Run automated quality tools and fix any issues found.
+
+### Step 8: Code Review Simulation
+
+**Perform self-review using code review checklist:**
+
+- [ ] **Logic Correctness:** Edge cases handled, algorithms correct
+- [ ] **Architecture & Design:** SOLID principles, no unnecessary coupling
+- [ ] **Performance:** No N+1 queries, efficient algorithms, no memory leaks
+- [ ] **Security:** No SQL injection, XSS, proper auth/authz
+- [ ] **Readability:** Clear naming, complex logic documented
+- [ ] **Error Handling:** Graceful error handling, adequate logging
+- [ ] **Convention Compliance:** Follows project standards
+
+**If issues found:** Document and fix immediately
+
+### Step 9: E2E Verification (MANDATORY for apps with UI/API)
+
+**⚠️ Unit + Integration tests are NOT enough. You MUST also run E2E tests.**
+
+Run end-to-end tests to verify the complete user workflow works.
+
+#### For APIs: Manual or Automated API Testing
+
+**When applicable:** REST APIs, GraphQL APIs, authentication systems, microservices
+
+**Test with curl:**
+```bash
+# Health check
+curl -s http://localhost:8000/health | jq
+
+# CRUD operations
+curl -X POST http://localhost:8000/api/resource -H "Content-Type: application/json" -d '{"name": "test"}'
+curl -s http://localhost:8000/api/resource/1 | jq
+curl -X PUT http://localhost:8000/api/resource/1 -H "Content-Type: application/json" -d '{"name": "updated"}'
+curl -X DELETE http://localhost:8000/api/resource/1
 ```
 
-**On success with manual:**
-```markdown
-## Verification Results
+**Verify:**
+- All requests succeed with expected status codes
+- Response times are acceptable
+- Authentication flows work correctly
+- CRUD operations complete successfully
+- Error scenarios return proper error codes
 
-All automated criteria pass.
+**If failures:** Analyze failure → Check API endpoint → Fix implementation → Re-run → Continue until all pass
 
-### Manual Verification Required
-- **AC-1.3**: [description] - How to verify: [from manifest]
+### Step 10: Final Verification
 
-Call /escalate to surface for human review.
-```
+**Run everything one more time:**
+- All tests
+- Program build and execution
+- Diagnostics
+- Call chain validation
 
-**On full success:**
-Call `/done`.
+**Success criteria:**
+- All tests passing
+- No diagnostics errors
+- Program builds and executes successfully with correct output
+- Coverage ≥ 80%
+- All Definition of Done criteria met
+- Code review checklist complete
+- No breaking changes in call chains
 
-## Criterion Types
+### Step 11: Update Plan Status
 
-| Type | Pattern | Failure Impact |
-|------|---------|----------------|
-| Global Invariant | INV-G{N} | Task fails |
-| Acceptance Criteria | AC-{D}.{N} | Deliverable incomplete |
+**Status Lifecycle:** `PENDING` → `COMPLETE` → `VERIFIED`
+
+**When ALL verification passes (no missing features, no bugs, rules compliant):**
+
+1. **MANDATORY: Update plan status to VERIFIED**
+   ```
+   Edit the plan file and change the Status line:
+   Status: COMPLETE  →  Status: VERIFIED
+   ```
+2. Read the Iterations count from the plan file
+3. Inform user: "✅ Iteration N: All checks passed - VERIFIED"
+
+**When verification FAILS (missing features, serious bugs, or unfixed rule violations):**
+
+1. Add new tasks to the plan for missing features/bugs
+2. **Set status back to PENDING and increment Iterations:**
+   ```
+   Edit the plan file:
+   Status: COMPLETE  →  Status: PENDING
+   Iterations: N     →  Iterations: N+1
+   ```
+3. Inform user: "🔄 Iteration N+1: Issues found, fixing and re-verifying..."
+4. **The /spec workflow handles this automatically** - do not tell user to run another command
+5. /spec will re-read status, see PENDING, and run /implement again
+
+**Fix immediately | Test after each fix | No "should work" - verify it works | Keep fixing until green**

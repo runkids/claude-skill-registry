@@ -1,7 +1,7 @@
 {
   "name": "agentuity-cli-profile-current",
-  "repo": "agentuity/sdk-explorer",
-  "path": ".agents/skills/agentuity-cli-profile-current/SKILL.md",
-  "source": "github.com/agentuity/sdk-explorer",
-  "downloaded_at": "2026-01-20T03:15:45.418900Z"
+  "repo": "agentuity/examples",
+  "path": "training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-profile-current/SKILL.md",
+  "source": "github.com/agentuity/examples",
+  "downloaded_at": "2026-01-21T04:12:06.779410Z"
 }

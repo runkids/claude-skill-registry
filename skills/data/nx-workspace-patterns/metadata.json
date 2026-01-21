@@ -1,7 +1,7 @@
 {
   "name": "nx-workspace-patterns",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/nx-workspace-patterns/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-20T02:53:53.433263Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/developer-essentials/skills/nx-workspace-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:11:00.755930Z"
 }

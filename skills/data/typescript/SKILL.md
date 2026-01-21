@@ -1,110 +1,245 @@
 ---
 name: typescript
-description: >
-  TypeScript strict patterns and best practices.
-  Trigger: When implementing or refactoring TypeScript in .ts/.tsx (types, interfaces, generics, const maps, type guards, removing any, tightening unknown).
-license: Apache-2.0
-metadata:
-  author: prowler-cloud
-  version: "1.0"
-  scope: [root, ui]
-  auto_invoke: "Writing TypeScript types/interfaces"
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
+description: TypeScript strict mode with eslint and jest
 ---
 
-## Const Types Pattern (REQUIRED)
+# TypeScript Skill
 
-```typescript
-// ✅ ALWAYS: Create const object first, then extract type
-const STATUS = {
-  ACTIVE: "active",
-  INACTIVE: "inactive",
-  PENDING: "pending",
-} as const;
+*Load with: base.md*
 
-type Status = (typeof STATUS)[keyof typeof STATUS];
+---
 
-// ❌ NEVER: Direct union types
-type Status = "active" | "inactive" | "pending";
-```
+## Strict Mode (Non-Negotiable)
 
-**Why?** Single source of truth, runtime values, autocomplete, easier refactoring.
-
-## Flat Interfaces (REQUIRED)
-
-```typescript
-// ✅ ALWAYS: One level depth, nested objects → dedicated interface
-interface UserAddress {
-  street: string;
-  city: string;
-}
-
-interface User {
-  id: string;
-  name: string;
-  address: UserAddress;  // Reference, not inline
-}
-
-interface Admin extends User {
-  permissions: string[];
-}
-
-// ❌ NEVER: Inline nested objects
-interface User {
-  address: { street: string; city: string };  // NO!
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
 }
 ```
 
-## Never Use `any`
+---
 
-```typescript
-// ✅ Use unknown for truly unknown types
-function parse(input: unknown): User {
-  if (isUser(input)) return input;
-  throw new Error("Invalid input");
-}
+## Project Structure
 
-// ✅ Use generics for flexible types
-function first<T>(arr: T[]): T | undefined {
-  return arr[0];
-}
-
-// ❌ NEVER
-function parse(input: any): any { }
+```
+project/
+├── src/
+│   ├── core/               # Pure business logic
+│   │   ├── types.ts        # Domain types/interfaces
+│   │   ├── services/       # Pure functions
+│   │   └── index.ts        # Public API
+│   ├── infra/              # Side effects
+│   │   ├── api/            # HTTP handlers
+│   │   ├── db/             # Database operations
+│   │   └── external/       # Third-party integrations
+│   └── utils/              # Shared utilities
+├── tests/
+│   ├── unit/
+│   └── integration/
+├── package.json
+├── tsconfig.json
+└── CLAUDE.md
 ```
 
-## Utility Types
+---
 
-```typescript
-Pick<User, "id" | "name">     // Select fields
-Omit<User, "id">              // Exclude fields
-Partial<User>                 // All optional
-Required<User>                // All required
-Readonly<User>                // All readonly
-Record<string, User>          // Object type
-Extract<Union, "a" | "b">     // Extract from union
-Exclude<Union, "a">           // Exclude from union
-NonNullable<T | null>         // Remove null/undefined
-ReturnType<typeof fn>         // Function return type
-Parameters<typeof fn>         // Function params tuple
-```
+## Tooling (Required)
 
-## Type Guards
-
-```typescript
-function isUser(value: unknown): value is User {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "id" in value &&
-    "name" in value
-  );
+```json
+// package.json scripts
+{
+  "scripts": {
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "format": "prettier --write 'src/**/*.ts'"
+  }
 }
 ```
 
-## Import Types
+```javascript
+// eslint.config.js
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.strictTypeChecked,
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      'max-lines-per-function': ['error', 20],
+      'max-depth': ['error', 2],
+      'max-params': ['error', 3],
+    }
+  }
+);
+```
+
+---
+
+## Testing with Jest
 
 ```typescript
-import type { User } from "./types";
-import { createUser, type Config } from "./utils";
+// tests/unit/services/user.test.ts
+import { calculateTotal } from '../../../src/core/services/pricing';
+
+describe('calculateTotal', () => {
+  it('returns sum of item prices', () => {
+    // Arrange
+    const items = [{ price: 10 }, { price: 20 }];
+
+    // Act
+    const result = calculateTotal(items);
+
+    // Assert
+    expect(result).toBe(30);
+  });
+
+  it('returns zero for empty array', () => {
+    expect(calculateTotal([])).toBe(0);
+  });
+
+  it('throws on invalid item', () => {
+    expect(() => calculateTotal([{ invalid: 'item' }])).toThrow();
+  });
+});
 ```
+
+---
+
+## GitHub Actions
+
+```yaml
+name: TypeScript Quality Gate
+
+on: [push, pull_request]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Lint
+        run: npm run lint
+        
+      - name: Type Check
+        run: npm run typecheck
+        
+      - name: Test with Coverage
+        run: npm run test:coverage
+        
+      - name: Coverage Threshold (80%)
+        run: npm run test:coverage -- --coverageThreshold='{"global":{"branches":80,"functions":80,"lines":80,"statements":80}}'
+```
+
+---
+
+## Pre-Commit Hooks
+
+Using Husky + lint-staged:
+
+```bash
+npm install -D husky lint-staged
+npx husky init
+```
+
+```json
+// package.json
+{
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
+```
+
+```bash
+# .husky/pre-commit
+npx lint-staged
+npx tsc --noEmit
+npm run test -- --onlyChanged --passWithNoTests
+```
+
+This runs on every commit:
+1. ESLint + Prettier on staged files
+2. Type check entire project
+3. Tests for changed files only
+
+---
+
+## Type Patterns
+
+### Discriminated Unions for Results
+```typescript
+type Result<T> =
+  | { ok: true; value: T }
+  | { ok: false; error: string };
+
+function parseUser(data: unknown): Result<User> {
+  // Type-safe error handling without exceptions
+}
+```
+
+### Branded Types for IDs
+```typescript
+type UserId = string & { readonly brand: unique symbol };
+type OrderId = string & { readonly brand: unique symbol };
+
+// Can't accidentally pass UserId where OrderId expected
+function getOrder(orderId: OrderId): Order { ... }
+```
+
+### Const Assertions for Literals
+```typescript
+const STATUSES = ['pending', 'active', 'closed'] as const;
+type Status = typeof STATUSES[number]; // 'pending' | 'active' | 'closed'
+```
+
+### Zod for Runtime Validation
+```typescript
+import { z } from 'zod';
+
+const UserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(1).max(100),
+});
+
+type User = z.infer<typeof UserSchema>;
+```
+
+---
+
+## TypeScript Anti-Patterns
+
+- ❌ `any` type - use `unknown` and narrow
+- ❌ Type assertions (`as`) - use type guards
+- ❌ Non-null assertions (`!`) - handle null explicitly
+- ❌ `@ts-ignore` without explanation
+- ❌ Enums - use const objects or union types
+- ❌ Classes for data - use interfaces/types
+- ❌ Default exports - use named exports

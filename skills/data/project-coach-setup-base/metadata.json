@@ -1,13 +1,7 @@
 {
   "name": "project-coach-setup-base",
-  "description": "Initial project setup for goal coaching system. Use when user says \"set up my project\", \"configure my coaching project\", \"initialize my goals\", or when starting a fresh coaching project with no existi",
   "repo": "ZachBeta/claude-as-coach",
-  "category": "data",
-  "tags": [
-    "project",
-    "coach",
-    "setup",
-    "base"
-  ],
-  "stars": 3
+  "path": "skills/project-coach-setup-base/SKILL.md",
+  "source": "github.com/ZachBeta/claude-as-coach",
+  "downloaded_at": "2026-01-21T01:12:44.590170Z"
 }

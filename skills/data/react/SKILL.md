@@ -1,476 +1,480 @@
 ---
 name: react
-description: Core React 19 patterns including hooks, Suspense, lazy loading, component structure, TypeScript best practices, and performance optimization. Use when working with React components, hooks, lazy loading, Suspense boundaries, or React-specific TypeScript patterns.
+description: This skill should be used when the user asks to "create a React component", "use React hooks", "handle state", "implement forms", "use useOptimistic", "use useActionState", "create Server Components", "add interactivity", or discusses React patterns, component architecture, or state management. Always use the latest React version and modern patterns.
+version: 1.0.0
 ---
 
-# React Core Patterns
+# React Development
 
-## Purpose
+This skill provides guidance for building applications with React, focusing on **always using the latest version** and modern patterns.
 
-Essential React 19 patterns for building modern applications with hooks, Suspense, lazy loading, and TypeScript.
+> **Philosophy:** Prefer Server Components by default. Use modern hooks (useActionState, useOptimistic). Leverage the React Compiler for automatic optimization.
 
-**Note**: React 19 (released December 2024) breaking changes:
-- `forwardRef` no longer needed - pass `ref` as a prop directly
-- `propTypes` removed (silently ignored)
-- New JSX transform required
-- `React.FC` type discouraged - use direct function components instead
+## Quick Reference
 
-## When to Use This Skill
+| Feature | Modern Approach | Legacy (Avoid) |
+|---------|----------------|----------------|
+| Form State | `useActionState` | `useFormState` (deprecated) |
+| Optimistic UI | `useOptimistic` | Manual state management |
+| Promises in Render | `use()` hook | useEffect + useState |
+| Context | `use(Context)` | `useContext(Context)` |
+| Memoization | React Compiler | Manual `useMemo`, `useCallback` |
+| Refs | `ref` prop on functions | `forwardRef` wrapper |
 
-- Creating React components
-- Using React hooks (useState, useEffect, useCallback, useMemo)
-- Implementing lazy loading and code splitting
-- Working with Suspense boundaries
-- React-specific TypeScript patterns
-- Performance optimization with React
+## Component Types
 
----
+### Server Components (Default in App Router)
 
-## Quick Start
+```tsx
+// No directive needed - server by default
+async function UserProfile({ userId }: { userId: string }) {
+  const user = await db.users.find(userId)
 
-### Component Structure Template
+  return (
+    <div className="profile">
+      <h1>{user.name}</h1>
+      <p>{user.email}</p>
+    </div>
+  )
+}
+```
+
+Server Components can:
+- Use `async/await`
+- Access databases directly
+- Read files from filesystem
+- Keep secrets server-side
+
+Server Components cannot:
+- Use `useState`, `useEffect`
+- Add event handlers
+- Access browser APIs
+
+### Client Components
+
+```tsx
+'use client'
+
+import { useState } from 'react'
+
+export function Counter() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <button onClick={() => setCount(c => c + 1)}>
+      Count: {count}
+    </button>
+  )
+}
+```
+
+Use Client Components when you need:
+- Interactivity (onClick, onChange)
+- Browser APIs (localStorage, window)
+- React hooks (useState, useEffect)
+
+## Modern Hooks
+
+### useActionState
+
+Handle form actions with loading and error states:
+
+```tsx
+'use client'
+
+import { useActionState } from 'react'
+
+interface FormState {
+  error: string | null
+  success: boolean
+}
+
+async function submitForm(prevState: FormState, formData: FormData): Promise<FormState> {
+  const email = formData.get('email') as string
+
+  if (!email.includes('@')) {
+    return { error: 'Invalid email', success: false }
+  }
+
+  await saveEmail(email)
+  return { error: null, success: true }
+}
+
+export function EmailForm() {
+  const [state, formAction, isPending] = useActionState(submitForm, {
+    error: null,
+    success: false
+  })
+
+  return (
+    <form action={formAction}>
+      <input
+        name="email"
+        type="email"
+        disabled={isPending}
+        placeholder="Enter email"
+      />
+      <button type="submit" disabled={isPending}>
+        {isPending ? 'Submitting...' : 'Submit'}
+      </button>
+
+      {state.error && <p className="text-red-500">{state.error}</p>}
+      {state.success && <p className="text-green-500">Success!</p>}
+    </form>
+  )
+}
+```
+
+### useOptimistic
+
+Provide instant UI feedback while async operations complete:
+
+```tsx
+'use client'
+
+import { useOptimistic, useTransition } from 'react'
+
+interface Message {
+  id: string
+  text: string
+  sending?: boolean
+}
+
+export function MessageList({
+  messages,
+  sendMessage
+}: {
+  messages: Message[]
+  sendMessage: (text: string) => Promise<void>
+}) {
+  const [optimisticMessages, addOptimisticMessage] = useOptimistic(
+    messages,
+    (state, newMessage: Message) => [...state, { ...newMessage, sending: true }]
+  )
+
+  const [, startTransition] = useTransition()
+
+  async function handleSubmit(formData: FormData) {
+    const text = formData.get('text') as string
+
+    // Instantly show the message
+    addOptimisticMessage({ id: `temp-${Date.now()}`, text })
+
+    // Then actually send it
+    startTransition(async () => {
+      await sendMessage(text)
+    })
+  }
+
+  return (
+    <div>
+      <ul>
+        {optimisticMessages.map(msg => (
+          <li
+            key={msg.id}
+            className={msg.sending ? 'opacity-50' : ''}
+          >
+            {msg.text}
+            {msg.sending && <span className="ml-2">Sending...</span>}
+          </li>
+        ))}
+      </ul>
+
+      <form action={handleSubmit}>
+        <input name="text" placeholder="Type a message" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  )
+}
+```
+
+### use() Hook
+
+Read promises and context directly in render:
+
+```tsx
+import { use, Suspense } from 'react'
+
+// Reading a promise
+function UserName({ userPromise }: { userPromise: Promise<User> }) {
+  const user = use(userPromise)
+  return <h1>{user.name}</h1>
+}
+
+export function UserProfile({ userId }: { userId: string }) {
+  const userPromise = fetchUser(userId) // Start fetching
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UserName userPromise={userPromise} />
+    </Suspense>
+  )
+}
+```
+
+```tsx
+// Reading context (replaces useContext)
+import { ThemeContext } from './theme'
+
+function ThemedButton() {
+  const theme = use(ThemeContext)
+  return <button className={theme.buttonClass}>Click me</button>
+}
+```
+
+## React Compiler
+
+Enable automatic memoization without manual `useMemo`/`useCallback`:
 
 ```typescript
-import { useState, useCallback } from 'react';
+// next.config.ts
+const nextConfig = {
+  experimental: {
+    reactCompiler: true
+  }
+}
+```
+
+Before (manual memoization):
+
+```tsx
+const ExpensiveComponent = memo(function ExpensiveComponent({ data }) {
+  const processedData = useMemo(() => expensiveProcess(data), [data])
+  const handleClick = useCallback(() => doSomething(data), [data])
+
+  return <div onClick={handleClick}>{processedData}</div>
+})
+```
+
+After (React Compiler handles it):
+
+```tsx
+function ExpensiveComponent({ data }) {
+  const processedData = expensiveProcess(data)
+  const handleClick = () => doSomething(data)
+
+  return <div onClick={handleClick}>{processedData}</div>
+}
+```
+
+## Component Patterns
+
+### Composition Over Props
+
+```tsx
+// Instead of prop drilling
+function Card({ title, subtitle, children, footer }) {
+  return (
+    <div className="card">
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+      {children}
+      <div>{footer}</div>
+    </div>
+  )
+}
+
+// Use composition
+function Card({ children }) {
+  return <div className="card">{children}</div>
+}
+
+Card.Header = function Header({ children }) {
+  return <div className="card-header">{children}</div>
+}
+
+Card.Body = function Body({ children }) {
+  return <div className="card-body">{children}</div>
+}
+
+Card.Footer = function Footer({ children }) {
+  return <div className="card-footer">{children}</div>
+}
+
+// Usage
+<Card>
+  <Card.Header>
+    <h2>Title</h2>
+  </Card.Header>
+  <Card.Body>Content here</Card.Body>
+  <Card.Footer>
+    <button>Action</button>
+  </Card.Footer>
+</Card>
+```
+
+### Render Props
+
+```tsx
+interface MousePosition {
+  x: number
+  y: number
+}
+
+function MouseTracker({
+  children
+}: {
+  children: (position: MousePosition) => React.ReactNode
+}) {
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener('mousemove', handleMove)
+    return () => window.removeEventListener('mousemove', handleMove)
+  }, [])
+
+  return <>{children(position)}</>
+}
+
+// Usage
+<MouseTracker>
+  {({ x, y }) => <div>Mouse: {x}, {y}</div>}
+</MouseTracker>
+```
+
+### Server/Client Boundary
+
+```tsx
+// Server Component (fetches data)
+async function Dashboard() {
+  const stats = await fetchStats()
+  const activities = await fetchActivities()
+
+  return (
+    <div>
+      <StatsCards stats={stats} />           {/* Server */}
+      <InteractiveChart data={stats} />      {/* Client */}
+      <ActivityFeed activities={activities} /> {/* Server */}
+      <FilterPanel />                         {/* Client */}
+    </div>
+  )
+}
+
+// Client Component (interactive)
+'use client'
+function InteractiveChart({ data }) {
+  const [range, setRange] = useState('7d')
+  // Chart logic...
+}
+```
+
+## Refs in React 19
+
+### Direct Ref Prop (No More forwardRef)
+
+```tsx
+// React 19: Direct ref prop
+function Input({ ref, ...props }) {
+  return <input ref={ref} {...props} />
+}
+
+// Usage
+function Form() {
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  return <Input ref={inputRef} placeholder="Name" />
+}
+```
+
+### Cleanup Functions
+
+```tsx
+function Component() {
+  const ref = useCallback((node: HTMLDivElement | null) => {
+    if (node) {
+      // Setup
+      const observer = new IntersectionObserver(...)
+      observer.observe(node)
+
+      // Cleanup (new in React 19)
+      return () => observer.disconnect()
+    }
+  }, [])
+
+  return <div ref={ref}>Observed</div>
+}
+```
+
+## Context
+
+### Creating Context
+
+```tsx
+import { createContext, use } from 'react'
+
+interface User {
+  id: string
+  name: string
+}
+
+const UserContext = createContext<User | null>(null)
+
+function UserProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User | null>(null)
+
+  return (
+    <UserContext value={user}>
+      {children}
+    </UserContext>
+  )
+}
+```
+
+### Consuming Context (Modern)
+
+```tsx
+function UserProfile() {
+  const user = use(UserContext)
+
+  if (!user) return <div>Please log in</div>
+
+  return <div>Hello, {user.name}</div>
+}
+```
+
+## Error Boundaries
+
+```tsx
+'use client'
+
+import { Component, type ReactNode } from 'react'
 
 interface Props {
-  userId: string;
-  onUpdate?: (data: UserData) => void;
+  children: ReactNode
+  fallback: ReactNode
 }
 
-interface UserData {
-  name: string;
-  email: string;
+interface State {
+  hasError: boolean
 }
 
-function UserProfile({ userId, onUpdate }: Props) {
-  const [data, setData] = useState<UserData | null>(null);
+class ErrorBoundary extends Component<Props, State> {
+  state = { hasError: false }
 
-  const handleUpdate = useCallback((newData: UserData) => {
-    setData(newData);
-    onUpdate?.(newData);
-  }, [onUpdate]);
-
-  return (
-    <div>
-      {/* Component content */}
-    </div>
-  );
-}
-
-export default UserProfile;
-```
-
-### Component Checklist
-
-Creating a React component? Follow this:
-
-- [ ] Use function components with typed props (not `React.FC`)
-- [ ] Define interfaces for Props and local state
-- [ ] Use `useCallback` for event handlers passed to children
-- [ ] Use `useMemo` for expensive computations
-- [ ] Lazy load if heavy component: `lazy(() => import())`
-- [ ] Wrap lazy components in `<Suspense>` with fallback
-- [ ] Default export at bottom
-- [ ] No conditional hooks (hooks must be called in same order)
-- [ ] Pass `ref` as a prop (no `forwardRef` needed in React 19)
-
----
-
-## Core Hooks Patterns
-
-### useState
-
-```typescript
-// Simple state
-const [count, setCount] = useState<number>(0);
-
-// Object state
-const [user, setUser] = useState<User | null>(null);
-
-// Array state
-const [items, setItems] = useState<Item[]>([]);
-
-// Functional updates when depending on previous state
-setCount(prev => prev + 1);
-setItems(prev => [...prev, newItem]);
-```
-
-### useCallback
-
-```typescript
-// Wrap functions passed to child components
-const handleClick = useCallback((id: string) => {
-  console.log('Clicked:', id);
-}, []); // Empty deps if no dependencies
-
-// With dependencies
-const handleUpdate = useCallback((data: FormData) => {
-  apiCall(userId, data);
-}, [userId]); // Re-create when userId changes
-```
-
-### useMemo
-
-```typescript
-// Expensive computation
-const sortedItems = useMemo(() => {
-  return items.sort((a, b) => a.score - b.score);
-}, [items]);
-
-// Derived state
-const totalPrice = useMemo(() => {
-  return cart.reduce((sum, item) => sum + item.price, 0);
-}, [cart]);
-```
-
-### useEffect
-
-```typescript
-// Run once on mount
-useEffect(() => {
-  fetchData();
-}, []);
-
-// Run when dependency changes
-useEffect(() => {
-  if (userId) {
-    loadUserData(userId);
+  static getDerivedStateFromError() {
+    return { hasError: true }
   }
-}, [userId]);
 
-// Cleanup
-useEffect(() => {
-  const subscription = subscribe(userId);
-  return () => subscription.unsubscribe();
-}, [userId]);
-```
-
----
-
-## Lazy Loading & Code Splitting
-
-### Basic Lazy Loading
-
-```typescript
-import React, { Suspense } from 'react';
-
-// Lazy load heavy component
-const HeavyChart = React.lazy(() => import('./HeavyChart'));
-
-function Dashboard() {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <Suspense fallback={<div>Loading chart...</div>}>
-        <HeavyChart />
-      </Suspense>
-    </div>
-  );
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback
+    }
+    return this.props.children
+  }
 }
-```
 
-### Multiple Lazy Components
-
-```typescript
-const AdminPanel = React.lazy(() => import('./AdminPanel'));
-const UserSettings = React.lazy(() => import('./UserSettings'));
-const Reports = React.lazy(() => import('./Reports'));
-
-function App() {
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Routes>
-        <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/settings" element={<UserSettings />} />
-        <Route path="/reports" element={<Reports />} />
-      </Routes>
-    </Suspense>
-  );
-}
-```
-
-### Feature-Based Code Splitting
-
-```typescript
-// features/auth/index.tsx
-export { default } from './AuthFeature';
-
-// Lazy load entire feature
-const AuthFeature = React.lazy(() => import('~/features/auth'));
-
-<Suspense fallback={<FeatureLoader />}>
-  <AuthFeature />
-</Suspense>
-```
-
----
-
-## Suspense Patterns
-
-### Suspense Boundaries
-
-```typescript
-// Wrap data-fetching components
-<Suspense fallback={<Skeleton />}>
-  <UserProfile userId={id} />
-</Suspense>
-
-// Nested Suspense for granular loading
-<Suspense fallback={<PageLoader />}>
-  <Header />
-  <Suspense fallback={<ContentSkeleton />}>
-    <MainContent />
-  </Suspense>
-  <Footer />
-</Suspense>
-```
-
-### Error Boundaries with Suspense
-
-```typescript
-import { ErrorBoundary } from 'react-error-boundary';
-
-<ErrorBoundary fallback={<ErrorFallback />}>
-  <Suspense fallback={<Loading />}>
-    <DataComponent />
-  </Suspense>
+// Usage
+<ErrorBoundary fallback={<div>Something went wrong</div>}>
+  <RiskyComponent />
 </ErrorBoundary>
 ```
 
----
-
-## TypeScript Patterns
-
-### Component Props
-
-```typescript
-// Basic props
-interface ButtonProps {
-  label: string;
-  onClick: () => void;
-  disabled?: boolean;
-}
-
-// Props with children
-interface CardProps {
-  title: string;
-  children: React.ReactNode;
-}
-
-// Props with specific child types
-interface ListProps {
-  children: React.ReactElement<ItemProps> | React.ReactElement<ItemProps>[];
-}
-
-// Props with event handlers
-interface FormProps {
-  onSubmit: (data: FormData) => void;
-  onChange?: (field: string, value: unknown) => void;
-}
-```
-
-### Hooks TypeScript
-
-```typescript
-// useState with type
-const [user, setUser] = useState<User | null>(null);
-const [items, setItems] = useState<Item[]>([]);
-
-// useRef with type
-const inputRef = useRef<HTMLInputElement>(null);
-const timerRef = useRef<number | null>(null);
-
-// Custom hook with return type
-function useUser(id: string): { user: User | null; loading: boolean } {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  // ... implementation
-
-  return { user, loading };
-}
-```
-
----
-
-## Performance Optimization
-
-### React.memo
-
-```typescript
-// Memoize component to prevent unnecessary re-renders
-const UserCard = React.memo<UserCardProps>(({ user, onUpdate }) => {
-  return (
-    <div>
-      <h3>{user.name}</h3>
-      <button onClick={() => onUpdate(user.id)}>Update</button>
-    </div>
-  );
-});
-
-// Custom comparison function
-const UserCard = React.memo(UserCardComponent, (prevProps, nextProps) => {
-  return prevProps.user.id === nextProps.user.id;
-});
-```
-
-### Avoiding Re-renders
-
-```typescript
-// ❌ Bad: Creates new function on every render
-function Parent() {
-  return <Child onClick={() => console.log('clicked')} />;
-}
-
-// ✅ Good: Stable function reference
-function Parent() {
-  const handleClick = useCallback(() => {
-    console.log('clicked');
-  }, []);
-
-  return <Child onClick={handleClick} />;
-}
-```
-
----
-
-## Common Patterns
-
-### Conditional Rendering
-
-```typescript
-// Ternary operator
-{isLoading ? <Spinner /> : <Content />}
-
-// Logical AND
-{error && <ErrorMessage error={error} />}
-
-// Nullish coalescing
-{user ?? <GuestView />}
-
-// Early return for loading states
-function Component() {
-  const { data } = useSomeHook();
-
-  // ❌ Avoid early returns for loading - breaks hooks rules
-  // Use Suspense instead
-
-  return <div>{data.map(...)}</div>;
-}
-```
-
-### Lists and Keys
-
-```typescript
-// Always use stable keys
-{items.map(item => (
-  <ItemCard key={item.id} item={item} />
-))}
-
-// Never use index as key if list can reorder
-// ❌ Bad
-{items.map((item, index) => (
-  <ItemCard key={index} item={item} />
-))}
-```
-
----
-
-## File Organization
-
-### Feature-Based Structure
-
-```
-src/
-├── features/
-│   ├── auth/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── types/
-│   │   └── index.tsx
-│   └── posts/
-│       ├── components/
-│       ├── hooks/
-│       ├── types/
-│       └── index.tsx
-├── components/  # Shared components
-├── hooks/       # Shared hooks
-└── types/       # Shared types
-```
-
-### Component Co-location
-
-```
-features/posts/
-├── components/
-│   ├── PostCard.tsx
-│   ├── PostList.tsx
-│   └── PostForm.tsx
-├── hooks/
-│   ├── usePost.ts
-│   └── usePosts.ts
-├── types/
-│   └── post.ts
-└── index.tsx  # Public API
-```
-
----
-
-## Common Mistakes to Avoid
-
-### 1. Conditional Hooks
-
-```typescript
-// ❌ Never do this
-function Component({ condition }) {
-  if (condition) {
-    const [state, setState] = useState(0); // Breaks rules of hooks
-  }
-}
-
-// ✅ Do this
-function Component({ condition }) {
-  const [state, setState] = useState(0);
-  // Use state conditionally, not the hook
-}
-```
-
-### 2. Missing Dependencies
-
-```typescript
-// ❌ Bad: Missing dependency
-useEffect(() => {
-  fetchUser(userId);
-}, []); // userId should be in deps
-
-// ✅ Good: All dependencies listed
-useEffect(() => {
-  fetchUser(userId);
-}, [userId]);
-```
-
-### 3. Mutating State
-
-```typescript
-// ❌ Bad: Mutating state directly
-const handleAdd = () => {
-  items.push(newItem); // Don't mutate
-  setItems(items);
-};
-
-// ✅ Good: Create new array
-const handleAdd = () => {
-  setItems([...items, newItem]);
-};
-```
-
----
-
 ## Additional Resources
 
-For more detailed patterns, see:
-- [component-patterns.md](resources/component-patterns.md) - Advanced component patterns
-- [performance.md](resources/performance.md) - Performance optimization techniques
-- [typescript-patterns.md](resources/typescript-patterns.md) - TypeScript best practices
-- [hooks-patterns.md](resources/hooks-patterns.md) - Custom hooks and advanced patterns
+For detailed patterns, see reference files:
+- **`references/hooks.md`** - Complete hooks reference
+- **`references/server-components.md`** - RSC patterns and best practices

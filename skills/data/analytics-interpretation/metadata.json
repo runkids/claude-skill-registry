@@ -1,7 +1,7 @@
 {
   "name": "analytics-interpretation",
-  "repo": "nicepkg/ai-workflow",
-  "path": "workflows/marketing-pro-workflow/.claude/skills/analytics-interpretation/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-20T03:46:25.826794Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/seo/skills/analytics-interpretation/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-21T02:36:40.864561Z"
 }

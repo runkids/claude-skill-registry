@@ -1,96 +1,202 @@
 ---
 name: create-project
-description: Bootstraps production-ready AlgoKit projects for Algorand dApps and smart contracts. Use when initializing new Algorand smart contract projects, setting up development environments from scratch, or scaffolding dApps with pre-configured tooling. Strong triggers include "create a new project", "initialize a new Algorand app", "start a new smart contract", "set up AlgoKit", "scaffold a dApp", "algokit init".
+description: RNBT 아키텍처 패턴에 맞는 완전한 대시보드 페이지를 생성합니다. Master/Page 레이어, 여러 컴포넌트, Mock 서버, datasetList.json을 포함합니다.
 ---
 
-# AlgoKit Project Initialization
+# RNBT 프로젝트 생성
 
-Create new Algorand projects using AlgoKit's official templates.
+Master/Page 레이어, 컴포넌트, Mock 서버, datasetList.json을 포함한 완전한 프로젝트를 생성합니다.
 
-## Overview / Core Workflow
+> 기본 원칙은 [RNBT_architecture/README.md](/RNBT_architecture/README.md) 참조
 
-1. Confirm project details with user (name, template, customizations)
-2. Run `algokit init` with appropriate flags
-3. Handle any initialization errors
-4. Provide next steps for building/testing
+---
 
-## How to proceed
+## ⚠️ 작업 전 필수 확인
 
-1. **Confirm project details with user:**
-   - Project name (directory name)
-   - Template choice (TypeScript or Python)
-   - Any customizations (`--no-git`, `--no-bootstrap`, author name)
-   - For TypeScript: confirm Production preset for production projects
+**코드 작성 전 반드시 다음 파일들을 Read 도구로 읽으세요.**
+**이전에 읽었더라도 매번 다시 읽어야 합니다 - 캐싱하거나 생략하지 마세요.**
 
-2. **Run initialization command:**
+1. [/RNBT_architecture/README.md](/RNBT_architecture/README.md) - 아키텍처 이해
+2. [/.claude/guides/CODING_STYLE.md](/.claude/guides/CODING_STYLE.md) - 코딩 스타일
 
-   **TypeScript (Production Preset):**
+---
 
-   ```bash
-   algokit init -n <project-name> -t typescript --answer preset "Production" --answer author_name "<name>" --defaults
-   ```
+## 출력 구조
 
-   **TypeScript (Starter Preset):**
+```
+Examples/[project_name]/
+├── mock_server/                    # Express API 서버
+│   ├── server.js
+│   └── package.json
+│
+├── master/page/                    # MASTER 레이어 (앱 전역)
+│   ├── page_scripts/
+│   │   ├── before_load.js
+│   │   ├── loaded.js
+│   │   └── before_unload.js
+│   ├── page_styles/container.css
+│   └── components/
+│       ├── Header/
+│       └── Sidebar/
+│
+├── page/                           # PAGE 레이어 (페이지별)
+│   ├── page_scripts/
+│   │   ├── before_load.js
+│   │   ├── loaded.js
+│   │   └── before_unload.js
+│   ├── page_styles/container.css
+│   └── components/
+│
+├── datasetList.json
+├── preview.html
+└── README.md
+```
 
-   ```bash
-   algokit init -n <project-name> -t typescript --answer author_name "<name>" --defaults
-   ```
+---
 
-   **Python (Production Preset):**
+## Master vs Page 레이어
 
-   ```bash
-   algokit init -n <project-name> -t python --answer preset "Production" --answer author_name "<name>" --defaults
-   ```
+| 레이어 | 범위 | 용도 | 예시 |
+|--------|------|------|------|
+| **Master** | 앱 전역 | 공통 UI, 네비게이션 | Header, Sidebar |
+| **Page** | 페이지별 | 페이지 고유 콘텐츠 | StatsCards, DataTable, Chart |
 
-   **Python (Starter Preset):**
+### `this` 공유
 
-   ```bash
-   algokit init -n <project-name> -t python --answer author_name "<name>" --defaults
-   ```
+Master와 Page는 **동일한 `this` 인스턴스를 공유**합니다.
 
-   **With custom options (no git, no bootstrap):**
+```javascript
+// Page loaded.js에서 초기화
+this.currentParams = {};
 
-   ```bash
-   algokit init -n <project-name> -t typescript --no-git --no-bootstrap --defaults
-   ```
+// Master before_load.js에서 접근/수정 가능
+this.currentParams.tasks = { ...filters };
+```
 
-3. **Handle errors:**
-   - Check if project directory already exists
-   - Verify AlgoKit is installed: `algokit --version`
-   - Ensure target directory is writable
-   - Valid templates: `typescript`, `python`, `tealscript`, `react`, `fullstack`, `base`
+- Master와 Page는 별도 레이어지만 하나의 페이지 인스턴스
+- Page에서 초기화한 상태를 Master에서 직접 수정 가능
+- 이벤트 핸들러는 등록 시점이 아닌 실행 시점에 `this` 참조
 
-4. **Provide next steps:**
-   - `cd <project-name>`
-   - `algokit project run build` — Compile contracts
-   - `algokit project run test` — Run test suite
-   - `algokit localnet start` — Start local network (if deploying)
-   - `algokit project run deploy` — Deploy contracts to local network
+### ⚠️ 덮어쓰기 방지 (필수)
 
-## Important Rules / Guidelines
+Master와 Page 모두 같은 변수명을 사용하면 **나중에 실행되는 쪽이 덮어씀**.
 
-- **Always confirm with user before executing** — Never run `algokit init` without explicit confirmation
-- **Default to TypeScript** — Recommended for production applications
-- **Use Production preset** — For any project because it includes testing framework and deployment scripts
-- **Include author name** — Pass `--answer author_name "<name>"` for attribution
-- **Use `--defaults`** — Accepts all other default values for non-interactive mode
+```javascript
+// ❌ 잘못된 예: Page가 Master의 핸들러를 덮어씀
+// Master before_load.js
+this.eventBusHandlers = { '@filterApplied': ... };
+// Page before_load.js
+this.eventBusHandlers = { '@taskClicked': ... };  // Master 핸들러 사라짐!
 
-## Common Variations / Edge Cases
+// ✅ 올바른 예: Object.assign으로 병합
+// Page before_load.js
+this.eventBusHandlers = Object.assign(this.eventBusHandlers || {}, {
+    '@taskClicked': ...
+});
 
-| Scenario | Approach |
-|----------|----------|
-| Python with TypeScript deployment | `--answer deployment_language "typescript"` |
-| Existing directory | Check and warn if directory already exists |
-| No Git initialization | Use `--no-git` flag |
-| No dependency installation | Use `--no-bootstrap` flag |
-| Custom author name | `--answer author_name "Your Name"` |
-| Fullstack (frontend + contracts) | Use `-t fullstack` template |
-| React frontend only | Use `-t react` template |
-| Standalone (no workspace) | Use `--no-workspace` flag |
-| Initialize from example | Use `algokit init example` subcommand |
+// ✅ 올바른 예: spread로 배열 병합
+// Page loaded.js
+this.globalDataMappings = [
+    ...(this.globalDataMappings || []),
+    { topic: 'tasks', ... }
+];
+```
 
-## References / Further Reading
+**병합이 필요한 변수:**
+- `eventBusHandlers` → `Object.assign(this.eventBusHandlers || {}, {...})`
+- `globalDataMappings` → `[...(this.globalDataMappings || []), ...]`
 
-- [CLI Reference](./references/REFERENCE.md)
-- [AlgoKit CLI Init Documentation](https://dev.algorand.co/algokit/cli/init/)
-- [AlgoKit CLI Init Reference](https://dev.algorand.co/reference/algokit-cli#init)
+---
+
+## 라이프사이클 흐름
+
+```
+[페이지 로드]
+  MASTER before_load
+    ↓
+  PAGE before_load
+    ↓
+  컴포넌트 register (MASTER + PAGE 모두)
+    ↓
+  리소스 로딩 → 컴포넌트 completed
+    ↓
+  PAGE loaded
+    ↓
+  MASTER loaded
+
+[페이지 언로드]
+  MASTER before_unload
+    ↓
+  PAGE before_unload
+    ↓
+  컴포넌트 beforeDestroy (MASTER + PAGE 모두)
+```
+
+---
+
+## 이벤트 처리 원칙
+
+**질문: "이 동작의 결과를 페이지가 알아야 하는가?"**
+
+| 답변 | 처리 방식 | 예시 |
+|------|----------|------|
+| 아니오 | `_internalHandlers` | Clear, Toggle |
+| 예 | `customEvents` | 필터 변경, 행 선택 |
+| 둘 다 | 둘 다 | 노드 클릭 → 선택 표시 + 상세 요청 |
+
+---
+
+## 금지 사항
+
+- ❌ datasetList.json 형식 임의 변경
+- ❌ 생성/정리 불일치
+- ❌ 라이프사이클 순서 위반
+- ❌ `function(response)` 사용 → `function({ response })` 필수
+
+---
+
+## preview.html 검증
+
+### HTML/CSS 일관성
+
+- preview.html의 HTML 구조는 `views/component.html`과 **동일**해야 함
+- CSS 셀렉터는 component.html의 클래스명 기준으로 작성
+- preview.html에서 임의로 다른 클래스명 사용 금지
+
+### 스크린샷 검증
+
+Playwright로 preview.html 렌더링 결과를 확인할 수 있습니다.
+
+```bash
+cd Figma_Conversion
+nvm use 20
+npx playwright screenshot \
+  --wait-for-timeout=3000 \
+  --viewport-size="1920,1080" \
+  "file:///path/to/preview.html" \
+  "screenshot.png"
+```
+
+- `--wait-for-timeout=3000`: 데이터 로딩 대기 (API fetch, 차트 렌더링 등)
+- file:// 프로토콜 사용 시 mock_server 실행 필요
+
+### DOM 순서
+
+```html
+<!-- Page가 먼저 (레이어 아래) -->
+<div id="page-container">...</div>
+
+<!-- Master가 나중에 (레이어 위) -->
+<div id="master-container">...</div>
+```
+
+DOM에서 나중에 오는 요소가 z-index 없이도 위에 렌더링됩니다.
+
+---
+
+## 관련 자료
+
+| 참조 | 위치 |
+|------|------|
+| 컴포넌트 생성 | [/.claude/skills/2-component/create-standard-component/SKILL.md](/.claude/skills/2-component/create-standard-component/SKILL.md) |
+| 예제 | [/RNBT_architecture/Examples/SimpleDashboard/](/RNBT_architecture/Examples/SimpleDashboard/) |

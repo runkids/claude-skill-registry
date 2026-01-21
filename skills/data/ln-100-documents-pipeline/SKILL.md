@@ -174,7 +174,7 @@ The skill follows a 7-phase orchestration workflow: **Legacy Migration (optional
 1. **Pre-flight Check** (scan existing documentation):
    - Use Glob tool to check all potential files:
      - **Root docs** (4 files): `CLAUDE.md`, `docs/README.md`, `docs/documentation_standards.md`, `docs/principles.md`
-     - **Reference structure** (4 items): `docs/reference/README.md`, `docs/reference/adrs/`, `docs/reference/guides/`, `docs/reference/manuals/`
+     - **Reference structure** (5 items): `docs/reference/README.md`, `docs/reference/adrs/`, `docs/reference/guides/`, `docs/reference/manuals/`, `docs/reference/research/`
      - **Tasks docs** (2 files): `docs/tasks/README.md`, `docs/tasks/kanban_board.md`
      - **Project docs** (up to 7 files): `docs/project/requirements.md`, `architecture.md`, `tech_stack.md`, `api_spec.md`, `database_schema.md`, `design_guidelines.md`, `runbook.md`
      - **Presentation** (3 items): `docs/presentation/README.md`, `presentation_final.html`, `assets/` directory
@@ -229,7 +229,7 @@ The skill follows a 7-phase orchestration workflow: **Legacy Migration (optional
 **2.2 Create Reference Structure + Smart Documents**:
 - **Invocation**: `Skill(skill: "ln-120-reference-docs-creator")` → AUTOMATIC
 - **Input**: Pass `context_store` from ln-110 (TECH_STACK enables smart document creation)
-- **Output**: `docs/reference/README.md` + `adrs/`, `guides/`, `manuals/` directories + **justified ADRs/Guides/Manuals**
+- **Output**: `docs/reference/README.md` + `adrs/`, `guides/`, `manuals/`, `research/` directories + **justified ADRs/Guides/Manuals**
 - **Smart Creation**: Creates documents only for nontrivial technology choices (see ln-120 justification rules)
 - **Validation**: ln-120 validates output in Phase 2/3
 - **Verify**: Reference hub exists before continuing
@@ -492,7 +492,7 @@ See full reports above for detailed findings.
    - `docs/documentation_standards.md` (60 universal requirements)
    - `docs/principles.md` (11 development principles)
    - `docs/project/requirements.md`, `architecture.md`, `tech_stack.md` + conditional documents (3-7 total)
-   - `docs/reference/README.md` (reference hub with empty adrs/, guides/, manuals/ directories)
+   - `docs/reference/README.md` (reference hub with empty adrs/, guides/, manuals/, research/ directories)
    - `docs/tasks/README.md` + optionally `kanban_board.md`
    - `docs/presentation/README.md` + `presentation_final.html`
    - `tests/README.md` (if created)
@@ -537,7 +537,8 @@ project_root/
 │   │   ├── README.md                 # ← Reference documentation hub (registries)
 │   │   ├── adrs/                     # ← Empty, ready for ADRs
 │   │   ├── guides/                   # ← Empty, ready for guides
-│   │   └── manuals/                  # ← Empty, ready for manuals
+│   │   ├── manuals/                  # ← Empty, ready for manuals
+│   │   └── research/                 # ← Empty, ready for research
 │   ├── tasks/
 │   │   ├── README.md                 # ← Task management system rules
 │   │   └── kanban_board.md           # ← Linear integration (optional)
@@ -662,7 +663,7 @@ Before completing work, verify ALL checkpoints:
 
 **✅ Coordinator + Workers Invoked Sequentially (Phase 2):**
 - [ ] ln-110-project-docs-coordinator invoked → Output verified: Root docs (`CLAUDE.md` + `docs/README.md` + `docs/documentation_standards.md` + `docs/principles.md`) + Project docs (`docs/project/requirements.md`, `architecture.md`, `tech_stack.md` + conditional 3-7 files)
-- [ ] ln-120-reference-docs-creator invoked → Output verified: `docs/reference/README.md` + directories (adrs/, guides/, manuals/) + justified ADRs/Guides/Manuals based on TECH_STACK
+- [ ] ln-120-reference-docs-creator invoked → Output verified: `docs/reference/README.md` + directories (adrs/, guides/, manuals/, research/) + justified ADRs/Guides/Manuals based on TECH_STACK
 - [ ] ln-130-tasks-docs-creator invoked → Output verified: `docs/tasks/README.md` + optionally `kanban_board.md`
 - [ ] ln-140-test-docs-creator invoked (if enabled) → Output verified: `tests/README.md`
 - [ ] ln-150-presentation-creator invoked → Output verified: `docs/presentation/README.md` + `presentation_final.html` + `assets/`

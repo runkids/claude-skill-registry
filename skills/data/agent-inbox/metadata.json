@@ -1,7 +1,7 @@
 {
   "name": "agent-inbox",
-  "repo": "grahama1970/agent-skills",
-  "path": "skills/agent-inbox/SKILL.md",
-  "source": "github.com/grahama1970/agent-skills",
-  "downloaded_at": "2026-01-20T04:01:46.685064Z"
+  "repo": "sunholo-data/ailang",
+  "path": ".claude/skills/agent-inbox/SKILL.md",
+  "source": "github.com/sunholo-data/ailang",
+  "downloaded_at": "2026-01-21T03:54:51.017661Z"
 }

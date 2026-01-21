@@ -1,60 +1,93 @@
 ---
 name: security-expert
-category: role
-description: OWASPの基本を前提に、デフォルト安全（入力検証/認可/秘密情報/監査ログ/SSR/CSRF等）を落とさずに設計・実装・レビューする。脅威と攻撃面を洗い出し、最小権限と安全な失敗で守るために使う。
+description: "Expert guidance on API security, web application security, authentication, and authorization. Use this skill when working with JWT tokens, OAuth 2.0/OIDC flows, Keycloak configuration, Spring Security implementation, ABAC/RBAC policies, secure API design, vulnerability assessment, security headers, CORS, CSRF protection, or any authentication/authorization architecture decisions. Triggers on questions about securing APIs, implementing auth flows, configuring identity providers, token validation, access control patterns, security best practices, penetration testing concepts, OWASP guidelines, or debugging security issues in Spring/Keycloak environments."
 ---
 
 # Security Expert Skill
 
-## 発火条件（リポジトリ判定）
-- 認証/認可、入力、ファイルアップロード、外部API連携、決済、個人情報、管理画面、セキュリティ事故対応、ログ/監査の相談で適用する。
-- `doc/rdd.md` の「非機能要件（セキュリティ）」がある場合は必ず参照し、優先順位を確認する。
+Expert guidance for API security, authentication, authorization, and identity management.
 
-## このSkillの基本方針（整理軸）
-- 基本方針: 「攻撃者視点」で穴を探し、「開発者視点」で運用可能な最小の対策に落とす。
-- デフォルト安全: 許可リスト（allowlist）・最小権限・安全な失敗（fail closed）を基本にする。
-- 秘密情報: secretsは `.env` 等の管理外に置き、クライアントに送らない（PUBLIC環境変数にしない）。
+## Core Competencies
 
-## 思想（判断ルール）
-1. セキュリティは機能。要件・設計・実装・運用の全レイヤに跨る。
-2. 入力は信じない（検証/正規化/サイズ制限）。出力は漏らさない（情報最小化）。
-3. 認可は認証より難しい。権限モデルを先に言語化し、境界で必ず検査する。
-4. ログは監査のために残すが、秘密情報・個人情報は残さない（マスキング/縮退）。
-5. 自作暗号・自作認証は避け、デファクトの枠組みを使う（採用根拠を示す）。
+- **Authentication**: JWT, OAuth 2.0, OpenID Connect, SAML, session management
+- **Authorization**: RBAC, ABAC, ReBAC, policy engines
+- **Identity Providers**: Keycloak, Okta, Auth0, Azure AD
+- **Frameworks**: Spring Security, Spring Boot, Jakarta EE Security
+- **Web Security**: OWASP Top 10, CSP, CORS, CSRF, XSS prevention
 
-## 進め方（最初に確認する問い）
-- 守る対象は？（アカウント、個人情報、金銭、業務データ）
-- 攻撃面は？（API、フォーム、アップロード、Webhook、管理画面）
-- 誰が何をできる？（権限モデル：ロール/スコープ/所有者）
-- 失敗時の挙動は？（遮断/縮退/通知/監査）
+## Quick Reference
 
-## 出力フォーマット（必ずこの順）
-1. 脅威の整理（守る対象/攻撃面/想定攻撃）
-2. 推奨対策（最小セット）
-3. 設計（認可境界/入力検証/秘密情報/ログ/エラー応答）
-4. 検証（テスト/自動化/運用チェック）
-5. 落とし穴
-6. 次アクション（小さく適用する順）
+### JWT Best Practices
+- Always validate: signature, expiration (`exp`), issuer (`iss`), audience (`aud`)
+- Use RS256/ES256 for distributed systems (asymmetric), HS256 only for single-service
+- Keep tokens short-lived (5-15 min access, hours-days refresh)
+- Never store sensitive data in JWT payload (it's base64, not encrypted)
+- Implement token revocation via blacklist or short expiry + refresh rotation
 
-## チェックリスト（実装レビュー用）
-### 入力検証
-- [ ] allowlist（型/形式/範囲/サイズ）で検証しているか
-- [ ] 正規化（trim/Unicode等）とエラーメッセージ最小化ができているか
+### Spring Security + Keycloak Integration Pattern
+```java
+// Minimal resource server config
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/public/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated());
+        return http.build();
+    }
+}
+```
 
-### 認証・認可
-- [ ] 認可チェックが「必ず」境界で実行されるか（UIだけに寄せない）
-- [ ] IDOR（他人のID参照）になっていないか（所有者検証）
+### ABAC vs RBAC Decision Matrix
+| Use RBAC when | Use ABAC when |
+|---------------|---------------|
+| Simple role hierarchy | Context-dependent access (time, location) |
+| Static permissions | Resource-level attributes matter |
+| Small number of roles | Complex business rules |
+| Audit simplicity needed | Fine-grained, dynamic policies |
 
-### 秘密情報
-- [ ] secretsがクライアントへ露出していないか（ログ/例外/ENV/レスポンス）
-- [ ] トークン/鍵のローテーション方針があるか（最低限の運用手順）
+## Reference Files
 
-### Webの基本
-- [ ] CSRF/SSR、XSS、SQLi/NoSQLi、パス・トラバーサル等の基本リスクを検討したか
-- [ ] レート制限/ロックアウト/監査ログ（必要箇所）があるか
+For detailed guidance, consult these references:
 
-## よくある落とし穴
-- 「認証したから安全」として認可を省略する
-- エラーメッセージやログに秘密情報を残す
-- 入力検証をブラックリストで行い抜け道が残る
+- **[references/jwt-security.md](references/jwt-security.md)**: Deep dive on JWT vulnerabilities, attack vectors, and secure implementation
+- **[references/keycloak.md](references/keycloak.md)**: Keycloak configuration, realm setup, client types, mappers, and flows
+- **[references/spring-security.md](references/spring-security.md)**: Spring Security patterns, filter chain, method security, OAuth2 client/resource server
+- **[references/authorization-patterns.md](references/authorization-patterns.md)**: RBAC, ABAC, ReBAC implementation patterns and policy engines
+- **[references/owasp-api-security.md](references/owasp-api-security.md)**: OWASP API Security Top 10 with mitigations
+- **[references/security-headers.md](references/security-headers.md)**: HTTP security headers, CSP, CORS configuration
 
+## Workflow: Security Review
+
+1. **Identify attack surface**: Public endpoints, auth flows, data exposure
+2. **Check authentication**: Token validation, session handling, credential storage
+3. **Check authorization**: Access control at endpoint and resource level
+4. **Review data handling**: Input validation, output encoding, sensitive data exposure
+5. **Examine configuration**: Security headers, CORS, error handling, logging
+6. **Test edge cases**: Token expiry, concurrent sessions, privilege escalation
+
+## Common Security Pitfalls
+
+```
+❌ Trusting JWT without signature validation
+❌ Storing tokens in localStorage (XSS vulnerable)
+❌ Using symmetric keys across services
+❌ Missing audience validation
+❌ Exposing stack traces in errors
+❌ Permissive CORS (Access-Control-Allow-Origin: *)
+❌ Missing rate limiting on auth endpoints
+❌ Logging sensitive data (tokens, passwords)
+```
+
+## Debugging Security Issues
+
+For auth failures, check in order:
+1. Token format and encoding (is it valid JWT structure?)
+2. Signature verification (correct algorithm and key?)
+3. Claims validation (exp, iss, aud correct?)
+4. Role/scope mapping (Keycloak mappers configured?)
+5. Spring Security filter chain (debug with `logging.level.org.springframework.security=DEBUG`)

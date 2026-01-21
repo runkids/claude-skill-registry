@@ -1,7 +1,7 @@
 {
   "name": "jest-generator",
-  "repo": "matteocervelli/llms",
-  "path": ".claude/skills/jest-generator/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-01-20T01:49:17.985217Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/jest-generator/skills/jest-generator/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:44.683741Z"
 }

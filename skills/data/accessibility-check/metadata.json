@@ -1,9 +1,7 @@
 {
   "name": "accessibility-check",
-  "description": "Evaluate accessibility and WCAG compliance of UI components and pages. Use when the user asks to \"check accessibility\", \"audit a11y\", \"WCAG review\", \"screen reader test\", or needs to verify inclusive ",
-  "repo": "Dami-Randle/logidocs-certify",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Async-IO/pierre_mcp_server",
+  "path": ".claude/skills/accessibility-check/SKILL.md",
+  "source": "github.com/Async-IO/pierre_mcp_server",
+  "downloaded_at": "2026-01-21T03:47:11.596309Z"
 }

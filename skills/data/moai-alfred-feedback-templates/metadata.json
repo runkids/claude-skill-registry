@@ -1,7 +1,7 @@
 {
   "name": "moai-alfred-feedback-templates",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": "skills/moai-alfred-feedback-templates/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-20T04:03:48.625346Z"
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-alfred-feedback-templates/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-21T02:29:42.797173Z"
 }

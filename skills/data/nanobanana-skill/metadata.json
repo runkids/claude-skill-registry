@@ -1,7 +1,7 @@
 {
   "name": "nanobanana-skill",
-  "repo": "feiskyer/claude-code-settings",
-  "path": "plugins/nanobanana-skill/skills/nanobanana-skill/SKILL.md",
-  "source": "github.com/feiskyer/claude-code-settings",
-  "downloaded_at": "2026-01-20T02:31:32.190922Z"
+  "repo": "feiskyer/codex-settings",
+  "path": "skills/nanobanana-skill/SKILL.md",
+  "source": "github.com/feiskyer/codex-settings",
+  "downloaded_at": "2026-01-21T03:37:20.417847Z"
 }

@@ -186,7 +186,7 @@ def calculate_factuality(claim, knowledge_base):
 ### Single Output Evaluation
 ```python
 def llm_judge_quality(response, question):
-    """Use GPT-5 to judge response quality."""
+    """Use GPT-4 to judge response quality."""
     prompt = f"""Rate the following response on a scale of 1-10 for:
 1. Accuracy (factually correct)
 2. Helpfulness (answers the question)
@@ -205,7 +205,7 @@ Provide ratings in JSON format:
 """
 
     result = openai.ChatCompletion.create(
-        model="gpt-5",
+        model="gpt-4",
         messages=[{"role": "user", "content": prompt}],
         temperature=0
     )
@@ -236,7 +236,7 @@ Answer with JSON:
 """
 
     result = openai.ChatCompletion.create(
-        model="gpt-5",
+        model="gpt-4",
         messages=[{"role": "user", "content": prompt}],
         temperature=0
     )

@@ -1,7 +1,7 @@
 {
   "name": "helius",
-  "repo": "raintree-technology/claude-starter",
-  "path": ".claude/skills/helius/skill.md",
-  "source": "github.com/raintree-technology/claude-starter",
-  "downloaded_at": "2026-01-20T01:45:18.090150Z"
+  "repo": "sendaifun/skills",
+  "path": "skills/helius/SKILL.md",
+  "source": "github.com/sendaifun/skills",
+  "downloaded_at": "2026-01-21T03:21:59.870524Z"
 }

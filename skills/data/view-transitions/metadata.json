@@ -1,7 +1,7 @@
 {
   "name": "view-transitions",
-  "repo": "RomualdP/hoki",
-  "path": ".claude/skills/view-transitions/SKILL.md",
-  "source": "github.com/RomualdP/hoki",
-  "downloaded_at": "2026-01-20T02:09:34.852116Z"
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/view-transitions/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-21T04:14:15.678725Z"
 }

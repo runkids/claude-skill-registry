@@ -1,730 +1,607 @@
 ---
 name: coverage-analysis
-description: Analyze test coverage, generate reports, and identify untested code. Use when improving test coverage, ensuring code quality, or preparing for production.
-allowed-tools: Read, Edit, Bash, Grep, Glob
+type: technique
+description: >
+  Coverage analysis measures code exercised during fuzzing.
+  Use when assessing harness effectiveness or identifying fuzzing blockers.
 ---
 
-# Coverage Analysis Skill
+# Coverage Analysis
 
-This skill helps you analyze and improve test coverage across the monorepo using Vitest's V8 coverage provider.
+Coverage analysis is essential for understanding which parts of your code are exercised during fuzzing. It helps identify fuzzing blockers like magic value checks and tracks the effectiveness of harness improvements over time.
 
-## When to Use This Skill
+## Overview
 
-- Analyzing test coverage across packages
-- Identifying untested code paths
-- Setting coverage thresholds
-- Generating coverage reports
-- Improving test quality
-- Pre-deployment coverage checks
-- Code review coverage validation
+Code coverage during fuzzing serves two critical purposes:
 
-## Coverage Overview
+1. **Assessing harness effectiveness**: Understand which parts of your application are actually executed by your fuzzing harnesses
+2. **Tracking fuzzing progress**: Monitor how coverage changes when updating harnesses, fuzzers, or the system under test (SUT)
 
-The project uses **Vitest with V8 coverage provider** for:
-- **Line coverage**: Percentage of lines executed
-- **Branch coverage**: Percentage of conditional branches tested
-- **Function coverage**: Percentage of functions called
-- **Statement coverage**: Percentage of statements executed
+Coverage is a proxy for fuzzer capability and performance. While coverage [is not ideal for measuring fuzzer performance](https://arxiv.org/abs/1808.09700) in absolute terms, it reliably indicates whether your harness works effectively in a given setup.
 
-## Configuration
+### Key Concepts
 
-### Vitest Coverage Config
+| Concept | Description |
+|---------|-------------|
+| **Coverage instrumentation** | Compiler flags that track which code paths are executed |
+| **Corpus coverage** | Coverage achieved by running all test cases in a fuzzing corpus |
+| **Magic value checks** | Hard-to-discover conditional checks that block fuzzer progress |
+| **Coverage-guided fuzzing** | Fuzzing strategy that prioritizes inputs that discover new code paths |
+| **Coverage report** | Visual or textual representation of executed vs. unexecuted code |
 
-```typescript
-// vitest.config.ts (root or package-level)
-import { defineConfig } from "vitest/config";
+## When to Apply
 
-export default defineConfig({
-  test: {
-    globals: true,
-    environment: "node", // or "jsdom" for frontend
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html", "lcov"],
-      reportsDirectory: "./coverage",
-      exclude: [
-        "node_modules/",
-        "__tests__/",
-        "**/*.test.ts",
-        "**/*.spec.ts",
-        "dist/",
-        "build/",
-        "*.config.ts",
-        "*.config.js",
-        ".next/",
-        ".turbo/",
-      ],
-      include: ["src/**/*.ts", "src/**/*.tsx"],
-      all: true,
-      thresholds: {
-        lines: 80,
-        functions: 80,
-        branches: 80,
-        statements: 80,
-      },
-    },
-  },
-});
+**Apply this technique when:**
+- Starting a new fuzzing campaign to establish a baseline
+- Fuzzer appears to plateau without finding new paths
+- After harness modifications to verify improvements
+- When migrating between different fuzzers
+- Identifying areas requiring dictionary entries or seed inputs
+- Debugging why certain code paths aren't reached
+
+**Skip this technique when:**
+- Fuzzing campaign is actively finding crashes
+- Coverage infrastructure isn't set up yet
+- Working with extremely large codebases where full coverage reports are impractical
+- Fuzzer's internal coverage metrics are sufficient for your needs
+
+## Quick Reference
+
+| Task | Command/Pattern |
+|------|-----------------|
+| LLVM coverage instrumentation (C/C++) | `-fprofile-instr-generate -fcoverage-mapping` |
+| GCC coverage instrumentation | `-ftest-coverage -fprofile-arcs` |
+| cargo-fuzz coverage (Rust) | `cargo +nightly fuzz coverage <target>` |
+| Generate LLVM profile data | `llvm-profdata merge -sparse file.profraw -o file.profdata` |
+| LLVM coverage report | `llvm-cov report ./binary -instr-profile=file.profdata` |
+| LLVM HTML report | `llvm-cov show ./binary -instr-profile=file.profdata -format=html -output-dir html/` |
+| gcovr HTML report | `gcovr --html-details -o coverage.html` |
+
+## Ideal Coverage Workflow
+
+The following workflow represents best practices for integrating coverage analysis into your fuzzing campaigns:
+
+```
+[Fuzzing Campaign]
+       |
+       v
+[Generate Corpus]
+       |
+       v
+[Coverage Analysis]
+       |
+       +---> Coverage Increased? --> Continue fuzzing with larger corpus
+       |
+       +---> Coverage Decreased? --> Fix harness or investigate SUT changes
+       |
+       +---> Coverage Plateaued? --> Add dictionary entries or seed inputs
 ```
 
-### Package-Specific Configs
+**Key principle**: Use the corpus generated *after* each fuzzing campaign to calculate coverage, rather than real-time fuzzer statistics. This approach provides reproducible, comparable measurements across different fuzzing tools.
 
-**API Package:**
-```typescript
-// apps/api/vitest.config.ts
-import { defineConfig } from "vitest/config";
+## Step-by-Step
 
-export default defineConfig({
-  test: {
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
-      thresholds: {
-        lines: 85,      // Higher threshold for backend
-        functions: 85,
-        branches: 80,
-        statements: 85,
-      },
-      exclude: [
-        "__tests__/",
-        "src/index.ts",  // Exclude entry point
-        "src/config/**", // Exclude config files
-      ],
-    },
-  },
-});
-```
+### Step 1: Build with Coverage Instrumentation
 
-**Web Package:**
-```typescript
-// apps/web/vitest.config.ts
-import { defineConfig } from "vitest/config";
-import react from "@vitejs/plugin-react";
+Choose your instrumentation method based on toolchain:
 
-export default defineConfig({
-  plugins: [react()],
-  test: {
-    environment: "jsdom",
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
-      thresholds: {
-        lines: 75,      // Frontend may have lower threshold
-        functions: 75,
-        branches: 70,
-        statements: 75,
-      },
-      exclude: [
-        "__tests__/",
-        "src/app/**",    // Exclude Next.js app directory
-        "**/*.config.*",
-      ],
-    },
-  },
-});
-```
-
-**Database Package:**
-```typescript
-// packages/database/vitest.config.ts
-import { defineConfig } from "vitest/config";
-
-export default defineConfig({
-  test: {
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
-      thresholds: {
-        lines: 90,      // Very high threshold for critical package
-        functions: 90,
-        branches: 85,
-        statements: 90,
-      },
-      include: ["src/**/*.ts"],
-      exclude: [
-        "__tests__/",
-        "migrations/**",  // Exclude migrations
-      ],
-    },
-  },
-});
-```
-
-## Running Coverage
-
-### Common Commands
-
+**LLVM/Clang (C/C++):**
 ```bash
-# Generate coverage for all packages
-pnpm test:coverage
-
-# Generate coverage for specific package
-pnpm -F @sgcarstrends/api test:coverage
-pnpm -F @sgcarstrends/web test:coverage
-pnpm -F @sgcarstrends/database test:coverage
-
-# Generate coverage with specific reporters
-pnpm test:coverage -- --coverage.reporter=html
-pnpm test:coverage -- --coverage.reporter=lcov
-
-# Run tests and generate coverage in watch mode
-pnpm test:watch -- --coverage
-
-# Generate coverage for changed files only
-pnpm test:coverage -- --changed
+clang++ -fprofile-instr-generate -fcoverage-mapping \
+  -O2 -DNO_MAIN \
+  main.cc harness.cc execute-rt.cc -o fuzz_exec
 ```
 
-### Package.json Scripts
+**GCC (C/C++):**
+```bash
+g++ -ftest-coverage -fprofile-arcs \
+  -O2 -DNO_MAIN \
+  main.cc harness.cc execute-rt.cc -o fuzz_exec_gcov
+```
 
-```json
-{
-  "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "test:coverage:ui": "vitest --ui --coverage"
-  }
+**Rust:**
+```bash
+rustup toolchain install nightly --component llvm-tools-preview
+cargo +nightly fuzz coverage fuzz_target_1
+```
+
+### Step 2: Create Execution Runtime (C/C++ only)
+
+For C/C++ projects, create a runtime that executes your corpus:
+
+```cpp
+// execute-rt.cc
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <stdint.h>
+
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size);
+
+void load_file_and_test(const char *filename) {
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Failed to open file: %s\n", filename);
+        return;
+    }
+
+    fseek(file, 0, SEEK_END);
+    long filesize = ftell(file);
+    rewind(file);
+
+    uint8_t *buffer = (uint8_t*) malloc(filesize);
+    if (buffer == NULL) {
+        printf("Failed to allocate memory for file: %s\n", filename);
+        fclose(file);
+        return;
+    }
+
+    long read_size = (long) fread(buffer, 1, filesize, file);
+    if (read_size != filesize) {
+        printf("Failed to read file: %s\n", filename);
+        free(buffer);
+        fclose(file);
+        return;
+    }
+
+    LLVMFuzzerTestOneInput(buffer, filesize);
+
+    free(buffer);
+    fclose(file);
+}
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        printf("Usage: %s <directory>\n", argv[0]);
+        return 1;
+    }
+
+    DIR *dir = opendir(argv[1]);
+    if (dir == NULL) {
+        printf("Failed to open directory: %s\n", argv[1]);
+        return 1;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        if (entry->d_type == DT_REG) {
+            char filepath[1024];
+            snprintf(filepath, sizeof(filepath), "%s/%s", argv[1], entry->d_name);
+            load_file_and_test(filepath);
+        }
+    }
+
+    closedir(dir);
+    return 0;
 }
 ```
 
-## Coverage Reports
+### Step 3: Execute on Corpus
 
-### Text Report
-
+**LLVM (C/C++):**
 ```bash
-# Terminal output
-pnpm test:coverage
-
-# Example output:
-# ----------|---------|----------|---------|---------|-------------------
-# File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
-# ----------|---------|----------|---------|---------|-------------------
-# All files |   87.5  |   83.33  |   85.71 |   87.5  |
-#  cars.ts  |   90    |   85     |   100   |   90    | 45-47
-#  coe.ts   |   85    |   80     |   75    |   85    | 23, 56-58
-# ----------|---------|----------|---------|---------|-------------------
+LLVM_PROFILE_FILE=fuzz.profraw ./fuzz_exec corpus/
 ```
 
-### HTML Report
-
+**GCC (C/C++):**
 ```bash
+./fuzz_exec_gcov corpus/
+```
+
+**Rust:**
+Coverage data is automatically generated when running `cargo fuzz coverage`.
+
+### Step 4: Process Coverage Data
+
+**LLVM:**
+```bash
+# Merge raw profile data
+llvm-profdata merge -sparse fuzz.profraw -o fuzz.profdata
+
+# Generate text report
+llvm-cov report ./fuzz_exec \
+  -instr-profile=fuzz.profdata \
+  -ignore-filename-regex='harness.cc|execute-rt.cc'
+
 # Generate HTML report
-pnpm test:coverage
-
-# Open in browser
-open coverage/index.html  # macOS
-xdg-open coverage/index.html  # Linux
-start coverage/index.html  # Windows
-
-# HTML report features:
-# - Interactive file browser
-# - Line-by-line coverage visualization
-# - Color-coded coverage (green = covered, red = uncovered)
-# - Branch coverage details
+llvm-cov show ./fuzz_exec \
+  -instr-profile=fuzz.profdata \
+  -ignore-filename-regex='harness.cc|execute-rt.cc' \
+  -format=html -output-dir fuzz_html/
 ```
 
-### JSON Report
+**GCC with gcovr:**
+```bash
+# Install gcovr (via pip for latest version)
+python3 -m venv venv
+source venv/bin/activate
+pip3 install gcovr
+
+# Generate report
+gcovr --gcov-executable "llvm-cov gcov" \
+  --exclude harness.cc --exclude execute-rt.cc \
+  --root . --html-details -o coverage.html
+```
+
+**Rust:**
+```bash
+# Install required tools
+cargo install cargo-binutils rustfilt
+
+# Create HTML generation script
+cat <<'EOF' > ./generate_html
+#!/bin/sh
+if [ $# -lt 1 ]; then
+    echo "Error: Name of fuzz target is required."
+    echo "Usage: $0 fuzz_target [sources...]"
+    exit 1
+fi
+FUZZ_TARGET="$1"
+shift
+SRC_FILTER="$@"
+TARGET=$(rustc -vV | sed -n 's|host: ||p')
+cargo +nightly cov -- show -Xdemangler=rustfilt \
+  "target/$TARGET/coverage/$TARGET/release/$FUZZ_TARGET" \
+  -instr-profile="fuzz/coverage/$FUZZ_TARGET/coverage.profdata" \
+  -show-line-counts-or-regions -show-instantiations \
+  -format=html -o fuzz_html/ $SRC_FILTER
+EOF
+chmod +x ./generate_html
+
+# Generate HTML report
+./generate_html fuzz_target_1 src/lib.rs
+```
+
+### Step 5: Analyze Results
+
+Review the coverage report to identify:
+
+- **Uncovered code blocks**: Areas that may need better seed inputs or dictionary entries
+- **Magic value checks**: Conditional statements with hardcoded values that block progress
+- **Dead code**: Functions that may not be reachable through your harness
+- **Coverage changes**: Compare against baseline to track improvements or regressions
+
+## Common Patterns
+
+### Pattern: Identifying Magic Values
+
+**Problem**: Fuzzer cannot discover paths guarded by magic value checks.
+
+**Coverage reveals:**
+```cpp
+// Coverage shows this block is never executed
+if (buf == 0x7F454C46) {  // ELF magic number
+    // start parsing buf
+}
+```
+
+**Solution**: Add magic values to dictionary file:
+```
+# magic.dict
+"\x7F\x45\x4C\x46"
+```
+
+### Pattern: Handling Crashing Inputs
+
+**Problem**: Coverage generation fails when corpus contains crashing inputs.
+
+**Before:**
+```bash
+./fuzz_exec corpus/  # Crashes on bad input, no coverage generated
+```
+
+**After:**
+```cpp
+// Fork before executing to isolate crashes
+int main(int argc, char **argv) {
+    // ... directory opening code ...
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (entry->d_type == DT_REG) {
+            pid_t pid = fork();
+            if (pid == 0) {
+                // Child process - crash won't affect parent
+                char filepath[1024];
+                snprintf(filepath, sizeof(filepath), "%s/%s", argv[1], entry->d_name);
+                load_file_and_test(filepath);
+                exit(0);
+            } else {
+                // Parent waits for child
+                waitpid(pid, NULL, 0);
+            }
+        }
+    }
+}
+```
+
+### Pattern: CMake Integration
+
+**Use Case**: Adding coverage builds to CMake projects.
+
+```cmake
+project(FuzzingProject)
+cmake_minimum_required(VERSION 3.0)
+
+# Main binary
+add_executable(program main.cc)
+
+# Fuzzing binary
+add_executable(fuzz main.cc harness.cc)
+target_compile_definitions(fuzz PRIVATE NO_MAIN=1)
+target_compile_options(fuzz PRIVATE -g -O2 -fsanitize=fuzzer)
+target_link_libraries(fuzz -fsanitize=fuzzer)
+
+# Coverage execution binary
+add_executable(fuzz_exec main.cc harness.cc execute-rt.cc)
+target_compile_definitions(fuzz_exec PRIVATE NO_MAIN)
+target_compile_options(fuzz_exec PRIVATE -O2 -fprofile-instr-generate -fcoverage-mapping)
+target_link_libraries(fuzz_exec -fprofile-instr-generate)
+```
+
+Build:
+```bash
+cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .
+cmake --build . --target fuzz_exec
+```
+
+## Advanced Usage
+
+### Tips and Tricks
+
+| Tip | Why It Helps |
+|-----|--------------|
+| Use LLVM 18+ with `-show-directory-coverage` | Organizes large reports by directory structure instead of flat file list |
+| Export to lcov format for better HTML | `llvm-cov export -format=lcov` + `genhtml` provides cleaner per-file reports |
+| Compare coverage across campaigns | Store `.profdata` files with timestamps to track progress over time |
+| Filter harness code from reports | Use `-ignore-filename-regex` to focus on SUT coverage only |
+| Automate coverage in CI/CD | Generate coverage reports automatically after scheduled fuzzing runs |
+| Use gcovr 5.1+ for Clang 14+ | Older gcovr versions have compatibility issues with recent LLVM |
+
+### Incremental Coverage Updates
+
+GCC's gcov instrumentation incrementally updates `.gcda` files across multiple runs. This is useful for tracking coverage as you add test cases:
 
 ```bash
-# Generate JSON report
-pnpm test:coverage -- --coverage.reporter=json
+# First run
+./fuzz_exec_gcov corpus_batch_1/
+gcovr --html coverage_v1.html
 
-# Output: coverage/coverage-final.json
-{
-  "path/to/file.ts": {
-    "lines": { "1": 1, "2": 1, "3": 0 },
-    "functions": { "functionName": 1 },
-    "branches": { "0": [1, 0] },
-    "statements": { "1": 1, "2": 1 }
-  }
-}
+# Second run (adds to existing coverage)
+./fuzz_exec_gcov corpus_batch_2/
+gcovr --html coverage_v2.html
+
+# Start fresh
+gcovr --delete  # Remove .gcda files
+./fuzz_exec_gcov corpus/
 ```
 
-### LCOV Report
+### Handling Large Codebases
+
+For projects with hundreds of source files:
+
+1. **Filter by prefix**: Only generate reports for relevant directories
+   ```bash
+   llvm-cov show ./fuzz_exec -instr-profile=fuzz.profdata /path/to/src/
+   ```
+
+2. **Use directory coverage**: Group by directory to reduce clutter (LLVM 18+)
+   ```bash
+   llvm-cov show -show-directory-coverage -format=html -output-dir html/
+   ```
+
+3. **Generate JSON for programmatic analysis**:
+   ```bash
+   llvm-cov export -format=lcov > coverage.json
+   ```
+
+### Differential Coverage
+
+Compare coverage between two fuzzing campaigns:
 
 ```bash
-# Generate LCOV format (for CI tools like Codecov, Coveralls)
-pnpm test:coverage -- --coverage.reporter=lcov
+# Campaign 1
+LLVM_PROFILE_FILE=campaign1.profraw ./fuzz_exec corpus1/
+llvm-profdata merge -sparse campaign1.profraw -o campaign1.profdata
 
-# Output: coverage/lcov.info
+# Campaign 2
+LLVM_PROFILE_FILE=campaign2.profraw ./fuzz_exec corpus2/
+llvm-profdata merge -sparse campaign2.profraw -o campaign2.profdata
+
+# Compare
+llvm-cov show ./fuzz_exec \
+  -instr-profile=campaign2.profdata \
+  -instr-profile=campaign1.profdata \
+  -show-line-counts-or-regions
 ```
 
-## Coverage Thresholds
+## Anti-Patterns
 
-### Setting Thresholds
+| Anti-Pattern | Problem | Correct Approach |
+|--------------|---------|------------------|
+| Using fuzzer-reported coverage for comparisons | Different fuzzers calculate coverage differently, making cross-tool comparison meaningless | Use dedicated coverage tools (llvm-cov, gcovr) for reproducible measurements |
+| Generating coverage with optimizations | `-O3` optimizations can eliminate code, making coverage misleading | Use `-O2` or `-O0` for coverage builds |
+| Not filtering harness code | Harness coverage inflates numbers and obscures SUT coverage | Use `-ignore-filename-regex` or `--exclude` to filter harness files |
+| Mixing LLVM and GCC instrumentation | Incompatible formats cause parsing failures | Stick to one toolchain for coverage builds |
+| Ignoring crashing inputs | Crashes prevent coverage generation, hiding real coverage data | Fix crashes first, or use process forking to isolate them |
+| Not tracking coverage over time | One-time coverage checks miss regressions and improvements | Store coverage data with timestamps and track trends |
 
-```typescript
-// vitest.config.ts
-export default defineConfig({
-  test: {
-    coverage: {
-      thresholds: {
-        // Global thresholds
-        lines: 80,
-        functions: 80,
-        branches: 80,
-        statements: 80,
+## Tool-Specific Guidance
 
-        // Per-file thresholds
-        perFile: true,
+### libFuzzer
 
-        // Fail build if below thresholds
-        100: false, // Don't require 100% coverage
-      },
-    },
-  },
-});
-```
+libFuzzer uses LLVM's SanitizerCoverage by default for guiding fuzzing, but you need separate instrumentation for generating reports.
 
-### Enforcing Thresholds in CI
-
-```yaml
-# .github/workflows/test.yml
-name: Test
-
-on: [push, pull_request]
-
-jobs:
-  coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - run: pnpm install
-      - run: pnpm test:coverage
-
-      # Fail if coverage below threshold
-      - name: Check coverage
-        run: |
-          if [ $(jq '.total.lines.pct' coverage/coverage-summary.json | cut -d. -f1) -lt 80 ]; then
-            echo "Coverage below 80%"
-            exit 1
-          fi
-```
-
-## Analyzing Coverage
-
-### Identify Untested Files
-
+**Build for coverage:**
 ```bash
-# Generate coverage for all files (including untested)
-pnpm test:coverage -- --coverage.all=true
-
-# Find files with 0% coverage
-grep -r '"pct": 0' coverage/coverage-final.json
+clang++ -fprofile-instr-generate -fcoverage-mapping \
+  -O2 -DNO_MAIN \
+  main.cc harness.cc execute-rt.cc -o fuzz_exec
 ```
 
-### Find Uncovered Lines
-
+**Execute corpus and generate report:**
 ```bash
-# Generate HTML report and inspect
-pnpm test:coverage
-open coverage/index.html
-
-# Look for red-highlighted lines in HTML report
-# These are uncovered lines that need tests
+LLVM_PROFILE_FILE=fuzz.profraw ./fuzz_exec corpus/
+llvm-profdata merge -sparse fuzz.profraw -o fuzz.profdata
+llvm-cov show ./fuzz_exec -instr-profile=fuzz.profdata -format=html -output-dir html/
 ```
 
-### Check Branch Coverage
+**Integration tips:**
+- Don't use `-fsanitize=fuzzer` for coverage builds (it conflicts with profile instrumentation)
+- Reuse the same harness function (`LLVMFuzzerTestOneInput`) with a different main function
+- Use the `-ignore-filename-regex` flag to exclude harness code from coverage reports
+- Consider using llvm-cov's `-show-instantiation` flag for template-heavy C++ code
 
-```typescript
-// Example: Find uncovered branches
-function processData(data: any) {
-  // Branch 1: if condition
-  if (data.value > 10) {
-    return "high";
-  }
+### AFL++
 
-  // Branch 2: else condition (uncovered)
-  return "low";
-}
+AFL++ provides its own coverage feedback mechanism, but for detailed reports use standard LLVM/GCC tools.
 
-// Test both branches
-describe("processData", () => {
-  it("should return high for values > 10", () => {
-    expect(processData({ value: 15 })).toBe("high");
-  });
-
-  it("should return low for values <= 10", () => {
-    expect(processData({ value: 5 })).toBe("low");
-  });
-});
-```
-
-## Improving Coverage
-
-### Strategy 1: Test Untested Functions
-
-```typescript
-// Find untested function
-export function calculateCOEPrice(quota: number, bids: number): number {
-  // Untested
-  return quota > 0 ? bids / quota : 0;
-}
-
-// Add test
-describe("calculateCOEPrice", () => {
-  it("should calculate price when quota is positive", () => {
-    expect(calculateCOEPrice(100, 50000)).toBe(500);
-  });
-
-  it("should return 0 when quota is 0", () => {
-    expect(calculateCOEPrice(0, 50000)).toBe(0);
-  });
-});
-```
-
-### Strategy 2: Test Error Paths
-
-```typescript
-// Original: Only happy path tested
-export async function fetchCarData(month: string) {
-  const res = await fetch(`/api/cars?month=${month}`);
-  return res.json(); // What if fetch fails?
-}
-
-// Improved: Test error path
-describe("fetchCarData", () => {
-  it("should fetch data successfully", async () => {
-    // Happy path test
-  });
-
-  it("should handle network errors", async () => {
-    vi.spyOn(global, "fetch").mockRejectedValue(new Error("Network error"));
-
-    await expect(fetchCarData("2024-01")).rejects.toThrow("Network error");
-  });
-
-  it("should handle non-200 responses", async () => {
-    vi.spyOn(global, "fetch").mockResolvedValue({
-      ok: false,
-      status: 500,
-    } as Response);
-
-    await expect(fetchCarData("2024-01")).rejects.toThrow();
-  });
-});
-```
-
-### Strategy 3: Test Edge Cases
-
-```typescript
-// Original: Basic test
-export function formatMonth(date: Date): string {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
-}
-
-// Improved: Test edge cases
-describe("formatMonth", () => {
-  it("should format single-digit months", () => {
-    expect(formatMonth(new Date("2024-01-01"))).toBe("2024-01");
-  });
-
-  it("should format double-digit months", () => {
-    expect(formatMonth(new Date("2024-12-01"))).toBe("2024-12");
-  });
-
-  it("should handle leap years", () => {
-    expect(formatMonth(new Date("2024-02-29"))).toBe("2024-02");
-  });
-});
-```
-
-### Strategy 4: Test Conditional Branches
-
-```typescript
-// Function with multiple branches
-export function getVehicleCategory(type: string): string {
-  if (type === "car") return "Category A";
-  if (type === "motorcycle") return "Category B";
-  if (type === "taxi") return "Category C";
-  return "Unknown"; // Often forgotten!
-}
-
-// Test all branches
-describe("getVehicleCategory", () => {
-  it.each([
-    ["car", "Category A"],
-    ["motorcycle", "Category B"],
-    ["taxi", "Category C"],
-    ["bus", "Unknown"],
-  ])("should return %s for %s", (type, expected) => {
-    expect(getVehicleCategory(type)).toBe(expected);
-  });
-});
-```
-
-## Coverage in CI/CD
-
-### GitHub Actions Integration
-
-```yaml
-# .github/workflows/coverage.yml
-name: Coverage
-
-on: [push, pull_request]
-
-jobs:
-  coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - run: pnpm install
-      - run: pnpm test:coverage
-
-      # Upload coverage to Codecov
-      - uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/lcov.info
-          flags: unittests
-          name: codecov-umbrella
-
-      # Upload coverage as artifact
-      - uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
-```
-
-### Coverage Badges
-
-```markdown
-<!-- README.md -->
-[![Coverage](https://codecov.io/gh/username/repo/branch/main/graph/badge.svg)](https://codecov.io/gh/username/repo)
-```
-
-## Coverage Exclusions
-
-### Exclude Specific Code
-
-```typescript
-// Exclude line
-/* v8 ignore next */
-console.log("Debug statement");
-
-// Exclude block
-/* v8 ignore start */
-if (process.env.NODE_ENV === "development") {
-  console.log("Development only");
-}
-/* v8 ignore stop */
-
-// Exclude function
-/* v8 ignore next 5 */
-function debugHelper() {
-  // This entire function is excluded
-  console.log("Debug");
-}
-```
-
-### Exclude Files/Directories
-
-```typescript
-// vitest.config.ts
-export default defineConfig({
-  test: {
-    coverage: {
-      exclude: [
-        // Test files
-        "**/__tests__/**",
-        "**/*.test.ts",
-        "**/*.spec.ts",
-
-        // Config files
-        "**/*.config.ts",
-        "**/*.config.js",
-
-        // Build output
-        "dist/**",
-        "build/**",
-        ".next/**",
-
-        // Specific files
-        "src/index.ts",
-        "src/generated/**",
-
-        // External dependencies
-        "node_modules/**",
-      ],
-    },
-  },
-});
-```
-
-## Monorepo Coverage
-
-### Aggregate Coverage
-
+**Build for coverage with LLVM:**
 ```bash
-# Generate coverage for all packages
-pnpm -r test:coverage
-
-# Merge coverage reports (requires custom script)
-node scripts/merge-coverage.js
+clang++ -fprofile-instr-generate -fcoverage-mapping \
+  -O2 main.cc harness.cc execute-rt.cc -o fuzz_exec
 ```
 
-### Custom Merge Script
-
-```typescript
-// scripts/merge-coverage.ts
-import { readFileSync, writeFileSync } from "fs";
-import { glob } from "glob";
-
-const coverageFiles = glob.sync("**/coverage/coverage-final.json", {
-  ignore: ["node_modules/**"],
-});
-
-const merged: any = {};
-
-for (const file of coverageFiles) {
-  const coverage = JSON.parse(readFileSync(file, "utf-8"));
-  Object.assign(merged, coverage);
-}
-
-writeFileSync("coverage-merged.json", JSON.stringify(merged, null, 2));
-console.log("Coverage merged successfully");
-```
-
-## Best Practices
-
-### 1. Set Realistic Thresholds
-
-```typescript
-// ❌ Too strict (100% is often impractical)
-thresholds: {
-  lines: 100,
-  functions: 100,
-  branches: 100,
-  statements: 100,
-}
-
-// ✅ Realistic and achievable
-thresholds: {
-  lines: 80,
-  functions: 80,
-  branches: 75,
-  statements: 80,
-}
-```
-
-### 2. Exclude Generated Code
-
-```typescript
-// vitest.config.ts
-coverage: {
-  exclude: [
-    "src/generated/**",
-    "*.config.*",
-    "__tests__/**",
-  ],
-}
-```
-
-### 3. Focus on Critical Paths
-
-```typescript
-// Prioritize testing:
-// 1. Business logic
-// 2. Data transformations
-// 3. API endpoints
-// 4. Error handling
-
-// Less critical:
-// - UI components (test functionality, not styling)
-// - Configuration files
-// - Type definitions
-```
-
-### 4. Track Coverage Over Time
-
+**Build for coverage with GCC:**
 ```bash
-# Store coverage in git (add to .gitignore exceptions)
-!coverage/coverage-summary.json
-
-# Track changes
-git diff coverage/coverage-summary.json
+AFL_USE_ASAN=0 afl-gcc -ftest-coverage -fprofile-arcs \
+  main.cc harness.cc execute-rt.cc -o fuzz_exec_gcov
 ```
+
+**Execute and generate report:**
+```bash
+# LLVM approach
+LLVM_PROFILE_FILE=fuzz.profraw ./fuzz_exec afl_output/queue/
+llvm-profdata merge -sparse fuzz.profraw -o fuzz.profdata
+llvm-cov report ./fuzz_exec -instr-profile=fuzz.profdata
+
+# GCC approach
+./fuzz_exec_gcov afl_output/queue/
+gcovr --html-details -o coverage.html
+```
+
+**Integration tips:**
+- Don't use AFL++'s instrumentation (`afl-clang-fast`) for coverage builds
+- Use standard compilers with coverage flags instead
+- AFL++'s `queue/` directory contains your corpus
+- AFL++'s built-in coverage statistics are useful for real-time monitoring but not for detailed analysis
+
+### cargo-fuzz (Rust)
+
+cargo-fuzz provides built-in coverage generation using LLVM tools.
+
+**Install prerequisites:**
+```bash
+rustup toolchain install nightly --component llvm-tools-preview
+cargo install cargo-binutils rustfilt
+```
+
+**Generate coverage data:**
+```bash
+cargo +nightly fuzz coverage fuzz_target_1
+```
+
+**Create HTML report script:**
+```bash
+cat <<'EOF' > ./generate_html
+#!/bin/sh
+FUZZ_TARGET="$1"
+shift
+SRC_FILTER="$@"
+TARGET=$(rustc -vV | sed -n 's|host: ||p')
+cargo +nightly cov -- show -Xdemangler=rustfilt \
+  "target/$TARGET/coverage/$TARGET/release/$FUZZ_TARGET" \
+  -instr-profile="fuzz/coverage/$FUZZ_TARGET/coverage.profdata" \
+  -show-line-counts-or-regions -show-instantiations \
+  -format=html -o fuzz_html/ $SRC_FILTER
+EOF
+chmod +x ./generate_html
+```
+
+**Generate report:**
+```bash
+./generate_html fuzz_target_1 src/lib.rs
+```
+
+**Integration tips:**
+- Always use the nightly toolchain for coverage
+- The `-Xdemangler=rustfilt` flag makes function names readable
+- Filter by source files (e.g., `src/lib.rs`) to focus on crate code
+- Use `-show-line-counts-or-regions` and `-show-instantiations` for better Rust-specific output
+- Corpus is located in `fuzz/corpus/<target>/`
+
+### honggfuzz
+
+honggfuzz works with standard LLVM/GCC coverage instrumentation.
+
+**Build for coverage:**
+```bash
+# Use standard compiler, not honggfuzz compiler
+clang -fprofile-instr-generate -fcoverage-mapping \
+  -O2 harness.c execute-rt.c -o fuzz_exec
+```
+
+**Execute corpus:**
+```bash
+LLVM_PROFILE_FILE=fuzz.profraw ./fuzz_exec honggfuzz_workspace/
+```
+
+**Integration tips:**
+- Don't use `hfuzz-clang` for coverage builds
+- honggfuzz corpus is typically in a workspace directory
+- Use the same LLVM workflow as libFuzzer
 
 ## Troubleshooting
 
-### Coverage Not Generated
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| `error: no profile data available` | Profile wasn't generated or wrong path | Verify `LLVM_PROFILE_FILE` was set and `.profraw` file exists |
+| `Failed to load coverage` | Mismatch between binary and profile data | Rebuild binary with same flags used during execution |
+| Coverage reports show 0% | Wrong binary used for report generation | Use the instrumented binary, not the fuzzing binary |
+| `no_working_dir_found` error (gcovr) | `.gcda` files in unexpected location | Add `--gcov-ignore-errors=no_working_dir_found` flag |
+| Crashes prevent coverage generation | Corpus contains crashing inputs | Filter crashes or use forking approach to isolate failures |
+| Coverage decreases after harness change | Harness now skips certain code paths | Review harness logic; may need to support more input formats |
+| HTML report is flat file list | Using older LLVM version | Upgrade to LLVM 18+ and use `-show-directory-coverage` |
+| `incompatible instrumentation` | Mixing LLVM and GCC coverage | Rebuild everything with same toolchain |
 
-```bash
-# Issue: No coverage directory created
-# Solution: Ensure tests are running
+## Related Skills
 
-pnpm test # First run tests
-pnpm test:coverage # Then generate coverage
-```
+### Tools That Use This Technique
 
-### Low Coverage Despite Tests
+| Skill | How It Applies |
+|-------|----------------|
+| **libfuzzer** | Uses SanitizerCoverage for feedback; coverage analysis evaluates harness effectiveness |
+| **aflpp** | Uses edge coverage for feedback; detailed analysis requires separate instrumentation |
+| **cargo-fuzz** | Built-in `cargo fuzz coverage` command for Rust projects |
+| **honggfuzz** | Uses edge coverage; analyze with standard LLVM/GCC tools |
 
-```bash
-# Issue: Coverage config excludes tested files
-# Solution: Check exclude patterns
+### Related Techniques
 
-# vitest.config.ts
-coverage: {
-  exclude: [
-    // Remove overly broad patterns
-    // "src/**", // ❌ This excludes everything!
-  ],
-}
-```
+| Skill | Relationship |
+|-------|--------------|
+| **fuzz-harness-writing** | Coverage reveals which code paths harness reaches; guides harness improvements |
+| **fuzzing-dictionaries** | Coverage identifies magic value checks that need dictionary entries |
+| **corpus-management** | Coverage analysis helps curate corpora by identifying redundant test cases |
+| **sanitizers** | Coverage helps verify sanitizer-instrumented code is actually executed |
 
-### Coverage Report Empty
+## Resources
 
-```bash
-# Issue: Tests passing but coverage 0%
-# Solution: Ensure coverage.all is true
+### Key External Resources
 
-coverage: {
-  all: true, // Include all source files
-  include: ["src/**/*.ts"],
-}
-```
+**[LLVM Source-Based Code Coverage](https://clang.llvm.org/docs/SourceBasedCodeCoverage.html)**
+Comprehensive guide to LLVM's profile instrumentation, including advanced features like branch coverage, region coverage, and integration with existing build systems. Covers compiler flags, runtime behavior, and profile data formats.
 
-### Threshold Failures
+**[llvm-cov Command Guide](https://llvm.org/docs/CommandGuide/llvm-cov.html)**
+Detailed CLI reference for llvm-cov commands including `show`, `report`, and `export`. Documents all filtering options, output formats, and integration with llvm-profdata.
 
-```bash
-# Issue: Coverage below threshold
-# Solution: Add missing tests or adjust thresholds
+**[gcovr Documentation](https://gcovr.com/)**
+Complete guide to gcovr tool for generating coverage reports from gcov data. Covers HTML themes, filtering options, multi-directory projects, and CI/CD integration patterns.
 
-# Lower threshold temporarily
-thresholds: {
-  lines: 70, // Reduced from 80
-}
+**[SanitizerCoverage Documentation](https://clang.llvm.org/docs/SanitizerCoverage.html)**
+Low-level documentation for LLVM's SanitizerCoverage instrumentation. Explains inline 8-bit counters, PC tables, and how fuzzers use coverage feedback for guidance.
 
-# Or add tests to increase coverage
-```
+**[On the Evaluation of Fuzzer Performance](https://arxiv.org/abs/1808.09700)**
+Research paper examining limitations of coverage as a fuzzing performance metric. Argues for more nuanced evaluation methods beyond simple code coverage percentages.
 
-## References
+### Video Resources
 
-- Vitest Coverage: https://vitest.dev/guide/coverage
-- V8 Coverage: https://v8.dev/blog/javascript-code-coverage
-- Istanbul (alternative): https://istanbul.js.org
-- Related files:
-  - `vitest.config.ts` - Coverage configuration
-  - Root CLAUDE.md - Testing guidelines
-
-## Best Practices Summary
-
-1. **Set Realistic Thresholds**: 80% is good, 100% is often impractical
-2. **Exclude Non-Critical Code**: Config files, generated code, tests
-3. **Focus on Critical Paths**: Business logic, APIs, error handling
-4. **Test All Branches**: Ensure conditional logic is tested
-5. **Track Over Time**: Monitor coverage trends
-6. **Use HTML Reports**: Visualize uncovered lines
-7. **Integrate with CI**: Enforce thresholds in pipelines
-8. **Don't Game Coverage**: Write meaningful tests, not just for coverage
+Not applicable - coverage analysis is primarily a tooling and workflow topic best learned through documentation and hands-on practice.

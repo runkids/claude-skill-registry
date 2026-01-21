@@ -1,7 +1,7 @@
 {
   "name": "error-tracking",
-  "repo": "sgcarstrends/sgcarstrends",
-  "path": ".claude/skills/error-tracking/SKILL.md",
-  "source": "github.com/sgcarstrends/sgcarstrends",
-  "downloaded_at": "2026-01-20T03:51:20.897977Z"
+  "repo": "fghaffar/claude-cursor-setup",
+  "path": "skills/error-tracking/SKILL.md",
+  "source": "github.com/fghaffar/claude-cursor-setup",
+  "downloaded_at": "2026-01-21T04:19:22.472240Z"
 }

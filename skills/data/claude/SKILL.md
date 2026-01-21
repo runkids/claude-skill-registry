@@ -1,29 +1,36 @@
 ---
+description: Imported skill claude from agentskills
 name: claude
-description: Delegate prompts to Claude Code CLI
+signature: 3b7644e1732327259961039aaaaff41c5d8e773daa9994ab23a80c4377e46428
+source: /a0/tmp/skills_research/agentskills/docs/CLAUDE.md
 ---
 
-# Claude Code CLI Skill
+# CLAUDE.md
 
-Claude Code CLI를 사용하여 작업을 수행합니다.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. The project defines an open format for teaching AI agents specialized workflows through SKILL.md files.
 
-## 1. 사용 가능한 모델
+## Documentation
 
-### 1.1. CLI가 제공하는 모델
+The Agent Skills documentation site, defined in the `docs/` directory, is built with [Mintlify](https://mintlify.com). 
 
-- `claude-4.5-sonnet` **기본 모델**
-- `claude-4.5-opus`
-- `claude-4.5-haiku`
-
-## 2. 사용 방법
-
-CLI를 비대화형 모드(`-p`)로 실행하며, 권한 검사를 건너뛰는 모드(`--dangerously-skip-permissions`)를 사용할 수 있습니다.
-
-### 예시
+### Quick Start Commands
 
 ```bash
-# 기본 사용
-claude -p "여기에 프롬프트 입력" --dangerously-skip-permissions
+# Install Mintlify CLI (required for local development)
+npm i -g mint
 
-# 모델 지정 사용
-claude -p "여기에 프롬프트 입력" --model "claude-3-opus-20240229" --dangerously-skip-permissions
+# Run local development server (run from /docs directory)
+cd docs && mint dev
+
+# Update Mintlify CLI if dev server issues occur
+mint update
+```
+
+Local preview available at `http://localhost:3000`
+
+### Development Notes
+
+- **Navigation**: Defined in `docs/docs.json` under `navigation.pages` array
+- **Adding pages**: Create new `.mdx` file in `/docs`, add filename (without extension) to navigation
+- **Deployment**: Automatic on push to `main` branch
+- **Troubleshooting**: If page shows 404, ensure you're running `mint dev` from directory containing `docs.json`

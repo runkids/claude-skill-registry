@@ -1,7 +1,7 @@
 {
   "name": "tailwind-v4-shadcn",
-  "repo": "jackspace/ClaudeSkillz",
-  "path": "skills/tailwind-v4-shadcn/SKILL.md",
-  "source": "github.com/jackspace/ClaudeSkillz",
-  "downloaded_at": "2026-01-20T03:10:23.116054Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/tailwind-v4-shadcn/skills/tailwind-v4-shadcn/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:47.781794Z"
 }

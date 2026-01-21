@@ -1,7 +1,7 @@
 {
   "name": "integration-testing",
-  "repo": "kpiteira/ktrdr",
-  "path": ".claude/skills/integration-testing/SKILL.md",
-  "source": "github.com/kpiteira/ktrdr",
-  "downloaded_at": "2026-01-20T02:51:24.139132Z"
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/integration-testing/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-21T04:14:20.134573Z"
 }

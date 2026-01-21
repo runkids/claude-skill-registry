@@ -1,7 +1,7 @@
 {
   "name": "testing-skills-with-subagents",
-  "repo": "WesleyMFrederick/cc-workflows",
-  "path": ".claude/skills/testing-skills-with-subagents/SKILL.md",
-  "source": "github.com/WesleyMFrederick/cc-workflows",
-  "downloaded_at": "2026-01-20T03:54:24.291372Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "claude_ctx_py/assets/skills/testing-skills-with-subagents/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-21T04:21:50.124527Z"
 }

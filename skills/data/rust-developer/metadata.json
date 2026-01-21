@@ -1,12 +1,7 @@
 {
   "name": "rust-developer",
-  "description": "Comprehensive Rust development guidelines based on 6 months of code reviews. Use when writing Rust code, debugging Rust issues, or reviewing Rust PRs. Covers error handling, file I/O safety, type safe",
-  "repo": "dwalleck/catalyst",
-  "category": "development",
-  "tags": [
-    "rust",
-    "developer"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "JohnnyVicious/copilot-cli-examples",
+  "path": ".claude/skills/rust-developer/SKILL.md",
+  "source": "github.com/JohnnyVicious/copilot-cli-examples",
+  "downloaded_at": "2026-01-21T04:18:30.405696Z"
 }

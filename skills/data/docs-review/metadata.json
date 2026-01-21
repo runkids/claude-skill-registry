@@ -1,7 +1,7 @@
 {
   "name": "docs-review",
-  "repo": "metabase/metabase",
+  "repo": "savvy-web/rslib-builder",
   "path": ".claude/skills/docs-review/SKILL.md",
-  "source": "github.com/metabase/metabase",
-  "downloaded_at": "2026-01-20T03:50:18.917469Z"
+  "source": "github.com/savvy-web/rslib-builder",
+  "downloaded_at": "2026-01-21T03:20:40.747906Z"
 }

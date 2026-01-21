@@ -1,7 +1,7 @@
 {
   "name": "moai-security-zero-trust",
-  "repo": "jg-chalk-io/Nora-LiveKit",
-  "path": ".claude/skills/moai-security-zero-trust/SKILL.md",
-  "source": "github.com/jg-chalk-io/Nora-LiveKit",
-  "downloaded_at": "2026-01-20T03:24:55.075285Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-security-zero-trust/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-21T03:35:45.093831Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "granola",
-  "repo": "varadhjain/granola-claude-plugin",
-  "path": "skills/granola/SKILL.md",
-  "source": "github.com/varadhjain/granola-claude-plugin",
-  "downloaded_at": "2026-01-20T03:51:25.104172Z"
+  "repo": "clawdbot/skills",
+  "path": "skills/scald/granola/SKILL.md",
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-21T02:58:49.395291Z"
 }

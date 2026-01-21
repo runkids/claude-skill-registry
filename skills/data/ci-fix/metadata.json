@@ -1,11 +1,7 @@
 {
   "name": "ci-fix",
-  "description": "Fix GitHub Actions CI failures using GitHub CLI (gh): inspect runs/logs, identify root cause, patch workflows/code, rerun jobs, and summarize verification. Use when GitHub Actions CI is failing or nee",
-  "repo": "jMerta/codex-skills",
-  "category": "development",
-  "tags": [
-    "fix"
-  ],
-  "stars": 90,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lancenunes/codex-skills",
+  "path": "ci-fix/SKILL.md",
+  "source": "github.com/lancenunes/codex-skills",
+  "downloaded_at": "2026-01-21T01:30:33.680815Z"
 }

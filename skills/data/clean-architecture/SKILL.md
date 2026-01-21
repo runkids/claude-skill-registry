@@ -1,734 +1,286 @@
 ---
 name: clean-architecture
-description: Clean Architecture and SOLID principles implementation including dependency injection, layer separation, domain-driven design, hexagonal architecture, and code quality patterns
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
-  - Task
-dependencies: []
-triggers:
-  - clean architecture
-  - solid principles
-  - dependency injection
-  - clean code
-  - hexagonal architecture
-  - domain driven design
-  - ddd
-  - layer architecture
-  - onion architecture
-  - code quality
-  - refactoring
-  - design patterns
-  - inversion of control
-  - ioc
+description: SOLID principles, hexagonal architecture, ports and adapters, and DDD tactical patterns for maintainable backends. Use when implementing clean architecture, decoupling services, separating domain logic, or creating testable architecture.
+context: fork
+agent: code-quality-reviewer
+version: 1.0.0
+tags: [architecture, solid, hexagonal, ddd, python, fastapi, 2026]
+author: SkillForge
+user-invocable: false
 ---
 
-# Clean Architecture Skill
+# Clean Architecture Patterns
 
-Comprehensive guide for implementing Clean Architecture, SOLID principles, and maintainable code structures.
+Build maintainable, testable backends with SOLID principles and hexagonal architecture.
 
-## When to Use This Skill
+## SOLID Principles (2026 Python)
 
-Activate this skill when:
-- Designing new service architecture
-- Refactoring legacy code to clean architecture
-- Implementing dependency injection
-- Defining domain boundaries
-- Creating layer separation
-- Applying SOLID principles
-- Reviewing architectural decisions
-- Setting up project structure
+### S - Single Responsibility
 
----
+```python
+# BAD: One class doing everything
+class UserManager:
+    def create_user(self, data): ...
+    def send_welcome_email(self, user): ...
+    def generate_report(self, users): ...
 
-## Clean Architecture Overview
+# GOOD: Separate responsibilities
+class UserService:
+    def create_user(self, data: UserCreate) -> User: ...
 
-### The Dependency Rule
+class EmailService:
+    def send_welcome(self, user: User) -> None: ...
 
-**Dependencies must point inward.** Inner layers must not know about outer layers.
+class ReportService:
+    def generate_user_report(self, users: list[User]) -> Report: ...
+```
+
+### O - Open/Closed (Protocol-based)
+
+```python
+from typing import Protocol
+
+class PaymentProcessor(Protocol):
+    async def process(self, amount: Decimal) -> PaymentResult: ...
+
+class StripeProcessor:
+    async def process(self, amount: Decimal) -> PaymentResult:
+        # Stripe implementation
+        ...
+
+class PayPalProcessor:
+    async def process(self, amount: Decimal) -> PaymentResult:
+        # PayPal implementation - extends without modifying
+        ...
+```
+
+### L - Liskov Substitution
+
+```python
+# Any implementation of Repository can substitute another
+class IUserRepository(Protocol):
+    async def get_by_id(self, id: str) -> User | None: ...
+    async def save(self, user: User) -> User: ...
+
+class PostgresUserRepository:
+    async def get_by_id(self, id: str) -> User | None: ...
+    async def save(self, user: User) -> User: ...
+
+class InMemoryUserRepository:  # For testing - fully substitutable
+    async def get_by_id(self, id: str) -> User | None: ...
+    async def save(self, user: User) -> User: ...
+```
+
+### I - Interface Segregation
+
+```python
+# BAD: Fat interface
+class IRepository(Protocol):
+    async def get(self, id: str): ...
+    async def save(self, entity): ...
+    async def delete(self, id: str): ...
+    async def search(self, query: str): ...
+    async def bulk_insert(self, entities): ...
+
+# GOOD: Segregated interfaces
+class IReader(Protocol):
+    async def get(self, id: str) -> T | None: ...
+
+class IWriter(Protocol):
+    async def save(self, entity: T) -> T: ...
+
+class ISearchable(Protocol):
+    async def search(self, query: str) -> list[T]: ...
+```
+
+### D - Dependency Inversion
+
+```python
+from typing import Protocol
+from fastapi import Depends
+
+class IAnalysisRepository(Protocol):
+    async def get_by_id(self, id: str) -> Analysis | None: ...
+
+class AnalysisService:
+    def __init__(self, repo: IAnalysisRepository):
+        self._repo = repo  # Depends on abstraction, not concrete
+
+# FastAPI DI
+def get_analysis_service(
+    db: AsyncSession = Depends(get_db)
+) -> AnalysisService:
+    repo = PostgresAnalysisRepository(db)
+    return AnalysisService(repo)
+```
+
+## Hexagonal Architecture (Ports & Adapters)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     EXTERNAL LAYER                           │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │                 INFRASTRUCTURE LAYER                     │ │
-│  │  ┌─────────────────────────────────────────────────────┐ │ │
-│  │  │               APPLICATION LAYER                      │ │ │
-│  │  │  ┌─────────────────────────────────────────────────┐ │ │ │
-│  │  │  │                DOMAIN LAYER                      │ │ │ │
-│  │  │  │         (Entities, Value Objects)                │ │ │ │
-│  │  │  └─────────────────────────────────────────────────┘ │ │ │
-│  │  │    (Use Cases, Application Services)                  │ │ │
-│  │  └─────────────────────────────────────────────────────┘ │ │
-│  │  (Repositories, External Services, ORM)                   │ │
-│  └─────────────────────────────────────────────────────────┘ │
-│  (Web Framework, Database, UI, External APIs)                 │
+│                      DRIVING ADAPTERS                        │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐    │
+│  │ FastAPI  │  │   CLI    │  │  Celery  │  │  Tests   │    │
+│  │ Routes   │  │ Commands │  │  Tasks   │  │  Mocks   │    │
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘    │
+│       │             │             │             │           │
+│       ▼             ▼             ▼             ▼           │
+│  ╔═══════════════════════════════════════════════════════╗  │
+│  ║                    INPUT PORTS                        ║  │
+│  ║  ┌─────────────────┐  ┌─────────────────────────────┐ ║  │
+│  ║  │ AnalysisService │  │ UserService                 │ ║  │
+│  ║  │ (Use Cases)     │  │ (Use Cases)                 │ ║  │
+│  ║  └────────┬────────┘  └──────────────┬──────────────┘ ║  │
+│  ╠═══════════╪══════════════════════════╪════════════════╣  │
+│  ║           ▼          DOMAIN          ▼                ║  │
+│  ║  ┌─────────────────────────────────────────────────┐  ║  │
+│  ║  │  Entities  │  Value Objects  │  Domain Events   │  ║  │
+│  ║  │  Analysis  │  AnalysisType   │  AnalysisCreated │  ║  │
+│  ║  └─────────────────────────────────────────────────┘  ║  │
+│  ╠═══════════════════════════════════════════════════════╣  │
+│  ║                   OUTPUT PORTS                        ║  │
+│  ║  ┌──────────────────┐  ┌────────────────────────────┐ ║  │
+│  ║  │ IAnalysisRepo    │  │ INotificationService       │ ║  │
+│  ║  │ (Protocol)       │  │ (Protocol)                 │ ║  │
+│  ║  └────────┬─────────┘  └──────────────┬─────────────┘ ║  │
+│  ╚═══════════╪══════════════════════════╪════════════════╝  │
+│              ▼                          ▼                   │
+│  ┌───────────────────┐  ┌────────────────────────────────┐ │
+│  │ PostgresRepo      │  │ EmailNotificationService       │ │
+│  │ (SQLAlchemy)      │  │ (SMTP/SendGrid)                │ │
+│  └───────────────────┘  └────────────────────────────────┘ │
+│                      DRIVEN ADAPTERS                        │
 └─────────────────────────────────────────────────────────────┘
-
-                Dependencies point INWARD →
 ```
 
----
+## DDD Tactical Patterns
 
-## Layer Definitions
+### Entity (Identity-based)
 
-### 1. Domain Layer (Core)
+```python
+from dataclasses import dataclass, field
+from uuid import UUID, uuid4
 
-The heart of the application. Contains:
-- **Entities**: Business objects with identity
-- **Value Objects**: Immutable objects without identity
-- **Domain Events**: Events that occur in the domain
-- **Domain Services**: Stateless operations on domain objects
-- **Repository Interfaces**: Abstractions for data access
+@dataclass
+class Analysis:
+    id: UUID = field(default_factory=uuid4)
+    source_url: str
+    status: AnalysisStatus
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
-```typescript
-// src/domain/entities/user.entity.ts
-export class User {
-  constructor(
-    public readonly id: UserId,
-    public email: Email,
-    public name: UserName,
-    private passwordHash: PasswordHash,
-    public readonly createdAt: Date
-  ) {}
-
-  changePassword(newPassword: Password, hasher: PasswordHasher): void {
-    this.passwordHash = hasher.hash(newPassword);
-  }
-
-  validatePassword(password: Password, hasher: PasswordHasher): boolean {
-    return hasher.verify(password, this.passwordHash);
-  }
-}
-
-// src/domain/value-objects/email.vo.ts
-export class Email {
-  private constructor(private readonly value: string) {}
-
-  static create(email: string): Email {
-    if (!this.isValid(email)) {
-      throw new InvalidEmailError(email);
-    }
-    return new Email(email.toLowerCase());
-  }
-
-  private static isValid(email: string): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  toString(): string {
-    return this.value;
-  }
-
-  equals(other: Email): boolean {
-    return this.value === other.value;
-  }
-}
-
-// src/domain/repository-interfaces/user.repository.ts
-export interface UserRepository {
-  findById(id: UserId): Promise<User | null>;
-  findByEmail(email: Email): Promise<User | null>;
-  save(user: User): Promise<void>;
-  delete(id: UserId): Promise<void>;
-}
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Analysis):
+            return False
+        return self.id == other.id  # Identity equality
 ```
 
-### 2. Application Layer
+### Value Object (Structural equality)
 
-Orchestrates domain objects to perform use cases:
-- **Use Cases**: Single responsibility application operations
-- **Application Services**: Coordinate multiple use cases
-- **DTOs**: Data transfer objects for boundaries
-- **Ports**: Interfaces for external dependencies
+```python
+from dataclasses import dataclass
 
-```typescript
-// src/application/use-cases/create-user.use-case.ts
-export interface CreateUserInput {
-  email: string;
-  name: string;
-  password: string;
-}
+@dataclass(frozen=True)  # Immutable
+class AnalysisType:
+    category: str
+    depth: int
 
-export interface CreateUserOutput {
-  id: string;
-  email: string;
-  name: string;
-  createdAt: Date;
-}
-
-export class CreateUserUseCase {
-  constructor(
-    private readonly userRepository: UserRepository,
-    private readonly passwordHasher: PasswordHasher,
-    private readonly eventEmitter: DomainEventEmitter
-  ) {}
-
-  async execute(input: CreateUserInput): Promise<CreateUserOutput> {
-    // Validate email uniqueness
-    const existingUser = await this.userRepository.findByEmail(
-      Email.create(input.email)
-    );
-    if (existingUser) {
-      throw new EmailAlreadyExistsError(input.email);
-    }
-
-    // Create domain entity
-    const user = new User(
-      UserId.generate(),
-      Email.create(input.email),
-      UserName.create(input.name),
-      this.passwordHasher.hash(Password.create(input.password)),
-      new Date()
-    );
-
-    // Persist
-    await this.userRepository.save(user);
-
-    // Emit domain event
-    this.eventEmitter.emit(new UserCreatedEvent(user));
-
-    // Return DTO
-    return {
-      id: user.id.toString(),
-      email: user.email.toString(),
-      name: user.name.toString(),
-      createdAt: user.createdAt
-    };
-  }
-}
+    def __post_init__(self):
+        if self.depth < 1 or self.depth > 3:
+            raise ValueError("Depth must be 1-3")
 ```
 
-### 3. Infrastructure Layer
+### Aggregate Root
 
-Implements interfaces defined in inner layers:
-- **Repository Implementations**: Database access
-- **External Service Adapters**: Third-party integrations
-- **ORM Configurations**: Database mappings
-- **Messaging**: Queue/event implementations
+```python
+class AnalysisAggregate:
+    def __init__(self, analysis: Analysis, artifacts: list[Artifact]):
+        self._analysis = analysis
+        self._artifacts = artifacts
+        self._events: list[DomainEvent] = []
 
-```typescript
-// src/infrastructure/repositories/postgresql-user.repository.ts
-export class PostgreSQLUserRepository implements UserRepository {
-  constructor(private readonly db: Database) {}
+    def complete(self, summary: str) -> None:
+        self._analysis.status = AnalysisStatus.COMPLETED
+        self._analysis.summary = summary
+        self._events.append(AnalysisCompleted(self._analysis.id))
 
-  async findById(id: UserId): Promise<User | null> {
-    const row = await this.db.query(
-      'SELECT * FROM users WHERE id = $1',
-      [id.toString()]
-    );
-    return row ? this.toDomain(row) : null;
-  }
-
-  async findByEmail(email: Email): Promise<User | null> {
-    const row = await this.db.query(
-      'SELECT * FROM users WHERE email = $1',
-      [email.toString()]
-    );
-    return row ? this.toDomain(row) : null;
-  }
-
-  async save(user: User): Promise<void> {
-    await this.db.query(
-      `INSERT INTO users (id, email, name, password_hash, created_at)
-       VALUES ($1, $2, $3, $4, $5)
-       ON CONFLICT (id) DO UPDATE SET
-         email = $2, name = $3, password_hash = $4`,
-      [user.id.toString(), user.email.toString(), user.name.toString(),
-       user.passwordHash, user.createdAt]
-    );
-  }
-
-  private toDomain(row: UserRow): User {
-    return new User(
-      UserId.fromString(row.id),
-      Email.create(row.email),
-      UserName.create(row.name),
-      PasswordHash.fromString(row.password_hash),
-      row.created_at
-    );
-  }
-}
+    def collect_events(self) -> list[DomainEvent]:
+        events = self._events.copy()
+        self._events.clear()
+        return events
 ```
 
-### 4. External/Presentation Layer
-
-Entry points to the application:
-- **Controllers**: HTTP request handlers
-- **CLI**: Command-line interfaces
-- **GraphQL Resolvers**: GraphQL handlers
-- **Message Handlers**: Queue consumers
-
-```typescript
-// src/presentation/http/controllers/user.controller.ts
-export class UserController {
-  constructor(
-    private readonly createUserUseCase: CreateUserUseCase,
-    private readonly getUserUseCase: GetUserUseCase
-  ) {}
-
-  async create(req: Request, res: Response): Promise<void> {
-    try {
-      const result = await this.createUserUseCase.execute({
-        email: req.body.email,
-        name: req.body.name,
-        password: req.body.password
-      });
-
-      res.status(201).json(result);
-    } catch (error) {
-      if (error instanceof EmailAlreadyExistsError) {
-        res.status(409).json({ error: error.message });
-      } else if (error instanceof ValidationError) {
-        res.status(400).json({ error: error.message });
-      } else {
-        throw error;
-      }
-    }
-  }
-}
-```
-
----
-
-## Project Structure
-
-### Recommended Directory Structure
+## Directory Structure
 
 ```
-src/
-├── domain/                          # Domain Layer (Core)
-│   ├── entities/
-│   │   ├── user.entity.ts
-│   │   └── order.entity.ts
-│   ├── value-objects/
-│   │   ├── email.vo.ts
-│   │   ├── money.vo.ts
-│   │   └── user-id.vo.ts
-│   ├── events/
-│   │   ├── user-created.event.ts
-│   │   └── order-placed.event.ts
-│   ├── services/
-│   │   └── pricing.domain-service.ts
-│   ├── repositories/                 # Interfaces only!
-│   │   ├── user.repository.ts
-│   │   └── order.repository.ts
-│   └── errors/
-│       ├── domain-error.ts
-│       └── validation-error.ts
-│
-├── application/                      # Application Layer
-│   ├── use-cases/
-│   │   ├── user/
-│   │   │   ├── create-user.use-case.ts
-│   │   │   ├── get-user.use-case.ts
-│   │   │   └── update-user.use-case.ts
-│   │   └── order/
-│   │       ├── create-order.use-case.ts
-│   │       └── cancel-order.use-case.ts
-│   ├── services/
-│   │   └── notification.service.ts
-│   ├── ports/                        # Secondary ports
-│   │   ├── email.port.ts
-│   │   └── payment.port.ts
-│   └── dto/
-│       ├── user.dto.ts
-│       └── order.dto.ts
-│
-├── infrastructure/                   # Infrastructure Layer
-│   ├── repositories/
-│   │   ├── postgresql-user.repository.ts
-│   │   └── postgresql-order.repository.ts
-│   ├── adapters/
-│   │   ├── sendgrid-email.adapter.ts
-│   │   └── stripe-payment.adapter.ts
-│   ├── orm/
-│   │   ├── prisma/
-│   │   │   └── schema.prisma
-│   │   └── migrations/
-│   ├── messaging/
-│   │   ├── rabbitmq-publisher.ts
-│   │   └── rabbitmq-consumer.ts
-│   └── config/
-│       └── database.config.ts
-│
-├── presentation/                     # Presentation Layer
-│   ├── http/
-│   │   ├── controllers/
-│   │   │   ├── user.controller.ts
-│   │   │   └── order.controller.ts
-│   │   ├── middleware/
-│   │   │   ├── auth.middleware.ts
-│   │   │   └── error-handler.middleware.ts
-│   │   ├── routes/
-│   │   │   └── index.ts
-│   │   └── validators/
-│   │       └── user.validator.ts
-│   ├── graphql/
-│   │   ├── resolvers/
-│   │   └── schema/
-│   └── cli/
-│       └── commands/
-│
-├── shared/                           # Cross-cutting concerns
-│   ├── kernel/
-│   │   ├── result.ts
-│   │   └── either.ts
-│   └── utils/
-│       └── date.utils.ts
-│
-└── container/                        # Dependency Injection
-    ├── container.ts
-    └── providers/
-        ├── user.provider.ts
-        └── order.provider.ts
+backend/app/
+├── api/v1/              # Driving adapters (FastAPI routes)
+├── domains/
+│   └── analysis/
+│       ├── entities.py      # Domain entities
+│       ├── value_objects.py # Value objects
+│       ├── services.py      # Domain services (use cases)
+│       ├── repositories.py  # Output port protocols
+│       └── events.py        # Domain events
+├── infrastructure/
+│   ├── repositories/    # Driven adapters (PostgreSQL)
+│   ├── services/        # External service adapters
+│   └── messaging/       # Event publishers
+└── core/
+    ├── dependencies.py  # FastAPI DI configuration
+    └── protocols.py     # Shared protocols
 ```
 
----
+## Anti-Patterns (FORBIDDEN)
 
-## Dependency Injection
+```python
+# NEVER import infrastructure in domain
+from app.infrastructure.database import engine  # In domain layer
 
-### Container Setup
+# NEVER leak ORM models to API
+@router.get("/users/{id}")
+async def get_user(id: str, db: Session) -> UserModel:  # Returns ORM model
+    return db.query(UserModel).get(id)
 
-```typescript
-// src/container/container.ts
-import { Container } from 'inversify';
-import { TYPES } from './types';
-
-// Domain
-import { UserRepository } from '@/domain/repositories/user.repository';
-
-// Application
-import { CreateUserUseCase } from '@/application/use-cases/user/create-user.use-case';
-
-// Infrastructure
-import { PostgreSQLUserRepository } from '@/infrastructure/repositories/postgresql-user.repository';
-
-// Presentation
-import { UserController } from '@/presentation/http/controllers/user.controller';
-
-const container = new Container();
-
-// Bind repositories (interface → implementation)
-container.bind<UserRepository>(TYPES.UserRepository)
-  .to(PostgreSQLUserRepository)
-  .inSingletonScope();
-
-// Bind use cases
-container.bind<CreateUserUseCase>(TYPES.CreateUserUseCase)
-  .to(CreateUserUseCase)
-  .inTransientScope();
-
-// Bind controllers
-container.bind<UserController>(TYPES.UserController)
-  .to(UserController)
-  .inTransientScope();
-
-export { container };
+# NEVER have domain depend on framework
+from fastapi import HTTPException
+class UserService:
+    def get(self, id: str):
+        if not user:
+            raise HTTPException(404)  # Framework in domain!
 ```
 
-### Type Symbols
+## Key Decisions
 
-```typescript
-// src/container/types.ts
-export const TYPES = {
-  // Repositories
-  UserRepository: Symbol.for('UserRepository'),
-  OrderRepository: Symbol.for('OrderRepository'),
+| Decision | Recommendation |
+|----------|----------------|
+| Protocol vs ABC | Use Protocol (structural typing) |
+| Dataclass vs Pydantic | Dataclass for domain, Pydantic for API |
+| Repository granularity | One per aggregate root |
+| Transaction boundary | Service layer, not repository |
+| Event publishing | Collect in aggregate, publish after commit |
 
-  // Use Cases
-  CreateUserUseCase: Symbol.for('CreateUserUseCase'),
-  GetUserUseCase: Symbol.for('GetUserUseCase'),
+## Related Skills
 
-  // Adapters
-  EmailAdapter: Symbol.for('EmailAdapter'),
-  PaymentAdapter: Symbol.for('PaymentAdapter'),
+- `repository-patterns` - Detailed repository implementations
+- `api-design-framework` - REST API patterns
+- `database-schema-designer` - Schema design
 
-  // Controllers
-  UserController: Symbol.for('UserController'),
-  OrderController: Symbol.for('OrderController'),
-};
-```
+## Capability Details
 
----
+### solid-principles
+**Keywords:** SOLID, single responsibility, open closed, liskov, interface segregation, dependency inversion
+**Solves:**
+- How do I apply SOLID principles in Python?
+- My classes are doing too much
 
-## SOLID in Clean Architecture
+### hexagonal-architecture
+**Keywords:** hexagonal, ports and adapters, clean architecture, onion
+**Solves:**
+- How do I structure my FastAPI app?
+- How to separate infrastructure from domain?
 
-### Single Responsibility
-
-Each layer has one responsibility:
-- Domain: Business rules
-- Application: Use case orchestration
-- Infrastructure: Technical concerns
-- Presentation: User interface
-
-### Open/Closed
-
-Add features by adding new use cases, not modifying existing ones:
-
-```typescript
-// Add new feature: UpdateUserUseCase
-// Don't modify: CreateUserUseCase
-export class UpdateUserUseCase { /* ... */ }
-```
-
-### Liskov Substitution
-
-Repository implementations are fully substitutable:
-
-```typescript
-// Both work with UserRepository interface
-const postgresRepo: UserRepository = new PostgreSQLUserRepository(db);
-const mongoRepo: UserRepository = new MongoUserRepository(client);
-const memoryRepo: UserRepository = new InMemoryUserRepository();
-```
-
-### Interface Segregation
-
-Small, focused interfaces:
-
-```typescript
-// BAD: Fat interface
-interface UserService {
-  create(data): User;
-  update(id, data): User;
-  delete(id): void;
-  sendEmail(id): void;
-  generateReport(id): Report;
-  exportToCSV(id): string;
-}
-
-// GOOD: Segregated
-interface UserCreator { create(data): User; }
-interface UserUpdater { update(id, data): User; }
-interface UserDeleter { delete(id): void; }
-interface UserEmailer { sendEmail(id): void; }
-```
-
-### Dependency Inversion
-
-All dependencies point to abstractions:
-
-```typescript
-// Application layer defines the port (interface)
-export interface EmailPort {
-  send(to: string, subject: string, body: string): Promise<void>;
-}
-
-// Infrastructure implements the adapter
-export class SendGridEmailAdapter implements EmailPort {
-  async send(to: string, subject: string, body: string): Promise<void> {
-    await this.sendgrid.send({ to, subject, text: body });
-  }
-}
-
-// Use case depends on abstraction, not implementation
-export class CreateUserUseCase {
-  constructor(private readonly emailPort: EmailPort) {}
-}
-```
-
----
-
-## Testing Strategy
-
-### Unit Tests (Domain & Application)
-
-```typescript
-// Test domain logic without infrastructure
-describe('User', () => {
-  it('should validate password correctly', () => {
-    const hasher = new BCryptHasher();
-    const password = Password.create('SecureP@ss1');
-    const user = new User(
-      UserId.generate(),
-      Email.create('test@example.com'),
-      UserName.create('Test User'),
-      hasher.hash(password),
-      new Date()
-    );
-
-    expect(user.validatePassword(password, hasher)).toBe(true);
-    expect(user.validatePassword(Password.create('wrong'), hasher)).toBe(false);
-  });
-});
-
-// Test use cases with mock repositories
-describe('CreateUserUseCase', () => {
-  it('should create user successfully', async () => {
-    const mockRepo = {
-      findByEmail: jest.fn().mockResolvedValue(null),
-      save: jest.fn().mockResolvedValue(undefined)
-    };
-    const mockHasher = { hash: jest.fn().mockReturnValue('hashed') };
-    const mockEmitter = { emit: jest.fn() };
-
-    const useCase = new CreateUserUseCase(mockRepo, mockHasher, mockEmitter);
-
-    const result = await useCase.execute({
-      email: 'test@example.com',
-      name: 'Test User',
-      password: 'password123'
-    });
-
-    expect(result.email).toBe('test@example.com');
-    expect(mockRepo.save).toHaveBeenCalled();
-    expect(mockEmitter.emit).toHaveBeenCalled();
-  });
-});
-```
-
-### Integration Tests (Infrastructure)
-
-```typescript
-describe('PostgreSQLUserRepository', () => {
-  let repository: PostgreSQLUserRepository;
-  let db: Database;
-
-  beforeAll(async () => {
-    db = await createTestDatabase();
-    repository = new PostgreSQLUserRepository(db);
-  });
-
-  afterAll(async () => {
-    await db.close();
-  });
-
-  it('should save and retrieve user', async () => {
-    const user = createTestUser();
-
-    await repository.save(user);
-    const retrieved = await repository.findById(user.id);
-
-    expect(retrieved).not.toBeNull();
-    expect(retrieved.email.equals(user.email)).toBe(true);
-  });
-});
-```
-
-### E2E Tests (Full Stack)
-
-```typescript
-describe('User API', () => {
-  it('should create user via HTTP', async () => {
-    const response = await request(app)
-      .post('/api/users')
-      .send({
-        email: 'test@example.com',
-        name: 'Test User',
-        password: 'password123'
-      });
-
-    expect(response.status).toBe(201);
-    expect(response.body.email).toBe('test@example.com');
-  });
-});
-```
-
----
-
-## Anti-Patterns to Avoid
-
-### 1. Domain Logic in Controllers
-
-```typescript
-// BAD
-class UserController {
-  async create(req, res) {
-    // Business logic in controller!
-    if (await this.db.query('SELECT * FROM users WHERE email = $1', [req.body.email])) {
-      return res.status(409).json({ error: 'Email exists' });
-    }
-    const hash = await bcrypt.hash(req.body.password, 10);
-    await this.db.query('INSERT INTO users...');
-  }
-}
-
-// GOOD
-class UserController {
-  async create(req, res) {
-    const result = await this.createUserUseCase.execute(req.body);
-    res.status(201).json(result);
-  }
-}
-```
-
-### 2. Infrastructure in Domain
-
-```typescript
-// BAD
-class User {
-  async save() {
-    await prisma.user.create({ data: this }); // Infrastructure leak!
-  }
-}
-
-// GOOD
-class User {
-  // Pure domain logic, no infrastructure
-}
-
-// Repository handles persistence
-class UserRepository {
-  async save(user: User) {
-    await prisma.user.create({ data: user.toDTO() });
-  }
-}
-```
-
-### 3. Anemic Domain Model
-
-```typescript
-// BAD - No behavior, just data
-class User {
-  id: string;
-  email: string;
-  password: string;
-}
-
-class UserService {
-  changePassword(user: User, newPassword: string) {
-    user.password = hash(newPassword); // Logic outside entity
-  }
-}
-
-// GOOD - Rich domain model
-class User {
-  constructor(private readonly id: UserId, private passwordHash: PasswordHash) {}
-
-  changePassword(newPassword: Password, hasher: PasswordHasher): void {
-    if (!newPassword.isStrong()) {
-      throw new WeakPasswordError();
-    }
-    this.passwordHash = hasher.hash(newPassword);
-  }
-}
-```
-
----
-
-## Migration Strategy
-
-### Legacy to Clean Architecture
-
-1. **Identify Boundaries**: Find domain concepts
-2. **Extract Entities**: Create domain objects
-3. **Define Interfaces**: Create repository interfaces
-4. **Implement Adapters**: Wrap existing data access
-5. **Create Use Cases**: Extract business logic
-6. **Refactor Controllers**: Delegate to use cases
-7. **Add DI Container**: Wire dependencies
-8. **Write Tests**: Cover each layer
-
----
-
-## Related Resources
-
-- [Development Standards](../../docs/DEVELOPMENT-STANDARDS.md)
-- [Architecture Summary](../../docs/ARCHITECTURE-SUMMARY.md)
-- [Code Quality Enforcer Agent](../../agents/code-quality-enforcer.md)
-- [Robert C. Martin - Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+### ddd-tactical
+**Keywords:** entity, value object, aggregate, domain event, DDD
+**Solves:**
+- What's the difference between entity and value object?
+- How to design aggregates?

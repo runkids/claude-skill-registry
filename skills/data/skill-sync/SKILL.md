@@ -5,7 +5,7 @@ description: >
   Trigger: When updating skill metadata (metadata.scope/metadata.auto_invoke), regenerating Auto-invoke tables, or running ./skills/skill-sync/assets/sync.sh (including --dry-run/--scope).
 license: Apache-2.0
 metadata:
-  author: prowler-cloud
+  author: skill-init
   version: "1.0"
   scope: [root]
   auto_invoke:
@@ -27,10 +27,10 @@ Each skill that should appear in Auto-invoke sections needs these fields in `met
 
 ```yaml
 metadata:
-  author: prowler-cloud
+  author: your-org
   version: "1.0"
-  scope: [ui]                                    # Which AGENTS.md: ui, api, sdk, root
-
+  scope: [root]                                    # Which AGENTS.md: root, backend, frontend
+  
   # Option A: single action
   auto_invoke: "Creating/modifying components"
 
@@ -45,12 +45,10 @@ metadata:
 | Scope | Updates |
 |-------|---------|
 | `root` | `AGENTS.md` (repo root) |
-| `ui` | `ui/AGENTS.md` |
-| `api` | `api/AGENTS.md` |
-| `sdk` | `prowler/AGENTS.md` |
-| `mcp_server` | `mcp_server/AGENTS.md` |
+| `backend` | `apps/backend/AGENTS.md` (example) |
+| `frontend` | `apps/frontend/AGENTS.md` (example) |
 
-Skills can have multiple scopes: `scope: [ui, api]`
+Skills can have multiple scopes: `scope: [root, backend]`
 
 ---
 
@@ -76,15 +74,13 @@ Skills can have multiple scopes: `scope: [ui, api]`
 Given this skill metadata:
 
 ```yaml
-# skills/prowler-ui/SKILL.md
+# skills/my-skill/SKILL.md
 metadata:
-  author: prowler-cloud
-  version: "1.0"
-  scope: [ui]
+  scope: [root]
   auto_invoke: "Creating/modifying React components"
 ```
 
-The sync script generates in `ui/AGENTS.md`:
+The sync script generates in `AGENTS.md`:
 
 ```markdown
 ### Auto-invoke Skills
@@ -93,7 +89,7 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 | Action | Skill |
 |--------|-------|
-| Creating/modifying React components | `prowler-ui` |
+| Creating/modifying React components | `my-skill` |
 ```
 
 ---
@@ -108,7 +104,7 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 ./skills/skill-sync/assets/sync.sh --dry-run
 
 # Sync specific scope only
-./skills/skill-sync/assets/sync.sh --scope ui
+./skills/skill-sync/assets/sync.sh --scope root
 ```
 
 ---

@@ -1,13 +1,10 @@
 ---
-name: moai-security-zero-trust
-version: 4.0.0
+name: "moai-security-zero-trust"
+version: "4.0.0"
 status: stable
-description: Enterprise Skill for advanced development
-allowed-tools: Read, Bash, WebSearch, WebFetch
-updated: '2025-11-18'
-stability: stable
+description: "Enterprise Skill for advanced development"
+allowed-tools: "Read, Bash, WebSearch, WebFetch"
 ---
-
 
 # moai-security-zero-trust: Zero-Trust Architecture & Micro-Segmentation
 

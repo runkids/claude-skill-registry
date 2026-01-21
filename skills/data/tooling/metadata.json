@@ -1,7 +1,7 @@
 {
   "name": "tooling",
-  "repo": "ChanningHe/dotfiles",
-  "path": "claude/skills/tooling/SKILL.md",
-  "source": "github.com/ChanningHe/dotfiles",
-  "downloaded_at": "2026-01-20T02:51:30.686231Z"
+  "repo": "pluginagentmarketplace/custom-plugin-typescript",
+  "path": "skills/tooling/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-typescript",
+  "downloaded_at": "2026-01-21T02:38:47.292529Z"
 }

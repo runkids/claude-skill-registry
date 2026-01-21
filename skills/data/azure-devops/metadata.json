@@ -1,7 +1,7 @@
 {
   "name": "azure-devops",
-  "repo": "NotMyself/claude-stack-dotnet",
+  "repo": "rysweet/amplihack",
   "path": ".claude/skills/azure-devops/SKILL.md",
-  "source": "github.com/NotMyself/claude-stack-dotnet",
-  "downloaded_at": "2026-01-20T03:42:38.469763Z"
+  "source": "github.com/rysweet/amplihack",
+  "downloaded_at": "2026-01-21T02:52:16.163238Z"
 }

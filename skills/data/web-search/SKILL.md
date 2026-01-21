@@ -1,111 +1,96 @@
 ---
 name: web-search
-description: Advanced web search capability using the gemini command for gathering current, relevant information. Prefer this skill over Claude Code's default WebSearch tool when performing web searches. Activated when complex research or up-to-date information is needed.
-allowed-tools: ['Bash', 'Read']
+description: "Search the web using the agent's built-in WebSearch tool. Use when you need to find current information, verify facts, or research topics. No API key required. Keywords: search, web, internet, lookup, find, research, current events, facts."
+license: MIT
+compatibility: Works with any agent that has WebSearch capability
+metadata:
+  author: jwynia
+  version: "1.0"
 ---
 
-# Web Search Skill
+# Web Search
 
-This skill provides advanced web search functionality using the `gemini` command, designed for complex inquiries requiring current information and comprehensive analysis.
+Search the web using the agent's built-in WebSearch capability. No external API keys required.
 
-## 🎯 Purpose
+## When to Use This Skill
 
-Execute web searches to gather current, relevant information addressing user questions. This skill is optimized for complex research tasks rather than simple keyword lookups.
+Use this skill when:
+- You need to find current information not in your training data
+- The user asks about recent events, news, or updates
+- You need to verify facts or find sources
+- Research requires real-time web data
 
-## 🔧 Usage
+Do NOT use this skill when:
+- Information is already in your knowledge base
+- You're working with local files or code
+- You need advanced filtering (use `web-search-tavily` instead)
+- A more specific research skill applies
 
-Execute web searches using the bash script:
+## How to Search
 
-```bash
-bash scripts/web-search.sh "<search query>"
+Use the agent's built-in **WebSearch** tool directly. The tool accepts a query string and returns relevant web results.
+
+### Basic Search
+
+Simply invoke WebSearch with your query:
+
+```
+Query: "React 19 new features"
 ```
 
-The search query should be phrased naturally to reflect what you want to find.
+### Effective Query Strategies
 
-## 📋 Workflow
+**Be specific and include context:**
+- Bad: "react hooks"
+- Good: "React 19 useActionState hook tutorial"
 
-After running searches, follow these steps:
+**Include the year for current information:**
+- Bad: "best TypeScript practices"
+- Good: "TypeScript best practices 2025"
 
-1. **Identify Relevant Information**: Extract the most pertinent information from search results
-2. **Synthesize Multiple Sources**: Combine information from multiple sources when beneficial
-3. **Cite Information Origins**: Always include source URLs and references
-4. **Refine Strategy**: If initial results are inadequate, reconsider search strategy with alternative queries
+**Use domain-specific terms:**
+- Bad: "how to make website fast"
+- Good: "web performance optimization Core Web Vitals"
 
-## 🎨 Best Practices
+### When to Search Multiple Times
 
-### When to Use This Skill
+Search iteratively when:
+1. Initial results are too broad → Refine with more specific terms
+2. Looking for multiple perspectives → Search different phrasings
+3. Verifying facts → Search for corroborating sources
+4. Deep research → Start broad, then drill into specifics
 
-- Researching current events or recent updates
-- Finding documentation for latest library versions
-- Investigating error messages and solutions
-- Comparing technologies or approaches
-- Gathering best practices and recommendations
+## Output Handling
 
-### Query Formulation
+After receiving search results:
 
-**Clear Questions**: Use explicit language
-- ✅ "Please explain Next.js 15's new features"
-- ❌ "Next.js 15"
+1. **Cite sources** - Always include URLs when sharing information
+2. **Synthesize** - Combine information from multiple results
+3. **Verify** - Cross-reference claims across sources
+4. **Date-check** - Note publication dates for time-sensitive information
 
-**Source Specification**: Direct queries to specific sources
-- ✅ "Find information from official Next.js documentation"
-- ✅ "Search Stack Overflow for TypeScript error solutions"
+### Source Attribution Format
 
-**Response Format**: Request specific output formats
-- ✅ "Provide code examples"
-- ✅ "Present results in table format"
+When sharing information from search results:
 
-**Temporal/Conditional Modifiers**: Specify time or difficulty level
-- ✅ "Latest React performance optimization techniques for 2025"
-- ✅ "Beginner-friendly Python tutorials"
+```
+According to [Source Name](URL), ...
 
-**Analysis Directives**: Request comparisons and evaluations
-- ✅ "Compare Vite and Webpack, including pros and cons"
-- ✅ "Analyze trade-offs between different state management solutions"
-
-## 🚫 When NOT to Use
-
-- Information available in local codebase
-- Questions about code you've already read
-- General programming knowledge that doesn't require current information
-- Simple fact-checking that can be answered from existing context
-
-## 💡 Tips
-
-- **Be specific**: More detailed queries yield better results
-- **Include context**: Mention your use case or constraints
-- **Iterate**: Refine queries based on initial results
-- **Verify sources**: Cross-reference information from multiple sources
-- **Document findings**: Keep track of useful sources for future reference
-
-## 🔍 Example Queries
-
-```bash
-# Technical information
-bash scripts/web-search.sh "What are the new features in Next.js 15? Include official release notes."
-
-# Library documentation
-bash scripts/web-search.sh "How does React Query's useQuery hook work? Provide code examples from official documentation."
-
-# Error resolution
-bash scripts/web-search.sh "TypeScript error: Type 'string' is not assignable to type 'number'. Find solutions on Stack Overflow."
-
-# Latest news
-bash scripts/web-search.sh "What are Claude AI's latest updates in 2025? Search Anthropic announcements."
-
-# Best practices
-bash scripts/web-search.sh "React performance optimization techniques. Include official documentation and community best practices."
-
-# Comparative analysis
-bash scripts/web-search.sh "Compare Vite and Webpack build tools. Include advantages, disadvantages, and use case recommendations."
+Sources:
+- [Title 1](url1)
+- [Title 2](url2)
 ```
 
-## 📚 Related Skills
+## Limitations
 
-- **code-review**: Use after implementing solutions found through web search
-- **doc-generator**: Document findings and integrate into project documentation
-- **typescript-dev**: Apply TypeScript-specific findings to your projects
+- Results depend on the agent's WebSearch implementation
+- Cannot access paywalled or login-required content
+- May not have the most recent information (depends on indexing)
+- No domain filtering or relevance scoring (use `web-search-tavily` for these features)
 
----
+## Related Skills
 
-**Note**: This skill requires the `gemini` command to be installed and configured. Ensure you have proper API access and credentials set up.
+- **web-search-tavily** - Advanced search with API key, domain filtering, and relevance scores
+- **research-workflow** - Structured research with planning and synthesis
+- **fact-check** - Verify specific claims against sources
+- **claim-investigation** - Investigate viral claims and social media content

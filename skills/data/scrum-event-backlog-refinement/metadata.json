@@ -1,8 +1,7 @@
 {
   "name": "scrum-event-backlog-refinement",
-  "repo": "atusy/agentic-scrum",
-  "category": "data",
-  "description": "Transform PBIs into ready status for AI execution. Use when refining backlog items, splitting stories, or ensuring Definition of Ready.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:59.664705Z"
+  "repo": "staticWagomU/dotfiles",
+  "path": "config/claude/skills/scrum-event-backlog-refinement/SKILL.md",
+  "source": "github.com/staticWagomU/dotfiles",
+  "downloaded_at": "2026-01-21T00:59:53.804598Z"
 }

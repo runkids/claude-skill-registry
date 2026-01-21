@@ -1,7 +1,7 @@
 {
   "name": "pr-reviewer",
-  "repo": "goldeneggg/dotfiles",
-  "path": "claude-linux/.claude/skills/pr-reviewer/SKILL.md",
-  "source": "github.com/goldeneggg/dotfiles",
-  "downloaded_at": "2026-01-20T03:26:15.689640Z"
+  "repo": "proflead/codex-skills-library",
+  "path": "skills/planning/pr-reviewer/SKILL.md",
+  "source": "github.com/proflead/codex-skills-library",
+  "downloaded_at": "2026-01-21T04:20:28.171316Z"
 }

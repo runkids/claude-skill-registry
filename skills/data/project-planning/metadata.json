@@ -1,7 +1,7 @@
 {
   "name": "project-planning",
-  "repo": "ByronWilliamsCPA/rag-processor",
-  "path": ".claude/skills/project-planning/SKILL.md",
-  "source": "github.com/ByronWilliamsCPA/rag-processor",
-  "downloaded_at": "2026-01-20T04:02:39.434067Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/project-planning/skills/project-planning/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:42.354641Z"
 }

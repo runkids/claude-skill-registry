@@ -1,113 +1,152 @@
 ---
 name: review-pr
-description: Self-review PR changes against project conventions before creating PR. Use when: (1) before creating a pull request, (2) after completing feature implementation, (3) when asked to review changes, (4) running '/review-pr' or '/self-review'. Checks domain models, repositories, handlers, tests against project rules.
+description: Comprehensive PR review with 6-7 parallel specialized agents. Use when reviewing pull requests, checking PRs, code review.
+context: fork
+version: 1.1.0
+author: SkillForge
+tags: [code-review, pull-request, quality, security, testing]
+user-invocable: true
 ---
 
-# PR Self-Review Guide
+# Review PR
 
-Review PR changes against project conventions to catch issues before creating a PR.
+Deep code review using 6-7 parallel specialized agents.
 
-## Review Process
-
-```
-1. Gather Changes      → git diff, list changed files
-2. Categorize Files    → map to rule files
-3. Apply Checklists    → check against rules (see references/)
-4. Cross-Cutting Check → lint, tests, DI, code generation
-5. Generate Summary    → report issues and status
-```
-
-## Step 1: Gather Changes
+## Quick Start
 
 ```bash
-# List changed files
-git diff --name-only origin/master...HEAD
-
-# Show detailed diff
-git diff origin/master...HEAD
-
-# Show commit history
-git log origin/master...HEAD --oneline
+/review-pr 123
+/review-pr feature-branch
 ```
 
-## Step 2: File Category Mapping
-
-| File Pattern | Rule File | Focus |
-|--------------|-----------|-------|
-| `internal/domain/model/**` | `domain-model.md` | Entity, constructor, state methods |
-| `internal/domain/service/**` | `domain-service.md` | Param/Result, no TX |
-| `internal/domain/errors/**` | `domain-errors.md` | Error naming, codes |
-| `internal/domain/repository/*.go` | `repository.md` | Interface, query structs |
-| `internal/infrastructure/**/repository/**` | `repository.md` | Implementation, marshaller |
-| `internal/usecase/**` | `usecase-interactor.md` | Input, TX, external sync |
-| `internal/infrastructure/grpc/**/handler/**` | `grpc-handler.md` | Handler, marshaller |
-| `internal/infrastructure/dependency/**` | `dependency-injection.md` | Registration |
-| `schema/proto/**` | `proto-definition.md` | Naming, HTTP annotations |
-| `db/**/migrations/**` | `migration.md` | Up/Down, constraints |
-| `**/*_test.go` | `testing.md` | Table-driven, mocks |
-| `*invitation*` | `invitation-workflow.md` | Status, expiration |
-| `*authentication*`, `*cognito*` | `external-service-integration.md` | Claims sync |
-
-## Step 3: Apply Checklists
-
-Detailed checklists by category are in `references/checklists.md`.
-
-Read the checklist file and apply relevant sections based on changed file categories.
-
-## Step 4: Cross-Cutting Checks
-
-### Run Verification Commands
+## Phase 1: Gather PR Information
 
 ```bash
-/usr/bin/make lint.go   # Lint check
-/usr/bin/make test      # Test check
+# Get PR details
+gh pr view $ARGUMENTS --json title,body,files,additions,deletions,commits,author
+
+# View the diff
+gh pr diff $ARGUMENTS
+
+# Check CI status
+gh pr checks $ARGUMENTS
 ```
 
-### Code Generation Verification
+Identify:
+- Total files changed
+- Lines added/removed
+- Affected domains (frontend, backend, AI)
 
-- Migrations changed → Run `make migrate.up`
-- Proto changed → Run `make generate.buf`
-- Repository interfaces changed → Run `make generate.mock`
+## Phase 2: Skills Auto-Loading (CC 2.1.6)
 
-### Registration Verification
+**CC 2.1.6 auto-discovers skills** - no manual loading needed!
 
-- New interactors registered in `dependency.go`
-- New handlers added to gRPC server
+Relevant skills activated automatically:
+- `code-review-playbook` - Review patterns, conventional comments
+- `security-scanning` - OWASP, secrets, dependencies
+- `type-safety-validation` - Zod, TypeScript strict
 
-## Step 5: Generate Summary
+## Phase 3: Parallel Code Review (6 Agents)
+
+Launch SIX specialized reviewers in ONE message with `run_in_background: true`:
+
+| Agent | Focus Area |
+|-------|-----------|
+| code-quality-reviewer #1 | Readability, complexity, DRY |
+| code-quality-reviewer #2 | Type safety, Zod, Pydantic |
+| security-auditor | Security, secrets, injection |
+| test-generator | Test coverage, edge cases |
+| backend-system-architect | API, async, transactions |
+| frontend-ui-developer | React 19, hooks, a11y |
+
+```python
+# PARALLEL - All 6 agents in ONE message
+Task(subagent_type="code-quality-reviewer", prompt="Review readability...", run_in_background=True)
+Task(subagent_type="code-quality-reviewer", prompt="Review type safety...", run_in_background=True)
+Task(subagent_type="security-auditor", prompt="Security audit...", run_in_background=True)
+Task(subagent_type="test-generator", prompt="Test coverage...", run_in_background=True)
+Task(subagent_type="backend-system-architect", prompt="API review...", run_in_background=True)
+Task(subagent_type="frontend-ui-developer", prompt="React review...", run_in_background=True)
+```
+
+### Optional: AI Code Review
+
+If PR includes AI/ML code, add 7th agent:
+
+```python
+Task(subagent_type="llm-integrator", prompt="Review LLM patterns...", run_in_background=True)
+```
+
+## Phase 4: Run Validation
+
+```bash
+# Backend
+cd backend
+poetry run ruff format --check app/
+poetry run ruff check app/
+poetry run pytest tests/unit/ -v --tb=short
+
+# Frontend
+cd frontend
+npm run format:check
+npm run lint
+npm run typecheck
+npm run test
+```
+
+## Phase 5: Synthesize Review
+
+Combine all agent feedback into structured report:
 
 ```markdown
-## Self-Review Summary
+# PR Review: #$ARGUMENTS
 
-### Files Reviewed
-- `path/to/file.go` - Category: domain-model
+## Summary
+[1-2 sentence overview]
 
-### Issues Found
+## Code Quality
+| Area | Status | Notes |
+|------|--------|-------|
+| Readability | // | [notes] |
+| Type Safety | // | [notes] |
+| Test Coverage | // | [X%] |
 
-#### Critical (Must Fix)
-1. **[Category]** Description
-   - File: `path/to/file.go:123`
-   - Rule: `rules/xxx.md`
-   - Fix: Suggested fix
+## Security
+| Check | Status |
+|-------|--------|
+| Secrets | / |
+| Input Validation | / |
+| Dependencies | / |
 
-#### Warnings (Should Fix)
-1. **[Category]** Description
+## Blockers (Must Fix)
+- [if any]
 
-### Checklist Status
-- [x] Lint passes
-- [x] Tests pass
-- [ ] Mocks regenerated
-- [x] DI registration complete
-
-### Overall Assessment
-Ready for PR / Needs fixes before PR
+## Suggestions (Non-Blocking)
+- [improvements]
 ```
 
-## Common Issues
+## Phase 6: Submit Review
 
-See `references/common-issues.md` for frequently encountered problems.
+```bash
+# Approve
+gh pr review $ARGUMENTS --approve -b "Review message"
+
+# Request changes
+gh pr review $ARGUMENTS --request-changes -b "Review message"
+```
+
+## Conventional Comments
+
+Use these prefixes for comments:
+- `praise:` - Positive feedback
+- `nitpick:` - Minor suggestion
+- `suggestion:` - Improvement idea
+- `issue:` - Must fix
+- `question:` - Needs clarification
 
 ## Related Skills
+- commit: Create commits after review
+- create-pr: Create PRs for review
+## References
 
-- **code-investigation** - Use before this skill to understand existing patterns
-- **create-pull-request** - Use after this skill to create the PR
+- [Review Template](references/review-template.md)

@@ -1,59 +1,71 @@
 ---
 name: handoff
-description: Capture session context before ending for seamless resume by next agent. Use when ending a session, switching contexts, or when user runs /handoff.
+description: >
+  Hand off to a fresh Claude session. Use when context is full, you've finished
+  a logical chunk of work, or need a fresh perspective. Work continues from hook.
+allowed-tools: "Bash(gt handoff:*),Bash(gt mail send:*)"
+version: "1.0.0"
+author: "Gas Town"
 ---
 
-# /handoff - Session Handoff
+# Handoff - Session Cycling for Gas Town Agents
 
-Generate a handoff summary to ensure context continuity for the next session.
+Hand off your current session to a fresh Claude instance while preserving work context.
 
-## Process
+## When to Use
 
-1. **Identify the active feature**
-   - If argument provided, use that feature: `/handoff <feature-name>`
-   - Otherwise, check `specs/` for the most recently modified ledger.md
-   - If no specs, summarize the session work generally
+- Context getting full (approaching token limit)
+- Finished a logical chunk of work
+- Need a fresh perspective on a problem
+- Human requests session cycling
 
-2. **Gather session context**
-   - What was accomplished this session
-   - What's currently in progress or blocked
-   - Files modified (check git status if available)
-   - Any gotchas or non-obvious context discovered
+## Usage
 
-3. **Update ledger.md**
-   - Move completed items to Done
-   - Update Next with current pending items
-   - Add any new context to the Context section
-   - Update Phase and Blocked status
+```
+/handoff [optional message]
+```
 
-4. **Write handoff summary**
+## How It Works
 
-   Append to `specs/<feature>/handoff.md`:
+1. If you provide a message, it's sent as handoff mail to yourself
+2. `gt handoff` respawns your session with a fresh Claude
+3. New session auto-primes via SessionStart hook
+4. Work continues from your hook (pinned molecule persists)
 
-   ```markdown
-   ## Session: <date>
+## Examples
 
-   ### Completed
-   - <what was done>
+```bash
+# Simple handoff (molecule persists, fresh context)
+/handoff
 
-   ### In Progress
-   - <what's partially done>
+# Handoff with context notes
+/handoff "Found the bug in token refresh - check line 145 in auth.go first"
+```
 
-   ### Blocked
-   - <blockers if any>
+## What Persists
 
-   ### Critical Context
-   - <things the next session MUST know>
+- **Hooked molecule**: Your work assignment stays on your hook
+- **Beads state**: All issues, dependencies, progress
+- **Git state**: Commits, branches, staged changes
 
-   ### Files Touched
-   - <list of modified files>
+## What Resets
 
-   ### Resume Command
-   <command or instruction to pick up where we left off>
+- **Conversation context**: Fresh Claude instance
+- **TodoWrite items**: Ephemeral, session-scoped
+- **In-memory state**: Any uncommitted analysis
+
+## Implementation
+
+When invoked, execute:
+
+1. If user provided a message, send handoff mail:
+   ```bash
+   gt mail send <your-address> -s "HANDOFF: Session cycling" -m "<message>"
    ```
 
-5. **Confirm** the handoff is complete and ledger.md is updated
+2. Run the handoff command:
+   ```bash
+   gt handoff
+   ```
 
-## Key Principle
-
-The goal: if a new agent starts the next session and reads only the spec's `AGENTS.md` and `ledger.md`, they can continue effectively without re-discovering context.
+The new session will find your handoff mail and hooked work automatically.

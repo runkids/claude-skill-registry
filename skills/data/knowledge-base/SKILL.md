@@ -1,93 +1,55 @@
 ---
 name: knowledge-base
-description: Manage your personal knowledge base of curated resources, bookmarks, and excerpts. Triggers include "knowledge base", "kb", "add to knowledge", "add tabs to", "what do I have on", "what do we know about", "find resources about". Use with safari-tabs skill for bulk ingestion from Safari windows. Location is ~/knowledge/.
+description: Shared foundation for Oracle & Corrector agents. Establishes the source hierarchy for resolving conflicts between documentation, code, and specs. Load this skill first when investigating how the system works.
 ---
 
-# Knowledge Base
+# Knowledge Base Foundation
 
-Topic-based collection of curated links and notes at `~/knowledge/`.
+## Before You Start
 
-## Structure
+Read these docs to orient yourself:
 
-```
-~/knowledge/
-├── _index.md          # Topic listing
-├── _inbox.md          # Unprocessed items
-├── topics/*.md        # Articles, concepts, best practices
-├── tools/*.md         # Software, libraries (organized by use case)
-└── archive/YYYY-MM/   # Full article content (link rot protection)
-```
+1. **`docs/glossary.md`** - Terminology (Cell, Charm, Space, Spell, etc.)
+2. **`docs/specs/recipe-construction/overview.md`** - Authoritative system design
+3. **`AGENTS.md`** - Documentation reading list and codebase guidelines
 
-## Entry Formats
+## Source Hierarchy
 
-**Topics** (articles/concepts):
-```markdown
-**[Title](url)** — Author
+When sources conflict, this is the authoritative order:
 
-1-2 paragraph summary focusing on core insights. Be extremely concise, disregard grammar.
-```
+### 1. Specs (Highest Authority)
+`docs/specs/` - Technical specifications with unambiguous intent
 
-**Tools** (software/libraries):
-```markdown
-### [tool-name](url)
+When specs contradict other docs, **specs win**.
 
-**Platform:** macOS / JavaScript / Web Service
-**Install:** Installation method
-**Use case:** Problem it solves
+### 2. Working Code
+Tests and patterns that demonstrate actual behavior:
+- `packages/patterns/` - Pattern examples showing what works
+- `**/test/**` - Test files proving expected behavior
 
-Brief summary of why it's useful and when to use it.
+These show reality, not aspirations.
 
-**Alternatives:** other-tool (tradeoff)
-```
+### 3. Runtime Code
+Core system implementation:
+- `packages/runner/` - Execution engine
+- `packages/runner/src/builder/` - Compilation
+- `packages/memory/` - Storage layer
 
-## Workflow: Adding from Safari
+Code is always right about what it does.
 
-1. Get tabs: `get_tabs.sh markdown` or `get_tabs.sh -w N markdown`
-2. **Process in batches of 8-10** to avoid context overflow
-3. For each batch:
-   - Fetch content from URLs
-   - Read existing topic files
-   - Route to appropriate topic based on content
-   - Archive substantial/unique articles to `archive/YYYY-MM/`
-   - Items not fitting existing topics → `_inbox.md`
-4. Update `_index.md` when done
+### 4. Plain Text Docs (Lowest Authority)
+`docs/common/` - Guides, tutorials, learning materials
 
-## Routing
+Good for learning, but may contain outdated or speculative information. Validate against code when precision matters.
 
-**Articles/concepts** → `topics/`:
-- Match by content, not just title
-- Prefer more specific topics
-- If unsure, add to `_inbox.md` with suggested topic
-- If topic >500 lines or >30 entries, ask user to split
+## The Rule
 
-**Software/tools** → `tools/` by use case:
-- Libraries, CLI tools, apps, web services all go here
-- Articles *about* tools → `topics/`
-- Create new use-case files as needed
+**Concrete beats abstract. Specifications beat speculation. Code beats comments. Tests beat documentation.**
 
-## Quality Control
+## When Sources Conflict
 
-When bulk adding, **pause and ask** if you encounter:
-- Out of place or low-quality content
-- GitHub repos/gists (ask for routing confirmation)
-- Failed fetches (summarize at end, ask if should add URL-only)
-
-## Archiving
-
-Archive to `archive/YYYY-MM/` when:
-- Substantial content (>500 words)
-- Likely to disappear (personal blogs)
-- Unique insights
-
-Skip: GitHub repos, YouTube, frequently-updated docs, news
-
-## File Format Reference
-
-Topic files: YAML frontmatter with `tags`, `updated`, then sections with entries
-Tools files: Same frontmatter, then `### [tool](url)` entries with metadata
-
-Update `_index.md` with new topics/tools after adding resources.
-
-## Finding Resources
-
-Check `tools/` before web search when user needs software/library.
+1. Check specs first (`docs/specs/`)
+2. Look at working code (tests, patterns)
+3. Read runtime implementation
+4. Use docs/common as learning guide only
+5. If still unclear, surface the conflict explicitly

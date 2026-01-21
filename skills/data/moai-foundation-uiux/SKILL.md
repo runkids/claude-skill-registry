@@ -1,25 +1,15 @@
 ---
 name: moai-foundation-uiux
-aliases: [moai-foundation-uiux]
-category: foundation
 description: Core UI/UX Foundation - Enterprise design systems, component architecture, accessibility, icons, and theming integration
 version: 2.0.0
 modularized: true
-tags:
+last_updated: 2025-11-30
+compliance_score: 80
+auto_trigger_keywords:
   - foundation
-  - core
+  - testing
   - uiux
-  - design-systems
-  - accessibility
-  - components
-  - icons
-updated: 2025-11-27
-status: active
-deprecated_names:
-  moai-foundation-uiux:
-    deprecated_in: v0.32.0
-    remove_in: v0.35.0
-    message: "Use moai-foundation-uiux instead"
+color: red
 ---
 
 ## Quick Reference (30 seconds)

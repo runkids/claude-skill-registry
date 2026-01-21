@@ -2,14 +2,11 @@
 name: ai-sdk-5
 description: >
   Vercel AI SDK 5 patterns.
-  Trigger: When building AI features with AI SDK v5 (chat, streaming, tools/function calling, UIMessage parts), including migration from v4.
+  Trigger: When building AI chat features - breaking changes from v4.
 license: Apache-2.0
 metadata:
-  author: prowler-cloud
+  author: gentleman-programming
   version: "1.0"
-  scope: [root, ui]
-  auto_invoke: "Building AI chat features"
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
 ---
 
 ## Breaking Changes from AI SDK 4
@@ -234,3 +231,6 @@ const { error, messages, sendMessage } = useChat({
   </div>
 )}
 ```
+
+## Keywords
+ai sdk, vercel ai, chat, streaming, langchain, openai, llm

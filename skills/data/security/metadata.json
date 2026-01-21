@@ -1,7 +1,7 @@
 {
   "name": "security",
-  "repo": "SylphxAI/flow",
-  "path": ".claude/skills/security/SKILL.md",
-  "source": "github.com/SylphxAI/flow",
-  "downloaded_at": "2026-01-20T03:58:36.397361Z"
+  "repo": "artofrawr/claude-control",
+  "path": "skills/security/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-01-21T04:19:30.813507Z"
 }

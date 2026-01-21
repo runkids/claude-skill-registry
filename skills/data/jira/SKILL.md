@@ -1,275 +1,201 @@
 ---
 name: jira
-description: Use jira CLI for Jira operations including issue management, project queries, transitions, and JQL search
+description: "Create, list, view, and manage Jira issues via REST API; triggers on 'jira', 'create ticket', 'list issues', 'change type'."
 ---
-# Jira CLI Skill
 
-You are a Jira specialist using the `jira` CLI tool. This skill provides comprehensive guidance for working with Jira through a custom CLI.
+## Purpose
+Model-neutral helper to interact with Jira via Atlassian REST API v3. Supports creating issues, listing, viewing, assigning, and transitioning.
 
-## Core Commands
+## Triggers
+Use when the user says: "create a jira ticket", "list jira issues", "jira create", "show jira issue", "assign ticket".
 
-### Authentication
+## Configuration
+Reads from `~/.jira.d/`:
+- `config.yml` - endpoint, user, authentication-method
+- `api-token` - raw API token (no variable assignment)
 
-```bash
-# Check authentication status
-jira auth check
-
-# Login to Jira
-jira auth login
+Example config.yml:
+```yaml
+endpoint: https://yourcompany.atlassian.net
+user: your.email@company.com
+authentication-method: api-token
 ```
 
-### Issue Management
+## How to use
 
+### Create Issue
 ```bash
-# View issue details
-jira issue get ISSUE-123
+# Create Epic
+lisa jira create --type epic --project PROJ --summary "Feature title" --description "Description text"
 
-# Create new issue
-jira issue create --project PROJ --type Bug --summary "Issue summary" --description "Description"
+# Create Story
+lisa jira create --type story --project PROJ --summary "Story title" --parent PROJ-123
 
-# Update issue
-jira issue update ISSUE-123 --summary "New summary"
+# Create Sub-task
+lisa jira create --type subtask --project PROJ --summary "Sub-task title" --parent PROJ-123
 
-# Add comment to issue
-jira comment add ISSUE-123 "Comment text"
-
-# List comments on issue
-jira comment list ISSUE-123
+# Create with assignment
+lisa jira create --type task --project PROJ --summary "Task" --assign me
 ```
 
-### Issue Transitions
-
+### List Issues
 ```bash
-# List available transitions for an issue
-jira transition list ISSUE-123
+# List by project
+lisa jira list --project PROJ --limit 10
 
-# Transition issue to new status
-jira transition ISSUE-123 "In Progress"
+# List with JQL
+lisa jira list --jql "assignee = currentUser() ORDER BY created DESC" --limit 5
+
+# List my issues
+lisa jira list --mine --limit 10
 ```
 
-### Searching with JQL
-
+### View Issue
 ```bash
-# Search issues with JQL
-jira search "project = PROJ AND status = Open"
-
-# Search with output format
-jira search "assignee = currentUser()" --format json
-
-# Search with field selection
-jira search "project = PROJ" --fields summary,status,assignee
+lisa jira view PROJ-123
 ```
 
-### Project Operations
-
+### Assign Issue
 ```bash
-# List all projects
-jira project list
-
-# Get project details
-jira project get PROJ
-```
-
-### Watching and Assigning
-
-```bash
-# Watch an issue
-jira watch add ISSUE-123
-
-# Stop watching an issue
-jira watch remove ISSUE-123
-
-# Assign issue
-jira assign ISSUE-123 username
-
 # Assign to self
-jira assign ISSUE-123 me
+lisa jira assign PROJ-123 --to me
+
+# Assign to user
+lisa jira assign PROJ-123 --to "user@company.com"
 ```
 
-## Common Workflows
+### Transition Issue
+```bash
+# Move to In Progress
+lisa jira transition PROJ-123 --to "In Progress"
 
-### Viewing Your Work
+# Move to Done
+lisa jira transition PROJ-123 --to "Done"
+
+# Move to Code Review
+lisa jira transition PROJ-123 --to "Code Review"
+```
+
+### Change Issue Type
+```bash
+# Change Epic to Story
+lisa jira change-type PROJ-123 --to story
+
+# Change to Task
+lisa jira change-type PROJ-123 --to task
+```
+
+Valid types: `epic`, `story`, `task`, `subtask`, `bug`
+
+## Workflow: PR Created
+
+**When a Pull Request is created**, transition all associated Jira tickets to "Code Review":
+
+1. Identify the ticket(s) from the branch name (e.g., `PROJ-123`)
+2. Check if the ticket has subtasks (use `view` command)
+3. Transition the main ticket and ALL subtasks to "Code Review"
 
 ```bash
-# View issues assigned to you
-jira search "assignee = currentUser() AND status != Done"
+# Example: Transition epic and all subtasks to Code Review
+lisa jira transition PROJ-123 --to "Code Review"
 
-# View issues you're watching
-jira search "watcher = currentUser()"
-
-# View recent activity
-jira search "updatedDate >= -7d AND assignee = currentUser()"
+# For subtasks (if in "To Do", first move to "In Progress")
+for ticket in PROJ-124 PROJ-125 PROJ-126; do
+  lisa jira transition "$ticket" --to "Code Review"
+done
 ```
 
-### Creating and Updating Issues
-
+**Note:** If a ticket is in "To Do", you may need to transition through "In Progress" first:
 ```bash
-# Create a bug
-jira issue create --project PROJ --type Bug \
-  --summary "Login button not working" \
-  --description "Steps to reproduce..."
-
-# Update priority
-jira issue update ISSUE-123 --priority High
-
-# Add labels
-jira issue update ISSUE-123 --labels bug,frontend
-
-# Link issues
-jira link add ISSUE-123 ISSUE-456 "blocks"
+lisa jira transition PROJ-123 --to "In Progress"
+lisa jira transition PROJ-123 --to "Code Review"
 ```
 
-### Moving Issues Through Workflow
+**See also:** `git` skill for PR creation, CI triggers, and test retriggers.
 
-```bash
-# Start work on issue
-jira transition ISSUE-123 "In Progress"
+## I/O Contract (examples)
 
-# Mark as done
-jira transition ISSUE-123 "Done"
-
-# Reopen issue
-jira transition ISSUE-123 "Reopen"
+### Create
+```json
+{
+  "status": "ok",
+  "action": "create",
+  "issue": {
+    "key": "PROJ-123",
+    "url": "https://company.atlassian.net/browse/PROJ-123",
+    "summary": "Feature title",
+    "type": "Epic"
+  }
+}
 ```
 
-## JQL Reference
-
-### Common JQL Patterns
-
-```bash
-# Issues in specific project
-jira search "project = MYPROJ"
-
-# Open issues assigned to you
-jira search "assignee = currentUser() AND status in (Open, 'In Progress')"
-
-# High priority bugs
-jira search "type = Bug AND priority = High"
-
-# Recently updated issues
-jira search "updated >= -1w"
-
-# Issues created this sprint
-jira search "sprint in openSprints() AND created >= startOfWeek()"
-
-# Issues with specific label
-jira search "labels = urgent"
-
-# Issues in epic
-jira search "'Epic Link' = EPIC-123"
+### List
+```json
+{
+  "status": "ok",
+  "action": "list",
+  "issues": [
+    {"key": "PROJ-123", "summary": "...", "status": "To Do", "assignee": "John Doe"}
+  ],
+  "total": 10
+}
 ```
 
-### JQL Field Reference
-
-- `project` - Project key or name
-- `status` - Issue status (Open, In Progress, Done, etc.)
-- `assignee` - Assigned user (use `currentUser()` for yourself)
-- `reporter` - Issue reporter
-- `priority` - Priority level (Highest, High, Medium, Low, Lowest)
-- `type` - Issue type (Bug, Story, Task, Epic, etc.)
-- `labels` - Issue labels
-- `created` - Creation date
-- `updated` - Last update date
-- `resolution` - Resolution status
-
-### JQL Functions
-
-- `currentUser()` - Current logged-in user
-- `startOfDay()`, `startOfWeek()`, `startOfMonth()` - Date functions
-- `now()` - Current timestamp
-- `openSprints()` - Currently active sprints
-- `closedSprints()` - Completed sprints
-
-## Output Formats
-
-```bash
-# JSON output (for scripting)
-jira search "project = PROJ" --format json
-
-# Table output (human-readable, default)
-jira search "project = PROJ" --format table
-
-# CSV output
-jira search "project = PROJ" --format csv
+### View
+```json
+{
+  "status": "ok",
+  "action": "view",
+  "issue": {
+    "key": "PROJ-123",
+    "summary": "...",
+    "description": "...",
+    "status": "To Do",
+    "assignee": "John Doe",
+    "reporter": "...",
+    "created": "2026-01-13T...",
+    "subtasks": [...]
+  }
+}
 ```
 
-## Best Practices
-
-1. **Always authenticate first**: Run `jira auth check` before operations
-2. **Use JQL for complex queries**: More powerful than simple filters
-3. **Specify output format**: Use `--format json` for scripting
-4. **Include field selection**: Use `--fields` to limit returned data
-5. **Test transitions**: Use `jira transition list` before transitioning
-6. **Be specific with JQL**: Use quotes for multi-word values
-
-## Common Use Cases
-
-### Daily Standup Prep
-
-```bash
-# What you worked on yesterday
-jira search "assignee = currentUser() AND updated >= -1d"
-
-# What you're working on today
-jira search "assignee = currentUser() AND status = 'In Progress'"
+### Change Type
+```json
+{
+  "status": "ok",
+  "action": "change-type",
+  "issue": {
+    "key": "PROJ-123",
+    "url": "https://company.atlassian.net/browse/PROJ-123",
+    "previousType": "Epic",
+    "newType": "story"
+  }
+}
 ```
 
-### Bug Triage
-
-```bash
-# Unassigned bugs
-jira search "type = Bug AND assignee is EMPTY AND status = Open"
-
-# Critical bugs in project
-jira search "project = PROJ AND type = Bug AND priority in (Highest, High)"
+### Error
+```json
+{
+  "status": "error",
+  "error": "Authentication failed",
+  "details": "..."
+}
 ```
 
-### Sprint Planning
+## Issue Types
+Standard Jira issue types (IDs may vary by project):
+- `epic` (10000) - Parent for features
+- `story` (10001) - User stories
+- `task` (10002) - General tasks
+- `subtask` (10003) - Sub-tasks linked to parent
+- `bug` (10004) - Bug reports
 
-```bash
-# Issues in backlog
-jira search "project = PROJ AND status = 'To Do' AND sprint is EMPTY"
+## Cross-model checklist
+- Claude: concise instructions; use JSON output for parsing
+- Gemini: explicit commands and minimal formatting
 
-# Issues in current sprint
-jira search "project = PROJ AND sprint in openSprints()"
-
-# Completed this sprint
-jira search "project = PROJ AND sprint in openSprints() AND status = Done"
-```
-
-## Error Handling
-
-If you encounter authentication errors:
-```bash
-jira auth login
-```
-
-If JQL syntax errors occur:
-- Check for proper quoting of multi-word values
-- Verify field names are correct
-- Use `AND`, `OR`, `NOT` operators (uppercase)
-
-## Quick Reference
-
-```bash
-# View issue
-jira issue get ISSUE-123
-
-# Search
-jira search "JQL query here"
-
-# Create
-jira issue create --project PROJ --type TYPE --summary "text"
-
-# Update
-jira issue update ISSUE-123 --field value
-
-# Transition
-jira transition ISSUE-123 "Status Name"
-
-# Comment
-jira comment add ISSUE-123 "Comment text"
-
-# Assign
-jira assign ISSUE-123 username
-```
+## Notes
+- Requires Node.js >= 18 (uses native fetch)
+- API token must have project access permissions
+- Description uses Atlassian Document Format (ADF) internally
+- Rate limits apply per Atlassian Cloud policies

@@ -1,261 +1,240 @@
 ---
-name: Video Processor
-description: Process video files with audio extraction, format conversion (mp4, webm), and Whisper transcription. Use when user mentions video conversion, audio extraction, transcription, mp4, webm, ffmpeg, or whisper transcription.
+name: video-processor
+description: "Automated video processing: metadata extraction, thumbnails, transcoding, audio extraction with DuckDB tracking"
+version: 1.0.0
 ---
 
-# Video Processor
 
-## Instructions
+# Video Processor Skill
 
-This skill provides video processing utilities including audio extraction, format conversion, and audio transcription using FFmpeg and OpenAI's Whisper model.
+**Trit**: 0 (ERGODIC - pipeline coordinator)
+**Foundation**: Babashka + FFmpeg + DuckDB
 
-### Prerequisites
+## Overview
 
-**Required tools** (must be installed in your environment):
-- **FFmpeg**: Multimedia framework for video/audio processing
-  ```bash
-  # macOS
-  brew install ffmpeg
+Automated video processing pipeline that:
+1. Extracts metadata via `ffprobe`
+2. Generates thumbnails at 5s mark
+3. Transcodes to web-friendly H.264/AAC
+4. Extracts audio as MP3
+5. Records processing to DuckDB with Gay.jl coloring
 
-  # Ubuntu/Debian
-  apt-get install ffmpeg
+## When to Use
 
-  # Verify installation
-  ffmpeg -version
-  ```
+- Processing downloaded videos for analysis
+- Extracting frames for multimodal understanding
+- Preparing videos for web playback
+- Building searchable video metadata indexes
+- Automated video ingestion pipelines
 
-- **OpenAI Whisper**: Speech-to-text transcription model
-  ```bash
-  # Install via pip
-  pip install -U openai-whisper
+## Supported Formats
 
-  # Verify installation
-  whisper --help
-  ```
+```clojure
+(def video-extensions
+  #{"mp4" "mov" "mkv" "webm" "avi" "m4v" "flv" "wmv" "mpg" "mpeg"})
+```
 
-**Python packages** (included in script via PEP 723):
-- click (CLI framework)
-- ffmpeg-python (Python wrapper for FFmpeg)
+## Usage
 
-### Workflow
-
-Use the `scripts/video_processor.py` script for all video processing tasks. The script provides a simple CLI with the following commands:
-
-#### 1. **Extract Audio from Video**
-
-Extract the audio track from a video file:
+### Process Single Video
 
 ```bash
-uv run .claude/skills/video-processor/scripts/video_processor.py extract-audio input.mp4 output.wav
+bb video-processor.bb /path/to/video.mp4
 ```
 
-Options:
-- `--format`: Output audio format (default: wav). Supports: wav, mp3, aac, flac
-- Output is suitable for transcription or standalone audio use
-
-#### 2. **Convert Video to MP4**
-
-Convert any video file to MP4 format:
+### Watch Directory
 
 ```bash
-uv run .claude/skills/video-processor/scripts/video_processor.py to-mp4 input.avi output.mp4
+bb video-processor.bb /path/to/watch/dir
 ```
 
-Options:
-- `--codec`: Video codec (default: libx264). Common options: libx264, libx265, h264
-- `--preset`: Encoding speed/quality preset (default: medium). Options: ultrafast, fast, medium, slow, veryslow
+### Environment Variables
 
-#### 3. **Convert Video to WebM**
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `VIDEO_OUTPUT_DIR` | `/tmp/processed_videos` | Output directory |
+| `AMP_THREAD_ID` | `video-processor` | Session ID for DuckDB |
 
-Convert any video file to WebM format (web-optimized):
+## Pipeline Stages
+
+### 1. Metadata Extraction
+
+```clojure
+(defn extract-metadata [path]
+  (shell {:out :string}
+         "ffprobe" "-v" "quiet"
+         "-print_format" "json"
+         "-show_format" "-show_streams"
+         path))
+```
+
+Returns JSON with duration, codec, bitrate, resolution.
+
+### 2. Thumbnail Generation
+
+```clojure
+(defn generate-thumbnail [input output]
+  (shell "ffmpeg" "-y" "-i" input
+         "-ss" "00:00:05" "-vframes" "1"
+         "-vf" "scale=320:-1"
+         output))
+```
+
+Creates 320px wide JPEG at 5 second mark.
+
+### 3. Web Transcoding
+
+```clojure
+(defn transcode-web [input output]
+  (shell "ffmpeg" "-y" "-i" input
+         "-c:v" "libx264" "-preset" "fast" "-crf" "23"
+         "-c:a" "aac" "-b:a" "128k"
+         "-movflags" "+faststart"
+         output))
+```
+
+H.264/AAC with fast-start for streaming.
+
+### 4. Audio Extraction
+
+```clojure
+(defn extract-audio [input output]
+  (shell "ffmpeg" "-y" "-i" input
+         "-vn" "-c:a" "libmp3lame" "-q:a" "2"
+         output))
+```
+
+High-quality MP3 (VBR ~190kbps).
+
+### 5. DuckDB Recording
+
+```clojure
+(defn record-processing! [path metadata outputs]
+  (shell "duckdb" db-path
+         (format "INSERT INTO fs_events
+                  (path, event_type, size, checksum, session_id)
+                  VALUES ('%s', 'video_processed', %s, '%s', '%s')"
+                 path size checksum session-id)))
+```
+
+## Output Structure
+
+```
+/tmp/processed_videos/
+├── video_thumb.jpg      # Thumbnail
+├── video_web.mp4        # Transcoded (if needed)
+└── video_audio.mp3      # Extracted audio
+```
+
+## DuckDB Schema
+
+```sql
+CREATE TABLE IF NOT EXISTS fs_events (
+    path VARCHAR,
+    event_type VARCHAR,
+    size BIGINT,
+    checksum VARCHAR,
+    session_id VARCHAR,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Query processed videos
+SELECT * FROM fs_events
+WHERE event_type = 'video_processed'
+ORDER BY timestamp DESC;
+```
+
+## GF(3) Triad Integration
+
+```
+spi-parallel-verify (-1) ⊗ video-processor (0) ⊗ ffmpeg-media (+1) = 0 ✓
+video-downloader (-1) ⊗ video-processor (0) ⊗ gay-mcp (+1) = 0 ✓
+```
+
+## Voice Announcements
+
+Processing stages announced via macOS `say`:
+
+```clojure
+(defn announce [message]
+  (shell "say" "-v" "Samantha (Enhanced)" message))
+```
+
+## Dependencies
+
+- **babashka**: Clojure scripting runtime
+- **ffmpeg/ffprobe**: Media processing
+- **duckdb**: Metadata storage
+
+Install via:
+```bash
+brew install babashka ffmpeg duckdb
+```
+
+## Integration with Video Understanding
+
+### For Multimodal Analysis
 
 ```bash
-uv run .claude/skills/video-processor/scripts/video_processor.py to-webm input.mp4 output.webm
+# 1. Download video
+/video-downloader https://youtube.com/watch?v=...
+
+# 2. Process and extract frames
+bb video-processor.bb ~/Downloads/video.mp4
+
+# 3. Analyze frames with Claude
+# (frames available as thumbnails or extract more with ffmpeg)
+ffmpeg -i video.mp4 -vf "fps=1" frames/frame_%04d.jpg
 ```
 
-Options:
-- `--codec`: Video codec (default: libvpx-vp9). Options: libvpx, libvpx-vp9
-- WebM is optimized for web playback and streaming
+### For ACSet Modeling
 
-#### 4. **Transcribe Audio with Whisper**
+```julia
+# Model video as temporal graph
+@present SchVideo(FreeSchema) begin
+    Frame::Ob
+    Segment::Ob
+    frame_of::Hom(Frame, Segment)
+    next_frame::Hom(Frame, Frame)
 
-Transcribe audio or video files to text using OpenAI's Whisper model:
+    Timestamp::AttrType
+    time::Attr(Frame, Timestamp)
+end
+```
+
+## Commands
 
 ```bash
-# Transcribe video file (audio will be extracted automatically)
-uv run .claude/skills/video-processor/scripts/video_processor.py transcribe input.mp4 transcript.txt
+# Process single video
+just video-process /path/to/video.mp4
 
-# Transcribe audio file directly
-uv run .claude/skills/video-processor/scripts/video_processor.py transcribe audio.wav transcript.txt
+# Watch directory
+just video-watch /path/to/dir
+
+# Query processed videos
+just video-list
 ```
 
-Options:
-- `--model`: Whisper model size (default: base). Options:
-  - `tiny`: Fastest, lowest accuracy (~1GB RAM)
-  - `base`: Fast, good accuracy (~1GB RAM) **[DEFAULT]**
-  - `small`: Balanced (~2GB RAM)
-  - `medium`: High accuracy (~5GB RAM)
-  - `large`: Best accuracy, slowest (~10GB RAM)
-- `--language`: Language code (default: auto-detect). Examples: en, es, fr, de, zh
-- `--format`: Output format (default: txt). Options: txt, srt, vtt, json
+## Related Skills
 
-**Transcription workflow:**
-1. If input is video, FFmpeg extracts audio to temporary WAV file
-2. Whisper processes the audio file
-3. Transcription is saved in requested format
-4. Temporary files are cleaned up automatically
+- **video-downloader** (0): Download from platforms
+- **ffmpeg-media** (+1): Advanced transcoding
+- **duckdb-ies** (+1): Interactome analytics
+- **fswatch-duckdb** (0): File system watching
 
-#### 5. **Combined Workflow Example**
+## Cat# Integration
 
-Process a video end-to-end:
-
-```bash
-# 1. Extract audio for analysis
-uv run .claude/skills/video-processor/scripts/video_processor.py extract-audio lecture.mp4 lecture.wav
-
-# 2. Transcribe to SRT subtitles
-uv run .claude/skills/video-processor/scripts/video_processor.py transcribe lecture.mp4 lecture.srt --format srt --model small
-
-# 3. Convert to web format
-uv run .claude/skills/video-processor/scripts/video_processor.py to-webm lecture.mp4 lecture.webm
+```
+Trit: 0 (ERGODIC)
+Home: Prof
+Poly Op: ⊗
+Kan Role: Adj
+Color: #26D826
 ```
 
-### Key Technical Details
+### GF(3) Naturality
 
-**FFmpeg and Whisper Integration:**
-- FFmpeg doesn't transcribe audio itself - it prepares audio for external transcription
-- The workflow is: Extract audio (FFmpeg) → Transcribe (Whisper) → Optional: Re-integrate with video
-- FFmpeg can pipe audio directly to Whisper for real-time processing (advanced use case)
-
-**Audio Format for Transcription:**
-- Whisper works best with WAV or MP3 formats
-- Sample rate: 16kHz is optimal (script handles conversion automatically)
-- The script extracts audio with optimal settings for Whisper
-
-**Output Formats:**
-- **txt**: Plain text transcript
-- **srt**: SubRip subtitle format (includes timestamps)
-- **vtt**: WebVTT subtitle format (web standard)
-- **json**: Detailed JSON with word-level timestamps
-
-### Error Handling
-
-The script includes comprehensive error handling:
-- Validates input files exist
-- Checks FFmpeg and Whisper are installed
-- Provides clear error messages for missing dependencies
-- Handles temporary file cleanup on errors
-
-### Performance Tips
-
-- Use `tiny` or `base` models for quick drafts
-- Use `small` or `medium` for production transcriptions
-- Use `large` only when maximum accuracy is required
-- For long videos, consider extracting audio first, then transcribe in segments
-- WebM conversion with VP9 takes longer but produces smaller files
-
-## Examples
-
-### Example 1: Quick Video to MP4 Conversion
-
-User request:
+The skill participates in triads satisfying:
 ```
-I have an AVI file from my old camera. Can you convert it to MP4?
+(-1) + (0) + (+1) ≡ 0 (mod 3)
 ```
-
-You would:
-1. Use the to-mp4 command with default settings:
-   ```bash
-   uv run .claude/skills/video-processor/scripts/video_processor.py to-mp4 old_video.avi output.mp4
-   ```
-2. Confirm the conversion completed successfully
-3. Inform the user about the output file location
-
-### Example 2: Extract Audio and Transcribe
-
-User request:
-```
-I recorded a lecture video and need a transcript. Can you extract the audio and transcribe it?
-```
-
-You would:
-1. First extract the audio:
-   ```bash
-   uv run .claude/skills/video-processor/scripts/video_processor.py extract-audio lecture.mp4 lecture.wav
-   ```
-2. Then transcribe using the base model (good balance of speed/accuracy):
-   ```bash
-   uv run .claude/skills/video-processor/scripts/video_processor.py transcribe lecture.mp4 transcript.txt --model base
-   ```
-3. Share the transcript.txt file with the user
-
-### Example 3: Create Web-Optimized Video with Subtitles
-
-User request:
-```
-I need to put this video on my website with subtitles. Can you help?
-```
-
-You would:
-1. Convert to WebM for web optimization:
-   ```bash
-   uv run .claude/skills/video-processor/scripts/video_processor.py to-webm presentation.mp4 presentation.webm
-   ```
-2. Generate SRT subtitle file:
-   ```bash
-   uv run .claude/skills/video-processor/scripts/video_processor.py transcribe presentation.mp4 subtitles.srt --format srt --model small
-   ```
-3. Inform user they now have:
-   - presentation.webm (web-optimized video)
-   - subtitles.srt (subtitle file for embedding)
-
-### Example 4: High-Quality Transcription with Language Specification
-
-User request:
-```
-I have a Spanish interview video that needs an accurate transcript for publication.
-```
-
-You would:
-1. Use a larger model with language specified for best accuracy:
-   ```bash
-   uv run .claude/skills/video-processor/scripts/video_processor.py transcribe interview.mp4 transcript.txt --model medium --language es
-   ```
-2. Optionally create SRT for review:
-   ```bash
-   uv run .claude/skills/video-processor/scripts/video_processor.py transcribe interview.mp4 transcript.srt --format srt --model medium --language es
-   ```
-3. Review the transcript with the user and make any necessary corrections
-
-### Example 5: Batch Processing Multiple Videos
-
-User request:
-```
-I have a folder of training videos that all need to be converted to WebM and transcribed.
-```
-
-You would:
-1. List all video files in the directory:
-   ```bash
-   ls training_videos/*.mp4
-   ```
-2. For each video file, run the conversion and transcription:
-   ```bash
-   # For each video: video1.mp4, video2.mp4, etc.
-   uv run .claude/skills/video-processor/scripts/video_processor.py to-webm training_videos/video1.mp4 output/video1.webm
-   uv run .claude/skills/video-processor/scripts/video_processor.py transcribe training_videos/video1.mp4 output/video1.txt --model base
-
-   # Repeat for each file
-   ```
-3. Confirm all conversions and transcriptions completed
-4. Provide summary of output files
-
-## Summary
-
-The video-processor skill provides a unified interface for common video processing tasks:
-- **Audio extraction**: Extract audio tracks in various formats
-- **Format conversion**: Convert to MP4 (universal) or WebM (web-optimized)
-- **Transcription**: Speech-to-text with multiple output formats
-- **Flexible**: CLI arguments for model selection, language, and output formats
-
-All operations are handled through a single, well-documented script with sensible defaults and comprehensive error handling.

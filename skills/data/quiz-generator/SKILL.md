@@ -1,7 +1,12 @@
 ---
 name: quiz-generator
-description: Generate 50-question interactive quizzes using the Quiz component with randomized batching. Use when creating end-of-chapter assessments. Displays 15-20 questions per session with immediate feedback. NOT for static markdown quizzes.
-allowed-tools: Bash, Read, Write
+description: |
+  Generate 50-question interactive quizzes using the Quiz component with randomized batching.
+  Use when creating end-of-chapter assessments. Displays 15-20 questions per session with
+  immediate feedback. NOT for static markdown quizzes.
+version: "5.0.0"
+allowed_tools: ["Bash", "Read", "Write"]
+replaces: "quiz-answer-redistributor (v3.0.0)"
 ---
 
 # Quiz Generator

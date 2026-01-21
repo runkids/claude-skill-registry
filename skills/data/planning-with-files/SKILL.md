@@ -1,128 +1,47 @@
 ---
 name: planning-with-files
-description: Implements Manus-style file-based planning for complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when starting complex multi-step tasks, research projects, or any task requiring >5 tool calls.
+description: Uses persistent markdown files for general planning, progress tracking, and knowledge storage (Manus-style workflow). Use for multi-step tasks, research projects, or general organization WITHOUT mentioning PRD. For PRD-specific work, use prd-planner skill instead.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
 # Planning with Files
 
-Work like Manus: Use persistent markdown files as your "working memory on disk."
+> "Work like Manus" — Uses persistent markdown files for planning, progress tracking, and knowledge storage.
 
-## Quick Start
+## Description
 
-Before ANY complex task:
+A Claude Code skill that transforms your workflow to use persistent markdown files for planning and progress tracking — the pattern that made Manus AI worth billions.
 
-1. **Create `task_plan.md`** in your project — Use templates in this skill as reference
-2. **Create `findings.md`** in your project — For research and discoveries
-3. **Create `progress.md`** in your project — For session logging
-4. **Re-read plan before decisions** — Refreshes goals in attention window
-5. **Update after each phase** — Mark complete, log errors
+## The Problem
 
-> **Note:** All three planning files should be created in your current working directory (your project root).
+Claude Code (and most AI agents) suffer from:
+- **Volatile memory** — TodoWrite tool disappears on context reset
+- **Goal drift** — Original goals get forgotten after many tool calls
+- **Hidden errors** — Failures aren't tracked, mistakes repeat
+- **Context stuffing** — Everything crammed into context instead of stored
 
-## The Core Pattern
+## The Solution: 3-File Pattern
 
-```
-Context Window = RAM (volatile, limited)
-Filesystem = Disk (persistent, unlimited)
+For every complex task, create THREE files:
 
-→ Anything important gets written to disk.
-```
-
-## File Purposes
-
-| File | Purpose | When to Update |
-|------|---------|----------------|
-| `task_plan.md` | Phases, progress, decisions | After each phase |
-| `findings.md` | Research, discoveries | After ANY discovery |
-| `progress.md` | Session log, test results | Throughout session |
-
-## Critical Rules
-
-### 1. Create Plan First
-Never start a complex task without `task_plan.md`. Non-negotiable.
-
-### 2. The 2-Action Rule
-> "After every 2 view/browser/search operations, IMMEDIATELY save key findings to text files."
-
-This prevents visual/multimodal information from being lost.
-
-### 3. Read Before Decide
-Before major decisions, read the plan file. This keeps goals in your attention window.
-
-### 4. Update After Act
-After completing any phase:
-- Mark phase status: `in_progress` → `complete`
-- Log any errors encountered
-- Note files created/modified
-
-### 5. Log ALL Errors
-Every error goes in the plan file. This builds knowledge and prevents repetition.
-
-```markdown
-## Errors Encountered
-| Error | Attempt | Resolution |
-|-------|---------|------------|
-| FileNotFoundError | 1 | Created default config |
-| API timeout | 2 | Added retry logic |
+```text
+task_plan.md      → Track phases and progress
+notes.md          → Store research and findings
+[deliverable].md  → Final output
 ```
 
-### 6. Never Repeat Failures
-```
-if action_failed:
-    next_action != same_action
-```
-Track what you tried. Mutate the approach.
+### The Workflow Loop
 
-## The 3-Strike Error Protocol
-
-```
-ATTEMPT 1: Diagnose & Fix
-  → Read error carefully
-  → Identify root cause
-  → Apply targeted fix
-
-ATTEMPT 2: Alternative Approach
-  → Same error? Try different method
-  → Different tool? Different library?
-  → NEVER repeat exact same failing action
-
-ATTEMPT 3: Broader Rethink
-  → Question assumptions
-  → Search for solutions
-  → Consider updating the plan
-
-AFTER 3 FAILURES: Escalate to User
-  → Explain what you tried
-  → Share the specific error
-  → Ask for guidance
+```text
+1. Create task_plan.md with goal and phases
+2. Research → save to notes.md → update task_plan.md
+3. Read notes.md → create deliverable → update task_plan.md
+4. Deliver final output
 ```
 
-## Read vs Write Decision Matrix
+## When to Use
 
-| Situation | Action | Reason |
-|-----------|--------|--------|
-| Just wrote a file | DON'T read | Content still in context |
-| Viewed image/PDF | Write findings NOW | Multimodal → text before lost |
-| Browser returned data | Write to file | Screenshots don't persist |
-| Starting new phase | Read plan/findings | Re-orient if context stale |
-| Error occurred | Read relevant file | Need current state to fix |
-| Resuming after gap | Read all planning files | Recover state |
-
-## The 5-Question Reboot Test
-
-If you can answer these, your context management is solid:
-
-| Question | Answer Source |
-|----------|---------------|
-| Where am I? | Current phase in task_plan.md |
-| Where am I going? | Remaining phases |
-| What's the goal? | Goal statement in plan |
-| What have I learned? | findings.md |
-| What have I done? | progress.md |
-
-## When to Use This Pattern
-
-**Use for:**
+**Use this pattern for:**
 - Multi-step tasks (3+ steps)
 - Research tasks
 - Building/creating projects
@@ -134,21 +53,51 @@ If you can answer these, your context management is solid:
 - Single-file edits
 - Quick lookups
 
-## Templates
+## Installation
 
-Reference templates are available in the `templates/` folder:
+This skill is typically installed globally at `~/.claude/skills/planning-with-files/`.
 
-- `templates/task_plan.md` — Phase tracking
-- `templates/findings.md` — Research storage  
-- `templates/progress.md` — Session logging
+From this repository:
 
-## Anti-Patterns
+```bash
+ln -s /path/to/agent-playbook/skills/planning-with-files ~/.claude/skills/planning-with-files
+```
 
-| Don't | Do Instead |
-|-------|------------|
-| Use TodoWrite for persistence | Create task_plan.md file |
-| State goals once and forget | Re-read plan before decisions |
-| Hide errors and retry silently | Log errors to plan file |
-| Stuff everything in context | Store large content in files |
-| Start executing immediately | Create plan file FIRST |
-| Repeat failed actions | Track attempts, mutate approach |
+If you prefer the standalone workflow, see the upstream repository in the Links section.
+
+## The Manus Principles
+
+| Principle | Implementation |
+|-----------|----------------|
+| Filesystem as memory | Store in files, not context |
+| Attention manipulation | Re-read plan before decisions |
+| Error persistence | Log failures in plan file |
+| Goal tracking | Checkboxes show progress |
+| Append-only context | Never modify history |
+
+## Example
+
+**You:** "Research the benefits of TypeScript and write a summary"
+
+**Claude creates:**
+
+```markdown
+# Task Plan: TypeScript Benefits Research
+
+## Goal
+Create a research summary on TypeScript benefits.
+
+## Phases
+- [x] Phase 1: Create plan ✓
+- [ ] Phase 2: Research and gather sources (CURRENT)
+- [ ] Phase 3: Synthesize findings
+- [ ] Phase 4: Deliver summary
+
+## Status
+**Currently in Phase 2** - Searching for sources
+```
+
+## Links
+
+- [GitHub Repository](https://github.com/OthmanAdi/planning-with-files)
+- [Context Engineering for AI Agents](https://manus.im/de/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)

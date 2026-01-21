@@ -1,10 +1,7 @@
 {
   "name": "tools",
-  "description": "Use when implementing function calling, tool use, or agents with LLMs - unified tool API works across OpenAI, Anthropic, Google, and Ollama with consistent tool definition and execution patterns",
-  "repo": "juanre/llmring",
-  "category": "data",
-  "tags": [
-    "tools"
-  ],
-  "stars": 3
+  "repo": "bitwikiorg/skills.md",
+  "path": "sources/langchain/tools/SKILL.md",
+  "source": "github.com/bitwikiorg/skills.md",
+  "downloaded_at": "2026-01-21T02:11:38.834793Z"
 }

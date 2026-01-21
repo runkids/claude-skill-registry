@@ -37,20 +37,17 @@ digraph when_to_use {
 ## The Tracing Process
 
 ### 1. Observe the Symptom
-
-```text
+```
 Error: git init failed in /Users/jesse/project/packages/core
 ```
 
 ### 2. Find Immediate Cause
 **What code directly causes this?**
-
 ```typescript
 await execFileAsync('git', ['init'], { cwd: projectDir });
 ```
 
 ### 3. Ask: What Called This?
-
 ```typescript
 WorktreeManager.createSessionWorktree(projectDir, sessionId)
   → called by Session.initializeWorkspace()
@@ -66,7 +63,6 @@ WorktreeManager.createSessionWorktree(projectDir, sessionId)
 
 ### 5. Find Original Trigger
 **Where did empty string come from?**
-
 ```typescript
 const context = setupCoreTest(); // Returns { tempDir: '' }
 Project.create('name', context.tempDir); // Accessed before beforeEach!
@@ -94,7 +90,6 @@ async function gitInit(directory: string) {
 **Critical:** Use `console.error()` in tests (not logger - may not show)
 
 **Run and capture:**
-
 ```bash
 npm test 2>&1 | grep 'DEBUG git init'
 ```

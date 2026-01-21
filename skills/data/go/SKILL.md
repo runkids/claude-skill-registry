@@ -1,98 +1,168 @@
 ---
 name: go
-description: Develop Go applications using modern patterns, popular libraries, and idiomatic design. Activate when working with .go files, go.mod, go.sum, or user mentions Go, Golang, goroutines, channels, or Go libraries like gin, cobra, gorm.
+description: Write Go code following best practices. Use when developing Go applications. Covers error handling, concurrency, and project structure.
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
-# Go Development Skill
+# Go Development
 
-## Activation Triggers
-
-- Working with `.go` files, `go.mod`, `go.sum`, `go.work`
-- User mentions Go, Golang, or Go-specific terms
-- Questions about Go libraries, frameworks, or tooling
-- Concurrency patterns (goroutines, channels, context)
-
-## Workflow: Research-First Approach
-
-Before implementing, gather context from authoritative sources:
+## Project Structure
 
 ```
-# Context7 query-docs for repo-specific docs
-query-docs({ libraryId: "/gin-gonic/gin", query: "how to set up middleware" })
-query-docs({ libraryId: "/uber-go/zap", query: "structured logging setup" })
-
-# gh search code for real-world implementation examples
-gh search code "ratelimit.New(" --language=go
-gh search code "errgroup.WithContext(" --language=go
-
-# For style/idiom questions
-query-docs({ libraryId: "/uber-go/guide", query: "style guide patterns and idioms" })
+myproject/
+├── cmd/
+│   └── server/
+│       └── main.go
+├── internal/
+│   ├── handler/
+│   ├── service/
+│   └── repository/
+├── pkg/
+│   └── shared/
+├── go.mod
+└── go.sum
 ```
 
-## Notes
+## Error Handling
 
-Repository routing table lives in `reference.md`.
+```go
+// Custom error types
+type NotFoundError struct {
+    Resource string
+    ID       string
+}
 
-## CLI Quick Reference
+func (e *NotFoundError) Error() string {
+    return fmt.Sprintf("%s not found: %s", e.Resource, e.ID)
+}
 
-### Module Management
+// Error wrapping
+func GetUser(id string) (*User, error) {
+    user, err := db.FindUser(id)
+    if err != nil {
+        return nil, fmt.Errorf("GetUser(%s): %w", id, err)
+    }
+    return user, nil
+}
+
+// Error checking
+if errors.Is(err, sql.ErrNoRows) {
+    return nil, &NotFoundError{Resource: "user", ID: id}
+}
+```
+
+## Concurrency
+
+```go
+// Goroutines with errgroup
+func fetchAll(ctx context.Context, urls []string) ([]Response, error) {
+    g, ctx := errgroup.WithContext(ctx)
+    results := make([]Response, len(urls))
+
+    for i, url := range urls {
+        i, url := i, url // capture loop variables
+        g.Go(func() error {
+            resp, err := fetch(ctx, url)
+            if err != nil {
+                return err
+            }
+            results[i] = resp
+            return nil
+        })
+    }
+
+    if err := g.Wait(); err != nil {
+        return nil, err
+    }
+    return results, nil
+}
+
+// Channels
+func producer(ch chan<- int) {
+    for i := 0; i < 10; i++ {
+        ch <- i
+    }
+    close(ch)
+}
+
+func consumer(ch <-chan int) {
+    for v := range ch {
+        fmt.Println(v)
+    }
+}
+```
+
+## HTTP Handler
+
+```go
+func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
+    ctx := r.Context()
+    id := chi.URLParam(r, "id")
+
+    user, err := h.service.GetUser(ctx, id)
+    if err != nil {
+        var notFound *NotFoundError
+        if errors.As(err, &notFound) {
+            http.Error(w, err.Error(), http.StatusNotFound)
+            return
+        }
+        http.Error(w, "Internal error", http.StatusInternalServerError)
+        return
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(user)
+}
+```
+
+## Testing
+
+```go
+func TestGetUser(t *testing.T) {
+    t.Parallel()
+
+    tests := []struct {
+        name    string
+        id      string
+        want    *User
+        wantErr bool
+    }{
+        {
+            name: "existing user",
+            id:   "123",
+            want: &User{ID: "123", Email: "test@example.com"},
+        },
+        {
+            name:    "non-existent user",
+            id:      "999",
+            wantErr: true,
+        },
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            got, err := service.GetUser(context.Background(), tt.id)
+            if (err != nil) != tt.wantErr {
+                t.Errorf("error = %v, wantErr %v", err, tt.wantErr)
+            }
+            if !reflect.DeepEqual(got, tt.want) {
+                t.Errorf("got = %v, want %v", got, tt.want)
+            }
+        })
+    }
+}
+```
+
+## Tooling
+
 ```bash
-go mod init <module>       # Initialize module
-go mod tidy                # Sync dependencies
-go get <pkg>@latest        # Add/update dependency
-go get <pkg>@v1.2.3        # Specific version
-go mod download            # Download dependencies
-go mod why <pkg>           # Why is pkg needed
-go mod graph               # Dependency graph
+# Format
+gofmt -w .
+goimports -w .
+
+# Lint
+golangci-lint run
+
+# Test
+go test -v -race -cover ./...
 ```
-
-### Build & Run
-```bash
-go build ./...             # Build all packages
-go run .                   # Run current package
-go install ./cmd/...       # Install binaries
-go generate ./...          # Run go:generate directives
-```
-
-### Testing
-```bash
-go test ./...              # Run all tests
-go test -v ./...           # Verbose output
-go test -race ./...        # Race detector
-go test -cover ./...       # Coverage summary
-go test -coverprofile=c.out ./... && go tool cover -html=c.out  # Coverage HTML
-go test -bench=. ./...     # Run benchmarks
-go test -fuzz=FuzzXxx ./...  # Fuzz testing
-go test -run=TestName      # Run specific test
-go test -count=1           # Disable test caching
-```
-
-### Linting (golangci-lint)
-```bash
-golangci-lint run          # Run all linters
-golangci-lint run --fix    # Auto-fix issues
-golangci-lint linters      # List available linters
-```
-
-### Workspaces (multi-module)
-```bash
-go work init ./mod1 ./mod2 # Initialize workspace
-go work use ./mod3         # Add module to workspace
-go work sync               # Sync workspace
-```
-
-### Other Tools
-```bash
-go fmt ./...               # Format code
-go vet ./...               # Static analysis
-go doc <pkg>               # View documentation
-go env                     # Environment variables
-go version                 # Go version
-```
-
-## Files
-
-- `reference.md` - Go 1.24+ features, project layout, Uber style highlights
-- `cookbook/testing.md` - Table-driven tests, testify, mocking, benchmarks
-- `cookbook/concurrency.md` - Goroutines, channels, context, errgroup
-- `cookbook/patterns.md` - Functional options, DI, error handling

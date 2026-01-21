@@ -1,270 +1,114 @@
 ---
 name: session
-version: 1.0.0
-description: Session management and protocol compliance skills. Use Test-InvestigationEligibility to check if staged files qualify for investigation-only QA skip per ADR-034 before committing with 'SKIPPED investigation-only' verdict.
-license: MIT
-model: claude-sonnet-4-5
-metadata:
-  domains:
-    - session-protocol
-    - qa-validation
-    - investigation-eligibility
-  type: utility
-  complexity: low
-  related_skills:
-    - github
-    - qa
+description: Session Management Skill - manage Linear session tracking for persistent memory across conversations
+argument-hint: [status|update|decision|link|end] [text]
+user-invocable: true
 ---
 
-# Session Skills
+# Session Management
 
-Skills for session management and protocol compliance.
+Manage Linear session tracking for Claude Code sessions. Sessions provide persistent memory across conversations.
 
-## Triggers
+## Usage
 
-| Phrase | Action |
-|--------|--------|
-| "Check if I can skip QA" | Run Test-InvestigationEligibility.ps1 |
-| "Am I eligible for investigation-only?" | Verify staged files against ADR-034 allowlist |
-| "Verify investigation session eligibility" | Check QA skip eligibility before commit |
-| "Can I use SKIPPED: investigation-only?" | Validate investigation-only exemption |
-| "Test eligibility for QA skip" | Execute eligibility check script |
+This command is invoked with `/session` and optional arguments:
+- `/session` or `/session status` - Show current session status and recent activity
+- `/session update <notes>` - Add work log entry to session issue
+- `/session decision <decision>` - Document a key decision made
+- `/session link <issue-id>` - Link a related issue to this session
+- `/session end` - Add end-of-session summary with notes for next session
 
-## Process
+## Context
 
-### Phase 1: Eligibility Check
-
-| Step | Action | Tool | Output |
-|------|--------|------|--------|
-| 1.1 | Stage files for commit | `git add` | Files added to staging area |
-| 1.2 | Run eligibility check | `Test-InvestigationEligibility.ps1` | JSON with Eligible, StagedFiles, Violations |
-| 1.3 | Verify Eligible=true | Parse JSON output | Boolean result |
-
-### Phase 2: Commit Decision
-
-| Step | Action | Condition | Next Step |
-|------|--------|-----------|-----------|
-| 2.1 | Proceed with investigation-only skip | Eligible=true, Violations=[] | Use "SKIPPED: investigation-only" |
-| 2.2 | Address violations or invoke qa agent | Eligible=false | Fix violations or start new session |
-
----
-
-## Quick Reference
-
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| Test-InvestigationEligibility | Check if staged files qualify for investigation-only QA skip | Before committing with `SKIPPED: investigation-only` |
-
----
-
-## Test Investigation Eligibility
-
-Check if staged files qualify for investigation-only QA skip per ADR-034.
-
-### Trigger Phrases
-
-- "Check if I can skip QA"
-- "Am I eligible for investigation-only?"
-- "Verify investigation session eligibility"
-- "Can I use SKIPPED: investigation-only?"
-
-### Usage
-
-```powershell
-pwsh .claude/skills/session/scripts/Test-InvestigationEligibility.ps1
+The SessionStart hook automatically creates or resumes a Linear session issue. The hook output shows:
+```
+📋 Linear Session RESUMED: ASY-XXX (branch) - https://linear.app/...
 ```
 
-### Output
+This command is for **updating** that session with meaningful content during work.
 
-Returns JSON with:
+## Instructions
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `Eligible` | boolean | `true` if all staged files are in allowlist |
-| `StagedFiles` | array | All staged file paths |
-| `Violations` | array | Files not in allowlist (empty if eligible) |
-| `AllowedPaths` | array | Reference list of allowed path prefixes |
-| `Error` | string | Present only on git errors |
+### On `/session` or `/session status`
 
-### Exit Codes
+1. Get the current session issue ID from the most recent hook output (shown at session start)
+2. Use `mcp__linear-server__get_issue` to fetch the session issue details
+3. Use `mcp__linear-server__list_comments` to get recent activity
+4. Display a summary:
+   - Session issue ID and URL
+   - Current git branch and status
+   - Recent comments/activity
+   - In-progress issues assigned to me
 
-| Code | Meaning |
-|------|---------|
-| 0 | Success (eligibility result in JSON output) |
+### On `/session update <notes>`
 
-**Note**: The script always exits 0. Check the `Eligible` field in the JSON output to determine eligibility. The `Error` field is present when git commands fail.
+1. Get the session issue ID from hook output
+2. Format a comment with:
+   ```
+   ## Work Update - [timestamp]
 
-### Error Handling
+   <notes provided by user or summary of recent work>
 
-| Scenario | Behavior | Output |
-|----------|----------|--------|
-| Not in git repository | Returns JSON with `Eligible: false` | `Error` field explains the issue |
-| Git command fails | Returns JSON with `Eligible: false` | `Error` field explains the issue |
-| Empty staged files | Returns JSON with `Eligible: true` | `StagedFiles` is empty array |
-| Mixed allowed/disallowed files | Returns JSON with `Eligible: false` | `Violations` lists disallowed files |
+   **Files changed:** [list key files if applicable]
+   **Related commits:** [recent commit hashes if any]
+   ```
+3. Use `mcp__linear-server__create_comment` to add the comment
+4. Confirm the update was added
 
-### Example Outputs
+### On `/session decision <decision>`
 
-**Eligible (investigation-only files)**:
+1. Get the session issue ID
+2. Format a comment:
+   ```
+   ## Decision Logged - [timestamp]
 
-```json
-{
-  "Eligible": true,
-  "StagedFiles": [".agents/sessions/2025-01-01-session-01.md"],
-  "Violations": [],
-  "AllowedPaths": [
-    ".agents/sessions/",
-    ".agents/analysis/",
-    ".agents/retrospective/",
-    ".serena/memories/",
-    ".agents/security/"
-  ]
-}
-```
+   **Decision:** <decision text>
+   **Context:** <brief context if apparent from conversation>
+   ```
+3. Add the comment to the session issue
 
-**Not eligible (contains code files)**:
+### On `/session link <issue-id>`
 
-```json
-{
-  "Eligible": false,
-  "StagedFiles": [
-    ".agents/sessions/2025-01-01-session-01.md",
-    "scripts/MyScript.ps1"
-  ],
-  "Violations": ["scripts/MyScript.ps1"],
-  "AllowedPaths": [
-    ".agents/sessions/",
-    ".agents/analysis/",
-    ".agents/retrospective/",
-    ".serena/memories/",
-    ".agents/security/"
-  ]
-}
-```
+1. Get the session issue ID
+2. Use `mcp__linear-server__get_issue` to fetch both issues
+3. Use `mcp__linear-server__update_issue` with `relatedTo` to link them
+4. Add a comment noting the linkage
 
-**Git error**:
+### On `/session end`
 
-```json
-{
-  "Eligible": false,
-  "StagedFiles": [],
-  "Violations": [],
-  "AllowedPaths": [
-    ".agents/sessions/",
-    ".agents/analysis/",
-    ".agents/retrospective/",
-    ".serena/memories/",
-    ".agents/security/"
-  ],
-  "Error": "Not in a git repository or git command failed"
-}
-```
+1. Get the session issue ID
+2. Gather session summary:
+   - Review recent commits on current branch
+   - List files changed during session
+   - Summarize key accomplishments from conversation
+3. Format end-of-session comment:
+   ```
+   ## Session Ended - [timestamp]
 
----
+   ### Accomplished
+   - [bullet list of completed work]
 
-## Agent Workflow Integration
+   ### In Progress
+   - [any incomplete work]
 
-### SESSION-PROTOCOL.md Relationship
+   ### Notes for Next Session
+   - [important context for resuming]
+   - [any blockers or pending decisions]
 
-This skill implements the verification step for **Phase 2.5: QA Validation** of the Session End Protocol:
+   ### Files Modified
+   - [key files changed]
+   ```
+4. Add the comment to the session issue
 
-```text
-SESSION-PROTOCOL.md (Phase 2.5: QA Validation)
-                │
-                ├── Feature implementation → MUST invoke qa agent
-                │
-                └── Investigation session → MAY skip QA
-                        │
-                        └── Test-InvestigationEligibility.ps1
-                                │
-                                ├── Eligible: true → Use "SKIPPED: investigation-only"
-                                │
-                                └── Eligible: false → MUST invoke qa agent
-```
+## Best Practices
 
-### Workflow: Before Committing Investigation Work
+- **Update frequently**: Run `/session update` after completing significant tasks
+- **Document decisions**: Use `/session decision` for architectural or implementation choices
+- **Link issues**: Use `/session link` to connect work items to the session
+- **End cleanly**: Run `/session end` before ending a session with incomplete work
 
-```text
-1. Stage your files
-   │
-   └── git add .agents/sessions/... .serena/memories/...
+## Error Handling
 
-2. Run eligibility check
-   │
-   └── pwsh .claude/skills/session/scripts/Test-InvestigationEligibility.ps1
-
-3. Check output
-   │
-   ├── Eligible: true
-   │   └── Safe to commit with "SKIPPED: investigation-only"
-   │
-   └── Eligible: false
-       │
-       ├── Check Violations array
-       │   └── Either: Remove violating files from staging
-       │   └── Or: Start new session for implementation work
-       │
-       └── Invoke qa agent for the implementation work
-```
-
-### Integration with Session End Checklist
-
-Use this skill to validate the QA skip condition:
-
-```markdown
-### Session End (COMPLETE ALL before closing)
-
-| Req | Step | Status | Evidence |
-|-----|------|--------|----------|
-| MUST | Route to qa agent (feature implementation) | [x] | `SKIPPED: investigation-only` - Verified via Test-InvestigationEligibility.ps1 |
-```
-
----
-
-## Allowed Paths (Investigation Allowlist)
-
-These paths qualify for investigation-only QA exemption:
-
-| Path | Purpose |
-|------|---------|
-| `.agents/sessions/` | Session logs documenting work |
-| `.agents/analysis/` | Investigation outputs and findings |
-| `.agents/retrospective/` | Learnings and retrospective documents |
-| `.serena/memories/` | Cross-session context storage |
-| `.agents/security/` | Security assessments and reviews |
-
-**Important**: This allowlist is defined by ADR-034 (Investigation Session QA Exemption). The patterns in `Test-InvestigationEligibility.ps1` are validated by Pester tests to ensure they match the ADR specification.
-
----
-
-## Anti-Patterns
-
-| Avoid | Why | Instead |
-|-------|-----|---------|
-| Skipping eligibility check | May commit ineligible files with investigation-only skip | Always run the skill before using the skip |
-| Ignoring violations | QA exemption won't be valid | Address violations or invoke qa agent |
-| Using for code changes | Investigation-only is for analysis, not implementation | Start a new session for code work |
-| Hardcoding path checks | Patterns may drift from ADR-034 specification | Use this skill which implements the ADR patterns |
-
----
-
-## Verification Checklist
-
-After using this skill:
-
-- [ ] Skill output shows `Eligible: true`
-- [ ] No `Violations` in output
-- [ ] No `Error` field in output
-- [ ] Session log evidence updated with skill output
-
----
-
-## Related
-
-| Reference | Description |
-|-----------|-------------|
-| [ADR-034](../../../.agents/architecture/decisions/adr-034-investigation-session-qa-exemption.md) | Investigation Session QA Exemption architecture decision |
-| [SESSION-PROTOCOL.md](../../../.agents/SESSION-PROTOCOL.md) | Session start/end requirements (Phase 2.5) |
-| [Issue #662](https://github.com/rjmurillo/ai-agents/issues/662) | Create QA skip eligibility check skill |
-| [Validate-SessionJson.ps1](../../../scripts/Validate-SessionJson.ps1) | Validates session JSON format (separate from eligibility) |
-| [Test-InvestigationEligibility.Tests.ps1](../../../tests/Test-InvestigationEligibility.Tests.ps1) | Pester tests ensuring pattern consistency |
+- If session issue ID is not found in recent output, ask user to check the session hook output
+- If Linear API fails, show the error and suggest checking LINEAR_API_KEY
+- If issue doesn't exist, the session may have been from a previous day - suggest starting a new session

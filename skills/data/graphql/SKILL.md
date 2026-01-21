@@ -1,68 +1,83 @@
 ---
 name: graphql
-description: "GraphQL gives clients exactly the data they need - no more, no less. One endpoint, typed schema, introspection. But the flexibility that makes it powerful also makes it dangerous. Without proper controls, clients can craft queries that bring down your server.  This skill covers schema design, resolvers, DataLoader for N+1 prevention, federation for microservices, and client integration with Apollo/urql. Key insight: GraphQL is a contract. The schema is the API documentation. Design it carefully."
-source: vibeship-spawner-skills (Apache 2.0)
+description: |
+  Provides GraphQL API schema design and implementation expertise. Ensures proper type definitions, query/mutation patterns, pagination strategies, and error handling standards. Specializes in schema-first design, resolver implementation, DataLoader for N+1 prevention, subscription patterns, and federation architecture. Implements Relay cursor connections and Apollo best practices.
+  Use when: designing GraphQL schemas, defining types and interfaces, implementing queries and mutations, creating resolvers, designing pagination with connections and edges, solving N+1 query problems with DataLoader, implementing subscriptions for real-time updates, handling errors and nullability, setting up GraphQL federation, or integrating with Apollo Server/Client or other GraphQL libraries.
 ---
 
-# GraphQL
+# GraphQL API Standards
 
-You're a developer who has built GraphQL APIs at scale. You've seen the
-N+1 query problem bring down production servers. You've watched clients
-craft deeply nested queries that took minutes to resolve. You know that
-GraphQL's power is also its danger.
+## Naming Conventions
 
-Your hard-won lessons: The team that didn't use DataLoader had unusable
-APIs. The team that allowed unlimited query depth got DDoS'd by their
-own clients. The team that made everything nullable couldn't distinguish
-errors from empty data. You've l
+### Field Naming
 
-## Capabilities
+- Boolean: Require `is/has/can` prefix
+- Date: Require `~At` suffix
+- Use consistent terminology throughout the project (unify on either "create" or "add")
 
-- graphql-schema-design
-- graphql-resolvers
-- graphql-federation
-- graphql-subscriptions
-- graphql-dataloader
-- graphql-codegen
-- apollo-server
-- apollo-client
-- urql
+## Date Format
 
-## Patterns
+- ISO 8601 UTC
+- Use DateTime type
 
-### Schema Design
+## Pagination
 
-Type-safe schema with proper nullability
+### Relay Connection Specification
 
-### DataLoader for N+1 Prevention
+```graphql
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
 
-Batch and cache database queries
+type UserEdge {
+  node: User!
+  cursor: String!
+}
 
-### Apollo Client Caching
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}
+```
 
-Normalized cache with type policies
+- Parameters: `first`, `after`
 
-## Anti-Patterns
+## Sorting
 
-### ❌ No DataLoader
+- `orderBy: [{ field: "createdAt", order: DESC }]`
 
-### ❌ No Query Depth Limiting
+## Type Naming
 
-### ❌ Authorization in Schema
+- Input: `{Verb}{Type}Input`
+- Connection: `{Type}Connection`
+- Edge: `{Type}Edge`
 
-## ⚠️ Sharp Edges
+## Input
 
-| Issue | Severity | Solution |
-|-------|----------|----------|
-| Each resolver makes separate database queries | critical | # USE DATALOADER |
-| Deeply nested queries can DoS your server | critical | # LIMIT QUERY DEPTH AND COMPLEXITY |
-| Introspection enabled in production exposes your schema | high | # DISABLE INTROSPECTION IN PRODUCTION |
-| Authorization only in schema directives, not resolvers | high | # AUTHORIZE IN RESOLVERS |
-| Authorization on queries but not on fields | high | # FIELD-LEVEL AUTHORIZATION |
-| Non-null field failure nullifies entire parent | medium | # DESIGN NULLABILITY INTENTIONALLY |
-| Expensive queries treated same as cheap ones | medium | # QUERY COST ANALYSIS |
-| Subscriptions not properly cleaned up | medium | # PROPER SUBSCRIPTION CLEANUP |
+- Separate creation and modification (required for creation, optional for modification)
+- Avoid nesting - IDs only
 
-## Related Skills
+## Errors
 
-Works well with: `backend`, `postgres-wizard`, `nextjs-app-router`, `react-patterns`
+### extensions (default)
+
+- `code`, `field` in `errors[].extensions`
+
+### Union (type safety)
+
+- `User | ValidationError`
+
+## N+1
+
+- DataLoader is mandatory
+
+## Documentation
+
+- `"""description"""` is required
+- Explicitly state Input constraints
+
+## Deprecation
+
+- `@deprecated(reason: "...")`
+- Never delete types

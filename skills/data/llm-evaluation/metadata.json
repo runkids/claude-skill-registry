@@ -1,7 +1,7 @@
 {
   "name": "llm-evaluation",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/llm-evaluation/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-20T02:53:48.702328Z"
+  "repo": "apassuello/multimodal_insight_engine",
+  "path": ".claude/skills/llm-evaluation/SKILL.md",
+  "source": "github.com/apassuello/multimodal_insight_engine",
+  "downloaded_at": "2026-01-21T04:21:28.755878Z"
 }

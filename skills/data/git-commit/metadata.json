@@ -1,7 +1,7 @@
 {
   "name": "git-commit",
-  "repo": "wildwasser/opencode-agents",
-  "path": ".opencode/skills/git-commit/SKILL.md",
-  "source": "github.com/wildwasser/opencode-agents",
-  "downloaded_at": "2026-01-20T03:48:26.047474Z"
+  "repo": "ThinkInAIXYZ/deepchat",
+  "path": "resources/skills/git-commit/SKILL.md",
+  "source": "github.com/ThinkInAIXYZ/deepchat",
+  "downloaded_at": "2026-01-21T02:41:58.467429Z"
 }

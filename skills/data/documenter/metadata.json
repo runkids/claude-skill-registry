@@ -1,7 +1,7 @@
 {
   "name": "documenter",
-  "repo": "wtthornton/HomeIQ",
-  "path": ".claude/skills/documenter/SKILL.md",
-  "source": "github.com/wtthornton/HomeIQ",
-  "downloaded_at": "2026-01-17T03:24:07.483984Z"
+  "repo": "wtthornton/TappsCodingAgents",
+  "path": "tapps_agents/resources/claude/skills/documenter/SKILL.md",
+  "source": "github.com/wtthornton/TappsCodingAgents",
+  "downloaded_at": "2026-01-21T04:13:12.927347Z"
 }

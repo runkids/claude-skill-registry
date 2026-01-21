@@ -63,12 +63,26 @@ Ralph routes work by reading the **first matching label** on each direct epic ch
 
 **Rule:** direct epic children must have exactly one routing label. Subtasks should be unlabeled unless you want separate routing.
 
+**Beads CLI note (source of many drift bugs):**
+- When creating issues, the correct flag is `bd create --labels <label>` (not `--label`).
+- Beads supports multiple labels, but for Ralph routing you should pass exactly one label for direct epic children.
+- If you need to fix labels after creation, prefer replacing them explicitly:
+  ```bash
+  bd update <TASK_ID> --set-labels <label> --json
+  ```
+
 ## Dependencies & Parent Linkage
 - **Create-first, link-second (required):**
   - Create the epic and all direct children first (IDs + fields + exactly one routing label).
   - Then add dependency edges with `bd dep add <task-id> <depends-on-id>` (defaults to a blocking dependency).
   - Rationale: `bd create` can be run reliably one task at a time, and dependency linking can be retried independently if something interrupts the session.
-- **Parent linkage:** Prefer hierarchical IDs (`<epic>.<task>`) so parentage is inferable. Only add explicit parent via `bd update <task> --parent <epic>` if `bd ready --parent <epic>` does not behave as expected in your environment.
+- **Parent linkage (safe by default):**
+  - Prefer hierarchical IDs (`<epic>.<task>`) for readability.
+  - **Still:** After creating each direct epic child (and the report task), explicitly set the parent so epic-scoped queries work reliably:
+    ```bash
+    bd update <TASK_ID> --parent <EPIC_ID> --json
+    ```
+  - Why: `bd ready --parent <EPIC_ID>` and other parent-scoped filters often rely on the explicit `parent` field, not just ID structure.
 
 ## Resumable Procedure (Recommended)
 - **Create issues individually** (epic first, then each direct child task).
@@ -179,6 +193,24 @@ Ralph routes tasks based on **labels** attached to the epic’s direct child tas
 - **Explicit PM checkpoints:** Use `project-manager` only for phase check-ins or final reviews.
 
 **Implementation note:** This conversion output may not embed labels directly. If labels are applied during `bd create`, ensure the one-level labeling rule is followed there.
+
+### UI-Sensitivity Heuristic (Design Task Creation)
+
+Use the signals below to decide when a plan is UI-sensitive and merits a design task (keep this judgment contextual).
+
+**UI-sensitive signals (lightweight heuristic):**
+- Impacted files include UI extensions: `.tsx`, `.jsx`, `.css`, `.scss`, `.sass`, `.less`, `.html`
+- Plan text mentions UI/UX keywords: `UI`, `UX`, `design`, `component`, `layout`, `visual`, `styling`, `page`, `screen`, `modal`, `drawer`, `navbar`, `table`, `chart`, `responsive`, `mobile`, `accessibility`, `storybook`
+- Acceptance criteria describe visual states, layout changes, or component variants
+- Plan involves building new components or component variants
+
+**Design task deliverables (embed in description/design field):**
+- Intent + observable acceptance (testable UI behavior)
+- Component inventory/reuse list with code references
+- Storybook stories when available (do not set up Storybook in the task; create a follow-up task if missing)
+- Minimum artifact when Storybook is missing: lightweight mockup or annotated screenshot + acceptance bullets + component inventory
+
+**Notes:** Design output must live in the design task comments with links to artifacts (Storybook paths, screenshots, mockups).
 
 ### Step 4: Resolve Dependencies
 

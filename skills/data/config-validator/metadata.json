@@ -1,7 +1,7 @@
 {
   "name": "config-validator",
-  "repo": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
-  "path": "plugins/dapr/skills/config-validator/SKILL.md",
-  "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
-  "downloaded_at": "2026-01-20T03:42:17.872306Z"
+  "repo": "jmagly/ai-writing-guide",
+  "path": ".factory/skills/config-validator/SKILL.md",
+  "source": "github.com/jmagly/ai-writing-guide",
+  "downloaded_at": "2026-01-21T03:21:37.628845Z"
 }

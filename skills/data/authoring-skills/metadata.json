@@ -1,7 +1,7 @@
 {
   "name": "authoring-skills",
-  "repo": "Dispo-Genius/dispo-claude-config",
+  "repo": "jkappers/claude-code-software-delivery-plugin",
   "path": ".claude/skills/authoring-skills/SKILL.md",
-  "source": "github.com/Dispo-Genius/dispo-claude-config",
-  "downloaded_at": "2026-01-20T03:06:55.009105Z"
+  "source": "github.com/jkappers/claude-code-software-delivery-plugin",
+  "downloaded_at": "2026-01-21T01:24:04.272841Z"
 }

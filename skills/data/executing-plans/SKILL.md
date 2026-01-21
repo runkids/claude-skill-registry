@@ -1,76 +1,41 @@
 ---
-name: executing-plans
-description: Use when partner provides a complete implementation plan to execute in controlled batches with review checkpoints - loads plan, reviews critically, executes tasks in batches, reports for review between batches
+name: ctx-plan-execution
+description: Execution discipline skill adapted from obra/superpowers. Ensures plans translate into tracked tasks, orchestration, and verification runs.
+license: MIT (obra/superpowers)
+command: /ctx:execute-plan
 ---
 
-# Executing Plans
+# `/ctx:execute-plan`
 
-## Overview
+Locks in the plan and drives it through cortex’s orchestration + verification stack.
 
-Load plan, review critically, execute tasks in batches, report for review between batches.
+## Prereqs
 
-**Core principle:** Batch execution with checkpoints for architect review.
+- `/ctx:plan` output in the thread.
+- Tasks captured in the Task view (`T`) or ready to be created now.
+- Relevant modes/agents activated.
 
-**Announce at start:** "I'm using the executing-plans skill to implement this plan."
+## Steps
 
-## The Process
+1. **Create/Sync Tasks**
+   - For each plan item, add/edit a task (Task view `T` → `A`/`E`).
+   - Ensure category + workstream mirror the plan’s stream names.
+2. **Activate Modes & Rules**
+   - Toggle required modes (`3` view) and rules (`4` view) to match plan.
+3. **Run Workstream Loops**
+   - Pick a task → do the work → update status/progress.
+   - Use `/ctx:verify` rules (tests, lint, Supersaiyan visual check) before moving to next task.
+4. **Update Stakeholders**
+   - For finished streams, summarize progress + next up; attach screenshots/logs when relevant.
+5. **Retrospective Hooks**
+   - When all tasks complete, close them in Task view, capture learnings in chat, and link to plan doc.
 
-### Step 1: Load and Review Plan
-1. Read plan file
-2. Review critically - identify any questions or concerns about the plan
-3. If concerns: Raise them with your human partner before starting
-4. If no concerns: Create TodoWrite and proceed
+## Output
 
-### Step 2: Execute Batch
-**Default: First 3 tasks**
+- Tasks JSON updated under `tasks/current/active_agents.json`.
+- Status update message covering completed tasks, blockers, verification evidence.
+- Next steps or follow-up issues if needed.
 
-For each task:
-1. Mark as in_progress
-2. Follow each step exactly (plan has bite-sized steps)
-3. Run verifications as specified
-4. Mark as completed
+## Resources
 
-### Step 3: Report
-When batch complete:
-- Show what was implemented
-- Show verification output
-- Say: "Ready for feedback."
-
-### Step 4: Continue
-Based on feedback:
-- Apply changes if needed
-- Execute next batch
-- Repeat until complete
-
-### Step 5: Complete Development
-
-After all tasks complete and verified:
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
-
-## When to Stop and Ask for Help
-
-**STOP executing immediately when:**
-- Hit a blocker mid-batch (missing dependency, test fails, instruction unclear)
-- Plan has critical gaps preventing starting
-- You don't understand an instruction
-- Verification fails repeatedly
-
-**Ask for clarification rather than guessing.**
-
-## When to Revisit Earlier Steps
-
-**Return to Review (Step 1) when:**
-- Partner updates the plan based on your feedback
-- Fundamental approach needs rethinking
-
-**Don't force through blockers** - stop and ask.
-
-## Remember
-- Review plan critically first
-- Follow plan steps exactly
-- Don't skip verifications
-- Reference skills when plan says to
-- Between batches: just report and wait
-- Stop when blocked, don't guess
+- Execution checklist: `skills/collaboration/executing-plans/resources/checklist.md`.

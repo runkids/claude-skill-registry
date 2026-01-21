@@ -1,175 +1,317 @@
 ---
 name: Email Composer
-slug: email-composer
-description: Draft professional, well-structured emails for any business context
-category: communication
-complexity: simple
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "draft email"
-  - "write email"
-  - "compose email"
-  - "email template"
-tags:
-  - email
-  - professional-communication
-  - business-writing
+description: Draft professional emails for various contexts including business, technical, and customer communication. Use when the user needs help writing emails or composing professional messages.
 ---
 
 # Email Composer
 
-The Email Composer skill helps you craft professional, effective emails for any business context. Whether you need to reach out to a client, respond to a team inquiry, follow up on a meeting, or send a cold outreach message, this skill ensures your emails are clear, appropriately toned, and action-oriented.
+## Quick start
 
-This skill analyzes the context you provide and generates emails that match the appropriate level of formality, include necessary components (subject line, greeting, body, call-to-action, closing), and maintain professional standards. It can adapt tone from casual internal communications to formal external correspondence.
+Provide context and purpose, and I'll draft an appropriate email.
 
-The skill also considers email best practices like brevity, clarity, scannable structure, and clear next steps to maximize response rates and effectiveness.
+**What I need:**
+- Purpose of email (request, follow-up, announcement, etc.)
+- Recipient relationship (colleague, customer, manager, vendor)
+- Key points to include
+- Desired tone (formal, casual, urgent, friendly)
 
-## Core Workflows
+## Email structure
 
-### Workflow 1: Draft New Email
-1. **Gather Context**: Understand the purpose, recipient, and key points
-2. **Determine Tone**: Assess formality level (casual, professional, formal)
-3. **Structure Email**: Create subject line, opening, body paragraphs, CTA, closing
-4. **Review & Refine**: Check for clarity, conciseness, and appropriate tone
-5. **Deliver**: Present complete email ready to send
+Standard professional email format:
 
-### Workflow 2: Reply to Email Thread
-1. **Review Thread**: Analyze previous messages for context
-2. **Identify Key Points**: Extract questions or items requiring response
-3. **Craft Response**: Address all points systematically
-4. **Maintain Thread**: Preserve relevant context while staying concise
-5. **Close Loop**: Ensure all items are addressed with clear next steps
-
-### Workflow 3: Email Template Creation
-1. **Identify Use Case**: Understand the recurring scenario
-2. **Define Variables**: Mark customizable sections
-3. **Create Template**: Build reusable structure
-4. **Add Guidelines**: Include usage notes and customization tips
-5. **Test & Validate**: Review with example content
-
-## Quick Reference
-
-| Action | Command/Trigger |
-|--------|-----------------|
-| Draft new email | "Draft email to [recipient] about [topic]" |
-| Reply to thread | "Write reply to [sender] addressing [points]" |
-| Cold outreach | "Compose cold email to [prospect] for [purpose]" |
-| Follow-up email | "Write follow-up on [topic] from [date/meeting]" |
-| Thank you email | "Draft thank you email for [reason]" |
-| Internal update | "Write team email about [update/announcement]" |
-| Create template | "Create email template for [use case]" |
-| Adjust tone | "Make this more [formal/casual/friendly]" |
-
-## Email Types Supported
-
-- **Cold Outreach**: First contact with prospects or partners
-- **Follow-ups**: After meetings, proposals, or previous emails
-- **Internal Updates**: Team announcements and status reports
-- **Client Communication**: Professional updates and responses
-- **Thank You Notes**: Appreciation and acknowledgment
-- **Meeting Requests**: Scheduling and coordination
-- **Introductions**: Connecting people or introducing services
-- **Apologies**: Professional handling of mistakes or delays
-- **Requests**: Asking for information, time, or resources
-- **Confirmations**: Acknowledging receipt or confirming details
-
-## Best Practices
-
-- **Subject Lines**: Keep under 50 characters, make them specific and actionable
-- **Opening**: Personalize when possible, reference previous interactions
-- **Body Structure**: Use short paragraphs (2-3 sentences max), bullet points for lists
-- **One Main Point**: Each email should have one primary purpose
-- **Clear CTA**: End with specific next step or call-to-action
-- **Appropriate Length**: Aim for under 200 words for most business emails
-- **Professional Tone**: Match recipient's communication style while staying professional
-- **Proofread**: Check for typos, grammar, and clarity before sending
-- **Timing**: Consider time zones and optimal send times
-- **Mobile-Friendly**: Format should be easily readable on mobile devices
-
-## Tone Guidelines
-
-| Context | Tone | Example Opening |
-|---------|------|-----------------|
-| Cold Outreach | Professional, Value-focused | "I noticed your work on [X] and wanted to reach out..." |
-| Internal Team | Casual, Clear | "Quick update on the project..." |
-| Client Communication | Professional, Helpful | "Thank you for your message regarding..." |
-| Executive Communication | Formal, Concise | "Per our discussion on [topic]..." |
-| Follow-up | Friendly, Persistent | "I wanted to circle back on..." |
-| Apology | Humble, Solution-oriented | "I apologize for the confusion regarding..." |
-
-## Common Pitfalls to Avoid
-
-- **Too Long**: Emails over 300 words rarely get fully read
-- **Buried Lede**: Put the main point in the first paragraph
-- **No Clear Ask**: Always end with what you need from recipient
-- **Generic Greetings**: Personalize when possible
-- **Over-Apologizing**: One sincere apology is enough
-- **Reply-All Abuse**: Only use when truly necessary
-- **Vague Subject**: Be specific about email content
-- **Missing Context**: Don't assume recipient remembers previous conversations
-
-## Usage Examples
-
-### Example 1: Cold Outreach
 ```
-Subject: Quick question about [Company]'s content strategy
+Subject: [Clear, specific subject line]
+
+[Greeting],
+
+[Opening - context/purpose]
+
+[Body - main points]
+
+[Closing - call to action]
+
+[Sign-off]
+[Your name]
+```
+
+## Common email types
+
+### Request for information
+
+```
+Subject: Question about Q4 project timeline
 
 Hi [Name],
 
-I came across your recent article on [topic] and was impressed by your approach to [specific point].
+I hope this email finds you well. I'm reaching out regarding the Q4 product launch timeline.
 
-I'm reaching out because we've developed a tool that helps companies like [Company] streamline their content workflow. I'd love to show you how [specific benefit relevant to their work].
+Could you provide an update on:
+- Current progress on feature development
+- Expected completion date for testing phase
+- Any blockers or dependencies we should be aware of
 
-Would you be open to a quick 15-minute call next week to explore this?
+This will help us coordinate with the marketing team for the launch materials.
+
+Thanks in advance for your help!
 
 Best regards,
 [Your name]
 ```
 
-### Example 2: Internal Update
+### Follow-up email
+
 ```
-Subject: Design sprint update - Week of Jan 6
-
-Team,
-
-Quick update on our progress:
-
-✅ Completed: User research interviews (12/12)
-🏃 In progress: Wireframe iterations for checkout flow
-📅 Next: Prototype testing scheduled for Thursday
-
-Blocker: Still waiting on API specs from backend team.
-
-Let me know if you have questions.
-
-[Your name]
-```
-
-### Example 3: Follow-up Email
-```
-Subject: Following up - Partnership discussion
+Subject: Following up: Proposal for new payment system
 
 Hi [Name],
 
-I wanted to follow up on our conversation from last Tuesday about the potential partnership between our companies.
+I wanted to follow up on the payment system proposal I sent last week. I understand you're busy, so I wanted to make sure it didn't get lost in your inbox.
 
-As discussed, I've attached the proposal outlining our integration timeline and resource requirements. The key highlights:
+To recap, the proposed system would:
+- Reduce transaction fees by 30%
+- Integrate with existing accounting software
+- Improve customer checkout experience
 
-• Go-live target: March 15, 2026
-• Estimated setup time: 2-3 weeks
-• Monthly cost: $X,XXX
+I'd be happy to schedule a brief call to discuss any questions you might have.
 
-Are you available for a brief call this week to discuss next steps?
+Looking forward to hearing from you.
+
+Best,
+[Your name]
+```
+
+### Technical update
+
+```
+Subject: API Maintenance Window - [Date]
+
+Team,
+
+This is a reminder that we'll be performing scheduled maintenance on our API infrastructure on [Date] from [Time] to [Time] [Timezone].
+
+During this window:
+- API endpoints will be unavailable
+- Database will be upgraded to v14
+- SSL certificates will be renewed
+
+Expected downtime: 2 hours
+
+What you need to do:
+- Notify your users of the planned downtime
+- Ensure retry logic is in place for API calls
+- Monitor your application after maintenance completes
+
+If you have any concerns or conflicts with this schedule, please let me know by [Date].
+
+Technical details available in our status page: [link]
 
 Thanks,
 [Your name]
 ```
 
-## Integration Points
+### Customer support
 
-- **CRM Systems**: Draft emails based on contact records and interaction history
-- **Calendar**: Include meeting links and availability
-- **Task Management**: Reference tickets, projects, or action items
-- **Templates Library**: Build and maintain reusable templates
-- **Analytics**: Track open rates and response rates to improve effectiveness
+```
+Subject: Re: Issue with order #12345
+
+Hi [Customer name],
+
+Thank you for reaching out about your order. I'm sorry to hear you're experiencing this issue.
+
+I've looked into your order (#12345) and found the following:
+
+[Explanation of the issue]
+
+To resolve this, I've:
+- [Action taken 1]
+- [Action taken 2]
+
+You should see [expected outcome] within [timeframe].
+
+If you continue to experience any problems, please don't hesitate to reply to this email or call us at [phone number].
+
+We appreciate your patience and understanding.
+
+Best regards,
+[Your name]
+Customer Support Team
+```
+
+### Meeting request
+
+```
+Subject: Meeting request: Discuss database migration strategy
+
+Hi [Name],
+
+I'd like to schedule a meeting to discuss our approach for the upcoming database migration.
+
+Agenda items:
+- Review migration timeline and milestones
+- Discuss rollback strategy
+- Identify potential risks and mitigation plans
+- Assign team responsibilities
+
+Estimated duration: 45 minutes
+
+I'm available:
+- Monday 2-4 PM
+- Wednesday 10 AM - 12 PM
+- Friday 1-3 PM
+
+Please let me know what works best for you, or feel free to suggest alternative times.
+
+Best,
+[Your name]
+```
+
+## Tone guidelines
+
+### Formal tone
+- Use complete sentences
+- Avoid contractions
+- Professional language
+- Proper titles (Dr., Mr., Ms.)
+
+### Casual tone
+- Contractions acceptable
+- Conversational language
+- Still professional
+- First names
+
+### Urgent tone
+- Clear subject line with [URGENT] or [ACTION REQUIRED]
+- Bold key points
+- Explicit deadline
+- Direct call to action
+
+## Subject line best practices
+
+**Good subject lines:**
+- "Action required: Submit timesheet by Friday"
+- "Q4 Sales Report - Review needed"
+- "Meeting rescheduled: Project kickoff now Thursday"
+- "Quick question about deployment process"
+
+**Bad subject lines:**
+- "Update"
+- "Question"
+- "Hello"
+- "Following up"
+
+## Email etiquette
+
+**DO:**
+- Respond within 24 hours (even if just to acknowledge)
+- Use clear, specific subject lines
+- Keep it concise
+- Proofread before sending
+- Include relevant context
+- Use bullet points for multiple items
+- End with clear call to action
+
+**DON'T:**
+- Use ALL CAPS
+- Over-use exclamation marks!!!
+- Mark everything as urgent
+- Reply all unless necessary
+- Send when emotional
+- Include unnecessary recipients
+- Forget attachments mentioned in email
+
+## Templates by scenario
+
+### Decline request politely
+
+```
+Subject: Re: [Original subject]
+
+Hi [Name],
+
+Thank you for thinking of me for [request/opportunity].
+
+Unfortunately, I won't be able to [participate/help/attend] due to [brief reason - optional]. However, I'd recommend [alternative suggestion if applicable].
+
+I appreciate your understanding, and I hope we can collaborate on future opportunities.
+
+Best regards,
+[Your name]
+```
+
+### Apologize for mistake
+
+```
+Subject: Apology and correction: [Issue]
+
+Hi [Name],
+
+I'm writing to apologize for [specific mistake]. This was an error on my part, and I take full responsibility.
+
+To correct this:
+- [Action 1 already taken]
+- [Action 2 in progress]
+- [Preventive measure for future]
+
+I understand this may have caused [impact], and I'm committed to ensuring it doesn't happen again.
+
+If you have any concerns or questions, please don't hesitate to reach out.
+
+Sincerely,
+[Your name]
+```
+
+### Share good news
+
+```
+Subject: Great news: [Achievement/milestone]
+
+Team,
+
+I'm excited to share that we've [accomplished goal]!
+
+This success is thanks to:
+- [Team/person contribution 1]
+- [Team/person contribution 2]
+
+Impact:
+- [Metric improvement]
+- [Business benefit]
+
+Thank you all for your hard work and dedication. Let's keep up the momentum!
+
+Cheers,
+[Your name]
+```
+
+## Closing phrases by context
+
+**Formal:**
+- Sincerely
+- Best regards
+- Respectfully
+- Cordially
+
+**Professional:**
+- Best
+- Thanks
+- Kind regards
+- Regards
+
+**Casual:**
+- Cheers
+- Thanks!
+- Talk soon
+- Best
+
+## Email composition checklist
+
+- [ ] Clear, specific subject line
+- [ ] Appropriate greeting
+- [ ] Purpose stated upfront
+- [ ] Key points organized with bullets/numbers
+- [ ] Clear call to action or next steps
+- [ ] Appropriate tone for audience
+- [ ] Proofread for typos
+- [ ] Attachments included (if mentioned)
+- [ ] Recipients correct (To, CC, BCC)
+- [ ] Professional signature

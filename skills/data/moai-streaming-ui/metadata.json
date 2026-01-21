@@ -1,7 +1,7 @@
 {
   "name": "moai-streaming-ui",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-streaming-ui/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-20T03:30:10.542903Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-streaming-ui/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-21T03:35:48.682945Z"
 }

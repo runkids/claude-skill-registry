@@ -1,7 +1,7 @@
 {
   "name": "triage",
-  "repo": "google/mcp-security",
-  "path": "extensions/google-secops/skills/triage/SKILL.md",
-  "source": "github.com/google/mcp-security",
-  "downloaded_at": "2026-01-20T03:36:25.488908Z"
+  "repo": "Lobbi-Docs/claude",
+  "path": "plugins/jira-orchestrator/skills/triage/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-21T02:58:35.954114Z"
 }

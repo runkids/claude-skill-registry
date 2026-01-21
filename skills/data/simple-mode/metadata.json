@@ -1,7 +1,7 @@
 {
   "name": "simple-mode",
-  "repo": "wtthornton/HomeIQ",
-  "path": ".claude/skills/simple-mode/SKILL.md",
-  "source": "github.com/wtthornton/HomeIQ",
-  "downloaded_at": "2026-01-17T03:24:06.127942Z"
+  "repo": "wtthornton/TappsCodingAgents",
+  "path": "tapps_agents/resources/claude/skills/simple-mode/SKILL.md",
+  "source": "github.com/wtthornton/TappsCodingAgents",
+  "downloaded_at": "2026-01-21T04:13:12.391819Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "redis",
-  "repo": "mgd34msu/goodvibes-plugin",
-  "path": "plugins/goodvibes/skills/webdev/databases-orms/redis/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-plugin",
-  "downloaded_at": "2026-01-20T03:24:05.832867Z"
+  "repo": "Lobbi-Docs/claude",
+  "path": ".claude/skills/redis/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-21T02:58:37.085391Z"
 }

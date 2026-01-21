@@ -1,7 +1,7 @@
 {
   "name": "cto-advisor",
-  "repo": "wildwasser/opencode-agents",
-  "path": ".opencode/skills/cto-advisor/SKILL.md",
-  "source": "github.com/wildwasser/opencode-agents",
-  "downloaded_at": "2026-01-20T03:48:28.848311Z"
+  "repo": "BbgnsurfTech/claude-skills-collection",
+  "path": "community/alirezarezvani-claude-skills/c-level-advisor/cto-advisor/SKILL.md",
+  "source": "github.com/BbgnsurfTech/claude-skills-collection",
+  "downloaded_at": "2026-01-21T02:32:34.745782Z"
 }

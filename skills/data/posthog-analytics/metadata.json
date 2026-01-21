@@ -1,7 +1,7 @@
 {
   "name": "posthog-analytics",
-  "repo": "nicepkg/ai-workflow",
-  "path": "workflows/video-creator-workflow/.claude/skills/posthog-analytics/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-20T03:46:20.829575Z"
+  "repo": "artofrawr/claude-control",
+  "path": "skills/posthog-analytics/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-01-21T04:19:32.766196Z"
 }

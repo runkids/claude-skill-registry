@@ -1,12 +1,7 @@
 {
   "name": "organize-folders",
-  "description": "Provides guidance on organizing folder structures and file system layouts for any project. Use when planning project organization, reorganizing messy directories, setting up folder hierarchies, creati",
   "repo": "philoserf/claude-code-setup",
-  "category": "design",
-  "tags": [
-    "organize",
-    "folders"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/organize-folders/SKILL.md",
+  "source": "github.com/philoserf/claude-code-setup",
+  "downloaded_at": "2026-01-21T01:40:15.396189Z"
 }

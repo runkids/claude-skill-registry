@@ -1,7 +1,7 @@
 {
   "name": "philosophy-compliance-workflow",
-  "repo": "rysweet/azure-tenant-grapher",
-  "path": ".claude/skills/philosophy-compliance-workflow/SKILL.md",
-  "source": "github.com/rysweet/azure-tenant-grapher",
-  "downloaded_at": "2026-01-20T02:13:50.933192Z"
+  "repo": "rysweet/amplihack",
+  "path": "docs/claude/skills/philosophy-compliance-workflow/SKILL.md",
+  "source": "github.com/rysweet/amplihack",
+  "downloaded_at": "2026-01-21T02:52:14.261309Z"
 }

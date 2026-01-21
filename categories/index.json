@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-20T04:08:22.399713Z",
+  "updated_at": "2026-01-21T04:24:32.724736Z",
   "categories": [
     {
       "name": "PRD-to-Tasks",
@@ -7,15 +7,15 @@
     },
     {
       "name": "data",
-      "count": 18397
+      "count": 19439
     },
     {
       "name": "design",
-      "count": 2413
+      "count": 2385
     },
     {
       "name": "development",
-      "count": 7398
+      "count": 7314
     },
     {
       "name": "devops",
@@ -43,7 +43,7 @@
     },
     {
       "name": "productivity",
-      "count": 708
+      "count": 690
     },
     {
       "name": "security",

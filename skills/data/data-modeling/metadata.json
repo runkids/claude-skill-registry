@@ -1,7 +1,7 @@
 {
   "name": "data-modeling",
-  "repo": "SylphxAI/flow",
-  "path": "packages/flow/assets/skills/data-modeling/SKILL.md",
-  "source": "github.com/SylphxAI/flow",
-  "downloaded_at": "2026-01-20T03:58:35.628021Z"
+  "repo": "sylin-org/koan-framework",
+  "path": ".claude/skills/data-modeling/SKILL.md",
+  "source": "github.com/sylin-org/koan-framework",
+  "downloaded_at": "2026-01-21T04:02:46.320710Z"
 }

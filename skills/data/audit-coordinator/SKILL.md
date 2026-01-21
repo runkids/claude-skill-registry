@@ -2,7 +2,7 @@
 name: audit-coordinator
 description: Orchestrates comprehensive audits of Claude Code customizations using specialized auditors. Use when auditing multiple components, asking about naming/organization best practices, or needing thorough validation before deployment.
 allowed-tools: [Read, Glob, Grep, Bash, Skill, Task]
-model: claude-sonnet-4-5-20250929
+# model: inherit
 ---
 
 ## Reference Files
@@ -263,7 +263,7 @@ Consolidate recommendations by priority and provide next steps.
 
 ### Pattern: Single Skill Audit
 
-**User Query**: "Audit my audit-bash skill"
+**User Query**: "Audit my hook-audit skill"
 
 **Workflow**:
 
@@ -415,7 +415,7 @@ When different auditors assign different priorities:
 **Audit a skill**:
 
 ```text
-User: "Audit my audit-bash skill"
+User: "Audit my hook-audit skill"
 Assistant: [Invokes audit-skill, evaluator; compiles report]
 ```
 

@@ -1,7 +1,7 @@
 {
   "name": "sub-agents",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/sub-agents/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-20T01:38:17.385249Z"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/sub-agents/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-21T03:50:01.255687Z"
 }

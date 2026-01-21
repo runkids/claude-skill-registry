@@ -1,7 +1,7 @@
 {
   "name": "security-review",
-  "repo": "troykelly/codex-skills",
-  "path": "skills/security-review/SKILL.md",
-  "source": "github.com/troykelly/codex-skills",
-  "downloaded_at": "2026-01-20T03:45:47.286890Z"
+  "repo": "wtthornton/TappsCodingAgents",
+  "path": "tapps_agents/resources/claude/skills/security-review/SKILL.md",
+  "source": "github.com/wtthornton/TappsCodingAgents",
+  "downloaded_at": "2026-01-21T04:13:12.793037Z"
 }

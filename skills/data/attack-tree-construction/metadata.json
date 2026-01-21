@@ -1,7 +1,7 @@
 {
   "name": "attack-tree-construction",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/attack-tree-construction/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-20T02:53:56.313678Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/security-scanning/skills/attack-tree-construction/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:11:00.481234Z"
 }

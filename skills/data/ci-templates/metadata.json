@@ -1,7 +1,7 @@
 {
   "name": "ci-templates",
-  "repo": "liauw-media/CodeAssist",
-  "path": "skills/workflow/ci-templates/SKILL.md",
-  "source": "github.com/liauw-media/CodeAssist",
-  "downloaded_at": "2026-01-20T02:35:46.907505Z"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/workflow/ci-templates/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-01-21T04:05:47.154289Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "implementing-agent-modes",
-  "repo": "PostHog/posthog",
+  "repo": "PostHog/posthog-foss",
   "path": ".claude/skills/implementing-agent-modes/SKILL.md",
-  "source": "github.com/PostHog/posthog",
-  "downloaded_at": "2026-01-20T01:02:00.412520Z"
+  "source": "github.com/PostHog/posthog-foss",
+  "downloaded_at": "2026-01-21T03:40:43.269033Z"
 }

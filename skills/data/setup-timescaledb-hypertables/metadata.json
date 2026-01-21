@@ -1,7 +1,7 @@
 {
   "name": "setup-timescaledb-hypertables",
-  "repo": "timescale/pg-aiguide",
-  "path": "skills/setup-timescaledb-hypertables/SKILL.md",
-  "source": "github.com/timescale/pg-aiguide",
-  "downloaded_at": "2026-01-20T03:09:11.485464Z"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/postgres-mcp/setup-timescaledb-hypertables/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-21T02:34:51.909887Z"
 }

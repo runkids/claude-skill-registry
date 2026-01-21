@@ -1,7 +1,7 @@
 {
   "name": "vitest-testing",
-  "repo": "WesleySmits/oh-my-brand-wp-fse",
-  "path": ".github/skills/vitest-testing/SKILL.md",
-  "source": "github.com/WesleySmits/oh-my-brand-wp-fse",
-  "downloaded_at": "2026-01-20T03:39:44.943616Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/vitest-testing/skills/vitest-testing/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:43.969230Z"
 }

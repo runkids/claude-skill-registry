@@ -3,27 +3,14 @@ name: moai-system-universal
 description: The ultimate unified development skill combining 25+ programming languages, 9+ BaaS providers, 6+ development functions, and 15+ security capabilities with AI orchestration, Context7 integration, enterprise compliance, and end-to-end project automation
 version: 2.0.0
 modularized: true
-category: system
-aliases:
-  - moai-system-universal
-deprecated_names:
-  moai-system-universal:
-    deprecated_in: v0.32.0
-    remove_in: v0.35.0
-    message: "Use moai-system-universal instead"
-tags:
-  - system
-  - universal
-  - development
-  - languages
-  - baas
+last_updated: 2025-11-30
+compliance_score: 70
+auto_trigger_keywords:
   - security
-  - enterprise
-  - ai-powered
-  - orchestration
-updated: 2025-11-27
-status: active
-author: MoAI-ADK Team
+  - system
+  - testing
+  - universal
+color: red
 ---
 
 # 🚀 MoAI Universal Ultimate: The Complete Development Intelligence Platform

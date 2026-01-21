@@ -1,7 +1,7 @@
 {
   "name": "task-decomposition",
-  "repo": "d-o-hub/rust-self-learning-memory",
-  "path": ".claude/skills/task-decomposition/SKILL.md",
-  "source": "github.com/d-o-hub/rust-self-learning-memory",
-  "downloaded_at": "2026-01-20T01:26:19.435512Z"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/development/quality/task-decomposition/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-21T03:40:38.911718Z"
 }

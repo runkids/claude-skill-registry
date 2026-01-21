@@ -1,7 +1,7 @@
 {
   "name": "pre-commit-hooks",
-  "repo": "liauw-media/CodeAssist",
-  "path": "skills/safety/pre-commit-hooks/SKILL.md",
-  "source": "github.com/liauw-media/CodeAssist",
-  "downloaded_at": "2026-01-20T02:35:47.890705Z"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/safety/pre-commit-hooks/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-01-21T04:05:47.638974Z"
 }

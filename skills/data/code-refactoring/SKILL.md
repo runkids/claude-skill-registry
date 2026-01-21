@@ -1,209 +1,115 @@
 ---
 name: code-refactoring
-description: Code refactoring patterns and techniques for improving code quality without changing behavior. Use for cleaning up legacy code, reducing complexity, or improving maintainability.
-source: wshobson/agents
-license: MIT
+description: Expert refactoring orchestrator for large-scale code changes with change tracking. Use when (1) renaming/moving files or directories, (2) restructuring database schemas, (3) refactoring APIs or Edge Functions, (4) splitting/merging components, (5) querying what changed in a system ("what critical changes were made to subscription system?"). Maintains changelog for docs-updater sync.
 ---
 
-# Code Refactoring
+# Code Refactoring Wizard
 
-## Refactoring Principles
+Orchestrate large-scale refactoring with change tracking. Uses `code-wizard` for discovery.
 
-### When to Refactor
-- Before adding new features (make change easy, then make easy change)
-- After getting tests passing (red-green-refactor)
-- When you see code smells
-- During code review feedback
+## Context Files
 
-### When NOT to Refactor
-- Without tests covering the code
-- Under tight deadlines with no safety net
-- Code that will be replaced soon
-- When you don't understand what the code does
+For structure and conventions, read from `Docs/context/`:
+- `Docs/context/conventions.md` - Architecture rules, refactor guidelines
+- `Docs/context/repo-structure.md` - Where to place files
+- `Docs/context/packages-map.md` - Package boundaries
 
-## Common Code Smells
+## Changelog Location
 
-### Long Methods
-```typescript
-// BEFORE: Method doing too much
-function processOrder(order: Order) {
-  // 100 lines of validation, calculation, notification, logging...
-}
+**All significant changes logged to:** `Docs/ai/CHANGELOG.md`
 
-// AFTER: Extract into focused methods
-function processOrder(order: Order) {
-  validateOrder(order);
-  const total = calculateTotal(order);
-  saveOrder(order, total);
-  notifyCustomer(order);
-}
+This file is monitored by `docs-updater` skill for documentation sync.
+
+## Change Categories
+
+| Category | Tag | Example |
+|----------|-----|---------|
+| Schema | `[SCHEMA]` | New table, column rename, migration |
+| Structure | `[STRUCTURE]` | File/folder move, directory reorganization |
+| API | `[API]` | RPC signature change, Edge Function update |
+| Breaking | `[BREAKING]` | Removed feature, renamed export |
+| Component | `[COMPONENT]` | React component split/merge |
+| Dependency | `[DEPS]` | Package upgrade, new import |
+
+## Workflow
+
+### 1. Discover (use code-wizard)
+
+```
+/code-wizard "find all usages of ai_plan_quotas table"
+/code-wizard "where is subscription logic implemented"
 ```
 
-### Deeply Nested Conditionals
-```typescript
-// BEFORE: Arrow code
-function getDiscount(user: User, order: Order) {
-  if (user) {
-    if (user.isPremium) {
-      if (order.total > 100) {
-        if (order.items.length > 5) {
-          return 0.2;
-        }
-      }
-    }
-  }
-  return 0;
-}
+### 2. Plan
 
-// AFTER: Early returns (guard clauses)
-function getDiscount(user: User, order: Order) {
-  if (!user) return 0;
-  if (!user.isPremium) return 0;
-  if (order.total <= 100) return 0;
-  if (order.items.length <= 5) return 0;
-  return 0.2;
-}
+- Current state → Target state
+- Migration path
+- Rollback strategy
+- Affected files list
+
+### 3. Execute
+
+Order: Database → Backend → Frontend → Tests
+
+### 4. Log to CHANGELOG.md
+
+```markdown
+## 2026-01-08 - Subscription System Refactor
+
+### [SCHEMA] Replace per-feature quotas with token pools
+
+**Before:**
+- `ai_plan_quotas` table (40+ rows)
+- Per-feature token limits
+
+**After:**
+- `subscription_plans` table
+- `token_pools` table
+- `ai_operations` table
+
+**Impact:**
+- Files: 15 | Migration: Yes | Breaking: Yes
+
+**Related:** #20260108_token_pool_system
 ```
 
-### Primitive Obsession
-```typescript
-// BEFORE: Primitives everywhere
-function createUser(name: string, email: string, phone: string) {
-  if (!email.includes('@')) throw new Error('Invalid email');
-  // more validation...
-}
+### 5. Sync Docs
 
-// AFTER: Value objects
-class Email {
-  constructor(private value: string) {
-    if (!value.includes('@')) throw new Error('Invalid email');
-  }
-  toString() { return this.value; }
-}
-
-function createUser(name: string, email: Email, phone: Phone) {
-  // Email is already validated
-}
+```
+/docs-updater "sync changelog to API docs"
 ```
 
-### Feature Envy
-```typescript
-// BEFORE: Method uses another object's data extensively
-function calculateShipping(order: Order) {
-  const address = order.customer.address;
-  const weight = order.items.reduce((sum, i) => sum + i.weight, 0);
-  const distance = calculateDistance(address.zip);
-  return weight * distance * 0.01;
-}
+## Query Changes
 
-// AFTER: Move method to where the data is
-class Order {
-  calculateShipping() {
-    return this.totalWeight * this.customer.shippingDistance * 0.01;
-  }
-}
+To answer "what changed in X system":
+
+1. Read `Docs/ai/CHANGELOG.md`
+2. Filter by date/category/system
+3. Summarize
+
+Example response:
+```
+## Subscription System Changes (Jan 2026)
+
+1. [SCHEMA] Token pool migration (Jan 8)
+   - Replaced ai_plan_quotas → unified token system
+   - 15 files, breaking
+
+2. [API] New check_token_balance RPC (Jan 8)
+   - User token balance endpoint
+   - Non-breaking
 ```
 
-## Refactoring Techniques
+## Related Skills
 
-### Extract Method
-```typescript
-// Identify a code block that does one thing
-// Move it to a new method with a descriptive name
-// Replace original code with method call
+| Skill | Use For |
+|-------|---------|
+| `code-wizard` | Find code before refactoring |
+| `docs-updater` | Sync docs after changelog |
+| `supabase-migration-writer` | Database migrations |
+| `admin-panel-builder` | Admin page refactoring |
 
-function printReport(data: ReportData) {
-  // Extract this block...
-  const header = `Report: ${data.title}\nDate: ${data.date}\n${'='.repeat(40)}`;
-  console.log(header);
+## References
 
-  // ...into a method
-  printHeader(data);
-}
-```
-
-### Replace Conditional with Polymorphism
-```typescript
-// BEFORE: Switch on type
-function getArea(shape: Shape) {
-  switch (shape.type) {
-    case 'circle': return Math.PI * shape.radius ** 2;
-    case 'rectangle': return shape.width * shape.height;
-    case 'triangle': return shape.base * shape.height / 2;
-  }
-}
-
-// AFTER: Polymorphic classes
-interface Shape {
-  getArea(): number;
-}
-
-class Circle implements Shape {
-  constructor(private radius: number) {}
-  getArea() { return Math.PI * this.radius ** 2; }
-}
-
-class Rectangle implements Shape {
-  constructor(private width: number, private height: number) {}
-  getArea() { return this.width * this.height; }
-}
-```
-
-### Introduce Parameter Object
-```typescript
-// BEFORE: Too many parameters
-function searchProducts(
-  query: string,
-  minPrice: number,
-  maxPrice: number,
-  category: string,
-  inStock: boolean,
-  sortBy: string,
-  sortOrder: string
-) { ... }
-
-// AFTER: Parameter object
-interface SearchParams {
-  query: string;
-  priceRange: { min: number; max: number };
-  category?: string;
-  inStock?: boolean;
-  sort?: { by: string; order: 'asc' | 'desc' };
-}
-
-function searchProducts(params: SearchParams) { ... }
-```
-
-### Replace Magic Numbers with Constants
-```typescript
-// BEFORE
-if (user.age >= 18 && order.total >= 50) {
-  applyDiscount(order, 0.1);
-}
-
-// AFTER
-const MINIMUM_AGE = 18;
-const DISCOUNT_THRESHOLD = 50;
-const STANDARD_DISCOUNT = 0.1;
-
-if (user.age >= MINIMUM_AGE && order.total >= DISCOUNT_THRESHOLD) {
-  applyDiscount(order, STANDARD_DISCOUNT);
-}
-```
-
-## Safe Refactoring Process
-
-1. **Ensure tests exist** - Write tests if they don't
-2. **Make small changes** - One refactoring at a time
-3. **Run tests after each change** - Catch regressions immediately
-4. **Commit frequently** - Easy to revert if something breaks
-5. **Review the diff** - Make sure behavior hasn't changed
-
-## Refactoring Checklist
-
-- [ ] Tests pass before starting
-- [ ] Each change is small and focused
-- [ ] Tests pass after each change
-- [ ] No behavior changes (only structure)
-- [ ] Code is more readable than before
-- [ ] Commit message explains the refactoring
+- **Refactoring patterns**: See [references/patterns.md](references/patterns.md)
+- **Changelog examples**: See [references/changelog-examples.md](references/changelog-examples.md)

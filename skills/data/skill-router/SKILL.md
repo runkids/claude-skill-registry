@@ -1,333 +1,215 @@
 ---
 name: skill-router
-description: Analyzes tasks to find the optimal workflow of skills, presents the recommended sequence with rationale, and lets user approve/modify before execution. Use when starting any complex task, wanting help finding the right tools, or needing a structured approach.
+description: Intelligently routes user requests to the most appropriate Claude Code skill. ALWAYS use this skill FIRST when user asks for help, mentions "skill", "which", "how to", or seems unsure about which approach to take. This is the default entry point for all skill-related requests.
+allowed-tools: Read, AskUserQuestion, WebSearch, Grep
 ---
 
 # Skill Router
 
-Analyze tasks and recommend optimal skill workflows.
+An intelligent router that analyzes user requests and recommends the most appropriate Claude Code skill for the task.
 
-## How It Works
+## When This Skill Activates
 
-1. **Analyze the task** - Understand what user is trying to accomplish
-2. **Match to workflow pattern** - Find best skill sequence for the task type
-3. **Present with rationale** - Explain why each skill and in what order
-4. **Let user modify** - Accept, modify, or skip to specific step
-5. **Execute sequentially** - Run skills in order, passing context between them
+This skill activates when you:
+- Ask "which skill should I use?" or "what skill can help with...?"
+- Say "use a skill" without specifying which one
+- Express a need but aren't sure which skill fits
+- Mention "skill router" or "help me find a skill"
 
-## Workflow Pattern Library
+## Available Skills Catalog
 
-### Design & UI
+### Core Development
 
-| Task Type | Workflow | When to Use |
-|-----------|----------|-------------|
-| **Design from reference** | `ai-multimodal` → `brainstorming` → `writing-plans` → `aesthetic` → `frontend-design` → `code-review` | User has a screenshot/reference they want to build from |
-| **Build UI from scratch** | `brainstorming` → `writing-plans` → `frontend-design` → `code-review` | Building new UI without reference |
-| **Improve existing UI** | `chrome-devtools` (screenshot) → `ai-multimodal` → `aesthetic` → `frontend-design` | Enhancing current design |
-| **Design system work** | `aesthetic` → `frontend-development` → `code-review` | Component libraries, tokens, themes |
+| Skill | Best For |
+|-------|----------|
+| `commit-helper` | Writing Git commit messages, formatting commits |
+| `code-reviewer` | Reviewing PRs, code changes, quality checks |
+| `debugger` | Diagnosing bugs, errors, unexpected behavior |
+| `refactoring-specialist` | Improving code structure, reducing technical debt |
 
-### Development
+### Design & UX
 
-| Task Type | Workflow | When to Use |
-|-----------|----------|-------------|
-| **New feature** | `brainstorming` → `writing-plans` → `executing-plans` → `code-review` | Adding significant functionality |
-| **API development** | `brainstorming` → `backend-development` → `code-review` | Building APIs, services |
-| **Research & build** | `docs-seeker` → `brainstorming` → `writing-plans` → `executing-plans` | Need to learn before implementing |
-| **Quick implementation** | `writing-plans` → `executing-plans` | Clear requirements, just need to build |
+| Skill | Best For |
+|-------|----------|
+| `figma-designer` | Analyzing Figma designs and producing implementation-ready visual specs/PRDs |
 
-### Debugging & Quality
+### Documentation & Testing
 
-| Task Type | Workflow | When to Use |
-|-----------|----------|-------------|
-| **Bug fixing** | `systematic-debugging` → `code-review` | Finding and fixing bugs |
-| **Flaky tests** | `systematic-debugging` → `condition-based-waiting` → `code-review` | Tests pass sometimes, fail others |
-| **Performance issues** | `chrome-devtools` → `systematic-debugging` → `code-review` | Slow app, need profiling |
-| **Security review** | `code-review` → `defense-in-depth` | Checking for vulnerabilities |
+| Skill | Best For |
+|-------|----------|
+| `documentation-engineer` | Writing README, technical docs, code documentation |
+| `api-documenter` | Creating OpenAPI/Swagger specifications |
+| `test-automator` | Writing tests, setting up test frameworks |
+| `qa-expert` | Test strategy, quality gates, QA processes |
 
-### Content & Documentation
+### Architecture & DevOps
 
-| Task Type | Workflow | When to Use |
-|-----------|----------|-------------|
-| **Content creation** | `content-research-writer` | Writing articles, docs with research |
-| **LLM prompts** | `prompt-engineering` | Writing prompts for AI systems |
-| **Technical docs** | `docs-seeker` → `content-research-writer` | Documentation with research |
+| Skill | Best For |
+|-------|----------|
+| `api-designer` | Designing REST/GraphQL APIs, API architecture |
+| `security-auditor` | Security audits, vulnerability reviews, OWASP Top 10 |
+| `performance-engineer` | Performance optimization, speed analysis |
+| `deployment-engineer` | CI/CD pipelines, deployment automation |
 
-### Infrastructure
+### Planning & Analysis
 
-| Task Type | Workflow | When to Use |
-|-----------|----------|-------------|
-| **Deploy app** | `devops` | Cloudflare, Docker, GCP deployment |
-| **Database work** | `databases` | MongoDB, PostgreSQL operations |
-| **MCP server** | `mcp-builder` → `code-review` | Building MCP integrations |
-| **MCP tools** | `mcp-management` | Discovering/using existing MCP tools |
+| Skill | Best For |
+|-------|----------|
+| `architecting-solutions` | Creating PRDs, solution design, requirements analysis |
+| `planning-with-files` | Multi-step task planning, persistent file-based organization |
+| `self-improving-agent` | Universal self-improvement that learns from all skill experiences |
 
-## Task Recognition Signals
+## Routing Process
 
-Look for these keywords to identify task type:
+### Step 1: Intent Analysis
 
-| Keywords | Task Type |
-|----------|-----------|
-| "screenshot", "like this", "reference", "inspiration", "similar to" | Design from reference |
-| "UI", "component", "page", "interface", "design" | Build UI |
-| "bug", "error", "broken", "not working", "fix" | Bug fixing |
-| "flaky", "sometimes fails", "intermittent" | Flaky tests |
-| "slow", "performance", "optimize", "speed" | Performance issues |
-| "feature", "add", "implement", "build" | New feature |
-| "API", "endpoint", "backend", "server" | API development |
-| "how to", "docs", "documentation", "learn" | Research & build |
-| "write", "article", "content", "blog" | Content creation |
-| "prompt", "LLM", "Claude", "GPT" | LLM prompts |
-| "deploy", "hosting", "production" | Deploy app |
-| "database", "query", "migration" | Database work |
-| "MCP", "tool", "integration" | MCP work |
+Analyze the user's request to identify:
+- **Task Type**: What does the user want to accomplish?
+- **Context**: What is the working domain (web, mobile, data, etc.)?
+- **Complexity**: Is this a simple task or complex workflow?
 
-## Presenting the Workflow
+### Step 2: Skill Matching
 
-Use `AskUserQuestion` to present the recommended workflow:
+Match the identified intent to the most relevant skill(s) using:
+- **Keyword matching**: Compare request keywords with skill descriptions
+- **Semantic similarity**: Understand the meaning behind the request
+- **Context awareness**: Consider project state and previous actions
+
+### Step 3: Interactive Clarification
+
+If the request is ambiguous, guide the user with targeted questions:
+- What is the primary goal?
+- What type of output is expected?
+- Are there specific constraints or preferences?
+
+### Step 4: Recommendation & Execution
+
+Present the recommended skill with:
+- Skill name and brief description
+- Why it fits the current request
+- Option to proceed or ask for alternatives
+
+## Routing Examples
+
+### Example 1: Clear Intent
+
+**User:** "I need to review this pull request"
+
+**Router Analysis:**
+- Keywords: "review", "pull request"
+- Intent: Code review
+- **Recommendation:** `code-reviewer`
+
+### Example 2: Ambiguous Intent
+
+**User:** "Use a skill to help with my project"
+
+**Router Questions:**
+1. What type of task are you working on?
+2. Are you designing, coding, testing, or documenting?
+
+Based on answers → Recommend appropriate skill
+
+### Example 3: Multi-Skill Scenario
+
+**User:** "I'm building a new API and need help with the full workflow"
+
+**Router Recommendation:**
+Consider using multiple skills in sequence:
+1. `api-designer` - Design the API structure
+2. `api-documenter` - Document endpoints with OpenAPI
+3. `test-automator` - Set up API tests
+4. `code-reviewer` - Review implementation
+
+## Interactive Question Templates
+
+When user intent is unclear, use these question patterns:
+
+### Goal Clarification
+- "What are you trying to accomplish with this task?"
+- "What would the ideal outcome look like?"
+
+### Domain Identification
+- "What area does this relate to: development, testing, documentation, or deployment?"
+- "Are you working on code, APIs, infrastructure, or something else?"
+
+### Stage Assessment
+- "What stage are you at: planning, implementing, testing, or maintaining?"
+
+### Preference Confirmation
+- "Do you want a quick solution or a comprehensive approach?"
+- "Are there specific tools or frameworks you're using?"
+
+## Best Practices
+
+### 1. Start Broad, Then Narrow
+- Begin with general category questions
+- Drill down into specifics based on responses
+
+### 2. Explain Your Reasoning
+- Tell the user why a particular skill is recommended
+- Build trust through transparency
+
+### 3. Offer Alternatives
+- Present the top recommendation
+- Mention 1-2 alternatives if applicable
+
+### 4. Handle Edge Cases
+- If no skill fits perfectly, suggest the closest match
+- Offer to help without a specific skill if better
+
+### 5. Learn from Context
+- Consider previous interactions
+- Remember user preferences for future routing
+
+## Advanced Routing Patterns
+
+### Semantic Routing
+Use semantic similarity when keywords don't match directly:
+- "clean up my code" → `refactoring-specialist`
+- "make my app faster" → `performance-engineer`
+- "check for security issues" → `security-auditor`
+
+### Multi-Skill Orchestrations
+Suggest skill combinations for complex workflows:
+- **New Feature**: `architecting-solutions` → `debugger` → `code-reviewer`
+- **API Project**: `api-designer` → `api-documenter` → `test-automator`
+- **Production Readiness**: `security-auditor` → `performance-engineer` → `deployment-engineer`
+
+### Confidence Levels
+Indicate confidence in recommendations:
+- **High**: Direct keyword match, clear intent
+- **Medium**: Semantic similarity, reasonable inference
+- **Low**: Ambiguous request, clarification needed
+
+## Error Recovery
+
+If the recommended skill doesn't fit:
+1. Acknowledge the mismatch
+2. Ask follow-up questions to refine understanding
+3. Provide alternative recommendations
+4. Fall back to general assistance if needed
+
+## Output Format
+
+When recommending a skill, use this format:
 
 ```markdown
-**Recommended Workflow for:** [task description]
+## Recommended Skill: {skill-name}
 
-1. **[skill-name]** - [what it does for this task]
-2. **[skill-name]** - [what it does for this task]
-3. **[skill-name]** - [what it does for this task]
+{brief description of why this skill fits}
 
-**Why this order:** [brief rationale]
+**What it does:** {one-sentence skill description}
+
+**Best for:** {specific use cases}
+
+---
+
+Would you like me to activate this skill, or would you prefer to see other options?
 ```
 
-**Question format:**
-- header: "Workflow"
-- multiSelect: false
-- options:
-  - "Accept workflow" - Run all steps in sequence
-  - "Modify workflow" - Let me adjust the steps
-  - "Skip to step" - Jump to a specific skill
-  - "Just show skills" - Show individual options instead
+## References
 
-## Workflow Execution
-
-When user accepts:
-1. **Run Mandatory Quality Gate first** - Think through data flow, async, race conditions
-2. Invoke first skill
-3. After completion, pass relevant context to next skill
-4. Continue through workflow
-5. **Self-roast before claiming done** - Actively try to break your own code
-6. Offer to run `code-review` at end if not included
-
-When user wants to modify:
-1. Present all skills in workflow as multiSelect list
-2. Let them remove/reorder
-3. Ask if they want to add any other skills
-4. Execute modified workflow
-
-## Context Passing
-
-Maintain a workflow context that includes:
-- Original task description
-- Outputs/decisions from each completed skill
-- Any user feedback during execution
-
-Pass this context when invoking each skill so they build on previous work.
-
-## Rules
-
-- **Always present workflow first** - Never auto-execute without approval
-- **Explain the rationale** - Help user understand why this sequence
-- **Allow modification** - User knows their needs best
-- **Pass context forward** - Each skill should know what came before
-- **Offer code-review** - Suggest at end of any coding workflow
-- **Handle unknowns** - If task doesn't match patterns, ask clarifying questions first
-- **⚠️ MANDATORY: Run Quality Gate** - Before ANY code, think through data/async/race conditions
-- **⚠️ MANDATORY: Self-Roast** - Before claiming done, actively try to break your code
-- **No half-assed work** - If you find issues, fix them. Don't ship with known problems.
-
-## Google-Engineer Production Checklist (MANDATORY)
-
-**Every implementation MUST include solutions for ALL of these:**
-
-| Concern | Required Solution |
-|---------|-------------------|
-| **DRY Violations** | Centralized config modules for any value used in 2+ places |
-| **Error Handling** | Error boundaries (React), try-catch with proper logging, graceful degradation |
-| **Loading States** | Skeleton loaders that match content structure (NOT spinners) |
-| **User Feedback** | Toast/notification for ALL mutations (success AND failure) |
-| **Optimistic Updates** | TanStack Query pattern with snapshot/rollback for instant UX |
-| **Mobile UX** | Min 44px touch targets, responsive grids, thumb-zone placement |
-| **Type Safety** | Strict TypeScript, Zod validation at boundaries, no `any` |
-| **Testing** | E2E tests for critical paths, unit tests for business logic |
-| **Accessibility** | ARIA labels, keyboard navigation, color contrast |
-| **Performance** | Lazy loading, code splitting, memoization where needed |
-
-**Defensive Programming Patterns:**
-- Validate inputs at system boundaries (API routes, form submissions)
-- Never trust client data on the server
-- Use TypeScript strict mode
-- Prefer immutable updates
-- Handle null/undefined explicitly
-- Log errors with context (not just the error message)
-
----
-
-## Mandatory Quality Gate (ALL TASKS)
-
-**⚠️ THIS IS NOT OPTIONAL - APPLIES TO EVERY TASK, EVERY FIX, EVERY FEATURE**
-
-**BEFORE writing ANY code, ask yourself:**
-
-1. **Understand the data flow**
-   - Where does the data come from?
-   - What updates the data?
-   - What depends on fresh data?
-
-2. **Check async/await ordering**
-   - Does this code depend on data that's fetched asynchronously?
-   - Am I updating UI state BEFORE or AFTER the data is ready?
-   - Will the user see stale data flash before the update?
-
-3. **Race condition checklist**
-   - Can the user trigger this action multiple times rapidly?
-   - What happens if async operation A completes after operation B started?
-   - Is there shared state that could be corrupted?
-
-4. **State timing questions**
-   - When I call `setState`, what data will the next render see?
-   - Am I reading from state that was JUST updated (it won't be fresh yet)?
-   - Should I `await` something before showing UI?
-
-**Red flags that indicate duct tape:**
-- "It works but might flash wrong data briefly" → NOT DONE
-- "The data updates on the next render" → FIX THE ORDERING
-- "User just needs to refresh" → BUILD IT PROPERLY
-- "Works if you don't click too fast" → HANDLE THE RACE CONDITION
-- Setting state then immediately reading from array that state updates → AWAIT FIRST
-
-**Proper pattern for UI that depends on fresh data:**
-```typescript
-// WRONG - duct tape
-doAsyncThing();
-setShowModal(true); // Modal sees stale data
-
-// RIGHT - proper
-await doAsyncThing();
-setShowModal(true); // Modal sees fresh data
-```
-
----
-
-## Self-Roast Protocol (MANDATORY BEFORE "DONE")
-
-**After implementing ANY change, BEFORE claiming it's done:**
-
-1. **Actively try to break it** - Don't just test the happy path
-   - What if user clicks twice rapidly?
-   - What if the network is slow?
-   - What if data is missing/null?
-   - What if user does things out of order?
-
-2. **Question your assumptions**
-   - "Will this always be true?" (probably not)
-   - "What if this state is stale?"
-   - "What happens on first load vs subsequent loads?"
-
-3. **Roast your own code**
-   - Look at what you wrote and ask: "What's wrong with this?"
-   - If you can't find anything wrong, you're not looking hard enough
-   - Pretend a senior dev is reviewing - what would they critique?
-
-4. **Check these specific things:**
-   - [ ] Async operations complete before dependent code runs
-   - [ ] State updates are awaited before UI reads from them
-   - [ ] Error cases are handled (not just logged)
-   - [ ] Loading states exist where needed
-   - [ ] User can't break it with rapid clicks
-   - [ ] Works on first load, not just after refresh
-
-**If you find issues during self-roast → FIX THEM FIRST**
-
-Don't tell the user "it works" and then list caveats. Fix the caveats.
-
----
-
-## Build It Right Protocol
-
-**BEFORE starting any feature implementation:**
-
-1. **Define "done"** - Write a brief spec listing all user-facing touchpoints:
-   - What can users CREATE?
-   - What can users READ/VIEW?
-   - What can users UPDATE?
-   - What can users DELETE?
-   - What can users CONFIGURE?
-
-2. **Ask clarifying questions** - If any part is ambiguous, ask BEFORE coding:
-   - "Should users be able to view X later?"
-   - "How should users configure this?"
-   - "What happens when Y occurs?"
-
-3. **Get approval on the spec** - Present the full scope and confirm before implementing
-
-**DURING implementation:**
-
-4. **No duct tape** - If you find yourself saying:
-   - "You can run this SQL command to..." → Build the UI instead
-   - "We can add that later..." → Add it now or explicitly descope it
-   - "For now, just..." → Either do it properly or don't do it
-
-5. **Complete the loop** - Every feature needs:
-   - The core functionality
-   - A way to view/access it
-   - A way to configure it (if applicable)
-   - Error handling for edge cases
-
-**AFTER implementation:**
-
-6. **Verify completeness** - Answer these before marking done:
-   - "What can a user do now that they couldn't before?"
-   - "Walk me through the complete user flow"
-   - "Is there any manual step required?" (if yes, not done)
-
-7. **Never claim "done" if:**
-   - Tests are failing
-   - Implementation is partial
-   - Any workarounds are required
-   - Configuration requires raw SQL/CLI commands
-
-## Fallback: Individual Skill Selection
-
-If user prefers to pick individual skills or task doesn't match patterns:
-
-### Skill Categories
-
-**Development & Coding**
-- `frontend-design` - Production-grade UI with high design quality
-- `frontend-development` - React/TypeScript patterns, performance
-- `backend-development` - APIs, databases, auth, microservices
-- `code-review` - Security, quality, best practices
-- `systematic-debugging` - Root cause analysis and fixes
-
-**Planning & Thinking**
-- `brainstorming` - Refine ideas through collaborative questioning
-- `writing-plans` - Design implementation strategies
-- `executing-plans` - Execute plans in controlled batches
-
-**Design & Media**
-- `aesthetic` - Beautiful interfaces, design principles
-- `canvas-design` - Posters, art, static visual designs
-- `ai-multimodal` - Analyze/generate audio, video, images, PDFs
-- `chrome-devtools` - Browser automation, screenshots
-
-**Testing & Quality**
-- `webapp-testing` - End-to-end testing
-- `condition-based-waiting` - Fix flaky tests
-- `defense-in-depth` - Multi-layer validation
-
-**Documentation & Research**
-- `docs-seeker` - Find technical docs
-- `prompt-engineering` - Write LLM prompts
-- `content-research-writer` - Research and write with citations
-
-**Infrastructure & Tools**
-- `mcp-builder` - Create MCP servers
-- `mcp-management` - Discover/execute MCP tools
-- `devops` - Cloudflare, Docker, GCP
-- `databases` - MongoDB, PostgreSQL
+- [AI Agent Routing: Tutorial & Best Practices](https://www.patronus.ai/ai-agent-development/ai-agent-routing)
+- [Intent Recognition and Auto-Routing in Multi-Agent Systems](https://gist.github.com/mkbctrl/a35764e99fe0c8e8c00b2358f55cd7fa)
+- [Multi-LLM Routing Strategies (AWS)](https://aws.amazon.com/blogs/machine-learning/multi-llm-routing-strategies-for-generative-ai-applications-on-aws/)

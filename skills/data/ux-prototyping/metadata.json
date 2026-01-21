@@ -1,9 +1,7 @@
 {
   "name": "ux-prototyping",
-  "description": "Create interactive single-file HTML prototypes for UX validation. Use when the user asks to create a prototype, mockup, or interactive wireframe based on specs/architecture/ux.md or any UX specificati",
-  "repo": "Emz1998/avaris-ai",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "profmikegreene/gotei",
+  "path": "Gotei_Skills/ux-prototyping/SKILL.md",
+  "source": "github.com/profmikegreene/gotei",
+  "downloaded_at": "2026-01-21T02:40:06.421145Z"
 }

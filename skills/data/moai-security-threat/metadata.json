@@ -1,7 +1,7 @@
 {
   "name": "moai-security-threat",
-  "repo": "dolsoon/my-awesome-project",
-  "path": ".claude/skills/moai-security-threat/SKILL.md",
-  "source": "github.com/dolsoon/my-awesome-project",
-  "downloaded_at": "2026-01-20T02:33:59.269243Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-security-threat/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-21T03:35:42.665942Z"
 }

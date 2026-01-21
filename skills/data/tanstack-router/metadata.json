@@ -1,7 +1,7 @@
 {
   "name": "tanstack-router",
-  "repo": "Squirrelfishcityhall150/claude-code-kit",
-  "path": "cli/kits/tanstack-router/skills/tanstack-router/SKILL.md",
-  "source": "github.com/Squirrelfishcityhall150/claude-code-kit",
-  "downloaded_at": "2026-01-20T04:05:19.424087Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/tanstack-router/skills/tanstack-router/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:44.957939Z"
 }

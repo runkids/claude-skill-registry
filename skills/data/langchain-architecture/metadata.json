@@ -1,7 +1,7 @@
 {
   "name": "langchain-architecture",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/langchain-architecture/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-20T03:11:33.836710Z"
+  "repo": "apassuello/multimodal_insight_engine",
+  "path": ".claude/skills/langchain-architecture/SKILL.md",
+  "source": "github.com/apassuello/multimodal_insight_engine",
+  "downloaded_at": "2026-01-21T04:21:29.068224Z"
 }

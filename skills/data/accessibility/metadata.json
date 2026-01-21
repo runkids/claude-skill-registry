@@ -1,7 +1,7 @@
 {
   "name": "accessibility",
-  "repo": "dralgorhythm/claude-agentic-framework",
-  "path": ".claude/skills/design/accessibility/SKILL.md",
-  "source": "github.com/dralgorhythm/claude-agentic-framework",
-  "downloaded_at": "2026-01-20T02:14:36.550238Z"
+  "repo": "cosmix/loom",
+  "path": "skills/accessibility/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-21T03:13:37.335924Z"
 }

@@ -1,609 +1,520 @@
 ---
 name: performance-optimization
-description: Expert guide for optimizing Next.js performance - images, fonts, code splitting, caching, and Core Web Vitals. Use when improving load times or debugging performance issues.
+description: Master perceived performance through optimistic UI, skeleton screens, and latency strategies. Learn the difference between actual and perceived latency. Use when optimizing load times, designing loading states, or improving user confidence during operations.
 ---
 
-# Performance Optimization Skill
+# Performance Optimization: Perceived vs Actual Latency
 
 ## Overview
 
-This skill helps you optimize your Next.js application for maximum performance. From image optimization to code splitting, this covers all the techniques you need to achieve excellent Core Web Vitals scores.
+**Perceived latency is more important than actual latency.** A 3-second operation that feels instant is better than a 1-second operation that feels slow. This skill teaches you to optimize how fast your interface *feels*, not just how fast it actually is.
 
-## Core Web Vitals
+## Core Principle: The Linear Method
 
-### 1. Largest Contentful Paint (LCP)
-Target: < 2.5s
+The "Linear Method" popularized by Linear.com prioritizes a steady cadence of quality over frantic sprints. Applied to performance, this means:
 
-**Optimize:**
-- Use `next/image` for images
-- Implement proper caching
-- Use CDN for static assets
-- Optimize server response time
-- Reduce render-blocking resources
+**Speed is a feature, but perceived speed is the ultimate UX.**
 
-### 2. First Input Delay (FID) / Interaction to Next Paint (INP)
-Target: < 100ms / < 200ms
+When a user creates a task, the UI should show it as created *instantly*. The network request happens in the background. If it fails, the UI gracefully rolls back. This pattern builds trust—users know the system will handle the details.
 
-**Optimize:**
-- Minimize JavaScript execution
-- Code split large bundles
-- Use Web Workers for heavy tasks
-- Defer non-critical JavaScript
-- Optimize event handlers
+## Actual vs Perceived Latency
 
-### 3. Cumulative Layout Shift (CLS)
-Target: < 0.1
+### Actual Latency
 
-**Optimize:**
-- Set image dimensions
-- Reserve space for ads
-- Avoid inserting content above existing content
-- Use `transform` instead of layout properties
-
-## Image Optimization
-
-### Next.js Image Component
-```typescript
-import Image from 'next/image'
-
-// ✅ Optimized
-export function OptimizedImage() {
-  return (
-    <Image
-      src="/hero.jpg"
-      alt="Hero image"
-      width={1200}
-      height={600}
-      priority  // For above-fold images
-      quality={85}  // Default: 75
-      placeholder="blur"
-      blurDataURL="data:image/..." // Or import for static
-    />
-  )
-}
-
-// For external images, configure domains
-// next.config.js
-module.exports = {
-  images: {
-    domains: ['example.com'],
-    // Or use remotePatterns for more control
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.example.com',
-      },
-    ],
-  },
-}
-```
-
-### Responsive Images
-```typescript
-<Image
-  src="/hero.jpg"
-  alt="Hero"
-  fill
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-  style={{ objectFit: 'cover' }}
-  priority
-/>
-```
-
-### Image Formats
-```typescript
-// next.config.js
-module.exports = {
-  images: {
-    formats: ['image/avif', 'image/webp'],
-  },
-}
-```
-
-## Font Optimization
-
-### Using next/font
-```typescript
-// app/layout.tsx
-import { Inter, Roboto_Mono } from 'next/font/google'
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-})
-
-const robotoMono = Roboto_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-roboto-mono',
-})
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en" className={`${inter.variable} ${robotoMono.variable}`}>
-      <body className="font-sans">{children}</body>
-    </html>
-  )
-}
-
-// tailwind.config.js
-module.exports = {
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['var(--font-inter)'],
-        mono: ['var(--font-roboto-mono)'],
-      },
-    },
-  },
-}
-```
-
-### Local Fonts
-```typescript
-import localFont from 'next/font/local'
-
-const customFont = localFont({
-  src: './fonts/custom-font.woff2',
-  display: 'swap',
-  variable: '--font-custom',
-})
-```
-
-## Code Splitting
-
-### Dynamic Imports
-```typescript
-import dynamic from 'next/dynamic'
-
-// Load component only when needed
-const HeavyComponent = dynamic(() => import('@/components/heavy-component'), {
-  loading: () => <p>Loading...</p>,
-  ssr: false,  // Disable SSR for this component
-})
-
-export function Page() {
-  return (
-    <div>
-      <HeavyComponent />
-    </div>
-  )
-}
-```
-
-### Conditional Loading
-```typescript
-'use client'
-import { useState } from 'react'
-import dynamic from 'next/dynamic'
-
-const Chart = dynamic(() => import('@/components/chart'), {
-  ssr: false,
-})
-
-export function Dashboard() {
-  const [showChart, setShowChart] = useState(false)
-
-  return (
-    <div>
-      <button onClick={() => setShowChart(true)}>Show Chart</button>
-      {showChart && <Chart />}
-    </div>
-  )
-}
-```
-
-### Named Exports
-```typescript
-const ComponentA = dynamic(() =>
-  import('@/components/bundle').then((mod) => mod.ComponentA)
-)
-```
-
-## React Optimization
-
-### React.memo
-```typescript
-import { memo } from 'react'
-
-// Only re-renders if props change
-const ExpensiveComponent = memo(function ExpensiveComponent({
-  data,
-}: {
-  data: Data
-}) {
-  return <div>{/* Expensive rendering */}</div>
-})
-
-// Custom comparison
-const MemoizedComponent = memo(
-  Component,
-  (prevProps, nextProps) => {
-    return prevProps.id === nextProps.id
-  }
-)
-```
-
-### useMemo
-```typescript
-'use client'
-import { useMemo } from 'react'
-
-export function DataTable({ items }: { items: Item[] }) {
-  // Only recalculate when items change
-  const sortedItems = useMemo(() => {
-    return items.sort((a, b) => a.name.localeCompare(b.name))
-  }, [items])
-
-  return (
-    <table>
-      {sortedItems.map((item) => (
-        <tr key={item.id}>
-          <td>{item.name}</td>
-        </tr>
-      ))}
-    </table>
-  )
-}
-```
-
-### useCallback
-```typescript
-'use client'
-import { useCallback, useState } from 'react'
-
-export function Parent() {
-  const [count, setCount] = useState(0)
-
-  // Stable function reference
-  const handleClick = useCallback(() => {
-    console.log('clicked')
-  }, [])
-
-  return <Child onClick={handleClick} />
-}
-```
-
-## Caching Strategies
-
-### API Route Caching
-```typescript
-// app/api/data/route.ts
-export async function GET() {
-  const data = await fetchData()
-
-  return Response.json(data, {
-    headers: {
-      'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30',
-    },
-  })
-}
-```
-
-### Data Fetching Caching
-```typescript
-// Revalidate every hour
-const data = await fetch('https://api.example.com/data', {
-  next: { revalidate: 3600 },
-})
-
-// Never cache (always fresh)
-const data = await fetch('https://api.example.com/data', {
-  cache: 'no-store',
-})
-
-// Cache forever
-const data = await fetch('https://api.example.com/data', {
-  cache: 'force-cache',
-})
-```
-
-### Tag-based Revalidation
-```typescript
-// Tag the fetch
-const data = await fetch('https://api.example.com/posts', {
-  next: { tags: ['posts'] },
-})
-
-// Revalidate all 'posts' fetches
-import { revalidateTag } from 'next/cache'
-
-export async function POST() {
-  // Mutate data
-  await createPost()
-  // Revalidate
-  revalidateTag('posts')
-}
-```
-
-## Bundle Optimization
-
-### Analyze Bundle
-```bash
-# Add to package.json
-{
-  "scripts": {
-    "analyze": "ANALYZE=true next build"
-  }
-}
-
-# Install bundle analyzer
-npm install @next/bundle-analyzer
-```
+The real time it takes for an operation to complete (measured in milliseconds).
 
 ```javascript
-// next.config.js
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
-
-module.exports = withBundleAnalyzer({
-  // Your config
-})
+// Actual latency: 2000ms
+const startTime = performance.now();
+const result = await fetch('/api/data');
+const endTime = performance.now();
+console.log(`Actual latency: ${endTime - startTime}ms`);
 ```
 
-### Tree Shaking
-```typescript
-// ❌ Bad - Imports entire library
-import _ from 'lodash'
+### Perceived Latency
 
-// ✅ Good - Only imports what you need
-import debounce from 'lodash/debounce'
+How fast the operation *feels* to the user. This is what matters.
+
+**Factors that affect perceived latency:**
+- Visual feedback (does something happen immediately?)
+- Progress indication (is the user informed of progress?)
+- Anticipation (does the UI predict what's coming?)
+- Momentum (does the interface feel responsive?)
+
+## The Latency Spectrum
+
+### < 100ms: Instant
+
+No feedback needed. The user perceives this as instant.
+
+```javascript
+// Instant - no loading state needed
+const handleClick = () => {
+  updateLocalState();  // Instant
+  // Network request in background
+  fetch('/api/update').catch(() => rollback());
+};
 ```
 
-### Remove Unused Dependencies
-```bash
-# Find unused dependencies
-npx depcheck
+### 100ms - 1s: Subtle Feedback
 
-# Remove them
-npm uninstall unused-package
-```
+Show a subtle indicator. A loading spinner is overkill; a slight opacity change or color shift is enough.
 
-## Streaming and Suspense
-
-### Streaming Components
-```typescript
-// app/dashboard/page.tsx
-import { Suspense } from 'react'
-
-async function SlowComponent() {
-  const data = await slowFetch()
-  return <div>{data}</div>
+```css
+/* Subtle feedback for 100-1000ms operations */
+.button.loading {
+  opacity: 0.7;
+  cursor: wait;
 }
 
-export default function Dashboard() {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <Suspense fallback={<Loading />}>
-        <SlowComponent />
-      </Suspense>
-    </div>
-  )
+/* Or a subtle pulse */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
-```
 
-### Multiple Suspense Boundaries
-```typescript
-export default function Page() {
-  return (
-    <div>
-      <Suspense fallback={<HeaderSkeleton />}>
-        <Header />
-      </Suspense>
-
-      <Suspense fallback={<ContentSkeleton />}>
-        <Content />
-      </Suspense>
-
-      <Suspense fallback={<SidebarSkeleton />}>
-        <Sidebar />
-      </Suspense>
-    </div>
-  )
+.button.loading {
+  animation: pulse 1s ease-in-out infinite;
 }
 ```
 
-## Database Query Optimization
+### 1s - 10s: Skeleton or Spinner
 
-### Use Prisma Efficiently
-```typescript
-// ❌ Bad - N+1 query problem
-const users = await prisma.user.findMany()
-for (const user of users) {
-  const posts = await prisma.post.findMany({ where: { userId: user.id } })
-}
+Show a skeleton screen (if layout is known) or spinner (if layout is unknown).
 
-// ✅ Good - Single query with include
-const users = await prisma.user.findMany({
-  include: {
-    posts: true,
-  },
-})
+```html
+<!-- Skeleton for known layout -->
+<div class="card-skeleton">
+  <div class="skeleton skeleton-image"></div>
+  <div class="skeleton skeleton-text"></div>
+  <div class="skeleton skeleton-text"></div>
+</div>
 
-// ✅ Better - Select only what you need
-const users = await prisma.user.findMany({
-  select: {
-    id: true,
-    name: true,
-    posts: {
-      select: {
-        id: true,
-        title: true,
-      },
-    },
-  },
-})
+<!-- Spinner for unknown layout -->
+<div class="spinner"></div>
 ```
 
-### Database Indexes
-```prisma
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  userId    String
-  createdAt DateTime @default(now())
+### > 10s: Progress Bar
 
-  // Add indexes for frequently queried fields
-  @@index([userId])
-  @@index([createdAt])
-  @@index([userId, createdAt])
-}
+Show a progress bar with time estimate.
+
+```html
+<div class="progress-container">
+  <div class="progress-bar" style="width: 65%"></div>
+  <span class="progress-text">Uploading... 2 of 3 files</span>
+</div>
 ```
 
-## Prerendering Strategies
+## Optimistic UI: The Gold Standard
 
-### Static Site Generation (SSG)
-```typescript
-// Fully static - generated at build time
-export default async function Page() {
-  const data = await fetch('https://api.example.com/data')
-  return <div>{/* Render data */}</div>
+Optimistic UI shows changes immediately, then syncs with the server.
+
+### Pattern: Optimistic Update
+
+```javascript
+// 1. Update UI immediately (optimistic)
+const newItem = { id: Date.now(), text: input.value };
+setItems([...items, newItem]);
+clearInput();
+
+// 2. Send to server
+const response = await fetch('/api/items', {
+  method: 'POST',
+  body: JSON.stringify(newItem)
+});
+
+// 3. Handle failure - rollback
+if (!response.ok) {
+  setItems(items);  // Remove the optimistic item
+  showError('Failed to save');
 }
 ```
 
-### Incremental Static Regeneration (ISR)
-```typescript
-// Revalidate every 60 seconds
-export const revalidate = 60
+### Pattern: Optimistic Delete
 
-export default async function Page() {
-  const data = await fetch('https://api.example.com/data')
-  return <div>{/* Render data */}</div>
+```javascript
+// 1. Remove from UI immediately
+const updatedItems = items.filter(item => item.id !== id);
+setItems(updatedItems);
+
+// 2. Send delete request
+const response = await fetch(`/api/items/${id}`, {
+  method: 'DELETE'
+});
+
+// 3. Handle failure - restore
+if (!response.ok) {
+  setItems(items);  // Restore the item
+  showError('Failed to delete');
 }
 ```
 
-### Dynamic Rendering
-```typescript
-// Force dynamic rendering
-export const dynamic = 'force-dynamic'
+### Pattern: Optimistic Like/Vote
 
-export default async function Page() {
-  const data = await fetch('https://api.example.com/data', {
-    cache: 'no-store',
-  })
-  return <div>{/* Render data */}</div>
+```javascript
+// 1. Update like count immediately
+const newLikeCount = isLiked ? count - 1 : count + 1;
+setLikeCount(newLikeCount);
+setIsLiked(!isLiked);
+
+// 2. Send to server
+const response = await fetch(`/api/items/${id}/like`, {
+  method: 'POST',
+  body: JSON.stringify({ liked: !isLiked })
+});
+
+// 3. Handle failure - rollback
+if (!response.ok) {
+  setLikeCount(count);  // Restore original count
+  setIsLiked(isLiked);  // Restore original state
+  showError('Failed to update');
 }
 ```
 
-## Lazy Loading
+## Perceived Performance Strategies
 
-### Images
-```typescript
-<Image
-  src="/image.jpg"
-  alt="Image"
-  width={500}
-  height={300}
-  loading="lazy"  // Default behavior
+### 1. Instant Feedback
+
+Show that something happened immediately, even if the operation isn't complete.
+
+```javascript
+// Bad - Wait for server response
+const handleSubmit = async () => {
+  const response = await fetch('/api/submit', { body });
+  showSuccess('Saved!');
+};
+
+// Good - Show feedback immediately
+const handleSubmit = async () => {
+  showSuccess('Saving...');  // Instant feedback
+  const response = await fetch('/api/submit', { body });
+  if (!response.ok) showError('Failed to save');
+};
+```
+
+### 2. Progress Indication
+
+Show progress for long operations. Even fake progress (that doesn't go to 100%) feels better than nothing.
+
+```javascript
+// Fake progress for unknown duration
+const startFakeProgress = () => {
+  let progress = 10;
+  const interval = setInterval(() => {
+    progress += Math.random() * 20;
+    if (progress > 90) progress = 90;  // Never reach 100%
+    setProgress(progress);
+  }, 500);
+  return interval;
+};
+
+// Real progress for known duration
+const startRealProgress = (total) => {
+  let completed = 0;
+  const interval = setInterval(() => {
+    completed++;
+    setProgress((completed / total) * 100);
+    if (completed === total) clearInterval(interval);
+  }, 100);
+  return interval;
+};
+```
+
+### 3. Anticipatory Design
+
+Preload content before the user asks for it.
+
+```javascript
+// Preload next page when user scrolls near bottom
+const handleScroll = () => {
+  if (isNearBottom()) {
+    preloadNextPage();  // Load before user clicks
+  }
+};
+
+// Preload hover targets
+const handleMouseEnter = () => {
+  preloadUserProfile(userId);  // Load on hover
+};
+```
+
+### 4. Momentum Conservation
+
+Respect the user's gesture velocity. If they swipe fast, the animation should feel fast.
+
+```javascript
+// Respect gesture velocity
+const handleSwipe = (velocity) => {
+  const distance = Math.abs(velocity) * 100;  // Distance based on velocity
+  const duration = Math.max(300, distance / 500);  // Duration based on distance
+  
+  animate({
+    from: currentPosition,
+    to: currentPosition + distance,
+    duration: duration,
+    easing: 'ease-out'
+  });
+};
+```
+
+## Latency Masking Techniques
+
+### 1. Skeleton Screens
+
+Show a placeholder that matches the content structure.
+
+```html
+<!-- Skeleton that matches actual content -->
+<div class="card-skeleton">
+  <div class="skeleton skeleton-image" style="height: 200px;"></div>
+  <div class="skeleton skeleton-text" style="width: 80%;"></div>
+  <div class="skeleton skeleton-text" style="width: 60%;"></div>
+  <div class="skeleton skeleton-text" style="width: 40%;"></div>
+</div>
+```
+
+**Why it works:** The brain constructs a spatial map while waiting. When real content arrives, it feels like a natural transition, not a sudden appearance.
+
+### 2. Blur-Up Technique
+
+Load a low-quality image first, then replace with high-quality.
+
+```html
+<img 
+  src="image-low-quality.jpg" 
+  srcset="image-high-quality.jpg 1x"
+  loading="lazy"
 />
+
+<!-- Or with CSS -->
+<div class="image-container">
+  <img class="image-blur" src="image-low.jpg" />
+  <img class="image-sharp" src="image-high.jpg" />
+</div>
 ```
 
-### Components on Scroll
-```typescript
-'use client'
-import { useEffect, useState, useRef } from 'react'
-import dynamic from 'next/dynamic'
+```css
+.image-blur {
+  filter: blur(20px);
+  opacity: 1;
+  transition: opacity 300ms;
+}
 
-const HeavyComponent = dynamic(() => import('@/components/heavy'))
+.image-sharp {
+  opacity: 0;
+  transition: opacity 300ms;
+}
 
-export function LazySection() {
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <div ref={ref}>
-      {isVisible ? <HeavyComponent /> : <div>Loading...</div>}
-    </div>
-  )
+.image-sharp.loaded {
+  opacity: 1;
 }
 ```
 
-## Performance Monitoring
+### 3. Progressive Enhancement
 
-### Measuring Performance
-```typescript
-'use client'
-import { useEffect } from 'react'
+Show basic content immediately, enhance as data loads.
 
-export function PerformanceMonitor() {
-  useEffect(() => {
-    // Measure LCP
-    new PerformanceObserver((list) => {
-      const entries = list.getEntries()
-      const lastEntry = entries[entries.length - 1]
-      console.log('LCP:', lastEntry.renderTime || lastEntry.loadTime)
-    }).observe({ type: 'largest-contentful-paint', buffered: true })
+```html
+<!-- Show immediately -->
+<article class="post">
+  <h1>Post Title</h1>
+  <p>First paragraph (server-rendered)</p>
+</article>
 
-    // Measure FID
-    new PerformanceObserver((list) => {
-      const entries = list.getEntries()
-      entries.forEach((entry) => {
-        console.log('FID:', entry.processingStart - entry.startTime)
-      })
-    }).observe({ type: 'first-input', buffered: true })
+<!-- Load additional content -->
+<div id="comments-container">
+  <!-- Comments load via JavaScript -->
+</div>
+```
 
-    // Measure CLS
-    let clsScore = 0
-    new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        if (!entry.hadRecentInput) {
-          clsScore += entry.value
-        }
-      }
-      console.log('CLS:', clsScore)
-    }).observe({ type: 'layout-shift', buffered: true })
-  }, [])
+### 4. Staggered Animations
 
-  return null
+Animate elements in sequence to make loading feel faster.
+
+```css
+/* Stagger animations */
+.list-item {
+  animation: slideIn 300ms ease-out;
+  animation-fill-mode: both;
+}
+
+.list-item:nth-child(1) { animation-delay: 0ms; }
+.list-item:nth-child(2) { animation-delay: 50ms; }
+.list-item:nth-child(3) { animation-delay: 100ms; }
+.list-item:nth-child(4) { animation-delay: 150ms; }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 ```
 
-## Best Practices Checklist
+**Why it works:** Staggered animations create the illusion of faster loading. Content appears to cascade in, which feels more natural than everything appearing at once.
 
-- [ ] Use `next/image` for all images
-- [ ] Optimize fonts with `next/font`
-- [ ] Implement code splitting for large components
-- [ ] Use React.memo for expensive components
-- [ ] Implement proper caching strategies
-- [ ] Set up Suspense boundaries
-- [ ] Optimize database queries
-- [ ] Enable ISR for semi-static content
-- [ ] Lazy load below-the-fold content
-- [ ] Monitor Core Web Vitals
-- [ ] Minimize JavaScript bundle size
-- [ ] Use CDN for static assets
-- [ ] Implement proper loading states
-- [ ] Test on slow 3G connections
+## Network Optimization
 
-## When to Use This Skill
+### 1. Request Batching
 
-Invoke this skill when:
-- Optimizing page load times
-- Improving Core Web Vitals scores
-- Reducing bundle size
-- Debugging performance issues
-- Setting up caching strategies
-- Implementing lazy loading
-- Optimizing images or fonts
-- Improving database query performance
+Combine multiple requests into one.
+
+```javascript
+// Bad - 5 separate requests
+await fetch('/api/user');
+await fetch('/api/posts');
+await fetch('/api/comments');
+await fetch('/api/likes');
+await fetch('/api/followers');
+
+// Good - 1 batched request
+const data = await fetch('/api/batch', {
+  method: 'POST',
+  body: JSON.stringify({
+    requests: ['user', 'posts', 'comments', 'likes', 'followers']
+  })
+});
+```
+
+### 2. Request Deduplication
+
+Prevent duplicate requests for the same data.
+
+```javascript
+const requestCache = new Map();
+
+const fetchData = async (url) => {
+  // Return cached promise if request is in flight
+  if (requestCache.has(url)) {
+    return requestCache.get(url);
+  }
+
+  const promise = fetch(url).then(r => r.json());
+  requestCache.set(url, promise);
+
+  try {
+    return await promise;
+  } finally {
+    requestCache.delete(url);  // Clear after completion
+  }
+};
+```
+
+### 3. Connection Pooling
+
+Reuse HTTP connections.
+
+```javascript
+// Use HTTP/2 or HTTP/3 (automatic in modern browsers)
+// Or manually manage connection pool
+const connectionPool = [];
+const MAX_CONNECTIONS = 6;
+
+const getConnection = () => {
+  if (connectionPool.length < MAX_CONNECTIONS) {
+    return new Connection();
+  }
+  return connectionPool.shift();
+};
+```
+
+## Measuring Perceived Performance
+
+### Core Web Vitals
+
+1. **LCP (Largest Contentful Paint)** — When main content is visible
+2. **FID (First Input Delay)** — Time to respond to user input
+3. **CLS (Cumulative Layout Shift)** — Visual stability
+
+```javascript
+// Measure LCP
+const observer = new PerformanceObserver((list) => {
+  const entries = list.getEntries();
+  const lastEntry = entries[entries.length - 1];
+  console.log('LCP:', lastEntry.renderTime || lastEntry.loadTime);
+});
+observer.observe({ entryTypes: ['largest-contentful-paint'] });
+
+// Measure FID
+const fidObserver = new PerformanceObserver((list) => {
+  list.getEntries().forEach((entry) => {
+    console.log('FID:', entry.processingDuration);
+  });
+});
+fidObserver.observe({ entryTypes: ['first-input'] });
+```
+
+## How to Use This Skill with Claude Code
+
+### Optimize Perceived Performance
+
+```
+"I'm using the performance-optimization skill. Can you help me:
+- Implement optimistic UI for my form
+- Add skeleton screens for loading states
+- Measure Core Web Vitals
+- Identify perceived latency issues"
+```
+
+### Create Loading State Strategy
+
+```
+"Can you create a loading state strategy for my app?
+- < 100ms: No feedback
+- 100ms-1s: Subtle feedback
+- 1s-10s: Skeleton screen
+- > 10s: Progress bar"
+```
+
+### Implement Staggered Animations
+
+```
+"Can you add staggered animations to my list?
+- Animate items in sequence
+- 50ms delay between items
+- Smooth slide-in effect
+- Respect prefers-reduced-motion"
+```
+
+## Integration with Other Skills
+
+- **loading-states** — Loading state design
+- **interaction-physics** — Smooth animations
+- **accessibility-excellence** — Respect motion preferences
+- **component-architecture** — Optimistic components
+
+## Key Principles
+
+**1. Perceived > Actual**
+How fast it feels matters more than how fast it is.
+
+**2. Instant Feedback**
+Show something happened immediately.
+
+**3. Progress Indication**
+Keep users informed during long operations.
+
+**4. Anticipation**
+Preload before the user asks.
+
+**5. Momentum**
+Respect user gesture velocity.
+
+## Checklist: Is Your Performance Ready?
+
+- [ ] Optimistic UI for mutations
+- [ ] Skeleton screens for 1-10s loads
+- [ ] Progress bars for >10s operations
+- [ ] Instant feedback for all actions
+- [ ] Staggered animations for lists
+- [ ] Preloading for anticipated actions
+- [ ] Request batching and deduplication
+- [ ] LCP < 2.5s
+- [ ] FID < 100ms
+- [ ] CLS < 0.1
+
+Optimized perceived performance transforms interfaces from sluggish to snappy.

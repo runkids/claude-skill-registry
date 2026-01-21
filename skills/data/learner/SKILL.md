@@ -1,299 +1,136 @@
 ---
-name: "learner"
-description: "Auto-discover patterns from reflexion episodes. Run post-feature to consolidate successful approaches into reusable patterns and skills."
+name: learner
+description: Extract a learned skill from the current conversation
+user-invocable: true
 ---
 
-# Learner - Auto-Discover Patterns
+# Learner Skill
 
-## What This Skill Does
+## The Insight
 
-Analyzes reflexion episodes to automatically discover:
-1. **Causal patterns** - What actions lead to successful outcomes
-2. **Skills** - Reusable procedures from successful episodes
-3. **Patterns needing review** - Low-performing or conflicting patterns
+Reusable skills are not code snippets to copy-paste, but **principles and decision-making heuristics** that teach Claude HOW TO THINK about a class of problems.
 
-**Run this AFTER completing a feature** to consolidate learnings.
+**The difference:**
+- BAD (mimicking): "When you see ConnectionResetError, add this try/except block"
+- GOOD (reusable skill): "In async network code, any I/O operation can fail independently due to client/server lifecycle mismatches. The principle: wrap each I/O operation separately, because failure between operations is the common case, not the exception."
 
----
+A good skill changes how Claude APPROACHES problems, not just what code it produces.
 
-## Quick Reference
+## Why This Matters
 
-```bash
-# Discover causal patterns from episodes
-agentdb learner run 3 0.6 0.7
+Before extracting a skill, ask yourself:
+- "Could someone Google this in 5 minutes?" → If yes, STOP. Don't extract.
+- "Is this specific to THIS codebase?" → If no, STOP. Don't extract.
+- "Did this take real debugging effort to discover?" → If no, STOP. Don't extract.
 
-# Consolidate skills from successful episodes
-agentdb skill consolidate 3 0.7 7 true
+If a potential skill fails any of these questions, it's not worth saving.
 
-# Prune old/low-quality data
-agentdb reflexion prune 90 0.5
+## Recognition Pattern
 
-# View database statistics
-agentdb db stats
+Use /learner ONLY after:
+- Solving a tricky bug that required deep investigation
+- Discovering a non-obvious workaround specific to this codebase
+- Finding a hidden gotcha that wastes time when forgotten
+- Uncovering undocumented behavior that affects this project
+
+## The Approach
+
+### Extraction Process
+
+**Step 1: Gather Required Information**
+
+- **Problem Statement**: The SPECIFIC error, symptom, or confusion that occurred
+  - Include actual error messages, file paths, line numbers
+  - Example: "TypeError in src/hooks/session.ts:45 when sessionId is undefined after restart"
+
+- **Solution**: The EXACT fix, not general advice
+  - Include code snippets, file paths, configuration changes
+  - Example: "Add null check before accessing session.user, regenerate session on 401"
+
+- **Triggers**: Keywords that would appear when hitting this problem again
+  - Use error message fragments, file names, symptom descriptions
+  - Example: ["sessionId undefined", "session.ts TypeError", "401 session"]
+
+- **Scope**: Almost always Project-level unless it's a truly universal insight
+
+**Step 2: Quality Validation**
+
+The system REJECTS skills that are:
+- Too generic (no file paths, line numbers, or specific error messages)
+- Easily Googleable (standard patterns, library usage)
+- Vague solutions (no code snippets or precise instructions)
+- Poor triggers (generic words that match everything)
+
+**Step 3: Save Location**
+
+- **User-level**: ~/.claude/skills/omc-learned/ - Rare. Only for truly portable insights.
+- **Project-level**: .omc/skills/ - Default. Version-controlled with repo.
+
+### What Makes a USEFUL Skill
+
+**CRITICAL**: Not every solution is worth saving. A good skill is:
+
+1. **Non-Googleable**: Something you couldn't easily find via search
+   - BAD: "How to read files in TypeScript" ❌
+   - GOOD: "This codebase uses custom path resolution in ESM that requires fileURLToPath + specific relative paths" ✓
+
+2. **Context-Specific**: References actual files, error messages, or patterns from THIS codebase
+   - BAD: "Use try/catch for error handling" ❌
+   - GOOD: "The aiohttp proxy in server.py:42 crashes on ClientDisconnectedError - wrap StreamResponse in try/except" ✓
+
+3. **Actionable with Precision**: Tells you exactly WHAT to do and WHERE
+   - BAD: "Handle edge cases" ❌
+   - GOOD: "When seeing 'Cannot find module' in dist/, check tsconfig.json moduleResolution matches package.json type field" ✓
+
+4. **Hard-Won**: Took significant debugging effort to discover
+   - BAD: Generic programming patterns ❌
+   - GOOD: "Race condition in worker.ts - the Promise.all at line 89 needs await before the map callback returns" ✓
+
+### Anti-Patterns (DO NOT EXTRACT)
+
+- Generic programming patterns (use documentation instead)
+- Refactoring techniques (these are universal)
+- Library usage examples (use library docs)
+- Type definitions or boilerplate
+- Anything a junior dev could Google in 5 minutes
+
+## Skill Format
+
+Skills are saved as markdown with this structure:
+
+### YAML Frontmatter
+
+Standard metadata fields:
+- id, name, description, source, triggers, quality
+
+### Body Structure (Required)
+
+```markdown
+# [Skill Name]
+
+## The Insight
+What is the underlying PRINCIPLE you discovered? Not the code, but the mental model.
+Example: "Async I/O operations are independently failable. Client lifecycle != server lifecycle."
+
+## Why This Matters
+What goes wrong if you don't know this? What symptom led you here?
+Example: "Proxy server crashes on client disconnect, taking down other requests."
+
+## Recognition Pattern
+How do you know when this skill applies? What are the signs?
+Example: "Building any long-lived connection handler (proxy, websocket, SSE)"
+
+## The Approach
+The decision-making heuristic, not just code. How should Claude THINK about this?
+Example: "For each I/O operation, ask: what if this fails right now? Handle it locally."
+
+## Example (Optional)
+If code helps, show it - but as illustration of the principle, not copy-paste material.
 ```
 
----
+**Key**: A skill is REUSABLE if Claude can apply it to NEW situations, not just identical ones.
 
-## Primary Method: Discover Patterns
+## Related Commands
 
-Auto-discover causal patterns from reflexion episodes:
-
-```bash
-agentdb learner run 3 0.6 0.7
-```
-
-### Parameters (positional)
-
-| Position | Parameter | Default | Description |
-|----------|-----------|---------|-------------|
-| 1 | min-attempts | 3 | Minimum times pattern was tried |
-| 2 | min-success-rate | 0.6 | Minimum success rate |
-| 3 | min-confidence | 0.7 | Statistical confidence threshold |
-
-### Examples
-
-**Standard discovery:**
-```bash
-agentdb learner run 3 0.6 0.7
-```
-
-**Aggressive (more patterns, lower thresholds):**
-```bash
-agentdb learner run 2 0.5 0.6
-```
-
-**Conservative (fewer, higher-confidence patterns):**
-```bash
-agentdb learner run 5 0.8 0.9
-```
-
-**Dry run (preview without storing):**
-```bash
-agentdb learner run 3 0.6 0.7 true
-```
-
----
-
-## Consolidate Skills
-
-Automatically creates reusable skills from successful episodes:
-
-```bash
-agentdb skill consolidate 3 0.7 7 true
-```
-
-### Parameters (positional)
-
-| Position | Parameter | Default | Description |
-|----------|-----------|---------|-------------|
-| 1 | min-attempts | 3 | Pattern must appear 3+ times |
-| 2 | min-reward | 0.7 | Only high-success episodes |
-| 3 | time-window-days | 7 | Look back window |
-| 4 | extract-patterns | true | Use ML pattern extraction |
-
-### Examples
-
-**Standard consolidation:**
-```bash
-agentdb skill consolidate 3 0.7 7 true
-```
-
-**Higher thresholds, longer window:**
-```bash
-agentdb skill consolidate 5 0.8 14 true
-```
-
----
-
-## Query Discovered Patterns
-
-### View Causal Edges
-
-```bash
-agentdb causal query
-```
-
-With filters:
-```bash
-# Filter by cause
-agentdb causal query "Source trait" "" 0.7 0.1 20
-
-# Filter by minimum confidence and uplift
-agentdb causal query "" "" 0.8 0.2 10
-```
-
-### Search Skills
-
-```bash
-agentdb skill search "data ingestion" 5
-```
-
----
-
-## Prune Low-Quality Data
-
-### Prune Old Episodes
-
-```bash
-# Remove episodes older than 90 days with reward < 0.5
-agentdb reflexion prune 90 0.5
-```
-
-### Prune Low-Confidence Causal Edges
-
-```bash
-# Remove edges with confidence < 0.5, uplift < 0.05, older than 90 days
-agentdb learner prune 0.5 0.05 90
-```
-
-### Prune Underperforming Skills
-
-```bash
-# Remove skills with < 3 uses, < 40% success rate, older than 60 days
-agentdb skill prune 3 0.4 60
-```
-
----
-
-## Memory Optimization
-
-Consolidate and compress pattern memory:
-
-```bash
-agentdb optimize-memory --compress true --consolidate-patterns true
-```
-
----
-
-## Post-Feature Workflow
-
-Run after completing a feature:
-
-```bash
-# 1. Discover causal patterns
-agentdb learner run 3 0.7 0.8
-
-# 2. Consolidate skills
-agentdb skill consolidate 3 0.7 7 true
-
-# 3. View what was learned
-agentdb db stats
-
-# 4. (Optional) Search discovered skills
-agentdb skill search "feature-topic" 5
-```
-
----
-
-## Understanding Results
-
-### Causal Edges
-
-Learner creates cause-effect relationships:
-
-```
-Cause: "Using Source trait with health_check"
-Effect: "Reliable data ingestion with automatic recovery"
-Uplift: 0.35 (35% improvement)
-Confidence: 0.92
-```
-
-### Skills
-
-Consolidated from successful episodes:
-
-```
-Name: "http-source-implementation"
-Description: "Implement HTTP polling source with retry"
-Success Rate: 0.89
-Uses: 7
-```
-
----
-
-## Thresholds Guide
-
-### For min-attempts
-
-| Value | Use Case |
-|-------|----------|
-| 2 | Aggressive learning, small dataset |
-| 3 | Standard (recommended) |
-| 5 | Conservative, high confidence needed |
-
-### For min-success-rate
-
-| Value | Use Case |
-|-------|----------|
-| 0.5 | Include partial successes |
-| 0.7 | Standard (recommended) |
-| 0.9 | Only proven patterns |
-
-### For min-confidence
-
-| Value | Use Case |
-|-------|----------|
-| 0.6 | Exploratory, more patterns |
-| 0.8 | Standard (recommended) |
-| 0.95 | Production-critical |
-
----
-
-## Maintenance Schedule
-
-| Frequency | Action | Command |
-|-----------|--------|---------|
-| **Post-feature** | Discover patterns | `agentdb learner run` |
-| **Weekly** | Consolidate skills | `agentdb skill consolidate` |
-| **Monthly** | Review stats | `agentdb db stats` |
-| **Quarterly** | Prune stale data | `agentdb reflexion prune` |
-
----
-
-## Advanced: Causal Experiments
-
-For A/B testing approaches:
-
-```bash
-# Create experiment
-agentdb causal experiment create "batch-size-test" "batch_size_1000" "memory_usage"
-
-# Add observations
-agentdb causal experiment add-observation 1 true 0.15   # treatment
-agentdb causal experiment add-observation 1 false 0.45  # control
-
-# Calculate results
-agentdb causal experiment calculate 1
-```
-
----
-
-## The Pattern Workflow
-
-```
-1. BEFORE work:  get-pattern  → Search for relevant patterns
-2. DURING work:  Apply patterns, note gaps
-3. AFTER work:   reflexion    → Record what helped
-                 save-pattern → Store NEW discoveries manually
-                 learner      → Auto-discover patterns (THIS SKILL)
-```
-
----
-
-## Related Skills
-
-- **`get-pattern`** - Search patterns BEFORE work
-- **`save-pattern`** - Store NEW patterns manually
-- **`reflexion`** - Record feedback that feeds learner
-
----
-
-## What NOT to Use This For
-
-| Don't Use For | Use Instead |
-|---------------|-------------|
-| Storing specific patterns | `save-pattern` |
-| Recording work feedback | `reflexion` |
-| Searching patterns | `get-pattern` |
-
-**Learner is for AUTOMATIC discovery, not manual pattern management.**
+- /note - Save quick notes that survive compaction (less formal than skills)
+- /ralph - Start a development loop with learning capture

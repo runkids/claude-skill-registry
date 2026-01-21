@@ -1,7 +1,7 @@
 {
   "name": "agent-orchestration",
-  "repo": "vamseeachanta/workspace-hub",
-  "path": ".claude/skills/workspace-hub/agent-orchestration/SKILL.md",
-  "source": "github.com/vamseeachanta/workspace-hub",
-  "downloaded_at": "2026-01-20T03:48:04.440353Z"
+  "repo": "BbgnsurfTech/claude-skills-collection",
+  "path": "community/jamie-bitflight-claude-skills/agent-orchestration/SKILL.md",
+  "source": "github.com/BbgnsurfTech/claude-skills-collection",
+  "downloaded_at": "2026-01-21T02:32:33.007069Z"
 }

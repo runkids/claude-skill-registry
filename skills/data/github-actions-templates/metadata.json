@@ -1,7 +1,7 @@
 {
   "name": "github-actions-templates",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/github-actions-templates/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-20T02:53:56.845120Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/cicd-automation/skills/github-actions-templates/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:10:59.728668Z"
 }

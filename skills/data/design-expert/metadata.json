@@ -1,12 +1,7 @@
 {
   "name": "design-expert",
-  "description": "Use for HTML/CSS layout, responsive behavior, and UI styling on the NestMind site; follow the Zed-inspired design system in css/styles.css and reuse existing patterns.",
-  "repo": "nestmind-app/docs",
-  "category": "design",
-  "tags": [
-    "design",
-    "expert"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/design/design-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-21T01:47:40.909154Z"
 }

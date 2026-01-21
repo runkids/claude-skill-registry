@@ -1,74 +1,82 @@
 ---
 name: nextjs-app-router
-description: Next.js 15 App Router patterns for this project. Use when creating routes, API endpoints, server components, or client components.
+description: Guía para desarrollo frontend con Next.js 15, App Router, Server Actions y React Query.
+trigger: frontend OR dashboard-admin OR nextjs OR react
+scope: dashboard-admin
 ---
 
-# Next.js 15 App Router
+# Next.js 15 App Router Skill
 
-## Directory Structure
+## Description
 
-- `app/` - Routes and API handlers
-- `client/` - Client components and utilities
-- `server/` - Server-side services
-- `shared/` - Shared types and utilities
+Guía para el desarrollo frontend utilizando Next.js 15, App Router y Server Actions.
 
-## Route Handlers (API)
+## Trigger
+
+- Cuando se editen archivos en `/dashboard-admin/src/app`.
+- Cuando se generen nuevos layouts, páginas o componentes.
+- Cuando se discuta sobre data fetching o mutaciones.
+
+## Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
+
+## Best Practices
+
+1.  **Server Components by Default:**
+    - Todo componente es Server Component a menos que tenga `"use client"`.
+    - Mantener la lógica de servidor (acceso a DB, secrets) fuera del cliente.
+
+2.  **Server Actions para Mutaciones:**
+    - No usar API Routes (`/pages/api`) para mutaciones simples.
+    - Definir acciones en archivos `actions.ts` con `"use server"`.
+    - Invocar acciones directamente desde `<form>` o `onClick` (con `startTransition`).
+
+3.  **Data Fetching:**
+    - Usar `src/lib/api.ts` o llamadas directas a DB (Prisma) en Server Components.
+    - Para cliente, usar **React Query** (`@tanstack/react-query`) para cache y revalidación.
+
+4.  **Estilos (Tailwind + Shadcn):**
+    - No crear clases CSS custom. Usar utilidades de Tailwind.
+    - Usar componentes de `src/components/ui` (Shadcn) para consistencia.
+
+## Code Snippets
+
+### Server Action Pattern
 
 ```typescript
-// app/api/example/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+"use server";
 
-export async function POST(request: NextRequest) {
-  const body = await request.json();
-  // Validate with zod schema from shared/validation/
-  return NextResponse.json({ data });
+import { revalidatePath } from "next/cache";
+import { db } from "@/lib/db";
+
+export async function createItem(formData: FormData) {
+  const name = formData.get("name");
+
+  await db.item.create({ data: { name } });
+  revalidatePath("/items");
 }
 ```
 
-## Server Components (Default)
+### Client Component Pattern
 
 ```typescript
-// No 'use client' directive
-export default async function Page() {
-  const data = await fetchData(); // Direct DB/API calls
-  return <div>{data}</div>;
+'use client'
+
+import { useTransition } from 'react'
+import { createItem } from './actions'
+
+export function ItemForm() {
+  const [isPending, startTransition] = useTransition()
+
+  return (
+    <button
+      onClick={() => startTransition(() => createItem(new FormData()))}
+      disabled={isPending}
+    >
+      {isPending ? 'Saving...' : 'Save'}
+    </button>
+  )
 }
-```
-
-## Client Components
-
-```typescript
-'use client';
-// Required for: hooks, browser APIs, event handlers, state
-import { useState } from 'react';
-```
-
-## Data Fetching
-
-- Server Components: Direct async/await
-- Client Components: Use `client/utils/api-client.ts`
-
-## Caching
-
-```typescript
-// Revalidate every hour
-export const revalidate = 3600;
-
-// Or disable caching
-export const dynamic = 'force-dynamic';
-```
-
-## Error Handling
-
-- `error.tsx` - Error boundary per route
-- `not-found.tsx` - 404 handling
-- `loading.tsx` - Suspense fallback
-
-## Metadata
-
-```typescript
-export const metadata = {
-  title: 'Page Title',
-  description: 'Page description',
-};
 ```

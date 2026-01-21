@@ -1,7 +1,7 @@
 {
   "name": "architecture-diagram-creator",
-  "repo": "mhattingpete/claude-skills-marketplace",
-  "path": "visual-documentation-plugin/skills/architecture-diagram-creator/SKILL.md",
-  "source": "github.com/mhattingpete/claude-skills-marketplace",
-  "downloaded_at": "2026-01-20T01:35:47.489016Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "skills/18-visual-content/architecture-diagram-creator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-21T01:43:06.740936Z"
 }

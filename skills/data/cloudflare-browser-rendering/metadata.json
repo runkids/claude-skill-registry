@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-browser-rendering",
-  "repo": "alex-tgk/saasquatch",
-  "path": ".claude/skills/cloudflare-browser-rendering/SKILL.md",
-  "source": "github.com/alex-tgk/saasquatch",
-  "downloaded_at": "2026-01-20T03:52:08.615628Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/cloudflare-browser-rendering/skills/cloudflare-browser-rendering/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:46.516306Z"
 }

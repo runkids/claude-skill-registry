@@ -1,347 +1,342 @@
 ---
 name: ru
-description: "Repo Updater - Multi-repo synchronization with AI-assisted review orchestration. Parallel sync, agent-sweep for dirty repos, ntm integration, git plumbing. 17K LOC Bash CLI."
+description: "Repo Updater - automation-friendly CLI for synchronizing GitHub repositories. Keep dozens or hundreds of repos in sync with a single command. Pure Bash with git plumbing, JSON output, meaningful exit codes, parallel sync, and conflict resolution."
 ---
 
 # RU - Repo Updater
 
-A comprehensive Bash CLI for synchronizing dozens or hundreds of GitHub repositories. Beyond basic sync, RU includes a full AI-assisted code review system and agent-sweep capability for automatically processing uncommitted changes across your entire projects directory.
+A beautiful, automation-friendly CLI for synchronizing GitHub repositories. Clone missing repos, pull updates, detect conflicts, and get actionable resolution commands—all in a single command.
 
-## Why This Exists
+## Why Use RU
 
-When you work with 47+ repos (personal projects, forks, dependencies), keeping them synchronized manually is tedious. But synchronization is just the beginning—RU also orchestrates AI coding agents to review issues, process PRs, and commit uncommitted work at scale.
+| Without ru | With ru |
+|------------|---------|
+| `cd` into each of 47 directories and `git pull` | One command syncs everything |
+| Forget which repos exist locally vs remotely | Automatically clones missing repos |
+| Wonder if your local branch diverged | Clear status: behind, ahead, diverged, conflict |
+| Google the right git commands for conflicts | Copy-paste resolution commands provided |
+| Manual process breaks when network fails | Meaningful exit codes + `--resume` for restarts |
 
-**The problem it solves:**
-- Manual `cd ~/project && git pull` for each repo
-- Missing updates that accumulate into merge conflicts
-- Dirty repos that never get committed
-- Issues and PRs that pile up across repositories
-- No coordination for AI agents working across repos
+---
 
-## Critical Concepts
+## Quick Reference for AI Agents
 
-### Git Plumbing, Not Porcelain
-
-RU uses git plumbing commands exclusively—never parses human-readable output:
+### Pre-Flight Check
 
 ```bash
-# WRONG: Locale-dependent, version-fragile
-git pull 2>&1 | grep "Already up to date"
+# System diagnostics
+ru doctor
 
-# RIGHT: Machine-readable plumbing
-git rev-list --left-right --count HEAD...@{u}
-git status --porcelain
-git rev-parse HEAD
+# Check for updates
+ru self-update --check
 ```
 
-### Stream Separation
-
-Human-readable output goes to stderr; data to stdout:
+### The Core Workflow
 
 ```bash
-ru sync --json 2>/dev/null | jq '.summary'
-# Progress shows in terminal, JSON pipes to jq
-```
+# 1. Initialize config (first time only)
+ru init
 
-### No Global `cd`
+# 2. Add repos to sync
+ru add owner/repo
+ru add owner/repo@develop              # Pin to branch
+ru add owner/repo as custom-name       # Custom local name
 
-All git operations use `git -C`. Never changes working directory.
-
-## Essential Commands
-
-### Sync (Primary Use Case)
-
-```bash
-# Sync all configured repos
+# 3. Sync everything
 ru sync
 
-# Parallel sync (much faster)
-ru sync -j8
+# 4. Check status (read-only)
+ru status
+```
 
-# Dry run - see what would happen
+### Automation Mode
+
+```bash
+# JSON output for scripting
+ru sync --json 2>/dev/null | jq '.summary'
+
+# Non-interactive for CI
+ru sync --non-interactive --json
+
+# Dry run (show what would happen)
 ru sync --dry-run
+```
+
+---
+
+## Command Reference
+
+### `ru sync` — Clone and Pull Repos
+
+The primary command. Clones missing repos and pulls updates for existing ones.
+
+```bash
+# Basic sync
+ru sync
+
+# Clone only (skip pull)
+ru sync --clone-only
+
+# Pull only (skip clone)
+ru sync --pull-only
+
+# Use rebase instead of merge
+ru sync --rebase
+
+# Auto-stash local changes
+ru sync --autostash
+
+# Parallel sync (faster for many repos)
+ru sync --parallel 4
+ru sync -j 8
+
+# Custom projects directory
+ru sync --dir /path/to/projects
+
+# Preview without making changes
+ru sync --dry-run
+
+# Network timeout for slow connections
+ru sync --timeout 60
 
 # Resume interrupted sync
 ru sync --resume
 
-# JSON output for scripting
-ru sync --json 2>/dev/null | jq '.summary'
+# Discard interrupted state and start fresh
+ru sync --restart
 ```
 
-### Status (Read-Only Check)
+**Ad-hoc sync** (without adding to config):
+```bash
+ru sync owner/repo1 owner/repo2
+ru sync https://github.com/owner/repo
+```
+
+### `ru status` — Check Repo Status
+
+Read-only check of all configured repos.
 
 ```bash
-# Check all repos without modifying
+# Fetch remotes and show status (default)
 ru status
+
+# Skip fetch, use cached state
+ru status --no-fetch
 
 # JSON output
 ru status --json
 ```
 
-### Repo Management
+### `ru add` / `ru remove` — Manage Repo List
 
 ```bash
-# Initialize configuration
-ru init
-
-# Add repos to sync list
+# Add to public list (default)
 ru add owner/repo
-ru add https://github.com/owner/repo
-ru add owner/repo@branch as custom-name
 
-# Remove from list
+# Add to private list
+ru add owner/repo --private
+
+# Add from current directory's git remote
+ru add --from-cwd
+
+# Remove from all lists
 ru remove owner/repo
 
-# List configured repos
+# Remove from specific list
+ru remove owner/repo --public
+ru remove owner/repo --private
+```
+
+### `ru list` — Show Configured Repos
+
+```bash
+# Show all repos
 ru list
 
-# Detect orphaned repos (in projects dir but not in list)
-ru prune           # Preview
-ru prune --delete  # Actually remove
-ru prune --archive # Move to archive directory
+# Filter by visibility
+ru list --public
+ru list --private
+
+# Show local paths instead of URLs
+ru list --paths
+
+# JSON output
+ru list --json
 ```
 
-### Diagnostics
+### `ru prune` — Manage Orphan Repos
+
+Detect repos in your projects directory that aren't in your config.
 
 ```bash
-ru doctor      # System health check
-ru self-update # Update ru itself
+# List orphans (dry run)
+ru prune
+
+# Archive orphans (non-destructive)
+ru prune --archive
+
+# Delete orphans (requires confirmation)
+ru prune --delete
+
+# Non-interactive delete
+ru --non-interactive prune --delete
 ```
 
-## AI-Assisted Review System
-
-RU includes a powerful review orchestration system for managing AI-assisted code review across your repositories.
-
-### Two-Phase Review Workflow
-
-**Phase 1: Discovery (`--plan`)**
-- Queries GitHub for open issues and PRs across all repos
-- Scores items by priority using label analysis and age
-- Creates isolated git worktrees for safe review
-- Spawns Claude Code sessions in terminal multiplexer
-
-**Phase 2: Application (`--apply`)**
-- Reviews proposed changes from discovery phase
-- Runs quality gates (ShellCheck, tests, lint)
-- Optionally pushes approved changes (`--push`)
+### `ru init` — Initialize Configuration
 
 ```bash
-# Discover and plan reviews
-ru review --plan
+# Create config directory and files
+ru init
 
-# After reviewing AI suggestions
-ru review --apply --push
+# Include example repos
+ru init --example
 ```
 
-### Priority Scoring Algorithm
-
-| Factor | Points | Logic |
-|--------|--------|-------|
-| **Type** | 0-20 | PRs: +20, Issues: +10, Draft PRs: -15 |
-| **Labels** | 0-50 | security/critical: +50, bug/urgent: +30 |
-| **Age (bugs)** | 0-50 | >60 days: +50, >30 days: +30 |
-| **Recency** | 0-15 | Updated <3 days: +15, <7 days: +10 |
-| **Staleness** | -20 | Recently reviewed: -20 |
-
-Priority levels: CRITICAL (≥150), HIGH (≥100), NORMAL (≥50), LOW (<50)
-
-### Session Drivers
-
-| Driver | Description | Best For |
-|--------|-------------|----------|
-| `auto` | Auto-detect best available | Default |
-| `ntm` | Named Tmux Manager integration | Multi-agent workflows |
-| `local` | Direct tmux sessions | Simple setups |
+### `ru doctor` — System Diagnostics
 
 ```bash
-ru review --mode=ntm --plan
-ru review -j 4 --plan  # Parallel sessions
+ru doctor
 ```
 
-### Cost Budgets
+**Checks:**
+- Git installation and version
+- GitHub CLI (gh) installation and auth status
+- Config directory existence
+- Repo count
+- Projects directory permissions
+- Optional tools: gum, flock
+
+### `ru self-update` — Update ru
 
 ```bash
-ru review --max-repos=10 --plan
-ru review --max-runtime=30 --plan  # Minutes
-ru review --skip-days=14 --plan    # Skip recently reviewed
-ru review --analytics              # View past review stats
+# Update to latest version
+ru self-update
+
+# Check for updates only
+ru self-update --check
 ```
 
-## Agent Sweep (Automated Dirty Repo Processing)
-
-The `ru agent-sweep` command orchestrates AI coding agents to automatically process repositories with uncommitted changes.
-
-### Basic Usage
+### `ru config` — Configuration Management
 
 ```bash
-# Process all repos with uncommitted changes
-ru agent-sweep
+# Print all config values
+ru config --print
 
-# Dry run - preview what would be processed
-ru agent-sweep --dry-run
-
-# Process 4 repos in parallel
-ru agent-sweep -j4
-
-# Filter to specific repos
-ru agent-sweep --repos="myproject*"
-
-# Include release step after commit
-ru agent-sweep --with-release
-
-# Resume interrupted sweep
-ru agent-sweep --resume
-
-# Start fresh
-ru agent-sweep --restart
+# Set a value
+ru config --set LAYOUT=owner-repo
+ru config --set PARALLEL=4
+ru config --set AUTOSTASH=true
 ```
 
-### Three-Phase Agent Workflow
+---
 
-**Phase 1: Planning** (`--phase1-timeout`, default 300s)
-- Claude Code analyzes uncommitted changes
-- Determines which files should be staged (respecting denylist)
-- Generates structured commit message
+## Repo Spec Syntax
 
-**Phase 2: Commit** (`--phase2-timeout`, default 600s)
-- Validates the plan (file existence, denylist compliance)
-- Stages approved files, creates commit
-- Runs quality gates
-- Optionally pushes to remote
-
-**Phase 3: Release** (`--phase3-timeout`, default 300s, requires `--with-release`)
-- Analyzes commit history since last tag
-- Determines version bump (patch/minor/major)
-- Creates git tag and optionally GitHub release
-
-### Execution Modes
-
-```bash
---execution-mode=agent  # Full AI-driven workflow (default)
---execution-mode=plan   # Phase 1 only: generate plan, stop
---execution-mode=apply  # Phase 2+3: execute existing plan
-```
-
-### Preflight Checks
-
-Each repo is validated before spawning an agent:
-
-| Check | Skip Reason |
-|-------|-------------|
-| Is git repository | `not_a_git_repo` |
-| Git email configured | `git_email_not_configured` |
-| Not a shallow clone | `shallow_clone` |
-| No rebase in progress | `rebase_in_progress` |
-| No merge in progress | `merge_in_progress` |
-| Not detached HEAD | `detached_HEAD` |
-| Has upstream branch | `no_upstream_branch` |
-| Not diverged | `diverged_from_upstream` |
-
-### Security Guardrails
-
-**File Denylist** - Never committed regardless of agent output:
-
-| Category | Patterns |
-|----------|----------|
-| **Secrets** | `.env`, `*.pem`, `*.key`, `id_rsa*`, `credentials.json` |
-| **Build artifacts** | `node_modules`, `__pycache__`, `dist`, `build`, `target` |
-| **Logs/temp** | `*.log`, `*.tmp`, `*.swp`, `.DS_Store` |
-| **IDE files** | `.idea`, `.vscode`, `*.iml` |
-
-**Secret Scanning:**
-
-```bash
---secret-scan=none   # Disable
---secret-scan=warn   # Warn but continue (default)
---secret-scan=block  # Block push on detection
-```
-
-### Exit Codes
-
-| Code | Meaning |
-|------|---------|
-| `0` | All repos processed successfully |
-| `1` | Some repos failed (agent error, timeout) |
-| `2` | Quality gate failures (secrets, tests) |
-| `3` | System error (ntm, tmux missing) |
-| `4` | Invalid arguments |
-| `5` | Interrupted (use `--resume`) |
-
-## Configuration
-
-### XDG-Compliant Directory Structure
+Flexible format for specifying repositories:
 
 ```
-~/.config/ru/
-├── config               # Main config file
-└── repos.d/
-    ├── public.list      # Public repos (one per line)
-    └── private.list     # Private repos (gitignored)
-
-~/.local/state/ru/
-├── logs/
-│   └── YYYY-MM-DD/
-├── agent-sweep/
-│   ├── state.json
-│   └── results.ndjson
-└── review/
-    ├── digests/
-    └── results/
+<url_or_shorthand>[@<branch>] [as <local_name>]
 ```
 
-### Repo List Format
+| Spec | URL | Branch | Local Name |
+|------|-----|--------|------------|
+| `owner/repo` | github.com/owner/repo | (default) | `repo` |
+| `owner/repo@develop` | github.com/owner/repo | `develop` | `repo` |
+| `owner/repo as myrepo` | github.com/owner/repo | (default) | `myrepo` |
+| `owner/repo@v2 as stable` | github.com/owner/repo | `v2` | `stable` |
+| `git@github.com:o/r.git` | git@github.com:o/r.git | (default) | `r` |
 
+**Supported URL formats (all equivalent):**
 ```
-# ~/.config/ru/repos.d/public.list
-owner/repo
-another-owner/another-repo@develop
-private-org/repo@main as local-name
+https://github.com/owner/repo
 https://github.com/owner/repo.git
+git@github.com:owner/repo.git
+github.com/owner/repo
+owner/repo
 ```
 
-### Layout Modes
+---
 
-| Layout | Example Path |
-|--------|--------------|
-| `flat` | `/data/projects/repo` |
-| `owner-repo` | `/data/projects/owner_repo` |
-| `full` | `/data/projects/github.com/owner/repo` |
+## Path Layouts
+
+Configure how repos are organized locally:
+
+| Layout | Input | Local Path |
+|--------|-------|------------|
+| `flat` (default) | `owner/repo` | `/data/projects/repo` |
+| `owner-repo` | `owner/repo` | `/data/projects/owner/repo` |
+| `full` | `owner/repo` | `/data/projects/github.com/owner/repo` |
 
 ```bash
+# Set layout
 ru config --set LAYOUT=owner-repo
 ```
 
-### Per-Repo Configuration
+**Path Collision Warning:** With `flat` layout, different owners with same repo name collide. Use `owner-repo` or custom names.
 
-```yaml
-# ~/.../your-repo/.ru-agent.yml
-agent_sweep:
-  enabled: true
-  max_file_size: 5242880  # 5MB
-  extra_context: "This is a Python project using FastAPI"
-  pre_hook: "make lint"
-  post_hook: "make test"
-  denylist_extra:
-    - "*.backup"
-    - "internal/*"
+---
+
+## Configuration
+
+### Directory Structure
+
+```
+~/.config/ru/
+├── config                    # Main configuration
+└── repos.d/
+    ├── public.txt            # Public repos
+    └── private.txt           # Private repos
+
+~/.local/state/ru/
+├── logs/
+│   ├── YYYY-MM-DD/
+│   │   ├── run.log           # Main log
+│   │   └── repos/
+│   │       └── *.log         # Per-repo logs
+│   └── latest -> YYYY-MM-DD  # Symlink
+├── sync_state.json           # Resume state
+└── archived/                 # Orphan repos (from prune)
 ```
 
-## ntm Integration
+### Config File Options
 
-When ntm (Named Tmux Manager) is available, RU uses its robot mode API:
+```bash
+# ~/.config/ru/config
 
-| Function | Purpose |
-|----------|---------|
-| `ntm --robot-spawn` | Create Claude Code session in new tmux pane |
-| `ntm --robot-send` | Send prompts with chunking for long messages |
-| `ntm --robot-wait` | Block until session completes with timeout |
-| `ntm --robot-activity` | Query real-time session state |
-| `ntm --robot-status` | Get status of all managed sessions |
-| `ntm --robot-interrupt` | Send Ctrl+C to interrupt long operations |
+# Base directory for repositories
+PROJECTS_DIR=/data/projects
 
-## Output Modes
+# Directory layout: flat | owner-repo | full
+LAYOUT=flat
 
-### JSON Mode (`--json`)
+# Update strategy: ff-only | rebase | merge
+UPDATE_STRATEGY=ff-only
+
+# Auto-stash local changes before pull
+AUTOSTASH=false
+
+# Parallel operations (1 = serial)
+PARALLEL=1
+
+# Network timeout in seconds
+TIMEOUT=30
+
+# Check for ru updates on run
+CHECK_UPDATES=false
+```
+
+### Config Priority
+
+1. Command-line arguments (`--dir`, `--rebase`, etc.)
+2. Environment variables (`RU_PROJECTS_DIR`, `RU_LAYOUT`, etc.)
+3. Config file (`~/.config/ru/config`)
+4. Built-in defaults
+
+---
+
+## JSON Output
+
+Use `--json` for structured output:
 
 ```bash
 ru sync --json 2>/dev/null
@@ -349,110 +344,267 @@ ru sync --json 2>/dev/null
 
 ```json
 {
-  "version": "1.2.0",
+  "version": "1.0.0",
   "timestamp": "2025-01-03T14:30:00Z",
+  "duration_seconds": 154,
+  "config": {
+    "projects_dir": "/data/projects",
+    "layout": "flat",
+    "update_strategy": "ff-only"
+  },
   "summary": {
     "total": 47,
     "cloned": 8,
     "updated": 34,
     "current": 3,
-    "conflicts": 2
+    "conflicts": 2,
+    "failed": 0
   },
-  "repos": [...]
+  "repos": [
+    {
+      "name": "mcp_agent_mail",
+      "path": "/data/projects/mcp_agent_mail",
+      "action": "pull",
+      "status": "updated",
+      "duration": 2
+    }
+  ]
 }
 ```
 
-### NDJSON Results Logging
-
-```json
-{"repo":"mcp_agent_mail","action":"pull","status":"updated","duration":2}
-{"repo":"beads_viewer","action":"clone","status":"cloned","duration":5}
-```
-
-### jq Examples
+### jq Quick Reference
 
 ```bash
-# Get paths of all cloned repos
+# Get paths of cloned repos
 ru sync --json 2>/dev/null | jq -r '.repos[] | select(.action=="clone") | .path'
+
+# Count failures
+ru sync --json 2>/dev/null | jq '.summary.failed'
+
+# List conflicts
+ru sync --json 2>/dev/null | jq -r '.repos[] | select(.status=="conflict") | .name'
+
+# Get summary
+ru sync --json 2>/dev/null | jq '.summary'
+```
+
+---
+
+## Exit Codes
+
+| Code | Meaning | When |
+|------|---------|------|
+| `0` | Success | All repos synced or already current |
+| `1` | Partial failure | Some repos failed (network/auth/remote error) |
+| `2` | Conflicts exist | Some repos have unresolved conflicts |
+| `3` | Dependency error | gh CLI missing, auth failed, etc. |
+| `4` | Invalid arguments | Bad CLI options, missing config files |
+| `5` | Interrupted | Sync interrupted; use `--resume` to continue |
+
+### CI Usage
+
+```bash
+#!/bin/bash
+ru sync --non-interactive
+exit_code=$?
+
+case $exit_code in
+    0) echo "All repos synchronized successfully" ;;
+    1) echo "Some repos failed - check logs" ;;
+    2) echo "Conflicts detected - manual resolution required" ;;
+    3) echo "Missing dependencies - run 'ru doctor'" ;;
+    4) echo "Invalid configuration" ;;
+    5) echo "Sync interrupted - run 'ru sync --resume'" ;;
+esac
+```
+
+---
+
+## Parallel Sync
+
+Sync multiple repos concurrently for faster updates:
+
+```bash
+# Sync 4 repos at a time
+ru sync --parallel 4
+
+# Short form
+ru sync -j 8
+
+# Set default in config
+ru config --set PARALLEL=4
+```
+
+**How it works:**
+- Worker pool with flock-based coordination
+- Aggregated results in unified summary
+- Falls back to serial if flock unavailable
+
+**Requirements:** `flock` (Linux default; `brew install util-linux` on macOS)
+
+---
+
+## Resuming Interrupted Syncs
+
+If sync is interrupted (Ctrl+C, network failure), resume from where you left off:
+
+```bash
+# Resume from last checkpoint
+ru sync --resume
+
+# Start fresh, discard state
+ru sync --restart
+```
+
+State saved to `~/.local/state/ru/sync_state.json`.
+
+---
+
+## Conflict Resolution
+
+When ru encounters issues, it provides copy-paste resolution commands:
+
+```
+╭─────────────────────────────────────────────────────────────╮
+│  ⚠️  Repositories Needing Attention                         │
+╰─────────────────────────────────────────────────────────────╯
+
+1. mcp_agent_mail
+   Path:   /data/projects/mcp_agent_mail
+   Issue:  Dirty working tree (3 files modified)
+
+   Resolution options:
+     a) Stash and pull:
+        cd /data/projects/mcp_agent_mail && git stash && git pull && git stash pop
+
+     b) Commit your changes:
+        cd /data/projects/mcp_agent_mail && git add . && git commit -m "WIP"
+
+     c) Discard local changes (DESTRUCTIVE):
+        cd /data/projects/mcp_agent_mail && git checkout . && git clean -fd
+
+2. beads_viewer
+   Issue:  Diverged (2 ahead, 5 behind)
+
+   Resolution options:
+     a) Rebase your changes:
+        cd /data/projects/beads_viewer && git pull --rebase
+
+     b) Merge (creates merge commit):
+        cd /data/projects/beads_viewer && git pull --no-ff
+```
+
+### Common Issues
+
+| Issue | Cause | Resolution |
+|-------|-------|------------|
+| Dirty working tree | Uncommitted changes | Stash, commit, or discard |
+| Diverged | Local and remote both have commits | Rebase, merge, or push |
+| No upstream | Branch doesn't track remote | `git branch --set-upstream-to=origin/main` |
+| Remote mismatch | Different repo at same path | Remove directory or update list |
+| Auth failed | gh not authenticated | `gh auth login` or set `GH_TOKEN` |
+
+---
+
+## Git Status Detection
+
+ru uses git plumbing for reliable, locale-independent status:
+
+```bash
+# NOT this (fragile, locale-dependent):
+git pull 2>&1 | grep "Already up to date"
+
+# THIS (robust plumbing):
+git rev-list --left-right --count HEAD...@{u}
+git status --porcelain
+```
+
+### Status States
+
+| State | Ahead | Behind | Meaning |
+|-------|-------|--------|---------|
+| `current` | 0 | 0 | Fully synchronized |
+| `behind` | 0 | >0 | Remote has new commits |
+| `ahead` | >0 | 0 | Local has unpushed commits |
+| `diverged` | >0 | >0 | Both have new commits |
+| `dirty` | — | — | Uncommitted local changes |
+
+---
+
+## NDJSON Results Logging
+
+Per-repo results logged in Newline-Delimited JSON:
+
+```json
+{"repo":"mcp_agent_mail","path":"/data/projects/mcp_agent_mail","action":"pull","status":"updated","duration":2,"message":"","timestamp":"2025-01-03T14:30:00Z"}
+{"repo":"beads_viewer","path":"/data/projects/beads_viewer","action":"clone","status":"cloned","duration":5,"message":"","timestamp":"2025-01-03T14:30:05Z"}
+```
+
+```bash
+# Find failures
+cat ~/.local/state/ru/logs/latest/results.ndjson | jq -r 'select(.status == "failed") | "\(.repo): \(.message)"'
 
 # Count by status
 cat ~/.local/state/ru/logs/latest/results.ndjson | jq -s 'group_by(.status) | map({status: .[0].status, count: length})'
 ```
 
-## Update Strategies
-
-```bash
-ru sync                        # Default: ff-only (safest)
-ru sync --rebase               # Rebase local commits
-ru sync --autostash            # Auto-stash before pull
-ru sync --force                # Force update (use with caution)
-```
-
-| Strategy | Behavior |
-|----------|----------|
-| `ff-only` | Fast-forward only; fails if diverged |
-| `rebase` | Rebase local commits on top of remote |
-| `merge` | Create merge commit if needed |
-
-## Quality Gates
-
-Before applying changes, RU runs automated quality gates:
-
-**Auto-detection by project type:**
-
-| Project Type | Test Command | Lint Command |
-|--------------|--------------|--------------|
-| npm/yarn | `npm test` | `npm run lint` |
-| Cargo (Rust) | `cargo test` | `cargo clippy` |
-| Go | `go test ./...` | `golangci-lint run` |
-| Python | `pytest` | `ruff check` |
-| Makefile | `make test` | `make lint` |
-| Shell scripts | (none) | `shellcheck *.sh` |
-
-## Rate Limiting
-
-RU includes an adaptive parallelism governor:
-
-| Condition | Action |
-|-----------|--------|
-| GitHub remaining < 100 | Reduce parallelism to 1 |
-| GitHub remaining < 500 | Reduce parallelism by 50% |
-| Model 429 detected | Pause new sessions for 60s |
-| Error rate > 50% | Open circuit breaker |
-
-## Exit Codes (Sync)
-
-| Code | Meaning |
-|------|---------|
-| `0` | Success - all repos synced or current |
-| `1` | Partial failure - some repos failed |
-| `2` | Conflicts exist |
-| `3` | Dependency error (gh missing, auth failed) |
-| `4` | Invalid arguments |
-| `5` | Interrupted (use `--resume`) |
+---
 
 ## Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `RU_PROJECTS_DIR` | Base directory for repos | `/data/projects` |
-| `RU_LAYOUT` | Path layout | `flat` |
-| `RU_PARALLEL` | Parallel workers | `1` |
-| `RU_TIMEOUT` | Network timeout (seconds) | `30` |
-| `RU_UPDATE_STRATEGY` | Pull strategy | `ff-only` |
-| `GH_TOKEN` | GitHub token | (from gh CLI) |
+| `RU_LAYOUT` | Path layout (flat/owner-repo/full) | `flat` |
+| `RU_PARALLEL` | Number of parallel workers | `1` |
+| `RU_TIMEOUT` | Network timeout in seconds | `30` |
+| `RU_AUTOSTASH` | Auto-stash before pull | `false` |
+| `RU_UPDATE_STRATEGY` | Pull strategy (ff-only/rebase/merge) | `ff-only` |
+| `RU_CONFIG_DIR` | Configuration directory | `~/.config/ru` |
+| `RU_LOG_DIR` | Log directory | `~/.local/state/ru/logs` |
+| `GH_TOKEN` | GitHub token for authentication | (from gh CLI) |
+| `CI` | Detected CI environment | unset |
+
+---
+
+## Dependencies
+
+### Required
+
+| Dependency | Version | Purpose |
+|------------|---------|---------|
+| Bash | 4.0+ | Script runtime |
+| git | 2.0+ | Repository operations |
+| gh | 2.0+ | GitHub CLI for cloning |
+| curl | any | Installation and updates |
+
+### Optional
+
+| Dependency | Purpose |
+|------------|---------|
+| gum | Beautiful terminal UI |
+| jq | JSON processing |
+| flock | Parallel sync coordination |
+
+---
+
+## Stream Separation
+
+ru follows Unix conventions:
+- **stderr**: Human-readable output (progress, errors, summary)
+- **stdout**: Structured data (JSON, paths)
+
+```bash
+# Progress shows in terminal, JSON pipes to jq
+ru sync --json | jq '.summary'
+
+# Capture only paths
+ru sync 2>/dev/null  # stdout = paths
+```
+
+---
 
 ## Troubleshooting
-
-### Common Issues
-
-| Issue | Fix |
-|-------|-----|
-| `gh: command not found` | `brew install gh && gh auth login` |
-| `gh: auth required` | `gh auth login` or set `GH_TOKEN` |
-| `Cannot fast-forward` | Use `--rebase` or push first |
-| `dirty working tree` | Commit changes or use `--autostash` |
-| `diverged_from_upstream` | `git fetch && git rebase origin/main` |
 
 ### Debug Mode
 
@@ -462,42 +614,54 @@ cat ~/.local/state/ru/logs/latest/run.log
 
 # View specific repo log
 cat ~/.local/state/ru/logs/latest/repos/mcp_agent_mail.log
-
-# Run with verbose output
-ru agent-sweep --verbose --debug
 ```
 
-### Preflight Failure Debugging
+### Common Fixes
 
-```bash
-# View why repos were skipped
-ru agent-sweep --json 2>/dev/null | jq '.repos[] | select(.status == "skipped")'
+| Problem | Solution |
+|---------|----------|
+| "gh: command not found" | `brew install gh` or `apt install gh`, then `gh auth login` |
+| "gh: auth required" | `gh auth login` or set `GH_TOKEN` |
+| "Cannot fast-forward" | Use `--rebase` or resolve divergence |
+| "dirty working tree" | Use `--autostash` or commit/stash manually |
+| Config missing | Run `ru init` |
+
+---
+
+## Ready-to-Paste AGENTS.md Blurb
+
 ```
+## ru - Repo Updater
+
+ru is an automation-friendly CLI for synchronizing GitHub repositories.
+Keep dozens or hundreds of repos in sync with a single command.
+
+### Quick Start
+ru doctor                              # Check dependencies
+ru init                                # Initialize config
+ru add owner/repo                      # Add a repo
+ru sync                                # Sync everything
+ru status --json                       # Check status
+
+### Key Options
+| Flag | Purpose |
+|------|---------|
+| --json | Structured output for scripting |
+| --non-interactive | CI mode (no prompts) |
+| --parallel N | Sync N repos concurrently |
+| --resume | Continue interrupted sync |
+| --dry-run | Preview without changes |
+
+### Exit Codes
+0=success, 1=partial fail, 2=conflicts, 3=deps, 4=args, 5=interrupted
+
+stdout = data (JSON/paths), stderr = human output
+```
+
+---
 
 ## Installation
 
 ```bash
-# One-liner
 curl -fsSL https://raw.githubusercontent.com/Dicklesworthstone/repo_updater/main/install.sh | bash
-
-# Verify
-ru doctor
 ```
-
-## Architecture Notes
-
-- **~17,700 LOC** pure Bash, no external dependencies beyond git, curl, gh
-- **Work-stealing queue** for parallel sync with atomic dequeue
-- **Portable locking** via `mkdir` (works on all POSIX systems)
-- **Path security validation** prevents traversal attacks
-- **Retry with exponential backoff** for network operations
-
-## Integration with Flywheel
-
-| Tool | Integration |
-|------|-------------|
-| **Agent Mail** | Notify agents when repos are updated; coordinate reviews |
-| **BV** | Track repo sync as recurring beads |
-| **CASS** | Search past sync sessions and agent-sweep logs |
-| **NTM** | Robot mode API for session orchestration |
-| **DCG** | RU runs inside DCG sandbox protection |

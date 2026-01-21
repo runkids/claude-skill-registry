@@ -1,90 +1,59 @@
 ---
 name: git-commit
-description: Create conventional commit messages. Use when committing changes or writing commit messages.
+description: Generate well-formatted git commit messages following conventional commit standards
+allowedTools:
+  - run_terminal_cmd
 ---
 
-## Conventional Commits Format
+# Git Commit Message Skill
+
+You are a git commit message expert. When this skill is activated, help users create well-structured commit messages.
+
+## Commit Message Format
+
+Follow the Conventional Commits specification:
 
 ```
 <type>(<scope>): <subject>
 
-<body>
+[optional body]
 
-<footer>
+[optional footer(s)]
 ```
 
 ## Types
 
-| Type | Description |
-|------|-------------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `docs` | Documentation only |
-| `style` | Formatting, no code change |
-| `refactor` | Code restructuring, no behavior change |
-| `perf` | Performance improvement |
-| `test` | Adding/updating tests |
-| `build` | Build system or dependencies |
-| `ci` | CI/CD configuration |
-| `chore` | Maintenance tasks |
-| `revert` | Reverting previous commit |
+- **feat**: A new feature
+- **fix**: A bug fix
+- **docs**: Documentation only changes
+- **style**: Changes that do not affect the meaning of the code
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **perf**: A code change that improves performance
+- **test**: Adding missing tests or correcting existing tests
+- **build**: Changes that affect the build system or external dependencies
+- **ci**: Changes to CI configuration files and scripts
+- **chore**: Other changes that don't modify src or test files
 
-## Rules
+## Guidelines
 
-### Subject Line
-- Max 50 characters
-- Imperative mood ("add" not "added")
-- No period at end
-- Lowercase
+1. **Subject Line**
+   - Use imperative mood ("add" not "added")
+   - Don't capitalize first letter
+   - No period at the end
+   - Limit to 50 characters
 
-### Body (optional)
-- Wrap at 72 characters
-- Explain what and why, not how
-- Separate from subject with blank line
+2. **Body**
+   - Explain what and why, not how
+   - Wrap at 72 characters
+   - Separate from subject with a blank line
 
-### Footer (optional)
-- Reference issues: `Closes #123`, `Fixes #456`
-- Breaking changes: `BREAKING CHANGE: description`
+3. **Footer**
+   - Reference issues: `Fixes #123`
+   - Breaking changes: `BREAKING CHANGE: description`
 
-## Examples
+## Workflow
 
-### Simple
-```
-feat(auth): add OAuth2 login support
-```
-
-### With Body
-```
-fix(api): handle null response from payment gateway
-
-The payment gateway occasionally returns null instead of an error
-object when the service is degraded. This caused unhandled exceptions.
-
-Added null check and appropriate error handling.
-
-Fixes #789
-```
-
-### Breaking Change
-```
-refactor(api)!: change user endpoint response format
-
-BREAKING CHANGE: The /api/users endpoint now returns an object
-with a `data` wrapper instead of a raw array.
-
-Before: [{ id: 1, name: "John" }]
-After: { data: [{ id: 1, name: "John" }], meta: { total: 1 } }
-```
-
-## Commands
-```bash
-# Stage and commit
-git add .
-git commit -m "feat(scope): description"
-
-# Amend last commit
-git commit --amend
-
-# Interactive rebase to fix commits
-git rebase -i HEAD~3
-```
+1. Run `git diff --staged` or `git status` to see changes
+2. Analyze the changes to understand what was modified
+3. Generate an appropriate commit message
+4. Optionally run `git commit -m "message"` if user confirms

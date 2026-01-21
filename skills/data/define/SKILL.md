@@ -1,6 +1,6 @@
 ---
 name: define
-description: 'Manifest builder. Creates hierarchical definitions separating Deliverables (what to build) from Invariants (rules to follow). Use when starting new features, refactors, or any work requiring clear done criteria.'
+description: 'Manifest builder with verification criteria. Converts known requirements into Deliverables + Invariants. Use when you need done criteria, acceptance tests, quality gates—not for requirements discovery. Outputs executable manifest.'
 user-invocable: true
 ---
 
@@ -12,9 +12,11 @@ Build a **comprehensive Manifest** that captures:
 - **What we build** (Deliverables with Acceptance Criteria)
 - **Rules we must follow** (Global Invariants)
 
+**Why thoroughness matters**: Every criterion discovered NOW is one fewer rejection during implementation/review. The goal is a PR that passes on first submission—no "oh, I also needed X" after the work is done.
+
 Comprehensive means surfacing **latent criteria**—requirements the user doesn't know they have until probed. Users know their surface-level needs; your job is to discover the constraints and edge cases they haven't thought about.
 
-You can't get to 100% upfront—some criteria only emerge during implementation. But strive for good coverage without diminishing returns. The manifest supports amendments for what's discovered later.
+You can't get to 100% upfront—some criteria only emerge during implementation. But strive for high coverage. The manifest supports amendments for what's discovered later.
 
 Output: `/tmp/manifest-{timestamp}.md`
 
@@ -26,7 +28,7 @@ If no arguments provided, ask: "What would you like to build or change?"
 
 ## Principles
 
-1. **YOU generate, user validates** - Don't ask open-ended questions. Generate concrete candidates; learn from reactions.
+1. **YOU generate, user validates** - Surface latent criteria by generating concrete candidates; learn from reactions. Don't ask open-ended questions.
 
 2. **Only ask what you can't determine** - If you can infer from context, don't ask. Only ask when genuinely ambiguous.
 
@@ -34,35 +36,98 @@ If no arguments provided, ask: "What would you like to build or change?"
 
 4. **No vague terms** - "clean", "good", "proper" must become measurable.
 
-5. **Diminishing returns, not premature stop** - Be thorough in surfacing latent criteria, but recognize when additional probing isn't yielding new insights.
+5. **Diminishing returns, not premature stop** - Be thorough in surfacing latent criteria, but recognize when additional probing isn't yielding new insights. Low-reversibility decisions need more specific ACs.
+
+6. **ACs are observable behaviors** - "User sees X" not "Code does Y". Test: could a non-engineer verify this by looking at the result?
+
+7. **Explicitly surface edge cases** - After core behavior, ask about edge cases. Generate concrete scenarios (empty states, null inputs, boundaries, concurrent access) as options.
+
+8. **Outside view first** - Before diving into task specifics, consider: "What typically goes wrong in similar projects? What do successful implementations look like?" Base rates surface criteria the user won't think of. Convert patterns into concrete ACs/invariants—the insight has no value until it's embedded in a deliverable.
 
 ## Constraints
 
-**Create todo list immediately** - Track what needs to be discovered. Expand as you learn more.
+**Todo list immediately** - Adapt to task. Required: log file (`/tmp/define-interview-{timestamp}.md`), `→log` after discovery, `(expand: ...)` for emerging areas, `Refresh: read full log` before synthesis, acceptance criteria ("; done when X"). Update after every action.
 
-**Write to log as you go** - Capture findings to `/tmp/define-interview-{timestamp}.md` after each discovery. Don't wait until the end.
+**Write to log as you go** - Don't wait until the end.
 
-**Refresh before synthesis** - Before writing the final manifest, read the full interview log to restore context.
+**Refresh before synthesis** - Read full interview log to restore context.
+
+**Stop when converged** - When probing yields no new criteria, or user signals "enough", move to synthesis.
+
+**Pre-mortem + Backcast** - Generate failure/success scenarios. Task-wide risks → INV-G*. Deliverable-scoped → AC-*. Must become criteria—no standalone value.
 
 ## What the Manifest Needs
 
-Discover these through probing—surface latent criteria the user hasn't articulated:
+Both can cover **output** or **process**:
 
-### Deliverables
-What specific things need to be built or changed? Decompose based on task complexity. Probe for implicit deliverables the user assumed but didn't state.
+- **Global Invariants** - "Don't do X" (negative constraints, ongoing). Output: "No breaking changes to public API." Process: "Don't edit files in /legacy."
+- **Deliverables + ACs** - "Must have done X" (positive milestones). Three types:
+  - *Functional*: "Clicking Login redirects to Dashboard"
+  - *Non-Functional*: "Response time < 200ms"
+  - *Process*: "README.md contains section 'Authentication'"
 
-### Acceptance Criteria (per deliverable)
-How do we know each deliverable is done? Probe beyond the happy path: error handling, edge cases, constraints, security implications. ACs can be positive or negative. What would make the user reject a "working" implementation?
+### Code Quality Gates (for coding tasks)
 
-### Global Invariants
-What rules apply to the ENTIRE task? Probe for unstated assumptions: performance requirements, backwards compatibility, coding standards. For coding tasks, auto-detect from CLAUDE.md. What would make the user say "this breaks everything" even if individual deliverables work?
+For tasks involving code, ask users to **multi-select** which quality aspects they care about. Present both questions together.
 
-## Conceptual Framework
+**Filter through project preferences**: CLAUDE.md is auto-loaded into context—check it for quality gate preferences. Users may have disabled certain default gates (e.g., "skip documentation checks") or added custom ones (e.g., "always run security scan"). Exclude disabled gates from the selection, and include any custom gates the user has defined.
 
-| Type | Question | Scope | Failure |
-|------|----------|-------|---------|
-| **Global Invariant** | "What must NEVER be violated?" | Entire task | Task FAILS |
-| **Acceptance Criteria** | "How do we know THIS is done?" | Single deliverable | Incomplete |
+```
+questions: [
+  {
+    question: "Which code quality checks should apply as global invariants?",
+    header: "Quality",
+    options: [
+      { label: "No HIGH/CRITICAL bugs (Recommended)", description: "Logic errors, race conditions, error handling" },
+      { label: "Type safety", description: "No any abuse, proper narrowing, invalid states unrepresentable" },
+      { label: "Maintainability", description: "DRY, low coupling, consistency, no dead code" },
+      { label: "Simplicity", description: "No over-engineering, appropriate complexity" }
+    ],
+    multiSelect: true
+  },
+  {
+    question: "Additional quality checks:",
+    header: "More quality",
+    options: [
+      { label: "Test coverage", description: "New/changed code has adequate tests" },
+      { label: "Testability", description: "Code structure allows easy testing (low mock count)" },
+      { label: "Documentation", description: "Docs and comments match code" },
+      { label: "CLAUDE.md adherence", description: "Follows project-specific standards" }
+    ],
+    multiSelect: true
+  }
+]
+```
+
+**Map selections to reviewer agents:**
+
+| Quality Aspect | Agent | Threshold |
+|---------------|-------|-----------|
+| No bugs | code-bugs-reviewer | no HIGH/CRITICAL |
+| Type safety | type-safety-reviewer | no HIGH/CRITICAL |
+| Maintainability | code-maintainability-reviewer | no HIGH/CRITICAL |
+| Simplicity | code-simplicity-reviewer | no HIGH/CRITICAL |
+| Test coverage | code-coverage-reviewer | no HIGH/CRITICAL |
+| Testability | code-testability-reviewer | no HIGH/CRITICAL |
+| Documentation | docs-reviewer | no MEDIUM+ (max severity is MEDIUM) |
+| CLAUDE.md adherence | claude-md-adherence-reviewer | no HIGH/CRITICAL |
+
+Add selected quality gates as Global Invariants with subagent verification:
+```yaml
+verify:
+  method: subagent
+  agent: [agent-name-from-table]
+  prompt: "Review for [quality aspect] issues in the changed files"
+```
+
+### Project Gates (auto-detect from CLAUDE.md)
+
+For coding tasks, read CLAUDE.md and extract verifiable commands (typecheck, lint, test, format). Add as Global Invariants with bash verification:
+```yaml
+verify:
+  method: bash
+  command: "[command from CLAUDE.md]"
+```
 
 ## Question Format
 
@@ -70,7 +135,7 @@ When presenting options, mark the first as "(Recommended)" to reduce cognitive l
 
 ## The Manifest Schema
 
-```markdown
+````markdown
 # Definition: [Title]
 
 ## 1. Intent & Context
@@ -104,15 +169,7 @@ When presenting options, mark the first as "(Recommended)" to reduce cognitive l
 
 ### Deliverable 2: [Name]
 ...
-
-## 4. Tradeoffs & Preferences (if any)
-| Dimension | Preference | Context |
-|-----------|------------|---------|
-
-## 5. Pre-mortem Risks (if any)
-| Risk | Preventive Measure |
-|------|-------------------|
-```
+````
 
 ## ID Scheme
 

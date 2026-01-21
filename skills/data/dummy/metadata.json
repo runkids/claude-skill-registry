@@ -1,7 +1,7 @@
 {
   "name": "dummy",
-  "repo": "mlflow/dev",
+  "repo": "mlflow/mlflow",
   "path": "mlflow/assistant/skills/dummy/SKILL.md",
-  "source": "github.com/mlflow/dev",
-  "downloaded_at": "2026-01-20T03:13:14.896891Z"
+  "source": "github.com/mlflow/mlflow",
+  "downloaded_at": "2026-01-21T03:58:20.498943Z"
 }

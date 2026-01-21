@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-nextjs",
-  "repo": "jackspace/ClaudeSkillz",
-  "path": "skills/cloudflare-nextjs/SKILL.md",
-  "source": "github.com/jackspace/ClaudeSkillz",
-  "downloaded_at": "2026-01-20T03:10:22.949287Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/cloudflare-nextjs/skills/cloudflare-nextjs/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:45.162554Z"
 }

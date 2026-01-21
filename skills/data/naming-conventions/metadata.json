@@ -1,7 +1,7 @@
 {
   "name": "naming-conventions",
-  "repo": "phrazzld/claude-config",
-  "path": "skills/naming-conventions/SKILL.md",
-  "source": "github.com/phrazzld/claude-config",
-  "downloaded_at": "2026-01-14T03:03:38.912222Z"
+  "repo": "crmagz/cdk-constructs-library",
+  "path": ".claude/skills/naming-conventions/SKILL.md",
+  "source": "github.com/crmagz/cdk-constructs-library",
+  "downloaded_at": "2026-01-21T02:13:38.036004Z"
 }

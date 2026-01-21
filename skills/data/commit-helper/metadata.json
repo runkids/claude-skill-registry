@@ -1,7 +1,7 @@
 {
   "name": "commit-helper",
-  "repo": "nodnarbnitram/claude-code-extensions",
-  "path": ".claude/skills/commit-helper/SKILL.md",
-  "source": "github.com/nodnarbnitram/claude-code-extensions",
-  "downloaded_at": "2026-01-20T03:53:07.011320Z"
+  "repo": "Charon-Fan/agent-playbook",
+  "path": "skills/commit-helper/SKILL.md",
+  "source": "github.com/Charon-Fan/agent-playbook",
+  "downloaded_at": "2026-01-21T03:43:47.238120Z"
 }

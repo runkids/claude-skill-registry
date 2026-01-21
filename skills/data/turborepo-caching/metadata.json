@@ -1,7 +1,7 @@
 {
   "name": "turborepo-caching",
-  "repo": "buenhyden/hy-home.service-1",
-  "path": "agents_settings/agent/skills/turborepo-caching/SKILL.md",
-  "source": "github.com/buenhyden/hy-home.service-1",
-  "downloaded_at": "2026-01-20T02:53:49.911268Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/developer-essentials/skills/turborepo-caching/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-21T04:10:58.548738Z"
 }

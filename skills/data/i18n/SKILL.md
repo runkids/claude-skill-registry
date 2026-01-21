@@ -1,406 +1,785 @@
 ---
 name: i18n
-description: Internationalization and translation management. Use when adding new translations, updating existing content, creating new language support, or working with locale routing.
+description: Internationalization and localization patterns for multi-language applications. Use when implementing translation systems, locale-specific formatting, RTL layouts, or managing language switching. Keywords: i18n, internationalization, l10n, localization, translation, translate, locale, language, multilingual, multi-language, RTL, right-to-left, LTR, bidirectional, pluralization, plural forms, date format, time format, number format, currency format, timezone, i18next, react-intl, FormatJS, gettext, ICU MessageFormat, message format, language detection, language switching, Accept-Language, locale fallback, translation keys, translation files, JSON translations, PO files, YAML translations, react i18n, React localization, format date, format number, format currency, format relative time, Intl API, NumberFormat, DateTimeFormat, RTL CSS, logical properties, direction-aware, language code, region code, locale identifier, BCP47, ISO 639, translation extraction, pseudo-localization, namespace, translation namespace.
 ---
 
-# i18n (Internationalization)
+# Internationalization (i18n)
 
-**CRITICAL: NEVER use the Edit tool on JSON locale files.** Multi-byte UTF-8 characters (Japanese, etc.) cause crashes. ALWAYS use `apply-inline` command from the translation-helper.ts script to update translations.
+## Overview
+
+Internationalization (i18n) is the process of designing software so it can be adapted to various languages and regions without engineering changes. Localization (l10n) is the actual adaptation for a specific locale. This skill covers architecture patterns, translation formats, locale-specific formatting, and popular libraries.
 
 ## Quick Reference
 
-### Directory Structure
+**Common Use Cases:**
+- Multi-language web applications (React, Vue, Angular)
+- Locale-specific date, number, and currency formatting
+- RTL (right-to-left) layout support for Arabic, Hebrew, Persian, Urdu
+- Pluralization rules for different languages
+- Translation management and extraction workflows
+- Dynamic language switching without page reload
+- Server-side locale detection from headers/cookies
+
+**Popular Libraries:**
+- React: i18next, react-intl (FormatJS), react-i18next
+- Vue: vue-i18n
+- Node.js: i18next, node-polyglot, format-message
+- Python: gettext, Babel
+- Ruby: i18n gem, Rails I18n
+
+## Key Concepts
+
+### Internationalization Architecture
+
+**Core Principles:**
+
+- Separate translatable content from code
+- Use locale identifiers (e.g., `en-US`, `fr-FR`, `zh-Hans`)
+- Support dynamic locale switching
+- Handle fallback chains (e.g., `de-AT` -> `de` -> `en`)
+
+**Architecture Pattern:**
 
 ```
-i18n/
-├── config.ts              # Locale configuration, supported locales
-└── (future files)
-
-i18n.config.ts             # next-intl request configuration
-
-locales/
-├── en/
-│   └── common.json        # English translations
-└── es/
-    └── common.json        # Spanish translations
-
-app/[locale]/              # Locale-aware routes
-├── layout.tsx             # IntlProvider wrapper
-├── page.tsx               # Homepage
-└── ...                    # Other pages
-
-middleware.ts              # Locale detection and routing
+src/
+  locales/
+    en/
+      common.json
+      products.json
+      errors.json
+    fr/
+      common.json
+      products.json
+      errors.json
+  i18n/
+    config.ts
+    index.ts
 ```
 
-### Key Files
+**Locale Configuration:**
 
-| File                           | Purpose                                                          |
-| ------------------------------ | ---------------------------------------------------------------- |
-| `i18n/config.ts`               | Defines `SUPPORTED_LOCALES`, `DEFAULT_LOCALE`, `isValidLocale()` |
-| `i18n.config.ts`               | next-intl server config with `getRequestConfig`                  |
-| `locales/{locale}/common.json` | Translation strings organized by namespace                       |
-| `middleware.ts`                | Detects locale from URL/cookie/header, handles routing           |
+```typescript
+interface LocaleConfig {
+  code: string; // e.g., 'en-US'
+  language: string; // e.g., 'en'
+  region?: string; // e.g., 'US'
+  direction: "ltr" | "rtl";
+  dateFormat: string;
+  numberFormat: Intl.NumberFormatOptions;
+  currency: string;
+}
 
-## Adding New Translation Keys
+const locales: Record<string, LocaleConfig> = {
+  "en-US": {
+    code: "en-US",
+    language: "en",
+    region: "US",
+    direction: "ltr",
+    dateFormat: "MM/dd/yyyy",
+    numberFormat: { style: "decimal", minimumFractionDigits: 2 },
+    currency: "USD",
+  },
+  "de-DE": {
+    code: "de-DE",
+    language: "de",
+    region: "DE",
+    direction: "ltr",
+    dateFormat: "dd.MM.yyyy",
+    numberFormat: { style: "decimal", minimumFractionDigits: 2 },
+    currency: "EUR",
+  },
+  "ar-SA": {
+    code: "ar-SA",
+    language: "ar",
+    region: "SA",
+    direction: "rtl",
+    dateFormat: "dd/MM/yyyy",
+    numberFormat: { style: "decimal", minimumFractionDigits: 2 },
+    currency: "SAR",
+  },
+};
+```
 
-### 1. Add to English First
+### Translation File Formats
 
-Edit `locales/en/common.json`:
+**JSON Format (i18next, react-intl):**
 
 ```json
 {
-  "namespace": {
-    "newKey": "English text here",
-    "anotherKey": "More text"
+  "common": {
+    "welcome": "Welcome, {{name}}!",
+    "items_count": "{{count}} item",
+    "items_count_plural": "{{count}} items"
+  },
+  "products": {
+    "title": "Products",
+    "addToCart": "Add to Cart",
+    "price": "Price: {{price, currency}}"
+  },
+  "errors": {
+    "required": "This field is required",
+    "minLength": "Must be at least {{min}} characters"
   }
 }
 ```
 
-### 2. Add to All Other Locales
-
-Edit `locales/es/common.json` (and any other supported locales):
-
-```json
-{
-  "namespace": {
-    "newKey": "Texto en español aquí",
-    "anotherKey": "Más texto"
-  }
-}
-```
-
-### 3. Use in Component
-
-**Client Component:**
-
-```tsx
-'use client';
-import { useTranslations } from 'next-intl';
-
-export function MyComponent() {
-  const t = useTranslations('namespace');
-  return <p>{t('newKey')}</p>;
-}
-```
-
-**Server Component:**
-
-```tsx
-import { getTranslations } from 'next-intl/server';
-
-export default async function MyPage() {
-  const t = await getTranslations('namespace');
-  return <p>{t('newKey')}</p>;
-}
-```
-
-## Translation Namespaces
-
-Organize translations by feature/area:
-
-| Namespace   | Purpose            | Example Keys                          |
-| ----------- | ------------------ | ------------------------------------- |
-| `common`    | Shared UI elements | `loading`, `error`, `submit`          |
-| `nav`       | Navigation items   | `features`, `pricing`, `signIn`       |
-| `footer`    | Footer content     | `privacy`, `terms`, `copyright`       |
-| `homepage`  | Landing page       | `heroTitle`, `ctaButton`              |
-| `dashboard` | Dashboard UI       | `credits`, `history`, `settings`      |
-| `auth`      | Auth forms         | `email`, `password`, `forgotPassword` |
-
-## Adding a New Language
-
-### 1. Update Locale Config
-
-Edit `i18n/config.ts`:
-
-```typescript
-export const SUPPORTED_LOCALES = ['en', 'es', 'fr'] as const; // Add 'fr'
-
-export const locales = {
-  en: { label: 'English', country: 'US' },
-  es: { label: 'Español', country: 'ES' },
-  fr: { label: 'Français', country: 'FR' }, // Add French
-} as const;
-```
-
-### 2. Add Flag Import (if using LocaleSwitcher)
-
-Edit `client/components/i18n/LocaleSwitcher.tsx`:
-
-```typescript
-import { US, ES, FR } from 'country-flag-icons/react/3x2';
-
-const FlagComponents = {
-  US,
-  ES,
-  FR, // Add FR
-} as const;
-```
-
-### 3. Create Translation File
-
-Create `locales/fr/common.json`:
+**Nested JSON with Namespaces:**
 
 ```json
 {
   "nav": {
-    "features": "Fonctionnalités",
-    "pricing": "Tarifs"
+    "home": "Home",
+    "products": "Products",
+    "about": "About Us"
+  },
+  "footer": {
+    "copyright": "Copyright 2024",
+    "links": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    }
   }
-  // Copy structure from en/common.json and translate
 }
 ```
 
-### 4. Update Layout Metadata
+**YAML Format:**
 
-Edit `app/[locale]/layout.tsx` alternates:
+```yaml
+common:
+  welcome: "Welcome, {name}!"
+  items_count:
+    one: "{count} item"
+    other: "{count} items"
+
+products:
+  title: Products
+  addToCart: Add to Cart
+  outOfStock: Out of Stock
+
+errors:
+  required: This field is required
+  email: Please enter a valid email
+```
+
+**PO/POT Format (gettext):**
+
+```po
+# English translations
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/components/Header.js:15
+msgid "Welcome"
+msgstr "Welcome"
+
+#: src/components/Cart.js:42
+msgid "item"
+msgid_plural "items"
+msgstr[0] "item"
+msgstr[1] "items"
+
+#: src/components/Product.js:28
+#, python-format
+msgid "Price: %(price)s"
+msgstr "Price: %(price)s"
+```
+
+### Pluralization Rules
+
+**ICU MessageFormat:**
+
+```javascript
+const messages = {
+  // English
+  en: {
+    items: "{count, plural, =0 {No items} one {# item} other {# items}}",
+    cartItems: `{count, plural,
+      =0 {Your cart is empty}
+      one {You have # item in your cart}
+      other {You have # items in your cart}
+    }`,
+  },
+  // Russian (3 plural forms)
+  ru: {
+    items: `{count, plural,
+      one {# товар}
+      few {# товара}
+      many {# товаров}
+      other {# товаров}
+    }`,
+  },
+  // Arabic (6 plural forms)
+  ar: {
+    items: `{count, plural,
+      zero {لا عناصر}
+      one {عنصر واحد}
+      two {عنصران}
+      few {# عناصر}
+      many {# عنصرًا}
+      other {# عنصر}
+    }`,
+  },
+};
+```
+
+**Select and SelectOrdinal:**
+
+```javascript
+const messages = {
+  gender: `{gender, select,
+    male {He}
+    female {She}
+    other {They}
+  } liked your post.`,
+
+  ordinal: `{position, selectordinal,
+    one {#st}
+    two {#nd}
+    few {#rd}
+    other {#th}
+  } place`,
+};
+```
+
+### Date/Time/Number Formatting
+
+**Using Intl API:**
 
 ```typescript
-alternates: {
-  languages: {
-    en: '/',
-    es: '/es/',
-    fr: '/fr/', // Add French
+class LocaleFormatter {
+  private locale: string;
+
+  constructor(locale: string) {
+    this.locale = locale;
+  }
+
+  formatNumber(value: number, options?: Intl.NumberFormatOptions): string {
+    return new Intl.NumberFormat(this.locale, options).format(value);
+  }
+
+  formatCurrency(value: number, currency: string): string {
+    return new Intl.NumberFormat(this.locale, {
+      style: "currency",
+      currency,
+    }).format(value);
+  }
+
+  formatDate(date: Date, options?: Intl.DateTimeFormatOptions): string {
+    return new Intl.DateTimeFormat(this.locale, options).format(date);
+  }
+
+  formatRelativeTime(value: number, unit: Intl.RelativeTimeFormatUnit): string {
+    return new Intl.RelativeTimeFormat(this.locale, {
+      numeric: "auto",
+    }).format(value, unit);
+  }
+
+  formatList(
+    items: string[],
+    type: "conjunction" | "disjunction" = "conjunction",
+  ): string {
+    return new Intl.ListFormat(this.locale, { type }).format(items);
+  }
+}
+
+// Usage
+const formatter = new LocaleFormatter("de-DE");
+formatter.formatNumber(1234567.89); // "1.234.567,89"
+formatter.formatCurrency(99.99, "EUR"); // "99,99 €"
+formatter.formatDate(new Date()); // "19.12.2024"
+formatter.formatRelativeTime(-1, "day"); // "gestern"
+formatter.formatList(["A", "B", "C"]); // "A, B und C"
+```
+
+**Date Format Patterns by Locale:**
+
+```typescript
+const datePatterns: Record<string, Intl.DateTimeFormatOptions> = {
+  short: { dateStyle: "short" },
+  medium: { dateStyle: "medium" },
+  long: { dateStyle: "long" },
+  full: { dateStyle: "full" },
+  custom: {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
   },
-},
+};
+
+// Results vary by locale:
+// en-US: "Thursday, December 19, 2024"
+// de-DE: "Donnerstag, 19. Dezember 2024"
+// ja-JP: "2024年12月19日木曜日"
 ```
 
-## Translating a Component
+### RTL (Right-to-Left) Support
 
-### Before (Hardcoded)
+**CSS Logical Properties:**
+
+```css
+/* Instead of physical properties */
+.card {
+  /* Use logical properties for automatic RTL support */
+  margin-inline-start: 1rem; /* margin-left in LTR, margin-right in RTL */
+  margin-inline-end: 2rem;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-inline-start: 3px solid blue;
+  text-align: start; /* left in LTR, right in RTL */
+}
+
+/* Flexbox and Grid automatically adapt */
+.container {
+  display: flex;
+  flex-direction: row; /* Adapts to document direction */
+  gap: 1rem;
+}
+```
+
+**Direction-Aware Styling:**
+
+```css
+/* Set direction at root */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+/* Use :dir() pseudo-class */
+.icon:dir(rtl) {
+  transform: scaleX(-1); /* Flip icons */
+}
+
+/* Bidirectional text handling */
+.mixed-content {
+  unicode-bidi: isolate;
+}
+```
+
+**React RTL Implementation:**
 
 ```tsx
-export function PricingCard() {
+import { createContext, useContext, ReactNode } from "react";
+
+interface DirectionContextType {
+  direction: "ltr" | "rtl";
+  isRTL: boolean;
+}
+
+const DirectionContext = createContext<DirectionContextType>({
+  direction: "ltr",
+  isRTL: false,
+});
+
+export function DirectionProvider({
+  locale,
+  children,
+}: {
+  locale: string;
+  children: ReactNode;
+}) {
+  const rtlLocales = ["ar", "he", "fa", "ur"];
+  const language = locale.split("-")[0];
+  const isRTL = rtlLocales.includes(language);
+  const direction = isRTL ? "rtl" : "ltr";
+
+  return (
+    <DirectionContext.Provider value={{ direction, isRTL }}>
+      <div dir={direction}>{children}</div>
+    </DirectionContext.Provider>
+  );
+}
+
+export const useDirection = () => useContext(DirectionContext);
+```
+
+### Content Localization Strategies
+
+**Dynamic Content Loading:**
+
+```typescript
+async function loadTranslations(locale: string, namespace: string) {
+  try {
+    const translations = await import(`../locales/${locale}/${namespace}.json`);
+    return translations.default;
+  } catch {
+    // Fallback to default locale
+    const fallback = await import(`../locales/en/${namespace}.json`);
+    return fallback.default;
+  }
+}
+```
+
+**Server-Side Locale Detection:**
+
+```typescript
+function detectLocale(request: Request): string {
+  // 1. Check URL parameter
+  const url = new URL(request.url);
+  const urlLocale = url.searchParams.get("locale");
+  if (urlLocale && isValidLocale(urlLocale)) return urlLocale;
+
+  // 2. Check cookie
+  const cookieLocale = getCookie(request, "locale");
+  if (cookieLocale && isValidLocale(cookieLocale)) return cookieLocale;
+
+  // 3. Check Accept-Language header
+  const acceptLanguage = request.headers.get("Accept-Language");
+  if (acceptLanguage) {
+    const preferred = parseAcceptLanguage(acceptLanguage);
+    const matched = preferred.find((l) => isValidLocale(l));
+    if (matched) return matched;
+  }
+
+  // 4. Default locale
+  return "en-US";
+}
+
+function parseAcceptLanguage(header: string): string[] {
+  return header
+    .split(",")
+    .map((lang) => {
+      const [code, q] = lang.trim().split(";q=");
+      return { code: code.trim(), q: parseFloat(q) || 1 };
+    })
+    .sort((a, b) => b.q - a.q)
+    .map(({ code }) => code);
+}
+```
+
+### Libraries: i18next, react-intl, gettext
+
+**i18next Setup:**
+
+```typescript
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import Backend from "i18next-http-backend";
+import LanguageDetector from "i18next-browser-languagedetector";
+
+i18n
+  .use(Backend)
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    fallbackLng: "en",
+    supportedLngs: ["en", "de", "fr", "es", "ar"],
+    ns: ["common", "products", "errors"],
+    defaultNS: "common",
+    backend: {
+      loadPath: "/locales/{{lng}}/{{ns}}.json",
+    },
+    interpolation: {
+      escapeValue: false,
+      format: (value, format, lng) => {
+        if (format === "currency") {
+          return new Intl.NumberFormat(lng, {
+            style: "currency",
+            currency: "USD",
+          }).format(value);
+        }
+        if (value instanceof Date) {
+          return new Intl.DateTimeFormat(lng).format(value);
+        }
+        return value;
+      },
+    },
+    react: {
+      useSuspense: true,
+    },
+  });
+
+export default i18n;
+```
+
+**i18next Usage in React:**
+
+```tsx
+import { useTranslation, Trans } from "react-i18next";
+
+function ProductCard({ product }) {
+  const { t, i18n } = useTranslation(["products", "common"]);
+
   return (
     <div>
-      <h2>Pro Plan</h2>
-      <p>Best for professionals</p>
-      <button>Get Started</button>
+      <h2>{product.name}</h2>
+      <p>{t("products:price", { price: product.price })}</p>
+      <p>{t("common:items_count", { count: product.stock })}</p>
+
+      <Trans i18nKey="products:description" values={{ name: product.name }}>
+        Check out <strong>{{ name: product.name }}</strong> today!
+      </Trans>
+
+      <button onClick={() => i18n.changeLanguage("de")}>
+        {t("common:switchLanguage")}
+      </button>
     </div>
   );
 }
 ```
 
-### After (Translated)
-
-1. Add translations to `locales/en/common.json`:
-
-```json
-{
-  "pricing": {
-    "proPlan": "Pro Plan",
-    "proDescription": "Best for professionals",
-    "getStarted": "Get Started"
-  }
-}
-```
-
-2. Add to `locales/es/common.json`:
-
-```json
-{
-  "pricing": {
-    "proPlan": "Plan Pro",
-    "proDescription": "Ideal para profesionales",
-    "getStarted": "Comenzar"
-  }
-}
-```
-
-3. Update component:
+**react-intl Setup:**
 
 ```tsx
-'use client';
-import { useTranslations } from 'next-intl';
+import { IntlProvider, FormattedMessage, useIntl } from "react-intl";
 
-export function PricingCard() {
-  const t = useTranslations('pricing');
+const messages = {
+  en: {
+    "app.greeting": "Hello, {name}!",
+    "app.items": "{count, plural, =0 {No items} one {# item} other {# items}}",
+  },
+  de: {
+    "app.greeting": "Hallo, {name}!",
+    "app.items":
+      "{count, plural, =0 {Keine Artikel} one {# Artikel} other {# Artikel}}",
+  },
+};
+
+function App() {
+  const [locale, setLocale] = useState("en");
+
+  return (
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <Content />
+    </IntlProvider>
+  );
+}
+
+function Content() {
+  const intl = useIntl();
+
   return (
     <div>
-      <h2>{t('proPlan')}</h2>
-      <p>{t('proDescription')}</p>
-      <button>{t('getStarted')}</button>
+      <FormattedMessage id="app.greeting" values={{ name: "World" }} />
+
+      <p>{intl.formatMessage({ id: "app.items" }, { count: 5 })}</p>
+
+      <p>
+        {intl.formatNumber(1234.56, { style: "currency", currency: "EUR" })}
+      </p>
+      <p>{intl.formatDate(new Date(), { dateStyle: "long" })}</p>
     </div>
   );
 }
 ```
 
-## Dynamic Values & Pluralization
+**Python gettext:**
 
-### Interpolation
+```python
+import gettext
+from pathlib import Path
 
-```json
-{
-  "greeting": "Hello, {name}!"
+# Setup
+localedir = Path(__file__).parent / 'locales'
+translation = gettext.translation(
+    'messages',
+    localedir=localedir,
+    languages=['de'],
+    fallback=True
+)
+_ = translation.gettext
+ngettext = translation.ngettext
+
+# Usage
+print(_("Hello, World!"))
+print(_("Welcome, %(name)s!") % {'name': 'User'})
+
+count = 5
+print(ngettext(
+    "%(count)d item",
+    "%(count)d items",
+    count
+) % {'count': count})
+```
+
+## Best Practices
+
+### Architecture
+
+- Extract all user-facing strings into translation files
+- Use namespaces to organize translations by feature/page
+- Implement locale fallback chains
+- Load translations lazily for better performance
+
+### Translation Keys
+
+- Use descriptive, hierarchical keys (e.g., `products.card.addToCart`)
+- Include context in keys when meaning is ambiguous
+- Never use raw text as keys (brittle, hard to track)
+- Document placeholders and their expected values
+
+### Formatting
+
+- Always use locale-aware formatting for dates, numbers, currencies
+- Use ICU MessageFormat for complex pluralization
+- Handle timezone conversion server-side when possible
+- Consider cultural differences (e.g., name order, address format)
+
+### RTL Support
+
+- Use CSS logical properties exclusively
+- Test with actual RTL content, not just mirrored LTR
+- Handle bidirectional text properly
+- Ensure icons and images are direction-appropriate
+
+### Testing
+
+- Test with pseudo-localization to catch hardcoded strings
+- Test with long translations (German) for UI overflow
+- Test with RTL languages for layout issues
+- Automate extraction of untranslated strings
+
+## Examples
+
+### Complete React i18n Setup
+
+```tsx
+// i18n/config.ts
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import Backend from "i18next-http-backend";
+import LanguageDetector from "i18next-browser-languagedetector";
+
+export const supportedLocales = [
+  { code: "en-US", name: "English", dir: "ltr" },
+  { code: "de-DE", name: "Deutsch", dir: "ltr" },
+  { code: "ar-SA", name: "العربية", dir: "rtl" },
+] as const;
+
+i18n
+  .use(Backend)
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    fallbackLng: "en-US",
+    supportedLngs: supportedLocales.map((l) => l.code),
+    load: "currentOnly",
+    ns: ["common", "products"],
+    defaultNS: "common",
+    backend: {
+      loadPath: "/locales/{{lng}}/{{ns}}.json",
+    },
+    detection: {
+      order: ["querystring", "cookie", "navigator"],
+      caches: ["cookie"],
+    },
+  });
+
+export default i18n;
+
+// hooks/useLocale.ts
+import { useTranslation } from "react-i18next";
+import { supportedLocales } from "../i18n/config";
+
+export function useLocale() {
+  const { i18n } = useTranslation();
+
+  const currentLocale =
+    supportedLocales.find((l) => l.code === i18n.language) ||
+    supportedLocales[0];
+
+  const changeLocale = async (code: string) => {
+    await i18n.changeLanguage(code);
+    document.documentElement.dir =
+      supportedLocales.find((l) => l.code === code)?.dir || "ltr";
+    document.documentElement.lang = code;
+  };
+
+  return {
+    locale: currentLocale,
+    locales: supportedLocales,
+    changeLocale,
+    isRTL: currentLocale.dir === "rtl",
+  };
+}
+
+// components/LocaleSwitcher.tsx
+import { useLocale } from "../hooks/useLocale";
+
+export function LocaleSwitcher() {
+  const { locale, locales, changeLocale } = useLocale();
+
+  return (
+    <select
+      value={locale.code}
+      onChange={(e) => changeLocale(e.target.value)}
+      aria-label="Select language"
+    >
+      {locales.map((l) => (
+        <option key={l.code} value={l.code}>
+          {l.name}
+        </option>
+      ))}
+    </select>
+  );
 }
 ```
 
-```tsx
-t('greeting', { name: 'John' }); // "Hello, John!"
-```
+### Translation Extraction Script
 
-### Pluralization
+```javascript
+// scripts/extract-translations.js
+const fs = require("fs");
+const path = require("path");
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
 
-```json
-{
-  "credits": "{count, plural, =0 {No credits} =1 {1 credit} other {# credits}}"
+const sourceDir = "./src";
+const outputFile = "./locales/extracted.json";
+
+function extractTranslationKeys(code) {
+  const keys = new Set();
+
+  const ast = parser.parse(code, {
+    sourceType: "module",
+    plugins: ["jsx", "typescript"],
+  });
+
+  traverse(ast, {
+    CallExpression(path) {
+      if (
+        path.node.callee.name === "t" ||
+        path.node.callee.property?.name === "t"
+      ) {
+        const arg = path.node.arguments[0];
+        if (arg?.type === "StringLiteral") {
+          keys.add(arg.value);
+        }
+      }
+    },
+  });
+
+  return keys;
 }
-```
 
-```tsx
-t('credits', { count: 5 }); // "5 credits"
-```
+function walkDir(dir) {
+  const allKeys = new Set();
 
-## URL Routing Rules
+  const files = fs.readdirSync(dir);
+  for (const file of files) {
+    const filePath = path.join(dir, file);
+    const stat = fs.statSync(filePath);
 
-| URL           | Locale | Behavior                              |
-| ------------- | ------ | ------------------------------------- |
-| `/`           | `en`   | English (default, no prefix)          |
-| `/es/`        | `es`   | Spanish (explicit prefix)             |
-| `/pricing`    | `en`   | Internally rewritten to `/en/pricing` |
-| `/es/pricing` | `es`   | Spanish pricing page                  |
-
-## Middleware Locale Detection Priority
-
-1. **URL Path** - `/es/...` → Spanish
-2. **Cookie** - `locale=es` → Spanish
-3. **Accept-Language Header** - Browser preference
-4. **Default** - English (`en`)
-
-## Common Issues
-
-### Translation Not Showing
-
-1. Check key exists in JSON file
-2. Verify namespace matches: `useTranslations('namespace')`
-3. Ensure component is wrapped by `NextIntlClientProvider`
-4. Check for typos in key path
-
-### Locale Not Switching
-
-1. Verify locale is in `SUPPORTED_LOCALES`
-2. Check middleware routing logic
-3. Ensure cookie is being set on switch
-4. Use `window.location.href` not `router.push` for full reload
-
-### Missing Translation Warning
-
-If a key is missing, next-intl shows the key name. Add missing translations or use fallback:
-
-```tsx
-t('maybeNotExist', { default: 'Fallback text' });
-```
-
-## Checking Translations
-
-### Quick Check
-
-Run the translation checker to verify completeness:
-
-```bash
-yarn i18n:check
-```
-
-This checks all locales for:
-
-- Missing translation files
-- Missing translation keys
-- Untranslated content (values identical to English)
-
-### Script Options
-
-The check script supports various options for targeted checks:
-
-```bash
-# Check specific locale only
-yarn i18n:check --locale de
-
-# Check specific namespace only
-yarn i18n:check --namespace pricing
-
-# Combine filters
-yarn i18n:check --locale de --namespace pricing
-
-# Output as JSON (useful for CI/CD)
-yarn i18n:check --json
-
-# Show verbose output (all checked items, not just missing)
-yarn i18n:check --verbose
-
-# Show debug info (file structure, key counts)
-yarn i18n:check --debug
-
-# Check only missing keys, not files
-yarn i18n:check --keys-only
-
-# Check only missing files, not keys
-yarn i18n:check --files-only
-```
-
-### Understanding the Report
-
-The check report shows:
-
-| Section                  | Description                                                                       |
-| ------------------------ | --------------------------------------------------------------------------------- |
-| **Missing Files**        | Translation files that don't exist for a locale (e.g., `pt/pricing.json` missing) |
-| **Missing Keys**         | Keys present in English but missing in other locales                              |
-| **Untranslated Content** | Keys where the value matches English exactly (may need translation)               |
-| **Extra Files**          | Files in locale that don't exist in English (warnings)                            |
-| **Extra Keys**           | Keys in locale that don't exist in English (warnings)                             |
-
-### CI/CD Integration
-
-The script exits with error code 1 if issues are found, making it suitable for CI/CD:
-
-```json
-{
-  "scripts": {
-    "i18n:check": "tsx scripts/check-translations.ts",
-    "verify": "npm run tsc && npm run lint && npm run i18n:check"
+    if (stat.isDirectory()) {
+      walkDir(filePath).forEach((k) => allKeys.add(k));
+    } else if (/\.(tsx?|jsx?)$/.test(file)) {
+      const code = fs.readFileSync(filePath, "utf8");
+      extractTranslationKeys(code).forEach((k) => allKeys.add(k));
+    }
   }
+
+  return allKeys;
 }
+
+const keys = walkDir(sourceDir);
+const result = {};
+keys.forEach((key) => {
+  result[key] = "";
+});
+
+fs.writeFileSync(outputFile, JSON.stringify(result, null, 2));
+console.log(`Extracted ${keys.size} translation keys`);
 ```
-
-### Reference Locale
-
-- **Reference**: English (`en`) is the source of truth
-- All other locales are compared against English
-- Always add new keys to English first, then translate
-
-### Common Workflows
-
-**Before committing translations:**
-
-```bash
-yarn i18n:check
-```
-
-**After adding new translation keys:**
-
-```bash
-# Check all locales for the new keys
-yarn i18n:check --namespace <your-namespace>
-
-# Check specific locale
-yarn i18n:check --locale pt --namespace <your-namespace>
-```
-
-**Debugging translation issues:**
-
-```bash
-# See full file structure and key counts
-yarn i18n:check --debug
-
-# See all checked items
-yarn i18n:check --verbose
-```
-
-## Checklist for New Translations
-
-- [ ] Added key to `locales/en/common.json`
-- [ ] Added translation to all other locale files (`es`, etc.)
-- [ ] Used correct namespace in component
-- [ ] Tested in all supported languages
-- [ ] Ran `yarn i18n:check` to verify completeness
-- [ ] Ran `yarn verify` before committing

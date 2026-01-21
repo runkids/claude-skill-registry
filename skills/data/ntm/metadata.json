@@ -1,9 +1,7 @@
 {
   "name": "ntm",
-  "description": "Named Tmux Manager - orchestrate multiple AI coding agents (Claude Code, Codex, Gemini) in tiled tmux panes with visual dashboards, command palette, context rotation, Agent Mail integration, and robot",
-  "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/ntm/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-21T01:20:06.137328Z"
 }

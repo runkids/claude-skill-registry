@@ -1,710 +1,474 @@
 ---
 name: github-actions
-description: Create and maintain GitHub Actions workflows for CI/CD, testing, deployment, and automation. Use when setting up pipelines, automating tasks, or configuring continuous integration.
-allowed-tools: Read, Edit, Write, Bash, Grep, Glob
+description: Create, configure, and optimize GitHub Actions including action types, triggers, runners, security practices, and marketplace integration
 ---
 
-# GitHub Actions Skill
+# GitHub Actions
 
-This skill helps you create and maintain GitHub Actions workflows for continuous integration and deployment.
+Activate when creating, modifying, troubleshooting, or optimizing GitHub Actions components. This skill covers action development, marketplace integration, and best practices.
 
 ## When to Use This Skill
 
-- Setting up CI/CD pipelines
-- Automating tests and builds
-- Configuring deployment workflows
-- Creating release automation
-- Running scheduled jobs
-- Automating dependency updates
-- Setting up code quality checks
+Activate when:
+- Creating custom GitHub Actions (JavaScript, Docker, or composite)
+- Publishing actions to GitHub Marketplace
+- Configuring action metadata and inputs/outputs
+- Implementing action security and permissions
+- Troubleshooting action execution
+- Selecting or evaluating marketplace actions
+- Optimizing action performance and reliability
 
-## Workflow Structure
+## Action Types
 
+### JavaScript Actions
+
+Execute directly on runners with fast startup and cross-platform compatibility.
+
+**Structure:**
 ```
-.github/
-├── workflows/
-│   ├── test.yml              # Run tests on PR/push
-│   ├── deploy-staging.yml    # Deploy to staging
-│   ├── deploy-prod.yml       # Deploy to production
-│   ├── release.yml           # Create releases
-│   ├── security.yml          # Security audits
-│   └── cron-jobs.yml         # Scheduled tasks
-├── actions/
-│   └── setup/                # Reusable actions
-│       └── action.yml
-└── dependabot.yml            # Dependency updates
+my-action/
+├── action.yml        # Metadata and interface
+├── index.js          # Entry point
+├── package.json      # Dependencies
+└── node_modules/     # Bundled dependencies
 ```
 
-## Basic Workflow
+**Key Requirements:**
+- Use `@actions/core` for inputs/outputs
+- Use `@actions/github` for GitHub API access
+- Bundle all dependencies (use @vercel/ncc)
+- Support Node.js LTS versions
 
-### Test Workflow
-
+**Example action.yml:**
 ```yaml
-# .github/workflows/test.yml
-name: Test
-
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run linter
-        run: pnpm biome check .
-
-      - name: Type check
-        run: pnpm tsc --noEmit
-
-      - name: Run tests
-        run: pnpm test
-
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/lcov.info
+name: 'My JavaScript Action'
+description: 'Performs custom task'
+inputs:
+  token:
+    description: 'GitHub token'
+    required: true
+  config:
+    description: 'Configuration file path'
+    required: false
+    default: 'config.yml'
+outputs:
+  result:
+    description: 'Action result'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
 ```
 
-## Deployment Workflows
+### Docker Container Actions
 
-### Deploy to Staging
+Provide consistent execution environment with all dependencies packaged.
 
-```yaml
-# .github/workflows/deploy-staging.yml
-name: Deploy to Staging
-
-on:
-  push:
-    branches: [develop]
-  workflow_dispatch:
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment:
-      name: staging
-      url: https://staging.sgcarstrends.com
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run tests
-        run: pnpm test
-
-      - name: Build
-        run: pnpm build
-
-      - name: Deploy API
-        run: pnpm -F @sgcarstrends/api deploy:staging
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Deploy Web
-        run: pnpm -F @sgcarstrends/web deploy:staging
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Run migrations
-        run: pnpm db:migrate
-        env:
-          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
-
-      - name: Notify Slack
-        if: always()
-        uses: slackapi/slack-github-action@v1
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          payload: |
-            {
-              "text": "Staging deployment ${{ job.status }}"
-            }
+**Structure:**
+```
+my-action/
+├── action.yml
+├── Dockerfile
+├── entrypoint.sh
+└── src/
 ```
 
-### Deploy to Production
+**Key Requirements:**
+- Use lightweight base images (Alpine when possible)
+- Set proper file permissions
+- Handle signals gracefully
+- Output to STDOUT/STDERR correctly
 
-```yaml
-# .github/workflows/deploy-prod.yml
-name: Deploy to Production
+**Example Dockerfile:**
+```dockerfile
+FROM alpine:3.18
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-    inputs:
-      confirm:
-        description: "Type 'deploy' to confirm"
-        required: true
+RUN apk add --no-cache bash curl jq
 
-jobs:
-  confirm:
-    if: github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Confirm deployment
-        run: |
-          if [ "${{ github.event.inputs.confirm }}" != "deploy" ]; then
-            echo "Deployment not confirmed"
-            exit 1
-          fi
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-  deploy:
-    needs: [confirm]
-    if: always() && (needs.confirm.result == 'success' || github.event_name == 'push')
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: https://sgcarstrends.com
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run tests
-        run: pnpm test
-
-      - name: Run security audit
-        run: pnpm audit --audit-level=high
-
-      - name: Build
-        run: pnpm build
-
-      - name: Deploy API
-        run: pnpm -F @sgcarstrends/api deploy:prod
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Deploy Web
-        run: pnpm -F @sgcarstrends/web deploy:prod
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Run migrations
-        run: pnpm db:migrate
-        env:
-          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-
-      - name: Create deployment
-        uses: chrnorm/deployment-action@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: production
-          state: success
-
-      - name: Notify team
-        if: always()
-        uses: slackapi/slack-github-action@v1
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          payload: |
-            {
-              "text": "🚀 Production deployment ${{ job.status }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Production Deployment*\nStatus: ${{ job.status }}\nCommit: ${{ github.sha }}\nAuthor: ${{ github.actor }}"
-                  }
-                }
-              ]
-            }
+ENTRYPOINT ["/entrypoint.sh"]
 ```
 
-## Release Workflow
+### Composite Actions
 
-### Automated Release
+Combine multiple steps and actions into reusable units.
 
+**Structure:**
 ```yaml
-# .github/workflows/release.yml
-name: Release
-
-on:
-  push:
-    branches: [main]
-
-permissions:
-  contents: write
-  issues: write
-  pull-requests: write
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
-
-      - name: Get new version
-        id: version
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ steps.version.outputs.version }}
-          release_name: Release v${{ steps.version.outputs.version }}
-          draft: false
-          prerelease: false
-```
-
-## Reusable Workflows
-
-### Shared Setup Action
-
-```yaml
-# .github/actions/setup/action.yml
-name: "Setup Project"
-description: "Setup Node.js, pnpm, and install dependencies"
-
+name: 'Setup Environment'
+description: 'Configure development environment'
 inputs:
   node-version:
-    description: "Node.js version"
+    description: 'Node.js version'
     required: false
-    default: "20"
-
+    default: '20'
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 8
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
-        cache: "pnpm"
-
-    - name: Install dependencies
+    - run: npm ci
       shell: bash
-      run: pnpm install --frozen-lockfile
-
-    - name: Cache Turbo
-      uses: actions/cache@v3
-      with:
-        path: .turbo
-        key: ${{ runner.os }}-turbo-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-turbo-
+    - run: npm run build
+      shell: bash
 ```
 
-### Use Reusable Workflow
+## Action Metadata (action.yml)
+
+### Required Fields
 
 ```yaml
-# .github/workflows/test.yml
-name: Test
-
-on: [push, pull_request]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup project
-        uses: ./.github/actions/setup
-
-      - name: Run tests
-        run: pnpm test
+name: 'Action Name'           # Marketplace display name
+description: 'What it does'   # Clear, concise purpose
+runs:                         # Execution configuration
+  using: 'node20'            # or 'docker' or 'composite'
 ```
 
-## Matrix Strategy
-
-### Test Multiple Versions
+### Optional Fields
 
 ```yaml
-name: Test Matrix
-
-on: [push, pull_request]
-
-jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [18, 20, 21]
-        exclude:
-          - os: windows-latest
-            node: 18
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-          cache: "pnpm"
-
-      - run: pnpm install
-      - run: pnpm test
+author: 'Your Name'
+branding:                    # Marketplace icon/color
+  icon: 'activity'
+  color: 'blue'
+inputs:                      # Define all inputs
+  input-name:
+    description: 'Purpose'
+    required: true
+    default: 'value'
+outputs:                     # Define all outputs
+  output-name:
+    description: 'What it contains'
 ```
 
-## Conditional Execution
+## Inputs and Outputs
 
-### Run Jobs Conditionally
+### Reading Inputs
 
-```yaml
-name: Deploy
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy-api:
-    if: contains(github.event.head_commit.message, '[deploy-api]')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: pnpm -F @sgcarstrends/api deploy:prod
-
-  deploy-web:
-    if: contains(github.event.head_commit.message, '[deploy-web]')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: pnpm -F @sgcarstrends/web deploy:prod
-
-  deploy-all:
-    if: |
-      !contains(github.event.head_commit.message, '[deploy-api]') &&
-      !contains(github.event.head_commit.message, '[deploy-web]')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: pnpm deploy:prod
+**JavaScript:**
+```javascript
+const core = require('@actions/core');
+const token = core.getInput('token', { required: true });
+const config = core.getInput('config') || 'default.yml';
 ```
 
-## Caching
-
-### Cache Dependencies
-
-```yaml
-- name: Cache pnpm store
-  uses: actions/cache@v3
-  with:
-    path: ~/.pnpm-store
-    key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-    restore-keys: |
-      ${{ runner.os }}-pnpm-
-
-- name: Cache Turbo
-  uses: actions/cache@v3
-  with:
-    path: .turbo
-    key: ${{ runner.os }}-turbo-${{ github.sha }}
-    restore-keys: |
-      ${{ runner.os }}-turbo-
-
-- name: Cache Next.js
-  uses: actions/cache@v3
-  with:
-    path: apps/web/.next/cache
-    key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
+**Shell:**
+```bash
+TOKEN="${{ inputs.token }}"
+CONFIG="${{ inputs.config }}"
 ```
 
-## Secrets Management
+### Setting Outputs
 
-### Using Secrets
-
-```yaml
-- name: Deploy
-  env:
-    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    DATABASE_URL: ${{ secrets.DATABASE_URL }}
-    REDIS_URL: ${{ secrets.REDIS_URL }}
-  run: pnpm deploy:prod
+**JavaScript:**
+```javascript
+core.setOutput('result', 'success');
+core.setOutput('artifact-url', artifactUrl);
 ```
 
-### Environment-Specific Secrets
-
-```yaml
-jobs:
-  deploy:
-    environment: production
-    steps:
-      - name: Deploy
-        env:
-          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-        run: pnpm deploy:prod
+**Shell:**
+```bash
+echo "result=success" >> $GITHUB_OUTPUT
+echo "artifact-url=$ARTIFACT_URL" >> $GITHUB_OUTPUT
 ```
 
-## Scheduled Workflows
+## GitHub Actions Toolkit
 
-### Cron Jobs
+Essential npm packages for JavaScript actions:
 
-```yaml
-# .github/workflows/cron-jobs.yml
-name: Scheduled Jobs
+### @actions/core
+```javascript
+const core = require('@actions/core');
 
-on:
-  schedule:
-    # Run every day at 2 AM UTC
-    - cron: "0 2 * * *"
-  workflow_dispatch:
+// Inputs/Outputs
+const input = core.getInput('name');
+core.setOutput('name', value);
 
-jobs:
-  update-data:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
+// Logging
+core.info('Information message');
+core.warning('Warning message');
+core.error('Error message');
+core.debug('Debug message');
 
-      - name: Update car data
-        run: pnpm -F @sgcarstrends/api run-workflow update-car-data
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          LTA_API_KEY: ${{ secrets.LTA_API_KEY }}
+// Grouping
+core.startGroup('Group name');
+// ... operations
+core.endGroup();
 
-  cleanup:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
+// Failure
+core.setFailed('Action failed: reason');
 
-      - name: Clean old data
-        run: pnpm -F @sgcarstrends/api run-script cleanup-old-data
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+// Secrets
+core.setSecret('sensitive-value');  // Masks in logs
+
+// Environment
+core.exportVariable('VAR_NAME', 'value');
 ```
 
-## Notifications
+### @actions/github
+```javascript
+const github = require('@actions/github');
 
-### Slack Notifications
+// Context
+const context = github.context;
+console.log(context.repo);        // { owner, repo }
+console.log(context.sha);         // Commit SHA
+console.log(context.ref);         // Branch/tag ref
+console.log(context.actor);       // Triggering user
+console.log(context.payload);     // Webhook payload
 
-```yaml
-- name: Notify Slack on success
-  if: success()
-  uses: slackapi/slack-github-action@v1
-  with:
-    webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-    payload: |
-      {
-        "text": "✅ Deployment successful",
-        "blocks": [
-          {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "*Deployment Successful*\nCommit: ${{ github.sha }}\nAuthor: ${{ github.actor }}"
-            }
-          }
-        ]
-      }
+// Octokit client
+const token = core.getInput('token');
+const octokit = github.getOctokit(token);
 
-- name: Notify Slack on failure
-  if: failure()
-  uses: slackapi/slack-github-action@v1
-  with:
-    webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-    payload: |
-      {
-        "text": "❌ Deployment failed",
-        "blocks": [
-          {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "*Deployment Failed*\nCommit: ${{ github.sha }}\nAuthor: ${{ github.actor }}\nWorkflow: ${{ github.workflow }}"
-            }
-          }
-        ]
-      }
+// API operations
+const { data: issues } = await octokit.rest.issues.listForRepo({
+  owner: context.repo.owner,
+  repo: context.repo.repo,
+  state: 'open'
+});
 ```
 
-## Artifacts
+### @actions/exec
+```javascript
+const exec = require('@actions/exec');
 
-### Upload and Download
+// Execute commands
+await exec.exec('npm', ['install']);
 
-```yaml
-# Upload artifacts
-- name: Upload build artifacts
-  uses: actions/upload-artifact@v3
-  with:
-    name: build-output
-    path: |
-      dist/
-      .next/
-    retention-days: 7
-
-# Download artifacts in another job
-- name: Download build artifacts
-  uses: actions/download-artifact@v3
-  with:
-    name: build-output
+// Capture output
+let output = '';
+await exec.exec('git', ['log', '--oneline'], {
+  listeners: {
+    stdout: (data) => { output += data.toString(); }
+  }
+});
 ```
 
-## Best Practices
+## Security Best Practices
 
-### 1. Use Specific Versions
+### Input Validation
 
-```yaml
-# ❌ Using latest
-- uses: actions/checkout@latest
+Always validate and sanitize inputs:
+```javascript
+const core = require('@actions/core');
 
-# ✅ Using specific version
-- uses: actions/checkout@v4
+function validateInput(input) {
+  // Check for command injection
+  if (/[;&|`$()]/.test(input)) {
+    throw new Error('Invalid characters in input');
+  }
+  return input;
+}
+
+const userInput = core.getInput('user-input');
+const safeInput = validateInput(userInput);
 ```
 
-### 2. Pin Action Versions
+### Token Permissions
 
+Request minimal required permissions:
 ```yaml
-# ✅ Good: Pinned to major version
-- uses: actions/checkout@v4
-- uses: actions/setup-node@v4
-
-# ✅ Better: Pinned to commit SHA (most secure)
-- uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+permissions:
+  contents: read           # Read repository
+  pull-requests: write     # Comment on PRs
+  issues: write           # Create issues
 ```
 
-### 3. Use Concurrency Controls
+### Secret Handling
 
-```yaml
-name: Deploy
+```javascript
+// Mask secrets in logs
+core.setSecret(sensitiveValue);
 
-on:
-  push:
-    branches: [main]
+// Never log tokens
+core.debug(`Token: ${token}`);  // ❌ WRONG
+core.debug('Token received');   // ✅ CORRECT
 
-concurrency:
-  group: deploy-${{ github.ref }}
-  cancel-in-progress: false  # Don't cancel in-progress deployments
+// Secure token usage
+const octokit = github.getOctokit(token);
+// Token automatically included in requests
 ```
 
-### 4. Fail Fast
+### Dependency Security
+
+```bash
+# Audit dependencies
+npm audit
+
+# Use specific versions
+npm install @actions/core@1.10.0
+
+# Bundle dependencies
+npm install -g @vercel/ncc
+ncc build index.js -o dist
+```
+
+## Marketplace Publishing
+
+### Prerequisites
+
+- Public repository
+- action.yml in repository root
+- README.md with usage examples
+- LICENSE file
+- Repository topics (optional)
+
+### Publishing Process
+
+1. Create release with semantic version tag:
+```bash
+git tag -a v1.0.0 -m "Release v1.0.0"
+git push origin v1.0.0
+```
+
+2. Create GitHub Release from tag
+3. Check "Publish this Action to GitHub Marketplace"
+4. Select primary category
+5. Verify branding icon/color
+
+### Version Management
+
+Use semantic versioning with major version tags:
+```bash
+# Release v1.2.3
+git tag -a v1.2.3 -m "Release v1.2.3"
+git tag -fa v1 -m "Update v1 to v1.2.3"
+git push origin v1.2.3 v1 --force
+```
+
+Users reference by major version:
+```yaml
+- uses: owner/action@v1  # Tracks latest v1.x.x
+```
+
+## Testing Actions Locally
+
+Use `act` for local testing (see act skill):
+```bash
+# Test action in current directory
+act -j test
+
+# Test with specific event
+act push
+
+# Test with secrets
+act -s GITHUB_TOKEN=ghp_xxx
+```
+
+## Common Patterns
+
+### Matrix Testing Action
 
 ```yaml
-jobs:
-  test:
-    strategy:
-      fail-fast: true  # Stop all jobs if one fails
-      matrix:
-        node: [18, 20, 21]
+# action.yml
+name: 'Matrix Test Runner'
+description: 'Run tests across multiple configurations'
+inputs:
+  matrix-config:
+    description: 'JSON matrix configuration'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - run: |
+        echo "Testing with config: ${{ inputs.matrix-config }}"
+        # Parse and execute tests
+      shell: bash
+```
+
+### Cache Management Action
+
+```javascript
+const core = require('@actions/core');
+const cache = require('@actions/cache');
+
+async function run() {
+  const paths = [
+    'node_modules',
+    '.npm'
+  ];
+
+  const key = `deps-${process.platform}-${hashFiles('package-lock.json')}`;
+
+  // Restore cache
+  const cacheKey = await cache.restoreCache(paths, key);
+
+  if (!cacheKey) {
+    core.info('Cache miss, installing dependencies');
+    await exec.exec('npm', ['ci']);
+    await cache.saveCache(paths, key);
+  } else {
+    core.info(`Cache hit: ${cacheKey}`);
+  }
+}
+```
+
+### Artifact Upload Action
+
+```javascript
+const artifact = require('@actions/artifact');
+
+async function uploadArtifact() {
+  const artifactClient = artifact.create();
+  const files = [
+    'dist/bundle.js',
+    'dist/styles.css'
+  ];
+
+  const rootDirectory = 'dist';
+  const options = {
+    continueOnError: false
+  };
+
+  const uploadResponse = await artifactClient.uploadArtifact(
+    'build-artifacts',
+    files,
+    rootDirectory,
+    options
+  );
+
+  core.setOutput('artifact-id', uploadResponse.artifactId);
+}
 ```
 
 ## Troubleshooting
 
-### Workflow Not Triggering
+### Action Not Found
+
+- Verify repository is public or accessible
+- Check action.yml exists in repository root
+- Confirm version tag exists
+
+### Permission Denied
 
 ```yaml
-# Issue: Workflow not running
-# Solution: Check triggers and permissions
-
-on:
-  push:
-    branches: [main]  # Ensure branch name matches
-  pull_request:
-    branches: [main]
-
+# Add required permissions to workflow
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 ```
 
-### Secret Not Found
+### Node Modules Missing
 
-```yaml
-# Issue: Secret not available
-# Solution: Check secret name and environment
+- Bundle dependencies with ncc
+- Check dist/ folder is committed
+- Verify node_modules excluded from .gitignore for dist/
 
-- name: Deploy
-  environment: production  # Ensure environment exists
-  env:
-    SECRET: ${{ secrets.MY_SECRET }}  # Check secret name
-```
+### Docker Action Fails
 
-### Cache Not Working
+- Check Dockerfile syntax
+- Verify entrypoint has execute permissions
+- Test container locally: `docker build -t test . && docker run test`
 
-```yaml
-# Issue: Cache not restoring
-# Solution: Verify cache key
+## Anti-Fabrication Requirements
 
-- uses: actions/cache@v3
-  with:
-    path: ~/.pnpm-store
-    key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-    # Ensure lockfile exists and path is correct
-```
-
-## References
-
-- GitHub Actions Documentation: https://docs.github.com/en/actions
-- Workflow Syntax: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-- Actions Marketplace: https://github.com/marketplace?type=actions
-- Related files:
-  - `.github/workflows/` - Workflow files
-  - Root CLAUDE.md - CI/CD guidelines
-
-## Best Practices Summary
-
-1. **Pin Versions**: Use specific action versions
-2. **Cache Dependencies**: Cache pnpm, Turbo, Next.js
-3. **Parallel Jobs**: Run independent jobs in parallel
-4. **Fail Fast**: Stop on first failure in matrix
-5. **Secrets Management**: Use GitHub Secrets for sensitive data
-6. **Notifications**: Alert team on deployment status
-7. **Reusable Workflows**: Share common setup steps
-8. **Environment Protection**: Use environment rules for production
+- Execute Read or Glob tools to verify action files exist before claiming structure
+- Use Bash to test commands before documenting syntax
+- Validate action.yml schema against actual files using tool analysis
+- Execute actual API calls with @actions/github before documenting responses
+- Test permission configurations in real workflows before recommending settings
+- Never claim action capabilities without reading actual implementation code
+- Report actual npm audit results when discussing security, not fabricated vulnerability counts

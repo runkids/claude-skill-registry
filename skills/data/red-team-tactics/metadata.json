@@ -1,7 +1,7 @@
 {
   "name": "red-team-tactics",
-  "repo": "xenitV1/claude-code-maestro",
-  "path": "skills/red-team-tactics/SKILL.md",
-  "source": "github.com/xenitV1/claude-code-maestro",
-  "downloaded_at": "2026-01-20T02:42:01.235229Z"
+  "repo": "GrupoUS/gpus",
+  "path": ".agent/skills/red-team-tactics/SKILL.md",
+  "source": "github.com/GrupoUS/gpus",
+  "downloaded_at": "2026-01-21T03:46:09.292293Z"
 }

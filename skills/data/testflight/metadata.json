@@ -1,11 +1,7 @@
 {
   "name": "testflight",
-  "description": "TestFlight and App Store distribution guide. Use when preparing app for TestFlight, creating production builds, or submitting to App Store Connect.",
-  "repo": "Takashi-Matsumura/webrtc-demo",
-  "category": "development",
-  "tags": [
-    "testflight"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/testflight/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-21T01:20:10.435808Z"
 }

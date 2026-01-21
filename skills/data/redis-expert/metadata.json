@@ -1,7 +1,7 @@
 {
   "name": "redis-expert",
-  "repo": "ryu-qqq/AuthHub",
-  "path": ".claude/skills/redis-expert/SKILL.md",
-  "source": "github.com/ryu-qqq/AuthHub",
-  "downloaded_at": "2026-01-20T02:58:42.232146Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/data/redis-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-21T01:47:37.839907Z"
 }

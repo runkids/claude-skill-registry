@@ -1,47 +1,113 @@
 ---
 name: maintenance
-description: "Cleans up and organizes project files. Use when user mentions '整理', 'cleanup', 'アーカイブ', 'archive', '肥大化', 'Plans.md', 'session-log', or asks to clean up old tasks, archive completed items, or organize files. Do NOT load for: 実装作業, レビュー, 新機能開発, デプロイ."
-allowed-tools: ["Read", "Write", "Edit", "Bash"]
-metadata:
-  skillport:
-    category: maintenance
-    tags: [cleanup, archive, maintenance]
-    alwaysApply: false
+description: Run organism maintenance checks - drift detection, symlink repair, service verification. Use for health checks and maintenance tasks.
+triggers:
+  - maintenance
+  - health check
+  - system check
+  - drift check
 ---
 
-# Maintenance Skills
+# Organism Maintenance
 
-ファイルのメンテナンス・クリーンアップを担当するスキル群です。
+Run maintenance checks and repairs on the Samara organism.
 
----
+## Quick Check
 
-## 発動条件
+Run a quick health status:
 
-- 「ファイルを整理して」
-- 「アーカイブして」
-- 「古いタスクを移動して」
-- `/cleanup`
+```bash
+~/.claude-mind/bin/sync-organism --check && echo "No drift detected" || echo "Drift detected"
+```
 
----
+## Full Maintenance Checklist
 
-## 含まれる小スキル
+### 1. System Drift Check
+```bash
+~/.claude-mind/bin/sync-organism --check
+```
+If drift detected, review and sync:
+```bash
+~/.claude-mind/bin/sync-organism
+```
 
-| スキル | 用途 |
-|--------|------|
-| auto-cleanup | Plans.md, session-log 等の自動整理 |
+### 2. Launchd Services
+```bash
+launchctl list | grep com.claude
+```
+Expected: 4+ services (wake-adaptive, dream, message-watcher, etc.)
 
----
+If missing, reload:
+```bash
+launchctl load ~/Library/LaunchAgents/com.claude.*.plist
+```
 
-## ルーティングロジック
+### 3. Samara.app Status
+```bash
+pgrep -x Samara && echo "Running" || echo "Not running"
+```
+If not running:
+```bash
+open /Applications/Samara.app
+```
 
-### ファイル整理が必要な場合
+### 4. FDA Status
+```bash
+# Check for recent FDA issues
+tail -20 ~/.claude-mind/logs/samara.log | grep -i "denied\|permission"
+```
 
-→ `auto-cleanup/doc.md` を参照
+### 5. Lock File
+```bash
+# Check for stale locks
+if [ -f ~/.claude-mind/claude.lock ]; then
+    cat ~/.claude-mind/claude.lock | python3 -c "import sys,json; d=json.load(sys.stdin); print(f\"Lock held by: {d.get('task')} (PID: {d.get('pid')})\")"
+fi
+```
 
----
+### 6. Symlink Integrity
+```bash
+# Check critical symlinks
+for link in ~/.claude-mind/bin ~/.claude-mind/.claude ~/.claude-mind/instructions; do
+    if [ -L "$link" ]; then
+        if [ -e "$link" ]; then
+            echo "$link -> $(readlink "$link") [OK]"
+        else
+            echo "$link -> $(readlink "$link") [BROKEN]"
+        fi
+    fi
+done
+```
 
-## 実行手順
+## Repair Commands
 
-1. ユーザーのリクエストを確認
-2. `auto-cleanup/doc.md` を読む
-3. その内容に従って実行
+### Sync from repo
+```bash
+~/.claude-mind/bin/sync-organism
+```
+
+### Rebuild Samara.app
+```bash
+~/.claude-mind/bin/update-samara
+```
+
+### Clear stale lock
+```bash
+rm -f ~/.claude-mind/claude.lock
+```
+
+### Reload all launchd services
+```bash
+for f in ~/Library/LaunchAgents/com.claude.*.plist; do
+    launchctl unload "$f" 2>/dev/null
+    launchctl load "$f"
+done
+```
+
+## When to Use
+
+- After updating samara-main repo
+- After system restart
+- When wake cycles seem stuck
+- When messages aren't being processed
+- After Xcode rebuild of Samara.app

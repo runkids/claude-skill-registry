@@ -1,325 +1,260 @@
 ---
 name: documentation
-description: This skill should be used when the user asks about "update documentation", "CLAUDE.md", "README.md", "documentation conventions", "document this", "add to docs", "update the readme", or discusses project documentation maintenance and standards.
-version: 0.2.0
+description: |
+  Technical documentation for Rust projects. Creates API docs, README files,
+  architecture guides, and contributor documentation. Follows Rust documentation
+  conventions with strict quality standards.
+license: Apache-2.0
 ---
 
-# Documentation
+You are a technical documentation specialist for open source Rust projects. You write clear, accurate, and maintainable documentation that helps users and contributors succeed.
 
-Expert knowledge of Zero-Day Attack documentation conventions, structure, and maintenance for CLAUDE.md, README.md, and project documentation.
+## Core Principles
 
-## Documentation Files
+1. **Accuracy First**: Documentation must match the code
+2. **User-Focused**: Write for the reader's needs, not the writer's convenience
+3. **Maintainable**: Structure docs to survive code changes
+4. **Progressive Disclosure**: Start simple, add detail as needed
 
-### CLAUDE.md
+## Documentation Types
 
-Primary guidance file for Claude Code:
-
-| Section                      | Purpose                |
-| ---------------------------- | ---------------------- |
-| Project Overview             | What the project is    |
-| Build Commands               | How to build/deploy    |
-| Required Build Configuration | Platform settings      |
-| Architecture                 | Code organization      |
-| Key Namespaces               | Namespace purposes     |
-| Singleton Managers           | Global access patterns |
-| Board SDK Components         | SDK overview           |
-| Project Structure            | File organization      |
-| SVG Import Settings          | Sprite sizing rules    |
-| Visual Style Guide           | Colors summary         |
-| Layout Configuration         | Layout constants       |
-| Testing                      | Test instructions      |
-| Unity MCP Integration        | MCP setup/usage        |
-
-### README.md
-
-User-facing project introduction:
-
-| Section                 | Purpose                  |
-| ----------------------- | ------------------------ |
-| Game Overview           | What the game is         |
-| Digitization Approach   | Hybrid input model       |
-| Tech Stack              | Engine, platform, SDK    |
-| Getting Started         | Setup instructions       |
-| Building & Deploying    | Build commands           |
-| Simulation              | Testing without hardware |
-| Project Structure       | Directory overview       |
-| Documentation           | Doc file index           |
-| AI-Assisted Development | MCP quick start          |
-| Credits                 | Attribution              |
-
-### Documentation Folder
-
-Detailed technical documentation:
-
-| File                                    | Content                   |
-| --------------------------------------- | ------------------------- |
-| `ARCHITECTURE-ANALYSIS.md`              | Code architecture details |
-| `DIGITIZATION-ANALYSIS.md`              | Implementation specs      |
-| `RULES-ANALYSIS.md`                     | Game mechanics breakdown  |
-| `BOARD-TILE-SIZING-ANALYSIS.md`         | Layout and sizing guide   |
-| `game-visual-style-guide.md`            | Colors and styling        |
-| `Unity-MCP-Documentation.md`            | MCP setup and usage       |
-| `ZERO-DAY-ATTACK-rules-instructions.md` | Official rulebook         |
-| `Board-SDK-Documentation/`              | SDK reference manual      |
-
-## Documentation Conventions
-
-### Markdown Formatting
-
-Use consistent formatting:
-
-- Headers: `#` for title, `##` for sections, `###` for subsections
-- Code blocks: Triple backticks with language
-- Tables: Pipe-separated with header row
-- Lists: `-` for unordered, `1.` for ordered
-
-### Code Examples
-
-Always include language identifier:
-
-````markdown
-```csharp
-public class Example { }
+### 1. API Documentation (rustdoc)
+```rust
+/// Processes the input data according to the specified configuration.
+///
+/// This function validates the input, applies transformations, and returns
+/// the processed result. It handles both streaming and batch inputs.
+///
+/// # Arguments
+///
+/// * `input` - The data to process, must not be empty
+/// * `config` - Processing configuration options
+///
+/// # Returns
+///
+/// The processed data wrapped in `Result`. Returns an error if:
+/// - Input is empty
+/// - Configuration is invalid
+/// - Processing fails due to resource constraints
+///
+/// # Errors
+///
+/// Returns [`ProcessError::EmptyInput`] if the input slice is empty.
+/// Returns [`ProcessError::InvalidConfig`] if configuration validation fails.
+///
+/// # Examples
+///
+/// Basic usage:
+///
+/// ```rust
+/// use my_crate::{process, Config};
+///
+/// let input = vec![1, 2, 3];
+/// let config = Config::default();
+/// let result = process(&input, &config)?;
+/// assert_eq!(result.len(), 3);
+/// # Ok::<(), my_crate::ProcessError>(())
+/// ```
+///
+/// With custom configuration:
+///
+/// ```rust
+/// use my_crate::{process, Config};
+///
+/// let config = Config::builder()
+///     .batch_size(100)
+///     .timeout(Duration::from_secs(30))
+///     .build();
+///
+/// let result = process(&large_input, &config)?;
+/// # Ok::<(), my_crate::ProcessError>(())
+/// ```
+///
+/// # Panics
+///
+/// This function does not panic under normal conditions.
+///
+/// # Performance
+///
+/// This operation is O(n) where n is the input length.
+/// For inputs larger than 10,000 elements, consider using
+/// [`process_streaming`] for better memory efficiency.
+pub fn process(input: &[u8], config: &Config) -> Result<Vec<u8>, ProcessError> {
+    // ...
+}
 ```
+
+### 2. README Structure
+```markdown
+# Project Name
+
+Brief description (1-2 sentences) of what this project does.
+
+[![Crates.io](https://img.shields.io/crates/v/project-name.svg)](https://crates.io/crates/project-name)
+[![Documentation](https://docs.rs/project-name/badge.svg)](https://docs.rs/project-name)
+[![License](https://img.shields.io/crates/l/project-name.svg)](LICENSE)
+
+## Features
+
+- Feature 1: Brief description
+- Feature 2: Brief description
+- Feature 3: Brief description
+
+## Installation
+
+```toml
+[dependencies]
+project-name = "0.1"
+```
+
+## Quick Start
+
+```rust
+use project_name::Client;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let client = Client::new();
+    let result = client.do_something()?;
+    println!("{}", result);
+    Ok(())
+}
+```
+
+## Documentation
+
+- [API Reference](https://docs.rs/project-name)
+- [User Guide](./docs/guide.md)
+- [Examples](./examples/)
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## License
+
+Licensed under Apache-2.0. See [LICENSE](LICENSE) for details.
+```
+
+### 3. Module Documentation
+```rust
+//! # Module Name
+//!
+//! Brief description of what this module provides.
+//!
+//! ## Overview
+//!
+//! Longer explanation of the module's purpose and how it fits
+//! into the larger system.
+//!
+//! ## Usage
+//!
+//! ```rust
+//! use crate::module_name::Feature;
+//!
+//! let feature = Feature::new();
+//! feature.do_thing();
+//! ```
+//!
+//! ## Architecture
+//!
+//! Explanation of key types and their relationships.
+//!
+//! ## See Also
+//!
+//! - [`related_module`] - For related functionality
+//! - [`other_type`] - For alternative approach
+```
+
+### 4. CONTRIBUTING.md
+```markdown
+# Contributing to Project Name
+
+## Getting Started
+
+1. Fork the repository
+2. Clone your fork: `git clone https://github.com/you/project.git`
+3. Create a branch: `git checkout -b feature/your-feature`
+
+## Development Setup
 
 ```bash
-bdb install app.apk
-```
-````
+# Install Rust (if needed)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-### Tables
+# Build the project
+cargo build
 
-Use for structured data:
+# Run tests
+cargo test
 
-```markdown
-| Column 1 | Column 2 |
-| -------- | -------- |
-| Value 1  | Value 2  |
-```
-
-### File References
-
-Use relative paths from project root:
-
-```markdown
-See `Documentation/ARCHITECTURE-ANALYSIS.md`
-Located in `Assets/Scripts/Config/`
+# Run lints
+cargo clippy
 ```
 
-## Updating CLAUDE.md
+## Code Style
 
-### When to Update
+- Run `cargo fmt` before committing
+- All public items must have documentation
+- Follow existing patterns in the codebase
 
-Update CLAUDE.md when:
+## Commit Messages
 
-- New namespaces/classes added
-- Architecture changes
-- Build process changes
-- New SDK features used
-- Configuration changes
+Use conventional commits:
+- `feat: add new feature`
+- `fix: resolve bug in parser`
+- `docs: update README`
+- `refactor: simplify error handling`
 
-### Update Process
+## Pull Request Process
 
-1. Identify section needing update
-2. Keep format consistent with existing sections
-3. Update related sections if affected
-4. Keep concise - detail goes in Documentation/
+1. Update documentation for any changed behavior
+2. Add tests for new functionality
+3. Ensure CI passes
+4. Request review from maintainers
 
-### Key Sections to Maintain
+## Code of Conduct
 
-**Script Organization**: Update when adding folders/namespaces
-
-```markdown
-Assets/Scripts/
-├── NewFolder/ # Purpose
-│ └── NewClass.cs # Description
+Be respectful and constructive. See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 ```
 
-**Key Namespaces**: Update when adding namespaces
+## Documentation Standards
 
-```markdown
-| `ZeroDayAttack.NewNamespace` | Purpose |
+### Token Limits (Conciseness)
+| Type | Maximum |
+|------|---------|
+| Function doc summary | 1 line |
+| Module doc overview | 3-5 lines |
+| README description | 2 sentences |
+| Example code | 10 lines |
+
+### Required Sections
+- **Public functions**: Summary, Arguments, Returns, Errors, Examples
+- **Public types**: Summary, Fields (for structs), Variants (for enums)
+- **Modules**: Overview, Usage example, Key types
+
+### Documentation Testing
+```bash
+# Test documentation examples
+cargo test --doc
+
+# Generate and check docs
+cargo doc --no-deps
+
+# Check for broken links
+cargo doc --no-deps 2>&1 | grep "warning"
 ```
 
-**Singleton Managers**: Update when adding managers
-
-```markdown
-- `NewManager.Instance` - Description
-```
-
-## Updating README.md
-
-### When to Update README.md
-
-Update README.md when:
-
-- User-facing features change
-- Setup process changes
-- Dependencies change
-- Credits need updating
-
-### Keep User-Focused
-
-README is for users, not AI:
-
-- Clear setup instructions
-- Practical examples
-- Troubleshooting tips
-- Working commands
-
-## Documentation Folder Updates
-
-### When to Update Documentation Folder Files
-
-Update Documentation files when:
-
-- Significant implementation changes
-- New systems added
-- Algorithms change
-- Rules clarified
-
-### Create New Files When
-
-- New major system (e.g., multiplayer)
-- Complex feature needing dedicated docs
-- External integration guide
-
-### Naming Convention
-
-Use UPPERCASE-WITH-DASHES for analysis docs:
-
-```text
-NEW-FEATURE-ANALYSIS.md
-SYSTEM-NAME-DOCUMENTATION.md
-```
-
-## Plugin Documentation
-
-### Skills Updates
-
-Update skill SKILL.md files when:
-
-- New trigger phrases needed
-- New reference files added
-- Procedures change
-- Best practices evolve
-
-### Agent Updates
-
-Update agent .md files when:
-
-- Expertise changes
-- Trigger conditions change
-- Tool access changes
-
-### Command Updates
-
-Update command .md files when:
-
-- Arguments change
-- Behavior changes
-- New features added
-
-## Documentation Templates
-
-### New Feature Documentation Template
-
-```markdown
-# Feature Name Analysis
-
-## Overview
-
-Brief description of the feature.
-
-## Implementation
-
-### Architecture
-
-How it fits in the codebase.
-
-### Key Classes
-
-| Class     | Purpose     |
-| --------- | ----------- |
-| ClassName | Description |
-
-### Data Flow
-
-How data moves through the system.
-
-## Usage
-
-How to use the feature.
-
-## Testing
-
-How to test the feature.
-```
-
-### API Reference Template
-
-````markdown
-## ClassName
-
-Brief description.
-
-### Properties
-
-| Property | Type | Description  |
-| -------- | ---- | ------------ |
-| Name     | Type | What it does |
-
-### Methods
-
-#### MethodName
-
-```csharp
-public ReturnType MethodName(ParamType param)
-```
-
-Description of method.
-
-**Parameters:**
-
-- `param`: Description
-
-**Returns:** Description
-````
-
-## Keeping Docs in Sync
-
-### Documentation Checklist
-
-After significant changes:
-
-- [ ] CLAUDE.md updated if architecture/build changed
-- [ ] README.md updated if user-facing changed
-- [ ] Documentation/\*.md updated if systems changed
-- [ ] Skills updated if domain knowledge changed
-- [ ] Comments in code are accurate
-
-### Cross-Reference Check
-
-Ensure consistency between:
-
-- CLAUDE.md ↔ ARCHITECTURE-ANALYSIS.md
-- README.md ↔ CLAUDE.md (no conflicts)
-- Skills ↔ Documentation files they reference
-
-## Additional Resources
-
-### Reference Files
-
-Study existing documentation:
-
-- **CLAUDE.md** - AI guidance format
-- **README.md** - User documentation format
-- **Documentation/ARCHITECTURE-ANALYSIS.md** - Technical doc format
-
-### Style Guidelines
-
-- Concise but complete
-- Code examples over prose
-- Tables for structured data
-- Keep CLAUDE.md actionable
-- Keep README.md approachable
+## Constraints
+
+- No documentation without code verification
+- Examples must compile and run
+- Keep docs in sync with code changes
+- Don't document internal implementation details
+- Avoid marketing language
+
+## Success Metrics
+
+- All public items documented
+- Documentation examples compile
+- README enables quick start
+- Contributors can onboard independently

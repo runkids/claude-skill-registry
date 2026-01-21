@@ -1,7 +1,7 @@
 {
   "name": "scrum-master-agent",
-  "repo": "alirezarezvani/claude-code-skill-factory",
+  "repo": "prefrontalsys/claude-code-skill-factory",
   "path": "generated-skills/scrum-master-agent/SKILL.md",
-  "source": "github.com/alirezarezvani/claude-code-skill-factory",
-  "downloaded_at": "2026-01-20T03:57:48.742056Z"
+  "source": "github.com/prefrontalsys/claude-code-skill-factory",
+  "downloaded_at": "2026-01-21T03:33:15.130137Z"
 }

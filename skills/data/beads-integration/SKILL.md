@@ -11,6 +11,10 @@ Use Beads CLI (`bd`) commands for task management, status tracking, and progress
 
 - Beads CLI (`bd`) installed and available in PATH
 - Beads database initialized (`.beads/beads.db`)
+- **Recommended for setup workflows:** Prefer direct mode to avoid daemon staleness during ID creation and dependency wiring:
+  ```bash
+  export BD_NO_DAEMON=1
+  ```
 
 ## Core Commands
 
@@ -104,12 +108,25 @@ bd update <task-id> --add-label "frontend" --add-label "ui"
 bd update <task-id> --remove-label "bug"
 ```
 
+Alternative label commands (equivalent in most workflows):
+```bash
+bd label list <task-id>
+bd label add <task-id> "frontend"
+bd label remove <task-id> "bug"
+```
+
 ### Add Progress Comments
+
+**List latest comments (required before starting work):**
+
+```bash
+bd comments <task-id> --json
+```
 
 **Add comment to task:**
 
 ```bash
-bd comment <task-id> --body "<comment-text>"
+bd comments add <task-id> "<comment-text>"
 ```
 
 **Comment Format:**
@@ -121,7 +138,7 @@ bd comment <task-id> --body "<comment-text>"
 **Example:**
 
 ```bash
-bd comment bd-a3f8.1 --body "## Progress Update
+bd comments add bd-a3f8.1 "## Progress Update
 
 - ✅ Completed function implementation
 - ✅ Added unit tests
@@ -133,7 +150,7 @@ bd comment bd-a3f8.1 --body "## Progress Update
 **Create Task:**
 
 ```bash
-bd create --title "<title>" --description "<desc>" --priority P2 --json
+bd create --title "<title>" --description "<desc>" --priority P2 --labels "engineering" --json
 # Note: bd create does NOT support --status flag. Set status after creation:
 # bd update <task-id> --status open
 ```
@@ -235,7 +252,7 @@ fi
 2. **Mark In Progress:** `bd update <task-id> --status in_progress`
 3. **Read Details:** `bd show <task-id> --json` (Check `description`, `design`, `notes`, `acceptance_criteria`)
 4. **Implement:** Write code, run tests.
-5. **Log Progress:** `bd comment <task-id> --body "..."`
+5. **Log Progress:** `bd comments add <task-id> "..."`
 6. **Mark Complete:** `bd update <task-id> --status closed`
 
 ### Dependency Management

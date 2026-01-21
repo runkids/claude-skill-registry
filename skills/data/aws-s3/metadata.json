@@ -1,7 +1,7 @@
 {
   "name": "aws-s3",
-  "repo": "mgd34msu/goodvibes-plugin",
-  "path": "plugins/goodvibes/skills/webdev/skills/aws-s3/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-plugin",
-  "downloaded_at": "2026-01-20T03:23:58.012644Z"
+  "repo": "boisenoise/skills-collections",
+  "path": "skills/aws-s3/SKILL.md",
+  "source": "github.com/boisenoise/skills-collections",
+  "downloaded_at": "2026-01-21T03:48:13.869819Z"
 }

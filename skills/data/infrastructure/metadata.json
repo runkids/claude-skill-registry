@@ -1,7 +1,7 @@
 {
   "name": "infrastructure",
-  "repo": "dralgorhythm/claude-agentic-framework",
-  "path": ".claude/skills/operations/infrastructure/SKILL.md",
-  "source": "github.com/dralgorhythm/claude-agentic-framework",
-  "downloaded_at": "2026-01-20T02:14:37.702588Z"
+  "repo": "BerryKuipers/claude-code-toolkit",
+  "path": ".claude/skills/infrastructure/SKILL.md",
+  "source": "github.com/BerryKuipers/claude-code-toolkit",
+  "downloaded_at": "2026-01-21T01:39:09.985504Z"
 }

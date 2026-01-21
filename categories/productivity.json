@@ -1,7 +1,7 @@
 {
   "category": "productivity",
-  "count": 708,
-  "updated_at": "2026-01-20T04:08:22.185262Z",
+  "count": 690,
+  "updated_at": "2026-01-21T04:24:32.501885Z",
   "skills": [
     {
       "name": "positron-intake-rotation",
@@ -524,46 +524,6 @@
       "source": "local"
     },
     {
-      "name": "dbt-architecture",
-      "description": "dbt project structure using medallion architecture (bronze/silver/gold layers). Use this skill when planning project organization, establishing folder structure, defining naming conventions, implement",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/dbt-architecture",
-      "category": "productivity",
-      "tags": [
-        "dbt",
-        "architecture"
-      ],
-      "stars": 23,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "task-master",
-      "description": "AI-powered task management for structured, specification-driven development. Use this skill when you need to manage complex projects with PRDs, break down tasks into subtasks, track dependencies, and ",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/task-master",
-      "category": "productivity",
-      "tags": [
-        "task",
-        "master"
-      ],
-      "stars": 23,
-      "source": "local"
-    },
-    {
-      "name": "task-master-install",
-      "description": "Install and initialize task-master for AI-powered task management and specification-driven development. Use this skill when users ask you to parse a new PRD, when starting a new project that needs str",
-      "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
-      "path": "data/task-master-install",
-      "category": "productivity",
-      "tags": [
-        "task",
-        "master",
-        "install"
-      ],
-      "stars": 23,
-      "source": "local"
-    },
-    {
       "name": "managing-github-ci",
       "description": "\"Configures GitHub Actions workflows and CI/CD pipelines. Manages automated releases via Changesets, PR validation, and Husky hooks. Troubleshoots CI failures. Triggers on: GitHub Actions, CI pipeline",
       "repo": "saleor/configurator",
@@ -744,18 +704,6 @@
       "category": "productivity",
       "tags": [
         "hammerspoon"
-      ],
-      "stars": 9,
-      "source": "local"
-    },
-    {
-      "name": "work",
-      "description": "Manage work items and tasks using the work todo system. Use when creating, updating, listing, or tracking work items with dependencies. (user)",
-      "repo": "whilp/dotfiles",
-      "path": "data/work",
-      "category": "productivity",
-      "tags": [
-        "work"
       ],
       "stars": 9,
       "source": "local"
@@ -1418,18 +1366,6 @@
       "tags": [
         "batch",
         "operations"
-      ],
-      "stars": 2,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "brainwriting",
-      "description": "Facilitate structured brainstorming using parallel sub-agents to explore idea spaces. Use for IDEATION/CONCEPTUAL WORK ONLY, NOT for implementation planning or task breakdown. Use when user wants to b",
-      "repo": "otrebu/all-agents",
-      "path": "data/brainwriting",
-      "category": "productivity",
-      "tags": [
-        "brainwriting"
       ],
       "stars": 2,
       "source": "SkillsMP Synced Skills"
@@ -2482,20 +2418,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "ansible-playbook-generator",
-      "description": "Generate Ansible playbook files for infrastructure automation and configuration management. Triggers on \"create ansible playbook\", \"generate ansible config\", \"ansible automation\", \"infrastructure play",
-      "repo": "ehtbanton/ClaudeSkillsRepo",
-      "path": "data/ansible-playbook-generator",
-      "category": "productivity",
-      "tags": [
-        "ansible",
-        "playbook",
-        "generator"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "anthropic-doc-coauthoring",
       "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This wor",
       "repo": "",
@@ -2623,19 +2545,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "atlassian-cli",
-      "description": "Execute Atlassian CLI (acli) commands for Jira work items, projects, sprints, boards, and organization administration. Use when the user wants to manage Jira issues, projects, sprints, or perform Atla",
-      "repo": "doug-skinner/acli-claude-skill",
-      "path": "data/atlassian-cli",
-      "category": "productivity",
-      "tags": [
-        "atlassian",
-        "cli"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "atlassian-jira",
@@ -3848,16 +3757,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "discord-bot-generator",
-      "description": "Discord Bot Generator - Auto-activating skill for Business Automation.Triggers on: discord bot generator, discord bot generatorPart of the Business Automation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/discord-bot-generator",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "discover-capabilities",
       "description": "\"Use this at session start to discover what CodeCompass can do. Read .ai/capabilities.json for module map (5 domains, 21+ modules) instead of manual Grep/Glob. Apply when: (1) planning tasks, (2) user",
       "repo": "PearlThoughts/CodeCompass",
@@ -4689,16 +4588,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "impact-analysis-helper",
-      "description": "Impact Analysis Helper - Auto-activating skill for Enterprise Workflows.Triggers on: impact analysis helper, impact analysis helperPart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/impact-analysis-helper",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "implementation-loop",
       "description": "implca が tasks を更新しながら実装→テスト→修正を回すための手順。",
       "repo": "okurawave/expo-browser",
@@ -4852,16 +4741,6 @@
       "source": "local"
     },
     {
-      "name": "jira-ticket-generator",
-      "description": "Jira Ticket Generator - Auto-activating skill for Enterprise Workflows.Triggers on: jira ticket generator, jira ticket generatorPart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/jira-ticket-generator",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "jira-transitions",
       "description": "Move Jira issues through workflow states. Use when transitioning issues (To Do, In Progress, Done) or setting resolutions.",
       "repo": "01000001-01001110/agent-jira-skills",
@@ -4873,16 +4752,6 @@
       ],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "jira-workflow-creator",
-      "description": "Jira Workflow Creator - Auto-activating skill for Enterprise Workflows.Triggers on: jira workflow creator, jira workflow creatorPart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/jira-workflow-creator",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "jj-vcs",
@@ -5122,16 +4991,6 @@
       "description": "Accelerate software development with Linear project management and MCP server integration. Master issue tracking, project workflows, and development automation for frontend, full-stack, and mobile app",
       "repo": "manutej/luxor-claude-marketplace",
       "path": "productivity/linear-dev-accelerator",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "linear-issue-generator",
-      "description": "Linear Issue Generator - Auto-activating skill for Enterprise Workflows.Triggers on: linear issue generator, linear issue generatorPart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/linear-issue-generator",
       "category": "productivity",
       "tags": [],
       "stars": 0,
@@ -5512,16 +5371,6 @@
       "source": "local"
     },
     {
-      "name": "n8n-workflow-generator",
-      "description": "N8N Workflow Generator - Auto-activating skill for Business Automation.Triggers on: n8n workflow generator, n8n workflow generatorPart of the Business Automation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/n8n-workflow-generator",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "nathan-standards",
       "description": "Development standards for the Nathan n8n-Jira agent automation system. Covers n8n workflows, Python patterns, and project conventions.",
       "repo": "89jobrien/steve",
@@ -5549,16 +5398,6 @@
       "description": "Note-taking workflow using denote format and org-mode. USE WHEN user wants to create notes, organize knowledge, document learnings, or work with denote/org-mode files.",
       "repo": "vdemeester/home",
       "path": "productivity/notes",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "notification-dispatcher",
-      "description": "Notification Dispatcher - Auto-activating skill for Business Automation.Triggers on: notification dispatcher, notification dispatcherPart of the Business Automation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/notification-dispatcher",
       "category": "productivity",
       "tags": [],
       "stars": 0,
@@ -5715,16 +5554,6 @@
       "description": "Set up your personal productivity style and preferences. Use when you first install office or want to customize your workflow patterns.",
       "repo": "harperreed/office-admin-claude",
       "path": "productivity/officeonboarding",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "okr-tracker-creator",
-      "description": "Okr Tracker Creator - Auto-activating skill for Enterprise Workflows.Triggers on: okr tracker creator, okr tracker creatorPart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/okr-tracker-creator",
       "category": "productivity",
       "tags": [],
       "stars": 0,
@@ -7036,16 +6865,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "sprint-planning-helper",
-      "description": "Sprint Planning Helper - Auto-activating skill for Enterprise Workflows.Triggers on: sprint planning helper, sprint planning helperPart of the Enterprise Workflows skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/sprint-planning-helper",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "stakeholder-communication-template",
       "description": "Stakeholder Communication Template - Auto-activating skill for Enterprise Workflows.Triggers on: stakeholder communication template, stakeholder communication templatePart of the Enterprise Workflows ",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -7699,16 +7518,6 @@
       "source": "local"
     },
     {
-      "name": "using-linear",
-      "description": "Use when working with Linear tickets/issues - establishes workflows for creating and updating tickets (issues)",
-      "repo": "AJBcoding/claude-skill-eval",
-      "path": "productivity/using-linear",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "using-pm-team",
       "description": "10 pre-dev workflow skills + 3 research agents organized into Small Track (4 gates, <2 days) andLarge Track (9 gates, 2+ days) for systematic feature planning with research-first approach.",
       "repo": "LerianStudio/ring",
@@ -8057,16 +7866,6 @@
       "description": "This skill should be used when the user asks about \"workflow XML\", \"planner\", \"agent dependencies\", \"workflow parsing\", \"task orchestration\", or needs to understand the workflow system in XSky.",
       "repo": "anujkumar001111/xsky-agent",
       "path": "productivity/workflow-xml",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "workflows",
-      "description": "Build Glide workflows with automation, loops, conditions, queries, and background processes.Use when creating automations, processing data in bulk, building scheduled tasks, or integrating with extern",
-      "repo": "glideapps/glide-code",
-      "path": "productivity/workflows",
       "category": "productivity",
       "tags": [],
       "stars": 0,

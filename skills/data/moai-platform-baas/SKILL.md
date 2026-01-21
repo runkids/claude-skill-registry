@@ -1,11 +1,16 @@
 ---
 name: moai-platform-baas
-description: Comprehensive unified BaaS (Backend-as-a-Service) integration hub for 9 major providers: Auth0, Clerk, Firebase Auth, Supabase, Neon, Convex, Firebase Firestore, Vercel, and Railway with AI-powered provider selection, cross-provider patterns, and migration guides.
-version: 2.0.0
+description: "Comprehensive unified BaaS integration hub for 9 major providers (UV scripts migrated to builder-skill-uvscript)"
+version: 2.1.0
 aliases: [moai-platform-baas]
 category: platform
 modularized: false
-updated: 2025-11-27
+scripts_enabled: false
+scripts_migration:
+  date: 2025-11-30
+  new_location: builder-skill-uvscript
+  reason: UV script consolidation with unified builder-skill_ prefix
+updated: 2025-11-30
 status: active
 tags:
   - platform
@@ -19,12 +24,27 @@ tags:
   - vercel
   - railway
 allowed-tools: Read, Write, Bash, Grep, Glob
+# scripts: # DEPRECATED - All 2 UV scripts migrated to builder-skill-uvscript on 2025-11-30
 deprecated_names:
   moai-platform-baas:
     deprecated_in: v0.32.0
     remove_in: v0.35.0
     message: "Use moai-platform-baas instead"
+color: red
 ---
+
+> **⚠️ UV Script Migration Notice**
+>
+> All 2 UV CLI scripts have been consolidated into the **`builder-skill-uvscript`** skill on 2025-11-30.
+>
+> **New script locations**:
+> - `builder-skill_select_provider.py` (previously provider_selector.py)
+> - `builder-skill_migrate_provider.py` (previously migration_helper.py)
+> - Find all scripts in: `.claude/skills/builder-skill-uvscript/scripts/`
+>
+> **Usage**: `uv run .claude/skills/builder-skill-uvscript/scripts/builder-skill_select_provider.py`
+>
+> This skill retains its BaaS knowledge base and integration patterns.
 
 # moai-platform-baas: Comprehensive BaaS Integration Hub
 
@@ -261,6 +281,70 @@ Edge performance critical?
 - **Features**: Real-time sync, database branching, collaborative editing
 - **Cost**: $300-600/month
 - **Setup Time**: 2-4 days
+
+---
+
+## Available Scripts
+
+This skill includes two UV CLI scripts for automated BaaS provider selection and migration planning:
+
+### 1. Provider Selector (`provider_selector.py`)
+
+**Purpose**: Interactive BaaS provider selection based on user requirements
+
+**Usage**:
+```bash
+# Basic usage
+uv run scripts/provider_selector.py --auth oauth --database postgres --hosting serverless --budget hobby
+
+# JSON output
+uv run scripts/provider_selector.py --auth jwt --database realtime --budget professional --json
+
+# Minimal options (uses defaults)
+uv run scripts/provider_selector.py --database postgres --budget free
+```
+
+**Features**:
+- AI-powered provider scoring based on requirements
+- Cost estimation per budget tier
+- Alternative provider recommendations
+- Dual output modes (human-readable and JSON)
+
+**Options**:
+- `--auth`: Authentication type (oauth, jwt, passkey, session)
+- `--database`: Database type (postgres, firestore, realtime, none)
+- `--hosting`: Hosting preference (serverless, containers, static, any)
+- `--budget`: Budget tier (free, hobby, professional, enterprise)
+- `--json`: Output as JSON
+
+### 2. Migration Helper (`migration_helper.py`)
+
+**Purpose**: Generate migration scripts and checklists for moving between BaaS providers
+
+**Usage**:
+```bash
+# Full migration (auth, database, storage)
+uv run scripts/migration_helper.py --from firebase --to supabase --components auth db storage
+
+# Auth-only migration
+uv run scripts/migration_helper.py --from auth0 --to clerk --components auth --json
+
+# Database migration
+uv run scripts/migration_helper.py --from firestore --to neon --components db
+```
+
+**Features**:
+- Step-by-step migration plans
+- Code snippets for each migration phase
+- Risk analysis and mitigation strategies
+- Rollback planning
+- Complexity and time estimates
+
+**Options**:
+- `--from`: Source provider (firebase, auth0, clerk, supabase, etc.)
+- `--to`: Target provider (supabase, clerk, neon, vercel, etc.)
+- `--components`: Components to migrate (auth, db, storage) - can specify multiple
+- `--json`: Output as JSON
 
 ---
 

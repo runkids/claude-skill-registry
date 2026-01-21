@@ -1,23 +1,65 @@
 ---
 name: moai-workflow-docs
-aliases: [moai-workflow-docs]
-category: workflow
-description: Enhanced documentation unified validation with AI-powered features
+description: Enhanced documentation unified validation (2 UV scripts migrated to builder-skill-uvscript, 3 workflow scripts retained)
 version: 2.0.0
 modularized: true
-tags:
+scripts_enabled: true
+scripts_migration:
+  date: 2025-11-30
+  migrated_count: 2
+  migrated_location: builder-skill-uvscript
+  reason: UV script consolidation with unified builder-skill_ prefix
+  remaining_scripts: 3
+last_updated: 2025-11-30
+compliance_score: 61
+auto_trigger_keywords:
+  - docs
   - workflow
-  - enterprise
-  - unified
-  - development
-updated: 2025-11-27
-status: active
-deprecated_names:
-  moai-workflow-docs:
-    deprecated_in: v0.32.0
-    remove_in: v0.35.0
-    message: "Use moai-workflow-docs instead"
+scripts:
+  - name: extract_mermaid_details.py
+    purpose: Mermaid diagram detail extraction and rendering test guide generation
+    type: python
+    command: uv run .claude/skills/moai-workflow-docs/scripts/extract_mermaid_details.py
+    zero_context: false
+    version: 1.0.0
+    last_updated: 2025-11-30
+  - name: generate_final_comprehensive_report.py
+    purpose: "Phase 4: Generate final comprehensive validation report"
+    type: python
+    command: uv run .claude/skills/moai-workflow-docs/scripts/generate_final_comprehensive_report.py
+    zero_context: false
+    version: 1.0.0
+    last_updated: 2025-11-30
+# MIGRATED to builder-skill-uvscript:
+  # - lint_korean_docs.py → builder-skill_lint_docs.py
+  # - validate_mermaid_diagrams.py → builder-skill_validate_diagrams.py
+  - name: validate_korean_typography.py
+    purpose: "Korean-specific validation script (Phase 3)"
+    type: python
+    command: uv run .claude/skills/moai-workflow-docs/scripts/validate_korean_typography.py
+    zero_context: false
+    version: 1.0.0
+    last_updated: 2025-11-30
+color: red
 ---
+
+> **⚠️ Partial UV Script Migration Notice**
+>
+> 2 of 5 UV CLI scripts have been consolidated into the **`builder-skill-uvscript`** skill on 2025-11-30.
+>
+> **Migrated scripts**:
+> - `builder-skill_lint_docs.py` (previously lint_korean_docs.py)
+> - `builder-skill_validate_diagrams.py` (previously validate_mermaid_diagrams.py)
+> - Find migrated scripts in: `.claude/skills/builder-skill-uvscript/scripts/`
+>
+> **Remaining scripts** (3 workflow-specific scripts retained in this skill):
+> - `extract_mermaid_details.py`
+> - `generate_final_comprehensive_report.py`
+> - `validate_korean_typography.py`
+>
+> **Usage**:
+> - Migrated: `uv run .claude/skills/builder-skill-uvscript/scripts/builder-skill_lint_docs.py`
+> - Retained: `uv run .claude/skills/moai-workflow-docs/scripts/extract_mermaid_details.py`
 
 ## Quick Reference (30 seconds)
 
@@ -36,6 +78,17 @@ deprecated_names:
 - Diagram syntax validation
 - Typography consistency
 - Actionable recommendations
+
+**Available Scripts**: 5 validation and reporting scripts
+
+**Usage Pattern**:
+1. Load skill: `Skill("moai-workflow-docs")`
+2. Check SKILL.md for "When to use"
+3. Execute script with `--help` flag
+4. Run script with options
+5. **Only read source if --help insufficient**
+
+**Important**: Don't read script source code unless necessary. All scripts are self-documenting via `--help` flag.
 
 ---
 
@@ -88,6 +141,49 @@ def generate_api_docs(source_files):
 4. Validate documentation completeness
 5. Generate changelog entries
 
+## Available Scripts
+
+### `scripts/lint_korean_docs.py`
+**When to use:** Validate Korean markdown documentation before committing
+**Quick start:** `uv run .claude/skills/moai-workflow-docs/scripts/lint_korean_docs.py --help`
+
+**Features**:
+- Validate Korean markdown syntax (UTF-8 encoding)
+- Check heading structure (H1-H6 hierarchy)
+- Verify code block formatting
+- Detect broken internal links
+- Check list indentation
+- Dual output (human + --json)
+
+**Exit codes**: 0 (pass), 1 (warnings), 2 (errors), 3 (fatal)
+
+### `scripts/validate_mermaid_diagrams.py`
+**When to use:** Check Mermaid diagram syntax before committing documentation
+**Quick start:** `uv run .claude/skills/moai-workflow-docs/scripts/validate_mermaid_diagrams.py --help`
+
+**Features**:
+- Validate Mermaid diagram types (flowchart, sequence, class, state, ER, gantt, pie)
+- Check syntax errors (missing nodes, edges, participants)
+- Verify required elements per diagram type
+- Detect unclosed diagram blocks
+- Dual output (human + --json)
+
+**Exit codes**: 0 (all valid), 1 (warnings), 2 (invalid diagrams), 3 (fatal)
+
+### `scripts/validate_korean_typography.py`
+**When to use:** Validate Korean typography rules and encoding
+**Quick start:** `uv run .claude/skills/moai-workflow-docs/scripts/validate_korean_typography.py --help`
+
+### `scripts/extract_mermaid_details.py`
+**When to use:** Extract Mermaid diagrams for detailed review
+**Quick start:** `uv run .claude/skills/moai-workflow-docs/scripts/extract_mermaid_details.py --help`
+
+### `scripts/generate_final_comprehensive_report.py`
+**When to use:** Generate aggregated validation report
+**Quick start:** `uv run .claude/skills/moai-workflow-docs/scripts/generate_final_comprehensive_report.py --help`
+
+---
+
 ## 📚 Core Patterns (5-10 minutes)
 
 ### Pattern 1: Documentation Validation Pipeline
@@ -104,10 +200,9 @@ def generate_api_docs(source_files):
 **Basic Execution**:
 ```bash
 # Run complete validation
-uv run .claude/skills/moai-workflow-docs/scripts/lint_korean_docs.py
-uv run .claude/skills/moai-workflow-docs/scripts/validate_mermaid_diagrams.py
-uv run .claude/skills/moai-workflow-docs/scripts/validate_korean_typography.py
-uv run .claude/skills/moai-workflow-docs/scripts/generate_quality_report.py
+uv run .claude/skills/moai-workflow-docs/scripts/lint_korean_docs.py --help
+uv run .claude/skills/moai-workflow-docs/scripts/lint_korean_docs.py --input docs/
+uv run .claude/skills/moai-workflow-docs/scripts/lint_korean_docs.py --input docs/ --json
 ```
 
 ### Pattern 2: Markdown Structure Validation

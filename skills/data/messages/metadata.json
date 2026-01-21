@@ -1,7 +1,7 @@
 {
   "name": "messages",
-  "repo": "githubnext/gh-aw",
-  "path": "skills/messages/SKILL.md",
-  "source": "github.com/githubnext/gh-aw",
-  "downloaded_at": "2026-01-14T02:08:47.405296Z"
+  "repo": "bitwikiorg/skills.md",
+  "path": "sources/langchain/messages/SKILL.md",
+  "source": "github.com/bitwikiorg/skills.md",
+  "downloaded_at": "2026-01-21T02:11:42.375667Z"
 }

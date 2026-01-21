@@ -1,7 +1,7 @@
 {
   "name": "documentation",
-  "repo": "jwmyers/vui-vux-plugins",
-  "path": "plugins/zero-day-dev/skills/documentation/SKILL.md",
-  "source": "github.com/jwmyers/vui-vux-plugins",
-  "downloaded_at": "2026-01-20T03:59:35.709989Z"
+  "repo": "terraphim/codex-skills",
+  "path": "skills/documentation/SKILL.md",
+  "source": "github.com/terraphim/codex-skills",
+  "downloaded_at": "2026-01-21T03:47:05.938693Z"
 }

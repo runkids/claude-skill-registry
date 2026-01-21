@@ -1,7 +1,7 @@
 {
   "name": "playwright-skill",
-  "repo": "lackeyjb/playwright-skill",
-  "path": "skills/playwright-skill/SKILL.md",
-  "source": "github.com/lackeyjb/playwright-skill",
-  "downloaded_at": "2026-01-20T04:06:11.223699Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": ".claude/skills/playwright-skill/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-21T03:35:45.023910Z"
 }

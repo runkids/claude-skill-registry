@@ -1,134 +1,48 @@
 ---
 name: api-documenter
-description: Auto-generate API documentation from code and comments. Use when API endpoints change, or user mentions API docs. Creates OpenAPI/Swagger specs from code. Triggers on API file changes, documentation requests, endpoint additions.
-allowed-tools: Read, Write, Grep
+description: API documentation specialist for OpenAPI/Swagger specifications. Use when documenting REST or GraphQL APIs.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-# API Documenter Skill
+# API Documenter
 
-Auto-generate API documentation from code.
+Specialist in creating comprehensive API documentation using OpenAPI/Swagger specifications.
 
-## When I Activate
+## When This Skill Activates
 
-- ✅ API endpoints added/modified
-- ✅ User mentions API docs, OpenAPI, or Swagger
-- ✅ Route files changed
-- ✅ Controller files modified
-- ✅ Documentation needed
+Activates when you:
+- Ask to document an API
+- Create OpenAPI/Swagger specs
+- Need API reference documentation
+- Mention "API docs"
 
-## What I Generate
+## OpenAPI Specification Structure
 
-### OpenAPI 3.0 Specifications
-- Endpoint descriptions
-- Request/response schemas
-- Authentication requirements
-- Example payloads
-- Error responses
-
-### Formats Supported
-- OpenAPI 3.0 (JSON/YAML)
-- Swagger 2.0
-- API Blueprint
-- RAML
-
-## Examples
-
-### Express.js Endpoint
-
-```javascript
-// You write:
-/**
- * Get user by ID
- * @param {string} id - User ID
- * @returns {User} User object
- */
-app.get('/api/users/:id', async (req, res) => {
-  const user = await User.findById(req.params.id);
-  res.json(user);
-});
-
-// I auto-generate OpenAPI spec:
+```yaml
+openapi: 3.0.3
+info:
+  title: API Title
+  version: 1.0.0
+  description: API description
+servers:
+  - url: https://example.com/api/v1
 paths:
-  /api/users/{id}:
+  /users:
     get:
-      summary: Get user by ID
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: User ID
-          schema:
-            type: string
-      responses:
-        '200':
-          description: User found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              example:
-                id: "123"
-                name: "John Doe"
-                email: "john@example.com"
-        '404':
-          description: User not found
-```
-
-### FastAPI Endpoint
-
-```python
-# You write:
-@app.get("/users/{user_id}")
-def get_user(user_id: int) -> User:
-    """Get user by ID"""
-    return db.query(User).filter(User.id == user_id).first()
-
-// I auto-generate:
-paths:
-  /users/{user_id}:
-    get:
-      summary: Get user by ID
-      parameters:
-        - name: user_id
-          in: path
-          required: true
-          schema:
-            type: integer
+      summary: List users
+      operationId: listUsers
+      tags:
+        - users
+      parameters: []
       responses:
         '200':
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-```
-
-### Complete OpenAPI Document
-
-```yaml
-openapi: 3.0.0
-info:
-  title: User API
-  version: 1.0.0
-  description: API for user management
-
-servers:
-  - url: https://api.example.com/v1
-
-paths:
-  /api/users:
-    get:
-      summary: List all users
-      responses:
-        '200':
-          description: Users array
-          content:
-            application/json:
-              schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
-
 components:
   schemas:
     User:
@@ -138,137 +52,158 @@ components:
           type: string
         name:
           type: string
+```
+
+## Endpoint Documentation
+
+For each endpoint, document:
+
+### Required Fields
+- **summary**: Brief description
+- **operationId**: Unique identifier
+- **description**: Detailed explanation
+- **tags**: For grouping
+- **responses**: All possible responses
+
+### Recommended Fields
+- **parameters**: All parameters with details
+- **requestBody**: For POST/PUT/PATCH
+- **security**: Authentication requirements
+- **deprecated**: If applicable
+
+### Example
+
+```yaml
+/users/{id}:
+  get:
+    summary: Get a user by ID
+    operationId: getUserById
+    description: Retrieves a single user by their unique identifier
+    tags:
+      - users
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The user ID
+    responses:
+      '200':
+        description: User found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '404':
+        description: User not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+```
+
+## Schema Documentation
+
+### Best Practices
+
+1. **Use references** for shared schemas
+2. **Add descriptions** to all properties
+3. **Specify format** for strings (email, uuid, date-time)
+4. **Add examples** for complex schemas
+5. **Mark required fields**
+
+### Example
+
+```yaml
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - email
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique user identifier
+          example: "550e8400-e29b-41d4-a716-446655440000"
         email:
           type: string
           format: email
+          description: User's email address
+          example: "user@example.com"
+        createdAt:
+          type: string
+          format: date-time
+          description: Account creation timestamp
 ```
 
-## Detection Logic
+## Authentication Documentation
 
-### Framework Detection
+Document auth requirements:
 
-I recognize these frameworks automatically:
-- **Express.js** (Node.js)
-- **FastAPI** (Python)
-- **Django REST** (Python)
-- **Spring Boot** (Java)
-- **Gin** (Go)
-- **Rails** (Ruby)
+```yaml
+security:
+  - bearerAuth: []
 
-### Comment Parsing
-
-I extract documentation from:
-- JSDoc comments (`/** */`)
-- Python docstrings
-- JavaDoc
-- Inline comments with decorators
-
-## Documentation Enhancement
-
-### Missing Information
-
-```javascript
-// Your code:
-app.post('/api/users', (req, res) => {
-  User.create(req.body);
-});
-
-// I suggest additions:
-/**
- * Create new user
- * @param {Object} req.body - User data
- * @param {string} req.body.name - User name (required)
- * @param {string} req.body.email - User email (required)
- * @returns {User} Created user
- * @throws {400} Invalid input
- * @throws {409} Email already exists
- */
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Use your JWT token from /auth/login
 ```
 
-### Example Generation
+## Error Responses
 
-I generate realistic examples:
+Standard error format:
 
-```json
-{
-  "id": "usr_1234567890",
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "createdAt": "2025-10-24T10:30:00Z",
-  "verified": true
-}
+```yaml
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Application-specific error code
+        details:
+          type: object
+          description: Additional error details
 ```
 
-## Relationship with @docs-writer
+Common HTTP status codes:
+- **200**: Success
+- **201**: Created
+- **204**: No Content
+- **400**: Bad Request
+- **401**: Unauthorized
+- **403**: Forbidden
+- **404**: Not Found
+- **409**: Conflict
+- **422**: Unprocessable Entity
+- **500**: Internal Server Error
 
-**Me (Skill):** Auto-generate API specs from code
-**@docs-writer (Sub-Agent):** Comprehensive user guides and tutorials
+## Scripts
 
-### Workflow
-1. I generate OpenAPI spec
-2. You need user guide → Invoke **@docs-writer** sub-agent
-3. Sub-agent creates complete documentation site
-
-## Integration
-
-### With Swagger UI
-
-```javascript
-// app.js
-const swaggerUi = require('swagger-ui-express');
-const spec = require('./openapi.json'); // Generated by skill
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
-```
-
-### With Postman
-
-Export generated OpenAPI spec:
+Generate OpenAPI spec from code:
 ```bash
-# Import into Postman for API testing
-File → Import → openapi.json
+python scripts/generate_openapi.py
 ```
 
-### With Documentation Sites
-
-- **Docusaurus**: API docs plugin
-- **MkDocs**: OpenAPI plugin
-- **Redoc**: OpenAPI renderer
-- **Stoplight**: API design platform
-
-## Customization
-
-Add company-specific documentation standards:
-
+Validate OpenAPI spec:
 ```bash
-cp -r ~/.claude/skills/documentation/api-documenter \
-      ~/.claude/skills/documentation/company-api-documenter
-
-# Edit to add:
-# - Company API standards
-# - Custom response formats
-# - Internal schemas
+python scripts/validate_openapi.py openapi.yaml
 ```
 
-## Sandboxing Compatibility
+## References
 
-**Works without sandboxing:** ✅ Yes
-**Works with sandboxing:** ✅ Yes
-
-- **Filesystem**: Writes OpenAPI files
-- **Network**: None required
-- **Configuration**: None required
-
-## Best Practices
-
-1. **Keep comments updated** - Documentation follows code
-2. **Use type hints** - TypeScript, Python types help
-3. **Include examples** - Real-world request/response
-4. **Document errors** - All possible error responses
-5. **Version your API** - Include version in endpoints
-
-## Related Tools
-
-- **@docs-writer sub-agent**: User guides and tutorials
-- **readme-updater skill**: Keep README current
-- **/docs-gen command**: Full documentation generation
+- `references/openapi-template.yaml` - OpenAPI template
+- `references/examples/` - API documentation examples
+- [OpenAPI Specification](https://swagger.io/specification/)

@@ -1,878 +1,670 @@
 ---
 name: logging-observability
-description: Guidelines for structured logging, distributed tracing, and debugging patterns across languages. Covers logging best practices, observability, security considerations, and performance analysis.
-activation_triggers:
-  - logging
-  - observability
-  - tracing
-  - debugging
-  - structured logging
-  - log aggregation
-  - performance metrics
-  - monitoring
-  - correlation ID
-  - trace ID
+description: Comprehensive logging and observability patterns for production systems including structured logging, distributed tracing, metrics collection, log aggregation, and alerting. Triggers for this skill - log, logging, logs, trace, tracing, traces, metrics, observability, OpenTelemetry, OTEL, Jaeger, Zipkin, structured logging, log level, debug, info, warn, error, fatal, correlation ID, span, spans, ELK, Elasticsearch, Loki, Datadog, Prometheus, Grafana, distributed tracing, log aggregation, alerting, monitoring, JSON logs, telemetry.
 ---
 
-# Logging & Observability Skill
+# Logging and Observability
 
-Activate when working with logging systems, distributed tracing, debugging, monitoring, or any observability-related tasks across applications.
+## Overview
 
-## 1. Logging Best Practices
+Observability enables understanding system behavior through logs, metrics, and traces. This skill provides patterns for:
 
-### Log Levels
+- **Structured Logging**: JSON logs with correlation IDs and contextual data
+- **Distributed Tracing**: Span-based request tracking across services (OpenTelemetry, Jaeger, Zipkin)
+- **Metrics Collection**: Counters, gauges, histograms for system health (Prometheus patterns)
+- **Log Aggregation**: Centralized log management (ELK, Loki, Datadog)
+- **Alerting**: Symptom-based alerts with runbooks
 
-Use appropriate log levels for different severity:
+## Instructions
 
-| Level | Severity | When to Use |
-|-------|----------|------------|
-| **DEBUG** | Low | Development only - detailed info, variable states, control flow. Use sparingly in production. |
-| **INFO** | Low | Important application lifecycle events - startup, shutdown, config loaded, user actions, key state changes. |
-| **WARN** | Medium | Recoverable issues - deprecated usage, resource constraints, unexpected but handled conditions. Investigate later. |
-| **ERROR** | High | Unrecoverable problems - exceptions, failed operations, missing required data. Requires immediate attention. |
-| **FATAL** | Critical | System-level failures - abort conditions, out of memory, unrecoverable state. System may crash. |
+### 1. Structured Logging (JSON Logs)
 
-### General Principles
-
-- **Actionable**: Logs should help diagnose problems, not just record events
-- **Contextual**: Include enough context to understand what happened without code inspection
-- **Consistent**: Use same terminology across codebase for same events
-- **Sparse**: Don't log everything - unnecessary noise obscures real issues
-- **Sampling**: In high-volume scenarios, sample logs (10%, 1%, etc.) rather than logging everything
-- **Structured**: Always use structured format (JSON) for programmatic parsing
-
-## 2. Structured Logging Format
-
-### Standard Fields
-
-Every log entry should include:
-
-```json
-{
-  "timestamp": "2025-11-17T10:30:45.123Z",
-  "level": "ERROR",
-  "message": "Failed to process user request",
-  "service": "auth-service",
-  "version": "1.2.3",
-  "environment": "production",
-  "trace_id": "4bf92f3577b34da6a3ce929d0e0e4736",
-  "span_id": "00f067aa0ba902b7",
-  "parent_span_id": "0af7651916cd43dd",
-  "user_id": "user-12345",
-  "request_id": "req-98765",
-  "path": "/api/users/authenticate",
-  "method": "POST",
-  "status_code": 500,
-  "error": {
-    "type": "InvalidCredentialsError",
-    "message": "Provided credentials do not match",
-    "stack": "Error: InvalidCredentialsError...",
-    "code": "AUTH_INVALID_CREDS"
-  },
-  "context": {
-    "ip_address": "192.168.1.100",
-    "user_agent": "Mozilla/5.0...",
-    "attempt_number": 3,
-    "rate_limit_remaining": 2
-  },
-  "duration_ms": 245,
-  "custom_field": "custom_value"
-}
-```
-
-### Required vs Optional Fields
-
-**Always include:**
-- timestamp
-- level
-- message
-- trace_id
-- service
-- environment
-
-**When applicable:**
-- span_id / parent_span_id (distributed tracing)
-- user_id (any user action)
-- request_id (any request)
-- error (on ERROR/FATAL)
-- duration_ms (operations)
-- context (relevant metadata)
-
-## 3. What to Log
-
-### Application Lifecycle
-
-```json
-// Startup
-{"timestamp": "...", "level": "INFO", "message": "Service starting", "service": "auth-service", "version": "1.2.3"}
-
-// Configuration loaded
-{"timestamp": "...", "level": "INFO", "message": "Configuration loaded", "config_source": "environment", "environment": "production"}
-
-// Database connection established
-{"timestamp": "...", "level": "INFO", "message": "Database connected", "host": "db.internal", "pool_size": 20}
-
-// Shutdown
-{"timestamp": "...", "level": "INFO", "message": "Service shutting down", "reason": "SIGTERM", "uptime_seconds": 3600}
-```
-
-### User Actions
-
-```json
-// Login attempt
-{"timestamp": "...", "level": "INFO", "message": "User login attempt", "user_id": "user-123", "method": "password"}
-
-// Data modification
-{"timestamp": "...", "level": "INFO", "message": "User updated profile", "user_id": "user-123", "fields_changed": ["email", "name"]}
-
-// Permission check
-{"timestamp": "...", "level": "INFO", "message": "Permission check", "user_id": "user-123", "resource": "report-456", "permission": "read", "granted": true}
-```
-
-### External API Calls
-
-```json
-// API call started
-{"timestamp": "...", "level": "DEBUG", "message": "External API call", "service": "my-service", "api": "stripe", "endpoint": "/charges", "method": "POST"}
-
-// API response
-{"timestamp": "...", "level": "DEBUG", "message": "API response received", "api": "stripe", "endpoint": "/charges", "status_code": 200, "duration_ms": 145}
-
-// API error
-{"timestamp": "...", "level": "WARN", "message": "External API error", "api": "stripe", "status_code": 429, "error": "rate_limit_exceeded", "retry_after_seconds": 60}
-```
-
-### Errors and Exceptions
-
-```json
-{
-  "timestamp": "...",
-  "level": "ERROR",
-  "message": "Payment processing failed",
-  "service": "payment-service",
-  "user_id": "user-456",
-  "error": {
-    "type": "PaymentGatewayError",
-    "message": "Connection timeout",
-    "code": "GATEWAY_TIMEOUT",
-    "stack": "PaymentGatewayError: Connection timeout\n    at processPayment (payment.ts:45)\n    at ..."
-  },
-  "context": {
-    "amount": 9999,
-    "currency": "USD",
-    "gateway": "stripe"
-  }
-}
-```
-
-### Performance Metrics
-
-```json
-// Slow operation
-{"timestamp": "...", "level": "WARN", "message": "Slow query detected", "duration_ms": 5234, "threshold_ms": 1000, "query": "SELECT * FROM orders WHERE..."}
-
-// Resource usage
-{"timestamp": "...", "level": "INFO", "message": "Memory usage high", "memory_used_mb": 2048, "memory_limit_mb": 2560, "percentage": 80}
-
-// Cache statistics
-{"timestamp": "...", "level": "DEBUG", "message": "Cache stats", "cache_hits": 4521, "cache_misses": 234, "hit_rate": 0.95}
-```
-
-## 4. What NOT to Log
-
-**NEVER log:**
-- Passwords or authentication tokens
-- API keys or secrets
-- Private keys or certificates
-- Database credentials
-- OAuth tokens or refresh tokens
-- Credit card numbers
-- Social security numbers
-- Email addresses (without redaction in logs)
-- Personal identification numbers
-- Medical records
-- Raw HTTP request/response bodies (especially with auth headers)
-
-**Be careful with:**
-- PII in general (name, phone, address) - redact or use anonymized IDs
-- Query parameters (may contain secrets)
-- Request/response headers (often contain authorization)
-- User input (may contain sensitive data)
-
-**Security rule: When in doubt, DON'T log it**
+#### Python Implementation
 
 ```python
-# BAD - logging credentials
-logger.info(f"Login attempt for {username} with password {password}")
-
-# GOOD - logging action without sensitive data
-logger.info("Login attempt", extra={"username": username, "method": "password"})
-
-# BAD - logging full request with auth header
-logger.debug(f"Request: {request.headers}")
-
-# GOOD - logging request metadata
-logger.debug("Incoming request", extra={
-    "method": request.method,
-    "path": request.path,
-    "user_agent": request.headers.get('user-agent')
-})
-```
-
-## 5. Distributed Tracing
-
-### Trace IDs and Span IDs
-
-- **Trace ID**: Unique identifier for entire request flow across services
-- **Span ID**: Unique identifier for single operation/service call
-- **Parent Span ID**: Span that initiated current span (for tracing parent-child relationships)
-
-Generated once at entry point, propagated through all downstream calls:
-
-```
-Request → [Service A, Trace: abc123]
-  ├─ [Span: span1] Database query
-  ├─ [Span: span2] → Service B, parent: span2
-       └─ [Span: span3] Cache lookup
-  └─ [Span: span4] External API call
-```
-
-### Implementation
-
-```python
-# Python example with trace context
-import uuid
-
-class RequestContext:
-    def __init__(self, trace_id=None, span_id=None, parent_span_id=None):
-        self.trace_id = trace_id or str(uuid.uuid4())
-        self.span_id = span_id or str(uuid.uuid4())
-        self.parent_span_id = parent_span_id
-
-# Middleware/decorator
-def trace_request(func):
-    def wrapper(*args, **kwargs):
-        ctx = RequestContext()
-        return func(*args, context=ctx, **kwargs)
-    return wrapper
-
-# Propagate to downstream services
-def call_downstream_service(service_url, data, context):
-    headers = {
-        'X-Trace-ID': context.trace_id,
-        'X-Span-ID': context.span_id,
-        'X-Parent-Span-ID': context.span_id  # Current becomes parent
-    }
-    response = requests.post(service_url, json=data, headers=headers)
-    return response
-```
-
-### Sampling Strategies
-
-- **No sampling**: Log all traces (high volume services may be expensive)
-- **Rate sampling**: Log every Nth request (e.g., 1 in 100)
-- **Adaptive sampling**: Sample based on error rate, latency, or traffic volume
-- **Tail sampling**: Sample based on trace outcome (errors always sampled)
-
-```python
-# Adaptive sampling example
-def should_sample(trace):
-    # Always sample errors
-    if trace.has_error:
-        return True
-
-    # Sample slow requests (>1s)
-    if trace.duration_ms > 1000:
-        return True
-
-    # Sample 1% of normal requests
-    return random.random() < 0.01
-```
-
-## 6. Performance Logging
-
-### Execution Time
-
-```python
-import time
-
-def log_execution_time(func):
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        try:
-            result = func(*args, **kwargs)
-            duration_ms = (time.time() - start) * 1000
-            logger.info(f"{func.__name__} completed", extra={
-                "duration_ms": duration_ms,
-                "status": "success"
-            })
-            return result
-        except Exception as e:
-            duration_ms = (time.time() - start) * 1000
-            logger.error(f"{func.__name__} failed", extra={
-                "duration_ms": duration_ms,
-                "error": str(e)
-            })
-            raise
-    return wrapper
-```
-
-### Resource Usage
-
-```python
-import psutil
-import os
-
-def log_resource_usage():
-    process = psutil.Process(os.getpid())
-    memory = process.memory_info()
-
-    logger.info("Resource usage", extra={
-        "memory_rss_mb": memory.rss / 1024 / 1024,
-        "memory_vms_mb": memory.vms / 1024 / 1024,
-        "cpu_percent": process.cpu_percent(interval=1),
-        "num_threads": process.num_threads()
-    })
-```
-
-### Slow Query Logs
-
-```python
-# Track database query performance
-SLOW_QUERY_THRESHOLD_MS = 1000
-
-def execute_query(query, params):
-    start = time.time()
-    cursor.execute(query, params)
-    duration_ms = (time.time() - start) * 1000
-
-    if duration_ms > SLOW_QUERY_THRESHOLD_MS:
-        logger.warn("Slow query detected", extra={
-            "query": query,
-            "params_count": len(params),
-            "duration_ms": duration_ms,
-            "threshold_ms": SLOW_QUERY_THRESHOLD_MS
-        })
-
-    return cursor.fetchall()
-```
-
-## 7. Debugging Patterns
-
-### Debug Logging
-
-Use DEBUG level for development/troubleshooting only:
-
-```python
-logger.debug("Function entry", extra={
-    "function": "process_payment",
-    "args": {"amount": 100, "currency": "USD"}
-})
-
-logger.debug("Intermediate state", extra={
-    "processing_step": "validation",
-    "validation_passed": True,
-    "timestamp": time.time()
-})
-
-logger.debug("Function exit", extra={
-    "function": "process_payment",
-    "return_value": {"transaction_id": "txn-123", "status": "pending"}
-})
-```
-
-### Conditional Breakpoints
-
-In IDE debugger (VS Code, PyCharm, etc.):
-
-```python
-# Set breakpoint with condition
-# Debugger pauses only when condition is true
-if user_id == "debug-user-123":  # Breakpoint here with condition: amount > 1000
-    processor.process(order)
-```
-
-### Remote Debugging
-
-Python example:
-
-```python
-# Start remote debugger (debugpy)
-import debugpy
-
-debugpy.listen(("0.0.0.0", 5678))
-print("Debugger attached, waiting for connection...")
-debugpy.wait_for_client()
-
-# Then connect from IDE on same port
-```
-
-### Log Aggregation for Debugging
-
-```python
-# Retrieve logs for specific trace
-def get_trace_logs(trace_id):
-    query = f"SELECT * FROM logs WHERE trace_id = '{trace_id}' ORDER BY timestamp"
-    # Execute against log storage (ELK, Loki, etc.)
-    return results
-
-# Filter by user for debugging user issues
-def get_user_logs(user_id, hours=1):
-    query = f"SELECT * FROM logs WHERE user_id = '{user_id}' AND timestamp > now() - {hours}h"
-    return results
-```
-
-## 8. Log Management
-
-### Log Rotation
-
-Prevent unbounded disk usage:
-
-```python
-# Python logging with rotation
-from logging.handlers import RotatingFileHandler
-
-handler = RotatingFileHandler(
-    filename='app.log',
-    maxBytes=10485760,  # 10MB
-    backupCount=5       # Keep 5 rotated files
-)
-
-# Backup naming: app.log, app.log.1, app.log.2, etc.
-```
-
-### Retention Policies
-
-```json
-{
-  "retention_policy": {
-    "DEBUG": "7 days",
-    "INFO": "30 days",
-    "WARN": "90 days",
-    "ERROR": "1 year",
-    "FATAL": "indefinite"
-  }
-}
-```
-
-### Log Aggregation Tools
-
-| Tool | Best For | Strengths |
-|------|----------|-----------|
-| **ELK Stack** (Elasticsearch, Logstash, Kibana) | On-premise, complex queries | Powerful search, rich dashboards, customizable |
-| **Grafana Loki** | Simple log aggregation, cost-effective | Low overhead, integrates with Prometheus |
-| **Datadog** | Cloud-first, all-in-one | Agent-based, excellent integrations |
-| **Splunk** | Enterprise, security focus | Powerful search, alerting, compliance reports |
-| **CloudWatch** | AWS native | Seamless AWS integration, log groups |
-| **Stackdriver** | GCP native | Google Cloud integration |
-| **CloudLogging** | Azure native | Microsoft ecosystem |
-
-## 9. Metrics and Monitoring
-
-### Application Metrics
-
-```python
-from prometheus_client import Counter, Histogram, Gauge
-
-# Counter: monotonically increasing
-login_attempts = Counter('login_attempts_total', 'Total login attempts', ['status'])
-login_attempts.labels(status='success').inc()
-
-# Histogram: observe value distribution
-request_duration = Histogram('request_duration_seconds', 'Request duration')
-request_duration.observe(0.5)
-
-# Gauge: can go up or down
-active_connections = Gauge('active_connections', 'Current active connections')
-active_connections.set(42)
-```
-
-### System Metrics
-
-```python
-# CPU, memory, disk usage
-cpu_percent = psutil.cpu_percent(interval=1)
-memory = psutil.virtual_memory()
-disk = psutil.disk_usage('/')
-
-logger.info("System metrics", extra={
-    "cpu_percent": cpu_percent,
-    "memory_percent": memory.percent,
-    "disk_percent": disk.percent
-})
-```
-
-### Alerting Rules
-
-```yaml
-# Prometheus alert rules
-alert: HighErrorRate
-expr: rate(requests_total{status="500"}[5m]) > 0.05
-for: 5m
-annotations:
-  summary: "High error rate detected"
-  description: "Error rate is {{ $value | humanizePercentage }} for {{ $labels.service }}"
-
-alert: SlowRequestLatency
-expr: histogram_quantile(0.95, request_duration_seconds) > 1
-for: 10m
-annotations:
-  summary: "Slow requests detected (p95 > 1s)"
-```
-
-## 10. Common Libraries by Language
-
-### Python
-
-```python
-# Standard library logging
-import logging
-
-# Structured logging with structlog
-import structlog
-
-logger = structlog.get_logger()
-logger.info("user_created", user_id="u123", email_domain="example.com")
-
-# For advanced tracing
-from opentelemetry import trace, logging
-from opentelemetry.exporter.jaeger.thrift import JaegerExporter
-```
-
-**Libraries:**
-- `logging` - Built-in, basic structured support
-- `structlog` - Structured logging, cleaner API
-- `python-json-logger` - JSON formatter for standard logging
-- `OpenTelemetry` - Distributed tracing standard
-- `Jaeger` - Distributed tracing backend
-
-### Node.js / TypeScript
-
-```javascript
-// Winston
-const winston = require('winston');
-
-const logger = winston.createLogger({
-  format: winston.format.json(),
-  transports: [new winston.transports.Console()]
-});
-
-logger.info('User logged in', { userId: 'u123' });
-
-// Pino (lightweight)
-const pino = require('pino');
-const logger = pino();
-logger.info({ userId: 'u123' }, 'User logged in');
-```
-
-**Libraries:**
-- `winston` - Full-featured, very popular
-- `pino` - Lightweight, high performance
-- `bunyan` - JSON logging, stream-based
-- `morgan` - HTTP request logger for Express
-- `OpenTelemetry` - Distributed tracing
-- `@opentelemetry/api` - Standard tracing API
-
-### Go
-
-```go
-// Structured logging with zap
-import "go.uber.org/zap"
-
-logger, _ := zap.NewProduction()
-defer logger.Sync()
-
-logger.Info("user login",
-    zap.String("user_id", "u123"),
-    zap.Duration("duration", time.Second),
-)
-
-// Or logrus (JSON support)
-import "github.com/sirupsen/logrus"
-
-logger := logrus.New()
-logger.SetFormatter(&logrus.JSONFormatter{})
-logger.WithFields(logrus.Fields{"user_id": "u123"}).Info("Login")
-```
-
-**Libraries:**
-- `zap` - High performance, structured
-- `logrus` - Popular, JSON output
-- `slog` - Standard library (Go 1.21+)
-- `OpenTelemetry` - Distributed tracing
-
-### Java / Kotlin
-
-```java
-// Logback with SLF4J
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import net.logstash.logback.marker.Markers;
-
-Logger logger = LoggerFactory.getLogger(MyClass.class);
-
-// Structured with logback-json-encoder
-logger.info(Markers.append("user_id", "u123"), "User logged in");
-
-// Spring Boot with logback (built-in)
-@RestController
-public class UserController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-}
-```
-
-**Libraries:**
-- `SLF4J` + `Logback` - Standard combo
-- `Log4j2` - Enterprise feature-rich
-- `Logstash Logback Encoder` - Structured output
-- `OpenTelemetry` - Distributed tracing
-
-### C# / .NET
-
-```csharp
-// Serilog (structured)
-using Serilog;
-
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .CreateLogger();
-
-Log.Information("User {UserId} logged in", "u123");
-
-// Built-in ILogger with dependency injection
-public class UserService {
-    private readonly ILogger<UserService> _logger;
-
-    public UserService(ILogger<UserService> logger) {
-        _logger = logger;
-    }
-}
-```
-
-**Libraries:**
-- `Serilog` - Excellent structured support
-- `NLog` - Enterprise logging
-- `log4net` - Classic Apache Log4j port
-- `Microsoft.Extensions.Logging` - Built-in DI support
-- `OpenTelemetry.Exporter.Console` - Tracing
-
-## 11. Example Patterns
-
-### Complete Request Logging Pipeline (Python)
-
-```python
-from datetime import datetime
-from uuid import uuid4
 import json
-import time
-import structlog
+import logging
+import sys
+from datetime import datetime
+from contextvars import ContextVar
+from typing import Any
 
-# Configure structlog
-structlog.configure(
-    processors=[
-        structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
-    ],
-    context_class=dict,
-    logger_factory=structlog.PrintLoggerFactory(file=sys.stdout),
-)
+# Context variables for request tracking
+correlation_id: ContextVar[str] = ContextVar('correlation_id', default='')
+span_id: ContextVar[str] = ContextVar('span_id', default='')
 
-class RequestLogger:
-    def __init__(self):
-        self.logger = structlog.get_logger()
+class StructuredFormatter(logging.Formatter):
+    """JSON formatter for structured logging."""
 
-    def log_request_start(self, request):
-        trace_id = request.headers.get('X-Trace-ID') or str(uuid4())
-        span_id = str(uuid4())
+    def format(self, record: logging.LogRecord) -> str:
+        log_data = {
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+            "correlation_id": correlation_id.get(),
+            "span_id": span_id.get(),
+        }
 
-        self.logger.info(
-            "request_started",
-            trace_id=trace_id,
-            span_id=span_id,
-            method=request.method,
-            path=request.path,
-            user_id=request.user_id,
-        )
+        # Add exception info if present
+        if record.exc_info:
+            log_data["exception"] = self.formatException(record.exc_info)
 
-        return trace_id, span_id
+        # Add extra fields
+        if hasattr(record, 'structured_data'):
+            log_data.update(record.structured_data)
 
-    def log_request_complete(self, trace_id, span_id, status, duration_ms):
-        level = "info" if status < 400 else "warn" if status < 500 else "error"
+        return json.dumps(log_data)
 
-        self.logger.log(
-            level,
-            "request_completed",
-            trace_id=trace_id,
-            span_id=span_id,
-            status_code=status,
-            duration_ms=duration_ms,
-        )
+def setup_logging():
+    """Configure structured logging."""
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(StructuredFormatter())
 
-    def log_error(self, trace_id, span_id, error, context=None):
-        self.logger.error(
-            "request_error",
-            trace_id=trace_id,
-            span_id=span_id,
-            error_type=type(error).__name__,
-            error_message=str(error),
-            error_context=context or {},
-        )
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
+    root_logger.addHandler(handler)
 
-# Flask integration
-app = Flask(__name__)
-req_logger = RequestLogger()
-
-@app.before_request
-def before_request():
-    request.trace_id, request.span_id = req_logger.log_request_start(request)
-    request.start_time = time.time()
-
-@app.after_request
-def after_request(response):
-    duration_ms = (time.time() - request.start_time) * 1000
-    req_logger.log_request_complete(
-        request.trace_id,
-        request.span_id,
-        response.status_code,
-        duration_ms
-    )
-    return response
-
-@app.errorhandler(Exception)
-def handle_error(error):
-    req_logger.log_error(
-        request.trace_id,
-        request.span_id,
-        error,
-        context={"path": request.path}
-    )
-    return {"error": "Internal server error"}, 500
+# Usage
+logger = logging.getLogger(__name__)
+logger.info("User logged in", extra={
+    "structured_data": {
+        "user_id": "123",
+        "ip_address": "192.168.1.1",
+        "action": "login"
+    }
+})
 ```
 
-### Distributed Tracing Example (Node.js)
+#### TypeScript Implementation
 
 ```typescript
-import { trace, context, SpanStatusCode } from '@opentelemetry/api';
-import { NodeSDK } from '@opentelemetry/sdk-node';
-import { JaegerExporter } from '@opentelemetry/exporter-jaeger-thrift';
+interface LogContext {
+  correlationId?: string;
+  spanId?: string;
+  [key: string]: unknown;
+}
 
-const sdk = new NodeSDK({
-  traceExporter: new JaegerExporter({
-    host: process.env.JAEGER_HOST || 'localhost',
-    port: parseInt(process.env.JAEGER_PORT || '6831'),
-  }),
-});
+interface LogEntry {
+  timestamp: string;
+  level: string;
+  message: string;
+  context: LogContext;
+}
 
-sdk.start();
+class StructuredLogger {
+  private context: LogContext = {};
 
-const tracer = trace.getTracer('my-service');
+  withContext(context: LogContext): StructuredLogger {
+    const child = new StructuredLogger();
+    child.context = { ...this.context, ...context };
+    return child;
+  }
 
-async function processPayment(userId: string, amount: number) {
-  const span = tracer.startSpan('processPayment', {
-    attributes: {
-      'user_id': userId,
-      'amount': amount,
-      'currency': 'USD',
-    }
-  });
+  private log(
+    level: string,
+    message: string,
+    data?: Record<string, unknown>,
+  ): void {
+    const entry: LogEntry = {
+      timestamp: new Date().toISOString(),
+      level,
+      message,
+      context: { ...this.context, ...data },
+    };
+    console.log(JSON.stringify(entry));
+  }
 
-  return context.with(trace.setSpan(context.active(), span), async () => {
-    try {
-      // Nested span
-      const validationSpan = tracer.startSpan('validatePayment');
-      try {
-        await validatePayment(userId, amount);
-        validationSpan.setStatus({ code: SpanStatusCode.OK });
-      } catch (error) {
-        validationSpan.recordException(error);
-        validationSpan.setStatus({ code: SpanStatusCode.ERROR });
-        throw error;
-      } finally {
-        validationSpan.end();
-      }
+  debug(message: string, data?: Record<string, unknown>): void {
+    this.log("DEBUG", message, data);
+  }
 
-      // Call external service with trace propagation
-      const result = await callPaymentGateway(amount);
+  info(message: string, data?: Record<string, unknown>): void {
+    this.log("INFO", message, data);
+  }
 
-      span.setStatus({ code: SpanStatusCode.OK });
-      return result;
-    } catch (error) {
-      span.recordException(error);
-      span.setStatus({ code: SpanStatusCode.ERROR });
-      throw error;
-    } finally {
-      span.end();
-    }
-  });
+  warn(message: string, data?: Record<string, unknown>): void {
+    this.log("WARN", message, data);
+  }
+
+  error(message: string, data?: Record<string, unknown>): void {
+    this.log("ERROR", message, data);
+  }
 }
 ```
 
-### Security-Conscious Logging (Go)
+### 2. Log Levels and When to Use Each
 
-```go
-package main
+| Level     | Usage                        | Examples                                          |
+| --------- | ---------------------------- | ------------------------------------------------- |
+| **TRACE** | Fine-grained debugging       | Loop iterations, variable values                  |
+| **DEBUG** | Diagnostic information       | Function entry/exit, intermediate states          |
+| **INFO**  | Normal operations            | Request started, job completed, user action       |
+| **WARN**  | Potential issues             | Deprecated API usage, retry attempted, slow query |
+| **ERROR** | Failures requiring attention | Exception caught, operation failed                |
+| **FATAL** | Critical failures            | System cannot continue, data corruption           |
 
-import (
-  "go.uber.org/zap"
-  "net/http"
+```python
+# Log level usage examples
+logger.debug("Processing item", extra={"structured_data": {"item_id": item.id}})
+logger.info("Order processed successfully", extra={"structured_data": {"order_id": order.id, "total": order.total}})
+logger.warning("Rate limit approaching", extra={"structured_data": {"current": 95, "limit": 100}})
+logger.error("Payment failed", extra={"structured_data": {"order_id": order.id, "error": str(e)}})
+```
+
+### 3. Distributed Tracing
+
+#### Correlation IDs and Spans
+
+```python
+import uuid
+from contextvars import ContextVar
+from dataclasses import dataclass, field
+from typing import Optional
+import time
+
+@dataclass
+class Span:
+    name: str
+    trace_id: str
+    span_id: str = field(default_factory=lambda: str(uuid.uuid4())[:16])
+    parent_span_id: Optional[str] = None
+    start_time: float = field(default_factory=time.time)
+    end_time: Optional[float] = None
+    attributes: dict = field(default_factory=dict)
+
+    def end(self):
+        self.end_time = time.time()
+
+    @property
+    def duration_ms(self) -> float:
+        if self.end_time:
+            return (self.end_time - self.start_time) * 1000
+        return 0
+
+current_span: ContextVar[Optional[Span]] = ContextVar('current_span', default=None)
+
+class Tracer:
+    def __init__(self, service_name: str):
+        self.service_name = service_name
+
+    def start_span(self, name: str, parent: Optional[Span] = None) -> Span:
+        parent = parent or current_span.get()
+        trace_id = parent.trace_id if parent else str(uuid.uuid4())[:32]
+        parent_span_id = parent.span_id if parent else None
+
+        span = Span(
+            name=name,
+            trace_id=trace_id,
+            parent_span_id=parent_span_id,
+            attributes={"service": self.service_name}
+        )
+        current_span.set(span)
+        return span
+
+    def end_span(self, span: Span):
+        span.end()
+        self._export(span)
+        # Restore parent span if exists
+        # In production, use a span stack
+
+    def _export(self, span: Span):
+        """Export span to tracing backend."""
+        logger.info(f"Span completed: {span.name}", extra={
+            "structured_data": {
+                "trace_id": span.trace_id,
+                "span_id": span.span_id,
+                "parent_span_id": span.parent_span_id,
+                "duration_ms": span.duration_ms,
+                "attributes": span.attributes
+            }
+        })
+
+# Context manager for spans
+from contextlib import contextmanager
+
+@contextmanager
+def trace_span(tracer: Tracer, name: str):
+    span = tracer.start_span(name)
+    try:
+        yield span
+    except Exception as e:
+        span.attributes["error"] = True
+        span.attributes["error.message"] = str(e)
+        raise
+    finally:
+        tracer.end_span(span)
+
+# Usage
+tracer = Tracer("order-service")
+
+async def process_order(order_id: str):
+    with trace_span(tracer, "process_order") as span:
+        span.attributes["order_id"] = order_id
+
+        with trace_span(tracer, "validate_order"):
+            await validate(order_id)
+
+        with trace_span(tracer, "charge_payment"):
+            await charge(order_id)
+```
+
+### 4. Metrics Collection
+
+```python
+from dataclasses import dataclass
+from typing import Dict, List
+from enum import Enum
+import time
+import threading
+
+class MetricType(Enum):
+    COUNTER = "counter"
+    GAUGE = "gauge"
+    HISTOGRAM = "histogram"
+
+@dataclass
+class Counter:
+    name: str
+    labels: Dict[str, str]
+    value: float = 0
+
+    def inc(self, amount: float = 1):
+        self.value += amount
+
+@dataclass
+class Gauge:
+    name: str
+    labels: Dict[str, str]
+    value: float = 0
+
+    def set(self, value: float):
+        self.value = value
+
+    def inc(self, amount: float = 1):
+        self.value += amount
+
+    def dec(self, amount: float = 1):
+        self.value -= amount
+
+@dataclass
+class Histogram:
+    name: str
+    labels: Dict[str, str]
+    buckets: List[float]
+    values: List[float] = None
+
+    def __post_init__(self):
+        self.values = []
+        self._bucket_counts = {b: 0 for b in self.buckets}
+        self._bucket_counts[float('inf')] = 0
+        self._sum = 0
+        self._count = 0
+
+    def observe(self, value: float):
+        self.values.append(value)
+        self._sum += value
+        self._count += 1
+        for bucket in sorted(self._bucket_counts.keys()):
+            if value <= bucket:
+                self._bucket_counts[bucket] += 1
+
+class MetricsRegistry:
+    def __init__(self):
+        self._metrics: Dict[str, any] = {}
+        self._lock = threading.Lock()
+
+    def counter(self, name: str, labels: Dict[str, str] = None) -> Counter:
+        key = f"{name}:{labels}"
+        with self._lock:
+            if key not in self._metrics:
+                self._metrics[key] = Counter(name, labels or {})
+            return self._metrics[key]
+
+    def gauge(self, name: str, labels: Dict[str, str] = None) -> Gauge:
+        key = f"{name}:{labels}"
+        with self._lock:
+            if key not in self._metrics:
+                self._metrics[key] = Gauge(name, labels or {})
+            return self._metrics[key]
+
+    def histogram(self, name: str, buckets: List[float], labels: Dict[str, str] = None) -> Histogram:
+        key = f"{name}:{labels}"
+        with self._lock:
+            if key not in self._metrics:
+                self._metrics[key] = Histogram(name, labels or {}, buckets)
+            return self._metrics[key]
+
+# Usage
+metrics = MetricsRegistry()
+
+# Counter for requests
+request_counter = metrics.counter("http_requests_total", {"method": "GET", "path": "/api/orders"})
+request_counter.inc()
+
+# Gauge for active connections
+active_connections = metrics.gauge("active_connections")
+active_connections.inc()
+# ... handle connection ...
+active_connections.dec()
+
+# Histogram for request duration
+request_duration = metrics.histogram(
+    "http_request_duration_seconds",
+    buckets=[0.01, 0.05, 0.1, 0.5, 1.0, 5.0]
 )
 
-// RedactSensitive removes sensitive fields from log data
-func RedactSensitive(data map[string]interface{}) map[string]interface{} {
-  sensitiveKeys := []string{"password", "api_key", "token", "credit_card", "ssn"}
+start = time.time()
+# ... handle request ...
+request_duration.observe(time.time() - start)
+```
 
-  for _, key := range sensitiveKeys {
-    if _, exists := data[key]; exists {
-      data[key] = "[REDACTED]"
+### 5. OpenTelemetry Patterns
+
+```python
+from opentelemetry import trace, metrics
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+
+def setup_opentelemetry(service_name: str, otlp_endpoint: str):
+    """Initialize OpenTelemetry with OTLP export."""
+
+    # Tracing setup
+    trace_provider = TracerProvider(
+        resource=Resource.create({"service.name": service_name})
+    )
+    trace_provider.add_span_processor(
+        BatchSpanProcessor(OTLPSpanExporter(endpoint=otlp_endpoint))
+    )
+    trace.set_tracer_provider(trace_provider)
+
+    # Metrics setup
+    metric_provider = MeterProvider(
+        resource=Resource.create({"service.name": service_name})
+    )
+    metrics.set_meter_provider(metric_provider)
+
+    # Auto-instrumentation
+    RequestsInstrumentor().instrument()
+
+    return trace.get_tracer(service_name), metrics.get_meter(service_name)
+
+# Usage with FastAPI
+from fastapi import FastAPI
+
+app = FastAPI()
+FastAPIInstrumentor.instrument_app(app)
+
+tracer, meter = setup_opentelemetry("order-service", "http://otel-collector:4317")
+
+# Custom spans
+@app.get("/orders/{order_id}")
+async def get_order(order_id: str):
+    with tracer.start_as_current_span("fetch_order") as span:
+        span.set_attribute("order.id", order_id)
+        order = await order_repository.get(order_id)
+        span.set_attribute("order.status", order.status)
+        return order
+```
+
+### 6. Log Aggregation Patterns
+
+#### ELK Stack (Elasticsearch, Logstash, Kibana)
+
+```yaml
+# Logstash pipeline configuration
+input {
+  file {
+    path => "/var/log/app/*.log"
+    codec => json
+  }
+}
+
+filter {
+  # Parse structured JSON logs
+  json {
+    source => "message"
+  }
+
+  # Add Elasticsearch index based on date
+  mutate {
+    add_field => {
+      "[@metadata][index]" => "app-logs-%{+YYYY.MM.dd}"
     }
   }
-  return data
-}
 
-func LogRequest(logger *zap.Logger, r *http.Request) {
-  // Extract safe headers only
-  safeHeaders := map[string]string{
-    "user-agent": r.Header.Get("User-Agent"),
-    "content-type": r.Header.Get("Content-Type"),
+  # Enrich with geolocation (if IP present)
+  geoip {
+    source => "ip_address"
+    target => "geo"
   }
-
-  logger.Info("incoming request",
-    zap.String("method", r.Method),
-    zap.String("path", r.URL.Path),
-    zap.Any("headers", safeHeaders),
-    zap.String("remote_addr", r.RemoteAddr),
-  )
 }
 
-func LogError(logger *zap.Logger, err error, context map[string]interface{}) {
-  logger.Error("operation failed",
-    zap.Error(err),
-    zap.Any("context", RedactSensitive(context)),
-  )
+output {
+  elasticsearch {
+    hosts => ["elasticsearch:9200"]
+    index => "%{[@metadata][index]}"
+  }
 }
 ```
 
-## 12. Quick Reference Checklist
+#### Grafana Loki
 
-When implementing logging/observability:
+```yaml
+# Promtail scrape configuration
+scrape_configs:
+  - job_name: app-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: app-logs
+          __path__: /var/log/app/*.log
 
-- [ ] Use structured JSON logging
-- [ ] Include trace_id and span_id in all logs
-- [ ] Set appropriate log levels (don't over-log)
-- [ ] Never log passwords, keys, tokens, PII
-- [ ] Add contextual fields (user_id, request_id, etc.)
-- [ ] Implement log rotation to prevent disk overflow
-- [ ] Include stack traces for errors
-- [ ] Log entry/exit for important functions
-- [ ] Track execution time for performance monitoring
-- [ ] Sample high-volume logs to prevent storage/bandwidth issues
-- [ ] Use existing libraries (structlog, pino, zap, etc.)
-- [ ] Set up log aggregation (ELK, Loki, Datadog, etc.)
-- [ ] Create alerting rules for critical errors
-- [ ] Document logging patterns in team guidelines
-- [ ] Review logs regularly to spot issues early
+    # Extract JSON fields as labels
+    pipeline_stages:
+      - json:
+          expressions:
+            level: level
+            correlation_id: correlation_id
+            service: service
+      - labels:
+          level:
+          correlation_id:
+          service:
+```
 
----
+#### Datadog Agent Configuration
 
-**Activate this skill when:** working with logging systems, distributed tracing, debugging, monitoring, performance analysis, or observability-related tasks.
+```yaml
+# datadog.yaml
+logs_enabled: true
 
-**Combine with:** development-philosophy (fail-fast debugging), security-first-design (never log secrets), testing-workflow (use logs to verify behavior).
+logs_config:
+  processing_rules:
+    - type: exclude_at_match
+      name: exclude_healthcheck
+      pattern: "GET /health"
+
+  # Auto-parse JSON logs
+  auto_multi_line_detection: true
+
+# Log collection from files
+logs:
+  - type: file
+    path: "/var/log/app/*.log"
+    service: "order-service"
+    source: "python"
+    tags:
+      - "env:production"
+```
+
+### 7. Alert Design
+
+#### Prometheus Alerting Rules
+
+```yaml
+# Prometheus alerting rules
+groups:
+  - name: service-alerts
+    rules:
+      # High error rate alert
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_requests_total{status=~"5.."}[5m]))
+          / sum(rate(http_requests_total[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} over the last 5 minutes"
+          runbook_url: "https://wiki.example.com/runbooks/high-error-rate"
+
+      # High latency alert
+      - alert: HighLatency
+        expr: |
+          histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High latency detected"
+          description: "95th percentile latency is {{ $value }}s"
+
+      # Service down alert
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.instance }} is down"
+          description: "{{ $labels.job }} has been down for more than 1 minute"
+```
+
+#### Alert Severity Levels
+
+| Level        | Response Time | Examples                                      |
+| ------------ | ------------- | --------------------------------------------- |
+| **Critical** | Immediate     | Service down, high error rate, data loss      |
+| **Warning**  | Business hrs  | High latency, approaching limits, retry spikes|
+| **Info**     | Log only      | Deployment started, config changed            |
+
+## Best Practices
+
+### Logging
+
+1. **Log at Appropriate Levels**: DEBUG for development, INFO for normal operations, WARN for potential issues, ERROR for failures, FATAL for critical failures.
+
+2. **Include Context**: Always include correlation IDs, trace IDs, user IDs, and relevant business identifiers in structured fields.
+
+3. **Avoid Sensitive Data**: Never log passwords, tokens, credit cards, or PII. Implement automatic redaction when necessary.
+
+4. **Use Structured Logging**: JSON logs enable easy parsing and querying in log aggregation systems (ELK, Loki, Datadog).
+
+5. **Consistent Field Names**: Standardize field names across services (e.g., always use `correlation_id`, not sometimes `request_id`).
+
+### Distributed Tracing
+
+6. **Trace Boundaries**: Create spans at service boundaries, database calls, external API calls, and significant operations.
+
+7. **Propagate Context**: Pass trace IDs and span IDs across service boundaries via HTTP headers (OpenTelemetry standards).
+
+8. **Add Meaningful Attributes**: Include business context (user_id, order_id) and technical context (db_query, cache_hit) in span attributes.
+
+9. **Sample Appropriately**: Use adaptive sampling - trace 100% of errors, sample successful requests based on traffic volume.
+
+### Metrics
+
+10. **Track Golden Signals**: Monitor the Four Golden Signals - latency, traffic, errors, saturation.
+
+11. **Use Correct Metric Types**: Counters for totals (requests), Gauges for current values (memory), Histograms for distributions (latency).
+
+12. **Label Cardinality**: Keep label cardinality low - avoid high-cardinality values like user IDs in metric labels.
+
+13. **Naming Conventions**: Follow Prometheus naming - `http_requests_total` (counter), `process_memory_bytes` (gauge), `http_request_duration_seconds` (histogram).
+
+### Alerting
+
+14. **Alert on Symptoms**: Alert on user-impacting issues (error rate, latency), not causes (CPU usage). Symptoms indicate what is broken, causes explain why.
+
+15. **Include Runbooks**: Every alert must link to a runbook with investigation steps, common causes, and remediation procedures.
+
+16. **Use Appropriate Thresholds**: Set thresholds based on SLOs and historical data, not arbitrary values.
+
+17. **Alert Fatigue**: Ensure alerts are actionable. Non-actionable alerts lead to alert fatigue and ignored critical issues.
+
+### Integration
+
+18. **End-to-End Correlation**: Link logs, traces, and metrics using correlation IDs to enable cross-system debugging.
+
+19. **Centralize**: Use centralized log aggregation (ELK, Loki) and trace collection (Jaeger, Zipkin) for cross-service visibility.
+
+20. **Test Observability**: Verify logging, tracing, and metrics in development - don't discover gaps in production.
+
+## Examples
+
+### Complete Request Logging Middleware
+
+```python
+import time
+import uuid
+from fastapi import FastAPI, Request
+from starlette.middleware.base import BaseHTTPMiddleware
+
+class ObservabilityMiddleware(BaseHTTPMiddleware):
+    def __init__(self, app, tracer, metrics):
+        super().__init__(app)
+        self.tracer = tracer
+        self.request_counter = metrics.counter("http_requests_total")
+        self.request_duration = metrics.histogram(
+            "http_request_duration_seconds",
+            buckets=[0.01, 0.05, 0.1, 0.5, 1.0, 5.0]
+        )
+
+    async def dispatch(self, request: Request, call_next):
+        # Extract or generate correlation ID
+        corr_id = request.headers.get("X-Correlation-ID", str(uuid.uuid4()))
+        correlation_id.set(corr_id)
+
+        start_time = time.time()
+
+        with self.tracer.start_as_current_span(
+            f"{request.method} {request.url.path}"
+        ) as span:
+            span.set_attribute("http.method", request.method)
+            span.set_attribute("http.url", str(request.url))
+            span.set_attribute("correlation_id", corr_id)
+
+            try:
+                response = await call_next(request)
+
+                span.set_attribute("http.status_code", response.status_code)
+
+                # Record metrics
+                labels = {
+                    "method": request.method,
+                    "path": request.url.path,
+                    "status": str(response.status_code)
+                }
+                self.request_counter.labels(**labels).inc()
+                self.request_duration.labels(**labels).observe(
+                    time.time() - start_time
+                )
+
+                # Add correlation ID to response
+                response.headers["X-Correlation-ID"] = corr_id
+
+                return response
+
+            except Exception as e:
+                span.set_attribute("error", True)
+                span.record_exception(e)
+                raise
+```

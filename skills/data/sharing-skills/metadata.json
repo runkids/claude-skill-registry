@@ -1,7 +1,7 @@
 {
   "name": "sharing-skills",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": ".claude/skills/superpowers/sharing-skills/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-20T04:03:47.941798Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/sharing-skills/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-21T04:21:49.191515Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "project-session-management",
-  "repo": "jackspace/ClaudeSkillz",
-  "path": "skills/project-session-management/SKILL.md",
-  "source": "github.com/jackspace/ClaudeSkillz",
-  "downloaded_at": "2026-01-20T03:10:29.729023Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/project-session-management/skills/project-session-management/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-21T04:19:45.025493Z"
 }
