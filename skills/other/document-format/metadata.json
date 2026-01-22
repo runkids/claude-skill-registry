@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:36:53.280734Z",
   "dir_name": "document-format",
   "category": "other",
-  "github_path": ".claude/skills/document-format"
+  "github_path": ".claude/skills/document-format",
+  "github_branch": "main"
 }

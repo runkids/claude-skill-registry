@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:56.200855Z",
   "dir_name": "moai-platform-supabase",
   "category": "other",
-  "github_path": ".claude/skills/moai-platform-supabase"
+  "github_path": ".claude/skills/moai-platform-supabase",
+  "github_branch": "main"
 }

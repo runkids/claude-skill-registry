@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:29.477269Z",
   "dir_name": "add-platform-research",
   "category": "other",
-  "github_path": ".claude/skills/add_platform.research"
+  "github_path": ".claude/skills/add_platform.research",
+  "github_branch": "main"
 }

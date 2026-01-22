@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:27:17.047731Z",
   "dir_name": "createcli",
   "category": "other",
-  "github_path": ".claude/skills/CreateCLI"
+  "github_path": ".claude/skills/CreateCLI",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:36:38.424650Z",
   "dir_name": "design-decisions",
   "category": "other",
-  "github_path": ".claude/skills/design-decisions"
+  "github_path": ".claude/skills/design-decisions",
+  "github_branch": "main"
 }

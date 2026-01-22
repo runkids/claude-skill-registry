@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "skill-refinement",
-  "github_path": ".claude/skills/skill-refinement"
+  "github_path": ".claude/skills/skill-refinement",
+  "github_branch": "main"
 }

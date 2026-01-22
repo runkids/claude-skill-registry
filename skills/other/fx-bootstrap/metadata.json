@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:02.343795Z",
   "dir_name": "fx-bootstrap",
   "category": "other",
-  "github_path": ".claude/skills/fx-bootstrap"
+  "github_path": ".claude/skills/fx-bootstrap",
+  "github_branch": "main"
 }

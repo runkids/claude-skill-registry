@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:11.028102Z",
   "dir_name": "deepwiki-api",
   "category": "other",
-  "github_path": ".claude/skills/deepwiki-api"
+  "github_path": ".claude/skills/deepwiki-api",
+  "github_branch": "main"
 }

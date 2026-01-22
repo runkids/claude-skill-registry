@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "supplier-management",
-  "github_path": ".claude/skills/supplier-management"
+  "github_path": ".claude/skills/supplier-management",
+  "github_branch": "main"
 }

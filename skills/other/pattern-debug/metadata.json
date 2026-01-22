@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:05:56.195989Z",
   "dir_name": "pattern-debug",
   "category": "other",
-  "github_path": ".claude/skills/pattern-debug"
+  "github_path": ".claude/skills/pattern-debug",
+  "github_branch": "main"
 }

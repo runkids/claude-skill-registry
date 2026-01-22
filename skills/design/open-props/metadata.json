@@ -8,5 +8,6 @@
     "props"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/open-props"
+  "github_path": ".claude/skills/open-props",
+  "github_branch": "main"
 }

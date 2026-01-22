@@ -8,5 +8,6 @@
     "output"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/streaming-output"
+  "github_path": ".claude/skills/streaming-output",
+  "github_branch": "main"
 }

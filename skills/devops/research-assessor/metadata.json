@@ -8,5 +8,6 @@
     "assessor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/research-assessor"
+  "github_path": ".claude/skills/research-assessor",
+  "github_branch": "main"
 }

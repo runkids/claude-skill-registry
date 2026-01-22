@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:57:00.216003Z",
   "dir_name": "abuse-prevention",
   "category": "other",
-  "github_path": ".claude/skills/abuse-prevention"
+  "github_path": ".claude/skills/abuse-prevention",
+  "github_branch": "main"
 }

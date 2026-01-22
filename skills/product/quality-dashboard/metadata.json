@@ -8,5 +8,6 @@
     "dashboard"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/quality-dashboard"
+  "github_path": ".claude/skills/quality-dashboard",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:16.241560Z",
   "dir_name": "test-diff-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/test-diff-analyzer"
+  "github_path": ".claude/skills/test-diff-analyzer",
+  "github_branch": "main"
 }

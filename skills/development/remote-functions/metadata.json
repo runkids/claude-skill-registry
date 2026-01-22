@@ -9,5 +9,6 @@
   ],
   "stars": 55,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/remote-functions"
+  "github_path": ".claude/skills/remote-functions",
+  "github_branch": "main"
 }

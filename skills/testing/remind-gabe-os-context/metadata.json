@@ -5,5 +5,6 @@
   "description": "Proactively remind about Gabe-OS workflows when context may have been lost, especially after /compact operations. Prevent manual implementation by checking for existing specs first.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:05:47.242084Z",
-  "github_path": ".claude/skills/remind-gabe-os-context"
+  "github_path": ".claude/skills/remind-gabe-os-context",
+  "github_branch": "main"
 }

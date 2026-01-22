@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/swarm-workflow"
+  "github_path": ".claude/skills/swarm-workflow",
+  "github_branch": "main"
 }

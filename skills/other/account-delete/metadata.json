@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:00.423019Z",
   "dir_name": "account-delete",
   "category": "other",
-  "github_path": ".claude/skills/account-delete"
+  "github_path": ".claude/skills/account-delete",
+  "github_branch": "main"
 }

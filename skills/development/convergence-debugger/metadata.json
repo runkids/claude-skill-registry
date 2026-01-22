@@ -9,5 +9,6 @@
   ],
   "stars": 166,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/convergence-debugger"
+  "github_path": ".claude/skills/convergence-debugger",
+  "github_branch": "main"
 }

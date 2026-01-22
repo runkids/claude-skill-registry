@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:55.649827Z",
   "dir_name": "release-checklist",
   "category": "other",
-  "github_path": ".claude/skills/release-checklist"
+  "github_path": ".claude/skills/release-checklist",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/canvas-debugging"
+  "github_path": ".claude/skills/canvas-debugging",
+  "github_branch": "main"
 }

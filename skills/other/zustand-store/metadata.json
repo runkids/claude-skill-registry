@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:26.219266Z",
   "dir_name": "zustand-store",
   "category": "other",
-  "github_path": ".claude/skills/zustand-store"
+  "github_path": ".claude/skills/zustand-store",
+  "github_branch": "main"
 }

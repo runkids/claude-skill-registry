@@ -7,5 +7,6 @@
     "releasing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/releasing"
+  "github_path": ".claude/skills/releasing",
+  "github_branch": "main"
 }

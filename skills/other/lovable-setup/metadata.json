@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:45.468897Z",
   "dir_name": "lovable-setup",
   "category": "other",
-  "github_path": ".claude/skills/lovable-setup"
+  "github_path": ".claude/skills/lovable-setup",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 27,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/format-commit-message"
+  "github_path": ".claude/skills/format-commit-message",
+  "github_branch": "main"
 }

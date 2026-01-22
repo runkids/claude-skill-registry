@@ -10,5 +10,6 @@
     "generator"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/hammer-test-suite-generator"
+  "github_path": ".claude/skills/hammer-test-suite-generator",
+  "github_branch": "main"
 }

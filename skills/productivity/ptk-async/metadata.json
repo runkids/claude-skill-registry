@@ -8,5 +8,6 @@
     "async"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ptk-async"
+  "github_path": ".claude/skills/ptk-async",
+  "github_branch": "main"
 }

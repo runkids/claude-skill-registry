@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:56.262886Z",
   "dir_name": "chatbot-analytics",
   "category": "other",
-  "github_path": ".claude/skills/chatbot-analytics"
+  "github_path": ".claude/skills/chatbot-analytics",
+  "github_branch": "main"
 }

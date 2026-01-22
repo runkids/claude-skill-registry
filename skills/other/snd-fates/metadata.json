@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:50.825737Z",
   "dir_name": "snd-fates",
   "category": "other",
-  "github_path": ".claude/skills/snd-fates"
+  "github_path": ".claude/skills/snd-fates",
+  "github_branch": "main"
 }

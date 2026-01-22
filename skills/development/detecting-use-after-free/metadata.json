@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/detecting-use-after-free"
+  "github_path": ".claude/skills/detecting-use-after-free",
+  "github_branch": "main"
 }

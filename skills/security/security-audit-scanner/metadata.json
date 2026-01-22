@@ -9,5 +9,6 @@
     "scanner"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/security-audit-scanner"
+  "github_path": ".claude/skills/security-audit-scanner",
+  "github_branch": "main"
 }

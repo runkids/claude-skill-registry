@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:00.917653Z",
   "dir_name": "temp-files",
   "category": "other",
-  "github_path": ".claude/skills/temp-files"
+  "github_path": ".claude/skills/temp-files",
+  "github_branch": "main"
 }

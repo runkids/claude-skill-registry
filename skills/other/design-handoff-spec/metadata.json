@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:04.245051Z",
   "dir_name": "design-handoff-spec",
   "category": "other",
-  "github_path": ".claude/skills/design-handoff-spec"
+  "github_path": ".claude/skills/design-handoff-spec",
+  "github_branch": "main"
 }

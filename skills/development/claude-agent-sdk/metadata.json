@@ -9,5 +9,6 @@
     "sdk"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/claude-agent-sdk"
+  "github_path": ".claude/skills/claude-agent-sdk",
+  "github_branch": "main"
 }

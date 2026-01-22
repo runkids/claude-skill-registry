@@ -9,5 +9,6 @@
   ],
   "stars": 58,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/emergency-card"
+  "github_path": ".claude/skills/emergency-card",
+  "github_branch": "main"
 }

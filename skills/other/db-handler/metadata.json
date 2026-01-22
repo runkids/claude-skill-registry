@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:08.656803Z",
   "dir_name": "db-handler",
   "category": "other",
-  "github_path": ".claude/skills/db-handler"
+  "github_path": ".claude/skills/db-handler",
+  "github_branch": "main"
 }

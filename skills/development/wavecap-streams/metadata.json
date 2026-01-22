@@ -8,5 +8,6 @@
     "streams"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wavecap-streams"
+  "github_path": ".claude/skills/wavecap-streams",
+  "github_branch": "main"
 }

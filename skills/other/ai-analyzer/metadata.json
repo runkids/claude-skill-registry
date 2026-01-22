@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:42.365471Z",
   "dir_name": "ai-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/ai-analyzer"
+  "github_path": ".claude/skills/ai-analyzer",
+  "github_branch": "main"
 }

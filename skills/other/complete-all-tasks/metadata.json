@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:39:27.236322Z",
   "dir_name": "complete-all-tasks",
   "category": "other",
-  "github_path": ".claude/skills/complete-all-tasks"
+  "github_path": ".claude/skills/complete-all-tasks",
+  "github_branch": "main"
 }

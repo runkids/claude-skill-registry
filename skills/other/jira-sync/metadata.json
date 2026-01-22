@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:19.987456Z",
   "dir_name": "jira-sync",
   "category": "other",
-  "github_path": ".claude/skills/jira-sync"
+  "github_path": ".claude/skills/jira-sync",
+  "github_branch": "main"
 }

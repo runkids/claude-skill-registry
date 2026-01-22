@@ -10,5 +10,6 @@
     "cleanup"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/refactor-dedupe-and-cleanup"
+  "github_path": ".claude/skills/refactor-dedupe-and-cleanup",
+  "github_branch": "main"
 }

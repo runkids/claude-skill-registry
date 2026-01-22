@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:46.760648Z",
   "dir_name": "trace-check",
   "category": "other",
-  "github_path": ".claude/skills/trace-check"
+  "github_path": ".claude/skills/trace-check",
+  "github_branch": "main"
 }

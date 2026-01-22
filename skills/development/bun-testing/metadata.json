@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bun-testing"
+  "github_path": ".claude/skills/bun-testing",
+  "github_branch": "main"
 }

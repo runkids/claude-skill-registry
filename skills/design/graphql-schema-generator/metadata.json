@@ -9,5 +9,6 @@
     "generator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/graphql-schema-generator"
+  "github_path": ".claude/skills/graphql-schema-generator",
+  "github_branch": "main"
 }

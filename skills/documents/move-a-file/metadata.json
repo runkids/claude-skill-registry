@@ -9,5 +9,6 @@
   ],
   "stars": 62,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/move-a-file"
+  "github_path": ".claude/skills/move-a-file",
+  "github_branch": "master"
 }

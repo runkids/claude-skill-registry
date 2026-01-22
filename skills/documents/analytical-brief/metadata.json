@@ -5,5 +5,6 @@
   "description": "Создание профессиональных аналитических справок в формате DOCX. Использовать при запросах на создание аналитических справок, информационных записок, правовых меморандумов, обзоров судебных споров, кор",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:47.819206Z",
-  "github_path": ".claude/skills/analytical-brief"
+  "github_path": ".claude/skills/analytical-brief",
+  "github_branch": "main"
 }

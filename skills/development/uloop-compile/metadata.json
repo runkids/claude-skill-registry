@@ -9,5 +9,6 @@
   ],
   "stars": 104,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/uloop-compile"
+  "github_path": ".claude/skills/uloop-compile",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/building-chatgpt-apps"
+  "github_path": ".claude/skills/building-chatgpt-apps",
+  "github_branch": "main"
 }

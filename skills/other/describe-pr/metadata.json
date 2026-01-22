@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:33.013039Z",
   "dir_name": "describe-pr",
   "category": "other",
-  "github_path": ".claude/skills/describe_pr"
+  "github_path": ".claude/skills/describe_pr",
+  "github_branch": "main"
 }

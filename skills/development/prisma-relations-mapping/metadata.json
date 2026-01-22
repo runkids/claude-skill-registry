@@ -9,5 +9,6 @@
     "mapping"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/prisma-relations-mapping"
+  "github_path": ".claude/skills/prisma-relations-mapping",
+  "github_branch": "main"
 }

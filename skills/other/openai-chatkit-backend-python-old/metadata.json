@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:01:59.511605Z",
   "dir_name": "openai-chatkit-backend-python-old",
   "category": "other",
-  "github_path": ".claude/skills/openai-chatkit-backend-python-old"
+  "github_path": ".claude/skills/openai-chatkit-backend-python-old",
+  "github_branch": "main"
 }

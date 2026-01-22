@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:35:45.674248Z",
   "dir_name": "job-fit-analysis",
   "category": "other",
-  "github_path": ".claude/skills/job-fit-analysis"
+  "github_path": ".claude/skills/job-fit-analysis",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   "stars": 27,
   "source": "SkillsMP Synced Skills",
   "dir_name": "format-markdown-table",
-  "github_path": ".claude/skills/format-markdown-table"
+  "github_path": ".claude/skills/format-markdown-table",
+  "github_branch": "main"
 }

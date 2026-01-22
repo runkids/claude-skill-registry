@@ -10,5 +10,6 @@
   ],
   "stars": 789,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/react-headless-dev"
+  "github_path": ".claude/skills/react-headless-dev",
+  "github_branch": "master"
 }

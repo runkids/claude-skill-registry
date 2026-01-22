@@ -8,5 +8,6 @@
     "board"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/task-board"
+  "github_path": ".claude/skills/task-board",
+  "github_branch": "main"
 }

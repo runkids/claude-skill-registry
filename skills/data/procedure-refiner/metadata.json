@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "procedure-refiner",
-  "github_path": ".claude/skills/procedure-refiner"
+  "github_path": ".claude/skills/procedure-refiner",
+  "github_branch": "main"
 }

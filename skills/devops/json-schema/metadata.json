@@ -8,5 +8,6 @@
     "schema"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/json-schema"
+  "github_path": ".claude/skills/json-schema",
+  "github_branch": "main"
 }

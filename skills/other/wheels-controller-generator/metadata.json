@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:34:45.483219Z",
   "dir_name": "wheels-controller-generator",
   "category": "other",
-  "github_path": ".claude/skills/wheels-controller-generator"
+  "github_path": ".claude/skills/wheels-controller-generator",
+  "github_branch": "main"
 }

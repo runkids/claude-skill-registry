@@ -8,5 +8,6 @@
     "system"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/port-system"
+  "github_path": ".claude/skills/port-system",
+  "github_branch": "main"
 }

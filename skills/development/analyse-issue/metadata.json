@@ -9,5 +9,6 @@
   ],
   "stars": 281,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/analyse-issue"
+  "github_path": ".claude/skills/analyse-issue",
+  "github_branch": "master"
 }

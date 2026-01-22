@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:10:29.400990Z",
   "dir_name": "gcloud",
   "category": "other",
-  "github_path": ".claude/skills/gcloud"
+  "github_path": ".claude/skills/gcloud",
+  "github_branch": "main"
 }

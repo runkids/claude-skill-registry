@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:00.616359Z",
   "dir_name": "functionality-audit",
   "category": "other",
-  "github_path": ".claude/skills/functionality-audit"
+  "github_path": ".claude/skills/functionality-audit",
+  "github_branch": "main"
 }

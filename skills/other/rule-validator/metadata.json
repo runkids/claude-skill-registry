@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:11.217934Z",
   "dir_name": "rule-validator",
   "category": "other",
-  "github_path": ".claude/skills/rule-validator"
+  "github_path": ".claude/skills/rule-validator",
+  "github_branch": "main"
 }

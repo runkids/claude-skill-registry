@@ -8,5 +8,6 @@
     "loader"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/specialization-loader"
+  "github_path": ".claude/skills/specialization-loader",
+  "github_branch": "main"
 }

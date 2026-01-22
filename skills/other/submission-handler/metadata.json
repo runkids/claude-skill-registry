@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:50:14.227319Z",
   "dir_name": "submission-handler",
   "category": "other",
-  "github_path": ".claude/skills/submission-handler"
+  "github_path": ".claude/skills/submission-handler",
+  "github_branch": "main"
 }

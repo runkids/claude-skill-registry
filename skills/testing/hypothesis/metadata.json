@@ -7,5 +7,6 @@
     "hypothesis"
   ],
   "stars": 18,
-  "github_path": ".claude/skills/hypothesis"
+  "github_path": ".claude/skills/hypothesis",
+  "github_branch": "main"
 }

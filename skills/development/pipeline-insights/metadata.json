@@ -8,5 +8,6 @@
     "insights"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pipeline-insights"
+  "github_path": ".claude/skills/pipeline-insights",
+  "github_branch": "main"
 }

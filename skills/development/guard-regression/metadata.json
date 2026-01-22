@@ -8,5 +8,6 @@
     "regression"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/guard-regression"
+  "github_path": ".claude/skills/guard-regression",
+  "github_branch": "main"
 }

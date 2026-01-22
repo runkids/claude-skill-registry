@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:57:43.027945Z",
   "dir_name": "ux-toolkit",
   "category": "other",
-  "github_path": ".claude/skills/ux-toolkit"
+  "github_path": ".claude/skills/ux-toolkit",
+  "github_branch": "main"
 }

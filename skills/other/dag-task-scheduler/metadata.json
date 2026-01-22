@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:57.557077Z",
   "dir_name": "dag-task-scheduler",
   "category": "other",
-  "github_path": ".claude/skills/dag-task-scheduler"
+  "github_path": ".claude/skills/dag-task-scheduler",
+  "github_branch": "main"
 }

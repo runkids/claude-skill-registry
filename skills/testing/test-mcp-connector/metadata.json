@@ -9,5 +9,6 @@
     "connector"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/test-mcp-connector"
+  "github_path": ".claude/skills/test-mcp-connector",
+  "github_branch": "main"
 }

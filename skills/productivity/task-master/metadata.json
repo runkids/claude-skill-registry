@@ -8,5 +8,6 @@
     "master"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/task-master"
+  "github_path": ".claude/skills/task-master",
+  "github_branch": "main"
 }

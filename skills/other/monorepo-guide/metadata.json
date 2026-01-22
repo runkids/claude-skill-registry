@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:44.209702Z",
   "dir_name": "monorepo-guide",
   "category": "other",
-  "github_path": ".claude/skills/monorepo-guide"
+  "github_path": ".claude/skills/monorepo-guide",
+  "github_branch": "main"
 }

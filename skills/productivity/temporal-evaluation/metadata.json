@@ -8,5 +8,6 @@
     "evaluation"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/temporal-evaluation"
+  "github_path": ".claude/skills/temporal-evaluation",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:44.928778Z",
   "dir_name": "rust-daily",
   "category": "other",
-  "github_path": ".claude/skills/rust-daily"
+  "github_path": ".claude/skills/rust-daily",
+  "github_branch": "main"
 }

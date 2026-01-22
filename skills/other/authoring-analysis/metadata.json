@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:11.133740Z",
   "dir_name": "authoring-analysis",
   "category": "other",
-  "github_path": ".claude/skills/authoring-analysis"
+  "github_path": ".claude/skills/authoring-analysis",
+  "github_branch": "main"
 }

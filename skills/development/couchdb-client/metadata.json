@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/couchdb-client"
+  "github_path": ".claude/skills/couchdb-client",
+  "github_branch": "main"
 }

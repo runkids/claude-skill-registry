@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:55.583337Z",
   "dir_name": "install-precommit",
   "category": "other",
-  "github_path": ".claude/skills/install-precommit"
+  "github_path": ".claude/skills/install-precommit",
+  "github_branch": "main"
 }

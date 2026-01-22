@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:31.452730Z",
   "dir_name": "task-lint-fixer",
   "category": "other",
-  "github_path": ".claude/skills/task-lint-fixer"
+  "github_path": ".claude/skills/task-lint-fixer",
+  "github_branch": "main"
 }

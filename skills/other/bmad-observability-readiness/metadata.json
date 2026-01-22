@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:53:13.368976Z",
   "dir_name": "bmad-observability-readiness",
   "category": "other",
-  "github_path": ".claude/skills/bmad-observability-readiness"
+  "github_path": ".claude/skills/bmad-observability-readiness",
+  "github_branch": "main"
 }

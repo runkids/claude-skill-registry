@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/composable-svelte-graphics"
+  "github_path": ".claude/skills/composable-svelte-graphics",
+  "github_branch": "main"
 }

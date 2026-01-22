@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:11:28.005317Z",
   "dir_name": "wavecap-health",
   "category": "other",
-  "github_path": ".claude/skills/wavecap-health"
+  "github_path": ".claude/skills/wavecap-health",
+  "github_branch": "main"
 }

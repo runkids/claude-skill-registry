@@ -8,5 +8,6 @@
     "artist"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/game-artist"
+  "github_path": ".claude/skills/game-artist",
+  "github_branch": "main"
 }

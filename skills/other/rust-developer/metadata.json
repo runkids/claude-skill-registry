@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T04:18:30.405696Z",
   "dir_name": "rust-developer",
   "category": "other",
-  "github_path": ".claude/skills/rust-developer"
+  "github_path": ".claude/skills/rust-developer",
+  "github_branch": "main"
 }

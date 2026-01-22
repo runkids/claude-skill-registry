@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effect-queues-background"
+  "github_path": ".claude/skills/effect-queues-background",
+  "github_branch": "main"
 }

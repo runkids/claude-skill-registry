@@ -10,5 +10,6 @@
   ],
   "stars": 789,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/docs-consistency-checker"
+  "github_path": ".claude/skills/docs-consistency-checker",
+  "github_branch": "master"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/fetching-library-docs"
+  "github_path": ".claude/skills/fetching-library-docs",
+  "github_branch": "main"
 }

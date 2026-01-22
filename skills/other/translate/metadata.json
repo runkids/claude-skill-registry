@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:52:21.608853Z",
   "dir_name": "translate",
   "category": "other",
-  "github_path": ".claude/skills/translate"
+  "github_path": ".claude/skills/translate",
+  "github_branch": "main"
 }

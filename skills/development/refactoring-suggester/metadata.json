@@ -8,5 +8,6 @@
     "suggester"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/refactoring-suggester"
+  "github_path": ".claude/skills/refactoring-suggester",
+  "github_branch": "main"
 }

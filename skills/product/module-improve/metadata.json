@@ -8,5 +8,6 @@
     "improve"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/module-improve"
+  "github_path": ".claude/skills/module-improve",
+  "github_branch": "main"
 }

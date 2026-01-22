@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:45.727204Z",
   "dir_name": "cv-knowledge-query",
   "category": "other",
-  "github_path": ".claude/skills/cv-knowledge-query"
+  "github_path": ".claude/skills/cv-knowledge-query",
+  "github_branch": "main"
 }

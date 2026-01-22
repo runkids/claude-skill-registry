@@ -8,5 +8,6 @@
     "upgrade"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/package-upgrade"
+  "github_path": ".claude/skills/package-upgrade",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "reader"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pdf-reader"
+  "github_path": ".claude/skills/pdf-reader",
+  "github_branch": "main"
 }

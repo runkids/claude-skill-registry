@@ -8,5 +8,6 @@
     "testing"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/twilio-testing"
+  "github_path": ".claude/skills/twilio-testing",
+  "github_branch": "main"
 }

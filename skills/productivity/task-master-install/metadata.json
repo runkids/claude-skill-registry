@@ -9,5 +9,6 @@
     "install"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/task-master-install"
+  "github_path": ".claude/skills/task-master-install",
+  "github_branch": "main"
 }

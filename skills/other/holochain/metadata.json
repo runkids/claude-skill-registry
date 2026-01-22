@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:18.057126Z",
   "dir_name": "holochain",
   "category": "other",
-  "github_path": ".claude/skills/holochain"
+  "github_path": ".claude/skills/holochain",
+  "github_branch": "main"
 }

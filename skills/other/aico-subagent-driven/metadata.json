@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:00:49.092932Z",
   "dir_name": "aico-subagent-driven",
   "category": "other",
-  "github_path": ".claude/skills/aico-subagent-driven"
+  "github_path": ".claude/skills/aico-subagent-driven",
+  "github_branch": "main"
 }

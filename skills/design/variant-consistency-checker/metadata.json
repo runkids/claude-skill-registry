@@ -9,5 +9,6 @@
     "checker"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/variant-consistency-checker"
+  "github_path": ".claude/skills/variant-consistency-checker",
+  "github_branch": "main"
 }

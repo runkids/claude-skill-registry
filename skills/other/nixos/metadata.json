@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:34.763785Z",
   "dir_name": "nixos",
   "category": "other",
-  "github_path": ".claude/skills/nixos"
+  "github_path": ".claude/skills/nixos",
+  "github_branch": "main"
 }

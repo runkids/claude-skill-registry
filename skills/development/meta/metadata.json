@@ -7,5 +7,6 @@
     "meta"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/meta"
+  "github_path": ".claude/skills/meta",
+  "github_branch": "main"
 }

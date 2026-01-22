@@ -7,5 +7,6 @@
     "webresearcher"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/webresearcher"
+  "github_path": ".claude/skills/webresearcher",
+  "github_branch": "main"
 }

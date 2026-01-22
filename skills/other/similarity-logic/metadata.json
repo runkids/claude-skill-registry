@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:16.281689Z",
   "dir_name": "similarity-logic",
   "category": "other",
-  "github_path": ".claude/skills/similarity-logic"
+  "github_path": ".claude/skills/similarity-logic",
+  "github_branch": "main"
 }

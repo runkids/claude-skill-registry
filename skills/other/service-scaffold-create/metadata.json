@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:26:46.839153Z",
   "dir_name": "service-scaffold-create",
   "category": "other",
-  "github_path": ".claude/skills/service-scaffold-create"
+  "github_path": ".claude/skills/service-scaffold-create",
+  "github_branch": "main"
 }

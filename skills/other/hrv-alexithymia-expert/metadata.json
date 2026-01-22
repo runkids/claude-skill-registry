@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:57.866163Z",
   "dir_name": "hrv-alexithymia-expert",
   "category": "other",
-  "github_path": ".claude/skills/hrv-alexithymia-expert"
+  "github_path": ".claude/skills/hrv-alexithymia-expert",
+  "github_branch": "main"
 }

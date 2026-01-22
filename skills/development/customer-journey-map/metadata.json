@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/customer-journey-map"
+  "github_path": ".claude/skills/customer-journey-map",
+  "github_branch": "main"
 }

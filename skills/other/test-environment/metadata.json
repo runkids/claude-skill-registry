@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:23.978204Z",
   "dir_name": "test-environment",
   "category": "other",
-  "github_path": ".claude/skills/test-environment"
+  "github_path": ".claude/skills/test-environment",
+  "github_branch": "main"
 }

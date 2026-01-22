@@ -8,5 +8,6 @@
   ],
   "stars": 9,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/aerospace"
+  "github_path": ".claude/skills/aerospace",
+  "github_branch": "main"
 }

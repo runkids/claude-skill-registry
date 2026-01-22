@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:15:14.562241Z",
   "dir_name": "tdd-red-green-refactor",
   "category": "other",
-  "github_path": ".claude/skills/tdd-red-green-refactor"
+  "github_path": ".claude/skills/tdd-red-green-refactor",
+  "github_branch": "main"
 }

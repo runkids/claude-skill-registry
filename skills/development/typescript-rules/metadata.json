@@ -8,5 +8,6 @@
     "rules"
   ],
   "stars": 44,
-  "github_path": "skills/typescript-rules"
+  "github_path": "skills/typescript-rules",
+  "github_branch": "main"
 }

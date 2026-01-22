@@ -8,5 +8,6 @@
     "fetcher"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/puzzle-fetcher"
+  "github_path": ".claude/skills/puzzle-fetcher",
+  "github_branch": "main"
 }

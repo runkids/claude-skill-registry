@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:55.322446Z",
   "dir_name": "maud-axum-integration",
   "category": "other",
-  "github_path": ".claude/skills/maud-axum-integration"
+  "github_path": ".claude/skills/maud-axum-integration",
+  "github_branch": "main"
 }

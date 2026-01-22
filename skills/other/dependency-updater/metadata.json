@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:08.073214Z",
   "dir_name": "dependency-updater",
   "category": "other",
-  "github_path": ".claude/skills/dependency-updater"
+  "github_path": ".claude/skills/dependency-updater",
+  "github_branch": "main"
 }

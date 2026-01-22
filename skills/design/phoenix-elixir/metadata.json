@@ -8,5 +8,6 @@
     "elixir"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/phoenix-elixir"
+  "github_path": ".claude/skills/phoenix-elixir",
+  "github_branch": "main"
 }

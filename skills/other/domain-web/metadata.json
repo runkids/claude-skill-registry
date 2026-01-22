@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:44.846833Z",
   "dir_name": "domain-web",
   "category": "other",
-  "github_path": ".claude/skills/domain-web"
+  "github_path": ".claude/skills/domain-web",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:19:34.518472Z",
   "dir_name": "global-security",
   "category": "other",
-  "github_path": ".claude/skills/global-security"
+  "github_path": ".claude/skills/global-security",
+  "github_branch": "main"
 }

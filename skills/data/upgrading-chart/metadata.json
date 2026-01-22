@@ -10,5 +10,6 @@
   "stars": 517,
   "source": "SkillsMP Synced Skills",
   "dir_name": "upgrading-chart",
-  "github_path": ".claude/skills/upgrading-chart"
+  "github_path": ".claude/skills/upgrading-chart",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:15:13.656977Z",
   "dir_name": "agent-tool",
   "category": "other",
-  "github_path": ".claude/skills/agent-tool"
+  "github_path": ".claude/skills/agent-tool",
+  "github_branch": "main"
 }

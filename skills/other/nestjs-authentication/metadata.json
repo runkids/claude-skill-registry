@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:56:37.028725Z",
   "dir_name": "nestjs-authentication",
   "category": "other",
-  "github_path": ".claude/skills/nestjs-authentication"
+  "github_path": ".claude/skills/nestjs-authentication",
+  "github_branch": "main"
 }

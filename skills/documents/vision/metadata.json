@@ -7,5 +7,6 @@
     "vision"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/vision"
+  "github_path": ".claude/skills/vision",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "upload"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/hackage-upload"
+  "github_path": ".claude/skills/hackage-upload",
+  "github_branch": "main"
 }

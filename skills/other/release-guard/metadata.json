@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:16.955893Z",
   "dir_name": "release-guard",
   "category": "other",
-  "github_path": ".claude/skills/release-guard"
+  "github_path": ".claude/skills/release-guard",
+  "github_branch": "main"
 }

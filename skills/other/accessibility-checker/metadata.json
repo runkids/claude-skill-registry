@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:06:49.309190Z",
   "dir_name": "accessibility-checker",
   "category": "other",
-  "github_path": ".claude/skills/accessibility-checker"
+  "github_path": ".claude/skills/accessibility-checker",
+  "github_branch": "main"
 }

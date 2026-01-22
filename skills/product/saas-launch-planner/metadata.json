@@ -9,5 +9,6 @@
     "planner"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/saas-launch-planner"
+  "github_path": ".claude/skills/saas-launch-planner",
+  "github_branch": "main"
 }

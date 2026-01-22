@@ -10,5 +10,6 @@
   ],
   "stars": 88,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/python-backend-reviewer"
+  "github_path": ".claude/skills/python-backend-reviewer",
+  "github_branch": "main"
 }

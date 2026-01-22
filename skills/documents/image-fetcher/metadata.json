@@ -8,5 +8,6 @@
     "fetcher"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/image-fetcher"
+  "github_path": ".claude/skills/image-fetcher",
+  "github_branch": "main"
 }

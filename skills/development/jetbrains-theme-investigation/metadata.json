@@ -9,5 +9,6 @@
     "investigation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/jetbrains-theme-investigation"
+  "github_path": ".claude/skills/jetbrains-theme-investigation",
+  "github_branch": "main"
 }

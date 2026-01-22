@@ -9,5 +9,6 @@
   ],
   "stars": 430,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/spotify-player"
+  "github_path": "skills/spotify-player",
+  "github_branch": "main"
 }

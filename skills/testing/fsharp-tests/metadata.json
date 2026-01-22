@@ -8,5 +8,6 @@
     "tests"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/fsharp-tests"
+  "github_path": ".claude/skills/fsharp-tests",
+  "github_branch": "main"
 }

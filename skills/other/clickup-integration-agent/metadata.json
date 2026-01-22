@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:20:39.202438Z",
   "dir_name": "clickup-integration-agent",
   "category": "other",
-  "github_path": ".claude/skills/clickup-integration-agent"
+  "github_path": ".claude/skills/clickup-integration-agent",
+  "github_branch": "main"
 }

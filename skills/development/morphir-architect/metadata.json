@@ -8,5 +8,6 @@
     "architect"
   ],
   "stars": 12,
-  "github_path": ".claude/skills/morphir-architect"
+  "github_path": ".claude/skills/morphir-architect",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "pricing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tsh-pricing"
+  "github_path": ".claude/skills/tsh-pricing",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:27.882930Z",
   "dir_name": "dpo-specialist",
   "category": "other",
-  "github_path": ".claude/skills/dpo-specialist"
+  "github_path": ".claude/skills/dpo-specialist",
+  "github_branch": "main"
 }

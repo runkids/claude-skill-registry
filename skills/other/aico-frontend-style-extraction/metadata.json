@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:00:51.798858Z",
   "dir_name": "aico-frontend-style-extraction",
   "category": "other",
-  "github_path": ".claude/skills/aico-frontend-style-extraction"
+  "github_path": ".claude/skills/aico-frontend-style-extraction",
+  "github_branch": "main"
 }

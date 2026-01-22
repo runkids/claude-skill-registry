@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/email-welcome-sequence-therapy"
+  "github_path": ".claude/skills/email-welcome-sequence-therapy",
+  "github_branch": "main"
 }

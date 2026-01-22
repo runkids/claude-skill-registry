@@ -8,5 +8,6 @@
     "repl"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/micropython-repl"
+  "github_path": ".claude/skills/micropython-repl",
+  "github_branch": "main"
 }

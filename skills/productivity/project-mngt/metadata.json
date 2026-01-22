@@ -8,5 +8,6 @@
     "mngt"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/project-mngt"
+  "github_path": ".claude/skills/project-mngt",
+  "github_branch": "main"
 }

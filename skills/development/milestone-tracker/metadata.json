@@ -8,5 +8,6 @@
     "tracker"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/milestone-tracker"
+  "github_path": ".claude/skills/milestone-tracker",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "cluster"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/hetzner-cluster"
+  "github_path": ".claude/skills/hetzner-cluster",
+  "github_branch": "main"
 }

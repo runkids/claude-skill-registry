@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:44:59.969461Z",
   "dir_name": "rust-testing",
   "category": "other",
-  "github_path": ".claude/skills/rust-testing"
+  "github_path": ".claude/skills/rust-testing",
+  "github_branch": "main"
 }

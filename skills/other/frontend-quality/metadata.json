@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:03:22.174690Z",
   "dir_name": "frontend-quality",
   "category": "other",
-  "github_path": ".claude/skills/frontend-quality"
+  "github_path": ".claude/skills/frontend-quality",
+  "github_branch": "main"
 }

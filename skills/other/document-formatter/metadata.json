@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:13.323400Z",
   "dir_name": "document-formatter",
   "category": "other",
-  "github_path": ".claude/skills/document-formatter"
+  "github_path": ".claude/skills/document-formatter",
+  "github_branch": "main"
 }

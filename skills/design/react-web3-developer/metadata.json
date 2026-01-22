@@ -9,5 +9,6 @@
     "developer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/react-web3-developer"
+  "github_path": ".claude/skills/react-web3-developer",
+  "github_branch": "main"
 }

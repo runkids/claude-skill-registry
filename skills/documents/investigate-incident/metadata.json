@@ -8,5 +8,6 @@
     "incident"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/investigate-incident"
+  "github_path": ".claude/skills/investigate-incident",
+  "github_branch": "main"
 }

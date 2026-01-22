@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:31.826944Z",
   "dir_name": "read-external",
   "category": "other",
-  "github_path": ".claude/skills/read-external"
+  "github_path": ".claude/skills/read-external",
+  "github_branch": "main"
 }

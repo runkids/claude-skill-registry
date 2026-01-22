@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:34.613673Z",
   "dir_name": "write-pr",
   "category": "other",
-  "github_path": ".claude/skills/write-pr"
+  "github_path": ".claude/skills/write-pr",
+  "github_branch": "main"
 }

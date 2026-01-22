@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:35.769871Z",
   "dir_name": "mkdocs-documentation",
   "category": "other",
-  "github_path": ".claude/skills/mkdocs-documentation"
+  "github_path": ".claude/skills/mkdocs-documentation",
+  "github_branch": "main"
 }

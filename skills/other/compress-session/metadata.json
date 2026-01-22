@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:41.023101Z",
   "dir_name": "compress-session",
   "category": "other",
-  "github_path": ".claude/skills/compress-session"
+  "github_path": ".claude/skills/compress-session",
+  "github_branch": "main"
 }

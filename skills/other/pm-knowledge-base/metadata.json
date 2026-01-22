@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:31:27.787742Z",
   "dir_name": "pm-knowledge-base",
   "category": "other",
-  "github_path": ".claude/skills/pm-knowledge-base"
+  "github_path": ".claude/skills/pm-knowledge-base",
+  "github_branch": "main"
 }

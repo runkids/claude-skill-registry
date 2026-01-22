@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:02:47.232371Z",
   "dir_name": "competitive-cartographer",
   "category": "other",
-  "github_path": ".claude/skills/competitive-cartographer"
+  "github_path": ".claude/skills/competitive-cartographer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:56:38.071195Z",
   "dir_name": "cloudflare-security-hardening",
   "category": "other",
-  "github_path": ".claude/skills/cloudflare-security-hardening"
+  "github_path": ".claude/skills/cloudflare-security-hardening",
+  "github_branch": "main"
 }

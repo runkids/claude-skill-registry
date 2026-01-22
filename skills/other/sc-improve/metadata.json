@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:06.878763Z",
   "dir_name": "sc-improve",
   "category": "other",
-  "github_path": ".claude/skills/sc-improve"
+  "github_path": ".claude/skills/sc-improve",
+  "github_branch": "main"
 }

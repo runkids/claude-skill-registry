@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:10.423616Z",
   "dir_name": "vg-master-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/vg-master-orchestrator"
+  "github_path": ".claude/skills/vg-master-orchestrator",
+  "github_branch": "main"
 }

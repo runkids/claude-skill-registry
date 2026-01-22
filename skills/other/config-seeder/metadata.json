@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:23.081041Z",
   "dir_name": "config-seeder",
   "category": "other",
-  "github_path": ".claude/skills/config-seeder"
+  "github_path": ".claude/skills/config-seeder",
+  "github_branch": "main"
 }

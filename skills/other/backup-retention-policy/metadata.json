@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:05.735928Z",
   "dir_name": "backup-retention-policy",
   "category": "other",
-  "github_path": ".claude/skills/backup-retention-policy"
+  "github_path": ".claude/skills/backup-retention-policy",
+  "github_branch": "main"
 }

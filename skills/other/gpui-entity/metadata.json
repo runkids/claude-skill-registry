@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:14.291801Z",
   "dir_name": "gpui-entity",
   "category": "other",
-  "github_path": ".claude/skills/gpui-entity"
+  "github_path": ".claude/skills/gpui-entity",
+  "github_branch": "main"
 }

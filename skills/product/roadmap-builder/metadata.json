@@ -8,5 +8,6 @@
     "builder"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/roadmap-builder"
+  "github_path": ".claude/skills/roadmap-builder",
+  "github_branch": "main"
 }

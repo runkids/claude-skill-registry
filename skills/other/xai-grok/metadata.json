@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:48:30.434982Z",
   "dir_name": "xai-grok",
   "category": "other",
-  "github_path": ".claude/skills/xai-grok"
+  "github_path": ".claude/skills/xai-grok",
+  "github_branch": "main"
 }

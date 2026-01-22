@@ -9,5 +9,6 @@
     "validation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/type-safety-validation"
+  "github_path": ".claude/skills/type-safety-validation",
+  "github_branch": "main"
 }

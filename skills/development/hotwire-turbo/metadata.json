@@ -8,5 +8,6 @@
     "turbo"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/hotwire-turbo"
+  "github_path": ".claude/skills/hotwire-turbo",
+  "github_branch": "main"
 }

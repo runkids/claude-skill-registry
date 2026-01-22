@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:51.633585Z",
   "dir_name": "snd-vnavmesh",
   "category": "other",
-  "github_path": ".claude/skills/snd-vnavmesh"
+  "github_path": ".claude/skills/snd-vnavmesh",
+  "github_branch": "main"
 }

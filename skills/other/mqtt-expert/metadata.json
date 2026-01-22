@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:42:24.896536Z",
   "dir_name": "mqtt-expert",
   "category": "other",
-  "github_path": ".claude/skills/mqtt-expert"
+  "github_path": ".claude/skills/mqtt-expert",
+  "github_branch": "main"
 }

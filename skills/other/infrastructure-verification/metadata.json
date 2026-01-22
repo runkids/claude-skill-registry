@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:58.743903Z",
   "dir_name": "infrastructure-verification",
   "category": "other",
-  "github_path": ".claude/skills/infrastructure-verification"
+  "github_path": ".claude/skills/infrastructure-verification",
+  "github_branch": "main"
 }

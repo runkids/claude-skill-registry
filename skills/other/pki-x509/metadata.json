@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:52:18.775680Z",
   "dir_name": "pki-x509",
   "category": "other",
-  "github_path": ".claude/skills/pki-x509"
+  "github_path": ".claude/skills/pki-x509",
+  "github_branch": "main"
 }

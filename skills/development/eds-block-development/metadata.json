@@ -10,5 +10,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/eds-block-development"
+  "github_path": ".claude/skills/eds-block-development",
+  "github_branch": "main"
 }

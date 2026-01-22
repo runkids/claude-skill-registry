@@ -8,5 +8,6 @@
     "scitex"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/python-scitex"
+  "github_path": ".claude/skills/python-scitex",
+  "github_branch": "main"
 }

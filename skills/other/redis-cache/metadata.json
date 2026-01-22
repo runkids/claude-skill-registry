@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:54.001815Z",
   "dir_name": "redis-cache",
   "category": "other",
-  "github_path": ".claude/skills/redis-cache"
+  "github_path": ".claude/skills/redis-cache",
+  "github_branch": "main"
 }

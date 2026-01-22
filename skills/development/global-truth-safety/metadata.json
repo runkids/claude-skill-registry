@@ -9,5 +9,6 @@
     "safety"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-truth-safety"
+  "github_path": ".claude/skills/global-truth-safety",
+  "github_branch": "main"
 }

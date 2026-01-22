@@ -11,5 +11,6 @@
   "stars": 1378,
   "source": "SkillsMP Synced Skills",
   "dir_name": "managing-cargo-dependencies",
-  "github_path": ".claude/skills/managing-cargo-dependencies"
+  "github_path": ".claude/skills/managing-cargo-dependencies",
+  "github_branch": "main"
 }

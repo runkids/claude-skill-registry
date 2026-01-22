@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:29:08.709125Z",
   "dir_name": "analyze-issue",
   "category": "other",
-  "github_path": ".claude/skills/analyze-issue"
+  "github_path": ".claude/skills/analyze-issue",
+  "github_branch": "main"
 }

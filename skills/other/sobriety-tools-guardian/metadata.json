@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:02:50.546322Z",
   "dir_name": "sobriety-tools-guardian",
   "category": "other",
-  "github_path": ".claude/skills/sobriety-tools-guardian"
+  "github_path": ".claude/skills/sobriety-tools-guardian",
+  "github_branch": "main"
 }

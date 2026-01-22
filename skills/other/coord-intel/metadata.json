@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:58.510939Z",
   "dir_name": "coord-intel",
   "category": "other",
-  "github_path": ".claude/skills/coord-intel"
+  "github_path": ".claude/skills/coord-intel",
+  "github_branch": "main"
 }

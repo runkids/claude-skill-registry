@@ -9,5 +9,6 @@
     "rules"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/javascript-pragmatic-rules"
+  "github_path": ".claude/skills/javascript-pragmatic-rules",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:54.980394Z",
   "dir_name": "rust-async-runtime",
   "category": "other",
-  "github_path": ".claude/skills/rust-async-runtime"
+  "github_path": ".claude/skills/rust-async-runtime",
+  "github_branch": "main"
 }

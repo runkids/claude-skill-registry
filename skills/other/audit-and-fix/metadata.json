@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:11:44.890981Z",
   "dir_name": "audit-and-fix",
   "category": "other",
-  "github_path": ".claude/skills/audit-and-fix"
+  "github_path": ".claude/skills/audit-and-fix",
+  "github_branch": "main"
 }

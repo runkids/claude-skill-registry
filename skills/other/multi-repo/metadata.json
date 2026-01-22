@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:27.228796Z",
   "dir_name": "multi-repo",
   "category": "other",
-  "github_path": ".claude/skills/multi-repo"
+  "github_path": ".claude/skills/multi-repo",
+  "github_branch": "main"
 }

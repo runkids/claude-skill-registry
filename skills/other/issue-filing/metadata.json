@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:20.630057Z",
   "dir_name": "issue-filing",
   "category": "other",
-  "github_path": ".claude/skills/issue-filing"
+  "github_path": ".claude/skills/issue-filing",
+  "github_branch": "main"
 }

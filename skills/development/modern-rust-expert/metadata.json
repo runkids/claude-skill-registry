@@ -9,5 +9,6 @@
     "expert"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/modern-rust-expert"
+  "github_path": ".claude/skills/modern-rust-expert",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "resend"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/resend"
+  "github_path": ".claude/skills/resend",
+  "github_branch": "main"
 }

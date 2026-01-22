@@ -8,5 +8,6 @@
     "components"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/heroui-components"
+  "github_path": ".claude/skills/heroui-components",
+  "github_branch": "main"
 }

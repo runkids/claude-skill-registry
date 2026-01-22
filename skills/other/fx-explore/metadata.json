@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:02.001271Z",
   "dir_name": "fx-explore",
   "category": "other",
-  "github_path": ".claude/skills/fx-explore"
+  "github_path": ".claude/skills/fx-explore",
+  "github_branch": "main"
 }

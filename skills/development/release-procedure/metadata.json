@@ -8,5 +8,6 @@
     "procedure"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/release-procedure"
+  "github_path": ".claude/skills/release-procedure",
+  "github_branch": "main"
 }

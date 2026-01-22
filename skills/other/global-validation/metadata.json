@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:21.021911Z",
   "dir_name": "global-validation",
   "category": "other",
-  "github_path": ".claude/skills/global-validation"
+  "github_path": ".claude/skills/global-validation",
+  "github_branch": "main"
 }

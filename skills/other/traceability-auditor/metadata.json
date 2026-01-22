@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:32.253134Z",
   "dir_name": "traceability-auditor",
   "category": "other",
-  "github_path": ".claude/skills/traceability-auditor"
+  "github_path": ".claude/skills/traceability-auditor",
+  "github_branch": "main"
 }

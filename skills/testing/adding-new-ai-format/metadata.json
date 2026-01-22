@@ -10,5 +10,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/adding-new-ai-format"
+  "github_path": ".claude/skills/adding-new-ai-format",
+  "github_branch": "main"
 }

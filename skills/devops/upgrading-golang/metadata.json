@@ -9,5 +9,6 @@
   ],
   "stars": 517,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/upgrading-golang"
+  "github_path": ".claude/skills/upgrading-golang",
+  "github_branch": "main"
 }

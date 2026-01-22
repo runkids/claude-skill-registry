@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:18.247170Z",
   "dir_name": "chaos-engineering-setup",
   "category": "other",
-  "github_path": ".claude/skills/chaos-engineering-setup"
+  "github_path": ".claude/skills/chaos-engineering-setup",
+  "github_branch": "main"
 }

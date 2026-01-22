@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:04.670556Z",
   "dir_name": "sales-development-rep",
   "category": "other",
-  "github_path": ".claude/skills/sales-development-rep"
+  "github_path": ".claude/skills/sales-development-rep",
+  "github_branch": "main"
 }

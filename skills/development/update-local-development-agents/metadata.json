@@ -10,5 +10,6 @@
     "agents"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/update-local-development-agents"
+  "github_path": ".claude/skills/update-local-development-agents",
+  "github_branch": "main"
 }

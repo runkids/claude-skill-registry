@@ -8,5 +8,6 @@
     "odoo"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rastreando-odoo"
+  "github_path": ".claude/skills/rastreando-odoo",
+  "github_branch": "main"
 }

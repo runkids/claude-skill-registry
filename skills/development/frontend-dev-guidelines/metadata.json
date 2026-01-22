@@ -10,5 +10,6 @@
   ],
   "stars": 6654,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/frontend-dev-guidelines"
+  "github_path": ".claude/skills/frontend-dev-guidelines",
+  "github_branch": "main"
 }

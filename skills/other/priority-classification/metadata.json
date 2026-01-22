@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:12:39.507158Z",
   "dir_name": "priority-classification",
   "category": "other",
-  "github_path": ".claude/skills/priority-classification"
+  "github_path": ".claude/skills/priority-classification",
+  "github_branch": "main"
 }

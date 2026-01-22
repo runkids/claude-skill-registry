@@ -8,5 +8,6 @@
     "memory"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quantum-memory"
+  "github_path": ".claude/skills/quantum-memory",
+  "github_branch": "main"
 }

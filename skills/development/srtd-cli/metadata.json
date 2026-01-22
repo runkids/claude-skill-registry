@@ -9,5 +9,6 @@
   ],
   "stars": 100,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/srtd-cli"
+  "github_path": ".claude/skills/srtd-cli",
+  "github_branch": "main"
 }

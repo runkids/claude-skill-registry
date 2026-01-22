@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gitlab-ci-patterns"
+  "github_path": ".claude/skills/gitlab-ci-patterns",
+  "github_branch": "main"
 }

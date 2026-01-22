@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:05.202278Z",
   "dir_name": "saas-architect",
   "category": "other",
-  "github_path": ".claude/skills/saas-architect"
+  "github_path": ".claude/skills/saas-architect",
+  "github_branch": "main"
 }

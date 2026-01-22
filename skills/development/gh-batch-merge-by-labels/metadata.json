@@ -9,5 +9,6 @@
     "labels"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/gh-batch-merge-by-labels"
+  "github_path": ".claude/skills/gh-batch-merge-by-labels",
+  "github_branch": "main"
 }

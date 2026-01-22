@@ -9,5 +9,6 @@
     "effects"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mmd-device-hx-effects"
+  "github_path": ".claude/skills/mmd-device-hx-effects",
+  "github_branch": "main"
 }

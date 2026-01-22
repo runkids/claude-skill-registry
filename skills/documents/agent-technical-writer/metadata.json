@@ -10,5 +10,6 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/agent-technical-writer"
+  "github_path": ".claude/skills/agent-technical-writer",
+  "github_branch": "main"
 }

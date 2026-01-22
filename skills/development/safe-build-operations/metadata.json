@@ -9,5 +9,6 @@
     "operations"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/safe-build-operations"
+  "github_path": ".claude/skills/safe-build-operations",
+  "github_branch": "main"
 }

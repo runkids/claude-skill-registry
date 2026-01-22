@@ -9,5 +9,6 @@
     "curator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/tech-news-curator"
+  "github_path": ".claude/skills/tech-news-curator",
+  "github_branch": "main"
 }

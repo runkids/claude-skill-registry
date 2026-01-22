@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:11:44.820584Z",
   "dir_name": "add-component",
   "category": "other",
-  "github_path": ".claude/skills/add-component"
+  "github_path": ".claude/skills/add-component",
+  "github_branch": "main"
 }

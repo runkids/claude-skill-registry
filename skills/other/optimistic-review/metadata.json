@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:34.205950Z",
   "dir_name": "optimistic-review",
   "category": "other",
-  "github_path": ".claude/skills/optimistic-review"
+  "github_path": ".claude/skills/optimistic-review",
+  "github_branch": "main"
 }

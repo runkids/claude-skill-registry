@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:41:46.752147Z",
   "dir_name": "dev-server-manager",
   "category": "other",
-  "github_path": ".claude/skills/dev-server-manager"
+  "github_path": ".claude/skills/dev-server-manager",
+  "github_branch": "main"
 }

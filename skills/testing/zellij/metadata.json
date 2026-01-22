@@ -7,5 +7,6 @@
     "zellij"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/zellij"
+  "github_path": ".claude/skills/zellij",
+  "github_branch": "main"
 }

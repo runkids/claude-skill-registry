@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:11.559497Z",
   "dir_name": "log-session",
   "category": "other",
-  "github_path": ".claude/skills/log-session"
+  "github_path": ".claude/skills/log-session",
+  "github_branch": "main"
 }

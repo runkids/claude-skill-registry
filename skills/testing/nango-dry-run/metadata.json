@@ -9,5 +9,6 @@
     "run"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nango-dry-run"
+  "github_path": ".claude/skills/nango-dry-run",
+  "github_branch": "main"
 }

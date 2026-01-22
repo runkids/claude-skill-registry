@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:58.054937Z",
   "dir_name": "compliance-validation",
   "category": "other",
-  "github_path": ".claude/skills/COMPLIANCE_VALIDATION"
+  "github_path": ".claude/skills/COMPLIANCE_VALIDATION",
+  "github_branch": "main"
 }

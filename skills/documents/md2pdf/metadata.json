@@ -7,5 +7,6 @@
     "md2pdf"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/md2pdf"
+  "github_path": ".claude/skills/md2pdf",
+  "github_branch": "main"
 }

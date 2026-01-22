@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:39.175904Z",
   "dir_name": "default-and-remedies-advisor",
   "category": "other",
-  "github_path": ".claude/skills/default-and-remedies-advisor"
+  "github_path": ".claude/skills/default-and-remedies-advisor",
+  "github_branch": "main"
 }

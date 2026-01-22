@@ -8,5 +8,6 @@
     "executor"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/swift-executor"
+  "github_path": ".claude/skills/swift-executor",
+  "github_branch": "main"
 }

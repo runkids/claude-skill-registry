@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:53:01.556471Z",
   "dir_name": "log-learning",
   "category": "other",
-  "github_path": ".claude/skills/log-learning"
+  "github_path": ".claude/skills/log-learning",
+  "github_branch": "main"
 }

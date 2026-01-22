@@ -9,5 +9,6 @@
     "endpoint"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/oauth21-token-endpoint"
+  "github_path": ".claude/skills/oauth21-token-endpoint",
+  "github_branch": "main"
 }

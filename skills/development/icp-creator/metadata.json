@@ -8,5 +8,6 @@
     "creator"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/icp-creator"
+  "github_path": ".claude/skills/icp-creator",
+  "github_branch": "main"
 }

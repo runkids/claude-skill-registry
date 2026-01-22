@@ -9,5 +9,6 @@
     "hygiene"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ops-identity-hygiene"
+  "github_path": ".claude/skills/ops-identity-hygiene",
+  "github_branch": "main"
 }

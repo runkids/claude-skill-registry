@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:55.236954Z",
   "dir_name": "rust-error-handling",
   "category": "other",
-  "github_path": ".claude/skills/rust-error-handling"
+  "github_path": ".claude/skills/rust-error-handling",
+  "github_branch": "main"
 }

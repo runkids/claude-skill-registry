@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:15.328921Z",
   "dir_name": "quality-coverage-report",
   "category": "other",
-  "github_path": ".claude/skills/quality-coverage-report"
+  "github_path": ".claude/skills/quality-coverage-report",
+  "github_branch": "main"
 }

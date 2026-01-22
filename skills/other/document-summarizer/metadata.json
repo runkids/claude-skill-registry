@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:13.866547Z",
   "dir_name": "document-summarizer",
   "category": "other",
-  "github_path": ".claude/skills/document-summarizer"
+  "github_path": ".claude/skills/document-summarizer",
+  "github_branch": "main"
 }

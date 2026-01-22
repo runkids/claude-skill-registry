@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:32:19.972301Z",
   "dir_name": "adapter-expert",
   "category": "other",
-  "github_path": ".claude/skills/adapter-expert"
+  "github_path": ".claude/skills/adapter-expert",
+  "github_branch": "main"
 }

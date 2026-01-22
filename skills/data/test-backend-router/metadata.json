@@ -10,5 +10,6 @@
   ],
   "stars": 13,
   "dir_name": "test-backend-router",
-  "github_path": ".claude/skills/test-backend-router"
+  "github_path": ".claude/skills/test-backend-router",
+  "github_branch": "main"
 }

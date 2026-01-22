@@ -9,5 +9,6 @@
     "writing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-test-writing"
+  "github_path": ".claude/skills/testing-test-writing",
+  "github_branch": "main"
 }

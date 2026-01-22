@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:08.337543Z",
   "dir_name": "design-synthesizer",
   "category": "other",
-  "github_path": ".claude/skills/design-synthesizer"
+  "github_path": ".claude/skills/design-synthesizer",
+  "github_branch": "main"
 }

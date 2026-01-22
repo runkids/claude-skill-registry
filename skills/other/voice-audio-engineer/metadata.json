@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:02:45.422080Z",
   "dir_name": "voice-audio-engineer",
   "category": "other",
-  "github_path": ".claude/skills/voice-audio-engineer"
+  "github_path": ".claude/skills/voice-audio-engineer",
+  "github_branch": "main"
 }

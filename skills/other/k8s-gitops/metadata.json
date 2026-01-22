@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:09.962641Z",
   "dir_name": "k8s-gitops",
   "category": "other",
-  "github_path": ".claude/skills/k8s-gitops"
+  "github_path": ".claude/skills/k8s-gitops",
+  "github_branch": "main"
 }

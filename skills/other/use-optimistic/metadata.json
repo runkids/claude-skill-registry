@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:06.509412Z",
   "dir_name": "use-optimistic",
   "category": "other",
-  "github_path": ".claude/skills/use-optimistic"
+  "github_path": ".claude/skills/use-optimistic",
+  "github_branch": "main"
 }

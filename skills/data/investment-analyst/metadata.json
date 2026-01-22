@@ -9,5 +9,6 @@
   ],
   "stars": 22,
   "dir_name": "investment-analyst",
-  "github_path": ".claude/skills/investment-analyst"
+  "github_path": ".claude/skills/investment-analyst",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:15.436784Z",
   "dir_name": "azure-devops-migration",
   "category": "other",
-  "github_path": ".claude/skills/azure-devops-migration"
+  "github_path": ".claude/skills/azure-devops-migration",
+  "github_branch": "main"
 }

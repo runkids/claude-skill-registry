@@ -9,5 +9,6 @@
   ],
   "stars": 20912,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/agent-memory"
+  "github_path": ".claude/skills/agent-memory",
+  "github_branch": "main"
 }

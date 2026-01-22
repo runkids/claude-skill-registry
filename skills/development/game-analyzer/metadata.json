@@ -8,5 +8,6 @@
     "analyzer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/game-analyzer"
+  "github_path": ".claude/skills/game-analyzer",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "search"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/mcp-brave-search"
+  "github_path": ".claude/skills/mcp-brave-search",
+  "github_branch": "main"
 }

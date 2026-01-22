@@ -10,5 +10,6 @@
     "agent"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/querying-web-search-agent"
+  "github_path": ".claude/skills/querying-web-search-agent",
+  "github_branch": "main"
 }

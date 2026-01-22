@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:47.477458Z",
   "dir_name": "create-lwc-tab",
   "category": "other",
-  "github_path": ".claude/skills/create-lwc-tab"
+  "github_path": ".claude/skills/create-lwc-tab",
+  "github_branch": "main"
 }

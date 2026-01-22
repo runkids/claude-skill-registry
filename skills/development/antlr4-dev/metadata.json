@@ -9,5 +9,6 @@
   ],
   "stars": 32,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/antlr4-dev"
+  "github_path": ".claude/skills/antlr4-dev",
+  "github_branch": "main"
 }

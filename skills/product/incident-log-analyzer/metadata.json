@@ -9,5 +9,6 @@
     "analyzer"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/incident-log-analyzer"
+  "github_path": ".claude/skills/incident-log-analyzer",
+  "github_branch": "main"
 }

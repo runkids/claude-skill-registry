@@ -7,5 +7,6 @@
     "skoll"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/skoll"
+  "github_path": ".claude/skills/skoll",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:11:02.811919Z",
   "dir_name": "agent-coordination",
   "category": "other",
-  "github_path": ".claude/skills/agent-coordination"
+  "github_path": ".claude/skills/agent-coordination",
+  "github_branch": "main"
 }

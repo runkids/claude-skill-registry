@@ -8,5 +8,6 @@
     "typescript"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/react-typescript"
+  "github_path": ".claude/skills/react-typescript",
+  "github_branch": "main"
 }

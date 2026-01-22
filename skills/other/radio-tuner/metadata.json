@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:39:36.655798Z",
   "dir_name": "radio-tuner",
   "category": "other",
-  "github_path": ".claude/skills/radio-tuner"
+  "github_path": ".claude/skills/radio-tuner",
+  "github_branch": "main"
 }

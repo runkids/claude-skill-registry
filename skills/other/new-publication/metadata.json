@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T04:21:38.569943Z",
   "dir_name": "new-publication",
   "category": "other",
-  "github_path": ".claude/skills/new-publication"
+  "github_path": ".claude/skills/new-publication",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "queue"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/research-queue"
+  "github_path": ".claude/skills/research-queue",
+  "github_branch": "main"
 }

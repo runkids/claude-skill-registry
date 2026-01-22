@@ -8,5 +8,6 @@
     "compliance"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/security-compliance"
+  "github_path": ".claude/skills/security-compliance",
+  "github_branch": "main"
 }

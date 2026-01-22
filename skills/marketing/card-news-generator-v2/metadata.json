@@ -10,5 +10,6 @@
   ],
   "stars": 575,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/card-news-generator-v2"
+  "github_path": ".claude/skills/card-news-generator-v2",
+  "github_branch": "master"
 }

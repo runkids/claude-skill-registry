@@ -10,5 +10,6 @@
     "lib"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/testing-react-testing-lib"
+  "github_path": ".claude/skills/testing-react-testing-lib",
+  "github_branch": "main"
 }

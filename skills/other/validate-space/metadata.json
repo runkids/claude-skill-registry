@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:13.199824Z",
   "dir_name": "validate-space",
   "category": "other",
-  "github_path": ".claude/skills/validate-space"
+  "github_path": ".claude/skills/validate-space",
+  "github_branch": "main"
 }

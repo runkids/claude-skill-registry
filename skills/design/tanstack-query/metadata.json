@@ -8,5 +8,6 @@
     "query"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/tanstack-query"
+  "github_path": ".claude/skills/tanstack-query",
+  "github_branch": "main"
 }

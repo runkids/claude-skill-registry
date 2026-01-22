@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:04.887496Z",
   "dir_name": "start-feature",
   "category": "other",
-  "github_path": ".claude/skills/start-feature"
+  "github_path": ".claude/skills/start-feature",
+  "github_branch": "main"
 }

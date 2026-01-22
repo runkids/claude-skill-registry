@@ -8,5 +8,6 @@
   ],
   "stars": 430,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/openhue"
+  "github_path": "skills/openhue",
+  "github_branch": "main"
 }

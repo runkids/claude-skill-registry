@@ -8,5 +8,6 @@
     "monitor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quality-monitor"
+  "github_path": ".claude/skills/quality-monitor",
+  "github_branch": "main"
 }

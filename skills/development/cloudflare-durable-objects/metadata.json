@@ -10,5 +10,6 @@
   ],
   "stars": 109,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/cloudflare-durable-objects"
+  "github_path": "skills/cloudflare-durable-objects",
+  "github_branch": "main"
 }

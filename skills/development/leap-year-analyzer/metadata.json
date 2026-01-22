@@ -9,5 +9,6 @@
     "analyzer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/leap-year-analyzer"
+  "github_path": ".claude/skills/leap-year-analyzer",
+  "github_branch": "main"
 }

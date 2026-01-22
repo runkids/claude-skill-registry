@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:06.762299Z",
   "dir_name": "parallel-routes",
   "category": "other",
-  "github_path": ".claude/skills/parallel-routes"
+  "github_path": ".claude/skills/parallel-routes",
+  "github_branch": "main"
 }

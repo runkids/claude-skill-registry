@@ -8,5 +8,6 @@
     "expert"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/persistence-expert"
+  "github_path": ".claude/skills/persistence-expert",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:13:43.152087Z",
   "dir_name": "java-dev",
   "category": "other",
-  "github_path": ".claude/skills/java-dev"
+  "github_path": ".claude/skills/java-dev",
+  "github_branch": "main"
 }

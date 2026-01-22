@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:44:14.409457Z",
   "dir_name": "market-researcher",
   "category": "other",
-  "github_path": ".claude/skills/market-researcher"
+  "github_path": ".claude/skills/market-researcher",
+  "github_branch": "main"
 }

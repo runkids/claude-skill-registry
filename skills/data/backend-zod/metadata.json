@@ -10,5 +10,6 @@
   "stars": 4,
   "source": "SkillsMP Synced Skills",
   "dir_name": "backend-zod",
-  "github_path": ".claude/skills/backend-zod"
+  "github_path": ".claude/skills/backend-zod",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "checklist"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/security-checklist"
+  "github_path": ".claude/skills/security-checklist",
+  "github_branch": "main"
 }

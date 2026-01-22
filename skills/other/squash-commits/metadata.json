@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:57:34.212250Z",
   "dir_name": "squash-commits",
   "category": "other",
-  "github_path": ".claude/skills/squash-commits"
+  "github_path": ".claude/skills/squash-commits",
+  "github_branch": "main"
 }

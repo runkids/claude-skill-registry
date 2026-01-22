@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:18:47.475149Z",
   "dir_name": "evidence-scout",
   "category": "other",
-  "github_path": ".claude/skills/evidence-scout"
+  "github_path": ".claude/skills/evidence-scout",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "review"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/swiftui-review"
+  "github_path": ".claude/skills/swiftui-review",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   "stars": 4,
   "source": "SkillsMP Synced Skills",
   "dir_name": "db-schema-change",
-  "github_path": ".claude/skills/db-schema-change"
+  "github_path": ".claude/skills/db-schema-change",
+  "github_branch": "main"
 }

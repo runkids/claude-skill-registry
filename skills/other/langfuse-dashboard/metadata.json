@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:24.204385Z",
   "dir_name": "langfuse-dashboard",
   "category": "other",
-  "github_path": ".claude/skills/langfuse-dashboard"
+  "github_path": ".claude/skills/langfuse-dashboard",
+  "github_branch": "main"
 }

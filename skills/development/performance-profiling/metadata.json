@@ -8,5 +8,6 @@
     "profiling"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/performance-profiling"
+  "github_path": ".claude/skills/performance-profiling",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "packages"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/update-packages"
+  "github_path": ".claude/skills/update-packages",
+  "github_branch": "main"
 }

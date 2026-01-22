@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:31:01.681645Z",
   "dir_name": "dev-execution",
   "category": "other",
-  "github_path": ".claude/skills/dev-execution"
+  "github_path": ".claude/skills/dev-execution",
+  "github_branch": "main"
 }

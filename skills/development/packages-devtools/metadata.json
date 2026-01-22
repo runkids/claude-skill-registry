@@ -8,5 +8,6 @@
     "devtools"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/packages-devtools"
+  "github_path": ".claude/skills/packages-devtools",
+  "github_branch": "main"
 }

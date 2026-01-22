@@ -8,5 +8,6 @@
     "terminal"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/fork-terminal"
+  "github_path": ".claude/skills/fork-terminal",
+  "github_branch": "main"
 }

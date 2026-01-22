@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T03:20:43.289181Z",
   "dir_name": "camera-interface",
   "category": "other",
-  "github_path": ".claude/skills/camera-interface"
+  "github_path": ".claude/skills/camera-interface",
+  "github_branch": "main"
 }

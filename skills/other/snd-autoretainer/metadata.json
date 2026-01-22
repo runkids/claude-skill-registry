@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:52.415739Z",
   "dir_name": "snd-autoretainer",
   "category": "other",
-  "github_path": ".claude/skills/snd-autoretainer"
+  "github_path": ".claude/skills/snd-autoretainer",
+  "github_branch": "main"
 }

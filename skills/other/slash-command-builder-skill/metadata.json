@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:48:13.562231Z",
   "dir_name": "slash-command-builder-skill",
   "category": "other",
-  "github_path": ".claude/skills/slash-command-builder-skill"
+  "github_path": ".claude/skills/slash-command-builder-skill",
+  "github_branch": "main"
 }

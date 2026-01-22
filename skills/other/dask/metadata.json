@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:42.541943Z",
   "dir_name": "dask",
   "category": "other",
-  "github_path": ".claude/skills/dask"
+  "github_path": ".claude/skills/dask",
+  "github_branch": "main"
 }

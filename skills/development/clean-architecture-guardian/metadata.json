@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/clean-architecture-guardian"
+  "github_path": ".claude/skills/clean-architecture-guardian",
+  "github_branch": "main"
 }

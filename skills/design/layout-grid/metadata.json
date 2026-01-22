@@ -8,5 +8,6 @@
     "grid"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/layout-grid"
+  "github_path": ".claude/skills/layout-grid",
+  "github_branch": "main"
 }

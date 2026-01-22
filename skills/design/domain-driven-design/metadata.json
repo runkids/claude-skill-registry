@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/domain-driven-design"
+  "github_path": ".claude/skills/domain-driven-design",
+  "github_branch": "main"
 }

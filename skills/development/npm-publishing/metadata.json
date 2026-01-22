@@ -8,5 +8,6 @@
     "publishing"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/npm-publishing"
+  "github_path": ".claude/skills/npm-publishing",
+  "github_branch": "main"
 }

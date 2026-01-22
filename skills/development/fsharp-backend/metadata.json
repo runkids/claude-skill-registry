@@ -8,5 +8,6 @@
     "backend"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/fsharp-backend"
+  "github_path": ".claude/skills/fsharp-backend",
+  "github_branch": "main"
 }

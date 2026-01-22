@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "plan-review",
-  "github_path": ".claude/skills/plan-review"
+  "github_path": ".claude/skills/plan-review",
+  "github_branch": "main"
 }

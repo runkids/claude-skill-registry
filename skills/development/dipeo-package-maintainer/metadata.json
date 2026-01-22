@@ -10,5 +10,6 @@
   ],
   "stars": 13,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dipeo-package-maintainer"
+  "github_path": ".claude/skills/dipeo-package-maintainer",
+  "github_branch": "main"
 }

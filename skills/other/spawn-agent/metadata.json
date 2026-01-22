@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:55.623042Z",
   "dir_name": "spawn-agent",
   "category": "other",
-  "github_path": ".claude/skills/spawn-agent"
+  "github_path": ".claude/skills/spawn-agent",
+  "github_branch": "main"
 }

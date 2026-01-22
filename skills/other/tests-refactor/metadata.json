@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:26:47.244861Z",
   "dir_name": "tests-refactor",
   "category": "other",
-  "github_path": ".claude/skills/tests-refactor"
+  "github_path": ".claude/skills/tests-refactor",
+  "github_branch": "main"
 }

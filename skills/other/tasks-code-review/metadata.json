@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:25.696460Z",
   "dir_name": "tasks-code-review",
   "category": "other",
-  "github_path": ".claude/skills/tasks-code-review"
+  "github_path": ".claude/skills/tasks-code-review",
+  "github_branch": "main"
 }

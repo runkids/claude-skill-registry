@@ -10,5 +10,6 @@
     "workflow"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/react-native-i18n-workflow"
+  "github_path": ".claude/skills/react-native-i18n-workflow",
+  "github_branch": "main"
 }

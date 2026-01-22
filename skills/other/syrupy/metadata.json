@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:24:16.725968Z",
   "dir_name": "syrupy",
   "category": "other",
-  "github_path": ".claude/skills/syrupy"
+  "github_path": ".claude/skills/syrupy",
+  "github_branch": "main"
 }

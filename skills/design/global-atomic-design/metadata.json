@@ -9,5 +9,6 @@
     "design"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/global-atomic-design"
+  "github_path": ".claude/skills/global-atomic-design",
+  "github_branch": "main"
 }

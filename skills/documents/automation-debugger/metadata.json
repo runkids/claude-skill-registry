@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/automation-debugger"
+  "github_path": ".claude/skills/automation-debugger",
+  "github_branch": "main"
 }

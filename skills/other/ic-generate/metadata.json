@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:25:06.233401Z",
   "dir_name": "ic-generate",
   "category": "other",
-  "github_path": ".claude/skills/ic-generate"
+  "github_path": ".claude/skills/ic-generate",
+  "github_branch": "main"
 }

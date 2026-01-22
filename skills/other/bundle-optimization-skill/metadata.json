@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:54:40.556597Z",
   "dir_name": "bundle-optimization-skill",
   "category": "other",
-  "github_path": ".claude/skills/bundle-optimization-skill"
+  "github_path": ".claude/skills/bundle-optimization-skill",
+  "github_branch": "main"
 }

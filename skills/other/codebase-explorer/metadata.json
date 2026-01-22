@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:27:09.685028Z",
   "dir_name": "codebase-explorer",
   "category": "other",
-  "github_path": ".claude/skills/codebase-explorer"
+  "github_path": ".claude/skills/codebase-explorer",
+  "github_branch": "main"
 }

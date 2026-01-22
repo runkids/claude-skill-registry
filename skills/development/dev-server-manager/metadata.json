@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dev-server-manager"
+  "github_path": ".claude/skills/dev-server-manager",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "carousel"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/image-carousel"
+  "github_path": ".claude/skills/image-carousel",
+  "github_branch": "main"
 }

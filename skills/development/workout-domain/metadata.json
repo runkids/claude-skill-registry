@@ -8,5 +8,6 @@
     "domain"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/workout-domain"
+  "github_path": ".claude/skills/workout-domain",
+  "github_branch": "main"
 }

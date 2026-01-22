@@ -7,5 +7,6 @@
     "setup"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ic-setup"
+  "github_path": ".claude/skills/ic-setup",
+  "github_branch": "main"
 }

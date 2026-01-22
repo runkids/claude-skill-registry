@@ -9,5 +9,6 @@
     "guide"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/podcast-production-guide"
+  "github_path": ".claude/skills/podcast-production-guide",
+  "github_branch": "main"
 }

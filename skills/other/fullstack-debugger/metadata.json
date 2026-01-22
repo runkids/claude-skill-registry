@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.412557Z",
   "dir_name": "fullstack-debugger",
   "category": "other",
-  "github_path": ".claude/skills/fullstack-debugger"
+  "github_path": ".claude/skills/fullstack-debugger",
+  "github_branch": "main"
 }

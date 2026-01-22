@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:00.331496Z",
   "dir_name": "qe-chaos-resilience",
   "category": "other",
-  "github_path": ".claude/skills/qe-chaos-resilience"
+  "github_path": ".claude/skills/qe-chaos-resilience",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "frontend"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-domain-frontend"
+  "github_path": ".claude/skills/moai-domain-frontend",
+  "github_branch": "main"
 }

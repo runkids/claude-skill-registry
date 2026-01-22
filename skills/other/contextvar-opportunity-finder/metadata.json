@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:52:53.663376Z",
   "dir_name": "contextvar-opportunity-finder",
   "category": "other",
-  "github_path": ".claude/skills/contextvar-opportunity-finder"
+  "github_path": ".claude/skills/contextvar-opportunity-finder",
+  "github_branch": "main"
 }

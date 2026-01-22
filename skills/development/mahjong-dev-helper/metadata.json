@@ -9,5 +9,6 @@
     "helper"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/mahjong-dev-helper"
+  "github_path": ".claude/skills/mahjong-dev-helper",
+  "github_branch": "main"
 }

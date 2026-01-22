@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:03.855194Z",
   "dir_name": "response-rater",
   "category": "other",
-  "github_path": ".claude/skills/response-rater"
+  "github_path": ".claude/skills/response-rater",
+  "github_branch": "main"
 }

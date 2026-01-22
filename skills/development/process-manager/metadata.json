@@ -8,5 +8,6 @@
     "manager"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/process-manager"
+  "github_path": ".claude/skills/process-manager",
+  "github_branch": "main"
 }

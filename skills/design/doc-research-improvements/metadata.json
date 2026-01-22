@@ -10,5 +10,6 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/doc-research-improvements"
+  "github_path": ".claude/skills/doc-research-improvements",
+  "github_branch": "main"
 }

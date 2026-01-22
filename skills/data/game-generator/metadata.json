@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "game-generator",
-  "github_path": ".claude/skills/game-generator"
+  "github_path": ".claude/skills/game-generator",
+  "github_branch": "main"
 }

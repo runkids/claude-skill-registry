@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:33.840048Z",
   "dir_name": "rag-kit",
-  "github_path": ".claude/skills/rag-kit"
+  "github_path": ".claude/skills/rag-kit",
+  "github_branch": "main"
 }

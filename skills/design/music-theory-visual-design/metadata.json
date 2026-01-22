@@ -10,5 +10,6 @@
     "design"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/music-theory-visual-design"
+  "github_path": ".claude/skills/music-theory-visual-design",
+  "github_branch": "main"
 }

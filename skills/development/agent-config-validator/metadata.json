@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/agent-config-validator"
+  "github_path": ".claude/skills/agent-config-validator",
+  "github_branch": "main"
 }

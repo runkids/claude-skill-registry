@@ -10,5 +10,6 @@
   ],
   "stars": 7,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ecs-performance-audit"
+  "github_path": ".claude/skills/ecs-performance-audit",
+  "github_branch": "main"
 }

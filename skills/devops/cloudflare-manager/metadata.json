@@ -9,5 +9,6 @@
   ],
   "stars": 834,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cloudflare-manager"
+  "github_path": ".claude/skills/cloudflare-manager",
+  "github_branch": "main"
 }

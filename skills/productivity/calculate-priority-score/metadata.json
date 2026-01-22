@@ -10,5 +10,6 @@
   ],
   "stars": 27,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/calculate-priority-score"
+  "github_path": ".claude/skills/calculate-priority-score",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/deployment-runbook"
+  "github_path": ".claude/skills/deployment-runbook",
+  "github_branch": "main"
 }

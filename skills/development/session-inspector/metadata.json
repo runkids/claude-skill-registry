@@ -8,5 +8,6 @@
     "inspector"
   ],
   "stars": 32,
-  "github_path": ".claude/skills/session-inspector"
+  "github_path": ".claude/skills/session-inspector",
+  "github_branch": "main"
 }

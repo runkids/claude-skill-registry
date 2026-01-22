@@ -5,5 +5,6 @@
   "description": "비정형 마크다운 작성을 markdown-writer-agent에 위임",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:44.257375Z",
-  "github_path": ".claude/skills/spawn-markdown-writer"
+  "github_path": ".claude/skills/spawn-markdown-writer",
+  "github_branch": "main"
 }

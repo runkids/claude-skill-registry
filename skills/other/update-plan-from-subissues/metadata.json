@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:57:34.706286Z",
   "dir_name": "update-plan-from-subissues",
   "category": "other",
-  "github_path": ".claude/skills/update-plan-from-subissues"
+  "github_path": ".claude/skills/update-plan-from-subissues",
+  "github_branch": "main"
 }

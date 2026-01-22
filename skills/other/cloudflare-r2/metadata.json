@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:10:32.092369Z",
   "dir_name": "cloudflare-r2",
   "category": "other",
-  "github_path": ".claude/skills/cloudflare-r2"
+  "github_path": ".claude/skills/cloudflare-r2",
+  "github_branch": "main"
 }

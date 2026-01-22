@@ -9,5 +9,6 @@
     "guide"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/tzurot-skills-guide"
+  "github_path": ".claude/skills/tzurot-skills-guide",
+  "github_branch": "main"
 }

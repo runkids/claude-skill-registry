@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effect-config-schema"
+  "github_path": ".claude/skills/effect-config-schema",
+  "github_branch": "main"
 }

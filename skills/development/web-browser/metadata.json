@@ -9,5 +9,6 @@
   ],
   "stars": 512,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/web-browser"
+  "github_path": "skills/web-browser",
+  "github_branch": "main"
 }

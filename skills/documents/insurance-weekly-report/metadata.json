@@ -9,5 +9,6 @@
     "report"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/insurance-weekly-report"
+  "github_path": ".claude/skills/insurance-weekly-report",
+  "github_branch": "main"
 }

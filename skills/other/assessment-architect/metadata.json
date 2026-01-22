@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:41:31.643704Z",
   "dir_name": "assessment-architect",
   "category": "other",
-  "github_path": ".claude/skills/assessment-architect"
+  "github_path": ".claude/skills/assessment-architect",
+  "github_branch": "main"
 }

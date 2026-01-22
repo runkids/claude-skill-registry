@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:06.318850Z",
   "dir_name": "database-schema-architect",
   "category": "other",
-  "github_path": ".claude/skills/database-schema-architect"
+  "github_path": ".claude/skills/database-schema-architect",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "improver"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/github-issue-improver"
+  "github_path": ".claude/skills/github-issue-improver",
+  "github_branch": "main"
 }

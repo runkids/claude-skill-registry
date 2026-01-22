@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:43:39.935951Z",
   "dir_name": "email-integration",
   "category": "other",
-  "github_path": ".claude/skills/email-integration"
+  "github_path": ".claude/skills/email-integration",
+  "github_branch": "main"
 }

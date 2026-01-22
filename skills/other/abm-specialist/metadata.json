@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:00.344486Z",
   "dir_name": "abm-specialist",
   "category": "other",
-  "github_path": ".claude/skills/abm-specialist"
+  "github_path": ".claude/skills/abm-specialist",
+  "github_branch": "main"
 }

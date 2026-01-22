@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:53.568528Z",
   "dir_name": "websocket-realtime",
   "category": "other",
-  "github_path": ".claude/skills/websocket-realtime"
+  "github_path": ".claude/skills/websocket-realtime",
+  "github_branch": "main"
 }

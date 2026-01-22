@@ -7,5 +7,6 @@
     "orchestration"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/orchestration"
+  "github_path": ".claude/skills/orchestration",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:31:32.172159Z",
   "dir_name": "dojo-setup",
   "category": "other",
-  "github_path": ".claude/skills/dojo-setup"
+  "github_path": ".claude/skills/dojo-setup",
+  "github_branch": "main"
 }

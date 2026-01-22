@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:17:38.708974Z",
   "dir_name": "tdd-implement-skill",
   "category": "other",
-  "github_path": ".claude/skills/tdd-implement-skill"
+  "github_path": ".claude/skills/tdd-implement-skill",
+  "github_branch": "main"
 }

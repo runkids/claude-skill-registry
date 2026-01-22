@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:06.388824Z",
   "dir_name": "system-architecture-advisor",
   "category": "other",
-  "github_path": ".claude/skills/system-architecture-advisor"
+  "github_path": ".claude/skills/system-architecture-advisor",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "fetch"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/markdown-fetch"
+  "github_path": ".claude/skills/markdown-fetch",
+  "github_branch": "main"
 }

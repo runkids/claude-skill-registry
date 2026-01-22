@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "sql-batching",
-  "github_path": ".claude/skills/sql-batching"
+  "github_path": ".claude/skills/sql-batching",
+  "github_branch": "main"
 }

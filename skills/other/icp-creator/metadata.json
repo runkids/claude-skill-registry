@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:37:45.669697Z",
   "dir_name": "icp-creator",
   "category": "other",
-  "github_path": ".claude/skills/icp-creator"
+  "github_path": ".claude/skills/icp-creator",
+  "github_branch": "main"
 }

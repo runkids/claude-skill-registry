@@ -9,5 +9,6 @@
   ],
   "stars": 290,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/frontend-aesthetics"
+  "github_path": ".claude/skills/frontend-aesthetics",
+  "github_branch": "main"
 }

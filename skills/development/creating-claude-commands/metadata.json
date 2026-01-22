@@ -10,5 +10,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/creating-claude-commands"
+  "github_path": ".claude/skills/creating-claude-commands",
+  "github_branch": "main"
 }

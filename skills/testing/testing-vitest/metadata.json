@@ -8,5 +8,6 @@
     "vitest"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/testing-vitest"
+  "github_path": ".claude/skills/testing-vitest",
+  "github_branch": "main"
 }

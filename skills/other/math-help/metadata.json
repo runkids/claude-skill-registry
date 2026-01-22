@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:54.078255Z",
   "dir_name": "math-help",
   "category": "other",
-  "github_path": ".claude/skills/math-help"
+  "github_path": ".claude/skills/math-help",
+  "github_branch": "main"
 }

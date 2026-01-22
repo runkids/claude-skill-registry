@@ -9,5 +9,6 @@
     "otp"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/usage-rules-otp"
+  "github_path": ".claude/skills/usage-rules-otp",
+  "github_branch": "main"
 }

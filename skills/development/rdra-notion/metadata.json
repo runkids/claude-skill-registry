@@ -8,5 +8,6 @@
     "notion"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rdra-notion"
+  "github_path": ".claude/skills/rdra-notion",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "developer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/slide-developer"
+  "github_path": ".claude/skills/slide-developer",
+  "github_branch": "main"
 }

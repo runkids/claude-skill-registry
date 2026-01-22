@@ -8,5 +8,6 @@
     "standards"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-standards"
+  "github_path": ".claude/skills/testing-standards",
+  "github_branch": "main"
 }

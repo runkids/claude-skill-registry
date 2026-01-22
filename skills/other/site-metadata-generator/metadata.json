@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:10:27.504959Z",
   "dir_name": "site-metadata-generator",
   "category": "other",
-  "github_path": ".claude/skills/site-metadata-generator"
+  "github_path": ".claude/skills/site-metadata-generator",
+  "github_branch": "main"
 }

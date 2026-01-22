@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:03.554066Z",
   "dir_name": "audit-log-generator",
   "category": "other",
-  "github_path": ".claude/skills/audit-log-generator"
+  "github_path": ".claude/skills/audit-log-generator",
+  "github_branch": "main"
 }

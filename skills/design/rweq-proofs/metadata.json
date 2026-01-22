@@ -8,5 +8,6 @@
     "proofs"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rweq-proofs"
+  "github_path": ".claude/skills/rweq-proofs",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:17.612952Z",
   "dir_name": "microservices-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/microservices-orchestrator"
+  "github_path": ".claude/skills/microservices-orchestrator",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:40.445842Z",
   "dir_name": "compile-report",
   "category": "other",
-  "github_path": ".claude/skills/compile-report"
+  "github_path": ".claude/skills/compile-report",
+  "github_branch": "main"
 }

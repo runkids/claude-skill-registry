@@ -8,5 +8,6 @@
     "quality"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/code-quality"
+  "github_path": ".claude/skills/code-quality",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "specialist"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/integration-specialist"
+  "github_path": ".claude/skills/integration-specialist",
+  "github_branch": "main"
 }

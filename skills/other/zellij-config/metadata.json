@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:28.126163Z",
   "dir_name": "zellij-config",
   "category": "other",
-  "github_path": ".claude/skills/zellij-config"
+  "github_path": ".claude/skills/zellij-config",
+  "github_branch": "main"
 }

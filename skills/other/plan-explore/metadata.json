@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:53.722297Z",
   "dir_name": "plan-explore",
   "category": "other",
-  "github_path": ".claude/skills/plan-explore"
+  "github_path": ".claude/skills/plan-explore",
+  "github_branch": "main"
 }

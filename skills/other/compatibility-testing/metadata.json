@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:40.097095Z",
   "dir_name": "compatibility-testing",
   "category": "other",
-  "github_path": ".claude/skills/compatibility-testing"
+  "github_path": ".claude/skills/compatibility-testing",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:20.914045Z",
   "dir_name": "backend-models",
   "category": "other",
-  "github_path": ".claude/skills/backend-models"
+  "github_path": ".claude/skills/backend-models",
+  "github_branch": "main"
 }

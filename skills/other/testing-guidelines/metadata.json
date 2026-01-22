@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:02:59.810239Z",
   "dir_name": "testing-guidelines",
   "category": "other",
-  "github_path": ".claude/skills/testing-guidelines"
+  "github_path": ".claude/skills/testing-guidelines",
+  "github_branch": "main"
 }

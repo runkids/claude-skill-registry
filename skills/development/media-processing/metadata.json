@@ -9,5 +9,6 @@
   ],
   "stars": 1108,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/media-processing"
+  "github_path": ".claude/skills/media-processing",
+  "github_branch": "main"
 }

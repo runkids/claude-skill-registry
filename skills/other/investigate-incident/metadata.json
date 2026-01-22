@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T02:30:24.086900Z",
   "dir_name": "investigate-incident",
   "category": "other",
-  "github_path": ".claude/skills/investigate-incident"
+  "github_path": ".claude/skills/investigate-incident",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:10.242198Z",
   "dir_name": "improve-skill",
   "category": "other",
-  "github_path": ".claude/skills/improve-skill"
+  "github_path": ".claude/skills/improve-skill",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 43,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/constitution-authoring"
+  "github_path": ".claude/skills/constitution-authoring",
+  "github_branch": "main"
 }

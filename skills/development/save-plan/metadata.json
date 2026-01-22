@@ -8,5 +8,6 @@
     "plan"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/save-plan"
+  "github_path": ".claude/skills/save-plan",
+  "github_branch": "main"
 }

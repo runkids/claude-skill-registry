@@ -11,5 +11,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/client-server-data-flow"
+  "github_path": ".claude/skills/client-server-data-flow",
+  "github_branch": "main"
 }

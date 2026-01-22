@@ -5,5 +5,6 @@
   "description": "YouTube等から動画をダウンロード。オフライン視聴、教育コンテンツ保存、クリエイティブ素材収集に使用。",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:08:42.638100Z",
-  "github_path": ".claude/skills/video-download"
+  "github_path": ".claude/skills/video-download",
+  "github_branch": "main"
 }

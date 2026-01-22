@@ -8,5 +8,6 @@
   ],
   "stars": 6,
   "dir_name": "stimulus",
-  "github_path": ".claude/skills/stimulus"
+  "github_path": ".claude/skills/stimulus",
+  "github_branch": "main"
 }

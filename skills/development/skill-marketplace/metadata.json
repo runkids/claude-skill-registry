@@ -8,5 +8,6 @@
     "marketplace"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/skill-marketplace"
+  "github_path": ".claude/skills/skill-marketplace",
+  "github_branch": "main"
 }

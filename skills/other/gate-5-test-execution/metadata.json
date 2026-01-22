@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:59.715705Z",
   "dir_name": "gate-5-test-execution",
   "category": "other",
-  "github_path": ".claude/skills/gate-5-test-execution"
+  "github_path": ".claude/skills/gate-5-test-execution",
+  "github_branch": "main"
 }

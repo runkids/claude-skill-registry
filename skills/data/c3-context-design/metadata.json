@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "c3-context-design",
-  "github_path": ".claude/skills/c3-context-design"
+  "github_path": ".claude/skills/c3-context-design",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:25:03.745341Z",
   "dir_name": "testing-api-overrides",
   "category": "other",
-  "github_path": ".claude/skills/testing-api-overrides"
+  "github_path": ".claude/skills/testing-api-overrides",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:55.396921Z",
   "dir_name": "moai-domain-frontend",
   "category": "other",
-  "github_path": ".claude/skills/moai-domain-frontend"
+  "github_path": ".claude/skills/moai-domain-frontend",
+  "github_branch": "main"
 }

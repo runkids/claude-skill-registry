@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:46.444130Z",
   "dir_name": "n-version-workflow",
   "category": "other",
-  "github_path": ".claude/skills/n-version-workflow"
+  "github_path": ".claude/skills/n-version-workflow",
+  "github_branch": "main"
 }

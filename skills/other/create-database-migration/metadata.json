@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:43.445569Z",
   "dir_name": "create-database-migration",
   "category": "other",
-  "github_path": ".claude/skills/create-database-migration"
+  "github_path": ".claude/skills/create-database-migration",
+  "github_branch": "main"
 }

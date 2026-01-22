@@ -8,5 +8,6 @@
     "storage"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/supabase-storage"
+  "github_path": ".claude/skills/supabase-storage",
+  "github_branch": "main"
 }

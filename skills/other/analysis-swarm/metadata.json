@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:19.173947Z",
   "dir_name": "analysis-swarm",
   "category": "other",
-  "github_path": ".claude/skills/analysis-swarm"
+  "github_path": ".claude/skills/analysis-swarm",
+  "github_branch": "main"
 }

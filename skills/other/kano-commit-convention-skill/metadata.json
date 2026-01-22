@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:15:18.597790Z",
   "dir_name": "kano-commit-convention-skill",
   "category": "other",
-  "github_path": ".claude/skills/kano-commit-convention-skill"
+  "github_path": ".claude/skills/kano-commit-convention-skill",
+  "github_branch": "main"
 }

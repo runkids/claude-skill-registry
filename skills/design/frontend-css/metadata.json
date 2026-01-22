@@ -8,5 +8,6 @@
     "css"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frontend-css"
+  "github_path": ".claude/skills/frontend-css",
+  "github_branch": "main"
 }

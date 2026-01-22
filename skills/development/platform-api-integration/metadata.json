@@ -9,5 +9,6 @@
     "integration"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/platform-api-integration"
+  "github_path": ".claude/skills/platform-api-integration",
+  "github_branch": "main"
 }

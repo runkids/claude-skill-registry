@@ -10,5 +10,6 @@
   ],
   "stars": 16,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-agent-skills"
+  "github_path": ".claude/skills/create-agent-skills",
+  "github_branch": "main"
 }

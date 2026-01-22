@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:06.971402Z",
   "dir_name": "sc-analyze",
   "category": "other",
-  "github_path": ".claude/skills/sc-analyze"
+  "github_path": ".claude/skills/sc-analyze",
+  "github_branch": "main"
 }

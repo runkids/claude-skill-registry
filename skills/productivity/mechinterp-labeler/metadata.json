@@ -8,5 +8,6 @@
     "labeler"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-labeler"
+  "github_path": ".claude/skills/mechinterp-labeler",
+  "github_branch": "main"
 }

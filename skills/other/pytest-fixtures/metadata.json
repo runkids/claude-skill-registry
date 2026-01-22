@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:54.039099Z",
   "dir_name": "pytest-fixtures",
   "category": "other",
-  "github_path": ".claude/skills/pytest-fixtures"
+  "github_path": ".claude/skills/pytest-fixtures",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "lifecycles"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/managing-agent-lifecycles"
+  "github_path": ".claude/skills/managing-agent-lifecycles",
+  "github_branch": "main"
 }

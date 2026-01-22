@@ -7,5 +7,6 @@
     "vue"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/vue"
+  "github_path": ".claude/skills/vue",
+  "github_branch": "main"
 }

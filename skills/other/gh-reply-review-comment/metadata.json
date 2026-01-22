@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:10.900916Z",
   "dir_name": "gh-reply-review-comment",
   "category": "other",
-  "github_path": ".claude/skills/gh-reply-review-comment"
+  "github_path": ".claude/skills/gh-reply-review-comment",
+  "github_branch": "main"
 }

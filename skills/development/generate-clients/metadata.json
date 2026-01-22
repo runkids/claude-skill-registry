@@ -8,5 +8,6 @@
     "clients"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/generate-clients"
+  "github_path": ".claude/skills/generate-clients",
+  "github_branch": "main"
 }

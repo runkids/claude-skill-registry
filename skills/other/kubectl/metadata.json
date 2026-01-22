@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:02.606025Z",
   "dir_name": "kubectl",
   "category": "other",
-  "github_path": ".claude/skills/kubectl"
+  "github_path": ".claude/skills/kubectl",
+  "github_branch": "main"
 }

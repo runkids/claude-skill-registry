@@ -7,5 +7,6 @@
     "validate"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ic-validate"
+  "github_path": ".claude/skills/ic-validate",
+  "github_branch": "main"
 }

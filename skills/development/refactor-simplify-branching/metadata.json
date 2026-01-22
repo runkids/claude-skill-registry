@@ -9,5 +9,6 @@
     "branching"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/refactor-simplify-branching"
+  "github_path": ".claude/skills/refactor-simplify-branching",
+  "github_branch": "main"
 }

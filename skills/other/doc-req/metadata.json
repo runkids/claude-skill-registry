@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:46.332550Z",
   "dir_name": "doc-req",
   "category": "other",
-  "github_path": ".claude/skills/doc-req"
+  "github_path": ".claude/skills/doc-req",
+  "github_branch": "main"
 }

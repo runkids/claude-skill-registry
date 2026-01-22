@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:25.076181Z",
   "dir_name": "ddd-architecture",
   "category": "other",
-  "github_path": ".claude/skills/ddd-architecture"
+  "github_path": ".claude/skills/ddd-architecture",
+  "github_branch": "main"
 }

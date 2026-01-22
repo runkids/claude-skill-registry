@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:03:19.706206Z",
   "dir_name": "doc-learner",
   "category": "other",
-  "github_path": ".claude/skills/doc-learner"
+  "github_path": ".claude/skills/doc-learner",
+  "github_branch": "main"
 }

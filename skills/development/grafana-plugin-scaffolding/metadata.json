@@ -9,5 +9,6 @@
     "scaffolding"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/grafana-plugin-scaffolding"
+  "github_path": ".claude/skills/grafana-plugin-scaffolding",
+  "github_branch": "main"
 }

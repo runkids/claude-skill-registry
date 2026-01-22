@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:05.117460Z",
   "dir_name": "text-to-sql",
   "category": "other",
-  "github_path": ".claude/skills/text-to-sql"
+  "github_path": ".claude/skills/text-to-sql",
+  "github_branch": "main"
 }

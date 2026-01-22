@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:00:15.398892Z",
   "dir_name": "plan-rfc",
   "category": "other",
-  "github_path": ".claude/skills/plan-rfc"
+  "github_path": ".claude/skills/plan-rfc",
+  "github_branch": "main"
 }

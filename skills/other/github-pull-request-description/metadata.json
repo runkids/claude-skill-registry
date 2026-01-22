@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:14.121884Z",
   "dir_name": "github-pull-request-description",
   "category": "other",
-  "github_path": ".claude/skills/github-pull-request-description"
+  "github_path": ".claude/skills/github-pull-request-description",
+  "github_branch": "main"
 }

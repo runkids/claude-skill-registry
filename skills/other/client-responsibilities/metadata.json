@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:58.963951Z",
   "dir_name": "client-responsibilities",
   "category": "other",
-  "github_path": ".claude/skills/client-responsibilities"
+  "github_path": ".claude/skills/client-responsibilities",
+  "github_branch": "main"
 }

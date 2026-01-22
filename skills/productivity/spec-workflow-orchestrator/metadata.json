@@ -9,5 +9,6 @@
     "orchestrator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/spec-workflow-orchestrator"
+  "github_path": ".claude/skills/spec-workflow-orchestrator",
+  "github_branch": "main"
 }

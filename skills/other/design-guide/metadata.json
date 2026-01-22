@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:56:55.691256Z",
   "dir_name": "design-guide",
   "category": "other",
-  "github_path": ".claude/skills/design-guide"
+  "github_path": ".claude/skills/design-guide",
+  "github_branch": "main"
 }

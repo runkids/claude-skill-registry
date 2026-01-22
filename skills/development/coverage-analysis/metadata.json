@@ -9,5 +9,6 @@
   ],
   "stars": 13,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/coverage-analysis"
+  "github_path": ".claude/skills/coverage-analysis",
+  "github_branch": "main"
 }

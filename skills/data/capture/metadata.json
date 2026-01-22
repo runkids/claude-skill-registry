@@ -9,5 +9,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "capture",
-  "github_path": ".claude/skills/capture"
+  "github_path": ".claude/skills/capture",
+  "github_branch": "main"
 }

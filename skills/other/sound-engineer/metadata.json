@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:58.444070Z",
   "dir_name": "sound-engineer",
   "category": "other",
-  "github_path": ".claude/skills/sound-engineer"
+  "github_path": ".claude/skills/sound-engineer",
+  "github_branch": "main"
 }

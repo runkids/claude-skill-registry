@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:58.389018Z",
   "dir_name": "llm-streaming-response-handler",
   "category": "other",
-  "github_path": ".claude/skills/llm-streaming-response-handler"
+  "github_path": ".claude/skills/llm-streaming-response-handler",
+  "github_branch": "main"
 }

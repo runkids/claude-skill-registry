@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:40.619256Z",
   "dir_name": "role",
   "category": "other",
-  "github_path": ".claude/skills/role"
+  "github_path": ".claude/skills/role",
+  "github_branch": "main"
 }

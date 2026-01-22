@@ -8,5 +8,6 @@
     "work"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/reflect-on-work"
+  "github_path": ".claude/skills/reflect-on-work",
+  "github_branch": "main"
 }

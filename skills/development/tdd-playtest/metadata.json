@@ -8,5 +8,6 @@
     "playtest"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/tdd-playtest"
+  "github_path": ".claude/skills/tdd-playtest",
+  "github_branch": "main"
 }

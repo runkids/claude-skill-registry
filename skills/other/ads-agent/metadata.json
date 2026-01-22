@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:37:59.896050Z",
   "dir_name": "ads-agent",
   "category": "other",
-  "github_path": ".claude/skills/ads-agent"
+  "github_path": ".claude/skills/ads-agent",
+  "github_branch": "main"
 }

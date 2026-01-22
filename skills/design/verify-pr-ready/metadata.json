@@ -8,5 +8,6 @@
     "ready"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/verify-pr-ready"
+  "github_path": ".claude/skills/verify-pr-ready",
+  "github_branch": "main"
 }

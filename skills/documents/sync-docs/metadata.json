@@ -8,5 +8,6 @@
     "docs"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/sync-docs"
+  "github_path": ".claude/skills/sync-docs",
+  "github_branch": "main"
 }

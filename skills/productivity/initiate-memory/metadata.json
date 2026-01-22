@@ -9,5 +9,6 @@
   ],
   "stars": 88,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/initiate-memory"
+  "github_path": ".claude/skills/initiate-memory",
+  "github_branch": "main"
 }

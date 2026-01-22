@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "dir_name": "lien-discovery-skill",
-  "github_path": ".claude/skills/lien-discovery-skill"
+  "github_path": ".claude/skills/lien-discovery-skill",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:10.109634Z",
   "dir_name": "mojo-format",
   "category": "other",
-  "github_path": ".claude/skills/mojo-format"
+  "github_path": ".claude/skills/mojo-format",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "data"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/mock-data"
+  "github_path": ".claude/skills/mock-data",
+  "github_branch": "main"
 }

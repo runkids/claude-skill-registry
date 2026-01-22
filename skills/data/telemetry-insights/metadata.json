@@ -9,5 +9,6 @@
   ],
   "stars": 3,
   "dir_name": "telemetry-insights",
-  "github_path": ".claude/skills/telemetry-insights"
+  "github_path": ".claude/skills/telemetry-insights",
+  "github_branch": "main"
 }

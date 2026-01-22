@@ -9,5 +9,6 @@
   ],
   "stars": 1318,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/nia-docs"
+  "github_path": ".claude/skills/nia-docs",
+  "github_branch": "main"
 }

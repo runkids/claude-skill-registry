@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:37:28.852618Z",
   "dir_name": "conventional-commits-skill",
   "category": "other",
-  "github_path": ".claude/skills/conventional-commits-skill"
+  "github_path": ".claude/skills/conventional-commits-skill",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:59:42.145287Z",
   "dir_name": "reasoning-dialectical",
   "category": "other",
-  "github_path": ".claude/skills/reasoning-dialectical"
+  "github_path": ".claude/skills/reasoning-dialectical",
+  "github_branch": "main"
 }

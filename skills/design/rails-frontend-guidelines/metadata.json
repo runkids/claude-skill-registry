@@ -9,5 +9,6 @@
     "guidelines"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rails-frontend-guidelines"
+  "github_path": ".claude/skills/rails-frontend-guidelines",
+  "github_branch": "main"
 }

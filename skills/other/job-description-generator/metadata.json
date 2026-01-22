@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:06.828182Z",
   "dir_name": "job-description-generator",
   "category": "other",
-  "github_path": ".claude/skills/job-description-generator"
+  "github_path": ".claude/skills/job-description-generator",
+  "github_branch": "main"
 }

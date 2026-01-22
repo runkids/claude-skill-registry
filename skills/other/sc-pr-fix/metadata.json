@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:06.654798Z",
   "dir_name": "sc-pr-fix",
   "category": "other",
-  "github_path": ".claude/skills/sc-pr-fix"
+  "github_path": ".claude/skills/sc-pr-fix",
+  "github_branch": "main"
 }

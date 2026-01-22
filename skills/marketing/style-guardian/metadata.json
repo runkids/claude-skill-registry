@@ -8,5 +8,6 @@
     "guardian"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/style-guardian"
+  "github_path": ".claude/skills/style-guardian",
+  "github_branch": "main"
 }

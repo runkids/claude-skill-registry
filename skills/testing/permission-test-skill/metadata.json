@@ -9,5 +9,6 @@
     "skill"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/permission-test-skill"
+  "github_path": ".claude/skills/permission-test-skill",
+  "github_branch": "main"
 }

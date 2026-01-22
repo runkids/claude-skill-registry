@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:25:04.077840Z",
   "dir_name": "testing-with-api-mocks",
   "category": "other",
-  "github_path": ".claude/skills/testing-with-api-mocks"
+  "github_path": ".claude/skills/testing-with-api-mocks",
+  "github_branch": "main"
 }

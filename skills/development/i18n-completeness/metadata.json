@@ -8,5 +8,6 @@
     "completeness"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/i18n-completeness"
+  "github_path": ".claude/skills/i18n-completeness",
+  "github_branch": "main"
 }

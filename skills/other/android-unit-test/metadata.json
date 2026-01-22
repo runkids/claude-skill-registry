@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T03:39:35.146471Z",
   "dir_name": "android-unit-test",
   "category": "other",
-  "github_path": ".claude/skills/android-unit-test"
+  "github_path": ".claude/skills/android-unit-test",
+  "github_branch": "main"
 }

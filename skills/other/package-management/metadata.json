@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:33:16.615128Z",
   "dir_name": "package-management",
   "category": "other",
-  "github_path": ".claude/skills/package-management"
+  "github_path": ".claude/skills/package-management",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ci-pipeline"
+  "github_path": ".claude/skills/ci-pipeline",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "compliance"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/yukyu-compliance"
+  "github_path": ".claude/skills/yukyu-compliance",
+  "github_branch": "main"
 }

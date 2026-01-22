@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:16.721220Z",
   "dir_name": "ai-feedback-loop-optimizer",
   "category": "other",
-  "github_path": ".claude/skills/ai-feedback-loop-optimizer"
+  "github_path": ".claude/skills/ai-feedback-loop-optimizer",
+  "github_branch": "main"
 }

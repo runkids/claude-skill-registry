@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:00.765617Z",
   "dir_name": "test-spec",
   "category": "other",
-  "github_path": ".claude/skills/test-spec"
+  "github_path": ".claude/skills/test-spec",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:56.420720Z",
   "dir_name": "unified-notifications-apprise",
   "category": "other",
-  "github_path": ".claude/skills/unified-notifications-apprise"
+  "github_path": ".claude/skills/unified-notifications-apprise",
+  "github_branch": "main"
 }

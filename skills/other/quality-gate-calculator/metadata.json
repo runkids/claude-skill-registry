@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:23.580315Z",
   "dir_name": "quality-gate-calculator",
   "category": "other",
-  "github_path": ".claude/skills/quality-gate-calculator"
+  "github_path": ".claude/skills/quality-gate-calculator",
+  "github_branch": "main"
 }

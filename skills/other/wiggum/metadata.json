@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:54.937066Z",
   "dir_name": "wiggum",
   "category": "other",
-  "github_path": ".claude/skills/wiggum"
+  "github_path": ".claude/skills/wiggum",
+  "github_branch": "main"
 }

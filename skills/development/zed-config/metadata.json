@@ -9,5 +9,6 @@
   ],
   "stars": 182,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/zed-config"
+  "github_path": ".claude/skills/zed-config",
+  "github_branch": "main"
 }

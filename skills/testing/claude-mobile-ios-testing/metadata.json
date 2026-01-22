@@ -11,5 +11,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/claude-mobile-ios-testing"
+  "github_path": ".claude/skills/claude-mobile-ios-testing",
+  "github_branch": "main"
 }

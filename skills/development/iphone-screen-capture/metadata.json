@@ -9,5 +9,6 @@
     "capture"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/iphone-screen-capture"
+  "github_path": ".claude/skills/iphone-screen-capture",
+  "github_branch": "main"
 }

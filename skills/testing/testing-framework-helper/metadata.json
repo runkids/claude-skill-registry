@@ -9,5 +9,6 @@
     "helper"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/testing-framework-helper"
+  "github_path": ".claude/skills/testing-framework-helper",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "bias"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/risk-of-bias"
+  "github_path": ".claude/skills/risk-of-bias",
+  "github_branch": "main"
 }

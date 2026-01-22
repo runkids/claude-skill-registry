@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:07.848203Z",
   "dir_name": "prd-v03-moat-definition",
   "category": "other",
-  "github_path": ".claude/skills/prd-v03-moat-definition"
+  "github_path": ".claude/skills/prd-v03-moat-definition",
+  "github_branch": "main"
 }

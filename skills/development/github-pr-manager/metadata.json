@@ -8,5 +8,6 @@
     "manager"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/github-pr-manager"
+  "github_path": ".claude/skills/github-pr-manager",
+  "github_branch": "main"
 }

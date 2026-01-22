@@ -9,5 +9,6 @@
     "debugging"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/kubectl-envoy-debugging"
+  "github_path": ".claude/skills/kubectl-envoy-debugging",
+  "github_branch": "main"
 }

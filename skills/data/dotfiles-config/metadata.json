@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "dotfiles-config",
-  "github_path": ".claude/skills/dotfiles-config"
+  "github_path": ".claude/skills/dotfiles-config",
+  "github_branch": "main"
 }

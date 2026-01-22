@@ -9,5 +9,6 @@
     "docs"
   ],
   "stars": 12,
-  "github_path": ".claude/skills/fetch-library-docs"
+  "github_path": ".claude/skills/fetch-library-docs",
+  "github_branch": "main"
 }

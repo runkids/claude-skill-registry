@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:03.418756Z",
   "dir_name": "cloudinary-media",
   "category": "other",
-  "github_path": ".claude/skills/cloudinary-media"
+  "github_path": ".claude/skills/cloudinary-media",
+  "github_branch": "main"
 }

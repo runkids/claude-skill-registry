@@ -9,5 +9,6 @@
     "state"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/manage-client-state"
+  "github_path": ".claude/skills/manage-client-state",
+  "github_branch": "main"
 }

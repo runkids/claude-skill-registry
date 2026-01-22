@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:33.781076Z",
   "dir_name": "repoprompt",
   "category": "other",
-  "github_path": ".claude/skills/repoprompt"
+  "github_path": ".claude/skills/repoprompt",
+  "github_branch": "main"
 }

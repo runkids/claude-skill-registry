@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/analyzing-crypto-weakness"
+  "github_path": ".claude/skills/analyzing-crypto-weakness",
+  "github_branch": "main"
 }

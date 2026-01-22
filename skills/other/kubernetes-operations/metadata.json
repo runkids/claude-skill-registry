@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:10.478892Z",
   "dir_name": "kubernetes-operations",
   "category": "other",
-  "github_path": ".claude/skills/kubernetes-operations"
+  "github_path": ".claude/skills/kubernetes-operations",
+  "github_branch": "main"
 }

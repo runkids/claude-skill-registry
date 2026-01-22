@@ -9,5 +9,6 @@
   ],
   "stars": 334,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/investigate-dependencies"
+  "github_path": ".claude/skills/investigate-dependencies",
+  "github_branch": "main"
 }

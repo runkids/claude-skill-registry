@@ -8,5 +8,6 @@
     "validation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-validation"
+  "github_path": ".claude/skills/global-validation",
+  "github_branch": "main"
 }

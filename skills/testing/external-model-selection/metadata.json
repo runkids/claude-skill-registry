@@ -10,5 +10,6 @@
   ],
   "stars": 1265,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/external-model-selection"
+  "github_path": ".claude/skills/external-model-selection",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:52:15.308461Z",
   "dir_name": "codex-exec",
   "category": "other",
-  "github_path": ".claude/skills/codex-exec"
+  "github_path": ".claude/skills/codex-exec",
+  "github_branch": "main"
 }

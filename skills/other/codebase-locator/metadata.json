@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:17.331115Z",
   "dir_name": "codebase-locator",
   "category": "other",
-  "github_path": ".claude/skills/codebase-locator"
+  "github_path": ".claude/skills/codebase-locator",
+  "github_branch": "main"
 }

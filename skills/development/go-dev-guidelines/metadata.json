@@ -9,5 +9,6 @@
   ],
   "stars": 261,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/go-dev-guidelines"
+  "github_path": ".claude/skills/go-dev-guidelines",
+  "github_branch": "main"
 }

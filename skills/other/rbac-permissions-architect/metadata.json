@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:41.736531Z",
   "dir_name": "rbac-permissions-architect",
   "category": "other",
-  "github_path": ".claude/skills/rbac-permissions-architect"
+  "github_path": ".claude/skills/rbac-permissions-architect",
+  "github_branch": "main"
 }

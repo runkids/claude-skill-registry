@@ -8,5 +8,6 @@
     "slides"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/notebooklm-slides"
+  "github_path": ".claude/skills/notebooklm-slides",
+  "github_branch": "main"
 }

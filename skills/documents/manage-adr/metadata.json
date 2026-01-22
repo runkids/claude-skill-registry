@@ -8,5 +8,6 @@
     "adr"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/manage-adr"
+  "github_path": ".claude/skills/manage-adr",
+  "github_branch": "main"
 }

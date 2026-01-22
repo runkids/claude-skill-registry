@@ -8,5 +8,6 @@
     "actions"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/github-actions-ci"
+  "github_path": ".claude/skills/github-actions-ci",
+  "github_branch": "main"
 }

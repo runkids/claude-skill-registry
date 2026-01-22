@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:49.093069Z",
   "dir_name": "deploying-postgres-k8s",
   "category": "other",
-  "github_path": ".claude/skills/deploying-postgres-k8s"
+  "github_path": ".claude/skills/deploying-postgres-k8s",
+  "github_branch": "main"
 }

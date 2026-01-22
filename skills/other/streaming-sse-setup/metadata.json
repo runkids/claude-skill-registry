@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:53.753415Z",
   "dir_name": "streaming-sse-setup",
   "category": "other",
-  "github_path": ".claude/skills/streaming-sse-setup"
+  "github_path": ".claude/skills/streaming-sse-setup",
+  "github_branch": "main"
 }

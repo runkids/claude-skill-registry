@@ -10,5 +10,6 @@
     "patterns"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/react-native-testing-patterns"
+  "github_path": ".claude/skills/react-native-testing-patterns",
+  "github_branch": "main"
 }

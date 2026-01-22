@@ -8,5 +8,6 @@
   ],
   "stars": 127,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bubbletea"
+  "github_path": ".claude/skills/bubbletea",
+  "github_branch": "main"
 }

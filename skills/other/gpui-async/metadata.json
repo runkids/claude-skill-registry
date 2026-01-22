@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:13.456742Z",
   "dir_name": "gpui-async",
   "category": "other",
-  "github_path": ".claude/skills/gpui-async"
+  "github_path": ".claude/skills/gpui-async",
+  "github_branch": "main"
 }

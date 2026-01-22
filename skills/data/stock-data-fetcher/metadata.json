@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:24.389794Z",
   "dir_name": "stock-data-fetcher",
-  "github_path": ".claude/skills/stock-data-fetcher"
+  "github_path": ".claude/skills/stock-data-fetcher",
+  "github_branch": "main"
 }

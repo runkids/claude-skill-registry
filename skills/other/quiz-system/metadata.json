@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:55:34.634953Z",
   "dir_name": "quiz-system",
   "category": "other",
-  "github_path": ".claude/skills/quiz-system"
+  "github_path": ".claude/skills/quiz-system",
+  "github_branch": "main"
 }

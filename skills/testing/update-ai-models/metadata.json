@@ -8,5 +8,6 @@
     "models"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/update-ai-models"
+  "github_path": ".claude/skills/update-ai-models",
+  "github_branch": "main"
 }

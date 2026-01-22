@@ -11,5 +11,6 @@
     "dir"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/setup-remote-repo-notes-dir"
+  "github_path": ".claude/skills/setup-remote-repo-notes-dir",
+  "github_branch": "main"
 }

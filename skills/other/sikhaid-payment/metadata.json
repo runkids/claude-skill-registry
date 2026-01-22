@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:48.775164Z",
   "dir_name": "sikhaid-payment",
   "category": "other",
-  "github_path": ".claude/skills/sikhaid-payment"
+  "github_path": ".claude/skills/sikhaid-payment",
+  "github_branch": "main"
 }

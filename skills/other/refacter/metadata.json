@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:57.874244Z",
   "dir_name": "refacter",
   "category": "other",
-  "github_path": ".claude/skills/refacter"
+  "github_path": ".claude/skills/refacter",
+  "github_branch": "main"
 }

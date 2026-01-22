@@ -8,5 +8,6 @@
     "release"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wp-plugin-release"
+  "github_path": ".claude/skills/wp-plugin-release",
+  "github_branch": "main"
 }

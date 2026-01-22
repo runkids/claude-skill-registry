@@ -9,5 +9,6 @@
     "pilots"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/packaging-customer-pilots"
+  "github_path": ".claude/skills/packaging-customer-pilots",
+  "github_branch": "main"
 }

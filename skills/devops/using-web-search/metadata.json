@@ -9,5 +9,6 @@
     "search"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/using-web-search"
+  "github_path": ".claude/skills/using-web-search",
+  "github_branch": "main"
 }

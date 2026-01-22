@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:56.651624Z",
   "dir_name": "logseq-to-obsidian",
   "category": "other",
-  "github_path": ".claude/skills/logseq-to-obsidian"
+  "github_path": ".claude/skills/logseq-to-obsidian",
+  "github_branch": "main"
 }

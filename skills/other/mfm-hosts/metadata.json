@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:55:21.959256Z",
   "dir_name": "mfm-hosts",
   "category": "other",
-  "github_path": ".claude/skills/mfm-hosts"
+  "github_path": ".claude/skills/mfm-hosts",
+  "github_branch": "main"
 }

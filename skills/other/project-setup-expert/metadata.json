@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:32:20.285742Z",
   "dir_name": "project-setup-expert",
   "category": "other",
-  "github_path": ".claude/skills/project-setup-expert"
+  "github_path": ".claude/skills/project-setup-expert",
+  "github_branch": "main"
 }

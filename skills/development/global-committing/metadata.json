@@ -8,5 +8,6 @@
     "committing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-committing"
+  "github_path": ".claude/skills/global-committing",
+  "github_branch": "main"
 }

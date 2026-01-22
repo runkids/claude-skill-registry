@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:52.967456Z",
   "dir_name": "automated-code-fixer",
   "category": "other",
-  "github_path": ".claude/skills/automated-code-fixer"
+  "github_path": ".claude/skills/automated-code-fixer",
+  "github_branch": "main"
 }

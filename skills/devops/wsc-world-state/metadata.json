@@ -9,5 +9,6 @@
     "state"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wsc-world-state"
+  "github_path": ".claude/skills/wsc-world-state",
+  "github_branch": "main"
 }

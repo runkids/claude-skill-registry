@@ -8,5 +8,6 @@
     "rules"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/usage-rules"
+  "github_path": ".claude/skills/usage-rules",
+  "github_branch": "main"
 }

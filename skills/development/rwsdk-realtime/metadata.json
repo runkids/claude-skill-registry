@@ -8,5 +8,6 @@
     "realtime"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rwsdk-realtime"
+  "github_path": ".claude/skills/rwsdk-realtime",
+  "github_branch": "main"
 }

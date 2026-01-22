@@ -5,5 +5,6 @@
   "description": "Meta-validation skill that generates edge cases, production scenarios, and reality gaps not covered by original specifications. Identifies specification-reality mismatches by analyzing what tests clai",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:29.977400Z",
-  "github_path": ".claude/skills/validate-test-reality"
+  "github_path": ".claude/skills/validate-test-reality",
+  "github_branch": "main"
 }

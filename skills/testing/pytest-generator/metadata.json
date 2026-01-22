@@ -8,5 +8,6 @@
     "generator"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/pytest-generator"
+  "github_path": ".claude/skills/pytest-generator",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:15.225001Z",
   "dir_name": "refactoring-suggester",
   "category": "other",
-  "github_path": ".claude/skills/refactoring-suggester"
+  "github_path": ".claude/skills/refactoring-suggester",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:43:44.396490Z",
   "dir_name": "premium-aeo",
   "category": "other",
-  "github_path": ".claude/skills/premium-aeo"
+  "github_path": ".claude/skills/premium-aeo",
+  "github_branch": "main"
 }

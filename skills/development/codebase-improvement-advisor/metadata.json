@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/codebase-improvement-advisor"
+  "github_path": ".claude/skills/codebase-improvement-advisor",
+  "github_branch": "main"
 }

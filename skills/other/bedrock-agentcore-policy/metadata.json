@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:13.389971Z",
   "dir_name": "bedrock-agentcore-policy",
   "category": "other",
-  "github_path": ".claude/skills/bedrock-agentcore-policy"
+  "github_path": ".claude/skills/bedrock-agentcore-policy",
+  "github_branch": "main"
 }

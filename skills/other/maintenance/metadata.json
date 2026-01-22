@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T04:14:42.433822Z",
   "dir_name": "maintenance",
   "category": "other",
-  "github_path": ".claude/skills/maintenance"
+  "github_path": ".claude/skills/maintenance",
+  "github_branch": "main"
 }

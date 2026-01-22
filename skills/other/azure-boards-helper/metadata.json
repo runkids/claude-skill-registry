@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:13.704738Z",
   "dir_name": "azure-boards-helper",
   "category": "other",
-  "github_path": ".claude/skills/azure-boards-helper"
+  "github_path": ".claude/skills/azure-boards-helper",
+  "github_branch": "main"
 }

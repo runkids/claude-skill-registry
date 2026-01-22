@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:05.663949Z",
   "dir_name": "window-function-builder",
   "category": "other",
-  "github_path": ".claude/skills/window-function-builder"
+  "github_path": ".claude/skills/window-function-builder",
+  "github_branch": "main"
 }

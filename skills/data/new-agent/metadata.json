@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "new-agent",
-  "github_path": ".claude/skills/new-agent"
+  "github_path": ".claude/skills/new-agent",
+  "github_branch": "main"
 }

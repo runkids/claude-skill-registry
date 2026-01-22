@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:49.032308Z",
   "dir_name": "building-mcp-servers",
   "category": "other",
-  "github_path": ".claude/skills/building-mcp-servers"
+  "github_path": ".claude/skills/building-mcp-servers",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "docs"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/zig-docs"
+  "github_path": ".claude/skills/zig-docs",
+  "github_branch": "main"
 }

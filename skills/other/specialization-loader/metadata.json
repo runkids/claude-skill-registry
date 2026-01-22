@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:23.959184Z",
   "dir_name": "specialization-loader",
   "category": "other",
-  "github_path": ".claude/skills/specialization-loader"
+  "github_path": ".claude/skills/specialization-loader",
+  "github_branch": "main"
 }

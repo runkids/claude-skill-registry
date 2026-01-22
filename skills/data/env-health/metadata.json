@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "env-health",
-  "github_path": ".claude/skills/env-health"
+  "github_path": ".claude/skills/env-health",
+  "github_branch": "main"
 }

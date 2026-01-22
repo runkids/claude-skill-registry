@@ -7,5 +7,6 @@
     "observability"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/observability"
+  "github_path": ".claude/skills/observability",
+  "github_branch": "main"
 }

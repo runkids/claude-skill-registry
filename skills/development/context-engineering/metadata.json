@@ -9,5 +9,6 @@
   ],
   "stars": 1108,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/context-engineering"
+  "github_path": ".claude/skills/context-engineering",
+  "github_branch": "main"
 }

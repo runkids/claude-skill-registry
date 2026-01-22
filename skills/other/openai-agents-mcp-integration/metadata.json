@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:01:59.042768Z",
   "dir_name": "openai-agents-mcp-integration",
   "category": "other",
-  "github_path": ".claude/skills/openai-agents-mcp-integration"
+  "github_path": ".claude/skills/openai-agents-mcp-integration",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:08.600837Z",
   "dir_name": "regional-doc",
   "category": "other",
-  "github_path": ".claude/skills/regional-doc"
+  "github_path": ".claude/skills/regional-doc",
+  "github_branch": "main"
 }

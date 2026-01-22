@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:43:43.917765Z",
   "dir_name": "broll-prompting",
   "category": "other",
-  "github_path": ".claude/skills/broll-prompting"
+  "github_path": ".claude/skills/broll-prompting",
+  "github_branch": "main"
 }

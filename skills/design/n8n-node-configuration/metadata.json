@@ -10,5 +10,6 @@
   ],
   "stars": 144,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/n8n-node-configuration"
+  "github_path": "skills/n8n-node-configuration",
+  "github_branch": "main"
 }

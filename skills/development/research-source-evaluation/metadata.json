@@ -9,5 +9,6 @@
     "evaluation"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/research-source-evaluation"
+  "github_path": ".claude/skills/research-source-evaluation",
+  "github_branch": "main"
 }

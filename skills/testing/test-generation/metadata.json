@@ -8,5 +8,6 @@
     "generation"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/test-generation"
+  "github_path": ".claude/skills/test-generation",
+  "github_branch": "main"
 }

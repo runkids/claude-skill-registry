@@ -7,5 +7,6 @@
     "godot"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/godot"
+  "github_path": ".claude/skills/godot",
+  "github_branch": "main"
 }

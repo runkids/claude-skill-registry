@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:06.104364Z",
   "dir_name": "prd-v08-runbook-creation",
   "category": "other",
-  "github_path": ".claude/skills/prd-v08-runbook-creation"
+  "github_path": ".claude/skills/prd-v08-runbook-creation",
+  "github_branch": "main"
 }

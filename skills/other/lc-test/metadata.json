@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:10:13.496868Z",
   "dir_name": "lc-test",
   "category": "other",
-  "github_path": ".claude/skills/lc-test"
+  "github_path": ".claude/skills/lc-test",
+  "github_branch": "main"
 }

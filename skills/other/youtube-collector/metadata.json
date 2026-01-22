@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:09:09.601779Z",
   "dir_name": "youtube-collector",
   "category": "other",
-  "github_path": ".claude/skills/youtube-collector"
+  "github_path": ".claude/skills/youtube-collector",
+  "github_branch": "main"
 }

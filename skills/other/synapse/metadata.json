@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:27.629358Z",
   "dir_name": "synapse",
   "category": "other",
-  "github_path": ".claude/skills/synapse"
+  "github_path": ".claude/skills/synapse",
+  "github_branch": "main"
 }

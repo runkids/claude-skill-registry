@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:23.286156Z",
   "dir_name": "database-reset-dev",
   "category": "other",
-  "github_path": ".claude/skills/database-reset-dev"
+  "github_path": ".claude/skills/database-reset-dev",
+  "github_branch": "main"
 }

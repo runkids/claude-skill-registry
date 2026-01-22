@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:33:06.869645Z",
   "dir_name": "checkpoint",
   "category": "other",
-  "github_path": ".claude/skills/checkpoint"
+  "github_path": ".claude/skills/checkpoint",
+  "github_branch": "main"
 }

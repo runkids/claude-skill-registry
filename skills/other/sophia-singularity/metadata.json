@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:24.010328Z",
   "dir_name": "sophia-singularity",
   "category": "other",
-  "github_path": ".claude/skills/sophia-singularity"
+  "github_path": ".claude/skills/sophia-singularity",
+  "github_branch": "main"
 }

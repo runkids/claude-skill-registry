@@ -10,5 +10,6 @@
   ],
   "stars": 84,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/kcl-composition-validator"
+  "github_path": ".claude/skills/kcl-composition-validator",
+  "github_branch": "main"
 }

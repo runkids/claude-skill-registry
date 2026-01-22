@@ -9,5 +9,6 @@
     "frontend"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/quest-keeper-frontend"
+  "github_path": ".claude/skills/quest-keeper-frontend",
+  "github_branch": "main"
 }

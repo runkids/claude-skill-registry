@@ -8,5 +8,6 @@
     "working"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/start-working"
+  "github_path": ".claude/skills/start-working",
+  "github_branch": "main"
 }

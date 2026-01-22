@@ -8,5 +8,6 @@
     "filter"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/task-filter"
+  "github_path": ".claude/skills/task-filter",
+  "github_branch": "main"
 }

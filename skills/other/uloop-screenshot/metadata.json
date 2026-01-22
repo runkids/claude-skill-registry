@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:32:51.953218Z",
   "dir_name": "uloop-screenshot",
   "category": "other",
-  "github_path": ".claude/skills/uloop-screenshot"
+  "github_path": ".claude/skills/uloop-screenshot",
+  "github_branch": "main"
 }

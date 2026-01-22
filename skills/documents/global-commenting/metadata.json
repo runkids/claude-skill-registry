@@ -8,5 +8,6 @@
     "commenting"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-commenting"
+  "github_path": ".claude/skills/global-commenting",
+  "github_branch": "main"
 }

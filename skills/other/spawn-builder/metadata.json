@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:36:41.144240Z",
   "dir_name": "spawn-builder",
   "category": "other",
-  "github_path": ".claude/skills/spawn-builder"
+  "github_path": ".claude/skills/spawn-builder",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:38.488626Z",
   "dir_name": "cost-approach-expert",
   "category": "other",
-  "github_path": ".claude/skills/cost-approach-expert"
+  "github_path": ".claude/skills/cost-approach-expert",
+  "github_branch": "main"
 }

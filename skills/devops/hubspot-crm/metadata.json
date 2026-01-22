@@ -8,5 +8,6 @@
     "crm"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/hubspot-crm"
+  "github_path": ".claude/skills/hubspot-crm",
+  "github_branch": "main"
 }

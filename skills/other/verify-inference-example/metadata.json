@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:51:31.741648Z",
   "dir_name": "verify-inference-example",
   "category": "other",
-  "github_path": ".claude/skills/verify-inference-example"
+  "github_path": ".claude/skills/verify-inference-example",
+  "github_branch": "main"
 }

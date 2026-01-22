@@ -10,5 +10,6 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/adding-persistent-event"
+  "github_path": ".claude/skills/adding-persistent-event",
+  "github_branch": "main"
 }

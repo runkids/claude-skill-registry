@@ -9,5 +9,6 @@
   ],
   "stars": 4,
   "dir_name": "npm-deploy",
-  "github_path": ".claude/skills/npm-deploy"
+  "github_path": ".claude/skills/npm-deploy",
+  "github_branch": "main"
 }

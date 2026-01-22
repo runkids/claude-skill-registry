@@ -9,5 +9,6 @@
     "story"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/review-draft-story"
+  "github_path": ".claude/skills/review-draft-story",
+  "github_branch": "main"
 }

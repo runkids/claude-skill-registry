@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:27.501454Z",
   "dir_name": "cortex",
   "category": "other",
-  "github_path": ".claude/skills/cortex"
+  "github_path": ".claude/skills/cortex",
+  "github_branch": "main"
 }

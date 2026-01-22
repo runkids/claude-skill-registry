@@ -8,5 +8,6 @@
     "comments"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/write-comments"
+  "github_path": ".claude/skills/write-comments",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "trpc"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/trpc"
+  "github_path": ".claude/skills/trpc",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "ticket"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/jira-ticket"
+  "github_path": ".claude/skills/jira-ticket",
+  "github_branch": "main"
 }

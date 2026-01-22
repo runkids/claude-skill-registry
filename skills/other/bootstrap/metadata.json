@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:46.188589Z",
   "dir_name": "bootstrap",
   "category": "other",
-  "github_path": ".claude/skills/bootstrap"
+  "github_path": ".claude/skills/bootstrap",
+  "github_branch": "main"
 }

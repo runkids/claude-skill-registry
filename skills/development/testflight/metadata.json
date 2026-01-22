@@ -7,5 +7,6 @@
     "testflight"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testflight"
+  "github_path": ".claude/skills/testflight",
+  "github_branch": "main"
 }

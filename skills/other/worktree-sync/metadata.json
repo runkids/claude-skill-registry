@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:14.044786Z",
   "dir_name": "worktree-sync",
   "category": "other",
-  "github_path": ".claude/skills/worktree-sync"
+  "github_path": ".claude/skills/worktree-sync",
+  "github_branch": "main"
 }

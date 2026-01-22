@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:16:54.254606Z",
   "dir_name": "google-adk",
   "category": "other",
-  "github_path": ".claude/skills/google-adk"
+  "github_path": ".claude/skills/google-adk",
+  "github_branch": "main"
 }

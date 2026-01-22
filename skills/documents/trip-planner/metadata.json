@@ -8,5 +8,6 @@
     "planner"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/trip-planner"
+  "github_path": ".claude/skills/trip-planner",
+  "github_branch": "main"
 }

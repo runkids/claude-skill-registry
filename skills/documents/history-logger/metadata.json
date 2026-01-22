@@ -8,5 +8,6 @@
     "logger"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/history-logger"
+  "github_path": ".claude/skills/history-logger",
+  "github_branch": "main"
 }

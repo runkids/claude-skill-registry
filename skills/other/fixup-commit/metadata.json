@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:57:34.015130Z",
   "dir_name": "fixup-commit",
   "category": "other",
-  "github_path": ".claude/skills/fixup-commit"
+  "github_path": ".claude/skills/fixup-commit",
+  "github_branch": "main"
 }

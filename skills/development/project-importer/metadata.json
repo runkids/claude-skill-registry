@@ -8,5 +8,6 @@
     "importer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-importer"
+  "github_path": ".claude/skills/project-importer",
+  "github_branch": "main"
 }

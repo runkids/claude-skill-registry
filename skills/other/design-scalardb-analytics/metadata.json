@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:41.145545Z",
   "dir_name": "design-scalardb-analytics",
   "category": "other",
-  "github_path": ".claude/skills/design-scalardb-analytics"
+  "github_path": ".claude/skills/design-scalardb-analytics",
+  "github_branch": "main"
 }

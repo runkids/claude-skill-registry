@@ -8,5 +8,6 @@
     "api"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/netlify-api"
+  "github_path": ".claude/skills/netlify-api",
+  "github_branch": "main"
 }

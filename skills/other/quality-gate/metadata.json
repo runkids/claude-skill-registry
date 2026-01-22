@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:56.290339Z",
   "dir_name": "quality-gate",
   "category": "other",
-  "github_path": ".claude/skills/quality-gate"
+  "github_path": ".claude/skills/quality-gate",
+  "github_branch": "main"
 }

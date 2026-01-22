@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:53.813507Z",
   "dir_name": "env-config",
   "category": "other",
-  "github_path": ".claude/skills/env-config"
+  "github_path": ".claude/skills/env-config",
+  "github_branch": "main"
 }

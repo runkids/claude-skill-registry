@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:30:48.128324Z",
   "dir_name": "atom-state",
   "category": "other",
-  "github_path": ".claude/skills/atom-state"
+  "github_path": ".claude/skills/atom-state",
+  "github_branch": "main"
 }

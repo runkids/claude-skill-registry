@@ -8,5 +8,6 @@
     "docs"
   ],
   "stars": 32,
-  "github_path": ".claude/skills/learned-docs"
+  "github_path": ".claude/skills/learned-docs",
+  "github_branch": "main"
 }

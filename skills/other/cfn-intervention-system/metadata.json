@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:53.806747Z",
   "dir_name": "cfn-intervention-system",
   "category": "other",
-  "github_path": ".claude/skills/cfn-intervention-system"
+  "github_path": ".claude/skills/cfn-intervention-system",
+  "github_branch": "main"
 }

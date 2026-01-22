@@ -8,5 +8,6 @@
     "translate"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/paper-translate"
+  "github_path": ".claude/skills/paper-translate",
+  "github_branch": "main"
 }

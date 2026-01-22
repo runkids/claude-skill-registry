@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/brokle-backend-dev"
+  "github_path": ".claude/skills/brokle-backend-dev",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:55.660122Z",
   "dir_name": "docker-mcp-ops",
   "category": "other",
-  "github_path": ".claude/skills/docker-mcp-ops"
+  "github_path": ".claude/skills/docker-mcp-ops",
+  "github_branch": "main"
 }

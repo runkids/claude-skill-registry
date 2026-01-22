@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/conda-forge-expert"
+  "github_path": ".claude/skills/conda-forge-expert",
+  "github_branch": "main"
 }

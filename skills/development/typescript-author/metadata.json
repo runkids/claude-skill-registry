@@ -8,5 +8,6 @@
     "author"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/typescript-author"
+  "github_path": ".claude/skills/typescript-author",
+  "github_branch": "main"
 }

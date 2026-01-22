@@ -7,5 +7,6 @@
     "tap"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ui-tap"
+  "github_path": ".claude/skills/ui-tap",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "organization"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/global-code-organization"
+  "github_path": ".claude/skills/global-code-organization",
+  "github_branch": "main"
 }

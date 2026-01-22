@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:10:29.475542Z",
   "dir_name": "ffmpeg",
   "category": "other",
-  "github_path": ".claude/skills/ffmpeg"
+  "github_path": ".claude/skills/ffmpeg",
+  "github_branch": "main"
 }

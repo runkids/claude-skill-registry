@@ -8,5 +8,6 @@
     "tracking"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/plan-tracking"
+  "github_path": ".claude/skills/plan-tracking",
+  "github_branch": "main"
 }

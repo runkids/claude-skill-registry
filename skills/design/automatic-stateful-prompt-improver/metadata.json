@@ -11,5 +11,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/automatic-stateful-prompt-improver"
+  "github_path": ".claude/skills/automatic-stateful-prompt-improver",
+  "github_branch": "main"
 }

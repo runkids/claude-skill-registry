@@ -8,5 +8,6 @@
     "diagnostics"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/ide-diagnostics"
+  "github_path": ".claude/skills/ide-diagnostics",
+  "github_branch": "main"
 }

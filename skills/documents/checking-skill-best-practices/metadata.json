@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/checking-skill-best-practices"
+  "github_path": ".claude/skills/checking-skill-best-practices",
+  "github_branch": "main"
 }

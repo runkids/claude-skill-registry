@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:44.406049Z",
   "dir_name": "eval-testing",
   "category": "other",
-  "github_path": ".claude/skills/eval-testing"
+  "github_path": ".claude/skills/eval-testing",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:56.220617Z",
   "dir_name": "neon-database",
   "category": "other",
-  "github_path": ".claude/skills/neon-database"
+  "github_path": ".claude/skills/neon-database",
+  "github_branch": "main"
 }

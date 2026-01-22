@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:18:47.614090Z",
   "dir_name": "phenotype-lab-spec",
   "category": "other",
-  "github_path": ".claude/skills/phenotype-lab-spec"
+  "github_path": ".claude/skills/phenotype-lab-spec",
+  "github_branch": "main"
 }

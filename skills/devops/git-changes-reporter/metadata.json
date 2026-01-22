@@ -10,5 +10,6 @@
   ],
   "stars": 347,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/git-changes-reporter"
+  "github_path": ".claude/skills/git-changes-reporter",
+  "github_branch": "main"
 }

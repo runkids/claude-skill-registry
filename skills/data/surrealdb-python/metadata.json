@@ -9,5 +9,6 @@
   ],
   "stars": 9,
   "dir_name": "surrealdb-python",
-  "github_path": ".claude/skills/surrealdb-python"
+  "github_path": ".claude/skills/surrealdb-python",
+  "github_branch": "main"
 }

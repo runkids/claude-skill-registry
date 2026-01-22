@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:17.353538Z",
   "dir_name": "pre-commit-validator",
   "category": "other",
-  "github_path": ".claude/skills/pre-commit-validator"
+  "github_path": ".claude/skills/pre-commit-validator",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "sync"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/structurizr-architecture-sync"
+  "github_path": ".claude/skills/structurizr-architecture-sync",
+  "github_branch": "main"
 }

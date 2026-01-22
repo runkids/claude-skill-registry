@@ -10,5 +10,6 @@
     "workflow"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/managing-git-github-workflow"
+  "github_path": ".claude/skills/managing-git-github-workflow",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:50.724498Z",
   "dir_name": "sam-ceo-communication",
   "category": "other",
-  "github_path": ".claude/skills/sam-ceo-communication"
+  "github_path": ".claude/skills/sam-ceo-communication",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 191,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/context-engine"
+  "github_path": "skills/context-engine",
+  "github_branch": "master"
 }

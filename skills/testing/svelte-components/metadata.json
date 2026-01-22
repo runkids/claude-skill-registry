@@ -9,5 +9,6 @@
   ],
   "stars": 107,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/svelte-components"
+  "github_path": ".claude/skills/svelte-components",
+  "github_branch": "main"
 }

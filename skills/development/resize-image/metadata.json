@@ -8,5 +8,6 @@
     "image"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/resize-image"
+  "github_path": ".claude/skills/resize-image",
+  "github_branch": "main"
 }

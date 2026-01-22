@@ -9,5 +9,6 @@
     "rules"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-alfred-rules"
+  "github_path": ".claude/skills/moai-alfred-rules",
+  "github_branch": "main"
 }

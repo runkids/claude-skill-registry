@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:45.926450Z",
   "dir_name": "pylabrobot",
   "category": "other",
-  "github_path": ".claude/skills/pylabrobot"
+  "github_path": ".claude/skills/pylabrobot",
+  "github_branch": "main"
 }

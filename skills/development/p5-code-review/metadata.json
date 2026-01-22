@@ -5,5 +5,6 @@
   "description": "Reviews p5.js tower defense game code for architecture patterns, manager responsibilities, performance issues, and code quality. Use when reviewing enemies, towers, managers, renderers, or asking for ",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:41.449371Z",
-  "github_path": ".claude/skills/p5-code-review"
+  "github_path": ".claude/skills/p5-code-review",
+  "github_branch": "main"
 }

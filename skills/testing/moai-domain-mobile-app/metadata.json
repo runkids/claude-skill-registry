@@ -10,5 +10,6 @@
     "app"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-domain-mobile-app"
+  "github_path": ".claude/skills/moai-domain-mobile-app",
+  "github_branch": "main"
 }

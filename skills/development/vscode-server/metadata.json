@@ -8,5 +8,6 @@
     "server"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/vscode-server"
+  "github_path": ".claude/skills/vscode-server",
+  "github_branch": "main"
 }

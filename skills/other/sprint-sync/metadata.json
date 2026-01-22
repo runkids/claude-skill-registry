@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:45.099081Z",
   "dir_name": "sprint-sync",
   "category": "other",
-  "github_path": ".claude/skills/sprint-sync"
+  "github_path": ".claude/skills/sprint-sync",
+  "github_branch": "main"
 }

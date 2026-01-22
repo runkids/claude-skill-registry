@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:20.132105Z",
   "dir_name": "similarity-capacitor",
   "category": "other",
-  "github_path": ".claude/skills/similarity-capacitor"
+  "github_path": ".claude/skills/similarity-capacitor",
+  "github_branch": "main"
 }

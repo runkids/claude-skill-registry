@@ -9,5 +9,6 @@
     "builder"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/learning-path-builder"
+  "github_path": ".claude/skills/learning-path-builder",
+  "github_branch": "main"
 }

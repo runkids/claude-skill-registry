@@ -11,5 +11,6 @@
   "stars": 1,
   "source": "SkillsMP Synced Skills",
   "dir_name": "conversational-goal-discovery",
-  "github_path": ".claude/skills/conversational-goal-discovery"
+  "github_path": ".claude/skills/conversational-goal-discovery",
+  "github_branch": "main"
 }

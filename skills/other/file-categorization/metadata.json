@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:17.646745Z",
   "dir_name": "file-categorization",
   "category": "other",
-  "github_path": ".claude/skills/file-categorization"
+  "github_path": ".claude/skills/file-categorization",
+  "github_branch": "main"
 }

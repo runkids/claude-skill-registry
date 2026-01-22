@@ -10,5 +10,6 @@
   ],
   "stars": 166,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/decision-graph-analyzer"
+  "github_path": ".claude/skills/decision-graph-analyzer",
+  "github_branch": "main"
 }

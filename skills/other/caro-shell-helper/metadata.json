@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:40.558068Z",
   "dir_name": "caro-shell-helper",
   "category": "other",
-  "github_path": ".claude/skills/caro-shell-helper"
+  "github_path": ".claude/skills/caro-shell-helper",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:53:55.692640Z",
   "dir_name": "gh-pull-requests",
   "category": "other",
-  "github_path": ".claude/skills/gh-pull-requests"
+  "github_path": ".claude/skills/gh-pull-requests",
+  "github_branch": "main"
 }

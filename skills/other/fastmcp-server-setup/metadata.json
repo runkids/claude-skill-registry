@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:52.954320Z",
   "dir_name": "fastmcp-server-setup",
   "category": "other",
-  "github_path": ".claude/skills/fastmcp-server-setup"
+  "github_path": ".claude/skills/fastmcp-server-setup",
+  "github_branch": "main"
 }

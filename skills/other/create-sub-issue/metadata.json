@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:57:34.603251Z",
   "dir_name": "create-sub-issue",
   "category": "other",
-  "github_path": ".claude/skills/create-sub-issue"
+  "github_path": ".claude/skills/create-sub-issue",
+  "github_branch": "main"
 }

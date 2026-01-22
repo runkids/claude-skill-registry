@@ -5,5 +5,6 @@
   "description": "Python development guidelines for modern Python projects. Use when creating Python modules, classes, functions, scripts, or working with type hints, pytest, packaging (pip/poetry), virtual environment",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:23.216185Z",
-  "github_path": ".claude/skills/python-dev-guidelines"
+  "github_path": ".claude/skills/python-dev-guidelines",
+  "github_branch": "main"
 }

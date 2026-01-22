@@ -9,5 +9,6 @@
     "regression"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/hammer-benchmark-regression"
+  "github_path": ".claude/skills/hammer-benchmark-regression",
+  "github_branch": "main"
 }

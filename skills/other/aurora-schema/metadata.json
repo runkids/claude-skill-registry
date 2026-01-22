@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:35:21.472252Z",
   "dir_name": "aurora-schema",
   "category": "other",
-  "github_path": ".claude/skills/aurora-schema"
+  "github_path": ".claude/skills/aurora-schema",
+  "github_branch": "main"
 }

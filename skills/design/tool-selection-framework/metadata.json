@@ -9,5 +9,6 @@
     "framework"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tool-selection-framework"
+  "github_path": ".claude/skills/tool-selection-framework",
+  "github_branch": "main"
 }

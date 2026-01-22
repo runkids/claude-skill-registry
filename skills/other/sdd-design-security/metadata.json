@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T03:07:25.573935Z",
   "dir_name": "sdd-design-security",
   "category": "other",
-  "github_path": ".claude/skills/sdd-design-security"
+  "github_path": ".claude/skills/sdd-design-security",
+  "github_branch": "main"
 }

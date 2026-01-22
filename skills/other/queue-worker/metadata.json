@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:26.604340Z",
   "dir_name": "queue-worker",
   "category": "other",
-  "github_path": ".claude/skills/queue-worker"
+  "github_path": ".claude/skills/queue-worker",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "handler"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/submission-handler"
+  "github_path": ".claude/skills/submission-handler",
+  "github_branch": "main"
 }

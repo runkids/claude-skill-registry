@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:15.817800Z",
   "dir_name": "semiconductor",
   "category": "other",
-  "github_path": ".claude/skills/semiconductor"
+  "github_path": ".claude/skills/semiconductor",
+  "github_branch": "main"
 }

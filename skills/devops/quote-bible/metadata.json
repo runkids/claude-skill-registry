@@ -8,5 +8,6 @@
     "bible"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/quote-bible"
+  "github_path": ".claude/skills/quote-bible",
+  "github_branch": "main"
 }

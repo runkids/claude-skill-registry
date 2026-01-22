@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:42:19.833875Z",
   "dir_name": "task-tracker",
   "category": "other",
-  "github_path": ".claude/skills/task-tracker"
+  "github_path": ".claude/skills/task-tracker",
+  "github_branch": "main"
 }

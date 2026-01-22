@@ -7,5 +7,6 @@
     "monorepo"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/nx-monorepo"
+  "github_path": ".claude/skills/nx-monorepo",
+  "github_branch": "main"
 }

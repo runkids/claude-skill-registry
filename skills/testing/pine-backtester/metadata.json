@@ -8,5 +8,6 @@
     "backtester"
   ],
   "stars": 17,
-  "github_path": ".claude/skills/pine-backtester"
+  "github_path": ".claude/skills/pine-backtester",
+  "github_branch": "main"
 }

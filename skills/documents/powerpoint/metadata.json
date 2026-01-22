@@ -7,5 +7,6 @@
     "powerpoint"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/powerpoint"
+  "github_path": ".claude/skills/powerpoint",
+  "github_branch": "main"
 }

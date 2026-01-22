@@ -10,5 +10,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/creating-kiro-agents"
+  "github_path": ".claude/skills/creating-kiro-agents",
+  "github_branch": "main"
 }

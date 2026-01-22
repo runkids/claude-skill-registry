@@ -9,5 +9,6 @@
     "generator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/sla-monitor-generator"
+  "github_path": ".claude/skills/sla-monitor-generator",
+  "github_branch": "main"
 }

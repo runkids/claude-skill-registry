@@ -10,5 +10,6 @@
   ],
   "stars": 16,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dependency-conflict-resolver"
+  "github_path": ".claude/skills/dependency-conflict-resolver",
+  "github_branch": "main"
 }

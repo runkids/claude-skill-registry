@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:50:06.604617Z",
   "dir_name": "recent-changes",
   "category": "other",
-  "github_path": ".claude/skills/recent-changes"
+  "github_path": ".claude/skills/recent-changes",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "review"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/obsidian-policy-review"
+  "github_path": ".claude/skills/obsidian-policy-review",
+  "github_branch": "main"
 }

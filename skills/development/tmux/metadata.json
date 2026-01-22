@@ -7,5 +7,6 @@
     "tmux"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/tmux"
+  "github_path": ".claude/skills/tmux",
+  "github_branch": "main"
 }

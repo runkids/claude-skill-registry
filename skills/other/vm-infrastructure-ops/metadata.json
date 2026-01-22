@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:34:51.009959Z",
   "dir_name": "vm-infrastructure-ops",
   "category": "other",
-  "github_path": ".claude/skills/vm-infrastructure-ops"
+  "github_path": ".claude/skills/vm-infrastructure-ops",
+  "github_branch": "main"
 }

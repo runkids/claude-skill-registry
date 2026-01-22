@@ -8,5 +8,6 @@
     "rankings"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/llm-rankings"
+  "github_path": ".claude/skills/llm-rankings",
+  "github_branch": "main"
 }

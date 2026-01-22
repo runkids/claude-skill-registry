@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:55.313584Z",
   "dir_name": "ops-party",
   "category": "other",
-  "github_path": ".claude/skills/ops-party"
+  "github_path": ".claude/skills/ops-party",
+  "github_branch": "main"
 }

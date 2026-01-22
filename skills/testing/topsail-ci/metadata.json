@@ -7,5 +7,6 @@
     "topsail"
   ],
   "stars": 16,
-  "github_path": ".claude/skills/topsail-ci"
+  "github_path": ".claude/skills/topsail-ci",
+  "github_branch": "main"
 }

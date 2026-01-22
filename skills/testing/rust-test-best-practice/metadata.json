@@ -10,5 +10,6 @@
     "practice"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rust-test-best-practice"
+  "github_path": ".claude/skills/rust-test-best-practice",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:44:00.150296Z",
   "dir_name": "candidate-evaluation",
   "category": "other",
-  "github_path": ".claude/skills/candidate-evaluation"
+  "github_path": ".claude/skills/candidate-evaluation",
+  "github_branch": "main"
 }

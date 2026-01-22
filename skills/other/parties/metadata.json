@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:53.911530Z",
   "dir_name": "parties",
   "category": "other",
-  "github_path": ".claude/skills/parties"
+  "github_path": ".claude/skills/parties",
+  "github_branch": "main"
 }

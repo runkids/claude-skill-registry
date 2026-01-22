@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T03:20:43.207046Z",
   "dir_name": "acquisition-system-setup",
   "category": "other",
-  "github_path": ".claude/skills/acquisition-system-setup"
+  "github_path": ".claude/skills/acquisition-system-setup",
+  "github_branch": "main"
 }

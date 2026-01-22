@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:51:53.001890Z",
   "dir_name": "ghidra",
   "category": "other",
-  "github_path": "skills/ghidra"
+  "github_path": "skills/ghidra",
+  "github_branch": "main"
 }

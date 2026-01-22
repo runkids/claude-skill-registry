@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:45:49.598787Z",
   "dir_name": "navigator",
   "category": "other",
-  "github_path": ".claude/skills/navigator"
+  "github_path": ".claude/skills/navigator",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "performance"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/global-performance"
+  "github_path": ".claude/skills/global-performance",
+  "github_branch": "main"
 }

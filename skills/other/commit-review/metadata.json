@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:28.807180Z",
   "dir_name": "commit-review",
   "category": "other",
-  "github_path": ".claude/skills/commit.review"
+  "github_path": ".claude/skills/commit.review",
+  "github_branch": "main"
 }

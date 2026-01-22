@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:44:00.369130Z",
   "dir_name": "r2-glacier-migration",
   "category": "other",
-  "github_path": ".claude/skills/r2-glacier-migration"
+  "github_path": ".claude/skills/r2-glacier-migration",
+  "github_branch": "main"
 }

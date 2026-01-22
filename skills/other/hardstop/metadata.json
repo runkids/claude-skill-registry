@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:16:46.079787Z",
   "dir_name": "hardstop",
   "category": "other",
-  "github_path": ".claude/skills/hardstop"
+  "github_path": ".claude/skills/hardstop",
+  "github_branch": "main"
 }

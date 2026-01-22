@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:29:57.865059Z",
   "dir_name": "commonmark",
   "category": "other",
-  "github_path": ".claude/skills/commonmark"
+  "github_path": ".claude/skills/commonmark",
+  "github_branch": "main"
 }

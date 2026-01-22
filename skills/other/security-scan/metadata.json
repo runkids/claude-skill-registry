@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:24.451209Z",
   "dir_name": "security-scan",
   "category": "other",
-  "github_path": ".claude/skills/security-scan"
+  "github_path": ".claude/skills/security-scan",
+  "github_branch": "main"
 }

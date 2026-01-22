@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:59.275196Z",
   "dir_name": "typescript-configuration",
   "category": "other",
-  "github_path": ".claude/skills/typescript-configuration"
+  "github_path": ".claude/skills/typescript-configuration",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:55.147270Z",
   "dir_name": "scope-claims-reviewer",
   "category": "other",
-  "github_path": ".claude/skills/scope-claims-reviewer"
+  "github_path": ".claude/skills/scope-claims-reviewer",
+  "github_branch": "main"
 }

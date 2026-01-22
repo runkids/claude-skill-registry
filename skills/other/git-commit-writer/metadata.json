@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:53:43.232893Z",
   "dir_name": "git-commit-writer",
   "category": "other",
-  "github_path": ".claude/skills/git-commit-writer"
+  "github_path": ".claude/skills/git-commit-writer",
+  "github_branch": "main"
 }

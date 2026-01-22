@@ -7,5 +7,6 @@
     "tdd"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tdd-go"
+  "github_path": ".claude/skills/tdd-go",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:10:32.226258Z",
   "dir_name": "cloudflare-workers",
   "category": "other",
-  "github_path": ".claude/skills/cloudflare-workers"
+  "github_path": ".claude/skills/cloudflare-workers",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:43:34.538021Z",
   "dir_name": "finish-es-latam-audiobook",
   "category": "other",
-  "github_path": ".claude/skills/finish-es_latam-audiobook"
+  "github_path": ".claude/skills/finish-es_latam-audiobook",
+  "github_branch": "main"
 }

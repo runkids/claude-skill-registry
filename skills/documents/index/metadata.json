@@ -7,5 +7,6 @@
     "index"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/index"
+  "github_path": ".claude/skills/index",
+  "github_branch": "main"
 }

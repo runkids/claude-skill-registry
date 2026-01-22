@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:53:11.215507Z",
   "dir_name": "complexity-management",
   "category": "other",
-  "github_path": ".claude/skills/complexity-management"
+  "github_path": ".claude/skills/complexity-management",
+  "github_branch": "main"
 }

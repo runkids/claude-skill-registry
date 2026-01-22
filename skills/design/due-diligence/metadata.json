@@ -9,5 +9,6 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/due-diligence"
+  "github_path": ".claude/skills/due-diligence",
+  "github_branch": "main"
 }

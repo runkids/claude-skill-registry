@@ -8,5 +8,6 @@
     "phase"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/planning-phase"
+  "github_path": ".claude/skills/planning-phase",
+  "github_branch": "main"
 }

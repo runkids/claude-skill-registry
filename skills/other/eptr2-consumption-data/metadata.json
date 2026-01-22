@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:40:00.633766Z",
   "dir_name": "eptr2-consumption-data",
   "category": "other",
-  "github_path": ".claude/skills/eptr2-consumption-data"
+  "github_path": ".claude/skills/eptr2-consumption-data",
+  "github_branch": "main"
 }

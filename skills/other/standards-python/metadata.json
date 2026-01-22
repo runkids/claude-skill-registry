@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:52.507473Z",
   "dir_name": "standards-python",
   "category": "other",
-  "github_path": ".claude/skills/standards-python"
+  "github_path": ".claude/skills/standards-python",
+  "github_branch": "main"
 }

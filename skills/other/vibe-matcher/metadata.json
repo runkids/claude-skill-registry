@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:38:49.132314Z",
   "dir_name": "vibe-matcher",
   "category": "other",
-  "github_path": ".claude/skills/vibe-matcher"
+  "github_path": ".claude/skills/vibe-matcher",
+  "github_branch": "main"
 }

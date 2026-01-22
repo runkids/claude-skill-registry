@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:54.841575Z",
   "dir_name": "rust-observability",
   "category": "other",
-  "github_path": ".claude/skills/rust-observability"
+  "github_path": ".claude/skills/rust-observability",
+  "github_branch": "main"
 }

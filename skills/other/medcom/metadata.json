@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:52.725390Z",
   "dir_name": "medcom",
   "category": "other",
-  "github_path": ".claude/skills/medcom"
+  "github_path": ".claude/skills/medcom",
+  "github_branch": "main"
 }

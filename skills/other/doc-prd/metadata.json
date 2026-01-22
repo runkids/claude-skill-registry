@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:44.778478Z",
   "dir_name": "doc-prd",
   "category": "other",
-  "github_path": ".claude/skills/doc-prd"
+  "github_path": ".claude/skills/doc-prd",
+  "github_branch": "main"
 }

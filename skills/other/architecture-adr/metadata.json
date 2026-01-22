@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:27.909014Z",
   "dir_name": "architecture-adr",
   "category": "other",
-  "github_path": ".claude/skills/architecture-adr"
+  "github_path": ".claude/skills/architecture-adr",
+  "github_branch": "main"
 }

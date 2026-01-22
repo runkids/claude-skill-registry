@@ -8,5 +8,6 @@
     "secrets"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/validate-secrets"
+  "github_path": ".claude/skills/validate-secrets",
+  "github_branch": "main"
 }

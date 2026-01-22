@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:31.665624Z",
   "dir_name": "fieldy-analysis",
   "category": "other",
-  "github_path": ".claude/skills/fieldy-analysis"
+  "github_path": ".claude/skills/fieldy-analysis",
+  "github_branch": "main"
 }

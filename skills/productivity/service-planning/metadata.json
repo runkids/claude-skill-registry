@@ -8,5 +8,6 @@
     "planning"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/service-planning"
+  "github_path": ".claude/skills/service-planning",
+  "github_branch": "main"
 }

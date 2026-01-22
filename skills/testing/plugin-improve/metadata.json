@@ -8,5 +8,6 @@
     "improve"
   ],
   "stars": 47,
-  "github_path": ".claude/skills/plugin-improve"
+  "github_path": ".claude/skills/plugin-improve",
+  "github_branch": "main"
 }

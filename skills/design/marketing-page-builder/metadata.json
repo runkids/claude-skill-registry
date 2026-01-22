@@ -9,5 +9,6 @@
     "builder"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/marketing-page-builder"
+  "github_path": ".claude/skills/marketing-page-builder",
+  "github_branch": "main"
 }

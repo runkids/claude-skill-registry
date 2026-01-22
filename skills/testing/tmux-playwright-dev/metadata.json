@@ -9,5 +9,6 @@
     "dev"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/tmux-playwright-dev"
+  "github_path": ".claude/skills/tmux-playwright-dev",
+  "github_branch": "main"
 }

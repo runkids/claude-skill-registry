@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:02:59.585361Z",
   "dir_name": "restartability",
   "category": "other",
-  "github_path": ".claude/skills/restartability"
+  "github_path": ".claude/skills/restartability",
+  "github_branch": "main"
 }

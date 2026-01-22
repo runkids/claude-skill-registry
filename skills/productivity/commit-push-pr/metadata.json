@@ -9,5 +9,6 @@
   ],
   "stars": 6,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/commit-push-pr"
+  "github_path": ".claude/skills/commit-push-pr",
+  "github_branch": "main"
 }

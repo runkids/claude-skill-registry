@@ -8,5 +8,6 @@
     "implementation"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/plan-implementation"
+  "github_path": ".claude/skills/plan-implementation",
+  "github_branch": "main"
 }

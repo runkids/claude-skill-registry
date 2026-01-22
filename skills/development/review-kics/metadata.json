@@ -8,5 +8,6 @@
     "kics"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/review-kics"
+  "github_path": ".claude/skills/review-kics",
+  "github_branch": "main"
 }

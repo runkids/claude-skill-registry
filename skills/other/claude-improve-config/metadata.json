@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:24:17.197037Z",
   "dir_name": "claude-improve-config",
   "category": "other",
-  "github_path": ".claude/skills/claude-improve-config"
+  "github_path": ".claude/skills/claude-improve-config",
+  "github_branch": "main"
 }

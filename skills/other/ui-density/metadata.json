@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:03.818304Z",
   "dir_name": "ui-density",
   "category": "other",
-  "github_path": ".claude/skills/ui-density"
+  "github_path": ".claude/skills/ui-density",
+  "github_branch": "main"
 }

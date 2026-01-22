@@ -5,5 +5,6 @@
   "description": "Analyze and improve UI density using Matt Ström's 4-dimensional framework. Use when interfaces feel too sparse, too cluttered, or when users complain about efficiency.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:49.143772Z",
-  "github_path": ".claude/skills/ui-density"
+  "github_path": ".claude/skills/ui-density",
+  "github_branch": "main"
 }

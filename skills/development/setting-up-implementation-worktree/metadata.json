@@ -9,5 +9,6 @@
     "worktree"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/setting-up-implementation-worktree"
+  "github_path": ".claude/skills/setting-up-implementation-worktree",
+  "github_branch": "main"
 }

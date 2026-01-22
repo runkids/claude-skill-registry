@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:24.130978Z",
   "dir_name": "ios-restart-app",
   "category": "other",
-  "github_path": ".claude/skills/ios-restart-app"
+  "github_path": ".claude/skills/ios-restart-app",
+  "github_branch": "main"
 }

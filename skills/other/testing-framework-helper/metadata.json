@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:18.314467Z",
   "dir_name": "testing-framework-helper",
   "category": "other",
-  "github_path": ".claude/skills/testing-framework-helper"
+  "github_path": ".claude/skills/testing-framework-helper",
+  "github_branch": "main"
 }

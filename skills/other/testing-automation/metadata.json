@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:40:57.903455Z",
   "dir_name": "testing-automation",
   "category": "other",
-  "github_path": ".claude/skills/testing-automation"
+  "github_path": ".claude/skills/testing-automation",
+  "github_branch": "main"
 }

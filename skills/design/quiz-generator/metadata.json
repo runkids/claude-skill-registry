@@ -8,5 +8,6 @@
     "generator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quiz-generator"
+  "github_path": ".claude/skills/quiz-generator",
+  "github_branch": "main"
 }

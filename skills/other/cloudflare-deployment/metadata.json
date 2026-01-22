@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:01.629080Z",
   "dir_name": "cloudflare-deployment",
   "category": "other",
-  "github_path": ".claude/skills/cloudflare-deployment"
+  "github_path": ".claude/skills/cloudflare-deployment",
+  "github_branch": "main"
 }

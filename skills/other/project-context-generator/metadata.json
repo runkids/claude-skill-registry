@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:04.691117Z",
   "dir_name": "project-context-generator",
   "category": "other",
-  "github_path": ".claude/skills/project-context-generator"
+  "github_path": ".claude/skills/project-context-generator",
+  "github_branch": "main"
 }

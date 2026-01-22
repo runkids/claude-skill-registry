@@ -5,5 +5,6 @@
   "description": "User feedback patterns including success/error messages, loading states, confirmations, and progress indicators. Use when implementing notifications, toasts, or status updates. (project)",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:01.037017Z",
-  "github_path": ".claude/skills/ux-feedback-patterns"
+  "github_path": ".claude/skills/ux-feedback-patterns",
+  "github_branch": "main"
 }

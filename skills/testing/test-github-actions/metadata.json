@@ -9,5 +9,6 @@
     "actions"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/test-github-actions"
+  "github_path": ".claude/skills/test-github-actions",
+  "github_branch": "main"
 }

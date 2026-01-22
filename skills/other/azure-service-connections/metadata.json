@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:16.517951Z",
   "dir_name": "azure-service-connections",
   "category": "other",
-  "github_path": ".claude/skills/azure-service-connections"
+  "github_path": ".claude/skills/azure-service-connections",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "git"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/sc-git"
+  "github_path": ".claude/skills/sc-git",
+  "github_branch": "main"
 }

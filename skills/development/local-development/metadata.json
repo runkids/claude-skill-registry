@@ -8,5 +8,6 @@
     "development"
   ],
   "stars": 29,
-  "github_path": ".claude/skills/local-development"
+  "github_path": ".claude/skills/local-development",
+  "github_branch": "main"
 }

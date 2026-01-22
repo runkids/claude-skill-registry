@@ -9,5 +9,6 @@
     "handler"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/implement-test-handler"
+  "github_path": ".claude/skills/implement-test-handler",
+  "github_branch": "main"
 }

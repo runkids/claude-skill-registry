@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:01.904701Z",
   "dir_name": "server-skills",
   "category": "other",
-  "github_path": ".claude/skills/server-skills"
+  "github_path": ".claude/skills/server-skills",
+  "github_branch": "main"
 }

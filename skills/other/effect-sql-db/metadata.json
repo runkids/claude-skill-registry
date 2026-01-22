@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:18.515126Z",
   "dir_name": "effect-sql-db",
   "category": "other",
-  "github_path": ".claude/skills/effect-sql-db"
+  "github_path": ".claude/skills/effect-sql-db",
+  "github_branch": "main"
 }

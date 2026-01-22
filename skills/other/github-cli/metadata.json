@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:52:19.000891Z",
   "dir_name": "github-cli",
   "category": "other",
-  "github_path": ".claude/skills/github-cli"
+  "github_path": ".claude/skills/github-cli",
+  "github_branch": "main"
 }

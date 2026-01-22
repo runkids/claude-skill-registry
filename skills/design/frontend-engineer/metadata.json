@@ -8,5 +8,6 @@
     "engineer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frontend-engineer"
+  "github_path": ".claude/skills/frontend-engineer",
+  "github_branch": "main"
 }

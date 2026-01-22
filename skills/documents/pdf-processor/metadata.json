@@ -8,5 +8,6 @@
     "processor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pdf-processor"
+  "github_path": ".claude/skills/pdf-processor",
+  "github_branch": "main"
 }

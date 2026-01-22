@@ -7,5 +7,6 @@
     "zod"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/zod"
+  "github_path": ".claude/skills/zod",
+  "github_branch": "main"
 }

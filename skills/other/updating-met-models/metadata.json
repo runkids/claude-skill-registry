@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:08.849616Z",
   "dir_name": "updating-met-models",
   "category": "other",
-  "github_path": ".claude/skills/updating-met-models"
+  "github_path": ".claude/skills/updating-met-models",
+  "github_branch": "main"
 }

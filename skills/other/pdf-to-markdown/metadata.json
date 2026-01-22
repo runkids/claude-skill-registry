@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:20:59.128088Z",
   "dir_name": "pdf-to-markdown",
   "category": "other",
-  "github_path": ".claude/skills/pdf-to-markdown"
+  "github_path": ".claude/skills/pdf-to-markdown",
+  "github_branch": "main"
 }

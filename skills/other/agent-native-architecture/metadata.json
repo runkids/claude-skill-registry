@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:33:37.247090Z",
   "dir_name": "agent-native-architecture",
   "category": "other",
-  "github_path": ".claude/skills/agent-native-architecture"
+  "github_path": ".claude/skills/agent-native-architecture",
+  "github_branch": "main"
 }

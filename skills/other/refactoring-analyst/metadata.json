@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:32:20.518320Z",
   "dir_name": "refactoring-analyst",
   "category": "other",
-  "github_path": ".claude/skills/refactoring-analyst"
+  "github_path": ".claude/skills/refactoring-analyst",
+  "github_branch": "main"
 }

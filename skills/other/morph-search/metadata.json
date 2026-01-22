@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:32.411755Z",
   "dir_name": "morph-search",
   "category": "other",
-  "github_path": ".claude/skills/morph-search"
+  "github_path": ".claude/skills/morph-search",
+  "github_branch": "main"
 }

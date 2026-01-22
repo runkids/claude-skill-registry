@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:34:44.790247Z",
   "dir_name": "wheels-email-generator",
   "category": "other",
-  "github_path": ".claude/skills/wheels-email-generator"
+  "github_path": ".claude/skills/wheels-email-generator",
+  "github_branch": "main"
 }

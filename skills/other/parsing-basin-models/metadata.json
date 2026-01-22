@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:08.928478Z",
   "dir_name": "parsing-basin-models",
   "category": "other",
-  "github_path": ".claude/skills/parsing-basin-models"
+  "github_path": ".claude/skills/parsing-basin-models",
+  "github_branch": "main"
 }

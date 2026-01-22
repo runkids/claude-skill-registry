@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:06.566650Z",
   "dir_name": "langchain-tools",
   "category": "other",
-  "github_path": ".claude/skills/langchain-tools"
+  "github_path": ".claude/skills/langchain-tools",
+  "github_branch": "main"
 }

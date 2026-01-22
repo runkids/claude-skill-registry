@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:05.871763Z",
   "dir_name": "adaptive-learning",
   "category": "other",
-  "github_path": ".claude/skills/adaptive-learning"
+  "github_path": ".claude/skills/adaptive-learning",
+  "github_branch": "main"
 }

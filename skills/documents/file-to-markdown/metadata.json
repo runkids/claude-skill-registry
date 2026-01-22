@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/file-to-markdown"
+  "github_path": ".claude/skills/file-to-markdown",
+  "github_branch": "main"
 }

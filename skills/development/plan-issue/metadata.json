@@ -8,5 +8,6 @@
     "issue"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/plan-issue"
+  "github_path": ".claude/skills/plan-issue",
+  "github_branch": "main"
 }

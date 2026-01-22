@@ -9,5 +9,6 @@
     "skill"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/rule-making-skill"
+  "github_path": ".claude/skills/rule-making-skill",
+  "github_branch": "main"
 }

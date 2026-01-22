@@ -10,5 +10,6 @@
   ],
   "stars": 9,
   "dir_name": "run-deep-research",
-  "github_path": ".claude/skills/run-deep-research"
+  "github_path": ".claude/skills/run-deep-research",
+  "github_branch": "main"
 }

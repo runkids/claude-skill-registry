@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:19:44.379809Z",
   "dir_name": "api-handler",
   "category": "other",
-  "github_path": ".claude/skills/api-handler"
+  "github_path": ".claude/skills/api-handler",
+  "github_branch": "main"
 }

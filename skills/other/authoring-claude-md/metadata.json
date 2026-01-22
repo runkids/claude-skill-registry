@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:12.211992Z",
   "dir_name": "authoring-claude-md",
   "category": "other",
-  "github_path": ".claude/skills/authoring-claude-md"
+  "github_path": ".claude/skills/authoring-claude-md",
+  "github_branch": "main"
 }

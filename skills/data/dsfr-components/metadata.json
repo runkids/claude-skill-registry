@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "dsfr-components",
-  "github_path": ".claude/skills/dsfr-components"
+  "github_path": ".claude/skills/dsfr-components",
+  "github_branch": "main"
 }

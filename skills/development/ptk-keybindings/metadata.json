@@ -8,5 +8,6 @@
     "keybindings"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ptk-keybindings"
+  "github_path": ".claude/skills/ptk-keybindings",
+  "github_branch": "main"
 }

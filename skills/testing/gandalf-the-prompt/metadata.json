@@ -9,5 +9,6 @@
     "prompt"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/gandalf-the-prompt"
+  "github_path": ".claude/skills/gandalf-the-prompt",
+  "github_branch": "main"
 }

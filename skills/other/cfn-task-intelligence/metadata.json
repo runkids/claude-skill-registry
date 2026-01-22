@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:54.975048Z",
   "dir_name": "cfn-task-intelligence",
   "category": "other",
-  "github_path": ".claude/skills/cfn-task-intelligence"
+  "github_path": ".claude/skills/cfn-task-intelligence",
+  "github_branch": "main"
 }

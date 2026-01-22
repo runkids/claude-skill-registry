@@ -8,5 +8,6 @@
     "session"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/save-session"
+  "github_path": ".claude/skills/save-session",
+  "github_branch": "main"
 }

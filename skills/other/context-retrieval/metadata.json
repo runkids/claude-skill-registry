@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:19.298180Z",
   "dir_name": "context-retrieval",
   "category": "other",
-  "github_path": ".claude/skills/context-retrieval"
+  "github_path": ".claude/skills/context-retrieval",
+  "github_branch": "main"
 }

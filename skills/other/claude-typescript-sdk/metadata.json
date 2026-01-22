@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:32.184061Z",
   "dir_name": "claude-typescript-sdk",
   "category": "other",
-  "github_path": ".claude/skills/claude-typescript-sdk"
+  "github_path": ".claude/skills/claude-typescript-sdk",
+  "github_branch": "main"
 }

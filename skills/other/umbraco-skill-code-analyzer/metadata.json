@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:19:14.058310Z",
   "dir_name": "umbraco-skill-code-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/umbraco-skill-code-analyzer"
+  "github_path": ".claude/skills/umbraco-skill-code-analyzer",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "analyzer"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/hammer-dependency-analyzer"
+  "github_path": ".claude/skills/hammer-dependency-analyzer",
+  "github_branch": "main"
 }

@@ -12,5 +12,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/first-time-user-ucv-cli"
+  "github_path": ".claude/skills/first-time-user-ucv-cli",
+  "github_branch": "main"
 }

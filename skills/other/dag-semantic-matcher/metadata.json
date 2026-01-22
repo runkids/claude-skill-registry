@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.649998Z",
   "dir_name": "dag-semantic-matcher",
   "category": "other",
-  "github_path": ".claude/skills/dag-semantic-matcher"
+  "github_path": ".claude/skills/dag-semantic-matcher",
+  "github_branch": "main"
 }

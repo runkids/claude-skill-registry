@@ -5,5 +5,6 @@
   "description": "Test a Rust solution file against LeetCode",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:20:41.325919Z",
-  "github_path": ".claude/skills/lc-test"
+  "github_path": ".claude/skills/lc-test",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "skills"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/vike-skills"
+  "github_path": ".claude/skills/vike-skills",
+  "github_branch": "main"
 }

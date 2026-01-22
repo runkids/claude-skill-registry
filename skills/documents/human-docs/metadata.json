@@ -8,5 +8,6 @@
     "docs"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/human-docs"
+  "github_path": ".claude/skills/human-docs",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "leadership"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/thought-leadership"
+  "github_path": ".claude/skills/thought-leadership",
+  "github_branch": "main"
 }

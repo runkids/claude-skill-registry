@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:56.551444Z",
   "dir_name": "sprint-plan",
   "category": "other",
-  "github_path": ".claude/skills/sprint-plan"
+  "github_path": ".claude/skills/sprint-plan",
+  "github_branch": "main"
 }

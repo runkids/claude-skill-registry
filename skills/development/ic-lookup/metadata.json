@@ -7,5 +7,6 @@
     "lookup"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ic-lookup"
+  "github_path": ".claude/skills/ic-lookup",
+  "github_branch": "main"
 }

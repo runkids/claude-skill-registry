@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:03:22.342273Z",
   "dir_name": "trigger-migration",
   "category": "other",
-  "github_path": ".claude/skills/trigger-migration"
+  "github_path": ".claude/skills/trigger-migration",
+  "github_branch": "main"
 }

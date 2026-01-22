@@ -9,5 +9,6 @@
     "hunter"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/github-repo-hunter"
+  "github_path": ".claude/skills/github-repo-hunter",
+  "github_branch": "main"
 }

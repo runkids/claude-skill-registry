@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:54.253304Z",
   "dir_name": "arc-terraform-deployment",
   "category": "other",
-  "github_path": ".claude/skills/arc-terraform-deployment"
+  "github_path": ".claude/skills/arc-terraform-deployment",
+  "github_branch": "main"
 }

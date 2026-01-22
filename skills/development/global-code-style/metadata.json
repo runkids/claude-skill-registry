@@ -9,5 +9,6 @@
     "style"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-code-style"
+  "github_path": ".claude/skills/global-code-style",
+  "github_branch": "main"
 }

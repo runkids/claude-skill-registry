@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:15.294265Z",
   "dir_name": "adding-tweets",
   "category": "other",
-  "github_path": ".claude/skills/adding-tweets"
+  "github_path": ".claude/skills/adding-tweets",
+  "github_branch": "main"
 }

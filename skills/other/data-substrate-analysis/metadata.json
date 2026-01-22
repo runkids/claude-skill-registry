@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:17.646371Z",
   "dir_name": "data-substrate-analysis",
   "category": "other",
-  "github_path": ".claude/skills/data-substrate-analysis"
+  "github_path": ".claude/skills/data-substrate-analysis",
+  "github_branch": "main"
 }

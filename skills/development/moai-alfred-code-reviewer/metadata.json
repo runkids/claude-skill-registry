@@ -10,5 +10,6 @@
     "reviewer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-alfred-code-reviewer"
+  "github_path": ".claude/skills/moai-alfred-code-reviewer",
+  "github_branch": "main"
 }

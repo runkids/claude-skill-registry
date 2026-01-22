@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:40.546062Z",
   "dir_name": "pulumi-troubleshooting",
   "category": "other",
-  "github_path": ".claude/skills/pulumi-troubleshooting"
+  "github_path": ".claude/skills/pulumi-troubleshooting",
+  "github_branch": "main"
 }

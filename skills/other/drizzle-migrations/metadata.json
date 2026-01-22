@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:58.259877Z",
   "dir_name": "drizzle-migrations",
   "category": "other",
-  "github_path": ".claude/skills/drizzle-migrations"
+  "github_path": ".claude/skills/drizzle-migrations",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   ],
   "stars": 12,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/foundations-problem-solution-fit"
+  "github_path": ".claude/skills/foundations-problem-solution-fit",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:27:12.864772Z",
   "dir_name": "repo-defining-workflows",
   "category": "other",
-  "github_path": ".claude/skills/repo-defining-workflows"
+  "github_path": ".claude/skills/repo-defining-workflows",
+  "github_branch": "main"
 }

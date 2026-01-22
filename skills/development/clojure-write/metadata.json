@@ -9,5 +9,6 @@
   ],
   "stars": 44733,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/clojure-write"
+  "github_path": ".claude/skills/clojure-write",
+  "github_branch": "master"
 }

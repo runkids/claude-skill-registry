@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "convex-docs",
-  "github_path": ".claude/skills/convex-docs"
+  "github_path": ".claude/skills/convex-docs",
+  "github_branch": "main"
 }

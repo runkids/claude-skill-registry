@@ -8,5 +8,6 @@
     "skills"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/reviewing-skills"
+  "github_path": ".claude/skills/reviewing-skills",
+  "github_branch": "main"
 }

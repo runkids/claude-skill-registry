@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:11.662642Z",
   "dir_name": "agent-run-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/agent-run-orchestrator"
+  "github_path": ".claude/skills/agent-run-orchestrator",
+  "github_branch": "main"
 }

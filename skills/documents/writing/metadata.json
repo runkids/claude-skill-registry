@@ -7,5 +7,6 @@
     "writing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/writing"
+  "github_path": ".claude/skills/writing",
+  "github_branch": "main"
 }

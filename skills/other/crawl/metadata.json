@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:43.515483Z",
   "dir_name": "crawl",
   "category": "other",
-  "github_path": ".claude/skills/crawl"
+  "github_path": ".claude/skills/crawl",
+  "github_branch": "main"
 }

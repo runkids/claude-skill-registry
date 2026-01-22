@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:43.395065Z",
   "dir_name": "occupational-health-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/occupational-health-analyzer"
+  "github_path": ".claude/skills/occupational-health-analyzer",
+  "github_branch": "main"
 }

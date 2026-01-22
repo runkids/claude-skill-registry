@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:07.132216Z",
   "dir_name": "sc-worktree",
   "category": "other",
-  "github_path": ".claude/skills/sc-worktree"
+  "github_path": ".claude/skills/sc-worktree",
+  "github_branch": "main"
 }

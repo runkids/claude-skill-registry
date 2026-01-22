@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:56:36.789150Z",
   "dir_name": "hono-authentication",
   "category": "other",
-  "github_path": ".claude/skills/hono-authentication"
+  "github_path": ".claude/skills/hono-authentication",
+  "github_branch": "main"
 }

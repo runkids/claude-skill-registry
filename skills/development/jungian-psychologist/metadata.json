@@ -8,5 +8,6 @@
     "psychologist"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/jungian-psychologist"
+  "github_path": ".claude/skills/jungian-psychologist",
+  "github_branch": "main"
 }

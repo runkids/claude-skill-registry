@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:07.689095Z",
   "dir_name": "doc-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/doc-analyzer"
+  "github_path": ".claude/skills/doc-analyzer",
+  "github_branch": "main"
 }

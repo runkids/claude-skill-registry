@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:14.860792Z",
   "dir_name": "create-review-checklist",
   "category": "other",
-  "github_path": ".claude/skills/create-review-checklist"
+  "github_path": ".claude/skills/create-review-checklist",
+  "github_branch": "main"
 }

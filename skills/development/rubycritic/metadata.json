@@ -7,5 +7,6 @@
     "rubycritic"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rubycritic"
+  "github_path": ".claude/skills/rubycritic",
+  "github_branch": "main"
 }

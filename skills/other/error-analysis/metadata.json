@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:33:37.509412Z",
   "dir_name": "error-analysis",
   "category": "other",
-  "github_path": ".claude/skills/error-analysis"
+  "github_path": ".claude/skills/error-analysis",
+  "github_branch": "main"
 }

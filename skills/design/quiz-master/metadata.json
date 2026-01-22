@@ -8,5 +8,6 @@
     "master"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quiz-master"
+  "github_path": ".claude/skills/quiz-master",
+  "github_branch": "main"
 }

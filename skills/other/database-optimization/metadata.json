@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:20:55.511013Z",
   "dir_name": "database-optimization",
   "category": "other",
-  "github_path": ".claude/skills/database-optimization"
+  "github_path": ".claude/skills/database-optimization",
+  "github_branch": "main"
 }

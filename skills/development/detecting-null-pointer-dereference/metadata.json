@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/detecting-null-pointer-dereference"
+  "github_path": ".claude/skills/detecting-null-pointer-dereference",
+  "github_branch": "main"
 }

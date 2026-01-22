@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:55.277648Z",
   "dir_name": "anti-duplication",
   "category": "other",
-  "github_path": ".claude/skills/anti-duplication"
+  "github_path": ".claude/skills/anti-duplication",
+  "github_branch": "main"
 }

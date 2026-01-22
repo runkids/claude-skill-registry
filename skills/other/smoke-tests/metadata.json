@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:54:13.488875Z",
   "dir_name": "smoke-tests",
   "category": "other",
-  "github_path": ".claude/skills/smoke-tests"
+  "github_path": ".claude/skills/smoke-tests",
+  "github_branch": "main"
 }

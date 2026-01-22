@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:23.362460Z",
   "dir_name": "master-index-updater",
   "category": "other",
-  "github_path": ".claude/skills/master-index-updater"
+  "github_path": ".claude/skills/master-index-updater",
+  "github_branch": "main"
 }

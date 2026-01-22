@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effect-patterns-hub"
+  "github_path": ".claude/skills/effect-patterns-hub",
+  "github_branch": "main"
 }

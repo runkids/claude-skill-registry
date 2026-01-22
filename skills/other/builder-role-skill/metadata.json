@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:17.113305Z",
   "dir_name": "builder-role-skill",
   "category": "other",
-  "github_path": ".claude/skills/builder-role-skill"
+  "github_path": ".claude/skills/builder-role-skill",
+  "github_branch": "main"
 }

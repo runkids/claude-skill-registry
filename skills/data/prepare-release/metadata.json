@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "dir_name": "prepare-release",
-  "github_path": ".claude/skills/prepare-release"
+  "github_path": ".claude/skills/prepare-release",
+  "github_branch": "main"
 }

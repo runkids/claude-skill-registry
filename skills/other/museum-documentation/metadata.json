@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:01.542711Z",
   "dir_name": "museum-documentation",
   "category": "other",
-  "github_path": ".claude/skills/museum-documentation"
+  "github_path": ".claude/skills/museum-documentation",
+  "github_branch": "main"
 }

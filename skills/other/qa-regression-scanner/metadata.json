@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:40.627956Z",
   "dir_name": "qa-regression-scanner",
   "category": "other",
-  "github_path": ".claude/skills/qa-regression-scanner"
+  "github_path": ".claude/skills/qa-regression-scanner",
+  "github_branch": "main"
 }

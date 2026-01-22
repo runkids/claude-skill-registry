@@ -8,5 +8,6 @@
   ],
   "stars": 485,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effective-go"
+  "github_path": ".claude/skills/effective-go",
+  "github_branch": "main"
 }

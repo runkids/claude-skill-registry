@@ -8,5 +8,6 @@
     "playing"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/role-playing"
+  "github_path": ".claude/skills/role-playing",
+  "github_branch": "main"
 }

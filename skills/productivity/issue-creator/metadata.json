@@ -8,5 +8,6 @@
     "creator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/issue-creator"
+  "github_path": ".claude/skills/issue-creator",
+  "github_branch": "main"
 }

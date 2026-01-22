@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T04:14:41.939045Z",
   "dir_name": "webhook",
   "category": "other",
-  "github_path": ".claude/skills/webhook"
+  "github_path": ".claude/skills/webhook",
+  "github_branch": "main"
 }

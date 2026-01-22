@@ -10,5 +10,6 @@
   ],
   "stars": 38,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/canvas-morning-check"
+  "github_path": ".claude/skills/canvas-morning-check",
+  "github_branch": "main"
 }

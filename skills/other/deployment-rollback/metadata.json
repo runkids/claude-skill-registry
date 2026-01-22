@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:56.101461Z",
   "dir_name": "deployment-rollback",
   "category": "other",
-  "github_path": ".claude/skills/deployment-rollback"
+  "github_path": ".claude/skills/deployment-rollback",
+  "github_branch": "main"
 }

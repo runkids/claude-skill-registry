@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:52.128335Z",
   "dir_name": "snd-references",
   "category": "other",
-  "github_path": ".claude/skills/snd-references"
+  "github_path": ".claude/skills/snd-references",
+  "github_branch": "main"
 }

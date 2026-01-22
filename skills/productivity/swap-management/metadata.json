@@ -8,5 +8,6 @@
     "management"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/swap-management"
+  "github_path": ".claude/skills/swap-management",
+  "github_branch": "main"
 }

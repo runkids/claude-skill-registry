@@ -9,5 +9,6 @@
     "abstraction"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/reviewing-platform-abstraction"
+  "github_path": ".claude/skills/reviewing-platform-abstraction",
+  "github_branch": "main"
 }

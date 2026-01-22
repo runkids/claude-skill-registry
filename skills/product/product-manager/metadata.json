@@ -8,5 +8,6 @@
     "manager"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/product-manager"
+  "github_path": ".claude/skills/product-manager",
+  "github_branch": "main"
 }

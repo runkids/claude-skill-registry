@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:16.096413Z",
   "dir_name": "commit-coauthor",
   "category": "other",
-  "github_path": ".claude/skills/commit-coauthor"
+  "github_path": ".claude/skills/commit-coauthor",
+  "github_branch": "main"
 }

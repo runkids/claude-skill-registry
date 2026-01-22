@@ -11,5 +11,6 @@
   ],
   "stars": 103,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/n8n-trigger-testing-strategies"
+  "github_path": ".claude/skills/n8n-trigger-testing-strategies",
+  "github_branch": "main"
 }

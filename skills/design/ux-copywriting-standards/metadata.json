@@ -8,5 +8,6 @@
     "standards"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ux-copywriting-standards"
+  "github_path": ".claude/skills/ux-copywriting-standards",
+  "github_branch": "main"
 }

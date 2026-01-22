@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:13.128924Z",
   "dir_name": "build-run-local",
   "category": "other",
-  "github_path": ".claude/skills/build-run-local"
+  "github_path": ".claude/skills/build-run-local",
+  "github_branch": "main"
 }

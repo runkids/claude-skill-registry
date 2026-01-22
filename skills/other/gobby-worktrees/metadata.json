@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:37:11.870678Z",
   "dir_name": "gobby-worktrees",
   "category": "other",
-  "github_path": ".claude/skills/gobby-worktrees"
+  "github_path": ".claude/skills/gobby-worktrees",
+  "github_branch": "main"
 }

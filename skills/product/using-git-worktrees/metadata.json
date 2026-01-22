@@ -10,5 +10,6 @@
   ],
   "stars": 12395,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/using-git-worktrees"
+  "github_path": "skills/using-git-worktrees",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:48:30.974987Z",
   "dir_name": "perplexity-sonar",
   "category": "other",
-  "github_path": ".claude/skills/perplexity-sonar"
+  "github_path": ".claude/skills/perplexity-sonar",
+  "github_branch": "main"
 }

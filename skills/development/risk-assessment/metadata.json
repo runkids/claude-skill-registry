@@ -8,5 +8,6 @@
     "assessment"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/risk-assessment"
+  "github_path": ".claude/skills/risk-assessment",
+  "github_branch": "main"
 }

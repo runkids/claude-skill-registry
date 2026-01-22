@@ -9,5 +9,6 @@
     "todos"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/manage-plan-todos"
+  "github_path": ".claude/skills/manage-plan-todos",
+  "github_branch": "main"
 }

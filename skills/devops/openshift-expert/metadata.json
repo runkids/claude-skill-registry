@@ -8,5 +8,6 @@
     "expert"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/openshift-expert"
+  "github_path": ".claude/skills/openshift-expert",
+  "github_branch": "main"
 }

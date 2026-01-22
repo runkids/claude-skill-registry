@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:31.143112Z",
   "dir_name": "np",
   "category": "other",
-  "github_path": ".claude/skills/np"
+  "github_path": ".claude/skills/np",
+  "github_branch": "main"
 }

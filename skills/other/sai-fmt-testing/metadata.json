@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:22:02.601325Z",
   "dir_name": "sai-fmt-testing",
   "category": "other",
-  "github_path": ".claude/skills/sai-fmt-testing"
+  "github_path": ".claude/skills/sai-fmt-testing",
+  "github_branch": "main"
 }

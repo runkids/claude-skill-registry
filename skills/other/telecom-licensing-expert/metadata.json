@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:37.508083Z",
   "dir_name": "telecom-licensing-expert",
   "category": "other",
-  "github_path": ".claude/skills/telecom-licensing-expert"
+  "github_path": ".claude/skills/telecom-licensing-expert",
+  "github_branch": "main"
 }

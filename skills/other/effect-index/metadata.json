@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:17.679852Z",
   "dir_name": "effect-index",
   "category": "other",
-  "github_path": ".claude/skills/effect-index"
+  "github_path": ".claude/skills/effect-index",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:17.589235Z",
   "dir_name": "control-loop-extraction",
   "category": "other",
-  "github_path": ".claude/skills/control-loop-extraction"
+  "github_path": ".claude/skills/control-loop-extraction",
+  "github_branch": "main"
 }

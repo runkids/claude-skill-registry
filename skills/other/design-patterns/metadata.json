@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:35:47.145353Z",
   "dir_name": "design-patterns",
   "category": "other",
-  "github_path": ".claude/skills/design-patterns"
+  "github_path": ".claude/skills/design-patterns",
+  "github_branch": "main"
 }

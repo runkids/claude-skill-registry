@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/devops-bestays-infra"
+  "github_path": ".claude/skills/devops-bestays-infra",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "security"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/global-security"
+  "github_path": ".claude/skills/global-security",
+  "github_branch": "main"
 }

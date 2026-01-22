@@ -8,5 +8,6 @@
   ],
   "stars": 85,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/auth"
+  "github_path": "skills/auth",
+  "github_branch": "main"
 }

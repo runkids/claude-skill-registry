@@ -8,5 +8,6 @@
     "writing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mmd-writing"
+  "github_path": ".claude/skills/mmd-writing",
+  "github_branch": "main"
 }

@@ -5,5 +5,6 @@
   "description": "Scan and replace Chinese content in project files with English, preserving code logic and original formatting.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:16.532962Z",
-  "github_path": ".claude/skills/translate-cn-to-en"
+  "github_path": ".claude/skills/translate-cn-to-en",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "forms"
   ],
   "stars": 21,
-  "github_path": ".claude/skills/signal-forms"
+  "github_path": ".claude/skills/signal-forms",
+  "github_branch": "main"
 }

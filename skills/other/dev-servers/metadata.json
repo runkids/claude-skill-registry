@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:22.810733Z",
   "dir_name": "dev-servers",
   "category": "other",
-  "github_path": ".claude/skills/dev-servers"
+  "github_path": ".claude/skills/dev-servers",
+  "github_branch": "main"
 }

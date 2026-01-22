@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:33.152986Z",
   "dir_name": "research-agent",
   "category": "other",
-  "github_path": ".claude/skills/research-agent"
+  "github_path": ".claude/skills/research-agent",
+  "github_branch": "main"
 }

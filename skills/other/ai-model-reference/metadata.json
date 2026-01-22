@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:14:52.119045Z",
   "dir_name": "ai-model-reference",
   "category": "other",
-  "github_path": ".claude/skills/ai-model-reference"
+  "github_path": ".claude/skills/ai-model-reference",
+  "github_branch": "main"
 }

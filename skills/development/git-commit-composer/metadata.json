@@ -9,5 +9,6 @@
     "composer"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/git-commit-composer"
+  "github_path": ".claude/skills/git-commit-composer",
+  "github_branch": "main"
 }

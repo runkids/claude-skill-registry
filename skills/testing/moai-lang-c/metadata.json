@@ -8,5 +8,6 @@
     "lang"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-lang-c"
+  "github_path": ".claude/skills/moai-lang-c",
+  "github_branch": "main"
 }

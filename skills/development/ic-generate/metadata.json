@@ -7,5 +7,6 @@
     "generate"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ic-generate"
+  "github_path": ".claude/skills/ic-generate",
+  "github_branch": "main"
 }

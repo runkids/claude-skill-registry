@@ -9,5 +9,6 @@
     "docs"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/github-pages-docs"
+  "github_path": ".claude/skills/github-pages-docs",
+  "github_branch": "main"
 }

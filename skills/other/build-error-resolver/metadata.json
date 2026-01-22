@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:01.529592Z",
   "dir_name": "build-error-resolver",
   "category": "other",
-  "github_path": ".claude/skills/build-error-resolver"
+  "github_path": ".claude/skills/build-error-resolver",
+  "github_branch": "main"
 }

@@ -5,5 +5,6 @@
   "description": "Agent logs, reasoning, and token tracking. Use when logging interactions, saving reasoning, tracking tokens, or managing events.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:20.612777Z",
-  "github_path": ".claude/skills/bazinga-db-agents"
+  "github_path": ".claude/skills/bazinga-db-agents",
+  "github_branch": "main"
 }

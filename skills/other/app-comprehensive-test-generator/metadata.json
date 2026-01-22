@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:33:37.680763Z",
   "dir_name": "app-comprehensive-test-generator",
   "category": "other",
-  "github_path": ".claude/skills/app-comprehensive-test-generator"
+  "github_path": ".claude/skills/app-comprehensive-test-generator",
+  "github_branch": "main"
 }

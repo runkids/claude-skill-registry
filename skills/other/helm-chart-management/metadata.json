@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:10.757679Z",
   "dir_name": "helm-chart-management",
   "category": "other",
-  "github_path": ".claude/skills/helm-chart-management"
+  "github_path": ".claude/skills/helm-chart-management",
+  "github_branch": "main"
 }

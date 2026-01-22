@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:00.614923Z",
   "dir_name": "docker-workflows",
   "category": "other",
-  "github_path": ".claude/skills/docker-workflows"
+  "github_path": ".claude/skills/docker-workflows",
+  "github_branch": "main"
 }

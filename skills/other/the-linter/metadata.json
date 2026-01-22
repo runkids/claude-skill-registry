@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:55:16.497334Z",
   "dir_name": "the-linter",
   "category": "other",
-  "github_path": ".claude/skills/the-linter"
+  "github_path": ".claude/skills/the-linter",
+  "github_branch": "main"
 }

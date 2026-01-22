@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:16:27.794513Z",
   "dir_name": "path-finder",
   "category": "other",
-  "github_path": ".claude/skills/path-finder"
+  "github_path": ".claude/skills/path-finder",
+  "github_branch": "main"
 }

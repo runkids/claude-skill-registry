@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:55.503191Z",
   "dir_name": "ai-structured-output",
   "category": "other",
-  "github_path": ".claude/skills/ai-structured-output"
+  "github_path": ".claude/skills/ai-structured-output",
+  "github_branch": "main"
 }

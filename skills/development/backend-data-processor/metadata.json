@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/backend-data-processor"
+  "github_path": ".claude/skills/backend-data-processor",
+  "github_branch": "main"
 }

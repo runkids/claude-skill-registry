@@ -8,5 +8,6 @@
     "advisor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ui-ux-design-advisor"
+  "github_path": ".claude/skills/ui-ux-design-advisor",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/blog-repurposer"
+  "github_path": ".claude/skills/blog-repurposer",
+  "github_branch": "main"
 }

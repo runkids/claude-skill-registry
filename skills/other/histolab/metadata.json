@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:44.892118Z",
   "dir_name": "histolab",
   "category": "other",
-  "github_path": ".claude/skills/histolab"
+  "github_path": ".claude/skills/histolab",
+  "github_branch": "main"
 }

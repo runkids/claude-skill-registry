@@ -10,5 +10,6 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-inspect-task"
+  "github_path": ".claude/skills/create-inspect-task",
+  "github_branch": "main"
 }

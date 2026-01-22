@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "fsharp-validation",
-  "github_path": ".claude/skills/fsharp-validation"
+  "github_path": ".claude/skills/fsharp-validation",
+  "github_branch": "main"
 }

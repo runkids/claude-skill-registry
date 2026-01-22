@@ -8,5 +8,6 @@
     "developer"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/rust-developer"
+  "github_path": ".claude/skills/rust-developer",
+  "github_branch": "main"
 }

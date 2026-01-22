@@ -8,5 +8,6 @@
     "commits"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/conventional-commits"
+  "github_path": ".claude/skills/conventional-commits",
+  "github_branch": "main"
 }

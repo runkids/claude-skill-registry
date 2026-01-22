@@ -9,5 +9,6 @@
     "deployment"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/lxc-service-deployment"
+  "github_path": ".claude/skills/lxc-service-deployment",
+  "github_branch": "main"
 }

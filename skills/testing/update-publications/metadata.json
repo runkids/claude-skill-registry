@@ -8,5 +8,6 @@
     "publications"
   ],
   "stars": 31,
-  "github_path": ".claude/skills/update-publications"
+  "github_path": ".claude/skills/update-publications",
+  "github_branch": "main"
 }

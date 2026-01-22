@@ -7,5 +7,6 @@
     "telegram"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/telegram"
+  "github_path": ".claude/skills/telegram",
+  "github_branch": "main"
 }

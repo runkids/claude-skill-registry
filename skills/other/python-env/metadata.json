@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:58.086631Z",
   "dir_name": "python-env",
   "category": "other",
-  "github_path": ".claude/skills/python-env"
+  "github_path": ".claude/skills/python-env",
+  "github_branch": "main"
 }

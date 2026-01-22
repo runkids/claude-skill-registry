@@ -10,5 +10,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/documentation-sync-specialist"
+  "github_path": ".claude/skills/documentation-sync-specialist",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:31:32.738730Z",
   "dir_name": "dojo-transactions",
   "category": "other",
-  "github_path": ".claude/skills/dojo-transactions"
+  "github_path": ".claude/skills/dojo-transactions",
+  "github_branch": "main"
 }

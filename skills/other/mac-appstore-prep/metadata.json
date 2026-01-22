@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:01:55.482767Z",
   "dir_name": "mac-appstore-prep",
   "category": "other",
-  "github_path": ".claude/skills/mac-appstore-prep"
+  "github_path": ".claude/skills/mac-appstore-prep",
+  "github_branch": "main"
 }

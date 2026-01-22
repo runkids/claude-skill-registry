@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:10.034818Z",
   "dir_name": "k8s-security",
   "category": "other",
-  "github_path": ".claude/skills/k8s-security"
+  "github_path": ".claude/skills/k8s-security",
+  "github_branch": "main"
 }

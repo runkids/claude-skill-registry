@@ -8,5 +8,6 @@
     "config"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/tailwind-config"
+  "github_path": ".claude/skills/tailwind-config",
+  "github_branch": "main"
 }

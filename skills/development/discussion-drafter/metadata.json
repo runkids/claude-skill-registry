@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/discussion-drafter"
+  "github_path": ".claude/skills/discussion-drafter",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "phase"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/production-deployment-phase"
+  "github_path": ".claude/skills/production-deployment-phase",
+  "github_branch": "main"
 }

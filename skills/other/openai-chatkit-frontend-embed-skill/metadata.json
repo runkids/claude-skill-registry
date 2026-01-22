@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:01:59.100146Z",
   "dir_name": "openai-chatkit-frontend-embed-skill",
   "category": "other",
-  "github_path": ".claude/skills/openai-chatkit-frontend-embed-skill"
+  "github_path": ".claude/skills/openai-chatkit-frontend-embed-skill",
+  "github_branch": "main"
 }

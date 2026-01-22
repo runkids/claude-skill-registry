@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:34.964324Z",
   "dir_name": "write-e2e-tests",
   "category": "other",
-  "github_path": ".claude/skills/write-e2e-tests"
+  "github_path": ".claude/skills/write-e2e-tests",
+  "github_branch": "main"
 }

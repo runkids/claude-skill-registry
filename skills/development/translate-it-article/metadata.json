@@ -8,5 +8,6 @@
     "article"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/translate-it-article"
+  "github_path": ".claude/skills/translate-it-article",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:53:13.664322Z",
   "dir_name": "bmad-security-review",
   "category": "other",
-  "github_path": ".claude/skills/bmad-security-review"
+  "github_path": ".claude/skills/bmad-security-review",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:49.486972Z",
   "dir_name": "flow-nexus-platform",
   "category": "other",
-  "github_path": ".claude/skills/flow-nexus-platform"
+  "github_path": ".claude/skills/flow-nexus-platform",
+  "github_branch": "main"
 }

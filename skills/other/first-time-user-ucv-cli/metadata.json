@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:46.005387Z",
   "dir_name": "first-time-user-ucv-cli",
   "category": "other",
-  "github_path": ".claude/skills/first-time-user-ucv-cli"
+  "github_path": ".claude/skills/first-time-user-ucv-cli",
+  "github_branch": "main"
 }

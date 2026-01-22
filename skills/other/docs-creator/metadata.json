@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:09.035540Z",
   "dir_name": "docs-creator",
   "category": "other",
-  "github_path": ".claude/skills/docs-creator"
+  "github_path": ".claude/skills/docs-creator",
+  "github_branch": "main"
 }

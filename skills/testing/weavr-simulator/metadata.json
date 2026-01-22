@@ -8,5 +8,6 @@
     "simulator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/weavr-simulator"
+  "github_path": ".claude/skills/weavr-simulator",
+  "github_branch": "main"
 }

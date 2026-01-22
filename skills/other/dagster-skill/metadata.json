@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:19:23.375174Z",
   "dir_name": "dagster-skill",
   "category": "other",
-  "github_path": ".claude/skills/dagster-skill"
+  "github_path": ".claude/skills/dagster-skill",
+  "github_branch": "main"
 }

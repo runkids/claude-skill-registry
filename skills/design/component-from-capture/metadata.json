@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/component-from-capture"
+  "github_path": ".claude/skills/component-from-capture",
+  "github_branch": "main"
 }

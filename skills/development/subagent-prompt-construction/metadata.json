@@ -9,5 +9,6 @@
     "construction"
   ],
   "stars": 15,
-  "github_path": ".claude/skills/subagent-prompt-construction"
+  "github_path": ".claude/skills/subagent-prompt-construction",
+  "github_branch": "main"
 }

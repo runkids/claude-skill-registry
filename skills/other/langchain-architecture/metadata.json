@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:15.430862Z",
   "dir_name": "langchain-architecture",
   "category": "other",
-  "github_path": ".claude/skills/langchain-architecture"
+  "github_path": ".claude/skills/langchain-architecture",
+  "github_branch": "main"
 }

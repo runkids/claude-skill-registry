@@ -11,5 +11,6 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/default-and-remedies-advisor"
+  "github_path": ".claude/skills/default-and-remedies-advisor",
+  "github_branch": "main"
 }

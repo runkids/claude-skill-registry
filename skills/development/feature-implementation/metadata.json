@@ -8,5 +8,6 @@
     "implementation"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/feature-implementation"
+  "github_path": ".claude/skills/feature-implementation",
+  "github_branch": "main"
 }

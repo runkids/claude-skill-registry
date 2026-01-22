@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:23:08.434524Z",
   "dir_name": "domain-assessment",
   "category": "other",
-  "github_path": ".claude/skills/domain-assessment"
+  "github_path": ".claude/skills/domain-assessment",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "guard"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/phoenix-precision-guard"
+  "github_path": ".claude/skills/phoenix-precision-guard",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "timezone"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/timezone"
+  "github_path": ".claude/skills/timezone",
+  "github_branch": "main"
 }

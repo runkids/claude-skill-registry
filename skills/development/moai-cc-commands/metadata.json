@@ -8,5 +8,6 @@
     "commands"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-cc-commands"
+  "github_path": ".claude/skills/moai-cc-commands",
+  "github_branch": "main"
 }

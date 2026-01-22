@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:45:47.168263Z",
   "dir_name": "pytorch-to-triton",
   "category": "other",
-  "github_path": ".claude/skills/pytorch-to-triton"
+  "github_path": ".claude/skills/pytorch-to-triton",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ci-automation"
+  "github_path": ".claude/skills/ci-automation",
+  "github_branch": "main"
 }

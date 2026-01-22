@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:13:43.087114Z",
   "dir_name": "bash-style",
   "category": "other",
-  "github_path": ".claude/skills/bash-style"
+  "github_path": ".claude/skills/bash-style",
+  "github_branch": "main"
 }

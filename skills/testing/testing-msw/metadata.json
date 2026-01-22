@@ -8,5 +8,6 @@
     "msw"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/testing-msw"
+  "github_path": ".claude/skills/testing-msw",
+  "github_branch": "main"
 }

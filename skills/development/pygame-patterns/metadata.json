@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pygame-patterns"
+  "github_path": ".claude/skills/pygame-patterns",
+  "github_branch": "main"
 }

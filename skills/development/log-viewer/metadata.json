@@ -8,5 +8,6 @@
     "viewer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/log-viewer"
+  "github_path": ".claude/skills/log-viewer",
+  "github_branch": "main"
 }

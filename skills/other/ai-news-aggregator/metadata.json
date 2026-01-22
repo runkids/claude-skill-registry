@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:27.746786Z",
   "dir_name": "ai-news-aggregator",
   "category": "other",
-  "github_path": ".claude/skills/ai-news-aggregator"
+  "github_path": ".claude/skills/ai-news-aggregator",
+  "github_branch": "main"
 }

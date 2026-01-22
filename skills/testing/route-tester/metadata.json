@@ -9,5 +9,6 @@
   ],
   "stars": 6654,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/route-tester"
+  "github_path": ".claude/skills/route-tester",
+  "github_branch": "main"
 }

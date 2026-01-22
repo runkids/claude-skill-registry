@@ -8,5 +8,6 @@
     "synthesis"
   ],
   "stars": 43,
-  "github_path": ".claude/skills/research-synthesis"
+  "github_path": ".claude/skills/research-synthesis",
+  "github_branch": "main"
 }

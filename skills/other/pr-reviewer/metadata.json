@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:53.364480Z",
   "dir_name": "pr-reviewer",
   "category": "other",
-  "github_path": ".claude/skills/pr-reviewer"
+  "github_path": ".claude/skills/pr-reviewer",
+  "github_branch": "main"
 }

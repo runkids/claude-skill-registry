@@ -8,5 +8,6 @@
     "review"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/weekly-review"
+  "github_path": ".claude/skills/weekly-review",
+  "github_branch": "main"
 }

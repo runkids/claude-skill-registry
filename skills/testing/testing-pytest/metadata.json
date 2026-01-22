@@ -8,5 +8,6 @@
     "pytest"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-pytest"
+  "github_path": ".claude/skills/testing-pytest",
+  "github_branch": "main"
 }

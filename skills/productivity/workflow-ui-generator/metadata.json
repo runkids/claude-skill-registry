@@ -8,5 +8,6 @@
     "generator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/workflow-ui-generator"
+  "github_path": ".claude/skills/workflow-ui-generator",
+  "github_branch": "main"
 }

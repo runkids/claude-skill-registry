@@ -8,5 +8,6 @@
     "discover"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/music-discover"
+  "github_path": ".claude/skills/music-discover",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:05:58.888910Z",
   "dir_name": "logic-master",
   "category": "other",
-  "github_path": ".claude/skills/logic-master"
+  "github_path": ".claude/skills/logic-master",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
     "window"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/uloop-capture-unity-window"
+  "github_path": ".claude/skills/uloop-capture-unity-window",
+  "github_branch": "main"
 }

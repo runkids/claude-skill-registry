@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:10:13.434673Z",
   "dir_name": "lc-submit",
   "category": "other",
-  "github_path": ".claude/skills/lc-submit"
+  "github_path": ".claude/skills/lc-submit",
+  "github_branch": "main"
 }

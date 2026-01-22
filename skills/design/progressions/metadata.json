@@ -7,5 +7,6 @@
     "progressions"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/progressions"
+  "github_path": ".claude/skills/progressions",
+  "github_branch": "main"
 }

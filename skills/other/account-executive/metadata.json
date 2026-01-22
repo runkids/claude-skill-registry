@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:02.960598Z",
   "dir_name": "account-executive",
   "category": "other",
-  "github_path": ".claude/skills/account-executive"
+  "github_path": ".claude/skills/account-executive",
+  "github_branch": "main"
 }

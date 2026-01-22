@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:30.723080Z",
   "dir_name": "skill-find",
   "category": "other",
-  "github_path": ".claude/skills/skill-find"
+  "github_path": ".claude/skills/skill-find",
+  "github_branch": "main"
 }

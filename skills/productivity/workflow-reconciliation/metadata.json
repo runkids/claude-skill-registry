@@ -8,5 +8,6 @@
     "reconciliation"
   ],
   "stars": 47,
-  "github_path": ".claude/skills/workflow-reconciliation"
+  "github_path": ".claude/skills/workflow-reconciliation",
+  "github_branch": "main"
 }

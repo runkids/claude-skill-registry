@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:41:31.210693Z",
   "dir_name": "summary-generator",
   "category": "other",
-  "github_path": ".claude/skills/summary-generator"
+  "github_path": ".claude/skills/summary-generator",
+  "github_branch": "main"
 }

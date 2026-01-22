@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:45:49.702487Z",
   "dir_name": "render-page",
   "category": "other",
-  "github_path": ".claude/skills/render-page"
+  "github_path": ".claude/skills/render-page",
+  "github_branch": "main"
 }

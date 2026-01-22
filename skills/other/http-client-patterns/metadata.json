@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:58.264823Z",
   "dir_name": "http-client-patterns",
   "category": "other",
-  "github_path": ".claude/skills/http-client-patterns"
+  "github_path": ".claude/skills/http-client-patterns",
+  "github_branch": "main"
 }

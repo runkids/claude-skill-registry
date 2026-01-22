@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:45.079844Z",
   "dir_name": "project-mngt",
   "category": "other",
-  "github_path": ".claude/skills/project-mngt"
+  "github_path": ".claude/skills/project-mngt",
+  "github_branch": "main"
 }

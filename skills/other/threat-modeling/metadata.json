@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:17:14.688120Z",
   "dir_name": "threat-modeling",
   "category": "other",
-  "github_path": ".claude/skills/threat-modeling"
+  "github_path": ".claude/skills/threat-modeling",
+  "github_branch": "main"
 }

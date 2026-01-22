@@ -10,5 +10,6 @@
     "tool"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-domain-cli-tool"
+  "github_path": ".claude/skills/moai-domain-cli-tool",
+  "github_branch": "main"
 }

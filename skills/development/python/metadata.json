@@ -7,5 +7,6 @@
     "python"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/python"
+  "github_path": ".claude/skills/python",
+  "github_branch": "main"
 }

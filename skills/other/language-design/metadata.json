@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:53:13.671919Z",
   "dir_name": "language-design",
   "category": "other",
-  "github_path": ".claude/skills/language-design"
+  "github_path": ".claude/skills/language-design",
+  "github_branch": "main"
 }

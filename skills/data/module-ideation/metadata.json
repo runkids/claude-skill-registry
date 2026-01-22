@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "module-ideation",
-  "github_path": ".claude/skills/module-ideation"
+  "github_path": ".claude/skills/module-ideation",
+  "github_branch": "main"
 }

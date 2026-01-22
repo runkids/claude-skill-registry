@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:56.604481Z",
   "dir_name": "cfn-mdap-context-injection",
   "category": "other",
-  "github_path": ".claude/skills/cfn-mdap-context-injection"
+  "github_path": ".claude/skills/cfn-mdap-context-injection",
+  "github_branch": "main"
 }

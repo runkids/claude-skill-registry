@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:16.925446Z",
   "dir_name": "codebase-mapping",
   "category": "other",
-  "github_path": ".claude/skills/codebase-mapping"
+  "github_path": ".claude/skills/codebase-mapping",
+  "github_branch": "main"
 }

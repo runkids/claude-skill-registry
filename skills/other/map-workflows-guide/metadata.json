@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:13:06.736548Z",
   "dir_name": "map-workflows-guide",
   "category": "other",
-  "github_path": ".claude/skills/map-workflows-guide"
+  "github_path": ".claude/skills/map-workflows-guide",
+  "github_branch": "main"
 }

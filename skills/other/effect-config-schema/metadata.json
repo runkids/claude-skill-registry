@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:17.822456Z",
   "dir_name": "effect-config-schema",
   "category": "other",
-  "github_path": ".claude/skills/effect-config-schema"
+  "github_path": ".claude/skills/effect-config-schema",
+  "github_branch": "main"
 }

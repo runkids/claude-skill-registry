@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:03.652310Z",
   "dir_name": "reframe",
   "category": "other",
-  "github_path": ".claude/skills/reframe"
+  "github_path": ".claude/skills/reframe",
+  "github_branch": "main"
 }

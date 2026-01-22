@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/vue-patterns"
+  "github_path": ".claude/skills/vue-patterns",
+  "github_branch": "main"
 }

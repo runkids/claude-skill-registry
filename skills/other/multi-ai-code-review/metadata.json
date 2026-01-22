@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:12.095454Z",
   "dir_name": "multi-ai-code-review",
   "category": "other",
-  "github_path": ".claude/skills/multi-ai-code-review"
+  "github_path": ".claude/skills/multi-ai-code-review",
+  "github_branch": "main"
 }

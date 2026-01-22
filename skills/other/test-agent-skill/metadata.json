@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:41.824124Z",
   "dir_name": "test-agent-skill",
   "category": "other",
-  "github_path": ".claude/skills/test-agent-skill"
+  "github_path": ".claude/skills/test-agent-skill",
+  "github_branch": "main"
 }

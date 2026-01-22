@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:06.316024Z",
   "dir_name": "learned",
   "category": "other",
-  "github_path": ".claude/skills/learned"
+  "github_path": ".claude/skills/learned",
+  "github_branch": "main"
 }

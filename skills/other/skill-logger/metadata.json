@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:58.097123Z",
   "dir_name": "skill-logger",
   "category": "other",
-  "github_path": ".claude/skills/skill-logger"
+  "github_path": ".claude/skills/skill-logger",
+  "github_branch": "main"
 }

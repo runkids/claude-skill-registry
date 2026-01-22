@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:54.403991Z",
   "dir_name": "terraform-state-recovery",
   "category": "other",
-  "github_path": ".claude/skills/terraform-state-recovery"
+  "github_path": ".claude/skills/terraform-state-recovery",
+  "github_branch": "main"
 }

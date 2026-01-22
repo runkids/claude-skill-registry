@@ -9,5 +9,6 @@
     "plan"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/refactor-git-plan"
+  "github_path": ".claude/skills/refactor-git-plan",
+  "github_branch": "main"
 }

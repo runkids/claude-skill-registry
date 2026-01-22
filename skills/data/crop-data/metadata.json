@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "crop-data",
-  "github_path": ".claude/skills/crop-data"
+  "github_path": ".claude/skills/crop-data",
+  "github_branch": "main"
 }

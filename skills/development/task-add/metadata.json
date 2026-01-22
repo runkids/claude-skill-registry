@@ -8,5 +8,6 @@
     "add"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/task-add"
+  "github_path": ".claude/skills/task-add",
+  "github_branch": "main"
 }

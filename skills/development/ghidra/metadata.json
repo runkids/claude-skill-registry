@@ -8,5 +8,6 @@
   ],
   "stars": 512,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/ghidra"
+  "github_path": "skills/ghidra",
+  "github_branch": "main"
 }

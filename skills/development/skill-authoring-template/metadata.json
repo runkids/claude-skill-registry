@@ -9,5 +9,6 @@
     "template"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/skill-authoring-template"
+  "github_path": ".claude/skills/skill-authoring-template",
+  "github_branch": "main"
 }

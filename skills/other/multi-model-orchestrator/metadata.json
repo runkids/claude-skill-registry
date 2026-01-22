@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:55:44.868769Z",
   "dir_name": "multi-model-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/multi-model-orchestrator"
+  "github_path": ".claude/skills/multi-model-orchestrator",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "generator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/therapy-content-generator"
+  "github_path": ".claude/skills/therapy-content-generator",
+  "github_branch": "main"
 }

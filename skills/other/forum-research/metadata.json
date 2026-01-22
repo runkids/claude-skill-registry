@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:43:44.484886Z",
   "dir_name": "forum-research",
   "category": "other",
-  "github_path": ".claude/skills/forum-research"
+  "github_path": ".claude/skills/forum-research",
+  "github_branch": "main"
 }

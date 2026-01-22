@@ -9,5 +9,6 @@
   ],
   "stars": 32,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ab-testing-analyzer"
+  "github_path": ".claude/skills/ab-testing-analyzer",
+  "github_branch": "main"
 }

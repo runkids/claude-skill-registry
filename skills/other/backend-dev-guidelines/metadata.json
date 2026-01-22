@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:35:47.498766Z",
   "dir_name": "backend-dev-guidelines",
   "category": "other",
-  "github_path": ".claude/skills/backend-dev-guidelines"
+  "github_path": ".claude/skills/backend-dev-guidelines",
+  "github_branch": "main"
 }

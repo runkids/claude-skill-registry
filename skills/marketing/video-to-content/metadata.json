@@ -8,5 +8,6 @@
     "content"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/video-to-content"
+  "github_path": ".claude/skills/video-to-content",
+  "github_branch": "main"
 }

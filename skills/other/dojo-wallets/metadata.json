@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:31:32.583334Z",
   "dir_name": "dojo-wallets",
   "category": "other",
-  "github_path": ".claude/skills/dojo-wallets"
+  "github_path": ".claude/skills/dojo-wallets",
+  "github_branch": "main"
 }

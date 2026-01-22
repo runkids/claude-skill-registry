@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:57.626616Z",
   "dir_name": "doc-convert-pandoc",
   "category": "other",
-  "github_path": ".claude/skills/doc-convert-pandoc"
+  "github_path": ".claude/skills/doc-convert-pandoc",
+  "github_branch": "main"
 }

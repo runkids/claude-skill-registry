@@ -10,5 +10,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dotnet-cli-essentials"
+  "github_path": ".claude/skills/dotnet-cli-essentials",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "testing"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/websocket-integration-testing"
+  "github_path": ".claude/skills/websocket-integration-testing",
+  "github_branch": "main"
 }

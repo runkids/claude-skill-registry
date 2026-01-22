@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:06:47.226647Z",
   "dir_name": "structured-errors",
   "category": "other",
-  "github_path": ".claude/skills/structured-errors"
+  "github_path": ".claude/skills/structured-errors",
+  "github_branch": "main"
 }

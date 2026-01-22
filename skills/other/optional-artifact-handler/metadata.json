@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:07.177249Z",
   "dir_name": "optional-artifact-handler",
   "category": "other",
-  "github_path": ".claude/skills/optional-artifact-handler"
+  "github_path": ".claude/skills/optional-artifact-handler",
+  "github_branch": "main"
 }

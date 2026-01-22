@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:48.889682Z",
   "dir_name": "novelist-analyst",
   "category": "other",
-  "github_path": ".claude/skills/novelist-analyst"
+  "github_path": ".claude/skills/novelist-analyst",
+  "github_branch": "main"
 }

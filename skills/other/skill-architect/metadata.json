@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:58.566178Z",
   "dir_name": "skill-architect",
   "category": "other",
-  "github_path": ".claude/skills/skill-architect"
+  "github_path": ".claude/skills/skill-architect",
+  "github_branch": "main"
 }

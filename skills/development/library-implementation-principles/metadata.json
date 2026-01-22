@@ -9,5 +9,6 @@
     "principles"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/library-implementation-principles"
+  "github_path": ".claude/skills/library-implementation-principles",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "rag"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ollama-rag"
+  "github_path": ".claude/skills/ollama-rag",
+  "github_branch": "main"
 }

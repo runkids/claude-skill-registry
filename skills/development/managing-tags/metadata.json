@@ -5,5 +5,6 @@
   "description": "Manage and consolidate tags. Use when asked to \"clean up tags\", \"consolidate tags\", \"tag audit\", \"merge tags\", or \"rename tag\".",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:50.350543Z",
-  "github_path": ".claude/skills/managing-tags"
+  "github_path": ".claude/skills/managing-tags",
+  "github_branch": "main"
 }

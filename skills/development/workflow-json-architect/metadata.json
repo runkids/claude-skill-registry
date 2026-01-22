@@ -9,5 +9,6 @@
     "architect"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/workflow-json-architect"
+  "github_path": ".claude/skills/workflow-json-architect",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:08.256941Z",
   "dir_name": "analysis",
   "category": "other",
-  "github_path": ".claude/skills/analysis"
+  "github_path": ".claude/skills/analysis",
+  "github_branch": "main"
 }

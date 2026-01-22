@@ -11,5 +11,6 @@
   "stars": 3,
   "source": "SkillsMP Synced Skills",
   "dir_name": "dutch-law-downloader",
-  "github_path": ".claude/skills/dutch-law-downloader"
+  "github_path": ".claude/skills/dutch-law-downloader",
+  "github_branch": "main"
 }

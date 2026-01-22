@@ -8,5 +8,6 @@
     "sop"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/linear-sop"
+  "github_path": ".claude/skills/linear-sop",
+  "github_branch": "main"
 }

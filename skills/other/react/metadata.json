@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:14:25.854863Z",
   "dir_name": "react",
   "category": "other",
-  "github_path": ".claude/skills/react"
+  "github_path": ".claude/skills/react",
+  "github_branch": "main"
 }

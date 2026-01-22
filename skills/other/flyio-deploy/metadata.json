@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:12.978876Z",
   "dir_name": "flyio-deploy",
   "category": "other",
-  "github_path": ".claude/skills/flyio-deploy"
+  "github_path": ".claude/skills/flyio-deploy",
+  "github_branch": "main"
 }

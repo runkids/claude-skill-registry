@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:17.642213Z",
   "dir_name": "fastapi",
   "category": "other",
-  "github_path": ".claude/skills/fastapi"
+  "github_path": ".claude/skills/fastapi",
+  "github_branch": "main"
 }

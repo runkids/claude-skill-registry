@@ -8,5 +8,6 @@
     "engineer"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/patch-engineer"
+  "github_path": ".claude/skills/patch-engineer",
+  "github_branch": "main"
 }

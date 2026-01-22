@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:13.025552Z",
   "dir_name": "ac-parallel-coordinator",
   "category": "other",
-  "github_path": ".claude/skills/ac-parallel-coordinator"
+  "github_path": ".claude/skills/ac-parallel-coordinator",
+  "github_branch": "main"
 }

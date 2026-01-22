@@ -8,5 +8,6 @@
     "control"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/solver-control"
+  "github_path": ".claude/skills/solver-control",
+  "github_branch": "main"
 }

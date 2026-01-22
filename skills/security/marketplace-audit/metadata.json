@@ -8,5 +8,6 @@
     "audit"
   ],
   "stars": 31,
-  "github_path": ".claude/skills/marketplace-audit"
+  "github_path": ".claude/skills/marketplace-audit",
+  "github_branch": "main"
 }

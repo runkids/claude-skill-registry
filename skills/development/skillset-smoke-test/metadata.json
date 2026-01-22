@@ -9,5 +9,6 @@
     "test"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/skillset-smoke-test"
+  "github_path": ".claude/skills/skillset-smoke-test",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 57,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/testing-anti-patterns"
+  "github_path": ".claude/skills/testing-anti-patterns",
+  "github_branch": "main"
 }

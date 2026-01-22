@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:48.098098Z",
   "dir_name": "remote-work",
   "category": "other",
-  "github_path": ".claude/skills/remote-work"
+  "github_path": ".claude/skills/remote-work",
+  "github_branch": "main"
 }

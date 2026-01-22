@@ -7,5 +7,6 @@
     "linkedin"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/linkedin"
+  "github_path": ".claude/skills/linkedin",
+  "github_branch": "main"
 }

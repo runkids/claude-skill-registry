@@ -10,5 +10,6 @@
     "expert"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/real-options-valuation-expert"
+  "github_path": ".claude/skills/real-options-valuation-expert",
+  "github_branch": "main"
 }

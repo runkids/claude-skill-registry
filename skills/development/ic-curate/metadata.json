@@ -7,5 +7,6 @@
     "curate"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ic-curate"
+  "github_path": ".claude/skills/ic-curate",
+  "github_branch": "main"
 }

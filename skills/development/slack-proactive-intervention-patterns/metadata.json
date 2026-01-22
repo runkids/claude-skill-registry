@@ -11,5 +11,6 @@
   ],
   "stars": 193,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/slack-proactive-intervention-patterns"
+  "github_path": ".claude/skills/slack-proactive-intervention-patterns",
+  "github_branch": "main"
 }

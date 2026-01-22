@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:47.457357Z",
   "dir_name": "devops-flow",
   "category": "other",
-  "github_path": ".claude/skills/devops-flow"
+  "github_path": ".claude/skills/devops-flow",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/building-nextjs-apps"
+  "github_path": ".claude/skills/building-nextjs-apps",
+  "github_branch": "main"
 }

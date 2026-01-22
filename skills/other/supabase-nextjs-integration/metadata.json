@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:56:37.738981Z",
   "dir_name": "supabase-nextjs-integration",
   "category": "other",
-  "github_path": ".claude/skills/supabase-nextjs-integration"
+  "github_path": ".claude/skills/supabase-nextjs-integration",
+  "github_branch": "main"
 }

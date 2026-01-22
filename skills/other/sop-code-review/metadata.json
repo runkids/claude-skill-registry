@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:00.545248Z",
   "dir_name": "sop-code-review",
   "category": "other",
-  "github_path": ".claude/skills/sop-code-review"
+  "github_path": ".claude/skills/sop-code-review",
+  "github_branch": "main"
 }

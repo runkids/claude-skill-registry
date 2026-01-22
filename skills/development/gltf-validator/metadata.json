@@ -8,5 +8,6 @@
     "validator"
   ],
   "stars": 40,
-  "github_path": ".claude/skills/gltf-validator"
+  "github_path": ".claude/skills/gltf-validator",
+  "github_branch": "master"
 }

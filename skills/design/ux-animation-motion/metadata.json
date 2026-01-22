@@ -5,5 +5,6 @@
   "description": "Animation patterns using Anime.js v4 for UI feedback, transitions, and celebrations. Use when implementing hover effects, transitions, loading animations, or gamification feedback. Includes reduced mo",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:01.172484Z",
-  "github_path": ".claude/skills/ux-animation-motion"
+  "github_path": ".claude/skills/ux-animation-motion",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/debug-haskell-bazel-targets"
+  "github_path": ".claude/skills/debug-haskell-bazel-targets",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "shadcn"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/taurinext-shadcn"
+  "github_path": ".claude/skills/taurinext-shadcn",
+  "github_branch": "main"
 }

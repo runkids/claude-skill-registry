@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:07.621799Z",
   "dir_name": "sendgrid-email",
   "category": "other",
-  "github_path": ".claude/skills/sendgrid-email"
+  "github_path": ".claude/skills/sendgrid-email",
+  "github_branch": "main"
 }

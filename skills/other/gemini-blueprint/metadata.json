@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:03.748520Z",
   "dir_name": "gemini-blueprint",
   "category": "other",
-  "github_path": ".claude/skills/gemini-blueprint"
+  "github_path": ".claude/skills/gemini-blueprint",
+  "github_branch": "main"
 }

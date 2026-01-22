@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:40:31.895705Z",
   "dir_name": "lead-hunter",
   "category": "other",
-  "github_path": ".claude/skills/lead-hunter"
+  "github_path": ".claude/skills/lead-hunter",
+  "github_branch": "main"
 }

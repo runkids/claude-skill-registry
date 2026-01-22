@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:19.927566Z",
   "dir_name": "dbt-projects-snowflake-setup",
   "category": "other",
-  "github_path": ".claude/skills/dbt-projects-snowflake-setup"
+  "github_path": ".claude/skills/dbt-projects-snowflake-setup",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:53:16.848894Z",
   "dir_name": "hint-detection",
   "category": "other",
-  "github_path": ".claude/skills/hint-detection"
+  "github_path": ".claude/skills/hint-detection",
+  "github_branch": "main"
 }

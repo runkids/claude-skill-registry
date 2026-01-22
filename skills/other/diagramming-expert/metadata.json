@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:00.792245Z",
   "dir_name": "diagramming-expert",
   "category": "other",
-  "github_path": ".claude/skills/diagramming-expert"
+  "github_path": ".claude/skills/diagramming-expert",
+  "github_branch": "main"
 }

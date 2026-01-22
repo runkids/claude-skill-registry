@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:28:32.909063Z",
   "dir_name": "testing-standards",
   "category": "other",
-  "github_path": ".claude/skills/testing-standards"
+  "github_path": ".claude/skills/testing-standards",
+  "github_branch": "main"
 }

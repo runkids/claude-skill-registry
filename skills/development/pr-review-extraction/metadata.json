@@ -8,5 +8,6 @@
     "extraction"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pr-review-extraction"
+  "github_path": ".claude/skills/pr-review-extraction",
+  "github_branch": "main"
 }

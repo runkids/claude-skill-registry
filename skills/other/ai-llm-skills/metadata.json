@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:14.780101Z",
   "dir_name": "ai-llm-skills",
   "category": "other",
-  "github_path": ".claude/skills/ai-llm-skills"
+  "github_path": ".claude/skills/ai-llm-skills",
+  "github_branch": "main"
 }

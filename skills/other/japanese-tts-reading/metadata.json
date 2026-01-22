@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:56.249588Z",
   "dir_name": "japanese-tts-reading",
   "category": "other",
-  "github_path": ".claude/skills/japanese-tts-reading"
+  "github_path": ".claude/skills/japanese-tts-reading",
+  "github_branch": "main"
 }

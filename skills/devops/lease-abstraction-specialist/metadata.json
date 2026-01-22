@@ -9,5 +9,6 @@
     "specialist"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/lease-abstraction-specialist"
+  "github_path": ".claude/skills/lease-abstraction-specialist",
+  "github_branch": "main"
 }

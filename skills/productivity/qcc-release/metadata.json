@@ -8,5 +8,6 @@
     "release"
   ],
   "stars": 43,
-  "github_path": ".claude/skills/qcc-release"
+  "github_path": ".claude/skills/qcc-release",
+  "github_branch": "main"
 }

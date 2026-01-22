@@ -8,5 +8,6 @@
   ],
   "stars": 36,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/alps"
+  "github_path": ".claude/skills/alps",
+  "github_branch": "master"
 }

@@ -8,5 +8,6 @@
     "workflows"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/github-workflows"
+  "github_path": ".claude/skills/github-workflows",
+  "github_branch": "main"
 }

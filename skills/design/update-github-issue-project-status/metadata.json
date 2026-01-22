@@ -11,5 +11,6 @@
     "status"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/update-github-issue-project-status"
+  "github_path": ".claude/skills/update-github-issue-project-status",
+  "github_branch": "main"
 }

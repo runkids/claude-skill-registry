@@ -10,5 +10,6 @@
   ],
   "stars": 22,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/debug-coffee-ahk"
+  "github_path": ".claude/skills/debug-coffee-ahk",
+  "github_branch": "main"
 }

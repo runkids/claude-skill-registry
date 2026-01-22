@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:47:58.195807Z",
   "dir_name": "youtube-transcribe-skill",
   "category": "other",
-  "github_path": "skills/youtube-transcribe-skill"
+  "github_path": "skills/youtube-transcribe-skill",
+  "github_branch": "main"
 }

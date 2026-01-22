@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:11.037584Z",
   "dir_name": "sveltekit-patterns",
   "category": "other",
-  "github_path": ".claude/skills/sveltekit-patterns"
+  "github_path": ".claude/skills/sveltekit-patterns",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:13:42.952095Z",
   "dir_name": "go-dev",
   "category": "other",
-  "github_path": ".claude/skills/go-dev"
+  "github_path": ".claude/skills/go-dev",
+  "github_branch": "main"
 }

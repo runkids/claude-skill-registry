@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:18.415105Z",
   "dir_name": "manufacturer-agent",
   "category": "other",
-  "github_path": ".claude/skills/manufacturer-agent"
+  "github_path": ".claude/skills/manufacturer-agent",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "screenshotter"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/webpage-screenshotter"
+  "github_path": ".claude/skills/webpage-screenshotter",
+  "github_branch": "main"
 }

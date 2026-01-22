@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:57.482338Z",
   "dir_name": "interactive-checklist",
   "category": "other",
-  "github_path": ".claude/skills/interactive-checklist"
+  "github_path": ".claude/skills/interactive-checklist",
+  "github_branch": "main"
 }

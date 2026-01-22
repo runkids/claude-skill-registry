@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:07.199935Z",
   "dir_name": "rfp-ingest",
   "category": "other",
-  "github_path": ".claude/skills/rfp-ingest"
+  "github_path": ".claude/skills/rfp-ingest",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:56:59.450743Z",
   "dir_name": "delivery",
   "category": "other",
-  "github_path": ".claude/skills/delivery"
+  "github_path": ".claude/skills/delivery",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:56.771392Z",
   "dir_name": "supabase-mcp-integration",
-  "github_path": ".claude/skills/supabase-mcp-integration"
+  "github_path": ".claude/skills/supabase-mcp-integration",
+  "github_branch": "main"
 }

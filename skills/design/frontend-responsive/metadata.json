@@ -8,5 +8,6 @@
     "responsive"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frontend-responsive"
+  "github_path": ".claude/skills/frontend-responsive",
+  "github_branch": "main"
 }

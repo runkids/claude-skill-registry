@@ -10,5 +10,6 @@
   ],
   "stars": 804,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/gcal-api-research"
+  "github_path": ".claude/skills/gcal-api-research",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "search"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/slack-search"
+  "github_path": ".claude/skills/slack-search",
+  "github_branch": "main"
 }

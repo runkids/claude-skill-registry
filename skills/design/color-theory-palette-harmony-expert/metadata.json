@@ -12,5 +12,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/color-theory-palette-harmony-expert"
+  "github_path": ".claude/skills/color-theory-palette-harmony-expert",
+  "github_branch": "main"
 }

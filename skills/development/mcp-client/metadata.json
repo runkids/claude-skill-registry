@@ -8,5 +8,6 @@
     "client"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mcp-client"
+  "github_path": ".claude/skills/mcp-client",
+  "github_branch": "main"
 }

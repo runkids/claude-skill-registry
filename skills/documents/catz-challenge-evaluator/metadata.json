@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/catz-challenge-evaluator"
+  "github_path": ".claude/skills/catz-challenge-evaluator",
+  "github_branch": "main"
 }

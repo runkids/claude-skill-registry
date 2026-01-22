@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:47.195517Z",
   "dir_name": "post-release",
   "category": "other",
-  "github_path": ".claude/skills/post-release"
+  "github_path": ".claude/skills/post-release",
+  "github_branch": "main"
 }

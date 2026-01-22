@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:15.519282Z",
   "dir_name": "tech-article-extractor",
   "category": "other",
-  "github_path": ".claude/skills/tech-article-extractor"
+  "github_path": ".claude/skills/tech-article-extractor",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:06.275230Z",
   "dir_name": "build-and-run",
   "category": "other",
-  "github_path": ".claude/skills/build-and-run"
+  "github_path": ".claude/skills/build-and-run",
+  "github_branch": "main"
 }

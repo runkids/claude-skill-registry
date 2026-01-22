@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:59.234134Z",
   "dir_name": "test-writer",
   "category": "other",
-  "github_path": ".claude/skills/test-writer"
+  "github_path": ".claude/skills/test-writer",
+  "github_branch": "main"
 }

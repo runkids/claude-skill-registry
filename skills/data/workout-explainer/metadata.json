@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "workout-explainer",
-  "github_path": ".claude/skills/workout-explainer"
+  "github_path": ".claude/skills/workout-explainer",
+  "github_branch": "main"
 }

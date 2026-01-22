@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:32.798903Z",
   "dir_name": "braintrust-analyze",
   "category": "other",
-  "github_path": ".claude/skills/braintrust-analyze"
+  "github_path": ".claude/skills/braintrust-analyze",
+  "github_branch": "main"
 }

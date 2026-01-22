@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "local-sensitive",
-  "github_path": ".claude/skills/local-sensitive"
+  "github_path": ".claude/skills/local-sensitive",
+  "github_branch": "main"
 }

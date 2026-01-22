@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:10.934756Z",
   "dir_name": "excel-generator",
   "category": "other",
-  "github_path": ".claude/skills/excel-generator"
+  "github_path": ".claude/skills/excel-generator",
+  "github_branch": "main"
 }

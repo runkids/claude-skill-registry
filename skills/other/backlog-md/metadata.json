@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:52:18.930983Z",
   "dir_name": "backlog-md",
   "category": "other",
-  "github_path": ".claude/skills/backlog-md"
+  "github_path": ".claude/skills/backlog-md",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/drag-and-drop"
+  "github_path": ".claude/skills/drag-and-drop",
+  "github_branch": "main"
 }

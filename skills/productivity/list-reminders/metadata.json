@@ -8,5 +8,6 @@
     "reminders"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/list-reminders"
+  "github_path": ".claude/skills/list-reminders",
+  "github_branch": "main"
 }

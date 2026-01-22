@@ -8,5 +8,6 @@
   ],
   "stars": 32,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ep-navigator"
+  "github_path": ".claude/skills/ep-navigator",
+  "github_branch": "main"
 }

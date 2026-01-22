@@ -9,5 +9,6 @@
   ],
   "stars": 120,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/task-generator"
+  "github_path": "skills/task-generator",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 13,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/design-language-system"
+  "github_path": ".claude/skills/design-language-system",
+  "github_branch": "main"
 }

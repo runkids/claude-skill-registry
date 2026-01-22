@@ -10,5 +10,6 @@
   ],
   "stars": 789,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/component-guidelines-docs"
+  "github_path": ".claude/skills/component-guidelines-docs",
+  "github_branch": "master"
 }

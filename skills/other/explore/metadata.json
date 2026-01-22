@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:53.594777Z",
   "dir_name": "explore",
   "category": "other",
-  "github_path": ".claude/skills/explore"
+  "github_path": ".claude/skills/explore",
+  "github_branch": "main"
 }

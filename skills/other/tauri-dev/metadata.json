@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:16:39.666559Z",
   "dir_name": "tauri-dev",
   "category": "other",
-  "github_path": ".claude/skills/tauri-dev"
+  "github_path": ".claude/skills/tauri-dev",
+  "github_branch": "main"
 }

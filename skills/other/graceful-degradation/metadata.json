@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:55.193978Z",
   "dir_name": "graceful-degradation",
   "category": "other",
-  "github_path": ".claude/skills/graceful-degradation"
+  "github_path": ".claude/skills/graceful-degradation",
+  "github_branch": "main"
 }

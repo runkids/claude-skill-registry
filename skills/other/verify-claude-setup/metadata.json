@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:15.076235Z",
   "dir_name": "verify-claude-setup",
   "category": "other",
-  "github_path": ".claude/skills/verify-claude-setup"
+  "github_path": ".claude/skills/verify-claude-setup",
+  "github_branch": "main"
 }

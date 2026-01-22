@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cpp-dev-guidelines"
+  "github_path": ".claude/skills/cpp-dev-guidelines",
+  "github_branch": "main"
 }

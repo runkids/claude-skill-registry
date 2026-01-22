@@ -8,5 +8,6 @@
     "debugger"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/websocket-debugger"
+  "github_path": ".claude/skills/websocket-debugger",
+  "github_branch": "main"
 }

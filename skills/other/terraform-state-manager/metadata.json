@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:05.958272Z",
   "dir_name": "terraform-state-manager",
   "category": "other",
-  "github_path": ".claude/skills/terraform-state-manager"
+  "github_path": ".claude/skills/terraform-state-manager",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:26:46.543405Z",
   "dir_name": "gh-issue-hierarchy",
   "category": "other",
-  "github_path": ".claude/skills/gh-issue-hierarchy"
+  "github_path": ".claude/skills/gh-issue-hierarchy",
+  "github_branch": "main"
 }

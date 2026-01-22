@@ -11,5 +11,6 @@
   ],
   "stars": 104,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/uloop-get-provider-details"
+  "github_path": ".claude/skills/uloop-get-provider-details",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "committer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/git-committer"
+  "github_path": ".claude/skills/git-committer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:20.415413Z",
   "dir_name": "ha-energy",
   "category": "other",
-  "github_path": ".claude/skills/ha-energy"
+  "github_path": ".claude/skills/ha-energy",
+  "github_branch": "main"
 }

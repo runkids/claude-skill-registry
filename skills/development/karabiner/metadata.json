@@ -7,5 +7,6 @@
     "karabiner"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/karabiner"
+  "github_path": ".claude/skills/karabiner",
+  "github_branch": "main"
 }

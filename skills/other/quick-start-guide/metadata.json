@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:02.357870Z",
   "dir_name": "quick-start-guide",
   "category": "other",
-  "github_path": ".claude/skills/quick-start-guide"
+  "github_path": ".claude/skills/quick-start-guide",
+  "github_branch": "main"
 }

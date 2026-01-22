@@ -12,5 +12,6 @@
   "stars": 1,
   "source": "SkillsMP Synced Skills",
   "dir_name": "english-to-thai-cultural-translation",
-  "github_path": ".claude/skills/english-to-thai-cultural-translation"
+  "github_path": ".claude/skills/english-to-thai-cultural-translation",
+  "github_branch": "main"
 }

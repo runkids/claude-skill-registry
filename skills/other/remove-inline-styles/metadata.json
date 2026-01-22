@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:42:34.385628Z",
   "dir_name": "remove-inline-styles",
   "category": "other",
-  "github_path": ".claude/skills/remove-inline-styles"
+  "github_path": ".claude/skills/remove-inline-styles",
+  "github_branch": "main"
 }

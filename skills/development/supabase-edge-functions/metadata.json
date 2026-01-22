@@ -9,5 +9,6 @@
     "functions"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/supabase-edge-functions"
+  "github_path": ".claude/skills/supabase-edge-functions",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/aspnet-configuration"
+  "github_path": ".claude/skills/aspnet-configuration",
+  "github_branch": "main"
 }

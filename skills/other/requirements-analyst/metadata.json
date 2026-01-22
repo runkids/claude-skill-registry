@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:32.366677Z",
   "dir_name": "requirements-analyst",
   "category": "other",
-  "github_path": ".claude/skills/requirements-analyst"
+  "github_path": ".claude/skills/requirements-analyst",
+  "github_branch": "main"
 }

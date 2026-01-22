@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:25:24.387242Z",
   "dir_name": "orcaflex-line-wizard",
   "category": "other",
-  "github_path": ".claude/skills/orcaflex-line-wizard"
+  "github_path": ".claude/skills/orcaflex-line-wizard",
+  "github_branch": "main"
 }

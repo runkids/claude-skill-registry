@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:36:38.339254Z",
   "dir_name": "design-critique",
   "category": "other",
-  "github_path": ".claude/skills/design-critique"
+  "github_path": ".claude/skills/design-critique",
+  "github_branch": "main"
 }

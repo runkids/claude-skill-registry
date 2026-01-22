@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:04.413521Z",
   "dir_name": "customer-journey-map",
   "category": "other",
-  "github_path": ".claude/skills/customer-journey-map"
+  "github_path": ".claude/skills/customer-journey-map",
+  "github_branch": "main"
 }

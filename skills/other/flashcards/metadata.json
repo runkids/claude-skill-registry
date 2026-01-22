@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:11.864492Z",
   "dir_name": "flashcards",
   "category": "other",
-  "github_path": ".claude/skills/flashcards"
+  "github_path": ".claude/skills/flashcards",
+  "github_branch": "main"
 }

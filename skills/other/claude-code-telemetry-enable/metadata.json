@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:13.946070Z",
   "dir_name": "claude-code-telemetry-enable",
   "category": "other",
-  "github_path": ".claude/skills/claude-code-telemetry-enable"
+  "github_path": ".claude/skills/claude-code-telemetry-enable",
+  "github_branch": "main"
 }

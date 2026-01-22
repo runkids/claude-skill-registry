@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/ui-ux-design-patterns"
+  "github_path": ".claude/skills/ui-ux-design-patterns",
+  "github_branch": "main"
 }

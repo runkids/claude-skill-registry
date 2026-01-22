@@ -9,5 +9,6 @@
     "baas"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-platform-baas"
+  "github_path": ".claude/skills/moai-platform-baas",
+  "github_branch": "main"
 }

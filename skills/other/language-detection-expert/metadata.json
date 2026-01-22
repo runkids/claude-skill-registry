@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:11.175104Z",
   "dir_name": "language-detection-expert",
   "category": "other",
-  "github_path": ".claude/skills/language-detection-expert"
+  "github_path": ".claude/skills/language-detection-expert",
+  "github_branch": "main"
 }

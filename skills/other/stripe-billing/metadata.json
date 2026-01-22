@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:06.476893Z",
   "dir_name": "stripe-billing",
   "category": "other",
-  "github_path": ".claude/skills/stripe-billing"
+  "github_path": ".claude/skills/stripe-billing",
+  "github_branch": "main"
 }

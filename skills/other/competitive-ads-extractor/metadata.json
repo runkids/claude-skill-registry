@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:49.079758Z",
   "dir_name": "competitive-ads-extractor",
   "category": "other",
-  "github_path": ".claude/skills/competitive-ads-extractor"
+  "github_path": ".claude/skills/competitive-ads-extractor",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ac-expander"
+  "github_path": ".claude/skills/ac-expander",
+  "github_branch": "main"
 }

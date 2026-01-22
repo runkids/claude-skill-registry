@@ -7,5 +7,6 @@
     "keycloak"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/keycloak"
+  "github_path": ".claude/skills/keycloak",
+  "github_branch": "main"
 }

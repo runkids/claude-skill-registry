@@ -8,5 +8,6 @@
     "procedures"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-procedures"
+  "github_path": ".claude/skills/testing-procedures",
+  "github_branch": "main"
 }

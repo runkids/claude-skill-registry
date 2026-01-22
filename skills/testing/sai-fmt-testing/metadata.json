@@ -9,5 +9,6 @@
     "testing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sai-fmt-testing"
+  "github_path": ".claude/skills/sai-fmt-testing",
+  "github_branch": "main"
 }

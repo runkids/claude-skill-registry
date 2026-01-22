@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:11.108942Z",
   "dir_name": "nats-vigil-messaging",
   "category": "other",
-  "github_path": ".claude/skills/nats-vigil-messaging"
+  "github_path": ".claude/skills/nats-vigil-messaging",
+  "github_branch": "main"
 }

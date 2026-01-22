@@ -9,5 +9,6 @@
     "deployment"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/smithery-mcp-deployment"
+  "github_path": ".claude/skills/smithery-mcp-deployment",
+  "github_branch": "main"
 }

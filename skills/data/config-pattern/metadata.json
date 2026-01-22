@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "config-pattern",
-  "github_path": ".claude/skills/config-pattern"
+  "github_path": ".claude/skills/config-pattern",
+  "github_branch": "main"
 }

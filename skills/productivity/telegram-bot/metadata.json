@@ -8,5 +8,6 @@
     "bot"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/telegram-bot"
+  "github_path": ".claude/skills/telegram-bot",
+  "github_branch": "main"
 }

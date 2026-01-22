@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:40.334038Z",
   "dir_name": "backend-safety-integrator",
   "category": "other",
-  "github_path": ".claude/skills/backend-safety-integrator"
+  "github_path": ".claude/skills/backend-safety-integrator",
+  "github_branch": "main"
 }

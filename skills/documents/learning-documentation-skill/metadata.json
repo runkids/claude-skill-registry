@@ -5,5 +5,6 @@
   "description": "Document learning insights and activities to Supabase with proper categorization, formatting, and retrieval patterns",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:04:17.169708Z",
-  "github_path": ".claude/skills/learning-documentation-skill"
+  "github_path": ".claude/skills/learning-documentation-skill",
+  "github_branch": "main"
 }

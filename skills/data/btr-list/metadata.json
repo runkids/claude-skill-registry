@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "btr-list",
-  "github_path": ".claude/skills/btr-list"
+  "github_path": ".claude/skills/btr-list",
+  "github_branch": "main"
 }

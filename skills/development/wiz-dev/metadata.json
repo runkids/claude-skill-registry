@@ -8,5 +8,6 @@
     "dev"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wiz-dev"
+  "github_path": ".claude/skills/wiz-dev",
+  "github_branch": "main"
 }

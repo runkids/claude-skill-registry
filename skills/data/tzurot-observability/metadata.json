@@ -9,5 +9,6 @@
   ],
   "stars": 7,
   "dir_name": "tzurot-observability",
-  "github_path": ".claude/skills/tzurot-observability"
+  "github_path": ".claude/skills/tzurot-observability",
+  "github_branch": "main"
 }

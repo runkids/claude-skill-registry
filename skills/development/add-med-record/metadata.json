@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/add-med-record"
+  "github_path": ".claude/skills/add-med-record",
+  "github_branch": "main"
 }

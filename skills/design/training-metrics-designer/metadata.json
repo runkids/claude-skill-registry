@@ -9,5 +9,6 @@
     "designer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/training-metrics-designer"
+  "github_path": ".claude/skills/training-metrics-designer",
+  "github_branch": "main"
 }

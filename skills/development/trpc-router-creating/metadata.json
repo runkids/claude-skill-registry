@@ -9,5 +9,6 @@
     "creating"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/trpc-router-creating"
+  "github_path": ".claude/skills/trpc-router-creating",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "analysis"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/student-activity-analysis"
+  "github_path": ".claude/skills/student-activity-analysis",
+  "github_branch": "main"
 }

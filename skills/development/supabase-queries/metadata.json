@@ -8,5 +8,6 @@
     "queries"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/supabase-queries"
+  "github_path": ".claude/skills/supabase-queries",
+  "github_branch": "main"
 }

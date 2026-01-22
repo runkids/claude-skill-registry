@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:06.891693Z",
   "dir_name": "ghm-status-sync",
   "category": "other",
-  "github_path": ".claude/skills/ghm-status-sync"
+  "github_path": ".claude/skills/ghm-status-sync",
+  "github_branch": "main"
 }

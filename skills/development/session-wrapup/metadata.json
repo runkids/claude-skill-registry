@@ -8,5 +8,6 @@
     "wrapup"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/session-wrapup"
+  "github_path": ".claude/skills/session-wrapup",
+  "github_branch": "main"
 }

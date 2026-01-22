@@ -10,5 +10,6 @@
   ],
   "stars": 6,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/debugging-websocket-issues"
+  "github_path": ".claude/skills/debugging-websocket-issues",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:10:27.262479Z",
   "dir_name": "og-image-creator",
   "category": "other",
-  "github_path": ".claude/skills/og-image-creator"
+  "github_path": ".claude/skills/og-image-creator",
+  "github_branch": "main"
 }

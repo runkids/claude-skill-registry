@@ -8,5 +8,6 @@
     "developer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rails-developer"
+  "github_path": ".claude/skills/rails-developer",
+  "github_branch": "main"
 }

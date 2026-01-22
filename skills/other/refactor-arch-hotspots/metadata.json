@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:03.146372Z",
   "dir_name": "refactor-arch-hotspots",
   "category": "other",
-  "github_path": ".claude/skills/refactor-arch-hotspots"
+  "github_path": ".claude/skills/refactor-arch-hotspots",
+  "github_branch": "main"
 }

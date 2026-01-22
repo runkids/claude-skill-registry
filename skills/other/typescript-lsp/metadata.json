@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:13:19.302987Z",
   "dir_name": "typescript-lsp",
   "category": "other",
-  "github_path": ".claude/skills/typescript-lsp"
+  "github_path": ".claude/skills/typescript-lsp",
+  "github_branch": "main"
 }

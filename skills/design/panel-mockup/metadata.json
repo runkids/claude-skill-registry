@@ -8,5 +8,6 @@
     "mockup"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/panel-mockup"
+  "github_path": ".claude/skills/panel-mockup",
+  "github_branch": "main"
 }

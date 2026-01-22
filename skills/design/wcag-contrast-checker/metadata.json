@@ -9,5 +9,6 @@
     "checker"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/wcag-contrast-checker"
+  "github_path": ".claude/skills/wcag-contrast-checker",
+  "github_branch": "main"
 }

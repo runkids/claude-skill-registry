@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/automated-code-fixer"
+  "github_path": ".claude/skills/automated-code-fixer",
+  "github_branch": "main"
 }

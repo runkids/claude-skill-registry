@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:32.344804Z",
   "dir_name": "qlty-check",
   "category": "other",
-  "github_path": ".claude/skills/qlty-check"
+  "github_path": ".claude/skills/qlty-check",
+  "github_branch": "main"
 }

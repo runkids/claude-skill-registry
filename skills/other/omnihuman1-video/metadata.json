@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:53.039610Z",
   "dir_name": "omnihuman1-video",
   "category": "other",
-  "github_path": ".claude/skills/omnihuman1-video"
+  "github_path": ".claude/skills/omnihuman1-video",
+  "github_branch": "main"
 }

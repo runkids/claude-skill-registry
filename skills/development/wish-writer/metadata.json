@@ -5,5 +5,6 @@
   "description": "7일간 매일 아침/저녁 발송할 응원 메시지 14개 생성",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:50.209641Z",
-  "github_path": ".claude/skills/wish-writer"
+  "github_path": ".claude/skills/wish-writer",
+  "github_branch": "main"
 }

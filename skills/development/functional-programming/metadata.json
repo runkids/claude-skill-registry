@@ -8,5 +8,6 @@
     "programming"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/functional-programming"
+  "github_path": ".claude/skills/functional-programming",
+  "github_branch": "main"
 }

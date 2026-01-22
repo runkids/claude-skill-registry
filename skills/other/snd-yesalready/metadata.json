@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:51.983827Z",
   "dir_name": "snd-yesalready",
   "category": "other",
-  "github_path": ".claude/skills/snd-yesalready"
+  "github_path": ".claude/skills/snd-yesalready",
+  "github_branch": "main"
 }

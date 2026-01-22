@@ -5,5 +5,6 @@
   "description": "Apply task-specific templates to AI session plans using ai-update-plan. Use when starting a new task to load appropriate plan structure (feature, bugfix, refactor, documentation, security).",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:59:26.962556Z",
-  "github_path": ".claude/skills/session-template"
+  "github_path": ".claude/skills/session-template",
+  "github_branch": "main"
 }

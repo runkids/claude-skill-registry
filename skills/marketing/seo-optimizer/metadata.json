@@ -8,5 +8,6 @@
     "optimizer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/seo-optimizer"
+  "github_path": ".claude/skills/seo-optimizer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:00:42.796194Z",
   "dir_name": "tmux-tui",
   "category": "other",
-  "github_path": ".claude/skills/tmux-tui"
+  "github_path": ".claude/skills/tmux-tui",
+  "github_branch": "main"
 }

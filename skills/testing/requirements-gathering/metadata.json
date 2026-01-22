@@ -8,5 +8,6 @@
     "gathering"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/requirements-gathering"
+  "github_path": ".claude/skills/requirements-gathering",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "suite"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-validation-suite"
+  "github_path": ".claude/skills/mechinterp-validation-suite",
+  "github_branch": "main"
 }

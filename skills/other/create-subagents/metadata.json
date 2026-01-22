@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:55.189869Z",
   "dir_name": "create-subagents",
   "category": "other",
-  "github_path": ".claude/skills/create-subagents"
+  "github_path": ".claude/skills/create-subagents",
+  "github_branch": "main"
 }

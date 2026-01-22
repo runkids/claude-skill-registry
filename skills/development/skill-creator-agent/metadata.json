@@ -9,5 +9,6 @@
     "agent"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/skill-creator-agent"
+  "github_path": ".claude/skills/skill-creator-agent",
+  "github_branch": "main"
 }

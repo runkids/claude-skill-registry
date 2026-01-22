@@ -9,5 +9,6 @@
     "fix"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/smart-bug-fix"
+  "github_path": ".claude/skills/smart-bug-fix",
+  "github_branch": "main"
 }

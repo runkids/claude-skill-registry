@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:18.463933Z",
   "dir_name": "payload-plugin-release",
   "category": "other",
-  "github_path": ".claude/skills/payload-plugin-release"
+  "github_path": ".claude/skills/payload-plugin-release",
+  "github_branch": "main"
 }

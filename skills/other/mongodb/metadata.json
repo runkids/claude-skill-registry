@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:10:29.551921Z",
   "dir_name": "mongodb",
   "category": "other",
-  "github_path": ".claude/skills/mongodb"
+  "github_path": ".claude/skills/mongodb",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "dir_name": "insightpulse-superset-api-ops",
-  "github_path": ".claude/skills/insightpulse-superset-api-ops"
+  "github_path": ".claude/skills/insightpulse-superset-api-ops",
+  "github_branch": "main"
 }

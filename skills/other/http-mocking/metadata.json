@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:55.590939Z",
   "dir_name": "http-mocking",
   "category": "other",
-  "github_path": ".claude/skills/http-mocking"
+  "github_path": ".claude/skills/http-mocking",
+  "github_branch": "main"
 }

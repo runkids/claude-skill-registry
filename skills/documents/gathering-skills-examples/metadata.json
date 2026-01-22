@@ -9,5 +9,6 @@
     "examples"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gathering-skills-examples"
+  "github_path": ".claude/skills/gathering-skills-examples",
+  "github_branch": "main"
 }

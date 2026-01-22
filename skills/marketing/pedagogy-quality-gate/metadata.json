@@ -5,5 +5,6 @@
   "description": "Reviews educational quality and learning effectiveness of textbook content.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:10.912785Z",
-  "github_path": ".claude/skills/pedagogy-quality-gate"
+  "github_path": ".claude/skills/pedagogy-quality-gate",
+  "github_branch": "main"
 }

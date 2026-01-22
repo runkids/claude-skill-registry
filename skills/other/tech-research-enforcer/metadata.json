@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:33:37.080814Z",
   "dir_name": "tech-research-enforcer",
   "category": "other",
-  "github_path": ".claude/skills/tech-research-enforcer"
+  "github_path": ".claude/skills/tech-research-enforcer",
+  "github_branch": "main"
 }

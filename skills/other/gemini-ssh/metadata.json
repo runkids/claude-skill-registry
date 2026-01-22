@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:02.867446Z",
   "dir_name": "gemini-ssh",
   "category": "other",
-  "github_path": ".claude/skills/gemini-ssh"
+  "github_path": ".claude/skills/gemini-ssh",
+  "github_branch": "main"
 }

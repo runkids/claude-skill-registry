@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:05:55.593831Z",
   "dir_name": "lit-component",
   "category": "other",
-  "github_path": ".claude/skills/lit-component"
+  "github_path": ".claude/skills/lit-component",
+  "github_branch": "main"
 }

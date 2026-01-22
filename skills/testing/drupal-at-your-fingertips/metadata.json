@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/drupal-at-your-fingertips"
+  "github_path": ".claude/skills/drupal-at-your-fingertips",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:33.636471Z",
   "dir_name": "expand-topic",
   "category": "other",
-  "github_path": ".claude/skills/expand-topic"
+  "github_path": ".claude/skills/expand-topic",
+  "github_branch": "main"
 }

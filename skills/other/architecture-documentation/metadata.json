@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:03:25.237873Z",
   "dir_name": "architecture-documentation",
   "category": "other",
-  "github_path": ".claude/skills/architecture-documentation"
+  "github_path": ".claude/skills/architecture-documentation",
+  "github_branch": "main"
 }

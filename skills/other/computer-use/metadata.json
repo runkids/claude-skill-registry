@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:11.095413Z",
   "dir_name": "computer-use",
   "category": "other",
-  "github_path": ".claude/skills/computer-use"
+  "github_path": ".claude/skills/computer-use",
+  "github_branch": "main"
 }

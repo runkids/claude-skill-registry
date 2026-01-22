@@ -8,5 +8,6 @@
     "debugger"
   ],
   "stars": 17,
-  "github_path": ".claude/skills/pine-debugger"
+  "github_path": ".claude/skills/pine-debugger",
+  "github_branch": "main"
 }

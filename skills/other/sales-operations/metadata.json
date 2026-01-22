@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:01.687165Z",
   "dir_name": "sales-operations",
   "category": "other",
-  "github_path": ".claude/skills/sales-operations"
+  "github_path": ".claude/skills/sales-operations",
+  "github_branch": "main"
 }

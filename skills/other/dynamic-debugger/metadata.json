@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:49.310783Z",
   "dir_name": "dynamic-debugger",
   "category": "other",
-  "github_path": ".claude/skills/dynamic-debugger"
+  "github_path": ".claude/skills/dynamic-debugger",
+  "github_branch": "main"
 }

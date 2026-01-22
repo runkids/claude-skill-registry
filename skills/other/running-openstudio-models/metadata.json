@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:06.489743Z",
   "dir_name": "running-openstudio-models",
   "category": "other",
-  "github_path": ".claude/skills/running-openstudio-models"
+  "github_path": ".claude/skills/running-openstudio-models",
+  "github_branch": "main"
 }

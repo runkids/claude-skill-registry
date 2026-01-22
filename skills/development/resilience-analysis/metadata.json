@@ -8,5 +8,6 @@
     "analysis"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/resilience-analysis"
+  "github_path": ".claude/skills/resilience-analysis",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "retry"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/winget-pr-retry"
+  "github_path": ".claude/skills/winget-pr-retry",
+  "github_branch": "main"
 }

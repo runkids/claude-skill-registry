@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:33.528697Z",
   "dir_name": "ast-grep-find",
   "category": "other",
-  "github_path": ".claude/skills/ast-grep-find"
+  "github_path": ".claude/skills/ast-grep-find",
+  "github_branch": "main"
 }

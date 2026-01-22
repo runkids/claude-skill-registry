@@ -8,5 +8,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ash"
+  "github_path": ".claude/skills/ash",
+  "github_branch": "main"
 }

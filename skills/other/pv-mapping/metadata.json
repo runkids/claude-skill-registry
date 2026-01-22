@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:53.152689Z",
   "dir_name": "pv-mapping",
   "category": "other",
-  "github_path": ".claude/skills/pv-mapping"
+  "github_path": ".claude/skills/pv-mapping",
+  "github_branch": "main"
 }

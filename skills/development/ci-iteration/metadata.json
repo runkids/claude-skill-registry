@@ -8,5 +8,6 @@
   ],
   "stars": 32,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ci-iteration"
+  "github_path": ".claude/skills/ci-iteration",
+  "github_branch": "main"
 }

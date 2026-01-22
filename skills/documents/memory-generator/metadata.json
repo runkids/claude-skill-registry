@@ -8,5 +8,6 @@
     "generator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/memory-generator"
+  "github_path": ".claude/skills/memory-generator",
+  "github_branch": "main"
 }

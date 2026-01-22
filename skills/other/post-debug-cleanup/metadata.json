@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:24.487505Z",
   "dir_name": "post-debug-cleanup",
   "category": "other",
-  "github_path": ".claude/skills/post-debug-cleanup"
+  "github_path": ".claude/skills/post-debug-cleanup",
+  "github_branch": "main"
 }

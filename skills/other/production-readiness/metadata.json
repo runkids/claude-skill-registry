@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:01.585038Z",
   "dir_name": "production-readiness",
   "category": "other",
-  "github_path": ".claude/skills/production-readiness"
+  "github_path": ".claude/skills/production-readiness",
+  "github_branch": "main"
 }

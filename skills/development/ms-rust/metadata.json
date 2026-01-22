@@ -7,5 +7,6 @@
     "rust"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ms-rust"
+  "github_path": ".claude/skills/ms-rust",
+  "github_branch": "main"
 }

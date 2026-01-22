@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/exa-tools"
+  "github_path": ".claude/skills/exa-tools",
+  "github_branch": "main"
 }

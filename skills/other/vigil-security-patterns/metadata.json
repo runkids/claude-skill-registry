@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:10.996456Z",
   "dir_name": "vigil-security-patterns",
   "category": "other",
-  "github_path": ".claude/skills/vigil-security-patterns"
+  "github_path": ".claude/skills/vigil-security-patterns",
+  "github_branch": "main"
 }

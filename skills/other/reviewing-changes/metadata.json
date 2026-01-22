@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:55:36.777400Z",
   "dir_name": "reviewing-changes",
   "category": "other",
-  "github_path": ".claude/skills/reviewing-changes"
+  "github_path": ".claude/skills/reviewing-changes",
+  "github_branch": "main"
 }

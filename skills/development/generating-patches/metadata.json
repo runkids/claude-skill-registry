@@ -8,5 +8,6 @@
     "patches"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/generating-patches"
+  "github_path": ".claude/skills/generating-patches",
+  "github_branch": "main"
 }

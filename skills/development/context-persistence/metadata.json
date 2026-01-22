@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/context-persistence"
+  "github_path": ".claude/skills/context-persistence",
+  "github_branch": "main"
 }

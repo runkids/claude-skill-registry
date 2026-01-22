@@ -8,5 +8,6 @@
     "analyzer"
   ],
   "stars": 21,
-  "github_path": ".claude/skills/log-analyzer"
+  "github_path": ".claude/skills/log-analyzer",
+  "github_branch": "main"
 }

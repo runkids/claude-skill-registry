@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:54:40.238032Z",
   "dir_name": "redis-integration-skill",
   "category": "other",
-  "github_path": ".claude/skills/redis-integration-skill"
+  "github_path": ".claude/skills/redis-integration-skill",
+  "github_branch": "main"
 }

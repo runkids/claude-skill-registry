@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:37:11.114142Z",
   "dir_name": "gobby-sessions",
   "category": "other",
-  "github_path": ".claude/skills/gobby-sessions"
+  "github_path": ".claude/skills/gobby-sessions",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:13.774153Z",
   "dir_name": "synthesize",
   "category": "other",
-  "github_path": ".claude/skills/synthesize"
+  "github_path": ".claude/skills/synthesize",
+  "github_branch": "main"
 }

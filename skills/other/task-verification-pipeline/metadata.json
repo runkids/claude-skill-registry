@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:32.449259Z",
   "dir_name": "task-verification-pipeline",
   "category": "other",
-  "github_path": ".claude/skills/task-verification-pipeline"
+  "github_path": ".claude/skills/task-verification-pipeline",
+  "github_branch": "main"
 }

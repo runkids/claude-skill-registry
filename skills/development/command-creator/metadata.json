@@ -9,5 +9,6 @@
   ],
   "stars": 32,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/command-creator"
+  "github_path": ".claude/skills/command-creator",
+  "github_branch": "main"
 }

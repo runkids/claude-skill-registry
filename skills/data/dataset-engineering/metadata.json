@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:32.693453Z",
   "dir_name": "dataset-engineering",
-  "github_path": ".claude/skills/dataset-engineering"
+  "github_path": ".claude/skills/dataset-engineering",
+  "github_branch": "main"
 }

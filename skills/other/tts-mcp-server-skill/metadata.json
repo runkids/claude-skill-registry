@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:44:57.827190Z",
   "dir_name": "tts-mcp-server-skill",
   "category": "other",
-  "github_path": ".claude/skills/tts-mcp-server-skill"
+  "github_path": ".claude/skills/tts-mcp-server-skill",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:24.168693Z",
   "dir_name": "git-commit-creator",
   "category": "other",
-  "github_path": ".claude/skills/git-commit-creator"
+  "github_path": ".claude/skills/git-commit-creator",
+  "github_branch": "main"
 }

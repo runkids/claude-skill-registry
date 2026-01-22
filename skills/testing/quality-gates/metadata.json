@@ -8,5 +8,6 @@
     "gates"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quality-gates"
+  "github_path": ".claude/skills/quality-gates",
+  "github_branch": "main"
 }

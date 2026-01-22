@@ -11,5 +11,6 @@
   ],
   "stars": 103,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/n8n-integration-testing-patterns"
+  "github_path": ".claude/skills/n8n-integration-testing-patterns",
+  "github_branch": "main"
 }

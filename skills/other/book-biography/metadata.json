@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:36:33.665360Z",
   "dir_name": "book-biography",
   "category": "other",
-  "github_path": ".claude/skills/book-biography"
+  "github_path": ".claude/skills/book-biography",
+  "github_branch": "main"
 }

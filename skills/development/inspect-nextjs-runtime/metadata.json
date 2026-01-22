@@ -9,5 +9,6 @@
     "runtime"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/inspect-nextjs-runtime"
+  "github_path": ".claude/skills/inspect-nextjs-runtime",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "party"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/qa-party"
+  "github_path": ".claude/skills/qa-party",
+  "github_branch": "main"
 }

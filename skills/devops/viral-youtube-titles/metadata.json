@@ -9,5 +9,6 @@
     "titles"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/viral-youtube-titles"
+  "github_path": ".claude/skills/viral-youtube-titles",
+  "github_branch": "main"
 }

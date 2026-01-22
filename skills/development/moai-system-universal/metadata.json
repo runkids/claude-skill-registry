@@ -9,5 +9,6 @@
     "universal"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-system-universal"
+  "github_path": ".claude/skills/moai-system-universal",
+  "github_branch": "main"
 }

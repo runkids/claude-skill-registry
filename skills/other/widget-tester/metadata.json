@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:45.851701Z",
   "dir_name": "widget-tester",
   "category": "other",
-  "github_path": ".claude/skills/widget-tester"
+  "github_path": ".claude/skills/widget-tester",
+  "github_branch": "main"
 }

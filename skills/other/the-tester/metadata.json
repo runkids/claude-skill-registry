@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:55:16.408387Z",
   "dir_name": "the-tester",
   "category": "other",
-  "github_path": ".claude/skills/the-tester"
+  "github_path": ".claude/skills/the-tester",
+  "github_branch": "main"
 }

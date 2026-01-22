@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:06.970541Z",
   "dir_name": "prd-v06-environment-setup",
   "category": "other",
-  "github_path": ".claude/skills/prd-v06-environment-setup"
+  "github_path": ".claude/skills/prd-v06-environment-setup",
+  "github_branch": "main"
 }

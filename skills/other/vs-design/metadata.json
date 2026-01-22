@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:38:46.961825Z",
   "dir_name": "vs-design",
   "category": "other",
-  "github_path": ".claude/skills/vs-design"
+  "github_path": ".claude/skills/vs-design",
+  "github_branch": "main"
 }

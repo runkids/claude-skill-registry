@@ -7,5 +7,6 @@
     "creator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pr-creator"
+  "github_path": ".claude/skills/pr-creator",
+  "github_branch": "main"
 }

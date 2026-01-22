@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:41:46.466979Z",
   "dir_name": "time-system",
   "category": "other",
-  "github_path": ".claude/skills/time-system"
+  "github_path": ".claude/skills/time-system",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 12,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/browsing-with-playwright"
+  "github_path": ".claude/skills/browsing-with-playwright",
+  "github_branch": "main"
 }

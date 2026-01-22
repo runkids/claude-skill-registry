@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "geo-audit",
-  "github_path": ".claude/skills/geo-audit"
+  "github_path": ".claude/skills/geo-audit",
+  "github_branch": "main"
 }

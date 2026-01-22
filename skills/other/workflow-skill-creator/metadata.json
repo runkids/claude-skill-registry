@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:12.862734Z",
   "dir_name": "workflow-skill-creator",
   "category": "other",
-  "github_path": ".claude/skills/workflow-skill-creator"
+  "github_path": ".claude/skills/workflow-skill-creator",
+  "github_branch": "main"
 }

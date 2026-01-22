@@ -9,5 +9,6 @@
     "patterns"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nodes-credentials-patterns"
+  "github_path": ".claude/skills/nodes-credentials-patterns",
+  "github_branch": "main"
 }

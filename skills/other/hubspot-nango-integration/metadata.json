@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:48:13.472461Z",
   "dir_name": "hubspot-nango-integration",
   "category": "other",
-  "github_path": ".claude/skills/hubspot-nango-integration"
+  "github_path": ".claude/skills/hubspot-nango-integration",
+  "github_branch": "main"
 }

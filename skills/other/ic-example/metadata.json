@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:25:06.008738Z",
   "dir_name": "ic-example",
   "category": "other",
-  "github_path": ".claude/skills/ic-example"
+  "github_path": ".claude/skills/ic-example",
+  "github_branch": "main"
 }

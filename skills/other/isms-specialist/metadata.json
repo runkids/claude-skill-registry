@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:27.831812Z",
   "dir_name": "isms-specialist",
   "category": "other",
-  "github_path": ".claude/skills/isms-specialist"
+  "github_path": ".claude/skills/isms-specialist",
+  "github_branch": "main"
 }

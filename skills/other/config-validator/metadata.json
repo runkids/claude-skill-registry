@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:39:37.125072Z",
   "dir_name": "config-validator",
   "category": "other",
-  "github_path": ".claude/skills/config-validator"
+  "github_path": ".claude/skills/config-validator",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:34:51.083614Z",
   "dir_name": "data-pipeline-monitoring",
   "category": "other",
-  "github_path": ".claude/skills/data-pipeline-monitoring"
+  "github_path": ".claude/skills/data-pipeline-monitoring",
+  "github_branch": "main"
 }

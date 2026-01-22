@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "setting-up-duckdb",
-  "github_path": ".claude/skills/setting-up-duckdb"
+  "github_path": ".claude/skills/setting-up-duckdb",
+  "github_branch": "main"
 }

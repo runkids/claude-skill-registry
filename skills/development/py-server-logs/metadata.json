@@ -8,5 +8,6 @@
     "logs"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/py-server-logs"
+  "github_path": ".claude/skills/py-server-logs",
+  "github_branch": "main"
 }

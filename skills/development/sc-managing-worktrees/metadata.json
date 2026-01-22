@@ -8,5 +8,6 @@
     "worktrees"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sc-managing-worktrees"
+  "github_path": ".claude/skills/sc-managing-worktrees",
+  "github_branch": "main"
 }

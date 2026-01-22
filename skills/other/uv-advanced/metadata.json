@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:16:54.195482Z",
   "dir_name": "uv-advanced",
   "category": "other",
-  "github_path": ".claude/skills/uv-advanced"
+  "github_path": ".claude/skills/uv-advanced",
+  "github_branch": "main"
 }

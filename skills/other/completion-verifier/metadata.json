@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:01.017534Z",
   "dir_name": "completion-verifier",
   "category": "other",
-  "github_path": ".claude/skills/completion-verifier"
+  "github_path": ".claude/skills/completion-verifier",
+  "github_branch": "main"
 }

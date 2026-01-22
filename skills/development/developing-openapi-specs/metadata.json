@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/developing-openapi-specs"
+  "github_path": ".claude/skills/developing-openapi-specs",
+  "github_branch": "main"
 }

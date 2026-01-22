@@ -8,5 +8,6 @@
     "start"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/session-start"
+  "github_path": ".claude/skills/session-start",
+  "github_branch": "main"
 }

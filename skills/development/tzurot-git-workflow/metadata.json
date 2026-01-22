@@ -9,5 +9,6 @@
     "workflow"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/tzurot-git-workflow"
+  "github_path": ".claude/skills/tzurot-git-workflow",
+  "github_branch": "main"
 }

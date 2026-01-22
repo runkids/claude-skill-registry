@@ -9,5 +9,6 @@
   ],
   "stars": 1523,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/code-review"
+  "github_path": ".claude/skills/code-review",
+  "github_branch": "main"
 }

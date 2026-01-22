@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:19:22.692694Z",
   "dir_name": "cube-skill",
   "category": "other",
-  "github_path": ".claude/skills/cube-skill"
+  "github_path": ".claude/skills/cube-skill",
+  "github_branch": "main"
 }

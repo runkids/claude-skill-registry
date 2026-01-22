@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:12.694068Z",
   "dir_name": "youtube-dae",
   "category": "other",
-  "github_path": ".claude/skills/youtube_dae"
+  "github_path": ".claude/skills/youtube_dae",
+  "github_branch": "main"
 }

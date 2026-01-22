@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "procedure-checker",
-  "github_path": ".claude/skills/procedure-checker"
+  "github_path": ".claude/skills/procedure-checker",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/actions-cicd-practices"
+  "github_path": ".claude/skills/actions-cicd-practices",
+  "github_branch": "main"
 }

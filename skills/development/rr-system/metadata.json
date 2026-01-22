@@ -7,5 +7,6 @@
     "system"
   ],
   "stars": 46,
-  "github_path": ".claude/skills/rr-system"
+  "github_path": ".claude/skills/rr-system",
+  "github_branch": "main"
 }

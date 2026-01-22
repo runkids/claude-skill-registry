@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:27.556306Z",
   "dir_name": "session-replay",
   "category": "other",
-  "github_path": ".claude/skills/session-replay"
+  "github_path": ".claude/skills/session-replay",
+  "github_branch": "main"
 }

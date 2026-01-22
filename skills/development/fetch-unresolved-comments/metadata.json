@@ -10,5 +10,6 @@
   ],
   "stars": 23068,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/fetch-unresolved-comments"
+  "github_path": ".claude/skills/fetch-unresolved-comments",
+  "github_branch": "master"
 }

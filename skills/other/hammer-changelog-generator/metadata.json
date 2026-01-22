@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:32.563255Z",
   "dir_name": "hammer-changelog-generator",
   "category": "other",
-  "github_path": ".claude/skills/hammer-changelog-generator"
+  "github_path": ".claude/skills/hammer-changelog-generator",
+  "github_branch": "main"
 }

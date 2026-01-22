@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:37:46.056072Z",
   "dir_name": "voice-dna-creator",
   "category": "other",
-  "github_path": ".claude/skills/voice-dna-creator"
+  "github_path": ".claude/skills/voice-dna-creator",
+  "github_branch": "main"
 }

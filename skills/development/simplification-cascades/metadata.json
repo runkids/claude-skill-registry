@@ -8,5 +8,6 @@
     "cascades"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/simplification-cascades"
+  "github_path": ".claude/skills/simplification-cascades",
+  "github_branch": "main"
 }

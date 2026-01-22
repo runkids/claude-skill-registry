@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:48:30.700690Z",
   "dir_name": "tavily-search",
   "category": "other",
-  "github_path": ".claude/skills/tavily-search"
+  "github_path": ".claude/skills/tavily-search",
+  "github_branch": "main"
 }

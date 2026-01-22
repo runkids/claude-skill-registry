@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:29.140907Z",
   "dir_name": "add-platform",
   "category": "other",
-  "github_path": ".claude/skills/add_platform"
+  "github_path": ".claude/skills/add_platform",
+  "github_branch": "main"
 }

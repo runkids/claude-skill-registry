@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:35.223602Z",
   "dir_name": "xparcel-network-explainer",
   "category": "other",
-  "github_path": ".claude/skills/xparcel-network-explainer"
+  "github_path": ".claude/skills/xparcel-network-explainer",
+  "github_branch": "main"
 }

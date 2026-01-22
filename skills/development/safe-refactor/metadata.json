@@ -8,5 +8,6 @@
     "refactor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/safe-refactor"
+  "github_path": ".claude/skills/safe-refactor",
+  "github_branch": "main"
 }

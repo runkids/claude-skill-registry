@@ -10,5 +10,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/eds-performance-debugging"
+  "github_path": ".claude/skills/eds-performance-debugging",
+  "github_branch": "main"
 }

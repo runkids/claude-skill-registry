@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:16.553075Z",
   "dir_name": "dart-python",
   "category": "other",
-  "github_path": ".claude/skills/dart-python"
+  "github_path": ".claude/skills/dart-python",
+  "github_branch": "main"
 }

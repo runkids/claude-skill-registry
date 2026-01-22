@@ -10,5 +10,6 @@
   ],
   "stars": 12,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/elm-to-fsharp-guru"
+  "github_path": ".claude/skills/elm-to-fsharp-guru",
+  "github_branch": "main"
 }

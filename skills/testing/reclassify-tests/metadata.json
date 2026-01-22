@@ -8,5 +8,6 @@
     "tests"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/reclassify-tests"
+  "github_path": ".claude/skills/reclassify-tests",
+  "github_branch": "main"
 }

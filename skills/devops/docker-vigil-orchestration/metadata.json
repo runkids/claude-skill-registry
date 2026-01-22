@@ -10,5 +10,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/docker-vigil-orchestration"
+  "github_path": ".claude/skills/docker-vigil-orchestration",
+  "github_branch": "main"
 }

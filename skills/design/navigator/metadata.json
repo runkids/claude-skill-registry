@@ -7,5 +7,6 @@
     "navigator"
   ],
   "stars": 34,
-  "github_path": ".claude/skills/navigator"
+  "github_path": ".claude/skills/navigator",
+  "github_branch": "main"
 }

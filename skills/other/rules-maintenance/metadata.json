@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:49:12.083450Z",
   "dir_name": "rules-maintenance",
   "category": "other",
-  "github_path": ".claude/skills/rules-maintenance"
+  "github_path": ".claude/skills/rules-maintenance",
+  "github_branch": "main"
 }

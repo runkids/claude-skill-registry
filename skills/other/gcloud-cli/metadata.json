@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:07.437556Z",
   "dir_name": "gcloud-cli",
   "category": "other",
-  "github_path": ".claude/skills/gcloud-cli"
+  "github_path": ".claude/skills/gcloud-cli",
+  "github_branch": "main"
 }

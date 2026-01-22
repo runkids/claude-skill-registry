@@ -8,5 +8,6 @@
     "coverage"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/test-coverage"
+  "github_path": ".claude/skills/test-coverage",
+  "github_branch": "main"
 }

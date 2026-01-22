@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:39.851671Z",
   "dir_name": "moai-workflow-docs",
   "category": "other",
-  "github_path": ".claude/skills/moai-workflow-docs"
+  "github_path": ".claude/skills/moai-workflow-docs",
+  "github_branch": "main"
 }

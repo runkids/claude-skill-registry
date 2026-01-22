@@ -8,5 +8,6 @@
     "typescript"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frontend-typescript"
+  "github_path": ".claude/skills/frontend-typescript",
+  "github_branch": "main"
 }

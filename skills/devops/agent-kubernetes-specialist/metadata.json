@@ -10,5 +10,6 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/agent-kubernetes-specialist"
+  "github_path": ".claude/skills/agent-kubernetes-specialist",
+  "github_branch": "main"
 }

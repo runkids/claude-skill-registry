@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:19.649563Z",
   "dir_name": "memory-mcp",
   "category": "other",
-  "github_path": ".claude/skills/memory-mcp"
+  "github_path": ".claude/skills/memory-mcp",
+  "github_branch": "main"
 }

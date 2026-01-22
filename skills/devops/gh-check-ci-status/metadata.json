@@ -8,5 +8,6 @@
     "status"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/gh-check-ci-status"
+  "github_path": ".claude/skills/gh-check-ci-status",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 30,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/api-security"
+  "github_path": ".claude/skills/api-security",
+  "github_branch": "main"
 }

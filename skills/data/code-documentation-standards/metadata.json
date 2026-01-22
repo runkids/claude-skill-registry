@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "code-documentation-standards",
-  "github_path": ".claude/skills/code-documentation-standards"
+  "github_path": ".claude/skills/code-documentation-standards",
+  "github_branch": "main"
 }

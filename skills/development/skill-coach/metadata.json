@@ -8,5 +8,6 @@
     "coach"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/skill-coach"
+  "github_path": ".claude/skills/skill-coach",
+  "github_branch": "main"
 }

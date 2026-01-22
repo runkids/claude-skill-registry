@@ -7,5 +7,6 @@
     "openscad"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/openscad"
+  "github_path": ".claude/skills/openscad",
+  "github_branch": "main"
 }

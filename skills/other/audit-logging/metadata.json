@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:17.428576Z",
   "dir_name": "audit-logging",
   "category": "other",
-  "github_path": ".claude/skills/audit_logging"
+  "github_path": ".claude/skills/audit_logging",
+  "github_branch": "main"
 }

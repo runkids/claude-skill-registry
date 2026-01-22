@@ -9,5 +9,6 @@
     "descriptor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pull-request-descriptor"
+  "github_path": ".claude/skills/pull-request-descriptor",
+  "github_branch": "main"
 }

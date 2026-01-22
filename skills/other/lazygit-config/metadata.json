@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:28.198371Z",
   "dir_name": "lazygit-config",
   "category": "other",
-  "github_path": ".claude/skills/lazygit-config"
+  "github_path": ".claude/skills/lazygit-config",
+  "github_branch": "main"
 }

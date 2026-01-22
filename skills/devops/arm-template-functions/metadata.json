@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/arm-template-functions"
+  "github_path": ".claude/skills/arm-template-functions",
+  "github_branch": "main"
 }

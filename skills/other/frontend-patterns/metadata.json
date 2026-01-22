@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:11:03.838020Z",
   "dir_name": "frontend-patterns",
   "category": "other",
-  "github_path": ".claude/skills/frontend-patterns"
+  "github_path": ".claude/skills/frontend-patterns",
+  "github_branch": "main"
 }

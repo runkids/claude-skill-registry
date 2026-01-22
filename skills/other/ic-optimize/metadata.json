@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:25:06.153514Z",
   "dir_name": "ic-optimize",
   "category": "other",
-  "github_path": ".claude/skills/ic-optimize"
+  "github_path": ".claude/skills/ic-optimize",
+  "github_branch": "main"
 }

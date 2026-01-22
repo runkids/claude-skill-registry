@@ -8,5 +8,6 @@
     "navigator"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/repo-navigator"
+  "github_path": ".claude/skills/repo-navigator",
+  "github_branch": "main"
 }

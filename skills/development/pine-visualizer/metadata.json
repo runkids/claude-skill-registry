@@ -8,5 +8,6 @@
     "visualizer"
   ],
   "stars": 17,
-  "github_path": ".claude/skills/pine-visualizer"
+  "github_path": ".claude/skills/pine-visualizer",
+  "github_branch": "main"
 }

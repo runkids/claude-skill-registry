@@ -8,5 +8,6 @@
     "architecture"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/software-architecture"
+  "github_path": ".claude/skills/software-architecture",
+  "github_branch": "main"
 }

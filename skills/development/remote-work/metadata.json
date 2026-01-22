@@ -8,5 +8,6 @@
     "work"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/remote-work"
+  "github_path": ".claude/skills/remote-work",
+  "github_branch": "main"
 }

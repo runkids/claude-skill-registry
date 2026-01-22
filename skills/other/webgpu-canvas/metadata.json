@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:00:50.962651Z",
   "dir_name": "webgpu-canvas",
   "category": "other",
-  "github_path": ".claude/skills/webgpu-canvas"
+  "github_path": ".claude/skills/webgpu-canvas",
+  "github_branch": "main"
 }

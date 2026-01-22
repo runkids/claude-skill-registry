@@ -9,5 +9,6 @@
   ],
   "stars": 310,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/moai-lang-go"
+  "github_path": ".claude/skills/moai-lang-go",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
     "python"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/testing-claude-plugins-with-python-sdk"
+  "github_path": ".claude/skills/testing-claude-plugins-with-python-sdk",
+  "github_branch": "main"
 }

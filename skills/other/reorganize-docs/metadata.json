@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:13:45.955409Z",
   "dir_name": "reorganize-docs",
   "category": "other",
-  "github_path": ".claude/skills/reorganize-docs"
+  "github_path": ".claude/skills/reorganize-docs",
+  "github_branch": "main"
 }

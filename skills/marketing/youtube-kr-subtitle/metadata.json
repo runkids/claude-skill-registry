@@ -8,5 +8,6 @@
     "subtitle"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/youtube-kr-subtitle"
+  "github_path": ".claude/skills/youtube-kr-subtitle",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "implementation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/parallel-swarm-implementation"
+  "github_path": ".claude/skills/parallel-swarm-implementation",
+  "github_branch": "main"
 }

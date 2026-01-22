@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:48:19.683654Z",
   "dir_name": "migration",
   "category": "other",
-  "github_path": ".claude/skills/migration"
+  "github_path": ".claude/skills/migration",
+  "github_branch": "main"
 }

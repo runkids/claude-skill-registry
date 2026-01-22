@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:55.325039Z",
   "dir_name": "cfn-project-management",
   "category": "other",
-  "github_path": ".claude/skills/cfn-project-management"
+  "github_path": ".claude/skills/cfn-project-management",
+  "github_branch": "main"
 }

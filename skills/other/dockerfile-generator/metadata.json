@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:14.596815Z",
   "dir_name": "dockerfile-generator",
   "category": "other",
-  "github_path": ".claude/skills/dockerfile-generator"
+  "github_path": ".claude/skills/dockerfile-generator",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:22.366508Z",
   "dir_name": "tasks-spec-update",
   "category": "other",
-  "github_path": ".claude/skills/tasks-spec-update"
+  "github_path": ".claude/skills/tasks-spec-update",
+  "github_branch": "main"
 }

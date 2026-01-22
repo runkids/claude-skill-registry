@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:42:33.107494Z",
   "dir_name": "final-checklist",
   "category": "other",
-  "github_path": ".claude/skills/final-checklist"
+  "github_path": ".claude/skills/final-checklist",
+  "github_branch": "main"
 }

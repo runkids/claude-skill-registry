@@ -8,5 +8,6 @@
     "bridge"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mcp-bridge"
+  "github_path": ".claude/skills/mcp-bridge",
+  "github_branch": "main"
 }

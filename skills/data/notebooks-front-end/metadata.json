@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "dir_name": "notebooks-front-end",
-  "github_path": ".claude/skills/notebooks-front-end"
+  "github_path": ".claude/skills/notebooks-front-end",
+  "github_branch": "main"
 }

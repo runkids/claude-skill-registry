@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:02:59.511605Z",
   "dir_name": "repo-scanning",
   "category": "other",
-  "github_path": ".claude/skills/repo-scanning"
+  "github_path": ".claude/skills/repo-scanning",
+  "github_branch": "main"
 }

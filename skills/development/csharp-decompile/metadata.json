@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/csharp-decompile"
+  "github_path": ".claude/skills/csharp-decompile",
+  "github_branch": "main"
 }

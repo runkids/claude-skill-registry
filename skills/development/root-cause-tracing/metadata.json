@@ -9,5 +9,6 @@
     "tracing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/root-cause-tracing"
+  "github_path": ".claude/skills/root-cause-tracing",
+  "github_branch": "main"
 }

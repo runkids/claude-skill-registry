@@ -9,5 +9,6 @@
     "optimizer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/meta-title-optimizer"
+  "github_path": ".claude/skills/meta-title-optimizer",
+  "github_branch": "main"
 }

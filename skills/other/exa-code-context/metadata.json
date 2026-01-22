@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:59:29.004413Z",
   "dir_name": "exa-code-context",
   "category": "other",
-  "github_path": ".claude/skills/exa-code-context"
+  "github_path": ".claude/skills/exa-code-context",
+  "github_branch": "main"
 }

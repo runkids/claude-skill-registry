@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:54.225012Z",
   "dir_name": "schema-design",
   "category": "other",
-  "github_path": ".claude/skills/schema-design"
+  "github_path": ".claude/skills/schema-design",
+  "github_branch": "main"
 }

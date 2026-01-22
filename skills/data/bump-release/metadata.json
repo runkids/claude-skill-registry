@@ -10,5 +10,6 @@
   "stars": 1,
   "source": "SkillsMP Synced Skills",
   "dir_name": "bump-release",
-  "github_path": ".claude/skills/bump-release"
+  "github_path": ".claude/skills/bump-release",
+  "github_branch": "main"
 }

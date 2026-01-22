@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:18:51.407302Z",
   "dir_name": "llm-tuning-patterns",
   "category": "other",
-  "github_path": ".claude/skills/llm-tuning-patterns"
+  "github_path": ".claude/skills/llm-tuning-patterns",
+  "github_branch": "main"
 }

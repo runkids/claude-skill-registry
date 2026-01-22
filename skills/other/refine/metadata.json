@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:20:53.297584Z",
   "dir_name": "refine",
   "category": "other",
-  "github_path": ".claude/skills/refine"
+  "github_path": ".claude/skills/refine",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:53.089663Z",
   "dir_name": "roadmap-integration",
   "category": "other",
-  "github_path": ".claude/skills/roadmap-integration"
+  "github_path": ".claude/skills/roadmap-integration",
+  "github_branch": "main"
 }

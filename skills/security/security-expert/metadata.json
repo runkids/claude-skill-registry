@@ -8,5 +8,6 @@
     "expert"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/security-expert"
+  "github_path": ".claude/skills/security-expert",
+  "github_branch": "main"
 }

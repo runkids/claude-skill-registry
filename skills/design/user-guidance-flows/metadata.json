@@ -9,5 +9,6 @@
     "flows"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/user-guidance-flows"
+  "github_path": ".claude/skills/user-guidance-flows",
+  "github_branch": "main"
 }

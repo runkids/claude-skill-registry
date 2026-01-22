@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:58.233722Z",
   "dir_name": "cfn-epic-creator",
   "category": "other",
-  "github_path": ".claude/skills/cfn-epic-creator"
+  "github_path": ".claude/skills/cfn-epic-creator",
+  "github_branch": "main"
 }

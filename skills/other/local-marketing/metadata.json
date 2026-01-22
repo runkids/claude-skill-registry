@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:00.789516Z",
   "dir_name": "local-marketing",
   "category": "other",
-  "github_path": ".claude/skills/local-marketing"
+  "github_path": ".claude/skills/local-marketing",
+  "github_branch": "main"
 }

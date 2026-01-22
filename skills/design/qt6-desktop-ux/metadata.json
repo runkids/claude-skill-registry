@@ -8,5 +8,6 @@
     "desktop"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/qt6-desktop-ux"
+  "github_path": ".claude/skills/qt6-desktop-ux",
+  "github_branch": "main"
 }

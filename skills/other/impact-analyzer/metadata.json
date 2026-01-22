@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:14:51.967814Z",
   "dir_name": "impact-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/impact-analyzer"
+  "github_path": ".claude/skills/impact-analyzer",
+  "github_branch": "main"
 }

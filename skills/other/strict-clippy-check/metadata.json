@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:25.052601Z",
   "dir_name": "strict-clippy-check",
   "category": "other",
-  "github_path": ".claude/skills/strict-clippy-check"
+  "github_path": ".claude/skills/strict-clippy-check",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:04.924261Z",
   "dir_name": "fullstory-identify-users",
   "category": "other",
-  "github_path": ".claude/skills/fullstory-identify-users"
+  "github_path": ".claude/skills/fullstory-identify-users",
+  "github_branch": "main"
 }

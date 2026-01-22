@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/investigation-workflow"
+  "github_path": ".claude/skills/investigation-workflow",
+  "github_branch": "main"
 }

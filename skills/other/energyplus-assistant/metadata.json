@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:06.018512Z",
   "dir_name": "energyplus-assistant",
   "category": "other",
-  "github_path": ".claude/skills/energyplus-assistant"
+  "github_path": ".claude/skills/energyplus-assistant",
+  "github_branch": "main"
 }

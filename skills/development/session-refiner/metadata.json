@@ -8,5 +8,6 @@
     "refiner"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/session-refiner"
+  "github_path": ".claude/skills/session-refiner",
+  "github_branch": "main"
 }

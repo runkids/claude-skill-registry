@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:45.330136Z",
   "dir_name": "doc-bdd",
   "category": "other",
-  "github_path": ".claude/skills/doc-bdd"
+  "github_path": ".claude/skills/doc-bdd",
+  "github_branch": "main"
 }

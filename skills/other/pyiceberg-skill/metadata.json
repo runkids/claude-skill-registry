@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:19:24.577604Z",
   "dir_name": "pyiceberg-skill",
   "category": "other",
-  "github_path": ".claude/skills/pyiceberg-skill"
+  "github_path": ".claude/skills/pyiceberg-skill",
+  "github_branch": "main"
 }

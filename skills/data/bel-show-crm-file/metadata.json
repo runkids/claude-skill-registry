@@ -12,5 +12,6 @@
   "stars": 2,
   "source": "SkillsMP Synced Skills",
   "dir_name": "bel-show-crm-file",
-  "github_path": ".claude/skills/bel-show-crm-file"
+  "github_path": ".claude/skills/bel-show-crm-file",
+  "github_branch": "main"
 }

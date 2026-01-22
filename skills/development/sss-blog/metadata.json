@@ -8,5 +8,6 @@
     "blog"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sss-blog"
+  "github_path": ".claude/skills/sss-blog",
+  "github_branch": "main"
 }

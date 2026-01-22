@@ -9,5 +9,6 @@
   "stars": 62,
   "source": "SkillsMP Synced Skills",
   "dir_name": "braindump",
-  "github_path": ".claude/skills/braindump"
+  "github_path": ".claude/skills/braindump",
+  "github_branch": "main"
 }

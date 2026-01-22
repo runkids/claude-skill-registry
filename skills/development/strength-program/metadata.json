@@ -8,5 +8,6 @@
     "program"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/strength-program"
+  "github_path": ".claude/skills/strength-program",
+  "github_branch": "main"
 }

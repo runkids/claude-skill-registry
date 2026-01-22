@@ -9,5 +9,6 @@
     "coach"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/wisdom-accountability-coach"
+  "github_path": ".claude/skills/wisdom-accountability-coach",
+  "github_branch": "main"
 }

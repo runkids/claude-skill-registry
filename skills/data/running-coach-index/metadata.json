@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "dir_name": "running-coach-index",
-  "github_path": ".claude/skills/running-coach-index"
+  "github_path": ".claude/skills/running-coach-index",
+  "github_branch": "main"
 }

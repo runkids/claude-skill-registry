@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:55.826915Z",
   "dir_name": "mdx-sanitizer",
   "category": "other",
-  "github_path": ".claude/skills/mdx-sanitizer"
+  "github_path": ".claude/skills/mdx-sanitizer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:31.804119Z",
   "dir_name": "handle-ci-failure",
   "category": "other",
-  "github_path": ".claude/skills/handle-ci-failure"
+  "github_path": ".claude/skills/handle-ci-failure",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/creative-coder"
+  "github_path": ".claude/skills/creative-coder",
+  "github_branch": "main"
 }

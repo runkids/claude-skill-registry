@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:44.025518Z",
   "dir_name": "feature-spec-critic",
   "category": "other",
-  "github_path": ".claude/skills/feature-spec-critic"
+  "github_path": ".claude/skills/feature-spec-critic",
+  "github_branch": "main"
 }

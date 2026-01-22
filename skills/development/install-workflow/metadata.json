@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/install-workflow"
+  "github_path": ".claude/skills/install-workflow",
+  "github_branch": "main"
 }

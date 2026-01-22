@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:05.504594Z",
   "dir_name": "writing-proposals",
   "category": "other",
-  "github_path": ".claude/skills/writing-proposals"
+  "github_path": ".claude/skills/writing-proposals",
+  "github_branch": "main"
 }

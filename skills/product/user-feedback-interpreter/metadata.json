@@ -9,5 +9,6 @@
     "interpreter"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/user-feedback-interpreter"
+  "github_path": ".claude/skills/user-feedback-interpreter",
+  "github_branch": "main"
 }

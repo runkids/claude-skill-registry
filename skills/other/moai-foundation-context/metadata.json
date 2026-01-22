@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:53.388356Z",
   "dir_name": "moai-foundation-context",
   "category": "other",
-  "github_path": ".claude/skills/moai-foundation-context"
+  "github_path": ".claude/skills/moai-foundation-context",
+  "github_branch": "main"
 }

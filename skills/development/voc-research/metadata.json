@@ -8,5 +8,6 @@
     "research"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/voc-research"
+  "github_path": ".claude/skills/voc-research",
+  "github_branch": "main"
 }

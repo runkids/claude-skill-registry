@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:06.286255Z",
   "dir_name": "datadog-observability",
   "category": "other",
-  "github_path": ".claude/skills/datadog-observability"
+  "github_path": ".claude/skills/datadog-observability",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "styles"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/print-styles"
+  "github_path": ".claude/skills/print-styles",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:33.725304Z",
   "dir_name": "ai-apis-like-chatgpt",
   "category": "other",
-  "github_path": ".claude/skills/ai-apis-like-chatgpt"
+  "github_path": ".claude/skills/ai-apis-like-chatgpt",
+  "github_branch": "main"
 }

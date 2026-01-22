@@ -8,5 +8,6 @@
     "fix"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/pr-review-fix"
+  "github_path": ".claude/skills/pr-review-fix",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cognitive-load-reviewer"
+  "github_path": ".claude/skills/cognitive-load-reviewer",
+  "github_branch": "main"
 }

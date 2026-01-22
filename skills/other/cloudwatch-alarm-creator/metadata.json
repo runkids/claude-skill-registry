@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:06.127525Z",
   "dir_name": "cloudwatch-alarm-creator",
   "category": "other",
-  "github_path": ".claude/skills/cloudwatch-alarm-creator"
+  "github_path": ".claude/skills/cloudwatch-alarm-creator",
+  "github_branch": "main"
 }

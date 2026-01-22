@@ -10,5 +10,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dotnet-centralized-packages"
+  "github_path": ".claude/skills/dotnet-centralized-packages",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "workspaces"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/npm-workspaces"
+  "github_path": ".claude/skills/npm-workspaces",
+  "github_branch": "main"
 }

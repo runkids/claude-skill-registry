@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:12.017292Z",
   "dir_name": "video-summarize",
   "category": "other",
-  "github_path": ".claude/skills/video-summarize"
+  "github_path": ".claude/skills/video-summarize",
+  "github_branch": "main"
 }

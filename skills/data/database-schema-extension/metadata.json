@@ -11,5 +11,6 @@
   "stars": 1,
   "source": "SkillsMP Synced Skills",
   "dir_name": "database-schema-extension",
-  "github_path": ".claude/skills/database-schema-extension"
+  "github_path": ".claude/skills/database-schema-extension",
+  "github_branch": "main"
 }

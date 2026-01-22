@@ -8,5 +8,6 @@
     "investigator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-investigator"
+  "github_path": ".claude/skills/mechinterp-investigator",
+  "github_branch": "main"
 }

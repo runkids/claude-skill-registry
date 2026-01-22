@@ -8,5 +8,6 @@
     "api"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/wp-abilities-api"
+  "github_path": ".claude/skills/wp-abilities-api",
+  "github_branch": "main"
 }

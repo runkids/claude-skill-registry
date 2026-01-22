@@ -8,5 +8,6 @@
     "discovery"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/requirements-discovery"
+  "github_path": ".claude/skills/requirements-discovery",
+  "github_branch": "main"
 }

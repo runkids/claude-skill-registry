@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:18.737751Z",
   "dir_name": "effect-testing-mocking",
   "category": "other",
-  "github_path": ".claude/skills/effect-testing-mocking"
+  "github_path": ".claude/skills/effect-testing-mocking",
+  "github_branch": "main"
 }

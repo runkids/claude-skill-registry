@@ -8,5 +8,6 @@
     "gen"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/openapi-gen"
+  "github_path": ".claude/skills/openapi-gen",
+  "github_branch": "main"
 }

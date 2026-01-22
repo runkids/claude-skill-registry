@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:55.477403Z",
   "dir_name": "qa-party",
   "category": "other",
-  "github_path": ".claude/skills/qa-party"
+  "github_path": ".claude/skills/qa-party",
+  "github_branch": "main"
 }

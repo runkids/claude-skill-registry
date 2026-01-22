@@ -9,5 +9,6 @@
   ],
   "stars": 97,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/android-release"
+  "github_path": ".claude/skills/android-release",
+  "github_branch": "main"
 }

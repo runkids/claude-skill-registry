@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:10.503394Z",
   "dir_name": "testing-conventions",
   "category": "other",
-  "github_path": ".claude/skills/testing-conventions"
+  "github_path": ".claude/skills/testing-conventions",
+  "github_branch": "main"
 }

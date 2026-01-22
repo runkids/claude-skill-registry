@@ -7,5 +7,6 @@
     "implement"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/sc-implement"
+  "github_path": ".claude/skills/sc-implement",
+  "github_branch": "main"
 }

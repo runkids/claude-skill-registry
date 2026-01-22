@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:20.037219Z",
   "dir_name": "moai-workflow-loop",
   "category": "other",
-  "github_path": ".claude/skills/moai-workflow-loop"
+  "github_path": ".claude/skills/moai-workflow-loop",
+  "github_branch": "main"
 }

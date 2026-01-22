@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:06.068739Z",
   "dir_name": "sc-mcp",
   "category": "other",
-  "github_path": ".claude/skills/sc-mcp"
+  "github_path": ".claude/skills/sc-mcp",
+  "github_branch": "main"
 }

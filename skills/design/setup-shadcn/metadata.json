@@ -8,5 +8,6 @@
     "shadcn"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/setup-shadcn"
+  "github_path": ".claude/skills/setup-shadcn",
+  "github_branch": "main"
 }

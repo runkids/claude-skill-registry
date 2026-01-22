@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:05.884743Z",
   "dir_name": "terraform-module-writer",
   "category": "other",
-  "github_path": ".claude/skills/terraform-module-writer"
+  "github_path": ".claude/skills/terraform-module-writer",
+  "github_branch": "main"
 }

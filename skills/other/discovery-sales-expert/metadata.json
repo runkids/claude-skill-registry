@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:35.052329Z",
   "dir_name": "discovery-sales-expert",
   "category": "other",
-  "github_path": ".claude/skills/discovery-sales-expert"
+  "github_path": ".claude/skills/discovery-sales-expert",
+  "github_branch": "main"
 }

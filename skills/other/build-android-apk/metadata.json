@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:49:11.902689Z",
   "dir_name": "build-android-apk",
   "category": "other",
-  "github_path": ".claude/skills/build-android-apk"
+  "github_path": ".claude/skills/build-android-apk",
+  "github_branch": "main"
 }

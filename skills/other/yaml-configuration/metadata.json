@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:19:42.456631Z",
   "dir_name": "yaml-configuration",
   "category": "other",
-  "github_path": ".claude/skills/yaml-configuration"
+  "github_path": ".claude/skills/yaml-configuration",
+  "github_branch": "main"
 }

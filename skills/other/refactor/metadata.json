@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:56.198034Z",
   "dir_name": "refactor",
   "category": "other",
-  "github_path": ".claude/skills/refactor"
+  "github_path": ".claude/skills/refactor",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   "stars": 2,
   "source": "SkillsMP Synced Skills",
   "dir_name": "blog-scraper",
-  "github_path": ".claude/skills/blog-scraper"
+  "github_path": ".claude/skills/blog-scraper",
+  "github_branch": "main"
 }

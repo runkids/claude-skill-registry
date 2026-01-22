@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:44:13.743225Z",
   "dir_name": "stock-picker",
   "category": "other",
-  "github_path": ".claude/skills/stock-picker"
+  "github_path": ".claude/skills/stock-picker",
+  "github_branch": "main"
 }

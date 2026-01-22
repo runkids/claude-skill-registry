@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:31.740680Z",
   "dir_name": "kpi-pr-throughput",
   "category": "other",
-  "github_path": ".claude/skills/kpi-pr-throughput"
+  "github_path": ".claude/skills/kpi-pr-throughput",
+  "github_branch": "main"
 }

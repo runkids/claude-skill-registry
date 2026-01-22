@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:17.896931Z",
   "dir_name": "researcher-role-skill",
   "category": "other",
-  "github_path": ".claude/skills/researcher-role-skill"
+  "github_path": ".claude/skills/researcher-role-skill",
+  "github_branch": "main"
 }

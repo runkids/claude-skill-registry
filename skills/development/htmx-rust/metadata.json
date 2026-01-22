@@ -8,5 +8,6 @@
     "rust"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/htmx-rust"
+  "github_path": ".claude/skills/htmx-rust",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:49.892743Z",
   "dir_name": "knowledge-extractor",
   "category": "other",
-  "github_path": ".claude/skills/knowledge-extractor"
+  "github_path": ".claude/skills/knowledge-extractor",
+  "github_branch": "main"
 }

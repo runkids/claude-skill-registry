@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/btr-query"
+  "github_path": ".claude/skills/btr-query",
+  "github_branch": "main"
 }

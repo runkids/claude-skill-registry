@@ -9,5 +9,6 @@
   ],
   "stars": 3514,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/pr-code-review"
+  "github_path": ".claude/skills/pr-code-review",
+  "github_branch": "main"
 }

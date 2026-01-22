@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:18:35.120364Z",
   "dir_name": "dotnet-efcore-guidelines",
   "category": "other",
-  "github_path": ".claude/skills/dotnet-efcore-guidelines"
+  "github_path": ".claude/skills/dotnet-efcore-guidelines",
+  "github_branch": "main"
 }

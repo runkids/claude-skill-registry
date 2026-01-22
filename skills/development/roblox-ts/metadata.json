@@ -7,5 +7,6 @@
     "roblox"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/roblox-ts"
+  "github_path": ".claude/skills/roblox-ts",
+  "github_branch": "main"
 }

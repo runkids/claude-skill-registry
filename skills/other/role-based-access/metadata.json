@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:43:39.660864Z",
   "dir_name": "role-based-access",
   "category": "other",
-  "github_path": ".claude/skills/role-based-access"
+  "github_path": ".claude/skills/role-based-access",
+  "github_branch": "main"
 }

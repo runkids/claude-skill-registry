@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:58:53.723090Z",
   "dir_name": "decomp-fixup",
   "category": "other",
-  "github_path": ".claude/skills/decomp-fixup"
+  "github_path": ".claude/skills/decomp-fixup",
+  "github_branch": "main"
 }

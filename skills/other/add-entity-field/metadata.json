@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:06.421309Z",
   "dir_name": "add-entity-field",
   "category": "other",
-  "github_path": ".claude/skills/add-entity-field"
+  "github_path": ".claude/skills/add-entity-field",
+  "github_branch": "main"
 }

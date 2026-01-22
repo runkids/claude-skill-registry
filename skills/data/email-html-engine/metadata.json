@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "email-html-engine",
-  "github_path": ".claude/skills/email-html-engine"
+  "github_path": ".claude/skills/email-html-engine",
+  "github_branch": "main"
 }

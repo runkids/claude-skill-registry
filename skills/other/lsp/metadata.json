@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:29:57.584093Z",
   "dir_name": "lsp",
   "category": "other",
-  "github_path": ".claude/skills/lsp"
+  "github_path": ".claude/skills/lsp",
+  "github_branch": "main"
 }

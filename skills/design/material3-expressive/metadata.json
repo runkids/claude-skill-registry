@@ -8,5 +8,6 @@
     "expressive"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/material3-expressive"
+  "github_path": ".claude/skills/material3-expressive",
+  "github_branch": "main"
 }

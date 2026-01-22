@@ -8,5 +8,6 @@
     "monitor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/signal-monitor"
+  "github_path": ".claude/skills/signal-monitor",
+  "github_branch": "main"
 }

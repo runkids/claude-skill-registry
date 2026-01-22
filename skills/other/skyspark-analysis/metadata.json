@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:05.666642Z",
   "dir_name": "skyspark-analysis",
   "category": "other",
-  "github_path": ".claude/skills/skyspark-analysis"
+  "github_path": ".claude/skills/skyspark-analysis",
+  "github_branch": "main"
 }

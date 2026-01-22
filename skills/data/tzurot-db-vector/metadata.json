@@ -9,5 +9,6 @@
   ],
   "stars": 7,
   "dir_name": "tzurot-db-vector",
-  "github_path": ".claude/skills/tzurot-db-vector"
+  "github_path": ".claude/skills/tzurot-db-vector",
+  "github_branch": "main"
 }

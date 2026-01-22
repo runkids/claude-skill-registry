@@ -11,5 +11,6 @@
   ],
   "stars": 103,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/n8n-workflow-testing-fundamentals"
+  "github_path": ".claude/skills/n8n-workflow-testing-fundamentals",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "agents"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/scaffolding-openai-agents"
+  "github_path": ".claude/skills/scaffolding-openai-agents",
+  "github_branch": "main"
 }

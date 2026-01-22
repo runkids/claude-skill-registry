@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:53.907609Z",
   "dir_name": "git-workflow-enforcer",
   "category": "other",
-  "github_path": ".claude/skills/git-workflow-enforcer"
+  "github_path": ".claude/skills/git-workflow-enforcer",
+  "github_branch": "main"
 }

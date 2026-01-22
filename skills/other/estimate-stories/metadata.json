@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:57.111798Z",
   "dir_name": "estimate-stories",
   "category": "other",
-  "github_path": ".claude/skills/estimate-stories"
+  "github_path": ".claude/skills/estimate-stories",
+  "github_branch": "main"
 }

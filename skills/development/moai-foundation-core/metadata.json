@@ -9,5 +9,6 @@
     "core"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-foundation-core"
+  "github_path": ".claude/skills/moai-foundation-core",
+  "github_branch": "main"
 }

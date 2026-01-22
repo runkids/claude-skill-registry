@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-dual-mode-enemy"
+  "github_path": ".claude/skills/create-dual-mode-enemy",
+  "github_branch": "main"
 }

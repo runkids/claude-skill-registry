@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:14.179999Z",
   "dir_name": "worktree-cleanup",
   "category": "other",
-  "github_path": ".claude/skills/worktree-cleanup"
+  "github_path": ".claude/skills/worktree-cleanup",
+  "github_branch": "main"
 }

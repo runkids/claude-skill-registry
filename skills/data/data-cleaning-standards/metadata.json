@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "data-cleaning-standards",
-  "github_path": ".claude/skills/data-cleaning-standards"
+  "github_path": ".claude/skills/data-cleaning-standards",
+  "github_branch": "main"
 }

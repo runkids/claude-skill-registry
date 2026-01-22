@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:36.062071Z",
   "dir_name": "requirements-definition",
   "category": "other",
-  "github_path": ".claude/skills/requirements-definition"
+  "github_path": ".claude/skills/requirements-definition",
+  "github_branch": "main"
 }

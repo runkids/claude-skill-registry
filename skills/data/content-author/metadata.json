@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "content-author",
-  "github_path": ".claude/skills/content-author"
+  "github_path": ".claude/skills/content-author",
+  "github_branch": "main"
 }

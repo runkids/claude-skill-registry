@@ -8,5 +8,6 @@
     "planner"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pal-planner"
+  "github_path": ".claude/skills/pal-planner",
+  "github_branch": "main"
 }

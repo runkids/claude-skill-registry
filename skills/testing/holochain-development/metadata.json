@@ -8,5 +8,6 @@
     "development"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/holochain-development"
+  "github_path": ".claude/skills/holochain-development",
+  "github_branch": "main"
 }

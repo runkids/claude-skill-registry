@@ -9,5 +9,6 @@
     "development"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/lean-hit-development"
+  "github_path": ".claude/skills/lean-hit-development",
+  "github_branch": "main"
 }

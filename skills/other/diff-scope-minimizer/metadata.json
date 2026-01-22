@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:13.040503Z",
   "dir_name": "diff-scope-minimizer",
   "category": "other",
-  "github_path": ".claude/skills/diff-scope-minimizer"
+  "github_path": ".claude/skills/diff-scope-minimizer",
+  "github_branch": "main"
 }

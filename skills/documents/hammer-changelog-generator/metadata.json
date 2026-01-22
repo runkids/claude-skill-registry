@@ -9,5 +9,6 @@
     "generator"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/hammer-changelog-generator"
+  "github_path": ".claude/skills/hammer-changelog-generator",
+  "github_branch": "main"
 }

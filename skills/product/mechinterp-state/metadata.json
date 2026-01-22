@@ -8,5 +8,6 @@
     "state"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-state"
+  "github_path": ".claude/skills/mechinterp-state",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/design-system-implementation"
+  "github_path": ".claude/skills/design-system-implementation",
+  "github_branch": "main"
 }

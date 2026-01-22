@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "context-handover",
-  "github_path": ".claude/skills/context-handover"
+  "github_path": ".claude/skills/context-handover",
+  "github_branch": "main"
 }

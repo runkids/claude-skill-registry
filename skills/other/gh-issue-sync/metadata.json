@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:12.399664Z",
   "dir_name": "gh-issue-sync",
   "category": "other",
-  "github_path": ".claude/skills/gh-issue-sync"
+  "github_path": ".claude/skills/gh-issue-sync",
+  "github_branch": "main"
 }

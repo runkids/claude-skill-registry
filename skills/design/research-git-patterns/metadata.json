@@ -9,5 +9,6 @@
     "patterns"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/research-git-patterns"
+  "github_path": ".claude/skills/research-git-patterns",
+  "github_branch": "main"
 }

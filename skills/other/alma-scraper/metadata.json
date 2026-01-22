@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:46.402267Z",
   "dir_name": "alma-scraper",
   "category": "other",
-  "github_path": ".claude/skills/alma-scraper"
+  "github_path": ".claude/skills/alma-scraper",
+  "github_branch": "main"
 }

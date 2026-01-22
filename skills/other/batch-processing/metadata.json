@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:18.385900Z",
   "dir_name": "batch-processing",
   "category": "other",
-  "github_path": ".claude/skills/batch-processing"
+  "github_path": ".claude/skills/batch-processing",
+  "github_branch": "main"
 }

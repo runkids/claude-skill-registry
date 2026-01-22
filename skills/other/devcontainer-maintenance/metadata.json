@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:23:01.613535Z",
   "dir_name": "devcontainer-maintenance",
   "category": "other",
-  "github_path": ".claude/skills/devcontainer-maintenance"
+  "github_path": ".claude/skills/devcontainer-maintenance",
+  "github_branch": "main"
 }

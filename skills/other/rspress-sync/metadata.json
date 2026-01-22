@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:53.181114Z",
   "dir_name": "rspress-sync",
   "category": "other",
-  "github_path": ".claude/skills/rspress-sync"
+  "github_path": ".claude/skills/rspress-sync",
+  "github_branch": "main"
 }

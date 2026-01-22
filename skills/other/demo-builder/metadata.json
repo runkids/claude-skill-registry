@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:18.459277Z",
   "dir_name": "demo-builder",
   "category": "other",
-  "github_path": ".claude/skills/demo-builder"
+  "github_path": ".claude/skills/demo-builder",
+  "github_branch": "main"
 }

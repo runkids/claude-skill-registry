@@ -8,5 +8,6 @@
   ],
   "stars": 607,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/lint"
+  "github_path": ".claude/skills/lint",
+  "github_branch": "main"
 }

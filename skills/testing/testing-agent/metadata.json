@@ -8,5 +8,6 @@
     "agent"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-agent"
+  "github_path": ".claude/skills/testing-agent",
+  "github_branch": "main"
 }

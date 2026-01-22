@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:02:59.880976Z",
   "dir_name": "commit-conventions",
   "category": "other",
-  "github_path": ".claude/skills/commit-conventions"
+  "github_path": ".claude/skills/commit-conventions",
+  "github_branch": "main"
 }

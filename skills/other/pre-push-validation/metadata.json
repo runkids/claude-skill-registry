@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:01:36.829689Z",
   "dir_name": "pre-push-validation",
   "category": "other",
-  "github_path": ".claude/skills/pre-push-validation"
+  "github_path": ".claude/skills/pre-push-validation",
+  "github_branch": "main"
 }

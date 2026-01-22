@@ -8,5 +8,6 @@
     "analyzer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/text-analyzer"
+  "github_path": ".claude/skills/text-analyzer",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "ecto"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/phoenix-ecto"
+  "github_path": ".claude/skills/phoenix-ecto",
+  "github_branch": "main"
 }

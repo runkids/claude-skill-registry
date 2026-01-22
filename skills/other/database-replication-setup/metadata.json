@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:07.110871Z",
   "dir_name": "database-replication-setup",
   "category": "other",
-  "github_path": ".claude/skills/database-replication-setup"
+  "github_path": ".claude/skills/database-replication-setup",
+  "github_branch": "main"
 }

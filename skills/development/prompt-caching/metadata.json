@@ -8,5 +8,6 @@
     "caching"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/prompt-caching"
+  "github_path": ".claude/skills/prompt-caching",
+  "github_branch": "main"
 }

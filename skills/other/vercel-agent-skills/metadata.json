@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:12.396467Z",
   "dir_name": "vercel-agent-skills",
   "category": "other",
-  "github_path": ".claude/skills/vercel-agent-skills"
+  "github_path": ".claude/skills/vercel-agent-skills",
+  "github_branch": "main"
 }

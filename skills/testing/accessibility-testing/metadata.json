@@ -9,5 +9,6 @@
   ],
   "stars": 103,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/accessibility-testing"
+  "github_path": ".claude/skills/accessibility-testing",
+  "github_branch": "main"
 }

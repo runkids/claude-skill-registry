@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:29:18.139940Z",
   "dir_name": "setup-maestro-cluster",
   "category": "other",
-  "github_path": ".claude/skills/setup-maestro-cluster"
+  "github_path": ".claude/skills/setup-maestro-cluster",
+  "github_branch": "main"
 }

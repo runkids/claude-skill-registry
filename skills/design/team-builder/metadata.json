@@ -8,5 +8,6 @@
     "builder"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/team-builder"
+  "github_path": ".claude/skills/team-builder",
+  "github_branch": "main"
 }

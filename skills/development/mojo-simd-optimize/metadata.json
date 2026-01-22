@@ -9,5 +9,6 @@
     "optimize"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/mojo-simd-optimize"
+  "github_path": ".claude/skills/mojo-simd-optimize",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "dev"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/tauri-dev"
+  "github_path": ".claude/skills/tauri-dev",
+  "github_branch": "main"
 }

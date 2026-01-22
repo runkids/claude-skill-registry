@@ -8,5 +8,6 @@
     "manage"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/todo-manage"
+  "github_path": ".claude/skills/todo-manage",
+  "github_branch": "main"
 }

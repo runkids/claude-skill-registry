@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:23:01.481194Z",
   "dir_name": "devops-scripts-authoring",
   "category": "other",
-  "github_path": ".claude/skills/devops-scripts-authoring"
+  "github_path": ".claude/skills/devops-scripts-authoring",
+  "github_branch": "main"
 }

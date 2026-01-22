@@ -8,5 +8,6 @@
     "reporting"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/qa-bug-reporting"
+  "github_path": ".claude/skills/qa-bug-reporting",
+  "github_branch": "main"
 }

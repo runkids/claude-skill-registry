@@ -8,5 +8,6 @@
     "tests"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/run-tests"
+  "github_path": ".claude/skills/run-tests",
+  "github_branch": "main"
 }

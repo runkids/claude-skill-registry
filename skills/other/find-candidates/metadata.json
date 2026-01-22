@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:31.209833Z",
   "dir_name": "find-candidates",
   "category": "other",
-  "github_path": ".claude/skills/find-candidates"
+  "github_path": ".claude/skills/find-candidates",
+  "github_branch": "main"
 }

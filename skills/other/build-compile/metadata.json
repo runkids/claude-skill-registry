@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:16.857155Z",
   "dir_name": "build-compile",
   "category": "other",
-  "github_path": ".claude/skills/build-compile"
+  "github_path": ".claude/skills/build-compile",
+  "github_branch": "main"
 }

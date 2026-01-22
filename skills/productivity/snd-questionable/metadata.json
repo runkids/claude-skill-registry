@@ -8,5 +8,6 @@
     "questionable"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/snd-questionable"
+  "github_path": ".claude/skills/snd-questionable",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "page"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/scc-add-page"
+  "github_path": ".claude/skills/scc-add-page",
+  "github_branch": "main"
 }

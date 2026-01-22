@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:48:57.868533Z",
   "dir_name": "n8n-mcp-tools-expert",
   "category": "other",
-  "github_path": ".claude/skills/n8n-mcp-tools-expert"
+  "github_path": ".claude/skills/n8n-mcp-tools-expert",
+  "github_branch": "main"
 }

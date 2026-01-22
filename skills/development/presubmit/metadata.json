@@ -7,5 +7,6 @@
     "presubmit"
   ],
   "stars": 16,
-  "github_path": ".claude/skills/presubmit"
+  "github_path": ".claude/skills/presubmit",
+  "github_branch": "main"
 }

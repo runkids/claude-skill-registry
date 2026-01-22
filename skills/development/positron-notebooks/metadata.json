@@ -9,5 +9,6 @@
   ],
   "stars": 3764,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/positron-notebooks"
+  "github_path": ".claude/skills/positron-notebooks",
+  "github_branch": "main"
 }

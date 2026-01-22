@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:40:08.595168Z",
   "dir_name": "plugin-full-creator",
   "category": "other",
-  "github_path": ".claude/skills/plugin-full-creator"
+  "github_path": ".claude/skills/plugin-full-creator",
+  "github_branch": "main"
 }

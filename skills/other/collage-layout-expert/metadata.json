@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.699533Z",
   "dir_name": "collage-layout-expert",
   "category": "other",
-  "github_path": ".claude/skills/collage-layout-expert"
+  "github_path": ".claude/skills/collage-layout-expert",
+  "github_branch": "main"
 }

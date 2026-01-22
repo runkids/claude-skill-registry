@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:15.407784Z",
   "dir_name": "quality-complexity-check",
   "category": "other",
-  "github_path": ".claude/skills/quality-complexity-check"
+  "github_path": ".claude/skills/quality-complexity-check",
+  "github_branch": "main"
 }

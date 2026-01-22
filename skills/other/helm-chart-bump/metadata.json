@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:29.996065Z",
   "dir_name": "helm-chart-bump",
   "category": "other",
-  "github_path": ".claude/skills/helm-chart-bump"
+  "github_path": ".claude/skills/helm-chart-bump",
+  "github_branch": "main"
 }

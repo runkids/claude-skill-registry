@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:15.904714Z",
   "dir_name": "yaml-pipeline-validator",
   "category": "other",
-  "github_path": ".claude/skills/yaml-pipeline-validator"
+  "github_path": ".claude/skills/yaml-pipeline-validator",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 103,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/brutal-honesty-review"
+  "github_path": ".claude/skills/brutal-honesty-review",
+  "github_branch": "main"
 }

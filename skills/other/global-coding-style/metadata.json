@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:21.369641Z",
   "dir_name": "global-coding-style",
   "category": "other",
-  "github_path": ".claude/skills/global-coding-style"
+  "github_path": ".claude/skills/global-coding-style",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "test"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/quarkus-native-test"
+  "github_path": ".claude/skills/quarkus-native-test",
+  "github_branch": "main"
 }

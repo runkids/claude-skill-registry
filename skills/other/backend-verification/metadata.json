@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:28:33.052586Z",
   "dir_name": "backend-verification",
   "category": "other",
-  "github_path": ".claude/skills/backend-verification"
+  "github_path": ".claude/skills/backend-verification",
+  "github_branch": "main"
 }

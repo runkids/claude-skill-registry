@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/automation-refactor"
+  "github_path": ".claude/skills/automation-refactor",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:05.581956Z",
   "dir_name": "conversational-ai-flow",
   "category": "other",
-  "github_path": ".claude/skills/conversational-ai-flow"
+  "github_path": ".claude/skills/conversational-ai-flow",
+  "github_branch": "main"
 }

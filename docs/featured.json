@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-22T10:33:26.858965Z",
+  "updated_at": "2026-01-22T11:27:05.800191Z",
   "count": 100,
   "skills": [
     {
@@ -7,6 +7,7 @@
       "description": "Add unsigned integer (uint) type support to PyTorch operators by updating AT_DISPATCH macros. Use when adding support for uint16, uint32, uint64 types to operators, kernels, or when user mentions enab",
       "repo": "pytorch/pytorch",
       "path": ".claude/skills/add-uint-support",
+      "branch": "main",
       "category": "design",
       "tags": [
         "add",
@@ -22,6 +23,7 @@
       "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
       "repo": "pytorch/pytorch",
       "path": ".claude/skills/skill-writer",
+      "branch": "main",
       "category": "design",
       "tags": [
         "skill",
@@ -36,6 +38,7 @@
       "description": "Write docstrings for PyTorch functions and methods following PyTorch conventions. Use when writing or updating docstrings in PyTorch code.",
       "repo": "pytorch/pytorch",
       "path": ".claude/skills/docstring",
+      "branch": "main",
       "category": "development",
       "tags": [
         "docstring"
@@ -49,6 +52,7 @@
       "description": "Convert PyTorch AT_DISPATCH macros to AT_DISPATCH_V2 format in ATen C++ code. Use when porting AT_DISPATCH_ALL_TYPES_AND*, AT_DISPATCH_FLOATING_TYPES*, or other dispatch macros to the new v2 API. For",
       "repo": "pytorch/pytorch",
       "path": ".claude/skills/at-dispatch-v2",
+      "branch": "main",
       "category": "development",
       "tags": [
         "dispatch"
@@ -62,6 +66,7 @@
       "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflo",
       "repo": "openai/codex",
       "path": "",
+      "branch": "main",
       "category": "development",
       "tags": [
         "skill",
@@ -76,6 +81,7 @@
       "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code",
       "repo": "anthropics/claude-code",
       "path": "",
+      "branch": "main",
       "category": "design",
       "tags": [
         "frontend",
@@ -90,6 +96,7 @@
       "description": "Review Clojure and ClojureScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing Clojure/Clo",
       "repo": "metabase/metabase",
       "path": ".claude/skills/clojure-review",
+      "branch": "master",
       "category": "development",
       "tags": [
         "clojure",
@@ -104,6 +111,7 @@
       "description": "Review TypeScript and JavaScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing TypeScript/",
       "repo": "metabase/metabase",
       "path": ".claude/skills/typescript-review",
+      "branch": "master",
       "category": "development",
       "tags": [
         "typescript",
@@ -118,6 +126,7 @@
       "description": "Guide Clojure and ClojureScript development using REPL-driven workflow, coding conventions, and best practices. Use when writing, developing, or refactoring Clojure/ClojureScript code.",
       "repo": "metabase/metabase",
       "path": ".claude/skills/clojure-write",
+      "branch": "master",
       "category": "development",
       "tags": [
         "clojure",
@@ -132,6 +141,7 @@
       "description": "Write TypeScript and JavaScript code following Metabase coding standards and best practices. Use when developing or refactoring TypeScript/JavaScript code.",
       "repo": "metabase/metabase",
       "path": ".claude/skills/typescript-write",
+      "branch": "master",
       "category": "development",
       "tags": [
         "typescript",
@@ -146,6 +156,7 @@
       "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
       "repo": "metabase/metabase",
       "path": ".claude/skills/docs-review",
+      "branch": "master",
       "category": "documents",
       "tags": [
         "docs",
@@ -160,6 +171,7 @@
       "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
       "repo": "metabase/metabase",
       "path": ".claude/skills/docs-write",
+      "branch": "master",
       "category": "documents",
       "tags": [
         "docs",
@@ -174,6 +186,7 @@
       "description": "Audit an Anthropic Cookbook notebook based on a rubric. Use whenever a notebook review or audit is requested.",
       "repo": "anthropics/claude-cookbooks",
       "path": ".claude/skills/cookbook-audit",
+      "branch": "main",
       "category": "security",
       "tags": [
         "cookbook",
@@ -188,6 +201,7 @@
       "description": "Run Nx generators with prioritization for workspace-plugin generators. Use this when generating code, scaffolding new features, or automating repetitive tasks in the monorepo.",
       "repo": "nrwl/nx",
       "path": ".claude/skills/run-nx-generator",
+      "branch": "master",
       "category": "development",
       "tags": [
         "run",
@@ -202,6 +216,7 @@
       "description": "Guides Claude in creating well-structured SKILL.md files following best practices. Provides clear guidelines for naming, structure, and content organization to make skills easy to discover and execute",
       "repo": "labring/FastGPT",
       "path": ".claude/skills/create-skill-file",
+      "branch": "main",
       "category": "design",
       "tags": [
         "create",
@@ -217,6 +232,7 @@
       "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate externa",
       "repo": "anthropics/skills",
       "path": "skills/mcp-builder",
+      "branch": "main",
       "category": "design",
       "tags": [
         "mcp",
@@ -231,6 +247,7 @@
       "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state manag",
       "repo": "anthropics/skills",
       "path": "skills/web-artifacts-builder",
+      "branch": "main",
       "category": "design",
       "tags": [
         "web",
@@ -246,6 +263,7 @@
       "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
       "repo": "anthropics/skills",
       "path": "skills/internal-comms",
+      "branch": "main",
       "category": "devops",
       "tags": [
         "internal",
@@ -260,6 +278,7 @@
       "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
       "repo": "anthropics/skills",
       "path": "skills/webapp-testing",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "webapp",
@@ -274,6 +293,7 @@
       "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
       "repo": "anthropics/skills",
       "path": "skills/pdf",
+      "branch": "main",
       "category": "documents",
       "tags": [
         "pdf"
@@ -287,6 +307,7 @@
       "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
       "repo": "anthropics/skills",
       "path": "skills/docx",
+      "branch": "main",
       "category": "documents",
       "tags": [
         "docx"
@@ -300,6 +321,7 @@
       "description": "Fetch unresolved PR review comments using GitHub GraphQL API, filtering out resolved and outdated feedback.",
       "repo": "mlflow/mlflow",
       "path": ".claude/skills/fetch-unresolved-comments",
+      "branch": "master",
       "category": "development",
       "tags": [
         "fetch",
@@ -315,6 +337,7 @@
       "description": "Use this skill to run npm run lint and fix linting issues. Triggers on fixing lint errors after code changes or validating code against project style guidelines.",
       "repo": "yamadashy/repomix",
       "path": ".claude/skills/lint-fixer",
+      "branch": "main",
       "category": "development",
       "tags": [
         "lint",
@@ -329,6 +352,7 @@
       "description": "Use this skill when developing or maintaining browser extension code in the `browser/` directory, including Chrome/Firefox/Edge compatibility, content scripts, background scripts, or i18n updates.",
       "repo": "yamadashy/repomix",
       "path": ".claude/skills/browser-extension-developer",
+      "branch": "main",
       "category": "development",
       "tags": [
         "browser",
@@ -344,6 +368,7 @@
       "description": "Use this skill when working on the Repomix documentation website in `website/` directory, including VitePress configuration, multi-language content, or translation workflows.",
       "repo": "yamadashy/repomix",
       "path": ".claude/skills/website-maintainer",
+      "branch": "main",
       "category": "documents",
       "tags": [
         "website",
@@ -358,6 +383,7 @@
       "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
       "repo": "yamadashy/repomix",
       "path": ".claude/skills/agent-memory",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "agent",
@@ -372,6 +398,7 @@
       "description": "Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, modifying skill-rules.json, understanding trigger patterns, working with hooks, debugging skill a",
       "repo": "langfuse/langfuse",
       "path": ".claude/skills/skill-developer",
+      "branch": "main",
       "category": "development",
       "tags": [
         "skill",
@@ -386,6 +413,7 @@
       "description": "Pre-implementation confidence assessment (≥90% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS refe",
       "repo": "SuperClaude-Org/SuperClaude_Framework",
       "path": ".claude/skills/confidence-check",
+      "branch": "master",
       "category": "design",
       "tags": [
         "confidence",
@@ -400,6 +428,7 @@
       "description": "Write competitive research proposals for NSF, NIH, DOE, and DARPA. Agency-specific formatting, review criteria, budget preparation, broader impacts, significance statements, innovation narratives, and",
       "repo": "davila7/claude-code-templates",
       "path": "",
+      "branch": "main",
       "category": "design",
       "tags": [
         "research",
@@ -414,6 +443,7 @@
       "description": "Core skill for the deep research and writing tool. Write scientific manuscripts in full paragraphs (never bullet points). Use two-stage process: (1) create section outlines with key points using resea",
       "repo": "davila7/claude-code-templates",
       "path": "",
+      "branch": "main",
       "category": "design",
       "tags": [
         "scientific",
@@ -428,6 +458,7 @@
       "description": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations, thesis defense slides, or any scientific",
       "repo": "davila7/claude-code-templates",
       "path": "",
+      "branch": "main",
       "category": "design",
       "tags": [
         "scientific",
@@ -442,6 +473,7 @@
       "description": "Generate testable hypotheses. Formulate from observations, design experiments, explore competing explanations, develop predictions, propose mechanisms, for scientific inquiry across domains.",
       "repo": "davila7/claude-code-templates",
       "path": "",
+      "branch": "main",
       "category": "design",
       "tags": [
         "hypothesis",
@@ -456,6 +488,7 @@
       "description": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and grant review across disciplines.",
       "repo": "davila7/claude-code-templates",
       "path": "",
+      "branch": "main",
       "category": "design",
       "tags": [
         "peer",
@@ -470,6 +503,7 @@
       "description": "Generate comprehensive market research reports (50+ pages) in the style of top consulting firms (McKinsey, BCG, Gartner). Features professional LaTeX formatting, extensive visual generation with scien",
       "repo": "davila7/claude-code-templates",
       "path": "",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "market",
@@ -485,6 +519,7 @@
       "description": "Create professional research posters in LaTeX using beamerposter, tikzposter, or baposter. Support for conference presentations, academic posters, and scientific communication. Includes layout design,",
       "repo": "davila7/claude-code-templates",
       "path": "",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "latex",
@@ -499,6 +534,7 @@
       "description": "Look up current research information using Perplexity's Sonar Pro Search or Sonar Reasoning Pro models through OpenRouter. Automatically selects the best model based on query complexity. Search academ",
       "repo": "davila7/claude-code-templates",
       "path": "",
+      "branch": "main",
       "category": "documents",
       "tags": [
         "research",
@@ -513,6 +549,7 @@
       "description": "Generate professional clinical decision support (CDS) documents for pharmaceutical and clinical research settings, including patient cohort analyses (biomarker-stratified with outcomes) and treatment",
       "repo": "davila7/claude-code-templates",
       "path": "",
+      "branch": "main",
       "category": "documents",
       "tags": [
         "clinical",
@@ -528,6 +565,7 @@
       "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
       "repo": "obra/superpowers",
       "path": "skills/using-superpowers",
+      "branch": "main",
       "category": "design",
       "tags": [
         "using",
@@ -542,6 +580,7 @@
       "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
       "repo": "obra/superpowers",
       "path": "skills/writing-skills",
+      "branch": "main",
       "category": "devops",
       "tags": [
         "writing",
@@ -556,6 +595,7 @@
       "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
       "repo": "obra/superpowers",
       "path": "skills/using-git-worktrees",
+      "branch": "main",
       "category": "product",
       "tags": [
         "using",
@@ -571,6 +611,7 @@
       "description": "Build MCP (Model Context Protocol) servers that give Claude new capabilities. Use when user wants to create an MCP server, add tools to Claude, or integrate external services.",
       "repo": "shareAI-lab/learn-claude-code",
       "path": "skills/mcp-builder",
+      "branch": "main",
       "category": "development",
       "tags": [
         "mcp",
@@ -585,6 +626,7 @@
       "description": "Design and build AI agents for any domain. Use when users:(1) ask to \"create an agent\", \"build an assistant\", or \"design an AI system\"(2) want to understand agent architecture, agentic patterns, or au",
       "repo": "shareAI-lab/learn-claude-code",
       "path": "skills/agent-builder",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "agent",
@@ -599,6 +641,7 @@
       "description": "Keeps IdeaVim documentation in sync with code changes. Use this skill when you need to verify documentation accuracy after code changes, or when checking if documentation (in doc/, README.md, CONTRIBU",
       "repo": "JetBrains/ideavim",
       "path": ".claude/skills/doc-sync",
+      "branch": "master",
       "category": "documents",
       "tags": [
         "doc",
@@ -613,6 +656,7 @@
       "description": "Comprehensive Flow Nexus platform management - authentication, sandboxes, app deployment, payments, and challenges",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/flow-nexus-platform",
+      "branch": "main",
       "category": "devops",
       "tags": [
         "flow",
@@ -628,6 +672,7 @@
       "description": "SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) comprehensive development methodology with multi-agent orchestration",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/sparc-methodology",
+      "branch": "main",
       "category": "development",
       "tags": [
         "sparc",
@@ -642,6 +687,7 @@
       "description": "\"Create new Claude Code Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization. Use when you need to build custom skills for specific workflows, gen",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/skill-builder",
+      "branch": "main",
       "category": "development",
       "tags": [
         "skill",
@@ -656,6 +702,7 @@
       "description": "\"Implement adaptive learning with ReasoningBank for pattern recognition, strategy optimization, and continuous improvement. Use when building self-learning agents, optimizing workflows, or implementin",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/reasoningbank-intelligence",
+      "branch": "main",
       "category": "development",
       "tags": [
         "reasoningbank",
@@ -670,6 +717,7 @@
       "description": "Comprehensive performance analysis, bottleneck detection, and optimization recommendations for Claude Flow swarms",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/performance-analysis",
+      "branch": "main",
       "category": "development",
       "tags": [
         "performance",
@@ -684,6 +732,7 @@
       "description": "Comprehensive GitHub code review with AI-powered swarm coordination",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/github-code-review",
+      "branch": "main",
       "category": "development",
       "tags": [
         "github",
@@ -699,6 +748,7 @@
       "description": "\"Implement persistent memory patterns for AI agents using AgentDB. Includes session memory, long-term storage, pattern learning, and context management. Use when building stateful agents, chat systems",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/agentdb-memory-patterns",
+      "branch": "main",
       "category": "development",
       "tags": [
         "agentdb",
@@ -714,6 +764,7 @@
       "description": "\"Implement semantic vector search with AgentDB for intelligent document retrieval, similarity matching, and context-aware querying. Use when building RAG systems, semantic search engines, or intellige",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/agentdb-vector-search",
+      "branch": "main",
       "category": "development",
       "tags": [
         "agentdb",
@@ -729,6 +780,7 @@
       "description": "AI-assisted pair programming with multiple modes (driver/navigator/switch), real-time verification, quality monitoring, and comprehensive testing. Supports TDD, debugging, refactoring, and learning se",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/pair-programming",
+      "branch": "main",
       "category": "development",
       "tags": [
         "pair",
@@ -743,6 +795,7 @@
       "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/swarm-advanced",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "swarm",
@@ -757,6 +810,7 @@
       "description": "Comprehensive GitHub release orchestration with AI swarm coordination for automated versioning, testing, deployment, and rollback management",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/github-release-management",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "github",
@@ -772,6 +826,7 @@
       "description": "Advanced Hive Mind collective intelligence system for queen-led multi-agent coordination with consensus mechanisms and persistent memory",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/hive-mind-advanced",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "hive",
@@ -787,6 +842,7 @@
       "description": "Automated coordination, formatting, and learning from Claude Code operations using intelligent hooks with MCP integration. Includes pre/post task hooks, session management, Git integration, memory coo",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/hooks-automation",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "hooks",
@@ -801,6 +857,7 @@
       "description": "Advanced GitHub Actions workflow automation with AI swarm coordination, intelligent CI/CD pipelines, and comprehensive repository management",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/github-workflow-automation",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "github",
@@ -816,6 +873,7 @@
       "description": "Cloud-based AI swarm deployment and event-driven workflow automation with Flow Nexus platform",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/flow-nexus-swarm",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "flow",
@@ -831,6 +889,7 @@
       "description": "\"Orchestrate multi-agent swarms with agentic-flow for parallel task execution, dynamic topology, and intelligent coordination. Use when scaling beyond single agents, implementing complex workflows, or",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/swarm-orchestration",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "swarm",
@@ -845,6 +904,7 @@
       "description": "Comprehensive GitHub project management with swarm-coordinated issue tracking, project board automation, and sprint planning",
       "repo": "ruvnet/claude-flow",
       "path": ".claude/skills/github-project-management",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "github",
@@ -860,6 +920,7 @@
       "description": "Manage semantic version updates for claude-mem project. Handles patch, minor, and major version increments following semantic versioning. Updates package.json, marketplace.json, and plugin.json. Creat",
       "repo": "thedotmack/claude-mem",
       "path": "",
+      "branch": "main",
       "category": "development",
       "tags": [
         "version",
@@ -874,6 +935,7 @@
       "description": "Comprehensive code reviews for Bitwarden Android. Detects change type (dependency update, bug fix, feature, UI, refactoring, infrastructure) and applies appropriate review depth. Validates MVVM patter",
       "repo": "bitwarden/android",
       "path": ".claude/skills/reviewing-changes",
+      "branch": "main",
       "category": "development",
       "tags": [
         "reviewing",
@@ -888,6 +950,7 @@
       "description": "用于 FlowGram 物料库组件文档撰写的专用技能，提供组件文档生成、Story 创建、翻译等功能的指导和自动化支持",
       "repo": "bytedance/flowgram.ai",
       "path": ".claude/skills/material-component-doc",
+      "branch": "main",
       "category": "documents",
       "tags": [
         "material",
@@ -903,6 +966,7 @@
       "description": "Frontend development guidelines for React/TypeScript applications. Modern patterns including Suspense, lazy loading, useSuspenseQuery, file organization with features directory, MUI v7 styling, TanSta",
       "repo": "diet103/claude-code-infrastructure-showcase",
       "path": ".claude/skills/frontend-dev-guidelines",
+      "branch": "main",
       "category": "development",
       "tags": [
         "frontend",
@@ -918,6 +982,7 @@
       "description": "Comprehensive backend development guide for Node.js/Express/TypeScript microservices. Use when creating routes, controllers, services, repositories, middleware, or working with Express APIs, Prisma da",
       "repo": "diet103/claude-code-infrastructure-showcase",
       "path": ".claude/skills/backend-dev-guidelines",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "backend",
@@ -933,6 +998,7 @@
       "description": "Test authenticated routes in the your project using cookie-based authentication. Use this skill when testing API endpoints, validating route functionality, or debugging authentication issues. Includes",
       "repo": "diet103/claude-code-infrastructure-showcase",
       "path": ".claude/skills/route-tester",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "route",
@@ -947,6 +1013,7 @@
       "description": "Run, create, and debug Playwright e2e tests for the web app. ALWAYS invoke this skill using the SlashCommand tool (i.e., `/web-e2e`) BEFORE attempting to run any e2e tests, playwright tests, anvil tes",
       "repo": "Uniswap/interface",
       "path": ".claude/skills/web-e2e",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "web",
@@ -961,6 +1028,7 @@
       "description": "This skill should be used when the user asks to \"design multi-agent system\", \"implement supervisor pattern\", \"create swarm architecture\", \"coordinate multiple agents\", or mentions multi-agent patterns",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "skills/multi-agent-patterns",
+      "branch": "main",
       "category": "design",
       "tags": [
         "multi",
@@ -976,6 +1044,7 @@
       "description": "This skill should be used when the user asks to \"design agent tools\", \"create tool descriptions\", \"reduce tool complexity\", \"implement MCP tools\", or mentions tool consolidation, architectural reducti",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "skills/tool-design",
+      "branch": "main",
       "category": "design",
       "tags": [
         "tool",
@@ -990,6 +1059,7 @@
       "description": "This skill should be used when the user asks to \"optimize context\", \"reduce token costs\", \"improve context efficiency\", \"implement KV-cache optimization\", \"partition context\", or mentions context limi",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "skills/context-optimization",
+      "branch": "main",
       "category": "devops",
       "tags": [
         "context",
@@ -1004,6 +1074,7 @@
       "description": "This skill should be used when the user asks to \"diagnose context problems\", \"fix lost-in-middle issues\", \"debug agent failures\", \"understand context poisoning\", or mentions context degradation, atten",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "skills/context-degradation",
+      "branch": "main",
       "category": "development",
       "tags": [
         "context",
@@ -1018,6 +1089,7 @@
       "description": "This skill should be used when the user asks to \"implement agent memory\", \"persist state across sessions\", \"build knowledge graph\", \"track entities\", or mentions memory architecture, temporal knowledg",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "skills/memory-systems",
+      "branch": "main",
       "category": "development",
       "tags": [
         "memory",
@@ -1032,6 +1104,7 @@
       "description": "Template for creating new Agent Skills for context engineering. Use this template when adding new skills to the collection.",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "",
+      "branch": "main",
       "category": "development",
       "tags": [
         "skill",
@@ -1046,6 +1119,7 @@
       "description": "A comprehensive collection of Agent Skills for context engineering, multi-agent architectures, and production agent systems. Use when building, optimizing, or debugging agent systems that require effe",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "",
+      "branch": "main",
       "category": "development",
       "tags": [
         "context",
@@ -1061,6 +1135,7 @@
       "description": "This skill should be used when the user asks to \"understand context\", \"explain context windows\", \"design agent architecture\", \"debug context issues\", \"optimize context usage\", or discusses context com",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "skills/context-fundamentals",
+      "branch": "main",
       "category": "development",
       "tags": [
         "context",
@@ -1075,6 +1150,7 @@
       "description": "This skill should be used when the user asks to \"start an LLM project\", \"design batch pipeline\", \"evaluate task-model fit\", \"structure agent project\", or mentions pipeline architecture, agent-assisted",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "skills/project-development",
+      "branch": "main",
       "category": "development",
       "tags": [
         "project",
@@ -1089,6 +1165,7 @@
       "description": "This skill should be used when the user asks to \"evaluate agent performance\", \"build test framework\", \"measure agent quality\", \"create evaluation rubrics\", or mentions LLM-as-judge, multi-dimensional",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "skills/evaluation",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "evaluation"
@@ -1102,6 +1179,7 @@
       "description": "This skill should be used when the user asks to \"write a post\", \"check my voice\", \"look up contact\", \"prepare for meeting\", \"weekly review\", \"track goals\", or mentions personal brand, content creation",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "",
+      "branch": "main",
       "category": "marketing",
       "tags": [
         "digital",
@@ -1116,6 +1194,7 @@
       "description": "This skill should be used when the user asks to \"compress context\", \"summarize conversation history\", \"implement compaction\", \"reduce token usage\", or mentions context compression, structured summariz",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "skills/context-compression",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "context",
@@ -1130,6 +1209,7 @@
       "description": "Guide for benchmarking FlashInfer kernels with CUPTI timing",
       "repo": "flashinfer-ai/flashinfer",
       "path": ".claude/skills/benchmark-kernel",
+      "branch": "main",
       "category": "design",
       "tags": [
         "benchmark",
@@ -1144,6 +1224,7 @@
       "description": "Tutorial for debugging CUDA crashes using API logging",
       "repo": "flashinfer-ai/flashinfer",
       "path": ".claude/skills/debug-cuda-crash",
+      "branch": "main",
       "category": "development",
       "tags": [
         "debug",
@@ -1159,6 +1240,7 @@
       "description": "Step-by-step tutorial for adding new CUDA kernels to FlashInfer",
       "repo": "flashinfer-ai/flashinfer",
       "path": ".claude/skills/add-cuda-kernel",
+      "branch": "main",
       "category": "development",
       "tags": [
         "add",
@@ -1174,6 +1256,7 @@
       "description": "Guide users through writing their first Buck2 rule to learn fundamental concepts including rules, actions, targets, configurations, analysis, and select(). Use this skill when users want to learn Buck",
       "repo": "facebook/buck2",
       "path": ".claude/skills/buck2-rule-basics",
+      "branch": "main",
       "category": "design",
       "tags": [
         "buck2",
@@ -1189,6 +1272,7 @@
       "description": "Svelte 5 patterns including TanStack Query mutations, shadcn-svelte components, and component composition. Use when writing Svelte components, using TanStack Query, or working with shadcn-svelte UI.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/svelte",
+      "branch": "main",
       "category": "design",
       "tags": [
         "svelte"
@@ -1202,6 +1286,7 @@
       "description": "CSS and Tailwind styling guidelines. Use when writing styles, creating UI components, reviewing CSS/Tailwind code, or deciding on wrapper element structure.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/styling",
+      "branch": "main",
       "category": "design",
       "tags": [
         "styling"
@@ -1215,6 +1300,7 @@
       "description": "Git commit and pull request guidelines using conventional commits. Use when creating commits, writing commit messages, creating PRs, or reviewing PR descriptions.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/git",
+      "branch": "main",
       "category": "design",
       "tags": [
         "git"
@@ -1228,6 +1314,7 @@
       "description": "Monorepo script commands and conventions for this codebase. Use when running builds, tests, formatting, linting, or type checking.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/monorepo",
+      "branch": "main",
       "category": "development",
       "tags": [
         "monorepo"
@@ -1241,6 +1328,7 @@
       "description": "Behavioral guideline for providing brutally honest feedback. Use always - this skill defines core interaction expectations for code review and technical discussions.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/honesty",
+      "branch": "main",
       "category": "development",
       "tags": [
         "honesty"
@@ -1254,6 +1342,7 @@
       "description": "Apply factory function patterns to compose clients and services with proper separation of concerns. Use when creating functions that depend on external clients, wrapping resources with domain-specific",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/factory-function-composition",
+      "branch": "main",
       "category": "development",
       "tags": [
         "factory",
@@ -1269,6 +1358,7 @@
       "description": "TypeScript code style, type co-location, constant naming conventions, and arktype patterns. Use when writing TypeScript code, defining types, creating constants, or working with arktype schemas.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/typescript",
+      "branch": "main",
       "category": "development",
       "tags": [
         "typescript"
@@ -1282,6 +1372,7 @@
       "description": "Human-readable control flow patterns for refactoring complex conditionals. Use when refactoring nested conditionals, improving code readability, or restructuring decision logic.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/control-flow",
+      "branch": "main",
       "category": "development",
       "tags": [
         "control",
@@ -1296,6 +1387,7 @@
       "description": "Rust to TypeScript error handling patterns for Tauri apps. Use when defining Rust errors that will be passed to TypeScript, handling Tauri command errors, or creating discriminated union error types.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/rust-errors",
+      "branch": "main",
       "category": "development",
       "tags": [
         "rust",
@@ -1310,6 +1402,7 @@
       "description": "GitHub issue comment guidelines for community interaction. Use when responding to GitHub issues, bug reports, feature requests, or any GitHub discussion.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/github-issues",
+      "branch": "main",
       "category": "testing",
       "tags": [
         "github",
@@ -1324,6 +1417,7 @@
       "description": "Social media post guidelines for LinkedIn, Reddit, and Twitter/X. Use when drafting posts, announcements, or sharing technical content on social platforms.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/social-media",
+      "branch": "main",
       "category": "marketing",
       "tags": [
         "social",
@@ -1338,6 +1432,7 @@
       "description": "Standard workflow for implementing features with specs and planning documents. Use when starting a new feature, planning implementation, or working on any non-trivial task.",
       "repo": "EpicenterHQ/epicenter",
       "path": "skills/workflow",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "workflow"
@@ -1351,6 +1446,7 @@
       "description": "This skill should be used when developing, debugging, or maintaining Positron Notebooks - the React-based feature-flagged notebook editor. Load this skill when tasks involve notebook cells, execution,",
       "repo": "posit-dev/positron",
       "path": ".claude/skills/positron-notebooks",
+      "branch": "main",
       "category": "development",
       "tags": [
         "positron",
@@ -1365,6 +1461,7 @@
       "description": "This skill should be used when drafting GitHub issues for the Positron repository. It provides workflows for searching duplicates, selecting appropriate labels, gathering complete context through ques",
       "repo": "posit-dev/positron",
       "path": ".claude/skills/positron-issue-creator",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "positron",
@@ -1380,6 +1477,7 @@
       "description": "This skill should be used when handling issue intake rotation duties for the Positron repository. It provides workflows for reviewing and organizing new issues, responding to discussions, handling sup",
       "repo": "posit-dev/positron",
       "path": ".claude/skills/positron-intake-rotation",
+      "branch": "main",
       "category": "productivity",
       "tags": [
         "positron",
@@ -1395,6 +1493,7 @@
       "description": "Comprehensive code review for GitHub pull requests using parallel agents. Checks bugs, CLAUDE.md compliance, git history, previous PR patterns, and code comments. Use when reviewing PRs, doing code re",
       "repo": "EvolvingLMMs-Lab/lmms-eval",
       "path": ".claude/skills/pr-code-review",
+      "branch": "main",
       "category": "development",
       "tags": [
         "code",
@@ -1409,6 +1508,7 @@
       "description": "Build and run LLM-powered data processing pipelines with DocETL. Use when users say \"docetl\", want to analyze unstructured data, process documents, extract information, or run ETL tasks on text. Helps",
       "repo": "ucbepic/docetl",
       "path": ".claude/skills/docetl",
+      "branch": "main",
       "category": "development",
       "tags": [
         "docetl"

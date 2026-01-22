@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:18:50.417763Z",
   "dir_name": "format-ui-display",
   "category": "other",
-  "github_path": ".claude/skills/format-ui-display"
+  "github_path": ".claude/skills/format-ui-display",
+  "github_branch": "main"
 }

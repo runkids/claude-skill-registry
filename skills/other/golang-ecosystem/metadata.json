@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:35.446665Z",
   "dir_name": "golang-ecosystem",
   "category": "other",
-  "github_path": ".claude/skills/golang-ecosystem"
+  "github_path": ".claude/skills/golang-ecosystem",
+  "github_branch": "main"
 }

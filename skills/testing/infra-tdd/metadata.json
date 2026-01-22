@@ -8,5 +8,6 @@
     "tdd"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/infra-tdd"
+  "github_path": ".claude/skills/infra-tdd",
+  "github_branch": "main"
 }

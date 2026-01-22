@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:27.570761Z",
   "dir_name": "mcp-provider",
   "category": "other",
-  "github_path": ".claude/skills/mcp-provider"
+  "github_path": ".claude/skills/mcp-provider",
+  "github_branch": "main"
 }

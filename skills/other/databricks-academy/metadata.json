@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:52.898608Z",
   "dir_name": "databricks-academy",
   "category": "other",
-  "github_path": ".claude/skills/databricks-academy"
+  "github_path": ".claude/skills/databricks-academy",
+  "github_branch": "main"
 }

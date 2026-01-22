@@ -8,5 +8,6 @@
     "strategist"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/fuzzing-strategist"
+  "github_path": ".claude/skills/fuzzing-strategist",
+  "github_branch": "main"
 }

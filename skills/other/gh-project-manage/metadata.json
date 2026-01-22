@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:26:46.467851Z",
   "dir_name": "gh-project-manage",
   "category": "other",
-  "github_path": ".claude/skills/gh-project-manage"
+  "github_path": ".claude/skills/gh-project-manage",
+  "github_branch": "main"
 }

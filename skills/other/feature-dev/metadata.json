@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T02:05:13.064857Z",
   "dir_name": "feature-dev",
   "category": "other",
-  "github_path": ".claude/skills/feature-dev"
+  "github_path": ".claude/skills/feature-dev",
+  "github_branch": "main"
 }

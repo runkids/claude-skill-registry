@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:07.661221Z",
   "dir_name": "sc-brainstorm",
   "category": "other",
-  "github_path": ".claude/skills/sc-brainstorm"
+  "github_path": ".claude/skills/sc-brainstorm",
+  "github_branch": "main"
 }

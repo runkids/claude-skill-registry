@@ -9,5 +9,6 @@
   ],
   "stars": 198,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/swapper-integration"
+  "github_path": ".claude/skills/swapper-integration",
+  "github_branch": "main"
 }

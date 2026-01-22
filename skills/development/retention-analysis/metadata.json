@@ -8,5 +8,6 @@
     "analysis"
   ],
   "stars": 32,
-  "github_path": ".claude/skills/retention-analysis"
+  "github_path": ".claude/skills/retention-analysis",
+  "github_branch": "main"
 }

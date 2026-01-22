@@ -5,5 +5,6 @@
   "description": "Human intervention detection and orchestration for CFN Loop. Use when automated processes need human oversight, when escalation is required, or when managing intervention workflows and approval gates.",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:20:12.255051Z",
-  "github_path": ".claude/skills/cfn-intervention-system"
+  "github_path": ".claude/skills/cfn-intervention-system",
+  "github_branch": "main"
 }

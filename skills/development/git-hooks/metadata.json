@@ -8,5 +8,6 @@
     "hooks"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/git-hooks"
+  "github_path": ".claude/skills/git-hooks",
+  "github_branch": "main"
 }

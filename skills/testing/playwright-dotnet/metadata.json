@@ -8,5 +8,6 @@
     "dotnet"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/playwright-dotnet"
+  "github_path": ".claude/skills/playwright-dotnet",
+  "github_branch": "main"
 }

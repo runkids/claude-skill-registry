@@ -8,5 +8,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/corgi"
+  "github_path": ".claude/skills/corgi",
+  "github_branch": "main"
 }

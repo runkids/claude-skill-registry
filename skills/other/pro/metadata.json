@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:44.244109Z",
   "dir_name": "pro",
   "category": "other",
-  "github_path": ".claude/skills/pro"
+  "github_path": ".claude/skills/pro",
+  "github_branch": "main"
 }

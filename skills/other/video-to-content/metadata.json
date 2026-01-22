@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:30.513329Z",
   "dir_name": "video-to-content",
   "category": "other",
-  "github_path": ".claude/skills/video-to-content"
+  "github_path": ".claude/skills/video-to-content",
+  "github_branch": "main"
 }

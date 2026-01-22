@@ -8,5 +8,6 @@
     "orchestration"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/research-orchestration"
+  "github_path": ".claude/skills/research-orchestration",
+  "github_branch": "main"
 }

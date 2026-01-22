@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:39.887700Z",
   "dir_name": "architect-agent-skill",
   "category": "other",
-  "github_path": ".claude/skills/architect-agent-skill"
+  "github_path": ".claude/skills/architect-agent-skill",
+  "github_branch": "main"
 }

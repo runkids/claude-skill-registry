@@ -9,5 +9,6 @@
     "complete"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/verdex-playwright-complete"
+  "github_path": ".claude/skills/verdex-playwright-complete",
+  "github_branch": "main"
 }

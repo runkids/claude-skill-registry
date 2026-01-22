@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T04:04:35.046771Z",
   "dir_name": "test-manager",
   "category": "other",
-  "github_path": ".claude/skills/test-manager"
+  "github_path": ".claude/skills/test-manager",
+  "github_branch": "main"
 }

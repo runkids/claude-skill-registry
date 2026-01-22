@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:47.029126Z",
   "dir_name": "rust-skill-creator",
   "category": "other",
-  "github_path": ".claude/skills/rust-skill-creator"
+  "github_path": ".claude/skills/rust-skill-creator",
+  "github_branch": "main"
 }

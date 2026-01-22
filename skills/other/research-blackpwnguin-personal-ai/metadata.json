@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:22:21.456096Z",
   "dir_name": "research-blackpwnguin-personal-ai",
   "category": "other",
-  "github_path": ".claude/skills/Research"
+  "github_path": ".claude/skills/Research",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "collector"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/github-pr-collector"
+  "github_path": ".claude/skills/github-pr-collector",
+  "github_branch": "main"
 }

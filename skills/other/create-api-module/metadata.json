@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:03:22.288631Z",
   "dir_name": "create-api-module",
   "category": "other",
-  "github_path": ".claude/skills/create-api-module"
+  "github_path": ".claude/skills/create-api-module",
+  "github_branch": "main"
 }

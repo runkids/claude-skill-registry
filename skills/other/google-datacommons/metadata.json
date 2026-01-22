@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:06.825126Z",
   "dir_name": "google-datacommons",
   "category": "other",
-  "github_path": ".claude/skills/google-datacommons"
+  "github_path": ".claude/skills/google-datacommons",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:31.892794Z",
   "dir_name": "task-plan-writing",
   "category": "other",
-  "github_path": ".claude/skills/task-plan-writing"
+  "github_path": ".claude/skills/task-plan-writing",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "docker-ops",
-  "github_path": ".claude/skills/docker-ops"
+  "github_path": ".claude/skills/docker-ops",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "ship"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ship"
+  "github_path": ".claude/skills/ship",
+  "github_branch": "main"
 }

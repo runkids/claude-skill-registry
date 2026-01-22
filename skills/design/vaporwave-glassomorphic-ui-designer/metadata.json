@@ -9,5 +9,6 @@
     "designer"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/vaporwave-glassomorphic-ui-designer"
+  "github_path": ".claude/skills/vaporwave-glassomorphic-ui-designer",
+  "github_branch": "main"
 }

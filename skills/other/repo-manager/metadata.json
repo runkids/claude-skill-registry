@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:40:05.462337Z",
   "dir_name": "repo-manager",
   "category": "other",
-  "github_path": ".claude/skills/repo-manager"
+  "github_path": ".claude/skills/repo-manager",
+  "github_branch": "main"
 }

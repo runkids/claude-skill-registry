@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:27.623304Z",
   "dir_name": "supabase-rls",
   "category": "other",
-  "github_path": ".claude/skills/supabase-rls"
+  "github_path": ".claude/skills/supabase-rls",
+  "github_branch": "main"
 }

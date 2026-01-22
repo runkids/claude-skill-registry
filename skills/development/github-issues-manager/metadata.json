@@ -9,5 +9,6 @@
     "manager"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/github-issues-manager"
+  "github_path": ".claude/skills/github-issues-manager",
+  "github_branch": "main"
 }

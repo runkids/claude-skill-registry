@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:34.971173Z",
   "dir_name": "expert-integration",
   "category": "other",
-  "github_path": ".claude/skills/expert-integration"
+  "github_path": ".claude/skills/expert-integration",
+  "github_branch": "main"
 }

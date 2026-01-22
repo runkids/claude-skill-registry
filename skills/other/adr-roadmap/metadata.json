@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:44.639220Z",
   "dir_name": "adr-roadmap",
   "category": "other",
-  "github_path": ".claude/skills/adr-roadmap"
+  "github_path": ".claude/skills/adr-roadmap",
+  "github_branch": "main"
 }

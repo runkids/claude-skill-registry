@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:47.464021Z",
   "dir_name": "meeting-synthesizer",
   "category": "other",
-  "github_path": ".claude/skills/meeting-synthesizer"
+  "github_path": ".claude/skills/meeting-synthesizer",
+  "github_branch": "main"
 }

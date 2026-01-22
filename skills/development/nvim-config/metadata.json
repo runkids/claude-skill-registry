@@ -9,5 +9,6 @@
   ],
   "stars": 182,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/nvim-config"
+  "github_path": ".claude/skills/nvim-config",
+  "github_branch": "main"
 }

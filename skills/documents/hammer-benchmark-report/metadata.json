@@ -9,5 +9,6 @@
     "report"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/hammer-benchmark-report"
+  "github_path": ".claude/skills/hammer-benchmark-report",
+  "github_branch": "main"
 }

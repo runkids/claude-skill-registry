@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:53.698173Z",
   "dir_name": "create-meta-prompts",
   "category": "other",
-  "github_path": ".claude/skills/create-meta-prompts"
+  "github_path": ".claude/skills/create-meta-prompts",
+  "github_branch": "main"
 }

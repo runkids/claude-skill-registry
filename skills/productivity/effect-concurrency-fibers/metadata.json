@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effect-concurrency-fibers"
+  "github_path": ".claude/skills/effect-concurrency-fibers",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "refactoring"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pangea-refactoring"
+  "github_path": ".claude/skills/pangea-refactoring",
+  "github_branch": "main"
 }

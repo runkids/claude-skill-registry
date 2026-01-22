@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "sync-markdown",
-  "github_path": ".claude/skills/sync-markdown"
+  "github_path": ".claude/skills/sync-markdown",
+  "github_branch": "main"
 }

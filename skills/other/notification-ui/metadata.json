@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:12:39.173397Z",
   "dir_name": "notification-ui",
   "category": "other",
-  "github_path": ".claude/skills/notification-ui"
+  "github_path": ".claude/skills/notification-ui",
+  "github_branch": "main"
 }

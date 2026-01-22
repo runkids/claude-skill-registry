@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:55.975762Z",
   "dir_name": "apply-qa-fixes",
   "category": "other",
-  "github_path": ".claude/skills/apply-qa-fixes"
+  "github_path": ".claude/skills/apply-qa-fixes",
+  "github_branch": "main"
 }

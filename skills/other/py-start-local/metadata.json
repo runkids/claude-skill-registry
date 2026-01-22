@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:23.813171Z",
   "dir_name": "py-start-local",
   "category": "other",
-  "github_path": ".claude/skills/py-start-local"
+  "github_path": ".claude/skills/py-start-local",
+  "github_branch": "main"
 }

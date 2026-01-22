@@ -8,5 +8,6 @@
     "standards"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/coding-standards"
+  "github_path": ".claude/skills/coding-standards",
+  "github_branch": "main"
 }

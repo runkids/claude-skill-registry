@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:56.699677Z",
   "dir_name": "regenerate-types",
   "category": "other",
-  "github_path": ".claude/skills/regenerate-types"
+  "github_path": ".claude/skills/regenerate-types",
+  "github_branch": "main"
 }

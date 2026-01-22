@@ -8,5 +8,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/catch-up"
+  "github_path": ".claude/skills/catch-up",
+  "github_branch": "main"
 }

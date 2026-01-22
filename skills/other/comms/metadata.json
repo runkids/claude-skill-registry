@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:31.237934Z",
   "dir_name": "comms",
   "category": "other",
-  "github_path": ".claude/skills/comms"
+  "github_path": ".claude/skills/comms",
+  "github_branch": "main"
 }

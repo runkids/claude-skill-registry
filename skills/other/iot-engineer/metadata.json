@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:42:25.921547Z",
   "dir_name": "iot-engineer",
   "category": "other",
-  "github_path": ".claude/skills/iot-engineer"
+  "github_path": ".claude/skills/iot-engineer",
+  "github_branch": "main"
 }

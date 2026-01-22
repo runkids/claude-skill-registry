@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:04.193745Z",
   "dir_name": "fixing-rule-violations",
   "category": "other",
-  "github_path": ".claude/skills/fixing-rule-violations"
+  "github_path": ".claude/skills/fixing-rule-violations",
+  "github_branch": "main"
 }

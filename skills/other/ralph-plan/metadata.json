@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:06:34.010228Z",
   "dir_name": "ralph-plan",
   "category": "other",
-  "github_path": ".claude/skills/ralph-plan"
+  "github_path": ".claude/skills/ralph-plan",
+  "github_branch": "main"
 }

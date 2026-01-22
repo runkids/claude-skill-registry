@@ -8,5 +8,6 @@
     "predictor"
   ],
   "stars": 32,
-  "github_path": ".claude/skills/ltv-predictor"
+  "github_path": ".claude/skills/ltv-predictor",
+  "github_branch": "main"
 }

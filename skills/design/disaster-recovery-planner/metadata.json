@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/disaster-recovery-planner"
+  "github_path": ".claude/skills/disaster-recovery-planner",
+  "github_branch": "main"
 }

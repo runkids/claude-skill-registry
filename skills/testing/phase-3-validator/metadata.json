@@ -8,5 +8,6 @@
     "validator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/phase-3-validator"
+  "github_path": ".claude/skills/phase-3-validator",
+  "github_branch": "main"
 }

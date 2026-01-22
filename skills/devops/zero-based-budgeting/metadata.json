@@ -9,5 +9,6 @@
     "budgeting"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/zero-based-budgeting"
+  "github_path": ".claude/skills/zero-based-budgeting",
+  "github_branch": "main"
 }

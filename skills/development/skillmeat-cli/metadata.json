@@ -8,5 +8,6 @@
     "cli"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/skillmeat-cli"
+  "github_path": ".claude/skills/skillmeat-cli",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "models"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/parsing-basin-models"
+  "github_path": ".claude/skills/parsing-basin-models",
+  "github_branch": "main"
 }

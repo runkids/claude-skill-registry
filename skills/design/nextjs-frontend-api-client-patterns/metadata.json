@@ -11,5 +11,6 @@
     "patterns"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nextjs-frontend-api-client-patterns"
+  "github_path": ".claude/skills/nextjs-frontend-api-client-patterns",
+  "github_branch": "main"
 }

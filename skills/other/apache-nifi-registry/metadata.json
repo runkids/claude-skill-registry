@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:50.077500Z",
   "dir_name": "apache-nifi-registry",
   "category": "other",
-  "github_path": ".claude/skills/apache-nifi-registry"
+  "github_path": ".claude/skills/apache-nifi-registry",
+  "github_branch": "main"
 }

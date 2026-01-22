@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:35.935878Z",
   "dir_name": "orchestrator-agent",
   "category": "other",
-  "github_path": ".claude/skills/orchestrator-agent"
+  "github_path": ".claude/skills/orchestrator-agent",
+  "github_branch": "main"
 }

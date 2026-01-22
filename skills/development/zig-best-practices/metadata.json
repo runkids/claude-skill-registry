@@ -9,5 +9,6 @@
     "practices"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/zig-best-practices"
+  "github_path": ".claude/skills/zig-best-practices",
+  "github_branch": "main"
 }

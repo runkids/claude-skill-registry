@@ -8,5 +8,6 @@
     "infrastructure"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/testing-infrastructure"
+  "github_path": ".claude/skills/testing-infrastructure",
+  "github_branch": "main"
 }

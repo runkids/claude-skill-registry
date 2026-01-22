@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:58.077956Z",
   "dir_name": "create-brownfield-prd",
   "category": "other",
-  "github_path": ".claude/skills/create-brownfield-prd"
+  "github_path": ".claude/skills/create-brownfield-prd",
+  "github_branch": "main"
 }

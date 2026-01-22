@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:16.454840Z",
   "dir_name": "documentation-update",
   "category": "other",
-  "github_path": ".claude/skills/documentation-update"
+  "github_path": ".claude/skills/documentation-update",
+  "github_branch": "main"
 }

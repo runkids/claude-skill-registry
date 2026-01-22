@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/beam-tracking-ml"
+  "github_path": ".claude/skills/beam-tracking-ml",
+  "github_branch": "main"
 }

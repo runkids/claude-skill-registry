@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:03.642026Z",
   "dir_name": "cartographer",
   "category": "other",
-  "github_path": ".claude/skills/cartographer"
+  "github_path": ".claude/skills/cartographer",
+  "github_branch": "main"
 }

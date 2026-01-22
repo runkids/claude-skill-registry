@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T03:42:14.561420Z",
   "dir_name": "fosmvvm-serverrequest-test-generator",
   "category": "other",
-  "github_path": ".claude/skills/fosmvvm-serverrequest-test-generator"
+  "github_path": ".claude/skills/fosmvvm-serverrequest-test-generator",
+  "github_branch": "main"
 }

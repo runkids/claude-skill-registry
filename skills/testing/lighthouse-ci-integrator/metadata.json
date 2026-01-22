@@ -8,5 +8,6 @@
     "integrator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/lighthouse-ci-integrator"
+  "github_path": ".claude/skills/lighthouse-ci-integrator",
+  "github_branch": "main"
 }

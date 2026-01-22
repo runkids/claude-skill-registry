@@ -8,5 +8,6 @@
     "dev"
   ],
   "stars": 43,
-  "github_path": ".claude/skills/qcc-dev"
+  "github_path": ".claude/skills/qcc-dev",
+  "github_branch": "main"
 }

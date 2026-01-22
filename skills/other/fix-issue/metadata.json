@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:55.669096Z",
   "dir_name": "fix-issue",
   "category": "other",
-  "github_path": ".claude/skills/fix-issue"
+  "github_path": ".claude/skills/fix-issue",
+  "github_branch": "main"
 }

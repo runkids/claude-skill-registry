@@ -8,5 +8,6 @@
     "files"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/todo-files"
+  "github_path": ".claude/skills/todo-files",
+  "github_branch": "main"
 }

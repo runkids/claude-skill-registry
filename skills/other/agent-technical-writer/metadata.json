@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:07.868583Z",
   "dir_name": "agent-technical-writer",
   "category": "other",
-  "github_path": ".claude/skills/agent-technical-writer"
+  "github_path": ".claude/skills/agent-technical-writer",
+  "github_branch": "main"
 }

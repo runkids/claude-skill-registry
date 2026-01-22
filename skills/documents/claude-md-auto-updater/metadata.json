@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/claude-md-auto-updater"
+  "github_path": ".claude/skills/claude-md-auto-updater",
+  "github_branch": "main"
 }

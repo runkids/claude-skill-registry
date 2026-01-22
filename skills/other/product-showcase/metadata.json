@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:43.615897Z",
   "dir_name": "product-showcase",
   "category": "other",
-  "github_path": ".claude/skills/product-showcase"
+  "github_path": ".claude/skills/product-showcase",
+  "github_branch": "main"
 }

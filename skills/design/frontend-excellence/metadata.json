@@ -8,5 +8,6 @@
     "excellence"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frontend-excellence"
+  "github_path": ".claude/skills/frontend-excellence",
+  "github_branch": "main"
 }

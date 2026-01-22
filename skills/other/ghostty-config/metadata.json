@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:28.269043Z",
   "dir_name": "ghostty-config",
   "category": "other",
-  "github_path": ".claude/skills/ghostty-config"
+  "github_path": ".claude/skills/ghostty-config",
+  "github_branch": "main"
 }

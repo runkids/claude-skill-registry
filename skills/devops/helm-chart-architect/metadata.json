@@ -9,5 +9,6 @@
     "architect"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/helm-chart-architect"
+  "github_path": ".claude/skills/helm-chart-architect",
+  "github_branch": "main"
 }

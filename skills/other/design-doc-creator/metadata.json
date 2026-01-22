@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:48.897472Z",
   "dir_name": "design-doc-creator",
   "category": "other",
-  "github_path": ".claude/skills/design-doc-creator"
+  "github_path": ".claude/skills/design-doc-creator",
+  "github_branch": "main"
 }

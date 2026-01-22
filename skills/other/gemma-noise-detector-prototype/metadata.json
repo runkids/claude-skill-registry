@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:13.060341Z",
   "dir_name": "gemma-noise-detector-prototype",
   "category": "other",
-  "github_path": ".claude/skills/gemma_noise_detector_prototype"
+  "github_path": ".claude/skills/gemma_noise_detector_prototype",
+  "github_branch": "main"
 }

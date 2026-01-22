@@ -8,5 +8,6 @@
     "research"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gemini-research"
+  "github_path": ".claude/skills/gemini-research",
+  "github_branch": "main"
 }

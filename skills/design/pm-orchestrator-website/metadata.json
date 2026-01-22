@@ -8,5 +8,6 @@
     "website"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pm-orchestrator-website"
+  "github_path": ".claude/skills/pm-orchestrator-website",
+  "github_branch": "main"
 }

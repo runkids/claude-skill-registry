@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:43:43.878279Z",
   "dir_name": "dotnet-centralized-packages",
   "category": "other",
-  "github_path": ".claude/skills/dotnet-centralized-packages"
+  "github_path": ".claude/skills/dotnet-centralized-packages",
+  "github_branch": "main"
 }

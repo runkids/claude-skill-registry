@@ -5,5 +5,6 @@
   "description": "Manage localization strings, find missing translations, validate .strings files",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:40.857764Z",
-  "github_path": ".claude/skills/localization-manager"
+  "github_path": ".claude/skills/localization-manager",
+  "github_branch": "main"
 }

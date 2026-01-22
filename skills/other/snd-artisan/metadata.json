@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:51.444082Z",
   "dir_name": "snd-artisan",
   "category": "other",
-  "github_path": ".claude/skills/snd-artisan"
+  "github_path": ".claude/skills/snd-artisan",
+  "github_branch": "main"
 }

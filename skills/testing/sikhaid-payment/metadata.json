@@ -8,5 +8,6 @@
     "payment"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sikhaid-payment"
+  "github_path": ".claude/skills/sikhaid-payment",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:11.158169Z",
   "dir_name": "workout-domain",
   "category": "other",
-  "github_path": ".claude/skills/workout-domain"
+  "github_path": ".claude/skills/workout-domain",
+  "github_branch": "main"
 }

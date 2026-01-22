@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:50:06.978497Z",
   "dir_name": "multi-agent-architecture",
   "category": "other",
-  "github_path": ".claude/skills/multi-agent-architecture"
+  "github_path": ".claude/skills/multi-agent-architecture",
+  "github_branch": "main"
 }

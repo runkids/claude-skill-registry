@@ -10,5 +10,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/slash-command-builder"
+  "github_path": ".claude/skills/slash-command-builder",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:29:57.703787Z",
   "dir_name": "peggy",
   "category": "other",
-  "github_path": ".claude/skills/peggy"
+  "github_path": ".claude/skills/peggy",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:12.036261Z",
   "dir_name": "review-pr-changes",
   "category": "other",
-  "github_path": ".claude/skills/review-pr-changes"
+  "github_path": ".claude/skills/review-pr-changes",
+  "github_branch": "main"
 }

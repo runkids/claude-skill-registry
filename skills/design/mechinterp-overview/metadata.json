@@ -8,5 +8,6 @@
     "overview"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-overview"
+  "github_path": ".claude/skills/mechinterp-overview",
+  "github_branch": "main"
 }

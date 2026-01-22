@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:06:48.379326Z",
   "dir_name": "monitoring-alerting",
   "category": "other",
-  "github_path": ".claude/skills/monitoring-alerting"
+  "github_path": ".claude/skills/monitoring-alerting",
+  "github_branch": "main"
 }

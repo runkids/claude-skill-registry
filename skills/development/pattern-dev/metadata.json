@@ -8,5 +8,6 @@
     "dev"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/pattern-dev"
+  "github_path": ".claude/skills/pattern-dev",
+  "github_branch": "main"
 }

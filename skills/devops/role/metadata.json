@@ -7,5 +7,6 @@
     "role"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/role"
+  "github_path": ".claude/skills/role",
+  "github_branch": "main"
 }

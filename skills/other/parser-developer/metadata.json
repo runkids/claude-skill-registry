@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:48.299076Z",
   "dir_name": "parser-developer",
   "category": "other",
-  "github_path": ".claude/skills/parser-developer"
+  "github_path": ".claude/skills/parser-developer",
+  "github_branch": "main"
 }

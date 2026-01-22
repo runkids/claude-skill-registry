@@ -8,5 +8,6 @@
     "usage"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/model-usage"
+  "github_path": ".claude/skills/model-usage",
+  "github_branch": "main"
 }

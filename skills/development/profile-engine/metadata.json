@@ -8,5 +8,6 @@
     "engine"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/profile-engine"
+  "github_path": ".claude/skills/profile-engine",
+  "github_branch": "main"
 }

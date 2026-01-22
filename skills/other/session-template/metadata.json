@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:34:48.806177Z",
   "dir_name": "session-template",
   "category": "other",
-  "github_path": ".claude/skills/session-template"
+  "github_path": ".claude/skills/session-template",
+  "github_branch": "main"
 }

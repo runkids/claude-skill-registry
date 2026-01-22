@@ -9,5 +9,6 @@
   ],
   "stars": 6,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cortex-operations"
+  "github_path": ".claude/skills/cortex-operations",
+  "github_branch": "main"
 }

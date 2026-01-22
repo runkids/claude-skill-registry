@@ -9,5 +9,6 @@
     "skills"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/web-dev-skills"
+  "github_path": ".claude/skills/web-dev-skills",
+  "github_branch": "main"
 }

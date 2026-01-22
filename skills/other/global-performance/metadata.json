@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:19:35.116156Z",
   "dir_name": "global-performance",
   "category": "other",
-  "github_path": ".claude/skills/global-performance"
+  "github_path": ".claude/skills/global-performance",
+  "github_branch": "main"
 }

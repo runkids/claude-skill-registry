@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:43:43.669931Z",
   "dir_name": "dotnet-minimal-apis",
   "category": "other",
-  "github_path": ".claude/skills/dotnet-minimal-apis"
+  "github_path": ".claude/skills/dotnet-minimal-apis",
+  "github_branch": "main"
 }

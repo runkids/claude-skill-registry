@@ -7,5 +7,6 @@
     "grading"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/grading"
+  "github_path": ".claude/skills/grading",
+  "github_branch": "main"
 }

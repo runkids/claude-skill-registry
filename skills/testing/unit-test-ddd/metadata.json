@@ -9,5 +9,6 @@
     "ddd"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/unit-test-ddd"
+  "github_path": ".claude/skills/unit-test-ddd",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:09.564661Z",
   "dir_name": "plate-handler",
   "category": "other",
-  "github_path": ".claude/skills/plate-handler"
+  "github_path": ".claude/skills/plate-handler",
+  "github_branch": "main"
 }

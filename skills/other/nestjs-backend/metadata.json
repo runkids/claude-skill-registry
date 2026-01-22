@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:57:40.931567Z",
   "dir_name": "nestjs-backend",
   "category": "other",
-  "github_path": ".claude/skills/nestjs-backend"
+  "github_path": ".claude/skills/nestjs-backend",
+  "github_branch": "main"
 }

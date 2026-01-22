@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/documentation-asset-manager"
+  "github_path": ".claude/skills/documentation-asset-manager",
+  "github_branch": "main"
 }

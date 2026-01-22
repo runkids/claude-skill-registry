@@ -9,5 +9,6 @@
   ],
   "stars": 20912,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/website-maintainer"
+  "github_path": ".claude/skills/website-maintainer",
+  "github_branch": "main"
 }

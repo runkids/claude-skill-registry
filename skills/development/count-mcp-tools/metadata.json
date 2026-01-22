@@ -10,5 +10,6 @@
   ],
   "stars": 22,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/count-mcp-tools"
+  "github_path": ".claude/skills/count-mcp-tools",
+  "github_branch": "main"
 }

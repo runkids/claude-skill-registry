@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:24.049588Z",
   "dir_name": "ios-watch-logs",
   "category": "other",
-  "github_path": ".claude/skills/ios-watch-logs"
+  "github_path": ".claude/skills/ios-watch-logs",
+  "github_branch": "main"
 }

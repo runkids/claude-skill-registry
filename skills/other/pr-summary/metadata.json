@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:29:08.516089Z",
   "dir_name": "pr-summary",
   "category": "other",
-  "github_path": ".claude/skills/pr-summary"
+  "github_path": ".claude/skills/pr-summary",
+  "github_branch": "main"
 }

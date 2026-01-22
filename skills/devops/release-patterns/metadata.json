@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/release-patterns"
+  "github_path": ".claude/skills/release-patterns",
+  "github_branch": "main"
 }

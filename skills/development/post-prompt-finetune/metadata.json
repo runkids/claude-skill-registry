@@ -9,5 +9,6 @@
     "finetune"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/post-prompt-finetune"
+  "github_path": ".claude/skills/post-prompt-finetune",
+  "github_branch": "main"
 }

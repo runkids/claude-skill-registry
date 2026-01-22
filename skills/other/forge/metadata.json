@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:27.431255Z",
   "dir_name": "forge",
   "category": "other",
-  "github_path": ".claude/skills/forge"
+  "github_path": ".claude/skills/forge",
+  "github_branch": "main"
 }

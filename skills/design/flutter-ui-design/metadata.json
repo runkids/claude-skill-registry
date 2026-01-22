@@ -5,5 +5,6 @@
   "description": "FlutterアプリのモダンUIデザインガイドライン。Material Design 3をベースに、洗練されたビジュアルを実現。",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:30.447093Z",
-  "github_path": ".claude/skills/flutter-ui-design"
+  "github_path": ".claude/skills/flutter-ui-design",
+  "github_branch": "main"
 }

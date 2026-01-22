@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:45.066363Z",
   "dir_name": "domain-iot",
   "category": "other",
-  "github_path": ".claude/skills/domain-iot"
+  "github_path": ".claude/skills/domain-iot",
+  "github_branch": "main"
 }

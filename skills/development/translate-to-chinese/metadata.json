@@ -8,5 +8,6 @@
     "chinese"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/translate-to-chinese"
+  "github_path": ".claude/skills/translate-to-chinese",
+  "github_branch": "main"
 }

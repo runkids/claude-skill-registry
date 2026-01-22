@@ -8,5 +8,6 @@
     "analyst"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/market-analyst"
+  "github_path": ".claude/skills/market-analyst",
+  "github_branch": "main"
 }

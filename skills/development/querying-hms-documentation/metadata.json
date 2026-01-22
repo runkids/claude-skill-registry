@@ -9,5 +9,6 @@
     "documentation"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/querying-hms-documentation"
+  "github_path": ".claude/skills/querying-hms-documentation",
+  "github_branch": "main"
 }

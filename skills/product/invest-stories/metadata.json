@@ -8,5 +8,6 @@
     "stories"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/invest-stories"
+  "github_path": ".claude/skills/invest-stories",
+  "github_branch": "main"
 }

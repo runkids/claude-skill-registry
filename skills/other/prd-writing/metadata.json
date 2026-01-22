@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:45:51.171729Z",
   "dir_name": "prd-writing",
   "category": "other",
-  "github_path": ".claude/skills/prd-writing"
+  "github_path": ".claude/skills/prd-writing",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "tester"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/radulator-qa-tester"
+  "github_path": ".claude/skills/radulator-qa-tester",
+  "github_branch": "main"
 }

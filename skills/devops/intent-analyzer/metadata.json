@@ -8,5 +8,6 @@
     "analyzer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/intent-analyzer"
+  "github_path": ".claude/skills/intent-analyzer",
+  "github_branch": "main"
 }

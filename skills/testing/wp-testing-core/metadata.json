@@ -8,5 +8,6 @@
     "core"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wp-testing-core"
+  "github_path": ".claude/skills/wp-testing-core",
+  "github_branch": "main"
 }

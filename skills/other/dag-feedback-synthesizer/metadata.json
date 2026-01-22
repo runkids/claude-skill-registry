@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.998310Z",
   "dir_name": "dag-feedback-synthesizer",
   "category": "other",
-  "github_path": ".claude/skills/dag-feedback-synthesizer"
+  "github_path": ".claude/skills/dag-feedback-synthesizer",
+  "github_branch": "main"
 }

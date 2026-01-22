@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:09.387506Z",
   "dir_name": "mobile-security",
   "category": "other",
-  "github_path": ".claude/skills/mobile-security"
+  "github_path": ".claude/skills/mobile-security",
+  "github_branch": "main"
 }

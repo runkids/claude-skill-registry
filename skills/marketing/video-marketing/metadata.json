@@ -8,5 +8,6 @@
     "marketing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/video-marketing"
+  "github_path": ".claude/skills/video-marketing",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
     "log"
   ],
   "stars": 15,
-  "github_path": ".claude/skills/write-app-change-log"
+  "github_path": ".claude/skills/write-app-change-log",
+  "github_branch": "main"
 }

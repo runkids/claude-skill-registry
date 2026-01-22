@@ -8,5 +8,6 @@
     "designer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/modern-ui-designer"
+  "github_path": ".claude/skills/modern-ui-designer",
+  "github_branch": "main"
 }

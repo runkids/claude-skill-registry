@@ -8,5 +8,6 @@
     "docs"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/maintain-docs"
+  "github_path": ".claude/skills/maintain-docs",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:27:31.538776Z",
   "dir_name": "multi-channel",
   "category": "other",
-  "github_path": ".claude/skills/multi-channel"
+  "github_path": ".claude/skills/multi-channel",
+  "github_branch": "main"
 }

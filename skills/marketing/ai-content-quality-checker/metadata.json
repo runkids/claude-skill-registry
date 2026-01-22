@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ai-content-quality-checker"
+  "github_path": ".claude/skills/ai-content-quality-checker",
+  "github_branch": "main"
 }

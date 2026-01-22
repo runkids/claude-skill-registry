@@ -8,5 +8,6 @@
     "justfile"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-justfile"
+  "github_path": ".claude/skills/global-justfile",
+  "github_branch": "main"
 }

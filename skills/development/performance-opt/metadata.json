@@ -8,5 +8,6 @@
     "opt"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/performance-opt"
+  "github_path": ".claude/skills/performance-opt",
+  "github_branch": "main"
 }

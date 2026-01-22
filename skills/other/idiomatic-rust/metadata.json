@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:17:36.130301Z",
   "dir_name": "idiomatic-rust",
   "category": "other",
-  "github_path": ".claude/skills/idiomatic-rust"
+  "github_path": ".claude/skills/idiomatic-rust",
+  "github_branch": "main"
 }

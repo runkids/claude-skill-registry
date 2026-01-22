@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:10.276247Z",
   "dir_name": "k8s-troubleshooting",
   "category": "other",
-  "github_path": ".claude/skills/k8s-troubleshooting"
+  "github_path": ".claude/skills/k8s-troubleshooting",
+  "github_branch": "main"
 }

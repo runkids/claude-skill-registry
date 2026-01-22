@@ -9,5 +9,6 @@
     "updater"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/smart-docs-updater"
+  "github_path": ".claude/skills/smart-docs-updater",
+  "github_branch": "main"
 }

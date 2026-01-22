@@ -9,5 +9,6 @@
     "tester"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/github-speckit-tester"
+  "github_path": ".claude/skills/github-speckit-tester",
+  "github_branch": "main"
 }

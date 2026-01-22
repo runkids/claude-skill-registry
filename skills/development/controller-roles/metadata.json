@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/controller-roles"
+  "github_path": ".claude/skills/controller-roles",
+  "github_branch": "main"
 }

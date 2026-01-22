@@ -8,5 +8,6 @@
     "reviewer"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/security-reviewer"
+  "github_path": ".claude/skills/security-reviewer",
+  "github_branch": "main"
 }

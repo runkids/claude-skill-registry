@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:14.382333Z",
   "dir_name": "create-memory",
   "category": "other",
-  "github_path": ".claude/skills/create-memory"
+  "github_path": ".claude/skills/create-memory",
+  "github_branch": "main"
 }

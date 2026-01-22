@@ -8,5 +8,6 @@
     "iac"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/homelab-iac"
+  "github_path": ".claude/skills/homelab-iac",
+  "github_branch": "main"
 }

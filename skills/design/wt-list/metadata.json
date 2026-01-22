@@ -7,5 +7,6 @@
     "list"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wt-list"
+  "github_path": ".claude/skills/wt-list",
+  "github_branch": "main"
 }

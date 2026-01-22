@@ -5,5 +5,6 @@
   "description": "Orchestrate comprehensive quality assessment by executing 5 specialized quality skills in sequence and synthesizing results into a unified quality gate decision. This skill should be used when perform",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:29.893544Z",
-  "github_path": ".claude/skills/review-task"
+  "github_path": ".claude/skills/review-task",
+  "github_branch": "main"
 }

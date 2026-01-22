@@ -8,5 +8,6 @@
     "automation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/release-automation"
+  "github_path": ".claude/skills/release-automation",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "stories"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/writing-user-stories"
+  "github_path": ".claude/skills/writing-user-stories",
+  "github_branch": "main"
 }

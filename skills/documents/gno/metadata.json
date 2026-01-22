@@ -7,5 +7,6 @@
     "gno"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/gno"
+  "github_path": ".claude/skills/gno",
+  "github_branch": "main"
 }

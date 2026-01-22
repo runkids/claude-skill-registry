@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:19.456586Z",
   "dir_name": "snowflake-cli",
   "category": "other",
-  "github_path": ".claude/skills/snowflake-cli"
+  "github_path": ".claude/skills/snowflake-cli",
+  "github_branch": "main"
 }

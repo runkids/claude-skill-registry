@@ -8,5 +8,6 @@
     "explore"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/parallel-explore"
+  "github_path": ".claude/skills/parallel-explore",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "security"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/tzurot-security"
+  "github_path": ".claude/skills/tzurot-security",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:26:46.980627Z",
   "dir_name": "content-governance-review",
   "category": "other",
-  "github_path": ".claude/skills/content-governance-review"
+  "github_path": ".claude/skills/content-governance-review",
+  "github_branch": "main"
 }

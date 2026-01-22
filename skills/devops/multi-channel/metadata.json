@@ -8,5 +8,6 @@
     "channel"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/multi-channel"
+  "github_path": ".claude/skills/multi-channel",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "dictionary"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/macos-dictionary"
+  "github_path": ".claude/skills/macos-dictionary",
+  "github_branch": "main"
 }

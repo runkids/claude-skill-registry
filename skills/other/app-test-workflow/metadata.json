@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:33:37.616171Z",
   "dir_name": "app-test-workflow",
   "category": "other",
-  "github_path": ".claude/skills/app-test-workflow"
+  "github_path": ".claude/skills/app-test-workflow",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:04:26.988939Z",
   "dir_name": "whole-editor",
   "category": "other",
-  "github_path": ".claude/skills/whole-editor"
+  "github_path": ".claude/skills/whole-editor",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:21.320219Z",
   "dir_name": "task-master",
   "category": "other",
-  "github_path": ".claude/skills/task-master"
+  "github_path": ".claude/skills/task-master",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:09:09.441046Z",
   "dir_name": "gpters-scraper",
   "category": "other",
-  "github_path": ".claude/skills/gpters-scraper"
+  "github_path": ".claude/skills/gpters-scraper",
+  "github_branch": "main"
 }

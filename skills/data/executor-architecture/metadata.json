@@ -10,5 +10,6 @@
   "stars": 10,
   "source": "SkillsMP Synced Skills",
   "dir_name": "executor-architecture",
-  "github_path": ".claude/skills/executor-architecture"
+  "github_path": ".claude/skills/executor-architecture",
+  "github_branch": "main"
 }

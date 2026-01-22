@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:08.204209Z",
   "dir_name": "answer-collector",
   "category": "other",
-  "github_path": ".claude/skills/answer-collector"
+  "github_path": ".claude/skills/answer-collector",
+  "github_branch": "main"
 }

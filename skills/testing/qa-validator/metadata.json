@@ -7,5 +7,6 @@
     "validator"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/qa-validator"
+  "github_path": ".claude/skills/qa-validator",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:55.586798Z",
   "dir_name": "gpt-researcher",
   "category": "other",
-  "github_path": ".claude/skills/gpt-researcher"
+  "github_path": ".claude/skills/gpt-researcher",
+  "github_branch": "main"
 }

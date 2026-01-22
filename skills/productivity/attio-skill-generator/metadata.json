@@ -10,5 +10,6 @@
   ],
   "stars": 37,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/attio-skill-generator"
+  "github_path": "skills/attio-skill-generator",
+  "github_branch": "main"
 }

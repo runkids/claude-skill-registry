@@ -8,5 +8,6 @@
     "checker"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/tutorial-checker"
+  "github_path": ".claude/skills/tutorial-checker",
+  "github_branch": "main"
 }

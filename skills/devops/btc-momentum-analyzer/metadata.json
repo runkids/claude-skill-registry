@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/btc-momentum-analyzer"
+  "github_path": ".claude/skills/btc-momentum-analyzer",
+  "github_branch": "main"
 }

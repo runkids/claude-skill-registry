@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:25.274136Z",
   "dir_name": "validate-architecture",
   "category": "other",
-  "github_path": ".claude/skills/validate-architecture"
+  "github_path": ".claude/skills/validate-architecture",
+  "github_branch": "main"
 }

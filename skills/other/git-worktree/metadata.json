@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:28:06.607952Z",
   "dir_name": "git-worktree",
   "category": "other",
-  "github_path": ".claude/skills/git-worktree"
+  "github_path": ".claude/skills/git-worktree",
+  "github_branch": "main"
 }

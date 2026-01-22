@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:57:34.551793Z",
   "dir_name": "stash-and-rebase",
   "category": "other",
-  "github_path": ".claude/skills/stash-and-rebase"
+  "github_path": ".claude/skills/stash-and-rebase",
+  "github_branch": "main"
 }

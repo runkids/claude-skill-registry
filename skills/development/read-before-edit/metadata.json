@@ -9,5 +9,6 @@
     "edit"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/read-before-edit"
+  "github_path": ".claude/skills/read-before-edit",
+  "github_branch": "main"
 }

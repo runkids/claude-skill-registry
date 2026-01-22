@@ -8,5 +8,6 @@
     "links"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/internal-links"
+  "github_path": ".claude/skills/internal-links",
+  "github_branch": "main"
 }

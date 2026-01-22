@@ -9,5 +9,6 @@
     "pipeline"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/multi-stage-pipeline"
+  "github_path": ".claude/skills/multi-stage-pipeline",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:58.745621Z",
   "dir_name": "partner-text-coach",
   "category": "other",
-  "github_path": ".claude/skills/partner-text-coach"
+  "github_path": ".claude/skills/partner-text-coach",
+  "github_branch": "main"
 }

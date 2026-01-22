@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:11.941088Z",
   "dir_name": "validate-spec",
   "category": "other",
-  "github_path": ".claude/skills/validate-spec"
+  "github_path": ".claude/skills/validate-spec",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "mastery"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/seo-mastery-jp"
+  "github_path": ".claude/skills/seo-mastery-jp",
+  "github_branch": "main"
 }

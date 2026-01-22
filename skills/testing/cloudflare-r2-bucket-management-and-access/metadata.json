@@ -12,5 +12,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cloudflare-r2-bucket-management-and-access"
+  "github_path": ".claude/skills/cloudflare-r2-bucket-management-and-access",
+  "github_branch": "main"
 }

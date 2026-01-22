@@ -8,5 +8,6 @@
     "principles"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/project-principles"
+  "github_path": ".claude/skills/project-principles",
+  "github_branch": "main"
 }

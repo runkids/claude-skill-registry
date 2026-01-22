@@ -8,5 +8,6 @@
     "set"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/vote-set"
+  "github_path": ".claude/skills/vote-set",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "compatibility"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/troubleshooting-bundler-compatibility"
+  "github_path": ".claude/skills/troubleshooting-bundler-compatibility",
+  "github_branch": "main"
 }

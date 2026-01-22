@@ -7,5 +7,6 @@
     "newsletter"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/newsletter"
+  "github_path": ".claude/skills/newsletter",
+  "github_branch": "main"
 }

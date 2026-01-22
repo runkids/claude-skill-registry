@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T04:04:42.350170Z",
   "dir_name": "greeting-skill",
   "category": "other",
-  "github_path": ".claude/skills/greeting-skill"
+  "github_path": ".claude/skills/greeting-skill",
+  "github_branch": "main"
 }

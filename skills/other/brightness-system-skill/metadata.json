@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:54:40.365373Z",
   "dir_name": "brightness-system-skill",
   "category": "other",
-  "github_path": ".claude/skills/brightness-system-skill"
+  "github_path": ".claude/skills/brightness-system-skill",
+  "github_branch": "main"
 }

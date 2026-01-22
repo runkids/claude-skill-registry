@@ -7,5 +7,6 @@
     "conductor"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/conductor"
+  "github_path": ".claude/skills/conductor",
+  "github_branch": "main"
 }

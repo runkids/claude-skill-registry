@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:53.202829Z",
   "dir_name": "solver-control",
   "category": "other",
-  "github_path": ".claude/skills/solver-control"
+  "github_path": ".claude/skills/solver-control",
+  "github_branch": "main"
 }

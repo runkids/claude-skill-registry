@@ -10,5 +10,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/typescript-type-safety"
+  "github_path": ".claude/skills/typescript-type-safety",
+  "github_branch": "main"
 }

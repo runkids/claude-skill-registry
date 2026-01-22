@@ -8,5 +8,6 @@
     "brand"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/totalaud-brand"
+  "github_path": ".claude/skills/totalaud-brand",
+  "github_branch": "main"
 }

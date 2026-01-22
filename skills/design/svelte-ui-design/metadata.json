@@ -8,5 +8,6 @@
     "design"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/svelte-ui-design"
+  "github_path": ".claude/skills/svelte-ui-design",
+  "github_branch": "main"
 }

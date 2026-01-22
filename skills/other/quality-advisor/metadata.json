@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:50.081920Z",
   "dir_name": "quality-advisor",
   "category": "other",
-  "github_path": ".claude/skills/quality-advisor"
+  "github_path": ".claude/skills/quality-advisor",
+  "github_branch": "main"
 }

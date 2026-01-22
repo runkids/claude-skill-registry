@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:13:46.035676Z",
   "dir_name": "document-secrets",
   "category": "other",
-  "github_path": ".claude/skills/document-secrets"
+  "github_path": ".claude/skills/document-secrets",
+  "github_branch": "main"
 }

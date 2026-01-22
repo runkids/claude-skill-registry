@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:47:59.000766Z",
   "dir_name": "at-dispatch-v2",
   "category": "other",
-  "github_path": ".claude/skills/at-dispatch-v2"
+  "github_path": ".claude/skills/at-dispatch-v2",
+  "github_branch": "main"
 }

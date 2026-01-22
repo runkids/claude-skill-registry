@@ -9,5 +9,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "forensics",
-  "github_path": ".claude/skills/forensics"
+  "github_path": ".claude/skills/forensics",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "analyzer"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/test-gap-analyzer"
+  "github_path": ".claude/skills/test-gap-analyzer",
+  "github_branch": "main"
 }

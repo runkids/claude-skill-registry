@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:31.110708Z",
   "dir_name": "jaeger-tracing",
   "category": "other",
-  "github_path": ".claude/skills/jaeger-tracing"
+  "github_path": ".claude/skills/jaeger-tracing",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "skill"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mcp-evaluation-skill"
+  "github_path": ".claude/skills/mcp-evaluation-skill",
+  "github_branch": "main"
 }

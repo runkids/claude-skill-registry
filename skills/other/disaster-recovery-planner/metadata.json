@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:16.751890Z",
   "dir_name": "disaster-recovery-planner",
   "category": "other",
-  "github_path": ".claude/skills/disaster-recovery-planner"
+  "github_path": ".claude/skills/disaster-recovery-planner",
+  "github_branch": "main"
 }

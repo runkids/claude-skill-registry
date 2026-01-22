@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:24:04.167216Z",
   "dir_name": "finance-tracking",
   "category": "other",
-  "github_path": ".claude/skills/finance-tracking"
+  "github_path": ".claude/skills/finance-tracking",
+  "github_branch": "main"
 }

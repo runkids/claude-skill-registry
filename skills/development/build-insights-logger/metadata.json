@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/build-insights-logger"
+  "github_path": ".claude/skills/build-insights-logger",
+  "github_branch": "main"
 }

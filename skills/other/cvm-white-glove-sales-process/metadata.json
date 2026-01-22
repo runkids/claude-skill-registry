@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:35.605348Z",
   "dir_name": "cvm-white-glove-sales-process",
   "category": "other",
-  "github_path": ".claude/skills/cvm-white-glove-sales-process"
+  "github_path": ".claude/skills/cvm-white-glove-sales-process",
+  "github_branch": "main"
 }

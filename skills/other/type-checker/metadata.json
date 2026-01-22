@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:16.602765Z",
   "dir_name": "type-checker",
   "category": "other",
-  "github_path": ".claude/skills/type-checker"
+  "github_path": ".claude/skills/type-checker",
+  "github_branch": "main"
 }

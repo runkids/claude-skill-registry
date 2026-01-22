@@ -10,5 +10,6 @@
     "enhanced"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-jit-docs-enhanced"
+  "github_path": ".claude/skills/moai-jit-docs-enhanced",
+  "github_branch": "main"
 }

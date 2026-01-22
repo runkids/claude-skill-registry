@@ -8,5 +8,6 @@
     "alerts"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wavecap-alerts"
+  "github_path": ".claude/skills/wavecap-alerts",
+  "github_branch": "main"
 }

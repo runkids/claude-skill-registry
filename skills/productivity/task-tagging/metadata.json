@@ -8,5 +8,6 @@
     "tagging"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/task-tagging"
+  "github_path": ".claude/skills/task-tagging",
+  "github_branch": "main"
 }

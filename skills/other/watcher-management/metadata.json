@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:24:04.116785Z",
   "dir_name": "watcher-management",
   "category": "other",
-  "github_path": ".claude/skills/watcher-management"
+  "github_path": ".claude/skills/watcher-management",
+  "github_branch": "main"
 }

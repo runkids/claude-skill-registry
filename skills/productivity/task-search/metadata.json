@@ -8,5 +8,6 @@
     "search"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/task-search"
+  "github_path": ".claude/skills/task-search",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:35.264402Z",
   "dir_name": "emacs-ecosystem",
   "category": "other",
-  "github_path": ".claude/skills/emacs-ecosystem"
+  "github_path": ".claude/skills/emacs-ecosystem",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:36.533452Z",
   "dir_name": "padz-output",
   "category": "other",
-  "github_path": ".claude/skills/padz-output"
+  "github_path": ".claude/skills/padz-output",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "reviewer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/userinfo-endpoint-reviewer"
+  "github_path": ".claude/skills/userinfo-endpoint-reviewer",
+  "github_branch": "main"
 }

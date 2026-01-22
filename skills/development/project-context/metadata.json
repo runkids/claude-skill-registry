@@ -8,5 +8,6 @@
     "context"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-context"
+  "github_path": ".claude/skills/project-context",
+  "github_branch": "main"
 }

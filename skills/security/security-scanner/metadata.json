@@ -8,5 +8,6 @@
     "scanner"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/security-scanner"
+  "github_path": ".claude/skills/security-scanner",
+  "github_branch": "main"
 }

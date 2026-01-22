@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/brain-dump-ingestion"
+  "github_path": ".claude/skills/brain-dump-ingestion",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "conventions"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-conventions"
+  "github_path": ".claude/skills/project-conventions",
+  "github_branch": "main"
 }

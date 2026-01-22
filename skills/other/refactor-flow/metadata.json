@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:47.878270Z",
   "dir_name": "refactor-flow",
   "category": "other",
-  "github_path": ".claude/skills/refactor-flow"
+  "github_path": ".claude/skills/refactor-flow",
+  "github_branch": "main"
 }

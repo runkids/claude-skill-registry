@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:38.287535Z",
   "dir_name": "tenant-credit-analyst",
   "category": "other",
-  "github_path": ".claude/skills/tenant-credit-analyst"
+  "github_path": ".claude/skills/tenant-credit-analyst",
+  "github_branch": "main"
 }

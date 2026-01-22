@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:44.637235Z",
   "dir_name": "whatsapp-logs",
   "category": "other",
-  "github_path": ".claude/skills/whatsapp-logs"
+  "github_path": ".claude/skills/whatsapp-logs",
+  "github_branch": "main"
 }

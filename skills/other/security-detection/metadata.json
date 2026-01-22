@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:17:14.976340Z",
   "dir_name": "security-detection",
   "category": "other",
-  "github_path": ".claude/skills/security-detection"
+  "github_path": ".claude/skills/security-detection",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 11,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/doc-generator"
+  "github_path": ".claude/skills/doc-generator",
+  "github_branch": "main"
 }

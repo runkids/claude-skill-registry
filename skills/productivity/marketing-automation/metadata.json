@@ -8,5 +8,6 @@
     "automation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/marketing-automation"
+  "github_path": ".claude/skills/marketing-automation",
+  "github_branch": "main"
 }

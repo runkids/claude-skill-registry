@@ -9,5 +9,6 @@
     "builder"
   ],
   "stars": 45,
-  "github_path": ".claude/skills/nano-banana-builder"
+  "github_path": ".claude/skills/nano-banana-builder",
+  "github_branch": "main"
 }

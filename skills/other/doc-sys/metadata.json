@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:50.488886Z",
   "dir_name": "doc-sys",
   "category": "other",
-  "github_path": ".claude/skills/doc-sys"
+  "github_path": ".claude/skills/doc-sys",
+  "github_branch": "main"
 }

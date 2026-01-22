@@ -8,5 +8,6 @@
     "verification"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/implementation-verification"
+  "github_path": ".claude/skills/implementation-verification",
+  "github_branch": "main"
 }

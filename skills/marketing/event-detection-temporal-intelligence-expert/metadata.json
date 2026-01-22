@@ -12,5 +12,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/event-detection-temporal-intelligence-expert"
+  "github_path": ".claude/skills/event-detection-temporal-intelligence-expert",
+  "github_branch": "main"
 }

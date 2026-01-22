@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:51.827876Z",
   "dir_name": "snd-inventory",
   "category": "other",
-  "github_path": ".claude/skills/snd-inventory"
+  "github_path": ".claude/skills/snd-inventory",
+  "github_branch": "main"
 }

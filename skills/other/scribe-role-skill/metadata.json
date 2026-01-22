@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:16.896685Z",
   "dir_name": "scribe-role-skill",
   "category": "other",
-  "github_path": ".claude/skills/scribe-role-skill"
+  "github_path": ".claude/skills/scribe-role-skill",
+  "github_branch": "main"
 }

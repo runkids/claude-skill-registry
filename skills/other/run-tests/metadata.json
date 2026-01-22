@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:58.144341Z",
   "dir_name": "run-tests",
   "category": "other",
-  "github_path": ".claude/skills/run-tests"
+  "github_path": ".claude/skills/run-tests",
+  "github_branch": "main"
 }

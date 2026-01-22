@@ -8,5 +8,6 @@
     "dev"
   ],
   "stars": 32,
-  "github_path": ".claude/skills/runner-dev"
+  "github_path": ".claude/skills/runner-dev",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:05.979810Z",
   "dir_name": "art-generation",
   "category": "other",
-  "github_path": ".claude/skills/art-generation"
+  "github_path": ".claude/skills/art-generation",
+  "github_branch": "main"
 }

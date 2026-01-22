@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:44.381735Z",
   "dir_name": "docs-updater",
   "category": "other",
-  "github_path": ".claude/skills/docs-updater"
+  "github_path": ".claude/skills/docs-updater",
+  "github_branch": "main"
 }

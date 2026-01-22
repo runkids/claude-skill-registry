@@ -8,5 +8,6 @@
     "github"
   ],
   "stars": 20,
-  "github_path": ".claude/skills/managing-github-ci"
+  "github_path": ".claude/skills/managing-github-ci",
+  "github_branch": "main"
 }

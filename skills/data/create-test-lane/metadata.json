@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "create-test-lane",
-  "github_path": ".claude/skills/create-test-lane"
+  "github_path": ".claude/skills/create-test-lane",
+  "github_branch": "main"
 }

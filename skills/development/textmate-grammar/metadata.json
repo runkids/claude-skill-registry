@@ -8,5 +8,6 @@
     "grammar"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/textmate-grammar"
+  "github_path": ".claude/skills/textmate-grammar",
+  "github_branch": "main"
 }

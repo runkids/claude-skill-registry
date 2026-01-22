@@ -9,5 +9,6 @@
   ],
   "stars": 84,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/enforcescript-patterns"
+  "github_path": ".claude/skills/enforcescript-patterns",
+  "github_branch": "main"
 }

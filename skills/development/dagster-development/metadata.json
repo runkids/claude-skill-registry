@@ -9,5 +9,6 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dagster-development"
+  "github_path": ".claude/skills/dagster-development",
+  "github_branch": "main"
 }

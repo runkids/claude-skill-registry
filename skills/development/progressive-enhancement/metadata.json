@@ -8,5 +8,6 @@
     "enhancement"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/progressive-enhancement"
+  "github_path": ".claude/skills/progressive-enhancement",
+  "github_branch": "main"
 }

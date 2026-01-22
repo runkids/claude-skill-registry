@@ -7,5 +7,6 @@
     "switch"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wt-switch"
+  "github_path": ".claude/skills/wt-switch",
+  "github_branch": "main"
 }

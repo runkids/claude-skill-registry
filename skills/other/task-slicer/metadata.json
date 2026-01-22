@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:13.507838Z",
   "dir_name": "task-slicer",
   "category": "other",
-  "github_path": ".claude/skills/task-slicer"
+  "github_path": ".claude/skills/task-slicer",
+  "github_branch": "main"
 }

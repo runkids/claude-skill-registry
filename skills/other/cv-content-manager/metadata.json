@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:45.593165Z",
   "dir_name": "cv-content-manager",
   "category": "other",
-  "github_path": ".claude/skills/cv-content-manager"
+  "github_path": ".claude/skills/cv-content-manager",
+  "github_branch": "main"
 }

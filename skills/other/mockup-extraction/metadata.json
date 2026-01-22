@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:53.485894Z",
   "dir_name": "mockup-extraction",
   "category": "other",
-  "github_path": ".claude/skills/mockup-extraction"
+  "github_path": ".claude/skills/mockup-extraction",
+  "github_branch": "main"
 }

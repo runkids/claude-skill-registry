@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:24.287372Z",
   "dir_name": "testing-api-manual",
   "category": "other",
-  "github_path": ".claude/skills/testing-api-manual"
+  "github_path": ".claude/skills/testing-api-manual",
+  "github_branch": "main"
 }

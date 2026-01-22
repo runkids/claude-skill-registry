@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:13.268453Z",
   "dir_name": "brief",
   "category": "other",
-  "github_path": ".claude/skills/brief"
+  "github_path": ".claude/skills/brief",
+  "github_branch": "main"
 }

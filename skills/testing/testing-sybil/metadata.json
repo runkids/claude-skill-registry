@@ -8,5 +8,6 @@
     "sybil"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-sybil"
+  "github_path": ".claude/skills/testing-sybil",
+  "github_branch": "main"
 }

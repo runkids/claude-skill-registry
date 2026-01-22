@@ -8,5 +8,6 @@
     "addon"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/meteor-addon"
+  "github_path": ".claude/skills/meteor-addon",
+  "github_branch": "main"
 }

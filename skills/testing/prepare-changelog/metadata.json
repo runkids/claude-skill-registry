@@ -9,5 +9,6 @@
   ],
   "stars": 2751,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/prepare-changelog"
+  "github_path": ".claude/skills/prepare-changelog",
+  "github_branch": "main"
 }

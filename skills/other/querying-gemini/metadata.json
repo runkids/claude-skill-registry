@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T03:10:04.454787Z",
   "dir_name": "querying-gemini",
   "category": "other",
-  "github_path": ".claude/skills/querying-gemini"
+  "github_path": ".claude/skills/querying-gemini",
+  "github_branch": "main"
 }

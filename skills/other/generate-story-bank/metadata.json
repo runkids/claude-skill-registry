@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:45.804577Z",
   "dir_name": "generate-story-bank",
   "category": "other",
-  "github_path": ".claude/skills/generate-story-bank"
+  "github_path": ".claude/skills/generate-story-bank",
+  "github_branch": "main"
 }

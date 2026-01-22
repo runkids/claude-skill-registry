@@ -7,5 +7,6 @@
     "wdk"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/wdk"
+  "github_path": ".claude/skills/wdk",
+  "github_branch": "main"
 }

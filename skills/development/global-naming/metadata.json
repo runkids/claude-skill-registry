@@ -8,5 +8,6 @@
     "naming"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-naming"
+  "github_path": ".claude/skills/global-naming",
+  "github_branch": "main"
 }

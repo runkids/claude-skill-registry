@@ -7,5 +7,6 @@
     "planner"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/pm-planner"
+  "github_path": ".claude/skills/pm-planner",
+  "github_branch": "main"
 }

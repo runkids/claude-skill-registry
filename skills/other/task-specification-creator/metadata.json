@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:26:16.549673Z",
   "dir_name": "task-specification-creator",
   "category": "other",
-  "github_path": ".claude/skills/task-specification-creator"
+  "github_path": ".claude/skills/task-specification-creator",
+  "github_branch": "main"
 }

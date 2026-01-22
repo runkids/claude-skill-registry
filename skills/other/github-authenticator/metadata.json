@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:27:10.175604Z",
   "dir_name": "github-authenticator",
   "category": "other",
-  "github_path": ".claude/skills/github-authenticator"
+  "github_path": ".claude/skills/github-authenticator",
+  "github_branch": "main"
 }

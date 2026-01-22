@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:16:34.121752Z",
   "dir_name": "behavioral-core",
   "category": "other",
-  "github_path": ".claude/skills/behavioral-core"
+  "github_path": ".claude/skills/behavioral-core",
+  "github_branch": "main"
 }

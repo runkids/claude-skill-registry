@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:10.205813Z",
   "dir_name": "k8s-operations",
   "category": "other",
-  "github_path": ".claude/skills/k8s-operations"
+  "github_path": ".claude/skills/k8s-operations",
+  "github_branch": "main"
 }

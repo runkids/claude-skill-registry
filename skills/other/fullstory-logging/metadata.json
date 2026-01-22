@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:04.201093Z",
   "dir_name": "fullstory-logging",
   "category": "other",
-  "github_path": ".claude/skills/fullstory-logging"
+  "github_path": ".claude/skills/fullstory-logging",
+  "github_branch": "main"
 }

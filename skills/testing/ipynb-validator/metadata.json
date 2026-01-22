@@ -8,5 +8,6 @@
     "validator"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/ipynb-validator"
+  "github_path": ".claude/skills/ipynb-validator",
+  "github_branch": "main"
 }

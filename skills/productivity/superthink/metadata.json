@@ -7,5 +7,6 @@
     "superthink"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/superthink"
+  "github_path": ".claude/skills/superthink",
+  "github_branch": "main"
 }

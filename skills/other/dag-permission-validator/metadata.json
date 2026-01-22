@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.036713Z",
   "dir_name": "dag-permission-validator",
   "category": "other",
-  "github_path": ".claude/skills/dag-permission-validator"
+  "github_path": ".claude/skills/dag-permission-validator",
+  "github_branch": "main"
 }

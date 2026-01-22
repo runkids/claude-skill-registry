@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:37:31.519343Z",
   "dir_name": "symbols",
   "category": "other",
-  "github_path": ".claude/skills/symbols"
+  "github_path": ".claude/skills/symbols",
+  "github_branch": "main"
 }

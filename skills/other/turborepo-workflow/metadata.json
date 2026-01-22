@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:57.341841Z",
   "dir_name": "turborepo-workflow",
   "category": "other",
-  "github_path": ".claude/skills/turborepo-workflow"
+  "github_path": ".claude/skills/turborepo-workflow",
+  "github_branch": "main"
 }

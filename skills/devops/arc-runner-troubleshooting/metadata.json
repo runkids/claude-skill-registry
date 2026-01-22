@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/arc-runner-troubleshooting"
+  "github_path": ".claude/skills/arc-runner-troubleshooting",
+  "github_branch": "main"
 }

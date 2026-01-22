@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:32.352134Z",
   "dir_name": "task-memory-consolidation",
   "category": "other",
-  "github_path": ".claude/skills/task-memory-consolidation"
+  "github_path": ".claude/skills/task-memory-consolidation",
+  "github_branch": "main"
 }

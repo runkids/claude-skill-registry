@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:15.321455Z",
   "dir_name": "context-monitor",
   "category": "other",
-  "github_path": ".claude/skills/context-monitor"
+  "github_path": ".claude/skills/context-monitor",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:25.257366Z",
   "dir_name": "context-status",
   "category": "other",
-  "github_path": ".claude/skills/context-status"
+  "github_path": ".claude/skills/context-status",
+  "github_branch": "main"
 }

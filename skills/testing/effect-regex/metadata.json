@@ -9,5 +9,6 @@
   ],
   "stars": 9,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effect-regex"
+  "github_path": ".claude/skills/effect-regex",
+  "github_branch": "main"
 }

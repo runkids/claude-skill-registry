@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:31.600474Z",
   "dir_name": "email-templates",
   "category": "other",
-  "github_path": ".claude/skills/email-templates"
+  "github_path": ".claude/skills/email-templates",
+  "github_branch": "main"
 }

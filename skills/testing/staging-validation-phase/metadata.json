@@ -9,5 +9,6 @@
     "phase"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/staging-validation-phase"
+  "github_path": ".claude/skills/staging-validation-phase",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "helper"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/testing-helper"
+  "github_path": ".claude/skills/testing-helper",
+  "github_branch": "main"
 }

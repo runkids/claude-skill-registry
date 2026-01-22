@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:01.502197Z",
   "dir_name": "designer-skills",
   "category": "other",
-  "github_path": ".claude/skills/designer-skills"
+  "github_path": ".claude/skills/designer-skills",
+  "github_branch": "main"
 }

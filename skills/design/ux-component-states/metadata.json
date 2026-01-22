@@ -8,5 +8,6 @@
     "states"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ux-component-states"
+  "github_path": ".claude/skills/ux-component-states",
+  "github_branch": "main"
 }

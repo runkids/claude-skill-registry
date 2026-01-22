@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:56:57.572016Z",
   "dir_name": "operability",
   "category": "other",
-  "github_path": ".claude/skills/operability"
+  "github_path": ".claude/skills/operability",
+  "github_branch": "main"
 }

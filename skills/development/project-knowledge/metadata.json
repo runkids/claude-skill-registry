@@ -8,5 +8,6 @@
     "knowledge"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-knowledge"
+  "github_path": ".claude/skills/project-knowledge",
+  "github_branch": "main"
 }

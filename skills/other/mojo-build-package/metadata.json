@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:13.840372Z",
   "dir_name": "mojo-build-package",
   "category": "other",
-  "github_path": ".claude/skills/mojo-build-package"
+  "github_path": ".claude/skills/mojo-build-package",
+  "github_branch": "main"
 }

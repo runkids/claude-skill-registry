@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:19.636924Z",
   "dir_name": "dbt-materializations",
   "category": "other",
-  "github_path": ".claude/skills/dbt-materializations"
+  "github_path": ".claude/skills/dbt-materializations",
+  "github_branch": "main"
 }

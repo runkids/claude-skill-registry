@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:52.327824Z",
   "dir_name": "design-sync",
   "category": "other",
-  "github_path": ".claude/skills/design-sync"
+  "github_path": ".claude/skills/design-sync",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   "stars": 90,
   "source": "SkillsMP Synced Skills",
   "dir_name": "docs-styles",
-  "github_path": ".claude/skills/docs-styles"
+  "github_path": ".claude/skills/docs-styles",
+  "github_branch": "master"
 }

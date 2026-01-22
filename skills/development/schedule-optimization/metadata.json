@@ -8,5 +8,6 @@
     "optimization"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/schedule-optimization"
+  "github_path": ".claude/skills/schedule-optimization",
+  "github_branch": "main"
 }

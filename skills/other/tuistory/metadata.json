@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:00:42.879171Z",
   "dir_name": "tuistory",
   "category": "other",
-  "github_path": ".claude/skills/tuistory"
+  "github_path": ".claude/skills/tuistory",
+  "github_branch": "main"
 }

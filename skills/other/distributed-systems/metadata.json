@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:19.284971Z",
   "dir_name": "distributed-systems",
   "category": "other",
-  "github_path": ".claude/skills/distributed-systems"
+  "github_path": ".claude/skills/distributed-systems",
+  "github_branch": "main"
 }

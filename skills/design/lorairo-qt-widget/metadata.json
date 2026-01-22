@@ -8,5 +8,6 @@
     "widget"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/lorairo-qt-widget"
+  "github_path": ".claude/skills/lorairo-qt-widget",
+  "github_branch": "main"
 }

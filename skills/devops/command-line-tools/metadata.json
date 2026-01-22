@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/command-line-tools"
+  "github_path": ".claude/skills/command-line-tools",
+  "github_branch": "main"
 }

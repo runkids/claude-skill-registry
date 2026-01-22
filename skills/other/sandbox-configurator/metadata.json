@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:58.202550Z",
   "dir_name": "sandbox-configurator",
   "category": "other",
-  "github_path": ".claude/skills/sandbox-configurator"
+  "github_path": ".claude/skills/sandbox-configurator",
+  "github_branch": "main"
 }

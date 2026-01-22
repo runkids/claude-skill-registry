@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cc-eco-techt"
+  "github_path": ".claude/skills/cc-eco-techt",
+  "github_branch": "main"
 }

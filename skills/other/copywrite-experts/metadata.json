@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:55:22.674891Z",
   "dir_name": "copywrite-experts",
   "category": "other",
-  "github_path": ".claude/skills/copywrite-experts"
+  "github_path": ".claude/skills/copywrite-experts",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:32.006265Z",
   "dir_name": "ticket-feedback",
   "category": "other",
-  "github_path": ".claude/skills/ticket-feedback"
+  "github_path": ".claude/skills/ticket-feedback",
+  "github_branch": "main"
 }

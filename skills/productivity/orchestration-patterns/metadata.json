@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/orchestration-patterns"
+  "github_path": ".claude/skills/orchestration-patterns",
+  "github_branch": "main"
 }

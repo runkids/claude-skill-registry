@@ -9,5 +9,6 @@
   ],
   "stars": 34,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/fly-ssh"
+  "github_path": ".claude/skills/fly-ssh",
+  "github_branch": "main"
 }

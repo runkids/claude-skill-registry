@@ -7,5 +7,6 @@
     "startup"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sc-startup"
+  "github_path": ".claude/skills/sc-startup",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "types"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/typescript-api-types"
+  "github_path": ".claude/skills/typescript-api-types",
+  "github_branch": "main"
 }

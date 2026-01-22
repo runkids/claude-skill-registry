@@ -8,5 +8,6 @@
     "common"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/programming-common"
+  "github_path": ".claude/skills/programming-common",
+  "github_branch": "main"
 }

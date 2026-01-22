@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:43:18.284480Z",
   "dir_name": "find-cpython-usage",
   "category": "other",
-  "github_path": ".claude/skills/find-cpython-usage"
+  "github_path": ".claude/skills/find-cpython-usage",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "dir_name": "fsharp-csharp-bridge",
-  "github_path": ".claude/skills/fsharp-csharp-bridge"
+  "github_path": ".claude/skills/fsharp-csharp-bridge",
+  "github_branch": "main"
 }

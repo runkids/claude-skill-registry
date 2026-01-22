@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/darwin-godwin-machine"
+  "github_path": ".claude/skills/darwin-godwin-machine",
+  "github_branch": "main"
 }

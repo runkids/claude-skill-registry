@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:37:11.721818Z",
   "dir_name": "gobby-workflows",
   "category": "other",
-  "github_path": ".claude/skills/gobby-workflows"
+  "github_path": ".claude/skills/gobby-workflows",
+  "github_branch": "main"
 }

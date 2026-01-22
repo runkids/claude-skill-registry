@@ -9,5 +9,6 @@
   ],
   "stars": 120,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/agents-md-generator"
+  "github_path": "skills/agents-md-generator",
+  "github_branch": "main"
 }

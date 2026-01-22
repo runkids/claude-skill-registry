@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:58.712920Z",
   "dir_name": "openapi-critical-rules",
   "category": "other",
-  "github_path": ".claude/skills/openapi-critical-rules"
+  "github_path": ".claude/skills/openapi-critical-rules",
+  "github_branch": "main"
 }

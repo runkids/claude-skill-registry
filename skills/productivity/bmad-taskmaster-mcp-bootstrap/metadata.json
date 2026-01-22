@@ -11,5 +11,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bmad-taskmaster-mcp-bootstrap"
+  "github_path": ".claude/skills/bmad-taskmaster-mcp-bootstrap",
+  "github_branch": "main"
 }

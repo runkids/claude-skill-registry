@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:40:34.848273Z",
   "dir_name": "benchmark-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/benchmark-analyzer"
+  "github_path": ".claude/skills/benchmark-analyzer",
+  "github_branch": "main"
 }

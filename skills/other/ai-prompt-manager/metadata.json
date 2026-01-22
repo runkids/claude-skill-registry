@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:43.613300Z",
   "dir_name": "ai-prompt-manager",
   "category": "other",
-  "github_path": ".claude/skills/ai-prompt-manager"
+  "github_path": ".claude/skills/ai-prompt-manager",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:43:59.931689Z",
   "dir_name": "enter-services",
   "category": "other",
-  "github_path": ".claude/skills/enter-services"
+  "github_path": ".claude/skills/enter-services",
+  "github_branch": "main"
 }

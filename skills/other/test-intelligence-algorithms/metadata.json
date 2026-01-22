@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:25.631022Z",
   "dir_name": "test-intelligence-algorithms",
   "category": "other",
-  "github_path": ".claude/skills/test-intelligence-algorithms"
+  "github_path": ".claude/skills/test-intelligence-algorithms",
+  "github_branch": "main"
 }

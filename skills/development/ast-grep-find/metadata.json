@@ -10,5 +10,6 @@
   ],
   "stars": 1318,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ast-grep-find"
+  "github_path": ".claude/skills/ast-grep-find",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "initialization"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/spec-initialization"
+  "github_path": ".claude/skills/spec-initialization",
+  "github_branch": "main"
 }

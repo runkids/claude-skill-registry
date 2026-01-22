@@ -9,5 +9,6 @@
     "whatsapp"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/notify-ormus-whatsapp"
+  "github_path": ".claude/skills/notify-ormus-whatsapp",
+  "github_branch": "main"
 }

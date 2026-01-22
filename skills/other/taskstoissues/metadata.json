@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:25:21.616671Z",
   "dir_name": "taskstoissues",
   "category": "other",
-  "github_path": ".claude/skills/taskstoissues"
+  "github_path": ".claude/skills/taskstoissues",
+  "github_branch": "main"
 }

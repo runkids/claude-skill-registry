@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:21:59.759902Z",
   "dir_name": "frontend",
   "category": "other",
-  "github_path": ".claude/skills/frontend"
+  "github_path": ".claude/skills/frontend",
+  "github_branch": "main"
 }

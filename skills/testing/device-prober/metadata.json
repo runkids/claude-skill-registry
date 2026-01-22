@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/device-prober"
+  "github_path": ".claude/skills/device-prober",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:15:13.495013Z",
   "dir_name": "skill-cli",
   "category": "other",
-  "github_path": ".claude/skills/skill-cli"
+  "github_path": ".claude/skills/skill-cli",
+  "github_branch": "main"
 }

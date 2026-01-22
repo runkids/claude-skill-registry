@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:06.719308Z",
   "dir_name": "ask-multi",
   "category": "other",
-  "github_path": ".claude/skills/ask-multi"
+  "github_path": ".claude/skills/ask-multi",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:18.814184Z",
   "dir_name": "python-ruff-tool",
   "category": "other",
-  "github_path": ".claude/skills/python-ruff-tool"
+  "github_path": ".claude/skills/python-ruff-tool",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:28.892176Z",
   "dir_name": "deepwork-rules",
   "category": "other",
-  "github_path": ".claude/skills/deepwork_rules"
+  "github_path": ".claude/skills/deepwork_rules",
+  "github_branch": "main"
 }

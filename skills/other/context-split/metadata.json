@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:53.872470Z",
   "dir_name": "context-split",
   "category": "other",
-  "github_path": ".claude/skills/context-split"
+  "github_path": ".claude/skills/context-split",
+  "github_branch": "main"
 }

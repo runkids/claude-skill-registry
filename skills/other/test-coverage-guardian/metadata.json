@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:49.259238Z",
   "dir_name": "test-coverage-guardian",
   "category": "other",
-  "github_path": ".claude/skills/test-coverage-guardian"
+  "github_path": ".claude/skills/test-coverage-guardian",
+  "github_branch": "main"
 }

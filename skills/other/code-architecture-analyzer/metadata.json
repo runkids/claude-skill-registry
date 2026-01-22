@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:28.515230Z",
   "dir_name": "code-architecture-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/code-architecture-analyzer"
+  "github_path": ".claude/skills/code-architecture-analyzer",
+  "github_branch": "main"
 }

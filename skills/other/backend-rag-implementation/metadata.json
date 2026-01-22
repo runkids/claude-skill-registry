@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:52:52.706861Z",
   "dir_name": "backend-rag-implementation",
   "category": "other",
-  "github_path": ".claude/skills/backend-rag-implementation"
+  "github_path": ".claude/skills/backend-rag-implementation",
+  "github_branch": "main"
 }

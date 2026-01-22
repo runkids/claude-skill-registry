@@ -7,5 +7,6 @@
     "ideation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ideation"
+  "github_path": ".claude/skills/ideation",
+  "github_branch": "main"
 }

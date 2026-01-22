@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:46.790370Z",
   "dir_name": "google-calendar-sync",
   "category": "other",
-  "github_path": ".claude/skills/google-calendar-sync"
+  "github_path": ".claude/skills/google-calendar-sync",
+  "github_branch": "main"
 }

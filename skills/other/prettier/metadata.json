@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:35:20.924353Z",
   "dir_name": "prettier",
   "category": "other",
-  "github_path": ".claude/skills/prettier"
+  "github_path": ".claude/skills/prettier",
+  "github_branch": "main"
 }

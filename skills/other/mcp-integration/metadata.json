@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:46.815588Z",
   "dir_name": "mcp-integration",
   "category": "other",
-  "github_path": ".claude/skills/mcp-integration"
+  "github_path": ".claude/skills/mcp-integration",
+  "github_branch": "main"
 }

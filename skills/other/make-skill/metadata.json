@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:23.517476Z",
   "dir_name": "make-skill",
   "category": "other",
-  "github_path": ".claude/skills/make-skill"
+  "github_path": ".claude/skills/make-skill",
+  "github_branch": "main"
 }

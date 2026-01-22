@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:06:34.230316Z",
   "dir_name": "e2e-frontend-validation",
   "category": "other",
-  "github_path": ".claude/skills/e2e-frontend-validation"
+  "github_path": ".claude/skills/e2e-frontend-validation",
+  "github_branch": "main"
 }

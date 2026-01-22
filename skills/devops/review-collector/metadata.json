@@ -8,5 +8,6 @@
     "collector"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/review-collector"
+  "github_path": ".claude/skills/review-collector",
+  "github_branch": "main"
 }

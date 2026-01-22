@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:51:15.538991Z",
   "dir_name": "testing-coverage",
   "category": "other",
-  "github_path": ".claude/skills/testing-coverage"
+  "github_path": ".claude/skills/testing-coverage",
+  "github_branch": "main"
 }

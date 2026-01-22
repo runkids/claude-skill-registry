@@ -10,5 +10,6 @@
   "stars": 575,
   "source": "SkillsMP Synced Skills",
   "dir_name": "code-changelog",
-  "github_path": "skills/code-changelog"
+  "github_path": "skills/code-changelog",
+  "github_branch": "master"
 }

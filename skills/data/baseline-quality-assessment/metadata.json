@@ -11,5 +11,6 @@
   "stars": 15,
   "source": "SkillsMP Synced Skills",
   "dir_name": "baseline-quality-assessment",
-  "github_path": ".claude/skills/baseline-quality-assessment"
+  "github_path": ".claude/skills/baseline-quality-assessment",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:56.305818Z",
   "dir_name": "wrangler-deploy",
   "category": "other",
-  "github_path": ".claude/skills/wrangler-deploy"
+  "github_path": ".claude/skills/wrangler-deploy",
+  "github_branch": "main"
 }

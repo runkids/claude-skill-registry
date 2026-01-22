@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "database-visualization",
-  "github_path": ".claude/skills/database-visualization"
+  "github_path": ".claude/skills/database-visualization",
+  "github_branch": "main"
 }

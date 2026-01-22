@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:00.969750Z",
   "dir_name": "ml-api-endpoint",
   "category": "other",
-  "github_path": ".claude/skills/ml-api-endpoint"
+  "github_path": ".claude/skills/ml-api-endpoint",
+  "github_branch": "main"
 }

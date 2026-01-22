@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:50.653527Z",
   "dir_name": "snd-core",
   "category": "other",
-  "github_path": ".claude/skills/snd-core"
+  "github_path": ".claude/skills/snd-core",
+  "github_branch": "main"
 }

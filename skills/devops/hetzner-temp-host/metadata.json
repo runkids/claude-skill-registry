@@ -9,5 +9,6 @@
     "host"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/hetzner-temp-host"
+  "github_path": ".claude/skills/hetzner-temp-host",
+  "github_branch": "main"
 }

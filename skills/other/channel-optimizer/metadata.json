@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:39:37.254761Z",
   "dir_name": "channel-optimizer",
   "category": "other",
-  "github_path": ".claude/skills/channel-optimizer"
+  "github_path": ".claude/skills/channel-optimizer",
+  "github_branch": "main"
 }

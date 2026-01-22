@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:27.845021Z",
   "dir_name": "typescript-zod",
   "category": "other",
-  "github_path": ".claude/skills/typescript-zod"
+  "github_path": ".claude/skills/typescript-zod",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:47.315748Z",
   "dir_name": "storytelling-synthesizer",
   "category": "other",
-  "github_path": ".claude/skills/storytelling-synthesizer"
+  "github_path": ".claude/skills/storytelling-synthesizer",
+  "github_branch": "main"
 }

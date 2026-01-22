@@ -10,5 +10,6 @@
   ],
   "stars": 93,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/devflow-file-standards"
+  "github_path": ".claude/skills/devflow-file-standards",
+  "github_branch": "main"
 }

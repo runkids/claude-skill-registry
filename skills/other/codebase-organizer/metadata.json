@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:48.985597Z",
   "dir_name": "codebase-organizer",
   "category": "other",
-  "github_path": ".claude/skills/codebase-organizer"
+  "github_path": ".claude/skills/codebase-organizer",
+  "github_branch": "main"
 }

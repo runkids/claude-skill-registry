@@ -11,5 +11,6 @@
   "stars": 2,
   "source": "SkillsMP Synced Skills",
   "dir_name": "ddd-entity-generator",
-  "github_path": ".claude/skills/ddd-entity-generator"
+  "github_path": ".claude/skills/ddd-entity-generator",
+  "github_branch": "main"
 }

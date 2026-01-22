@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/design-handoff-spec"
+  "github_path": ".claude/skills/design-handoff-spec",
+  "github_branch": "main"
 }

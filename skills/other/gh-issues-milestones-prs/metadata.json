@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:23:01.686838Z",
   "dir_name": "gh-issues-milestones-prs",
   "category": "other",
-  "github_path": ".claude/skills/gh-issues-milestones-prs"
+  "github_path": ".claude/skills/gh-issues-milestones-prs",
+  "github_branch": "main"
 }

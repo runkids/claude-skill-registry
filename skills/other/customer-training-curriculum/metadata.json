@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:07.599158Z",
   "dir_name": "customer-training-curriculum",
   "category": "other",
-  "github_path": ".claude/skills/customer-training-curriculum"
+  "github_path": ".claude/skills/customer-training-curriculum",
+  "github_branch": "main"
 }

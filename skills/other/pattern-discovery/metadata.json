@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:11:03.907879Z",
   "dir_name": "pattern-discovery",
   "category": "other",
-  "github_path": ".claude/skills/pattern-discovery"
+  "github_path": ".claude/skills/pattern-discovery",
+  "github_branch": "main"
 }

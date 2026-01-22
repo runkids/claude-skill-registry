@@ -9,5 +9,6 @@
     "patterns"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/validate-mojo-patterns"
+  "github_path": ".claude/skills/validate-mojo-patterns",
+  "github_branch": "main"
 }

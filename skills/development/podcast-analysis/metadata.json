@@ -8,5 +8,6 @@
     "analysis"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/podcast-analysis"
+  "github_path": ".claude/skills/podcast-analysis",
+  "github_branch": "main"
 }

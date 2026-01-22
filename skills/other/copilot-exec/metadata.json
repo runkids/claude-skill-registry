@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:52:15.467890Z",
   "dir_name": "copilot-exec",
   "category": "other",
-  "github_path": ".claude/skills/copilot-exec"
+  "github_path": ".claude/skills/copilot-exec",
+  "github_branch": "main"
 }

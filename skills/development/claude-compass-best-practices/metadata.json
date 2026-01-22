@@ -11,5 +11,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/claude-compass-best-practices"
+  "github_path": ".claude/skills/claude-compass-best-practices",
+  "github_branch": "main"
 }

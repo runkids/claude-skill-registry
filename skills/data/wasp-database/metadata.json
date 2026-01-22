@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "wasp-database",
-  "github_path": ".claude/skills/wasp-database"
+  "github_path": ".claude/skills/wasp-database",
+  "github_branch": "main"
 }

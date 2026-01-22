@@ -9,5 +9,6 @@
   ],
   "stars": 313,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/logger-messages"
+  "github_path": ".claude/skills/logger-messages",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:40.465587Z",
   "dir_name": "planning-sprints",
   "category": "other",
-  "github_path": ".claude/skills/planning-sprints"
+  "github_path": ".claude/skills/planning-sprints",
+  "github_branch": "main"
 }

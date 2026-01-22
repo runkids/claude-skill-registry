@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:58.536817Z",
   "dir_name": "environment-triage",
   "category": "other",
-  "github_path": ".claude/skills/environment-triage"
+  "github_path": ".claude/skills/environment-triage",
+  "github_branch": "main"
 }

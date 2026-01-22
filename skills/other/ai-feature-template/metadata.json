@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:37.866701Z",
   "dir_name": "ai-feature-template",
   "category": "other",
-  "github_path": ".claude/skills/ai-feature-template"
+  "github_path": ".claude/skills/ai-feature-template",
+  "github_branch": "main"
 }

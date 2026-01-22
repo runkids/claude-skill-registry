@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:45.885206Z",
   "dir_name": "outside-in-testing",
   "category": "other",
-  "github_path": ".claude/skills/outside-in-testing"
+  "github_path": ".claude/skills/outside-in-testing",
+  "github_branch": "main"
 }

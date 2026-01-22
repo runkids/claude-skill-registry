@@ -9,5 +9,6 @@
     "audit"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/resource-management-audit"
+  "github_path": ".claude/skills/resource-management-audit",
+  "github_branch": "main"
 }

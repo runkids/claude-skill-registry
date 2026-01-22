@@ -9,5 +9,6 @@
     "form"
   ],
   "stars": 33,
-  "github_path": ".claude/skills/send-schema-form"
+  "github_path": ".claude/skills/send-schema-form",
+  "github_branch": "main"
 }

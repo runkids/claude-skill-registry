@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "archetype-designer",
-  "github_path": ".claude/skills/archetype-designer"
+  "github_path": ".claude/skills/archetype-designer",
+  "github_branch": "main"
 }

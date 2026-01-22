@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/decomp-fixup"
+  "github_path": ".claude/skills/decomp-fixup",
+  "github_branch": "main"
 }

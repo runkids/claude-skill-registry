@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:42:33.024353Z",
   "dir_name": "internal-links",
   "category": "other",
-  "github_path": ".claude/skills/internal-links"
+  "github_path": ".claude/skills/internal-links",
+  "github_branch": "main"
 }

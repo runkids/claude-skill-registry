@@ -9,5 +9,6 @@
     "frontend"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/openai-chatkit-frontend"
+  "github_path": ".claude/skills/openai-chatkit-frontend",
+  "github_branch": "main"
 }

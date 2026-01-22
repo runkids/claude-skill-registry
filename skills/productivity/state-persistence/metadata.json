@@ -8,5 +8,6 @@
     "persistence"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/state-persistence"
+  "github_path": ".claude/skills/state-persistence",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:07.356340Z",
   "dir_name": "sc-implement",
   "category": "other",
-  "github_path": ".claude/skills/sc-implement"
+  "github_path": ".claude/skills/sc-implement",
+  "github_branch": "main"
 }

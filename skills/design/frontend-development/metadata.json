@@ -8,5 +8,6 @@
     "development"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frontend-development"
+  "github_path": ".claude/skills/frontend-development",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 108,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/research-executor"
+  "github_path": ".claude/skills/research-executor",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:58:43.461546Z",
   "dir_name": "backend-engineer",
   "category": "other",
-  "github_path": ".claude/skills/backend-engineer"
+  "github_path": ".claude/skills/backend-engineer",
+  "github_branch": "main"
 }

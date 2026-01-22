@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:12.758912Z",
   "dir_name": "finetune-design",
-  "github_path": ".claude/skills/finetune-design"
+  "github_path": ".claude/skills/finetune-design",
+  "github_branch": "main"
 }

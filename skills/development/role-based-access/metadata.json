@@ -9,5 +9,6 @@
     "access"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/role-based-access"
+  "github_path": ".claude/skills/role-based-access",
+  "github_branch": "main"
 }

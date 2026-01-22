@@ -10,5 +10,6 @@
   ],
   "stars": 109,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/zustand-state-management"
+  "github_path": "skills/zustand-state-management",
+  "github_branch": "main"
 }

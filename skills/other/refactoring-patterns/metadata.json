@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:37.978046Z",
   "dir_name": "refactoring-patterns",
   "category": "other",
-  "github_path": ".claude/skills/refactoring-patterns"
+  "github_path": ".claude/skills/refactoring-patterns",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/code-evolution"
+  "github_path": ".claude/skills/code-evolution",
+  "github_branch": "main"
 }

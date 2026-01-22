@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:33:36.330375Z",
   "dir_name": "library-writer",
   "category": "other",
-  "github_path": ".claude/skills/library-writer"
+  "github_path": ".claude/skills/library-writer",
+  "github_branch": "main"
 }

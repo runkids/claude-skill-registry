@@ -8,5 +8,6 @@
     "phoenix"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/phoenix-phoenix"
+  "github_path": ".claude/skills/phoenix-phoenix",
+  "github_branch": "main"
 }

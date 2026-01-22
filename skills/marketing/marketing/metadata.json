@@ -7,5 +7,6 @@
     "marketing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/marketing"
+  "github_path": ".claude/skills/marketing",
+  "github_branch": "main"
 }

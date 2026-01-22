@@ -9,5 +9,6 @@
     "scoring"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/requirements-clarity-scoring"
+  "github_path": ".claude/skills/requirements-clarity-scoring",
+  "github_branch": "main"
 }

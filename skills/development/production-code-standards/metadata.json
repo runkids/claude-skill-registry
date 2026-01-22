@@ -5,5 +5,6 @@
   "description": "Production-ready code standards following CLAUDE Framework with TDD, security, and quality requirements",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:00:17.845558Z",
-  "github_path": ".claude/skills/production-code-standards"
+  "github_path": ".claude/skills/production-code-standards",
+  "github_branch": "main"
 }

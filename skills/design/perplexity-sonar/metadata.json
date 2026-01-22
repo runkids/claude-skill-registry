@@ -8,5 +8,6 @@
     "sonar"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/perplexity-sonar"
+  "github_path": ".claude/skills/perplexity-sonar",
+  "github_branch": "main"
 }

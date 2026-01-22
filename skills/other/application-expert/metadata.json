@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T01:04:45.141821Z",
   "dir_name": "application-expert",
   "category": "other",
-  "github_path": ".claude/skills/application-expert"
+  "github_path": ".claude/skills/application-expert",
+  "github_branch": "main"
 }

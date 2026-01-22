@@ -9,5 +9,6 @@
     "hotspots"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/refactor-arch-hotspots"
+  "github_path": ".claude/skills/refactor-arch-hotspots",
+  "github_branch": "main"
 }

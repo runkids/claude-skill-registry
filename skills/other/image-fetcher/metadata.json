@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:04.121097Z",
   "dir_name": "image-fetcher",
   "category": "other",
-  "github_path": ".claude/skills/image-fetcher"
+  "github_path": ".claude/skills/image-fetcher",
+  "github_branch": "main"
 }

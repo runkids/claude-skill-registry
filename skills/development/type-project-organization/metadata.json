@@ -9,5 +9,6 @@
     "organization"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/type-project-organization"
+  "github_path": ".claude/skills/type-project-organization",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:40.166145Z",
   "dir_name": "registry-component-patterns",
   "category": "other",
-  "github_path": ".claude/skills/registry-component-patterns"
+  "github_path": ".claude/skills/registry-component-patterns",
+  "github_branch": "main"
 }

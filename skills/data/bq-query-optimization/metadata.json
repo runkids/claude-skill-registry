@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "bq-query-optimization",
-  "github_path": ".claude/skills/bq-query-optimization"
+  "github_path": ".claude/skills/bq-query-optimization",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:33:07.786666Z",
   "dir_name": "audit-documentation",
   "category": "other",
-  "github_path": ".claude/skills/audit-documentation"
+  "github_path": ".claude/skills/audit-documentation",
+  "github_branch": "main"
 }

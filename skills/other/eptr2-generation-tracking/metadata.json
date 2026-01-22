@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:40:00.832470Z",
   "dir_name": "eptr2-generation-tracking",
   "category": "other",
-  "github_path": ".claude/skills/eptr2-generation-tracking"
+  "github_path": ".claude/skills/eptr2-generation-tracking",
+  "github_branch": "main"
 }

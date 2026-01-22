@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:34.283406Z",
   "dir_name": "pessimistic-review",
   "category": "other",
-  "github_path": ".claude/skills/pessimistic-review"
+  "github_path": ".claude/skills/pessimistic-review",
+  "github_branch": "main"
 }

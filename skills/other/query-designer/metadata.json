@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:52:47.445024Z",
   "dir_name": "query-designer",
   "category": "other",
-  "github_path": ".claude/skills/query-designer"
+  "github_path": ".claude/skills/query-designer",
+  "github_branch": "main"
 }

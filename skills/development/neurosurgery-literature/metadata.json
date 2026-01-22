@@ -8,5 +8,6 @@
     "literature"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/neurosurgery-literature"
+  "github_path": ".claude/skills/neurosurgery-literature",
+  "github_branch": "main"
 }

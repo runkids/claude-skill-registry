@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:45.479004Z",
   "dir_name": "doc-naming",
   "category": "other",
-  "github_path": ".claude/skills/doc-naming"
+  "github_path": ".claude/skills/doc-naming",
+  "github_branch": "main"
 }

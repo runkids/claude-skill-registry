@@ -9,5 +9,6 @@
     "expert"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/vscode-extension-expert"
+  "github_path": ".claude/skills/vscode-extension-expert",
+  "github_branch": "main"
 }

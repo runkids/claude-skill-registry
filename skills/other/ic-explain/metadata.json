@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:25:06.078765Z",
   "dir_name": "ic-explain",
   "category": "other",
-  "github_path": ".claude/skills/ic-explain"
+  "github_path": ".claude/skills/ic-explain",
+  "github_branch": "main"
 }

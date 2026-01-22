@@ -9,5 +9,6 @@
   ],
   "stars": 607,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/run-tests"
+  "github_path": ".claude/skills/run-tests",
+  "github_branch": "main"
 }

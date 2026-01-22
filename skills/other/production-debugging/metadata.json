@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:46.475770Z",
   "dir_name": "production-debugging",
   "category": "other",
-  "github_path": ".claude/skills/production-debugging"
+  "github_path": ".claude/skills/production-debugging",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "patterns"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/patterns"
+  "github_path": ".claude/skills/patterns",
+  "github_branch": "main"
 }

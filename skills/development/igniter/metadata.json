@@ -7,5 +7,6 @@
     "igniter"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/igniter"
+  "github_path": ".claude/skills/igniter",
+  "github_branch": "main"
 }

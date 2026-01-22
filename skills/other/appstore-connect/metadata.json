@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:31.810639Z",
   "dir_name": "appstore-connect",
   "category": "other",
-  "github_path": ".claude/skills/appstore-connect"
+  "github_path": ".claude/skills/appstore-connect",
+  "github_branch": "main"
 }

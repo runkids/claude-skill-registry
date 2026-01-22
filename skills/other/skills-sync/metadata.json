@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:19.982753Z",
   "dir_name": "skills-sync",
   "category": "other",
-  "github_path": ".claude/skills/skills-sync"
+  "github_path": ".claude/skills/skills-sync",
+  "github_branch": "main"
 }

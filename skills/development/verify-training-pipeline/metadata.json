@@ -9,5 +9,6 @@
     "pipeline"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/verify-training-pipeline"
+  "github_path": ".claude/skills/verify-training-pipeline",
+  "github_branch": "main"
 }

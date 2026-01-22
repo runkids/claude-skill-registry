@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:48:58.219321Z",
   "dir_name": "n8n-workflow-architect",
   "category": "other",
-  "github_path": ".claude/skills/n8n-workflow-architect"
+  "github_path": ".claude/skills/n8n-workflow-architect",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:50.853052Z",
   "dir_name": "quality-audit-workflow",
   "category": "other",
-  "github_path": ".claude/skills/quality-audit-workflow"
+  "github_path": ".claude/skills/quality-audit-workflow",
+  "github_branch": "main"
 }

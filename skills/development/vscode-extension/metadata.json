@@ -8,5 +8,6 @@
     "extension"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/vscode-extension"
+  "github_path": ".claude/skills/vscode-extension",
+  "github_branch": "main"
 }

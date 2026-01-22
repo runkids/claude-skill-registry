@@ -8,5 +8,6 @@
     "wrapper"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pio-wrapper"
+  "github_path": ".claude/skills/pio-wrapper",
+  "github_branch": "main"
 }

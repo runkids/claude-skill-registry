@@ -7,5 +7,6 @@
     "nestjs"
   ],
   "stars": 38,
-  "github_path": "skills/nestjs"
+  "github_path": "skills/nestjs",
+  "github_branch": "main"
 }

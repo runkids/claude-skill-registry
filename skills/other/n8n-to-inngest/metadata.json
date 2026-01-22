@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:55.753679Z",
   "dir_name": "n8n-to-inngest",
   "category": "other",
-  "github_path": ".claude/skills/n8n-to-inngest"
+  "github_path": ".claude/skills/n8n-to-inngest",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:46.948730Z",
   "dir_name": "agent-inbox",
   "category": "other",
-  "github_path": ".claude/skills/agent-inbox"
+  "github_path": ".claude/skills/agent-inbox",
+  "github_branch": "main"
 }

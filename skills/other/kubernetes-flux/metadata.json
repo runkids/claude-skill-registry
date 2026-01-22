@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:05.788094Z",
   "dir_name": "kubernetes-flux",
   "category": "other",
-  "github_path": ".claude/skills/kubernetes-flux"
+  "github_path": ".claude/skills/kubernetes-flux",
+  "github_branch": "main"
 }

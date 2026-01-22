@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/figma-design-parser"
+  "github_path": ".claude/skills/figma-design-parser",
+  "github_branch": "main"
 }

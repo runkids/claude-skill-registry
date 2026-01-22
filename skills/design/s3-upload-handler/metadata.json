@@ -8,5 +8,6 @@
     "handler"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/s3-upload-handler"
+  "github_path": ".claude/skills/s3-upload-handler",
+  "github_branch": "main"
 }

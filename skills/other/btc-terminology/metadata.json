@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T02:03:04.298950Z",
   "dir_name": "btc-terminology",
   "category": "other",
-  "github_path": ".claude/skills/btc-terminology"
+  "github_path": ".claude/skills/btc-terminology",
+  "github_branch": "main"
 }

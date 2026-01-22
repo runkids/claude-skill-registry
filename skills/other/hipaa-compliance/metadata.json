@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:55.985843Z",
   "dir_name": "hipaa-compliance",
   "category": "other",
-  "github_path": ".claude/skills/hipaa-compliance"
+  "github_path": ".claude/skills/hipaa-compliance",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:17.434068Z",
   "dir_name": "architecture-synthesis",
   "category": "other",
-  "github_path": ".claude/skills/architecture-synthesis"
+  "github_path": ".claude/skills/architecture-synthesis",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "models"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/updating-met-models"
+  "github_path": ".claude/skills/updating-met-models",
+  "github_branch": "main"
 }

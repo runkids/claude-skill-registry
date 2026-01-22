@@ -8,5 +8,6 @@
     "loop"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/post-loop"
+  "github_path": ".claude/skills/post-loop",
+  "github_branch": "main"
 }

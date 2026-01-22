@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "create-table",
-  "github_path": ".claude/skills/create-table"
+  "github_path": ".claude/skills/create-table",
+  "github_branch": "main"
 }

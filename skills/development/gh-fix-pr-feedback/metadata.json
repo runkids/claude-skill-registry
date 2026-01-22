@@ -8,5 +8,6 @@
     "feedback"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/gh-fix-pr-feedback"
+  "github_path": ".claude/skills/gh-fix-pr-feedback",
+  "github_branch": "main"
 }

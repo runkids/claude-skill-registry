@@ -9,5 +9,6 @@
   ],
   "stars": 842,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/trpc-patterns"
+  "github_path": ".claude/skills/trpc-patterns",
+  "github_branch": "main"
 }

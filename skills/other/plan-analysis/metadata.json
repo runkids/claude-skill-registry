@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:27.453366Z",
   "dir_name": "plan-analysis",
   "category": "other",
-  "github_path": ".claude/skills/plan-analysis"
+  "github_path": ".claude/skills/plan-analysis",
+  "github_branch": "main"
 }

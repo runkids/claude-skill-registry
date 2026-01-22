@@ -8,5 +8,6 @@
     "rules"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/smart-rules"
+  "github_path": ".claude/skills/smart-rules",
+  "github_branch": "main"
 }

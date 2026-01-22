@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:05.739825Z",
   "dir_name": "work-documentation",
   "category": "other",
-  "github_path": ".claude/skills/work-documentation"
+  "github_path": ".claude/skills/work-documentation",
+  "github_branch": "main"
 }

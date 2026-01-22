@@ -8,5 +8,6 @@
     "engineering"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/prompt-engineering"
+  "github_path": ".claude/skills/prompt-engineering",
+  "github_branch": "main"
 }

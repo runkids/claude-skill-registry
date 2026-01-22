@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:25.719688Z",
   "dir_name": "accessibility-checklist",
   "category": "other",
-  "github_path": ".claude/skills/accessibility-checklist"
+  "github_path": ".claude/skills/accessibility-checklist",
+  "github_branch": "main"
 }

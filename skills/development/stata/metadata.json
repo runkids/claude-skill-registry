@@ -7,5 +7,6 @@
     "stata"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/stata"
+  "github_path": ".claude/skills/stata",
+  "github_branch": "main"
 }

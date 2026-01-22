@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:18.132129Z",
   "dir_name": "no-lazy-implementation",
   "category": "other",
-  "github_path": ".claude/skills/no_lazy_implementation"
+  "github_path": ".claude/skills/no_lazy_implementation",
+  "github_branch": "main"
 }

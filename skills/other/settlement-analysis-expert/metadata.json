@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:38.737881Z",
   "dir_name": "settlement-analysis-expert",
   "category": "other",
-  "github_path": ".claude/skills/settlement-analysis-expert"
+  "github_path": ".claude/skills/settlement-analysis-expert",
+  "github_branch": "main"
 }

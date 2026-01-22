@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:07:47.949925Z",
   "dir_name": "creating-claude-rules-skill",
   "category": "other",
-  "github_path": ".claude/skills/creating-claude-rules-skill"
+  "github_path": ".claude/skills/creating-claude-rules-skill",
+  "github_branch": "main"
 }

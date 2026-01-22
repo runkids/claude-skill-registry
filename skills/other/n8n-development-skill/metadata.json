@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:37:28.541946Z",
   "dir_name": "n8n-development-skill",
   "category": "other",
-  "github_path": ".claude/skills/n8n-development-skill"
+  "github_path": ".claude/skills/n8n-development-skill",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:26.625600Z",
   "dir_name": "testing-msw",
   "category": "other",
-  "github_path": ".claude/skills/testing-msw"
+  "github_path": ".claude/skills/testing-msw",
+  "github_branch": "main"
 }

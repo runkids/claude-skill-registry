@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:08.296279Z",
   "dir_name": "statistics",
   "category": "other",
-  "github_path": ".claude/skills/statistics"
+  "github_path": ".claude/skills/statistics",
+  "github_branch": "main"
 }

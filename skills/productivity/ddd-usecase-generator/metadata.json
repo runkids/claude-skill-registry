@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ddd-usecase-generator"
+  "github_path": ".claude/skills/ddd-usecase-generator",
+  "github_branch": "main"
 }

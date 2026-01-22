@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:17.920238Z",
   "dir_name": "google-grade-reviewer",
   "category": "other",
-  "github_path": ".claude/skills/google_grade_reviewer"
+  "github_path": ".claude/skills/google_grade_reviewer",
+  "github_branch": "main"
 }

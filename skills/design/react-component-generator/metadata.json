@@ -9,5 +9,6 @@
     "generator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/react-component-generator"
+  "github_path": ".claude/skills/react-component-generator",
+  "github_branch": "main"
 }

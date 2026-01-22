@@ -8,5 +8,6 @@
     "creation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/skill-creation"
+  "github_path": ".claude/skills/skill-creation",
+  "github_branch": "main"
 }

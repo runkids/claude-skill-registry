@@ -11,5 +11,6 @@
     "orchestrate"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/when-releasing-new-product-orchestrate-product-launch"
+  "github_path": ".claude/skills/when-releasing-new-product-orchestrate-product-launch",
+  "github_branch": "main"
 }

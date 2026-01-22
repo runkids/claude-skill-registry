@@ -8,5 +8,6 @@
     "typing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-typing"
+  "github_path": ".claude/skills/global-typing",
+  "github_branch": "main"
 }

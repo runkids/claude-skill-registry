@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:38.601282Z",
   "dir_name": "land-assembly-expert",
   "category": "other",
-  "github_path": ".claude/skills/land-assembly-expert"
+  "github_path": ".claude/skills/land-assembly-expert",
+  "github_branch": "main"
 }

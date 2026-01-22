@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:01.880317Z",
   "dir_name": "task-mover",
   "category": "other",
-  "github_path": ".claude/skills/task-mover"
+  "github_path": ".claude/skills/task-mover",
+  "github_branch": "main"
 }

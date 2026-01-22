@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:54.801835Z",
   "dir_name": "performance-opt",
   "category": "other",
-  "github_path": ".claude/skills/performance-opt"
+  "github_path": ".claude/skills/performance-opt",
+  "github_branch": "main"
 }

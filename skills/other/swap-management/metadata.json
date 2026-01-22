@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:57.608958Z",
   "dir_name": "swap-management",
   "category": "other",
-  "github_path": ".claude/skills/swap-management"
+  "github_path": ".claude/skills/swap-management",
+  "github_branch": "main"
 }

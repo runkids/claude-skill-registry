@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:47.202045Z",
   "dir_name": "doc-brd",
   "category": "other",
-  "github_path": ".claude/skills/doc-brd"
+  "github_path": ".claude/skills/doc-brd",
+  "github_branch": "main"
 }

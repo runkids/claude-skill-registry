@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.594704Z",
   "dir_name": "dag-execution-tracer",
   "category": "other",
-  "github_path": ".claude/skills/dag-execution-tracer"
+  "github_path": ".claude/skills/dag-execution-tracer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:37:10.637565Z",
   "dir_name": "gobby-metrics",
   "category": "other",
-  "github_path": ".claude/skills/gobby-metrics"
+  "github_path": ".claude/skills/gobby-metrics",
+  "github_branch": "main"
 }

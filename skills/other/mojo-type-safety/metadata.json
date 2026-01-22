@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:11.895404Z",
   "dir_name": "mojo-type-safety",
   "category": "other",
-  "github_path": ".claude/skills/mojo-type-safety"
+  "github_path": ".claude/skills/mojo-type-safety",
+  "github_branch": "main"
 }

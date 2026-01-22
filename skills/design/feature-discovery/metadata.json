@@ -8,5 +8,6 @@
     "discovery"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/feature-discovery"
+  "github_path": ".claude/skills/feature-discovery",
+  "github_branch": "main"
 }

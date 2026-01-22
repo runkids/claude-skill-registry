@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:38:42.000568Z",
   "dir_name": "dag-isolation-manager",
   "category": "other",
-  "github_path": ".claude/skills/dag-isolation-manager"
+  "github_path": ".claude/skills/dag-isolation-manager",
+  "github_branch": "main"
 }

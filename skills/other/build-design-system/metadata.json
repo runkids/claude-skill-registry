@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:04.905024Z",
   "dir_name": "build-design-system",
   "category": "other",
-  "github_path": ".claude/skills/build-design-system"
+  "github_path": ".claude/skills/build-design-system",
+  "github_branch": "main"
 }

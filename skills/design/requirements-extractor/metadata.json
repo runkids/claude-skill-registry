@@ -8,5 +8,6 @@
     "extractor"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/requirements-extractor"
+  "github_path": ".claude/skills/requirements-extractor",
+  "github_branch": "main"
 }

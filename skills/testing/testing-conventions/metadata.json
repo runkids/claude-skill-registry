@@ -8,5 +8,6 @@
     "conventions"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/testing-conventions"
+  "github_path": ".claude/skills/testing-conventions",
+  "github_branch": "main"
 }

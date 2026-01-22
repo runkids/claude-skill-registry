@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:14:51.603698Z",
   "dir_name": "codebase-graph",
   "category": "other",
-  "github_path": ".claude/skills/codebase-graph"
+  "github_path": ".claude/skills/codebase-graph",
+  "github_branch": "main"
 }

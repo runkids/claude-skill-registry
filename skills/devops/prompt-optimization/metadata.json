@@ -8,5 +8,6 @@
     "optimization"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/prompt-optimization"
+  "github_path": ".claude/skills/prompt-optimization",
+  "github_branch": "main"
 }

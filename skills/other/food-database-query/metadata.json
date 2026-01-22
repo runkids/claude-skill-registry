@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:42.535852Z",
   "dir_name": "food-database-query",
   "category": "other",
-  "github_path": ".claude/skills/food-database-query"
+  "github_path": ".claude/skills/food-database-query",
+  "github_branch": "main"
 }

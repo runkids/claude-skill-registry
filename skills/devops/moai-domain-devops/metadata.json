@@ -9,5 +9,6 @@
     "devops"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-domain-devops"
+  "github_path": ".claude/skills/moai-domain-devops",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "marketing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nestmind-marketing"
+  "github_path": ".claude/skills/nestmind-marketing",
+  "github_branch": "main"
 }

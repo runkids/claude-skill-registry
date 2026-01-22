@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:05:55.702476Z",
   "dir_name": "pattern-critic",
   "category": "other",
-  "github_path": ".claude/skills/pattern-critic"
+  "github_path": ".claude/skills/pattern-critic",
+  "github_branch": "main"
 }

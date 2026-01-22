@@ -10,5 +10,6 @@
   ],
   "stars": 817,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ai-sdk-model-manager"
+  "github_path": ".claude/skills/ai-sdk-model-manager",
+  "github_branch": "main"
 }

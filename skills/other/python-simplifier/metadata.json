@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:53.540105Z",
   "dir_name": "python-simplifier",
   "category": "other",
-  "github_path": ".claude/skills/python-simplifier"
+  "github_path": ".claude/skills/python-simplifier",
+  "github_branch": "main"
 }

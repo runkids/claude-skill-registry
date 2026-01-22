@@ -8,5 +8,6 @@
     "creation"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/spec-creation"
+  "github_path": ".claude/skills/spec-creation",
+  "github_branch": "main"
 }

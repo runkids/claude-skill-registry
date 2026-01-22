@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/composable-svelte-ssr"
+  "github_path": ".claude/skills/composable-svelte-ssr",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:55.828733Z",
   "dir_name": "tailwind-config",
   "category": "other",
-  "github_path": ".claude/skills/tailwind-config"
+  "github_path": ".claude/skills/tailwind-config",
+  "github_branch": "main"
 }

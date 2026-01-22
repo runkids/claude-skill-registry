@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:56:58.548200Z",
   "dir_name": "appsec",
   "category": "other",
-  "github_path": ".claude/skills/appsec"
+  "github_path": ".claude/skills/appsec",
+  "github_branch": "main"
 }

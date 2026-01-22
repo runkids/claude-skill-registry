@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:11.659530Z",
   "dir_name": "authoring-skills",
   "category": "other",
-  "github_path": ".claude/skills/authoring-skills"
+  "github_path": ".claude/skills/authoring-skills",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "gcp"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gcp"
+  "github_path": ".claude/skills/gcp",
+  "github_branch": "main"
 }

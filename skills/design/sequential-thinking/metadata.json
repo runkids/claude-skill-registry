@@ -9,5 +9,6 @@
   ],
   "stars": 1108,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/sequential-thinking"
+  "github_path": ".claude/skills/sequential-thinking",
+  "github_branch": "main"
 }

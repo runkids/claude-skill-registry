@@ -8,5 +8,6 @@
     "health"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/platform-health"
+  "github_path": ".claude/skills/platform-health",
+  "github_branch": "main"
 }

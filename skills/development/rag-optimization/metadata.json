@@ -8,5 +8,6 @@
     "optimization"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rag-optimization"
+  "github_path": ".claude/skills/rag-optimization",
+  "github_branch": "main"
 }

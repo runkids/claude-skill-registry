@@ -9,5 +9,6 @@
     "generate"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/phase-plan-generate"
+  "github_path": ".claude/skills/phase-plan-generate",
+  "github_branch": "main"
 }

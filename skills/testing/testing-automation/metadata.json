@@ -8,5 +8,6 @@
     "automation"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/testing-automation"
+  "github_path": ".claude/skills/testing-automation",
+  "github_branch": "main"
 }

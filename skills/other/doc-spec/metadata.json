@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:50.890678Z",
   "dir_name": "doc-spec",
   "category": "other",
-  "github_path": ".claude/skills/doc-spec"
+  "github_path": ".claude/skills/doc-spec",
+  "github_branch": "main"
 }

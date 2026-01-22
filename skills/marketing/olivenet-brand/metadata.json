@@ -8,5 +8,6 @@
     "brand"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/olivenet-brand"
+  "github_path": ".claude/skills/olivenet-brand",
+  "github_branch": "main"
 }

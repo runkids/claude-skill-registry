@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:19:50.847788Z",
   "dir_name": "monaco-payslip-calculator",
   "category": "other",
-  "github_path": ".claude/skills/monaco-payslip-calculator"
+  "github_path": ".claude/skills/monaco-payslip-calculator",
+  "github_branch": "main"
 }

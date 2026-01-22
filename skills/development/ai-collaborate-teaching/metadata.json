@@ -9,5 +9,6 @@
   ],
   "stars": 48,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ai-collaborate-teaching"
+  "github_path": ".claude/skills/ai-collaborate-teaching",
+  "github_branch": "main"
 }

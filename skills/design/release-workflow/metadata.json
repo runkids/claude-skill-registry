@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/release-workflow"
+  "github_path": ".claude/skills/release-workflow",
+  "github_branch": "main"
 }

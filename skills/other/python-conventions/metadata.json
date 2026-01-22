@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:23:01.252764Z",
   "dir_name": "python-conventions",
   "category": "other",
-  "github_path": ".claude/skills/python-conventions"
+  "github_path": ".claude/skills/python-conventions",
+  "github_branch": "main"
 }

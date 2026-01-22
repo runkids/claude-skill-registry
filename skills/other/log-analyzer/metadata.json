@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:11.517242Z",
   "dir_name": "log-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/log-analyzer"
+  "github_path": ".claude/skills/log-analyzer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:50.790137Z",
   "dir_name": "documentation-writing",
   "category": "other",
-  "github_path": ".claude/skills/documentation-writing"
+  "github_path": ".claude/skills/documentation-writing",
+  "github_branch": "main"
 }

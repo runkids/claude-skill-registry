@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:33:07.643415Z",
   "dir_name": "audit-refactoring",
   "category": "other",
-  "github_path": ".claude/skills/audit-refactoring"
+  "github_path": ".claude/skills/audit-refactoring",
+  "github_branch": "main"
 }

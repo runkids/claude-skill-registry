@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:02.961540Z",
   "dir_name": "init-skills",
   "category": "other",
-  "github_path": ".claude/skills/init-skills"
+  "github_path": ".claude/skills/init-skills",
+  "github_branch": "main"
 }

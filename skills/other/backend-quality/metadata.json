@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:03:22.067021Z",
   "dir_name": "backend-quality",
   "category": "other",
-  "github_path": ".claude/skills/backend-quality"
+  "github_path": ".claude/skills/backend-quality",
+  "github_branch": "main"
 }

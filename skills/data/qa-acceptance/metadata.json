@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "dir_name": "qa-acceptance",
-  "github_path": ".claude/skills/qa-acceptance"
+  "github_path": ".claude/skills/qa-acceptance",
+  "github_branch": "main"
 }

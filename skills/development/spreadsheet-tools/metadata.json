@@ -8,5 +8,6 @@
     "tools"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/spreadsheet-tools"
+  "github_path": ".claude/skills/spreadsheet-tools",
+  "github_branch": "main"
 }

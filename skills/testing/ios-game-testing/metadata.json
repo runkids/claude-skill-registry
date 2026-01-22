@@ -9,5 +9,6 @@
     "testing"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/ios-game-testing"
+  "github_path": ".claude/skills/ios-game-testing",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:18:07.642843Z",
   "dir_name": "components",
   "category": "other",
-  "github_path": ".claude/skills/components"
+  "github_path": ".claude/skills/components",
+  "github_branch": "main"
 }

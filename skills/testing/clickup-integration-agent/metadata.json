@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/clickup-integration-agent"
+  "github_path": ".claude/skills/clickup-integration-agent",
+  "github_branch": "main"
 }

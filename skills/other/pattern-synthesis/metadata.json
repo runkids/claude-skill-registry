@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:22.297706Z",
   "dir_name": "pattern-synthesis",
   "category": "other",
-  "github_path": ".claude/skills/pattern-synthesis"
+  "github_path": ".claude/skills/pattern-synthesis",
+  "github_branch": "main"
 }

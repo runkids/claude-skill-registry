@@ -8,5 +8,6 @@
     "refinement"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/iterative-refinement"
+  "github_path": ".claude/skills/iterative-refinement",
+  "github_branch": "main"
 }

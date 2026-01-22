@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:38:50.438396Z",
   "dir_name": "job-application-optimizer",
   "category": "other",
-  "github_path": ".claude/skills/job-application-optimizer"
+  "github_path": ".claude/skills/job-application-optimizer",
+  "github_branch": "main"
 }

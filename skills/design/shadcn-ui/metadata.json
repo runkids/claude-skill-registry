@@ -7,5 +7,6 @@
     "shadcn"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/shadcn-ui"
+  "github_path": ".claude/skills/shadcn-ui",
+  "github_branch": "main"
 }

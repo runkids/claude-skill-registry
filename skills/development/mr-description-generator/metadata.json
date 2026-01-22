@@ -8,5 +8,6 @@
     "generator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mr-description-generator"
+  "github_path": ".claude/skills/mr-description-generator",
+  "github_branch": "main"
 }

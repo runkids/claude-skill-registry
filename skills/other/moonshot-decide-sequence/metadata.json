@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:01.382190Z",
   "dir_name": "moonshot-decide-sequence",
   "category": "other",
-  "github_path": ".claude/skills/moonshot-decide-sequence"
+  "github_path": ".claude/skills/moonshot-decide-sequence",
+  "github_branch": "main"
 }

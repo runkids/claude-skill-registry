@@ -8,5 +8,6 @@
     "urdu"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/localization-urdu"
+  "github_path": ".claude/skills/localization-urdu",
+  "github_branch": "main"
 }

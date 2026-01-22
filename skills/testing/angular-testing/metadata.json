@@ -9,5 +9,6 @@
   ],
   "stars": 21,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/angular-testing"
+  "github_path": ".claude/skills/angular-testing",
+  "github_branch": "main"
 }

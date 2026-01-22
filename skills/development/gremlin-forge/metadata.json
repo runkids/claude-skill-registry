@@ -8,5 +8,6 @@
     "forge"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gremlin-forge"
+  "github_path": ".claude/skills/gremlin-forge",
+  "github_branch": "main"
 }

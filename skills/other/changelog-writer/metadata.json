@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:55.366609Z",
   "dir_name": "changelog-writer",
   "category": "other",
-  "github_path": ".claude/skills/changelog-writer"
+  "github_path": ".claude/skills/changelog-writer",
+  "github_branch": "main"
 }

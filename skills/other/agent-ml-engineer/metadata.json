@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:07.719702Z",
   "dir_name": "agent-ml-engineer",
   "category": "other",
-  "github_path": ".claude/skills/agent-ml-engineer"
+  "github_path": ".claude/skills/agent-ml-engineer",
+  "github_branch": "main"
 }

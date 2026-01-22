@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:33:37.381955Z",
   "dir_name": "maestro-workflow",
   "category": "other",
-  "github_path": ".claude/skills/maestro-workflow"
+  "github_path": ".claude/skills/maestro-workflow",
+  "github_branch": "main"
 }

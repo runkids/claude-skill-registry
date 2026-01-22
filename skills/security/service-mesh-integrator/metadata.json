@@ -9,5 +9,6 @@
     "integrator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/service-mesh-integrator"
+  "github_path": ".claude/skills/service-mesh-integrator",
+  "github_branch": "main"
 }

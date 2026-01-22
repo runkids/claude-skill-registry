@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:16:43.219634Z",
   "dir_name": "epic-cli",
   "category": "other",
-  "github_path": ".claude/skills/epic-cli"
+  "github_path": ".claude/skills/epic-cli",
+  "github_branch": "main"
 }

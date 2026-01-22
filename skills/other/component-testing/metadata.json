@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:43:40.085731Z",
   "dir_name": "component-testing",
   "category": "other",
-  "github_path": ".claude/skills/component-testing"
+  "github_path": ".claude/skills/component-testing",
+  "github_branch": "main"
 }

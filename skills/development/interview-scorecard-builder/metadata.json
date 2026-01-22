@@ -9,5 +9,6 @@
     "builder"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/interview-scorecard-builder"
+  "github_path": ".claude/skills/interview-scorecard-builder",
+  "github_branch": "main"
 }

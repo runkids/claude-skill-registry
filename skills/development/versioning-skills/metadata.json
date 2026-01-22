@@ -8,5 +8,6 @@
     "skills"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/versioning-skills"
+  "github_path": ".claude/skills/versioning-skills",
+  "github_branch": "main"
 }

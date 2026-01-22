@@ -8,5 +8,6 @@
     "tools"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/github-tools"
+  "github_path": ".claude/skills/github-tools",
+  "github_branch": "main"
 }

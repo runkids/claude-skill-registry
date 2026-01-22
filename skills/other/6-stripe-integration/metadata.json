@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:42:20.849986Z",
   "dir_name": "6-stripe-integration",
   "category": "other",
-  "github_path": ".claude/skills/6_stripe-integration"
+  "github_path": ".claude/skills/6_stripe-integration",
+  "github_branch": "main"
 }

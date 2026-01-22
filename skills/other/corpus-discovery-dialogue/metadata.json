@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:35:44.569603Z",
   "dir_name": "corpus-discovery-dialogue",
   "category": "other",
-  "github_path": ".claude/skills/corpus-discovery-dialogue"
+  "github_path": ".claude/skills/corpus-discovery-dialogue",
+  "github_branch": "main"
 }

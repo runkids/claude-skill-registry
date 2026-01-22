@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:28.378220Z",
   "dir_name": "api-validation",
   "category": "other",
-  "github_path": ".claude/skills/api-validation"
+  "github_path": ".claude/skills/api-validation",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:40.260085Z",
   "dir_name": "visualize-graph",
   "category": "other",
-  "github_path": ".claude/skills/visualize-graph"
+  "github_path": ".claude/skills/visualize-graph",
+  "github_branch": "main"
 }

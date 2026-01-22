@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:52.156662Z",
   "dir_name": "taiyo-rewriter",
   "category": "other",
-  "github_path": ".claude/skills/taiyo-rewriter"
+  "github_path": ".claude/skills/taiyo-rewriter",
+  "github_branch": "main"
 }

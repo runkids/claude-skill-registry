@@ -8,5 +8,6 @@
     "resolver"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/merge-resolver"
+  "github_path": ".claude/skills/merge-resolver",
+  "github_branch": "main"
 }

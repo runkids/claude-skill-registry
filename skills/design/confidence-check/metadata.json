@@ -9,5 +9,6 @@
   ],
   "stars": 19236,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/confidence-check"
+  "github_path": ".claude/skills/confidence-check",
+  "github_branch": "master"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:17.231224Z",
   "dir_name": "multi-agent-analysis",
   "category": "other",
-  "github_path": ".claude/skills/multi-agent-analysis"
+  "github_path": ".claude/skills/multi-agent-analysis",
+  "github_branch": "main"
 }

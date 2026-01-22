@@ -7,5 +7,6 @@
     "objective"
   ],
   "stars": 32,
-  "github_path": ".claude/skills/objective"
+  "github_path": ".claude/skills/objective",
+  "github_branch": "main"
 }

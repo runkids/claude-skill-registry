@@ -8,5 +8,6 @@
     "build"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/lean-build"
+  "github_path": ".claude/skills/lean-build",
+  "github_branch": "main"
 }

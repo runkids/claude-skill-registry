@@ -7,5 +7,6 @@
     "verify"
   ],
   "stars": 42,
-  "github_path": ".claude/skills/verify"
+  "github_path": ".claude/skills/verify",
+  "github_branch": "master"
 }

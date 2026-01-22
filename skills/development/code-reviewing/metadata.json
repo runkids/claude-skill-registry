@@ -8,5 +8,6 @@
     "reviewing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/code-reviewing"
+  "github_path": ".claude/skills/code-reviewing",
+  "github_branch": "main"
 }

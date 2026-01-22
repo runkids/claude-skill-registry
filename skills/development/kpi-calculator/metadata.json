@@ -8,5 +8,6 @@
     "calculator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/kpi-calculator"
+  "github_path": ".claude/skills/kpi-calculator",
+  "github_branch": "main"
 }

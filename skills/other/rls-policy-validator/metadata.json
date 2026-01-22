@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:45.245325Z",
   "dir_name": "rls-policy-validator",
   "category": "other",
-  "github_path": ".claude/skills/rls-policy-validator"
+  "github_path": ".claude/skills/rls-policy-validator",
+  "github_branch": "main"
 }

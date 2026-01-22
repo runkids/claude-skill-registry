@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:43:39.864091Z",
   "dir_name": "file-upload-handling",
   "category": "other",
-  "github_path": ".claude/skills/file-upload-handling"
+  "github_path": ".claude/skills/file-upload-handling",
+  "github_branch": "main"
 }

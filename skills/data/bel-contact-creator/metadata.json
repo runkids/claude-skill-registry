@@ -11,5 +11,6 @@
   "stars": 2,
   "source": "SkillsMP Synced Skills",
   "dir_name": "bel-contact-creator",
-  "github_path": ".claude/skills/bel-contact-creator"
+  "github_path": ".claude/skills/bel-contact-creator",
+  "github_branch": "main"
 }

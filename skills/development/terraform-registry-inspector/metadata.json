@@ -9,5 +9,6 @@
     "inspector"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/terraform-registry-inspector"
+  "github_path": ".claude/skills/terraform-registry-inspector",
+  "github_branch": "main"
 }

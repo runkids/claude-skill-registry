@@ -9,5 +9,6 @@
   ],
   "stars": 586,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/rails-testing"
+  "github_path": ".claude/skills/rails-testing",
+  "github_branch": "master"
 }

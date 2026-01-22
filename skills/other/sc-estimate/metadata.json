@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:07.285458Z",
   "dir_name": "sc-estimate",
   "category": "other",
-  "github_path": ".claude/skills/sc-estimate"
+  "github_path": ".claude/skills/sc-estimate",
+  "github_branch": "main"
 }

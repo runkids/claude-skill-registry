@@ -8,5 +8,6 @@
     "strict"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/typescript-strict"
+  "github_path": ".claude/skills/typescript-strict",
+  "github_branch": "main"
 }

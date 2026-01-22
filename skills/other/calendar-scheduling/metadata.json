@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:32.518337Z",
   "dir_name": "calendar-scheduling",
   "category": "other",
-  "github_path": ".claude/skills/calendar-scheduling"
+  "github_path": ".claude/skills/calendar-scheduling",
+  "github_branch": "main"
 }

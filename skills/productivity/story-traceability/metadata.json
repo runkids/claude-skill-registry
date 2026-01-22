@@ -8,5 +8,6 @@
     "traceability"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/story-traceability"
+  "github_path": ".claude/skills/story-traceability",
+  "github_branch": "main"
 }

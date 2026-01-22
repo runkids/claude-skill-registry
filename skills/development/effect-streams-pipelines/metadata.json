@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effect-streams-pipelines"
+  "github_path": ".claude/skills/effect-streams-pipelines",
+  "github_branch": "main"
 }

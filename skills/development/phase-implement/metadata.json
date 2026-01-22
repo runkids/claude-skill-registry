@@ -8,5 +8,6 @@
     "implement"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/phase-implement"
+  "github_path": ".claude/skills/phase-implement",
+  "github_branch": "main"
 }

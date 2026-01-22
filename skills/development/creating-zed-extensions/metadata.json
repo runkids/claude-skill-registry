@@ -10,5 +10,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/creating-zed-extensions"
+  "github_path": ".claude/skills/creating-zed-extensions",
+  "github_branch": "main"
 }

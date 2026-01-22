@@ -8,5 +8,6 @@
     "sessions"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/recovering-sessions"
+  "github_path": ".claude/skills/recovering-sessions",
+  "github_branch": "main"
 }

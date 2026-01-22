@@ -8,5 +8,6 @@
     "idea"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/validate-idea"
+  "github_path": ".claude/skills/validate-idea",
+  "github_branch": "main"
 }

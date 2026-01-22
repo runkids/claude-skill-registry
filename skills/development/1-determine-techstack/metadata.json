@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/1-determine-techstack"
+  "github_path": ".claude/skills/1-determine-techstack",
+  "github_branch": "main"
 }

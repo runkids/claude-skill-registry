@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:23.267603Z",
   "dir_name": "jira-pr",
   "category": "other",
-  "github_path": ".claude/skills/jira-pr"
+  "github_path": ".claude/skills/jira-pr",
+  "github_branch": "main"
 }

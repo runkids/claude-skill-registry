@@ -7,5 +7,6 @@
     "merge"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/pr-merge"
+  "github_path": ".claude/skills/pr-merge",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T02:30:23.597117Z",
   "dir_name": "check-logs",
   "category": "other",
-  "github_path": ".claude/skills/check-logs"
+  "github_path": ".claude/skills/check-logs",
+  "github_branch": "main"
 }

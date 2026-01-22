@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:16.434523Z",
   "dir_name": "graphql-schema-generator",
   "category": "other",
-  "github_path": ".claude/skills/graphql-schema-generator"
+  "github_path": ".claude/skills/graphql-schema-generator",
+  "github_branch": "main"
 }

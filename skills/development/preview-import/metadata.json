@@ -8,5 +8,6 @@
     "import"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/preview-import"
+  "github_path": ".claude/skills/preview-import",
+  "github_branch": "main"
 }

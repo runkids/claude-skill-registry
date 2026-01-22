@@ -8,5 +8,6 @@
     "standards"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quality-standards"
+  "github_path": ".claude/skills/quality-standards",
+  "github_branch": "main"
 }

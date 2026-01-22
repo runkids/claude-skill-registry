@@ -8,5 +8,6 @@
     "diagram"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/uml-diagram"
+  "github_path": ".claude/skills/uml-diagram",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:53.887017Z",
   "dir_name": "moai-lang-csharp",
   "category": "other",
-  "github_path": ".claude/skills/moai-lang-csharp"
+  "github_path": ".claude/skills/moai-lang-csharp",
+  "github_branch": "main"
 }

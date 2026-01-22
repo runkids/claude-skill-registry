@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:29:18.073277Z",
   "dir_name": "trace-manifestwork",
   "category": "other",
-  "github_path": ".claude/skills/trace-manifestwork"
+  "github_path": ".claude/skills/trace-manifestwork",
+  "github_branch": "main"
 }

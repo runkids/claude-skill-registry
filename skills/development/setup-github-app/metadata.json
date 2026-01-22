@@ -9,5 +9,6 @@
     "app"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/setup-github-app"
+  "github_path": ".claude/skills/setup-github-app",
+  "github_branch": "main"
 }

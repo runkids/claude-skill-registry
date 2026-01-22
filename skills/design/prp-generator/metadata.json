@@ -8,5 +8,6 @@
     "generator"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/prp-generator"
+  "github_path": ".claude/skills/prp-generator",
+  "github_branch": "main"
 }

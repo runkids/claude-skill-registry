@@ -8,5 +8,6 @@
     "strategies"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/hypothesis-strategies"
+  "github_path": ".claude/skills/hypothesis-strategies",
+  "github_branch": "main"
 }

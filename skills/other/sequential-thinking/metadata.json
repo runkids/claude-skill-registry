@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:15:13.566479Z",
   "dir_name": "sequential-thinking",
   "category": "other",
-  "github_path": ".claude/skills/sequential-thinking"
+  "github_path": ".claude/skills/sequential-thinking",
+  "github_branch": "main"
 }

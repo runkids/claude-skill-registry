@@ -8,5 +8,6 @@
   ],
   "stars": 1,
   "dir_name": "update-pr",
-  "github_path": ".claude/skills/update-pr"
+  "github_path": ".claude/skills/update-pr",
+  "github_branch": "main"
 }

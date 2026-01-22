@@ -8,5 +8,6 @@
     "writing"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/spec-writing"
+  "github_path": ".claude/skills/spec-writing",
+  "github_branch": "main"
 }

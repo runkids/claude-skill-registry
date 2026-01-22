@@ -8,5 +8,6 @@
     "rag"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/repo-rag"
+  "github_path": ".claude/skills/repo-rag",
+  "github_branch": "main"
 }

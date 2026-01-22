@@ -8,5 +8,6 @@
   ],
   "stars": 260,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/codemap"
+  "github_path": ".claude/skills/codemap",
+  "github_branch": "main"
 }

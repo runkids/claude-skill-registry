@@ -9,5 +9,6 @@
   ],
   "stars": 33,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/discover-ebpf"
+  "github_path": "skills/discover-ebpf",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:26.275644Z",
   "dir_name": "sophia-rsi-enhanced",
   "category": "other",
-  "github_path": ".claude/skills/sophia-rsi-enhanced"
+  "github_path": ".claude/skills/sophia-rsi-enhanced",
+  "github_branch": "main"
 }

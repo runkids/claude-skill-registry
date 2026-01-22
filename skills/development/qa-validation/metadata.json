@@ -7,5 +7,6 @@
     "validation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/qa-validation"
+  "github_path": ".claude/skills/qa-validation",
+  "github_branch": "main"
 }

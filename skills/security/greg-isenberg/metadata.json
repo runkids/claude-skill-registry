@@ -5,5 +5,6 @@
   "description": "Talk to Greg Isenberg about their expertise. Greg Isenberg provides authentic advice using their mental models, core beliefs, and real-world examples.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:04:13.329360Z",
-  "github_path": ".claude/skills/greg-isenberg"
+  "github_path": ".claude/skills/greg-isenberg",
+  "github_branch": "main"
 }

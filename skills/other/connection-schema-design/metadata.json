@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:59.191449Z",
   "dir_name": "connection-schema-design",
   "category": "other",
-  "github_path": ".claude/skills/connection-schema-design"
+  "github_path": ".claude/skills/connection-schema-design",
+  "github_branch": "main"
 }

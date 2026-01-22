@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/add-event-type"
+  "github_path": ".claude/skills/add-event-type",
+  "github_branch": "main"
 }

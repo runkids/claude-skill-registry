@@ -10,5 +10,6 @@
   "stars": 575,
   "source": "SkillsMP Synced Skills",
   "dir_name": "nextjs15-init",
-  "github_path": ".claude/skills/nextjs15-init"
+  "github_path": ".claude/skills/nextjs15-init",
+  "github_branch": "master"
 }

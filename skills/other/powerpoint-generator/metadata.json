@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:04.031089Z",
   "dir_name": "powerpoint-generator",
   "category": "other",
-  "github_path": ".claude/skills/powerpoint-generator"
+  "github_path": ".claude/skills/powerpoint-generator",
+  "github_branch": "main"
 }

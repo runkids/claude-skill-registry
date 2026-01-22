@@ -8,5 +8,6 @@
     "workspaces"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sync-workspaces"
+  "github_path": ".claude/skills/sync-workspaces",
+  "github_branch": "main"
 }

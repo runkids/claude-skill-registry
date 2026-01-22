@@ -10,5 +10,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/e2e-test-runner"
+  "github_path": ".claude/skills/e2e-test-runner",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:03.717472Z",
   "dir_name": "api-reference-guide",
   "category": "other",
-  "github_path": ".claude/skills/api-reference-guide"
+  "github_path": ".claude/skills/api-reference-guide",
+  "github_branch": "main"
 }

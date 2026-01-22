@@ -7,5 +7,6 @@
     "temporal"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/temporal"
+  "github_path": ".claude/skills/temporal",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:15.493244Z",
   "dir_name": "sla-monitor-generator",
   "category": "other",
-  "github_path": ".claude/skills/sla-monitor-generator"
+  "github_path": ".claude/skills/sla-monitor-generator",
+  "github_branch": "main"
 }

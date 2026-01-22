@@ -9,5 +9,6 @@
   ],
   "stars": 79,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/update-buttercut"
+  "github_path": ".claude/skills/update-buttercut",
+  "github_branch": "main"
 }

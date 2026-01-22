@@ -9,5 +9,6 @@
     "extractor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tech-article-extractor"
+  "github_path": ".claude/skills/tech-article-extractor",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:56:38.153907Z",
   "dir_name": "cloudflare-ci-cd-github-actions",
   "category": "other",
-  "github_path": ".claude/skills/cloudflare-ci-cd-github-actions"
+  "github_path": ".claude/skills/cloudflare-ci-cd-github-actions",
+  "github_branch": "main"
 }

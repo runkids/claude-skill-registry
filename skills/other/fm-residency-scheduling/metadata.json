@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:55.235024Z",
   "dir_name": "fm-residency-scheduling",
   "category": "other",
-  "github_path": ".claude/skills/fm-residency-scheduling"
+  "github_path": ".claude/skills/fm-residency-scheduling",
+  "github_branch": "main"
 }

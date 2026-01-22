@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:53.234108Z",
   "dir_name": "nanobanana-prompts",
   "category": "other",
-  "github_path": ".claude/skills/nanobanana-prompts"
+  "github_path": ".claude/skills/nanobanana-prompts",
+  "github_branch": "main"
 }

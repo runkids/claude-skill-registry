@@ -11,5 +11,6 @@
   ],
   "stars": 47,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/developing-claude-code-plugins"
+  "github_path": "skills/developing-claude-code-plugins",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 96,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/netbox-mcp-testing"
+  "github_path": ".claude/skills/netbox-mcp-testing",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 478,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/git-commit-creator"
+  "github_path": ".claude/skills/git-commit-creator",
+  "github_branch": "main"
 }

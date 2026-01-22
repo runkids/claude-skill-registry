@@ -8,5 +8,6 @@
     "summary"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/news-summary"
+  "github_path": ".claude/skills/news-summary",
+  "github_branch": "main"
 }

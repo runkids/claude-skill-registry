@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:50.207075Z",
   "dir_name": "skill-recommender",
   "category": "other",
-  "github_path": ".claude/skills/skill-recommender"
+  "github_path": ".claude/skills/skill-recommender",
+  "github_branch": "main"
 }

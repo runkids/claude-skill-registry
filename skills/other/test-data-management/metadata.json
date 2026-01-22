@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:41.361972Z",
   "dir_name": "test-data-management",
   "category": "other",
-  "github_path": ".claude/skills/test-data-management"
+  "github_path": ".claude/skills/test-data-management",
+  "github_branch": "main"
 }

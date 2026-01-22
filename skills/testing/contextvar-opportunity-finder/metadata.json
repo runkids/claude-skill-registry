@@ -10,5 +10,6 @@
   ],
   "stars": 334,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/contextvar-opportunity-finder"
+  "github_path": ".claude/skills/contextvar-opportunity-finder",
+  "github_branch": "main"
 }

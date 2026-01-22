@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:50.163540Z",
   "dir_name": "playtesting",
   "category": "other",
-  "github_path": ".claude/skills/playtesting"
+  "github_path": ".claude/skills/playtesting",
+  "github_branch": "main"
 }

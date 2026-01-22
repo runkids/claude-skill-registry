@@ -9,5 +9,6 @@
     "generation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/static-site-generation"
+  "github_path": ".claude/skills/static-site-generation",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:26:46.302317Z",
   "dir_name": "extension-create",
   "category": "other",
-  "github_path": ".claude/skills/extension-create"
+  "github_path": ".claude/skills/extension-create",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 16,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/anti-duplication"
+  "github_path": ".claude/skills/anti-duplication",
+  "github_branch": "main"
 }

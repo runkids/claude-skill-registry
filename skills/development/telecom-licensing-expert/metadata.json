@@ -9,5 +9,6 @@
     "expert"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/telecom-licensing-expert"
+  "github_path": ".claude/skills/telecom-licensing-expert",
+  "github_branch": "main"
 }

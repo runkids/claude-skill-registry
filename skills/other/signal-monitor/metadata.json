@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:39:36.852951Z",
   "dir_name": "signal-monitor",
   "category": "other",
-  "github_path": ".claude/skills/signal-monitor"
+  "github_path": ".claude/skills/signal-monitor",
+  "github_branch": "main"
 }

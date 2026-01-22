@@ -9,5 +9,6 @@
   ],
   "stars": 103,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/sherlock-review"
+  "github_path": ".claude/skills/sherlock-review",
+  "github_branch": "main"
 }

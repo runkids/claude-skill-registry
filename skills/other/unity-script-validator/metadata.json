@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:29.290018Z",
   "dir_name": "unity-script-validator",
   "category": "other",
-  "github_path": ".claude/skills/unity-script-validator"
+  "github_path": ".claude/skills/unity-script-validator",
+  "github_branch": "main"
 }

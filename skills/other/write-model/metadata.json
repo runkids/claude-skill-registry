@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:16:43.499363Z",
   "dir_name": "write-model",
   "category": "other",
-  "github_path": ".claude/skills/write-model"
+  "github_path": ".claude/skills/write-model",
+  "github_branch": "main"
 }

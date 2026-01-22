@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bmad-test-strategy"
+  "github_path": ".claude/skills/bmad-test-strategy",
+  "github_branch": "main"
 }

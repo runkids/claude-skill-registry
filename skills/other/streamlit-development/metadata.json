@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:20.498163Z",
   "dir_name": "streamlit-development",
   "category": "other",
-  "github_path": ".claude/skills/streamlit-development"
+  "github_path": ".claude/skills/streamlit-development",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:58.821234Z",
   "dir_name": "live-debug",
   "category": "other",
-  "github_path": ".claude/skills/live-debug"
+  "github_path": ".claude/skills/live-debug",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:20:39.098519Z",
   "dir_name": "style-guardian",
   "category": "other",
-  "github_path": ".claude/skills/style-guardian"
+  "github_path": ".claude/skills/style-guardian",
+  "github_branch": "main"
 }

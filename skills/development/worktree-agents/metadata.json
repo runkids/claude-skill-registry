@@ -8,5 +8,6 @@
     "agents"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/worktree-agents"
+  "github_path": ".claude/skills/worktree-agents",
+  "github_branch": "main"
 }

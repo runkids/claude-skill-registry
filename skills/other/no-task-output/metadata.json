@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:57.217444Z",
   "dir_name": "no-task-output",
   "category": "other",
-  "github_path": ".claude/skills/no-task-output"
+  "github_path": ".claude/skills/no-task-output",
+  "github_branch": "main"
 }

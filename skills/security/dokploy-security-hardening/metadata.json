@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dokploy-security-hardening"
+  "github_path": ".claude/skills/dokploy-security-hardening",
+  "github_branch": "main"
 }

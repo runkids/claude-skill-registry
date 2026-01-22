@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:51:52.532270Z",
   "dir_name": "financial-time-series",
   "category": "other",
-  "github_path": ".claude/skills/financial-time-series"
+  "github_path": ".claude/skills/financial-time-series",
+  "github_branch": "main"
 }

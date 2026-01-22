@@ -8,5 +8,6 @@
     "mcp"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/setup-mcp"
+  "github_path": ".claude/skills/setup-mcp",
+  "github_branch": "main"
 }

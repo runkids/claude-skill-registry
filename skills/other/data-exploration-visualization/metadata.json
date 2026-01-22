@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:15:30.383366Z",
   "dir_name": "data-exploration-visualization",
   "category": "other",
-  "github_path": ".claude/skills/data-exploration-visualization"
+  "github_path": ".claude/skills/data-exploration-visualization",
+  "github_branch": "main"
 }

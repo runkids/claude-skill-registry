@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:55:17.057740Z",
   "dir_name": "refactorer-model",
   "category": "other",
-  "github_path": ".claude/skills/refactorer-model"
+  "github_path": ".claude/skills/refactorer-model",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "builder"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nextjs-module-builder"
+  "github_path": ".claude/skills/nextjs-module-builder",
+  "github_branch": "main"
 }

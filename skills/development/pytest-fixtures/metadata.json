@@ -8,5 +8,6 @@
     "fixtures"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/pytest-fixtures"
+  "github_path": ".claude/skills/pytest-fixtures",
+  "github_branch": "main"
 }

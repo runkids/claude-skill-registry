@@ -9,5 +9,6 @@
   ],
   "stars": 575,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/web-to-markdown"
+  "github_path": ".claude/skills/web-to-markdown",
+  "github_branch": "master"
 }

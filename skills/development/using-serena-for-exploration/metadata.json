@@ -10,5 +10,6 @@
     "exploration"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/using-serena-for-exploration"
+  "github_path": ".claude/skills/using-serena-for-exploration",
+  "github_branch": "main"
 }

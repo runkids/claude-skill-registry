@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:41:33.220026Z",
   "dir_name": "chapter-evaluator",
   "category": "other",
-  "github_path": ".claude/skills/chapter-evaluator"
+  "github_path": ".claude/skills/chapter-evaluator",
+  "github_branch": "main"
 }

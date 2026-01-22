@@ -9,5 +9,6 @@
     "ssh"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/remote-run-ssh"
+  "github_path": ".claude/skills/remote-run-ssh",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 13,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/analyze-wast"
+  "github_path": ".claude/skills/analyze-wast",
+  "github_branch": "main"
 }

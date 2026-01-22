@@ -8,5 +8,6 @@
     "review"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wavecap-review"
+  "github_path": ".claude/skills/wavecap-review",
+  "github_branch": "main"
 }

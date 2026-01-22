@@ -8,5 +8,6 @@
     "slicer"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/task-slicer"
+  "github_path": ".claude/skills/task-slicer",
+  "github_branch": "main"
 }

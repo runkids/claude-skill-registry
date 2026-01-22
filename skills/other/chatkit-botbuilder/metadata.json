@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:12.564345Z",
   "dir_name": "chatkit-botbuilder",
   "category": "other",
-  "github_path": ".claude/skills/chatkit-botbuilder"
+  "github_path": ".claude/skills/chatkit-botbuilder",
+  "github_branch": "main"
 }

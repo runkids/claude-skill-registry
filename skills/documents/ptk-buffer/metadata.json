@@ -8,5 +8,6 @@
     "buffer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ptk-buffer"
+  "github_path": ".claude/skills/ptk-buffer",
+  "github_branch": "main"
 }

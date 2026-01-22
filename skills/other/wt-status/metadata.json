@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:04.692743Z",
   "dir_name": "wt-status",
   "category": "other",
-  "github_path": ".claude/skills/wt-status"
+  "github_path": ".claude/skills/wt-status",
+  "github_branch": "main"
 }

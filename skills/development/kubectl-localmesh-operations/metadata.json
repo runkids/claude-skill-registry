@@ -9,5 +9,6 @@
     "operations"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/kubectl-localmesh-operations"
+  "github_path": ".claude/skills/kubectl-localmesh-operations",
+  "github_branch": "main"
 }

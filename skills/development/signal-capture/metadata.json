@@ -9,5 +9,6 @@
   ],
   "stars": 150,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/signal-capture"
+  "github_path": ".claude/skills/signal-capture",
+  "github_branch": "main"
 }

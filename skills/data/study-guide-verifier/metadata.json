@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "dir_name": "study-guide-verifier",
-  "github_path": ".claude/skills/study-guide-verifier"
+  "github_path": ".claude/skills/study-guide-verifier",
+  "github_branch": "main"
 }

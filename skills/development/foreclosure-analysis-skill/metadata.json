@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/foreclosure-analysis-skill"
+  "github_path": ".claude/skills/foreclosure-analysis-skill",
+  "github_branch": "main"
 }

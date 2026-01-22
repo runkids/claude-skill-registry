@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:12:37.340414Z",
   "dir_name": "task-tagging",
   "category": "other",
-  "github_path": ".claude/skills/task-tagging"
+  "github_path": ".claude/skills/task-tagging",
+  "github_branch": "main"
 }

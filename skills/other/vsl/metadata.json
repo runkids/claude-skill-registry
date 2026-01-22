@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:50.112922Z",
   "dir_name": "vsl",
   "category": "other",
-  "github_path": ".claude/skills/vsl"
+  "github_path": ".claude/skills/vsl",
+  "github_branch": "main"
 }

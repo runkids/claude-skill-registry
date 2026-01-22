@@ -8,5 +8,6 @@
     "green"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tdd-green"
+  "github_path": ".claude/skills/tdd-green",
+  "github_branch": "main"
 }

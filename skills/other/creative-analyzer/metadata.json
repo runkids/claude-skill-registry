@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:02.787770Z",
   "dir_name": "creative-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/creative-analyzer"
+  "github_path": ".claude/skills/creative-analyzer",
+  "github_branch": "main"
 }

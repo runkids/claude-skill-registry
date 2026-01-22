@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:43.770817Z",
   "dir_name": "admin-panel-builder",
   "category": "other",
-  "github_path": ".claude/skills/admin-panel-builder"
+  "github_path": ".claude/skills/admin-panel-builder",
+  "github_branch": "main"
 }

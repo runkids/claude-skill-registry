@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:03.186748Z",
   "dir_name": "account-onboarding",
   "category": "other",
-  "github_path": ".claude/skills/account-onboarding"
+  "github_path": ".claude/skills/account-onboarding",
+  "github_branch": "main"
 }

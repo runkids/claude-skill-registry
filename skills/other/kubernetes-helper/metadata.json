@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:13.088638Z",
   "dir_name": "kubernetes-helper",
   "category": "other",
-  "github_path": ".claude/skills/kubernetes-helper"
+  "github_path": ".claude/skills/kubernetes-helper",
+  "github_branch": "main"
 }

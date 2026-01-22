@@ -9,5 +9,6 @@
     "dapr"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/scaffolding-fastapi-dapr"
+  "github_path": ".claude/skills/scaffolding-fastapi-dapr",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T01:04:44.989500Z",
   "dir_name": "persistence-expert",
   "category": "other",
-  "github_path": ".claude/skills/persistence-expert"
+  "github_path": ".claude/skills/persistence-expert",
+  "github_branch": "main"
 }

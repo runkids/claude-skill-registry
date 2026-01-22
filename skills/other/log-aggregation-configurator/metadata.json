@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:16.110902Z",
   "dir_name": "log-aggregation-configurator",
   "category": "other",
-  "github_path": ".claude/skills/log-aggregation-configurator"
+  "github_path": ".claude/skills/log-aggregation-configurator",
+  "github_branch": "main"
 }

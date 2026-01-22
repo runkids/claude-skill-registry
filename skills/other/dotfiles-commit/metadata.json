@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:00:43.572242Z",
   "dir_name": "dotfiles-commit",
   "category": "other",
-  "github_path": ".claude/skills/dotfiles-commit"
+  "github_path": ".claude/skills/dotfiles-commit",
+  "github_branch": "main"
 }

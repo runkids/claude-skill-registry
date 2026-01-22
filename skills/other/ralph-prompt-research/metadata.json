@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:12.793383Z",
   "dir_name": "ralph-prompt-research",
   "category": "other",
-  "github_path": ".claude/skills/ralph-prompt-research"
+  "github_path": ".claude/skills/ralph-prompt-research",
+  "github_branch": "main"
 }

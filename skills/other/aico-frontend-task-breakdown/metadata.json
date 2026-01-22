@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:00:50.965186Z",
   "dir_name": "aico-frontend-task-breakdown",
   "category": "other",
-  "github_path": ".claude/skills/aico-frontend-task-breakdown"
+  "github_path": ".claude/skills/aico-frontend-task-breakdown",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:28.420366Z",
   "dir_name": "fish-shell-config",
   "category": "other",
-  "github_path": ".claude/skills/fish-shell-config"
+  "github_path": ".claude/skills/fish-shell-config",
+  "github_branch": "main"
 }

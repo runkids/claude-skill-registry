@@ -9,5 +9,6 @@
     "system"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ngx-design-system"
+  "github_path": ".claude/skills/ngx-design-system",
+  "github_branch": "main"
 }

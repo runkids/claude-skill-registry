@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:11:44.482014Z",
   "dir_name": "fix-build",
   "category": "other",
-  "github_path": ".claude/skills/fix-build"
+  "github_path": ".claude/skills/fix-build",
+  "github_branch": "main"
 }

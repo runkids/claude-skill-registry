@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:52.308359Z",
   "dir_name": "aiops-gordon",
   "category": "other",
-  "github_path": ".claude/skills/aiops-gordon"
+  "github_path": ".claude/skills/aiops-gordon",
+  "github_branch": "main"
 }

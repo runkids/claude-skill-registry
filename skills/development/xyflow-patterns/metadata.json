@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/xyflow-patterns"
+  "github_path": ".claude/skills/xyflow-patterns",
+  "github_branch": "main"
 }

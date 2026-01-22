@@ -5,5 +5,6 @@
   "description": "The Block Collection and Block Party are repositories for existing AEM blocks, build tools, code snippets, integration patterns, plugins, and more. Use this skill anytime you are developing something ",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:21:29.127271Z",
-  "github_path": ".claude/skills/block-collection-and-party"
+  "github_path": ".claude/skills/block-collection-and-party",
+  "github_branch": "main"
 }

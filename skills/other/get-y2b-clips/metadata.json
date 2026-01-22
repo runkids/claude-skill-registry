@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:52.175482Z",
   "dir_name": "get-y2b-clips",
   "category": "other",
-  "github_path": ".claude/skills/get-y2b-clips"
+  "github_path": ".claude/skills/get-y2b-clips",
+  "github_branch": "main"
 }

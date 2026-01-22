@@ -8,5 +8,6 @@
     "specs"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/writing-specs"
+  "github_path": ".claude/skills/writing-specs",
+  "github_branch": "main"
 }

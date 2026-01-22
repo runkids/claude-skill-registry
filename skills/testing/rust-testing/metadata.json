@@ -8,5 +8,6 @@
     "testing"
   ],
   "stars": 24,
-  "github_path": ".claude/skills/rust-testing"
+  "github_path": ".claude/skills/rust-testing",
+  "github_branch": "main"
 }

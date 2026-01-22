@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:57.333475Z",
   "dir_name": "drone-inspection-specialist",
   "category": "other",
-  "github_path": ".claude/skills/drone-inspection-specialist"
+  "github_path": ".claude/skills/drone-inspection-specialist",
+  "github_branch": "main"
 }

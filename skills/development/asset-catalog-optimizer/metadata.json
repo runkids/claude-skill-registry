@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/asset-catalog-optimizer"
+  "github_path": ".claude/skills/asset-catalog-optimizer",
+  "github_branch": "main"
 }

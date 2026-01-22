@@ -8,5 +8,6 @@
     "intelligence"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/semantic-intelligence"
+  "github_path": ".claude/skills/semantic-intelligence",
+  "github_branch": "main"
 }

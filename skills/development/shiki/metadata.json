@@ -7,5 +7,6 @@
     "shiki"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/shiki"
+  "github_path": ".claude/skills/shiki",
+  "github_branch": "main"
 }

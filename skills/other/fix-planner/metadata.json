@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:44.140917Z",
   "dir_name": "fix-planner",
   "category": "other",
-  "github_path": ".claude/skills/fix-planner"
+  "github_path": ".claude/skills/fix-planner",
+  "github_branch": "main"
 }

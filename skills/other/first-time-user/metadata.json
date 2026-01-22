@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:45.164547Z",
   "dir_name": "first-time-user",
   "category": "other",
-  "github_path": ".claude/skills/first-time-user"
+  "github_path": ".claude/skills/first-time-user",
+  "github_branch": "main"
 }

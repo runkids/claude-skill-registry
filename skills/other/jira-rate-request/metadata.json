@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:34.666125Z",
   "dir_name": "jira-rate-request",
   "category": "other",
-  "github_path": ".claude/skills/jira-rate-request"
+  "github_path": ".claude/skills/jira-rate-request",
+  "github_branch": "main"
 }

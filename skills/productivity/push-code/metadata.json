@@ -8,5 +8,6 @@
     "code"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/push-code"
+  "github_path": ".claude/skills/push-code",
+  "github_branch": "main"
 }

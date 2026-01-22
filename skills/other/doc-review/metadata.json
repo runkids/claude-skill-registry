@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:29.844601Z",
   "dir_name": "doc-review",
   "category": "other",
-  "github_path": ".claude/skills/doc-review"
+  "github_path": ".claude/skills/doc-review",
+  "github_branch": "main"
 }

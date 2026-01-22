@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:07:51.100070Z",
   "dir_name": "lorepedia-spec-tasks",
   "category": "other",
-  "github_path": ".claude/skills/lorepedia-spec-tasks"
+  "github_path": ".claude/skills/lorepedia-spec-tasks",
+  "github_branch": "main"
 }

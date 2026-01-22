@@ -9,5 +9,6 @@
   ],
   "stars": 55,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/scottink-writer"
+  "github_path": ".claude/skills/scottink-writer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:03:22.232479Z",
   "dir_name": "deploy-component",
   "category": "other",
-  "github_path": ".claude/skills/deploy-component"
+  "github_path": ".claude/skills/deploy-component",
+  "github_branch": "main"
 }

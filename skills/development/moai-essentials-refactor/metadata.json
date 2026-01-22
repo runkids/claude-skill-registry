@@ -9,5 +9,6 @@
     "refactor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-essentials-refactor"
+  "github_path": ".claude/skills/moai-essentials-refactor",
+  "github_branch": "main"
 }

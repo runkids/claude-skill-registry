@@ -8,5 +8,6 @@
     "local"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/py-start-local"
+  "github_path": ".claude/skills/py-start-local",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "cli"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/test-cli"
+  "github_path": ".claude/skills/test-cli",
+  "github_branch": "main"
 }

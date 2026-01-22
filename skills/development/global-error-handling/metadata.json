@@ -9,5 +9,6 @@
     "handling"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-error-handling"
+  "github_path": ".claude/skills/global-error-handling",
+  "github_branch": "main"
 }

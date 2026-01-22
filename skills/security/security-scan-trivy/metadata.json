@@ -5,5 +5,6 @@
   "description": "Trivyで依存関係/コンテナの脆弱性をスキャンし、重大度順に潰す。リリース前チェックで使う。",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:08:42.561631Z",
-  "github_path": ".claude/skills/security-scan-trivy"
+  "github_path": ".claude/skills/security-scan-trivy",
+  "github_branch": "main"
 }

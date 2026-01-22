@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:35:21.642249Z",
   "dir_name": "aurora-cli",
   "category": "other",
-  "github_path": ".claude/skills/aurora-cli"
+  "github_path": ".claude/skills/aurora-cli",
+  "github_branch": "main"
 }

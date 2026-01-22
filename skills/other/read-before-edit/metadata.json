@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:17.040556Z",
   "dir_name": "read-before-edit",
   "category": "other",
-  "github_path": ".claude/skills/read-before-edit"
+  "github_path": ".claude/skills/read-before-edit",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:05.880829Z",
   "dir_name": "intelligent-debugger",
   "category": "other",
-  "github_path": ".claude/skills/intelligent-debugger"
+  "github_path": ".claude/skills/intelligent-debugger",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "imports"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/managing-imports"
+  "github_path": ".claude/skills/managing-imports",
+  "github_branch": "main"
 }

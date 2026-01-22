@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/change-impact-analyzer"
+  "github_path": ".claude/skills/change-impact-analyzer",
+  "github_branch": "main"
 }

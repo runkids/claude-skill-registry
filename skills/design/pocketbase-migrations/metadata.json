@@ -8,5 +8,6 @@
     "migrations"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/pocketbase-migrations"
+  "github_path": ".claude/skills/pocketbase-migrations",
+  "github_branch": "main"
 }

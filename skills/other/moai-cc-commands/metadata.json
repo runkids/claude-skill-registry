@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:16.447016Z",
   "dir_name": "moai-cc-commands",
   "category": "other",
-  "github_path": ".claude/skills/moai-cc-commands"
+  "github_path": ".claude/skills/moai-cc-commands",
+  "github_branch": "main"
 }

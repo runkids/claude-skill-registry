@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:37:09.112250Z",
   "dir_name": "gobby-mcp",
   "category": "other",
-  "github_path": ".claude/skills/gobby-mcp"
+  "github_path": ".claude/skills/gobby-mcp",
+  "github_branch": "main"
 }

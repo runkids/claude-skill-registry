@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:19.164863Z",
   "dir_name": "meta-prompt",
   "category": "other",
-  "github_path": ".claude/skills/meta-prompt"
+  "github_path": ".claude/skills/meta-prompt",
+  "github_branch": "main"
 }

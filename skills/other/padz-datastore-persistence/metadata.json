@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:36.759225Z",
   "dir_name": "padz-datastore-persistence",
   "category": "other",
-  "github_path": ".claude/skills/padz-datastore-persistence"
+  "github_path": ".claude/skills/padz-datastore-persistence",
+  "github_branch": "main"
 }

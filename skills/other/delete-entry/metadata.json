@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:30.721140Z",
   "dir_name": "delete-entry",
   "category": "other",
-  "github_path": ".claude/skills/delete-entry"
+  "github_path": ".claude/skills/delete-entry",
+  "github_branch": "main"
 }

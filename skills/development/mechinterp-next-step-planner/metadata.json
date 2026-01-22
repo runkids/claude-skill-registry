@@ -10,5 +10,6 @@
     "planner"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-next-step-planner"
+  "github_path": ".claude/skills/mechinterp-next-step-planner",
+  "github_branch": "main"
 }

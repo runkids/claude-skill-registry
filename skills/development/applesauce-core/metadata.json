@@ -9,5 +9,6 @@
   ],
   "stars": 11,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/applesauce-core"
+  "github_path": ".claude/skills/applesauce-core",
+  "github_branch": "main"
 }

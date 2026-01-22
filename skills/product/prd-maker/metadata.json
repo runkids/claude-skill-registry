@@ -8,5 +8,6 @@
     "maker"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/prd-maker"
+  "github_path": ".claude/skills/prd-maker",
+  "github_branch": "main"
 }

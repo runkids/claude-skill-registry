@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "new-db-schema",
-  "github_path": ".claude/skills/new-db-schema"
+  "github_path": ".claude/skills/new-db-schema",
+  "github_branch": "main"
 }

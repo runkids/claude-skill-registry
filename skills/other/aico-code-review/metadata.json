@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:00:48.735958Z",
   "dir_name": "aico-code-review",
   "category": "other",
-  "github_path": ".claude/skills/aico-code-review"
+  "github_path": ".claude/skills/aico-code-review",
+  "github_branch": "main"
 }

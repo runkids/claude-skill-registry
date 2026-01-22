@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:16:21.391993Z",
   "dir_name": "backend-api-integration",
   "category": "other",
-  "github_path": ".claude/skills/backend-api-integration"
+  "github_path": ".claude/skills/backend-api-integration",
+  "github_branch": "main"
 }

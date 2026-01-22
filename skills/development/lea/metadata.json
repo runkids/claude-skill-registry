@@ -7,5 +7,6 @@
     "lea"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/lea"
+  "github_path": ".claude/skills/lea",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "usb"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ios-deploy-usb"
+  "github_path": ".claude/skills/ios-deploy-usb",
+  "github_branch": "main"
 }

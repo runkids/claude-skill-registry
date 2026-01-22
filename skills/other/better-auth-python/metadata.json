@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:12:39.259874Z",
   "dir_name": "better-auth-python",
   "category": "other",
-  "github_path": ".claude/skills/better-auth-python"
+  "github_path": ".claude/skills/better-auth-python",
+  "github_branch": "main"
 }

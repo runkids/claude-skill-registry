@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:42.884100Z",
   "dir_name": "strongs-doctor",
   "category": "other",
-  "github_path": ".claude/skills/strongs-doctor"
+  "github_path": ".claude/skills/strongs-doctor",
+  "github_branch": "main"
 }

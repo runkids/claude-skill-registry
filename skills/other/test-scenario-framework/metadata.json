@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:59.145724Z",
   "dir_name": "test-scenario-framework",
   "category": "other",
-  "github_path": ".claude/skills/test-scenario-framework"
+  "github_path": ".claude/skills/test-scenario-framework",
+  "github_branch": "main"
 }

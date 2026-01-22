@@ -9,5 +9,6 @@
     "validator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/hextra-icon-validator"
+  "github_path": ".claude/skills/hextra-icon-validator",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "updates"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/readme-updates"
+  "github_path": ".claude/skills/readme-updates",
+  "github_branch": "main"
 }

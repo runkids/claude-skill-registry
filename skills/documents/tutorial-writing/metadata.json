@@ -8,5 +8,6 @@
     "writing"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/tutorial-writing"
+  "github_path": ".claude/skills/tutorial-writing",
+  "github_branch": "main"
 }

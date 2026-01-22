@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/doc-validation-framework"
+  "github_path": ".claude/skills/doc-validation-framework",
+  "github_branch": "main"
 }

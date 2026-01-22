@@ -7,5 +7,6 @@
     "explain"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ic-explain"
+  "github_path": ".claude/skills/ic-explain",
+  "github_branch": "main"
 }

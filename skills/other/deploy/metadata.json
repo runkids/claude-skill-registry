@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:15:39.756805Z",
   "dir_name": "deploy",
   "category": "other",
-  "github_path": ".claude/skills/deploy"
+  "github_path": ".claude/skills/deploy",
+  "github_branch": "main"
 }

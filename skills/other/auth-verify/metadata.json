@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:15.882194Z",
   "dir_name": "auth-verify",
   "category": "other",
-  "github_path": ".claude/skills/auth-verify"
+  "github_path": ".claude/skills/auth-verify",
+  "github_branch": "main"
 }

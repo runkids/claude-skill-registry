@@ -8,5 +8,6 @@
     "execute"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/session-execute"
+  "github_path": ".claude/skills/session-execute",
+  "github_branch": "main"
 }

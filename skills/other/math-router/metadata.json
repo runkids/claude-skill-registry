@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:56.604218Z",
   "dir_name": "math-router",
   "category": "other",
-  "github_path": ".claude/skills/math-router"
+  "github_path": ".claude/skills/math-router",
+  "github_branch": "main"
 }

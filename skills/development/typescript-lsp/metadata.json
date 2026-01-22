@@ -8,5 +8,6 @@
     "lsp"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/typescript-lsp"
+  "github_path": ".claude/skills/typescript-lsp",
+  "github_branch": "main"
 }

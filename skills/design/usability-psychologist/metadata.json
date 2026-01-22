@@ -8,5 +8,6 @@
     "psychologist"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/usability-psychologist"
+  "github_path": ".claude/skills/usability-psychologist",
+  "github_branch": "main"
 }

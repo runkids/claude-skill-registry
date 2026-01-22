@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:07.798374Z",
   "dir_name": "agent-data-engineer",
   "category": "other",
-  "github_path": ".claude/skills/agent-data-engineer"
+  "github_path": ".claude/skills/agent-data-engineer",
+  "github_branch": "main"
 }

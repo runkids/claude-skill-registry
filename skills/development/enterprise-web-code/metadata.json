@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/enterprise-web-code"
+  "github_path": ".claude/skills/enterprise-web-code",
+  "github_branch": "main"
 }

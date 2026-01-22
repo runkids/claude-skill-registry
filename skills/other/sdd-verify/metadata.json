@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T03:07:24.728677Z",
   "dir_name": "sdd-verify",
   "category": "other",
-  "github_path": ".claude/skills/sdd-verify"
+  "github_path": ".claude/skills/sdd-verify",
+  "github_branch": "main"
 }

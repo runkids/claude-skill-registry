@@ -8,5 +8,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cortex"
+  "github_path": ".claude/skills/cortex",
+  "github_branch": "main"
 }

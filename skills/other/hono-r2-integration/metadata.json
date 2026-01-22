@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:56:36.719879Z",
   "dir_name": "hono-r2-integration",
   "category": "other",
-  "github_path": ".claude/skills/hono-r2-integration"
+  "github_path": ".claude/skills/hono-r2-integration",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:57.611449Z",
   "dir_name": "module-scaffolding",
   "category": "other",
-  "github_path": ".claude/skills/module-scaffolding"
+  "github_path": ".claude/skills/module-scaffolding",
+  "github_branch": "main"
 }

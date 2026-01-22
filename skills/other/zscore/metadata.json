@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:08.226779Z",
   "dir_name": "zscore",
   "category": "other",
-  "github_path": ".claude/skills/zscore"
+  "github_path": ".claude/skills/zscore",
+  "github_branch": "main"
 }

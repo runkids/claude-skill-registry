@@ -8,5 +8,6 @@
     "session"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/summarize-session"
+  "github_path": ".claude/skills/summarize-session",
+  "github_branch": "main"
 }

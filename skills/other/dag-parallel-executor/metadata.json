@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:57.806070Z",
   "dir_name": "dag-parallel-executor",
   "category": "other",
-  "github_path": ".claude/skills/dag-parallel-executor"
+  "github_path": ".claude/skills/dag-parallel-executor",
+  "github_branch": "main"
 }

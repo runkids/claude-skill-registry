@@ -9,5 +9,6 @@
   ],
   "stars": 102,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/workspace-tools"
+  "github_path": ".claude/skills/workspace-tools",
+  "github_branch": "main"
 }

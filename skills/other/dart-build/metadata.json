@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:16.659074Z",
   "dir_name": "dart-build",
   "category": "other",
-  "github_path": ".claude/skills/dart-build"
+  "github_path": ".claude/skills/dart-build",
+  "github_branch": "main"
 }

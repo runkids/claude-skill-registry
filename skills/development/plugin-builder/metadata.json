@@ -8,5 +8,6 @@
     "builder"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/plugin-builder"
+  "github_path": ".claude/skills/plugin-builder",
+  "github_branch": "main"
 }

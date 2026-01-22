@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:05:55.379914Z",
   "dir_name": "pattern-ui",
   "category": "other",
-  "github_path": ".claude/skills/pattern-ui"
+  "github_path": ".claude/skills/pattern-ui",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
     "checker"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/github-issue-quality-checker"
+  "github_path": ".claude/skills/github-issue-quality-checker",
+  "github_branch": "main"
 }

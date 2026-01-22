@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:40.652878Z",
   "dir_name": "evaluate-mmi",
   "category": "other",
-  "github_path": ".claude/skills/evaluate-mmi"
+  "github_path": ".claude/skills/evaluate-mmi",
+  "github_branch": "main"
 }

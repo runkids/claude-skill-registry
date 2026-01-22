@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:10.423569Z",
   "dir_name": "s3-upload-handler",
   "category": "other",
-  "github_path": ".claude/skills/s3-upload-handler"
+  "github_path": ".claude/skills/s3-upload-handler",
+  "github_branch": "main"
 }

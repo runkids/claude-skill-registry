@@ -8,5 +8,6 @@
     "create"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/flow-create"
+  "github_path": ".claude/skills/flow-create",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:05.558985Z",
   "dir_name": "claude-md-generator",
   "category": "other",
-  "github_path": ".claude/skills/claude-md-generator"
+  "github_path": ".claude/skills/claude-md-generator",
+  "github_branch": "main"
 }

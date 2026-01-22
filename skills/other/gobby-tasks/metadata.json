@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:37:09.388331Z",
   "dir_name": "gobby-tasks",
   "category": "other",
-  "github_path": ".claude/skills/gobby-tasks"
+  "github_path": ".claude/skills/gobby-tasks",
+  "github_branch": "main"
 }

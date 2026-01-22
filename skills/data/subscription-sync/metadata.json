@@ -9,5 +9,6 @@
   ],
   "stars": 10,
   "dir_name": "subscription-sync",
-  "github_path": ".claude/skills/subscription-sync"
+  "github_path": ".claude/skills/subscription-sync",
+  "github_branch": "main"
 }

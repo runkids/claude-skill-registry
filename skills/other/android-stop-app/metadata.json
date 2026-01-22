@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:24.280161Z",
   "dir_name": "android-stop-app",
   "category": "other",
-  "github_path": ".claude/skills/android-stop-app"
+  "github_path": ".claude/skills/android-stop-app",
+  "github_branch": "main"
 }

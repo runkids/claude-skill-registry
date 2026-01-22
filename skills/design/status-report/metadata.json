@@ -8,5 +8,6 @@
     "report"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/status-report"
+  "github_path": ".claude/skills/status-report",
+  "github_branch": "main"
 }

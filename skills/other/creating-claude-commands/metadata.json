@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:40.960383Z",
   "dir_name": "creating-claude-commands",
   "category": "other",
-  "github_path": ".claude/skills/creating-claude-commands"
+  "github_path": ".claude/skills/creating-claude-commands",
+  "github_branch": "main"
 }

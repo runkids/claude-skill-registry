@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:15:13.232326Z",
   "dir_name": "threejs",
   "category": "other",
-  "github_path": ".claude/skills/threejs"
+  "github_path": ".claude/skills/threejs",
+  "github_branch": "main"
 }

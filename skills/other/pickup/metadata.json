@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:37.637298Z",
   "dir_name": "pickup",
   "category": "other",
-  "github_path": ".claude/skills/pickup"
+  "github_path": ".claude/skills/pickup",
+  "github_branch": "main"
 }

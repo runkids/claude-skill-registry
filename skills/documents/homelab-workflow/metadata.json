@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/homelab-workflow"
+  "github_path": ".claude/skills/homelab-workflow",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:04:30.380017Z",
   "dir_name": "impl-domain",
-  "github_path": ".claude/skills/impl-domain"
+  "github_path": ".claude/skills/impl-domain",
+  "github_branch": "main"
 }

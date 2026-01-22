@@ -9,5 +9,6 @@
     "threading"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-free-threading"
+  "github_path": ".claude/skills/global-free-threading",
+  "github_branch": "main"
 }

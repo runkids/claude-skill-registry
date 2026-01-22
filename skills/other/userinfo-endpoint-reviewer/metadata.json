@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:55.447376Z",
   "dir_name": "userinfo-endpoint-reviewer",
   "category": "other",
-  "github_path": ".claude/skills/userinfo-endpoint-reviewer"
+  "github_path": ".claude/skills/userinfo-endpoint-reviewer",
+  "github_branch": "main"
 }

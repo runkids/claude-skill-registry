@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:52.926495Z",
   "dir_name": "standards-components",
   "category": "other",
-  "github_path": ".claude/skills/standards-components"
+  "github_path": ".claude/skills/standards-components",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:58.356360Z",
   "dir_name": "cicd",
   "category": "other",
-  "github_path": ".claude/skills/cicd"
+  "github_path": ".claude/skills/cicd",
+  "github_branch": "main"
 }

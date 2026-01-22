@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:43:14.702439Z",
   "dir_name": "validate-markdown",
   "category": "other",
-  "github_path": ".claude/skills/validate-markdown"
+  "github_path": ".claude/skills/validate-markdown",
+  "github_branch": "main"
 }

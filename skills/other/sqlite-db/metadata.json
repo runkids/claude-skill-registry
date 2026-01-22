@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:02.776237Z",
   "dir_name": "sqlite-db",
   "category": "other",
-  "github_path": ".claude/skills/sqlite-db"
+  "github_path": ".claude/skills/sqlite-db",
+  "github_branch": "main"
 }

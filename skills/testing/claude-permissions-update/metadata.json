@@ -10,5 +10,6 @@
   ],
   "stars": 6,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/claude-permissions-update"
+  "github_path": ".claude/skills/claude-permissions-update",
+  "github_branch": "main"
 }

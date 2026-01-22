@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:49:11.810225Z",
   "dir_name": "performance-audit",
   "category": "other",
-  "github_path": ".claude/skills/performance-audit"
+  "github_path": ".claude/skills/performance-audit",
+  "github_branch": "main"
 }

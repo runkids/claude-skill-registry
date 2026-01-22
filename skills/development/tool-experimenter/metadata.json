@@ -8,5 +8,6 @@
     "experimenter"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/tool-experimenter"
+  "github_path": ".claude/skills/tool-experimenter",
+  "github_branch": "main"
 }

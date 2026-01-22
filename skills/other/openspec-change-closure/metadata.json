@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:53:13.515484Z",
   "dir_name": "openspec-change-closure",
   "category": "other",
-  "github_path": ".claude/skills/openspec-change-closure"
+  "github_path": ".claude/skills/openspec-change-closure",
+  "github_branch": "main"
 }

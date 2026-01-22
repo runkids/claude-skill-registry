@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:53:11.360751Z",
   "dir_name": "query-performance-analysis",
   "category": "other",
-  "github_path": ".claude/skills/query-performance-analysis"
+  "github_path": ".claude/skills/query-performance-analysis",
+  "github_branch": "main"
 }

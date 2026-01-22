@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:41.668991Z",
   "dir_name": "taskfiles",
   "category": "other",
-  "github_path": ".claude/skills/taskfiles"
+  "github_path": ".claude/skills/taskfiles",
+  "github_branch": "main"
 }

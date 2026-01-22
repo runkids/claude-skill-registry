@@ -9,5 +9,6 @@
   ],
   "stars": 433,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/run-clippy"
+  "github_path": ".claude/skills/run-clippy",
+  "github_branch": "main"
 }

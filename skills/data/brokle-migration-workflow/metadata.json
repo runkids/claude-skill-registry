@@ -11,5 +11,6 @@
   "stars": 2,
   "source": "SkillsMP Synced Skills",
   "dir_name": "brokle-migration-workflow",
-  "github_path": ".claude/skills/brokle-migration-workflow"
+  "github_path": ".claude/skills/brokle-migration-workflow",
+  "github_branch": "main"
 }

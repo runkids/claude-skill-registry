@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:57.436981Z",
   "dir_name": "bot-developer",
   "category": "other",
-  "github_path": ".claude/skills/bot-developer"
+  "github_path": ".claude/skills/bot-developer",
+  "github_branch": "main"
 }

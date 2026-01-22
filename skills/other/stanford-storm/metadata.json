@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:48:30.879405Z",
   "dir_name": "stanford-storm",
   "category": "other",
-  "github_path": ".claude/skills/stanford-storm"
+  "github_path": ".claude/skills/stanford-storm",
+  "github_branch": "main"
 }

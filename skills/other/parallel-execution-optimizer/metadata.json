@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:55.384047Z",
   "dir_name": "parallel-execution-optimizer",
   "category": "other",
-  "github_path": ".claude/skills/parallel-execution-optimizer"
+  "github_path": ".claude/skills/parallel-execution-optimizer",
+  "github_branch": "main"
 }

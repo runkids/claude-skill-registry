@@ -5,5 +5,6 @@
   "description": "Use this skill ONLY when creating a new trading strategy (e.g., MeanReversion, Breakout, ScalpingStrategy). Do not use for agents or scanners. This skill is part of the Phase 1 migration.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:39.773773Z",
-  "github_path": ".claude/skills/new-strategy"
+  "github_path": ".claude/skills/new-strategy",
+  "github_branch": "main"
 }

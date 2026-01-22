@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:39.688056Z",
   "dir_name": "cicd-pipeline-qe-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/cicd-pipeline-qe-orchestrator"
+  "github_path": ".claude/skills/cicd-pipeline-qe-orchestrator",
+  "github_branch": "main"
 }

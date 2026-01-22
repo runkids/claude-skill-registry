@@ -7,5 +7,6 @@
     "telemetry"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/telemetry"
+  "github_path": ".claude/skills/telemetry",
+  "github_branch": "main"
 }

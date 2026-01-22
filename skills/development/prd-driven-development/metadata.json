@@ -9,5 +9,6 @@
     "development"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/prd-driven-development"
+  "github_path": ".claude/skills/prd-driven-development",
+  "github_branch": "main"
 }

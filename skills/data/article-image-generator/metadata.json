@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "article-image-generator",
-  "github_path": ".claude/skills/article-image-generator"
+  "github_path": ".claude/skills/article-image-generator",
+  "github_branch": "main"
 }

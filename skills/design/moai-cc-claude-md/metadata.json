@@ -8,5 +8,6 @@
     "claude"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-cc-claude-md"
+  "github_path": ".claude/skills/moai-cc-claude-md",
+  "github_branch": "main"
 }

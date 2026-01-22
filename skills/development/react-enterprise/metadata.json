@@ -8,5 +8,6 @@
     "enterprise"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/react-enterprise"
+  "github_path": ".claude/skills/react-enterprise",
+  "github_branch": "main"
 }

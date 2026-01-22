@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:06.243822Z",
   "dir_name": "prd-v05-risk-discovery-interview",
   "category": "other",
-  "github_path": ".claude/skills/prd-v05-risk-discovery-interview"
+  "github_path": ".claude/skills/prd-v05-risk-discovery-interview",
+  "github_branch": "main"
 }

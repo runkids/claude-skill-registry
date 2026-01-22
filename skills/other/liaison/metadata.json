@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:55.410177Z",
   "dir_name": "liaison",
   "category": "other",
-  "github_path": ".claude/skills/liaison"
+  "github_path": ".claude/skills/liaison",
+  "github_branch": "main"
 }

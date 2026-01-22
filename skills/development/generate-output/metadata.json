@@ -8,5 +8,6 @@
     "output"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/generate-output"
+  "github_path": ".claude/skills/generate-output",
+  "github_branch": "main"
 }

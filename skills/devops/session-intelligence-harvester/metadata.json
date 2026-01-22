@@ -9,5 +9,6 @@
     "harvester"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/session-intelligence-harvester"
+  "github_path": ".claude/skills/session-intelligence-harvester",
+  "github_branch": "main"
 }

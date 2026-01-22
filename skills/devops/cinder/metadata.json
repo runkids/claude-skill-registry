@@ -8,5 +8,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cinder"
+  "github_path": ".claude/skills/cinder",
+  "github_branch": "main"
 }

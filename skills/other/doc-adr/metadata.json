@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:50.360285Z",
   "dir_name": "doc-adr",
   "category": "other",
-  "github_path": ".claude/skills/doc-adr"
+  "github_path": ".claude/skills/doc-adr",
+  "github_branch": "main"
 }

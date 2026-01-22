@@ -8,5 +8,6 @@
     "lookup"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frequency-lookup"
+  "github_path": ".claude/skills/frequency-lookup",
+  "github_branch": "main"
 }

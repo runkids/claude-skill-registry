@@ -7,5 +7,6 @@
     "rules"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rules"
+  "github_path": ".claude/skills/rules",
+  "github_branch": "main"
 }

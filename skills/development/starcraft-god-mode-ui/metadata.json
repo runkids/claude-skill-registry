@@ -9,5 +9,6 @@
     "mode"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/starcraft-god-mode-ui"
+  "github_path": ".claude/skills/starcraft-god-mode-ui",
+  "github_branch": "main"
 }

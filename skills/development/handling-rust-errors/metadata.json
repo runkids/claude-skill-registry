@@ -10,5 +10,6 @@
   ],
   "stars": 1378,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/handling-rust-errors"
+  "github_path": ".claude/skills/handling-rust-errors",
+  "github_branch": "main"
 }

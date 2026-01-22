@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:14.898035Z",
   "dir_name": "ic",
   "category": "other",
-  "github_path": ".claude/skills/ic"
+  "github_path": ".claude/skills/ic",
+  "github_branch": "main"
 }

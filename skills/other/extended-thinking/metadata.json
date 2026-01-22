@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:18.523707Z",
   "dir_name": "extended-thinking",
   "category": "other",
-  "github_path": ".claude/skills/extended-thinking"
+  "github_path": ".claude/skills/extended-thinking",
+  "github_branch": "main"
 }

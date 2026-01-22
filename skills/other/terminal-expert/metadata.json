@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:11.402868Z",
   "dir_name": "terminal-expert",
   "category": "other",
-  "github_path": ".claude/skills/terminal-expert"
+  "github_path": ".claude/skills/terminal-expert",
+  "github_branch": "main"
 }

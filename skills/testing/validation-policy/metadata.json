@@ -8,5 +8,6 @@
     "policy"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/validation-policy"
+  "github_path": ".claude/skills/validation-policy",
+  "github_branch": "main"
 }

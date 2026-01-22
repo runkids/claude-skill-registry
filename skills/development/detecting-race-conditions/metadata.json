@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/detecting-race-conditions"
+  "github_path": ".claude/skills/detecting-race-conditions",
+  "github_branch": "main"
 }

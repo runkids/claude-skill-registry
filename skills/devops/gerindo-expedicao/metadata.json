@@ -8,5 +8,6 @@
     "expedicao"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gerindo-expedicao"
+  "github_path": ".claude/skills/gerindo-expedicao",
+  "github_branch": "main"
 }

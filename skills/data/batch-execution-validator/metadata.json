@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "batch-execution-validator",
-  "github_path": ".claude/skills/batch-execution-validator"
+  "github_path": ".claude/skills/batch-execution-validator",
+  "github_branch": "main"
 }

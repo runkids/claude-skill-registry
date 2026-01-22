@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:07:50.864148Z",
   "dir_name": "worktree-create",
   "category": "other",
-  "github_path": ".claude/skills/worktree-create"
+  "github_path": ".claude/skills/worktree-create",
+  "github_branch": "main"
 }

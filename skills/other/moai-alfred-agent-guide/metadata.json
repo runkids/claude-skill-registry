@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:18.856864Z",
   "dir_name": "moai-alfred-agent-guide",
   "category": "other",
-  "github_path": ".claude/skills/moai-alfred-agent-guide"
+  "github_path": ".claude/skills/moai-alfred-agent-guide",
+  "github_branch": "main"
 }

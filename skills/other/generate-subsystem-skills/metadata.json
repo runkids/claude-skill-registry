@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:01.053476Z",
   "dir_name": "generate-subsystem-skills",
   "category": "other",
-  "github_path": ".claude/skills/generate-subsystem-skills"
+  "github_path": ".claude/skills/generate-subsystem-skills",
+  "github_branch": "main"
 }

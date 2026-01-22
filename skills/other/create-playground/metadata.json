@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:16:32.123637Z",
   "dir_name": "create-playground",
   "category": "other",
-  "github_path": ".claude/skills/create-playground"
+  "github_path": ".claude/skills/create-playground",
+  "github_branch": "main"
 }

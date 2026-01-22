@@ -8,5 +8,6 @@
     "end"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/session-end"
+  "github_path": ".claude/skills/session-end",
+  "github_branch": "main"
 }

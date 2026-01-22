@@ -8,5 +8,6 @@
     "blocks"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wordpress-blocks"
+  "github_path": ".claude/skills/wordpress-blocks",
+  "github_branch": "main"
 }

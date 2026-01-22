@@ -8,5 +8,6 @@
     "bank"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/memory-bank"
+  "github_path": ".claude/skills/memory-bank",
+  "github_branch": "main"
 }

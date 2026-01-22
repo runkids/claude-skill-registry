@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:15.511675Z",
   "dir_name": "update-system-map",
   "category": "other",
-  "github_path": ".claude/skills/update-system-map"
+  "github_path": ".claude/skills/update-system-map",
+  "github_branch": "main"
 }

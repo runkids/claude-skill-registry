@@ -8,5 +8,6 @@
     "component"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/write-component"
+  "github_path": ".claude/skills/write-component",
+  "github_branch": "main"
 }

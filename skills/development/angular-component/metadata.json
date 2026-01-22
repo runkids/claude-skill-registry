@@ -9,5 +9,6 @@
   ],
   "stars": 21,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/angular-component"
+  "github_path": ".claude/skills/angular-component",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:31.511497Z",
   "dir_name": "claude-agent-sdk",
   "category": "other",
-  "github_path": ".claude/skills/claude-agent-sdk"
+  "github_path": ".claude/skills/claude-agent-sdk",
+  "github_branch": "main"
 }

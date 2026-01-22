@@ -8,5 +8,6 @@
     "release"
   ],
   "stars": 21,
-  "github_path": ".claude/skills/new-release"
+  "github_path": ".claude/skills/new-release",
+  "github_branch": "main"
 }

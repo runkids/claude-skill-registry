@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:45.115144Z",
   "dir_name": "root-cause-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/root-cause-analyzer"
+  "github_path": ".claude/skills/root-cause-analyzer",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "deploy"
   ],
   "stars": 43,
-  "github_path": ".claude/skills/qcc-deploy"
+  "github_path": ".claude/skills/qcc-deploy",
+  "github_branch": "main"
 }

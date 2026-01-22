@@ -10,5 +10,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/creating-claude-hooks"
+  "github_path": ".claude/skills/creating-claude-hooks",
+  "github_branch": "main"
 }

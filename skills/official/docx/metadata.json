@@ -3,5 +3,6 @@
   "repo": "anthropics/skills",
   "category": "official",
   "source": "Anthropic Official",
-  "github_path": "skills/docx"
+  "github_path": "skills/docx",
+  "github_branch": "main"
 }

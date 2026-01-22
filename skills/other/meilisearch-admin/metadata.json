@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:37.996165Z",
   "dir_name": "meilisearch-admin",
   "category": "other",
-  "github_path": ".claude/skills/meilisearch-admin"
+  "github_path": ".claude/skills/meilisearch-admin",
+  "github_branch": "main"
 }

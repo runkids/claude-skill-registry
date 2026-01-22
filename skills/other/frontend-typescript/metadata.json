@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:52:52.015937Z",
   "dir_name": "frontend-typescript",
   "category": "other",
-  "github_path": ".claude/skills/frontend-typescript"
+  "github_path": ".claude/skills/frontend-typescript",
+  "github_branch": "main"
 }

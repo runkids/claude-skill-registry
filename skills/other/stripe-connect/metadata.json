@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:15:14.257831Z",
   "dir_name": "stripe-connect",
   "category": "other",
-  "github_path": ".claude/skills/stripe-connect"
+  "github_path": ".claude/skills/stripe-connect",
+  "github_branch": "main"
 }

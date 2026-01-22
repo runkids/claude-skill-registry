@@ -8,5 +8,6 @@
     "windows"
   ],
   "stars": 47,
-  "github_path": "skills/powershell-windows"
+  "github_path": "skills/powershell-windows",
+  "github_branch": "main"
 }

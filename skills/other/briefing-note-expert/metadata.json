@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:38.433595Z",
   "dir_name": "briefing-note-expert",
   "category": "other",
-  "github_path": ".claude/skills/briefing-note-expert"
+  "github_path": ".claude/skills/briefing-note-expert",
+  "github_branch": "main"
 }

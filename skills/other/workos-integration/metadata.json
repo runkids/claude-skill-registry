@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:56:26.593408Z",
   "dir_name": "workos-integration",
   "category": "other",
-  "github_path": ".claude/skills/workos-integration"
+  "github_path": ".claude/skills/workos-integration",
+  "github_branch": "main"
 }

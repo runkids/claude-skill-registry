@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:16:31.967139Z",
   "dir_name": "log-debug-issue",
   "category": "other",
-  "github_path": ".claude/skills/log-debug-issue"
+  "github_path": ".claude/skills/log-debug-issue",
+  "github_branch": "main"
 }

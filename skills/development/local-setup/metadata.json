@@ -8,5 +8,6 @@
     "setup"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/local-setup"
+  "github_path": ".claude/skills/local-setup",
+  "github_branch": "main"
 }

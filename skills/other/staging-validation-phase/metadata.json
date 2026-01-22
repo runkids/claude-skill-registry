@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:55.118286Z",
   "dir_name": "staging-validation-phase",
   "category": "other",
-  "github_path": ".claude/skills/staging-validation-phase"
+  "github_path": ".claude/skills/staging-validation-phase",
+  "github_branch": "main"
 }

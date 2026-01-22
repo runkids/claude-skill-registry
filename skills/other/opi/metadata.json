@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:42.435069Z",
   "dir_name": "opi",
   "category": "other",
-  "github_path": ".claude/skills/opi"
+  "github_path": ".claude/skills/opi",
+  "github_branch": "main"
 }

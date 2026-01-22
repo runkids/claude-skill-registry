@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:16:28.058828Z",
   "dir_name": "kratos-proto-api",
   "category": "other",
-  "github_path": ".claude/skills/kratos-proto-api"
+  "github_path": ".claude/skills/kratos-proto-api",
+  "github_branch": "main"
 }

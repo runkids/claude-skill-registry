@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:53:21.403129Z",
   "dir_name": "spec-workflow-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/spec-workflow-orchestrator"
+  "github_path": ".claude/skills/spec-workflow-orchestrator",
+  "github_branch": "main"
 }

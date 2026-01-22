@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:56:37.669017Z",
   "dir_name": "nestjs-typeorm-integration",
   "category": "other",
-  "github_path": ".claude/skills/nestjs-typeorm-integration"
+  "github_path": ".claude/skills/nestjs-typeorm-integration",
+  "github_branch": "main"
 }

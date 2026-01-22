@@ -9,5 +9,6 @@
     "manager"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/tool-ecosystem-manager"
+  "github_path": ".claude/skills/tool-ecosystem-manager",
+  "github_branch": "main"
 }

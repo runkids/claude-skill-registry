@@ -5,5 +5,6 @@
   "description": "Guides strict TDD (red/green/refactor), prioritizing domain unit tests and small steps.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:09.980558Z",
-  "github_path": ".claude/skills/tdd-playbook"
+  "github_path": ".claude/skills/tdd-playbook",
+  "github_branch": "main"
 }

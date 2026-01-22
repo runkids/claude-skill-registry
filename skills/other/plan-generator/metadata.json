@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:12.138521Z",
   "dir_name": "plan-generator",
   "category": "other",
-  "github_path": ".claude/skills/plan-generator"
+  "github_path": ".claude/skills/plan-generator",
+  "github_branch": "main"
 }

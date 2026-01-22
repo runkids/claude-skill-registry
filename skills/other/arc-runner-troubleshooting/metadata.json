@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:54.129365Z",
   "dir_name": "arc-runner-troubleshooting",
   "category": "other",
-  "github_path": ".claude/skills/arc-runner-troubleshooting"
+  "github_path": ".claude/skills/arc-runner-troubleshooting",
+  "github_branch": "main"
 }

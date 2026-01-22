@@ -9,5 +9,6 @@
     "validate"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/hammer-build-validate"
+  "github_path": ".claude/skills/hammer-build-validate",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:45.662448Z",
   "dir_name": "gandalf-the-prompt",
   "category": "other",
-  "github_path": ".claude/skills/gandalf-the-prompt"
+  "github_path": ".claude/skills/gandalf-the-prompt",
+  "github_branch": "main"
 }

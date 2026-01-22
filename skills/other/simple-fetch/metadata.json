@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:09:26.514787Z",
   "dir_name": "simple-fetch",
   "category": "other",
-  "github_path": ".claude/skills/simple-fetch"
+  "github_path": ".claude/skills/simple-fetch",
+  "github_branch": "main"
 }

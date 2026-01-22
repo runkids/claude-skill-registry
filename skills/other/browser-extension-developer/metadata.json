@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:11:17.923545Z",
   "dir_name": "browser-extension-developer",
   "category": "other",
-  "github_path": ".claude/skills/browser-extension-developer"
+  "github_path": ".claude/skills/browser-extension-developer",
+  "github_branch": "main"
 }

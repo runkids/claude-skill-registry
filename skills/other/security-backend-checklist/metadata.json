@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:26.128692Z",
   "dir_name": "security-backend-checklist",
   "category": "other",
-  "github_path": ".claude/skills/security-backend-checklist"
+  "github_path": ".claude/skills/security-backend-checklist",
+  "github_branch": "main"
 }

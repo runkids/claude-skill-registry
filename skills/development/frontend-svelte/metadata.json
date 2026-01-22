@@ -8,5 +8,6 @@
     "svelte"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frontend-svelte"
+  "github_path": ".claude/skills/frontend-svelte",
+  "github_branch": "main"
 }

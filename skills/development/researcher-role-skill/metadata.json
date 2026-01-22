@@ -9,5 +9,6 @@
     "skill"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/researcher-role-skill"
+  "github_path": ".claude/skills/researcher-role-skill",
+  "github_branch": "main"
 }

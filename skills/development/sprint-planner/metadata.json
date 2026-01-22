@@ -8,5 +8,6 @@
     "planner"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sprint-planner"
+  "github_path": ".claude/skills/sprint-planner",
+  "github_branch": "main"
 }

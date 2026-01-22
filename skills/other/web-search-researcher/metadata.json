@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:18.378227Z",
   "dir_name": "web-search-researcher",
   "category": "other",
-  "github_path": ".claude/skills/web-search-researcher"
+  "github_path": ".claude/skills/web-search-researcher",
+  "github_branch": "main"
 }

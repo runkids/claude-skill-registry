@@ -11,5 +11,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/evaluate-against-architecture-principles"
+  "github_path": ".claude/skills/evaluate-against-architecture-principles",
+  "github_branch": "main"
 }

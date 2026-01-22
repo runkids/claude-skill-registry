@@ -11,5 +11,6 @@
     "usage"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nextjs-better-auth-jwt-usage"
+  "github_path": ".claude/skills/nextjs-better-auth-jwt-usage",
+  "github_branch": "main"
 }

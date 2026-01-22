@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.543131Z",
   "dir_name": "dag-pattern-learner",
   "category": "other",
-  "github_path": ".claude/skills/dag-pattern-learner"
+  "github_path": ".claude/skills/dag-pattern-learner",
+  "github_branch": "main"
 }

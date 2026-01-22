@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:03:55.448193Z",
   "dir_name": "agent-debugging",
   "category": "other",
-  "github_path": ".claude/skills/agent-debugging"
+  "github_path": ".claude/skills/agent-debugging",
+  "github_branch": "main"
 }

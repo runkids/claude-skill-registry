@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:10.668332Z",
   "dir_name": "vue-integration-testing",
   "category": "other",
-  "github_path": ".claude/skills/vue-integration-testing"
+  "github_path": ".claude/skills/vue-integration-testing",
+  "github_branch": "main"
 }

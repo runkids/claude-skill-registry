@@ -8,5 +8,6 @@
     "deployment"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/container-deployment"
+  "github_path": ".claude/skills/container-deployment",
+  "github_branch": "main"
 }

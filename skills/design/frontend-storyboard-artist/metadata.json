@@ -9,5 +9,6 @@
     "artist"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frontend-storyboard-artist"
+  "github_path": ".claude/skills/frontend-storyboard-artist",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "checker"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/performance-budget-checker"
+  "github_path": ".claude/skills/performance-budget-checker",
+  "github_branch": "main"
 }

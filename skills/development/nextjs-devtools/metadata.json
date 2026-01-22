@@ -8,5 +8,6 @@
     "devtools"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/nextjs-devtools"
+  "github_path": ".claude/skills/nextjs-devtools",
+  "github_branch": "main"
 }

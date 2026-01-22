@@ -10,5 +10,6 @@
     "info"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/uloop-get-unity-info"
+  "github_path": ".claude/skills/uloop-get-unity-info",
+  "github_branch": "main"
 }

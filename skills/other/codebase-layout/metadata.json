@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:17:36.195414Z",
   "dir_name": "codebase-layout",
   "category": "other",
-  "github_path": ".claude/skills/codebase-layout"
+  "github_path": ".claude/skills/codebase-layout",
+  "github_branch": "main"
 }

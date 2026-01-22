@@ -8,5 +8,6 @@
     "standards"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/frontend-standards"
+  "github_path": ".claude/skills/frontend-standards",
+  "github_branch": "main"
 }

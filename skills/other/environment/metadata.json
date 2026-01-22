@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:23:00.726985Z",
   "dir_name": "environment",
   "category": "other",
-  "github_path": ".claude/skills/environment"
+  "github_path": ".claude/skills/environment",
+  "github_branch": "main"
 }

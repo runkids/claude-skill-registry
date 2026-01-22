@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:29.400607Z",
   "dir_name": "deepwork-jobs-define",
   "category": "other",
-  "github_path": ".claude/skills/deepwork_jobs.define"
+  "github_path": ".claude/skills/deepwork_jobs.define",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:54:40.711388Z",
   "dir_name": "testing-and-quality-gates-skill",
   "category": "other",
-  "github_path": ".claude/skills/testing-and-quality-gates-skill"
+  "github_path": ".claude/skills/testing-and-quality-gates-skill",
+  "github_branch": "main"
 }

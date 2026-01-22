@@ -9,5 +9,6 @@
     "manager"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pain-point-manager"
+  "github_path": ".claude/skills/pain-point-manager",
+  "github_branch": "main"
 }

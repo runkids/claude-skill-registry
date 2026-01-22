@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "agent-integrator",
-  "github_path": ".claude/skills/agent-integrator"
+  "github_path": ".claude/skills/agent-integrator",
+  "github_branch": "main"
 }

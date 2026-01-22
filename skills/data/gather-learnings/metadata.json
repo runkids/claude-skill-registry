@@ -9,5 +9,6 @@
   ],
   "stars": 7,
   "dir_name": "gather-learnings",
-  "github_path": ".claude/skills/gather-learnings"
+  "github_path": ".claude/skills/gather-learnings",
+  "github_branch": "main"
 }

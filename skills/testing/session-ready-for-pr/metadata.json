@@ -9,5 +9,6 @@
     "for"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/session-ready-for-pr"
+  "github_path": ".claude/skills/session-ready-for-pr",
+  "github_branch": "main"
 }

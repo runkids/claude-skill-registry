@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "c3-container-design",
-  "github_path": ".claude/skills/c3-container-design"
+  "github_path": ".claude/skills/c3-container-design",
+  "github_branch": "main"
 }

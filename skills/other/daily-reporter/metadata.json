@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:50:14.013184Z",
   "dir_name": "daily-reporter",
   "category": "other",
-  "github_path": ".claude/skills/daily-reporter"
+  "github_path": ".claude/skills/daily-reporter",
+  "github_branch": "main"
 }

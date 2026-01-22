@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:53:01.664365Z",
   "dir_name": "agent-doc-writer",
   "category": "other",
-  "github_path": ".claude/skills/agent-doc-writer"
+  "github_path": ".claude/skills/agent-doc-writer",
+  "github_branch": "main"
 }

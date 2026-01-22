@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:52:52.865838Z",
   "dir_name": "frontend-storyboard-artist",
   "category": "other",
-  "github_path": ".claude/skills/frontend-storyboard-artist"
+  "github_path": ".claude/skills/frontend-storyboard-artist",
+  "github_branch": "main"
 }

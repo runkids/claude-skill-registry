@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:52:53.256600Z",
   "dir_name": "pytest-real-testing",
   "category": "other",
-  "github_path": ".claude/skills/pytest-real-testing"
+  "github_path": ".claude/skills/pytest-real-testing",
+  "github_branch": "main"
 }

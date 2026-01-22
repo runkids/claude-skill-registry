@@ -11,5 +11,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/first-time-user-dashboard"
+  "github_path": ".claude/skills/first-time-user-dashboard",
+  "github_branch": "main"
 }

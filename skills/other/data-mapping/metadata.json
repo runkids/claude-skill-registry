@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:55.669693Z",
   "dir_name": "data-mapping",
   "category": "other",
-  "github_path": ".claude/skills/data-mapping"
+  "github_path": ".claude/skills/data-mapping",
+  "github_branch": "main"
 }

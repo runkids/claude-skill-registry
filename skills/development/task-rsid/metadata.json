@@ -8,5 +8,6 @@
     "rsid"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/task-rsid"
+  "github_path": ".claude/skills/task-rsid",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:32.347320Z",
   "dir_name": "canton-network-repos",
   "category": "other",
-  "github_path": ".claude/skills/canton-network-repos"
+  "github_path": ".claude/skills/canton-network-repos",
+  "github_branch": "main"
 }

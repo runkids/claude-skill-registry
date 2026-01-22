@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:03.751080Z",
   "dir_name": "quick-view",
   "category": "other",
-  "github_path": ".claude/skills/quick-view"
+  "github_path": ".claude/skills/quick-view",
+  "github_branch": "main"
 }

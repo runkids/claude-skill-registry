@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/eval-test-skill"
+  "github_path": ".claude/skills/eval-test-skill",
+  "github_branch": "main"
 }

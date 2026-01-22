@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:39.620397Z",
   "dir_name": "agent-creator",
   "category": "other",
-  "github_path": ".claude/skills/agent-creator"
+  "github_path": ".claude/skills/agent-creator",
+  "github_branch": "main"
 }

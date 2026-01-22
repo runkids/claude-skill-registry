@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:10:18.774792Z",
   "dir_name": "blog",
   "category": "other",
-  "github_path": ".claude/skills/blog"
+  "github_path": ".claude/skills/blog",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:26:46.392071Z",
   "dir_name": "gh-project-setup",
   "category": "other",
-  "github_path": ".claude/skills/gh-project-setup"
+  "github_path": ".claude/skills/gh-project-setup",
+  "github_branch": "main"
 }

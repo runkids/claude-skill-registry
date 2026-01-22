@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:32.253965Z",
   "dir_name": "role-software-engineer",
   "category": "other",
-  "github_path": ".claude/skills/role-software-engineer"
+  "github_path": ".claude/skills/role-software-engineer",
+  "github_branch": "main"
 }

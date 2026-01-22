@@ -10,5 +10,6 @@
     "bin"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/spectr-accept-wo-spectr-bin"
+  "github_path": ".claude/skills/spectr-accept-wo-spectr-bin",
+  "github_branch": "main"
 }

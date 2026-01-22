@@ -10,5 +10,6 @@
   ],
   "stars": 11,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/autonomous-coding-agent"
+  "github_path": ".claude/skills/autonomous-coding-agent",
+  "github_branch": "main"
 }

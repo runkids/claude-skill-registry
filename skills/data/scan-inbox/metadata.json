@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "dir_name": "scan-inbox",
-  "github_path": ".claude/skills/scan-inbox"
+  "github_path": ".claude/skills/scan-inbox",
+  "github_branch": "main"
 }

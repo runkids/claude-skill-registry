@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/design-system-creator"
+  "github_path": ".claude/skills/design-system-creator",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "dir_name": "moodle-api-user",
-  "github_path": ".claude/skills/moodle-api-user"
+  "github_path": ".claude/skills/moodle-api-user",
+  "github_branch": "main"
 }

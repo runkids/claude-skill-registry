@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:14:52.193887Z",
   "dir_name": "smart-context",
   "category": "other",
-  "github_path": ".claude/skills/smart-context"
+  "github_path": ".claude/skills/smart-context",
+  "github_branch": "main"
 }

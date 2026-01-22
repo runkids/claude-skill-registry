@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bdd-playbook"
+  "github_path": ".claude/skills/bdd-playbook",
+  "github_branch": "main"
 }

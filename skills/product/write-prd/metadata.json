@@ -8,5 +8,6 @@
     "prd"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/write-prd"
+  "github_path": ".claude/skills/write-prd",
+  "github_branch": "main"
 }

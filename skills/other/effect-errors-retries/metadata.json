@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:18.044981Z",
   "dir_name": "effect-errors-retries",
   "category": "other",
-  "github_path": ".claude/skills/effect-errors-retries"
+  "github_path": ".claude/skills/effect-errors-retries",
+  "github_branch": "main"
 }

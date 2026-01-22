@@ -10,5 +10,6 @@
   ],
   "stars": 103,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/n8n-security-testing"
+  "github_path": ".claude/skills/n8n-security-testing",
+  "github_branch": "main"
 }

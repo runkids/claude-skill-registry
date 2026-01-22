@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:18:55.999681Z",
   "dir_name": "desktop-e2e-testing",
   "category": "other",
-  "github_path": ".claude/skills/desktop-e2e-testing"
+  "github_path": ".claude/skills/desktop-e2e-testing",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
     "clarity"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/refactor-rename-for-clarity"
+  "github_path": ".claude/skills/refactor-rename-for-clarity",
+  "github_branch": "main"
 }

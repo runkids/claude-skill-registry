@@ -11,5 +11,6 @@
   ],
   "stars": 575,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/codex-claude-cursor-loop"
+  "github_path": ".claude/skills/codex-claude-cursor-loop",
+  "github_branch": "master"
 }

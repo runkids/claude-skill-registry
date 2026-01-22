@@ -8,5 +8,6 @@
     "tiers"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/pricing-tiers"
+  "github_path": ".claude/skills/pricing-tiers",
+  "github_branch": "main"
 }

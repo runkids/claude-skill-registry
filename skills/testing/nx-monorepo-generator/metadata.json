@@ -8,5 +8,6 @@
     "generator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nx-monorepo-generator"
+  "github_path": ".claude/skills/nx-monorepo-generator",
+  "github_branch": "main"
 }

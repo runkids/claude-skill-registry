@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:53:13.885820Z",
   "dir_name": "vscode-extension",
   "category": "other",
-  "github_path": ".claude/skills/vscode-extension"
+  "github_path": ".claude/skills/vscode-extension",
+  "github_branch": "main"
 }

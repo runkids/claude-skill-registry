@@ -10,5 +10,6 @@
   ],
   "stars": 107,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/sveltekit-remote-functions"
+  "github_path": ".claude/skills/sveltekit-remote-functions",
+  "github_branch": "main"
 }

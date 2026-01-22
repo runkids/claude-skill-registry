@@ -8,5 +8,6 @@
     "styling"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tailwindcss-v4-styling"
+  "github_path": ".claude/skills/tailwindcss-v4-styling",
+  "github_branch": "main"
 }

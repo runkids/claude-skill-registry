@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:17.279927Z",
   "dir_name": "backend-safeguard",
   "category": "other",
-  "github_path": ".claude/skills/backend_safeguard"
+  "github_path": ".claude/skills/backend_safeguard",
+  "github_branch": "main"
 }

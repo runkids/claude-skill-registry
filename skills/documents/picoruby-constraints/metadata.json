@@ -5,5 +5,6 @@
   "description": "Documents memory limits and stdlib constraints for PicoRuby on ESP32. Use this when writing code that will run on ESP32 hardware or designing features for PicoRuby applications.",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:21:10.030220Z",
-  "github_path": ".claude/skills/picoruby-constraints"
+  "github_path": ".claude/skills/picoruby-constraints",
+  "github_branch": "main"
 }

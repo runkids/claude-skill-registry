@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/container-registry-setup"
+  "github_path": ".claude/skills/container-registry-setup",
+  "github_branch": "main"
 }

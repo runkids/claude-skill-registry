@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:46.492815Z",
   "dir_name": "api-building",
   "category": "other",
-  "github_path": ".claude/skills/api-building"
+  "github_path": ".claude/skills/api-building",
+  "github_branch": "main"
 }

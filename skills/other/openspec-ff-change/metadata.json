@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:38:46.348338Z",
   "dir_name": "openspec-ff-change",
   "category": "other",
-  "github_path": ".claude/skills/openspec-ff-change"
+  "github_path": ".claude/skills/openspec-ff-change",
+  "github_branch": "main"
 }

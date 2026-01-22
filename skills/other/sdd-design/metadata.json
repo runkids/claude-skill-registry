@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T03:07:24.827975Z",
   "dir_name": "sdd-design",
   "category": "other",
-  "github_path": ".claude/skills/sdd-design"
+  "github_path": ".claude/skills/sdd-design",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "dir_name": "job-apply",
-  "github_path": ".claude/skills/job-apply"
+  "github_path": ".claude/skills/job-apply",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:31:02.316280Z",
   "dir_name": "recovering-sessions",
   "category": "other",
-  "github_path": ".claude/skills/recovering-sessions"
+  "github_path": ".claude/skills/recovering-sessions",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "engineer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/role-software-engineer"
+  "github_path": ".claude/skills/role-software-engineer",
+  "github_branch": "main"
 }

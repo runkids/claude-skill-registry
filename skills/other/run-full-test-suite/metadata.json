@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:25.424759Z",
   "dir_name": "run-full-test-suite",
   "category": "other",
-  "github_path": ".claude/skills/run-full-test-suite"
+  "github_path": ".claude/skills/run-full-test-suite",
+  "github_branch": "main"
 }

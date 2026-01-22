@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:43.488490Z",
   "dir_name": "backlog-moderator",
   "category": "other",
-  "github_path": ".claude/skills/backlog-moderator"
+  "github_path": ".claude/skills/backlog-moderator",
+  "github_branch": "main"
 }

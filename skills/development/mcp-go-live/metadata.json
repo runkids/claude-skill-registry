@@ -8,5 +8,6 @@
     "live"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mcp-go-live"
+  "github_path": ".claude/skills/mcp-go-live",
+  "github_branch": "main"
 }

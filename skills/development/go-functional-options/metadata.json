@@ -8,5 +8,6 @@
     "options"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/go-functional-options"
+  "github_path": ".claude/skills/go-functional-options",
+  "github_branch": "main"
 }

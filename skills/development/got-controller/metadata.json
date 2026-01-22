@@ -9,5 +9,6 @@
   ],
   "stars": 108,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/got-controller"
+  "github_path": ".claude/skills/got-controller",
+  "github_branch": "main"
 }

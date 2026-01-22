@@ -8,5 +8,6 @@
     "developer"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/functype-developer"
+  "github_path": ".claude/skills/functype-developer",
+  "github_branch": "main"
 }

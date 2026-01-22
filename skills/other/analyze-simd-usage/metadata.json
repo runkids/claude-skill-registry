@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:12.901315Z",
   "dir_name": "analyze-simd-usage",
   "category": "other",
-  "github_path": ".claude/skills/analyze-simd-usage"
+  "github_path": ".claude/skills/analyze-simd-usage",
+  "github_branch": "main"
 }

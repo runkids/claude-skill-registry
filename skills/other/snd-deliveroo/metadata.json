@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:51.896802Z",
   "dir_name": "snd-deliveroo",
   "category": "other",
-  "github_path": ".claude/skills/snd-deliveroo"
+  "github_path": ".claude/skills/snd-deliveroo",
+  "github_branch": "main"
 }

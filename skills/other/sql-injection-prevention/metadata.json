@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:06.283694Z",
   "dir_name": "sql-injection-prevention",
   "category": "other",
-  "github_path": ".claude/skills/sql-injection-prevention"
+  "github_path": ".claude/skills/sql-injection-prevention",
+  "github_branch": "main"
 }

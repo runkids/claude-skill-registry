@@ -8,5 +8,6 @@
     "calendar"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/read-calendar"
+  "github_path": ".claude/skills/read-calendar",
+  "github_branch": "main"
 }

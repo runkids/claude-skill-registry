@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:17.077502Z",
   "dir_name": "antipattern-catalog",
   "category": "other",
-  "github_path": ".claude/skills/antipattern-catalog"
+  "github_path": ".claude/skills/antipattern-catalog",
+  "github_branch": "main"
 }

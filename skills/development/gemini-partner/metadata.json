@@ -8,5 +8,6 @@
     "partner"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gemini-partner"
+  "github_path": ".claude/skills/gemini-partner",
+  "github_branch": "main"
 }

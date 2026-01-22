@@ -8,5 +8,6 @@
     "observability"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/langfuse-observability"
+  "github_path": ".claude/skills/langfuse-observability",
+  "github_branch": "main"
 }

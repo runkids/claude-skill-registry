@@ -8,5 +8,6 @@
     "scholar"
   ],
   "stars": 35,
-  "github_path": ".claude/skills/longevity-scholar"
+  "github_path": ".claude/skills/longevity-scholar",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/n-version-workflow"
+  "github_path": ".claude/skills/n-version-workflow",
+  "github_branch": "main"
 }

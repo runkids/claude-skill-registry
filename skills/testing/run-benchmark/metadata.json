@@ -8,5 +8,6 @@
     "benchmark"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/run-benchmark"
+  "github_path": ".claude/skills/run-benchmark",
+  "github_branch": "main"
 }

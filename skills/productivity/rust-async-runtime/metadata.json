@@ -9,5 +9,6 @@
     "runtime"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/rust-async-runtime"
+  "github_path": ".claude/skills/rust-async-runtime",
+  "github_branch": "main"
 }

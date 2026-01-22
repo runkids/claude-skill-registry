@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/enforce-file-limits"
+  "github_path": ".claude/skills/enforce-file-limits",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:33:36.253803Z",
   "dir_name": "technical-debt",
   "category": "other",
-  "github_path": ".claude/skills/technical-debt"
+  "github_path": ".claude/skills/technical-debt",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:17.261979Z",
   "dir_name": "character-generator",
   "category": "other",
-  "github_path": ".claude/skills/character-generator"
+  "github_path": ".claude/skills/character-generator",
+  "github_branch": "main"
 }

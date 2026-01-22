@@ -7,5 +7,6 @@
     "ground"
   ],
   "stars": 42,
-  "github_path": ".claude/skills/ground"
+  "github_path": ".claude/skills/ground",
+  "github_branch": "master"
 }

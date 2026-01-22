@@ -7,5 +7,6 @@
     "homeassistant"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/homeassistant"
+  "github_path": ".claude/skills/homeassistant",
+  "github_branch": "main"
 }

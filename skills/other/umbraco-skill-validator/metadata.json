@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:19:13.900163Z",
   "dir_name": "umbraco-skill-validator",
   "category": "other",
-  "github_path": ".claude/skills/umbraco-skill-validator"
+  "github_path": ".claude/skills/umbraco-skill-validator",
+  "github_branch": "main"
 }

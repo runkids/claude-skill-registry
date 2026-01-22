@@ -8,5 +8,6 @@
     "xunit"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-xunit"
+  "github_path": ".claude/skills/testing-xunit",
+  "github_branch": "main"
 }

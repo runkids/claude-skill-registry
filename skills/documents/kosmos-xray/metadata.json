@@ -9,5 +9,6 @@
   ],
   "stars": 304,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/kosmos-xray"
+  "github_path": ".claude/skills/kosmos-xray",
+  "github_branch": "master"
 }

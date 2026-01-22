@@ -8,5 +8,6 @@
     "coordinator"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/validation-coordinator"
+  "github_path": ".claude/skills/validation-coordinator",
+  "github_branch": "main"
 }

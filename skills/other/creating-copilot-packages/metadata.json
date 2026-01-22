@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:41.092868Z",
   "dir_name": "creating-copilot-packages",
   "category": "other",
-  "github_path": ".claude/skills/creating-copilot-packages"
+  "github_path": ".claude/skills/creating-copilot-packages",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "structure"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nodes-node-structure"
+  "github_path": ".claude/skills/nodes-node-structure",
+  "github_branch": "main"
 }

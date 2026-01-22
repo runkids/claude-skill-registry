@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:46.372744Z",
   "dir_name": "consensus-voting",
   "category": "other",
-  "github_path": ".claude/skills/consensus-voting"
+  "github_path": ".claude/skills/consensus-voting",
+  "github_branch": "main"
 }

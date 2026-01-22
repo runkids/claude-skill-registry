@@ -8,5 +8,6 @@
     "validator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/langgraph-validator"
+  "github_path": ".claude/skills/langgraph-validator",
+  "github_branch": "main"
 }

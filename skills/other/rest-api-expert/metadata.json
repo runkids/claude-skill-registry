@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T01:04:44.825275Z",
   "dir_name": "rest-api-expert",
   "category": "other",
-  "github_path": ".claude/skills/rest-api-expert"
+  "github_path": ".claude/skills/rest-api-expert",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "search"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/semantic-search"
+  "github_path": ".claude/skills/semantic-search",
+  "github_branch": "main"
 }

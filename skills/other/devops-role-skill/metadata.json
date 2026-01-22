@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:17.202466Z",
   "dir_name": "devops-role-skill",
   "category": "other",
-  "github_path": ".claude/skills/devops-role-skill"
+  "github_path": ".claude/skills/devops-role-skill",
+  "github_branch": "main"
 }

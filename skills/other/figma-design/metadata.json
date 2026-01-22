@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:56.540509Z",
   "dir_name": "figma-design",
   "category": "other",
-  "github_path": ".claude/skills/figma-design"
+  "github_path": ".claude/skills/figma-design",
+  "github_branch": "main"
 }

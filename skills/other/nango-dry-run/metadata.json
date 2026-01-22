@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:48:13.131444Z",
   "dir_name": "nango-dry-run",
   "category": "other",
-  "github_path": ".claude/skills/nango-dry-run"
+  "github_path": ".claude/skills/nango-dry-run",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "tetris"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/phaser-tetris"
+  "github_path": ".claude/skills/phaser-tetris",
+  "github_branch": "main"
 }

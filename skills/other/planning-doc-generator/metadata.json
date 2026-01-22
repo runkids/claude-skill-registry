@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:10.029180Z",
   "dir_name": "planning-doc-generator",
   "category": "other",
-  "github_path": ".claude/skills/planning-doc-generator"
+  "github_path": ".claude/skills/planning-doc-generator",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "zustand"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/zustand"
+  "github_path": ".claude/skills/zustand",
+  "github_branch": "main"
 }

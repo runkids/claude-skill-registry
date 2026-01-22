@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:40:16.024879Z",
   "dir_name": "command-creator",
   "category": "other",
-  "github_path": ".claude/skills/command-creator"
+  "github_path": ".claude/skills/command-creator",
+  "github_branch": "main"
 }

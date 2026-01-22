@@ -8,5 +8,6 @@
     "coding"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/typescript-coding"
+  "github_path": ".claude/skills/typescript-coding",
+  "github_branch": "main"
 }

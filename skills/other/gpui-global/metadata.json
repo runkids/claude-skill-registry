@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:13.789329Z",
   "dir_name": "gpui-global",
   "category": "other",
-  "github_path": ".claude/skills/gpui-global"
+  "github_path": ".claude/skills/gpui-global",
+  "github_branch": "main"
 }

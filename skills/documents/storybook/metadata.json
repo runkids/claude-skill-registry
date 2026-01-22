@@ -7,5 +7,6 @@
     "storybook"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/storybook"
+  "github_path": ".claude/skills/storybook",
+  "github_branch": "main"
 }

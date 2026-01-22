@@ -8,5 +8,6 @@
     "system"
   ],
   "stars": 32,
-  "github_path": ".claude/skills/recommender-system"
+  "github_path": ".claude/skills/recommender-system",
+  "github_branch": "main"
 }

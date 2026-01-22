@@ -10,5 +10,6 @@
   ],
   "stars": 758,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-worktree-skill"
+  "github_path": ".claude/skills/create-worktree-skill",
+  "github_branch": "main"
 }

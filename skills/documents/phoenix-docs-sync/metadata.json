@@ -9,5 +9,6 @@
     "sync"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/phoenix-docs-sync"
+  "github_path": ".claude/skills/phoenix-docs-sync",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "helper"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/usaspending-api-helper"
+  "github_path": ".claude/skills/usaspending-api-helper",
+  "github_branch": "main"
 }

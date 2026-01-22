@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:16:32.529840Z",
   "dir_name": "build-session-context",
   "category": "other",
-  "github_path": ".claude/skills/build-session-context"
+  "github_path": ".claude/skills/build-session-context",
+  "github_branch": "main"
 }

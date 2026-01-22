@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:53:13.812471Z",
   "dir_name": "mermaid-diagrams",
   "category": "other",
-  "github_path": ".claude/skills/mermaid-diagrams"
+  "github_path": ".claude/skills/mermaid-diagrams",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:17.855314Z",
   "dir_name": "codebase-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/codebase-analyzer"
+  "github_path": ".claude/skills/codebase-analyzer",
+  "github_branch": "main"
 }

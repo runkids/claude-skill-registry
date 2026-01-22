@@ -10,5 +10,6 @@
     "status"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/update-parent-issue-status"
+  "github_path": ".claude/skills/update-parent-issue-status",
+  "github_branch": "main"
 }

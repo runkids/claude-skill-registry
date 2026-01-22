@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:12:38.763358Z",
   "dir_name": "task-sorting",
   "category": "other",
-  "github_path": ".claude/skills/task-sorting"
+  "github_path": ".claude/skills/task-sorting",
+  "github_branch": "main"
 }

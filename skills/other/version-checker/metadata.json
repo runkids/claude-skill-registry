@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:08.136154Z",
   "dir_name": "version-checker",
   "category": "other",
-  "github_path": ".claude/skills/version-checker"
+  "github_path": ".claude/skills/version-checker",
+  "github_branch": "main"
 }

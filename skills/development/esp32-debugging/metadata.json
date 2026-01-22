@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/esp32-debugging"
+  "github_path": ".claude/skills/esp32-debugging",
+  "github_branch": "main"
 }

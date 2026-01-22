@@ -8,5 +8,6 @@
     "controls"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/iso27001-controls"
+  "github_path": ".claude/skills/iso27001-controls",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:47.729124Z",
   "dir_name": "browser-use",
   "category": "other",
-  "github_path": ".claude/skills/browser-use"
+  "github_path": ".claude/skills/browser-use",
+  "github_branch": "main"
 }

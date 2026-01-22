@@ -9,5 +9,6 @@
     "creator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/study-notes-creator"
+  "github_path": ".claude/skills/study-notes-creator",
+  "github_branch": "main"
 }

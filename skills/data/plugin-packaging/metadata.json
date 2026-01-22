@@ -9,5 +9,6 @@
   ],
   "stars": 47,
   "dir_name": "plugin-packaging",
-  "github_path": ".claude/skills/plugin-packaging"
+  "github_path": ".claude/skills/plugin-packaging",
+  "github_branch": "main"
 }

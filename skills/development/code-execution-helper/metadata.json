@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/code-execution-helper"
+  "github_path": ".claude/skills/code-execution-helper",
+  "github_branch": "main"
 }

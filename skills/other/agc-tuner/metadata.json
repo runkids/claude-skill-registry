@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:39:36.324041Z",
   "dir_name": "agc-tuner",
   "category": "other",
-  "github_path": ".claude/skills/agc-tuner"
+  "github_path": ".claude/skills/agc-tuner",
+  "github_branch": "main"
 }

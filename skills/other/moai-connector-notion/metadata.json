@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:38.887468Z",
   "dir_name": "moai-connector-notion",
   "category": "other",
-  "github_path": ".claude/skills/moai-connector-notion"
+  "github_path": ".claude/skills/moai-connector-notion",
+  "github_branch": "main"
 }

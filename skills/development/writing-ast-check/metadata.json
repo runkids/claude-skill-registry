@@ -9,5 +9,6 @@
     "check"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/writing-ast-check"
+  "github_path": ".claude/skills/writing-ast-check",
+  "github_branch": "main"
 }

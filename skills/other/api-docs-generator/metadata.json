@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:13.633961Z",
   "dir_name": "api-docs-generator",
   "category": "other",
-  "github_path": ".claude/skills/api-docs-generator"
+  "github_path": ".claude/skills/api-docs-generator",
+  "github_branch": "main"
 }

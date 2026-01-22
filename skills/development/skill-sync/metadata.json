@@ -5,5 +5,6 @@
   "description": "Syncs Claude Skills with other AI coding tools like Cursor, Copilot, and Codeium by creating cross-references and shared knowledge bases. Invoke when user wants to leverage skills across multiple tool",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:43.491113Z",
-  "github_path": ".claude/skills/skill-sync"
+  "github_path": ".claude/skills/skill-sync",
+  "github_branch": "main"
 }

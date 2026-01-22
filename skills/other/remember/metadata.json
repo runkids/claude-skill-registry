@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:24.647596Z",
   "dir_name": "remember",
   "category": "other",
-  "github_path": ".claude/skills/remember"
+  "github_path": ".claude/skills/remember",
+  "github_branch": "main"
 }

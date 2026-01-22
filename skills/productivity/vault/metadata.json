@@ -7,5 +7,6 @@
     "vault"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/vault"
+  "github_path": ".claude/skills/vault",
+  "github_branch": "main"
 }

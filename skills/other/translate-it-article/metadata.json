@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:28.890554Z",
   "dir_name": "translate-it-article",
   "category": "other",
-  "github_path": ".claude/skills/translate-it-article"
+  "github_path": ".claude/skills/translate-it-article",
+  "github_branch": "main"
 }

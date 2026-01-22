@@ -8,5 +8,6 @@
     "autonomous"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/traktor-dj-autonomous"
+  "github_path": ".claude/skills/traktor-dj-autonomous",
+  "github_branch": "main"
 }

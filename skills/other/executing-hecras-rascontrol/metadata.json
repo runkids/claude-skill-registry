@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:06:58.765154Z",
   "dir_name": "executing-hecras-rascontrol",
   "category": "other",
-  "github_path": ".claude/skills/executing-hecras-rascontrol"
+  "github_path": ".claude/skills/executing-hecras-rascontrol",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 313,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/wordpress-org-compliance"
+  "github_path": ".claude/skills/wordpress-org-compliance",
+  "github_branch": "main"
 }

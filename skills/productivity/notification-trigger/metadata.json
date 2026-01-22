@@ -8,5 +8,6 @@
     "trigger"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/notification-trigger"
+  "github_path": ".claude/skills/notification-trigger",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:24.721148Z",
   "dir_name": "plan-lint",
   "category": "other",
-  "github_path": ".claude/skills/plan-lint"
+  "github_path": ".claude/skills/plan-lint",
+  "github_branch": "main"
 }

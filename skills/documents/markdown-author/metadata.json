@@ -8,5 +8,6 @@
     "author"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/markdown-author"
+  "github_path": ".claude/skills/markdown-author",
+  "github_branch": "main"
 }

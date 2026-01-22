@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:38.229349Z",
   "dir_name": "non-disturbance-expert",
   "category": "other",
-  "github_path": ".claude/skills/non-disturbance-expert"
+  "github_path": ".claude/skills/non-disturbance-expert",
+  "github_branch": "main"
 }

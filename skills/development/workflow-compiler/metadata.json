@@ -8,5 +8,6 @@
     "compiler"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/workflow-compiler"
+  "github_path": ".claude/skills/workflow-compiler",
+  "github_branch": "main"
 }

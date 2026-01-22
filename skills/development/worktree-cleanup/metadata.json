@@ -8,5 +8,6 @@
     "cleanup"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/worktree-cleanup"
+  "github_path": ".claude/skills/worktree-cleanup",
+  "github_branch": "main"
 }

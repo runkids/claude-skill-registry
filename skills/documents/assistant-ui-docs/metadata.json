@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/assistant-ui-docs"
+  "github_path": ".claude/skills/assistant-ui-docs",
+  "github_branch": "main"
 }

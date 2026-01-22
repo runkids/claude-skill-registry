@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:04.667390Z",
   "dir_name": "extract-insights",
   "category": "other",
-  "github_path": ".claude/skills/extract-insights"
+  "github_path": ".claude/skills/extract-insights",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/file-categorization"
+  "github_path": ".claude/skills/file-categorization",
+  "github_branch": "main"
 }

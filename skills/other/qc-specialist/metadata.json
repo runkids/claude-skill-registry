@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:20:54.210857Z",
   "dir_name": "qc-specialist",
   "category": "other",
-  "github_path": ".claude/skills/qc-specialist"
+  "github_path": ".claude/skills/qc-specialist",
+  "github_branch": "main"
 }

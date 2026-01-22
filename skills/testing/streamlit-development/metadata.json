@@ -8,5 +8,6 @@
     "development"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/streamlit-development"
+  "github_path": ".claude/skills/streamlit-development",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:10.359081Z",
   "dir_name": "openshift-popeye-analysis",
   "category": "other",
-  "github_path": ".claude/skills/openshift-popeye-analysis"
+  "github_path": ".claude/skills/openshift-popeye-analysis",
+  "github_branch": "main"
 }

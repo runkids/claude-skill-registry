@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:39.898624Z",
   "dir_name": "compliance-testing",
   "category": "other",
-  "github_path": ".claude/skills/compliance-testing"
+  "github_path": ".claude/skills/compliance-testing",
+  "github_branch": "main"
 }

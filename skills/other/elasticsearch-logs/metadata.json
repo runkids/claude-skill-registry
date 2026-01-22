@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:07.795475Z",
   "dir_name": "elasticsearch-logs",
   "category": "other",
-  "github_path": ".claude/skills/elasticsearch-logs"
+  "github_path": ".claude/skills/elasticsearch-logs",
+  "github_branch": "main"
 }

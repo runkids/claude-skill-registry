@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:31.580662Z",
   "dir_name": "example-sentences",
   "category": "other",
-  "github_path": ".claude/skills/example-sentences"
+  "github_path": ".claude/skills/example-sentences",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:16:43.724779Z",
   "dir_name": "write-action",
   "category": "other",
-  "github_path": ".claude/skills/write-action"
+  "github_path": ".claude/skills/write-action",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "service"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wavecap-service"
+  "github_path": ".claude/skills/wavecap-service",
+  "github_branch": "main"
 }

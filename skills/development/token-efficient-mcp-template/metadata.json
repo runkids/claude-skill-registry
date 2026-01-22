@@ -10,5 +10,6 @@
     "template"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/token-efficient-mcp-template"
+  "github_path": ".claude/skills/token-efficient-mcp-template",
+  "github_branch": "main"
 }

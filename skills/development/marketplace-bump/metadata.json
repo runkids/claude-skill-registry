@@ -8,5 +8,6 @@
     "bump"
   ],
   "stars": 31,
-  "github_path": ".claude/skills/marketplace-bump"
+  "github_path": ".claude/skills/marketplace-bump",
+  "github_branch": "main"
 }

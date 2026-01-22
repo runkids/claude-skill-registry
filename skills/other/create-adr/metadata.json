@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:56.801720Z",
   "dir_name": "create-adr",
   "category": "other",
-  "github_path": ".claude/skills/create-adr"
+  "github_path": ".claude/skills/create-adr",
+  "github_branch": "main"
 }

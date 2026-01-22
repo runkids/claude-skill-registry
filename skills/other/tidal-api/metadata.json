@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:00:15.466734Z",
   "dir_name": "tidal-api",
   "category": "other",
-  "github_path": ".claude/skills/tidal-api"
+  "github_path": ".claude/skills/tidal-api",
+  "github_branch": "main"
 }

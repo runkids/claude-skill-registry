@@ -9,5 +9,6 @@
     "rollout"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/sdd-artifact-rollout"
+  "github_path": ".claude/skills/sdd-artifact-rollout",
+  "github_branch": "main"
 }

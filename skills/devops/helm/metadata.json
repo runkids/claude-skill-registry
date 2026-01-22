@@ -7,5 +7,6 @@
     "helm"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/helm"
+  "github_path": ".claude/skills/helm",
+  "github_branch": "main"
 }

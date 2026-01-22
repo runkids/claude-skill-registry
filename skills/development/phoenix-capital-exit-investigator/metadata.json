@@ -10,5 +10,6 @@
     "investigator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/phoenix-capital-exit-investigator"
+  "github_path": ".claude/skills/phoenix-capital-exit-investigator",
+  "github_branch": "main"
 }

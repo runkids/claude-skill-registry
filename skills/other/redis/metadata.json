@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:19.759335Z",
   "dir_name": "redis",
   "category": "other",
-  "github_path": ".claude/skills/redis"
+  "github_path": ".claude/skills/redis",
+  "github_branch": "main"
 }

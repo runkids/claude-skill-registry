@@ -8,5 +8,6 @@
     "expert"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/terminal-expert"
+  "github_path": ".claude/skills/terminal-expert",
+  "github_branch": "main"
 }

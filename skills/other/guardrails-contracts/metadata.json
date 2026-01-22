@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:31:51.161104Z",
   "dir_name": "guardrails-contracts",
   "category": "other",
-  "github_path": ".claude/skills/guardrails-contracts"
+  "github_path": ".claude/skills/guardrails-contracts",
+  "github_branch": "main"
 }

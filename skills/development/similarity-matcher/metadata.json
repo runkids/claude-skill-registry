@@ -5,5 +5,6 @@
   "description": "조사지역 주변 유사 유적 매칭 및 비교 분석",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:40.565412Z",
-  "github_path": ".claude/skills/similarity-matcher"
+  "github_path": ".claude/skills/similarity-matcher",
+  "github_branch": "main"
 }

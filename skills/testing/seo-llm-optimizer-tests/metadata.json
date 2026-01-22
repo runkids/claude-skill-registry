@@ -10,5 +10,6 @@
     "tests"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/seo-llm-optimizer-tests"
+  "github_path": ".claude/skills/seo-llm-optimizer-tests",
+  "github_branch": "main"
 }

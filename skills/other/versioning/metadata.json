@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:12.607199Z",
   "dir_name": "versioning",
   "category": "other",
-  "github_path": ".claude/skills/versioning"
+  "github_path": ".claude/skills/versioning",
+  "github_branch": "main"
 }

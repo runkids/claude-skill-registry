@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:47.966312Z",
   "dir_name": "condition-based-waiting",
   "category": "other",
-  "github_path": ".claude/skills/condition-based-waiting"
+  "github_path": ".claude/skills/condition-based-waiting",
+  "github_branch": "main"
 }

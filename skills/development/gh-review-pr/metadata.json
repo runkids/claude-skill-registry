@@ -7,5 +7,6 @@
     "review"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/gh-review-pr"
+  "github_path": ".claude/skills/gh-review-pr",
+  "github_branch": "main"
 }

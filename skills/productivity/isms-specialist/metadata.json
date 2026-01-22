@@ -8,5 +8,6 @@
     "specialist"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/isms-specialist"
+  "github_path": ".claude/skills/isms-specialist",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   ],
   "stars": 25,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-custom-dagster-component"
+  "github_path": ".claude/skills/create-custom-dagster-component",
+  "github_branch": "main"
 }

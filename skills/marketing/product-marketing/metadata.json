@@ -8,5 +8,6 @@
     "marketing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/product-marketing"
+  "github_path": ".claude/skills/product-marketing",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:22.865258Z",
   "dir_name": "workflow-enforcement",
   "category": "other",
-  "github_path": ".claude/skills/workflow-enforcement"
+  "github_path": ".claude/skills/workflow-enforcement",
+  "github_branch": "main"
 }

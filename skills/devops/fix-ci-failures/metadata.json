@@ -9,5 +9,6 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/fix-ci-failures"
+  "github_path": ".claude/skills/fix-ci-failures",
+  "github_branch": "main"
 }

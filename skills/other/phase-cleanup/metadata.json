@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:14.257584Z",
   "dir_name": "phase-cleanup",
   "category": "other",
-  "github_path": ".claude/skills/phase-cleanup"
+  "github_path": ".claude/skills/phase-cleanup",
+  "github_branch": "main"
 }

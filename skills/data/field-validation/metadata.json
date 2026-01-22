@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "field-validation",
-  "github_path": ".claude/skills/field-validation"
+  "github_path": ".claude/skills/field-validation",
+  "github_branch": "main"
 }

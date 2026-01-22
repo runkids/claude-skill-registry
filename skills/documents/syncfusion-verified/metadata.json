@@ -8,5 +8,6 @@
     "verified"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/syncfusion-verified"
+  "github_path": ".claude/skills/syncfusion-verified",
+  "github_branch": "main"
 }

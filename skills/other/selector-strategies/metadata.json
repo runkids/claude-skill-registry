@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:08.152275Z",
   "dir_name": "selector-strategies",
   "category": "other",
-  "github_path": ".claude/skills/selector-strategies"
+  "github_path": ".claude/skills/selector-strategies",
+  "github_branch": "main"
 }

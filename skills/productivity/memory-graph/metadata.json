@@ -8,5 +8,6 @@
     "graph"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/memory-graph"
+  "github_path": ".claude/skills/memory-graph",
+  "github_branch": "main"
 }

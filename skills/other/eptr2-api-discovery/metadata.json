@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:40:00.361644Z",
   "dir_name": "eptr2-api-discovery",
   "category": "other",
-  "github_path": ".claude/skills/eptr2-api-discovery"
+  "github_path": ".claude/skills/eptr2-api-discovery",
+  "github_branch": "main"
 }

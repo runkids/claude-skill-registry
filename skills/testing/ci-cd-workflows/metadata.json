@@ -8,5 +8,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ci-cd-workflows"
+  "github_path": ".claude/skills/ci-cd-workflows",
+  "github_branch": "main"
 }

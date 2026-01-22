@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:10:03.408681Z",
   "dir_name": "reporter",
   "category": "other",
-  "github_path": ".claude/skills/reporter"
+  "github_path": ".claude/skills/reporter",
+  "github_branch": "main"
 }

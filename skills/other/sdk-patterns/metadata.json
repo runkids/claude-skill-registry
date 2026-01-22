@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:31:49.434604Z",
   "dir_name": "sdk-patterns",
   "category": "other",
-  "github_path": ".claude/skills/sdk-patterns"
+  "github_path": ".claude/skills/sdk-patterns",
+  "github_branch": "main"
 }

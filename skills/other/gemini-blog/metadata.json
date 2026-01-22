@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:55.144929Z",
   "dir_name": "gemini-blog",
   "category": "other",
-  "github_path": ".claude/skills/gemini-blog"
+  "github_path": ".claude/skills/gemini-blog",
+  "github_branch": "main"
 }

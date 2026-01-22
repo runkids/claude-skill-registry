@@ -8,5 +8,6 @@
     "documentation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/work-documentation"
+  "github_path": ".claude/skills/work-documentation",
+  "github_branch": "main"
 }

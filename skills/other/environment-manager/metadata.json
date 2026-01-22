@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:13.795091Z",
   "dir_name": "environment-manager",
   "category": "other",
-  "github_path": ".claude/skills/environment-manager"
+  "github_path": ".claude/skills/environment-manager",
+  "github_branch": "main"
 }

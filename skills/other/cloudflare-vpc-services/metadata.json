@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:21.156863Z",
   "dir_name": "cloudflare-vpc-services",
   "category": "other",
-  "github_path": ".claude/skills/cloudflare-vpc-services"
+  "github_path": ".claude/skills/cloudflare-vpc-services",
+  "github_branch": "main"
 }

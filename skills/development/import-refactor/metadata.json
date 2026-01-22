@@ -8,5 +8,6 @@
     "refactor"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/import-refactor"
+  "github_path": ".claude/skills/import-refactor",
+  "github_branch": "main"
 }

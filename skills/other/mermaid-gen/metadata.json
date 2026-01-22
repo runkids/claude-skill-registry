@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:44.498657Z",
   "dir_name": "mermaid-gen",
   "category": "other",
-  "github_path": ".claude/skills/mermaid-gen"
+  "github_path": ".claude/skills/mermaid-gen",
+  "github_branch": "main"
 }

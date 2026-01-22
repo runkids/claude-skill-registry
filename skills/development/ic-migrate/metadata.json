@@ -7,5 +7,6 @@
     "migrate"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ic-migrate"
+  "github_path": ".claude/skills/ic-migrate",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:12.162758Z",
   "dir_name": "project-docs-sync",
   "category": "other",
-  "github_path": ".claude/skills/project-docs-sync"
+  "github_path": ".claude/skills/project-docs-sync",
+  "github_branch": "main"
 }

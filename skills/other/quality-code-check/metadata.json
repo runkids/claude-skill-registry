@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:20:30.908422Z",
   "dir_name": "quality-code-check",
   "category": "other",
-  "github_path": ".claude/skills/quality-code-check"
+  "github_path": ".claude/skills/quality-code-check",
+  "github_branch": "main"
 }

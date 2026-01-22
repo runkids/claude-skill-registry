@@ -8,5 +8,6 @@
     "decoder"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-decoder"
+  "github_path": ".claude/skills/mechinterp-decoder",
+  "github_branch": "main"
 }

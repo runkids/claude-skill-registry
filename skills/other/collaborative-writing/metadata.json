@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:07:54.853391Z",
   "dir_name": "collaborative-writing",
   "category": "other",
-  "github_path": ".claude/skills/collaborative-writing"
+  "github_path": ".claude/skills/collaborative-writing",
+  "github_branch": "main"
 }

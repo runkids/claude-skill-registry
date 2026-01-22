@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:42:19.696587Z",
   "dir_name": "supabase-ops",
   "category": "other",
-  "github_path": ".claude/skills/supabase-ops"
+  "github_path": ".claude/skills/supabase-ops",
+  "github_branch": "main"
 }

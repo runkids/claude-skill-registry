@@ -9,5 +9,6 @@
     "debugger"
   ],
   "stars": 17,
-  "github_path": ".claude/skills/tweakpane-visual-debugger"
+  "github_path": ".claude/skills/tweakpane-visual-debugger",
+  "github_branch": "main"
 }

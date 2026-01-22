@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:35:21.929171Z",
   "dir_name": "aurora-tools-scripts",
   "category": "other",
-  "github_path": ".claude/skills/aurora-tools-scripts"
+  "github_path": ".claude/skills/aurora-tools-scripts",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "troubleshoot"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/troubleshoot"
+  "github_path": ".claude/skills/troubleshoot",
+  "github_branch": "main"
 }

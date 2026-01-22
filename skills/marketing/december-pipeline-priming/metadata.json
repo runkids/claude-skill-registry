@@ -5,5 +5,6 @@
   "description": "Strategic pipeline priming campaign for Q1 2026. Uses 38 Questions framework as thought leadership content and cold outreach hooks. Generates LinkedIn posts, Brand Scout-informed emails, and January f",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:24:51.655567Z",
-  "github_path": ".claude/skills/december-pipeline-priming"
+  "github_path": ".claude/skills/december-pipeline-priming",
+  "github_branch": "main"
 }

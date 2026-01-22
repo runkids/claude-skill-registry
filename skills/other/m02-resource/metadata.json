@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:45.291938Z",
   "dir_name": "m02-resource",
   "category": "other",
-  "github_path": ".claude/skills/m02-resource"
+  "github_path": ".claude/skills/m02-resource",
+  "github_branch": "main"
 }

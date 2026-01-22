@@ -8,5 +8,6 @@
     "integration"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gemini-ai-integration"
+  "github_path": ".claude/skills/gemini-ai-integration",
+  "github_branch": "main"
 }

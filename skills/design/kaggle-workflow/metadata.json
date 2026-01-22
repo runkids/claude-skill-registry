@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/kaggle-workflow"
+  "github_path": ".claude/skills/kaggle-workflow",
+  "github_branch": "main"
 }

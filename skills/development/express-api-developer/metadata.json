@@ -10,5 +10,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/express-api-developer"
+  "github_path": ".claude/skills/express-api-developer",
+  "github_branch": "main"
 }

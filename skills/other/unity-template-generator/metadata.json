@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:28.461673Z",
   "dir_name": "unity-template-generator",
   "category": "other",
-  "github_path": ".claude/skills/unity-template-generator"
+  "github_path": ".claude/skills/unity-template-generator",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "consensus"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pal-consensus"
+  "github_path": ".claude/skills/pal-consensus",
+  "github_branch": "main"
 }

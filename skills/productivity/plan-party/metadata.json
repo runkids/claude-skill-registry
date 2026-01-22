@@ -8,5 +8,6 @@
     "party"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/plan-party"
+  "github_path": ".claude/skills/plan-party",
+  "github_branch": "main"
 }

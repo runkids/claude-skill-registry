@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:34:30.110606Z",
   "dir_name": "esp-idf-setup",
   "category": "other",
-  "github_path": ".claude/skills/esp-idf-setup"
+  "github_path": ".claude/skills/esp-idf-setup",
+  "github_branch": "main"
 }

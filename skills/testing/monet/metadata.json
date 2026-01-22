@@ -7,5 +7,6 @@
     "monet"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/monet"
+  "github_path": ".claude/skills/monet",
+  "github_branch": "main"
 }

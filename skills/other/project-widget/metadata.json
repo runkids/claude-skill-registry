@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:01:52.642120Z",
   "dir_name": "project-widget",
   "category": "other",
-  "github_path": ".claude/skills/project-widget"
+  "github_path": ".claude/skills/project-widget",
+  "github_branch": "main"
 }

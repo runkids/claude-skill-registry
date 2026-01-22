@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:42.793557Z",
   "dir_name": "goal-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/goal-analyzer"
+  "github_path": ".claude/skills/goal-analyzer",
+  "github_branch": "main"
 }

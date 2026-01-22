@@ -8,5 +8,6 @@
     "deepwiki"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/mcp-deepwiki"
+  "github_path": ".claude/skills/mcp-deepwiki",
+  "github_branch": "main"
 }

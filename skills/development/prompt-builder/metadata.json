@@ -8,5 +8,6 @@
     "builder"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/prompt-builder"
+  "github_path": ".claude/skills/prompt-builder",
+  "github_branch": "main"
 }

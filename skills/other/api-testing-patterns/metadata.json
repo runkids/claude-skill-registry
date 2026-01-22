@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:39.330527Z",
   "dir_name": "api-testing-patterns",
   "category": "other",
-  "github_path": ".claude/skills/api-testing-patterns"
+  "github_path": ".claude/skills/api-testing-patterns",
+  "github_branch": "main"
 }

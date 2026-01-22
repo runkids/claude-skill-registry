@@ -9,5 +9,6 @@
     "nextra"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-library-nextra"
+  "github_path": ".claude/skills/moai-library-nextra",
+  "github_branch": "main"
 }

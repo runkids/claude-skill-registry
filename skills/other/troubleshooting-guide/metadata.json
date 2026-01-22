@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:05.039975Z",
   "dir_name": "troubleshooting-guide",
   "category": "other",
-  "github_path": ".claude/skills/troubleshooting-guide"
+  "github_path": ".claude/skills/troubleshooting-guide",
+  "github_branch": "main"
 }

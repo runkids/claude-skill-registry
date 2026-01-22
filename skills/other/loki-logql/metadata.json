@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:31.063188Z",
   "dir_name": "loki-logql",
   "category": "other",
-  "github_path": ".claude/skills/loki-logql"
+  "github_path": ".claude/skills/loki-logql",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "development"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/mcp-server-development"
+  "github_path": ".claude/skills/mcp-server-development",
+  "github_branch": "main"
 }

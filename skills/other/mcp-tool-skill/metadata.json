@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:58:33.106696Z",
   "dir_name": "mcp-tool-skill",
   "category": "other",
-  "github_path": ".claude/skills/mcp-tool-skill"
+  "github_path": ".claude/skills/mcp-tool-skill",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:43.644411Z",
   "dir_name": "health-trend-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/health-trend-analyzer"
+  "github_path": ".claude/skills/health-trend-analyzer",
+  "github_branch": "main"
 }

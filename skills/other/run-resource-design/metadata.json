@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:31:50.229226Z",
   "dir_name": "run-resource-design",
   "category": "other",
-  "github_path": ".claude/skills/run-resource-design"
+  "github_path": ".claude/skills/run-resource-design",
+  "github_branch": "main"
 }

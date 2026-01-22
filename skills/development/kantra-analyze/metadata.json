@@ -8,5 +8,6 @@
     "analyze"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/kantra-analyze"
+  "github_path": ".claude/skills/kantra-analyze",
+  "github_branch": "main"
 }

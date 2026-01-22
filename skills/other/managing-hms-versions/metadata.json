@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:09.141485Z",
   "dir_name": "managing-hms-versions",
   "category": "other",
-  "github_path": ".claude/skills/managing-hms-versions"
+  "github_path": ".claude/skills/managing-hms-versions",
+  "github_branch": "main"
 }

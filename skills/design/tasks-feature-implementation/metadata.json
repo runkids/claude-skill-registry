@@ -9,5 +9,6 @@
     "implementation"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/tasks-feature-implementation"
+  "github_path": ".claude/skills/tasks-feature-implementation",
+  "github_branch": "main"
 }

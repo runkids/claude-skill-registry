@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:57.758689Z",
   "dir_name": "risk-profile",
   "category": "other",
-  "github_path": ".claude/skills/risk-profile"
+  "github_path": ".claude/skills/risk-profile",
+  "github_branch": "main"
 }

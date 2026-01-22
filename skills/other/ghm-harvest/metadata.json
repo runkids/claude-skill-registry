@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:05.800326Z",
   "dir_name": "ghm-harvest",
   "category": "other",
-  "github_path": ".claude/skills/ghm-harvest"
+  "github_path": ".claude/skills/ghm-harvest",
+  "github_branch": "main"
 }

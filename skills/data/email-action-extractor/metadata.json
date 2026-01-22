@@ -11,5 +11,6 @@
   "stars": 193,
   "source": "SkillsMP Synced Skills",
   "dir_name": "email-action-extractor",
-  "github_path": ".claude/skills/email-action-extractor"
+  "github_path": ".claude/skills/email-action-extractor",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:44.122032Z",
   "dir_name": "topic-manager",
   "category": "other",
-  "github_path": ".claude/skills/topic-manager"
+  "github_path": ".claude/skills/topic-manager",
+  "github_branch": "main"
 }

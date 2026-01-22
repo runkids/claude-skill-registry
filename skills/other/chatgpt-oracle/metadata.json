@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:00:43.426748Z",
   "dir_name": "chatgpt-oracle",
   "category": "other",
-  "github_path": ".claude/skills/chatgpt-oracle"
+  "github_path": ".claude/skills/chatgpt-oracle",
+  "github_branch": "main"
 }

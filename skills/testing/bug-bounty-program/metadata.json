@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bug-bounty-program"
+  "github_path": ".claude/skills/bug-bounty-program",
+  "github_branch": "main"
 }

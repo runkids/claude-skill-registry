@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:35:22.151074Z",
   "dir_name": "commit-pr",
   "category": "other",
-  "github_path": ".claude/skills/commit-pr"
+  "github_path": ".claude/skills/commit-pr",
+  "github_branch": "main"
 }

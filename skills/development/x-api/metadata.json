@@ -7,5 +7,6 @@
     "api"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/x-api"
+  "github_path": ".claude/skills/x-api",
+  "github_branch": "main"
 }

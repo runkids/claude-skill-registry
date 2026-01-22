@@ -5,5 +5,6 @@
   "description": "Analyzes code diffs to identify affected endpoints and prioritize regression testing. Focuses QA effort on changed areas.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:29.379871Z",
-  "github_path": ".claude/skills/qa-regression-scanner"
+  "github_path": ".claude/skills/qa-regression-scanner",
+  "github_branch": "main"
 }

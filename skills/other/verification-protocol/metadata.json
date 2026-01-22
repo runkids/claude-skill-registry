@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:27:32.548985Z",
   "dir_name": "verification-protocol",
   "category": "other",
-  "github_path": ".claude/skills/verification-protocol"
+  "github_path": ".claude/skills/verification-protocol",
+  "github_branch": "main"
 }

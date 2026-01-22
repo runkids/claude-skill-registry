@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:28:07.035137Z",
   "dir_name": "email-sequence",
   "category": "other",
-  "github_path": ".claude/skills/email-sequence"
+  "github_path": ".claude/skills/email-sequence",
+  "github_branch": "main"
 }

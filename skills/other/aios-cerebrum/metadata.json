@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:18.428859Z",
   "dir_name": "aios-cerebrum",
   "category": "other",
-  "github_path": ".claude/skills/aios-cerebrum"
+  "github_path": ".claude/skills/aios-cerebrum",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "translator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/partitaiva-style-translator"
+  "github_path": ".claude/skills/partitaiva-style-translator",
+  "github_branch": "main"
 }

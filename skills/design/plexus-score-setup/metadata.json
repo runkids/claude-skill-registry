@@ -9,5 +9,6 @@
     "setup"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/plexus-score-setup"
+  "github_path": ".claude/skills/plexus-score-setup",
+  "github_branch": "main"
 }

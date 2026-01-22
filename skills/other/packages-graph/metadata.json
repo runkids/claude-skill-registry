@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:02:55.669358Z",
   "dir_name": "packages-graph",
   "category": "other",
-  "github_path": ".claude/skills/packages-graph"
+  "github_path": ".claude/skills/packages-graph",
+  "github_branch": "main"
 }

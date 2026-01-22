@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:02.831626Z",
   "dir_name": "refactor-risk-assess",
   "category": "other",
-  "github_path": ".claude/skills/refactor-risk-assess"
+  "github_path": ".claude/skills/refactor-risk-assess",
+  "github_branch": "main"
 }

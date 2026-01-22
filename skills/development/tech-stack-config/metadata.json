@@ -9,5 +9,6 @@
     "config"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tech-stack-config"
+  "github_path": ".claude/skills/tech-stack-config",
+  "github_branch": "main"
 }

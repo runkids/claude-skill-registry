@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:52.737152Z",
   "dir_name": "obsidian-vault",
   "category": "other",
-  "github_path": ".claude/skills/obsidian-vault"
+  "github_path": ".claude/skills/obsidian-vault",
+  "github_branch": "main"
 }

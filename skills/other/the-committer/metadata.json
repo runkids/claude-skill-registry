@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:55:16.909279Z",
   "dir_name": "the-committer",
   "category": "other",
-  "github_path": ".claude/skills/the-committer"
+  "github_path": ".claude/skills/the-committer",
+  "github_branch": "main"
 }

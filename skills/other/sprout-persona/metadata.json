@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:56:20.868175Z",
   "dir_name": "sprout-persona",
   "category": "other",
-  "github_path": ".claude/skills/sprout-persona"
+  "github_path": ".claude/skills/sprout-persona",
+  "github_branch": "main"
 }

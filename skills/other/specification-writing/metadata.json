@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:23:11.269380Z",
   "dir_name": "specification-writing",
   "category": "other",
-  "github_path": ".claude/skills/specification-writing"
+  "github_path": ".claude/skills/specification-writing",
+  "github_branch": "main"
 }

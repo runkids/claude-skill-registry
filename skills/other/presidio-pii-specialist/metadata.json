@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:11.231818Z",
   "dir_name": "presidio-pii-specialist",
   "category": "other",
-  "github_path": ".claude/skills/presidio-pii-specialist"
+  "github_path": ".claude/skills/presidio-pii-specialist",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:34.420017Z",
   "dir_name": "frontend-design-optimizer",
   "category": "other",
-  "github_path": ".claude/skills/frontend-design-optimizer"
+  "github_path": ".claude/skills/frontend-design-optimizer",
+  "github_branch": "main"
 }

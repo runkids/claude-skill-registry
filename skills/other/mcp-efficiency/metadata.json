@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:52.359471Z",
   "dir_name": "mcp-efficiency",
   "category": "other",
-  "github_path": ".claude/skills/mcp-efficiency"
+  "github_path": ".claude/skills/mcp-efficiency",
+  "github_branch": "main"
 }

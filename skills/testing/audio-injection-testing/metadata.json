@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/audio-injection-testing"
+  "github_path": ".claude/skills/audio-injection-testing",
+  "github_branch": "main"
 }

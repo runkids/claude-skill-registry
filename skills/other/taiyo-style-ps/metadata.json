@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:56.622193Z",
   "dir_name": "taiyo-style-ps",
   "category": "other",
-  "github_path": ".claude/skills/taiyo-style-ps"
+  "github_path": ".claude/skills/taiyo-style-ps",
+  "github_branch": "main"
 }

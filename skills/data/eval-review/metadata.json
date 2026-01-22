@@ -10,5 +10,6 @@
   "stars": 1,
   "source": "SkillsMP Synced Skills",
   "dir_name": "eval-review",
-  "github_path": ".claude/skills/eval-review"
+  "github_path": ".claude/skills/eval-review",
+  "github_branch": "main"
 }

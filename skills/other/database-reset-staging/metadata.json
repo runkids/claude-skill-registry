@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:23.435946Z",
   "dir_name": "database-reset-staging",
   "category": "other",
-  "github_path": ".claude/skills/database-reset-staging"
+  "github_path": ".claude/skills/database-reset-staging",
+  "github_branch": "main"
 }

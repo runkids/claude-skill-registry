@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:29:57.916469Z",
   "dir_name": "json-schema",
   "category": "other",
-  "github_path": ".claude/skills/json-schema"
+  "github_path": ".claude/skills/json-schema",
+  "github_branch": "main"
 }

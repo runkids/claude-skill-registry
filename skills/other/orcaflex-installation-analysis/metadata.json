@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:25:21.005994Z",
   "dir_name": "orcaflex-installation-analysis",
   "category": "other",
-  "github_path": ".claude/skills/orcaflex-installation-analysis"
+  "github_path": ".claude/skills/orcaflex-installation-analysis",
+  "github_branch": "main"
 }

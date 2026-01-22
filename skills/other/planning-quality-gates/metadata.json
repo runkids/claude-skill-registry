@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:52:52.633273Z",
   "dir_name": "planning-quality-gates",
   "category": "other",
-  "github_path": ".claude/skills/planning-quality-gates"
+  "github_path": ".claude/skills/planning-quality-gates",
+  "github_branch": "main"
 }

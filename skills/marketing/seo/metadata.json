@@ -7,5 +7,6 @@
     "seo"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/seo"
+  "github_path": ".claude/skills/seo",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:26.489081Z",
   "dir_name": "cognitive-variability",
   "category": "other",
-  "github_path": ".claude/skills/cognitive-variability"
+  "github_path": ".claude/skills/cognitive-variability",
+  "github_branch": "main"
 }

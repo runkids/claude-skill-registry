@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:15.221120Z",
   "dir_name": "writing-style",
   "category": "other",
-  "github_path": ".claude/skills/writing-style"
+  "github_path": ".claude/skills/writing-style",
+  "github_branch": "main"
 }

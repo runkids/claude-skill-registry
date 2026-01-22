@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:57:43.379121Z",
   "dir_name": "beautiful-code",
   "category": "other",
-  "github_path": ".claude/skills/beautiful-code"
+  "github_path": ".claude/skills/beautiful-code",
+  "github_branch": "main"
 }

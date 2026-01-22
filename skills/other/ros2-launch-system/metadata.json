@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:31:25.313247Z",
   "dir_name": "ros2-launch-system",
   "category": "other",
-  "github_path": ".claude/skills/ros2-launch-system"
+  "github_path": ".claude/skills/ros2-launch-system",
+  "github_branch": "main"
 }

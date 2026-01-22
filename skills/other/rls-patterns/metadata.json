@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:11:03.344805Z",
   "dir_name": "rls-patterns",
   "category": "other",
-  "github_path": ".claude/skills/rls-patterns"
+  "github_path": ".claude/skills/rls-patterns",
+  "github_branch": "main"
 }

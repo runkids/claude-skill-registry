@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:00.202523Z",
   "dir_name": "naming-rules",
   "category": "other",
-  "github_path": ".claude/skills/naming-rules"
+  "github_path": ".claude/skills/naming-rules",
+  "github_branch": "main"
 }

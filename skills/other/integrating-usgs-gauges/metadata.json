@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:06:59.461085Z",
   "dir_name": "integrating-usgs-gauges",
   "category": "other",
-  "github_path": ".claude/skills/integrating-usgs-gauges"
+  "github_path": ".claude/skills/integrating-usgs-gauges",
+  "github_branch": "main"
 }

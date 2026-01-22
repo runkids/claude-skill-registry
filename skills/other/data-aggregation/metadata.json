@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:32.005300Z",
   "dir_name": "data-aggregation",
   "category": "other",
-  "github_path": ".claude/skills/data-aggregation"
+  "github_path": ".claude/skills/data-aggregation",
+  "github_branch": "main"
 }

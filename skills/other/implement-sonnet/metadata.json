@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:11:00.074995Z",
   "dir_name": "implement-sonnet",
   "category": "other",
-  "github_path": ".claude/skills/implement-sonnet"
+  "github_path": ".claude/skills/implement-sonnet",
+  "github_branch": "main"
 }

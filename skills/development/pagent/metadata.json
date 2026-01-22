@@ -7,5 +7,6 @@
     "pagent"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pagent"
+  "github_path": ".claude/skills/pagent",
+  "github_branch": "main"
 }

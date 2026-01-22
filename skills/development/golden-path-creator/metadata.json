@@ -9,5 +9,6 @@
     "creator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/golden-path-creator"
+  "github_path": ".claude/skills/golden-path-creator",
+  "github_branch": "main"
 }

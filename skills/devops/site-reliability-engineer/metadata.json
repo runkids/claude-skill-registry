@@ -9,5 +9,6 @@
     "engineer"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/site-reliability-engineer"
+  "github_path": ".claude/skills/site-reliability-engineer",
+  "github_branch": "main"
 }

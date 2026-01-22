@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:32:52.122249Z",
   "dir_name": "uloop-hello-world",
   "category": "other",
-  "github_path": ".claude/skills/uloop-hello-world"
+  "github_path": ".claude/skills/uloop-hello-world",
+  "github_branch": "main"
 }

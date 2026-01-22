@@ -8,5 +8,6 @@
     "migrate"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-migrate"
+  "github_path": ".claude/skills/project-migrate",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:21.314370Z",
   "dir_name": "frontend-components",
   "category": "other",
-  "github_path": ".claude/skills/frontend-components"
+  "github_path": ".claude/skills/frontend-components",
+  "github_branch": "main"
 }

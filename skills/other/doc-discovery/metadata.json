@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:25.174756Z",
   "dir_name": "doc-discovery",
   "category": "other",
-  "github_path": ".claude/skills/doc-discovery"
+  "github_path": ".claude/skills/doc-discovery",
+  "github_branch": "main"
 }

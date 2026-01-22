@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:56.873345Z",
   "dir_name": "math-unified",
   "category": "other",
-  "github_path": ".claude/skills/math-unified"
+  "github_path": ".claude/skills/math-unified",
+  "github_branch": "main"
 }

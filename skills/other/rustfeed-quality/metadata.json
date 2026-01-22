@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:35.280588Z",
   "dir_name": "rustfeed-quality",
   "category": "other",
-  "github_path": ".claude/skills/rustfeed-quality"
+  "github_path": ".claude/skills/rustfeed-quality",
+  "github_branch": "main"
 }

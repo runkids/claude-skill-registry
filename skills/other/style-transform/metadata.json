@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:52:21.890452Z",
   "dir_name": "style-transform",
   "category": "other",
-  "github_path": ".claude/skills/style-transform"
+  "github_path": ".claude/skills/style-transform",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 27580,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/run-nx-generator"
+  "github_path": ".claude/skills/run-nx-generator",
+  "github_branch": "master"
 }

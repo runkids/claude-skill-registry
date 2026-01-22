@@ -8,5 +8,6 @@
     "codereview"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pal-codereview"
+  "github_path": ".claude/skills/pal-codereview",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "underwriter"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/run-underwriter"
+  "github_path": ".claude/skills/run-underwriter",
+  "github_branch": "main"
 }

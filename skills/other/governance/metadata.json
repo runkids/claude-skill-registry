@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:52.900298Z",
   "dir_name": "governance",
   "category": "other",
-  "github_path": ".claude/skills/governance"
+  "github_path": ".claude/skills/governance",
+  "github_branch": "main"
 }

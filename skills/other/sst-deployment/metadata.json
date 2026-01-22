@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:56.653447Z",
   "dir_name": "sst-deployment",
   "category": "other",
-  "github_path": ".claude/skills/sst-deployment"
+  "github_path": ".claude/skills/sst-deployment",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:18.301951Z",
   "dir_name": "jira-branch",
   "category": "other",
-  "github_path": ".claude/skills/jira-branch"
+  "github_path": ".claude/skills/jira-branch",
+  "github_branch": "main"
 }

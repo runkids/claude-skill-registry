@@ -7,5 +7,6 @@
     "ranking"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ranking"
+  "github_path": ".claude/skills/ranking",
+  "github_branch": "main"
 }

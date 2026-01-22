@@ -9,5 +9,6 @@
     "prep"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mac-appstore-prep"
+  "github_path": ".claude/skills/mac-appstore-prep",
+  "github_branch": "main"
 }

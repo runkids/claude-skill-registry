@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:51:31.817527Z",
   "dir_name": "verify-training-pipeline",
   "category": "other",
-  "github_path": ".claude/skills/verify-training-pipeline"
+  "github_path": ".claude/skills/verify-training-pipeline",
+  "github_branch": "main"
 }

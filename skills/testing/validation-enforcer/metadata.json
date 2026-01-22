@@ -8,5 +8,6 @@
     "enforcer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/validation-enforcer"
+  "github_path": ".claude/skills/validation-enforcer",
+  "github_branch": "main"
 }

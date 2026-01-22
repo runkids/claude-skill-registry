@@ -9,5 +9,6 @@
   ],
   "stars": 12,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/deps-minor"
+  "github_path": ".claude/skills/deps-minor",
+  "github_branch": "main"
 }

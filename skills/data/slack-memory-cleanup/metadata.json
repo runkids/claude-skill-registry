@@ -11,5 +11,6 @@
   "stars": 193,
   "source": "SkillsMP Synced Skills",
   "dir_name": "slack-memory-cleanup",
-  "github_path": ".claude/skills/slack-memory-cleanup"
+  "github_path": ".claude/skills/slack-memory-cleanup",
+  "github_branch": "main"
 }

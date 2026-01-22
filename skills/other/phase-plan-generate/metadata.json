@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:12.107916Z",
   "dir_name": "phase-plan-generate",
   "category": "other",
-  "github_path": ".claude/skills/phase-plan-generate"
+  "github_path": ".claude/skills/phase-plan-generate",
+  "github_branch": "main"
 }

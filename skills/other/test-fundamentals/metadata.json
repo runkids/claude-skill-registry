@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:59.573412Z",
   "dir_name": "test-fundamentals",
   "category": "other",
-  "github_path": ".claude/skills/test-fundamentals"
+  "github_path": ".claude/skills/test-fundamentals",
+  "github_branch": "main"
 }

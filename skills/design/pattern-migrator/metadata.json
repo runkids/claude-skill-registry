@@ -8,5 +8,6 @@
     "migrator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pattern-migrator"
+  "github_path": ".claude/skills/pattern-migrator",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "enhancer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/image-enhancer"
+  "github_path": ".claude/skills/image-enhancer",
+  "github_branch": "main"
 }

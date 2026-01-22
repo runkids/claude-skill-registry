@@ -9,5 +9,6 @@
     "code"
   ],
   "stars": 41,
-  "github_path": ".claude/skills/writing-test-code"
+  "github_path": ".claude/skills/writing-test-code",
+  "github_branch": "main"
 }

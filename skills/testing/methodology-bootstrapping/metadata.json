@@ -8,5 +8,6 @@
     "bootstrapping"
   ],
   "stars": 15,
-  "github_path": ".claude/skills/methodology-bootstrapping"
+  "github_path": ".claude/skills/methodology-bootstrapping",
+  "github_branch": "main"
 }

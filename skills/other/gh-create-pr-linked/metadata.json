@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:10.468372Z",
   "dir_name": "gh-create-pr-linked",
   "category": "other",
-  "github_path": ".claude/skills/gh-create-pr-linked"
+  "github_path": ".claude/skills/gh-create-pr-linked",
+  "github_branch": "main"
 }

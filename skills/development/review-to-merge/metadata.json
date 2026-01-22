@@ -8,5 +8,6 @@
     "merge"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/review-to-merge"
+  "github_path": ".claude/skills/review-to-merge",
+  "github_branch": "main"
 }

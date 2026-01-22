@@ -7,5 +7,6 @@
     "smolagents"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/smolagents"
+  "github_path": ".claude/skills/smolagents",
+  "github_branch": "main"
 }

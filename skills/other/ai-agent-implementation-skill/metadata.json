@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:54:40.604772Z",
   "dir_name": "ai-agent-implementation-skill",
   "category": "other",
-  "github_path": ".claude/skills/aI-agent-implementation-skill"
+  "github_path": ".claude/skills/aI-agent-implementation-skill",
+  "github_branch": "main"
 }

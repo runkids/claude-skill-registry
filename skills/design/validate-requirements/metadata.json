@@ -8,5 +8,6 @@
     "requirements"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/validate-requirements"
+  "github_path": ".claude/skills/validate-requirements",
+  "github_branch": "main"
 }

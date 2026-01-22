@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:11.356032Z",
   "dir_name": "workflow-conductor",
   "category": "other",
-  "github_path": ".claude/skills/workflow-conductor"
+  "github_path": ".claude/skills/workflow-conductor",
+  "github_branch": "main"
 }

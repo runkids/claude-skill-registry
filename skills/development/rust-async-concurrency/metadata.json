@@ -5,5 +5,6 @@
   "description": "Manage concurrent operations with channels, semaphores, locks, and streams. Use when coordinating parallel work or limiting resource usage.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:05:48.944652Z",
-  "github_path": ".claude/skills/rust-async-concurrency"
+  "github_path": ".claude/skills/rust-async-concurrency",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:23:01.325974Z",
   "dir_name": "worktree-management",
   "category": "other",
-  "github_path": ".claude/skills/worktree-management"
+  "github_path": ".claude/skills/worktree-management",
+  "github_branch": "main"
 }

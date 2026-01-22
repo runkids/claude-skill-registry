@@ -8,5 +8,6 @@
     "templates"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/markdown-templates"
+  "github_path": ".claude/skills/markdown-templates",
+  "github_branch": "main"
 }

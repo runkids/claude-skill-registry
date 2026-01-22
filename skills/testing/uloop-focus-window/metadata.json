@@ -10,5 +10,6 @@
   ],
   "stars": 104,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/uloop-focus-window"
+  "github_path": ".claude/skills/uloop-focus-window",
+  "github_branch": "main"
 }

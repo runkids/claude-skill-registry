@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:44.291313Z",
   "dir_name": "cobrapy",
   "category": "other",
-  "github_path": ".claude/skills/cobrapy"
+  "github_path": ".claude/skills/cobrapy",
+  "github_branch": "main"
 }

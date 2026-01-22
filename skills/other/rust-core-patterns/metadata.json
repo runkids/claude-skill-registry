@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:55.160996Z",
   "dir_name": "rust-core-patterns",
   "category": "other",
-  "github_path": ".claude/skills/rust-core-patterns"
+  "github_path": ".claude/skills/rust-core-patterns",
+  "github_branch": "main"
 }

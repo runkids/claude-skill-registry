@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:50.922062Z",
   "dir_name": "snd-saucy",
   "category": "other",
-  "github_path": ".claude/skills/snd-saucy"
+  "github_path": ".claude/skills/snd-saucy",
+  "github_branch": "main"
 }

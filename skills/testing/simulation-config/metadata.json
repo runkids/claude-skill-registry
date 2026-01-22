@@ -8,5 +8,6 @@
     "config"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/simulation-config"
+  "github_path": ".claude/skills/simulation-config",
+  "github_branch": "main"
 }

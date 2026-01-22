@@ -7,5 +7,6 @@
     "lifecycle"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/pr-lifecycle"
+  "github_path": ".claude/skills/pr-lifecycle",
+  "github_branch": "main"
 }

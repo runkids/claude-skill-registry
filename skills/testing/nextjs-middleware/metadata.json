@@ -8,5 +8,6 @@
     "middleware"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/nextjs-middleware"
+  "github_path": ".claude/skills/nextjs-middleware",
+  "github_branch": "main"
 }

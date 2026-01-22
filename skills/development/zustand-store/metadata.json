@@ -8,5 +8,6 @@
     "store"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/zustand-store"
+  "github_path": ".claude/skills/zustand-store",
+  "github_branch": "main"
 }

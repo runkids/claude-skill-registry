@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:35.986485Z",
   "dir_name": "investigation-patterns",
   "category": "other",
-  "github_path": ".claude/skills/investigation-patterns"
+  "github_path": ".claude/skills/investigation-patterns",
+  "github_branch": "main"
 }

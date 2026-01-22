@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:29:57.816543Z",
   "dir_name": "commander",
   "category": "other",
-  "github_path": ".claude/skills/commander"
+  "github_path": ".claude/skills/commander",
+  "github_branch": "main"
 }

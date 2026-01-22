@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:34.817571Z",
   "dir_name": "org-ecosystem",
   "category": "other",
-  "github_path": ".claude/skills/org-ecosystem"
+  "github_path": ".claude/skills/org-ecosystem",
+  "github_branch": "main"
 }

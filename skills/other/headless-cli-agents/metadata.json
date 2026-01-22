@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:16:58.481662Z",
   "dir_name": "headless-cli-agents",
   "category": "other",
-  "github_path": ".claude/skills/headless-cli-agents"
+  "github_path": ".claude/skills/headless-cli-agents",
+  "github_branch": "main"
 }

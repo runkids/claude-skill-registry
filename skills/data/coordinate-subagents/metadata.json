@@ -10,5 +10,6 @@
   "stars": 2,
   "source": "SkillsMP Synced Skills",
   "dir_name": "coordinate-subagents",
-  "github_path": ".claude/skills/coordinate-subagents"
+  "github_path": ".claude/skills/coordinate-subagents",
+  "github_branch": "main"
 }

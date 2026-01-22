@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:29.311143Z",
   "dir_name": "add-platform-verify",
   "category": "other",
-  "github_path": ".claude/skills/add_platform.verify"
+  "github_path": ".claude/skills/add_platform.verify",
+  "github_branch": "main"
 }

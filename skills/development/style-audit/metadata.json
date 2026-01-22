@@ -8,5 +8,6 @@
     "audit"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/style-audit"
+  "github_path": ".claude/skills/style-audit",
+  "github_branch": "main"
 }

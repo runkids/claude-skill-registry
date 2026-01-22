@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T04:14:41.429568Z",
   "dir_name": "artifact",
   "category": "other",
-  "github_path": ".claude/skills/artifact"
+  "github_path": ".claude/skills/artifact",
+  "github_branch": "main"
 }

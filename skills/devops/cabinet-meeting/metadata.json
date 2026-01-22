@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cabinet-meeting"
+  "github_path": ".claude/skills/cabinet-meeting",
+  "github_branch": "main"
 }

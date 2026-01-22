@@ -10,5 +10,6 @@
   ],
   "stars": 18,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/exa-code-context"
+  "github_path": ".claude/skills/exa-code-context",
+  "github_branch": "main"
 }

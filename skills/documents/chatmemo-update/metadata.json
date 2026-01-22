@@ -9,5 +9,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/chatmemo-update"
+  "github_path": ".claude/skills/chatmemo-update",
+  "github_branch": "main"
 }

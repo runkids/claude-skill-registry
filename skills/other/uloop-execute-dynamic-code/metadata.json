@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:45.165787Z",
   "dir_name": "uloop-execute-dynamic-code",
   "category": "other",
-  "github_path": ".claude/skills/uloop-execute-dynamic-code"
+  "github_path": ".claude/skills/uloop-execute-dynamic-code",
+  "github_branch": "main"
 }

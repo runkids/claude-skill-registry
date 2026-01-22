@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:11.624839Z",
   "dir_name": "projects-quick",
   "category": "other",
-  "github_path": ".claude/skills/projects-quick"
+  "github_path": ".claude/skills/projects-quick",
+  "github_branch": "main"
 }

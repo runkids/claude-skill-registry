@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.932003Z",
   "dir_name": "photo-composition-critic",
   "category": "other",
-  "github_path": ".claude/skills/photo-composition-critic"
+  "github_path": ".claude/skills/photo-composition-critic",
+  "github_branch": "main"
 }

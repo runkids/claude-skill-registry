@@ -8,5 +8,6 @@
     "instrumentation"
   ],
   "stars": 15,
-  "github_path": ".claude/skills/observability-instrumentation"
+  "github_path": ".claude/skills/observability-instrumentation",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:57.075061Z",
   "dir_name": "workflow-protocol",
   "category": "other",
-  "github_path": ".claude/skills/workflow-protocol"
+  "github_path": ".claude/skills/workflow-protocol",
+  "github_branch": "main"
 }

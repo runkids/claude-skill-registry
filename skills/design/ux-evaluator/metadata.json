@@ -7,5 +7,6 @@
     "evaluator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ux-evaluator"
+  "github_path": ".claude/skills/ux-evaluator",
+  "github_branch": "main"
 }

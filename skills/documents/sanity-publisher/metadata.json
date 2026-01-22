@@ -8,5 +8,6 @@
     "publisher"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sanity-publisher"
+  "github_path": ".claude/skills/sanity-publisher",
+  "github_branch": "main"
 }

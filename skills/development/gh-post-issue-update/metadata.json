@@ -9,5 +9,6 @@
     "update"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/gh-post-issue-update"
+  "github_path": ".claude/skills/gh-post-issue-update",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
   ],
   "stars": 62,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/onboarding"
+  "github_path": ".claude/skills/onboarding",
+  "github_branch": "main"
 }

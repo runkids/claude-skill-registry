@@ -12,5 +12,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cloudflare-d1-migrations-and-production-seeding"
+  "github_path": ".claude/skills/cloudflare-d1-migrations-and-production-seeding",
+  "github_branch": "main"
 }

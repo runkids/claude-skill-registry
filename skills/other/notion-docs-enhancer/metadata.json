@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:29.707476Z",
   "dir_name": "notion-docs-enhancer",
   "category": "other",
-  "github_path": ".claude/skills/notion-docs-enhancer"
+  "github_path": ".claude/skills/notion-docs-enhancer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:47.236178Z",
   "dir_name": "chemist-analyst",
   "category": "other",
-  "github_path": ".claude/skills/chemist-analyst"
+  "github_path": ".claude/skills/chemist-analyst",
+  "github_branch": "main"
 }

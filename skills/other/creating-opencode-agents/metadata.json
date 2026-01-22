@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:40.848365Z",
   "dir_name": "creating-opencode-agents",
   "category": "other",
-  "github_path": ".claude/skills/creating-opencode-agents"
+  "github_path": ".claude/skills/creating-opencode-agents",
+  "github_branch": "main"
 }

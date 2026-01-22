@@ -8,5 +8,6 @@
     "solver"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tdd-solver"
+  "github_path": ".claude/skills/tdd-solver",
+  "github_branch": "main"
 }

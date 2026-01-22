@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:31:32.250594Z",
   "dir_name": "dojo-debug",
   "category": "other",
-  "github_path": ".claude/skills/dojo-debug"
+  "github_path": ".claude/skills/dojo-debug",
+  "github_branch": "main"
 }

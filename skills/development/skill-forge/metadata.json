@@ -8,5 +8,6 @@
     "forge"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/skill-forge"
+  "github_path": ".claude/skills/skill-forge",
+  "github_branch": "main"
 }

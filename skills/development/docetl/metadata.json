@@ -8,5 +8,6 @@
   ],
   "stars": 3354,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/docetl"
+  "github_path": ".claude/skills/docetl",
+  "github_branch": "main"
 }

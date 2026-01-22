@@ -8,5 +8,6 @@
     "voice"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/weather-voice"
+  "github_path": ".claude/skills/weather-voice",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "expert"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nodejs-expert"
+  "github_path": ".claude/skills/nodejs-expert",
+  "github_branch": "main"
 }

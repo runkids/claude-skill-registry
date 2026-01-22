@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:52.813927Z",
   "dir_name": "standards-migration",
   "category": "other",
-  "github_path": ".claude/skills/standards-migration"
+  "github_path": ".claude/skills/standards-migration",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:24.701460Z",
   "dir_name": "langfuse-integration",
   "category": "other",
-  "github_path": ".claude/skills/langfuse-integration"
+  "github_path": ".claude/skills/langfuse-integration",
+  "github_branch": "main"
 }

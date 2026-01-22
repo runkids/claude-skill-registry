@@ -8,5 +8,6 @@
     "start"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/tel-start"
+  "github_path": ".claude/skills/tel-start",
+  "github_branch": "main"
 }

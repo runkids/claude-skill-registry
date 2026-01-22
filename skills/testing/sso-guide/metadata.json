@@ -8,5 +8,6 @@
     "guide"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sso-guide"
+  "github_path": ".claude/skills/sso-guide",
+  "github_branch": "main"
 }

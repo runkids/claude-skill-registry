@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:55.095579Z",
   "dir_name": "explicit-identity",
   "category": "other",
-  "github_path": ".claude/skills/explicit-identity"
+  "github_path": ".claude/skills/explicit-identity",
+  "github_branch": "main"
 }

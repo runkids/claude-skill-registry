@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:57.032152Z",
   "dir_name": "skill-forge",
   "category": "other",
-  "github_path": ".claude/skills/skill-forge"
+  "github_path": ".claude/skills/skill-forge",
+  "github_branch": "main"
 }

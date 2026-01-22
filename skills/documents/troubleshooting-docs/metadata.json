@@ -8,5 +8,6 @@
     "docs"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/troubleshooting-docs"
+  "github_path": ".claude/skills/troubleshooting-docs",
+  "github_branch": "main"
 }

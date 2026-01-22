@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:27:18.805876Z",
   "dir_name": "repo-generating-validation-reports",
   "category": "other",
-  "github_path": ".claude/skills/repo-generating-validation-reports"
+  "github_path": ".claude/skills/repo-generating-validation-reports",
+  "github_branch": "main"
 }

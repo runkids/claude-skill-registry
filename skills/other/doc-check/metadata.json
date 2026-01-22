@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:27.564079Z",
   "dir_name": "doc-check",
   "category": "other",
-  "github_path": ".claude/skills/doc-check"
+  "github_path": ".claude/skills/doc-check",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:01.146668Z",
   "dir_name": "moonshot-detect-uncertainty",
   "category": "other",
-  "github_path": ".claude/skills/moonshot-detect-uncertainty"
+  "github_path": ".claude/skills/moonshot-detect-uncertainty",
+  "github_branch": "main"
 }

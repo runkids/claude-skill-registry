@@ -7,5 +7,6 @@
     "syrupy"
   ],
   "stars": 18,
-  "github_path": ".claude/skills/syrupy"
+  "github_path": ".claude/skills/syrupy",
+  "github_branch": "main"
 }

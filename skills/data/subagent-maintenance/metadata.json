@@ -6,5 +6,6 @@
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:30:10.672303Z",
   "dir_name": "subagent-maintenance",
-  "github_path": ".claude/skills/subagent-maintenance"
+  "github_path": ".claude/skills/subagent-maintenance",
+  "github_branch": "main"
 }

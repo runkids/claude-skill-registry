@@ -7,5 +7,6 @@
     "generation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/generation"
+  "github_path": ".claude/skills/generation",
+  "github_branch": "main"
 }

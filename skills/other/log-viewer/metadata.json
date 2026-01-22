@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:39:36.543261Z",
   "dir_name": "log-viewer",
   "category": "other",
-  "github_path": ".claude/skills/log-viewer"
+  "github_path": ".claude/skills/log-viewer",
+  "github_branch": "main"
 }

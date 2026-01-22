@@ -8,5 +8,6 @@
   ],
   "stars": 478,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/go-testing"
+  "github_path": ".claude/skills/go-testing",
+  "github_branch": "main"
 }

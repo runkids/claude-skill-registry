@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:52:19.134668Z",
   "dir_name": "drizzle-orm",
   "category": "other",
-  "github_path": ".claude/skills/drizzle-orm"
+  "github_path": ".claude/skills/drizzle-orm",
+  "github_branch": "main"
 }

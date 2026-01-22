@@ -8,5 +8,6 @@
     "creation"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/glossary-creation"
+  "github_path": ".claude/skills/glossary-creation",
+  "github_branch": "main"
 }

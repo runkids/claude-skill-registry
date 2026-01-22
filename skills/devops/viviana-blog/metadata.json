@@ -8,5 +8,6 @@
     "blog"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/viviana-blog"
+  "github_path": ".claude/skills/viviana-blog",
+  "github_branch": "main"
 }

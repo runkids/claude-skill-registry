@@ -7,5 +7,6 @@
     "workflow"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/gh-workflow"
+  "github_path": ".claude/skills/gh-workflow",
+  "github_branch": "main"
 }

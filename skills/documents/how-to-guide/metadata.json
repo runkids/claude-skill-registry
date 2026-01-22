@@ -8,5 +8,6 @@
     "guide"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/how-to-guide"
+  "github_path": ".claude/skills/how-to-guide",
+  "github_branch": "main"
 }

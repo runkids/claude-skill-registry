@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:15.248218Z",
   "dir_name": "validate-mojo-patterns",
   "category": "other",
-  "github_path": ".claude/skills/validate-mojo-patterns"
+  "github_path": ".claude/skills/validate-mojo-patterns",
+  "github_branch": "main"
 }

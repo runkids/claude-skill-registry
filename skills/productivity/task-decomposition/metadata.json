@@ -8,5 +8,6 @@
     "decomposition"
   ],
   "stars": 43,
-  "github_path": ".claude/skills/task-decomposition"
+  "github_path": ".claude/skills/task-decomposition",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "deepwiki"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/researching-with-deepwiki"
+  "github_path": ".claude/skills/researching-with-deepwiki",
+  "github_branch": "main"
 }

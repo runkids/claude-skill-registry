@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:50:06.686165Z",
   "dir_name": "template-system",
   "category": "other",
-  "github_path": ".claude/skills/template-system"
+  "github_path": ".claude/skills/template-system",
+  "github_branch": "main"
 }

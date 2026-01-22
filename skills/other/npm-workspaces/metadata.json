@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:29:57.971929Z",
   "dir_name": "npm-workspaces",
   "category": "other",
-  "github_path": ".claude/skills/npm-workspaces"
+  "github_path": ".claude/skills/npm-workspaces",
+  "github_branch": "main"
 }

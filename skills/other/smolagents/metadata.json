@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:48:30.520453Z",
   "dir_name": "smolagents",
   "category": "other",
-  "github_path": ".claude/skills/smolagents"
+  "github_path": ".claude/skills/smolagents",
+  "github_branch": "main"
 }

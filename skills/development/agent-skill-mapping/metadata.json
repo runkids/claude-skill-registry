@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/agent-skill-mapping"
+  "github_path": ".claude/skills/agent-skill-mapping",
+  "github_branch": "main"
 }

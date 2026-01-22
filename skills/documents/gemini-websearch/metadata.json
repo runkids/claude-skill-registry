@@ -8,5 +8,6 @@
     "websearch"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gemini-websearch"
+  "github_path": ".claude/skills/gemini-websearch",
+  "github_branch": "main"
 }

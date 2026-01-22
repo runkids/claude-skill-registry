@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:38:44.623054Z",
   "dir_name": "feature-manifest",
   "category": "other",
-  "github_path": ".claude/skills/feature-manifest"
+  "github_path": ".claude/skills/feature-manifest",
+  "github_branch": "main"
 }

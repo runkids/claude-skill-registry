@@ -10,5 +10,6 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/computer-scientist-analyst"
+  "github_path": ".claude/skills/computer-scientist-analyst",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:27:17.735910Z",
   "dir_name": "storyexplanation",
   "category": "other",
-  "github_path": ".claude/skills/StoryExplanation"
+  "github_path": ".claude/skills/StoryExplanation",
+  "github_branch": "main"
 }

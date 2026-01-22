@@ -8,5 +8,6 @@
     "router"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/workflow-router"
+  "github_path": ".claude/skills/workflow-router",
+  "github_branch": "main"
 }

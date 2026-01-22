@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:38.881401Z",
   "dir_name": "rerender-memo",
   "category": "other",
-  "github_path": ".claude/skills/rerender-memo"
+  "github_path": ".claude/skills/rerender-memo",
+  "github_branch": "main"
 }

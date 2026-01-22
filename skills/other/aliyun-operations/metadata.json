@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:49:11.984739Z",
   "dir_name": "aliyun-operations",
   "category": "other",
-  "github_path": ".claude/skills/aliyun-operations"
+  "github_path": ".claude/skills/aliyun-operations",
+  "github_branch": "main"
 }

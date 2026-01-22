@@ -7,5 +7,6 @@
     "stripe"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/stripe"
+  "github_path": ".claude/skills/stripe",
+  "github_branch": "main"
 }

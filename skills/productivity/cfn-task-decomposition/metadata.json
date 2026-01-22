@@ -5,5 +5,6 @@
   "description": "Skill from masharratt/claude-flow-novice",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:20:11.633557Z",
-  "github_path": ".claude/skills/cfn-task-decomposition"
+  "github_path": ".claude/skills/cfn-task-decomposition",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/django-api-debugger"
+  "github_path": ".claude/skills/django-api-debugger",
+  "github_branch": "main"
 }

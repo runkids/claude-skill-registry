@@ -8,5 +8,6 @@
     "cards"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/stacked-cards"
+  "github_path": ".claude/skills/stacked-cards",
+  "github_branch": "main"
 }

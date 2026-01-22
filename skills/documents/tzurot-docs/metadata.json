@@ -8,5 +8,6 @@
     "docs"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/tzurot-docs"
+  "github_path": ".claude/skills/tzurot-docs",
+  "github_branch": "main"
 }

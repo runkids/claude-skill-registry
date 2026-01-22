@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:54:31.693009Z",
   "dir_name": "reusable-ui-components",
   "category": "other",
-  "github_path": ".claude/skills/reusable-ui-components"
+  "github_path": ".claude/skills/reusable-ui-components",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:31.278886Z",
   "dir_name": "adjective-entry",
   "category": "other",
-  "github_path": ".claude/skills/adjective-entry"
+  "github_path": ".claude/skills/adjective-entry",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "creator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/jutsu-creator"
+  "github_path": ".claude/skills/jutsu-creator",
+  "github_branch": "main"
 }

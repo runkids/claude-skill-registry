@@ -8,5 +8,6 @@
     "arquivos"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/lendo-arquivos"
+  "github_path": ".claude/skills/lendo-arquivos",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:56:58.771875Z",
   "dir_name": "storage",
   "category": "other",
-  "github_path": ".claude/skills/storage"
+  "github_path": ".claude/skills/storage",
+  "github_branch": "main"
 }

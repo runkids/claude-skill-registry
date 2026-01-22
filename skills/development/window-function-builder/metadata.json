@@ -9,5 +9,6 @@
     "builder"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/window-function-builder"
+  "github_path": ".claude/skills/window-function-builder",
+  "github_branch": "main"
 }

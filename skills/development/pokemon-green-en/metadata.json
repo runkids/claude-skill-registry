@@ -8,5 +8,6 @@
     "green"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/pokemon-green-en"
+  "github_path": ".claude/skills/pokemon-green-en",
+  "github_branch": "main"
 }

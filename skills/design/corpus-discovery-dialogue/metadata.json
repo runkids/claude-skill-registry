@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/corpus-discovery-dialogue"
+  "github_path": ".claude/skills/corpus-discovery-dialogue",
+  "github_branch": "main"
 }

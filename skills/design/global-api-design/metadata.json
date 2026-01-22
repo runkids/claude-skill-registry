@@ -9,5 +9,6 @@
     "design"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/global-api-design"
+  "github_path": ".claude/skills/global-api-design",
+  "github_branch": "main"
 }

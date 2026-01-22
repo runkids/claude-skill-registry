@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:48.614209Z",
   "dir_name": "benchmark-manager",
   "category": "other",
-  "github_path": ".claude/skills/benchmark-manager"
+  "github_path": ".claude/skills/benchmark-manager",
+  "github_branch": "main"
 }

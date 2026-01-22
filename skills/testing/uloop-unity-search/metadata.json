@@ -10,5 +10,6 @@
   ],
   "stars": 104,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/uloop-unity-search"
+  "github_path": ".claude/skills/uloop-unity-search",
+  "github_branch": "main"
 }

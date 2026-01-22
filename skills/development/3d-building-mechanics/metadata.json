@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/3d-building-mechanics"
+  "github_path": ".claude/skills/3d-building-mechanics",
+  "github_branch": "main"
 }

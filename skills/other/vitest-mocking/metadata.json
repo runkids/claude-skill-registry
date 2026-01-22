@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:10.330266Z",
   "dir_name": "vitest-mocking",
   "category": "other",
-  "github_path": ".claude/skills/vitest-mocking"
+  "github_path": ".claude/skills/vitest-mocking",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bulk-generate-concepts"
+  "github_path": ".claude/skills/bulk-generate-concepts",
+  "github_branch": "main"
 }

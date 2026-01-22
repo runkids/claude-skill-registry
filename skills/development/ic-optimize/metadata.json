@@ -7,5 +7,6 @@
     "optimize"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ic-optimize"
+  "github_path": ".claude/skills/ic-optimize",
+  "github_branch": "main"
 }

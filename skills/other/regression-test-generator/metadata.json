@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:56.010546Z",
   "dir_name": "regression-test-generator",
   "category": "other",
-  "github_path": ".claude/skills/regression-test-generator"
+  "github_path": ".claude/skills/regression-test-generator",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:56.316272Z",
   "dir_name": "workflow-automation-n8n",
   "category": "other",
-  "github_path": ".claude/skills/workflow-automation-n8n"
+  "github_path": ".claude/skills/workflow-automation-n8n",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "architecture"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/multi-agent-architecture"
+  "github_path": ".claude/skills/multi-agent-architecture",
+  "github_branch": "main"
 }

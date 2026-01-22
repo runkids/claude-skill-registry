@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:07.202674Z",
   "dir_name": "prd-v01-problem-framing",
   "category": "other",
-  "github_path": ".claude/skills/prd-v01-problem-framing"
+  "github_path": ".claude/skills/prd-v01-problem-framing",
+  "github_branch": "main"
 }

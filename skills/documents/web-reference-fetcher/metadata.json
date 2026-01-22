@@ -9,5 +9,6 @@
     "fetcher"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/web-reference-fetcher"
+  "github_path": ".claude/skills/web-reference-fetcher",
+  "github_branch": "main"
 }

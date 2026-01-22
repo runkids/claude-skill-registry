@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:05.877734Z",
   "dir_name": "hvac-specifications",
   "category": "other",
-  "github_path": ".claude/skills/hvac-specifications"
+  "github_path": ".claude/skills/hvac-specifications",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:00.624460Z",
   "dir_name": "moonshot-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/moonshot-orchestrator"
+  "github_path": ".claude/skills/moonshot-orchestrator",
+  "github_branch": "main"
 }

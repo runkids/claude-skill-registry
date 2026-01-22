@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:24.019454Z",
   "dir_name": "writing-implementation-pseudocode",
   "category": "other",
-  "github_path": ".claude/skills/writing-implementation-pseudocode"
+  "github_path": ".claude/skills/writing-implementation-pseudocode",
+  "github_branch": "main"
 }

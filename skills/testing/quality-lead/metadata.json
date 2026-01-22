@@ -8,5 +8,6 @@
     "lead"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/quality-lead"
+  "github_path": ".claude/skills/quality-lead",
+  "github_branch": "main"
 }

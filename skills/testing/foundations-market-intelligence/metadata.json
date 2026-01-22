@@ -10,5 +10,6 @@
   ],
   "stars": 12,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/foundations-market-intelligence"
+  "github_path": ".claude/skills/foundations-market-intelligence",
+  "github_branch": "main"
 }

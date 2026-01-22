@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:41:46.297809Z",
   "dir_name": "map-editor",
   "category": "other",
-  "github_path": ".claude/skills/map-editor"
+  "github_path": ".claude/skills/map-editor",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 47,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/context-resume"
+  "github_path": ".claude/skills/context-resume",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/adding-markdown-highlighted-comments"
+  "github_path": ".claude/skills/adding-markdown-highlighted-comments",
+  "github_branch": "main"
 }

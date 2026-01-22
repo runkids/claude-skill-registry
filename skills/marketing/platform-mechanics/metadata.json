@@ -8,5 +8,6 @@
     "mechanics"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/platform-mechanics"
+  "github_path": ".claude/skills/platform-mechanics",
+  "github_branch": "main"
 }

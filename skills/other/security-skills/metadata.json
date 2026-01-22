@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:14.948666Z",
   "dir_name": "security-skills",
   "category": "other",
-  "github_path": ".claude/skills/security-skills"
+  "github_path": ".claude/skills/security-skills",
+  "github_branch": "main"
 }

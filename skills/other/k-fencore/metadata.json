@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:51:40.223686Z",
   "dir_name": "k-fencore",
   "category": "other",
-  "github_path": ".claude/skills/k-fencore"
+  "github_path": ".claude/skills/k-fencore",
+  "github_branch": "main"
 }

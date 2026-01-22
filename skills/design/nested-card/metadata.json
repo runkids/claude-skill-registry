@@ -8,5 +8,6 @@
     "card"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/nested-card"
+  "github_path": ".claude/skills/nested-card",
+  "github_branch": "main"
 }

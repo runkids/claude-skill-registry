@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:56.809622Z",
   "dir_name": "mcp-chaining",
   "category": "other",
-  "github_path": ".claude/skills/mcp-chaining"
+  "github_path": ".claude/skills/mcp-chaining",
+  "github_branch": "main"
 }

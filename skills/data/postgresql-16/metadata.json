@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:05:52.689535Z",
   "dir_name": "postgresql-16",
-  "github_path": ".claude/skills/postgresql-16"
+  "github_path": ".claude/skills/postgresql-16",
+  "github_branch": "main"
 }

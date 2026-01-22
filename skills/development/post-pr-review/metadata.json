@@ -8,5 +8,6 @@
     "review"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/post-pr-review"
+  "github_path": ".claude/skills/post-pr-review",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:23.207077Z",
   "dir_name": "cache-docs",
   "category": "other",
-  "github_path": ".claude/skills/cache-docs"
+  "github_path": ".claude/skills/cache-docs",
+  "github_branch": "main"
 }

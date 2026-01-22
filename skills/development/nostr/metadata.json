@@ -7,5 +7,6 @@
     "nostr"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/nostr"
+  "github_path": ".claude/skills/nostr",
+  "github_branch": "main"
 }

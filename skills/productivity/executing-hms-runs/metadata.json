@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/executing-hms-runs"
+  "github_path": ".claude/skills/executing-hms-runs",
+  "github_branch": "main"
 }

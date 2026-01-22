@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/detecting-logic-bypass"
+  "github_path": ".claude/skills/detecting-logic-bypass",
+  "github_branch": "main"
 }

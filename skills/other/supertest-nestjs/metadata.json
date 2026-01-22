@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:35:21.859036Z",
   "dir_name": "supertest-nestjs",
   "category": "other",
-  "github_path": ".claude/skills/supertest-nestjs"
+  "github_path": ".claude/skills/supertest-nestjs",
+  "github_branch": "main"
 }

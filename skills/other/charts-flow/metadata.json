@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:46.613483Z",
   "dir_name": "charts-flow",
   "category": "other",
-  "github_path": ".claude/skills/charts-flow"
+  "github_path": ".claude/skills/charts-flow",
+  "github_branch": "main"
 }

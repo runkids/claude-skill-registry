@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:18.456415Z",
   "dir_name": "vision-multimodal",
   "category": "other",
-  "github_path": ".claude/skills/vision-multimodal"
+  "github_path": ".claude/skills/vision-multimodal",
+  "github_branch": "main"
 }

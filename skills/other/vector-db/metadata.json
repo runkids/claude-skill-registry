@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:18.083331Z",
   "dir_name": "vector-db",
   "category": "other",
-  "github_path": ".claude/skills/vector-db"
+  "github_path": ".claude/skills/vector-db",
+  "github_branch": "main"
 }

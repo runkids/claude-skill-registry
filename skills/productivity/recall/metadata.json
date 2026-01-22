@@ -7,5 +7,6 @@
     "recall"
   ],
   "stars": 42,
-  "github_path": ".claude/skills/recall"
+  "github_path": ".claude/skills/recall",
+  "github_branch": "master"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:22.897620Z",
   "dir_name": "helm",
   "category": "other",
-  "github_path": ".claude/skills/helm"
+  "github_path": ".claude/skills/helm",
+  "github_branch": "main"
 }

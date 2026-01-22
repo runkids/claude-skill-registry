@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:13.917765Z",
   "dir_name": "start-session",
   "category": "other",
-  "github_path": ".claude/skills/start-session"
+  "github_path": ".claude/skills/start-session",
+  "github_branch": "main"
 }

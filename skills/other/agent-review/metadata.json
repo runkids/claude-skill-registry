@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:37.604246Z",
   "dir_name": "agent-review",
   "category": "other",
-  "github_path": ".claude/skills/agent-review"
+  "github_path": ".claude/skills/agent-review",
+  "github_branch": "main"
 }

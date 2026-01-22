@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:12.476908Z",
   "dir_name": "mortgage-servicing-us",
   "category": "other",
-  "github_path": ".claude/skills/mortgage-servicing-US"
+  "github_path": ".claude/skills/mortgage-servicing-US",
+  "github_branch": "main"
 }

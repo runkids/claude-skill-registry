@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:18.578115Z",
   "dir_name": "identity-auth",
   "category": "other",
-  "github_path": ".claude/skills/identity-auth"
+  "github_path": ".claude/skills/identity-auth",
+  "github_branch": "main"
 }

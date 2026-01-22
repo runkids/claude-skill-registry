@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:03:54.119747Z",
   "dir_name": "realgeeks-sync",
   "category": "other",
-  "github_path": ".claude/skills/realgeeks-sync"
+  "github_path": ".claude/skills/realgeeks-sync",
+  "github_branch": "main"
 }

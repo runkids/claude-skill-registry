@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:06:09.369263Z",
   "dir_name": "version-bump",
   "category": "other",
-  "github_path": ".claude/skills/version-bump"
+  "github_path": ".claude/skills/version-bump",
+  "github_branch": "main"
 }

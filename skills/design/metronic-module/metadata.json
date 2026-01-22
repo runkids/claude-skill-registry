@@ -8,5 +8,6 @@
     "module"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/metronic-module"
+  "github_path": ".claude/skills/metronic-module",
+  "github_branch": "main"
 }

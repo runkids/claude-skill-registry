@@ -8,5 +8,6 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/conlang"
+  "github_path": ".claude/skills/conlang",
+  "github_branch": "main"
 }

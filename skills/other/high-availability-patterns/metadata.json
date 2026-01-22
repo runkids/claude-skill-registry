@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T02:44:20.238191Z",
   "dir_name": "high-availability-patterns",
   "category": "other",
-  "github_path": ".claude/skills/high-availability-patterns"
+  "github_path": ".claude/skills/high-availability-patterns",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "sorting"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/task-sorting"
+  "github_path": ".claude/skills/task-sorting",
+  "github_branch": "main"
 }

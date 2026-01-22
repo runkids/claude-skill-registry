@@ -8,5 +8,6 @@
     "injector"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/surgical-injector"
+  "github_path": ".claude/skills/surgical-injector",
+  "github_branch": "main"
 }

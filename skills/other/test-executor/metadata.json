@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:11.770167Z",
   "dir_name": "test-executor",
   "category": "other",
-  "github_path": ".claude/skills/test-executor"
+  "github_path": ".claude/skills/test-executor",
+  "github_branch": "main"
 }

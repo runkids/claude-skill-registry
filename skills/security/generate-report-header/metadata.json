@@ -9,5 +9,6 @@
     "header"
   ],
   "stars": 27,
-  "github_path": ".claude/skills/generate-report-header"
+  "github_path": ".claude/skills/generate-report-header",
+  "github_branch": "main"
 }

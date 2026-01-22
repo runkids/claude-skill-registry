@@ -8,5 +8,6 @@
   ],
   "stars": 18,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/development"
+  "github_path": ".claude/skills/development",
+  "github_branch": "main"
 }

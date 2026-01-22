@@ -9,5 +9,6 @@
     "generator"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/mermaid-diagram-generator"
+  "github_path": ".claude/skills/mermaid-diagram-generator",
+  "github_branch": "main"
 }

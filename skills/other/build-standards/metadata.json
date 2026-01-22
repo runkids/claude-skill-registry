@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:56.368665Z",
   "dir_name": "build-standards",
   "category": "other",
-  "github_path": ".claude/skills/build-standards"
+  "github_path": ".claude/skills/build-standards",
+  "github_branch": "main"
 }

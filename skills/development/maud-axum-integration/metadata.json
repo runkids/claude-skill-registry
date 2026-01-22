@@ -9,5 +9,6 @@
     "integration"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/maud-axum-integration"
+  "github_path": ".claude/skills/maud-axum-integration",
+  "github_branch": "main"
 }

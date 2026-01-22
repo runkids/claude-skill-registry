@@ -8,5 +8,6 @@
     "auditor"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/rule-auditor"
+  "github_path": ".claude/skills/rule-auditor",
+  "github_branch": "main"
 }

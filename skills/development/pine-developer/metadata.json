@@ -8,5 +8,6 @@
     "developer"
   ],
   "stars": 17,
-  "github_path": ".claude/skills/pine-developer"
+  "github_path": ".claude/skills/pine-developer",
+  "github_branch": "main"
 }

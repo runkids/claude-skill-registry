@@ -9,5 +9,6 @@
     "endpoints"
   ],
   "stars": 22,
-  "github_path": ".claude/skills/update-ignored-endpoints"
+  "github_path": ".claude/skills/update-ignored-endpoints",
+  "github_branch": "main"
 }

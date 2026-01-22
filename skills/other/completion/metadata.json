@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:55.218474Z",
   "dir_name": "completion",
   "category": "other",
-  "github_path": ".claude/skills/completion"
+  "github_path": ".claude/skills/completion",
+  "github_branch": "main"
 }

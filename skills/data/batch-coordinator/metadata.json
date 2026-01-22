@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "batch-coordinator",
-  "github_path": ".claude/skills/batch-coordinator"
+  "github_path": ".claude/skills/batch-coordinator",
+  "github_branch": "main"
 }

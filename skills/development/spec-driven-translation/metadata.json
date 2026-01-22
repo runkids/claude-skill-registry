@@ -9,5 +9,6 @@
     "translation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/spec-driven-translation"
+  "github_path": ".claude/skills/spec-driven-translation",
+  "github_branch": "main"
 }

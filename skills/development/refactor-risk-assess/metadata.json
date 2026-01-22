@@ -9,5 +9,6 @@
     "assess"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/refactor-risk-assess"
+  "github_path": ".claude/skills/refactor-risk-assess",
+  "github_branch": "main"
 }

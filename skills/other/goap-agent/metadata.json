@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:19.807060Z",
   "dir_name": "goap-agent",
   "category": "other",
-  "github_path": ".claude/skills/goap-agent"
+  "github_path": ".claude/skills/goap-agent",
+  "github_branch": "main"
 }

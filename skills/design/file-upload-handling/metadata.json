@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/file-upload-handling"
+  "github_path": ".claude/skills/file-upload-handling",
+  "github_branch": "main"
 }

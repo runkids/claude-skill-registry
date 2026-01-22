@@ -9,5 +9,6 @@
     "review"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/tech-article-review"
+  "github_path": ".claude/skills/tech-article-review",
+  "github_branch": "main"
 }

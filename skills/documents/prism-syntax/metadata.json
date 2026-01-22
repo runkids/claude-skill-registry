@@ -8,5 +8,6 @@
     "syntax"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/prism-syntax"
+  "github_path": ".claude/skills/prism-syntax",
+  "github_branch": "main"
 }

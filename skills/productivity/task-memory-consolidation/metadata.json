@@ -9,5 +9,6 @@
     "consolidation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/task-memory-consolidation"
+  "github_path": ".claude/skills/task-memory-consolidation",
+  "github_branch": "main"
 }

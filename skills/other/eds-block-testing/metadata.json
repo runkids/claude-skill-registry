@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:01:36.054217Z",
   "dir_name": "eds-block-testing",
   "category": "other",
-  "github_path": ".claude/skills/eds-block-testing"
+  "github_path": ".claude/skills/eds-block-testing",
+  "github_branch": "main"
 }

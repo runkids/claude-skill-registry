@@ -9,5 +9,6 @@
     "generation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/unit-test-generation"
+  "github_path": ".claude/skills/unit-test-generation",
+  "github_branch": "main"
 }

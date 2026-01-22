@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:29.731723Z",
   "dir_name": "add-platform-implement",
   "category": "other",
-  "github_path": ".claude/skills/add_platform.implement"
+  "github_path": ".claude/skills/add_platform.implement",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:57.565764Z",
   "dir_name": "nfr-assess",
   "category": "other",
-  "github_path": ".claude/skills/nfr-assess"
+  "github_path": ".claude/skills/nfr-assess",
+  "github_branch": "main"
 }

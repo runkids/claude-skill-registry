@@ -9,5 +9,6 @@
     "auto"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/skill-creator-auto"
+  "github_path": ".claude/skills/skill-creator-auto",
+  "github_branch": "main"
 }

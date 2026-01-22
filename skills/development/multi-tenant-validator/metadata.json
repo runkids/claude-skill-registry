@@ -9,5 +9,6 @@
     "validator"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/multi-tenant-validator"
+  "github_path": ".claude/skills/multi-tenant-validator",
+  "github_branch": "main"
 }

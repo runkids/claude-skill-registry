@@ -8,5 +8,6 @@
     "modern"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wordpress-modern"
+  "github_path": ".claude/skills/wordpress-modern",
+  "github_branch": "main"
 }

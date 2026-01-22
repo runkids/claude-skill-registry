@@ -10,5 +10,6 @@
   ],
   "stars": 20912,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/browser-extension-developer"
+  "github_path": ".claude/skills/browser-extension-developer",
+  "github_branch": "main"
 }

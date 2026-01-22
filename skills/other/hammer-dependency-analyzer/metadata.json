@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:32.704671Z",
   "dir_name": "hammer-dependency-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/hammer-dependency-analyzer"
+  "github_path": ".claude/skills/hammer-dependency-analyzer",
+  "github_branch": "main"
 }

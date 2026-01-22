@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:26.455321Z",
   "dir_name": "prisma-database",
   "category": "other",
-  "github_path": ".claude/skills/prisma-database"
+  "github_path": ".claude/skills/prisma-database",
+  "github_branch": "main"
 }

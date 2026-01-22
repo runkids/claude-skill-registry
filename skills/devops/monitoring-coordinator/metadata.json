@@ -8,5 +8,6 @@
     "coordinator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/monitoring-coordinator"
+  "github_path": ".claude/skills/monitoring-coordinator",
+  "github_branch": "main"
 }

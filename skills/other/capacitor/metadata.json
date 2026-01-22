@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:15.290335Z",
   "dir_name": "capacitor",
   "category": "other",
-  "github_path": ".claude/skills/capacitor"
+  "github_path": ".claude/skills/capacitor",
+  "github_branch": "main"
 }

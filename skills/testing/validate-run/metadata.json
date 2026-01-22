@@ -8,5 +8,6 @@
     "run"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/validate-run"
+  "github_path": ".claude/skills/validate-run",
+  "github_branch": "main"
 }

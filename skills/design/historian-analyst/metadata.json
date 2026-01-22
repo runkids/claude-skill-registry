@@ -8,5 +8,6 @@
     "analyst"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/historian-analyst"
+  "github_path": ".claude/skills/historian-analyst",
+  "github_branch": "main"
 }

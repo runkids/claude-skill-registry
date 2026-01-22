@@ -9,5 +9,6 @@
     "reviewer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/legacy-code-reviewer"
+  "github_path": ".claude/skills/legacy-code-reviewer",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 433,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/organize-modules"
+  "github_path": ".claude/skills/organize-modules",
+  "github_branch": "main"
 }

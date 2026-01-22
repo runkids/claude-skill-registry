@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:15.745345Z",
   "dir_name": "azure-artifacts-manager",
   "category": "other",
-  "github_path": ".claude/skills/azure-artifacts-manager"
+  "github_path": ".claude/skills/azure-artifacts-manager",
+  "github_branch": "main"
 }

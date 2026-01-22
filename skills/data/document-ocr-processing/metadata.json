@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "document-ocr-processing",
-  "github_path": ".claude/skills/document-ocr-processing"
+  "github_path": ".claude/skills/document-ocr-processing",
+  "github_branch": "main"
 }

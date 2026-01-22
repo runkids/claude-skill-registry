@@ -8,5 +8,6 @@
     "deploy"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/production-deploy"
+  "github_path": ".claude/skills/production-deploy",
+  "github_branch": "main"
 }

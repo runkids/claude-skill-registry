@@ -10,5 +10,6 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/fix-markdown-fences"
+  "github_path": ".claude/skills/fix-markdown-fences",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "tailwind"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/tailwind"
+  "github_path": ".claude/skills/tailwind",
+  "github_branch": "main"
 }

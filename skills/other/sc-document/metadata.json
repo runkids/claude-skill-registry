@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:07.214195Z",
   "dir_name": "sc-document",
   "category": "other",
-  "github_path": ".claude/skills/sc-document"
+  "github_path": ".claude/skills/sc-document",
+  "github_branch": "main"
 }

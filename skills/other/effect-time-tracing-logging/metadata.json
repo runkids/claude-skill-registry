@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:18.577214Z",
   "dir_name": "effect-time-tracing-logging",
   "category": "other",
-  "github_path": ".claude/skills/effect-time-tracing-logging"
+  "github_path": ".claude/skills/effect-time-tracing-logging",
+  "github_branch": "main"
 }

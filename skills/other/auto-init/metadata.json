@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:31.500663Z",
   "dir_name": "auto-init",
   "category": "other",
-  "github_path": ".claude/skills/auto-init"
+  "github_path": ".claude/skills/auto-init",
+  "github_branch": "main"
 }

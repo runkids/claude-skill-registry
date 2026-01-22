@@ -7,5 +7,6 @@
     "schemachange"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/schemachange"
+  "github_path": ".claude/skills/schemachange",
+  "github_branch": "main"
 }

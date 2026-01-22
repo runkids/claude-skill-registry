@@ -9,5 +9,6 @@
     "runware"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/partner-providers-runware"
+  "github_path": ".claude/skills/partner-providers-runware",
+  "github_branch": "main"
 }

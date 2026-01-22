@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:53:14.466493Z",
   "dir_name": "functional-programming",
   "category": "other",
-  "github_path": ".claude/skills/functional-programming"
+  "github_path": ".claude/skills/functional-programming",
+  "github_branch": "main"
 }

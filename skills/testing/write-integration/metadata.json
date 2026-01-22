@@ -8,5 +8,6 @@
     "integration"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/write-integration"
+  "github_path": ".claude/skills/write-integration",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:23.009212Z",
   "dir_name": "lint-typecheck",
   "category": "other",
-  "github_path": ".claude/skills/lint-typecheck"
+  "github_path": ".claude/skills/lint-typecheck",
+  "github_branch": "main"
 }

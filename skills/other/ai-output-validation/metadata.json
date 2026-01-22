@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:15.436038Z",
   "dir_name": "ai-output-validation",
   "category": "other",
-  "github_path": ".claude/skills/ai-output-validation"
+  "github_path": ".claude/skills/ai-output-validation",
+  "github_branch": "main"
 }

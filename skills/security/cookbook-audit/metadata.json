@@ -9,5 +9,6 @@
   ],
   "stars": 28337,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cookbook-audit"
+  "github_path": ".claude/skills/cookbook-audit",
+  "github_branch": "main"
 }

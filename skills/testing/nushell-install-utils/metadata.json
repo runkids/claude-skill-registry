@@ -9,5 +9,6 @@
     "utils"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nushell-install-utils"
+  "github_path": ".claude/skills/nushell-install-utils",
+  "github_branch": "main"
 }

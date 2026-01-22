@@ -8,5 +8,6 @@
     "inductive"
   ],
   "stars": 12,
-  "github_path": ".claude/skills/reasoning-inductive"
+  "github_path": ".claude/skills/reasoning-inductive",
+  "github_branch": "main"
 }

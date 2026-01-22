@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:19.375926Z",
   "dir_name": "test-fix",
   "category": "other",
-  "github_path": ".claude/skills/test-fix"
+  "github_path": ".claude/skills/test-fix",
+  "github_branch": "main"
 }

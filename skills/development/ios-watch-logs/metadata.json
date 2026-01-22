@@ -9,5 +9,6 @@
     "logs"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ios-watch-logs"
+  "github_path": ".claude/skills/ios-watch-logs",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:25:22.363411Z",
   "dir_name": "orcaflex-file-conversion",
   "category": "other",
-  "github_path": ".claude/skills/orcaflex-file-conversion"
+  "github_path": ".claude/skills/orcaflex-file-conversion",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:38.067979Z",
   "dir_name": "superdisco-moai-sync",
   "category": "other",
-  "github_path": ".claude/skills/superdisco-moai-sync"
+  "github_path": ".claude/skills/superdisco-moai-sync",
+  "github_branch": "main"
 }

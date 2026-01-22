@@ -9,5 +9,6 @@
   ],
   "stars": 93,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cc-devflow-orchestrator"
+  "github_path": ".claude/skills/cc-devflow-orchestrator",
+  "github_branch": "main"
 }

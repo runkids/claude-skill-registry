@@ -9,5 +9,6 @@
   ],
   "stars": 93,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/constitution-guardian"
+  "github_path": ".claude/skills/constitution-guardian",
+  "github_branch": "main"
 }

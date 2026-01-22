@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:37.775394Z",
   "dir_name": "redis-inspect",
   "category": "other",
-  "github_path": ".claude/skills/redis-inspect"
+  "github_path": ".claude/skills/redis-inspect",
+  "github_branch": "main"
 }

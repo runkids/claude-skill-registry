@@ -5,5 +5,6 @@
   "description": "コード品質チェック専門スキル。TypeScript/JavaScript ファイルの ESLint、型チェック、コーディング規約を検証する。",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:36.233274Z",
-  "github_path": ".claude/skills/lint-checker"
+  "github_path": ".claude/skills/lint-checker",
+  "github_branch": "main"
 }

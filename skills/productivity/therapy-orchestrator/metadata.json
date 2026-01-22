@@ -8,5 +8,6 @@
     "orchestrator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/therapy-orchestrator"
+  "github_path": ".claude/skills/therapy-orchestrator",
+  "github_branch": "main"
 }

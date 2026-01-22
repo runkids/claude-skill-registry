@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:56:14.811357Z",
   "dir_name": "dst-subjects",
   "category": "other",
-  "github_path": ".claude/skills/dst-subjects"
+  "github_path": ".claude/skills/dst-subjects",
+  "github_branch": "main"
 }

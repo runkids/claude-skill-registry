@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:06.576199Z",
   "dir_name": "sc-design",
   "category": "other",
-  "github_path": ".claude/skills/sc-design"
+  "github_path": ".claude/skills/sc-design",
+  "github_branch": "main"
 }

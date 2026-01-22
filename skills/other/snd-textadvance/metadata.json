@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:52.215206Z",
   "dir_name": "snd-textadvance",
   "category": "other",
-  "github_path": ".claude/skills/snd-textadvance"
+  "github_path": ".claude/skills/snd-textadvance",
+  "github_branch": "main"
 }

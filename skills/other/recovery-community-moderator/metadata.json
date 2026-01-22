@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:00.242954Z",
   "dir_name": "recovery-community-moderator",
   "category": "other",
-  "github_path": ".claude/skills/recovery-community-moderator"
+  "github_path": ".claude/skills/recovery-community-moderator",
+  "github_branch": "main"
 }

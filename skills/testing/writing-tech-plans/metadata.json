@@ -9,5 +9,6 @@
     "plans"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/writing-tech-plans"
+  "github_path": ".claude/skills/writing-tech-plans",
+  "github_branch": "main"
 }

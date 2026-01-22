@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/test-workflow"
+  "github_path": ".claude/skills/test-workflow",
+  "github_branch": "main"
 }

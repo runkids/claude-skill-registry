@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ai-cross-validator"
+  "github_path": ".claude/skills/ai-cross-validator",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "reference"
   ],
   "stars": 47,
-  "github_path": ".claude/skills/update-component-reference"
+  "github_path": ".claude/skills/update-component-reference",
+  "github_branch": "main"
 }

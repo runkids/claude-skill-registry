@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:58.979404Z",
   "dir_name": "geospatial-data-pipeline",
   "category": "other",
-  "github_path": ".claude/skills/geospatial-data-pipeline"
+  "github_path": ".claude/skills/geospatial-data-pipeline",
+  "github_branch": "main"
 }

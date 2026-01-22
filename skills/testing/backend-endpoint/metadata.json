@@ -9,5 +9,6 @@
   ],
   "stars": 46,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/backend-endpoint"
+  "github_path": "skills/backend-endpoint",
+  "github_branch": "main"
 }

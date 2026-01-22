@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:13.862388Z",
   "dir_name": "gpui-action",
   "category": "other",
-  "github_path": ".claude/skills/gpui-action"
+  "github_path": ".claude/skills/gpui-action",
+  "github_branch": "main"
 }

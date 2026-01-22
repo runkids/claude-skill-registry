@@ -8,5 +8,6 @@
     "leak"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/seo-leak"
+  "github_path": ".claude/skills/seo-leak",
+  "github_branch": "main"
 }

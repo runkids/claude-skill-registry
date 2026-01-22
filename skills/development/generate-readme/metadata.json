@@ -8,5 +8,6 @@
     "readme"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/generate-readme"
+  "github_path": ".claude/skills/generate-readme",
+  "github_branch": "main"
 }

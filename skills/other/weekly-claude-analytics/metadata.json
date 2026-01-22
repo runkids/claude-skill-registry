@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:53.373192Z",
   "dir_name": "weekly-claude-analytics",
   "category": "other",
-  "github_path": ".claude/skills/weekly-claude-analytics"
+  "github_path": ".claude/skills/weekly-claude-analytics",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "info"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/java-package-info"
+  "github_path": ".claude/skills/java-package-info",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "orchestrator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/internet-deep-orchestrator"
+  "github_path": ".claude/skills/internet-deep-orchestrator",
+  "github_branch": "main"
 }

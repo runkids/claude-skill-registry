@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:23.196809Z",
   "dir_name": "scrum",
   "category": "other",
-  "github_path": ".claude/skills/scrum"
+  "github_path": ".claude/skills/scrum",
+  "github_branch": "main"
 }

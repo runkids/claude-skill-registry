@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:12.602802Z",
   "dir_name": "validate-idea",
   "category": "other",
-  "github_path": ".claude/skills/validate-idea"
+  "github_path": ".claude/skills/validate-idea",
+  "github_branch": "main"
 }

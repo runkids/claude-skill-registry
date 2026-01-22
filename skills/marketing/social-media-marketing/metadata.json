@@ -9,5 +9,6 @@
     "marketing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/social-media-marketing"
+  "github_path": ".claude/skills/social-media-marketing",
+  "github_branch": "main"
 }

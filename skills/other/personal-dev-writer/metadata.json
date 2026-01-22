@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:20:39.594851Z",
   "dir_name": "personal-dev-writer",
   "category": "other",
-  "github_path": ".claude/skills/personal-dev-writer"
+  "github_path": ".claude/skills/personal-dev-writer",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "services"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/operating-production-services"
+  "github_path": ".claude/skills/operating-production-services",
+  "github_branch": "main"
 }

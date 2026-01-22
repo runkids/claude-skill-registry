@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:32:19.360836Z",
   "dir_name": "domain-expert",
   "category": "other",
-  "github_path": ".claude/skills/domain-expert"
+  "github_path": ".claude/skills/domain-expert",
+  "github_branch": "main"
 }

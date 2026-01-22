@@ -9,5 +9,6 @@
   ],
   "stars": 84,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/crossplane-renderer"
+  "github_path": ".claude/skills/crossplane-renderer",
+  "github_branch": "main"
 }

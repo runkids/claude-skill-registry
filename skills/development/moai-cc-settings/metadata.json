@@ -8,5 +8,6 @@
     "settings"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-cc-settings"
+  "github_path": ".claude/skills/moai-cc-settings",
+  "github_branch": "main"
 }

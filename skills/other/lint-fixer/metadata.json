@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:44.278918Z",
   "dir_name": "lint-fixer",
   "category": "other",
-  "github_path": ".claude/skills/lint-fixer"
+  "github_path": ".claude/skills/lint-fixer",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 7,
   "dir_name": "tzurot-types",
-  "github_path": ".claude/skills/tzurot-types"
+  "github_path": ".claude/skills/tzurot-types",
+  "github_branch": "main"
 }

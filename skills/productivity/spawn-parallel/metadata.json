@@ -8,5 +8,6 @@
     "parallel"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/spawn-parallel"
+  "github_path": ".claude/skills/spawn-parallel",
+  "github_branch": "main"
 }

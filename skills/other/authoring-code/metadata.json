@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:11.520144Z",
   "dir_name": "authoring-code",
   "category": "other",
-  "github_path": ".claude/skills/authoring-code"
+  "github_path": ".claude/skills/authoring-code",
+  "github_branch": "main"
 }

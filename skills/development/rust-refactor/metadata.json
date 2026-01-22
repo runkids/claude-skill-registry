@@ -8,5 +8,6 @@
     "refactor"
   ],
   "stars": 40,
-  "github_path": ".claude/skills/rust-refactor"
+  "github_path": ".claude/skills/rust-refactor",
+  "github_branch": "master"
 }

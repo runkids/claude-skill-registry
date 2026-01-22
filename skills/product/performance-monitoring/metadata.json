@@ -8,5 +8,6 @@
     "monitoring"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/performance-monitoring"
+  "github_path": ".claude/skills/performance-monitoring",
+  "github_branch": "main"
 }

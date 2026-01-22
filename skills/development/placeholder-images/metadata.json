@@ -8,5 +8,6 @@
     "images"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/placeholder-images"
+  "github_path": ".claude/skills/placeholder-images",
+  "github_branch": "main"
 }

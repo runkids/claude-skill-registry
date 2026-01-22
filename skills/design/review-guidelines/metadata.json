@@ -8,5 +8,6 @@
     "guidelines"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/review-guidelines"
+  "github_path": ".claude/skills/review-guidelines",
+  "github_branch": "main"
 }

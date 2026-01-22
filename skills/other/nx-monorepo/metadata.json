@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:50.597721Z",
   "dir_name": "nx-monorepo",
   "category": "other",
-  "github_path": ".claude/skills/nx-monorepo"
+  "github_path": ".claude/skills/nx-monorepo",
+  "github_branch": "main"
 }

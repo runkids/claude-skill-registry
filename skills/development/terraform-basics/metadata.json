@@ -8,5 +8,6 @@
     "basics"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/terraform-basics"
+  "github_path": ".claude/skills/terraform-basics",
+  "github_branch": "main"
 }

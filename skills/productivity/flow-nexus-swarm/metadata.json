@@ -10,5 +10,6 @@
   ],
   "stars": 9856,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/flow-nexus-swarm"
+  "github_path": ".claude/skills/flow-nexus-swarm",
+  "github_branch": "main"
 }

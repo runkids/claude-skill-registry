@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/code-review-framework"
+  "github_path": ".claude/skills/code-review-framework",
+  "github_branch": "main"
 }

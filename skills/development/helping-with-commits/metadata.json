@@ -9,5 +9,6 @@
     "commits"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/helping-with-commits"
+  "github_path": ".claude/skills/helping-with-commits",
+  "github_branch": "main"
 }

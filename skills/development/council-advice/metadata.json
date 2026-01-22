@@ -9,5 +9,6 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/council-advice"
+  "github_path": ".claude/skills/council-advice",
+  "github_branch": "main"
 }

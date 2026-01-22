@@ -8,5 +8,6 @@
     "name"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/shared-name"
+  "github_path": ".claude/skills/shared-name",
+  "github_branch": "main"
 }

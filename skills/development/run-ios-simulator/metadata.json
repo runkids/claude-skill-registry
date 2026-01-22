@@ -10,5 +10,6 @@
   ],
   "stars": 127,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/run-ios-simulator"
+  "github_path": ".claude/skills/run-ios-simulator",
+  "github_branch": "master"
 }

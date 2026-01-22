@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:16.040893Z",
   "dir_name": "distributed-tracing-setup",
   "category": "other",
-  "github_path": ".claude/skills/distributed-tracing-setup"
+  "github_path": ".claude/skills/distributed-tracing-setup",
+  "github_branch": "main"
 }

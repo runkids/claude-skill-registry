@@ -10,5 +10,6 @@
   ],
   "stars": 27,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/deps-health-inline"
+  "github_path": ".claude/skills/deps-health-inline",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:40.843799Z",
   "dir_name": "sqlite-test-validator",
-  "github_path": ".claude/skills/sqlite-test-validator"
+  "github_path": ".claude/skills/sqlite-test-validator",
+  "github_branch": "main"
 }

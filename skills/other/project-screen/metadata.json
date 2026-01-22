@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:01:52.796978Z",
   "dir_name": "project-screen",
   "category": "other",
-  "github_path": ".claude/skills/project-screen"
+  "github_path": ".claude/skills/project-screen",
+  "github_branch": "main"
 }

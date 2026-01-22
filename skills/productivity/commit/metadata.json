@@ -7,5 +7,6 @@
     "commit"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/commit"
+  "github_path": ".claude/skills/commit",
+  "github_branch": "main"
 }

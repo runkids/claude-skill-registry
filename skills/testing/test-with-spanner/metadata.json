@@ -10,5 +10,6 @@
   ],
   "stars": 3204,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/test-with-spanner"
+  "github_path": ".claude/skills/test-with-spanner",
+  "github_branch": "main"
 }

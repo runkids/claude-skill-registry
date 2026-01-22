@@ -9,5 +9,6 @@
     "framework"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/meta-prompt-framework"
+  "github_path": ".claude/skills/meta-prompt-framework",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:37.815113Z",
   "dir_name": "lease-comparison-expert",
   "category": "other",
-  "github_path": ".claude/skills/lease-comparison-expert"
+  "github_path": ".claude/skills/lease-comparison-expert",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T04:04:42.507857Z",
   "dir_name": "skill-with-assets",
   "category": "other",
-  "github_path": ".claude/skills/skill-with-assets"
+  "github_path": ".claude/skills/skill-with-assets",
+  "github_branch": "main"
 }

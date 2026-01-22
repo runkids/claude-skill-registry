@@ -8,5 +8,6 @@
     "architecture"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/tzurot-architecture"
+  "github_path": ".claude/skills/tzurot-architecture",
+  "github_branch": "main"
 }

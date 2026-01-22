@@ -8,5 +8,6 @@
     "cache"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/redis-cache"
+  "github_path": ".claude/skills/redis-cache",
+  "github_branch": "main"
 }

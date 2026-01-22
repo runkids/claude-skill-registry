@@ -12,5 +12,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "analyzing-auto-insurance-data",
-  "github_path": ".claude/skills/analyzing-auto-insurance-data"
+  "github_path": ".claude/skills/analyzing-auto-insurance-data",
+  "github_branch": "main"
 }

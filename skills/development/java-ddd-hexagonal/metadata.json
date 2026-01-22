@@ -9,5 +9,6 @@
     "hexagonal"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/java-ddd-hexagonal"
+  "github_path": ".claude/skills/java-ddd-hexagonal",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:37.757178Z",
   "dir_name": "lease-compliance-auditor",
   "category": "other",
-  "github_path": ".claude/skills/lease-compliance-auditor"
+  "github_path": ".claude/skills/lease-compliance-auditor",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:11:44.356681Z",
   "dir_name": "add-hook",
   "category": "other",
-  "github_path": ".claude/skills/add-hook"
+  "github_path": ".claude/skills/add-hook",
+  "github_branch": "main"
 }

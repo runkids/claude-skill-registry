@@ -9,5 +9,6 @@
   ],
   "stars": 758,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/video-processor"
+  "github_path": ".claude/skills/video-processor",
+  "github_branch": "main"
 }

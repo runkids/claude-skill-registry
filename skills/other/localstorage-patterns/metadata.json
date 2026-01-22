@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:00:57.791645Z",
   "dir_name": "localstorage-patterns",
   "category": "other",
-  "github_path": ".claude/skills/localStorage-patterns"
+  "github_path": ".claude/skills/localStorage-patterns",
+  "github_branch": "main"
 }

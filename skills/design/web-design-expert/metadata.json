@@ -9,5 +9,6 @@
     "expert"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/web-design-expert"
+  "github_path": ".claude/skills/web-design-expert",
+  "github_branch": "main"
 }

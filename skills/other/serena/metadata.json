@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:24.038039Z",
   "dir_name": "serena",
   "category": "other",
-  "github_path": ".claude/skills/serena"
+  "github_path": ".claude/skills/serena",
+  "github_branch": "main"
 }

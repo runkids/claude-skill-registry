@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:15.147822Z",
   "dir_name": "third-party-apis",
   "category": "other",
-  "github_path": ".claude/skills/third-party-apis"
+  "github_path": ".claude/skills/third-party-apis",
+  "github_branch": "main"
 }

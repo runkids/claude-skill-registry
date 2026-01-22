@@ -8,5 +8,6 @@
     "create"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/worktree-create"
+  "github_path": ".claude/skills/worktree-create",
+  "github_branch": "main"
 }

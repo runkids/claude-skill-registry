@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:43.721308Z",
   "dir_name": "family-health-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/family-health-analyzer"
+  "github_path": ".claude/skills/family-health-analyzer",
+  "github_branch": "main"
 }

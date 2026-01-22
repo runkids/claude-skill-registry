@@ -5,5 +5,6 @@
   "description": "This skill should be used when the user wants collaborative, iterative development instead of autonomous implementation. It transforms Claude from \"autonomous implementer\" to \"pair programmer\" by enfo",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:07:00.742598Z",
-  "github_path": ".claude/skills/paired-programming"
+  "github_path": ".claude/skills/paired-programming",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:15.632138Z",
   "dir_name": "prompt-engineering-patterns",
   "category": "other",
-  "github_path": ".claude/skills/prompt-engineering-patterns"
+  "github_path": ".claude/skills/prompt-engineering-patterns",
+  "github_branch": "main"
 }

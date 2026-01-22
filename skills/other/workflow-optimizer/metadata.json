@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:46.194756Z",
   "dir_name": "workflow-optimizer",
   "category": "other",
-  "github_path": ".claude/skills/workflow-optimizer"
+  "github_path": ".claude/skills/workflow-optimizer",
+  "github_branch": "main"
 }

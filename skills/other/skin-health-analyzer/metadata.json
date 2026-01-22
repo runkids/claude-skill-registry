@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:43.553482Z",
   "dir_name": "skin-health-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/skin-health-analyzer"
+  "github_path": ".claude/skills/skin-health-analyzer",
+  "github_branch": "main"
 }

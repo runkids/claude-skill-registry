@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/api-contract-validation"
+  "github_path": ".claude/skills/api-contract-validation",
+  "github_branch": "main"
 }

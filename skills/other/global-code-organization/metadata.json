@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:19:35.992606Z",
   "dir_name": "global-code-organization",
   "category": "other",
-  "github_path": ".claude/skills/global-code-organization"
+  "github_path": ".claude/skills/global-code-organization",
+  "github_branch": "main"
 }

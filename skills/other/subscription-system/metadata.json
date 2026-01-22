@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:44.462180Z",
   "dir_name": "subscription-system",
   "category": "other",
-  "github_path": ".claude/skills/subscription-system"
+  "github_path": ".claude/skills/subscription-system",
+  "github_branch": "main"
 }

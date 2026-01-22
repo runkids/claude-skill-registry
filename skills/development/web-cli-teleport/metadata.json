@@ -9,5 +9,6 @@
     "teleport"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/web-cli-teleport"
+  "github_path": ".claude/skills/web-cli-teleport",
+  "github_branch": "main"
 }

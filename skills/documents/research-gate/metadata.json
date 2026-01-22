@@ -8,5 +8,6 @@
     "gate"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/research-gate"
+  "github_path": ".claude/skills/research-gate",
+  "github_branch": "main"
 }

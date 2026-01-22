@@ -5,5 +5,6 @@
   "description": "Master German Idealist and Existentialist philosophy. Use for: Hegel, Kierkegaard, Nietzsche, Heidegger, Sartre, phenomenology, dialectics, authenticity. Triggers: 'Hegelian', 'dialectic', 'Aufhebung'",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:53.182180Z",
-  "github_path": ".claude/skills/german-idealism-existentialism"
+  "github_path": ".claude/skills/german-idealism-existentialism",
+  "github_branch": "main"
 }

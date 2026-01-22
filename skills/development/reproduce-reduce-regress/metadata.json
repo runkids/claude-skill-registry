@@ -10,5 +10,6 @@
   ],
   "stars": 2292,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/reproduce-reduce-regress"
+  "github_path": ".claude/skills/reproduce-reduce-regress",
+  "github_branch": "main"
 }

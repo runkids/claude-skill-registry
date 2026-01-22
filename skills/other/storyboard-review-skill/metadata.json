@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:46:55.774496Z",
   "dir_name": "storyboard-review-skill",
   "category": "other",
-  "github_path": ".claude/skills/storyboard-review-skill"
+  "github_path": ".claude/skills/storyboard-review-skill",
+  "github_branch": "main"
 }

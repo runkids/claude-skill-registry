@@ -8,5 +8,6 @@
     "verify"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quality-verify"
+  "github_path": ".claude/skills/quality-verify",
+  "github_branch": "main"
 }

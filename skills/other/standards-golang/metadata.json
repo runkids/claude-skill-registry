@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:52.647453Z",
   "dir_name": "standards-golang",
   "category": "other",
-  "github_path": ".claude/skills/standards-golang"
+  "github_path": ".claude/skills/standards-golang",
+  "github_branch": "main"
 }

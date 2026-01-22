@@ -9,5 +9,6 @@
     "guidelines"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/rust-dev-guidelines"
+  "github_path": ".claude/skills/rust-dev-guidelines",
+  "github_branch": "main"
 }

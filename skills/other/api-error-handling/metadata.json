@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:25.253525Z",
   "dir_name": "api-error-handling",
   "category": "other",
-  "github_path": ".claude/skills/api-error-handling"
+  "github_path": ".claude/skills/api-error-handling",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:26:21.933839Z",
   "dir_name": "backend-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/backend-orchestrator"
+  "github_path": ".claude/skills/backend-orchestrator",
+  "github_branch": "main"
 }

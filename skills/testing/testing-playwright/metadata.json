@@ -8,5 +8,6 @@
     "playwright"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/testing-playwright"
+  "github_path": ".claude/skills/testing-playwright",
+  "github_branch": "main"
 }

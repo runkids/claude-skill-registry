@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:36:33.463654Z",
   "dir_name": "curator",
   "category": "other",
-  "github_path": ".claude/skills/curator"
+  "github_path": ".claude/skills/curator",
+  "github_branch": "main"
 }

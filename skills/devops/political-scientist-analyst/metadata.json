@@ -9,5 +9,6 @@
     "analyst"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/political-scientist-analyst"
+  "github_path": ".claude/skills/political-scientist-analyst",
+  "github_branch": "main"
 }

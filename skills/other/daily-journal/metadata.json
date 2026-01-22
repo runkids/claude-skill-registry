@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:14.206821Z",
   "dir_name": "daily-journal",
   "category": "other",
-  "github_path": ".claude/skills/daily-journal"
+  "github_path": ".claude/skills/daily-journal",
+  "github_branch": "main"
 }

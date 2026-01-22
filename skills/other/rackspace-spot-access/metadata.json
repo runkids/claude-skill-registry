@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:54.063338Z",
   "dir_name": "rackspace-spot-access",
   "category": "other",
-  "github_path": ".claude/skills/rackspace-spot-access"
+  "github_path": ".claude/skills/rackspace-spot-access",
+  "github_branch": "main"
 }

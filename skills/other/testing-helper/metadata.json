@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:14.599808Z",
   "dir_name": "testing-helper",
   "category": "other",
-  "github_path": ".claude/skills/testing-helper"
+  "github_path": ".claude/skills/testing-helper",
+  "github_branch": "main"
 }

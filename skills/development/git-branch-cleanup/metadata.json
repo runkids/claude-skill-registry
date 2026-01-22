@@ -9,5 +9,6 @@
     "cleanup"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/git-branch-cleanup"
+  "github_path": ".claude/skills/git-branch-cleanup",
+  "github_branch": "main"
 }

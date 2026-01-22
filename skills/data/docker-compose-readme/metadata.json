@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "docker-compose-readme",
-  "github_path": ".claude/skills/docker-compose-readme"
+  "github_path": ".claude/skills/docker-compose-readme",
+  "github_branch": "main"
 }

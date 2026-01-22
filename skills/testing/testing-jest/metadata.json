@@ -8,5 +8,6 @@
     "jest"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/testing-jest"
+  "github_path": ".claude/skills/testing-jest",
+  "github_branch": "main"
 }

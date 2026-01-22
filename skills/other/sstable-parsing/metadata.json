@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:47:14.238223Z",
   "dir_name": "sstable-parsing",
   "category": "other",
-  "github_path": ".claude/skills/sstable-parsing"
+  "github_path": ".claude/skills/sstable-parsing",
+  "github_branch": "main"
 }

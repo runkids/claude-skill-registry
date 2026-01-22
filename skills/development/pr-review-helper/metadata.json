@@ -8,5 +8,6 @@
     "helper"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pr-review-helper"
+  "github_path": ".claude/skills/pr-review-helper",
+  "github_branch": "main"
 }

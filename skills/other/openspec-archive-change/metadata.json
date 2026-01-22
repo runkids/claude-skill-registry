@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:38:46.721857Z",
   "dir_name": "openspec-archive-change",
   "category": "other",
-  "github_path": ".claude/skills/openspec-archive-change"
+  "github_path": ".claude/skills/openspec-archive-change",
+  "github_branch": "main"
 }

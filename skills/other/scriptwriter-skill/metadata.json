@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:46:55.684288Z",
   "dir_name": "scriptwriter-skill",
   "category": "other",
-  "github_path": ".claude/skills/scriptwriter-skill"
+  "github_path": ".claude/skills/scriptwriter-skill",
+  "github_branch": "main"
 }

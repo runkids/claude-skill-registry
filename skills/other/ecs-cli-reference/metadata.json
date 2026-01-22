@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:34:10.216764Z",
   "dir_name": "ecs-cli-reference",
   "category": "other",
-  "github_path": ".claude/skills/ecs-cli-reference"
+  "github_path": ".claude/skills/ecs-cli-reference",
+  "github_branch": "main"
 }

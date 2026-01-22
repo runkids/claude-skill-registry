@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:43:39.533922Z",
   "dir_name": "audit-logging-prasadtelasula-evokeqone",
   "category": "other",
-  "github_path": ".claude/skills/audit-logging"
+  "github_path": ".claude/skills/audit-logging",
+  "github_branch": "main"
 }

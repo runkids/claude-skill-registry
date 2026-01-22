@@ -9,5 +9,6 @@
   ],
   "stars": 29,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/code-style"
+  "github_path": ".claude/skills/code-style",
+  "github_branch": "main"
 }

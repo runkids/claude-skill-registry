@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:58:53.645511Z",
   "dir_name": "melee-debug",
   "category": "other",
-  "github_path": ".claude/skills/melee-debug"
+  "github_path": ".claude/skills/melee-debug",
+  "github_branch": "main"
 }

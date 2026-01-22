@@ -9,5 +9,6 @@
     "devtools"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/mcp-chrome-devtools"
+  "github_path": ".claude/skills/mcp-chrome-devtools",
+  "github_branch": "main"
 }

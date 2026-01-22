@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:26:46.771416Z",
   "dir_name": "gh-issue-dependencies",
   "category": "other",
-  "github_path": ".claude/skills/gh-issue-dependencies"
+  "github_path": ".claude/skills/gh-issue-dependencies",
+  "github_branch": "main"
 }

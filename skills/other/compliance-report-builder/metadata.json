@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:06.900617Z",
   "dir_name": "compliance-report-builder",
   "category": "other",
-  "github_path": ".claude/skills/compliance-report-builder"
+  "github_path": ".claude/skills/compliance-report-builder",
+  "github_branch": "main"
 }

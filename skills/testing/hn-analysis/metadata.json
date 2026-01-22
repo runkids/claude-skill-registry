@@ -7,5 +7,6 @@
     "analysis"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/hn-analysis"
+  "github_path": ".claude/skills/hn-analysis",
+  "github_branch": "main"
 }

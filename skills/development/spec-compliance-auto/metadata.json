@@ -9,5 +9,6 @@
     "auto"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/spec-compliance-auto"
+  "github_path": ".claude/skills/spec-compliance-auto",
+  "github_branch": "main"
 }

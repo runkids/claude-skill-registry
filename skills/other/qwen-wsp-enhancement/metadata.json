@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:13.443589Z",
   "dir_name": "qwen-wsp-enhancement",
   "category": "other",
-  "github_path": ".claude/skills/qwen_wsp_enhancement"
+  "github_path": ".claude/skills/qwen_wsp_enhancement",
+  "github_branch": "main"
 }

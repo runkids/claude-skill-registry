@@ -9,5 +9,6 @@
     "builder"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/race-strategy-builder"
+  "github_path": ".claude/skills/race-strategy-builder",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "integration"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/integration"
+  "github_path": ".claude/skills/integration",
+  "github_branch": "main"
 }

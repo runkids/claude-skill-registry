@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:52.843261Z",
   "dir_name": "cfn-expert-update",
   "category": "other",
-  "github_path": ".claude/skills/cfn-expert-update"
+  "github_path": ".claude/skills/cfn-expert-update",
+  "github_branch": "main"
 }

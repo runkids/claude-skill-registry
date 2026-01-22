@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/code-review-wasp"
+  "github_path": ".claude/skills/code-review-wasp",
+  "github_branch": "main"
 }

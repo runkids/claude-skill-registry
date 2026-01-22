@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.877868Z",
   "dir_name": "dag-iteration-detector",
   "category": "other",
-  "github_path": ".claude/skills/dag-iteration-detector"
+  "github_path": ".claude/skills/dag-iteration-detector",
+  "github_branch": "main"
 }

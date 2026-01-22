@@ -9,5 +9,6 @@
     "intelligence"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/seo-competitor-intelligence"
+  "github_path": ".claude/skills/seo-competitor-intelligence",
+  "github_branch": "main"
 }

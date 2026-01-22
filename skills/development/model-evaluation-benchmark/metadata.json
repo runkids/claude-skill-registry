@@ -5,5 +5,6 @@
   "description": "Skill from rysweet/AzureHayMaker",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:24:54.031882Z",
-  "github_path": ".claude/skills/model-evaluation-benchmark"
+  "github_path": ".claude/skills/model-evaluation-benchmark",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "variant"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/generate-variant"
+  "github_path": ".claude/skills/generate-variant",
+  "github_branch": "main"
 }

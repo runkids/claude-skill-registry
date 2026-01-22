@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:14.860392Z",
   "dir_name": "skill-creation",
   "category": "other",
-  "github_path": ".claude/skills/skill-creation"
+  "github_path": ".claude/skills/skill-creation",
+  "github_branch": "main"
 }

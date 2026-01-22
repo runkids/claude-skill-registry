@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:04.539008Z",
   "dir_name": "refactor-test-safety-net",
   "category": "other",
-  "github_path": ".claude/skills/refactor-test-safety-net"
+  "github_path": ".claude/skills/refactor-test-safety-net",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "data-layer-architecture",
-  "github_path": ".claude/skills/data-layer-architecture"
+  "github_path": ".claude/skills/data-layer-architecture",
+  "github_branch": "main"
 }

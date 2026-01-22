@@ -8,5 +8,6 @@
     "template"
   ],
   "stars": 27,
-  "github_path": ".claude/skills/render-template"
+  "github_path": ".claude/skills/render-template",
+  "github_branch": "main"
 }

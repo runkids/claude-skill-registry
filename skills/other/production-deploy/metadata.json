@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:23.209761Z",
   "dir_name": "production-deploy",
   "category": "other",
-  "github_path": ".claude/skills/production-deploy"
+  "github_path": ".claude/skills/production-deploy",
+  "github_branch": "main"
 }

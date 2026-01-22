@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:06.232700Z",
   "dir_name": "atomic-component",
   "category": "other",
-  "github_path": ".claude/skills/atomic-component"
+  "github_path": ".claude/skills/atomic-component",
+  "github_branch": "main"
 }

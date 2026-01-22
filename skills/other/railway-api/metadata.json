@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:09.339808Z",
   "dir_name": "railway-api",
   "category": "other",
-  "github_path": ".claude/skills/railway-api"
+  "github_path": ".claude/skills/railway-api",
+  "github_branch": "main"
 }

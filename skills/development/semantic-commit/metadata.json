@@ -8,5 +8,6 @@
     "commit"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/semantic-commit"
+  "github_path": ".claude/skills/semantic-commit",
+  "github_branch": "main"
 }

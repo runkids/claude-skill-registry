@@ -7,5 +7,6 @@
     "publish"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/publish"
+  "github_path": ".claude/skills/publish",
+  "github_branch": "main"
 }

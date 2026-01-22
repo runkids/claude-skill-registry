@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:20.570315Z",
   "dir_name": "snowflake-connections",
   "category": "other",
-  "github_path": ".claude/skills/snowflake-connections"
+  "github_path": ".claude/skills/snowflake-connections",
+  "github_branch": "main"
 }

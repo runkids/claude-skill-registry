@@ -8,5 +8,6 @@
     "nif"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/skyrim-nif"
+  "github_path": ".claude/skills/skyrim-nif",
+  "github_branch": "main"
 }

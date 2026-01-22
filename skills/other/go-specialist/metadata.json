@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T02:22:52.166858Z",
   "dir_name": "go-specialist",
   "category": "other",
-  "github_path": ".claude/skills/go-specialist"
+  "github_path": ".claude/skills/go-specialist",
+  "github_branch": "main"
 }

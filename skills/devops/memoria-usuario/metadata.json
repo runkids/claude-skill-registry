@@ -8,5 +8,6 @@
     "usuario"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/memoria-usuario"
+  "github_path": ".claude/skills/memoria-usuario",
+  "github_branch": "main"
 }

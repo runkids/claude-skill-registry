@@ -8,5 +8,6 @@
     "library"
   ],
   "stars": 47,
-  "github_path": ".claude/skills/ui-template-library"
+  "github_path": ".claude/skills/ui-template-library",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "posts"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/writing-linkedin-posts"
+  "github_path": ".claude/skills/writing-linkedin-posts",
+  "github_branch": "main"
 }

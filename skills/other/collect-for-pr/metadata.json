@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:58:53.779895Z",
   "dir_name": "collect-for-pr",
   "category": "other",
-  "github_path": ".claude/skills/collect-for-pr"
+  "github_path": ".claude/skills/collect-for-pr",
+  "github_branch": "main"
 }

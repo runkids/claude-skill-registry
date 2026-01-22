@@ -10,5 +10,6 @@
   ],
   "stars": 817,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/create-slash-commands"
+  "github_path": "skills/create-slash-commands",
+  "github_branch": "main"
 }

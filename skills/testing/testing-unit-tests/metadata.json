@@ -9,5 +9,6 @@
     "tests"
   ],
   "stars": 45,
-  "github_path": ".claude/skills/testing-unit-tests"
+  "github_path": ".claude/skills/testing-unit-tests",
+  "github_branch": "main"
 }

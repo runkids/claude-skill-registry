@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:20:57.125366Z",
   "dir_name": "qa-engineer",
   "category": "other",
-  "github_path": ".claude/skills/qa-engineer"
+  "github_path": ".claude/skills/qa-engineer",
+  "github_branch": "main"
 }

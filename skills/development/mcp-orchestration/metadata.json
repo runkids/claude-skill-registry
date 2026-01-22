@@ -8,5 +8,6 @@
     "orchestration"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/mcp-orchestration"
+  "github_path": ".claude/skills/mcp-orchestration",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "remote"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/py-deploy-remote"
+  "github_path": ".claude/skills/py-deploy-remote",
+  "github_branch": "main"
 }

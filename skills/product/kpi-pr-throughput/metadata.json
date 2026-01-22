@@ -8,5 +8,6 @@
     "throughput"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/kpi-pr-throughput"
+  "github_path": ".claude/skills/kpi-pr-throughput",
+  "github_branch": "main"
 }

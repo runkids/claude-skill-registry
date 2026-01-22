@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:49.516597Z",
   "dir_name": "azure-devops-cli",
   "category": "other",
-  "github_path": ".claude/skills/azure-devops-cli"
+  "github_path": ".claude/skills/azure-devops-cli",
+  "github_branch": "main"
 }

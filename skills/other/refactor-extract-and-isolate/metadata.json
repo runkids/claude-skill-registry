@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:04.170190Z",
   "dir_name": "refactor-extract-and-isolate",
   "category": "other",
-  "github_path": ".claude/skills/refactor-extract-and-isolate"
+  "github_path": ".claude/skills/refactor-extract-and-isolate",
+  "github_branch": "main"
 }

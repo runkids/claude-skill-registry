@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:08.331642Z",
   "dir_name": "eks-irsa",
   "category": "other",
-  "github_path": ".claude/skills/eks-irsa"
+  "github_path": ".claude/skills/eks-irsa",
+  "github_branch": "main"
 }

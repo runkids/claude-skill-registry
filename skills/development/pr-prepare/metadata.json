@@ -7,5 +7,6 @@
     "prepare"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pr-prepare"
+  "github_path": ".claude/skills/pr-prepare",
+  "github_branch": "main"
 }

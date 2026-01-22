@@ -9,5 +9,6 @@
     "director"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mvp-product-director"
+  "github_path": ".claude/skills/mvp-product-director",
+  "github_branch": "main"
 }

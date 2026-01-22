@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:02.848965Z",
   "dir_name": "qe-contract-testing",
   "category": "other",
-  "github_path": ".claude/skills/qe-contract-testing"
+  "github_path": ".claude/skills/qe-contract-testing",
+  "github_branch": "main"
 }

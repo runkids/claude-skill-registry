@@ -9,5 +9,6 @@
   ],
   "stars": 184,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-changeset"
+  "github_path": ".claude/skills/create-changeset",
+  "github_branch": "main"
 }

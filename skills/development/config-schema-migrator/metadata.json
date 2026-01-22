@@ -10,5 +10,6 @@
   ],
   "stars": 166,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/config-schema-migrator"
+  "github_path": ".claude/skills/config-schema-migrator",
+  "github_branch": "main"
 }

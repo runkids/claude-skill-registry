@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:34:30.343339Z",
   "dir_name": "safe-build-operations",
   "category": "other",
-  "github_path": ".claude/skills/safe-build-operations"
+  "github_path": ".claude/skills/safe-build-operations",
+  "github_branch": "main"
 }

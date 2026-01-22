@@ -9,5 +9,6 @@
     "token"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/oauth21-bearer-token"
+  "github_path": ".claude/skills/oauth21-bearer-token",
+  "github_branch": "main"
 }

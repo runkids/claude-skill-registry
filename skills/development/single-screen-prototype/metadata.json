@@ -9,5 +9,6 @@
     "prototype"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/single-screen-prototype"
+  "github_path": ".claude/skills/single-screen-prototype",
+  "github_branch": "main"
 }

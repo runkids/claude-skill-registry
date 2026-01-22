@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:31:23.605457Z",
   "dir_name": "urdf-robot-model",
   "category": "other",
-  "github_path": ".claude/skills/urdf-robot-model"
+  "github_path": ".claude/skills/urdf-robot-model",
+  "github_branch": "main"
 }

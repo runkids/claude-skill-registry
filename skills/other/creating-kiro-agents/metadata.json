@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:39.995413Z",
   "dir_name": "creating-kiro-agents",
   "category": "other",
-  "github_path": ".claude/skills/creating-kiro-agents"
+  "github_path": ".claude/skills/creating-kiro-agents",
+  "github_branch": "main"
 }

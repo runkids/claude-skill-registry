@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:04.054966Z",
   "dir_name": "html-tools",
   "category": "other",
-  "github_path": ".claude/skills/html-tools"
+  "github_path": ".claude/skills/html-tools",
+  "github_branch": "main"
 }

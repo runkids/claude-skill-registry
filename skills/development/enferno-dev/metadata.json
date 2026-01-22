@@ -9,5 +9,6 @@
   ],
   "stars": 563,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/enferno-dev"
+  "github_path": ".claude/skills/enferno-dev",
+  "github_branch": "master"
 }

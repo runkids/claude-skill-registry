@@ -8,5 +8,6 @@
     "fixer"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/security-fixer"
+  "github_path": ".claude/skills/security-fixer",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   "stars": 1,
   "source": "SkillsMP Synced Skills",
   "dir_name": "comprehensive-issue-analyzer",
-  "github_path": ".claude/skills/comprehensive-issue-analyzer"
+  "github_path": ".claude/skills/comprehensive-issue-analyzer",
+  "github_branch": "main"
 }

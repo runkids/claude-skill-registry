@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T01:14:52.451660Z",
   "dir_name": "mediapipe-pose-detection",
   "category": "other",
-  "github_path": ".claude/skills/mediapipe-pose-detection"
+  "github_path": ".claude/skills/mediapipe-pose-detection",
+  "github_branch": "main"
 }

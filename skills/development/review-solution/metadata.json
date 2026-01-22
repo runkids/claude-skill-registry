@@ -8,5 +8,6 @@
     "solution"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/review-solution"
+  "github_path": ".claude/skills/review-solution",
+  "github_branch": "main"
 }

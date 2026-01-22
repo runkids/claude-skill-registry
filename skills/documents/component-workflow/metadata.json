@@ -9,5 +9,6 @@
   ],
   "stars": 7,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/component-workflow"
+  "github_path": ".claude/skills/component-workflow",
+  "github_branch": "main"
 }

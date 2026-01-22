@@ -10,5 +10,6 @@
   ],
   "stars": 103,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/chaos-engineering-resilience"
+  "github_path": ".claude/skills/chaos-engineering-resilience",
+  "github_branch": "main"
 }

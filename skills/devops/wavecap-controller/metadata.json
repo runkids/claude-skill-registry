@@ -8,5 +8,6 @@
     "controller"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wavecap-controller"
+  "github_path": ".claude/skills/wavecap-controller",
+  "github_branch": "main"
 }

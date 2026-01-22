@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:06.461971Z",
   "dir_name": "prd-v03-features-value-planning",
   "category": "other",
-  "github_path": ".claude/skills/prd-v03-features-value-planning"
+  "github_path": ".claude/skills/prd-v03-features-value-planning",
+  "github_branch": "main"
 }

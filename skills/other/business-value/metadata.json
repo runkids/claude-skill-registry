@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:18:47.394069Z",
   "dir_name": "business-value",
   "category": "other",
-  "github_path": ".claude/skills/business-value"
+  "github_path": ".claude/skills/business-value",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 783,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/data-stats-analysis"
+  "github_path": ".claude/skills/data-stats-analysis",
+  "github_branch": "master"
 }

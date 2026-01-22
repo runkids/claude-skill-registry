@@ -8,5 +8,6 @@
     "scaffolding"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-scaffolding"
+  "github_path": ".claude/skills/project-scaffolding",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "health"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wavecap-health"
+  "github_path": ".claude/skills/wavecap-health",
+  "github_branch": "main"
 }

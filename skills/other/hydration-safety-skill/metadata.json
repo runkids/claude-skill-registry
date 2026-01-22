@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:54:40.178991Z",
   "dir_name": "hydration-safety-skill",
   "category": "other",
-  "github_path": ".claude/skills/hydration-safety-skill"
+  "github_path": ".claude/skills/hydration-safety-skill",
+  "github_branch": "main"
 }

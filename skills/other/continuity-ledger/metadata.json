@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:39.921286Z",
   "dir_name": "continuity-ledger",
   "category": "other",
-  "github_path": ".claude/skills/continuity_ledger"
+  "github_path": ".claude/skills/continuity_ledger",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:42.008086Z",
   "dir_name": "opentofu-modules",
   "category": "other",
-  "github_path": ".claude/skills/opentofu-modules"
+  "github_path": ".claude/skills/opentofu-modules",
+  "github_branch": "main"
 }

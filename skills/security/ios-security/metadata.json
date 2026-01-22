@@ -8,5 +8,6 @@
     "security"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ios-security"
+  "github_path": ".claude/skills/ios-security",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/blockchain-data-collection-validation"
+  "github_path": ".claude/skills/blockchain-data-collection-validation",
+  "github_branch": "main"
 }

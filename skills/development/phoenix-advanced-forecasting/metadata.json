@@ -9,5 +9,6 @@
     "forecasting"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/phoenix-advanced-forecasting"
+  "github_path": ".claude/skills/phoenix-advanced-forecasting",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "debugging"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-and-debugging"
+  "github_path": ".claude/skills/testing-and-debugging",
+  "github_branch": "main"
 }

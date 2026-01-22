@@ -8,5 +8,6 @@
     "first"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tidy-first"
+  "github_path": ".claude/skills/tidy-first",
+  "github_branch": "main"
 }

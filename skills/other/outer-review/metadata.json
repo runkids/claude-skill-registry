@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:33.570064Z",
   "dir_name": "outer-review",
   "category": "other",
-  "github_path": ".claude/skills/outer-review"
+  "github_path": ".claude/skills/outer-review",
+  "github_branch": "main"
 }

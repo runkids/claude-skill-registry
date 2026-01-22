@@ -10,5 +10,6 @@
   ],
   "stars": 11,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/duplicate-code-detector"
+  "github_path": ".claude/skills/duplicate-code-detector",
+  "github_branch": "main"
 }

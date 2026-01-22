@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/format-resume"
+  "github_path": ".claude/skills/format-resume",
+  "github_branch": "main"
 }

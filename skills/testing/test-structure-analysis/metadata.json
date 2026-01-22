@@ -9,5 +9,6 @@
     "analysis"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/test-structure-analysis"
+  "github_path": ".claude/skills/test-structure-analysis",
+  "github_branch": "main"
 }

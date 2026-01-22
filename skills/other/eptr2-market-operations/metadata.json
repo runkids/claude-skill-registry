@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:40:00.708699Z",
   "dir_name": "eptr2-market-operations",
   "category": "other",
-  "github_path": ".claude/skills/eptr2-market-operations"
+  "github_path": ".claude/skills/eptr2-market-operations",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "changes"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/recent-changes"
+  "github_path": ".claude/skills/recent-changes",
+  "github_branch": "main"
 }

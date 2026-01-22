@@ -10,5 +10,6 @@
   ],
   "stars": 32,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/erk-diff-analysis"
+  "github_path": ".claude/skills/erk-diff-analysis",
+  "github_branch": "main"
 }

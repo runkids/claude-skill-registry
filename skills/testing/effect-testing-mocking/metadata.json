@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effect-testing-mocking"
+  "github_path": ".claude/skills/effect-testing-mocking",
+  "github_branch": "main"
 }

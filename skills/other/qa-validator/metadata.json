@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:28:25.492570Z",
   "dir_name": "qa-validator",
   "category": "other",
-  "github_path": ".claude/skills/qa-validator"
+  "github_path": ".claude/skills/qa-validator",
+  "github_branch": "main"
 }

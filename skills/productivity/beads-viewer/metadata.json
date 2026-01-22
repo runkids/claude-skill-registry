@@ -9,5 +9,6 @@
   ],
   "stars": 42,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/beads-viewer"
+  "github_path": ".claude/skills/beads-viewer",
+  "github_branch": "master"
 }

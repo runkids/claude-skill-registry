@@ -8,5 +8,6 @@
     "feature"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/start-feature"
+  "github_path": ".claude/skills/start-feature",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "containerization"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/containerization"
+  "github_path": ".claude/skills/containerization",
+  "github_branch": "main"
 }

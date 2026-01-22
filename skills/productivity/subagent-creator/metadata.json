@@ -8,5 +8,6 @@
     "creator"
   ],
   "stars": 44,
-  "github_path": ".claude/skills/subagent-creator"
+  "github_path": ".claude/skills/subagent-creator",
+  "github_branch": "main"
 }

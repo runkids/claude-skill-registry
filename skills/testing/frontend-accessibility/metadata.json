@@ -8,5 +8,6 @@
     "accessibility"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/frontend-accessibility"
+  "github_path": ".claude/skills/frontend-accessibility",
+  "github_branch": "main"
 }

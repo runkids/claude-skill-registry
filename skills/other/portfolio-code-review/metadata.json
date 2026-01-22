@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:52:39.623684Z",
   "dir_name": "portfolio-code-review",
   "category": "other",
-  "github_path": ".claude/skills/portfolio-code-review"
+  "github_path": ".claude/skills/portfolio-code-review",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:12.530610Z",
   "dir_name": "worktree-switch",
   "category": "other",
-  "github_path": ".claude/skills/worktree-switch"
+  "github_path": ".claude/skills/worktree-switch",
+  "github_branch": "main"
 }

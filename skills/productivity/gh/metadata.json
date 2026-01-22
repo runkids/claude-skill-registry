@@ -5,5 +5,6 @@
   "category": "productivity",
   "tags": [],
   "stars": 17,
-  "github_path": ".claude/skills/gh"
+  "github_path": ".claude/skills/gh",
+  "github_branch": "main"
 }

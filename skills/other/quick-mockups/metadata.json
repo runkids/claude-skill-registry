@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:37.691410Z",
   "dir_name": "quick-mockups",
   "category": "other",
-  "github_path": ".claude/skills/quick-mockups"
+  "github_path": ".claude/skills/quick-mockups",
+  "github_branch": "main"
 }

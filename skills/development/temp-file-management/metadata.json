@@ -9,5 +9,6 @@
     "management"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/temp-file-management"
+  "github_path": ".claude/skills/temp-file-management",
+  "github_branch": "main"
 }

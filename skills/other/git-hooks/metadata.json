@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:44.193211Z",
   "dir_name": "git-hooks",
   "category": "other",
-  "github_path": ".claude/skills/git-hooks"
+  "github_path": ".claude/skills/git-hooks",
+  "github_branch": "main"
 }

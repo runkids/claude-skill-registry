@@ -9,5 +9,6 @@
     "specialist"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wgpu-shader-specialist"
+  "github_path": ".claude/skills/wgpu-shader-specialist",
+  "github_branch": "main"
 }

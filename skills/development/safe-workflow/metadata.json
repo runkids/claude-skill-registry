@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/safe-workflow"
+  "github_path": ".claude/skills/safe-workflow",
+  "github_branch": "main"
 }

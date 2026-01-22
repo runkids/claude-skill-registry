@@ -9,5 +9,6 @@
     "setup"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/verify-claude-setup"
+  "github_path": ".claude/skills/verify-claude-setup",
+  "github_branch": "main"
 }

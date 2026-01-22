@@ -9,5 +9,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/prpm-development"
+  "github_path": ".claude/skills/prpm-development",
+  "github_branch": "main"
 }

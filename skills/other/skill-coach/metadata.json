@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:55.514709Z",
   "dir_name": "skill-coach",
   "category": "other",
-  "github_path": ".claude/skills/skill-coach"
+  "github_path": ".claude/skills/skill-coach",
+  "github_branch": "main"
 }

@@ -5,5 +5,6 @@
   "description": "Use before implementing UI changes or frontend PRs. Enforces TodoWrite with 18+ items. Triggers: \"accessibility audit\", \"WCAG\", \"Lighthouse\", \"screen reader\", \"a11y\", \"NVDA\", \"VoiceOver\", \"keyboard na",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:58:31.984185Z",
-  "github_path": ".claude/skills/frontend-production-quality"
+  "github_path": ".claude/skills/frontend-production-quality",
+  "github_branch": "main"
 }

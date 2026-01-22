@@ -8,5 +8,6 @@
     "professor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/skill-professor"
+  "github_path": ".claude/skills/skill-professor",
+  "github_branch": "main"
 }

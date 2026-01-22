@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:55:16.840392Z",
   "dir_name": "the-optimizer",
   "category": "other",
-  "github_path": ".claude/skills/the-optimizer"
+  "github_path": ".claude/skills/the-optimizer",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dap-protocol-guide"
+  "github_path": ".claude/skills/dap-protocol-guide",
+  "github_branch": "main"
 }

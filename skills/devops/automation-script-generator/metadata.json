@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/automation-script-generator"
+  "github_path": ".claude/skills/automation-script-generator",
+  "github_branch": "main"
 }

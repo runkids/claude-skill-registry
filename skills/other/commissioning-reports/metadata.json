@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:06.165328Z",
   "dir_name": "commissioning-reports",
   "category": "other",
-  "github_path": ".claude/skills/commissioning-reports"
+  "github_path": ".claude/skills/commissioning-reports",
+  "github_branch": "main"
 }

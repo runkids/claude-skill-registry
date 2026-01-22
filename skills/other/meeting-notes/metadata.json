@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:11.992855Z",
   "dir_name": "meeting-notes",
   "category": "other",
-  "github_path": ".claude/skills/meeting-notes"
+  "github_path": ".claude/skills/meeting-notes",
+  "github_branch": "main"
 }

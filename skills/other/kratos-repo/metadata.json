@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:16:27.855305Z",
   "dir_name": "kratos-repo",
   "category": "other",
-  "github_path": ".claude/skills/kratos-repo"
+  "github_path": ".claude/skills/kratos-repo",
+  "github_branch": "main"
 }

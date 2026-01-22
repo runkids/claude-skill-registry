@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:31:50.800181Z",
   "dir_name": "instance-resource-design",
   "category": "other",
-  "github_path": ".claude/skills/instance-resource-design"
+  "github_path": ".claude/skills/instance-resource-design",
+  "github_branch": "main"
 }

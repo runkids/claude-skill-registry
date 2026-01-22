@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:09.945073Z",
   "dir_name": "ui-handler",
   "category": "other",
-  "github_path": ".claude/skills/ui-handler"
+  "github_path": ".claude/skills/ui-handler",
+  "github_branch": "main"
 }

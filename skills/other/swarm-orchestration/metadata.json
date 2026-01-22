@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:46.858613Z",
   "dir_name": "swarm-orchestration",
   "category": "other",
-  "github_path": ".claude/skills/swarm-orchestration"
+  "github_path": ".claude/skills/swarm-orchestration",
+  "github_branch": "main"
 }

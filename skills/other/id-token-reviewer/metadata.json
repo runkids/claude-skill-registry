@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:54.914470Z",
   "dir_name": "id-token-reviewer",
   "category": "other",
-  "github_path": ".claude/skills/id-token-reviewer"
+  "github_path": ".claude/skills/id-token-reviewer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:10.789353Z",
   "dir_name": "typescript-quality-checker",
   "category": "other",
-  "github_path": ".claude/skills/typescript-quality-checker"
+  "github_path": ".claude/skills/typescript-quality-checker",
+  "github_branch": "main"
 }

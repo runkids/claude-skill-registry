@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:27:18.497696Z",
   "dir_name": "agent-selecting-models",
   "category": "other",
-  "github_path": ".claude/skills/agent-selecting-models"
+  "github_path": ".claude/skills/agent-selecting-models",
+  "github_branch": "main"
 }

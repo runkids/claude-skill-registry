@@ -10,5 +10,6 @@
   ],
   "stars": 310,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/moai-lang-cpp"
+  "github_path": ".claude/skills/moai-lang-cpp",
+  "github_branch": "main"
 }

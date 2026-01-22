@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:01:00.523056Z",
   "dir_name": "dbc-schema",
   "category": "other",
-  "github_path": ".claude/skills/dbc-schema"
+  "github_path": ".claude/skills/dbc-schema",
+  "github_branch": "main"
 }

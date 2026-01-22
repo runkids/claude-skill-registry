@@ -8,5 +8,6 @@
     "ice"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/snd-ice"
+  "github_path": ".claude/skills/snd-ice",
+  "github_branch": "main"
 }

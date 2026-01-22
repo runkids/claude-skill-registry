@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:31:17.610586Z",
   "dir_name": "deep-analysis-verridian-ai-life-os-pulse-banner",
   "category": "other",
-  "github_path": ".claude/skills/deep_analysis"
+  "github_path": ".claude/skills/deep_analysis",
+  "github_branch": "main"
 }

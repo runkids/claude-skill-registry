@@ -8,5 +8,6 @@
     "use"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tool-use"
+  "github_path": ".claude/skills/tool-use",
+  "github_branch": "main"
 }

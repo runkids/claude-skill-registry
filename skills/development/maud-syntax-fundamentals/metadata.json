@@ -9,5 +9,6 @@
     "fundamentals"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/maud-syntax-fundamentals"
+  "github_path": ".claude/skills/maud-syntax-fundamentals",
+  "github_branch": "main"
 }

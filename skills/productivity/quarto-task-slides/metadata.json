@@ -9,5 +9,6 @@
     "slides"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quarto-task-slides"
+  "github_path": ".claude/skills/quarto-task-slides",
+  "github_branch": "main"
 }

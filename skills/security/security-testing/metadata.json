@@ -9,5 +9,6 @@
   ],
   "stars": 103,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/security-testing"
+  "github_path": ".claude/skills/security-testing",
+  "github_branch": "main"
 }

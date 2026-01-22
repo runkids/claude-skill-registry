@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:44.982822Z",
   "dir_name": "tool-discovery",
   "category": "other",
-  "github_path": ".claude/skills/tool-discovery"
+  "github_path": ".claude/skills/tool-discovery",
+  "github_branch": "main"
 }

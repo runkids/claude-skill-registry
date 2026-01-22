@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:03.292985Z",
   "dir_name": "arxiv-research",
   "category": "other",
-  "github_path": ".claude/skills/arxiv-research"
+  "github_path": ".claude/skills/arxiv-research",
+  "github_branch": "main"
 }

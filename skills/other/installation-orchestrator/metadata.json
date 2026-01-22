@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:10.930951Z",
   "dir_name": "installation-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/installation-orchestrator"
+  "github_path": ".claude/skills/installation-orchestrator",
+  "github_branch": "main"
 }

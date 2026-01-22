@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:06:47.975056Z",
   "dir_name": "tool-design-pattern",
   "category": "other",
-  "github_path": ".claude/skills/tool-design-pattern"
+  "github_path": ".claude/skills/tool-design-pattern",
+  "github_branch": "main"
 }

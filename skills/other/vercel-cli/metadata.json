@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:15:13.720516Z",
   "dir_name": "vercel-cli",
   "category": "other",
-  "github_path": ".claude/skills/vercel-cli"
+  "github_path": ".claude/skills/vercel-cli",
+  "github_branch": "main"
 }

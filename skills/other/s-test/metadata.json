@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:51:40.469607Z",
   "dir_name": "s-test",
   "category": "other",
-  "github_path": ".claude/skills/s-test"
+  "github_path": ".claude/skills/s-test",
+  "github_branch": "main"
 }

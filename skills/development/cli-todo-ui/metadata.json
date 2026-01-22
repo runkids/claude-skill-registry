@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cli-todo-ui"
+  "github_path": ".claude/skills/cli-todo-ui",
+  "github_branch": "main"
 }

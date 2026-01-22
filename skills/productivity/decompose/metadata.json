@@ -8,5 +8,6 @@
   ],
   "stars": 42,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/decompose"
+  "github_path": ".claude/skills/decompose",
+  "github_branch": "master"
 }

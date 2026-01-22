@@ -5,5 +5,6 @@
   "description": "Stop the Android app running on connected device. Cleanly terminates the app using force-stop. Use when stopping the app for debugging, testing, or cleanup.",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:20:32.311130Z",
-  "github_path": ".claude/skills/android-stop-app"
+  "github_path": ".claude/skills/android-stop-app",
+  "github_branch": "main"
 }

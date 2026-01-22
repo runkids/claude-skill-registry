@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dokploy-compose-structure"
+  "github_path": ".claude/skills/dokploy-compose-structure",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:13.407652Z",
   "dir_name": "project-status",
   "category": "other",
-  "github_path": ".claude/skills/project-status"
+  "github_path": ".claude/skills/project-status",
+  "github_branch": "main"
 }

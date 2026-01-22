@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/expo-docs"
+  "github_path": ".claude/skills/expo-docs",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:55.682233Z",
   "dir_name": "rust-testing-verification",
   "category": "other",
-  "github_path": ".claude/skills/rust-testing-verification"
+  "github_path": ".claude/skills/rust-testing-verification",
+  "github_branch": "main"
 }

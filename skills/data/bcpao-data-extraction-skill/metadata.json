@@ -12,5 +12,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "bcpao-data-extraction-skill",
-  "github_path": ".claude/skills/bcpao-data-extraction-skill"
+  "github_path": ".claude/skills/bcpao-data-extraction-skill",
+  "github_branch": "main"
 }

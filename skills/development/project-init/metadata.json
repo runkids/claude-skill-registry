@@ -8,5 +8,6 @@
     "init"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-init"
+  "github_path": ".claude/skills/project-init",
+  "github_branch": "main"
 }

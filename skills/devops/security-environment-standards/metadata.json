@@ -9,5 +9,6 @@
     "standards"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/security-environment-standards"
+  "github_path": ".claude/skills/security-environment-standards",
+  "github_branch": "main"
 }

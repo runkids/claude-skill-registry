@@ -9,5 +9,6 @@
     "components"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/webflow-code-components"
+  "github_path": ".claude/skills/webflow-code-components",
+  "github_branch": "main"
 }

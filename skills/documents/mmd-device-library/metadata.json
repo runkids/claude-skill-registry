@@ -9,5 +9,6 @@
     "library"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mmd-device-library"
+  "github_path": ".claude/skills/mmd-device-library",
+  "github_branch": "main"
 }

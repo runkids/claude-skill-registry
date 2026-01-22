@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:20:40.301742Z",
   "dir_name": "tech-blogger-writer",
   "category": "other",
-  "github_path": ".claude/skills/tech-blogger-writer"
+  "github_path": ".claude/skills/tech-blogger-writer",
+  "github_branch": "main"
 }

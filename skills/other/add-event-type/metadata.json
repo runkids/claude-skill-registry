@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:22.872211Z",
   "dir_name": "add-event-type",
   "category": "other",
-  "github_path": ".claude/skills/add-event-type"
+  "github_path": ".claude/skills/add-event-type",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:08.954076Z",
   "dir_name": "n8n-workflow",
   "category": "other",
-  "github_path": ".claude/skills/n8n-workflow"
+  "github_path": ".claude/skills/n8n-workflow",
+  "github_branch": "main"
 }

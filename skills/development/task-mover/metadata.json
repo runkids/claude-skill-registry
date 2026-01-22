@@ -8,5 +8,6 @@
     "mover"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/task-mover"
+  "github_path": ".claude/skills/task-mover",
+  "github_branch": "main"
 }

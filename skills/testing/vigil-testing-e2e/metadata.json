@@ -9,5 +9,6 @@
     "e2e"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/vigil-testing-e2e"
+  "github_path": ".claude/skills/vigil-testing-e2e",
+  "github_branch": "main"
 }

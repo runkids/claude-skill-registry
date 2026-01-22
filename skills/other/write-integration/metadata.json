@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:16:43.880523Z",
   "dir_name": "write-integration",
   "category": "other",
-  "github_path": ".claude/skills/write-integration"
+  "github_path": ".claude/skills/write-integration",
+  "github_branch": "main"
 }

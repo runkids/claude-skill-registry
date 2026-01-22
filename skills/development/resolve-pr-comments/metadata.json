@@ -8,5 +8,6 @@
     "comments"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/resolve-pr-comments"
+  "github_path": ".claude/skills/resolve-pr-comments",
+  "github_branch": "main"
 }

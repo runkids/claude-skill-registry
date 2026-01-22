@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:17.779006Z",
   "dir_name": "component-model-analysis",
   "category": "other",
-  "github_path": ".claude/skills/component-model-analysis"
+  "github_path": ".claude/skills/component-model-analysis",
+  "github_branch": "main"
 }

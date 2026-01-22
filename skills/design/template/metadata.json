@@ -7,5 +7,6 @@
     "template"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/template"
+  "github_path": ".claude/skills/template",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "scripture-study",
-  "github_path": ".claude/skills/scripture-study"
+  "github_path": ".claude/skills/scripture-study",
+  "github_branch": "main"
 }

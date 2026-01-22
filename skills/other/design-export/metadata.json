@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:52.683055Z",
   "dir_name": "design-export",
   "category": "other",
-  "github_path": ".claude/skills/design-export"
+  "github_path": ".claude/skills/design-export",
+  "github_branch": "main"
 }

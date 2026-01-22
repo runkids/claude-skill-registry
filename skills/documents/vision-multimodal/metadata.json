@@ -8,5 +8,6 @@
     "multimodal"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/vision-multimodal"
+  "github_path": ".claude/skills/vision-multimodal",
+  "github_branch": "main"
 }

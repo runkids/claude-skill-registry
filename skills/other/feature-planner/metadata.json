@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:03.486645Z",
   "dir_name": "feature-planner",
   "category": "other",
-  "github_path": ".claude/skills/feature-planner"
+  "github_path": ".claude/skills/feature-planner",
+  "github_branch": "main"
 }

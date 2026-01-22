@@ -9,5 +9,6 @@
     "architecture"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/web-components-architecture"
+  "github_path": ".claude/skills/web-components-architecture",
+  "github_branch": "main"
 }

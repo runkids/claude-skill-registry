@@ -8,5 +8,6 @@
     "insights"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/telemetry-pr-insights"
+  "github_path": ".claude/skills/telemetry-pr-insights",
+  "github_branch": "main"
 }

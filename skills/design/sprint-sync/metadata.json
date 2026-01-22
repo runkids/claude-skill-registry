@@ -8,5 +8,6 @@
     "sync"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/sprint-sync"
+  "github_path": ".claude/skills/sprint-sync",
+  "github_branch": "main"
 }

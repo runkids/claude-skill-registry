@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:23.782194Z",
   "dir_name": "terraform",
   "category": "other",
-  "github_path": ".claude/skills/terraform"
+  "github_path": ".claude/skills/terraform",
+  "github_branch": "main"
 }

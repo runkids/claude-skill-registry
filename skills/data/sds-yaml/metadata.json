@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:01.718649Z",
   "dir_name": "sds-yaml",
-  "github_path": ".claude/skills/sds-yaml"
+  "github_path": ".claude/skills/sds-yaml",
+  "github_branch": "main"
 }

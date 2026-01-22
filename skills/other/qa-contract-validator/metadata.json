@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:41.496006Z",
   "dir_name": "qa-contract-validator",
   "category": "other",
-  "github_path": ".claude/skills/qa-contract-validator"
+  "github_path": ".claude/skills/qa-contract-validator",
+  "github_branch": "main"
 }

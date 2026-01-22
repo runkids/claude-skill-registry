@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:15.140309Z",
   "dir_name": "inductor",
   "category": "other",
-  "github_path": ".claude/skills/inductor"
+  "github_path": ".claude/skills/inductor",
+  "github_branch": "main"
 }

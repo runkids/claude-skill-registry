@@ -5,5 +5,6 @@
   "description": "Go language consultant providing guidance on best practices, testing with testify, concurrency patterns, error handling, and technology stack recommendations. Use when answering Go questions, reviewin",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:41.574273Z",
-  "github_path": ".claude/skills/go-specialist"
+  "github_path": ".claude/skills/go-specialist",
+  "github_branch": "main"
 }

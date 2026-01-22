@@ -11,5 +11,6 @@
   ],
   "stars": 93,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/devflow-constitution-quick-ref"
+  "github_path": ".claude/skills/devflow-constitution-quick-ref",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "tester"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/qa-behavioral-tester"
+  "github_path": ".claude/skills/qa-behavioral-tester",
+  "github_branch": "main"
 }

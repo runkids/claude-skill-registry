@@ -9,5 +9,6 @@
     "expert"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/nix-module-expert"
+  "github_path": ".claude/skills/nix-module-expert",
+  "github_branch": "main"
 }

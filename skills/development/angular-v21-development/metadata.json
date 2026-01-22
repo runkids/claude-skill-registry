@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/angular-v21-development"
+  "github_path": ".claude/skills/angular-v21-development",
+  "github_branch": "main"
 }

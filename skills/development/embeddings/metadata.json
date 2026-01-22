@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/embeddings"
+  "github_path": ".claude/skills/embeddings",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "marketing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/local-marketing"
+  "github_path": ".claude/skills/local-marketing",
+  "github_branch": "main"
 }

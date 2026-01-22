@@ -8,5 +8,6 @@
     "mocking"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/vitest-mocking"
+  "github_path": ".claude/skills/vitest-mocking",
+  "github_branch": "main"
 }

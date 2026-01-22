@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dndtale"
+  "github_path": ".claude/skills/dndtale",
+  "github_branch": "main"
 }

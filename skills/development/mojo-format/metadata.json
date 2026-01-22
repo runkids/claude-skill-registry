@@ -8,5 +8,6 @@
     "format"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/mojo-format"
+  "github_path": ".claude/skills/mojo-format",
+  "github_branch": "main"
 }

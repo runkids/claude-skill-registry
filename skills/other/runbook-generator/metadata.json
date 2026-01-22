@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:02.433271Z",
   "dir_name": "runbook-generator",
   "category": "other",
-  "github_path": ".claude/skills/runbook-generator"
+  "github_path": ".claude/skills/runbook-generator",
+  "github_branch": "main"
 }

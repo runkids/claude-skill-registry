@@ -9,5 +9,6 @@
     "converter"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/hsl-to-oklch-converter"
+  "github_path": ".claude/skills/hsl-to-oklch-converter",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:57.880326Z",
   "dir_name": "web-cli-teleport",
   "category": "other",
-  "github_path": ".claude/skills/web-cli-teleport"
+  "github_path": ".claude/skills/web-cli-teleport",
+  "github_branch": "main"
 }

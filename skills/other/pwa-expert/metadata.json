@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:01.021076Z",
   "dir_name": "pwa-expert",
   "category": "other",
-  "github_path": ".claude/skills/pwa-expert"
+  "github_path": ".claude/skills/pwa-expert",
+  "github_branch": "main"
 }

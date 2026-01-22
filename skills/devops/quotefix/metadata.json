@@ -7,5 +7,6 @@
     "quotefix"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quotefix"
+  "github_path": ".claude/skills/quotefix",
+  "github_branch": "main"
 }

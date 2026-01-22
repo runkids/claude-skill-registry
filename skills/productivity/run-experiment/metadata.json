@@ -8,5 +8,6 @@
     "experiment"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/run-experiment"
+  "github_path": ".claude/skills/run-experiment",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/css-design-tokens"
+  "github_path": ".claude/skills/css-design-tokens",
+  "github_branch": "main"
 }

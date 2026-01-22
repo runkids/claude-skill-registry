@@ -9,5 +9,6 @@
     "conventions"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/rust-style-conventions"
+  "github_path": ".claude/skills/rust-style-conventions",
+  "github_branch": "main"
 }

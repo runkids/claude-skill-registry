@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:46.867524Z",
   "dir_name": "slack-gif-creator",
   "category": "other",
-  "github_path": ".claude/skills/slack-gif-creator"
+  "github_path": ".claude/skills/slack-gif-creator",
+  "github_branch": "main"
 }

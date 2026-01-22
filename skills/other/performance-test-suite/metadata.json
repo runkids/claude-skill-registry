@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:16.015065Z",
   "dir_name": "performance-test-suite",
   "category": "other",
-  "github_path": ".claude/skills/performance-test-suite"
+  "github_path": ".claude/skills/performance-test-suite",
+  "github_branch": "main"
 }

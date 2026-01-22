@@ -8,5 +8,6 @@
     "thinkdeep"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pal-thinkdeep"
+  "github_path": ".claude/skills/pal-thinkdeep",
+  "github_branch": "main"
 }

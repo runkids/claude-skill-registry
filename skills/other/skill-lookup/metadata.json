@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:50:18.984793Z",
   "dir_name": "skill-lookup",
   "category": "other",
-  "github_path": ".claude/skills/skill-lookup"
+  "github_path": ".claude/skills/skill-lookup",
+  "github_branch": "main"
 }

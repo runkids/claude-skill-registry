@@ -9,5 +9,6 @@
     "template"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-schedule-template"
+  "github_path": ".claude/skills/project-schedule-template",
+  "github_branch": "main"
 }

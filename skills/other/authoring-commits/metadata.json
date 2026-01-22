@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:12.060001Z",
   "dir_name": "authoring-commits",
   "category": "other",
-  "github_path": ".claude/skills/authoring-commits"
+  "github_path": ".claude/skills/authoring-commits",
+  "github_branch": "main"
 }

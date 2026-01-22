@@ -9,5 +9,6 @@
   ],
   "stars": 5409,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/web-e2e"
+  "github_path": ".claude/skills/web-e2e",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:09:15.820503Z",
   "dir_name": "process-resume-skill",
   "category": "other",
-  "github_path": ".claude/skills/process_resume_skill"
+  "github_path": ".claude/skills/process_resume_skill",
+  "github_branch": "main"
 }

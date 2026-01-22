@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:06.773826Z",
   "dir_name": "v3-swarm-coordination",
   "category": "other",
-  "github_path": ".claude/skills/v3-swarm-coordination"
+  "github_path": ".claude/skills/v3-swarm-coordination",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   "stars": 166,
   "source": "SkillsMP Synced Skills",
   "dir_name": "mcp-server-enhancement",
-  "github_path": ".claude/skills/mcp-server-enhancement"
+  "github_path": ".claude/skills/mcp-server-enhancement",
+  "github_branch": "main"
 }

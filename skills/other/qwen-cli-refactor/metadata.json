@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:13.365663Z",
   "dir_name": "qwen-cli-refactor",
   "category": "other",
-  "github_path": ".claude/skills/qwen_cli_refactor"
+  "github_path": ".claude/skills/qwen_cli_refactor",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:21:47.229770Z",
   "dir_name": "ui-ux",
   "category": "other",
-  "github_path": ".claude/skills/ui-ux"
+  "github_path": ".claude/skills/ui-ux",
+  "github_branch": "main"
 }

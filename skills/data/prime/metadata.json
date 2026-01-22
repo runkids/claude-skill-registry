@@ -8,5 +8,6 @@
   ],
   "stars": 42,
   "dir_name": "prime",
-  "github_path": ".claude/skills/prime"
+  "github_path": ".claude/skills/prime",
+  "github_branch": "master"
 }

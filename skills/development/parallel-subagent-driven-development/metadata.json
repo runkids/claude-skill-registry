@@ -10,5 +10,6 @@
     "development"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/parallel-subagent-driven-development"
+  "github_path": ".claude/skills/parallel-subagent-driven-development",
+  "github_branch": "main"
 }

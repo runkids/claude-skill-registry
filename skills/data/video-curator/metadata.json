@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "video-curator",
-  "github_path": ".claude/skills/video-curator"
+  "github_path": ".claude/skills/video-curator",
+  "github_branch": "main"
 }

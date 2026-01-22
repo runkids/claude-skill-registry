@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:04.971623Z",
   "dir_name": "automl-pipeline-setup",
   "category": "other",
-  "github_path": ".claude/skills/automl-pipeline-setup"
+  "github_path": ".claude/skills/automl-pipeline-setup",
+  "github_branch": "main"
 }

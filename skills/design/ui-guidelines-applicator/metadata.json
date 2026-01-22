@@ -8,5 +8,6 @@
     "applicator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ui-guidelines-applicator"
+  "github_path": ".claude/skills/ui-guidelines-applicator",
+  "github_branch": "main"
 }

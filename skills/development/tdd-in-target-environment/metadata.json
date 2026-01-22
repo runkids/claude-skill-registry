@@ -9,5 +9,6 @@
     "environment"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/tdd-in-target-environment"
+  "github_path": ".claude/skills/tdd-in-target-environment",
+  "github_branch": "main"
 }

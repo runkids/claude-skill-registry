@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:16:57.735750Z",
   "dir_name": "gemini-genai",
   "category": "other",
-  "github_path": ".claude/skills/gemini-genai"
+  "github_path": ".claude/skills/gemini-genai",
+  "github_branch": "main"
 }

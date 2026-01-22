@@ -8,5 +8,6 @@
     "game"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/scale-game"
+  "github_path": ".claude/skills/scale-game",
+  "github_branch": "main"
 }

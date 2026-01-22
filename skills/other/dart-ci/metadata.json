@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:57:16.962051Z",
   "dir_name": "dart-ci",
   "category": "other",
-  "github_path": ".claude/skills/dart-ci"
+  "github_path": ".claude/skills/dart-ci",
+  "github_branch": "main"
 }

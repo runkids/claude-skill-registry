@@ -9,5 +9,6 @@
   ],
   "stars": 62,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/plan-guideline"
+  "github_path": ".claude/skills/plan-guideline",
+  "github_branch": "master"
 }

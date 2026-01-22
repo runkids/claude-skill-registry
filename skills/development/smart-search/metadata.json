@@ -8,5 +8,6 @@
     "search"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/smart-search"
+  "github_path": ".claude/skills/smart-search",
+  "github_branch": "main"
 }

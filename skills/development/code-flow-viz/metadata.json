@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/code-flow-viz"
+  "github_path": ".claude/skills/code-flow-viz",
+  "github_branch": "main"
 }

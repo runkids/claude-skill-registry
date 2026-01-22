@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:38:46.282995Z",
   "dir_name": "openspec-explore",
   "category": "other",
-  "github_path": ".claude/skills/openspec-explore"
+  "github_path": ".claude/skills/openspec-explore",
+  "github_branch": "main"
 }

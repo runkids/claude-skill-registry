@@ -9,5 +9,6 @@
     "skill"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/task-plan-skill"
+  "github_path": ".claude/skills/task-plan-skill",
+  "github_branch": "main"
 }

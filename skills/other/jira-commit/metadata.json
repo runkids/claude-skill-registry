@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:14.900248Z",
   "dir_name": "jira-commit",
   "category": "other",
-  "github_path": ".claude/skills/jira-commit"
+  "github_path": ".claude/skills/jira-commit",
+  "github_branch": "main"
 }

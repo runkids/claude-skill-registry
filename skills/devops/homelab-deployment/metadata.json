@@ -8,5 +8,6 @@
     "deployment"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/homelab-deployment"
+  "github_path": ".claude/skills/homelab-deployment",
+  "github_branch": "main"
 }

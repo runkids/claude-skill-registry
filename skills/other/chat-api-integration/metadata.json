@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:53.924365Z",
   "dir_name": "chat-api-integration",
   "category": "other",
-  "github_path": ".claude/skills/chat-api-integration"
+  "github_path": ".claude/skills/chat-api-integration",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:08.121751Z",
   "dir_name": "prd-v07-test-planning",
   "category": "other",
-  "github_path": ".claude/skills/prd-v07-test-planning"
+  "github_path": ".claude/skills/prd-v07-test-planning",
+  "github_branch": "main"
 }

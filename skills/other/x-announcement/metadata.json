@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:52.867084Z",
   "dir_name": "x-announcement",
   "category": "other",
-  "github_path": ".claude/skills/x-announcement"
+  "github_path": ".claude/skills/x-announcement",
+  "github_branch": "main"
 }

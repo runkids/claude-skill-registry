@@ -8,5 +8,6 @@
     "director"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/motion-director"
+  "github_path": ".claude/skills/motion-director",
+  "github_branch": "main"
 }

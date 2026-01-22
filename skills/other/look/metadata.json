@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T04:14:42.070446Z",
   "dir_name": "look",
   "category": "other",
-  "github_path": ".claude/skills/look"
+  "github_path": ".claude/skills/look",
+  "github_branch": "main"
 }

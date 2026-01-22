@@ -8,5 +8,6 @@
     "matcher"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/vibe-matcher"
+  "github_path": ".claude/skills/vibe-matcher",
+  "github_branch": "main"
 }

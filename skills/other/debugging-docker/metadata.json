@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:24.039351Z",
   "dir_name": "debugging-docker",
   "category": "other",
-  "github_path": ".claude/skills/debugging-docker"
+  "github_path": ".claude/skills/debugging-docker",
+  "github_branch": "main"
 }

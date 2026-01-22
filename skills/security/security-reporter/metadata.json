@@ -8,5 +8,6 @@
     "reporter"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/security-reporter"
+  "github_path": ".claude/skills/security-reporter",
+  "github_branch": "main"
 }

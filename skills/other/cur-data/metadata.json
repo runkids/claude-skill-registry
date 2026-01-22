@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:07:00.857102Z",
   "dir_name": "cur-data",
   "category": "other",
-  "github_path": ".claude/skills/cur-data"
+  "github_path": ".claude/skills/cur-data",
+  "github_branch": "main"
 }

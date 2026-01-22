@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:10.648694Z",
   "dir_name": "scaffolder",
   "category": "other",
-  "github_path": ".claude/skills/scaffolder"
+  "github_path": ".claude/skills/scaffolder",
+  "github_branch": "main"
 }

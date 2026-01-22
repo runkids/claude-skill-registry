@@ -7,5 +7,6 @@
     "typedoc"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/typedoc"
+  "github_path": ".claude/skills/typedoc",
+  "github_branch": "main"
 }

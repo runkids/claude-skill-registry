@@ -8,5 +8,6 @@
     "manager"
   ],
   "stars": 17,
-  "github_path": ".claude/skills/pine-manager"
+  "github_path": ".claude/skills/pine-manager",
+  "github_branch": "main"
 }

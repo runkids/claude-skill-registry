@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:38:41.807976Z",
   "dir_name": "refactoring-surgeon",
   "category": "other",
-  "github_path": ".claude/skills/refactoring-surgeon"
+  "github_path": ".claude/skills/refactoring-surgeon",
+  "github_branch": "main"
 }

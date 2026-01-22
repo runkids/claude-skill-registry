@@ -8,5 +8,6 @@
     "adk"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/google-adk"
+  "github_path": ".claude/skills/google-adk",
+  "github_branch": "main"
 }

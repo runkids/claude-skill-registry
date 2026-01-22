@@ -9,5 +9,6 @@
     "tdd"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/phase-test-tdd"
+  "github_path": ".claude/skills/phase-test-tdd",
+  "github_branch": "main"
 }

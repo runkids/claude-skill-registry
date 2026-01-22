@@ -8,5 +8,6 @@
     "image"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/generate-image"
+  "github_path": ".claude/skills/generate-image",
+  "github_branch": "main"
 }

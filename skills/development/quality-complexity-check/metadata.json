@@ -9,5 +9,6 @@
     "check"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/quality-complexity-check"
+  "github_path": ".claude/skills/quality-complexity-check",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:14:26.150038Z",
   "dir_name": "graphql",
   "category": "other",
-  "github_path": ".claude/skills/graphql"
+  "github_path": ".claude/skills/graphql",
+  "github_branch": "main"
 }

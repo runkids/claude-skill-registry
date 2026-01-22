@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:44.791082Z",
   "dir_name": "sql-server-admin",
-  "github_path": ".claude/skills/sql-server-admin"
+  "github_path": ".claude/skills/sql-server-admin",
+  "github_branch": "main"
 }

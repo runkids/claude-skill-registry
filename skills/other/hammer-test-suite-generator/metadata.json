@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:32.787387Z",
   "dir_name": "hammer-test-suite-generator",
   "category": "other",
-  "github_path": ".claude/skills/hammer-test-suite-generator"
+  "github_path": ".claude/skills/hammer-test-suite-generator",
+  "github_branch": "main"
 }

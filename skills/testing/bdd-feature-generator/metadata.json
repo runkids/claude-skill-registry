@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bdd-feature-generator"
+  "github_path": ".claude/skills/bdd-feature-generator",
+  "github_branch": "main"
 }

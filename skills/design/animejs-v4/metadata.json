@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/animejs-v4"
+  "github_path": ".claude/skills/animejs-v4",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:48:31.057208Z",
   "dir_name": "openai-deep-research",
   "category": "other",
-  "github_path": ".claude/skills/openai-deep-research"
+  "github_path": ".claude/skills/openai-deep-research",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:36:33.600824Z",
   "dir_name": "extract-images",
   "category": "other",
-  "github_path": ".claude/skills/extract-images"
+  "github_path": ".claude/skills/extract-images",
+  "github_branch": "main"
 }

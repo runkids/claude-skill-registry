@@ -7,5 +7,6 @@
     "openapi"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/openapi"
+  "github_path": ".claude/skills/openapi",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "example"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/verify-inference-example"
+  "github_path": ".claude/skills/verify-inference-example",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:04.313172Z",
   "dir_name": "marketing-automation",
   "category": "other",
-  "github_path": ".claude/skills/marketing-automation"
+  "github_path": ".claude/skills/marketing-automation",
+  "github_branch": "main"
 }

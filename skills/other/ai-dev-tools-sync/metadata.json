@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:28.157576Z",
   "dir_name": "ai-dev-tools-sync",
   "category": "other",
-  "github_path": ".claude/skills/ai-dev-tools-sync"
+  "github_path": ".claude/skills/ai-dev-tools-sync",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:43.324130Z",
   "dir_name": "rehabilitation-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/rehabilitation-analyzer"
+  "github_path": ".claude/skills/rehabilitation-analyzer",
+  "github_branch": "main"
 }

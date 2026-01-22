@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:15:25.366730Z",
   "dir_name": "address-review",
   "category": "other",
-  "github_path": ".claude/skills/address-review"
+  "github_path": ".claude/skills/address-review",
+  "github_branch": "main"
 }

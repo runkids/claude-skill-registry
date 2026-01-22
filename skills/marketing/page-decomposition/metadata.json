@@ -8,5 +8,6 @@
     "decomposition"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/page-decomposition"
+  "github_path": ".claude/skills/page-decomposition",
+  "github_branch": "main"
 }

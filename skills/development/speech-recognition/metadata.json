@@ -8,5 +8,6 @@
     "recognition"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/speech-recognition"
+  "github_path": ".claude/skills/speech-recognition",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "counterfactual"
   ],
   "stars": 12,
-  "github_path": ".claude/skills/reasoning-counterfactual"
+  "github_path": ".claude/skills/reasoning-counterfactual",
+  "github_branch": "main"
 }

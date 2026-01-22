@@ -7,5 +7,6 @@
     "comments"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/my-pr-comments"
+  "github_path": ".claude/skills/my-pr-comments",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "gitea"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gitea"
+  "github_path": ".claude/skills/gitea",
+  "github_branch": "main"
 }

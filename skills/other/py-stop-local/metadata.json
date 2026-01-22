@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:23.748944Z",
   "dir_name": "py-stop-local",
   "category": "other",
-  "github_path": ".claude/skills/py-stop-local"
+  "github_path": ".claude/skills/py-stop-local",
+  "github_branch": "main"
 }

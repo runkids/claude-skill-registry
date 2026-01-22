@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/commit-rules"
+  "github_path": ".claude/skills/commit-rules",
+  "github_branch": "main"
 }

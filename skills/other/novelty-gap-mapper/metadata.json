@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:18:47.740697Z",
   "dir_name": "novelty-gap-mapper",
   "category": "other",
-  "github_path": ".claude/skills/novelty-gap-mapper"
+  "github_path": ".claude/skills/novelty-gap-mapper",
+  "github_branch": "main"
 }

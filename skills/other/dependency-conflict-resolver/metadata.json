@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:54.586537Z",
   "dir_name": "dependency-conflict-resolver",
   "category": "other",
-  "github_path": ".claude/skills/dependency-conflict-resolver"
+  "github_path": ".claude/skills/dependency-conflict-resolver",
+  "github_branch": "main"
 }

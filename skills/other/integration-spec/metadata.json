@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:01.612231Z",
   "dir_name": "integration-spec",
   "category": "other",
-  "github_path": ".claude/skills/integration-spec"
+  "github_path": ".claude/skills/integration-spec",
+  "github_branch": "main"
 }

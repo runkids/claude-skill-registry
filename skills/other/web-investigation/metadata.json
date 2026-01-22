@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:39.168688Z",
   "dir_name": "web-investigation",
   "category": "other",
-  "github_path": ".claude/skills/web-investigation"
+  "github_path": ".claude/skills/web-investigation",
+  "github_branch": "main"
 }

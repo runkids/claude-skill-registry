@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:00.273118Z",
   "dir_name": "ads-optimizer",
   "category": "other",
-  "github_path": ".claude/skills/ads-optimizer"
+  "github_path": ".claude/skills/ads-optimizer",
+  "github_branch": "main"
 }

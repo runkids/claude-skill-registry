@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:53:16.994942Z",
   "dir_name": "apple-tv-troubleshooter",
   "category": "other",
-  "github_path": ".claude/skills/apple-tv-troubleshooter"
+  "github_path": ".claude/skills/apple-tv-troubleshooter",
+  "github_branch": "main"
 }

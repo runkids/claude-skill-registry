@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:54.910813Z",
   "dir_name": "moai-lang-ruby",
   "category": "other",
-  "github_path": ".claude/skills/moai-lang-ruby"
+  "github_path": ".claude/skills/moai-lang-ruby",
+  "github_branch": "main"
 }

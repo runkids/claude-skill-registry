@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:42.188173Z",
   "dir_name": "qa-behavioral-tester",
   "category": "other",
-  "github_path": ".claude/skills/qa-behavioral-tester"
+  "github_path": ".claude/skills/qa-behavioral-tester",
+  "github_branch": "main"
 }

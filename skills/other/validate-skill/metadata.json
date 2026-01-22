@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:13:19.517943Z",
   "dir_name": "validate-skill",
   "category": "other",
-  "github_path": ".claude/skills/validate-skill"
+  "github_path": ".claude/skills/validate-skill",
+  "github_branch": "main"
 }

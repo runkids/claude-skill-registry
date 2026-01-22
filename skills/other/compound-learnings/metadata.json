@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:33.653873Z",
   "dir_name": "compound-learnings",
   "category": "other",
-  "github_path": ".claude/skills/compound-learnings"
+  "github_path": ".claude/skills/compound-learnings",
+  "github_branch": "main"
 }

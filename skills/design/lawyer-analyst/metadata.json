@@ -8,5 +8,6 @@
     "analyst"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/lawyer-analyst"
+  "github_path": ".claude/skills/lawyer-analyst",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:43:43.586313Z",
   "dir_name": "playwright-dotnet",
   "category": "other",
-  "github_path": ".claude/skills/playwright-dotnet"
+  "github_path": ".claude/skills/playwright-dotnet",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:42:21.037244Z",
   "dir_name": "company-name-generator",
   "category": "other",
-  "github_path": ".claude/skills/company-name-generator"
+  "github_path": ".claude/skills/company-name-generator",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:05.138288Z",
   "dir_name": "n8n-automation",
   "category": "other",
-  "github_path": ".claude/skills/n8n-automation"
+  "github_path": ".claude/skills/n8n-automation",
+  "github_branch": "main"
 }

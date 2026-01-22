@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:22:20.243168Z",
   "dir_name": "art",
   "category": "other",
-  "github_path": ".claude/skills/Art"
+  "github_path": ".claude/skills/Art",
+  "github_branch": "main"
 }

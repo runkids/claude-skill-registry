@@ -8,5 +8,6 @@
     "auth"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wasp-auth"
+  "github_path": ".claude/skills/wasp-auth",
+  "github_branch": "main"
 }

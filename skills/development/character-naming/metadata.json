@@ -9,5 +9,6 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/character-naming"
+  "github_path": ".claude/skills/character-naming",
+  "github_branch": "main"
 }

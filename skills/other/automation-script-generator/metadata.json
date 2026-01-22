@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:16.879013Z",
   "dir_name": "automation-script-generator",
   "category": "other",
-  "github_path": ".claude/skills/automation-script-generator"
+  "github_path": ".claude/skills/automation-script-generator",
+  "github_branch": "main"
 }

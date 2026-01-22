@@ -9,5 +9,6 @@
   ],
   "stars": 19,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bug-hunter"
+  "github_path": ".claude/skills/bug-hunter",
+  "github_branch": "main"
 }

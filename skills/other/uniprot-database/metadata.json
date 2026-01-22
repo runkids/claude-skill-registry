@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:48.086046Z",
   "dir_name": "uniprot-database",
   "category": "other",
-  "github_path": ".claude/skills/uniprot-database"
+  "github_path": ".claude/skills/uniprot-database",
+  "github_branch": "main"
 }

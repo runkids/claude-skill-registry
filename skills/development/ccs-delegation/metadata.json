@@ -9,5 +9,6 @@
   ],
   "stars": 453,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ccs-delegation"
+  "github_path": ".claude/skills/ccs-delegation",
+  "github_branch": "main"
 }

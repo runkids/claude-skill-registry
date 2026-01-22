@@ -11,5 +11,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/advanced-typescript-type-level"
+  "github_path": ".claude/skills/advanced-typescript-type-level",
+  "github_branch": "main"
 }

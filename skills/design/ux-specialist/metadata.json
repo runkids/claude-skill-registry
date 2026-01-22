@@ -7,5 +7,6 @@
     "specialist"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/ux-specialist"
+  "github_path": ".claude/skills/ux-specialist",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "planner"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/timeline-planner"
+  "github_path": ".claude/skills/timeline-planner",
+  "github_branch": "main"
 }

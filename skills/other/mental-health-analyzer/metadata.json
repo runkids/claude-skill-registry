@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:42.716181Z",
   "dir_name": "mental-health-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/mental-health-analyzer"
+  "github_path": ".claude/skills/mental-health-analyzer",
+  "github_branch": "main"
 }

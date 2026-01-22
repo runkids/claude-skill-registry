@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:13:26.545197Z",
   "dir_name": "ava-extract-styles",
   "category": "other",
-  "github_path": ".claude/skills/ava-extract-styles"
+  "github_path": ".claude/skills/ava-extract-styles",
+  "github_branch": "main"
 }

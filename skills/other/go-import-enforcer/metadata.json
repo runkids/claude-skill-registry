@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:53:43.427684Z",
   "dir_name": "go-import-enforcer",
   "category": "other",
-  "github_path": ".claude/skills/go-import-enforcer"
+  "github_path": ".claude/skills/go-import-enforcer",
+  "github_branch": "main"
 }

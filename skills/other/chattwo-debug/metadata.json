@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:51.754707Z",
   "dir_name": "chattwo-debug",
   "category": "other",
-  "github_path": ".claude/skills/chattwo-debug"
+  "github_path": ".claude/skills/chattwo-debug",
+  "github_branch": "main"
 }

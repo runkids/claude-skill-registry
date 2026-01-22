@@ -9,5 +9,6 @@
     "refactorer"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/vscode-extension-refactorer"
+  "github_path": ".claude/skills/vscode-extension-refactorer",
+  "github_branch": "main"
 }

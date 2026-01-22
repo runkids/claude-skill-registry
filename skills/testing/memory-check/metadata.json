@@ -8,5 +8,6 @@
     "check"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/memory-check"
+  "github_path": ".claude/skills/memory-check",
+  "github_branch": "main"
 }

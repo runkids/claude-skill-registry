@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:09.713210Z",
   "dir_name": "email-handler",
   "category": "other",
-  "github_path": ".claude/skills/email-handler"
+  "github_path": ".claude/skills/email-handler",
+  "github_branch": "main"
 }

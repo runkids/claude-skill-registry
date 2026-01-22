@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/brokle-error-handling"
+  "github_path": ".claude/skills/brokle-error-handling",
+  "github_branch": "main"
 }

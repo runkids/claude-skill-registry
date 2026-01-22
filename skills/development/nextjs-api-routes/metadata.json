@@ -9,5 +9,6 @@
     "routes"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/nextjs-api-routes"
+  "github_path": ".claude/skills/nextjs-api-routes",
+  "github_branch": "main"
 }

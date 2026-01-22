@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:50.951026Z",
   "dir_name": "lp-analysis",
   "category": "other",
-  "github_path": ".claude/skills/lp-analysis"
+  "github_path": ".claude/skills/lp-analysis",
+  "github_branch": "main"
 }

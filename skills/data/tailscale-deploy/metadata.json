@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "tailscale-deploy",
-  "github_path": ".claude/skills/tailscale-deploy"
+  "github_path": ".claude/skills/tailscale-deploy",
+  "github_branch": "main"
 }

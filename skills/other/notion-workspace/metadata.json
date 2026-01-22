@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:06.659405Z",
   "dir_name": "notion-workspace",
   "category": "other",
-  "github_path": ".claude/skills/notion-workspace"
+  "github_path": ".claude/skills/notion-workspace",
+  "github_branch": "main"
 }

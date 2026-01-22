@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:14.928358Z",
   "dir_name": "compliance-auditor",
   "category": "other",
-  "github_path": ".claude/skills/compliance-auditor"
+  "github_path": ".claude/skills/compliance-auditor",
+  "github_branch": "main"
 }

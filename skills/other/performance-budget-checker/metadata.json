@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:13.318075Z",
   "dir_name": "performance-budget-checker",
   "category": "other",
-  "github_path": ".claude/skills/performance-budget-checker"
+  "github_path": ".claude/skills/performance-budget-checker",
+  "github_branch": "main"
 }

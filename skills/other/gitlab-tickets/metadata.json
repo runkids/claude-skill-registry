@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:35.487161Z",
   "dir_name": "gitlab-tickets",
   "category": "other",
-  "github_path": ".claude/skills/gitlab-tickets"
+  "github_path": ".claude/skills/gitlab-tickets",
+  "github_branch": "main"
 }

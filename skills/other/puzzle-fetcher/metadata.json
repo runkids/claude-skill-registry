@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:50:14.086600Z",
   "dir_name": "puzzle-fetcher",
   "category": "other",
-  "github_path": ".claude/skills/puzzle-fetcher"
+  "github_path": ".claude/skills/puzzle-fetcher",
+  "github_branch": "main"
 }

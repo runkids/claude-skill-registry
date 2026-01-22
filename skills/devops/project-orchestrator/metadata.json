@@ -8,5 +8,6 @@
     "orchestrator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-orchestrator"
+  "github_path": ".claude/skills/project-orchestrator",
+  "github_branch": "main"
 }

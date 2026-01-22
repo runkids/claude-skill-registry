@@ -89,8 +89,8 @@ async def find_skill_path(
     repo: str,
     skill_name: str,
     semaphore: asyncio.Semaphore
-) -> Optional[str]:
-    """Try to find the actual skill path in a repo."""
+) -> Optional[tuple]:
+    """Try to find the actual skill path in a repo. Returns (path, branch) or None."""
     # Get repo structure (cached)
     structure = await find_repo_structure(session, repo, skill_name, semaphore)
 
@@ -108,12 +108,12 @@ async def find_skill_path(
     url = f"{GITHUB_RAW_BASE}/{repo}/{branch}/{skill_path}/SKILL.md"
 
     if await check_url(session, url, semaphore):
-        return skill_path
+        return (skill_path, branch)
 
     # Try root SKILL.md for single-skill repos
     url = f"{GITHUB_RAW_BASE}/{repo}/{branch}/SKILL.md"
     if await check_url(session, url, semaphore):
-        return ""
+        return ("", branch)
 
     return None
 
@@ -145,13 +145,15 @@ async def process_skill(
     skill_name = metadata.get("name", metadata_path.parent.name)
 
     # Try to find the path
-    github_path = await find_skill_path(session, repo, skill_name, semaphore)
+    result = await find_skill_path(session, repo, skill_name, semaphore)
 
-    if github_path is not None:
+    if result is not None:
+        github_path, branch = result
         if dry_run:
-            logger.info(f"  Found: {skill_name} -> {repo}/{github_path}")
+            logger.info(f"  Found: {skill_name} -> {repo}/{github_path} ({branch})")
         else:
             metadata["github_path"] = github_path
+            metadata["github_branch"] = branch
             metadata_path.write_text(
                 json.dumps(metadata, indent=2, ensure_ascii=False),
                 encoding='utf-8'

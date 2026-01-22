@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:31.040233Z",
   "dir_name": "1-determine-techstack",
   "category": "other",
-  "github_path": ".claude/skills/1-determine-techstack"
+  "github_path": ".claude/skills/1-determine-techstack",
+  "github_branch": "main"
 }

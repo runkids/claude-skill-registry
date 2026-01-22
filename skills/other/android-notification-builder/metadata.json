@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:07.494649Z",
   "dir_name": "android-notification-builder",
   "category": "other",
-  "github_path": ".claude/skills/android-notification-builder"
+  "github_path": ".claude/skills/android-notification-builder",
+  "github_branch": "main"
 }

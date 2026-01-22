@@ -5,5 +5,6 @@
   "description": "Natural language wrapper for research command - automatically triggers /research when users ask questions requiring deep research, best practices lookup, or multi-source information gathering",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:02.698653Z",
-  "github_path": ".claude/skills/research-trigger"
+  "github_path": ".claude/skills/research-trigger",
+  "github_branch": "main"
 }

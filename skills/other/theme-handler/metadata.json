@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:10.352633Z",
   "dir_name": "theme-handler",
   "category": "other",
-  "github_path": ".claude/skills/theme-handler"
+  "github_path": ".claude/skills/theme-handler",
+  "github_branch": "main"
 }

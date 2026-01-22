@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:45:04.666288Z",
   "dir_name": "personal-assistant",
   "category": "other",
-  "github_path": ".claude/skills/personal-assistant"
+  "github_path": ".claude/skills/personal-assistant",
+  "github_branch": "main"
 }

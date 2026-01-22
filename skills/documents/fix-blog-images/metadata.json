@@ -5,5 +5,6 @@
   "description": "Fix and optimize images in uncommitted blog posts. Use when preparing blog posts for publication, fixing broken image paths, renaming generic image names (image.png), moving images to proper /images/b",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:59:44.967949Z",
-  "github_path": ".claude/skills/fix-blog-images"
+  "github_path": ".claude/skills/fix-blog-images",
+  "github_branch": "main"
 }

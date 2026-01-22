@@ -8,5 +8,6 @@
     "reviewer"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/proposition-reviewer"
+  "github_path": ".claude/skills/proposition-reviewer",
+  "github_branch": "main"
 }

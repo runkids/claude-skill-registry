@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:00.209814Z",
   "dir_name": "heartwood-auth",
   "category": "other",
-  "github_path": ".claude/skills/heartwood-auth"
+  "github_path": ".claude/skills/heartwood-auth",
+  "github_branch": "main"
 }

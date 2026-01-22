@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:36:33.735921Z",
   "dir_name": "source-research",
   "category": "other",
-  "github_path": ".claude/skills/source-research"
+  "github_path": ".claude/skills/source-research",
+  "github_branch": "main"
 }

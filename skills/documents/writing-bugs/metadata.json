@@ -8,5 +8,6 @@
     "bugs"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/writing-bugs"
+  "github_path": ".claude/skills/writing-bugs",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:58.470401Z",
   "dir_name": "template-cloning",
   "category": "other",
-  "github_path": ".claude/skills/template-cloning"
+  "github_path": ".claude/skills/template-cloning",
+  "github_branch": "main"
 }

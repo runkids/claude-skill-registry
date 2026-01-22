@@ -9,5 +9,6 @@
   ],
   "stars": 9856,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/pair-programming"
+  "github_path": ".claude/skills/pair-programming",
+  "github_branch": "main"
 }

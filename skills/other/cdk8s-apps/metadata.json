@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:08.811314Z",
   "dir_name": "cdk8s-apps",
   "category": "other",
-  "github_path": ".claude/skills/cdk8s-apps"
+  "github_path": ".claude/skills/cdk8s-apps",
+  "github_branch": "main"
 }

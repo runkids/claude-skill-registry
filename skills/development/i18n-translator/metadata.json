@@ -8,5 +8,6 @@
     "translator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/i18n-translator"
+  "github_path": ".claude/skills/i18n-translator",
+  "github_branch": "main"
 }

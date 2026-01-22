@@ -12,5 +12,6 @@
   ],
   "stars": 0,
   "dir_name": "postgres-neon-connection-and-migrations",
-  "github_path": ".claude/skills/postgres-neon-connection-and-migrations"
+  "github_path": ".claude/skills/postgres-neon-connection-and-migrations",
+  "github_branch": "main"
 }

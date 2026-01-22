@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:33:50.966516Z",
   "dir_name": "community-architect",
   "category": "other",
-  "github_path": ".claude/skills/community-architect"
+  "github_path": ".claude/skills/community-architect",
+  "github_branch": "main"
 }

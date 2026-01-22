@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:58.959362Z",
   "dir_name": "cfn-error-management",
   "category": "other",
-  "github_path": ".claude/skills/cfn-error-management"
+  "github_path": ".claude/skills/cfn-error-management",
+  "github_branch": "main"
 }

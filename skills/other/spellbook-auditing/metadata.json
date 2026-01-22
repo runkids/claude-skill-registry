@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:44:30.051603Z",
   "dir_name": "spellbook-auditing",
   "category": "other",
-  "github_path": ".claude/skills/spellbook-auditing"
+  "github_path": ".claude/skills/spellbook-auditing",
+  "github_branch": "main"
 }

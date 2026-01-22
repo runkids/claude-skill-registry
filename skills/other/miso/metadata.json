@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:23.296764Z",
   "dir_name": "miso",
   "category": "other",
-  "github_path": ".claude/skills/miso"
+  "github_path": ".claude/skills/miso",
+  "github_branch": "main"
 }

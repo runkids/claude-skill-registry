@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:40:05.208250Z",
   "dir_name": "repo-flow",
   "category": "other",
-  "github_path": ".claude/skills/repo-flow"
+  "github_path": ".claude/skills/repo-flow",
+  "github_branch": "main"
 }

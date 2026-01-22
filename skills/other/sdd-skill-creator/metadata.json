@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T03:07:25.102958Z",
   "dir_name": "sdd-skill-creator",
   "category": "other",
-  "github_path": ".claude/skills/sdd-skill-creator"
+  "github_path": ".claude/skills/sdd-skill-creator",
+  "github_branch": "main"
 }

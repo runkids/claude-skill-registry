@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:19:36.149171Z",
   "dir_name": "backend-tests",
   "category": "other",
-  "github_path": ".claude/skills/backend-tests"
+  "github_path": ".claude/skills/backend-tests",
+  "github_branch": "main"
 }

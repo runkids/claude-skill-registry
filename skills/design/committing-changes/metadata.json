@@ -9,5 +9,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/committing-changes"
+  "github_path": ".claude/skills/committing-changes",
+  "github_branch": "main"
 }

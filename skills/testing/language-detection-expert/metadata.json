@@ -9,5 +9,6 @@
     "expert"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/language-detection-expert"
+  "github_path": ".claude/skills/language-detection-expert",
+  "github_branch": "main"
 }

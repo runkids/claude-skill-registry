@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:18.180529Z",
   "dir_name": "nextjs-page-generator",
   "category": "other",
-  "github_path": ".claude/skills/nextjs-page-generator"
+  "github_path": ".claude/skills/nextjs-page-generator",
+  "github_branch": "main"
 }

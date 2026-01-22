@@ -9,5 +9,6 @@
     "route"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/new-api-route"
+  "github_path": ".claude/skills/new-api-route",
+  "github_branch": "main"
 }

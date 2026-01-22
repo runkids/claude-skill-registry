@@ -9,5 +9,6 @@
     "auto"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/spec-flow-auto"
+  "github_path": ".claude/skills/spec-flow-auto",
+  "github_branch": "main"
 }

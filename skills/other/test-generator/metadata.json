@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:08.342476Z",
   "dir_name": "test-generator",
   "category": "other",
-  "github_path": ".claude/skills/test-generator"
+  "github_path": ".claude/skills/test-generator",
+  "github_branch": "main"
 }

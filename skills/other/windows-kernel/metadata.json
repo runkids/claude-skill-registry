@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:09.329091Z",
   "dir_name": "windows-kernel",
   "category": "other",
-  "github_path": ".claude/skills/windows-kernel"
+  "github_path": ".claude/skills/windows-kernel",
+  "github_branch": "main"
 }

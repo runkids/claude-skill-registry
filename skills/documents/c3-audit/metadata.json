@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/c3-audit"
+  "github_path": ".claude/skills/c3-audit",
+  "github_branch": "main"
 }

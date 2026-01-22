@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:17.963407Z",
   "dir_name": "skill-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/skill-orchestrator"
+  "github_path": ".claude/skills/skill-orchestrator",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T02:30:23.696495Z",
   "dir_name": "check-alerts",
   "category": "other",
-  "github_path": ".claude/skills/check-alerts"
+  "github_path": ".claude/skills/check-alerts",
+  "github_branch": "main"
 }

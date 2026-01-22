@@ -9,5 +9,6 @@
     "essentials"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-toolkit-essentials"
+  "github_path": ".claude/skills/moai-toolkit-essentials",
+  "github_branch": "main"
 }

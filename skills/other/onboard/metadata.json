@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:39.613724Z",
   "dir_name": "onboard",
   "category": "other",
-  "github_path": ".claude/skills/onboard"
+  "github_path": ".claude/skills/onboard",
+  "github_branch": "main"
 }

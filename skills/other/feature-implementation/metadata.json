@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:26.212555Z",
   "dir_name": "feature-implementation",
   "category": "other",
-  "github_path": ".claude/skills/feature-implementation"
+  "github_path": ".claude/skills/feature-implementation",
+  "github_branch": "main"
 }

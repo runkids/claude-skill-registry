@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:33:06.559805Z",
   "dir_name": "pr-review",
   "category": "other",
-  "github_path": ".claude/skills/pr-review"
+  "github_path": ".claude/skills/pr-review",
+  "github_branch": "main"
 }

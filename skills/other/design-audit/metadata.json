@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:52.532508Z",
   "dir_name": "design-audit",
   "category": "other",
-  "github_path": ".claude/skills/design-audit"
+  "github_path": ".claude/skills/design-audit",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:23.355291Z",
   "dir_name": "load-architecture-context",
   "category": "other",
-  "github_path": ".claude/skills/load-architecture-context"
+  "github_path": ".claude/skills/load-architecture-context",
+  "github_branch": "main"
 }

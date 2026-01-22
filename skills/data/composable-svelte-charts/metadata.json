@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "composable-svelte-charts",
-  "github_path": ".claude/skills/composable-svelte-charts"
+  "github_path": ".claude/skills/composable-svelte-charts",
+  "github_branch": "main"
 }

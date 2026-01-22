@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/stripe-patterns"
+  "github_path": ".claude/skills/stripe-patterns",
+  "github_branch": "main"
 }

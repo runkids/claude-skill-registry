@@ -5,5 +5,6 @@
   "description": "Implement UI using Shadcn MCP (atoms/theme) and 21st.dev MCP (complex sections). Use when adding buttons, layouts, or generating landing pages.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:42.601542Z",
-  "github_path": ".claude/skills/ui-handler"
+  "github_path": ".claude/skills/ui-handler",
+  "github_branch": "main"
 }

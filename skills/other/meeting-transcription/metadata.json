@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:13:16.979542Z",
   "dir_name": "meeting-transcription",
   "category": "other",
-  "github_path": ".claude/skills/meeting-transcription"
+  "github_path": ".claude/skills/meeting-transcription",
+  "github_branch": "main"
 }

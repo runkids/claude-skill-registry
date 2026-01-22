@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:00.933124Z",
   "dir_name": "tasks-test-generation",
   "category": "other",
-  "github_path": ".claude/skills/tasks-test-generation"
+  "github_path": ".claude/skills/tasks-test-generation",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   "stars": 1,
   "source": "SkillsMP Synced Skills",
   "dir_name": "analytics-design",
-  "github_path": ".claude/skills/analytics-design"
+  "github_path": ".claude/skills/analytics-design",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "design"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/tool-design"
+  "github_path": ".claude/skills/tool-design",
+  "github_branch": "main"
 }

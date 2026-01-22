@@ -9,5 +9,6 @@
     "patterns"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/vigil-security-patterns"
+  "github_path": ".claude/skills/vigil-security-patterns",
+  "github_branch": "main"
 }

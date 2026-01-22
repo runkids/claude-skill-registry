@@ -8,5 +8,6 @@
     "semgrep"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/review-semgrep"
+  "github_path": ".claude/skills/review-semgrep",
+  "github_branch": "main"
 }

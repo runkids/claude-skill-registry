@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:00:51.303782Z",
   "dir_name": "idb-state-persistence",
   "category": "other",
-  "github_path": ".claude/skills/idb-state-persistence"
+  "github_path": ".claude/skills/idb-state-persistence",
+  "github_branch": "main"
 }

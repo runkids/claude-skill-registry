@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:18.728857Z",
   "dir_name": "episodic-memory-testing",
   "category": "other",
-  "github_path": ".claude/skills/episodic-memory-testing"
+  "github_path": ".claude/skills/episodic-memory-testing",
+  "github_branch": "main"
 }

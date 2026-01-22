@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:00:50.615772Z",
   "dir_name": "aico-frontend-init",
   "category": "other",
-  "github_path": ".claude/skills/aico-frontend-init"
+  "github_path": ".claude/skills/aico-frontend-init",
+  "github_branch": "main"
 }

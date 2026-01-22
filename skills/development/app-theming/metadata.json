@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/app-theming"
+  "github_path": ".claude/skills/app-theming",
+  "github_branch": "main"
 }

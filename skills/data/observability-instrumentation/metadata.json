@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "observability-instrumentation",
-  "github_path": ".claude/skills/observability-instrumentation"
+  "github_path": ".claude/skills/observability-instrumentation",
+  "github_branch": "main"
 }

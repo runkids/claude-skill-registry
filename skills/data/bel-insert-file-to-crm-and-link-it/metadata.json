@@ -13,5 +13,6 @@
   "stars": 2,
   "source": "SkillsMP Synced Skills",
   "dir_name": "bel-insert-file-to-crm-and-link-it",
-  "github_path": ".claude/skills/bel-insert-file-to-crm-and-link-it"
+  "github_path": ".claude/skills/bel-insert-file-to-crm-and-link-it",
+  "github_branch": "main"
 }

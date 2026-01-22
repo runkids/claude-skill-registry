@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:55.830877Z",
   "dir_name": "shard-document",
   "category": "other",
-  "github_path": ".claude/skills/shard-document"
+  "github_path": ".claude/skills/shard-document",
+  "github_branch": "main"
 }

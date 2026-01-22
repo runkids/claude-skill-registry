@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:05.779269Z",
   "dir_name": "qe-defect-intelligence",
   "category": "other",
-  "github_path": ".claude/skills/qe-defect-intelligence"
+  "github_path": ".claude/skills/qe-defect-intelligence",
+  "github_branch": "main"
 }

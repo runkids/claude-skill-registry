@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:18:07.571324Z",
   "dir_name": "crypto",
   "category": "other",
-  "github_path": ".claude/skills/crypto"
+  "github_path": ".claude/skills/crypto",
+  "github_branch": "main"
 }

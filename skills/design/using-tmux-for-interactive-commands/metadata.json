@@ -12,5 +12,6 @@
   ],
   "stars": 108,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/using-tmux-for-interactive-commands"
+  "github_path": "skills/using-tmux-for-interactive-commands",
+  "github_branch": "main"
 }

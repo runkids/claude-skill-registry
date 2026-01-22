@@ -8,5 +8,6 @@
     "palace"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/mind-palace"
+  "github_path": ".claude/skills/mind-palace",
+  "github_branch": "main"
 }

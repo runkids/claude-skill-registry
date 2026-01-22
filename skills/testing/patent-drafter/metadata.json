@@ -5,5 +5,6 @@
   "description": "Autonomous patent application drafting agent. Drafts complete patent applications including claims, specification, and abstract from invention descriptions.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:42.234283Z",
-  "github_path": ".claude/skills/patent-drafter"
+  "github_path": ".claude/skills/patent-drafter",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "document"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/sc-document"
+  "github_path": ".claude/skills/sc-document",
+  "github_branch": "main"
 }

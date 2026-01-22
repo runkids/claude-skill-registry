@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/azure-test-plans"
+  "github_path": ".claude/skills/azure-test-plans",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "pixi"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/using-pixi"
+  "github_path": ".claude/skills/using-pixi",
+  "github_branch": "main"
 }

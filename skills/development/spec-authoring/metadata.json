@@ -8,5 +8,6 @@
     "authoring"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/spec-authoring"
+  "github_path": ".claude/skills/spec-authoring",
+  "github_branch": "main"
 }

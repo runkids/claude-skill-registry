@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:38:47.497456Z",
   "dir_name": "design-system-creator",
   "category": "other",
-  "github_path": ".claude/skills/design-system-creator"
+  "github_path": ".claude/skills/design-system-creator",
+  "github_branch": "main"
 }

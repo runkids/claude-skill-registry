@@ -7,5 +7,6 @@
     "theme"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ui-theme"
+  "github_path": ".claude/skills/ui-theme",
+  "github_branch": "main"
 }

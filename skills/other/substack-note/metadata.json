@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:37:45.837014Z",
   "dir_name": "substack-note",
   "category": "other",
-  "github_path": ".claude/skills/substack-note"
+  "github_path": ".claude/skills/substack-note",
+  "github_branch": "main"
 }

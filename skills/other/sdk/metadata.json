@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:02.437769Z",
   "dir_name": "sdk",
   "category": "other",
-  "github_path": ".claude/skills/sdk"
+  "github_path": ".claude/skills/sdk",
+  "github_branch": "main"
 }

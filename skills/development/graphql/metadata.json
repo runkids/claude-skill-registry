@@ -7,5 +7,6 @@
     "graphql"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/graphql"
+  "github_path": ".claude/skills/graphql",
+  "github_branch": "main"
 }

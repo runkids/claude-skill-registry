@@ -8,5 +8,6 @@
     "testgen"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pal-testgen"
+  "github_path": ".claude/skills/pal-testgen",
+  "github_branch": "main"
 }

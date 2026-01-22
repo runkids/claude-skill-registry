@@ -9,5 +9,6 @@
   ],
   "stars": 6,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dismech-compliance"
+  "github_path": ".claude/skills/dismech-compliance",
+  "github_branch": "main"
 }

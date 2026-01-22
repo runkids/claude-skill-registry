@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:13:19.378853Z",
   "dir_name": "scaffold-rules",
   "category": "other",
-  "github_path": ".claude/skills/scaffold-rules"
+  "github_path": ".claude/skills/scaffold-rules",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:11.404367Z",
   "dir_name": "troubleshoot",
   "category": "other",
-  "github_path": ".claude/skills/troubleshoot"
+  "github_path": ".claude/skills/troubleshoot",
+  "github_branch": "main"
 }

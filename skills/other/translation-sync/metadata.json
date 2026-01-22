@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:46.158926Z",
   "dir_name": "translation-sync",
   "category": "other",
-  "github_path": ".claude/skills/translation-sync"
+  "github_path": ".claude/skills/translation-sync",
+  "github_branch": "main"
 }

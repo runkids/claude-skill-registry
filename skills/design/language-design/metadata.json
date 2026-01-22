@@ -8,5 +8,6 @@
     "design"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/language-design"
+  "github_path": ".claude/skills/language-design",
+  "github_branch": "main"
 }

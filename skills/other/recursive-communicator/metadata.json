@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:10.115956Z",
   "dir_name": "recursive-communicator",
   "category": "other",
-  "github_path": ".claude/skills/recursive-communicator"
+  "github_path": ".claude/skills/recursive-communicator",
+  "github_branch": "main"
 }

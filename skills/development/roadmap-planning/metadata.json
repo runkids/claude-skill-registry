@@ -8,5 +8,6 @@
     "planning"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/roadmap-planning"
+  "github_path": ".claude/skills/roadmap-planning",
+  "github_branch": "main"
 }

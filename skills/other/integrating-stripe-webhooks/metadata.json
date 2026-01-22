@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:41.434182Z",
   "dir_name": "integrating-stripe-webhooks",
   "category": "other",
-  "github_path": ".claude/skills/integrating-stripe-webhooks"
+  "github_path": ".claude/skills/integrating-stripe-webhooks",
+  "github_branch": "main"
 }

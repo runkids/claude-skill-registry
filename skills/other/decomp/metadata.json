@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:58:53.480687Z",
   "dir_name": "decomp",
   "category": "other",
-  "github_path": ".claude/skills/decomp"
+  "github_path": ".claude/skills/decomp",
+  "github_branch": "main"
 }

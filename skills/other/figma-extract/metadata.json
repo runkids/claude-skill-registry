@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:20:54.058816Z",
   "dir_name": "figma-extract",
   "category": "other",
-  "github_path": ".claude/skills/figma-extract"
+  "github_path": ".claude/skills/figma-extract",
+  "github_branch": "main"
 }

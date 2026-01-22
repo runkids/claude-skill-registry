@@ -9,5 +9,6 @@
     "debugger"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/vscode-extension-debugger"
+  "github_path": ".claude/skills/vscode-extension-debugger",
+  "github_branch": "main"
 }

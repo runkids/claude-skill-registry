@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/claude-typescript-sdk"
+  "github_path": ".claude/skills/claude-typescript-sdk",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:18.222461Z",
   "dir_name": "kubernetes",
   "category": "other",
-  "github_path": ".claude/skills/kubernetes"
+  "github_path": ".claude/skills/kubernetes",
+  "github_branch": "main"
 }

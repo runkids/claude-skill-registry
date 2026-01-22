@@ -7,5 +7,6 @@
     "migrate"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/wp-migrate"
+  "github_path": ".claude/skills/wp-migrate",
+  "github_branch": "main"
 }

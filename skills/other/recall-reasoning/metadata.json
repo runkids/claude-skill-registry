@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:32.204396Z",
   "dir_name": "recall-reasoning",
   "category": "other",
-  "github_path": ".claude/skills/recall-reasoning"
+  "github_path": ".claude/skills/recall-reasoning",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:50.601502Z",
   "dir_name": "doc-ref",
   "category": "other",
-  "github_path": ".claude/skills/doc-ref"
+  "github_path": ".claude/skills/doc-ref",
+  "github_branch": "main"
 }

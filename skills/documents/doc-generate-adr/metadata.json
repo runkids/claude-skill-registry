@@ -10,5 +10,6 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/doc-generate-adr"
+  "github_path": ".claude/skills/doc-generate-adr",
+  "github_branch": "main"
 }

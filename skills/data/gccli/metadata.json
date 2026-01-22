@@ -9,5 +9,6 @@
   "stars": 72,
   "source": "SkillsMP Synced Skills",
   "dir_name": "gccli",
-  "github_path": "gccli"
+  "github_path": "gccli",
+  "github_branch": "main"
 }

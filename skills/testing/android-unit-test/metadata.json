@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/android-unit-test"
+  "github_path": ".claude/skills/android-unit-test",
+  "github_branch": "main"
 }

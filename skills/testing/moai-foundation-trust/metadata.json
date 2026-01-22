@@ -9,5 +9,6 @@
     "trust"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-foundation-trust"
+  "github_path": ".claude/skills/moai-foundation-trust",
+  "github_branch": "main"
 }

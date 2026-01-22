@@ -9,5 +9,6 @@
     "query"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/rayneo-doc-query"
+  "github_path": ".claude/skills/rayneo-doc-query",
+  "github_branch": "main"
 }

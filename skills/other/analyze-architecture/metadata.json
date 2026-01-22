@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:57.343690Z",
   "dir_name": "analyze-architecture",
   "category": "other",
-  "github_path": ".claude/skills/analyze-architecture"
+  "github_path": ".claude/skills/analyze-architecture",
+  "github_branch": "main"
 }

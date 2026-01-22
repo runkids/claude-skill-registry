@@ -9,5 +9,6 @@
     "evaluator"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/tech-stack-evaluator"
+  "github_path": ".claude/skills/tech-stack-evaluator",
+  "github_branch": "main"
 }

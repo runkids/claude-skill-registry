@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:37.378092Z",
   "dir_name": "full-video-workflow-skill",
-  "github_path": ".claude/skills/full-video-workflow-skill"
+  "github_path": ".claude/skills/full-video-workflow-skill",
+  "github_branch": "main"
 }

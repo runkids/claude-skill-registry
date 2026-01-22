@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:31:23.938513Z",
   "dir_name": "gazebo-world-builder",
   "category": "other",
-  "github_path": ".claude/skills/gazebo-world-builder"
+  "github_path": ".claude/skills/gazebo-world-builder",
+  "github_branch": "main"
 }

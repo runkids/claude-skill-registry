@@ -10,5 +10,6 @@
     "orchestrator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/phoenix-truth-case-orchestrator"
+  "github_path": ".claude/skills/phoenix-truth-case-orchestrator",
+  "github_branch": "main"
 }

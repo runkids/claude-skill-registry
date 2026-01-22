@@ -8,5 +8,6 @@
     "manager"
   ],
   "stars": 12,
-  "github_path": ".claude/skills/release-manager"
+  "github_path": ".claude/skills/release-manager",
+  "github_branch": "main"
 }

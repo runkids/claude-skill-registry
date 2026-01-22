@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:32.664561Z",
   "dir_name": "playwright-best-practices",
   "category": "other",
-  "github_path": ".claude/skills/playwright-best-practices"
+  "github_path": ".claude/skills/playwright-best-practices",
+  "github_branch": "main"
 }

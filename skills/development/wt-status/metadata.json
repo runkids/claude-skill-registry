@@ -7,5 +7,6 @@
     "status"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wt-status"
+  "github_path": ".claude/skills/wt-status",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 46,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/acorn-installation"
+  "github_path": ".claude/skills/acorn-installation",
+  "github_branch": "master"
 }

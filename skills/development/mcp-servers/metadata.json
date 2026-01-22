@@ -8,5 +8,6 @@
     "servers"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mcp-servers"
+  "github_path": ".claude/skills/mcp-servers",
+  "github_branch": "main"
 }

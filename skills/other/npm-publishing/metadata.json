@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:53:13.524552Z",
   "dir_name": "npm-publishing",
   "category": "other",
-  "github_path": ".claude/skills/npm-publishing"
+  "github_path": ".claude/skills/npm-publishing",
+  "github_branch": "main"
 }

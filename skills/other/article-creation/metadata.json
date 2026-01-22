@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:13:46.107082Z",
   "dir_name": "article-creation",
   "category": "other",
-  "github_path": ".claude/skills/article-creation"
+  "github_path": ".claude/skills/article-creation",
+  "github_branch": "main"
 }

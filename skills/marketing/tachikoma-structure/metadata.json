@@ -8,5 +8,6 @@
     "structure"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tachikoma-structure"
+  "github_path": ".claude/skills/tachikoma-structure",
+  "github_branch": "main"
 }

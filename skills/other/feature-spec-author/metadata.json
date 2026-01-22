@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:44.840371Z",
   "dir_name": "feature-spec-author",
   "category": "other",
-  "github_path": ".claude/skills/feature-spec-author"
+  "github_path": ".claude/skills/feature-spec-author",
+  "github_branch": "main"
 }

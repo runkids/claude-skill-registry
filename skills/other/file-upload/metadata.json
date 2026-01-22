@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:25.710751Z",
   "dir_name": "file-upload",
   "category": "other",
-  "github_path": ".claude/skills/file-upload"
+  "github_path": ".claude/skills/file-upload",
+  "github_branch": "main"
 }

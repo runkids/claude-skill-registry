@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:31.352722Z",
   "dir_name": "vocabulary-notes",
   "category": "other",
-  "github_path": ".claude/skills/vocabulary-notes"
+  "github_path": ".claude/skills/vocabulary-notes",
+  "github_branch": "main"
 }

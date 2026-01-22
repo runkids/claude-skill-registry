@@ -8,5 +8,6 @@
     "deployment"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/sst-deployment"
+  "github_path": ".claude/skills/sst-deployment",
+  "github_branch": "main"
 }

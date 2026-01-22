@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:39.251349Z",
   "dir_name": "self-improving",
   "category": "other",
-  "github_path": ".claude/skills/self-improving"
+  "github_path": ".claude/skills/self-improving",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "validation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ptk-validation"
+  "github_path": ".claude/skills/ptk-validation",
+  "github_branch": "main"
 }

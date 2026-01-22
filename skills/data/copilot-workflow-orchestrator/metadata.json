@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "copilot-workflow-orchestrator",
-  "github_path": ".claude/skills/copilot-workflow-orchestrator"
+  "github_path": ".claude/skills/copilot-workflow-orchestrator",
+  "github_branch": "main"
 }

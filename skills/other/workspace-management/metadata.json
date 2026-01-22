@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:56.162806Z",
   "dir_name": "workspace-management",
   "category": "other",
-  "github_path": ".claude/skills/workspace-management"
+  "github_path": ".claude/skills/workspace-management",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:08.401860Z",
   "dir_name": "agent-fullstack-developer",
   "category": "other",
-  "github_path": ".claude/skills/agent-fullstack-developer"
+  "github_path": ".claude/skills/agent-fullstack-developer",
+  "github_branch": "main"
 }

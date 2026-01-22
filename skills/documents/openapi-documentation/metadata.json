@@ -8,5 +8,6 @@
     "documentation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/openapi-documentation"
+  "github_path": ".claude/skills/openapi-documentation",
+  "github_branch": "main"
 }

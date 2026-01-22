@@ -10,5 +10,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/npm-trusted-publishing"
+  "github_path": ".claude/skills/npm-trusted-publishing",
+  "github_branch": "main"
 }

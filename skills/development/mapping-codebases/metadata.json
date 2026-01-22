@@ -8,5 +8,6 @@
     "codebases"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/mapping-codebases"
+  "github_path": ".claude/skills/mapping-codebases",
+  "github_branch": "main"
 }

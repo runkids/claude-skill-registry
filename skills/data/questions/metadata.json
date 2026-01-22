@@ -8,5 +8,6 @@
   ],
   "stars": 1,
   "dir_name": "questions",
-  "github_path": ".claude/skills/questions"
+  "github_path": ".claude/skills/questions",
+  "github_branch": "main"
 }

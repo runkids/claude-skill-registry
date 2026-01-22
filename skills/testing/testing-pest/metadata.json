@@ -8,5 +8,6 @@
     "pest"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-pest"
+  "github_path": ".claude/skills/testing-pest",
+  "github_branch": "main"
 }

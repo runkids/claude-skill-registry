@@ -8,5 +8,6 @@
     "shader"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/glsl-shader"
+  "github_path": ".claude/skills/glsl-shader",
+  "github_branch": "main"
 }

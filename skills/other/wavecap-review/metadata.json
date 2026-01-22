@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:11:28.473388Z",
   "dir_name": "wavecap-review",
   "category": "other",
-  "github_path": ".claude/skills/wavecap-review"
+  "github_path": ".claude/skills/wavecap-review",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "forms"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/react-forms"
+  "github_path": ".claude/skills/react-forms",
+  "github_branch": "main"
 }

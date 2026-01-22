@@ -9,5 +9,6 @@
     "semantics"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-ability-semantics"
+  "github_path": ".claude/skills/mechinterp-ability-semantics",
+  "github_branch": "main"
 }

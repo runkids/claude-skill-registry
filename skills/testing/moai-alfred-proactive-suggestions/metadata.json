@@ -10,5 +10,6 @@
     "suggestions"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-alfred-proactive-suggestions"
+  "github_path": ".claude/skills/moai-alfred-proactive-suggestions",
+  "github_branch": "main"
 }

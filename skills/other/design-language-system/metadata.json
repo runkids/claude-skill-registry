@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:56.357718Z",
   "dir_name": "design-language-system",
   "category": "other",
-  "github_path": ".claude/skills/design-language-system"
+  "github_path": ".claude/skills/design-language-system",
+  "github_branch": "main"
 }

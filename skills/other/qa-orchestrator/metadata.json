@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:42.507920Z",
   "dir_name": "qa-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/qa-orchestrator"
+  "github_path": ".claude/skills/qa-orchestrator",
+  "github_branch": "main"
 }

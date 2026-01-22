@@ -7,5 +7,6 @@
     "resolve"
   ],
   "stars": 42,
-  "github_path": ".claude/skills/resolve"
+  "github_path": ".claude/skills/resolve",
+  "github_branch": "master"
 }

@@ -5,5 +5,6 @@
   "description": "Guidelines for visual predictive checks following Säilynoja et al. recommendations using ArviZ",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:11:04.773141Z",
-  "github_path": ".claude/skills/visual-predictive-checks"
+  "github_path": ".claude/skills/visual-predictive-checks",
+  "github_branch": "main"
 }

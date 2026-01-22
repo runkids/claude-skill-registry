@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:01:53.194869Z",
   "dir_name": "template-mason-brick",
   "category": "other",
-  "github_path": ".claude/skills/template-mason-brick"
+  "github_path": ".claude/skills/template-mason-brick",
+  "github_branch": "main"
 }

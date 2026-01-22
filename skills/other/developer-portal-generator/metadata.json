@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:15.771551Z",
   "dir_name": "developer-portal-generator",
   "category": "other",
-  "github_path": ".claude/skills/developer-portal-generator"
+  "github_path": ".claude/skills/developer-portal-generator",
+  "github_branch": "main"
 }

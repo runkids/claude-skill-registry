@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:49:17.870296Z",
   "dir_name": "nestjs-expert",
   "category": "other",
-  "github_path": ".claude/skills/nestjs-expert"
+  "github_path": ".claude/skills/nestjs-expert",
+  "github_branch": "main"
 }

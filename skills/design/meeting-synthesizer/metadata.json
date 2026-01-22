@@ -8,5 +8,6 @@
     "synthesizer"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/meeting-synthesizer"
+  "github_path": ".claude/skills/meeting-synthesizer",
+  "github_branch": "main"
 }

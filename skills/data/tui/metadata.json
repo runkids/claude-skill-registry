@@ -9,5 +9,6 @@
   "stars": 75,
   "source": "SkillsMP Synced Skills",
   "dir_name": "tui",
-  "github_path": ".claude/skills/tui"
+  "github_path": ".claude/skills/tui",
+  "github_branch": "main"
 }

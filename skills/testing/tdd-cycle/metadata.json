@@ -8,5 +8,6 @@
     "cycle"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tdd-cycle"
+  "github_path": ".claude/skills/tdd-cycle",
+  "github_branch": "main"
 }

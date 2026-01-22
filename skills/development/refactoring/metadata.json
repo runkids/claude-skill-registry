@@ -7,5 +7,6 @@
     "refactoring"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/refactoring"
+  "github_path": ".claude/skills/refactoring",
+  "github_branch": "main"
 }

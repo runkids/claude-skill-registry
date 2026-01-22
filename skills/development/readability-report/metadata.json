@@ -8,5 +8,6 @@
     "report"
   ],
   "stars": 18,
-  "github_path": ".claude/skills/readability-report"
+  "github_path": ".claude/skills/readability-report",
+  "github_branch": "main"
 }

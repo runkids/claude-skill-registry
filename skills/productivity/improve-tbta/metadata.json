@@ -8,5 +8,6 @@
     "tbta"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/improve-tbta"
+  "github_path": ".claude/skills/improve-tbta",
+  "github_branch": "main"
 }

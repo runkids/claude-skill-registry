@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:20.550911Z",
   "dir_name": "commit-helper",
   "category": "other",
-  "github_path": ".claude/skills/commit-helper"
+  "github_path": ".claude/skills/commit-helper",
+  "github_branch": "main"
 }

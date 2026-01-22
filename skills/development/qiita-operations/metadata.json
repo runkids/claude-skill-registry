@@ -8,5 +8,6 @@
     "operations"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/qiita-operations"
+  "github_path": ".claude/skills/qiita-operations",
+  "github_branch": "main"
 }

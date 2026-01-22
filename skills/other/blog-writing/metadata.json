@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:30.105013Z",
   "dir_name": "blog-writing",
   "category": "other",
-  "github_path": ".claude/skills/blog-writing"
+  "github_path": ".claude/skills/blog-writing",
+  "github_branch": "main"
 }

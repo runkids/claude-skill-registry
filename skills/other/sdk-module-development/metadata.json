@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:28:29.571232Z",
   "dir_name": "sdk-module-development",
   "category": "other",
-  "github_path": ".claude/skills/sdk-module-development"
+  "github_path": ".claude/skills/sdk-module-development",
+  "github_branch": "main"
 }

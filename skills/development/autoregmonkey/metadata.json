@@ -8,5 +8,6 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/autoregmonkey"
+  "github_path": ".claude/skills/autoregmonkey",
+  "github_branch": "main"
 }

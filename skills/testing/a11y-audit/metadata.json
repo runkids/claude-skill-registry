@@ -9,5 +9,6 @@
   ],
   "stars": 206,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/a11y-audit"
+  "github_path": ".claude/skills/a11y-audit",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:11.268497Z",
   "dir_name": "good-morning",
   "category": "other",
-  "github_path": ".claude/skills/good-morning"
+  "github_path": ".claude/skills/good-morning",
+  "github_branch": "main"
 }

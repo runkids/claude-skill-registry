@@ -8,5 +8,6 @@
     "planner"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/interactive-planner"
+  "github_path": ".claude/skills/interactive-planner",
+  "github_branch": "main"
 }

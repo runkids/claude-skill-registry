@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:45.498514Z",
   "dir_name": "recovery",
   "category": "other",
-  "github_path": ".claude/skills/recovery"
+  "github_path": ".claude/skills/recovery",
+  "github_branch": "main"
 }

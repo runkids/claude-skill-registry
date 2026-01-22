@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:23.265004Z",
   "dir_name": "writing-slash-commands",
   "category": "other",
-  "github_path": ".claude/skills/writing-slash-commands"
+  "github_path": ".claude/skills/writing-slash-commands",
+  "github_branch": "main"
 }

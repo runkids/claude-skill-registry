@@ -10,5 +10,6 @@
   ],
   "stars": 55,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/blog-post-creator"
+  "github_path": ".claude/skills/blog-post-creator",
+  "github_branch": "main"
 }

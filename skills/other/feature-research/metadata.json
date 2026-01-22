@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:19:37.182794Z",
   "dir_name": "feature-research",
   "category": "other",
-  "github_path": ".claude/skills/feature-research"
+  "github_path": ".claude/skills/feature-research",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "validation"
   ],
   "stars": 15,
-  "github_path": ".claude/skills/retrospective-validation"
+  "github_path": ".claude/skills/retrospective-validation",
+  "github_branch": "main"
 }

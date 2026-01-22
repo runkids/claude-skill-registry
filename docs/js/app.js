@@ -282,7 +282,7 @@ function showSkillDetail(card) {
         </div>
 
         <div style="margin-top: 1rem;">
-            <a href="${getGitHubUrl(install)}" target="_blank" style="color: var(--accent-primary);">
+            <a href="${getGitHubUrl(install, skill.b || 'main')}" target="_blank" style="color: var(--accent-primary);">
                 View on GitHub →
             </a>
         </div>
@@ -302,9 +302,9 @@ function copyInstall(event, install) {
     });
 }
 
-// Generate proper GitHub URL from install path
+// Generate proper GitHub URL from install path and branch
 // install format: "owner/repo/path/to/skill" or "owner/repo"
-function getGitHubUrl(install) {
+function getGitHubUrl(install, branch = 'main') {
     if (!install) return '#';
     const parts = install.split('/');
     if (parts.length < 2) return '#';
@@ -314,7 +314,7 @@ function getGitHubUrl(install) {
     const path = parts.slice(2).join('/');
 
     if (path) {
-        return `https://github.com/${owner}/${repo}/tree/main/${path}`;
+        return `https://github.com/${owner}/${repo}/tree/${branch}/${path}`;
     } else {
         return `https://github.com/${owner}/${repo}`;
     }

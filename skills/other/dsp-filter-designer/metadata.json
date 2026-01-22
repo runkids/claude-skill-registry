@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:39:37.371730Z",
   "dir_name": "dsp-filter-designer",
   "category": "other",
-  "github_path": ".claude/skills/dsp-filter-designer"
+  "github_path": ".claude/skills/dsp-filter-designer",
+  "github_branch": "main"
 }

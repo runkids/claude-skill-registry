@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:12:39.324623Z",
   "dir_name": "temporal-evaluation",
   "category": "other",
-  "github_path": ".claude/skills/temporal-evaluation"
+  "github_path": ".claude/skills/temporal-evaluation",
+  "github_branch": "main"
 }

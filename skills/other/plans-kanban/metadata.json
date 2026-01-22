@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:20:59.512304Z",
   "dir_name": "plans-kanban",
   "category": "other",
-  "github_path": ".claude/skills/plans-kanban"
+  "github_path": ".claude/skills/plans-kanban",
+  "github_branch": "main"
 }

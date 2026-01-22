@@ -7,5 +7,6 @@
     "sync"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wt-sync"
+  "github_path": ".claude/skills/wt-sync",
+  "github_branch": "main"
 }

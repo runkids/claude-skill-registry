@@ -8,5 +8,6 @@
     "deployment"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/tzurot-deployment"
+  "github_path": ".claude/skills/tzurot-deployment",
+  "github_branch": "main"
 }

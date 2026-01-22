@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/apply-qa-fixes"
+  "github_path": ".claude/skills/apply-qa-fixes",
+  "github_branch": "main"
 }

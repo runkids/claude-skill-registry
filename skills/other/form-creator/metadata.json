@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:08.802674Z",
   "dir_name": "form-creator",
   "category": "other",
-  "github_path": ".claude/skills/form-creator"
+  "github_path": ".claude/skills/form-creator",
+  "github_branch": "main"
 }

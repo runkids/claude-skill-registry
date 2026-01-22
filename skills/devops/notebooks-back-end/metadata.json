@@ -9,5 +9,6 @@
     "end"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/notebooks-back-end"
+  "github_path": ".claude/skills/notebooks-back-end",
+  "github_branch": "main"
 }

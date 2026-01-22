@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:11:28.767174Z",
   "dir_name": "wavecap-service",
   "category": "other",
-  "github_path": ".claude/skills/wavecap-service"
+  "github_path": ".claude/skills/wavecap-service",
+  "github_branch": "main"
 }

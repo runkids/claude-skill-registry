@@ -8,5 +8,6 @@
     "protocol"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/phantom-protocol"
+  "github_path": ".claude/skills/phantom-protocol",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "supabase-engineer",
-  "github_path": ".claude/skills/supabase-engineer"
+  "github_path": ".claude/skills/supabase-engineer",
+  "github_branch": "main"
 }

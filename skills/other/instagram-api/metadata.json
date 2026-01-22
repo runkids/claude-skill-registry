@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:50:06.250325Z",
   "dir_name": "instagram-api",
   "category": "other",
-  "github_path": ".claude/skills/instagram-api"
+  "github_path": ".claude/skills/instagram-api",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "research"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nqs-sqd-research"
+  "github_path": ".claude/skills/nqs-sqd-research",
+  "github_branch": "main"
 }

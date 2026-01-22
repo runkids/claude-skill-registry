@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:00:57.542873Z",
   "dir_name": "component-refactor",
   "category": "other",
-  "github_path": ".claude/skills/component-refactor"
+  "github_path": ".claude/skills/component-refactor",
+  "github_branch": "main"
 }

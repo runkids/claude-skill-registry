@@ -8,5 +8,6 @@
     "authoring"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/prd-authoring"
+  "github_path": ".claude/skills/prd-authoring",
+  "github_branch": "main"
 }

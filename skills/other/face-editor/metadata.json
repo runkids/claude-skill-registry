@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:41:46.391841Z",
   "dir_name": "face-editor",
   "category": "other",
-  "github_path": ".claude/skills/face-editor"
+  "github_path": ".claude/skills/face-editor",
+  "github_branch": "main"
 }

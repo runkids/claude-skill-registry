@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:55:34.918603Z",
   "dir_name": "vue-composables",
   "category": "other",
-  "github_path": ".claude/skills/vue-composables"
+  "github_path": ".claude/skills/vue-composables",
+  "github_branch": "main"
 }

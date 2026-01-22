@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:32.585786Z",
   "dir_name": "eleven-agent-manager",
   "category": "other",
-  "github_path": ".claude/skills/eleven-agent-manager"
+  "github_path": ".claude/skills/eleven-agent-manager",
+  "github_branch": "main"
 }

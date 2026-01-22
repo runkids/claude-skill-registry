@@ -8,5 +8,6 @@
     "execution"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/trpc-execution"
+  "github_path": ".claude/skills/trpc-execution",
+  "github_branch": "main"
 }

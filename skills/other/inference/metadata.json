@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:17.970136Z",
   "dir_name": "inference",
   "category": "other",
-  "github_path": ".claude/skills/inference"
+  "github_path": ".claude/skills/inference",
+  "github_branch": "main"
 }

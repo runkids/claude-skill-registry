@@ -6,5 +6,6 @@
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:35.900860Z",
   "dir_name": "supabase-database",
-  "github_path": ".claude/skills/supabase-database"
+  "github_path": ".claude/skills/supabase-database",
+  "github_branch": "main"
 }

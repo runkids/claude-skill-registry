@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:48:31.145331Z",
   "dir_name": "langchain-deep-research",
   "category": "other",
-  "github_path": ".claude/skills/langchain-deep-research"
+  "github_path": ".claude/skills/langchain-deep-research",
+  "github_branch": "main"
 }

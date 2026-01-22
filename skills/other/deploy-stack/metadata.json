@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:03:21.999841Z",
   "dir_name": "deploy-stack",
   "category": "other",
-  "github_path": ".claude/skills/deploy-stack"
+  "github_path": ".claude/skills/deploy-stack",
+  "github_branch": "main"
 }

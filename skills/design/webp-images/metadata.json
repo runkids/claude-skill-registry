@@ -5,5 +5,6 @@
   "description": "Implement images into page sections. Converts from /public/raw/[page]/ to WebP with responsive variants, replaces CDN placeholders with Next.js Image component. Use after midjourney-prompts skill. Tri",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:56.687318Z",
-  "github_path": ".claude/skills/webp-images"
+  "github_path": ".claude/skills/webp-images",
+  "github_branch": "main"
 }

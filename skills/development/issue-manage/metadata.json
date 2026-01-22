@@ -9,5 +9,6 @@
   ],
   "stars": 800,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/issue-manage"
+  "github_path": ".claude/skills/issue-manage",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:10.115006Z",
   "dir_name": "k8s-manifests",
   "category": "other",
-  "github_path": ".claude/skills/k8s-manifests"
+  "github_path": ".claude/skills/k8s-manifests",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:32.075398Z",
   "dir_name": "tmux-processes",
   "category": "other",
-  "github_path": ".claude/skills/tmux-processes"
+  "github_path": ".claude/skills/tmux-processes",
+  "github_branch": "main"
 }

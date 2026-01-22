@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:52.760775Z",
   "dir_name": "standards-queries",
   "category": "other",
-  "github_path": ".claude/skills/standards-queries"
+  "github_path": ".claude/skills/standards-queries",
+  "github_branch": "main"
 }

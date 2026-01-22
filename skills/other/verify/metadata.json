@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:21:59.532089Z",
   "dir_name": "verify",
   "category": "other",
-  "github_path": ".claude/skills/verify"
+  "github_path": ".claude/skills/verify",
+  "github_branch": "main"
 }

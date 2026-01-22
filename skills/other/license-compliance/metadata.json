@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:22:13.094693Z",
   "dir_name": "license-compliance",
   "category": "other",
-  "github_path": ".claude/skills/license-compliance"
+  "github_path": ".claude/skills/license-compliance",
+  "github_branch": "main"
 }

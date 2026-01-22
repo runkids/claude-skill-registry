@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:42:44.628095Z",
   "dir_name": "wrap-session",
   "category": "other",
-  "github_path": ".claude/skills/wrap-session"
+  "github_path": ".claude/skills/wrap-session",
+  "github_branch": "main"
 }

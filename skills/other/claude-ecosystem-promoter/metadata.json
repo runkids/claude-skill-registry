@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:57.218043Z",
   "dir_name": "claude-ecosystem-promoter",
   "category": "other",
-  "github_path": ".claude/skills/claude-ecosystem-promoter"
+  "github_path": ".claude/skills/claude-ecosystem-promoter",
+  "github_branch": "main"
 }

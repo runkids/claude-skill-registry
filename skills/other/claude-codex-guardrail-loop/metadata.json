@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:00.710075Z",
   "dir_name": "claude-codex-guardrail-loop",
   "category": "other",
-  "github_path": ".claude/skills/claude-codex-guardrail-loop"
+  "github_path": ".claude/skills/claude-codex-guardrail-loop",
+  "github_branch": "main"
 }

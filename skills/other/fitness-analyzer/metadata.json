@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:43.883524Z",
   "dir_name": "fitness-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/fitness-analyzer"
+  "github_path": ".claude/skills/fitness-analyzer",
+  "github_branch": "main"
 }

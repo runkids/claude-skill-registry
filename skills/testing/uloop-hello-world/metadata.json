@@ -9,5 +9,6 @@
     "world"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/uloop-hello-world"
+  "github_path": ".claude/skills/uloop-hello-world",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:45:03.569885Z",
   "dir_name": "business-document-generator",
   "category": "other",
-  "github_path": ".claude/skills/business-document-generator"
+  "github_path": ".claude/skills/business-document-generator",
+  "github_branch": "main"
 }

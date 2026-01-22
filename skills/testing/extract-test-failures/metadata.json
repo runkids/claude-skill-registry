@@ -10,5 +10,6 @@
   ],
   "stars": 8,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/extract-test-failures"
+  "github_path": ".claude/skills/extract-test-failures",
+  "github_branch": "main"
 }

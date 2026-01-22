@@ -9,5 +9,6 @@
     "jdk"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/test-parser-jdk"
+  "github_path": ".claude/skills/test-parser-jdk",
+  "github_branch": "main"
 }

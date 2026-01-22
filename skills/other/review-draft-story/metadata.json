@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:05.026114Z",
   "dir_name": "review-draft-story",
   "category": "other",
-  "github_path": ".claude/skills/review-draft-story"
+  "github_path": ".claude/skills/review-draft-story",
+  "github_branch": "main"
 }

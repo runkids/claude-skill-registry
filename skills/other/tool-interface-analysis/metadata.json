@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:17.516036Z",
   "dir_name": "tool-interface-analysis",
   "category": "other",
-  "github_path": ".claude/skills/tool-interface-analysis"
+  "github_path": ".claude/skills/tool-interface-analysis",
+  "github_branch": "main"
 }

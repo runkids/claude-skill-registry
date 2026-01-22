@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:17.500537Z",
   "dir_name": "episode-log-steps",
   "category": "other",
-  "github_path": ".claude/skills/episode-log-steps"
+  "github_path": ".claude/skills/episode-log-steps",
+  "github_branch": "main"
 }

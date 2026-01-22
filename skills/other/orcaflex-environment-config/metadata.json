@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:25:25.838546Z",
   "dir_name": "orcaflex-environment-config",
   "category": "other",
-  "github_path": ".claude/skills/orcaflex-environment-config"
+  "github_path": ".claude/skills/orcaflex-environment-config",
+  "github_branch": "main"
 }

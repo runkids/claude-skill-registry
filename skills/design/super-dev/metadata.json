@@ -8,5 +8,6 @@
     "dev"
   ],
   "stars": 15,
-  "github_path": ".claude/skills/super-dev"
+  "github_path": ".claude/skills/super-dev",
+  "github_branch": "main"
 }

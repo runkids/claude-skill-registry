@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bmad-architecture-design"
+  "github_path": ".claude/skills/bmad-architecture-design",
+  "github_branch": "main"
 }

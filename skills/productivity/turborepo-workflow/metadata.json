@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/turborepo-workflow"
+  "github_path": ".claude/skills/turborepo-workflow",
+  "github_branch": "main"
 }

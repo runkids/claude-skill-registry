@@ -7,5 +7,6 @@
     "screenshots"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/screenshots"
+  "github_path": ".claude/skills/screenshots",
+  "github_branch": "main"
 }

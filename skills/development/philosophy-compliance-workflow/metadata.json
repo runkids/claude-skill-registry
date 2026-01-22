@@ -9,5 +9,6 @@
     "workflow"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/philosophy-compliance-workflow"
+  "github_path": ".claude/skills/philosophy-compliance-workflow",
+  "github_branch": "main"
 }

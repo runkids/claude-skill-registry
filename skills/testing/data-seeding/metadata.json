@@ -9,5 +9,6 @@
   ],
   "stars": 13,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/data-seeding"
+  "github_path": ".claude/skills/data-seeding",
+  "github_branch": "main"
 }

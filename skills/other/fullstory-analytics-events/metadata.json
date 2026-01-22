@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:04.519981Z",
   "dir_name": "fullstory-analytics-events",
   "category": "other",
-  "github_path": ".claude/skills/fullstory-analytics-events"
+  "github_path": ".claude/skills/fullstory-analytics-events",
+  "github_branch": "main"
 }

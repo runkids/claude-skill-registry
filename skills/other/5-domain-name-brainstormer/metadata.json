@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:42:21.561041Z",
   "dir_name": "5-domain-name-brainstormer",
   "category": "other",
-  "github_path": ".claude/skills/5_domain-name-brainstormer"
+  "github_path": ".claude/skills/5_domain-name-brainstormer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:56.630046Z",
   "dir_name": "create-task-spec",
   "category": "other",
-  "github_path": ".claude/skills/create-task-spec"
+  "github_path": ".claude/skills/create-task-spec",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "colyseus"
   ],
   "stars": 35,
-  "github_path": ".claude/skills/starwards-colyseus"
+  "github_path": ".claude/skills/starwards-colyseus",
+  "github_branch": "master"
 }

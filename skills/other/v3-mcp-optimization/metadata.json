@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:07.461262Z",
   "dir_name": "v3-mcp-optimization",
   "category": "other",
-  "github_path": ".claude/skills/v3-mcp-optimization"
+  "github_path": ".claude/skills/v3-mcp-optimization",
+  "github_branch": "main"
 }

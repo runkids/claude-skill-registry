@@ -9,5 +9,6 @@
     "server"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/start-reddit-server"
+  "github_path": ".claude/skills/start-reddit-server",
+  "github_branch": "main"
 }

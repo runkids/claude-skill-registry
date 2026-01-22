@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:31:27.704514Z",
   "dir_name": "idea-generation",
   "category": "other",
-  "github_path": ".claude/skills/idea-generation"
+  "github_path": ".claude/skills/idea-generation",
+  "github_branch": "main"
 }

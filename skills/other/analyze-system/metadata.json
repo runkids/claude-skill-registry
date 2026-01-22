@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:40.376508Z",
   "dir_name": "analyze-system",
   "category": "other",
-  "github_path": ".claude/skills/analyze-system"
+  "github_path": ".claude/skills/analyze-system",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   "stars": 575,
   "source": "SkillsMP Synced Skills",
   "dir_name": "flutter-init",
-  "github_path": ".claude/skills/flutter-init"
+  "github_path": ".claude/skills/flutter-init",
+  "github_branch": "master"
 }

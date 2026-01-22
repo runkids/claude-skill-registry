@@ -8,5 +8,6 @@
     "effects"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wsc-effects"
+  "github_path": ".claude/skills/wsc-effects",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:14:51.409891Z",
   "dir_name": "vibe-coding-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/vibe-coding-orchestrator"
+  "github_path": ".claude/skills/vibe-coding-orchestrator",
+  "github_branch": "main"
 }

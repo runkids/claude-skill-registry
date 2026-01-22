@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:53:31.773080Z",
   "dir_name": "add-agent-property",
   "category": "other",
-  "github_path": ".claude/skills/add-agent-property"
+  "github_path": ".claude/skills/add-agent-property",
+  "github_branch": "main"
 }

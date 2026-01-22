@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:34.186146Z",
   "dir_name": "full-stack-optimizer",
   "category": "other",
-  "github_path": ".claude/skills/full-stack-optimizer"
+  "github_path": ".claude/skills/full-stack-optimizer",
+  "github_branch": "main"
 }

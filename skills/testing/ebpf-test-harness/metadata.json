@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ebpf-test-harness"
+  "github_path": ".claude/skills/ebpf-test-harness",
+  "github_branch": "main"
 }

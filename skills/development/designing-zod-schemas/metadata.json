@@ -10,5 +10,6 @@
   ],
   "stars": 20,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/designing-zod-schemas"
+  "github_path": ".claude/skills/designing-zod-schemas",
+  "github_branch": "main"
 }

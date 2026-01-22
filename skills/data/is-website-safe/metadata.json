@@ -9,5 +9,6 @@
   ],
   "stars": 11,
   "dir_name": "is-website-safe",
-  "github_path": ".claude/skills/is-website-safe"
+  "github_path": ".claude/skills/is-website-safe",
+  "github_branch": "main"
 }

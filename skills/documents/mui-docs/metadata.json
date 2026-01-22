@@ -8,5 +8,6 @@
     "docs"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/mui-docs"
+  "github_path": ".claude/skills/mui-docs",
+  "github_branch": "main"
 }

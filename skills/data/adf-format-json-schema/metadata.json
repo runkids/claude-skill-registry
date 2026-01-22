@@ -12,5 +12,6 @@
   "stars": 3,
   "source": "SkillsMP Synced Skills",
   "dir_name": "adf-format-json-schema",
-  "github_path": ".claude/skills/adf-format-json-schema"
+  "github_path": ".claude/skills/adf-format-json-schema",
+  "github_branch": "main"
 }

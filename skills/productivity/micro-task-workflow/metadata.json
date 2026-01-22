@@ -9,5 +9,6 @@
     "workflow"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/micro-task-workflow"
+  "github_path": ".claude/skills/micro-task-workflow",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "dir_name": "r-data-science",
-  "github_path": ".claude/skills/r-data-science"
+  "github_path": ".claude/skills/r-data-science",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 55,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/newsletter-publisher"
+  "github_path": ".claude/skills/newsletter-publisher",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "conductor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/narrative-conductor"
+  "github_path": ".claude/skills/narrative-conductor",
+  "github_branch": "main"
 }

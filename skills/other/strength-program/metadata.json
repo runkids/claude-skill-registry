@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:30.580533Z",
   "dir_name": "strength-program",
   "category": "other",
-  "github_path": ".claude/skills/strength-program"
+  "github_path": ".claude/skills/strength-program",
+  "github_branch": "main"
 }

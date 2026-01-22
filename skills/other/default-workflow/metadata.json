@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:49.453941Z",
   "dir_name": "default-workflow",
   "category": "other",
-  "github_path": ".claude/skills/default-workflow"
+  "github_path": ".claude/skills/default-workflow",
+  "github_branch": "main"
 }

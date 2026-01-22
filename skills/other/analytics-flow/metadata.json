@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:51.420915Z",
   "dir_name": "analytics-flow",
   "category": "other",
-  "github_path": ".claude/skills/analytics-flow"
+  "github_path": ".claude/skills/analytics-flow",
+  "github_branch": "main"
 }

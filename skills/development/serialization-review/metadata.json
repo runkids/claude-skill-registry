@@ -8,5 +8,6 @@
     "review"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/serialization-review"
+  "github_path": ".claude/skills/serialization-review",
+  "github_branch": "main"
 }

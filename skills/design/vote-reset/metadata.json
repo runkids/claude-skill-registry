@@ -8,5 +8,6 @@
     "reset"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/vote-reset"
+  "github_path": ".claude/skills/vote-reset",
+  "github_branch": "main"
 }

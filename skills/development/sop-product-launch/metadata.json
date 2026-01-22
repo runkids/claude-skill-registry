@@ -9,5 +9,6 @@
     "launch"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sop-product-launch"
+  "github_path": ".claude/skills/sop-product-launch",
+  "github_branch": "main"
 }

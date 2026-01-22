@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:15.287763Z",
   "dir_name": "rag-implementation",
   "category": "other",
-  "github_path": ".claude/skills/rag-implementation"
+  "github_path": ".claude/skills/rag-implementation",
+  "github_branch": "main"
 }

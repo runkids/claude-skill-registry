@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:38:46.498823Z",
   "dir_name": "openspec-sync-specs",
   "category": "other",
-  "github_path": ".claude/skills/openspec-sync-specs"
+  "github_path": ".claude/skills/openspec-sync-specs",
+  "github_branch": "main"
 }

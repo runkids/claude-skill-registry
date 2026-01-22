@@ -7,5 +7,6 @@
     "plc4x"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/plc4x"
+  "github_path": ".claude/skills/plc4x",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "inspector"
   ],
   "stars": 34,
-  "github_path": ".claude/skills/mcp-inspector"
+  "github_path": ".claude/skills/mcp-inspector",
+  "github_branch": "main"
 }

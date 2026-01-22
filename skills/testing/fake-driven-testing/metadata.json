@@ -10,5 +10,6 @@
   ],
   "stars": 32,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/fake-driven-testing"
+  "github_path": ".claude/skills/fake-driven-testing",
+  "github_branch": "main"
 }

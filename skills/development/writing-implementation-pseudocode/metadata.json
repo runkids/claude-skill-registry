@@ -9,5 +9,6 @@
     "pseudocode"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/writing-implementation-pseudocode"
+  "github_path": ".claude/skills/writing-implementation-pseudocode",
+  "github_branch": "main"
 }

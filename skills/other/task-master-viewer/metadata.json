@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:21.373040Z",
   "dir_name": "task-master-viewer",
   "category": "other",
-  "github_path": ".claude/skills/task-master-viewer"
+  "github_path": ".claude/skills/task-master-viewer",
+  "github_branch": "main"
 }

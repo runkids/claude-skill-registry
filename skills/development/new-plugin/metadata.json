@@ -9,5 +9,6 @@
   ],
   "stars": 127,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/new-plugin"
+  "github_path": ".claude/skills/new-plugin",
+  "github_branch": "master"
 }

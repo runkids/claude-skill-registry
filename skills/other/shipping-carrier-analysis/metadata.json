@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:36.523032Z",
   "dir_name": "shipping-carrier-analysis",
   "category": "other",
-  "github_path": ".claude/skills/shipping-carrier-analysis"
+  "github_path": ".claude/skills/shipping-carrier-analysis",
+  "github_branch": "main"
 }

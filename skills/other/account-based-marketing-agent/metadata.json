@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:07.689488Z",
   "dir_name": "account-based-marketing-agent",
   "category": "other",
-  "github_path": ".claude/skills/account-based-marketing-agent"
+  "github_path": ".claude/skills/account-based-marketing-agent",
+  "github_branch": "main"
 }

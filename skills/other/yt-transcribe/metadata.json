@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:32.456370Z",
   "dir_name": "yt-transcribe",
   "category": "other",
-  "github_path": ".claude/skills/yt-transcribe"
+  "github_path": ".claude/skills/yt-transcribe",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "verification"
   ],
   "stars": 35,
-  "github_path": ".claude/skills/starwards-verification"
+  "github_path": ".claude/skills/starwards-verification",
+  "github_branch": "master"
 }

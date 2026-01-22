@@ -7,5 +7,6 @@
     "ghostty"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/ghostty"
+  "github_path": ".claude/skills/ghostty",
+  "github_branch": "main"
 }

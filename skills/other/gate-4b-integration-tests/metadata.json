@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:59.789035Z",
   "dir_name": "gate-4b-integration-tests",
   "category": "other",
-  "github_path": ".claude/skills/gate-4b-integration-tests"
+  "github_path": ".claude/skills/gate-4b-integration-tests",
+  "github_branch": "main"
 }

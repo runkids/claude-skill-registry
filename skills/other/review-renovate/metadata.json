@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:57:34.496548Z",
   "dir_name": "review-renovate",
   "category": "other",
-  "github_path": ".claude/skills/review-renovate"
+  "github_path": ".claude/skills/review-renovate",
+  "github_branch": "main"
 }

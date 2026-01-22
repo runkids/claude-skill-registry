@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:23.874533Z",
   "dir_name": "bazinga-db-agents",
   "category": "other",
-  "github_path": ".claude/skills/bazinga-db-agents"
+  "github_path": ".claude/skills/bazinga-db-agents",
+  "github_branch": "main"
 }

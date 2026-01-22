@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:51.133327Z",
   "dir_name": "snd-bossmod",
   "category": "other",
-  "github_path": ".claude/skills/snd-bossmod"
+  "github_path": ".claude/skills/snd-bossmod",
+  "github_branch": "main"
 }

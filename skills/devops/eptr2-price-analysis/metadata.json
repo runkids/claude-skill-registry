@@ -10,5 +10,6 @@
   ],
   "stars": 15,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/eptr2-price-analysis"
+  "github_path": ".claude/skills/eptr2-price-analysis",
+  "github_branch": "main"
 }

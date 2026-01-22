@@ -8,5 +8,6 @@
     "inspect"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/qodana-inspect"
+  "github_path": ".claude/skills/qodana-inspect",
+  "github_branch": "main"
 }

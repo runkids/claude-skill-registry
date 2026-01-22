@@ -8,5 +8,6 @@
     "completion"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ptk-completion"
+  "github_path": ".claude/skills/ptk-completion",
+  "github_branch": "main"
 }

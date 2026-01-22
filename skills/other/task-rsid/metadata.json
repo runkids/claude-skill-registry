@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:31.234365Z",
   "dir_name": "task-rsid",
   "category": "other",
-  "github_path": ".claude/skills/task-rsid"
+  "github_path": ".claude/skills/task-rsid",
+  "github_branch": "main"
 }

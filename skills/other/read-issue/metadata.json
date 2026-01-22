@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:57:33.829392Z",
   "dir_name": "read-issue",
   "category": "other",
-  "github_path": ".claude/skills/read-issue"
+  "github_path": ".claude/skills/read-issue",
+  "github_branch": "main"
 }

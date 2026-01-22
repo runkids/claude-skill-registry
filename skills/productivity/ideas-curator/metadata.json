@@ -8,5 +8,6 @@
     "curator"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/ideas-curator"
+  "github_path": ".claude/skills/ideas-curator",
+  "github_branch": "main"
 }

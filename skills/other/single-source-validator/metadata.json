@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:23.645700Z",
   "dir_name": "single-source-validator",
   "category": "other",
-  "github_path": ".claude/skills/single-source-validator"
+  "github_path": ".claude/skills/single-source-validator",
+  "github_branch": "main"
 }

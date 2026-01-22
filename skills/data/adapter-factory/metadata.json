@@ -10,5 +10,6 @@
   "stars": 166,
   "source": "SkillsMP Synced Skills",
   "dir_name": "adapter-factory",
-  "github_path": ".claude/skills/adapter-factory"
+  "github_path": ".claude/skills/adapter-factory",
+  "github_branch": "main"
 }

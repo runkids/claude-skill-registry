@@ -9,5 +9,6 @@
     "mcp"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-integration-mcp"
+  "github_path": ".claude/skills/moai-integration-mcp",
+  "github_branch": "main"
 }

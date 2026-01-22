@@ -8,5 +8,6 @@
     "filing"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/issue-filing"
+  "github_path": ".claude/skills/issue-filing",
+  "github_branch": "main"
 }

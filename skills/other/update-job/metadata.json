@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:29.055369Z",
   "dir_name": "update-job",
   "category": "other",
-  "github_path": ".claude/skills/update.job"
+  "github_path": ".claude/skills/update.job",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "jira"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/jira"
+  "github_path": ".claude/skills/jira",
+  "github_branch": "main"
 }

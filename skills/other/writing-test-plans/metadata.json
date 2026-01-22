@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:12.547579Z",
   "dir_name": "writing-test-plans",
   "category": "other",
-  "github_path": ".claude/skills/writing-test-plans"
+  "github_path": ".claude/skills/writing-test-plans",
+  "github_branch": "main"
 }

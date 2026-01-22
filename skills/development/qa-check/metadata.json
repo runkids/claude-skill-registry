@@ -7,5 +7,6 @@
     "check"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/qa-check"
+  "github_path": ".claude/skills/qa-check",
+  "github_branch": "main"
 }

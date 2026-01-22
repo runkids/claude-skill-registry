@@ -10,5 +10,6 @@
   ],
   "stars": 834,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/linear-todo-sync"
+  "github_path": ".claude/skills/linear-todo-sync",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "dir_name": "youtube-cover-creator",
-  "github_path": ".claude/skills/youtube-cover-creator"
+  "github_path": ".claude/skills/youtube-cover-creator",
+  "github_branch": "main"
 }

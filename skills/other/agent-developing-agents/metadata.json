@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:27:13.006628Z",
   "dir_name": "agent-developing-agents",
   "category": "other",
-  "github_path": ".claude/skills/agent-developing-agents"
+  "github_path": ".claude/skills/agent-developing-agents",
+  "github_branch": "main"
 }

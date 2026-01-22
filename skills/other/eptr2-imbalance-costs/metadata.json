@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:40:00.541527Z",
   "dir_name": "eptr2-imbalance-costs",
   "category": "other",
-  "github_path": ".claude/skills/eptr2-imbalance-costs"
+  "github_path": ".claude/skills/eptr2-imbalance-costs",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "glassmorphism"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/glassmorphism"
+  "github_path": ".claude/skills/glassmorphism",
+  "github_branch": "main"
 }

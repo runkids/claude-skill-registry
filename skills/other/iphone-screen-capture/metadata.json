@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:24.748797Z",
   "dir_name": "iphone-screen-capture",
   "category": "other",
-  "github_path": ".claude/skills/iphone-screen-capture"
+  "github_path": ".claude/skills/iphone-screen-capture",
+  "github_branch": "main"
 }

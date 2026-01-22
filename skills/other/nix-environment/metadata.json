@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:18.739689Z",
   "dir_name": "nix-environment",
   "category": "other",
-  "github_path": ".claude/skills/nix-environment"
+  "github_path": ".claude/skills/nix-environment",
+  "github_branch": "main"
 }

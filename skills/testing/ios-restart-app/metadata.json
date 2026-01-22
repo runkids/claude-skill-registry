@@ -9,5 +9,6 @@
     "app"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ios-restart-app"
+  "github_path": ".claude/skills/ios-restart-app",
+  "github_branch": "main"
 }

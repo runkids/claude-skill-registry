@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:04.117260Z",
   "dir_name": "gemini-flow",
   "category": "other",
-  "github_path": ".claude/skills/gemini-flow"
+  "github_path": ".claude/skills/gemini-flow",
+  "github_branch": "main"
 }

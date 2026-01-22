@@ -10,5 +10,6 @@
   ],
   "stars": 79,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/youtube-transcribe-skill"
+  "github_path": "skills/youtube-transcribe-skill",
+  "github_branch": "main"
 }

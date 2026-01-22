@@ -8,5 +8,6 @@
     "application"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/job-application"
+  "github_path": ".claude/skills/job-application",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "transfer"
   ],
   "stars": 15,
-  "github_path": ".claude/skills/knowledge-transfer"
+  "github_path": ".claude/skills/knowledge-transfer",
+  "github_branch": "main"
 }

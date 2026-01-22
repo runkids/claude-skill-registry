@@ -8,5 +8,6 @@
     "subscriptions"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/payment-subscriptions"
+  "github_path": ".claude/skills/payment-subscriptions",
+  "github_branch": "main"
 }

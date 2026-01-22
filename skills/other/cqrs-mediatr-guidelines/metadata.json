@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:18:35.025238Z",
   "dir_name": "cqrs-mediatr-guidelines",
   "category": "other",
-  "github_path": ".claude/skills/cqrs-mediatr-guidelines"
+  "github_path": ".claude/skills/cqrs-mediatr-guidelines",
+  "github_branch": "main"
 }

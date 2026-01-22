@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:53.296602Z",
   "dir_name": "copywriting-helper",
   "category": "other",
-  "github_path": ".claude/skills/copywriting-helper"
+  "github_path": ".claude/skills/copywriting-helper",
+  "github_branch": "main"
 }

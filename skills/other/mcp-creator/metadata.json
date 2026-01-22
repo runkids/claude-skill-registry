@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:55.625576Z",
   "dir_name": "mcp-creator",
   "category": "other",
-  "github_path": ".claude/skills/mcp-creator"
+  "github_path": ".claude/skills/mcp-creator",
+  "github_branch": "main"
 }

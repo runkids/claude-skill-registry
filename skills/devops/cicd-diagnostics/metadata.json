@@ -9,5 +9,6 @@
   ],
   "stars": 924,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cicd-diagnostics"
+  "github_path": ".claude/skills/cicd-diagnostics",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/android-motion-specialist"
+  "github_path": ".claude/skills/android-motion-specialist",
+  "github_branch": "main"
 }

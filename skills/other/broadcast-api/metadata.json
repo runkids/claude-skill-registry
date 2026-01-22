@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:18.353347Z",
   "dir_name": "broadcast-api",
   "category": "other",
-  "github_path": ".claude/skills/broadcast-api"
+  "github_path": ".claude/skills/broadcast-api",
+  "github_branch": "main"
 }

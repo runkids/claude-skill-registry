@@ -8,5 +8,6 @@
     "ops"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/k1-firmware-ops"
+  "github_path": ".claude/skills/k1-firmware-ops",
+  "github_branch": "main"
 }

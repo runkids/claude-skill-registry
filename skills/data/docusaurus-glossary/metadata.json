@@ -10,5 +10,6 @@
   "stars": 1,
   "source": "SkillsMP Synced Skills",
   "dir_name": "docusaurus-glossary",
-  "github_path": ".claude/skills/docusaurus-glossary"
+  "github_path": ".claude/skills/docusaurus-glossary",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:40:00.435215Z",
   "dir_name": "eptr2-price-analysis",
   "category": "other",
-  "github_path": ".claude/skills/eptr2-price-analysis"
+  "github_path": ".claude/skills/eptr2-price-analysis",
+  "github_branch": "main"
 }

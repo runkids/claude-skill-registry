@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/azure-devops-migration"
+  "github_path": ".claude/skills/azure-devops-migration",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:27:10.035005Z",
   "dir_name": "git-commit-composer",
   "category": "other",
-  "github_path": ".claude/skills/git-commit-composer"
+  "github_path": ".claude/skills/git-commit-composer",
+  "github_branch": "main"
 }

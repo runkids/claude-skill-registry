@@ -8,5 +8,6 @@
     "flow"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/refactor-flow"
+  "github_path": ".claude/skills/refactor-flow",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   "stars": 191,
   "source": "SkillsMP Synced Skills",
   "dir_name": "using-orchestration",
-  "github_path": "skills/using-orchestration"
+  "github_path": "skills/using-orchestration",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "developer"
   ],
   "stars": 19,
-  "github_path": ".claude/skills/software-developer"
+  "github_path": ".claude/skills/software-developer",
+  "github_branch": "main"
 }

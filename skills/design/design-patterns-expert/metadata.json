@@ -10,5 +10,6 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/design-patterns-expert"
+  "github_path": ".claude/skills/design-patterns-expert",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "deploying"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/vercel-deploying"
+  "github_path": ".claude/skills/vercel-deploying",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "compile"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mql5-x-compile"
+  "github_path": ".claude/skills/mql5-x-compile",
+  "github_branch": "main"
 }

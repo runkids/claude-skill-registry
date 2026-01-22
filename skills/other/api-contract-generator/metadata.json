@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:09.925103Z",
   "dir_name": "api-contract-generator",
   "category": "other",
-  "github_path": ".claude/skills/api-contract-generator"
+  "github_path": ".claude/skills/api-contract-generator",
+  "github_branch": "main"
 }

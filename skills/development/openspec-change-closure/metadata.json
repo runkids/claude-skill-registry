@@ -9,5 +9,6 @@
     "closure"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/openspec-change-closure"
+  "github_path": ".claude/skills/openspec-change-closure",
+  "github_branch": "main"
 }

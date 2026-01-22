@@ -9,5 +9,6 @@
   ],
   "stars": 166,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/deliberation-tester"
+  "github_path": ".claude/skills/deliberation-tester",
+  "github_branch": "main"
 }

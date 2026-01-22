@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:05.087802Z",
   "dir_name": "v3-security-overhaul",
   "category": "other",
-  "github_path": ".claude/skills/v3-security-overhaul"
+  "github_path": ".claude/skills/v3-security-overhaul",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "release"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/qt-release"
+  "github_path": ".claude/skills/qt-release",
+  "github_branch": "main"
 }

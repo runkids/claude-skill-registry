@@ -8,5 +8,6 @@
     "doctor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/test-doctor"
+  "github_path": ".claude/skills/test-doctor",
+  "github_branch": "main"
 }

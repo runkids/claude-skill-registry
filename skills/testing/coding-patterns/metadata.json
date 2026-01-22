@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/coding-patterns"
+  "github_path": ".claude/skills/coding-patterns",
+  "github_branch": "main"
 }

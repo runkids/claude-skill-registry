@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:19.799066Z",
   "dir_name": "dbt-migration-hive",
   "category": "other",
-  "github_path": ".claude/skills/dbt-migration-hive"
+  "github_path": ".claude/skills/dbt-migration-hive",
+  "github_branch": "main"
 }

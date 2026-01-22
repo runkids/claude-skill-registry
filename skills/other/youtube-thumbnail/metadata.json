@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:55.867105Z",
   "dir_name": "youtube-thumbnail",
   "category": "other",
-  "github_path": ".claude/skills/youtube-thumbnail"
+  "github_path": ".claude/skills/youtube-thumbnail",
+  "github_branch": "main"
 }

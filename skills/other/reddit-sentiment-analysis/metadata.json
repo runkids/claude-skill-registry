@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:20.507644Z",
   "dir_name": "reddit-sentiment-analysis",
   "category": "other",
-  "github_path": ".claude/skills/reddit-sentiment-analysis"
+  "github_path": ".claude/skills/reddit-sentiment-analysis",
+  "github_branch": "main"
 }

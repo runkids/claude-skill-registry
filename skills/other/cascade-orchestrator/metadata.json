@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:58.843171Z",
   "dir_name": "cascade-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/cascade-orchestrator"
+  "github_path": ".claude/skills/cascade-orchestrator",
+  "github_branch": "main"
 }

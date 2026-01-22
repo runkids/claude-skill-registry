@@ -9,5 +9,6 @@
     "configurator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/log-aggregation-configurator"
+  "github_path": ".claude/skills/log-aggregation-configurator",
+  "github_branch": "main"
 }

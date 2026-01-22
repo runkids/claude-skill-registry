@@ -9,5 +9,6 @@
     "analysis"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/multi-agent-analysis"
+  "github_path": ".claude/skills/multi-agent-analysis",
+  "github_branch": "main"
 }

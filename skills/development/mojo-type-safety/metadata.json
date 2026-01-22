@@ -9,5 +9,6 @@
     "safety"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/mojo-type-safety"
+  "github_path": ".claude/skills/mojo-type-safety",
+  "github_branch": "main"
 }

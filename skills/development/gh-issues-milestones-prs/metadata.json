@@ -5,5 +5,6 @@
   "description": "Write GitHub Issues/PRs and manage milestones for this repo. Use for issue/PR content conventions and gh CLI workflow (including milestones).",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:26.887194Z",
-  "github_path": ".claude/skills/gh-issues-milestones-prs"
+  "github_path": ".claude/skills/gh-issues-milestones-prs",
+  "github_branch": "main"
 }

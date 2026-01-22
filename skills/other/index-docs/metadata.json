@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:56.871041Z",
   "dir_name": "index-docs",
   "category": "other",
-  "github_path": ".claude/skills/index-docs"
+  "github_path": ".claude/skills/index-docs",
+  "github_branch": "main"
 }

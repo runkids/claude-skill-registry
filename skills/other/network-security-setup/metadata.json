@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:59.418682Z",
   "dir_name": "network-security-setup",
   "category": "other",
-  "github_path": ".claude/skills/network-security-setup"
+  "github_path": ".claude/skills/network-security-setup",
+  "github_branch": "main"
 }

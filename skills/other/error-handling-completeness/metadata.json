@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:12.957286Z",
   "dir_name": "error-handling-completeness",
   "category": "other",
-  "github_path": ".claude/skills/error-handling-completeness"
+  "github_path": ".claude/skills/error-handling-completeness",
+  "github_branch": "main"
 }

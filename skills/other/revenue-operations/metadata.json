@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:03.252970Z",
   "dir_name": "revenue-operations",
   "category": "other",
-  "github_path": ".claude/skills/revenue-operations"
+  "github_path": ".claude/skills/revenue-operations",
+  "github_branch": "main"
 }

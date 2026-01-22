@@ -8,5 +8,6 @@
     "adapter"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/registry-adapter"
+  "github_path": ".claude/skills/registry-adapter",
+  "github_branch": "main"
 }

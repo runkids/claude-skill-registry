@@ -9,5 +9,6 @@
     "control"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-version-control"
+  "github_path": ".claude/skills/global-version-control",
+  "github_branch": "main"
 }

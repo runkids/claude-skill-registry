@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:18:47.953363Z",
   "dir_name": "narrative-event-extractor",
   "category": "other",
-  "github_path": ".claude/skills/narrative-event-extractor"
+  "github_path": ".claude/skills/narrative-event-extractor",
+  "github_branch": "main"
 }

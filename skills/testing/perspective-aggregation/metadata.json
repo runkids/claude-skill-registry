@@ -5,5 +5,6 @@
   "description": "Combine outputs from multiple instances into unified view, preserving diversity",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:48.882769Z",
-  "github_path": ".claude/skills/perspective-aggregation"
+  "github_path": ".claude/skills/perspective-aggregation",
+  "github_branch": "main"
 }

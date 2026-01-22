@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:22.215362Z",
   "dir_name": "dokkado",
   "category": "other",
-  "github_path": ".claude/skills/dokkado"
+  "github_path": ".claude/skills/dokkado",
+  "github_branch": "main"
 }

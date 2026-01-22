@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:19.884383Z",
   "dir_name": "rust-code-quality",
   "category": "other",
-  "github_path": ".claude/skills/rust-code-quality"
+  "github_path": ".claude/skills/rust-code-quality",
+  "github_branch": "main"
 }

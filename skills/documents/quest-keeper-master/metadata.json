@@ -9,5 +9,6 @@
     "master"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/quest-keeper-master"
+  "github_path": ".claude/skills/quest-keeper-master",
+  "github_branch": "main"
 }

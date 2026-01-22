@@ -8,5 +8,6 @@
     "communicator"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/recursive-communicator"
+  "github_path": ".claude/skills/recursive-communicator",
+  "github_branch": "main"
 }

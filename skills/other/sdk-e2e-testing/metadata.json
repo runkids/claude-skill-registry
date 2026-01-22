@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:31:50.977522Z",
   "dir_name": "sdk-e2e-testing",
   "category": "other",
-  "github_path": ".claude/skills/sdk-e2e-testing"
+  "github_path": ".claude/skills/sdk-e2e-testing",
+  "github_branch": "main"
 }

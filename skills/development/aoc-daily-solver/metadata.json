@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/aoc-daily-solver"
+  "github_path": ".claude/skills/aoc-daily-solver",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:31.260412Z",
   "dir_name": "bug-hunter",
   "category": "other",
-  "github_path": ".claude/skills/bug-hunter"
+  "github_path": ".claude/skills/bug-hunter",
+  "github_branch": "main"
 }

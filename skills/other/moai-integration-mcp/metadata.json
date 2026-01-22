@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:35.009773Z",
   "dir_name": "moai-integration-mcp",
   "category": "other",
-  "github_path": ".claude/skills/moai-integration-mcp"
+  "github_path": ".claude/skills/moai-integration-mcp",
+  "github_branch": "main"
 }

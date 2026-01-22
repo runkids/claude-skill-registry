@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "data-storage",
-  "github_path": ".claude/skills/data-storage"
+  "github_path": ".claude/skills/data-storage",
+  "github_branch": "main"
 }

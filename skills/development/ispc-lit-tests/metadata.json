@@ -10,5 +10,6 @@
   ],
   "stars": 2810,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ispc-lit-tests"
+  "github_path": ".claude/skills/ispc-lit-tests",
+  "github_branch": "main"
 }

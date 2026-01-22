@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/business-profile-creator"
+  "github_path": ".claude/skills/business-profile-creator",
+  "github_branch": "main"
 }

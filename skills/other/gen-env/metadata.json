@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:31.863918Z",
   "dir_name": "gen-env",
   "category": "other",
-  "github_path": ".claude/skills/gen-env"
+  "github_path": ".claude/skills/gen-env",
+  "github_branch": "main"
 }

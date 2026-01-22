@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:41.138346Z",
   "dir_name": "test-automation-strategy",
   "category": "other",
-  "github_path": ".claude/skills/test-automation-strategy"
+  "github_path": ".claude/skills/test-automation-strategy",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "force"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/using-the-force"
+  "github_path": ".claude/skills/using-the-force",
+  "github_branch": "main"
 }

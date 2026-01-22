@@ -9,5 +9,6 @@
     "breakdown"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/github-issue-breakdown"
+  "github_path": ".claude/skills/github-issue-breakdown",
+  "github_branch": "main"
 }

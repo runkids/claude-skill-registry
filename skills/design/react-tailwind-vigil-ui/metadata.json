@@ -9,5 +9,6 @@
     "vigil"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/react-tailwind-vigil-ui"
+  "github_path": ".claude/skills/react-tailwind-vigil-ui",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "deployment"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/global-deployment"
+  "github_path": ".claude/skills/global-deployment",
+  "github_branch": "main"
 }

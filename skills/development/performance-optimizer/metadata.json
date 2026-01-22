@@ -8,5 +8,6 @@
     "optimizer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/performance-optimizer"
+  "github_path": ".claude/skills/performance-optimizer",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "audit"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/theater-detection-audit"
+  "github_path": ".claude/skills/theater-detection-audit",
+  "github_branch": "main"
 }

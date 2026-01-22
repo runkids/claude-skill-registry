@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "typescript-guardian",
-  "github_path": ".claude/skills/typescript-guardian"
+  "github_path": ".claude/skills/typescript-guardian",
+  "github_branch": "main"
 }

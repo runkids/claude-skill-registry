@@ -7,5 +7,6 @@
     "journal"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/journal"
+  "github_path": ".claude/skills/journal",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/fixing-tmux-socket-issues"
+  "github_path": ".claude/skills/fixing-tmux-socket-issues",
+  "github_branch": "main"
 }

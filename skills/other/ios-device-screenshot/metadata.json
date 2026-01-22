@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:32.533864Z",
   "dir_name": "ios-device-screenshot",
   "category": "other",
-  "github_path": ".claude/skills/ios-device-screenshot"
+  "github_path": ".claude/skills/ios-device-screenshot",
+  "github_branch": "main"
 }

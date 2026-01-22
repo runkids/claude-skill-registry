@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "dir_name": "task-completion-report",
-  "github_path": ".claude/skills/task-completion-report"
+  "github_path": ".claude/skills/task-completion-report",
+  "github_branch": "main"
 }

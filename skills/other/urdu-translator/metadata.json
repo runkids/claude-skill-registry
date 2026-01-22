@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:31:23.535704Z",
   "dir_name": "urdu-translator",
   "category": "other",
-  "github_path": ".claude/skills/urdu-translator"
+  "github_path": ".claude/skills/urdu-translator",
+  "github_branch": "main"
 }

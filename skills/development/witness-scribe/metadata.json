@@ -8,5 +8,6 @@
     "scribe"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/witness-scribe"
+  "github_path": ".claude/skills/witness-scribe",
+  "github_branch": "main"
 }

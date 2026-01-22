@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:57.631247Z",
   "dir_name": "i18n-automation",
   "category": "other",
-  "github_path": ".claude/skills/i18n-automation"
+  "github_path": ".claude/skills/i18n-automation",
+  "github_branch": "main"
 }

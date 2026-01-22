@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:27.524594Z",
   "dir_name": "bug-diagnosis",
   "category": "other",
-  "github_path": ".claude/skills/bug-diagnosis"
+  "github_path": ".claude/skills/bug-diagnosis",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "visualizer"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/ux-ascii-visualizer"
+  "github_path": ".claude/skills/ux-ascii-visualizer",
+  "github_branch": "main"
 }

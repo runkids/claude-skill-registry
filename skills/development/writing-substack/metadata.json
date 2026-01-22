@@ -8,5 +8,6 @@
     "substack"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/writing-substack"
+  "github_path": ".claude/skills/writing-substack",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "tdd"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/presentation-tdd"
+  "github_path": ".claude/skills/presentation-tdd",
+  "github_branch": "main"
 }

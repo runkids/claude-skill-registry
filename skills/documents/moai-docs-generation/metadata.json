@@ -10,5 +10,6 @@
   ],
   "stars": 310,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/moai-docs-generation"
+  "github_path": ".claude/skills/moai-docs-generation",
+  "github_branch": "main"
 }

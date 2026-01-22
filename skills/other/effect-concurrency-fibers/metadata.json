@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:18.364516Z",
   "dir_name": "effect-concurrency-fibers",
   "category": "other",
-  "github_path": ".claude/skills/effect-concurrency-fibers"
+  "github_path": ".claude/skills/effect-concurrency-fibers",
+  "github_branch": "main"
 }

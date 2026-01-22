@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:56.136681Z",
   "dir_name": "bmad-commands",
   "category": "other",
-  "github_path": ".claude/skills/bmad-commands"
+  "github_path": ".claude/skills/bmad-commands",
+  "github_branch": "main"
 }

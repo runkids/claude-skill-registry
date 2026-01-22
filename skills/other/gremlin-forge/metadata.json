@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:26.133388Z",
   "dir_name": "gremlin-forge",
   "category": "other",
-  "github_path": ".claude/skills/gremlin-forge"
+  "github_path": ".claude/skills/gremlin-forge",
+  "github_branch": "main"
 }

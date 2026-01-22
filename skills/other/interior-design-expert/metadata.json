@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.826105Z",
   "dir_name": "interior-design-expert",
   "category": "other",
-  "github_path": ".claude/skills/interior-design-expert"
+  "github_path": ".claude/skills/interior-design-expert",
+  "github_branch": "main"
 }

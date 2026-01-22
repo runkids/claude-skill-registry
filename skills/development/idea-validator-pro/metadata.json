@@ -9,5 +9,6 @@
     "pro"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/idea-validator-pro"
+  "github_path": ".claude/skills/idea-validator-pro",
+  "github_branch": "main"
 }

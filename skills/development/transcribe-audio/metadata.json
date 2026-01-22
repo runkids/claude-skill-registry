@@ -9,5 +9,6 @@
   ],
   "stars": 79,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/transcribe-audio"
+  "github_path": ".claude/skills/transcribe-audio",
+  "github_branch": "main"
 }

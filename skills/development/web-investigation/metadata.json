@@ -8,5 +8,6 @@
     "investigation"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/web-investigation"
+  "github_path": ".claude/skills/web-investigation",
+  "github_branch": "main"
 }

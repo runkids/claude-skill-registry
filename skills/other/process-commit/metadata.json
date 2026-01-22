@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:31.863081Z",
   "dir_name": "process-commit",
   "category": "other",
-  "github_path": ".claude/skills/process-commit"
+  "github_path": ".claude/skills/process-commit",
+  "github_branch": "main"
 }

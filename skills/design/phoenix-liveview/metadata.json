@@ -8,5 +8,6 @@
     "liveview"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/phoenix-liveview"
+  "github_path": ".claude/skills/phoenix-liveview",
+  "github_branch": "main"
 }

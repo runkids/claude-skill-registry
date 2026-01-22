@@ -10,5 +10,6 @@
   ],
   "stars": 1535,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/prototype-prompt-generator"
+  "github_path": "skills/prototype-prompt-generator",
+  "github_branch": "master"
 }

@@ -7,5 +7,6 @@
     "translate"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/translate"
+  "github_path": ".claude/skills/translate",
+  "github_branch": "main"
 }

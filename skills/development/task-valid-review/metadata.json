@@ -9,5 +9,6 @@
     "review"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/task-valid-review"
+  "github_path": ".claude/skills/task-valid-review",
+  "github_branch": "main"
 }

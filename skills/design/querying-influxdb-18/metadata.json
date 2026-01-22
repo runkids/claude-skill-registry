@@ -8,5 +8,6 @@
     "influxdb"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/querying-influxdb-18"
+  "github_path": ".claude/skills/querying-influxdb-18",
+  "github_branch": "main"
 }

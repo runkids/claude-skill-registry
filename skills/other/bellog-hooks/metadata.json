@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:15:15.941176Z",
   "dir_name": "bellog-hooks",
   "category": "other",
-  "github_path": ".claude/skills/bellog-hooks"
+  "github_path": ".claude/skills/bellog-hooks",
+  "github_branch": "main"
 }

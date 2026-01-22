@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:09.466867Z",
   "dir_name": "semgrep-security",
   "category": "other",
-  "github_path": ".claude/skills/semgrep-security"
+  "github_path": ".claude/skills/semgrep-security",
+  "github_branch": "main"
 }

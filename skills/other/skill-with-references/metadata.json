@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T04:04:43.058031Z",
   "dir_name": "skill-with-references",
   "category": "other",
-  "github_path": ".claude/skills/skill-with-references"
+  "github_path": ".claude/skills/skill-with-references",
+  "github_branch": "main"
 }

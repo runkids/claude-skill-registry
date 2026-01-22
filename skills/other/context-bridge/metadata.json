@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:12.975264Z",
   "dir_name": "context-bridge",
   "category": "other",
-  "github_path": ".claude/skills/context-bridge"
+  "github_path": ".claude/skills/context-bridge",
+  "github_branch": "main"
 }

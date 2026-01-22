@@ -8,5 +8,6 @@
     "templates"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/fixing-templates"
+  "github_path": ".claude/skills/fixing-templates",
+  "github_branch": "main"
 }

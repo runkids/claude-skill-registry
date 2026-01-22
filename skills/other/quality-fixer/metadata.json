@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:34:48.539221Z",
   "dir_name": "quality-fixer",
   "category": "other",
-  "github_path": ".claude/skills/quality-fixer"
+  "github_path": ".claude/skills/quality-fixer",
+  "github_branch": "main"
 }

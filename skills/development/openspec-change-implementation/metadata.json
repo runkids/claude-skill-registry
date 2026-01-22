@@ -9,5 +9,6 @@
     "implementation"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/openspec-change-implementation"
+  "github_path": ".claude/skills/openspec-change-implementation",
+  "github_branch": "main"
 }

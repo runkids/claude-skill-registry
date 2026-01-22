@@ -9,5 +9,6 @@
     "developer"
   ],
   "stars": 14,
-  "github_path": ".claude/skills/osiris-component-developer"
+  "github_path": ".claude/skills/osiris-component-developer",
+  "github_branch": "main"
 }

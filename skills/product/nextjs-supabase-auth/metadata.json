@@ -9,5 +9,6 @@
     "auth"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nextjs-supabase-auth"
+  "github_path": ".claude/skills/nextjs-supabase-auth",
+  "github_branch": "main"
 }

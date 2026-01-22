@@ -9,5 +9,6 @@
     "updater"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/master-index-updater"
+  "github_path": ".claude/skills/master-index-updater",
+  "github_branch": "main"
 }

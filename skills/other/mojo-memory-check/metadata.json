@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:12.617687Z",
   "dir_name": "mojo-memory-check",
   "category": "other",
-  "github_path": ".claude/skills/mojo-memory-check"
+  "github_path": ".claude/skills/mojo-memory-check",
+  "github_branch": "main"
 }

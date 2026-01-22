@@ -11,5 +11,6 @@
     "backend"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/openai-agents-sdk-mcp-backend"
+  "github_path": ".claude/skills/openai-agents-sdk-mcp-backend",
+  "github_branch": "main"
 }

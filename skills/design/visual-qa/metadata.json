@@ -7,5 +7,6 @@
     "visual"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/visual-qa"
+  "github_path": ".claude/skills/visual-qa",
+  "github_branch": "main"
 }

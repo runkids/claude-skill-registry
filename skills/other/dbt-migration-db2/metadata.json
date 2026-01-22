@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:20.793641Z",
   "dir_name": "dbt-migration-db2",
   "category": "other",
-  "github_path": ".claude/skills/dbt-migration-db2"
+  "github_path": ".claude/skills/dbt-migration-db2",
+  "github_branch": "main"
 }

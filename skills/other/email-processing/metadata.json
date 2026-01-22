@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:24:04.313688Z",
   "dir_name": "email-processing",
   "category": "other",
-  "github_path": ".claude/skills/email-processing"
+  "github_path": ".claude/skills/email-processing",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "entities"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/wsc-entities"
+  "github_path": ".claude/skills/wsc-entities",
+  "github_branch": "main"
 }

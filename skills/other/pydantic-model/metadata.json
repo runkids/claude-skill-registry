@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:57:43.327114Z",
   "dir_name": "pydantic-model",
   "category": "other",
-  "github_path": ".claude/skills/pydantic-model"
+  "github_path": ".claude/skills/pydantic-model",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:16.523004Z",
   "dir_name": "memory-bank",
   "category": "other",
-  "github_path": ".claude/skills/memory_bank"
+  "github_path": ".claude/skills/memory_bank",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "log"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/work-log"
+  "github_path": ".claude/skills/work-log",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 2292,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/debug-with-valgrind"
+  "github_path": ".claude/skills/debug-with-valgrind",
+  "github_branch": "main"
 }

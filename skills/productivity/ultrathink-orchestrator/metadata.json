@@ -8,5 +8,6 @@
     "orchestrator"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/ultrathink-orchestrator"
+  "github_path": ".claude/skills/ultrathink-orchestrator",
+  "github_branch": "main"
 }

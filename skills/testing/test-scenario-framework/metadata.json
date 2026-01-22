@@ -9,5 +9,6 @@
     "framework"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/test-scenario-framework"
+  "github_path": ".claude/skills/test-scenario-framework",
+  "github_branch": "main"
 }

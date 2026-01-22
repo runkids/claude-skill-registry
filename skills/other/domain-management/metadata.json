@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:54.915735Z",
   "dir_name": "domain-management",
   "category": "other",
-  "github_path": ".claude/skills/domain-management"
+  "github_path": ".claude/skills/domain-management",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:30.793821Z",
   "dir_name": "agent-repair",
   "category": "other",
-  "github_path": ".claude/skills/agent-repair"
+  "github_path": ".claude/skills/agent-repair",
+  "github_branch": "main"
 }

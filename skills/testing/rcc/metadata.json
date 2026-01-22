@@ -7,5 +7,6 @@
     "rcc"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/rcc"
+  "github_path": ".claude/skills/rcc",
+  "github_branch": "main"
 }

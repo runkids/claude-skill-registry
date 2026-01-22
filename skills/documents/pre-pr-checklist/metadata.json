@@ -8,5 +8,6 @@
     "checklist"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/pre-pr-checklist"
+  "github_path": ".claude/skills/pre-pr-checklist",
+  "github_branch": "main"
 }

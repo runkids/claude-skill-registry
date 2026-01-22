@@ -9,5 +9,6 @@
     "management"
   ],
   "stars": 15,
-  "github_path": ".claude/skills/technical-debt-management"
+  "github_path": ".claude/skills/technical-debt-management",
+  "github_branch": "main"
 }

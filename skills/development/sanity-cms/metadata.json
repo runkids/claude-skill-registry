@@ -8,5 +8,6 @@
     "cms"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sanity-cms"
+  "github_path": ".claude/skills/sanity-cms",
+  "github_branch": "main"
 }

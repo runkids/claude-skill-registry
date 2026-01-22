@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:24.591204Z",
   "dir_name": "test-pattern-analysis",
   "category": "other",
-  "github_path": ".claude/skills/test-pattern-analysis"
+  "github_path": ".claude/skills/test-pattern-analysis",
+  "github_branch": "main"
 }

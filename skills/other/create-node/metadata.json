@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:19:47.256938Z",
   "dir_name": "create-node",
   "category": "other",
-  "github_path": ".claude/skills/create-node"
+  "github_path": ".claude/skills/create-node",
+  "github_branch": "main"
 }

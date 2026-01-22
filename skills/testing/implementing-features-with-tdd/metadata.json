@@ -10,5 +10,6 @@
     "tdd"
   ],
   "stars": 29,
-  "github_path": ".claude/skills/implementing-features-with-tdd"
+  "github_path": ".claude/skills/implementing-features-with-tdd",
+  "github_branch": "main"
 }

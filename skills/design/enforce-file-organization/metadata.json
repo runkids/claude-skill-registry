@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/enforce-file-organization"
+  "github_path": ".claude/skills/enforce-file-organization",
+  "github_branch": "main"
 }

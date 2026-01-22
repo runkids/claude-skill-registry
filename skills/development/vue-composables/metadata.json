@@ -8,5 +8,6 @@
     "composables"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/vue-composables"
+  "github_path": ".claude/skills/vue-composables",
+  "github_branch": "main"
 }

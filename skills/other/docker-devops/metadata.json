@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:26.070990Z",
   "dir_name": "docker-devops",
   "category": "other",
-  "github_path": ".claude/skills/docker-devops"
+  "github_path": ".claude/skills/docker-devops",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:52:19.061140Z",
   "dir_name": "cosmian-kms",
   "category": "other",
-  "github_path": ".claude/skills/cosmian-kms"
+  "github_path": ".claude/skills/cosmian-kms",
+  "github_branch": "main"
 }

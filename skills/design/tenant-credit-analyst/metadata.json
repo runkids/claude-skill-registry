@@ -9,5 +9,6 @@
     "analyst"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/tenant-credit-analyst"
+  "github_path": ".claude/skills/tenant-credit-analyst",
+  "github_branch": "main"
 }

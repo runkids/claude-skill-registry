@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:11:44.692720Z",
   "dir_name": "update-deps",
   "category": "other",
-  "github_path": ".claude/skills/update-deps"
+  "github_path": ".claude/skills/update-deps",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "testing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/javascript-testing"
+  "github_path": ".claude/skills/javascript-testing",
+  "github_branch": "main"
 }

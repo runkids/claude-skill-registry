@@ -9,5 +9,6 @@
     "proposal"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/openspec-change-proposal"
+  "github_path": ".claude/skills/openspec-change-proposal",
+  "github_branch": "main"
 }

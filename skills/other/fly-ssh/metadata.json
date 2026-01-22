@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:45:49.322326Z",
   "dir_name": "fly-ssh",
   "category": "other",
-  "github_path": ".claude/skills/fly-ssh"
+  "github_path": ".claude/skills/fly-ssh",
+  "github_branch": "main"
 }

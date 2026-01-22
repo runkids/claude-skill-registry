@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/best-practice-core"
+  "github_path": ".claude/skills/best-practice-core",
+  "github_branch": "main"
 }

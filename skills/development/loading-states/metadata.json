@@ -8,5 +8,6 @@
     "states"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/loading-states"
+  "github_path": ".claude/skills/loading-states",
+  "github_branch": "main"
 }

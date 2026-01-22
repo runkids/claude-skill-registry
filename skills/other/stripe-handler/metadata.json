@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:08.877411Z",
   "dir_name": "stripe-handler",
   "category": "other",
-  "github_path": ".claude/skills/stripe-handler"
+  "github_path": ".claude/skills/stripe-handler",
+  "github_branch": "main"
 }

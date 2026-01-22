@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:57.089238Z",
   "dir_name": "complete-skill",
   "category": "other",
-  "github_path": ".claude/skills/complete-skill"
+  "github_path": ".claude/skills/complete-skill",
+  "github_branch": "main"
 }

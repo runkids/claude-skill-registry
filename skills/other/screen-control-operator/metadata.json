@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:42:22.217520Z",
   "dir_name": "screen-control-operator",
   "category": "other",
-  "github_path": ".claude/skills/screen-control-operator"
+  "github_path": ".claude/skills/screen-control-operator",
+  "github_branch": "main"
 }

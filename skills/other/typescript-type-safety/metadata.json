@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:40.680670Z",
   "dir_name": "typescript-type-safety",
   "category": "other",
-  "github_path": ".claude/skills/typescript-type-safety"
+  "github_path": ".claude/skills/typescript-type-safety",
+  "github_branch": "main"
 }

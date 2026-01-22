@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:20.137395Z",
   "dir_name": "jira-triage",
   "category": "other",
-  "github_path": ".claude/skills/jira-triage"
+  "github_path": ".claude/skills/jira-triage",
+  "github_branch": "main"
 }

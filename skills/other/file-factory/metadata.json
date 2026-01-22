@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:56.966004Z",
   "dir_name": "file-factory",
   "category": "other",
-  "github_path": ".claude/skills/file-factory"
+  "github_path": ".claude/skills/file-factory",
+  "github_branch": "main"
 }

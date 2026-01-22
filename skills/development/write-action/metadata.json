@@ -8,5 +8,6 @@
     "action"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/write-action"
+  "github_path": ".claude/skills/write-action",
+  "github_branch": "main"
 }

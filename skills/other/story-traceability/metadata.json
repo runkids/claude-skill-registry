@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:13.217908Z",
   "dir_name": "story-traceability",
   "category": "other",
-  "github_path": ".claude/skills/story-traceability"
+  "github_path": ".claude/skills/story-traceability",
+  "github_branch": "main"
 }

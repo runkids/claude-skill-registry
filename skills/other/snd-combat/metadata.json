@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:50.990056Z",
   "dir_name": "snd-combat",
   "category": "other",
-  "github_path": ".claude/skills/snd-combat"
+  "github_path": ".claude/skills/snd-combat",
+  "github_branch": "main"
 }

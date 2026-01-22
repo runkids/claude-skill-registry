@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:28:14.104853Z",
   "dir_name": "advanced-debugging",
   "category": "other",
-  "github_path": ".claude/skills/advanced-debugging"
+  "github_path": ".claude/skills/advanced-debugging",
+  "github_branch": "main"
 }

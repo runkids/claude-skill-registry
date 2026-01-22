@@ -8,5 +8,6 @@
     "trufflehog"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/review-trufflehog"
+  "github_path": ".claude/skills/review-trufflehog",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "development"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rpg-api-development"
+  "github_path": ".claude/skills/rpg-api-development",
+  "github_branch": "main"
 }

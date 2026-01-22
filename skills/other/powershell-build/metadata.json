@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:31:18.129839Z",
   "dir_name": "powershell-build",
   "category": "other",
-  "github_path": ".claude/skills/powershell_build"
+  "github_path": ".claude/skills/powershell_build",
+  "github_branch": "main"
 }

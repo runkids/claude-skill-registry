@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:50.519859Z",
   "dir_name": "doc-search",
   "category": "other",
-  "github_path": ".claude/skills/doc-search"
+  "github_path": ".claude/skills/doc-search",
+  "github_branch": "main"
 }

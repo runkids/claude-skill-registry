@@ -9,5 +9,6 @@
     "quality"
   ],
   "stars": 16,
-  "github_path": ".claude/skills/zammad-mcp-quality"
+  "github_path": ".claude/skills/zammad-mcp-quality",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/authoring-analysis"
+  "github_path": ".claude/skills/authoring-analysis",
+  "github_branch": "main"
 }

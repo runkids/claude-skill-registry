@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:34:30.248016Z",
   "dir_name": "dual-controller-sync",
   "category": "other",
-  "github_path": ".claude/skills/dual-controller-sync"
+  "github_path": ".claude/skills/dual-controller-sync",
+  "github_branch": "main"
 }

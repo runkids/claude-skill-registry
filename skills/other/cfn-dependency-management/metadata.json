@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:57:43.649310Z",
   "dir_name": "cfn-dependency-management",
   "category": "other",
-  "github_path": ".claude/skills/cfn-dependency-management"
+  "github_path": ".claude/skills/cfn-dependency-management",
+  "github_branch": "main"
 }

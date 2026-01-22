@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:54:22.824060Z",
   "dir_name": "cover-letter-generator",
   "category": "other",
-  "github_path": ".claude/skills/cover-letter-generator"
+  "github_path": ".claude/skills/cover-letter-generator",
+  "github_branch": "main"
 }

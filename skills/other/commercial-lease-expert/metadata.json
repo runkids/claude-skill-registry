@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:37.936961Z",
   "dir_name": "commercial-lease-expert",
   "category": "other",
-  "github_path": ".claude/skills/commercial-lease-expert"
+  "github_path": ".claude/skills/commercial-lease-expert",
+  "github_branch": "main"
 }

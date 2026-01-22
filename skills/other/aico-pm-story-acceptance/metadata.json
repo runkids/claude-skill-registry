@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:00:50.687340Z",
   "dir_name": "aico-pm-story-acceptance",
   "category": "other",
-  "github_path": ".claude/skills/aico-pm-story-acceptance"
+  "github_path": ".claude/skills/aico-pm-story-acceptance",
+  "github_branch": "main"
 }

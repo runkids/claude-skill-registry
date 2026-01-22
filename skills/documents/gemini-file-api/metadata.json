@@ -9,5 +9,6 @@
     "api"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gemini-file-api"
+  "github_path": ".claude/skills/gemini-file-api",
+  "github_branch": "main"
 }

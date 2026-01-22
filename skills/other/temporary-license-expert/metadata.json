@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:41.426095Z",
   "dir_name": "temporary-license-expert",
   "category": "other",
-  "github_path": ".claude/skills/temporary-license-expert"
+  "github_path": ".claude/skills/temporary-license-expert",
+  "github_branch": "main"
 }

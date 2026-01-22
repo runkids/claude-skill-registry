@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:03.480039Z",
   "dir_name": "ansible-config",
   "category": "other",
-  "github_path": ".claude/skills/ansible-config"
+  "github_path": ".claude/skills/ansible-config",
+  "github_branch": "main"
 }

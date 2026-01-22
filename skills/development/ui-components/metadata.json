@@ -7,5 +7,6 @@
     "components"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/ui-components"
+  "github_path": ".claude/skills/ui-components",
+  "github_branch": "main"
 }

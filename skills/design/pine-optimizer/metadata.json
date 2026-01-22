@@ -8,5 +8,6 @@
     "optimizer"
   ],
   "stars": 17,
-  "github_path": ".claude/skills/pine-optimizer"
+  "github_path": ".claude/skills/pine-optimizer",
+  "github_branch": "main"
 }

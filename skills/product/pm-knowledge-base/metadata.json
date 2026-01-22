@@ -5,5 +5,6 @@
   "description": "Product Management frameworks, methodologies, and best practices library. Provides PM knowledge including prioritization (RICE, MoSCoW), goal setting (OKR, SMART), customer research (JTBD, Personas), ",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:14.559199Z",
-  "github_path": ".claude/skills/pm-knowledge-base"
+  "github_path": ".claude/skills/pm-knowledge-base",
+  "github_branch": "main"
 }

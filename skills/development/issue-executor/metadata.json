@@ -8,5 +8,6 @@
     "executor"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/issue-executor"
+  "github_path": ".claude/skills/issue-executor",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "code"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/modify-generated-code"
+  "github_path": ".claude/skills/modify-generated-code",
+  "github_branch": "main"
 }

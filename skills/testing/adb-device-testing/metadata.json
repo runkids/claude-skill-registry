@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/adb-device-testing"
+  "github_path": ".claude/skills/adb-device-testing",
+  "github_branch": "main"
 }

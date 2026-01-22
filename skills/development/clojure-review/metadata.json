@@ -9,5 +9,6 @@
   ],
   "stars": 44733,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/clojure-review"
+  "github_path": ".claude/skills/clojure-review",
+  "github_branch": "master"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "dir_name": "zstd-compression-engineer",
-  "github_path": ".claude/skills/zstd-compression-engineer"
+  "github_path": ".claude/skills/zstd-compression-engineer",
+  "github_branch": "main"
 }

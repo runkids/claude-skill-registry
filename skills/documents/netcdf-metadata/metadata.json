@@ -8,5 +8,6 @@
     "metadata"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/netcdf-metadata"
+  "github_path": ".claude/skills/netcdf-metadata",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:13.711521Z",
   "dir_name": "gpui-style-guide",
   "category": "other",
-  "github_path": ".claude/skills/gpui-style-guide"
+  "github_path": ".claude/skills/gpui-style-guide",
+  "github_branch": "main"
 }

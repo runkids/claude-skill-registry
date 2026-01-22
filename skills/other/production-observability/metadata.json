@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:29:22.733159Z",
   "dir_name": "production-observability",
   "category": "other",
-  "github_path": ".claude/skills/production-observability"
+  "github_path": ".claude/skills/production-observability",
+  "github_branch": "main"
 }

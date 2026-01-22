@@ -11,5 +11,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/claude-mobile-cost-tracking"
+  "github_path": ".claude/skills/claude-mobile-cost-tracking",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "understand"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/understand"
+  "github_path": ".claude/skills/understand",
+  "github_branch": "main"
 }

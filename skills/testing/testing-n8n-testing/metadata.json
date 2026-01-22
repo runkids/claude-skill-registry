@@ -9,5 +9,6 @@
     "testing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/testing-n8n-testing"
+  "github_path": ".claude/skills/testing-n8n-testing",
+  "github_branch": "main"
 }

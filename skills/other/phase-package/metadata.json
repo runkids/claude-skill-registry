@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:11.749930Z",
   "dir_name": "phase-package",
   "category": "other",
-  "github_path": ".claude/skills/phase-package"
+  "github_path": ".claude/skills/phase-package",
+  "github_branch": "main"
 }

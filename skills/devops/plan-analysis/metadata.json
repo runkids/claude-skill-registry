@@ -8,5 +8,6 @@
     "analysis"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/plan-analysis"
+  "github_path": ".claude/skills/plan-analysis",
+  "github_branch": "main"
 }

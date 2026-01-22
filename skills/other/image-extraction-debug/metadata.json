@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:32.943218Z",
   "dir_name": "image-extraction-debug",
   "category": "other",
-  "github_path": ".claude/skills/image-extraction-debug"
+  "github_path": ".claude/skills/image-extraction-debug",
+  "github_branch": "main"
 }

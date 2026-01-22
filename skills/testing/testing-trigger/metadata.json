@@ -5,5 +5,6 @@
   "description": "Natural language wrapper for testing commands - automatically triggers /testing:run when users request test execution",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:02.962581Z",
-  "github_path": ".claude/skills/testing-trigger"
+  "github_path": ".claude/skills/testing-trigger",
+  "github_branch": "main"
 }

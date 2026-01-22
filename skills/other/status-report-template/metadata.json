@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:05.271172Z",
   "dir_name": "status-report-template",
   "category": "other",
-  "github_path": ".claude/skills/status-report-template"
+  "github_path": ".claude/skills/status-report-template",
+  "github_branch": "main"
 }

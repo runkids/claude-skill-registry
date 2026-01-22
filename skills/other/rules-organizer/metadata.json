@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:28:03.274571Z",
   "dir_name": "rules-organizer",
   "category": "other",
-  "github_path": ".claude/skills/rules-organizer"
+  "github_path": ".claude/skills/rules-organizer",
+  "github_branch": "main"
 }

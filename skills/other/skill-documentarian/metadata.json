@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:38:43.882586Z",
   "dir_name": "skill-documentarian",
   "category": "other",
-  "github_path": ".claude/skills/skill-documentarian"
+  "github_path": ".claude/skills/skill-documentarian",
+  "github_branch": "main"
 }

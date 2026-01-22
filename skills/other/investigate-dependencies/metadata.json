@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:52:53.530353Z",
   "dir_name": "investigate-dependencies",
   "category": "other",
-  "github_path": ".claude/skills/investigate-dependencies"
+  "github_path": ".claude/skills/investigate-dependencies",
+  "github_branch": "main"
 }

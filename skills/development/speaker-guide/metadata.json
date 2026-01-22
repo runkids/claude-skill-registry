@@ -8,5 +8,6 @@
     "guide"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/speaker-guide"
+  "github_path": ".claude/skills/speaker-guide",
+  "github_branch": "main"
 }

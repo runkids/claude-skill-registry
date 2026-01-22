@@ -9,5 +9,6 @@
     "skill"
   ],
   "stars": 24,
-  "github_path": ".claude/skills/integration-patterns-skill"
+  "github_path": ".claude/skills/integration-patterns-skill",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "btr-curate",
-  "github_path": ".claude/skills/btr-curate"
+  "github_path": ".claude/skills/btr-curate",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:14.424165Z",
   "dir_name": "quality-run-linters",
   "category": "other",
-  "github_path": ".claude/skills/quality-run-linters"
+  "github_path": ".claude/skills/quality-run-linters",
+  "github_branch": "main"
 }

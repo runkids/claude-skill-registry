@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:45.205316Z",
   "dir_name": "context-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/context-analyzer"
+  "github_path": ".claude/skills/context-analyzer",
+  "github_branch": "main"
 }

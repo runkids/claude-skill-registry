@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:00.470044Z",
   "dir_name": "event-detection-temporal-intelligence-expert",
   "category": "other",
-  "github_path": ".claude/skills/event-detection-temporal-intelligence-expert"
+  "github_path": ".claude/skills/event-detection-temporal-intelligence-expert",
+  "github_branch": "main"
 }

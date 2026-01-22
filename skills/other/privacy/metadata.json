@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:57:00.059151Z",
   "dir_name": "privacy",
   "category": "other",
-  "github_path": ".claude/skills/privacy"
+  "github_path": ".claude/skills/privacy",
+  "github_branch": "main"
 }

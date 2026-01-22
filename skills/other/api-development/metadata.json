@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:15:25.445057Z",
   "dir_name": "api-development",
   "category": "other",
-  "github_path": ".claude/skills/api-development"
+  "github_path": ".claude/skills/api-development",
+  "github_branch": "main"
 }

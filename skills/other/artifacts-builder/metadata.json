@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:45.765364Z",
   "dir_name": "artifacts-builder",
   "category": "other",
-  "github_path": ".claude/skills/artifacts-builder"
+  "github_path": ".claude/skills/artifacts-builder",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:25.909534Z",
   "dir_name": "memory-system",
   "category": "other",
-  "github_path": ".claude/skills/memory-system"
+  "github_path": ".claude/skills/memory-system",
+  "github_branch": "main"
 }

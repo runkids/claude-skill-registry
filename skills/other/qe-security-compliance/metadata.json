@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:01.736161Z",
   "dir_name": "qe-security-compliance",
   "category": "other",
-  "github_path": ".claude/skills/qe-security-compliance"
+  "github_path": ".claude/skills/qe-security-compliance",
+  "github_branch": "main"
 }

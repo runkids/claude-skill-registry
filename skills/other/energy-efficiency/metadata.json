@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:05.419864Z",
   "dir_name": "energy-efficiency",
   "category": "other",
-  "github_path": ".claude/skills/energy-efficiency"
+  "github_path": ".claude/skills/energy-efficiency",
+  "github_branch": "main"
 }

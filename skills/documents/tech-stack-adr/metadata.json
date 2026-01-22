@@ -9,5 +9,6 @@
     "adr"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tech-stack-adr"
+  "github_path": ".claude/skills/tech-stack-adr",
+  "github_branch": "main"
 }

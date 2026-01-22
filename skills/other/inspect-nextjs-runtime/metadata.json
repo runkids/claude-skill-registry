@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:18:50.545849Z",
   "dir_name": "inspect-nextjs-runtime",
   "category": "other",
-  "github_path": ".claude/skills/inspect-nextjs-runtime"
+  "github_path": ".claude/skills/inspect-nextjs-runtime",
+  "github_branch": "main"
 }

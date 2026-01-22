@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:25.982017Z",
   "dir_name": "arch-security-review",
   "category": "other",
-  "github_path": ".claude/skills/arch-security-review"
+  "github_path": ".claude/skills/arch-security-review",
+  "github_branch": "main"
 }

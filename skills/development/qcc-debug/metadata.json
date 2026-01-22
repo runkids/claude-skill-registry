@@ -8,5 +8,6 @@
     "debug"
   ],
   "stars": 43,
-  "github_path": ".claude/skills/qcc-debug"
+  "github_path": ".claude/skills/qcc-debug",
+  "github_branch": "main"
 }

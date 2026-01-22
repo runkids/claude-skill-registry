@@ -8,5 +8,6 @@
     "issue"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/gh-implement-issue"
+  "github_path": ".claude/skills/gh-implement-issue",
+  "github_branch": "main"
 }

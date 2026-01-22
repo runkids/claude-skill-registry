@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:31.761375Z",
   "dir_name": "cross-reference-entry",
   "category": "other",
-  "github_path": ".claude/skills/cross-reference-entry"
+  "github_path": ".claude/skills/cross-reference-entry",
+  "github_branch": "main"
 }

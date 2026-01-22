@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:50:12.914751Z",
   "dir_name": "api-style",
   "category": "other",
-  "github_path": ".claude/skills/api-style"
+  "github_path": ".claude/skills/api-style",
+  "github_branch": "main"
 }

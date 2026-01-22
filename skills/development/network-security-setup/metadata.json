@@ -9,5 +9,6 @@
     "setup"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/network-security-setup"
+  "github_path": ".claude/skills/network-security-setup",
+  "github_branch": "main"
 }

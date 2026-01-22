@@ -5,5 +5,6 @@
   "description": "Genera MVPs completos desde SPEC.md orquestando todos los agentes especializados",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:10:04.783440Z",
-  "github_path": ".claude/skills/mvp-generator"
+  "github_path": ".claude/skills/mvp-generator",
+  "github_branch": "main"
 }

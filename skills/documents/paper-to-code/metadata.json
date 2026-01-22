@@ -8,5 +8,6 @@
     "code"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/paper-to-code"
+  "github_path": ".claude/skills/paper-to-code",
+  "github_branch": "main"
 }

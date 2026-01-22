@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:39.700314Z",
   "dir_name": "ui-ux-expert-skill",
   "category": "other",
-  "github_path": ".claude/skills/ui-ux-expert-skill"
+  "github_path": ".claude/skills/ui-ux-expert-skill",
+  "github_branch": "main"
 }

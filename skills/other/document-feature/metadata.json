@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:11:44.968286Z",
   "dir_name": "document-feature",
   "category": "other",
-  "github_path": ".claude/skills/document-feature"
+  "github_path": ".claude/skills/document-feature",
+  "github_branch": "main"
 }

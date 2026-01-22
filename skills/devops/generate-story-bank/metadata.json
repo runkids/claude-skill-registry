@@ -9,5 +9,6 @@
     "bank"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/generate-story-bank"
+  "github_path": ".claude/skills/generate-story-bank",
+  "github_branch": "main"
 }

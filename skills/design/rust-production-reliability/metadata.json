@@ -9,5 +9,6 @@
     "reliability"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/rust-production-reliability"
+  "github_path": ".claude/skills/rust-production-reliability",
+  "github_branch": "main"
 }

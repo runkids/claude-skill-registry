@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:32.409153Z",
   "dir_name": "hammer-memory-profiler",
   "category": "other",
-  "github_path": ".claude/skills/hammer-memory-profiler"
+  "github_path": ".claude/skills/hammer-memory-profiler",
+  "github_branch": "main"
 }

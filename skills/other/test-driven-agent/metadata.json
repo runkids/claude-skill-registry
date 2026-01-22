@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:30:18.411475Z",
   "dir_name": "test-driven-agent",
   "category": "other",
-  "github_path": ".claude/skills/test_driven_agent"
+  "github_path": ".claude/skills/test_driven_agent",
+  "github_branch": "main"
 }

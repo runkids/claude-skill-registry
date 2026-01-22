@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:15:12.025211Z",
   "dir_name": "mcp-management",
   "category": "other",
-  "github_path": ".claude/skills/mcp-management"
+  "github_path": ".claude/skills/mcp-management",
+  "github_branch": "main"
 }

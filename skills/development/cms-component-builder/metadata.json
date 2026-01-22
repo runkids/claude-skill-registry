@@ -10,5 +10,6 @@
   ],
   "stars": 6,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cms-component-builder"
+  "github_path": ".claude/skills/cms-component-builder",
+  "github_branch": "main"
 }

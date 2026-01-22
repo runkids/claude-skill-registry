@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:56:36.506223Z",
   "dir_name": "hono-app-scaffold",
   "category": "other",
-  "github_path": ".claude/skills/hono-app-scaffold"
+  "github_path": ".claude/skills/hono-app-scaffold",
+  "github_branch": "main"
 }

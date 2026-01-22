@@ -9,5 +9,6 @@
   ],
   "stars": 9,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cohere-v2-python"
+  "github_path": ".claude/skills/cohere-v2-python",
+  "github_branch": "main"
 }

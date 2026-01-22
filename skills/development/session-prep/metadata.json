@@ -8,5 +8,6 @@
     "prep"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/session-prep"
+  "github_path": ".claude/skills/session-prep",
+  "github_branch": "main"
 }

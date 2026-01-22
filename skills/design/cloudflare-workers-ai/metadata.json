@@ -9,5 +9,6 @@
   ],
   "stars": 109,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/cloudflare-workers-ai"
+  "github_path": "skills/cloudflare-workers-ai",
+  "github_branch": "main"
 }

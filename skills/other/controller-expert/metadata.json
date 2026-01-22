@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:32:19.768371Z",
   "dir_name": "controller-expert",
   "category": "other",
-  "github_path": ".claude/skills/controller-expert"
+  "github_path": ".claude/skills/controller-expert",
+  "github_branch": "main"
 }

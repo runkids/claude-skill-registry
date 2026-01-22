@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:35.686947Z",
   "dir_name": "execution-workflow",
   "category": "other",
-  "github_path": ".claude/skills/execution-workflow"
+  "github_path": ".claude/skills/execution-workflow",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 9856,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/flow-nexus-platform"
+  "github_path": ".claude/skills/flow-nexus-platform",
+  "github_branch": "main"
 }

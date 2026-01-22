@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "minimal-modeling",
-  "github_path": ".claude/skills/minimal-modeling"
+  "github_path": ".claude/skills/minimal-modeling",
+  "github_branch": "main"
 }

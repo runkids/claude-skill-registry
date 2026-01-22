@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/automation-validator"
+  "github_path": ".claude/skills/automation-validator",
+  "github_branch": "main"
 }

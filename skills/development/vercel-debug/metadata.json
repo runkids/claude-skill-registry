@@ -8,5 +8,6 @@
     "debug"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/vercel-debug"
+  "github_path": ".claude/skills/vercel-debug",
+  "github_branch": "main"
 }

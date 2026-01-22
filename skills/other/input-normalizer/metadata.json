@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:18:47.556174Z",
   "dir_name": "input-normalizer",
   "category": "other",
-  "github_path": ".claude/skills/input-normalizer"
+  "github_path": ".claude/skills/input-normalizer",
+  "github_branch": "main"
 }

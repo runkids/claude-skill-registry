@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:29.609473Z",
   "dir_name": "product-prd",
   "category": "other",
-  "github_path": ".claude/skills/product-prd"
+  "github_path": ".claude/skills/product-prd",
+  "github_branch": "main"
 }

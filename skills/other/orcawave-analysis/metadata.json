@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:25:25.767886Z",
   "dir_name": "orcawave-analysis",
   "category": "other",
-  "github_path": ".claude/skills/orcawave-analysis"
+  "github_path": ".claude/skills/orcawave-analysis",
+  "github_branch": "main"
 }

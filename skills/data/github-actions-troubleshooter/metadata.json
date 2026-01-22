@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "dir_name": "github-actions-troubleshooter",
-  "github_path": ".claude/skills/github-actions-troubleshooter"
+  "github_path": ".claude/skills/github-actions-troubleshooter",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/charm-stack"
+  "github_path": ".claude/skills/charm-stack",
+  "github_branch": "main"
 }

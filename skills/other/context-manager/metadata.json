@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:28:03.160543Z",
   "dir_name": "context-manager",
   "category": "other",
-  "github_path": ".claude/skills/context-manager"
+  "github_path": ".claude/skills/context-manager",
+  "github_branch": "main"
 }

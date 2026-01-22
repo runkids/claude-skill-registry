@@ -8,5 +8,6 @@
     "process"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/release-process"
+  "github_path": ".claude/skills/release-process",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 193,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/confluence-deep-reader"
+  "github_path": ".claude/skills/confluence-deep-reader",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:26:17.684937Z",
   "dir_name": "aiworkflow-requirements",
   "category": "other",
-  "github_path": ".claude/skills/aiworkflow-requirements"
+  "github_path": ".claude/skills/aiworkflow-requirements",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:44.263326Z",
   "dir_name": "google-cli",
   "category": "other",
-  "github_path": ".claude/skills/google-cli"
+  "github_path": ".claude/skills/google-cli",
+  "github_branch": "main"
 }

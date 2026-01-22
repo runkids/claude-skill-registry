@@ -11,5 +11,6 @@
   "stars": 54,
   "source": "SkillsMP Synced Skills",
   "dir_name": "add-route-context",
-  "github_path": ".claude/skills/add-route-context"
+  "github_path": ".claude/skills/add-route-context",
+  "github_branch": "master"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:17.492071Z",
   "dir_name": "scrcpy-cli-argument-to-code-mapper",
   "category": "other",
-  "github_path": ".claude/skills/scrcpy-cli-argument-to-code-mapper"
+  "github_path": ".claude/skills/scrcpy-cli-argument-to-code-mapper",
+  "github_branch": "main"
 }

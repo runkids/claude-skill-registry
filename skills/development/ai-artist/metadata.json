@@ -8,5 +8,6 @@
   ],
   "stars": 19,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ai-artist"
+  "github_path": ".claude/skills/ai-artist",
+  "github_branch": "main"
 }

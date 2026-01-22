@@ -5,5 +5,6 @@
   "description": "Diagnose what any story needs regardless of its current state. Use when a writer is stuck, when evaluating story problems, when a narrative feels broken, or when someone asks \"what's wrong with my sto",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:59:34.175510Z",
-  "github_path": ".claude/skills/story-sense"
+  "github_path": ".claude/skills/story-sense",
+  "github_branch": "main"
 }

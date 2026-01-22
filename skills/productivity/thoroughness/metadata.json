@@ -8,5 +8,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/thoroughness"
+  "github_path": ".claude/skills/thoroughness",
+  "github_branch": "main"
 }

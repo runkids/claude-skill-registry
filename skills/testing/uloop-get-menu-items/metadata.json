@@ -11,5 +11,6 @@
   ],
   "stars": 104,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/uloop-get-menu-items"
+  "github_path": ".claude/skills/uloop-get-menu-items",
+  "github_branch": "main"
 }

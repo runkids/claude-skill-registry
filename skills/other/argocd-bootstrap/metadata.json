@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:53.853935Z",
   "dir_name": "argocd-bootstrap",
   "category": "other",
-  "github_path": ".claude/skills/argocd-bootstrap"
+  "github_path": ".claude/skills/argocd-bootstrap",
+  "github_branch": "main"
 }

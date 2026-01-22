@@ -8,5 +8,6 @@
     "spec"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/integration-spec"
+  "github_path": ".claude/skills/integration-spec",
+  "github_branch": "main"
 }

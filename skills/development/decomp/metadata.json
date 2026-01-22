@@ -8,5 +8,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/decomp"
+  "github_path": ".claude/skills/decomp",
+  "github_branch": "main"
 }

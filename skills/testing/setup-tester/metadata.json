@@ -8,5 +8,6 @@
     "tester"
   ],
   "stars": 11,
-  "github_path": ".claude/skills/setup-tester"
+  "github_path": ".claude/skills/setup-tester",
+  "github_branch": "main"
 }

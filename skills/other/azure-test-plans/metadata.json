@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:17.262562Z",
   "dir_name": "azure-test-plans",
   "category": "other",
-  "github_path": ".claude/skills/azure-test-plans"
+  "github_path": ".claude/skills/azure-test-plans",
+  "github_branch": "main"
 }

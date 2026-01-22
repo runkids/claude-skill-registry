@@ -8,5 +8,6 @@
     "package"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/squared-package"
+  "github_path": ".claude/skills/squared-package",
+  "github_branch": "main"
 }

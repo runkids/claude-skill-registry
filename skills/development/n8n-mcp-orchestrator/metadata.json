@@ -9,5 +9,6 @@
     "orchestrator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/n8n-mcp-orchestrator"
+  "github_path": ".claude/skills/n8n-mcp-orchestrator",
+  "github_branch": "main"
 }

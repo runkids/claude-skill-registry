@@ -9,5 +9,6 @@
     "patterns"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/redis-caching-patterns"
+  "github_path": ".claude/skills/redis-caching-patterns",
+  "github_branch": "main"
 }

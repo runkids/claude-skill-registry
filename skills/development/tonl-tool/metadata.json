@@ -8,5 +8,6 @@
     "tool"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/tonl-tool"
+  "github_path": ".claude/skills/tonl-tool",
+  "github_branch": "main"
 }

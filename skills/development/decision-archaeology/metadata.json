@@ -9,5 +9,6 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/decision-archaeology"
+  "github_path": ".claude/skills/decision-archaeology",
+  "github_branch": "main"
 }

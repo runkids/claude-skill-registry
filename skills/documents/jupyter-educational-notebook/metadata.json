@@ -9,5 +9,6 @@
     "notebook"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/jupyter-educational-notebook"
+  "github_path": ".claude/skills/jupyter-educational-notebook",
+  "github_branch": "main"
 }

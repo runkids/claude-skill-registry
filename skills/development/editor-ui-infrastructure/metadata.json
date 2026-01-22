@@ -9,5 +9,6 @@
   ],
   "stars": 7,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/editor-ui-infrastructure"
+  "github_path": ".claude/skills/editor-ui-infrastructure",
+  "github_branch": "main"
 }

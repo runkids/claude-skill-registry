@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/footer-configuration"
+  "github_path": ".claude/skills/footer-configuration",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   ],
   "stars": 104,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/uloop-find-game-objects"
+  "github_path": ".claude/skills/uloop-find-game-objects",
+  "github_branch": "main"
 }

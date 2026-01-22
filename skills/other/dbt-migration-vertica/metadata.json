@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:20.130109Z",
   "dir_name": "dbt-migration-vertica",
   "category": "other",
-  "github_path": ".claude/skills/dbt-migration-vertica"
+  "github_path": ".claude/skills/dbt-migration-vertica",
+  "github_branch": "main"
 }

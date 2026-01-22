@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:20:39.300279Z",
   "dir_name": "blog-analytics",
   "category": "other",
-  "github_path": ".claude/skills/blog-analytics"
+  "github_path": ".claude/skills/blog-analytics",
+  "github_branch": "main"
 }

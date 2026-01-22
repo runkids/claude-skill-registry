@@ -9,5 +9,6 @@
     "env"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/setup-dev-env"
+  "github_path": ".claude/skills/setup-dev-env",
+  "github_branch": "main"
 }

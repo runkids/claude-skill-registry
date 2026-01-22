@@ -9,5 +9,6 @@
     "integration"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rekordbox-midi-integration"
+  "github_path": ".claude/skills/rekordbox-midi-integration",
+  "github_branch": "main"
 }

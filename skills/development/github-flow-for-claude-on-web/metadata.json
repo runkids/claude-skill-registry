@@ -11,5 +11,6 @@
     "web"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/github-flow-for-claude-on-web"
+  "github_path": ".claude/skills/github-flow-for-claude-on-web",
+  "github_branch": "main"
 }

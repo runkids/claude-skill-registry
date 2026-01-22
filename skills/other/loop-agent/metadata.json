@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:19.721969Z",
   "dir_name": "loop-agent",
   "category": "other",
-  "github_path": ".claude/skills/loop-agent"
+  "github_path": ".claude/skills/loop-agent",
+  "github_branch": "main"
 }

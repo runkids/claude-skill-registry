@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:41.039277Z",
   "dir_name": "prpm-json-best-practices",
   "category": "other",
-  "github_path": ".claude/skills/prpm-json-best-practices"
+  "github_path": ".claude/skills/prpm-json-best-practices",
+  "github_branch": "main"
 }

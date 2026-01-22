@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:27:51.804714Z",
   "dir_name": "memory-keeper",
   "category": "other",
-  "github_path": ".claude/skills/memory-keeper"
+  "github_path": ".claude/skills/memory-keeper",
+  "github_branch": "main"
 }

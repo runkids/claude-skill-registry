@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:37.562291Z",
   "dir_name": "storage-agreement-expert",
   "category": "other",
-  "github_path": ".claude/skills/storage-agreement-expert"
+  "github_path": ".claude/skills/storage-agreement-expert",
+  "github_branch": "main"
 }

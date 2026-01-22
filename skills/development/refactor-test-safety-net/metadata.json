@@ -10,5 +10,6 @@
     "net"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/refactor-test-safety-net"
+  "github_path": ".claude/skills/refactor-test-safety-net",
+  "github_branch": "main"
 }

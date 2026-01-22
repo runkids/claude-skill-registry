@@ -8,5 +8,6 @@
     "build"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/swift-build"
+  "github_path": ".claude/skills/swift-build",
+  "github_branch": "main"
 }

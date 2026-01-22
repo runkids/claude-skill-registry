@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/admin-dashboard-qa"
+  "github_path": ".claude/skills/admin-dashboard-qa",
+  "github_branch": "main"
 }

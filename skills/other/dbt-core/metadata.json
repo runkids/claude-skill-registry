@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:19.282277Z",
   "dir_name": "dbt-core",
   "category": "other",
-  "github_path": ".claude/skills/dbt-core"
+  "github_path": ".claude/skills/dbt-core",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:18.399300Z",
   "dir_name": "vtm-expert",
   "category": "other",
-  "github_path": ".claude/skills/vtm-expert"
+  "github_path": ".claude/skills/vtm-expert",
+  "github_branch": "main"
 }

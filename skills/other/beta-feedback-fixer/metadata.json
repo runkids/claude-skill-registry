@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:40.399120Z",
   "dir_name": "beta-feedback-fixer",
   "category": "other",
-  "github_path": ".claude/skills/beta-feedback-fixer"
+  "github_path": ".claude/skills/beta-feedback-fixer",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "helper"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/commit-helper"
+  "github_path": ".claude/skills/commit-helper",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:22:21.842523Z",
   "dir_name": "observability",
   "category": "other",
-  "github_path": ".claude/skills/Observability"
+  "github_path": ".claude/skills/Observability",
+  "github_branch": "main"
 }

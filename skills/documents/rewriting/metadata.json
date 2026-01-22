@@ -7,5 +7,6 @@
     "rewriting"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rewriting"
+  "github_path": ".claude/skills/rewriting",
+  "github_branch": "main"
 }

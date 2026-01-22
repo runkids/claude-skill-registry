@@ -8,5 +8,6 @@
     "adr"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/record-adr"
+  "github_path": ".claude/skills/record-adr",
+  "github_branch": "main"
 }

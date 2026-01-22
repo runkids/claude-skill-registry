@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:18.551324Z",
   "dir_name": "codebase-consolidation",
   "category": "other",
-  "github_path": ".claude/skills/codebase-consolidation"
+  "github_path": ".claude/skills/codebase-consolidation",
+  "github_branch": "main"
 }

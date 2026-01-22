@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T04:04:34.588637Z",
   "dir_name": "starmap-manager",
   "category": "other",
-  "github_path": ".claude/skills/starmap-manager"
+  "github_path": ".claude/skills/starmap-manager",
+  "github_branch": "main"
 }

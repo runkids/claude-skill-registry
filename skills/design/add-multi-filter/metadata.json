@@ -10,5 +10,6 @@
   ],
   "stars": 54,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/add-multi-filter"
+  "github_path": ".claude/skills/add-multi-filter",
+  "github_branch": "master"
 }

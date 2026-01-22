@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:00:50.461205Z",
   "dir_name": "aico-pm-init",
   "category": "other",
-  "github_path": ".claude/skills/aico-pm-init"
+  "github_path": ".claude/skills/aico-pm-init",
+  "github_branch": "main"
 }

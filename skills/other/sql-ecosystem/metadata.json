@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:34.735962Z",
   "dir_name": "sql-ecosystem",
   "category": "other",
-  "github_path": ".claude/skills/sql-ecosystem"
+  "github_path": ".claude/skills/sql-ecosystem",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "elixir"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/usage-rules-elixir"
+  "github_path": ".claude/skills/usage-rules-elixir",
+  "github_branch": "main"
 }

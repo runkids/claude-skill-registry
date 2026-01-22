@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:12:35.125561Z",
   "dir_name": "rust-ecosystem",
   "category": "other",
-  "github_path": ".claude/skills/rust-ecosystem"
+  "github_path": ".claude/skills/rust-ecosystem",
+  "github_branch": "main"
 }

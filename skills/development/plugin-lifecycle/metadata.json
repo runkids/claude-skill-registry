@@ -8,5 +8,6 @@
     "lifecycle"
   ],
   "stars": 47,
-  "github_path": ".claude/skills/plugin-lifecycle"
+  "github_path": ".claude/skills/plugin-lifecycle",
+  "github_branch": "main"
 }

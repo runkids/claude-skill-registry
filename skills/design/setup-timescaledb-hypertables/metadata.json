@@ -10,5 +10,6 @@
   ],
   "stars": 158,
   "source": "SkillsMP Synced Skills",
-  "github_path": "skills/setup-timescaledb-hypertables"
+  "github_path": "skills/setup-timescaledb-hypertables",
+  "github_branch": "main"
 }

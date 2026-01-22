@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:24.375378Z",
   "dir_name": "perspective-aggregation",
   "category": "other",
-  "github_path": ".claude/skills/perspective-aggregation"
+  "github_path": ".claude/skills/perspective-aggregation",
+  "github_branch": "main"
 }

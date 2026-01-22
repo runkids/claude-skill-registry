@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:54.618725Z",
   "dir_name": "pre-pr-checklist",
   "category": "other",
-  "github_path": ".claude/skills/pre-pr-checklist"
+  "github_path": ".claude/skills/pre-pr-checklist",
+  "github_branch": "main"
 }

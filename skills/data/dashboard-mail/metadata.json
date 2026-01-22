@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "dashboard-mail",
-  "github_path": ".claude/skills/dashboard-mail"
+  "github_path": ".claude/skills/dashboard-mail",
+  "github_branch": "main"
 }

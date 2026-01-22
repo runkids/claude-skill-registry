@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:57.893467Z",
   "dir_name": "production-incident-responder",
   "category": "other",
-  "github_path": ".claude/skills/production-incident-responder"
+  "github_path": ".claude/skills/production-incident-responder",
+  "github_branch": "main"
 }

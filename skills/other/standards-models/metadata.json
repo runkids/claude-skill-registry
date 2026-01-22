@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:52.566245Z",
   "dir_name": "standards-models",
   "category": "other",
-  "github_path": ".claude/skills/standards-models"
+  "github_path": ".claude/skills/standards-models",
+  "github_branch": "main"
 }

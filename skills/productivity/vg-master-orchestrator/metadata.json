@@ -8,5 +8,6 @@
     "orchestrator"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/vg-master-orchestrator"
+  "github_path": ".claude/skills/vg-master-orchestrator",
+  "github_branch": "main"
 }

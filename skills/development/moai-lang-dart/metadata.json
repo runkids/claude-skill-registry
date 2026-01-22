@@ -9,5 +9,6 @@
     "dart"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-lang-dart"
+  "github_path": ".claude/skills/moai-lang-dart",
+  "github_branch": "main"
 }

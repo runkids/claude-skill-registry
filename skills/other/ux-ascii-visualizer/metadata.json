@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:02.768204Z",
   "dir_name": "ux-ascii-visualizer",
   "category": "other",
-  "github_path": ".claude/skills/ux-ascii-visualizer"
+  "github_path": ".claude/skills/ux-ascii-visualizer",
+  "github_branch": "main"
 }

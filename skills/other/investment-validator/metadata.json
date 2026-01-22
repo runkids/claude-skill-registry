@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:44:14.628184Z",
   "dir_name": "investment-validator",
   "category": "other",
-  "github_path": ".claude/skills/investment-validator"
+  "github_path": ".claude/skills/investment-validator",
+  "github_branch": "main"
 }

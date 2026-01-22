@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:15:42.879614Z",
   "dir_name": "sleep-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/sleep-analyzer"
+  "github_path": ".claude/skills/sleep-analyzer",
+  "github_branch": "main"
 }

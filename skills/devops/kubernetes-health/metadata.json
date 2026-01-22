@@ -8,5 +8,6 @@
     "health"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/kubernetes-health"
+  "github_path": ".claude/skills/kubernetes-health",
+  "github_branch": "main"
 }

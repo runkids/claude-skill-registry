@@ -11,5 +11,6 @@
   "stars": 54,
   "source": "SkillsMP Synced Skills",
   "dir_name": "event-listener-container",
-  "github_path": ".claude/skills/event-listener-container"
+  "github_path": ".claude/skills/event-listener-container",
+  "github_branch": "master"
 }

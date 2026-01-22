@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:54.741466Z",
   "dir_name": "cfn-config",
   "category": "other",
-  "github_path": ".claude/skills/cfn-config"
+  "github_path": ".claude/skills/cfn-config",
+  "github_branch": "main"
 }

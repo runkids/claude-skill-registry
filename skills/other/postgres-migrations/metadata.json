@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:39.805193Z",
   "dir_name": "postgres-migrations",
   "category": "other",
-  "github_path": ".claude/skills/postgres-migrations"
+  "github_path": ".claude/skills/postgres-migrations",
+  "github_branch": "main"
 }

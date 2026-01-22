@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:45:03.040850Z",
   "dir_name": "csv-data-visualizer",
   "category": "other",
-  "github_path": ".claude/skills/csv-data-visualizer"
+  "github_path": ".claude/skills/csv-data-visualizer",
+  "github_branch": "main"
 }

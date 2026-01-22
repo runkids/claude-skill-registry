@@ -9,5 +9,6 @@
     "report"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/quality-coverage-report"
+  "github_path": ".claude/skills/quality-coverage-report",
+  "github_branch": "main"
 }

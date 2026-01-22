@@ -8,5 +8,6 @@
     "scripting"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/shell-scripting"
+  "github_path": ".claude/skills/shell-scripting",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:01:53.038658Z",
   "dir_name": "project-metadata",
   "category": "other",
-  "github_path": ".claude/skills/project-metadata"
+  "github_path": ".claude/skills/project-metadata",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:23:58.010976Z",
   "dir_name": "agentica-prompts",
   "category": "other",
-  "github_path": ".claude/skills/agentica-prompts"
+  "github_path": ".claude/skills/agentica-prompts",
+  "github_branch": "main"
 }

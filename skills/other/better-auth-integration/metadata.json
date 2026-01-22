@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:53.842192Z",
   "dir_name": "better-auth-integration",
   "category": "other",
-  "github_path": ".claude/skills/better-auth-integration"
+  "github_path": ".claude/skills/better-auth-integration",
+  "github_branch": "main"
 }

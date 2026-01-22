@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:10.104937Z",
   "dir_name": "asset-creator",
   "category": "other",
-  "github_path": ".claude/skills/asset-creator"
+  "github_path": ".claude/skills/asset-creator",
+  "github_branch": "main"
 }

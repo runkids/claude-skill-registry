@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "plausible-insights",
-  "github_path": ".claude/skills/plausible-insights"
+  "github_path": ".claude/skills/plausible-insights",
+  "github_branch": "main"
 }

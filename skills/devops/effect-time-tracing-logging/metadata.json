@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effect-time-tracing-logging"
+  "github_path": ".claude/skills/effect-time-tracing-logging",
+  "github_branch": "main"
 }

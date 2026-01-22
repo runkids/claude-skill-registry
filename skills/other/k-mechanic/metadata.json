@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:51:40.005289Z",
   "dir_name": "k-mechanic",
   "category": "other",
-  "github_path": ".claude/skills/k-mechanic"
+  "github_path": ".claude/skills/k-mechanic",
+  "github_branch": "main"
 }

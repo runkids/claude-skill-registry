@@ -10,5 +10,6 @@
   ],
   "stars": 490,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/output-styles-guide"
+  "github_path": ".claude/skills/output-styles-guide",
+  "github_branch": "main"
 }

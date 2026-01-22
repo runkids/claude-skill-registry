@@ -8,5 +8,6 @@
     "chat"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pal-chat"
+  "github_path": ".claude/skills/pal-chat",
+  "github_branch": "main"
 }

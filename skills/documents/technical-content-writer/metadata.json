@@ -9,5 +9,6 @@
     "writer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/technical-content-writer"
+  "github_path": ".claude/skills/technical-content-writer",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:54.234927Z",
   "dir_name": "shadcn-integration",
   "category": "other",
-  "github_path": ".claude/skills/shadcn-integration"
+  "github_path": ".claude/skills/shadcn-integration",
+  "github_branch": "main"
 }

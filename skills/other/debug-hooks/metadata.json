@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:31.853861Z",
   "dir_name": "debug-hooks",
   "category": "other",
-  "github_path": ".claude/skills/debug-hooks"
+  "github_path": ".claude/skills/debug-hooks",
+  "github_branch": "main"
 }

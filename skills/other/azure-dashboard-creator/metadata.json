@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:15.813580Z",
   "dir_name": "azure-dashboard-creator",
   "category": "other",
-  "github_path": ".claude/skills/azure-dashboard-creator"
+  "github_path": ".claude/skills/azure-dashboard-creator",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/file-factory"
+  "github_path": ".claude/skills/file-factory",
+  "github_branch": "main"
 }

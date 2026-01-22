@@ -8,5 +8,6 @@
     "condenser"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/transcript-condenser"
+  "github_path": ".claude/skills/transcript-condenser",
+  "github_branch": "main"
 }

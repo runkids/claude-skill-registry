@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:22.903746Z",
   "dir_name": "lint-check",
   "category": "other",
-  "github_path": ".claude/skills/lint-check"
+  "github_path": ".claude/skills/lint-check",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:24.093002Z",
   "dir_name": "go-testing",
   "category": "other",
-  "github_path": ".claude/skills/go-testing"
+  "github_path": ".claude/skills/go-testing",
+  "github_branch": "main"
 }

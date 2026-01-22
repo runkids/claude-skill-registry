@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:48.292279Z",
   "dir_name": "historian-analyst",
   "category": "other",
-  "github_path": ".claude/skills/historian-analyst"
+  "github_path": ".claude/skills/historian-analyst",
+  "github_branch": "main"
 }

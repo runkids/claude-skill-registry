@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:32:25.807211Z",
   "dir_name": "lattice-search",
   "category": "other",
-  "github_path": ".claude/skills/lattice-search"
+  "github_path": ".claude/skills/lattice-search",
+  "github_branch": "main"
 }

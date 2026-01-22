@@ -7,5 +7,6 @@
     "hammerspoon"
   ],
   "stars": 9,
-  "github_path": ".claude/skills/hammerspoon"
+  "github_path": ".claude/skills/hammerspoon",
+  "github_branch": "main"
 }

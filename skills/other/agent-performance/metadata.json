@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:27.819901Z",
   "dir_name": "agent-performance",
   "category": "other",
-  "github_path": ".claude/skills/agent-performance"
+  "github_path": ".claude/skills/agent-performance",
+  "github_branch": "main"
 }

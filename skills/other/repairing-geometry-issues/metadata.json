@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:06:58.592492Z",
   "dir_name": "repairing-geometry-issues",
   "category": "other",
-  "github_path": ".claude/skills/repairing-geometry-issues"
+  "github_path": ".claude/skills/repairing-geometry-issues",
+  "github_branch": "main"
 }

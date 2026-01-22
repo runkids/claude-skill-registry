@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:04:27.202555Z",
   "dir_name": "whole-group-processor",
   "category": "other",
-  "github_path": ".claude/skills/whole-group-processor"
+  "github_path": ".claude/skills/whole-group-processor",
+  "github_branch": "main"
 }

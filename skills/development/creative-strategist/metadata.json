@@ -8,5 +8,6 @@
     "strategist"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/creative-strategist"
+  "github_path": ".claude/skills/creative-strategist",
+  "github_branch": "main"
 }

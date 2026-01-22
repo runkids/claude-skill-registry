@@ -8,5 +8,6 @@
     "management"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/context-management"
+  "github_path": ".claude/skills/context-management",
+  "github_branch": "main"
 }

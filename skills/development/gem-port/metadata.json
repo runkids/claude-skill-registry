@@ -9,5 +9,6 @@
   ],
   "stars": 71,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/gem-port"
+  "github_path": ".claude/skills/gem-port",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:46:09.479530Z",
   "dir_name": "v3-cli-modernization",
   "category": "other",
-  "github_path": ".claude/skills/v3-cli-modernization"
+  "github_path": ".claude/skills/v3-cli-modernization",
+  "github_branch": "main"
 }

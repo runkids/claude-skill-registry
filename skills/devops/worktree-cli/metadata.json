@@ -8,5 +8,6 @@
     "cli"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/worktree-cli"
+  "github_path": ".claude/skills/worktree-cli",
+  "github_branch": "main"
 }

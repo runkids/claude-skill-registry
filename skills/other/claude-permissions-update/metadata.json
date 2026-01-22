@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:20.155647Z",
   "dir_name": "claude-permissions-update",
   "category": "other",
-  "github_path": ".claude/skills/claude-permissions-update"
+  "github_path": ".claude/skills/claude-permissions-update",
+  "github_branch": "main"
 }

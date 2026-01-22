@@ -8,5 +8,6 @@
     "cause"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/root-cause"
+  "github_path": ".claude/skills/root-cause",
+  "github_branch": "main"
 }

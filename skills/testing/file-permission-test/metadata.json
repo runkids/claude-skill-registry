@@ -10,5 +10,6 @@
   ],
   "stars": 10,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/file-permission-test"
+  "github_path": ".claude/skills/file-permission-test",
+  "github_branch": "main"
 }

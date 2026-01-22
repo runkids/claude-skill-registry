@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/doc-formatter"
+  "github_path": ".claude/skills/doc-formatter",
+  "github_branch": "main"
 }

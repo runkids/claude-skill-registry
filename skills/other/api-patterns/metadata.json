@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:14:20.255554Z",
   "dir_name": "api-patterns",
   "category": "other",
-  "github_path": ".claude/skills/api-patterns"
+  "github_path": ".claude/skills/api-patterns",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "realtime"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/implementing-websocket-realtime"
+  "github_path": ".claude/skills/implementing-websocket-realtime",
+  "github_branch": "main"
 }

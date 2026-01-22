@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:27.402079Z",
   "dir_name": "skill-quality-standards",
   "category": "other",
-  "github_path": ".claude/skills/skill-quality-standards"
+  "github_path": ".claude/skills/skill-quality-standards",
+  "github_branch": "main"
 }

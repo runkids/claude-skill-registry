@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:56:15.189963Z",
   "dir_name": "dst-list-tables",
   "category": "other",
-  "github_path": ".claude/skills/dst-list-tables"
+  "github_path": ".claude/skills/dst-list-tables",
+  "github_branch": "main"
 }

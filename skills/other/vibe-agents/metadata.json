@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:00:08.514609Z",
   "dir_name": "vibe-agents",
   "category": "other",
-  "github_path": ".claude/skills/vibe-agents"
+  "github_path": ".claude/skills/vibe-agents",
+  "github_branch": "main"
 }

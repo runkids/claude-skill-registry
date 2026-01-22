@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:48.904077Z",
   "dir_name": "global-truth-safety",
   "category": "other",
-  "github_path": ".claude/skills/global-truth-safety"
+  "github_path": ".claude/skills/global-truth-safety",
+  "github_branch": "main"
 }

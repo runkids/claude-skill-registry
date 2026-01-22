@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:52.610527Z",
   "dir_name": "chatkit-backend",
   "category": "other",
-  "github_path": ".claude/skills/chatkit-backend"
+  "github_path": ".claude/skills/chatkit-backend",
+  "github_branch": "main"
 }

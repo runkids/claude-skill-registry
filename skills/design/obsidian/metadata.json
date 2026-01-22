@@ -7,5 +7,6 @@
     "obsidian"
   ],
   "stars": 16,
-  "github_path": ".claude/skills/obsidian"
+  "github_path": ".claude/skills/obsidian",
+  "github_branch": "main"
 }

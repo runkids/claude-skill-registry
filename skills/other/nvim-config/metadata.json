@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:27.979708Z",
   "dir_name": "nvim-config",
   "category": "other",
-  "github_path": ".claude/skills/nvim-config"
+  "github_path": ".claude/skills/nvim-config",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:08.047596Z",
   "dir_name": "webui-tester",
   "category": "other",
-  "github_path": ".claude/skills/webui-tester"
+  "github_path": ".claude/skills/webui-tester",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:32.148457Z",
   "dir_name": "report-generation",
   "category": "other",
-  "github_path": ".claude/skills/report-generation"
+  "github_path": ".claude/skills/report-generation",
+  "github_branch": "main"
 }

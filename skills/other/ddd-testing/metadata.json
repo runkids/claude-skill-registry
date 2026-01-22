@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:05.803039Z",
   "dir_name": "ddd-testing",
   "category": "other",
-  "github_path": ".claude/skills/ddd-testing"
+  "github_path": ".claude/skills/ddd-testing",
+  "github_branch": "main"
 }

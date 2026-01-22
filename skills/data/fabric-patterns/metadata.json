@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "fabric-patterns",
-  "github_path": ".claude/skills/fabric-patterns"
+  "github_path": ".claude/skills/fabric-patterns",
+  "github_branch": "main"
 }

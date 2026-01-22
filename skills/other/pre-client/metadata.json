@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:27:30.657332Z",
   "dir_name": "pre-client",
   "category": "other",
-  "github_path": ".claude/skills/pre-client"
+  "github_path": ".claude/skills/pre-client",
+  "github_branch": "main"
 }

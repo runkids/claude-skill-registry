@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "dir_name": "load-anomaly-guard",
-  "github_path": ".claude/skills/load-anomaly-guard"
+  "github_path": ".claude/skills/load-anomaly-guard",
+  "github_branch": "main"
 }

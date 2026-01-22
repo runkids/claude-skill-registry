@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:24:16.811548Z",
   "dir_name": "narwhals",
   "category": "other",
-  "github_path": ".claude/skills/narwhals"
+  "github_path": ".claude/skills/narwhals",
+  "github_branch": "main"
 }

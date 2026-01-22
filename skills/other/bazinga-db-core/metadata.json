@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:23.242147Z",
   "dir_name": "bazinga-db-core",
   "category": "other",
-  "github_path": ".claude/skills/bazinga-db-core"
+  "github_path": ".claude/skills/bazinga-db-core",
+  "github_branch": "main"
 }

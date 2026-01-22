@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:18.479535Z",
   "dir_name": "moai-alfred-ask-user-questions",
   "category": "other",
-  "github_path": ".claude/skills/moai-alfred-ask-user-questions"
+  "github_path": ".claude/skills/moai-alfred-ask-user-questions",
+  "github_branch": "main"
 }

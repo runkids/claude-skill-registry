@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:34:51.428047Z",
   "dir_name": "blockchain-data-collection-validation",
   "category": "other",
-  "github_path": ".claude/skills/blockchain-data-collection-validation"
+  "github_path": ".claude/skills/blockchain-data-collection-validation",
+  "github_branch": "main"
 }

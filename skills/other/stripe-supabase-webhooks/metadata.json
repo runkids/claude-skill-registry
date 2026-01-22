@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:49:04.911550Z",
   "dir_name": "stripe-supabase-webhooks",
   "category": "other",
-  "github_path": ".claude/skills/stripe-supabase-webhooks"
+  "github_path": ".claude/skills/stripe-supabase-webhooks",
+  "github_branch": "main"
 }

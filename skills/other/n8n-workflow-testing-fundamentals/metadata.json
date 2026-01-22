@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:40.918272Z",
   "dir_name": "n8n-workflow-testing-fundamentals",
   "category": "other",
-  "github_path": ".claude/skills/n8n-workflow-testing-fundamentals"
+  "github_path": ".claude/skills/n8n-workflow-testing-fundamentals",
+  "github_branch": "main"
 }

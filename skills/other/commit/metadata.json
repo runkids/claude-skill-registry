@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:16:38.011064Z",
   "dir_name": "commit",
   "category": "other",
-  "github_path": ".claude/skills/commit"
+  "github_path": ".claude/skills/commit",
+  "github_branch": "main"
 }

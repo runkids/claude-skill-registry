@@ -8,5 +8,6 @@
     "init"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/playbook-init"
+  "github_path": ".claude/skills/playbook-init",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:55.768612Z",
   "dir_name": "lint-monorepo",
   "category": "other",
-  "github_path": ".claude/skills/lint-monorepo"
+  "github_path": ".claude/skills/lint-monorepo",
+  "github_branch": "main"
 }

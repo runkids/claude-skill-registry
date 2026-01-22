@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:07.598110Z",
   "dir_name": "prd-v04-user-journey-mapping",
   "category": "other",
-  "github_path": ".claude/skills/prd-v04-user-journey-mapping"
+  "github_path": ".claude/skills/prd-v04-user-journey-mapping",
+  "github_branch": "main"
 }

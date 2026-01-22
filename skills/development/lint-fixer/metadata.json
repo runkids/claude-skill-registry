@@ -9,5 +9,6 @@
   ],
   "stars": 20912,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/lint-fixer"
+  "github_path": ".claude/skills/lint-fixer",
+  "github_branch": "main"
 }

@@ -7,5 +7,6 @@
     "taskfile"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/taskfile"
+  "github_path": ".claude/skills/taskfile",
+  "github_branch": "main"
 }

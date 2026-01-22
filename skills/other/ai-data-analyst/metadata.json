@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:49:13.731598Z",
   "dir_name": "ai-data-analyst",
   "category": "other",
-  "github_path": ".claude/skills/ai-data-analyst"
+  "github_path": ".claude/skills/ai-data-analyst",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:12.697747Z",
   "dir_name": "ci-cd-generator",
   "category": "other",
-  "github_path": ".claude/skills/ci-cd-generator"
+  "github_path": ".claude/skills/ci-cd-generator",
+  "github_branch": "main"
 }

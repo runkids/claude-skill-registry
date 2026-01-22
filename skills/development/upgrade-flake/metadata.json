@@ -8,5 +8,6 @@
     "flake"
   ],
   "stars": 24,
-  "github_path": ".claude/skills/upgrade-flake"
+  "github_path": ".claude/skills/upgrade-flake",
+  "github_branch": "main"
 }

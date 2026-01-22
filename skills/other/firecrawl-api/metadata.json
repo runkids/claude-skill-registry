@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:11.171892Z",
   "dir_name": "firecrawl-api",
   "category": "other",
-  "github_path": ".claude/skills/firecrawl-api"
+  "github_path": ".claude/skills/firecrawl-api",
+  "github_branch": "main"
 }

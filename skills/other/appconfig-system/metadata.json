@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:57.270599Z",
   "dir_name": "appconfig-system",
   "category": "other",
-  "github_path": ".claude/skills/appconfig-system"
+  "github_path": ".claude/skills/appconfig-system",
+  "github_branch": "main"
 }

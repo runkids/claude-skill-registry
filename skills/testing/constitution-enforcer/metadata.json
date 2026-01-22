@@ -9,5 +9,6 @@
   ],
   "stars": 19,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/constitution-enforcer"
+  "github_path": ".claude/skills/constitution-enforcer",
+  "github_branch": "main"
 }

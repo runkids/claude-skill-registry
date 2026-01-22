@@ -8,5 +8,6 @@
   ],
   "stars": 1,
   "dir_name": "ray",
-  "github_path": ".claude/skills/ray"
+  "github_path": ".claude/skills/ray",
+  "github_branch": "main"
 }

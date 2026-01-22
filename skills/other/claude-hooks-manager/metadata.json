@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:52:52.080740Z",
   "dir_name": "claude-hooks-manager",
   "category": "other",
-  "github_path": ".claude/skills/claude-hooks-manager"
+  "github_path": ".claude/skills/claude-hooks-manager",
+  "github_branch": "main"
 }

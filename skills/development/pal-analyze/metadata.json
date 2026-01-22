@@ -8,5 +8,6 @@
     "analyze"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pal-analyze"
+  "github_path": ".claude/skills/pal-analyze",
+  "github_branch": "main"
 }

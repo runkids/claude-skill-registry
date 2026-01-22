@@ -9,5 +9,6 @@
     "security"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-domain-security"
+  "github_path": ".claude/skills/moai-domain-security",
+  "github_branch": "main"
 }

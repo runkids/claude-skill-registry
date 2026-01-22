@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:28.229876Z",
   "dir_name": "testing-playwright",
   "category": "other",
-  "github_path": ".claude/skills/testing-playwright"
+  "github_path": ".claude/skills/testing-playwright",
+  "github_branch": "main"
 }

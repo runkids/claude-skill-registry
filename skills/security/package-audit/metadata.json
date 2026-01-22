@@ -8,5 +8,6 @@
     "audit"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/package-audit"
+  "github_path": ".claude/skills/package-audit",
+  "github_branch": "main"
 }

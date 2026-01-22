@@ -8,5 +8,6 @@
     "command"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tauri-command"
+  "github_path": ".claude/skills/tauri-command",
+  "github_branch": "main"
 }

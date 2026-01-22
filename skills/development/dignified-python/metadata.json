@@ -9,5 +9,6 @@
   ],
   "stars": 32,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dignified-python"
+  "github_path": ".claude/skills/dignified-python",
+  "github_branch": "main"
 }

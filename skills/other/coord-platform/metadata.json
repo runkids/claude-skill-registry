@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:55.402524Z",
   "dir_name": "coord-platform",
   "category": "other",
-  "github_path": ".claude/skills/coord-platform"
+  "github_path": ".claude/skills/coord-platform",
+  "github_branch": "main"
 }

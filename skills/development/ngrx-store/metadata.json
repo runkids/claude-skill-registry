@@ -8,5 +8,6 @@
     "store"
   ],
   "stars": 21,
-  "github_path": ".claude/skills/ngrx-store"
+  "github_path": ".claude/skills/ngrx-store",
+  "github_branch": "main"
 }

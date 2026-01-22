@@ -7,5 +7,6 @@
     "embed"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ui-embed"
+  "github_path": ".claude/skills/ui-embed",
+  "github_branch": "main"
 }

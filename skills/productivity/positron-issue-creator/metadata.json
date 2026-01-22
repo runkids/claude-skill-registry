@@ -10,5 +10,6 @@
   ],
   "stars": 3764,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/positron-issue-creator"
+  "github_path": ".claude/skills/positron-issue-creator",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "db-workflow",
-  "github_path": ".claude/skills/db-workflow"
+  "github_path": ".claude/skills/db-workflow",
+  "github_branch": "main"
 }

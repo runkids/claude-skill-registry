@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-exercise"
+  "github_path": ".claude/skills/create-exercise",
+  "github_branch": "main"
 }

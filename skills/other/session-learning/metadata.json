@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:54:24.619603Z",
   "dir_name": "session-learning",
   "category": "other",
-  "github_path": ".claude/skills/session-learning"
+  "github_path": ".claude/skills/session-learning",
+  "github_branch": "main"
 }

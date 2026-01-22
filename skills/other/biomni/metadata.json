@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:43.623101Z",
   "dir_name": "biomni",
   "category": "other",
-  "github_path": ".claude/skills/biomni"
+  "github_path": ".claude/skills/biomni",
+  "github_branch": "main"
 }

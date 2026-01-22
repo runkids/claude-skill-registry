@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "mnemonic-researcher",
-  "github_path": ".claude/skills/mnemonic-researcher"
+  "github_path": ".claude/skills/mnemonic-researcher",
+  "github_branch": "main"
 }

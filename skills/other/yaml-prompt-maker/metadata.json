@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T02:41:03.207222Z",
   "dir_name": "yaml-prompt-maker",
   "category": "other",
-  "github_path": ".claude/skills/yaml-prompt-maker"
+  "github_path": ".claude/skills/yaml-prompt-maker",
+  "github_branch": "main"
 }

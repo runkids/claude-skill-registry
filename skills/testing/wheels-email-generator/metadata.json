@@ -5,5 +5,6 @@
   "description": "Generate email functionality including mailer controllers, email templates, and configuration. Use when sending emails, creating notifications, or implementing transactional emails. Ensures proper ema",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:56:28.488725Z",
-  "github_path": ".claude/skills/wheels-email-generator"
+  "github_path": ".claude/skills/wheels-email-generator",
+  "github_branch": "main"
 }

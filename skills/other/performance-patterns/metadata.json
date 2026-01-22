@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T02:55:17.496099Z",
   "dir_name": "performance-patterns",
   "category": "other",
-  "github_path": ".claude/skills/performance-patterns"
+  "github_path": ".claude/skills/performance-patterns",
+  "github_branch": "main"
 }

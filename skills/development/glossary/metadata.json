@@ -7,5 +7,6 @@
     "glossary"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/glossary"
+  "github_path": ".claude/skills/glossary",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "encoder"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/slash-command-encoder"
+  "github_path": ".claude/skills/slash-command-encoder",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:31.916473Z",
   "dir_name": "rp-explorer",
   "category": "other",
-  "github_path": ".claude/skills/rp-explorer"
+  "github_path": ".claude/skills/rp-explorer",
+  "github_branch": "main"
 }

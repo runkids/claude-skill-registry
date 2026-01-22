@@ -8,5 +8,6 @@
     "architect"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/state-architect"
+  "github_path": ".claude/skills/state-architect",
+  "github_branch": "main"
 }

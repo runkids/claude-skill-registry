@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:27:30.955669Z",
   "dir_name": "email-agent",
   "category": "other",
-  "github_path": ".claude/skills/email-agent"
+  "github_path": ".claude/skills/email-agent",
+  "github_branch": "main"
 }

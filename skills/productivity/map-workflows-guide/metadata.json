@@ -9,5 +9,6 @@
     "guide"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/map-workflows-guide"
+  "github_path": ".claude/skills/map-workflows-guide",
+  "github_branch": "main"
 }

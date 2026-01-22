@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T04:18:30.135571Z",
   "dir_name": "rust-language",
   "category": "other",
-  "github_path": ".claude/skills/rust-language"
+  "github_path": ".claude/skills/rust-language",
+  "github_branch": "main"
 }

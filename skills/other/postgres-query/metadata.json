@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:37.856967Z",
   "dir_name": "postgres-query",
   "category": "other",
-  "github_path": ".claude/skills/postgres-query"
+  "github_path": ".claude/skills/postgres-query",
+  "github_branch": "main"
 }

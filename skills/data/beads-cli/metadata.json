@@ -10,5 +10,6 @@
   "stars": 42,
   "source": "SkillsMP Synced Skills",
   "dir_name": "beads-cli",
-  "github_path": ".claude/skills/beads-cli"
+  "github_path": ".claude/skills/beads-cli",
+  "github_branch": "master"
 }

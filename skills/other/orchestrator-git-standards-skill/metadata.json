@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:37:29.007229Z",
   "dir_name": "orchestrator-git-standards-skill",
   "category": "other",
-  "github_path": ".claude/skills/orchestrator-git-standards-skill"
+  "github_path": ".claude/skills/orchestrator-git-standards-skill",
+  "github_branch": "main"
 }

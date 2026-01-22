@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:06.801006Z",
   "dir_name": "sc-explain",
   "category": "other",
-  "github_path": ".claude/skills/sc-explain"
+  "github_path": ".claude/skills/sc-explain",
+  "github_branch": "main"
 }

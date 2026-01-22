@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 43,
-  "github_path": ".claude/skills/planning-workflow"
+  "github_path": ".claude/skills/planning-workflow",
+  "github_branch": "main"
 }

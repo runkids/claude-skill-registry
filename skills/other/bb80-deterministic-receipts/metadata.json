@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:33.390855Z",
   "dir_name": "bb80-deterministic-receipts",
   "category": "other",
-  "github_path": ".claude/skills/bb80-deterministic-receipts"
+  "github_path": ".claude/skills/bb80-deterministic-receipts",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/authoring-skills"
+  "github_path": ".claude/skills/authoring-skills",
+  "github_branch": "main"
 }

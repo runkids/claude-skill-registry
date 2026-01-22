@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:08.678373Z",
   "dir_name": "executing-hms-runs",
   "category": "other",
-  "github_path": ".claude/skills/executing-hms-runs"
+  "github_path": ".claude/skills/executing-hms-runs",
+  "github_branch": "main"
 }

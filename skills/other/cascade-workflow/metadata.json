@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:49.381929Z",
   "dir_name": "cascade-workflow",
   "category": "other",
-  "github_path": ".claude/skills/cascade-workflow"
+  "github_path": ".claude/skills/cascade-workflow",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:23.172357Z",
   "dir_name": "context-assembler",
   "category": "other",
-  "github_path": ".claude/skills/context-assembler"
+  "github_path": ".claude/skills/context-assembler",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:55.828732Z",
   "dir_name": "context-synthesis",
   "category": "other",
-  "github_path": ".claude/skills/context-synthesis"
+  "github_path": ".claude/skills/context-synthesis",
+  "github_branch": "main"
 }

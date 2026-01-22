@@ -10,5 +10,6 @@
   ],
   "stars": 13,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dipeo-frontend-dev"
+  "github_path": ".claude/skills/dipeo-frontend-dev",
+  "github_branch": "main"
 }

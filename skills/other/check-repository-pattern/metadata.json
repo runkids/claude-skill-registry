@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:25.345806Z",
   "dir_name": "check-repository-pattern",
   "category": "other",
-  "github_path": ".claude/skills/check-repository-pattern"
+  "github_path": ".claude/skills/check-repository-pattern",
+  "github_branch": "main"
 }

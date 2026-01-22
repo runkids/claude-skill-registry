@@ -8,5 +8,6 @@
     "optimizer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/context-optimizer"
+  "github_path": ".claude/skills/context-optimizer",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "pipeline"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/persona-pipeline"
+  "github_path": ".claude/skills/persona-pipeline",
+  "github_branch": "main"
 }

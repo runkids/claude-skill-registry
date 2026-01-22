@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:00:17.401567Z",
   "dir_name": "review-and-simplify",
   "category": "other",
-  "github_path": ".claude/skills/review-and-simplify"
+  "github_path": ".claude/skills/review-and-simplify",
+  "github_branch": "main"
 }

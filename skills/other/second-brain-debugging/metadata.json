@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:15.684825Z",
   "dir_name": "second-brain-debugging",
   "category": "other",
-  "github_path": ".claude/skills/second-brain-debugging"
+  "github_path": ".claude/skills/second-brain-debugging",
+  "github_branch": "main"
 }

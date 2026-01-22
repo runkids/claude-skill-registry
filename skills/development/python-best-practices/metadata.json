@@ -9,5 +9,6 @@
     "practices"
   ],
   "stars": 30,
-  "github_path": ".claude/skills/python-best-practices"
+  "github_path": ".claude/skills/python-best-practices",
+  "github_branch": "main"
 }

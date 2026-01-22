@@ -9,5 +9,6 @@
   ],
   "stars": 1318,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/morph-search"
+  "github_path": ".claude/skills/morph-search",
+  "github_branch": "main"
 }

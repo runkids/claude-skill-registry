@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T04:14:41.145201Z",
   "dir_name": "wallet",
   "category": "other",
-  "github_path": ".claude/skills/wallet"
+  "github_path": ".claude/skills/wallet",
+  "github_branch": "main"
 }

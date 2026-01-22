@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dokploy-environment-config"
+  "github_path": ".claude/skills/dokploy-environment-config",
+  "github_branch": "main"
 }

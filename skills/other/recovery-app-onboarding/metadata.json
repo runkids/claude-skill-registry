@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:38:45.294119Z",
   "dir_name": "recovery-app-onboarding",
   "category": "other",
-  "github_path": ".claude/skills/recovery-app-onboarding"
+  "github_path": ".claude/skills/recovery-app-onboarding",
+  "github_branch": "main"
 }

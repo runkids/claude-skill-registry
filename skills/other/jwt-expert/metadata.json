@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:42:22.822422Z",
   "dir_name": "jwt-expert",
   "category": "other",
-  "github_path": ".claude/skills/jwt-expert"
+  "github_path": ".claude/skills/jwt-expert",
+  "github_branch": "main"
 }

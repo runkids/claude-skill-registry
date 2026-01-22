@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:25.336708Z",
   "dir_name": "security-requirement-extraction",
   "category": "other",
-  "github_path": ".claude/skills/security-requirement-extraction"
+  "github_path": ".claude/skills/security-requirement-extraction",
+  "github_branch": "main"
 }

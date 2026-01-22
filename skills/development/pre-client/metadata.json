@@ -8,5 +8,6 @@
     "client"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/pre-client"
+  "github_path": ".claude/skills/pre-client",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/automation-quick-fix"
+  "github_path": ".claude/skills/automation-quick-fix",
+  "github_branch": "main"
 }

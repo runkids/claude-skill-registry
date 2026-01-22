@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:01.346258Z",
   "dir_name": "database-management",
   "category": "other",
-  "github_path": ".claude/skills/database-management"
+  "github_path": ".claude/skills/database-management",
+  "github_branch": "main"
 }

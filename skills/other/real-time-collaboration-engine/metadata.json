@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:38:42.813709Z",
   "dir_name": "real-time-collaboration-engine",
   "category": "other",
-  "github_path": ".claude/skills/real-time-collaboration-engine"
+  "github_path": ".claude/skills/real-time-collaboration-engine",
+  "github_branch": "main"
 }

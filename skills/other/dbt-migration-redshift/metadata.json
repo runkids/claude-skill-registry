@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:53:20.060701Z",
   "dir_name": "dbt-migration-redshift",
   "category": "other",
-  "github_path": ".claude/skills/dbt-migration-redshift"
+  "github_path": ".claude/skills/dbt-migration-redshift",
+  "github_branch": "main"
 }

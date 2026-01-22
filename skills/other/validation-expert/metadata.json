@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:34.491393Z",
   "dir_name": "validation-expert",
   "category": "other",
-  "github_path": ".claude/skills/validation-expert"
+  "github_path": ".claude/skills/validation-expert",
+  "github_branch": "main"
 }

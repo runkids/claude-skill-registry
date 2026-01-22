@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:43:34.303537Z",
   "dir_name": "upload-prepare",
   "category": "other",
-  "github_path": ".claude/skills/upload-prepare"
+  "github_path": ".claude/skills/upload-prepare",
+  "github_branch": "main"
 }

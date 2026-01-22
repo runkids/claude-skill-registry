@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:40:56.385646Z",
   "dir_name": "cloudflare-debug",
   "category": "other",
-  "github_path": ".claude/skills/cloudflare-debug"
+  "github_path": ".claude/skills/cloudflare-debug",
+  "github_branch": "main"
 }

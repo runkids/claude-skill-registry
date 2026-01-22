@@ -9,5 +9,6 @@
     "analyzer"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/youtube-transcript-analyzer"
+  "github_path": ".claude/skills/youtube-transcript-analyzer",
+  "github_branch": "main"
 }

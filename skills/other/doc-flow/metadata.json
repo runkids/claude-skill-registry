@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:46.472063Z",
   "dir_name": "doc-flow",
   "category": "other",
-  "github_path": ".claude/skills/doc-flow"
+  "github_path": ".claude/skills/doc-flow",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "navigation"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/maplibre-navigation"
+  "github_path": ".claude/skills/maplibre-navigation",
+  "github_branch": "main"
 }

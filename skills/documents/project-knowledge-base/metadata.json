@@ -9,5 +9,6 @@
     "base"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/project-knowledge-base"
+  "github_path": ".claude/skills/project-knowledge-base",
+  "github_branch": "main"
 }

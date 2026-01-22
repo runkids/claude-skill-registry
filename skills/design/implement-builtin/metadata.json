@@ -8,5 +8,6 @@
     "builtin"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/implement-builtin"
+  "github_path": ".claude/skills/implement-builtin",
+  "github_branch": "main"
 }

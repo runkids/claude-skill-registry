@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:07.849642Z",
   "dir_name": "changelog-updater",
   "category": "other",
-  "github_path": ".claude/skills/changelog-updater"
+  "github_path": ".claude/skills/changelog-updater",
+  "github_branch": "main"
 }

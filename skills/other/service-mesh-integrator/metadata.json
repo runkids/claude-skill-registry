@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:18.725033Z",
   "dir_name": "service-mesh-integrator",
   "category": "other",
-  "github_path": ".claude/skills/service-mesh-integrator"
+  "github_path": ".claude/skills/service-mesh-integrator",
+  "github_branch": "main"
 }

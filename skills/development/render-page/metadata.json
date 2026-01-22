@@ -8,5 +8,6 @@
     "page"
   ],
   "stars": 34,
-  "github_path": ".claude/skills/render-page"
+  "github_path": ".claude/skills/render-page",
+  "github_branch": "main"
 }

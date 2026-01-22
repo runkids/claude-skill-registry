@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:28.624645Z",
   "dir_name": "testing-jest",
   "category": "other",
-  "github_path": ".claude/skills/testing-jest"
+  "github_path": ".claude/skills/testing-jest",
+  "github_branch": "main"
 }

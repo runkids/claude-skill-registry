@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/azure-release-pipeline"
+  "github_path": ".claude/skills/azure-release-pipeline",
+  "github_branch": "main"
 }

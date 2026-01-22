@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:31:02.393242Z",
   "dir_name": "meatycapture-capture",
   "category": "other",
-  "github_path": ".claude/skills/meatycapture-capture"
+  "github_path": ".claude/skills/meatycapture-capture",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "proofreader"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/zenn-proofreader"
+  "github_path": ".claude/skills/zenn-proofreader",
+  "github_branch": "main"
 }

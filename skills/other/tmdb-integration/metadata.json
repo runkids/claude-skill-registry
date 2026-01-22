@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:53:16.914616Z",
   "dir_name": "tmdb-integration",
   "category": "other",
-  "github_path": ".claude/skills/tmdb-integration"
+  "github_path": ".claude/skills/tmdb-integration",
+  "github_branch": "main"
 }

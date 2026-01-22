@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:17.028629Z",
   "dir_name": "database-migration-generator",
   "category": "other",
-  "github_path": ".claude/skills/database-migration-generator"
+  "github_path": ".claude/skills/database-migration-generator",
+  "github_branch": "main"
 }

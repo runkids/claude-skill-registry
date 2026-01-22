@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "extraction-design",
-  "github_path": ".claude/skills/extraction-design"
+  "github_path": ".claude/skills/extraction-design",
+  "github_branch": "main"
 }

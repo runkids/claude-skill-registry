@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T04:20:29.595460Z",
   "dir_name": "authentication-lobbi-docs-claude",
   "category": "other",
-  "github_path": ".claude/skills/authentication"
+  "github_path": ".claude/skills/authentication",
+  "github_branch": "main"
 }

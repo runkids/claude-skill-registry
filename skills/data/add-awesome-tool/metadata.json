@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "add-awesome-tool",
-  "github_path": ".claude/skills/add-awesome-tool"
+  "github_path": ".claude/skills/add-awesome-tool",
+  "github_branch": "main"
 }

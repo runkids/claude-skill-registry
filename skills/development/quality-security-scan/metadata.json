@@ -9,5 +9,6 @@
     "scan"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/quality-security-scan"
+  "github_path": ".claude/skills/quality-security-scan",
+  "github_branch": "main"
 }

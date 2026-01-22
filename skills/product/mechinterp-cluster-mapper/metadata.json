@@ -9,5 +9,6 @@
     "mapper"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-cluster-mapper"
+  "github_path": ".claude/skills/mechinterp-cluster-mapper",
+  "github_branch": "main"
 }

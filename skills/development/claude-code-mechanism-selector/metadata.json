@@ -11,5 +11,6 @@
   ],
   "stars": 5,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/claude-code-mechanism-selector"
+  "github_path": ".claude/skills/claude-code-mechanism-selector",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "testing"
   ],
   "stars": 47,
-  "github_path": ".claude/skills/plugin-testing"
+  "github_path": ".claude/skills/plugin-testing",
+  "github_branch": "main"
 }

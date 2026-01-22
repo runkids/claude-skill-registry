@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:35:48.181912Z",
   "dir_name": "job-description-analysis",
   "category": "other",
-  "github_path": ".claude/skills/job-description-analysis"
+  "github_path": ".claude/skills/job-description-analysis",
+  "github_branch": "main"
 }

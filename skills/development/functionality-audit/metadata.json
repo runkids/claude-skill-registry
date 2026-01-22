@@ -8,5 +8,6 @@
     "audit"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/functionality-audit"
+  "github_path": ".claude/skills/functionality-audit",
+  "github_branch": "main"
 }

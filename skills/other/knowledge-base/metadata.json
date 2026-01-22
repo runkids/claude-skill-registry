@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:05:55.823456Z",
   "dir_name": "knowledge-base",
   "category": "other",
-  "github_path": ".claude/skills/knowledge-base"
+  "github_path": ".claude/skills/knowledge-base",
+  "github_branch": "main"
 }

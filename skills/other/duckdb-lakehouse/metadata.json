@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:19:24.698474Z",
   "dir_name": "duckdb-lakehouse",
   "category": "other",
-  "github_path": ".claude/skills/duckdb-lakehouse"
+  "github_path": ".claude/skills/duckdb-lakehouse",
+  "github_branch": "main"
 }

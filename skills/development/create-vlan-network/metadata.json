@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-vlan-network"
+  "github_path": ".claude/skills/create-vlan-network",
+  "github_branch": "main"
 }

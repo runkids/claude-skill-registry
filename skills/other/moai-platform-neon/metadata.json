@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:54.981810Z",
   "dir_name": "moai-platform-neon",
   "category": "other",
-  "github_path": ".claude/skills/moai-platform-neon"
+  "github_path": ".claude/skills/moai-platform-neon",
+  "github_branch": "main"
 }

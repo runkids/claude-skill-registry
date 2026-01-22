@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "source-detection",
-  "github_path": ".claude/skills/source-detection"
+  "github_path": ".claude/skills/source-detection",
+  "github_branch": "main"
 }

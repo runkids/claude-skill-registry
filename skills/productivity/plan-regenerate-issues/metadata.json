@@ -9,5 +9,6 @@
     "issues"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/plan-regenerate-issues"
+  "github_path": ".claude/skills/plan-regenerate-issues",
+  "github_branch": "main"
 }

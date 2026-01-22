@@ -11,5 +11,6 @@
   "stars": 1,
   "source": "SkillsMP Synced Skills",
   "dir_name": "elo-ratings-math",
-  "github_path": ".claude/skills/elo-ratings-math"
+  "github_path": ".claude/skills/elo-ratings-math",
+  "github_branch": "main"
 }

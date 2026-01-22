@@ -9,5 +9,6 @@
     "profiler"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/hammer-memory-profiler"
+  "github_path": ".claude/skills/hammer-memory-profiler",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bel-open-file"
+  "github_path": ".claude/skills/bel-open-file",
+  "github_branch": "main"
 }

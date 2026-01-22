@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/flutter-ui-components"
+  "github_path": ".claude/skills/flutter-ui-components",
+  "github_branch": "main"
 }

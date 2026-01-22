@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:14.523032Z",
   "dir_name": "gpui-event",
   "category": "other",
-  "github_path": ".claude/skills/gpui-event"
+  "github_path": ".claude/skills/gpui-event",
+  "github_branch": "main"
 }

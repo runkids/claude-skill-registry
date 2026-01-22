@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:50.739490Z",
   "dir_name": "snd-wrath",
   "category": "other",
-  "github_path": ".claude/skills/snd-wrath"
+  "github_path": ".claude/skills/snd-wrath",
+  "github_branch": "main"
 }

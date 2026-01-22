@@ -8,5 +8,6 @@
     "manager"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/rules-manager"
+  "github_path": ".claude/skills/rules-manager",
+  "github_branch": "main"
 }

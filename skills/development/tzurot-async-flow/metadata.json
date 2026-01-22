@@ -9,5 +9,6 @@
     "flow"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/tzurot-async-flow"
+  "github_path": ".claude/skills/tzurot-async-flow",
+  "github_branch": "main"
 }

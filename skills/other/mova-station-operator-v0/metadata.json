@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:33:26.019836Z",
   "dir_name": "mova-station-operator-v0",
   "category": "other",
-  "github_path": ".claude/skills/mova-station-operator-v0"
+  "github_path": ".claude/skills/mova-station-operator-v0",
+  "github_branch": "main"
 }

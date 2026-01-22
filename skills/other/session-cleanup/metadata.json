@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:40.200593Z",
   "dir_name": "session-cleanup",
   "category": "other",
-  "github_path": ".claude/skills/session-cleanup"
+  "github_path": ".claude/skills/session-cleanup",
+  "github_branch": "main"
 }

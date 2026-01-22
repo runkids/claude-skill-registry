@@ -8,5 +8,6 @@
     "editor"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/whole-editor"
+  "github_path": ".claude/skills/whole-editor",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "docs"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ghostty-translate-docs"
+  "github_path": ".claude/skills/ghostty-translate-docs",
+  "github_branch": "main"
 }

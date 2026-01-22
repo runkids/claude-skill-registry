@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:03:24.948227Z",
   "dir_name": "record-adr",
   "category": "other",
-  "github_path": ".claude/skills/record-adr"
+  "github_path": ".claude/skills/record-adr",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "checker"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/typescript-quality-checker"
+  "github_path": ".claude/skills/typescript-quality-checker",
+  "github_branch": "main"
 }

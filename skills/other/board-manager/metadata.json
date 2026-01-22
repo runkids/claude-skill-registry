@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:50:13.908117Z",
   "dir_name": "board-manager",
   "category": "other",
-  "github_path": ".claude/skills/board-manager"
+  "github_path": ".claude/skills/board-manager",
+  "github_branch": "main"
 }

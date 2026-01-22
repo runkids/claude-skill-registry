@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:55.061717Z",
   "dir_name": "oauth21-bearer-token",
   "category": "other",
-  "github_path": ".claude/skills/oauth21-bearer-token"
+  "github_path": ".claude/skills/oauth21-bearer-token",
+  "github_branch": "main"
 }

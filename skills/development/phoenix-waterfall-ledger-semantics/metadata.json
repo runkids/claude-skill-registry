@@ -10,5 +10,6 @@
     "semantics"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/phoenix-waterfall-ledger-semantics"
+  "github_path": ".claude/skills/phoenix-waterfall-ledger-semantics",
+  "github_branch": "main"
 }

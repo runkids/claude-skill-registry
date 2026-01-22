@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:31:02.553228Z",
   "dir_name": "skillmeat-cli",
   "category": "other",
-  "github_path": ".claude/skills/skillmeat-cli"
+  "github_path": ".claude/skills/skillmeat-cli",
+  "github_branch": "main"
 }

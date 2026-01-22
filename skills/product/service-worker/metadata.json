@@ -8,5 +8,6 @@
     "worker"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/service-worker"
+  "github_path": ".claude/skills/service-worker",
+  "github_branch": "main"
 }

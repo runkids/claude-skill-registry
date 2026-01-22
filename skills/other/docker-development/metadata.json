@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:58:45.933192Z",
   "dir_name": "docker-development",
   "category": "other",
-  "github_path": ".claude/skills/docker-development"
+  "github_path": ".claude/skills/docker-development",
+  "github_branch": "main"
 }

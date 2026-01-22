@@ -8,5 +8,6 @@
     "i18n"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tsh-i18n"
+  "github_path": ".claude/skills/tsh-i18n",
+  "github_branch": "main"
 }

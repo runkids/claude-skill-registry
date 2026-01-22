@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:28.304380Z",
   "dir_name": "claude-code-tips",
   "category": "other",
-  "github_path": ".claude/skills/claude-code-tips"
+  "github_path": ".claude/skills/claude-code-tips",
+  "github_branch": "main"
 }

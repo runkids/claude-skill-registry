@@ -9,5 +9,6 @@
     "optimizer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/seo-content-optimizer"
+  "github_path": ".claude/skills/seo-content-optimizer",
+  "github_branch": "main"
 }

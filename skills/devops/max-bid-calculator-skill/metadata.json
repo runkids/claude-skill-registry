@@ -10,5 +10,6 @@
     "skill"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/max-bid-calculator-skill"
+  "github_path": ".claude/skills/max-bid-calculator-skill",
+  "github_branch": "main"
 }

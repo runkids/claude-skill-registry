@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:43:43.821817Z",
   "dir_name": "mstest-testing-platform",
   "category": "other",
-  "github_path": ".claude/skills/mstest-testing-platform"
+  "github_path": ".claude/skills/mstest-testing-platform",
+  "github_branch": "main"
 }

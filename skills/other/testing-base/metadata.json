@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:02.791363Z",
   "dir_name": "testing-base",
   "category": "other",
-  "github_path": ".claude/skills/testing-base"
+  "github_path": ".claude/skills/testing-base",
+  "github_branch": "main"
 }

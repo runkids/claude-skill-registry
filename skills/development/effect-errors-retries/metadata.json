@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effect-errors-retries"
+  "github_path": ".claude/skills/effect-errors-retries",
+  "github_branch": "main"
 }

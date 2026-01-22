@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:53:43.158503Z",
   "dir_name": "comment-enforcer",
   "category": "other",
-  "github_path": ".claude/skills/comment-enforcer"
+  "github_path": ".claude/skills/comment-enforcer",
+  "github_branch": "main"
 }

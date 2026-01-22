@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:55.690934Z",
   "dir_name": "cfn-transparency-middleware",
   "category": "other",
-  "github_path": ".claude/skills/cfn-transparency-middleware"
+  "github_path": ".claude/skills/cfn-transparency-middleware",
+  "github_branch": "main"
 }

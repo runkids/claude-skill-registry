@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:12.343261Z",
   "dir_name": "pptx-generator",
   "category": "other",
-  "github_path": ".claude/skills/pptx-generator"
+  "github_path": ".claude/skills/pptx-generator",
+  "github_branch": "main"
 }

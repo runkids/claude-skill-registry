@@ -8,5 +8,6 @@
     "analyst"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/security-analyst"
+  "github_path": ".claude/skills/security-analyst",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/change-request-form"
+  "github_path": ".claude/skills/change-request-form",
+  "github_branch": "main"
 }

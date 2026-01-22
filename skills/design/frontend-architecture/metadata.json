@@ -8,5 +8,6 @@
     "architecture"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/frontend-architecture"
+  "github_path": ".claude/skills/frontend-architecture",
+  "github_branch": "main"
 }

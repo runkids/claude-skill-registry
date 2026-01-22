@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:21.440781Z",
   "dir_name": "moai-alfred-context-budget",
   "category": "other",
-  "github_path": ".claude/skills/moai-alfred-context-budget"
+  "github_path": ".claude/skills/moai-alfred-context-budget",
+  "github_branch": "main"
 }

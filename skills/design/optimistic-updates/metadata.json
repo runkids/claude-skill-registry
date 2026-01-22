@@ -8,5 +8,6 @@
     "updates"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/optimistic-updates"
+  "github_path": ".claude/skills/optimistic-updates",
+  "github_branch": "main"
 }

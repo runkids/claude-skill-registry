@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:46.107158Z",
   "dir_name": "fullstack-features",
   "category": "other",
-  "github_path": ".claude/skills/fullstack-features"
+  "github_path": ".claude/skills/fullstack-features",
+  "github_branch": "main"
 }

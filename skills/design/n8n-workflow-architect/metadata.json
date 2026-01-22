@@ -9,5 +9,6 @@
     "architect"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/n8n-workflow-architect"
+  "github_path": ".claude/skills/n8n-workflow-architect",
+  "github_branch": "main"
 }

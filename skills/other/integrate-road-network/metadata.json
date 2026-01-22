@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:16:32.619772Z",
   "dir_name": "integrate-road-network",
   "category": "other",
-  "github_path": ".claude/skills/integrate-road-network"
+  "github_path": ".claude/skills/integrate-road-network",
+  "github_branch": "main"
 }

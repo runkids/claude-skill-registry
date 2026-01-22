@@ -7,5 +7,6 @@
     "permissions"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/permissions"
+  "github_path": ".claude/skills/permissions",
+  "github_branch": "main"
 }

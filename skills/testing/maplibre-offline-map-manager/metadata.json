@@ -10,5 +10,6 @@
     "manager"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/maplibre-offline-map-manager"
+  "github_path": ".claude/skills/maplibre-offline-map-manager",
+  "github_branch": "main"
 }

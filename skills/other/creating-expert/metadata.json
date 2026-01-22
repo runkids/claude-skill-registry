@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:19.397807Z",
   "dir_name": "creating-expert",
   "category": "other",
-  "github_path": ".claude/skills/creating-expert"
+  "github_path": ".claude/skills/creating-expert",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:01.434051Z",
   "dir_name": "rich-terminal-output",
   "category": "other",
-  "github_path": ".claude/skills/rich-terminal-output"
+  "github_path": ".claude/skills/rich-terminal-output",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "brain"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/second-brain"
+  "github_path": ".claude/skills/second-brain",
+  "github_branch": "main"
 }

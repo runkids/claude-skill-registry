@@ -5,5 +5,6 @@
   "description": "EntityController<T>, custom routes, payload transformers, auth policies",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:24:18.547946Z",
-  "github_path": ".claude/skills/api-building"
+  "github_path": ".claude/skills/api-building",
+  "github_branch": "main"
 }

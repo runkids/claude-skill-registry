@@ -9,5 +9,6 @@
   ],
   "stars": 24,
   "dir_name": "task-externalization",
-  "github_path": ".claude/skills/task-externalization"
+  "github_path": ".claude/skills/task-externalization",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T04:21:38.502743Z",
   "dir_name": "new-blog-post",
   "category": "other",
-  "github_path": ".claude/skills/new-blog-post"
+  "github_path": ".claude/skills/new-blog-post",
+  "github_branch": "main"
 }

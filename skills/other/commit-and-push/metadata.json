@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:57:34.443685Z",
   "dir_name": "commit-and-push",
   "category": "other",
-  "github_path": ".claude/skills/commit-and-push"
+  "github_path": ".claude/skills/commit-and-push",
+  "github_branch": "main"
 }

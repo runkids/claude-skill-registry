@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:52:19.275675Z",
   "dir_name": "tanstack-router",
   "category": "other",
-  "github_path": ".claude/skills/tanstack-router"
+  "github_path": ".claude/skills/tanstack-router",
+  "github_branch": "main"
 }

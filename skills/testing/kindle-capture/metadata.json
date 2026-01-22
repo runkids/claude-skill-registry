@@ -8,5 +8,6 @@
     "capture"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/kindle-capture"
+  "github_path": ".claude/skills/kindle-capture",
+  "github_branch": "main"
 }

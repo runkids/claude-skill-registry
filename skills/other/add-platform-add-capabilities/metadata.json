@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:29.890668Z",
   "dir_name": "add-platform-add-capabilities",
   "category": "other",
-  "github_path": ".claude/skills/add_platform.add_capabilities"
+  "github_path": ".claude/skills/add_platform.add_capabilities",
+  "github_branch": "main"
 }

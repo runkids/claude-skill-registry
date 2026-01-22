@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:58.417234Z",
   "dir_name": "production-checklist",
   "category": "other",
-  "github_path": ".claude/skills/production-checklist"
+  "github_path": ".claude/skills/production-checklist",
+  "github_branch": "main"
 }

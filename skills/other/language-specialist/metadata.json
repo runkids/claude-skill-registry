@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:45.611267Z",
   "dir_name": "language-specialist",
   "category": "other",
-  "github_path": ".claude/skills/language-specialist"
+  "github_path": ".claude/skills/language-specialist",
+  "github_branch": "main"
 }

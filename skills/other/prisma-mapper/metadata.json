@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:05.956015Z",
   "dir_name": "prisma-mapper",
   "category": "other",
-  "github_path": ".claude/skills/prisma-mapper"
+  "github_path": ".claude/skills/prisma-mapper",
+  "github_branch": "main"
 }

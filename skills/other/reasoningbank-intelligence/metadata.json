@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:49.252399Z",
   "dir_name": "reasoningbank-intelligence",
   "category": "other",
-  "github_path": ".claude/skills/reasoningbank-intelligence"
+  "github_path": ".claude/skills/reasoningbank-intelligence",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:46.732651Z",
   "dir_name": "pair-programming",
   "category": "other",
-  "github_path": ".claude/skills/pair-programming"
+  "github_path": ".claude/skills/pair-programming",
+  "github_branch": "main"
 }

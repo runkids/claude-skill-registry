@@ -8,5 +8,6 @@
     "monorepo"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/lint-monorepo"
+  "github_path": ".claude/skills/lint-monorepo",
+  "github_branch": "main"
 }

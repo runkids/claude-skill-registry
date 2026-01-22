@@ -7,5 +7,6 @@
     "analyze"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/sc-analyze"
+  "github_path": ".claude/skills/sc-analyze",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:25.563799Z",
   "dir_name": "test-multitenant-isolation",
   "category": "other",
-  "github_path": ".claude/skills/test-multitenant-isolation"
+  "github_path": ".claude/skills/test-multitenant-isolation",
+  "github_branch": "main"
 }

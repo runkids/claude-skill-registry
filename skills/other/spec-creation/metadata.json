@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:11:03.428150Z",
   "dir_name": "spec-creation",
   "category": "other",
-  "github_path": ".claude/skills/spec-creation"
+  "github_path": ".claude/skills/spec-creation",
+  "github_branch": "main"
 }

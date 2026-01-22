@@ -9,5 +9,6 @@
     "linters"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/quality-run-linters"
+  "github_path": ".claude/skills/quality-run-linters",
+  "github_branch": "main"
 }

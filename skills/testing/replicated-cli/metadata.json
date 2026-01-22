@@ -8,5 +8,6 @@
     "cli"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/replicated-cli"
+  "github_path": ".claude/skills/replicated-cli",
+  "github_branch": "main"
 }

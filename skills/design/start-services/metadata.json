@@ -8,5 +8,6 @@
     "services"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/start-services"
+  "github_path": ".claude/skills/start-services",
+  "github_branch": "main"
 }

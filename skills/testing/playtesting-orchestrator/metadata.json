@@ -8,5 +8,6 @@
     "orchestrator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/playtesting-orchestrator"
+  "github_path": ".claude/skills/playtesting-orchestrator",
+  "github_branch": "main"
 }

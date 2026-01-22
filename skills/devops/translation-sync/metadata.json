@@ -8,5 +8,6 @@
     "sync"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/translation-sync"
+  "github_path": ".claude/skills/translation-sync",
+  "github_branch": "main"
 }

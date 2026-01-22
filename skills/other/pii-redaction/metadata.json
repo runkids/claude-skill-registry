@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:06:46.498697Z",
   "dir_name": "pii-redaction",
   "category": "other",
-  "github_path": ".claude/skills/pii-redaction"
+  "github_path": ".claude/skills/pii-redaction",
+  "github_branch": "main"
 }

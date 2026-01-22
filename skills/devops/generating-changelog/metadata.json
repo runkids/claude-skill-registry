@@ -8,5 +8,6 @@
     "changelog"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/generating-changelog"
+  "github_path": ".claude/skills/generating-changelog",
+  "github_branch": "main"
 }

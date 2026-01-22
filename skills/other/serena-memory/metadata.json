@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:31:17.671571Z",
   "dir_name": "serena-memory",
   "category": "other",
-  "github_path": ".claude/skills/serena_memory"
+  "github_path": ".claude/skills/serena_memory",
+  "github_branch": "main"
 }

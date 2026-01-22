@@ -9,5 +9,6 @@
     "architecture"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/yaml-driven-architecture"
+  "github_path": ".claude/skills/yaml-driven-architecture",
+  "github_branch": "main"
 }

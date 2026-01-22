@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:14.053009Z",
   "dir_name": "process-inbox",
   "category": "other",
-  "github_path": ".claude/skills/process-inbox"
+  "github_path": ".claude/skills/process-inbox",
+  "github_branch": "main"
 }

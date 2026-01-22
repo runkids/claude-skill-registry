@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:15:10.694475Z",
   "dir_name": "template-skill",
   "category": "other",
-  "github_path": ".claude/skills/template-skill"
+  "github_path": ".claude/skills/template-skill",
+  "github_branch": "main"
 }

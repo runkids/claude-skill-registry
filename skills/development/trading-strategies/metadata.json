@@ -8,5 +8,6 @@
     "strategies"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/trading-strategies"
+  "github_path": ".claude/skills/trading-strategies",
+  "github_branch": "main"
 }

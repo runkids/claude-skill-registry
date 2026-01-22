@@ -8,5 +8,6 @@
     "reviewer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tech-reviewer"
+  "github_path": ".claude/skills/tech-reviewer",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "improvement"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/readme-improvement"
+  "github_path": ".claude/skills/readme-improvement",
+  "github_branch": "main"
 }

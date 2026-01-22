@@ -8,5 +8,6 @@
     "audio"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/skyrim-audio"
+  "github_path": ".claude/skills/skyrim-audio",
+  "github_branch": "main"
 }

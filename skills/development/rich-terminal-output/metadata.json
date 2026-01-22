@@ -9,5 +9,6 @@
     "output"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rich-terminal-output"
+  "github_path": ".claude/skills/rich-terminal-output",
+  "github_branch": "main"
 }

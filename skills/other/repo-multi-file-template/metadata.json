@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T03:27:18.960720Z",
   "dir_name": "repo-multi-file-template",
   "category": "other",
-  "github_path": ".claude/skills/repo-multi-file-template"
+  "github_path": ".claude/skills/repo-multi-file-template",
+  "github_branch": "main"
 }

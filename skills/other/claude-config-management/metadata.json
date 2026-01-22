@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:12:15.498732Z",
   "dir_name": "claude-config-management",
   "category": "other",
-  "github_path": ".claude/skills/claude-config-management"
+  "github_path": ".claude/skills/claude-config-management",
+  "github_branch": "main"
 }

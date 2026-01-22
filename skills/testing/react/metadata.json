@@ -7,5 +7,6 @@
     "react"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/react"
+  "github_path": ".claude/skills/react",
+  "github_branch": "main"
 }

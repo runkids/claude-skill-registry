@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:31.573184Z",
   "dir_name": "updatekfg",
   "category": "other",
-  "github_path": ".claude/skills/updatekfg"
+  "github_path": ".claude/skills/updatekfg",
+  "github_branch": "main"
 }

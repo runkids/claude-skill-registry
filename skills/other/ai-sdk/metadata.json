@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:15:13.342933Z",
   "dir_name": "ai-sdk",
   "category": "other",
-  "github_path": ".claude/skills/ai-sdk"
+  "github_path": ".claude/skills/ai-sdk",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:15.089658Z",
   "dir_name": "config-file-generator",
   "category": "other",
-  "github_path": ".claude/skills/config-file-generator"
+  "github_path": ".claude/skills/config-file-generator",
+  "github_branch": "main"
 }

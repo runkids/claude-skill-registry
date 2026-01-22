@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:34:10.082609Z",
   "dir_name": "ecs-api-reference",
   "category": "other",
-  "github_path": ".claude/skills/ecs-api-reference"
+  "github_path": ".claude/skills/ecs-api-reference",
+  "github_branch": "main"
 }

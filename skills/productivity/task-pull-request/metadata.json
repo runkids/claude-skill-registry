@@ -9,5 +9,6 @@
     "request"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/task-pull-request"
+  "github_path": ".claude/skills/task-pull-request",
+  "github_branch": "main"
 }

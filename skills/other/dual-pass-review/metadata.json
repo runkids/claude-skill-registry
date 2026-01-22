@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T02:05:11.830045Z",
   "dir_name": "dual-pass-review",
   "category": "other",
-  "github_path": ".claude/skills/dual-pass-review"
+  "github_path": ".claude/skills/dual-pass-review",
+  "github_branch": "main"
 }

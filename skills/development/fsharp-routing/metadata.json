@@ -8,5 +8,6 @@
     "routing"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/fsharp-routing"
+  "github_path": ".claude/skills/fsharp-routing",
+  "github_branch": "main"
 }

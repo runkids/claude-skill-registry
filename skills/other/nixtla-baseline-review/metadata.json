@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:52:25.513800Z",
   "dir_name": "nixtla-baseline-review",
   "category": "other",
-  "github_path": ".claude/skills/nixtla-baseline-review"
+  "github_path": ".claude/skills/nixtla-baseline-review",
+  "github_branch": "main"
 }

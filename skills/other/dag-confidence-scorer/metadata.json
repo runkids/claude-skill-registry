@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:59.759315Z",
   "dir_name": "dag-confidence-scorer",
   "category": "other",
-  "github_path": ".claude/skills/dag-confidence-scorer"
+  "github_path": ".claude/skills/dag-confidence-scorer",
+  "github_branch": "main"
 }

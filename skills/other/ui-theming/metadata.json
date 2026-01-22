@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:29:25.533316Z",
   "dir_name": "ui-theming",
   "category": "other",
-  "github_path": ".claude/skills/ui-theming"
+  "github_path": ".claude/skills/ui-theming",
+  "github_branch": "main"
 }

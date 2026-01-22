@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:39:09.871838Z",
   "dir_name": "whitelist-bypass-skill",
   "category": "other",
-  "github_path": ".claude/skills/whitelist-bypass-skill"
+  "github_path": ".claude/skills/whitelist-bypass-skill",
+  "github_branch": "main"
 }

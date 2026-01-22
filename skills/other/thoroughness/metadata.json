@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:04:38.927957Z",
   "dir_name": "thoroughness",
   "category": "other",
-  "github_path": ".claude/skills/thoroughness"
+  "github_path": ".claude/skills/thoroughness",
+  "github_branch": "main"
 }

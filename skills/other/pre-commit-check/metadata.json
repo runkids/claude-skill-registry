@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T08:13:12.869167Z",
   "dir_name": "pre-commit-check",
   "category": "other",
-  "github_path": ".claude/skills/pre-commit-check"
+  "github_path": ".claude/skills/pre-commit-check",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:34.365608Z",
   "dir_name": "deal-hygiene",
   "category": "other",
-  "github_path": ".claude/skills/deal-hygiene"
+  "github_path": ".claude/skills/deal-hygiene",
+  "github_branch": "main"
 }

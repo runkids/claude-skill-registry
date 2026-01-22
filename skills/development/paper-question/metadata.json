@@ -8,5 +8,6 @@
     "question"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/paper-question"
+  "github_path": ".claude/skills/paper-question",
+  "github_branch": "main"
 }

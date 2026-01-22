@@ -10,5 +10,6 @@
   ],
   "stars": 6,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/brave-search-api"
+  "github_path": ".claude/skills/brave-search-api",
+  "github_branch": "main"
 }

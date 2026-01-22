@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:07.528141Z",
   "dir_name": "ghm-sot-builder",
   "category": "other",
-  "github_path": ".claude/skills/ghm-sot-builder"
+  "github_path": ".claude/skills/ghm-sot-builder",
+  "github_branch": "main"
 }

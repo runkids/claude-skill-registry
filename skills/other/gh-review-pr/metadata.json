@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:10.179633Z",
   "dir_name": "gh-review-pr",
   "category": "other",
-  "github_path": ".claude/skills/gh-review-pr"
+  "github_path": ".claude/skills/gh-review-pr",
+  "github_branch": "main"
 }

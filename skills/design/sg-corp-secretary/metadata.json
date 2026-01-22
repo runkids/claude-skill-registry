@@ -8,5 +8,6 @@
     "secretary"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/sg-corp-secretary"
+  "github_path": ".claude/skills/sg-corp-secretary",
+  "github_branch": "main"
 }

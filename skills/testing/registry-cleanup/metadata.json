@@ -8,5 +8,6 @@
     "cleanup"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/registry-cleanup"
+  "github_path": ".claude/skills/registry-cleanup",
+  "github_branch": "main"
 }

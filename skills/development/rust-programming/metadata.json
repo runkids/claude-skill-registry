@@ -8,5 +8,6 @@
     "programming"
   ],
   "stars": 24,
-  "github_path": ".claude/skills/rust-programming"
+  "github_path": ".claude/skills/rust-programming",
+  "github_branch": "main"
 }

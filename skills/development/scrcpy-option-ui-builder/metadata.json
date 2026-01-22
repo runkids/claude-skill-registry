@@ -9,5 +9,6 @@
     "builder"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/scrcpy-option-ui-builder"
+  "github_path": ".claude/skills/scrcpy-option-ui-builder",
+  "github_branch": "main"
 }

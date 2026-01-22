@@ -8,5 +8,6 @@
     "agent"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/rndops-agent"
+  "github_path": ".claude/skills/rndops-agent",
+  "github_branch": "main"
 }

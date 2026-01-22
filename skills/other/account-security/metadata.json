@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:56:59.593799Z",
   "dir_name": "account-security",
   "category": "other",
-  "github_path": ".claude/skills/account-security"
+  "github_path": ".claude/skills/account-security",
+  "github_branch": "main"
 }

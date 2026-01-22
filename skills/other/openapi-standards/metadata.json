@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T01:50:56.927192Z",
   "dir_name": "openapi-standards",
   "category": "other",
-  "github_path": ".claude/skills/openapi-standards"
+  "github_path": ".claude/skills/openapi-standards",
+  "github_branch": "main"
 }

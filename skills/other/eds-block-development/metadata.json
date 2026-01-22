@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:01:35.498596Z",
   "dir_name": "eds-block-development",
   "category": "other",
-  "github_path": ".claude/skills/eds-block-development"
+  "github_path": ".claude/skills/eds-block-development",
+  "github_branch": "main"
 }

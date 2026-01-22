@@ -8,5 +8,6 @@
     "framework"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/planning-framework"
+  "github_path": ".claude/skills/planning-framework",
+  "github_branch": "main"
 }

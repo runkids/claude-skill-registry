@@ -10,5 +10,6 @@
   ],
   "stars": 1443,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/claude-docs-consultant"
+  "github_path": ".claude/skills/claude-docs-consultant",
+  "github_branch": "master"
 }

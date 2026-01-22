@@ -8,5 +8,6 @@
     "pattern"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/save-pattern"
+  "github_path": ".claude/skills/save-pattern",
+  "github_branch": "main"
 }

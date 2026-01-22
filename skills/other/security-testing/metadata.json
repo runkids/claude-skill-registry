@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:38.877761Z",
   "dir_name": "security-testing",
   "category": "other",
-  "github_path": ".claude/skills/security-testing"
+  "github_path": ".claude/skills/security-testing",
+  "github_branch": "main"
 }

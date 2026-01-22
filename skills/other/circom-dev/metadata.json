@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T03:40:06.219045Z",
   "dir_name": "circom-dev",
   "category": "other",
-  "github_path": ".claude/skills/circom-dev"
+  "github_path": ".claude/skills/circom-dev",
+  "github_branch": "main"
 }

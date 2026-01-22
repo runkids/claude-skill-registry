@@ -9,5 +9,6 @@
   ],
   "stars": 313,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/code-quality"
+  "github_path": ".claude/skills/code-quality",
+  "github_branch": "main"
 }

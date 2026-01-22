@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:24.310037Z",
   "dir_name": "coherence-visualizer",
   "category": "other",
-  "github_path": ".claude/skills/coherence-visualizer"
+  "github_path": ".claude/skills/coherence-visualizer",
+  "github_branch": "main"
 }

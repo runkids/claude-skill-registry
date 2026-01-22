@@ -8,5 +8,6 @@
     "experiment"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/scaffold-experiment"
+  "github_path": ".claude/skills/scaffold-experiment",
+  "github_branch": "main"
 }

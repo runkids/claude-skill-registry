@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:41:46.609408Z",
   "dir_name": "project-overview",
   "category": "other",
-  "github_path": ".claude/skills/project-overview"
+  "github_path": ".claude/skills/project-overview",
+  "github_branch": "main"
 }

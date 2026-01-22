@@ -10,5 +10,6 @@
   "stars": 43,
   "source": "SkillsMP Synced Skills",
   "dir_name": "constitution-governance",
-  "github_path": ".claude/skills/constitution-governance"
+  "github_path": ".claude/skills/constitution-governance",
+  "github_branch": "main"
 }

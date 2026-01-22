@@ -9,5 +9,6 @@
     "structure"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/plan-validate-structure"
+  "github_path": ".claude/skills/plan-validate-structure",
+  "github_branch": "main"
 }

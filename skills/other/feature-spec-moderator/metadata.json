@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:44.645864Z",
   "dir_name": "feature-spec-moderator",
   "category": "other",
-  "github_path": ".claude/skills/feature-spec-moderator"
+  "github_path": ".claude/skills/feature-spec-moderator",
+  "github_branch": "main"
 }

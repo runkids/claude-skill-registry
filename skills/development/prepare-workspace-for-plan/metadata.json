@@ -11,5 +11,6 @@
   ],
   "stars": 2934,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/prepare-workspace-for-plan"
+  "github_path": ".claude/skills/prepare-workspace-for-plan",
+  "github_branch": "main"
 }

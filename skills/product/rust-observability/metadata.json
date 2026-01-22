@@ -8,5 +8,6 @@
     "observability"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/rust-observability"
+  "github_path": ".claude/skills/rust-observability",
+  "github_branch": "main"
 }

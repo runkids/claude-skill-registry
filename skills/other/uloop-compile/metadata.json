@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:44.234750Z",
   "dir_name": "uloop-compile",
   "category": "other",
-  "github_path": ".claude/skills/uloop-compile"
+  "github_path": ".claude/skills/uloop-compile",
+  "github_branch": "main"
 }

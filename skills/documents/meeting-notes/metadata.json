@@ -8,5 +8,6 @@
     "notes"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/meeting-notes"
+  "github_path": ".claude/skills/meeting-notes",
+  "github_branch": "main"
 }

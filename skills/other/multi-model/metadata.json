@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:18.281129Z",
   "dir_name": "multi-model",
   "category": "other",
-  "github_path": ".claude/skills/multi-model"
+  "github_path": ".claude/skills/multi-model",
+  "github_branch": "main"
 }

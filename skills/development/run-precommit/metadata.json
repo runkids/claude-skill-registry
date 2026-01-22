@@ -8,5 +8,6 @@
     "precommit"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/run-precommit"
+  "github_path": ".claude/skills/run-precommit",
+  "github_branch": "main"
 }

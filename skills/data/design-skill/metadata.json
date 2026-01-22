@@ -10,5 +10,6 @@
   "stars": 15,
   "source": "SkillsMP Synced Skills",
   "dir_name": "design-skill",
-  "github_path": ".claude/skills/design-skill"
+  "github_path": ".claude/skills/design-skill",
+  "github_branch": "main"
 }

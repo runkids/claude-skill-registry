@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "codigo-html",
-  "github_path": ".claude/skills/codigo-html"
+  "github_path": ".claude/skills/codigo-html",
+  "github_branch": "main"
 }

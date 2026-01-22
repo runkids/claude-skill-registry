@@ -11,5 +11,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/detecting-signed-unsigned-conversion"
+  "github_path": ".claude/skills/detecting-signed-unsigned-conversion",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 13,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/benchmark-manager"
+  "github_path": ".claude/skills/benchmark-manager",
+  "github_branch": "main"
 }

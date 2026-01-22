@@ -8,5 +8,6 @@
     "journey"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/persona-journey"
+  "github_path": ".claude/skills/persona-journey",
+  "github_branch": "main"
 }

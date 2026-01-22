@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:18.357733Z",
   "dir_name": "rust-tooling",
   "category": "other",
-  "github_path": ".claude/skills/rust-tooling"
+  "github_path": ".claude/skills/rust-tooling",
+  "github_branch": "main"
 }

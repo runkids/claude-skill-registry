@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:09.635126Z",
   "dir_name": "gemini-code-review",
   "category": "other",
-  "github_path": ".claude/skills/gemini-code-review"
+  "github_path": ".claude/skills/gemini-code-review",
+  "github_branch": "main"
 }

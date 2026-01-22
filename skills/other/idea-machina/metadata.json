@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:44.872664Z",
   "dir_name": "idea-machina",
   "category": "other",
-  "github_path": ".claude/skills/idea-machina"
+  "github_path": ".claude/skills/idea-machina",
+  "github_branch": "main"
 }

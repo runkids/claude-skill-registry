@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:44:14.186297Z",
   "dir_name": "trend-forecaster",
   "category": "other",
-  "github_path": ".claude/skills/trend-forecaster"
+  "github_path": ".claude/skills/trend-forecaster",
+  "github_branch": "main"
 }

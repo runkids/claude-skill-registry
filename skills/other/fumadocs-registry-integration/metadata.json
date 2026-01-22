@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:40.478548Z",
   "dir_name": "fumadocs-registry-integration",
   "category": "other",
-  "github_path": ".claude/skills/fumadocs-registry-integration"
+  "github_path": ".claude/skills/fumadocs-registry-integration",
+  "github_branch": "main"
 }

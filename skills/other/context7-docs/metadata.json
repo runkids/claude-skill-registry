@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:24:03.927851Z",
   "dir_name": "context7-docs",
   "category": "other",
-  "github_path": ".claude/skills/context7-docs"
+  "github_path": ".claude/skills/context7-docs",
+  "github_branch": "main"
 }

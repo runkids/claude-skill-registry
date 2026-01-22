@@ -5,5 +5,6 @@
   "description": "Executes SonarCloud API queries via unified Python CLI. Use when checking quality gate status, searching issues (bugs, vulnerabilities, code smells), retrieving metrics (coverage, complexity), or view",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:01:38.743505Z",
-  "github_path": ".claude/skills/sonarcloud-tools"
+  "github_path": ".claude/skills/sonarcloud-tools",
+  "github_branch": "main"
 }

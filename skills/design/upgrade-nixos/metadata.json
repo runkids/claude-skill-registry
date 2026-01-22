@@ -8,5 +8,6 @@
     "nixos"
   ],
   "stars": 24,
-  "github_path": ".claude/skills/upgrade-nixos"
+  "github_path": ".claude/skills/upgrade-nixos",
+  "github_branch": "main"
 }

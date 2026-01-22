@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:32.134695Z",
   "dir_name": "writing-claude-skills",
   "category": "other",
-  "github_path": ".claude/skills/writing-claude-skills"
+  "github_path": ".claude/skills/writing-claude-skills",
+  "github_branch": "main"
 }

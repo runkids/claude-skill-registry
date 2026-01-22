@@ -8,5 +8,6 @@
     "maintenance"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/portfolio-maintenance"
+  "github_path": ".claude/skills/portfolio-maintenance",
+  "github_branch": "main"
 }

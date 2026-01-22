@@ -5,5 +5,6 @@
   "description": "GotenbergでPDF変換・帳票出力を自動化する。バックオフィス/営業/CSの帳票フローで使う。",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:08:42.338134Z",
-  "github_path": ".claude/skills/pdf-automation-gotenberg"
+  "github_path": ".claude/skills/pdf-automation-gotenberg",
+  "github_branch": "main"
 }

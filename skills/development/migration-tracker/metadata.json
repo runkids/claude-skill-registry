@@ -8,5 +8,6 @@
     "tracker"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/migration-tracker"
+  "github_path": ".claude/skills/migration-tracker",
+  "github_branch": "main"
 }

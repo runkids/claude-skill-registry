@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/fetch-public-notes"
+  "github_path": ".claude/skills/fetch-public-notes",
+  "github_branch": "main"
 }

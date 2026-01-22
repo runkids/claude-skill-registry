@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:41:47.061545Z",
   "dir_name": "typescript-build-checker",
   "category": "other",
-  "github_path": ".claude/skills/typescript-build-checker"
+  "github_path": ".claude/skills/typescript-build-checker",
+  "github_branch": "main"
 }

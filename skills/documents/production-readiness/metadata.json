@@ -8,5 +8,6 @@
     "readiness"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/production-readiness"
+  "github_path": ".claude/skills/production-readiness",
+  "github_branch": "main"
 }

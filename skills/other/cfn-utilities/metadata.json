@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:58.315973Z",
   "dir_name": "cfn-utilities",
   "category": "other",
-  "github_path": ".claude/skills/cfn-utilities"
+  "github_path": ".claude/skills/cfn-utilities",
+  "github_branch": "main"
 }

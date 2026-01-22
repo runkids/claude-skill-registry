@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:58.398222Z",
   "dir_name": "cfn-epic-parser",
   "category": "other",
-  "github_path": ".claude/skills/cfn-epic-parser"
+  "github_path": ".claude/skills/cfn-epic-parser",
+  "github_branch": "main"
 }

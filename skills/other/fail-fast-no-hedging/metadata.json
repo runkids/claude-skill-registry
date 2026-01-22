@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:52:53.334219Z",
   "dir_name": "fail-fast-no-hedging",
   "category": "other",
-  "github_path": ".claude/skills/fail-fast-no-hedging"
+  "github_path": ".claude/skills/fail-fast-no-hedging",
+  "github_branch": "main"
 }

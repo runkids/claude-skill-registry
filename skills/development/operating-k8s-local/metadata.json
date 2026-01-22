@@ -9,5 +9,6 @@
     "local"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/operating-k8s-local"
+  "github_path": ".claude/skills/operating-k8s-local",
+  "github_branch": "main"
 }

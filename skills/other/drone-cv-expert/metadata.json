@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:02:58.153549Z",
   "dir_name": "drone-cv-expert",
   "category": "other",
-  "github_path": ".claude/skills/drone-cv-expert"
+  "github_path": ".claude/skills/drone-cv-expert",
+  "github_branch": "main"
 }

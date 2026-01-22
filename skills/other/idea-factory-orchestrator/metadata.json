@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:14:51.743533Z",
   "dir_name": "idea-factory-orchestrator",
   "category": "other",
-  "github_path": ".claude/skills/idea-factory-orchestrator"
+  "github_path": ".claude/skills/idea-factory-orchestrator",
+  "github_branch": "main"
 }

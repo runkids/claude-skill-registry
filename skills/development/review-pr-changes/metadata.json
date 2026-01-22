@@ -8,5 +8,6 @@
     "changes"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/review-pr-changes"
+  "github_path": ".claude/skills/review-pr-changes",
+  "github_branch": "main"
 }

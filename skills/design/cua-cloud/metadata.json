@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/cua-cloud"
+  "github_path": ".claude/skills/cua-cloud",
+  "github_branch": "main"
 }

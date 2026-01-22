@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:55:16.603042Z",
   "dir_name": "the-auditor",
   "category": "other",
-  "github_path": ".claude/skills/the-auditor"
+  "github_path": ".claude/skills/the-auditor",
+  "github_branch": "main"
 }

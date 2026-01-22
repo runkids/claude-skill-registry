@@ -9,5 +9,6 @@
     "inline"
   ],
   "stars": 27,
-  "github_path": ".claude/skills/reuse-health-inline"
+  "github_path": ".claude/skills/reuse-health-inline",
+  "github_branch": "main"
 }

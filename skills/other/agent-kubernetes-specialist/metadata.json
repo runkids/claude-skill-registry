@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:08.606008Z",
   "dir_name": "agent-kubernetes-specialist",
   "category": "other",
-  "github_path": ".claude/skills/agent-kubernetes-specialist"
+  "github_path": ".claude/skills/agent-kubernetes-specialist",
+  "github_branch": "main"
 }

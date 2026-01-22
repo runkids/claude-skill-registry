@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:47:14.087453Z",
   "dir_name": "cql-type-system",
   "category": "other",
-  "github_path": ".claude/skills/cql-type-system"
+  "github_path": ".claude/skills/cql-type-system",
+  "github_branch": "main"
 }

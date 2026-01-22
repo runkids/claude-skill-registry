@@ -9,5 +9,6 @@
     "checklist"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/code-review-checklist"
+  "github_path": ".claude/skills/code-review-checklist",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "pattern"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/get-pattern"
+  "github_path": ".claude/skills/get-pattern",
+  "github_branch": "main"
 }

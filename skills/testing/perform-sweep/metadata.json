@@ -8,5 +8,6 @@
     "sweep"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/perform-sweep"
+  "github_path": ".claude/skills/perform-sweep",
+  "github_branch": "main"
 }

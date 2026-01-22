@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:37:09.850572Z",
   "dir_name": "gobby-agents",
   "category": "other",
-  "github_path": ".claude/skills/gobby-agents"
+  "github_path": ".claude/skills/gobby-agents",
+  "github_branch": "main"
 }

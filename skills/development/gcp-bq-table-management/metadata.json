@@ -9,5 +9,6 @@
     "management"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gcp-bq-table-management"
+  "github_path": ".claude/skills/gcp-bq-table-management",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "dir_name": "netgraph-dsl",
-  "github_path": ".claude/skills/netgraph-dsl"
+  "github_path": ".claude/skills/netgraph-dsl",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 254,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/infographic-generator"
+  "github_path": ".claude/skills/infographic-generator",
+  "github_branch": "main"
 }

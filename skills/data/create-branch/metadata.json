@@ -10,5 +10,6 @@
   "stars": 2,
   "source": "SkillsMP Synced Skills",
   "dir_name": "create-branch",
-  "github_path": ".claude/skills/create-branch"
+  "github_path": ".claude/skills/create-branch",
+  "github_branch": "main"
 }

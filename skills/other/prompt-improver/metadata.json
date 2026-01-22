@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:01:50.146823Z",
   "dir_name": "prompt-improver",
   "category": "other",
-  "github_path": ".claude/skills/prompt-improver"
+  "github_path": ".claude/skills/prompt-improver",
+  "github_branch": "main"
 }

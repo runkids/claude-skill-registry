@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "content-intent-agent",
-  "github_path": ".claude/skills/content-intent-agent"
+  "github_path": ".claude/skills/content-intent-agent",
+  "github_branch": "main"
 }

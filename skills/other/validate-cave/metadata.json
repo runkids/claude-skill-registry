@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:08.724416Z",
   "dir_name": "validate-cave",
   "category": "other",
-  "github_path": ".claude/skills/validate-cave"
+  "github_path": ".claude/skills/validate-cave",
+  "github_branch": "main"
 }

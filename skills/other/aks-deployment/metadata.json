@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:45.880401Z",
   "dir_name": "aks-deployment",
   "category": "other",
-  "github_path": ".claude/skills/aks-deployment"
+  "github_path": ".claude/skills/aks-deployment",
+  "github_branch": "main"
 }

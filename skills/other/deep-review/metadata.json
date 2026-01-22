@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:17:33.297016Z",
   "dir_name": "deep-review",
   "category": "other",
-  "github_path": ".claude/skills/deep-review"
+  "github_path": ".claude/skills/deep-review",
+  "github_branch": "main"
 }

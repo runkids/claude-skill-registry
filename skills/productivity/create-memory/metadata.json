@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-memory"
+  "github_path": ".claude/skills/create-memory",
+  "github_branch": "main"
 }

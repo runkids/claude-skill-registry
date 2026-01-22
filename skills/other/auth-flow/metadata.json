@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:25.552711Z",
   "dir_name": "auth-flow",
   "category": "other",
-  "github_path": ".claude/skills/auth-flow"
+  "github_path": ".claude/skills/auth-flow",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "setup"
   ],
   "stars": 47,
-  "github_path": ".claude/skills/system-setup"
+  "github_path": ".claude/skills/system-setup",
+  "github_branch": "main"
 }

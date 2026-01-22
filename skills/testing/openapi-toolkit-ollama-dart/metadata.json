@@ -10,5 +10,6 @@
     "dart"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/openapi-toolkit-ollama-dart"
+  "github_path": ".claude/skills/openapi-toolkit-ollama-dart",
+  "github_branch": "main"
 }

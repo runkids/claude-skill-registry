@@ -8,5 +8,6 @@
     "route"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/write-route"
+  "github_path": ".claude/skills/write-route",
+  "github_branch": "main"
 }

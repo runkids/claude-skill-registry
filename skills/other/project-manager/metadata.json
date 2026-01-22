@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:03:31.652048Z",
   "dir_name": "project-manager",
   "category": "other",
-  "github_path": ".claude/skills/project-manager"
+  "github_path": ".claude/skills/project-manager",
+  "github_branch": "main"
 }

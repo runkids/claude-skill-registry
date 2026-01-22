@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:27:31.641829Z",
   "dir_name": "cognitive-twin",
   "category": "other",
-  "github_path": ".claude/skills/cognitive-twin"
+  "github_path": ".claude/skills/cognitive-twin",
+  "github_branch": "main"
 }

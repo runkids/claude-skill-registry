@@ -9,5 +9,6 @@
     "file"
   ],
   "stars": 27,
-  "github_path": ".claude/skills/validate-plan-file"
+  "github_path": ".claude/skills/validate-plan-file",
+  "github_branch": "main"
 }

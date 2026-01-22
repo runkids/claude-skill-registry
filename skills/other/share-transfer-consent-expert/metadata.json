@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:39.225475Z",
   "dir_name": "share-transfer-consent-expert",
   "category": "other",
-  "github_path": ".claude/skills/share-transfer-consent-expert"
+  "github_path": ".claude/skills/share-transfer-consent-expert",
+  "github_branch": "main"
 }

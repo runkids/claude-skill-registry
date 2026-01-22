@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:52.608115Z",
   "dir_name": "design-prune",
   "category": "other",
-  "github_path": ".claude/skills/design-prune"
+  "github_path": ".claude/skills/design-prune",
+  "github_branch": "main"
 }

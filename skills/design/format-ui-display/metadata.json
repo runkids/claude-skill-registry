@@ -8,5 +8,6 @@
     "display"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/format-ui-display"
+  "github_path": ".claude/skills/format-ui-display",
+  "github_branch": "main"
 }

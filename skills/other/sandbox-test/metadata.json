@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:20:35.454912Z",
   "dir_name": "sandbox-test",
   "category": "other",
-  "github_path": ".claude/skills/sandbox-test"
+  "github_path": ".claude/skills/sandbox-test",
+  "github_branch": "main"
 }

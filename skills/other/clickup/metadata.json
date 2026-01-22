@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:37.388869Z",
   "dir_name": "clickup",
   "category": "other",
-  "github_path": ".claude/skills/clickup"
+  "github_path": ".claude/skills/clickup",
+  "github_branch": "main"
 }

@@ -11,5 +11,6 @@
   ],
   "stars": 70,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/prpm-json-best-practices"
+  "github_path": ".claude/skills/prpm-json-best-practices",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:40.719478Z",
   "dir_name": "map-domains",
   "category": "other",
-  "github_path": ".claude/skills/map-domains"
+  "github_path": ".claude/skills/map-domains",
+  "github_branch": "main"
 }

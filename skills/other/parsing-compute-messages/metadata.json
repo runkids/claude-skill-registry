@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:06:59.152466Z",
   "dir_name": "parsing-compute-messages",
   "category": "other",
-  "github_path": ".claude/skills/parsing-compute-messages"
+  "github_path": ".claude/skills/parsing-compute-messages",
+  "github_branch": "main"
 }

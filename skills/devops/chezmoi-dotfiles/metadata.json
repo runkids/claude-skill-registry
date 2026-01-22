@@ -8,5 +8,6 @@
     "dotfiles"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/chezmoi-dotfiles"
+  "github_path": ".claude/skills/chezmoi-dotfiles",
+  "github_branch": "main"
 }

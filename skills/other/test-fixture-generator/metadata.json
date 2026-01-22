@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:11.565859Z",
   "dir_name": "test-fixture-generator",
   "category": "other",
-  "github_path": ".claude/skills/test-fixture-generator"
+  "github_path": ".claude/skills/test-fixture-generator",
+  "github_branch": "main"
 }

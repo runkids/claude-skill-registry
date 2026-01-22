@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:05.809349Z",
   "dir_name": "work-command-center",
   "category": "other",
-  "github_path": ".claude/skills/work-command-center"
+  "github_path": ".claude/skills/work-command-center",
+  "github_branch": "main"
 }

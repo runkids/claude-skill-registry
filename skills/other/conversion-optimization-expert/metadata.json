@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:42:05.962180Z",
   "dir_name": "conversion-optimization-expert",
   "category": "other",
-  "github_path": ".claude/skills/conversion-optimization-expert"
+  "github_path": ".claude/skills/conversion-optimization-expert",
+  "github_branch": "main"
 }

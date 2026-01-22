@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:21.078174Z",
   "dir_name": "global-commenting",
   "category": "other",
-  "github_path": ".claude/skills/global-commenting"
+  "github_path": ".claude/skills/global-commenting",
+  "github_branch": "main"
 }

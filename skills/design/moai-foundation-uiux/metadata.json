@@ -9,5 +9,6 @@
     "uiux"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/moai-foundation-uiux"
+  "github_path": ".claude/skills/moai-foundation-uiux",
+  "github_branch": "main"
 }

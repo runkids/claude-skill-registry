@@ -8,5 +8,6 @@
     "check"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/quality-check"
+  "github_path": ".claude/skills/quality-check",
+  "github_branch": "main"
 }

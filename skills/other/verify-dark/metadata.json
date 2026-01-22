@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:03:08.399748Z",
   "dir_name": "verify-dark",
   "category": "other",
-  "github_path": ".claude/skills/verify-dark"
+  "github_path": ".claude/skills/verify-dark",
+  "github_branch": "main"
 }

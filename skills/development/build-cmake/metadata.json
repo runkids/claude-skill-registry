@@ -9,5 +9,6 @@
   ],
   "stars": 2209,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/build-cmake"
+  "github_path": ".claude/skills/build-cmake",
+  "github_branch": "master"
 }

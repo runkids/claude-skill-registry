@@ -9,5 +9,6 @@
     "processing"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/large-document-processing"
+  "github_path": ".claude/skills/large-document-processing",
+  "github_branch": "main"
 }

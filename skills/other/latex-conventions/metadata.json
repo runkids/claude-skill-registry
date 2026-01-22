@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:23:01.187247Z",
   "dir_name": "latex-conventions",
   "category": "other",
-  "github_path": ".claude/skills/latex-conventions"
+  "github_path": ".claude/skills/latex-conventions",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:31:23.762997Z",
   "dir_name": "ros2-gazebo-bridge",
   "category": "other",
-  "github_path": ".claude/skills/ros2-gazebo-bridge"
+  "github_path": ".claude/skills/ros2-gazebo-bridge",
+  "github_branch": "main"
 }

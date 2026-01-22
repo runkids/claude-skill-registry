@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:11.730542Z",
   "dir_name": "ac-expander",
   "category": "other",
-  "github_path": ".claude/skills/ac-expander"
+  "github_path": ".claude/skills/ac-expander",
+  "github_branch": "main"
 }

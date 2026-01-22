@@ -8,5 +8,6 @@
     "checker"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/owasp-checker"
+  "github_path": ".claude/skills/owasp-checker",
+  "github_branch": "main"
 }

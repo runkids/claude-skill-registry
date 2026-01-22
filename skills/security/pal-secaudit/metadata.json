@@ -8,5 +8,6 @@
     "secaudit"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pal-secaudit"
+  "github_path": ".claude/skills/pal-secaudit",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:10:56.712868Z",
   "dir_name": "skill-builder",
   "category": "other",
-  "github_path": ".claude/skills/skill-builder"
+  "github_path": ".claude/skills/skill-builder",
+  "github_branch": "main"
 }

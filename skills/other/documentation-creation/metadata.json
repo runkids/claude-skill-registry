@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:53:11.291301Z",
   "dir_name": "documentation-creation",
   "category": "other",
-  "github_path": ".claude/skills/documentation-creation"
+  "github_path": ".claude/skills/documentation-creation",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:27.841731Z",
   "dir_name": "zed-config",
   "category": "other",
-  "github_path": ".claude/skills/zed-config"
+  "github_path": ".claude/skills/zed-config",
+  "github_branch": "main"
 }

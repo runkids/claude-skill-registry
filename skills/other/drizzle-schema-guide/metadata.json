@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:37.938910Z",
   "dir_name": "drizzle-schema-guide",
   "category": "other",
-  "github_path": ".claude/skills/drizzle-schema-guide"
+  "github_path": ".claude/skills/drizzle-schema-guide",
+  "github_branch": "main"
 }

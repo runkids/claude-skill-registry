@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:14.983791Z",
   "dir_name": "moc-curator",
   "category": "other",
-  "github_path": ".claude/skills/moc-curator"
+  "github_path": ".claude/skills/moc-curator",
+  "github_branch": "main"
 }

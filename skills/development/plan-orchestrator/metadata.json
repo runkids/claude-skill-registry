@@ -8,5 +8,6 @@
     "orchestrator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/plan-orchestrator"
+  "github_path": ".claude/skills/plan-orchestrator",
+  "github_branch": "main"
 }

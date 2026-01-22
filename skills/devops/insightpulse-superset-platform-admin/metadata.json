@@ -10,5 +10,6 @@
     "admin"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/insightpulse-superset-platform-admin"
+  "github_path": ".claude/skills/insightpulse-superset-platform-admin",
+  "github_branch": "main"
 }

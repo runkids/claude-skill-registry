@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:53.190531Z",
   "dir_name": "advanced-features",
   "category": "other",
-  "github_path": ".claude/skills/advanced-features"
+  "github_path": ".claude/skills/advanced-features",
+  "github_branch": "main"
 }

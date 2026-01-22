@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "dir_name": "laravel-data-writer",
-  "github_path": ".claude/skills/laravel-data-writer"
+  "github_path": ".claude/skills/laravel-data-writer",
+  "github_branch": "main"
 }

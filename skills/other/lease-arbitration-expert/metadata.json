@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:59:37.703191Z",
   "dir_name": "lease-arbitration-expert",
   "category": "other",
-  "github_path": ".claude/skills/lease-arbitration-expert"
+  "github_path": ".claude/skills/lease-arbitration-expert",
+  "github_branch": "main"
 }

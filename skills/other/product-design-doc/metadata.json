@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:45:51.914487Z",
   "dir_name": "product-design-doc",
   "category": "other",
-  "github_path": ".claude/skills/product-design-doc"
+  "github_path": ".claude/skills/product-design-doc",
+  "github_branch": "main"
 }

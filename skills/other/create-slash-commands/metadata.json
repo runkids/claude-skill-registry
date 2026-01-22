@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:54:54.380484Z",
   "dir_name": "create-slash-commands",
   "category": "other",
-  "github_path": ".claude/skills/create-slash-commands"
+  "github_path": ".claude/skills/create-slash-commands",
+  "github_branch": "main"
 }

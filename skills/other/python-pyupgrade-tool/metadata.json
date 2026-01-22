@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:14:19.099586Z",
   "dir_name": "python-pyupgrade-tool",
   "category": "other",
-  "github_path": ".claude/skills/python-pyupgrade-tool"
+  "github_path": ".claude/skills/python-pyupgrade-tool",
+  "github_branch": "main"
 }

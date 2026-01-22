@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:57.025330Z",
   "dir_name": "document-project",
   "category": "other",
-  "github_path": ".claude/skills/document-project"
+  "github_path": ".claude/skills/document-project",
+  "github_branch": "main"
 }

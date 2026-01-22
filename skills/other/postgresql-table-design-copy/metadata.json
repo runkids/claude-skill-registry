@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:12:28.121616Z",
   "dir_name": "postgresql-table-design-copy",
   "category": "other",
-  "github_path": ".claude/skills/postgresql-table-design copy"
+  "github_path": ".claude/skills/postgresql-table-design copy",
+  "github_branch": "main"
 }

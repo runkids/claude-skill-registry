@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:42:21.195189Z",
   "dir_name": "backend-migrations",
   "category": "other",
-  "github_path": ".claude/skills/backend-migrations"
+  "github_path": ".claude/skills/backend-migrations",
+  "github_branch": "main"
 }

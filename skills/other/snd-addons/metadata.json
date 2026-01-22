@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:51.066218Z",
   "dir_name": "snd-addons",
   "category": "other",
-  "github_path": ".claude/skills/snd-addons"
+  "github_path": ".claude/skills/snd-addons",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:14.620650Z",
   "dir_name": "gpui-test",
   "category": "other",
-  "github_path": ".claude/skills/gpui-test"
+  "github_path": ".claude/skills/gpui-test",
+  "github_branch": "main"
 }

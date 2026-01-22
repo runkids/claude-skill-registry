@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:52.293132Z",
   "dir_name": "snd-questionable",
   "category": "other",
-  "github_path": ".claude/skills/snd-questionable"
+  "github_path": ".claude/skills/snd-questionable",
+  "github_branch": "main"
 }

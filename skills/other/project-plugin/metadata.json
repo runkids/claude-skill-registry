@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:01:52.553080Z",
   "dir_name": "project-plugin",
   "category": "other",
-  "github_path": ".claude/skills/project-plugin"
+  "github_path": ".claude/skills/project-plugin",
+  "github_branch": "main"
 }

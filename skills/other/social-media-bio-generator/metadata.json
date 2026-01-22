@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:37:46.624916Z",
   "dir_name": "social-media-bio-generator",
   "category": "other",
-  "github_path": ".claude/skills/social-media-bio-generator"
+  "github_path": ".claude/skills/social-media-bio-generator",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:12:37.270493Z",
   "dir_name": "task-search",
   "category": "other",
-  "github_path": ".claude/skills/task-search"
+  "github_path": ".claude/skills/task-search",
+  "github_branch": "main"
 }

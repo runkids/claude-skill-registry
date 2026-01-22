@@ -9,5 +9,6 @@
     "gotchas"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/gcp-cli-gotchas"
+  "github_path": ".claude/skills/gcp-cli-gotchas",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:16.672178Z",
   "dir_name": "streaming",
   "category": "other",
-  "github_path": ".claude/skills/streaming"
+  "github_path": ".claude/skills/streaming",
+  "github_branch": "main"
 }

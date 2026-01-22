@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:20:53.137316Z",
   "dir_name": "story",
   "category": "other",
-  "github_path": ".claude/skills/story"
+  "github_path": ".claude/skills/story",
+  "github_branch": "main"
 }

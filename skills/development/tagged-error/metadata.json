@@ -8,5 +8,6 @@
     "error"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/tagged-error"
+  "github_path": ".claude/skills/tagged-error",
+  "github_branch": "main"
 }

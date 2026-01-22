@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:30:23.266778Z",
   "dir_name": "social-content-creator",
   "category": "other",
-  "github_path": ".claude/skills/social-content-creator"
+  "github_path": ".claude/skills/social-content-creator",
+  "github_branch": "main"
 }

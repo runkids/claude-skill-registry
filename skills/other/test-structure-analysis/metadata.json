@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:34:56.116382Z",
   "dir_name": "test-structure-analysis",
   "category": "other",
-  "github_path": ".claude/skills/test-structure-analysis"
+  "github_path": ".claude/skills/test-structure-analysis",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:28.718212Z",
   "dir_name": "commit-lint",
   "category": "other",
-  "github_path": ".claude/skills/commit.lint"
+  "github_path": ".claude/skills/commit.lint",
+  "github_branch": "main"
 }

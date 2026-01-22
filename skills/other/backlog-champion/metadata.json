@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:43.159029Z",
   "dir_name": "backlog-champion",
   "category": "other",
-  "github_path": ".claude/skills/backlog-champion"
+  "github_path": ".claude/skills/backlog-champion",
+  "github_branch": "main"
 }

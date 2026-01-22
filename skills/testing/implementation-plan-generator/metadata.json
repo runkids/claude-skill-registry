@@ -9,5 +9,6 @@
     "generator"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/implementation-plan-generator"
+  "github_path": ".claude/skills/implementation-plan-generator",
+  "github_branch": "main"
 }

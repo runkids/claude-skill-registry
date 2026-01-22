@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T02:51:17.188351Z",
   "dir_name": "testing-unit-tests",
   "category": "other",
-  "github_path": ".claude/skills/testing-unit-tests"
+  "github_path": ".claude/skills/testing-unit-tests",
+  "github_branch": "main"
 }

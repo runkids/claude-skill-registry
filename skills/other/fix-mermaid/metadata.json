@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:38:40.855638Z",
   "dir_name": "fix-mermaid",
   "category": "other",
-  "github_path": ".claude/skills/fix-mermaid"
+  "github_path": ".claude/skills/fix-mermaid",
+  "github_branch": "main"
 }

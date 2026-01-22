@@ -9,5 +9,6 @@
     "management"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/hive-project-management"
+  "github_path": ".claude/skills/hive-project-management",
+  "github_branch": "main"
 }

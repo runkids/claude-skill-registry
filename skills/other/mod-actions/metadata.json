@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:37.536532Z",
   "dir_name": "mod-actions",
   "category": "other",
-  "github_path": ".claude/skills/mod-actions"
+  "github_path": ".claude/skills/mod-actions",
+  "github_branch": "main"
 }

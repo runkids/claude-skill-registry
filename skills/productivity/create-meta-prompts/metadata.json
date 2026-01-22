@@ -10,5 +10,6 @@
   ],
   "stars": 16,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/create-meta-prompts"
+  "github_path": ".claude/skills/create-meta-prompts",
+  "github_branch": "main"
 }

@@ -8,5 +8,6 @@
     "practices"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/go-best-practices"
+  "github_path": ".claude/skills/go-best-practices",
+  "github_branch": "main"
 }

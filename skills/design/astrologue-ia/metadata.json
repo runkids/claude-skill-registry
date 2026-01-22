@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/astrologue-ia"
+  "github_path": ".claude/skills/astrologue-ia",
+  "github_branch": "main"
 }

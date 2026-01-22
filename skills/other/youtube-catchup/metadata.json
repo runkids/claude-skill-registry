@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:22:12.169038Z",
   "dir_name": "youtube-catchup",
   "category": "other",
-  "github_path": ".claude/skills/youtube-catchup"
+  "github_path": ".claude/skills/youtube-catchup",
+  "github_branch": "main"
 }

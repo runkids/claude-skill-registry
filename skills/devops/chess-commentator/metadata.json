@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/chess-commentator"
+  "github_path": ".claude/skills/chess-commentator",
+  "github_branch": "main"
 }

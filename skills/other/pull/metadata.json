@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:57:33.333586Z",
   "dir_name": "pull",
   "category": "other",
-  "github_path": ".claude/skills/pull"
+  "github_path": ".claude/skills/pull",
+  "github_branch": "main"
 }

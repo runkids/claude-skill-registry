@@ -8,5 +8,6 @@
     "development"
   ],
   "stars": 3,
-  "github_path": ".claude/skills/unison-development"
+  "github_path": ".claude/skills/unison-development",
+  "github_branch": "main"
 }

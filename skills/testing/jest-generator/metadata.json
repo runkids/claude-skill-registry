@@ -8,5 +8,6 @@
     "generator"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/jest-generator"
+  "github_path": ".claude/skills/jest-generator",
+  "github_branch": "main"
 }

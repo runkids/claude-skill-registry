@@ -8,5 +8,6 @@
     "playwright"
   ],
   "stars": 6,
-  "github_path": ".claude/skills/mcp-playwright"
+  "github_path": ".claude/skills/mcp-playwright",
+  "github_branch": "main"
 }

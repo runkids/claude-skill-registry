@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/ahu-qa"
+  "github_path": ".claude/skills/ahu-qa",
+  "github_branch": "main"
 }

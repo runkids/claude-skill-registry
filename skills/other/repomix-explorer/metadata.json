@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:11:17.535387Z",
   "dir_name": "repomix-explorer",
   "category": "other",
-  "github_path": ".claude/skills/repomix-explorer"
+  "github_path": ".claude/skills/repomix-explorer",
+  "github_branch": "main"
 }

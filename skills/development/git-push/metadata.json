@@ -8,5 +8,6 @@
     "push"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/git-push"
+  "github_path": ".claude/skills/git-push",
+  "github_branch": "main"
 }

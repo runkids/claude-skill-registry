@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:17.904374Z",
   "dir_name": "effect-streams-pipelines",
   "category": "other",
-  "github_path": ".claude/skills/effect-streams-pipelines"
+  "github_path": ".claude/skills/effect-streams-pipelines",
+  "github_branch": "main"
 }

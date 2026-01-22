@@ -8,5 +8,6 @@
     "integration"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/orama-integration"
+  "github_path": ".claude/skills/orama-integration",
+  "github_branch": "main"
 }

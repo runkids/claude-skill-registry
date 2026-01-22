@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:06.825409Z",
   "dir_name": "skill-template-mattgierhart-prd-driven-context-e",
   "category": "other",
-  "github_path": ".claude/skills/SKILL_TEMPLATE"
+  "github_path": ".claude/skills/SKILL_TEMPLATE",
+  "github_branch": "main"
 }

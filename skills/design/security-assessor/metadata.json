@@ -8,5 +8,6 @@
     "assessor"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/security-assessor"
+  "github_path": ".claude/skills/security-assessor",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "specialist"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/presidio-pii-specialist"
+  "github_path": ".claude/skills/presidio-pii-specialist",
+  "github_branch": "main"
 }

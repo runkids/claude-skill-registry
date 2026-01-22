@@ -8,5 +8,6 @@
     "ports"
   ],
   "stars": 5,
-  "github_path": ".claude/skills/packages-ports"
+  "github_path": ".claude/skills/packages-ports",
+  "github_branch": "main"
 }

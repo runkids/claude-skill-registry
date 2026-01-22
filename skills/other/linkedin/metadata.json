@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:10:18.999729Z",
   "dir_name": "linkedin",
   "category": "other",
-  "github_path": ".claude/skills/linkedin"
+  "github_path": ".claude/skills/linkedin",
+  "github_branch": "main"
 }

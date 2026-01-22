@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:04:56.371578Z",
   "dir_name": "execute-task",
   "category": "other",
-  "github_path": ".claude/skills/execute-task"
+  "github_path": ".claude/skills/execute-task",
+  "github_branch": "main"
 }

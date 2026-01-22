@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:08:18.040381Z",
   "dir_name": "agent-skill-bridge",
   "category": "other",
-  "github_path": ".claude/skills/agent-skill-bridge"
+  "github_path": ".claude/skills/agent-skill-bridge",
+  "github_branch": "main"
 }

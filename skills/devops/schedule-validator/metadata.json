@@ -8,5 +8,6 @@
     "validator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/schedule-validator"
+  "github_path": ".claude/skills/schedule-validator",
+  "github_branch": "main"
 }

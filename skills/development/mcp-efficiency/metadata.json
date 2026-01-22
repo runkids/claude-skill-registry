@@ -8,5 +8,6 @@
     "efficiency"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/mcp-efficiency"
+  "github_path": ".claude/skills/mcp-efficiency",
+  "github_branch": "main"
 }

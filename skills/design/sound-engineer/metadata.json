@@ -8,5 +8,6 @@
     "engineer"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/sound-engineer"
+  "github_path": ".claude/skills/sound-engineer",
+  "github_branch": "main"
 }

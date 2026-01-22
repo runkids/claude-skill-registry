@@ -10,5 +10,6 @@
   ],
   "stars": 27,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/format-todo-list"
+  "github_path": ".claude/skills/format-todo-list",
+  "github_branch": "main"
 }

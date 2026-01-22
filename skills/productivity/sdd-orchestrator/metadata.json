@@ -8,5 +8,6 @@
     "orchestrator"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/sdd-orchestrator"
+  "github_path": ".claude/skills/sdd-orchestrator",
+  "github_branch": "main"
 }

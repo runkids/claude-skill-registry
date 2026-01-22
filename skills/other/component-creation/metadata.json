@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:41:57.407919Z",
   "dir_name": "component-creation",
   "category": "other",
-  "github_path": ".claude/skills/component-creation"
+  "github_path": ".claude/skills/component-creation",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:11:45.228786Z",
   "dir_name": "uloop-run-tests",
   "category": "other",
-  "github_path": ".claude/skills/uloop-run-tests"
+  "github_path": ".claude/skills/uloop-run-tests",
+  "github_branch": "main"
 }

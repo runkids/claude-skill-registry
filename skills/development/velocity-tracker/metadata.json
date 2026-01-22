@@ -8,5 +8,6 @@
     "tracker"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/velocity-tracker"
+  "github_path": ".claude/skills/velocity-tracker",
+  "github_branch": "main"
 }

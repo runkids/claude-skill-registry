@@ -9,5 +9,6 @@
   ],
   "stars": 90,
   "source": "SkillsMP Synced Skills",
-  "github_path": "dependency-upgrader"
+  "github_path": "dependency-upgrader",
+  "github_branch": "main"
 }

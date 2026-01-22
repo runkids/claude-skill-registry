@@ -10,5 +10,6 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/effective-rent-analyzer"
+  "github_path": ".claude/skills/effective-rent-analyzer",
+  "github_branch": "main"
 }

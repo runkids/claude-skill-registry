@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:15.541776Z",
   "dir_name": "gh-post-issue-update",
   "category": "other",
-  "github_path": ".claude/skills/gh-post-issue-update"
+  "github_path": ".claude/skills/gh-post-issue-update",
+  "github_branch": "main"
 }

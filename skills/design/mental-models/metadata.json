@@ -8,5 +8,6 @@
     "models"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mental-models"
+  "github_path": ".claude/skills/mental-models",
+  "github_branch": "main"
 }

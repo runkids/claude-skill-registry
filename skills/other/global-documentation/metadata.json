@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:19:35.668023Z",
   "dir_name": "global-documentation",
   "category": "other",
-  "github_path": ".claude/skills/global-documentation"
+  "github_path": ".claude/skills/global-documentation",
+  "github_branch": "main"
 }

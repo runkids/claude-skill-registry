@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:46.539705Z",
   "dir_name": "psychologist-analyst",
   "category": "other",
-  "github_path": ".claude/skills/psychologist-analyst"
+  "github_path": ".claude/skills/psychologist-analyst",
+  "github_branch": "main"
 }

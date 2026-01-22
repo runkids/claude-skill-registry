@@ -10,5 +10,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "detecting-injection",
-  "github_path": ".claude/skills/detecting-injection"
+  "github_path": ".claude/skills/detecting-injection",
+  "github_branch": "main"
 }

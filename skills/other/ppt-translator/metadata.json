@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:06:06.899751Z",
   "dir_name": "ppt-translator",
   "category": "other",
-  "github_path": ".claude/skills/ppt-translator"
+  "github_path": ".claude/skills/ppt-translator",
+  "github_branch": "main"
 }

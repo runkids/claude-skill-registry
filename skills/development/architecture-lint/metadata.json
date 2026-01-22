@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/architecture-lint"
+  "github_path": ".claude/skills/architecture-lint",
+  "github_branch": "main"
 }

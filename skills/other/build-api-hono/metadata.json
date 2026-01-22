@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:18:50.267992Z",
   "dir_name": "build-api-hono",
   "category": "other",
-  "github_path": ".claude/skills/build-api-hono"
+  "github_path": ".claude/skills/build-api-hono",
+  "github_branch": "main"
 }

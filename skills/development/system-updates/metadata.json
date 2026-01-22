@@ -8,5 +8,6 @@
     "updates"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/system-updates"
+  "github_path": ".claude/skills/system-updates",
+  "github_branch": "main"
 }

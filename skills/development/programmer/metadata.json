@@ -7,5 +7,6 @@
     "programmer"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/programmer"
+  "github_path": ".claude/skills/programmer",
+  "github_branch": "main"
 }

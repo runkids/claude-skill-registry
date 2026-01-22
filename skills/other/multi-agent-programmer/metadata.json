@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:27.873355Z",
   "dir_name": "multi-agent-programmer",
   "category": "other",
-  "github_path": ".claude/skills/multi-agent-programmer"
+  "github_path": ".claude/skills/multi-agent-programmer",
+  "github_branch": "main"
 }

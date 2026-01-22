@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:56:32.307044Z",
   "dir_name": "devcontainer-sandboxing",
   "category": "other",
-  "github_path": ".claude/skills/devcontainer-sandboxing"
+  "github_path": ".claude/skills/devcontainer-sandboxing",
+  "github_branch": "main"
 }

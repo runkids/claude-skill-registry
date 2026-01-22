@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:06:59.303742Z",
   "dir_name": "executing-remote-plans",
   "category": "other",
-  "github_path": ".claude/skills/executing-remote-plans"
+  "github_path": ".claude/skills/executing-remote-plans",
+  "github_branch": "main"
 }

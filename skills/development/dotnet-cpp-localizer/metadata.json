@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/dotnet-cpp-localizer"
+  "github_path": ".claude/skills/dotnet-cpp-localizer",
+  "github_branch": "main"
 }

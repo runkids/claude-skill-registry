@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:10.737801Z",
   "dir_name": "agent-coverage-check",
   "category": "other",
-  "github_path": ".claude/skills/agent-coverage-check"
+  "github_path": ".claude/skills/agent-coverage-check",
+  "github_branch": "main"
 }

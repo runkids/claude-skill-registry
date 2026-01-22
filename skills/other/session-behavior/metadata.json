@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:36:34.751617Z",
   "dir_name": "session-behavior",
   "category": "other",
-  "github_path": ".claude/skills/session-behavior"
+  "github_path": ".claude/skills/session-behavior",
+  "github_branch": "main"
 }

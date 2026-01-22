@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:02:07.915695Z",
   "dir_name": "prd-v09-feedback-loop-setup",
   "category": "other",
-  "github_path": ".claude/skills/prd-v09-feedback-loop-setup"
+  "github_path": ".claude/skills/prd-v09-feedback-loop-setup",
+  "github_branch": "main"
 }

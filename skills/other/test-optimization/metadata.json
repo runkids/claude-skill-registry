@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:19.570933Z",
   "dir_name": "test-optimization",
   "category": "other",
-  "github_path": ".claude/skills/test-optimization"
+  "github_path": ".claude/skills/test-optimization",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:24:55.291781Z",
   "dir_name": "token-endpoint-reviewer",
   "category": "other",
-  "github_path": ".claude/skills/token-endpoint-reviewer"
+  "github_path": ".claude/skills/token-endpoint-reviewer",
+  "github_branch": "main"
 }

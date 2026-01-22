@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:49:22.524925Z",
   "dir_name": "phase-4-validator",
   "category": "other",
-  "github_path": ".claude/skills/phase-4-validator"
+  "github_path": ".claude/skills/phase-4-validator",
+  "github_branch": "main"
 }

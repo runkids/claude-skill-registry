@@ -9,5 +9,6 @@
     "generator"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/remotion-tutorial-generator"
+  "github_path": ".claude/skills/remotion-tutorial-generator",
+  "github_branch": "main"
 }

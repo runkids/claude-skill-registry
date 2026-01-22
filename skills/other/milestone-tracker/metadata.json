@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:50:14.472744Z",
   "dir_name": "milestone-tracker",
   "category": "other",
-  "github_path": ".claude/skills/milestone-tracker"
+  "github_path": ".claude/skills/milestone-tracker",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:35:21.309385Z",
   "dir_name": "aurora-development",
   "category": "other",
-  "github_path": ".claude/skills/aurora-development"
+  "github_path": ".claude/skills/aurora-development",
+  "github_branch": "main"
 }

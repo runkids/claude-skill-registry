@@ -9,5 +9,6 @@
   ],
   "stars": 3,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/docusaurus-themes"
+  "github_path": ".claude/skills/docusaurus-themes",
+  "github_branch": "main"
 }

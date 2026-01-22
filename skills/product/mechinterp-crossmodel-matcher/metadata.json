@@ -9,5 +9,6 @@
     "matcher"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mechinterp-crossmodel-matcher"
+  "github_path": ".claude/skills/mechinterp-crossmodel-matcher",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:02:33.537520Z",
   "dir_name": "project-memory",
   "category": "other",
-  "github_path": ".claude/skills/project-memory"
+  "github_path": ".claude/skills/project-memory",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:04.378773Z",
   "dir_name": "structure-app",
   "category": "other",
-  "github_path": ".claude/skills/structure-app"
+  "github_path": ".claude/skills/structure-app",
+  "github_branch": "main"
 }

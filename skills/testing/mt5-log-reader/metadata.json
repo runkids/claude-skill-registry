@@ -9,5 +9,6 @@
     "reader"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mt5-log-reader"
+  "github_path": ".claude/skills/mt5-log-reader",
+  "github_branch": "main"
 }

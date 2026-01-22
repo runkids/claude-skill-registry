@@ -5,5 +5,6 @@
   "description": "自动玩猜词游戏",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:31.935479Z",
-  "github_path": ".claude/skills/guess-word"
+  "github_path": ".claude/skills/guess-word",
+  "github_branch": "main"
 }

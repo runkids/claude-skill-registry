@@ -8,5 +8,6 @@
     "manual"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/view-manual"
+  "github_path": ".claude/skills/view-manual",
+  "github_branch": "main"
 }

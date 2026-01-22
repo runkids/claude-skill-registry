@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:12.056582Z",
   "dir_name": "pdf-processor",
   "category": "other",
-  "github_path": ".claude/skills/pdf-processor"
+  "github_path": ".claude/skills/pdf-processor",
+  "github_branch": "main"
 }

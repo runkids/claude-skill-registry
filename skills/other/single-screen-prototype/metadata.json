@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:01:13.593609Z",
   "dir_name": "single-screen-prototype",
   "category": "other",
-  "github_path": ".claude/skills/single-screen-prototype"
+  "github_path": ".claude/skills/single-screen-prototype",
+  "github_branch": "main"
 }

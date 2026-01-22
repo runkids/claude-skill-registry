@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:36:38.476090Z",
   "dir_name": "optical-refinement",
   "category": "other",
-  "github_path": ".claude/skills/optical-refinement"
+  "github_path": ".claude/skills/optical-refinement",
+  "github_branch": "main"
 }

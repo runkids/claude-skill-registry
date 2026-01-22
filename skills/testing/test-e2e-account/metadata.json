@@ -9,5 +9,6 @@
     "account"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/test-e2e-account"
+  "github_path": ".claude/skills/test-e2e-account",
+  "github_branch": "main"
 }

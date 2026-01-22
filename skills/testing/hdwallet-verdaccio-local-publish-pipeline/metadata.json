@@ -12,5 +12,6 @@
   ],
   "stars": 198,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/hdwallet-verdaccio-local-publish-pipeline"
+  "github_path": ".claude/skills/hdwallet-verdaccio-local-publish-pipeline",
+  "github_branch": "main"
 }

@@ -5,5 +5,6 @@
   "description": "Plan, implement, track, and reflect on your work goals and decisions.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:31.180109Z",
-  "github_path": ".claude/skills/deciduous"
+  "github_path": ".claude/skills/deciduous",
+  "github_branch": "main"
 }

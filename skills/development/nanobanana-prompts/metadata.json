@@ -8,5 +8,6 @@
     "prompts"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/nanobanana-prompts"
+  "github_path": ".claude/skills/nanobanana-prompts",
+  "github_branch": "main"
 }

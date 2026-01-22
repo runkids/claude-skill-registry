@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:03.105769Z",
   "dir_name": "contributing-guide",
   "category": "other",
-  "github_path": ".claude/skills/contributing-guide"
+  "github_path": ".claude/skills/contributing-guide",
+  "github_branch": "main"
 }

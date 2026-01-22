@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:55.216337Z",
   "dir_name": "refresh-claude",
   "category": "other",
-  "github_path": ".claude/skills/refresh-claude"
+  "github_path": ".claude/skills/refresh-claude",
+  "github_branch": "main"
 }

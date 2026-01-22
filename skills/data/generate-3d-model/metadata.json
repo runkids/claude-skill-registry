@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "generate-3d-model",
-  "github_path": ".claude/skills/generate-3d-model"
+  "github_path": ".claude/skills/generate-3d-model",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "comments"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/gh-get-review-comments"
+  "github_path": ".claude/skills/gh-get-review-comments",
+  "github_branch": "main"
 }

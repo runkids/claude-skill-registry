@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:46:04.843315Z",
   "dir_name": "v3-integration-deep",
   "category": "other",
-  "github_path": ".claude/skills/v3-integration-deep"
+  "github_path": ".claude/skills/v3-integration-deep",
+  "github_branch": "main"
 }

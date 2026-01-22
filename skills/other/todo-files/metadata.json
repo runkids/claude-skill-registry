@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:28:20.840019Z",
   "dir_name": "todo-files",
   "category": "other",
-  "github_path": ".claude/skills/todo-files"
+  "github_path": ".claude/skills/todo-files",
+  "github_branch": "main"
 }

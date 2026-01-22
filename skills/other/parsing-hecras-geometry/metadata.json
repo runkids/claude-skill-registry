@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:06:58.916458Z",
   "dir_name": "parsing-hecras-geometry",
   "category": "other",
-  "github_path": ".claude/skills/parsing-hecras-geometry"
+  "github_path": ".claude/skills/parsing-hecras-geometry",
+  "github_branch": "main"
 }

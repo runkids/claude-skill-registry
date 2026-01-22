@@ -7,5 +7,6 @@
     "improve"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/sc-improve"
+  "github_path": ".claude/skills/sc-improve",
+  "github_branch": "main"
 }

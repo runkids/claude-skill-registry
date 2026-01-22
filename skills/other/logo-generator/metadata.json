@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:05:10.189525Z",
   "dir_name": "logo-generator",
   "category": "other",
-  "github_path": ".claude/skills/logo-generator"
+  "github_path": ".claude/skills/logo-generator",
+  "github_branch": "main"
 }

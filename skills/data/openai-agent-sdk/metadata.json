@@ -10,5 +10,6 @@
   ],
   "stars": 2,
   "dir_name": "openai-agent-sdk",
-  "github_path": ".claude/skills/openai-agent-sdk"
+  "github_path": ".claude/skills/openai-agent-sdk",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:29:20.303752Z",
   "dir_name": "weekly-report",
   "category": "other",
-  "github_path": ".claude/skills/weekly-report"
+  "github_path": ".claude/skills/weekly-report",
+  "github_branch": "main"
 }

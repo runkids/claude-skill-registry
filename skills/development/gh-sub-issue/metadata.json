@@ -8,5 +8,6 @@
     "issue"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/gh-sub-issue"
+  "github_path": ".claude/skills/gh-sub-issue",
+  "github_branch": "main"
 }

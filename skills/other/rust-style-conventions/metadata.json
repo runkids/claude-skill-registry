@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:55.399405Z",
   "dir_name": "rust-style-conventions",
   "category": "other",
-  "github_path": ".claude/skills/rust-style-conventions"
+  "github_path": ".claude/skills/rust-style-conventions",
+  "github_branch": "main"
 }

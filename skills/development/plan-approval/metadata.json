@@ -8,5 +8,6 @@
     "approval"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/plan-approval"
+  "github_path": ".claude/skills/plan-approval",
+  "github_branch": "main"
 }

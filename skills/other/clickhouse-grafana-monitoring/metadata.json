@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:32:11.298852Z",
   "dir_name": "clickhouse-grafana-monitoring",
   "category": "other",
-  "github_path": ".claude/skills/clickhouse-grafana-monitoring"
+  "github_path": ".claude/skills/clickhouse-grafana-monitoring",
+  "github_branch": "main"
 }

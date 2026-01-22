@@ -8,5 +8,6 @@
     "advisor"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/quality-advisor"
+  "github_path": ".claude/skills/quality-advisor",
+  "github_branch": "main"
 }

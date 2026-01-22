@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:02.635177Z",
   "dir_name": "iso27001-controls",
   "category": "other",
-  "github_path": ".claude/skills/iso27001-controls"
+  "github_path": ".claude/skills/iso27001-controls",
+  "github_branch": "main"
 }

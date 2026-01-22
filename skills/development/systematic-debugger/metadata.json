@@ -8,5 +8,6 @@
     "debugger"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/systematic-debugger"
+  "github_path": ".claude/skills/systematic-debugger",
+  "github_branch": "main"
 }

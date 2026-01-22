@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:53.467139Z",
   "dir_name": "customer-support-120",
   "category": "other",
-  "github_path": ".claude/skills/customer-support-120"
+  "github_path": ".claude/skills/customer-support-120",
+  "github_branch": "main"
 }

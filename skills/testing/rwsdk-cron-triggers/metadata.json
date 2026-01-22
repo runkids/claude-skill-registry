@@ -9,5 +9,6 @@
     "triggers"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rwsdk-cron-triggers"
+  "github_path": ".claude/skills/rwsdk-cron-triggers",
+  "github_branch": "main"
 }

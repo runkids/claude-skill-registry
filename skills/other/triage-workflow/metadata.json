@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:20.828310Z",
   "dir_name": "triage-workflow",
   "category": "other",
-  "github_path": ".claude/skills/triage-workflow"
+  "github_path": ".claude/skills/triage-workflow",
+  "github_branch": "main"
 }

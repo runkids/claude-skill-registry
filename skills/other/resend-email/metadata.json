@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:37:02.945816Z",
   "dir_name": "resend-email",
   "category": "other",
-  "github_path": ".claude/skills/resend-email"
+  "github_path": ".claude/skills/resend-email",
+  "github_branch": "main"
 }

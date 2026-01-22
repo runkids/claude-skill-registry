@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:04.448872Z",
   "dir_name": "fix-hierarchy",
   "category": "other",
-  "github_path": ".claude/skills/fix-hierarchy"
+  "github_path": ".claude/skills/fix-hierarchy",
+  "github_branch": "main"
 }

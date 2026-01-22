@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:26:47.375395Z",
   "dir_name": "tests-feature-create",
   "category": "other",
-  "github_path": ".claude/skills/tests-feature-create"
+  "github_path": ".claude/skills/tests-feature-create",
+  "github_branch": "main"
 }

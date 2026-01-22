@@ -8,5 +8,6 @@
     "fetch"
   ],
   "stars": 23,
-  "github_path": ".claude/skills/web-fetch"
+  "github_path": ".claude/skills/web-fetch",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:07:23.722319Z",
   "dir_name": "upgrade-oxc",
   "category": "other",
-  "github_path": ".claude/skills/upgrade-oxc"
+  "github_path": ".claude/skills/upgrade-oxc",
+  "github_branch": "main"
 }

@@ -10,5 +10,6 @@
   "stars": 496,
   "source": "SkillsMP Synced Skills",
   "dir_name": "sql-translation",
-  "github_path": ".claude/skills/sql-translation"
+  "github_path": ".claude/skills/sql-translation",
+  "github_branch": "main"
 }

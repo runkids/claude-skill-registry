@@ -9,5 +9,6 @@
     "optimization"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mean-variance-optimization"
+  "github_path": ".claude/skills/mean-variance-optimization",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "helix"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/mmd-device-helix"
+  "github_path": ".claude/skills/mmd-device-helix",
+  "github_branch": "main"
 }

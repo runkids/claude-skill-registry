@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:02.263505Z",
   "dir_name": "brain-organizer",
   "category": "other",
-  "github_path": ".claude/skills/brain-organizer"
+  "github_path": ".claude/skills/brain-organizer",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "patterns"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/version-changelog-patterns"
+  "github_path": ".claude/skills/version-changelog-patterns",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:53:14.180210Z",
   "dir_name": "google-style-guide",
   "category": "other",
-  "github_path": ".claude/skills/google-style-guide"
+  "github_path": ".claude/skills/google-style-guide",
+  "github_branch": "main"
 }

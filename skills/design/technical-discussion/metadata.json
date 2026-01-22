@@ -8,5 +8,6 @@
     "discussion"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/technical-discussion"
+  "github_path": ".claude/skills/technical-discussion",
+  "github_branch": "main"
 }

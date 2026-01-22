@@ -8,5 +8,6 @@
     "scaffold"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/site-scaffold"
+  "github_path": ".claude/skills/site-scaffold",
+  "github_branch": "main"
 }

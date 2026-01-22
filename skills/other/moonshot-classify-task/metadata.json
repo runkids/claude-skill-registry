@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:51:01.463534Z",
   "dir_name": "moonshot-classify-task",
   "category": "other",
-  "github_path": ".claude/skills/moonshot-classify-task"
+  "github_path": ".claude/skills/moonshot-classify-task",
+  "github_branch": "main"
 }

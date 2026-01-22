@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:52:15.698685Z",
   "dir_name": "codex-review",
   "category": "other",
-  "github_path": ".claude/skills/codex-review"
+  "github_path": ".claude/skills/codex-review",
+  "github_branch": "main"
 }

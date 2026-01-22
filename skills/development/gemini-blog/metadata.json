@@ -8,5 +8,6 @@
     "blog"
   ],
   "stars": 13,
-  "github_path": ".claude/skills/gemini-blog"
+  "github_path": ".claude/skills/gemini-blog",
+  "github_branch": "main"
 }

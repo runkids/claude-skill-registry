@@ -8,5 +8,6 @@
     "scorer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/ice-scorer"
+  "github_path": ".claude/skills/ice-scorer",
+  "github_branch": "main"
 }

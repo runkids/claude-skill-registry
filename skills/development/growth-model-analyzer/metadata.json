@@ -9,5 +9,6 @@
     "analyzer"
   ],
   "stars": 32,
-  "github_path": ".claude/skills/growth-model-analyzer"
+  "github_path": ".claude/skills/growth-model-analyzer",
+  "github_branch": "main"
 }

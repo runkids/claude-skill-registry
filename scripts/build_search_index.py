@@ -170,6 +170,7 @@ def scan_skills_v2(skills_dir: Path) -> List[Dict]:
             # Build install path
             repo = metadata.get("repo", "")
             github_path = metadata.get("github_path", "")
+            github_branch = metadata.get("github_branch", "main")  # Default to main
 
             if github_path and repo:
                 install = f"{repo}/{github_path}"
@@ -184,6 +185,7 @@ def scan_skills_v2(skills_dir: Path) -> List[Dict]:
                 "description": description,
                 "repo": repo,
                 "path": github_path,
+                "branch": github_branch,
                 "category": category,
                 "tags": metadata.get("tags", []),
                 "stars": metadata.get("stars", 0),
@@ -221,6 +223,7 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
         stars = skill.get('stars', 0)
         repo = skill.get('repo', '')
         install = skill.get('install', repo)
+        branch = skill.get('branch', 'main')
 
         # Minimal record
         mini_record = {
@@ -229,7 +232,8 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
             "c": get_category_code(category),
             "g": tags[:5] if tags else [],
             "r": stars,
-            "i": install
+            "i": install,
+            "b": branch  # branch for GitHub URL
         }
         search_index["s"].append(mini_record)
 
@@ -239,6 +243,7 @@ def build_search_index(skills: List[Dict], output_dir: Path, source_name: str = 
             "description": truncate_text(description, 200),
             "repo": repo,
             "path": skill.get('path', ''),
+            "branch": branch,
             "category": category,
             "tags": tags[:10] if tags else [],
             "stars": stars,

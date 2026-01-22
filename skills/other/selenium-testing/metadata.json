@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:31.161763Z",
   "dir_name": "selenium-testing",
   "category": "other",
-  "github_path": ".claude/skills/selenium-testing"
+  "github_path": ".claude/skills/selenium-testing",
+  "github_branch": "main"
 }

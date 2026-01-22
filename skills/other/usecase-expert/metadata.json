@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:32:19.447104Z",
   "dir_name": "usecase-expert",
   "category": "other",
-  "github_path": ".claude/skills/usecase-expert"
+  "github_path": ".claude/skills/usecase-expert",
+  "github_branch": "main"
 }

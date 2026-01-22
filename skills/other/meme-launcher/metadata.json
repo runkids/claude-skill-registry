@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:33:50.818684Z",
   "dir_name": "meme-launcher",
   "category": "other",
-  "github_path": ".claude/skills/meme-launcher"
+  "github_path": ".claude/skills/meme-launcher",
+  "github_branch": "main"
 }

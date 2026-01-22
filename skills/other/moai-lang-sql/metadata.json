@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:18.996221Z",
   "dir_name": "moai-lang-sql",
   "category": "other",
-  "github_path": ".claude/skills/moai-lang-sql"
+  "github_path": ".claude/skills/moai-lang-sql",
+  "github_branch": "main"
 }

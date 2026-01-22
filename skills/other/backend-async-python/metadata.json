@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T00:52:52.154520Z",
   "dir_name": "backend-async-python",
   "category": "other",
-  "github_path": ".claude/skills/backend-async-python"
+  "github_path": ".claude/skills/backend-async-python",
+  "github_branch": "main"
 }

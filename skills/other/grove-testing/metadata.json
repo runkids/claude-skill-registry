@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:45:00.041609Z",
   "dir_name": "grove-testing",
   "category": "other",
-  "github_path": ".claude/skills/grove-testing"
+  "github_path": ".claude/skills/grove-testing",
+  "github_branch": "main"
 }

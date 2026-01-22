@@ -9,5 +9,6 @@
     "workflow"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/spec-creation-workflow"
+  "github_path": ".claude/skills/spec-creation-workflow",
+  "github_branch": "main"
 }

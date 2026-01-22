@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:43:39.387330Z",
   "dir_name": "api-testing",
   "category": "other",
-  "github_path": ".claude/skills/api-testing"
+  "github_path": ".claude/skills/api-testing",
+  "github_branch": "main"
 }

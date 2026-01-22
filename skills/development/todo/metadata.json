@@ -7,5 +7,6 @@
     "todo"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/todo"
+  "github_path": ".claude/skills/todo",
+  "github_branch": "main"
 }

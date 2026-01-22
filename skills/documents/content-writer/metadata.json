@@ -9,5 +9,6 @@
   ],
   "stars": 57,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/content-writer"
+  "github_path": ".claude/skills/content-writer",
+  "github_branch": "main"
 }

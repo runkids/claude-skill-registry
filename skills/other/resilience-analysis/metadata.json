@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T03:56:17.150462Z",
   "dir_name": "resilience-analysis",
   "category": "other",
-  "github_path": ".claude/skills/resilience-analysis"
+  "github_path": ".claude/skills/resilience-analysis",
+  "github_branch": "main"
 }

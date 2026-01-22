@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:53.687031Z",
   "dir_name": "usasoc",
   "category": "other",
-  "github_path": ".claude/skills/usasoc"
+  "github_path": ".claude/skills/usasoc",
+  "github_branch": "main"
 }

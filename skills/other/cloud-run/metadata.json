@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:17:07.351717Z",
   "dir_name": "cloud-run",
   "category": "other",
-  "github_path": ".claude/skills/cloud-run"
+  "github_path": ".claude/skills/cloud-run",
+  "github_branch": "main"
 }

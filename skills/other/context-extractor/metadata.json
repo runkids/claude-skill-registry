@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-20T01:28:25.738662Z",
   "dir_name": "context-extractor",
   "category": "other",
-  "github_path": ".claude/skills/context-extractor"
+  "github_path": ".claude/skills/context-extractor",
+  "github_branch": "main"
 }

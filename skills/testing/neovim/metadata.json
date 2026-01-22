@@ -7,5 +7,6 @@
     "neovim"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/neovim"
+  "github_path": ".claude/skills/neovim",
+  "github_branch": "main"
 }

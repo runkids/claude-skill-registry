@@ -8,5 +8,6 @@
     "handoff"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/session-handoff"
+  "github_path": ".claude/skills/session-handoff",
+  "github_branch": "main"
 }

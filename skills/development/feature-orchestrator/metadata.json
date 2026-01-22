@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/feature-orchestrator"
+  "github_path": ".claude/skills/feature-orchestrator",
+  "github_branch": "main"
 }

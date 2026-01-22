@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:51:16.125566Z",
   "dir_name": "git-workflow-automation",
   "category": "other",
-  "github_path": ".claude/skills/git-workflow-automation"
+  "github_path": ".claude/skills/git-workflow-automation",
+  "github_branch": "main"
 }

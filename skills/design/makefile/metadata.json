@@ -7,5 +7,6 @@
     "makefile"
   ],
   "stars": 2,
-  "github_path": ".claude/skills/makefile"
+  "github_path": ".claude/skills/makefile",
+  "github_branch": "main"
 }

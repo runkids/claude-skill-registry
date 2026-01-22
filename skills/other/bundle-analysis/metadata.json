@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:24:54.855279Z",
   "dir_name": "bundle-analysis",
   "category": "other",
-  "github_path": ".claude/skills/bundle-analysis"
+  "github_path": ".claude/skills/bundle-analysis",
+  "github_branch": "main"
 }

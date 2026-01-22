@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:33.884945Z",
   "dir_name": "validation",
   "category": "other",
-  "github_path": ".claude/skills/validation"
+  "github_path": ".claude/skills/validation",
+  "github_branch": "main"
 }

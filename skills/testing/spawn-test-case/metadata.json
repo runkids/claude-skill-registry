@@ -5,5 +5,6 @@
   "description": "테스트 케이스 생성을 test-case-agent에 위임",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:09:44.417056Z",
-  "github_path": ".claude/skills/spawn-test-case"
+  "github_path": ".claude/skills/spawn-test-case",
+  "github_branch": "main"
 }

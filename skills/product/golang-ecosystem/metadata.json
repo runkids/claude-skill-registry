@@ -5,5 +5,6 @@
   "description": "This skill should be used when the user asks to",
   "source": "GitHub Search API",
   "downloaded_at": "2026-01-08T03:20:13.649143Z",
-  "github_path": ".claude/skills/golang-ecosystem"
+  "github_path": ".claude/skills/golang-ecosystem",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:54.329174Z",
   "dir_name": "cross-repo-coordination",
   "category": "other",
-  "github_path": ".claude/skills/cross-repo-coordination"
+  "github_path": ".claude/skills/cross-repo-coordination",
+  "github_branch": "main"
 }

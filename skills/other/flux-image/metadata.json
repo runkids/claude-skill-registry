@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:50:06.105308Z",
   "dir_name": "flux-image",
   "category": "other",
-  "github_path": ".claude/skills/flux-image"
+  "github_path": ".claude/skills/flux-image",
+  "github_branch": "main"
 }

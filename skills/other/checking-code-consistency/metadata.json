@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-21T00:52:53.594935Z",
   "dir_name": "checking-code-consistency",
   "category": "other",
-  "github_path": ".claude/skills/checking-code-consistency"
+  "github_path": ".claude/skills/checking-code-consistency",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:44:57.430326Z",
   "dir_name": "loading-datasets",
   "category": "other",
-  "github_path": ".claude/skills/loading-datasets"
+  "github_path": ".claude/skills/loading-datasets",
+  "github_branch": "main"
 }

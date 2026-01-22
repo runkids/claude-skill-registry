@@ -8,5 +8,6 @@
     "chatbot"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/rag-chatbot"
+  "github_path": ".claude/skills/rag-chatbot",
+  "github_branch": "main"
 }

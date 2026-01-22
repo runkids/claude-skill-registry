@@ -8,5 +8,6 @@
     "eval"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/screenshot-eval"
+  "github_path": ".claude/skills/screenshot-eval",
+  "github_branch": "main"
 }

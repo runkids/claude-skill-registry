@@ -9,5 +9,6 @@
     "builder"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/use-case-builder"
+  "github_path": ".claude/skills/use-case-builder",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:45:51.763467Z",
   "dir_name": "development-guidelines",
   "category": "other",
-  "github_path": ".claude/skills/development-guidelines"
+  "github_path": ".claude/skills/development-guidelines",
+  "github_branch": "main"
 }

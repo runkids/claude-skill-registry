@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:06:46.986668Z",
   "dir_name": "fastapi-patterns",
   "category": "other",
-  "github_path": ".claude/skills/fastapi-patterns"
+  "github_path": ".claude/skills/fastapi-patterns",
+  "github_branch": "main"
 }

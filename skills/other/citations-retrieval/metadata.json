@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-19T04:20:38.603436Z",
   "dir_name": "citations-retrieval",
   "category": "other",
-  "github_path": ".claude/skills/citations-retrieval"
+  "github_path": ".claude/skills/citations-retrieval",
+  "github_branch": "main"
 }

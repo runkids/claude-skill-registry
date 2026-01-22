@@ -8,5 +8,6 @@
     "boot"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/spring-boot"
+  "github_path": ".claude/skills/spring-boot",
+  "github_branch": "main"
 }

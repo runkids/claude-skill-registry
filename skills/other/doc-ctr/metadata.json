@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-17T01:48:50.738640Z",
   "dir_name": "doc-ctr",
   "category": "other",
-  "github_path": ".claude/skills/doc-ctr"
+  "github_path": ".claude/skills/doc-ctr",
+  "github_branch": "main"
 }

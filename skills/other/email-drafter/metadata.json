@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:18:50.920610Z",
   "dir_name": "email-drafter",
   "category": "other",
-  "github_path": ".claude/skills/email-drafter"
+  "github_path": ".claude/skills/email-drafter",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:12:39.408487Z",
   "dir_name": "notification-trigger",
   "category": "other",
-  "github_path": ".claude/skills/notification-trigger"
+  "github_path": ".claude/skills/notification-trigger",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
   ],
   "stars": 215,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/pptx-posters"
+  "github_path": ".claude/skills/pptx-posters",
+  "github_branch": "main"
 }

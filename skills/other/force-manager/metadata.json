@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:09:53.615283Z",
   "dir_name": "force-manager",
   "category": "other",
-  "github_path": ".claude/skills/force-manager"
+  "github_path": ".claude/skills/force-manager",
+  "github_branch": "main"
 }

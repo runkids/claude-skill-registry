@@ -8,5 +8,6 @@
     "data"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/tmdb-data"
+  "github_path": ".claude/skills/tmdb-data",
+  "github_branch": "main"
 }

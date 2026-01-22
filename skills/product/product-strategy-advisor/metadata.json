@@ -9,5 +9,6 @@
     "advisor"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/product-strategy-advisor"
+  "github_path": ".claude/skills/product-strategy-advisor",
+  "github_branch": "main"
 }

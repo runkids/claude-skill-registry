@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/control-loop-extraction"
+  "github_path": ".claude/skills/control-loop-extraction",
+  "github_branch": "main"
 }

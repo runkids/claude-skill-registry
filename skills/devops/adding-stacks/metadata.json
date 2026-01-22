@@ -9,5 +9,6 @@
   ],
   "stars": 6,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/adding-stacks"
+  "github_path": ".claude/skills/adding-stacks",
+  "github_branch": "main"
 }

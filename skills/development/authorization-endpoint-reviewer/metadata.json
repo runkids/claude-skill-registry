@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/authorization-endpoint-reviewer"
+  "github_path": ".claude/skills/authorization-endpoint-reviewer",
+  "github_branch": "main"
 }

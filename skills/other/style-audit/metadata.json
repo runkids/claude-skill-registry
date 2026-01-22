@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:56.949050Z",
   "dir_name": "style-audit",
   "category": "other",
-  "github_path": ".claude/skills/style-audit"
+  "github_path": ".claude/skills/style-audit",
+  "github_branch": "main"
 }

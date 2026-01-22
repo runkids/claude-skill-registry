@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:17:43.539817Z",
   "dir_name": "coder",
   "category": "other",
-  "github_path": ".claude/skills/coder"
+  "github_path": ".claude/skills/coder",
+  "github_branch": "main"
 }

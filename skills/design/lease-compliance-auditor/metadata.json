@@ -9,5 +9,6 @@
     "auditor"
   ],
   "stars": 4,
-  "github_path": ".claude/skills/lease-compliance-auditor"
+  "github_path": ".claude/skills/lease-compliance-auditor",
+  "github_branch": "main"
 }

@@ -9,5 +9,6 @@
     "dependency"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/validate-sibling-dependency"
+  "github_path": ".claude/skills/validate-sibling-dependency",
+  "github_branch": "main"
 }

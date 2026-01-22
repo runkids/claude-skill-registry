@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:57.486740Z",
   "dir_name": "intent-analyzer",
   "category": "other",
-  "github_path": ".claude/skills/intent-analyzer"
+  "github_path": ".claude/skills/intent-analyzer",
+  "github_branch": "main"
 }

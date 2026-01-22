@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:07:31.689775Z",
   "dir_name": "resolve-duplicates",
   "category": "other",
-  "github_path": ".claude/skills/resolve-duplicates"
+  "github_path": ".claude/skills/resolve-duplicates",
+  "github_branch": "main"
 }

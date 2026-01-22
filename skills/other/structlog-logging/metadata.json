@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:47:31.226835Z",
   "dir_name": "structlog-logging",
   "category": "other",
-  "github_path": ".claude/skills/structlog-logging"
+  "github_path": ".claude/skills/structlog-logging",
+  "github_branch": "main"
 }

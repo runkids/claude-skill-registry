@@ -7,5 +7,6 @@
     "copywriting"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/copywriting"
+  "github_path": ".claude/skills/copywriting",
+  "github_branch": "main"
 }

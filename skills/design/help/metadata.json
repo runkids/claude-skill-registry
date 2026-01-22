@@ -7,5 +7,6 @@
     "help"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/help"
+  "github_path": ".claude/skills/help",
+  "github_branch": "main"
 }

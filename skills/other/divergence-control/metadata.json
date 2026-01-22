@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:09:22.440399Z",
   "dir_name": "divergence-control",
   "category": "other",
-  "github_path": ".claude/skills/divergence-control"
+  "github_path": ".claude/skills/divergence-control",
+  "github_branch": "main"
 }

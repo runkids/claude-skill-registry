@@ -11,5 +11,6 @@
   "stars": 0,
   "source": "SkillsMP Synced Skills",
   "dir_name": "domain-constants-config",
-  "github_path": ".claude/skills/domain-constants-config"
+  "github_path": ".claude/skills/domain-constants-config",
+  "github_branch": "main"
 }

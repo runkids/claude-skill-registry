@@ -8,5 +8,6 @@
     "debugging"
   ],
   "stars": 35,
-  "github_path": ".claude/skills/starwards-ci-debugging"
+  "github_path": ".claude/skills/starwards-ci-debugging",
+  "github_branch": "master"
 }

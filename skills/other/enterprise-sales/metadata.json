@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:01.292864Z",
   "dir_name": "enterprise-sales",
   "category": "other",
-  "github_path": ".claude/skills/enterprise-sales"
+  "github_path": ".claude/skills/enterprise-sales",
+  "github_branch": "main"
 }

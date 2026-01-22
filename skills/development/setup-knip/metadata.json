@@ -8,5 +8,6 @@
     "knip"
   ],
   "stars": 27,
-  "github_path": ".claude/skills/setup-knip"
+  "github_path": ".claude/skills/setup-knip",
+  "github_branch": "main"
 }

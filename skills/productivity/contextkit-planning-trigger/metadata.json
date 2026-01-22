@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/contextkit-planning-trigger"
+  "github_path": ".claude/skills/contextkit-planning-trigger",
+  "github_branch": "main"
 }

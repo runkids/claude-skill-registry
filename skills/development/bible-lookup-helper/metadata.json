@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/bible-lookup-helper"
+  "github_path": ".claude/skills/bible-lookup-helper",
+  "github_branch": "main"
 }

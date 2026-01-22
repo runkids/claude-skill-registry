@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:38:59.577202Z",
   "dir_name": "interactive-planner",
   "category": "other",
-  "github_path": ".claude/skills/interactive-planner"
+  "github_path": ".claude/skills/interactive-planner",
+  "github_branch": "main"
 }

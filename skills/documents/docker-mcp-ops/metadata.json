@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/docker-mcp-ops"
+  "github_path": ".claude/skills/docker-mcp-ops",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:08:34.894006Z",
   "dir_name": "ai-native-workflow",
   "category": "other",
-  "github_path": ".claude/skills/ai-native-workflow"
+  "github_path": ".claude/skills/ai-native-workflow",
+  "github_branch": "main"
 }

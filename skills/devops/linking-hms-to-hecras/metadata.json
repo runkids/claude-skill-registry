@@ -9,5 +9,6 @@
     "hecras"
   ],
   "stars": 1,
-  "github_path": ".claude/skills/linking-hms-to-hecras"
+  "github_path": ".claude/skills/linking-hms-to-hecras",
+  "github_branch": "main"
 }

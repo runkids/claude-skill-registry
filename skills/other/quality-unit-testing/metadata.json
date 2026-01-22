@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:10:18.242081Z",
   "dir_name": "quality-unit-testing",
   "category": "other",
-  "github_path": ".claude/skills/quality-unit-testing"
+  "github_path": ".claude/skills/quality-unit-testing",
+  "github_branch": "main"
 }

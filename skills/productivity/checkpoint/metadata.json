@@ -7,5 +7,6 @@
     "checkpoint"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/checkpoint"
+  "github_path": ".claude/skills/checkpoint",
+  "github_branch": "main"
 }

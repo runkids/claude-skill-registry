@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "github_path": ".claude/skills/code-reuse-enforcement"
+  "github_path": ".claude/skills/code-reuse-enforcement",
+  "github_branch": "main"
 }

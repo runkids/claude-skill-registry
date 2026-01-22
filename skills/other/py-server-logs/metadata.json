@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:05:23.980008Z",
   "dir_name": "py-server-logs",
   "category": "other",
-  "github_path": ".claude/skills/py-server-logs"
+  "github_path": ".claude/skills/py-server-logs",
+  "github_branch": "main"
 }

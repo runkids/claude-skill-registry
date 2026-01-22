@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:21:45.004909Z",
   "dir_name": "storage-format",
   "category": "other",
-  "github_path": ".claude/skills/storage-format"
+  "github_path": ".claude/skills/storage-format",
+  "github_branch": "main"
 }

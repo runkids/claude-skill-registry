@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T01:28:38.045833Z",
   "dir_name": "building-project",
   "category": "other",
-  "github_path": ".claude/skills/building-project"
+  "github_path": ".claude/skills/building-project",
+  "github_branch": "main"
 }

@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T04:08:01.519916Z",
   "dir_name": "smart-rules",
   "category": "other",
-  "github_path": ".claude/skills/smart-rules"
+  "github_path": ".claude/skills/smart-rules",
+  "github_branch": "main"
 }

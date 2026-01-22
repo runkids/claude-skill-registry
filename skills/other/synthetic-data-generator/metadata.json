@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:30:16.060116Z",
   "dir_name": "synthetic-data-generator",
   "category": "other",
-  "github_path": ".claude/skills/synthetic-data-generator"
+  "github_path": ".claude/skills/synthetic-data-generator",
+  "github_branch": "main"
 }

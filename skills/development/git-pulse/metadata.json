@@ -8,5 +8,6 @@
     "pulse"
   ],
   "stars": 7,
-  "github_path": ".claude/skills/git-pulse"
+  "github_path": ".claude/skills/git-pulse",
+  "github_branch": "main"
 }

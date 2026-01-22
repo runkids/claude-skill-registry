@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T03:44:40.687956Z",
   "dir_name": "beta-test-cycles",
   "category": "other",
-  "github_path": ".claude/skills/beta-test-cycles"
+  "github_path": ".claude/skills/beta-test-cycles",
+  "github_branch": "main"
 }

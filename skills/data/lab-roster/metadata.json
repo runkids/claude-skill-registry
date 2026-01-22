@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "dir_name": "lab-roster",
-  "github_path": ".claude/skills/lab-roster"
+  "github_path": ".claude/skills/lab-roster",
+  "github_branch": "main"
 }

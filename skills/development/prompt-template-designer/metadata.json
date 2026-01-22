@@ -9,5 +9,6 @@
     "designer"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/prompt-template-designer"
+  "github_path": ".claude/skills/prompt-template-designer",
+  "github_branch": "main"
 }

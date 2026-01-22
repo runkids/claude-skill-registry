@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:13:20.504323Z",
   "dir_name": "moai-alfred-personas",
   "category": "other",
-  "github_path": ".claude/skills/moai-alfred-personas"
+  "github_path": ".claude/skills/moai-alfred-personas",
+  "github_branch": "main"
 }

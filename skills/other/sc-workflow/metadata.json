@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:21:07.052593Z",
   "dir_name": "sc-workflow",
   "category": "other",
-  "github_path": ".claude/skills/sc-workflow"
+  "github_path": ".claude/skills/sc-workflow",
+  "github_branch": "main"
 }

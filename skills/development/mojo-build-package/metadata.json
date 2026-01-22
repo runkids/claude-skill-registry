@@ -9,5 +9,6 @@
     "package"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/mojo-build-package"
+  "github_path": ".claude/skills/mojo-build-package",
+  "github_branch": "main"
 }

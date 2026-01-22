@@ -8,5 +8,6 @@
     "manager"
   ],
   "stars": 10,
-  "github_path": ".claude/skills/mcp-manager"
+  "github_path": ".claude/skills/mcp-manager",
+  "github_branch": "main"
 }

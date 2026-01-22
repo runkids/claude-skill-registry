@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-14T03:37:11.824776Z",
   "dir_name": "memory-graph",
   "category": "other",
-  "github_path": ".claude/skills/memory-graph"
+  "github_path": ".claude/skills/memory-graph",
+  "github_branch": "main"
 }

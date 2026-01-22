@@ -8,5 +8,6 @@
     "designer"
   ],
   "stars": 8,
-  "github_path": ".claude/skills/persona-designer"
+  "github_path": ".claude/skills/persona-designer",
+  "github_branch": "main"
 }

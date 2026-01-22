@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T02:20:21.035177Z",
   "dir_name": "frigate-configurator",
   "category": "other",
-  "github_path": ".claude/skills/frigate-configurator"
+  "github_path": ".claude/skills/frigate-configurator",
+  "github_branch": "main"
 }

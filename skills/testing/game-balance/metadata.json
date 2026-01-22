@@ -8,5 +8,6 @@
     "balance"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/game-balance"
+  "github_path": ".claude/skills/game-balance",
+  "github_branch": "main"
 }

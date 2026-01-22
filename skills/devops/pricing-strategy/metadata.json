@@ -8,5 +8,6 @@
     "strategy"
   ],
   "stars": 0,
-  "github_path": ".claude/skills/pricing-strategy"
+  "github_path": ".claude/skills/pricing-strategy",
+  "github_branch": "main"
 }

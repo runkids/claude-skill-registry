@@ -6,5 +6,6 @@
   "downloaded_at": "2026-01-22T01:33:34.996126Z",
   "dir_name": "rclone",
   "category": "other",
-  "github_path": ".claude/skills/rclone"
+  "github_path": ".claude/skills/rclone",
+  "github_branch": "main"
 }
