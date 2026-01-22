@@ -1,7 +1,0 @@
-{
-  "name": "cloudflare-workers-ai",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/cloudflare-workers-ai/skills/cloudflare-workers-ai/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-19T08:10:05.983785Z"
-}
