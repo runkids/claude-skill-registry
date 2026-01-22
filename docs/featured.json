@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-22T12:24:13.239220Z",
+  "updated_at": "2026-01-22T16:47:03.276938Z",
   "count": 100,
   "skills": [
     {
@@ -65,7 +65,7 @@
       "name": "skill",
       "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflo",
       "repo": "openai/codex",
-      "path": "",
+      "path": "codex-rs/core/src/skills/assets/samples/skill-creator",
       "branch": "main",
       "category": "development",
       "tags": [
@@ -73,14 +73,14 @@
         "creator"
       ],
       "stars": 54704,
-      "install": "openai/codex",
+      "install": "openai/codex/codex-rs/core/src/skills/assets/samples/skill-creator",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "frontend",
       "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code",
       "repo": "anthropics/claude-code",
-      "path": "",
+      "path": "plugins/frontend-design/skills/frontend-design",
       "branch": "main",
       "category": "design",
       "tags": [
@@ -88,7 +88,7 @@
         "design"
       ],
       "stars": 47860,
-      "install": "anthropics/claude-code",
+      "install": "anthropics/claude-code/plugins/frontend-design/skills/frontend-design",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -427,7 +427,7 @@
       "name": "clinical",
       "description": "Generate professional clinical decision support (CDS) documents for pharmaceutical and clinical research settings, including patient cohort analyses (biomarker-stratified with outcomes) and treatment",
       "repo": "davila7/claude-code-templates",
-      "path": "",
+      "path": "cli-tool/components/skills/scientific/clinical-decision-support",
       "branch": "main",
       "category": "documents",
       "tags": [
@@ -436,14 +436,14 @@
         "support"
       ],
       "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/clinical-decision-support",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "research",
       "description": "Look up current research information using Perplexity's Sonar Pro Search or Sonar Reasoning Pro models through OpenRouter. Automatically selects the best model based on query complexity. Search academ",
       "repo": "davila7/claude-code-templates",
-      "path": "",
+      "path": "cli-tool/components/skills/scientific/research-lookup",
       "branch": "main",
       "category": "documents",
       "tags": [
@@ -451,14 +451,14 @@
         "lookup"
       ],
       "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/research-lookup",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "latex",
       "description": "Create professional research posters in LaTeX using beamerposter, tikzposter, or baposter. Support for conference presentations, academic posters, and scientific communication. Includes layout design,",
       "repo": "davila7/claude-code-templates",
-      "path": "",
+      "path": "cli-tool/components/skills/scientific/latex-posters",
       "branch": "main",
       "category": "testing",
       "tags": [
@@ -466,14 +466,14 @@
         "posters"
       ],
       "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/latex-posters",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "market",
       "description": "Generate comprehensive market research reports (50+ pages) in the style of top consulting firms (McKinsey, BCG, Gartner). Features professional LaTeX formatting, extensive visual generation with scien",
       "repo": "davila7/claude-code-templates",
-      "path": "",
+      "path": "cli-tool/components/skills/scientific/market-research-reports",
       "branch": "main",
       "category": "testing",
       "tags": [
@@ -482,14 +482,14 @@
         "reports"
       ],
       "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/market-research-reports",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "peer",
       "description": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and grant review across disciplines.",
       "repo": "davila7/claude-code-templates",
-      "path": "",
+      "path": "cli-tool/components/skills/scientific/peer-review",
       "branch": "main",
       "category": "design",
       "tags": [
@@ -497,14 +497,14 @@
         "review"
       ],
       "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/peer-review",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "research",
       "description": "Write competitive research proposals for NSF, NIH, DOE, and DARPA. Agency-specific formatting, review criteria, budget preparation, broader impacts, significance statements, innovation narratives, and",
       "repo": "davila7/claude-code-templates",
-      "path": "",
+      "path": "cli-tool/components/skills/scientific/research-grants",
       "branch": "main",
       "category": "design",
       "tags": [
@@ -512,14 +512,14 @@
         "grants"
       ],
       "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/research-grants",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "scientific",
       "description": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations, thesis defense slides, or any scientific",
       "repo": "davila7/claude-code-templates",
-      "path": "",
+      "path": "cli-tool/components/skills/scientific/scientific-slides",
       "branch": "main",
       "category": "design",
       "tags": [
@@ -527,14 +527,14 @@
         "slides"
       ],
       "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/scientific-slides",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "hypothesis",
       "description": "Generate testable hypotheses. Formulate from observations, design experiments, explore competing explanations, develop predictions, propose mechanisms, for scientific inquiry across domains.",
       "repo": "davila7/claude-code-templates",
-      "path": "",
+      "path": "cli-tool/components/skills/scientific/hypothesis-generation",
       "branch": "main",
       "category": "design",
       "tags": [
@@ -542,14 +542,14 @@
         "generation"
       ],
       "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/hypothesis-generation",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "scientific",
       "description": "Core skill for the deep research and writing tool. Write scientific manuscripts in full paragraphs (never bullet points). Use two-stage process: (1) create section outlines with key points using resea",
       "repo": "davila7/claude-code-templates",
-      "path": "",
+      "path": "cli-tool/components/skills/scientific/scientific-writing",
       "branch": "main",
       "category": "design",
       "tags": [
@@ -557,7 +557,7 @@
         "writing"
       ],
       "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "davila7/claude-code-templates/cli-tool/components/skills/scientific/scientific-writing",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1027,7 +1027,7 @@
       "name": "digital",
       "description": "This skill should be used when the user asks to \"write a post\", \"check my voice\", \"look up contact\", \"prepare for meeting\", \"weekly review\", \"track goals\", or mentions personal brand, content creation",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
+      "path": "examples/digital-brain-skill",
       "branch": "main",
       "category": "marketing",
       "tags": [
@@ -1035,7 +1035,7 @@
         "brain"
       ],
       "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/examples/digital-brain-skill",
       "source": "SkillsMP Synced Skills"
     },
     {
