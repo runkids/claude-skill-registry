@@ -142,7 +142,7 @@ class ReputationSystem:
                 return 80
             else:
                 return min(100, 90 + (age - 365) / 365 * 10)
-        except:
+        except (ValueError, TypeError):
             return 50
 
     def calculate_update_score(self, updated_at: str) -> float:
@@ -171,7 +171,7 @@ class ReputationSystem:
                 return 40
             else:
                 return max(20, 40 - (days - 365) / 365 * 20)
-        except:
+        except (ValueError, TypeError):
             return 50
 
     def calculate_reputation(self, skill: Dict) -> Dict:

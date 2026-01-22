@@ -5,11 +5,15 @@ __pycache__/
 .eggs/
 venv/
 .venv/
+*.egg
+dist/
+build/
 
 # IDE
 .idea/
 .vscode/
 *.swp
+*.swo
 
 # OS
 .DS_Store
@@ -18,3 +22,29 @@ Thumbs.db
 # Temporary
 *.tmp
 *.temp
+
+# Logs
+*.log
+discover.log
+download.log
+download_*.log
+sync_and_download.log
+
+# Generated files
+failure_report.json
+repo_cache.json
+security-report.json
+reputation-report.json
+
+# Cache directories
+/cache/
+/.cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# Test artifacts
+.pytest_cache/
+.mypy_cache/

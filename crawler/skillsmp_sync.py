@@ -24,13 +24,9 @@ class SkillsMPSync:
     def __init__(self):
         self.session = requests.Session()
         self.session.headers['User-Agent'] = 'Claude-Skills-Registry/1.0'
-        # Disable SSL verification for older Python versions with LibreSSL
-        self.session.verify = False
+        # Enable SSL verification for security
+        self.session.verify = True
         self.skills = []
-
-        # Suppress SSL warnings
-        import urllib3
-        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     def _request(self, page: int = 1, limit: int = 100, retries: int = 3) -> Optional[dict]:
         """Make request to SkillsMP API with retry logic"""

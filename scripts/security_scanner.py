@@ -238,7 +238,7 @@ class SecurityScanner:
                 try:
                     content = script_file.read_text(encoding='utf-8')
                     self._scan_dangerous_patterns(content, script_file)
-                except:
+                except (OSError, UnicodeDecodeError):
                     pass
 
     def _detect_prompt_injection(self, content: str):
