@@ -1,0 +1,19 @@
+{
+  "category": "PRD-to-Tasks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-22T08:23:04.277354Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates production-grade TaskMaster tasks.json from Product Requirements Documents (PRD). Activates via codeword [ACTIVATE:PRD_TO_TASKS_V1] injected by hooks when PRD is detected. Always generates i",
+      "repo": "turbobeest/squawk",
+      "path": "PRD-to-Tasks",
+      "category": "PRD-to-Tasks",
+      "tags": [],
+      "stars": 0,
+      "install": "turbobeest/squawk/PRD-to-Tasks",
+      "source": "github.com/turbobeest/squawk"
+    }
+  ]
+}

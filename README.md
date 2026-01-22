@@ -1,31 +1,44 @@
 # Claude Skills Registry
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Skills-29,000+-purple?style=flat-square" alt="Skills">
+  <img src="https://img.shields.io/badge/Skills-67,000+-purple?style=flat-square" alt="Skills">
   <img src="https://img.shields.io/badge/Updated-Daily-green?style=flat-square" alt="Updated">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
+  <a href="https://majiayu000.github.io/claude-skill-registry/"><img src="https://img.shields.io/badge/Web-Search-blue?style=flat-square" alt="Web Search"></a>
 </p>
 
-> The most comprehensive Claude Code skills registry - **29,000+ skills indexed**
+> The most comprehensive Claude Code skills registry - **67,000+ skills indexed**
 
 ## What is this?
 
-The largest searchable index of Claude Code skills, aggregated from GitHub and community sources. Use with the [sk CLI](https://github.com/majiayu000/caude-skill-manager) for fast skill discovery and installation.
+The largest searchable index of Claude Code skills, aggregated from GitHub and community sources.
+
+**Three ways to use:**
+1. **[Web Search](https://majiayu000.github.io/claude-skill-registry/)** - Fast browser-based search
+2. **[sk CLI](https://github.com/majiayu000/caude-skill-manager)** - Terminal package manager
+3. **API** - Direct JSON access
 
 ## Highlights
 
-- **29,000+ Skills** - The most comprehensive collection available
+- **67,000+ Skills** - The most comprehensive collection available
 - **12 Categories** - Development, Testing, DevOps, Design, and more
 - **Daily Updates** - Automated crawling and validation
 - **Quality Indexed** - Metadata, descriptions, and star counts
+- **Lightweight Search** - ~1MB index for fast client-side search
 
-## Using the Registry
+## Quick Start
+
+### Option 1: Web Search
+
+Visit [https://majiayu000.github.io/claude-skill-registry/](https://majiayu000.github.io/claude-skill-registry/)
+
+### Option 2: CLI (sk)
 
 ```bash
-# Install sk first
+# Install sk
 go install github.com/majiayu000/caude-skill-manager@latest
 
-# Search skills (uses this registry)
+# Search skills
 sk search testing
 sk search pdf
 sk search --popular
@@ -34,33 +47,147 @@ sk search --popular
 sk install anthropics/skills/docx
 ```
 
-## Registry Structure
+### Option 3: Direct API
+
+```bash
+# Lightweight search index (~1MB gzip)
+curl https://majiayu000.github.io/claude-skill-registry/search-index.json
+
+# Full registry
+curl https://raw.githubusercontent.com/majiayu000/claude-skill-registry/main/registry.json
+
+# Specific category
+curl https://majiayu000.github.io/claude-skill-registry/categories/development.json
+```
+
+---
+
+## Architecture
 
 ```
-skill-registry/
-├── registry.json       # Main index (all skills)
-├── sources/            # Individual source configs
-│   ├── anthropic.json  # Official Anthropic skills
-│   ├── community.json  # Community skills
-│   └── awesome.json    # Curated awesome skills
-├── categories/         # Category-based indexes
-│   ├── documents.json
-│   ├── development.json
+┌─────────────────────────────────────────────────────────────────┐
+│  Layer 1: Data Collection                                       │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
+│  │ GitHub Crawl │→ │ Download     │→ │ Security     │          │
+│  │ (discover)   │  │ (sync)       │  │ (scanner)    │          │
+│  └──────────────┘  └──────────────┘  └──────────────┘          │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  Layer 2: Index Generation                                      │
+│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐    │
+│  │ search-index   │  │ categories/    │  │ featured.json  │    │
+│  │ .json (~1MB)   │  │ *.json         │  │ (top 100)      │    │
+│  └────────────────┘  └────────────────┘  └────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│  Layer 3: Consumption                                           │
+│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐    │
+│  │ Web UI         │  │ sk CLI         │  │ API            │    │
+│  │ (GitHub Pages) │  │ (Go)           │  │ (JSON)         │    │
+│  └────────────────┘  └────────────────┘  └────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Search Index Schema
+
+```typescript
+// Lightweight index for fast search (~1MB gzip)
+interface SearchIndex {
+  v: string;           // Version (date)
+  t: number;           // Total count
+  s: SkillMini[];      // Skills array
+}
+
+interface SkillMini {
+  n: string;           // name
+  d: string;           // description (truncated 80 chars)
+  c: string;           // category code (dev, ops, sec, etc.)
+  g: string[];         // tags (max 5)
+  r: number;           // stars
+  i: string;           // install path
+}
+```
+
+---
+
+## Directory Structure
+
+```
+claude-skill-registry/
+├── registry.json           # Full registry (all skills)
+├── docs/                   # GitHub Pages
+│   ├── index.html          # Web search UI
+│   ├── search-index.json   # Lightweight search index
+│   ├── featured.json       # Top 100 skills
+│   └── categories/         # Category indexes
+├── sources/                # Data sources
+│   ├── anthropic.json
+│   ├── community.json
+│   └── skillsmp.json
+├── scripts/                # Build scripts
+│   ├── build_search_index.py
+│   ├── discover_by_topic.py
+│   ├── security_scanner.py
 │   └── ...
-└── scripts/            # Update scripts
-    └── update.py
+└── skills/                 # SKILL.md files (data)
 ```
 
-## Adding Your Skill
+---
 
-### Option 1: Submit via Issue
+## Categories
 
-1. Open an [issue](https://github.com/majiayu000/skill-registry/issues/new)
+| Category | Code | Count | Description |
+|----------|------|-------|-------------|
+| `development` | `dev` | 15,000+ | Development tools, frameworks |
+| `data` | `dat` | 8,000+ | Data processing, analysis |
+| `design` | `des` | 5,000+ | UI/UX design, frontend |
+| `testing` | `tst` | 4,000+ | Testing, QA, automation |
+| `devops` | `ops` | 3,000+ | DevOps, CI/CD, infrastructure |
+| `documents` | `doc` | 2,000+ | Document creation (docx, pdf) |
+| `productivity` | `pro` | 1,500+ | Productivity and automation |
+| `product` | `prd` | 1,000+ | Product management |
+| `security` | `sec` | 800+ | Security, auditing |
+| `marketing` | `mkt` | 500+ | Marketing, content, SEO |
+
+---
+
+## Roadmap
+
+### Current Status
+
+- [x] **67,000+ skills indexed**
+- [x] **Daily auto-update** via GitHub Actions
+- [x] **Security scanning** for all skills
+- [x] **sk CLI** for installation
+
+### In Progress
+
+- [x] **Lightweight search index** (~1MB vs 17MB)
+- [x] **Web search UI** (GitHub Pages)
+- [ ] **GitHub Pages deployment** (pending)
+
+### Planned
+
+- [ ] **AI semantic search** (vector similarity)
+- [ ] **Skill recommendations** (based on usage)
+- [ ] **Version tracking** for skills
+- [ ] **Skill quality scoring**
+- [ ] **API rate limiting** and caching
+
+---
+
+## Contributing
+
+### Add Your Skill
+
+**Option 1: Submit via Issue**
+1. Open an [issue](https://github.com/majiayu000/claude-skill-registry/issues/new)
 2. Use the "Add Skill" template
 3. Provide: repo URL, name, description, category
 
-### Option 2: Submit via PR
-
+**Option 2: Submit via PR**
 1. Fork this repo
 2. Add your skill to `sources/community.json`:
 
@@ -77,41 +204,53 @@ skill-registry/
 
 3. Submit a PR
 
-## Categories
+### Report Issues
 
-| Category | Count | Description |
-|----------|-------|-------------|
-| `development` | 11,185 | Development tools, frameworks, workflows |
-| `data` | 4,242 | Data processing, analysis, databases |
-| `design` | 3,894 | UI/UX design, frontend, styling |
-| `testing` | 2,966 | Testing, QA, automation |
-| `devops` | 2,073 | DevOps, CI/CD, infrastructure |
-| `documents` | 1,973 | Document creation/editing (docx, pdf, pptx) |
-| `productivity` | 1,088 | Productivity and automation |
-| `product` | 818 | Product management, planning |
-| `security` | 501 | Security, auditing, compliance |
-| `marketing` | 339 | Marketing, content, SEO |
+We welcome feedback! Please open an issue for:
+- **Bugs** - Search not working, incorrect data
+- **Feature requests** - New categories, better search
+- **UX improvements** - Web UI, CLI enhancements
+- **Data quality** - Duplicate skills, wrong categories
 
-## API
+👉 [Open an Issue](https://github.com/majiayu000/claude-skill-registry/issues/new)
 
-The registry can be accessed directly via raw GitHub URLs:
+### Contribute Code
 
 ```bash
-# Full registry
-curl https://raw.githubusercontent.com/majiayu000/claude-skill-registry/main/registry.json
+# Clone the repo
+git clone https://github.com/majiayu000/claude-skill-registry.git
+cd claude-skill-registry
 
-# Specific category
-curl https://raw.githubusercontent.com/majiayu000/claude-skill-registry/main/categories/development.json
+# Install dependencies
+pip install -r requirements.txt
+
+# Build search index locally
+python scripts/build_search_index.py --registry registry.json --output docs
+
+# Test web UI
+cd docs && python -m http.server 8000
+# Visit http://localhost:8000
 ```
 
-## Auto-Updates
+---
 
-This registry is automatically updated daily via GitHub Actions:
-- Fetches latest skill metadata from GitHub
-- Validates SKILL.md files exist
-- Updates star counts and descriptions
-- Removes dead/invalid skills
+## Related Projects
+
+| Project | Description |
+|---------|-------------|
+| [caude-skill-manager](https://github.com/majiayu000/caude-skill-manager) | CLI tool for installing skills (`sk`) |
+| [anthropics/skills](https://github.com/anthropics/skills) | Official Anthropic skills |
+| [SkillsMP](https://skillsmp.com) | Web-based skill marketplace |
+| [awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) | Curated skill list |
+
+---
 
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+<p align="center">
+  Made with ❤️ for the Claude Code community
+</p>
