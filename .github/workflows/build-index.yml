@@ -15,6 +15,7 @@ on:
     paths:
       - 'scripts/build_search_index.py'
       - 'docs/**'
+      - '.github/workflows/build-index.yml'
 
 permissions:
   contents: write
@@ -34,6 +35,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
 
       - name: Build search index
         run: |
