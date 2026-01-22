@@ -304,6 +304,7 @@ function copyInstall(event, install) {
 
 // Generate proper GitHub URL from install path and branch
 // install format: "owner/repo/path/to/skill" or "owner/repo"
+// Links directly to SKILL.md file for better UX
 function getGitHubUrl(install, branch = 'main') {
     if (!install) return '#';
     const parts = install.split('/');
@@ -314,9 +315,9 @@ function getGitHubUrl(install, branch = 'main') {
     const path = parts.slice(2).join('/');
 
     if (path) {
-        return `https://github.com/${owner}/${repo}/tree/${branch}/${path}`;
+        return `https://github.com/${owner}/${repo}/blob/${branch}/${path}/SKILL.md`;
     } else {
-        return `https://github.com/${owner}/${repo}`;
+        return `https://github.com/${owner}/${repo}/blob/${branch}/SKILL.md`;
     }
 }
 
