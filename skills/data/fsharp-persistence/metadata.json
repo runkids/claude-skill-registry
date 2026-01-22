@@ -8,5 +8,6 @@
     "persistence"
   ],
   "stars": 1,
-  "dir_name": "fsharp-persistence"
+  "dir_name": "fsharp-persistence",
+  "github_path": ".claude/skills/fsharp-persistence"
 }

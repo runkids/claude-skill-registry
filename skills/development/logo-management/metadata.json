@@ -7,5 +7,6 @@
     "logo",
     "management"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": ".claude/skills/logo-management"
 }

@@ -2,7 +2,8 @@
   "name": "issue-resolution",
   "repo": "garimto81/claude",
   "category": "development",
-  "description": "GitHub \uc774\uc288 \ud574\uacb0 \uc6cc\ud06c\ud50c\ub85c\uc6b0. \ubd84\uc11d \u2192 \uad6c\ud604 \u2192 \uac80\uc99d \uc790\ub3d9\ud654.",
+  "description": "GitHub 이슈 해결 워크플로우. 분석 → 구현 → 검증 자동화.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:34.574085Z"
+  "downloaded_at": "2026-01-06T09:10:34.574085Z",
+  "github_path": ".claude/skills/issue-resolution"
 }

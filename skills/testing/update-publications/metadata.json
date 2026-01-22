@@ -7,5 +7,6 @@
     "update",
     "publications"
   ],
-  "stars": 31
+  "stars": 31,
+  "github_path": ".claude/skills/update-publications"
 }

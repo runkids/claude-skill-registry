@@ -8,5 +8,6 @@
     "e2e",
     "account"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/test-e2e-account"
 }

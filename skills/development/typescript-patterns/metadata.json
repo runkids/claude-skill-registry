@@ -7,5 +7,6 @@
     "typescript",
     "patterns"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/typescript-patterns"
 }

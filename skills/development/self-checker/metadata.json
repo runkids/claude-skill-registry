@@ -2,7 +2,8 @@
   "name": "self-checker",
   "repo": "ys6448761-hue/daily-miracles-app",
   "category": "development",
-  "description": "\uc791\uc5c5 \uc644\ub8cc \ud6c4 \uc790\uac00 \uc810\uac80 \ubc0f \ubcf4\uc644 \uc870\uc5b8",
+  "description": "작업 완료 후 자가 점검 및 보완 조언",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:30.804599Z"
+  "downloaded_at": "2026-01-06T09:10:30.804599Z",
+  "github_path": ".claude/skills/self-checker"
 }

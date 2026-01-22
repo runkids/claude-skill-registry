@@ -5,5 +5,6 @@
   "source": "github.com/mikkelkrogsholm/dst-skills",
   "downloaded_at": "2026-01-14T02:56:15.770767Z",
   "dir_name": "dst-report-template",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dst-report-template"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/MacroMan5/claude-code-workflow-plugins",
   "downloaded_at": "2026-01-14T03:37:12.162758Z",
   "dir_name": "project-docs-sync",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/project-docs-sync"
 }

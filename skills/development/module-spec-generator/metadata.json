@@ -8,5 +8,6 @@
     "spec",
     "generator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/module-spec-generator"
 }

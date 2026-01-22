@@ -10,5 +10,6 @@
   ],
   "stars": 11,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "edge-case-discovery"
+  "dir_name": "edge-case-discovery",
+  "github_path": ".claude/skills/edge-case-discovery"
 }

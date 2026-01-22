@@ -7,5 +7,6 @@
     "session",
     "startup"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/session-startup"
 }

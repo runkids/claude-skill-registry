@@ -8,5 +8,6 @@
     "memory",
     "store"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/project-memory-store"
 }

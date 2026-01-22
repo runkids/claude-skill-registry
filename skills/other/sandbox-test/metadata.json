@@ -5,5 +5,6 @@
   "source": "github.com/teren-papercutlabs/pcl-workshop-setup",
   "downloaded_at": "2026-01-22T03:20:35.454912Z",
   "dir_name": "sandbox-test",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/sandbox-test"
 }

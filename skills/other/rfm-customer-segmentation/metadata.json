@@ -5,5 +5,6 @@
   "source": "github.com/liangdabiao/claude-data-analysis-ultra-main",
   "downloaded_at": "2026-01-22T02:15:30.253739Z",
   "dir_name": "rfm-customer-segmentation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/rfm-customer-segmentation"
 }

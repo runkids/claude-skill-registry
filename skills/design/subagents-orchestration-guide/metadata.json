@@ -8,5 +8,6 @@
     "orchestration",
     "guide"
   ],
-  "stars": 44
+  "stars": 44,
+  "github_path": "skills/subagents-orchestration-guide"
 }

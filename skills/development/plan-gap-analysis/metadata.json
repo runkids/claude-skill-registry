@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Analyze gaps between implementation plans and actual codebase implementation for the Rust self-learning memory project",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:49.166804Z"
+  "downloaded_at": "2026-01-06T08:59:49.166804Z",
+  "github_path": ".claude/skills/plan-gap-analysis"
 }

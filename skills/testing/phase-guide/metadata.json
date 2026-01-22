@@ -2,7 +2,8 @@
   "name": "phase-guide",
   "repo": "b4CU-R4U/neuroverse-presentation-automator",
   "category": "testing",
-  "description": "Intelligently navigate the 7-phase Spec Kit \u2192 CCGC workflow by detecting current phase, validating prerequisites, recommending transitions, and tracking per-project state. Use when the user asks",
+  "description": "Intelligently navigate the 7-phase Spec Kit → CCGC workflow by detecting current phase, validating prerequisites, recommending transitions, and tracking per-project state. Use when the user asks",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:38.932848Z"
+  "downloaded_at": "2026-01-08T03:20:38.932848Z",
+  "github_path": ".claude/skills/phase-guide"
 }

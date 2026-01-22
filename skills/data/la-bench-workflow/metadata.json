@@ -8,5 +8,6 @@
     "workflow"
   ],
   "stars": 0,
-  "dir_name": "la-bench-workflow"
+  "dir_name": "la-bench-workflow",
+  "github_path": ".claude/skills/la-bench-workflow"
 }

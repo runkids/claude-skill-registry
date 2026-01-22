@@ -5,5 +5,6 @@
   "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
   "downloaded_at": "2026-01-22T01:53:19.282277Z",
   "dir_name": "dbt-core",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dbt-core"
 }

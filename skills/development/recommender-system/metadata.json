@@ -7,5 +7,6 @@
     "recommender",
     "system"
   ],
-  "stars": 32
+  "stars": 32,
+  "github_path": ".claude/skills/recommender-system"
 }

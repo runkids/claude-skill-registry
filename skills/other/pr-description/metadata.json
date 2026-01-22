@@ -5,5 +5,6 @@
   "source": "github.com/kis9a/claude-skills-demo",
   "downloaded_at": "2026-01-22T02:40:34.777326Z",
   "dir_name": "pr-description",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/pr-description"
 }

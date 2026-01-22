@@ -5,5 +5,6 @@
   "source": "github.com/rjmurillo/ai-agents",
   "downloaded_at": "2026-01-22T04:17:14.688120Z",
   "dir_name": "threat-modeling",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/threat-modeling"
 }

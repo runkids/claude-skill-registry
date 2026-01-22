@@ -7,5 +7,6 @@
     "proposition",
     "reviewer"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": ".claude/skills/proposition-reviewer"
 }

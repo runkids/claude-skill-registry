@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Code quality validation through linting, type checking, and build verification.Multi-language support for automated quality gates.Use when validating code quality:- After implementation to validate co",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:30.273609Z"
+  "downloaded_at": "2026-01-06T09:07:30.273609Z",
+  "github_path": ".claude/skills/quality-code-check"
 }

@@ -7,5 +7,6 @@
     "validation",
     "coordinator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/validation-coordinator"
 }

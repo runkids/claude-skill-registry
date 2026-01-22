@@ -7,5 +7,6 @@
     "qcc",
     "git"
   ],
-  "stars": 43
+  "stars": 43,
+  "github_path": ".claude/skills/qcc-git"
 }

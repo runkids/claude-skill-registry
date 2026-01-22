@@ -5,5 +5,6 @@
   "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
   "downloaded_at": "2026-01-22T01:53:19.927566Z",
   "dir_name": "dbt-projects-snowflake-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dbt-projects-snowflake-setup"
 }

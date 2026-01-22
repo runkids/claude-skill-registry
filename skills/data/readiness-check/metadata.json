@@ -8,5 +8,6 @@
     "check"
   ],
   "stars": 1,
-  "dir_name": "readiness-check"
+  "dir_name": "readiness-check",
+  "github_path": ".claude/skills/readiness-check"
 }

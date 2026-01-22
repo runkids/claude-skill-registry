@@ -5,5 +5,6 @@
   "source": "github.com/92Bilal26/TaskPilotAI",
   "downloaded_at": "2026-01-22T01:47:12.646488Z",
   "dir_name": "helm-chart-architect",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/helm-chart-architect"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/monicajeon28/GMcruise",
   "downloaded_at": "2026-01-22T01:14:52.119045Z",
   "dir_name": "ai-model-reference",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ai-model-reference"
 }

@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Run a traditional AIB build test and report results. Builds a disk image using automotive-image-builder manifest and downloads the artifact.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:44.335953Z"
+  "downloaded_at": "2026-01-06T09:10:44.335953Z",
+  "github_path": ".claude/skills/test-traditional-build"
 }

@@ -7,5 +7,6 @@
     "quality",
     "dashboard"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/quality-dashboard"
 }

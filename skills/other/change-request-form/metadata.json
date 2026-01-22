@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-22T01:38:03.788841Z",
   "dir_name": "change-request-form",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/change-request-form"
 }

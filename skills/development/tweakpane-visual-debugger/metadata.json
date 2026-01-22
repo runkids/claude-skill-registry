@@ -8,5 +8,6 @@
     "visual",
     "debugger"
   ],
-  "stars": 17
+  "stars": 17,
+  "github_path": ".claude/skills/tweakpane-visual-debugger"
 }

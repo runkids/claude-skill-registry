@@ -5,5 +5,6 @@
   "source": "github.com/academind/claude-code-course",
   "downloaded_at": "2026-01-22T02:41:44.249052Z",
   "dir_name": "clean-typescript",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/clean-typescript"
 }

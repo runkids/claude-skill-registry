@@ -8,5 +8,6 @@
     "api",
     "development"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/sop-api-development"
 }

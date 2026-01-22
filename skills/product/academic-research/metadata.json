@@ -4,5 +4,6 @@
   "category": "product",
   "description": "Conduct deep academic research for philosophy, neuroscience, cognitive science, and theoretical computer science (computability, complexity, AI theory, logic). Use when user asks to: research academic",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:11.904732Z"
+  "downloaded_at": "2026-01-06T09:10:11.904732Z",
+  "github_path": ".claude/skills/academic-research"
 }

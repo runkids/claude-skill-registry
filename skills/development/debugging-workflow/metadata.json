@@ -2,7 +2,8 @@
   "name": "debugging-workflow",
   "repo": "garimto81/claude",
   "category": "development",
-  "description": "\ub514\ubc84\uae45 \uc2e4\ud328 \uc2dc \uc790\ub3d9 \ud2b8\ub9ac\uac70\ub418\ub294 \uccb4\uacc4\uc801 \ubb38\uc81c \ud574\uacb0 \uc6cc\ud06c\ud50c\ub85c\uc6b0. DEBUGGING_STRATEGY.md \uae30\ubc18 Phase 0-3 \ub514\ubc84\uae45 \ud504\ub85c\uc138\uc2a4 \uc790\ub3d9\ud654.",
+  "description": "디버깅 실패 시 자동 트리거되는 체계적 문제 해결 워크플로우. DEBUGGING_STRATEGY.md 기반 Phase 0-3 디버깅 프로세스 자동화.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:58.974217Z"
+  "downloaded_at": "2026-01-06T09:10:58.974217Z",
+  "github_path": ".claude/skills/debugging-workflow"
 }

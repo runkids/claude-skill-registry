@@ -8,5 +8,6 @@
     "schema",
     "form"
   ],
-  "stars": 33
+  "stars": 33,
+  "github_path": ".claude/skills/send-schema-form"
 }

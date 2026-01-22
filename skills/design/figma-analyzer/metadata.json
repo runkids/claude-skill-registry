@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Extract design assets and metadata from Figma using the Figma REST API. Supports exporting frames/components as images, extracting node metadata, design tokens, and file structure. Use with ai-multimo",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:14.033478Z"
+  "downloaded_at": "2026-01-06T08:59:14.033478Z",
+  "github_path": ".claude/skills/figma-analyzer"
 }

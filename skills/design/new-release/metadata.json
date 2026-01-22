@@ -7,5 +7,6 @@
     "new",
     "release"
   ],
-  "stars": 21
+  "stars": 21,
+  "github_path": ".claude/skills/new-release"
 }

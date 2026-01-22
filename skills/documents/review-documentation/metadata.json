@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Use this skill when asked to review the package documentation of the Go implementation of Feather.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:10.396545Z"
+  "downloaded_at": "2026-01-06T08:59:10.396545Z",
+  "github_path": ".claude/skills/review-documentation"
 }

@@ -2,7 +2,8 @@
   "name": "spawn-orchestration-update",
   "repo": "Zeliper/z-coder",
   "category": "development",
-  "description": "\uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158 \uc5c5\ub370\uc774\ud2b8\uac00 \ud544\uc694\ud560 \ub54c orchestration-update-agent \ud65c\uc6a9 \uac00\uc774\ub4dc",
+  "description": "오케스트레이션 업데이트가 필요할 때 orchestration-update-agent 활용 가이드",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:44.465839Z"
+  "downloaded_at": "2026-01-06T09:09:44.465839Z",
+  "github_path": ".claude/skills/spawn-orchestration-update"
 }

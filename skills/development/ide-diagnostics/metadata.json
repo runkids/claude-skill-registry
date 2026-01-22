@@ -7,5 +7,6 @@
     "ide",
     "diagnostics"
   ],
-  "stars": 23
+  "stars": 23,
+  "github_path": ".claude/skills/ide-diagnostics"
 }

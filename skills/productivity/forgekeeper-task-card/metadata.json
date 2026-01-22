@@ -8,5 +8,6 @@
     "task",
     "card"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/forgekeeper-task-card"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/ivan-magda/claude-superpowers",
   "downloaded_at": "2026-01-22T03:40:25.480747Z",
   "dir_name": "releasing-plugin-versions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/releasing-plugin-versions"
 }

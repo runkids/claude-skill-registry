@@ -9,5 +9,6 @@
     "agent"
   ],
   "stars": 0,
-  "dir_name": "slideshow-video-agent"
+  "dir_name": "slideshow-video-agent",
+  "github_path": ".claude/skills/slideshow-video-agent"
 }

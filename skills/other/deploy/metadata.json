@@ -5,5 +5,6 @@
   "source": "github.com/mmbianco78/signalroom",
   "downloaded_at": "2026-01-22T02:15:39.756805Z",
   "dir_name": "deploy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/deploy"
 }

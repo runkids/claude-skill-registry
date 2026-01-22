@@ -9,5 +9,6 @@
     "googleai",
     "dart"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/websocket-toolkit-googleai-dart"
 }

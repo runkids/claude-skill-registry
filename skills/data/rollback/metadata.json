@@ -7,5 +7,6 @@
     "rollback"
   ],
   "stars": 1,
-  "dir_name": "rollback"
+  "dir_name": "rollback",
+  "github_path": ".claude/skills/rollback"
 }

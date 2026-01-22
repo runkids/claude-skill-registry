@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agent-mlops"
+  "dir_name": "agent-mlops",
+  "github_path": ".claude/skills/agent-mlops"
 }

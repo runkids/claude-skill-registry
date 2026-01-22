@@ -8,5 +8,6 @@
     "reports"
   ],
   "stars": 0,
-  "dir_name": "weekly-reports"
+  "dir_name": "weekly-reports",
+  "github_path": ".claude/skills/weekly-reports"
 }

@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Generates a structured textbook outline aligned with course modules and Docusaurus requirements.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:53.191438Z"
+  "downloaded_at": "2026-01-06T09:09:53.191438Z",
+  "github_path": ".claude/skills/textbook-structure-generator"
 }

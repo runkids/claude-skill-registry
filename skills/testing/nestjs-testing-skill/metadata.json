@@ -4,5 +4,6 @@
   "category": "testing",
   "description": "Use this skill whenever the user wants to set up, write, or refactor tests for a NestJS TypeScript backend, including unit tests, integration tests, and e2e tests with Jest, TestingModule, and Superte",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:46.407469Z"
+  "downloaded_at": "2026-01-06T09:03:46.407469Z",
+  "github_path": ".claude/skills/nestjs-testing-skill"
 }

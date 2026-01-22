@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Remove gaming aesthetics (glowing effects, neon shadows, cyberpunk styling) from CSS and replace with professional, clean design. Use when code has distracting visual effects or when implementing corp",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:13.712912Z"
+  "downloaded_at": "2026-01-06T09:07:13.712912Z",
+  "github_path": ".claude/skills/ui-degamifier"
 }

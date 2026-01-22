@@ -8,5 +8,6 @@
     "agent"
   ],
   "stars": 0,
-  "dir_name": "mosaic-ai-agent"
+  "dir_name": "mosaic-ai-agent",
+  "github_path": ".claude/skills/mosaic-ai-agent"
 }

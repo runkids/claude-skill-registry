@@ -8,5 +8,6 @@
     "dotfiles",
     "helper"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": ".claude/skills/git-dotfiles-helper"
 }

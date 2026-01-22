@@ -7,5 +7,6 @@
     "wasm",
     "validator"
   ],
-  "stars": 40
+  "stars": 40,
+  "github_path": ".claude/skills/wasm-validator"
 }

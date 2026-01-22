@@ -5,5 +5,6 @@
   "source": "github.com/jk278/veld",
   "downloaded_at": "2026-01-22T00:56:53.775325Z",
   "dir_name": "debugging-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/debugging-assistant"
 }

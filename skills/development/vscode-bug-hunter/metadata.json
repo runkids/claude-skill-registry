@@ -8,5 +8,6 @@
     "bug",
     "hunter"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/vscode-bug-hunter"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/rebyteai-template/langchain-retrieval-agent",
   "downloaded_at": "2026-01-22T02:07:01.996917Z",
   "dir_name": "build-and-deploy",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/build-and-deploy"
 }

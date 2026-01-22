@@ -10,5 +10,6 @@
     "store",
     "builder"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/mobx-state-tree-store-builder"
 }

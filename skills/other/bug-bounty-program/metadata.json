@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-22T01:38:03.481412Z",
   "dir_name": "bug-bounty-program",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/bug-bounty-program"
 }

@@ -7,5 +7,6 @@
     "questions"
   ],
   "stars": 1,
-  "dir_name": "questions"
+  "dir_name": "questions",
+  "github_path": ".claude/skills/questions"
 }

@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Show LeetCode problem details and generate Rust template (project)",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:22.249664Z"
+  "downloaded_at": "2026-01-08T03:20:22.249664Z",
+  "github_path": ".claude/skills/lc-show"
 }

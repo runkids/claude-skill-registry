@@ -5,5 +5,6 @@
   "source": "github.com/NotMyself/claude-stack-dotnet",
   "downloaded_at": "2026-01-22T02:43:43.963580Z",
   "dir_name": "dotnet-cli-essentials",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dotnet-cli-essentials"
 }

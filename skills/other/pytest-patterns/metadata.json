@@ -5,5 +5,6 @@
   "source": "github.com/ricardoroche/ricardos-claude-code",
   "downloaded_at": "2026-01-22T04:06:46.576229Z",
   "dir_name": "pytest-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/pytest-patterns"
 }

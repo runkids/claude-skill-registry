@@ -9,5 +9,6 @@
     "admin",
     "api"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/using-ghost-admin-api"
 }

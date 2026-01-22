@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Research WoW addon development topics using CLI tools, Blizzard UI source, and documentation. Covers API discovery, pattern research, and Ace3 usage. Use when investigating unfamiliar APIs, finding Bl",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:29.285837Z"
+  "downloaded_at": "2026-01-06T09:00:29.285837Z",
+  "github_path": ".claude/skills/s-research"
 }

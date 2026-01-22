@@ -8,5 +8,6 @@
     "builder",
     "skill"
   ],
-  "stars": 24
+  "stars": 24,
+  "github_path": ".claude/skills/sync-builder-skill"
 }

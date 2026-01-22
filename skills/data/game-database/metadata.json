@@ -5,5 +5,6 @@
   "description": "Database design for multiplayer games with PostgreSQL. Use when designing schemas, handling game persistence, managing user accounts, implementing lobbies, or optimizing queries. Covers JSONB for game",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-08T03:06:40.636855Z",
-  "dir_name": "game-database"
+  "dir_name": "game-database",
+  "github_path": ".claude/skills/game-database"
 }

@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Your approach to handling ffi memory management. Use this skill when working on files where ffi memory management comes into play.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:44.327650Z"
+  "downloaded_at": "2026-01-06T09:04:44.327650Z",
+  "github_path": ".claude/skills/ffi-memory-management"
 }

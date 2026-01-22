@@ -5,5 +5,6 @@
   "source": "github.com/pcortes/swarm-attack",
   "downloaded_at": "2026-01-22T01:17:44.470111Z",
   "dir_name": "verifier",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/verifier"
 }

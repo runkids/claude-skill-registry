@@ -9,5 +9,6 @@
     "persistence"
   ],
   "stars": 0,
-  "dir_name": "nextjs-localstorage-persistence"
+  "dir_name": "nextjs-localstorage-persistence",
+  "github_path": ".claude/skills/nextjs-localstorage-persistence"
 }

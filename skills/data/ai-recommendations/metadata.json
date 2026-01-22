@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ai-recommendations"
+  "dir_name": "ai-recommendations",
+  "github_path": ".claude/skills/ai-recommendations"
 }

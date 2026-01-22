@@ -9,5 +9,6 @@
     "loading"
   ],
   "stars": 0,
-  "dir_name": "gcp-bq-data-loading"
+  "dir_name": "gcp-bq-data-loading",
+  "github_path": ".claude/skills/gcp-bq-data-loading"
 }

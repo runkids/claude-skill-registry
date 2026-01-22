@@ -5,5 +5,6 @@
   "source": "github.com/sfc-gh-dflippo/snowflake-dbt-demo",
   "downloaded_at": "2026-01-22T01:53:20.060701Z",
   "dir_name": "dbt-migration-redshift",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dbt-migration-redshift"
 }

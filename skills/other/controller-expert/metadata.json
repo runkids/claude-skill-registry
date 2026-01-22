@@ -5,5 +5,6 @@
   "source": "github.com/ryu-qqq/AuthHub",
   "downloaded_at": "2026-01-22T01:32:19.768371Z",
   "dir_name": "controller-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/controller-expert"
 }

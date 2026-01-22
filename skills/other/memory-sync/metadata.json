@@ -5,5 +5,6 @@
   "source": "github.com/TransitionMatrix/godot-dap-mcp-server",
   "downloaded_at": "2026-01-21T04:02:38.235487Z",
   "dir_name": "memory-sync",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/memory-sync"
 }

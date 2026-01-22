@@ -7,5 +7,6 @@
     "reasoning",
     "counterfactual"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": ".claude/skills/reasoning-counterfactual"
 }

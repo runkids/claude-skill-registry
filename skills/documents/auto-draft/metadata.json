@@ -2,7 +2,8 @@
   "name": "auto-draft",
   "repo": "landfill/Draftify",
   "category": "documents",
-  "description": "Generate planning documents (\uae30\ud68d\uc11c) automatically from mockups/MVP sites and project artifacts. This skill orchestrates the entire document generation workflow including crawling, analysis, section gene",
+  "description": "Generate planning documents (기획서) automatically from mockups/MVP sites and project artifacts. This skill orchestrates the entire document generation workflow including crawling, analysis, section gene",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:29.734061Z"
+  "downloaded_at": "2026-01-06T09:10:29.734061Z",
+  "github_path": ".claude/skills/auto-draft"
 }

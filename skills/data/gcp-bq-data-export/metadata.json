@@ -9,5 +9,6 @@
     "export"
   ],
   "stars": 0,
-  "dir_name": "gcp-bq-data-export"
+  "dir_name": "gcp-bq-data-export",
+  "github_path": ".claude/skills/gcp-bq-data-export"
 }

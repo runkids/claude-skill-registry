@@ -9,5 +9,6 @@
     "green",
     "refactor"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/tdd-red-green-refactor"
 }

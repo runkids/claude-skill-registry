@@ -4,5 +4,6 @@
   "category": "marketing",
   "description": "This skill should be used when the user requests social media content creation for Twitter, Instagram, LinkedIn, or Facebook. It generates platform-optimized posts and saves them in an organized folde",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:34.384408Z"
+  "downloaded_at": "2026-01-06T09:03:34.384408Z",
+  "github_path": ".claude/skills/social-media-generator"
 }

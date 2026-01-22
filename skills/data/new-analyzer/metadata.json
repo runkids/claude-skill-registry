@@ -9,5 +9,6 @@
   ],
   "stars": 75,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "new-analyzer"
+  "dir_name": "new-analyzer",
+  "github_path": ".claude/skills/new-analyzer"
 }

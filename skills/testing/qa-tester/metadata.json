@@ -6,5 +6,6 @@
   "tags": [
     "tester"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": ".claude/skills/qa-tester"
 }

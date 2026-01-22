@@ -5,5 +5,6 @@
   "source": "github.com/stacklok/toolhive-studio",
   "downloaded_at": "2026-01-22T01:25:03.922841Z",
   "dir_name": "testing-api-assertions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/testing-api-assertions"
 }

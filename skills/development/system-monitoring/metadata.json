@@ -4,5 +4,6 @@
   "category": "development",
   "description": "System resource monitoring including CPU, memory, disk, and network statistics. Use when checking system health, diagnosing performance issues, or monitoring resources.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:22.032250Z"
+  "downloaded_at": "2026-01-06T09:00:22.032250Z",
+  "github_path": ".claude/skills/system-monitoring"
 }

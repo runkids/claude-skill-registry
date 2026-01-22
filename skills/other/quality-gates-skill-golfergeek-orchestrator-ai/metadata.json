@@ -5,5 +5,6 @@
   "source": "github.com/GolferGeek/orchestrator-ai",
   "downloaded_at": "2026-01-22T03:37:28.316812Z",
   "dir_name": "quality-gates-skill-golfergeek-orchestrator-ai",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/quality-gates-skill"
 }

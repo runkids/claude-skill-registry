@@ -7,5 +7,6 @@
     "simple",
     "fetch"
   ],
-  "stars": 15
+  "stars": 15,
+  "github_path": ".claude/skills/simple-fetch"
 }

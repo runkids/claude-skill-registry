@@ -2,7 +2,8 @@
   "name": "file-header-guardian",
   "repo": "Dimon94/cc-devflow",
   "category": "development",
-  "description": "\u6587\u4ef6\u5934\u4e09\u884c\u5951\u7ea6\u6ce8\u91ca\u3002\u89e6\u53d1\uff1acreate file\u3001\u65b0\u5efa\u6587\u4ef6\u3001\u7f16\u5199\u4ee3\u7801\u3002",
+  "description": "文件头三行契约注释。触发：create file、新建文件、编写代码。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:46.230853Z"
+  "downloaded_at": "2026-01-06T08:56:46.230853Z",
+  "github_path": ".claude/skills/file-header-guardian"
 }

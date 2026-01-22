@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Orchestrator AI-specific Git conventions and standards. Branch naming, commit workflow, repository organization. CRITICAL: Follow conventional branch names, use conventional commits, maintain clean gi",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:16.479642Z"
+  "downloaded_at": "2026-01-08T03:21:16.479642Z",
+  "github_path": ".claude/skills/orchestrator-git-standards-skill"
 }

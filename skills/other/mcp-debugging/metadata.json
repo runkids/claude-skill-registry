@@ -5,5 +5,6 @@
   "source": "github.com/orient-bot/orient",
   "downloaded_at": "2026-01-22T03:58:44.488772Z",
   "dir_name": "mcp-debugging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/mcp-debugging"
 }

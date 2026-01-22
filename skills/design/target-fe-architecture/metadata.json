@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Target frontend architecture for Lingx. FSD 2.1 approach with custom hooks, component patterns, and data fetching. Use when implementing frontend features, reviewing code, or making architectural deci",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:52.664775Z"
+  "downloaded_at": "2026-01-06T09:09:52.664775Z",
+  "github_path": ".claude/skills/target-fe-architecture"
 }

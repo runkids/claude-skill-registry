@@ -5,5 +5,6 @@
   "source": "github.com/academind/claude-code-course",
   "downloaded_at": "2026-01-22T02:41:44.379636Z",
   "dir_name": "modern-browser-apis",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/modern-browser-apis"
 }

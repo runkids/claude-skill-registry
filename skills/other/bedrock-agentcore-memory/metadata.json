@@ -5,5 +5,6 @@
   "source": "github.com/adaptationio/Skrillz",
   "downloaded_at": "2026-01-22T03:07:13.311098Z",
   "dir_name": "bedrock-agentcore-memory",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/bedrock-agentcore-memory"
 }

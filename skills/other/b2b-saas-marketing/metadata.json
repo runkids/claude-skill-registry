@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-22T01:38:03.028171Z",
   "dir_name": "b2b-saas-marketing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/b2b-saas-marketing"
 }

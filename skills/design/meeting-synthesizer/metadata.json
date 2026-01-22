@@ -7,5 +7,6 @@
     "meeting",
     "synthesizer"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/meeting-synthesizer"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/yellinzero/aico",
   "downloaded_at": "2026-01-21T03:00:50.831032Z",
   "dir_name": "aico-pm-prd-writing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aico-pm-prd-writing"
 }

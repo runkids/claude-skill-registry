@@ -7,5 +7,6 @@
     "persona",
     "designer"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": ".claude/skills/persona-designer"
 }

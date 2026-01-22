@@ -8,5 +8,6 @@
     "log",
     "analyzer"
   ],
-  "stars": 9
+  "stars": 9,
+  "github_path": ".claude/skills/incident-log-analyzer"
 }

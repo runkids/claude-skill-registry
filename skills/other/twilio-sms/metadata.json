@@ -5,5 +5,6 @@
   "source": "github.com/oimiragieo/agent-studio",
   "downloaded_at": "2026-01-14T03:17:02.956722Z",
   "dir_name": "twilio-sms",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/twilio-sms"
 }

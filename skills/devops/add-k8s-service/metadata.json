@@ -9,5 +9,6 @@
     "service"
   ],
   "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/add-k8s-service"
 }

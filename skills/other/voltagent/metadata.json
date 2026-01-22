@@ -5,5 +5,6 @@
   "source": "github.com/colinmollenhour/dotfiles",
   "downloaded_at": "2026-01-22T03:42:39.104974Z",
   "dir_name": "voltagent",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/voltagent"
 }

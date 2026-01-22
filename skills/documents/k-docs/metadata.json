@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Index of Mechanic documentation with summaries and links. Load this to understand what documentation exists and where to find detailed information on specific topics. Triggers: docs, documentation, re",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:30.054289Z"
+  "downloaded_at": "2026-01-06T09:00:30.054289Z",
+  "github_path": ".claude/skills/k-docs"
 }

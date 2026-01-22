@@ -9,5 +9,6 @@
     "bumper"
   ],
   "stars": 4,
-  "dir_name": "pnpm-version-bumper"
+  "dir_name": "pnpm-version-bumper",
+  "github_path": ".claude/skills/pnpm-version-bumper"
 }

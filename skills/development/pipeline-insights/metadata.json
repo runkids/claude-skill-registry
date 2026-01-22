@@ -7,5 +7,6 @@
     "pipeline",
     "insights"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/pipeline-insights"
 }

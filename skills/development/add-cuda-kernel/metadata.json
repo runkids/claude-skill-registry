@@ -9,5 +9,6 @@
     "kernel"
   ],
   "stars": 4404,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/add-cuda-kernel"
 }

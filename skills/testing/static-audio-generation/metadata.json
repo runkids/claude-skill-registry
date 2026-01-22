@@ -4,5 +4,6 @@
   "category": "testing",
   "description": "Generate and manage static audio files for Bob The Skull using ElevenLabs TTS. Use when creating greetings, startup messages, error responses, or test audio. Handles generation, naming, directory stru",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:31.581803Z"
+  "downloaded_at": "2026-01-06T09:09:31.581803Z",
+  "github_path": ".claude/skills/static-audio-generation"
 }

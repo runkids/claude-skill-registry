@@ -8,5 +8,6 @@
     "unit",
     "tests"
   ],
-  "stars": 45
+  "stars": 45,
+  "github_path": ".claude/skills/testing-unit-tests"
 }

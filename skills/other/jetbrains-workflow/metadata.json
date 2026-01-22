@@ -5,5 +5,6 @@
   "source": "github.com/1ambda/dataops-platform",
   "downloaded_at": "2026-01-22T01:34:49.799772Z",
   "dir_name": "jetbrains-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/jetbrains-workflow"
 }

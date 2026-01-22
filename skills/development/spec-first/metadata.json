@@ -2,7 +2,8 @@
   "name": "spec-first",
   "repo": "rohunvora/my-claude-skills",
   "category": "development",
-  "description": "Use when building anything non-trivial. Enforces a spec \u2192 plan \u2192 execute \u2192 verify loop that prevents \"looks right\" failures. Creates spec.md, todo.md, and decisions.md before writing code.",
+  "description": "Use when building anything non-trivial. Enforces a spec → plan → execute → verify loop that prevents \"looks right\" failures. Creates spec.md, todo.md, and decisions.md before writing code.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:49.136822Z"
+  "downloaded_at": "2026-01-06T09:02:49.136822Z",
+  "github_path": ".claude/skills/spec-first"
 }

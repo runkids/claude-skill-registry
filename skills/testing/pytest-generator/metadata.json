@@ -7,5 +7,6 @@
     "pytest",
     "generator"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/pytest-generator"
 }

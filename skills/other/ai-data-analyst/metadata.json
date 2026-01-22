@@ -5,5 +5,6 @@
   "source": "github.com/GrupoUS/neondash",
   "downloaded_at": "2026-01-22T02:49:13.731598Z",
   "dir_name": "ai-data-analyst",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ai-data-analyst"
 }

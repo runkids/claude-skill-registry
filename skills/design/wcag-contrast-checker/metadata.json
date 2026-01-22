@@ -8,5 +8,6 @@
     "contrast",
     "checker"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/wcag-contrast-checker"
 }

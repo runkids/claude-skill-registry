@@ -8,5 +8,6 @@
     "tool",
     "pipeline"
   ],
-  "stars": 15
+  "stars": 15,
+  "github_path": ".claude/skills/multi-tool-pipeline"
 }

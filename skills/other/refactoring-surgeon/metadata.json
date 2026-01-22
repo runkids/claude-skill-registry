@@ -5,5 +5,6 @@
   "source": "github.com/erichowens/some_claude_skills",
   "downloaded_at": "2026-01-19T02:38:41.807976Z",
   "dir_name": "refactoring-surgeon",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/refactoring-surgeon"
 }

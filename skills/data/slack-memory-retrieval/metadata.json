@@ -10,5 +10,6 @@
   ],
   "stars": 193,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "slack-memory-retrieval"
+  "dir_name": "slack-memory-retrieval",
+  "github_path": ".claude/skills/slack-memory-retrieval"
 }

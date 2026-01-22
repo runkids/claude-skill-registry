@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Create a new packet analyzer for Minecraft Bedrock logs. Generates template code, provides documentation links, and guides testing workflow.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:10.518630Z"
+  "downloaded_at": "2026-01-06T08:59:10.518630Z",
+  "github_path": ".claude/skills/create-analyzer"
 }

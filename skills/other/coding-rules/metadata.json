@@ -5,5 +5,6 @@
   "source": "github.com/kimny1143/claude-code-template",
   "downloaded_at": "2026-01-22T03:28:06.756054Z",
   "dir_name": "coding-rules",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/coding-rules"
 }

@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Use to review code implementations for quality, correctness, and best practices",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:24:54.657708Z"
+  "downloaded_at": "2026-01-08T03:24:54.657708Z",
+  "github_path": ".claude/skills/code-review-skill"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/ZhiruiFeng/LocalAgentCrew",
   "downloaded_at": "2026-01-22T01:44:14.911712Z",
   "dir_name": "investment-critic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/investment-critic"
 }

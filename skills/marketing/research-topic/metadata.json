@@ -4,5 +4,6 @@
   "category": "marketing",
   "description": "Research a philosophical topic using web search. Outputs research notes, not finished content.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:40.554640Z"
+  "downloaded_at": "2026-01-08T03:21:40.554640Z",
+  "github_path": ".claude/skills/research-topic"
 }

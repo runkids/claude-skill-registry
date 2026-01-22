@@ -9,5 +9,6 @@
     "debrief"
   ],
   "stars": 1,
-  "dir_name": "post-run-debrief"
+  "dir_name": "post-run-debrief",
+  "github_path": ".claude/skills/post-run-debrief"
 }

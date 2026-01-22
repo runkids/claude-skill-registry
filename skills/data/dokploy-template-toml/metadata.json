@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "dokploy-template-toml"
+  "dir_name": "dokploy-template-toml",
+  "github_path": ".claude/skills/dokploy-template-toml"
 }

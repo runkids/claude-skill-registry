@@ -5,5 +5,6 @@
   "source": "github.com/tbartel74/Vigil-Code",
   "downloaded_at": "2026-01-22T02:32:10.589936Z",
   "dir_name": "docker-vigil-orchestration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/docker-vigil-orchestration"
 }

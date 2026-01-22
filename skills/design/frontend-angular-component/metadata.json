@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Use when creating or modifying Angular components in PlatformExampleAppWeb (Angular 19) with proper base class inheritance, state management, and platform patterns.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:31:57.278656Z"
+  "downloaded_at": "2026-01-08T03:31:57.278656Z",
+  "github_path": ".claude/skills/frontend-angular-component"
 }

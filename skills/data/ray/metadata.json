@@ -7,5 +7,6 @@
     "ray"
   ],
   "stars": 1,
-  "dir_name": "ray"
+  "dir_name": "ray",
+  "github_path": ".claude/skills/ray"
 }

@@ -8,5 +8,6 @@
     "dev",
     "guidelines"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": ".claude/skills/rails-dev-guidelines"
 }

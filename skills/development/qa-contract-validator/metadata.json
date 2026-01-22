@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Validates API contracts by discovering consumers and ensuring responses match their expectations. Detects breaking changes.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:29.428872Z"
+  "downloaded_at": "2026-01-06T09:07:29.428872Z",
+  "github_path": ".claude/skills/qa-contract-validator"
 }

@@ -7,5 +7,6 @@
     "update"
   ],
   "stars": 1,
-  "dir_name": "update-pr"
+  "dir_name": "update-pr",
+  "github_path": ".claude/skills/update-pr"
 }

@@ -4,5 +4,6 @@
   "category": "productivity",
   "description": "Suggest MOC updates and new MOCs based on semantic clustering.Use when asked to \"curate MOCs\", \"update maps\", \"find clusters\",\"what MOCs need updating\", or \"organize my notes\".",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:45.695113Z"
+  "downloaded_at": "2026-01-06T09:10:45.695113Z",
+  "github_path": ".claude/skills/moc-curator"
 }

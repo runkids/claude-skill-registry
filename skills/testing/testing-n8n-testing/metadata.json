@@ -8,5 +8,6 @@
     "n8n",
     "testing"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/testing-n8n-testing"
 }

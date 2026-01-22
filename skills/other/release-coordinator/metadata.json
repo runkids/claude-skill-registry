@@ -5,5 +5,6 @@
   "source": "github.com/nahisaho/CodeGraphMCPServer",
   "downloaded_at": "2026-01-22T04:03:32.178382Z",
   "dir_name": "release-coordinator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/release-coordinator"
 }

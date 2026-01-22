@@ -2,7 +2,8 @@
   "name": "wish-writer",
   "repo": "ys6448761-hue/daily-miracles-app",
   "category": "development",
-  "description": "7\uc77c\uac04 \ub9e4\uc77c \uc544\uce68/\uc800\ub141 \ubc1c\uc1a1\ud560 \uc751\uc6d0 \uba54\uc2dc\uc9c0 14\uac1c \uc0dd\uc131",
+  "description": "7일간 매일 아침/저녁 발송할 응원 메시지 14개 생성",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:50.209641Z"
+  "downloaded_at": "2026-01-06T09:09:50.209641Z",
+  "github_path": ".claude/skills/wish-writer"
 }

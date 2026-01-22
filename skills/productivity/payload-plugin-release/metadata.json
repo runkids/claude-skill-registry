@@ -4,5 +4,6 @@
   "category": "productivity",
   "description": "Automates the release workflow for the Payload Newsletter Plugin. Use when releasing a new version, bumping the version, or publishing to npm.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:17.649346Z"
+  "downloaded_at": "2026-01-06T08:57:17.649346Z",
+  "github_path": ".claude/skills/payload-plugin-release"
 }

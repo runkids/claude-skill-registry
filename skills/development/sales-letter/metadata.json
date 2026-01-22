@@ -2,7 +2,8 @@
   "name": "sales-letter",
   "repo": "taiyousan15/taisun_agent",
   "category": "development",
-  "description": "\u30bb\u30fc\u30eb\u30b9\u30ec\u30bf\u30fc\u306e\u4f5c\u6210\u3092\u652f\u63f4\u3002LP\u3001\u30e9\u30f3\u30c7\u30a3\u30f3\u30b0\u30da\u30fc\u30b8\u3001\u5546\u54c1\u30da\u30fc\u30b8\u306e\u30b3\u30d4\u30fc\u3092\u66f8\u304f\u969b\u306b\u4f7f\u7528\u3002\u30d8\u30c3\u30c9\u30b3\u30d4\u30fc\u3001\u30d9\u30cd\u30d5\u30a3\u30c3\u30c8\u3001\u4fa1\u683c\u63d0\u793a\u3001\u30af\u30ed\u30fc\u30b8\u30f3\u30b0\u7b49\u306e\u69cb\u9020\u306b\u5bfe\u5fdc\u3002",
+  "description": "セールスレターの作成を支援。LP、ランディングページ、商品ページのコピーを書く際に使用。ヘッドコピー、ベネフィット、価格提示、クロージング等の構造に対応。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:42.410733Z"
+  "downloaded_at": "2026-01-06T09:08:42.410733Z",
+  "github_path": ".claude/skills/sales-letter"
 }

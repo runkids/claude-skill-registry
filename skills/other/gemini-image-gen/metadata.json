@@ -5,5 +5,6 @@
   "source": "github.com/mrgoonie/xxxnaper",
   "downloaded_at": "2026-01-22T04:10:32.661406Z",
   "dir_name": "gemini-image-gen",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/gemini-image-gen"
 }

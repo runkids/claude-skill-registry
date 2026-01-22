@@ -5,5 +5,6 @@
   "source": "github.com/seanchatmangpt/ggen",
   "downloaded_at": "2026-01-22T03:08:32.164018Z",
   "dir_name": "bb80-parallel-agents",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/bb80-parallel-agents"
 }

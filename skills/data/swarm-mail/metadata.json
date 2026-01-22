@@ -8,5 +8,6 @@
     "mail"
   ],
   "stars": 1,
-  "dir_name": "swarm-mail"
+  "dir_name": "swarm-mail",
+  "github_path": ".claude/skills/swarm-mail"
 }

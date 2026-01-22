@@ -2,7 +2,8 @@
   "name": "pre-push-quality-checks",
   "repo": "ludiscan/ludiscan-webapp",
   "category": "development",
-  "description": "\u3053\u306e\u30b9\u30ad\u30eb\u306f\u3001PR\u4f5c\u6210\u3084git push\u524d\u306b\u30b3\u30fc\u30c9\u54c1\u8cea\u30c1\u30a7\u30c3\u30af\u3092\u5f37\u5236\u5b9f\u884c\u3057\u307e\u3059\u3002",
+  "description": "このスキルは、PR作成やgit push前にコード品質チェックを強制実行します。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:24.968332Z"
+  "downloaded_at": "2026-01-06T09:02:24.968332Z",
+  "github_path": ".claude/skills/pre-push-quality-checks"
 }

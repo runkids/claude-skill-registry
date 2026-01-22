@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Use this skill whenever the user wants to set up, configure, or refactor TypeORM within a NestJS TypeScript project, including data sources, entities, migrations, repositories, relations, and transact",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:46.463129Z"
+  "downloaded_at": "2026-01-06T09:03:46.463129Z",
+  "github_path": ".claude/skills/nestjs-typeorm-integration"
 }

@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Create GitHub issues following Pollinations team conventions. Use when asked to create issues, track work, or plan features.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:25.026110Z"
+  "downloaded_at": "2026-01-08T03:21:25.026110Z",
+  "github_path": ".claude/skills/issue-maker"
 }

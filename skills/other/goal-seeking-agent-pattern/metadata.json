@@ -5,5 +5,6 @@
   "source": "github.com/rysweet/AzureHayMaker",
   "downloaded_at": "2026-01-22T03:18:48.719809Z",
   "dir_name": "goal-seeking-agent-pattern",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/goal-seeking-agent-pattern"
 }

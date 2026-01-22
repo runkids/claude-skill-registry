@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Apply branding guidelines to page sections after style cleanup. Implements 60-30-10 color rule, alternates section backgrounds, and ensures visual hierarchy. Use for each page after running remove-inl",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:56.649620Z"
+  "downloaded_at": "2026-01-06T09:06:56.649620Z",
+  "github_path": ".claude/skills/section-backgrounds"
 }

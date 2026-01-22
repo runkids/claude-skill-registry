@@ -5,5 +5,6 @@
   "source": "github.com/ederheisler/agent-skills",
   "downloaded_at": "2026-01-22T02:36:33.563514Z",
   "dir_name": "self-improving-agent",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/self-improving-agent"
 }

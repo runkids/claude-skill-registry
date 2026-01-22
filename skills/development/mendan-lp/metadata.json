@@ -2,7 +2,8 @@
   "name": "mendan-lp",
   "repo": "taiyousan15/taisun_agent",
   "category": "development",
-  "description": "\u9762\u8ac7\u7533\u8fbc\u738750%\u3092\u5b9f\u73fe\u3059\u308b\u9762\u8ac7LP\u30924\u3064\u306e\u578b\uff08\u30b9\u30c8\u30fc\u30ea\u30fc\u578b\u3001\u30bf\u30a4\u30e0\u30e9\u30a4\u30f3\u578b\u3001Q&A\u578b\u3001\u795e\u8a71\u5d29\u3057\u578b\uff09\u304b\u3089\u9078\u629e\u3057\u3066\u4f5c\u6210\u3002\u9ad8\u984d\u5546\u54c1\u306e\u30bb\u30fc\u30eb\u30b9\u306b\u6700\u9069\u5316\u3002",
+  "description": "面談申込率50%を実現する面談LPを4つの型（ストーリー型、タイムライン型、Q&A型、神話崩し型）から選択して作成。高額商品のセールスに最適化。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:45.434493Z"
+  "downloaded_at": "2026-01-06T09:08:45.434493Z",
+  "github_path": ".claude/skills/mendan-lp"
 }

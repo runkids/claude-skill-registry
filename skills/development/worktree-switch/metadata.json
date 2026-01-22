@@ -7,5 +7,6 @@
     "worktree",
     "switch"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": ".claude/skills/worktree-switch"
 }

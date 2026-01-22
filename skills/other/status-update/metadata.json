@@ -5,5 +5,6 @@
   "source": "github.com/kmylpenter/KFG-CCv2-Installer-Stable",
   "downloaded_at": "2026-01-22T01:34:31.716136Z",
   "dir_name": "status-update",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/status-update"
 }

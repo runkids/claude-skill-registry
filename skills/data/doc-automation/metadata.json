@@ -5,5 +5,6 @@
   "description": "Documentation automation with file versioning and metadata. Use for maintaining documentation, tracking file versions, adding metadata headers.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:11:17.477045Z",
-  "dir_name": "doc-automation"
+  "dir_name": "doc-automation",
+  "github_path": ".claude/skills/doc-automation"
 }

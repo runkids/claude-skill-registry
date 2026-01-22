@@ -8,5 +8,6 @@
     "generator"
   ],
   "stars": 0,
-  "dir_name": "slide-generator"
+  "dir_name": "slide-generator",
+  "github_path": ".claude/skills/slide-generator"
 }

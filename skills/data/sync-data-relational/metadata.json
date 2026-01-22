@@ -10,5 +10,6 @@
   ],
   "stars": 291,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "sync-data-relational"
+  "dir_name": "sync-data-relational",
+  "github_path": ".claude/skills/sync-data-relational"
 }

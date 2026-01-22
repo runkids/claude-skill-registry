@@ -5,5 +5,6 @@
   "source": "github.com/zubayer0077/Claude-Multi-Agent-Research-System-Skill",
   "downloaded_at": "2026-01-22T02:53:21.351015Z",
   "dir_name": "multi-agent-researcher",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/multi-agent-researcher"
 }

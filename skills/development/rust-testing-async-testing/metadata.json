@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Write async tests with tokio::test and configure multi-threaded test runtimes. Use when testing async code.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:24:38.786234Z"
+  "downloaded_at": "2026-01-08T03:24:38.786234Z",
+  "github_path": ".claude/skills/rust-testing-async-testing"
 }

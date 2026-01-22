@@ -5,5 +5,6 @@
   "source": "github.com/KanayaActa/ai-driven-dev-template",
   "downloaded_at": "2026-01-22T02:12:32.006265Z",
   "dir_name": "ticket-feedback",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ticket-feedback"
 }

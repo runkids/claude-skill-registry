@@ -10,5 +10,6 @@
     "validator"
   ],
   "stars": 0,
-  "dir_name": "phoenix-xirr-fees-validator"
+  "dir_name": "phoenix-xirr-fees-validator",
+  "github_path": ".claude/skills/phoenix-xirr-fees-validator"
 }

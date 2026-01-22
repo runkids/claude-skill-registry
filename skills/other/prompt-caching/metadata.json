@@ -5,5 +5,6 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-19T04:20:21.783062Z",
   "dir_name": "prompt-caching",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/prompt-caching"
 }

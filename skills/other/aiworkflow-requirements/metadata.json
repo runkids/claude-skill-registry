@@ -5,5 +5,6 @@
   "source": "github.com/daishiman/AIWorkflowOrchestrator",
   "downloaded_at": "2026-01-22T01:26:17.684937Z",
   "dir_name": "aiworkflow-requirements",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aiworkflow-requirements"
 }

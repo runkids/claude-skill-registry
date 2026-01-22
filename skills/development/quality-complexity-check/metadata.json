@@ -8,5 +8,6 @@
     "complexity",
     "check"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": ".claude/skills/quality-complexity-check"
 }

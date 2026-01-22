@@ -5,5 +5,6 @@
   "source": "github.com/nodnarbnitram/claude-code-extensions",
   "downloaded_at": "2026-01-22T02:20:19.994580Z",
   "dir_name": "ha-api",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ha-api"
 }

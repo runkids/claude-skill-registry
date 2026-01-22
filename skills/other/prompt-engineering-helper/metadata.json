@@ -5,5 +5,6 @@
   "source": "github.com/ntaksh42/agents",
   "downloaded_at": "2026-01-22T02:30:16.580874Z",
   "dir_name": "prompt-engineering-helper",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/prompt-engineering-helper"
 }

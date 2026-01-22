@@ -5,5 +5,6 @@
   "source": "github.com/rjmurillo/ai-agents",
   "downloaded_at": "2026-01-22T04:17:14.397943Z",
   "dir_name": "steering-matcher",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/steering-matcher"
 }

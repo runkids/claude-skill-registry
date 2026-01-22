@@ -9,5 +9,6 @@
     "troubleshooter"
   ],
   "stars": 0,
-  "dir_name": "github-actions-troubleshooter"
+  "dir_name": "github-actions-troubleshooter",
+  "github_path": ".claude/skills/github-actions-troubleshooter"
 }

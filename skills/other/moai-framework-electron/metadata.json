@@ -5,5 +5,6 @@
   "source": "github.com/yarang/chatbot_ai_assistant_v2",
   "downloaded_at": "2026-01-22T03:57:19.686761Z",
   "dir_name": "moai-framework-electron",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-framework-electron"
 }

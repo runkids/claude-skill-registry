@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "User story, epic, and task creation with acceptance criteria. Use when breaking down requirements into user stories, creating epics, writing acceptance criteria, or planning sprints. Triggers on \"user",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:13.494261Z"
+  "downloaded_at": "2026-01-06T09:10:13.494261Z",
+  "github_path": ".claude/skills/userstory-documentation"
 }

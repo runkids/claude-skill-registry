@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Check the current status of Codex collaboration. Use when user says codex status, check codex, or collaboration status.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:21.450767Z"
+  "downloaded_at": "2026-01-06T09:01:21.450767Z",
+  "github_path": ".claude/skills/codex-status"
 }

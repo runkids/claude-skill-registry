@@ -5,5 +5,6 @@
   "source": "github.com/wheels-dev/wheels",
   "downloaded_at": "2026-01-22T02:34:45.852764Z",
   "dir_name": "wheels-api-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/wheels-api-generator"
 }

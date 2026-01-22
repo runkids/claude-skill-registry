@@ -4,5 +4,6 @@
   "category": "devops",
   "description": "Kubernetes deployment patterns with Helm charts. Covers deployments, services, ConfigMaps, Secrets, Dapr sidecar injection, health probes, and resource management.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:58.722159Z"
+  "downloaded_at": "2026-01-06T09:09:58.722159Z",
+  "github_path": ".claude/skills/kubernetes-helm-deployment"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/taylorsatula/mira-OSS",
   "downloaded_at": "2026-01-21T00:52:53.334219Z",
   "dir_name": "fail-fast-no-hedging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/fail-fast-no-hedging"
 }

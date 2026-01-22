@@ -5,5 +5,6 @@
   "source": "github.com/erichowens/some_claude_skills",
   "downloaded_at": "2026-01-22T01:03:00.056559Z",
   "dir_name": "dag-hallucination-detector",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dag-hallucination-detector"
 }

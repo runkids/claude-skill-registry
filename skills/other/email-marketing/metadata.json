@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-22T01:38:00.624158Z",
   "dir_name": "email-marketing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/email-marketing"
 }

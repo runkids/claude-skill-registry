@@ -5,5 +5,6 @@
   "source": "github.com/rjmurillo/ai-agents",
   "downloaded_at": "2026-01-22T04:17:15.530204Z",
   "dir_name": "fix-markdown-fences",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/fix-markdown-fences"
 }

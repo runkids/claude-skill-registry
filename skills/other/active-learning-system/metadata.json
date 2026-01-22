@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-22T01:38:05.185669Z",
   "dir_name": "active-learning-system",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/active-learning-system"
 }

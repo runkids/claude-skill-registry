@@ -4,5 +4,6 @@
   "category": "testing",
   "description": "Expert in statistical analysis for blind A/B and ABX audio testing. Validates randomization, calculates statistical significance, and ensures proper experimental design. Use when implementing A/B test",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:04.359118Z"
+  "downloaded_at": "2026-01-06T09:11:04.359118Z",
+  "github_path": ".claude/skills/ab-testing-statistician"
 }

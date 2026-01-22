@@ -8,5 +8,6 @@
     "manager"
   ],
   "stars": 0,
-  "dir_name": "recipe-manager"
+  "dir_name": "recipe-manager",
+  "github_path": ".claude/skills/recipe-manager"
 }

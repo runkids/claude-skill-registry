@@ -8,5 +8,6 @@
     "testing",
     "platform"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/mstest-testing-platform"
 }

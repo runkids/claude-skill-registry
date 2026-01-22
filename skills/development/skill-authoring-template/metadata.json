@@ -8,5 +8,6 @@
     "authoring",
     "template"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/skill-authoring-template"
 }

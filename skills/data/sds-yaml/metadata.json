@@ -5,5 +5,6 @@
   "description": "Create machine-readable SDS YAML that maps cleanly to SEA DSL.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:02:01.718649Z",
-  "dir_name": "sds-yaml"
+  "dir_name": "sds-yaml",
+  "github_path": ".claude/skills/sds-yaml"
 }

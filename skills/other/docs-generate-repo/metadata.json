@@ -5,5 +5,6 @@
   "source": "github.com/spencerbeggs/claude-design-coordinator",
   "downloaded_at": "2026-01-22T02:41:52.195277Z",
   "dir_name": "docs-generate-repo",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/docs-generate-repo"
 }

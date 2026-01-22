@@ -4,5 +4,6 @@
   "category": "development",
   "description": "I Ching divination expert for consultation and interpretation",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:50.487660Z"
+  "downloaded_at": "2026-01-06T09:04:50.487660Z",
+  "github_path": ".claude/skills/iching"
 }

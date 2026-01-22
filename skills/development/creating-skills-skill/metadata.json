@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Use when creating new Claude Code skills or improving existing ones - ensures skills are discoverable, scannable, and effective through proper structure, CSO optimization, and real examples",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:43.632585Z"
+  "downloaded_at": "2026-01-08T03:20:43.632585Z",
+  "github_path": ".claude/skills/creating-skills-skill"
 }

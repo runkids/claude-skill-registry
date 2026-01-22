@@ -4,5 +4,6 @@
   "category": "testing",
   "description": "Write PRDs with EARS requirements and acceptance criteria that are testable.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:00.822608Z"
+  "downloaded_at": "2026-01-06T09:02:00.822608Z",
+  "github_path": ".claude/skills/ears-prd"
 }

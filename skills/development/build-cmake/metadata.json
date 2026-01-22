@@ -8,5 +8,6 @@
     "cmake"
   ],
   "stars": 2209,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/build-cmake"
 }

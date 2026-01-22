@@ -5,5 +5,6 @@
   "source": "github.com/Tony363/SuperClaude",
   "downloaded_at": "2026-01-22T01:21:06.382215Z",
   "dir_name": "sc-build",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/sc-build"
 }

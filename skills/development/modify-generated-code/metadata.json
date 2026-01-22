@@ -8,5 +8,6 @@
     "generated",
     "code"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": ".claude/skills/modify-generated-code"
 }

@@ -5,5 +5,6 @@
   "description": "Gestion de la base de données Supabase pour MyGGV GPS. Utiliser pour les opérations SQL, migrations, tables et requêtes. NE PAS utiliser pour la documentation (utiliser archon-project).",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:06:35.900860Z",
-  "dir_name": "supabase-database"
+  "dir_name": "supabase-database",
+  "github_path": ".claude/skills/supabase-database"
 }

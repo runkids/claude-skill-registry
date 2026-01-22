@@ -5,5 +5,6 @@
   "source": "github.com/mamba-mental/agent-skill-manager",
   "downloaded_at": "2026-01-14T01:45:03.222626Z",
   "dir_name": "research-paper-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/research-paper-writer"
 }

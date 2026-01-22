@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Always include when making changes to niri",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:12.885352Z"
+  "downloaded_at": "2026-01-06T08:57:12.885352Z",
+  "github_path": ".claude/skills/niri"
 }

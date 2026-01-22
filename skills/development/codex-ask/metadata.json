@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Ask OpenAI Codex questions about code to understand implementations, architecture, patterns, and debugging. Use when the user asks how code works, where something is implemented, what patterns are use",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:25.966958Z"
+  "downloaded_at": "2026-01-06T09:03:25.966958Z",
+  "github_path": ".claude/skills/codex-ask"
 }

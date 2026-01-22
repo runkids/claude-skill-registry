@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Expert in digital signal processing for audio applications. Validates biquad filter implementations, frequency response calculations, and audio algorithms. Use when modifying audio-math.ts, implementi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:45.902872Z"
+  "downloaded_at": "2026-01-06T09:10:45.902872Z",
+  "github_path": ".claude/skills/audio-dsp-reviewer"
 }

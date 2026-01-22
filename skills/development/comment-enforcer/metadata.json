@@ -2,7 +2,8 @@
   "name": "comment-enforcer",
   "repo": "fsyyft-go/kratos-layout",
   "category": "development",
-  "description": "Go \u4ee3\u7801\u6ce8\u91ca\u89c4\u8303\u68c0\u67e5\u4e0e\u4fee\u590d\u5de5\u5177\u3002\u81ea\u52a8\u5316\u68c0\u67e5\u6ce8\u91ca\u683c\u5f0f\u3001\u672f\u8bed\u4e00\u81f4\u6027\u3001\u5305\u7ea7\u522b\u6ce8\u91ca\u89c4\u8303\uff0c\u5229\u7528\u5927\u6a21\u578b\u8fdb\u884c\u8bed\u4e49\u5206\u6790\u548c\u6ce8\u91ca\u751f\u6210\uff0c\u786e\u4fdd\u9879\u76ee\u6ce8\u91ca\u7b26\u5408\u4e13\u4e1a\u6807\u51c6\u3002",
+  "description": "Go 代码注释规范检查与修复工具。自动化检查注释格式、术语一致性、包级别注释规范，利用大模型进行语义分析和注释生成，确保项目注释符合专业标准。",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:24:00.066646Z"
+  "downloaded_at": "2026-01-08T03:24:00.066646Z",
+  "github_path": ".claude/skills/comment-enforcer"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/zsutxz/ClaudeLearning",
   "downloaded_at": "2026-01-22T01:05:27.873355Z",
   "dir_name": "multi-agent-programmer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/multi-agent-programmer"
 }

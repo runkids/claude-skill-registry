@@ -5,5 +5,6 @@
   "source": "github.com/zellycloud/zyflow",
   "downloaded_at": "2026-01-22T04:03:54.656666Z",
   "dir_name": "moai-foundation-claude",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-foundation-claude"
 }

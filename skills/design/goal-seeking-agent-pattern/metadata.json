@@ -9,5 +9,6 @@
     "agent",
     "pattern"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/goal-seeking-agent-pattern"
 }

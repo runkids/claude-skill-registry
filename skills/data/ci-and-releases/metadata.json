@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "ci-and-releases"
+  "dir_name": "ci-and-releases",
+  "github_path": ".claude/skills/ci-and-releases"
 }

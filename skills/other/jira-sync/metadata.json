@@ -5,5 +5,6 @@
   "source": "github.com/Lobbi-Docs/claude",
   "downloaded_at": "2026-01-22T03:56:19.987456Z",
   "dir_name": "jira-sync",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/jira-sync"
 }

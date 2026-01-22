@@ -5,5 +5,6 @@
   "source": "github.com/erichowens/some_claude_skills",
   "downloaded_at": "2026-01-17T03:02:56.150911Z",
   "dir_name": "native-app-designer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/native-app-designer"
 }

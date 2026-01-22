@@ -5,5 +5,6 @@
   "source": "github.com/nathanvale/vtm-cli",
   "downloaded_at": "2026-01-22T04:12:18.762354Z",
   "dir_name": "git-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/git-expert"
 }

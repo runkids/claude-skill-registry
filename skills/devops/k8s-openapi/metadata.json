@@ -8,5 +8,6 @@
     "openapi"
   ],
   "stars": 97,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/k8s-openapi"
 }

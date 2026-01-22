@@ -8,5 +8,6 @@
     "chart",
     "management"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/helm-chart-management"
 }

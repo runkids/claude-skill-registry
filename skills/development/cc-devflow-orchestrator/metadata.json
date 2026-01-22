@@ -8,5 +8,6 @@
     "orchestrator"
   ],
   "stars": 93,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/cc-devflow-orchestrator"
 }

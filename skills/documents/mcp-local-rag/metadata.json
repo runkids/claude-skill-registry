@@ -8,5 +8,6 @@
     "local",
     "rag"
   ],
-  "stars": 48
+  "stars": 48,
+  "github_path": "skills/mcp-local-rag"
 }

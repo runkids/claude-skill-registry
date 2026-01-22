@@ -5,5 +5,6 @@
   "source": "github.com/kcns008/cluster-code",
   "downloaded_at": "2026-01-22T01:22:10.276247Z",
   "dir_name": "k8s-troubleshooting",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/k8s-troubleshooting"
 }

@@ -7,5 +7,6 @@
     "threejs",
     "builder"
   ],
-  "stars": 45
+  "stars": 45,
+  "github_path": ".claude/skills/threejs-builder"
 }

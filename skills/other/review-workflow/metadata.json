@@ -5,5 +5,6 @@
   "source": "github.com/adaptationio/Skrillz",
   "downloaded_at": "2026-01-22T03:07:10.789711Z",
   "dir_name": "review-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/review-workflow"
 }

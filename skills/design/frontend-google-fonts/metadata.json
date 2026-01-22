@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Typography setup with Google Fonts for Next.js + Tailwind projects. Use when choosing fonts, need font pairing recommendations (SaaS, editorial, corporate presets), or setting up optimized font loadin",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:38.094955Z"
+  "downloaded_at": "2026-01-06T08:59:38.094955Z",
+  "github_path": ".claude/skills/frontend-google-fonts"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/vinzenz/jules-agentic-software-builder-for-claude",
   "downloaded_at": "2026-01-22T02:36:38.195370Z",
   "dir_name": "design-brief",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/design-brief"
 }

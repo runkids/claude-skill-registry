@@ -5,5 +5,6 @@
   "source": "github.com/jkappers/claude-code-software-delivery-plugin",
   "downloaded_at": "2026-01-22T01:03:11.744522Z",
   "dir_name": "developing-rails",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/developing-rails"
 }

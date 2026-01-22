@@ -10,5 +10,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "cloudflare-api-orchestration"
+  "dir_name": "cloudflare-api-orchestration",
+  "github_path": ".claude/skills/cloudflare-api-orchestration"
 }

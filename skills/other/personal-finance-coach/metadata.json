@@ -5,5 +5,6 @@
   "source": "github.com/erichowens/some_claude_skills",
   "downloaded_at": "2026-01-14T02:58:39.823641Z",
   "dir_name": "personal-finance-coach",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/personal-finance-coach"
 }

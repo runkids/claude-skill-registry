@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Capture bugs/enhancements/ideas to request-logs. For quick operations use /mc command instead.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:14.364383Z"
+  "downloaded_at": "2026-01-06T09:10:14.364383Z",
+  "github_path": ".claude/skills/meatycapture-capture"
 }

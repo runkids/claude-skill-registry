@@ -2,7 +2,8 @@
   "name": "spawn-builder",
   "repo": "Zeliper/z-coder",
   "category": "development",
-  "description": "\ube4c\ub4dc/\ud14c\uc2a4\ud2b8\uac00 \ud544\uc694\ud560 \ub54c builder-agent \ud65c\uc6a9 \uac00\uc774\ub4dc",
+  "description": "빌드/테스트가 필요할 때 builder-agent 활용 가이드",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:44.172333Z"
+  "downloaded_at": "2026-01-06T09:09:44.172333Z",
+  "github_path": ".claude/skills/spawn-builder"
 }

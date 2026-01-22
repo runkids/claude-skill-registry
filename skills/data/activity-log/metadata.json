@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "activity-log"
+  "dir_name": "activity-log",
+  "github_path": ".claude/skills/activity-log"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/Dexploarer/hyper-forge",
   "downloaded_at": "2026-01-22T01:08:17.261979Z",
   "dir_name": "character-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/character-generator"
 }

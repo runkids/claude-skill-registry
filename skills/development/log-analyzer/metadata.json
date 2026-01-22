@@ -7,5 +7,6 @@
     "log",
     "analyzer"
   ],
-  "stars": 21
+  "stars": 21,
+  "github_path": ".claude/skills/log-analyzer"
 }

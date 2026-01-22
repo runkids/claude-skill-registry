@@ -5,5 +5,6 @@
   "source": "github.com/masharratt/claude-flow-novice",
   "downloaded_at": "2026-01-22T01:42:55.325039Z",
   "dir_name": "cfn-project-management",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/cfn-project-management"
 }

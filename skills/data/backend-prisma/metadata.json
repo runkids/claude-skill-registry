@@ -9,5 +9,6 @@
   ],
   "stars": 4,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "backend-prisma"
+  "dir_name": "backend-prisma",
+  "github_path": ".claude/skills/backend-prisma"
 }

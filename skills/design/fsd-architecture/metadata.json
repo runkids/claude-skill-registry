@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Feature-Sliced Design architecture for frontend. Use when creating new features, slices, or understanding the FSD layer structure.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:31.779483Z"
+  "downloaded_at": "2026-01-06T09:01:31.779483Z",
+  "github_path": ".claude/skills/fsd-architecture"
 }

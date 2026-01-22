@@ -7,5 +7,6 @@
     "nostr",
     "tools"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": ".claude/skills/nostr-tools"
 }

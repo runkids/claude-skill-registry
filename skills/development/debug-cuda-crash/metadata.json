@@ -9,5 +9,6 @@
     "crash"
   ],
   "stars": 4404,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/debug-cuda-crash"
 }

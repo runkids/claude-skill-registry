@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Use when creating API services for backend communication with proper patterns for caching, error handling, and type safety.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:12.960391Z"
+  "downloaded_at": "2026-01-08T03:20:12.960391Z",
+  "github_path": ".claude/skills/frontend-angular-api-service"
 }

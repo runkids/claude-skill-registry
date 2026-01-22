@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "daily-briefing"
+  "dir_name": "daily-briefing",
+  "github_path": ".claude/skills/daily-briefing"
 }

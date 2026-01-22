@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Generate OrcaFlex models from templates using component assembly with",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:14.345487Z"
+  "downloaded_at": "2026-01-08T03:20:14.345487Z",
+  "github_path": ".claude/skills/orcaflex-model-generator"
 }

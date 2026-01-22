@@ -8,5 +8,6 @@
     "refinement"
   ],
   "stars": 0,
-  "dir_name": "prompt-refinement"
+  "dir_name": "prompt-refinement",
+  "github_path": ".claude/skills/prompt-refinement"
 }

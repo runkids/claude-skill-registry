@@ -5,5 +5,6 @@
   "source": "github.com/oimiragieo/agent-studio",
   "downloaded_at": "2026-01-14T03:17:03.940736Z",
   "dir_name": "e2e-uuv-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/e2e-uuv-testing"
 }

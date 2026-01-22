@@ -5,5 +5,6 @@
   "source": "github.com/nicepkg/ai-workflow",
   "downloaded_at": "2026-01-22T03:29:17.340109Z",
   "dir_name": "add-new-skills-to-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/add-new-skills-to-workflow"
 }

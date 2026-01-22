@@ -7,5 +7,6 @@
     "validate",
     "run"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/validate-run"
 }

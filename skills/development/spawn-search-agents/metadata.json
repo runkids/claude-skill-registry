@@ -2,7 +2,8 @@
   "name": "spawn-search-agents",
   "repo": "Zeliper/z-coder",
   "category": "development",
-  "description": "\uc815\ubcf4 \uc218\uc9d1\uc774 \ud544\uc694\ud560 \ub54c \uac80\uc0c9 \uc5d0\uc774\uc804\ud2b8 \ud65c\uc6a9 \uac00\uc774\ub4dc. \ucf54\ub4dc \ud0d0\uc0c9, \ub808\ud37c\ub7f0\uc2a4, \uc6f9\uac80\uc0c9",
+  "description": "정보 수집이 필요할 때 검색 에이전트 활용 가이드. 코드 탐색, 레퍼런스, 웹검색",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:44.307701Z"
+  "downloaded_at": "2026-01-06T09:09:44.307701Z",
+  "github_path": ".claude/skills/spawn-search-agents"
 }

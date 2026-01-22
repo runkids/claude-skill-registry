@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Use when implementing state management with PlatformVmStore for complex components requiring reactive state, effects, and selectors.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:31:56.644697Z"
+  "downloaded_at": "2026-01-08T03:31:56.644697Z",
+  "github_path": ".claude/skills/frontend-angular-store"
 }

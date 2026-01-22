@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Automatically apply safe quality fixes including formatting (Black, isort), linting (Ruff auto-fixes), and resolve formatter conflicts. Use when quality checks fail or before committing code.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:26.931605Z"
+  "downloaded_at": "2026-01-06T08:59:26.931605Z",
+  "github_path": ".claude/skills/quality-fixer"
 }

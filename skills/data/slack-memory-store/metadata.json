@@ -10,5 +10,6 @@
   ],
   "stars": 193,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "slack-memory-store"
+  "dir_name": "slack-memory-store",
+  "github_path": ".claude/skills/slack-memory-store"
 }

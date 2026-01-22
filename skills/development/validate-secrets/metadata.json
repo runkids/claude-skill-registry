@@ -7,5 +7,6 @@
     "validate",
     "secrets"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/validate-secrets"
 }

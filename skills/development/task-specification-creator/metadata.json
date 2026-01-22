@@ -2,7 +2,8 @@
   "name": "task-specification-creator",
   "repo": "daishiman/AIWorkflowOrchestrator",
   "category": "development",
-  "description": "\u30e6\u30fc\u30b6\u30fc\u304b\u3089\u4e0e\u3048\u3089\u308c\u305f\u30bf\u30b9\u30af\u3092\u5358\u4e00\u8cac\u52d9\u306e\u539f\u5247\u306b\u57fa\u3065\u3044\u3066\u5206\u89e3\u3057\u3001Phase 1\u304b\u3089Phase 11\u307e\u3067\u306e\u5b9f\u884c\u53ef\u80fd\u306a\u30bf\u30b9\u30af\u4ed5\u69d8\u66f8\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3092\u751f\u6210\u3059\u308b\u3002\u30b9\u30ad\u30eb\u9078\u5b9a\u306f\u4ed5\u69d8\u66f8\u4f5c\u6210\u6642\u306b\u52d5\u7684\u306b\u884c\u3046\u3002\u4f7f\u7528\u3059\u308b\u30b9\u30ad\u30eb\u306f\u30bf\u30b9\u30af\u306e\u6027\u8cea\u306b\u5fdc\u3058\u3066\u73fe\u5728\u5229\u7528\u53ef\u80fd\u306a\u30b9\u30ad\u30eb\uff08.claude/skills/\uff09\u304b\u3089\u9078\u5b9a\u3059\u308b\u3002Anchors:\u2022 Clean Code (Robert C. Martin) / \u9069\u7528: \u5358\u4e00\u8cac\u52d9\u306e\u539f\u5247 /",
+  "description": "ユーザーから与えられたタスクを単一責務の原則に基づいて分解し、Phase 1からPhase 11までの実行可能なタスク仕様書ドキュメントを生成する。スキル選定は仕様書作成時に動的に行う。使用するスキルはタスクの性質に応じて現在利用可能なスキル（.claude/skills/）から選定する。Anchors:• Clean Code (Robert C. Martin) / 適用: 単一責務の原則 /",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:24.391051Z"
+  "downloaded_at": "2026-01-06T09:01:24.391051Z",
+  "github_path": ".claude/skills/task-specification-creator"
 }

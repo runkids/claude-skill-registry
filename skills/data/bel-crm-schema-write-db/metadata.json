@@ -11,5 +11,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "bel-crm-schema-write-db"
+  "dir_name": "bel-crm-schema-write-db",
+  "github_path": ".claude/skills/bel-crm-schema-write-db"
 }

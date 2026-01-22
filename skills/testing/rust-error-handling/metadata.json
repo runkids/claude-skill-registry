@@ -8,5 +8,6 @@
     "error",
     "handling"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/rust-error-handling"
 }

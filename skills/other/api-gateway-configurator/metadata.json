@@ -5,5 +5,6 @@
   "source": "github.com/Dexploarer/hyper-forge",
   "downloaded_at": "2026-01-22T01:08:15.970826Z",
   "dir_name": "api-gateway-configurator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/api-gateway-configurator"
 }

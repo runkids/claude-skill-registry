@@ -5,5 +5,6 @@
   "source": "github.com/bitovi/context-generation-mvp",
   "downloaded_at": "2026-01-22T01:08:30.809412Z",
   "dir_name": "2-categorize-files",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/2-categorize-files"
 }

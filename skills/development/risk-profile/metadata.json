@@ -2,7 +2,8 @@
   "name": "risk-profile",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
   "category": "development",
-  "description": "Assess implementation risks using Probability \u00d7 Impact (P\u00d7I) scoring methodology across 6 categories (Technical, Security, Performance, Data, Business, Operational). Scores risks (P\u00d7I: 1-9), develops ",
+  "description": "Assess implementation risks using Probability × Impact (P×I) scoring methodology across 6 categories (Technical, Security, Performance, Data, Business, Operational). Scores risks (P×I: 1-9), develops ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:29.875245Z"
+  "downloaded_at": "2026-01-06T09:01:29.875245Z",
+  "github_path": ".claude/skills/risk-profile"
 }

@@ -8,5 +8,6 @@
     "role",
     "skill"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": ".claude/skills/validator-role-skill"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/adaptationio/Skrillz",
   "downloaded_at": "2026-01-22T03:07:08.495898Z",
   "dir_name": "codex-cli",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/codex-cli"
 }

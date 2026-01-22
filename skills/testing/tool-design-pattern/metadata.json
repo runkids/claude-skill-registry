@@ -4,5 +4,6 @@
   "category": "testing",
   "description": "Automatically applies when creating AI tool functions. Ensures proper schema design, input validation, error handling, context access, and comprehensive testing.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:54.822728Z"
+  "downloaded_at": "2026-01-06T09:07:54.822728Z",
+  "github_path": ".claude/skills/tool-design-pattern"
 }

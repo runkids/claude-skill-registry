@@ -7,5 +7,6 @@
     "recovery",
     "strategies"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/recovery-strategies"
 }

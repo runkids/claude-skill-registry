@@ -8,5 +8,6 @@
     "ambiguity",
     "detector"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/test-ambiguity-detector"
 }

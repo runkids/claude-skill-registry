@@ -4,5 +4,6 @@
   "category": "productivity",
   "description": "Use when coordinating dependency-aware task planning with beads (bd) CLI and bv graph sidecar - covers ready work selection, priority management, and robot flags for deterministic outputs",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:54.257116Z"
+  "downloaded_at": "2026-01-06T08:58:54.257116Z",
+  "github_path": ".claude/skills/using-beads-bv"
 }

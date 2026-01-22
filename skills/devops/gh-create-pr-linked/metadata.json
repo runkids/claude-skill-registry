@@ -7,5 +7,6 @@
     "create",
     "linked"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": ".claude/skills/gh-create-pr-linked"
 }

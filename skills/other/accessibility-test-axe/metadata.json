@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-20T03:39:35.380467Z",
   "dir_name": "accessibility-test-axe",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/accessibility-test-axe"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "analyzing-taint-flow"
+  "dir_name": "analyzing-taint-flow",
+  "github_path": ".claude/skills/analyzing-taint-flow"
 }

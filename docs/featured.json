@@ -1,52 +1,12 @@
 {
-  "updated_at": "2026-01-22T10:04:05.877311Z",
+  "updated_at": "2026-01-22T10:33:26.858965Z",
   "count": 100,
   "skills": [
-    {
-      "name": "at",
-      "description": "Convert PyTorch AT_DISPATCH macros to AT_DISPATCH_V2 format in ATen C++ code. Use when porting AT_DISPATCH_ALL_TYPES_AND*, AT_DISPATCH_FLOATING_TYPES*, or other dispatch macros to the new v2 API. For",
-      "repo": "pytorch/pytorch",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "dispatch"
-      ],
-      "stars": 95362,
-      "install": "pytorch/pytorch",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docstring",
-      "description": "Write docstrings for PyTorch functions and methods following PyTorch conventions. Use when writing or updating docstrings in PyTorch code.",
-      "repo": "pytorch/pytorch",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "docstring"
-      ],
-      "stars": 95362,
-      "install": "pytorch/pytorch",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "skill",
-      "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
-      "repo": "pytorch/pytorch",
-      "path": "",
-      "category": "design",
-      "tags": [
-        "skill",
-        "writer"
-      ],
-      "stars": 95362,
-      "install": "pytorch/pytorch",
-      "source": "SkillsMP Synced Skills"
-    },
     {
       "name": "add",
       "description": "Add unsigned integer (uint) type support to PyTorch operators by updating AT_DISPATCH macros. Use when adding support for uint16, uint32, uint64 types to operators, kernels, or when user mentions enab",
       "repo": "pytorch/pytorch",
-      "path": "",
+      "path": ".claude/skills/add-uint-support",
       "category": "design",
       "tags": [
         "add",
@@ -54,7 +14,47 @@
         "support"
       ],
       "stars": 95362,
-      "install": "pytorch/pytorch",
+      "install": "pytorch/pytorch/.claude/skills/add-uint-support",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skill",
+      "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
+      "repo": "pytorch/pytorch",
+      "path": ".claude/skills/skill-writer",
+      "category": "design",
+      "tags": [
+        "skill",
+        "writer"
+      ],
+      "stars": 95362,
+      "install": "pytorch/pytorch/.claude/skills/skill-writer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docstring",
+      "description": "Write docstrings for PyTorch functions and methods following PyTorch conventions. Use when writing or updating docstrings in PyTorch code.",
+      "repo": "pytorch/pytorch",
+      "path": ".claude/skills/docstring",
+      "category": "development",
+      "tags": [
+        "docstring"
+      ],
+      "stars": 95362,
+      "install": "pytorch/pytorch/.claude/skills/docstring",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "at",
+      "description": "Convert PyTorch AT_DISPATCH macros to AT_DISPATCH_V2 format in ATen C++ code. Use when porting AT_DISPATCH_ALL_TYPES_AND*, AT_DISPATCH_FLOATING_TYPES*, or other dispatch macros to the new v2 API. For",
+      "repo": "pytorch/pytorch",
+      "path": ".claude/skills/at-dispatch-v2",
+      "category": "development",
+      "tags": [
+        "dispatch"
+      ],
+      "stars": 95362,
+      "install": "pytorch/pytorch/.claude/skills/at-dispatch-v2",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -86,122 +86,122 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "docs",
-      "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
-      "repo": "metabase/metabase",
-      "path": "",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "review"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docs",
-      "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
-      "repo": "metabase/metabase",
-      "path": "",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "write"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "clojure",
       "description": "Review Clojure and ClojureScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing Clojure/Clo",
       "repo": "metabase/metabase",
-      "path": "",
+      "path": ".claude/skills/clojure-review",
       "category": "development",
       "tags": [
         "clojure",
         "review"
       ],
       "stars": 44733,
-      "install": "metabase/metabase",
+      "install": "metabase/metabase/.claude/skills/clojure-review",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "typescript",
       "description": "Review TypeScript and JavaScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing TypeScript/",
       "repo": "metabase/metabase",
-      "path": "",
+      "path": ".claude/skills/typescript-review",
       "category": "development",
       "tags": [
         "typescript",
         "review"
       ],
       "stars": 44733,
-      "install": "metabase/metabase",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "typescript",
-      "description": "Write TypeScript and JavaScript code following Metabase coding standards and best practices. Use when developing or refactoring TypeScript/JavaScript code.",
-      "repo": "metabase/metabase",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "typescript",
-        "write"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase",
+      "install": "metabase/metabase/.claude/skills/typescript-review",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "clojure",
       "description": "Guide Clojure and ClojureScript development using REPL-driven workflow, coding conventions, and best practices. Use when writing, developing, or refactoring Clojure/ClojureScript code.",
       "repo": "metabase/metabase",
-      "path": "",
+      "path": ".claude/skills/clojure-write",
       "category": "development",
       "tags": [
         "clojure",
         "write"
       ],
       "stars": 44733,
-      "install": "metabase/metabase",
+      "install": "metabase/metabase/.claude/skills/clojure-write",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "typescript",
+      "description": "Write TypeScript and JavaScript code following Metabase coding standards and best practices. Use when developing or refactoring TypeScript/JavaScript code.",
+      "repo": "metabase/metabase",
+      "path": ".claude/skills/typescript-write",
+      "category": "development",
+      "tags": [
+        "typescript",
+        "write"
+      ],
+      "stars": 44733,
+      "install": "metabase/metabase/.claude/skills/typescript-write",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docs",
+      "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
+      "repo": "metabase/metabase",
+      "path": ".claude/skills/docs-review",
+      "category": "documents",
+      "tags": [
+        "docs",
+        "review"
+      ],
+      "stars": 44733,
+      "install": "metabase/metabase/.claude/skills/docs-review",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docs",
+      "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
+      "repo": "metabase/metabase",
+      "path": ".claude/skills/docs-write",
+      "category": "documents",
+      "tags": [
+        "docs",
+        "write"
+      ],
+      "stars": 44733,
+      "install": "metabase/metabase/.claude/skills/docs-write",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "cookbook",
       "description": "Audit an Anthropic Cookbook notebook based on a rubric. Use whenever a notebook review or audit is requested.",
       "repo": "anthropics/claude-cookbooks",
-      "path": "",
+      "path": ".claude/skills/cookbook-audit",
       "category": "security",
       "tags": [
         "cookbook",
         "audit"
       ],
       "stars": 28337,
-      "install": "anthropics/claude-cookbooks",
+      "install": "anthropics/claude-cookbooks/.claude/skills/cookbook-audit",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "run",
       "description": "Run Nx generators with prioritization for workspace-plugin generators. Use this when generating code, scaffolding new features, or automating repetitive tasks in the monorepo.",
       "repo": "nrwl/nx",
-      "path": "",
+      "path": ".claude/skills/run-nx-generator",
       "category": "development",
       "tags": [
         "run",
         "generator"
       ],
       "stars": 27580,
-      "install": "nrwl/nx",
+      "install": "nrwl/nx/.claude/skills/run-nx-generator",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "create",
       "description": "Guides Claude in creating well-structured SKILL.md files following best practices. Provides clear guidelines for naming, structure, and content organization to make skills easy to discover and execute",
       "repo": "labring/FastGPT",
-      "path": "",
+      "path": ".claude/skills/create-skill-file",
       "category": "design",
       "tags": [
         "create",
@@ -209,82 +209,28 @@
         "file"
       ],
       "stars": 26350,
-      "install": "labring/FastGPT",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "internal",
-      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
-      "repo": "anthropics/skills",
-      "path": "",
-      "category": "devops",
-      "tags": [
-        "internal",
-        "comms"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "pdf",
-      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
-      "repo": "anthropics/skills",
-      "path": "",
-      "category": "documents",
-      "tags": [
-        "pdf"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docx",
-      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
-      "repo": "anthropics/skills",
-      "path": "",
-      "category": "documents",
-      "tags": [
-        "docx"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "webapp",
-      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
-      "repo": "anthropics/skills",
-      "path": "",
-      "category": "testing",
-      "tags": [
-        "webapp",
-        "testing"
-      ],
-      "stars": 24530,
-      "install": "anthropics/skills",
+      "install": "labring/FastGPT/.claude/skills/create-skill-file",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "mcp",
       "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate externa",
       "repo": "anthropics/skills",
-      "path": "",
+      "path": "skills/mcp-builder",
       "category": "design",
       "tags": [
         "mcp",
         "builder"
       ],
       "stars": 24530,
-      "install": "anthropics/skills",
+      "install": "anthropics/skills/skills/mcp-builder",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "web",
       "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state manag",
       "repo": "anthropics/skills",
-      "path": "",
+      "path": "skills/web-artifacts-builder",
       "category": "design",
       "tags": [
         "web",
@@ -292,14 +238,68 @@
         "builder"
       ],
       "stars": 24530,
-      "install": "anthropics/skills",
+      "install": "anthropics/skills/skills/web-artifacts-builder",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "internal",
+      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
+      "repo": "anthropics/skills",
+      "path": "skills/internal-comms",
+      "category": "devops",
+      "tags": [
+        "internal",
+        "comms"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/internal-comms",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "webapp",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
+      "repo": "anthropics/skills",
+      "path": "skills/webapp-testing",
+      "category": "testing",
+      "tags": [
+        "webapp",
+        "testing"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/webapp-testing",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "pdf",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+      "repo": "anthropics/skills",
+      "path": "skills/pdf",
+      "category": "documents",
+      "tags": [
+        "pdf"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/pdf",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docx",
+      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
+      "repo": "anthropics/skills",
+      "path": "skills/docx",
+      "category": "documents",
+      "tags": [
+        "docx"
+      ],
+      "stars": 24530,
+      "install": "anthropics/skills/skills/docx",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "fetch",
       "description": "Fetch unresolved PR review comments using GitHub GraphQL API, filtering out resolved and outdated feedback.",
       "repo": "mlflow/mlflow",
-      "path": "",
+      "path": ".claude/skills/fetch-unresolved-comments",
       "category": "development",
       "tags": [
         "fetch",
@@ -307,56 +307,28 @@
         "comments"
       ],
       "stars": 23068,
-      "install": "mlflow/mlflow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "website",
-      "description": "Use this skill when working on the Repomix documentation website in `website/` directory, including VitePress configuration, multi-language content, or translation workflows.",
-      "repo": "yamadashy/repomix",
-      "path": "",
-      "category": "documents",
-      "tags": [
-        "website",
-        "maintainer"
-      ],
-      "stars": 20912,
-      "install": "yamadashy/repomix",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "agent",
-      "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
-      "repo": "yamadashy/repomix",
-      "path": "",
-      "category": "productivity",
-      "tags": [
-        "agent",
-        "memory"
-      ],
-      "stars": 20912,
-      "install": "yamadashy/repomix",
+      "install": "mlflow/mlflow/.claude/skills/fetch-unresolved-comments",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "lint",
       "description": "Use this skill to run npm run lint and fix linting issues. Triggers on fixing lint errors after code changes or validating code against project style guidelines.",
       "repo": "yamadashy/repomix",
-      "path": "",
+      "path": ".claude/skills/lint-fixer",
       "category": "development",
       "tags": [
         "lint",
         "fixer"
       ],
       "stars": 20912,
-      "install": "yamadashy/repomix",
+      "install": "yamadashy/repomix/.claude/skills/lint-fixer",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "browser",
       "description": "Use this skill when developing or maintaining browser extension code in the `browser/` directory, including Chrome/Firefox/Edge compatibility, content scripts, background scripts, or i18n updates.",
       "repo": "yamadashy/repomix",
-      "path": "",
+      "path": ".claude/skills/browser-extension-developer",
       "category": "development",
       "tags": [
         "browser",
@@ -364,107 +336,63 @@
         "developer"
       ],
       "stars": 20912,
-      "install": "yamadashy/repomix",
+      "install": "yamadashy/repomix/.claude/skills/browser-extension-developer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "website",
+      "description": "Use this skill when working on the Repomix documentation website in `website/` directory, including VitePress configuration, multi-language content, or translation workflows.",
+      "repo": "yamadashy/repomix",
+      "path": ".claude/skills/website-maintainer",
+      "category": "documents",
+      "tags": [
+        "website",
+        "maintainer"
+      ],
+      "stars": 20912,
+      "install": "yamadashy/repomix/.claude/skills/website-maintainer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agent",
+      "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
+      "repo": "yamadashy/repomix",
+      "path": ".claude/skills/agent-memory",
+      "category": "productivity",
+      "tags": [
+        "agent",
+        "memory"
+      ],
+      "stars": 20912,
+      "install": "yamadashy/repomix/.claude/skills/agent-memory",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "skill",
       "description": "Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, modifying skill-rules.json, understanding trigger patterns, working with hooks, debugging skill a",
       "repo": "langfuse/langfuse",
-      "path": "",
+      "path": ".claude/skills/skill-developer",
       "category": "development",
       "tags": [
         "skill",
         "developer"
       ],
       "stars": 19776,
-      "install": "langfuse/langfuse",
+      "install": "langfuse/langfuse/.claude/skills/skill-developer",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "confidence",
       "description": "Pre-implementation confidence assessment (≥90% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS refe",
       "repo": "SuperClaude-Org/SuperClaude_Framework",
-      "path": "",
+      "path": ".claude/skills/confidence-check",
       "category": "design",
       "tags": [
         "confidence",
         "check"
       ],
       "stars": 19236,
-      "install": "SuperClaude-Org/SuperClaude_Framework",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "clinical",
-      "description": "Generate professional clinical decision support (CDS) documents for pharmaceutical and clinical research settings, including patient cohort analyses (biomarker-stratified with outcomes) and treatment",
-      "repo": "davila7/claude-code-templates",
-      "path": "",
-      "category": "documents",
-      "tags": [
-        "clinical",
-        "decision",
-        "support"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "research",
-      "description": "Look up current research information using Perplexity's Sonar Pro Search or Sonar Reasoning Pro models through OpenRouter. Automatically selects the best model based on query complexity. Search academ",
-      "repo": "davila7/claude-code-templates",
-      "path": "",
-      "category": "documents",
-      "tags": [
-        "research",
-        "lookup"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "latex",
-      "description": "Create professional research posters in LaTeX using beamerposter, tikzposter, or baposter. Support for conference presentations, academic posters, and scientific communication. Includes layout design,",
-      "repo": "davila7/claude-code-templates",
-      "path": "",
-      "category": "testing",
-      "tags": [
-        "latex",
-        "posters"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "market",
-      "description": "Generate comprehensive market research reports (50+ pages) in the style of top consulting firms (McKinsey, BCG, Gartner). Features professional LaTeX formatting, extensive visual generation with scien",
-      "repo": "davila7/claude-code-templates",
-      "path": "",
-      "category": "testing",
-      "tags": [
-        "market",
-        "research",
-        "reports"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "peer",
-      "description": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and grant review across disciplines.",
-      "repo": "davila7/claude-code-templates",
-      "path": "",
-      "category": "design",
-      "tags": [
-        "peer",
-        "review"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates",
+      "install": "SuperClaude-Org/SuperClaude_Framework/.claude/skills/confidence-check",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -476,6 +404,20 @@
       "tags": [
         "research",
         "grants"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "scientific",
+      "description": "Core skill for the deep research and writing tool. Write scientific manuscripts in full paragraphs (never bullet points). Use two-stage process: (1) create section outlines with key points using resea",
+      "repo": "davila7/claude-code-templates",
+      "path": "",
+      "category": "design",
+      "tags": [
+        "scientific",
+        "writing"
       ],
       "stars": 14334,
       "install": "davila7/claude-code-templates",
@@ -510,14 +452,72 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "scientific",
-      "description": "Core skill for the deep research and writing tool. Write scientific manuscripts in full paragraphs (never bullet points). Use two-stage process: (1) create section outlines with key points using resea",
+      "name": "peer",
+      "description": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and grant review across disciplines.",
       "repo": "davila7/claude-code-templates",
       "path": "",
       "category": "design",
       "tags": [
-        "scientific",
-        "writing"
+        "peer",
+        "review"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "market",
+      "description": "Generate comprehensive market research reports (50+ pages) in the style of top consulting firms (McKinsey, BCG, Gartner). Features professional LaTeX formatting, extensive visual generation with scien",
+      "repo": "davila7/claude-code-templates",
+      "path": "",
+      "category": "testing",
+      "tags": [
+        "market",
+        "research",
+        "reports"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "latex",
+      "description": "Create professional research posters in LaTeX using beamerposter, tikzposter, or baposter. Support for conference presentations, academic posters, and scientific communication. Includes layout design,",
+      "repo": "davila7/claude-code-templates",
+      "path": "",
+      "category": "testing",
+      "tags": [
+        "latex",
+        "posters"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "research",
+      "description": "Look up current research information using Perplexity's Sonar Pro Search or Sonar Reasoning Pro models through OpenRouter. Automatically selects the best model based on query complexity. Search academ",
+      "repo": "davila7/claude-code-templates",
+      "path": "",
+      "category": "documents",
+      "tags": [
+        "research",
+        "lookup"
+      ],
+      "stars": 14334,
+      "install": "davila7/claude-code-templates",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "clinical",
+      "description": "Generate professional clinical decision support (CDS) documents for pharmaceutical and clinical research settings, including patient cohort analyses (biomarker-stratified with outcomes) and treatment",
+      "repo": "davila7/claude-code-templates",
+      "path": "",
+      "category": "documents",
+      "tags": [
+        "clinical",
+        "decision",
+        "support"
       ],
       "stars": 14334,
       "install": "davila7/claude-code-templates",
@@ -525,9 +525,37 @@
     },
     {
       "name": "using",
+      "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
+      "repo": "obra/superpowers",
+      "path": "skills/using-superpowers",
+      "category": "design",
+      "tags": [
+        "using",
+        "superpowers"
+      ],
+      "stars": 12395,
+      "install": "obra/superpowers/skills/using-superpowers",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "writing",
+      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "repo": "obra/superpowers",
+      "path": "skills/writing-skills",
+      "category": "devops",
+      "tags": [
+        "writing",
+        "skills"
+      ],
+      "stars": 12395,
+      "install": "obra/superpowers/skills/writing-skills",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "using",
       "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
       "repo": "obra/superpowers",
-      "path": "",
+      "path": "skills/using-git-worktrees",
       "category": "product",
       "tags": [
         "using",
@@ -535,84 +563,56 @@
         "worktrees"
       ],
       "stars": 12395,
-      "install": "obra/superpowers",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "writing",
-      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
-      "repo": "obra/superpowers",
-      "path": "",
-      "category": "devops",
-      "tags": [
-        "writing",
-        "skills"
-      ],
-      "stars": 12395,
-      "install": "obra/superpowers",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "using",
-      "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
-      "repo": "obra/superpowers",
-      "path": "",
-      "category": "design",
-      "tags": [
-        "using",
-        "superpowers"
-      ],
-      "stars": 12395,
-      "install": "obra/superpowers",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "agent",
-      "description": "Design and build AI agents for any domain. Use when users:(1) ask to \"create an agent\", \"build an assistant\", or \"design an AI system\"(2) want to understand agent architecture, agentic patterns, or au",
-      "repo": "shareAI-lab/learn-claude-code",
-      "path": "",
-      "category": "productivity",
-      "tags": [
-        "agent",
-        "builder"
-      ],
-      "stars": 11933,
-      "install": "shareAI-lab/learn-claude-code",
+      "install": "obra/superpowers/skills/using-git-worktrees",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "mcp",
       "description": "Build MCP (Model Context Protocol) servers that give Claude new capabilities. Use when user wants to create an MCP server, add tools to Claude, or integrate external services.",
       "repo": "shareAI-lab/learn-claude-code",
-      "path": "",
+      "path": "skills/mcp-builder",
       "category": "development",
       "tags": [
         "mcp",
         "builder"
       ],
       "stars": 11933,
-      "install": "shareAI-lab/learn-claude-code",
+      "install": "shareAI-lab/learn-claude-code/skills/mcp-builder",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agent",
+      "description": "Design and build AI agents for any domain. Use when users:(1) ask to \"create an agent\", \"build an assistant\", or \"design an AI system\"(2) want to understand agent architecture, agentic patterns, or au",
+      "repo": "shareAI-lab/learn-claude-code",
+      "path": "skills/agent-builder",
+      "category": "productivity",
+      "tags": [
+        "agent",
+        "builder"
+      ],
+      "stars": 11933,
+      "install": "shareAI-lab/learn-claude-code/skills/agent-builder",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "doc",
       "description": "Keeps IdeaVim documentation in sync with code changes. Use this skill when you need to verify documentation accuracy after code changes, or when checking if documentation (in doc/, README.md, CONTRIBU",
       "repo": "JetBrains/ideavim",
-      "path": "",
+      "path": ".claude/skills/doc-sync",
       "category": "documents",
       "tags": [
         "doc",
         "sync"
       ],
       "stars": 10026,
-      "install": "JetBrains/ideavim",
+      "install": "JetBrains/ideavim/.claude/skills/doc-sync",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "flow",
       "description": "Comprehensive Flow Nexus platform management - authentication, sandboxes, app deployment, payments, and challenges",
       "repo": "ruvnet/claude-flow",
-      "path": "",
+      "path": ".claude/skills/flow-nexus-platform",
       "category": "devops",
       "tags": [
         "flow",
@@ -620,131 +620,70 @@
         "platform"
       ],
       "stars": 9856,
-      "install": "ruvnet/claude-flow",
+      "install": "ruvnet/claude-flow/.claude/skills/flow-nexus-platform",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "swarm",
-      "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
+      "name": "sparc",
+      "description": "SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) comprehensive development methodology with multi-agent orchestration",
       "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "testing",
+      "path": ".claude/skills/sparc-methodology",
+      "category": "development",
       "tags": [
-        "swarm",
-        "advanced"
+        "sparc",
+        "methodology"
       ],
       "stars": 9856,
-      "install": "ruvnet/claude-flow",
+      "install": "ruvnet/claude-flow/.claude/skills/sparc-methodology",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "github",
-      "description": "Comprehensive GitHub release orchestration with AI swarm coordination for automated versioning, testing, deployment, and rollback management",
+      "name": "skill",
+      "description": "\"Create new Claude Code Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization. Use when you need to build custom skills for specific workflows, gen",
       "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "testing",
+      "path": ".claude/skills/skill-builder",
+      "category": "development",
       "tags": [
-        "github",
-        "release",
-        "management"
+        "skill",
+        "builder"
       ],
       "stars": 9856,
-      "install": "ruvnet/claude-flow",
+      "install": "ruvnet/claude-flow/.claude/skills/skill-builder",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "swarm",
-      "description": "\"Orchestrate multi-agent swarms with agentic-flow for parallel task execution, dynamic topology, and intelligent coordination. Use when scaling beyond single agents, implementing complex workflows, or",
+      "name": "reasoningbank",
+      "description": "\"Implement adaptive learning with ReasoningBank for pattern recognition, strategy optimization, and continuous improvement. Use when building self-learning agents, optimizing workflows, or implementin",
       "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "productivity",
+      "path": ".claude/skills/reasoningbank-intelligence",
+      "category": "development",
       "tags": [
-        "swarm",
-        "orchestration"
+        "reasoningbank",
+        "intelligence"
       ],
       "stars": 9856,
-      "install": "ruvnet/claude-flow",
+      "install": "ruvnet/claude-flow/.claude/skills/reasoningbank-intelligence",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "github",
-      "description": "Comprehensive GitHub project management with swarm-coordinated issue tracking, project board automation, and sprint planning",
+      "name": "performance",
+      "description": "Comprehensive performance analysis, bottleneck detection, and optimization recommendations for Claude Flow swarms",
       "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "productivity",
+      "path": ".claude/skills/performance-analysis",
+      "category": "development",
       "tags": [
-        "github",
-        "project",
-        "management"
+        "performance",
+        "analysis"
       ],
       "stars": 9856,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "hooks",
-      "description": "Automated coordination, formatting, and learning from Claude Code operations using intelligent hooks with MCP integration. Includes pre/post task hooks, session management, Git integration, memory coo",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "productivity",
-      "tags": [
-        "hooks",
-        "automation"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "github",
-      "description": "Advanced GitHub Actions workflow automation with AI swarm coordination, intelligent CI/CD pipelines, and comprehensive repository management",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "productivity",
-      "tags": [
-        "github",
-        "workflow",
-        "automation"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "hive",
-      "description": "Advanced Hive Mind collective intelligence system for queen-led multi-agent coordination with consensus mechanisms and persistent memory",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "productivity",
-      "tags": [
-        "hive",
-        "mind",
-        "advanced"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "flow",
-      "description": "Cloud-based AI swarm deployment and event-driven workflow automation with Flow Nexus platform",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "productivity",
-      "tags": [
-        "flow",
-        "nexus",
-        "swarm"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow",
+      "install": "ruvnet/claude-flow/.claude/skills/performance-analysis",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "github",
       "description": "Comprehensive GitHub code review with AI-powered swarm coordination",
       "repo": "ruvnet/claude-flow",
-      "path": "",
+      "path": ".claude/skills/github-code-review",
       "category": "development",
       "tags": [
         "github",
@@ -752,85 +691,14 @@
         "review"
       ],
       "stars": 9856,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "sparc",
-      "description": "SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) comprehensive development methodology with multi-agent orchestration",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "sparc",
-        "methodology"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "skill",
-      "description": "\"Create new Claude Code Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization. Use when you need to build custom skills for specific workflows, gen",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "skill",
-        "builder"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "pair",
-      "description": "AI-assisted pair programming with multiple modes (driver/navigator/switch), real-time verification, quality monitoring, and comprehensive testing. Supports TDD, debugging, refactoring, and learning se",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "pair",
-        "programming"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "reasoningbank",
-      "description": "\"Implement adaptive learning with ReasoningBank for pattern recognition, strategy optimization, and continuous improvement. Use when building self-learning agents, optimizing workflows, or implementin",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "reasoningbank",
-        "intelligence"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "agentdb",
-      "description": "\"Implement semantic vector search with AgentDB for intelligent document retrieval, similarity matching, and context-aware querying. Use when building RAG systems, semantic search engines, or intellige",
-      "repo": "ruvnet/claude-flow",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "agentdb",
-        "vector",
-        "search"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow",
+      "install": "ruvnet/claude-flow/.claude/skills/github-code-review",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "agentdb",
       "description": "\"Implement persistent memory patterns for AI agents using AgentDB. Includes session memory, long-term storage, pattern learning, and context management. Use when building stateful agents, chat systems",
       "repo": "ruvnet/claude-flow",
-      "path": "",
+      "path": ".claude/skills/agentdb-memory-patterns",
       "category": "development",
       "tags": [
         "agentdb",
@@ -838,21 +706,153 @@
         "patterns"
       ],
       "stars": 9856,
-      "install": "ruvnet/claude-flow",
+      "install": "ruvnet/claude-flow/.claude/skills/agentdb-memory-patterns",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "performance",
-      "description": "Comprehensive performance analysis, bottleneck detection, and optimization recommendations for Claude Flow swarms",
+      "name": "agentdb",
+      "description": "\"Implement semantic vector search with AgentDB for intelligent document retrieval, similarity matching, and context-aware querying. Use when building RAG systems, semantic search engines, or intellige",
       "repo": "ruvnet/claude-flow",
-      "path": "",
+      "path": ".claude/skills/agentdb-vector-search",
       "category": "development",
       "tags": [
-        "performance",
-        "analysis"
+        "agentdb",
+        "vector",
+        "search"
       ],
       "stars": 9856,
-      "install": "ruvnet/claude-flow",
+      "install": "ruvnet/claude-flow/.claude/skills/agentdb-vector-search",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "pair",
+      "description": "AI-assisted pair programming with multiple modes (driver/navigator/switch), real-time verification, quality monitoring, and comprehensive testing. Supports TDD, debugging, refactoring, and learning se",
+      "repo": "ruvnet/claude-flow",
+      "path": ".claude/skills/pair-programming",
+      "category": "development",
+      "tags": [
+        "pair",
+        "programming"
+      ],
+      "stars": 9856,
+      "install": "ruvnet/claude-flow/.claude/skills/pair-programming",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "swarm",
+      "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
+      "repo": "ruvnet/claude-flow",
+      "path": ".claude/skills/swarm-advanced",
+      "category": "testing",
+      "tags": [
+        "swarm",
+        "advanced"
+      ],
+      "stars": 9856,
+      "install": "ruvnet/claude-flow/.claude/skills/swarm-advanced",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "github",
+      "description": "Comprehensive GitHub release orchestration with AI swarm coordination for automated versioning, testing, deployment, and rollback management",
+      "repo": "ruvnet/claude-flow",
+      "path": ".claude/skills/github-release-management",
+      "category": "testing",
+      "tags": [
+        "github",
+        "release",
+        "management"
+      ],
+      "stars": 9856,
+      "install": "ruvnet/claude-flow/.claude/skills/github-release-management",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "hive",
+      "description": "Advanced Hive Mind collective intelligence system for queen-led multi-agent coordination with consensus mechanisms and persistent memory",
+      "repo": "ruvnet/claude-flow",
+      "path": ".claude/skills/hive-mind-advanced",
+      "category": "productivity",
+      "tags": [
+        "hive",
+        "mind",
+        "advanced"
+      ],
+      "stars": 9856,
+      "install": "ruvnet/claude-flow/.claude/skills/hive-mind-advanced",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "hooks",
+      "description": "Automated coordination, formatting, and learning from Claude Code operations using intelligent hooks with MCP integration. Includes pre/post task hooks, session management, Git integration, memory coo",
+      "repo": "ruvnet/claude-flow",
+      "path": ".claude/skills/hooks-automation",
+      "category": "productivity",
+      "tags": [
+        "hooks",
+        "automation"
+      ],
+      "stars": 9856,
+      "install": "ruvnet/claude-flow/.claude/skills/hooks-automation",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "github",
+      "description": "Advanced GitHub Actions workflow automation with AI swarm coordination, intelligent CI/CD pipelines, and comprehensive repository management",
+      "repo": "ruvnet/claude-flow",
+      "path": ".claude/skills/github-workflow-automation",
+      "category": "productivity",
+      "tags": [
+        "github",
+        "workflow",
+        "automation"
+      ],
+      "stars": 9856,
+      "install": "ruvnet/claude-flow/.claude/skills/github-workflow-automation",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "flow",
+      "description": "Cloud-based AI swarm deployment and event-driven workflow automation with Flow Nexus platform",
+      "repo": "ruvnet/claude-flow",
+      "path": ".claude/skills/flow-nexus-swarm",
+      "category": "productivity",
+      "tags": [
+        "flow",
+        "nexus",
+        "swarm"
+      ],
+      "stars": 9856,
+      "install": "ruvnet/claude-flow/.claude/skills/flow-nexus-swarm",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "swarm",
+      "description": "\"Orchestrate multi-agent swarms with agentic-flow for parallel task execution, dynamic topology, and intelligent coordination. Use when scaling beyond single agents, implementing complex workflows, or",
+      "repo": "ruvnet/claude-flow",
+      "path": ".claude/skills/swarm-orchestration",
+      "category": "productivity",
+      "tags": [
+        "swarm",
+        "orchestration"
+      ],
+      "stars": 9856,
+      "install": "ruvnet/claude-flow/.claude/skills/swarm-orchestration",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "github",
+      "description": "Comprehensive GitHub project management with swarm-coordinated issue tracking, project board automation, and sprint planning",
+      "repo": "ruvnet/claude-flow",
+      "path": ".claude/skills/github-project-management",
+      "category": "productivity",
+      "tags": [
+        "github",
+        "project",
+        "management"
+      ],
+      "stars": 9856,
+      "install": "ruvnet/claude-flow/.claude/skills/github-project-management",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -873,21 +873,21 @@
       "name": "reviewing",
       "description": "Comprehensive code reviews for Bitwarden Android. Detects change type (dependency update, bug fix, feature, UI, refactoring, infrastructure) and applies appropriate review depth. Validates MVVM patter",
       "repo": "bitwarden/android",
-      "path": "",
+      "path": ".claude/skills/reviewing-changes",
       "category": "development",
       "tags": [
         "reviewing",
         "changes"
       ],
       "stars": 8073,
-      "install": "bitwarden/android",
+      "install": "bitwarden/android/.claude/skills/reviewing-changes",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "material",
       "description": "用于 FlowGram 物料库组件文档撰写的专用技能，提供组件文档生成、Story 创建、翻译等功能的指导和自动化支持",
       "repo": "bytedance/flowgram.ai",
-      "path": "",
+      "path": ".claude/skills/material-component-doc",
       "category": "documents",
       "tags": [
         "material",
@@ -895,43 +895,14 @@
         "doc"
       ],
       "stars": 7456,
-      "install": "bytedance/flowgram.ai",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "backend",
-      "description": "Comprehensive backend development guide for Node.js/Express/TypeScript microservices. Use when creating routes, controllers, services, repositories, middleware, or working with Express APIs, Prisma da",
-      "repo": "diet103/claude-code-infrastructure-showcase",
-      "path": "",
-      "category": "testing",
-      "tags": [
-        "backend",
-        "dev",
-        "guidelines"
-      ],
-      "stars": 6654,
-      "install": "diet103/claude-code-infrastructure-showcase",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "route",
-      "description": "Test authenticated routes in the your project using cookie-based authentication. Use this skill when testing API endpoints, validating route functionality, or debugging authentication issues. Includes",
-      "repo": "diet103/claude-code-infrastructure-showcase",
-      "path": "",
-      "category": "testing",
-      "tags": [
-        "route",
-        "tester"
-      ],
-      "stars": 6654,
-      "install": "diet103/claude-code-infrastructure-showcase",
+      "install": "bytedance/flowgram.ai/.claude/skills/material-component-doc",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "frontend",
       "description": "Frontend development guidelines for React/TypeScript applications. Modern patterns including Suspense, lazy loading, useSuspenseQuery, file organization with features directory, MUI v7 styling, TanSta",
       "repo": "diet103/claude-code-infrastructure-showcase",
-      "path": "",
+      "path": ".claude/skills/frontend-dev-guidelines",
       "category": "development",
       "tags": [
         "frontend",
@@ -939,87 +910,132 @@
         "guidelines"
       ],
       "stars": 6654,
-      "install": "diet103/claude-code-infrastructure-showcase",
+      "install": "diet103/claude-code-infrastructure-showcase/.claude/skills/frontend-dev-guidelines",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "backend",
+      "description": "Comprehensive backend development guide for Node.js/Express/TypeScript microservices. Use when creating routes, controllers, services, repositories, middleware, or working with Express APIs, Prisma da",
+      "repo": "diet103/claude-code-infrastructure-showcase",
+      "path": ".claude/skills/backend-dev-guidelines",
+      "category": "testing",
+      "tags": [
+        "backend",
+        "dev",
+        "guidelines"
+      ],
+      "stars": 6654,
+      "install": "diet103/claude-code-infrastructure-showcase/.claude/skills/backend-dev-guidelines",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "route",
+      "description": "Test authenticated routes in the your project using cookie-based authentication. Use this skill when testing API endpoints, validating route functionality, or debugging authentication issues. Includes",
+      "repo": "diet103/claude-code-infrastructure-showcase",
+      "path": ".claude/skills/route-tester",
+      "category": "testing",
+      "tags": [
+        "route",
+        "tester"
+      ],
+      "stars": 6654,
+      "install": "diet103/claude-code-infrastructure-showcase/.claude/skills/route-tester",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "web",
       "description": "Run, create, and debug Playwright e2e tests for the web app. ALWAYS invoke this skill using the SlashCommand tool (i.e., `/web-e2e`) BEFORE attempting to run any e2e tests, playwright tests, anvil tes",
       "repo": "Uniswap/interface",
-      "path": "",
+      "path": ".claude/skills/web-e2e",
       "category": "testing",
       "tags": [
         "web",
         "e2e"
       ],
       "stars": 5409,
-      "install": "Uniswap/interface",
+      "install": "Uniswap/interface/.claude/skills/web-e2e",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "digital",
-      "description": "This skill should be used when the user asks to \"write a post\", \"check my voice\", \"look up contact\", \"prepare for meeting\", \"weekly review\", \"track goals\", or mentions personal brand, content creation",
+      "name": "multi",
+      "description": "This skill should be used when the user asks to \"design multi-agent system\", \"implement supervisor pattern\", \"create swarm architecture\", \"coordinate multiple agents\", or mentions multi-agent patterns",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
-      "category": "marketing",
+      "path": "skills/multi-agent-patterns",
+      "category": "design",
       "tags": [
-        "digital",
-        "brain"
+        "multi",
+        "agent",
+        "patterns"
       ],
       "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/multi-agent-patterns",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "tool",
+      "description": "This skill should be used when the user asks to \"design agent tools\", \"create tool descriptions\", \"reduce tool complexity\", \"implement MCP tools\", or mentions tool consolidation, architectural reducti",
+      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "path": "skills/tool-design",
+      "category": "design",
+      "tags": [
+        "tool",
+        "design"
+      ],
+      "stars": 5035,
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/tool-design",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "context",
       "description": "This skill should be used when the user asks to \"optimize context\", \"reduce token costs\", \"improve context efficiency\", \"implement KV-cache optimization\", \"partition context\", or mentions context limi",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
+      "path": "skills/context-optimization",
       "category": "devops",
       "tags": [
         "context",
         "optimization"
       ],
       "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "evaluation",
-      "description": "This skill should be used when the user asks to \"evaluate agent performance\", \"build test framework\", \"measure agent quality\", \"create evaluation rubrics\", or mentions LLM-as-judge, multi-dimensional",
-      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
-      "category": "testing",
-      "tags": [
-        "evaluation"
-      ],
-      "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/context-optimization",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "context",
-      "description": "This skill should be used when the user asks to \"compress context\", \"summarize conversation history\", \"implement compaction\", \"reduce token usage\", or mentions context compression, structured summariz",
+      "description": "This skill should be used when the user asks to \"diagnose context problems\", \"fix lost-in-middle issues\", \"debug agent failures\", \"understand context poisoning\", or mentions context degradation, atten",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
-      "category": "productivity",
+      "path": "skills/context-degradation",
+      "category": "development",
       "tags": [
         "context",
-        "compression"
+        "degradation"
       ],
       "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/context-degradation",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "project",
-      "description": "This skill should be used when the user asks to \"start an LLM project\", \"design batch pipeline\", \"evaluate task-model fit\", \"structure agent project\", or mentions pipeline architecture, agent-assisted",
+      "name": "memory",
+      "description": "This skill should be used when the user asks to \"implement agent memory\", \"persist state across sessions\", \"build knowledge graph\", \"track entities\", or mentions memory architecture, temporal knowledg",
+      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "path": "skills/memory-systems",
+      "category": "development",
+      "tags": [
+        "memory",
+        "systems"
+      ],
+      "stars": 5035,
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/memory-systems",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "skill",
+      "description": "Template for creating new Agent Skills for context engineering. Use this template when adding new skills to the collection.",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "",
       "category": "development",
       "tags": [
-        "project",
-        "development"
+        "skill",
+        "template"
       ],
       "stars": 5035,
       "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
@@ -1041,110 +1057,93 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "skill",
-      "description": "Template for creating new Agent Skills for context engineering. Use this template when adding new skills to the collection.",
-      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "skill",
-        "template"
-      ],
-      "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "context",
-      "description": "This skill should be used when the user asks to \"diagnose context problems\", \"fix lost-in-middle issues\", \"debug agent failures\", \"understand context poisoning\", or mentions context degradation, atten",
-      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "context",
-        "degradation"
-      ],
-      "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "context",
       "description": "This skill should be used when the user asks to \"understand context\", \"explain context windows\", \"design agent architecture\", \"debug context issues\", \"optimize context usage\", or discusses context com",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
+      "path": "skills/context-fundamentals",
       "category": "development",
       "tags": [
         "context",
         "fundamentals"
       ],
       "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/context-fundamentals",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "memory",
-      "description": "This skill should be used when the user asks to \"implement agent memory\", \"persist state across sessions\", \"build knowledge graph\", \"track entities\", or mentions memory architecture, temporal knowledg",
+      "name": "project",
+      "description": "This skill should be used when the user asks to \"start an LLM project\", \"design batch pipeline\", \"evaluate task-model fit\", \"structure agent project\", or mentions pipeline architecture, agent-assisted",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
+      "path": "skills/project-development",
       "category": "development",
       "tags": [
-        "memory",
-        "systems"
+        "project",
+        "development"
       ],
       "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/project-development",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "multi",
-      "description": "This skill should be used when the user asks to \"design multi-agent system\", \"implement supervisor pattern\", \"create swarm architecture\", \"coordinate multiple agents\", or mentions multi-agent patterns",
+      "name": "evaluation",
+      "description": "This skill should be used when the user asks to \"evaluate agent performance\", \"build test framework\", \"measure agent quality\", \"create evaluation rubrics\", or mentions LLM-as-judge, multi-dimensional",
+      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "path": "skills/evaluation",
+      "category": "testing",
+      "tags": [
+        "evaluation"
+      ],
+      "stars": 5035,
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/evaluation",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "digital",
+      "description": "This skill should be used when the user asks to \"write a post\", \"check my voice\", \"look up contact\", \"prepare for meeting\", \"weekly review\", \"track goals\", or mentions personal brand, content creation",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "path": "",
-      "category": "design",
+      "category": "marketing",
       "tags": [
-        "multi",
-        "agent",
-        "patterns"
+        "digital",
+        "brain"
       ],
       "stars": 5035,
       "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "tool",
-      "description": "This skill should be used when the user asks to \"design agent tools\", \"create tool descriptions\", \"reduce tool complexity\", \"implement MCP tools\", or mentions tool consolidation, architectural reducti",
+      "name": "context",
+      "description": "This skill should be used when the user asks to \"compress context\", \"summarize conversation history\", \"implement compaction\", \"reduce token usage\", or mentions context compression, structured summariz",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "",
-      "category": "design",
+      "path": "skills/context-compression",
+      "category": "productivity",
       "tags": [
-        "tool",
-        "design"
+        "context",
+        "compression"
       ],
       "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/skills/context-compression",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "add",
-      "description": "Step-by-step tutorial for adding new CUDA kernels to FlashInfer",
+      "name": "benchmark",
+      "description": "Guide for benchmarking FlashInfer kernels with CUPTI timing",
       "repo": "flashinfer-ai/flashinfer",
-      "path": "",
-      "category": "development",
+      "path": ".claude/skills/benchmark-kernel",
+      "category": "design",
       "tags": [
-        "add",
-        "cuda",
+        "benchmark",
         "kernel"
       ],
       "stars": 4404,
-      "install": "flashinfer-ai/flashinfer",
+      "install": "flashinfer-ai/flashinfer/.claude/skills/benchmark-kernel",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "debug",
       "description": "Tutorial for debugging CUDA crashes using API logging",
       "repo": "flashinfer-ai/flashinfer",
-      "path": "",
+      "path": ".claude/skills/debug-cuda-crash",
       "category": "development",
       "tags": [
         "debug",
@@ -1152,28 +1151,29 @@
         "crash"
       ],
       "stars": 4404,
-      "install": "flashinfer-ai/flashinfer",
+      "install": "flashinfer-ai/flashinfer/.claude/skills/debug-cuda-crash",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "benchmark",
-      "description": "Guide for benchmarking FlashInfer kernels with CUPTI timing",
+      "name": "add",
+      "description": "Step-by-step tutorial for adding new CUDA kernels to FlashInfer",
       "repo": "flashinfer-ai/flashinfer",
-      "path": "",
-      "category": "design",
+      "path": ".claude/skills/add-cuda-kernel",
+      "category": "development",
       "tags": [
-        "benchmark",
+        "add",
+        "cuda",
         "kernel"
       ],
       "stars": 4404,
-      "install": "flashinfer-ai/flashinfer",
+      "install": "flashinfer-ai/flashinfer/.claude/skills/add-cuda-kernel",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "buck2",
       "description": "Guide users through writing their first Buck2 rule to learn fundamental concepts including rules, actions, targets, configurations, analysis, and select(). Use this skill when users want to learn Buck",
       "repo": "facebook/buck2",
-      "path": "",
+      "path": ".claude/skills/buck2-rule-basics",
       "category": "design",
       "tags": [
         "buck2",
@@ -1181,55 +1181,79 @@
         "basics"
       ],
       "stars": 4153,
-      "install": "facebook/buck2",
+      "install": "facebook/buck2/.claude/skills/buck2-rule-basics",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "social",
-      "description": "Social media post guidelines for LinkedIn, Reddit, and Twitter/X. Use when drafting posts, announcements, or sharing technical content on social platforms.",
+      "name": "svelte",
+      "description": "Svelte 5 patterns including TanStack Query mutations, shadcn-svelte components, and component composition. Use when writing Svelte components, using TanStack Query, or working with shadcn-svelte UI.",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
-      "category": "marketing",
+      "path": "skills/svelte",
+      "category": "design",
       "tags": [
-        "social",
-        "media"
+        "svelte"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/svelte",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "github",
-      "description": "GitHub issue comment guidelines for community interaction. Use when responding to GitHub issues, bug reports, feature requests, or any GitHub discussion.",
+      "name": "styling",
+      "description": "CSS and Tailwind styling guidelines. Use when writing styles, creating UI components, reviewing CSS/Tailwind code, or deciding on wrapper element structure.",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
-      "category": "testing",
+      "path": "skills/styling",
+      "category": "design",
       "tags": [
-        "github",
-        "issues"
+        "styling"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/styling",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "workflow",
-      "description": "Standard workflow for implementing features with specs and planning documents. Use when starting a new feature, planning implementation, or working on any non-trivial task.",
+      "name": "git",
+      "description": "Git commit and pull request guidelines using conventional commits. Use when creating commits, writing commit messages, creating PRs, or reviewing PR descriptions.",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
-      "category": "productivity",
+      "path": "skills/git",
+      "category": "design",
       "tags": [
-        "workflow"
+        "git"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/git",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "monorepo",
+      "description": "Monorepo script commands and conventions for this codebase. Use when running builds, tests, formatting, linting, or type checking.",
+      "repo": "EpicenterHQ/epicenter",
+      "path": "skills/monorepo",
+      "category": "development",
+      "tags": [
+        "monorepo"
+      ],
+      "stars": 3797,
+      "install": "EpicenterHQ/epicenter/skills/monorepo",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "honesty",
+      "description": "Behavioral guideline for providing brutally honest feedback. Use always - this skill defines core interaction expectations for code review and technical discussions.",
+      "repo": "EpicenterHQ/epicenter",
+      "path": "skills/honesty",
+      "category": "development",
+      "tags": [
+        "honesty"
+      ],
+      "stars": 3797,
+      "install": "EpicenterHQ/epicenter/skills/honesty",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "factory",
       "description": "Apply factory function patterns to compose clients and services with proper separation of concerns. Use when creating functions that depend on external clients, wrapping resources with domain-specific",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
+      "path": "skills/factory-function-composition",
       "category": "development",
       "tags": [
         "factory",
@@ -1237,120 +1261,110 @@
         "composition"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "rust",
-      "description": "Rust to TypeScript error handling patterns for Tauri apps. Use when defining Rust errors that will be passed to TypeScript, handling Tauri command errors, or creating discriminated union error types.",
-      "repo": "EpicenterHQ/epicenter",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "rust",
-        "errors"
-      ],
-      "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/factory-function-composition",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "typescript",
       "description": "TypeScript code style, type co-location, constant naming conventions, and arktype patterns. Use when writing TypeScript code, defining types, creating constants, or working with arktype schemas.",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
+      "path": "skills/typescript",
       "category": "development",
       "tags": [
         "typescript"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "honesty",
-      "description": "Behavioral guideline for providing brutally honest feedback. Use always - this skill defines core interaction expectations for code review and technical discussions.",
-      "repo": "EpicenterHQ/epicenter",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "honesty"
-      ],
-      "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/typescript",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "control",
       "description": "Human-readable control flow patterns for refactoring complex conditionals. Use when refactoring nested conditionals, improving code readability, or restructuring decision logic.",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
+      "path": "skills/control-flow",
       "category": "development",
       "tags": [
         "control",
         "flow"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/control-flow",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "monorepo",
-      "description": "Monorepo script commands and conventions for this codebase. Use when running builds, tests, formatting, linting, or type checking.",
+      "name": "rust",
+      "description": "Rust to TypeScript error handling patterns for Tauri apps. Use when defining Rust errors that will be passed to TypeScript, handling Tauri command errors, or creating discriminated union error types.",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
+      "path": "skills/rust-errors",
       "category": "development",
       "tags": [
-        "monorepo"
+        "rust",
+        "errors"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/rust-errors",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "svelte",
-      "description": "Svelte 5 patterns including TanStack Query mutations, shadcn-svelte components, and component composition. Use when writing Svelte components, using TanStack Query, or working with shadcn-svelte UI.",
+      "name": "github",
+      "description": "GitHub issue comment guidelines for community interaction. Use when responding to GitHub issues, bug reports, feature requests, or any GitHub discussion.",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
-      "category": "design",
+      "path": "skills/github-issues",
+      "category": "testing",
       "tags": [
-        "svelte"
+        "github",
+        "issues"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/github-issues",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "styling",
-      "description": "CSS and Tailwind styling guidelines. Use when writing styles, creating UI components, reviewing CSS/Tailwind code, or deciding on wrapper element structure.",
+      "name": "social",
+      "description": "Social media post guidelines for LinkedIn, Reddit, and Twitter/X. Use when drafting posts, announcements, or sharing technical content on social platforms.",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
-      "category": "design",
+      "path": "skills/social-media",
+      "category": "marketing",
       "tags": [
-        "styling"
+        "social",
+        "media"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/social-media",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "git",
-      "description": "Git commit and pull request guidelines using conventional commits. Use when creating commits, writing commit messages, creating PRs, or reviewing PR descriptions.",
+      "name": "workflow",
+      "description": "Standard workflow for implementing features with specs and planning documents. Use when starting a new feature, planning implementation, or working on any non-trivial task.",
       "repo": "EpicenterHQ/epicenter",
-      "path": "",
-      "category": "design",
+      "path": "skills/workflow",
+      "category": "productivity",
       "tags": [
-        "git"
+        "workflow"
       ],
       "stars": 3797,
-      "install": "EpicenterHQ/epicenter",
+      "install": "EpicenterHQ/epicenter/skills/workflow",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "positron",
+      "description": "This skill should be used when developing, debugging, or maintaining Positron Notebooks - the React-based feature-flagged notebook editor. Load this skill when tasks involve notebook cells, execution,",
+      "repo": "posit-dev/positron",
+      "path": ".claude/skills/positron-notebooks",
+      "category": "development",
+      "tags": [
+        "positron",
+        "notebooks"
+      ],
+      "stars": 3764,
+      "install": "posit-dev/positron/.claude/skills/positron-notebooks",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "positron",
       "description": "This skill should be used when drafting GitHub issues for the Positron repository. It provides workflows for searching duplicates, selecting appropriate labels, gathering complete context through ques",
       "repo": "posit-dev/positron",
-      "path": "",
+      "path": ".claude/skills/positron-issue-creator",
       "category": "productivity",
       "tags": [
         "positron",
@@ -1358,14 +1372,14 @@
         "creator"
       ],
       "stars": 3764,
-      "install": "posit-dev/positron",
+      "install": "posit-dev/positron/.claude/skills/positron-issue-creator",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "positron",
       "description": "This skill should be used when handling issue intake rotation duties for the Positron repository. It provides workflows for reviewing and organizing new issues, responding to discussions, handling sup",
       "repo": "posit-dev/positron",
-      "path": "",
+      "path": ".claude/skills/positron-intake-rotation",
       "category": "productivity",
       "tags": [
         "positron",
@@ -1373,48 +1387,34 @@
         "rotation"
       ],
       "stars": 3764,
-      "install": "posit-dev/positron",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "positron",
-      "description": "This skill should be used when developing, debugging, or maintaining Positron Notebooks - the React-based feature-flagged notebook editor. Load this skill when tasks involve notebook cells, execution,",
-      "repo": "posit-dev/positron",
-      "path": "",
-      "category": "development",
-      "tags": [
-        "positron",
-        "notebooks"
-      ],
-      "stars": 3764,
-      "install": "posit-dev/positron",
+      "install": "posit-dev/positron/.claude/skills/positron-intake-rotation",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "pr",
       "description": "Comprehensive code review for GitHub pull requests using parallel agents. Checks bugs, CLAUDE.md compliance, git history, previous PR patterns, and code comments. Use when reviewing PRs, doing code re",
       "repo": "EvolvingLMMs-Lab/lmms-eval",
-      "path": "",
+      "path": ".claude/skills/pr-code-review",
       "category": "development",
       "tags": [
         "code",
         "review"
       ],
       "stars": 3514,
-      "install": "EvolvingLMMs-Lab/lmms-eval",
+      "install": "EvolvingLMMs-Lab/lmms-eval/.claude/skills/pr-code-review",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "docetl",
       "description": "Build and run LLM-powered data processing pipelines with DocETL. Use when users say \"docetl\", want to analyze unstructured data, process documents, extract information, or run ETL tasks on text. Helps",
       "repo": "ucbepic/docetl",
-      "path": "",
+      "path": ".claude/skills/docetl",
       "category": "development",
       "tags": [
         "docetl"
       ],
       "stars": 3354,
-      "install": "ucbepic/docetl",
+      "install": "ucbepic/docetl/.claude/skills/docetl",
       "source": "SkillsMP Synced Skills"
     }
   ]

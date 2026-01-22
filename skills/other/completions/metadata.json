@@ -5,5 +5,6 @@
   "source": "github.com/bendrucker/dotfiles",
   "downloaded_at": "2026-01-22T03:24:07.681573Z",
   "dir_name": "completions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/completions"
 }

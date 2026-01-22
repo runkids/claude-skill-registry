@@ -4,5 +4,6 @@
   "category": "design",
   "description": "WCAG-compliant Mermaid diagrams using verified accessible color palette. Use when creating diagrams, flowcharts, or any color-dependent visualizations requiring accessibility compliance for color blin",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:44.588367Z"
+  "downloaded_at": "2026-01-06T08:59:44.588367Z",
+  "github_path": ".claude/skills/docs-creating-accessible-diagrams"
 }

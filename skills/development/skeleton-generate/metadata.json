@@ -2,7 +2,8 @@
   "name": "skeleton-generate",
   "repo": "matsuni-kk/agent_template_public",
   "category": "development",
-  "description": "Skills\u7248\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u9aa8\u683c\uff08CLAUDE.md, .codex/skills/, .codex/\u7b49\uff09\u3092\u751f\u6210\u3057\u3001\u521d\u671f\u8a2d\u5b9a\u3092\u5b8c\u4e86\u3059\u308b\u3002\u300c\u30b9\u30b1\u30eb\u30c8\u30f3\u751f\u6210\u300d\u300c\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u751f\u6210\u300d\u300c\u9aa8\u683c\u4f5c\u6210\u300d\u3092\u4f9d\u983c\u3055\u308c\u305f\u3068\u304d\u306b\u4f7f\u7528\u3059\u308b\u3002",
+  "description": "Skills版エージェント骨格（CLAUDE.md, .codex/skills/, .codex/等）を生成し、初期設定を完了する。「スケルトン生成」「エージェント生成」「骨格作成」を依頼されたときに使用する。",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:30:07.541665Z"
+  "downloaded_at": "2026-01-08T03:30:07.541665Z",
+  "github_path": ".claude/skills/skeleton-generate"
 }

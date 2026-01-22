@@ -5,5 +5,6 @@
   "source": "github.com/az9713/ai-co-writing-claude-skills",
   "downloaded_at": "2026-01-22T01:37:45.909275Z",
   "dir_name": "linkedin-post",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/linkedin-post"
 }

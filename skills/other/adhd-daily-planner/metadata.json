@@ -5,5 +5,6 @@
   "source": "github.com/erichowens/some_claude_skills",
   "downloaded_at": "2026-01-19T02:38:44.971242Z",
   "dir_name": "adhd-daily-planner",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/adhd-daily-planner"
 }

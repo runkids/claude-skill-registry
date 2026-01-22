@@ -2,7 +2,8 @@
   "name": "copilot-customization",
   "repo": "SuperPyonchiX/VSCodeEnv",
   "category": "development",
-  "description": "GitHub Copilot\u30ab\u30b9\u30bf\u30de\u30a4\u30bc\u30fc\u30b7\u30e7\u30f3\u30d5\u30a1\u30a4\u30eb\uff08\u30d7\u30ed\u30f3\u30d7\u30c8\u3001\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u3001\u30a4\u30f3\u30b9\u30c8\u30e9\u30af\u30b7\u30e7\u30f3\u3001\u30b9\u30ad\u30eb\uff09\u306e\u4f5c\u6210\u30ac\u30a4\u30c9\u3002.prompt.md\u3001.agent.md\u3001.instructions.md\u3001SKILL.md\u30d5\u30a1\u30a4\u30eb\u3092VS Code\u306e\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u306b\u5f93\u3063\u3066\u4f5c\u6210\u3059\u308b\u969b\u306b\u4f7f\u7528\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+  "description": "GitHub Copilotカスタマイゼーションファイル（プロンプト、エージェント、インストラクション、スキル）の作成ガイド。.prompt.md、.agent.md、.instructions.md、SKILL.mdファイルをVS Codeのベストプラクティスに従って作成する際に使用してください。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:36.254571Z"
+  "downloaded_at": "2026-01-06T09:08:36.254571Z",
+  "github_path": ".claude/skills/copilot-customization"
 }

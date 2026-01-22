@@ -5,5 +5,6 @@
   "source": "github.com/liangdabiao/claude-data-analysis-ultra-main",
   "downloaded_at": "2026-01-22T02:15:30.202255Z",
   "dir_name": "growth-model-analyzer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/growth-model-analyzer"
 }

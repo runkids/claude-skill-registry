@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Discovers, validates, and integrates Model Context Protocol (MCP) tools into Claude Code skills. Searches MCP catalogs, scores candidates, generates tool configurations, and optionally sets up Docker ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:32.237007Z"
+  "downloaded_at": "2026-01-06T09:01:32.237007Z",
+  "github_path": ".claude/skills/mcp-provider"
 }

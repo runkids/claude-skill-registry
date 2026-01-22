@@ -5,5 +5,6 @@
   "source": "github.com/pr-pm/prpm",
   "downloaded_at": "2026-01-22T04:04:39.664407Z",
   "dir_name": "claude-hook-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/claude-hook-writer"
 }

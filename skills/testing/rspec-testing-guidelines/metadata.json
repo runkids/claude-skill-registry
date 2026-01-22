@@ -8,5 +8,6 @@
     "testing",
     "guidelines"
   ],
-  "stars": 7
+  "stars": 7,
+  "github_path": ".claude/skills/rspec-testing-guidelines"
 }

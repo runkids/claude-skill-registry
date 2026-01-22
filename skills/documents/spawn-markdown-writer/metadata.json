@@ -2,7 +2,8 @@
   "name": "spawn-markdown-writer",
   "repo": "Zeliper/z-coder",
   "category": "documents",
-  "description": "\ube44\uc815\ud615 \ub9c8\ud06c\ub2e4\uc6b4 \uc791\uc131\uc744 markdown-writer-agent\uc5d0 \uc704\uc784",
+  "description": "비정형 마크다운 작성을 markdown-writer-agent에 위임",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:44.257375Z"
+  "downloaded_at": "2026-01-06T09:09:44.257375Z",
+  "github_path": ".claude/skills/spawn-markdown-writer"
 }

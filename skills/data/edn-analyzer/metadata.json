@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "edn-analyzer"
+  "dir_name": "edn-analyzer",
+  "github_path": ".claude/skills/edn-analyzer"
 }

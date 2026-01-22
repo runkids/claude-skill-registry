@@ -7,5 +7,6 @@
     "packages",
     "react"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/packages-react"
 }

@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Analyze fit between job requirements and background using lexicons - identifies gaps, develops reframing strategies, creates cover letter plan",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:48.145063Z"
+  "downloaded_at": "2026-01-06T09:03:48.145063Z",
+  "github_path": ".claude/skills/job-fit-analysis"
 }

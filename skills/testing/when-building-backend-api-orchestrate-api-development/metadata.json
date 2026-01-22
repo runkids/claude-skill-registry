@@ -10,5 +10,6 @@
     "api",
     "orchestrate"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/when-building-backend-api-orchestrate-api-development"
 }

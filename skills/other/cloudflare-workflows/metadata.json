@@ -5,5 +5,6 @@
   "source": "github.com/jezweb/claude-skills",
   "downloaded_at": "2026-01-22T01:30:24.019277Z",
   "dir_name": "cloudflare-workflows",
-  "category": "other"
+  "category": "other",
+  "github_path": "skills/cloudflare-workflows"
 }

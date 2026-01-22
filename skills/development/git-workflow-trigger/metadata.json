@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Natural language wrapper for git commands - automatically triggers /git:commit, /git:status, /git:push when users express git workflow intent",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:02.179791Z"
+  "downloaded_at": "2026-01-06T09:02:02.179791Z",
+  "github_path": ".claude/skills/git-workflow-trigger"
 }

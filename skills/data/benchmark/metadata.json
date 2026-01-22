@@ -8,5 +8,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "benchmark"
+  "dir_name": "benchmark",
+  "github_path": ".claude/skills/benchmark"
 }

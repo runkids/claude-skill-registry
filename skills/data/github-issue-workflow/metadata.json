@@ -9,5 +9,6 @@
     "workflow"
   ],
   "stars": 0,
-  "dir_name": "github-issue-workflow"
+  "dir_name": "github-issue-workflow",
+  "github_path": ".claude/skills/github-issue-workflow"
 }

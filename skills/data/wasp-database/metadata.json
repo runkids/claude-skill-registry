@@ -8,5 +8,6 @@
     "database"
   ],
   "stars": 0,
-  "dir_name": "wasp-database"
+  "dir_name": "wasp-database",
+  "github_path": ".claude/skills/wasp-database"
 }

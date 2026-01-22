@@ -5,5 +5,6 @@
   "source": "github.com/djimontyp/task-tracker",
   "downloaded_at": "2026-01-22T01:44:57.252567Z",
   "dir_name": "llm-pipeline",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/llm-pipeline"
 }

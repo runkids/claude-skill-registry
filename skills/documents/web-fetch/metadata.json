@@ -7,5 +7,6 @@
     "web",
     "fetch"
   ],
-  "stars": 23
+  "stars": 23,
+  "github_path": ".claude/skills/web-fetch"
 }

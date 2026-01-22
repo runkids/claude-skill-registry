@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Guide experienced developers through RED phase of TDD cycle - writing failing tests and verifying expected failures",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:49.266581Z"
+  "downloaded_at": "2026-01-06T09:02:49.266581Z",
+  "github_path": ".claude/skills/tdd-red-phase"
 }

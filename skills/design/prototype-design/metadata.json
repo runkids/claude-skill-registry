@@ -2,7 +2,8 @@
   "name": "prototype-design",
   "repo": "ChuDiRen/AI-agent-testing-platform",
   "category": "design",
-  "description": "\u539f\u578b\u754c\u9762\u8bbe\u8ba1\u5de5\u5177\u3002\u5f53\u7528\u6237\u9700\u8981\u6839\u636e PRD \u751f\u6210\u9ad8\u4fdd\u771f\u539f\u578b\u9875\u9762\u3001\u5feb\u901f\u51fa\u539f\u578b\u786e\u8ba4\u9700\u6c42\u3001\u6216\u8fdb\u884c UI/UX \u8bbe\u8ba1\u9a8c\u8bc1\u65f6\u4f7f\u7528\u3002\u652f\u6301\u79fb\u52a8\u7aef\u548c PC \u7aef\u5e94\u7528\u3002",
+  "description": "原型界面设计工具。当用户需要根据 PRD 生成高保真原型页面、快速出原型确认需求、或进行 UI/UX 设计验证时使用。支持移动端和 PC 端应用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:38.584822Z"
+  "downloaded_at": "2026-01-06T09:00:38.584822Z",
+  "github_path": ".claude/skills/prototype-design"
 }

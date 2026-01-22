@@ -7,5 +7,6 @@
     "holochain",
     "development"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": ".claude/skills/holochain-development"
 }

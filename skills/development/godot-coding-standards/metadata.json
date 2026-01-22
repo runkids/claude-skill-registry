@@ -2,7 +2,8 @@
   "name": "godot-coding-standards",
   "repo": "hongliangc/combo_demon",
   "category": "development",
-  "description": "Godot 4.x GDScript \u7f16\u7801\u89c4\u8303\u3002\u5f53\u7f16\u5199\u3001\u5ba1\u67e5\u3001\u4fee\u6539 Godot \u4ee3\u7801\u65f6\u4f7f\u7528\u3002\u9002\u7528\u4e8e\uff1aGDScript \u811a\u672c\u3001\u573a\u666f\u521b\u5efa\u3001\u7ec4\u4ef6\u8bbe\u8ba1\u3001Resource \u7c7b\u3001\u4fe1\u53f7\u8fde\u63a5\u3001\u8282\u70b9\u7ec4\u7ec7\u3001\u7c7b\u578b\u6ce8\u89e3\u3001\u547d\u540d\u89c4\u8303\u3001\u6027\u80fd\u4f18\u5316\u3002\u89e6\u53d1\u8bcd\uff1agodot, gdscript, \u7ec4\u4ef6, \u4fe1\u53f7, export, \u573a\u666f\u3002",
+  "description": "Godot 4.x GDScript 编码规范。当编写、审查、修改 Godot 代码时使用。适用于：GDScript 脚本、场景创建、组件设计、Resource 类、信号连接、节点组织、类型注解、命名规范、性能优化。触发词：godot, gdscript, 组件, 信号, export, 场景。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:04.955927Z"
+  "downloaded_at": "2026-01-06T09:06:04.955927Z",
+  "github_path": ".claude/skills/godot-coding-standards"
 }

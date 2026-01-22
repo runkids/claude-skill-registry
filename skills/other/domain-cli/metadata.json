@@ -5,5 +5,6 @@
   "source": "github.com/rustfs/rustfs",
   "downloaded_at": "2026-01-22T03:42:46.960702Z",
   "dir_name": "domain-cli",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/domain-cli"
 }

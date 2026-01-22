@@ -5,5 +5,6 @@
   "source": "github.com/pollinations/pollinations",
   "downloaded_at": "2026-01-22T01:44:00.150296Z",
   "dir_name": "candidate-evaluation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/candidate-evaluation"
 }

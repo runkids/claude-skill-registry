@@ -5,5 +5,6 @@
   "source": "github.com/nathanvale/vtm-cli",
   "downloaded_at": "2026-01-22T04:12:18.828078Z",
   "dir_name": "plan-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/plan-expert"
 }

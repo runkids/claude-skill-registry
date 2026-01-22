@@ -6,5 +6,6 @@
   "tags": [
     "merge"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/pr-merge"
 }

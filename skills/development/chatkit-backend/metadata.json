@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Build FastAPI backend for OpenAI ChatKit with SSE streaming, conversation persistence, and AI agent integration. Handles /chatkit endpoint, ChatKit-compatible SSE format, conversation models, and mess",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:49.500333Z"
+  "downloaded_at": "2026-01-08T03:21:49.500333Z",
+  "github_path": ".claude/skills/chatkit-backend"
 }

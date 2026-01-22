@@ -8,5 +8,6 @@
     "playwright",
     "dev"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": ".claude/skills/tmux-playwright-dev"
 }

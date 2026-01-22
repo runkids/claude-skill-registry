@@ -5,5 +5,6 @@
   "source": "github.com/sunholo-data/ailang",
   "downloaded_at": "2026-01-22T03:40:47.360043Z",
   "dir_name": "model-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/model-manager"
 }

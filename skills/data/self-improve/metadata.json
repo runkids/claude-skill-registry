@@ -5,5 +5,6 @@
   "description": "Transforms simple user requests into enriched descriptions with traceable findings. Use when interpreting vague user intent, preparing context for agent generation, or synthesizing actionable insights",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T08:59:38.504592Z",
-  "dir_name": "self-improve"
+  "dir_name": "self-improve",
+  "github_path": ".claude/skills/self-improve"
 }

@@ -8,5 +8,6 @@
     "validate",
     "structure"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": ".claude/skills/plan-validate-structure"
 }

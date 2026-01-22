@@ -5,5 +5,6 @@
   "source": "github.com/aLittlecrocodile/coding-agent",
   "downloaded_at": "2026-01-22T02:50:18.984793Z",
   "dir_name": "skill-lookup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/skill-lookup"
 }

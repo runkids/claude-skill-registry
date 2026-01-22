@@ -5,5 +5,6 @@
   "source": "github.com/jkappers/claude-code-software-delivery-plugin",
   "downloaded_at": "2026-01-22T01:03:12.060001Z",
   "dir_name": "authoring-commits",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/authoring-commits"
 }

@@ -7,5 +7,6 @@
     "local",
     "development"
   ],
-  "stars": 29
+  "stars": 29,
+  "github_path": ".claude/skills/local-development"
 }

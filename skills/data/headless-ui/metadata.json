@@ -7,5 +7,6 @@
     "headless"
   ],
   "stars": 0,
-  "dir_name": "headless-ui"
+  "dir_name": "headless-ui",
+  "github_path": ".claude/skills/headless-ui"
 }

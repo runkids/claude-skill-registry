@@ -2,7 +2,8 @@
   "name": "notion-knowledge-mcp",
   "repo": "taiyousan15/taisun_agent",
   "category": "development",
-  "description": "Notion MCP\u3092\u4f7f\u3063\u3066\u793e\u5185\u30ca\u30ec\u30c3\u30b8\u691c\u7d22/\u8ffd\u8a18/\u6574\u7406\u3092\u884c\u3046\u3002\u8b70\u4e8b\u9332\u3084\u8abf\u67fb\u7d50\u679c\u3092Notion\u306b\u6b8b\u3059\u6642\u306b\u4f7f\u3046\u3002",
+  "description": "Notion MCPを使って社内ナレッジ検索/追記/整理を行う。議事録や調査結果をNotionに残す時に使う。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:42.313214Z"
+  "downloaded_at": "2026-01-06T09:08:42.313214Z",
+  "github_path": ".claude/skills/notion-knowledge-mcp"
 }

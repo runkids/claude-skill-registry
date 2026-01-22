@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Generate documentation comments, README files, and API documentation for Wheels applications. Use when documenting code, creating project READMEs, or generating API docs.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:28.416919Z"
+  "downloaded_at": "2026-01-06T08:56:28.416919Z",
+  "github_path": ".claude/skills/wheels-documentation-generator"
 }

@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Comprehensive system for managing llms.txt and my-blog.json files across the project. Handles creation, updating, and synchronization of AI-readable content catalogs. Automatically detects when workin",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:53.251639Z"
+  "downloaded_at": "2026-01-06T09:04:53.251639Z",
+  "github_path": ".claude/skills/llms-txt-manager"
 }

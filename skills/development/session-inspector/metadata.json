@@ -7,5 +7,6 @@
     "session",
     "inspector"
   ],
-  "stars": 32
+  "stars": 32,
+  "github_path": ".claude/skills/session-inspector"
 }

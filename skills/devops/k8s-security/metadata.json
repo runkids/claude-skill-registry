@@ -4,5 +4,6 @@
   "category": "devops",
   "description": "Kubernetes and OpenShift security assessment, hardening, and compliance. Use this skill when:(1) Auditing cluster or workload security posture(2) Implementing Pod Security Standards/Admission(3) Confi",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:34.666122Z"
+  "downloaded_at": "2026-01-06T08:59:34.666122Z",
+  "github_path": ".claude/skills/k8s-security"
 }

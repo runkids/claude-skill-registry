@@ -5,5 +5,6 @@
   "source": "github.com/Foundup/Foundups-Agent",
   "downloaded_at": "2026-01-22T01:05:13.148802Z",
   "dir_name": "unicode-daemon-monitor-prototype",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/unicode_daemon_monitor_prototype"
 }

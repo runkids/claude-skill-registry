@@ -7,5 +7,6 @@
     "git",
     "workflow"
   ],
-  "stars": 29
+  "stars": 29,
+  "github_path": ".claude/skills/git-workflow"
 }

@@ -8,5 +8,6 @@
     "compliance",
     "workflow"
   ],
-  "stars": 10
+  "stars": 10,
+  "github_path": ".claude/skills/philosophy-compliance-workflow"
 }

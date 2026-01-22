@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-20T03:39:35.040353Z",
   "dir_name": "ios-unit-test",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ios-unit-test"
 }

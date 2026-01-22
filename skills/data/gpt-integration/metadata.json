@@ -5,5 +5,6 @@
   "description": "Use this skill ONLY when modifying GPT calls, agent prompts, or structured output. Do not use for other AI/ML tasks.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:03:40.320160Z",
-  "dir_name": "gpt-integration"
+  "dir_name": "gpt-integration",
+  "github_path": ".claude/skills/gpt-integration"
 }

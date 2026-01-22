@@ -5,5 +5,6 @@
   "source": "github.com/nahisaho/CodeGraphMCPServer",
   "downloaded_at": "2026-01-22T04:03:32.599283Z",
   "dir_name": "database-schema-designer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/database-schema-designer"
 }

@@ -10,5 +10,6 @@
   ],
   "stars": 11,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agent-skill-use"
+  "dir_name": "agent-skill-use",
+  "github_path": ".claude/skills/agent-skill-use"
 }

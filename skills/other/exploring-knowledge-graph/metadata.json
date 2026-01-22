@@ -5,5 +5,6 @@
   "source": "github.com/rjmurillo/ai-agents",
   "downloaded_at": "2026-01-22T04:17:15.059809Z",
   "dir_name": "exploring-knowledge-graph",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/exploring-knowledge-graph"
 }

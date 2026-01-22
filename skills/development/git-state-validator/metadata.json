@@ -8,5 +8,6 @@
     "state",
     "validator"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/git-state-validator"
 }

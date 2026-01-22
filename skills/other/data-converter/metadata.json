@@ -5,5 +5,6 @@
   "source": "github.com/ntaksh42/agents",
   "downloaded_at": "2026-01-22T02:30:12.120333Z",
   "dir_name": "data-converter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/data-converter"
 }

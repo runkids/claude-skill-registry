@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Build mithril-checkpoint compression for PyTorch models. Use when implementing byte grouping, compression pipeline, or checkpoint I/O.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:48.938710Z"
+  "downloaded_at": "2026-01-06T09:05:48.938710Z",
+  "github_path": ".claude/skills/mithril-checkpoint-agent"
 }

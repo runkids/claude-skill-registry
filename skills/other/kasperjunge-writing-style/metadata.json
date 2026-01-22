@@ -5,5 +5,6 @@
   "source": "github.com/kasperjunge/agent-resources-legacy",
   "downloaded_at": "2026-01-22T01:06:37.205945Z",
   "dir_name": "kasperjunge-writing-style",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/kasperjunge-writing-style"
 }

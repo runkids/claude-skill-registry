@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Quantitative trading expertise for DeFi and crypto derivatives. Use when building trading strategies, signals, risk management. Triggers on signal, backtest, alpha, sharpe, volatility, correlation, po",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:00.159266Z"
+  "downloaded_at": "2026-01-06T09:11:00.159266Z",
+  "github_path": ".claude/skills/hft-quant-expert"
 }

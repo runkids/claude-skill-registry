@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Git command conventions. Use when running any git commands to avoid blocking on interactive pager.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:54.506603Z"
+  "downloaded_at": "2026-01-06T09:10:54.506603Z",
+  "github_path": ".claude/skills/using-git"
 }

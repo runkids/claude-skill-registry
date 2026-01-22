@@ -4,5 +4,6 @@
   "category": "productivity",
   "description": "Fast routing triage for workflow messages; points to docs/workflow-routing-map.md.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:31:41.887369Z"
+  "downloaded_at": "2026-01-08T03:31:41.887369Z",
+  "github_path": ".claude/skills/oe-workflow-routing"
 }

@@ -7,5 +7,6 @@
     "pattern",
     "discovery"
   ],
-  "stars": 11
+  "stars": 11,
+  "github_path": ".claude/skills/pattern-discovery"
 }

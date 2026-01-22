@@ -9,5 +9,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "eslint-fix"
+  "dir_name": "eslint-fix",
+  "github_path": ".claude/skills/eslint-fix"
 }

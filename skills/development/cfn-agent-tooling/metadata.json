@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Agent development tools - generation and validation. Use when creating new agent templates from scaffolding, or validating and linting existing agent profiles for correctness and completeness.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:34.892589Z"
+  "downloaded_at": "2026-01-08T03:21:34.892589Z",
+  "github_path": ".claude/skills/cfn-agent-tooling"
 }

@@ -9,5 +9,6 @@
     "json"
   ],
   "stars": 27,
-  "dir_name": "parse-package-json"
+  "dir_name": "parse-package-json",
+  "github_path": ".claude/skills/parse-package-json"
 }

@@ -2,7 +2,8 @@
   "name": "final-check-automation",
   "repo": "garimto81/claude",
   "category": "testing",
-  "description": "FINAL_CHECK \uc6cc\ud06c\ud50c\ub85c\uc6b0 \uc790\ub3d9\ud654. E2E \ud14c\uc2a4\ud2b8, Phase 3-5 \uc790\ub3d9 \uc9c4\ud589.",
+  "description": "FINAL_CHECK 워크플로우 자동화. E2E 테스트, Phase 3-5 자동 진행.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:07.340233Z"
+  "downloaded_at": "2026-01-06T09:11:07.340233Z",
+  "github_path": ".claude/skills/final-check-automation"
 }

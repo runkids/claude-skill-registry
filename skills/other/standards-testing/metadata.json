@@ -5,5 +5,6 @@
   "source": "github.com/maxritter/claude-codepro",
   "downloaded_at": "2026-01-22T01:39:52.705657Z",
   "dir_name": "standards-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/standards-testing"
 }

@@ -7,5 +7,6 @@
     "marketplace",
     "bump"
   ],
-  "stars": 31
+  "stars": 31,
+  "github_path": ".claude/skills/marketplace-bump"
 }

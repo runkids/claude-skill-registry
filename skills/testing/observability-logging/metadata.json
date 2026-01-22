@@ -4,5 +4,6 @@
   "category": "testing",
   "description": "Automatically applies when adding logging and observability. Ensures structured logging, OpenTelemetry tracing, LLM-specific metrics (tokens, cost, latency), and proper log correlation.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:54.247619Z"
+  "downloaded_at": "2026-01-06T09:07:54.247619Z",
+  "github_path": ".claude/skills/observability-logging"
 }

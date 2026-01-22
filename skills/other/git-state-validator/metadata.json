@@ -5,5 +5,6 @@
   "source": "github.com/EdanStarfire/claudecode_webui",
   "downloaded_at": "2026-01-21T03:27:09.898530Z",
   "dir_name": "git-state-validator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/git-state-validator"
 }

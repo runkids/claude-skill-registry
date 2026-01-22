@@ -4,5 +4,6 @@
   "category": "development",
   "description": "FigJam plugin development workflow. Use when working on plugin code (code.ts, ui.ts), debugging WebSocket communication, or building the plugin.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:28.980100Z"
+  "downloaded_at": "2026-01-06T09:03:28.980100Z",
+  "github_path": ".claude/skills/figjam-plugin"
 }

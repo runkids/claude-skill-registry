@@ -8,5 +8,6 @@
     "ssh",
     "access"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": ".claude/skills/production-ssh-access"
 }

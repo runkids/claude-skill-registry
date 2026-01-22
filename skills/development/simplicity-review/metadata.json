@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Reviews code for unnecessary complexity and suggests simplifications that make it easier for developers to understand",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:15.555915Z"
+  "downloaded_at": "2026-01-06T09:10:15.555915Z",
+  "github_path": ".claude/skills/simplicity-review"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/orient-bot/orient",
   "downloaded_at": "2026-01-22T03:58:45.713184Z",
   "dir_name": "agent-permissions",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/agent-permissions"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/Zura1555/agents",
   "downloaded_at": "2026-01-14T01:20:40.104393Z",
   "dir_name": "blog-insight-synthesizer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/blog-insight-synthesizer"
 }

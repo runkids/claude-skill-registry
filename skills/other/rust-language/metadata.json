@@ -5,5 +5,6 @@
   "source": "github.com/JohnnyVicious/copilot-cli-examples",
   "downloaded_at": "2026-01-21T04:18:30.135571Z",
   "dir_name": "rust-language",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/rust-language"
 }

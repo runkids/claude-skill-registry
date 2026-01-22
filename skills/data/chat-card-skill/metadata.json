@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "chat-card-skill"
+  "dir_name": "chat-card-skill",
+  "github_path": ".claude/skills/chat-card-skill"
 }

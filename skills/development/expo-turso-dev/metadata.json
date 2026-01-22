@@ -2,7 +2,8 @@
   "name": "expo-turso-dev",
   "repo": "daiki-beppu/expo-with-turso-template",
   "category": "development",
-  "description": "Expo + Turso + Drizzle ORM\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u306e\u958b\u767a\u30b3\u30de\u30f3\u30c9\u3068\u4f9d\u5b58\u95a2\u4fc2\u7ba1\u7406\u3002\u30a2\u30d7\u30ea\u306e\u8d77\u52d5\u3001\u30e9\u30a4\u30d6\u30e9\u30ea\u306e\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u3001\u30de\u30a4\u30b0\u30ec\u30fc\u30b7\u30e7\u30f3\u751f\u6210\u3001\u30ad\u30e3\u30c3\u30b7\u30e5\u30af\u30ea\u30a2\u306a\u3069\u958b\u767a\u30b3\u30de\u30f3\u30c9\u3092\u5b9f\u884c\u3059\u308b\u6642\u3001\u307e\u305f\u306f\u958b\u767a\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u306b\u3064\u3044\u3066\u8cea\u554f\u3055\u308c\u305f\u6642\u306b\u4f7f\u7528\u3002\u91cd\u8981\uff1a\u30e9\u30a4\u30d6\u30e9\u30ea\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u306b\u306f\u5fc5\u305anpx expo install\u3092\u4f7f\u7528\u3002",
+  "description": "Expo + Turso + Drizzle ORMプロジェクトの開発コマンドと依存関係管理。アプリの起動、ライブラリのインストール、マイグレーション生成、キャッシュクリアなど開発コマンドを実行する時、または開発ワークフローについて質問された時に使用。重要：ライブラリインストールには必ずnpx expo installを使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:40.492556Z"
+  "downloaded_at": "2026-01-06T09:10:40.492556Z",
+  "github_path": ".claude/skills/expo-turso-dev"
 }

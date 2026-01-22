@@ -8,5 +8,6 @@
     "fixture",
     "generator"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/test-fixture-generator"
 }

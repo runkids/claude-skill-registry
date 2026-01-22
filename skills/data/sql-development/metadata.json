@@ -8,5 +8,6 @@
     "development"
   ],
   "stars": 0,
-  "dir_name": "sql-development"
+  "dir_name": "sql-development",
+  "github_path": ".claude/skills/sql-development"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/rohunvora/my-claude-skills",
   "downloaded_at": "2026-01-22T03:07:03.912659Z",
   "dir_name": "spec-first",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/spec-first"
 }

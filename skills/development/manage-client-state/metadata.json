@@ -8,5 +8,6 @@
     "client",
     "state"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/manage-client-state"
 }

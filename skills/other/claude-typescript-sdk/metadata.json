@@ -5,5 +5,6 @@
   "source": "github.com/Anveio/conveaux",
   "downloaded_at": "2026-01-22T03:56:32.184061Z",
   "dir_name": "claude-typescript-sdk",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/claude-typescript-sdk"
 }

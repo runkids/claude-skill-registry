@@ -7,5 +7,6 @@
     "requirements",
     "discovery"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/requirements-discovery"
 }

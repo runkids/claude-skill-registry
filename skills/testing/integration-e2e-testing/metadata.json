@@ -8,5 +8,6 @@
     "e2e",
     "testing"
   ],
-  "stars": 44
+  "stars": 44,
+  "github_path": "skills/integration-e2e-testing"
 }

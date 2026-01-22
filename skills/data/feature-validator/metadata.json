@@ -9,5 +9,6 @@
   ],
   "stars": 2,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "feature-validator"
+  "dir_name": "feature-validator",
+  "github_path": ".claude/skills/feature-validator"
 }

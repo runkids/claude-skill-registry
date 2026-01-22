@@ -5,5 +5,6 @@
   "source": "github.com/DNYoussef/ai-chrome-extension",
   "downloaded_at": "2026-01-22T01:38:59.496111Z",
   "dir_name": "micro-skill-creator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/micro-skill-creator"
 }

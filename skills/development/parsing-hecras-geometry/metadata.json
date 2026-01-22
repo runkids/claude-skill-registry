@@ -4,5 +4,6 @@
   "category": "development",
   "description": "|",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:48.449060Z"
+  "downloaded_at": "2026-01-08T03:20:48.449060Z",
+  "github_path": ".claude/skills/parsing-hecras-geometry"
 }

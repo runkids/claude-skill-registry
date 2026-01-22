@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "data-export-formats"
+  "dir_name": "data-export-formats",
+  "github_path": ".claude/skills/data-export-formats"
 }

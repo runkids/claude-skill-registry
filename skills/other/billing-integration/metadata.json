@@ -5,5 +5,6 @@
   "source": "github.com/oimiragieo/agent-studio",
   "downloaded_at": "2026-01-14T03:17:06.998893Z",
   "dir_name": "billing-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/billing-integration"
 }

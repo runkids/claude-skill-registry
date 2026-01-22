@@ -4,5 +4,6 @@
   "category": "productivity",
   "description": "Stateless workflow orchestrator that automatically selects and executes the optimal workflow combination based on task intent. Supports rapid (lite-plan+execute), full (brainstorm+plan+execute), coupl",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:14.725362Z"
+  "downloaded_at": "2026-01-06T08:56:14.725362Z",
+  "github_path": ".claude/skills/ccw"
 }

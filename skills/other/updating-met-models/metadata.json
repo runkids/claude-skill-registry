@@ -5,5 +5,6 @@
   "source": "github.com/gpt-cmdr/hms-commander",
   "downloaded_at": "2026-01-22T01:42:08.849616Z",
   "dir_name": "updating-met-models",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/updating-met-models"
 }

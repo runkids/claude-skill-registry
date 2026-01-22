@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Create interactive, guided checklists for multi-step workflows, validation processes, onboarding sequences, and complex procedures with step-by-step tracking and decision trees. Use when documenting c",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:29.905381Z"
+  "downloaded_at": "2026-01-06T09:01:29.905381Z",
+  "github_path": ".claude/skills/interactive-checklist"
 }

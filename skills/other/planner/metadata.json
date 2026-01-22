@@ -5,5 +5,6 @@
   "source": "github.com/rjmurillo/ai-agents",
   "downloaded_at": "2026-01-22T04:17:14.756738Z",
   "dir_name": "planner",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/planner"
 }

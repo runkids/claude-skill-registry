@@ -5,5 +5,6 @@
   "source": "github.com/skillrecordings/support",
   "downloaded_at": "2026-01-22T03:15:13.562211Z",
   "dir_name": "ops-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ops-setup"
 }

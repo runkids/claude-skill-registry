@@ -8,5 +8,6 @@
     "stripe",
     "integration"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/nextjs-stripe-integration"
 }

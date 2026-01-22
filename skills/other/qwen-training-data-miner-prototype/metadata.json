@@ -5,5 +5,6 @@
   "source": "github.com/Foundup/Foundups-Agent",
   "downloaded_at": "2026-01-22T01:05:12.992234Z",
   "dir_name": "qwen-training-data-miner-prototype",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/qwen_training_data_miner_prototype"
 }

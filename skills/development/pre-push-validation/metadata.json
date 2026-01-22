@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Ensures CLAUDE.md, README.md, and CHANGELOG.md are updated before git push operations",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:53.242057Z"
+  "downloaded_at": "2026-01-06T09:04:53.242057Z",
+  "github_path": ".claude/skills/pre-push-validation"
 }

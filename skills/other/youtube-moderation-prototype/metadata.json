@@ -5,5 +5,6 @@
   "source": "github.com/Foundup/Foundups-Agent",
   "downloaded_at": "2026-01-22T01:05:13.300655Z",
   "dir_name": "youtube-moderation-prototype",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/youtube_moderation_prototype"
 }

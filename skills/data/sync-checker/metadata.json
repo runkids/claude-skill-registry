@@ -8,5 +8,6 @@
     "checker"
   ],
   "stars": 11,
-  "dir_name": "sync-checker"
+  "dir_name": "sync-checker",
+  "github_path": ".claude/skills/sync-checker"
 }

@@ -4,5 +4,6 @@
   "category": "productivity",
   "description": "Execute workflow agents iteratively for refinement and progressive improvement. Use when tasks require repetitive refinement, multi-iteration improvements, progressive optimization, or feedback loops ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:49.342753Z"
+  "downloaded_at": "2026-01-06T08:59:49.342753Z",
+  "github_path": ".claude/skills/loop-agent"
 }

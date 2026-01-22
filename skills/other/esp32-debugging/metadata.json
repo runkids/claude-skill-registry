@@ -5,5 +5,6 @@
   "source": "github.com/laurigates/mcu-tinkering-lab",
   "downloaded_at": "2026-01-22T03:34:30.172691Z",
   "dir_name": "esp32-debugging",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/esp32-debugging"
 }

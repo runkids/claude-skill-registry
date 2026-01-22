@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "auto-prompt-enhancer"
+  "dir_name": "auto-prompt-enhancer",
+  "github_path": ".claude/skills/auto-prompt-enhancer"
 }

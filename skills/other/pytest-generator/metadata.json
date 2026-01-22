@@ -5,5 +5,6 @@
   "source": "github.com/matteocervelli/llms",
   "downloaded_at": "2026-01-22T01:39:08.267346Z",
   "dir_name": "pytest-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/pytest-generator"
 }

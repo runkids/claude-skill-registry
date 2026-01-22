@@ -2,7 +2,8 @@
   "name": "textslide",
   "repo": "fecet/quarto-scaffold",
   "category": "devops",
-  "description": "ASCII \u7eaf\u6587\u672c\u5e03\u5c40 DSL + \u9ad8\u4fdd\u771f\u6587\u5b57\u7248 slide \u89c4\u683c\u8bf4\u660e\u3002 \u7528\u4e8e\u5feb\u901f\u8bbe\u8ba1 slide \u7248\u5f0f\u8349\u56fe\uff0c\u5e76\u4ea4\u4ed8\u53ef\u76f4\u63a5\u8fd8\u539f\u6210 PPT \u7684\u5b8c\u6574\u5185\u5bb9\u89c4\u683c\u4e66\u3002 \u5f53\u7528\u6237\u8bf7\u6c42\u8bbe\u8ba1 slide \u5e03\u5c40\u3001\u89c4\u5212\u591a\u5217\u591a\u884c\u7248\u5f0f\u3001\u6216\u9700\u8981\u7528\u6587\u672c\u63cf\u8ff0 slide \u7ed3\u6784\u65f6\u4f7f\u7528\u6b64 skill\u3002",
+  "description": "ASCII 纯文本布局 DSL + 高保真文字版 slide 规格说明。 用于快速设计 slide 版式草图，并交付可直接还原成 PPT 的完整内容规格书。 当用户请求设计 slide 布局、规划多列多行版式、或需要用文本描述 slide 结构时使用此 skill。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:51.116400Z"
+  "downloaded_at": "2026-01-06T09:09:51.116400Z",
+  "github_path": ".claude/skills/textslide"
 }

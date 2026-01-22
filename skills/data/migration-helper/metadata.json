@@ -8,5 +8,6 @@
     "helper"
   ],
   "stars": 0,
-  "dir_name": "migration-helper"
+  "dir_name": "migration-helper",
+  "github_path": ".claude/skills/migration-helper"
 }

@@ -7,5 +7,6 @@
     "readability",
     "report"
   ],
-  "stars": 18
+  "stars": 18,
+  "github_path": ".claude/skills/readability-report"
 }

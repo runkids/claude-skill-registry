@@ -5,5 +5,6 @@
   "source": "github.com/munlucky/code-cafe-manager",
   "downloaded_at": "2026-01-22T03:51:01.721473Z",
   "dir_name": "codex-test-integration",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/codex-test-integration"
 }

@@ -9,5 +9,6 @@
     "context"
   ],
   "stars": 0,
-  "dir_name": "sqlite-agent-context"
+  "dir_name": "sqlite-agent-context",
+  "github_path": ".claude/skills/sqlite-agent-context"
 }

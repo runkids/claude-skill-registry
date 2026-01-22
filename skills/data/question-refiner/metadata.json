@@ -9,5 +9,6 @@
   ],
   "stars": 108,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "question-refiner"
+  "dir_name": "question-refiner",
+  "github_path": ".claude/skills/question-refiner"
 }

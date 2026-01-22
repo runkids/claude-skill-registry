@@ -8,5 +8,6 @@
     "ideation"
   ],
   "stars": 47,
-  "dir_name": "plugin-ideation"
+  "dir_name": "plugin-ideation",
+  "github_path": ".claude/skills/plugin-ideation"
 }

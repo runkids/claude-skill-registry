@@ -2,7 +2,8 @@
   "name": "parallel-agent-orchestration",
   "repo": "garimto81/claude",
   "category": "development",
-  "description": "\ubcd1\ub82c \uc5d0\uc774\uc804\ud2b8 \uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158. Fan-Out/Fan-In \ud328\ud134\uc73c\ub85c \ub2e4\uc911 \uc5d0\uc774\uc804\ud2b8 \uc2e4\ud589.",
+  "description": "병렬 에이전트 오케스트레이션. Fan-Out/Fan-In 패턴으로 다중 에이전트 실행.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:37.708750Z"
+  "downloaded_at": "2026-01-06T09:10:37.708750Z",
+  "github_path": ".claude/skills/parallel-agent-orchestration"
 }

@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Debug the live solution at home.st44.no using Chrome browser tools",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:12.025563Z"
+  "downloaded_at": "2026-01-06T09:11:12.025563Z",
+  "github_path": ".claude/skills/live-debug"
 }

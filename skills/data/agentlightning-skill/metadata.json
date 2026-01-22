@@ -9,5 +9,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "agentlightning-skill"
+  "dir_name": "agentlightning-skill",
+  "github_path": ".claude/skills/agentlightning-skill"
 }

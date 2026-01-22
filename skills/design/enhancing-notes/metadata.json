@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Enhance book notes with Blinkist-style summaries. Use when asked to \"enhance notes\", \"improve book notes\", \"add key insights\", \"expand notes\", or \"make notes better\". Adds Core Message, Key Insights, ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:53.406943Z"
+  "downloaded_at": "2026-01-06T09:10:53.406943Z",
+  "github_path": ".claude/skills/enhancing-notes"
 }

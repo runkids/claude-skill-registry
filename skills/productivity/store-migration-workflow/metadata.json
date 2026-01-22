@@ -8,5 +8,6 @@
     "migration",
     "workflow"
   ],
-  "stars": 1
+  "stars": 1,
+  "github_path": ".claude/skills/store-migration-workflow"
 }

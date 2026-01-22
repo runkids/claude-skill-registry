@@ -5,5 +5,6 @@
   "source": "github.com/rysweet/AzureHayMaker",
   "downloaded_at": "2026-01-22T03:18:51.083410Z",
   "dir_name": "lawyer-analyst",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/lawyer-analyst"
 }

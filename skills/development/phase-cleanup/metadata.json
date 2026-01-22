@@ -7,5 +7,6 @@
     "phase",
     "cleanup"
   ],
-  "stars": 8
+  "stars": 8,
+  "github_path": ".claude/skills/phase-cleanup"
 }

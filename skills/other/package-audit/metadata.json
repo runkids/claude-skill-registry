@@ -5,5 +5,6 @@
   "source": "github.com/sgcarstrends/sgcarstrends",
   "downloaded_at": "2026-01-22T02:24:55.703664Z",
   "dir_name": "package-audit",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/package-audit"
 }

@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Your approach to handling ffi bindings. Use this skill when working on files where ffi bindings comes into play.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:44.214566Z"
+  "downloaded_at": "2026-01-06T09:04:44.214566Z",
+  "github_path": ".claude/skills/ffi-bindings"
 }

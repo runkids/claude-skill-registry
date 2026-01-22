@@ -5,5 +5,6 @@
   "source": "github.com/rockyflux/xf-blog",
   "downloaded_at": "2026-01-21T02:46:04.331985Z",
   "dir_name": "ai-content",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ai-content"
 }

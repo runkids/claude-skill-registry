@@ -5,5 +5,6 @@
   "source": "github.com/METR/inspect-action",
   "downloaded_at": "2026-01-22T02:54:13.488875Z",
   "dir_name": "smoke-tests",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/smoke-tests"
 }

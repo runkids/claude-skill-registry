@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Add a new endpoint or endpoints to Ghost",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:19:27.604996Z"
+  "downloaded_at": "2026-01-08T03:19:27.604996Z",
+  "github_path": ".claude/skills/add-admin-api-endpoint"
 }

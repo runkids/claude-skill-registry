@@ -5,5 +5,6 @@
   "source": "github.com/DNYoussef/ai-chrome-extension",
   "downloaded_at": "2026-01-22T01:38:58.843171Z",
   "dir_name": "cascade-orchestrator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/cascade-orchestrator"
 }

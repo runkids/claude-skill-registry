@@ -7,5 +7,6 @@
     "todo",
     "manage"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": ".claude/skills/todo-manage"
 }

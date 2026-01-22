@@ -5,5 +5,6 @@
   "source": "github.com/medride/claude-code-research",
   "downloaded_at": "2026-01-22T04:02:33.339074Z",
   "dir_name": "dotnet-api",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dotnet-api"
 }

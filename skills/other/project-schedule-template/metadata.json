@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-22T01:38:06.970140Z",
   "dir_name": "project-schedule-template",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/project-schedule-template"
 }

@@ -4,5 +4,6 @@
   "category": "security",
   "description": "Exploits web application vulnerabilities. Use when working with SQL injection, XSS, SSRF, SSTI, command injection, path traversal, authentication bypass, deserialization, or any web-based CTF challeng",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:40.171108Z"
+  "downloaded_at": "2026-01-06T09:06:40.171108Z",
+  "github_path": ".claude/skills/web-security"
 }

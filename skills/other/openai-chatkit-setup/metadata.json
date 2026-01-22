@@ -5,5 +5,6 @@
   "source": "github.com/maneeshanif/todo-spec-driven",
   "downloaded_at": "2026-01-22T02:22:53.684467Z",
   "dir_name": "openai-chatkit-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/openai-chatkit-setup"
 }

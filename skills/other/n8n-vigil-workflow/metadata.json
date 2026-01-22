@@ -5,5 +5,6 @@
   "source": "github.com/tbartel74/Vigil-Code",
   "downloaded_at": "2026-01-22T02:32:10.811851Z",
   "dir_name": "n8n-vigil-workflow",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/n8n-vigil-workflow"
 }

@@ -8,5 +8,6 @@
     "logger"
   ],
   "stars": 0,
-  "dir_name": "orchestration-logger"
+  "dir_name": "orchestration-logger",
+  "github_path": ".claude/skills/orchestration-logger"
 }

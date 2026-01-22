@@ -5,5 +5,6 @@
   "source": "github.com/spencerbeggs/claude-design-coordinator",
   "downloaded_at": "2026-01-22T02:41:54.576863Z",
   "dir_name": "design-search",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/design-search"
 }

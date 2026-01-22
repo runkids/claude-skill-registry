@@ -7,5 +7,6 @@
     "task",
     "create"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/task-create"
 }

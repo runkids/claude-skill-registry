@@ -5,5 +5,6 @@
   "source": "github.com/ZhiruiFeng/LocalAgentCrew",
   "downloaded_at": "2026-01-22T01:44:13.667952Z",
   "dir_name": "swot-analyst",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/swot-analyst"
 }

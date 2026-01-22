@@ -5,5 +5,6 @@
   "source": "github.com/ChuDiRen/AI-agent-testing-platform",
   "downloaded_at": "2026-01-17T02:49:31.336523Z",
   "dir_name": "logging-monitor",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/logging-monitor"
 }

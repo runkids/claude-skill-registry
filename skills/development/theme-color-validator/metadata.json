@@ -8,5 +8,6 @@
     "color",
     "validator"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/theme-color-validator"
 }

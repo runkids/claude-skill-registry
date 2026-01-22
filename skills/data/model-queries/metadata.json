@@ -8,5 +8,6 @@
     "queries"
   ],
   "stars": 0,
-  "dir_name": "model-queries"
+  "dir_name": "model-queries",
+  "github_path": ".claude/skills/model-queries"
 }

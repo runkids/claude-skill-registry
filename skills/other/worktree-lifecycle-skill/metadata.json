@@ -5,5 +5,6 @@
   "source": "github.com/GolferGeek/orchestrator-ai",
   "downloaded_at": "2026-01-22T03:37:28.632338Z",
   "dir_name": "worktree-lifecycle-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/worktree-lifecycle-skill"
 }

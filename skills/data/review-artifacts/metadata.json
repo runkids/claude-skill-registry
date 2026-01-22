@@ -8,5 +8,6 @@
     "artifacts"
   ],
   "stars": 0,
-  "dir_name": "review-artifacts"
+  "dir_name": "review-artifacts",
+  "github_path": ".claude/skills/review-artifacts"
 }

@@ -8,5 +8,6 @@
     "vigil",
     "workflow"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/n8n-vigil-workflow"
 }

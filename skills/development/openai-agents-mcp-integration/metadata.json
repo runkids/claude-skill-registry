@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Build AI agents with OpenAI Agents SDK + Model Context Protocol (MCP) for tool orchestration. Supports multi-provider backends (OpenAI, Gemini, Groq, OpenRouter) with MCPServerStdio. Use this skill fo",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:59.628551Z"
+  "downloaded_at": "2026-01-06T09:05:59.628551Z",
+  "github_path": ".claude/skills/openai-agents-mcp-integration"
 }

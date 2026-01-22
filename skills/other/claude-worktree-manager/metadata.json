@@ -5,5 +5,6 @@
   "source": "github.com/orient-bot/orient",
   "downloaded_at": "2026-01-22T03:58:46.913236Z",
   "dir_name": "claude-worktree-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/claude-worktree-manager"
 }

@@ -9,5 +9,6 @@
     "status"
   ],
   "stars": 27,
-  "dir_name": "parse-git-status"
+  "dir_name": "parse-git-status",
+  "github_path": ".claude/skills/parse-git-status"
 }

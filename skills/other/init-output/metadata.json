@@ -5,5 +5,6 @@
   "source": "github.com/wfukatsu/refactoring-agent-for-claude-code",
   "downloaded_at": "2026-01-22T03:38:40.943302Z",
   "dir_name": "init-output",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/init-output"
 }

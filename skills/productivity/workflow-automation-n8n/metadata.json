@@ -2,7 +2,8 @@
   "name": "workflow-automation-n8n",
   "repo": "taiyousan15/taisun_agent",
   "category": "productivity",
-  "description": "n8n\u3067\u696d\u52d9\u30d5\u30ed\u30fc\u3092\u8a2d\u8a08\u30fb\u5b9f\u88c5\u3059\u308b\u3002\u30c8\u30ea\u30ac\u30fc\u2192\u51e6\u7406\u2192\u4f8b\u5916\u2192\u901a\u77e5\u307e\u3067\u4e00\u6c17\u901a\u8cab\u3067\u63d0\u6848\u3059\u308b\u6642\u306b\u4f7f\u3046\u3002",
+  "description": "n8nで業務フローを設計・実装する。トリガー→処理→例外→通知まで一気通貫で提案する時に使う。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:43.011256Z"
+  "downloaded_at": "2026-01-06T09:08:43.011256Z",
+  "github_path": ".claude/skills/workflow-automation-n8n"
 }

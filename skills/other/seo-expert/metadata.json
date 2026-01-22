@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-22T01:37:59.971624Z",
   "dir_name": "seo-expert",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/seo-expert"
 }

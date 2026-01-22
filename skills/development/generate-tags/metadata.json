@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Generate tags for a blog post.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:19.309753Z"
+  "downloaded_at": "2026-01-06T09:10:19.309753Z",
+  "github_path": ".claude/skills/generate-tags"
 }

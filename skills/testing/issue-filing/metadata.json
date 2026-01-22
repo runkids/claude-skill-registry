@@ -7,5 +7,6 @@
     "issue",
     "filing"
   ],
-  "stars": 6
+  "stars": 6,
+  "github_path": ".claude/skills/issue-filing"
 }

@@ -2,7 +2,8 @@
   "name": "similarity-matcher",
   "repo": "younga1234/20251112-3",
   "category": "development",
-  "description": "\uc870\uc0ac\uc9c0\uc5ed \uc8fc\ubcc0 \uc720\uc0ac \uc720\uc801 \ub9e4\uce6d \ubc0f \ube44\uad50 \ubd84\uc11d",
+  "description": "조사지역 주변 유사 유적 매칭 및 비교 분석",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:40.565412Z"
+  "downloaded_at": "2026-01-06T09:09:40.565412Z",
+  "github_path": ".claude/skills/similarity-matcher"
 }

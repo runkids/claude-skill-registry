@@ -8,5 +8,6 @@
     "limit",
     "setup"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/rate-limit-setup"
 }

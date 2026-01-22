@@ -5,5 +5,6 @@
   "source": "github.com/vassovass/scl-v3",
   "downloaded_at": "2026-01-22T01:19:44.379809Z",
   "dir_name": "api-handler",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/api-handler"
 }

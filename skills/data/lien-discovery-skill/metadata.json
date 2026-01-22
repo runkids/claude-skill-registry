@@ -9,5 +9,6 @@
     "skill"
   ],
   "stars": 0,
-  "dir_name": "lien-discovery-skill"
+  "dir_name": "lien-discovery-skill",
+  "github_path": ".claude/skills/lien-discovery-skill"
 }

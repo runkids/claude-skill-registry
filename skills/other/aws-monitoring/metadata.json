@@ -5,5 +5,6 @@
   "source": "github.com/sgcarstrends/sgcarstrends",
   "downloaded_at": "2026-01-22T02:24:55.754002Z",
   "dir_name": "aws-monitoring",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/aws-monitoring"
 }

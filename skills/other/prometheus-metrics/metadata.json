@@ -5,5 +5,6 @@
   "source": "github.com/paunchygent/skriptoteket",
   "downloaded_at": "2026-01-22T01:47:31.343602Z",
   "dir_name": "prometheus-metrics",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/prometheus-metrics"
 }

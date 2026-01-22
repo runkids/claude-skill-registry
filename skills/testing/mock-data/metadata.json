@@ -7,5 +7,6 @@
     "mock",
     "data"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": ".claude/skills/mock-data"
 }

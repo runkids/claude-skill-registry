@@ -10,5 +10,6 @@
     "interpreter"
   ],
   "stars": 3,
-  "dir_name": "law-machine-readable-interpreter"
+  "dir_name": "law-machine-readable-interpreter",
+  "github_path": ".claude/skills/law-machine-readable-interpreter"
 }

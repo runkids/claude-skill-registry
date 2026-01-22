@@ -5,5 +5,6 @@
   "source": "github.com/rysweet/azlin",
   "downloaded_at": "2026-01-22T01:54:28.625857Z",
   "dir_name": "dependency-resolver",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/dependency-resolver"
 }

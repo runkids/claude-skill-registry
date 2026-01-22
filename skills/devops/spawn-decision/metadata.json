@@ -2,7 +2,8 @@
   "name": "spawn-decision",
   "repo": "Zeliper/z-coder",
   "category": "devops",
-  "description": "\ubcf5\uc7a1\ud55c \ud310\ub2e8\uc774 \ud544\uc694\ud560 \ub54c decision-agent \ud65c\uc6a9 \uac00\uc774\ub4dc",
+  "description": "복잡한 판단이 필요할 때 decision-agent 활용 가이드",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:44.332442Z"
+  "downloaded_at": "2026-01-06T09:09:44.332442Z",
+  "github_path": ".claude/skills/spawn-decision"
 }

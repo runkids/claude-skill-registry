@@ -2,7 +2,8 @@
   "name": "ux-nomenclature",
   "repo": "joaopelegrino/app-controle",
   "category": "design",
-  "description": "Garante nomenclatura consistente seguindo o gloss\u00e1rio do \u00c9PICO 12 (Arquitetura de Informa\u00e7\u00e3o do Plataforma B2B de treinamento t\u00e9cnico corporativo)",
+  "description": "Garante nomenclatura consistente seguindo o glossário do ÉPICO 12 (Arquitetura de Informação do Plataforma B2B de treinamento técnico corporativo)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:24.593492Z"
+  "downloaded_at": "2026-01-06T09:06:24.593492Z",
+  "github_path": ".claude/skills/ux-nomenclature"
 }

@@ -2,7 +2,8 @@
   "name": "create-node",
   "repo": "bytedance/flowgram.ai",
   "category": "design",
-  "description": "\u7528\u4e8e\u5728 FlowGram demo-free-layout \u4e2d\u521b\u5efa\u65b0\u7684\u81ea\u5b9a\u4e49\u8282\u70b9\uff0c\u652f\u6301\u7b80\u5355\u8282\u70b9\uff08\u81ea\u52a8\u8868\u5355\uff09\u548c\u590d\u6742\u8282\u70b9\uff08\u81ea\u5b9a\u4e49 UI\uff09",
+  "description": "用于在 FlowGram demo-free-layout 中创建新的自定义节点，支持简单节点（自动表单）和复杂节点（自定义 UI）",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:19:57.606062Z"
+  "downloaded_at": "2026-01-08T03:19:57.606062Z",
+  "github_path": ".claude/skills/create-node"
 }

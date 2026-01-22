@@ -5,5 +5,6 @@
   "source": "github.com/ksoichiro/ChronoDawn",
   "downloaded_at": "2026-01-22T01:22:13.423714Z",
   "dir_name": "audit-performance-thread-safety",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/audit-performance-thread-safety"
 }

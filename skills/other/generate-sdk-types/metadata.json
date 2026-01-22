@@ -5,5 +5,6 @@
   "source": "github.com/Async-IO/pierre_mcp_server",
   "downloaded_at": "2026-01-22T03:51:24.895775Z",
   "dir_name": "generate-sdk-types",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/generate-sdk-types"
 }

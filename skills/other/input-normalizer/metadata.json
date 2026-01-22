@@ -5,5 +5,6 @@
   "source": "github.com/tito-gh/healthcare",
   "downloaded_at": "2026-01-22T02:18:47.556174Z",
   "dir_name": "input-normalizer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/input-normalizer"
 }

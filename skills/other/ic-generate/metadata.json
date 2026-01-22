@@ -5,5 +5,6 @@
   "source": "github.com/smileynet/stationeers-companion",
   "downloaded_at": "2026-01-22T02:25:06.233401Z",
   "dir_name": "ic-generate",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/ic-generate"
 }

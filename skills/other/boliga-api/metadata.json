@@ -5,5 +5,6 @@
   "source": "github.com/kasperjunge/agent-resources-legacy",
   "downloaded_at": "2026-01-22T01:06:36.840366Z",
   "dir_name": "boliga-api",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/boliga-api"
 }

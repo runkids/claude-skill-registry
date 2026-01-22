@@ -5,5 +5,6 @@
   "source": "github.com/MQFacultyOfArts/PromptGrimoireTool",
   "downloaded_at": "2026-01-22T01:51:23.336027Z",
   "dir_name": "test-feedback",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/test-feedback"
 }

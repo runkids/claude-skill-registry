@@ -7,5 +7,6 @@
     "tel",
     "start"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/tel-start"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor",
   "downloaded_at": "2026-01-22T00:54:55.671098Z",
   "dir_name": "specification-phase",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/specification-phase"
 }

@@ -8,5 +8,6 @@
     "tsconfig",
     "paths"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/syncing-tsconfig-paths"
 }

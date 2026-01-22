@@ -5,5 +5,6 @@
   "source": "github.com/matteocervelli/llms",
   "downloaded_at": "2026-01-22T01:39:10.115956Z",
   "dir_name": "recursive-communicator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/recursive-communicator"
 }

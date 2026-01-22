@@ -5,5 +5,6 @@
   "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor",
   "downloaded_at": "2026-01-22T00:54:55.118286Z",
   "dir_name": "staging-validation-phase",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/staging-validation-phase"
 }

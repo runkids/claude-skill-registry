@@ -5,5 +5,6 @@
   "source": "github.com/natea/ai-news-influencer",
   "downloaded_at": "2026-01-22T04:02:39.093785Z",
   "dir_name": "performance-testing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/performance-testing"
 }

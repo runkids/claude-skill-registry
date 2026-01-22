@@ -5,5 +5,6 @@
   "source": "github.com/masseater/mcp-template",
   "downloaded_at": "2026-01-14T02:35:18.584367Z",
   "dir_name": "add-mcp-primitive",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/add-mcp-primitive"
 }

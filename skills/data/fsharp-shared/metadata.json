@@ -8,5 +8,6 @@
     "shared"
   ],
   "stars": 1,
-  "dir_name": "fsharp-shared"
+  "dir_name": "fsharp-shared",
+  "github_path": ".claude/skills/fsharp-shared"
 }

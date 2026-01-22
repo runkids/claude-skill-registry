@@ -5,5 +5,6 @@
   "source": "github.com/mvillmow/ProjectOdyssey",
   "downloaded_at": "2026-01-22T02:46:10.261351Z",
   "dir_name": "verify-pr-ready",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/verify-pr-ready"
 }

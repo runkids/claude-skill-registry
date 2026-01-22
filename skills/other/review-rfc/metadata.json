@@ -5,5 +5,6 @@
   "source": "github.com/stacklok/toolhive-rfcs",
   "downloaded_at": "2026-01-22T03:40:27.982929Z",
   "dir_name": "review-rfc",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/review-rfc"
 }

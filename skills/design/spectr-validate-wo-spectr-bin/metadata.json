@@ -9,5 +9,6 @@
     "spectr",
     "bin"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": ".claude/skills/spectr-validate-wo-spectr-bin"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/taiyousan15/taisun_agent",
   "downloaded_at": "2026-01-22T01:17:52.156662Z",
   "dir_name": "taiyo-rewriter",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/taiyo-rewriter"
 }

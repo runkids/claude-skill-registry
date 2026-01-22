@@ -5,5 +5,6 @@
   "source": "github.com/costiash/CognivAgent",
   "downloaded_at": "2026-01-20T03:10:03.614076Z",
   "dir_name": "council-advice",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/council-advice"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/wcygan/dotfiles",
   "downloaded_at": "2026-01-22T01:08:28.049622Z",
   "dir_name": "nix-manager",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/nix-manager"
 }

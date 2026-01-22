@@ -4,5 +4,6 @@
   "category": "productivity",
   "description": "Kanban Agent role. USE WHEN user says /kanban-agent OR wants to work on assigned kanban tasks as an agent.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:20.104862Z"
+  "downloaded_at": "2026-01-06T09:11:20.104862Z",
+  "github_path": ".claude/skills/kanban-agent"
 }

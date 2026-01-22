@@ -5,5 +5,6 @@
   "source": "github.com/kivo360/quickhooks",
   "downloaded_at": "2026-01-22T02:13:19.855084Z",
   "dir_name": "moai-cc-settings",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/moai-cc-settings"
 }

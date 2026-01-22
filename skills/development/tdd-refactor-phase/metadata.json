@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Guide experienced developers through REFACTOR phase of TDD cycle - improving code quality while maintaining green tests",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:49.194054Z"
+  "downloaded_at": "2026-01-06T09:02:49.194054Z",
+  "github_path": ".claude/skills/tdd-refactor-phase"
 }

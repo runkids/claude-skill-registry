@@ -11,5 +11,6 @@
   ],
   "stars": 1,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "databricks-apps-cookie-auth"
+  "dir_name": "databricks-apps-cookie-auth",
+  "github_path": ".claude/skills/databricks-apps-cookie-auth"
 }

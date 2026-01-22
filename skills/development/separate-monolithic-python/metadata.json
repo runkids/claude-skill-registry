@@ -8,5 +8,6 @@
     "monolithic",
     "python"
   ],
-  "stars": 13
+  "stars": 13,
+  "github_path": ".claude/skills/separate-monolithic-python"
 }

@@ -7,5 +7,6 @@
     "zig",
     "docs"
   ],
-  "stars": 23
+  "stars": 23,
+  "github_path": ".claude/skills/zig-docs"
 }

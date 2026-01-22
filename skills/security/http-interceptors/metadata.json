@@ -4,5 +4,6 @@
   "category": "security",
   "description": "Angular 21+ functional HTTP interceptors for auth, error handling, loading states, retry logic, caching, and security best practices",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:10.924163Z"
+  "downloaded_at": "2026-01-06T09:11:10.924163Z",
+  "github_path": ".claude/skills/http-interceptors"
 }

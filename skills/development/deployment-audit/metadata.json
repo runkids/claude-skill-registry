@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Use DigitalOcean MCP and related tools to check deployment health, crash logs, environment consistency, and runtime issues for Unite-Hub / Synthex. Use when diagnosing deployment failures or verifying",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:24:39.442186Z"
+  "downloaded_at": "2026-01-08T03:24:39.442186Z",
+  "github_path": ".claude/skills/deployment-audit"
 }

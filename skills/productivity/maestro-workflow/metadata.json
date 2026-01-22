@@ -7,5 +7,6 @@
     "maestro",
     "workflow"
   ],
-  "stars": 14
+  "stars": 14,
+  "github_path": ".claude/skills/maestro-workflow"
 }

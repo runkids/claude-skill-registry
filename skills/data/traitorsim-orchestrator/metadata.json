@@ -8,5 +8,6 @@
     "orchestrator"
   ],
   "stars": 0,
-  "dir_name": "traitorsim-orchestrator"
+  "dir_name": "traitorsim-orchestrator",
+  "github_path": ".claude/skills/traitorsim-orchestrator"
 }

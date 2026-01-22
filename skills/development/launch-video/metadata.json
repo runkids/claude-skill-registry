@@ -2,7 +2,8 @@
   "name": "launch-video",
   "repo": "taiyousan15/taisun_agent",
   "category": "development",
-  "description": "\u30d7\u30ed\u30c0\u30af\u30c8\u30ed\u30fc\u30f3\u30c1\u52d5\u753b\u306e\u53f0\u672c\u4f5c\u6210\u3092\u652f\u63f4\u3002\u30ed\u30fc\u30f3\u30c1\u52d5\u753b\u3001\u30a6\u30a7\u30d3\u30ca\u30fc\u3001\u30aa\u30f3\u30e9\u30a4\u30f3\u30bb\u30df\u30ca\u30fc\u306e\u30b9\u30af\u30ea\u30d7\u30c8\u3092\u66f8\u304f\u969b\u306b\u4f7f\u7528\u30023\u8a71\u69cb\u6210\u30fb4\u8a71\u69cb\u6210\u306b\u5bfe\u5fdc\u3002",
+  "description": "プロダクトローンチ動画の台本作成を支援。ローンチ動画、ウェビナー、オンラインセミナーのスクリプトを書く際に使用。3話構成・4話構成に対応。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:42.270419Z"
+  "downloaded_at": "2026-01-06T09:08:42.270419Z",
+  "github_path": ".claude/skills/launch-video"
 }

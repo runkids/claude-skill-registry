@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Create a GitHub pull request with conventional commit title",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:43.432687Z"
+  "downloaded_at": "2026-01-08T03:21:43.432687Z",
+  "github_path": ".claude/skills/gh-pull-requests"
 }

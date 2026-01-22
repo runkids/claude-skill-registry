@@ -7,5 +7,6 @@
     "schedule",
     "verification"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/schedule-verification"
 }

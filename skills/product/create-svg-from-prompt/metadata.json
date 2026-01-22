@@ -4,5 +4,6 @@
   "category": "product",
   "description": "Generate an SVG of a user-requested image or scene",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:49.106646Z"
+  "downloaded_at": "2026-01-06T09:10:49.106646Z",
+  "github_path": ".claude/skills/create-svg-from-prompt"
 }

@@ -8,5 +8,6 @@
     "patterns",
     "skill"
   ],
-  "stars": 24
+  "stars": 24,
+  "github_path": ".claude/skills/integration-patterns-skill"
 }

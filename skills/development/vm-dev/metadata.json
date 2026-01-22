@@ -2,7 +2,8 @@
   "name": "vm-dev",
   "repo": "whtoo/How_to_implment_PL_in_Antlr4",
   "category": "development",
-  "description": "\u865a\u62df\u673a\u5f00\u53d1\u4e13\u5bb6\uff0c\u4e13\u6ce8\u4e8e\u5b57\u8282\u7801\u8bbe\u8ba1\u3001\u6307\u4ee4\u5b9e\u73b0\u3001\u6808\u5e27\u7ba1\u7406\u3001\u5185\u5b58\u7ba1\u7406\u548c\u5783\u573e\u56de\u6536\u3002",
+  "description": "虚拟机开发专家，专注于字节码设计、指令实现、栈帧管理、内存管理和垃圾回收。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:19.500311Z"
+  "downloaded_at": "2026-01-06T08:57:19.500311Z",
+  "github_path": ".claude/skills/vm-dev"
 }

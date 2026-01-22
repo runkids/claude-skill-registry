@@ -8,5 +8,6 @@
     "checker"
   ],
   "stars": 0,
-  "dir_name": "grammar-checker"
+  "dir_name": "grammar-checker",
+  "github_path": ".claude/skills/grammar-checker"
 }

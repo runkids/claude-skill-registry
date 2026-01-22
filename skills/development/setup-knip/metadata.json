@@ -7,5 +7,6 @@
     "setup",
     "knip"
   ],
-  "stars": 27
+  "stars": 27,
+  "github_path": ".claude/skills/setup-knip"
 }

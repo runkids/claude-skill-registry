@@ -5,5 +5,6 @@
   "source": "github.com/otrebu/all-agents",
   "downloaded_at": "2026-01-21T02:20:44.092407Z",
   "dir_name": "story-create",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/story-create"
 }

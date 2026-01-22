@@ -7,5 +7,6 @@
     "lsp",
     "implementation"
   ],
-  "stars": 3
+  "stars": 3,
+  "github_path": ".claude/skills/lsp-implementation"
 }

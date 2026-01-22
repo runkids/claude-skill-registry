@@ -5,5 +5,6 @@
   "source": "github.com/kimny1143/claude-code-template",
   "downloaded_at": "2026-01-22T03:28:07.035137Z",
   "dir_name": "email-sequence",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/email-sequence"
 }

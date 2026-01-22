@@ -9,5 +9,6 @@
     "orchestrator"
   ],
   "stars": 0,
-  "dir_name": "internet-research-orchestrator"
+  "dir_name": "internet-research-orchestrator",
+  "github_path": ".claude/skills/internet-research-orchestrator"
 }

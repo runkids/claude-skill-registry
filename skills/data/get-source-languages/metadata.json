@@ -9,5 +9,6 @@
     "languages"
   ],
   "stars": 1,
-  "dir_name": "get-source-languages"
+  "dir_name": "get-source-languages",
+  "github_path": ".claude/skills/get-source-languages"
 }

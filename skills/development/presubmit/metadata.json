@@ -6,5 +6,6 @@
   "tags": [
     "presubmit"
   ],
-  "stars": 16
+  "stars": 16,
+  "github_path": ".claude/skills/presubmit"
 }

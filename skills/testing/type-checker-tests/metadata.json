@@ -4,5 +4,6 @@
   "category": "testing",
   "description": "Add integration tests for type checker inference and checking functions",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:50.905644Z"
+  "downloaded_at": "2026-01-06T08:56:50.905644Z",
+  "github_path": ".claude/skills/type-checker-tests"
 }

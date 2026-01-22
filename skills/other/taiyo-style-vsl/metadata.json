@@ -5,5 +5,6 @@
   "source": "github.com/taiyousan15/taisun_agent",
   "downloaded_at": "2026-01-22T01:17:56.698633Z",
   "dir_name": "taiyo-style-vsl",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/taiyo-style-vsl"
 }

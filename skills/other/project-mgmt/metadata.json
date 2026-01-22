@@ -5,5 +5,6 @@
   "source": "github.com/Sunwood-AI-OSS-Hub/zero-cc",
   "downloaded_at": "2026-01-22T01:40:05.392019Z",
   "dir_name": "project-mgmt",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/project-mgmt"
 }

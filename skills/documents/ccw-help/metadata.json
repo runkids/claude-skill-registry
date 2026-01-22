@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Workflow command guide for Claude Code Workflow (78 commands). Search/browse commands, get next-step recommendations, view documentation, report issues. Triggers \"CCW-help\", \"CCW-issue\", \"ccw-help\", \"",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:14.711257Z"
+  "downloaded_at": "2026-01-06T08:56:14.711257Z",
+  "github_path": ".claude/skills/ccw-help"
 }

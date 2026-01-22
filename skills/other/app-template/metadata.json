@@ -5,5 +5,6 @@
   "source": "github.com/ionfury/homelab",
   "downloaded_at": "2026-01-22T01:11:41.927887Z",
   "dir_name": "app-template",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/app-template"
 }

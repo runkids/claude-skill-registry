@@ -5,5 +5,6 @@
   "source": "github.com/ntaksh42/agents",
   "downloaded_at": "2026-01-22T02:30:14.951896Z",
   "dir_name": "azure-variable-groups",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/azure-variable-groups"
 }

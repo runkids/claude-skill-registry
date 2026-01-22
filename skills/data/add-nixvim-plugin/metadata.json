@@ -10,5 +10,6 @@
   ],
   "stars": 0,
   "source": "SkillsMP Synced Skills",
-  "dir_name": "add-nixvim-plugin"
+  "dir_name": "add-nixvim-plugin",
+  "github_path": ".claude/skills/add-nixvim-plugin"
 }

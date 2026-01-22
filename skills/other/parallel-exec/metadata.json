@@ -5,5 +5,6 @@
   "source": "github.com/omerlefaruk/CasareRPA",
   "downloaded_at": "2026-01-22T04:12:07.641278Z",
   "dir_name": "parallel-exec",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/parallel-exec"
 }

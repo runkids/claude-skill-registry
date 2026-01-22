@@ -4,5 +4,6 @@
   "category": "product",
   "description": "ASGI server for Python web applications - Fast, production-ready server for async frameworks",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:15.934111Z"
+  "downloaded_at": "2026-01-06T09:04:15.934111Z",
+  "github_path": ".claude/skills/uvicorn"
 }

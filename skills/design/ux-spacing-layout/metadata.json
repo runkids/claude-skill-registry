@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Utopia fluid spacing tokens and layout patterns. Use when applying margins, padding, gaps, or creating layouts. Covers space scale, container widths, and responsive spacing. (project)",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:01.175125Z"
+  "downloaded_at": "2026-01-06T09:07:01.175125Z",
+  "github_path": ".claude/skills/ux-spacing-layout"
 }

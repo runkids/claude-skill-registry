@@ -5,5 +5,6 @@
   "source": "github.com/ntaksh42/agents",
   "downloaded_at": "2026-01-22T02:30:16.646694Z",
   "dir_name": "azure-pipelines-generator",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/azure-pipelines-generator"
 }

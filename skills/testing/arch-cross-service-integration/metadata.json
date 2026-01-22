@@ -4,5 +4,6 @@
   "category": "testing",
   "description": "Quick decision guide for cross-service communication patterns. For implementation details, use the backend-message-bus skill.",
   "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:31:22.537360Z"
+  "downloaded_at": "2026-01-08T03:31:22.537360Z",
+  "github_path": ".claude/skills/arch-cross-service-integration"
 }

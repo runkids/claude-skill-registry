@@ -9,5 +9,6 @@
     "logs"
   ],
   "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/analyze-ci-failure-logs"
 }

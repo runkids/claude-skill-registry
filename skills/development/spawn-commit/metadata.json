@@ -2,7 +2,8 @@
   "name": "spawn-commit",
   "repo": "Zeliper/z-coder",
   "category": "development",
-  "description": "\ube4c\ub4dc \uc131\uacf5 \ud6c4 commit-agent\ub97c \ud65c\uc6a9\ud558\uc5ec \ucee4\ubc0b \uc0dd\uc131",
+  "description": "빌드 성공 후 commit-agent를 활용하여 커밋 생성",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:44.283384Z"
+  "downloaded_at": "2026-01-06T09:09:44.283384Z",
+  "github_path": ".claude/skills/spawn-commit"
 }

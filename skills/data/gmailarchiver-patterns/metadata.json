@@ -8,5 +8,6 @@
     "patterns"
   ],
   "stars": 2,
-  "dir_name": "gmailarchiver-patterns"
+  "dir_name": "gmailarchiver-patterns",
+  "github_path": ".claude/skills/gmailarchiver-patterns"
 }

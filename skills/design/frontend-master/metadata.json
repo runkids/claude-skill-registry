@@ -4,5 +4,6 @@
   "category": "design",
   "description": "Master skill for frontend development with Next.js + React + Tailwind stack. Decision framework for choosing components, animations, assets, and tools. Routes to specialized skills for implementation ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:38.371699Z"
+  "downloaded_at": "2026-01-06T08:59:38.371699Z",
+  "github_path": ".claude/skills/frontend-master"
 }

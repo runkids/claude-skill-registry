@@ -5,5 +5,6 @@
   "source": "github.com/stacklok/toolhive",
   "downloaded_at": "2026-01-22T03:57:29.921931Z",
   "dir_name": "pr-review-reply",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/pr-review-reply"
 }

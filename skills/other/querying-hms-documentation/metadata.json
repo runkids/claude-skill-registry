@@ -5,5 +5,6 @@
   "source": "github.com/gpt-cmdr/hms-commander",
   "downloaded_at": "2026-01-22T01:42:09.350245Z",
   "dir_name": "querying-hms-documentation",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/querying-hms-documentation"
 }

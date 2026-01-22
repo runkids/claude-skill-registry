@@ -4,5 +4,6 @@
   "category": "productivity",
   "description": "Automatic task decomposition with parallel agent execution. Use when: breaking down complex tasks, parallel agent work, multi-file changes, optimizing execution time, task decomposition, understanding",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:26.087126Z"
+  "downloaded_at": "2026-01-06T09:07:26.087126Z",
+  "github_path": ".claude/skills/parallel-exec"
 }

@@ -8,5 +8,6 @@
     "axiom",
     "logs"
   ],
-  "stars": 38
+  "stars": 38,
+  "github_path": ".claude/skills/query-axiom-logs"
 }

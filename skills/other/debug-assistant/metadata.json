@@ -5,5 +5,6 @@
   "source": "github.com/j4xie/my-prototype-logistics",
   "downloaded_at": "2026-01-14T01:49:11.720915Z",
   "dir_name": "debug-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/debug-assistant"
 }

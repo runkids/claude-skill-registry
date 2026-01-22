@@ -9,5 +9,6 @@
     "visualizer"
   ],
   "stars": 0,
-  "dir_name": "state-flow-visualizer"
+  "dir_name": "state-flow-visualizer",
+  "github_path": ".claude/skills/state-flow-visualizer"
 }

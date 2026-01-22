@@ -9,5 +9,6 @@
     "orchestrator"
   ],
   "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "source": "SkillsMP Synced Skills",
+  "github_path": ".claude/skills/cicd-pipeline-qe-orchestrator"
 }

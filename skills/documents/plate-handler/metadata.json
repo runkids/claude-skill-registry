@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Implement rich text editors using Plate.js. Supports creating both simple (comment/chat) and detailed (document/blog) editors.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:42.549489Z"
+  "downloaded_at": "2026-01-06T09:03:42.549489Z",
+  "github_path": ".claude/skills/plate-handler"
 }

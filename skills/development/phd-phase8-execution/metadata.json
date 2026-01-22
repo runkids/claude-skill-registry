@@ -4,5 +4,6 @@
   "category": "development",
   "description": "Execute PhD Pipeline Phase 8 using Claude Code Task tool with dynamic agents per chapter",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:17.492516Z"
+  "downloaded_at": "2026-01-06T09:10:17.492516Z",
+  "github_path": ".claude/skills/phd-phase8-execution"
 }

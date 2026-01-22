@@ -7,5 +7,6 @@
     "generate",
     "docs"
   ],
-  "stars": 14
+  "stars": 14,
+  "github_path": ".claude/skills/generate-docs"
 }

@@ -2,7 +2,8 @@
   "name": "impl-service",
   "repo": "ciandt-fulvio/synth-lab",
   "category": "devops",
-  "description": "Implementar servi\u00e7os de l\u00f3gica de neg\u00f3cio em services/. Use quando criar service, l\u00f3gica de neg\u00f3cio, orquestra\u00e7\u00e3o de reposit\u00f3rios, ou integra\u00e7\u00e3o com LLM.",
+  "description": "Implementar serviços de lógica de negócio em services/. Use quando criar service, lógica de negócio, orquestração de repositórios, ou integração com LLM.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:30.533391Z"
+  "downloaded_at": "2026-01-06T09:04:30.533391Z",
+  "github_path": ".claude/skills/impl-service"
 }

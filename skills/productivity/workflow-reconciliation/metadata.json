@@ -7,5 +7,6 @@
     "workflow",
     "reconciliation"
   ],
-  "stars": 47
+  "stars": 47,
+  "github_path": ".claude/skills/workflow-reconciliation"
 }

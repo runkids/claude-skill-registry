@@ -5,5 +5,6 @@
   "source": "github.com/fercracix33/poli2-clean-architecture",
   "downloaded_at": "2026-01-22T04:01:40.016620Z",
   "dir_name": "implementer-agent-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/implementer-agent-skill"
 }

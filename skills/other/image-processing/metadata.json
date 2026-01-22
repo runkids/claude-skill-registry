@@ -5,5 +5,6 @@
   "source": "github.com/nathanielcrowell12-spec/photo-vault",
   "downloaded_at": "2026-01-22T02:43:51.213827Z",
   "dir_name": "image-processing",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/image-processing"
 }

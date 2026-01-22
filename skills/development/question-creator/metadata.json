@@ -7,5 +7,6 @@
     "question",
     "creator"
   ],
-  "stars": 20
+  "stars": 20,
+  "github_path": ".claude/skills/question-creator"
 }

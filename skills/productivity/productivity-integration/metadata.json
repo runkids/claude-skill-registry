@@ -4,5 +4,6 @@
   "category": "productivity",
   "description": "Orchestrates cross-system productivity workflows between Things3 and Notion, providing automation patterns, integration strategies, and unified productivity methodologies for personal systems.",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:06.821648Z"
+  "downloaded_at": "2026-01-06T09:04:06.821648Z",
+  "github_path": ".claude/skills/productivity-integration"
 }

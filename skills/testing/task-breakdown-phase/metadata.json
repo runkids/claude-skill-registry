@@ -8,5 +8,6 @@
     "breakdown",
     "phase"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/task-breakdown-phase"
 }

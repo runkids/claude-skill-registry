@@ -5,5 +5,6 @@
   "source": "github.com/rysweet/AzureHayMaker",
   "downloaded_at": "2026-01-22T03:18:47.883350Z",
   "dir_name": "pr-review-assistant",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/pr-review-assistant"
 }

@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Normalize and standardize tags across Obsidian vault. Use when working with documentation that has inconsistent tags, duplicate tags, or needs hierarchical tag organization. Handles both English and K",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:21.633918Z"
+  "downloaded_at": "2026-01-06T09:06:21.633918Z",
+  "github_path": ".claude/skills/obsidian-tag-normalizer"
 }

@@ -2,7 +2,8 @@
   "name": "meta-configuracao-evolucao",
   "repo": "joaopelegrino/app-controle",
   "category": "documents",
-  "description": "Automatiza processo de pesquisa de documenta\u00e7\u00e3o oficial, extra\u00e7\u00e3o de melhores pr\u00e1ticas e aplica\u00e7\u00e3o no projeto Plataforma B2B de treinamento t\u00e9cnico corporativo atrav\u00e9s de skills/agents/hooks",
+  "description": "Automatiza processo de pesquisa de documentação oficial, extração de melhores práticas e aplicação no projeto Plataforma B2B de treinamento técnico corporativo através de skills/agents/hooks",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:24.442705Z"
+  "downloaded_at": "2026-01-06T09:06:24.442705Z",
+  "github_path": ".claude/skills/meta-configuracao-evolucao"
 }

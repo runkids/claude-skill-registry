@@ -8,5 +8,6 @@
     "expert"
   ],
   "stars": 0,
-  "dir_name": "sqlmodel-db-expert"
+  "dir_name": "sqlmodel-db-expert",
+  "github_path": ".claude/skills/sqlmodel-db-expert"
 }

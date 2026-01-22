@@ -2,7 +2,8 @@
   "name": "video-download",
   "repo": "taiyousan15/taisun_agent",
   "category": "development",
-  "description": "YouTube\u7b49\u304b\u3089\u52d5\u753b\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3002\u30aa\u30d5\u30e9\u30a4\u30f3\u8996\u8074\u3001\u6559\u80b2\u30b3\u30f3\u30c6\u30f3\u30c4\u4fdd\u5b58\u3001\u30af\u30ea\u30a8\u30a4\u30c6\u30a3\u30d6\u7d20\u6750\u53ce\u96c6\u306b\u4f7f\u7528\u3002",
+  "description": "YouTube等から動画をダウンロード。オフライン視聴、教育コンテンツ保存、クリエイティブ素材収集に使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:42.638100Z"
+  "downloaded_at": "2026-01-06T09:08:42.638100Z",
+  "github_path": ".claude/skills/video-download"
 }

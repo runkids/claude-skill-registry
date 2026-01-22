@@ -4,5 +4,6 @@
   "category": "documents",
   "description": "Curate and improve content quality across Obsidian vault. Use when identifying stub notes, finding duplicate content, detecting outdated information, or improving overall documentation quality. Works ",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:21.633733Z"
+  "downloaded_at": "2026-01-06T09:06:21.633733Z",
+  "github_path": ".claude/skills/obsidian-content-curator"
 }

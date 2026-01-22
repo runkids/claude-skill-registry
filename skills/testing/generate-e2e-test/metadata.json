@@ -8,5 +8,6 @@
     "e2e",
     "test"
   ],
-  "stars": 0
+  "stars": 0,
+  "github_path": ".claude/skills/generate-e2e-test"
 }

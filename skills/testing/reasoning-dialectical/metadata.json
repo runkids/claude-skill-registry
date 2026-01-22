@@ -7,5 +7,6 @@
     "reasoning",
     "dialectical"
   ],
-  "stars": 12
+  "stars": 12,
+  "github_path": ".claude/skills/reasoning-dialectical"
 }

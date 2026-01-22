@@ -2,7 +2,8 @@
   "name": "create-slide",
   "repo": "fecet/quarto-scaffold",
   "category": "design",
-  "description": "fluid-slide \u9879\u76ee\u4e13\u7528\u7684\u5e7b\u706f\u7247\u5236\u4f5c\u89c4\u8303\u3002 \u5b9a\u4e49\u4e86 Grid \u5e03\u5c40\u3001MD3 \u5de5\u5177\u7c7b\u3001\u7279\u6b8a\u7ec4\u4ef6\u7b49\u9879\u76ee\u5185\u7ea6\u5b9a\u3002 \u914d\u5408 quarto-revealjs \u6280\u80fd\u4f7f\u7528\u3002",
+  "description": "fluid-slide 项目专用的幻灯片制作规范。 定义了 Grid 布局、MD3 工具类、特殊组件等项目内约定。 配合 quarto-revealjs 技能使用。",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:05.761856Z"
+  "downloaded_at": "2026-01-06T09:10:05.761856Z",
+  "github_path": ".claude/skills/create-slide"
 }

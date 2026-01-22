@@ -5,5 +5,6 @@
   "source": "github.com/matteocervelli/llms",
   "downloaded_at": "2026-01-22T01:39:12.100966Z",
   "dir_name": "unit-test-writer",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/unit-test-writer"
 }

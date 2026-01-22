@@ -8,5 +8,6 @@
     "orchestration"
   ],
   "stars": 2,
-  "dir_name": "speculator-orchestration"
+  "dir_name": "speculator-orchestration",
+  "github_path": ".claude/skills/speculator-orchestration"
 }

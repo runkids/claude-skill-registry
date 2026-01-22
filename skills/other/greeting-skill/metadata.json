@@ -5,5 +5,6 @@
   "source": "github.com/yoshiwatanabe/yw-claude-marketplace-development",
   "downloaded_at": "2026-01-17T04:04:42.350170Z",
   "dir_name": "greeting-skill",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/greeting-skill"
 }

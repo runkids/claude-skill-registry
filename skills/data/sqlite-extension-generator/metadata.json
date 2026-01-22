@@ -9,5 +9,6 @@
     "generator"
   ],
   "stars": 0,
-  "dir_name": "sqlite-extension-generator"
+  "dir_name": "sqlite-extension-generator",
+  "github_path": ".claude/skills/sqlite-extension-generator"
 }

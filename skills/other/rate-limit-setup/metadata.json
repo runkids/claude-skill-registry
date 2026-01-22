@@ -5,5 +5,6 @@
   "source": "github.com/AppleLamps/xpic2",
   "downloaded_at": "2026-01-22T03:18:37.728777Z",
   "dir_name": "rate-limit-setup",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/rate-limit-setup"
 }

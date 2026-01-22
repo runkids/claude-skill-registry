@@ -7,5 +7,6 @@
     "starwards",
     "colyseus"
   ],
-  "stars": 35
+  "stars": 35,
+  "github_path": ".claude/skills/starwards-colyseus"
 }

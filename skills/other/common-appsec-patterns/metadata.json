@@ -5,5 +5,6 @@
   "source": "github.com/transilienceai/communitytools",
   "downloaded_at": "2026-01-14T01:23:08.546880Z",
   "dir_name": "common-appsec-patterns",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/common-appsec-patterns"
 }

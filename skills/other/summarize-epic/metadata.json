@@ -5,5 +5,6 @@
   "source": "github.com/sasamuku/dotfiles",
   "downloaded_at": "2026-01-22T02:57:34.364757Z",
   "dir_name": "summarize-epic",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/summarize-epic"
 }

@@ -4,5 +4,6 @@
   "category": "security",
   "description": "Security best practices, OWASP compliance, authentication patterns, and vulnerability prevention",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:17.846339Z"
+  "downloaded_at": "2026-01-06T09:00:17.846339Z",
+  "github_path": ".claude/skills/security-essentials"
 }

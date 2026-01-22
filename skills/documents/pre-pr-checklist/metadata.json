@@ -7,5 +7,6 @@
     "pre",
     "checklist"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/pre-pr-checklist"
 }

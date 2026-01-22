@@ -8,5 +8,6 @@
     "refiner"
   ],
   "stars": 0,
-  "dir_name": "procedure-refiner"
+  "dir_name": "procedure-refiner",
+  "github_path": ".claude/skills/procedure-refiner"
 }

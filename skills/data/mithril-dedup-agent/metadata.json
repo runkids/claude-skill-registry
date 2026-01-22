@@ -5,5 +5,6 @@
   "description": "Build mithril-dedup for ML dataset deduplication. Use when implementing MinHash, LSH, clustering, or document I/O.",
   "source": "SkillsMP + GitHub Raw",
   "downloaded_at": "2026-01-06T09:05:48.931597Z",
-  "dir_name": "mithril-dedup-agent"
+  "dir_name": "mithril-dedup-agent",
+  "github_path": ".claude/skills/mithril-dedup-agent"
 }

@@ -10,5 +10,6 @@
     "claude",
     "web"
   ],
-  "stars": 2
+  "stars": 2,
+  "github_path": ".claude/skills/github-flow-for-claude-on-web"
 }

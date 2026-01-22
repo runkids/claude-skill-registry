@@ -9,5 +9,6 @@
     "amplification"
   ],
   "stars": 0,
-  "dir_name": "sqlite-agent-amplification"
+  "dir_name": "sqlite-agent-amplification",
+  "github_path": ".claude/skills/sqlite-agent-amplification"
 }

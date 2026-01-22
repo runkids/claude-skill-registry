@@ -5,5 +5,6 @@
   "source": "github.com/dengineproblem/agents-monorepo",
   "downloaded_at": "2026-01-22T01:38:03.404967Z",
   "dir_name": "input-sanitization",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/input-sanitization"
 }

@@ -5,5 +5,6 @@
   "source": "github.com/mvillmow/ProjectOdyssey",
   "downloaded_at": "2026-01-22T02:46:10.537607Z",
   "dir_name": "gh-get-review-comments",
-  "category": "other"
+  "category": "other",
+  "github_path": ".claude/skills/gh-get-review-comments"
 }

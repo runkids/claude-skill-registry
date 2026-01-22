@@ -8,5 +8,6 @@
     "library",
     "manager"
   ],
-  "stars": 5
+  "stars": 5,
+  "github_path": ".claude/skills/pattern-library-manager"
 }

@@ -2,7 +2,8 @@
   "name": "typescript-security-checker",
   "repo": "tailwind8/portfolio-reserve",
   "category": "security",
-  "description": "Next.js/TypeScript\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u5411\u3051\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u8a3a\u65ad\u30b9\u30ad\u30eb\u3002OWASP\u6e96\u62e0\u3002\u4ee5\u4e0b\u306e\u5834\u5408\u306b\u4f7f\u7528:(1) PR\u30ec\u30d3\u30e5\u30fc\u6642\u306e\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30c1\u30a7\u30c3\u30af(2) API Routes \u306e\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u691c\u8a3c(3) \u8a8d\u8a3c\u30fb\u8a8d\u53ef\u30ed\u30b8\u30c3\u30af\u306e\u78ba\u8a8d(4) \u4f9d\u5b58\u30d1\u30c3\u30b1\u30fc\u30b8\u306e\u8106\u5f31\u6027\u78ba\u8a8d(5) \u74b0\u5883\u5909\u6570\u30fb\u30b7\u30fc\u30af\u30ec\u30c3\u30c8\u7ba1\u7406\u306e\u78ba\u8a8d",
+  "description": "Next.js/TypeScriptプロジェクト向けセキュリティ診断スキル。OWASP準拠。以下の場合に使用:(1) PRレビュー時のセキュリティチェック(2) API Routes のセキュリティ検証(3) 認証・認可ロジックの確認(4) 依存パッケージの脆弱性確認(5) 環境変数・シークレット管理の確認",
   "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:41.663746Z"
+  "downloaded_at": "2026-01-06T09:08:41.663746Z",
+  "github_path": ".claude/skills/typescript-security-checker"
 }

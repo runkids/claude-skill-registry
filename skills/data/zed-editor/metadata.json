@@ -8,5 +8,6 @@
     "editor"
   ],
   "stars": 3,
-  "dir_name": "zed-editor"
+  "dir_name": "zed-editor",
+  "github_path": ".claude/skills/zed-editor"
 }
