@@ -1,9 +1,7 @@
 {
-  "name": "qwen-ollama",
-  "repo": "lawless-m/claude-skills",
-  "category": "data",
-  "description": "Using Qwen 2.5 models via Ollama for local LLM inference, text analysis, and AI-powered automation",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:18.697238Z",
-  "dir_name": "qwen-ollama"
+  "name": "Qwen-Ollama",
+  "repo": "lawless-m/Gwen",
+  "path": ".claude/skills/Qwen-Ollama/SKILL.md",
+  "source": "github.com/lawless-m/Gwen",
+  "downloaded_at": "2026-01-22T03:17:29.609483Z"
 }

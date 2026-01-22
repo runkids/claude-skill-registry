@@ -1,9 +1,7 @@
 {
-  "name": "aimds",
-  "repo": "ruvnet/midstream",
-  "category": "data",
-  "description": "AI Manipulation Defense System implementation with Midstream, AgentDB, and lean-agentic",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:27.576296Z",
-  "dir_name": "aimds"
+  "name": "AIMDS",
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ruvnet/midstream/.claude/skills/AIMDS/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-01-22T01:13:28.122768Z"
 }
