@@ -1,7 +1,7 @@
 {
   "name": "coding-standards",
-  "repo": "wtthornton/TappsCodingAgents",
-  "path": "tapps_agents/resources/claude/skills/coding-standards/SKILL.md",
-  "source": "github.com/wtthornton/TappsCodingAgents",
-  "downloaded_at": "2026-01-21T04:13:12.997961Z"
+  "repo": "Wania-Kazmi/claude-code-autonomous-agent-workflow",
+  "path": ".claude/skills/coding-standards/SKILL.md",
+  "source": "github.com/Wania-Kazmi/claude-code-autonomous-agent-workflow",
+  "downloaded_at": "2026-01-22T04:14:20.472696Z"
 }

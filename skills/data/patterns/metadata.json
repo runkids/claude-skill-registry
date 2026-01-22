@@ -1,7 +1,7 @@
 {
   "name": "patterns",
-  "repo": "aiskillstore/marketplace",
-  "path": "skills/clouder0/patterns/SKILL.md",
-  "source": "github.com/aiskillstore/marketplace",
-  "downloaded_at": "2026-01-21T03:37:42.286439Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/agentdev/skills/patterns/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-22T03:51:30.237273Z"
 }

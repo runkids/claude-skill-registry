@@ -1,7 +1,7 @@
 {
   "name": "writing-docs",
-  "repo": "remotion-dev/remotion",
-  "path": ".claude/skills/writing-docs/SKILL.md",
-  "source": "github.com/remotion-dev/remotion",
-  "downloaded_at": "2026-01-21T04:04:38.389216Z"
+  "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
+  "path": "documents-manager/skills/writing-docs/SKILL.md",
+  "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
+  "downloaded_at": "2026-01-22T01:49:12.025359Z"
 }

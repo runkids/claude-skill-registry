@@ -1,7 +1,7 @@
 {
   "name": "worker-integration",
-  "repo": "QUXTech/claude-flow",
-  "path": ".claude/skills/worker-integration/skill.md",
-  "source": "github.com/QUXTech/claude-flow",
-  "downloaded_at": "2026-01-21T03:40:55.334563Z"
+  "repo": "ricable/ruvector-edge",
+  "path": "claude-flow-v3/v3/@claude-flow/cli/.claude/skills/worker-integration/skill.md",
+  "source": "github.com/ricable/ruvector-edge",
+  "downloaded_at": "2026-01-22T01:46:08.156413Z"
 }

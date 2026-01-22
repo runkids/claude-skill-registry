@@ -1,246 +1,469 @@
 ---
 name: cache-components
-description: Ensure 'use cache' is used strategically to minimize CPU usage and ISR writes. Use when creating/modifying queries to verify caching decisions align with data update patterns and cost optimization.
+description: |
+  Expert guidance for Next.js Cache Components and Partial Prerendering (PPR).
+
+  **PROACTIVE ACTIVATION**: Use this skill automatically when working in Next.js projects that have `cacheComponents: true` in their next.config.ts/next.config.js. When this config is detected, proactively apply Cache Components patterns and best practices to all React Server Component implementations.
+
+  **DETECTION**: At the start of a session in a Next.js project, check for `cacheComponents: true` in next.config. If enabled, this skill's patterns should guide all component authoring, data fetching, and caching decisions.
+
+  **USE CASES**: Implementing 'use cache' directive, configuring cache lifetimes with cacheLife(), tagging cached data with cacheTag(), invalidating caches with updateTag()/revalidateTag(), optimizing static vs dynamic content boundaries, debugging cache issues, and reviewing Cache Component implementations.
 ---
 
-# Cache Components Skill
+# Next.js Cache Components
 
-This Skill ensures strategic use of Next.js 16 Cache Components to minimize CPU usage and ISR write overhead while maximizing cost efficiency.
+> **Auto-activation**: This skill activates automatically in projects with `cacheComponents: true` in next.config.
 
-## When to Activate
+## Project Detection
 
-- After creating new data fetching queries
-- When modifying existing query functions
-- During performance optimization reviews
-- Before deploying changes that affect data loading
-- When evaluating caching strategy for new features
+When starting work in a Next.js project, check if Cache Components are enabled:
 
-## Core Philosophy: Cache Strategically, Not Universally
-
-**NOT every query needs `"use cache"`**. Apply caching only when:
-
-✅ **Good Caching Candidates**:
-- Static data updated on predictable schedules (monthly car registration data)
-- Expensive database queries with consistent results
-- Read-heavy operations with infrequent updates
-- Data shared across multiple users (public statistics, COE results)
-
-❌ **Poor Caching Candidates**:
-- User-specific queries (personalized dashboards, user preferences)
-- Frequently changing data (real-time analytics, live counters)
-- One-off queries with unique parameters
-- Write operations (mutations, form submissions)
-- Data that changes more than once per day
-
-## CPU & ISR Cost Analysis
-
-**Why Strategic Caching Matters**:
-
-Without caching:
-- Every page load = 1 database query + 1 server render
-- High CPU usage from repeated queries
-- Immediate cost: Database load
-
-With **well-planned** caching (`cacheLife("max")` with 30-day revalidation):
-- ~2 regenerations/month (1 automatic + 1 manual via `revalidateTag()`)
-- **15x CPU savings** vs daily revalidation
-- Reduced ISR writes (domain-level tags, not per-query)
-
-With **poorly-planned** caching (short revalidation periods, granular tags):
-- Frequent regenerations increase CPU usage
-- Excessive ISR writes from over-granular cache tags
-- Higher costs without proportional benefit
-
-## Implementation Checklist
-
-### 1. Evaluate Caching Necessity
-
-**Before adding `"use cache"`, ask**:
-- How often does this data change?
-- Is this data user-specific or global?
-- Will caching reduce CPU more than ISR write overhead?
-- Does this align with our monthly data update cycle?
-
-### 2. Correct Cache Pattern (When Caching Is Justified)
-
-```typescript
-import { CACHE_TAG } from "@web/lib/cache";
-import { cacheLife, cacheTag } from "next/cache";
-
-export const getCarRegistrations = async () => {
-  "use cache";
-  cacheLife("max");  // 30-day revalidation for monthly data
-  cacheTag(CACHE_TAG.CARS);  // Domain-level tag, NOT per-query
-
-  return db.query.cars.findMany({
-    // ... query logic
-  });
-};
+```bash
+# Check next.config.ts or next.config.js for cacheComponents
+grep -r "cacheComponents" next.config.* 2>/dev/null
 ```
 
-### 3. Cache Tag Strategy
+If `cacheComponents: true` is found, apply this skill's patterns proactively when:
 
-**Use domain-level tags** (from `src/lib/cache.ts`):
-- `CACHE_TAG.CARS` - All car registration queries
-- `CACHE_TAG.COE` - All COE bidding queries
-- `CACHE_TAG.POSTS` - All blog post queries
+- Writing React Server Components
+- Implementing data fetching
+- Creating Server Actions with mutations
+- Optimizing page performance
+- Reviewing existing component code
 
-**Why domain-level?**
-- ✅ Minimizes ISR write overhead
-- ✅ Aligns with bulk monthly data updates
-- ✅ Simple invalidation: `revalidateTag(CACHE_TAG.CARS)`
-- ❌ Avoid: Per-query tags like `car-${make}-${year}` (excessive ISR writes)
+Cache Components enable **Partial Prerendering (PPR)** - mixing static HTML shells with dynamic streaming content for optimal performance.
 
-### 4. Cache Life Profile
+## Philosophy: Code Over Configuration
 
-**Project uses custom "max" profile** (`next.config.ts`):
+Cache Components represents a shift from **segment configuration** to **compositional code**:
+
+| Before (Deprecated)                     | After (Cache Components)                  |
+| --------------------------------------- | ----------------------------------------- |
+| `export const revalidate = 3600`        | `cacheLife('hours')` inside `'use cache'` |
+| `export const dynamic = 'force-static'` | Use `'use cache'` and Suspense boundaries |
+| All-or-nothing static/dynamic           | Granular: static shell + cached + dynamic |
+
+**Key Principle**: Components co-locate their caching, not just their data. Next.js provides build-time feedback to guide you toward optimal patterns.
+
+## Core Concept
+
+```
+┌─────────────────────────────────────────────────────┐
+│                   Static Shell                       │
+│  (Sent immediately to browser)                       │
+│                                                      │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  │
+│  │   Header    │  │  Cached     │  │  Suspense   │  │
+│  │  (static)   │  │  Content    │  │  Fallback   │  │
+│  └─────────────┘  └─────────────┘  └──────┬──────┘  │
+│                                           │         │
+│                                    ┌──────▼──────┐  │
+│                                    │  Dynamic    │  │
+│                                    │  (streams)  │  │
+│                                    └─────────────┘  │
+└─────────────────────────────────────────────────────┘
+```
+
+## Mental Model: The Caching Decision Tree
+
+When writing a React Server Component, ask these questions in order:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ Does this component fetch data or perform I/O?          │
+└─────────────────────┬───────────────────────────────────┘
+                      │
+           ┌──────────▼──────────┐
+           │   YES               │ NO → Pure component, no action needed
+           └──────────┬──────────┘
+                      │
+    ┌─────────────────▼─────────────────┐
+    │ Does it depend on request context? │
+    │ (cookies, headers, searchParams)   │
+    └─────────────────┬─────────────────┘
+                      │
+         ┌────────────┴────────────┐
+         │                         │
+    ┌────▼────┐              ┌─────▼─────┐
+    │   YES   │              │    NO     │
+    └────┬────┘              └─────┬─────┘
+         │                         │
+         │                   ┌─────▼─────────────────┐
+         │                   │ Can this be cached?   │
+         │                   │ (same for all users?) │
+         │                   └─────┬─────────────────┘
+         │                         │
+         │              ┌──────────┴──────────┐
+         │              │                     │
+         │         ┌────▼────┐          ┌─────▼─────┐
+         │         │   YES   │          │    NO     │
+         │         └────┬────┘          └─────┬─────┘
+         │              │                     │
+         │              ▼                     │
+         │         'use cache'                │
+         │         + cacheTag()               │
+         │                                    │
+         └──────────────┬─────────────────────┘
+                        │
+                        ▼
+              Wrap in <Suspense>
+              (dynamic streaming)
+```
+
+**Key insight**: The `'use cache'` directive is for data that's the _same across users_. User-specific data stays dynamic with Suspense.
+
+## Quick Start
+
+### Enable Cache Components
+
 ```typescript
-cacheLife: {
-  max: {
-    stale: 2592000,      // 30 days - client cache
-    revalidate: 2592000, // 30 days - automatic regeneration
-    expire: 31536000,    // 1 year - cache expiration
-  },
+// next.config.ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  cacheComponents: true,
+};
+
+export default nextConfig;
+```
+
+### Basic Usage
+
+```tsx
+// Cached component - output included in static shell
+async function CachedPosts() {
+  "use cache";
+  const posts = await db.posts.findMany();
+  return <PostList posts={posts} />;
+}
+
+// Page with static + cached + dynamic content
+export default async function BlogPage() {
+  return (
+    <>
+      <Header /> {/* Static */}
+      <CachedPosts /> {/* Cached */}
+      <Suspense fallback={<Skeleton />}>
+        <DynamicComments /> {/* Dynamic - streams */}
+      </Suspense>
+    </>
+  );
 }
 ```
 
-**When to use `cacheLife("max")`**:
-- Data updated monthly (car registrations, COE results)
-- Static content with predictable refresh cycles
-- Public data shared across all users
+## Core APIs
 
-**When NOT to use caching**:
-- Data changing daily or more frequently
-- User-specific queries
-- Real-time or near-real-time data
+### 1. `'use cache'` Directive
 
-## Common Patterns
+Marks code as cacheable. Can be applied at three levels:
 
-### ✅ Good: Static Monthly Data
+```tsx
+// File-level: All exports are cached
+"use cache";
+export async function getData() {
+  /* ... */
+}
+export async function Component() {
+  /* ... */
+}
 
-```typescript
-export const getLatestCOE = async (): Promise<COEResult[]> => {
+// Component-level
+async function UserCard({ id }: { id: string }) {
   "use cache";
-  cacheLife("max");  // Monthly updates = perfect fit
-  cacheTag(CACHE_TAG.COE);
+  const user = await fetchUser(id);
+  return <Card>{user.name}</Card>;
+}
 
-  return db.query.coe.findFirst({
-    orderBy: desc(coe.month),
+// Function-level
+async function fetchWithCache(url: string) {
+  "use cache";
+  return fetch(url).then((r) => r.json());
+}
+```
+
+**Important**: All cached functions must be `async`.
+
+### 2. `cacheLife()` - Control Cache Duration
+
+```tsx
+import { cacheLife } from "next/cache";
+
+async function Posts() {
+  "use cache";
+  cacheLife("hours"); // Use a predefined profile
+
+  // Or custom configuration:
+  cacheLife({
+    stale: 60, // 1 min - client cache validity
+    revalidate: 3600, // 1 hr - start background refresh
+    expire: 86400, // 1 day - absolute expiration
   });
-};
+
+  return await db.posts.findMany();
+}
 ```
 
-**Why this works**: COE data updates 2x/month, 30-day cache = ~2 regenerations/month.
+**Predefined profiles**: `'default'`, `'seconds'`, `'minutes'`, `'hours'`, `'days'`, `'weeks'`, `'max'`
 
-### ❌ Bad: User-Specific Data
+### 3. `cacheTag()` - Tag for Invalidation
 
-```typescript
-// DON'T DO THIS
-export const getUserPreferences = async (userId: string) => {
-  "use cache";  // ❌ Wrong! User-specific data shouldn't be cached globally
-  cacheLife("max");
-  cacheTag(CACHE_TAG.USERS);
+```tsx
+import { cacheTag } from "next/cache";
 
-  return db.query.users.findFirst({ where: eq(users.id, userId) });
-};
+async function BlogPosts() {
+  "use cache";
+  cacheTag("posts");
+  cacheLife("days");
+
+  return await db.posts.findMany();
+}
+
+async function UserProfile({ userId }: { userId: string }) {
+  "use cache";
+  cacheTag("users", `user-${userId}`); // Multiple tags
+
+  return await db.users.findUnique({ where: { id: userId } });
+}
 ```
 
-**Why this fails**: Each user needs their own data, global caching creates stale/wrong results.
+### 4. `updateTag()` - Immediate Invalidation
 
-### ❌ Bad: Frequently Changing Data
+For **read-your-own-writes** semantics:
 
-```typescript
-// DON'T DO THIS
-export const getBlogViewCount = async (postId: string) => {
-  "use cache";  // ❌ Wrong! View counts change on every page view
-  cacheLife("max");
-  cacheTag(CACHE_TAG.POSTS);
+```tsx
+"use server";
+import { updateTag } from "next/cache";
 
-  return db.query.analytics.count({ where: eq(analytics.postId, postId) });
-};
+export async function createPost(formData: FormData) {
+  await db.posts.create({ data: formData });
+
+  updateTag("posts"); // Client immediately sees fresh data
+}
 ```
 
-**Why this fails**: 30-day cache on data that changes every minute = stale data.
+### 5. `revalidateTag()` - Background Revalidation
 
-### ✅ Good: Write Operations (No Caching)
+For stale-while-revalidate pattern:
 
-```typescript
-export const createPost = async (data: PostInput) => {
-  // NO "use cache" - write operations should never be cached
-  const result = await db.insert(posts).values(data);
-
-  // Invalidate cache AFTER write
-  revalidateTag(CACHE_TAG.POSTS);
-
-  return result;
-};
-```
-
-## Revalidation Strategy
-
-**Prefer manual revalidation over automatic**:
-
-```typescript
-// In API route or workflow after data import
+```tsx
+"use server";
 import { revalidateTag } from "next/cache";
-import { CACHE_TAG } from "@web/lib/cache";
 
-// After monthly LTA data import completes
-revalidateTag(CACHE_TAG.CARS);  // Immediate cache refresh
-revalidateTag(CACHE_TAG.COE);
+export async function updatePost(id: string, data: FormData) {
+  await db.posts.update({ where: { id }, data });
+
+  revalidateTag("posts", "max"); // Serve stale, refresh in background
+}
 ```
 
-**Benefits**:
-- Immediate cache refresh when new data arrives
-- Bypasses 30-day automatic revalidation
-- More predictable than time-based revalidation
+## When to Use Each Pattern
 
-## Validation Checklist
+| Content Type | API                 | Behavior                              |
+| ------------ | ------------------- | ------------------------------------- |
+| **Static**   | No directive        | Rendered at build time                |
+| **Cached**   | `'use cache'`       | Included in static shell, revalidates |
+| **Dynamic**  | Inside `<Suspense>` | Streams at request time               |
 
-When reviewing query functions, verify:
+## Parameter Permutations & Subshells
 
-1. **Caching is justified**: Does this reduce CPU more than ISR overhead?
-2. **Correct imports**: `cacheLife`, `cacheTag` from `next/cache`, `CACHE_TAG` from `@web/lib/cache`
-3. **Appropriate profile**: `cacheLife("max")` for monthly data
-4. **Domain-level tags**: Using `CACHE_TAG.*`, not granular per-query tags
-5. **No caching of**: User-specific data, frequently changing data, write operations
+**Critical Concept**: With Cache Components, Next.js renders ALL permutations of provided parameters to create reusable subshells.
 
-## Tools Used
+```tsx
+// app/products/[category]/[slug]/page.tsx
+export async function generateStaticParams() {
+  return [
+    { category: "jackets", slug: "classic-bomber" },
+    { category: "jackets", slug: "essential-windbreaker" },
+    { category: "accessories", slug: "thermal-fleece-gloves" },
+  ];
+}
+```
 
-- **Grep**: Search for queries missing cache directives or using incorrect patterns
-- **Read**: Examine specific query files for proper implementation
-- **Glob**: Find all query files in target directories
+Next.js renders these routes:
 
-## Target Directories
+```
+/products/jackets/classic-bomber        ← Full params (complete page)
+/products/jackets/essential-windbreaker ← Full params (complete page)
+/products/accessories/thermal-fleece-gloves ← Full params (complete page)
+/products/jackets/[slug]                ← Partial params (category subshell)
+/products/accessories/[slug]            ← Partial params (category subshell)
+/products/[category]/[slug]             ← No params (fallback shell)
+```
 
-- `src/queries/cars/` - Car registration queries
-- `src/queries/coe/` - COE bidding queries
-- `src/queries/logos/` - Logo fetching queries
-- Co-located query files in app routes (e.g., `src/app/blog/_queries/`)
+**Why this matters**: The category subshell (`/products/jackets/[slug]`) can be reused for ANY jacket product, even ones not in `generateStaticParams`. Users navigating to an unlisted jacket get the cached category shell immediately, with product details streaming in.
 
-## Performance Impact
+### `generateStaticParams` Requirements
 
-**Strategic Caching** (monthly data with 30-day revalidation):
-- ✅ 15x CPU savings vs daily revalidation
-- ✅ Minimal ISR writes (domain-level tags)
-- ✅ Instant page loads for 30 days
-- ✅ Lower infrastructure costs
+With Cache Components enabled:
 
-**Over-Caching** (caching everything with short revalidation):
-- ❌ Frequent regenerations = high CPU usage
-- ❌ Excessive ISR writes from granular tags
-- ❌ Stale data for user-specific/real-time queries
-- ❌ Higher costs without benefit
+1. **Must provide at least one parameter** - Empty arrays now cause build errors (prevents silent production failures)
+2. **Params prove static safety** - Providing params lets Next.js verify no dynamic APIs are called
+3. **Partial params create subshells** - Each unique permutation generates a reusable shell
 
-**Under-Caching** (no caching at all):
-- ❌ Every page load hits database
-- ❌ High CPU usage from repeated queries
-- ❌ Slower page loads
-- ❌ Higher database load
+```tsx
+// ❌ ERROR with Cache Components
+export function generateStaticParams() {
+  return []; // Build error: must provide at least one param
+}
 
-## Related Documentation
+// ✅ CORRECT: Provide real params
+export async function generateStaticParams() {
+  const products = await getPopularProducts();
+  return products.map(({ category, slug }) => ({ category, slug }));
+}
+```
 
-- Project cache strategy: `apps/web/CLAUDE.md` (Cache Components & Optimization section)
-- Cache configuration: `next.config.ts` (cacheLife profile)
-- Cache tags: `src/lib/cache.ts` (CACHE_TAG constants)
-- Next.js Cache Components: Use Context7 MCP with `/vercel/next.js`
+## Cache Key = Arguments
+
+Arguments become part of the cache key:
+
+```tsx
+// Different userId = different cache entry
+async function UserData({ userId }: { userId: string }) {
+  "use cache";
+  cacheTag(`user-${userId}`);
+
+  return await fetchUser(userId);
+}
+```
+
+## Build-Time Feedback
+
+Cache Components provides early feedback during development. These build errors **guide you toward optimal patterns**:
+
+### Error: Dynamic data outside Suspense
+
+```
+Error: Accessing cookies/headers/searchParams outside a Suspense boundary
+```
+
+**Solution**: Wrap dynamic components in `<Suspense>`:
+
+```tsx
+<Suspense fallback={<Skeleton />}>
+  <ComponentThatUsesCookies />
+</Suspense>
+```
+
+### Error: Uncached data outside Suspense
+
+```
+Error: Accessing uncached data outside Suspense
+```
+
+**Solution**: Either cache the data or wrap in Suspense:
+
+```tsx
+// Option 1: Cache it
+async function ProductData({ id }: { id: string }) {
+  "use cache";
+  return await db.products.findUnique({ where: { id } });
+}
+
+// Option 2: Make it dynamic with Suspense
+<Suspense fallback={<Loading />}>
+  <DynamicProductData id={id} />
+</Suspense>;
+```
+
+### Error: Request data inside cache
+
+```
+Error: Cannot access cookies/headers inside 'use cache'
+```
+
+**Solution**: Extract runtime data outside cache boundary (see "Handling Runtime Data" above).
+
+## Additional Resources
+
+- For complete API reference, see [REFERENCE.md](REFERENCE.md)
+- For common patterns and recipes, see [PATTERNS.md](PATTERNS.md)
+- For debugging and troubleshooting, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+
+## Code Generation Guidelines
+
+When generating Cache Component code:
+
+1. **Always use `async`** - All cached functions must be async
+2. **Place `'use cache'` first** - Must be first statement in function body
+3. **Call `cacheLife()` early** - Should follow `'use cache'` directive
+4. **Tag meaningfully** - Use semantic tags that match your invalidation needs
+5. **Extract runtime data** - Move `cookies()`/`headers()` outside cached scope
+6. **Wrap dynamic content** - Use `<Suspense>` for non-cached async components
+
+---
+
+## Proactive Application (When Cache Components Enabled)
+
+When `cacheComponents: true` is detected in the project, **automatically apply these patterns**:
+
+### When Writing Data Fetching Components
+
+Ask yourself: "Can this data be cached?" If yes, add `'use cache'`:
+
+```tsx
+// Before: Uncached fetch
+async function ProductList() {
+  const products = await db.products.findMany();
+  return <Grid products={products} />;
+}
+
+// After: With caching
+async function ProductList() {
+  "use cache";
+  cacheTag("products");
+  cacheLife("hours");
+
+  const products = await db.products.findMany();
+  return <Grid products={products} />;
+}
+```
+
+### When Writing Server Actions
+
+Always invalidate relevant caches after mutations:
+
+```tsx
+"use server";
+import { updateTag } from "next/cache";
+
+export async function createProduct(data: FormData) {
+  await db.products.create({ data });
+  updateTag("products"); // Don't forget!
+}
+```
+
+### When Composing Pages
+
+Structure with static shell + cached content + dynamic streaming:
+
+```tsx
+export default async function Page() {
+  return (
+    <>
+      <StaticHeader /> {/* No cache needed */}
+      <CachedContent /> {/* 'use cache' */}
+      <Suspense fallback={<Skeleton />}>
+        <DynamicUserContent /> {/* Streams at runtime */}
+      </Suspense>
+    </>
+  );
+}
+```
+
+### When Reviewing Code
+
+Flag these issues in Cache Components projects:
+
+- [ ] Data fetching without `'use cache'` where caching would benefit
+- [ ] Missing `cacheTag()` calls (makes invalidation impossible)
+- [ ] Server Actions without `updateTag()`/`revalidateTag()` after mutations
+- [ ] `cookies()`/`headers()` called inside `'use cache'` scope
+- [ ] Dynamic components without `<Suspense>` boundaries
+- [ ] **DEPRECATED**: `export const revalidate` - replace with `cacheLife()` in `'use cache'`
+- [ ] **DEPRECATED**: `export const dynamic` - replace with Suspense + cache boundaries
+- [ ] Empty `generateStaticParams()` return - must provide at least one param
+
+### Note
+
+This project use a default `cacheLife` set to the `max` profile, so you don't need to call `cacheLife()` in most cases unless you need to customize the cache lifetime.

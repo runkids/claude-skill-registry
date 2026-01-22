@@ -1,7 +1,7 @@
 {
   "name": "git-ops",
-  "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/git-ops/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-21T04:21:49.538852Z"
+  "repo": "TheSethRose/Copilot-Skills",
+  "path": ".github/copilot-skills/operations/git-ops/SKILL.md",
+  "source": "github.com/TheSethRose/Copilot-Skills",
+  "downloaded_at": "2026-01-22T01:37:37.359050Z"
 }

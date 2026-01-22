@@ -1,7 +1,7 @@
 {
   "name": "csv-data-summarizer",
-  "repo": "ovachiever/droid-tings",
-  "path": "skills/csv-data-summarizer/SKILL.md",
-  "source": "github.com/ovachiever/droid-tings",
-  "downloaded_at": "2026-01-19T02:34:53.333375Z"
+  "repo": "Krosebrook/source-of-truth-monorepo",
+  "path": "plugins/marketplaces/ando-marketplace/plugins/csv-data-summarizer/SKILL.md",
+  "source": "github.com/Krosebrook/source-of-truth-monorepo",
+  "downloaded_at": "2026-01-22T03:35:28.064104Z"
 }

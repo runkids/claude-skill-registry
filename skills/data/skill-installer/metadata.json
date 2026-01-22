@@ -1,7 +1,7 @@
 {
   "name": "skill-installer",
-  "repo": "ComposioHQ/awesome-codex-skills",
-  "path": "skill-installer/SKILL.md",
-  "source": "github.com/ComposioHQ/awesome-codex-skills",
-  "downloaded_at": "2026-01-21T03:53:24.735792Z"
+  "repo": "pianzhu/my-claude-skills",
+  "path": "skills/.system/skill-installer/SKILL.md",
+  "source": "github.com/pianzhu/my-claude-skills",
+  "downloaded_at": "2026-01-22T04:10:54.338215Z"
 }

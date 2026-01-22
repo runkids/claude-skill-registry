@@ -1,6 +1,6 @@
 ---
 name: Backend Migrations
-description: Create reversible, focused database migrations with proper naming, version control practices, and zero-downtime deployment considerations. Use this skill when creating or editing migration files in database/migrations/, when writing schema changes (creating/modifying tables, columns, indexes, foreign keys), when implementing migration rollback methods, when managing database version control, when adding or modifying indexes on large tables, or when separating schema changes from data migrations for safer deployments.
+description: Create and manage database schema migrations with reversible changes, clear naming, and safe deployment practices. Use this skill when writing database migration files, modifying database schemas, creating migration scripts, or managing database version control. When working on migration files in database migration directories, files defining schema changes (CREATE TABLE, ALTER TABLE, DROP TABLE), migration rollback/down methods, database index creation scripts, seed data or data migration files, ORM migration configurations (Prisma, Drizzle, TypeORM), or files handling database versioning and migration history.
 ---
 
 # Backend Migrations
@@ -9,18 +9,16 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When creating new migration files in `database/migrations/` directory
-- When editing existing migration files (with caution for deployed migrations)
-- When writing table creation or modification logic using Schema builder
-- When implementing migration rollback/down methods for reversibility
-- When adding or modifying database columns, indexes, or constraints
-- When creating or dropping foreign key relationships
-- When renaming tables or columns
-- When adding indexes to tables, especially large production tables
-- When separating schema changes from data migrations
-- When considering zero-downtime deployment strategies for migrations
-- When writing data migrations or seeders that modify existing records
-- When planning backwards-compatible database changes
+- When creating new database migration files or scripts
+- When modifying existing database schemas (adding/removing/altering tables or columns)
+- When writing migration rollback methods or down migrations for safe reversals
+- When creating database indexes, constraints, or foreign keys
+- When implementing data migrations or transformations alongside schema changes
+- When working with ORM migration tools (Prisma, Drizzle, TypeORM, Sequelize, etc.)
+- When planning zero-downtime deployments that require backwards-compatible schema changes
+- When managing database migration version history or migration ordering
+- When creating seed data files or initial database setup scripts
+- When documenting migration dependencies or complex schema changes
 
 ## Instructions
 

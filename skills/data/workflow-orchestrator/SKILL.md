@@ -1,342 +1,45 @@
 ---
 name: workflow-orchestrator
-description: Automatically coordinates multi-skill workflows and triggers follow-up actions. Use when completing PRD creation, implementation, or any milestone that should trigger additional skills. This skill reads the auto-trigger configuration and executes the workflow chain.
-allowed-tools: Read, Write, Edit, Bash, Grep, AskUserQuestion
-hooks:
-  after_complete:
-    - trigger: session-logger
-      mode: auto
-      reason: "Save workflow execution context"
+description: Orchestrate multiple Codex CLI workflows using done-signal files, optional locks, and simple dependencies.
+metadata:
+  short-description: Orchestrate CLI workflows with done signals
 ---
 
 # Workflow Orchestrator
 
-A skill that automatically coordinates workflows across multiple skills, triggering follow-up actions at appropriate milestones.
+Use this skill when the user wants multiple CLI workflows to coordinate via done-signal files, optionally with file locks.
 
-## When This Skill Activates
+## Core behavior
 
-This skill should be triggered automatically when:
-- A skill completes its main workflow
-- A milestone is reached (PRD complete, implementation done, etc.)
-- User says "complete workflow" or "finish the process"
+- Ask the user for a done-signal file naming scheme (default suggestion: `/tmp/workflow-<name>.done`).
+- Ask the user whether any shared resources need locks (files, migration runner, build outputs). If yes, ask for lock file paths.
+- Express dependencies by listing each workflow's `--wait-for` done files (one per dependency).
+- Warn if a done file already exists from a prior run; recommend deleting it or using a run-specific name.
 
-## How It Works
+## Scripts
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Workflow Orchestration                   │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  1. Detect Milestone → 2. Read Hooks → 3. Execute Chain    │
-│                                                             │
-│  prd-planner complete                                       │
-│       ↓                                                     │
-│  workflow-orchestrator                                      │
-│       ↓                                                     │
-│  ┌─────────────────────────────────────┐                   │
-│  │ auto-trigger self-improving-agent   │ (background)       │
-│  │ auto-trigger session-logger         │ (auto)            │
-│  └─────────────────────────────────────┘                   │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+Use `scripts/run-workflow.sh` to run a workflow with dependencies and optional locking.
 
-## Trigger Configuration
-
-Read trigger definitions from `skills/auto-trigger/SKILL.md`:
-
-```yaml
-hooks:
-  after_complete:
-    - trigger: self-improving-agent
-      mode: background
-    - trigger: session-logger
-      mode: auto
-  on_error:
-    - trigger: self-improving-agent
-      mode: background
-```
-
-## Execution Modes
-
-| Mode | Behavior | Use When |
-|------|----------|----------|
-| `auto` | Execute immediately, no confirmation | Logging, status updates |
-| `background` | Execute without blocking | Reflection, analysis |
-| `ask_first` | Ask user before executing | PRs, deployments, major changes |
-
-## Milestone Detection
-
-### PRD Complete
-
-```markdown
-Detected when:
-- docs/{scope}-prd.md exists
-- All phases in {scope}-prd-task-plan.md are checked
-- Status shows "COMPLETE"
-
-Actions:
-1. Trigger self-improving-agent (background)
-2. Trigger session-logger (auto)
-```
-
-### Implementation Complete
-
-```markdown
-Detected when:
-- All PRD requirements implemented
-- Tests pass
-- Code committed
-
-Actions:
-1. Trigger code-reviewer (ask_first)
-2. Trigger create-pr if changes staged
-3. Trigger session-logger (auto)
-```
-
-### Self-Improvement Complete
-
-```markdown
-Detected when:
-- Reflection complete
-- Patterns abstracted
-- Skill files modified
-
-Actions:
-1. Trigger create-pr (ask_first)
-2. Trigger session-logger (auto)
-```
-
-### Universal Learning (Any Skill Complete)
-
-```markdown
-Detected when:
-- ANY skill completes its workflow
-- User provides feedback
-- Error or issue encountered
-
-Actions:
-1. Trigger self-improving-agent (background)
-2. Trigger session-logger (auto)
-
-The self-improving-agent:
-- Extracts experience from completed skill
-- Identifies patterns and insights
-- Updates related skills with learned patterns
-- Consolidates memory for future reference
-```
-
-## Error Handling (on_error)
-
-Detected when:
-- A command returns non-zero exit code
-- Tests fail after following skill guidance
-- User reports the guidance produced incorrect results
-
-Actions:
-1. Trigger self-improving-agent (background) for self-correction
-2. Trigger session-logger (auto) to capture error context
-
-## Hook Implementation in Skills
-
-To enable auto-trigger, add this section to any skill's SKILL.md:
-
-```markdown
-## Auto-Trigger (After Completion)
-
-When this skill completes, automatically trigger:
-
-```yaml
-hooks:
-  after_complete:
-    - trigger: skill-name
-      mode: auto|background|ask_first
-      context: "relevant context"
-  on_error:
-    - trigger: self-improving-agent
-      mode: background
-```
-
-### Current Skill Hooks
-
-- **prd-planner**: After PRD complete → self-improving-agent + session-logger
-- **self-improving-agent**: After improvement → create-pr + session-logger
-- **prd-implementation-precheck**: After implementation → self-improving-agent + session-logger
-- **code-reviewer**: After review → self-improving-agent + session-logger
-- **debugger**: After debugging → self-improving-agent + session-logger
-- **create-pr**: After PR created → session-logger
-- **session-logger**: No trigger (terminates chain)
-
-### Universal Learning Pattern
+### Usage
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                  ANY Skill Completes                        │
-└──────────────┬──────────────────────────────────────────────┘
-               │
-               ↓
-    ┌──────────────────────┐
-    │ workflow-orchestrator │
-    └──────────┬───────────┘
-               │
-    ┌──────────┴─────────┐
-    ↓                   ↓
-self-improving-agent  session-logger
-    ↓                   ↓
-Learn from experience  Save context
-    ↓                   ↓
-Update skills         Log session
-    ↓
-create-pr (if modified)
-```
+run-workflow.sh \
+  --wait-for /tmp/workflow-A.done \
+  --done-file /tmp/workflow-B.done \
+  --lock /tmp/workflow-shared.lock \
+  -- ./your-workflow-command --with args
 ```
 
-## Workflow Examples
+- `--wait-for` can be repeated for multiple dependencies.
+- `--done-file` is touched only if the workflow exits successfully.
+- `--lock` is optional; if provided, the script uses `flock` when available, otherwise a lock directory.
 
-### Example 1: PRD Creation Workflow
+## Recommended dependency pattern
 
-```
-User: "Create a PRD for user authentication"
-        ↓
-prd-planner executes
-        ↓
-Phase 6 complete: PRD delivered
-        ↓
-workflow-orchestrator detects milestone
-        ↓
-┌─────────────────────────────────┐
-│ Background: self-improving-agent │ → Learns from PRD patterns
-│ Auto: session-logger             │ → Saves session
-└─────────────────────────────────┘
-```
+Use sentinel files as dependency edges:
 
-### Example 2: Full Feature Workflow
+- Workflow A: `--done-file /tmp/workflow-A.done`
+- Workflow B: `--wait-for /tmp/workflow-A.done --done-file /tmp/workflow-B.done`
+- Workflow C: `--wait-for /tmp/workflow-B.done`
 
-```
-User: "Create a PRD and implement it"
-        ↓
-prd-planner → workflow-orchestrator
-        ↓
-self-improving-agent → workflow-orchestrator
-        ↓
-prd-implementation-precheck
-        ↓
-implementation complete → workflow-orchestrator
-        ↓
-code-reviewer → self-improving-agent → workflow-orchestrator
-        ↓
-create-pr → workflow-orchestrator
-        ↓
-session-logger
-```
-
-Each step triggers `self-improving-agent` to learn from the experience.
-
-## Implementation Steps
-
-### Step 1: Detect Milestone
-
-Check for completion indicators:
-
-```bash
-# PRD complete?
-grep -q "COMPLETE" docs/{scope}-prd-task-plan.md
-
-# All phases checked?
-grep -q "^\- \[x\].*Phase 6" docs/{scope}-prd-task-plan.md
-
-# PRD file exists?
-ls docs/{scope}-prd.md
-```
-
-### Step 2: Read Trigger Config
-
-```bash
-# Read hooks from auto-trigger skill
-cat skills/auto-trigger/SKILL.md
-```
-
-### Step 3: Execute Hooks
-
-For each hook in order (before_start, after_complete, on_error):
-1. Check if condition is met
-2. Execute based on mode
-3. Pass context to triggered skill
-4. Wait/continue based on mode
-
-### Step 4: Update Status
-
-Log what was triggered and the result:
-
-```markdown
-## Workflow Execution
-
-- [x] self-improving-agent (background) - Started
-- [x] session-logger (auto) - Session saved
-- [ ] create-pr (ask_first) - Pending user approval
-```
-
-## Skills with Auto-Trigger
-
-| Skill | Triggers After |
-|-------|----------------|
-| `prd-planner` | self-improving-agent, session-logger |
-| `self-improving-agent` | create-pr, session-logger |
-| `prd-implementation-precheck` | code-reviewer, session-logger |
-| `code-reviewer` | self-improving-agent, session-logger |
-| `create-pr` | session-logger |
-| `refactoring-specialist` | self-improving-agent, session-logger |
-| `debugger` | self-improving-agent, session-logger |
-
-## Adding Auto-Trigger to Existing Skills
-
-To add auto-trigger capability to an existing skill, add to the end of its SKILL.md:
-
-```markdown
----
-
-## Auto-Trigger
-
-When this skill completes, automatically trigger:
-
-```yaml
-hooks:
-  after_complete:
-    - trigger: session-logger
-      mode: auto
-      context: "Save session context"
-```
-```
-
-For more complex triggers, specify mode and context:
-
-```markdown
-## Auto-Trigger
-
-When this skill completes:
-
-```yaml
-hooks:
-  after_complete:
-    - trigger: next-skill
-      mode: background
-      context: "Description"
-    - trigger: session-logger
-      mode: auto
-      context: "Save session"
-    - trigger: create-pr
-      mode: ask_first
-      context: "Create PR if files modified"
-  on_error:
-    - trigger: self-improving-agent
-      mode: background
-```
-```
-
-## Best Practices
-
-1. **Always log to session** - Every workflow should end with session-logger
-2. **Ask before major actions** - PRs, deployments, destructive changes
-3. **Background for analysis** - Reflection, evaluation, optimization
-4. **Auto for status** - Logging, status updates, bookmarks
-5. **Don't create loops** - Ensure chains terminate
+If the user wants more structure, propose a small text config where each workflow lists its `done` and `wait_for` files, then translate it into the script calls.

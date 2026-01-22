@@ -1,281 +1,302 @@
-# API Patterns
+---
+name: api-patterns
+description: |
+  REST API and GraphQL design patterns, authentication, error handling, and best practices.
+  Use when building APIs, designing endpoints, or implementing backend services.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
+---
 
-Server-side API patterns for building secure, validated, and type-safe endpoints.
+# API Design Patterns & Best Practices
 
-> **Template Usage:** Customize for your framework (Next.js, Express, Fastify, etc.) and validation library (Zod, Yup, etc.).
+## REST API Principles
 
-## Server Action Pattern (Next.js App Router)
+### 1. Resource-Based URLs
+```
+# GOOD: Resource-oriented
+GET    /users           # List users
+GET    /users/123       # Get specific user
+POST   /users           # Create user
+PUT    /users/123       # Update user (full)
+PATCH  /users/123       # Update user (partial)
+DELETE /users/123       # Delete user
+
+# BAD: Action-oriented
+GET    /getUsers
+POST   /createUser
+POST   /updateUser/123
+```
+
+### 2. Use Proper HTTP Methods
+- **GET**: Read (idempotent, cacheable)
+- **POST**: Create (not idempotent)
+- **PUT**: Replace (idempotent)
+- **PATCH**: Partial update (not idempotent)
+- **DELETE**: Remove (idempotent)
+
+### 3. Use Proper HTTP Status Codes
+```typescript
+// Success
+200 OK           // General success
+201 Created      // Resource created (POST)
+204 No Content   // Success with no body (DELETE)
+
+// Client Errors
+400 Bad Request  // Invalid input
+401 Unauthorized // No/invalid auth
+403 Forbidden    // Auth valid but not allowed
+404 Not Found    // Resource doesn't exist
+409 Conflict     // Resource state conflict
+422 Unprocessable // Validation failed
+
+// Server Errors
+500 Internal     // Unexpected error
+503 Unavailable  // Service temporarily down
+```
+
+## Response Format
+
+### Standard Response Structure
 
 ```typescript
-'use server';
-
-import { z } from 'zod';
-import { revalidatePath } from 'next/cache';
-
-// 1. Define validation schema
-const CreateItemSchema = z.object({
-  name: z.string().min(1).max(100).transform(v => v.trim()),
-  email: z.string().email().toLowerCase(),
-  amount: z.coerce.number().positive(),
-});
-
-// 2. Create typed action with auth
-export async function createItemAction(formData: FormData) {
-  // Auth check (customize for your auth system)
-  const user = await getCurrentUser();
-  if (!user) {
-    return { success: false, error: 'Unauthorized' };
+interface ApiResponse<T> {
+  success: boolean
+  data?: T
+  error?: {
+    code: string
+    message: string
+    details?: Record<string, string[]>
   }
-
-  // Validate input
-  const parsed = CreateItemSchema.safeParse({
-    name: formData.get('name'),
-    email: formData.get('email'),
-    amount: formData.get('amount'),
-  });
-
-  if (!parsed.success) {
-    return { success: false, error: parsed.error.flatten() };
+  meta?: {
+    total: number
+    page: number
+    limit: number
+    hasMore: boolean
   }
+}
 
-  try {
-    // Business logic
-    const result = await createItem(parsed.data);
+// Success response
+{
+  "success": true,
+  "data": {
+    "id": "123",
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}
 
-    // Revalidate affected paths
-    revalidatePath('/items');
+// List response with pagination
+{
+  "success": true,
+  "data": [
+    { "id": "1", "name": "User 1" },
+    { "id": "2", "name": "User 2" }
+  ],
+  "meta": {
+    "total": 100,
+    "page": 1,
+    "limit": 20,
+    "hasMore": true
+  }
+}
 
-    return { success: true, data: result };
-  } catch (error) {
-    console.error('Create item failed:', error);
-    return { success: false, error: 'Failed to create item' };
+// Error response
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid input data",
+    "details": {
+      "email": ["Invalid email format"],
+      "age": ["Must be at least 18"]
+    }
   }
 }
 ```
 
-## Auth Wrapper Pattern
+## Request Validation
+
+### Zod Schema Validation
 
 ```typescript
-// lib/auth-wrappers.ts
-import { redirect } from 'next/navigation';
+import { z } from 'zod'
 
-type AuthParams = {
-  user: User;
-  // Add other common params
-};
+const CreateUserSchema = z.object({
+  name: z.string().min(1).max(100),
+  email: z.string().email(),
+  age: z.number().int().min(18).max(150).optional(),
+  role: z.enum(['user', 'admin']).default('user')
+})
 
-export function withAuth<T extends any[], R>(
-  fn: (params: AuthParams, ...args: T) => Promise<R>
-) {
-  return async (...args: T): Promise<R> => {
-    const user = await getCurrentUser();
-    if (!user) {
-      redirect('/login');
+type CreateUserInput = z.infer<typeof CreateUserSchema>
+
+// Usage in endpoint
+export async function POST(request: Request) {
+  try {
+    const body = await request.json()
+    const data = CreateUserSchema.parse(body)
+    
+    const user = await createUser(data)
+    return Response.json({ success: true, data: user }, { status: 201 })
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return Response.json({
+        success: false,
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: 'Invalid input',
+          details: formatZodErrors(error)
+        }
+      }, { status: 422 })
     }
-    return fn({ user }, ...args);
-  };
+    throw error
+  }
+}
+```
+
+## Error Handling
+
+### Custom Error Classes
+
+```typescript
+export class AppError extends Error {
+  constructor(
+    public message: string,
+    public statusCode: number = 500,
+    public code: string = 'INTERNAL_ERROR'
+  ) {
+    super(message)
+    this.name = 'AppError'
+  }
+}
+
+export class NotFoundError extends AppError {
+  constructor(resource: string) {
+    super(`${resource} not found`, 404, 'NOT_FOUND')
+  }
+}
+
+export class UnauthorizedError extends AppError {
+  constructor(message = 'Unauthorized') {
+    super(message, 401, 'UNAUTHORIZED')
+  }
+}
+
+export class ValidationError extends AppError {
+  constructor(
+    message: string,
+    public details?: Record<string, string[]>
+  ) {
+    super(message, 422, 'VALIDATION_ERROR')
+  }
 }
 
 // Usage
-export const protectedAction = withAuth(async ({ user }, formData: FormData) => {
-  // user is guaranteed to exist
-  return doSomething(user.id, formData);
-});
+throw new NotFoundError('User')
+throw new UnauthorizedError('Invalid token')
+throw new ValidationError('Invalid input', { email: ['Required'] })
 ```
 
-## REST API Pattern (Express/Fastify)
+### Global Error Handler
 
 ```typescript
-// routes/items.ts
-import { z } from 'zod';
+// Express middleware
+export function errorHandler(
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  console.error('Error:', error)
 
-const CreateItemSchema = z.object({
-  name: z.string().min(1),
-  description: z.string().optional(),
-});
-
-export async function createItem(req: Request, res: Response) {
-  // 1. Validate input
-  const parsed = CreateItemSchema.safeParse(req.body);
-  if (!parsed.success) {
-    return res.status(400).json({
+  if (error instanceof AppError) {
+    return res.status(error.statusCode).json({
       success: false,
-      errors: parsed.error.flatten(),
-    });
+      error: {
+        code: error.code,
+        message: error.message,
+        details: error instanceof ValidationError ? error.details : undefined
+      }
+    })
   }
 
-  // 2. Auth check
-  if (!req.user) {
-    return res.status(401).json({
-      success: false,
-      error: 'Unauthorized',
-    });
-  }
+  // Don't leak internal errors
+  return res.status(500).json({
+    success: false,
+    error: {
+      code: 'INTERNAL_ERROR',
+      message: 'An unexpected error occurred'
+    }
+  })
+}
+```
 
-  // 3. Business logic
+## Authentication Patterns
+
+### JWT Authentication
+
+```typescript
+import jwt from 'jsonwebtoken'
+
+const JWT_SECRET = process.env.JWT_SECRET!
+const JWT_EXPIRES_IN = '7d'
+
+export function generateToken(user: User): string {
+  return jwt.sign(
+    { userId: user.id, role: user.role },
+    JWT_SECRET,
+    { expiresIn: JWT_EXPIRES_IN }
+  )
+}
+
+export function verifyToken(token: string): JwtPayload {
   try {
-    const item = await itemService.create(parsed.data, req.user.id);
-    return res.status(201).json({
-      success: true,
-      data: item,
-    });
-  } catch (error) {
-    console.error('Create item failed:', error);
-    return res.status(500).json({
-      success: false,
-      error: 'Internal server error',
-    });
+    return jwt.verify(token, JWT_SECRET) as JwtPayload
+  } catch {
+    throw new UnauthorizedError('Invalid token')
   }
 }
-```
 
-## Cursor-Based Pagination
-
-Cursor-based pagination is more reliable than offset-based for large datasets.
-
-### Schema
-
-```typescript
-const PaginationSchema = z.object({
-  cursor: z.string().optional(),  // Opaque cursor from previous response
-  limit: z.coerce.number().min(1).max(100).default(20),
-  direction: z.enum(['forward', 'backward']).default('forward'),
-});
-
-type PaginatedResponse<T> = {
-  data: T[];
-  pageInfo: {
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-    startCursor: string | null;
-    endCursor: string | null;
-    totalCount?: number;  // Optional, can be expensive
-  };
-};
-```
-
-### Implementation
-
-```typescript
-// Encode/decode cursor (ID + timestamp for stable ordering)
-function encodeCursor(id: string, createdAt: Date): string {
-  return Buffer.from(`${id}:${createdAt.toISOString()}`).toString('base64url');
-}
-
-function decodeCursor(cursor: string): { id: string; createdAt: Date } {
-  const decoded = Buffer.from(cursor, 'base64url').toString();
-  const [id, timestamp] = decoded.split(':');
-  return { id, createdAt: new Date(timestamp) };
-}
-
-// Paginated query
-async function getItemsPaginated(
-  params: z.infer<typeof PaginationSchema>
-): Promise<PaginatedResponse<Item>> {
-  const { cursor, limit, direction } = params;
-
-  let query = db.from('items')
-    .select('*')
-    .order('created_at', { ascending: direction === 'forward' })
-    .limit(limit + 1);  // Fetch one extra to check if more exist
-
-  if (cursor) {
-    const { id, createdAt } = decodeCursor(cursor);
-    const operator = direction === 'forward' ? 'gt' : 'lt';
-    query = query.or(`created_at.${operator}.${createdAt.toISOString()},and(created_at.eq.${createdAt.toISOString()},id.${operator}.${id})`);
+// Auth middleware
+export async function authMiddleware(req: Request) {
+  const authHeader = req.headers.get('authorization')
+  
+  if (!authHeader?.startsWith('Bearer ')) {
+    throw new UnauthorizedError('Missing token')
   }
 
-  const { data: items, error } = await query;
-
-  if (error) throw error;
-
-  const hasMore = items.length > limit;
-  const pageItems = hasMore ? items.slice(0, limit) : items;
-
-  return {
-    data: pageItems,
-    pageInfo: {
-      hasNextPage: direction === 'forward' ? hasMore : cursor !== undefined,
-      hasPreviousPage: direction === 'backward' ? hasMore : cursor !== undefined,
-      startCursor: pageItems[0] ? encodeCursor(pageItems[0].id, pageItems[0].created_at) : null,
-      endCursor: pageItems.length ? encodeCursor(pageItems[pageItems.length - 1].id, pageItems[pageItems.length - 1].created_at) : null,
-    },
-  };
+  const token = authHeader.slice(7)
+  const payload = verifyToken(token)
+  
+  return payload
 }
 ```
 
-### Usage in API
+### API Key Authentication
 
 ```typescript
-// GET /api/items?cursor=abc123&limit=20
-export async function GET(req: Request) {
-  const url = new URL(req.url);
-  const params = PaginationSchema.parse({
-    cursor: url.searchParams.get('cursor'),
-    limit: url.searchParams.get('limit'),
-  });
-
-  const result = await getItemsPaginated(params);
-  return Response.json(result);
-}
-```
-
-## API Versioning
-
-### URL Path Versioning (Recommended)
-
-```typescript
-// /api/v1/items
-// /api/v2/items
-
-// app/api/v1/items/route.ts
-export async function GET() {
-  return Response.json({ version: 'v1', items: await getItemsV1() });
-}
-
-// app/api/v2/items/route.ts
-export async function GET() {
-  return Response.json({ version: 'v2', items: await getItemsV2() });
-}
-```
-
-### Header Versioning
-
-```typescript
-// Accept: application/vnd.api+json; version=2
-
-export async function GET(req: Request) {
-  const accept = req.headers.get('Accept') || '';
-  const versionMatch = accept.match(/version=(\d+)/);
-  const version = versionMatch ? parseInt(versionMatch[1]) : 1;
-
-  switch (version) {
-    case 2:
-      return Response.json(await getItemsV2());
-    default:
-      return Response.json(await getItemsV1());
-  }
-}
-```
-
-### Version Migration Strategy
-
-```typescript
-// Gradual migration with deprecation warnings
-export async function GET(req: Request) {
-  const version = getApiVersion(req);
-
-  if (version === 1) {
-    return Response.json(await getItemsV1(), {
-      headers: {
-        'Deprecation': 'true',
-        'Sunset': 'Sat, 31 Dec 2024 23:59:59 GMT',
-        'Link': '</api/v2/items>; rel="successor-version"',
-      },
-    });
+export async function apiKeyAuth(req: Request) {
+  const apiKey = req.headers.get('x-api-key')
+  
+  if (!apiKey) {
+    throw new UnauthorizedError('Missing API key')
   }
 
-  return Response.json(await getItemsV2());
+  const hashedKey = hashApiKey(apiKey)
+  const keyRecord = await db.apiKeys.findUnique({
+    where: { hashedKey }
+  })
+
+  if (!keyRecord || keyRecord.revokedAt) {
+    throw new UnauthorizedError('Invalid API key')
+  }
+
+  // Update last used
+  await db.apiKeys.update({
+    where: { id: keyRecord.id },
+    data: { lastUsedAt: new Date() }
+  })
+
+  return keyRecord
 }
 ```
 
@@ -284,479 +305,244 @@ export async function GET(req: Request) {
 ### Token Bucket Implementation
 
 ```typescript
-// lib/rate-limiter.ts
-interface RateLimitConfig {
-  windowMs: number;      // Time window in milliseconds
-  maxRequests: number;   // Max requests per window
-  keyPrefix?: string;    // Redis key prefix
-}
+import { Ratelimit } from '@upstash/ratelimit'
+import { Redis } from '@upstash/redis'
 
-class RateLimiter {
-  constructor(
-    private redis: Redis,
-    private config: RateLimitConfig
-  ) {}
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(100, '1 m'), // 100 requests per minute
+  analytics: true
+})
 
-  async isAllowed(identifier: string): Promise<{
-    allowed: boolean;
-    remaining: number;
-    resetAt: Date;
-  }> {
-    const key = `${this.config.keyPrefix || 'ratelimit'}:${identifier}`;
-    const now = Date.now();
-    const windowStart = now - this.config.windowMs;
+export async function rateLimitMiddleware(req: Request) {
+  const ip = req.headers.get('x-forwarded-for') ?? 'anonymous'
+  const { success, limit, remaining, reset } = await ratelimit.limit(ip)
 
-    // Remove old entries and count current
-    const pipeline = this.redis.pipeline();
-    pipeline.zremrangebyscore(key, 0, windowStart);
-    pipeline.zcard(key);
-    pipeline.zadd(key, now, `${now}-${Math.random()}`);
-    pipeline.pexpire(key, this.config.windowMs);
-
-    const results = await pipeline.exec();
-    const currentCount = results[1][1] as number;
-
-    const allowed = currentCount < this.config.maxRequests;
-    const remaining = Math.max(0, this.config.maxRequests - currentCount - 1);
-    const resetAt = new Date(now + this.config.windowMs);
-
-    return { allowed, remaining, resetAt };
-  }
-}
-```
-
-### Middleware
-
-```typescript
-// middleware/rate-limit.ts
-const rateLimiter = new RateLimiter(redis, {
-  windowMs: 60 * 1000,  // 1 minute
-  maxRequests: 100,
-  keyPrefix: 'api',
-});
-
-export async function rateLimitMiddleware(req: Request): Promise<Response | null> {
-  // Use IP or user ID as identifier
-  const identifier = req.headers.get('x-forwarded-for') || 'anonymous';
-
-  const { allowed, remaining, resetAt } = await rateLimiter.isAllowed(identifier);
-
-  if (!allowed) {
-    return new Response(JSON.stringify({
-      success: false,
-      error: 'Too many requests',
-    }), {
-      status: 429,
-      headers: {
-        'Retry-After': Math.ceil((resetAt.getTime() - Date.now()) / 1000).toString(),
-        'X-RateLimit-Remaining': '0',
-        'X-RateLimit-Reset': resetAt.toISOString(),
+  if (!success) {
+    return Response.json(
+      {
+        success: false,
+        error: {
+          code: 'RATE_LIMITED',
+          message: 'Too many requests'
+        }
       },
-    });
-  }
-
-  // Add rate limit headers to successful responses
-  return null; // Continue processing
-}
-```
-
-### Tiered Rate Limits
-
-```typescript
-const RATE_LIMITS = {
-  anonymous: { windowMs: 60000, maxRequests: 20 },
-  authenticated: { windowMs: 60000, maxRequests: 100 },
-  premium: { windowMs: 60000, maxRequests: 1000 },
-} as const;
-
-async function getRateLimitConfig(req: Request): Promise<RateLimitConfig> {
-  const user = await getCurrentUser();
-  if (!user) return RATE_LIMITS.anonymous;
-  if (user.subscription === 'premium') return RATE_LIMITS.premium;
-  return RATE_LIMITS.authenticated;
-}
-```
-
-## Webhook Patterns
-
-### Webhook Delivery
-
-```typescript
-// lib/webhooks.ts
-interface WebhookPayload {
-  event: string;
-  data: Record<string, unknown>;
-  timestamp: string;
-  webhookId: string;
-}
-
-async function deliverWebhook(
-  endpoint: string,
-  secret: string,
-  payload: WebhookPayload
-): Promise<{ success: boolean; statusCode?: number; error?: string }> {
-  const body = JSON.stringify(payload);
-  const signature = createHmac('sha256', secret)
-    .update(body)
-    .digest('hex');
-
-  try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Webhook-Signature': `sha256=${signature}`,
-        'X-Webhook-Timestamp': payload.timestamp,
-        'X-Webhook-ID': payload.webhookId,
-      },
-      body,
-      signal: AbortSignal.timeout(30000),  // 30s timeout
-    });
-
-    return {
-      success: response.ok,
-      statusCode: response.status,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
-    };
-  }
-}
-```
-
-### Webhook with Retry Queue
-
-```typescript
-// Use with background jobs (BullMQ, Inngest, etc.)
-interface WebhookJob {
-  endpointId: string;
-  payload: WebhookPayload;
-  attempt: number;
-}
-
-async function processWebhookJob(job: WebhookJob): Promise<void> {
-  const endpoint = await getWebhookEndpoint(job.endpointId);
-  if (!endpoint || !endpoint.active) return;
-
-  const result = await deliverWebhook(endpoint.url, endpoint.secret, job.payload);
-
-  // Log delivery attempt
-  await logWebhookDelivery({
-    endpointId: job.endpointId,
-    webhookId: job.payload.webhookId,
-    attempt: job.attempt,
-    success: result.success,
-    statusCode: result.statusCode,
-    error: result.error,
-  });
-
-  if (!result.success) {
-    // Retry with exponential backoff
-    const maxAttempts = 5;
-    if (job.attempt < maxAttempts) {
-      const delay = Math.pow(2, job.attempt) * 1000;  // 2s, 4s, 8s, 16s, 32s
-      await scheduleWebhookRetry({ ...job, attempt: job.attempt + 1 }, delay);
-    } else {
-      // Max retries reached, notify
-      await notifyWebhookFailure(endpoint, job.payload);
-    }
-  }
-}
-```
-
-### Webhook Signature Verification (Receiver)
-
-```typescript
-// Verify incoming webhook from external service
-export async function POST(req: Request) {
-  const signature = req.headers.get('x-webhook-signature');
-  const timestamp = req.headers.get('x-webhook-timestamp');
-
-  if (!signature || !timestamp) {
-    return Response.json({ error: 'Missing signature' }, { status: 401 });
-  }
-
-  // Prevent replay attacks
-  const timestampAge = Date.now() - new Date(timestamp).getTime();
-  if (timestampAge > 5 * 60 * 1000) {  // 5 minutes
-    return Response.json({ error: 'Timestamp too old' }, { status: 401 });
-  }
-
-  const body = await req.text();
-  const expectedSignature = `sha256=${createHmac('sha256', WEBHOOK_SECRET)
-    .update(body)
-    .digest('hex')}`;
-
-  if (!timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
-    return Response.json({ error: 'Invalid signature' }, { status: 401 });
-  }
-
-  // Process webhook
-  const payload = JSON.parse(body);
-  await handleWebhookEvent(payload);
-
-  return Response.json({ received: true });
-}
-```
-
-## Bulk Operations
-
-### Batch Create
-
-```typescript
-const BulkCreateSchema = z.object({
-  items: z.array(CreateItemSchema).min(1).max(100),
-});
-
-export async function bulkCreateItems(
-  items: z.infer<typeof CreateItemSchema>[]
-): Promise<{
-  success: boolean;
-  created: Item[];
-  errors: Array<{ index: number; error: string }>;
-}> {
-  const created: Item[] = [];
-  const errors: Array<{ index: number; error: string }> = [];
-
-  // Process in batches to avoid overwhelming the database
-  const batchSize = 50;
-  for (let i = 0; i < items.length; i += batchSize) {
-    const batch = items.slice(i, i + batchSize);
-
-    try {
-      const { data, error } = await db
-        .from('items')
-        .insert(batch)
-        .select();
-
-      if (error) {
-        // Mark all items in batch as failed
-        batch.forEach((_, idx) => {
-          errors.push({ index: i + idx, error: error.message });
-        });
-      } else {
-        created.push(...data);
+      {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': limit.toString(),
+          'X-RateLimit-Remaining': remaining.toString(),
+          'X-RateLimit-Reset': reset.toString()
+        }
       }
-    } catch (e) {
-      batch.forEach((_, idx) => {
-        errors.push({ index: i + idx, error: 'Unexpected error' });
-      });
-    }
+    )
   }
+}
+```
+
+## Pagination
+
+### Cursor-Based (Recommended)
+
+```typescript
+interface PaginationParams {
+  cursor?: string
+  limit?: number
+}
+
+async function getUsers(params: PaginationParams) {
+  const limit = Math.min(params.limit ?? 20, 100)
+  
+  const users = await db.users.findMany({
+    take: limit + 1, // Fetch one extra to check hasMore
+    cursor: params.cursor ? { id: params.cursor } : undefined,
+    orderBy: { createdAt: 'desc' }
+  })
+
+  const hasMore = users.length > limit
+  const data = hasMore ? users.slice(0, -1) : users
+  const nextCursor = hasMore ? data[data.length - 1].id : null
 
   return {
-    success: errors.length === 0,
-    created,
-    errors,
-  };
-}
-```
-
-### Batch Update
-
-```typescript
-const BulkUpdateSchema = z.object({
-  updates: z.array(z.object({
-    id: z.string().uuid(),
-    data: UpdateItemSchema.partial(),
-  })).min(1).max(100),
-});
-
-export async function bulkUpdateItems(
-  updates: z.infer<typeof BulkUpdateSchema>['updates']
-): Promise<{
-  success: boolean;
-  updated: number;
-  errors: Array<{ id: string; error: string }>;
-}> {
-  const errors: Array<{ id: string; error: string }> = [];
-  let updated = 0;
-
-  // Use transaction for atomicity
-  await db.transaction(async (tx) => {
-    for (const { id, data } of updates) {
-      const { error } = await tx
-        .from('items')
-        .update(data)
-        .eq('id', id);
-
-      if (error) {
-        errors.push({ id, error: error.message });
-      } else {
-        updated++;
-      }
+    data,
+    meta: {
+      hasMore,
+      nextCursor
     }
-
-    // Rollback if too many errors
-    if (errors.length > updates.length * 0.1) {  // > 10% failure rate
-      throw new Error('Too many errors, rolling back');
-    }
-  });
-
-  return { success: errors.length === 0, updated, errors };
-}
-```
-
-### Batch Delete
-
-```typescript
-const BulkDeleteSchema = z.object({
-  ids: z.array(z.string().uuid()).min(1).max(100),
-});
-
-export async function bulkDeleteItems(
-  ids: string[]
-): Promise<{
-  success: boolean;
-  deleted: number;
-  notFound: string[];
-}> {
-  // First, verify all items exist and user has permission
-  const { data: existing } = await db
-    .from('items')
-    .select('id')
-    .in('id', ids);
-
-  const existingIds = new Set(existing?.map(i => i.id) || []);
-  const notFound = ids.filter(id => !existingIds.has(id));
-
-  // Delete existing items
-  const { error, count } = await db
-    .from('items')
-    .delete()
-    .in('id', Array.from(existingIds));
-
-  if (error) {
-    throw new Error(`Delete failed: ${error.message}`);
   }
+}
+```
+
+### Offset-Based
+
+```typescript
+async function getUsers(page: number = 1, limit: number = 20) {
+  const offset = (page - 1) * limit
+  
+  const [users, total] = await Promise.all([
+    db.users.findMany({ skip: offset, take: limit }),
+    db.users.count()
+  ])
 
   return {
-    success: true,
-    deleted: count || 0,
-    notFound,
-  };
-}
-```
-
-## Validation Schemas
-
-### Common Patterns
-
-```typescript
-import { z } from 'zod';
-
-// String transformations
-const nameSchema = z.string()
-  .min(1, 'Required')
-  .max(100, 'Too long')
-  .transform(v => v.trim());
-
-// Email normalization
-const emailSchema = z.string()
-  .email('Invalid email')
-  .toLowerCase();
-
-// Numeric coercion (for form data)
-const amountSchema = z.coerce.number()
-  .positive('Must be positive');
-
-// Date coercion
-const dateSchema = z.coerce.date();
-
-// Optional with default
-const statusSchema = z.enum(['active', 'inactive'])
-  .default('active');
-
-// Array validation
-const tagsSchema = z.array(z.string()).min(1).max(10);
-
-// Nested object
-const addressSchema = z.object({
-  street: z.string(),
-  city: z.string(),
-  country: z.string(),
-});
-```
-
-## Response Types
-
-```typescript
-// Consistent response type
-type ApiResponse<T> =
-  | { success: true; data: T }
-  | { success: false; error: string | Record<string, string[]> };
-
-// Usage
-function createResponse<T>(data: T): ApiResponse<T> {
-  return { success: true, data };
-}
-
-function createError(error: string): ApiResponse<never> {
-  return { success: false, error };
-}
-```
-
-## Error Handling
-
-```typescript
-// Custom error class
-class ApiError extends Error {
-  constructor(
-    message: string,
-    public statusCode: number = 500,
-    public code?: string
-  ) {
-    super(message);
+    data: users,
+    meta: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+      hasMore: offset + users.length < total
+    }
   }
 }
+```
 
-// Error handler middleware
-function errorHandler(error: Error, req: Request, res: Response) {
-  if (error instanceof ApiError) {
-    return res.status(error.statusCode).json({
-      success: false,
-      error: error.message,
-      code: error.code,
-    });
-  }
+## Versioning
 
-  console.error('Unhandled error:', error);
-  return res.status(500).json({
-    success: false,
-    error: 'Internal server error',
-  });
+### URL Versioning (Recommended)
+
+```
+/api/v1/users
+/api/v2/users
+```
+
+### Header Versioning
+
+```typescript
+const version = req.headers.get('api-version') ?? 'v1'
+
+switch (version) {
+  case 'v1':
+    return handleV1(req)
+  case 'v2':
+    return handleV2(req)
+  default:
+    throw new AppError('Unsupported API version', 400)
 }
 ```
 
-## Troubleshooting
+## CORS Configuration
 
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Pagination returns duplicates | Using offset with concurrent writes | Use cursor-based pagination |
-| Rate limit not working | Clock skew between servers | Use Redis MULTI/EXEC for atomic operations |
-| Webhook delivery failing | Timeout or retry storm | Add exponential backoff, dead letter queue |
-| Bulk operation partial failure | No transaction | Wrap in transaction, implement rollback |
-| Version header ignored | Cache not respecting Vary | Add `Vary: Accept` header |
+```typescript
+const corsHeaders = {
+  'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGINS ?? '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-API-Key',
+  'Access-Control-Max-Age': '86400' // 24 hours
+}
+
+// Handle preflight
+export function OPTIONS() {
+  return new Response(null, { headers: corsHeaders })
+}
+
+// Add to responses
+export function withCors(response: Response) {
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    response.headers.set(key, value)
+  })
+  return response
+}
+```
+
+## Security Headers
+
+```typescript
+const securityHeaders = {
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'X-XSS-Protection': '1; mode=block',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+  'Content-Security-Policy': "default-src 'self'",
+  'Referrer-Policy': 'strict-origin-when-cross-origin'
+}
+```
+
+## OpenAPI Documentation
+
+```typescript
+/**
+ * @openapi
+ * /api/users:
+ *   get:
+ *     summary: List users
+ *     tags: [Users]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number
+ *     responses:
+ *       200:
+ *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UsersResponse'
+ */
+```
+
+## GraphQL Patterns
+
+### Schema Design
+
+```graphql
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  posts: [Post!]!
+  createdAt: DateTime!
+}
+
+type Query {
+  user(id: ID!): User
+  users(first: Int, after: String): UserConnection!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+}
+```
+
+### Resolver Pattern
+
+```typescript
+const resolvers = {
+  Query: {
+    user: async (_, { id }, context) => {
+      return context.dataSources.users.findById(id)
+    },
+    users: async (_, { first, after }, context) => {
+      return context.dataSources.users.findMany({ first, after })
+    }
+  },
+  User: {
+    posts: async (user, _, context) => {
+      return context.dataSources.posts.findByUserId(user.id)
+    }
+  }
+}
+```
 
 ## Checklist
 
-- [ ] Input validated with schema
-- [ ] Auth check before business logic
-- [ ] Proper error handling
+- [ ] RESTful resource naming
+- [ ] Proper HTTP methods and status codes
 - [ ] Consistent response format
-- [ ] Path revalidation after mutations
-- [ ] Logging for debugging
-- [ ] Rate limiting for public endpoints
-- [ ] Pagination for list endpoints
-- [ ] API versioning strategy defined
-- [ ] Webhook signature verification
-
-## Related Templates
-
-- See `service-patterns` for business logic layer
-- See `error-handling` for error boundaries
-- See `auth-patterns` for authentication
-- See `background-jobs` for webhook delivery queues
-- See `caching-patterns` for response caching
+- [ ] Input validation (Zod)
+- [ ] Error handling (custom errors)
+- [ ] Authentication (JWT/API key)
+- [ ] Rate limiting
+- [ ] Pagination (cursor-based)
+- [ ] CORS configured
+- [ ] Security headers set
+- [ ] API documentation (OpenAPI)

@@ -1,7 +1,7 @@
 {
   "name": "route-tester",
-  "repo": "NmBoyd/claude_setup",
-  "path": ".claude/skills/route-tester/SKILL.md",
-  "source": "github.com/NmBoyd/claude_setup",
-  "downloaded_at": "2026-01-21T03:18:36.643863Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/route-tester/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:38.353613Z"
 }

@@ -1,99 +1,167 @@
 ---
-name: frontend-technologies
-description: Master modern web development with HTML, CSS, JavaScript, React, Vue, Angular, Next.js, TypeScript, and responsive design. Use when building web applications, optimizing UI performance, or learning frontend frameworks.
-sasmp_version: "1.3.0"
-bonded_agent: 01-typescript-fundamentals
-bond_type: PRIMARY_BOND
+name: frontend
+description: 프론트엔드 개발 스킬. React 컴포넌트, 커스텀 훅, Tailwind 스타일링. UI 작업 시 사용.
 ---
 
-# Frontend Technologies Skill
+# Frontend Skill
 
-## Quick Start - React with TypeScript
+## Chrome Extension UI 구조
 
-```typescript
-import React, { useState, useEffect } from 'react';
+### Popup (주요 UI)
 
-interface Props {
-  title: string;
+```
+src/popup/
+├── Popup.tsx           # 메인 엔트리
+├── components/
+│   ├── LinkCard.tsx    # 링크 카드 컴포넌트
+│   ├── TagFilter.tsx   # 태그 필터 UI
+│   ├── SearchBar.tsx   # 검색 바
+│   └── LinkList.tsx    # 링크 목록
+└── hooks/
+    ├── useLinks.ts     # 링크 CRUD 훅
+    ├── useTags.ts      # 태그 관리 훅
+    └── useSearch.ts    # 검색 훅
+```
+
+### Options Page (설정)
+
+```
+src/options/
+├── Options.tsx         # 설정 페이지 엔트리
+└── components/
+    ├── ExportImport.tsx
+    └── ThemeSelector.tsx
+```
+
+## 컴포넌트 규칙
+
+### 함수형 컴포넌트만 사용
+
+```tsx
+// Good
+export function LinkCard({ link, onDelete }: LinkCardProps) {
+  return (
+    <div className="p-4 border rounded-lg">
+      {/* ... */}
+    </div>
+  );
 }
 
-export function Example({ title }: Props) {
-  const [count, setCount] = useState(0);
+// Bad - 클래스 컴포넌트
+class LinkCard extends React.Component { }
+```
+
+### Props 타입 정의
+
+```tsx
+interface LinkCardProps {
+  link: Link;
+  onDelete: (id: string) => void;
+  onTagClick?: (tag: string) => void;
+}
+```
+
+### 커스텀 훅 패턴
+
+```tsx
+// useLinks.ts
+export function useLinks() {
+  const [links, setLinks] = useState<Link[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = `${title}: ${count}`;
-  }, [count, title]);
+    loadLinks();
+  }, []);
+
+  async function loadLinks() {
+    setLoading(true);
+    const data = await getLinks();
+    setLinks(data);
+    setLoading(false);
+  }
+
+  async function addLink(input: CreateLinkInput) {
+    const newLink = createLink(input);
+    await saveLink(newLink);
+    setLinks(prev => [...prev, newLink]);
+  }
+
+  return { links, loading, addLink, /* ... */ };
+}
+```
+
+## Tailwind CSS 규칙
+
+### 유틸리티 클래스 우선
+
+```tsx
+// Good - Tailwind 유틸리티
+<div className="flex items-center gap-2 p-4 bg-white rounded-lg shadow">
+
+// Avoid - 커스텀 CSS
+<div className="link-card">
+```
+
+### 반응형 디자인
+
+```tsx
+// Popup 크기 고려 (400px width 기준)
+<div className="w-full max-w-[400px]">
+```
+
+### 다크 모드 지원
+
+```tsx
+<div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+```
+
+## 에러 핸들링
+
+### 로딩/에러 상태 표시
+
+```tsx
+function LinkList() {
+  const { links, loading, error } = useLinks();
+
+  if (loading) return <Spinner />;
+  if (error) return <ErrorMessage message={error} />;
+  if (links.length === 0) return <EmptyState />;
 
   return (
-    <div>
-      <h1>{title}</h1>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(c => c + 1)}>
-        Increment
-      </button>
+    <div className="space-y-2">
+      {links.map(link => (
+        <LinkCard key={link.id} link={link} />
+      ))}
     </div>
   );
 }
 ```
 
-## Core Technologies
+## 접근성 (A11y)
 
-### Foundation
-- HTML5 semantic markup
-- CSS3 (Flexbox, Grid, animations)
-- JavaScript ES2020+
-- TypeScript for type safety
+### 기본 규칙
 
-### Frameworks
-- **React** 18+ with hooks
-- **Vue.js** 3+ composition API
-- **Angular** 16+ with RxJS
-- **Svelte** for compiler-based approach
+- 버튼에 `aria-label` 제공 (아이콘만 있는 경우)
+- 포커스 상태 표시 (`focus:ring-2`)
+- 시맨틱 HTML 사용 (`<button>`, `<nav>`, `<main>`)
 
-### Meta-Frameworks
-- **Next.js** - React with SSR, SSG, API routes
-- **Nuxt** - Vue with full-stack capabilities
-- **SvelteKit** - Svelte framework
-- **Remix** - Focus on web fundamentals
+```tsx
+<button
+  aria-label="Delete link"
+  onClick={handleDelete}
+  className="p-2 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 rounded"
+>
+  <TrashIcon className="w-4 h-4" />
+</button>
+```
 
-### State Management
-- React Context API
-- Redux Toolkit
-- Zustand, Jotai, Recoil
-- Vue Composition API / Pinia
-- MobX, Akita
+## 체크리스트
 
-### Styling
-- Tailwind CSS
-- CSS Modules & BEM
-- Styled Components / Emotion
-- SASS/SCSS
+- [ ] 함수형 컴포넌트 사용
+- [ ] Props 타입 정의
+- [ ] 로딩/에러 상태 처리
+- [ ] Tailwind 유틸리티 사용
+- [ ] 접근성 고려
+- [ ] 다크 모드 지원
 
-### Build Tools
-- Vite (fast development)
-- Webpack (powerful bundling)
-- Turbopack (next-gen)
-- esbuild (transpilation)
-
-### Testing
-- Jest unit testing
-- React Testing Library
-- Cypress / Playwright E2E
-- Vitest for Vite projects
-
-## Best Practices
-
-1. **Semantic HTML** - Use correct elements for accessibility
-2. **Responsive Design** - Mobile-first approach
-3. **Performance** - Optimize Core Web Vitals
-4. **Accessibility** - WCAG 2.1 AA compliance
-5. **Type Safety** - Use TypeScript
-6. **Code Quality** - ESLint + Prettier
-7. **Testing** - Aim for 80%+ coverage
-8. **Documentation** - Storybook for components
-
-## Resources
-
-- [MDN Web Docs](https://developer.mozilla.org/)
-- [React Documentation](https://react.dev/)
-- [Web.dev Learning](https://web.dev/learn/)
+> 상세 패턴은 코드베이스의 기존 구현 참조

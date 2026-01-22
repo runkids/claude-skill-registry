@@ -1,64 +1,47 @@
 ---
 name: skill-editor
-description: Edit, update, or modify existing AI agent skills. Use when asked to change a skill, update skill instructions, fix a skill, or improve an existing agent capability.
+description: Use when drafting or revising an agent skill spec in an environment that already has a general skill creator. Apply user-specific preferences to tighten triggers, reduce redundancy, keep scope safe, and keep the spec compact and consistent.
+metadata:
+  short-description: Refine skill specs
 ---
+
 
 # Skill Editor
 
-Edit existing AI agent skills while keeping Claude, Codex, and Cursor in sync.
+Refine an agent skill specification by applying user-specific preferences on top of an existing skill-creation workflow. Improve trigger precision, internal consistency, and compactness without expanding scope.
 
-## Workflow
+## Activation
 
-1. **Always edit Claude first** - `.claude/skills/<name>/SKILL.md` is the canonical source
-2. **Replicate with CLI** - Copy changes to `.codex/skills/` and `.cursor/skills/`
-3. **Never edit Codex/Cursor directly** - They are copies of Claude's version
+Use this skill only when the task is to write, revise, or review an agent skill spec.
 
-## Finding Existing Skills
+## Metadata First
 
-List all skills:
+* Put trigger conditions and the goal in the header metadata.
+* Do not restate the trigger in the body.
+* Keep the body focused on execution rules and constraints.
 
-```bash
-ls -la .claude/skills/
-```
+## Scope Control
 
-Read a skill:
+* Default to localized edits unless a full rewrite is explicitly requested.
+* Avoid adding new features, categories, or policies not implied by the user’s request.
+* If information is missing, make safe progress and ask only the smallest clarification needed to avoid incorrect constraints.
 
-```bash
-cat .claude/skills/<name>/SKILL.md
-```
+## Redundancy Control
 
-## Editing a Skill
+* Remove repeated statements across sections.
+* Replace explanatory prose with concise definitions when possible.
+* Keep examples minimal and only when they clarify an otherwise ambiguous rule.
 
-1. Read the current skill content from `.claude/skills/<name>/SKILL.md`
-2. Make the requested changes
-3. Replicate to other agents:
-   ```bash
-   cp .claude/skills/<name>/SKILL.md .codex/skills/<name>/
-   cp .claude/skills/<name>/SKILL.md .cursor/skills/<name>/
-   ```
+## Neutral Examples
 
-## Verification
+* Use generic examples that do not imply a specific organization, product, or domain.
+* Examples should demonstrate the rule, not introduce new conventions.
 
-Always verify sync after editing:
+## Consistency Checks
 
-```bash
-diff .claude/skills/<name>/SKILL.md .codex/skills/<name>/SKILL.md
-diff .claude/skills/<name>/SKILL.md .cursor/skills/<name>/SKILL.md
-```
+Before finalizing a spec, ensure:
 
-No output means files are identical.
-
-## Common Edits
-
-- **Update description** - Improve auto-discovery keywords
-- **Add instructions** - Expand the skill's capabilities
-- **Fix errors** - Correct mistakes in the skill logic
-- **Add references** - Create `references/` directory for supporting docs
-
-## Deleting a Skill
-
-Remove from all three locations:
-
-```bash
-rm -rf .claude/skills/<name> .codex/skills/<name> .cursor/skills/<name>
-```
+* Metadata and body have distinct roles and do not duplicate content.
+* Terms are used consistently and defined once.
+* Rules do not conflict; when tradeoffs exist, the priority is explicit.
+* Output expectations are clear and bounded.

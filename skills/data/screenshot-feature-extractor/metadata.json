@@ -1,7 +1,7 @@
 {
   "name": "screenshot-feature-extractor",
-  "repo": "notedit/happy-coding-agent",
-  "path": "skills/screenshot-feature-extractor/SKILL.md",
-  "source": "github.com/notedit/happy-coding-agent",
-  "downloaded_at": "2026-01-20T03:11:42.058065Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/development/screenshot-feature-extractor/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-22T03:18:32.580381Z"
 }

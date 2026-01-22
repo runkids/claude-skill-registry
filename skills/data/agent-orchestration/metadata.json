@@ -1,7 +1,7 @@
 {
   "name": "agent-orchestration",
-  "repo": "BbgnsurfTech/claude-skills-collection",
-  "path": "community/jamie-bitflight-claude-skills/agent-orchestration/SKILL.md",
-  "source": "github.com/BbgnsurfTech/claude-skills-collection",
-  "downloaded_at": "2026-01-21T02:32:33.007069Z"
+  "repo": "frankxai/arcanea",
+  "path": ".claude/skills/community/agent-orchestration/SKILL.md",
+  "source": "github.com/frankxai/arcanea",
+  "downloaded_at": "2026-01-22T04:16:11.869352Z"
 }

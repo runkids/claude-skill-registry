@@ -1,7 +1,7 @@
 {
   "name": "feedback",
-  "repo": "yonatangross/skillforge-claude-plugin",
-  "path": "skills/feedback/SKILL.md",
-  "source": "github.com/yonatangross/skillforge-claude-plugin",
-  "downloaded_at": "2026-01-21T04:14:19.333502Z"
+  "repo": "ryryo/dot-claude-dev",
+  "path": ".claude/skills/dev/feedback/SKILL.md",
+  "source": "github.com/ryryo/dot-claude-dev",
+  "downloaded_at": "2026-01-22T03:36:28.372553Z"
 }

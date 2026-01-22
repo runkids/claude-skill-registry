@@ -1,6 +1,19 @@
 ---
 name: matlab
+display_name: Matlab
 description: MATLAB and GNU Octave numerical computing for matrix operations, data analysis, visualization, and scientific computing. Use when writing MATLAB/Octave scripts for linear algebra, signal processing, image processing, differential equations, optimization, statistics, or creating scientific visualizations. Also use when the user needs help with MATLAB syntax, functions, or wants to convert between MATLAB and Python code. Scripts can be executed with MATLAB or the open-source GNU Octave interpreter.
+version: 1.0.0
+author: K-Dense Inc.
+license: For MATLAB (https://www.mathworks.com/pricing-licensing.html) and for Octave (GNU General Public License version 3)
+tags: ["physics", "materials", "quantum"]
+category: physics
+allowed_tools: ["code_execute", "create_document"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 7
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # MATLAB/Octave Scientific Computing

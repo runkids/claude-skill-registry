@@ -1,7 +1,7 @@
 {
   "name": "design-system",
-  "repo": "lsst-sqre/squareone",
-  "path": ".claude/skills/design-system/SKILL.md",
-  "source": "github.com/lsst-sqre/squareone",
-  "downloaded_at": "2026-01-21T03:48:55.757247Z"
+  "repo": "frankxai/arcanea",
+  "path": "arcanea-skills-opensource/skills/arcanea/design-system/SKILL.md",
+  "source": "github.com/frankxai/arcanea",
+  "downloaded_at": "2026-01-22T04:16:15.747734Z"
 }

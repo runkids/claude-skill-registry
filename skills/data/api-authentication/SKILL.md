@@ -1,322 +1,199 @@
 ---
 name: api-authentication
-description: Эксперт по API аутентификации. Используй для OAuth 2.0, JWT, API keys, сессий, безопасности токенов и best practices.
+description: Apply when implementing API authentication: JWT tokens, session management, API keys, and auth middleware. Follows JWT Best Current Practices (RFC 8725).
+version: 1.1.0
+tokens: ~750
+confidence: high
+sources:
+  - https://datatracker.ietf.org/doc/html/rfc7519
+  - https://datatracker.ietf.org/doc/html/rfc8725
+  - https://oauth.net/2/
+last_validated: 2025-12-10
+next_review: 2025-12-24
+tags: [api, authentication, jwt, security]
 ---
 
-# API Authentication Expert
+## When to Use
 
-Эксперт по аутентификации API с глубокими знаниями протоколов аутентификации, лучших практик безопасности и паттернов реализации.
+Apply when implementing API authentication: JWT tokens, session management, API keys, and auth middleware. Follows JWT Best Current Practices (RFC 8725).
 
-## Основные методы аутентификации
+## Patterns
 
-### API Keys
-```javascript
-// Header-based API key
-const response = await fetch('/api/data', {
-  headers: {
-    'X-API-Key': 'your-api-key-here',
-    'Content-Type': 'application/json'
-  }
-});
-
-// Query parameter (менее безопасно)
-const response = await fetch('/api/data?api_key=your-api-key');
-```
-
-### JWT (JSON Web Tokens)
-```python
-import jwt
-from datetime import datetime, timedelta
-
-# Генерация JWT
-def create_jwt_token(user_id, secret_key):
-    payload = {
-        'user_id': user_id,
-        'exp': datetime.utcnow() + timedelta(hours=24),
-        'iat': datetime.utcnow()
-    }
-    return jwt.encode(payload, secret_key, algorithm='HS256')
-
-# Верификация JWT
-def verify_jwt_token(token, secret_key):
-    try:
-        payload = jwt.decode(token, secret_key, algorithms=['HS256'])
-        return payload['user_id']
-    except jwt.ExpiredSignatureError:
-        return None
-    except jwt.InvalidTokenError:
-        return None
-```
-
-### OAuth 2.0 Authorization Code Flow
-```javascript
-// Шаг 1: Редирект на сервер авторизации
-const authUrl = `https://auth.provider.com/oauth/authorize?
-  client_id=${clientId}&
-  redirect_uri=${redirectUri}&
-  response_type=code&
-  scope=read:user&
-  state=${randomState}`;
-
-// Шаг 2: Обмен кода на access token
-async function exchangeCodeForToken(code) {
-  const response = await fetch('https://auth.provider.com/oauth/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Basic ${btoa(`${clientId}:${clientSecret}`)}`
-    },
-    body: new URLSearchParams({
-      grant_type: 'authorization_code',
-      code: code,
-      redirect_uri: redirectUri
-    })
-  });
-  return await response.json();
-}
-```
-
-## Безопасное хранение токенов
-
-### HttpOnly Cookies
-```javascript
-// Server-side cookie configuration
-res.cookie('refreshToken', refreshToken, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'strict',
-  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 дней
-});
-```
-
-### Рекомендации
-- Всегда используйте HTTPS для передачи токенов
-- Храните refresh токены в HttpOnly cookies
-- Access токены храните в памяти (не в localStorage)
-- Используйте короткоживущие access токены (15-60 минут)
-
-## Rate Limiting
-
-```python
-from functools import wraps
-from flask import request, jsonify
-from time import time
-
-def rate_limit(max_requests=100, window=3600):
-    def decorator(f):
-        requests_store = {}
-
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            client_ip = request.remote_addr
-            current_time = time()
-
-            # Очистка старых записей
-            requests_store[client_ip] = [
-                t for t in requests_store.get(client_ip, [])
-                if current_time - t < window
-            ]
-
-            if len(requests_store.get(client_ip, [])) >= max_requests:
-                return jsonify({'error': 'Rate limit exceeded'}), 429
-
-            requests_store.setdefault(client_ip, []).append(current_time)
-            return f(*args, **kwargs)
-        return decorated_function
-    return decorator
-```
-
-## Middleware аутентификации
-
-### Go
-```go
-func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
-    return func(w http.ResponseWriter, r *http.Request) {
-        token := r.Header.Get("Authorization")
-        if token == "" {
-            http.Error(w, "Unauthorized", http.StatusUnauthorized)
-            return
-        }
-
-        // Remove "Bearer " prefix
-        if strings.HasPrefix(token, "Bearer ") {
-            token = token[7:]
-        }
-
-        userID, err := validateJWT(token)
-        if err != nil {
-            http.Error(w, "Invalid token", http.StatusUnauthorized)
-            return
-        }
-
-        ctx := context.WithValue(r.Context(), "userID", userID)
-        next(w, r.WithContext(ctx))
-    }
-}
-```
-
-### TypeScript/Express
+### Pattern 1: JWT Authentication
 ```typescript
-import { Request, Response, NextFunction } from 'express';
+// Source: RFC 7519, RFC 8725 (JWT Best Practices)
 import jwt from 'jsonwebtoken';
 
-interface AuthRequest extends Request {
-  userId?: string;
+interface TokenPayload {
+  userId: string;
+  email: string;
+  role: string;
 }
 
-export const authMiddleware = (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  const authHeader = req.headers.authorization;
+function generateToken(payload: TokenPayload): string {
+  return jwt.sign(payload, process.env.JWT_SECRET!, {
+    expiresIn: '1h',      // RFC 8725: Always set expiration
+    issuer: 'myapp',
+    algorithm: 'HS256',   // RFC 8725: Explicitly specify algorithm
+  });
+}
+
+function verifyToken(token: string): TokenPayload {
+  return jwt.verify(token, process.env.JWT_SECRET!, {
+    algorithms: ['HS256'], // RFC 8725: Prevent algorithm confusion
+  }) as TokenPayload;
+}
+```
+
+### Pattern 2: Auth Middleware
+```typescript
+// Source: Best practice pattern
+async function authMiddleware(
+  req: NextRequest
+): Promise<TokenPayload | null> {
+  const authHeader = req.headers.get('authorization');
 
   if (!authHeader?.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Missing token' });
+    return null;
   }
 
   const token = authHeader.slice(7);
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string };
-    req.userId = decoded.userId;
-    next();
-  } catch (error) {
-    return res.status(401).json({ error: 'Invalid token' });
+    return verifyToken(token);
+  } catch {
+    return null;
   }
-};
-```
+}
 
-## Token Refresh Strategy
+// In route handler
+export async function GET(req: NextRequest) {
+  const user = await authMiddleware(req);
 
-```typescript
-class TokenManager {
-  private accessToken: string | null = null;
-  private refreshToken: string | null = null;
-
-  async refreshTokens(): Promise<boolean> {
-    try {
-      const response = await fetch('/api/auth/refresh', {
-        method: 'POST',
-        credentials: 'include' // для httpOnly cookies
-      });
-
-      if (!response.ok) {
-        throw new Error('Token refresh failed');
-      }
-
-      const { accessToken } = await response.json();
-      this.accessToken = accessToken;
-      return true;
-    } catch (error) {
-      this.logout();
-      return false;
-    }
+  if (!user) {
+    return NextResponse.json(
+      { error: { code: 'UNAUTHORIZED', message: 'Invalid token' } },
+      { status: 401 }
+    );
   }
 
-  async makeAuthenticatedRequest(url: string, options: RequestInit = {}) {
-    if (this.isTokenExpired()) {
-      const refreshed = await this.refreshTokens();
-      if (!refreshed) {
-        throw new Error('Session expired');
-      }
-    }
-
-    return fetch(url, {
-      ...options,
-      headers: {
-        ...options.headers,
-        'Authorization': `Bearer ${this.accessToken}`
-      }
-    });
-  }
-
-  private isTokenExpired(): boolean {
-    if (!this.accessToken) return true;
-
-    const payload = JSON.parse(atob(this.accessToken.split('.')[1]));
-    return payload.exp * 1000 < Date.now();
-  }
+  // user.userId, user.role available
 }
 ```
 
-## Multi-Factor Authentication (MFA)
+### Pattern 3: API Key Authentication
+```typescript
+// Source: Best practice pattern
+async function apiKeyMiddleware(req: NextRequest): Promise<ApiClient | null> {
+  const apiKey = req.headers.get('x-api-key');
 
-```python
-import pyotp
-import qrcode
-from io import BytesIO
+  if (!apiKey) {
+    return null;
+  }
 
-def generate_totp_secret(user_email):
-    secret = pyotp.random_base32()
-    totp_uri = pyotp.totp.TOTP(secret).provisioning_uri(
-        name=user_email,
-        issuer_name="Your App Name"
-    )
+  // Hash the key before lookup (keys stored hashed)
+  const hashedKey = await hashApiKey(apiKey);
+  const client = await db.apiClients.findUnique({
+    where: { keyHash: hashedKey },
+  });
 
-    # Generate QR code
-    qr = qrcode.QRCode(version=1, box_size=10, border=5)
-    qr.add_data(totp_uri)
-    qr.make(fit=True)
+  if (!client || client.revokedAt) {
+    return null;
+  }
 
-    return secret, qr
+  // Update last used
+  await db.apiClients.update({
+    where: { id: client.id },
+    data: { lastUsedAt: new Date() },
+  });
 
-def verify_totp(secret, token):
-    totp = pyotp.TOTP(secret)
-    return totp.verify(token, valid_window=1)
+  return client;
+}
 ```
 
-## Security Headers
+### Pattern 4: Refresh Token Flow
+```typescript
+// Source: https://oauth.net/2/refresh-tokens/
+async function refreshTokens(refreshToken: string) {
+  // Verify refresh token
+  const payload = verifyRefreshToken(refreshToken);
 
-```javascript
-const helmet = require('helmet');
-const cors = require('cors');
+  // Check if token is revoked
+  const stored = await db.refreshTokens.findUnique({
+    where: { token: refreshToken },
+  });
 
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'"],
-    },
-  },
-}));
+  if (!stored || stored.revokedAt) {
+    throw new UnauthorizedError('Token revoked');
+  }
 
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
-  credentials: true,
-  optionsSuccessStatus: 200
-}));
+  // Rotate refresh token (invalidate old)
+  await db.refreshTokens.update({
+    where: { token: refreshToken },
+    data: { revokedAt: new Date() },
+  });
+
+  // Generate new tokens
+  const newAccessToken = generateToken({ userId: payload.userId });
+  const newRefreshToken = generateRefreshToken({ userId: payload.userId });
+
+  await db.refreshTokens.create({
+    data: { token: newRefreshToken, userId: payload.userId },
+  });
+
+  return { accessToken: newAccessToken, refreshToken: newRefreshToken };
+}
 ```
 
-## Key Rotation
+### Pattern 5: Role-Based Access Control
+```typescript
+// Source: Best practice pattern
+function requireRole(...roles: string[]) {
+  return async (req: NextRequest) => {
+    const user = await authMiddleware(req);
 
-```python
-class KeyRotationManager:
-    def __init__(self):
-        self.current_key_id = self.get_current_key_id()
-        self.keys = self.load_signing_keys()
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
-    def sign_token(self, payload):
-        key = self.keys[self.current_key_id]
-        payload['kid'] = self.current_key_id
-        return jwt.encode(payload, key, algorithm='RS256')
+    if (!roles.includes(user.role)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
 
-    def verify_token(self, token):
-        unverified_header = jwt.get_unverified_header(token)
-        kid = unverified_header.get('kid')
+    return null; // Authorized
+  };
+}
 
-        if kid not in self.keys:
-            raise jwt.InvalidKeyError("Invalid key ID")
+// Usage
+export async function DELETE(req: NextRequest) {
+  const error = await requireRole('admin')(req);
+  if (error) return error;
 
-        return jwt.decode(token, self.keys[kid], algorithms=['RS256'])
+  // Admin-only logic
+}
 ```
 
-## Лучшие практики
+## Security Best Practices (RFC 8725)
 
-1. **Используйте HTTPS везде** — никогда не передавайте токены по HTTP
-2. **Короткоживущие access токены** — 15-60 минут максимум
-3. **Secure refresh tokens** — HttpOnly cookies, ротация при использовании
-4. **Валидация на каждом запросе** — не кэшируйте результаты авторизации
-5. **Логирование событий безопасности** — все попытки входа, ошибки токенов
-6. **Rate limiting** — защита от brute force атак
-7. **Ротация ключей** — регулярная смена signing keys
+- **Always set token expiration** - Short-lived access tokens (15m-1h)
+- **Explicitly specify algorithm** - Prevent algorithm confusion attacks
+- **Validate algorithm on verify** - Pass `algorithms` array to `jwt.verify()`
+- **Use strong secrets** - Minimum 256 bits for HS256
+- **Rotate refresh tokens** - Invalidate old token when issuing new one
+
+## Anti-Patterns
+
+- **JWT in localStorage** - Use httpOnly cookies for web
+- **No token expiration** - Always set expiry
+- **Storing plain API keys** - Hash before storing
+- **No refresh token rotation** - Rotate on use
+- **Missing algorithm validation** - Specify allowed algorithms
+
+## Verification Checklist
+
+- [ ] Tokens have expiration
+- [ ] Algorithm explicitly specified
+- [ ] Refresh tokens are rotated
+- [ ] API keys stored hashed
+- [ ] Auth errors don't leak info
+- [ ] RBAC for sensitive endpoints

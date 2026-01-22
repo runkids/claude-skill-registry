@@ -1,7 +1,7 @@
 {
   "name": "e2e-test",
-  "repo": "WhatIfWeDigDeeper/application-tracker",
+  "repo": "WhatIfWeDigDeeper/claude-template",
   "path": ".claude/skills/e2e-test/SKILL.md",
-  "source": "github.com/WhatIfWeDigDeeper/application-tracker",
-  "downloaded_at": "2026-01-21T03:38:36.576490Z"
+  "source": "github.com/WhatIfWeDigDeeper/claude-template",
+  "downloaded_at": "2026-01-22T02:11:45.115492Z"
 }

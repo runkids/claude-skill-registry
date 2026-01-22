@@ -1,7 +1,7 @@
 {
   "name": "doc-sync",
-  "repo": "munlucky/claude-settings",
+  "repo": "rjmurillo/ai-agents",
   "path": ".claude/skills/doc-sync/SKILL.md",
-  "source": "github.com/munlucky/claude-settings",
-  "downloaded_at": "2026-01-21T03:58:30.539804Z"
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-22T04:17:13.706607Z"
 }

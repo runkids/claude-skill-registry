@@ -1,501 +1,334 @@
 ---
 name: rust-error-handling
-description: Use when Rust error handling with Result, Option, custom errors, thiserror, and anyhow. Use when handling errors in Rust applications.
-allowed-tools:
-  - Bash
-  - Read
+description: Production error patterns with thiserror and anyhow, including error classification, HTTP/gRPC protocol mappings, context chains, retry logic, and testing. Use when designing error types for libraries or applications, mapping errors to API responses, or implementing retry mechanisms.
 ---
 
 # Rust Error Handling
 
-Master Rust's error handling mechanisms using Result, Option, custom error
-types, and popular error handling libraries for robust applications.
+*Production error patterns with thiserror, anyhow, and protocol mappings*
 
-## Result and Option
+## Version Context
+- **thiserror**: 2.x (derive Error trait)
+- **anyhow**: 1.x (dynamic errors)
+- **Standard Library**: Result, Option
 
-**Result type for recoverable errors:**
+## When to Use This Skill
+
+- Designing error types for libraries
+- Application-level error handling
+- Mapping errors to HTTP/gRPC status codes
+- Adding context to error chains
+- Implementing retry logic
+- Testing error paths
+
+## Library Errors with thiserror
 
 ```rust
-// Result<T, E> for operations that can fail
-fn divide(a: f64, b: f64) -> Result<f64, String> {
-    if b == 0.0 {
-        Err(String::from("Division by zero"))
-    } else {
-        Ok(a / b)
-    }
+use thiserror::Error;
+
+/// Domain-specific error type for libraries
+#[derive(Debug, Error)]
+pub enum UserError {
+    #[error("user not found: {id}")]
+    NotFound { id: String },
+
+    #[error("invalid email format: {email}")]
+    InvalidEmail { email: String },
+
+    #[error("user already exists: {email}")]
+    AlreadyExists { email: String },
+
+    #[error("database error")]
+    Database(#[from] sqlx::Error),
+
+    #[error("validation failed: {field}")]
+    Validation {
+        field: String,
+        #[source]
+        cause: ValidationError,
+    },
 }
 
-fn main() {
-    match divide(10.0, 2.0) {
-        Ok(result) => println!("Result: {}", result),
-        Err(e) => println!("Error: {}", e),
+// Usage
+async fn find_user(id: &str) -> Result<User, UserError> {
+    let user = sqlx::query_as!(User, "SELECT * FROM users WHERE id = $1", id)
+        .fetch_one(&pool)
+        .await?; // Automatically converts sqlx::Error to UserError
+
+    Ok(user)
+}
+```
+
+## Application Errors with anyhow
+
+```rust
+use anyhow::{Context, Result, bail, ensure};
+
+/// Application-level errors with context
+async fn process_order(order_id: &str) -> Result<()> {
+    let order = fetch_order(order_id)
+        .await
+        .context("failed to fetch order")?;
+
+    ensure!(order.status == OrderStatus::Pending, "order not in pending state");
+
+    let payment = process_payment(&order)
+        .await
+        .with_context(|| format!("payment failed for order {}", order_id))?;
+
+    if payment.amount != order.total {
+        bail!("payment amount mismatch: expected {}, got {}", order.total, payment.amount);
+    }
+
+    Ok(())
+}
+```
+
+## Error Classification
+
+### Layered Error Architecture
+
+```rust
+use thiserror::Error;
+
+/// Infrastructure layer errors
+#[derive(Debug, Error)]
+pub enum InfraError {
+    #[error("database connection failed")]
+    DatabaseConnection(#[source] sqlx::Error),
+
+    #[error("cache operation failed")]
+    Cache(#[from] redis::RedisError),
+
+    #[error("message queue error")]
+    MessageQueue(#[source] Box<dyn std::error::Error + Send + Sync>),
+}
+
+/// Domain layer errors
+#[derive(Debug, Error)]
+pub enum DomainError {
+    #[error("business rule violated: {rule}")]
+    BusinessRule { rule: String, context: String },
+
+    #[error("entity not found: {entity_type} with id {id}")]
+    NotFound { entity_type: String, id: String },
+
+    #[error("duplicate entity: {entity_type}")]
+    Duplicate { entity_type: String },
+}
+
+/// Application layer errors (combines all layers)
+#[derive(Debug, Error)]
+pub enum AppError {
+    #[error("domain error: {0}")]
+    Domain(#[from] DomainError),
+
+    #[error("infrastructure error: {0}")]
+    Infrastructure(#[from] InfraError),
+
+    #[error("validation error: {0}")]
+    Validation(#[from] validator::ValidationErrors),
+
+    #[error("authentication failed")]
+    AuthenticationFailed,
+
+    #[error("authorization failed: insufficient permissions")]
+    AuthorizationFailed,
+}
+```
+
+## Protocol Mappings
+
+### HTTP Status Mapping (Axum)
+
+```rust
+use axum::{
+    response::{IntoResponse, Response},
+    http::StatusCode,
+    Json,
+};
+use serde_json::json;
+
+impl IntoResponse for AppError {
+    fn into_response(self) -> Response {
+        let (status, error_type, message) = match self {
+            AppError::Domain(DomainError::NotFound { .. }) => {
+                (StatusCode::NOT_FOUND, "not_found", self.to_string())
+            }
+            AppError::Domain(DomainError::Duplicate { .. }) => {
+                (StatusCode::CONFLICT, "conflict", self.to_string())
+            }
+            AppError::Domain(DomainError::BusinessRule { .. }) => {
+                (StatusCode::UNPROCESSABLE_ENTITY, "business_rule_violation", self.to_string())
+            }
+            AppError::Validation(_) => {
+                (StatusCode::BAD_REQUEST, "validation_error", self.to_string())
+            }
+            AppError::AuthenticationFailed => {
+                (StatusCode::UNAUTHORIZED, "authentication_failed", "Authentication required".to_string())
+            }
+            AppError::AuthorizationFailed => {
+                (StatusCode::FORBIDDEN, "authorization_failed", "Insufficient permissions".to_string())
+            }
+            AppError::Infrastructure(_) => {
+                (StatusCode::INTERNAL_SERVER_ERROR, "internal_error", "Internal server error".to_string())
+            }
+        };
+
+        let body = Json(json!({
+            "error": {
+                "type": error_type,
+                "message": message,
+            }
+        }));
+
+        (status, body).into_response()
     }
 }
 ```
 
-**Option type for optional values:**
+### gRPC Status Mapping (tonic)
 
 ```rust
-fn find_user(id: u32) -> Option<String> {
-    if id == 1 {
-        Some(String::from("Alice"))
-    } else {
-        None
-    }
-}
+use tonic::{Status, Code};
 
-fn main() {
-    match find_user(1) {
-        Some(name) => println!("Found: {}", name),
-        None => println!("User not found"),
-    }
-}
-```
-
-## Error Propagation with ?
-
-**Using ? operator:**
-
-```rust
-use std::fs::File;
-use std::io::{self, Read};
-
-fn read_file(path: &str) -> Result<String, io::Error> {
-    let mut file = File::open(path)?;  // Propagate error
-    let mut contents = String::new();
-    file.read_to_string(&mut contents)?;  // Propagate error
-    Ok(contents)
-}
-
-// Equivalent without ? operator
-fn read_file_explicit(path: &str) -> Result<String, io::Error> {
-    let mut file = match File::open(path) {
-        Ok(f) => f,
-        Err(e) => return Err(e),
-    };
-
-    let mut contents = String::new();
-    match file.read_to_string(&mut contents) {
-        Ok(_) => Ok(contents),
-        Err(e) => Err(e),
+impl From<AppError> for Status {
+    fn from(err: AppError) -> Self {
+        match err {
+            AppError::Domain(DomainError::NotFound { .. }) => {
+                Status::new(Code::NotFound, err.to_string())
+            }
+            AppError::Domain(DomainError::BusinessRule { .. }) => {
+                Status::new(Code::FailedPrecondition, err.to_string())
+            }
+            AppError::Validation(_) => {
+                Status::new(Code::InvalidArgument, err.to_string())
+            }
+            AppError::AuthenticationFailed => {
+                Status::new(Code::Unauthenticated, "Authentication required")
+            }
+            AppError::AuthorizationFailed => {
+                Status::new(Code::PermissionDenied, "Insufficient permissions")
+            }
+            AppError::Infrastructure(_) => {
+                Status::new(Code::Internal, "Internal server error")
+            }
+            _ => Status::new(Code::Unknown, "Unknown error"),
+        }
     }
 }
 ```
 
-**? with Option:**
+## Error Context
+
+### Adding Context with anyhow
 
 ```rust
-fn get_first_char(text: &str) -> Option<char> {
-    text.chars().next()
-}
+use anyhow::{Context, Result};
 
-fn process_text(text: Option<&str>) -> Option<char> {
-    let t = text?;  // Return None if text is None
-    get_first_char(t)
-}
-```
+async fn load_user_profile(user_id: &str) -> Result<UserProfile> {
+    let user = fetch_user(user_id)
+        .await
+        .context("failed to fetch user")?;
 
-## Custom Error Types
+    let profile = fetch_profile(user_id)
+        .await
+        .with_context(|| format!("failed to fetch profile for user {}", user_id))?;
 
-**Simple custom error:**
+    let orders = fetch_orders(user_id)
+        .await
+        .context("failed to fetch user orders")?;
 
-```rust
-use std::fmt;
-
-#[derive(Debug)]
-struct ParseError {
-    message: String,
-}
-
-impl fmt::Display for ParseError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Parse error: {}", self.message)
-    }
-}
-
-impl std::error::Error for ParseError {}
-
-fn parse_number(s: &str) -> Result<i32, ParseError> {
-    s.parse().map_err(|_| ParseError {
-        message: format!("Failed to parse '{}'", s),
+    Ok(UserProfile {
+        user,
+        profile,
+        order_count: orders.len(),
     })
 }
 ```
 
-**Enum-based error type:**
+## Error Patterns
+
+### Early Return with ?
 
 ```rust
-use std::fmt;
-use std::io;
+async fn create_order(request: CreateOrderRequest) -> Result<Order, OrderError> {
+    // Validate early
+    let customer = find_customer(&request.customer_id).await?;
+    let product = find_product(&request.product_id).await?;
 
-#[derive(Debug)]
-enum AppError {
-    Io(io::Error),
-    Parse(String),
-    NotFound(String),
+    // Business validation
+    if product.stock < request.quantity {
+        return Err(OrderError::InsufficientStock {
+            product_id: request.product_id,
+            available: product.stock,
+            requested: request.quantity,
+        });
+    }
+
+    // Create order
+    let order = Order::new(customer, product, request.quantity);
+    save_order(&order).await?;
+
+    Ok(order)
 }
+```
 
-impl fmt::Display for AppError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            AppError::Io(e) => write!(f, "IO error: {}", e),
-            AppError::Parse(msg) => write!(f, "Parse error: {}", msg),
-            AppError::NotFound(item) => write!(f, "Not found: {}", item),
+### Option to Result Conversion
+
+```rust
+async fn get_user_email(user_id: &str) -> Result<String, UserError> {
+    let user = find_user(user_id).await?;
+
+    // Convert Option to Result
+    user.email.ok_or_else(|| UserError::EmailNotSet {
+        user_id: user_id.to_string(),
+    })
+}
+```
+
+## Retry Logic
+
+### Simple Retry with Exponential Backoff
+
+```rust
+use tokio::time::{sleep, Duration};
+
+async fn retry_with_backoff<F, Fut, T, E>(
+    mut operation: F,
+    max_attempts: u32,
+) -> Result<T, E>
+where
+    F: FnMut() -> Fut,
+    Fut: Future<Output = Result<T, E>>,
+    E: std::fmt::Display,
+{
+    let mut attempts = 0;
+    let base_delay = Duration::from_millis(100);
+
+    loop {
+        attempts += 1;
+
+        match operation().await {
+            Ok(result) => return Ok(result),
+            Err(e) if attempts >= max_attempts => return Err(e),
+            Err(e) => {
+                let delay = base_delay * 2_u32.pow(attempts - 1);
+                eprintln!("Attempt {} failed, waiting {:?}", attempts, delay);
+                sleep(delay).await;
+            }
         }
     }
 }
 
-impl std::error::Error for AppError {}
-
-impl From<io::Error> for AppError {
-    fn from(error: io::Error) -> Self {
-        AppError::Io(error)
-    }
-}
-
-fn process_file(path: &str) -> Result<String, AppError> {
-    let content = std::fs::read_to_string(path)?;  // io::Error auto-converted
-
-    if content.is_empty() {
-        Err(AppError::NotFound(path.to_string()))
-    } else {
-        Ok(content)
-    }
-}
+// Usage
+let result = retry_with_backoff(
+    || async { fetch_user("user_123").await },
+    3,
+).await?;
 ```
 
-## thiserror Library
-
-**Install thiserror:**
-
-```bash
-cargo add thiserror
-```
-
-**Using thiserror for custom errors:**
-
-```rust
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-enum DataError {
-    #[error("IO error: {0}")]
-    Io(#[from] std::io::Error),
-
-    #[error("Parse error: {0}")]
-    Parse(String),
-
-    #[error("Validation failed: {field} is invalid")]
-    Validation { field: String },
-
-    #[error("Not found: {0}")]
-    NotFound(String),
-}
-
-fn validate_user(name: &str) -> Result<(), DataError> {
-    if name.is_empty() {
-        return Err(DataError::Validation {
-            field: "name".to_string(),
-        });
-    }
-    Ok(())
-}
-
-fn load_data(path: &str) -> Result<String, DataError> {
-    let data = std::fs::read_to_string(path)?;  // Auto-converts io::Error
-
-    if data.is_empty() {
-        return Err(DataError::NotFound(path.to_string()));
-    }
-
-    Ok(data)
-}
-```
-
-**thiserror with source errors:**
-
-```rust
-use thiserror::Error;
-use std::io;
-
-#[derive(Error, Debug)]
-enum ConfigError {
-    #[error("Failed to read config file")]
-    ReadError {
-        #[source]
-        source: io::Error,
-    },
-
-    #[error("Invalid config format")]
-    ParseError {
-        #[source]
-        source: serde_json::Error,
-    },
-}
-```
-
-## anyhow Library
-
-**Install anyhow:**
-
-```bash
-cargo add anyhow
-```
-
-**Using anyhow for application errors:**
-
-```rust
-use anyhow::{Result, Context, anyhow, bail};
-
-fn read_config(path: &str) -> Result<String> {
-    let content = std::fs::read_to_string(path)
-        .context("Failed to read config file")?;
-
-    if content.is_empty() {
-        bail!("Config file is empty");
-    }
-
-    Ok(content)
-}
-
-fn process_data(value: i32) -> Result<i32> {
-    if value < 0 {
-        return Err(anyhow!("Value must be positive, got {}", value));
-    }
-    Ok(value * 2)
-}
-
-fn main() -> Result<()> {
-    let config = read_config("config.toml")
-        .context("Failed to load configuration")?;
-
-    let value = process_data(42)?;
-
-    println!("Value: {}", value);
-    Ok(())
-}
-```
-
-**anyhow with context chaining:**
-
-```rust
-use anyhow::{Result, Context};
-
-fn load_user(id: u32) -> Result<String> {
-    fetch_from_database(id)
-        .context("Database query failed")?
-        .parse()
-        .context(format!("Failed to parse user {}", id))
-}
-
-fn fetch_from_database(id: u32) -> Result<String> {
-    // Implementation
-    Ok(format!("user_{}", id))
-}
-```
-
-## Error Conversion
-
-**Converting between error types:**
-
-```rust
-use std::io;
-use std::num::ParseIntError;
-
-enum AppError {
-    Io(io::Error),
-    Parse(ParseIntError),
-}
-
-impl From<io::Error> for AppError {
-    fn from(error: io::Error) -> Self {
-        AppError::Io(error)
-    }
-}
-
-impl From<ParseIntError> for AppError {
-    fn from(error: ParseIntError) -> Self {
-        AppError::Parse(error)
-    }
-}
-
-fn process() -> Result<i32, AppError> {
-    let content = std::fs::read_to_string("file.txt")?;
-    let number: i32 = content.trim().parse()?;
-    Ok(number)
-}
-```
-
-## unwrap and expect
-
-**When to use unwrap and expect:**
-
-```rust
-fn unwrap_examples() {
-    // unwrap: panics with generic message
-    let value = Some(42).unwrap();
-
-    // expect: panics with custom message
-    let value = Some(42).expect("Value should be present");
-
-    // Only use in:
-    // 1. Tests
-    // 2. Prototypes
-    // 3. When you're certain it won't panic
-
-    // Better: handle the error
-    if let Some(value) = get_value() {
-        println!("{}", value);
-    }
-}
-
-fn get_value() -> Option<i32> {
-    Some(42)
-}
-```
-
-## Result Combinators
-
-**Using Result methods:**
-
-```rust
-fn combinators() -> Result<i32, String> {
-    // map: transform Ok value
-    let result = Ok(5).map(|x| x * 2);  // Ok(10)
-
-    // map_err: transform Err value
-    let result = Err("error").map_err(|e| format!("Error: {}", e));
-
-    // and_then (flatMap): chain operations
-    let result = Ok(5)
-        .and_then(|x| Ok(x * 2))
-        .and_then(|x| Ok(x + 1));  // Ok(11)
-
-    // or_else: provide alternative on error
-    let result = Err("error")
-        .or_else(|_| Ok(42));  // Ok(42)
-
-    // unwrap_or: provide default on error
-    let value = Err("error").unwrap_or(42);  // 42
-
-    // unwrap_or_else: compute default on error
-    let value = Err("error").unwrap_or_else(|_| 42);  // 42
-
-    Ok(value)
-}
-```
-
-## Option Combinators
-
-**Using Option methods:**
-
-```rust
-fn option_combinators() {
-    // map: transform Some value
-    let result = Some(5).map(|x| x * 2);  // Some(10)
-
-    // and_then (flatMap): chain operations
-    let result = Some(5)
-        .and_then(|x| Some(x * 2))
-        .and_then(|x| Some(x + 1));  // Some(11)
-
-    // or: provide alternative
-    let result = None.or(Some(42));  // Some(42)
-
-    // unwrap_or: provide default
-    let value = None.unwrap_or(42);  // 42
-
-    // filter: keep only if predicate is true
-    let result = Some(5).filter(|x| x > &3);  // Some(5)
-    let result = Some(2).filter(|x| x > &3);  // None
-
-    // ok_or: convert Option to Result
-    let result: Result<i32, &str> = Some(5).ok_or("error");  // Ok(5)
-}
-```
-
-## Pattern Matching
-
-**Comprehensive error handling with match:**
-
-```rust
-use std::fs::File;
-use std::io::ErrorKind;
-
-fn open_file(path: &str) -> File {
-    let file = match File::open(path) {
-        Ok(file) => file,
-        Err(error) => match error.kind() {
-            ErrorKind::NotFound => {
-                match File::create(path) {
-                    Ok(file) => file,
-                    Err(e) => panic!("Failed to create file: {:?}", e),
-                }
-            }
-            ErrorKind::PermissionDenied => {
-                panic!("Permission denied: {}", path);
-            }
-            other_error => {
-                panic!("Failed to open file: {:?}", other_error);
-            }
-        },
-    };
-
-    file
-}
-```
-
-**if let for simple cases:**
-
-```rust
-fn simple_match(result: Result<i32, String>) {
-    // Handle only the success case
-    if let Ok(value) = result {
-        println!("Got value: {}", value);
-    }
-
-    // Handle only the error case
-    if let Err(e) = result {
-        eprintln!("Error: {}", e);
-    }
-}
-```
-
-## Panic vs Result
-
-**When to panic:**
-
-```rust
-// Panic for unrecoverable errors or bugs
-fn get_element(index: usize) -> i32 {
-    let data = vec![1, 2, 3];
-
-    // Panic if index out of bounds (programmer error)
-    data[index]
-}
-
-// Use Result for expected errors
-fn safe_get_element(index: usize) -> Option<i32> {
-    let data = vec![1, 2, 3];
-    data.get(index).copied()
-}
-
-// Custom panic messages
-fn validate_config(value: i32) {
-    if value < 0 {
-        panic!("Config value must be positive, got {}", value);
-    }
-}
-
-// Conditional panic
-fn debug_only_panic(condition: bool) {
-    debug_assert!(condition, "This only panics in debug builds");
-}
-```
-
-## Error Handling in Tests
-
-**Testing error conditions:**
+## Testing Errors
 
 ```rust
 #[cfg(test)]
@@ -503,86 +336,48 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_success() {
-        let result = divide(10.0, 2.0);
-        assert!(result.is_ok());
-        assert_eq!(result.unwrap(), 5.0);
+    fn test_error_conversion() {
+        let db_error = sqlx::Error::RowNotFound;
+        let user_error: UserError = db_error.into();
+
+        assert!(matches!(user_error, UserError::Database(_)));
     }
 
-    #[test]
-    fn test_error() {
-        let result = divide(10.0, 0.0);
+    #[tokio::test]
+    async fn test_not_found_error() {
+        let result = find_user("nonexistent").await;
+
         assert!(result.is_err());
+        assert!(matches!(result.unwrap_err(), UserError::NotFound { .. }));
     }
 
     #[test]
-    #[should_panic(expected = "Division by zero")]
-    fn test_panic() {
-        panic!("Division by zero");
-    }
+    fn test_error_display() {
+        let error = UserError::InvalidEmail {
+            email: "invalid".to_string(),
+        };
 
-    #[test]
-    fn test_with_question_mark() -> Result<(), String> {
-        let result = divide(10.0, 2.0)?;
-        assert_eq!(result, 5.0);
-        Ok(())
-    }
-}
-
-fn divide(a: f64, b: f64) -> Result<f64, String> {
-    if b == 0.0 {
-        Err(String::from("Division by zero"))
-    } else {
-        Ok(a / b)
+        assert_eq!(error.to_string(), "invalid email format: invalid");
     }
 }
 ```
 
-## When to Use This Skill
-
-Use rust-error-handling when you need to:
-
-- Handle recoverable errors with Result
-- Work with optional values using Option
-- Create custom error types for your domain
-- Use thiserror for library error types
-- Use anyhow for application-level errors
-- Propagate errors with the ? operator
-- Convert between different error types
-- Provide context to errors
-- Implement comprehensive error handling
-- Write robust error messages for debugging
-
 ## Best Practices
 
-- Use Result for recoverable errors, panic for unrecoverable ones
-- Provide context with anyhow::Context in applications
-- Use thiserror for library error types
-- Implement Display and Error trait for custom errors
-- Use ? operator for error propagation
-- Avoid unwrap/expect in production code
-- Return errors instead of logging and continuing
-- Make error messages actionable and descriptive
-- Use type system to prevent errors at compile time
-- Document expected errors in function documentation
+1. **Libraries use thiserror**: Concrete error types with `#[derive(Error)]`
+2. **Applications use anyhow**: Dynamic errors with context chains
+3. **Classify errors**: Validation, Business Logic, Infrastructure
+4. **Map to protocols**: HTTP status codes, gRPC codes
+5. **Add context**: Use `.context()` and `.with_context()`
+6. **Fail fast**: Validate early, return errors immediately
+7. **Don't panic in libraries**: Return `Result` instead
+8. **Preserve error chains**: Use `#[source]` and `#[from]`
+9. **Test error paths**: Verify error types and messages
 
-## Common Pitfalls
+## Common Dependencies
 
-- Overusing unwrap() leading to panics in production
-- Not providing enough context in error messages
-- Mixing panic and Result inconsistently
-- Creating overly generic error types (String)
-- Not implementing From for error conversions
-- Ignoring errors with let _ = result
-- Using Result when Option is more appropriate
-- Not handling all error variants in match
-- Creating error types that are hard to use
-- Forgetting to propagate errors up the call stack
-
-## Resources
-
-- [Rust Book - Error Handling](https://doc.rust-lang.org/book/ch09-00-error-handling.html)
-- [thiserror Documentation](https://docs.rs/thiserror/)
-- [anyhow Documentation](https://docs.rs/anyhow/)
-- [Rust By Example - Error Handling](https://doc.rust-lang.org/rust-by-example/error.html)
-- [Error Handling Survey](https://blog.burntsushi.net/rust-error-handling/)
+```toml
+[dependencies]
+thiserror = "2"
+anyhow = "1"
+```

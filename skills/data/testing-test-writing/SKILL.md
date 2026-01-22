@@ -1,6 +1,6 @@
 ---
 name: Testing Test Writing
-description: Write focused tests for core user flows and critical paths using Pest framework, with minimal tests during development and strategic coverage at completion points. Use this skill when creating or editing test files in tests/Feature/ or tests/Unit/ directories, when writing Pest tests with descriptive names, when testing critical user workflows and business logic, when mocking external dependencies, when implementing fast unit tests, when testing behavior rather than implementation details, or when deciding what needs test coverage at feature completion.
+description: Write strategic, behavior-focused tests for core user flows and critical functionality using Vitest for unit tests and Playwright for end-to-end testing. Use this skill when writing test files, testing utilities, or implementing test coverage for critical paths. When working on Vitest test files (.test.ts, .spec.ts), Playwright E2E test suites, test setup and configuration files (vitest.config.ts, test-setup.ts), mock implementations for external dependencies, testing utility functions or test helpers, component test files using React Testing Library, API route test files, or integration tests for Content Collections and data fetching logic.
 ---
 
 # Testing Test Writing
@@ -9,18 +9,17 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When creating new test files in `tests/Feature/` or `tests/Unit/` directories
-- When writing Pest tests with descriptive, clear test names
-- When testing core user workflows and critical business paths
-- When deciding what needs test coverage at feature completion points
-- When mocking external dependencies (databases, APIs, file systems, services)
-- When writing fast-executing unit tests
-- When focusing tests on behavior and outcomes rather than implementation details
-- When using Pest datasets to handle multiple test scenarios efficiently
-- When testing validation rules, business logic, or API endpoints
-- When implementing integration tests for critical features
-- When running tests before committing code changes
-- When skipping tests for non-critical utilities or edge cases (until explicitly required)
+- When writing Vitest unit tests for utilities, components, or business logic
+- When creating Playwright E2E tests for critical user workflows
+- When testing API routes and server-side logic
+- When implementing mocks for external dependencies (APIs, databases, file systems)
+- When testing Content Collection queries and data transformations
+- When writing integration tests for data fetching logic
+- When setting up test configurations (vitest.config.ts, test-setup.ts)
+- When using React Testing Library for component testing
+- When focusing tests on behavior rather than implementation details
+- When writing clear, descriptive test names that explain expected outcomes
+- When prioritizing tests for core user flows over edge cases during development
 
 ## Instructions
 

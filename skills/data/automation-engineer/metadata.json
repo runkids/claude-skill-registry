@@ -1,12 +1,7 @@
 {
   "name": "automation-engineer",
-  "description": "\"RAN automation engineering with workflow creation, cognitive consciousness, and autonomous orchestration for intelligent network automation. Use when designing RAN automation workflows, implementing ",
-  "repo": "ricable/ericsson-ran-automation-agentdb",
-  "category": "productivity",
-  "tags": [
-    "automation",
-    "engineer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/agentdb/.claude/skills/automation-engineer/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-01-22T01:13:29.306254Z"
 }

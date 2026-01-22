@@ -1,633 +1,168 @@
 ---
 name: research
-description: Systematic investigation and root cause analysis. Use when debugging persistent issues, understanding complex systems, or before making architectural decisions.
+description: "Technical research methodology with YAGNI/KISS/DRY principles. Phases: scope definition, information gathering, analysis, synthesis, recommendation. Capabilities: technology evaluation, architecture analysis, best practices research, trade-off assessment, solution design. Actions: research, analyze, evaluate, compare, recommend technical solutions. Keywords: research, technology evaluation, best practices, architecture analysis, trade-offs, scalability, security, maintainability, YAGNI, KISS, DRY, technical analysis, solution design, competitive analysis, feasibility study. Use when: researching technologies, evaluating architectures, analyzing best practices, comparing solutions, assessing technical trade-offs, planning scalable/secure systems."
+license: MIT
 ---
 
-# Research Skill
+# Research
 
-**Tech Stack**: AWS CLI, Git, ripgrep, jq, curl, browser DevTools
+## Research Methodology
 
-**Source**: Extracted from CLAUDE.md investigation principles and debugging patterns.
+Always honoring **YAGNI**, **KISS**, and **DRY** principles.
+**Be honest, be brutal, straight to the point, and be concise.**
 
----
+### Phase 1: Scope Definition
 
-## When to Use This Skill
+First, you will clearly define the research scope by:
+- Identifying key terms and concepts to investigate
+- Determining the recency requirements (how current must information be)
+- Establishing evaluation criteria for sources
+- Setting boundaries for the research depth
 
-Use the research skill when:
-- ✓ Same bug persists after 2+ fix attempts
-- ✓ Need to understand unfamiliar codebase
-- ✓ Investigating production incidents
-- ✓ Making architectural decisions
-- ✓ Debugging complex system interactions
-- ✓ Learning new technology/library
+### Phase 2: Systematic Information Gathering
 
-**DO NOT use this skill for:**
-- ✗ First fix attempt (try the obvious solution first)
-- ✗ Well-understood problems (just fix it)
-- ✗ Time-critical incidents (fix first, investigate later)
+You will employ a multi-source research strategy:
 
----
+1. **Search Strategy**:
+   - Check if `gemini` bash command is available, if so, execute `gemini -m gemini-3-preview-p "...your search prompt..."` bash command (timeout: 10 minutes) and save the output to `./plans/<plan-name>/reports/YYMMDD-<your-research-topic>.md` file (including all citations).
+   - If `gemini` bash command is not available, fallback to `WebSearch` tool.
+   - Run multiple `gemini` bash commands or `WebSearch` tools in parallel to search for relevant information.
+   - Craft precise search queries with relevant keywords
+   - Include terms like "best practices", "2024", "latest", "security", "performance"
+   - Search for official documentation, GitHub repositories, and authoritative blogs
+   - Prioritize results from recognized authorities (official docs, major tech companies, respected developers)
+   - **IMPORTANT:** You are allowed to perform at most **5 researches (max 5 tool calls)**, user might request less than this amount, **strictly respect it**, think carefully based on the task before performing each related research topic.
 
-## Quick Research Decision Tree
+2. **Deep Content Analysis**:
+   - When you found a potential Github repository URL, use `docs-seeker` skill to find read it.
+   - Focus on official documentation, API references, and technical specifications
+   - Analyze README files from popular GitHub repositories
+   - Review changelog and release notes for version-specific information
 
-```
-What's the problem?
-├─ First time seeing this issue?
-│  ├─ YES → Try obvious fix (iteration)
-│  └─ NO → Same bug after 2 attempts? → RESEARCH
-│
-├─ Production incident?
-│  ├─ Affecting users NOW? → Rollback/hotfix first, research later
-│  └─ Post-incident analysis? → Deep research
-│
-├─ Need to understand codebase?
-│  ├─ Specific function/module? → Read code + tests
-│  ├─ System architecture? → Trace request flow
-│  └─ Historical context? → Git blame + commit history
-│
-├─ Technology decision?
-│  ├─ Read official docs (not blog posts)
-│  ├─ Compare alternatives (trade-offs)
-│  ├─ Prototype with real use case
-│  └─ Document decision (ADR)
-│
-└─ API/Library integration?
-   ├─ Read type requirements (don't assume)
-   ├─ Check version compatibility
-   ├─ Test minimal example
-   └─ Verify with actual data
-```
+3. **Video Content Research**:
+   - Prioritize content from official channels, recognized experts, and major conferences
+   - Focus on practical demonstrations and real-world implementations
 
----
+4. **Cross-Reference Validation**:
+   - Verify information across multiple independent sources
+   - Check publication dates to ensure currency
+   - Identify consensus vs. controversial approaches
+   - Note any conflicting information or debates in the community
 
-## Loop Pattern: Meta-Loop → Initial-Sensitive
+### Phase 3: Analysis and Synthesis
 
-**Escalation Trigger**:
-- `/reflect` reveals: "I've tried 3 fixes, all failed with same error"
-- `/trace` output identical across attempts
-- **Pattern**: Stuck in retrying loop (execution changes, outcome doesn't)
-- **Action**: Use `/hypothesis` to question assumptions (switch to initial-sensitive)
+You will analyze gathered information by:
+- Identifying common patterns and best practices
+- Evaluating pros and cons of different approaches
+- Assessing maturity and stability of technologies
+- Recognizing security implications and performance considerations
+- Determining compatibility and integration requirements
 
-**Tools Used**:
-- `/observe` - Notice system behavior (what's failing)
-- `/hypothesis` - Generate alternative explanations (why might it fail differently than I think?)
-- `/research` - Test hypotheses systematically
-- `/validate` - Check if new understanding correct
-- `/reflect` - Synthesize learnings after investigation
+### Phase 4: Report Generation
 
-**Why This Works**: Research skill naturally fits initial-sensitive loop—you're questioning assumptions, not just fixing execution.
+**Notes:** 
+- Research reports are saved in `./plans/<plan-name>/reports/YYMMDD-<your-research-topic>.md`.
+- If you are not given a plan name, ask main agent to provide it and continue the process.
 
-See [Thinking Process Architecture - Feedback Loops](../../.claude/diagrams/thinking-process-architecture.md#11-feedback-loop-types-self-healing-properties) for structural overview.
+You will create a comprehensive markdown report with the following structure:
 
----
+```markdown
+# Research Report: [Topic]
 
-## Core Research Principles
+## Executive Summary
+[2-3 paragraph overview of key findings and recommendations]
 
-### Principle 1: Research Before Iteration
+## Research Methodology
+- Sources consulted: [number]
+- Date range of materials: [earliest to most recent]
+- Key search terms used: [list]
 
-**From CLAUDE.md:**
-> "When same bug persists after 2 fix attempts, STOP iterating and START researching. Invest 30-60 minutes understanding root cause instead of deploying more guesses."
+## Key Findings
 
-**Why This Matters:**
-- ❌ Iteration: Fast feedback, but wasteful after 2+ failed attempts
-- ✅ Research: Upfront cost, prevents 3+ failed deployment cycles
+### 1. Technology Overview
+[Comprehensive description of the technology/topic]
 
-**Pattern:**
+### 2. Current State & Trends
+[Latest developments, version information, adoption trends]
 
-```
-Attempt 1: Hypothesis + Deploy (8 minutes)
-  ↓ Failed
-Attempt 2: Different hypothesis + Deploy (8 minutes)
-  ↓ Failed
-Attempt 3: ❌ STOP - Don't deploy another guess
+### 3. Best Practices
+[Detailed list of recommended practices with explanations]
 
-SWITCH TO RESEARCH MODE:
-  - Read specs/docs (15 minutes)
-  - Inspect real data (10 minutes)
-  - Reproduce locally (20 minutes)
-  - Identify root cause (15 minutes)
-  ↓ Total: 60 minutes research
+### 4. Security Considerations
+[Security implications, vulnerabilities, and mitigation strategies]
 
-Attempt 3 (with root cause): Deploy fix (8 minutes)
-  ✅ Success
+### 5. Performance Insights
+[Performance characteristics, optimization techniques, benchmarks]
 
-Total time: 76 minutes (vs 120+ minutes with blind iteration)
-```
+## Comparative Analysis
+[If applicable, comparison of different solutions/approaches]
 
-### Principle 2: Read Primary Sources
+## Implementation Recommendations
 
-**Hierarchy of Information Quality:**
+### Quick Start Guide
+[Step-by-step getting started instructions]
 
-| Source Type | Reliability | When to Use |
-|-------------|-------------|-------------|
-| **Official Docs** | Highest | First stop for API behavior, type requirements |
-| **Source Code** | Very High | When docs are unclear or incomplete |
-| **GitHub Issues** | High | For known bugs, edge cases, workarounds |
-| **Stack Overflow** | Medium | For common problems, after reading docs |
-| **Blog Posts** | Low | For general concepts, not implementation details |
-| **ChatGPT/AI** | Lowest | Starting point only, always verify |
+### Code Examples
+[Relevant code snippets with explanations]
 
-**Example: Type System Integration**
+### Common Pitfalls
+[Mistakes to avoid and their solutions]
 
-```bash
-# ❌ DON'T: Ask ChatGPT "Does PyMySQL accept dicts for JSON columns?"
-# ChatGPT might hallucinate or give outdated answer
+## Resources & References
 
-# ✅ DO: Read PyMySQL documentation
-open https://pymysql.readthedocs.io/en/latest/
+### Official Documentation
+- [Linked list of official docs]
 
-# ✅ DO: Test with minimal example
-python3 << 'EOF'
-import pymysql
-import json
+### Recommended Tutorials
+- [Curated list with descriptions]
 
-# Test: Does PyMySQL accept dict for JSON column?
-data = {'key': 'value'}
+### Community Resources
+- [Forums, Discord servers, Stack Overflow tags]
 
-try:
-    cursor.execute("INSERT INTO test (json_col) VALUES (%s)", (data,))
-    print("✅ Dict accepted")
-except TypeError as e:
-    print(f"❌ Dict rejected: {e}")
-    # Try JSON string instead
-    cursor.execute("INSERT INTO test (json_col) VALUES (%s)", (json.dumps(data),))
-    print("✅ JSON string accepted")
-EOF
+### Further Reading
+- [Advanced topics and deep dives]
+
+## Appendices
+
+### A. Glossary
+[Technical terms and definitions]
+
+### B. Version Compatibility Matrix
+[If applicable]
+
+### C. Raw Research Notes
+[Optional: detailed notes from research process]
 ```
 
-### Principle 3: Reproduce Locally
-
-**Before deploying fixes, reproduce the issue locally.**
-
-**Benefits:**
-- ✅ Fast iteration (seconds vs minutes)
-- ✅ Can debug with breakpoints
-- ✅ No cloud costs
-- ✅ Can test edge cases easily
-
-**Pattern:**
-
-```bash
-# Step 1: Extract minimal failing case
-# Instead of testing entire Lambda function...
-
-# ❌ BAD: Deploy to AWS, check logs, repeat
-aws lambda invoke --function-name worker --payload '{}' /tmp/response.json
-# Wait 30 seconds for CloudWatch logs...
-
-# ✅ GOOD: Reproduce locally
-python3 << 'EOF'
-from src.data.news_fetcher import NewsFetcher
-
-# Exact same code as Lambda
-fetcher = NewsFetcher()
-result = fetcher.fetch_news('NVDA19')
-print(result)  # Immediate feedback
-EOF
-```
-
-### Principle 4: Inspect Real Data
-
-**Don't assume data shape—verify with actual examples.**
-
-**Common Mistakes:**
-- Assuming API returns dict (might return list)
-- Assuming field exists (might be null/missing)
-- Assuming type (might be string not int)
-
-**Pattern:**
-
-```bash
-# ❌ DON'T: Assume
-# "The API returns a list of tickers"
-
-# ✅ DO: Verify
-curl -s https://api.example.com/tickers | jq . > sample_response.json
-cat sample_response.json
-
-# Inspect structure:
-# - Is it a list or dict?
-# - What fields are present?
-# - What types are they?
-# - Any null values?
-# - Any nested structures?
-```
-
-**Example: Aurora Schema Investigation**
-
-```bash
-# Connect to Aurora via SSM tunnel
-aws ssm start-session \
-  --target i-1234567890abcdef0 \
-  --document-name AWS-StartPortForwardingSessionToRemoteHost \
-  --parameters '{"host":["aurora-endpoint"],"portNumber":["3306"],"localPortNumber":["3307"]}'
-
-# Inspect actual schema (don't assume)
-mysql -h 127.0.0.1 -P 3307 -u admin -p << 'SQL'
-DESCRIBE precomputed_reports;
-
--- Check actual data types
-SELECT
-  symbol,
-  report_json,
-  typeof(report_json) as json_type
-FROM precomputed_reports
-LIMIT 1 \G
-
--- Check for null values
-SELECT COUNT(*) as total,
-       SUM(CASE WHEN report_json IS NULL THEN 1 ELSE 0 END) as null_count
-FROM precomputed_reports;
-SQL
-```
-
----
-
-## Research Workflow
-
-See [WORKFLOW.md](WORKFLOW.md) for detailed step-by-step research process.
-
----
-
-## Investigation Checklist
-
-See [INVESTIGATION-CHECKLIST.md](INVESTIGATION-CHECKLIST.md) for systematic debugging checklist.
-
----
-
-## Boundary Verification
-
-**When**: Investigating distributed systems (Lambda, Aurora, S3, SQS, Step Functions)
-
-**Problem**: Code looks correct but fails in production due to unverified execution boundaries
-
-**Critical questions**:
-- WHERE does this code run? (Lambda, EC2, local?)
-- WHAT environment does it require? (env vars, network, permissions?)
-- WHAT external systems does it call? (Aurora schema, S3 bucket, API format?)
-- WHAT are entity properties? (Lambda timeout/memory, Aurora connection limits, intended usage)
-- HOW do I verify the contract? (Terraform config, SHOW COLUMNS, test access?)
-
-**Five layers of correctness**:
-1. **Syntactic**: Code compiles (Python syntax valid)
-2. **Semantic**: Code does what it claims (logic correct)
-3. **Boundary**: Code can reach what it needs (network, permissions)
-4. **Configuration**: Entity config matches code requirements (timeout, memory)
-5. **Intentional**: Usage matches designed purpose (sync Lambda not for async work)
-
-**When to apply**:
-- "Code looks correct but doesn't work" bugs
-- Multi-service workflows (Lambda → Aurora → S3)
-- After 2 failed deployment attempts (infrastructure issues)
-- Before concluding "code is correct" (verify execution context)
-
-**Verification workflow**:
-```
-1. Identify execution boundaries (code → runtime, code → database, service → service)
-2. Identify physical entities (WHICH Lambda, WHICH Aurora, WHICH S3 bucket)
-3. Verify configuration matches requirements (timeout, memory, concurrency)
-4. Verify intention matches usage (async Lambda not for sync API)
-5. Progress through evidence layers (code → config → runtime → ground truth)
-```
-
-**Integration with research workflow**:
-- **Phase 1 (Observe)**: Notice boundary-related failure (timeout, permission denied, schema mismatch)
-- **Phase 2 (Hypothesize)**: Identify which boundary might be violated
-- **Phase 3 (Research)**: Apply boundary verification checklist systematically
-- **Phase 4 (Validate)**: Verify contract through ground truth (test actual execution)
-
-**See**: [Execution Boundary Checklist](../../checklists/execution-boundaries.md) for comprehensive verification workflow
-
-**Related principles**:
-- Principle #20 (Execution Boundary Discipline) - CLAUDE.md
-- Principle #2 (Progressive Evidence Strengthening) - Verify through all layers
-- Principle #15 (Infrastructure-Application Contract) - Sync code and infrastructure
-
----
-
-## Architectural Investigations
-
-**When**: Choosing between technologies, patterns, or architectural approaches
-
-**Problem**: "X vs Y" comparisons get vague "it depends" answers without structured analysis
-
-**Solution**: Apply OWL-based relationship analysis framework for systematic comparison
-
-**Steps**:
-1. **Define concepts being compared**
-   - What is X? (definition, location, purpose, examples)
-   - What is Y? (definition, location, purpose, examples)
-
-2. **Apply 4 relationship types**:
-   - **Part-Whole**: Is one part of the other, or are they peers?
-   - **Complement**: Do they handle non-overlapping concerns that work together?
-   - **Substitution**: Can one replace the other? Under what conditions?
-   - **Composition**: Can they be layered/composed into a multi-tier system?
-
-3. **Document with concrete examples**
-   - Provide real scenarios, not abstract theory
-   - Include trade-off analysis (what you gain vs lose)
-
-4. **Make recommendation based on analysis**
-   - Grounded in relationship analysis, not intuition
-   - Include anti-patterns to avoid
-
-**See**: [Relationship Analysis Guide](docs/RELATIONSHIP_ANALYSIS.md) for comprehensive methodology
-
-**Example Use Cases**:
-- "Should I use Redis or DynamoDB for caching?" → Apply substitution & composition analysis
-- "How do CDN and application caching relate?" → Apply complement & composition analysis
-- "Microservices vs Monolith?" → Apply part-whole & trade-off analysis
-
----
-
-## Common Research Scenarios
-
-### Scenario 1: Type System Mismatch
-
-**Symptom:** Same error after 2 attempts, silent failure
-
-**Research Steps:**
-
-1. **Read Target System Documentation**
-   ```bash
-   # PyMySQL docs
-   open https://pymysql.readthedocs.io/en/latest/modules/cursors.html
-
-   # Look for: What types does execute() accept?
-   ```
-
-2. **Test Minimal Example**
-   ```python
-   import pymysql
-   import json
-
-   # Test hypothesis: Dict vs JSON string
-   data = {'key': 'value'}
-
-   # Test 1: Dict
-   try:
-       cursor.execute("INSERT INTO test (json_col) VALUES (%s)", (data,))
-   except TypeError as e:
-       print(f"Dict failed: {e}")
-
-   # Test 2: JSON string
-   cursor.execute("INSERT INTO test (json_col) VALUES (%s)", (json.dumps(data),))
-   print("JSON string succeeded")
-   ```
-
-3. **Apply Fix with Confidence**
-   ```python
-   # Now we KNOW json.dumps() is required
-   def store_report(symbol: str, report_json: dict):
-       cursor.execute(
-           "INSERT INTO reports (symbol, report_json) VALUES (%s, %s)",
-           (symbol, json.dumps(report_json))  # Convert to string
-       )
-   ```
-
-### Scenario 2: Production Incident
-
-**Symptom:** Users reporting errors, dashboard shows spike
-
-**Research Steps:**
-
-1. **Triage (< 5 minutes)**
-   ```bash
-   # Check error count
-   aws logs filter-log-events \
-     --log-group-name /aws/lambda/worker \
-     --start-time $(($(date +%s) - 600))000 \
-     --filter-pattern "ERROR" \
-     --query 'length(events)'
-
-   # Check when it started
-   aws cloudwatch get-metric-statistics \
-     --namespace AWS/Lambda \
-     --metric-name Errors \
-     --dimensions Name=FunctionName,Value=worker \
-     --start-time $(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%S) \
-     --end-time $(date -u +%Y-%m-%dT%H:%M:%S) \
-     --period 60 \
-     --statistics Sum
-   ```
-
-2. **Immediate Mitigation (< 10 minutes)**
-   ```bash
-   # Rollback to previous version
-   CURRENT=$(aws lambda get-alias --function-name worker --name live \
-     --query 'FunctionVersion' --output text)
-
-   PREVIOUS=$((CURRENT - 1))
-
-   aws lambda update-alias \
-     --function-name worker \
-     --name live \
-     --function-version $PREVIOUS
-
-   echo "Rolled back from v$CURRENT to v$PREVIOUS"
-   ```
-
-3. **Post-Incident Analysis (30-60 minutes)**
-   ```bash
-   # Collect evidence
-   mkdir incident-$(date +%Y%m%d-%H%M%S)
-   cd incident-*
-
-   # Export error logs
-   aws logs filter-log-events \
-     --log-group-name /aws/lambda/worker \
-     --start-time $INCIDENT_START \
-     --end-time $INCIDENT_END \
-     --filter-pattern "ERROR" > errors.json
-
-   # Export metrics
-   aws cloudwatch get-metric-statistics ... > metrics.json
-
-   # Get deployment diff
-   git diff v$PREVIOUS v$CURRENT > deployment.diff
-
-   # Analyze (root cause analysis)
-   # - What changed?
-   # - What failed?
-   # - Why did it fail?
-   # - How to prevent?
-   ```
-
-### Scenario 3: Unfamiliar Codebase
-
-**Task:** Add feature to module you've never seen
-
-**Research Steps:**
-
-1. **Find Entry Point**
-   ```bash
-   # Search for main function
-   rg "def main" --type py
-
-   # Search for Lambda handler
-   rg "def lambda_handler" --type py
-
-   # Search for CLI entry point
-   rg "click.command" --type py
-   ```
-
-2. **Trace Request Flow**
-   ```bash
-   # Example: How does a ticker report get generated?
-
-   # Step 1: Find API endpoint
-   rg "\/api\/reports" src/
-   # Found: src/telegram/api/routes/reports.py
-
-   # Step 2: Read route handler
-   cat src/telegram/api/routes/reports.py
-   # Calls: ReportService.generate_report()
-
-   # Step 3: Find service
-   rg "class ReportService" src/
-   # Found: src/telegram/services/report_service.py
-
-   # Step 4: Read service
-   cat src/telegram/services/report_service.py
-   # Calls: workflow.run() with AgentState
-
-   # Step 5: Find workflow
-   rg "def run" src/workflow/
-   # Found: src/workflow/graph.py
-   ```
-
-3. **Read Tests for Examples**
-   ```bash
-   # Tests show how to use the code
-   rg "test.*generate_report" tests/ --type py
-
-   cat tests/telegram/services/test_report_service.py
-   # Shows:
-   # - How to mock dependencies
-   # - Expected input format
-   # - Expected output structure
-   ```
-
-4. **Check Git History for Context**
-   ```bash
-   # Why was this code written?
-   git log --oneline src/telegram/services/report_service.py
-
-   # Read relevant commits
-   git show abc123
-
-   # Find related PRs
-   gh pr list --search "report service" --state closed
-   ```
-
----
-
-## Anti-Patterns to Avoid
-
-### Anti-Pattern 1: Iteration Without Research
-
-```bash
-# ❌ BAD: Blind iteration
-git commit -m "Try fix 1"
-git push
-# Wait 8 minutes...
-# Failed
-
-git commit -m "Try fix 2"
-git push
-# Wait 8 minutes...
-# Failed
-
-git commit -m "Try fix 3"
-git push
-# Wait 8 minutes...
-# Failed
-
-# Total: 24+ minutes wasted
-```
-
-**Solution:** After 2 attempts, research the root cause.
-
-### Anti-Pattern 2: Trusting Secondary Sources
-
-```bash
-# ❌ BAD: Trust blog post
-# Blog: "PyMySQL accepts dicts for JSON columns"
-cursor.execute("INSERT INTO tbl (json_col) VALUES (%s)", ({'key': 'val'},))
-# TypeError: not all arguments converted
-
-# ✅ GOOD: Read official docs
-open https://pymysql.readthedocs.io/
-# Docs: "Parameters are passed as tuples"
-# Must convert dict to JSON string first
-cursor.execute("INSERT INTO tbl (json_col) VALUES (%s)", (json.dumps({'key': 'val'}),))
-```
-
-### Anti-Pattern 3: Assuming Instead of Verifying
-
-```bash
-# ❌ BAD: Assume
-# "The API probably returns a list of dicts"
-for ticker in response:  # Crashes if response is dict, not list
-    process(ticker)
-
-# ✅ GOOD: Verify
-curl -s https://api.example.com/tickers | jq . > sample.json
-cat sample.json
-# Oh, it's actually a dict with a 'tickers' key!
-
-for ticker in response['tickers']:  # Correct
-    process(ticker)
-```
-
----
-
-## Quick Reference
-
-### Research Triggers
-
-| Situation | Action |
-|-----------|--------|
-| First attempt failed | Try one more fix |
-| Second attempt failed | **START RESEARCH** |
-| Production incident | Mitigate first, research later |
-| Unfamiliar codebase | Trace request flow, read tests |
-| API integration | Read official docs, test minimal example |
-| Type mismatch | Inspect real data, verify assumptions |
-
-### Time Investment
-
-| Research Type | Time Budget | Expected Outcome |
-|---------------|-------------|------------------|
-| **Quick lookup** | 5-10 minutes | Confirm type, read docs |
-| **Root cause analysis** | 30-60 minutes | Understand why bug persists |
-| **Codebase exploration** | 1-2 hours | Understand module/system |
-| **Technology evaluation** | 4-8 hours | Compare alternatives, prototype |
-
----
-
-## File Organization
-
-```
-.claude/skills/research/
-├── SKILL.md                    # This file (entry point)
-├── WORKFLOW.md                 # Step-by-step research process
-└── INVESTIGATION-CHECKLIST.md  # Systematic debugging checklist
-```
-
----
-
-## Next Steps
-
-- **For research workflow**: See [WORKFLOW.md](WORKFLOW.md)
-- **For debugging checklist**: See [INVESTIGATION-CHECKLIST.md](INVESTIGATION-CHECKLIST.md)
-
----
-
-## References
-
-- [How to Debug](https://blog.regehr.org/archives/199) - Systematic debugging by John Regehr
-- [The Scientific Method of Debugging](https://www.brendangregg.com/blog/2016-02-08/linux-load-averages.html) - Brendan Gregg
-- [Debugging: The 9 Indispensable Rules](https://debuggingrules.com/)
-- [Systems Performance](https://www.brendangregg.com/systems-performance-2nd-edition-book.html) - Investigation methodologies
+## Quality Standards
+
+You will ensure all research meets these criteria:
+- **Accuracy**: Information is verified across multiple sources
+- **Currency**: Prioritize information from the last 12 months unless historical context is needed
+- **Completeness**: Cover all aspects requested by the user
+- **Actionability**: Provide practical, implementable recommendations
+- **Clarity**: Use clear language, define technical terms, provide examples
+- **Attribution**: Always cite sources and provide links for verification
+
+## Special Considerations
+
+- When researching security topics, always check for recent CVEs and security advisories
+- For performance-related research, look for benchmarks and real-world case studies
+- When investigating new technologies, assess community adoption and support levels
+- For API documentation, verify endpoint availability and authentication requirements
+- Always note deprecation warnings and migration paths for older technologies
+
+## Output Requirements
+
+Your final report must:
+1. Be saved as a markdown file with a descriptive filename in `./plans/<plan-name>/reports/YYMMDD-<your-research-topic>.md`
+2. Include a timestamp of when the research was conducted
+3. Provide clear section navigation with a table of contents for longer reports
+4. Use code blocks with appropriate syntax highlighting
+5. Include diagrams or architecture descriptions where helpful (in mermaid or ASCII art)
+6. Conclude with specific, actionable next steps
+
+**IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
+**IMPORTANT:** In reports, list any unresolved questions at the end, if any.
+
+**Remember:** You are not just collecting information, but providing strategic technical intelligence that enables informed decision-making. Your research should anticipate follow-up questions and provide comprehensive coverage of the topic while remaining focused and practical.

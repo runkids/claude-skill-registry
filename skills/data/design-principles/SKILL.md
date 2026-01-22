@@ -1,589 +1,247 @@
 ---
 name: design-principles
-description: Swiss International Style design system for Resume Matcher. Use this skill when building UI components, modifying styles, or creating new pages. Every frontend change MUST follow these rules.
+description: "UI/UX design system for dashboards, admin panels, SaaS interfaces, and web apps. Stack: React, Tailwind, CSS, styled-components. Capabilities: spacing systems (4px grid), color palettes, typography hierarchy, shadows/elevation, card layouts, dark mode, component styling. Actions: design, style, beautify, fix, improve, refactor UI components. Keywords: ugly, inconsistent, cluttered, unprofessional, spacing, padding, margin, colors, fonts, shadows, cards, buttons, forms, navigation, sidebar, layout. Use when: building new UI, fixing ugly interfaces, making things look professional/modern/clean, implementing design systems, styling components, choosing colors/fonts/spacing."
 ---
 
-# Resume Matcher Design System: Swiss International Style
+# Design Principles
 
-This project follows a strict **Swiss International Style** (International Typographic Style) aesthetic. It emphasizes cleanliness, readability, objectivity, and strong grid structures. The design is "Brutalist-Lite" — raw, functional, but polished.
-
----
-
-## Core Philosophy
-
-- **Form follows function**: content is primary
-- **Grid Systems**: mathematically consistent layouts
-- **High Contrast**: Sharp borders, distinct colors
-- **Typography**: Hierarchy through size, weight, and font family mixing (Serif + Mono)
-
----
-
-## Color Palette
-
-The palette is minimal, relying on high contrast between ink and paper.
-
-| Color Name | Hex / Tailwind | Usage |
-|------------|----------------|-------|
-| **Canvas Cream** | `#F0F0E8` | Main application background. Simulates paper. |
-| **Panel Grey** | `#E5E5E0` | Secondary backgrounds, workspaces, unselected areas. |
-| **Ink Black** | `#000000` | Borders, primary text, grid lines, hard shadows. |
-| **Hyper Blue** | `#1D4ED8` (blue-700) | Primary actions, links, active states, accents. |
-| **Paper White** | `#FFFFFF` | Input fields, active cards, resume pages. |
-| **Signal Green** | `#15803D` (green-700) | Download actions, live status indicators. |
-| **Alert Orange** | `#F97316` (orange-500) | Reset actions, highlights. |
-| **Alert Red** | `#DC2626` (red-600) | Destructive actions, delete confirmations. |
-| **Steel Grey** | `#4B5563` (gray-600) | Secondary labels like Live Preview text. |
-| **Muted Text** | `text-gray-500` | Metadata, placeholders, descriptions. |
-
----
-
-## Typography
-
-We mix three typefaces to create a distinctive technical document feel.
-
-### Headings: Serif
-Used for major page titles and section headers. Represents authority and tradition.
-- **Class**: `font-serif`
-- **Style**: Bold, often Uppercase
-- **Tracking**: Tight (`tracking-tight`) for large headers
-
-### Body: Sans-Serif
-Used for long-form text, descriptions, and general readability.
-- **Class**: `font-sans`
-- **Style**: Regular weight, clean
-
-### Metadata / Technical: Monospace
-Used for labels, dates, locations, small details, and "system" text.
-- **Class**: `font-mono`
-- **Style**: Uppercase, tracking wide (`tracking-wider`), small size (`text-xs` or `text-sm`)
-- **Prefixes**: Often stylized with `//` (e.g., `// SELECT MODULE`)
-
----
-
-## Components & Shapes
-
-### Borders & Radius
-- **Borders**: Always solid, 1px Black (`border border-black`)
-- **Radius**: **Zero**. `rounded-none`. No soft curves.
-
-### Shadows (Hard Drops)
-Shadows are solid blocks of color/alpha, not diffuse blurs. They mimic paper cutout layers.
-
-**Primary Swiss-Style Shadows (solid black):**
-- **Resume/Large Content**: `shadow-[8px_8px_0px_0px_#000000]`
-- **Builder Preview**: `shadow-[6px_6px_0px_0px_#000000]`
-- **Buttons (Hover)**: `shadow-[2px_2px_0px_0px_#000000]`
-
-**Secondary Shadows (semi-transparent):**
-- **Page Containers**: `shadow-[8px_8px_0px_0px_rgba(0,0,0,0.1)]`
-- **Cards / Forms**: `shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]`
-
-**Important:** Resume components should NOT have internal shadows. The parent container provides the Swiss-style shadow.
-
----
-
-## Buttons
-
-Swiss-style buttons use hard shadows, square corners, and clear semantic colors.
-
-### Base Styling (All Buttons)
-```css
-rounded-none                           /* Square corners - Brutalist */
-border border-black                    /* High contrast border */
-shadow-[2px_2px_0px_0px_#000000]       /* Hard shadow (no blur) */
-font-mono uppercase tracking-wide      /* Technical typography */
-transition-all duration-150 ease-out   /* Smooth interactions */
-```
-
-### Hover/Active Behavior
-```css
-hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-none  /* Press effect */
-active:translate-y-[2px] active:translate-x-[2px]                   /* Deep press */
-```
-
-### Button Variants
-
-| Variant | Color | Hex | Use Case |
-|---------|-------|-----|----------|
-| **default** | Hyper Blue | `#1D4ED8` | Primary actions (Save, Submit) |
-| **destructive** | Alert Red | `#DC2626` | Dangerous actions (Delete) |
-| **success** | Signal Green | `#15803D` | Positive actions (Download) |
-| **warning** | Alert Orange | `#F97316` | Caution actions (Reset, Undo) |
-| **outline** | Transparent | Black border | Secondary actions (Cancel) |
-| **secondary** | Panel Grey | `#E5E5E0` | Tertiary actions |
-| **ghost** | Transparent | No border/shadow | Icon buttons |
-| **link** | Hyper Blue text | `#1D4ED8` | Inline links |
-
-### Button Sizes
-
-| Size | Height | Padding | Use Case |
-|------|--------|---------|----------|
-| **sm** | `h-8` | `px-4 py-1` | Compact UI, toolbars |
-| **default** | `h-10` | `px-6 py-2` | Standard buttons |
-| **lg** | `h-12` | `px-8 py-3` | Hero CTAs |
-| **icon** | `h-10 w-10` | `p-0` | Icon-only buttons |
-
-### Usage Examples
-```tsx
-<Button variant="default">Save Changes</Button>
-<Button variant="destructive">Delete Resume</Button>
-<Button variant="success">Download PDF</Button>
-<Button variant="warning">Reset Form</Button>
-<Button variant="outline">Cancel</Button>
-<Button variant="ghost" size="icon"><Settings /></Button>
-```
-
-### DO's and DON'Ts
-
-**DO:**
-- Use semantic variants (destructive for delete, success for download)
-- Use `outline` for cancel/back actions paired with primary buttons
-- Use `ghost` for icon-only buttons in toolbars
-
-**DON'T:**
-- Add `rounded-*` classes (always square)
-- Use custom colors inline (use variants)
-- Use soft/blurred shadows
-
----
-
-## Status Indicators
-
-Small colored squares for at-a-glance system state information.
-
-### Base Styling
-```css
-w-3 h-3                          /* 12x12px square */
-/* No rounded corners - sharp edges */
-```
-
-### Indicator Variants
-
-| Color | Tailwind Class | Use Case |
-|-------|----------------|----------|
-| **Hyper Blue** | `bg-blue-700` | Active sections, editor mode |
-| **Signal Green** | `bg-green-700` | Ready state, success |
-| **Alert Amber** | `bg-amber-500` | Warning, setup required |
-| **Alert Red** | `bg-red-600` | Error, offline |
-| **Steel Grey** | `bg-gray-500` | Inactive, disabled |
-
-### Usage Pattern
-```tsx
-<div className="flex items-center gap-2 border-b-2 border-black pb-2">
-  <div className="w-3 h-3 bg-blue-700"></div>
-  <h2 className="font-mono text-lg font-bold uppercase tracking-wider">
-    Editor Panel
-  </h2>
-</div>
-```
-
----
-
-## Inputs & Forms
-
-- **Background**: White or Transparent
-- **Borders**: Black, square (`rounded-none`)
-- **Focus**: Sharp blue ring or border color change. No soft glow.
-- **Labels**: Uppercase Monospace (`text-xs font-mono uppercase tracking-wider`)
-
----
-
-## Collapsible Panels
-
-```tsx
-<div className="border border-black bg-white">
-  {/* Header - Always Visible */}
-  <button className="w-full flex items-center justify-between p-3 hover:bg-gray-50">
-    <div className="flex items-center gap-2">
-      <div className="w-2 h-2 bg-blue-700"></div>
-      <span className="font-mono text-xs font-bold uppercase tracking-wider">
-        Panel Title
-      </span>
-    </div>
-    <ChevronUp />
-  </button>
-
-  {/* Expandable Content */}
-  <div className="border-t border-black p-4 space-y-6">
-    {/* Controls */}
-  </div>
-</div>
-```
-
----
-
-## Template Thumbnails
-
-```tsx
-<button className={`flex flex-col items-center p-2 border-2 transition-all ${
-  isActive
-    ? 'border-blue-700 bg-blue-50 shadow-[2px_2px_0px_0px_#1D4ED8]'
-    : 'border-black bg-white hover:bg-gray-50 hover:shadow-[1px_1px_0px_0px_#000]'
-}`}>
-  <div className="w-12 h-16 mb-1.5">{/* Thumbnail */}</div>
-  <span className={`font-mono text-[9px] uppercase tracking-wider font-bold ${
-    isActive ? 'text-blue-700' : 'text-gray-700'
-  }`}>
-    Template Name
-  </span>
-</button>
-```
-
----
-
-## Toggle Selectors
-
-Binary choices (A4 / US Letter):
-```tsx
-<button className={`flex-1 px-3 py-2 border-2 font-mono text-xs transition-all ${
-  isSelected
-    ? 'border-blue-700 bg-blue-50 text-blue-700 shadow-[2px_2px_0px_0px_#1D4ED8]'
-    : 'border-black bg-white text-gray-700 hover:bg-gray-50'
-}`}>
-  <div className="font-bold">A4</div>
-  <div className="text-[9px] opacity-70">210 × 297 mm</div>
-</button>
-```
-
----
-
-## Spacing Level Selectors
-
-Button groups for levels 1-5:
-```tsx
-<div className="flex gap-1">
-  {[1, 2, 3, 4, 5].map((level) => (
-    <button className={`w-6 h-6 font-mono text-xs border transition-all ${
-      isSelected
-        ? 'bg-blue-700 text-white border-blue-700 shadow-[1px_1px_0px_0px_#000]'
-        : 'bg-white text-gray-700 border-gray-300 hover:border-black'
-    }`}>
-      {level}
-    </button>
-  ))}
-</div>
-```
-
----
-
-## Layout Patterns
-
-### The "Canvas" Container
-```tsx
-<div className="w-full max-w-7xl border border-black bg-[#F0F0E8] shadow-[8px_8px_0px_0px_rgba(0,0,0,0.1)]">
-  {/* Content */}
-</div>
-```
-
-### Full-Height Editor Layout
-```tsx
-<div className="h-screen w-full bg-[#F0F0E8] flex justify-center items-center p-4 md:p-8">
-  <div className="w-full h-full max-w-[95%] xl:max-w-[1800px] border border-black flex flex-col">
-    {/* Header */}
-    <div className="border-b border-black p-6 md:p-8">...</div>
-
-    {/* Content grid */}
-    <div className="grid grid-cols-1 lg:grid-cols-2 bg-black gap-[1px] flex-1 min-h-0">
-      <div className="bg-[#F0F0E8] p-6 md:p-8 overflow-y-auto">...</div>
-      <div className="bg-[#E5E5E0] p-6 md:p-8 overflow-y-auto">...</div>
-    </div>
-
-    {/* Footer */}
-    <div className="p-4 border-t border-black">...</div>
-  </div>
-</div>
-```
-
-### Grid Lines Background
-```tsx
-style={{
-  backgroundImage: 'linear-gradient(rgba(29, 78, 216, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(29, 78, 216, 0.1) 1px, transparent 1px)',
-  backgroundSize: '40px 40px',
-}}
-```
-
----
-
-## Paginated Preview System
-
-### Page Dimensions
-
-| Page Size | Width | Height |
-|-----------|-------|--------|
-| **A4** | 210mm | 297mm |
-| **US Letter** | 215.9mm | 279.4mm |
-
-### PageContainer Component
-```tsx
-<PageContainer
-  pageSize="A4"
-  margins={{ top: 10, bottom: 10, left: 10, right: 10 }}
-  pageNumber={1}
-  totalPages={2}
-  scale={0.6}
-  showMarginGuides={false}
->
-  <Resume ... />
-</PageContainer>
-```
-
-### Page Break Rules
-1. **Sections CAN span pages** - Experience, Projects flow naturally
-2. **Individual items stay together** - Job entries don't split
-3. **50% minimum fill** - Pages at least half full before moving items
-4. **Section titles protected** - No orphans at page bottom
-
-### CSS for Page Breaks
-```css
-.resume-body .resume-item {
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
-.resume-body .resume-section-title {
-  break-after: avoid;
-  page-break-after: avoid;
-}
-```
-
----
+Precise, crafted design for enterprise software, SaaS dashboards, admin interfaces, and web apps. Jony Ive-level precision with intentional personality.
 
 ## Quick Reference
 
-### Required Classes
+| Element | Values |
+|---------|--------|
+| **Spacing** | 4, 8, 12, 16, 24, 32px (4px grid) |
+| **Font sizes** | 11, 12, 13, 14 (base), 16, 18, 24, 32px |
+| **Border radius** | Sharp: 4, 6, 8px / Soft: 8, 12px |
+| **Animation** | 150ms micro, 200-250ms transitions |
+| **Icons** | Phosphor Icons (`@phosphor-icons/react`) |
 
-| Element | Classes |
-|---------|---------|
-| Headers | `font-serif font-bold tracking-tight` |
-| Body text | `font-sans` |
-| Labels/Meta | `font-mono text-xs uppercase tracking-wider` |
-| Borders | `border border-black rounded-none` |
-| Primary BG | `bg-[#F0F0E8]` |
-| Panel BG | `bg-[#E5E5E0]` |
-| Hard shadow | `shadow-[Xpx_Xpx_0px_0px_#000000]` |
+## Design Direction (REQUIRED)
 
-### Semantic Colors
+**Before writing any code, commit to a design direction.** Don't default. Think about what this specific product needs to feel like.
 
-| Purpose | Color | Class |
-|---------|-------|-------|
-| Primary action | Hyper Blue | `bg-blue-700 text-white` |
-| Success | Signal Green | `bg-green-700 text-white` |
-| Warning | Alert Orange | `bg-orange-500 text-white` |
-| Destructive | Alert Red | `bg-red-600 text-white` |
-| Secondary | Panel Grey | `bg-[#E5E5E0] text-black` |
+### Think About Context
 
----
+- **What does this product do?** A finance tool needs different energy than a creative tool.
+- **Who uses it?** Power users want density. Occasional users want guidance.
+- **What's the emotional job?** Trust? Efficiency? Delight? Focus?
+- **What would make this memorable?** Every product has a chance to feel distinctive.
 
-## Retro Terminal Elements (UI Chrome Only)
+### Choose a Personality
 
-These elements add personality to the app interface. **DO NOT use these on resume builder, resume viewer, or any resume-related components.**
+Enterprise/SaaS UI has more range than you think. Consider these directions:
 
-### Where to Use
-- Dashboard
-- Settings page
-- Navigation/sidebar
-- Empty states
-- Loading states
-- Error pages
-- Modals (non-resume)
+**Precision & Density** — Tight spacing, monochrome, information-forward. For power users who live in the tool. Think Linear, Raycast, terminal aesthetics.
 
-### Where NOT to Use
-- Resume Builder form
-- Resume Preview/Viewer
-- PDF output
-- Print layouts
-- Any component that displays resume content
+**Warmth & Approachability** — Generous spacing, soft shadows, friendly colors. For products that want to feel human. Think Notion, Coda, collaborative tools.
 
----
+**Sophistication & Trust** — Cool tones, layered depth, financial gravitas. For products handling money or sensitive data. Think Stripe, Mercury, enterprise B2B.
 
-### Bracket Syntax for Labels
+**Boldness & Clarity** — High contrast, dramatic negative space, confident typography. For products that want to feel modern and decisive. Think Vercel, minimal dashboards.
 
-Use brackets for status indicators and system labels in UI chrome:
+**Utility & Function** — Muted palette, functional density, clear hierarchy. For products where the work matters more than the chrome. Think GitHub, developer tools.
 
-```tsx
-// Status indicators
-<span className="font-mono text-xs uppercase tracking-wider">
-  [ STATUS: READY ]
-</span>
+**Data & Analysis** — Chart-optimized, technical but accessible, numbers as first-class citizens. For analytics, metrics, business intelligence.
 
-<span className="font-mono text-xs uppercase tracking-wider">
-  [ LOADING... ]
-</span>
+Pick one. Or blend two. But commit to a direction that fits the product.
 
-// Section labels
-<span className="font-mono text-xs uppercase tracking-wider text-gray-500">
-  [ SETTINGS ]
-</span>
+### Choose a Color Foundation
 
-// Navigation items (optional)
-<span className="font-mono text-sm">
-  [ 01. DASHBOARD ]
-</span>
-```
+**Don't default to warm neutrals.** Consider the product:
 
-**Bracket Variants:**
+- **Warm foundations** (creams, warm grays) — approachable, comfortable, human
+- **Cool foundations** (slate, blue-gray) — professional, trustworthy, serious
+- **Pure neutrals** (true grays, black/white) — minimal, bold, technical
+- **Tinted foundations** (slight color cast) — distinctive, memorable, branded
 
-| Context | Format | Example |
-|---------|--------|---------|
-| Status ready | `[ STATUS: X ]` | `[ STATUS: READY ]` |
-| Status warning | `[ STATUS: X ]` | `[ STATUS: SETUP REQUIRED ]` |
-| Section label | `[ LABEL ]` | `[ SETTINGS ]` |
-| Action hint | `[ ACTION ]` | `[ DRAG TO REORDER ]` |
-| System message | `> MESSAGE` | `> NO ITEMS FOUND` |
+**Light or dark?** Dark modes aren't just light modes inverted. Dark feels technical, focused, premium. Light feels open, approachable, clean. Choose based on context.
+
+**Accent color** — Pick ONE that means something. Blue for trust. Green for growth. Orange for energy. Violet for creativity. Don't just reach for the same accent every time.
+
+### Choose a Layout Approach
+
+The content should drive the layout:
+
+- **Dense grids** for information-heavy interfaces where users scan and compare
+- **Generous spacing** for focused tasks where users need to concentrate
+- **Sidebar navigation** for multi-section apps with many destinations
+- **Top navigation** for simpler tools with fewer sections
+- **Split panels** for list-detail patterns where context matters
+
+### Choose Typography
+
+Typography sets tone. Don't always default:
+
+- **System fonts** — fast, native, invisible (good for utility-focused products)
+- **Geometric sans** (Geist, Inter) — modern, clean, technical
+- **Humanist sans** (SF Pro, Satoshi) — warmer, more approachable
+- **Monospace influence** — technical, developer-focused, data-heavy
 
 ---
 
-### ASCII Empty States
+## Core Craft Principles
 
-Use ASCII art for empty states to add character:
+These apply regardless of design direction. This is the quality floor.
 
-```tsx
-// Empty resume list
-<div className="text-center py-12 font-mono text-gray-500">
-  <pre className="text-xs leading-relaxed">
-{`    ┌─────────────────┐
-    │                 │
-    │   NO RESUMES    │
-    │      YET        │
-    │                 │
-    └─────────────────┘`}
-  </pre>
-  <p className="mt-4 text-sm">[ CREATE YOUR FIRST RESUME ]</p>
-</div>
+### The 4px Grid
+All spacing uses a 4px base grid:
+- `4px` - micro spacing (icon gaps)
+- `8px` - tight spacing (within components)
+- `12px` - standard spacing (between related elements)
+- `16px` - comfortable spacing (section padding)
+- `24px` - generous spacing (between sections)
+- `32px` - major separation
 
-// Empty job list
-<div className="text-center py-12 font-mono text-gray-500">
-  <pre className="text-xs leading-relaxed">
-{`    ╔═══════════════════╗
-    ║                   ║
-    ║   NO JOBS SAVED   ║
-    ║                   ║
-    ╚═══════════════════╝`}
-  </pre>
-  <p className="mt-4 text-sm">[ ADD A JOB DESCRIPTION ]</p>
-</div>
+### Symmetrical Padding
+**TLBR must match.** If top padding is 16px, left/bottom/right must also be 16px. Exception: when content naturally creates visual balance.
 
-// Generic empty state
-<div className="text-center py-8 font-mono text-gray-400">
-  <span className="text-2xl">[ EMPTY ]</span>
-  <p className="mt-2 text-xs">> NO DATA AVAILABLE</p>
-</div>
+```css
+/* Good */
+padding: 16px;
+padding: 12px 16px; /* Only when horizontal needs more room */
+
+/* Bad */
+padding: 24px 16px 12px 16px;
 ```
 
-**ASCII Box Characters:**
+### Border Radius Consistency
+Stick to the 4px grid. Sharper corners feel technical, rounder corners feel friendly. Pick a system and commit:
+
+- Sharp: 4px, 6px, 8px
+- Soft: 8px, 12px
+- Minimal: 2px, 4px, 6px
+
+Don't mix systems. Consistency creates coherence.
+
+### Depth & Elevation Strategy
+
+**Match your depth approach to your design direction.** Depth is a tool, not a requirement. Different products need different approaches:
+
+**Borders-only (flat)** — Clean, technical, dense. Works for utility-focused tools where information density matters more than visual lift. Linear, Raycast, and many developer tools use almost no shadows — just subtle borders to define regions. This isn't lazy; it's intentional restraint.
+
+**Subtle single shadows** — Soft lift without complexity. A simple `0 1px 3px rgba(0,0,0,0.08)` can be enough. Works for approachable products that want gentle depth without the weight of layered shadows.
+
+**Layered shadows** — Rich, premium, dimensional. Multiple shadow layers create realistic depth for products that want to feel substantial. Stripe and Mercury use this approach. Best for cards that need to feel like physical objects.
+
+**Surface color shifts** — Background tints establish hierarchy without any shadows. A card at `#fff` on a `#f8fafc` background already feels elevated. Shadows can reinforce this, but color does the heavy lifting.
+
+Choose ONE approach and commit. Mixing flat borders on some cards with heavy shadows on others creates visual inconsistency.
+
+```css
+/* Borders-only approach */
+--border: rgba(0, 0, 0, 0.08);
+--border-subtle: rgba(0, 0, 0, 0.05);
+border: 0.5px solid var(--border);
+
+/* Single shadow approach */
+--shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+/* Layered shadow approach (when appropriate) */
+--shadow-layered:
+  0 0 0 0.5px rgba(0, 0, 0, 0.05),
+  0 1px 2px rgba(0, 0, 0, 0.04),
+  0 2px 4px rgba(0, 0, 0, 0.03),
+  0 4px 8px rgba(0, 0, 0, 0.02);
 ```
-Single line: ┌ ┐ └ ┘ │ ─ ├ ┤ ┬ ┴ ┼
-Double line: ╔ ╗ ╚ ╝ ║ ═ ╠ ╣ ╦ ╩ ╬
-Mixed:       ╒ ╕ ╘ ╛ ╞ ╡ ╤ ╧ ╪
-```
+
+**The craft is in the choice, not the complexity.** A flat interface with perfect spacing and typography is more polished than a shadow-heavy interface with sloppy details.
+
+### Card Layouts Vary, Surface Treatment Stays Consistent
+Monotonous card layouts are lazy design. A metric card doesn't have to look like a plan card doesn't have to look like a settings card. One might have a sparkline, another an avatar stack, another a progress ring, another a two-column split.
+
+Design each card's internal structure for its specific content — but keep the surface treatment consistent: same border weight, shadow depth, corner radius, padding scale, typography. Cohesion comes from the container chrome, not from forcing every card into the same layout template.
+
+### Isolated Controls
+UI controls deserve container treatment. Date pickers, filters, dropdowns — these should feel like crafted objects sitting on the page, not plain text with click handlers.
+
+**Never use native form elements for styled UI.** Native `<select>`, `<input type="date">`, and similar elements render OS-native dropdowns and pickers that cannot be styled. Build custom components instead:
+
+- Custom select: trigger button + positioned dropdown menu
+- Custom date picker: input + calendar popover
+- Custom checkbox/radio: styled div with state management
+
+**Custom select triggers must use `display: inline-flex` with `white-space: nowrap`** to keep text and chevron icons on the same row. Without this, flex children can wrap to new lines.
+
+### Typography Hierarchy
+- Headlines: 600 weight, tight letter-spacing (-0.02em)
+- Body: 400-500 weight, standard tracking
+- Labels: 500 weight, slight positive tracking for uppercase
+- Scale: 11px, 12px, 13px, 14px (base), 16px, 18px, 24px, 32px
+
+### Monospace for Data
+Numbers, IDs, codes, timestamps belong in monospace. Use `tabular-nums` for columnar alignment. Mono signals "this is data."
+
+### Iconography
+Use **Phosphor Icons** (`@phosphor-icons/react`). Icons clarify, not decorate — if removing an icon loses no meaning, remove it.
+
+Give standalone icons presence with subtle background containers.
+
+### Animation
+- 150ms for micro-interactions, 200-250ms for larger transitions
+- Easing: `cubic-bezier(0.25, 1, 0.5, 1)`
+- No spring/bouncy effects in enterprise UI
+
+### Contrast Hierarchy
+Build a four-level system: foreground (primary) → secondary → muted → faint. Use all four consistently.
+
+### Color for Meaning Only
+Gray builds structure. Color only appears when it communicates: status, action, error, success. Decorative color is noise.
+
+When building data-heavy interfaces, ask whether each use of color is earning its place. Score bars don't need to be color-coded by performance — a single muted color works. Grade badges don't need traffic-light colors — typography can do the hierarchy work. Look at how GitHub renders tables and lists: almost entirely monochrome, with color reserved for status indicators and actionable elements.
 
 ---
 
-### Loading States
+## Navigation Context
 
-**Keep spinners for async operations** - users need visual feedback that something is happening. Combine spinners with bracket-style labels:
+Screens need grounding. A data table floating in space feels like a component demo, not a product. Consider including:
 
-```tsx
-// Standard loading - spinner + bracket label
-<div className="flex items-center gap-2">
-  <Loader2 className="w-4 h-4 animate-spin text-blue-700" />
-  <span className="font-mono text-xs uppercase tracking-wider">
-    [ PROCESSING ]
-  </span>
-</div>
+- **Navigation** — sidebar or top nav showing where you are in the app
+- **Location indicator** — breadcrumbs, page title, or active nav state
+- **User context** — who's logged in, what workspace/org
 
-// LLM/AI operations - spinner with context
-<div className="flex items-center gap-2">
-  <Loader2 className="w-4 h-4 animate-spin text-blue-700" />
-  <span className="font-mono text-xs uppercase tracking-wider">
-    [ GENERATING CONTENT ]
-  </span>
-</div>
-
-// Saving state
-<div className="flex items-center gap-2">
-  <Loader2 className="w-3 h-3 animate-spin text-gray-500" />
-  <span className="font-mono text-xs text-gray-500">
-    [ SAVING... ]
-  </span>
-</div>
-```
-
-**Completion states** - clear transition from loading to done:
-
-```tsx
-// Success completion
-<div className="flex items-center gap-2">
-  <Check className="w-4 h-4 text-green-700" />
-  <span className="font-mono text-xs uppercase tracking-wider text-green-700">
-    [ COMPLETE ]
-  </span>
-</div>
-
-// With detail
-<div className="flex items-center gap-2">
-  <Check className="w-4 h-4 text-green-700" />
-  <span className="font-mono text-xs text-green-700">
-    [ SAVED SUCCESSFULLY ]
-  </span>
-</div>
-```
-
-**Progress bars** - only use when you have REAL progress data:
-
-```tsx
-// Deterministic progress (file upload, multi-step process)
-<div className="space-y-1">
-  <div className="flex justify-between font-mono text-xs">
-    <span>[ UPLOADING ]</span>
-    <span>{progress}%</span>
-  </div>
-  <div className="h-2 bg-gray-200 border border-black">
-    <div
-      className="h-full bg-blue-700 transition-all"
-      style={{ width: `${progress}%` }}
-    />
-  </div>
-</div>
-```
-
-**DO NOT use ASCII progress bars** like `[████░░░░]` - they look cool but provide no real information for indeterminate operations.
+When building sidebars, consider using the same background as the main content area. Tools like Supabase, Linear, and Vercel rely on a subtle border for separation rather than different background colors. This reduces visual weight and feels more unified.
 
 ---
 
-### Error States
+## Dark Mode Considerations
 
-```tsx
-// Error message with brackets
-<div className="border border-red-600 bg-red-50 p-4">
-  <p className="font-mono text-sm text-red-700">
-    [ ERROR: CONNECTION FAILED ]
-  </p>
-  <p className="font-mono text-xs text-red-600 mt-1">
-    > Unable to reach server. Check your connection.
-  </p>
-</div>
+Dark interfaces have different needs:
 
-// 404 style
-<div className="text-center py-12 font-mono">
-  <pre className="text-6xl font-bold text-gray-300">404</pre>
-  <p className="text-gray-500 mt-4">[ PAGE NOT FOUND ]</p>
-  <p className="text-xs text-gray-400 mt-2">> The requested resource does not exist</p>
-</div>
-```
+**Borders over shadows** — Shadows are less visible on dark backgrounds. Lean more on borders for definition. A border at 10-15% white opacity might look nearly invisible but it's doing its job — resist the urge to make it more prominent.
+
+**Adjust semantic colors** — Status colors (success, warning, error) often need to be slightly desaturated or adjusted for dark backgrounds to avoid feeling harsh.
+
+**Same structure, different values** — The hierarchy system (foreground → secondary → muted → faint) still applies, just with inverted values.
 
 ---
 
-## Anti-Patterns (NEVER DO)
+## Anti-Patterns
 
-- **NO rounded corners** - always `rounded-none`
-- **NO soft/blurred shadows** - always hard offset shadows
-- **NO gradient backgrounds** - flat colors only
-- **NO custom colors** - use the defined palette
-- **NO spring/bouncy animations**
-- **NO thick borders** (2px+) for decoration
-- **NO retro elements on resume components** - keep resume areas clean
+### Never Do This
+- Dramatic drop shadows (`box-shadow: 0 25px 50px...`)
+- Large border radius (16px+) on small elements
+- Asymmetric padding without clear reason
+- Pure white cards on colored backgrounds
+- Thick borders (2px+) for decoration
+- Excessive spacing (margins > 48px between sections)
+- Spring/bouncy animations
+- Gradients for decoration
+- Multiple accent colors in one interface
+
+### Always Question
+- "Did I think about what this product needs, or did I default?"
+- "Does this direction fit the context and users?"
+- "Does this element feel crafted?"
+- "Is my depth strategy consistent and intentional?"
+- "Are all elements on the grid?"
 
 ---
 
-**Summary**: Make it look like a high-end architectural blueprint or a technical manual. Precise, bordered, and grid-aligned. Add retro terminal personality to UI chrome, but keep resume areas professional and clean.
+## The Standard
+
+Every interface should look designed by a team that obsesses over 1-pixel differences. Not stripped — *crafted*. And designed for its specific context.
+
+Different products want different things. A developer tool wants precision and density. A collaborative product wants warmth and space. A financial product wants trust and sophistication. Let the product context guide the aesthetic.
+
+The goal: intricate minimalism with appropriate personality. Same quality bar, context-driven execution.

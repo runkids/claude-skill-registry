@@ -12,6 +12,7 @@ tags: [authentication, sandboxes, deployment, payments, gamification, cloud]
 Comprehensive platform management for Flow Nexus - covering authentication, sandbox execution, app deployment, credit management, and coding challenges.
 
 ## Table of Contents
+
 1. [Authentication & User Management](#authentication--user-management)
 2. [Sandbox Management](#sandbox-management)
 3. [App Store & Deployment](#app-store--deployment)
@@ -27,6 +28,7 @@ Comprehensive platform management for Flow Nexus - covering authentication, sand
 ### Registration & Login
 
 **Register New Account**
+
 ```javascript
 mcp__flow-nexus__user_register({
   email: "user@example.com",
@@ -37,6 +39,7 @@ mcp__flow-nexus__user_register({
 ```
 
 **Login**
+
 ```javascript
 mcp__flow-nexus__user_login({
   email: "user@example.com",
@@ -45,11 +48,13 @@ mcp__flow-nexus__user_login({
 ```
 
 **Check Authentication Status**
+
 ```javascript
 mcp__flow-nexus__auth_status({ detailed: true })
 ```
 
 **Logout**
+
 ```javascript
 mcp__flow-nexus__user_logout()
 ```
@@ -57,6 +62,7 @@ mcp__flow-nexus__user_logout()
 ### Password Management
 
 **Request Password Reset**
+
 ```javascript
 mcp__flow-nexus__user_reset_password({
   email: "user@example.com"
@@ -64,6 +70,7 @@ mcp__flow-nexus__user_reset_password({
 ```
 
 **Update Password with Token**
+
 ```javascript
 mcp__flow-nexus__user_update_password({
   token: "reset_token_from_email",
@@ -72,6 +79,7 @@ mcp__flow-nexus__user_update_password({
 ```
 
 **Verify Email**
+
 ```javascript
 mcp__flow-nexus__user_verify_email({
   token: "verification_token_from_email"
@@ -81,6 +89,7 @@ mcp__flow-nexus__user_verify_email({
 ### Profile Management
 
 **Get User Profile**
+
 ```javascript
 mcp__flow-nexus__user_profile({
   user_id: "your_user_id"
@@ -88,6 +97,7 @@ mcp__flow-nexus__user_profile({
 ```
 
 **Update Profile**
+
 ```javascript
 mcp__flow-nexus__user_update_profile({
   user_id: "your_user_id",
@@ -101,6 +111,7 @@ mcp__flow-nexus__user_update_profile({
 ```
 
 **Get User Statistics**
+
 ```javascript
 mcp__flow-nexus__user_stats({
   user_id: "your_user_id"
@@ -108,6 +119,7 @@ mcp__flow-nexus__user_stats({
 ```
 
 **Upgrade User Tier**
+
 ```javascript
 mcp__flow-nexus__user_upgrade({
   user_id: "your_user_id",
@@ -122,6 +134,7 @@ mcp__flow-nexus__user_upgrade({
 ### Create & Configure Sandboxes
 
 **Create Sandbox**
+
 ```javascript
 mcp__flow-nexus__sandbox_create({
   template: "node", // node, python, react, nextjs, vanilla, base, claude-code
@@ -142,6 +155,7 @@ mcp__flow-nexus__sandbox_create({
 ```
 
 **Configure Existing Sandbox**
+
 ```javascript
 mcp__flow-nexus__sandbox_configure({
   sandbox_id: "sandbox_id",
@@ -157,6 +171,7 @@ mcp__flow-nexus__sandbox_configure({
 ### Execute Code
 
 **Run Code in Sandbox**
+
 ```javascript
 mcp__flow-nexus__sandbox_execute({
   sandbox_id: "sandbox_id",
@@ -179,6 +194,7 @@ mcp__flow-nexus__sandbox_execute({
 ### Manage Sandboxes
 
 **List Sandboxes**
+
 ```javascript
 mcp__flow-nexus__sandbox_list({
   status: "running" // running, stopped, all
@@ -186,6 +202,7 @@ mcp__flow-nexus__sandbox_list({
 ```
 
 **Get Sandbox Status**
+
 ```javascript
 mcp__flow-nexus__sandbox_status({
   sandbox_id: "sandbox_id"
@@ -193,6 +210,7 @@ mcp__flow-nexus__sandbox_status({
 ```
 
 **Upload File to Sandbox**
+
 ```javascript
 mcp__flow-nexus__sandbox_upload({
   sandbox_id: "sandbox_id",
@@ -202,6 +220,7 @@ mcp__flow-nexus__sandbox_upload({
 ```
 
 **Get Sandbox Logs**
+
 ```javascript
 mcp__flow-nexus__sandbox_logs({
   sandbox_id: "sandbox_id",
@@ -210,6 +229,7 @@ mcp__flow-nexus__sandbox_logs({
 ```
 
 **Stop Sandbox**
+
 ```javascript
 mcp__flow-nexus__sandbox_stop({
   sandbox_id: "sandbox_id"
@@ -217,6 +237,7 @@ mcp__flow-nexus__sandbox_stop({
 ```
 
 **Delete Sandbox**
+
 ```javascript
 mcp__flow-nexus__sandbox_delete({
   sandbox_id: "sandbox_id"
@@ -236,6 +257,7 @@ mcp__flow-nexus__sandbox_delete({
 ### Common Sandbox Patterns
 
 **API Development Sandbox**
+
 ```javascript
 mcp__flow-nexus__sandbox_create({
   template: "node",
@@ -257,6 +279,7 @@ mcp__flow-nexus__sandbox_create({
 ```
 
 **Machine Learning Sandbox**
+
 ```javascript
 mcp__flow-nexus__sandbox_create({
   template: "python",
@@ -275,6 +298,7 @@ mcp__flow-nexus__sandbox_create({
 ```
 
 **Full-Stack Development**
+
 ```javascript
 mcp__flow-nexus__sandbox_create({
   template: "nextjs",
@@ -299,6 +323,7 @@ mcp__flow-nexus__sandbox_create({
 ### Browse & Search
 
 **Search Applications**
+
 ```javascript
 mcp__flow-nexus__app_search({
   search: "authentication api",
@@ -309,6 +334,7 @@ mcp__flow-nexus__app_search({
 ```
 
 **Get App Details**
+
 ```javascript
 mcp__flow-nexus__app_get({
   app_id: "app_id"
@@ -316,6 +342,7 @@ mcp__flow-nexus__app_get({
 ```
 
 **List Templates**
+
 ```javascript
 mcp__flow-nexus__app_store_list_templates({
   category: "web-api",
@@ -325,6 +352,7 @@ mcp__flow-nexus__app_store_list_templates({
 ```
 
 **Get Template Details**
+
 ```javascript
 mcp__flow-nexus__template_get({
   template_name: "express-api-starter",
@@ -333,6 +361,7 @@ mcp__flow-nexus__template_get({
 ```
 
 **List All Available Templates**
+
 ```javascript
 mcp__flow-nexus__template_list({
   category: "backend",
@@ -345,6 +374,7 @@ mcp__flow-nexus__template_list({
 ### Publish Applications
 
 **Publish App to Store**
+
 ```javascript
 mcp__flow-nexus__app_store_publish_app({
   name: "JWT Authentication Service",
@@ -364,6 +394,7 @@ mcp__flow-nexus__app_store_publish_app({
 ```
 
 **Update Application**
+
 ```javascript
 mcp__flow-nexus__app_update({
   app_id: "app_id",
@@ -379,6 +410,7 @@ mcp__flow-nexus__app_update({
 ### Deploy Templates
 
 **Deploy Template**
+
 ```javascript
 mcp__flow-nexus__template_deploy({
   template_name: "express-api-starter",
@@ -399,6 +431,7 @@ mcp__flow-nexus__template_deploy({
 ### Analytics & Management
 
 **Get App Analytics**
+
 ```javascript
 mcp__flow-nexus__app_analytics({
   app_id: "your_app_id",
@@ -407,6 +440,7 @@ mcp__flow-nexus__app_analytics({
 ```
 
 **View Installed Apps**
+
 ```javascript
 mcp__flow-nexus__app_installed({
   user_id: "your_user_id"
@@ -414,6 +448,7 @@ mcp__flow-nexus__app_installed({
 ```
 
 **Get Market Statistics**
+
 ```javascript
 mcp__flow-nexus__market_data()
 ```
@@ -454,11 +489,13 @@ mcp__flow-nexus__market_data()
 ### Balance & Credits
 
 **Check Credit Balance**
+
 ```javascript
 mcp__flow-nexus__check_balance()
 ```
 
 **Check rUv Balance**
+
 ```javascript
 mcp__flow-nexus__ruv_balance({
   user_id: "your_user_id"
@@ -466,6 +503,7 @@ mcp__flow-nexus__ruv_balance({
 ```
 
 **View Transaction History**
+
 ```javascript
 mcp__flow-nexus__ruv_history({
   user_id: "your_user_id",
@@ -474,6 +512,7 @@ mcp__flow-nexus__ruv_history({
 ```
 
 **Get Payment History**
+
 ```javascript
 mcp__flow-nexus__get_payment_history({
   limit: 50
@@ -483,6 +522,7 @@ mcp__flow-nexus__get_payment_history({
 ### Purchase Credits
 
 **Create Payment Link**
+
 ```javascript
 mcp__flow-nexus__create_payment_link({
   amount: 50 // USD, minimum $10
@@ -493,6 +533,7 @@ mcp__flow-nexus__create_payment_link({
 ### Auto-Refill Configuration
 
 **Enable Auto-Refill**
+
 ```javascript
 mcp__flow-nexus__configure_auto_refill({
   enabled: true,
@@ -502,6 +543,7 @@ mcp__flow-nexus__configure_auto_refill({
 ```
 
 **Disable Auto-Refill**
+
 ```javascript
 mcp__flow-nexus__configure_auto_refill({
   enabled: false
@@ -511,6 +553,7 @@ mcp__flow-nexus__configure_auto_refill({
 ### Credit Pricing
 
 **Service Costs:**
+
 - **Swarm Operations**: 1-10 credits/hour
 - **Sandbox Execution**: 0.5-5 credits/hour
 - **Neural Training**: 5-50 credits/job
@@ -521,6 +564,7 @@ mcp__flow-nexus__configure_auto_refill({
 ### Earning Credits
 
 **Ways to Earn:**
+
 1. **Complete Challenges**: 10-500 credits per challenge
 2. **Publish Templates**: Earn when others deploy (you set pricing)
 3. **Referral Program**: Bonus credits for user invites
@@ -529,6 +573,7 @@ mcp__flow-nexus__configure_auto_refill({
 6. **App Store Sales**: Revenue share from paid templates
 
 **Earn Credits Programmatically**
+
 ```javascript
 mcp__flow-nexus__app_store_earn_ruv({
   user_id: "your_user_id",
@@ -541,6 +586,7 @@ mcp__flow-nexus__app_store_earn_ruv({
 ### Subscription Tiers
 
 **Free Tier**
+
 - 100 free credits monthly
 - Basic sandbox access (2 concurrent)
 - Limited swarm agents (3 max)
@@ -548,6 +594,7 @@ mcp__flow-nexus__app_store_earn_ruv({
 - 1GB storage
 
 **Pro Tier ($29/month)**
+
 - 1000 credits monthly
 - Priority sandbox access (10 concurrent)
 - Unlimited swarm agents
@@ -557,6 +604,7 @@ mcp__flow-nexus__app_store_earn_ruv({
 - Early access to features
 
 **Enterprise Tier (Custom Pricing)**
+
 - Unlimited credits
 - Dedicated compute resources
 - Custom neural models
@@ -583,6 +631,7 @@ mcp__flow-nexus__app_store_earn_ruv({
 ### Browse Challenges
 
 **List Available Challenges**
+
 ```javascript
 mcp__flow-nexus__challenges_list({
   difficulty: "intermediate", // beginner, intermediate, advanced, expert
@@ -593,6 +642,7 @@ mcp__flow-nexus__challenges_list({
 ```
 
 **Get Challenge Details**
+
 ```javascript
 mcp__flow-nexus__challenge_get({
   challenge_id: "two-sum-problem"
@@ -602,6 +652,7 @@ mcp__flow-nexus__challenge_get({
 ### Submit Solutions
 
 **Submit Challenge Solution**
+
 ```javascript
 mcp__flow-nexus__challenge_submit({
   challenge_id: "challenge_id",
@@ -625,6 +676,7 @@ mcp__flow-nexus__challenge_submit({
 ```
 
 **Mark Challenge as Complete**
+
 ```javascript
 mcp__flow-nexus__app_store_complete_challenge({
   challenge_id: "challenge_id",
@@ -641,6 +693,7 @@ mcp__flow-nexus__app_store_complete_challenge({
 ### Leaderboards
 
 **Global Leaderboard**
+
 ```javascript
 mcp__flow-nexus__leaderboard_get({
   type: "global", // global, weekly, monthly, challenge
@@ -649,6 +702,7 @@ mcp__flow-nexus__leaderboard_get({
 ```
 
 **Challenge-Specific Leaderboard**
+
 ```javascript
 mcp__flow-nexus__leaderboard_get({
   type: "challenge",
@@ -660,6 +714,7 @@ mcp__flow-nexus__leaderboard_get({
 ### Achievements & Badges
 
 **List User Achievements**
+
 ```javascript
 mcp__flow-nexus__achievements_list({
   user_id: "your_user_id",
@@ -713,6 +768,7 @@ mcp__flow-nexus__achievements_list({
 ### File Storage
 
 **Upload File**
+
 ```javascript
 mcp__flow-nexus__storage_upload({
   bucket: "my-bucket", // public, private, shared, temp
@@ -723,6 +779,7 @@ mcp__flow-nexus__storage_upload({
 ```
 
 **List Files**
+
 ```javascript
 mcp__flow-nexus__storage_list({
   bucket: "my-bucket",
@@ -732,6 +789,7 @@ mcp__flow-nexus__storage_list({
 ```
 
 **Get Public URL**
+
 ```javascript
 mcp__flow-nexus__storage_get_url({
   bucket: "my-bucket",
@@ -741,6 +799,7 @@ mcp__flow-nexus__storage_get_url({
 ```
 
 **Delete File**
+
 ```javascript
 mcp__flow-nexus__storage_delete({
   bucket: "my-bucket",
@@ -758,6 +817,7 @@ mcp__flow-nexus__storage_delete({
 ### Real-time Subscriptions
 
 **Subscribe to Database Changes**
+
 ```javascript
 mcp__flow-nexus__realtime_subscribe({
   table: "tasks",
@@ -767,11 +827,13 @@ mcp__flow-nexus__realtime_subscribe({
 ```
 
 **List Active Subscriptions**
+
 ```javascript
 mcp__flow-nexus__realtime_list()
 ```
 
 **Unsubscribe**
+
 ```javascript
 mcp__flow-nexus__realtime_unsubscribe({
   subscription_id: "subscription_id"
@@ -781,6 +843,7 @@ mcp__flow-nexus__realtime_unsubscribe({
 ### Execution Monitoring
 
 **Subscribe to Execution Stream**
+
 ```javascript
 mcp__flow-nexus__execution_stream_subscribe({
   stream_type: "claude-flow-swarm", // claude-code, claude-flow-swarm, claude-flow-hive-mind, github-integration
@@ -790,6 +853,7 @@ mcp__flow-nexus__execution_stream_subscribe({
 ```
 
 **Get Stream Status**
+
 ```javascript
 mcp__flow-nexus__execution_stream_status({
   stream_id: "stream_id"
@@ -797,6 +861,7 @@ mcp__flow-nexus__execution_stream_status({
 ```
 
 **List Generated Files**
+
 ```javascript
 mcp__flow-nexus__execution_files_list({
   stream_id: "stream_id",
@@ -806,6 +871,7 @@ mcp__flow-nexus__execution_files_list({
 ```
 
 **Get File Content from Execution**
+
 ```javascript
 mcp__flow-nexus__execution_file_get({
   file_id: "file_id",
@@ -820,6 +886,7 @@ mcp__flow-nexus__execution_file_get({
 ### Queen Seraphina AI Assistant
 
 **Seek Guidance from Seraphina**
+
 ```javascript
 mcp__flow-nexus__seraphina_chat({
   message: "How should I architect a distributed microservices system?",
@@ -832,6 +899,7 @@ mcp__flow-nexus__seraphina_chat({
 ```
 
 Queen Seraphina is an advanced AI assistant with:
+
 - Deep expertise in distributed systems
 - Ability to create swarms and orchestrate agents
 - Code deployment and architecture design
@@ -841,11 +909,13 @@ Queen Seraphina is an advanced AI assistant with:
 ### System Health & Monitoring
 
 **Check System Health**
+
 ```javascript
 mcp__flow-nexus__system_health()
 ```
 
 **View Audit Logs**
+
 ```javascript
 mcp__flow-nexus__audit_log({
   user_id: "your_user_id", // optional filter
@@ -856,6 +926,7 @@ mcp__flow-nexus__audit_log({
 ### Authentication Management
 
 **Initialize Authentication**
+
 ```javascript
 mcp__flow-nexus__auth_init({
   mode: "user" // user, service
@@ -968,6 +1039,7 @@ mcp__flow-nexus__challenge_submit({
 ## Best Practices
 
 ### Security
+
 1. Never hardcode API keys - use environment variables
 2. Enable 2FA when available
 3. Regularly rotate passwords and tokens
@@ -976,6 +1048,7 @@ mcp__flow-nexus__challenge_submit({
 6. Set appropriate file expiration times
 
 ### Performance
+
 1. Clean up unused sandboxes to save credits
 2. Use smaller sandbox templates when possible
 3. Optimize storage by deleting old files
@@ -984,6 +1057,7 @@ mcp__flow-nexus__challenge_submit({
 6. Use temp buckets for transient data
 
 ### Development
+
 1. Start with sandbox testing before deployment
 2. Version your applications semantically
 3. Document all templates thoroughly
@@ -992,6 +1066,7 @@ mcp__flow-nexus__challenge_submit({
 6. Leverage real-time subscriptions for live updates
 
 ### Cost Management
+
 1. Set auto-refill thresholds carefully
 2. Monitor credit usage regularly
 3. Complete daily challenges for bonus credits
@@ -1004,22 +1079,26 @@ mcp__flow-nexus__challenge_submit({
 ## Troubleshooting
 
 ### Authentication Issues
+
 - **Login Failed**: Check email/password, verify email first
 - **Token Expired**: Re-login to get fresh tokens
 - **Permission Denied**: Check tier limits, upgrade if needed
 
 ### Sandbox Issues
+
 - **Sandbox Won't Start**: Check template compatibility, verify credits
 - **Execution Timeout**: Increase timeout parameter or optimize code
 - **Out of Memory**: Use larger template or optimize memory usage
 - **Package Install Failed**: Check package name, verify npm/pip availability
 
 ### Payment Issues
+
 - **Payment Failed**: Check payment method, sufficient funds
 - **Credits Not Applied**: Allow 5-10 minutes for processing
 - **Auto-refill Not Working**: Verify payment method on file
 
 ### Challenge Issues
+
 - **Submission Rejected**: Check code syntax, ensure all tests pass
 - **Wrong Answer**: Review test cases, check edge cases
 - **Performance Too Slow**: Optimize algorithm complexity
@@ -1028,13 +1107,13 @@ mcp__flow-nexus__challenge_submit({
 
 ## Support & Resources
 
-- **Documentation**: https://docs.flow-nexus.ruv.io
-- **API Reference**: https://api.flow-nexus.ruv.io/docs
-- **Status Page**: https://status.flow-nexus.ruv.io
-- **Community Forum**: https://community.flow-nexus.ruv.io
-- **GitHub Issues**: https://github.com/ruvnet/flow-nexus/issues
-- **Discord**: https://discord.gg/flow-nexus
-- **Email Support**: support@flow-nexus.ruv.io (Pro/Enterprise only)
+- **Documentation**: <https://docs.flow-nexus.ruv.io>
+- **API Reference**: <https://api.flow-nexus.ruv.io/docs>
+- **Status Page**: <https://status.flow-nexus.ruv.io>
+- **Community Forum**: <https://community.flow-nexus.ruv.io>
+- **GitHub Issues**: <https://github.com/ruvnet/flow-nexus/issues>
+- **Discord**: <https://discord.gg/flow-nexus>
+- **Email Support**: <support@flow-nexus.ruv.io> (Pro/Enterprise only)
 
 ---
 
@@ -1044,6 +1123,7 @@ mcp__flow-nexus__challenge_submit({
 <summary><strong>Advanced Sandbox Configuration</strong></summary>
 
 ### Custom Docker Images
+
 ```javascript
 mcp__flow-nexus__sandbox_create({
   template: "base",
@@ -1058,6 +1138,7 @@ mcp__flow-nexus__sandbox_create({
 ```
 
 ### Multi-Stage Execution
+
 ```javascript
 // Stage 1: Setup
 mcp__flow-nexus__sandbox_execute({
@@ -1079,6 +1160,7 @@ mcp__flow-nexus__sandbox_execute({
 <summary><strong>Advanced Storage Patterns</strong></summary>
 
 ### Large File Upload (Chunked)
+
 ```javascript
 const chunkSize = 5 * 1024 * 1024 // 5MB chunks
 for (let i = 0; i < chunks.length; i++) {
@@ -1091,6 +1173,7 @@ for (let i = 0; i < chunks.length; i++) {
 ```
 
 ### Storage Lifecycle
+
 ```javascript
 // Upload to temp for processing
 mcp__flow-nexus__storage_upload({
@@ -1113,6 +1196,7 @@ mcp__flow-nexus__storage_upload({
 <summary><strong>Advanced Real-time Patterns</strong></summary>
 
 ### Multi-Table Sync
+
 ```javascript
 const tables = ["users", "tasks", "notifications"]
 tables.forEach(table => {
@@ -1125,6 +1209,7 @@ tables.forEach(table => {
 ```
 
 ### Event-Driven Workflows
+
 ```javascript
 // Subscribe to task completion
 mcp__flow-nexus__realtime_subscribe({

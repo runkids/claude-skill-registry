@@ -1,7 +1,7 @@
 {
   "name": "agentuity-cli-dev",
-  "repo": "agentuity/examples",
-  "path": "training-v1/deep-research-v1/.agents/skills/agentuity-cli-dev/SKILL.md",
-  "source": "github.com/agentuity/examples",
-  "downloaded_at": "2026-01-21T04:12:08.764551Z"
+  "repo": "agentuity/sdk-explorer",
+  "path": ".agents/skills/agentuity-cli-dev/SKILL.md",
+  "source": "github.com/agentuity/sdk-explorer",
+  "downloaded_at": "2026-01-22T03:37:16.348260Z"
 }

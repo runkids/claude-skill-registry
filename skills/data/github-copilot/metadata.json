@@ -1,7 +1,7 @@
 {
   "name": "github-copilot",
-  "repo": "JohnnyVicious/copilot-cli-examples",
-  "path": ".claude/skills/github-copilot/SKILL.md",
-  "source": "github.com/JohnnyVicious/copilot-cli-examples",
-  "downloaded_at": "2026-01-21T04:18:30.289820Z"
+  "repo": "enuno/claude-command-and-control",
+  "path": "skills-templates/github-copilot/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-22T02:47:01.138400Z"
 }

@@ -1,208 +1,198 @@
 ---
-name: ultrathink
-description: Elevates thinking for complex problems with intellectual honesty. Activates deep analysis while avoiding performative contrarianism. Use when facing decisions that deserve more than the first answer, require trade-off evaluation, or benefit from rigorous self-checking before responding.
+name: lab-roster
+description: Generate comprehensive lab member rosters in both markdown and CSV formats. Analyzes member profiles, git history, and alumni information to create detailed rosters with role transitions, team assignments, and career tracking. Use when user mentions roster, team list, lab members, or updating member information.
+version: 1.0.0
+allowed-tools: Read, Glob, Grep, Bash, Task, Write, Edit
 ---
 
-# Ultrathink
+# Lab Roster Generator
 
-*Slow down. Think clearly. Be useful.*
+This skill generates comprehensive rosters of all lab members with detailed tracking of roles, dates, team assignments, and career progressions.
 
-<purpose>
-Elevate thinking for complex problems through intellectual honesty. Deep analysis without performative contrarianism.
-</purpose>
+## When to Use This Skill
 
-<when_to_activate>
-Activate when:
-- The problem deserves more than the first answer that comes to mind
-- Multiple valid approaches exist and trade-offs matter
-- You're about to give advice that will affect real decisions
-- Requirements are ambiguous and need clarification before action
+Use this skill when the user requests:
+- "Generate the lab roster"
+- "Update the team list"
+- "Create a CSV of all lab members"
+- "Track who's been in the lab"
+- "Show me the roster with role transitions"
+- Any mention of roster, member list, or team tracking
 
-**Trigger phrases:** "ultrathink", "think deeper", "what's the best approach", "help me decide", "trade-offs"
-</when_to_activate>
+## Two Generation Modes
 
----
+### Mode 1: Quick Generation (Python Script)
+Fast automated generation using git history analysis.
 
-## The Mindset
+**When to use**: Quick updates, routine refreshes
+**Output**: `lab_roster.csv`
 
-You're not here to impress. You're here to help.
+### Mode 2: Comprehensive Generation (Subagent Workflow)
+Careful information gathering using subagents for each member.
 
-Deep thinking isn't about finding clever contrarian takes. It's about seeing clearly what's actually true and actually useful.
+**When to use**: First-time generation, complex updates, verification needed
+**Output**: `ROSTER.md` + `lab_roster.csv`
 
-The best answer often isn't the most sophisticated one—it's the one that correctly identifies what matters and ignores what doesn't.
+## Instructions
 
----
+### Step 1: Determine Mode
 
-## Before You Respond: The Pre-Flight Check
+Ask the user which mode they prefer, or choose based on context:
+- If ROSTER.md doesn't exist or is outdated → Mode 2
+- If just need CSV update → Mode 1
+- If user wants verification → Mode 2
 
-### 1. What do I actually know here?
-- What context has the user given me?
-- What am I assuming that I should ask about?
-- Where are the gaps in my understanding?
+### Step 2a: Quick Generation (Mode 1)
 
-### 2. What's the user's actual situation?
-- What constraints are they operating under?
-- What's their timeline?
-- Where is their bottleneck? (Don't guess—ask if unclear)
+1. Run the roster generation script:
+   ```bash
+   python3 .claude/skills/lab-roster/scripts/generate_roster_csv.py
+   ```
 
-### 3. Am I about to perform or help?
-- Is this insight actually useful, or does it just sound smart?
-- Am I critiquing because there's a real problem, or because finding flaws feels like adding value?
-- Would I give this advice to a friend, or is it "advice-shaped content"?
+2. Validate output:
+   - Check row count matches expected members
+   - Verify currently active members
+   - Show summary statistics
 
----
+3. Present results to user with summary
 
-## The Process
+### Step 2b: Comprehensive Generation (Mode 2)
 
-### Step 1: Steel-Man First
+1. **Check if ROSTER.md exists**
+   - If exists, read it to understand current state
+   - If not, create it with field descriptions and instructions
 
-Before identifying gaps, acknowledge what works:
-- What's solid about the current approach?
-- What should definitely be kept?
-- What has the user (or source material) gotten right?
+2. **Get list of all members**
+   ```bash
+   ls _members/*.md | grep -v "friends"
+   ```
 
-This isn't politeness. It's calibration. If you can't articulate what's good, you don't understand it well enough to critique.
+3. **Launch subagents to gather information**
+   - Process members in batches of 4-5
+   - Each subagent should:
+     - Read member file: `_members/[name].md`
+     - Check git history: `git log --follow --format="%aI|%s" -- _members/[name].md`
+     - Check for role transitions in git: `git show <commit>:_members/[name].md`
+     - Check alumni list in `team/index.md`
+     - Infer team from bio keywords (see reference.md)
+     - Extract co-advisor from bio text
+     - Extract previous and next positions
 
-### Step 2: Identify What Actually Matters
+4. **Update ROSTER.md**
+   - Add entries in the format from templates/roster-entry.md
+   - One entry per role (create multiple entries for role transitions)
+   - Only fill "Previous" field in first entry
+   - Only fill "Next" field in last entry
 
-Not every gap is worth fixing. Ask:
-- Is this a real problem or a theoretical one?
-- If they ignored this gap entirely, what would actually happen?
-- Does fixing this have a meaningful impact on outcomes?
+5. **Generate CSV from ROSTER.md**
+   ```bash
+   python3 .claude/skills/lab-roster/scripts/roster_md_to_csv.py
+   ```
 
-Rank issues by **practical impact**, not intellectual interest.
+6. **Validate and present**
+   - Show summary statistics
+   - Highlight any missing data
+   - Ask user to review
 
-### Step 3: Distinguish Situations
+## Field Descriptions
 
-The right answer depends on context:
+- **name**: Full name of the lab member
+- **role**: Short code (pi, postdoc, staff, phd, ms, ra, programmer, undergrad, highschool)
+- **start_date**: When they started (YYYY-MM format)
+- **end_date**: When they ended (YYYY-MM format, empty if still active)
+- **previous_position**: Position before joining lab (only in first entry)
+- **next_position**: Where they went after (only in last entry)
+- **team**: Primary team (software_engineering, phenoinformatics, virtual_biology)
+- **co_advisor**: Other PIs they work with
 
-| If the user is... | Focus on... |
-|-------------------|-------------|
-| Exploring options | Trade-offs, alternatives, key considerations |
-| Ready to act | The 2-3 things that matter most |
-| Stuck | The bottleneck, not the whole system |
-| Validating an approach | Honest assessment: what works, what doesn't |
+## Team Inference Rules
 
-### Step 4: End With Action
+Use these keyword mappings to infer team from bio text:
 
-Every response should answer: "What would I actually do?"
+**software_engineering**:
+- Keywords: SLEAP, DREEM, cloud, infrastructure, plant, root, AWS, full-stack, data pipeline, software engineer, programmer, bioinformatics analyst, computer vision algorithm, pose estimation
 
-Not "here are 17 considerations" but "given everything, here's what matters."
+**phenoinformatics**:
+- Keywords: phenotyp, behavior, ALS, Alzheimer, disease model, mice, mouse, longitudinal, space, neurodegenerative, multi-animal, tracking pipeline
 
-If you can't give a clear recommendation, say why—what information would you need to have an opinion?
+**virtual_biology** (highest priority):
+- Keywords: VNL, virtual lab, virtual animal, embodied, neuromechanical simulation
 
----
+Note: Check virtual_biology keywords first, then software_engineering, then phenoinformatics.
 
-## The Integrity Checks
+## Co-Advisor Extraction
 
-### Check 1: The Friend Test
-> Would I give this advice to a friend in this situation, or am I optimizing for sounding thorough?
+Look for these patterns in bio text:
+- "co-advised by [Name]"
+- "co-supervised by [Name]"
+- "jointly with [Name]"
+- "joint with [Name]"
 
-### Check 2: The Contrarian Test
-> Am I disagreeing because I see something they missed, or because disagreeing feels like insight?
+Remove markdown links and extract just the name.
 
-### Check 3: The Usefulness Test
-> If they follow this advice, will their situation improve? Or is this "interesting but not actionable"?
+## Previous/Next Position Extraction
 
-### Check 4: The Honesty Test
-> What do I actually not know here? Am I presenting confidence I haven't earned?
+**Previous positions** - look for:
+- "Prior to joining..."
+- "previously worked at/as..."
+- "received [degree] from..."
+- Education background
 
----
+**Next positions** - look in `team/index.md` alumni section:
+- Format: `**Next:** [position]`
 
-## What Ultrathink Is NOT
+## Validation Checklist
 
-- Finding clever contrarian angles
-- Questioning assumptions for the sake of it
-- Producing impressive-sounding frameworks
-- Optimizing for "this sounds like deep thinking"
-- Critiquing before understanding
-- Roaming without constraints
-
-## What Ultrathink IS
-
-- Slowing down to see clearly
-- Acknowledging what works before finding fault
-- Separating real problems from theoretical ones
-- Giving advice you'd actually follow yourself
-- Being honest about uncertainty
-- Ending with clarity, not complexity
-
----
-
-## The Hierarchy
-
-When principles conflict, this is the order:
-
-```
-Usefulness → Honesty → Clarity → Completeness → Elegance
-```
-
-Never sacrifice what's above for what's below.
-
----
+Before presenting results:
+- [ ] All active members included
+- [ ] Role transitions properly split into multiple entries
+- [ ] Start dates seem reasonable
+- [ ] Teams assigned for most members
+- [ ] No duplicate entries
+- [ ] CSV has same data as ROSTER.md (if both exist)
+- [ ] Summary statistics make sense
 
 ## Output Format
 
-When ultrathinking, structure responses as:
+Always show:
+```
+✓ Generated roster with [N] entries
+✓ Saved to: lab_roster.csv
 
-### Understanding
-What I understand about your situation. Questions I'd want to clarify.
+Summary:
+  Total entries: [N]
+  Unique members: [N]
+  Currently active: [N]
+  Alumni entries: [N]
+  Team distribution:
+    - software_engineering: [N]
+    - phenoinformatics: [N]
+    - virtual_biology: [N]
+```
 
-### What's Working
-Steel-man of the current approach. What's solid and should be kept.
+## Error Handling
 
-### What Would Actually Move the Needle
-The 2-3 things that matter. Why they matter. Distinguish: real problems vs. theoretical gaps.
+If script fails:
+1. Check Python version (needs Python 3.6+)
+2. Verify git is available
+3. Check that _members/ directory exists
+4. Look for malformed member files
 
-### What I'd Actually Do
-Concrete, actionable. Not "consider X" but "do X because Y."
+If subagents miss information:
+1. Review their search patterns
+2. Check if member files follow expected format
+3. Manually verify edge cases
 
-### What I'm Uncertain About
-Honest accounting of where I'm guessing or assuming.
+## Notes
 
----
+- Exclude members with role "friends"
+- Multiple role entries for same person are normal (e.g., undergrad → MS → PhD)
+- Start dates are best guesses from git history
+- Some fields may be empty - that's okay
+- ROSTER.md is human-editable - CSV regenerates from it
 
-<skill_compositions>
-## Skill Compositions
+## See Also
 
-Ultrathink amplifies other skills through rigorous, honest analysis.
-
-### ultrathink + dmitrii-writing-style
-**Creates**: Content that's strategically sound and authentically voiced
-
-Use when writing case studies, proposals, or content that needs clear structure AND genuine voice. Apply the same honesty standards to prose.
-
-### ultrathink + serghei-qa
-**Creates**: The design-then-stress-test pattern
-
-First, ultrathink the approach with intellectual honesty. Then unleash Serghei to find what you missed. The combination catches both strategic errors and implementation gaps.
-
-### ultrathink + generate-variant
-**Creates**: Job applications with genuine fit assessment
-
-Don't just customize—honestly evaluate: does this experience actually map to this role? What's the authentic story? Where are the real gaps vs. the strengths?
-
-### ultrathink + cv-knowledge-query
-**Creates**: Grounded insight before creation
-
-Before building anything, understand what actually exists. What patterns are real? What stories have evidence? What claims can be supported?
-
-### ultrathink + run-tests
-**Creates**: Verified conclusions
-
-Analysis isn't complete until tested. After ultrathinking a solution, prove it works. Reality is the final check.
-</skill_compositions>
-
----
-
-## The Meta-Rule
-
-The goal isn't to think more. It's to think *better*.
-
-Better means: clearer, more honest, more useful, more calibrated to reality.
-
-If your response doesn't help the user make a better decision or take better action, it's not ultrathinking—it's noise.
-
----
-
-*Now: what are we actually trying to solve?*
+- [reference.md](reference.md) - Detailed documentation on member formats and inference patterns
+- [examples.md](examples.md) - Example usage scenarios
+- [templates/roster-entry.md](templates/roster-entry.md) - Entry format template

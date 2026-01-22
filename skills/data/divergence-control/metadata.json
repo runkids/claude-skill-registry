@@ -1,9 +1,7 @@
 {
   "name": "divergence-control",
-  "description": "Keep multiple instances aligned while allowing productive variance",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/divergence-control/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-01-22T02:09:22.440399Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "migration-patterns",
-  "repo": "spences10/devhub-crm",
+  "repo": "bybren-llc/safe-agentic-workflow",
   "path": ".claude/skills/migration-patterns/SKILL.md",
-  "source": "github.com/spences10/devhub-crm",
-  "downloaded_at": "2026-01-21T04:05:41.602613Z"
+  "source": "github.com/bybren-llc/safe-agentic-workflow",
+  "downloaded_at": "2026-01-22T03:11:02.959106Z"
 }

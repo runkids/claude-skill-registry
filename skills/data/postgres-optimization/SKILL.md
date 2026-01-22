@@ -1,462 +1,340 @@
 ---
 name: postgres-optimization
-description: PostgreSQL database optimization combining institutional knowledge with live analysis
+description: Unconventional PostgreSQL optimization techniques
+license: MIT
+tier: 2
+allowed-tools:
+  - read_file
+  - write_file
+  - run_terminal_cmd
+  - grep
+related: [debugging, plan-then-execute, robust-first]
+tags: [moollm, database, postgresql, performance, optimization, indexing]
+inputs:
+  query:
+    type: string
+    required: false
+    description: "Query to optimize"
+  table:
+    type: string
+    required: false
+    description: "Table to analyze"
+outputs:
+  - OPTIMIZATION.md
+  - EXPLAIN-ANALYSIS.txt
+credits:
+  source:
+    title: "Unconventional PostgreSQL Optimizations"
+    author: "Haki Benita"
+    url: "https://hakibenita.com/postgresql-unconventional-optimizations"
 ---
 
-<!--
-Author: PB and Claude
-Date: 2025-11-04
-License: (c) HRDAG, 2025, GPL-2 or newer
+# 🐘 PostgreSQL Optimization
 
-------
-skills/postgres-optimization/SKILL.md
--->
+> **"Beyond 'just add an index' — creative solutions for real performance problems."**
 
-# PostgreSQL Optimization Skill
+Unconventional optimization techniques for PostgreSQL that go beyond standard DBA playbooks.
 
-## Mission
+## Purpose
 
-Guide intelligent PostgreSQL database optimization by combining **institutional knowledge** from past optimizations (claude-mem) with **live database analysis** (postgres-mcp). Apply proven patterns from history while adapting to current database state.
+When conventional approaches fall short — query rewrites, adding indexes, VACUUM, ANALYZE — these techniques offer creative solutions:
 
-**Core Philosophy**: Learn from every optimization, never repeat mistakes, and build expertise over time.
+- Eliminate impossible query scans with constraint exclusion
+- Reduce index size with function-based indexes
+- Enforce uniqueness with hash indexes instead of B-Trees
 
-## When This Skill Activates
+## When to Use
 
-Activate when user requests:
-- Database performance optimization
-- Query tuning or slow query analysis
-- Index recommendations or creation
-- Database health checks
-- PostgreSQL troubleshooting
-- Schema optimization
+- Ad-hoc query environments where users make mistakes
+- Large indexes approaching table size
+- Uniqueness constraints on large text values (URLs, documents)
+- Timestamp columns queried at coarser granularity
 
-**Activation Keywords**: "optimize database", "slow query", "performance tuning", "analyze query", "database health", "index strategy", "postgres performance"
+---
 
-## Workflow Phases
+## Technique 1: Constraint Exclusion
 
-### Phase 1: Research - Search Institutional Knowledge
+### The Problem
 
-**Before touching the database**, search memory for relevant patterns:
+Check constraints prevent invalid data, but PostgreSQL doesn't use them to optimize queries by default.
 
-1. **Search for similar optimization work**:
-   ```
-   Use mcp__claude-mem__search-enhanced with queries like:
-   - "PostgreSQL query optimization indexing performance"
-   - "slow query [specific table/operation type]"
-   - "database health analysis vacuum bloat"
-   ```
-
-2. **Review past decisions**:
-   - What solutions worked in similar situations?
-   - What approaches failed and why?
-   - What performance baselines were established?
-   - What architectural patterns were used?
-
-3. **Present findings to user**:
-   ```
-   🔍 Searching memory for similar optimization patterns...
-
-   Found relevant experience:
-   - [Memory ID]: [Summary of past optimization]
-   - Key insight: [What worked/didn't work]
-   - Performance impact: [Metrics if available]
-   ```
-
-### Phase 2: Live Analysis - Current Database State
-
-Use postgres-mcp tools to understand **what's happening now**:
-
-1. **Database Health Check** (always start here):
-   ```
-   Use mcp__postgres-mcp__analyze_db_health to check:
-   - Buffer cache hit rates
-   - Connection health
-   - Constraint validation
-   - Index bloat and unused indexes
-   - Sequence limits
-   - Vacuum status and dead tuples
-   ```
-
-2. **Identify Slow Queries**:
-   ```
-   Use mcp__postgres-mcp__get_top_queries to find:
-   - Slowest queries by total execution time
-   - Resource-intensive operations
-   - Optimization targets
-   ```
-
-3. **Analyze Specific Queries**:
-   ```
-   Use mcp__postgres-mcp__explain_query to:
-   - View execution plans
-   - Identify sequential scans
-   - Test hypothetical indexes
-   - Understand query costs
-   ```
-
-4. **Get Index Recommendations**:
-   ```
-   Use mcp__postgres-mcp__analyze_workload_indexes for:
-   - Automated index suggestions
-   - Resource-intensive query identification
-   - Principled indexing strategies
-   ```
-
-### Phase 3: Synthesis - Combine Past + Present
-
-**Intelligent recommendation engine**:
-
-1. **Match patterns from memory with current analysis**:
-   - "Similar to [memory ID], where reverse indexes solved 100M row table performance"
-   - "Current database shows same symptoms: sequential scans on large table"
-   - "Recommended approach: Apply proven pattern with adaptations for current schema"
-
-2. **Present actionable recommendations**:
-   ```
-   💡 Optimization Strategy:
-
-   Based on past experience + current analysis:
-
-   1. [Recommendation with rationale]
-      - Past evidence: [Memory reference]
-      - Current data: [postgres-mcp finding]
-      - Expected impact: [Estimated improvement]
-
-   2. [Alternative approach if applicable]
-      - Trade-offs: [Explain pros/cons]
-
-   3. [Maintenance recommendations]
-      - VACUUM, ANALYZE, etc.
-   ```
-
-3. **Test before implementing**:
-   ```
-   Use mcp__postgres-mcp__explain_query with hypothetical indexes:
-   - Show estimated query plan improvements
-   - Calculate cost reduction
-   - Verify approach before execution
-   ```
-
-### Phase 4: Implementation - Execute & Verify
-
-**Safe execution with verification**:
-
-1. **Confirm with user before executing**:
-   ```
-   Ready to implement optimization:
-
-   SQL to execute:
-   CREATE INDEX idx_users_email ON users(email);
-
-   Expected improvement: 234ms → 2.3ms (99% reduction)
-
-   Proceed? (I'll use postgres-mcp execute_sql)
-   ```
-
-2. **Execute the optimization**:
-   ```
-   Use mcp__postgres-mcp__execute_sql
-   ```
-
-3. **Verify improvement**:
-   ```
-   - Re-run explain_query to confirm plan changed
-   - Check get_top_queries for improvement
-   - Run analyze_db_health for any side effects
-   ```
-
-### Phase 5: Documentation - Store Learnings
-
-**Build institutional knowledge**:
-
-1. **Store optimization in memory**:
-   ```
-   Use mcp__claude-mem__store-dev-memory with:
-
-   Type: decision
-   Content: Complete description of:
-     - Problem: What was slow and why
-     - Analysis: What tools revealed
-     - Solution: What was implemented
-     - Results: Performance improvement metrics
-     - Key decisions: Why this approach vs alternatives
-
-   Tags: ["postgresql", "optimization", "indexing", "performance", ...]
-   Status: completed
-   ```
-
-2. **Include all relevant context**:
-   - Table names and sizes
-   - Query patterns
-   - Index definitions
-   - Before/after metrics
-   - Execution plan changes
-
-3. **Document failures too**:
-   - If an optimization doesn't work, store that
-   - Explain why it failed
-   - What was learned
-   - Prevents repeating mistakes
-
-## Guardrails - Safety Constraints
-
-### Read-Only by Default
-
-**NEVER execute DDL/DML without explicit user confirmation**:
-- ✓ Always use analyze_db_health, explain_query (read-only tools)
-- ✓ Show SQL commands to user before execution
-- ✗ NEVER auto-execute CREATE INDEX, DROP INDEX, VACUUM
-- ✗ NEVER execute DELETE, UPDATE, TRUNCATE without explicit request
-- ✗ NEVER modify data, only structure (and only when confirmed)
-
-### Confirmation Required For
-
-1. **Creating indexes**: Show disk space impact, lock implications
-2. **Dropping indexes**: Verify index is truly unused (check pg_stat_user_indexes)
-3. **VACUUM operations**: Explain impact on active queries
-4. **Schema changes**: Always get explicit approval
-
-### Prohibited Actions
-
-- **NEVER DROP tables, databases, or critical indexes**
-- **NEVER modify production data** (UPDATE/DELETE) as part of optimization
-- **NEVER disable constraints** or foreign keys
-- **NEVER suggest VACUUM FULL** without explaining lock implications
-- **NEVER recommend turning off autovacuum**
-
-### Best Practices Enforcement
-
-1. **Always check pg_stat_statements first** before optimizing
-2. **Always test with EXPLAIN** before creating indexes
-3. **Always consider index size vs benefit trade-off**
-4. **Always check for index bloat before creating new indexes**
-5. **Always recommend ANALYZE after creating indexes**
-6. **Always consider write performance impact** (indexes slow INSERTs)
-
-## Integration - Tool Reference
-
-### Memory Tools (claude-mem MCP server)
-
-**Search and Discovery**:
-- `mcp__claude-mem__search-enhanced`: Semantic search for past optimizations
-  - Use detailed queries: "PostgreSQL query optimization large table indexing"
-  - Set minSimilarity: 0.3-0.5 for broad pattern matching
-  - Request scores to understand relevance
-
-- `mcp__claude-mem__list-memories-by-tag`: Browse by category
-  - Tags: "postgresql", "indexing", "performance", "query-optimization"
-
-- `mcp__claude-mem__get-recent-context`: Recent PostgreSQL work
-  - Types: ["decision", "code"] for optimization history
-
-**Documentation**:
-- `mcp__claude-mem__store-dev-memory`: Store optimization learnings
-  - Type: "decision" for optimization decisions
-  - Type: "code" for schema changes
-  - Type: "reference" for general PostgreSQL knowledge
-  - Always include: keyDecisions, status, tags
-
-### Database Analysis Tools (postgres-mcp MCP server)
-
-**Health and Discovery**:
-- `mcp__postgres-mcp__list_schemas`: Discover database structure
-- `mcp__postgres-mcp__list_objects`: Find tables, views, sequences
-- `mcp__postgres-mcp__get_object_details`: Table schema, constraints, indexes
-- `mcp__postgres-mcp__analyze_db_health`: Comprehensive health check
-
-**Performance Analysis**:
-- `mcp__postgres-mcp__get_top_queries`: Find slowest queries (pg_stat_statements)
-- `mcp__postgres-mcp__explain_query`: Query execution plans
-  - Supports hypothetical indexes for testing
-- `mcp__postgres-mcp__analyze_workload_indexes`: Automated index recommendations
-- `mcp__postgres-mcp__analyze_query_indexes`: Analyze specific queries (up to 10)
-
-**Execution**:
-- `mcp__postgres-mcp__execute_sql`: Run SQL (DDL/DML)
-  - **ALWAYS confirm with user first**
-  - Read-only mode available via access restrictions
-
-## Example Interactions
-
-### Example 1: Slow Query Optimization
-
-**User**: "My query to find users by email is very slow"
-
-**Skill Response**:
-```
-🔍 Searching memory for similar patterns...
-
-Found: Query optimization for large tables (Memory 986e5336e7d85ba4, 67.7% match)
-- Pattern: Text search on large tables benefits from pattern-specific indexes
-- Success: text_pattern_ops for LIKE queries, reverse indexes for suffix matching
-- Performance: 100M row table, 6 queries/second with proper indexing
-
-🔧 Analyzing current database state...
-
-[Uses analyze_db_health]
-Database Health:
-✓ Buffer cache hit rate: 92.4%
-⚠ users table: 2.3M rows, 45% bloat
-✗ No index on email column
-
-[Uses explain_query]
-Current query plan:
-Seq Scan on users  (cost=0.00..15234.00 rows=1)
-  Filter: (email = 'user@example.com')
-Execution Time: 234.567 ms
-
-💡 Recommendation:
-
-Based on similar optimization (memory 986e5336):
-1. CREATE INDEX idx_users_email ON users(email);
-   - Expected: Seq Scan → Index Scan
-   - Estimated improvement: 234ms → ~2ms (99%)
-
-2. VACUUM ANALYZE users;
-   - Reduce table bloat (45% → ~5%)
-   - Update query planner statistics
-
-Testing with hypothetical index...
-[Uses explain_query with hypothetical index]
-With index: Index Scan, cost 8.44..12.46, time: 2.3ms ✓
-
-Proceed with optimization?
+```sql
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    username TEXT NOT NULL,
+    plan TEXT NOT NULL,
+    CONSTRAINT plan_check CHECK (plan IN ('free', 'pro'))
+);
 ```
 
-**After user confirms**:
-```
-[Uses execute_sql to create index]
-✓ Index created: idx_users_email
+An analyst writes:
 
-[Uses explain_query to verify]
-✓ Query plan changed: Index Scan now used
-✓ Execution time: 2.1ms (99.1% improvement)
-
-📝 Storing optimization in memory...
-[Uses store-dev-memory with complete details]
-✓ Stored as decision memory with tags: postgresql, indexing, performance, email-search
+```sql
+SELECT * FROM users WHERE plan = 'Pro';  -- Note: capital P
 ```
 
-### Example 2: Database Health Check
+Despite the check constraint making this condition impossible, PostgreSQL scans the entire table.
 
-**User**: "Check the health of my PostgreSQL database"
+### The Solution
 
-**Skill Response**:
-```
-🔍 Checking memory for past health baselines...
-
-Found: PostgreSQL health baseline (Memory a324c1fa, 63.1% match)
-- Previous buffer cache hit rate: 92%
-- Aiven managed instance with pgvector
-- Good: No vacuum issues, proper SSL configuration
-
-🔧 Running current health analysis...
-
-[Uses analyze_db_health]
-
-Database Health Report:
-
-✓ GOOD:
-- Buffer cache hit rate: 94.2% (above 90% threshold)
-- Connection health: 15/100 connections used
-- All constraints valid
-- Autovacuum configured properly
-
-⚠ WARNINGS:
-- Table bloat: users (45%), orders (32%)
-- Unused indexes: idx_old_timestamp (0 scans in 30 days)
-- Sequence limit: user_id_seq at 72% capacity
-
-✗ ISSUES:
-- pg_stat_statements not enabled (can't analyze query performance)
-
-💡 Recommendations:
-
-1. Enable pg_stat_statements for query analysis:
-   ALTER SYSTEM SET shared_preload_libraries = 'pg_stat_statements';
-   (Requires PostgreSQL restart)
-
-2. VACUUM ANALYZE users, orders tables (reduce bloat)
-
-3. Consider dropping unused index:
-   DROP INDEX idx_old_timestamp;
-   (Would free ~127MB disk space)
-
-4. Monitor user_id_seq - approaching 72% of BIGINT limit
-   (No immediate action needed, but worth tracking)
-
-Would you like me to generate SQL for any of these actions?
+```sql
+SET constraint_exclusion TO 'on';
 ```
 
-### Example 3: Learning from Failure
+With constraint exclusion enabled:
 
-**User**: "That index didn't help, the query is still slow"
-
-**Skill Response**:
-```
-🔍 Investigating why the optimization didn't work...
-
-[Uses explain_query on the actual query]
-
-Analysis:
-- Index idx_users_email exists but NOT being used
-- Query plan shows: Seq Scan (not Index Scan)
-- Reason: Query uses ILIKE (case-insensitive), index is case-sensitive
-
-📚 Checking memory for case-insensitive indexing patterns...
-
-Found: Text pattern indexing (Memory 986e5336)
-- For LIKE/ILIKE queries, need text_pattern_ops or specialized index
-- Solution: Use functional index or trigram index
-
-💡 Corrected Recommendation:
-
-For case-insensitive email search, need different index:
-
-Option 1 - Functional index (best for exact matches):
-CREATE INDEX idx_users_email_lower ON users(LOWER(email));
--- Query must use: WHERE LOWER(email) = LOWER('user@example.com')
-
-Option 2 - Trigram index (best for partial matches):
-CREATE EXTENSION IF NOT EXISTS pg_trgm;
-CREATE INDEX idx_users_email_trgm ON users USING gin(email gin_trgm_ops);
--- Supports: WHERE email ILIKE '%pattern%'
-
-Which approach fits your query pattern better?
-
-📝 I'll document this learning: "Standard btree index doesn't help ILIKE queries"
+```sql
+EXPLAIN ANALYZE SELECT * FROM users WHERE plan = 'Pro';
 ```
 
-## Success Criteria
+```
+Result  (cost=0.00..0.00 rows=0 width=0)
+  One-Time Filter: false
+Execution Time: 0.008 ms
+```
 
-The skill is successful when:
+PostgreSQL recognizes the condition contradicts the constraint and skips the scan entirely.
 
-1. **Memory is leveraged**: Every optimization references past patterns
-2. **Safety is maintained**: No destructive operations without confirmation
-3. **Knowledge grows**: Every optimization is documented for future use
-4. **Results are verified**: Before/after metrics confirm improvements
-5. **User understands**: Clear explanations of why recommendations work
+### When to Enable
 
-## Common PostgreSQL Patterns to Remember
+| Environment | Recommendation |
+|-------------|----------------|
+| OLTP production | Leave as 'partition' (default) |
+| BI / Data Warehouse | Set to 'on' |
+| Ad-hoc query tools | Set to 'on' |
+| Reporting databases | Set to 'on' |
 
-These patterns should be stored in memory over time:
+### Tradeoffs
 
-1. **Text Search**: text_pattern_ops for LIKE, GIN/trigram for full-text
-2. **JSONB**: GIN indexes for containment (@>, ?), btree for specific keys
-3. **Large Tables**: Partial indexes, BRIN for time-series data
-4. **High Write Volume**: Fewer indexes, consider FILLFACTOR
-5. **Vacuum Strategy**: Autovacuum tuning, VACUUM ANALYZE after bulk ops
-6. **Connection Pooling**: PgBouncer for many connections
-7. **Query Planning**: ANALYZE tables, adjust statistics targets
-8. **Index Maintenance**: Monitor bloat, rebuild when >30% bloated
+- **Benefit**: Eliminates impossible query scans
+- **Cost**: Extra planning overhead evaluating constraints against conditions
+- **Default**: 'partition' — only used for partition pruning
 
-## Notes for Skill Evolution
+---
 
-As this skill is used, collect data on:
-- Which postgres-mcp tools are most useful in practice
-- What memory search patterns find relevant results
-- What optimization patterns repeat frequently
-- What safety checks should be added
-- What documentation format is most useful
+## Technique 2: Function-Based Indexes for Lower Cardinality
 
-Update this skill based on real-world usage and feedback.
+### The Problem
+
+You have a sales table with timestamps:
+
+```sql
+CREATE TABLE sale (
+    id INT PRIMARY KEY,
+    sold_at TIMESTAMPTZ NOT NULL,
+    charged INT NOT NULL
+);
+```
+
+Analysts query by day:
+
+```sql
+SELECT date_trunc('day', sold_at AT TIME ZONE 'UTC'), SUM(charged)
+FROM sale
+WHERE sold_at BETWEEN '2025-01-01 UTC' AND '2025-02-01 UTC'
+GROUP BY 1;
+```
+
+You add a B-Tree index on `sold_at` — 214 MB for a 160 MB table. The index is almost half the table size!
+
+### The Solution
+
+Index only what queries need:
+
+```sql
+CREATE INDEX sale_sold_at_date_ix 
+ON sale((date_trunc('day', sold_at AT TIME ZONE 'UTC'))::date);
+```
+
+| Index | Size |
+|-------|------|
+| `sale_sold_at_ix` (full timestamp) | 214 MB |
+| `sale_sold_at_date_ix` (date only) | 66 MB |
+
+The function-based index is **3x smaller** because:
+- Dates are 4 bytes vs 8 bytes for timestamptz
+- Fewer distinct values enable deduplication
+
+### The Discipline Problem
+
+Function-based indexes require exact expression match:
+
+```sql
+-- Uses the index ✓
+WHERE date_trunc('day', sold_at AT TIME ZONE 'UTC')::date 
+      BETWEEN '2025-01-01' AND '2025-01-31'
+
+-- Does NOT use the index ✗
+WHERE (sold_at AT TIME ZONE 'UTC')::date 
+      BETWEEN '2025-01-01' AND '2025-01-31'
+```
+
+### Solution: Virtual Generated Columns (PostgreSQL 18+)
+
+```sql
+ALTER TABLE sale ADD sold_at_date DATE
+GENERATED ALWAYS AS (date_trunc('day', sold_at AT TIME ZONE 'UTC'));
+```
+
+Now queries use the virtual column:
+
+```sql
+SELECT sold_at_date, SUM(charged)
+FROM sale
+WHERE sold_at_date BETWEEN '2025-01-01' AND '2025-01-31'
+GROUP BY 1;
+```
+
+**Benefits:**
+- Smaller index
+- Faster queries
+- No discipline required — column guarantees correct expression
+- No ambiguity about timezones
+
+**Limitation:** PostgreSQL 18 doesn't support indexes directly on virtual columns (yet).
+
+---
+
+## Technique 3: Hash Index for Uniqueness
+
+### The Problem
+
+You have a table with large URLs:
+
+```sql
+CREATE TABLE urls (
+    id INT PRIMARY KEY,
+    url TEXT NOT NULL,
+    data JSON
+);
+```
+
+You add a unique B-Tree index:
+
+```sql
+CREATE UNIQUE INDEX urls_url_unique_ix ON urls(url);
+```
+
+| Size |
+|------|
+| Table: 160 MB |
+| B-Tree index: 154 MB |
+
+The index is almost as large as the table because B-Tree stores actual values in leaf blocks.
+
+### The Solution
+
+Use an exclusion constraint with a hash index:
+
+```sql
+ALTER TABLE urls 
+ADD CONSTRAINT urls_url_unique_hash 
+EXCLUDE USING HASH (url WITH =);
+```
+
+| Index | Size |
+|-------|------|
+| B-Tree | 154 MB |
+| Hash | 32 MB |
+
+The hash index is **5x smaller** because it stores hash values, not the actual URLs.
+
+### Uniqueness Is Enforced
+
+```sql
+INSERT INTO urls (id, url) VALUES (1000002, 'https://example.com');
+-- ERROR: conflicting key value violates exclusion constraint
+```
+
+### Queries Still Fast
+
+```sql
+EXPLAIN ANALYZE SELECT * FROM urls WHERE url = 'https://example.com';
+```
+
+```
+Index Scan using urls_url_unique_hash on urls
+Execution Time: 0.022 ms  -- Faster than B-Tree's 0.046 ms!
+```
+
+### Limitations
+
+| Feature | B-Tree Unique | Hash Exclusion |
+|---------|--------------|----------------|
+| Foreign key reference | ✓ | ✗ |
+| `ON CONFLICT (column)` | ✓ | ✗ |
+| `ON CONFLICT ON CONSTRAINT` | ✓ | ✓ (DO NOTHING only) |
+| `ON CONFLICT DO UPDATE` | ✓ | ✗ |
+| `MERGE` | ✓ | ✓ |
+
+### Workaround: Use MERGE
+
+Instead of `INSERT ... ON CONFLICT DO UPDATE`:
+
+```sql
+MERGE INTO urls t
+USING (VALUES (1000004, 'https://example.com')) AS s(id, url)
+ON t.url = s.url
+WHEN MATCHED THEN UPDATE SET id = s.id
+WHEN NOT MATCHED THEN INSERT (id, url) VALUES (s.id, s.url);
+```
+
+---
+
+## Quick Reference
+
+### Diagnostic Queries
+
+**Check index sizes:**
+```sql
+\di+ table_*
+```
+
+**Compare index to table size:**
+```sql
+SELECT 
+    relname AS name,
+    pg_size_pretty(pg_relation_size(oid)) AS size
+FROM pg_class 
+WHERE relname LIKE 'your_table%'
+ORDER BY pg_relation_size(oid) DESC;
+```
+
+**Check constraint_exclusion setting:**
+```sql
+SHOW constraint_exclusion;
+```
+
+### Decision Tree
+
+```
+Is the query scanning impossibly?
+├── Yes → Enable constraint_exclusion
+└── No
+    ↓
+Is index nearly as large as table?
+├── Yes, timestamp column → Function-based index on date
+├── Yes, large text column → Hash exclusion constraint
+└── No → Standard B-Tree is fine
+```
+
+---
+
+## Commands
+
+| Command | Action |
+|---------|--------|
+| `ANALYZE [table]` | Analyze query performance |
+| `CHECK-CONSTRAINTS` | Evaluate constraint exclusion opportunity |
+| `LOWER-CARDINALITY` | Find function-based index opportunities |
+| `HASH-UNIQUE` | Evaluate hash index for large values |
+| `COMPARE-INDEXES` | Compare index sizes and performance |
+
+---
+
+## Integration
+
+| Direction | Skill | Relationship |
+|-----------|-------|--------------|
+| ← | [debugging](../debugging/) | Query debugging leads here |
+| → | [plan-then-execute](../plan-then-execute/) | Systematic optimization |

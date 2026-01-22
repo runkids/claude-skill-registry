@@ -1,7 +1,7 @@
 {
   "name": "stacked-prs",
-  "repo": "yonatangross/skillforge-claude-plugin",
-  "path": "skills/stacked-prs/SKILL.md",
-  "source": "github.com/yonatangross/skillforge-claude-plugin",
-  "downloaded_at": "2026-01-21T04:14:19.407223Z"
+  "repo": "bitsoex/bitso-java",
+  "path": ".claude/skills/stacked-prs/SKILL.md",
+  "source": "github.com/bitsoex/bitso-java",
+  "downloaded_at": "2026-01-22T02:30:37.769810Z"
 }

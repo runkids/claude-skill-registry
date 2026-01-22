@@ -1,12 +1,7 @@
 {
   "name": "gremlin-forge",
-  "description": "Use this skill when creating new skills via forced conceptual collision of existing patterns. Duct-tapes jank-builder to super-collider for autopoietic meta-skill generation.",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "development",
-  "tags": [
-    "gremlin",
-    "forge"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/gremlin-forge/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-01-22T02:09:26.133388Z"
 }

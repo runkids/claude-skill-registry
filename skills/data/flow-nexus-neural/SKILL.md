@@ -36,6 +36,7 @@ npx flow-nexus@latest login
 Train neural networks with custom architectures and configurations.
 
 **Available Architectures:**
+
 - `feedforward` - Standard fully-connected networks
 - `lstm` - Long Short-Term Memory for sequences
 - `gan` - Generative Adversarial Networks
@@ -43,6 +44,7 @@ Train neural networks with custom architectures and configurations.
 - `transformer` - Attention-based models
 
 **Training Tiers:**
+
 - `nano` - Minimal resources (fast, limited)
 - `mini` - Small models
 - `small` - Standard models
@@ -150,6 +152,7 @@ mcp__flow-nexus__neural_predict({
 ```
 
 **Response:**
+
 ```json
 {
   "predictions": [
@@ -178,6 +181,7 @@ mcp__flow-nexus__neural_list_templates({
 ```
 
 **Response:**
+
 ```json
 {
   "templates": [
@@ -236,6 +240,7 @@ mcp__flow-nexus__neural_cluster_init({
 ```
 
 **Response:**
+
 ```json
 {
   "cluster_id": "cluster_xyz789",
@@ -307,6 +312,7 @@ mcp__flow-nexus__neural_train_distributed({
 ```
 
 **Federated Learning Example:**
+
 ```javascript
 mcp__flow-nexus__neural_train_distributed({
   cluster_id: "cluster_xyz789",
@@ -330,6 +336,7 @@ mcp__flow-nexus__neural_cluster_status({
 ```
 
 **Response:**
+
 ```json
 {
   "cluster_id": "cluster_xyz789",
@@ -391,6 +398,7 @@ mcp__flow-nexus__neural_list_models({
 ```
 
 **Response:**
+
 ```json
 {
   "models": [
@@ -423,6 +431,7 @@ mcp__flow-nexus__neural_training_status({
 ```
 
 **Response:**
+
 ```json
 {
   "job_id": "job_training_xyz",
@@ -445,6 +454,7 @@ mcp__flow-nexus__neural_performance_benchmark({
 ```
 
 **Response:**
+
 ```json
 {
   "model_id": "model_abc123",
@@ -615,7 +625,9 @@ await mcp__flow-nexus__neural_train_distributed({
 ## Architecture Patterns
 
 ### Feedforward Networks
+
 Best for: Classification, regression, simple pattern recognition
+
 ```javascript
 {
   type: "feedforward",
@@ -629,7 +641,9 @@ Best for: Classification, regression, simple pattern recognition
 ```
 
 ### LSTM Networks
+
 Best for: Time series, sequences, forecasting
+
 ```javascript
 {
   type: "lstm",
@@ -642,7 +656,9 @@ Best for: Time series, sequences, forecasting
 ```
 
 ### Transformers
+
 Best for: NLP, attention mechanisms, large-scale text
+
 ```javascript
 {
   type: "transformer",
@@ -656,7 +672,9 @@ Best for: NLP, attention mechanisms, large-scale text
 ```
 
 ### GANs
+
 Best for: Generative tasks, image synthesis
+
 ```javascript
 {
   type: "gan",
@@ -666,7 +684,9 @@ Best for: Generative tasks, image synthesis
 ```
 
 ### Autoencoders
+
 Best for: Dimensionality reduction, anomaly detection
+
 ```javascript
 {
   type: "autoencoder",
@@ -695,6 +715,7 @@ Best for: Dimensionality reduction, anomaly detection
 ## Troubleshooting
 
 ### Training Stalled
+
 ```javascript
 // Check cluster status
 const status = await mcp__flow-nexus__neural_cluster_status({
@@ -708,6 +729,7 @@ await mcp__flow-nexus__neural_cluster_terminate({
 ```
 
 ### Low Accuracy
+
 - Increase epochs
 - Adjust learning rate
 - Add regularization (dropout)
@@ -715,6 +737,7 @@ await mcp__flow-nexus__neural_cluster_terminate({
 - Use data augmentation
 
 ### Out of Memory
+
 - Reduce batch size
 - Use smaller model tier
 - Enable gradient accumulation
@@ -728,11 +751,11 @@ await mcp__flow-nexus__neural_cluster_terminate({
 
 ## Resources
 
-- Flow Nexus Docs: https://flow-nexus.ruv.io/docs
-- Neural Network Guide: https://flow-nexus.ruv.io/docs/neural
-- Template Marketplace: https://flow-nexus.ruv.io/templates
-- API Reference: https://flow-nexus.ruv.io/api
+- Flow Nexus Docs: <https://flow-nexus.ruv.io/docs>
+- Neural Network Guide: <https://flow-nexus.ruv.io/docs/neural>
+- Template Marketplace: <https://flow-nexus.ruv.io/templates>
+- API Reference: <https://flow-nexus.ruv.io/api>
 
 ---
 
-**Note**: Distributed training requires authentication. Register at https://flow-nexus.ruv.io or use `npx flow-nexus@latest register`.
+**Note**: Distributed training requires authentication. Register at <https://flow-nexus.ruv.io> or use `npx flow-nexus@latest register`.

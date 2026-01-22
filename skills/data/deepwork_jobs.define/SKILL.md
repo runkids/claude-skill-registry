@@ -34,6 +34,37 @@ hooks:
 
             If criteria are NOT met OR the promise tag is missing, respond with:
             {"ok": false, "reason": "**AGENT: TAKE ACTION** - [which criteria failed and why]"}
+  SubagentStop:
+    - hooks:
+        - type: prompt
+          prompt: |
+            You must evaluate whether Claude has met all the below quality criteria for the request.
+
+            ## Quality Criteria
+
+            1. **User Understanding**: Did the agent fully understand the user's workflow by asking structured questions?
+            2. **Structured Questions Used**: Did the agent ask structured questions (using the AskUserQuestion tool) to gather user input?
+            3. **Document Detection**: For document-oriented workflows, did the agent detect patterns and offer doc spec creation?
+            4. **doc spec Created (if applicable)**: If a doc spec was needed, was it created in `.deepwork/doc_specs/[doc_spec_name].md` with proper quality criteria?
+            5. **doc spec References**: Are document outputs properly linked to their doc specs using `{file, doc_spec}` format?
+            6. **Valid Against doc spec**: Does the job.yml conform to the job.yml doc spec quality criteria (valid identifier, semantic version, concise summary, rich description, complete steps, valid dependencies)?
+            7. **Clear Inputs/Outputs**: Does every step have clearly defined inputs and outputs?
+            8. **Logical Dependencies**: Do step dependencies make sense and avoid circular references?
+            9. **Concise Summary**: Is the summary under 200 characters and descriptive?
+            10. **Rich Description**: Does the description provide enough context for future refinement?
+            11. **Valid Schema**: Does the job.yml follow the required schema (name, version, summary, steps)?
+            12. **File Created**: Has the job.yml file been created in `.deepwork/jobs/[job_name]/job.yml`?
+
+            ## Instructions
+
+            Review the conversation and determine if ALL quality criteria above have been satisfied.
+            Look for evidence that each criterion has been addressed.
+
+            If the agent has included `<promise>✓ Quality Criteria Met</promise>` in their response AND
+            all criteria appear to be met, respond with: {"ok": true}
+
+            If criteria are NOT met OR the promise tag is missing, respond with:
+            {"ok": false, "reason": "**AGENT: TAKE ACTION** - [which criteria failed and why]"}
 ---
 
 # deepwork_jobs.define
@@ -150,6 +181,8 @@ For each major phase they mentioned, ask structured questions to gather details:
    - Where should each output be saved? (filename/path)
    - Should outputs be organized in subdirectories? (e.g., `reports/`, `data/`, `drafts/`)
    - Will other steps need this output?
+
+   **Important**: Output paths should always be within the main repository directory structure, not in dot-directories like `.deepwork/`. Dot-directories are for configuration and job definitions, not for job outputs. Use paths like `research/competitors/report.md` rather than `.deepwork/outputs/report.md`.
    - **Does this output have a doc spec?** If a doc spec was created in Step 1.6/1.7, reference it for the appropriate output
 
 4. **Step Dependencies**
@@ -488,7 +521,7 @@ Use branch format: `deepwork/deepwork_jobs-[instance]-YYYYMMDD`
   6. **Complete Steps**: Each step must have: id (lowercase_underscores), name, description, instructions_file, outputs (at least one), and dependencies array
   7. **Valid Dependencies**: Dependencies must reference existing step IDs with no circular references
   8. **Input Consistency**: File inputs with `from_step` must reference a step that is in the dependencies array
-  9. **Output Paths**: Outputs must be valid filenames or paths (e.g., `report.md` or `reports/analysis.md`)
+  9. **Output Paths**: Outputs must be valid filenames or paths within the main repo (not in dot-directories). Use specific, descriptive paths that lend themselves to glob patterns, e.g., `competitive_research/competitors_list.md` or `competitive_research/[competitor_name]/research.md`. Avoid generic names like `output.md`.
   10. **Concise Instructions**: The content of the file, particularly the description, must not have excessively redundant information. It should be concise and to the point given that extra tokens will confuse the AI.
 
   <details>
@@ -538,10 +571,10 @@ Use branch format: `deepwork/deepwork_jobs-[instance]-YYYYMMDD`
         - file: output.md
           from_step: previous_step_id
       outputs:
-        - filename.md               # simple filename
-        - reports/analysis.md       # path with directory
+        - competitive_research/competitors_list.md           # descriptive path
+        - competitive_research/[competitor_name]/research.md # parameterized path
         # With doc spec reference:
-        - file: report.md
+        - file: competitive_research/final_report.md
           doc_spec: .deepwork/doc_specs/report_type.md
       dependencies:
         - previous_step_id          # steps that must complete first
@@ -592,7 +625,7 @@ Use branch format: `deepwork/deepwork_jobs-[instance]-YYYYMMDD`
   1. **No circular dependencies**: Step A cannot depend on Step B if Step B depends on Step A
   2. **File inputs require dependencies**: If a step uses `from_step: X`, then X must be in its dependencies
   3. **Unique step IDs**: No two steps can have the same id
-  4. **Valid file paths**: Output paths must not contain invalid characters
+  4. **Valid file paths**: Output paths must not contain invalid characters and should be in the main repo (not dot-directories)
   5. **Instructions files exist**: Each `instructions_file` path should have a corresponding file created
 
   ## Example: Complete Job Specification
@@ -627,7 +660,7 @@ Use branch format: `deepwork/deepwork_jobs-[instance]-YYYYMMDD`
         - name: product_category
           description: "The product category"
       outputs:
-        - competitors_list.md
+        - competitive_research/competitors_list.md
       dependencies: []
 
     - id: research_competitors
@@ -635,10 +668,10 @@ Use branch format: `deepwork/deepwork_jobs-[instance]-YYYYMMDD`
       description: "Deep dive research on each identified competitor"
       instructions_file: steps/research_competitors.md
       inputs:
-        - file: competitors_list.md
+        - file: competitive_research/competitors_list.md
           from_step: identify_competitors
       outputs:
-        - research_notes.md
+        - competitive_research/[competitor_name]/research.md
       dependencies:
         - identify_competitors
 
@@ -647,10 +680,10 @@ Use branch format: `deepwork/deepwork_jobs-[instance]-YYYYMMDD`
       description: "Strategic positioning recommendations"
       instructions_file: steps/positioning_report.md
       inputs:
-        - file: research_notes.md
+        - file: competitive_research/[competitor_name]/research.md
           from_step: research_competitors
       outputs:
-        - file: positioning_report.md
+        - file: competitive_research/positioning_report.md
           doc_spec: .deepwork/doc_specs/positioning_report.md
       dependencies:
         - research_competitors

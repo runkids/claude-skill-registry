@@ -1,7 +1,7 @@
 {
   "name": "fastapi-expert",
-  "repo": "Jeffallan/claude-skills",
-  "path": "skills/fastapi-expert/SKILL.md",
-  "source": "github.com/Jeffallan/claude-skills",
-  "downloaded_at": "2026-01-21T03:54:27.789700Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/api/fastapi-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-22T04:02:12.052302Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "worker-benchmarks",
-  "repo": "QUXTech/claude-flow",
-  "path": ".claude/skills/worker-benchmarks/skill.md",
-  "source": "github.com/QUXTech/claude-flow",
-  "downloaded_at": "2026-01-21T03:40:55.083289Z"
+  "repo": "ricable/ruvector-edge",
+  "path": "claude-flow-v3/v3/@claude-flow/cli/.claude/skills/worker-benchmarks/skill.md",
+  "source": "github.com/ricable/ruvector-edge",
+  "downloaded_at": "2026-01-22T01:46:07.790042Z"
 }

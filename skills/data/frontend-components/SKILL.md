@@ -1,6 +1,6 @@
 ---
 name: Frontend Components
-description: Build reusable, composable UI components with single responsibilities, clear prop interfaces, proper state management, and minimal coupling. Use this skill when creating or editing React components (.tsx, .jsx files), when designing component APIs with props, when implementing component composition patterns, when managing local component state, when building shadcn/ui components, when creating shared UI components in resources/js/Components/, when implementing component documentation, or when refactoring large components into smaller, focused pieces.
+description: Design and build reusable UI components following Astro's server-first architecture with islands, proper component composition, TypeScript props, and strategic client-side hydration. Use this skill when creating or modifying Astro components, React/Vue/Svelte islands, layout components, or any reusable UI elements. When working on .astro component files, framework component files (.jsx, .tsx, .vue, .svelte), layout components, page components, component prop interfaces, slot implementations, client directive usage (client:load, client:idle, client:visible), scoped component styles, or component documentation and examples.
 ---
 
 # Frontend Components
@@ -9,18 +9,17 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When creating new React components in `.tsx` or `.jsx` files
-- When editing existing components in `resources/js/Components/` or similar directories
-- When designing component prop interfaces and TypeScript types
-- When implementing component composition by combining smaller components
-- When managing component state (useState, useReducer, etc.)
-- When building or customizing shadcn/ui components
-- When creating reusable UI components (buttons, cards, modals, forms, etc.)
-- When refactoring monolithic components into smaller, focused pieces
-- When implementing component documentation or usage examples
-- When deciding between local state and lifting state up to parent components
-- When defining component naming conventions
-- When encapsulating component internal logic and exposing minimal APIs
+- When creating new Astro component files (.astro)
+- When building React, Vue, Svelte, or other framework components for interactive islands
+- When defining component props with TypeScript interfaces
+- When implementing component composition using slots (default and named slots)
+- When choosing and applying client directives (client:load, client:idle, client:visible, client:media, client:only)
+- When writing scoped component styles or integrating Tailwind classes
+- When creating layout components that wrap page content
+- When building reusable UI elements (buttons, cards, forms, modals)
+- When implementing component state management or shared state across islands
+- When optimizing component performance through lazy loading or code splitting
+- When documenting component props, usage examples, or component APIs
 
 ## Instructions
 

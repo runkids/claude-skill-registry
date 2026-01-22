@@ -1,7 +1,7 @@
 {
   "name": "agile",
-  "repo": "pluginagentmarketplace/custom-plugin-product-manager",
-  "path": "skills/agile/SKILL.md",
-  "source": "github.com/pluginagentmarketplace/custom-plugin-product-manager",
-  "downloaded_at": "2026-01-21T03:46:47.215805Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/product-manager-workflow/.claude/skills/agile/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-22T03:29:17.789921Z"
 }

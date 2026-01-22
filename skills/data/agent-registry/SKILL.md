@@ -1,127 +1,237 @@
 ---
-name: Agent Registry
-description: |
-  Use this skill for agent discovery, routing decisions, and understanding what specialists are available.
-
-  **Triggers:** "which agent", "find agent for", "route to", "specialist for", "who handles"
-
-  Contains the complete registry of all Task tool subagent_types across all plugins.
-version: 1.0.0
+name: agent-registry
+description: Guide for managing the Agent Registry - database-backed agent configuration system. Use when asked to "configure agents", "manage skills", "set tool permissions", "create context rules", or when working with agent assignments per platform/chat. Covers dashboard UI, API endpoints, CLI commands, and MCP tools.
 ---
 
-# Agent Registry
+# Agent Registry Management
 
-Complete lookup table for Task tool `subagent_type` values.
+## Overview
 
-## Quick Lookup by Domain
+The Agent Registry is a database-backed system for managing AI agent configurations. It replaces file-based configuration with a centralized, dynamic approach that supports:
 
-### Design & Planning
-| Task | subagent_type |
-|------|---------------|
-| Concept → GDD | `zx-game-design:gdd-generator` |
-| Mechanic design | `zx-game-design:mechanic-designer` |
-| Scope check | `zx-game-design:scope-advisor` |
-| Balance analysis | `game-design:balance-analyzer` |
-| Accessibility | `game-design:accessibility-auditor` |
-| Design review | `game-design:design-reviewer` |
-| Genre patterns | `game-design:genre-advisor` |
-| Narrative content | `game-design:narrative-generator` |
+- **Agent definitions** - Name, model, base prompt, enabled status
+- **Skill assignments** - Which skills each agent has access to
+- **Tool permissions** - Allow/deny patterns for MCP tools
+- **Context rules** - Agent selection based on platform, chat, environment
 
-### Creative Direction
-| Task | subagent_type |
-|------|---------------|
-| Visual coherence | `creative-direction:art-director` |
-| Audio coherence | `creative-direction:sound-director` |
-| Code architecture | `creative-direction:tech-director` |
-| Holistic vision | `creative-direction:creative-director` |
+## Quick Reference
 
-### Asset Generation
-| Task | subagent_type |
-|------|---------------|
-| Style specs | `zx-procgen:asset-designer` |
-| Procgen code | `zx-procgen:asset-generator` |
-| Spec compliance | `zx-procgen:asset-critic` |
-| ZX budget check | `zx-procgen:asset-quality-reviewer` |
-| Quality upgrade | `zx-procgen:quality-enhancer` |
-| Full character | `zx-procgen:character-generator` |
-| Asset pipeline | `zx-procgen:creative-orchestrator` |
-| Quality analysis | `zx-procgen:quality-analyzer` |
+### Dashboard UI
 
-### Sound Design
-| Task | subagent_type |
-|------|---------------|
-| Audio specs | `sound-design:sonic-designer` |
-| SFX synthesis | `sound-design:sfx-architect` |
-| Music composition | `sound-design:music-architect` |
-| Audio review | `sound-design:audio-coherence-reviewer` |
+Access the Agents tab in the dashboard at `http://localhost/` → Management → Agents
 
-### Code Development
-| Task | subagent_type |
-|------|---------------|
-| System scaffold | `zx-dev:code-scaffolder` |
-| Full feature | `zx-dev:feature-implementer` |
-| Asset integration | `zx-dev:integration-assistant` |
-| Rollback safety | `zx-dev:rollback-reviewer` |
-| Replay debugging | `zx-dev:replay-debugger` |
+Features:
 
-### Testing & Optimization
-| Task | subagent_type |
-|------|---------------|
-| Run tests | `zx-test:test-runner` |
-| Debug desync | `zx-test:desync-investigator` |
-| Build analysis | `zx-optimize:build-analyzer` |
-| Apply optimizations | `zx-optimize:optimizer` |
+- View all agents with stats (total, enabled, skills, context rules)
+- Edit agent details (name, description, model, prompt)
+- Manage skills (checkbox list of available skills)
+- Configure tool patterns (allow/deny lists)
+- View agent details with all configurations
 
-### Publishing & CI
-| Task | subagent_type |
-|------|---------------|
-| Release check | `zx-publish:release-validator` |
-| Publish prep | `zx-publish:publish-preparer` |
-| CI setup | `zx-cicd:ci-scaffolder` |
-| CI optimization | `zx-cicd:pipeline-optimizer` |
-| Quality gates | `zx-cicd:quality-gate-enforcer` |
+### CLI Commands
 
-### Orchestration
-| Task | subagent_type |
-|------|---------------|
-| Full pipeline | `zx-orchestrator:game-orchestrator` |
-| Parallel tasks | `zx-orchestrator:parallel-coordinator` |
-| Request routing | `ai-game-studio:request-dispatcher` |
-| Completion check | `ai-game-studio:completion-auditor` |
-| Next step | `ai-game-studio:next-step-suggester` |
-| Health check | `ai-game-studio:project-health-monitor` |
+```bash
+# Sync database config to filesystem (for OpenCode)
+npm run agents:sync
 
-### Tracker Music
-| Task | subagent_type |
-|------|---------------|
-| Song generation | `tracker-music:song-generator` |
+# Sync with verbose output
+npm run agents:sync -- --verbose
 
-## Invocation Patterns
+# Dry run (show what would change)
+npm run agents:sync -- --dry-run
 
-**Single:** `Task tool with subagent_type="plugin:agent-name"`
+# Sync for specific environment
+npm run agents:sync -- --env prod
 
-**Parallel:** Send multiple Task calls in ONE message
+# Seed default agents
+npm run agents:seed
 
-**Background:** `run_in_background: true`, retrieve with TaskOutput
+# Force re-seed (overwrites existing)
+npm run agents:seed:force
 
-**Resume:** `resume="{agent_id}"` from previous run
+# Run database migration
+npm run db:migrate
+```
 
-## By Development Phase
+### MCP Tools
 
-| Phase | Primary Agents |
-|-------|----------------|
-| Creative | creative-director, sonic-designer |
-| Design | gdd-generator, mechanic-designer, accessibility-auditor |
-| Visual | asset-designer, asset-generator, art-director |
-| Audio | sfx-architect, music-architect, sound-director |
-| Code | code-scaffolder, feature-implementer, tech-director |
-| Test | test-runner, build-analyzer, optimizer |
-| Publish | release-validator, publish-preparer |
+Two MCP tools are available for agents to self-discover their capabilities:
 
-## Proactive Agents
+**ai_first_get_agent_context**
 
-Auto-invoke when conditions match:
-- `completion-auditor` - After any significant work
-- `release-validator` - After builds, before release
-- `scope-advisor` - When design seems ambitious
-- `accessibility-auditor` - When reviewing designs
+```json
+{
+  "platform": "whatsapp",
+  "chatId": "123456789",
+  "environment": "local"
+}
+```
+
+Returns: Agent role, enabled skills, allowed tools, base prompt
+
+**ai_first_list_agents**
+
+```json
+{
+  "includeDetails": true
+}
+```
+
+Returns: All registered agents with optional skill/tool details
+
+## Database Schema
+
+### Tables
+
+| Table           | Purpose                                                   |
+| --------------- | --------------------------------------------------------- |
+| `agents`        | Core agent definitions (id, name, model, prompt, enabled) |
+| `agent_skills`  | Skills assigned to each agent                             |
+| `agent_tools`   | Tool allow/deny patterns per agent                        |
+| `context_rules` | Rules for agent selection by context                      |
+
+### Context Types
+
+| Type          | Context ID                     | Purpose                                  |
+| ------------- | ------------------------------ | ---------------------------------------- |
+| `default`     | null                           | Fallback agent when no other rules match |
+| `platform`    | whatsapp/slack/opencode/cursor | Platform-specific agent                  |
+| `chat`        | Chat/Channel ID                | Chat-specific agent assignment           |
+| `channel`     | Slack channel name             | Channel-specific agent                   |
+| `environment` | local/prod                     | Environment-specific skill overrides     |
+
+## Default Agents
+
+| Agent        | Mode        | Skills                                                                                         | Description                                     |
+| ------------ | ----------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| pm-assistant | primary     | jira-management, workflow-management, presentation-updates, message-scheduling, tool-discovery | JIRA, meetings, workflows, project management   |
+| communicator | specialized | slack-formatting, whatsapp-messages                                                            | Slack/WhatsApp messaging with proper formatting |
+| scheduler    | specialized | message-scheduling, tool-discovery                                                             | Calendar management, reminders                  |
+| explorer     | specialized | project-architecture, tool-discovery                                                           | Fast codebase exploration                       |
+
+## API Endpoints
+
+All endpoints require authentication via JWT token.
+
+### Agent CRUD
+
+| Method | Endpoint                 | Description             |
+| ------ | ------------------------ | ----------------------- |
+| GET    | `/api/agents`            | List all agents         |
+| GET    | `/api/agents/stats`      | Get registry statistics |
+| GET    | `/api/agents/:id`        | Get agent with details  |
+| POST   | `/api/agents`            | Create new agent        |
+| PATCH  | `/api/agents/:id`        | Update agent            |
+| DELETE | `/api/agents/:id`        | Delete agent            |
+| POST   | `/api/agents/:id/toggle` | Toggle enabled status   |
+
+### Skills
+
+| Method | Endpoint                       | Description               |
+| ------ | ------------------------------ | ------------------------- |
+| GET    | `/api/agents/:id/skills`       | Get agent's skills        |
+| PUT    | `/api/agents/:id/skills`       | Replace agent's skills    |
+| GET    | `/api/agents/available-skills` | List all available skills |
+
+### Tools
+
+| Method | Endpoint                | Description                  |
+| ------ | ----------------------- | ---------------------------- |
+| GET    | `/api/agents/:id/tools` | Get agent's tool patterns    |
+| PUT    | `/api/agents/:id/tools` | Set tool allow/deny patterns |
+
+### Context Rules
+
+| Method | Endpoint                        | Description            |
+| ------ | ------------------------------- | ---------------------- |
+| GET    | `/api/agents/context-rules`     | List all context rules |
+| POST   | `/api/agents/context-rules`     | Create context rule    |
+| DELETE | `/api/agents/context-rules/:id` | Delete context rule    |
+
+### Operations
+
+| Method | Endpoint                      | Description               |
+| ------ | ----------------------------- | ------------------------- |
+| POST   | `/api/agents/sync`            | Trigger filesystem sync   |
+| POST   | `/api/agents/resolve-context` | Resolve agent for context |
+
+## Context Resolution
+
+When resolving an agent for a request:
+
+1. Get all context rules sorted by priority (highest first)
+2. Match rules against context (platform, chat, environment)
+3. Apply skill overrides from matching rules
+4. Return agent with effective skills and tools
+
+Priority order: chat-specific > channel-specific > platform-specific > environment > default
+
+## Filesystem Sync
+
+For OpenCode/Cursor compatibility, agent configurations are synced to:
+
+- `.claude/skills/` - Skill directories for enabled skills
+- `opencode.json` - Model configuration (future)
+
+The sync runs:
+
+- On demand via `npm run agents:sync`
+- Before OpenCode starts (in Docker entrypoint)
+- Via dashboard "Sync" button
+
+## Extending
+
+### Adding a New Agent
+
+1. Via Dashboard: Agents tab → Add New Agent
+2. Via API: POST `/api/agents` with agent definition
+3. Via Seed: Update `data/seeds/agents.ts`
+
+### Adding Skills to an Agent
+
+1. Via Dashboard: Click agent → Edit Skills → Select skills
+2. Via API: PUT `/api/agents/:id/skills` with skill names array
+
+### Creating Context Rules
+
+For chat-specific agent:
+
+```json
+{
+  "contextType": "chat",
+  "contextId": "120363406740668957",
+  "agentId": "specialized-agent",
+  "priority": 100
+}
+```
+
+For platform-wide agent:
+
+```json
+{
+  "contextType": "platform",
+  "contextId": "whatsapp",
+  "agentId": "communicator",
+  "priority": 50
+}
+```
+
+## Troubleshooting
+
+### Agent not appearing
+
+1. Check if agent is enabled: `GET /api/agents/:id`
+2. Verify database connection
+3. Check logs for errors
+
+### Skills not syncing
+
+1. Run `npm run agents:sync -- --verbose --dry-run`
+2. Check skill source directory exists
+3. Verify skill is assigned to agent
+
+### Context not resolving
+
+1. Check context rules: `GET /api/agents/context-rules`
+2. Verify rule priorities
+3. Test with: `POST /api/agents/resolve-context`

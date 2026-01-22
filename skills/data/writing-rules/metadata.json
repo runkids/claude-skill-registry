@@ -1,7 +1,7 @@
 {
   "name": "writing-rules",
-  "repo": "ecielam/claude-files",
-  "path": "plugins/cache/claude-code-plugins/hookify/0.1.0/skills/writing-rules/SKILL.md",
-  "source": "github.com/ecielam/claude-files",
-  "downloaded_at": "2026-01-21T04:21:32.322807Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/productivity/writing-rules/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-22T03:18:29.711410Z"
 }

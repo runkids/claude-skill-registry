@@ -1,9 +1,19 @@
 ---
 name: pytdc
+display_name: Pytdc
 description: Therapeutics Data Commons. AI-ready drug discovery datasets (ADME, toxicity, DTI), benchmarks, scaffold splits, molecular oracles, for therapeutic ML and pharmacological prediction.
+version: 1.0.0
+author: K-Dense Inc.
 license: MIT license
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["chemistry", "drug-discovery", "molecular"]
+category: chemistry
+allowed_tools: ["code_execute"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 10
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # PyTDC (Therapeutics Data Commons)

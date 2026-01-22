@@ -1,608 +1,1244 @@
 ---
-name: CI/CD Pipeline Security Expert
-risk_level: HIGH
-description: Expert in CI/CD pipeline design with focus on secret management, code signing, artifact security, and supply chain protection for desktop application builds
-version: 1.0.0
-author: JARVIS AI Assistant
-tags: [ci-cd, devops, security, github-actions, code-signing, artifacts]
-model: claude-sonnet-4-5-20250929
+name: ci-cd
+description: Designs and implements CI/CD pipelines for automated testing, building, deployment, and security scanning across multiple platforms. Covers pipeline optimization, test integration, artifact management, and release automation.
+trigger-keywords: CI/CD, pipeline, workflow, GitHub Actions, GitLab CI, Jenkins, CircleCI, Travis CI, Azure Pipelines, build, deploy, deployment, release, artifact, stage, job, runner, action, automation, continuous integration, continuous deployment, continuous delivery, container registry, docker build, image push, canary deployment, blue-green deployment, rolling update, rollback, integration tests, smoke tests, security scanning, SAST, DAST, dependency scanning, secrets management, cache optimization, parallelization, monorepo CI, matrix build, self-hosted runner, ML pipeline, model training pipeline, model deployment
+allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 
-# CI/CD Pipeline Security Expert
+# CI/CD
 
-## 0. Mandatory Reading Protocol
+## Overview
 
-**CRITICAL**: Before implementing ANY CI/CD pipeline, you MUST read the relevant reference files:
+This skill covers the complete lifecycle of CI/CD pipeline design, implementation, and optimization across platforms including GitHub Actions, GitLab CI, Jenkins, CircleCI, and cloud-native solutions. It encompasses automated testing integration, security scanning, artifact management, deployment strategies, and specialized pipelines for ML workloads.
 
-| Trigger Condition | Reference File |
-|-------------------|----------------|
-| Configuring secrets, code signing, OIDC, supply chain protection | `references/security-examples.md` |
-| Multi-platform builds, caching, release automation | `references/advanced-patterns.md` |
-| Security assessment, defense-in-depth, security gates | `references/threat-model.md` |
+## When to Use
 
----
+- Implementing or migrating CI/CD pipelines
+- Optimizing build and test execution times
+- Integrating security scanning (SAST, DAST, dependency checks)
+- Setting up deployment automation with rollback strategies
+- Configuring test suites in CI environments
+- Managing artifacts and container registries
+- Implementing ML model training and deployment pipelines
+- Troubleshooting pipeline failures and flakiness
 
-## 1. Overview
+## Instructions
 
-**Risk Level: HIGH**
+### 1. Analyze Requirements
 
-**Justification**: CI/CD pipelines have access to signing keys, deployment credentials, and can modify production artifacts. Compromised pipelines can inject malicious code into releases (supply chain attacks), expose secrets, or deploy unauthorized changes.
+- Identify build and test requirements
+- Determine deployment targets and environments
+- Assess security scanning needs (SAST, DAST, secrets, dependencies)
+- Plan environment promotion strategy (dev → staging → production)
+- Define quality gates and approval workflows
+- Identify test suite composition (unit, integration, E2E)
+- Determine artifact storage and retention policies
 
-You are an expert in CI/CD pipeline security, specializing in:
-- **Secret management** with proper scoping and rotation
-- **Code signing** for Windows, macOS, and Linux
-- **Artifact security** including SBOM generation and attestation
-- **Supply chain protection** against dependency attacks
-- **GitHub Actions security** best practices
+### 2. Design Pipeline Architecture
 
-### Primary Use Cases
-- Automated building of Tauri/desktop applications
-- Multi-platform release pipelines
-- Automated testing and security scanning
-- Code signing and notarization
-- Artifact publishing and distribution
+- Structure stages logically with clear dependencies
+- Optimize for speed through parallelization and caching
+- Design fail-fast strategy (lint → unit tests → integration tests → build)
+- Plan secret management and secure credential handling
+- Define deployment strategies (rolling, blue-green, canary)
+- Architect for rollback and recovery procedures
+- Design matrix builds for multi-platform support
+- Plan monorepo CI strategies if applicable
 
----
+### 3. Implement Testing Integration
 
-## 2. Core Responsibilities
+- Configure unit test execution with coverage reporting
+- Set up integration tests with service dependencies (databases, APIs)
+- Implement E2E/smoke tests for critical user journeys
+- Configure test parallelization and sharding
+- Integrate test result reporting (JUnit, TAP, JSON)
+- Set up flaky test detection and quarantine
+- Configure performance/load testing stages
+- Implement visual regression testing if applicable
 
-### 2.1 Core Principles
+### 4. Implement Security Scanning
 
-1. **TDD First** - Write pipeline tests before configuration
-2. **Performance Aware** - Optimize for speed and resource efficiency
-3. **Least privilege for all jobs** - Minimal permissions per job
-4. **Pin all dependencies** - Actions, containers, tools by SHA
-5. **Isolate secrets** - Different secrets for different environments
-6. **Verify before trust** - Check signatures, hashes, attestations
-7. **Audit everything** - Log all security-relevant actions
+- Integrate SAST (static analysis) tools (SonarQube, CodeQL, Semgrep)
+- Configure DAST (dynamic analysis) for deployed environments
+- Set up dependency/vulnerability scanning (Dependabot, Snyk, Trivy)
+- Implement container image scanning
+- Configure secrets detection (GitGuardian, TruffleHog)
+- Set up license compliance checking
+- Define security gate thresholds and failure policies
 
-### 2.2 Supply Chain Security Principles
+### 5. Implement Build and Artifact Management
 
-1. **Pin dependencies by hash** - Not by tag or branch
-2. **Use trusted runners** - Self-hosted or verified GitHub runners
-3. **Scan dependencies** - Automated vulnerability detection
-4. **Generate SBOMs** - Track all components
-5. **Sign artifacts** - Cryptographic proof of origin
+- Configure dependency caching strategies
+- Implement build output caching and layer caching (Docker)
+- Set up artifact versioning and tagging
+- Configure container registry integration
+- Implement multi-stage builds for optimization
+- Set up artifact signing and attestation
+- Configure artifact retention and cleanup policies
 
----
+### 6. Implement Deployment Automation
 
-## 3. Technical Foundation
+- Configure environment-specific deployments
+- Implement deployment strategies (rolling, blue-green, canary)
+- Set up health checks and readiness probes
+- Configure smoke tests post-deployment
+- Implement automated rollback on failure
+- Set up deployment notifications (Slack, email, PagerDuty)
+- Configure manual approval gates for production
 
-### 3.1 GitHub Actions Security Features
+### 7. Optimize Pipeline Performance
 
-| Feature | Purpose | Usage |
-|---------|---------|-------|
-| `permissions` | Restrict GITHUB_TOKEN | Always explicitly set |
-| `environment` | Require approvals | For production deploys |
-| OIDC | Keyless auth | Cloud provider access |
-| Secrets | Encrypted storage | Never log or expose |
+- Analyze pipeline execution times and bottlenecks
+- Implement job parallelization for independent tasks
+- Configure aggressive caching (dependencies, build outputs, Docker layers)
+- Optimize test execution (parallel runners, test sharding)
+- Use matrix builds efficiently
+- Consider self-hosted runners for performance-critical workloads
+- Implement conditional job execution (path filters, change detection)
 
-### 3.2 Required Security Tools
+### 8. Ensure Reliability and Observability
+
+- Add retry logic for transient failures
+- Implement comprehensive error handling
+- Configure alerts for pipeline failures
+- Set up metrics and dashboards for pipeline health
+- Document runbooks and troubleshooting procedures
+- Implement audit logging for deployments
+- Configure SLO tracking for pipeline performance
+
+## Best Practices
+
+### Core Principles
+
+1. **Fail Fast**: Run cheap, fast checks first (lint, type check, unit tests)
+2. **Parallelize Aggressively**: Run independent jobs concurrently
+3. **Cache Everything**: Dependencies, build outputs, Docker layers
+4. **Secure by Default**: Secrets in vaults, least privilege, audit logs
+5. **Environment Parity**: Keep dev/staging/prod as similar as possible
+6. **Immutable Artifacts**: Build once, promote everywhere
+7. **Automated Rollback**: Every deployment must be reversible
+8. **Idempotent Operations**: Pipelines should be safely re-runnable
+
+### Testing in CI/CD
+
+9. **Test Pyramid**: More unit tests, fewer integration tests, minimal E2E
+10. **Isolation**: Tests should not depend on execution order
+11. **Determinism**: Eliminate flaky tests or quarantine them
+12. **Fast Feedback**: Unit tests < 5min, full suite < 15min target
+13. **Coverage Gates**: Enforce minimum coverage thresholds
+14. **Service Mocking**: Use test doubles for external dependencies
+
+### Security
+
+15. **Shift Left**: Run security scans early in the pipeline
+16. **Dependency Scanning**: Check for CVEs in all dependencies
+17. **Secrets Management**: Never hardcode secrets, use secure vaults
+18. **Least Privilege**: Minimal permissions for pipeline runners
+19. **Supply Chain Security**: Verify and sign artifacts
+20. **Audit Trail**: Log all deployments and access
+
+### Performance
+
+21. **Incremental Builds**: Only rebuild changed components
+22. **Layer Caching**: Optimize Dockerfile layer order
+23. **Dependency Locking**: Pin versions for reproducibility
+24. **Resource Limits**: Prevent resource exhaustion
+25. **Path Filtering**: Skip jobs when irrelevant files change
+
+## Examples
+
+### Example 1: GitHub Actions Workflow
 
 ```yaml
-- name: Dependency Scanning
-  uses: github/dependency-review-action@v3
-- name: SAST Scanning
-  uses: github/codeql-action/analyze@v2
-- name: Secret Detection
-  uses: trufflesecurity/trufflehog@main
-- name: Container Scanning
-  uses: aquasecurity/trivy-action@master
-```
-
----
-
-## 4. Implementation Patterns
-
-### 4.1 Secure Workflow Structure
-
-```yaml
-name: Secure Build Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
     branches: [main]
 
-# CRITICAL: Restrict default permissions
-permissions:
-  contents: read
+env:
+  NODE_VERSION: "20"
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  security-scan:
+  lint:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
     steps:
       - uses: actions/checkout@v4
-      - uses: github/codeql-action/analyze@v2
-      - uses: actions/dependency-review-action@v3
-        if: github.event_name == 'pull_request'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test -- --coverage
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/lcov.info
 
   build:
-    needs: security-scan
     runs-on: ubuntu-latest
+    needs: test
     permissions:
       contents: read
+      packages: write
+
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
         with:
-          node-version: '20'
-      - run: npm run build
-```
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-📚 **See `references/advanced-patterns.md`** for release jobs and environment protection.
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix=
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
-### 4.2 Secret Management
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-```yaml
-jobs:
   deploy-staging:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/develop'
     environment: staging
-    env:
-      API_KEY: ${{ secrets.STAGING_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to staging
+        uses: azure/k8s-deploy@v4
+        with:
+          namespace: staging
+          manifests: |
+            k8s/deployment.yaml
+            k8s/service.yaml
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
   deploy-production:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
     environment: production
-    env:
-      API_KEY: ${{ secrets.PRODUCTION_API_KEY }}
 
-# CORRECT: Use environment variables
-- name: Use Secret
-  env:
-    API_KEY: ${{ secrets.API_KEY }}
-  run: curl -H "Authorization: Bearer $API_KEY" https://api.example.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to production
+        uses: azure/k8s-deploy@v4
+        with:
+          namespace: production
+          manifests: |
+            k8s/deployment.yaml
+            k8s/service.yaml
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          strategy: canary
+          percentage: 20
 ```
 
-**Never**: `echo ${{ secrets.API_KEY }}` - exposes in logs!
+### Example 2: GitLab CI Pipeline
 
-### 4.3 Code Signing for Desktop Apps
-
-**Windows signing core pattern:**
 ```yaml
-- name: Import Certificate
-  env:
-    CERTIFICATE_BASE64: ${{ secrets.WINDOWS_CERTIFICATE }}
-    CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
-  run: |
-    $certBytes = [Convert]::FromBase64String($env:CERTIFICATE_BASE64)
-    $certPath = Join-Path $env:RUNNER_TEMP "certificate.pfx"
-    [IO.File]::WriteAllBytes($certPath, $certBytes)
-    $securePassword = ConvertTo-SecureString $env:CERTIFICATE_PASSWORD -AsPlainText -Force
-    Import-PfxCertificate -FilePath $certPath -CertStoreLocation Cert:\CurrentUser\My -Password $securePassword
-    Remove-Item $certPath
+stages:
+  - validate
+  - test
+  - build
+  - deploy
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+.node-base:
+  image: node:20-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+
+lint:
+  stage: validate
+  extends: .node-base
+  script:
+    - npm ci
+    - npm run lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+test:
+  stage: test
+  extends: .node-base
+  services:
+    - postgres:16
+  variables:
+    POSTGRES_DB: test
+    POSTGRES_USER: runner
+    POSTGRES_PASSWORD: runner
+    DATABASE_URL: postgresql://runner:runner@postgres:5432/test
+  script:
+    - npm ci
+    - npm test -- --coverage
+  coverage: '/Lines\s*:\s*(\d+\.?\d*)%/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+      junit: junit.xml
+
+build:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+deploy-staging:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  script:
+    - kubectl set image deployment/app app=$IMAGE_TAG -n staging
+    - kubectl rollout status deployment/app -n staging --timeout=300s
+  environment:
+    name: staging
+    url: https://staging.example.com
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+deploy-production:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  script:
+    - kubectl set image deployment/app app=$IMAGE_TAG -n production
+    - kubectl rollout status deployment/app -n production --timeout=300s
+  environment:
+    name: production
+    url: https://example.com
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
 ```
 
-**macOS signing core pattern:**
-```yaml
-- name: Import Apple Certificates
-  env:
-    APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-    APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-    KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-  run: |
-    security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
-    security default-keychain -s build.keychain
-    security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
-    echo "$APPLE_CERTIFICATE" | base64 --decode > certificate.p12
-    security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
-    security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
-    rm certificate.p12
-```
-
-📚 **See `references/security-examples.md`** for complete signing workflows and notarization.
-
-### 4.4 OIDC Authentication (Keyless)
+### Example 3: Reusable Workflow (GitHub Actions)
 
 ```yaml
+# .github/workflows/reusable-deploy.yml
+name: Reusable Deploy Workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      image-tag:
+        required: true
+        type: string
+    secrets:
+      KUBE_CONFIG:
+        required: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - name: Authenticate to AWS
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::123456789:role/GitHubActionsRole
-          aws-region: us-east-1
-          # No secrets needed! Uses OIDC token
-```
+    environment: ${{ inputs.environment }}
 
-📚 **See `references/security-examples.md`** for GCP and Azure OIDC patterns.
-
----
-
-## 5. Security Standards
-
-### 5.1 Critical Vulnerabilities
-
-| CVE | Severity | Mitigation |
-|-----|----------|------------|
-| CVE-2024-23897 | Critical (9.8) | Update Jenkins, restrict CLI |
-| CVE-2023-49291 | Critical (9.8) | Pin actions by SHA |
-| CVE-2025-30066 | High (8.6) | Audit tj-actions usage |
-
-**Key Insight**: Supply chain attacks through third-party actions are a major threat. Always pin by SHA and audit action sources.
-
-### 5.2 OWASP CI/CD Top 10 Summary
-
-| Risk | Key Controls |
-|------|--------------|
-| Insufficient Flow Control | Required reviews, environment protection |
-| Inadequate Identity/Access | OIDC, least privilege, MFA |
-| Dependency Chain Abuse | Pin by SHA, scan dependencies |
-| Poisoned Pipeline Execution | Protect workflow files, limit triggers |
-| Insufficient Credential Hygiene | Rotate secrets, scope narrowly |
-
-### 5.3 Supply Chain Security
-
-```yaml
-# Pin actions by SHA (not tag)
-- uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
-
-# Generate SBOM for transparency
-- name: Generate SBOM
-  uses: anchore/sbom-action@v0
-  with:
-    artifact-name: sbom.spdx.json
-```
-
-📚 **See `references/security-examples.md`** for complete supply chain protection.
-
----
-
-## 6. Testing Standards
-
-```yaml
-# Test workflow changes in PR
-on:
-  pull_request:
-    paths:
-      - '.github/workflows/**'
-
-jobs:
-  validate-workflows:
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate YAML
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Configure kubeconfig
         run: |
-          pip install yamllint
-          yamllint .github/workflows/
-      - name: Check for secrets in logs
-        run: grep -r 'echo.*secrets\.' .github/workflows/ && exit 1 || true
-      - name: Verify SHA pinning
-        run: grep -E 'uses:.*@[^a-f0-9]' .github/workflows/ && exit 1 || true
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
+
+      - name: Deploy
+        run: |
+          kubectl set image deployment/app \
+            app=${{ inputs.image-tag }} \
+            -n ${{ inputs.environment }}
+
+          kubectl rollout status deployment/app \
+            -n ${{ inputs.environment }} \
+            --timeout=300s
+
+      - name: Verify deployment
+        run: |
+          kubectl get pods -n ${{ inputs.environment }} -l app=app
+          kubectl logs -n ${{ inputs.environment }} -l app=app --tail=50
 ```
 
----
-
-## 7. Implementation Workflow (TDD)
-
-### Step 1: Write Failing Test First
-
-Before creating or modifying a workflow, write tests that validate expected behavior:
+### Example 4: Security Scanning Pipeline
 
 ```yaml
-# .github/workflows/test-workflows.yml
-name: Validate Workflows
+name: Security Scanning
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 0 * * 0" # Weekly scan
+
+jobs:
+  sast:
+    name: Static Analysis (SAST)
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript, python
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=myorg
+            -Dsonar.projectKey=myproject
+            -Dsonar.qualitygate.wait=true
+
+  dependency-scan:
+    name: Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Snyk Security Scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  secrets-scan:
+    name: Secrets Detection
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for secret detection
+
+      - name: TruffleHog Scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+
+      - name: GitGuardian Scan
+        uses: GitGuardian/ggshield-action@v1
+        env:
+          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
+          GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
+          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
+
+  container-scan:
+    name: Container Image Scan
+    runs-on: ubuntu-latest
+    needs: [sast, dependency-scan]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t myapp:${{ github.sha }} .
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "myapp:${{ github.sha }}"
+          format: "sarif"
+          output: "trivy-image-results.sarif"
+
+      - name: Scan image with Grype
+        uses: anchore/scan-action@v3
+        with:
+          image: "myapp:${{ github.sha }}"
+          fail-build: true
+          severity-cutoff: high
+```
+
+### Example 5: Test Integration with Parallelization
+
+```yaml
+name: Test Suite
+
 on: [push, pull_request]
 
 jobs:
-  test-workflow-syntax:
+  unit-tests:
+    name: Unit Tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
     steps:
       - uses: actions/checkout@v4
-      - name: Install actionlint
-        run: |
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-      - name: Lint workflows
-        run: ./actionlint -color
 
-  test-security-compliance:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check permissions are explicit
-        run: |
-          for f in .github/workflows/*.yml; do
-            if ! grep -q "^permissions:" "$f"; then
-              echo "FAIL: $f missing explicit permissions"
-              exit 1
-            fi
-          done
-      - name: Check actions are SHA-pinned
-        run: |
-          if grep -rE 'uses:.*@v[0-9]' .github/workflows/; then
-            echo "FAIL: Found unpinned actions"
-            exit 1
-          fi
-```
-
-### Step 2: Implement Minimum to Pass
-
-Create the workflow configuration that satisfies the test requirements:
-
-```yaml
-# .github/workflows/build.yml
-name: Build
-on: [push]
-permissions:
-  contents: read
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
-      - run: npm ci && npm run build
-```
-
-### Step 3: Refactor and Optimize
-
-Add caching, parallelization, and security enhancements:
-
-```yaml
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
-      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci && npm run build
-```
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-### Step 4: Run Full Verification
+      - name: Install dependencies
+        run: npm ci
 
-```bash
-# Local validation
-actionlint .github/workflows/
-yamllint .github/workflows/
+      - name: Run unit tests
+        run: npm run test:unit -- --coverage --maxWorkers=4
 
-# Security checks
-grep -rE 'uses:.*@v[0-9]' .github/workflows/ && echo "FAIL: Unpinned actions" || echo "PASS"
-grep -r 'echo.*secrets\.' .github/workflows/ && echo "FAIL: Secret exposure" || echo "PASS"
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/coverage-final.json
+          flags: unit-${{ matrix.os }}-node${{ matrix.node-version }}
 
-# Push and verify CI passes
-git push && gh run watch
-```
-
----
-
-## 8. Performance Patterns
-
-### 8.1 Caching Strategies
-
-**Good - Aggressive caching with proper keys:**
-```yaml
-- uses: actions/cache@v4
-  with:
-    path: |
-      ~/.npm
-      node_modules
-      ~/.cargo/registry
-      target
-    key: ${{ runner.os }}-deps-${{ hashFiles('**/package-lock.json', '**/Cargo.lock') }}
-    restore-keys: |
-      ${{ runner.os }}-deps-
-```
-
-**Bad - No caching or poor cache keys:**
-```yaml
-# Missing caching - slow builds every time
-- run: npm ci
-- run: cargo build
-```
-
-### 8.2 Parallel Jobs
-
-**Good - Independent jobs run in parallel:**
-```yaml
-jobs:
-  lint:
+  integration-tests:
+    name: Integration Tests
     runs-on: ubuntu-latest
-    steps: [...]
+    strategy:
+      matrix:
+        shard: [1, 2, 3, 4]
 
-  test-unit:
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run integration tests (shard ${{ matrix.shard }}/4)
+        run: npm run test:integration -- --shard=${{ matrix.shard }}/4
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test
+          REDIS_URL: redis://localhost:6379
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results-${{ matrix.shard }}
+          path: test-results/
+
+  e2e-tests:
+    name: E2E Tests
     runs-on: ubuntu-latest
-    steps: [...]
 
-  test-e2e:
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+
+  test-report:
+    name: Generate Test Report
     runs-on: ubuntu-latest
-    steps: [...]
+    needs: [unit-tests, integration-tests, e2e-tests]
+    if: always()
 
-  build:
-    needs: [lint, test-unit, test-e2e]  # Waits for all parallel jobs
-    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all test results
+        uses: actions/download-artifact@v4
+        with:
+          path: test-results/
+
+      - name: Generate combined report
+        run: |
+          npm install -g junit-viewer
+          junit-viewer --results=test-results/ --save=test-report.html
+
+      - name: Upload combined report
+        uses: actions/upload-artifact@v4
+        with:
+          name: combined-test-report
+          path: test-report.html
 ```
 
-**Bad - Sequential jobs that could be parallel:**
+### Example 6: ML Pipeline (Model Training & Deployment)
+
 ```yaml
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-  test-unit:
-    needs: lint  # Unnecessary dependency
-  test-e2e:
-    needs: test-unit  # Unnecessary dependency
-```
+name: ML Pipeline
 
-### 8.3 Artifact Optimization
-
-**Good - Compress and limit artifact retention:**
-```yaml
-- name: Upload artifacts
-  uses: actions/upload-artifact@v4
-  with:
-    name: build-output
-    path: dist/
-    retention-days: 7
-    compression-level: 9
-```
-
-**Bad - Large uncompressed artifacts with long retention:**
-```yaml
-- uses: actions/upload-artifact@v4
-  with:
-    name: everything
-    path: .  # Uploads entire repo
-    retention-days: 90
-```
-
-### 8.4 Incremental Builds
-
-**Good - Skip unchanged components:**
-```yaml
-- name: Check for changes
-  id: changes
-  uses: dorny/paths-filter@v2
-  with:
-    filters: |
-      frontend:
-        - 'src/frontend/**'
-      backend:
-        - 'src/backend/**'
-
-- name: Build frontend
-  if: steps.changes.outputs.frontend == 'true'
-  run: npm run build
-
-- name: Build backend
-  if: steps.changes.outputs.backend == 'true'
-  run: cargo build --release
-```
-
-**Bad - Always rebuild everything:**
-```yaml
-- run: npm run build
-- run: cargo build --release
-# Runs even when no changes to those components
-```
-
-### 8.5 Conditional Workflows
-
-**Good - Run expensive jobs only when needed:**
-```yaml
 on:
   push:
     branches: [main]
     paths:
-      - 'src/**'
-      - 'Cargo.toml'
-      - 'package.json'
+      - "models/**"
+      - "training/**"
+      - "data/**"
+  workflow_dispatch:
+    inputs:
+      model-version:
+        description: "Model version to train"
+        required: true
+        type: string
 
 jobs:
-  expensive-test:
-    if: contains(github.event.head_commit.message, '[full-test]') || github.ref == 'refs/heads/main'
+  data-validation:
+    name: Validate Training Data
     runs-on: ubuntu-latest
-```
 
-**Bad - Run everything on every push:**
-```yaml
-on: [push]  # Triggers on every branch, every commit
-jobs:
-  full-e2e-suite:  # Expensive job runs unnecessarily
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install pandas great-expectations dvc
+
+      - name: Pull data with DVC
+        run: |
+          dvc remote modify origin --local auth basic
+          dvc remote modify origin --local user ${{ secrets.DVC_USER }}
+          dvc remote modify origin --local password ${{ secrets.DVC_PASSWORD }}
+          dvc pull
+
+      - name: Validate data schema
+        run: python scripts/validate_data.py
+
+      - name: Run Great Expectations
+        run: great_expectations checkpoint run training_data_checkpoint
+
+  train-model:
+    name: Train ML Model
     runs-on: ubuntu-latest
+    needs: data-validation
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install mlflow wandb
+
+      - name: Configure MLflow
+        run: |
+          echo "MLFLOW_TRACKING_URI=${{ secrets.MLFLOW_TRACKING_URI }}" >> $GITHUB_ENV
+          echo "MLFLOW_TRACKING_USERNAME=${{ secrets.MLFLOW_USERNAME }}" >> $GITHUB_ENV
+          echo "MLFLOW_TRACKING_PASSWORD=${{ secrets.MLFLOW_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Train model
+        run: |
+          python training/train.py \
+            --experiment-name "prod-training" \
+            --model-version ${{ inputs.model-version || github.sha }} \
+            --config training/config.yaml
+        env:
+          WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trained-model
+          path: models/output/
+
+  evaluate-model:
+    name: Evaluate Model Performance
+    runs-on: ubuntu-latest
+    needs: train-model
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download model
+        uses: actions/download-artifact@v4
+        with:
+          name: trained-model
+          path: models/output/
+
+      - name: Run model evaluation
+        run: python evaluation/evaluate.py --model-path models/output/
+
+      - name: Check performance thresholds
+        run: |
+          python evaluation/check_metrics.py \
+            --min-accuracy 0.85 \
+            --min-f1 0.80
+
+      - name: Generate model card
+        run: python scripts/generate_model_card.py
+
+  deploy-model:
+    name: Deploy Model to Production
+    runs-on: ubuntu-latest
+    needs: evaluate-model
+    if: github.ref == 'refs/heads/main'
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download model
+        uses: actions/download-artifact@v4
+        with:
+          name: trained-model
+          path: models/output/
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Upload model to S3
+        run: |
+          aws s3 cp models/output/model.pkl \
+            s3://my-ml-models/prod/${{ github.sha }}/model.pkl
+
+      - name: Deploy to SageMaker
+        run: |
+          python deployment/deploy_sagemaker.py \
+            --model-uri s3://my-ml-models/prod/${{ github.sha }}/model.pkl \
+            --endpoint-name prod-ml-endpoint \
+            --instance-type ml.m5.large
+
+      - name: Run smoke tests
+        run: python deployment/smoke_test.py --endpoint prod-ml-endpoint
+
+      - name: Update model registry
+        run: |
+          python scripts/register_model.py \
+            --version ${{ github.sha }} \
+            --stage production \
+            --metadata models/output/metadata.json
 ```
 
----
+### Example 7: Monorepo CI with Path Filtering
 
-## 9. Common Mistakes & Anti-Patterns
-
-### Overly Permissive Token
 ```yaml
-# WRONG
-permissions: write-all
+name: Monorepo CI
 
-# CORRECT
-permissions:
-  contents: read
-```
-
-### Unpinned Actions
-```yaml
-# WRONG: Tag/branch can be moved
-- uses: actions/checkout@v4
-- uses: actions/checkout@main
-
-# CORRECT: SHA is immutable
-- uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
-```
-
-### Secret Exposure
-```yaml
-# WRONG: Secret in command line
-- run: curl -u user:${{ secrets.TOKEN }} https://api.example.com
-
-# CORRECT: Secret in environment variable
-- env:
-    TOKEN: ${{ secrets.TOKEN }}
-  run: curl -u "user:$TOKEN" https://api.example.com
-```
-
-### Unsafe pull_request_target
-```yaml
-# DANGEROUS: Runs with write access on untrusted code
 on:
-  pull_request_target:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
 jobs:
-  build:
+  detect-changes:
+    name: Detect Changed Services
+    runs-on: ubuntu-latest
+    outputs:
+      api: ${{ steps.filter.outputs.api }}
+      web: ${{ steps.filter.outputs.web }}
+      worker: ${{ steps.filter.outputs.worker }}
+      shared: ${{ steps.filter.outputs.shared }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            api:
+              - 'services/api/**'
+              - 'packages/shared/**'
+            web:
+              - 'services/web/**'
+              - 'packages/shared/**'
+            worker:
+              - 'services/worker/**'
+              - 'packages/shared/**'
+            shared:
+              - 'packages/shared/**'
+
+  test-api:
+    name: Test API Service
+    needs: detect-changes
+    if: needs.detect-changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: services/api
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: services/api/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  test-web:
+    name: Test Web Service
+    needs: detect-changes
+    if: needs.detect-changes.outputs.web == 'true'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: services/web
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: services/web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  test-worker:
+    name: Test Worker Service
+    needs: detect-changes
+    if: needs.detect-changes.outputs.worker == 'true'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: services/worker
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: services/worker/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  build-and-deploy:
+    name: Build and Deploy Changed Services
+    needs: [detect-changes, test-api, test-web, test-worker]
+    if: |
+      always() &&
+      (needs.test-api.result == 'success' || needs.test-api.result == 'skipped') &&
+      (needs.test-web.result == 'success' || needs.test-web.result == 'skipped') &&
+      (needs.test-worker.result == 'success' || needs.test-worker.result == 'skipped')
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - name: api
+            changed: ${{ needs.detect-changes.outputs.api == 'true' }}
+          - name: web
+            changed: ${{ needs.detect-changes.outputs.web == 'true' }}
+          - name: worker
+            changed: ${{ needs.detect-changes.outputs.worker == 'true' }}
+
+    steps:
+      - uses: actions/checkout@v4
+        if: matrix.service.changed == 'true'
+
+      - name: Build and push ${{ matrix.service.name }}
+        if: matrix.service.changed == 'true'
+        run: |
+          docker build -t myapp-${{ matrix.service.name }}:${{ github.sha }} \
+            services/${{ matrix.service.name }}
+          docker push myapp-${{ matrix.service.name }}:${{ github.sha }}
+```
+
+### Example 8: Performance Optimization Pipeline
+
+```yaml
+name: Optimized CI Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  # Fast feedback jobs run first
+  quick-checks:
+    name: Quick Checks (< 2min)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Parallel lint and type check
+        run: |
+          npm run lint &
+          npm run type-check &
+          wait
+
+  unit-tests-fast:
+    name: Unit Tests (Changed Files Only)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}  # Untrusted!
-      - run: npm install  # Can execute malicious scripts
+          fetch-depth: 0 # Need full history for changed files
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: Get changed files
+        id: changed-files
+        run: |
+          echo "files=$(git diff --name-only origin/main...HEAD | \
+            grep -E '\.(ts|tsx|js|jsx)$' | \
+            xargs -I {} echo '--findRelatedTests {}' | \
+            tr '\n' ' ')" >> $GITHUB_OUTPUT
+
+      - name: Run tests for changed files only
+        if: steps.changed-files.outputs.files != ''
+        run: npm test -- ${{ steps.changed-files.outputs.files }}
+
+  build-with-cache:
+    name: Build with Aggressive Caching
+    runs-on: ubuntu-latest
+    needs: quick-checks
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Cache build output
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next/cache
+            dist/
+            build/
+          key: ${{ runner.os }}-build-${{ hashFiles('**/*.ts', '**/*.tsx', '**/*.js') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: dist/
+          retention-days: 7
+
+  docker-build-optimized:
+    name: Docker Build with Layer Caching
+    runs-on: ubuntu-latest
+    needs: quick-checks
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build with cache
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: myapp:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
 ```
 
-📚 **See `references/threat-model.md`** for safe patterns and trust boundaries.
+## Pipeline Optimization Patterns
 
----
+### Caching Strategy
 
-## 10. Pre-Implementation Checklist
+1. **Dependency Caching**: Cache `node_modules`, `vendor/`, `.m2/`, etc.
+2. **Build Output Caching**: Cache compiled artifacts between runs
+3. **Docker Layer Caching**: Use BuildKit cache mounts and GitHub Actions cache
+4. **Incremental Builds**: Only rebuild changed modules (Nx, Turborepo)
 
-### Phase 1: Before Writing Code
-- [ ] Review existing workflows for patterns to follow
-- [ ] Identify security requirements (secrets, signing, OIDC)
-- [ ] Plan caching strategy for dependencies
-- [ ] Define job parallelization structure
-- [ ] Check `references/threat-model.md` for security considerations
+### Parallelization Strategies
 
-### Phase 2: During Implementation
-- [ ] Default permissions: `contents: read`
-- [ ] All jobs have explicit minimal permissions
-- [ ] All actions pinned by SHA (not tag)
-- [ ] Secrets passed via environment variables
-- [ ] Caching configured with proper keys
-- [ ] Jobs parallelized where independent
-- [ ] Path filters for conditional execution
+1. **Job-Level Parallelization**: Run independent jobs concurrently
+2. **Test Sharding**: Split test suite across multiple runners
+3. **Matrix Builds**: Test multiple versions/platforms simultaneously
+4. **Monorepo Path Filtering**: Only test changed services
 
-### Phase 3: Before Committing
-- [ ] Run `actionlint` on all workflows
-- [ ] Run `yamllint` for syntax validation
-- [ ] Verify no `echo.*secrets` patterns
-- [ ] Verify no unpinned actions (`@v*` patterns)
-- [ ] Test workflow locally with `act` if possible
-- [ ] SBOM generation configured for releases
-- [ ] Environments with protection rules for production
-- [ ] Secret rotation documented
+### Conditional Execution
 
----
+1. **Path Filters**: Skip jobs when irrelevant files change
+2. **Changed Files Detection**: Test only affected code
+3. **Branch-Specific Jobs**: Different pipelines for different branches
+4. **Manual Triggers**: Allow on-demand pipeline execution
 
-## 11. Summary
+## ML-Specific Patterns
 
-Your goal is to create CI/CD pipelines that are:
+### Model Training Pipeline
 
-- **Secure**: Least privilege, pinned dependencies, protected secrets
-- **Auditable**: Logged actions, SBOMs, signed artifacts
-- **Resilient**: Defense in depth, isolation between jobs
+1. **Data Validation**: Validate schema and quality before training
+2. **Experiment Tracking**: Log metrics to MLflow/W&B
+3. **Model Versioning**: Tag models with git SHA or semantic version
+4. **Performance Gates**: Enforce minimum accuracy/F1 thresholds
 
-CI/CD pipelines are high-value targets because they have access to signing keys and credentials, can modify production artifacts, and run automatically on code changes.
+### Model Deployment
 
-**Security Reminder**: ALWAYS pin actions by SHA. ALWAYS use least privilege permissions. ALWAYS protect secrets from exposure. When in doubt, consult `references/threat-model.md` for attack scenarios.
+1. **A/B Testing**: Deploy new model alongside existing
+2. **Shadow Mode**: Run new model without affecting production
+3. **Canary Rollout**: Gradually increase traffic to new model
+4. **Automated Rollback**: Revert on performance degradation
+
+## Troubleshooting Guide
+
+### Common Issues
+
+1. **Flaky Tests**: Implement retry logic, increase timeouts, fix race conditions
+2. **Slow Pipelines**: Profile execution times, add caching, parallelize
+3. **Secrets Exposure**: Use secret scanning, audit logs, rotate credentials
+4. **Resource Exhaustion**: Set resource limits, use cleanup actions
+5. **Network Timeouts**: Add retries, use artifact caching, increase timeouts
+
+### Debugging Commands
+
+```bash
+# GitHub Actions local testing
+act -j test --secret-file .env.secrets
+
+# GitLab CI local testing
+gitlab-runner exec docker test
+
+# Jenkins pipeline validation
+java -jar jenkins-cli.jar declarative-linter < Jenkinsfile
+
+# Docker build debugging
+DOCKER_BUILDKIT=1 docker build --progress=plain .
+
+# Test pipeline with dry-run
+kubectl apply --dry-run=client -f k8s/
+
+# Validate workflow syntax
+actionlint .github/workflows/*.yml
+```

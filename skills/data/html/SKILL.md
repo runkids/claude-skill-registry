@@ -1,951 +1,867 @@
 ---
-name: html
-description: Write semantic, accessible, performant HTML with modern best practices. Use when asked to (1) create HTML pages or documents, (2) write semantic markup, (3) improve accessibility, (4) optimize HTML structure and performance, (5) implement forms, tables, or complex layouts, or when phrases like "HTML page", "web page", "markup", "semantic HTML", "accessibility" appear.
+name: html-semantic-engineering
+description: 30 pragmatic rules for production HTML covering semantic markup, accessibility (WCAG 2.1 AA), performance optimization, forms, and security. Use when writing HTML, building page structures, creating forms, implementing accessibility, or optimizing for SEO and Core Web Vitals.
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash, WebFetch, WebSearch
 ---
 
-# Expert HTML Development
+# HTML Semantic Engineering
 
-Write clean, semantic, accessible HTML that follows modern web standards and best practices.
+30 battle-tested principles for production HTML. Semantic correctness first, then accessibility, then performance.
 
-## MCP Integration - Context7
+## Relationship with Other Skills
 
-**CRITICAL: Before writing or editing ANY HTML code, ALWAYS use the Context7 MCP server to check for relevant context.**
+- **`web-components-architecture`**: Component lifecycle and Shadow DOM patterns
+- **`javascript-pragmatic-rules`**: JavaScript behavior inside components
+- **`utopia-fluid-scales`**: Typography (`--step-*`) and spacing (`--space-*`) tokens
+- **`utopia-grid-layout`**: Grid utilities (`.u-container`, `.u-grid`, `--grid-gutter`)
+- **`utopia-container-queries`**: Container context required for `cqi` fluid units
 
-Context7 provides access to a knowledge base that may contain:
-- Project-specific HTML patterns and conventions
-- Custom component libraries and templates
-- Style guide requirements
-- Accessibility standards for the project
-- Performance benchmarks and requirements
-- Team preferences and coding standards
+**Example:** A `<product-card>` component should:
+- Use this skill for semantic structure (article, heading hierarchy, img alt)
+- Use `web-components-architecture` for Shadow DOM encapsulation
+- Use `utopia-fluid-scales` for typography (`--step-2`) and spacing (`--space-m`)
+- Use `javascript-pragmatic-rules` for async data fetching
 
-**Workflow:**
-1. **Before writing code:** Query Context7 for relevant patterns, conventions, or examples
-2. **During editing:** Check Context7 for project-specific requirements that might affect your changes
-3. **After writing:** Verify your code aligns with any Context7 guidance
+## Design System Integration
 
-Use Context7 to search for topics like:
-- "HTML conventions"
-- "accessibility requirements"
-- "component templates"
-- "form patterns"
-- "performance standards"
-- Specific component or pattern names
+This project uses Utopia's fluid scales with `cqi` (container query inline) units. **Never hardcode pixel values for typography or spacing.** Use design tokens:
 
-**Never skip the Context7 check** - it ensures your HTML aligns with project standards and leverages existing patterns.
+```css
+/* Typography - see utopia-fluid-scales */
+font-size: var(--step-0);   /* Body text */
+font-size: var(--step-3);   /* H3 equivalent */
 
-## Core Principles
+/* Spacing - see utopia-fluid-scales */
+padding: var(--space-m);
+gap: var(--space-s-m);      /* Fluid pair */
 
-1. **Semantic first** - Use elements for their intended meaning, not just appearance
-2. **Accessibility by default** - Every user deserves a great experience
-3. **Progressive enhancement** - Start with working HTML, layer on CSS/JS
-4. **Performance matters** - Optimize for speed and efficiency
+/* Grid - see utopia-grid-layout */
+gap: var(--grid-gutter);
+max-width: var(--grid-max-width);
+```
 
-## Document Structure
+**Container requirement:** The `cqi` units require `container-type: inline-size` on a parent element. This is set on `html` in `css/styles/index.css`.
 
-### Minimal Valid HTML5 Document
+---
+
+## Semantic Structure
+
+### Rule 1: Never Skip Heading Levels
+
+Heading hierarchy defines document outline. Screen readers use headings for navigation.
+
+```html
+<!-- ✅ Correct hierarchy -->
+<article>
+  <h1>Page Title</h1>
+  <section>
+    <h2>Section Title</h2>
+    <h3>Subsection Title</h3>
+  </section>
+</article>
+
+<!-- ❌ Skipped h2 -->
+<article>
+  <h1>Page Title</h1>
+  <h3>Subsection Title</h3>
+</article>
+```
+
+### Rule 2: Use Semantic Elements Over Divs
+
+Semantic elements convey meaning to browsers, screen readers, and search engines.
+
+```html
+<!-- ✅ Semantic structure -->
+<header>
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="/" aria-current="page">Home</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <article>
+    <header>
+      <h1>Article Title</h1>
+      <time datetime="2024-01-15">January 15, 2024</time>
+    </header>
+    <p>Content...</p>
+    <aside>Related sidebar content</aside>
+  </article>
+</main>
+
+<footer>
+  <nav aria-label="Footer navigation">...</nav>
+</footer>
+
+<!-- ❌ Generic containers -->
+<div class="header">
+  <div class="nav">...</div>
+</div>
+```
+
+### Rule 3: Landmark Regions for Navigation
+
+Screen reader users navigate by landmarks. Every page needs clear regions.
+
+```html
+<body>
+  <!-- role="banner" is implicit for header as direct child of body -->
+  <header>...</header>
+
+  <!-- role="navigation" is implicit for nav -->
+  <nav aria-label="Main">...</nav>
+
+  <!-- role="main" is implicit -->
+  <main id="main-content">...</main>
+
+  <!-- role="complementary" is implicit for aside -->
+  <aside aria-label="Related content">...</aside>
+
+  <!-- role="contentinfo" is implicit for footer as direct child of body -->
+  <footer>...</footer>
+</body>
+```
+
+---
+
+## Accessibility (WCAG 2.1 AA)
+
+### Rule 4: Always Include Alt Text
+
+Images need descriptions for screen readers. Decorative images use empty alt.
+
+```html
+<!-- ✅ Informative image -->
+<img src="chart.png" alt="Q4 sales increased 23% compared to Q3" width="600" height="400">
+
+<!-- ✅ Decorative image -->
+<img src="decorative-border.png" alt="" role="presentation">
+
+<!-- ✅ Complex image with extended description -->
+<figure>
+  <img src="flowchart.png" alt="User registration process flowchart" aria-describedby="flowchart-desc">
+  <figcaption id="flowchart-desc">
+    The process starts with email entry, followed by verification, profile setup, and confirmation.
+  </figcaption>
+</figure>
+
+<!-- ❌ Missing alt -->
+<img src="important-graph.png">
+```
+
+### Rule 5: Implement Skip Links
+
+Keyboard users need to bypass repetitive navigation.
+
+```html
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#navigation" class="skip-link">Skip to navigation</a>
+
+  <header>...</header>
+  <nav id="navigation">...</nav>
+  <main id="main-content">...</main>
+</body>
+
+<style>
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  padding: var(--space-2xs) var(--space-s);
+  background: var(--color-background-inverse, #000);
+  color: var(--color-text-inverse, #fff);
+  z-index: 100;
+}
+.skip-link:focus {
+  top: 0;
+}
+</style>
+```
+
+### Rule 6: Associate Labels with Inputs
+
+Every form control needs an accessible name.
+
+```html
+<!-- ✅ Explicit label association -->
+<label for="email">Email Address</label>
+<input type="email" id="email" name="email" required>
+
+<!-- ✅ Implicit label wrapping -->
+<label>
+  <input type="checkbox" name="subscribe">
+  Subscribe to newsletter
+</label>
+
+<!-- ✅ aria-label for icon buttons -->
+<button aria-label="Close dialog">
+  <svg aria-hidden="true">...</svg>
+</button>
+
+<!-- ❌ Missing label -->
+<input type="text" placeholder="Enter name">
+```
+
+### Rule 7: Use ARIA Correctly
+
+ARIA supplements HTML semantics—it doesn't replace them.
+
+```html
+<!-- ✅ ARIA for custom widgets -->
+<div role="tablist" aria-label="Account settings">
+  <button role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1">Profile</button>
+  <button role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2">Security</button>
+</div>
+<div role="tabpanel" id="panel-1" aria-labelledby="tab-1">...</div>
+<div role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>...</div>
+
+<!-- ✅ Live regions for dynamic content -->
+<div aria-live="polite" aria-atomic="true" id="status">
+  <!-- Updated by JavaScript -->
+</div>
+
+<!-- ❌ Redundant ARIA -->
+<button role="button">Submit</button>
+<nav role="navigation">...</nav>
+```
+
+### Rule 8: Keyboard Navigation
+
+All interactive elements must be keyboard accessible.
+
+```html
+<!-- ✅ Native focus management -->
+<button>Focusable by default</button>
+<a href="/page">Focusable by default</a>
+<input type="text">
+
+<!-- ✅ Custom focusable element -->
+<div role="button" tabindex="0"
+     onkeydown="if(event.key==='Enter'||event.key===' ')this.click()">
+  Custom Button
+</div>
+
+<!-- ✅ Focus trap in modal -->
+<dialog>
+  <h2>Dialog Title</h2>
+  <button>First focusable</button>
+  <button>Last focusable</button>
+</dialog>
+
+<!-- ❌ Non-interactive element made clickable without keyboard support -->
+<div onclick="doSomething()">Click me</div>
+```
+
+---
+
+## Forms & Validation
+
+### Rule 9: Use Appropriate Input Types
+
+Input types provide semantic meaning, validation, and mobile keyboards.
+
+```html
+<input type="email" autocomplete="email">
+<input type="tel" autocomplete="tel">
+<input type="url" autocomplete="url">
+<input type="date" min="2024-01-01" max="2024-12-31">
+<input type="number" min="0" max="100" step="1">
+<input type="search" autocomplete="off">
+<input type="password" autocomplete="new-password" minlength="8">
+```
+
+### Rule 10: HTML5 Validation with Accessible Errors
+
+Use native validation with clear error messaging.
+
+```html
+<form novalidate>
+  <div class="form-group">
+    <label for="username">Username <abbr title="required">*</abbr></label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      required
+      pattern="[a-zA-Z0-9_]{3,20}"
+      minlength="3"
+      maxlength="20"
+      aria-describedby="username-help username-error"
+    >
+    <div id="username-help" class="help-text">3-20 characters, letters, numbers, underscores</div>
+    <div id="username-error" class="error" role="alert" aria-live="polite"></div>
+  </div>
+
+  <button type="submit">Create Account</button>
+</form>
+```
+
+### Rule 11: Group Related Form Controls
+
+Fieldsets and legends improve form comprehension.
+
+```html
+<fieldset>
+  <legend>Shipping Address</legend>
+  <label for="street">Street</label>
+  <input type="text" id="street" autocomplete="street-address">
+
+  <label for="city">City</label>
+  <input type="text" id="city" autocomplete="address-level2">
+</fieldset>
+
+<fieldset>
+  <legend>Payment Method</legend>
+  <label><input type="radio" name="payment" value="card"> Credit Card</label>
+  <label><input type="radio" name="payment" value="paypal"> PayPal</label>
+</fieldset>
+```
+
+### Rule 12: Autocomplete for User Data
+
+Autocomplete speeds form filling and improves security.
+
+```html
+<input type="text" name="name" autocomplete="name">
+<input type="email" name="email" autocomplete="email">
+<input type="tel" name="phone" autocomplete="tel">
+<input type="text" name="address" autocomplete="street-address">
+<input type="text" name="city" autocomplete="address-level2">
+<input type="text" name="state" autocomplete="address-level1">
+<input type="text" name="zip" autocomplete="postal-code">
+<input type="text" name="country" autocomplete="country-name">
+<input type="text" name="cc-number" autocomplete="cc-number">
+<input type="password" name="password" autocomplete="new-password">
+<input type="password" name="current-password" autocomplete="current-password">
+```
+
+---
+
+## Performance
+
+### Rule 13: Lazy Load Below-Fold Images
+
+Images below the viewport should load on demand.
+
+```html
+<!-- ✅ Lazy load below-fold images -->
+<img src="below-fold.jpg" loading="lazy" alt="..." width="800" height="600">
+
+<!-- ✅ Eager load above-fold images -->
+<img src="hero.jpg" loading="eager" fetchpriority="high" alt="..." width="1200" height="600">
+
+<!-- ✅ Responsive images with lazy loading -->
+<img
+  srcset="small.jpg 400w, medium.jpg 800w, large.jpg 1200w"
+  sizes="(max-width: 600px) 100vw, 50vw"
+  src="medium.jpg"
+  loading="lazy"
+  alt="..."
+  width="800"
+  height="600"
+>
+```
+
+### Rule 14: Resource Hints for Critical Assets
+
+Preconnect, preload, and prefetch optimize loading.
+
+```html
+<head>
+  <!-- DNS prefetch for third-party domains -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//api.example.com">
+
+  <!-- Preconnect for critical third-party -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/css/critical.css" as="style">
+
+  <!-- Prefetch non-critical resources -->
+  <link rel="prefetch" href="/js/non-critical.js">
+</head>
+```
+
+### Rule 15: Specify Image Dimensions
+
+Width and height prevent layout shift (CLS).
+
+```html
+<!-- ✅ Explicit dimensions prevent CLS -->
+<img src="photo.jpg" width="800" height="600" alt="...">
+
+<!-- ✅ Aspect ratio maintained with CSS (no inline styles in production) -->
+<img src="photo.jpg" width="800" height="600" alt="..." class="img-fluid">
+
+<!-- ✅ Picture element with dimensions -->
+<picture>
+  <source media="(min-width: 800px)" srcset="large.webp" width="1200" height="800">
+  <img src="small.jpg" width="400" height="300" alt="...">
+</picture>
+```
+
+### Rule 16: Defer Non-Critical Scripts
+
+Blocking scripts delay rendering.
+
+```html
+<!-- ✅ Defer non-critical scripts -->
+<script src="/js/main.js" defer></script>
+
+<!-- ✅ Async for independent scripts -->
+<script src="/js/analytics.js" async></script>
+
+<!-- ✅ Module scripts are deferred by default -->
+<script type="module" src="/js/app.js"></script>
+
+<!-- ✅ Legacy fallback -->
+<script nomodule src="/js/legacy.js" defer></script>
+
+<!-- ❌ Blocking script in head -->
+<head>
+  <script src="/js/heavy.js"></script>
+</head>
+```
+
+### Rule 16a: Modulepreload for Critical Components
+
+Use `modulepreload` for above-the-fold web components to prevent FOUC (Flash of Unstyled Content).
+
+```html
+<head>
+  <!-- Styles first -->
+  <link rel="stylesheet" href="/css/styles/index.css">
+
+  <!-- Modulepreload critical above-the-fold components -->
+  <link rel="modulepreload" href="/js/components/site-nav.js">
+  <link rel="modulepreload" href="/js/components/nav-link-item.js">
+  <link rel="modulepreload" href="/js/components/page-transition.js">
+
+  <!-- Import maps (after modulepreload) -->
+  <script type="importmap">
+    {
+      "imports": {
+        "animejs": "/node_modules/animejs/dist/modules/index.js"
+      }
+    }
+  </script>
+</head>
+```
+
+**Why modulepreload?**
+- Browser starts downloading modules in parallel with HTML parsing
+- Reduces time between HTML render and component definition
+- Prevents unstyled custom element flash
+- Works only with ES modules (`type="module"` scripts)
+
+**When to use:**
+- Navigation components (always visible)
+- Hero/above-the-fold components
+- Critical interactive elements
+
+**When NOT to use:**
+- Below-the-fold components (let browser lazy-load)
+- Large dependency trees (can block other resources)
+
+### Rule 16b: FOUC Prevention CSS
+
+Custom elements need CSS rules to prevent Flash of Unstyled Content:
+
+```css
+/* Hide custom elements until JavaScript defines them */
+site-nav:not(:defined),
+nav-link-item:not(:defined) {
+  opacity: 0;
+}
+
+/* Reserve layout space for fixed elements to prevent CLS */
+site-nav:not(:defined) {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 56px;
+  background: var(--theme-surface);
+}
+```
+
+See `web-components` skill for complete FOUC prevention patterns.
+
+---
+
+## SEO & Metadata
+
+### Rule 17: Essential Meta Tags
+
+Every page needs proper metadata.
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Title - Site Name</title>
+  <meta name="description" content="150-160 character description">
+  <link rel="canonical" href="https://example.com/page">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Page Title">
+  <meta property="og:description" content="Page description">
+  <meta property="og:image" content="https://example.com/og-image.jpg">
+  <meta property="og:url" content="https://example.com/page">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Page Title">
+  <meta name="twitter:description" content="Page description">
+  <meta name="twitter:image" content="https://example.com/twitter-image.jpg">
+</head>
+```
+
+### Rule 18: Structured Data
+
+Schema.org markup improves search result appearance.
+
+```html
+<!-- Article Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Article Title",
+  "author": { "@type": "Person", "name": "Author Name" },
+  "datePublished": "2024-01-15",
+  "image": "https://example.com/image.jpg"
+}
+</script>
+
+<!-- Product Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Product Name",
+  "offers": {
+    "@type": "Offer",
+    "price": "29.99",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+```
+
+---
+
+## Security
+
+### Rule 19: Content Security Policy
+
+CSP prevents XSS attacks.
+
+```html
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self';
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: https:;
+  font-src 'self';
+  frame-ancestors 'none';
+">
+```
+
+### Rule 20: Secure External Resources
+
+Use SRI and crossorigin for external scripts.
+
+```html
+<script
+  src="https://cdn.example.com/lib.js"
+  integrity="sha384-abc123..."
+  crossorigin="anonymous"
+></script>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.example.com/style.css"
+  integrity="sha384-def456..."
+  crossorigin="anonymous"
+>
+```
+
+### Rule 21: CSRF Protection in Forms
+
+Include CSRF tokens in form submissions.
+
+```html
+<form action="/submit" method="POST">
+  <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+  <!-- form fields -->
+  <button type="submit">Submit</button>
+</form>
+```
+
+---
+
+## Tables
+
+### Rule 22: Accessible Data Tables
+
+Tables need proper headers and captions.
+
+```html
+<table>
+  <caption>Q4 2024 Sales by Region</caption>
+  <thead>
+    <tr>
+      <th scope="col">Region</th>
+      <th scope="col">Sales</th>
+      <th scope="col">Growth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">North</th>
+      <td>$50,000</td>
+      <td>+15%</td>
+    </tr>
+    <tr>
+      <th scope="row">South</th>
+      <td>$42,000</td>
+      <td>+8%</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+---
+
+## Interactive Components
+
+### Rule 23: Accessible Modal Dialogs
+
+Modals need focus trapping and proper ARIA.
+
+```html
+<button aria-haspopup="dialog" aria-controls="dialog-1">Open Dialog</button>
+
+<dialog id="dialog-1" aria-labelledby="dialog-title" aria-describedby="dialog-desc">
+  <h2 id="dialog-title">Confirm Action</h2>
+  <p id="dialog-desc">Are you sure you want to proceed?</p>
+  <button autofocus>Cancel</button>
+  <button>Confirm</button>
+</dialog>
+```
+
+### Rule 24: Expandable Content
+
+Use details/summary or ARIA for collapsible content.
+
+```html
+<!-- ✅ Native disclosure widget -->
+<details>
+  <summary>Show more information</summary>
+  <p>Additional content revealed when expanded.</p>
+</details>
+
+<!-- ✅ Custom accordion with ARIA -->
+<h3>
+  <button aria-expanded="false" aria-controls="panel-1">
+    FAQ Question
+  </button>
+</h3>
+<div id="panel-1" hidden>
+  <p>FAQ Answer content.</p>
+</div>
+```
+
+---
+
+## Progressive Enhancement
+
+### Rule 25: Design for No JavaScript
+
+Core functionality must work without JavaScript.
+
+```html
+<!-- ✅ Form works without JS -->
+<form action="/search" method="GET">
+  <input type="search" name="q" required>
+  <button type="submit">Search</button>
+</form>
+
+<!-- ✅ Navigation works without JS -->
+<nav>
+  <a href="/page-1">Page 1</a>
+  <a href="/page-2">Page 2</a>
+</nav>
+
+<!-- ✅ CSS-only toggle -->
+<input type="checkbox" id="menu-toggle" hidden>
+<label for="menu-toggle">Menu</label>
+<nav><!-- Toggle visibility with CSS --></nav>
+
+<!-- ✅ Noscript fallback -->
+<noscript>
+  <p>JavaScript is required for full functionality.</p>
+</noscript>
+```
+
+---
+
+## Document Template
+
+### Rule 26: Complete HTML5 Boilerplate
+
+This project's entry point is `css/styles/index.css` which imports all design tokens.
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
   <title>Page Title - Site Name</title>
-  <meta name="description" content="Clear, concise page description (150-160 chars)">
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Page description">
+  <link rel="canonical" href="https://example.com/page">
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Design system styles (includes Utopia scales, grid, themes) -->
+  <link rel="stylesheet" href="/css/styles/index.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
   <header>
-    <nav aria-label="Main navigation">
-      <!-- Navigation -->
-    </nav>
+    <nav aria-label="Main navigation">...</nav>
   </header>
-  
-  <main>
-    <!-- Primary content -->
+
+  <main id="main" class="u-container">
+    <h1>Page Title</h1>
+    <!-- Content uses --step-* for type, --space-* for spacing -->
   </main>
-  
-  <footer>
-    <!-- Footer content -->
-  </footer>
-  
-  <script src="script.js" defer></script>
+
+  <footer>...</footer>
+
+  <script type="module" src="/js/main.js"></script>
 </body>
 </html>
 ```
 
-### Essential Meta Tags
-
-```html
-<head>
-  <!-- Character encoding (must be first) -->
-  <meta charset="UTF-8">
-  
-  <!-- Viewport for responsive design -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO basics -->
-  <title>Specific, Descriptive Title | Brand</title>
-  <meta name="description" content="Clear description for search results">
-  <link rel="canonical" href="https://example.com/page">
-  
-  <!-- Open Graph for social sharing -->
-  <meta property="og:title" content="Title for Social Media">
-  <meta property="og:description" content="Description for social cards">
-  <meta property="og:image" content="https://example.com/image.jpg">
-  <meta property="og:url" content="https://example.com/page">
-  <meta property="og:type" content="website">
-  
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Title for Twitter">
-  <meta name="twitter:description" content="Description for Twitter">
-  <meta name="twitter:image" content="https://example.com/image.jpg">
-  
-  <!-- Favicon (use multiple sizes for best support) -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  
-  <!-- Preload critical resources -->
-  <link rel="preload" href="critical-font.woff2" as="font" type="font/woff2" crossorigin>
-  
-  <!-- Theme color for browser UI -->
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-</head>
-```
-
-## Semantic HTML Elements
-
-### Use the Right Element for the Job
-
-```html
-<!-- ❌ Generic divs for everything -->
-<div class="header">
-  <div class="nav">
-    <div class="nav-item">Home</div>
-  </div>
-</div>
-<div class="content">
-  <div class="article">
-    <div class="title">Article Title</div>
-    <div class="text">Article content...</div>
-  </div>
-</div>
-
-<!-- ✅ Semantic elements with clear meaning -->
-<header>
-  <nav aria-label="Main navigation">
-    <a href="/">Home</a>
-  </nav>
-</header>
-<main>
-  <article>
-    <h1>Article Title</h1>
-    <p>Article content...</p>
-  </article>
-</main>
-```
-
-### Sectioning Elements
-
-| Element | Purpose | When to Use |
-|---------|---------|-------------|
-| `<header>` | Introductory content | Site/section header, not just "top of page" |
-| `<nav>` | Navigation links | Primary navigation, table of contents, breadcrumbs |
-| `<main>` | Primary content | One per page, skips to main content |
-| `<article>` | Self-contained content | Blog posts, news items, forum posts |
-| `<section>` | Thematic grouping | Chapters, tabs, themed sections (always has heading) |
-| `<aside>` | Tangentially related | Sidebars, pull quotes, related links |
-| `<footer>` | Footer content | Site/section footer, not just "bottom of page" |
-
-### Heading Hierarchy
-
-```html
-<!-- ✅ Logical hierarchy (never skip levels) -->
-<h1>Page Title</h1>
-  <h2>Main Section</h2>
-    <h3>Subsection</h3>
-    <h3>Another Subsection</h3>
-  <h2>Another Main Section</h2>
-
-<!-- ❌ Bad: skipping levels -->
-<h1>Page Title</h1>
-  <h4>Skipped h2 and h3</h4>
-```
-
-## Accessibility Best Practices
-
-### ARIA Labels and Roles
-
-```html
-<!-- Landmark labels for navigation -->
-<nav aria-label="Main navigation">
-  <ul>
-    <li><a href="/">Home</a></li>
-  </ul>
-</nav>
-
-<nav aria-label="Footer navigation">
-  <!-- Footer links -->
-</nav>
-
-<!-- Button with accessible name -->
-<button aria-label="Close dialog">
-  <svg aria-hidden="true"><!-- X icon --></svg>
-</button>
-
-<!-- Hide decorative content from screen readers -->
-<img src="decorative.png" alt="" role="presentation">
-<span aria-hidden="true">📧</span>
-
-<!-- Associate labels with inputs -->
-<label for="email">Email Address</label>
-<input type="email" id="email" name="email" required>
-
-<!-- Or wrap inputs in labels -->
-<label>
-  Email Address
-  <input type="email" name="email" required>
-</label>
-```
-
-### Focus Management
-
-```html
-<!-- Skip to main content link (first interactive element) -->
-<a href="#main" class="skip-link">Skip to main content</a>
-
-<main id="main" tabindex="-1">
-  <!-- Content -->
-</main>
-
-<!-- Ensure custom interactive elements are keyboard accessible -->
-<div role="button" tabindex="0" onclick="handleClick()" onkeydown="handleKeyPress(event)">
-  Custom Button
-</div>
-```
-
-### Alternative Text
-
-```html
-<!-- ✅ Descriptive alt text -->
-<img src="chart.png" alt="Bar chart showing 40% increase in sales from Q1 to Q2 2024">
-
-<!-- ✅ Empty alt for decorative images -->
-<img src="decorative-border.png" alt="">
-
-<!-- ✅ Complex images with long descriptions -->
-<img src="complex-diagram.png" alt="Network topology diagram" aria-describedby="diagram-desc">
-<div id="diagram-desc">
-  Detailed description of the network topology showing...
-</div>
-
-<!-- ❌ Bad alt text -->
-<img src="chart.png" alt="image">
-<img src="chart.png" alt="chart.png">
-```
-
-### ARIA Live Regions
-
-```html
-<!-- Announce dynamic content updates -->
-<div role="status" aria-live="polite" aria-atomic="true">
-  <span id="status-message">Loading...</span>
-</div>
-
-<!-- Alert for critical messages -->
-<div role="alert" aria-live="assertive">
-  Error: Please correct the form errors below.
-</div>
-```
-
-## Forms
-
-### Accessible Form Structure
-
-```html
-<form method="post" action="/submit" novalidate>
-  <fieldset>
-    <legend>Personal Information</legend>
-    
-    <!-- Text input with validation -->
-    <label for="name">Full Name</label>
-    <input 
-      type="text" 
-      id="name" 
-      name="name" 
-      required 
-      aria-required="true"
-      aria-describedby="name-hint"
-      autocomplete="name"
-    >
-    <small id="name-hint">Enter your first and last name</small>
-    
-    <!-- Email with pattern validation -->
-    <label for="email">Email</label>
-    <input 
-      type="email" 
-      id="email" 
-      name="email" 
-      required
-      aria-required="true"
-      autocomplete="email"
-      aria-invalid="false"
-    >
-    <span id="email-error" class="error" role="alert"></span>
-    
-    <!-- Select with grouped options -->
-    <label for="country">Country</label>
-    <select id="country" name="country" required>
-      <option value="">Select a country</option>
-      <optgroup label="North America">
-        <option value="us">United States</option>
-        <option value="ca">Canada</option>
-      </optgroup>
-      <optgroup label="Europe">
-        <option value="uk">United Kingdom</option>
-        <option value="de">Germany</option>
-      </optgroup>
-    </select>
-    
-    <!-- Radio buttons (same name groups them) -->
-    <fieldset>
-      <legend>Preferred Contact Method</legend>
-      <label>
-        <input type="radio" name="contact" value="email" checked>
-        Email
-      </label>
-      <label>
-        <input type="radio" name="contact" value="phone">
-        Phone
-      </label>
-    </fieldset>
-    
-    <!-- Checkboxes for multiple selection -->
-    <fieldset>
-      <legend>Newsletter Subscriptions</legend>
-      <label>
-        <input type="checkbox" name="newsletters" value="weekly">
-        Weekly Updates
-      </label>
-      <label>
-        <input type="checkbox" name="newsletters" value="monthly">
-        Monthly Digest
-      </label>
-    </fieldset>
-    
-    <!-- Textarea with character counter -->
-    <label for="message">Message</label>
-    <textarea 
-      id="message" 
-      name="message" 
-      rows="5" 
-      maxlength="500"
-      aria-describedby="char-count"
-    ></textarea>
-    <small id="char-count">0 / 500 characters</small>
-  </fieldset>
-  
-  <button type="submit">Submit Form</button>
-  <button type="reset">Clear Form</button>
-</form>
-```
-
-### HTML5 Input Types
-
-```html
-<!-- Use specific input types for better UX and validation -->
-<input type="email" name="email" autocomplete="email">
-<input type="tel" name="phone" autocomplete="tel">
-<input type="url" name="website">
-<input type="number" name="quantity" min="1" max="100" step="1">
-<input type="range" name="volume" min="0" max="100" value="50">
-<input type="date" name="dob" autocomplete="bday">
-<input type="time" name="appointment">
-<input type="datetime-local" name="event-time">
-<input type="color" name="theme-color" value="#000000">
-<input type="file" name="upload" accept="image/*,.pdf" multiple>
-<input type="search" name="query" autocomplete="off">
-```
-
-### Input Attributes for Better UX
-
-```html
-<!-- Autocomplete for faster input -->
-<input type="text" name="given-name" autocomplete="given-name">
-<input type="text" name="family-name" autocomplete="family-name">
-<input type="text" name="address-line1" autocomplete="address-line1">
-<input type="text" name="postal-code" autocomplete="postal-code">
-
-<!-- Pattern validation with custom message -->
-<input 
-  type="text" 
-  name="username" 
-  pattern="[a-zA-Z0-9_]{3,16}"
-  title="Username must be 3-16 characters, letters, numbers, and underscores only"
->
-
-<!-- Autofocus (use sparingly, only once per page) -->
-<input type="text" name="search" autofocus>
-
-<!-- Input mode for mobile keyboards -->
-<input type="text" inputmode="numeric" name="credit-card">
-<input type="text" inputmode="decimal" name="price">
-<input type="text" inputmode="email" name="email">
-```
-
-## Tables
-
-### Accessible Data Tables
-
-```html
-<!-- Simple table with headers -->
-<table>
-  <caption>Quarterly Sales Report for 2024</caption>
-  <thead>
-    <tr>
-      <th scope="col">Quarter</th>
-      <th scope="col">Revenue</th>
-      <th scope="col">Growth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Q1</th>
-      <td>$1.2M</td>
-      <td>+5%</td>
-    </tr>
-    <tr>
-      <th scope="row">Q2</th>
-      <td>$1.5M</td>
-      <td>+25%</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <th scope="row">Total</th>
-      <td>$2.7M</td>
-      <td>+15%</td>
-    </tr>
-  </tfoot>
-</table>
-
-<!-- Complex table with headers for rows and columns -->
-<table>
-  <caption>Course Schedule by Instructor and Day</caption>
-  <thead>
-    <tr>
-      <th scope="col">Instructor</th>
-      <th scope="col">Monday</th>
-      <th scope="col">Tuesday</th>
-      <th scope="col">Wednesday</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Dr. Smith</th>
-      <td headers="smith monday">Biology 101</td>
-      <td headers="smith tuesday">Biology 201</td>
-      <td headers="smith wednesday">Lab</td>
-    </tr>
-  </tbody>
-</table>
-```
-
-## Lists
-
-### Choosing the Right List Type
-
-```html
-<!-- Unordered list (order doesn't matter) -->
-<ul>
-  <li>Apples</li>
-  <li>Bananas</li>
-  <li>Oranges</li>
-</ul>
-
-<!-- Ordered list (sequence matters) -->
-<ol>
-  <li>Preheat oven to 350°F</li>
-  <li>Mix dry ingredients</li>
-  <li>Add wet ingredients</li>
-  <li>Bake for 25 minutes</li>
-</ol>
-
-<!-- Description list (key-value pairs) -->
-<dl>
-  <dt>HTML</dt>
-  <dd>HyperText Markup Language, the standard markup language for web pages.</dd>
-  
-  <dt>CSS</dt>
-  <dd>Cascading Style Sheets, used to style HTML elements.</dd>
-</dl>
-
-<!-- Nested lists -->
-<ul>
-  <li>Fruits
-    <ul>
-      <li>Tropical
-        <ul>
-          <li>Mango</li>
-          <li>Papaya</li>
-        </ul>
-      </li>
-      <li>Citrus
-        <ul>
-          <li>Orange</li>
-          <li>Lemon</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-```
-
-## Performance Optimization
-
-### Image Optimization
-
-```html
-<!-- Responsive images with srcset -->
-<img 
-  src="image-800w.jpg"
-  srcset="
-    image-400w.jpg 400w,
-    image-800w.jpg 800w,
-    image-1200w.jpg 1200w,
-    image-1600w.jpg 1600w
-  "
-  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 800px"
-  alt="Descriptive alt text"
-  loading="lazy"
-  decoding="async"
-  width="800"
-  height="600"
->
-
-<!-- Art direction with picture element -->
-<picture>
-  <source media="(max-width: 799px)" srcset="mobile-image.jpg">
-  <source media="(min-width: 800px)" srcset="desktop-image.jpg">
-  <img src="fallback-image.jpg" alt="Descriptive alt text">
-</picture>
-
-<!-- Modern image formats with fallback -->
-<picture>
-  <source srcset="image.avif" type="image/avif">
-  <source srcset="image.webp" type="image/webp">
-  <img src="image.jpg" alt="Descriptive alt text">
-</picture>
-
-<!-- Lazy loading (native) -->
-<img src="below-fold-image.jpg" alt="Alt text" loading="lazy">
-
-<!-- Eager loading for above-fold critical images -->
-<img src="hero-image.jpg" alt="Alt text" loading="eager" fetchpriority="high">
-```
-
-### Resource Loading Strategies
-
-```html
-<head>
-  <!-- Preconnect to external domains -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://cdn.example.com">
-  
-  <!-- DNS prefetch for less critical connections -->
-  <link rel="dns-prefetch" href="https://analytics.example.com">
-  
-  <!-- Preload critical resources -->
-  <link rel="preload" href="critical-font.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="hero-image.jpg" as="image">
-  <link rel="preload" href="critical-styles.css" as="style">
-  
-  <!-- Prefetch for likely next navigation -->
-  <link rel="prefetch" href="/next-page.html">
-  <link rel="prefetch" href="next-page-image.jpg" as="image">
-</head>
-
-<body>
-  <!-- Defer non-critical JavaScript -->
-  <script src="analytics.js" defer></script>
-  
-  <!-- Async for independent scripts -->
-  <script src="widget.js" async></script>
-  
-  <!-- Module scripts (deferred by default) -->
-  <script type="module" src="app.js"></script>
-  
-  <!-- Inline critical CSS, load rest async -->
-  <style>
-    /* Critical above-fold CSS */
-  </style>
-  <link rel="stylesheet" href="non-critical.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="non-critical.css"></noscript>
-</body>
-```
-
-### HTML Size Optimization
-
-```html
-<!-- ❌ Unnecessary whitespace and comments -->
-<div class="container">
-  <!-- This is a comment -->
-  <p>
-    Some text here
-  </p>
-</div>
-
-<!-- ✅ Minified HTML (use build tools) -->
-<div class="container"><p>Some text here</p></div>
-
-<!-- Remove unused attributes -->
-<!-- ❌ --> <div id="unused-id" class="unused-class"></div>
-<!-- ✅ --> <div></div>
-
-<!-- Combine inline styles (or better, use CSS) -->
-<!-- ❌ --> <p style="color: red;"><span style="font-weight: bold;">Text</span></p>
-<!-- ✅ --> <p class="error-text">Text</p>
-```
-
-## Modern HTML Features
-
-### Details and Summary (Native Disclosure)
-
-```html
-<details>
-  <summary>Click to expand</summary>
-  <p>Hidden content that can be toggled.</p>
-</details>
-
-<!-- Open by default -->
-<details open>
-  <summary>FAQ Question</summary>
-  <p>Answer to the question.</p>
-</details>
-```
-
-### Dialog Element (Native Modal)
-
-```html
-<dialog id="myDialog">
-  <form method="dialog">
-    <h2>Dialog Title</h2>
-    <p>Dialog content goes here.</p>
-    <button value="cancel">Cancel</button>
-    <button value="confirm" autofocus>Confirm</button>
-  </form>
-</dialog>
-
-<button onclick="document.getElementById('myDialog').showModal()">
-  Open Dialog
-</button>
-```
-
-### Data Attributes
-
-```html
-<!-- Store custom data -->
-<article data-post-id="12345" data-author="jane-doe" data-category="tech">
-  <h2>Article Title</h2>
-</article>
-
-<!-- Access in JavaScript: element.dataset.postId -->
-<!-- Style in CSS: [data-category="tech"] { } -->
-```
-
-### Template Element
-
-```html
-<!-- Define reusable markup -->
-<template id="item-template">
-  <li class="item">
-    <h3 class="item-title"></h3>
-    <p class="item-description"></p>
-  </li>
-</template>
-
-<!-- Clone and use with JavaScript -->
-<script>
-  const template = document.getElementById('item-template');
-  const clone = template.content.cloneNode(true);
-  // Populate and append
-</script>
-```
-
-## Content Embedding
-
-### Videos
-
-```html
-<!-- Native video with controls -->
-<video 
-  controls 
-  width="640" 
-  height="360"
-  poster="video-thumbnail.jpg"
-  preload="metadata"
->
-  <source src="video.webm" type="video/webm">
-  <source src="video.mp4" type="video/mp4">
-  <track 
-    kind="subtitles" 
-    src="subtitles-en.vtt" 
-    srclang="en" 
-    label="English"
-  >
-  <track 
-    kind="captions" 
-    src="captions-en.vtt" 
-    srclang="en" 
-    label="English CC"
-    default
-  >
-  <p>Your browser doesn't support HTML5 video. 
-     <a href="video.mp4">Download the video</a> instead.</p>
-</video>
-
-<!-- YouTube embed with title for accessibility -->
-<iframe 
-  width="560" 
-  height="315" 
-  src="https://www.youtube.com/embed/VIDEO_ID" 
-  title="Video Title for Accessibility"
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen
-  loading="lazy"
-></iframe>
-```
-
-### Audio
-
-```html
-<audio controls preload="metadata">
-  <source src="audio.mp3" type="audio/mpeg">
-  <source src="audio.ogg" type="audio/ogg">
-  <p>Your browser doesn't support HTML5 audio. 
-     <a href="audio.mp3">Download the audio</a> instead.</p>
-</audio>
-```
-
-### Iframes
-
-```html
-<!-- Iframe with proper attributes -->
-<iframe 
-  src="https://example.com/embed"
-  title="Descriptive title for screen readers"
-  width="600"
-  height="400"
-  loading="lazy"
-  sandbox="allow-scripts allow-same-origin"
-></iframe>
-```
-
-## Validation and Quality
-
-### HTML Validation Checklist
-
-- [ ] Valid DOCTYPE declaration
-- [ ] Proper nesting (no overlapping tags)
-- [ ] All tags properly closed
-- [ ] Unique IDs on a page
-- [ ] Valid attributes for each element
-- [ ] Proper character encoding (UTF-8)
-- [ ] Alt text for all images (or empty alt for decorative)
-- [ ] Form labels associated with inputs
-- [ ] Heading hierarchy (no skipped levels)
-- [ ] Lang attribute on html tag
-- [ ] Valid HTML5 (use W3C validator)
-
-### Common HTML Mistakes to Avoid
-
-```html
-<!-- ❌ Block element inside inline element -->
-<a href="#"><div>Link content</div></a>
-
-<!-- ✅ Inline element or make the link a block -->
-<a href="#" style="display: block"><div>Link content</div></a>
-
-<!-- ❌ Using <br> for spacing -->
-<p>First paragraph</p>
-<br><br>
-<p>Second paragraph</p>
-
-<!-- ✅ Use CSS margins -->
-<p>First paragraph</p>
-<p style="margin-top: 2rem;">Second paragraph</p>
-
-<!-- ❌ Divitis (unnecessary divs) -->
-<div>
-  <div>
-    <div>
-      <p>Content</p>
-    </div>
-  </div>
-</div>
-
-<!-- ✅ Minimal markup -->
-<p>Content</p>
-
-<!-- ❌ Empty elements with no purpose -->
-<div></div>
-<span></span>
-
-<!-- ✅ Remove or add content/styling purpose -->
-
-<!-- ❌ Using tables for layout -->
-<table>
-  <tr>
-    <td>Sidebar</td>
-    <td>Main content</td>
-  </tr>
-</table>
-
-<!-- ✅ Use CSS Grid or Flexbox -->
-<div class="layout">
-  <aside>Sidebar</aside>
-  <main>Main content</main>
-</div>
-```
-
-## Security Best Practices
-
-### Input Sanitization Context
-
-```html
-<!-- Never trust user input - always sanitize on server -->
-
-<!-- ❌ Dangerous: directly embedding user input -->
-<div>{{userInput}}</div>
-
-<!-- ✅ Escape HTML entities -->
-<div>&lt;script&gt;alert('safe')&lt;/script&gt;</div>
-
-<!-- Use Content Security Policy -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://trusted.cdn.com">
-```
-
-### External Resources
-
-```html
-<!-- Add integrity checks for external resources -->
-<script 
-  src="https://cdn.example.com/library.js"
-  integrity="sha384-HASH_HERE"
-  crossorigin="anonymous"
-></script>
-
-<!-- Use rel="noopener" for external links -->
-<a href="https://external-site.com" target="_blank" rel="noopener noreferrer">
-  External Link
-</a>
-```
-
-## Progressive Enhancement
-
-### Build from HTML Up
-
-```html
-<!-- 1. Start with working HTML -->
-<details>
-  <summary>Expandable Section</summary>
-  <p>Content revealed when expanded.</p>
-</details>
-
-<!-- 2. Enhance with CSS (optional) -->
-<style>
-  details { border: 1px solid #ccc; padding: 1rem; }
-  summary { cursor: pointer; font-weight: bold; }
-</style>
-
-<!-- 3. Add JavaScript enhancements (optional) -->
-<script>
-  // Add analytics, animations, or custom behavior
-  document.querySelectorAll('details').forEach(detail => {
-    detail.addEventListener('toggle', () => {
-      if (detail.open) {
-        // Track expansion
-      }
-    });
-  });
-</script>
-```
-
-## Tools and Workflow
-
-### Recommended Tools
-
-| Purpose | Tool | Why |
-|---------|------|-----|
-| Validation | [W3C Validator](https://validator.w3.org/) | Check HTML validity |
-| Accessibility | [axe DevTools](https://www.deque.com/axe/) | Find a11y issues |
-| Performance | [Lighthouse](https://developers.google.com/web/tools/lighthouse) | Audit performance |
-| HTML Minification | [html-minifier](https://github.com/kangax/html-minifier) | Reduce file size |
-| Linting | [HTMLHint](https://htmlhint.com/) | Catch common mistakes |
-
-### HTML in Build Pipelines
-
-```bash
-# Validate HTML
-npx html-validate src/**/*.html
-
-# Minify HTML
-npx html-minifier --collapse-whitespace --remove-comments input.html -o output.html
-
-# Check accessibility
-npx pa11y http://localhost:3000
-```
+---
 
 ## Quick Reference
 
-### Common Character Entities
+### Semantic Elements
+```
+<header>     Page/section header with nav
+<nav>        Navigation links
+<main>       Primary page content (one per page)
+<article>    Self-contained content
+<section>    Thematic grouping with heading
+<aside>      Tangentially related content
+<footer>     Page/section footer
+<figure>     Self-contained media with caption
+<time>       Machine-readable date/time
+<address>    Contact information
+```
 
-| Character | Entity | Numeric |
-|-----------|--------|---------|
-| < | `&lt;` | `&#60;` |
-| > | `&gt;` | `&#62;` |
-| & | `&amp;` | `&#38;` |
-| " | `&quot;` | `&#34;` |
-| ' | `&apos;` | `&#39;` |
-| © | `&copy;` | `&#169;` |
-| ® | `&reg;` | `&#174;` |
-| ™ | `&trade;` | `&#8482;` |
-| non-breaking space | `&nbsp;` | `&#160;` |
-| — (em dash) | `&mdash;` | `&#8212;` |
-| – (en dash) | `&ndash;` | `&#8211;` |
+### ARIA Landmarks
+```
+role="banner"        Header (implicit)
+role="navigation"    Nav (implicit)
+role="main"          Main (implicit)
+role="complementary" Aside (implicit)
+role="contentinfo"   Footer (implicit)
+role="search"        Search form
+role="form"          Named form region
+```
 
-### Global Attributes
+### Form Input Types
+```
+text, email, tel, url, search, password
+number, range, date, time, datetime-local
+checkbox, radio, file, color
+submit, reset, button, hidden
+```
 
-Available on all HTML elements:
+### Loading Strategies
+```
+loading="lazy"       Defer until near viewport
+loading="eager"      Load immediately
+fetchpriority="high" Prioritize resource
+async                Load in parallel, execute when ready
+defer                Load in parallel, execute after parse
+modulepreload        Preload ES modules for web components
+```
 
-- `id` - Unique identifier
-- `class` - CSS class names (space-separated)
-- `style` - Inline CSS styles
-- `title` - Advisory information (tooltip)
-- `lang` - Language of element content
-- `dir` - Text directionality (ltr, rtl, auto)
-- `hidden` - Hide element
-- `tabindex` - Tab order (-1, 0, positive numbers)
-- `contenteditable` - Make element editable
-- `data-*` - Custom data attributes
-- `draggable` - Enable drag and drop
-- `spellcheck` - Enable spell checking
+### FOUC Prevention for Web Components
+```
+:not(:defined)       Target undefined custom elements
+opacity: 0           Hide without layout shift (preserve space)
+modulepreload        Preload critical component scripts
+```
 
-## Best Practices Summary
+### Common Mistakes
 
-1. **Always check Context7 MCP before writing/editing code** - Leverage project-specific patterns and requirements
-2. **Always use semantic HTML** - Choose elements based on meaning, not appearance
-3. **Validate your HTML** - Use W3C validator to catch errors
-4. **Prioritize accessibility** - Use ARIA attributes, alt text, and keyboard navigation
-5. **Optimize for performance** - Lazy load images, defer scripts, minimize HTML
-6. **Use progressive enhancement** - Start with HTML, layer on CSS and JavaScript
-7. **Keep it simple** - Don't over-engineer with unnecessary divs and complexity
-8. **Test across browsers** - Ensure compatibility with all major browsers
-9. **Think mobile-first** - Design for small screens, enhance for larger ones
-10. **Use meaningful names** - IDs and classes should describe purpose, not appearance
-11. **Comment sparingly** - Code should be self-documenting, comments for complex logic only
+```html
+<!-- ❌ Don't -->
+<div onclick="...">Clickable div</div>
+<img src="image.jpg">
+<h1>Title</h1><h3>Subtitle</h3>
+<input placeholder="Email">
+<button role="button">Submit</button>
+
+<!-- ✅ Do -->
+<button onclick="...">Clickable button</button>
+<img src="image.jpg" alt="Description" width="800" height="600">
+<h1>Title</h1><h2>Subtitle</h2>
+<label for="email">Email</label><input id="email" type="email">
+<button>Submit</button>
+```
+
+### Design Tokens (This Project)
+
+```
+/* Typography - see utopia-fluid-scales */
+--step--2 to --step-5    Font sizes (body: --step-0)
+
+/* Spacing - see utopia-fluid-scales */
+--space-3xs to --space-3xl   Fixed steps
+--space-s-m, --space-s-l     Fluid pairs
+
+/* Grid - see utopia-grid-layout */
+--grid-max-width             1240px
+--grid-gutter                var(--space-s-l)
+.u-container                 Max-width + padding
+.u-grid                      Grid with gutter gap
+```
+
+### Validation Checklist
+
+- [ ] W3C HTML validation: 0 errors
+- [ ] Heading hierarchy: h1 → h2 → h3 (no skips)
+- [ ] All images have alt text
+- [ ] All form inputs have labels
+- [ ] Skip links present
+- [ ] Landmark regions defined
+- [ ] Image dimensions specified
+- [ ] Lazy loading on below-fold images
+- [ ] Uses design tokens (no hardcoded px for type/spacing)
+- [ ] Scripts use `type="module"` or `defer`
+- [ ] Meta description present
+- [ ] Canonical URL specified

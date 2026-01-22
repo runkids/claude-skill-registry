@@ -1,403 +1,125 @@
 ---
 name: nextjs
-description: This skill should be used when the user asks to "create a Next.js app", "build a page", "add routing", "implement server components", "add caching", "create API routes", "use server actions", "add metadata", "set up layouts", or discusses Next.js architecture, App Router, data fetching, or rendering strategies. Always use the latest Next.js version and modern patterns.
-version: 1.0.0
+description: |
+  Provides Next.js project architecture expertise and implementation patterns. Enforces BFF (Backend for Frontend) pattern, Server Components strategy, and data fetching policies. Specializes in App Router architecture, Server Actions, streaming SSR, incremental static regeneration, and route handlers. Ensures optimal performance through proper component boundaries and caching strategies.
+  Use when: developing Next.js applications, implementing App Router patterns, creating Server Components and Client Components, designing Server Actions for mutations, implementing data fetching with fetch API, configuring BFF architecture, optimizing page performance with streaming and suspense, handling routing and navigation, implementing middleware, or setting up API route handlers.
 ---
 
-# Next.js Development
+# Next.js Project Architecture Rules
 
-This skill provides guidance for building production applications with Next.js, focusing on **always using the latest version** and modern patterns.
+**Scope**: Project-specific policies and architecture decisions only.
 
-> **Philosophy:** Always recommend App Router over Pages Router. Always use Server Components by default. Always prefer `use cache` over legacy caching methods.
+**Version**: Next.js 15.5+ with App Router
 
-## Quick Reference
+---
 
-| Feature | Modern Approach | Legacy (Avoid) |
-|---------|----------------|----------------|
-| Routing | App Router (`app/`) | Pages Router (`pages/`) |
-| Components | Server Components (default) | Client-only components |
-| Caching | `use cache` directive | `getStaticProps`, `revalidate` option |
-| Mutations | Server Actions (`use server`) | API Routes for mutations |
-| Build | Turbopack (`--turbopack`) | Webpack |
+## 1. BFF Architecture (Mandatory)
 
-## Project Structure
+### Absolute Rules
+
+Next.js serves ONLY as a thin Backend for Frontend (BFF) layer:
 
 ```
-app/
-├── layout.tsx          # Root layout (required)
-├── page.tsx            # Home page (/)
-├── loading.tsx         # Loading UI (optional)
-├── error.tsx           # Error boundary (optional)
-├── not-found.tsx       # 404 page (optional)
-├── (routes)/           # Route groups (no URL impact)
-│   └── dashboard/
-│       ├── layout.tsx  # Nested layout
-│       └── page.tsx    # /dashboard
-├── api/                # API routes (optional)
-│   └── route.ts
-└── globals.css         # Global styles
-proxy.ts                # Network proxy (at root or src/)
+Browser ↔ Next.js Server ↔ Backend API ↔ Database
 ```
 
-## Proxy (Replaces Middleware)
+**NEVER**:
 
-> **Important:** As of Next.js 16+, `middleware.ts` has been renamed to `proxy.ts`. The term "Proxy" better describes its function as a network proxy running before routes, distinct from Express-style middleware.
+- ❌ Direct database access from Next.js (no Prisma, no ORMs)
+- ❌ Business logic implementation in Next.js
+- ❌ Data validation beyond input sanitization
 
-`proxy.ts` runs server-side code **before routes are rendered**, allowing you to intercept and modify requests/responses.
+**ALWAYS**:
 
-### Basic Proxy
+- ✅ All business logic in separate backend service
+- ✅ All database operations via backend API
+- ✅ Next.js for: SSR/SSG, API aggregation, session management, caching
 
-```tsx
-// proxy.ts (at root or src/ directory)
-import { NextResponse, NextRequest } from 'next/server'
+---
 
-export function proxy(request: NextRequest) {
-  // Check authentication
-  const token = request.cookies.get('token')
+## 2. Component Strategy (Enforced)
 
-  if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
+### Server Components First
 
-  return NextResponse.next()
-}
+**Rule**: Default to Server Components. `'use client'` only at leaf nodes.
 
-export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)']
-}
-```
+**Client Component allowed for**:
 
-### Proxy Use Cases
-
-- ✅ **Authentication/Authorization** - Check tokens, redirect unauthorized users
-- ✅ **Request/Response modification** - Add headers, rewrite URLs, set cookies
-- ✅ **Redirect logic** - Redirect based on conditions (geo, device, etc.)
-- ✅ **CORS handling** - Handle cross-origin requests
-- ✅ **URL normalization** - Trailing slashes, locale routing
-
-### Migration from middleware.ts
-
-```bash
-# Automatic migration
-npx @next/codemod@canary middleware-to-proxy .
-```
-
-Or manually rename `middleware.ts` → `proxy.ts` and `middleware()` → `proxy()`.
-
-## Server Components (Default)
-
-All components in the `app/` directory are **Server Components by default**. They run only on the server and can:
-- Fetch data directly
-- Access backend resources
-- Keep sensitive logic server-side
-- Reduce client JavaScript bundle
-
-```tsx
-// app/posts/page.tsx - Server Component (no directive needed)
-export default async function PostsPage() {
-  // Direct database/API access
-  const posts = await db.posts.findMany()
-
-  return (
-    <main>
-      <h1>Posts</h1>
-      <ul>
-        {posts.map(post => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
-    </main>
-  )
-}
-```
-
-## Client Components
-
-Add `'use client'` directive **only when needed** for:
-- Interactivity (onClick, onChange)
+- Event handlers (onClick, onChange)
 - Browser APIs (localStorage, window)
 - React hooks (useState, useEffect)
 
-```tsx
-'use client'
+**Violation**: Client Component wrapping Server Components
 
-import { useState } from 'react'
+---
 
-export function Counter() {
-  const [count, setCount] = useState(0)
+## 3. Rendering Strategy (Explicit Declaration Required)
 
-  return (
-    <button onClick={() => setCount(c => c + 1)}>
-      Count: {count}
-    </button>
-  )
-}
-```
+### Mandatory Export
 
-**Best Practice:** Keep Client Components as leaf nodes. Pass data from Server Components via props.
-
-```tsx
-// app/dashboard/page.tsx (Server Component)
-import { InteractiveChart } from './chart'
-
-export default async function Dashboard() {
-  const data = await fetchAnalytics() // Server-side fetch
-
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <InteractiveChart data={data} /> {/* Client Component receives data */}
-    </div>
-  )
-}
-```
-
-## The `use cache` Directive
-
-Modern caching with granular control. Replaces legacy `revalidate` options.
-
-### Function-Level Caching
-
-```tsx
-import { cacheTag, cacheLife } from 'next/cache'
-
-async function getProducts() {
-  'use cache'
-  cacheTag('products')
-  cacheLife('hours') // or 'days', 'weeks', 'max', or custom seconds
-
-  return await db.products.findMany()
-}
-```
-
-### Component-Level Caching
-
-```tsx
-async function ProductCard({ id }: { id: string }) {
-  'use cache'
-  cacheTag(`product-${id}`)
-
-  const product = await db.products.find(id)
-  return <div className="card">{product.name}</div>
-}
-```
-
-### Cache Profiles
-
-```tsx
-// Static cache (build time + runtime)
-'use cache'
-
-// Remote shared cache
-'use cache: remote'
-
-// Per-user private cache
-'use cache: private'
-```
-
-### Revalidation
-
-```tsx
-import { revalidateTag, revalidatePath } from 'next/cache'
-
-// In a Server Action
-export async function updateProduct(id: string, data: FormData) {
-  'use server'
-
-  await db.products.update(id, data)
-  revalidateTag(`product-${id}`)
-  revalidateTag('products')
-}
-
-// Or revalidate entire path
-revalidatePath('/products')
-```
-
-## Server Actions
-
-Define server-side mutations with `'use server'`:
-
-```tsx
-// app/actions.ts
-'use server'
-
-import { revalidateTag } from 'next/cache'
-import { redirect } from 'next/navigation'
-
-export async function createPost(formData: FormData) {
-  const title = formData.get('title') as string
-  const content = formData.get('content') as string
-
-  // Validate
-  if (!title || title.length < 3) {
-    return { error: 'Title must be at least 3 characters' }
-  }
-
-  // Create
-  const post = await db.posts.create({
-    data: { title, content }
-  })
-
-  // Revalidate and redirect
-  revalidateTag('posts')
-  redirect(`/posts/${post.id}`)
-}
-```
-
-Use in components:
-
-```tsx
-import { createPost } from './actions'
-
-export function NewPostForm() {
-  return (
-    <form action={createPost}>
-      <input name="title" placeholder="Title" required />
-      <textarea name="content" placeholder="Content" />
-      <button type="submit">Create Post</button>
-    </form>
-  )
-}
-```
-
-## Metadata API
-
-```tsx
-import type { Metadata } from 'next'
-
-// Static metadata
-export const metadata: Metadata = {
-  title: 'My App',
-  description: 'Built with Next.js',
-  openGraph: {
-    title: 'My App',
-    description: 'Built with Next.js',
-    images: ['/og-image.png'],
-  },
-}
-
-// Dynamic metadata
-export async function generateMetadata({
-  params
-}: {
-  params: Promise<{ id: string }>
-}): Promise<Metadata> {
-  const { id } = await params
-  const product = await getProduct(id)
-
-  return {
-    title: product.name,
-    description: product.description,
-  }
-}
-```
-
-## Layouts
-
-Layouts wrap pages and preserve state across navigation:
-
-```tsx
-// app/layout.tsx - Root layout (required)
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: { default: 'My App', template: '%s | My App' },
-  description: 'My application description',
-}
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <nav>{/* Global navigation */}</nav>
-        <main>{children}</main>
-        <footer>{/* Global footer */}</footer>
-      </body>
-    </html>
-  )
-}
-```
-
-## Loading & Error States
-
-```tsx
-// app/dashboard/loading.tsx
-export default function Loading() {
-  return (
-    <div className="animate-pulse">
-      <div className="h-8 bg-gray-200 rounded w-1/4 mb-4" />
-      <div className="h-64 bg-gray-200 rounded" />
-    </div>
-  )
-}
-
-// app/dashboard/error.tsx
-'use client'
-
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string }
-  reset: () => void
-}) {
-  return (
-    <div className="text-center py-10">
-      <h2>Something went wrong!</h2>
-      <button onClick={reset}>Try again</button>
-    </div>
-  )
-}
-```
-
-## Configuration
+Every page MUST explicitly declare rendering intent:
 
 ```typescript
-// next.config.ts
-import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
-  experimental: {
-    reactCompiler: true,  // Enable React Compiler
-  },
-  images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'images.example.com' }
-    ],
-  },
-}
-
-export default nextConfig
+// Required - choose one:
+export const dynamic = "force-static"; // SSG
+export const dynamic = "force-dynamic"; // SSR
+export const revalidate = 3600; // ISR
 ```
 
-## Development with Turbopack
+**No implicit rendering**. Always be explicit about caching behavior.
 
-```bash
-# Use Turbopack for faster development
-npm run dev -- --turbopack
+---
 
-# Or in package.json
-"scripts": {
-  "dev": "next dev --turbopack"
-}
+## 4. Data Fetching (Server Actions vs API Routes)
+
+### Server Actions (Default for Internal Operations)
+
+**Use for**:
+
+- Form submissions
+- Data mutations
+- Internal Next.js operations
+
+**Location**: `app/actions/*.ts` or inline with `'use server'`
+
+### API Routes (External Integration ONLY)
+
+**Use for**:
+
+- Webhooks (Stripe, GitHub, etc.)
+- OAuth callbacks
+- Mobile app endpoints
+- Third-party service integrations
+
+**Location**: `app/api/*/route.ts`
+
+**NEVER**: API routes for internal Next.js-to-Next.js communication
+
+---
+
+## 5. Caching Policy (Explicit Intent Required)
+
+### Mandatory Cache Declaration
+
+All fetch calls MUST explicitly specify caching:
+
+```typescript
+// Required - choose one:
+fetch(url, { next: { revalidate: 3600 } }); // Time-based
+fetch(url, { cache: "no-store" }); // Dynamic
 ```
 
-## Additional Resources
+**Use React `cache()`** to prevent duplicate requests within render cycle.
 
-For detailed patterns, see reference files:
-- **`references/app-router.md`** - Layouts, route groups, parallel routes
-- **`references/caching.md`** - Complete caching strategies
-- **`references/server-actions.md`** - Mutations and form handling
+**No implicit caching**. Always declare intent.
 
-## References
+---
 
-- https://nextjs.org/docs/app/api-reference/file-conventions/proxy
-- https://nextjs.org/docs/app/api-reference/file-conventions/proxy#migration-to-proxy
+## Critical Violations
+
+1. **Direct DB access from Next.js** → Architecture violation
+2. **API Routes for internal mutations** → Use Server Actions
+3. **Missing rendering strategy declaration** → Add explicit export
+4. **Client Component not at leaf** → Move `'use client'` down
+5. **Implicit caching** → Add explicit cache declaration
+6. **Backend not separated** → Mandatory separate service

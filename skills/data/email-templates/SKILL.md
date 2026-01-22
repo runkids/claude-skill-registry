@@ -1,176 +1,296 @@
 ---
 name: email-templates
-description: Transactional email templates for lead generation forms. Lead notification + customer confirmation. Resend compatible.
+description: Professional HTML email templates for reports, summaries, and notifications. Includes daily summaries, GitHub digests, App Store metrics, and calendar reminders. Use when creating formatted email communications.
 ---
 
-# Email Templates Skill
+# Email Templates
 
-## Purpose
+Professional HTML email templates for various reporting and notification needs.
 
-Produces HTML + plain text email templates for form submissions. Transactional only.
+## Quick Start
 
-## Scope
+Render a template:
+```bash
+python scripts/render_template.py --template daily-summary --data data.json
+```
 
-| ✅ Transactional | ❌ NOT Supported |
-|-----------------|-----------------|
-| Form confirmations | Marketing campaigns |
-| Lead notifications | Newsletters |
-| Quote results | Nurture sequences |
-| System alerts | Promotional emails |
+Format email with template:
+```bash
+python scripts/format_email.py --template github-digest --output email.html
+```
 
-**This skill is for transactional emails only. No marketing.**
+## Available Templates
 
-## Skill Output
+### 1. Daily Summary (`daily-summary.html`)
 
-For each form, this skill produces:
+Complete daily activity summary across all systems.
 
-| Template | To | Required |
-|----------|-----|----------|
-| Lead Notification | Business | ✅ |
-| Customer Confirmation | Customer | ✅ |
-| Quote Result | Customer | If calculator |
+**Use for:**
+- End-of-day reports
+- Morning briefings
+- Weekly summaries
 
-**Rule:** Every form needs BOTH business + customer email. No exceptions.
-
-## Core Rules
-
-1. **Two emails per form** — Business notification + customer confirmation
-2. **HTML + plain text** — Both versions required
-3. **No external images** — Inline styles only
-4. **Mobile-first** — 600px max width, large text
-5. **Brand colors from design-tokens** — No hardcoded colors
-6. **Reply-to = business email** — Never noreply-only
-
-## Required Fields
-
-### Lead Notification
-
-```typescript
-interface LeadNotificationData {
-  name: string;        // Required
-  email: string;       // Required
-  phone?: string;
-  message?: string;
-  source: string;      // Required - page URL
-  timestamp: string;   // Required
-  utm?: { source?: string; medium?: string; campaign?: string; };
+**Data structure:**
+```json
+{
+  "date": "2026-01-14",
+  "sections": [
+    {
+      "title": "GitHub Activity",
+      "icon": "💻",
+      "items": [
+        {"label": "Commits", "value": "12", "color": "green"},
+        {"label": "PRs", "value": "3", "color": "blue"}
+      ],
+      "details": "Brief summary text"
+    },
+    {
+      "title": "App Store",
+      "icon": "📱",
+      "items": [
+        {"label": "Downloads", "value": "1,234", "color": "yellow"},
+        {"label": "Revenue", "value": "$567", "color": "green"}
+      ]
+    }
+  ],
+  "summary": "Overall summary text"
 }
 ```
 
-### Customer Confirmation
+### 2. GitHub Digest (`github-digest.html`)
 
-```typescript
-interface ConfirmationData {
-  name: string;           // Required
-  businessName: string;   // Required
-  businessPhone: string;  // Required
-  businessEmail: string;  // Required
-  responseTime: string;   // Required - e.g., "within 2 hours"
+GitHub activity report with commit details and leaderboard.
+
+**Use for:**
+- Daily GitHub summaries
+- Weekly activity reports
+- Team performance reviews
+
+**Data structure:**
+```json
+{
+  "period": "Last 7 Days",
+  "date_range": "Jan 7-14, 2026",
+  "stats": {
+    "total_commits": 45,
+    "total_prs": 8,
+    "total_reviews": 12,
+    "contributors": 5
+  },
+  "top_contributors": [
+    {
+      "name": "John Doe",
+      "commits": 15,
+      "lines_changed": 1234,
+      "score": 45.2
+    }
+  ],
+  "recent_commits": [
+    {
+      "sha": "abc123",
+      "author": "John Doe",
+      "message": "Add feature X",
+      "date": "2026-01-14T10:30:00Z",
+      "repo": "owner/repo"
+    }
+  ]
 }
 ```
 
-### Quote Result
+### 3. App Store Metrics (`appstore-metrics.html`)
 
-```typescript
-interface QuoteData {
-  name: string;         // Required
-  businessName: string; // Required
-  resultUrl: string;    // Required
-  summary: string;      // Required
-  priceRange?: string;
-  validUntil?: string;
+App Store sales, downloads, and analytics summary.
+
+**Use for:**
+- Daily sales reports
+- Weekly performance summaries
+- Monthly analytics reviews
+
+**Data structure:**
+```json
+{
+  "date": "2026-01-14",
+  "apps": [
+    {
+      "name": "My App",
+      "icon_url": "https://...",
+      "metrics": {
+        "downloads": 1234,
+        "revenue": 567.89,
+        "updates": 45,
+        "crashes": 2
+      },
+      "trending": "up"
+    }
+  ],
+  "totals": {
+    "total_downloads": 5678,
+    "total_revenue": 2345.67,
+    "avg_rating": 4.5
+  }
 }
 ```
 
-## Blocking Conditions (STOP)
+### 4. Calendar Reminder (`calendar-reminder.html`)
 
-Do NOT send email if:
+Meeting and event notifications.
 
-| Condition | Check |
-|-----------|-------|
-| Missing required field | name, email, businessName |
-| No plain text version | Both versions required |
-| Invalid email format | Basic validation |
-| No reply-to set | Business must be reachable |
+**Use for:**
+- Meeting reminders
+- Event notifications
+- Schedule updates
 
-**Missing required field = email NOT sent. Log error.**
+**Data structure:**
+```json
+{
+  "event": {
+    "title": "Team Meeting",
+    "start": "2026-01-14T14:00:00Z",
+    "end": "2026-01-14T15:00:00Z",
+    "location": "Conference Room A",
+    "attendees": ["john@example.com", "jane@example.com"],
+    "description": "Discuss Q1 planning"
+  },
+  "reminder_type": "1 hour before",
+  "actions": [
+    {"label": "Join Meeting", "url": "https://..."},
+    {"label": "View Calendar", "url": "https://..."}
+  ]
+}
+```
 
-## Email Structure
+## Design System
 
-### Lead Notification (to Business)
+All templates use a consistent neo-brutal design aesthetic:
 
-| Section | Content |
-|---------|---------|
-| Header | "🎉 New Lead!" + accent color |
-| Body | Name, Email, Phone, Message |
-| Actions | Call button, Reply button |
-| Footer | Source URL, UTM data, Timestamp |
+### Colors
+```
+Primary:   #000000 (black)
+Background: #FFFFFF (white)
+Accent 1:  #FFEB3B (yellow)
+Accent 2:  #4CAF50 (green)
+Accent 3:  #F44336 (red)
+Accent 4:  #2196F3 (blue)
+Gray:      #F5F5F5 (light gray)
+```
 
-### Customer Confirmation (to Customer)
+### Typography
+- **Headings**: 900 weight, uppercase
+- **Body**: 400 weight, 16px
+- **Stats**: 700 weight, large numbers
 
-| Section | Content |
-|---------|---------|
-| Header | "Thanks, {name}!" |
-| Body | Confirmation message |
-| Next Steps | Numbered list |
-| Footer | Business contact info |
+### Components
+- **Borders**: 3-4px solid black
+- **Sections**: Clear separation with thick borders
+- **Stats boxes**: Colored backgrounds with thick borders
+- **Tables**: Bold headers, clear grid lines
 
-### Quote Result (to Customer)
+## Template Structure
 
-| Section | Content |
-|---------|---------|
-| Header | "Your Quote is Ready" |
-| Body | Price range, Summary |
-| CTA | "View Full Quote" button |
-| Footer | Validity date |
+Each template follows this base structure:
 
-## Subject Lines
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Base styles */
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; border: 4px solid black; }
+        .header { background-color: black; color: white; padding: 20px; }
+        /* Template-specific styles */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header"><!-- Title --></div>
+        <!-- Content sections -->
+    </div>
+</body>
+</html>
+```
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Lead notification | `🎉 New lead: {name}` | "🎉 New lead: John Smith" |
-| Confirmation | `Thanks for your enquiry - {business}` | "Thanks for your enquiry - Bristol Removals" |
-| Quote | `Your quote from {business}` | "Your quote from Bristol Removals" |
+## Scripts
 
-## Plain Text Rules
+### render_template.py
 
-- Max 70 characters per line
-- No HTML references
-- Same content as HTML
-- Clear section breaks with blank lines
+Renders a template with data.
 
-## Testing Checklist
+**Usage:**
+```bash
+python scripts/render_template.py \
+    --template daily-summary \
+    --data data.json \
+    --output email.html
+```
 
-- [ ] Renders on Gmail (web + mobile)
-- [ ] Renders on Outlook
-- [ ] Renders on Apple Mail
-- [ ] Plain text readable
-- [ ] Links work
-- [ ] Reply-to correct
-- [ ] From name = business name
+**Arguments:**
+- `--template`: Template name (daily-summary, github-digest, etc.)
+- `--data`: JSON file with template data
+- `--output`: Output HTML file
 
-## Forbidden
+### format_email.py
 
-- ❌ External image URLs
-- ❌ HTML-only (no plain text)
-- ❌ Generic "noreply@" without business name
-- ❌ Marketing content in transactional
-- ❌ Sending with missing required fields
-- ❌ Only business OR only customer email
+Formats and optionally sends an email.
 
-## References
+**Usage:**
+```bash
+python scripts/format_email.py \
+    --template github-digest \
+    --data data.json \
+    --subject "GitHub Weekly Digest" \
+    --to user@example.com \
+    --send
+```
 
-- [lead-notification.md](references/lead-notification.md) — Full HTML template
-- [customer-confirmation.md](references/customer-confirmation.md) — Full HTML template
-- [quote-result.md](references/quote-result.md) — Full HTML template
-- [resend-setup.md](references/resend-setup.md) — Sending implementation
+**Arguments:**
+- `--template`: Template name
+- `--data`: JSON file with data
+- `--subject`: Email subject
+- `--to`: Recipient email
+- `--send`: Send email (optional, otherwise just outputs HTML)
 
-## Definition of Done
+## Integration with Agents
 
-- [ ] Lead notification template (HTML + text)
-- [ ] Customer confirmation template (HTML + text)
-- [ ] Quote template if calculator (HTML + text)
-- [ ] Both emails sent per form submission
-- [ ] Tested on Gmail, Outlook, Apple Mail
-- [ ] From name = business name
-- [ ] Reply-to = business email
+### Communication Agent
+
+```python
+from email_templates import render_template
+
+# Render template
+html = render_template('daily-summary', data)
+
+# Send via Gmail
+gmail.send_email(
+    to='user@example.com',
+    subject='Daily Summary - Jan 14',
+    body_html=html
+)
+```
+
+### Reporting Agent
+
+```python
+# Generate report data
+report_data = {
+    'date': '2026-01-14',
+    'sections': [...]
+}
+
+# Render template
+html = render_template('appstore-metrics', report_data)
+
+# Delegate to communication-agent
+orchestrator.delegate_to('communication-agent', {
+    'action': 'send_email',
+    'to': 'dave@example.com',
+    'subject': 'App Store Daily Report',
+    'html': html
+})
+```
+
+## Examples
+
+See `examples/` directory for sample data files and rendered outputs.

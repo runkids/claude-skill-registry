@@ -1,145 +1,584 @@
 ---
 name: refactoring
-description: 执行代码重构（识别坏味道→选择手法→小步修改→运行测试），在保持外部行为不变前提下改进内部结构。当TDD进入REFACTOR阶段、发现代码坏味道、需要消除重复代码、优化代码结构时使用。支持提取方法、类、参数对象等重构手法。
-stage: EXECSPEC_FULFILL
-level_supported: [L1-STREAMLINED, L2-BALANCED, L3-RIGOROUS]
+description: Use when restructuring code to improve quality without changing external behavior. Emphasizes safety through tests and incremental changes.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Grep
+  - Glob
 ---
 
 # Refactoring Skill
 
-> **Scope**: EXECSPEC_FULFILL — Fulfill ExecSpec（落实 ExecSpec）
->
-> **版本**: 0.1.0（占位）| **创建日期**: 2025-11-27
+Improve code structure and quality while preserving behavior.
 
----
+## Core Principle
 
-## 概述
+**Tests are your safety net.** Never refactor without tests.
 
-Refactoring 是在不改变外部行为的前提下改进代码内部结构：
+## The Refactoring Cycle
+
+1. **Ensure tests exist and pass**
+2. **Make ONE small change**
+3. **Run tests** (must still pass)
+4. **Commit** (keep changes isolated)
+5. **Repeat**
+
+**Each step must be reversible.** If tests fail, revert and try smaller change.
+
+## Pre-Refactoring Checklist
+
+**STOP if any of these are false:**
+
+- [ ] Tests exist for code being refactored
+- [ ] All tests currently pass
+- [ ] Understand what code does
+- [ ] External behavior will remain unchanged
+- [ ] Have time to do this properly (not rushing)
+
+**If no tests exist:**
+
+1. Add tests first
+2. Verify tests pass
+3. THEN refactor
+
+## When to Refactor
+
+### Code Smells That Suggest Refactoring
+
+**Readability issues:**
+
+- Long functions (> 50 lines)
+- Deep nesting (> 3 levels)
+- Unclear naming
+- Magic numbers
+- Complex conditionals
+
+**Maintainability issues:**
+
+- Duplication (same code in multiple places)
+- God classes (too many responsibilities)
+- Feature envy (method uses another class more than its own)
+- Data clumps (same groups of parameters passed around)
+
+**Complexity issues:**
+
+- Cyclomatic complexity > 10
+- Too many dependencies
+- Tightly coupled code
+- Difficult to test
+
+### When NOT to Refactor
+
+- **No tests exist** (add tests first)
+- **Under deadline pressure** (defer to later)
+- **Code works and is readable** (don't over-engineer)
+- **Changing external behavior** (that's not refactoring, that's a feature/fix)
+- **Right before release** (too risky)
+
+## Classic Refactorings
+
+### Extract Function
+
+**Problem:** Function does too many things
+
+```typescript
+// Before: Long function doing multiple things
+function processOrder(order: Order) {
+  // Validate order
+  if (!order.items || order.items.length === 0) {
+    throw new Error('Empty order')
+  }
+  if (!order.customer || !order.customer.email) {
+    throw new Error('Invalid customer')
+  }
+
+  // Calculate totals
+  let subtotal = 0
+  for (const item of order.items) {
+    subtotal += item.price * item.quantity
+  }
+  const tax = subtotal * 0.08
+  const shipping = subtotal > 50 ? 0 : 9.99
+  const total = subtotal + tax + shipping
+
+  // Save to database
+  return database.save({
+    ...order,
+    subtotal,
+    tax,
+    shipping,
+    total
+  })
+}
+
+// After: Extracted into focused functions
+function processOrder(order: Order) {
+  validateOrder(order)
+  const totals = calculateTotals(order)
+  return saveOrder(order, totals)
+}
+
+function validateOrder(order: Order): void {
+  if (!order.items || order.items.length === 0) {
+    throw new Error('Empty order')
+  }
+  if (!order.customer || !order.customer.email) {
+    throw new Error('Invalid customer')
+  }
+}
+
+function calculateTotals(order: Order) {
+  const subtotal = order.items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  )
+  const tax = subtotal * 0.08
+  const shipping = subtotal > 50 ? 0 : 9.99
+  const total = subtotal + tax + shipping
+
+  return { subtotal, tax, shipping, total }
+}
+
+function saveOrder(order: Order, totals: Totals) {
+  return database.save({ ...order, ...totals })
+}
+```
+
+**Benefits:** Each function has single responsibility, easier to test, easier to understand
+
+### Extract Variable
+
+**Problem:** Complex expression that's hard to understand
+
+```typescript
+// Before: Dense, hard to parse
+if (user.age >= 18 && user.country === 'US' && !user.banned && user.verified) {
+  // ...
+}
+
+// After: Intent is clear
+const isAdult = user.age >= 18
+const isUSResident = user.country === 'US'
+const hasGoodStanding = !user.banned && user.verified
+const canPurchase = isAdult && isUSResident && hasGoodStanding
+
+if (canPurchase) {
+  // ...
+}
+```
+
+**Benefits:** Self-documenting, easier to debug, easier to modify
+
+### Inline Function/Variable
+
+**Problem:** Unnecessary indirection that doesn't add clarity
+
+```typescript
+// Before: Over-abstraction
+function getTotal(order: Order) {
+  return calculateTotalAmount(order)
+}
+
+function calculateTotalAmount(order: Order) {
+  return order.subtotal + order.tax
+}
+
+// After: Inline the unnecessary layer
+function getTotal(order: Order) {
+  return order.subtotal + order.tax
+}
+```
+
+**When to inline:** Abstraction doesn't add value, makes code harder to follow
+
+### Rename
+
+**Problem:** Unclear or misleading names
+
+```typescript
+// Before: Unclear
+function proc(d: any) {
+  const r = d.x * d.y
+  return r
+}
+
+// After: Self-explanatory
+function calculateArea(dimensions: Dimensions) {
+  const area = dimensions.width * dimensions.height
+  return area
+}
+```
+
+**Benefits:** Code is self-documenting, no need to guess what variables mean
+
+### Replace Magic Number with Named Constant
+
+**Problem:** Unexplained numbers in code
+
+```typescript
+// Before: What's 0.08? What's 9.99?
+const tax = subtotal * 0.08
+const shipping = subtotal > 50 ? 0 : 9.99
+
+// After: Clear meaning
+const TAX_RATE = 0.08
+const FREE_SHIPPING_THRESHOLD = 50
+const STANDARD_SHIPPING_COST = 9.99
+
+const tax = subtotal * TAX_RATE
+const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST
+```
+
+### Remove Duplication
+
+**Problem:** Same code in multiple places
+
+```typescript
+// Before: Duplication
+function formatUserName(user: User) {
+  return `${user.firstName} ${user.lastName}`.trim()
+}
+
+function formatAdminName(admin: Admin) {
+  return `${admin.firstName} ${admin.lastName}`.trim()
+}
+
+function formatAuthorName(author: Author) {
+  return `${author.firstName} ${author.lastName}`.trim()
+}
+
+// After: One implementation
+function formatFullName(person: { firstName: string; lastName: string }) {
+  return `${person.firstName} ${person.lastName}`.trim()
+}
+
+// Usage
+formatFullName(user)
+formatFullName(admin)
+formatFullName(author)
+```
+
+### Simplify Conditional
+
+**Problem:** Complex nested if/else
+
+```typescript
+// Before: Nested conditionals
+function getShippingCost(order: Order) {
+  if (order.total > 100) {
+    return 0
+  } else {
+    if (order.items.length > 5) {
+      return 5.99
+    } else {
+      if (order.weight > 10) {
+        return 15.99
+      } else {
+        return 9.99
+      }
+    }
+  }
+}
+
+// After: Early returns, flat structure
+function getShippingCost(order: Order) {
+  if (order.total > 100) return 0
+  if (order.items.length > 5) return 5.99
+  if (order.weight > 10) return 15.99
+  return 9.99
+}
+
+// Or: Look-up table
+const SHIPPING_RULES = [
+  { condition: (o: Order) => o.total > 100, cost: 0 },
+  { condition: (o: Order) => o.items.length > 5, cost: 5.99 },
+  { condition: (o: Order) => o.weight > 10, cost: 15.99 },
+]
+
+function getShippingCost(order: Order) {
+  const rule = SHIPPING_RULES.find(r => r.condition(order))
+  return rule?.cost ?? 9.99
+}
+```
+
+### Replace Conditional with Polymorphism
+
+**Problem:** Type checks scattered throughout code
+
+```typescript
+// Before: Type checking everywhere
+function calculatePrice(item: Item) {
+  if (item.type === 'book') {
+    return item.basePrice * 0.9  // 10% discount
+  } else if (item.type === 'electronics') {
+    return item.basePrice * 1.15  // 15% markup
+  } else if (item.type === 'clothing') {
+    return item.basePrice
+  }
+}
+
+// After: Polymorphism
+interface Item {
+  calculatePrice(): number
+}
+
+class Book implements Item {
+  calculatePrice() {
+    return this.basePrice * 0.9
+  }
+}
+
+class Electronics implements Item {
+  calculatePrice() {
+    return this.basePrice * 1.15
+  }
+}
+
+class Clothing implements Item {
+  calculatePrice() {
+    return this.basePrice
+  }
+}
+
+// Usage: No type checking needed
+const price = item.calculatePrice()
+```
+
+### Split Function
+
+**Problem:** Function tries to do too many things
+
+```typescript
+// Before: Does validation, calculation, and saving
+function processPayment(payment: Payment) {
+  // Validation
+  if (!payment.amount || payment.amount <= 0) {
+    throw new Error('Invalid amount')
+  }
+  if (!payment.method) {
+    throw new Error('Payment method required')
+  }
+
+  // Calculation
+  const fee = payment.amount * 0.029 + 0.30
+  const total = payment.amount + fee
+
+  // Persistence
+  const record = database.save({
+    amount: payment.amount,
+    fee,
+    total,
+    method: payment.method,
+    timestamp: Date.now()
+  })
+
+  // Notification
+  notificationService.send({
+    user: payment.user,
+    message: `Payment of $${total} processed`
+  })
+
+  return record
+}
+
+// After: Separate concerns
+function processPayment(payment: Payment) {
+  validatePayment(payment)
+  const totals = calculatePaymentTotals(payment)
+  const record = savePayment(payment, totals)
+  notifyPaymentProcessed(payment.user, totals.total)
+  return record
+}
+```
+
+## Refactoring Workflow
+
+### Step-by-Step Process
+
+```bash
+# 1. Ensure tests pass
+npm test
+# ✅ All tests passing
+
+# 2. Make ONE refactoring change
+# Example: Extract function
+
+# 3. Run tests immediately
+npm test
+# ✅ Still passing
+
+# 4. Commit with descriptive message
+git add .
+git commit -m "refactor: extract validateOrder function"
+
+# 5. Repeat for next refactoring
+# Make another small change, test, commit
+```
+
+### If Tests Fail After Refactoring
+
+```bash
+# Tests failed after refactoring
+
+# Option 1: Revert and try smaller change
+git reset --hard HEAD
+# Make smaller, safer change
+
+# Option 2: Debug and fix
+# Find what broke
+# Fix it
+# Run tests again
+```
+
+## Refactoring Strategies
+
+### The Boy Scout Rule
+
+**"Leave code better than you found it"**
+
+When touching code for any reason:
+
+1. Fix obvious issues you see
+2. Improve naming
+3. Extract complex expressions
+4. Add missing tests
+5. Remove commented code
+
+**Small improvements accumulate**
+
+### Preparatory Refactoring
+
+**Before adding feature, refactor to make it easy**
 
 ```
-┌─────────────────────────────────────────────────────┐
-│              🔧 Refactoring Cycle                   │
-├─────────────────────────────────────────────────────┤
-│  识别坏味道 → 选择手法 → 小步修改 → 运行测试       │
-│  (Smell)     (Technique) (Small Step) (Verify)    │
-│       ↑                                   │        │
-│       └───────────────────────────────────┘        │
-└─────────────────────────────────────────────────────┘
+1. Need to add feature
+2. Current code structure makes it hard
+3. Refactor first to make space
+4. Then add feature in clean code
 ```
 
-**核心原则**：
-- 小步前进，每步都可验证
-- 测试必须始终通过
-- 行为不变，结构改进
+**Quote:** "Make the change easy, then make the easy change"
 
----
+### Opportunistic Refactoring
 
-## 代码坏味道
+**Fix things you notice while working**
 
-### 常见坏味道
+- Fixing bug? Clean up surrounding code
+- Adding feature? Improve structure
+- Reading code? Fix confusing names
 
-| 坏味道 | 信号 | 重构方向 |
-|--------|------|----------|
-| **重复代码** | 相似代码块 > 2 处 | Extract Method |
-| **过长函数** | > 20 行 | Extract Method |
-| **过大类** | > 300 行 | Extract Class |
-| **过长参数** | > 4 个参数 | Introduce Parameter Object |
-| **特性依恋** | 方法更多使用其他类数据 | Move Method |
-| **数据泥团** | 相同数据组合多处出现 | Extract Class |
-| **基本类型偏执** | 过度使用基本类型 | Replace with Object |
-| **Switch 语句** | 多处相同 switch | Replace with Polymorphism |
+### Planned Refactoring
 
----
+**Dedicated time to improve code health**
 
-## 重构手法
+- Tech debt tickets
+- Refactoring sprints
+- Clean-up sessions
 
-### 提取类手法
+## Refactoring Safety Checklist
 
-```
-Extract Method      → 提取函数
-Extract Class       → 提取类
-Extract Interface   → 提取接口
-Extract Variable    → 提取变量
-```
+**Before every change:**
 
-### 移动类手法
+- [ ] Tests exist
+- [ ] Tests pass
+- [ ] Understand what code does
 
-```
-Move Method         → 移动方法
-Move Field          → 移动字段
-Move Class          → 移动类
-```
+**After every change:**
 
-### 简化类手法
+- [ ] Tests still pass
+- [ ] No functionality changed
+- [ ] Code is clearer
+- [ ] Ready to commit
 
-```
-Inline Method       → 内联方法
-Inline Class        → 内联类
-Remove Parameter    → 移除参数
-Rename              → 重命名
-```
+**If tests fail:**
 
----
+- [ ] Understand why
+- [ ] Fix or revert
+- [ ] Never commit broken tests
 
-## L1-STREAMLINED 检查清单
+## Integration with Other Skills
 
-- [ ] 重构前测试全绿
-- [ ] 每步修改后运行测试
-- [ ] 无新功能添加
-- [ ] 代码可读性提升
+Apply these skills during refactoring:
 
-### 通过标准
+- **boy-scout-rule** - Leave code better than found
+- **simplicity-principles** - KISS, YAGNI, simple is better
+- **solid-principles** - Single Responsibility, etc.
+- **structural-design-principles** - Composition, encapsulation
+- **test-driven-development** - Add tests if missing
+- **proof-of-work** - Verify tests still pass
+- **code-reviewer** - Review refactored code
 
-- 4 项全部通过（100%）
+## Common Refactoring Pitfalls
 
----
+### ❌ Refactoring Without Tests
 
-## 重构流程
+**Risk:** Change behavior without noticing
 
-### 1. 准备阶段
+**Solution:** Add tests first, then refactor
 
-```
-□ 确保测试覆盖充分
-□ 理解现有代码行为
-□ 识别要重构的坏味道
-```
+### ❌ Too Many Changes at Once
 
-### 2. 执行阶段
+**Risk:** Hard to debug if something breaks
 
-```
-□ 选择合适的重构手法
-□ 小步修改（每步 < 5 分钟）
-□ 每步后运行测试
-□ 提交小步变更
-```
+**Solution:** One refactoring at a time, commit frequently
 
-### 3. 验证阶段
+### ❌ Changing Behavior
 
-```
-□ 所有测试通过
-□ 代码结构改善
-□ 无行为变化
-```
+**Risk:** It's not refactoring if behavior changes
 
----
+**Solution:** Tests must still pass, functionality unchanged
 
-## >> 命令
+### ❌ Over-Engineering
 
-```
->>smell_detect       # 检测代码坏味道
->>refactor_suggest   # 建议重构手法
->>refactor_verify    # 验证重构结果
-```
+**Risk:** More complex after "refactoring"
 
----
+**Solution:** Simpler is better, don't add unnecessary abstraction
 
-## 相关 Skills
+### ❌ Refactoring Under Pressure
 
-- **前置**: tdd-cycle（GREEN 后进入 REFACTOR）
-- **并行**: code-quality（质量检查）
-- **原则**: principle-dry, principle-kiss, principle-solid
+**Risk:** Mistakes due to rushing
 
----
+**Solution:** Defer to when you have time to do it right
 
-**TODO**: 待细化各重构手法的详细步骤和示例
+## Measuring Refactoring Success
+
+**Good refactoring results in:**
+
+- ✅ Easier to understand
+- ✅ Easier to modify
+- ✅ Easier to test
+- ✅ Fewer lines of code (usually)
+- ✅ Lower complexity
+- ✅ Same or better performance
+- ✅ All tests still pass
+
+**If any test fails, it wasn't successful refactoring**
+
+## Tools
+
+**Automated refactoring tools:**
+
+- IDE refactoring commands (safe)
+- Rename variable/function (safe)
+- Extract method (safe)
+- Move file (safe)
+
+**Manual refactoring:**
+
+- Make small changes
+- Test frequently
+- Commit after each change
+- Use version control as safety net
+
+## Remember
+
+1. **Tests first** - No refactoring without tests
+2. **Small steps** - One change at a time
+3. **Test after each step** - Must stay green
+4. **Commit frequently** - Each safe change gets a commit
+5. **Behavior unchanged** - If behavior changes, it's not refactoring
+
+**Refactoring is about improving structure without changing what the code does.**

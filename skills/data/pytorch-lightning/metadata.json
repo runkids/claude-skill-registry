@@ -1,7 +1,7 @@
 {
   "name": "pytorch-lightning",
-  "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "path": "08-distributed-training/pytorch-lightning/SKILL.md",
-  "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
-  "downloaded_at": "2026-01-21T03:16:28.964978Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/data-science/pytorch-lightning/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:11.731497Z"
 }

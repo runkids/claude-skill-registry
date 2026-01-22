@@ -1,7 +1,7 @@
 {
   "name": "structured-logging",
-  "repo": "daishiman/AIWorkflowOrchestrator",
-  "path": "docs/99-claude/skills/structured-logging/SKILL.md",
-  "source": "github.com/daishiman/AIWorkflowOrchestrator",
-  "downloaded_at": "2026-01-21T02:43:06.293837Z"
+  "repo": "bitsoex/bitso-java",
+  "path": ".claude/skills/structured-logging/SKILL.md",
+  "source": "github.com/bitsoex/bitso-java",
+  "downloaded_at": "2026-01-22T02:30:40.597565Z"
 }

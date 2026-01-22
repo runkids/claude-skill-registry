@@ -1,7 +1,7 @@
 {
   "name": "integration-e2e-testing",
-  "repo": "shinpr/agentic-code",
-  "path": ".agents/skills/integration-e2e-testing/SKILL.md",
-  "source": "github.com/shinpr/agentic-code",
-  "downloaded_at": "2026-01-21T02:55:26.036995Z"
+  "repo": "shinpr/claude-code-workflows",
+  "path": "skills/integration-e2e-testing/SKILL.md",
+  "source": "github.com/shinpr/claude-code-workflows",
+  "downloaded_at": "2026-01-22T03:24:41.039459Z"
 }

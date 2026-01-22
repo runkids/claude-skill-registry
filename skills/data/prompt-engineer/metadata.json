@@ -1,7 +1,7 @@
 {
   "name": "prompt-engineer",
-  "repo": "Jeffallan/claude-skills",
-  "path": "skills/prompt-engineer/SKILL.md",
-  "source": "github.com/Jeffallan/claude-skills",
-  "downloaded_at": "2026-01-21T03:54:26.042141Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/prompt-engineer/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-22T04:17:13.925664Z"
 }

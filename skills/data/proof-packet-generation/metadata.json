@@ -1,13 +1,7 @@
 {
   "name": "proof-packet-generation",
-  "description": "Generate cryptographic proof packets for verification.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "proof",
-    "packet",
-    "generation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/proof-packet-generation/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:50.958368Z"
 }

@@ -1,392 +1,341 @@
 ---
-name: feedback
-description: Manage the SkillForge feedback system that learns from your usage. Use when providing feedback, reporting issues, suggesting improvements.
-context: inherit
-version: 1.2.0
-author: SkillForge
-tags: [feedback, learning, patterns, metrics, privacy, analytics, consent]
-user-invocable: true
+name: dev:feedback
+description: |
+  実装完了後、学んだことをDESIGN.mdに蓄積。スキル/ルールの自己改善も提案。
+  PR作成・Worktreeクリーンアップまで実行。ストーリー駆動開発の終点。
+  「フィードバック」「/dev:feedback」で起動。
+
+  Trigger:
+  フィードバック, 学習事項蓄積, /dev:feedback, feedback, design update
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
+  - Task
+  - AskUserQuestion
 ---
 
-# Feedback - Manage Learning System
+# フィードバック → 仕様書蓄積（dev:feedback）
 
-View and manage the SkillForge feedback system that learns from your usage.
+## 概要
 
-## Overview
+実装完了後、学んだことをシステム仕様書（DESIGN.md）に蓄積。
+繰り返しパターンはスキル/ルール化を提案し、meta-skill-creatorと連携。
 
-- Checking feedback system status
-- Pausing/resuming learning
-- Resetting learned patterns
-- Exporting feedback data
-- Managing privacy settings
-- Enabling/disabling anonymous analytics sharing
-- Viewing privacy policy
+## 入力
 
-## Usage
+- feature-slug, story-slug
+- 実装済みコード（git diff）
+- output/フォルダのレポート（あれば）
+
+## 出力
+
+- `docs/features/{feature-slug}/DESIGN.md` に追記
+- `docs/features/DESIGN.md`（総合設計）にも反映
+- スキル/ルール化の提案
+
+---
+
+## ワークフロー
 
 ```
-/feedback                    # Same as status
-/feedback status             # Show current state
-/feedback pause              # Pause learning
-/feedback resume             # Resume learning
-/feedback reset              # Clear learned patterns
-/feedback export             # Export feedback data
-/feedback settings           # Show/edit settings
-/feedback opt-in             # Enable anonymous sharing
-/feedback opt-out            # Disable anonymous sharing
-/feedback privacy            # View privacy policy
-/feedback export-analytics   # Export anonymous analytics for review
+Phase 1: 変更内容の収集
+    → agents/analyze-changes.md [sonnet]
+    → 変更ファイル・学習事項を抽出
+        ↓
+Phase 2: 仕様書更新
+    → agents/update-design.md [opus]
+    → DESIGN.mdに設計判断を追記
+        ↓
+Phase 3: パターン検出
+    → agents/detect-patterns.md [haiku]
+    → 繰り返しパターンを検出
+        ↓
+Phase 4: 改善提案
+    → agents/propose-improvement.md [opus]
+    → スキル化/ルール化を提案
+    → ユーザー承認後、meta-skill-creatorを呼び出し
+        ↓
+Phase 5: PR作成・Worktreeクリーンアップ
+    → PR作成（gh pr create）
+    → マージ後、Worktree削除
 ```
 
-## Subcommands
+---
 
-### status (default)
+## Phase 1: 変更内容の収集
 
-Show the current feedback system state.
-
-**Output:**
-```
-Feedback System Status
------------------------------
-Learning: Enabled
-Anonymous sharing: Disabled
-Data retention: 90 days
-
-Learned Patterns:
-- Auto-approves: npm install, npm test, git push (3 commands)
-- Code style: async/await preferred, TypeScript strict mode
-
-Agent Performance:
-- backend-architect: 94% success (28 spawns) [improving]
-- test-generator: 72% success (18 spawns) [declining]
-
-Context Savings: ~8k tokens/session (estimated)
-
-Storage: .claude/feedback/ (45 KB)
+```bash
+git diff --stat HEAD~5
+git log --oneline -10
 ```
 
-### pause
+```javascript
+Task({
+  description: "変更分析",
+  prompt: `git diffから以下を抽出してください:
 
-Temporarily pause all learning without clearing data.
+1. 変更されたファイル一覧
+2. 追加された機能
+3. 設計判断（なぜこの構造にしたか）
+4. 技術的な発見
+5. 注意点・ハマりどころ
 
-**Action:**
-1. Set `pausedUntil` in preferences to a far future date
-2. Confirm to user
-
-**Output:**
-```
-Feedback learning paused
-
-Your existing patterns are preserved.
-Resume with: /feedback resume
-```
-
-### resume
-
-Resume paused learning.
-
-**Action:**
-1. Clear `pausedUntil` in preferences
-2. Confirm to user
-
-**Output:**
-```
-Feedback learning resumed
-
-The system will continue learning from your usage.
+出力形式: JSON`,
+  subagent_type: "general-purpose",
+  model: "sonnet"
+})
 ```
 
-### reset
+→ 詳細: [agents/analyze-changes.md](.claude/skills/dev/feedback/agents/analyze-changes.md)
 
-Clear all learned patterns (requires confirmation).
+---
 
-**Action:**
-1. Show what will be deleted
-2. Ask for confirmation (user must type "RESET")
-3. If confirmed, clear patterns file but keep preferences
+## Phase 2: 仕様書更新
 
-**Output (before confirmation):**
-```
-WARNING: This will clear all learned patterns:
+既存のDESIGN.mdがあれば追記、なければ新規作成。
 
-- 5 auto-approve permission rules
-- 3 code style preferences
-- Agent performance history
+```javascript
+Task({
+  description: "仕様書更新",
+  prompt: `DESIGN.mdを更新してください。
 
-Your preferences (enabled, sharing, retention) will be kept.
+追記内容:
+- 設計判断（なぜこの構造にしたか）
+- 技術的な発見
+- 注意点・ハマりどころ
 
-To confirm, respond with exactly: RESET
-To cancel, respond with anything else.
-```
-
-**Output (after confirmation):**
-```
-Feedback data reset
-
-- Cleared 5 permission patterns
-- Cleared 3 style preferences
-- Cleared agent metrics
-
-Learning will start fresh from now.
+フォーマット: references/update-format.md を参照`,
+  subagent_type: "general-purpose",
+  model: "opus"
+})
 ```
 
-### export
+→ 詳細: [agents/update-design.md](.claude/skills/dev/feedback/agents/update-design.md)
+→ テンプレート: [references/design-template.md](.claude/skills/dev/feedback/references/design-template.md)
 
-Export all feedback data to a JSON file.
+### 更新先
 
-**Action:**
-1. Read all feedback files
-2. Combine into single export
-3. Write to `.claude/feedback/export-{date}.json`
+| ファイル | スコープ | 更新内容 |
+|----------|----------|----------|
+| `docs/features/{feature-slug}/DESIGN.md` | 機能単位 | ストーリーからの学習事項 |
+| `docs/features/DESIGN.md` | プロジェクト全体 | 重要な設計判断のみ |
 
-**Output:**
-```
-Exported feedback data to:
-   .claude/feedback/export-2026-01-14.json
+### 更新フォーマット
 
-Contains:
-- 5 learned permission patterns
-- 3 code style preferences
-- 8 skill usage metrics
-- 4 agent performance records
+```markdown
+## 更新履歴
 
-File size: 12 KB
-```
+### 2024-01-21: {story-slug}
 
-### settings
+**設計判断**:
+- JWTではなくセッションベース認証を採用（理由: ...）
+- バリデーションはZodを使用
 
-Show current settings with option to change.
+**学んだこと**:
+- React Hook Formとの連携でのポイント
+- エラーハンドリングのパターン
 
-**Output:**
-```
-Feedback Settings
------------------------------
-enabled:              true   (master switch)
-learnFromEdits:       true   (learn from code edits)
-learnFromApprovals:   true   (learn from permissions)
-learnFromAgentOutcomes: true (track agent success)
-shareAnonymized:      false  (share anonymous stats)
-retentionDays:        90     (data retention period)
-
-To change a setting, use:
-  /feedback settings <key> <value>
-
-Example:
-  /feedback settings retentionDays 30
+**注意点**:
+- 〇〇の場合は△△に注意
 ```
 
-### opt-in
+---
 
-Enable anonymous analytics sharing. Records GDPR-compliant consent.
+## Phase 3: パターン検出
 
-**Action:**
-1. Record consent in consent-log.json with timestamp and policy version
-2. Set shareAnonymized = true in preferences
-3. Confirm to user
+```javascript
+Task({
+  description: "パターン検出",
+  prompt: `実装履歴から繰り返しパターンを検出してください。
 
-**Output:**
-```
-Anonymous analytics sharing enabled.
+検出対象:
+- 3回以上使用したパターン
+- 同じ構造のコード
+- 共通の設計判断
 
-What we share (anonymized):
-  - Skill usage counts and success rates
-  - Agent performance metrics
-  - Hook trigger counts
-
-What we NEVER share:
-  - Your code or file contents
-  - Project names or paths
-  - Personal information
-  - mem0 memory data
-
-Disable anytime: /feedback opt-out
+出力形式: JSON（patterns配列）`,
+  subagent_type: "general-purpose",
+  model: "haiku"
+})
 ```
 
-### opt-out
+→ 詳細: [agents/detect-patterns.md](.claude/skills/dev/feedback/agents/detect-patterns.md)
 
-Disable anonymous analytics sharing. Revokes consent.
+---
 
-**Action:**
-1. Record revocation in consent-log.json with timestamp
-2. Set shareAnonymized = false in preferences
-3. Confirm to user
+## Phase 4: 改善提案
 
-**Output:**
-```
-Anonymous analytics sharing disabled.
+繰り返しパターンを検出し、スキル/ルール化を提案。
 
-Your feedback data stays completely local.
-No usage data is shared.
+```javascript
+Task({
+  description: "改善提案",
+  prompt: `検出されたパターンをスキル/ルール化する提案を生成してください。
 
-Re-enable anytime: /feedback opt-in
-```
+提案形式:
+- ルール化候補: .claude/rules/ に保存
+- スキル化候補: .claude/skills/ に保存
 
-### privacy
-
-Display the full privacy policy for anonymous analytics.
-
-**Action:**
-1. Display comprehensive privacy documentation
-2. Show what's collected, what's never collected
-3. Explain data protection measures
-
-**Output:**
-```
-═══════════════════════════════════════════════════════════════════
-              SKILLFORGE ANONYMOUS ANALYTICS PRIVACY POLICY
-═══════════════════════════════════════════════════════════════════
-
-WHAT WE COLLECT (only with your consent)
-────────────────────────────────────────────────────────────────────
-
-  ✓ Skill usage counts        - e.g., "api-design used 45 times"
-  ✓ Skill success rates       - e.g., "92% success rate"
-  ✓ Agent spawn counts        - e.g., "backend-architect spawned 8 times"
-  ✓ Agent success rates       - e.g., "88% tasks completed successfully"
-  ✓ Hook trigger counts       - e.g., "bash-dispatcher triggered 120 times"
-  ✓ Hook block counts         - e.g., "blocked 5 potentially unsafe commands"
-  ✓ Plugin version            - e.g., "4.12.0"
-  ✓ Report date               - e.g., "2026-01-14" (date only, no time)
-
-
-WHAT WE NEVER COLLECT
-────────────────────────────────────────────────────────────────────
-
-  ✗ Your code or file contents
-  ✗ Project names, paths, or directory structure
-  ✗ User names, emails, or any personal information
-  ✗ IP addresses (stripped at network layer)
-  ✗ mem0 memory data or conversation history
-  ✗ Architecture decisions or design documents
-  ✗ API keys, tokens, or credentials
-  ✗ Git history or commit messages
-  ✗ Any data that could identify you or your projects
-
-
-YOUR RIGHTS
-────────────────────────────────────────────────────────────────────
-
-  • Opt-out anytime:     /feedback opt-out
-  • View your data:      /feedback export-analytics
-  • Check status:        /feedback status
-  • View this policy:    /feedback privacy
+各提案に以下を含める:
+- パターン名
+- 適用条件
+- 期待される効果`,
+  subagent_type: "general-purpose",
+  model: "opus"
+})
 ```
 
-### export-analytics
+→ 詳細: [agents/propose-improvement.md](.claude/skills/dev/feedback/agents/propose-improvement.md)
+→ パターン基準: [references/improvement-patterns.md](.claude/skills/dev/feedback/references/improvement-patterns.md)
 
-Export anonymous analytics data to a file for review before sharing.
+### 提案フォーマット
 
-**Usage:**
-```
-/feedback export-analytics [path]
-```
+```markdown
+💡 改善提案を検出しました
 
-If no path is provided, exports to `.claude/feedback/analytics-exports/` with a timestamp.
+1. **ルール化候補**:
+   - Zodバリデーションパターンを3回使用
+   → `.claude/rules/languages/typescript/validation.md` として保存？
 
-**Output:**
-```
-Analytics exported to: .claude/feedback/analytics-exports/analytics-export-20260114-120000.json
-
-Contents preview:
------------------
-Date: 2026-01-14
-Plugin Version: 4.12.0
-
-Summary:
-  Skills used: 8
-  Skill invocations: 45
-  Agents used: 3
-  Agent spawns: 12
-  Hooks configured: 5
-
-Please review the exported file before sharing.
+2. **スキル化候補**:
+   - 認証フロー実装で同じ手順を実行
+   → `.claude/skills/dev/auth-setup/SKILL.md` として抽出？
 ```
 
-**Export Format:**
-```json
-{
-  "timestamp": "2026-01-14",
-  "plugin_version": "4.12.0",
-  "skill_usage": {
-    "api-design-framework": { "uses": 12, "success_rate": 0.92 }
-  },
-  "agent_performance": {
-    "backend-system-architect": { "spawns": 8, "success_rate": 0.88 }
-  },
-  "hook_metrics": {
-    "git-branch-protection": { "triggered": 45, "blocked": 3 }
-  },
-  "summary": {
-    "unique_skills_used": 8,
-    "unique_agents_used": 3,
-    "hooks_configured": 5,
-    "total_skill_invocations": 45,
-    "total_agent_spawns": 12
-  },
-  "metadata": {
-    "exported_at": "2026-01-14T12:00:00Z",
-    "format_version": "1.0",
-    "note": "Review before sharing"
-  }
-}
+### ユーザー確認
+
+```javascript
+AskUserQuestion({
+  questions: [{
+    question: "これらのパターンをルール/スキルとして保存しますか？",
+    header: "自己改善",
+    options: [
+      { label: "保存する", description: "meta-skill-creatorでルール/スキルを作成" },
+      { label: "今回はスキップ", description: "保存しない" }
+    ],
+    multiSelect: false
+  }]
+})
 ```
 
-## What We Share (When Opted In)
+**「保存する」を選択された場合**:
+- meta-skill-creatorを呼び出してスキル/ルールを作成
 
-Anonymous analytics include only aggregated, non-identifiable data:
+---
 
-| Data Type | What's Included | What's NOT Included |
-|-----------|-----------------|---------------------|
-| Skills | Usage counts, success rates | File paths, code content |
-| Agents | Spawn counts, success rates | Project names, decisions |
-| Hooks | Trigger/block counts | Command content, paths |
+## フィードバック記録
 
-## What We NEVER Share
+meta-skill-creatorの機構を活用:
 
-The following are **blocked by design** and never included in analytics:
+| ファイル | 用途 | 更新タイミング |
+|----------|------|----------------|
+| LOGS.md | 実行記録 | 毎回実行後 |
+| EVALS.json | メトリクス | 毎回実行後 |
+| patterns.md | 成功/失敗パターン | パターン発見時 |
 
-- Project names, paths, or directory structure
-- File contents, code, or diffs
-- Decision content or context
-- User identity, email, or credentials
-- mem0 memory data
-- URLs, IP addresses, or hostnames
-- Any strings that could identify the project or user
+→ 詳細: [references/feedback-loop.md](.claude/skills/dev/feedback/references/feedback-loop.md)
 
-## Consent Management
+---
 
-Consent is managed per GDPR requirements:
+## Phase 5: PR作成・Worktreeクリーンアップ
 
-1. **Explicit opt-in required** - No data shared until you actively consent
-2. **Audit trail** - All consent actions logged in `consent-log.json`
-3. **Easy revocation** - Opt-out is as easy as opt-in
-4. **Version tracking** - Consent version tracked for policy changes
+### 5.1 PR作成確認
 
-## Security Note
-
-The following commands are NEVER auto-approved regardless of learning:
-- `rm -rf`, `sudo`, `chmod 777`
-- Commands with `--force` or `--no-verify`
-- Commands involving passwords, secrets, or credentials
-
-
-## Related Skills
-- skill-evolution: Evolve skills based on feedback
-## File Locations
-
-See `references/file-locations.md` for storage details.
-
-### Analytics & Consent Files
-
-```
-.claude/feedback/
-├── preferences.json           # User preferences including shareAnonymized
-├── consent-log.json          # GDPR consent audit trail (opt-in/opt-out history)
-├── metrics.json              # Source data for analytics
-└── analytics-exports/        # Exported analytics for review
-    └── analytics-export-*.json
+```javascript
+AskUserQuestion({
+  questions: [{
+    question: "PRを作成しますか？",
+    header: "PR作成",
+    options: [
+      { label: "PRを作成", description: "gh pr create でPRを作成" },
+      { label: "後で手動で作成", description: "今回はスキップ" }
+    ],
+    multiSelect: false
+  }]
+})
 ```
 
-### Privacy Policy
+### 5.2 PR作成（選択時）
 
-See `references/privacy-policy.md` for full privacy documentation.
+```bash
+# 変更をプッシュ
+git push -u origin HEAD
+
+# PRを作成
+gh pr create --title "{story-slug}" --body "$(cat <<'EOF'
+## Summary
+- {実装内容のサマリー}
+
+## Changes
+- {変更ファイル一覧}
+
+## Test plan
+- [ ] テストが通ること
+- [ ] 動作確認
+
+🤖 Generated with Claude Code
+EOF
+)"
+```
+
+### 5.3 Worktreeクリーンアップ
+
+PRがマージされた後のクリーンアップ手順を案内:
+
+```markdown
+📋 **PR作成完了**
+
+PRがマージされたら、以下のコマンドでWorktreeを削除してください:
+
+\`\`\`bash
+# メインブランチに戻る
+cd /path/to/main/repo
+
+# Worktreeを削除
+git worktree remove ../{branch-name}
+
+# ブランチを削除（オプション）
+git branch -d {branch-name}
+\`\`\`
+```
+
+**自動クリーンアップ（オプション）**:
+
+```javascript
+AskUserQuestion({
+  questions: [{
+    question: "PRマージ後にWorktreeを自動削除しますか？",
+    header: "クリーンアップ",
+    options: [
+      { label: "自動削除", description: "マージ確認後にWorktreeとブランチを削除" },
+      { label: "手動で削除", description: "削除コマンドを表示のみ" }
+    ],
+    multiSelect: false
+  }]
+})
+```
+
+---
+
+## 完了条件
+
+- [ ] 変更内容が分析された
+- [ ] DESIGN.mdが更新された
+- [ ] パターン検出が実行された
+- [ ] 改善提案が表示された（該当あれば）
+- [ ] PR作成が完了した（または手動作成を選択）
+- [ ] Worktreeクリーンアップ手順を案内した
+
+## 関連スキル
+
+- **dev:story-to-tasks**: 次のストーリーのタスク生成
+- **meta-skill-creator**: スキル/ルール作成（改善提案時に連携）
+
+## 参照
+
+- DESIGN.mdは「実装の記録」として育てていく
+- 仕様書を最初に作るのではなく、**実装後のフィードバックで徐々に蓄積・更新**

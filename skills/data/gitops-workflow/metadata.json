@@ -1,7 +1,7 @@
 {
   "name": "gitops-workflow",
-  "repo": "wshobson/agents",
-  "path": "plugins/kubernetes-operations/skills/gitops-workflow/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-21T04:10:58.183828Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/kubernetes-operations/skills/gitops-workflow/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-22T03:54:11.206332Z"
 }

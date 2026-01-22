@@ -1,7 +1,7 @@
 {
   "name": "pytest",
-  "repo": "Salmanferozkhan/Cloud-and-fast-api",
-  "path": ".claude/skills/pytest/SKILL.md",
-  "source": "github.com/Salmanferozkhan/Cloud-and-fast-api",
-  "downloaded_at": "2026-01-21T04:06:49.231929Z"
+  "repo": "prowler-cloud/prowler",
+  "path": "skills/pytest/SKILL.md",
+  "source": "github.com/prowler-cloud/prowler",
+  "downloaded_at": "2026-01-22T02:57:25.379297Z"
 }

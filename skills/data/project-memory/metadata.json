@@ -1,7 +1,7 @@
 {
   "name": "project-memory",
-  "repo": "BerryKuipers/claude-code-toolkit",
-  "path": ".claude/skills/memory/project-memory/SKILL.md",
-  "source": "github.com/BerryKuipers/claude-code-toolkit",
-  "downloaded_at": "2026-01-21T01:39:12.301002Z"
+  "repo": "medride/claude-code-research",
+  "path": ".claude/skills/project-memory/SKILL.md",
+  "source": "github.com/medride/claude-code-research",
+  "downloaded_at": "2026-01-22T04:02:33.537520Z"
 }

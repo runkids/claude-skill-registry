@@ -38,9 +38,6 @@ Memory architectures range from simple scratchpads to sophisticated temporal kno
 **Filesystem-Based Context**
 The filesystem provides a single interface for storing, retrieving, and updating effectively unlimited context. Key patterns include scratch pads for tool output offloading, plan persistence for long-horizon tasks, sub-agent communication via shared files, and dynamic skill loading. Agents use `ls`, `glob`, `grep`, and `read_file` for targeted context discovery, often outperforming semantic search for structural queries.
 
-**Hosted Agent Infrastructure**
-Background coding agents run in remote sandboxed environments rather than on local machines. Key patterns include pre-built environment images refreshed on regular cadence, warm sandbox pools for instant session starts, filesystem snapshots for session persistence, and multiplayer support for collaborative agent sessions. Critical optimizations include allowing file reads before git sync completes (blocking only writes), predictive sandbox warming when users start typing, and self-spawning agents for parallel task execution.
-
 **Tool Design Principles**
 Tools are contracts between deterministic systems and non-deterministic agents. Effective tool design follows the consolidation principle (prefer single comprehensive tools over multiple narrow ones), returns contextual information in errors, supports response format options for token efficiency, and uses clear namespacing.
 
@@ -84,7 +81,6 @@ Internal skills in this collection:
 - [memory-systems](skills/memory-systems/SKILL.md)
 - [tool-design](skills/tool-design/SKILL.md)
 - [filesystem-context](skills/filesystem-context/SKILL.md)
-- [hosted-agents](skills/hosted-agents/SKILL.md)
 - [context-optimization](skills/context-optimization/SKILL.md)
 - [evaluation](skills/evaluation/SKILL.md)
 - [project-development](skills/project-development/SKILL.md)

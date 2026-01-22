@@ -1,7 +1,7 @@
 {
   "name": "project-planning",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/project-planning/skills/project-planning/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-21T04:19:42.354641Z"
+  "repo": "ByronWilliamsCPA/audio-processor",
+  "path": ".claude/skills/project-planning/SKILL.md",
+  "source": "github.com/ByronWilliamsCPA/audio-processor",
+  "downloaded_at": "2026-01-22T04:05:40.210664Z"
 }

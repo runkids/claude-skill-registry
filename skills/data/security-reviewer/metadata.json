@@ -1,7 +1,7 @@
 {
   "name": "security-reviewer",
-  "repo": "munlucky/claude-settings",
-  "path": ".claude/skills/security-reviewer/SKILL.md",
-  "source": "github.com/munlucky/claude-settings",
-  "downloaded_at": "2026-01-21T03:58:31.017556Z"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/security-reviewer/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-22T04:02:57.398407Z"
 }

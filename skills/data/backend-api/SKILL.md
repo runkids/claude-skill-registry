@@ -1,6 +1,6 @@
 ---
 name: Backend API
-description: Design and implement RESTful API endpoints following best practices for routing, versioning, and HTTP standards. Use this skill when creating or modifying API routes, controllers, or endpoints in files like routes/api.php, API controller files in app/Http/Controllers/Api/, controller files in app/Http/Controllers/, API resource classes, or when implementing REST API functionality. Use when working on URL structures, HTTP method handling (GET, POST, PUT, PATCH, DELETE), API versioning strategies, query parameter handling for filtering/sorting/pagination, HTTP status code responses, rate limiting configuration, or any API endpoint design decisions.
+description: Design and implement RESTful API endpoints with proper HTTP methods, status codes, and consistent naming conventions. Use this skill when creating or modifying API routes, endpoints, or server-side request handlers. When working on files in src/pages/api/, files containing API route definitions, files implementing REST endpoints, files handling HTTP requests and responses, server middleware for API requests, API authentication and authorization logic, and files defining API versioning strategies. When designing URL structures for resources, implementing query parameter handling for filtering/sorting/pagination, setting up rate limiting for API endpoints, or configuring CORS and API security headers.
 ---
 
 # Backend API
@@ -9,17 +9,16 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When creating or editing API route definitions in `routes/api.php` or similar routing files
-- When building or modifying controllers in `app/Http/Controllers/` or controller directories
-- When building or modifying API controllers in `app/Http/Controllers/Api/` or API-specific controller directories
-- When implementing RESTful endpoints with proper HTTP methods (GET, POST, PUT, PATCH, DELETE)
-- When designing URL structures and resource-based API paths
-- When implementing API versioning (URL path versioning like `/api/v1/` or header-based versioning)
-- When configuring query parameters for filtering, sorting, pagination, or search functionality
-- When determining appropriate HTTP status codes for API responses (200, 201, 400, 404, 500, etc.)
-- When implementing rate limiting headers or API throttling
-- When creating nested resource routes or working with resource relationships in APIs
-- When writing API resource transformation classes or response formatting logic
+- When creating or editing API route files (e.g., `src/pages/api/*.ts`, `src/pages/api/*.js`)
+- When implementing RESTful endpoints with GET, POST, PUT, PATCH, DELETE methods
+- When designing resource-based URL structures and route hierarchies
+- When handling query parameters for filtering, sorting, pagination, or search functionality
+- When defining API response formats and HTTP status codes
+- When implementing API versioning strategies (URL path or header-based)
+- When setting up rate limiting, throttling, or API quota management
+- When configuring API security headers, CORS policies, or authentication middleware
+- When writing server-side request handlers or middleware functions
+- When working on API documentation or OpenAPI/Swagger specifications
 
 ## Instructions
 

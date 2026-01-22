@@ -1,8 +1,7 @@
 {
   "name": "elixir-ecto-patterns",
   "repo": "TheBushidoCollective/han",
-  "category": "data",
-  "description": "Use when Elixir Ecto patterns including schemas, changesets, queries, and transactions. Use when building database-driven Elixir applications.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:04.308285Z"
+  "path": "jutsu/jutsu-elixir/skills/elixir-ecto-patterns/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-22T03:51:17.206044Z"
 }

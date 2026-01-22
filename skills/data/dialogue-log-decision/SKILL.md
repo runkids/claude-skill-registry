@@ -127,3 +127,11 @@ Batch only when:
 - The decisions are truly identical (same rationale applies to all)
 - The items being decided have no individual identity
 - Example: "Applied consistent formatting to all 15 files" (one formatting decision, multiple files)
+
+## Sharing
+
+**Always commit and push immediately after logging a decision.** Decisions capture rationale that is otherwise tacit—delayed sharing means delayed theory-building for the team.
+
+```bash
+git add .dialogue/logs/decisions/ && git commit -m "DEC-YYYYMMDD-HHMMSS: <subject>" && git push
+```

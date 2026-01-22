@@ -1,59 +1,153 @@
 ---
 name: git-commit
-description: Generate well-formatted git commit messages following conventional commit standards
-allowedTools:
-  - run_terminal_cmd
+description: Generate commit messages following conventional commits format
 ---
 
-# Git Commit Message Skill
+# Git Commit Skill
 
-You are a git commit message expert. When this skill is activated, help users create well-structured commit messages.
+Generate consistent, descriptive commit messages following the Conventional Commits specification.
 
 ## Commit Message Format
-
-Follow the Conventional Commits specification:
 
 ```
 <type>(<scope>): <subject>
 
-[optional body]
+<body>
 
-[optional footer(s)]
+<footer>
 ```
 
-## Types
+### Components
 
-- **feat**: A new feature
-- **fix**: A bug fix
-- **docs**: Documentation only changes
-- **style**: Changes that do not affect the meaning of the code
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **perf**: A code change that improves performance
-- **test**: Adding missing tests or correcting existing tests
-- **build**: Changes that affect the build system or external dependencies
-- **ci**: Changes to CI configuration files and scripts
-- **chore**: Other changes that don't modify src or test files
+| Part | Required | Description |
+|------|----------|-------------|
+| type | Yes | Category of change |
+| scope | No | Module/component affected |
+| subject | Yes | Brief description (imperative mood) |
+| body | No | Detailed explanation |
+| footer | No | Breaking changes, issue refs |
 
-## Guidelines
+## Commit Types
 
-1. **Subject Line**
-   - Use imperative mood ("add" not "added")
-   - Don't capitalize first letter
-   - No period at the end
-   - Limit to 50 characters
+| Type | When to Use | Example |
+|------|-------------|---------|
+| `feat` | New feature | `feat(auth): add password reset flow` |
+| `fix` | Bug fix | `fix(cart): correct total calculation` |
+| `refactor` | Code restructuring | `refactor(api): extract validation logic` |
+| `docs` | Documentation only | `docs: update API examples` |
+| `style` | Formatting changes | `style: fix indentation` |
+| `test` | Adding/updating tests | `test(user): add signup edge cases` |
+| `chore` | Maintenance tasks | `chore: update dependencies` |
+| `perf` | Performance improvement | `perf(query): add index for user lookup` |
+| `ci` | CI/CD changes | `ci: add deployment workflow` |
+| `build` | Build system changes | `build: configure webpack splitting` |
 
-2. **Body**
-   - Explain what and why, not how
-   - Wrap at 72 characters
-   - Separate from subject with a blank line
+## Writing Guidelines
 
-3. **Footer**
-   - Reference issues: `Fixes #123`
-   - Breaking changes: `BREAKING CHANGE: description`
+### Subject Line
+- Max 50 characters
+- Imperative mood ("Add" not "Added" or "Adds")
+- No period at the end
+- Capitalize first letter
 
-## Workflow
+### Body
+- Wrap at 72 characters
+- Explain **what** and **why**, not how
+- Separate from subject with blank line
 
-1. Run `git diff --staged` or `git status` to see changes
-2. Analyze the changes to understand what was modified
-3. Generate an appropriate commit message
-4. Optionally run `git commit -m "message"` if user confirms
+### Footer
+- Reference issues: `Fixes #123`, `Closes #456`
+- Note breaking changes: `BREAKING CHANGE: description`
+
+## Process
+
+1. **Check staged changes**
+   ```bash
+   git diff --staged
+   ```
+
+2. **Analyze the changes**
+   - What files were modified?
+   - What functionality changed?
+   - Is this a feature, fix, or refactor?
+
+3. **Determine scope**
+   - What module/component is affected?
+   - Use lowercase, hyphenated if needed
+
+4. **Write the subject**
+   - Start with imperative verb
+   - Be specific but concise
+
+5. **Add body if needed**
+   - Complex changes need explanation
+   - Bug fixes should mention root cause
+
+6. **Add footer if applicable**
+   - Link to issues
+   - Note breaking changes
+
+## Examples
+
+### Simple Feature
+```
+feat(user): add email verification on signup
+```
+
+### Bug Fix with Context
+```
+fix(checkout): prevent double submission
+
+Users could click the submit button multiple times before
+the form disabled, causing duplicate orders.
+
+Added loading state and disabled button during submission.
+
+Fixes #234
+```
+
+### Breaking Change
+```
+feat(api): change authentication to use JWT
+
+Migrate from session-based auth to JWT tokens.
+Client applications need to update their auth handling.
+
+BREAKING CHANGE: Authentication now requires Bearer token
+in Authorization header instead of session cookie.
+
+Migration guide: docs/migration/jwt-auth.md
+```
+
+### Refactoring
+```
+refactor(validation): extract form validation to shared util
+
+Move repeated validation logic from multiple form components
+into a shared validation utility for consistency.
+
+No functional changes.
+```
+
+## Anti-Patterns
+
+| Don't | Do |
+|-------|-----|
+| `fix stuff` | `fix(auth): handle expired token gracefully` |
+| `wip` | `feat(dashboard): add chart component (partial)` |
+| `changes` | `refactor(utils): simplify date formatting` |
+| `Update file.ts` | `fix(user): correct email validation regex` |
+| Mixed changes | Separate commits for separate concerns |
+
+## Quick Reference
+
+```
+feat:     New feature
+fix:      Bug fix
+refactor: Code restructuring (no behavior change)
+docs:     Documentation
+style:    Formatting (no code change)
+test:     Tests
+chore:    Maintenance
+perf:     Performance
+```

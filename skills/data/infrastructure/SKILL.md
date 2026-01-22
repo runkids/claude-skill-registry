@@ -1,185 +1,99 @@
 ---
-name: deploy
-description: |
-  Deploy projects to staging or production environments. Repo-agnostic deployment
-  orchestration using SSH MCP for VPS operations and Cloudflare for DNS/SSL.
-  Reads project configuration from deployments.registry.json.
-examples:
-  - "/deploy"
-  - "/deploy staging"
-  - "/deploy production --project=tribevibe"
-  - "/deploy status"
-  - "/deploy rollback"
+name: infrastructure
+description: Use this skill when designing or reviewing cloud infrastructure, networking, compute resources, storage systems, or any system involving resource provisioning and management. Applies infrastructure thinking to specifications, designs, and implementations.
+version: 0.1.0
 ---
 
-# Infrastructure Deployment Skill
+# Infrastructure Engineering
 
-Deploy any registered project to staging or production environments with full verification.
+## When to Apply
 
-## Prerequisites
+Use this skill when the system involves:
+- Cloud resource provisioning (compute, storage, networking)
+- Infrastructure as Code (Terraform, Pulumi, CloudFormation)
+- Networking (VPCs, subnets, load balancers, DNS)
+- Container orchestration (Kubernetes, ECS)
+- Database infrastructure and scaling
+- Disaster recovery and backup strategies
 
-- SSH MCP configured for target VPS (passphrase-free keys)
-- Docker + docker-compose on VPS
-- Cloudflare CLI (wrangler) for DNS operations
-- Project registered in `deployments.registry.json`
+## Mindset
 
-## Usage
+Infrastructure engineers think in terms of resources, failure domains, and operational burden.
 
-```bash
-/deploy                          # Interactive: select project + environment
-/deploy staging                  # Deploy current project to staging
-/deploy production               # Deploy current project to production
-/deploy status                   # Check deployment status across all projects
-/deploy rollback                 # Rollback last deployment
-/deploy --project=tribevibe staging   # Deploy specific project
-```
+**Questions to always ask:**
+- What's the blast radius if this fails?
+- What are the failure domains? Are we resilient to AZ/region failure?
+- How does this scale? What's the bottleneck?
+- What's the cost? How does it grow with usage?
+- How do we recover from disaster? What's the RTO/RPO?
+- Who can access this? How is access audited?
+- What happens during a deploy? Is there downtime?
 
-## Configuration
+**Assumptions to challenge:**
+- "The cloud is reliable" - AZs fail. Regions fail. Design for it.
+- "We can scale later" - Some architectural decisions don't scale. Choose early.
+- "It's in a private subnet" - Defense in depth. Don't rely on network alone.
+- "Kubernetes handles it" - K8s is a tool, not magic. Understand what it does.
+- "We'll back up later" - Untested backups aren't backups.
+- "The defaults are fine" - Defaults are generic. Review security groups, IAM, encryption.
 
-Projects are defined in `.claude-toolkit/.claude/skills/infrastructure/deployments.registry.json`:
+## Practices
 
-```json
-{
-  "projects": {
-    "projectname": {
-      "vps": { "host": "x.x.x.x", "user": "root", "sshKeyName": "key_name" },
-      "environments": {
-        "staging": { "domain": "...", "dockerCompose": "..." },
-        "production": { "domain": "...", "dockerCompose": "..." }
-      }
-    }
-  }
-}
-```
+### Infrastructure as Code
+All infrastructure in version-controlled code. No manual changes to production. Use modules for reusable patterns. **Don't** click in consoles for production, let IaC drift from reality, or copy-paste instead of modularize.
 
-## Workflow
+### Failure Domains
+Spread resources across availability zones. Identify single points of failure. Design for component failure without total outage. **Don't** put all resources in one AZ, create hidden SPOFs, or assume any component is 100% available.
 
-### 1. Pre-Deployment Checks
+### Network Design
+Use private subnets for internal services. Minimize public exposure. Use security groups as allowlists. Implement network segmentation. **Don't** expose services unnecessarily, use 0.0.0.0/0 ingress, or rely on obscurity.
 
-```bash
-# Read registry to get project config
-REGISTRY=".claude-toolkit/.claude/skills/infrastructure/deployments.registry.json"
+### Resource Right-sizing
+Start small, measure, then scale. Use autoscaling for variable load. Set resource limits and requests. **Don't** overprovision "just in case", run without limits, or ignore cost monitoring.
 
-# Detect current project from git remote or CLAUDE.md
-PROJECT=$(git remote get-url origin | grep -oP '(?<=/)[^/]+(?=\.git)')
+### State Management
+Externalize state from compute. Use managed services for databases and queues. Make compute stateless where possible. **Don't** store state on ephemeral instances, use local disk for important data, or couple state to compute lifecycle.
 
-# Verify VPS connectivity
-ssh -o ConnectTimeout=5 ${USER}@${HOST} "echo 'VPS accessible'"
+### Backup & Recovery
+Automate backups. Test restores regularly. Document RTO/RPO and verify you can meet them. Store backups in separate failure domains. **Don't** assume backups work without testing, keep backups in the same blast radius, or skip documenting recovery procedures.
 
-# Verify Docker is running
-ssh ${USER}@${HOST} "docker info > /dev/null 2>&1"
-```
+### Access Control
+Use IAM roles, not keys, where possible. Apply least privilege. Audit access regularly. Use separate accounts/projects for environments. **Don't** share credentials, use overly broad policies, or mix production and dev access.
 
-### 2. Build & Push (if using CI)
+### Change Management
+Use progressive rollouts. Have rollback plans. Make changes reversible. Test in staging first. **Don't** yolo to production, make irreversible changes without approval, or skip staging.
 
-```bash
-# Trigger GitHub Actions deployment workflow
-gh workflow run deploy-${ENV}.yml --ref ${BRANCH}
+## Vocabulary
 
-# Or build locally and push
-docker build -t ${PROJECT}-api:${VERSION} .
-docker push ghcr.io/${ORG}/${PROJECT}-api:${VERSION}
-```
+Use precise terminology:
 
-### 3. Deploy to VPS
+| Instead of | Say |
+|------------|-----|
+| "highly available" | "survives AZ failure" / "multi-region active-active" |
+| "scalable" | "horizontal autoscaling 2-10 nodes" / "scales to X RPS" |
+| "secure" | "private subnet with ALB" / "IAM role with policy X" |
+| "backed up" | "daily snapshots, 30-day retention, tested monthly" |
+| "fast" | "provisioned IOPS" / "SSD-backed" / "in same AZ" |
+| "serverless" | "Lambda with X memory, Y timeout" / "Fargate" |
 
-```bash
-# SSH to VPS and deploy
-ssh ${USER}@${HOST} << 'DEPLOY'
-  cd ${DOCKER_COMPOSE_PATH}
+## SDD Integration
 
-  # Backup database before deployment
-  docker exec ${DB_CONTAINER} pg_dump -U postgres ${DB_NAME} > /backup/${PROJECT}_$(date +%Y%m%d_%H%M%S).sql
+**During Specification:**
+- Identify availability requirements (uptime SLA, RTO, RPO)
+- Clarify scaling requirements (expected load, growth rate)
+- Determine compliance constraints (data residency, encryption)
+- Establish cost constraints
 
-  # Pull latest images
-  docker compose pull
+**During Design:**
+- Document resource architecture with failure domains
+- Specify IaC approach and module structure
+- Design network topology and access patterns
+- Plan backup and disaster recovery strategy
+- Define autoscaling policies and limits
 
-  # Rolling restart (zero-downtime if configured)
-  docker compose up -d --remove-orphans
-
-  # Wait for health checks
-  sleep 10
-  docker compose ps
-DEPLOY
-```
-
-### 4. Post-Deployment Verification
-
-```bash
-# Health check
-curl -f https://${API_DOMAIN}/health || echo "FAILED"
-
-# Check container status
-ssh ${USER}@${HOST} "docker ps --format 'table {{.Names}}\t{{.Status}}'"
-
-# Check recent logs for errors
-ssh ${USER}@${HOST} "docker logs ${API_CONTAINER} --tail 50 | grep -i error"
-```
-
-### 5. Rollback (if needed)
-
-```bash
-# Rollback to previous image
-ssh ${USER}@${HOST} << 'ROLLBACK'
-  cd ${DOCKER_COMPOSE_PATH}
-  docker compose down
-  docker tag ${PROJECT}-api:previous ${PROJECT}-api:latest
-  docker compose up -d
-ROLLBACK
-
-# Or restore database
-ssh ${USER}@${HOST} "cat /backup/${PROJECT}_LATEST.sql | docker exec -i ${DB_CONTAINER} psql -U postgres ${DB_NAME}"
-```
-
-## MCP Integration
-
-This skill uses SSH MCP for secure VPS access:
-
-```json
-{
-  "id": "project-vps",
-  "command": "npx ssh-mcp",
-  "args": ["--host=${HOST}", "--user=${USER}", "--key=${SSH_KEY_PATH}"]
-}
-```
-
-Tool reference: `mcp__project-vps__exec`
-
-## Safety Rules
-
-- NEVER deploy to production without staging verification first
-- ALWAYS backup database before deployment
-- ALWAYS verify health checks after deployment
-- NEVER skip rollback plan
-- ALWAYS monitor logs for 10-15 minutes post-deploy
-
-## Output Format
-
-```markdown
-# Deployment Report
-
-**Project**: ${project}
-**Environment**: ${environment}
-**Status**: SUCCESS | FAILED | ROLLED_BACK
-
-## Services
-| Service | Status | Health |
-|---------|--------|--------|
-| api     | Up 2m  | 200 OK |
-| web     | Up 2m  | 200 OK |
-| db      | Up 5h  | Connected |
-
-## Health Checks
-- API: https://api.example.com/health - 200 OK (45ms)
-- Web: https://example.com - 200 OK (120ms)
-
-## Actions Taken
-1. Pulled latest images
-2. Backed up database
-3. Deployed via docker compose
-4. Verified health checks
-
-## Next Steps
-- Monitor Seq logs: https://seq.example.com
-- Run smoke tests
-```
+**During Review:**
+- Verify multi-AZ deployment where required
+- Check for single points of failure
+- Confirm IaC matches actual requirements
+- Validate backup and recovery procedures exist
+- Review IAM policies for least privilege

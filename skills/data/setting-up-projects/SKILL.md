@@ -1,5 +1,5 @@
 ---
-name: setting-up-projects
+name: "Setting Up Projects"
 description: "Automates project setup with best practices including pre-commit hooks, linting, formatting, and boilerplate. Activates when creating new projects, missing configuration files, or setting up development environment. Ensures quality tooling from the start."
 ---
 

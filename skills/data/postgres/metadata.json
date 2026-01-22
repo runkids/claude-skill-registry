@@ -1,10 +1,7 @@
 {
   "name": "postgres",
-  "description": "Execute read-only SQL queries against multiple PostgreSQL databases. Use when: (1) querying PostgreSQL databases, (2) exploring database schemas/tables, (3) running SELECT queries for data analysis, (",
-  "repo": "sanjay3290/ai-skills",
-  "category": "data",
-  "tags": [
-    "postgres"
-  ],
-  "stars": 1
+  "repo": "Dedalus-ERP-PAS/foundation-skills",
+  "path": "skills/postgres/SKILL.md",
+  "source": "github.com/Dedalus-ERP-PAS/foundation-skills",
+  "downloaded_at": "2026-01-22T02:54:26.562033Z"
 }

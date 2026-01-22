@@ -1,108 +1,100 @@
 ---
 name: exa-search
-description: Deep web research, structured answers, and content retrieval using Exa. Use for heavy research, multi-step synthesis, or rich structured outputs; optionally pair with brave-search for fast scoping but not required.
+description: Use when searching for concepts, ideas, or similar content without exact keywords; when user asks "find similar to...", needs semantic discovery, research across perspectives, or explicitly mentions exa
 ---
 
-# Exa Search
+# Exa Semantic Search
 
-Use Exa for deep search, content retrieval, and research tasks. Requires `EXA_API_KEY`.
+## Overview
 
-## Setup
+Exa.ai provides neural semantic search optimized for AI consumption. Use when **meaning matters more than keywords**.
 
-Assume `SKILL_DIR` points to this skill folder.
+## Decision Flowchart
 
-```bash
-bun --cwd "$SKILL_DIR" install
-export EXA_API_KEY="your-key"
+```dot
+digraph exa_decision {
+    rankdir=TB;
+    node [shape=box];
+
+    start [label="Need to search the web?" shape=diamond];
+    known_url [label="Do you have\na specific URL?" shape=diamond];
+    semantic [label="Is this semantic/conceptual?\n(meaning > keywords)" shape=diamond];
+    recent [label="Need very recent\nnews/events?" shape=diamond];
+    code [label="Is this a coding/\nAPI question?" shape=diamond];
+
+    webfetch [label="WebFetch" shape=box style=filled fillcolor=lightblue];
+    websearch [label="WebSearch" shape=box style=filled fillcolor=lightgreen];
+    exa_web [label="mcp__exa__web_search_exa" shape=box style=filled fillcolor=lightyellow];
+    exa_code [label="mcp__exa__get_code_context_exa" shape=box style=filled fillcolor=lightyellow];
+
+    start -> known_url [label="yes"];
+    start -> known_url [label="no" style=invis];
+    known_url -> webfetch [label="yes"];
+    known_url -> semantic [label="no"];
+    semantic -> code [label="yes"];
+    semantic -> recent [label="no"];
+    code -> exa_code [label="yes"];
+    code -> exa_web [label="no"];
+    recent -> websearch [label="yes"];
+    recent -> websearch [label="no"];
+}
 ```
 
-Scripts: run `bun --cwd "$SKILL_DIR" scripts/doctor.ts` to verify env.
+## Quick Reference
 
-References: see `references/tooling.md` for constraints and `references/flows.md` for minimal workflows.
+| Scenario | Tool | Why |
+|----------|------|-----|
+| "Find papers on emergent AI behavior" | `mcp__exa__web_search_exa` | Semantic discovery |
+| "Companies similar to Anthropic" | `mcp__exa__web_search_exa` | Similar content |
+| "How to use React hooks" | `mcp__exa__get_code_context_exa` | Coding context |
+| "Latest news on X" | `WebSearch` | Recency matters |
+| "Read this URL: [link]" | `WebFetch` | Known URL |
+| "error: module not found XYZ" | `WebSearch` | Exact keyword match |
+| "CVE-2024-12345" | `WebSearch` | Specific identifier |
 
-Assets: `assets/query-templates.json` contains reusable prompt templates.
+## Tool Usage
 
-## Tools
-
-### search
-
-```bash
-bun --cwd "$SKILL_DIR" exa.ts search "query" -n 5 --type deep --text-max 2000
+### mcp__exa__web_search_exa
+```
+query: "semantic query describing concepts"
+numResults: 8 (default, adjust as needed)
+type: "auto" | "fast" | "deep"
 ```
 
-Options:
-- `-n <num>`
-- `--type <auto|fast|deep>`
-- `--text-max <num>`
-
-### contents
-
-```bash
-bun --cwd "$SKILL_DIR" exa.ts contents https://example.com --text-max 2000
+### mcp__exa__get_code_context_exa
+```
+query: "React useState hook examples" | "Express middleware patterns"
+tokensNum: 5000 (default, 1000-50000 range)
 ```
 
-Options:
-- `--text-max <num>`
+## Integration Patterns
 
-### answer
+**Discovery + Extraction:**
+1. Exa finds relevant sources semantically
+2. WebFetch extracts full content from best URLs
 
-```bash
-bun --cwd "$SKILL_DIR" exa.ts answer "question" --text
-```
+**Multi-perspective research:**
+1. Exa: "academic perspectives on X"
+2. Exa: "industry implementation of X"
+3. Exa: "critiques of X"
+4. Synthesize
 
-Options:
-- `--text`
-- `--system "instruction"`
-- `--schema '{"type":"object","properties":{...}}'`
+**Fallback:**
+1. Try Exa for semantic search
+2. If results poor, fall back to WebSearch with keywords
 
-### research-start
+## Anti-Patterns
 
-```bash
-bun --cwd "$SKILL_DIR" exa.ts research-start "instructions" --model exa-research
-```
+| Don't | Do Instead |
+|-------|------------|
+| `"python pandas filter dataframe"` | Use WebSearch (keyword query) |
+| Run 10 similar queries | Consolidate into 2-3 well-crafted queries |
+| `"what is React"` | Use knowledge or WebSearch |
+| `"breaking news today"` | Use WebSearch |
 
-Options:
-- `--model <exa-research|exa-research-pro>`
+## When Results Are Poor
 
-### research-check
-
-```bash
-bun --cwd "$SKILL_DIR" exa.ts research-check <task-id>
-```
-
-### deep-search
-
-```bash
-bun --cwd "$SKILL_DIR" exa.ts deep-search "objective" --queries "a,b,c"
-```
-
-Options:
-- `--queries a,b,c`
-
-### code-context
-
-```bash
-bun --cwd "$SKILL_DIR" exa.ts code-context "query"
-```
-
-Options:
-- `--tokens <1000-50000>` (default 50000)
-
-### company-research
-
-```bash
-bun --cwd "$SKILL_DIR" exa.ts company-research "company name" -n 3
-```
-
-Options:
-- `-n <num>`
-
-### linkedin-search
-
-```bash
-bun --cwd "$SKILL_DIR" exa.ts linkedin-search "query" --type profiles -n 3
-```
-
-Options:
-- `--type <profiles|companies|all>`
-- `-n <num>`
+1. Switch search type: `auto` vs `fast` vs `deep`
+2. Rephrase: more semantic/descriptive
+3. Add domain filters via `allowed_domains`
+4. Fall back to WebSearch for keyword matching

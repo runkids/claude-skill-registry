@@ -1,9 +1,19 @@
 ---
 name: plotly
+display_name: Plotly
 description: Interactive visualization library. Use when you need hover info, zoom, pan, or web-embeddable charts. Best for dashboards, exploratory analysis, and presentations. For static publication figures use matplotlib or scientific-visualization.
+version: 1.0.0
+author: K-Dense Inc.
 license: MIT license
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["visualization", "plotting", "charts"]
+category: visualization
+allowed_tools: ["code_execute", "web_search", "read_url", "create_document"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 7
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # Plotly

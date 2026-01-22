@@ -1,7 +1,7 @@
 {
   "name": "react-patterns",
-  "repo": "GrupoUS/gpus",
-  "path": ".agent/skills/react-patterns/SKILL.md",
-  "source": "github.com/GrupoUS/gpus",
-  "downloaded_at": "2026-01-21T03:46:10.696729Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/frontend/skills/react-patterns/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-22T03:51:31.206183Z"
 }

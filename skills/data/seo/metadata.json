@@ -1,7 +1,7 @@
 {
   "name": "seo",
-  "repo": "kasperjunge/agent-resources",
-  "path": "resources/skills/seo/SKILL.md",
-  "source": "github.com/kasperjunge/agent-resources",
-  "downloaded_at": "2026-01-21T04:17:25.136396Z"
+  "repo": "addyosmani/web-quality-skills",
+  "path": "skills/seo/SKILL.md",
+  "source": "github.com/addyosmani/web-quality-skills",
+  "downloaded_at": "2026-01-22T01:41:49.352667Z"
 }

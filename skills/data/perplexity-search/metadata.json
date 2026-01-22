@@ -1,7 +1,7 @@
 {
   "name": "perplexity-search",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/perplexity-search/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-21T03:50:05.762771Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/perplexity-search/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-22T04:10:10.814755Z"
 }

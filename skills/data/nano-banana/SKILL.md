@@ -1,326 +1,196 @@
 ---
 name: nano-banana
-description: Generate images from text prompts using Google Nano Banana (Gemini image generation) via eng0 data API. Use when user asks to generate, create, or make images, pictures, illustrations, or artwork from descriptions. Triggers include "generate image", "create image", "make a picture", "draw", "illustrate", "image of", "picture of", "nano banana". Do NOT use for image editing or manipulation of existing images.
+description: "AI image generation using Nano Banana PRO (Gemini 3 Pro Image) and Nano Banana (Gemini 2.5 Flash Image). Use this skill when: (1) Generating images from text prompts, (2) Editing existing images, (3) Creating professional visual assets like infographics, logos, product shots, stickers, (4) Working with character consistency across multiple images, (5) Creating images with accurate text rendering, (6) Any task requiring AI-generated visuals. Triggers on: 'generate image', 'create image', 'make a picture', 'design a logo', 'create infographic', 'AI image', 'nano banana', or any image generation request."
 ---
 
-# Nano Banana - Image Generation API
+# Nano Banana PRO Image Generation
 
-Generate images from text prompts using Google Nano Banana (Gemini's native image generation).
+Generate professional AI images using Google's Nano Banana models via the Gemini API.
 
-## Base URL
+## Prerequisites
 
-```
-https://api.eng0.ai/api/data
-```
+- API key must be set as `GEMINI_API_KEY` environment variable
+- Uses curl for all API calls (no SDK required)
 
-## Models
+## Model Selection
 
-| Model | ID | Best For | Max Resolution |
-|-------|-----|----------|----------------|
-| **Flash** | `flash` | Fast generation, high-volume tasks | 1024px |
-| **Pro** | `pro` | Professional quality, complex prompts | 4K |
+| Model | Identifier | Best For |
+|-------|------------|----------|
+| **Nano Banana PRO** | `gemini-3-pro-image-preview` | Professional assets, text rendering, infographics, 4K output, complex multi-turn editing |
+| **Nano Banana** | `gemini-2.5-flash-image` | Fast generation, simple edits, lower cost |
 
----
+**Default to PRO** for quality work. Use Flash for rapid iterations or simple tasks.
 
-## Generate Image
+## CRITICAL: Prompt Engineering First
 
-Create an image from a text description.
+**BEFORE calling the API, always craft an effective prompt.** Read [`references/prompting-guide.md`](references/prompting-guide.md) for comprehensive prompting strategies. Key principles:
+
+### The Golden Rules
+
+1. **Describe scenes, don't list keywords** - Write narrative descriptions, not tag soup
+2. **Use natural language** - Full sentences with proper grammar
+3. **Be specific** - Define subject, setting, lighting, mood, materials
+4. **Provide context** - The "why" helps the model make better artistic decisions
+5. **Edit, don't re-roll** - If 80% correct, ask for specific changes
+
+### The ICS Framework (Quick Reference)
+
+For any image, specify:
+- **I**mage type: What kind of visual (photo, infographic, logo, sticker, etc.)
+- **C**ontent: Specific elements, data, or information to include
+- **S**tyle: Visual style, color palette, artistic approach
+
+## API Reference
+
+### Text-to-Image Generation
 
 ```bash
-curl -X POST https://api.eng0.ai/api/data/images/generate \
+curl -s -X POST \
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "prompt": "A futuristic cityscape at sunset with flying cars",
-    "model": "flash",
-    "aspectRatio": "16:9"
+    "contents": [{
+      "parts": [{"text": "YOUR_PROMPT_HERE"}]
+    }],
+    "generationConfig": {
+      "responseModalities": ["TEXT", "IMAGE"],
+      "imageConfig": {
+        "aspectRatio": "16:9",
+        "imageSize": "2K"
+      }
+    }
   }'
 ```
 
-**Parameters:**
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `prompt` | string | Yes | - | Text description of the image to generate |
-| `model` | string | No | `flash` | `flash` (fast, 1024px) or `pro` (high-quality, up to 4K) |
-| `aspectRatio` | string | No | `1:1` | Output aspect ratio |
-| `imageSize` | string | No | `1K` | `1K`, `2K`, or `4K` (4K only with `pro` model) |
-
-**Aspect Ratios:**
-
-| Ratio | Use Case |
-|-------|----------|
-| `1:1` | Square (social media, icons) |
-| `16:9` | Landscape (presentations, banners) |
-| `9:16` | Portrait (mobile, stories) |
-| `4:3` | Standard landscape |
-| `3:4` | Standard portrait |
-| `21:9` | Ultra-wide (cinematic) |
-| `2:3`, `3:2`, `4:5`, `5:4` | Various formats |
-
-**Response:**
-
-```json
-{
-  "image": {
-    "base64": "iVBORw0KGgoAAAANSUhEUgAA...",
-    "mimeType": "image/png",
-    "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
-  },
-  "description": "A vibrant futuristic cityscape..."
-}
-```
-
-**Response Fields:**
-
-| Field | Description |
-|-------|-------------|
-| `image.base64` | Base64-encoded image data |
-| `image.mimeType` | Image MIME type (typically `image/png`) |
-| `image.dataUrl` | Ready-to-use data URL for HTML/CSS |
-| `description` | Model's description of the generated image |
-
----
-
-## Common Workflows
-
-### Generate a Simple Image
+### Image Editing (with input image)
 
 ```bash
-curl -X POST https://api.eng0.ai/api/data/images/generate \
+curl -s -X POST \
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "prompt": "A cute robot holding a cup of coffee"
+    "contents": [{
+      "parts": [
+        {"text": "YOUR_EDIT_INSTRUCTION"},
+        {"inline_data": {"mime_type": "image/png", "data": "BASE64_IMAGE_DATA"}}
+      ]
+    }],
+    "generationConfig": {
+      "responseModalities": ["TEXT", "IMAGE"]
+    }
   }'
 ```
 
-### Generate High-Quality 4K Image
+### Configuration Options
+
+| Parameter | Values | Notes |
+|-----------|--------|-------|
+| `aspectRatio` | `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9` | Match use case |
+| `imageSize` | `1K`, `2K`, `4K` | Use uppercase K; PRO model only for 4K |
+
+### Google Search Grounding (Real-time Data)
+
+Add `"tools": [{"google_search": {}}]` to generate images based on current information:
 
 ```bash
-curl -X POST https://api.eng0.ai/api/data/images/generate \
+curl -s -X POST \
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "prompt": "Professional product photo of a sleek smartphone on marble surface",
-    "model": "pro",
-    "imageSize": "4K",
-    "aspectRatio": "4:3"
+    "contents": [{"parts": [{"text": "Create an infographic of current tech stock prices"}]}],
+    "tools": [{"google_search": {}}],
+    "generationConfig": {
+      "responseModalities": ["TEXT", "IMAGE"],
+      "imageConfig": {"aspectRatio": "16:9"}
+    }
   }'
 ```
 
-### Generate Social Media Banner
+## Workflow
+
+### Step 1: Craft the Prompt
+
+Use the ICS framework and prompting guide. Examples:
+
+**Photorealistic:**
+```
+A photorealistic close-up portrait of an elderly Japanese ceramicist with deep wrinkles and a warm smile, inspecting a tea bowl. Soft golden hour light from a window. 85mm lens, shallow depth of field. Serene mood.
+```
+
+**Infographic:**
+```
+Create a clean, modern infographic explaining photosynthesis as a recipe. Show "ingredients" (sunlight, water, CO2) and "finished dish" (energy). Style like a colorful kids' cookbook page.
+```
+
+**Product Shot:**
+```
+High-resolution studio photograph of a matte black ceramic coffee mug on polished concrete. Three-point softbox lighting, 45-degree angle, sharp focus on rising steam. Square format.
+```
+
+### Step 2: Generate Image
+
+Use `scripts/generate-image.sh` or call API directly:
 
 ```bash
-curl -X POST https://api.eng0.ai/api/data/images/generate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "prompt": "Abstract gradient background with geometric shapes in blue and purple",
-    "aspectRatio": "16:9"
-  }'
+./scripts/generate-image.sh "Your prompt here" output.png --ratio 16:9 --size 2K
 ```
 
-### Generate Mobile Story Image
+### Step 3: Process Response
+
+The API returns base64-encoded image data. Extract and decode:
 
 ```bash
-curl -X POST https://api.eng0.ai/api/data/images/generate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "prompt": "Cozy coffee shop interior with warm lighting",
-    "aspectRatio": "9:16"
-  }'
+# Response contains: {"candidates":[{"content":{"parts":[{"inlineData":{"mimeType":"image/png","data":"BASE64..."}}]}}]}
+# Extract with jq and decode:
+cat response.json | jq -r '.candidates[0].content.parts[] | select(.inlineData) | .inlineData.data' | base64 -d > image.png
 ```
 
----
+## Common Use Cases
 
-## Using with Python
+### Landing Pages & Ads
+- Use 16:9 or 21:9 for hero images
+- Specify brand colors, modern/minimal style
+- Include text requirements in prompt
 
-```python
-import requests
-import base64
-from pathlib import Path
+### Logos & Icons
+- Use 1:1 aspect ratio
+- Request "minimalist", "clean lines", "vector-style"
+- Specify color scheme explicitly
 
-BASE_URL = "https://api.eng0.ai/api/data"
+### Product Photography
+- Describe lighting setup (softbox, natural, studio)
+- Mention surface/background materials
+- Include camera angle and lens type
 
-def generate_image(
-    prompt: str,
-    model: str = "flash",
-    aspect_ratio: str = "1:1",
-    image_size: str = "1K"
-) -> dict:
-    """Generate an image from a text prompt."""
-    response = requests.post(
-        f"{BASE_URL}/images/generate",
-        json={
-            "prompt": prompt,
-            "model": model,
-            "aspectRatio": aspect_ratio,
-            "imageSize": image_size
-        }
-    )
-    return response.json()
+### Infographics
+- Define data to visualize
+- Specify style (corporate, playful, technical)
+- Request clear text and labeled sections
 
-def save_image(result: dict, filepath: str) -> None:
-    """Save generated image to a file."""
-    if "image" in result:
-        image_data = base64.b64decode(result["image"]["base64"])
-        Path(filepath).write_bytes(image_data)
-        print(f"Saved to {filepath}")
-    else:
-        print(f"Error: {result.get('error', 'Unknown error')}")
+### Stickers & Illustrations
+- Request "bold outlines", "kawaii", "cel-shading"
+- Specify "white background" or "transparent background"
+- Define color palette
 
-# Example: Generate and save an image
-result = generate_image(
-    prompt="A serene mountain landscape at dawn with mist in the valley",
-    aspect_ratio="16:9"
-)
-save_image(result, "landscape.png")
+### Character Consistency (Multiple Images)
+- PRO supports up to 14 reference images
+- Explicitly state: "Keep facial features exactly the same as Image 1"
+- Describe expression/pose changes while maintaining identity
 
-# Example: Generate high-quality product image
-result = generate_image(
-    prompt="Minimalist tech gadget on white background, studio lighting",
-    model="pro",
-    image_size="4K"
-)
-save_image(result, "product.png")
-```
+## Scripts
 
----
+See [`scripts/generate-image.sh`](scripts/generate-image.sh) for a ready-to-use generation script.
 
-## Using with Node.js
+## Detailed Prompting Guide
 
-```javascript
-const fs = require('fs');
+For advanced techniques including:
+- Photorealistic scene templates
+- Text rendering best practices  
+- Sequential art and storyboarding
+- Dimensional translation (2D↔3D)
+- Search grounding for real-time data
 
-const BASE_URL = 'https://api.eng0.ai/api/data';
-
-async function generateImage(prompt, options = {}) {
-  const response = await fetch(`${BASE_URL}/images/generate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      prompt,
-      model: options.model || 'flash',
-      aspectRatio: options.aspectRatio || '1:1',
-      imageSize: options.imageSize || '1K'
-    })
-  });
-  return response.json();
-}
-
-function saveImage(result, filepath) {
-  if (result.image) {
-    const buffer = Buffer.from(result.image.base64, 'base64');
-    fs.writeFileSync(filepath, buffer);
-    console.log(`Saved to ${filepath}`);
-  } else {
-    console.error('Error:', result.error || 'Unknown error');
-  }
-}
-
-// Example usage
-(async () => {
-  const result = await generateImage(
-    'A neon-lit cyberpunk street scene at night',
-    { aspectRatio: '21:9' }
-  );
-  saveImage(result, 'cyberpunk.png');
-})();
-```
-
----
-
-## Prompt Tips
-
-### Be Specific
-```
-Bad:  "A dog"
-Good: "A golden retriever puppy playing in autumn leaves, warm sunlight"
-```
-
-### Include Style
-```
-"Oil painting style portrait of a woman in Renaissance clothing"
-"Minimalist vector illustration of a mountain range"
-"Photorealistic close-up of a dewdrop on a leaf"
-```
-
-### Specify Lighting
-```
-"... with dramatic side lighting"
-"... golden hour sunlight"
-"... soft diffused studio lighting"
-```
-
-### Add Context
-```
-"... in the style of Studio Ghibli"
-"... professional product photography"
-"... vintage 1970s film aesthetic"
-```
-
----
-
-## Model Comparison
-
-| Feature | Flash | Pro |
-|---------|-------|-----|
-| Speed | Fast | Slower |
-| Max Resolution | 1024px | 4K |
-| Complex Prompts | Good | Excellent |
-| Text Rendering | Good | Sharp |
-| Best For | Quick iterations, previews | Final assets, print |
-
-**When to use Flash:**
-- Rapid prototyping
-- Social media content
-- High-volume generation
-- When speed matters
-
-**When to use Pro:**
-- Professional/commercial use
-- Print materials
-- Complex compositions
-- When quality matters
-
----
-
-## Error Handling
-
-**No Image Generated:**
-```json
-{
-  "error": "No image generated",
-  "message": "SAFETY"
-}
-```
-This occurs when the prompt triggers content safety filters.
-
-**Invalid Parameters:**
-```json
-{
-  "error": "Invalid parameters",
-  "message": "Missing required parameter: prompt"
-}
-```
-
----
-
-## Important Notes
-
-- All generated images include invisible **SynthID watermarking**
-- Images are generated server-side; base64 responses can be large
-- The `pro` model takes longer but produces higher quality
-- 4K resolution is only available with the `pro` model
-- Content safety filters may block certain prompts
-
----
-
-## Combining with Other Skills
-
-This skill provides **image generation**. Combine with:
-
-- **deep-research** - Generate illustrations for research reports
-- **market-data** - Create visualizations of financial data
-
-**Example workflow:**
-1. Research a topic (deep-research)
-2. Generate relevant illustrations (this skill)
-3. Compile into a report
+Read [`references/prompting-guide.md`](references/prompting-guide.md).

@@ -1,5 +1,5 @@
 ---
-name: angular-api-service
+name: frontend-angular-api-service
 description: Use when creating API services for backend communication with proper patterns for caching, error handling, and type safety.
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash
 ---
@@ -25,10 +25,10 @@ allowed-tools: Read, Write, Edit, Grep, Glob, Bash
 
 **Before creating any API service, read the design system documentation for your target application:**
 
-| Application                       | Design System Location                           |
-| --------------------------------- | ------------------------------------------------ |
-| **WebV2 Apps**                    | `docs/design-system/`                            |
-| **TextSnippetClient**             | `src/PlatformExampleAppWeb/apps/playground-text-snippet/docs/design-system/` |
+| Application           | Design System Location                                          |
+| --------------------- | --------------------------------------------------------------- |
+| **WebV2 Apps**        | `docs/design-system/`                                           |
+| **TextSnippetClient** | `src/Frontend/apps/playground-text-snippet/docs/design-system/` |
 
 **Key docs to read:**
 
@@ -39,7 +39,7 @@ allowed-tools: Read, Write, Edit, Grep, Glob, Bash
 ## File Location
 
 ```
-src/PlatformExampleAppWeb/libs/apps-domains/src/lib/
+src/Frontend/libs/apps-domains/src/lib/
 └── {domain}/
     └── services/
         └── {feature}-api.service.ts
@@ -438,3 +438,8 @@ getUser(id: string): Observable<UserDto> {
 - [ ] File operations use `postFormData`/`getBlob`
 - [ ] Validation endpoints return `boolean`
 - [ ] `@Injectable({ providedIn: 'root' })` for singleton
+
+## Task Planning Notes
+
+- Always plan and break many small todo tasks
+- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed

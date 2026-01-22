@@ -1,72 +1,82 @@
 ---
-name: "architecture-diagram-creator"
-description: |
-  Create architecture diagram creator operations. Auto-activating skill for Visual Content.
-  Triggers on: architecture diagram creator, architecture diagram creator
-  Part of the Visual Content skill category. Use when working with architecture diagram creator functionality. Trigger with phrases like "architecture diagram creator", "architecture creator", "architecture".
-allowed-tools: "Read, Write, Edit, Bash(cmd:*), Grep"
-version: 1.0.0
-license: MIT
-author: "Jeremy Longshore <jeremy@intentsolutions.io>"
+name: architecture-diagram-creator
+description: Create comprehensive HTML architecture diagrams showing data flows, business objectives, features, technical architecture, and deployment. Use when users request system architecture, project documentation, high-level overviews, or technical specifications.
 ---
 
 # Architecture Diagram Creator
 
-## Overview
-
-This skill provides automated assistance for architecture diagram creator tasks within the Visual Content domain.
+Create comprehensive HTML architecture diagrams with data flows, business context, and system architecture.
 
 ## When to Use
 
-This skill activates automatically when you:
-- Mention "architecture diagram creator" in your request
-- Ask about architecture diagram creator patterns or best practices
-- Need help with visual content skills covering diagrams, charts, presentations, and visual documentation tools.
+- "Create architecture diagram for [project]"
+- "Generate high-level overview"
+- "Document system architecture"
+- "Show data flow and processing pipeline"
 
-## Instructions
+## Components to Include
 
-1. Provides step-by-step guidance for architecture diagram creator
-2. Follows industry best practices and patterns
-3. Generates production-ready code and configurations
-4. Validates outputs against common standards
+1. **Business Context**: objectives, users, value, metrics
+2. **Data Flow**: sources → processing → outputs with SVG diagram
+3. **Processing Pipeline**: multi-stage visualization
+4. **System Architecture**: layered components (data/processing/services/output)
+5. **Features**: functional and non-functional requirements
+6. **Deployment**: model, prerequisites, workflows
 
-## Examples
+## HTML Structure
 
-**Example: Basic Usage**
-Request: "Help me with architecture diagram creator"
-Result: Provides step-by-step guidance and generates appropriate configurations
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Project] Architecture</title>
+  <style>
+    body { font-family: system-ui; max-width: 1200px; margin: 0 auto; padding: 20px; }
+    h1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; }
+    .section { margin: 30px 0; }
+    svg { max-width: 100%; }
+    /* Use semantic colors: #4299e1 (data), #ed8936 (processing), #9f7aea (AI), #48bb78 (success) */
+  </style>
+</head>
+<body>
+  <h1>[Project Name] - Architecture Overview</h1>
 
+  <!-- Business Context Section -->
+  <!-- Data Flow Diagram (SVG) -->
+  <!-- Processing Pipeline (SVG) -->
+  <!-- System Architecture Layers -->
+  <!-- Features Grid -->
+  <!-- Deployment Info -->
+</body>
+</html>
+```
 
-## Prerequisites
+## SVG Pattern for Data Flow
 
-- Relevant development environment configured
-- Access to necessary tools and services
-- Basic understanding of visual content concepts
+```html
+<svg viewBox="0 0 800 400">
+  <!-- Data sources (left, blue) -->
+  <rect x="50" y="150" width="120" height="80" fill="#4299e1"/>
 
+  <!-- Processing (center, orange) -->
+  <rect x="340" y="150" width="120" height="80" fill="#ed8936"/>
 
-## Output
+  <!-- Outputs (right, green) -->
+  <rect x="630" y="150" width="120" height="80" fill="#48bb78"/>
 
-- Generated configurations and code
-- Best practice recommendations
-- Validation results
+  <!-- Arrows connecting -->
+  <path d="M170,190 L340,190" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>
+```
 
+## Workflow
 
-## Error Handling
+1. Analyze project (README, code structure)
+2. Extract: purpose, data sources, processing, tech stack, outputs
+3. Create HTML with all 6 sections
+4. Use semantic colors for visual hierarchy
+5. Write to `[project]-architecture.html`
 
-| Error | Cause | Solution |
-|-------|-------|----------|
-| Configuration invalid | Missing required fields | Check documentation for required parameters |
-| Tool not found | Dependency not installed | Install required tools per prerequisites |
-| Permission denied | Insufficient access | Verify credentials and permissions |
-
-
-## Resources
-
-- Official documentation for related tools
-- Best practices guides
-- Community examples and tutorials
-
-## Related Skills
-
-Part of the **Visual Content** skill category.
-Tags: diagrams, mermaid, charts, visualization, presentations
+Keep diagrams clear, use consistent styling, include real project details.

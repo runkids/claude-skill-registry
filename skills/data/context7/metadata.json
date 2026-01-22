@@ -1,7 +1,7 @@
 {
   "name": "context7",
-  "repo": "erwinkn/ai-config",
-  "path": ".claude/skills/context7/SKILL.md",
-  "source": "github.com/erwinkn/ai-config",
-  "downloaded_at": "2026-01-21T03:26:06.592738Z"
+  "repo": "5dlabs/cto",
+  "path": "templates/skills/tools/context7/SKILL.md",
+  "source": "github.com/5dlabs/cto",
+  "downloaded_at": "2026-01-22T03:27:06.602042Z"
 }

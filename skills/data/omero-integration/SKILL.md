@@ -1,9 +1,19 @@
 ---
 name: omero-integration
+display_name: Omero Integration
 description: Microscopy data management platform. Access images via Python, retrieve datasets, analyze pixels, manage ROIs/annotations, batch processing, for high-content screening and microscopy workflows.
+version: 1.0.0
+author: K-Dense Inc.
 license: Unknown
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["lab-automation", "integration", "workflow"]
+category: lab-automation
+allowed_tools: ["code_execute"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 5
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # OMERO Integration

@@ -3,7 +3,7 @@ name: terraphim-hooks
 description: |
   Knowledge graph-based text replacement using Terraphim hooks.
   Intercepts commands and text to apply transformations defined in the knowledge graph.
-  Works with Codex CLI PreToolUse hooks and Git prepare-commit-msg hooks.
+  Works with Claude Code PreToolUse hooks and Git prepare-commit-msg hooks.
 license: Apache-2.0
 ---
 
@@ -17,7 +17,7 @@ Terraphim hooks intercept text at key points (CLI commands, commit messages) and
 
 **Key Components:**
 - `terraphim-agent replace` - CLI command for text replacement
-- PreToolUse hooks - Intercept Codex CLI tool calls before execution
+- PreToolUse hooks - Intercept Claude Code tool calls before execution
 - Git hooks - Transform commit messages using prepare-commit-msg
 
 ## Architecture
@@ -28,8 +28,8 @@ Terraphim hooks intercept text at key points (CLI commands, commit messages) and
 │  ┌──────────────┐  ┌──────────────────┐  ┌──────────────────┐  │
 │  │ bun.md       │  │ bun install.md   │  │ terraphim ai.md  │  │
 │  │ synonyms::   │  │ synonyms::       │  │ synonyms::       │  │
-│  │ npm, yarn,   │  │ npm install,     │  │ Codex CLI,     │  │
-│  │ pnpm, npx    │  │ yarn install...  │  │ Codex Opus...   │  │
+│  │ npm, yarn,   │  │ npm install,     │  │ Claude Code,     │  │
+│  │ pnpm, npx    │  │ yarn install...  │  │ Claude Opus...   │  │
 │  └──────────────┘  └──────────────────┘  └──────────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
                               │
@@ -44,7 +44,7 @@ Terraphim hooks intercept text at key points (CLI commands, commit messages) and
               ▼                               ▼
    ┌──────────────────────┐       ┌──────────────────────┐
    │  PreToolUse Hook     │       │  Git Hook            │
-   │  (npm → bun)         │       │  (Codex → Terraphim)│
+   │  (npm → bun)         │       │  (Claude → Terraphim)│
    │                      │       │                      │
    │  Input: Bash command │       │  Input: Commit msg   │
    │  Output: Modified    │       │  Output: Modified    │
@@ -56,17 +56,29 @@ Terraphim hooks intercept text at key points (CLI commands, commit messages) and
 ### Quick Start (Using Released Binary)
 
 ```bash
-# Download and install terraphim-agent from GitHub releases
-gh release download v1.3.0 --repo terraphim/terraphim-ai \
+# Download and install terraphim-agent from GitHub releases (latest version)
+# macOS ARM64 (Apple Silicon)
+gh release download --repo terraphim/terraphim-ai \
   --pattern "terraphim-agent-aarch64-apple-darwin" --dir /tmp
 chmod +x /tmp/terraphim-agent-aarch64-apple-darwin
 mv /tmp/terraphim-agent-aarch64-apple-darwin ~/.cargo/bin/terraphim-agent
+
+# macOS x86_64 (Intel)
+# gh release download --repo terraphim/terraphim-ai \
+#   --pattern "terraphim-agent-x86_64-apple-darwin" --dir /tmp
+
+# Linux x86_64
+# gh release download --repo terraphim/terraphim-ai \
+#   --pattern "terraphim-agent-x86_64-unknown-linux-gnu" --dir /tmp
+
+# Note: crates.io version (cargo install terraphim_agent) is outdated (v1.0.0)
+# and missing hook/guard commands. Use GitHub releases for latest features.
 
 # Create knowledge graph directory
 mkdir -p ~/.config/terraphim/docs/src/kg
 
 # Create replacement rules (example: npm -> bun)
-cat > ~/.config/terraphim/docs/src/kg/bun_install.md << 'EOF'
+cat > ~/.config/terraphim/docs/src/kg/"bun install.md" << 'EOF'
 # bun install
 
 Install dependencies using Bun package manager.
@@ -75,23 +87,23 @@ synonyms:: npm install, yarn install, pnpm install, npm i
 EOF
 
 # Create hooks directory and script
-mkdir -p ~/.codex/hooks
-cat > ~/.codex/hooks/pre_tool_use.sh << 'EOF'
+mkdir -p ~/.claude/hooks
+cat > ~/.claude/hooks/pre_tool_use.sh << 'EOF'
 #!/bin/bash
 INPUT=$(cat)
 cd ~/.config/terraphim 2>/dev/null || exit 0
 terraphim-agent hook --hook-type pre-tool-use --json <<< "$INPUT" 2>/dev/null
 EOF
-chmod +x ~/.codex/hooks/pre_tool_use.sh
+chmod +x ~/.claude/hooks/pre_tool_use.sh
 
 # Test replacement
-echo "npm install react" | ~/.codex/hooks/pre_tool_use.sh
+echo "npm install react" | ~/.claude/hooks/pre_tool_use.sh
 # Output: {"tool_input":{"command":"bun install react"},"tool_name":"Bash"}
 ```
 
-### Configure Codex CLI Hook
+### Configure Claude Code Hook
 
-Add to `~/.codex/settings.local.json`:
+Add to `~/.claude/settings.local.json`:
 ```json
 {
   "hooks": {
@@ -99,7 +111,7 @@ Add to `~/.codex/settings.local.json`:
       "matcher": "Bash",
       "hooks": [{
         "type": "command",
-        "command": "~/.codex/hooks/pre_tool_use.sh"
+        "command": "~/.claude/hooks/pre_tool_use.sh"
       }]
     }]
   }
@@ -298,17 +310,17 @@ Test your hooks:
 ./scripts/test-terraphim-hooks.sh
 
 # Manual test - PreToolUse
-echo '{"tool_name":"Bash","tool_input":{"command":"npm install"}}' | .codex/hooks/npm_to_bun_guard.sh
+echo '{"tool_name":"Bash","tool_input":{"command":"npm install"}}' | .claude/hooks/npm_to_bun_guard.sh
 
 # Manual test - Git hook
-echo "Codex CLI generated this" | terraphim-agent replace
+echo "Claude Code generated this" | terraphim-agent replace
 ```
 
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| Hook not triggering | Check `.codex/settings.local.json` configuration |
+| Hook not triggering | Check `.claude/settings.local.json` configuration |
 | No replacement happening | Verify knowledge graph files exist in `docs/src/kg/` |
 | Agent not found | Build with `cargo build -p terraphim_agent --release` |
 | Permission denied | Run `chmod +x` on hook scripts |

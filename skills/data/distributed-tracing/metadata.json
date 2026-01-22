@@ -1,7 +1,7 @@
 {
   "name": "distributed-tracing",
-  "repo": "wshobson/agents",
-  "path": "plugins/observability-monitoring/skills/distributed-tracing/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-21T04:11:01.727474Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/observability-monitoring/skills/distributed-tracing/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-22T03:54:13.008352Z"
 }

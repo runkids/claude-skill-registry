@@ -1,218 +1,515 @@
 ---
 name: dependency-management
-description: This skill should be used when managing project dependencies including safe updates, security audits, and compatibility analysis.
+description: Automatically applies when managing Python dependencies. Ensures proper use of uv/Poetry, lock files, version constraints, conflict resolution, and dependency security.
+category: python
 ---
 
-# Dependency Management Skill
+# Dependency Management Patterns
 
-Safely manage and update project dependencies.
+When managing Python dependencies, follow these patterns for reproducible, secure environments.
 
-## When to Use
+**Trigger Keywords**: dependencies, uv, poetry, pip, requirements, lock file, dependency conflict, version pinning, pyproject.toml, pip-compile
 
-- Updating outdated dependencies
-- Auditing for security vulnerabilities
-- Analyzing dependency compatibility
-- Planning major version upgrades
-- Reducing dependency bloat
+**Agent Integration**: Used by `backend-architect`, `devops-engineer`, `python-engineer`
 
-## Reference Documents
-
-- [Update Strategies](./references/update-strategies.md) - Safe update approaches
-- [Security Audit](./references/security-audit.md) - Vulnerability scanning
-- [Compatibility Matrix](./references/compatibility-matrix.md) - Tracking constraints
-- [Changelog Analysis](./references/changelog-analysis.md) - Reading changelogs
-
-## Core Workflow
-
-### 1. Audit Current State
+## ✅ Correct Pattern: Using uv
 
 ```bash
-# Node.js
-npm outdated
-npm audit
+# Install uv (modern, fast dependency manager)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Python
-pip list --outdated
+# Initialize project
+uv init myproject
+cd myproject
+
+# Add dependencies
+uv add fastapi pydantic sqlalchemy
+
+# Add dev dependencies
+uv add --dev pytest pytest-cov black ruff mypy
+
+# Add optional dependencies
+uv add --optional docs sphinx
+
+# Install all dependencies
+uv sync
+
+# Install with optional dependencies
+uv sync --extra docs
+
+# Update dependencies
+uv lock --upgrade
+uv sync
+
+# Remove dependency
+uv remove package-name
+```
+
+## pyproject.toml with uv
+
+```toml
+# pyproject.toml
+[project]
+name = "myproject"
+version = "0.1.0"
+description = "My Python project"
+requires-python = ">=3.11"
+
+dependencies = [
+    "fastapi>=0.109.0,<1.0.0",
+    "pydantic>=2.5.0,<3.0.0",
+    "sqlalchemy>=2.0.0,<3.0.0",
+    "httpx>=0.26.0,<1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=24.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.8.0",
+]
+docs = [
+    "sphinx>=7.2.0",
+    "sphinx-rtd-theme>=2.0.0",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.4.0",
+    "black>=24.0.0",
+]
+
+# Lock file is automatically managed
+# uv.lock contains exact versions
+```
+
+## Using Poetry
+
+```bash
+# Install Poetry
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Initialize project
+poetry new myproject
+cd myproject
+
+# Add dependencies
+poetry add fastapi pydantic sqlalchemy
+
+# Add dev dependencies
+poetry add --group dev pytest pytest-cov black ruff mypy
+
+# Add optional dependencies
+poetry add --optional sphinx
+poetry add --optional sphinx-rtd-theme
+
+# Install dependencies
+poetry install
+
+# Install with optional dependencies
+poetry install --extras docs
+
+# Update dependencies
+poetry update
+
+# Lock dependencies without installing
+poetry lock --no-update
+
+# Remove dependency
+poetry remove package-name
+
+# Show dependency tree
+poetry show --tree
+```
+
+## pyproject.toml with Poetry
+
+```toml
+# pyproject.toml
+[tool.poetry]
+name = "myproject"
+version = "0.1.0"
+description = "My Python project"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "myproject", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.0"
+pydantic = "^2.5.0"
+sqlalchemy = "^2.0.0"
+httpx = "^0.26.0"
+
+# Optional dependencies
+sphinx = {version = "^7.2.0", optional = true}
+sphinx-rtd-theme = {version = "^2.0.0", optional = true}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+pytest-asyncio = "^0.23.0"
+black = "^24.0.0"
+ruff = "^0.1.0"
+mypy = "^1.8.0"
+
+[tool.poetry.extras]
+docs = ["sphinx", "sphinx-rtd-theme"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+```
+
+## Version Constraints
+
+```toml
+# Caret requirements (^) - recommended for libraries
+# ^1.2.3 means >=1.2.3,<2.0.0
+fastapi = "^0.109.0"
+
+# Tilde requirements (~) - for bug fix updates
+# ~1.2.3 means >=1.2.3,<1.3.0
+pytest = "~7.4.0"
+
+# Exact version (=)
+black = "24.1.0"
+
+# Greater than or equal
+httpx = ">=0.26.0"
+
+# Compatible release (~=)
+# ~=1.2.3 is equivalent to >=1.2.3,<1.3.0
+sqlalchemy = "~=2.0.0"
+
+# Multiple constraints
+pydantic = ">=2.5.0,<3.0.0"
+
+# Wildcard
+requests = "2.*"
+```
+
+## Lock Files
+
+```python
+# uv.lock (generated by uv)
+# Contains exact versions of all dependencies
+# Commit to version control for reproducibility
+
+# poetry.lock (generated by poetry)
+# Contains exact versions and hashes
+# Commit to version control
+
+# Benefits of lock files:
+# 1. Reproducible builds
+# 2. Security (verify hashes)
+# 3. Faster installs
+# 4. Conflict detection
+```
+
+## Dependency Conflict Resolution
+
+```python
+# Check for conflicts
+# uv
+uv lock
+
+# Poetry
+poetry lock
+
+# If conflicts occur:
+# 1. Check dependency requirements
+poetry show package-name
+
+# 2. Update conflicting package
+poetry update package-name
+
+# 3. Use version ranges that overlap
+[tool.poetry.dependencies]
+fastapi = "^0.109.0"  # Requires pydantic ^2.0
+pydantic = "^2.5.0"   # Compatible!
+
+# 4. Override dependencies if needed (Poetry)
+[tool.poetry.overrides]
+"problematic-package" = "1.2.3"
+```
+
+## Security Scanning
+
+```bash
+# Check for security vulnerabilities with uv
+uv pip list --outdated
+
+# Use pip-audit for security scanning
+pip install pip-audit
 pip-audit
 
-# Ruby
-bundle outdated
-bundle audit
+# Use safety
+pip install safety
+safety check
 
-# Go
-go list -m -u all
-govulncheck ./...
+# Use Poetry's built-in audit (if available)
+poetry audit
+
+# GitHub Dependabot
+# Automatically creates PRs for security updates
+# Enable in .github/dependabot.yml
 ```
 
-### 2. Categorize Updates
+## Dependabot Configuration
 
-| Category | Risk | Approach |
-|----------|------|----------|
-| Patch (0.0.x) | Low | Usually safe to batch |
-| Minor (0.x.0) | Medium | Review changelog, test |
-| Major (x.0.0) | High | Plan migration, extensive test |
-| Security | Critical | Prioritize immediately |
+```yaml
+# .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "username"
+    labels:
+      - "dependencies"
+      - "automated"
 
-### 3. Update Strategy
+    # Group updates
+    groups:
+      development-dependencies:
+        patterns:
+          - "pytest*"
+          - "black"
+          - "ruff"
+          - "mypy"
 
-```markdown
-## Update Plan
+      production-dependencies:
+        patterns:
+          - "fastapi"
+          - "pydantic"
+          - "sqlalchemy"
 
-### Immediate (Security)
-- lodash: 4.17.15 → 4.17.21 (CVE-2021-23337)
-- axios: 0.21.0 → 1.6.0 (CVE-2023-45857)
-
-### This Sprint (Patch/Minor)
-- jest: 29.5.0 → 29.7.0
-- typescript: 5.0.4 → 5.3.0
-- prettier: 3.0.0 → 3.1.0
-
-### Planned (Major)
-- react: 17.0.2 → 18.2.0 (requires migration)
-- webpack: 4.x → 5.x (requires config changes)
+    # Version updates
+    versioning-strategy: increase
 ```
 
-### 4. Safe Update Process
+## CI/CD Integration
+
+```yaml
+# .github/workflows/dependencies.yml
+name: Dependency Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"  # Weekly
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Check for outdated packages
+        run: uv pip list --outdated
+
+      - name: Security audit
+        run: |
+          pip install pip-audit
+          pip-audit
+
+      - name: Check lock file
+        run: |
+          uv lock
+          git diff --exit-code uv.lock
+```
+
+## Virtual Environment Management
 
 ```bash
-# 1. Create update branch
-git checkout -b deps/update-YYYY-MM-DD
+# uv automatically manages virtual environments
+uv venv  # Create virtual environment
+source .venv/bin/activate  # Activate
 
-# 2. Update one package at a time (for major updates)
-npm install package@version
+# Poetry
+poetry shell  # Activate Poetry environment
+poetry env info  # Show environment info
+poetry env list  # List environments
+poetry env remove python3.11  # Remove environment
 
-# 3. Run tests
-npm test
-
-# 4. Check for breaking changes
-npm run build
-npm run lint
-
-# 5. Commit if passing
-git commit -m "Update package to version"
-
-# 6. Repeat or batch
+# Manual venv
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate     # Windows
 ```
 
-## Risk Assessment
-
-### Low Risk Updates
-
-Safe to batch together:
+## Exporting Dependencies
 
 ```bash
-# Update all patch versions
-npm update
+# Export to requirements.txt format
 
-# Update specific minor versions
-npm install package1@^2.1.0 package2@^3.2.0
+# uv
+uv pip compile pyproject.toml -o requirements.txt
+
+# Poetry
+poetry export -f requirements.txt --output requirements.txt
+poetry export -f requirements.txt --with dev --output requirements-dev.txt
+poetry export -f requirements.txt --extras docs --output requirements-docs.txt
+
+# For Docker
+poetry export -f requirements.txt --without-hashes --output requirements.txt
 ```
 
-### Medium Risk Updates
+## Docker Integration
 
-Update individually with testing:
+```dockerfile
+# Dockerfile with uv
+FROM python:3.11-slim
 
-```markdown
-## Update: typescript 5.0 → 5.3
+WORKDIR /app
 
-### Changelog Review
-- New decorator syntax
-- Improved type inference
-- Breaking: stricter null checks
+# Install uv
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.cargo/bin:$PATH"
 
-### Testing Plan
-1. Run type checker
-2. Run full test suite
-3. Build production bundle
-4. Test critical flows
+# Copy dependency files
+COPY pyproject.toml uv.lock ./
 
-### Rollback Plan
-```bash
-npm install typescript@5.0.4
-```
-```
+# Install dependencies
+RUN uv sync --frozen --no-dev
 
-### High Risk Updates
+# Copy application
+COPY . .
 
-Require dedicated migration:
+CMD ["python", "-m", "myproject"]
 
-```markdown
-## Migration: React 17 → 18
 
-### Breaking Changes
-- New root API (createRoot)
-- Automatic batching
-- Strict mode behavior changes
+# Dockerfile with Poetry
+FROM python:3.11-slim
 
-### Migration Steps
-1. Update react and react-dom
-2. Update to new root API
-3. Fix strict mode warnings
-4. Update testing library
-5. Run full test suite
-6. Manual QA of critical flows
+WORKDIR /app
 
-### Timeline
-- Sprint 1: Core migration
-- Sprint 2: Fix deprecation warnings
-- Sprint 3: Adopt new features
-```
+# Install Poetry
+RUN pip install poetry==1.7.1
 
-## Security Prioritization
+# Configure Poetry
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
 
-### Severity Levels
+# Copy dependency files
+COPY pyproject.toml poetry.lock ./
 
-| Level | Response Time | Action |
-|-------|---------------|--------|
-| Critical | Immediate | Emergency patch |
-| High | 24-48 hours | Priority update |
-| Medium | This sprint | Scheduled update |
-| Low | Next sprint | Normal priority |
+# Install dependencies
+RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 
-### Vulnerability Response
+# Copy application
+COPY . .
 
-```markdown
-## CVE Response Checklist
+# Install project
+RUN poetry install --without dev
 
-- [ ] Identify affected package and version
-- [ ] Check if exploitable in our usage
-- [ ] Find patched version
-- [ ] Test update locally
-- [ ] Deploy to staging
-- [ ] Verify fix with security scan
-- [ ] Deploy to production
-- [ ] Document in security log
+CMD ["poetry", "run", "python", "-m", "myproject"]
 ```
 
-## Dependency Hygiene
+## ❌ Anti-Patterns
 
-### Regular Maintenance
+```python
+# ❌ No lock file
+# Just pyproject.toml, no uv.lock or poetry.lock
+# Non-reproducible builds!
 
-```markdown
-## Weekly
-- [ ] Check for security advisories
-- [ ] Review critical dependency updates
+# ✅ Better: Commit lock file
+git add uv.lock  # or poetry.lock
 
-## Monthly
-- [ ] Run full dependency audit
-- [ ] Update patch versions
-- [ ] Review minor version updates
 
-## Quarterly
-- [ ] Plan major version migrations
-- [ ] Assess unused dependencies
-- [ ] Review dependency size impact
+# ❌ Unpinned versions in production
+dependencies = ["fastapi"]  # Any version!
+
+# ✅ Better: Use version constraints
+dependencies = ["fastapi>=0.109.0,<1.0.0"]
+
+
+# ❌ Using pip freeze without pip-tools
+pip freeze > requirements.txt  # Includes transitive deps!
+
+# ✅ Better: Use uv or poetry for dependency management
+
+
+# ❌ Committing virtual environment
+git add .venv/  # Huge, not portable!
+
+# ✅ Better: Add to .gitignore
+.venv/
+venv/
+*.pyc
+
+
+# ❌ Not separating dev dependencies
+dependencies = ["fastapi", "pytest", "black"]  # All mixed!
+
+# ✅ Better: Use dev dependencies
+[project]
+dependencies = ["fastapi"]
+
+[project.optional-dependencies]
+dev = ["pytest", "black"]
+
+
+# ❌ Ignoring security warnings
+# pip install shows vulnerabilities but not addressed
+
+# ✅ Better: Regular security audits
+pip-audit
+poetry audit
 ```
 
-### Removing Unused Dependencies
+## Best Practices Checklist
 
-```bash
-# Node.js - Find unused
-npx depcheck
+- ✅ Use uv or Poetry for dependency management
+- ✅ Commit lock files (uv.lock, poetry.lock)
+- ✅ Use version constraints, not exact pins
+- ✅ Separate dev dependencies from production
+- ✅ Run security audits regularly
+- ✅ Use Dependabot for automatic updates
+- ✅ Don't commit virtual environments
+- ✅ Export requirements.txt for Docker
+- ✅ Pin Python version requirement
+- ✅ Document dependency installation
+- ✅ Test dependency updates before merging
+- ✅ Use dependency groups for organization
 
-# Python - Find unused
-pip-autoremove --list
+## Auto-Apply
 
-# Review and remove
-npm uninstall unused-package
-```
+When managing dependencies:
+1. Use uv or Poetry (not plain pip)
+2. Define dependencies in pyproject.toml
+3. Generate and commit lock file
+4. Use version constraints (^, ~, >=)
+5. Separate dev/docs dependencies
+6. Run security audits (pip-audit)
+7. Set up Dependabot
+8. Test updates in CI before merging
+
+## Related Skills
+
+- `python-packaging` - For package configuration
+- `git-workflow-standards` - For version control
+- `monitoring-alerting` - For dependency monitoring

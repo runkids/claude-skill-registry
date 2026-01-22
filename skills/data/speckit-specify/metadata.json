@@ -1,7 +1,7 @@
 {
   "name": "speckit-specify",
-  "repo": "dceoy/pdmt5",
-  "path": ".claude/skills/speckit-specify/SKILL.md",
-  "source": "github.com/dceoy/pdmt5",
-  "downloaded_at": "2026-01-21T04:15:13.091727Z"
+  "repo": "dceoy/speckit-agent-skills",
+  "path": "skills/speckit-specify/SKILL.md",
+  "source": "github.com/dceoy/speckit-agent-skills",
+  "downloaded_at": "2026-01-22T02:10:10.542294Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "mcp-setup",
-  "repo": "UnaMentis/unamentis",
-  "path": ".claude/skills/mcp-setup/SKILL.md",
-  "source": "github.com/UnaMentis/unamentis",
-  "downloaded_at": "2026-01-21T03:16:48.747653Z"
+  "repo": "ingpoc/SKILLS",
+  "path": "mcp-setup/SKILL.md",
+  "source": "github.com/ingpoc/SKILLS",
+  "downloaded_at": "2026-01-22T02:39:34.008816Z"
 }

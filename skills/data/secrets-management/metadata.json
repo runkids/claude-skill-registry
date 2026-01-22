@@ -1,7 +1,7 @@
 {
   "name": "secrets-management",
-  "repo": "wshobson/agents",
-  "path": "plugins/cicd-automation/skills/secrets-management/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-21T04:10:57.216918Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/cicd-automation/skills/secrets-management/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-22T03:54:10.692323Z"
 }

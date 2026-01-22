@@ -1,7 +1,7 @@
 {
   "name": "medchem",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/medchem/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-01-21T02:28:33.820418Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/medchem/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-22T04:10:03.869098Z"
 }

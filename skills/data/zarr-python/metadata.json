@@ -1,7 +1,7 @@
 {
   "name": "zarr-python",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/zarr-python/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-01-21T02:28:37.325863Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/physics/zarr-python/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:07.519327Z"
 }

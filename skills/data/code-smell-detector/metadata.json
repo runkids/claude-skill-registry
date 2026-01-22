@@ -1,7 +1,7 @@
 {
   "name": "code-smell-detector",
-  "repo": "ntaksh42/agents",
+  "repo": "rysweet/AzureHayMaker",
   "path": ".claude/skills/code-smell-detector/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-21T03:30:18.315146Z"
+  "source": "github.com/rysweet/AzureHayMaker",
+  "downloaded_at": "2026-01-22T03:18:49.028008Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "security-expert",
-  "repo": "peterstorm/.dotfiles",
-  "path": ".claude/skills/security-expert/SKILL.md",
-  "source": "github.com/peterstorm/.dotfiles",
-  "downloaded_at": "2026-01-21T01:49:11.429672Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/security/security-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-22T04:02:12.801374Z"
 }

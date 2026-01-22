@@ -1,7 +1,7 @@
 {
   "name": "reactome-database",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/reactome-database/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-21T01:44:24.600344Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/database/reactome-database/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:05.310690Z"
 }

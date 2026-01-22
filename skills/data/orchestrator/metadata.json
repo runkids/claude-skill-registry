@@ -1,7 +1,7 @@
 {
   "name": "orchestrator",
-  "repo": "wtthornton/TappsCodingAgents",
-  "path": "tapps_agents/resources/claude/skills/orchestrator/SKILL.md",
-  "source": "github.com/wtthornton/TappsCodingAgents",
-  "downloaded_at": "2026-01-21T04:13:10.604138Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/orchestrator/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-22T04:03:31.318348Z"
 }

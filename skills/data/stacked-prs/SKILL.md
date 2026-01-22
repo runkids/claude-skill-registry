@@ -1,275 +1,155 @@
 ---
 name: stacked-prs
-description: Multi-PR development for large features. Stack dependent PRs, manage rebases, and get faster reviews on smaller changes. Use when creating stacked PRs.
-context: fork
-version: 1.0.0
-author: SkillForge
-tags: [git, pull-request, stacked, workflow, code-review]
-user-invocable: false
+description: Manage stacked PRs with proper visualization, merge-based updates, and iterative CodeRabbit feedback cycles
+version: 1.1.0
+compatibility: All repositories with GitHub
+
+metadata:
+  category: workflow
+  tags:
+    - pull-requests
+    - git
+    - code-review
+    - coderabbit
+  triggers:
+    - on-demand
+  uses:
+    - coderabbit-interactions
+    - pr-lifecycle
 ---
 
-# Stacked PRs
+# Stacked PRs Workflow
 
-Break large features into small, reviewable PRs that depend on each other. Merge in order for clean history.
+Workflows for managing stacked (dependent) pull requests with proper visualization, merge-based updates, and iterative CodeRabbit review cycles.
+
+## Core Principles
+
+1. **No Force Pushes** - Always use merge commits, never rebase/force-push
+2. **Draft First** - PRs start as drafts until CI passes and CodeRabbit approves
+3. **Bottom-Up Processing** - Address feedback from lowest PR in stack first
+4. **Comprehensive Reviews** - Address all CodeRabbit comments including nitpicks
+5. **Visual Stack** - Use PR titles and descriptions to show stack relationships
+
+## Skill Contents
+
+### Available Resources
+
+**references/** - Detailed documentation
+- [automation patterns](references/automation-patterns.md)
+- [merge workflow](references/merge-workflow.md)
+- [pr formatting](references/pr-formatting.md)
+- [readiness checklist](references/readiness-checklist.md)
+- [review cycles](references/review-cycles.md)
+
+**scripts/** - Automation scripts
+- [check stack status](scripts/check-stack-status.ts)
+
+---
+
+## Workflow Overview
+
+| Phase | Description | Reference |
+|-------|-------------|-----------|
+| **Creation** | Create stacked PRs with proper titles and descriptions | `references/pr-formatting.md` |
+| **Updates** | Merge changes through the stack (no rebasing) | `references/merge-workflow.md` |
+| **Reviews** | Process CodeRabbit feedback in cycles | `references/review-cycles.md` |
+| **Readiness** | Mark ready only after CI + CodeRabbit approval | `references/readiness-checklist.md` |
 
 ## Quick Reference
 
-```
-main ──────────────────────────────────────────●
-                                              /
-PR #3 (final)  ─────────────────────────●────┘   ← Merge last
-                                       /
-PR #2 (middle) ────────────────────●──┘          ← Depends on #1
-                                  /
-PR #1 (base)   ────────────────●──                ← Merge first
-                              /
-feature/auth ──────●────●────●                    ← Development
+### PR Title Format
+
+```text
+[JIRA-KEY] type(scope): description (PR N/M)
 ```
 
----
-
-## Workflow
-
-### 1. Plan the Stack
-
-```bash
-# Identify logical chunks
-# Example: Auth feature
-# PR 1: Add User model + migrations
-# PR 2: Add auth service + tests
-# PR 3: Add login UI + integration tests
-```
-
-### 2. Create Base Branch
-
-```bash
-git checkout main
-git pull origin main
-git checkout -b feature/auth-base
-
-# Implement first chunk
-git add -p
-git commit -m "feat(#100): Add User model"
-git commit -m "feat(#100): Add user migrations"
-
-# Push and create first PR
-git push -u origin feature/auth-base
-gh pr create --base main --title "feat(#100): Add User model [1/3]" \
-  --body "## Stack
-- PR 1/3: User model (this PR)
-- PR 2/3: Auth service (depends on this)
-- PR 3/3: Login UI (depends on #2)
-
-## Changes
-- Add User model with validation
-- Add database migrations"
-```
-
-### 3. Stack Next PR
-
-```bash
-# Branch from first PR's branch (not main!)
-git checkout -b feature/auth-service
-
-# Implement second chunk
-git add -p
-git commit -m "feat(#100): Add auth service"
-git commit -m "test(#100): Add auth service tests"
-
-# Push and create PR targeting FIRST branch
-git push -u origin feature/auth-service
-gh pr create --base feature/auth-base \
-  --title "feat(#100): Add auth service [2/3]" \
-  --body "## Stack
-- PR 1/3: User model (#101)
-- PR 2/3: Auth service (this PR)
-- PR 3/3: Login UI (depends on this)
-
-**Depends on #101** - merge that first"
-```
-
-### 4. Continue Stacking
-
-```bash
-git checkout -b feature/auth-ui
-
-# Implement third chunk
-git commit -m "feat(#100): Add login form"
-git commit -m "test(#100): Add login integration tests"
-
-git push -u origin feature/auth-ui
-gh pr create --base feature/auth-service \
-  --title "feat(#100): Add login UI [3/3]"
-```
-
----
-
-## Managing the Stack
-
-### When Base PR Gets Feedback
-
-```bash
-# Make changes to base PR
-git checkout feature/auth-base
-git add -p
-git commit -m "fix: Address review feedback"
-git push
-
-# Rebase dependent PRs
-git checkout feature/auth-service
-git rebase feature/auth-base
-git push --force-with-lease
-
-git checkout feature/auth-ui
-git rebase feature/auth-service
-git push --force-with-lease
-```
-
-### When Base PR Merges
-
-```bash
-# After PR #1 merges to main
-git checkout main
-git pull origin main
-
-# Update PR #2 to target main now
-gh pr edit 102 --base main
-
-# Rebase PR #2 on main
-git checkout feature/auth-service
-git rebase main
-git push --force-with-lease
-
-# Repeat for PR #3 after #2 merges
-```
-
----
-
-## Stack Visualization
-
-Track your stack with comments:
+### Stack Visualization (in PR Description)
 
 ```markdown
-## PR Stack for Auth Feature (#100)
+## PR Stack
 
-| Order | PR | Status | Branch |
-|-------|-----|--------|--------|
-| 1 | #101 | Merged | feature/auth-base |
-| 2 | #102 | Review | feature/auth-service |
-| 3 | #103 | Draft | feature/auth-ui |
-
-**Merge order**: #101 -> #102 -> #103
+| # | PR | Title | Status |
+|---|-----|-------|--------|
+| 1 | #78 | PNPM migration | Merged |
+| 2 | **#79** | Shell to JS | This PR |
+| 3 | #80 | Skills content | Depends on #79 |
+| 4 | #81 | Validation & CI | Depends on #80 |
 ```
 
----
-
-## Automation Script
+### Merge Flow (Not Rebase)
 
 ```bash
-#!/bin/bash
-# stack-rebase.sh - Rebase entire stack after changes
-
-STACK=(
-  "feature/auth-base"
-  "feature/auth-service"
-  "feature/auth-ui"
-)
-
-BASE="main"
-
-for branch in "${STACK[@]}"; do
-  echo "Rebasing $branch onto $BASE..."
-  git checkout "$branch"
-  git rebase "$BASE"
-  git push --force-with-lease
-  BASE="$branch"
-done
-
-echo "Stack rebased successfully!"
+# After fixing issues in PR #79
+git checkout feat/pr-80-branch
+git merge feat/pr-79-branch --no-edit
+git push origin feat/pr-80-branch
+# Repeat for subsequent PRs in stack
 ```
 
----
+## Scripts
 
-## Tools for Stacked PRs
-
-### GitHub CLI Extensions
-
-```bash
-# Install stacked PR helper
-gh extension install dlvhdr/gh-dash
-
-# View PR dependencies
-gh pr view --json baseRefName,headRefName
-```
-
-### Third-Party Tools
-
-- **Graphite** - graphite.dev (full stack management)
-- **Stacked** - stacked.dev
-- **git-branchless** - github.com/arxanas/git-branchless
-
----
-
-## Best Practices
-
-```
-DO:
-✅ Keep each PR < 400 lines
-✅ Make each PR independently reviewable
-✅ Document the stack in PR descriptions
-✅ Number PRs clearly [1/3], [2/3], [3/3]
-✅ Use draft PRs for incomplete stack items
-✅ Rebase after feedback, don't merge
-
-DON'T:
-❌ Create circular dependencies
-❌ Stack more than 4-5 PRs deep
-❌ Leave stacks open for > 1 week
-❌ Force push to already-approved PRs
-❌ Merge out of order
-```
-
----
-
-## When NOT to Stack
-
-- Small features (< 300 lines total)
-- Unrelated changes
-- Urgent hotfixes
-- Single-purpose refactors
-
----
-
-## PR Template for Stacked PRs
-
-```markdown
-## Summary
-Brief description of this PR's changes
-
-## Stack Position
-- [ ] PR 1/N: Description (#xxx) - [Status]
-- [x] PR 2/N: This PR
-- [ ] PR 3/N: Description (#xxx) - [Status]
-
-## Dependencies
-**Depends on**: #xxx (merge that first)
-**Blocks**: #xxx (must merge this first)
-
-## Changes
-- Change 1
-- Change 2
-
-## Test Plan
-- [ ] Tests added
-- [ ] CI passes
-```
-
-## Related Skills
-
-- git-workflow: Branching, commits, and recovery patterns
-- create-pr: PR creation basics
+| Script | Purpose |
+|--------|---------|
+| `scripts/check-stack-status.ts` | Check CI and CodeRabbit status for all PRs in stack |
 
 ## References
 
-- [Stack Management](references/stack-management.md)
-- [Rebase Strategy](references/rebase-strategy.md)
+| Reference | Content |
+|-----------|---------|
+| `references/pr-formatting.md` | PR title and description templates |
+| `references/merge-workflow.md` | How to propagate changes through the stack |
+| `references/review-cycles.md` | Processing CodeRabbit feedback iteratively |
+| `references/readiness-checklist.md` | When to mark PRs ready for review |
+| `references/automation-patterns.md` | Polling loops, callbacks, and autonomous operation |
+
+## Key Requirement: CodeRabbit Approval
+
+PRs should only be marked "Ready for Review" when:
+
+1. All CI checks pass
+2. All CodeRabbit comments addressed (including nitpicks)
+3. CodeRabbit has approved (happens automatically after addressing feedback)
+4. All previous PRs in the stack are merged
+
+**Important**: Do NOT explicitly request CodeRabbit approval. It approves automatically after you've addressed all its comments and pushed fixes.
+
+## Programmatic Automation
+
+For autonomous AI agents, use polling loops to monitor status:
+
+```typescript
+async function waitForPRReady(prNumber: number, repo: string, maxAttempts = 30, intervalMs = 60000) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const status = await checkPRStatus(prNumber, repo);
+
+    if (status.ciPassed && status.coderabbitApproved && status.openComments === 0) {
+      return { ready: true, status };
+    }
+
+    console.log(`Attempt ${attempt}/${maxAttempts}: CI=${status.ciPassed}, CR=${status.coderabbitApproved}, Comments=${status.openComments}`);
+
+    if (attempt < maxAttempts) {
+      await sleep(intervalMs);
+    }
+  }
+  return { ready: false, reason: 'timeout' };
+}
+```
+
+See `references/automation-patterns.md` for complete polling implementations.
+
+## Skill Dependencies
+
+| Skill | Purpose |
+|-------|---------|
+| `coderabbit-interactions` | Thread replies, comment export, local CLI reviews |
+| `pr-lifecycle` | Base PR management patterns |
+
+## Related
+
+- `.claude/skills/coderabbit-interactions` - Detailed CodeRabbit interaction patterns
+- `.claude/skills/pr-lifecycle` - GitHub CLI commands for PR management
+<!-- AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY -->
+<!-- Source: bitsoex/ai-code-instructions → global/skills/stacked-prs/SKILL.md -->
+<!-- To modify, edit the source file and run the distribution workflow -->
+

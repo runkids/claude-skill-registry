@@ -1,7 +1,7 @@
 {
   "name": "skill-authoring",
-  "repo": "JoernStoehler/msc-viterbo",
-  "path": ".claude/skills/skill-authoring/SKILL.md",
-  "source": "github.com/JoernStoehler/msc-viterbo",
-  "downloaded_at": "2026-01-21T03:52:20.729248Z"
+  "repo": "5dlabs/cto",
+  "path": "templates/skills/workflow/skill-authoring/SKILL.md",
+  "source": "github.com/5dlabs/cto",
+  "downloaded_at": "2026-01-22T03:27:09.492990Z"
 }

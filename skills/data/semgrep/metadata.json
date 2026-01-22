@@ -1,7 +1,7 @@
 {
   "name": "semgrep",
-  "repo": "plurigrid/asi",
-  "path": "skills/semgrep/SKILL.md",
-  "source": "github.com/plurigrid/asi",
-  "downloaded_at": "2026-01-21T03:35:32.016927Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/static-analysis/skills/semgrep/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-22T03:09:27.321871Z"
 }

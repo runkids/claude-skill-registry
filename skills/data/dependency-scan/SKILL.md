@@ -1,326 +1,322 @@
+---
+name: dependency-scan
+description: Scans project dependencies for known vulnerabilities, outdated packages, and license compliance issues. Supports vulnerability scanning (CVE detection), SBOM generation, license compliance checking, and supply chain security analysis across multiple ecosystems (npm, pip, cargo, go, maven, etc.). Trigger keywords: dependency scan, vulnerability, CVE, Snyk, Dependabot, Renovate, npm audit, cargo audit, pip-audit, safety, outdated packages, SBOM, software bill of materials, license compliance, supply chain, security advisory, transitive dependency, lock file.
+allowed-tools: Read, Grep, Glob, Bash
+---
+
 # Dependency Scan
 
-Analyze package dependencies for known vulnerabilities.
+## Overview
 
----
-description: Detect CVEs and security issues in project dependencies
-version: 1.0.0
-tags: [security, dependencies, cve, sca, packages]
----
+This skill focuses on identifying security vulnerabilities, outdated packages, and license compliance issues in project dependencies. It covers multiple package ecosystems (JavaScript/Node.js, Python, Rust, Go, Ruby, Java, .NET, PHP) and provides remediation guidance, SBOM generation, and supply chain security analysis.
 
-## Quick Start
+## When to Use
 
-```
-/dependency-scan                  # Scan all detected package managers
-/dependency-scan --npm            # Node.js packages only
-/dependency-scan --pip            # Python packages only
-/dependency-scan --fix            # Auto-fix where possible
-```
+- Scanning dependencies for CVEs and security advisories
+- Checking for outdated or unmaintained packages
+- Generating Software Bill of Materials (SBOM)
+- Verifying license compliance and compatibility
+- Analyzing supply chain risks and transitive dependencies
+- Setting up automated dependency updates (Dependabot, Renovate, Snyk)
+- Investigating security alerts from GitHub/GitLab
+- Auditing dependencies before production deployment
 
-## What This Skill Does
+## Instructions
 
-1. **Identifies package managers** in your project
-2. **Parses dependency manifests** (package.json, requirements.txt, etc.)
-3. **Checks vulnerability databases** for known CVEs
-4. **Reports severity and remediation** options
-5. **Optionally auto-fixes** by updating to patched versions
+### 1. Identify Dependencies
 
-## Supported Package Managers
+- Parse manifest files (package.json, requirements.txt, etc.)
+- Build complete dependency tree
+- Identify direct vs transitive dependencies
+- Check for phantom dependencies
 
-| Ecosystem | Files | Tool Used |
-|-----------|-------|-----------|
-| Node.js | package.json, package-lock.json | npm audit |
-| Python | requirements.txt, Pipfile, pyproject.toml | pip-audit, safety |
-| Ruby | Gemfile, Gemfile.lock | bundler-audit |
-| Java | pom.xml, build.gradle | dependency-check |
-| Go | go.mod, go.sum | govulncheck |
-| Rust | Cargo.toml, Cargo.lock | cargo-audit |
-| PHP | composer.json, composer.lock | composer audit |
-| .NET | *.csproj, packages.config | dotnet list --vulnerable |
+### 2. Vulnerability Scanning
 
-## Scan Modes
+- Check against CVE databases
+- Identify severity levels
+- Find affected versions
+- Check for available patches
 
-### Full Scan
-```
-/dependency-scan
-```
-Scans all detected package managers, reports all severity levels.
+### 3. Assess Risks
 
-### Specific Ecosystem
-```
-/dependency-scan --npm
-/dependency-scan --pip
-/dependency-scan --go
-```
+- Evaluate exploitability
+- Check for active exploitation
+- Assess impact on application
+- Prioritize remediations
 
-### Severity Filter
-```
-/dependency-scan --severity critical,high
-/dependency-scan --severity medium
-```
+### 4. Report and Remediate
 
-### Auto-Fix Mode
-```
-/dependency-scan --fix
-/dependency-scan --fix --dry-run    # Preview changes
-```
+- Document all findings
+- Provide upgrade paths
+- Suggest alternatives
+- Create remediation plan
 
-Attempts to update vulnerable packages to patched versions.
+### 5. Language-Specific Scanning
 
-## Output Format
+**JavaScript/Node.js:**
+- Use `npm audit` or `yarn audit` for vulnerability scanning
+- Check `package-lock.json` or `yarn.lock` for reproducibility
+- Consider `npm-check-updates` for upgrade analysis
+- Use `license-checker` for license compliance
 
-### Summary View
+**Python:**
+- Use `pip-audit` or `safety` for CVE scanning
+- Check `requirements.txt` and `Pipfile.lock`
+- Use `pip-compile` with `--generate-hashes` for integrity
+- Consider `pipdeptree` for dependency visualization
 
-```
-DEPENDENCY SCAN RESULTS
-=======================
+**Rust:**
+- Use `cargo audit` for RustSec advisories
+- Check `Cargo.lock` for reproducible builds
+- Use `cargo outdated` for version analysis
+- Consider `cargo deny` for policy enforcement
 
-Scanned: package.json, requirements.txt
-Packages analyzed: 127 (78 npm, 49 pip)
+**Go:**
+- Use `govulncheck` for vulnerability scanning
+- Check `go.sum` for module integrity
+- Use `go list -m all` to enumerate dependencies
+- Consider `nancy` for OSS Index checking
 
-VULNERABILITIES BY SEVERITY
-  Critical: 2
-  High: 4
-  Medium: 8
-  Low: 12
+### 6. SBOM Generation
 
-TOP ISSUES
+Generate Software Bill of Materials for supply chain transparency:
 
-[!] CRITICAL: lodash < 4.17.21
-    CVE-2021-23337: Command Injection
-    Affected: lodash@4.17.19
-    Fix: npm update lodash
+**CycloneDX:**
+- `npm install -g @cyclonedx/cyclonedx-npm && cyclonedx-npm --output-file sbom.json`
+- `cargo install cargo-cyclonedx && cargo cyclonedx`
+- `pip install cyclonedx-bom && cyclonedx-py`
 
-[!] CRITICAL: urllib3 < 2.0.6
-    CVE-2023-43804: Cookie Leak
-    Affected: urllib3@1.26.0
-    Fix: pip install urllib3>=2.0.6
+**SPDX:**
+- Use `syft` (universal tool): `syft . -o spdx-json > sbom.spdx.json`
+- Use `trivy` for container images: `trivy image --format spdx-json myimage:tag`
 
-[H] HIGH: express < 4.19.2
-    CVE-2024-29041: Open Redirect
-    Affected: express@4.18.0
-    Fix: npm update express
-```
+**Purpose:** Track all components for vulnerability management, license compliance, and incident response.
 
-### Detailed View
-```
-/dependency-scan --details
-```
+### 7. License Compliance Checking
 
-```
-DETAILED VULNERABILITY REPORT
-=============================
+Ensure all dependencies have compatible licenses:
 
-CVE-2021-23337
---------------
-Package: lodash
-Installed: 4.17.19
-Patched: 4.17.21
-Severity: CRITICAL (CVSS 9.8)
+**Automated Tools:**
+- Node.js: `npx license-checker --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC'`
+- Rust: `cargo deny check licenses`
+- Python: `pip-licenses`
+- Universal: `fossology`, `scancode-toolkit`
 
-Description:
-  Command Injection in lodash template function allows
-  arbitrary command execution via crafted template strings.
+**License Categories:**
+- Permissive: MIT, Apache-2.0, BSD (generally safe)
+- Weak Copyleft: MPL, LGPL (check linking requirements)
+- Strong Copyleft: GPL, AGPL (may require source disclosure)
+- Unknown/Missing: Investigate before use
 
-Attack Vector: Remote, no auth required
-Exploitability: Public exploit available
+## Best Practices
 
-References:
-  - https://nvd.nist.gov/vuln/detail/CVE-2021-23337
-  - https://github.com/lodash/lodash/issues/5085
+1. **Regular Scanning**: Automate daily/weekly scans
+2. **Lock Files**: Use lockfiles for reproducibility
+3. **Minimal Dependencies**: Only include what's needed
+4. **Verify Sources**: Use trusted registries
+5. **Review Updates**: Don't blindly update
+6. **License Compliance**: Ensure compatible licenses
+7. **SBOM**: Maintain software bill of materials
 
-Remediation:
-  npm update lodash
-  # or
-  npm install lodash@4.17.21
-```
+## Examples
 
-## Vulnerability Sources
+### Example 1: Scanning Commands by Ecosystem
 
-### Databases Consulted
-
-| Database | Coverage |
-|----------|----------|
-| NVD (National Vulnerability Database) | All CVEs |
-| GitHub Advisory Database | GitHub-reported |
-| OSV (Open Source Vulnerabilities) | Multi-ecosystem |
-| npm Security Advisories | Node.js specific |
-| PyPI Advisory Database | Python specific |
-| RustSec Advisory Database | Rust specific |
-
-### CVSS Scoring
-
-| Score | Severity |
-|-------|----------|
-| 9.0-10.0 | Critical |
-| 7.0-8.9 | High |
-| 4.0-6.9 | Medium |
-| 0.1-3.9 | Low |
-
-## Commands Used
-
-### Node.js (npm)
 ```bash
-npm audit --json
-npm audit fix           # Auto-fix
-npm audit fix --force   # Breaking changes OK
-```
+# JavaScript/Node.js
+npm audit
+npm audit --json > audit-report.json
+npm outdated
+npx npm-check-updates
 
-### Python (pip-audit)
-```bash
+# Python
 pip-audit
-pip-audit --fix
-pip-audit -r requirements.txt
-```
-
-### Python (safety)
-```bash
 safety check
-safety check -r requirements.txt
-```
+pip list --outdated
+pip-compile --generate-hashes
 
-### Ruby (bundler-audit)
-```bash
-bundle-audit check
-bundle-audit update     # Update advisory DB
-```
-
-### Go (govulncheck)
-```bash
-govulncheck ./...
-```
-
-### Rust (cargo-audit)
-```bash
+# Rust
 cargo audit
-cargo audit fix         # Auto-fix
+cargo outdated
+cargo deny check
+
+# Go
+go list -m all | nancy sleuth
+govulncheck ./...
+
+# Ruby
+bundle audit
+bundle outdated
+
+# Java/Maven
+mvn dependency-check:check
+mvn versions:display-dependency-updates
+
+# .NET
+dotnet list package --vulnerable
+dotnet list package --outdated
+
+# PHP
+composer audit
+composer outdated
 ```
 
-## Auto-Fix Behavior
-
-### Safe Fixes
-Updates within semver-compatible range:
-- Patch versions (1.2.3 → 1.2.4)
-- Minor versions if locked to major (^1.2.3 → ^1.3.0)
-
-### Breaking Fixes
-May introduce breaking changes:
-- Major version updates
-- Requires `--force` flag
-
-### Fix Report
-```
-AUTO-FIX REPORT
-===============
-
-Fixed: 8 vulnerabilities
-  lodash: 4.17.19 → 4.17.21
-  axios: 0.21.0 → 0.21.1
-  minimist: 1.2.5 → 1.2.6
-
-Unable to fix: 2 vulnerabilities
-  react-scripts: No patch available (major version required)
-  webpack-dev-server: Conflicts with other dependencies
-
-Review package.json changes before committing.
-```
-
-## Configuration
-
-### Ignore Known Issues
-
-Create `.dependency-scan-ignore`:
+### Example 2: GitHub Actions Dependency Scanning
 
 ```yaml
-# Ignore specific CVEs (document reason!)
-ignore:
-  - id: CVE-2021-23337
-    reason: "Not exploitable in our usage, lodash template not used"
-    expires: 2024-12-31
+name: Dependency Scanning
 
-  - id: GHSA-xxx-xxx
-    reason: "Development dependency only"
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * *" # Daily at 6 AM
 
-# Ignore packages
-packages:
-  - name: lodash
-    versions: ["< 4.17.0"]  # Only old versions
+jobs:
+  dependency-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run npm audit
+        run: |
+          npm ci
+          npm audit --audit-level=high
+
+      - name: Check for outdated packages
+        run: npm outdated || true
+
+      - name: License check
+        run: npx license-checker --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC'
+
+  snyk-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
 ```
 
-### Severity Thresholds
+### Example 3: Dependency Analysis Report Template
 
-```yaml
-# .dependency-scan.yaml
-thresholds:
-  fail_on: critical         # Fail CI on critical
-  warn_on: high            # Warn on high
-  ignore_below: low        # Don't report low
+```markdown
+# Dependency Security Report
 
-fix:
-  auto_fix: true
-  allow_major: false       # No major version bumps
+**Generated:** 2024-01-15
+**Project:** my-application
+**Total Dependencies:** 245 (42 direct, 203 transitive)
+
+## Summary
+
+| Severity | Count | Status             |
+| -------- | ----- | ------------------ |
+| Critical | 2     | Action Required    |
+| High     | 5     | Action Required    |
+| Medium   | 12    | Review Recommended |
+| Low      | 8     | Monitor            |
+
+## Critical Vulnerabilities
+
+### CVE-2024-1234 - Remote Code Execution in lodash
+
+- **Package:** lodash@4.17.20
+- **Severity:** Critical (CVSS 9.8)
+- **Affected Versions:** < 4.17.21
+- **Fixed Version:** 4.17.21
+- **Path:** my-app > express > lodash
+- **Description:** Prototype pollution vulnerability allowing RCE
+- **Remediation:** `npm update lodash`
+
+### CVE-2024-5678 - SQL Injection in sequelize
+
+- **Package:** sequelize@6.28.0
+- **Severity:** Critical (CVSS 9.1)
+- **Affected Versions:** < 6.29.0
+- **Fixed Version:** 6.29.0
+- **Path:** my-app > sequelize
+- **Description:** SQL injection via raw query methods
+- **Remediation:** `npm update sequelize`
+
+## License Compliance
+
+| License      | Count | Compliance           |
+| ------------ | ----- | -------------------- |
+| MIT          | 180   | Approved             |
+| Apache-2.0   | 45    | Approved             |
+| BSD-3-Clause | 15    | Approved             |
+| GPL-3.0      | 3     | Review Required      |
+| Unknown      | 2     | Investigation Needed |
+
+## Recommendations
+
+1. **Immediate:** Update lodash and sequelize to fix critical vulnerabilities
+2. **Short-term:** Review GPL-licensed dependencies for compatibility
+3. **Ongoing:** Enable Dependabot/Renovate for automated updates
 ```
 
-## CI/CD Integration
+### Example 4: Renovate Configuration
 
-### GitHub Actions
-```yaml
-- name: Dependency Scan
-  run: |
-    /dependency-scan --severity critical,high --fail-on-findings
-
-- name: Auto-fix and PR
-  if: failure()
-  run: |
-    /dependency-scan --fix
-    git add .
-    gh pr create --title "Security: Update vulnerable dependencies"
+```json
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base", ":semanticCommits", ":preserveSemverRanges"],
+  "schedule": ["before 6am on Monday"],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "labels": ["major-update"],
+      "automerge": false
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "matchPackagePatterns": ["^@types/"],
+      "automerge": true,
+      "groupName": "type definitions"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "automerge": true,
+      "groupName": "dev dependencies"
+    }
+  ],
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2
+}
 ```
-
-### Pre-Commit
-```bash
-#!/bin/sh
-# Run on package.json changes
-if git diff --cached --name-only | grep -q "package.json\|requirements.txt"; then
-  /dependency-scan --severity critical,high
-fi
-```
-
-## Dependency Health
-
-### Beyond CVEs
-
-```
-/dependency-scan --health
-```
-
-Additional checks:
-- **Outdated packages**: Major versions behind
-- **Deprecated packages**: No longer maintained
-- **License issues**: Incompatible licenses
-- **Maintenance**: Last update, open issues
-
-### Health Report
-
-```
-DEPENDENCY HEALTH
-=================
-
-Outdated (major behind): 5
-  react: 17.0.2 → 18.2.0
-  typescript: 4.9.5 → 5.3.3
-
-Deprecated: 1
-  request: Use got, axios, or node-fetch
-
-Unmaintained (>2 years): 2
-  moment: Consider dayjs or date-fns
-
-License Issues: 0
-```
-
-## Related Skills
-
-- `/security-scan` - Full security analysis
-- `/secrets-scan` - Credential detection
-- `/config-scan` - Configuration security

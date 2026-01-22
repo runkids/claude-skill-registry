@@ -1,9 +1,7 @@
 {
   "name": "consensus-building",
-  "description": "From multiple perspectives, build genuine consensus on what's true",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/consensus-building/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-01-22T02:09:22.364715Z"
 }

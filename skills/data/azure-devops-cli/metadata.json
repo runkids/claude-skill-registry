@@ -1,7 +1,7 @@
 {
   "name": "azure-devops-cli",
-  "repo": "ntaksh42/agents",
-  "path": "dotfiles/claude/skills/azure-devops-cli/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-21T03:30:20.511911Z"
+  "repo": "rysweet/AzureHayMaker",
+  "path": ".claude/skills/azure-devops-cli/SKILL.md",
+  "source": "github.com/rysweet/AzureHayMaker",
+  "downloaded_at": "2026-01-22T03:18:49.516597Z"
 }

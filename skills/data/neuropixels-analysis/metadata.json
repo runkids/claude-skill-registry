@@ -1,7 +1,7 @@
 {
   "name": "neuropixels-analysis",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/neuropixels-analysis/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-21T01:07:36.330729Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/clinical/neuropixels-analysis/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:04.070288Z"
 }

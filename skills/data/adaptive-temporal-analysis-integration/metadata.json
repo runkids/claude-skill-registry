@@ -1,14 +1,7 @@
 {
   "name": "adaptive-temporal-analysis-integration",
-  "description": "Integrate adaptive temporal analysis for drift detection.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "testing",
-  "tags": [
-    "adaptive",
-    "temporal",
-    "analysis",
-    "integration"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/adaptive-temporal-analysis-integration/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:45.576003Z"
 }

@@ -1,13 +1,13 @@
 ---
 name: nav-start
-description: Load Navigator documentation navigator when starting development session, resuming work, or beginning new feature. Use when user mentions starting work, beginning session, resuming after break, or checking project status.
+description: Load SuperNavigator (OS + App layers) documentation when starting development session. Loads Navigator context + injects using-superpowers App layer. Use when user mentions starting work, beginning session, or checking project status.
 allowed-tools: Read, Bash
-version: 1.0.0
+version: 6.0.0
 ---
 
-# Navigator Navigator Skill
+# SuperNavigator Session Start Skill
 
-Load the Navigator documentation navigator to start your development session with optimized context.
+Load the SuperNavigator documentation to start your development session with both OS Layer (Navigator context management) and App Layer (Superpowers workflows) enabled.
 
 ## When to Invoke
 
@@ -217,6 +217,39 @@ This script:
 - Cost tracking for ROI measurement
 - Official API (won't break on updates)
 
+### Step 7.5: Enable App Layer (Superpowers Workflows)
+
+**SuperNavigator Integration**: Inject using-superpowers skill context to enable App layer workflows.
+
+```
+Read(
+  file_path: "skills/app-layer/advanced/using-superpowers/SKILL.md"
+)
+```
+
+This enables:
+- Brainstorming skill for design
+- TDD workflows
+- Systematic debugging
+- Code review patterns
+- Parallel development with subagents
+
+**App Layer Status**:
+```
+✅ App Layer (Superpowers): Enabled
+   - Design: brainstorming, writing-plans
+   - Development: test-driven-development, using-git-worktrees, executing-plans
+   - Quality: requesting-code-review, receiving-code-review, systematic-debugging
+   - Parallel: dispatching-parallel-agents, subagent-driven-development
+   - Advanced: verification-before-completion, finishing-a-development-branch, writing-skills
+```
+
+**Integration enabled**:
+- Implicit triggers at workflow boundaries
+- Auto-save markers before brainstorming
+- Auto-update nav-tasks from writing-plans
+- Auto-compact at 85% context usage
+
 ### Step 8: Display Session Summary
 
 Show this formatted summary:
@@ -224,7 +257,7 @@ Show this formatted summary:
 ```
 ╔══════════════════════════════════════════════════════╗
 ║                                                      ║
-║  🚀 Navigator Session Started                        ║
+║  🚀 SuperNavigator Session Started                   ║
 ║                                                      ║
 ╚══════════════════════════════════════════════════════╝
 
@@ -232,6 +265,9 @@ Show this formatted summary:
 🎯 Project Management: [PM tool or "Manual"]
 ✅ Token Optimization: Active
 🧠 Theory of Mind: [Profile status from Step 5.5]
+⚡ OS Layer (Navigator): Enabled
+✨ App Layer (Superpowers): Enabled
+🔗 Implicit Integration: Active
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

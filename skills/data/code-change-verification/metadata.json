@@ -1,7 +1,7 @@
 {
   "name": "code-change-verification",
-  "repo": "zaziedlm/openai-agents-python",
+  "repo": "openai/openai-agents-python",
   "path": ".codex/skills/code-change-verification/SKILL.md",
-  "source": "github.com/zaziedlm/openai-agents-python",
-  "downloaded_at": "2026-01-21T02:32:41.059040Z"
+  "source": "github.com/openai/openai-agents-python",
+  "downloaded_at": "2026-01-22T03:33:24.019906Z"
 }

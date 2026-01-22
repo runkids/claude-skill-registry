@@ -1,415 +1,308 @@
 ---
 name: frontend-testing
-description: Implement comprehensive frontend testing using Jest, Vitest, React Testing Library, and Cypress. Use when building robust test suites for UI and integration tests.
+description: |
+  Testa aplicacoes web usando Playwright. Captura screenshots, executa E2E tests,
+  analisa logs do browser. Integrado com qa-analyst para Phase 6.
+  Use quando: testar frontend, capturar screenshots, validar UI, executar E2E.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Glob
+user-invocable: true
 ---
 
-# Frontend Testing
+# Frontend Testing Skill
 
-## Overview
+## Proposito
 
-Build comprehensive test suites for frontend applications including unit tests, integration tests, and end-to-end tests with proper coverage and assertions.
+Testa aplicacoes web locais e remotas usando Playwright:
+- **Screenshots**: Captura visual para validacao
+- **E2E Tests**: Testes end-to-end automatizados
+- **Browser Logs**: Analise de erros e warnings
+- **Accessibility**: Validacao basica de a11y
 
-## When to Use
+## Principios de Design
 
-- Component testing
-- Integration testing
-- End-to-end testing
-- Regression prevention
-- Quality assurance
-- Test-driven development
+### 1. Reconnaissance-Then-Action
 
-## Implementation Examples
+Baseado no padrao do webapp-testing da Anthropic:
 
-### 1. **Jest Unit Testing (React)**
-
-```typescript
-// Button.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { Button } from './Button';
-
-describe('Button Component', () => {
-  it('renders button with text', () => {
-    render(<Button>Click me</Button>);
-    expect(screen.getByRole('button')).toHaveTextContent('Click me');
-  });
-
-  it('calls onClick handler when clicked', () => {
-    const handleClick = jest.fn();
-    render(<Button onClick={handleClick}>Click</Button>);
-
-    fireEvent.click(screen.getByRole('button'));
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
-
-  it('disables button when disabled prop is true', () => {
-    render(<Button disabled>Click me</Button>);
-    expect(screen.getByRole('button')).toBeDisabled();
-  });
-
-  it('applies variant styles correctly', () => {
-    const { container } = render(<Button variant="primary">Click</Button>);
-    const button = container.querySelector('button');
-    expect(button).toHaveClass('bg-blue-500');
-  });
-
-  it('applies size classes correctly', () => {
-    const { container } = render(<Button size="lg">Click</Button>);
-    const button = container.querySelector('button');
-    expect(button).toHaveClass('px-6 py-3 text-lg');
-  });
-});
-
-// hooks.test.ts
-import { renderHook, act } from '@testing-library/react';
-import { useCounter } from './useCounter';
-
-describe('useCounter', () => {
-  it('initializes with default value', () => {
-    const { result } = renderHook(() => useCounter());
-    expect(result.current.count).toBe(0);
-  });
-
-  it('increments count', () => {
-    const { result } = renderHook(() => useCounter());
-
-    act(() => {
-      result.current.increment();
-    });
-
-    expect(result.current.count).toBe(1);
-  });
-
-  it('decrements count', () => {
-    const { result } = renderHook(() => useCounter(5));
-
-    act(() => {
-      result.current.decrement();
-    });
-
-    expect(result.current.count).toBe(4);
-  });
-
-  it('resets count', () => {
-    const { result } = renderHook(() => useCounter(5));
-
-    act(() => {
-      result.current.increment();
-      result.current.reset();
-    });
-
-    expect(result.current.count).toBe(5);
-  });
-});
+```
+1. Navigate  → Ir para a pagina
+2. Wait      → Aguardar network idle
+3. Capture   → Screenshot ou DOM
+4. Discover  → Identificar seletores do DOM renderizado
+5. Interact  → Executar acoes com seletores descobertos
 ```
 
-### 2. **React Testing Library Integration Tests**
+### 2. Server Lifecycle Management
 
-```typescript
-// UserForm.test.tsx
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { UserForm } from './UserForm';
+Gerenciar servidor local automaticamente:
 
-describe('UserForm Integration', () => {
-  beforeEach(() => {
-    // Clear mocks before each test
-    jest.clearAllMocks();
-  });
-
-  it('submits form with valid data', async () => {
-    const handleSubmit = jest.fn();
-    render(<UserForm onSubmit={handleSubmit} />);
-
-    await userEvent.type(screen.getByLabelText(/name/i), 'John Doe');
-    await userEvent.type(screen.getByLabelText(/email/i), 'john@example.com');
-    await userEvent.type(screen.getByLabelText(/password/i), 'password123');
-
-    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
-
-    await waitFor(() => {
-      expect(handleSubmit).toHaveBeenCalledWith({
-        name: 'John Doe',
-        email: 'john@example.com',
-        password: 'password123'
-      });
-    });
-  });
-
-  it('displays validation errors for empty fields', async () => {
-    render(<UserForm onSubmit={jest.fn()} />);
-
-    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
-
-    await waitFor(() => {
-      expect(screen.getByText(/name is required/i)).toBeInTheDocument();
-      expect(screen.getByText(/email is required/i)).toBeInTheDocument();
-    });
-  });
-
-  it('displays validation error for invalid email', async () => {
-    render(<UserForm onSubmit={jest.fn()} />);
-
-    await userEvent.type(screen.getByLabelText(/email/i), 'invalid-email');
-    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
-
-    await waitFor(() => {
-      expect(screen.getByText(/invalid email/i)).toBeInTheDocument();
-    });
-  });
-});
-
-// UserList.test.tsx with data fetching
-import { render, screen, waitFor } from '@testing-library/react';
-import { UserList } from './UserList';
-
-describe('UserList with API', () => {
-  beforeEach(() => {
-    jest.spyOn(global, 'fetch').mockClear();
-  });
-
-  it('displays loading state initially', () => {
-    (global.fetch as jest.Mock).mockImplementation(
-      () => new Promise(() => {}) // Never resolves
-    );
-
-    render(<UserList />);
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
-  });
-
-  it('fetches and displays users', async () => {
-    const mockUsers = [
-      { id: 1, name: 'User 1', email: 'user1@example.com' },
-      { id: 2, name: 'User 2', email: 'user2@example.com' }
-    ];
-
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockUsers
-    });
-
-    render(<UserList />);
-
-    await waitFor(() => {
-      expect(screen.getByText('User 1')).toBeInTheDocument();
-      expect(screen.getByText('User 2')).toBeInTheDocument();
-    });
-  });
-
-  it('displays error message on fetch failure', async () => {
-    (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
-
-    render(<UserList />);
-
-    await waitFor(() => {
-      expect(screen.getByText(/error/i)).toBeInTheDocument();
-    });
-  });
-});
+```bash
+# Inicia servidor, executa teste, encerra servidor
+python scripts/with_server.py --server "npm run dev" --port 3000 -- pytest tests/
 ```
 
-### 3. **Vitest for Vue Testing**
+### 3. Never Hardcode Selectors
 
-```typescript
-// Button.spec.ts
-import { describe, it, expect } from 'vitest';
-import { mount } from '@vue/test-utils';
-import Button from './Button.vue';
+Sempre descobrir seletores do DOM real, nunca assumir.
 
-describe('Button.vue', () => {
-  it('renders slot content', () => {
-    const wrapper = mount(Button, {
-      slots: {
-        default: 'Click me'
-      }
-    });
-    expect(wrapper.text()).toContain('Click me');
-  });
+## Comandos
 
-  it('emits click event', async () => {
-    const wrapper = mount(Button);
-    await wrapper.trigger('click');
-    expect(wrapper.emitted('click')).toHaveLength(1);
-  });
+### /frontend-test {url}
 
-  it('disables button when disabled prop is true', () => {
-    const wrapper = mount(Button, {
-      props: { disabled: true }
-    });
-    expect(wrapper.attributes('disabled')).toBeDefined();
-  });
+Executa suite de testes E2E.
 
-  it('applies variant class', () => {
-    const wrapper = mount(Button, {
-      props: { variant: 'primary' }
-    });
-    expect(wrapper.classes()).toContain('bg-blue-500');
-  });
-});
-
-// composable.spec.ts
-import { describe, it, expect } from 'vitest';
-import { useCounter } from './useCounter';
-
-describe('useCounter', () => {
-  it('initializes with default value', () => {
-    const { count } = useCounter();
-    expect(count.value).toBe(0);
-  });
-
-  it('increments count', () => {
-    const { count, increment } = useCounter();
-    increment();
-    expect(count.value).toBe(1);
-  });
-});
+```bash
+/frontend-test http://localhost:3000
+/frontend-test https://staging.example.com
 ```
 
-### 4. **Cypress E2E Testing**
+### /frontend-screenshot {url} {nome}
 
-```typescript
-// cypress/e2e/login.cy.ts
-describe('Login Flow', () => {
-  beforeEach(() => {
-    cy.visit('http://localhost:3000/login');
-  });
+Captura screenshot de uma pagina.
 
-  it('logs in with valid credentials', () => {
-    cy.get('input[name="email"]').type('user@example.com');
-    cy.get('input[name="password"]').type('password123');
-    cy.get('button[type="submit"]').click();
-
-    cy.url().should('include', '/dashboard');
-    cy.get('h1').should('contain', 'Welcome');
-  });
-
-  it('displays error for invalid credentials', () => {
-    cy.get('input[name="email"]').type('user@example.com');
-    cy.get('input[name="password"]').type('wrongpassword');
-    cy.get('button[type="submit"]').click();
-
-    cy.get('.error-message').should('contain', 'Invalid credentials');
-  });
-
-  it('validates email field', () => {
-    cy.get('input[name="email"]').type('invalid-email');
-    cy.get('input[name="password"]').type('password123');
-    cy.get('button[type="submit"]').click();
-
-    cy.get('.error-message').should('contain', 'Invalid email');
-  });
-});
-
-// cypress/e2e/user-management.cy.ts
-describe('User Management', () => {
-  beforeEach(() => {
-    cy.login('admin@example.com', 'password123');
-    cy.visit('http://localhost:3000/users');
-  });
-
-  it('creates a new user', () => {
-    cy.get('button:contains("Add User")').click();
-
-    cy.get('input[name="name"]').type('New User');
-    cy.get('input[name="email"]').type('newuser@example.com');
-    cy.get('button[type="submit"]').click();
-
-    cy.get('.success-message').should('contain', 'User created');
-    cy.get('table tbody').should('contain', 'New User');
-  });
-
-  it('edits an existing user', () => {
-    cy.get('table tbody tr').first().contains('button', 'Edit').click();
-
-    cy.get('input[name="name"]').clear().type('Updated Name');
-    cy.get('button[type="submit"]').click();
-
-    cy.get('.success-message').should('contain', 'User updated');
-  });
-
-  it('deletes a user with confirmation', () => {
-    cy.get('table tbody tr').first().contains('button', 'Delete').click();
-    cy.get('.modal button:contains("Confirm")').click();
-
-    cy.get('.success-message').should('contain', 'User deleted');
-  });
-});
-
-// cypress/support/commands.ts
-Cypress.Commands.add('login', (email: string, password: string) => {
-  cy.visit('http://localhost:3000/login');
-  cy.get('input[name="email"]').type(email);
-  cy.get('input[name="password"]').type(password);
-  cy.get('button[type="submit"]').click();
-  cy.url().should('include', '/dashboard');
-});
+```bash
+/frontend-screenshot http://localhost:3000 homepage
+/frontend-screenshot http://localhost:3000/login login-page
 ```
 
-### 5. **Test Coverage Configuration**
+**Output**: `.agentic_sdlc/projects/{id}/screenshots/{nome}.png`
 
-```javascript
-// jest.config.js
-module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
-  roots: ['<rootDir>/src'],
-  testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
-  collectCoverageFrom: [
-    'src/**/*.{ts,tsx}',
-    '!src/**/*.d.ts',
-    '!src/index.tsx',
-    '!src/reportWebVitals.ts'
-  ],
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70
-    }
-  },
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
-  },
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
-  transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      tsconfig: {
-        jsx: 'react-jsx'
-      }
-    }]
-  }
-};
+### /frontend-check {url}
 
-// package.json scripts
-{
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "cypress": "cypress open",
-    "cypress:headless": "cypress run"
-  }
-}
+Verifica saude basica da aplicacao.
+
+```bash
+/frontend-check http://localhost:3000
 ```
 
-## Best Practices
+**Verifica**:
+- Pagina carrega sem erros
+- Console sem erros criticos
+- Links nao quebrados
+- Performance basica
 
-- Write tests alongside code (TDD)
-- Test behavior, not implementation
-- Use descriptive test names
-- Keep tests focused and independent
-- Mock external dependencies
-- Aim for high coverage (>80%)
-- Use semantic queries in React Testing Library
-- Implement E2E tests for critical paths
-- Test error scenarios
-- Use CI/CD for automated testing
+## Workflow de Testes
 
-## Resources
+### Setup com Servidor Local
 
-- [Jest Documentation](https://jestjs.io/)
-- [Vitest](https://vitest.dev/)
-- [React Testing Library](https://testing-library.com/react)
-- [Cypress Documentation](https://docs.cypress.io/)
-- [Testing Library Best Practices](https://testing-library.com/docs/queries/about)
+```bash
+# Single server
+python scripts/with_server.py \
+  --server "npm run dev" \
+  --port 5173 \
+  -- python scripts/run_tests.py
+
+# Multiple servers (frontend + backend)
+python scripts/with_server.py \
+  --server "cd backend && python server.py" --port 3000 \
+  --server "cd frontend && npm run dev" --port 5173 \
+  -- python scripts/run_tests.py
+```
+
+### Captura de Screenshot
+
+```python
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+
+    page.goto("http://localhost:3000")
+    page.wait_for_load_state("networkidle")
+
+    page.screenshot(path="screenshot.png", full_page=True)
+    browser.close()
+```
+
+### Teste E2E Basico
+
+```python
+def test_login_flow(page):
+    page.goto("http://localhost:3000/login")
+    page.wait_for_load_state("networkidle")
+
+    # Descobrir seletores do DOM real
+    page.fill('[data-testid="email"]', 'test@example.com')
+    page.fill('[data-testid="password"]', 'password123')
+    page.click('[data-testid="submit"]')
+
+    # Verificar redirecionamento
+    page.wait_for_url("**/dashboard")
+    assert "dashboard" in page.url
+```
+
+## Integracao com SDLC
+
+### Phase 6 (Quality) - qa-analyst
+
+```yaml
+quality_gate:
+  frontend_tests:
+    required: true
+    criteria:
+      - "E2E tests passing"
+      - "No console errors"
+      - "Screenshots captured for review"
+
+  commands:
+    - "/frontend-test http://localhost:3000"
+    - "/frontend-screenshot http://localhost:3000 homepage"
+```
+
+### Phase 7 (Release) - Evidencias
+
+```yaml
+release_artifacts:
+  screenshots:
+    - homepage.png
+    - login-page.png
+    - dashboard.png
+  test_reports:
+    - e2e-results.json
+```
+
+## Dependencias
+
+### Obrigatorias
+
+```bash
+# Python
+pip install playwright pytest-playwright
+
+# Browser
+playwright install chromium
+```
+
+### Opcionais
+
+```bash
+# Para testes visuais
+pip install pixelmatch pillow
+
+# Para acessibilidade
+pip install axe-playwright-python
+```
+
+### Verificar Instalacao
+
+```bash
+python scripts/check_deps.py
+```
+
+## Boas Praticas
+
+### 1. Sempre Aguardar Network Idle
+
+```python
+page.goto(url)
+page.wait_for_load_state("networkidle")  # OBRIGATORIO
+```
+
+### 2. Usar data-testid
+
+Preferir seletores `data-testid` sobre classes CSS:
+
+```html
+<!-- BOM -->
+<button data-testid="submit-btn">Submit</button>
+
+<!-- EVITAR -->
+<button class="btn btn-primary submit">Submit</button>
+```
+
+### 3. Capturar Logs do Browser
+
+```python
+page.on("console", lambda msg: print(f"[{msg.type}] {msg.text}"))
+page.on("pageerror", lambda err: print(f"[ERROR] {err}"))
+```
+
+### 4. Organizar Screenshots
+
+```
+.agentic_sdlc/projects/{id}/
+└── screenshots/
+    ├── before/           # Estado inicial
+    ├── after/            # Apos mudancas
+    └── regression/       # Comparacao visual
+```
+
+## Anti-Patterns
+
+### NAO Fazer
+
+```python
+# ❌ Hardcoded selectors sem verificar DOM
+page.click("#submit-btn")
+
+# ❌ Sleep ao inves de wait
+import time
+time.sleep(5)
+
+# ❌ Ignorar erros de console
+# (nao configurar handler)
+```
+
+### Fazer
+
+```python
+# ✅ Descobrir seletor do DOM
+submit = page.locator('[data-testid="submit"]')
+if submit.count() > 0:
+    submit.click()
+
+# ✅ Wait explicito
+page.wait_for_selector('[data-testid="result"]')
+
+# ✅ Capturar todos os logs
+errors = []
+page.on("pageerror", lambda e: errors.append(e))
+```
+
+## Troubleshooting
+
+### "Browser nao instalado"
+
+```bash
+playwright install chromium
+# Ou todos os browsers
+playwright install
+```
+
+### "Timeout ao carregar pagina"
+
+Aumentar timeout:
+
+```python
+page.goto(url, timeout=60000)  # 60 segundos
+```
+
+### "Servidor nao iniciou"
+
+Verificar porta:
+
+```bash
+lsof -i :3000
+# Se ocupada, usar outra porta
+python scripts/with_server.py --server "npm run dev" --port 3001 ...
+```
+
+### "Screenshot em branco"
+
+Aguardar conteudo:
+
+```python
+page.wait_for_selector("main", state="visible")
+page.screenshot(path="screenshot.png")
+```
+
+## Referencias
+
+- [Playwright Python docs](https://playwright.dev/python/)
+- [pytest-playwright](https://playwright.dev/python/docs/test-runners)
+- [Anthropic webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing)

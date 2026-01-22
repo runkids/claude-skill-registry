@@ -1,684 +1,1249 @@
 ---
 name: database-migration
-description: Database schema migration patterns for Aurora MySQL including reconciliation migrations, idempotent operations, and MySQL-specific gotchas.
+description: Database schema change and Alembic migration expertise. Use when modifying database models, creating migrations, handling rollbacks, or troubleshooting migration issues. Ensures data integrity and safe schema evolution.
+model_tier: opus
+parallel_hints:
+  can_parallel_with: []
+  must_serialize_with:
+    - code-review
+    - test-writer
+    - automated-code-fixer
+  preferred_batch_size: 1
 ---
 
 # Database Migration Skill
 
-**Tech Stack**: Aurora MySQL 8.0, PyMySQL, migrations via Python scripts
+Expert guidance for safe database schema changes using Alembic migrations with SQLAlchemy models.
 
-**Source**: Extracted from CLAUDE.md database migration principles and real migration failures.
+## When This Skill Activates
 
----
+- Adding new database models
+- Modifying existing model fields
+- Creating foreign key relationships
+- Renaming columns or tables
+- Dropping columns or tables
+- Troubleshooting migration errors
+- Rollback scenarios
 
-## When to Use This Skill
+## Core Principle
 
-Use the database-migration skill when:
-- ✓ Creating new database migrations
-- ✓ Fixing broken migrations in unknown state
-- ✓ Debugging schema mismatch issues
-- ✓ Reviewing migration PRs
-- ✓ Reconciling production schema drift
-
-**DO NOT use this skill for:**
-- ✗ Query optimization (use code-review PERFORMANCE.md)
-- ✗ Data migrations (this skill is schema-only)
-- ✗ NoSQL databases (DynamoDB has different patterns)
-
----
-
-## Quick Decision Tree
-
-```
-What's the migration scenario?
-
-├─ New feature schema?
-│  ├─ Dev database clean? → Sequential migration (001_add_feature.sql)
-│  └─ Dev database dirty? → Reconciliation migration (RECONCILE_*.sql)
-│
-├─ Production schema drift?
-│  └─ Always → Reconciliation migration (idempotent operations)
-│
-├─ Migration failed mid-execution?
-│  ├─ Can rollback? → Rollback, fix migration, re-run
-│  └─ Cannot rollback? → Reconciliation migration to fix state
-│
-└─ Schema review before merge?
-   └─ Check: RECONCILIATION-MIGRATIONS.md + MYSQL-GOTCHAS.md
-```
-
----
-
-## Core Migration Principles
-
-### Principle 1: Immutability of Committed Migrations
-
-**From CLAUDE.md:**
-> "Migration files are immutable once committed to version control—never edit them, always create new migrations for schema changes."
-
-**Why This Matters:**
-- Reproducibility: Same migration file produces same schema across all environments
-- History: Preserves evolution of schema over time
-- Multi-developer: Prevents conflicts when multiple people migrate simultaneously
-
-```python
-# ❌ DON'T: Edit existing migration
-# migrations/001_create_users.sql (committed 2 weeks ago)
-CREATE TABLE users (
-    id INT PRIMARY KEY,
-    name VARCHAR(100)  # Changed from VARCHAR(50) → Breaks reproducibility!
-);
-
-# ✅ DO: Create new migration
-# migrations/002_widen_user_name.sql
-ALTER TABLE users MODIFY COLUMN name VARCHAR(100);
-```
-
-**Exceptions:**
-- Migration not yet committed to version control → Can edit freely
-- Migration failed in dev environment → Can delete and recreate
-- Migration never ran in production → Can edit if also updating all dev environments
-
----
-
-### Principle 2: Reconciliation Over Sequential Migrations
-
-**Pattern:** When database state is unknown or partially migrated, use reconciliation migrations.
-
-**Sequential Migration Assumption:**
-```sql
--- migrations/003_add_status_column.sql
--- Assumes: users table exists AND status column doesn't exist
-ALTER TABLE users ADD COLUMN status ENUM('active', 'inactive');
-```
-
-**Problem:** If migration ran before on some servers but not others, you get:
-- Already has column → Error: "Duplicate column name 'status'"
-- Doesn't have column → Success
-- Unknown state → 50/50 chance of failure
-
-**Reconciliation Migration Solution:**
-```sql
--- migrations/RECONCILE_user_status.sql
--- Works regardless of current state
-CREATE TABLE IF NOT EXISTS users (
-    id INT PRIMARY KEY,
-    name VARCHAR(100)
-);
-
--- Add column only if missing
-SET @col_exists = (
-    SELECT COUNT(*)
-    FROM information_schema.COLUMNS
-    WHERE TABLE_SCHEMA = DATABASE()
-      AND TABLE_NAME = 'users'
-      AND COLUMN_NAME = 'status'
-);
-
-SET @sql = IF(@col_exists = 0,
-    'ALTER TABLE users ADD COLUMN status ENUM("active", "inactive")',
-    'SELECT "Column status already exists" AS message'
-);
-
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-```
-
-**When to Use:**
-- Production schema drift (someone manually altered schema)
-- Migration failed mid-execution (half the changes applied)
-- Multiple environments out of sync
-- After fixing a broken migration
-
-See [RECONCILIATION-MIGRATIONS.md](RECONCILIATION-MIGRATIONS.md) for detailed patterns.
-
----
-
-### Principle 3: Verify Schema After Migration
-
-**Pattern:** Always verify migrations changed what you expected.
-
-```bash
-# After running migration
-mysql> DESCRIBE users;
-+--------+--------------------------+------+-----+---------+-------+
-| Field  | Type                     | Null | Key | Default | Extra |
-+--------+--------------------------+------+-----+---------+-------+
-| id     | int                      | NO   | PRI | NULL    |       |
-| name   | varchar(100)             | YES  |     | NULL    |       |
-| status | enum('active','inactive')| YES  |     | NULL    |       |
-+--------+--------------------------+------+-----+---------+-------+
-
-# Verify:
-# ✓ status column exists
-# ✓ ENUM values correct
-# ✓ Nullable (or NOT NULL if intended)
-```
-
-**Why This Matters:** MySQL's idempotent operations can silently skip changes:
-
-- `CREATE TABLE IF NOT EXISTS` → Skips if table exists with **different** schema
-- `ALTER TABLE MODIFY COLUMN` → Changes type but **not existing data**
-
-See [MYSQL-GOTCHAS.md](MYSQL-GOTCHAS.md) for detailed MySQL-specific issues.
-
----
-
-### Principle 4: Add Column Comments to Prevent Semantic Confusion
-
-**Pattern:** Use MySQL's native `COMMENT` syntax to document column semantics directly in the database schema.
-
-**Problem:** Column names alone can be semantically ambiguous:
-```sql
--- What does "date" mean?
-CREATE TABLE ticker_data (
-    date DATE NOT NULL  -- Is this fetch date? Trading date? Calendar date?
-);
-```
-
-**Real Bug Example (2025-12-29):**
-- User queried `WHERE date = '2025-12-29'` expecting "today's data"
-- Got 0 results because `date` represents **trading date** (market close), NOT fetch date
-- Data for Dec 29 won't exist until Dec 30 5:00 AM Bangkok (19-hour gap)
-- Root cause: Semantic confusion about what "date" field represents
-
-**Solution:** Add `COLUMN COMMENT` to clarify semantics:
-```sql
-ALTER TABLE ticker_data
-MODIFY COLUMN date DATE NOT NULL
-COMMENT 'Trading date for stock market data (NOT fetch date). Represents the date when market closed, not when data was retrieved. Data for date D is fetched at 5:00 AM Bangkok on date D+1.';
-
-ALTER TABLE ticker_data
-MODIFY COLUMN fetched_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-COMMENT 'UTC timestamp when this data was fetched from Yahoo Finance API. Compare with date field to understand data age.';
-```
-
-**When to Add Comments:**
-1. **Date/timestamp columns** (highest confusion risk):
-   - Clarify what the date represents (trading date vs fetch date vs calendar date)
-   - Document timezone semantics (UTC vs local time)
-   - Explain time windows when data won't exist yet
-
-2. **JSON columns** (structure documentation):
-   - Document expected schema: `{date, open, high, low, close, volume}`
-   - List required vs optional fields
-
-3. **Enum-like VARCHAR columns** (valid values):
-   - Document valid values: `'pending', 'in_progress', 'completed', 'failed'`
-
-4. **Foreign key columns** (relationship clarity):
-   - Document what they reference: `'References ticker_master.id'`
-
-**Querying Column Comments:**
-```sql
--- Get all comments for a table
-SELECT COLUMN_NAME, DATA_TYPE, COLUMN_COMMENT
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_SCHEMA = DATABASE()
-  AND TABLE_NAME = 'ticker_data'
-ORDER BY ORDINAL_POSITION;
-
--- Find uncommented date/timestamp columns (needs attention)
-SELECT TABLE_NAME, COLUMN_NAME
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_SCHEMA = DATABASE()
-  AND DATA_TYPE IN ('date', 'timestamp')
-  AND (COLUMN_COMMENT IS NULL OR COLUMN_COMMENT = '');
-```
-
-**Migration Pattern:**
-```sql
--- Migration 016: Add semantic comments to prevent date field confusion
-ALTER TABLE ticker_data
-MODIFY COLUMN date DATE NOT NULL
-COMMENT 'Trading date for stock market data (NOT fetch date). Represents the date when market closed, not when data was retrieved. Data for date D is fetched at 5:00 AM Bangkok on date D+1.';
-
--- Always preserve existing column definition (type, constraints, defaults)
--- when adding comments - use MODIFY COLUMN with full definition
-```
-
-**Benefits:**
-- Self-documenting database (no separate docs needed)
-- Queryable via `INFORMATION_SCHEMA.COLUMNS`
-- Zero performance impact (comments are metadata only)
-- Version-controlled via migration files
-- Prevents semantic misinterpretation bugs
-
-**Cost:** Zero (comments are metadata, don't affect queries or storage)
-
-See migration `db/migrations/016_add_semantic_comments.sql` for real example.
-
----
+**NEVER modify database models without creating a corresponding Alembic migration.**
 
 ## Migration Workflow
 
-### 1. Development Migration
-
-```bash
-# Step 1: Create migration file
-cat > migrations/004_add_email_to_users.sql <<'EOF'
--- Add email column to users table
-ALTER TABLE users ADD COLUMN email VARCHAR(255);
-ALTER TABLE users ADD INDEX idx_email (email);
-EOF
-
-# Step 2: Test locally (requires Aurora tunnel)
-# Verify tunnel active
-ss -ltn | grep 3307
-
-# Run migration
-mysql -h localhost -P 3307 -u admin -p < migrations/004_add_email_to_users.sql
-
-# Step 3: Verify schema
-mysql -h localhost -P 3307 -u admin -p -e "DESCRIBE users;"
-mysql -h localhost -P 3307 -u admin -p -e "SHOW INDEX FROM users;"
-
-# Step 4: Commit migration
-git add migrations/004_add_email_to_users.sql
-git commit -m "db: Add email column to users table"
-```
-
----
-
-### 2. Production Migration (Reconciliation Pattern)
-
-```bash
-# Step 1: Check current production schema
-# (via Aurora tunnel to production)
-mysql -h localhost -P 3307 -u admin -p -e "DESCRIBE users;"
-
-# Step 2: Create reconciliation migration
-cat > migrations/RECONCILE_user_email.sql <<'EOF'
--- Reconciliation: Add email to users (idempotent)
-
--- Check if email column exists
-SET @col_exists = (
-    SELECT COUNT(*)
-    FROM information_schema.COLUMNS
-    WHERE TABLE_SCHEMA = DATABASE()
-      AND TABLE_NAME = 'users'
-      AND COLUMN_NAME = 'email'
-);
-
--- Add column if missing
-SET @add_column = IF(@col_exists = 0,
-    'ALTER TABLE users ADD COLUMN email VARCHAR(255)',
-    'SELECT "Column email already exists"'
-);
-
-PREPARE stmt FROM @add_column;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
--- Check if index exists
-SET @idx_exists = (
-    SELECT COUNT(*)
-    FROM information_schema.STATISTICS
-    WHERE TABLE_SCHEMA = DATABASE()
-      AND TABLE_NAME = 'users'
-      AND INDEX_NAME = 'idx_email'
-);
-
--- Add index if missing
-SET @add_index = IF(@idx_exists = 0,
-    'ALTER TABLE users ADD INDEX idx_email (email)',
-    'SELECT "Index idx_email already exists"'
-);
-
-PREPARE stmt FROM @add_index;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-EOF
-
-# Step 3: Run reconciliation migration
-mysql -h localhost -P 3307 -u admin -p < migrations/RECONCILE_user_email.sql
-
-# Step 4: Verify final state
-scripts/verify_schema.py --table users --expected-columns id,name,status,email
-```
-
----
-
-### 3. Fixing Broken Migrations
-
-**Scenario:** Migration failed mid-execution, database in unknown state.
-
-```bash
-# Step 1: Check what exists
-mysql -h localhost -P 3307 -u admin -p <<'EOF'
-SHOW TABLES;
-DESCRIBE users;  -- Check which columns exist
-SHOW INDEX FROM users;  -- Check which indexes exist
-EOF
-
-# Step 2: Create reconciliation migration to finish job
-# (See RECONCILIATION-MIGRATIONS.md for patterns)
-
-# Step 3: Mark old migration as obsolete (if needed)
-mv migrations/004_add_email_to_users.sql migrations/OBSOLETE_004_add_email_to_users.sql
-
-# Step 4: Commit reconciliation migration
-git add migrations/RECONCILE_user_email.sql
-git commit -m "db: Reconcile user email migration (fixes broken 004)"
-```
-
----
-
-## Migration File Naming Convention
-
-```
-migrations/
-├── 001_create_users.sql              # Sequential: New feature
-├── 002_add_status_to_users.sql       # Sequential: Follow-up
-├── RECONCILE_user_status.sql         # Reconciliation: Fix drift
-├── OBSOLETE_003_broken_migration.sql # Mark broken migrations
-└── README.md                         # Migration history
-```
-
-**Rules:**
-- **Sequential (001, 002, ...)**: For clean dev environments, new features
-- **RECONCILE_**: For unknown state, production drift, fixing failures
-- **OBSOLETE_**: Mark failed migrations (don't delete - preserve history)
-
----
-
-## Common Migration Patterns
-
-### Pattern 1: Add Column
-
-```sql
--- Sequential (clean state)
-ALTER TABLE users ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
-
--- Reconciliation (unknown state)
-SET @col_exists = (
-    SELECT COUNT(*)
-    FROM information_schema.COLUMNS
-    WHERE TABLE_SCHEMA = DATABASE()
-      AND TABLE_NAME = 'users'
-      AND COLUMN_NAME = 'created_at'
-);
-
-SET @sql = IF(@col_exists = 0,
-    'ALTER TABLE users ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
-    'SELECT "Column created_at already exists"'
-);
-
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-```
-
----
-
-### Pattern 2: Add Index
-
-```sql
--- Sequential
-CREATE INDEX idx_email ON users(email);
-
--- Reconciliation
-SET @idx_exists = (
-    SELECT COUNT(*)
-    FROM information_schema.STATISTICS
-    WHERE TABLE_SCHEMA = DATABASE()
-      AND TABLE_NAME = 'users'
-      AND INDEX_NAME = 'idx_email'
-);
-
-SET @sql = IF(@idx_exists = 0,
-    'CREATE INDEX idx_email ON users(email)',
-    'SELECT "Index idx_email already exists"'
-);
-
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-```
-
----
-
-### Pattern 3: Modify Column Type
-
-```sql
--- Sequential
-ALTER TABLE users MODIFY COLUMN name VARCHAR(200);
-
--- Reconciliation
--- Note: MODIFY COLUMN changes type but not existing data!
-SET @current_type = (
-    SELECT COLUMN_TYPE
-    FROM information_schema.COLUMNS
-    WHERE TABLE_SCHEMA = DATABASE()
-      AND TABLE_NAME = 'users'
-      AND COLUMN_NAME = 'name'
-);
-
--- Only modify if type is different
-SET @sql = IF(@current_type != 'varchar(200)',
-    'ALTER TABLE users MODIFY COLUMN name VARCHAR(200)',
-    'SELECT "Column name already VARCHAR(200)"'
-);
-
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
--- CRITICAL: Verify existing data fits new type
-SELECT name FROM users WHERE LENGTH(name) > 200;
-```
-
-See [RECONCILIATION-MIGRATIONS.md](RECONCILIATION-MIGRATIONS.md) for more patterns.
-
----
-
-## Migration Review Checklist
-
-Before merging migration PR, verify:
-
-### Correctness
-- [ ] Migration tested locally (via Aurora tunnel)
-- [ ] Schema verified with `DESCRIBE table_name`
-- [ ] Indexes verified with `SHOW INDEX FROM table_name`
-- [ ] Migration is idempotent (can run multiple times safely)
-
-### Safety
-- [ ] No `DROP TABLE` without backup strategy
-- [ ] No `ALTER TABLE MODIFY COLUMN` that truncates data
-- [ ] No `DELETE` without `WHERE` clause
-- [ ] Large tables: Migration uses `ALGORITHM=INPLACE` (no table lock)
-
-### Documentation
-- [ ] Migration file has descriptive comment
-- [ ] Breaking changes documented in PR description
-- [ ] Migration history updated (if complex change)
-
-### MySQL-Specific
-- [ ] ENUM values validated (see MYSQL-GOTCHAS.md)
-- [ ] Foreign key constraints checked
-- [ ] Character set/collation compatible
-- [ ] Nullable vs NOT NULL explicit
-
----
-
-## Testing Migrations
-
-### Unit Test Pattern
+### Step 1: Modify the Model
 
 ```python
-import pytest
-import pymysql
+# backend/app/models/person.py
 
-class TestUserEmailMigration:
-    """Test 004_add_email_to_users.sql migration"""
+from sqlalchemy import Column, String, DateTime, Boolean
+from app.db.base import Base
 
-    def setup_method(self):
-        """Create clean test database"""
-        self.conn = pymysql.connect(
-            host='localhost',
-            port=3307,
-            user='admin',
-            password='...',
-            database='test_db'
-        )
-        # Run prerequisite migrations
-        self._run_migration('001_create_users.sql')
+class Person(Base):
+    __tablename__ = "persons"
 
-    def test_migration_adds_email_column(self):
-        """Verify migration adds email column"""
-        # Run migration
-        self._run_migration('004_add_email_to_users.sql')
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
 
-        # Verify column exists
-        with self.conn.cursor() as cursor:
-            cursor.execute("DESCRIBE users")
-            columns = {row[0]: row for row in cursor.fetchall()}
-
-        assert 'email' in columns
-        assert columns['email'][1] == 'varchar(255)'  # Type
-
-    def test_migration_is_idempotent(self):
-        """Verify migration can run multiple times"""
-        # Run twice
-        self._run_migration('004_add_email_to_users.sql')
-        self._run_migration('004_add_email_to_users.sql')  # Should not error
-
-        # Verify column exists (not duplicated)
-        with self.conn.cursor() as cursor:
-            cursor.execute("DESCRIBE users")
-            columns = [row[0] for row in cursor.fetchall()]
-
-        assert columns.count('email') == 1
-
-    def _run_migration(self, filename):
-        """Helper: Run migration file"""
-        with open(f'migrations/{filename}') as f:
-            sql = f.read()
-        with self.conn.cursor() as cursor:
-            for statement in sql.split(';'):
-                if statement.strip():
-                    cursor.execute(statement)
-        self.conn.commit()
+    # NEW FIELD - requires migration
+    middle_name = Column(String, nullable=True)  # Added
 ```
 
----
+### Step 2: Generate Migration
 
-### Integration Test (Production-like)
+```bash
+cd /home/user/Autonomous-Assignment-Program-Manager/backend
+
+# Generate autogenerated migration
+alembic revision --autogenerate -m "Add middle_name to Person model"
+```
+
+### Step 3: Review Generated Migration
 
 ```python
-@pytest.mark.integration
-def test_reconcile_user_email_migration_on_dirty_db():
-    """Test reconciliation migration handles partial state"""
+# backend/alembic/versions/xxxx_add_middle_name_to_person_model.py
 
-    # Setup: Create users table WITHOUT email (partial migration)
-    conn.cursor().execute("CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(100))")
+"""Add middle_name to Person model
 
-    # Run reconciliation migration
-    run_migration('RECONCILE_user_email.sql')
+Revision ID: xxxx
+Revises: yyyy
+Create Date: 2025-01-15 10:30:00
 
-    # Verify: email column added
-    cursor.execute("DESCRIBE users")
-    columns = {row[0] for row in cursor.fetchall()}
-    assert 'email' in columns
+"""
+from alembic import op
+import sqlalchemy as sa
 
-    # Run again (should not error)
-    run_migration('RECONCILE_user_email.sql')
+# revision identifiers
+revision = 'xxxx'
+down_revision = 'yyyy'
+branch_labels = None
+depends_on = None
 
-    # Verify: still works
-    cursor.execute("DESCRIBE users")
-    columns = {row[0] for row in cursor.fetchall()}
-    assert 'email' in columns
+
+def upgrade() -> None:
+    # ### commands auto generated by Alembic ###
+    op.add_column('persons', sa.Column('middle_name', sa.String(), nullable=True))
+    # ### end Alembic commands ###
+
+
+def downgrade() -> None:
+    # ### commands auto generated by Alembic ###
+    op.drop_column('persons', 'middle_name')
+    # ### end Alembic commands ###
 ```
 
----
+### Step 4: Test Migration
 
-## Quick Reference
+```bash
+# Apply migration
+alembic upgrade head
 
-### When to Use Sequential vs Reconciliation
+# Verify migration applied
+alembic current
 
-| Scenario | Migration Type | Example |
-|----------|----------------|---------|
-| **New feature (clean dev)** | Sequential | `001_add_feature.sql` |
-| **Production deployment** | Reconciliation | `RECONCILE_feature.sql` |
-| **Schema drift** | Reconciliation | `RECONCILE_fix_drift.sql` |
-| **Failed migration** | Reconciliation | `RECONCILE_fix_migration.sql` |
-| **Multi-environment sync** | Reconciliation | `RECONCILE_sync_envs.sql` |
+# Test rollback
+alembic downgrade -1
 
-### Migration Safety Levels
-
-| Operation | Risk | Mitigation |
-|-----------|------|------------|
-| **ADD COLUMN** | Low | Use DEFAULT for NOT NULL columns |
-| **DROP COLUMN** | High | Verify column unused first |
-| **MODIFY COLUMN** | Medium | Check existing data compatibility |
-| **ADD INDEX** | Low | Use `ALGORITHM=INPLACE` for large tables |
-| **DROP INDEX** | Medium | Verify queries don't need it |
-| **ADD FK** | Medium | Verify referential integrity first |
-
----
-
-## Troubleshooting
-
-### Error: "Duplicate column name 'email'"
-
-**Cause:** Column already exists (migration ran before or schema drift).
-
-**Solution:** Use reconciliation migration with conditional logic.
-
----
-
-### Error: "Data truncated for column 'status'"
-
-**Cause:** Existing data doesn't fit new ENUM values or column type.
-
-**Solution:**
-```sql
--- Check existing data first
-SELECT DISTINCT status FROM users;
-
--- If incompatible, migrate data before changing type
-UPDATE users SET status = 'active' WHERE status IS NULL;
-
--- Then change type
-ALTER TABLE users MODIFY COLUMN status ENUM('active', 'inactive') NOT NULL;
+# Re-apply
+alembic upgrade head
 ```
 
----
+### Step 5: Commit Both Files
 
-### Migration Ran But Schema Unchanged
-
-**Cause:** `CREATE TABLE IF NOT EXISTS` skipped because table exists with different schema.
-
-**Solution:** Use `ALTER TABLE` for existing tables, not `CREATE TABLE IF NOT EXISTS`.
-
-See [MYSQL-GOTCHAS.md](MYSQL-GOTCHAS.md) for comprehensive troubleshooting.
-
----
-
-## File Organization
-
-```
-.claude/skills/database-migration/
-├── SKILL.md                      # This file (entry point)
-├── RECONCILIATION-MIGRATIONS.md  # Idempotent migration patterns
-├── MYSQL-GOTCHAS.md              # MySQL-specific issues
-└── scripts/
-    └── verify_schema.py          # Schema verification tool
+```bash
+git add backend/app/models/person.py
+git add backend/alembic/versions/xxxx_add_middle_name_to_person_model.py
+git commit -m "feat: Add middle_name field to Person model"
 ```
 
----
+## Migration Patterns
 
-## Next Steps
+### Adding a Nullable Column (Safe)
 
-- **For reconciliation patterns**: See [RECONCILIATION-MIGRATIONS.md](RECONCILIATION-MIGRATIONS.md)
-- **For MySQL gotchas**: See [MYSQL-GOTCHAS.md](MYSQL-GOTCHAS.md)
-- **For schema verification**: Run `scripts/verify_schema.py`
+```python
+def upgrade() -> None:
+    op.add_column('table_name',
+        sa.Column('new_column', sa.String(), nullable=True)
+    )
 
----
+def downgrade() -> None:
+    op.drop_column('table_name', 'new_column')
+```
+
+### Adding a Non-Nullable Column (Requires Default)
+
+```python
+def upgrade() -> None:
+    # Add as nullable first
+    op.add_column('table_name',
+        sa.Column('new_column', sa.String(), nullable=True)
+    )
+    # Backfill data
+    op.execute("UPDATE table_name SET new_column = 'default_value' WHERE new_column IS NULL")
+    # Make non-nullable
+    op.alter_column('table_name', 'new_column', nullable=False)
+
+def downgrade() -> None:
+    op.drop_column('table_name', 'new_column')
+```
+
+### Adding an Index
+
+```python
+def upgrade() -> None:
+    op.create_index(
+        'ix_table_column',
+        'table_name',
+        ['column_name']
+    )
+
+def downgrade() -> None:
+    op.drop_index('ix_table_column', 'table_name')
+```
+
+### Adding a Foreign Key
+
+```python
+def upgrade() -> None:
+    op.add_column('child_table',
+        sa.Column('parent_id', sa.String(), nullable=True)
+    )
+    op.create_foreign_key(
+        'fk_child_parent',
+        'child_table', 'parent_table',
+        ['parent_id'], ['id'],
+        ondelete='CASCADE'
+    )
+
+def downgrade() -> None:
+    op.drop_constraint('fk_child_parent', 'child_table', type_='foreignkey')
+    op.drop_column('child_table', 'parent_id')
+```
+
+### Renaming a Column
+
+```python
+def upgrade() -> None:
+    op.alter_column('table_name', 'old_name', new_column_name='new_name')
+
+def downgrade() -> None:
+    op.alter_column('table_name', 'new_name', new_column_name='old_name')
+```
+
+### Dropping a Column (DANGER)
+
+```python
+def upgrade() -> None:
+    # CAUTION: Data will be lost!
+    op.drop_column('table_name', 'column_to_drop')
+
+def downgrade() -> None:
+    # Cannot restore data - only recreate column
+    op.add_column('table_name',
+        sa.Column('column_to_drop', sa.String(), nullable=True)
+    )
+```
+
+### Creating a New Table
+
+```python
+def upgrade() -> None:
+    op.create_table(
+        'new_table',
+        sa.Column('id', sa.String(), primary_key=True),
+        sa.Column('name', sa.String(), nullable=False),
+        sa.Column('created_at', sa.DateTime(), server_default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime(), onupdate=sa.func.now())
+    )
+    op.create_index('ix_new_table_name', 'new_table', ['name'])
+
+def downgrade() -> None:
+    op.drop_index('ix_new_table_name', 'new_table')
+    op.drop_table('new_table')
+```
+
+## Migration Safety Checklist
+
+### Before Creating Migration
+
+- [ ] Model change is complete and tested locally
+- [ ] Understand impact on existing data
+- [ ] Have rollback plan ready
+- [ ] Check for circular dependencies
+- [ ] Verify foreign key relationships
+
+### After Creating Migration
+
+- [ ] Review autogenerated code for accuracy
+- [ ] Test upgrade path: `alembic upgrade head`
+- [ ] Test downgrade path: `alembic downgrade -1`
+- [ ] Verify data integrity after migration
+- [ ] Check application still works
+
+### Before Merging
+
+- [ ] Migration file committed with model change
+- [ ] Tests pass with new schema
+- [ ] No breaking changes to existing APIs
+- [ ] Documentation updated if needed
+
+## Common Issues and Fixes
+
+### Issue: Autogenerate Missed a Change
+
+```bash
+# Check what autogenerate sees
+alembic revision --autogenerate -m "test" --sql
+
+# If empty, model may not be imported in env.py
+# Check: backend/alembic/env.py
+```
+
+### Issue: Migration Order Conflict
+
+```bash
+# Check current heads
+alembic heads
+
+# If multiple heads, create merge migration
+alembic merge -m "Merge heads" head1 head2
+```
+
+### Issue: Migration Failed Partway
+
+```bash
+# Check current state
+alembic current
+
+# May need manual intervention
+# Connect to database and check schema state
+docker-compose exec db psql -U scheduler -d residency_scheduler
+\dt  # List tables
+\d table_name  # Describe table
+```
+
+### Issue: Foreign Key Constraint Error
+
+```python
+# Add column without FK first, then add constraint
+def upgrade() -> None:
+    # 1. Add column
+    op.add_column('table', sa.Column('fk_id', sa.String()))
+
+    # 2. Backfill valid values
+    op.execute("""
+        UPDATE table
+        SET fk_id = (SELECT id FROM parent LIMIT 1)
+        WHERE fk_id IS NULL
+    """)
+
+    # 3. Add constraint
+    op.create_foreign_key('fk_name', 'table', 'parent', ['fk_id'], ['id'])
+```
+
+## Alembic Commands Reference
+
+```bash
+# Show current revision
+alembic current
+
+# Show revision history
+alembic history
+
+# Upgrade to latest
+alembic upgrade head
+
+# Upgrade one step
+alembic upgrade +1
+
+# Downgrade one step
+alembic downgrade -1
+
+# Downgrade to specific revision
+alembic downgrade <revision_id>
+
+# Show SQL without applying
+alembic upgrade head --sql
+
+# Create empty migration
+alembic revision -m "Description"
+
+# Create autogenerated migration
+alembic revision --autogenerate -m "Description"
+
+# Stamp database (mark as migrated without running)
+alembic stamp head
+```
+
+## Data Migration Examples
+
+### Backfilling Data
+
+```python
+from sqlalchemy.orm import Session
+from app.models.person import Person
+
+def upgrade() -> None:
+    # Schema change
+    op.add_column('persons', sa.Column('full_name', sa.String()))
+
+    # Data migration using raw SQL (preferred for large datasets)
+    op.execute("""
+        UPDATE persons
+        SET full_name = first_name || ' ' || last_name
+    """)
+```
+
+### Complex Data Transformation
+
+```python
+from alembic import op
+from sqlalchemy import orm
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+# Define model as it exists at this migration point
+class Person(Base):
+    __tablename__ = 'persons'
+    id = sa.Column(sa.String, primary_key=True)
+    old_field = sa.Column(sa.String)
+    new_field = sa.Column(sa.String)
+
+def upgrade() -> None:
+    # Add new column
+    op.add_column('persons', sa.Column('new_field', sa.String()))
+
+    # Use session for complex logic
+    bind = op.get_bind()
+    session = orm.Session(bind=bind)
+
+    for person in session.query(Person).all():
+        person.new_field = transform(person.old_field)
+
+    session.commit()
+```
+
+## Examples
+
+### Example 1: Adding Nullable Column with Backfill
+
+**Context:** Adding `middle_name` field to Person model
+
+**Input:**
+```python
+# Requirement: Add optional middle name field to Person model
+# Model: backend/app/models/person.py
+class Person(Base):
+    __tablename__ = "persons"
+    id = Column(String, primary_key=True)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    # Need to add: middle_name
+```
+
+**Process:**
+1. Modify model to add field:
+   ```python
+   middle_name = Column(String, nullable=True)
+   ```
+2. Generate migration:
+   ```bash
+   cd backend
+   alembic revision --autogenerate -m "Add middle_name to Person"
+   ```
+3. Review generated migration:
+   ```python
+   def upgrade() -> None:
+       op.add_column('persons', sa.Column('middle_name', sa.String(), nullable=True))
+
+   def downgrade() -> None:
+       op.drop_column('persons', 'middle_name')
+   ```
+4. Test migration:
+   ```bash
+   alembic upgrade head
+   alembic current  # Verify applied
+   alembic downgrade -1  # Test rollback
+   alembic upgrade head  # Re-apply
+   ```
+
+**Output:**
+```
+Migration created: backend/alembic/versions/abc123_add_middle_name_to_person.py
+Status: READY TO COMMIT
+Files to commit:
+  - backend/app/models/person.py
+  - backend/alembic/versions/abc123_add_middle_name_to_person.py
+```
+
+### Example 2: Adding Non-Nullable Column (Three-Phase Migration)
+
+**Context:** Adding required `email_verified` boolean to User model
+
+**Input:**
+```python
+# Requirement: All users must have email_verified status (non-nullable)
+# Current state: Field doesn't exist
+# Problem: Can't add non-nullable column to table with existing rows
+```
+
+**Process:**
+1. **Phase 1: Add as nullable**
+   ```python
+   # Migration 1: abc123_add_email_verified_nullable.py
+   def upgrade() -> None:
+       op.add_column('users', sa.Column('email_verified', sa.Boolean(), nullable=True))
+   ```
+
+2. **Phase 2: Backfill data**
+   ```python
+   # Migration 2: abc124_backfill_email_verified.py
+   def upgrade() -> None:
+       # Set default value for existing rows
+       op.execute("UPDATE users SET email_verified = false WHERE email_verified IS NULL")
+   ```
+
+3. **Phase 3: Make non-nullable**
+   ```python
+   # Migration 3: abc125_make_email_verified_required.py
+   def upgrade() -> None:
+       op.alter_column('users', 'email_verified', nullable=False)
+   ```
+
+**Output:**
+```
+Three-phase migration created:
+  1. abc123_add_email_verified_nullable.py - Add column
+  2. abc124_backfill_email_verified.py - Set defaults
+  3. abc125_make_email_verified_required.py - Enforce constraint
+
+Commit all three together to ensure clean upgrade path.
+```
+
+### Example 3: Foreign Key Migration with Data Integrity
+
+**Context:** Linking Assignment to Rotation via foreign key
+
+**Input:**
+```python
+# Requirement: Assignments must reference valid Rotations
+# Current: assignment.rotation_name (string, no FK constraint)
+# Target: assignment.rotation_id (FK to rotations.id)
+```
+
+**Process:**
+1. **Add new column (nullable first)**
+   ```python
+   def upgrade() -> None:
+       op.add_column('assignments', sa.Column('rotation_id', sa.String(), nullable=True))
+   ```
+
+2. **Backfill from existing data**
+   ```python
+   def upgrade() -> None:
+       # Map rotation names to IDs
+       op.execute("""
+           UPDATE assignments a
+           SET rotation_id = r.id
+           FROM rotations r
+           WHERE a.rotation_name = r.name
+       """)
+
+       # Identify orphaned records
+       op.execute("""
+           -- Log assignments with invalid rotation names
+           SELECT id, rotation_name FROM assignments WHERE rotation_id IS NULL
+       """)
+   ```
+
+3. **Add foreign key constraint**
+   ```python
+   def upgrade() -> None:
+       # Make non-null
+       op.alter_column('assignments', 'rotation_id', nullable=False)
+
+       # Add FK constraint
+       op.create_foreign_key(
+           'fk_assignment_rotation',
+           'assignments', 'rotations',
+           ['rotation_id'], ['id'],
+           ondelete='RESTRICT'  # Prevent deletion of rotations in use
+       )
+
+       # Drop old column after verification
+       op.drop_column('assignments', 'rotation_name')
+   ```
+
+**Output:**
+```
+Foreign key migration successful:
+  - Added rotation_id column
+  - Backfilled 1,247 assignments
+  - Created FK constraint
+  - Removed deprecated rotation_name column
+
+⚠️  Warning: 3 assignments had invalid rotation names and were not migrated.
+    See manual review required: assignment IDs [47, 102, 381]
+```
+
+## Common Failure Modes
+
+| Failure Mode | Symptom | Root Cause | Recovery Steps |
+|--------------|---------|------------|----------------|
+| **Autogenerate Detects Nothing** | `alembic revision --autogenerate` creates empty migration | Model not imported in `alembic/env.py` | 1. Check `env.py` imports all models<br>2. Verify model inherits from `Base`<br>3. Restart Python interpreter<br>4. Re-run autogenerate |
+| **Migration Fails Midway** | `IntegrityError` or constraint violation during upgrade | Data doesn't satisfy new constraints | 1. Check `alembic current` to see partial state<br>2. Manually fix data in DB<br>3. Re-run `alembic upgrade head`<br>4. If unfixable, downgrade and revise migration |
+| **Multiple Heads Detected** | `alembic upgrade head` fails with "multiple heads" error | Parallel development created divergent migrations | 1. Run `alembic heads` to see both<br>2. Create merge migration: `alembic merge -m "Merge heads" head1 head2`<br>3. Upgrade to merged head |
+| **Downgrade Loses Data** | Rollback succeeds but data is gone | Downgrade drops column without backup | 1. **Prevention:** Never rely on downgrade for data recovery<br>2. Restore from database backup<br>3. Document data loss risk in migration |
+| **Foreign Key Constraint Fails** | `ForeignKeyViolation` during FK creation | Orphaned rows reference non-existent parent | 1. Query for orphans: `SELECT * FROM child WHERE parent_id NOT IN (SELECT id FROM parent)`<br>2. Fix orphans (delete or assign valid parent)<br>3. Re-run migration |
+| **Type Mismatch After Migration** | Application crashes with column type error | Migration changed column type incompatibly | 1. Check migration: `op.alter_column('table', 'col', type_=new_type)`<br>2. Add type conversion if needed<br>3. Test with sample data before deploying |
+
+## Integration with Other Skills
+
+### With code-review
+**Coordination:** Review migration code before commit
+```
+1. database-migration creates migration file
+2. code-review validates:
+   - upgrade() and downgrade() are inverses
+   - No data loss in downgrade path (or documented)
+   - SQL is safe (no raw user input)
+3. If approved, commit both model and migration
+```
+
+### With automated-code-fixer
+**Coordination:** Fix migration issues automatically where safe
+```
+1. database-migration detects issue (e.g., missing import)
+2. automated-code-fixer applies fix if trivial
+3. Re-run migration generation
+4. If complex, escalate to human
+```
+
+### With test-writer
+**Coordination:** Add tests for migration
+```python
+# Example migration test
+def test_migration_adds_middle_name():
+    # Downgrade to before migration
+    alembic_downgrade()
+
+    # Verify column doesn't exist
+    with pytest.raises(OperationalError):
+        db.execute("SELECT middle_name FROM persons LIMIT 1")
+
+    # Apply migration
+    alembic_upgrade()
+
+    # Verify column exists
+    result = db.execute("SELECT middle_name FROM persons LIMIT 1")
+    assert result is not None
+```
+
+### With safe-schedule-generation
+**Coordination:** Database changes require schedule regeneration
+```
+1. database-migration changes Assignment model
+2. safe-schedule-generation must adapt to new schema
+3. Run schedule generation test to verify compatibility
+4. If breaking change, coordinate deployment
+```
+
+## Validation Checklist
+
+After creating a migration, verify:
+
+- [ ] **Model Change:** Model file updated with new field/table
+- [ ] **Migration Generated:** Alembic created migration file in `versions/`
+- [ ] **Upgrade Path:** `alembic upgrade head` succeeds
+- [ ] **Downgrade Path:** `alembic downgrade -1` succeeds
+- [ ] **Data Integrity:** No data lost during upgrade
+- [ ] **Constraints Valid:** Foreign keys and indexes applied correctly
+- [ ] **Application Works:** Run app and verify functionality
+- [ ] **Tests Pass:** All existing tests still pass
+- [ ] **Migration Tests:** Added tests for migration if complex
+- [ ] **Rollback Plan:** Documented how to recover if migration fails in production
+- [ ] **Both Files Committed:** Model and migration in same commit
+- [ ] **No Hardcoded Values:** Use parameters, not literal SQL strings
+- [ ] **Idempotent:** Running migration twice doesn't break
+
+## Escalation Rules
+
+**ALWAYS escalate to human when:**
+
+1. Dropping tables or columns with data
+2. Changing primary keys
+3. Large-scale data migration (>100k rows)
+4. Production database migration
+5. Modifying ACGME-related tables
+6. Changes affecting audit trails
+7. Unclear rollback path
+
+**Can handle automatically:**
+
+1. Adding nullable columns
+2. Adding indexes
+3. Creating new tables
+4. Adding foreign keys to empty columns
+5. Renaming columns (with verification)
+
+## Workflow Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              DATABASE MIGRATION WORKFLOW                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  STEP 1: Modify Model                                           │
+│  ┌────────────────────────────────────────────────────┐         │
+│  │ Add/modify/remove columns in SQLAlchemy model      │         │
+│  │ Update relationships if needed                     │         │
+│  └────────────────────────────────────────────────────┘         │
+│                         ↓                                       │
+│  STEP 2: Generate Migration                                     │
+│  ┌────────────────────────────────────────────────────┐         │
+│  │ alembic revision --autogenerate -m "description"   │         │
+│  │ Creates new version file in alembic/versions/      │         │
+│  └────────────────────────────────────────────────────┘         │
+│                         ↓                                       │
+│  STEP 3: Review Generated Migration (CRITICAL!)                 │
+│  ┌────────────────────────────────────────────────────┐         │
+│  │ Check upgrade() logic is correct                   │         │
+│  │ Check downgrade() reverses upgrade                 │         │
+│  │ Add data migration if needed                       │         │
+│  │ ⚠️ Autogenerate can miss changes                   │         │
+│  └────────────────────────────────────────────────────┘         │
+│                         ↓                                       │
+│  STEP 4: Test Migration (Both Directions)                       │
+│  ┌────────────────────────────────────────────────────┐         │
+│  │ alembic upgrade head    # Apply migration          │         │
+│  │ Verify schema changed                              │         │
+│  │ alembic downgrade -1    # Test rollback            │         │
+│  │ alembic upgrade head    # Re-apply                 │         │
+│  └────────────────────────────────────────────────────┘         │
+│                         ↓                                       │
+│  STEP 5: Verify Application Works                               │
+│  ┌────────────────────────────────────────────────────┐         │
+│  │ Run application with new schema                    │         │
+│  │ Run full test suite                                │         │
+│  │ Check for breaking changes                         │         │
+│  └────────────────────────────────────────────────────┘         │
+│                         ↓                                       │
+│  STEP 6: Commit Both Files Together                             │
+│  ┌────────────────────────────────────────────────────┐         │
+│  │ git add models/*.py alembic/versions/*.py          │         │
+│  │ git commit -m "feat: add field X to model Y"       │         │
+│  │ ⚠️ NEVER commit model without migration            │         │
+│  └────────────────────────────────────────────────────┘         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Concrete Usage Example: Adding Credential Tracking
+
+**Scenario:** Add credential tracking fields to Person model for HIPAA/training compliance.
+
+### Complete Migration Walkthrough
+
+**Step 1: Modify the Model**
+
+```python
+# backend/app/models/person.py
+
+from sqlalchemy import Column, String, DateTime, Boolean, JSON
+from app.db.base import Base
+
+
+class Person(Base):
+    __tablename__ = "persons"
+
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    role = Column(String, nullable=False)
+
+    # NEW FIELDS for credential tracking
+    credentials = Column(JSON, nullable=True)  # {credential_type: expiry_date}
+    last_training_date = Column(DateTime, nullable=True)
+    hipaa_certified = Column(Boolean, default=False, nullable=False)
+    cyber_awareness_date = Column(DateTime, nullable=True)
+```
+
+**Step 2: Generate Migration**
+
+```bash
+cd /home/user/Autonomous-Assignment-Program-Manager/backend
+
+# Generate autogenerated migration
+alembic revision --autogenerate -m "Add credential tracking to Person model"
+
+# Output:
+# INFO  [alembic.autogenerate.compare] Detected added column 'persons.credentials'
+# INFO  [alembic.autogenerate.compare] Detected added column 'persons.last_training_date'
+# INFO  [alembic.autogenerate.compare] Detected added column 'persons.hipaa_certified'
+# INFO  [alembic.autogenerate.compare] Detected added column 'persons.cyber_awareness_date'
+# Generating /backend/alembic/versions/a1b2c3d4e5f6_add_credential_tracking.py...done
+```
+
+**Step 3: Review and Enhance Generated Migration**
+
+```python
+# backend/alembic/versions/a1b2c3d4e5f6_add_credential_tracking.py
+
+"""Add credential tracking to Person model
+
+Revision ID: a1b2c3d4e5f6
+Revises: 9z8y7x6w5v4u
+Create Date: 2026-01-01 10:00:00
+
+"""
+from alembic import op
+import sqlalchemy as sa
+from sqlalchemy.dialects import postgresql
+
+# revision identifiers
+revision = 'a1b2c3d4e5f6'
+down_revision = '9z8y7x6w5v4u'
+branch_labels = None
+depends_on = None
+
+
+def upgrade() -> None:
+    # Add new columns (all nullable initially)
+    op.add_column('persons', sa.Column('credentials', postgresql.JSON(astext_type=sa.Text()), nullable=True))
+    op.add_column('persons', sa.Column('last_training_date', sa.DateTime(), nullable=True))
+    op.add_column('persons', sa.Column('cyber_awareness_date', sa.DateTime(), nullable=True))
+
+    # Add boolean with default - must do in two steps for existing rows
+    op.add_column('persons', sa.Column('hipaa_certified', sa.Boolean(), nullable=True))
+
+    # ENHANCEMENT: Backfill existing rows with defaults
+    op.execute("""
+        UPDATE persons
+        SET hipaa_certified = FALSE,
+            credentials = '{}'::jsonb
+        WHERE hipaa_certified IS NULL
+    """)
+
+    # Now make hipaa_certified non-nullable
+    op.alter_column('persons', 'hipaa_certified',
+                   existing_type=sa.Boolean(),
+                   nullable=False,
+                   server_default='false')
+
+
+def downgrade() -> None:
+    # Remove columns in reverse order
+    op.drop_column('persons', 'cyber_awareness_date')
+    op.drop_column('persons', 'last_training_date')
+    op.drop_column('persons', 'hipaa_certified')
+    op.drop_column('persons', 'credentials')
+```
+
+**Step 4: Test Migration (Critical!)**
+
+```bash
+cd /home/user/Autonomous-Assignment-Program-Manager/backend
+
+# Check current state
+alembic current
+# Output: 9z8y7x6w5v4u (previous migration)
+
+# Apply migration
+alembic upgrade head
+# Output:
+# INFO  [alembic.runtime.migration] Running upgrade 9z8y7x6w5v4u -> a1b2c3d4e5f6, Add credential tracking
+
+# Verify schema changed
+docker-compose exec db psql -U scheduler -d residency_scheduler -c "\d persons"
+# Should show new columns: credentials, last_training_date, hipaa_certified, cyber_awareness_date
+
+# TEST ROLLBACK (critical to verify downgrade works!)
+alembic downgrade -1
+# Output:
+# INFO  [alembic.runtime.migration] Running downgrade a1b2c3d4e5f6 -> 9z8y7x6w5v4u
+
+# Verify columns removed
+docker-compose exec db psql -U scheduler -d residency_scheduler -c "\d persons"
+# Should NOT show credential tracking columns
+
+# Re-apply migration
+alembic upgrade head
+# Output:
+# INFO  [alembic.runtime.migration] Running upgrade 9z8y7x6w5v4u -> a1b2c3d4e5f6
+```
+
+**Step 5: Verify Application Works**
+
+```bash
+# Start backend
+docker-compose up -d backend
+
+# Check health
+curl http://localhost:8000/health
+# Should return: {"status":"healthy","database":"connected"}
+
+# Run tests
+pytest
+
+# Check for any breakage
+pytest tests/test_person_model.py -v
+pytest tests/api/test_people.py -v
+
+# All should PASS
+```
+
+**Step 6: Commit Both Files**
+
+```bash
+# Stage both model and migration
+git add backend/app/models/person.py
+git add backend/alembic/versions/a1b2c3d4e5f6_add_credential_tracking.py
+
+# Commit together
+git commit -m "$(cat <<'EOF'
+feat: add credential tracking to Person model
+
+Adds fields for tracking HIPAA certification, training dates, and
+general credential expiration tracking.
+
+Fields added:
+- credentials (JSON): flexible credential storage
+- last_training_date: most recent training completion
+- hipaa_certified (boolean): HIPAA compliance status
+- cyber_awareness_date: annual cyber training date
+
+Migration includes data backfill for existing records.
+
+Related to slot-type invariant requirements for clinic scheduling.
+EOF
+)"
+```
+
+## Failure Mode Handling
+
+### Failure Mode 1: Migration Fails Mid-Execution
+
+**Symptom:**
+```bash
+$ alembic upgrade head
+
+sqlalchemy.exc.OperationalError: (psycopg2.errors.NotNullViolation)
+null value in column "hipaa_certified" violates not-null constraint
+```
+
+**Root cause:** Added NOT NULL column without default to table with existing rows
+
+**Recovery:**
+
+```bash
+# 1. Check current revision (might be partially applied)
+alembic current
+# Output: might show old or new revision
+
+# 2. Check actual database state
+docker-compose exec db psql -U scheduler -d residency_scheduler -c "\d persons"
+# See if column was partially added
+
+# 3. Stamp to previous revision (mark as not applied)
+alembic downgrade -1
+# Or if that fails, manually stamp:
+alembic stamp 9z8y7x6w5v4u
+
+# 4. Fix the migration
+# Edit migration file to add column as nullable first, then backfill, then make NOT NULL
+# (See Step 3 example above)
+
+# 5. Re-run migration
+alembic upgrade head
+```
+
+### Failure Mode 2: Autogenerate Missed a Change
+
+**Symptom:**
+```bash
+$ alembic revision --autogenerate -m "Add field"
+INFO  [alembic.autogenerate] Detected no changes
+```
+
+But you know you modified the model!
+
+**Root cause:**
+- Model not imported in `alembic/env.py`
+- Model in `__pycache__` doesn't match source
+- Import cycle preventing model load
+
+**Recovery:**
+
+```bash
+# 1. Verify model is imported in env.py
+grep -r "from app.models" backend/alembic/env.py
+
+# 2. Clear Python cache
+find backend -type d -name __pycache__ -exec rm -rf {} +
+find backend -type f -name "*.pyc" -delete
+
+# 3. Restart Python environment
+deactivate && source venv/bin/activate  # If using venv
+
+# 4. Try again
+alembic revision --autogenerate -m "Add field" --sql
+# --sql shows what would be generated without creating file
+
+# 5. If still failing, create manual migration
+alembic revision -m "Add field"
+# Then manually write upgrade() and downgrade()
+```
+
+### Failure Mode 3: Can't Rollback - Data Would Be Lost
+
+**Symptom:**
+```bash
+$ alembic downgrade -1
+
+WARNING: Downgrading will DROP COLUMN with data.
+Proceed? [y/N]
+```
+
+**Root cause:** Downgrade would delete column with user data
+
+**Recovery:**
+
+```bash
+# 1. STOP - do not proceed with destructive downgrade
+
+# 2. If you need to rollback, export data first:
+docker-compose exec db psql -U scheduler -d residency_scheduler -c \
+  "COPY (SELECT id, field_to_preserve FROM persons) TO STDOUT CSV HEADER" \
+  > backup_data.csv
+
+# 3. Then proceed with downgrade if necessary:
+alembic downgrade -1
+
+# 4. To restore data (if column is re-added later):
+# Import backup_data.csv back into database
+```
+
+**Prevention:** Always backup before risky migrations
+
+```bash
+./scripts/backup-db.sh --docker
+```
+
+### Failure Mode 4: Multiple Migration Heads (Merge Conflict)
+
+**Symptom:**
+```bash
+$ alembic upgrade head
+
+FAILED: Multiple heads are present
+  - a1b2c3d4e5f6 (from branch A)
+  - x9y8z7w6v5u4 (from branch B)
+```
+
+**Root cause:** Two branches created migrations from same parent
+
+**Recovery:**
+
+```bash
+# 1. Check heads
+alembic heads
+# Output:
+# a1b2c3d4e5f6 (head)
+# x9y8z7w6v5u4 (head)
+
+# 2. Create merge migration
+alembic merge -m "Merge migration heads" a1b2c3d4e5f6 x9y8z7w6v5u4
+
+# Output: Creates merge migration that depends on both heads
+# Generating /backend/alembic/versions/m1e2r3g4e5d6_merge_heads.py
+
+# 3. Review merge migration (usually auto-generated correctly)
+cat backend/alembic/versions/m1e2r3g4e5d6_merge_heads.py
+
+# 4. Apply merge
+alembic upgrade head
+```
+
+### Failure Mode 5: Foreign Key Constraint Violation
+
+**Symptom:**
+```bash
+$ alembic upgrade head
+
+sqlalchemy.exc.IntegrityError: foreign key constraint "fk_assignment_person"
+violates foreign key constraint
+```
+
+**Root cause:** Adding FK to column with orphaned data
+
+**Recovery:**
+
+```python
+# Fix the migration to handle orphaned data:
+
+def upgrade() -> None:
+    # 1. Add column as nullable first
+    op.add_column('assignments', sa.Column('person_id', sa.String(), nullable=True))
+
+    # 2. Identify and handle orphaned records
+    op.execute("""
+        -- Option A: Delete orphaned assignments
+        DELETE FROM assignments WHERE person_id NOT IN (SELECT id FROM persons);
+
+        -- OR Option B: Set to a default person (if one exists)
+        UPDATE assignments
+        SET person_id = 'UNKNOWN'
+        WHERE person_id NOT IN (SELECT id FROM persons);
+    """)
+
+    # 3. Now add the foreign key
+    op.create_foreign_key(
+        'fk_assignment_person',
+        'assignments', 'persons',
+        ['person_id'], ['id'],
+        ondelete='CASCADE'
+    )
+
+    # 4. Make non-nullable if needed
+    op.alter_column('assignments', 'person_id', nullable=False)
+```
+
+## Integration with Other Skills
+
+### With code-review
+
+**Pre-migration review:**
+```
+[About to generate migration]
+[Invoke code-review skill]
+
+→ Reviews model changes for:
+  - Breaking changes to existing APIs
+  - Missing indexes on new columns
+  - Inefficient data types (e.g., Text instead of String(50))
+  - Missing constraints (unique, not null)
+
+[code-review approves]
+→ Proceed with migration generation
+```
+
+### With test-writer
+
+**Migration testing workflow:**
+```
+[Migration created]
+[Invoke test-writer skill]
+
+"Generate migration tests:
+- Test model after upgrade
+- Test model after downgrade
+- Test data preservation during upgrade/downgrade
+- Test constraints are enforced"
+
+[test-writer creates tests in tests/migrations/]
+→ Run tests before committing migration
+```
+
+### With pr-reviewer
+
+**PR review integration:**
+```
+[PR with database migration]
+[pr-reviewer activated]
+
+→ Detects migration file changes
+→ Extra scrutiny applied:
+  - Verify model and migration committed together
+  - Check upgrade AND downgrade tested
+  - Verify no breaking changes
+  - Escalate if drops tables/columns
+
+Review comment:
+"⚠️ Database migration detected
+- [ ] Upgrade tested
+- [ ] Downgrade tested
+- [ ] Backup plan documented
+- [ ] No data loss on rollback"
+```
+
+### With safe-schedule-generation
+
+**Pre-migration backup:**
+```
+[About to apply migration to production-like data]
+[Invoke safe-schedule-generation skill]
+
+→ Creates mandatory database backup
+→ Verifies backup exists and is recent
+→ Confirms before proceeding
+
+"Backup verified at 2026-01-01 10:15:23.
+Database contains 150 residents, 45 faculty, 12,000 assignments.
+Proceed with migration?"
+
+[User confirms]
+→ Apply migration
+→ Verify success
+→ Keep backup for 30 days
+```
+
+### With systematic-debugger
+
+**Migration failure investigation:**
+```
+[Migration fails]
+[Invoke systematic-debugger skill]
+
+Phase 1: Explore
+→ Read migration file
+→ Check database state
+→ Review error logs
+
+Phase 2: Plan
+→ Hypothesis: FK constraint violation due to orphaned data
+→ Hypothesis: Data type mismatch
+→ Hypothesis: Missing dependency migration
+
+Phase 3: Debug
+→ Query database to find orphaned records
+→ Test migration in fresh database
+→ Isolate root cause
+
+Phase 4: Fix
+→ Update migration to handle edge case
+→ Test upgrade and downgrade
+→ Commit corrected migration
+```
+
+## Validation Checklist
+
+### Pre-Migration Checklist
+- [ ] Model changes are complete and tested
+- [ ] Understand data impact (how many rows affected?)
+- [ ] Have rollback plan ready
+- [ ] Database backup exists (if production-like data)
+- [ ] Know which environments need migration
+
+### Migration Generation Checklist
+- [ ] Generated with meaningful description
+- [ ] Revision ID is unique
+- [ ] `down_revision` points to correct parent
+- [ ] Both `upgrade()` and `downgrade()` present
+
+### Migration Review Checklist
+- [ ] Autogenerated code is correct (not all changes detected!)
+- [ ] `upgrade()` matches model changes
+- [ ] `downgrade()` reverses `upgrade()` exactly
+- [ ] No data loss in `downgrade()` (or documented)
+- [ ] Handles existing data correctly (backfills, defaults)
+- [ ] Foreign keys created with proper constraints
+- [ ] Indexes added for frequently queried columns
+
+### Testing Checklist
+- [ ] `alembic upgrade head` succeeds
+- [ ] Schema matches expected state (inspect with \d)
+- [ ] `alembic downgrade -1` succeeds
+- [ ] Schema returned to previous state
+- [ ] `alembic upgrade head` succeeds again (re-applies cleanly)
+- [ ] Application starts with new schema
+- [ ] Full test suite passes
+- [ ] API tests pass (no breaking changes)
+
+### Data Safety Checklist
+- [ ] Non-nullable columns have defaults or backfills
+- [ ] Foreign keys validated against existing data
+- [ ] Unique constraints won't fail on existing data
+- [ ] Data migrations preserve information
+- [ ] Downgrade doesn't delete critical data (or export first)
+
+### Commit Checklist
+- [ ] Model file(s) staged
+- [ ] Migration file(s) staged
+- [ ] Both committed together
+- [ ] Commit message describes change
+- [ ] No orphaned model changes without migrations
+- [ ] No orphaned migrations without model changes
+
+### Escalation Checklist
+
+**Escalate to human if ANY of these are true:**
+- [ ] Dropping tables with data
+- [ ] Dropping columns with data
+- [ ] Changing primary keys
+- [ ] Large-scale data migration (>10k rows affected)
+- [ ] Modifying ACGME compliance tables
+- [ ] Affects audit trail tables
+- [ ] Production database migration
+- [ ] Migration failure with unclear cause
+- [ ] Multiple conflicting migration heads
+- [ ] Breaking API changes required
 
 ## References
 
-- [MySQL ALTER TABLE Documentation](https://dev.mysql.com/doc/refman/8.0/en/alter-table.html)
-- [Database Migrations Done Right](https://www.brunton-spall.co.uk/post/2014/05/06/database-migrations-done-right/)
-- [Zero-Downtime Migrations](https://github.com/github/gh-ost)
+- `backend/alembic/` - Migration directory
+- `backend/alembic/env.py` - Alembic configuration
+- `backend/app/db/base.py` - Base model configuration
+- `backend/app/models/` - SQLAlchemy models
+- `/db-migrate` slash command

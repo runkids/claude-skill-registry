@@ -10,11 +10,12 @@ metadata:
   references:
     - 00_ROUTER.md
     - 01_SUMMARY.md
-    - 02_TRIGGERS.md
-    - 03_ALWAYS.md
+    - 02_CONTRACTS.md
+    - 03_TRIGGERS.md
     - 04_NEVER.md
-    - 05_PROCEDURE.md
-    - 06_FAILURES.md
+    - 05_ALWAYS.md
+    - 06_PROCEDURE.md
+    - 07_FAILURES.md
   scripts:
     - scripts/skill.sh
     - scripts/skill.ps1

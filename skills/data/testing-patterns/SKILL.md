@@ -1,272 +1,458 @@
 ---
 name: testing-patterns
-description: Testing patterns for Jest and Playwright. Use when writing tests, setting up test fixtures, or validating RLS enforcement. Routes to existing test conventions and provides evidence templates.
+description: |
+  Comprehensive testing patterns for Jest, Vitest, Playwright, and React Testing Library.
+  Use when writing unit tests, integration tests, or E2E tests.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-# Testing Patterns Skill
+# Testing Patterns & Best Practices
 
-## Purpose
+## Testing Principles
 
-Guide consistent and effective testing. Routes to existing test patterns and provides evidence templates for Linear.
+### 1. Test Behavior, Not Implementation
+- Test what the code does, not how it does it
+- Tests shouldn't break when refactoring
+- Focus on inputs and outputs
 
-## When This Skill Applies
+### 2. Arrange-Act-Assert (AAA)
+```typescript
+// Arrange - Set up test data
+const user = { name: 'John', email: 'john@example.com' }
 
-Invoke this skill when:
+// Act - Execute the code
+const result = validateUser(user)
 
-- Writing new unit tests
-- Creating integration tests
-- Setting up test fixtures with RLS
-- Running test suites
-- Packaging test evidence for Linear
+// Assert - Verify the outcome
+expect(result.isValid).toBe(true)
+```
 
-## Critical Rules
+### 3. Test Isolation
+- Each test should be independent
+- No shared state between tests
+- Clean up after each test
 
-### ❌ FORBIDDEN Patterns
+## Unit Testing Patterns
+
+### Basic Test Structure
 
 ```typescript
-// FORBIDDEN: Direct Prisma calls in tests (bypass RLS)
-const user = await prisma.user.findUnique({ where: { user_id } });
+describe('UserService', () => {
+  describe('createUser', () => {
+    it('should create user with valid data', async () => {
+      const userData = { name: 'John', email: 'john@example.com' }
+      const result = await userService.createUser(userData)
+      
+      expect(result).toMatchObject({
+        id: expect.any(String),
+        name: 'John',
+        email: 'john@example.com'
+      })
+    })
 
-// FORBIDDEN: Shared test state (causes flaky tests)
-let sharedUser: User;
-beforeAll(() => { sharedUser = createUser(); });
-
-// FORBIDDEN: Hard-coded IDs (test pollution)
-const userId = "user-123";
-
-// FORBIDDEN: Missing cleanup (leaky tests)
-it("creates user", async () => {
-  await prisma.user.create({ data: userData });
-  // No cleanup!
-});
+    it('should throw error for invalid email', async () => {
+      const userData = { name: 'John', email: 'invalid' }
+      
+      await expect(userService.createUser(userData))
+        .rejects
+        .toThrow('Invalid email format')
+    })
+  })
+})
 ```
 
-### ✅ CORRECT Patterns
+### Mocking Patterns
 
 ```typescript
-// CORRECT: Use RLS context helpers
-const user = await withSystemContext(prisma, "test", async (client) => {
-  return client.user.findUnique({ where: { user_id } });
-});
+// Mock a module
+jest.mock('./database', () => ({
+  query: jest.fn()
+}))
 
-// CORRECT: Isolated test state per test
-beforeEach(() => {
-  const testUser = createTestUser();
-});
+// Mock implementation
+const mockQuery = jest.mocked(query)
+mockQuery.mockResolvedValue([{ id: '1', name: 'Test' }])
 
-// CORRECT: Unique identifiers
-const userId = `user-${crypto.randomUUID()}`;
-const email = `test-${Date.now()}@example.com`;
+// Spy on method
+const spy = jest.spyOn(userService, 'sendEmail')
+spy.mockResolvedValue(undefined)
 
-// CORRECT: Proper cleanup
-afterEach(async () => {
-  await withSystemContext(prisma, "test", async (client) => {
-    await client.user.deleteMany({ where: { email: { contains: "test-" } } });
-  });
-});
+// Verify mock was called
+expect(mockQuery).toHaveBeenCalledWith(
+  'SELECT * FROM users WHERE id = ?',
+  ['123']
+)
+expect(mockQuery).toHaveBeenCalledTimes(1)
 ```
 
-## Test Directory Structure
-
-```
-__tests__/
-├── unit/              # Fast, isolated tests
-│   ├── components/    # React component tests
-│   ├── lib/           # Library function tests
-│   ├── services/      # Service layer tests
-│   └── user/          # User helper tests
-├── integration/       # API and database tests
-├── database/          # Database helper tests
-├── e2e/               # End-to-end tests (Playwright)
-├── payments/          # Payment flow tests
-└── setup.ts           # Global test setup
-```
-
-## Configuration Files
-
-- **Jest Config**: `jest.config.js`
-- **Test Setup**: `__tests__/setup.ts`
-- **Playwright Config**: `playwright.config.ts`
-
-## RLS-Aware Testing
-
-### Setting Up Test Context
-
-Always use RLS context helpers in tests:
+### Testing Async Code
 
 ```typescript
-import { withUserContext, withSystemContext } from "@/lib/rls-context";
-import { prisma } from "@/lib/prisma";
+// Async/await
+it('should fetch user data', async () => {
+  const user = await fetchUser('123')
+  expect(user.name).toBe('John')
+})
 
-describe("User payments", () => {
-  const testUserId = "test-user-123";
+// Testing promises that reject
+it('should handle fetch errors', async () => {
+  await expect(fetchUser('invalid'))
+    .rejects
+    .toThrow('User not found')
+})
 
-  beforeEach(async () => {
-    // Create test user with RLS context
-    await withSystemContext(prisma, "test", async (client) => {
-      await client.user.create({
-        data: {
-          user_id: testUserId,
-          email: `test-${Date.now()}@example.com`,
-          first_name: "Test",
-          last_name: "User",
-        },
-      });
-    });
-  });
-
-  it("should only see own payments", async () => {
-    const payments = await withUserContext(
-      prisma,
-      testUserId,
-      async (client) => {
-        return client.payments.findMany();
-      },
-    );
-    // RLS ensures only this user's payments returned
-    expect(payments.every((p) => p.user_id === testUserId)).toBe(true);
-  });
-});
+// Testing timers
+it('should debounce calls', () => {
+  jest.useFakeTimers()
+  
+  const callback = jest.fn()
+  const debounced = debounce(callback, 100)
+  
+  debounced()
+  debounced()
+  debounced()
+  
+  expect(callback).not.toHaveBeenCalled()
+  
+  jest.advanceTimersByTime(100)
+  
+  expect(callback).toHaveBeenCalledTimes(1)
+})
 ```
 
-### Test Isolation
-
-Use unique identifiers to prevent test pollution:
+### Testing Error Handling
 
 ```typescript
-const uniqueEmail = `test-${Date.now()}@example.com`;
-const uniqueUserId = `user-${crypto.randomUUID()}`;
+it('should handle network errors gracefully', async () => {
+  mockFetch.mockRejectedValue(new Error('Network error'))
+  
+  const result = await fetchDataWithRetry('/api/data')
+  
+  expect(result).toEqual({ error: 'Failed to fetch data' })
+  expect(mockFetch).toHaveBeenCalledTimes(3) // Retried 3 times
+})
 ```
 
-## Test Commands
-
-```bash
-# Run all unit tests
-yarn test:unit
-
-# Run integration tests
-yarn test:integration
-
-# Run specific test file
-yarn jest __tests__/unit/components/my-component.test.tsx
-
-# Run tests matching pattern
-yarn jest --testNamePattern="should handle"
-
-# Run with coverage
-yarn test:unit --coverage
-
-# Run E2E tests
-yarn test:e2e
-```
-
-## Common Patterns
+## React Testing Library Patterns
 
 ### Component Testing
 
 ```typescript
-import { render, screen, fireEvent } from "@testing-library/react";
-import { MyComponent } from "@/components/my-component";
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
-describe("MyComponent", () => {
-  it("renders correctly", () => {
-    render(<MyComponent />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
-  });
+describe('LoginForm', () => {
+  it('should submit form with credentials', async () => {
+    const onSubmit = jest.fn()
+    render(<LoginForm onSubmit={onSubmit} />)
+    
+    // Find elements by accessible roles/text
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitButton = screen.getByRole('button', { name: /sign in/i })
+    
+    // Interact with form
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } })
+    fireEvent.change(passwordInput, { target: { value: 'password123' } })
+    fireEvent.click(submitButton)
+    
+    // Assert
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        password: 'password123'
+      })
+    })
+  })
 
-  it("handles click events", async () => {
-    const onClickMock = jest.fn();
-    render(<MyComponent onClick={onClickMock} />);
-
-    fireEvent.click(screen.getByRole("button"));
-    expect(onClickMock).toHaveBeenCalledTimes(1);
-  });
-});
+  it('should display validation errors', async () => {
+    render(<LoginForm onSubmit={jest.fn()} />)
+    
+    fireEvent.click(screen.getByRole('button', { name: /sign in/i }))
+    
+    expect(await screen.findByText(/email is required/i)).toBeInTheDocument()
+    expect(await screen.findByText(/password is required/i)).toBeInTheDocument()
+  })
+})
 ```
 
-### API Route Testing
+### Testing Custom Hooks
 
 ```typescript
-import { GET } from "@/app/api/my-route/route";
-import { NextRequest } from "next/server";
+import { renderHook, act } from '@testing-library/react'
 
-describe("GET /api/my-route", () => {
-  it("returns 200 with data", async () => {
-    const request = new NextRequest("http://localhost:3000/api/my-route");
-    const response = await GET(request);
+describe('useCounter', () => {
+  it('should increment counter', () => {
+    const { result } = renderHook(() => useCounter(0))
+    
+    expect(result.current.count).toBe(0)
+    
+    act(() => {
+      result.current.increment()
+    })
+    
+    expect(result.current.count).toBe(1)
+  })
 
-    expect(response.status).toBe(200);
-    const data = await response.json();
-    expect(data).toHaveProperty("success", true);
-  });
-});
+  it('should reset counter', () => {
+    const { result } = renderHook(() => useCounter(5))
+    
+    act(() => {
+      result.current.increment()
+      result.current.reset()
+    })
+    
+    expect(result.current.count).toBe(5)
+  })
+})
 ```
 
-### Mocking Prisma
+### Testing with Context
 
 ```typescript
-jest.mock("@/lib/prisma", () => ({
-  prisma: {
-    user: {
-      findUnique: jest.fn(),
-      create: jest.fn(),
-    },
-  },
-}));
+const wrapper = ({ children }) => (
+  <AuthProvider>
+    <ThemeProvider>
+      {children}
+    </ThemeProvider>
+  </AuthProvider>
+)
+
+it('should use auth context', () => {
+  render(<UserProfile />, { wrapper })
+  
+  expect(screen.getByText('Logged in as John')).toBeInTheDocument()
+})
 ```
 
-## Evidence Template for Linear
+## Playwright E2E Patterns
 
-When completing test work, attach this evidence block:
+### Basic Page Testing
 
-```markdown
-**Test Execution Evidence**
+```typescript
+import { test, expect } from '@playwright/test'
 
-**Test Suite**: [unit/integration/e2e]
-**Files Changed**: [list files]
+test.describe('Authentication', () => {
+  test('should login successfully', async ({ page }) => {
+    await page.goto('/login')
+    
+    await page.fill('[data-testid="email"]', 'user@example.com')
+    await page.fill('[data-testid="password"]', 'password123')
+    await page.click('[data-testid="submit"]')
+    
+    await expect(page).toHaveURL('/dashboard')
+    await expect(page.locator('[data-testid="welcome"]'))
+      .toContainText('Welcome, User')
+  })
 
-**Test Results:**
-
-- Total Tests: [X]
-- Passed: [X]
-- Failed: [0]
-- Skipped: [X]
-
-**Coverage** (if applicable):
-
-- Statements: X%
-- Branches: X%
-- Functions: X%
-- Lines: X%
-
-**Commands Run:**
-
-\`\`\`bash
-yarn test:unit --coverage
-\`\`\`
-
-**Output:**
-[Paste relevant test output]
+  test('should show error for invalid credentials', async ({ page }) => {
+    await page.goto('/login')
+    
+    await page.fill('[data-testid="email"]', 'wrong@example.com')
+    await page.fill('[data-testid="password"]', 'wrongpassword')
+    await page.click('[data-testid="submit"]')
+    
+    await expect(page.locator('[data-testid="error"]'))
+      .toContainText('Invalid credentials')
+  })
+})
 ```
 
-## Pre-Push Validation
+### Page Object Model
 
-Always run before pushing:
+```typescript
+// pages/LoginPage.ts
+export class LoginPage {
+  constructor(private page: Page) {}
+
+  async goto() {
+    await this.page.goto('/login')
+  }
+
+  async login(email: string, password: string) {
+    await this.page.fill('[data-testid="email"]', email)
+    await this.page.fill('[data-testid="password"]', password)
+    await this.page.click('[data-testid="submit"]')
+  }
+
+  async getErrorMessage() {
+    return this.page.locator('[data-testid="error"]').textContent()
+  }
+}
+
+// tests/login.spec.ts
+test('should login', async ({ page }) => {
+  const loginPage = new LoginPage(page)
+  await loginPage.goto()
+  await loginPage.login('user@example.com', 'password123')
+  
+  await expect(page).toHaveURL('/dashboard')
+})
+```
+
+### API Testing with Playwright
+
+```typescript
+test('should create user via API', async ({ request }) => {
+  const response = await request.post('/api/users', {
+    data: {
+      name: 'John',
+      email: 'john@example.com'
+    }
+  })
+  
+  expect(response.ok()).toBeTruthy()
+  
+  const user = await response.json()
+  expect(user).toMatchObject({
+    id: expect.any(String),
+    name: 'John',
+    email: 'john@example.com'
+  })
+})
+```
+
+### Visual Testing
+
+```typescript
+test('should match screenshot', async ({ page }) => {
+  await page.goto('/dashboard')
+  
+  await expect(page).toHaveScreenshot('dashboard.png', {
+    maxDiffPixels: 100
+  })
+})
+```
+
+## Test Data Patterns
+
+### Factory Pattern
+
+```typescript
+// factories/user.factory.ts
+export function createUser(overrides?: Partial<User>): User {
+  return {
+    id: faker.string.uuid(),
+    name: faker.person.fullName(),
+    email: faker.internet.email(),
+    createdAt: new Date(),
+    ...overrides
+  }
+}
+
+// Usage in tests
+const user = createUser({ name: 'Custom Name' })
+```
+
+### Builder Pattern
+
+```typescript
+class UserBuilder {
+  private user: Partial<User> = {}
+
+  withName(name: string) {
+    this.user.name = name
+    return this
+  }
+
+  withEmail(email: string) {
+    this.user.email = email
+    return this
+  }
+
+  asAdmin() {
+    this.user.role = 'admin'
+    return this
+  }
+
+  build(): User {
+    return {
+      id: faker.string.uuid(),
+      name: this.user.name ?? faker.person.fullName(),
+      email: this.user.email ?? faker.internet.email(),
+      role: this.user.role ?? 'user',
+      createdAt: new Date()
+    }
+  }
+}
+
+// Usage
+const adminUser = new UserBuilder().withName('Admin').asAdmin().build()
+```
+
+## Coverage Requirements
+
+### Minimum Coverage Targets
+- **80% overall** for all code
+- **100% required** for:
+  - Financial calculations
+  - Authentication logic
+  - Security-critical code
+  - Core business logic
+
+### Running Coverage
 
 ```bash
-yarn ci:validate
+# Jest
+npm test -- --coverage
+
+# Vitest
+npx vitest run --coverage
+
+# Check thresholds
+npm test -- --coverage --coverageThreshold='{"global":{"lines":80}}'
 ```
 
-This runs:
+## Edge Cases to Test
 
-- Type checking
-- ESLint
-- Unit tests
-- Format check
+- [ ] Null/undefined inputs
+- [ ] Empty arrays/strings
+- [ ] Boundary values (0, -1, MAX_INT)
+- [ ] Unicode characters
+- [ ] Very long strings
+- [ ] Concurrent operations
+- [ ] Network failures
+- [ ] Timeout scenarios
+- [ ] Permission denied errors
 
-## Authoritative References
+## Anti-Patterns to Avoid
 
-- **Jest Config**: `jest.config.js`
-- **Test Setup**: `__tests__/setup.ts`
-- **RLS Context**: `lib/rls-context.ts`
-- **CI Validation**: `package.json` scripts
+### Testing Implementation Details
+```typescript
+// BAD: Testing internal state
+expect(component.state.isLoading).toBe(true)
+
+// GOOD: Testing visible behavior
+expect(screen.getByTestId('spinner')).toBeInTheDocument()
+```
+
+### Brittle Selectors
+```typescript
+// BAD: Fragile selectors
+page.locator('.btn-primary.mt-4.px-6')
+
+// GOOD: Semantic selectors
+page.locator('[data-testid="submit-button"]')
+page.getByRole('button', { name: 'Submit' })
+```
+
+### Over-Mocking
+```typescript
+// BAD: Mocking everything
+jest.mock('./utils')
+jest.mock('./helpers')
+jest.mock('./constants')
+
+// GOOD: Only mock external dependencies
+jest.mock('./api-client')
+```
+
+## Checklist
+
+- [ ] Tests follow AAA pattern
+- [ ] Each test has single assertion focus
+- [ ] No shared state between tests
+- [ ] Proper cleanup in afterEach
+- [ ] Meaningful test descriptions
+- [ ] Edge cases covered
+- [ ] Async code properly awaited
+- [ ] Coverage meets thresholds

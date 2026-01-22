@@ -1,7 +1,7 @@
 {
   "name": "nixos",
-  "repo": "jwiegley/claude-prompts",
-  "path": "skills/nixos/SKILL.md",
-  "source": "github.com/jwiegley/claude-prompts",
-  "downloaded_at": "2026-01-21T02:40:01.284665Z"
+  "repo": "kettleofketchup/dotfiles",
+  "path": ".claude/skills/nixos/SKILL.md",
+  "source": "github.com/kettleofketchup/dotfiles",
+  "downloaded_at": "2026-01-22T01:53:34.763785Z"
 }

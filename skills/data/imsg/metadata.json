@@ -1,7 +1,7 @@
 {
   "name": "imsg",
-  "repo": "clawdbot/skills",
-  "path": "skills/steipete/imsg/SKILL.md",
-  "source": "github.com/clawdbot/skills",
-  "downloaded_at": "2026-01-21T02:58:49.591875Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/imsg/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:35.948548Z"
 }

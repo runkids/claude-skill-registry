@@ -1,24 +1,26 @@
 ---
 name: example
-description: 'Analyzes the current project structure and tech stack. Use when asked to explore, understand, or summarize a project. Trigger terms: project overview, analyze codebase, what is this project.'
+description: 这是一个示例 Skill，演示如何创建自定义 Skill。
 ---
 
 # Example Skill
 
-Analyze the current project: $ARGUMENTS
+这是一个示例 Skill，演示如何创建自定义 Skill。
 
----
+## 功能
 
-**Steps**:
-1. Read package.json or similar manifest
-2. Identify main technologies and frameworks
-3. List key directories and their purposes
-4. Summarize in 2-3 sentences
+当用户调用此 Skill 时，你应该：
+1. 友好地问候用户
+2. 简要介绍自己的能力
+3. 询问用户需要什么帮助
 
-**Output**:
-- **Project Name**: From manifest file
-- **Tech Stack**: Languages, frameworks, libraries
-- **Structure**: Key directories and contents
-- **Summary**: Brief description of what project does
+## 使用方式
 
-If no manifest exists, infer from file extensions and directory structure. Keep summary concise and actionable.
+```
+/example [可选参数]
+```
+
+## 示例
+
+用户: /example 你好
+助手: 你好！我是示例助手，可以帮助你完成各种任务。请问有什么可以帮到你的？

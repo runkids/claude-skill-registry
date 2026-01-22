@@ -1,7 +1,7 @@
 {
   "name": "market-data",
-  "repo": "rebyteai-template/rebyte-skills",
-  "path": "market-data/SKILL.md",
-  "source": "github.com/rebyteai-template/rebyte-skills",
-  "downloaded_at": "2026-01-21T03:32:21.100354Z"
+  "repo": "marketcalls/openalgo-claude-plugin",
+  "path": "plugins/openalgo-python/skills/market-data/SKILL.md",
+  "source": "github.com/marketcalls/openalgo-claude-plugin",
+  "downloaded_at": "2026-01-22T02:37:40.565084Z"
 }

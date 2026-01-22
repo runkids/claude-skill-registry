@@ -1,7 +1,7 @@
 {
   "name": "templates",
-  "repo": "jayteealao/gitt-gaff",
-  "path": ".claude/skills/create-agent-skills/templates/simple-skill.md",
-  "source": "github.com/jayteealao/gitt-gaff",
-  "downloaded_at": "2026-01-21T04:02:04.940473Z"
+  "repo": "pianzhu/my-claude-skills",
+  "path": "skills/HelloAgents/templates/SKILL.md",
+  "source": "github.com/pianzhu/my-claude-skills",
+  "downloaded_at": "2026-01-22T04:10:53.693957Z"
 }

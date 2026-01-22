@@ -1,7 +1,7 @@
 {
   "name": "subagent-creator",
-  "repo": "stravinest/house-hold-account",
-  "path": ".claude/skills/subagent-creator/SKILL.md",
-  "source": "github.com/stravinest/house-hold-account",
-  "downloaded_at": "2026-01-21T03:13:42.362917Z"
+  "repo": "timequity/vibe-coder",
+  "path": "skills/subagent-creator/SKILL.md",
+  "source": "github.com/timequity/vibe-coder",
+  "downloaded_at": "2026-01-22T03:40:33.286757Z"
 }

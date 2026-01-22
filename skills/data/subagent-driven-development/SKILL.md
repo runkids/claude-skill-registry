@@ -1,189 +1,79 @@
 ---
 name: subagent-driven-development
-description: Use when executing implementation plans with independent tasks in the current session - dispatches fresh subagent for each task with code review between tasks, enabling fast iteration with quality gates
+description: Use when executing implementation plans with independent tasks in the current session
 ---
 
 # Subagent-Driven Development
 
-Execute plan by dispatching fresh subagent per task, with code review after each.
+Execute plan by dispatching fresh context per task, with two-stage review after each: spec compliance review first, then code quality review.
 
-**Core principle:** Fresh subagent per task + review between tasks = high quality, fast iteration
+**Core principle:** Fresh context per task + two-stage review = high quality, fast iteration
 
-## Overview
+## When to Use
 
-**vs. Executing Plans (parallel session):**
-- Same session (no context switch)
-- Fresh subagent per task (no context pollution)
-- Code review after each task (catch issues early)
-- Faster iteration (no human-in-loop between tasks)
-
-**When to use:**
-- Staying in this session
-- Tasks are mostly independent
-- Want continuous progress with quality gates
-
-**When NOT to use:**
-- Need to review plan first (use executing-plans)
-- Tasks are tightly coupled (manual execution better)
-- Plan needs revision (brainstorm first)
+- Have implementation plan? ✓
+- Tasks mostly independent? ✓
+- Want fast iteration? ✓
 
 ## The Process
 
-### 1. Load Plan
-
-Read plan file, create TodoWrite with all tasks.
-
-### 2. Execute Task with Subagent
-
-For each task:
-
-**Dispatch fresh subagent:**
 ```
-Task tool (general-purpose):
-  description: "Implement Task N: [task name]"
-  prompt: |
-    You are implementing Task N from [plan-file].
-
-    Read that task carefully. Your job is to:
-    1. Implement exactly what the task specifies
-    2. Write tests (following TDD if task says to)
-    3. Verify implementation works
-    4. Commit your work
-    5. Report back
-
-    Work from: [directory]
-
-    Report: What you implemented, what you tested, test results, files changed, any issues
+┌─────────────────────────────────────────────────────────────┐
+│                    Per Task Cycle                           │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   1. Read task from plan                                    │
+│   2. Execute task (implement, test, commit)                 │
+│   3. Self-review for spec compliance                        │
+│   4. Review for code quality                                │
+│   5. Fix any issues found                                   │
+│   6. Re-review until approved                               │
+│   7. Move to next task                                      │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-**Subagent reports back** with summary of work.
+## Two-Stage Review
 
-### 3. Review Subagent's Work
+### Stage 1: Spec Compliance Review
 
-**Dispatch code-reviewer subagent:**
-```
-Task tool (superpowers:code-reviewer):
-  Use template at requesting-code-review/code-reviewer.md
+Questions to answer:
+- Does the implementation match the spec?
+- Are all requirements addressed?
+- Did the task do what it was supposed to do?
 
-  WHAT_WAS_IMPLEMENTED: [from subagent's report]
-  PLAN_OR_REQUIREMENTS: Task N from [plan-file]
-  BASE_SHA: [commit before task]
-  HEAD_SHA: [current commit]
-  DESCRIPTION: [task summary]
-```
+**Must pass before Stage 2.**
 
-**Code reviewer returns:** Strengths, Issues (Critical/Important/Minor), Assessment
+### Stage 2: Code Quality Review
 
-### 4. Apply Review Feedback
+Questions to answer:
+- Is the code clean and readable?
+- Are there any bugs or edge cases?
+- Does it follow project conventions?
+- Are tests comprehensive?
 
-**If issues found:**
-- Fix Critical issues immediately
-- Fix Important issues before next task
-- Note Minor issues
+## Task Execution Flow
 
-**Dispatch follow-up subagent if needed:**
-```
-"Fix issues from code review: [list issues]"
-```
+For each task in plan:
 
-### 5. Mark Complete, Next Task
+1. **Announce:** "Starting Task N: [description]"
+2. **Execute:** Follow TDD (write test, watch fail, implement, watch pass)
+3. **Commit:** `git commit -m "feat: [task description]"`
+4. **Self-Review Stage 1:** Check spec compliance
+5. **Self-Review Stage 2:** Check code quality
+6. **Report:** "Task N complete. Summary: [what was done]"
 
-- Mark task as completed in TodoWrite
-- Move to next task
-- Repeat steps 2-5
+## Common Mistakes
 
-### 6. Final Review
-
-After all tasks complete, dispatch final code-reviewer:
-- Reviews entire implementation
-- Checks all plan requirements met
-- Validates overall architecture
-
-### 7. Complete Development
-
-After final review passes:
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
-
-## Example Workflow
-
-```
-You: I'm using Subagent-Driven Development to execute this plan.
-
-[Load plan, create TodoWrite]
-
-Task 1: Hook installation script
-
-[Dispatch implementation subagent]
-Subagent: Implemented install-hook with tests, 5/5 passing
-
-[Get git SHAs, dispatch code-reviewer]
-Reviewer: Strengths: Good test coverage. Issues: None. Ready.
-
-[Mark Task 1 complete]
-
-Task 2: Recovery modes
-
-[Dispatch implementation subagent]
-Subagent: Added verify/repair, 8/8 tests passing
-
-[Dispatch code-reviewer]
-Reviewer: Strengths: Solid. Issues (Important): Missing progress reporting
-
-[Dispatch fix subagent]
-Fix subagent: Added progress every 100 conversations
-
-[Verify fix, mark Task 2 complete]
-
-...
-
-[After all tasks]
-[Dispatch final code-reviewer]
-Final reviewer: All requirements met, ready to merge
-
-Done!
-```
-
-## Advantages
-
-**vs. Manual execution:**
-- Subagents follow TDD naturally
-- Fresh context per task (no confusion)
-- Parallel-safe (subagents don't interfere)
-
-**vs. Executing Plans:**
-- Same session (no handoff)
-- Continuous progress (no waiting)
-- Review checkpoints automatic
-
-**Cost:**
-- More subagent invocations
-- But catches issues early (cheaper than debugging later)
-
-## Red Flags
-
-**Never:**
-- Skip code review between tasks
-- Proceed with unfixed Critical issues
-- Dispatch multiple implementation subagents in parallel (conflicts)
-- Implement without reading plan task
-
-**If subagent fails task:**
-- Dispatch fix subagent with specific instructions
-- Don't try to fix manually (context pollution)
+- Skipping the spec compliance review
+- Starting code quality review before spec compliance passes
+- Moving to next task with open issues
+- Skipping the TDD cycle
+- Not committing after each task
 
 ## Integration
 
-**Required workflow skills:**
-- **writing-plans** - REQUIRED: Creates the plan that this skill executes
-- **requesting-code-review** - REQUIRED: Review after each task (see Step 3)
-- **finishing-a-development-branch** - REQUIRED: Complete development after all tasks (see Step 7)
-
-**Subagents must use:**
-- **test-driven-development** - Subagents follow TDD for each task
-
-**Alternative workflow:**
-- **executing-plans** - Use for parallel session instead of same-session execution
-
-See code-reviewer template: requesting-code-review/code-reviewer.md
+**Required skills:**
+- `test-driven-development` — Follow TDD for each task
+- `writing-plans` — Creates the plan this skill executes
+- `requesting-code-review` — Template for review process

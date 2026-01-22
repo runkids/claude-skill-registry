@@ -1,123 +1,64 @@
 ---
 name: commit
-description: Generate perfect semantic commit messages from staged changes. Use when the user says "commit", "/commit", asks for a commit message, wants to commit changes, or needs help writing a commit. Analyzes git diff to produce conventional commit format messages with appropriate type, scope, and description.
+description: Guidelines for writing commit messages and PR descriptions
 ---
 
-# Commit Message Generator
+# Commit Messages
 
-Generate semantic commit messages that tell the story of your changes.
+## Format
 
-## Workflow
+```
+type(scope): short message
+```
 
-1. Analyze staged changes (git diff --cached)
-2. Identify change type and scope
-3. Generate commit message following conventional commits
-4. Present for approval and commit
+## Types
 
-## Step 1: Gather Context
+- `feat` - new feature
+- `fix` - bug fix
+- `refactor` - code refactoring
+- `chore` - maintenance tasks (deps, config, tooling)
+
+## Scopes
+
+Always use the app or package name as scope:
+
+**Apps**: `admin`, `auth`, `editor`, `evals`, `main`
+
+**Packages**: `ai`, `auth`, `core`, `db`, `e2e`, `error-reporter`, `mailer`, `next`, `testing`, `tsconfig`, `ui`, `utils`
+
+**Inferred scopes** (when change doesn't fit an app/package):
+
+- `agents` - CLAUDE.md, AGENTS.md, `.claude/` folder
+- `ci` - GitHub workflows, CI/CD configuration
+- `deps` - dependency updates across multiple packages
+- `data` - data layer changes spanning multiple packages
+
+## Examples
+
+```
+feat(main): add lesson page
+fix(editor): always use custom lesson kind
+refactor(db): use enum for step kind
+chore(deps): update vercel ai sdk
+chore(agents): add commit skill
+fix(ci): update node version in workflow
+```
+
+## Rules
+
+- Use lowercase for entire message
+- No period at the end
+- Keep message under 72 characters
+- Use imperative mood ("add" not "added")
+
+## Author
+
+Always set the AI agent as the commit author:
 
 ```bash
-# Get staged changes
-git diff --cached
-
-# Get file list for scope detection
-git diff --cached --name-only
-
-# Check for related recent commits (style reference)
-git log -5 --oneline
+git commit -m "feat(main): add lesson page" --author="Claude Opus 4.5 <noreply@anthropic.com>"
 ```
 
-If nothing is staged, inform the user and suggest staging with `git add`.
+# PR Descriptions
 
-## Step 2: Analyze Changes
-
-Determine:
-- **Type**: What category of change is this?
-- **Scope**: What module/component is affected?
-- **Breaking**: Does this break existing functionality?
-
-### Commit Types
-
-| Type | When to Use |
-|------|-------------|
-| `feat` | New feature for users |
-| `fix` | Bug fix for users |
-| `docs` | Documentation only |
-| `style` | Formatting, no code change |
-| `refactor` | Code change, no feature/fix |
-| `perf` | Performance improvement |
-| `test` | Adding/fixing tests |
-| `build` | Build system, dependencies |
-| `ci` | CI configuration |
-| `chore` | Maintenance tasks |
-
-### Scope Detection
-
-Infer scope from file paths:
-- `src/auth/*` → `auth`
-- `components/Button/*` → `button`
-- `api/users.ts` → `users`
-- Multiple areas → omit scope or use parent
-
-## Step 3: Generate Message
-
-Format: `type(scope): description`
-
-Rules:
-- Imperative mood: "add" not "added" or "adds"
-- Lowercase first letter
-- No period at end
-- Max 72 characters for subject
-- Body for complex changes (what + why)
-
-### Examples
-
-**Simple feature:**
-```
-feat(auth): add password reset flow
-```
-
-**Bug fix with context:**
-```
-fix(api): handle null response from payment provider
-
-The Stripe API returns null for cancelled subscriptions.
-Add defensive check to prevent TypeError in billing page.
-```
-
-**Breaking change:**
-```
-feat(api)!: change authentication to OAuth 2.0
-
-BREAKING CHANGE: Remove support for API key authentication.
-All clients must migrate to OAuth tokens by v3.0.
-```
-
-**Multi-file refactor:**
-```
-refactor: consolidate database connection logic
-
-Move connection pooling from individual services to
-shared db module. Reduces connection overhead by 40%.
-```
-
-## Step 4: Commit
-
-After user approves the message:
-
-```bash
-git commit -m "$(cat <<'EOF'
-<commit message here>
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-EOF
-)"
-```
-
-## Quality Checklist
-
-- [ ] Type accurately reflects the change
-- [ ] Scope matches affected area (or omitted if broad)
-- [ ] Subject is clear without reading the diff
-- [ ] Body explains WHY for non-obvious changes
-- [ ] Breaking changes are marked with `!` and explained
+Keep descriptions brief. Focus on what changed. No need to list verification commands run.

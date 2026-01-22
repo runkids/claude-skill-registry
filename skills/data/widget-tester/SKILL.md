@@ -5,18 +5,12 @@ description: Expert assistant for testing the embeddable Bible widget functional
 
 # Widget Tester
 
-## Context Files (Read First)
-
-For widget and embed details, read from `Docs/context/`:
-- `Docs/context/supabase-map.md` - Embed Edge Function
-- `Docs/context/packages-map.md` - Shared packages
-
 ## Capabilities
-
 - Generate test HTML pages for widget validation
 - Validate embed API responses
 - Test different reference formats
 - Check audio integration
+- Create regression test cases
 
 ## Widget Overview
 
@@ -306,10 +300,7 @@ See full example in skill content...
 - [ ] Readable typography
 - [ ] Proper spacing
 
-## Related Skills
-
-| Situation | Delegate To |
-|-----------|-------------|
-| Write automated tests | `test-writer` |
-| Edge Function changes | `edge-function-generator` |
-| Bible lookup issues | `bible-lookup-helper` |
+## Related Documentation
+- See `Docs/08-WIDGET.md` for widget documentation
+- See `public/widget.js` for implementation
+- See `public/widget-test.html` for test examples

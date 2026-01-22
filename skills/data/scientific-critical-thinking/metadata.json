@@ -1,7 +1,7 @@
 {
   "name": "scientific-critical-thinking",
-  "repo": "danieldekay/copilot-config-promptops",
-  "path": "skills/scientific-critical-thinking/SKILL.md",
-  "source": "github.com/danieldekay/copilot-config-promptops",
-  "downloaded_at": "2026-01-21T03:05:07.242036Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/scientific/scientific-critical-thinking/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-22T03:18:32.209126Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "testing-skills-with-subagents",
-  "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/testing-skills-with-subagents/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-21T04:21:50.124527Z"
+  "repo": "laurenj3250-debug/vethub2.0",
+  "path": ".claude/skills/testing-skills-with-subagents/SKILL.md",
+  "source": "github.com/laurenj3250-debug/vethub2.0",
+  "downloaded_at": "2026-01-22T04:01:50.805682Z"
 }

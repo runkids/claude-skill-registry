@@ -1,7 +1,7 @@
 {
   "name": "moai-lang-shell",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": "skills/moai-lang-shell/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-21T03:35:44.173509Z"
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-lang-shell/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-22T02:19:50.599540Z"
 }

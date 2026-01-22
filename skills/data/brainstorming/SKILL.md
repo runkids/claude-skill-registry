@@ -1,58 +1,44 @@
 ---
-name: ctx-brainstorming
-description: Rapid ideation skill adapted from obra/superpowers to kick off cortex sessions. Use when defining scope, aligning on goals, or exploring solution space before coding.
-license: MIT (obra/superpowers)
-command: /ctx:brainstorm
+name: brainstorming
+description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
 ---
 
-# `/ctx:brainstorm`
+# 将想法转化为设计与规格说明
 
-Ported from obra/superpowers (MIT). Optimized for cortex so brainstorming outputs flow directly into Supersaiyan visuals and the Task TUI.
+## 概述
 
-## When to run
+通过自然的协作对话，帮助把想法完善为完整的设计与规格说明。
 
-- **Before touching code**: align on problem, success signals, blockers.
-- **After big context shifts**: new stakeholder, major dependency change, fresh repo checkout.
-- **When you feel stuck**: broaden solution space before diving back in.
+先理解当前项目上下文，然后一次只问一个问题来逐步细化想法。当你理解了要构建的内容后，将设计按小节呈现（每节约 200–300 个单词），并在每一节结束后确认到目前为止是否符合预期。
 
-## Inputs you need
+## 流程
 
-- Current goal or ticket reference.
-- Repo hints: relevant `modes/` (e.g., `modes/Super_Saiyan.md`) and `scenarios/` if they exist.
-- Constraints (deadline, platforms, regulatory, etc.).
+**理解想法：**
+- 先查看当前项目状态（代码文件、文档、最近的提交）
+- 一次只问一个问题，逐步细化想法
+- 能用选择题就优先用选择题；必要时也可以开放式提问
+- 每条消息只问一个问题；如果某个主题需要更深入，拆成多个问题
+- 重点理解：目标、约束、成功标准
 
-## Steps
+**探索方案：**
 
-1. **Set the stage**
-   - Load `modes/Super_Saiyan.md` (CTRL+P → "Super Saiyan Mode") for visual/tone context.
-   - Skim any `scenarios/ideation/*.md` tied to the feature.
-2. **Map the landscape**
-   - List known goals, success metrics, blockers, unknowns.
-   - Capture existing assets (agents, rules, workflows) that might help.
-3. **Generate options**
-   - Expand at least three distinct approaches (different modes, agents, or workflows).
-   - Note pros/cons, risk, required verification per approach.
-4. **Select candidate plan**
-   - Pick the best approach and flag what still needs validation.
-5. **Seed Tasks**
-   - Open the Task view (`T`) and add top-level tasks from the brainstorming takeaways (or run `/ctx:plan` next to formalize).
+- 提出 2–3 种不同方案，并说明取舍
+- 用对话式方式呈现选项，同时给出你的推荐与理由
+- 先给出你推荐的方案，再解释原因
 
-## Output format
+**呈现设计：**
 
-```
-### Problem / Goal
-### Success Signals
-### Constraints / Risks
-### Existing Assets
-### Options
-- Option A …
-- Option B …
-- Option C …
-### Chosen Direction & Next Checks
-```
+- 当你确信已经理解要构建的内容时，开始呈现设计
+- 将设计拆成每节约 200–300 个单词的小节
+- 每呈现一节后，询问目前为止是否符合预期
+- 覆盖：架构、组件、数据流、错误处理、测试
+- 如果有任何不清晰之处，随时回退并澄清
 
-Paste the summary into the chat (or save under `scenarios/`). Then move to `/ctx:plan`.
+## 关键原则
 
-## Resources
-
-- See `skills/collaboration/brainstorming/resources/examples.md` for ready-made follow-up prompts.
+- **一次只问一个问题** —— 不要用多个问题同时轰炸对方
+- **优先选择题** —— 在可行时，比开放式更容易回答
+- **坚决践行“你不会需要它”原则** —— 从所有设计中删去不必要的功能
+- **探索替代方案** —— 在定案前总是先给出 2–3 种方案
+- **增量验证** —— 分段呈现设计，并逐段确认
+- **保持灵活** —— 一旦出现不清晰之处，就回退并澄清

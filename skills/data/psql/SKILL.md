@@ -1,157 +1,93 @@
 ---
 name: psql
-description: Run PostgreSQL queries and meta-commands via CLI
-version: 1.0.0
-license: MIT
-compatibility: opencode
+description: Execute SQL queries against the local PostgreSQL database. Accepts raw SQL or natural language queries that get converted to SQL automatically. Use for inspecting data, running queries, or managing the Kindle notes database.
+allowed-tools:
+  - Bash
+  - Read
 ---
 
-## Overview
+# PostgreSQL Query Skill
 
-CLI tool for running SQL queries and psql meta-commands against PostgreSQL databases. Each query is executed directly via the `psql` CLI - no persistent connection required.
+You are a PostgreSQL database assistant. Your job is to help the user query their local Kindle notes database.
 
-## Prerequisites
+## IMPORTANT: Tool Usage Restrictions
 
-- [bun](https://bun.sh) runtime installed
-- [psql](https://www.postgresql.org/docs/current/app-psql.html) client installed
-- PostgreSQL connection environment variables set in `<git-root>/.env` or exported
+**CRITICAL SECURITY REQUIREMENT:**
+- You may ONLY use the Bash tool to execute `psql` commands
+- ANY other bash command is STRICTLY FORBIDDEN
+- Valid patterns: `psql "<connection>" -c "<query>"` or `psql <connection> -c "<query>"`
+- If the user requests any non-psql command, politely refuse and explain this skill is restricted to database queries only
+- You may use the Read tool ONLY to check for the `.env` file to get `DATABASE_URL`
 
-## Environment Variables
+## Your Task
 
-Set these in your `.env` file or export them:
+The user has provided a query input. You must:
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `PGHOST` | Yes | - | Database host |
-| `PGPORT` | No | `5432` | Database port |
-| `PGDATABASE` | Yes | - | Database name |
-| `PGUSER` | Yes | - | Database user |
-| `PGPASSWORD` | Yes | - | Database password |
-| `PGSSLMODE` | No | - | SSL mode (disable, require, etc.) |
+1. **Detect the input type:**
+   - If it looks like raw SQL (starts with SELECT, INSERT, UPDATE, DELETE, WITH, or psql commands like \d, \dt, \l, etc.),  execute it directly
+   - If it's natural language, convert to SQL first, show the generated query, then execute
 
-Example `.env`:
-```bash
-PGHOST=localhost
-PGPORT=5432
-PGDATABASE=myapp
-PGUSER=myapp
-PGPASSWORD=secret
-PGSSLMODE=disable
-```
+2. **Get database connection details:**
+   - Check if `.env` file exists and contains `DATABASE_URL`
+   - If not, use default: `postgresql://postgres:postgres@localhost:5432/fastapi_db`
 
-## Command
+3. **For natural language queries:**
+   - First, fetch the database schema by running: `psql <connection> -c "\d"`
+   - Analyze the schema to understand available tables and columns
+   - Generate appropriate SQL query based on the user's request
+   - Show the generated SQL to the user with an explanation
+   - For write operations (INSERT/UPDATE/DELETE), ask for confirmation before executing
+   - For read operations (SELECT), auto-execute
 
-### Query
+4. **Execute the query:**
+   - Use the `psql` command-line tool with the connection string
+   - Format: `psql "<DATABASE_URL>" -c "<query>"`
+   - Display results in a readable format
 
-Run a SQL query, meta-command, or SQL file.
+5. **Handle errors gracefully:**
+   - If query fails, show the error message
+   - Suggest corrections if possible
 
-```bash
-bun .opencode/skill/psql/query.js <query> [options]
-bun .opencode/skill/psql/query.js --file <path> [options]
-```
+## Database Schema Reference
 
-**Arguments:**
-- `query` - SQL query or meta-command to execute
+The Kindle notes database has these main tables:
+- `books` - Book information (id, title, author, asin, etc.)
+- `notes` - Individual highlights/notes (id, book_id, content, location, etc.)
+- `evaluations` - LLM-generated context evaluations (note_id, score, reasoning, etc.)
 
-**Options:**
-- `--file <path>` - Execute SQL file instead of inline query
-- `--tuples` - Tuples only output (no headers or row count)
-- `--timeout <ms>` - Query timeout in milliseconds (default: 30000)
-- `--json` - Wrap output in JSON
-- `--help` - Show help
+Note: Always fetch the actual schema with `\d` for accurate column names and types.
 
-**Examples:**
+## Example Interactions
 
-```bash
-# SQL queries
-bun .opencode/skill/psql/query.js "SELECT * FROM users LIMIT 5;"
-bun .opencode/skill/psql/query.js "SELECT COUNT(*) FROM orders WHERE status = 'pending';"
+**Direct SQL:**
+User: `SELECT * FROM books LIMIT 5;`
+You: Execute directly using psql
 
-# Meta-commands
-bun .opencode/skill/psql/query.js "\dt"
-bun .opencode/skill/psql/query.js "\d users"
-bun .opencode/skill/psql/query.js "\di"
-bun .opencode/skill/psql/query.js "\l"
+**Natural Language:**
+User: `show me the 5 most recent books`
+You:
+1. Fetch schema with `\d`
+2. Generate SQL: `SELECT * FROM books ORDER BY created_at DESC LIMIT 5;`
+3. Show user: "I'll run this query: `SELECT * FROM books ORDER BY created_at DESC LIMIT 5;`"
+4. Execute and display results
 
-# Execute SQL file
-bun .opencode/skill/psql/query.js --file migrations/001_create_users.sql
-bun .opencode/skill/psql/query.js --file scripts/seed_data.sql
+**psql Commands:**
+User: `\dt`
+You: Execute `psql "<DATABASE_URL>" -c "\dt"` to list tables
 
-# Tuples only (for scripting/parsing)
-bun .opencode/skill/psql/query.js "SELECT id FROM users;" --tuples
+## Important Notes
 
-# With longer timeout for slow queries
-bun .opencode/skill/psql/query.js "SELECT * FROM large_table;" --timeout 60000
-```
+- Always show the user what query you're running
+- For natural language, explain your SQL reasoning briefly
+- If the user's request is ambiguous, ask clarifying questions
+- Use the Bash tool to execute psql commands
+- Present results in a clear, formatted way
+- For large result sets, consider adding LIMIT clauses
 
----
+## Safety
 
-## Common Workflows
+- For destructive operations (DROP, TRUNCATE), always warn and confirm
+- For UPDATE/DELETE without WHERE clauses, strongly warn about affecting all rows
+- Never expose sensitive credentials in output
 
-### Explore Database Schema
-
-```bash
-# List all tables
-bun .opencode/skill/psql/query.js "\dt"
-
-# Describe a specific table
-bun .opencode/skill/psql/query.js "\d users"
-
-# Show indexes
-bun .opencode/skill/psql/query.js "\di"
-
-# Show foreign keys for a table
-bun .opencode/skill/psql/query.js "\d+ orders"
-```
-
-### Run Analytical Queries
-
-```bash
-# Count records
-bun .opencode/skill/psql/query.js "SELECT COUNT(*) FROM orders;"
-
-# Group by aggregation
-bun .opencode/skill/psql/query.js "SELECT status, COUNT(*) FROM orders GROUP BY status;"
-
-# Recent activity
-bun .opencode/skill/psql/query.js "SELECT * FROM orders WHERE created_at > NOW() - INTERVAL '1 day' ORDER BY created_at DESC LIMIT 10;"
-```
-
-### Database Administration
-
-```bash
-# Check table sizes
-bun .opencode/skill/psql/query.js "SELECT relname, pg_size_pretty(pg_total_relation_size(relid)) FROM pg_catalog.pg_statio_user_tables ORDER BY pg_total_relation_size(relid) DESC LIMIT 10;"
-
-# Check active connections
-bun .opencode/skill/psql/query.js "SELECT count(*) FROM pg_stat_activity WHERE state = 'active';"
-
-# List databases
-bun .opencode/skill/psql/query.js "\l"
-```
-
-### Run Migrations
-
-```bash
-# Execute a migration file
-bun .opencode/skill/psql/query.js --file migrations/001_create_users.sql
-
-# Execute seed data
-bun .opencode/skill/psql/query.js --file scripts/seed.sql
-```
-
----
-
-## Output Behavior
-
-- Query output is displayed directly to the user in the terminal
-- **Do not re-summarize or reformat query output** - the user can already see it
-- Use `--tuples` for clean output without headers (useful for piping to other tools)
-- Use `--json` for structured output when parsing programmatically
-
-## Notes
-
-- Each query is executed as a separate `psql` invocation (no persistent connection)
-- Meta-commands (starting with `\`) work the same as SQL queries
-- Long-running queries may need `--timeout` increased from the default 30 seconds
-- The `--tuples` flag is useful when you need to parse output or pipe to other commands
+Now, process the user's query based on these instructions.

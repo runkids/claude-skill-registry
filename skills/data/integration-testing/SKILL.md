@@ -1,168 +1,58 @@
 ---
 name: integration-testing
-description: Integration testing patterns for APIs and components. Use when testing component interactions, API endpoints with test databases, or service layer integration.
-context: fork
-agent: test-generator
-version: 1.0.0
-author: SkillForge
-user-invocable: false
+description: Enforces project integration testing conventions for facades, server actions, and database operations using Testcontainers with real PostgreSQL.
 ---
 
-# Integration Testing
+# Integration Testing Skill
 
-Test how components work together.
+## Purpose
 
-## API Integration Test
+This skill provides integration testing conventions for facades, server actions, and database operations. Integration tests use real database interactions via Testcontainers.
 
-```typescript
-import { describe, test, expect } from 'vitest';
-import request from 'supertest';
-import { app } from '../app';
+## Activation
 
-describe('POST /api/users', () => {
-  test('creates user and returns 201', async () => {
-    const response = await request(app)
-      .post('/api/users')
-      .send({ email: 'test@example.com', name: 'Test' });
+This skill activates when:
 
-    expect(response.status).toBe(201);
-    expect(response.body.id).toBeDefined();
-    expect(response.body.email).toBe('test@example.com');
-  });
+- Creating or modifying files in `tests/integration/`
+- Testing facades or business logic
+- Testing server actions
+- Testing database queries with real data
+- Working with Testcontainers
 
-  test('returns 400 for invalid email', async () => {
-    const response = await request(app)
-      .post('/api/users')
-      .send({ email: 'invalid', name: 'Test' });
+## File Patterns
 
-    expect(response.status).toBe(400);
-    expect(response.body.error).toContain('email');
-  });
-});
-```
+- `tests/integration/**/*.test.ts`
+- `tests/integration/**/*.integration.test.ts`
 
-## FastAPI Integration Test
+## Workflow
 
-```python
-import pytest
-from httpx import AsyncClient
-from app.main import app
+1. Detect integration test work (file path contains `tests/integration/`)
+2. Load `references/Integration-Testing-Conventions.md`
+3. Also load `testing-base` skill for shared conventions
+4. Apply integration test patterns with database helpers
+5. Ensure proper database cleanup between tests
 
-@pytest.fixture
-async def client():
-    async with AsyncClient(app=app, base_url="http://test") as ac:
-        yield ac
+## Key Patterns (REQUIRED)
 
-@pytest.mark.asyncio
-async def test_create_user(client: AsyncClient):
-    response = await client.post(
-        "/api/users",
-        json={"email": "test@example.com", "name": "Test"}
-    )
+### Database Management
 
-    assert response.status_code == 201
-    assert response.json()["email"] == "test@example.com"
+- Database auto-starts via global setup (Testcontainers)
+- Use `getTestDb()` from `tests/setup/test-db.ts`
+- Use `resetTestDatabase()` or `cleanupTable()` in `beforeEach`
+- Mock `@/lib/db` to use test database
 
-@pytest.mark.asyncio
-async def test_get_user_not_found(client: AsyncClient):
-    response = await client.get("/api/users/nonexistent")
+### Factory Usage
 
-    assert response.status_code == 404
-```
+- Use factories from `tests/fixtures/` for test data
+- Create realistic test scenarios with proper relationships
+- Clean up created data between tests
 
-## Test Database Setup
+### External Service Mocking
 
-```python
-import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+- Mock Sentry for breadcrumb verification
+- Mock CacheService for cache behavior control
+- Mock Redis client to avoid connection issues
 
-@pytest.fixture(scope="function")
-def db_session():
-    """Fresh database per test."""
-    engine = create_engine("sqlite:///:memory:")
-    Base.metadata.create_all(engine)
-    Session = sessionmaker(bind=engine)
-    session = Session()
+## References
 
-    yield session
-
-    session.close()
-    Base.metadata.drop_all(engine)
-```
-
-## React Component Integration
-
-```typescript
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { QueryClientProvider } from '@tanstack/react-query';
-
-test('form submits and shows success', async () => {
-  const user = userEvent.setup();
-
-  render(
-    <QueryClientProvider client={queryClient}>
-      <UserForm />
-    </QueryClientProvider>
-  );
-
-  await user.type(screen.getByLabelText('Email'), 'test@example.com');
-  await user.click(screen.getByRole('button', { name: /submit/i }));
-
-  expect(await screen.findByText(/success/i)).toBeInTheDocument();
-});
-```
-
-## Coverage Targets
-
-| Area | Target |
-|------|--------|
-| API endpoints | 70%+ |
-| Service layer | 80%+ |
-| Component interactions | 70%+ |
-
-## Key Decisions
-
-| Decision | Recommendation |
-|----------|----------------|
-| Database | In-memory SQLite or test container |
-| Execution | < 1s per test |
-| External APIs | MSW (frontend), VCR.py (backend) |
-| Cleanup | Fresh state per test |
-
-## Common Mistakes
-
-- Shared test database state
-- No transaction rollback
-- Testing against production APIs
-- Slow setup/teardown
-
-## Related Skills
-
-- `unit-testing` - Isolated tests
-- `msw-mocking` - Network mocking
-- `e2e-testing` - Full flow testing
-
-## Capability Details
-
-### api-testing
-**Keywords:** api, endpoint, httpx, testclient
-**Solves:**
-- Test FastAPI endpoints
-- Integration test patterns
-- API contract testing
-
-### database-testing
-**Keywords:** database, fixture, transaction, rollback
-**Solves:**
-- Test database operations
-- Use transaction rollback
-- Create test fixtures
-
-### test-plan-template
-**Keywords:** plan, template, strategy, coverage
-**Solves:**
-- Integration test plan template
-- Coverage strategy
-- Test organization
+- `references/Integration-Testing-Conventions.md` - Complete integration testing conventions

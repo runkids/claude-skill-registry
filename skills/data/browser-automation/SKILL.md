@@ -1,147 +1,259 @@
 ---
 name: browser-automation
-description: Browser automation via HTTP server. Supports multiple concurrent sessions for multi-user testing, saved flows, and profile-based auth persistence.
+description: Local Python-based browser automation toolkit using Playwright. Provides command-line tools for navigating, interacting with, and testing web applications. Supports clicking, typing, hovering, screenshots, content extraction, and JavaScript execution. Use this skill when you need to automate browser interactions, test web applications, or extract data from web pages.
+license: ISC
 ---
 
 # Browser Automation Skill
 
-Explore pages interactively, build reusable flows, and test multi-user scenarios.
+This skill provides local browser automation capabilities using Python and Playwright. All browser automation is performed locally via CLI commands.
 
-## Quick Start
+## When to Use This Skill
 
-```bash
-# Start server
-node .claude/skills/browser-automation/server.mjs &
+Use this skill when you need to:
+- Automate interactions with web pages (clicking, typing, navigating)
+- Test web application functionality
+- Extract content or data from web pages
+- Take screenshots of web pages
+- Execute custom JavaScript in browser context
+- Hover over elements to trigger UI states
 
-# Check available profiles
-curl http://localhost:9222/profiles
+## Prerequisites
 
-# Create a session
-curl -X POST http://localhost:9222/sessions \
-  -d '{"name": "test", "url": "http://localhost:3000", "profile": "member"}'
-
-# Inspect the page
-curl http://localhost:9222/inspect
-
-# Execute code
-curl -X POST http://localhost:9222/chunk \
-  -d '{"label": "Click button", "code": "await page.click(\"button.submit\");"}'
-
-# Shutdown
-curl -X POST http://localhost:9222/exit
-```
-
-## Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/profiles` | GET | List auth profiles with descriptions |
-| `/sessions` | GET | List active sessions |
-| `/sessions` | POST | Create session `{ name, url, profile?, headless? }` |
-| `/sessions/:name` | DELETE | Close session |
-| `/flows` | GET | List saved flows |
-| `/flows/:name/run` | POST | Run flow `{ profile?, startUrl?, headless? }` |
-| `/status` | GET | Session status |
-| `/inspect` | GET | Page state + screenshot. Add `?fullPage=true` for full-page screenshot |
-| `/chunk` | POST | Execute code `{ label, code }` |
-| `/navigate` | POST | Navigate `{ url, fullPage? }`. Set `fullPage: true` for full-page screenshot |
-| `/save-auth` | POST | Save auth `{ profile, description }` |
-| `/review` | GET | Review recorded chunks |
-| `/exit` | POST | Shutdown server |
-
-Use `?session=name` when multiple sessions are active.
-
-## Multi-User Testing
+Before using this skill, ensure Playwright is installed:
 
 ```bash
-# Create two sessions with different profiles
-curl -X POST http://localhost:9222/sessions \
-  -d '{"name": "creator", "url": "http://localhost:3000", "profile": "creator"}'
-curl -X POST http://localhost:9222/sessions \
-  -d '{"name": "viewer", "url": "http://localhost:3000", "profile": "member"}'
-
-# Creator does something
-curl -X POST "http://localhost:9222/chunk?session=creator" \
-  -d '{"label": "Publish", "code": "await page.click(\"button.publish\");"}'
-
-# Viewer sees it
-curl -X POST "http://localhost:9222/navigate?session=viewer" \
-  -d '{"url": "http://localhost:3000/models"}'
+pip install playwright
+playwright install chromium
 ```
 
-## Profiles
+## Available Tools
 
+All tools are implemented as subcommands in `assets/skills/browser-automation/scripts/browser_tools.py`. Each command is stateless - it launches a new browser instance, performs the action, and closes the browser.
+
+### browser_navigate
+
+Navigate to a URL and wait for the page to load.
+
+**Usage:**
 ```bash
-# List profiles
-curl http://localhost:9222/profiles
-
-# Create new profile (description required)
-curl -X POST http://localhost:9222/save-auth \
-  -d '{"profile": "moderator", "description": "User with mod permissions"}'
-
-# Refresh existing profile
-curl -X POST http://localhost:9222/save-auth \
-  -d '{"profile": "moderator"}'
+python assets/skills/browser-automation/scripts/browser_tools.py browser_navigate <url>
 ```
 
-| Profile | Description |
-|---------|-------------|
-| `moderator` | Mod permissions for content review |
-| `creator` | Established user with published content |
-| `member` | Standard logged-in user |
-| `new-user` | Fresh account for onboarding flows |
-
-## Flows
-
-Saved flows are reusable Playwright scripts.
-
+**Example:**
 ```bash
-# List flows
-curl http://localhost:9222/flows
-
-# Run a flow
-curl -X POST http://localhost:9222/flows/my-flow/run \
-  -d '{"profile": "member"}'
-
-# Run with custom start URL
-curl -X POST http://localhost:9222/flows/my-flow/run \
-  -d '{"profile": "member", "startUrl": "http://localhost:3000"}'
+python assets/skills/browser-automation/scripts/browser_tools.py browser_navigate https://example.com
 ```
 
-Flows are stored in `.browser/flows/*.js`.
+### browser_click
 
-## Playwright Code
+Click an element on a page using a CSS selector or text match.
 
-Chunks execute with `page` available:
-
-```javascript
-await page.click('button.submit');
-await page.fill('input[name="email"]', 'test@example.com');
-await page.waitForSelector('h1');
-await page.goto('https://example.com');
-const title = await page.textContent('h1');
-```
-
-## Mockup Comparison
-
-Open local HTML mockups with `file://` URLs, then compare to live pages:
-
+**Usage:**
 ```bash
-# 1. Open mockup and take full-page screenshot
-curl -X POST http://localhost:9222/sessions \
-  -d '{"name": "compare", "url": "file:///C:/path/to/mockup.html"}'
-curl "http://localhost:9222/inspect?session=compare&fullPage=true"
-
-# 2. Navigate to live page and screenshot
-curl -X POST "http://localhost:9222/navigate?session=compare" \
-  -d '{"url": "http://localhost:3000/page", "fullPage": true}'
-
-# 3. Compare screenshots in session folder
+python assets/skills/browser-automation/scripts/browser_tools.py browser_click <url> <selector> [--text TEXT]
 ```
 
-## File Locations
+**Parameters:**
+- `url`: URL to navigate to
+- `selector`: CSS selector for the element (optional if using --text)
+- `--text`: (Optional) Text to match instead of using selector
 
-- **Flows**: `.browser/flows/*.js`
-- **Profile metadata**: `.browser/profiles/profiles.meta.json`
-- **Auth state**: `.browser/profiles/*.json` (gitignored)
-- **Screenshots**: `.browser/sessions/{id}/screenshots/`
+**Examples:**
+```bash
+# Click by selector
+python assets/skills/browser-automation/scripts/browser_tools.py browser_click https://example.com "#submit-button"
+
+# Click by text
+python assets/skills/browser-automation/scripts/browser_tools.py browser_click https://example.com "button" --text "Submit"
+```
+
+### browser_type
+
+Type text into an input field, with optional form submission.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type <url> <selector> <text> [--submit]
+```
+
+**Parameters:**
+- `url`: URL to navigate to
+- `selector`: CSS selector for the input field
+- `text`: Text to type
+- `--submit`: (Optional) Press Enter after typing
+
+**Examples:**
+```bash
+# Type into field
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type https://example.com "#email" "user@example.com"
+
+# Type and submit
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type https://example.com "#search" "query" --submit
+```
+
+### browser_screenshot
+
+Capture a screenshot of the current page.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot <url> <path> [--full_page]
+```
+
+**Parameters:**
+- `url`: URL to navigate to
+- `path`: Output file path for the screenshot
+- `--full_page`: (Optional) Capture the entire scrollable page
+
+**Examples:**
+```bash
+# Viewport screenshot
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/screenshot.png
+
+# Full page screenshot
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/full.png --full_page
+```
+
+### browser_get_content
+
+Extract text or HTML content from the page or a specific element.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content <url> [--selector SELECTOR] [--html]
+```
+
+**Parameters:**
+- `url`: URL to navigate to
+- `--selector`: (Optional) CSS selector, defaults to 'body'
+- `--html`: (Optional) Return HTML instead of text
+
+**Examples:**
+```bash
+# Get all page text
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content https://example.com
+
+# Get specific element text
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content https://example.com --selector "#main-content"
+
+# Get HTML
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content https://example.com --selector "article" --html
+```
+
+### browser_hover
+
+Hover over an element to trigger hover states or tooltips.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_hover <url> <selector>
+```
+
+**Parameters:**
+- `url`: URL to navigate to
+- `selector`: CSS selector for the element
+
+**Example:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_hover https://example.com ".menu-item"
+```
+
+### browser_evaluate
+
+Execute custom JavaScript code in the browser context.
+
+**Usage:**
+```bash
+python assets/skills/browser-automation/scripts/browser_tools.py browser_evaluate <url> <script>
+```
+
+**Parameters:**
+- `url`: URL to navigate to
+- `script`: JavaScript code to execute
+
+**Examples:**
+```bash
+# Get page title
+python assets/skills/browser-automation/scripts/browser_tools.py browser_evaluate https://example.com "document.title"
+
+# Get element count
+python assets/skills/browser-automation/scripts/browser_tools.py browser_evaluate https://example.com "document.querySelectorAll('button').length"
+
+# Manipulate DOM
+python assets/skills/browser-automation/scripts/browser_tools.py browser_evaluate https://example.com "document.body.style.backgroundColor = 'red'"
+```
+
+## Best Practices
+
+1. **Always use full URLs**: Include the protocol (http:// or https://)
+2. **Wait for content**: The tool automatically waits for 'networkidle' state before actions
+3. **Use robust selectors**: Prefer ID selectors (#id) or specific CSS classes over generic tags
+4. **Error handling**: All commands exit with non-zero status on failure and print errors to stderr
+5. **Headless mode**: All operations run in headless Chromium by default for efficiency
+6. **Stateless design**: Each command runs independently with its own browser instance
+
+## Common Patterns
+
+### Form Automation
+```bash
+# Fill out a multi-field form
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type https://example.com/form "#name" "John Doe"
+python assets/skills/browser-automation/scripts/browser_tools.py browser_type https://example.com/form "#email" "john@example.com"
+python assets/skills/browser-automation/scripts/browser_tools.py browser_click https://example.com/form "#submit"
+```
+
+### Content Extraction
+```bash
+# Extract and save page content
+python assets/skills/browser-automation/scripts/browser_tools.py browser_get_content https://example.com --selector "article" > article.txt
+```
+
+### Visual Verification
+```bash
+# Capture page state
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/page.png
+
+# Capture full scrollable page
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/full.png --full_page
+```
+
+### Testing Interactive UI
+```bash
+# Test hover states
+python assets/skills/browser-automation/scripts/browser_tools.py browser_hover https://example.com ".dropdown-trigger"
+python assets/skills/browser-automation/scripts/browser_tools.py browser_screenshot https://example.com /tmp/hover-state.png
+```
+
+## Architecture
+
+- **Stateless design**: Each command launches a new browser instance
+- **No persistent sessions**: Browser closes after each operation
+- **Local execution**: All automation runs locally, no remote servers required
+- **Simple I/O**: Results printed to stdout, errors to stderr
+- **Timeout handling**: Configurable timeouts for navigation and element operations
+
+## Troubleshooting
+
+If you encounter issues:
+
+1. **Install Playwright browsers**: Run `playwright install chromium`
+2. **Check Python version**: Requires Python 3.8+
+3. **Verify URL accessibility**: Ensure the target URL is reachable
+4. **Inspect selectors**: Use browser DevTools to verify CSS selectors
+5. **Check for JavaScript errors**: Use browser_evaluate to check console logs
+
+## Advanced Usage
+
+For more complex automation scenarios that require maintaining state across multiple actions, see the examples directory or consider using Playwright directly in a Python script.
+
+## Related Skills
+
+- **webapp-testing**: For testing local web applications with server management
+- **web-artifacts-builder**: For creating web-based UI artifacts
+
+## Reference
+
+- Browser tools source: `scripts/browser_tools.py`
+- Playwright Documentation: https://playwright.dev/python/
+- Examples: `examples/`

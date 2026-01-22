@@ -1,295 +1,72 @@
-# project-init
-
 ---
-description: Initialize a new project folder structure with README, plan, tasks directory, and CLAUDE.md from a design specification
-tags: [project-init, project-structure, planning, scaffolding]
-techStack: [all]
-appliesTo: ["projects/*/", "initialize project", "create project"]
-alwaysApply: false
+name: project-init
+description: Initialize new projects using this template. Triggers: init, new, 新專案, 初始化, create project, 建立專案, bootstrap, scaffold project.
 ---
 
-## Purpose
+# 專案初始化技能
 
-Creates the foundational project structure under `docs/projects/{project-name}/` when starting a new development initiative. This skill implements Phase 3 (Generate) of the AI-AGENT-PLAYBOOK by producing scaffolded project artifacts from a design specification.
+## 描述
+將此專案作為模板，快速初始化新專案。
 
-## When to Use
+## 觸發條件
+- 「初始化新專案」
+- 「從模板建立專案」
+- 「create new project」
 
-- User says "initialize project", "create project", or "start project {name}"
-- A design specification exists and needs to be converted to an actionable project
-- Explicitly invoked with `/project-init {project-name}`
+## 功能
 
-## Inputs Required
+### 1. 模板複製
+複製此專案的架構到新目錄：
 
-| Input | Required | Source |
-|-------|----------|--------|
-| Project path | Yes | Path to `projects/{project-name}/` folder (name derived from folder) |
-| Design specification | Yes | Must exist at `projects/{project-name}/spec.md` |
-| Complexity estimate | No | Default: "medium" - affects task granularity |
-
-### Design Spec Location
-
-The design specification should live **with the project** at:
 ```
-projects/{project-name}/spec.md
-```
+「用這個模板建立 my-new-project」
 
-**Workflow:**
-
-1. **Operator creates project folder**: `projects/{descriptive-project-name}/`
-2. **Operator places spec**: `projects/{project-name}/spec.md`
-3. **Invoke skill**: `/project-init projects/{project-name}` or just provide the path
-4. **Skill derives project name** from the folder name automatically
-
-**Why root-level `projects/`?**
-- Separates active project work from reference documentation
-- Operator controls naming (descriptive, meaningful names)
-- Everything about a project lives in one folder
-- Clear traceability from design → implementation
-
-## Workflow
-
-### Step 1: Validate Inputs
-```
-IF project path provided:
-  EXTRACT project-name from folder name
-ELSE:
-  ASK user for project path
-
-IF projects/{project-name}/spec.md does NOT exist:
-  → STOP - "spec.md not found. Please create projects/{project-name}/spec.md first."
-
-IF projects/{project-name}/README.md already exists:
-  → WARN - "Project already initialized. Continue anyway?"
-  → Offer to view existing project or re-initialize
+執行：
+1. 複製目錄結構
+2. 重置 Git 歷史
+3. 更新專案名稱
+4. 清空 Memory Bank
+5. 重置 CHANGELOG
 ```
 
-### Step 2: Load Context
+### 2. 複製內容
+
+| 檔案/目錄 | 動作 |
+|-----------|------|
+| CONSTITUTION.md | 複製 |
+| .github/bylaws/ | 複製 |
+| .claude/skills/ | 複製 |
+| .github/workflows/ | 複製 |
+| .github/ISSUE_TEMPLATE/ | 複製 |
+| memory-bank/ | 複製結構，清空內容 |
+| README.md | 重置為模板 |
+| CHANGELOG.md | 重置為初始版本 |
+| .git/ | 重新初始化 |
+
+### 3. 互動式設定
+
+詢問用戶：
+- 專案名稱
+- 專案描述
+- 授權類型 (MIT/Apache/GPL)
+- 主要程式語言
+- 是否需要 Docker 支援
+
+## 輸出格式
+
 ```
-LOAD templates:
-  - docs/ai-knowledge/templates/project-README.template.md
-  - docs/ai-knowledge/templates/project-plan.template.md
-  
-LOAD projects/{project-name}/spec.md
-EXTRACT: problem statement, scope, success criteria, technical constraints
+🚀 專案初始化
+
+專案名稱: my-new-project
+位置: ~/projects/my-new-project
+
+✅ 目錄結構已建立
+✅ 憲法與子法已複製
+✅ Skills 已複製
+✅ CI/CD 已設定
+✅ Git 已初始化
+
+下一步：
+  cd ~/projects/my-new-project
+  code .
 ```
-
-### Step 2.5: Discover Related Resources
-
-**Search for related skills and knowledge docs using spec.md content:**
-
-1. **Extract keywords from spec.md:**
-   - Technology names (e.g., "Azure OpenAI", "Dataverse", "React")
-   - Feature types (e.g., "API endpoint", "PCF control", "plugin")
-   - Operations (e.g., "deploy", "authentication", "caching")
-
-2. **Search `.claude/skills/INDEX.md`:**
-   - Look for skills with matching `tags` or `techStack` in their YAML frontmatter
-   - Read relevant skill files for patterns and procedures
-   - Example: If spec mentions "deploy to Dataverse" → load `dataverse-deploy` skill
-
-3. **Search `docs/ai-knowledge/`:**
-   - Look for guides matching technologies or patterns in spec
-   - Example: If spec mentions "Azure OpenAI" → search for azure, openai, embeddings tags
-   - Load relevant architecture docs and guides
-
-4. **Load referenced ADRs:**
-   - If spec.md contains ADR references (e.g., "ADR-001") → load those ADRs
-   - Check `adr-aware` skill for resource-type mappings
-
-**Output:** Brief summary of discovered resources to use during project initialization.
-
-### Step 3: Create Folder Structure
-```
-projects/{project-name}/
-├── spec.md            # Design specification (input - already exists)
-├── README.md          # Project overview (generated)
-├── plan.md            # Implementation plan (generated)
-├── CLAUDE.md          # AI context file for this project (generated)
-├── tasks/             # Task files go here
-│   └── .gitkeep
-└── notes/             # Ephemeral working files
-    ├── .gitkeep
-    ├── debug/         # Debugging session artifacts
-    ├── spikes/        # Exploratory code/research
-    ├── drafts/        # Work-in-progress content
-    └── handoffs/      # Context reset summaries
-```
-
-**Notes directory purpose**: Store temporary artifacts during development (debug logs, spike code, drafts, handoff summaries). Contents may be deleted after project completion. See `task-execution.template.md` for detailed guidance.
-
-### Step 4: Generate README.md
-Use `project-README.template.md` structure:
-- **Title**: Project name in Title Case
-- **Quick Links**: Pre-fill with plan.md and tasks/ paths
-- **Overview**: Extract from design spec or prompt user
-- **Problem Statement**: Direct copy from design spec
-- **Proposed Solution**: High-level approach from design spec
-- **Scope**: In-scope/out-of-scope from design spec
-- **Graduation Criteria**: Success criteria as checklist
-
-### Step 5: Generate plan.md
-Use `project-plan.template.md` structure:
-- **Section 1 (Overview)**: Populated from design spec
-- **Section 5 (WBS)**: Create phase structure based on complexity:
-  - Simple: 2-3 phases
-  - Medium: 4-5 phases  
-  - Complex: 6+ phases with explicit dependencies
-- **Section 7 (Risks)**: Extract from design spec constraints
-- Leave detailed task breakdown for `task-create` skill
-
-### Step 6: Generate CLAUDE.md
-Create project-specific AI context file:
-```markdown
-# {Project Name} - AI Context
-
-## Project Status
-- **Phase**: Planning
-- **Last Updated**: {today}
-- **Next Action**: Run task-create to decompose plan
-
-## Key Files
-- `spec.md` - Original design specification (permanent reference)
-- `README.md` - Project overview and graduation criteria
-- `plan.md` - Implementation plan and WBS
-- `tasks/` - Individual task files (POML format)
-
-## Context Loading Rules
-1. Always load this file first when working on {project-name}
-2. Reference spec.md for design decisions and requirements
-3. Load relevant task file from tasks/ based on current work
-
-## Decisions Made
-<!-- Log key decisions here as project progresses -->
-
-## Current Constraints
-{extracted from design spec}
-```
-
-### Step 7: Output Summary
-```
-✅ Project initialized: projects/{project-name}/
-
-Created files:
-  - README.md (project overview)
-  - plan.md (implementation plan)
-  - CLAUDE.md (AI context)
-  - tasks/.gitkeep
-  - notes/.gitkeep (with subdirectories)
-
-Existing files:
-  - spec.md (design specification - input)
-
-Next steps:
-  1. Review README.md and plan.md for accuracy
-  2. Run /task-create to decompose plan into tasks
-  3. Create feature branch and optionally draft PR (see below)
-  4. Begin Phase 1 implementation
-```
-
-### Step 8: Create Feature Branch (Recommended)
-
-After project initialization, create a feature branch for isolation:
-
-```powershell
-# Create feature branch (naming matches project folder)
-git checkout -b feature/{project-name}
-
-# Commit project artifacts
-git add projects/{project-name}/
-git commit -m "feat({scope}): initialize {project-name} project"
-
-# Push to remote
-git push -u origin feature/{project-name}
-
-# Optional: Create draft PR for visibility
-gh pr create --draft --title "feat({scope}): {project-name}" \
-  --body "## Summary\nImplementation of {project-name}\n\n## Status\n- [x] Project initialized\n- [ ] Tasks created\n- [ ] Implementation\n- [ ] Ready for review"
-```
-
-**Why create branch now?**
-- Isolates project work from master
-- Enables incremental commits during implementation
-- Draft PR provides visibility to team
-- Clean merge when project completes
-
-## Conventions
-
-### Naming
-- Project folder: `kebab-case` (e.g., `sdap-refactor`, `spe-integration`)
-- Files: lowercase with hyphens
-- No abbreviations in project names unless well-known (e.g., `sdap`, `spe`)
-
-### Content Standards
-- README.md should be readable in under 2 minutes
-- plan.md WBS phases should map to logical milestones
-- Each phase in plan.md should have 3-7 tasks (decompose further if more)
-
-### Graduation Criteria
-Every project must have measurable graduation criteria:
-- At least one functional requirement (feature works)
-- At least one quality requirement (tests pass, no regressions)
-- Optional: performance, security, documentation requirements
-
-## Resources
-
-### Templates (Auto-loaded)
-- `docs/ai-knowledge/templates/project-README.template.md`
-- `docs/ai-knowledge/templates/project-plan.template.md`
-
-### Related Skills
-- **task-create**: Decompose plan.md into task files (run after project-init)
-- **design-to-project**: Full pipeline from design spec (includes project-init)
-
-## Examples
-
-### Example 1: Initialize from Existing Spec File
-**Trigger**: "/project-init projects/sdap-refactor" (spec already at `projects/sdap-refactor/spec.md`)
-
-**Result**:
-```
-projects/sdap-refactor/
-├── spec.md             # Already existed - used as input
-├── README.md           # Generated from spec.md
-├── plan.md             # 6 phases matching spec sections
-├── CLAUDE.md           # References spec.md as source
-├── tasks/
-└── notes/
-```
-
-### Example 2: Initialize FileViewer Enhancements
-**Trigger**: "/project-init projects/sdap-fileviewer-enhancements-1"
-
-**Result**:
-```
-projects/sdap-fileviewer-enhancements-1/
-├── spec.md             # Operator placed this first
-├── README.md           # Generated with goals, scope, criteria
-├── plan.md             # Phases: BFF endpoint, PCF update, performance
-├── CLAUDE.md           # Project-specific AI context
-├── tasks/
-└── notes/
-```
-
-### Example 3: Missing Spec Error
-**Trigger**: "/project-init projects/new-feature"
-
-**Result** (if spec.md doesn't exist):
-```
-❌ Cannot initialize: projects/new-feature/spec.md not found.
-
-Please create the spec file first:
-  1. Create folder: projects/new-feature/
-  2. Add design spec: projects/new-feature/spec.md
-  3. Re-run: /project-init projects/new-feature
-```
-
-## Validation Checklist
-
-Before completing project-init, verify:
-- [ ] spec.md exists and was read successfully
-- [ ] Project name derived from folder name correctly
-- [ ] README.md has problem statement from spec
-- [ ] plan.md has at least one WBS phase
-- [ ] CLAUDE.md references spec.md as source
-- [ ] Graduation criteria are measurable (not vague)
-- [ ] No PII or secrets in any generated file

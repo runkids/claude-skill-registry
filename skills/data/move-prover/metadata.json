@@ -1,7 +1,7 @@
 {
   "name": "move-prover",
   "repo": "raintree-technology/claude-starter",
-  "path": "templates/.claude/skills/aptos/move-prover/skill.md",
+  "path": ".claude/skills/aptos/move-prover/SKILL.md",
   "source": "github.com/raintree-technology/claude-starter",
-  "downloaded_at": "2026-01-21T01:18:17.417005Z"
+  "downloaded_at": "2026-01-22T02:31:17.241917Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "prd",
-  "repo": "ArvorCo/Relentless",
-  "path": ".claude/skills/prd/SKILL.md",
-  "source": "github.com/ArvorCo/Relentless",
-  "downloaded_at": "2026-01-21T04:05:51.430953Z"
+  "repo": "miethe/skillmeat",
+  "path": ".claude/docs/prd/PRD-002-skillmeat-cli-skill.md",
+  "source": "github.com/miethe/skillmeat",
+  "downloaded_at": "2026-01-22T03:31:01.223590Z"
 }

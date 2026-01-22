@@ -9,78 +9,127 @@ Browser automation that maintains page state across script executions. Write sma
 
 ## Choosing Your Approach
 
-- **Local/source-available sites**: Read the source code first to write selectors directly
-- **Unknown page layouts**: Use `getAISnapshot()` to discover elements and `selectSnapshotRef()` to interact with them
-- **Visual feedback**: Take screenshots to see what the user sees
+**Local/source-available sites**: If you have access to the source code (e.g., localhost or project files), read the code first to write selectors directly—no need for multi-script discovery.
+
+**Unknown page layouts**: If you don't know the structure of the page, use `getAISnapshot()` to discover elements and `selectSnapshotRef()` to interact with them. The ARIA snapshot provides semantic roles (button, link, heading) and stable refs that persist across script executions.
+
+**Visual feedback**: Take screenshots to see what the user sees and iterate on design or debug layout issues.
 
 ## Setup
 
-Two modes available. Ask the user if unclear which to use.
-
-### Standalone Mode (Default)
-
-Launches a new Chromium browser for fresh automation sessions.
+First, start the dev-browser server using the startup script:
 
 ```bash
 ./skills/dev-browser/server.sh &
 ```
 
-Add `--headless` flag if user requests it. **Wait for the `Ready` message before running scripts.**
+The script will automatically install dependencies and start the server. It will also install Chromium on first run if needed.
 
-### Extension Mode
+### Flags
 
-Connects to user's existing Chrome browser. Use this when:
+The server script accepts the following flags:
 
-- The user is already logged into sites and wants you to do things behind an authed experience that isn't local dev.
-- The user asks you to use the extension
+- `--headless` - Start the browser in headless mode (no visible browser window). Use if the user asks for it.
 
-**Important**: The core flow is still the same. You create named pages inside of their browser.
+**Wait for the `Ready` message before running scripts.** On first run, the server will:
 
-**Start the relay server:**
+- Install dependencies if needed
+- Download and install Playwright Chromium browser
+- Create the `tmp/` directory for scripts
+- Create the `profiles/` directory for browser data persistence
 
-```bash
-cd skills/dev-browser && npm i && npm run start-extension &
-```
+The first run may take longer while dependencies are installed. Subsequent runs will start faster.
 
-Wait for `Waiting for extension to connect...` followed by `Extension connected` in the console. To know that a client has connected and the browser is ready to be controlled.
-**Workflow:**
+**Important:** Scripts must be run with `bun x tsx` (not `bun run`) due to Playwright WebSocket compatibility.
 
-1. Scripts call `client.page("name")` just like the normal mode to create new pages / connect to existing ones.
-2. Automation runs on the user's actual browser session
+The server starts a Chromium browser with a REST API for page management (default: `http://localhost:9222`).
 
-If the extension hasn't connected yet, tell the user to launch and activate it. Download link: https://github.com/SawyerHood/dev-browser/releases
+## How It Works
+
+1. **Server** launches a persistent Chromium browser and manages named pages via REST API
+2. **Client** connects to the HTTP server URL and requests pages by name
+3. **Pages persist** - the server owns all page contexts, so they survive client disconnections
+4. **State is preserved** - cookies, localStorage, DOM state all persist between runs
 
 ## Writing Scripts
 
-> **Run all scripts from `skills/dev-browser/` directory.** The `@/` import alias requires this directory's config.
+Execute scripts inline using heredocs—no need to write files for one-off automation.
 
-Execute scripts inline using heredocs:
+> **CRITICAL: Always run scripts from `skills/dev-browser/`**
+>
+> Scripts must be executed from the `skills/dev-browser/` directory. The `@/` import alias (e.g., `@/client.js`) is configured in this directory's `tsconfig.json` and `package.json`. Running from any other directory will fail with:
+>
+> ```
+> ERR_MODULE_NOT_FOUND: Cannot find package '@/client.js'
+> ```
 
 ```bash
-cd skills/dev-browser && npx tsx <<'EOF'
-import { connect, waitForPageLoad } from "@/client.js";
-
+cd skills/dev-browser && bun x tsx <<'EOF'
+import { connect } from "@/client.js";
 const client = await connect();
-// Create page with custom viewport size (optional)
-const page = await client.page("example", { viewport: { width: 1920, height: 1080 } });
-
-await page.goto("https://example.com");
-await waitForPageLoad(page);
-
-console.log({ title: await page.title(), url: page.url() });
+const page = await client.page("main");
+// Your automation code here
 await client.disconnect();
 EOF
 ```
 
-**Write to `tmp/` files only when** the script needs reuse, is complex, or user explicitly requests it.
+**Only write to `tmp/` files when:**
+
+- The script needs to be reused multiple times
+- The script is complex and you need to iterate on it
+- The user explicitly asks for a saved script
+
+### Basic Template
+
+Use the `@/client.js` import path for all scripts.
+
+```bash
+cd skills/dev-browser && bun x tsx <<'EOF'
+import { connect, waitForPageLoad } from "@/client.js";
+
+const client = await connect();
+const page = await client.page("main"); // get or create a named page
+await page.setViewportSize({ width: 1280, height: 800 }); // Required for screenshots
+
+// Your automation code here
+await page.goto("https://example.com");
+await waitForPageLoad(page); // Wait for page to fully load
+
+// Always evaluate state at the end
+const title = await page.title();
+const url = page.url();
+console.log({ title, url });
+
+// Disconnect so the script exits (page stays alive on the server)
+await client.disconnect();
+EOF
+```
 
 ### Key Principles
 
-1. **Small scripts**: Each script does ONE thing (navigate, click, fill, check)
-2. **Evaluate state**: Log/return state at the end to decide next steps
-3. **Descriptive page names**: Use `"checkout"`, `"login"`, not `"main"`
-4. **Disconnect to exit**: `await client.disconnect()` - pages persist on server
-5. **Plain JS in evaluate**: `page.evaluate()` runs in browser - no TypeScript syntax
+1. **Small scripts**: Each script should do ONE thing (navigate, click, fill, check)
+2. **Evaluate state**: Always log/return state at the end to decide next steps
+3. **Use page names**: Use descriptive names like `"checkout"`, `"login"`, `"search-results"`
+4. **Disconnect to exit**: Call `await client.disconnect()` at the end of your script so the process exits cleanly. Pages persist on the server.
+5. **Plain JS in evaluate**: Always use plain JavaScript inside `page.evaluate()` callbacks—never TypeScript. The code runs in the browser which doesn't understand TS syntax.
+
+### Important Notes
+
+- **tsx runs without type-checking**: Scripts run with `bun x tsx` which transpiles TypeScript but does NOT type-check. Type errors won't prevent execution—they're just ignored.
+- **No TypeScript in browser context**: Code passed to `page.evaluate()`, `page.evaluateHandle()`, or similar methods runs in the browser. Use plain JavaScript only:
+
+```typescript
+// ✅ Correct: plain JavaScript in evaluate
+const text = await page.evaluate(() => {
+  return document.body.innerText;
+});
+
+// ❌ Wrong: TypeScript syntax in evaluate (will fail at runtime)
+const text = await page.evaluate(() => {
+  const el: HTMLElement = document.body; // TS syntax - don't do this!
+  return el.innerText;
+});
+```
 
 ## Workflow Loop
 
@@ -92,60 +141,44 @@ Follow this pattern for complex tasks:
 4. **Decide** - is the task complete or do we need another script?
 5. **Repeat** until task is done
 
-### No TypeScript in Browser Context
-
-Code passed to `page.evaluate()` runs in the browser, which doesn't understand TypeScript:
-
-```typescript
-// ✅ Correct: plain JavaScript
-const text = await page.evaluate(() => {
-  return document.body.innerText;
-});
-
-// ❌ Wrong: TypeScript syntax will fail at runtime
-const text = await page.evaluate(() => {
-  const el: HTMLElement = document.body; // Type annotation breaks in browser!
-  return el.innerText;
-});
-```
-
-## Scraping Data
-
-For scraping large datasets, intercept and replay network requests rather than scrolling the DOM. See [references/scraping.md](references/scraping.md) for the complete guide covering request capture, schema discovery, and paginated API replay.
-
 ## Client API
 
 ```typescript
 const client = await connect();
-
-// Get or create named page (viewport only applies to new pages)
-const page = await client.page("name");
-const pageWithSize = await client.page("name", { viewport: { width: 1920, height: 1080 } });
-
+const page = await client.page("name"); // Get or create named page
 const pages = await client.list(); // List all page names
 await client.close("name"); // Close a page
 await client.disconnect(); // Disconnect (pages persist)
 
-// ARIA Snapshot methods
-const snapshot = await client.getAISnapshot("name"); // Get accessibility tree
+// ARIA Snapshot methods for element discovery and interaction
+const snapshot = await client.getAISnapshot("name"); // Get ARIA accessibility tree
 const element = await client.selectSnapshotRef("name", "e5"); // Get element by ref
 ```
 
-The `page` object is a standard Playwright Page.
+The `page` object is a standard Playwright Page—use normal Playwright methods.
 
 ## Waiting
+
+Use `waitForPageLoad(page)` after navigation (checks document.readyState and network idle):
 
 ```typescript
 import { waitForPageLoad } from "@/client.js";
 
-await waitForPageLoad(page); // After navigation
-await page.waitForSelector(".results"); // For specific elements
-await page.waitForURL("**/success"); // For specific URL
+// Preferred: Wait for page to fully load
+await waitForPageLoad(page);
+
+// Wait for specific elements
+await page.waitForSelector(".results");
+
+// Wait for specific URL
+await page.waitForURL("**/success");
 ```
 
 ## Inspecting Page State
 
 ### Screenshots
+
+Take screenshots when you need to visually inspect the page:
 
 ```typescript
 await page.screenshot({ path: "tmp/screenshot.png" });
@@ -154,50 +187,119 @@ await page.screenshot({ path: "tmp/full.png", fullPage: true });
 
 ### ARIA Snapshot (Element Discovery)
 
-Use `getAISnapshot()` to discover page elements. Returns YAML-formatted accessibility tree:
+Use `getAISnapshot()` when you don't know the page layout and need to discover what elements are available. It returns a YAML-formatted accessibility tree with:
+
+- **Semantic roles** (button, link, textbox, heading, etc.)
+- **Accessible names** (what screen readers would announce)
+- **Element states** (checked, disabled, expanded, etc.)
+- **Stable refs** that persist across script executions
+
+```bash
+cd skills/dev-browser && bun x tsx <<'EOF'
+import { connect, waitForPageLoad } from "@/client.js";
+
+const client = await connect();
+const page = await client.page("main");
+
+await page.goto("https://news.ycombinator.com");
+await waitForPageLoad(page);
+
+// Get the ARIA accessibility snapshot
+const snapshot = await client.getAISnapshot("main");
+console.log(snapshot);
+
+await client.disconnect();
+EOF
+```
+
+#### Example Output
+
+The snapshot is YAML-formatted with semantic structure:
 
 ```yaml
 - banner:
   - link "Hacker News" [ref=e1]
   - navigation:
     - link "new" [ref=e2]
+    - link "past" [ref=e3]
+    - link "comments" [ref=e4]
+    - link "ask" [ref=e5]
+    - link "submit" [ref=e6]
+  - link "login" [ref=e7]
 - main:
   - list:
     - listitem:
-      - link "Article Title" [ref=e8]
+      - link "Article Title Here" [ref=e8]
+      - text: "528 points by username 3 hours ago"
       - link "328 comments" [ref=e9]
 - contentinfo:
   - textbox [ref=e10]
     - /placeholder: "Search"
 ```
 
-**Interpreting refs:**
+#### Interpreting the Snapshot
 
-- `[ref=eN]` - Element reference for interaction (visible, clickable elements only)
-- `[checked]`, `[disabled]`, `[expanded]` - Element states
-- `[level=N]` - Heading level
-- `/url:`, `/placeholder:` - Element properties
+- **Roles** - Semantic element types: `button`, `link`, `textbox`, `heading`, `listitem`, etc.
+- **Names** - Accessible text in quotes: `link "Click me"`, `button "Submit"`
+- **`[ref=eN]`** - Element reference for interaction. Only assigned to visible, clickable elements
+- **`[checked]`** - Checkbox/radio is checked
+- **`[disabled]`** - Element is disabled
+- **`[expanded]`** - Expandable element (details, accordion) is open
+- **`[level=N]`** - Heading level (h1=1, h2=2, etc.)
+- **`/url:`** - Link URL (shown as a property)
+- **`/placeholder:`** - Input placeholder text
 
-**Interacting with refs:**
+#### Interacting with Refs
 
-```typescript
-const snapshot = await client.getAISnapshot("hackernews");
-console.log(snapshot); // Find the ref you need
+Use `selectSnapshotRef()` to get a Playwright ElementHandle for any ref:
 
-const element = await client.selectSnapshotRef("hackernews", "e2");
+```bash
+cd skills/dev-browser && bun x tsx <<'EOF'
+import { connect, waitForPageLoad } from "@/client.js";
+
+const client = await connect();
+const page = await client.page("main");
+
+await page.goto("https://news.ycombinator.com");
+await waitForPageLoad(page);
+
+// Get the snapshot to see available refs
+const snapshot = await client.getAISnapshot("main");
+console.log(snapshot);
+// Output shows: - link "new" [ref=e2]
+
+// Get the element by ref and click it
+const element = await client.selectSnapshotRef("main", "e2");
 await element.click();
+
+await waitForPageLoad(page);
+console.log("Navigated to:", page.url());
+
+await client.disconnect();
+EOF
 ```
+
+## Debugging Tips
+
+1. **Use getAISnapshot** to see what elements are available and their refs
+2. **Take screenshots** when you need visual context
+3. **Use waitForSelector** before interacting with dynamic content
+4. **Check page.url()** to confirm navigation worked
 
 ## Error Recovery
 
-Page state persists after failures. Debug with:
+If a script fails, the page state is preserved. You can:
+
+1. Take a screenshot to see what happened
+2. Check the current URL and DOM state
+3. Write a recovery script to get back on track
 
 ```bash
-cd skills/dev-browser && npx tsx <<'EOF'
+cd skills/dev-browser && bun x tsx <<'EOF'
 import { connect } from "@/client.js";
 
 const client = await connect();
-const page = await client.page("hackernews");
+const page = await client.page("main");
 
 await page.screenshot({ path: "tmp/debug.png" });
 console.log({

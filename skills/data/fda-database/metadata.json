@@ -1,7 +1,7 @@
 {
   "name": "fda-database",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/fda-database/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-01-21T03:12:23.979916Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/database/fda-database/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:13.145933Z"
 }

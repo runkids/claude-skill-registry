@@ -1,7 +1,7 @@
 {
   "name": "webapp-testing",
-  "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/webapp-testing/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-21T04:21:50.502902Z"
+  "repo": "pianzhu/my-claude-skills",
+  "path": "skills/webapp-testing/SKILL.md",
+  "source": "github.com/pianzhu/my-claude-skills",
+  "downloaded_at": "2026-01-22T04:10:54.187207Z"
 }

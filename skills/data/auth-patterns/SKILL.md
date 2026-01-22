@@ -1,178 +1,402 @@
 ---
 name: auth-patterns
-description: Authentication and authorization patterns. Use when implementing login flows, JWT tokens, session management, password security, OAuth 2.1, Passkeys/WebAuthn, or role-based access control.
-context: fork
-agent: security-auditor
-version: 2.0.0
-tags: [security, authentication, oauth, passkeys, 2026]
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Write
-  - Edit
-  - Bash
-author: SkillForge
-user-invocable: false
+description: This skill should be used when the user asks about "authentication in Next.js", "NextAuth", "Auth.js", "middleware auth", "protected routes", "session management", "JWT", "login flow", or needs guidance on implementing authentication and authorization in Next.js applications.
+version: 1.0.0
 ---
 
-# Authentication Patterns
-
-Implement secure authentication with OAuth 2.1, Passkeys, and modern security standards.
+# Authentication Patterns in Next.js
 
 ## Overview
 
-- Login/signup flows
-- JWT token management
-- Session security
-- OAuth 2.1 with PKCE
-- Passkeys/WebAuthn
-- Multi-factor authentication
-- Role-based access control
+Next.js supports multiple authentication strategies. This skill covers common patterns including NextAuth.js (Auth.js), middleware-based protection, and session management.
 
-## Quick Reference
+## Authentication Libraries
 
-### Password Hashing (Argon2id)
+| Library | Best For |
+|---------|----------|
+| NextAuth.js (Auth.js) | Full-featured auth with providers |
+| Clerk | Managed auth service |
+| Lucia | Lightweight, flexible auth |
+| Supabase Auth | Supabase ecosystem |
+| Custom JWT | Full control |
 
-```python
-from argon2 import PasswordHasher
-ph = PasswordHasher()
-password_hash = ph.hash(password)
-ph.verify(password_hash, password)
+## NextAuth.js v5 Setup
+
+### Installation
+
+```bash
+npm install next-auth@beta
 ```
 
-### JWT Access Token
+### Configuration
 
-```python
-import jwt
-from datetime import datetime, timedelta, timezone
-payload = {
-    'user_id': user_id,
-    'type': 'access',
-    'exp': datetime.now(timezone.utc) + timedelta(minutes=15),
+```tsx
+// auth.ts
+import NextAuth from 'next-auth'
+import GitHub from 'next-auth/providers/github'
+import Credentials from 'next-auth/providers/credentials'
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  providers: [
+    GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+    Credentials({
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
+      },
+      authorize: async (credentials) => {
+        const user = await getUserByEmail(credentials.email)
+        if (!user || !verifyPassword(credentials.password, user.password)) {
+          return null
+        }
+        return user
+      },
+    }),
+  ],
+  callbacks: {
+    authorized: async ({ auth }) => {
+      return !!auth
+    },
+  },
+})
+```
+
+### API Route Handler
+
+```tsx
+// app/api/auth/[...nextauth]/route.ts
+import { handlers } from '@/auth'
+
+export const { GET, POST } = handlers
+```
+
+### Middleware Protection
+
+```tsx
+// middleware.ts
+export { auth as middleware } from '@/auth'
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/api/protected/:path*'],
 }
-token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 ```
 
-### OAuth 2.1 with PKCE (Required)
+## Getting Session Data
 
-```python
-import hashlib, base64, secrets
-code_verifier = secrets.token_urlsafe(64)
-digest = hashlib.sha256(code_verifier.encode()).digest()
-code_challenge = base64.urlsafe_b64encode(digest).rstrip(b'=').decode()
+### In Server Components
+
+```tsx
+// app/dashboard/page.tsx
+import { auth } from '@/auth'
+import { redirect } from 'next/navigation'
+
+export default async function DashboardPage() {
+  const session = await auth()
+
+  if (!session) {
+    redirect('/login')
+  }
+
+  return (
+    <div>
+      <h1>Welcome, {session.user?.name}</h1>
+    </div>
+  )
+}
 ```
 
-### Session Security
+### In Client Components
 
-```python
-app.config['SESSION_COOKIE_SECURE'] = True      # HTTPS only
-app.config['SESSION_COOKIE_HTTPONLY'] = True    # No JS access
-app.config['SESSION_COOKIE_SAMESITE'] = 'Strict'
+```tsx
+// components/user-menu.tsx
+'use client'
+
+import { useSession } from 'next-auth/react'
+
+export function UserMenu() {
+  const { data: session, status } = useSession()
+
+  if (status === 'loading') {
+    return <div>Loading...</div>
+  }
+
+  if (!session) {
+    return <SignInButton />
+  }
+
+  return (
+    <div>
+      <span>{session.user?.name}</span>
+      <SignOutButton />
+    </div>
+  )
+}
 ```
 
-## Token Expiry (2026 Guidelines)
+### Session Provider Setup
 
-| Token Type | Expiry | Storage |
-|------------|--------|---------|
-| Access | 15 min - 1 hour | Memory only |
-| Refresh | 7-30 days | HTTPOnly cookie |
+```tsx
+// app/providers.tsx
+'use client'
 
-## Anti-Patterns (FORBIDDEN)
+import { SessionProvider } from 'next-auth/react'
 
-```python
-# ❌ NEVER store passwords in plaintext
-user.password = request.form['password']
+export function Providers({ children }: { children: React.ReactNode }) {
+  return <SessionProvider>{children}</SessionProvider>
+}
 
-# ❌ NEVER use implicit OAuth grant
-response_type=token  # Deprecated in OAuth 2.1
+// app/layout.tsx
+import { Providers } from './providers'
 
-# ❌ NEVER skip rate limiting on login
-@app.route('/login')  # No rate limit!
-
-# ❌ NEVER reveal if email exists
-return "Email not found"  # Information disclosure
-
-# ✅ ALWAYS use Argon2id or bcrypt
-password_hash = ph.hash(password)
-
-# ✅ ALWAYS use PKCE
-code_challenge=challenge&code_challenge_method=S256
-
-# ✅ ALWAYS rate limit auth endpoints
-@limiter.limit("5 per minute")
-
-# ✅ ALWAYS use generic error messages
-return "Invalid credentials"
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  )
+}
 ```
 
-## Key Decisions
+## Sign In/Out Components
 
-| Decision | Recommendation |
-|----------|----------------|
-| Password hash | **Argon2id** > bcrypt |
-| Access token expiry | 15 min - 1 hour |
-| Refresh token expiry | 7-30 days with rotation |
-| Session cookie | HTTPOnly, Secure, SameSite=Strict |
-| Rate limit | 5 attempts per minute |
-| MFA | Passkeys > TOTP > SMS |
-| OAuth | 2.1 with PKCE (no implicit) |
+```tsx
+// components/auth-buttons.tsx
+import { signIn, signOut } from '@/auth'
 
-## Detailed Documentation
+export function SignInButton() {
+  return (
+    <form
+      action={async () => {
+        'use server'
+        await signIn('github')
+      }}
+    >
+      <button type="submit">Sign in with GitHub</button>
+    </form>
+  )
+}
 
-| Resource | Description |
-|----------|-------------|
-| [references/oauth-2.1-passkeys.md](references/oauth-2.1-passkeys.md) | OAuth 2.1, PKCE, Passkeys/WebAuthn |
-| [examples/auth-implementations.md](examples/auth-implementations.md) | Complete implementation examples |
-| [checklists/auth-checklist.md](checklists/auth-checklist.md) | Security checklist |
-| [templates/auth-middleware-template.py](templates/auth-middleware-template.py) | Flask/FastAPI middleware |
+export function SignOutButton() {
+  return (
+    <form
+      action={async () => {
+        'use server'
+        await signOut()
+      }}
+    >
+      <button type="submit">Sign out</button>
+    </form>
+  )
+}
+```
 
-## Related Skills
+## Middleware-Based Auth
 
-- `owasp-top-10` - Security fundamentals
-- `input-validation` - Data validation
-- `api-design-framework` - API security
+### Basic Pattern
 
-## Capability Details
+```tsx
+// middleware.ts
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-### password-hashing
-**Keywords:** password, hashing, bcrypt, argon2, hash
-**Solves:**
-- Securely hash passwords with modern algorithms
-- Configure appropriate cost factors
-- Migrate legacy password hashes
+const protectedRoutes = ['/dashboard', '/settings', '/api/protected']
+const authRoutes = ['/login', '/signup']
 
-### jwt-tokens
-**Keywords:** JWT, token, access token, claims, jsonwebtoken
-**Solves:**
-- Generate and validate JWT access tokens
-- Implement proper token expiration
-- Handle token refresh securely
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get('session')?.value
+  const { pathname } = request.nextUrl
 
-### oauth2-pkce
-**Keywords:** OAuth, PKCE, OAuth 2.1, authorization code, code verifier
-**Solves:**
-- Implement OAuth 2.1 with PKCE flow
-- Secure authorization for SPAs and mobile apps
-- Handle OAuth provider integration
+  // Redirect authenticated users away from auth pages
+  if (authRoutes.some(route => pathname.startsWith(route))) {
+    if (token) {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
+    return NextResponse.next()
+  }
 
-### passkeys-webauthn
-**Keywords:** passkey, WebAuthn, FIDO2, passwordless, biometric
-**Solves:**
-- Implement passwordless authentication
-- Configure WebAuthn registration and login
-- Support cross-device passkeys
+  // Protect routes
+  if (protectedRoutes.some(route => pathname.startsWith(route))) {
+    if (!token) {
+      const loginUrl = new URL('/login', request.url)
+      loginUrl.searchParams.set('callbackUrl', pathname)
+      return NextResponse.redirect(loginUrl)
+    }
+  }
 
-### session-management
-**Keywords:** session, cookie, session storage, logout, invalidate
-**Solves:**
-- Manage user sessions securely
-- Implement session invalidation on logout
-- Handle concurrent sessions
+  return NextResponse.next()
+}
 
-### role-based-access
-**Keywords:** RBAC, role, permission, authorization, access control
-**Solves:**
-- Implement role-based access control
-- Define permission hierarchies
-- Check authorization in routes
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+}
+```
+
+### With JWT Verification
+
+```tsx
+// middleware.ts
+import { NextResponse } from 'next/server'
+import { jwtVerify } from 'jose'
+
+const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+
+export async function middleware(request: NextRequest) {
+  const token = request.cookies.get('token')?.value
+
+  if (!token) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+
+  try {
+    const { payload } = await jwtVerify(token, secret)
+    // Token is valid, continue
+    return NextResponse.next()
+  } catch {
+    // Token is invalid
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+}
+```
+
+## Role-Based Access Control
+
+### Extending Session Types
+
+```tsx
+// types/next-auth.d.ts
+import { DefaultSession } from 'next-auth'
+
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      role: 'user' | 'admin'
+    } & DefaultSession['user']
+  }
+}
+
+// auth.ts
+export const { handlers, auth } = NextAuth({
+  callbacks: {
+    session: ({ session, token }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        role: token.role,
+      },
+    }),
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.role = user.role
+      }
+      return token
+    },
+  },
+})
+```
+
+### Role-Based Component
+
+```tsx
+// components/admin-only.tsx
+import { auth } from '@/auth'
+import { redirect } from 'next/navigation'
+
+export async function AdminOnly({ children }: { children: React.ReactNode }) {
+  const session = await auth()
+
+  if (session?.user?.role !== 'admin') {
+    redirect('/unauthorized')
+  }
+
+  return <>{children}</>
+}
+
+// Usage
+export default async function AdminPage() {
+  return (
+    <AdminOnly>
+      <AdminDashboard />
+    </AdminOnly>
+  )
+}
+```
+
+## Session Storage Options
+
+### JWT (Stateless)
+
+```tsx
+// auth.ts
+export const { auth } = NextAuth({
+  session: { strategy: 'jwt' },
+  // JWT stored in cookies, no database needed
+})
+```
+
+### Database Sessions
+
+```tsx
+// auth.ts
+import { PrismaAdapter } from '@auth/prisma-adapter'
+import { prisma } from '@/lib/prisma'
+
+export const { auth } = NextAuth({
+  adapter: PrismaAdapter(prisma),
+  session: { strategy: 'database' },
+  // Sessions stored in database
+})
+```
+
+## Custom Login Page
+
+```tsx
+// app/login/page.tsx
+'use client'
+
+import { signIn } from 'next-auth/react'
+import { useSearchParams } from 'next/navigation'
+
+export default function LoginPage() {
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard'
+
+  return (
+    <div className="flex flex-col gap-4">
+      <button
+        onClick={() => signIn('github', { callbackUrl })}
+        className="btn"
+      >
+        Sign in with GitHub
+      </button>
+      <button
+        onClick={() => signIn('google', { callbackUrl })}
+        className="btn"
+      >
+        Sign in with Google
+      </button>
+    </div>
+  )
+}
+```
+
+## Security Best Practices
+
+1. **Use HTTPS** in production
+2. **Set secure cookie flags** (HttpOnly, Secure, SameSite)
+3. **Implement CSRF protection** (built into NextAuth)
+4. **Validate redirect URLs** to prevent open redirects
+5. **Use environment variables** for secrets
+6. **Implement rate limiting** on auth endpoints
+7. **Hash passwords** with bcrypt or argon2
+
+## Resources
+
+For detailed patterns, see:
+- `references/middleware-auth.md` - Advanced middleware patterns
+- `references/session-management.md` - Session strategies
+- `examples/nextauth-setup.md` - Complete NextAuth.js setup

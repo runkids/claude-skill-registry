@@ -1,83 +1,360 @@
 ---
 name: user-story
-description: Creates well-structured user stories for software development and project management. Use when the user asks to write, create, or format a user story, or needs to document requirements, features, or tasks in user story format.
+description: ユーザーストーリーを作成し、優先順位付けを行う。SLCでスコープが決まった後、実装計画を立てる前に使用。「ユーザーストーリーを書きたい」「機能を整理したい」「優先順位をつけたい」「バックログを作りたい」などのリクエストで起動。
 ---
 
-# User Story Skill
+# ユーザーストーリー
 
-Create clear, actionable user stories following industry best practices.
+## 概要
 
-## Guidelines
+対話を通じてユーザーストーリーを作成し、以下を生成する：
+1. ユーザーストーリーリスト
+2. 受け入れ基準
+3. 優先順位付け（MoSCoW / ICE）
 
-- Use the standard user story format: "As a [type of user], I want [goal] so that [reason/benefit]"
-- Keep titles concise and descriptive
-- Write a brief 1-2 sentence summary explaining the context
-- **Be concise - avoid over-doing it with too much detail**
-- Focus on user value and outcomes, not implementation details
+## 参照ドキュメント
 
-## Structure
+- **ストーリー作成ガイド**: [references/story-guide.md](references/story-guide.md)
+  - 読み込みタイミング: フェーズ2でストーリーを作成する時
 
-Use the template provided in `template.md` to ensure consistency:
+## ワークフロー
 
-1. **Title**: Brief, descriptive headline starting with "As a..."
-2. **Summary**: 1-2 sentences providing context
-3. **Task List** (optional): Use for highly technical, non-user-facing work
-4. **Acceptance Criteria** (optional): Use for user-facing stories to define what "done" looks like
+### フェーズ1: コンテキストの確認
 
-**Important**: Stories typically have EITHER a task list OR acceptance criteria, not both. Choose based on the story type:
+対象プロダクトと既存ドキュメントを確認する。
 
-## Best Practices
+#### 1.1 前提ドキュメントの読み込み
 
-- **Keep it simple**: Don't over-engineer the story with unnecessary detail
-- Make acceptance criteria specific and measurable (when included)
-- Use "Given-When-Then" format sparingly and only when it adds clarity
-- Keep stories focused on a single piece of value
-- For task lists, list only essential implementation steps
-- For acceptance criteria, list only what's needed to verify completion
+```javascript
+Read({ file_path: "docs/PRODUCT_SPEC.md" })
+Read({ file_path: "docs/PROBLEM_DEFINITION.md" })
+```
 
-## Examples
+#### 1.2 コンテキストの活用
 
-### User-Facing Story (Acceptance Criteria)
+**ファイルが存在する場合**:
+- PRODUCT_SPEC.md: プロダクトのスコープ、コア価値を把握
+- PROBLEM_DEFINITION.md: ターゲットユーザー、ジョブを把握
 
-**Title**: As a user, I want to reset my password via email
+これらの情報を元に、フェーズ2のユーザータイプ特定を効率化。
 
-**Summary**: Users who forget their passwords need a secure way to regain access to their accounts.
+**遷移条件**: フェーズ2へ
 
-**Acceptance Criteria**:
+**ファイルが存在しない場合**:
+AskUserQuestionで対象プロダクトを確認。
 
-- User can request password reset from login page
-- System sends reset link to registered email
-- Reset link expires after 24 hours
-- User can set new password using valid link
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "どのプロダクト/機能のユーザーストーリーを作成しますか？",
+      header: "対象",
+      options: [
+        { label: "プロダクトを入力", description: "対象のプロダクトや機能領域" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
 
-### Technical Story (Task List)
+**遷移条件**: コンテキストが把握できたらフェーズ2へ
 
-**Title**: As a developer, I want to upgrade the database schema
+### フェーズ2: ユーザータイプの特定
 
-**Summary**: We need to migrate from the old schema to support new feature requirements.
+ストーリーの主語となるユーザータイプを洗い出す。
 
-**Task List**:
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "このプロダクトを使うユーザータイプは誰ですか？（複数可）",
+      header: "ユーザータイプ",
+      options: [
+        { label: "ユーザータイプを入力", description: "例: 開発者、管理者、ゲストユーザー" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
 
-- Create migration script
-- Test migration on staging environment
-- Schedule maintenance window
-- Execute migration on production
-- Verify data integrity
+**遷移条件**: ユーザータイプが1-3個特定できたらフェーズ3へ
 
-### Balanced Story (Both - Use Sparingly)
+### フェーズ3: ストーリーの作成
 
-**Title**: As an admin, I want to export user data to CSV
+各ユーザータイプについてストーリーを洗い出す。
 
-**Summary**: Administrators need to extract user data for reporting and compliance purposes.
+#### ストーリーフォーマット
 
-**Task List**:
+```
+As a [ユーザータイプ]
+I want to [やりたいこと]
+So that [得られる価値/理由]
+```
 
-- Implement CSV export endpoint
-- Add data filtering options
+**質問パターン**:
+- 「[ユーザータイプ]がこのプロダクトで最初にやりたいことは？」
+- 「それができたら、次に何をしたいですか？」
+- 「なぜそれをしたいのですか？」
+- 「それができないと何が困りますか？」
 
-**Acceptance Criteria**:
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "[ユーザータイプ]として、何ができるようになりたいですか？\n\nフォーマット: [やりたいこと] → [得られる価値]",
+      header: "ストーリー",
+      options: [
+        { label: "ストーリーを入力", description: "例: SQLを入力する → 改善案を得られる" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
 
-- Admin can select which fields to export
-- System handles 10,000+ users
-- File downloads automatically when ready
-- Export includes timestamp and admin username in filename
+#### ストーリーの粒度
+
+- **エピック**: 大きな機能群（複数ストーリーの親）
+- **ストーリー**: 1-3日で実装できる単位
+- **タスク**: ストーリーを分解した作業単位
+
+```
+エピック: クエリ最適化機能
+├── ストーリー: SQLを入力できる
+├── ストーリー: AIが改善案を生成する
+├── ストーリー: ベンチマーク結果を比較できる
+└── ストーリー: 結果をエクスポートできる
+```
+
+**遷移条件**: 主要なストーリーが10-20個出たらフェーズ4へ
+
+### フェーズ4: 受け入れ基準の定義
+
+各ストーリーの完了条件を明確にする。
+
+#### 受け入れ基準フォーマット（Given-When-Then）
+
+```
+Given [前提条件]
+When [アクション]
+Then [期待結果]
+```
+
+**例**:
+```
+ストーリー: As a 開発者, I want to SQLを入力する, So that 改善案を得られる
+
+受け入れ基準:
+- Given ログイン済みの状態で
+  When SQLを入力して送信ボタンを押す
+  Then AIが改善案を3つ以上提案する
+
+- Given 不正なSQLを入力した場合
+  When 送信ボタンを押す
+  Then エラーメッセージが表示される
+```
+
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "このストーリーが「完了」と言えるのはどんな時ですか？",
+      header: "受け入れ基準",
+      options: [
+        { label: "基準を入力", description: "Given-When-Then形式で" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+**遷移条件**: 主要なストーリーに受け入れ基準がついたらフェーズ5へ
+
+### フェーズ5: 優先順位付け
+
+ストーリーの優先順位を決定する。
+
+#### MoSCoW法
+
+| カテゴリ   | 説明                           |
+| ---------- | ------------------------------ |
+| **Must**   | なければリリースできない       |
+| **Should** | 重要だが、なくてもリリース可能 |
+| **Could**  | あると嬉しい                   |
+| **Won't**  | 今回はやらない                 |
+
+```javascript
+AskUserQuestion({
+  questions: [
+    {
+      question: "このストーリーの優先度は？",
+      header: "MoSCoW",
+      options: [
+        { label: "Must", description: "必須。これがないとリリースできない" },
+        { label: "Should", description: "重要だが、なくてもリリース可能" },
+        { label: "Could", description: "あると嬉しい" },
+        { label: "Won't", description: "今回はやらない" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+#### ICEスコアリング（代替手法）
+
+| 要素           | 説明               | スコア |
+| -------------- | ------------------ | ------ |
+| **Impact**     | ユーザーへの影響度 | 1-10   |
+| **Confidence** | 実現できる確信度   | 1-10   |
+| **Ease**       | 実装の容易さ       | 1-10   |
+
+ICEスコア = Impact × Confidence × Ease
+
+**遷移条件**: 全ストーリーに優先度がついたらフェーズ6へ
+
+### フェーズ6: ドキュメント生成
+
+```markdown
+# ユーザーストーリー
+
+## ユーザータイプ
+
+| タイプ | 説明 |
+|--------|------|
+| 開発者 | DBA不在チームの開発者 |
+
+## エピック一覧
+
+1. クエリ最適化機能
+2. 結果表示機能
+3. ...
+
+## ストーリー一覧
+
+### Must（必須）
+
+#### US-001: SQLを入力できる
+- **As a** 開発者
+- **I want to** SQLとスキーマを入力する
+- **So that** 改善案を得られる
+
+**受け入れ基準**:
+- [ ] Given ログイン済み When SQL入力して送信 Then 改善案が表示される
+- [ ] Given 不正SQL When 送信 Then エラー表示
+
+**エピック**: クエリ最適化機能
+
+---
+
+### Should（重要）
+
+#### US-002: ...
+
+---
+
+### Could（あると嬉しい）
+
+...
+
+---
+
+### Won't（今回はやらない）
+
+...
+
+## 優先順位サマリー
+
+| 優先度 | ストーリー数 |
+|--------|-------------|
+| Must | X |
+| Should | X |
+| Could | X |
+| Won't | X |
+```
+
+### 出力ファイル
+
+```javascript
+Write({
+  file_path: "docs/USER_STORIES.md",
+  content: userStoriesContent
+})
+```
+
+### フェーズ7: セルフレビュー（サブエージェント）
+
+生成したドキュメントのレビューをサブエージェントに委譲する。
+
+```javascript
+Task({
+  description: "ユーザーストーリーレビュー",
+  subagent_type: "general-purpose",
+  prompt: `
+以下のユーザーストーリードキュメントをレビューし、問題があれば修正してください。
+
+## レビュー対象ファイル
+- docs/USER_STORIES.md
+
+## レビュー観点
+
+1. **INVEST基準**: 各ストーリーがIndependent、Negotiable、Valuable、Estimable、Small、Testableか
+2. **フォーマットの一貫性**: As a / I want to / So that の形式が守られているか
+3. **受け入れ基準の具体性**: Given-When-Then形式で具体的に書かれているか
+4. **優先度の妥当性**: MoSCoWの分類が適切か、Must項目が多すぎないか
+5. **ストーリーの粒度**: 1-3日で実装可能なサイズか、大きすぎるものはないか
+
+## 出力形式
+
+1. 発見した問題のリスト（問題がない場合は「問題なし」）
+2. 各問題の修正内容
+3. 修正後のファイル更新（Editツールで修正）
+
+問題がなくなるまでレビューと修正を繰り返すこと。
+`
+})
+```
+
+## ストーリー作成のコツ
+
+### 良いストーリーの条件（INVEST）
+
+| 条件            | 説明                       |
+| --------------- | -------------------------- |
+| **I**ndependent | 他のストーリーに依存しない |
+| **N**egotiable  | 詳細は交渉可能             |
+| **V**aluable    | ユーザーに価値がある       |
+| **E**stimable   | 見積もり可能なサイズ       |
+| **S**mall       | 小さい（1-3日で完了）      |
+| **T**estable    | テスト可能                 |
+
+### 避けるべきストーリー
+
+```
+❌ 「データベースを設計する」
+   → ユーザー価値がない（技術タスク）
+
+❌ 「ユーザーとしてすべての機能を使いたい」
+   → 大きすぎる、具体性がない
+
+❌ 「管理者としてバグを修正したい」
+   → ストーリーではない
+```
+
+## 完了条件
+
+- [ ] ユーザータイプが特定されている
+- [ ] ストーリーが10-20個作成されている
+- [ ] 主要ストーリーに受け入れ基準がある
+- [ ] 全ストーリーに優先度がついている
+- [ ] USER_STORIES.mdが生成されている
+- [ ] セルフレビューが完了し、問題が解消されている
+
+## 関連スキル
+
+- **slc-ideation**: ストーリー作成前にスコープを決める場合
+- **usecase-description**: ストーリーを詳細化する場合
+- **planning-tasks**: ストーリーを実装タスクに分解する場合

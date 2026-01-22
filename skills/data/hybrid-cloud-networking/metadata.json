@@ -1,7 +1,7 @@
 {
   "name": "hybrid-cloud-networking",
-  "repo": "wshobson/agents",
-  "path": "plugins/cloud-infrastructure/skills/hybrid-cloud-networking/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-21T04:11:01.998255Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/cloud-infrastructure/skills/hybrid-cloud-networking/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-22T03:54:13.072362Z"
 }

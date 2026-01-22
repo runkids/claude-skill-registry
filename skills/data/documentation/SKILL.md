@@ -1,260 +1,234 @@
 ---
 name: documentation
-description: |
-  Technical documentation for Rust projects. Creates API docs, README files,
-  architecture guides, and contributor documentation. Follows Rust documentation
-  conventions with strict quality standards.
-license: Apache-2.0
+description: Write clear documentation following team standards
 ---
 
-You are a technical documentation specialist for open source Rust projects. You write clear, accurate, and maintainable documentation that helps users and contributors succeed.
+# Documentation Skill
 
-## Core Principles
-
-1. **Accuracy First**: Documentation must match the code
-2. **User-Focused**: Write for the reader's needs, not the writer's convenience
-3. **Maintainable**: Structure docs to survive code changes
-4. **Progressive Disclosure**: Start simple, add detail as needed
+Write clear, useful documentation that helps current and future developers.
 
 ## Documentation Types
 
-### 1. API Documentation (rustdoc)
-```rust
-/// Processes the input data according to the specified configuration.
-///
-/// This function validates the input, applies transformations, and returns
-/// the processed result. It handles both streaming and batch inputs.
-///
-/// # Arguments
-///
-/// * `input` - The data to process, must not be empty
-/// * `config` - Processing configuration options
-///
-/// # Returns
-///
-/// The processed data wrapped in `Result`. Returns an error if:
-/// - Input is empty
-/// - Configuration is invalid
-/// - Processing fails due to resource constraints
-///
-/// # Errors
-///
-/// Returns [`ProcessError::EmptyInput`] if the input slice is empty.
-/// Returns [`ProcessError::InvalidConfig`] if configuration validation fails.
-///
-/// # Examples
-///
-/// Basic usage:
-///
-/// ```rust
-/// use my_crate::{process, Config};
-///
-/// let input = vec![1, 2, 3];
-/// let config = Config::default();
-/// let result = process(&input, &config)?;
-/// assert_eq!(result.len(), 3);
-/// # Ok::<(), my_crate::ProcessError>(())
-/// ```
-///
-/// With custom configuration:
-///
-/// ```rust
-/// use my_crate::{process, Config};
-///
-/// let config = Config::builder()
-///     .batch_size(100)
-///     .timeout(Duration::from_secs(30))
-///     .build();
-///
-/// let result = process(&large_input, &config)?;
-/// # Ok::<(), my_crate::ProcessError>(())
-/// ```
-///
-/// # Panics
-///
-/// This function does not panic under normal conditions.
-///
-/// # Performance
-///
-/// This operation is O(n) where n is the input length.
-/// For inputs larger than 10,000 elements, consider using
-/// [`process_streaming`] for better memory efficiency.
-pub fn process(input: &[u8], config: &Config) -> Result<Vec<u8>, ProcessError> {
-    // ...
-}
+| Type | Location | Purpose |
+|------|----------|---------|
+| API Docs | `docs/api/` | Endpoint reference |
+| Architecture | `docs/architecture/` | System design |
+| Guides | `docs/guides/` | How-to tutorials |
+| ADRs | `docs/decisions/` | Decision records |
+| README | Root/module | Quick start |
+
+## Writing Principles
+
+### 1. Lead with the "Why"
+Before diving into details, explain the purpose.
+
+**Bad:**
+```markdown
+## Installation
+Run `npm install mylib`
 ```
 
-### 2. README Structure
+**Good:**
+```markdown
+## Installation
+MyLib provides utilities for date manipulation used throughout the application.
+
+Run `npm install mylib`
+```
+
+### 2. Show, Don't Just Tell
+Include examples for everything.
+
+**Bad:**
+```markdown
+The `formatDate` function formats dates.
+```
+
+**Good:**
+```markdown
+The `formatDate` function formats dates:
+
+```javascript
+formatDate(new Date())        // "January 20, 2026"
+formatDate(new Date(), 'short') // "1/20/26"
+```
+```
+
+### 3. Keep It Scannable
+Use headers, lists, and tables liberally.
+
+**Bad:**
+```markdown
+The API accepts several parameters. The first parameter is the user ID which
+must be a string. The second parameter is optional and specifies the format...
+```
+
+**Good:**
+```markdown
+### Parameters
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| userId | string | Yes | The user's unique identifier |
+| format | string | No | Output format (default: 'json') |
+```
+
+### 4. Maintain It
+Outdated documentation is worse than no documentation.
+
+- Update docs when code changes
+- Add "Last updated" timestamps
+- Review docs periodically
+
+## Document Templates
+
+### README Template
+
 ```markdown
 # Project Name
 
-Brief description (1-2 sentences) of what this project does.
-
-[![Crates.io](https://img.shields.io/crates/v/project-name.svg)](https://crates.io/crates/project-name)
-[![Documentation](https://docs.rs/project-name/badge.svg)](https://docs.rs/project-name)
-[![License](https://img.shields.io/crates/l/project-name.svg)](LICENSE)
-
-## Features
-
-- Feature 1: Brief description
-- Feature 2: Brief description
-- Feature 3: Brief description
-
-## Installation
-
-```toml
-[dependencies]
-project-name = "0.1"
-```
+Brief description of what this project does.
 
 ## Quick Start
 
-```rust
-use project_name::Client;
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = Client::new();
-    let result = client.do_something()?;
-    println!("{}", result);
-    Ok(())
-}
+```bash
+npm install
+npm run dev
 ```
 
-## Documentation
+## Usage
 
-- [API Reference](https://docs.rs/project-name)
-- [User Guide](./docs/guide.md)
-- [Examples](./examples/)
+[Basic usage examples]
+
+## Configuration
+
+[Environment variables and config options]
+
+## Development
+
+[How to set up local development]
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## License
-
-Licensed under Apache-2.0. See [LICENSE](LICENSE) for details.
+[How to contribute]
 ```
 
-### 3. Module Documentation
-```rust
-//! # Module Name
-//!
-//! Brief description of what this module provides.
-//!
-//! ## Overview
-//!
-//! Longer explanation of the module's purpose and how it fits
-//! into the larger system.
-//!
-//! ## Usage
-//!
-//! ```rust
-//! use crate::module_name::Feature;
-//!
-//! let feature = Feature::new();
-//! feature.do_thing();
-//! ```
-//!
-//! ## Architecture
-//!
-//! Explanation of key types and their relationships.
-//!
-//! ## See Also
-//!
-//! - [`related_module`] - For related functionality
-//! - [`other_type`] - For alternative approach
-```
+### API Endpoint Template
 
-### 4. CONTRIBUTING.md
 ```markdown
-# Contributing to Project Name
+# [Endpoint Name]
 
-## Getting Started
+[Brief description]
 
-1. Fork the repository
-2. Clone your fork: `git clone https://github.com/you/project.git`
-3. Create a branch: `git checkout -b feature/your-feature`
+## Request
 
-## Development Setup
+`[METHOD] /path/{param}`
+
+### Parameters
+
+| Name | Type | In | Required | Description |
+|------|------|-----|----------|-------------|
+| param | string | path | Yes | [Description] |
+
+### Body
+
+```json
+{
+  "field": "value"
+}
+```
+
+## Response
+
+### Success (200)
+
+```json
+{
+  "id": "123",
+  "status": "success"
+}
+```
+
+### Errors
+
+| Code | Description |
+|------|-------------|
+| 400 | Invalid request |
+| 404 | Resource not found |
+
+## Example
 
 ```bash
-# Install Rust (if needed)
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Build the project
-cargo build
-
-# Run tests
-cargo test
-
-# Run lints
-cargo clippy
+curl -X POST https://api.example.com/endpoint \
+  -H "Authorization: Bearer token" \
+  -d '{"field": "value"}'
+```
 ```
 
-## Code Style
+### ADR Template
 
-- Run `cargo fmt` before committing
-- All public items must have documentation
-- Follow existing patterns in the codebase
+```markdown
+# [Number]. [Title]
 
-## Commit Messages
+## Status
+[Proposed | Accepted | Deprecated]
 
-Use conventional commits:
-- `feat: add new feature`
-- `fix: resolve bug in parser`
-- `docs: update README`
-- `refactor: simplify error handling`
+## Context
+[Why we need to make this decision]
 
-## Pull Request Process
+## Decision
+[What we decided]
 
-1. Update documentation for any changed behavior
-2. Add tests for new functionality
-3. Ensure CI passes
-4. Request review from maintainers
-
-## Code of Conduct
-
-Be respectful and constructive. See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+## Consequences
+[What this means going forward]
 ```
 
-## Documentation Standards
+## Code Comments
 
-### Token Limits (Conciseness)
-| Type | Maximum |
-|------|---------|
-| Function doc summary | 1 line |
-| Module doc overview | 3-5 lines |
-| README description | 2 sentences |
-| Example code | 10 lines |
+### When to Comment
 
-### Required Sections
-- **Public functions**: Summary, Arguments, Returns, Errors, Examples
-- **Public types**: Summary, Fields (for structs), Variants (for enums)
-- **Modules**: Overview, Usage example, Key types
+| Do Comment | Don't Comment |
+|------------|---------------|
+| Complex algorithms | Obvious code |
+| Business logic rationale | What the code does |
+| Non-obvious gotchas | Every function |
+| API contracts | Redundant info |
 
-### Documentation Testing
-```bash
-# Test documentation examples
-cargo test --doc
+### Comment Style
 
-# Generate and check docs
-cargo doc --no-deps
+```javascript
+// BAD: Increment counter
+counter++;
 
-# Check for broken links
-cargo doc --no-deps 2>&1 | grep "warning"
+// GOOD: Rate limiting: allow 100 requests per minute per user
+if (requestCount > 100) {
+  throw new RateLimitError();
+}
+
+/**
+ * Calculate the total price including discounts and tax.
+ *
+ * Note: Discounts are applied before tax, per accounting requirements.
+ * See ADR-015 for the decision rationale.
+ */
+function calculateTotal(items, discountCode) {
+  // ...
+}
 ```
 
-## Constraints
+## Best Practices
 
-- No documentation without code verification
-- Examples must compile and run
-- Keep docs in sync with code changes
-- Don't document internal implementation details
-- Avoid marketing language
+1. **Write for your audience** - New developer? Expert? Adjust detail level.
+2. **Use consistent terminology** - Define terms and stick to them.
+3. **Include troubleshooting** - What can go wrong and how to fix it.
+4. **Link to related docs** - Don't duplicate, reference.
+5. **Test your docs** - Follow your own instructions to verify they work.
 
-## Success Metrics
+## Documentation Review Checklist
 
-- All public items documented
-- Documentation examples compile
-- README enables quick start
-- Contributors can onboard independently
+- [ ] Purpose is clear from the start
+- [ ] Examples are included and working
+- [ ] Structure is scannable
+- [ ] No broken links
+- [ ] Code snippets are correct
+- [ ] Last updated date is current

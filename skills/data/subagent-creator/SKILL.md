@@ -1,127 +1,168 @@
 ---
 name: subagent-creator
-description: Create specialized Claude Code sub-agents with custom system prompts and tool configurations. Use when users ask to create a new sub-agent, custom agent, specialized assistant, or want to configure task-specific AI workflows for Claude Code.
+description: Guide for creating effective subagents (custom agents). Use when users want to create a new subagent that can be dispatched via Task tool for autonomous work. Covers frontmatter fields (name, description, tools, model, permissionMode, skills), prompt design, and when to use subagents vs skills.
 ---
 
-# Sub-agent Creator
+# Subagent Creator
 
-Create specialized AI sub-agents for Claude Code that handle specific tasks with customized prompts and tool access.
+Create effective subagents that handle autonomous tasks via the Task tool.
 
-## Sub-agent File Format
+## Subagents vs Skills
 
-Sub-agents are Markdown files with YAML frontmatter stored in:
-- **Project**: `.claude/agents/` (higher priority)
-- **User**: `~/.claude/agents/` (lower priority)
+| Aspect | Subagent | Skill |
+|--------|----------|-------|
+| **Invocation** | Explicit via Task tool | Auto-triggered by context |
+| **Context** | Isolated (fresh context window) | Shared with parent |
+| **Complexity** | Single .md file | Folder with resources |
+| **Use case** | Autonomous discrete tasks | Guidance and procedures |
+| **Nesting** | Cannot spawn other subagents | Can reference other skills |
+
+**Use subagent when:**
+- Task is discrete and autonomous
+- Fresh context window is beneficial
+- Task can run in parallel with other work
+- Specialized tool restrictions needed
+
+**Use skill when:**
+- Guidance needed throughout conversation
+- Context sharing is important
+- Multiple resources (scripts, references) needed
+
+## Subagent Structure
+
+```
+agents/
+└── agent-name.md
+    ├── YAML frontmatter (metadata)
+    └── Markdown body (system prompt)
+```
+
+### Frontmatter Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Lowercase, hyphens only (e.g., `code-reviewer`) |
+| `description` | Yes | When to use - this triggers dispatch decisions |
+| `tools` | No | Comma-separated: `Bash, Glob, Grep, Read, Edit, Write` |
+| `model` | No | `sonnet`, `opus`, `haiku`, or `inherit` (default: inherit) |
+| `permissionMode` | No | `default`, `acceptEdits`, `bypassPermissions`, `plan` |
+| `skills` | No | Comma-separated skills to auto-load |
+
+### Tools Reference
+
+```
+Read-only:     Glob, Grep, Read, WebFetch, WebSearch
+Write:         Edit, Write, NotebookEdit
+Execute:       Bash
+All:           * (or omit field)
+```
+
+### Permission Modes
+
+| Mode | Description |
+|------|-------------|
+| `default` | Normal permission prompts |
+| `acceptEdits` | Auto-accept file edits |
+| `bypassPermissions` | Skip all permission prompts |
+| `plan` | Plan mode - explore but don't modify |
+
+## Writing Effective Prompts
 
 ### Structure
 
 ```markdown
 ---
-name: subagent-name
-description: When to use this subagent (include "use proactively" for auto-delegation)
-tools: Tool1, Tool2, Tool3  # Optional - inherits all if omitted
-model: sonnet               # Optional - sonnet/opus/haiku/inherit
-permissionMode: default     # Optional - default/acceptEdits/bypassPermissions/plan
-skills: skill1, skill2      # Optional - auto-load skills
+name: agent-name
+description: When to use this agent. Be specific about triggers.
+tools: Tool1, Tool2
+model: sonnet
 ---
 
-System prompt goes here. Define role, responsibilities, and behavior.
+# Agent Name
+
+One-line role description.
+
+## Input Required
+What the agent expects to receive.
+
+## Process
+Step-by-step what the agent does.
+
+## Output Format
+Exact format of the response.
+
+## Rules
+- Constraints and boundaries
+- What to avoid
 ```
 
-### Configuration Fields
+### Best Practices
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `name` | Yes | Lowercase with hyphens |
-| `description` | Yes | Purpose and when to use (key for auto-delegation) |
-| `tools` | No | Comma-separated tool list (omit to inherit all) |
-| `model` | No | `sonnet`, `opus`, `haiku`, or `inherit` |
-| `permissionMode` | No | `default`, `acceptEdits`, `bypassPermissions`, `plan` |
-| `skills` | No | Skills to auto-load |
+1. **Be specific about role** - First line defines identity
+2. **Define clear inputs** - What must be provided
+3. **Structure the process** - Numbered steps
+4. **Specify output format** - Use code blocks for templates
+5. **Set boundaries** - What NOT to do
 
-## Creation Workflow
+### Description Guidelines
 
-1. **Gather requirements**: Ask about the sub-agent's purpose, when to use it, and required capabilities
-2. **Choose scope**: Project (`.claude/agents/`) or user (`~/.claude/agents/`)
-3. **Define configuration**: Name, description, tools, model
-4. **Write system prompt**: Clear role, responsibilities, and output format
-5. **Create file**: Write the `.md` file to the appropriate location
-
-## Writing Effective Sub-agents
-
-### Description Best Practices
-
-The `description` field is critical for automatic delegation:
+The `description` field triggers when the agent is suggested. Include:
+- Primary use case
+- Required inputs
+- Expected output type
 
 ```yaml
-# Good - specific triggers
-description: Expert code reviewer. Use PROACTIVELY after writing or modifying code.
+# Good
+description: Use after completing a task to review code changes. Provide BASE_SHA, HEAD_SHA, and requirements. Returns issues with file:line references.
 
-# Good - clear use cases
-description: Debugging specialist for errors, test failures, and unexpected behavior.
-
-# Bad - too vague
-description: Helps with code
+# Bad
+description: Reviews code.
 ```
 
-### System Prompt Guidelines
+## Examples
 
-1. **Define role clearly**: "You are a [specific expert role]"
-2. **List actions on invocation**: What to do first
-3. **Specify responsibilities**: What the sub-agent handles
-4. **Include guidelines**: Constraints and best practices
-5. **Define output format**: How to structure responses
-
-### Tool Selection
-
-- **Read-only tasks**: `Read, Grep, Glob, Bash`
-- **Code modification**: `Read, Write, Edit, Grep, Glob, Bash`
-- **Full access**: Omit `tools` field
-
-See [references/available-tools.md](references/available-tools.md) for complete tool list.
-
-## Example Sub-agents
-
-See [references/examples.md](references/examples.md) for complete examples:
-- Code Reviewer
-- Debugger
-- Data Scientist
-- Test Runner
-- Documentation Writer
-- Security Auditor
-
-## Template
-
-Copy from [assets/subagent-template.md](assets/subagent-template.md) to start a new sub-agent.
-
-## Quick Start Example
-
-Create a code reviewer sub-agent:
-
-```bash
-mkdir -p .claude/agents
-```
-
-Write to `.claude/agents/code-reviewer.md`:
+### Minimal Subagent
 
 ```markdown
 ---
-name: code-reviewer
-description: Reviews code for quality and security. Use proactively after code changes.
-tools: Read, Grep, Glob, Bash
-model: inherit
+name: summarizer
+description: Use to summarize long documents or conversations. Provide the content to summarize.
+tools: Read
+model: haiku
 ---
 
-You are a senior code reviewer.
+# Summarizer
 
-When invoked:
-1. Run git diff to see changes
-2. Review modified files
-3. Report issues by priority
+Summarize the provided content in 3-5 bullet points.
 
-Focus on:
-- Code readability
-- Security vulnerabilities
-- Error handling
-- Best practices
+Focus on: key decisions, action items, conclusions.
+Skip: greetings, filler, obvious context.
 ```
+
+### Full Subagent
+
+See `references/subagent-examples.md` for complete examples.
+
+## Creation Process
+
+1. **Define the task** - What autonomous work does this agent do?
+2. **Choose tools** - Minimum needed (prefer restrictive)
+3. **Choose model** - haiku for simple, sonnet for complex, opus for critical
+4. **Write prompt** - Role, process, output, rules
+5. **Test** - Dispatch via Task tool, iterate
+
+### Init Script
+
+```bash
+scripts/init_subagent.py <agent-name> --path <output-directory>
+```
+
+Creates template agent file with proper structure.
+
+## Anti-Patterns
+
+- **Too broad** - Agent tries to do everything
+- **Too many tools** - Give minimum necessary
+- **Vague output** - Always specify exact format
+- **No boundaries** - Must define what NOT to do
+- **Wrong model** - Don't use opus for simple tasks

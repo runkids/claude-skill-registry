@@ -1,9 +1,19 @@
 ---
 name: pubchem-database
+display_name: Pubchem Database
 description: Query PubChem via PUG-REST API/PubChemPy (110M+ compounds). Search by name/CID/SMILES, retrieve properties, similarity/substructure searches, bioactivity, for cheminformatics.
+version: 1.0.0
+author: K-Dense Inc.
 license: Unknown
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["chemistry", "drug-discovery", "molecular"]
+category: chemistry
+allowed_tools: ["code_execute", "web_search", "read_url"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 10
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # PubChem Database

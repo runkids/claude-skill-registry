@@ -1,9 +1,19 @@
 ---
 name: chembl-database
+display_name: Chembl Database
 description: Query ChEMBL bioactive molecules and drug discovery data. Search compounds by structure/properties, retrieve bioactivity data (IC50, Ki), find inhibitors, perform SAR studies, for medicinal chemistry.
+version: 1.0.0
+author: K-Dense Inc.
 license: Unknown
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["chemistry", "drug-discovery", "molecular"]
+category: chemistry
+allowed_tools: ["code_execute", "web_search", "read_url"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 10
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # ChEMBL Database

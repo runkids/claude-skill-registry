@@ -1,7 +1,7 @@
 {
   "name": "core-web-vitals",
-  "repo": "yonatangross/skillforge-claude-plugin",
+  "repo": "addyosmani/web-quality-skills",
   "path": "skills/core-web-vitals/SKILL.md",
-  "source": "github.com/yonatangross/skillforge-claude-plugin",
-  "downloaded_at": "2026-01-21T04:14:17.636977Z"
+  "source": "github.com/addyosmani/web-quality-skills",
+  "downloaded_at": "2026-01-22T01:41:49.600507Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "typescript-write",
-  "repo": "Kidoz-SDK/metabase",
-  "path": ".claude/skills/typescript-write/SKILL.md",
-  "source": "github.com/Kidoz-SDK/metabase",
-  "downloaded_at": "2026-01-21T03:17:45.666268Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/typescript-write/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:43.741976Z"
 }

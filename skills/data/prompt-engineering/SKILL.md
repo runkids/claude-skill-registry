@@ -1,243 +1,519 @@
 ---
 name: prompt-engineering
-description: Comprehensive prompt engineering framework for designing, optimizing, and iterating LLM prompts. This skill should be used when users request prompt creation, optimization, or improvement for any LLM task, or when users need help translating vague requirements into effective prompts through collaborative dialogue and iterative refinement.
+description: Prompt engineering for Claude API, system prompts, context management, instruction design, depth levels, HTML generation. Use when working with Claude API integration, designing prompts, managing conversation context, or implementing AI-powered features.
+allowed-tools: Read, Grep, Glob
 ---
 
-# Prompt Engineering
+# Prompt Engineering for Claude API
 
-## Overview
+## Core Principles
 
-This skill transforms vague user requests into precise, effective prompts through collaborative dialogue, systematic analysis, and iterative refinement. It combines proven prompt engineering techniques with a structured development process to create prompts that reliably achieve user objectives.
+1. **Clear Instructions** - Be specific about what you want Claude to do
+2. **Context First** - Provide all necessary context before asking
+3. **Examples Work** - Show examples of desired output
+4. **Constraints Matter** - Define boundaries and rules explicitly
+5. **Iterate and Test** - Refine prompts based on actual outputs
 
-## Workflow Decision Tree
+---
 
-When a user requests prompt assistance, follow this decision flow:
+## System Prompt Structure
+
+The system prompt in `server/prompts/system.txt` is the foundation of Claude's behavior.
+
+### CORRECT: Well-Structured System Prompt
 
 ```
-User Request
-├─ "Create a prompt" / "Make a prompt" / Vague request
-│  └─ → Start with EXPLORATION PHASE
-├─ "Optimize this prompt" / Has existing prompt
-│  └─ → Start with SIMPLE OPTIMIZATION
-└─ "Fix this issue with my prompt" / Specific problem
-   └─ → Start with ANALYSIS PHASE (focused on problem)
+You are an expert instructional designer and educational content creator. Your job is to generate complete, self-contained HTML pages for educational purposes.
+
+# Your Role
+
+You create educational content at various depth levels (0-4) based on user specifications. Each page you generate must be:
+- A single, complete HTML file
+- Ready to paste into Blackboard LMS
+- Styled with inline CSS (no external stylesheets)
+- Accessible and well-structured
+- Appropriate for the specified depth level
+
+# Depth Levels (CRITICAL - NEVER DEVIATE)
+
+Level 0 (Minimalist): Reference-only content. Tables, lists, minimal explanation.
+- Example: CSS property reference table
+- NO introductions, NO explanations, NO examples
+- Just the facts in organized format
+
+Level 1 (Introductory): For complete beginners with zero knowledge.
+- Example: "What is a variable?"
+- Simple language, no jargon, extensive analogies
+- No code examples unless absolutely necessary
+- Focus on concepts, not implementation
+
+Level 2 (Intermediate): For students with basic programming knowledge.
+- Example: "JavaScript Promises"
+- Explain how and why, include code examples
+- Balance theory and practice
+- Assume basic CS knowledge
+
+Level 3 (Advanced): For professional developers.
+- Example: "RESTful API Design Best Practices"
+- Production-ready patterns, edge cases, performance
+- Assume strong programming background
+- Include real-world considerations
+
+Level 4 (Graduate): Academic and theoretical depth.
+- Example: "Complexity Theory and P vs NP"
+- Formal notation, proofs, academic rigor
+- Citations and references
+- Theoretical foundations
+
+**CRITICAL RULE**: You MUST stay within the selected depth level. Do not mix levels.
+
+# Style Flags
+
+When the user enables style flags, incorporate these elements:
+
+- **Accessibility**: WCAG 2.1 AA compliant, ARIA labels, screen reader friendly, high contrast
+- **Visual-heavy**: Diagrams, charts, color coding, visual hierarchy, infographics
+- **Technical**: Code snippets, terminal commands, technical terminology, implementation details
+- **Conversational**: Friendly tone, direct address, casual language, analogies
+- **Humor**: Appropriate jokes, light-hearted examples, playful language (never crude)
+
+# HTML Template Structure
+
+Always use this structure:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Topic Title]</title>
+    <style>
+        /* Inline CSS here */
+        body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        /* More styles */
+    </style>
+</head>
+<body>
+    <!-- Content here -->
+</body>
+</html>
 ```
 
-## Core Process
+# Image Handling
 
-### Phase 1: Exploration - Uncovering True Needs
+When images are provided:
+- Use external URLs (from Cloudinary)
+- Include alt text for accessibility
+- Ensure images enhance understanding
+- Add captions where appropriate
 
-Before creating any prompt, deeply understand the user's actual needs through strategic questioning. Start broad, then narrow down systematically.
+Example:
+```html
+<figure>
+    <img src="https://res.cloudinary.com/..." alt="Diagram showing..." />
+    <figcaption>Figure 1: Description of diagram</figcaption>
+</figure>
+```
 
-**Initial Context Gathering:**
-- What task will this prompt accomplish?
-- Who will use it and in what environment?
-- How frequently will it be used?
-- What does success look like?
+# Iteration and Refinement
 
-**Deepening Understanding:**
-- Request concrete examples of desired outputs
-- Ask about past failures or attempts
-- Identify critical success factors
-- Uncover unstated assumptions and constraints
+When the user requests changes:
+- Read the conversation history to understand context
+- Apply changes to the ENTIRE page (regenerate fully)
+- Maintain consistency with original depth level
+- Preserve style flags unless asked to change
 
-**Technical Requirements:**
-- Model and platform constraints
-- Token limits and cost considerations
-- Response time requirements
-- Integration with other systems
+# Output Format
 
-Continue exploration until the core requirements are crystal clear. Never assume—always verify.
+Your response must include:
+1. A brief message to the user (1-2 sentences)
+2. The complete HTML (wrapped in ```html code block)
 
-### Phase 2: Analysis - Choosing the Right Strategy
+Example response format:
+```
+I've created an intermediate-level page about JavaScript Promises with code examples and explanations.
 
-Analyze the task to determine the optimal prompting approach.
+```html
+<!DOCTYPE html>
+...complete HTML...
+</html>
+```
+```
 
-**Task Classification:**
+# Constraints
 
-Classify the task along key dimensions:
-- **Complexity**: Simple directive vs multi-step reasoning
-- **Output Type**: Creative vs analytical vs structured
-- **Error Tolerance**: High-stakes vs experimental
-- **Frequency**: One-time vs repeated use
+- NO external dependencies (CSS frameworks, JavaScript libraries)
+- ALL styles must be inline in <style> tag
+- ALL scripts must be inline in <script> tag
+- Images must use external URLs only (Cloudinary)
+- File size: Keep under 500KB when possible
+- Must work in Blackboard's content editor
+```
 
-**Strategy Selection:**
+### WRONG: Vague System Prompt
 
-Based on classification, choose primary techniques:
-- **Simple Tasks**: Direct instructions with clear constraints
-- **Complex Reasoning**: Chain-of-thought with step-by-step breakdown
-- **Creative Tasks**: Role setting with flexible boundaries
-- **Structured Output**: Explicit format specifications with examples
-- **High-Stakes**: Self-consistency checks and validation steps
+```
+You are a helpful assistant that creates educational content. Generate HTML pages based on user requests. Make them look nice.
+```
 
-**Trade-off Analysis:**
+Issues:
+- No specific role definition
+- No output format specified
+- No depth level guidance
+- No constraints defined
+- No examples
 
-Present multiple approaches with clear trade-offs:
-- Approach A: Detailed but token-heavy
-- Approach B: Concise but requires interpretation
-- Approach C: Balanced with moderate complexity
+---
 
-Always explain WHY each approach fits the specific context.
+## User Prompt Construction
 
-### Phase 3: Implementation - Building Iteratively
+### Building the Initial Generation Prompt
 
-Create the prompt through progressive refinement, starting simple and adding complexity as needed.
+```javascript
+// server/routes/generate.js
+const buildInitialPrompt = (config) => {
+  const { topic, depthLevel, styleFlags = [] } = config;
 
-**Version 1 - Minimal Viable Prompt:**
-- Core instructions only
-- Test basic functionality
-- Identify gaps and ambiguities
+  let prompt = `Create an educational page about: ${topic}\n\n`;
+  prompt += `Depth Level: ${depthLevel}\n`;
 
-**Version 2 - Enhanced Clarity:**
-- Add specific examples if needed
-- Clarify ambiguous points
-- Include essential constraints
+  if (styleFlags.length > 0) {
+    prompt += `Style Flags: ${styleFlags.join(', ')}\n`;
+  }
 
-**Version 3+ - Optimization:**
-- Refine wording for precision
-- Remove redundancy
-- Balance detail with conciseness
+  return prompt;
+};
 
-Document each version's changes and rationale. Store prompts in markdown files with:
-- Version history
-- Design decisions
-- Known limitations
-- Usage examples
+// Example output:
+// "Create an educational page about: JavaScript Async/Await
+//
+// Depth Level: 2
+// Style Flags: visual-heavy, technical"
+```
 
-### Phase 4: Validation - Critical Evaluation
+### Building Iteration Prompts
 
-Rigorously evaluate the prompt against quality criteria.
+```javascript
+const buildIterationPrompt = (userMessage, previousHtml, config) => {
+  let prompt = userMessage + '\n\n';
+  prompt += `Make this change to the existing page.\n`;
+  prompt += `Maintain Depth Level: ${config.depthLevel}\n`;
 
-**Essential Checks:**
-- **Clarity**: Can the instructions be misunderstood?
-- **Completeness**: Are all necessary elements present?
-- **Consistency**: Do instructions contradict each other?
-- **Efficiency**: Can anything be removed without loss?
-- **Robustness**: How does it handle edge cases?
+  // Don't send full HTML back, Claude has it in conversation history
+  // Just reference it
+  prompt += `The current page HTML is in the conversation history above.`;
 
-**Testing Approach:**
-- Run through typical use cases
-- Test boundary conditions
-- Imagine failure modes
-- Check for unwanted behaviors
+  return prompt;
+};
+```
 
-Be ruthlessly honest about weaknesses. If something isn't working, acknowledge it and iterate.
+---
 
-## Simple Optimization
+## Conversation Context Management
 
-When optimizing an existing prompt, focus on minimal, targeted improvements:
+### CORRECT: Maintaining Context
 
-1. **Identify Specific Issues**: What exactly isn't working?
-2. **Diagnose Root Causes**: Why is the current prompt failing?
-3. **Apply Minimal Edits**: Change only what's necessary
-4. **Preserve Working Elements**: Keep what already works well
-5. **Test Improvements**: Verify fixes don't break other aspects
+```javascript
+// server/routes/generate.js
+import Anthropic from '@anthropic-ai/sdk';
 
-Common optimization targets:
-- Ambiguous language → Specific instructions
-- Missing constraints → Added boundaries
-- Inconsistent outputs → Format specifications
-- Verbose responses → Length constraints
-- Off-topic responses → Clearer scope definition
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY
+});
 
-## Prompt Creation from Scratch
+export const generatePage = async (config, userMessage, conversationHistory) => {
+  // Build messages array with full history
+  const messages = [
+    // Include all previous messages for context
+    ...conversationHistory.map(msg => ({
+      role: msg.role,
+      content: msg.content
+    })),
+    // Add new user message
+    {
+      role: 'user',
+      content: buildPrompt(config, userMessage)
+    }
+  ];
 
-When creating new prompts, structure them as instructions for an eager but inexperienced assistant who needs clear guidance.
+  try {
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 8192, // Enough for full HTML page
+      system: systemPrompt, // From server/prompts/system.txt
+      messages: messages,
+      temperature: 1.0 // Default creativity
+    });
 
-**Essential Components:**
+    return {
+      message: extractMessage(response.content[0].text),
+      html: extractHTML(response.content[0].text)
+    };
+  } catch (error) {
+    throw new Error(`Claude API error: ${error.message}`);
+  }
+};
+```
 
-1. **Role/Context** (if beneficial):
-   - Set perspective or expertise level
-   - Establish tone and approach
-   
-2. **Clear Objective**:
-   - State the primary goal explicitly
-   - Define success criteria
+### Extracting HTML from Response
 
-3. **Specific Instructions**:
-   - Break complex tasks into steps
-   - Provide decision criteria
-   - Specify constraints and boundaries
+```javascript
+const extractHTML = (responseText) => {
+  // Claude wraps HTML in ```html code blocks
+  const htmlMatch = responseText.match(/```html\n([\s\S]*?)\n```/);
 
-4. **Output Format** (when relevant):
-   - Define structure explicitly
-   - Provide format examples
-   - Specify length or detail level
+  if (htmlMatch) {
+    return htmlMatch[1].trim();
+  }
 
-5. **Examples** (when clarifying):
-   - Show desired patterns
-   - Illustrate edge cases
-   - Demonstrate style/tone
+  // Fallback: look for <!DOCTYPE html>
+  const doctypeMatch = responseText.match(/<!DOCTYPE html>[\s\S]*/i);
+  if (doctypeMatch) {
+    return doctypeMatch[0].trim();
+  }
 
-## Key Techniques Reference
+  throw new Error('Could not extract HTML from response');
+};
 
-### Foundation Techniques
+const extractMessage = (responseText) => {
+  // Get text before the ```html code block
+  const parts = responseText.split('```html');
+  return parts[0].trim();
+};
+```
 
-**Role Setting**: Establish perspective when expertise or tone matters
-- Effective for: Specialized knowledge, consistent voice
-- Example: "As an experienced code reviewer, analyze..."
+---
 
-**Progressive Disclosure**: Start general, add detail as needed
-- Effective for: Complex multi-part tasks
-- Example: "First outline the approach, then implement each section..."
+## Streaming Responses Pattern
 
-**Explicit Constraints**: Define boundaries clearly
-- Effective for: Preventing unwanted outputs
-- Example: "Limit response to 3 paragraphs, focus only on technical aspects"
+For better UX with long generations:
 
-### Advanced Techniques
+```javascript
+export const generatePageStream = async (config, userMessage, history, onChunk) => {
+  const messages = [
+    ...history.map(msg => ({ role: msg.role, content: msg.content })),
+    { role: 'user', content: buildPrompt(config, userMessage) }
+  ];
 
-**Chain-of-Thought**: Request reasoning before conclusions
-- Use when: Logic and transparency matter
-- Trigger: "Think step-by-step" or "Explain your reasoning"
+  const stream = await anthropic.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 8192,
+    system: systemPrompt,
+    messages: messages,
+    stream: true // Enable streaming
+  });
 
-**Few-Shot Learning**: Provide input-output examples
-- Use when: Pattern is easier shown than explained
-- Caution: 2-3 examples usually sufficient
+  let fullText = '';
 
-**Self-Consistency**: Have model verify its own outputs
-- Use when: Accuracy is critical
-- Implementation: "Review your answer for errors and inconsistencies"
+  for await (const chunk of stream) {
+    if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+      const text = chunk.delta.text;
+      fullText += text;
 
-For detailed technique explanations and examples, consult:
-- `references/techniques.md` - Comprehensive technique catalog
-- `references/patterns.md` - Common prompt patterns
-- `references/antipatterns.md` - What to avoid
+      // Send incremental updates
+      onChunk({
+        type: 'text',
+        content: text,
+        fullText: fullText
+      });
+    } else if (chunk.type === 'message_stop') {
+      onChunk({
+        type: 'done',
+        message: extractMessage(fullText),
+        html: extractHTML(fullText)
+      });
+    }
+  }
+};
+```
 
-## Collaboration Principles
+---
 
-### Be a Thought Partner, Not Just an Executor
+## Depth Level Enforcement
 
-- **Bad**: "Here's your prompt" (without understanding needs)
-- **Good**: "Let me understand what you're trying to achieve first..."
+The system prompt defines depth levels, but you can add safeguards:
 
-### Question Assumptions Constructively
+```javascript
+const validateDepthLevel = (config, generatedHtml) => {
+  const { depthLevel } = config;
 
-- Surface hidden requirements through dialogue
-- Challenge unclear objectives respectfully
-- Propose alternatives when original approach seems suboptimal
+  // Simple heuristics (not foolproof, but helpful)
+  const codeBlocks = (generatedHtml.match(/<code>/g) || []).length;
+  const wordCount = generatedHtml.split(/\s+/).length;
 
-### Iterate Based on Feedback
+  const warnings = [];
 
-- Start with minimum viable prompt
-- Test and refine based on actual outputs
-- Document what works and what doesn't
+  if (depthLevel === 0 && wordCount > 200) {
+    warnings.push('Level 0 should be more concise');
+  }
 
-### Teach While Doing
+  if (depthLevel === 1 && codeBlocks > 2) {
+    warnings.push('Level 1 should avoid code examples');
+  }
 
-- Explain why certain techniques work
-- Share the reasoning behind design choices
-- Help users understand prompt engineering principles
+  if (depthLevel === 4 && !generatedHtml.includes('theorem') && !generatedHtml.includes('proof')) {
+    warnings.push('Level 4 should include formal academic content');
+  }
 
-## References
+  return warnings;
+};
+```
 
-This skill includes detailed reference documentation:
+---
 
-### references/
-- `techniques.md` - Complete catalog of prompting techniques with examples
-- `patterns.md` - Reusable prompt patterns for common scenarios  
-- `antipatterns.md` - Common mistakes and how to avoid them
-- `evaluation.md` - Comprehensive quality evaluation framework
-- `examples.md` - Library of before/after prompt improvements
+## Image Integration Prompts
 
-Consult these references for in-depth technical details and extensive examples not included in this overview.
+### Requesting Image Generation
+
+```javascript
+// When user says "generate a diagram of X"
+const imageGenerationPrompt = `
+The user has requested an image: "${userRequest}"
+
+I will now generate this image using DALL-E and provide the URL. Once you have the URL, incorporate it into the page with:
+- Appropriate placement in the content flow
+- Descriptive alt text for accessibility
+- A caption explaining the image
+- Styling that fits the page design
+`;
+```
+
+### Adding User-Provided Images
+
+```javascript
+const addImagePrompt = (imageUrl, description) => `
+Add this image to the page:
+URL: ${imageUrl}
+Description: ${description || 'User-provided image'}
+
+Place it where it makes most sense in the content and add appropriate styling.
+`;
+```
+
+---
+
+## Error Handling in Prompts
+
+### Handling Generation Failures
+
+```javascript
+const handleGenerationError = async (error, config, userMessage, history) => {
+  if (error.message.includes('max_tokens')) {
+    // Response too long - ask Claude to shorten
+    const retryPrompt = `${userMessage}\n\nNote: Please make the content more concise to fit within token limits.`;
+    return generatePage(config, retryPrompt, history);
+  }
+
+  if (error.message.includes('rate_limit')) {
+    // Rate limited - wait and retry
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    return generatePage(config, userMessage, history);
+  }
+
+  throw error;
+};
+```
+
+---
+
+## Testing Prompts
+
+Always test prompts with various inputs:
+
+```javascript
+// Test depth levels
+const testDepthLevels = async () => {
+  const topic = 'JavaScript Promises';
+
+  for (let level = 0; level <= 4; level++) {
+    const result = await generatePage(
+      { topic, depthLevel: level, styleFlags: [] },
+      `Create a page about ${topic}`,
+      []
+    );
+
+    console.log(`Level ${level}:`, {
+      wordCount: result.html.split(/\s+/).length,
+      hasCode: result.html.includes('<code>'),
+      hasExamples: result.html.toLowerCase().includes('example')
+    });
+  }
+};
+
+// Test style flags
+const testStyleFlags = async () => {
+  const combinations = [
+    ['accessibility'],
+    ['visual-heavy'],
+    ['technical', 'conversational'],
+    ['humor', 'visual-heavy']
+  ];
+
+  for (const flags of combinations) {
+    const result = await generatePage(
+      { topic: 'CSS Grid', depthLevel: 2, styleFlags: flags },
+      'Create a page about CSS Grid',
+      []
+    );
+
+    console.log(`Flags ${flags.join(', ')}:`, {
+      hasAriaLabels: result.html.includes('aria-'),
+      hasVisuals: result.html.includes('<svg>') || result.html.includes('style='),
+      hasCode: result.html.includes('<code>'),
+      hasHumor: /😄|🎉|funny|joke/i.test(result.html)
+    });
+  }
+};
+```
+
+---
+
+## Checklist
+
+### Before Implementing Prompt
+- [ ] Clear role and purpose defined
+- [ ] Output format specified
+- [ ] Constraints explicitly stated
+- [ ] Examples provided where helpful
+- [ ] Edge cases considered
+
+### After Implementing Prompt
+- [ ] Tested with various inputs
+- [ ] Depth levels enforced correctly
+- [ ] Style flags working as expected
+- [ ] HTML extraction reliable
+- [ ] Error cases handled
+- [ ] Conversation context maintained
+- [ ] Token usage reasonable
+
+---
+
+## Integration with Other Skills
+
+- **express-api-patterns**: Implementing prompt endpoints
+- **api-client-patterns**: Calling Claude API from client
+- **systematic-debugging**: Debugging prompt issues
+- **react-component-patterns**: Displaying generated content
+
+---
+
+## Common Mistakes to Avoid
+
+1. ❌ Vague instructions in system prompt
+2. ❌ Not maintaining conversation history
+3. ❌ Missing output format specification
+4. ❌ No examples in system prompt
+5. ❌ Forgetting to extract HTML from response
+6. ❌ Not handling streaming properly
+7. ❌ Ignoring token limits
+8. ❌ Not testing with edge cases
+9. ❌ Missing error handling for API failures
+10. ❌ Not enforcing depth level constraints

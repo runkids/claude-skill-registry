@@ -1,8 +1,8 @@
 ---
 name: "database-migration-manager"
-description: "Create production-ready Supabase migrations for Ballee following strict naming conventions, idempotent SQL, RLS patterns, and storage bucket policies; use when user requests schema changes, adding columns, RLS policies, database functions, or storage buckets. Note: 852 lines retained as cohesive workflow (splitting would reduce usability)."
-version: "1.3.0"
-last_updated: "2026-01-12"
+description: "Create production-ready Supabase migrations for Ballee following strict naming conventions, idempotent SQL, RLS patterns, and storage bucket policies; use when user requests schema changes, adding columns, RLS policies, database functions, or storage buckets"
+version: "1.2.0"
+last_updated: "2025-12-11"
 ---
 
 # Database Migration Manager
@@ -850,19 +850,3 @@ After migration is deployed:
 - RLS patterns: `apps/web/supabase/schemas/`
 - Documentation: `apps/web/supabase/CLAUDE.md`
 - Project conventions: `docs/31-PROJECT_CONVENTIONS.md`
-
----
-
-## Changelog
-
-### v1.3.0 (2026-01-12)
-- **Quality review completed** - Skill evaluated for token optimization
-- **Decision**: 852 lines retained as cohesive workflow (splitting would reduce usability for sequential migration process)
-- Updated skill description to note intentional size
-- Reviewed all patterns against 2026 best practices - all current
-- **Impact**: Skill remains comprehensive single-reference for migrations
-
-### v1.2.0 (2025-12-11)
-- Added storage bucket migration patterns
-- Added SECURITY DEFINER function patterns
-- Updated RLS policy patterns

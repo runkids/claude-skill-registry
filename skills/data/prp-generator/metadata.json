@@ -1,7 +1,7 @@
 {
   "name": "prp-generator",
-  "repo": "matteocervelli/llms",
-  "path": ".claude/skills/prp-generator/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-01-21T02:38:37.607273Z"
+  "repo": "daffy0208/ai-dev-standards",
+  "path": "skills/prp-generator/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-22T04:14:02.985310Z"
 }

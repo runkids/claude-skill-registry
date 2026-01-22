@@ -1,7 +1,7 @@
 {
   "name": "review-pr",
-  "repo": "yonatangross/skillforge-claude-plugin",
-  "path": "skills/review-pr/SKILL.md",
-  "source": "github.com/yonatangross/skillforge-claude-plugin",
-  "downloaded_at": "2026-01-21T04:14:21.417011Z"
+  "repo": "sasamuku/dotfiles",
+  "path": ".claude/skills/review-pr/SKILL.md",
+  "source": "github.com/sasamuku/dotfiles",
+  "downloaded_at": "2026-01-22T02:57:33.701170Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "ci-cd-pipelines",
-  "repo": "daishiman/AIWorkflowOrchestrator",
-  "path": "docs/99-claude/skills/ci-cd-pipelines/SKILL.md",
-  "source": "github.com/daishiman/AIWorkflowOrchestrator",
-  "downloaded_at": "2026-01-21T02:43:05.445198Z"
+  "repo": "timequity/vibe-coder",
+  "path": "skills/infra/ci-cd-pipelines/SKILL.md",
+  "source": "github.com/timequity/vibe-coder",
+  "downloaded_at": "2026-01-22T03:40:30.691903Z"
 }

@@ -1,160 +1,179 @@
 ---
 name: task
-description: File-based task execution tracking for orchestration workflows
+description: 작업 오케스트레이션 스킬. 분석 → 구현 → 리뷰 → 커밋까지 전체 워크플로우 관리. 기능 개발, 버그 수정 등 모든 작업에 사용.
 ---
 
 # Task Skill
 
-File-based execution state tracking. Task order and metadata live in `order.json`, task status is tracked by filesystem location, and all events are logged to `history.jsonl`.
+통합 워크플로우 오케스트레이션. 작업 분석부터 Git 커밋까지 전체 사이클 관리.
 
-## Workspace Configuration
+## 워크플로우
 
-**All task scripts require the `$CDD_DIR` environment variable.**
+```
+/task "작업 설명"
+    │
+    ├─ Phase 1: 분석
+    │   ├─ 요구사항 파악
+    │   ├─ 영향받는 파일 식별
+    │   ├─ 작업 타입 결정 (feat/fix/refactor)
+    │   └─ 브랜치 생성
+    │
+    ├─ Phase 2: 구현
+    │   ├─ /developer 스킬 적용 (타입, 스토리지, 로직)
+    │   ├─ /frontend 스킬 적용 (UI, 컴포넌트)
+    │   └─ 기능 단위로 중간 커밋
+    │
+    ├─ Phase 3: 리뷰
+    │   ├─ /reviewer 스킬 적용
+    │   ├─ [Critical] 이슈 → Phase 2로 돌아가 수정
+    │   ├─ [Major] 이슈 → Phase 2로 돌아가 수정
+    │   └─ [Minor] 이슈 → 선택적 수정
+    │
+    └─ Phase 4: 마무리
+        ├─ /verify 실행
+        ├─ 최종 커밋
+        └─ (선택) PR 생성 안내
+```
+
+## Phase 1: 분석
+
+### 작업 타입 판별
+
+| 타입 | 브랜치 접두사 | 설명 |
+|------|---------------|------|
+| 새 기능 | `feat/` | 새로운 기능 추가 |
+| 버그 수정 | `fix/` | 버그 수정 |
+| 리팩토링 | `refactor/` | 코드 개선 (기능 변경 없음) |
+| 문서 | `docs/` | 문서 작성/수정 |
+| 스타일 | `style/` | 코드 포맷팅 |
+| 테스트 | `test/` | 테스트 추가/수정 |
+
+### 브랜치 생성
 
 ```bash
-export CDD_DIR=/path/to/workspace
+git checkout -b {타입}/{kebab-case-설명}
+# 예: feat/tag-filter, fix/search-bug
 ```
 
-Scripts will abort with a clear JSON error if `$CDD_DIR` is not set.
+### 분석 체크리스트
 
-**Storage:** `$CDD_DIR/tasks/` directory with status subdirectories
+- [ ] 요구사항 명확히 이해
+- [ ] 영향받는 파일/모듈 식별
+- [ ] 필요한 스킬 결정 (developer, frontend, 둘 다)
+- [ ] 작업 단위 분할 (커밋 단위)
 
-## Directory Structure
+## Phase 2: 구현
 
-```
-$CDD_DIR/tasks/
-├── pending/         # Tasks not yet started
-├── in_progress/     # Currently running (should only have 1)
-├── completed/       # Successfully finished
-├── failed/          # Failed tasks
-├── order.json       # Ordered list + metadata
-└── history.jsonl    # Append-only audit log
-```
+### 스킬 호출 순서
 
-## Commands
+1. **데이터/로직 먼저**: `/developer` 스킬 적용
+   - 타입 정의, 인터페이스
+   - Storage 유틸리티
+   - 비즈니스 로직
 
-| Command | Description |
-|---------|-------------|
-| `/task-init` | Initialize directory structure |
-| `/task-import` | Import from order.json and move tasks to pending/ |
-| `/task-next` | Get next pending task or stop |
-| `/task-start <name>` | Mark in_progress |
-| `/task-done <name>` | Mark complete |
-| `/task-fail <name>` | Mark failed |
-| `/task-escalate <name>` | Bump model/thinking level |
-| `/task-continue <stop-id>` | Mark stop as passed and continue |
-| `/task-list [status]` | List tasks |
-| `/task-stats` | Show metrics |
+2. **UI/컴포넌트**: `/frontend` 스킬 적용
+   - React 컴포넌트
+   - 커스텀 훅
+   - 스타일링
 
-## Key Operations
+### 기능 단위 커밋
 
-Use Bash tool to execute scripts directly:
+구현 중 의미 있는 단위마다 커밋:
 
 ```bash
-.claude/scripts/task/init.ts          # Initialize directory structure
-.claude/scripts/task/import.ts        # Import from $CDD_DIR/tasks/order.json
-.claude/scripts/task/import.ts path   # Import from custom path
-.claude/scripts/task/next.ts          # Get next pending task or stop
-.claude/scripts/task/start.ts <name>  # Mark in_progress
-.claude/scripts/task/done.ts <name>   # Mark complete
-.claude/scripts/task/fail.ts <name>   # Mark failed
-.claude/scripts/task/escalate.ts <name> "<reason>"
-.claude/scripts/task/continue.ts <stop-id>  # Mark stop as passed
-.claude/scripts/task/list.ts [status] # List tasks
-.claude/scripts/task/stats.ts         # Show metrics
+git add <관련 파일들>
+git commit -m "{타입}: {설명}"
 ```
 
-## Task Lifecycle
-
+**커밋 메시지 규칙** (Conventional Commits):
 ```
-pending → in_progress → completed
-              ↓
-         escalate → pending (higher capability)
-              ↓
-            failed (max level reached)
+feat: add tag filtering logic
+feat: implement TagFilter component
+fix: search not matching partial text
+refactor: extract storage utilities
 ```
 
-## Stop Lifecycle
+**커밋 단위 기준**:
+- 하나의 논리적 변경 = 하나의 커밋
+- 롤백 시 독립적으로 되돌릴 수 있는 단위
+
+## Phase 3: 리뷰
+
+### /reviewer 스킬 적용
+
+구현 완료 후 자동으로 리뷰 수행:
+
+| 우선순위 | 조치 |
+|----------|------|
+| [Critical] | 반드시 수정 → Phase 2 |
+| [Major] | 수정 권장 → Phase 2 |
+| [Minor] | 선택적 수정 |
+
+### 수정 루프
 
 ```
-not_passed → stop_reached (orchestrator halts) → stop_continue (user approval) → passed
+리뷰 → 이슈 발견 → 수정 (developer/frontend) → 재리뷰
 ```
 
-Stops are identified by their `stop` field. Once passed (via `continue.ts`), they're skipped in future runs.
+이슈가 없거나 Minor만 남으면 Phase 4로 진행.
 
-## Escalation Ladder
+## Phase 4: 마무리
 
-| Level | Model | Thinking |
-|-------|-------|----------|
-| 1 | sonnet | thinking |
-| 2 | sonnet | extended |
-| 3 | opus | extended |
-| 4 | opus | ultrathink |
+### 최종 점검 (/verify 스킬 호출)
 
-## Order File (order.json)
-
-Tracks execution order, task metadata, and stop points:
-
-```json
-{
-  "tasks": [
-    {"task": "foo.md", "group": "Core", "model": "sonnet", "thinking": "none"},
-    {"task": "bar.md", "group": "Tests", "model": "sonnet", "thinking": "thinking"},
-    {"stop": "verify-core", "message": "Verify core features work before proceeding"},
-    {"task": "baz.md", "group": "Integration", "model": "sonnet", "thinking": "none"}
-  ]
-}
+```
+/verify 실행
+    ├─ pnpm build    # 빌드 확인
+    ├─ pnpm lint     # 린트 확인
+    └─ pnpm test:run # 테스트 확인
 ```
 
-- **Ordering:** Array position determines execution order
-- **Tasks:** Work items with model and thinking levels
-- **Stops:** Manual verification checkpoints (message is optional)
-- **Status:** Task status derived from filesystem location, stop status from history.jsonl
+### 디렉토리별 CLAUDE.md 작성/갱신
 
-## History File (history.jsonl)
+새 디렉토리 생성 또는 주요 변경 시 해당 디렉토리에 `CLAUDE.md` 작성.
 
-Append-only audit log with one event per line:
+### 최종 커밋 (필요시)
 
-```jsonl
-{"timestamp": "2025-12-24T10:30:00Z", "action": "import", "task": "foo.md", "to": "pending"}
-{"timestamp": "2025-12-24T10:31:00Z", "action": "start", "task": "foo.md", "from": "pending", "to": "in_progress"}
-{"timestamp": "2025-12-24T10:45:00Z", "action": "done", "task": "foo.md", "from": "in_progress", "to": "completed", "elapsed_seconds": 840}
-{"timestamp": "2025-12-24T11:00:00Z", "action": "escalate", "task": "bar.md", "from_model": "sonnet", "from_thinking": "thinking", "to_model": "sonnet", "to_thinking": "extended"}
-{"timestamp": "2025-12-24T11:30:00Z", "action": "stop_reached", "task": "verify-core", "stop": "verify-core", "message": "Verify core features work"}
-{"timestamp": "2025-12-24T12:00:00Z", "action": "stop_continue", "task": "verify-core", "stop": "verify-core"}
+```bash
+git add .
+git commit -m "{타입}: {전체 작업 요약}"
 ```
 
-## Orchestrator Instructions
+## 예시
 
-**Ownership:** Only the orchestrator manipulates task state. Sub-agents executing tasks must NOT use task commands.
-
-**Visibility:** Task status is always visible via `ls $CDD_DIR/tasks/*/` - no hidden state in databases.
-
-**Stops:** When `next.ts` returns `type: "stop"`, the orchestrator must exit and wait for user to run `continue.ts <stop-id>` before resuming.
-
-**Recovery:** If state becomes inconsistent, history.jsonl provides full audit trail for reconstruction.
-
-## Task Files
-
-Tasks are created in `$CDD_DIR/tasks/` with an `order.json`:
-
-```json
-{
-  "tasks": [
-    {"task": "foo.md", "group": "Core", "model": "sonnet", "thinking": "none"}
-  ]
-}
+### 입력
+```
+/task 태그 필터링 기능 추가
 ```
 
-After running `import.ts`:
-- Source `order.json` content becomes `$CDD_DIR/tasks/order.json`
-- Task files move to `pending/` directory
-- Import events logged to `history.jsonl`
+### 실행 흐름
 
-Temp files during execution go in `$CDD_DIR/tmp/`.
+```
+1. 분석
+   - 타입: feat (새 기능)
+   - 브랜치: feat/tag-filter
+   - 영향: src/shared/types/, src/popup/components/
+   - 스킬: developer → frontend
 
-**Note:** The `$CDD_DIR/` directory may contain other files and directories beyond `tasks/` and `tmp/` (such as `research/`, `user-stories/`, `plan/`, etc.). These are permitted and will be ignored by task execution.
+2. 구현
+   - /developer: 필터 로직, 타입 정의
+   - 커밋: "feat: add tag filter logic"
+   - /frontend: TagFilter.tsx 컴포넌트
+   - 커밋: "feat: implement TagFilter component"
 
-## JSON Response Format
+3. 리뷰
+   - /reviewer 실행
+   - [Minor] 변수명 개선 제안
+   - 선택적 수정
 
-All commands return: `{"success": true, "data": {...}}` or `{"success": false, "error": "...", "code": "..."}`
+4. 마무리
+   - /verify: 빌드/린트/테스트 통과
+   - 완료
+```
+
+## 주의사항
+
+- **커밋 마킹 금지**: Co-Author, Claude 마킹 절대 금지
+- **브랜치 보호**: main 직접 커밋 금지, 브랜치에서 작업
+- **빌드 확인**: 커밋 전 반드시 빌드 성공 확인
+- **작은 단위**: 큰 작업은 여러 브랜치로 분할 고려

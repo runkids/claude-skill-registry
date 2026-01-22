@@ -1,684 +1,370 @@
 ---
 name: gsap
-description: GSAP animations for JARVIS HUD transitions and effects
-model: sonnet
-risk_level: LOW
-version: 1.0.0
+description: Creates professional animations with GSAP (GreenSock Animation Platform). Use when building complex animations, scroll-triggered effects, timelines, or smooth transitions in any JavaScript framework.
 ---
 
-# GSAP Animation Skill
+# GSAP Animation
 
-> **File Organization**: This skill uses split structure. See `references/` for advanced patterns.
+Professional-grade animation library for the modern web - now 100% FREE including all plugins after Webflow acquisition.
 
-## 1. Overview
-
-This skill provides GSAP (GreenSock Animation Platform) expertise for creating smooth, professional animations in the JARVIS AI Assistant HUD.
-
-**Risk Level**: LOW - Animation library with minimal security surface
-
-**Primary Use Cases**:
-- HUD panel entrance/exit animations
-- Status indicator transitions
-- Data visualization animations
-- Scroll-triggered effects
-- Complex timeline sequences
-
-## 2. Core Responsibilities
-
-### 2.1 Fundamental Principles
-
-1. **TDD First**: Write animation tests before implementation
-2. **Performance Aware**: Use transforms/opacity for GPU acceleration, avoid layout thrashing
-3. **Cleanup Required**: Always kill animations on component unmount
-4. **Timeline Organization**: Use timelines for complex sequences
-5. **Easing Selection**: Choose appropriate easing for HUD feel
-6. **Accessibility**: Respect reduced motion preferences
-7. **Memory Management**: Avoid memory leaks with proper cleanup
-
-## 2.5 Implementation Workflow (TDD)
-
-### Step 1: Write Failing Test First
-
-```typescript
-// tests/animations/panel-animation.test.ts
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { gsap } from 'gsap'
-import HUDPanel from '~/components/HUDPanel.vue'
-
-describe('HUDPanel Animation', () => {
-  beforeEach(() => {
-    // Mock reduced motion
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: vi.fn().mockImplementation(query => ({
-        matches: false,
-        media: query
-      }))
-    })
-  })
-
-  afterEach(() => {
-    // Verify cleanup
-    gsap.globalTimeline.clear()
-  })
-
-  it('animates panel entrance with correct properties', async () => {
-    const wrapper = mount(HUDPanel)
-
-    // Wait for animation to complete
-    await new Promise(resolve => setTimeout(resolve, 600))
-
-    const panel = wrapper.find('.hud-panel')
-    expect(panel.exists()).toBe(true)
-  })
-
-  it('cleans up animations on unmount', async () => {
-    const wrapper = mount(HUDPanel)
-    const childCount = gsap.globalTimeline.getChildren().length
-
-    await wrapper.unmount()
-
-    // All animations should be killed
-    expect(gsap.globalTimeline.getChildren().length).toBeLessThan(childCount)
-  })
-
-  it('respects reduced motion preference', async () => {
-    // Mock reduced motion enabled
-    window.matchMedia = vi.fn().mockImplementation(() => ({
-      matches: true
-    }))
-
-    const wrapper = mount(HUDPanel)
-    const panel = wrapper.find('.hud-panel').element
-
-    // Should set final state immediately without animation
-    expect(gsap.getProperty(panel, 'opacity')).toBe(1)
-  })
-})
-```
-
-### Step 2: Implement Minimum to Pass
-
-```typescript
-// components/HUDPanel.vue - implement animation logic
-const animation = ref<gsap.core.Tween | null>(null)
-
-onMounted(() => {
-  if (!panelRef.value) return
-
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    gsap.set(panelRef.value, { opacity: 1 })
-    return
-  }
-
-  animation.value = gsap.from(panelRef.value, {
-    opacity: 0,
-    y: 20,
-    duration: 0.5
-  })
-})
-
-onUnmounted(() => {
-  animation.value?.kill()
-})
-```
-
-### Step 3: Refactor Following Patterns
-
-```typescript
-// Extract to composable for reusability
-export function usePanelAnimation(elementRef: Ref<HTMLElement | null>) {
-  const animation = ref<gsap.core.Tween | null>(null)
-
-  const animate = () => {
-    if (!elementRef.value) return
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.set(elementRef.value, { opacity: 1 })
-      return
-    }
-
-    animation.value = gsap.from(elementRef.value, {
-      opacity: 0,
-      y: 20,
-      duration: 0.5,
-      ease: 'power2.out'
-    })
-  }
-
-  onMounted(animate)
-  onUnmounted(() => animation.value?.kill())
-
-  return { animation }
-}
-```
-
-### Step 4: Run Full Verification
+## Quick Start
 
 ```bash
-# Run animation tests
-npm test -- --grep "Animation"
-
-# Check for memory leaks
-npm run test:memory
-
-# Verify 60fps performance
-npm run test:performance
+npm install gsap
 ```
 
-## 3. Technology Stack & Versions
+```javascript
+import gsap from "gsap";
 
-### 3.1 Recommended Versions
-
-| Package | Version | Notes |
-|---------|---------|-------|
-| gsap | ^3.12.0 | Core library |
-| @gsap/vue | ^3.12.0 | Vue integration |
-| ScrollTrigger | included | Scroll effects |
-
-### 3.2 Vue Integration
-
-```typescript
-// plugins/gsap.ts
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-export default defineNuxtPlugin(() => {
-  gsap.registerPlugin(ScrollTrigger)
-
-  return {
-    provide: {
-      gsap,
-      ScrollTrigger
-    }
-  }
-})
-```
-
-## 4. Implementation Patterns
-
-### 4.1 Panel Entrance Animation
-
-```vue
-<script setup lang="ts">
-import { gsap } from 'gsap'
-import { onMounted, onUnmounted, ref } from 'vue'
-
-const panelRef = ref<HTMLElement | null>(null)
-let animation: gsap.core.Tween | null = null
-
-onMounted(() => {
-  if (!panelRef.value) return
-
-  // ✅ Check reduced motion preference
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    gsap.set(panelRef.value, { opacity: 1 })
-    return
-  }
-
-  animation = gsap.from(panelRef.value, {
-    opacity: 0,
-    y: 20,
-    scale: 0.95,
-    duration: 0.5,
-    ease: 'power2.out'
-  })
-})
-
-// ✅ Cleanup on unmount
-onUnmounted(() => {
-  animation?.kill()
-})
-</script>
-
-<template>
-  <div ref="panelRef" class="hud-panel">
-    <slot />
-  </div>
-</template>
-```
-
-### 4.2 Status Indicator Animation
-
-```typescript
-// composables/useStatusAnimation.ts
-import { gsap } from 'gsap'
-
-export function useStatusAnimation(element: Ref<HTMLElement | null>) {
-  const timeline = ref<gsap.core.Timeline | null>(null)
-
-  const animateStatus = (status: string) => {
-    if (!element.value) return
-
-    timeline.value?.kill()
-
-    timeline.value = gsap.timeline()
-
-    switch (status) {
-      case 'active':
-        timeline.value
-          .to(element.value, {
-            scale: 1.2,
-            duration: 0.2,
-            ease: 'power2.out'
-          })
-          .to(element.value, {
-            scale: 1,
-            duration: 0.3,
-            ease: 'elastic.out(1, 0.3)'
-          })
-        break
-
-      case 'warning':
-        timeline.value.to(element.value, {
-          backgroundColor: '#f59e0b',
-          boxShadow: '0 0 10px #f59e0b',
-          duration: 0.3,
-          repeat: 2,
-          yoyo: true
-        })
-        break
-
-      case 'error':
-        timeline.value.to(element.value, {
-          x: -5,
-          duration: 0.05,
-          repeat: 5,
-          yoyo: true
-        })
-        break
-    }
-  }
-
-  onUnmounted(() => {
-    timeline.value?.kill()
-  })
-
-  return { animateStatus }
-}
-```
-
-### 4.3 Data Visualization Animation
-
-```vue
-<script setup lang="ts">
-import { gsap } from 'gsap'
-
-const props = defineProps<{
-  data: number[]
-}>()
-
-const barsRef = ref<HTMLElement[]>([])
-let animations: gsap.core.Tween[] = []
-
-watch(() => props.data, (newData) => {
-  // Kill previous animations
-  animations.forEach(a => a.kill())
-  animations = []
-
-  // Animate each bar
-  newData.forEach((value, index) => {
-    const bar = barsRef.value[index]
-    if (!bar) return
-
-    const tween = gsap.to(bar, {
-      height: `${value}%`,
-      duration: 0.5,
-      delay: index * 0.05,
-      ease: 'power2.out'
-    })
-
-    animations.push(tween)
-  })
-}, { immediate: true })
-
-onUnmounted(() => {
-  animations.forEach(a => a.kill())
-})
-</script>
-
-<template>
-  <div class="flex items-end h-40 gap-1">
-    <div
-      v-for="(_, index) in data"
-      :key="index"
-      ref="barsRef"
-      class="w-4 bg-jarvis-primary"
-    />
-  </div>
-</template>
-```
-
-### 4.4 Timeline Sequence
-
-```typescript
-// Create complex HUD startup sequence
-export function createStartupSequence(elements: {
-  logo: HTMLElement
-  panels: HTMLElement[]
-  status: HTMLElement
-}): gsap.core.Timeline {
-  const tl = gsap.timeline({
-    defaults: { ease: 'power2.out' }
-  })
-
-  // Logo reveal
-  tl.from(elements.logo, {
-    opacity: 0,
-    scale: 0,
-    duration: 0.8,
-    ease: 'back.out(1.7)'
-  })
-
-  // Panels stagger in
-  tl.from(elements.panels, {
-    opacity: 0,
-    x: -30,
-    stagger: 0.1,
-    duration: 0.5
-  }, '-=0.3')
-
-  // Status indicator
-  tl.from(elements.status, {
-    opacity: 0,
-    y: 10,
-    duration: 0.3
-  }, '-=0.2')
-
-  return tl
-}
-```
-
-### 4.5 Scroll-Triggered Animation
-
-```vue
-<script setup lang="ts">
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-const sectionRef = ref<HTMLElement | null>(null)
-
-onMounted(() => {
-  if (!sectionRef.value) return
-
-  gsap.from(sectionRef.value.querySelectorAll('.animate-item'), {
-    scrollTrigger: {
-      trigger: sectionRef.value,
-      start: 'top 80%',
-      end: 'bottom 20%',
-      toggleActions: 'play none none reverse'
-    },
-    opacity: 0,
-    y: 30,
-    stagger: 0.1,
-    duration: 0.5
-  })
-})
-
-onUnmounted(() => {
-  ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-})
-</script>
-```
-
-## 5. Quality Standards
-
-### 5.1 Performance
-
-```typescript
-// ✅ GOOD - Use transforms for GPU acceleration
-gsap.to(element, {
+// Basic tween - animate to values
+gsap.to(".box", {
   x: 100,
-  y: 50,
-  rotation: 45,
-  scale: 1.2
-})
-
-// ❌ BAD - Triggers layout recalculation
-gsap.to(element, {
-  left: 100,
-  top: 50,
-  width: '120%'
-})
+  rotation: 360,
+  duration: 1,
+  ease: "power2.out"
+});
 ```
 
-### 5.2 Accessibility
+## Core Methods
 
-```typescript
-// ✅ Respect reduced motion
-const prefersReducedMotion = window.matchMedia(
-  '(prefers-reduced-motion: reduce)'
-).matches
-
-if (prefersReducedMotion) {
-  gsap.set(element, { opacity: 1 })
-} else {
-  gsap.from(element, { opacity: 0, duration: 0.5 })
-}
+### gsap.to() - Animate TO values
+```javascript
+gsap.to(".element", {
+  x: 200,           // translateX
+  y: 100,           // translateY
+  rotation: 180,    // degrees
+  scale: 1.5,
+  opacity: 0.5,
+  duration: 1,
+  delay: 0.5,
+  ease: "elastic.out(1, 0.3)"
+});
 ```
 
-## 6. Performance Patterns
-
-### 6.1 will-change Property Usage
-
-```typescript
-// Good: Apply will-change before animation
-const animatePanel = (element: HTMLElement) => {
-  element.style.willChange = 'transform, opacity'
-
-  gsap.to(element, {
-    x: 100,
-    opacity: 0.8,
-    duration: 0.5,
-    onComplete: () => {
-      element.style.willChange = 'auto'
-    }
-  })
-}
-
-// Bad: Never removing will-change
-const animatePanelBad = (element: HTMLElement) => {
-  element.style.willChange = 'transform, opacity' // Memory leak!
-  gsap.to(element, { x: 100, opacity: 0.8 })
-}
+### gsap.from() - Animate FROM values
+```javascript
+// Element animates FROM these values to current state
+gsap.from(".element", {
+  x: -200,
+  opacity: 0,
+  duration: 1
+});
 ```
 
-### 6.2 Transform vs Layout Properties
-
-```typescript
-// Good: Use transforms (GPU accelerated)
-gsap.to(element, {
-  x: 100,           // translateX
-  y: 50,            // translateY
-  scale: 1.2,       // scale
-  rotation: 45,     // rotate
-  opacity: 0.5      // opacity
-})
-
-// Bad: Layout-triggering properties (CPU, causes reflow)
-gsap.to(element, {
-  left: 100,        // Triggers layout
-  top: 50,          // Triggers layout
-  width: '120%',    // Triggers layout
-  height: 200,      // Triggers layout
-  margin: 10        // Triggers layout
-})
+### gsap.fromTo() - Define both start and end
+```javascript
+gsap.fromTo(".element",
+  { x: 0, opacity: 0 },     // from
+  { x: 200, opacity: 1, duration: 1 }  // to
+);
 ```
 
-### 6.3 Timeline Reuse
-
-```typescript
-// Good: Reuse timeline instance
-const timeline = gsap.timeline({ paused: true })
-timeline
-  .to(element, { opacity: 1, duration: 0.3 })
-  .to(element, { y: -20, duration: 0.5 })
-
-// Play/reverse as needed
-const show = () => timeline.play()
-const hide = () => timeline.reverse()
-
-// Bad: Creating new timeline each time
-const showBad = () => {
-  gsap.timeline()
-    .to(element, { opacity: 1, duration: 0.3 })
-    .to(element, { y: -20, duration: 0.5 })
-}
+### gsap.set() - Immediate property set (no animation)
+```javascript
+gsap.set(".element", { x: 100, opacity: 0 });
 ```
 
-### 6.4 ScrollTrigger Batching
+## Timeline Sequences
 
-```typescript
-// Good: Batch ScrollTrigger animations
-ScrollTrigger.batch('.animate-item', {
-  onEnter: (elements) => {
-    gsap.to(elements, {
-      opacity: 1,
-      y: 0,
-      stagger: 0.1,
-      overwrite: true
-    })
+Timelines group animations with precise timing control.
+
+```javascript
+const tl = gsap.timeline({
+  defaults: { duration: 0.5, ease: "power2.out" }
+});
+
+tl.to(".box1", { x: 100 })
+  .to(".box2", { x: 100 }, "-=0.3")  // overlap by 0.3s
+  .to(".box3", { x: 100 }, "+=0.2")  // delay by 0.2s
+  .to(".box4", { x: 100 }, "<")      // same start as previous
+  .to(".box5", { x: 100 }, "<0.1");  // 0.1s after previous starts
+
+// Control playback
+tl.play();
+tl.pause();
+tl.reverse();
+tl.restart();
+tl.seek(1.5);  // jump to 1.5 seconds
+```
+
+### Position Parameter
+```javascript
+tl.to(el, {x: 100}, 2)        // absolute: 2 seconds into timeline
+tl.to(el, {x: 100}, "+=1")    // relative: 1 second after previous ends
+tl.to(el, {x: 100}, "-=0.5")  // overlap: 0.5s before previous ends
+tl.to(el, {x: 100}, "<")      // same time as previous animation starts
+tl.to(el, {x: 100}, ">")      // when previous animation ends
+tl.to(el, {x: 100}, "myLabel") // at label position
+```
+
+## Special Properties
+
+| Property | Description | Example |
+|----------|-------------|---------|
+| `duration` | Animation length (seconds) | `duration: 1` |
+| `delay` | Wait before starting | `delay: 0.5` |
+| `ease` | Timing curve | `ease: "power2.inOut"` |
+| `repeat` | Times to repeat (-1 = infinite) | `repeat: 3` |
+| `yoyo` | Reverse on alternate repeats | `yoyo: true` |
+| `stagger` | Delay between multiple targets | `stagger: 0.1` |
+| `onComplete` | Callback when done | `onComplete: () => {}` |
+| `onUpdate` | Callback each frame | `onUpdate: () => {}` |
+| `paused` | Start paused | `paused: true` |
+
+## Stagger Animations
+
+```javascript
+// Simple stagger
+gsap.to(".boxes", {
+  x: 100,
+  stagger: 0.1  // 0.1s between each
+});
+
+// Advanced stagger
+gsap.to(".boxes", {
+  x: 100,
+  stagger: {
+    each: 0.1,
+    from: "center",  // start from center element
+    grid: [4, 5],    // 4 rows, 5 columns
+    axis: "y",       // stagger by row
+    ease: "power2.in"
+  }
+});
+```
+
+## Easing
+
+```javascript
+// Built-in eases
+"none"              // linear
+"power1.out"        // subtle
+"power2.out"        // moderate (default)
+"power3.out"        // strong
+"power4.out"        // more pronounced
+"back.out(1.7)"     // overshoot
+"elastic.out(1, 0.3)" // bouncy
+"bounce.out"        // bounce effect
+"circ.out"          // circular
+"expo.out"          // exponential
+
+// Directions: .in, .out, .inOut
+"power2.in"         // slow start
+"power2.out"        // slow end
+"power2.inOut"      // slow both ends
+```
+
+## ScrollTrigger Plugin
+
+Scroll-based animations - register plugin first.
+
+```javascript
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Basic scroll trigger
+gsap.to(".box", {
+  scrollTrigger: ".box",  // trigger when .box enters viewport
+  x: 500,
+  rotation: 360
+});
+
+// Advanced configuration
+gsap.to(".parallax", {
+  scrollTrigger: {
+    trigger: ".parallax",
+    start: "top bottom",    // trigger start: element top, viewport bottom
+    end: "bottom top",      // trigger end: element bottom, viewport top
+    scrub: true,            // link animation to scroll position
+    pin: true,              // pin element during animation
+    markers: true,          // debug markers (remove in production)
+    toggleActions: "play pause reverse reset"
   },
-  onLeave: (elements) => {
-    gsap.to(elements, {
-      opacity: 0,
-      y: -20,
-      overwrite: true
-    })
-  }
-})
-
-// Bad: Individual ScrollTrigger per element
-document.querySelectorAll('.animate-item').forEach(item => {
-  gsap.to(item, {
-    scrollTrigger: {
-      trigger: item,
-      start: 'top 80%'
-    },
-    opacity: 1,
-    y: 0
-  })
-})
+  y: -200,
+  ease: "none"
+});
 ```
 
-### 6.5 Lazy Initialization
+### ScrollTrigger Options
 
-```typescript
-// Good: Initialize animations only when needed
-let panelAnimation: gsap.core.Timeline | null = null
+```javascript
+scrollTrigger: {
+  trigger: ".element",      // element that triggers
+  start: "top center",      // [trigger position] [scroller position]
+  end: "bottom center",
 
-const getPanelAnimation = () => {
-  if (!panelAnimation) {
-    panelAnimation = gsap.timeline({ paused: true })
-      .from('.panel', { opacity: 0, y: 20 })
-      .from('.panel-content', { opacity: 0, stagger: 0.1 })
+  // Scrub - link to scroll
+  scrub: true,              // instant scrub
+  scrub: 0.5,              // smoothing (seconds to catch up)
+
+  // Pin element
+  pin: true,
+  pinSpacing: true,
+
+  // Toggle actions: onEnter onLeave onEnterBack onLeaveBack
+  toggleActions: "play none none reverse",
+  toggleClass: "active",
+
+  // Callbacks
+  onEnter: () => {},
+  onLeave: () => {},
+  onEnterBack: () => {},
+  onLeaveBack: () => {},
+  onUpdate: (self) => console.log(self.progress),
+
+  // Horizontal scroll
+  horizontal: true,
+
+  // Custom scroller
+  scroller: ".scroll-container",
+
+  // Snap to sections
+  snap: {
+    snapTo: 1 / 4,         // snap to quarter sections
+    duration: 0.5,
+    ease: "power2.inOut"
   }
-  return panelAnimation
 }
-
-const showPanel = () => getPanelAnimation().play()
-const hidePanel = () => getPanelAnimation().reverse()
-
-// Bad: Initialize all animations on mount
-onMounted(() => {
-  // Creates timeline even if never used
-  const animation1 = gsap.timeline().to('.panel1', { x: 100 })
-  const animation2 = gsap.timeline().to('.panel2', { y: 100 })
-  const animation3 = gsap.timeline().to('.panel3', { scale: 1.2 })
-})
 ```
 
-## 7. Testing & Quality
+## React Integration
 
-### 7.1 Animation Testing
+Use the official `@gsap/react` package for proper cleanup.
 
-```typescript
-describe('Panel Animation', () => {
-  it('cleans up on unmount', async () => {
-    const wrapper = mount(HUDPanel)
-    await wrapper.unmount()
-
-    // No active GSAP animations should remain
-    expect(gsap.globalTimeline.getChildren().length).toBe(0)
-  })
-})
+```bash
+npm install @gsap/react
 ```
 
-## 8. Common Mistakes & Anti-Patterns
+```jsx
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
-### 8.1 Critical Anti-Patterns
+gsap.registerPlugin(useGSAP);
 
-#### Never: Skip Cleanup
+function Component() {
+  const container = useRef();
 
-```typescript
-// ❌ MEMORY LEAK
-onMounted(() => {
-  gsap.to(element, { x: 100, duration: 1 })
-})
+  useGSAP(() => {
+    // Animations auto-cleanup on unmount
+    gsap.to(".box", { x: 360, rotation: 360 });
+  }, { scope: container }); // scope animations to container
 
-// ✅ PROPER CLEANUP
-let tween: gsap.core.Tween
-
-onMounted(() => {
-  tween = gsap.to(element, { x: 100, duration: 1 })
-})
-
-onUnmounted(() => {
-  tween?.kill()
-})
+  return (
+    <div ref={container}>
+      <div className="box">Animate me</div>
+    </div>
+  );
+}
 ```
 
-#### Never: Animate Layout Properties
+### With Context for Manual Control
 
-```typescript
-// ❌ BAD - Causes layout thrashing
-gsap.to(element, { width: 200, height: 100 })
+```jsx
+function Component() {
+  const container = useRef();
 
-// ✅ GOOD - Use transforms
-gsap.to(element, { scaleX: 2, scaleY: 1 })
+  const { contextSafe } = useGSAP({ scope: container });
+
+  // Wrap event handlers with contextSafe
+  const handleClick = contextSafe(() => {
+    gsap.to(".box", { rotation: "+=360" });
+  });
+
+  return (
+    <div ref={container}>
+      <button onClick={handleClick}>Rotate</button>
+      <div className="box" />
+    </div>
+  );
+}
 ```
 
-## 13. Pre-Implementation Checklist
+## Other Plugins (All FREE)
 
-### Phase 1: Before Writing Code
+```javascript
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Flip } from "gsap/Flip";
+import { Draggable } from "gsap/Draggable";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import { TextPlugin } from "gsap/TextPlugin";
+import { SplitText } from "gsap/SplitText";
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 
-- [ ] Write failing tests for animation behavior
-- [ ] Define animation timing and easing requirements
-- [ ] Identify elements that need will-change hints
-- [ ] Plan cleanup strategy for all animations
-- [ ] Check if reduced motion support is needed
+gsap.registerPlugin(
+  ScrollTrigger, Flip, Draggable, MotionPathPlugin,
+  TextPlugin, SplitText, MorphSVGPlugin, DrawSVGPlugin,
+  ScrollSmoother
+);
+```
 
-### Phase 2: During Implementation
+## Performance Tips
 
-- [ ] Use transforms/opacity only (no layout properties)
-- [ ] Store animation references for cleanup
-- [ ] Apply will-change before, remove after animation
-- [ ] Use timelines for sequences
-- [ ] Batch ScrollTrigger animations
-- [ ] Implement lazy initialization for complex animations
+1. **Use transforms and opacity** - GPU accelerated, no layout recalc
+2. **Avoid** animating width, height, top, left, margin, padding
+3. **Use will-change sparingly** - `will-change: transform`
+4. **Limit concurrent animations** - batch or stagger
+5. **Use `gsap.quickTo()`** for frequently updated values:
 
-### Phase 3: Before Committing
+```javascript
+const xTo = gsap.quickTo(".box", "x", { duration: 0.3 });
+const yTo = gsap.quickTo(".box", "y", { duration: 0.3 });
 
-- [ ] All tests pass (npm test -- --grep "Animation")
-- [ ] All animations cleaned up on unmount
-- [ ] Reduced motion preference respected
-- [ ] No memory leaks (check with DevTools)
-- [ ] 60fps maintained (test with performance monitor)
-- [ ] ScrollTrigger instances properly killed
+window.addEventListener("mousemove", (e) => {
+  xTo(e.clientX);
+  yTo(e.clientY);
+});
+```
 
-## 14. Summary
+## Common Patterns
 
-GSAP provides professional animations for JARVIS HUD:
+### Fade In on Scroll
+```javascript
+gsap.utils.toArray(".fade-in").forEach((el) => {
+  gsap.from(el, {
+    scrollTrigger: {
+      trigger: el,
+      start: "top 80%",
+    },
+    y: 50,
+    opacity: 0,
+    duration: 1
+  });
+});
+```
 
-1. **Cleanup**: Always kill animations on unmount
-2. **Performance**: Use transforms and opacity only
-3. **Accessibility**: Respect reduced motion preference
-4. **Organization**: Use timelines for sequences
+### Horizontal Scroll Section
+```javascript
+const sections = gsap.utils.toArray(".panel");
+gsap.to(sections, {
+  xPercent: -100 * (sections.length - 1),
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".container",
+    pin: true,
+    scrub: 1,
+    snap: 1 / (sections.length - 1),
+    end: () => "+=" + document.querySelector(".container").offsetWidth
+  }
+});
+```
 
-**Remember**: Every animation must be cleaned up to prevent memory leaks.
+### Text Reveal
+```javascript
+const split = new SplitText(".headline", { type: "chars, words" });
+gsap.from(split.chars, {
+  opacity: 0,
+  y: 50,
+  stagger: 0.02,
+  duration: 0.5,
+  ease: "back.out"
+});
+```
 
----
+## Reference Files
 
-**References**:
-- `references/advanced-patterns.md` - Complex animation patterns
+- [references/scrolltrigger.md](references/scrolltrigger.md) - Complete ScrollTrigger guide
+- [references/plugins.md](references/plugins.md) - All GSAP plugins overview

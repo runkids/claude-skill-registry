@@ -1,7 +1,7 @@
 {
   "name": "testing",
-  "repo": "appautomaton/agent-designer",
-  "path": ".codex/skills/testing/SKILL.md",
-  "source": "github.com/appautomaton/agent-designer",
-  "downloaded_at": "2026-01-21T04:03:44.643936Z"
+  "repo": "zoonk/zoonk",
+  "path": ".claude/skills/testing/SKILL.md",
+  "source": "github.com/zoonk/zoonk",
+  "downloaded_at": "2026-01-22T04:16:38.066551Z"
 }

@@ -1,496 +1,533 @@
 ---
 name: playwright
-description: Browser automation and E2E testing with Playwright. Auto-detects dev servers, writes clean test scripts. Test pages, fill forms, take screenshots, check responsive design, validate UX, test login flows, check links, automate any browser task. Use for cross-browser testing, visual regression, API testing, component testing in TypeScript/JavaScript and Python projects.
-allowed-tools: Bash, Read, Edit, Write, Grep, Glob, TodoWrite
+description: Tests web applications with Playwright including E2E tests, locators, assertions, and visual testing. Use when writing end-to-end tests, testing across browsers, automating user flows, or debugging test failures.
 ---
 
-# Playwright - Browser Automation & E2E Testing
+# Playwright
 
-Expert knowledge for browser automation and end-to-end testing with Playwright - a modern cross-browser testing framework.
-
-**IMPORTANT - Path Resolution:**
-This skill can be installed in different locations. Before executing commands, determine the skill directory based on where you loaded this SKILL.md file, and use that path in all commands. Replace `$SKILL_DIR` with the actual discovered path.
-
-Common installation paths:
-- Plugin system: `~/.claude/plugins/*/playwright/skills/playwright`
-- Manual global: `~/.claude/skills/playwright`
-- Project-specific: `<project>/.claude/skills/playwright`
-
-## CRITICAL WORKFLOW - Follow These Steps
-
-When automating browser tasks:
-
-1. **Auto-detect dev servers** - For localhost testing, ALWAYS run server detection FIRST:
-   ```bash
-   cd $SKILL_DIR && node -e "require('./lib/helpers').detectDevServers().then(servers => console.log(JSON.stringify(servers)))"
-   ```
-   - If **1 server found**: Use it automatically, inform user
-   - If **multiple servers found**: Ask user which one to test
-   - If **no servers found**: Ask for URL or offer to help start dev server
-
-2. **Write scripts to /tmp** - NEVER write test files to skill directory; always use `/tmp/playwright-test-*.js`
-
-3. **Use visible browser by default** - Always use `headless: false` unless user specifically requests headless mode
-
-4. **Parameterize URLs** - Always make URLs configurable via constant at top of script
-
-5. **Execute via run.js** - Always run: `cd $SKILL_DIR && node run.js /tmp/playwright-test-*.js`
+Cross-browser end-to-end testing framework with auto-wait and powerful debugging.
 
 ## Quick Start
 
-### First-Time Setup
-
+**Install:**
 ```bash
-# Navigate to skill directory
-cd $SKILL_DIR
-
-# Install using bun (preferred)
-bun run setup
-
-# Or using npm
-npm run setup:npm
-```
-
-This installs Playwright and Chromium browser. Only needed once.
-
-### Installation (For E2E Testing Projects)
-
-```bash
-# Using Bun (preferred)
-bun add -d @playwright/test
-bunx playwright install
-
-# Using npm
 npm init playwright@latest
 ```
 
-### Configuration
+This creates:
+- `playwright.config.ts` - Configuration
+- `tests/` - Test directory
+- `tests-examples/` - Example tests
+
+**Run tests:**
+```bash
+npx playwright test
+npx playwright test --ui          # UI mode
+npx playwright test --headed      # See browser
+npx playwright show-report        # View report
+```
+
+## Configuration
 
 ```typescript
 // playwright.config.ts
-import { defineConfig, devices } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+
   use: {
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    video: 'on-first-retry',
   },
+
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+    {
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 5'] },
+    },
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 12'] },
+    },
   ],
+
   webServer: {
-    command: 'bun run dev',
+    command: 'npm run dev',
     url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
   },
-})
+});
 ```
 
-## Browser Automation Patterns
+## Test Structure
 
-### How It Works
-
-1. You describe what you want to test/automate
-2. I auto-detect running dev servers (or ask for URL)
-3. I write custom Playwright code in `/tmp/playwright-test-*.js`
-4. I execute it via: `cd $SKILL_DIR && node run.js /tmp/playwright-test-*.js`
-5. Results displayed in real-time, browser window visible
-
-### Test a Page (Multiple Viewports)
-
-```javascript
-// /tmp/playwright-test-responsive.js
-const { chromium } = require('playwright');
-
-const TARGET_URL = 'http://localhost:3001'; // Auto-detected
-
-(async () => {
-  const browser = await chromium.launch({ headless: false, slowMo: 100 });
-  const page = await browser.newPage();
-
-  // Desktop test
-  await page.setViewportSize({ width: 1920, height: 1080 });
-  await page.goto(TARGET_URL);
-  console.log('Desktop - Title:', await page.title());
-  await page.screenshot({ path: '/tmp/desktop.png', fullPage: true });
-
-  // Mobile test
-  await page.setViewportSize({ width: 375, height: 667 });
-  await page.screenshot({ path: '/tmp/mobile.png', fullPage: true });
-
-  await browser.close();
-})();
-```
-
-Execute: `cd $SKILL_DIR && node run.js /tmp/playwright-test-responsive.js`
-
-### Test Login Flow
-
-```javascript
-// /tmp/playwright-test-login.js
-const { chromium } = require('playwright');
-
-const TARGET_URL = 'http://localhost:3001'; // Auto-detected
-
-(async () => {
-  const browser = await chromium.launch({ headless: false });
-  const page = await browser.newPage();
-
-  await page.goto(`${TARGET_URL}/login`);
-  await page.fill('input[name="email"]', 'test@example.com');
-  await page.fill('input[name="password"]', 'password123');
-  await page.click('button[type="submit"]');
-
-  await page.waitForURL('**/dashboard');
-  console.log('✅ Login successful, redirected to dashboard');
-
-  await browser.close();
-})();
-```
-
-### Check for Broken Links
-
-```javascript
-const { chromium } = require('playwright');
-
-(async () => {
-  const browser = await chromium.launch({ headless: false });
-  const page = await browser.newPage();
-
-  await page.goto('http://localhost:3000');
-
-  const links = await page.locator('a[href^="http"]').all();
-  const results = { working: 0, broken: [] };
-
-  for (const link of links) {
-    const href = await link.getAttribute('href');
-    try {
-      const response = await page.request.head(href);
-      if (response.ok()) {
-        results.working++;
-      } else {
-        results.broken.push({ url: href, status: response.status() });
-      }
-    } catch (e) {
-      results.broken.push({ url: href, error: e.message });
-    }
-  }
-
-  console.log(`✅ Working links: ${results.working}`);
-  console.log(`❌ Broken links:`, results.broken);
-
-  await browser.close();
-})();
-```
-
-## E2E Testing Patterns
-
-### Running Tests
-
-```bash
-# Run all tests
-bunx playwright test
-
-# Headed mode (see browser)
-bunx playwright test --headed
-
-# Specific file
-bunx playwright test tests/login.spec.ts
-
-# Debug mode
-bunx playwright test --debug
-
-# UI mode (interactive)
-bunx playwright test --ui
-
-# Specific browser
-bunx playwright test --project=chromium
-
-# Generate report
-bunx playwright show-report
-```
-
-### Writing Tests
+### Basic Test
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
-test.describe('Login flow', () => {
-  test('successful login', async ({ page }) => {
-    await page.goto('/')
-    await page.getByRole('link', { name: 'Login' }).click()
-    await page.getByLabel('Email').fill('user@example.com')
-    await page.getByLabel('Password').fill('password123')
-    await page.getByRole('button', { name: 'Sign in' }).click()
+test('has title', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveTitle(/My App/);
+});
 
-    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible()
-  })
-
-  test('shows error for invalid credentials', async ({ page }) => {
-    await page.goto('/login')
-    await page.getByLabel('Email').fill('wrong@example.com')
-    await page.getByLabel('Password').fill('wrongpassword')
-    await page.getByRole('button', { name: 'Sign in' }).click()
-
-    await expect(page.getByText('Invalid credentials')).toBeVisible()
-  })
-})
+test('navigates to about', async ({ page }) => {
+  await page.goto('/');
+  await page.click('text=About');
+  await expect(page).toHaveURL('/about');
+});
 ```
 
-## Selectors (Best Practices)
+### Test Groups
 
 ```typescript
-// ✅ Role-based (recommended)
-await page.getByRole('button', { name: 'Submit' })
-await page.getByRole('link', { name: 'Home' })
+import { test, expect } from '@playwright/test';
 
-// ✅ Text/Label
-await page.getByText('Hello World')
-await page.getByLabel('Email')
+test.describe('Authentication', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/login');
+  });
 
-// ✅ Test ID (fallback)
-await page.getByTestId('submit-button')
+  test('shows login form', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible();
+  });
 
-// ❌ Avoid CSS selectors (brittle)
-await page.locator('.btn-primary')
+  test('logs in with valid credentials', async ({ page }) => {
+    await page.getByLabel('Email').fill('user@example.com');
+    await page.getByLabel('Password').fill('password123');
+    await page.getByRole('button', { name: 'Login' }).click();
+
+    await expect(page).toHaveURL('/dashboard');
+  });
+
+  test('shows error with invalid credentials', async ({ page }) => {
+    await page.getByLabel('Email').fill('wrong@example.com');
+    await page.getByLabel('Password').fill('wrongpass');
+    await page.getByRole('button', { name: 'Login' }).click();
+
+    await expect(page.getByText('Invalid credentials')).toBeVisible();
+  });
+});
 ```
 
-## Assertions
+## Locators
+
+### Recommended Locators
 
 ```typescript
-// Visibility
-await expect(page.getByText('Success')).toBeVisible()
-await expect(page.getByRole('button')).toBeEnabled()
+// By role (best for accessibility)
+page.getByRole('button', { name: 'Submit' });
+page.getByRole('heading', { name: 'Welcome' });
+page.getByRole('link', { name: 'Home' });
+page.getByRole('textbox', { name: 'Email' });
+page.getByRole('checkbox', { name: 'Remember me' });
 
-// Text
-await expect(page.getByRole('heading')).toHaveText('Welcome')
-await expect(page.getByRole('alert')).toContainText('error')
+// By label
+page.getByLabel('Email');
+page.getByLabel('Password');
 
-// Attributes
-await expect(page.getByRole('link')).toHaveAttribute('href', '/home')
+// By placeholder
+page.getByPlaceholder('Enter your email');
 
-// URL/Title
-await expect(page).toHaveURL('/dashboard')
-await expect(page).toHaveTitle('Dashboard')
+// By text
+page.getByText('Welcome to our app');
+page.getByText(/welcome/i); // Case-insensitive
 
-// Count
-await expect(page.getByRole('listitem')).toHaveCount(5)
+// By alt text
+page.getByAltText('Company logo');
+
+// By title
+page.getByTitle('Close');
+
+// By test ID
+page.getByTestId('submit-button');
+```
+
+### CSS and XPath
+
+```typescript
+// CSS selector
+page.locator('.submit-button');
+page.locator('#email-input');
+page.locator('[data-cy="login-form"]');
+
+// XPath
+page.locator('//button[text()="Submit"]');
+```
+
+### Filtering and Chaining
+
+```typescript
+// Filter by text
+page.getByRole('listitem').filter({ hasText: 'Product 1' });
+
+// Filter by child locator
+page.getByRole('listitem').filter({
+  has: page.getByRole('button', { name: 'Add to cart' }),
+});
+
+// Chain locators
+page.getByRole('article').getByRole('button', { name: 'Read more' });
+
+// Nth element
+page.getByRole('listitem').nth(0);
+page.getByRole('listitem').first();
+page.getByRole('listitem').last();
 ```
 
 ## Actions
 
+### Click
+
 ```typescript
-// Clicking
-await page.getByRole('button').click()
-await page.getByText('File').dblclick()
-
-// Typing
-await page.getByLabel('Email').fill('user@example.com')
-await page.getByLabel('Search').press('Enter')
-
-// Selecting
-await page.getByLabel('Country').selectOption('us')
-
-// File Upload
-await page.getByLabel('Upload').setInputFiles('path/to/file.pdf')
+await page.getByRole('button', { name: 'Submit' }).click();
+await page.getByRole('link').click({ button: 'right' }); // Right click
+await page.getByRole('button').dblclick(); // Double click
+await page.getByRole('button').click({ force: true }); // Force click
 ```
 
-## Network Mocking
+### Fill and Type
 
 ```typescript
-test('mocks API response', async ({ page }) => {
-  await page.route('**/api/users', async route => {
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify([{ id: 1, name: 'Test User' }]),
-    })
-  })
+// Fill (clears first)
+await page.getByLabel('Email').fill('user@example.com');
 
-  await page.goto('/users')
-  await expect(page.getByText('Test User')).toBeVisible()
-})
+// Type (key by key)
+await page.getByLabel('Search').type('playwright');
+
+// Press key
+await page.getByLabel('Search').press('Enter');
+
+// Clear
+await page.getByLabel('Email').clear();
+```
+
+### Select
+
+```typescript
+// Select option
+await page.getByLabel('Country').selectOption('usa');
+await page.getByLabel('Country').selectOption({ label: 'United States' });
+
+// Multi-select
+await page.getByLabel('Colors').selectOption(['red', 'blue']);
+```
+
+### Check and Uncheck
+
+```typescript
+await page.getByLabel('Accept terms').check();
+await page.getByLabel('Newsletter').uncheck();
+
+// Toggle
+await page.getByLabel('Dark mode').setChecked(true);
+```
+
+### Drag and Drop
+
+```typescript
+await page.getByTestId('source').dragTo(page.getByTestId('target'));
+```
+
+### File Upload
+
+```typescript
+await page.getByLabel('Upload file').setInputFiles('path/to/file.pdf');
+await page.getByLabel('Upload files').setInputFiles([
+  'file1.pdf',
+  'file2.pdf',
+]);
+```
+
+## Assertions
+
+### Element Assertions
+
+```typescript
+// Visibility
+await expect(page.getByRole('button')).toBeVisible();
+await expect(page.getByRole('button')).toBeHidden();
+
+// Enabled/Disabled
+await expect(page.getByRole('button')).toBeEnabled();
+await expect(page.getByRole('button')).toBeDisabled();
+
+// Checked
+await expect(page.getByRole('checkbox')).toBeChecked();
+await expect(page.getByRole('checkbox')).not.toBeChecked();
+
+// Text content
+await expect(page.getByRole('heading')).toHaveText('Welcome');
+await expect(page.getByRole('heading')).toContainText('Welcome');
+
+// Value
+await expect(page.getByLabel('Email')).toHaveValue('user@example.com');
+
+// Attribute
+await expect(page.getByRole('link')).toHaveAttribute('href', '/about');
+
+// Class
+await expect(page.getByRole('button')).toHaveClass(/primary/);
+
+// Count
+await expect(page.getByRole('listitem')).toHaveCount(5);
+```
+
+### Page Assertions
+
+```typescript
+await expect(page).toHaveTitle('My App');
+await expect(page).toHaveTitle(/My App/);
+await expect(page).toHaveURL('/dashboard');
+await expect(page).toHaveURL(/dashboard/);
+```
+
+### Response Assertions
+
+```typescript
+const response = await page.goto('/');
+expect(response?.status()).toBe(200);
+```
+
+## Waiting
+
+### Auto-Wait
+
+Playwright auto-waits for elements to be actionable. Manual waits:
+
+```typescript
+// Wait for element
+await page.getByRole('button').waitFor();
+await page.getByRole('button').waitFor({ state: 'hidden' });
+
+// Wait for URL
+await page.waitForURL('/dashboard');
+await page.waitForURL(/dashboard/);
+
+// Wait for response
+await page.waitForResponse('/api/users');
+await page.waitForResponse((response) =>
+  response.url().includes('/api') && response.status() === 200
+);
+
+// Wait for request
+await page.waitForRequest('/api/users');
+
+// Wait for load state
+await page.waitForLoadState('networkidle');
+
+// Custom timeout
+await page.getByRole('button').click({ timeout: 10000 });
+```
+
+## Page Objects
+
+```typescript
+// pages/LoginPage.ts
+import { Page, Locator, expect } from '@playwright/test';
+
+export class LoginPage {
+  readonly page: Page;
+  readonly emailInput: Locator;
+  readonly passwordInput: Locator;
+  readonly submitButton: Locator;
+  readonly errorMessage: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.emailInput = page.getByLabel('Email');
+    this.passwordInput = page.getByLabel('Password');
+    this.submitButton = page.getByRole('button', { name: 'Login' });
+    this.errorMessage = page.getByRole('alert');
+  }
+
+  async goto() {
+    await this.page.goto('/login');
+  }
+
+  async login(email: string, password: string) {
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+    await this.submitButton.click();
+  }
+
+  async expectError(message: string) {
+    await expect(this.errorMessage).toHaveText(message);
+  }
+}
+
+// tests/login.spec.ts
+import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
+
+test('login with valid credentials', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  await loginPage.goto();
+  await loginPage.login('user@example.com', 'password123');
+
+  await expect(page).toHaveURL('/dashboard');
+});
+```
+
+## Fixtures
+
+```typescript
+// fixtures.ts
+import { test as base } from '@playwright/test';
+import { LoginPage } from './pages/LoginPage';
+import { DashboardPage } from './pages/DashboardPage';
+
+type MyFixtures = {
+  loginPage: LoginPage;
+  dashboardPage: DashboardPage;
+  authenticatedPage: Page;
+};
+
+export const test = base.extend<MyFixtures>({
+  loginPage: async ({ page }, use) => {
+    await use(new LoginPage(page));
+  },
+
+  dashboardPage: async ({ page }, use) => {
+    await use(new DashboardPage(page));
+  },
+
+  authenticatedPage: async ({ page }, use) => {
+    // Login before test
+    await page.goto('/login');
+    await page.getByLabel('Email').fill('user@example.com');
+    await page.getByLabel('Password').fill('password');
+    await page.getByRole('button', { name: 'Login' }).click();
+    await page.waitForURL('/dashboard');
+
+    await use(page);
+  },
+});
+
+export { expect } from '@playwright/test';
+
+// tests/dashboard.spec.ts
+import { test, expect } from '../fixtures';
+
+test('shows user info', async ({ authenticatedPage }) => {
+  await expect(authenticatedPage.getByText('Welcome')).toBeVisible();
+});
+```
+
+## API Testing
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('API: create user', async ({ request }) => {
+  const response = await request.post('/api/users', {
+    data: {
+      name: 'John Doe',
+      email: 'john@example.com',
+    },
+  });
+
+  expect(response.ok()).toBeTruthy();
+
+  const user = await response.json();
+  expect(user.name).toBe('John Doe');
+});
+
+test('API: get users', async ({ request }) => {
+  const response = await request.get('/api/users');
+  expect(response.ok()).toBeTruthy();
+
+  const users = await response.json();
+  expect(users.length).toBeGreaterThan(0);
+});
 ```
 
 ## Visual Testing
 
 ```typescript
-test('captures screenshot', async ({ page }) => {
-  await page.goto('/')
-  await page.screenshot({ path: 'screenshot.png', fullPage: true })
-  await expect(page).toHaveScreenshot('homepage.png')
-})
+test('screenshot comparison', async ({ page }) => {
+  await page.goto('/');
+
+  // Full page
+  await expect(page).toHaveScreenshot('homepage.png');
+
+  // Element
+  await expect(page.getByRole('navigation')).toHaveScreenshot('nav.png');
+
+  // With options
+  await expect(page).toHaveScreenshot('homepage.png', {
+    maxDiffPixels: 100,
+    threshold: 0.2,
+  });
+});
 ```
 
-## Authentication State
-
-```typescript
-// Save state after login
-setup('authenticate', async ({ page }) => {
-  await page.goto('/login')
-  await page.getByLabel('Email').fill('user@example.com')
-  await page.getByLabel('Password').fill('password123')
-  await page.getByRole('button', { name: 'Sign in' }).click()
-  await page.context().storageState({ path: 'auth.json' })
-})
-
-// Reuse in config
-use: { storageState: 'auth.json' }
-```
-
-## Page Object Model
-
-```typescript
-// pages/LoginPage.ts
-import { Page, Locator } from '@playwright/test'
-
-export class LoginPage {
-  readonly emailInput: Locator
-  readonly passwordInput: Locator
-  readonly submitButton: Locator
-
-  constructor(page: Page) {
-    this.emailInput = page.getByLabel('Email')
-    this.passwordInput = page.getByLabel('Password')
-    this.submitButton = page.getByRole('button', { name: 'Sign in' })
-  }
-
-  async login(email: string, password: string) {
-    await this.emailInput.fill(email)
-    await this.passwordInput.fill(password)
-    await this.submitButton.click()
-  }
-}
-
-// Usage
-const loginPage = new LoginPage(page)
-await loginPage.login('user@example.com', 'password123')
-```
-
-## Available Helpers
-
-Optional utility functions in `lib/helpers.js`:
-
-```javascript
-const helpers = require('./lib/helpers');
-
-// Detect running dev servers (CRITICAL - use this first!)
-const servers = await helpers.detectDevServers();
-console.log('Found servers:', servers);
-
-// Safe click with retry
-await helpers.safeClick(page, 'button.submit', { retries: 3 });
-
-// Safe type with clear
-await helpers.safeType(page, '#username', 'testuser');
-
-// Take timestamped screenshot
-await helpers.takeScreenshot(page, 'test-result');
-
-// Handle cookie banners
-await helpers.handleCookieBanner(page);
-
-// Extract table data
-const data = await helpers.extractTableData(page, 'table.results');
-
-// Create context with custom headers
-const context = await helpers.createContext(browser);
-```
-
-## Custom HTTP Headers
-
-Configure custom headers for all HTTP requests via environment variables:
+## Debugging
 
 ```bash
-# Single header (common case)
-PW_HEADER_NAME=X-Automated-By PW_HEADER_VALUE=playwright-skill \
-  cd $SKILL_DIR && node run.js /tmp/my-script.js
+# Debug mode
+npx playwright test --debug
 
-# Multiple headers (JSON format)
-PW_EXTRA_HEADERS='{"X-Automated-By":"playwright-skill","X-Debug":"true"}' \
-  cd $SKILL_DIR && node run.js /tmp/my-script.js
+# UI mode
+npx playwright test --ui
+
+# Headed mode
+npx playwright test --headed
+
+# Trace viewer
+npx playwright show-trace trace.zip
 ```
 
-Headers are automatically applied when using `helpers.createContext()`.
+```typescript
+// Pause in test
+await page.pause();
 
-## Inline Execution (Simple Tasks)
-
-For quick one-off tasks:
-
-```bash
-cd $SKILL_DIR && node run.js "
-const browser = await chromium.launch({ headless: false });
-const page = await browser.newPage();
-await page.goto('http://localhost:3001');
-await page.screenshot({ path: '/tmp/quick-screenshot.png', fullPage: true });
-console.log('Screenshot saved');
-await browser.close();
-"
+// Console log
+console.log(await page.content());
+console.log(await page.getByRole('heading').textContent());
 ```
-
-**When to use:**
-- **Inline**: Quick one-off tasks (screenshot, element check)
-- **Files**: Complex tests, reusable automation
 
 ## Best Practices
 
-- **CRITICAL: Detect servers FIRST** - Always run `detectDevServers()` before writing test code
-- **Use /tmp for test files** - Write to `/tmp/playwright-test-*.js`, never to skill directory
-- **Parameterize URLs** - Put detected/provided URL in `TARGET_URL` constant
-- **DEFAULT: Visible browser** - Always use `headless: false` unless explicitly requested
-- **Prefer role-based selectors** - More stable than CSS selectors
-- **Trust auto-waiting** - No manual sleeps needed
-- **Each test gets fresh context** - Automatic isolation
-- **Run tests in parallel** - Default behavior
-- **Mock external dependencies** - Use `page.route()`
-- **Use trace viewer** - Time-travel debugging
+1. **Use role locators** - Most reliable and accessible
+2. **Add test IDs sparingly** - Only when roles don't work
+3. **Use page objects** - Reusable, maintainable
+4. **Avoid hardcoded waits** - Use auto-wait
+5. **Run in CI** - Catch regressions early
 
-## Tips
+## Common Mistakes
 
-- **Slow down:** Use `slowMo: 100` to make actions visible
-- **Wait strategies:** Use `waitForURL`, `waitForSelector`, `waitForLoadState` instead of fixed timeouts
-- **Error handling:** Always use try-catch for robust automation
-- **Console output:** Use `console.log()` to track progress
+| Mistake | Fix |
+|---------|-----|
+| Using sleep/wait | Use auto-wait or waitFor |
+| Fragile selectors | Use role-based locators |
+| No assertions | Always verify outcomes |
+| Tests depend on order | Make tests independent |
+| Hardcoded data | Use fixtures |
 
-## Troubleshooting
+## Reference Files
 
-**Playwright not installed:**
-```bash
-cd $SKILL_DIR && bun run setup
-```
-
-**Module not found:**
-Ensure running from skill directory via `run.js` wrapper
-
-**Browser doesn't open:**
-Check `headless: false` and ensure display available
-
-**Element not found:**
-Add wait: `await page.waitForSelector('.element', { timeout: 10000 })`
-
-## See Also
-
-- `vitest-testing` - Unit and integration testing
-- `api-testing` - HTTP API testing
-- `test-quality-analysis` - Test quality patterns
-
-## When to Load References
-
-Load `references/API_REFERENCE.md` when you need:
-- Advanced selector patterns and locator strategies
-- Network interception and request/response mocking
-- Authentication patterns and session management
-- Visual regression testing setup
-- Mobile device emulation configurations
-- Performance testing and metrics
-- Debugging techniques (trace viewer, inspector)
-- CI/CD pipeline integration
-- Accessibility testing with axe-core
-- Data-driven and parameterized testing
-- Page Object Model advanced patterns
-- Parallel execution strategies
+- [references/locators.md](references/locators.md) - Locator strategies
+- [references/fixtures.md](references/fixtures.md) - Advanced fixtures
+- [references/ci.md](references/ci.md) - CI configuration

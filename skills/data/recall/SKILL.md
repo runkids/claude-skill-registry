@@ -1,116 +1,219 @@
 ---
 name: recall
-description: Semantic memory recall using FTS5 and Chroma. Use PROACTIVELY whenever the user asks about past events, themes, conversations, or when historical context would enrich a response. Trigger words: remember, when did we, what did we talk about, last time, before, previously, that conversation, that time, history, past, recall.
-context: fork
-allowed-tools:
+description: Deep search across all past Claude Code sessions for decisions, solutions, and discussions
+version: 0.6.0
+triggers:
+  - "I forgot"
+  - "do you remember"
+  - "what did we decide"
+  - "we discussed this before"
+  - "I need to recall"
+  - "search my memory"
+  - "/recall"
+tools:
   - Bash
   - Read
 ---
 
-# Semantic Memory Recall
+# Recall: Self-Memory Retrieval
 
-This skill searches through semantic memory indexes for associative recall of past conversations, themes, and context.
+> **STOP. READ THIS FIRST.**
+>
+> **THE ONLY COMMAND YOU MAY USE IS:**
+> ```
+> .claude/bin/transcript recall "your query"
+> ```
+>
+> **YOU MUST NOT USE:**
+> - `rg` - FORBIDDEN
+> - `grep` - FORBIDDEN
+> - `find` - FORBIDDEN
+> - `cat ~/.claude/` - FORBIDDEN
+> - Any direct file access to `~/.claude/projects/` - FORBIDDEN
+>
+> If you use any forbidden command, you are violating this skill's requirements.
 
-## When to Use This Skill
+## Why This Matters
 
-**Use proactively** when:
-- User asks about past conversations or events
-- User references "that time when..." or "remember when..."
-- Historical context would enrich your response
-- User asks about themes discussed previously
-- You need to recall what was said about a topic
+The `transcript` CLI:
+- Handles JSONL parsing correctly
+- Groups results by session
+- Shows timestamps and context
+- Finds related skills automatically
+- Auto-synthesizes complex queries with LLM
 
-## Two Memory Systems
+Raw tools like `rg` return unreadable JSON blobs and miss context. **Using them is a failure mode.**
 
-### 1. SQLite FTS5 (Keyword Search)
-Fast keyword matching with BM25 ranking.
+## The Command
 
 ```bash
-~/.claude-mind/bin/memory-index search "query" [limit]
+.claude/bin/transcript recall "your query"
 ```
 
-Best for: Specific terms, names, dates, exact phrases
+That's it. Run this command. Read the output. Done.
 
-### 2. Chroma Vector Database (Semantic Search)
-Embedding-based similarity search - finds related content even with different wording.
+## Tiered Retrieval
+
+Recall uses intelligent tiering to match retrieval strategy to query complexity:
+
+### Fast Path (default)
+- SQLite FTS search
+- Returns in 1-2 seconds
+- Best for simple keyword lookups
+
+### Deep Path (auto or --deep)
+- Fast path + LLM synthesis
+- Returns in 5-10 seconds
+- Best for complex questions requiring cross-session analysis
+
+### Auto-Escalation
+
+The command automatically escalates to deep path when:
+- **Match count > 50** - Too many results to scan manually
+- **Results span > 7 days** - Long time range suggests complex topic
+- **Query is a question** - Starts with what/why/how/did/do/etc.
+- **Session count > 5** - Information spread across many sessions
+
+### Controlling Escalation
 
 ```bash
-~/.claude-mind/bin/chroma-query "query" [n_results]
+# Force deep path (LLM synthesis) even for simple queries
+.claude/bin/transcript recall "caching" --deep
+.claude/bin/transcript recall "caching" -D
+
+# Force fast path (skip synthesis) even when criteria would trigger escalation
+.claude/bin/transcript recall "why did we choose redis" --fast
+.claude/bin/transcript recall "why did we choose redis" -F
 ```
 
-Best for: Themes, concepts, "conversations like X", finding related discussions
+**Note:** `--fast` takes precedence over `--deep` if both are specified.
 
-## Search Strategy
+### Options
 
-1. **Determine query type**:
-   - Specific term/name/date → Use FTS5 first
-   - Theme/concept/vague reference → Use Chroma first
-   - Comprehensive search → Use both
-
-2. **Run searches**:
 ```bash
-# Keyword search (FTS5)
-~/.claude-mind/bin/memory-index search "coffee shops" 10
-
-# Semantic search (Chroma)
-~/.claude-mind/bin/chroma-query "conversations about morning routines" 5
-
-# For comprehensive recall, run both
-~/.claude-mind/bin/memory-index search "project planning" 5
-~/.claude-mind/bin/chroma-query "discussions about work priorities and goals" 5
+.claude/bin/transcript recall "query" --max-sessions 5    # Limit sessions shown (default: 5)
+.claude/bin/transcript recall "query" --context 3         # Matches per session (default: 3)
+.claude/bin/transcript recall "query" --limit 100         # Total matches to search (default: 100)
+.claude/bin/transcript recall "query" --deep              # Force LLM synthesis
+.claude/bin/transcript recall "query" --fast              # Skip LLM synthesis
+.claude/bin/transcript recall "query" --json              # Output as JSON (includes synthesis if applicable)
 ```
-
-3. **Synthesize results**: Combine findings from both systems, noting dates and context.
-
-## Output Format
-
-When presenting recalled memories:
-- Lead with the most relevant finding
-- Include dates to establish timeline
-- Quote key excerpts when helpful
-- Note which system found each result (keyword vs semantic match)
-- Connect findings to the user's current question
 
 ## Examples
 
-**User:** "What did we talk about when I was at that coffee shop?"
-
+### Simple keyword lookup (fast path)
 ```bash
-# Semantic search for coffee shop conversations
-~/.claude-mind/bin/chroma-query "coffee shop conversation" 5
+.claude/bin/transcript recall "caching"
+```
+Returns grouped results in 1-2 seconds.
 
-# Keyword backup
-~/.claude-mind/bin/memory-index search "coffee" 5
+### Question query (auto-escalates to deep path)
+```bash
+.claude/bin/transcript recall "why did we decide to use Redis?"
+```
+Auto-detects question pattern, runs synthesis, returns synthesized answer with citations.
+
+### Force deep analysis
+```bash
+.claude/bin/transcript recall "authentication patterns" --deep
+```
+Forces LLM synthesis even if auto-escalation criteria not met.
+
+### Skip synthesis for speed
+```bash
+.claude/bin/transcript recall "how does the login flow work" --fast
+```
+Skips synthesis despite question pattern, returns fast path results only.
+
+## Understanding the Output
+
+### Fast Path Output
+```
+🔍 Recall: "caching"
+
+Found 12 matches across 3 sessions
+⏩ Fast path: No escalation criteria met
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📁 happy-hippo (5 matches)
+   Jan 15, 10:30 AM - 11:45 AM
+
+   [10:32 AM] assistant   Line 245
+   Implemented Redis caching layer with 60-second TTL...
+
+   → .claude/bin/transcripthappy-hippo --search "caching" --human
 ```
 
-**User:** "Remember that discussion about Q1 planning?"
+### Deep Path Output
+```
+🔍 Recall: "why did we choose Redis?"
 
-```bash
-# Semantic for the theme
-~/.claude-mind/bin/chroma-query "Q1 planning discussion goals priorities" 5
+Found 28 matches across 4 sessions
+⚡ Deep path: Query is a question
 
-# Keyword for specifics
-~/.claude-mind/bin/memory-index search "Q1" 5
+[... fast path results ...]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🤖 Synthesized Answer
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Based on your past sessions, you chose Redis for caching because:
+
+1. **Performance requirements** [1] - The dashboard needed sub-100ms response times
+2. **Existing infrastructure** [2] - You already had Redis running for session storage
+3. **TTL support** [3] - Native expiration simplified cache invalidation logic
+
+───────────────────────────────────────────────────────────
+📚 Sources
+
+  [1] happy-hippo (Jan 15, 2026)
+      → .claude/bin/transcripthappy-hippo --search "why did we choose Redis?" --human
+  [2] clever-cat (Jan 10, 2026)
+      → .claude/bin/transcriptclever-cat --search "why did we choose Redis?" --human
 ```
 
-**User:** "What have I said about my work situation?"
+## Workflow
 
-```bash
-# Broad semantic search
-~/.claude-mind/bin/chroma-query "work job career situation feelings" 10
-
-# Follow up with specific terms found
-~/.claude-mind/bin/memory-index search "specific_term_found" 5
+```
+User asks about past discussion
+         ↓
+.claude/bin/transcript recall "topic"     ← START HERE, ALWAYS
+         ↓
+Check path indicator (⏩ Fast or ⚡ Deep)
+         ↓
+Read the grouped output (and synthesis if deep)
+         ↓
+Need more detail? → Use drill-down command from output
+         ↓
+Respond to user with findings
 ```
 
-## Data Sources
+## Common Mistakes (DO NOT DO THESE)
 
-Both systems index:
-- Episode logs (daily conversation records)
-- Reflections (dream cycle outputs)
-- Learnings
-- Observations
-- Decisions
-- Person profiles
+```bash
+# WRONG - Do not use rg
+rg "sandbox" ~/.claude/projects/
 
-Results include source type and date for context.
+# WRONG - Do not use grep
+grep -r "sandbox" ~/.claude/
+
+# WRONG - Do not use find
+find ~/.claude -name "*.jsonl" | xargs grep sandbox
+
+# WRONG - Do not cat jsonl files directly
+cat ~/.claude/projects/*/abc123.jsonl | grep sandbox
+```
+
+```bash
+# CORRECT - Use .claude/bin/transcript recall
+.claude/bin/transcript recall "sandbox"
+```
+
+## Summary
+
+1. **USE:** `.claude/bin/transcript recall "query"`
+2. **DO NOT USE:** `rg`, `grep`, `find`, `cat` on transcript files
+3. Let auto-escalation work - it detects when synthesis is needed
+4. Use `--deep` to force synthesis, `--fast` to skip it
+5. Read the grouped output (and synthesis if provided)
+6. Drill down if needed using commands from the output

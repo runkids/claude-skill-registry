@@ -1,231 +1,171 @@
 ---
-name: orchestration-patterns
-description: Agentic orchestration patterns for long-running tasks. Implements evidence-based delivery and Simon Willison's agent loop. Use when managing multi-step work, coordinating subagents, or orchestrating PR workflows.
+name: Orchestration Patterns
+description: This skill should be used when the user asks about "orchestration patterns", "plan-then-execute", "hierarchical decomposition", "blackboard pattern", "event sourcing pattern", "which pattern to use", "parallel execution strategies", or needs to select an orchestration approach for complex multi-agent tasks. Provides comprehensive guidance on 4 orchestration patterns for coordinating multiple agents.
+version: 1.0.0
 ---
 
-# Orchestration Patterns Skill
+# Orchestration Patterns
 
-## Purpose
+Establish the appropriate multi-agent coordination strategy by selecting from four proven orchestration patterns based on task characteristics and requirements.
 
-Codify evidence-based delivery and iterative agent loop for orchestrating complex, long-running tasks. These patterns ensure verifiable progress and intelligent escalation.
+## Pattern Selection Framework
 
-## When This Skill Applies
+Choose the orchestration pattern based on task complexity and coordination needs:
 
-Invoke this skill when:
+| Pattern | Best For | Parallelism | State Management |
+|---------|----------|-------------|------------------|
+| **Plan-then-Execute** | Well-defined tasks with clear steps | Level-based | Centralized |
+| **Hierarchical Decomposition** | Complex objectives requiring breakdown | Bottom-up aggregation | Tree-structured |
+| **Blackboard** | Collaborative problem-solving | Concurrent contributions | Shared knowledge space |
+| **Event Sourcing** | Audit trails and replay capability | Event-driven | Append-only log |
 
-- Orchestrating multi-step implementation tasks
-- Managing work across multiple subagents
-- Running long-running sessions that need checkpoints
-- Preparing PRs for merge (mandatory QAS gate)
-- Coordinating team handoffs
+## Pattern 1: Plan-then-Execute (P-t-E)
 
-## Simon Willison's Agent Loop
+The most common pattern for structured, multi-phase work. Generate a comprehensive plan, validate it, then execute systematically.
 
-**Core Philosophy**: "Iterate until success or blocked, then escalate."
+### When to Use
+- Tasks with clear, predictable phases
+- Requirements are well-defined upfront
+- Need for validation before execution
+- Standard software development workflows
 
-```text
-┌─────────────────────────────────────────────────────────┐
-│  THE AGENT LOOP (for every task)                       │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  1. GOAL DEFINITION                                     │
-│     └─ Clear acceptance criteria (from BSA/ticket)      │
-│                                                         │
-│  2. PATTERN DISCOVERY                                   │
-│     └─ Search codebase, docs, previous sessions         │
-│     └─ Use: pattern-discovery skill (auto-invoked)      │
-│     └─ Or: /search-pattern for explicit code search     │
-│                                                         │
-│  3. ITERATIVE EXECUTION LOOP:                           │
-│     ┌─────────────────────────────────────────────┐     │
-│     │  Implement approach                         │     │
-│     │       ↓                                     │     │
-│     │  Run validation (yarn ci:validate)          │     │
-│     │       ↓                                     │     │
-│     │  If PASS → proceed to evidence              │     │
-│     │  If FAIL → analyze error, adjust, repeat    │     │
-│     │  If BLOCKED → escalate to TDM with context  │     │
-│     └─────────────────────────────────────────────┘     │
-│                                                         │
-│  4. EVIDENCE ATTACHMENT                                 │
-│     └─ Attach proof to Linear (see templates below)     │
-│                                                         │
-│  5. QAS GATE (MANDATORY before merge)                   │
-│     └─ Invoke QAS subagent for independent review       │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
+### Execution Flow
+1. **Strategic Planning**: Use master-strategist to analyze requirements
+2. **Plan Validation**: Security, compliance, and architecture review
+3. **DAG Generation**: Convert plan to directed acyclic graph
+4. **Parallel Execution**: Execute independent nodes concurrently
+5. **Checkpoint Creation**: Save state at each phase boundary
+6. **Dynamic Re-planning**: Adapt when blockers encountered
+
+### Implementation
+```
+Phase 1: EXPLORE (2+ agents) → Analysis, research, context gathering
+Phase 2: PLAN (1-2 agents) → Strategy, architecture, task breakdown
+Phase 3: CODE (2-4 agents) → Implementation, parallel development
+Phase 4: TEST (2-3 agents) → Unit, integration, E2E testing
+Phase 5: FIX (1-2 agents) → Bug fixes, refinements
+Phase 6: DOCUMENT (1-2 agents) → Documentation, knowledge transfer
 ```
 
-## Evidence-Based Delivery
+## Pattern 2: Hierarchical Decomposition
 
-**Core Principle**: "All work requires verifiable evidence - no 'trust me, it works'"
+Recursively break down complex objectives into atomic, executable tasks with clear ownership.
 
-### Evidence Types
+### When to Use
+- Large, complex objectives
+- Multiple independent workstreams
+- Need for parallel team-like execution
+- Tasks with natural hierarchical structure
 
-| Type           | What It Proves             | Example                    |
-| -------------- | -------------------------- | -------------------------- |
-| Test Results   | Code works as expected     | `yarn ci:validate` output  |
-| Screenshots    | UI changes are correct     | Before/after comparison    |
-| Command Output | Operations completed       | Build logs, migration logs |
-| QAS Report     | Independent verification   | QA validation markdown     |
-| Session ID     | Full audit trail available | Claude Code session ref    |
+### Decomposition Strategy
+1. **Root Task**: High-level objective
+2. **Level 1**: Major components (max 5-7 subtasks)
+3. **Level 2**: Detailed features (max 5-7 per parent)
+4. **Level 3**: Implementation tasks (max 5-7 per parent)
+5. **Level 4-5**: Atomic tasks (executable by single agent)
 
-### Phase Evidence Requirements
+### Depth Limits
+- Maximum decomposition depth: 5 levels
+- Maximum subtasks per node: 7
+- Minimum agents for leaf execution: 1
 
-| Phase       | Evidence Required              | Linear Template        |
-| ----------- | ------------------------------ | ---------------------- |
-| **Dev**     | Test results, command output   | Dev Evidence Template  |
-| **Staging** | UAT validation or N/A + reason | Staging Template       |
-| **Done**    | QAS report, merge confirmation | Done Evidence Template |
+### Aggregation
+- Bottom-up result collection
+- Automatic parallelization at each level
+- Parent waits for all children before completing
 
-## QAS Pre-Merge Gate
+## Pattern 3: Blackboard
 
-**MANDATORY**: Before merging any PR, invoke QAS for independent review.
+Shared knowledge space where multiple agents contribute specialized knowledge collaboratively.
 
-### Why QAS Gate Matters
+### When to Use
+- Complex problems requiring diverse expertise
+- No predetermined solution path
+- Emergent solutions from collaboration
+- Knowledge synthesis across domains
 
-1. **Separation of Concerns**: QAS validates but doesn't write product code
-2. **Independent Verification**: Catches what implementer missed
-3. **Bias Prevention**: Fresh eyes on commit messages, patterns
-4. **Evidence in Linear**: QAS posts final evidence + verdict to Linear (system of record)
+### Components
+1. **Blackboard**: Shared data structure with current problem state
+2. **Knowledge Sources**: Specialized agents contributing expertise
+3. **Control Shell**: Orchestrator determining contribution order
 
-### QAS Invocation Pattern
-
-```text
-# After implementation complete, before merge:
-Task tool: QAS subagent
-Prompt: "Review PR #XXX for WOR-YYY. Validate:
-  - Commit message format (ticket in subject line)
-  - Code patterns (RLS, naming, structure)
-  - CI status (all checks passing)
-  - Evidence attachments in Linear
-  Generate validation report to docs/agent-outputs/qa-validations/"
+### Implementation
+```
+Blackboard State:
+├── problem_description: string
+├── hypotheses: Hypothesis[]
+├── partial_solutions: Solution[]
+├── constraints: Constraint[]
+└── contributions: Contribution[]
 ```
 
-### QAS Output Location
+### Collaboration Flow
+1. Initialize blackboard with problem description
+2. Knowledge sources monitor blackboard for relevance
+3. Agents contribute when they can add value
+4. Control shell mediates conflicts
+5. Solution emerges from accumulated knowledge
 
-All QAS reports go to: `docs/agent-outputs/qa-validations/WOR-{number}-qa-validation.md`
+## Pattern 4: Event Sourcing
 
-## Escalation Patterns
+Event-driven task coordination with complete audit trail and replay capability.
 
-### When to Escalate
+### When to Use
+- Audit requirements (SOC2, compliance)
+- Need for time-travel debugging
+- Replay and recovery scenarios
+- Complex state reconstruction needs
 
-| Condition              | Escalate To | Include                     |
-| ---------------------- | ----------- | --------------------------- |
-| Blocked > 4 hours      | TDM         | Full context, attempts made |
-| Architecture ambiguity | ARCHitect   | Options, trade-offs         |
-| Cross-team dependency  | TDM         | Which teams, what's blocked |
-| Security concern       | SecEng      | Specific risk, evidence     |
-
-### Escalation Template
-
-```markdown
-**Escalation Required**
-
-**Blocked On**: [specific blocker]
-**Attempts Made**:
-
-1. [what you tried]
-2. [what you tried]
-
-**Context**:
-
-- Ticket: WOR-XXX
-- Session ID: [if available]
-- Time blocked: X hours
-
-**Request**: [specific ask - what do you need?]
+### Event Types
+```typescript
+interface OrchestrationEvent {
+  id: string;
+  type: 'AgentSpawned' | 'PhaseTransition' | 'Checkpoint' | 'Error' | 'Recovery';
+  timestamp: number;
+  agentId?: string;
+  payload: any;
+}
 ```
 
-## Long-Running Task Checkpoints
+### Event Store
+- Append-only log (no mutations)
+- Events are immutable facts
+- State reconstructed from event replay
+- Support for temporal queries
 
-For tasks spanning multiple tool calls or sessions:
+### Recovery Capabilities
+- Reconstruct any historical state
+- Replay from any checkpoint
+- Debug by examining event sequence
+- Automatic state recovery on failure
 
-### Checkpoint Pattern
+## Pattern Combinations
 
-```text
-Every 10-15 tool calls:
-1. Update todo list with current progress
-2. If nearing context limit, summarize state
-3. If handoff needed, provide continuation context
+Combine patterns for complex scenarios:
 
-At session boundaries:
-1. Summarize completed work
-2. List remaining items
-3. Document any blockers
-4. Attach evidence to Linear
-```
+### P-t-E + Hierarchical
+Use Plan-then-Execute at the top level with Hierarchical Decomposition for implementation phases.
 
-### State Preservation
+### Blackboard + Event Sourcing
+Shared knowledge space with complete audit trail of contributions.
 
-```markdown
-**Session Checkpoint**
+## Agent Layer Mapping
 
-**Completed**:
+Map agents to appropriate layers based on pattern:
 
-- [x] Task 1
-- [x] Task 2
+| Layer | P-t-E Role | Hierarchical Role | Blackboard Role |
+|-------|------------|-------------------|-----------------|
+| **Strategic** | Plan generation | Root decomposition | Problem framing |
+| **Tactical** | DAG scheduling | Level coordination | Contribution selection |
+| **Operational** | Task execution | Leaf implementation | Knowledge contribution |
+| **Quality** | Validation gates | Aggregation verification | Solution validation |
 
-**In Progress**:
+## Additional Resources
 
-- [ ] Task 3 (at step X)
+### Reference Files
+- **`references/pattern-details.md`** - Detailed implementation guides for each pattern
+- **`references/pattern-selection.md`** - Decision tree for pattern selection
 
-**Remaining**:
-
-- [ ] Task 4
-- [ ] Task 5
-
-**Blockers**: [if any]
-
-**Next Action**: [specific next step]
-```
-
-## Orchestration Workflow Example
-
-```text
-# Complete workflow for feature implementation:
-
-1. /start-work WOR-XXX
-   └─ Syncs to dev, creates branch, sets context
-
-2. Pattern discovery (skill auto-invokes or use /search-pattern)
-   └─ Finds relevant patterns before implementation
-
-3. [Implementation with agent loop]
-   ├─ Implement
-   ├─ Validate (yarn ci:validate)
-   ├─ Adjust if needed
-   └─ Repeat until passing
-
-4. /pre-pr
-   └─ Full validation checklist
-
-5. Create PR with evidence
-
-6. [QAS GATE - MANDATORY]
-   └─ Invoke QAS subagent for review
-   └─ Fix any blocking issues
-   └─ Commit QAS report
-
-7. Merge (only after QAS approval)
-
-8. /end-work
-   └─ Updates Linear, cleans up
-```
-
-## Authoritative References
-
-- **wtfb-safe-agentic-workflow**: Core agentic principles
-- **AGENT_WORKFLOW_SOP.md**: Full agent workflow documentation
-- **CONTRIBUTING.md**: Workflow requirements
-- **linear-sop skill**: Evidence templates for Linear
-
-## Anti-Patterns to Avoid
-
-| Anti-Pattern             | Why It's Bad                | Do This Instead               |
-| ------------------------ | --------------------------- | ----------------------------- |
-| Skip QAS review          | Miss commit message issues  | Always invoke QAS pre-merge   |
-| No evidence in Linear    | No audit trail              | Attach evidence every phase   |
-| Ignore CI failures       | Broken code reaches dev     | Fix in agent loop, don't skip |
-| Force-push without check | May lose teammate's changes | Use --force-with-lease        |
-| Continue when blocked    | Waste time, no progress     | Escalate with context         |
+### Examples
+- **`examples/plan-execute-dag.json`** - Sample DAG for P-t-E pattern
+- **`examples/hierarchical-tree.json`** - Sample decomposition tree

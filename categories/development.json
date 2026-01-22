@@ -1,7 +1,7 @@
 {
   "category": "development",
-  "count": 7314,
-  "updated_at": "2026-01-21T04:24:32.386920Z",
+  "count": 7251,
+  "updated_at": "2026-01-22T04:19:05.685753Z",
   "skills": [
     {
       "name": "context-engineering-collection",
@@ -895,19 +895,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "remembering-conversations",
-      "description": "Use when user asks 'how should I...' or 'what's the best approach...' after exploring code, OR when you've tried to solve something and are stuck, OR for unfamiliar workflows, OR when user references ",
-      "repo": "obra/episodic-memory",
-      "path": "data/remembering-conversations",
-      "category": "development",
-      "tags": [
-        "remembering",
-        "conversations"
-      ],
-      "stars": 149,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "new-plugin",
       "description": "Create a new iPlug2 plugin project by duplicating TemplateProject in the iPlug2OOS repository",
       "repo": "iPlug2/iPlug2OOS",
@@ -1660,21 +1647,6 @@
       ],
       "stars": 47,
       "source": "local"
-    },
-    {
-      "name": "developing-claude-code-plugins",
-      "description": "Use when working on Claude Code plugins (creating, modifying, testing, releasing, or maintaining) - provides streamlined workflows, patterns, and examples for the complete plugin lifecycle",
-      "repo": "obra/superpowers-developing-for-claude-code",
-      "path": "data/developing-claude-code-plugins",
-      "category": "development",
-      "tags": [
-        "developing",
-        "claude",
-        "code",
-        "plugins"
-      ],
-      "stars": 47,
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "mobile-patterns",
@@ -6118,19 +6090,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "cognitive-variability",
-      "description": "Guide conversations through dynamic shifts between zoom levels (scale) and connecting/exploring (intent) to unlock creative breakthroughs and prevent rigid thinking. Use when the user is stuck or need",
-      "repo": "infranodus/skills",
-      "path": "development/cognitive-variability",
-      "category": "development",
-      "tags": [
-        "cognitive",
-        "variability"
-      ],
-      "stars": 6,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "contexts",
       "description": "Codebase analysis using code-index-mcp for indexing and ast-grep for AST patterns. Extracts structural patterns, dependencies, and architectural insights across 50+ languages.",
       "repo": "OutlineDriven/odin-claude-plugin",
@@ -7425,19 +7384,6 @@
       "category": "development",
       "tags": [
         "process"
-      ],
-      "stars": 4,
-      "source": "local"
-    },
-    {
-      "name": "product-discovery",
-      "description": "Methodology for discovering and specifying new software products. Use when starting greenfield projects, exploring new ideas, or defining MVP scope.",
-      "repo": "benshapyro/cadre-devkit-claude",
-      "path": "data/product-discovery",
-      "category": "development",
-      "tags": [
-        "product",
-        "discovery"
       ],
       "stars": 4,
       "source": "local"
@@ -11146,71 +11092,6 @@
       "source": "local"
     },
     {
-      "name": "cl-asdf-system",
-      "description": "ASDFシステム定義のベストプラクティス。.asdファイル作成・編集時に使用",
-      "repo": "cxxxr/.claude",
-      "path": "data/cl-asdf-system",
-      "category": "development",
-      "tags": [
-        "asdf",
-        "system"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "cl-clos-patterns",
-      "description": "CLOS設計パターンを適用。クラス設計・メソッド実装時に使用",
-      "repo": "cxxxr/.claude",
-      "path": "data/cl-clos-patterns",
-      "category": "development",
-      "tags": [
-        "clos",
-        "patterns"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "cl-coding-style",
-      "description": "Common Lispのコーディング規約を適用。Lispコード作成・レビュー時に使用",
-      "repo": "cxxxr/.claude",
-      "path": "data/cl-coding-style",
-      "category": "development",
-      "tags": [
-        "coding",
-        "style"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "cl-condition-system",
-      "description": "condition/restartパターンを適用。エラーハンドリング実装時に使用",
-      "repo": "cxxxr/.claude",
-      "path": "data/cl-condition-system",
-      "category": "development",
-      "tags": [
-        "condition",
-        "system"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "cl-mallet-linter",
-      "description": "malletリンターのルールと設定を適用。コードレビュー・品質チェック時に使用",
-      "repo": "cxxxr/.claude",
-      "path": "data/cl-mallet-linter",
-      "category": "development",
-      "tags": [
-        "mallet",
-        "linter"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
       "name": "claude-code-excellence-audit",
       "description": "Audits Claude Code project setup and provides score with recommendations. Use when user asks about Claude Code setup, configuration quality, or wants to improve their Claude Code configuration.",
       "repo": "romiluz13/claude-code-excellence-audit",
@@ -12872,18 +12753,6 @@
       "source": "local"
     },
     {
-      "name": "go-concurrency",
-      "description": "Go concurrency patterns - goroutines, channels, sync primitives",
-      "repo": "pluginagentmarketplace/custom-plugin-go",
-      "path": "data/go-concurrency",
-      "category": "development",
-      "tags": [
-        "concurrency"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
       "name": "go-functional-options",
       "description": "Use the Functional Option Pattern for configurable Go constructors. Applies to types needing multiple optional parameters with validation and defaults. Includes Go 1.25 generics support.",
       "repo": "cassamajor/xcnf",
@@ -13163,20 +13032,6 @@
       "tags": [
         "implementing",
         "rag"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "intervention-tier-classifier",
-      "description": "Classify intervention urgency and apply appropriate response tier protocols.",
-      "repo": "starwreckntx/IRP__METHODOLOGIES-",
-      "path": "data/intervention-tier-classifier",
-      "category": "development",
-      "tags": [
-        "intervention",
-        "tier",
-        "classifier"
       ],
       "stars": 1,
       "source": "local"
@@ -13652,20 +13507,6 @@
       "category": "development",
       "tags": [
         "mcpgraphtoolkit"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "mental-saccade-execution",
-      "description": "Execute rapid attention shifts between cognitive focus points.",
-      "repo": "starwreckntx/IRP__METHODOLOGIES-",
-      "path": "data/mental-saccade-execution",
-      "category": "development",
-      "tags": [
-        "mental",
-        "saccade",
-        "execution"
       ],
       "stars": 1,
       "source": "local"
@@ -14200,19 +14041,6 @@
       "source": "local"
     },
     {
-      "name": "prompt-analyzer",
-      "description": "ユーザープロンプトの深層分析を行う専門Skill。5W1H抽出、リスク分析、曖昧さ検出を実施し、pm SubAgentに構造化データを返す。",
-      "repo": "M2AI-jp/thanks4claudecode-fresh",
-      "path": "data/prompt-analyzer",
-      "category": "development",
-      "tags": [
-        "prompt",
-        "analyzer"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
       "name": "prompt-assembly",
       "description": "Assembles coder and verifier prompts from templates. Use when user says \"build a prompt\", \"assemble a prompt\", \"assemble prompts\", or \"generate a prompt\" for dispatching work to coding and verificatio",
       "repo": "leegmoore/cody",
@@ -14221,20 +14049,6 @@
       "tags": [
         "prompt",
         "assembly"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "proof-packet-generation",
-      "description": "Generate cryptographic proof packets for verification.",
-      "repo": "starwreckntx/IRP__METHODOLOGIES-",
-      "path": "data/proof-packet-generation",
-      "category": "development",
-      "tags": [
-        "proof",
-        "packet",
-        "generation"
       ],
       "stars": 1,
       "source": "local"
@@ -14330,20 +14144,6 @@
         "react",
         "native",
         "deployment"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "recursive-thought-committee",
-      "description": "Execute recursive thought committee multi-perspective analysis.",
-      "repo": "starwreckntx/IRP__METHODOLOGIES-",
-      "path": "data/recursive-thought-committee",
-      "category": "development",
-      "tags": [
-        "recursive",
-        "thought",
-        "committee"
       ],
       "stars": 1,
       "source": "local"
@@ -17577,16 +17377,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "android-architecture",
-      "description": "Use when implementing MVVM, clean architecture, dependency injection with Hilt, or structuring Android app layers.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/android-architecture",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "android-debug",
       "description": "Debug Android Flutter apps including runtime errors, build issues, device connection problems, and performance issues. Use when troubleshooting Android-specific problems, crashes, or deployment issues",
       "repo": "cmwen/private-chat-hub",
@@ -19997,7 +19787,7 @@
       "name": "bacchus",
       "description": "Multi-agent coordination CLI for codebases. Use when orchestrating parallel agents, claiming tasks, detecting symbol conflicts, or notifying stakeholders of breaking changes. Invoke when user mentions",
       "repo": "vu1n/bacchus",
-      "path": "development/bacchus",
+      "path": "data/bacchus",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -22410,16 +22200,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "caching-strategies-gha",
-      "description": "GitHub Actions のキャッシュ戦略を設計し、キー設計、パス選定、ヒット率改善、10GB制限管理を行うスキル。actions/cache の最適化、依存キャッシュの分割、Dockerレイヤー連携などを体系化する。Anchors:• The Pragmatic Programmer / 適用: 実践的改善 / 目的: 反復的な最適化• Continuous Delivery / 適用: パ",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/caching-strategies-gha",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "caching-strategist",
       "description": "Defines caching strategies with cache keys, TTL values, invalidation triggers, consistency patterns, and correctness checklist. Provides code examples for Redis, CDN, and application-level caching. Us",
       "repo": "patricio0312rev/skillset",
@@ -24722,20 +24502,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "clean-architecture-principles",
-      "description": "Enforce clean architecture principles including DRY, YAGNI, KISS, Law of Demeter, and Separation of Concerns. Warns when complexity creeps in and questions unnecessary features. Use when designing arc",
-      "repo": "T1nker-1220/.claude",
-      "path": "data/clean-architecture-principles",
-      "category": "development",
-      "tags": [
-        "clean",
-        "architecture",
-        "principles"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "clean-code-dotnet",
       "description": "Clean Code principles adapted for C#/.NET including naming, variables, functions, SOLID, error handling, and async patterns. Use when: (1) reviewing C# code, (2) refactoring for clarity, (3) writing n",
       "repo": "thapaliyabikendra/ai-artifacts",
@@ -27034,16 +26800,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "command-best-practices",
-      "description": "コマンド設計のベストプラクティス（単一責任/合成可能性/冪等性/DRY/保守性）を整理し、設計レビューと改善方針を支援するスキル。原則の適用判断、チェックリスト運用、検証手順を一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: 設計原則の実務適用 / 目的: 実装品質の安定化Trigger:Us",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/command-best-practices",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "command-creation",
       "description": "Use this skill when creating or refining custom Claude Code slash commands. Slash commands are user-invoked reusable prompts that can accept arguments, reference files, and execute bash operations. He",
       "repo": "andisab/swe-marketplace",
@@ -27749,16 +27505,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "composite-actions",
-      "description": "GitHub Actions の Composite Actions 設計と実装を支援するスキル。action.yml の構造、入出力設計、再利用性、検証手順を整理する。Anchors:• 『The Pragmatic Programmer』（Andrew Hunt, David Thomas） / 適用: 自動化設計 / 目的: 再利用可能な処理の整理• 『GitHub Actions公式ドキュ",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/composite-actions",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "composition-data-modeling",
       "description": "Design and work with composition data structures. Use when defining schemas, creating database models, building API responses, or transforming composition data between formats.",
       "repo": "nategarelik/composition",
@@ -28131,16 +27877,6 @@
       "description": "Redis connection pooling, client configuration, and reconnection strategies. Use when setting up Redis clients, managing connection pools, handling reconnection logic, or configuring sentinel/cluster ",
       "repo": "vanman2024/ai-dev-marketplace",
       "path": "development/connection-management",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "consensus-building",
-      "description": "From multiple perspectives, build genuine consensus on what's true",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "data/consensus-building",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -29736,16 +29472,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "creating-rules",
-      "description": ".claude/rules/ディレクトリにベストプラクティスに沿ったルールファイル（.md）を作成します。コーディングルール、テスト規約、セキュリティ要件などのプロジェクト固有の指示を作成する場合に使用します。paths frontmatterによる条件付きルール、適切なファイル名、サブディレクトリ構造をサポートします。",
-      "repo": "skanehira/dotfiles",
-      "path": "development/creating-rules",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "creating-webhook-handlers",
       "description": "Create webhook endpoints with signature verification, retry logic, and payload validation.Use when receiving and processing webhook events.Trigger with phrases like \"create webhook\", \"handle webhook e",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -30041,16 +29767,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "csharp-linq",
-      "description": "Use when lINQ (Language Integrated Query) with query and method syntax, deferred execution, expression trees, and performance optimization.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/csharp-linq",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "csharp-project-expert",
       "description": "ALWAYS use for ANY C# operation: renaming (files/classes/methods/properties/namespaces), finding references/usages (\"where is X used\"), finding definitions (\"where is X defined\"), understanding code s",
       "repo": "pvasek/claude-skills",
@@ -30212,16 +29928,6 @@
       "description": "Cucumber best practices, patterns, and anti-patterns",
       "repo": "TheBushidoCollective/han",
       "path": "development/cucumber-best-practices",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cucumber-step-definitions",
-      "description": "Writing effective step definitions and organizing test code",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/cucumber-step-definitions",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -31662,16 +31368,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "deploy-to-production",
-      "description": "Deploy current develop branch to production. Use when user says /deploy, \"deploy to production\", \"push to heroku\", \"release to production\", \"deploy changes\", \"ship it\", or \"release changes\". Commits c",
-      "repo": "ErikM1974/pricing-indexfile-2025",
-      "path": "development/deploy-to-production",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "deployment-and-ops",
       "description": "Deploy and operate the vehicle insurance data analysis platform. Use when user asks about local development setup, production deployment, server configuration, build process, service management, or tr",
       "repo": "alongor666/daylyreport",
@@ -32441,16 +32137,6 @@
       "description": "CLI tools, SDKs, and developer experience patterns",
       "repo": "miles990/claude-software-skills",
       "path": "development/developer-tools",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "developing",
-      "description": "テスト駆動開発（TDD）方法論に従って新機能の実装やバグ修正を行います。新機能の実装、バグ修正、既存機能の拡張時に使用します。RED→GREEN→REFACTORサイクルをテストファーストアプローチで厳格に遵守します。高凝集度・低結合度・コロケーションを意識したアーキテクチャ設計を適用します。",
-      "repo": "skanehira/dotfiles",
-      "path": "development/developing",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -33257,16 +32943,6 @@
       "description": "Django Redis caching with django-cacheops. This skill should be used when implementing caching, adding cache invalidation, optimizing API performance, modifying models that affect cached data, or debu",
       "repo": "kettleofketchup/dota_tournament",
       "path": "data/django-redis-caching",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "django-rest-framework",
-      "description": "Use when Django REST Framework for building APIs with serializers, viewsets, and authentication. Use when creating RESTful APIs.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/django-rest-framework",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -34763,16 +34439,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "elixir-otp-patterns",
-      "description": "Use when Elixir OTP patterns including GenServer, Supervisor, Agent, and Task. Use when building concurrent, fault-tolerant Elixir applications.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/elixir-otp-patterns",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "elixir-pattern-matching",
       "description": "Use when Elixir pattern matching including function clauses, case statements, with statements, and destructuring. Use for elegant control flow.",
       "repo": "TheBushidoCollective/han",
@@ -35269,16 +34935,6 @@
       ],
       "stars": 0,
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "enterprise-erp-consultant",
-      "description": "Expert guidance for enterprise resource planning systems, business logic, domain modeling, and ERP integration patterns. Use when building ERP systems, implementing business workflows, or integrating ",
-      "repo": "Krosebrook/source-of-truth-monorepo",
-      "path": "development/enterprise-erp-consultant",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "enterprise-security",
@@ -35894,16 +35550,6 @@
       "description": "Brief description of what this plugin does and when to use it",
       "repo": "devkade/collaborator",
       "path": "development/example-plugin",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "example-usage-patterns",
-      "description": "Documentation patterns for creating clear, executable, and maintainable usage examples across APIs, CLIs, libraries, and frameworks.Anchors:• Docs for Developers (Jared Bhatti et al.) / 適用: 実践的な例示パターン",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/example-usage-patterns",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -36570,16 +36216,6 @@
       "description": "Fastapi Router Creator - Auto-activating skill for Backend Development.Triggers on: fastapi router creator, fastapi router creatorPart of the Backend Development skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "development/fastapi-router-creator",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "fastapi-validation",
-      "description": "Use when FastAPI validation with Pydantic models. Use when building type-safe APIs with robust request/response validation.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/fastapi-validation",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -40502,16 +40138,6 @@
       "source": "local"
     },
     {
-      "name": "git-conventions",
-      "description": "Apply when committing code, creating branches, or preparing pull requests. Covers conventional commit format, branch naming, co-author attribution, and pre-commit checklist.",
-      "repo": "bwl21/bwl-flyer-generator",
-      "path": "development/git-conventions",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "git-diff",
       "description": "Display git changes in GitHub-style unified diff format with colored terminal output. Shows both staged (--cached) and unstaged changes with two-column line numbers, red/green highlighting, and chunk ",
       "repo": "laststance/claude-code-marketplace",
@@ -42730,19 +42356,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "gremlin-forge",
-      "description": "Use this skill when creating new skills via forced conceptual collision of existing patterns. Duct-tapes jank-builder to super-collider for autopoietic meta-skill generation.",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "data/gremlin-forge",
-      "category": "development",
-      "tags": [
-        "gremlin",
-        "forge"
-      ],
-      "stars": 0,
-      "source": "local"
     },
     {
       "name": "grep-and-read",
@@ -47434,16 +47047,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "kotlin-null-safety",
-      "description": "Use when kotlin's null safety system including nullable types, safe calls, Elvis operator, smart casts, and patterns for eliminating NullPointerExceptions while maintaining code expressiveness and cla",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/kotlin-null-safety",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "kotone-business",
       "description": "StudioJinsei公式LINE用のスキル。手書き風キレイめスタイル、Apple風ミニマルデザイン、プロフェッショナルな雰囲気で画像生成・コンテンツ作成を行います。",
       "repo": "StudioJinsei-Official/line-pj",
@@ -50232,26 +49835,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "markdown-syntax-fundamentals",
-      "description": "Use when writing or editing markdown files. Covers headings, text formatting, lists, links, images, code blocks, and blockquotes.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/markdown-syntax-fundamentals",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "markdownlint-integration",
-      "description": "Integrate markdownlint into development workflows including CLI usage, programmatic API, CI/CD pipelines, and editor integration.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/markdownlint-integration",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "market-brief",
       "description": "Create a 24-hour tactical market brief from the latest macro and financial news, covering equities, commodities, and macro/FX. Use when asked for a market brief, daily/24h outlook, short-term drivers,",
       "repo": "dceoy/financial-market-analyst",
@@ -50695,16 +50278,6 @@
       ],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "mcp-server-generator",
-      "description": "Generate complete, production-ready MCP (Model Context Protocol) servers with automatic setup, configuration, and Claude Code integration",
-      "repo": "deve1993/Quickfy-website",
-      "path": "development/mcp-server-generator",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "mcp-spy",
@@ -52049,16 +51622,6 @@
       "tags": [],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "modern-python",
-      "description": "Modern Python development with uv, FastAPI, Pydantic, and clean architecture. Use for Python project setup, LLM app development, API design, testing strategy, and architecture decisions. Ideal for Typ",
-      "repo": "YunosukeYoshino/adk-sample",
-      "path": "data/modern-python",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "modern-rationalism-empiricism",
@@ -53841,16 +53404,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "nextjs-performance",
-      "description": "Next.js performance optimizations including next/image, next/font, dynamic imports, caching strategies, and bundle optimization. Use when optimizing Next.js apps for speed or Core Web Vitals.",
-      "repo": "jovermier/cc-stack-marketplace",
-      "path": "development/nextjs-performance",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "nextjs-pwa",
       "description": "Comprehensive guide for building Progressive Web Apps (PWA) with Next.js using modern 2025 approaches. Use when users need to implement PWA features in Next.js applications including installability, o",
       "repo": "Just-mpm/ConformAI",
@@ -54732,106 +54285,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "obra-dispatching-parallel-agents",
-      "description": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
-      "repo": "",
-      "path": "development/obra-dispatching-parallel-agents",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-finishing-a-development-branch",
-      "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
-      "repo": "",
-      "path": "development/obra-finishing-a-development-branch",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-receiving-code-review",
-      "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative",
-      "repo": "",
-      "path": "development/obra-receiving-code-review",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-requesting-code-review",
-      "description": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
-      "repo": "",
-      "path": "development/obra-requesting-code-review",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-systematic-debugging",
-      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
-      "repo": "",
-      "path": "development/obra-systematic-debugging",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "repo": "",
-      "path": "development/obra-using-git-worktrees",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-using-superpowers",
-      "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
-      "repo": "",
-      "path": "development/obra-using-superpowers",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-verification-before-completion",
-      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence",
-      "repo": "",
-      "path": "development/obra-verification-before-completion",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-writing-plans",
-      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
-      "repo": "",
-      "path": "development/obra-writing-plans",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-writing-skills",
-      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
-      "repo": "",
-      "path": "development/obra-writing-skills",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
     },
     {
       "name": "observability-metrics",
@@ -56841,16 +56294,6 @@
       "source": "local"
     },
     {
-      "name": "pattern-synthesis",
-      "description": "Extract common patterns from multiple instance outputs, find what persists",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "data/pattern-synthesis",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pattern-template",
       "description": "Skill from tolgaio/neo",
       "repo": "tolgaio/neo",
@@ -57224,16 +56667,6 @@
       "description": "Verify performance implications were considered and no obvious anti-patterns exist. Issues result in WARNINGS.",
       "repo": "DanielPodolsky/mentor-spec",
       "path": "development/performance-gate",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "performance-optimization-react",
-      "description": "Reactアプリケーションのパフォーマンス最適化を体系的に実施するスキル。測定駆動の最適化アプローチで、不要な再レンダリングを削減し、ユーザー体験を向上させる。Anchors:• High Performance Browser Networking (Ilya Grigorik) / 適用: パフォーマンス測定手法 / 目的: データに基づいた最適化判断• React公式ドキュメント (Dan ",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "development/performance-optimization-react",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -59566,16 +58999,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "pre-push",
-      "description": "Quick validation checklist before pushing changes. Use when about to push, before git push, or to validate changes.",
-      "repo": "",
-      "path": "development/pre-push",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "local"
-    },
-    {
       "name": "pre-push-verification",
       "description": "Execute lint, test, and build checks before pushing code",
       "repo": "hideokamoto/hidetaka.dev.2023",
@@ -60915,26 +60338,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "pulling-updates-from-skills-repository",
-      "description": "Sync local skills repository with upstream changes from obra/superpowers-skills",
-      "repo": "lifangda/claude-plugins",
-      "path": "development/pulling-updates-from-skills-repository",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pulumi-basics",
-      "description": "Use when writing infrastructure-as-code with Pulumi using programming languages for cloud resource provisioning.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/pulumi-basics",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pulumi-go",
       "description": "Pulumi infrastructure as code using Go with Pulumi Cloud and ESC integration. Use when working with Pulumi Go projects, ESC environments, dynamic secrets, OIDC credentials, or infrastructure automatio",
       "repo": "dirien/claude-skills",
@@ -61044,16 +60447,6 @@
       "description": "Expert in audit ground truth extraction, Critical Audit Matters (CAMs), ICFR validation, PCAOB independence compliance, and SEC filing analysis for PWC audit staff",
       "repo": "nirvanchitnis-cmyk/ground-truth",
       "path": "development/pwc-audit-intelligence",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pydantic-ai-agent-builder",
-      "description": "Expert guidance for building AI agents with Pydantic AI framework. Use when creating multi-agent systems, AI orchestration workflows, or structured LLM applications with type safety and validation.",
-      "repo": "Krosebrook/source-of-truth-monorepo",
-      "path": "development/pydantic-ai-agent-builder",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -63987,16 +63380,6 @@
       "description": "Structure and present research findings with source authority assessment, cross-referencing, and confidence calibration. Use when synthesizing multi-source research, presenting findings, comparing opt",
       "repo": "outfitter-dev/agents",
       "path": "development/report-findings",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "report-generation",
-      "description": "Generate Slovak VAT Act 2025 compliant reports for business trip tax deductions with automatic validation",
-      "repo": "ceo-whyd-it/car-log",
-      "path": "development/report-generation",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -67038,16 +66421,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "scala-functional-patterns",
-      "description": "Use when functional programming patterns in Scala including higher-order functions, immutability, pattern matching, algebraic data types, monads, for-comprehensions, and functional composition for bui",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/scala-functional-patterns",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "scala-type-system",
       "description": "Use when scala's advanced type system including generics, variance, type bounds, implicit conversions, type classes, higher-kinded types, path-dependent types, and abstract type members for building t",
       "repo": "TheBushidoCollective/han",
@@ -69873,16 +69246,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "skillforge",
-      "description": "Intelligent skill router and creator. Analyzes ANY input to recommend existing skills, improve them, or create new ones. Uses deep iterative analysis with 11 thinking models, regression questioning, e",
-      "repo": "",
-      "path": "development/skillforge",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/tripleyak/SkillForge"
-    },
-    {
       "name": "skillforge-meta",
       "description": "Intelligent skill router and creator. Analyzes ANY input to recommend existing skills, improve them, or create new ones. Uses deep iterative analysis with 11 thinking models, regression questioning, e",
       "repo": "",
@@ -70681,19 +70044,6 @@
         "solid",
         "component",
         "generator"
-      ],
-      "stars": 0,
-      "source": "local"
-    },
-    {
-      "name": "solid-principles",
-      "description": "SOLID object-oriented design principles for maintainable code",
-      "repo": "Benny9193/devflow",
-      "path": "development/solid-principles",
-      "category": "development",
-      "tags": [
-        "solid",
-        "principles"
       ],
       "stars": 0,
       "source": "local"
@@ -72115,16 +71465,6 @@
       "description": "YouTube 비디오에서 음성을 추출하여 스토리 작성에 활용하는 스킬. 비디오 다운로드, 오디오 추출, 자막 다운로드, 스토리 분석 및 템플릿 생성을 지원합니다. YouTube, 음성 추출, 오디오 다운로드, 자막, 스토리 분석 사용 시 활성화",
       "repo": "nfbs2000/vibe-with-google-ai-divorce-agent-inflearn",
       "path": "development/story-youtube-template",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "storybook-configuration",
-      "description": "Use when setting up or configuring Storybook for a project. Covers main configuration, addons, builders, and framework-specific setup.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/storybook-configuration",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -77020,16 +76360,6 @@
       "source": "local"
     },
     {
-      "name": "ubs-scanner",
-      "description": "Bug scanning with UBS (Ultimate Bug Scanner). Use before commits, when scanning for bugs, when the user mentions \"ubs\", \"bugs\", \"scan\", or \"code quality\".",
-      "repo": "eaasxt/Farmhand",
-      "path": "development/ubs-scanner",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ui-debugging",
       "description": "Standardized protocol for describing UI/layout issues in screenshots. Helps Claude understand visual problems clearly on first look by using a structured format for image communication.",
       "repo": "ChinchillaEnterprises/ChillSkills",
@@ -77661,16 +76991,6 @@
       "description": "Long-term user profile memory that persists across Claude Code sessions",
       "repo": "cameronsjo/claude-marketplace",
       "path": "development/user-memory",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "user-story",
-      "description": "Creates well-structured user stories for software development and project management. Use when the user asks to write, create, or format a user story, or needs to document requirements, features, or t",
-      "repo": "timbuchinger/loadout",
-      "path": "data/user-story",
       "category": "development",
       "tags": [],
       "stars": 0,
@@ -81429,16 +80749,6 @@
       "tags": [],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "zustand-advanced-patterns",
-      "description": "Use when implementing advanced Zustand patterns including transient updates, subscriptions with selectors, store composition, and performance optimization techniques.",
-      "repo": "TheBushidoCollective/han",
-      "path": "development/zustand-advanced-patterns",
-      "category": "development",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "zustand-store-creator",

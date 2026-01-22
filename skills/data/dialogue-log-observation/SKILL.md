@@ -67,3 +67,11 @@ ${CLAUDE_PLUGIN_ROOT}/skills/dialogue-log-observation/scripts/log-observation.sh
 ## Output
 
 The script returns the generated observation ID (e.g., `OBS-20260113-143000`).
+
+## Sharing
+
+**Always commit and push immediately after logging an observation.** This ensures team visibility and supports transactive memory—others need to see observations promptly to maintain shared situational awareness.
+
+```bash
+git add .dialogue/logs/observations/ && git commit -m "OBS-YYYYMMDD-HHMMSS: <subject>" && git push
+```

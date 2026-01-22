@@ -1,7 +1,7 @@
 {
   "name": "zod",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/zod/skills/zod/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-21T04:19:40.843366Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/forms-validation/zod/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-22T03:54:22.472484Z"
 }

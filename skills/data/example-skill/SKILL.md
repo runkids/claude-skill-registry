@@ -1,35 +1,33 @@
 ---
 name: example-skill
-description: "Example skill demonstrating YAML best practices. Use when learning skill structure, reviewing formatting standards, or creating new skills as a reference."
-version: 1.0.0
-tags:
-  - example
-  - reference
-  - yaml
+description: Example skill - replace with your skill's description and activation keywords
 ---
 
 # Example Skill
 
-This is a reference implementation showing YAML best practices.
+This is an example skill. Replace this content with your own.
 
-## Features
+## Overview
 
-- Clean, consistent formatting
-- Proper indentation (2 spaces)
-- Clear section organization
-- Helpful comments
+[Describe what this skill covers]
 
-## Usage
+## Key Concepts
 
-```yaml
-# Example configuration
-config:
-  enabled: true
-  timeout: 30s
-  retries: 3
-```
+1. **Concept 1** - Description
+2. **Concept 2** - Description
+3. **Concept 3** - Description
 
-## Reference Files
+## Patterns
 
-- `references/yaml-style-guide.md` - YAML formatting standards
-- `references/example-config.md` - Configuration options
+### Pattern 1
+
+[Description and example]
+
+## Checklist
+
+- [ ] Verification step 1
+- [ ] Verification step 2
+
+---
+
+_Replace this template with your skill content_

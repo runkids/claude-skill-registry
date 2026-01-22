@@ -1,7 +1,7 @@
 {
   "name": "plan-create",
-  "repo": "savvy-web/rslib-builder",
-  "path": ".claude/skills/plan-create/SKILL.md",
-  "source": "github.com/savvy-web/rslib-builder",
-  "downloaded_at": "2026-01-21T03:20:42.304245Z"
+  "repo": "JordanGunn/nunchuck",
+  "path": "skills/plan/plan-create/SKILL.md",
+  "source": "github.com/JordanGunn/nunchuck",
+  "downloaded_at": "2026-01-22T03:07:59.735547Z"
 }

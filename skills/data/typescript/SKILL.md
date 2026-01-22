@@ -1,245 +1,181 @@
 ---
 name: typescript
-description: TypeScript strict mode with eslint and jest
+description: |
+  Provides comprehensive TypeScript development expertise and coding standards. Ensures type safety through strict type checking, implements clean code patterns, and maintains consistent architectural decisions. Specializes in advanced type system features including generics, conditional types, mapped types, and template literal types.
+  Use when: working with TypeScript files (.ts/.tsx), defining type definitions and interfaces, implementing generic programming patterns, designing type-safe APIs, handling complex type transformations, integrating TypeScript with React/Vue/Angular frameworks, configuring strict mode settings, resolving type errors, or optimizing type performance in large codebases.
 ---
 
-# TypeScript Skill
+# TypeScript Coding Standards
 
-*Load with: base.md*
+## Basic Principles
 
----
+### One Function, One Responsibility
 
-## Strict Mode (Non-Negotiable)
+- If function name connects with "and" or "or", it's a signal to split
+- If test cases are needed for each if branch, it's a signal to split
 
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
-}
-```
+### Conditional and Loop Depth Limited to 2 Levels
 
----
+- Minimize depth using early return whenever possible
+- If still heavy, extract into separate functions
 
-## Project Structure
+### Make Function Side Effects Explicit
 
-```
-project/
-├── src/
-│   ├── core/               # Pure business logic
-│   │   ├── types.ts        # Domain types/interfaces
-│   │   ├── services/       # Pure functions
-│   │   └── index.ts        # Public API
-│   ├── infra/              # Side effects
-│   │   ├── api/            # HTTP handlers
-│   │   ├── db/             # Database operations
-│   │   └── external/       # Third-party integrations
-│   └── utils/              # Shared utilities
-├── tests/
-│   ├── unit/
-│   └── integration/
-├── package.json
-├── tsconfig.json
-└── CLAUDE.md
-```
+- Example: If `getUser` also runs `updateLastAccess()`, specify it in the function name
 
----
+### Convert Magic Numbers/Strings to Constants When Possible
 
-## Tooling (Required)
+- Declare at the top of the file or class where used
+- Consider separating into a constants file if there are many
 
-```json
-// package.json scripts
-{
-  "scripts": {
-    "lint": "eslint src/ --ext .ts,.tsx",
-    "typecheck": "tsc --noEmit",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "format": "prettier --write 'src/**/*.ts'"
-  }
-}
-```
+### Function Order by Call Order
 
-```javascript
-// eslint.config.js
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+- Follow class access modifier declaration order rules if clear
+- Otherwise, order top-to-bottom for easy reading by call order
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  {
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/explicit-function-return-type': 'error',
-      'max-lines-per-function': ['error', 20],
-      'max-depth': ['error', 2],
-      'max-params': ['error', 3],
-    }
-  }
-);
-```
+### Review External Libraries for Complex Implementations
 
----
+- When logic is complex and tests become bloated
+- If industry-standard libraries exist, use them
+- When security, accuracy, or performance optimization is critical
+- When browser/platform compatibility or edge cases are numerous
 
-## Testing with Jest
+### Modularization (Prevent Code Duplication and Pattern Repetition)
 
-```typescript
-// tests/unit/services/user.test.ts
-import { calculateTotal } from '../../../src/core/services/pricing';
+- Absolutely forbid code repetition
+- Modularize similar patterns into reusable forms
+- Allow pre-modularization if reuse is confirmed
+- Avoid excessive abstraction
+- Modularization levels:
+  - Same file: Extract into separate function
+  - Multiple files: Separate into different file
+  - Multiple projects/domains: Separate into package
 
-describe('calculateTotal', () => {
-  it('returns sum of item prices', () => {
-    // Arrange
-    const items = [{ price: 10 }, { price: 20 }];
+### Variable and Function Names
 
-    // Act
-    const result = calculateTotal(items);
+- Clear purpose while being concise
+- Forbid abbreviations outside industry standards (id, api, db, err, etc.)
+- Don't repeat context from the parent scope
+- Boolean variables use `is`, `has`, `should` prefixes
+- Function names are verbs or verb+noun forms
+- Plural rules:
+  - Pure arrays: "s" suffix (`users`)
+  - Wrapped object: "list" suffix (`userList`)
+  - Specific data structure: Explicit (`userSet`, `userMap`)
+  - Already plural words: Use as-is
 
-    // Assert
-    expect(result).toBe(30);
-  });
+### Field Order
 
-  it('returns zero for empty array', () => {
-    expect(calculateTotal([])).toBe(0);
-  });
+- Alphabetically ascending by default
+- Maintain consistency in usage
+- Also alphabetically ordered in destructuring assignment
 
-  it('throws on invalid item', () => {
-    expect(() => calculateTotal([{ invalid: 'item' }])).toThrow();
-  });
-});
-```
+### Error Handling
 
----
+- Error handling level: Handle where meaningful response is possible
+- Error messages: Technical details for logs, actionable guidance for users
+- Error classification: Distinguish between expected and unexpected errors
+- Error propagation: Add context when propagating up the call stack
+- Recovery vs. fast fail: Recover from expected errors with fallback
+- Error types: For domain-specific failures, create custom error classes extending `Error`. Never throw non-Error objects
+- Async errors: Always handle Promise rejection. Use try-catch for async/await, .catch() for promise chains
 
-## GitHub Actions
+## Package Management
 
-```yaml
-name: TypeScript Quality Gate
+### Package Manager
 
-on: [push, pull_request]
+- Use pnpm as default package manager
+- Forbid npm, yarn (prevent lock file conflicts)
 
-jobs:
-  quality:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Lint
-        run: npm run lint
-        
-      - name: Type Check
-        run: npm run typecheck
-        
-      - name: Test with Coverage
-        run: npm run test:coverage
-        
-      - name: Coverage Threshold (80%)
-        run: npm run test:coverage -- --coverageThreshold='{"global":{"branches":80,"functions":80,"lines":80,"statements":80}}'
-```
+## File Structure
 
----
+### Common for All Files
 
-## Pre-Commit Hooks
+1. Import statements (grouped)
+2. Constant definitions (alphabetically ordered if multiple)
+3. Type/Interface definitions (alphabetically ordered if multiple)
+4. Main content (see below)
 
-Using Husky + lint-staged:
+### Inside Classes
 
-```bash
-npm install -D husky lint-staged
-npx husky init
-```
+- Decorators
+- private readonly members
+- readonly members
+- constructor
+- public methods (alphabetically ordered)
+- protected methods (alphabetically ordered)
+- private methods (alphabetically ordered)
 
-```json
-// package.json
-{
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
-  }
-}
-```
+### Function Placement in Function-Based Files
 
-```bash
-# .husky/pre-commit
-npx lint-staged
-npx tsc --noEmit
-npm run test -- --onlyChanged --passWithNoTests
-```
+- Main exported function
+- Additional exported functions (alphabetically ordered, avoid many)
+- Helper functions
 
-This runs on every commit:
-1. ESLint + Prettier on staged files
-2. Type check entire project
-3. Tests for changed files only
+## Function Writing
 
----
+### Use Arrow Functions
 
-## Type Patterns
+- Always use arrow functions except for class methods
+- Forbid function keyword entirely (exceptions: generator function\*, function hoisting etc. technically impossible cases only)
 
-### Discriminated Unions for Results
-```typescript
-type Result<T> =
-  | { ok: true; value: T }
-  | { ok: false; error: string };
+### Function Arguments: Flat vs Object
 
-function parseUser(data: unknown): Result<User> {
-  // Type-safe error handling without exceptions
-}
-```
+- Use flat if single argument or uncertain of future additions
+- Use object form for 2+ arguments in most cases. Allow flat form when:
+  - All required arguments without boolean arguments
+  - All required arguments with clear order (e.g., (width,height), (start,end), (min,max), (from,to))
 
-### Branded Types for IDs
-```typescript
-type UserId = string & { readonly brand: unique symbol };
-type OrderId = string & { readonly brand: unique symbol };
+## Type System
 
-// Can't accidentally pass UserId where OrderId expected
-function getOrder(orderId: OrderId): Order { ... }
-```
+### Type Safety
 
-### Const Assertions for Literals
-```typescript
-const STATUSES = ['pending', 'active', 'closed'] as const;
-type Status = typeof STATUSES[number]; // 'pending' | 'active' | 'closed'
-```
+- Forbid unsafe type bypasses like any, as, !, @ts-ignore, @ts-expect-error
+- Exceptions: Missing or incorrect external library types, rapid development needed (clarify reason in comments)
+- Allow some unknown type when type guard is clear
+- Allow as assertion when literal type (as const) needed
+- Allow as assertion when widening literal/HTML types to broader types
+- Allow "!" assertion when type narrowing impossible after type guard due to TypeScript limitation
+- Allow @ts-ignore, @ts-expect-error in test code (absolutely forbid in production)
 
-### Zod for Runtime Validation
-```typescript
-import { z } from 'zod';
+### Interface vs Type
 
-const UserSchema = z.object({
-  email: z.string().email(),
-  name: z.string().min(1).max(100),
-});
+- Prioritize Type in all cases by default
+- Use Interface only for these exceptions:
+  - Public API provided to external users like library public API
+  - Need to extend existing interface like external libraries
+  - Designing OOP-style classes where implementation contract must be clearly defined
 
-type User = z.infer<typeof UserSchema>;
-```
+### null/undefined Handling
 
----
+- Actively use Optional Chaining (`?.`)
+- Provide defaults with Nullish Coalescing (`??`)
+- Distinguish between `null` and `undefined` by semantic meaning:
+  - `undefined`: Uninitialized state, optional parameters, value not assigned yet
+  - `null`: Intentional absence of value (similar to Go's nil)
+- Examples:
+  - Optional field: `{ name?: string }` → can be `undefined`
+  - Intentionally cleared value: `user.profileImage = null`
+  - External API responses may use either convention
 
-## TypeScript Anti-Patterns
+## Code Style
 
-- ❌ `any` type - use `unknown` and narrow
-- ❌ Type assertions (`as`) - use type guards
-- ❌ Non-null assertions (`!`) - handle null explicitly
-- ❌ `@ts-ignore` without explanation
-- ❌ Enums - use const objects or union types
-- ❌ Classes for data - use interfaces/types
-- ❌ Default exports - use named exports
+### Maintain Immutability
+
+- Use `const` whenever possible, minimize `let`
+- Create new values instead of directly modifying arrays/objects
+- Use `spread`, `filter`, `map` instead of `push`, `splice`
+- Exceptions: Extremely performance-critical cases
+
+## Recommended Libraries
+
+- Testing: Jest, Playwright
+- Utilities: es-toolkit, dayjs
+- HTTP: ky, @tanstack/query, @apollo/client
+- Form: React Hook Form
+- Type validation: zod
+- UI: Tailwind + shadcn/ui
+- ORM: Prisma (Drizzle if edge support important)
+- State management: zustand
+- Code formatting: prettier, eslint
+- Build: tsup

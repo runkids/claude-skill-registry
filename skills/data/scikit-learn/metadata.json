@@ -1,7 +1,7 @@
 {
   "name": "scikit-learn",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/scikit-learn/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-01-21T02:28:37.798775Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/scikit-learn/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:38.426168Z"
 }

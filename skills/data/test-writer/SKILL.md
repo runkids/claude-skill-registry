@@ -1,940 +1,535 @@
 ---
 name: test-writer
-description: Generate comprehensive Vitest tests for code examples in JavaScript concept documentation pages, following project conventions and referencing source lines
+description: Test generation expertise for Python (pytest) and TypeScript (Jest). Use when writing new tests, improving coverage, or creating test fixtures. Ensures comprehensive coverage including edge cases, error scenarios, and integration tests.
+model_tier: opus
+parallel_hints:
+  can_parallel_with: [code-review, lint-monorepo, security-audit]
+  must_serialize_with: [database-migration]
+  preferred_batch_size: 3
 ---
 
-# Skill: Test Writer for Concept Pages
+# Test Writer Skill
 
-Use this skill to generate comprehensive Vitest tests for all code examples in a concept documentation page. Tests verify that code examples in the documentation are accurate and work as described.
+Expert test generation skill for creating comprehensive test suites that meet project coverage requirements.
 
-## When to Use
+## When This Skill Activates
 
-- After writing a new concept page
-- When adding new code examples to existing pages
-- When updating existing code examples
-- To verify documentation accuracy through automated tests
-- Before publishing to ensure all examples work correctly
+- New code added without tests
+- Coverage below 70% threshold
+- Complex logic needs test coverage
+- Bug fix requires regression test
+- Refactoring needs safety net
+- Integration tests needed
 
-## Test Writing Methodology
+## Testing Standards
 
-Follow these four phases to create comprehensive tests for a concept page.
+### Coverage Requirements
 
-### Phase 1: Code Example Extraction
+| Layer | Target | Minimum |
+|-------|--------|---------|
+| Services | 90% | 80% |
+| Controllers | 85% | 75% |
+| Models | 80% | 70% |
+| Utils | 90% | 85% |
+| Routes | 75% | 65% |
 
-Scan the concept page for all code examples and categorize them:
-
-| Category | Characteristics | Action |
-|----------|-----------------|--------|
-| **Testable** | Has `console.log` with output comments, returns values | Write tests |
-| **DOM-specific** | Uses `document`, `window`, DOM APIs, event handlers | Write DOM tests (separate file) |
-| **Error examples** | Intentionally throws errors, demonstrates failures | Write tests with `toThrow` |
-| **Conceptual** | ASCII diagrams, pseudo-code, incomplete snippets | Skip (document why) |
-| **Browser-only** | Uses browser APIs not available in jsdom | Skip or mock |
-
-### Phase 2: Determine Test File Structure
+### Test Pyramid
 
 ```
-tests/
-├── fundamentals/              # Concepts 1-6
-├── functions-execution/       # Concepts 7-8
-├── web-platform/             # Concepts 9-10
-├── object-oriented/          # Concepts 11-15
-├── functional-programming/   # Concepts 16-19
-├── async-javascript/         # Concepts 20-22
-├── advanced-topics/          # Concepts 23-31
-└── beyond/                   # Extended concepts
-    └── {subcategory}/
+         /\
+        /  \    E2E Tests (few)
+       /----\
+      /      \  Integration Tests (some)
+     /--------\
+    /          \ Unit Tests (many)
+   /------------\
 ```
 
-**File naming:**
-- Standard tests: `{concept-name}.test.js`
-- DOM tests: `{concept-name}.dom.test.js`
+## Python Testing (pytest)
 
-### Phase 3: Convert Examples to Tests
+### Test File Structure
 
-For each testable code example:
+```python
+"""Tests for swap executor service."""
+import pytest
+from datetime import date, timedelta
+from unittest.mock import AsyncMock, patch
 
-1. Identify the expected output (from `console.log` comments or documented behavior)
-2. Convert to `expect` assertions
-3. Add source line reference in comments
-4. Group related tests in `describe` blocks matching documentation sections
+from app.services.swap_executor import SwapExecutor
+from app.models.swap import SwapRequest, SwapType
+from app.schemas.swap import SwapCreate
 
-### Phase 4: Handle Special Cases
 
-| Case | Solution |
-|------|----------|
-| Browser-only APIs | Use jsdom environment or skip with note |
-| Timing-dependent code | Use `vi.useFakeTimers()` or test the logic, not timing |
-| Side effects | Capture output or test mutations |
-| Intentional errors | Use `expect(() => {...}).toThrow()` |
-| Async code | Use `async/await` with proper assertions |
+class TestSwapExecutor:
+    """Test suite for SwapExecutor service."""
 
----
+    # ===== Fixtures =====
 
-## Project Test Conventions
+    @pytest.fixture
+    def executor(self):
+        """Create SwapExecutor instance."""
+        return SwapExecutor()
 
-### Import Pattern
+    @pytest.fixture
+    def valid_swap_request(self, db_session):
+        """Create a valid swap request."""
+        return SwapRequest(
+            id="swap-123",
+            requestor_id="person-1",
+            target_id="person-2",
+            swap_type=SwapType.ONE_TO_ONE,
+            status="pending"
+        )
 
-```javascript
-import { describe, it, expect } from 'vitest'
+    # ===== Happy Path Tests =====
+
+    async def test_execute_one_to_one_swap_success(
+        self, executor, db_session, valid_swap_request
+    ):
+        """Test successful execution of one-to-one swap."""
+        # Arrange
+        # (setup is done in fixtures)
+
+        # Act
+        result = await executor.execute_swap(db_session, valid_swap_request)
+
+        # Assert
+        assert result.status == "completed"
+        assert result.executed_at is not None
+        assert result.error is None
+
+    # ===== Edge Cases =====
+
+    async def test_execute_swap_with_past_date(
+        self, executor, db_session, valid_swap_request
+    ):
+        """Test swap execution for past date is rejected."""
+        # Arrange
+        valid_swap_request.target_date = date.today() - timedelta(days=1)
+
+        # Act & Assert
+        with pytest.raises(ValueError, match="Cannot swap past dates"):
+            await executor.execute_swap(db_session, valid_swap_request)
+
+    async def test_execute_swap_with_empty_request(self, executor, db_session):
+        """Test swap execution with None request."""
+        # Act & Assert
+        with pytest.raises(TypeError):
+            await executor.execute_swap(db_session, None)
+
+    # ===== Error Cases =====
+
+    async def test_execute_swap_database_error(
+        self, executor, valid_swap_request
+    ):
+        """Test handling of database connection error."""
+        # Arrange
+        mock_db = AsyncMock()
+        mock_db.commit.side_effect = ConnectionError("DB unavailable")
+
+        # Act & Assert
+        with pytest.raises(ConnectionError):
+            await executor.execute_swap(mock_db, valid_swap_request)
+
+    async def test_execute_swap_validation_failure(
+        self, executor, db_session, invalid_swap_request
+    ):
+        """Test swap fails validation."""
+        # Act & Assert
+        with pytest.raises(ValueError, match="ACGME violation"):
+            await executor.execute_swap(db_session, invalid_swap_request)
+
+    # ===== Integration Tests =====
+
+    @pytest.mark.integration
+    async def test_execute_swap_persists_to_database(
+        self, executor, db_session, valid_swap_request
+    ):
+        """Test that swap execution persists changes."""
+        # Act
+        result = await executor.execute_swap(db_session, valid_swap_request)
+        await db_session.commit()
+
+        # Assert - verify in database
+        saved = await db_session.get(SwapRequest, result.id)
+        assert saved.status == "completed"
 ```
 
-For DOM tests or tests needing mocks:
+### Test Categories
 
-```javascript
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+#### 1. Unit Tests
+
+```python
+"""Unit tests - test single function/method in isolation."""
+
+def test_calculate_weekly_hours():
+    """Test hour calculation logic."""
+    assignments = [
+        Assignment(hours=8),
+        Assignment(hours=8),
+        Assignment(hours=4),
+    ]
+    result = calculate_weekly_hours(assignments)
+    assert result == 20
+
+def test_calculate_weekly_hours_empty():
+    """Test with empty input."""
+    assert calculate_weekly_hours([]) == 0
+
+def test_calculate_weekly_hours_negative():
+    """Test negative hours are handled."""
+    with pytest.raises(ValueError):
+        calculate_weekly_hours([Assignment(hours=-1)])
 ```
 
-### DOM Test File Header
+#### 2. Service Tests
 
-```javascript
-/**
- * @vitest-environment jsdom
- */
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+```python
+"""Service layer tests - test business logic."""
+
+class TestScheduleService:
+
+    async def test_create_schedule_validates_acgme(self, db, service):
+        """Test ACGME validation during schedule creation."""
+        data = ScheduleCreate(...)
+
+        result = await service.create_schedule(db, data)
+
+        assert result.acgme_compliant is True
+
+    async def test_create_schedule_rejects_violation(self, db, service):
+        """Test schedule creation rejects ACGME violation."""
+        data = ScheduleCreate(weekly_hours=90)  # Over 80 limit
+
+        with pytest.raises(ACGMEViolationError):
+            await service.create_schedule(db, data)
 ```
 
-### Describe Block Organization
+#### 3. API Tests
 
-Match the structure of the documentation:
+```python
+"""API route tests - test HTTP endpoints."""
+from fastapi.testclient import TestClient
 
-```javascript
-describe('Concept Name', () => {
-  describe('Section from Documentation', () => {
-    describe('Subsection if needed', () => {
-      it('should [specific behavior]', () => {
-        // Test
-      })
-    })
-  })
-})
+class TestScheduleAPI:
+
+    def test_get_schedule_returns_200(self, client: TestClient, auth_headers):
+        """Test successful schedule retrieval."""
+        response = client.get("/api/schedules/123", headers=auth_headers)
+
+        assert response.status_code == 200
+        assert "id" in response.json()
+
+    def test_get_schedule_unauthorized(self, client: TestClient):
+        """Test schedule access without auth."""
+        response = client.get("/api/schedules/123")
+
+        assert response.status_code == 401
+
+    def test_create_schedule_returns_201(self, client, auth_headers):
+        """Test schedule creation."""
+        response = client.post(
+            "/api/schedules",
+            json={"name": "Test Schedule"},
+            headers=auth_headers
+        )
+
+        assert response.status_code == 201
 ```
 
-### Test Naming Convention
+### Pytest Fixtures
 
-- Start with "should"
-- Be descriptive and specific
-- Match the documented behavior
+```python
+# conftest.py
 
-```javascript
-// Good
-it('should return "object" for typeof null', () => {})
-it('should throw TypeError when accessing property of undefined', () => {})
-it('should resolve promises in order they were created', () => {})
+import pytest
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from app.db.base import Base
+from app.models import *  # Import all models
 
-// Bad
-it('test typeof', () => {})
-it('works correctly', () => {})
-it('null test', () => {})
+@pytest.fixture(scope="function")
+async def db_session():
+    """Create test database session."""
+    engine = create_async_engine("sqlite+aiosqlite:///:memory:")
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
+    async with AsyncSession(engine) as session:
+        yield session
+
+    await engine.dispose()
+
+@pytest.fixture
+def client(db_session):
+    """Create test client with overridden dependencies."""
+    from app.main import app
+    from app.api.deps import get_db
+
+    app.dependency_overrides[get_db] = lambda: db_session
+
+    with TestClient(app) as client:
+        yield client
+
+    app.dependency_overrides.clear()
+
+@pytest.fixture
+def auth_headers(test_user):
+    """Create authentication headers."""
+    token = create_access_token(test_user.id)
+    return {"Authorization": f"Bearer {token}"}
 ```
 
-### Source Line References
+### Mocking Patterns
 
-Always reference the documentation source:
+```python
+from unittest.mock import AsyncMock, patch, MagicMock
 
-```javascript
-// ============================================================
-// SECTION NAME FROM DOCUMENTATION
-// From {concept}.mdx lines XX-YY
-// ============================================================
+# Mock async function
+@patch("app.services.email.send_email", new_callable=AsyncMock)
+async def test_notification_sends_email(mock_send):
+    mock_send.return_value = True
+    await notify_user("user-123", "Test message")
+    mock_send.assert_called_once()
 
-describe('Section Name', () => {
-  // From lines 45-52: Basic typeof examples
-  it('should return correct type strings', () => {
-    // Test
-  })
-})
+# Mock database query
+async def test_with_mocked_db():
+    mock_db = AsyncMock()
+    mock_db.execute.return_value.scalar_one_or_none.return_value = User(id="123")
+
+    result = await get_user(mock_db, "123")
+    assert result.id == "123"
+
+# Mock external API
+@patch("httpx.AsyncClient.get")
+async def test_external_api(mock_get):
+    mock_get.return_value = MagicMock(
+        status_code=200,
+        json=lambda: {"data": "value"}
+    )
+    result = await fetch_external_data()
+    assert result == {"data": "value"}
 ```
 
----
+## TypeScript Testing (Jest)
 
-## Test Patterns Reference
+### Test File Structure
 
-### Pattern 1: Basic Value Assertion
+```typescript
+// __tests__/components/ScheduleView.test.tsx
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ScheduleView } from '@/components/ScheduleView';
 
-**Documentation:**
-```javascript
-console.log(typeof "hello")  // "string"
-console.log(typeof 42)       // "number"
-```
+describe('ScheduleView', () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+    },
+  });
 
-**Test:**
-```javascript
-// From lines XX-YY: typeof examples
-it('should return correct type for primitives', () => {
-  expect(typeof "hello").toBe("string")
-  expect(typeof 42).toBe("number")
-})
-```
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  );
 
----
-
-### Pattern 2: Multiple Related Assertions
-
-**Documentation:**
-```javascript
-let a = "hello"
-let b = "hello"
-console.log(a === b)  // true
-
-let obj1 = { x: 1 }
-let obj2 = { x: 1 }
-console.log(obj1 === obj2)  // false
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: Primitive vs object comparison
-it('should compare primitives by value', () => {
-  let a = "hello"
-  let b = "hello"
-  expect(a === b).toBe(true)
-})
-
-it('should compare objects by reference', () => {
-  let obj1 = { x: 1 }
-  let obj2 = { x: 1 }
-  expect(obj1 === obj2).toBe(false)
-})
-```
-
----
-
-### Pattern 3: Function Return Values
-
-**Documentation:**
-```javascript
-function greet(name) {
-  return "Hello, " + name + "!"
-}
-
-console.log(greet("Alice"))  // "Hello, Alice!"
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: greet function example
-it('should return greeting with name', () => {
-  function greet(name) {
-    return "Hello, " + name + "!"
-  }
-  
-  expect(greet("Alice")).toBe("Hello, Alice!")
-})
-```
-
----
-
-### Pattern 4: Error Testing
-
-**Documentation:**
-```javascript
-// This throws an error!
-const obj = null
-console.log(obj.property)  // TypeError: Cannot read property of null
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: Accessing property of null
-it('should throw TypeError when accessing property of null', () => {
-  const obj = null
-  
-  expect(() => {
-    obj.property
-  }).toThrow(TypeError)
-})
-```
-
----
-
-### Pattern 5: Specific Error Messages
-
-**Documentation:**
-```javascript
-function divide(a, b) {
-  if (b === 0) throw new Error("Cannot divide by zero")
-  return a / b
-}
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: divide function with error
-it('should throw error when dividing by zero', () => {
-  function divide(a, b) {
-    if (b === 0) throw new Error("Cannot divide by zero")
-    return a / b
-  }
-  
-  expect(() => divide(10, 0)).toThrow("Cannot divide by zero")
-  expect(divide(10, 2)).toBe(5)
-})
-```
-
----
-
-### Pattern 6: Async/Await Testing
-
-**Documentation:**
-```javascript
-async function fetchUser(id) {
-  const response = await fetch(`/api/users/${id}`)
-  return response.json()
-}
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: async fetchUser function
-it('should fetch user data asynchronously', async () => {
-  // Mock fetch for testing
-  global.fetch = vi.fn(() =>
-    Promise.resolve({
-      json: () => Promise.resolve({ id: 1, name: 'Alice' })
-    })
-  )
-  
-  async function fetchUser(id) {
-    const response = await fetch(`/api/users/${id}`)
-    return response.json()
-  }
-  
-  const user = await fetchUser(1)
-  expect(user).toEqual({ id: 1, name: 'Alice' })
-})
-```
-
----
-
-### Pattern 7: Promise Testing
-
-**Documentation:**
-```javascript
-const promise = new Promise((resolve) => {
-  resolve("done")
-})
-
-promise.then(result => console.log(result))  // "done"
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: Basic Promise resolution
-it('should resolve with correct value', async () => {
-  const promise = new Promise((resolve) => {
-    resolve("done")
-  })
-  
-  await expect(promise).resolves.toBe("done")
-})
-```
-
----
-
-### Pattern 8: Promise Rejection
-
-**Documentation:**
-```javascript
-const promise = new Promise((resolve, reject) => {
-  reject(new Error("Something went wrong"))
-})
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: Promise rejection
-it('should reject with error', async () => {
-  const promise = new Promise((resolve, reject) => {
-    reject(new Error("Something went wrong"))
-  })
-  
-  await expect(promise).rejects.toThrow("Something went wrong")
-})
-```
-
----
-
-### Pattern 9: Floating Point Comparison
-
-**Documentation:**
-```javascript
-console.log(0.1 + 0.2)         // 0.30000000000000004
-console.log(0.1 + 0.2 === 0.3) // false
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: Floating point precision
-it('should demonstrate floating point imprecision', () => {
-  expect(0.1 + 0.2).not.toBe(0.3)
-  expect(0.1 + 0.2).toBeCloseTo(0.3)
-  expect(0.1 + 0.2 === 0.3).toBe(false)
-})
-```
-
----
-
-### Pattern 10: Array Method Testing
-
-**Documentation:**
-```javascript
-const numbers = [1, 2, 3, 4, 5]
-const doubled = numbers.map(n => n * 2)
-console.log(doubled)  // [2, 4, 6, 8, 10]
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: Array map example
-it('should double all numbers in array', () => {
-  const numbers = [1, 2, 3, 4, 5]
-  const doubled = numbers.map(n => n * 2)
-  
-  expect(doubled).toEqual([2, 4, 6, 8, 10])
-  expect(numbers).toEqual([1, 2, 3, 4, 5]) // Original unchanged
-})
-```
-
----
-
-### Pattern 11: Object Mutation Testing
-
-**Documentation:**
-```javascript
-const obj = { a: 1 }
-obj.b = 2
-console.log(obj)  // { a: 1, b: 2 }
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: Object mutation
-it('should allow adding properties to objects', () => {
-  const obj = { a: 1 }
-  obj.b = 2
-  
-  expect(obj).toEqual({ a: 1, b: 2 })
-})
-```
-
----
-
-### Pattern 12: Closure Testing
-
-**Documentation:**
-```javascript
-function counter() {
-  let count = 0
-  return function() {
-    count++
-    return count
-  }
-}
-
-const increment = counter()
-console.log(increment())  // 1
-console.log(increment())  // 2
-console.log(increment())  // 3
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: Closure counter example
-it('should maintain state across calls via closure', () => {
-  function counter() {
-    let count = 0
-    return function() {
-      count++
-      return count
-    }
-  }
-  
-  const increment = counter()
-  expect(increment()).toBe(1)
-  expect(increment()).toBe(2)
-  expect(increment()).toBe(3)
-})
-
-it('should create independent counters', () => {
-  function counter() {
-    let count = 0
-    return function() {
-      count++
-      return count
-    }
-  }
-  
-  const counter1 = counter()
-  const counter2 = counter()
-  
-  expect(counter1()).toBe(1)
-  expect(counter1()).toBe(2)
-  expect(counter2()).toBe(1) // Independent
-})
-```
-
----
-
-### Pattern 13: DOM Event Testing
-
-**Documentation:**
-```javascript
-const button = document.getElementById('myButton')
-button.addEventListener('click', function(event) {
-  console.log('Button clicked!')
-  console.log(event.type)  // "click"
-})
-```
-
-**Test (in .dom.test.js file):**
-```javascript
-/**
- * @vitest-environment jsdom
- */
-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-
-describe('DOM Event Handlers', () => {
-  let button
-  
   beforeEach(() => {
-    button = document.createElement('button')
-    button.id = 'myButton'
-    document.body.appendChild(button)
-  })
-  
-  afterEach(() => {
-    document.body.innerHTML = ''
-  })
-  
-  // From lines XX-YY: Button click event
-  it('should fire click event handler', () => {
-    const output = []
-    
-    button.addEventListener('click', function(event) {
-      output.push('Button clicked!')
-      output.push(event.type)
-    })
-    
-    button.click()
-    
-    expect(output).toEqual(['Button clicked!', 'click'])
-  })
-})
-```
+    queryClient.clear();
+  });
 
----
+  // ===== Rendering Tests =====
 
-### Pattern 14: DOM Manipulation Testing
+  it('renders loading state initially', () => {
+    render(<ScheduleView scheduleId="123" />, { wrapper });
 
-**Documentation:**
-```javascript
-const div = document.createElement('div')
-div.textContent = 'Hello'
-div.classList.add('greeting')
-document.body.appendChild(div)
-```
+    expect(screen.getByRole('progressbar')).toBeInTheDocument();
+  });
 
-**Test:**
-```javascript
-// From lines XX-YY: Creating and appending elements
-it('should create element with text and class', () => {
-  const div = document.createElement('div')
-  div.textContent = 'Hello'
-  div.classList.add('greeting')
-  document.body.appendChild(div)
-  
-  const element = document.querySelector('.greeting')
-  expect(element).not.toBeNull()
-  expect(element.textContent).toBe('Hello')
-  expect(element.classList.contains('greeting')).toBe(true)
-})
-```
+  it('renders schedule data when loaded', async () => {
+    render(<ScheduleView scheduleId="123" />, { wrapper });
 
----
+    await waitFor(() => {
+      expect(screen.getByText('Schedule 123')).toBeInTheDocument();
+    });
+  });
 
-### Pattern 15: Timer Testing
-
-**Documentation:**
-```javascript
-console.log('First')
-setTimeout(() => console.log('Second'), 0)
-console.log('Third')
-// Output: First, Third, Second
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: setTimeout execution order
-it('should execute setTimeout callback after synchronous code', async () => {
-  const output = []
-  
-  output.push('First')
-  setTimeout(() => output.push('Second'), 0)
-  output.push('Third')
-  
-  // Wait for setTimeout to execute
-  await new Promise(resolve => setTimeout(resolve, 10))
-  
-  expect(output).toEqual(['First', 'Third', 'Second'])
-})
-```
-
----
-
-### Pattern 16: Strict Mode Behavior
-
-**Documentation:**
-```javascript
-// In strict mode, this throws
-"use strict"
-x = 10  // ReferenceError: x is not defined
-```
-
-**Test:**
-```javascript
-// From lines XX-YY: Strict mode variable declaration
-it('should throw ReferenceError in strict mode for undeclared variables', () => {
-  // Vitest runs in strict mode by default
-  expect(() => {
-    // Using eval to test strict mode behavior
-    "use strict"
-    eval('undeclaredVar = 10')
-  }).toThrow()
-})
-```
-
----
-
-## Complete Test File Template
-
-```javascript
-import { describe, it, expect } from 'vitest'
-
-describe('[Concept Name]', () => {
-  // ============================================================
-  // [FIRST SECTION NAME FROM DOCUMENTATION]
-  // From [concept].mdx lines XX-YY
-  // ============================================================
-  
-  describe('[First Section]', () => {
-    // From lines XX-YY: [Brief description of example]
-    it('should [expected behavior]', () => {
-      // Code from documentation
-      
-      expect(result).toBe(expected)
-    })
-    
-    // From lines XX-YY: [Brief description of next example]
-    it('should [another expected behavior]', () => {
-      // Code from documentation
-      
-      expect(result).toEqual(expected)
-    })
-  })
-  
-  // ============================================================
-  // [SECOND SECTION NAME FROM DOCUMENTATION]
-  // From [concept].mdx lines XX-YY
-  // ============================================================
-  
-  describe('[Second Section]', () => {
-    // From lines XX-YY: [Description]
-    it('should [behavior]', () => {
-      // Test
-    })
-  })
-  
-  // ============================================================
-  // EDGE CASES AND COMMON MISTAKES
-  // From [concept].mdx lines XX-YY
-  // ============================================================
-  
-  describe('Edge Cases', () => {
-    // From lines XX-YY: [Edge case description]
-    it('should handle [edge case]', () => {
-      // Test
-    })
-  })
-  
-  describe('Common Mistakes', () => {
-    // From lines XX-YY: Wrong way example
-    it('should demonstrate the incorrect behavior', () => {
-      // Test showing why the "wrong" way fails
-    })
-    
-    // From lines XX-YY: Correct way example
-    it('should demonstrate the correct behavior', () => {
-      // Test showing the right approach
-    })
-  })
-})
-```
-
----
-
-## Complete DOM Test File Template
-
-```javascript
-/**
- * @vitest-environment jsdom
- */
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-
-// ============================================================
-// DOM EXAMPLES FROM [CONCEPT NAME]
-// From [concept].mdx lines XX-YY
-// ============================================================
-
-describe('[Concept Name] - DOM', () => {
-  // Shared setup
-  let container
-  
-  beforeEach(() => {
-    // Create a fresh container for each test
-    container = document.createElement('div')
-    container.id = 'test-container'
-    document.body.appendChild(container)
-  })
-  
-  afterEach(() => {
-    // Clean up after each test
-    document.body.innerHTML = ''
-    vi.restoreAllMocks()
-  })
-  
-  // ============================================================
-  // [SECTION NAME]
-  // From lines XX-YY
-  // ============================================================
-  
-  describe('[Section Name]', () => {
-    // From lines XX-YY: [Example description]
-    it('should [expected DOM behavior]', () => {
-      // Setup
-      const element = document.createElement('div')
-      container.appendChild(element)
-      
-      // Action
-      element.textContent = 'Hello'
-      
-      // Assert
-      expect(element.textContent).toBe('Hello')
-    })
-  })
-  
-  // ============================================================
-  // EVENT HANDLING
-  // From lines XX-YY
-  // ============================================================
-  
-  describe('Event Handling', () => {
-    // From lines XX-YY: Click event example
-    it('should handle click events', () => {
-      const button = document.createElement('button')
-      container.appendChild(button)
-      
-      let clicked = false
-      button.addEventListener('click', () => {
-        clicked = true
+  it('renders error state on failure', async () => {
+    // Mock API failure
+    server.use(
+      rest.get('/api/schedules/123', (req, res, ctx) => {
+        return res(ctx.status(500));
       })
-      
-      button.click()
-      
-      expect(clicked).toBe(true)
-    })
-  })
-})
+    );
+
+    render(<ScheduleView scheduleId="123" />, { wrapper });
+
+    await waitFor(() => {
+      expect(screen.getByText(/error/i)).toBeInTheDocument();
+    });
+  });
+
+  // ===== Interaction Tests =====
+
+  it('calls onUpdate when edit button clicked', async () => {
+    const onUpdate = jest.fn();
+    render(<ScheduleView scheduleId="123" onUpdate={onUpdate} />, { wrapper });
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /edit/i })).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /edit/i }));
+
+    expect(onUpdate).toHaveBeenCalledTimes(1);
+  });
+
+  // ===== Accessibility Tests =====
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<ScheduleView scheduleId="123" />, { wrapper });
+
+    await waitFor(() => {
+      expect(screen.getByText('Schedule 123')).toBeInTheDocument();
+    });
+
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+});
 ```
 
----
+### Hook Testing
+
+```typescript
+// __tests__/hooks/useSchedule.test.ts
+import { renderHook, waitFor } from '@testing-library/react';
+import { useSchedule } from '@/hooks/useSchedule';
+
+describe('useSchedule', () => {
+  it('fetches schedule data', async () => {
+    const { result } = renderHook(() => useSchedule('123'), { wrapper });
+
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true);
+    });
+
+    expect(result.current.data?.id).toBe('123');
+  });
+
+  it('handles error state', async () => {
+    server.use(
+      rest.get('/api/schedules/invalid', (req, res, ctx) => {
+        return res(ctx.status(404));
+      })
+    );
+
+    const { result } = renderHook(() => useSchedule('invalid'), { wrapper });
+
+    await waitFor(() => {
+      expect(result.current.isError).toBe(true);
+    });
+  });
+});
+```
+
+## Test Generation Checklist
+
+### For Every New Function
+
+- [ ] Happy path test (normal input → expected output)
+- [ ] Edge case tests (empty, null, boundary values)
+- [ ] Error handling tests (invalid input, exceptions)
+- [ ] Type validation tests (if applicable)
+
+### For Every New Class
+
+- [ ] Constructor tests
+- [ ] Method tests (each public method)
+- [ ] State transition tests
+- [ ] Integration with dependencies
+
+### For Every New API Endpoint
+
+- [ ] Success response (200/201)
+- [ ] Validation error (400)
+- [ ] Auth required (401)
+- [ ] Permission denied (403)
+- [ ] Not found (404)
+- [ ] Rate limiting (429)
+
+### For Every Bug Fix
+
+- [ ] Regression test that fails before fix
+- [ ] Verify test passes after fix
+- [ ] Add to edge case coverage
 
 ## Running Tests
 
 ```bash
-# Run all tests
-npm test
+# Python (pytest)
+cd /home/user/Autonomous-Assignment-Program-Manager/backend
 
-# Run tests for specific concept
-npm test -- tests/fundamentals/primitive-types/
+pytest                              # All tests
+pytest -v                           # Verbose output
+pytest --tb=short                   # Short traceback
+pytest -x                           # Stop on first failure
+pytest -k "test_swap"               # Run matching tests
+pytest -m integration               # Run marked tests
+pytest --cov=app                    # With coverage
+pytest --cov=app --cov-fail-under=70  # Fail if under 70%
 
-# Run tests for specific file
-npm test -- tests/fundamentals/primitive-types/primitive-types.test.js
+# TypeScript (Jest)
+cd /home/user/Autonomous-Assignment-Program-Manager/frontend
 
-# Run DOM tests only
-npm test -- tests/fundamentals/primitive-types/primitive-types.dom.test.js
-
-# Run with watch mode
-npm run test:watch
-
-# Run with coverage
-npm run test:coverage
-
-# Run with verbose output
-npm test -- --reporter=verbose
+npm test                            # All tests
+npm test -- --coverage              # With coverage
+npm test -- --watch                 # Watch mode
+npm test -- --testPathPattern=Schedule  # Run matching
 ```
 
----
+## Escalation Rules
 
-## Quality Checklist
+**Escalate to human when:**
 
-### Completeness
-- [ ] All testable code examples have corresponding tests
-- [ ] Tests organized by documentation sections
-- [ ] Source line references included in comments (From lines XX-YY)
-- [ ] DOM tests in separate `.dom.test.js` file
-- [ ] Edge cases and error examples tested
+1. Test requires production data access
+2. Unclear expected behavior
+3. Complex mocking requirements
+4. Flaky test identified
+5. Performance test thresholds unclear
 
-### Correctness
-- [ ] Tests verify the actual documented behavior
-- [ ] Output comments in docs match test expectations
-- [ ] Async tests properly use async/await
-- [ ] Error tests use correct `toThrow` pattern
-- [ ] Floating point comparisons use `toBeCloseTo`
-- [ ] Object comparisons use `toEqual` (not `toBe`)
+**Can generate automatically:**
 
-### Convention
-- [ ] Uses explicit imports from vitest
-- [ ] Follows describe/it nesting pattern
-- [ ] Test names start with "should"
-- [ ] Proper file naming (`{concept}.test.js`)
-- [ ] DOM tests have jsdom environment directive
+1. Unit tests for pure functions
+2. Basic CRUD operation tests
+3. Input validation tests
+4. Error handling tests
+5. Simple integration tests
 
-### Verification
-- [ ] All tests pass: `npm test -- tests/{category}/{concept}/`
-- [ ] No skipped tests without documented reason
-- [ ] No false positives (tests that pass for wrong reasons)
+## Integration with Other Skills
 
----
+### With code-review
+When new code lacks tests:
+1. code-review identifies missing coverage
+2. test-writer generates test suggestions
+3. Verify tests pass before merge
 
-## Test Report Template
+### With automated-code-fixer
+When tests fail:
+1. Analyze failure reason
+2. If test bug, fix test
+3. If code bug, trigger automated-code-fixer
+4. Re-run tests
 
-Use this template to document test coverage for a concept page.
+### With code-quality-monitor
+For coverage tracking:
+1. Generate coverage report
+2. Identify uncovered lines
+3. Generate targeted tests
+4. Verify coverage improvement
 
-```markdown
-# Test Coverage Report: [Concept Name]
+## References
 
-**Concept Page:** `/docs/concepts/[slug].mdx`
-**Test File:** `/tests/{category}/{concept}/{concept}.test.js`
-**DOM Test File:** `/tests/{category}/{concept}/{concept}.dom.test.js` (if applicable)
-**Date:** YYYY-MM-DD
-**Author:** [Name/Claude]
-
-## Summary
-
-| Metric | Count |
-|--------|-------|
-| Total Code Examples in Doc | XX |
-| Testable Examples | XX |
-| Tests Written | XX |
-| DOM Tests Written | XX |
-| Skipped (with reason) | XX |
-
-## Tests by Section
-
-| Section | Line Range | Examples | Tests | Status |
-|---------|------------|----------|-------|--------|
-| [Section 1] | XX-YY | X | X | ✅ |
-| [Section 2] | XX-YY | X | X | ✅ |
-| [Section 3] | XX-YY | X | X | ⚠️ (1 skipped) |
-
-## Skipped Examples
-
-| Line | Example Description | Reason |
-|------|---------------------|--------|
-| XX | ASCII diagram of call stack | Conceptual, not executable |
-| YY | Browser fetch example | Requires network, mocked instead |
-
-## Test Execution
-
-```bash
-npm test -- tests/{category}/{concept}/
-```
-
-**Result:** ✅ XX passing | ❌ X failing | ⏭️ X skipped
-
-## Notes
-
-[Any special considerations, mock requirements, or issues encountered]
-```
-
----
-
-## Common Issues and Solutions
-
-### Issue: Test passes but shouldn't
-
-**Problem:** Test expectations don't match documentation output
-
-**Solution:** Double-check the expected value matches the `console.log` comment exactly
-
-```javascript
-// Documentation says: console.log(result)  // [1, 2, 3]
-// Make sure test uses:
-expect(result).toEqual([1, 2, 3])  // NOT toBe for arrays
-```
-
-### Issue: Async test times out
-
-**Problem:** Async test never resolves
-
-**Solution:** Ensure all promises are awaited and async function is marked
-
-```javascript
-// Bad
-it('should fetch data', () => {
-  const data = fetchData()  // Missing await!
-  expect(data).toBeDefined()
-})
-
-// Good
-it('should fetch data', async () => {
-  const data = await fetchData()
-  expect(data).toBeDefined()
-})
-```
-
-### Issue: DOM test fails with "document is not defined"
-
-**Problem:** Missing jsdom environment
-
-**Solution:** Add environment directive at top of file
-
-```javascript
-/**
- * @vitest-environment jsdom
- */
-```
-
-### Issue: Test isolation problems
-
-**Problem:** Tests affect each other
-
-**Solution:** Use beforeEach/afterEach for cleanup
-
-```javascript
-afterEach(() => {
-  document.body.innerHTML = ''
-  vi.restoreAllMocks()
-})
-```
-
----
-
-## Summary
-
-When writing tests for a concept page:
-
-1. **Extract all code examples** from the documentation
-2. **Categorize** as testable, DOM, error, or conceptual
-3. **Create test file** in correct location with proper naming
-4. **Convert each example** to test using appropriate pattern
-5. **Reference source lines** in comments for traceability
-6. **Run tests** to verify all pass
-7. **Document coverage** using the report template
-
-**Remember:** Tests serve two purposes:
-1. Verify documentation is accurate
-2. Catch regressions if code examples are updated
-
-Every testable code example in the documentation should have a corresponding test. If an example can't be tested, document why.
+- `backend/tests/conftest.py` - Pytest fixtures
+- `frontend/jest.config.js` - Jest configuration
+- `/run-tests` slash command
+- `docs/development/TESTING.md` (if exists)

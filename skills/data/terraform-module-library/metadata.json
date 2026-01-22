@@ -1,7 +1,7 @@
 {
   "name": "terraform-module-library",
-  "repo": "wshobson/agents",
-  "path": "plugins/cloud-infrastructure/skills/terraform-module-library/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-21T04:11:02.104743Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/cloud-infrastructure/skills/terraform-module-library/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-22T03:54:13.214654Z"
 }

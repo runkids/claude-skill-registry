@@ -1,7 +1,7 @@
 {
   "name": "frontend-dev",
-  "repo": "doccker/cc-use-exp",
-  "path": ".claude/skills/frontend-dev/SKILL.md",
-  "source": "github.com/doccker/cc-use-exp",
-  "downloaded_at": "2026-01-21T01:53:55.923922Z"
+  "repo": "Denissvgn/project-team-ag",
+  "path": ".agent/skills/frontend-dev/SKILL.md",
+  "source": "github.com/Denissvgn/project-team-ag",
+  "downloaded_at": "2026-01-22T04:13:05.803014Z"
 }

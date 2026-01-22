@@ -1,64 +1,63 @@
 ---
 name: note
-description: Quick observation capture about a person. Use when noticing something about someone, wanting to record a detail, or capturing context from a conversation. Trigger words: note about, noticed, observation about, remember that, jot down.
+description: Save notes to notepad.md for compaction resilience
+user-invocable: true
 ---
 
-# Quick Person Note
+# Note Skill
 
-Append an observation to a person's profile without breaking flow.
+Save important context to `.omc/notepad.md` that survives conversation compaction.
 
-## Process
+## Usage
 
-1. **Parse the input**: Extract person name and observation
-   - `/note lucy plays aggressive chess` → name: "lucy", note: "plays aggressive chess"
-   - `/note about e prefers morning conversations` → name: "e", note: "prefers morning conversations"
+| Command | Action |
+|---------|--------|
+| `/note <content>` | Add to Working Memory with timestamp |
+| `/note --priority <content>` | Add to Priority Context (always loaded) |
+| `/note --manual <content>` | Add to MANUAL section (never pruned) |
+| `/note --show` | Display current notepad contents |
+| `/note --prune` | Remove entries older than 7 days |
+| `/note --clear` | Clear Working Memory (keep Priority + MANUAL) |
 
-2. **Check if person exists**:
-   ```bash
-   ls ~/.claude-mind/memory/people/{name}/profile.md
-   ```
+## Sections
 
-3. **If person doesn't exist**: Ask whether to create them first
-   - Don't silently create - confirm intent
-   - Then use `/person {name}` flow to create
+### Priority Context (500 char limit)
+- **Always** injected on session start
+- Use for critical facts: "Project uses pnpm", "API in src/api/client.ts"
+- Keep it SHORT - this eats into your context budget
 
-4. **Format the note**:
-   ```markdown
+### Working Memory
+- Timestamped session notes
+- Auto-pruned after 7 days
+- Good for: debugging breadcrumbs, temporary findings
 
-   ## YYYY-MM-DD: Brief Title
-
-   The observation itself. Keep it concise but capture the texture.
-   Context: what prompted this if relevant.
-   ```
-
-5. **Append to profile**: Use Edit tool to append the formatted note to the end of their profile.md
-
-6. **Confirm**: Brief acknowledgment that the note was captured
-
-## Guidelines
-
-- **Atomic observations**: One insight per note
-- **Include context**: What prompted noticing this?
-- **Use today's date**: Format as YYYY-MM-DD
-- **Brief titles**: 3-5 words summarizing the observation
-- **Texture over data**: "Plays aggressive sacrificial chess" > "Chess skill: advanced"
+### MANUAL
+- Never auto-pruned
+- User-controlled permanent notes
+- Good for: team contacts, deployment info
 
 ## Examples
 
-**Quick capture:**
 ```
-/note lucy prefers direct communication
+/note Found auth bug in UserContext - missing useEffect dependency
+/note --priority Project uses TypeScript strict mode, all files in src/
+/note --manual Contact: api-team@company.com for backend questions
+/note --show
+/note --prune
 ```
-→ Appends dated observation to Lucy's profile
 
-**With context:**
-```
-/note e mentioned frustration with verbose AI responses today
-```
-→ Captures both the observation and the context
+## Behavior
 
-**Natural trigger:**
-```
-"I noticed Cal gets energized by debugging sessions"
-```
-→ Prompts to capture as note about Cal
+1. Creates `.omc/notepad.md` if it doesn't exist
+2. Parses the argument to determine section
+3. Appends content with timestamp (for Working Memory)
+4. Warns if Priority Context exceeds 500 chars
+5. Confirms what was saved
+
+## Integration
+
+Notepad content is automatically loaded on session start:
+- Priority Context: ALWAYS loaded
+- Working Memory: Loaded if recent entries exist
+
+This helps survive conversation compaction without losing critical context.

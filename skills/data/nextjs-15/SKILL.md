@@ -2,11 +2,14 @@
 name: nextjs-15
 description: >
   Next.js 15 App Router patterns.
-  Trigger: When working with Next.js - routing, Server Actions, data fetching.
+  Trigger: When working in Next.js App Router (app/), Server Components vs Client Components, Server Actions, Route Handlers, caching/revalidation, and streaming/Suspense.
 license: Apache-2.0
 metadata:
-  author: gentleman-programming
+  author: prowler-cloud
   version: "1.0"
+  scope: [root, ui]
+  auto_invoke: "App Router / Server Actions"
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
 ---
 
 ## App Router File Conventions
@@ -145,6 +148,3 @@ export async function getSecretData() {
   return db.secrets.findMany();
 }
 ```
-
-## Keywords
-nextjs, next.js, app router, server components, server actions, streaming

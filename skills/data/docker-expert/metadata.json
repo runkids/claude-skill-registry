@@ -1,7 +1,7 @@
 {
   "name": "docker-expert",
-  "repo": "GrupoUS/gpus",
-  "path": ".kilocode/skills/docker-expert/SKILL.md",
-  "source": "github.com/GrupoUS/gpus",
-  "downloaded_at": "2026-01-21T03:46:14.051459Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/devops/docker-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-22T04:02:11.039351Z"
 }

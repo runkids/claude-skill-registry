@@ -1,11 +1,7 @@
 {
   "name": "dokkado",
-  "description": "Five-phase reasoning protocol based on Musashi's Book of Five Rings. Ground (morphemic extraction), Water (pattern matching), Fire (unified derivation), Wind (predictions), Void (meta-closure). Use fo",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "devops",
-  "tags": [
-    "dokkado"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dokkado/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-01-22T02:09:22.215362Z"
 }

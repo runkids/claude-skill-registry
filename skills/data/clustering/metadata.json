@@ -1,7 +1,7 @@
 {
   "name": "clustering",
-  "repo": "pluginagentmarketplace/custom-plugin-machine-learning",
-  "path": "skills/clustering/SKILL.md",
-  "source": "github.com/pluginagentmarketplace/custom-plugin-machine-learning",
-  "downloaded_at": "2026-01-21T04:07:47.348151Z"
+  "repo": "GPTomics/bioSkills",
+  "path": "single-cell/clustering/SKILL.md",
+  "source": "github.com/GPTomics/bioSkills",
+  "downloaded_at": "2026-01-22T02:30:47.117914Z"
 }

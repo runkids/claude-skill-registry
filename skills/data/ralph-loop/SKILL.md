@@ -1,278 +1,146 @@
-/*============================================================================*/
-/* RALPH-LOOP SKILL :: VERILINGUA x VERIX EDITION                      */
-/*============================================================================*/
-
 ---
 name: ralph-loop
+description: Detect requests for iterative AI task loops and invoke the Ralph command
 version: 1.0.0
-description: |
-  [assert|neutral] Persistence loop system that prevents premature task completion by using Stop hooks to re-inject prompts until success criteria are met. Named after Ralph Wiggum from The Simpsons. Use for iterative t [ground:given] [conf:0.95] [state:confirmed]
-category: orchestration
-tags:
-- orchestration
-- persistence
-- iteration
-- automation
-- tdd
-author: Context Cascade (integrated from Anthropic's Ralph Wiggum plugin)
-cognitive_frame:
-  primary: evidential
-  goal_analysis:
-    first_order: "Execute ralph-loop workflow"
-    second_order: "Ensure quality and consistency"
-    third_order: "Enable systematic orchestration processes"
+triggers:
+  - "ralph this"
+  - "ralph:"
+  - "ralph it"
+  - "keep trying until"
+  - "loop until"
+  - "iterate until"
+  - "run until passes"
+  - "fix until green"
+  - "keep fixing until"
+  - "keep going until"
+  - "iterate on"
 ---
 
-/*----------------------------------------------------------------------------*/
-/* S0 META-IDENTITY                                                            */
-/*----------------------------------------------------------------------------*/
+# Ralph Loop Skill
 
-[define|neutral] SKILL := {
-  name: "ralph-loop",
-  category: "orchestration",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+You detect when users want iterative task execution and route to the `/ralph` command.
 
-/*----------------------------------------------------------------------------*/
-/* S1 COGNITIVE FRAME                                                          */
-/*----------------------------------------------------------------------------*/
+## Trigger Patterns
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+| Pattern | Example | Action |
+|---------|---------|--------|
+| `ralph this: X` | "ralph this: fix all lint errors" | Extract task, infer completion |
+| `ralph: X` | "ralph: migrate to TypeScript" | Extract task, infer completion |
+| `ralph it` | "ralph it" (after task description) | Use conversation context |
+| `keep trying until X` | "keep trying until tests pass" | Task = current context, completion = X |
+| `loop until X` | "loop until coverage >80%" | Task = improve coverage, completion = X |
+| `iterate until X` | "iterate until no errors" | Task = fix errors, completion = X |
+| `run until passes` | "run until passes" | Infer test command |
+| `fix until green` | "fix until green" | Task = fix tests, completion = tests pass |
+| `keep fixing until X` | "keep fixing until lint is clean" | Task = fix lint, completion = X |
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Extraction Logic
 
-/*----------------------------------------------------------------------------*/
-/* S2 TRIGGER CONDITIONS                                                       */
-/*----------------------------------------------------------------------------*/
+### Task Extraction
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["ralph-loop", "orchestration", "workflow"],
-  context: "user needs ralph-loop capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+**From explicit task**:
+- "ralph this: fix all TypeScript errors" → Task: "fix all TypeScript errors"
+- "ralph: migrate src/ to ESM" → Task: "migrate src/ to ESM"
 
-/*----------------------------------------------------------------------------*/
-/* S3 CORE CONTENT                                                             */
-/*----------------------------------------------------------------------------*/
+**From context**:
+- "ralph it" after discussing a refactor → Use previous conversation as task context
 
-# Ralph Loop (Persistence Loop System)
+### Completion Inference
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+When user doesn't specify explicit verification:
 
+| Task Pattern | Inferred Completion |
+|--------------|---------------------|
+| "fix tests" | "npm test passes" |
+| "fix lint" / "fix linting" | "npm run lint passes" |
+| "fix types" / "fix TypeScript" | "npx tsc --noEmit passes" |
+| "fix build" | "npm run build succeeds" |
+| "add tests" | "test coverage increases" |
+| "migrate to ESM" | "node runs without errors" |
+| "refactor X" | "npm test passes" (preserve behavior) |
 
+### Examples
 
-An orchestration skill that implements continuous self-referential AI loops for iterative development until task completion.
+**User**: "ralph this: migrate all files in lib/ to ESM"
+**Extraction**:
+- Task: "migrate all files in lib/ to ESM"
+- Completion (inferred): "node --experimental-vm-modules lib/index.js runs without errors"
 
-## SKILL-SPECIFIC GUIDANCE
+**Action**: Invoke `/ralph "migrate all files in lib/ to ESM" --completion "node --experimental-vm-modules lib/index.js succeeds"`
 
-### When to Use This Skill
-
-- Tasks with clear, binary success criteria (tests pass/fail)
-- Iterative refinement tasks (TDD, test coverage, linting)
-- Greenfield development where you can "walk away"
-- Tasks requiring multiple attempts to get right
-- Automated verification is possible (tests, linters, compilers)
-
-### When NOT to Use This Skill
-
-- Tasks requiring human judgment or design decisions
-- One-shot operations with no iteration needed
-- Tasks with unclear or subjective success criteria
-- Production debugging (need human oversight)
-- When max iterations would be reached quickly
-
-### Success Criteria
-- [assert|neutral] Task completes with completion promise output [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] All automated checks pass (tests, linters) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Work persists in files after loop ends [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Iteration count within max-iterations limit [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases & Limitations
-
-- Exact string matching only for completion promise
-- Cannot handle subjective "quality" assessments
-- May get stuck if task is truly impossible
-- Windows requires bash/git-bash environment
-
-### Critical Guardrails
-
-- ALWAYS set --max-iterations (never run unlimited)
-- ALWAYS define clear completion criteria
-- NEVER use for tasks requiring human approval
-- ALWAYS have escape hatch in prompt ("if blocked, document why")
-
-## Core Concept
-
-Ralph Loop creates a self-referential feedback loop:
-
-```
-1. User runs /ralph-loop once with task
-2. Claude works on task
-3. Claude tries to exit
-4. Stop hook intercepts exit
-5. If completion promise NOT found:
-   - Increment iteration
-   - Re-inject same prompt
-   - Loop continues
-6. If completion promise found OR max iterations:
-   - Allow exit
-   - Report results
-```
-
-## How It Works Under the Hood
-
-### State File
-Location: `~/.claude/ralph-wiggum/loop-state.md`
-
-```yaml
----
-session_id: 20251228-143022-12345
-iteration: 3
-max_iterations: 50
-completion_promise: "COMPLETE"
-started_at: 2025-12-28T14:30:22
-active: true
 ---
 
-[Original prompt here]
-```
+**User**: "keep fixing until the tests are green"
+**Extraction**:
+- Task: "fix failing tests" (from context or implied)
+- Completion: "npm test passes with 0 failures"
 
-### Stop Hook Mechanism
+**Action**: Invoke `/ralph "fix failing tests" --completion "npm test passes"`
 
-The Stop hook (`ralph-loop-stop-hook.sh`):
-1. Checks if loop is active
-2. Validates iteration < max_iterations
-3. Searches output for `<promise>TEXT</promise>` pattern
-4. If not complete: exits with code 2 (blocks exit)
-5. Re-injects original prompt with iteration info
+---
 
-## Integration with Three-Loop System
+**User**: "ralph it" (after discussing adding auth validation)
+**Extraction**:
+- Task: (from conversation context about auth validation)
+- Completion: (infer based on task type)
 
-Ralph Loop complements the Three-Loop system:
+**Action**: Invoke `/ralph "{context-based task}" --completion "{inferred criteria}"`
 
-| Loop | Purpose | Ralph Integration |
-|------|---------|-------------------|
-| Loop 1: Planning | Research-driven planning | N/A (planning phase) |
-| Loop 2: Implementation | Parallel swarm execution | Ralph handles single-agent iteration |
-| Loop 3: CI/CD | Intelligent recovery | Ralph can drive fix-until-pass loops |
+---
 
-### Recommended Pattern
+**User**: "loop until coverage is above 80%"
+**Extraction**:
+- Task: "add tests to improve coverage"
+- Completion: "npm run coverage shows >80%"
 
-```
-Phase 1-4: Use 5-phase workflow for planning
-Phase 5: Use /ralph-loop for persistent execution
-```
+**Action**: Invoke `/ralph "add tests to improve coverage" --completion "coverage report shows >80%"`
 
-## Commands
+## Clarification Prompts
 
-### /ralph-loop
-
-Start a persistence loop.
-
-```bash
-/ralph-loop "<prompt>" --max-iterations N --completion-promise "<text>"
-```
-
-### /cancel-ralph
-
-Cancel active loop.
-
-```bash
-/cancel-ralph
-```
-
-## Prompt Templates
-
-### TDD Loop
+If extraction is ambiguous, ask the user:
 
 ```
-Implement [FEATURE] using TDD:
+I'll start a Ralph loop for: {extracted task}
 
-1. Write failing tests first
-2. Implement minimum code to pass
-3. Run tests
-4. If any fail, debug and fix
-5. Refactor if needed
-6. Repeat until all green
-
-Output <promise>TESTS_PASS</promise> when ALL tests pass.
+What command verifies completion?
+1. npm test (Recommended for test fixes)
+2. npx tsc --noEmit (For type errors)
+3. npm run lint (For lint errors)
+4. npm run build (For build issues)
+5. Custom command...
 ```
 
-### Coverage Loop
+Or if task is unclear:
 
 ```
-Write tests for [MODULE] until coverage reaches [TARGET]%.
+I detected a Ralph loop request. To start iterating:
 
-After each test:
-1. Run coverage report
-2. Identify uncovered lines
-3. Wr
+What task should I repeat until success?
+What command tells me when it's done?
+```
 
-/*----------------------------------------------------------------------------*/
-/* S4 SUCCESS CRITERIA                                                         */
-/*----------------------------------------------------------------------------*/
+## Invocation
 
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
+Once task and completion are extracted/confirmed:
 
-/*----------------------------------------------------------------------------*/
-/* S5 MCP INTEGRATION                                                          */
-/*----------------------------------------------------------------------------*/
+```
+/ralph "{task}" --completion "{completion}"
+```
 
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+With optional parameters if the user specified them:
+- `--max-iterations N` if user mentioned iteration limit
+- `--timeout M` if user mentioned time limit
+- `--interactive` if task needs clarification
 
-/*----------------------------------------------------------------------------*/
-/* S6 MEMORY NAMESPACE                                                         */
-/*----------------------------------------------------------------------------*/
+## Integration Notes
 
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/orchestration/ralph-loop/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+- This skill has **high priority** - ralph-related phrases should route here
+- The skill is **exclusive** - once triggered, handle the entire request
+- Always confirm extraction before invoking if there's ambiguity
+- Prefer inferring completion criteria over asking (ask only if truly unclear)
 
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "ralph-loop-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+## Related
 
-/*----------------------------------------------------------------------------*/
-/* S7 SKILL COMPLETION VERIFICATION                                            */
-/*----------------------------------------------------------------------------*/
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-/*----------------------------------------------------------------------------*/
-/* S8 ABSOLUTE RULES                                                           */
-/*----------------------------------------------------------------------------*/
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
-/*----------------------------------------------------------------------------*/
-/* PROMISE                                                                     */
-/*----------------------------------------------------------------------------*/
-
-[commit|confident] <promise>RALPH_LOOP_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+- `/ralph` command - the actual loop executor
+- `/ralph-status` - check loop progress
+- `/ralph-resume` - continue interrupted loops

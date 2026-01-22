@@ -1,9 +1,19 @@
 ---
 name: vaex
+display_name: Vaex
 description: Use this skill for processing and analyzing large tabular datasets (billions of rows) that exceed available RAM. Vaex excels at out-of-core DataFrame operations, lazy evaluation, fast aggregations, efficient visualization of big data, and machine learning on large datasets. Apply when users need to work with large CSV/HDF5/Arrow/Parquet files, perform fast statistics on massive datasets, create visualizations of big data, or build ML pipelines that do not fit in memory.
+version: 1.0.0
+author: K-Dense Inc.
 license: MIT license
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["data-science", "machine-learning", "statistics"]
+category: data-science
+allowed_tools: ["code_execute", "create_document"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 8
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # Vaex

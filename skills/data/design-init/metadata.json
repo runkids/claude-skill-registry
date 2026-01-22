@@ -1,7 +1,7 @@
 {
   "name": "design-init",
-  "repo": "savvy-web/rslib-builder",
+  "repo": "spencerbeggs/claude-design-coordinator",
   "path": ".claude/skills/design-init/SKILL.md",
-  "source": "github.com/savvy-web/rslib-builder",
-  "downloaded_at": "2026-01-21T03:20:42.370806Z"
+  "source": "github.com/spencerbeggs/claude-design-coordinator",
+  "downloaded_at": "2026-01-22T02:41:54.037081Z"
 }

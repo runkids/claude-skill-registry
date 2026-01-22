@@ -1,6 +1,6 @@
 ---
 name: Backend Models
-description: Define and configure database models with proper naming, relationships, timestamps, data types, constraints, and validation. Use this skill when creating or editing model files in app/Models/, Eloquent model classes, model relationships (hasMany, belongsTo, etc.), database table structures, model attributes and casts, model factories, or seeders. Use when working on model validation logic, database constraints, foreign key relationships, indexes, scopes, accessors, mutators, or any ORM-related model configuration.
+description: Define database models and schemas with proper data types, constraints, relationships, and validation rules. Use this skill when creating or modifying database models, ORM entities, schema definitions, or data validation layers. When working on Prisma schema files, TypeORM entities, Drizzle schema definitions, Mongoose models, database model classes, files defining table structures and relationships, validation schemas for database entities, or files implementing data integrity constraints and cascading behaviors.
 ---
 
 # Backend Models
@@ -9,18 +9,16 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When creating or editing model files in `app/Models/` or similar model directories
-- When defining Eloquent model classes and their properties
-- When configuring model relationships (hasMany, belongsTo, belongsToMany, hasOne, morphTo, etc.)
-- When setting up model casts, fillable properties, or hidden attributes
-- When implementing model validation rules or business logic
-- When configuring database timestamps (created_at, updated_at) on models
-- When defining model scopes (query scopes, local scopes, global scopes)
-- When creating model factories for testing or seeding
-- When writing database seeders that use models
-- When implementing model accessors or mutators for attribute transformation
-- When setting up soft deletes or other model traits
-- When configuring model events or observers
+- When creating or modifying Prisma schema files (schema.prisma)
+- When defining TypeORM entities or Drizzle schema definitions
+- When writing Mongoose schemas or Sequelize models
+- When implementing database table structures with columns and data types
+- When defining relationships between models (one-to-one, one-to-many, many-to-many)
+- When adding database constraints (NOT NULL, UNIQUE, CHECK, foreign keys)
+- When creating indexes on model fields for query performance
+- When implementing model-level validation rules or business logic
+- When defining cascade behaviors for related data (CASCADE, SET NULL, RESTRICT)
+- When setting up timestamps (createdAt, updatedAt) or soft delete functionality
 
 ## Instructions
 

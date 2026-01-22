@@ -101,15 +101,7 @@ This is the **only tool you need** for all Sentry operations. It auto-loads `.en
 SENTRY_AUTH_TOKEN=sntryu_...
 ```
 
-**Get Token from 1Password**:
-```bash
-# The token with full permissions is stored in 1Password:
-op item get "Sentry admin token" --vault "Ballee" --fields credential --reveal
-```
-
-**1Password Item**: `Sentry admin token` in `Ballee` vault (ID: `6y2cneawwx4mf5wl5564dyn77m`)
-
-**Get New Token**: https://sentry.io/settings/account/api/auth-tokens/
+**Get Token**: https://sentry.io/settings/account/api/auth-tokens/
 
 **Required Scopes**: `event:read`, `event:write`, `event:admin`, `project:read`, `project:write`
 

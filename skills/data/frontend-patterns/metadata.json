@@ -1,7 +1,7 @@
 {
   "name": "frontend-patterns",
-  "repo": "wtthornton/TappsCodingAgents",
-  "path": "tapps_agents/resources/claude/skills/frontend-patterns/SKILL.md",
-  "source": "github.com/wtthornton/TappsCodingAgents",
-  "downloaded_at": "2026-01-21T04:13:12.731373Z"
+  "repo": "bybren-llc/safe-agentic-workflow",
+  "path": ".claude/skills/frontend-patterns/SKILL.md",
+  "source": "github.com/bybren-llc/safe-agentic-workflow",
+  "downloaded_at": "2026-01-22T03:11:03.838020Z"
 }

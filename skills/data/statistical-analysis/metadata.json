@@ -1,7 +1,7 @@
 {
   "name": "statistical-analysis",
-  "repo": "danieldekay/copilot-config-promptops",
-  "path": "skills/statistical-analysis/SKILL.md",
-  "source": "github.com/danieldekay/copilot-config-promptops",
-  "downloaded_at": "2026-01-21T03:05:08.507748Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/data-science/statistical-analysis/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:07.124132Z"
 }

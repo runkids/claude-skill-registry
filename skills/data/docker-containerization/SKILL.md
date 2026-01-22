@@ -1,295 +1,738 @@
-/*============================================================================*/
-/* DOCKER-CONTAINERIZATION SKILL :: VERILINGUA x VERIX EDITION                      */
-/*============================================================================*/
-
 ---
 name: docker-containerization
-version: 1.0.0
-description: |
-  [assert|neutral] Docker containerization specialist for multi-stage builds, layer caching optimization, security scanning with Trivy, Docker Compose orchestration, BuildKit advanced features, and production-grade Dock [ground:given] [conf:0.95] [state:confirmed]
-category: Infrastructure
-tags:
-- general
-author: system
-cognitive_frame:
-  primary: aspectual
-  goal_analysis:
-    first_order: "Execute docker-containerization workflow"
-    second_order: "Ensure quality and consistency"
-    third_order: "Enable systematic Infrastructure processes"
+description: Docker development and container orchestration expertise. Use when creating Dockerfiles, docker-compose configurations, debugging container issues, optimizing images, or setting up isolated development environments. Integrates with CI/CD workflows and security scanning.
+model_tier: opus
+parallel_hints:
+  can_parallel_with: [security-audit, code-review]
+  must_serialize_with: [database-migration]
+  preferred_batch_size: 2
+context_hints:
+  max_file_context: 40
+  compression_level: 1
+  requires_git_context: true
+  requires_db_context: false
+escalation_triggers:
+  - pattern: "production|prod"
+    reason: "Production container changes require human approval"
+  - pattern: "secrets|credentials"
+    reason: "Secret management requires security review"
+  - keyword: ["registry", "push", "deploy"]
+    reason: "Container deployment requires human oversight"
 ---
 
-/*----------------------------------------------------------------------------*/
-/* S0 META-IDENTITY                                                            */
-/*----------------------------------------------------------------------------*/
+# Docker Containerization Skill
 
-[define|neutral] SKILL := {
-  name: "docker-containerization",
-  category: "Infrastructure",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+Production-grade Docker patterns for multi-stage builds, orchestration, development environments, and container security. Tailored to the Residency Scheduler's existing Docker infrastructure.
 
-/*----------------------------------------------------------------------------*/
-/* S1 COGNITIVE FRAME                                                          */
-/*----------------------------------------------------------------------------*/
+## When This Skill Activates
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+- Creating or modifying Dockerfiles
+- Setting up docker-compose configurations
+- Debugging container build failures or runtime issues
+- Optimizing Docker image size or build performance
+- Configuring health checks and service dependencies
+- Implementing container security hardening
+- Setting up isolated development environments (devcontainers)
+- Troubleshooting networking between containers
+- CI/CD pipeline Docker integration
+- Multi-architecture image builds
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Project Docker Architecture
 
-/*----------------------------------------------------------------------------*/
-/* S2 TRIGGER CONDITIONS                                                       */
-/*----------------------------------------------------------------------------*/
+### File Locations
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["docker-containerization", "Infrastructure", "workflow"],
-  context: "user needs docker-containerization capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
-/*----------------------------------------------------------------------------*/
-/* S3 CORE CONTENT                                                             */
-/*----------------------------------------------------------------------------*/
-
-# Docker Containerization Specialist
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Expert Docker containerization for production-grade, secure, and optimized container images.
-
-## Purpose
-
-Comprehensive Docker expertise including multi-stage builds, layer caching, security scanning, Docker Compose, BuildKit features, and best practices. Ensures containers are small, fast, secure, and production-ready.
-
-## When to Use
-
-- Creating optimized Dockerfiles
-- Implementing multi-stage builds
-- Optimizing build caching
-- Scanning images for vulnerabilities
-- Orchestrating multi-container apps with Docker Compose
-- Implementing CI/CD with Docker
-- Troubleshooting container performance
-
-## Prerequisites
-
-**Required**: Basic Docker commands, understanding of containers vs VMs
-
-**Agents**: `cicd-engineer`, `security-manager`, `code-analyzer`, `backend-dev`
-
-## Core Workflows
-
-### Workflow 1: Multi-Stage Node.js Build
-
-```dockerfile
-# syntax=docker/dockerfile:1
-# Stage 1: Dependencies
-FROM node:18-alpine AS deps
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production && npm cache clean --force
-
-# Stage 2: Build
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-# Stage 3: Production
-FROM node:18-alpine AS runner
-WORKDIR /app
-
-# Security: Run as non-root
-RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
-
-# Copy only necessary files
-COPY --from=deps --chown=nodejs:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
-COPY --chown=nodejs:nodejs package.json ./
-
-USER nodejs
-EXPOSE 3000
-ENV NODE_ENV=production
-
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1); })"
-
-CMD ["node", "dist/index.js"]
+```
+/backend/Dockerfile              → Production backend (multi-stage)
+/backend/Dockerfile.local        → Development backend (hot reload)
+/frontend/Dockerfile             → Production frontend (multi-stage)
+/frontend/Dockerfile.local       → Development frontend
+/nginx/Dockerfile                → Nginx reverse proxy
+.docker/backend.Dockerfile       → Hardened production backend
+.docker/frontend.Dockerfile      → Hardened production frontend
+.docker/docker-compose.prod.yml  → Production with secrets
+.dockerignore                    → Build exclusions
 ```
 
-### Workflow 2: Python Multi-Stage Build
+### Compose Files
+
+| File | Purpose | Command |
+|------|---------|---------|
+| `docker-compose.yml` | Base configuration | `docker compose up` |
+| `docker-compose.dev.yml` | Development overrides | `docker compose -f docker-compose.yml -f docker-compose.dev.yml up` |
+| `docker-compose.prod.yml` | Production overrides | `docker compose -f docker-compose.yml -f docker-compose.prod.yml up` |
+| `.docker/docker-compose.prod.yml` | Hardened production | Uses Docker secrets |
+| `monitoring/docker-compose.monitoring.yml` | Prometheus/Grafana | Observability stack |
+| `load-tests/docker-compose.k6.yml` | Load testing | k6 test runner |
+
+## Multi-Stage Dockerfile Patterns
+
+### Backend (Python/FastAPI)
 
 ```dockerfile
-# syntax=docker/dockerfile:1
-FROM python:3.11-slim AS builder
+# syntax=docker/dockerfile:1.4
 
-WORKDIR /app
+# =============================================================================
+# STAGE 1: Builder - Install dependencies
+# =============================================================================
+FROM python:3.12-slim AS builder
 
-# Install build dependencies
+# Build dependencies for compiled packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --user --no-cache-dir -r requirements.txt
-
-# Production stage
-FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copy Python dependencies from builder
-COPY --from=builder /root/.local /root/.local
+# Install dependencies in virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# =============================================================================
+# STAGE 2: Runtime - Minimal production image
+# =============================================================================
+FROM python:3.12-slim AS runtime
+
+# Runtime dependencies only
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Security: Create non-root user
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+
+WORKDIR /app
+
+# Copy virtual environment from builder
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
 # Copy application code
-COPY . .
+COPY --chown=appuser:appgroup app/ ./app/
+COPY --chown=appuser:appgroup alembic/ ./alembic/
+COPY --chown=appuser:appgroup alembic.ini .
 
-# Security: Run as non-root
-RUN useradd -m -u 1001 appuser
+# Security: Switch to non-root user
 USER appuser
 
-# Add .local/bin to PATH
-ENV PATH=/root/.local/bin:$PATH
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
 
 EXPOSE 8000
 
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
-
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-### Workflow 3: Docker Compose Multi-Service App
+### Frontend (Next.js)
+
+```dockerfile
+# syntax=docker/dockerfile:1.4
+
+# =============================================================================
+# STAGE 1: Dependencies
+# =============================================================================
+FROM node:22-alpine AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci --only=production
+
+# =============================================================================
+# STAGE 2: Builder
+# =============================================================================
+FROM node:22-alpine AS builder
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Build arguments for environment
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
+RUN npm run build
+
+# =============================================================================
+# STAGE 3: Production
+# =============================================================================
+FROM node:22-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Security: Non-root user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+ENV PORT 3000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
+
+CMD ["node", "server.js"]
+```
+
+## Docker Compose Patterns
+
+### Development Configuration
 
 ```yaml
-# docker-compose.yml
-version: '3.8'
-
+# docker-compose.yml (base)
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: runner
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgresql://user:password@db:5432/mydb
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_started
-    networks:
-      - app-network
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
-        reservations:
-          cpus: '0.5'
-          memory: 256M
-
   db:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
+      POSTGRES_USER: scheduler
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-localdev}
+      POSTGRES_DB: residency_scheduler
     volumes:
-      - postgres-data:/var/lib/postgresql/data
-    networks:
-      - app-network
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user"]
+      test: ["CMD-SHELL", "pg_isready -U scheduler"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   redis:
     image: redis:7-alpine
-    networks:
-      - app-network
-    command: redis-server --appendonly yes
-    volumes:
-      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql+asyncpg://scheduler:${DB_PASSWORD:-localdev}@db:5432/residency_scheduler
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:8000
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
 
 networks:
-  app-network:
-  
+  default:
+    driver: bridge
+```
 
-/*----------------------------------------------------------------------------*/
-/* S4 SUCCESS CRITERIA                                                         */
-/*----------------------------------------------------------------------------*/
+### Development Overrides
 
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
+```yaml
+# docker-compose.dev.yml
+services:
+  db:
+    ports:
+      - "5432:5432"  # Expose for local tools
 
-/*----------------------------------------------------------------------------*/
-/* S5 MCP INTEGRATION                                                          */
-/*----------------------------------------------------------------------------*/
+  redis:
+    ports:
+      - "6379:6379"
 
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.local
+    volumes:
+      - ./backend/app:/app/app:delegated  # Hot reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      LOG_LEVEL: DEBUG
 
-/*----------------------------------------------------------------------------*/
-/* S6 MEMORY NAMESPACE                                                         */
-/*----------------------------------------------------------------------------*/
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.local
+    volumes:
+      - ./frontend/src:/app/src:delegated
+      - ./frontend/public:/app/public:delegated
+    command: npm run dev
+    ports:
+      - "3000:3000"
+```
 
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/Infrastructure/docker-containerization/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+### Production Security Hardening
 
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "docker-containerization-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+```yaml
+# .docker/docker-compose.prod.yml
+services:
+  backend:
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 1G
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    secrets:
+      - db_password
+      - secret_key
+    environment:
+      DATABASE_PASSWORD_FILE: /run/secrets/db_password
+      SECRET_KEY_FILE: /run/secrets/secret_key
 
-/*----------------------------------------------------------------------------*/
-/* S7 SKILL COMPLETION VERIFICATION                                            */
-/*----------------------------------------------------------------------------*/
+  db:
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
 
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+secrets:
+  db_password:
+    external: true
+  secret_key:
+    external: true
 
-/*----------------------------------------------------------------------------*/
-/* S8 ABSOLUTE RULES                                                           */
-/*----------------------------------------------------------------------------*/
+networks:
+  backend-network:
+    internal: true  # No external access
+  frontend-network:
+    driver: bridge
+```
 
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+## Health Check Patterns
 
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+### Backend Health Endpoint
 
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+```python
+# app/api/routes/health.py
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import text
 
-/*----------------------------------------------------------------------------*/
-/* PROMISE                                                                     */
-/*----------------------------------------------------------------------------*/
+from app.api.deps import get_db
 
-[commit|confident] <promise>DOCKER_CONTAINERIZATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+router = APIRouter()
+
+@router.get("/health")
+async def health_check(db: AsyncSession = Depends(get_db)):
+    """Comprehensive health check for Docker."""
+    checks = {}
+
+    # Database connectivity
+    try:
+        await db.execute(text("SELECT 1"))
+        checks["database"] = "healthy"
+    except Exception as e:
+        checks["database"] = f"unhealthy: {str(e)}"
+
+    # Redis connectivity (if used)
+    try:
+        from app.core.redis import redis_client
+        await redis_client.ping()
+        checks["redis"] = "healthy"
+    except Exception:
+        checks["redis"] = "unhealthy"
+
+    is_healthy = all(v == "healthy" for v in checks.values())
+
+    return {
+        "status": "healthy" if is_healthy else "unhealthy",
+        "checks": checks
+    }
+```
+
+### Docker Health Check Configuration
+
+```dockerfile
+# Liveness check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+```
+
+```yaml
+# docker-compose.yml equivalent
+healthcheck:
+  test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+  interval: 30s
+  timeout: 10s
+  start_period: 5s
+  retries: 3
+```
+
+## Container Debugging
+
+### Common Issues and Solutions
+
+| Issue | Diagnosis | Solution |
+|-------|-----------|----------|
+| Container exits immediately | `docker logs <container>` | Check for missing env vars or failed health check |
+| Build fails at COPY | File doesn't exist or in .dockerignore | Verify path and check `.dockerignore` |
+| Port already in use | `lsof -i :PORT` | Stop conflicting service or change port |
+| Permission denied | File ownership issues | Use `--chown` in COPY or fix user UID |
+| Out of memory | Container limits | Increase `deploy.resources.limits.memory` |
+| Slow builds | No layer caching | Order Dockerfile commands correctly |
+
+### Debugging Commands
+
+```bash
+# View container logs
+docker compose logs backend -f --tail=100
+
+# Execute shell in running container
+docker compose exec backend /bin/bash
+
+# Inspect container filesystem
+docker compose exec backend ls -la /app
+
+# Check container resource usage
+docker stats
+
+# View container details
+docker inspect <container_id>
+
+# Debug network connectivity
+docker compose exec backend curl -v http://db:5432
+
+# Check health status
+docker inspect --format='{{json .State.Health}}' <container_id>
+
+# View image layers (find bloat)
+docker history <image>:tag --no-trunc
+
+# Prune unused resources
+docker system prune -a --volumes
+```
+
+### Build Debugging
+
+```bash
+# Build with no cache (fresh)
+docker compose build --no-cache
+
+# Build with progress output
+docker compose build --progress=plain
+
+# Build specific service
+docker compose build backend
+
+# Build with build args
+docker compose build --build-arg NEXT_PUBLIC_API_URL=http://api.example.com frontend
+
+# Export image for analysis
+docker save <image> | tar -xf - -C ./image-layers/
+```
+
+## Image Optimization
+
+### Size Reduction Techniques
+
+1. **Multi-stage builds**: Only copy artifacts, not build tools
+2. **Alpine base images**: `python:3.12-alpine` vs `python:3.12` (50MB vs 1GB)
+3. **Minimize layers**: Combine RUN commands with `&&`
+4. **Clean up in same layer**: `apt-get clean && rm -rf /var/lib/apt/lists/*`
+5. **Use .dockerignore**: Exclude tests, docs, git history
+
+### Example .dockerignore
+
+```dockerignore
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.coverage
+htmlcov/
+.mypy_cache
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Tests (for production image)
+tests/
+**/test_*.py
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Docker
+Dockerfile*
+docker-compose*
+
+# Environment
+.env
+.env.*
+```
+
+### Layer Caching Optimization
+
+```dockerfile
+# BAD: Invalidates cache on any code change
+COPY . .
+RUN pip install -r requirements.txt
+
+# GOOD: Dependencies cached separately from code
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+```
+
+## DevContainer Configuration
+
+### Basic Setup for Claude Code
+
+```json
+// .devcontainer/devcontainer.json
+{
+  "name": "Residency Scheduler Dev",
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+    "../docker-compose.dev.yml",
+    "docker-compose.devcontainer.yml"
+  ],
+  "service": "backend",
+  "workspaceFolder": "/workspace",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/opt/venv/bin/python"
+      }
+    }
+  },
+
+  "forwardPorts": [8000, 3000, 5432, 6379],
+
+  "postCreateCommand": "pip install -e '.[dev]'",
+
+  "remoteUser": "vscode"
+}
+```
+
+### DevContainer Docker Compose Override
+
+```yaml
+# .devcontainer/docker-compose.devcontainer.yml
+services:
+  backend:
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    user: vscode
+```
+
+## CI/CD Integration
+
+### GitHub Actions Docker Build
+
+```yaml
+# .github/workflows/cd.yml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}/backend
+          tags: |
+            type=semver,pattern={{version}}
+            type=sha,prefix=
+            type=ref,event=branch
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+```
+
+### Security Scanning
+
+```yaml
+# .github/workflows/security.yml (excerpt)
+- name: Run Trivy container scan
+  uses: aquasecurity/trivy-action@master
+  with:
+    image-ref: ghcr.io/${{ github.repository }}/backend:${{ github.sha }}
+    format: 'sarif'
+    output: 'trivy-results.sarif'
+    severity: 'CRITICAL,HIGH'
+
+- name: Upload Trivy results
+  uses: github/codeql-action/upload-sarif@v2
+  with:
+    sarif_file: 'trivy-results.sarif'
+```
+
+## Quick Commands
+
+```bash
+# === Development ===
+# Start all services
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+# Start with rebuild
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+
+# View logs (follow)
+docker compose logs -f backend
+
+# Stop all services
+docker compose down
+
+# Stop and remove volumes (DESTRUCTIVE)
+docker compose down -v
+
+# === Debugging ===
+# Shell into backend
+docker compose exec backend bash
+
+# Run tests in container
+docker compose exec backend pytest
+
+# Check database connectivity
+docker compose exec backend python -c "from app.db.session import engine; print('Connected!')"
+
+# === Production ===
+# Build production images
+docker compose -f docker-compose.yml -f docker-compose.prod.yml build
+
+# Run database migrations
+docker compose exec backend alembic upgrade head
+
+# === Maintenance ===
+# View resource usage
+docker stats
+
+# Clean up unused resources
+docker system prune -af --volumes
+
+# List images with sizes
+docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
+```
+
+## Integration with Other Skills
+
+### With security-audit
+When reviewing Docker configurations:
+1. Check for non-root users
+2. Verify secrets are not in environment variables
+3. Ensure health checks exist
+4. Review network isolation
+
+### With production-incident-responder
+For container-related incidents:
+1. Collect container logs: `docker compose logs --since=1h`
+2. Check health status: `docker inspect --format='{{json .State.Health}}'`
+3. Review resource limits
+4. Check for OOM kills in `dmesg`
+
+### With code-review
+When reviewing Dockerfile changes:
+1. Verify multi-stage builds are used
+2. Check layer ordering for cache efficiency
+3. Ensure .dockerignore is updated
+4. Review security hardening
+
+### With automated-code-fixer
+For Dockerfile linting:
+```bash
+# Install hadolint for Dockerfile linting
+docker run --rm -i hadolint/hadolint < Dockerfile
+```
+
+## Escalation Rules
+
+**Escalate to human when:**
+
+1. Production docker-compose.yml changes
+2. Secrets management configuration
+3. Network security policy changes
+4. Resource limit adjustments for production
+5. Multi-architecture build requirements
+6. Kubernetes migration planning
+7. Container registry access issues
+
+**Can handle autonomously:**
+
+1. Development Dockerfile creation
+2. docker-compose.dev.yml modifications
+3. Health check implementation
+4. .dockerignore updates
+5. Image size optimization
+6. Build caching improvements
+7. Container debugging and log analysis
+
+## References
+
+- `/backend/Dockerfile` - Production backend pattern
+- `/frontend/Dockerfile` - Production frontend pattern
+- `/docker-compose.yml` - Base orchestration
+- `/.docker/docker-compose.prod.yml` - Security hardening example
+- `/.github/workflows/cd.yml` - CI/CD Docker integration
+- `/.github/workflows/security.yml` - Container scanning

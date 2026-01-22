@@ -1,7 +1,7 @@
 {
   "name": "quality-gates",
-  "repo": "yonatangross/skillforge-claude-plugin",
-  "path": "skills/quality-gates/SKILL.md",
-  "source": "github.com/yonatangross/skillforge-claude-plugin",
-  "downloaded_at": "2026-01-21T04:14:18.368383Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/orchestration/skills/quality-gates/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-22T03:51:31.924203Z"
 }

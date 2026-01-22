@@ -1,7 +1,7 @@
 {
   "category": "design",
-  "count": 2385,
-  "updated_at": "2026-01-21T04:24:32.474053Z",
+  "count": 2361,
+  "updated_at": "2026-01-22T04:19:05.775061Z",
   "skills": [
     {
       "name": "benchmark-kernel",
@@ -275,21 +275,6 @@
         "code",
         "connect",
         "components"
-      ],
-      "stars": 70,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "create-design-system-rules",
-      "description": "Generates custom design system rules for the user's codebase. Use when user says \"create design system rules\", \"generate rules for my project\", \"set up design rules\", \"customize design system guidelin",
-      "repo": "figma/mcp-server-guide",
-      "path": "data/create-design-system-rules",
-      "category": "design",
-      "tags": [
-        "create",
-        "design",
-        "system",
-        "rules"
       ],
       "stars": 70,
       "source": "SkillsMP Synced Skills"
@@ -908,19 +893,6 @@
       "source": "local"
     },
     {
-      "name": "optimistic-updates",
-      "description": "Optimistic UI patterns for ChainGraph frontend. Use when working on real-time collaboration, port value updates, node position syncing, debouncing, echo detection, or any client-server state synchroni",
-      "repo": "chaingraphlabs/chaingraph",
-      "path": "data/optimistic-updates",
-      "category": "design",
-      "tags": [
-        "optimistic",
-        "updates"
-      ],
-      "stars": 10,
-      "source": "local"
-    },
-    {
       "name": "port-system",
       "description": "Deep dive into ChainGraph port system - 9 port types, plugins, factory, transfer rules, and frontend rendering. Use when creating custom ports, working on port validation, implementing port UI compone",
       "repo": "chaingraphlabs/chaingraph",
@@ -1406,19 +1378,6 @@
       "path": "data/c3",
       "category": "design",
       "tags": [],
-      "stars": 6,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "critical-perspective",
-      "description": "Engage in critical thinking by questioning assumptions, exploring alternative perspectives, and uncovering latent topics in conversations. Use when discussions could benefit from deeper exploration, w",
-      "repo": "infranodus/skills",
-      "path": "design/critical-perspective",
-      "category": "design",
-      "tags": [
-        "critical",
-        "perspective"
-      ],
       "stars": 6,
       "source": "SkillsMP Synced Skills"
     },
@@ -2733,19 +2692,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "cl-macro-design",
-      "description": "マクロ設計のベストプラクティスを適用。マクロ作成・レビュー時に使用",
-      "repo": "cxxxr/.claude",
-      "path": "data/cl-macro-design",
-      "category": "design",
-      "tags": [
-        "macro",
-        "design"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
       "name": "cloud-architecture",
       "description": "Design cloud-native architectures with service selection and cost optimization",
       "repo": "pluginagentmarketplace/custom-plugin-software-architect",
@@ -2757,21 +2703,6 @@
       ],
       "stars": 1,
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "context-preservation-protocol-execution",
-      "description": "Execute context preservation protocols for session continuity.",
-      "repo": "starwreckntx/IRP__METHODOLOGIES-",
-      "path": "data/context-preservation-protocol-execution",
-      "category": "design",
-      "tags": [
-        "context",
-        "preservation",
-        "protocol",
-        "execution"
-      ],
-      "stars": 1,
-      "source": "local"
     },
     {
       "name": "context-restoration",
@@ -3033,20 +2964,6 @@
       "category": "design",
       "tags": [
         "interface"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "graphql-schema-design",
-      "description": "Design production-grade GraphQL schemas with best practices and patterns",
-      "repo": "pluginagentmarketplace/custom-plugin-graphql",
-      "path": "data/graphql-schema-design",
-      "category": "design",
-      "tags": [
-        "graphql",
-        "schema",
-        "design"
       ],
       "stars": 1,
       "source": "local"
@@ -3437,18 +3354,6 @@
       "source": "local"
     },
     {
-      "name": "tailwind",
-      "description": "Tailwind CSS v4 best practices, CSS-first configuration and modern patterns. Use when writing styles, configuring themes or migrating from v3.",
-      "repo": "helpermedia/AppWaffle",
-      "path": "data/tailwind",
-      "category": "design",
-      "tags": [
-        "tailwind"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
       "name": "ticket-create",
       "description": "Interactive Atomic Ticket design and creation tool following Single Responsibility Principle. Use when: (1) Creating new tickets for development tasks, (2) Breaking down complex requirements into atom",
       "repo": "tarrragon/claude",
@@ -3527,18 +3432,6 @@
         "using",
         "cli",
         "search"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "ux-psychology",
-      "description": "Apply UX psychology principles to frontend design. Use when designing UI components, improving user experience, increasing conversion, or making design decisions. Covers 43 psychological concepts incl",
-      "repo": "s-hiraoku/spec2impl",
-      "path": "data/ux-psychology",
-      "category": "design",
-      "tags": [
-        "psychology"
       ],
       "stars": 1,
       "source": "local"
@@ -4001,16 +3894,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "agent-dependency-design",
-      "description": "Specializes in agent dependency and interface design. Defines skill references, command coordination, and inter-agent collaboration protocols while preventing circular dependencies to build effective ",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/agent-dependency-design",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "agent-design-2",
       "description": "This skill should be used when the user asks to \"configure agent profile\", \"add skills to agent\", \"set up MCP servers\", \"configure agent tools\", \"write system prompt\", \"create agent workflow\", \"define",
       "repo": "hhopkins95/ai-systems",
@@ -4298,16 +4181,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "analyzing-requirements",
-      "description": "ユーザー要件を分析し、システム設計ドキュメント(DESIGN.md)を生成します。ユーザー要件が曖昧または不明確な場合、システムアーキテクチャの設計が必要な場合、大規模な機能開発の設計仕様が必要な場合、技術的実現可能性の検証が必要な場合に使用します。不明点はAskUserQuestionツールで確認します。",
-      "repo": "skanehira/dotfiles",
-      "path": "design/analyzing-requirements",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "android-platform",
       "description": "Android core components lifecycle, Activities, Fragments, Services, Intent system. Use when working with Android components or handling lifecycle.",
       "repo": "pluginagentmarketplace/custom-plugin-android",
@@ -4412,16 +4285,6 @@
       "description": "Implement Angular v21 applications with standalone components, signals-based state management, new control flow syntax (@if, @for, @switch), OnPush change detection, inject() DI, Tailwind CSS, and Vit",
       "repo": "nekorush14/dotfiles",
       "path": "design/angular-implementation-specialist",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "angular-signals",
-      "description": "Use when building Angular 16+ applications requiring fine-grained reactive state management and zone-less change detection.",
-      "repo": "TheBushidoCollective/han",
-      "path": "design/angular-signals",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -6939,26 +6802,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "command-activation-mechanisms",
-      "description": "コマンド起動の仕組みを整理し、明示起動/自動起動/Extended Thinkingの設計と検証を支援するスキル。起動フロー、トリガー設計、検証手順を一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: 手順設計 / 目的: 実行フローの最適化• Human-Computer Interactio",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/command-activation-mechanisms",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "command-advanced-patterns",
-      "description": "高度なコマンド設計パターンを整理し、パイプライン/メタコマンド/インタラクティブ設計を支援するスキル。パターン選定、テンプレート適用、検証手順を一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: 実践パターン選定 / 目的: 再現性のある設計• Design Patterns (GoF) / 適",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/command-advanced-patterns",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "command-error-handling",
       "description": "コマンドのエラーハンドリング（引数検証/事前チェック/ロールバック/ユーザー確認/エラーメッセージ設計）を整理し、失敗時の安全性と説明の一貫性を支援するスキル。パターン選定、検証手順、テンプレート運用を一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: エラーハンドリング設計 / 目的: 安定し",
       "repo": "daishiman/AIWorkflowOrchestrator",
@@ -7053,16 +6896,6 @@
       "description": "Validates shadcn/ui component customization depth, ensuring components aren't used with default props and checking for consistent design system implementation across Tanstack Start applications",
       "repo": "hirefrank/hirefrank-marketplace",
       "path": "design/component-aesthetic-checker",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "component-composition-patterns",
-      "description": "コンポーネント合成パターンを用いた再利用可能なUI構造設計を支援するスキル。Compound Components、Polymorphic Components、Slot Pattern の選定と設計手順を整理する。Anchors:• Don't Make Me Think / 適用: UI設計・ユーザビリティ / 目的: 再利用性と保守性向上• Atomic Design / 適用: コンポーネ",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/component-composition-patterns",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -8933,16 +8766,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "design-patterns-behavioral",
-      "description": "GoFの行動パターンを用いて、オブジェクト間の責務分散と通信設計を支援するスキル。パターン選定、実装方針、検証手順を体系化する。Anchors:• Design Patterns / 適用: 行動パターンの設計理論 / 目的: 相互作用の整理• Command Pattern / 適用: 操作の実行・取り消し / 目的: 実行制御の柔軟化• Strategy Pattern / 適用: アルゴリズ",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/design-patterns-behavioral",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "design-planning",
       "description": "ソフトウェア設計計画スキル。要件分析、アーキテクチャ設計、API設計、データベース設計、実装ロードマップの作成を体系的に行います。Clean Architectureに準拠した設計をサブエージェントとの並列作業で効率的に実施します。",
       "repo": "keito-isurugi/various-app",
@@ -9702,16 +9525,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "domain-event-patterns",
-      "description": "ドメインイベントパターンを使用して、ビジネスドメイン内で発生した重要な出来事をモデル化・永続化・伝播するスキル。イベントソーシング、CQRS、イベント駆動アーキテクチャの実装をサポートする。Anchors:• Domain-Driven Design (Eric Evans) / 適用: ドメインイベント設計 / 目的: ビジネス上の重要な出来事の捕捉• Implementing DDD (Vau",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/domain-event-patterns",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "domain-layer-expert",
       "description": "Guides users in creating rich domain models with behavior, value objects, and domain logic. Activates when users define domain entities, business rules, or validation logic.",
       "repo": "EmilLindfors/claude-marketplace",
@@ -10202,16 +10015,6 @@
       "description": "Erlang-style message passing via /tmp file system. Use when simulating actor model with actual message synchronization between processes. Provides send/receive primitives with blocking and pattern mat",
       "repo": "kokuyouwind/claude-plugins",
       "path": "design/erlang-message-sync",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "error-boundary",
-      "description": "ReactのError Boundary実装とエラーハンドリング戦略を専門とするスキル。堅牢なエラー処理とユーザーフレンドリーなフォールバックUIを実現する。Anchors:• The Pragmatic Programmer / 適用: エラー処理の実践原則 / 目的: 品質維持と堅牢性向上• React Error Boundary / 適用: クラッシュ回復UI実装 / 目的: 予期しない障",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/error-boundary",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -16841,16 +16644,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "observability-pillars",
-      "description": "オブザーバビリティ三本柱（ログ・メトリクス・トレース）の統合設計スキル。相関IDによる連携と双方向ナビゲーション（メトリクス→ログ→トレース）を実現。Anchors:• Observability Engineering (Charity Majors) / 適用: 三本柱統合パターン / 目的: 高カーディナリティObservability• Google SRE Book / 適用: メトリク",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/observability-pillars",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "observability-strategy",
       "description": "Design observability strategy using the three pillars (logs, metrics, traces)",
       "repo": "melodic-software/claude-code-plugins",
@@ -17850,16 +17643,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "planning-tasks",
-      "description": "承認済みの設計書（DESIGN.md）からTDD準拠のTODO.mdを作成します。analyzing-requirementsスキルで設計が完了・承認された後に使用します。developingスキルで実装できる形式のタスクリストを生成します。",
-      "repo": "skanehira/dotfiles",
-      "path": "design/planning-tasks",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "playdate-dev",
       "description": "Playdate game development in Lua with the Playdate SDK, including game loop, sprites, graphics, input (crank, buttons, accelerometer), UI, performance, metadata (pdxinfo), and simulator/device workflo",
       "repo": "ckorhonen/claude-skills",
@@ -18596,16 +18379,6 @@
       "description": "UI/UX 설계서를 기반으로 기본 HTML과 JavaScript를 사용하여 동작하는 프로토타입을 개발합니다. 개발 경험이 없는 사용자도 쉽게 사용할 수 있도록 설계되었습니다.",
       "repo": "cna-bootcamp/aiguide",
       "path": "design/prototype-development",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "providing-performance-optimization-advice",
-      "description": "Provide comprehensive prioritized performance optimization recommendations for frontend, backend, and infrastructure. Use when analyzing bottlenecks or seeking improvement strategies. Trigger with phr",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "design/providing-performance-optimization-advice",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -19751,16 +19524,6 @@
       "description": "Turns ambiguity into an Uncertainty Register, prioritizes items, and produces observation tasks/experiments with evidence and decision rules. Use when the user mentions uncertainty/unknowns/assumption",
       "repo": "CAPHTECH/claude-marketplace",
       "path": "design/resolving-uncertainty",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "resonant-opposition",
-      "description": "Framework for holding opposing positions in productive tension without premature synthesis. Use when facing paradoxes, contradictions, or when early synthesis would flatten necessary distinctions. Pre",
-      "repo": "agentgptsmith/MonadFramework",
-      "path": "design/resonant-opposition",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -23430,16 +23193,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "troubleshooting-guides",
-      "description": "問題解決を効率化するトラブルシューティングガイドの設計スキル。診断フロー、問題分類、解決手順書を体系的に設計します。Anchors:• 『Don't Make Me Think』（Steve Krug）/ 適用: ユーザビリティ設計 / 目的: 問題自己解決力向上• SRE原則 / 適用: 障害対応 / 目的: トラブル診断効率化Trigger:トラブルシューティングガイド作成時、問題診断フロー設",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/troubleshooting-guides",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "trust-analysis",
       "description": "Analyzes and explains Actoris trust scores, their components, and how to optimize them. Use when you need to understand trust mechanics, interpret trust scores, or provide recommendations for improvin",
       "repo": "amirlehmam/actoris-project",
@@ -23637,16 +23390,6 @@
       "description": "Define TypeScript types, interfaces, and type utilities. Use when creating type definitions, DTOs, API response types, or component props.",
       "repo": "xmark168/VibeSDLC",
       "path": "design/typescript-types",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ubiquitous-language",
-      "description": "ドメイン駆動設計におけるユビキタス言語の確立と適用を専門とするスキル。ドメインエキスパートと開発者が共有する厳密な語彙体系を構築し、コミュニケーションの齟齬を防ぐ。Anchors:• Domain-Driven Design (Eric Evans) / 適用: ユビキタス言語の原則と実践 / 目的: コードとドメインの一貫性確保• Bounded Context / 適用: コンテキスト境界での",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/ubiquitous-language",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -25953,16 +25696,6 @@
       "description": "Zustand state management for React Native. Use when implementing client-side state.",
       "repo": "IvanTorresEdge/molcajete.ai",
       "path": "design/zustand-mobile-patterns",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "zustand-store-patterns",
-      "description": "Use when creating and managing Zustand stores for React state management. Covers store creation, selectors, actions, and basic usage patterns.",
-      "repo": "TheBushidoCollective/han",
-      "path": "design/zustand-store-patterns",
       "category": "design",
       "tags": [],
       "stars": 0,

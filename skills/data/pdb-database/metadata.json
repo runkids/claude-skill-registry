@@ -1,7 +1,7 @@
 {
   "name": "pdb-database",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/pdb-database/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-01-21T02:28:37.851358Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/database/pdb-database/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:11.609050Z"
 }

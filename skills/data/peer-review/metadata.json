@@ -1,7 +1,7 @@
 {
   "name": "peer-review",
-  "repo": "danieldekay/copilot-config-promptops",
-  "path": "skills/peer-review/SKILL.md",
-  "source": "github.com/danieldekay/copilot-config-promptops",
-  "downloaded_at": "2026-01-21T03:05:08.347717Z"
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/scientific/peer-review/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-22T03:18:28.589331Z"
 }

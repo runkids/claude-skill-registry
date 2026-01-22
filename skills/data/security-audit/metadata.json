@@ -1,7 +1,7 @@
 {
   "name": "security-audit",
-  "repo": "bybren-llc/safe-agentic-workflow",
+  "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
   "path": ".claude/skills/security-audit/SKILL.md",
-  "source": "github.com/bybren-llc/safe-agentic-workflow",
-  "downloaded_at": "2026-01-21T03:57:25.559658Z"
+  "source": "github.com/agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "downloaded_at": "2026-01-22T04:10:36.490458Z"
 }

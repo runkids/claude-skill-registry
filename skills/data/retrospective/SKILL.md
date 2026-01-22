@@ -1,71 +1,82 @@
-<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->
 ---
-name: retrospective
-description: Facilitates and documents a team retrospective capturing what went well, what to improve, and action items. Use at the end of sprints, projects, or milestones to reflect and improve team practices.
-license: Apache-2.0
-metadata:
-  category: reflection
-  frameworks: [triple-diamond, lean-startup, design-thinking]
-  author: product-on-purpose
-  version: "1.0.0"
+name: optimization.retrospective
+phase: optimization
+roles:
+  - Product Manager
+  - Engineering Lead
+  - Scrum Master
+description: Facilitate a sprint or release retrospective focusing on insights, actions, and ownership.
+variables:
+  required:
+    - name: period
+      description: Sprint, release, or project window being reviewed.
+    - name: goals
+      description: Goals or commitments set for the period.
+  optional:
+    - name: participants
+      description: Roles attending the retrospective.
+    - name: data_points
+      description: Supporting metrics or signals to consider.
+outputs:
+  - Retrospective agenda and prompts.
+  - Themed insights categorized as Keep/Stop/Start or equivalent.
+  - Action plan with owners, due dates, and follow-up cadence.
 ---
 
-# Retrospective
+# Purpose
+Ensure retrospectives are structured, psychologically safe, and result in actionable improvements.
 
-A retrospective is a structured reflection that helps teams learn from their experiences and continuously improve. By regularly examining what went well, what didn't, and what to change, teams build a culture of learning and adaptation. The value isn't just in the discussion—it's in the documented actions and follow-through.
+# Pre-run Checklist
+- ✅ Collect metrics, incidents, and feedback for the reviewed period.
+- ✅ Confirm participants and logistical details.
+- ✅ Align on facilitation approach and tools.
 
-## When to Use
+# Invocation Guidance
+```bash
+codex run --skill optimization.retrospective \
+  --vars "period={{period}}" \
+         "goals={{goals}}" \
+         "participants={{participants}}" \
+         "data_points={{data_points}}"
+```
 
-- At the end of every sprint (for agile teams)
-- After completing a significant project or milestone
-- Following a major incident or outage
-- When team dynamics feel off and need addressing
-- At regular intervals (monthly, quarterly) even without specific triggers
-- When onboarding new team members to establish improvement culture
+# Recommended Input Attachments
+- Sprint reports, burndown charts, or throughput metrics.
+- Incident summaries or customer feedback.
 
-## Instructions
+# Claude Workflow Outline
+1. Summarize period context, goals, and participants.
+2. Propose an agenda with timings and facilitation tips.
+3. Capture insights under themes (Keep, Stop, Start) or squad-specific categories.
+4. Translate insights into actionable improvements with owners and deadlines.
+5. Provide follow-up rituals for accountability.
 
-When asked to facilitate or document a retrospective, follow these steps:
+# Output Template
+```
+## Retrospective Agenda — {{period}}
+| Segment | Time | Purpose | Facilitation Tips |
+| --- | --- | --- | --- |
 
-1. **Set the Context**
-   Define what period or project this retrospective covers, who attended, and any significant events that occurred. This frames the discussion and helps future readers understand the context.
+## Insights
+### Keep Doing
+- ...
 
-2. **Choose a Format**
-   Select a retrospective format that fits the team's needs. Common options include:
-   - **Start/Stop/Continue:** Simple and direct
-   - **4Ls:** Liked, Learned, Lacked, Longed for
-   - **Mad/Sad/Glad:** Emotion-focused
-   - **Sailboat:** Visual metaphor (wind=helps, anchor=holds back)
+### Stop Doing
+- ...
 
-3. **Gather Input**
-   Collect observations from all team members. Ensure everyone contributes—quiet voices often have important insights. Group similar items to identify themes.
+### Start Doing
+- ...
 
-4. **Discuss and Prioritize**
-   Don't try to address everything. Focus the discussion on the most impactful items. Vote or discuss to identify the top 2-3 issues to address.
+## Action Plan
+| Action | Owner | Due Date | Success Measure |
+| --- | --- | --- | --- |
 
-5. **Define Action Items**
-   Convert insights into specific, assignable actions. Every action needs an owner and a due date. Avoid vague improvements like "communicate better."
+## Follow-up
+- Next Check-in:
+- Accountability Mechanism:
+```
 
-6. **Review Previous Actions**
-   Check the status of action items from the last retrospective. Celebrate completions and discuss blockers for incomplete items. This builds accountability.
-
-7. **Document for Future Reference**
-   Capture the key points so they're available for future team members and for tracking patterns over time.
-
-## Output Format
-
-Use the template in `references/TEMPLATE.md` to structure the output.
-
-## Quality Checklist
-
-Before finalizing, verify:
-
-- [ ] All attendees had opportunity to contribute
-- [ ] Both positives and improvements are captured
-- [ ] Action items have owners and due dates
-- [ ] Previous retrospective actions are reviewed
-- [ ] Document is useful to someone who wasn't in the room
-
-## Examples
-
-See `references/EXAMPLE.md` for a completed example.
+# Follow-up Actions
+- Share retro notes with the squad and stakeholders.
+- Track action items in the team workspace and revisit each retro.
+- Celebrate improvements and adjust format as needed.

@@ -1,6 +1,6 @@
 ---
 name: Global Tech Stack
-description: Understand and adhere to the project's technology stack including Laravel, PHP, React, PostgreSQL, Pest, Tailwind CSS, and all configured tools and services. Use this skill when making architectural decisions, when choosing libraries or packages, when configuring development tools, when setting up testing frameworks, when implementing authentication, when integrating third-party services, when configuring CI/CD pipelines, when setting up local development environments, or when ensuring consistency with the established tech stack across all parts of the application.
+description: Use Astro's modern web development stack including TypeScript, Tailwind CSS, Content Collections, islands architecture, and performance-first deployment practices. Use this skill when selecting technologies, configuring integrations, choosing deployment platforms, or making architectural decisions about the tech stack. When working on Astro configuration and integrations setup, choosing between SSG/hybrid/SSR rendering modes, selecting UI frameworks for interactive islands (React, Vue, Svelte), configuring Tailwind CSS or styling solutions, setting up Content Collections for type-safe content, choosing deployment adapters (Vercel, Netlify, Cloudflare), configuring testing tools (Vitest, Playwright), implementing performance optimization strategies, or adding third-party integrations and plugins.
 ---
 
 # Global Tech Stack
@@ -9,19 +9,17 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When making architectural decisions or choosing approaches for new features
-- When selecting or evaluating third-party packages or libraries
-- When configuring development tools and environments
-- When setting up Laravel, PHP, or React project configurations
-- When implementing database-related functionality with PostgreSQL and Eloquent
-- When writing tests using Pest framework
-- When using Laravel-specific tools (Pint, Herd, Telescope, DebugBar, Wayfinder, Fortify)
-- When integrating third-party services (Resend for email, Sentry for errors, etc.)
-- When configuring CI/CD with GitHub Actions
-- When setting up local development with Laravel Herd
-- When implementing caching with Redis
-- When ensuring consistency with established frameworks and patterns
-- When documenting technical decisions or dependencies
+- When configuring Astro integrations in astro.config.mjs
+- When choosing between static (SSG), hybrid, or server (SSR) rendering modes
+- When selecting UI frameworks for interactive components (React, Vue, Svelte, etc.)
+- When setting up Tailwind CSS or other styling frameworks
+- When configuring Content Collections with Zod schemas for type-safe content
+- When choosing deployment platforms (Vercel, Netlify, Cloudflare Pages, Node.js)
+- When setting up testing infrastructure (Vitest for unit tests, Playwright for E2E)
+- When implementing performance optimizations (image optimization, code splitting)
+- When adding analytics, SEO, authentication, or i18n integrations
+- When making decisions about package managers (pnpm, npm) or build tools
+- When configuring TypeScript strict mode and linting/formatting tools
 
 ## Instructions
 

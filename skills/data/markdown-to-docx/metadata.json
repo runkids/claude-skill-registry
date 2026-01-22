@@ -1,12 +1,7 @@
 {
   "name": "markdown-to-docx",
-  "description": "Convierte archivos Markdown a DOCX con formato profesional usando pandoc. Incluye portada con título, tabla de contenidos, cabeceras y estilos corporativos. Usar cuando se necesite generar documentos ",
-  "repo": "mbilbao/Skiller",
-  "category": "documents",
-  "tags": [
-    "markdown",
-    "docx"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "duc01226/EasyPlatform",
+  "path": ".claude/skills/markdown-to-docx/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-22T01:20:54.925192Z"
 }

@@ -1050,36 +1050,42 @@ npx ruv-swarm github debt-swarm 456 \
 ## Best Practices
 
 ### 1. Swarm-Coordinated Issue Management
+
 - Always initialize swarm for complex issues
 - Assign specialized agents based on issue type
 - Use memory for progress coordination
 - Regular automated progress updates
 
 ### 2. Board Organization
+
 - Clear column definitions with consistent naming
 - Systematic labeling strategy across repositories
 - Regular board grooming and maintenance
 - Well-defined automation rules
 
 ### 3. Data Integrity
+
 - Bidirectional sync validation
 - Conflict resolution strategies
 - Comprehensive audit trails
 - Regular backups of project data
 
 ### 4. Team Adoption
+
 - Comprehensive training materials
 - Clear, documented workflows
 - Regular team reviews and retrospectives
 - Active feedback loops for improvement
 
 ### 5. Smart Labeling and Organization
+
 - Consistent labeling strategy across repositories
 - Priority-based issue sorting and assignment
 - Milestone integration for project coordination
 - Agent-type to label mapping
 
 ### 6. Automated Progress Tracking
+
 - Regular automated updates with swarm coordination
 - Progress metrics and completion tracking
 - Cross-issue dependency management
@@ -1128,6 +1134,7 @@ npx ruv-swarm github board-recover \
 ### Performance Metrics
 
 Automatic tracking of:
+
 - Issue creation and resolution times
 - Agent productivity metrics
 - Project milestone progress
@@ -1178,7 +1185,8 @@ npx ruv-swarm github effectiveness \
 
 ## Integration with Other Skills
 
-### Seamless Integration With:
+### Seamless Integration With
+
 - `github-pr-workflow` - Link issues to pull requests automatically
 - `github-release-management` - Coordinate release issues and milestones
 - `sparc-orchestrator` - Complex project coordination workflows

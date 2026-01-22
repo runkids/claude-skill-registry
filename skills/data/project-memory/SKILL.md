@@ -1,183 +1,157 @@
 ---
 name: project-memory
-description: Persist and recall project-specific context across sessions. Store architectural decisions, patterns, solutions, and learnings. Automatically recall relevant context when facing similar problems.
+description: Persist context across sessions using external memory files
 ---
 
 # Project Memory Skill
 
-Use the memory MCP (`mcp__memory__*`) to persist project knowledge across sessions. This complements personal memory (Qdrant) by focusing on **project-specific** technical context.
+Maintain persistent context across Claude Code sessions using external files as memory.
 
-## When to Store
+## Memory System Overview
 
-### Architectural Decisions
-Store when you make or discover significant choices:
-- "We chose X pattern over Y because..."
-- "This service uses Z approach for..."
-- "The team decided to structure components as..."
+Since Claude's context resets between sessions, we use files to persist important information:
 
-```
-Store: "Auth architecture: JWT tokens with httpOnly cookies, refresh tokens in Redis,
-15min access / 7d refresh. Chosen over session-based for API scalability."
-Tags: ["architecture", "auth", "decisions"]
-```
+| File | Purpose | Update Frequency |
+|------|---------|------------------|
+| `docs/status.md` | Current work status | Every session |
+| `docs/tech-debt.md` | Known technical debt | When identified |
+| `docs/decisions/*.md` | Architecture decisions | When made |
 
-### Solved Problems
-Store when you fix non-trivial issues:
-- Complex debugging sessions
-- Performance optimizations
-- Integration gotchas
+## Session Start Protocol
 
-```
-Store: "Prisma N+1 fix: Use `include` with explicit `select` for nested relations.
-findMany({ include: { posts: { select: { id: true, title: true } } } })"
-Tags: ["prisma", "performance", "patterns"]
-```
+When starting a new session:
 
-### Project-Specific Patterns
-Store recurring patterns unique to this codebase:
-- Custom hooks and their usage
-- Service layer conventions
-- Error handling approaches
+1. **Read status file**
+   ```bash
+   cat docs/status.md
+   ```
 
-```
-Store: "Error handling pattern: All API errors extend BaseError with code,
-statusCode, isOperational. Use errorHandler middleware for centralized catching."
-Tags: ["patterns", "errors", "conventions"]
-```
+2. **Check git state**
+   ```bash
+   git log --oneline -10
+   git status
+   ```
 
-### Implementation Learnings
-Store insights from implementation:
-- "This API requires X header"
-- "This library has quirk Y"
-- "Integration with Z needs..."
+3. **Review recent decisions**
+   ```bash
+   ls -la docs/decisions/ | tail -5
+   ```
 
-## When to Recall
+4. **Summarize context** before proceeding with new work
 
-### Before Implementation
-Check memory when starting work that might have prior context:
-- "Implementing auth" → recall auth-related memories
-- "Adding new API endpoint" → recall API patterns
-- "Fixing performance" → recall past optimizations
+## Session End Protocol
 
-### When Stuck
-Query memory when facing challenges:
-- "Similar error before?"
-- "How did we handle this pattern?"
-- "What was the decision about X?"
+Before ending a session:
 
-### During Review
-Check for consistency with past decisions:
-- "Does this align with our patterns?"
-- "Have we solved this differently elsewhere?"
+1. **Summarize work done**
+2. **Update status.md** with:
+   - What was accomplished
+   - What's in progress
+   - Any blockers
+   - Context for next session
+3. **Document any decisions** in `docs/decisions/`
+4. **Commit changes** with descriptive message
 
-## How to Use
+## Status File Format
 
-### Storing Memories
+```markdown
+# Project Status
 
-```
-Use mcp__memory__store or similar tool:
-- content: Clear, searchable description
-- tags: Relevant categories for retrieval
-- metadata: { project: "project-name", type: "decision|pattern|fix|learning" }
-```
+## Last Updated
+[Timestamp]
 
-**Good memory content:**
-- Concise but complete
-- Includes the "why" not just "what"
-- Searchable keywords
-- Context for future recall
+## Current Focus
+[Main area of work]
 
-### Recalling Memories
+## In Progress
+- [ ] [Task 1] - [status notes]
+- [ ] [Task 2] - [status notes]
 
-```
-Use mcp__memory__search or similar tool:
-- query: Natural language description of what you need
-- tags: Filter by category if known
-- limit: Start with 5, expand if needed
+## Completed Recently
+- [x] [Completed task]
+
+## Blockers
+- [Blocker description] - [what's needed]
+
+## Decisions Made
+- [Decision]: [rationale]
+
+## Context for Next Session
+- [Important point 1]
+- [Important point 2]
+- [Where to pick up]
 ```
 
-**Effective queries:**
-- "authentication implementation decisions"
-- "prisma performance patterns"
-- "error handling conventions"
-- "API rate limiting approach"
+## Decision Record Format
 
-## Memory Categories
+Create `docs/decisions/YYYY-MM-DD-topic.md`:
 
-Use consistent tags for organization:
+```markdown
+# [Number]. [Title]
 
-| Tag | Use For |
-|-----|---------|
-| `architecture` | System design, service boundaries |
-| `patterns` | Recurring code patterns |
-| `decisions` | Why we chose X over Y |
-| `fixes` | Bug fixes and debugging solutions |
-| `performance` | Optimizations, bottlenecks |
-| `integrations` | External API quirks, configs |
-| `conventions` | Team standards, naming, structure |
-| `gotchas` | Non-obvious behaviors, pitfalls |
+## Status
+[Proposed | Accepted | Deprecated]
 
-## What NOT to Store
+## Context
+[Why this decision is needed]
 
-- Generic programming knowledge (you already know this)
-- Trivial fixes (typos, simple syntax)
-- Temporary workarounds (unless documenting tech debt)
-- Sensitive data (credentials, keys, PII)
+## Decision
+[What we decided]
 
-## Relationship with Personal Memory (Qdrant)
-
-| Project Memory | Personal Memory (Qdrant) |
-|----------------|--------------------------|
-| Technical decisions | Life experiences |
-| Code patterns | Personal preferences |
-| Project-specific | Cross-project/personal |
-| Implementation details | Skills, relationships |
-| Ephemeral (project lifetime) | Permanent (life memory) |
-
-**Rule:** If it's about THIS project's code → project memory. If it's about Berry → Qdrant.
-
-## Session Start Reminder
-
-At session start, consider:
-1. What work am I continuing?
-2. Are there relevant memories to load?
-3. Query: "recent decisions about [current task area]"
-
-## Examples
-
-### Example 1: Storing an Architecture Decision
-
-After implementing a feature:
-```
-"Implemented image generation queue with Bull + Redis. Chose over in-memory
-because: 1) Survives restarts, 2) Rate limiting per user, 3) Priority queues
-for premium users. Max 3 concurrent jobs per user, 10 global."
-
-Tags: ["architecture", "queue", "images", "decisions"]
+## Consequences
+[What this means going forward]
 ```
 
-### Example 2: Recalling Before Work
+## Technical Debt Tracking
 
-Starting work on similar feature:
-```
-Query: "queue implementation patterns"
-→ Recalls Bull + Redis decision
-→ Apply same patterns for consistency
-```
+Add to `docs/tech-debt.md` when noticing debt:
 
-### Example 3: Storing a Gotcha
+```markdown
+## [Priority Level]
 
-After debugging:
-```
-"Gemini API safetySettings must be top-level param, NOT inside generationConfig.
-Wasted 2 hours on this. SDK docs are misleading."
-
-Tags: ["gotchas", "gemini", "api", "integrations"]
+| Item | Location | Description | Added |
+|------|----------|-------------|-------|
+| [Name] | [file:line] | [Description] | [Date] |
 ```
 
-## Integration with Workflow
+## Git as Memory
 
-1. **Issue Pickup** → Recall related context
-2. **Implementation** → Store patterns/decisions as you go
-3. **PR Creation** → Ensure key decisions are stored
-4. **Review** → Check consistency with stored patterns
+Git history serves as additional memory:
+
+- **Commit messages** should explain why, not just what
+- **Branch names** should describe the work
+- **PR descriptions** capture context
+
+### Useful Git Commands for Context
+
+```bash
+# Recent activity
+git log --oneline -20
+
+# What changed in a file
+git log -p --follow -- path/to/file
+
+# Search commits for keywords
+git log --grep="keyword"
+
+# Changes in current branch
+git log main..HEAD --oneline
+```
+
+## Context Handoff Checklist
+
+Before handing off to another session or team member:
+
+- [ ] `docs/status.md` is current
+- [ ] Uncommitted work is either committed or described
+- [ ] Decisions are documented
+- [ ] Blockers are noted
+- [ ] Next steps are clear
+
+## Best Practices
+
+1. **Update frequently** - Don't wait until the end
+2. **Be specific** - "Fixed auth" < "Fixed JWT expiry handling in refresh flow"
+3. **Include blockers** - They're easy to forget
+4. **Link to files** - "See src/auth/jwt.ts:45" for context
+5. **Keep it scannable** - Use lists and headers

@@ -1,145 +1,132 @@
 ---
-description: Imported skill shell from langchain
 name: shell
-signature: 7b4d5b9e6318bf2a8cb8ee25dcb4c19a5c1f0bf51f2fb20f46e55c4214a7d53b
-source: /a0/tmp/skills_research/langchain/libs/deepagents-cli/deepagents_cli/shell.py
+description: Shell scripting best practices for writing safe, portable, and maintainable bash/sh scripts (formerly shell-scripts). Use when writing, reviewing, or refactoring shell scripts. Triggers on shell scripts, bash, sh, POSIX, ShellCheck, error handling, quoting, variables.
 ---
 
-"""Simplified middleware that exposes a basic shell tool to agents."""
+# Shell Scripts Best Practices
 
-from __future__ import annotations
+Comprehensive best practices guide for shell scripting, designed for AI agents and LLMs. Contains 48 rules across 9 categories, prioritized by impact from critical (safety, portability) to incremental (style). Each rule includes detailed explanations, real-world examples comparing incorrect vs. correct implementations, and specific impact metrics.
 
-import os
-import subprocess
-from typing import Any
+## When to Apply
 
-from langchain.agents.middleware.types import AgentMiddleware, AgentState
-from langchain.tools import ToolRuntime, tool
-from langchain_core.messages import ToolMessage
-from langchain_core.tools.base import ToolException
+Reference these guidelines when:
+- Writing new bash or POSIX shell scripts
+- Reviewing shell scripts for security vulnerabilities
+- Debugging scripts that fail silently or behave unexpectedly
+- Porting scripts between Linux, macOS, and containers
+- Optimizing shell script performance
+- Setting up CI/CD pipelines with shell scripts
 
+## Rule Categories by Priority
 
-class ShellMiddleware(AgentMiddleware[AgentState, Any]):
-    """Give basic shell access to agents via the shell.
+| Priority | Category | Impact | Prefix | Rules |
+|----------|----------|--------|--------|-------|
+| 1 | Safety & Security | CRITICAL | `safety-` | 6 |
+| 2 | Portability | CRITICAL | `port-` | 5 |
+| 3 | Error Handling | HIGH | `err-` | 6 |
+| 4 | Variables & Data | HIGH | `var-` | 5 |
+| 5 | Quoting & Expansion | MEDIUM-HIGH | `quote-` | 6 |
+| 6 | Functions & Structure | MEDIUM | `func-` | 5 |
+| 7 | Testing & Conditionals | MEDIUM | `test-` | 5 |
+| 8 | Performance | LOW-MEDIUM | `perf-` | 6 |
+| 9 | Style & Formatting | LOW | `style-` | 4 |
 
-    This shell will execute on the local machine and has NO safeguards except
-    for the human in the loop safeguard provided by the CLI itself.
-    """
+## Quick Reference
 
-    def __init__(
-        self,
-        *,
-        workspace_root: str,
-        timeout: float = 120.0,
-        max_output_bytes: int = 100_000,
-        env: dict[str, str] | None = None,
-    ) -> None:
-        """Initialize an instance of `ShellMiddleware`.
+### 1. Safety & Security (CRITICAL)
 
-        Args:
-            workspace_root: Working directory for shell commands.
-            timeout: Maximum time in seconds to wait for command completion.
-                Defaults to 120 seconds.
-            max_output_bytes: Maximum number of bytes to capture from command output.
-                Defaults to 100,000 bytes.
-            env: Environment variables to pass to the subprocess. If None,
-                uses the current process's environment. Defaults to None.
-        """
-        super().__init__()
-        self._timeout = timeout
-        self._max_output_bytes = max_output_bytes
-        self._tool_name = "shell"
-        self._env = env if env is not None else os.environ.copy()
-        self._workspace_root = workspace_root
+- [`safety-command-injection`](references/safety-command-injection.md) - Prevent command injection from user input
+- [`safety-eval-avoidance`](references/safety-eval-avoidance.md) - Avoid eval for dynamic commands
+- [`safety-absolute-paths`](references/safety-absolute-paths.md) - Use absolute paths for external commands
+- [`safety-temp-files`](references/safety-temp-files.md) - Create secure temporary files
+- [`safety-suid-forbidden`](references/safety-suid-forbidden.md) - Never use SUID/SGID on shell scripts
+- [`safety-argument-injection`](references/safety-argument-injection.md) - Prevent argument injection with double dash
 
-        # Build description with working directory information
-        description = (
-            f"Execute a shell command directly on the host. Commands will run in "
-            f"the working directory: {workspace_root}. Each command runs in a fresh shell "
-            f"environment with the current process's environment variables. Commands may "
-            f"be truncated if they exceed the configured timeout or output limits."
-        )
+### 2. Portability (CRITICAL)
 
-        @tool(self._tool_name, description=description)
-        def shell_tool(
-            command: str,
-            runtime: ToolRuntime[None, AgentState],
-        ) -> ToolMessage | str:
-            """Execute a shell command.
+- [`port-shebang-selection`](references/port-shebang-selection.md) - Choose shebang based on portability needs
+- [`port-avoid-bashisms`](references/port-avoid-bashisms.md) - Avoid bashisms in POSIX scripts
+- [`port-printf-over-echo`](references/port-printf-over-echo.md) - Use printf instead of echo for portability
+- [`port-export-syntax`](references/port-export-syntax.md) - Use portable export syntax
+- [`port-test-portability`](references/port-test-portability.md) - Use portable test constructs
 
-            Args:
-                command: The shell command to execute.
-                runtime: The tool runtime context.
-            """
-            return self._run_shell_command(command, tool_call_id=runtime.tool_call_id)
+### 3. Error Handling (HIGH)
 
-        self._shell_tool = shell_tool
-        self.tools = [self._shell_tool]
+- [`err-strict-mode`](references/err-strict-mode.md) - Use strict mode for error detection
+- [`err-exit-codes`](references/err-exit-codes.md) - Use meaningful exit codes
+- [`err-trap-cleanup`](references/err-trap-cleanup.md) - Use trap for cleanup on exit
+- [`err-stderr-messages`](references/err-stderr-messages.md) - Send error messages to stderr
+- [`err-pipefail`](references/err-pipefail.md) - Use pipefail to catch pipeline errors
+- [`err-check-commands`](references/err-check-commands.md) - Check command success explicitly
 
-    def _run_shell_command(
-        self,
-        command: str,
-        *,
-        tool_call_id: str | None,
-    ) -> ToolMessage | str:
-        """Execute a shell command and return the result.
+### 4. Variables & Data (HIGH)
 
-        Args:
-            command: The shell command to execute.
-            tool_call_id: The tool call ID for creating a ToolMessage.
+- [`var-use-arrays`](references/var-use-arrays.md) - Use arrays for lists instead of strings
+- [`var-local-scope`](references/var-local-scope.md) - Use local for function variables
+- [`var-naming-conventions`](references/var-naming-conventions.md) - Follow variable naming conventions
+- [`var-readonly-constants`](references/var-readonly-constants.md) - Use readonly for constants
+- [`var-default-values`](references/var-default-values.md) - Use parameter expansion for defaults
 
-        Returns:
-            A ToolMessage with the command output or an error message.
-        """
-        if not command or not isinstance(command, str):
-            msg = "Shell tool expects a non-empty command string."
-            raise ToolException(msg)
+### 5. Quoting & Expansion (MEDIUM-HIGH)
 
-        try:
-            result = subprocess.run(
-                command,
-                check=False,
-                shell=True,
-                capture_output=True,
-                text=True,
-                timeout=self._timeout,
-                env=self._env,
-                cwd=self._workspace_root,
-            )
+- [`quote-always-quote-variables`](references/quote-always-quote-variables.md) - Always quote variable expansions
+- [`quote-dollar-at`](references/quote-dollar-at.md) - Use "$@" for argument passing
+- [`quote-command-substitution`](references/quote-command-substitution.md) - Quote command substitutions
+- [`quote-brace-expansion`](references/quote-brace-expansion.md) - Use braces for variable clarity
+- [`quote-here-documents`](references/quote-here-documents.md) - Use here documents for multi-line strings
+- [`quote-glob-safety`](references/quote-glob-safety.md) - Control glob expansion explicitly
 
-            # Combine stdout and stderr
-            output_parts = []
-            if result.stdout:
-                output_parts.append(result.stdout)
-            if result.stderr:
-                stderr_lines = result.stderr.strip().split("\n")
-                for line in stderr_lines:
-                    output_parts.append(f"[stderr] {line}")
+### 6. Functions & Structure (MEDIUM)
 
-            output = "\n".join(output_parts) if output_parts else "<no output>"
+- [`func-main-pattern`](references/func-main-pattern.md) - Use main() function pattern
+- [`func-single-purpose`](references/func-single-purpose.md) - Write single-purpose functions
+- [`func-return-values`](references/func-return-values.md) - Use return values correctly
+- [`func-documentation`](references/func-documentation.md) - Document functions with header comments
+- [`func-avoid-aliases`](references/func-avoid-aliases.md) - Prefer functions over aliases
 
-            # Truncate output if needed
-            if len(output) > self._max_output_bytes:
-                output = output[: self._max_output_bytes]
-                output += f"\n\n... Output truncated at {self._max_output_bytes} bytes."
+### 7. Testing & Conditionals (MEDIUM)
 
-            # Add exit code info if non-zero
-            if result.returncode != 0:
-                output = f"{output.rstrip()}\n\nExit code: {result.returncode}"
-                status = "error"
-            else:
-                status = "success"
+- [`test-double-brackets`](references/test-double-brackets.md) - Use [[ ]] for tests in bash
+- [`test-arithmetic`](references/test-arithmetic.md) - Use (( )) for arithmetic comparisons
+- [`test-explicit-empty`](references/test-explicit-empty.md) - Use explicit empty/non-empty string tests
+- [`test-file-operators`](references/test-file-operators.md) - Use correct file test operators
+- [`test-case-patterns`](references/test-case-patterns.md) - Use case for pattern matching
 
-        except subprocess.TimeoutExpired:
-            output = f"Error: Command timed out after {self._timeout:.1f} seconds."
-            status = "error"
+### 8. Performance (LOW-MEDIUM)
 
-        return ToolMessage(
-            content=output,
-            tool_call_id=tool_call_id,
-            name=self._tool_name,
-            status=status,
-        )
+- [`perf-builtins-over-external`](references/perf-builtins-over-external.md) - Use builtins over external commands
+- [`perf-avoid-subshells`](references/perf-avoid-subshells.md) - Avoid unnecessary subshells
+- [`perf-process-substitution`](references/perf-process-substitution.md) - Use process substitution for temp files
+- [`perf-read-files`](references/perf-read-files.md) - Read files efficiently
+- [`perf-parameter-expansion`](references/perf-parameter-expansion.md) - Use parameter expansion for string operations
+- [`perf-batch-operations`](references/perf-batch-operations.md) - Batch operations instead of loops
 
+### 9. Style & Formatting (LOW)
 
-__all__ = ["ShellMiddleware"]
+- [`style-indentation`](references/style-indentation.md) - Use consistent indentation
+- [`style-file-structure`](references/style-file-structure.md) - Follow consistent file structure
+- [`style-comments`](references/style-comments.md) - Write useful comments
+- [`style-shellcheck`](references/style-shellcheck.md) - Use ShellCheck for static analysis
+
+## How to Use
+
+Read individual reference files for detailed explanations and code examples:
+
+- [Section definitions](references/_sections.md) - Category structure and impact levels
+- [Rule template](assets/templates/_template.md) - Template for adding new rules
+
+## Reference Files
+
+| File | Description |
+|------|-------------|
+| [AGENTS.md](AGENTS.md) | Complete compiled guide with all rules |
+| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
+| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
+| [metadata.json](metadata.json) | Version and reference information |
+
+## Key Sources
+
+- [Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html)
+- [ShellCheck](https://www.shellcheck.net/)
+- [Greg's Wiki (wooledge.org)](https://mywiki.wooledge.org/)
+- [POSIX Shell Specification](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html)

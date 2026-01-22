@@ -1,7 +1,7 @@
 {
   "name": "deployment-workflow",
   "repo": "mpolatcan/ccbell-sound-generator",
-  "path": ".gemini/skills/deployment-workflow/SKILL.md",
+  "path": ".claude/skills/deployment-workflow/SKILL.md",
   "source": "github.com/mpolatcan/ccbell-sound-generator",
-  "downloaded_at": "2026-01-21T02:46:19.345269Z"
+  "downloaded_at": "2026-01-22T03:05:13.176735Z"
 }

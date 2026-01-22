@@ -1,7 +1,7 @@
 {
   "name": "generate-image",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/generate-image/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-01-21T03:12:25.876119Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/research-tools/generate-image/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:07.767296Z"
 }

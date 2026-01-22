@@ -1,7 +1,7 @@
 {
   "name": "social-media",
-  "repo": "nicepkg/ai-workflow",
-  "path": "workflows/content-creator-workflow/.claude/skills/social-media/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-21T02:40:41.144846Z"
+  "repo": "vamseeachanta/workspace-hub",
+  "path": ".claude/skills/marketing/social-media/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-22T03:43:57.788594Z"
 }

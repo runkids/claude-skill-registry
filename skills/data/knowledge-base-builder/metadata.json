@@ -1,7 +1,7 @@
 {
   "name": "knowledge-base-builder",
-  "repo": "Dexploarer/hyper-forge",
-  "path": ".claude/skills/knowledge-base-builder/SKILL.md",
-  "source": "github.com/Dexploarer/hyper-forge",
-  "downloaded_at": "2026-01-21T02:06:22.646207Z"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/knowledge-base-builder/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-22T02:21:49.780748Z"
 }

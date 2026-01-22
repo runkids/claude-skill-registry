@@ -1,6 +1,6 @@
 ---
 name: Backend Queries
-description: Write secure, performant, and optimized database queries using parameterized queries, eager loading, proper indexing, and transaction management. Use this skill when writing database queries in controllers, repositories, services, or model methods, when using query builders or ORM methods, when implementing filtering/sorting/pagination logic, when optimizing N+1 query problems with eager loading, when working with joins and complex queries, when implementing query caching, or when wrapping related operations in database transactions.
+description: Write secure, optimized database queries using parameterized statements, proper indexing, and efficient data fetching patterns. Use this skill when writing database queries, ORM query methods, SQL statements, or data access layer code. When working on files containing Prisma queries, TypeORM query builders, raw SQL statements, database transaction logic, eager loading and joins, query optimization code, files implementing data pagination or filtering, cache strategies for expensive queries, or files handling database connection pooling and query timeouts.
 ---
 
 # Backend Queries
@@ -9,18 +9,16 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When writing database queries in controllers, service classes, repositories, or model methods
-- When using query builder methods (where, select, join, orderBy, etc.)
-- When implementing eager loading to prevent N+1 query problems (with, load, etc.)
-- When optimizing queries by selecting only needed columns instead of using SELECT *
-- When implementing filtering, sorting, or pagination logic in queries
-- When writing complex queries with joins, subqueries, or aggregations
-- When wrapping multiple related database operations in transactions
-- When implementing query timeouts or performance optimization
-- When adding database indexes to improve query performance
-- When implementing query result caching strategies
-- When using raw queries or complex SQL (ensuring parameterization for security)
-- When debugging slow queries or performance issues
+- When writing database queries using ORMs (Prisma, TypeORM, Drizzle, Sequelize)
+- When constructing raw SQL queries or parameterized statements
+- When implementing data fetching logic in API routes or server components
+- When using query builders or constructing complex WHERE clauses
+- When implementing pagination, filtering, sorting, or search functionality
+- When writing JOIN queries or eager loading related data to avoid N+1 problems
+- When implementing database transactions for data consistency
+- When optimizing slow queries or adding query performance monitoring
+- When setting up query caching strategies or read replicas
+- When implementing query timeouts or connection pooling configurations
 
 ## Instructions
 

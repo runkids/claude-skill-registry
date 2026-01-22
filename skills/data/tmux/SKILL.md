@@ -1,214 +1,121 @@
 ---
 name: tmux
-description: Manage tmux sessions for interactive background processes
-version: 1.0.0
-license: MIT
-compatibility: opencode
+description: Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
+metadata: {"clawdbot":{"emoji":"🧵","os":["darwin","linux"],"requires":{"bins":["tmux"]}}}
 ---
 
-## Overview
+# tmux Skill (Clawdbot)
 
-CLI tools for managing tmux sessions, enabling agents to run and interact with background processes like database connections (psql, mysql), REPLs, log tailing, and other interactive commands.
+Use tmux only when you need an interactive TTY. Prefer bash background mode for long-running, non-interactive tasks.
 
-## Prerequisites
-
-- [bun](https://bun.sh) runtime installed
-- [tmux](https://github.com/tmux/tmux) installed (`brew install tmux` or `apt install tmux`)
-
-## Commands
-
-### List Sessions
-
-List all active tmux sessions.
+## Quickstart (isolated socket, bash tool)
 
 ```bash
-bun .opencode/skill/tmux/list-sessions.js [options]
+SOCKET_DIR="${CLAWDBOT_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/clawdbot-tmux-sockets}"
+mkdir -p "$SOCKET_DIR"
+SOCKET="$SOCKET_DIR/clawdbot.sock"
+SESSION=clawdbot-python
+
+tmux -S "$SOCKET" new -d -s "$SESSION" -n shell
+tmux -S "$SOCKET" send-keys -t "$SESSION":0.0 -- 'PYTHON_BASIC_REPL=1 python3 -q' Enter
+tmux -S "$SOCKET" capture-pane -p -J -t "$SESSION":0.0 -S -200
 ```
 
-**Options:**
-- `--json` - Output as JSON
+After starting a session, always print monitor commands:
 
-**Examples:**
-```bash
-bun .opencode/skill/tmux/list-sessions.js
-bun .opencode/skill/tmux/list-sessions.js --json
+```
+To monitor:
+  tmux -S "$SOCKET" attach -t "$SESSION"
+  tmux -S "$SOCKET" capture-pane -p -J -t "$SESSION":0.0 -S -200
 ```
 
----
+## Socket convention
 
-### Create Session
+- Use `CLAWDBOT_TMUX_SOCKET_DIR` (default `${TMPDIR:-/tmp}/clawdbot-tmux-sockets`).
+- Default socket path: `"$CLAWDBOT_TMUX_SOCKET_DIR/clawdbot.sock"`.
 
-Create a new tmux session for running background processes.
+## Targeting panes and naming
 
-```bash
-bun .opencode/skill/tmux/create-session.js <name> [options]
-```
+- Target format: `session:window.pane` (defaults to `:0.0`).
+- Keep names short; avoid spaces.
+- Inspect: `tmux -S "$SOCKET" list-sessions`, `tmux -S "$SOCKET" list-panes -a`.
 
-**Arguments:**
-- `name` - Session name (required)
+## Finding sessions
 
-**Options:**
-- `--command <cmd>` - Initial command to run in the session
-- `--workdir <path>` - Working directory for the session
-- `--window <name>` - Name for the initial window
-- `--json` - Output as JSON
+- List sessions on your socket: `{baseDir}/scripts/find-sessions.sh -S "$SOCKET"`.
+- Scan all sockets: `{baseDir}/scripts/find-sessions.sh --all` (uses `CLAWDBOT_TMUX_SOCKET_DIR`).
 
-**Examples:**
-```bash
-# Create a session for psql
-bun .opencode/skill/tmux/create-session.js db-session --command "psql -h localhost -U postgres mydb"
+## Sending input safely
 
-# Create a session for tailing logs
-bun .opencode/skill/tmux/create-session.js logs --command "tail -f /var/log/app.log"
+- Prefer literal sends: `tmux -S "$SOCKET" send-keys -t target -l -- "$cmd"`.
+- Control keys: `tmux -S "$SOCKET" send-keys -t target C-c`.
 
-# Create a session in a specific directory
-bun .opencode/skill/tmux/create-session.js dev --workdir ~/projects/myapp
-```
+## Watching output
 
----
+- Capture recent history: `tmux -S "$SOCKET" capture-pane -p -J -t target -S -200`.
+- Wait for prompts: `{baseDir}/scripts/wait-for-text.sh -t session:0.0 -p 'pattern'`.
+- Attaching is OK; detach with `Ctrl+b d`.
 
-### Send Command
+## Spawning processes
 
-Send a command to a tmux session (types the command and presses Enter).
+- For python REPLs, set `PYTHON_BASIC_REPL=1` (non-basic REPL breaks send-keys flows).
 
-```bash
-bun .opencode/skill/tmux/send-command.js <session> <command> [options]
-```
+## Windows / WSL
 
-**Arguments:**
-- `session` - Session name (or session:window or session:window.pane)
-- `command` - Command to send
+- tmux is supported on macOS/Linux. On Windows, use WSL and install tmux inside WSL.
+- This skill is gated to `darwin`/`linux` and requires `tmux` on PATH.
 
-**Options:**
-- `--no-enter` - Send keys without pressing Enter
-- `--literal` - Send keys literally (no special key interpretation)
-- `--json` - Output as JSON
+## Orchestrating Coding Agents (Codex, Claude Code)
 
-**Examples:**
-```bash
-# Run a SQL query in a psql session
-bun .opencode/skill/tmux/send-command.js db-session "SELECT * FROM users LIMIT 10;"
-
-# Send Ctrl+C to interrupt a process
-bun .opencode/skill/tmux/send-command.js logs "C-c" --no-enter
-
-# Type text without executing
-bun .opencode/skill/tmux/send-command.js dev "echo hello" --no-enter
-```
-
----
-
-### Capture Output
-
-Capture and read the current output from a tmux session pane.
+tmux excels at running multiple coding agents in parallel:
 
 ```bash
-bun .opencode/skill/tmux/capture-output.js <session> [options]
+SOCKET="${TMPDIR:-/tmp}/codex-army.sock"
+
+# Create multiple sessions
+for i in 1 2 3 4 5; do
+  tmux -S "$SOCKET" new-session -d -s "agent-$i"
+done
+
+# Launch agents in different workdirs
+tmux -S "$SOCKET" send-keys -t agent-1 "cd /tmp/project1 && codex --yolo 'Fix bug X'" Enter
+tmux -S "$SOCKET" send-keys -t agent-2 "cd /tmp/project2 && codex --yolo 'Fix bug Y'" Enter
+
+# Poll for completion (check if prompt returned)
+for sess in agent-1 agent-2; do
+  if tmux -S "$SOCKET" capture-pane -p -t "$sess" -S -3 | grep -q "❯"; then
+    echo "$sess: DONE"
+  else
+    echo "$sess: Running..."
+  fi
+done
+
+# Get full output from completed session
+tmux -S "$SOCKET" capture-pane -p -t agent-1 -S -500
 ```
 
-**Arguments:**
-- `session` - Session name (or session:window or session:window.pane)
+**Tips:**
+- Use separate git worktrees for parallel fixes (no branch conflicts)
+- `pnpm install` first before running codex in fresh clones
+- Check for shell prompt (`❯` or `$`) to detect completion
+- Codex needs `--yolo` or `--full-auto` for non-interactive fixes
 
-**Options:**
-- `--lines <n>` - Number of lines of scrollback to capture (default: 100)
-- `--wait <pattern>` - Wait for output matching this pattern before capturing
-- `--timeout <ms>` - Timeout for --wait in milliseconds (default: 30000)
-- `--json` - Output as JSON
+## Cleanup
 
-**Examples:**
-```bash
-# Capture recent output from a session
-bun .opencode/skill/tmux/capture-output.js db-session
+- Kill a session: `tmux -S "$SOCKET" kill-session -t "$SESSION"`.
+- Kill all sessions on a socket: `tmux -S "$SOCKET" list-sessions -F '#{session_name}' | xargs -r -n1 tmux -S "$SOCKET" kill-session -t`.
+- Remove everything on the private socket: `tmux -S "$SOCKET" kill-server`.
 
-# Capture more scrollback history
-bun .opencode/skill/tmux/capture-output.js logs --lines 500
+## Helper: wait-for-text.sh
 
-# Wait for a specific prompt before capturing
-bun .opencode/skill/tmux/capture-output.js db-session --wait "postgres=#" --timeout 5000
-```
-
----
-
-### Kill Session
-
-Terminate a tmux session.
-
-```bash
-bun .opencode/skill/tmux/kill-session.js <name> [options]
-```
-
-**Arguments:**
-- `name` - Session name to kill
-
-**Options:**
-- `--json` - Output as JSON
-
-**Examples:**
-```bash
-bun .opencode/skill/tmux/kill-session.js db-session
-```
-
----
-
-## Common Workflows
-
-### Database Session (psql)
+`{baseDir}/scripts/wait-for-text.sh` polls a pane for a regex (or fixed string) with a timeout.
 
 ```bash
-# Create a psql session
-bun .opencode/skill/tmux/create-session.js psql --command "psql -h localhost -U postgres mydb"
-
-# Wait for connection, then run queries
-bun .opencode/skill/tmux/capture-output.js psql --wait "postgres=#"
-bun .opencode/skill/tmux/send-command.js psql "SELECT COUNT(*) FROM users;"
-
-# Capture the query results
-bun .opencode/skill/tmux/capture-output.js psql --lines 50
-
-# Clean up when done
-bun .opencode/skill/tmux/kill-session.js psql
+{baseDir}/scripts/wait-for-text.sh -t session:0.0 -p 'pattern' [-F] [-T 20] [-i 0.5] [-l 2000]
 ```
 
-### Log Monitoring
-
-```bash
-# Start tailing logs
-bun .opencode/skill/tmux/create-session.js logs --command "tail -f /var/log/app.log"
-
-# Check for errors periodically
-bun .opencode/skill/tmux/capture-output.js logs --lines 200
-
-# Stop monitoring
-bun .opencode/skill/tmux/kill-session.js logs
-```
-
-### Interactive REPL (Python, Node, etc.)
-
-```bash
-# Start a Python REPL
-bun .opencode/skill/tmux/create-session.js python --command "python3"
-
-# Run Python commands
-bun .opencode/skill/tmux/send-command.js python "import pandas as pd"
-bun .opencode/skill/tmux/send-command.js python "df = pd.read_csv('data.csv')"
-bun .opencode/skill/tmux/send-command.js python "df.describe()"
-
-# Capture output
-bun .opencode/skill/tmux/capture-output.js python
-```
-
----
-
-## Output Behavior
-
-- Command output is displayed directly to the user in the terminal
-- **Do not re-summarize or reformat output** - the user can already see it
-- When capturing output, the raw terminal content is returned (may include ANSI codes)
-- Use `--json` for structured output when parsing programmatically
-
-## Notes
-
-- Session names should be descriptive and unique (e.g., `psql-mydb`, `logs-app`)
-- Target format: `session` or `session:window` or `session:window.pane`
-- Special keys: `C-c` (Ctrl+C), `C-d` (Ctrl+D), `C-m` (Enter), `C-l` (clear)
-- Sessions persist until explicitly killed or system restart
+- `-t`/`--target` pane target (required)
+- `-p`/`--pattern` regex to match (required); add `-F` for fixed string
+- `-T` timeout seconds (integer, default 15)
+- `-i` poll interval seconds (default 0.5)
+- `-l` history lines to search (integer, default 1000)

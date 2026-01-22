@@ -1,7 +1,7 @@
 {
   "name": "user-story-generator",
-  "repo": "matteocervelli/llms",
-  "path": "user-story-system/.claude/skills/user-story-generator/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-01-21T02:38:38.520420Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "skills/20-enterprise-workflows/user-story-generator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-22T01:55:45.088168Z"
 }

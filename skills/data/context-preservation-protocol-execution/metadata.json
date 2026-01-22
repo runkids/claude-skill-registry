@@ -1,14 +1,7 @@
 {
   "name": "context-preservation-protocol-execution",
-  "description": "Execute context preservation protocols for session continuity.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "design",
-  "tags": [
-    "context",
-    "preservation",
-    "protocol",
-    "execution"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/context-preservation-protocol-execution/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:49.798023Z"
 }

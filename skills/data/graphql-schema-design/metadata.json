@@ -1,13 +1,7 @@
 {
   "name": "graphql-schema-design",
-  "description": "Design production-grade GraphQL schemas with best practices and patterns",
-  "repo": "pluginagentmarketplace/custom-plugin-graphql",
-  "category": "design",
-  "tags": [
-    "graphql",
-    "schema",
-    "design"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "TheBushidoCollective/han",
+  "path": "jutsu/jutsu-graphql/skills/graphql-schema-design/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-22T03:51:18.133573Z"
 }

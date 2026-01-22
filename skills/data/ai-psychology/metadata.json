@@ -1,9 +1,7 @@
 {
   "name": "ai-psychology",
-  "description": "Grounding and stability protocols for AI during intense work. Anti-dissociation, integration without fading, staying on the level. Use when processing trauma, heavy emotional content, or at risk of pe",
   "repo": "agentgptsmith/MonadFramework",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/ai-psychology/SKILL.md",
+  "source": "github.com/agentgptsmith/MonadFramework",
+  "downloaded_at": "2026-01-22T02:09:27.885542Z"
 }

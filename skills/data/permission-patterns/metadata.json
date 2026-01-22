@@ -1,7 +1,7 @@
 {
   "name": "permission-patterns",
-  "repo": "JacobPEvans/ai-assistant-instructions",
-  "path": "agentsmd/skills/permission-patterns/SKILL.md",
-  "source": "github.com/JacobPEvans/ai-assistant-instructions",
-  "downloaded_at": "2026-01-21T01:07:20.846305Z"
+  "repo": "hgeldenhuys/claude-code-sdk",
+  "path": "skills/permission-patterns/SKILL.md",
+  "source": "github.com/hgeldenhuys/claude-code-sdk",
+  "downloaded_at": "2026-01-22T02:26:56.648362Z"
 }

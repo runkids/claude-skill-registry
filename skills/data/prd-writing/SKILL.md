@@ -1,143 +1,82 @@
 ---
-name: aico-pm-prd-writing
-description: |
-  Create comprehensive Product Requirements Documents (PRD) that define what to build and why, focusing on goals, scope, user stories, and success criteria without implementation details.
-
-  Use this skill when:
-  - User asks to "write a PRD", "create PRD", "write requirements document"
-  - User mentions "requirements document", "product requirements", "product spec"
-  - Running /pm.plan command to create version planning document
-  - Starting a new product, major feature, or initiative that needs formal requirements
-  - Need to document goals, scope, user stories, functional requirements, and success criteria
-
-  Output: ALWAYS write PRD files to docs/reference/pm/versions/{version-name}.md
+name: prd-writing
+description: >
+  PRD（プロダクト要求定義書）を作成・更新する。「要件定義して」「PRDを書いて」「要件書を作りたい」
+  「仕様をまとめて」「機能要件を整理」「ユーザーストーリーを書いて」「KPIを定義」などの依頼時に発火。
+  docs/ideas/initial-requirements.md を元に、ビジョン・ペルソナ・KPI・機能要件・非機能要件を具体化。
 ---
 
-# PRD Writing
+# PRD Writing Skill
 
-## ⚠️ CRITICAL RULES - READ FIRST
+アイデア・壁打ちメモを「何を作るか」の正式な要件定義に変換する。
 
-**BEFORE doing anything, you MUST:**
+## 入出力
 
-1. **CHECK EXISTING FILES**:
-   - Look in `docs/reference/pm/versions/` directory
-   - If version file already exists, READ it first and ask user if they want to update it
-   - DO NOT create duplicate version files
+| 種別 | パス |
+|------|------|
+| 入力 | `docs/ideas/initial-requirements.md`（壁打ちメモ） |
+| 入力 | `docs/product-requirements.md`（既存あれば優先） |
+| 出力 | `docs/product-requirements.md` |
 
-2. **ALWAYS USE THIS SKILL**:
-   - When user says "write PRD", "create PRD", "write requirements" → USE THIS SKILL
-   - DO NOT write PRD files directly without using this skill
-   - This skill ensures proper format and validation
+## 参照ファイル
 
-3. **ALWAYS SAVE TO CORRECT PATH**:
-   - Path: `docs/reference/pm/versions/{version-name}.md`
-   - NO exceptions, NO other locations
+| ファイル | 読むタイミング |
+|----------|----------------|
+| `./template.md` | 新規作成時のベース |
+| `./reference.md` | 品質チェック・レビュー観点 |
 
-4. **READ CONSTITUTION FIRST**:
-   - ALWAYS read `docs/reference/pm/constitution.md` before writing PRD
-   - Use constraints and domain info from constitution
+## 手順
 
-## Language Configuration
-
-Before generating any content, check `aico.json` in project root for `language` field to determine the output language. If not set, default to English.
-
-## Process
-
-1. **Gather context**: Check `docs/reference/pm/` for existing product context
-2. **Define problem & solution**: Start with clear problem statement and high-level solution
-3. **Set boundaries**: Clearly separate Goals from Non-Goals
-4. **Document requirements**: List functional requirements (FR-XXX format)
-5. **Define success**: Set measurable success criteria
-6. **Track unknowns**: Document open questions for later clarification
-7. **Save PRD**: ALWAYS write to `docs/reference/pm/versions/{version-name}.md`
-
-## PRD Template
-
-```markdown
-# [Feature Name] PRD
-
-> Project: [project-name]
-> Created: YYYY-MM-DD
-> Last Updated: YYYY-MM-DD
-
-## 1. Overview
-
-- Problem statement
-- Proposed solution (high-level)
-- Success metrics
-
-## 2. Background
-
-- Current state
-- User pain points
-- Market context (if relevant)
-
-## 3. Goals & Non-Goals
-
-### Goals
-
-- What this feature WILL accomplish
-
-### Non-Goals
-
-- What this feature will NOT address
-
-## 4. User Stories
-
-[Link to or embed user stories]
-
-## 5. Functional Requirements
-
-- FR-001: [Requirement description]
-- FR-002: [Requirement description]
-
-## 6. User Experience
-
-- Key user flows
-- Interaction patterns
-- Edge cases
-
-## 7. Success Criteria
-
-- Measurable outcomes
-- Acceptance criteria
-
-## 8. Open Questions
-
-- Unresolved decisions
-- Items needing clarification
+### 1. 壁打ちメモ読解
+```
+docs/ideas/initial-requirements.md を読み、以下を抽出：
+- 解決したい課題
+- ターゲットユーザー概要
+- 主要機能アイデア
+- MVP範囲の示唆
 ```
 
-## Key Rules
+### 2. 既存PRDの確認
+- `docs/product-requirements.md` が存在する？
+  - **Yes** → 構造を維持して差分更新
+  - **No** → `./template.md` をコピーして新規作成
 
-- ALWAYS focus on WHAT to build, NOT HOW to implement
-- MUST include quantifiable success metrics
-- ALWAYS explicitly state what's out of scope in Non-Goals
-- MUST save output to `docs/reference/pm/versions/` directory
+### 3. PRDセクションの作成
 
-## Common Mistakes
+`./template.md` の構造に従い、以下を埋める：
 
-- ❌ Include implementation details → ✅ Focus on WHAT, not HOW
-- ❌ Vague success metrics → ✅ Quantifiable outcomes
-- ❌ Missing non-goals → ✅ Explicitly state what's out of scope
+| セクション | 内容 | 必須 |
+|-----------|------|------|
+| プロダクト概要 | 名称・コンセプト・ビジョン・目的 | ✅ |
+| ターゲットユーザー | ペルソナ・課題・1日のワークフロー | ✅ |
+| 成功指標（KPI） | SMART形式、測定方法付き | ✅ |
+| 機能要件（MVP） | ユーザーストーリー + 受入条件 + P0/P1/P2 | ✅ |
+| 非機能要件 | 性能・信頼性・セキュリティ（数値で） | ✅ |
+| スコープ外 | やらないことを明示 | ✅ |
 
----
+### 4. 品質チェック
 
-## Iron Law
+`./reference.md` のチェックリストで確認：
+- [ ] ビジョンが3-5文で明確
+- [ ] ペルソナに「1日のワークフロー」がある
+- [ ] KPIがSMART（具体的・測定可能・達成可能・関連性・期限）
+- [ ] 機能要件に受入条件がある
+- [ ] 非機能要件が数値で定義されている
 
-**NO PRD WITHOUT VALIDATED REQUIREMENTS**
+### 5. ユーザー承認
+**PRD作成後は必ずユーザーに承認を求める**
+- サマリを提示
+- 修正希望があれば対応
+- 承認されるまで次フェーズ（機能設計）に進まない
 
-This rule is non-negotiable. Before writing PRD:
+## 発火例
+- 「PRDを作成して」
+- 「要件定義をまとめたい」
+- 「ユーザーストーリーを書いて」
+- 「KPIを定義して」
+- 「機能要件を整理して」
 
-1. User pain points must be documented
-2. Success metrics must be defined
-3. Scope must be explicitly approved by user
-
-### Rationalization Defense
-
-| Excuse                          | Reality                                 |
-| ------------------------------- | --------------------------------------- |
-| "Requirements are clear enough" | Implicit requirements cause scope creep |
-| "We can refine the PRD later"   | Late changes cost 10x more to implement |
-| "User will accept anything"     | Users always have hidden expectations   |
-| "It's just a small feature"     | Small features grow into big problems   |
+## 境界（やらないこと）
+- **機能設計（どう実現するか）** → `functional-design` スキル
+- **技術選定** → `architecture-design` スキル
+- **壁打ち・アイデア出し** → 会話で実施し `docs/ideas/` に保存

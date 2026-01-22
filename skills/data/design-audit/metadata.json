@@ -1,7 +1,7 @@
 {
   "name": "design-audit",
-  "repo": "savvy-web/rslib-builder",
+  "repo": "spencerbeggs/claude-design-coordinator",
   "path": ".claude/skills/design-audit/SKILL.md",
-  "source": "github.com/savvy-web/rslib-builder",
-  "downloaded_at": "2026-01-21T03:20:40.896486Z"
+  "source": "github.com/spencerbeggs/claude-design-coordinator",
+  "downloaded_at": "2026-01-22T02:41:52.532508Z"
 }

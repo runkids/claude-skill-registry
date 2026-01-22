@@ -1,7 +1,7 @@
 {
   "name": "testing-anti-patterns",
-  "repo": "NickCrew/claude-cortex",
-  "path": "skills/testing-anti-patterns/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-21T04:21:46.707146Z"
+  "repo": "Ramblurr/nix-devenv",
+  "path": "prompts/skills/testing-anti-patterns/SKILL.md",
+  "source": "github.com/Ramblurr/nix-devenv",
+  "downloaded_at": "2026-01-22T04:06:43.637647Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "pubmed-database",
-  "repo": "sanand0/scientific-research",
-  "path": ".claude/skills/pubmed-database/SKILL.md",
-  "source": "github.com/sanand0/scientific-research",
-  "downloaded_at": "2026-01-21T01:06:34.348802Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/database/pubmed-database/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:08.625667Z"
 }

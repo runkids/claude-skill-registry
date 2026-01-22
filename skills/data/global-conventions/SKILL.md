@@ -1,6 +1,6 @@
 ---
 name: Global Conventions
-description: Follow consistent project structure, version control practices, environment configuration, code review processes, and development conventions across the entire application. Use this skill when organizing project files and directories, when writing commit messages or creating pull requests, when managing environment variables and configuration, when participating in code reviews, when defining testing requirements, when using feature flags, when maintaining changelogs, when documenting setup instructions, or when establishing consistent development practices across the team.
+description: Follow project structure standards, environment variable management, Content Collections setup, version control practices, and build/deployment conventions. Use this skill when setting up project structure, managing configuration files, organizing dependencies, or establishing development workflows. When working on project directory structure and organization, environment variable files (.env, .env.local, .env.production), Content Collections configuration (src/content/config.ts), package.json and dependency management, git commit messages and branching strategy, configuration files (astro.config.mjs, tsconfig.json), build and deployment setups, or documentation files (README.md, ADRs).
 ---
 
 # Global Conventions
@@ -9,18 +9,17 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When organizing or restructuring project files and directories
-- When writing commit messages, creating branches, or making pull requests
-- When managing environment variables and configuration files
-- When documenting features in README files or architecture documentation
-- When participating in code reviews as reviewer or author
-- When defining or following testing requirements before merging
-- When implementing feature flags for incomplete or experimental features
-- When maintaining changelog or release notes
-- When managing project dependencies and documenting why they're used
-- When setting up or updating contribution guidelines
-- When ensuring consistent practices across the development team
-- When making decisions about long-lived branches vs. feature flags
+- When organizing project directory structure (src/, public/, components/, pages/, etc.)
+- When managing environment variables (.env files, PUBLIC\_ prefix for client-exposed vars)
+- When setting up Content Collections with Zod schemas in src/content/config.ts
+- When writing git commit messages using conventional commits format (feat:, fix:, docs:)
+- When managing dependencies in package.json and lock files
+- When configuring Astro integrations or adapters in astro.config.mjs
+- When establishing code review processes and pull request templates
+- When setting up build modes (SSG, hybrid, SSR) and deployment strategies
+- When creating project documentation (README.md, Architecture Decision Records)
+- When implementing performance standards (Lighthouse scores, bundle size budgets)
+- When organizing files by feature or colocation patterns
 
 ## Instructions
 

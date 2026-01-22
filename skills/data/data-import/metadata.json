@@ -1,8 +1,7 @@
 {
   "name": "data-import",
-  "repo": "alongor666/targetmanage",
-  "category": "data",
-  "description": "\u8f66\u9669\u7ecf\u8425\u6570\u636e\u5bfc\u5165\u6280\u80fd\uff0c\u652f\u6301CSV/JSON\u89e3\u6790\u3001\u9a8c\u8bc1\u3001\u4f18\u5148\u7ea7\u7ba1\u7406",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:53.211299Z"
+  "repo": "GPTomics/bioSkills",
+  "path": "proteomics/data-import/SKILL.md",
+  "source": "github.com/GPTomics/bioSkills",
+  "downloaded_at": "2026-01-22T02:30:47.039857Z"
 }

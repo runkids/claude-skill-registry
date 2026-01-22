@@ -1,56 +1,46 @@
 ---
 name: doc-writing
-description: 维护技术文档规范，帮助编写高质量的中文技术文档。使用时编写新文档、检查文档格式、优化文档结构时。
+description: 技术文档工程 - Diátaxis框架 / PDF / DOCX / XLSX / PPTX 处理。Create, maintain, and structure clear technical documentation.
 ---
 
-# 技术文档写作助手
+# Documentation Engineering
 
-## 文档规范要求
+## Purpose
+Code tells you *how*. Documentation tells you *why* and *what*. We treat documentation as an engineering artifact: structured, versioned, and maintained.
 
-### Frontmatter 格式
-每个文档必须包含完整的 frontmatter：
-```yaml
+## When to Use This Skill
+- **New Project**: "Write a README."
+- **Knowledge Transfer**: "Explain how this works."
+- **API**: "Document this endpoint."
+- **Handover**: "Create a user guide."
+
+## Core Framework: Diátaxis
+Classify your document into one of four quadrants to ensure clarity.
+
+1.  **Tutorials (Learning-oriented)**: A lesson to get a beginner started.
+    - *Example*: "Build your first Todo App in 5 minutes."
+    - *Tone*: Inspiring, step-by-step, no choices (follow me).
+2.  **How-to Guides (Problem-oriented)**: A recipe to solve a specific problem.
+    - *Example*: "How to reset your password."
+    - *Tone*: Practical, concise, steps 1-2-3.
+3.  **Reference (Information-oriented)**: Technical description of machinery.
+    - *Example*: "User API Class Specification."
+    - *Tone*: Dry, accurate, complete.
+4.  **Explanation (Understanding-oriented)**: Context and background.
+    - *Example*: "Why we chose Rust over C++."
+    - *Tone*: Discursive, theoretical.
+
+## Google Style Guide Highlights
+- **Voice**: Active, not passive. ("Click the button", not "The button should be clicked").
+- **Second Person**: Speak to "you" (the user).
+- **Simplicity**: Use short sentences and plain language.
+
 ---
-title: 文档标题
-description: 简短描述，不超过150字符
-date: 2026-01-20
-tags: [标签1, 标签2]
-author: 箫风
----
 
-```
+## Resource Files
 
-### 内容结构
-1. **标题层级**：使用 `# ## ###` 层级，标题不超过3级
-2. **段落分隔**：相关段落连续，不同主题用空行分隔
-3. **列表格式**：使用 `-` 或 `*` 开头的无序列表，数字开头的有序列表
-4. **代码块**：使用语言标识符，如 ```bash、```javascript
-
-### 语言规范
-- 使用简体中文
-- 技术术语使用英文或约定俗成的中文翻译
-- 保持客观、专业的技术写作风格
-- 避免口语化表达
-
-## 写作流程
-
-### 新文档创建
-1. 确定文档分类和路径
-2. 编写完整的 frontmatter
-3. 按照逻辑顺序组织内容
-4. 添加必要的代码示例和图表
-5. 验证链接和图片路径
-
-### 文档优化
-- 检查拼写和语法错误
-- 确保内容准确性和时效性
-- 优化段落结构和可读性
-- 添加适当的交叉引用
-
-### 格式检查清单
-- [ ] Frontmatter 完整
-- [ ] 标题层级合理
-- [ ] 代码块有语言标识
-- [ ] 链接路径正确
-- [ ] 图片路径使用相对路径
-- [ ] 符合 Markdown 规范
+| Topic | File |
+| :--- | :--- |
+| **Framework Deep Dive** | [diataxis.md](resources/diataxis.md) (Understanding the 4 types) |
+| **README Standard** | [readme-template.md](resources/readme-template.md) (The Gold Standard) |
+| **Style Checklist** | [style-guide.md](resources/style-guide.md) (Writing rules) |

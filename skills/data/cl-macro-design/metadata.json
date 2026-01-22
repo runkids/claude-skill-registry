@@ -1,12 +1,7 @@
 {
   "name": "cl-macro-design",
-  "description": "マクロ設計のベストプラクティスを適用。マクロ作成・レビュー時に使用",
   "repo": "cxxxr/.claude",
-  "category": "design",
-  "tags": [
-    "macro",
-    "design"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/cl-macro-design/SKILL.md",
+  "source": "github.com/cxxxr/.claude",
+  "downloaded_at": "2026-01-22T03:14:21.956837Z"
 }

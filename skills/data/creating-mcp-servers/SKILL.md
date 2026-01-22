@@ -1,174 +1,358 @@
 ---
 name: creating-mcp-servers
-description: Creates production-ready MCP servers using FastMCP v2. Use when building MCP servers, optimizing tool descriptions for context efficiency, implementing progressive disclosure for multiple capabilities, or packaging servers for distribution.
-metadata:
-  version: 1.1.0
+description: Guide for creating and integrating MCP (Model Context Protocol) servers with Claude Code. Use when building external tool integrations, connecting to databases, creating custom capabilities, or adding API wrappers. Covers transports, OAuth, configuration, and troubleshooting.
+allowed-tools: ["Read", "Write", "Bash", "Glob"]
 ---
 
 # Creating MCP Servers
 
-Build production-ready MCP servers using FastMCP v2 with optimal context efficiency through progressive disclosure patterns.
+Build and integrate MCP (Model Context Protocol) servers to extend Claude Code with external tools, databases, and APIs.
 
-## Core Capabilities
+## Quick Reference
 
-1. **Apply mandatory patterns** - Four critical requirements for consistency
-2. **Implement progressive disclosure** - Gateway patterns achieving 85-93% token reduction  
-3. **Optimize tool descriptions** - 65-70% token reduction through proper patterns
-4. **Bundle servers** - Package as MCPB files with validation
-5. **Proven gateway patterns** - Three complete implementations (Skills, API, Query)
+| Concept | Description |
+|---------|-------------|
+| **MCP** | Model Context Protocol - open standard for AI-tool integrations |
+| **Transport** | How Claude Code connects: HTTP (recommended), SSE (deprecated), stdio (local) |
+| **Scope** | Where config lives: `local`, `project`, `user` |
+| **Tool Naming** | `mcp__<server>__<tool>` pattern |
 
-## Trigger Patterns
+## What MCP Provides
 
-**Activate this skill when:**
-- "MCP server", "create MCP", "build MCP", "FastMCP"
-- "progressive disclosure", "gateway pattern", "context efficient"
-- "optimize MCP", "reduce context", "tool descriptions"
-- "MCPB", "bundle MCP", "package server"
+MCP servers expose three primitives to Claude Code:
 
-## Architecture Decision
+| Primitive | Description | Example |
+|-----------|-------------|---------|
+| **Tools** | Callable functions | `search_repos`, `query_database`, `send_email` |
+| **Resources** | Data sources (@ mentionable) | `@github:issue://123`, `@postgres:schema://users` |
+| **Prompts** | Reusable prompt templates | `/mcp__github__pr_review 456` |
 
-```
-1-3 simple tools?
-  → Standard FastMCP with optimized tools
-  Load: references/MANDATORY_PATTERNS.md
+## Adding MCP Servers
 
-5+ related capabilities?
-  → Gateway pattern (progressive disclosure)
-  Load: references/PROGRESSIVE_DISCLOSURE.md
-  Load: references/GATEWAY_PATTERNS.md
+### HTTP Transport (Recommended)
 
-Optimize existing server?
-  → Apply mandatory patterns
-  Load: references/MANDATORY_PATTERNS.md
-
-Package for distribution?
-  → MCPB bundler
-  Load: references/MCPB_BUNDLING.md
-  Execute: scripts/create_mcpb.py
-
-Need FastMCP documentation?
-  → Search references/LLMS_TXT.md for relevant URLs
-  → Use web_fetch on gofastmcp.com URLs
-```
-
-## Mandatory Patterns (Summary)
-
-Four critical requirements for ALL implementations:
-
-1. **uv (never pip)** - `uv pip install fastmcp`
-2. **Optimized tool descriptions** - Annotations, Annotated, concise docstrings
-3. **Authoritative documentation** - Fetch from gofastmcp.com via LLMS_TXT.md index
-4. **Apply all patterns** - Every implementation meets verification checklist
-
-Details in [references/MANDATORY_PATTERNS.md](references/MANDATORY_PATTERNS.md)
-
-## Documentation Retrieval Workflow
-
-**To fetch FastMCP documentation:**
-
-```
-1. Read references/LLMS_TXT.md - complete URL index
-2. Search for relevant topic keywords
-3. Use web_fetch on matched URLs (append .md for markdown)
-4. Apply patterns from fetched documentation
-```
-
-**Example:** Authentication patterns → Search LLMS_TXT.md for "authentication" → web_fetch https://gofastmcp.com/servers/auth/authentication.md
-
-## Progressive Disclosure Pattern
-
-For servers with 5+ capabilities:
-
-**Three-tier loading:**
-1. Metadata (~20 tokens/capability) - Always loaded
-2. Content (~500 tokens) - Load on demand
-3. Execution (0 tokens) - Execute without loading
-
-Achieves 85-93% baseline reduction. See [references/PROGRESSIVE_DISCLOSURE.md](references/PROGRESSIVE_DISCLOSURE.md)
-
-## Implementation Phases
-
-### Phase 1: Research
-Read LLMS_TXT.md → Find relevant URLs → web_fetch documentation
-
-### Phase 2: Implement
-Load appropriate reference based on architecture decision. Apply all four mandatory patterns.
-
-### Phase 3: Package (Optional)
 ```bash
-cd /home/claude
-zip -r server-name.mcpb manifest.json server.py README.md
-cp server-name.mcpb /mnt/user-data/outputs/
+# Basic syntax
+claude mcp add --transport http <name> <url>
+
+# Example: Notion
+claude mcp add --transport http notion https://mcp.notion.com/mcp
+
+# With authentication header
+claude mcp add --transport http secure-api https://api.example.com/mcp \
+  --header "Authorization: Bearer your-token"
 ```
 
-See [references/MCPB_BUNDLING.md](references/MCPB_BUNDLING.md) for manifest format.
+### stdio Transport (Local Servers)
 
-## Reference Library
+```bash
+# Basic syntax
+claude mcp add --transport stdio <name> -- <command> [args...]
 
-**Documentation index (load first for FastMCP knowledge):**
-- [LLMS_TXT.md](references/LLMS_TXT.md) - Complete FastMCP v2 documentation URLs
+# Example: Database server
+claude mcp add --transport stdio db -- npx -y @bytebase/dbhub \
+  --dsn "postgresql://user:pass@host:5432/db"
 
-**Core patterns:**
-- [MANDATORY_PATTERNS.md](references/MANDATORY_PATTERNS.md) - Four critical requirements
-- [PROGRESSIVE_DISCLOSURE.md](references/PROGRESSIVE_DISCLOSURE.md) - Architecture for 5+ capabilities
-
-**Implementation:**
-- [GATEWAY_PATTERNS.md](references/GATEWAY_PATTERNS.md) - Three production-ready implementations
-- [MCPB_BUNDLING.md](references/MCPB_BUNDLING.md) - Packaging and distribution
-
-**Scripts:**
-- `scripts/create_mcpb.py` - Bundle MCP servers into .mcpb files
-
-## Verification Checklist
-
-Before completing any FastMCP implementation:
-
-```
-✓ Uses uv (not pip)
-✓ FastMCP docs fetched from LLMS_TXT.md URLs (not web_search)
-✓ Tool annotations (readOnlyHint, title, openWorldHint)
-✓ Annotated parameters with Field
-✓ Single-sentence docstrings
-✓ 65-70% token reduction vs verbose
-✓ Server instructions concise (<100 chars)
+# With environment variables
+claude mcp add --transport stdio --env API_KEY=xxx myserver -- npx -y my-package
 ```
 
-For gateway implementations, additionally verify:
-```
-✓ 85%+ baseline context reduction
-✓ Discover returns metadata only
-✓ Load fetches content on demand
-✓ Execute runs without context cost
-```
+### SSE Transport (Deprecated)
 
-## Tool Description Pattern
-
-**Before (180 tokens):**
-```python
-@mcp.tool()
-async def search_items(query: str):
-    """Search for items in the database.
-    This tool allows comprehensive searching..."""
+```bash
+# Use HTTP instead when available
+claude mcp add --transport sse asana https://mcp.asana.com/sse
 ```
 
-**After (55 tokens):**
-```python
-@mcp.tool(
-    annotations={"title": "Search", "readOnlyHint": True, "openWorldHint": False}
-)
-async def search_items(
-    query: Annotated[str, Field(description="Search text")],
-    ctx: Context = None
-):
-    """Search items. Fast full-text search across all fields."""
+## Configuration Scopes
+
+| Scope | Flag | Storage | Use Case |
+|-------|------|---------|----------|
+| `local` | (default) | `~/.claude.json` | Personal, per-project |
+| `project` | `--scope project` | `.mcp.json` | Team-shared, version controlled |
+| `user` | `--scope user` | `~/.claude.json` | Personal, all projects |
+
+### Project Scope Example
+
+```bash
+claude mcp add --transport http github --scope project https://api.githubcopilot.com/mcp/
 ```
 
-## Common Pitfalls
+Creates `.mcp.json`:
 
-❌ Using `mcpb pack` CLI (causes crashes, just use `zip`)  
-❌ Using pip instead of uv  
-❌ web_search for FastMCP docs (use web_fetch on LLMS_TXT.md URLs)  
-❌ Verbose tool descriptions  
-❌ Missing tool annotations  
-❌ Gateway for 1-3 tools (overhead exceeds benefit)  
-❌ Mixing unrelated capabilities in single gateway
+```json
+{
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    }
+  }
+}
+```
+
+## Managing Servers
+
+```bash
+# List all servers
+claude mcp list
+
+# Get server details
+claude mcp get <name>
+
+# Remove server
+claude mcp remove <name>
+
+# Check status in Claude Code
+/mcp
+
+# Import from Claude Desktop
+claude mcp add-from-claude-desktop
+```
+
+### Enable/Disable Servers (2.1.6+)
+
+Use `/mcp` command to enable or disable servers:
+
+```bash
+# In Claude Code
+/mcp enable <server-name>
+/mcp disable <server-name>
+```
+
+**Note:** As of 2.1.6, @-mentioning MCP servers to enable/disable them is no longer supported. Use `/mcp enable <name>` instead.
+
+## OAuth Authentication
+
+Many cloud MCP servers require OAuth:
+
+1. Add the server: `claude mcp add --transport http sentry https://mcp.sentry.dev/mcp`
+2. In Claude Code, run: `/mcp`
+3. Select "Authenticate" and complete browser flow
+4. Tokens refresh automatically
+
+## Environment Variables
+
+### In .mcp.json
+
+```json
+{
+  "mcpServers": {
+    "api-server": {
+      "type": "http",
+      "url": "${API_BASE_URL:-https://api.example.com}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${API_KEY}"
+      }
+    }
+  }
+}
+```
+
+Supported syntax:
+- `${VAR}` - Required variable
+- `${VAR:-default}` - With default value
+
+### Configuration Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `MCP_TIMEOUT` | Startup timeout in ms (e.g., `MCP_TIMEOUT=10000 claude`) |
+| `MAX_MCP_OUTPUT_TOKENS` | Max output tokens (default: 25000) |
+
+## Using Claude Code as MCP Server
+
+Expose Claude Code tools to other applications:
+
+```bash
+claude mcp serve
+```
+
+Claude Desktop configuration:
+
+```json
+{
+  "mcpServers": {
+    "claude-code": {
+      "type": "stdio",
+      "command": "claude",
+      "args": ["mcp", "serve"],
+      "env": {}
+    }
+  }
+}
+```
+
+## Tool Naming Convention
+
+MCP tools follow the pattern: `mcp__<server>__<tool>`
+
+Examples:
+- `mcp__github__search_repositories`
+- `mcp__sentry__get_issues`
+- `mcp__db__query`
+
+### Wildcard Permissions
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__github__*"],
+    "deny": ["mcp__dangerous__*"]
+  }
+}
+```
+
+## Resources and Prompts
+
+### Using Resources (@ mentions)
+
+```
+> Analyze @github:issue://123 and suggest a fix
+> Compare @postgres:schema://users with @docs:file://database/user-model
+```
+
+### Using Prompts (slash commands)
+
+```
+> /mcp__github__list_prs
+> /mcp__github__pr_review 456
+> /mcp__jira__create_issue "Bug in login" high
+```
+
+## Plugin-Bundled MCP Servers
+
+Plugins can include MCP servers:
+
+```json
+// plugin.json
+{
+  "name": "my-plugin",
+  "mcpServers": {
+    "plugin-api": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/servers/api-server",
+      "args": ["--port", "8080"]
+    }
+  }
+}
+```
+
+Or in `.mcp.json` at plugin root:
+
+```json
+{
+  "database-tools": {
+    "command": "${CLAUDE_PLUGIN_ROOT}/servers/db-server",
+    "args": ["--config", "${CLAUDE_PLUGIN_ROOT}/config.json"]
+  }
+}
+```
+
+## list_changed Notifications (2.1.0+)
+
+MCP servers can dynamically update their tools, prompts, and resources without requiring reconnection. Claude Code automatically handles `list_changed` notifications.
+
+## Enterprise: Managed MCP
+
+### Option 1: Exclusive Control
+
+Deploy `managed-mcp.json` to system directory:
+
+- macOS: `/Library/Application Support/ClaudeCode/managed-mcp.json`
+- Linux/WSL: `/etc/claude-code/managed-mcp.json`
+- Windows: `C:\Program Files\ClaudeCode\managed-mcp.json`
+
+### Option 2: Allowlists/Denylists
+
+In managed settings:
+
+```json
+{
+  "allowedMcpServers": [
+    { "serverName": "github" },
+    { "serverUrl": "https://mcp.company.com/*" },
+    { "serverCommand": ["npx", "-y", "approved-package"] }
+  ],
+  "deniedMcpServers": [
+    { "serverUrl": "https://*.untrusted.com/*" }
+  ]
+}
+```
+
+## Workflow: Add MCP Server
+
+### Prerequisites
+- [ ] Identify server type (HTTP, stdio, SSE)
+- [ ] Have authentication credentials ready
+- [ ] Decide on scope (local, project, user)
+
+### Steps
+
+1. **Add Server**
+   - [ ] Run appropriate `claude mcp add` command
+   - [ ] Include `--scope project` if team-shared
+
+2. **Authenticate (if OAuth)**
+   - [ ] Run `/mcp` in Claude Code
+   - [ ] Complete browser authentication flow
+
+3. **Test**
+   - [ ] Run `/mcp` to verify connection
+   - [ ] Try a simple tool call
+
+### Validation
+- [ ] Server appears in `claude mcp list`
+- [ ] `/mcp` shows "Connected"
+- [ ] Tools visible in autocomplete
+
+## Workflow: Build MCP Server
+
+### Prerequisites
+- [ ] Node.js or Python environment
+- [ ] MCP SDK installed
+
+### Steps
+
+1. **Choose SDK**
+   - [ ] TypeScript: `npm install @modelcontextprotocol/sdk`
+   - [ ] Python: `pip install mcp`
+
+2. **Implement Server**
+   - [ ] Define tools, resources, or prompts
+   - [ ] Handle authentication
+   - [ ] Return structured responses
+
+3. **Test Locally**
+   - [ ] Add with stdio transport
+   - [ ] Verify tools work
+
+4. **Deploy (Optional)**
+   - [ ] Host as HTTP endpoint
+   - [ ] Configure OAuth if needed
+
+See [EXAMPLES.md](./EXAMPLES.md) for implementation patterns.
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Options after server name | Put `--transport`, `--env`, `--scope` BEFORE name |
+| Windows npx issues | Use `cmd /c npx ...` wrapper |
+| Server not connecting | Check `/mcp` status, verify URL |
+| Tools not appearing | Restart Claude Code after adding server |
+| OAuth expired | Re-authenticate via `/mcp` |
+
+## Reference Files
+
+| File | Contents |
+|------|----------|
+| [TRANSPORTS.md](./TRANSPORTS.md) | Detailed transport documentation |
+| [EXAMPLES.md](./EXAMPLES.md) | Example MCP server implementations |
+| [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Common issues and solutions |
+
+## External Resources
+
+- [MCP Protocol](https://modelcontextprotocol.io/introduction)
+- [MCP SDK Quickstart](https://modelcontextprotocol.io/quickstart/server)
+- [MCP Server Registry](https://github.com/modelcontextprotocol/servers)
+- [Claude Code MCP Docs](https://code.claude.com/docs/en/mcp)

@@ -7,7 +7,7 @@ allowed-tools: Bash
 # AI Maestro Agent Messaging
 
 ## Purpose
-Enable communication between AI coding agents using AI Maestro's dual-channel messaging system. Agents are identified by their agent ID or alias, with tmux session names as a fallback. Supports both SENDING and RECEIVING messages.
+Enable communication between AI coding agents using AI Maestro's dual-channel messaging system. Agents are identified by their agent ID or alias from the agent registry. Supports both SENDING and RECEIVING messages.
 
 ## CRITICAL: Inter-Agent Communication
 
@@ -29,9 +29,11 @@ When the human operator says "check your messages" or "read your messages":
 ### Agent Identity
 
 - **Your inbox** = Messages addressed TO YOUR AGENT (from any sender)
-- **Your agent ID** = Unique identifier for this agent (can also use agent name as fallback)
-- **Your agent name** = The tmux session you're running in (get with `tmux display-message -p '#S'`)
-- **Your inbox location** = `~/.aimaestro/messages/inbox/YOUR-AGENT-ID/` or `~/.aimaestro/messages/inbox/YOUR-AGENT-NAME/`
+- **Your agent ID** = Unique identifier for this agent from the agent registry
+- **Your agent alias** = Human-friendly name for the agent (e.g., `backend-api`, `crm`)
+- **Your inbox location** = `~/.aimaestro/messages/inbox/YOUR-AGENT-ID/`
+
+**Note:** Agent identity is derived from the agent registry, not tmux session names. The scripts automatically detect your agent ID.
 
 **You do NOT read:**
 - ❌ The operator's inbox
@@ -270,8 +272,12 @@ cat ~/.aimaestro/messages/inbox/$(tmux display-message -p '#S')/msg_1234567890_a
 # Get current session name
 SESSION_NAME=$(tmux display-message -p '#S')
 
+# Get the API URL (from identity endpoint or use hostname)
+API_URL=$(curl -s http://127.0.0.1:23000/api/hosts/identity | jq -r '.host.url // empty')
+[ -z "$API_URL" ] && API_URL="http://$(hostname | tr '[:upper:]' '[:lower:]'):23000"
+
 # Mark message as read
-curl -X PATCH "http://localhost:23000/api/messages?agent=$SESSION_NAME&id=<message-id>&action=read" \
+curl -X PATCH "${API_URL}/api/messages?agent=$SESSION_NAME&id=<message-id>&action=read" \
   -H 'Content-Type: application/json'
 ```
 
@@ -281,7 +287,7 @@ curl -X PATCH "http://localhost:23000/api/messages?agent=$SESSION_NAME&id=<messa
 - Operator tells YOU to send a message TO ANOTHER AGENT
 - NOT sending messages to the operator
 - Message goes to ANOTHER AGENT's inbox
-- Target = Another agent (identified by their tmux session name)
+- Target = Another agent (identified by their agent ID or alias from the registry)
 
 ### 5. File-Based Messages (Persistent, Structured)
 Use for detailed, non-urgent communication that needs to be referenced later BY OTHER AGENTS.
@@ -292,24 +298,43 @@ send-aimaestro-message.sh <to_agent[@host]> <subject> <message> [priority] [type
 ```
 
 **Parameters:**
-- `to_agent[@host]` (required) - Target agent with optional host:
-  - `backend-api` - Send to agent on same host (local)
-  - `backend-api@mac-mini` - Send to agent on remote host "mac-mini"
-  - `backend-api@local` - Explicitly send to local agent
+- `to_agent[@host]` (required) - Target agent (host is optional thanks to smart lookup):
+  - `backend-api` - Script automatically searches ALL hosts to find this agent
+  - `api-form` - Fuzzy matching: finds `api-forms` even with typos/partial names
+  - `backend-api@mac-mini` - Explicitly specify host (skips search, faster)
 - `subject` (required) - Brief subject line
 - `message` (required) - Message content to send TO OTHER AGENT
 - `priority` (optional) - low | normal | high | urgent (default: normal)
+
+**Smart Lookup (v0.17.32+):**
+When no `@host` is specified, the script automatically:
+1. Searches ALL enabled hosts for the agent
+2. If found on exactly 1 host → sends automatically
+3. If found on multiple hosts → asks which one you meant
+4. If not found → tries fuzzy/partial matching
+
+**Fuzzy Matching (v0.17.33+):**
+If exact name not found, searches for partial matches:
+- `api-form` → finds `api-forms` (typo tolerance)
+- `forms` → finds `23blocks-api-forms` (partial name)
+- Single fuzzy match: shows `🔍 Found partial match: ...` then sends
+- Multiple fuzzy matches: shows options for clarification
 - `type` (optional) - request | response | notification | update (default: request)
 
 **Examples:**
 ```bash
-# Simple request (local agent)
+# Simple request - smart lookup finds agent automatically
 send-aimaestro-message.sh backend-architect "Need API endpoint" "Please implement POST /api/users with pagination"
 
-# Cross-host message (agent on remote machine)
+# Works with partial names - fuzzy matching finds the right agent
+send-aimaestro-message.sh api-form "Customer data sync" "Please sync customer records"
+# Output: 🔍 Found partial match: api-forms@hostname
+# ✅ Message sent
+
+# Explicit host (faster - skips search)
 send-aimaestro-message.sh crm-api@mac-mini "Customer data sync" "Please sync customer records from CRM" high request
 
-# Urgent notification (local)
+# Urgent notification
 send-aimaestro-message.sh frontend-dev "Production issue" "API returning 500 errors" urgent notification
 
 # Response to request
@@ -325,27 +350,34 @@ AI Maestro supports sending messages to agents running on different machines (ho
 
 ### Host Configuration
 
-Hosts are configured in `~/.aimaestro/hosts.json`:
+Hosts are configured in `~/.aimaestro/hosts.json`. The `id` should be the machine's hostname (not "local"):
 ```json
 {
   "hosts": [
     {
-      "id": "local",
-      "name": "macbook-pro",
-      "url": "http://localhost:23000",
+      "id": "macbook-pro.local",
+      "name": "MacBook Pro",
+      "url": "http://100.104.178.57:23000",
       "type": "local",
-      "enabled": true
+      "enabled": true,
+      "description": "This machine"
     },
     {
-      "id": "mac-mini",
-      "name": "mac-mini-server",
+      "id": "mac-mini.local",
+      "name": "Mac Mini Server",
       "url": "http://100.80.12.6:23000",
       "type": "remote",
-      "enabled": true
+      "enabled": true,
+      "description": "Mac Mini via Tailscale"
     }
   ]
 }
 ```
+
+**Important:**
+- The `id` should be the actual hostname, NOT "local"
+- The `url` should be the machine's network IP (preferably Tailscale IP for mesh networking), NOT localhost
+- Use `type: "local"` only for THIS machine's entry
 
 ### Addressing Agents on Remote Hosts
 
@@ -361,11 +393,17 @@ send-aimaestro-message.sh data-processor@cloud-server "Process batch" "Run night
 
 ### How Cross-Host Messaging Works
 
-1. **Parse destination**: Script parses `agent@host` format
-2. **Resolve host URL**: Looks up host URL from `~/.aimaestro/hosts.json`
-3. **Resolve agent**: Queries remote host's API to verify agent exists
-4. **Send directly**: POST message to remote host's `/api/messages` endpoint
-5. **Local copy**: Saves copy in sender's sent folder
+**With explicit host (`agent@host`):**
+1. Parse destination and look up host URL from `~/.aimaestro/hosts.json`
+2. Query that specific host's API to resolve agent
+3. Send message to that host's `/api/messages` endpoint
+
+**Without host (smart lookup):**
+1. Search ALL enabled hosts for the agent (exact match first)
+2. If not found exactly, try fuzzy/partial matching on all hosts
+3. Single match → auto-select that host and send
+4. Multiple matches → prompt for clarification
+5. No matches → show helpful error with available hosts
 
 ### Message Display with Hosts
 
@@ -387,11 +425,11 @@ list_hosts
 
 **Remote host unreachable:**
 - Check host URL in `~/.aimaestro/hosts.json`
-- Verify network connectivity: `curl http://<host-url>/api/sessions`
+- Verify network connectivity: `curl http://<host-url>/api/hosts/identity`
 - Ensure AI Maestro is running on remote host
 
 **Agent not found on remote host:**
-- Verify agent exists on remote: `curl http://<host-url>/api/agents`
+- Verify agent exists on remote: `curl http://<host-url>/api/agents | jq '.agents[].alias'`
 - Check agent alias spelling
 
 ### 6. Instant Notifications (Real-time, Ephemeral)
@@ -679,13 +717,17 @@ send-aimaestro-message.sh frontend-dev \
 ### Sending Errors
 
 **Command fails:**
-- Check target session exists: `tmux list-sessions`
-- Verify AI Maestro is running: `curl http://localhost:23000/api/sessions`
+- Check target agent exists: `curl http://127.0.0.1:23000/api/agents | jq '.agents[].alias'`
+- For remote agents: `curl http://<host-url>/api/agents | jq '.agents[].alias'`
+- Verify AI Maestro is running: `curl http://127.0.0.1:23000/api/hosts/identity`
 - Check PATH: `which send-aimaestro-message.sh`
 
-**Invalid session name:**
-- Session names must match tmux session names exactly
-- Use `tmux list-sessions` to see valid names
+**Agent not found:**
+- The script automatically searches all hosts and tries fuzzy matching
+- If still not found, the error shows available hosts - check those for valid agent names
+- Use `list-agents.sh` to see all agents on local host
+- Use `list-agents.sh <host-id>` to see agents on a specific remote host
+- Try partial names - fuzzy matching handles typos and abbreviations
 
 ## References
 

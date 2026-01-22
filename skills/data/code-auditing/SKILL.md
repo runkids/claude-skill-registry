@@ -1,156 +1,71 @@
 ---
 name: code-auditing
-description: Provides code auditing methodology, checklists, and best practices. Use when user asks to "audit code", "find technical debt", "security review", "identify dead code", "analyze code quality", or "check best practices".
-allowed-tools: Read, Grep, Glob, Bash, TodoWrite
+description: 系统化审计与代码优化 - Code Review / Simplifier / Council / Performance。
 ---
 
-# Code Auditing Skill
+# Systematic Auditor (v3.0)
 
-Comprehensive methodology for systematic code quality audits.
+> **Role**: 质量的守护者。它不仅是 Code Reviewer，更是审计官(Auditor)和智囊团(Council)。
 
-## When to Use
+---
 
-- Comprehensive code quality audits
-- Security vulnerability assessments
-- Technical debt identification
-- Pre-release code reviews
-- Best practices verification
-- Library and dependency audits
+## 模式选择 (Mode Selection)
 
-## Audit Phases
+| **SIMPLIFY** | simplify, 简化, 优化 | 主动重构复杂代码，执行 KISS/DRY 策略 (Active Optimization) | `code-simplifier` |
 
-### Phase 0: Pre-Analysis Setup
-1. Check for project configuration files (package.json, tsconfig.json, etc.)
-2. Identify tech stack and main libraries
-3. Check for linting/formatting configs
-4. Run existing linting/testing commands as baseline
-5. Load documentation for identified core libraries
+---
 
-### Phase 1: Discovery
-1. Find all code files by type
-2. Create tracking list for each file
-3. Group files by module/feature for contextual analysis
+## 1. REVIEW 模式 (专科医生)
 
-### Phase 2: File-by-File Analysis
-For each file, analyze for:
-- Dead code (unused functions, variables, imports)
-- Code smells and anti-patterns
-- Custom implementations that could use established libraries
-- Security vulnerabilities
-- Performance issues
-- Outdated patterns or deprecated APIs
-- Missing error handling
-- Overly complex functions
-- Duplicate code
+路由到具体的专家 Persona 进行 **Code Review** (被动检查)：
+*   **Silent Hunter**: 查错 (Logical Bugs)
+*   **Type Architect**: 查类型 (Type Safety)
+*   **Security Guard**: 查安全 (Vulnerabilities)
 
-### Phase 3: Best Practices Verification
-For every library and framework:
-1. Retrieve official documentation
-2. Compare implementation against official patterns
-3. Identify deviations from recommendations
-4. Note outdated usage patterns
-5. Flag discouraged anti-patterns
+## 2. AUDIT 模式 (体检中心)
 
-### Phase 4: Pattern Detection
-Look for recurring issues:
-- Common anti-patterns across files
-- Duplicated logic that could be abstracted
-- Inconsistent coding styles
-- Missing error handling patterns
+### 执行协议
+1.  **加载规则**: 读取 `.agent/rules/` 下的所有规则。
+2.  **并行扫描**: 使用 `grep_search` 批量检测反模式。
+    *   *Zustand Destructuring*
+    *   *Circular Dependencies*
+    *   *Any Types*
+    *   *Console Logs*
+3.  **产出报告**: 生成 `doc/audits/audit-{date}.md`。
 
-### Phase 5: Library Recommendations
-For custom implementations:
-1. Check if current libraries provide the functionality
-2. Search for mature ecosystem packages
-3. Verify library health (commits, issues, activity)
-4. Check compatibility with project setup
+资源: [audit-guide.md](resources/audit-guide.md)
 
-### Phase 6: Comprehensive Report
-Generate detailed report with:
-- Executive summary
-- Critical issues requiring immediate attention
-- File-by-file findings
-- Prioritized action plan
-- Effort estimates
-- Library recommendations
+## 3. COUNCIL 模式 (长老会)
 
-## Issue Priority Levels
+### 执行协议
+1.  **召集**: 根据问题领域选择 3-5 位虚拟大神 (Personas)。
+2.  **辩论**: 模拟不同视角 (如 "Move Fast" vs "Be Correct")。
+3.  **裁决**: 输出综合行动建议。
 
-- **Critical** - Security vulnerabilities, broken functionality
-- **High Priority** - Performance bottlenecks, unmaintainable code
-- **Medium Priority** - Code quality, best practices deviations
-- **Low Priority** - Style, minor improvements
-- **Quick Wins** - Less than 30 minutes to fix
+资源: [council-elders.md](resources/personas/council-elders.md)
 
-## Analysis Categories
+## 4. SIMPLIFY 模式 (极简主义者)
 
-### Security
-- Hardcoded secrets
-- SQL injection risks
-- XSS vulnerabilities
-- Missing input validation
-- Exposed sensitive data
+> "Less Code = Less Bugs"
 
-### Performance
-- Inefficient algorithms
-- Blocking operations
-- Memory leaks
-- Missing caching opportunities
-- N+1 query patterns
+### 核心能力
+*   **Active Refactoring**: 不仅仅是提建议，而是**直接修改代码**。
+*   **Dead Code Elimination**: 积极删除未使用的 exports 和 components。
+*   **Logic Simplification**: 将 `if/else` 嵌套展平，提取 Utility 函数。
 
-### TypeScript/Type Safety
-- Missing type annotations
-- Use of `any` type
-- Custom types duplicating official types
-- Missing @types packages
+### 执行协议
+1.  **Analyze**: 识别复杂度热点 (Complexity Hotspots)。
+2.  **Plan**: 提出重构方案 (Refactor Plan)。
+3.  **Execute**: 使用 `replace_file_content` 执行原子化修改。
+4.  **Verify**: 确保不破坏现有功能 (Type Check + Logical Verify)。
 
-### Async/Promise Issues
-- Missing await keywords
-- Unhandled promise rejections
-- Callback hell
+---
 
-### Dead Code
-- Unused imports and exports
-- Unused functions, classes, and methods
-- Unused variables and types
-- Unreachable code blocks
-- Unused files (not imported anywhere)
-- Unused dependencies
+## 资源索引
 
-**Tools:**
-- JavaScript/TypeScript: `npx knip --reporter json`
-- Python: `deadcode . --dry`
+| 资源文件 | 用途 |
+|----------|------|
+| [audit-guide.md](resources/audit-guide.md) | 高性能扫描指南 (Grep Patterns) |
+| [council-elders.md](resources/personas/council-elders.md) | 大神人格矩阵 |
+| [simplifier-checklist.md](resources/simplifier-checklist.md) | 极简重构检查单 |
 
-**Important:** Always verify tool findings before reporting. Check for:
-- Dynamic imports (`import(variable)`)
-- Framework patterns (React components, decorators)
-- Re-exports for public API
-- Entry points (CLI scripts, serverless handlers)
-
-## Resources
-
-See the reference documents for complete methodologies:
-
-- `references/audit-methodology.md` - Full 6-phase audit process with detailed checklists
-- `references/dead-code-methodology.md` - Dead code detection tools, verification, and cleanup workflows
-
-## Quick Reference
-
-### Before Starting
-- [ ] Read project configuration files
-- [ ] Identify tech stack and libraries
-- [ ] Run existing linters as baseline
-- [ ] Create file tracking list
-
-### During Audit
-- [ ] Mark files as in-progress
-- [ ] Analyze each category systematically
-- [ ] Note specific line numbers
-- [ ] Document before/after examples
-- [ ] Mark files as completed
-
-### After Audit
-- [ ] Categorize all findings by priority
-- [ ] Generate comprehensive report
-- [ ] Save report to project root
-- [ ] Provide brief console summary

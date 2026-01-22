@@ -1,7 +1,7 @@
 {
   "name": "architect",
-  "repo": "wtthornton/TappsCodingAgents",
-  "path": "tapps_agents/resources/claude/skills/architect/SKILL.md",
-  "source": "github.com/wtthornton/TappsCodingAgents",
-  "downloaded_at": "2026-01-21T04:13:11.707564Z"
+  "repo": "Denissvgn/project-team-ag",
+  "path": ".agent/skills/architect/SKILL.md",
+  "source": "github.com/Denissvgn/project-team-ag",
+  "downloaded_at": "2026-01-22T04:13:05.510938Z"
 }

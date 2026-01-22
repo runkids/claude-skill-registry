@@ -1,12 +1,7 @@
 {
   "name": "product-discovery",
-  "description": "Methodology for discovering and specifying new software products. Use when starting greenfield projects, exploring new ideas, or defining MVP scope.",
-  "repo": "benshapyro/cadre-devkit-claude",
-  "category": "development",
-  "tags": [
-    "product",
-    "discovery"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "gabriel-tecnologia/gab-claude",
+  "path": ".claude/skills/product-discovery/SKILL.md",
+  "source": "github.com/gabriel-tecnologia/gab-claude",
+  "downloaded_at": "2026-01-22T03:14:29.824078Z"
 }

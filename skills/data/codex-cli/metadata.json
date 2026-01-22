@@ -1,7 +1,7 @@
 {
   "name": "codex-cli",
-  "repo": "creator-hian/claude-code-plugins",
-  "path": "codex-plugin/skills/codex-cli/SKILL.md",
-  "source": "github.com/creator-hian/claude-code-plugins",
-  "downloaded_at": "2026-01-21T03:28:16.983348Z"
+  "repo": "adaptationio/Skrillz",
+  "path": "skills/codex-cli/SKILL.md",
+  "source": "github.com/adaptationio/Skrillz",
+  "downloaded_at": "2026-01-22T03:07:08.495898Z"
 }

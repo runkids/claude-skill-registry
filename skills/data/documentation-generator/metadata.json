@@ -1,7 +1,7 @@
 {
   "name": "documentation-generator",
-  "repo": "CuriousLearner/devkit",
-  "path": "skills/documentation-generator/SKILL.md",
-  "source": "github.com/CuriousLearner/devkit",
-  "downloaded_at": "2026-01-20T03:39:42.214607Z"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/agentdb/.claude/skills/documentation-generator/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-01-22T01:13:29.527141Z"
 }

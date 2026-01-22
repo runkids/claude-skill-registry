@@ -1,589 +1,211 @@
 ---
-name: agent-validation-linter
-description: Enforces validation pattern compliance across all agent profiles with automated detection and fixing
-category: quality-assurance
-version: 1.0.0
-dependencies: [bash, grep, sed]
+name: golangci-lint
+description: Initialize or update golangci-lint configuration for Go projects with comprehensive code quality checks, static analysis, and best practices enforcement
 ---
 
-# Agent Validation Linter Skill
+# golangci-lint Setup Skill
 
-**Purpose:** Enforces validation pattern compliance across all 21+ agent profiles, preventing validation anti-patterns and ensuring security best practices (CVSS 8.2 injection prevention).
+Configure professional-grade linting for Go projects with sensible defaults that balance code quality with pragmatic development.
+
+## Overview
+
+[golangci-lint](https://golangci-lint.run) is a fast, parallel linter aggregator for Go that runs 90+ linters simultaneously. It's the industry standard for Go code quality enforcement.
 
 **Benefits:**
-- ✅ Automated compliance detection
-- ✅ Auto-fix capability for common violations
-- ✅ CI/CD integration support
-- ✅ Prevents validation anti-patterns
-- ✅ 100% compliance enforcement
+- **Speed**: Runs linters in parallel with caching (5x faster than individual linters)
+- **Comprehensive**: 90+ linters covering code quality, bugs, performance, and style
+- **Configurable**: Highly customizable via YAML configuration
+- **CI/CD Ready**: Seamless integration with GitHub Actions, GitLab CI, and pre-commit hooks
+- **Editor Integration**: Works with VS Code, GoLand, Vim, and Emacs
 
----
+This skill provides a battle-tested configuration (in `assets/.golangci.yml`) optimized for golangci-lint v2.4.0+ that enables all linters by default while disabling overly strict or opinionated ones.
 
-## Quick Start
+## Prerequisites
 
-### Check All Agents
+1. **Go installed**: Go 1.21+ recommended (`go version`)
+2. **golangci-lint installed**: Version 2.4.0+
+   - macOS: `brew install golangci-lint`
+   - Other: `go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest`
+   - Verify: `golangci-lint --version`
+3. **Go module**: Project uses Go modules (`go.mod` exists)
 
-```bash
-./.claude/skills/agent-validation-linter/lint-agents.sh
-```
+## Instructions
 
-### Summary Only
-
-```bash
-./.claude/skills/agent-validation-linter/lint-agents.sh --summary
-```
-
-### Auto-Fix Violations
+### Step 1: Verify Project Setup
 
 ```bash
-./.claude/skills/agent-validation-linter/lint-agents.sh --fix
+# Verify Go module
+ls go.mod
+
+# Check for existing config
+ls -la .golangci.yml .golangci.yaml
+
+# Verify installation (should be version >=2)
+golangci-lint --version
 ```
 
-### Strict Mode (CI/CD)
+### Step 2: Copy Configuration File
+
+Copy the base configuration from assets:
 
 ```bash
-# Fails with exit code 1 if violations found
-./.claude/skills/agent-validation-linter/lint-agents.sh --strict
+# Copy template to project root
+cp assets/.golangci.yml .golangci.yml
 ```
 
----
+The asset configuration follows these principles:
+- **Enable all by default**: Maximum coverage with `default: all`
+- **Disable the noisy**: Removes linters that are too opinionated or project-specific
+- **Pragmatic over perfect**: Balances quality with development velocity
+- **Project-agnostic**: Works for most Go projects out of the box
 
-## Command Reference
+### Step 3: Run Initial Lint Check
 
-### Usage
+Test the configuration:
 
 ```bash
-./.claude/skills/agent-validation-linter/lint-agents.sh [OPTIONS]
+# Run linter on entire project
+golangci-lint run ./...
+
+# Verbose output to see active linters
+golangci-lint run -v ./...
+
+# Test specific linter
+golangci-lint run --disable-all --enable=govet ./...
 ```
 
-### Options
+### Step 6: Integrate with CI/CD
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `--fix` | Auto-fix agents that can be automatically corrected | false |
-| `--strict` | Fail on any violations (exit code 1) | false |
-| `--summary` | Show summary only (no detailed output) | false |
-| `--agent <path>` | Lint specific agent file | All agents |
-| `--help` | Show help message | - |
+#### GitHub Actions
 
----
-
-## Validation Checks
-
-### Check 1: Centralized Validation Skill Source ✅ Auto-Fixable
-
-**Required Pattern:**
-```bash
-source .claude/skills/json-validation/validate-success-criteria.sh
-```
-
-**Violation:**
-Agent missing centralized validation skill source.
-
-**Auto-Fix:**
-Injects source statement after "### 1. Read Success Criteria" section.
-
----
-
-### Check 2: validate_success_criteria() Call ✅ Auto-Fixable
-
-**Required Pattern:**
-```bash
-validate_success_criteria || exit 1
-```
-
-**Violation:**
-Agent sources validation skill but doesn't call validation function.
-
-**Auto-Fix:**
-Adds validation call immediately after source statement.
-
----
-
-### Check 3: No Inline Validation Code ⚠️ Manual Review Required
-
-**Anti-Pattern:**
-```bash
-# Old inline validation (deprecated)
-if ! echo "$AGENT_SUCCESS_CRITERIA" | jq -e '.' >/dev/null 2>&1; then
-    echo "❌ Invalid JSON" >&2
-    exit 1
-fi
-```
-
-**Violation:**
-Agent contains inline validation code instead of using centralized skill.
-
-**Fix:**
-Manual refactoring required - remove inline code, use centralized skill.
-
-**Reason:**
-Requires careful review to ensure no custom validation logic is lost.
-
----
-
-### Check 4: Provider Configuration ✅ Auto-Fixable
-
-**Required Pattern:**
-```markdown
-<!-- PROVIDER_PARAMETERS
-provider: zai
-model: glm-4.6
--->
-```
-
-**Violation:**
-Agent missing provider configuration block.
-
-**Auto-Fix:**
-Injects default provider configuration (zai + glm-4.6) after YAML frontmatter.
-
----
-
-## Output Formats
-
-### Detailed Output (Default)
-
-```
-Agent Validation Linter
-=======================
-
-Scanning: .claude/agents/cfn-dev-team/**/*.md
-
-✓ database-architect
-✓ backend-developer
-✗ root-cause-analyst
-  ⚠  Missing centralized validation skill source
-  ⚠  Missing validate_success_criteria() call
-  ⚠  Missing provider configuration (PROVIDER_PARAMETERS)
-✓ integration-tester
-...
-
-=======================
-Summary
-=======================
-Total agents scanned:  21
-Compliant:             18
-Non-compliant:         3
-Total violations:      9
-Compliance rate:       85.7%
-
-⚠ Violations found (use --fix to auto-correct)
-```
-
-### Summary Only (`--summary`)
-
-```
-Agent Validation Linter
-=======================
-
-Scanning: .claude/agents/cfn-dev-team/**/*.md
-
-=======================
-Summary
-=======================
-Total agents scanned:  21
-Compliant:             18
-Non-compliant:         3
-Total violations:      9
-Compliance rate:       85.7%
-
-⚠ Violations found (use --fix to auto-correct)
-```
-
-### With Auto-Fix (`--fix`)
-
-```
-✗ root-cause-analyst
-  ⚠  Missing centralized validation skill source
-  ⚠  Missing validate_success_criteria() call
-  ⚠  Missing provider configuration (PROVIDER_PARAMETERS)
-  🔧  Auto-fixing...
-  ✓  Fixed root-cause-analyst.md
-
-=======================
-Summary
-=======================
-Total agents scanned:  21
-Compliant:             21
-Non-compliant:         0
-Auto-fixed:            3
-Compliance rate:       100.0%
-
-✓ All agents compliant
-```
-
----
-
-## CI/CD Integration
-
-### Git Pre-Commit Hook
-
-Create `.git/hooks/pre-commit`:
-
-```bash
-#!/usr/bin/env bash
-#
-# Pre-commit hook: Enforce agent validation compliance
-
-echo "Running agent validation linter..."
-
-if ./.claude/skills/agent-validation-linter/lint-agents.sh --strict --summary; then
-    echo "✓ All agents compliant"
-    exit 0
-else
-    echo "✗ Agent validation failures detected"
-    echo "  Run: ./.claude/skills/agent-validation-linter/lint-agents.sh --fix"
-    exit 1
-fi
-```
-
-Make executable:
-```bash
-chmod +x .git/hooks/pre-commit
-```
-
-### GitHub Actions Workflow
+Already configured if using the `github-workflows` skill. Otherwise:
 
 ```yaml
-name: Agent Validation
-
-on: [push, pull_request]
-
-jobs:
-  validate-agents:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run agent validation linter
-        run: |
-          ./.claude/skills/agent-validation-linter/lint-agents.sh --strict
+- name: golangci-lint
+  uses: golangci/golangci-lint-action@v6
+  with:
+    version: v2.4.0
+    args: --timeout=5m
 ```
 
-### GitLab CI Pipeline
+#### GitLab CI
 
 ```yaml
-agent-validation:
+lint:
   stage: test
+  image: golangci/golangci-lint:v2.4.0
   script:
-    - ./.claude/skills/agent-validation-linter/lint-agents.sh --strict
-  only:
-    - merge_requests
-    - main
+    - golangci-lint run -v ./...
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 ```
 
----
+#### Taskfile Integration
 
-## Workflows
+```yaml
+version: '3'
 
-### Workflow 1: Weekly Compliance Check
+tasks:
+  lint:
+    desc: Run golangci-lint
+    cmds:
+      - golangci-lint run --timeout=5m ./...
+
+  lint:fix:
+    desc: Run with auto-fix
+    cmds:
+      - golangci-lint run --fix --timeout=5m ./...
+```
+
+#### Pre-commit Hook
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v2.4.0
+    hooks:
+      - id: golangci-lint
+        args: [--timeout=5m]
+```
+
+### Step 7: Document in README
+
+Add to your project's README.md:
+
+```markdown
+## Code Quality
+
+This project uses [golangci-lint](https://golangci-lint.run) for code quality enforcement.
+
+**⚠️ All linting issues MUST be fixed before pushing commits.**
+
+### Running the Linter
 
 ```bash
-# Run linter
-./.claude/skills/agent-validation-linter/lint-agents.sh
+# Check for issues
+golangci-lint run ./...
 
-# Review violations
-# If auto-fixable, apply fixes:
-./.claude/skills/agent-validation-linter/lint-agents.sh --fix
-
-# Verify fixes
-./.claude/skills/agent-validation-linter/lint-agents.sh --summary
-
-# Commit if changes made
-git add .claude/agents/
-git commit -m "fix(agents): Apply validation linter auto-fixes"
+# Auto-fix where possible
+golangci-lint run --fix ./...
 ```
 
-### Workflow 2: Validate Specific Agent
+### Pre-commit Checklist
 
-```bash
-# After creating new agent
-./.claude/skills/agent-validation-linter/lint-agents.sh \
-  --agent .claude/agents/cfn-dev-team/developers/new-agent.md
+1. ✅ Run `golangci-lint run ./...`
+2. ✅ Fix all reported issues
+3. ✅ Ensure tests pass: `go test ./...`
+4. ✅ Commit and push
 
-# If violations found, auto-fix
-./.claude/skills/agent-validation-linter/lint-agents.sh \
-  --agent .claude/agents/cfn-dev-team/developers/new-agent.md \
-  --fix
+CI automatically checks all PRs. PRs with linting errors will be blocked.
 ```
 
-### Workflow 3: Migration to Centralized Validation
+### Step 8: Configure Editor Integration
 
-```bash
-# Step 1: Check current state
-./.claude/skills/agent-validation-linter/lint-agents.sh --summary
+#### VS Code
 
-# Step 2: Auto-fix all auto-fixable violations
-./.claude/skills/agent-validation-linter/lint-agents.sh --fix
+Install [Go extension](https://marketplace.visualstudio.com/items?itemName=golang.go) and add to `settings.json`:
 
-# Step 3: Manually review agents with inline validation
-#  (Check 3 violations - cannot auto-fix)
-# For each agent with inline validation:
-#   1. Review custom validation logic
-#   2. Migrate to centralized skill
-#   3. Remove inline code
-
-# Step 4: Verify 100% compliance
-./.claude/skills/agent-validation-linter/lint-agents.sh --strict
+```json
+{
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": ["--fast"],
+  "go.lintOnSave": "workspace"
+}
 ```
 
----
+#### GoLand/IntelliJ IDEA
 
-## Auto-Fix Behavior
+1. Settings → Tools → File Watchers → Add (+)
+2. Select "golangci-lint"
+3. Configure: `golangci-lint run $FileDir$`
 
-### What Gets Fixed Automatically
+#### Vim/Neovim
 
-1. **Missing Source Statement:**
-   - Detects "## Success Criteria" section
-   - Injects centralized validation skill source
-   - Adds validation call
-   - Location: After "### 1. Read Success Criteria" heading
-
-2. **Missing Validation Call:**
-   - Detects existing source statement
-   - Adds `validate_success_criteria || exit 1` call
-   - Location: Immediately after source statement
-
-3. **Missing Provider Configuration:**
-   - Detects YAML frontmatter closing `---`
-   - Injects default provider configuration
-   - Uses zai + glm-4.6 by default
-   - Location: After frontmatter closing
-
-### What Requires Manual Review
-
-1. **Inline Validation Code:**
-   - Custom validation logic may exist
-   - Side effects need review
-   - Requires refactoring to centralized skill
-   - Cannot safely auto-migrate
-
-### Backup Safety
-
-- Creates `.bak` backup before auto-fix
-- Restores from backup if fix fails
-- Removes backup on successful fix
-- No data loss risk
-
----
-
-## Exit Codes
-
-| Code | Meaning | When |
-|------|---------|------|
-| 0 | Success | All agents compliant OR violations found but --strict not set |
-| 1 | Failure | Violations found AND --strict mode enabled |
-
----
-
-## Compliance Metrics
-
-### Target Compliance
-
-- **Production:** 100% compliance required
-- **Development:** 95%+ compliance recommended
-- **New Agents:** 100% compliance enforced via template generator
-
-### Compliance Rate Calculation
-
-```
-Compliance Rate = (Compliant Agents / Total Agents) × 100
+With `ale` plugin:
+```vim
+let g:ale_linters = {'go': ['golangci-lint']}
+let g:ale_go_golangci_lint_options = '--fast'
 ```
 
-Example:
-- Total Agents: 21
-- Compliant: 18
-- Non-Compliant: 3
-- Compliance Rate: (18 / 21) × 100 = 85.7%
+## Additional Resources
 
----
+- **Official documentation**: https://golangci-lint.run
+- **Configuration reference**: https://golangci-lint.run/usage/configuration/
+- **Linters list**: https://golangci-lint.run/usage/linters/
+- **GitHub repository**: https://github.com/golangci/golangci-lint
+- **Editor integrations**: https://golangci-lint.run/usage/integrations/
 
-## Examples
+## Expected Output
 
-### Example 1: Check Compliance
+After using this skill, your project will have:
 
-```bash
-$ ./.claude/skills/agent-validation-linter/lint-agents.sh --summary
+- Professional `.golangci.yml` configuration with 90+ linters
+- Balanced settings (strict but pragmatic)
+- CI/CD integration ready
+- Editor integration support
+- Fast, cached linting
+- Automated code quality enforcement
 
-Agent Validation Linter
-=======================
-
-Scanning: .claude/agents/cfn-dev-team/**/*.md
-
-=======================
-Summary
-=======================
-Total agents scanned:  21
-Compliant:             21
-Non-compliant:         0
-Compliance rate:       100.0%
-
-✓ All agents compliant
-```
-
-### Example 2: Fix Violations
-
-```bash
-$ ./.claude/skills/agent-validation-linter/lint-agents.sh --fix
-
-Agent Validation Linter
-=======================
-
-Scanning: .claude/agents/cfn-dev-team/**/*.md
-
-✗ root-cause-analyst
-  ⚠  Missing centralized validation skill source
-  ⚠  Missing validate_success_criteria() call
-  🔧  Auto-fixing...
-  ✓  Fixed root-cause-analyst.md
-
-✗ analyst
-  ⚠  Missing provider configuration (PROVIDER_PARAMETERS)
-  🔧  Auto-fixing...
-  ✓  Fixed analyst.md
-
-=======================
-Summary
-=======================
-Total agents scanned:  21
-Compliant:             21
-Non-compliant:         0
-Auto-fixed:            2
-Compliance rate:       100.0%
-
-✓ All agents compliant
-```
-
-### Example 3: Strict Mode (CI/CD)
-
-```bash
-$ ./.claude/skills/agent-validation-linter/lint-agents.sh --strict
-
-Agent Validation Linter
-=======================
-
-Scanning: .claude/agents/cfn-dev-team/**/*.md
-
-✗ root-cause-analyst
-  ⚠  Missing centralized validation skill source
-
-=======================
-Summary
-=======================
-Total agents scanned:  21
-Compliant:             20
-Non-compliant:         1
-Total violations:      1
-Compliance rate:       95.2%
-
-✗ STRICT MODE: Violations found
-$ echo $?
-1
-```
-
-### Example 4: Validate Specific Agent
-
-```bash
-$ ./.claude/skills/agent-validation-linter/lint-agents.sh \
-    --agent .claude/agents/cfn-dev-team/developers/new-agent.md
-
-Agent Validation Linter
-=======================
-
-✓ new-agent
-
-=======================
-Summary
-=======================
-Total agents scanned:  1
-Compliant:             1
-Non-compliant:         0
-Compliance rate:       100.0%
-
-✓ All agents compliant
-```
-
----
-
-## Integration with Other Skills
-
-### 1. JSON Validation Skill
-
-**Dependency:** Linter enforces usage of `json-validation` skill.
-
-**Check:** Verifies all agents source `validate-success-criteria.sh`.
-
-### 2. Agent Template Generator
-
-**Integration:** Generated agents are automatically compliant with linter checks.
-
-**Benefit:** New agents pass linter without modifications.
-
-### 3. Pre-Edit Backup
-
-**Safety:** Linter creates backups before auto-fixing (similar to pre-edit hook).
-
-**Rollback:** Failed fixes automatically restore from backup.
-
----
-
-## Troubleshooting
-
-### Error: Cannot find agents directory
-
-**Cause:** Running from wrong directory or agents directory missing.
-
-**Solution:**
-```bash
-# Run from project root
-cd /path/to/claude-flow-novice
-./.claude/skills/agent-validation-linter/lint-agents.sh
-```
-
-### Warning: Cannot auto-fix inline validation
-
-**Cause:** Agent contains inline validation code requiring manual review.
-
-**Solution:**
-1. Review custom validation logic
-2. Migrate to centralized skill pattern
-3. Remove inline code manually
-
-### Backup files (.bak) left behind
-
-**Cause:** Auto-fix encountered error during fix.
-
-**Solution:**
-```bash
-# Review backup and original
-diff agent.md agent.md.bak
-
-# Restore if needed
-mv agent.md.bak agent.md
-
-# Or remove backups if satisfied with fixes
-find .claude/agents -name "*.bak" -delete
-```
-
----
-
-## Roadmap
-
-### v1.1.0 (Planned)
-- [ ] Check for test-driven protocol compliance
-- [ ] Validate success metrics section presence
-- [ ] Check for proper completion protocol
-- [ ] Warn on deprecated confidence score patterns
-
-### v2.0.0 (Future)
-- [ ] JSON schema validation for YAML frontmatter
-- [ ] Check for tool availability (Read, Write, etc.)
-- [ ] Validate integration point documentation
-- [ ] Auto-generate compliance reports
-
----
-
-**Status:** Production-ready (v1.0.0)
-**Coverage:** 21+ agents
-**Auto-Fix Rate:** ~75% (3 of 4 checks)
-**CI/CD Ready:** ✅ Exit codes, strict mode, summary output
+Your Go code will meet professional quality standards with comprehensive checks for bugs, security issues, performance problems, and best practices.

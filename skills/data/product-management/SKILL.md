@@ -1,295 +1,435 @@
 ---
 name: product-management
-description: Assist with core product management activities including writing PRDs, analyzing features, synthesizing user research, planning roadmaps, and communicating product decisions. Use when you need help with PM documentation, analysis, or planning workflows that integrate with your codebase.
+description: Product management expertise for product strategy, roadmap planning, feature prioritization (RICE, ICE, MoSCoW), customer research, A/B testing, product analytics, and product-market fit. Use when building product roadmaps, prioritizing features, or defining product strategy.
 ---
-# Skill: Product management AI
 
-## Purpose
+# Product Management Expert
 
-Assist with core product management activities including writing product requirements documents (PRDs), analyzing feature requests, synthesizing user research, planning roadmaps, and communicating product decisions to stakeholders and engineering teams.
+Comprehensive product frameworks for strategy, roadmapping, prioritization, and product-market fit.
 
-## When to use this skill
+## Product Strategy
 
-- You need to **write or update PRDs** with clear requirements, success metrics, and technical considerations.
-- You're **evaluating feature requests** and need structured analysis of impact, effort, and priority.
-- You need to **synthesize user research** findings into actionable insights.
-- You're **planning roadmaps** and need to organize, prioritize, and communicate plans.
-- You need to **communicate product decisions** clearly to engineering, design, and business stakeholders.
-- You're doing **competitive analysis** or market research synthesis.
-- You need to **track and analyze product metrics** to inform decisions.
+### Product Vision Framework
 
-## Key capabilities
+```
+VISION COMPONENTS:
 
-Unlike point-solution PM tools:
+TARGET CUSTOMER:
+- Who are we building for?
+- What segments? What personas?
 
-- **Integrated with codebase**: Can reference actual code, APIs, and technical constraints.
-- **Context-aware**: Understands your specific product, architecture, and technical debt.
-- **Flexible templates**: Adapt documentation to your organization's needs.
-- **Version controlled**: All artifacts live in git alongside code.
-- **Collaborative**: Works within existing dev workflows (PRs, issues, docs).
+CUSTOMER NEED:
+- What problem are we solving?
+- What job to be done?
 
-## Inputs
+KEY BENEFIT:
+- Primary value proposition
+- Why customers will choose us
 
-- **Product context**: Current state, key stakeholders, strategic goals.
-- **Feature requests**: User feedback, business needs, or strategic initiatives.
-- **Technical constraints**: Known limitations, dependencies, or technical debt.
-- **User research**: Interview notes, survey results, analytics data.
-- **Business goals**: Metrics, OKRs, or success criteria to optimize for.
+DIFFERENTIATOR:
+- What makes us unique?
+- Competitive advantage
 
-## Out of scope
-
-- Making final product decisions (this is the PM's job; the skill assists).
-- Managing stakeholder relationships and politics.
-- Detailed UI/UX design work (use design tools and collaborate with designers).
-- Project management and sprint planning (use project management tools).
-
-## Conventions and best practices
-
-### PRD structure
-A good PRD should include:
-
-1. **Problem statement**: What user pain point or business need are we addressing?
-2. **Goals and success metrics**: What does success look like quantitatively?
-3. **User stories and use cases**: Who will use this and how?
-4. **Requirements**: Functional and non-functional requirements, prioritized.
-5. **Technical considerations**: Architecture implications, dependencies, constraints.
-6. **Design and UX notes**: Key interaction patterns or design requirements.
-7. **Risks and mitigations**: What could go wrong and how to address it.
-8. **Launch plan**: Rollout strategy, feature flags, monitoring.
-9. **Open questions**: What still needs to be decided or researched.
-
-### Feature prioritization
-Use structured frameworks to evaluate features:
-
-- **RICE**: Reach × Impact × Confidence / Effort
-- **ICE**: Impact × Confidence × Ease
-- **Value vs. Effort**: 2×2 matrix plotting value against implementation cost
-- **Kano Model**: Categorize features into basic, performance, and delighters
-
-### User research synthesis
-When synthesizing research:
-
-1. **Identify patterns**: What themes emerge across participants?
-2. **Quote verbatim**: Include actual user quotes to illustrate points.
-3. **Quantify when possible**: "7 out of 10 participants said..."
-4. **Segment findings**: Different user types may have different needs.
-5. **Connect to metrics**: How do qualitative findings explain quantitative data?
-
-### Roadmap planning
-Effective roadmaps should:
-
-- **Theme-based**: Group work into strategic themes, not just feature lists.
-- **Time-horizoned**: Now / Next / Later or Quarterly structure.
-- **Outcome-focused**: Emphasize goals and outcomes, not just outputs.
-- **Flexible**: Leave room for learning and adjustment.
-- **Communicated clearly**: Different views for different audiences.
-
-## Required behavior
-
-1. **Understand context deeply**: Review existing docs, code, and prior discussions before proposing changes.
-2. **Ask clarifying questions**: Don't assume; clarify ambiguous requirements or goals.
-3. **Be specific and actionable**: Avoid vague language; provide concrete, testable requirements.
-4. **Consider tradeoffs**: Explicitly discuss pros/cons of different approaches.
-5. **Connect to strategy**: Tie features and decisions back to higher-level goals.
-6. **Involve stakeholders**: Identify who needs to review or approve.
-7. **Think through edge cases**: Don't just focus on happy paths.
-8. **Make it measurable**: Propose concrete metrics to track success.
-
-## Required artifacts
-
-Depending on the task, generate:
-
-- **PRD document**: Comprehensive product requirements in markdown format.
-- **Feature analysis**: Structured evaluation of a feature request.
-- **Research synthesis**: Summary of user research findings with insights.
-- **Roadmap document**: Organized view of planned work with themes and timelines.
-- **Decision document**: Record of key product decisions and rationale.
-- **Competitive analysis**: Comparison of competitor features and approaches.
-- **Metric definitions**: Clear definitions of success metrics and how to measure them.
-
-## Implementation checklist
-
-### Writing a PRD
-- [ ] Understand the problem space and strategic context
-- [ ] Review related code, APIs, and technical constraints
-- [ ] Interview key stakeholders (engineering, design, business)
-- [ ] Research user needs and competitive landscape
-- [ ] Draft problem statement and goals
-- [ ] Define user stories and use cases
-- [ ] Specify functional and non-functional requirements
-- [ ] Document technical considerations and dependencies
-- [ ] Define success metrics and measurement approach
-- [ ] Identify risks and mitigation strategies
-- [ ] Plan rollout and launch approach
-- [ ] Review with stakeholders and iterate
-
-### Analyzing a feature request
-- [ ] Clarify the user problem or business need
-- [ ] Identify target users and use cases
-- [ ] Estimate impact (users affected, business value)
-- [ ] Assess implementation effort and complexity
-- [ ] Identify dependencies and risks
-- [ ] Check alignment with product strategy
-- [ ] Compare against alternatives
-- [ ] Calculate prioritization score (RICE, ICE, etc.)
-- [ ] Make recommendation with clear reasoning
-
-### Synthesizing user research
-- [ ] Review all research materials (transcripts, notes, data)
-- [ ] Identify key themes and patterns
-- [ ] Extract representative quotes
-- [ ] Segment findings by user type if relevant
-- [ ] Connect qualitative findings to quantitative data
-- [ ] Formulate insights and implications
-- [ ] Generate actionable recommendations
-- [ ] Prioritize recommendations by impact
-
-### Planning a roadmap
-- [ ] Review strategic goals and OKRs
-- [ ] Collect input from stakeholders
-- [ ] Assess current state and technical debt
-- [ ] Group potential work into strategic themes
-- [ ] Prioritize themes and initiatives
-- [ ] Estimate sizing and dependencies
-- [ ] Organize into time horizons (Now/Next/Later)
-- [ ] Define success criteria for each initiative
-- [ ] Create views for different audiences
-- [ ] Review and socialize with stakeholders
-
-## Example workflows
-
-### Example 1: Writing a PRD for a new feature
-
-```markdown
-# PRD: Advanced Search Functionality
-
-## Problem Statement
-Users frequently report difficulty finding specific items in our catalog when they have multiple criteria (price range, location, category, features). Our current search only supports simple text queries, leading to:
-- High bounce rates on search results pages (65% bounce rate vs 32% site average)
-- Increased support tickets asking for search help (150/month)
-- Lost conversion opportunities (estimated $500K annual revenue impact)
-
-## Goals and Success Metrics
-**Primary Goal**: Enable users to find relevant items quickly using multiple filters.
-
-**Success Metrics**:
-- Reduce search result page bounce rate from 65% to <40%
-- Increase search-to-purchase conversion rate by 25%
-- Reduce search-related support tickets by 50%
-- 70% of users engage with at least one filter within 30 days
-
-## User Stories
-
-### Must Have
-1. As a buyer, I want to filter by price range so I can find items within my budget
-2. As a buyer, I want to filter by location so I can find items near me
-3. As a buyer, I want to filter by category so I can narrow down item types
-4. As a buyer, I want to combine multiple filters so I can find exactly what I need
-5. As a buyer, I want to see filter counts so I know how many items match before applying
-
-### Should Have
-6. As a buyer, I want to save my filter preferences so I don't have to reapply them
-7. As a buyer, I want to see suggested filters based on my search query
-8. As a buyer, I want to sort filtered results by relevance, price, or date
-
-### Nice to Have
-9. As a buyer, I want to create saved searches that notify me of new matches
-10. As a buyer, I want to share a filtered search URL with others
+AMAZON PRESS RELEASE FORMAT:
+- Headline
+- Summary (who, what, when, where, why)
+- Problem statement
+- Solution description
+- Customer quote
+- How to get started
 ```
 
-### Example 2: Feature request analysis
+### Product-Market Fit
 
-```markdown
-# Feature Analysis: Dark Mode Support
+```
+PMF INDICATORS:
 
-## Request Summary
-**Source**: User feedback (150+ requests in past 6 months), competitive pressure
-**Description**: Add dark mode theme option to web and mobile apps
+QUANTITATIVE:
+- 40%+ would be "very disappointed" without product (Sean Ellis)
+- Strong organic growth/referrals
+- Low churn, high retention
+- Improving unit economics
 
-## User Need
-Users working in low-light environments report eye strain with current light-only theme. Power users (25% of DAU) spend 3+ hours/day in app and strongly prefer dark mode.
+QUALITATIVE:
+- Customers actively advocating
+- Word of mouth driving acquisition
+- Pull from market (not push)
+- Customers expanding usage
 
-## Prioritization Score
+PMF SURVEY:
+"How would you feel if you could no longer use [product]?"
+- Very disappointed → Target 40%+
+- Somewhat disappointed
+- Not disappointed
 
-Using RICE framework:
-- **Reach**: 750K users = 750
-- **Impact**: 8/10 (high for target segment) = 0.8
-- **Confidence**: 85% = 0.85
-- **Effort**: 7 weeks = 7
-
-**RICE Score**: (750 × 0.8 × 0.85) / 7 = **73.2**
-
-## Recommendation
-
-**Proceed with Option 1 (Full Dark Mode)**
-
-**Reasoning**:
-- High impact for large user segment (45% of base)
-- Strong user demand and competitive pressure
-- Effort is reasonable relative to value
-- RICE score above our threshold (>50)
-- Aligns with product, technical, and business strategy
+PMF STAGES:
+1. Problem-Solution Fit: Validated problem worth solving
+2. Product-Market Fit: Solution resonates with market
+3. Business Model Fit: Sustainable economics
+4. Scale: Growth mechanics work
 ```
 
-## Common PM artifacts
+### Jobs to Be Done (JTBD)
 
-### PRD (Product Requirements Document)
-Comprehensive specification of what to build and why. Include problem statement, goals, user stories, requirements, technical considerations, risks, and launch plan.
+```
+JOB STATEMENT:
+When [situation], I want to [motivation], so I can [expected outcome].
 
-### Feature Brief
-Lighter-weight than PRD; quick summary of a feature idea with key details. Use for early-stage exploration before committing to full PRD.
+FORCES OF PROGRESS:
+Push: Current pain/frustration
+Pull: Attraction to new solution
+Anxiety: Concerns about switching
+Habit: Comfort with status quo
+```
 
-### User Research Synthesis
-Summary of user research findings (interviews, surveys, usability tests) with patterns, insights, and recommendations.
+See [Customer Research Methods](./references/customer-research-methods.md) for detailed JTBD methodology and interview techniques.
 
-### Roadmap
-Strategic plan of what to build over time. Organize by themes and time horizons; focus on outcomes not just outputs.
+## Roadmap Planning
 
-### Decision Document
-Record of important product decisions, the options considered, the decision made, and the reasoning. Critical for institutional memory.
+### Roadmap Types
 
-### Launch Plan
-Detailed plan for rolling out a feature including phases, feature flags, metrics, monitoring, and rollback procedures.
+| Type          | Timeframe  | Audience            | Detail Level |
+| ------------- | ---------- | ------------------- | ------------ |
+| **Vision**    | 2-5 years  | Board, executives   | Themes       |
+| **Strategic** | 1-2 years  | Leadership          | Initiatives  |
+| **Release**   | 3-6 months | Teams, stakeholders | Features     |
+| **Sprint**    | 2-4 weeks  | Dev team            | User stories |
 
-### Competitive Analysis
-Comparison of competitors' features, approaches, and positioning. Inform product strategy and feature prioritization.
+### OKR Framework for Product
 
-### One-Pager
-Executive summary of a product initiative. Use to communicate to leadership and get alignment.
+```
+PRODUCT OKR STRUCTURE:
 
-## Best practices for AI-assisted PM work
+OBJECTIVE: [Qualitative goal]
 
-### When using AI to write PRDs
-- Provide comprehensive context about the product, users, and technical constraints.
-- Review and edit generated content carefully; AI may miss nuances or make wrong assumptions.
-- Use AI for structure and first drafts; refine with human judgment and stakeholder input.
-- Validate technical details with engineering; don't assume AI knows your architecture.
+KEY RESULT 1: [Metric] from [X] to [Y]
+KEY RESULT 2: [Metric] from [X] to [Y]
+KEY RESULT 3: [Metric] from [X] to [Y]
 
-### When using AI for feature analysis
-- Provide quantitative data when possible (usage numbers, customer feedback counts).
-- Use structured frameworks (RICE, ICE) to make analysis consistent and defensible.
-- Don't let AI make the final decision; use it to organize thinking and surface considerations.
-- Supplement AI analysis with qualitative stakeholder input and strategic context.
+EXAMPLE:
+O: Become the preferred solution for enterprise customers
+KR1: Increase enterprise NPS from 40 to 60
+KR2: Reduce enterprise churn from 8% to 4%
+KR3: Increase enterprise ACV from $50K to $75K
+```
 
-### When using AI for research synthesis
-- Provide full transcripts or detailed notes for best results.
-- Ask AI to identify patterns but validate with your own reading of the data.
-- Use AI to extract quotes and organize themes; add your own interpretation and implications.
-- Don't let AI over-summarize; sometimes important details are in the nuances.
+## Feature Prioritization
 
-## Safety and escalation
+### RICE Framework
 
-- **Strategic decisions**: AI should inform, not make, key product decisions. Involve human PMs and stakeholders.
-- **User data**: Don't feed PII or sensitive user data to AI without proper data handling procedures.
-- **Technical feasibility**: Always validate technical assumptions and effort estimates with engineering.
-- **Competitive intelligence**: Be cautious about including confidential competitive info in prompts.
-- **Tone and voice**: Review and adjust tone for your audience; AI may be too formal or informal.
+```
+RICE SCORE = (Reach x Impact x Confidence) / Effort
 
-## Integration with other skills
+REACH: How many customers affected per quarter
+- Count: Number of users, customers, transactions
 
-This skill can be combined with:
+IMPACT: Effect on individual customer
+- 3 = Massive
+- 2 = High
+- 1 = Medium
+- 0.5 = Low
+- 0.25 = Minimal
 
-- **Data querying**: To analyze product metrics and user behavior data.
-- **AI data analyst**: To perform deeper quantitative analysis for feature decisions.
-- **Frontend UI integration**: To implement features designed in PRDs.
-- **Internal tools**: To build PM tools like feature flag dashboards or metrics viewers.
+CONFIDENCE: How sure are we
+- 100% = High confidence
+- 80% = Medium
+- 50% = Low
+
+EFFORT: Person-months of work
+- Engineering time
+- Design time
+- PM time
+
+EXAMPLE:
+| Feature | Reach | Impact | Conf | Effort | RICE |
+|---------|-------|--------|------|--------|------|
+| A | 5000 | 2 | 80% | 3 | 2667 |
+| B | 1000 | 3 | 100% | 1 | 3000 |
+| C | 10000 | 1 | 50% | 5 | 1000 |
+```
+
+### ICE Framework
+
+```
+ICE SCORE = Impact x Confidence x Ease
+
+IMPACT (1-10):
+How much will this move our key metric?
+
+CONFIDENCE (1-10):
+How sure are we about impact estimate?
+
+EASE (1-10):
+How easy to implement?
+
+Note: Simpler than RICE, good for quick decisions
+```
+
+### MoSCoW Method
+
+| Category        | Definition                  | Guidance              |
+| --------------- | --------------------------- | --------------------- |
+| **Must Have**   | Non-negotiable for release  | Core functionality    |
+| **Should Have** | Important but not critical  | High value, can defer |
+| **Could Have**  | Nice to have                | If time permits       |
+| **Won't Have**  | Out of scope (this release) | Future consideration  |
+
+### Kano Model
+
+```
+CATEGORIES:
+
+BASIC (Must-be):
+- Expected features
+- Absence causes dissatisfaction
+- Example: Login functionality
+
+PERFORMANCE (Linear):
+- More is better
+- Satisfaction proportional to fulfillment
+- Example: Speed, capacity
+
+DELIGHTERS (Excitement):
+- Unexpected features
+- Absence doesn't cause dissatisfaction
+- Presence greatly increases satisfaction
+- Example: Innovative features
+```
+
+## Customer Research
+
+### Research Methods
+
+| Method              | When to Use              | Sample Size | Time      |
+| ------------------- | ------------------------ | ----------- | --------- |
+| **User Interviews** | Deep understanding       | 5-15        | 2-4 weeks |
+| **Surveys**         | Quantify findings        | 100-1000+   | 1-2 weeks |
+| **Usability Tests** | Validate designs         | 5-8         | 1-2 weeks |
+| **A/B Tests**       | Compare options          | 1000+       | 2-4 weeks |
+| **Analytics**       | Understand behavior      | N/A         | Ongoing   |
+| **Card Sorting**    | Information architecture | 15-30       | 1 week    |
+| **Diary Studies**   | Long-term behavior       | 10-20       | 2-4 weeks |
+
+See [Customer Research Methods](./references/customer-research-methods.md) for detailed interview frameworks, persona templates, and usability testing protocols.
+
+## Product Analytics
+
+### Key Metrics Framework
+
+```
+PIRATE METRICS (AARRR):
+
+ACQUISITION:
+- How do users find us?
+- Metrics: Traffic, signups, installs
+
+ACTIVATION:
+- First positive experience
+- Metrics: Onboarding completion, first value
+
+RETENTION:
+- Do they come back?
+- Metrics: DAU/MAU, cohort retention
+
+REVENUE:
+- Do they pay?
+- Metrics: Conversion, ARPU, LTV
+
+REFERRAL:
+- Do they tell others?
+- Metrics: NPS, referral rate, viral coefficient
+```
+
+### Product Health Metrics
+
+| Metric               | Formula                           | Target   |
+| -------------------- | --------------------------------- | -------- |
+| **DAU/MAU**          | Daily users / Monthly users       | 20-50%+  |
+| **Activation Rate**  | Completed setup / Signups         | 40-60%+  |
+| **Feature Adoption** | Users using feature / Total users | Varies   |
+| **Time to Value**    | Days to first value               | Minimize |
+| **Power Users**      | Heavy users / Total users         | 15-25%   |
+
+See [Analytics and Experimentation](./references/analytics-and-experimentation.md) for detailed cohort analysis, retention benchmarks, and event tracking strategies.
+
+## A/B Testing
+
+### Experiment Framework
+
+```
+EXPERIMENT DESIGN:
+
+HYPOTHESIS:
+If we [change], then [metric] will [improve/decrease] because [rationale].
+
+METRICS:
+- Primary: The metric you're trying to move
+- Secondary: Other metrics to monitor
+- Guardrails: Metrics that shouldn't degrade
+
+SAMPLE SIZE:
+Use calculator based on:
+- Baseline conversion rate
+- Minimum detectable effect (MDE)
+- Statistical significance (usually 95%)
+- Power (usually 80%)
+
+DURATION:
+- At least 1 business cycle
+- Adequate sample size
+- Account for novelty effects
+```
+
+### Decision Framework
+
+- **Ship**: Stat sig + practical sig + no negative guardrails
+- **Iterate**: Directionally positive but not stat sig, or mixed results
+- **Kill**: No effect or negative impact
+- **Investigate**: Unexpected results, large variance, segment differences
+
+See [Analytics and Experimentation](./references/analytics-and-experimentation.md) for detailed statistical concepts, common pitfalls, and segmentation analysis.
+
+## Product Launches
+
+### Launch Checklist
+
+```
+PRE-LAUNCH:
+- [ ] Feature complete and tested
+- [ ] Documentation ready
+- [ ] Support team trained
+- [ ] Marketing materials prepared
+- [ ] Sales team enabled
+- [ ] Beta feedback incorporated
+- [ ] Success metrics defined
+
+LAUNCH:
+- [ ] Staged rollout plan
+- [ ] Monitoring dashboards live
+- [ ] War room established
+- [ ] Communication sent
+- [ ] Feature flags enabled
+
+POST-LAUNCH:
+- [ ] Monitor metrics and feedback
+- [ ] Address critical issues
+- [ ] Gather early learnings
+- [ ] Celebrate wins
+- [ ] Retrospective scheduled
+```
+
+### Go-to-Market Plan
+
+| Element               | Description                  |
+| --------------------- | ---------------------------- |
+| **Target Segment**    | Who is this for?             |
+| **Value Proposition** | Why will they care?          |
+| **Pricing**           | How will we charge?          |
+| **Distribution**      | How will they get it?        |
+| **Messaging**         | What will we say?            |
+| **Enablement**        | How will teams sell/support? |
+| **Measurement**       | How will we track success?   |
+
+## Product Discovery
+
+### Discovery Techniques
+
+| Technique               | Purpose              | When to Use       |
+| ----------------------- | -------------------- | ----------------- |
+| **Opportunity Mapping** | Identify problems    | Early discovery   |
+| **Story Mapping**       | Visualize journeys   | Planning releases |
+| **Design Sprints**      | Rapid prototyping    | Big bets          |
+| **Fake Door Tests**     | Validate demand      | Before building   |
+| **Wizard of Oz**        | Test concepts        | Complex features  |
+| **Concierge MVP**       | Manual service first | New markets       |
+
+### Opportunity Assessment
+
+```
+OPPORTUNITY CANVAS:
+
+PROBLEM:
+What problem are we solving?
+Who has this problem?
+How do they solve it today?
+
+EVIDENCE:
+What data supports this?
+Customer quotes/feedback?
+Market research?
+
+SOLUTION:
+What are we proposing?
+Why will it work?
+What's the MVP?
+
+ASSUMPTIONS:
+What must be true?
+What risks exist?
+How will we validate?
+
+OUTCOME:
+Success metrics?
+Business impact?
+Customer impact?
+```
+
+## Deliverable Templates
+
+### PRD Structure (One-Pager)
+
+```
+1. EXECUTIVE SUMMARY (3-4 sentences)
+- What: One-line description
+- Why: Core problem being solved
+- Who: Target users
+- Success: How we'll measure it
+
+2. BACKGROUND & CONTEXT
+- Current situation and pain points
+- Supporting data
+- Strategic alignment
+
+3. GOALS & SUCCESS METRICS
+- Primary goal and success metric
+- Secondary goals and metrics
+- Guardrail metrics
+
+4. USER STORIES
+Format: "As a [persona], I want to [action], so that [benefit]"
+- Acceptance criteria
+- Priority (Must/Should/Could Have)
+
+5. SOLUTION OVERVIEW
+- High-level description
+- Key user flows
+- Out of scope
+
+6. DESIGN & TECHNICAL CONSIDERATIONS
+- Mockups/wireframes
+- Dependencies
+- Scalability
+
+7. LAUNCH PLAN
+- Rollout strategy
+- Success criteria
+- Risk mitigation
+
+8. OPEN QUESTIONS
+- Unresolved decisions
+- Areas needing research
+```
+
+## Additional Resources
+
+For comprehensive product management frameworks and methodologies:
+
+- [Product Strategy Expert](./references/product-strategy-expert.md) - Complete PM reference guide
+- [Customer Research Methods](./references/customer-research-methods.md) - Interview frameworks, personas, usability testing
+- [Analytics and Experimentation](./references/analytics-and-experimentation.md) - Retention analysis, A/B testing, event tracking
+
+## See Also
+
+- [Data Science](../data-science/SKILL.md) - Analytics and ML
+- [Marketing](../marketing/SKILL.md) - Go-to-market strategy
+- [Business Strategy](../business-strategy/SKILL.md) - Strategic planning

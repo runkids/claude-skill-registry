@@ -1,161 +1,125 @@
 ---
 name: quality
-description: Run a comprehensive code quality review. Checks security, performance, maintainability, project conventions (CLAUDE.md), architecture, and testing. Runs rustfmt and bazel test. Use /quality to check code quality or validate before committing.
-allowed-tools: Read, Glob, Grep, Bash(rustfmt:*), Bash(bazel build:*), Bash(bazel test:*)
+description: "Comprehensive code quality assessment in spaces/[project]/. Use before commits, merges, or releases to ensure consistent quality."
+model: claude-sonnet-4-20250514
+allowed-tools: Read, Glob, Grep, Bash, Task
 ---
 
-# Code Quality Review
+# /quality
 
-You are an expert code quality reviewer. Perform a comprehensive, multi-pass review that produces the highest quality feedback. Think step-by-step through each category before forming conclusions.
+Comprehensive quality assessment of code using multi-agent analysis.
 
-## Review Process
+## Usage
 
-### Step 1: Preparation
+```bash
+/quality yourbench                  # Full assessment
+/quality yourbench --focus security # Security-focused
+/quality coordinatr --focus testing # Test coverage focus
+```
 
-1. **Identify target files**: If the user specified files, use those. Otherwise, check git status for staged/modified files:
-   ```bash
-   git status --porcelain
-   ```
+## Focus Areas
 
-2. **Run automated checks**:
-   - Format check: `rustfmt --edition 2021 --check $(find . -name "*.rs" -not -path "./bazel-*")`
-   - Test suite: `bazel test //...`
+| Flag | Analysis | Agent |
+|------|----------|-------|
+| (none) | All dimensions | All specialists |
+| `--focus security` | OWASP, vulnerabilities | security-auditor |
+| `--focus performance` | Bottlenecks, N+1 | performance-optimizer |
+| `--focus testing` | Coverage, test quality | test-engineer |
+| `--focus code` | Maintainability | code-reviewer |
 
-3. Report any failures from automated checks before proceeding.
+## Execution Flow
 
-### Step 2: Convention Analysis
+### 1. Locate Project
 
-Read `conventions.md` for detailed rules. For each file, verify:
+```bash
+ls spaces/[project]/
+```
 
-**Naming (CRITICAL)**
-- All identifiers use single words only
-- NO underscores in variable names, function names, or type names
-- Use module namespacing instead of compound names
-- Use full descriptive names, never abbreviate
+### 2. Run Automated Checks
 
-**Module Organization**
-- No `mod` directive anywhere (use `pub use` instead)
-- Maximum re-export depth is one level (`pub use a;` only)
-- Never glob re-export (`pub use a::*` is forbidden)
-- Deep imports are for local use only, never re-exported
+```bash
+cd spaces/[project]
+npm test -- --coverage
+npm run lint
+npm run type-check  # if TypeScript
+```
 
-**Code Style**
-- No comments in code (code must be self-documenting)
-- Prefer turbofish `::<Type>` at call sites over type annotations on bindings
-- Use early returns over deep nesting
-- Prefer functional combinators (`.and_then()`, `.map()`, `.ok_or()`) over explicit if-else
-- Keep functions small and focused
+### 3. Agent Analysis
 
-**Error Handling**
-- Always use `miette` for errors with `#[diagnostic]` attributes
-- Include error codes, help text, and suggestions
+Coordinate specialists via Task tool:
+- **code-reviewer**: Complexity, best practices
+- **security-auditor**: OWASP Top 10
+- **performance-optimizer**: N+1 queries, bottlenecks
+- **test-engineer**: Coverage, test quality
 
-### Step 3: Security Analysis
-
-Read `security.md` for detailed checklist. Check for:
-
-- **Secrets**: No hardcoded API keys, passwords, tokens, or credentials
-- **Injection**: No command injection, SQL injection, or path traversal vulnerabilities
-- **Input Validation**: All external input validated at system boundaries
-- **Error Messages**: No stack traces or sensitive info exposed in errors
-- **Dependencies**: Check for known vulnerabilities in dependencies
-- **Access Control**: Proper authorization checks on sensitive operations
-
-### Step 4: Performance Analysis
-
-Read `performance.md` for patterns. Evaluate:
-
-- **Allocations**: Unnecessary `.clone()`, `.to_string()`, or `Box` usage
-- **Iteration**: Using `.collect()` when streaming would work, N+1 patterns
-- **Data Structures**: Appropriate choice (Vec vs HashMap vs BTreeMap)
-- **Async**: Blocking operations in async contexts, proper use of spawn
-- **Complexity**: O(n^2) or worse algorithms where O(n log n) is possible
-
-### Step 5: Architecture Analysis
-
-Verify structural quality:
-
-- **Single Responsibility**: Each function/module does one thing
-- **Module Boundaries**: Clear separation of concerns
-- **Dependencies**: No circular dependencies
-- **Patterns**: Consistent with existing codebase patterns
-- **DRY**: No unnecessary duplication (but don't over-abstract)
-
-### Step 6: Error Handling Quality
-
-Beyond just using miette, check:
-
-- Errors are propagated appropriately (not swallowed)
-- Error context is preserved through the call stack
-- Recovery strategies are clear
-- Panics are only used for programming errors, not runtime conditions
-
-## Output Format
-
-Always produce output in this exact format:
+### 4. Generate Report
 
 ```markdown
-## Quality Review Summary
+## Quality Assessment: [project]
 
-| Category | Status | Issues |
-|----------|--------|--------|
-| Formatting | PASS/WARN/FAIL | N |
-| Tests | PASS/WARN/FAIL | N |
-| Conventions | PASS/WARN/FAIL | N |
-| Security | PASS/WARN/FAIL | N |
-| Performance | PASS/WARN/FAIL | N |
-| Architecture | PASS/WARN/FAIL | N |
-| Error Handling | PASS/WARN/FAIL | N |
+**Overall Score: XX/100** [status]
 
-**Overall**: PASS/WARN/FAIL
+### Code Quality: XX/100
+- Issues found
+- Recommendations
 
-## Detailed Findings
+### Security: XX/100
+- Critical/High/Medium issues
+- Recommendations
 
-### Formatting
-[rustfmt output or "All files properly formatted"]
+### Performance: XX/100
+- Bottlenecks identified
+- Recommendations
 
-### Tests
-[bazel test output summary or "All tests passing"]
+### Testing: XX/100
+- Coverage percentage
+- Untested areas
 
-### Conventions
-[For each issue:]
-**[file:line]** - [Issue description]
-```rust
-// Current code
+### Priority Actions
+1. **CRITICAL**: [action]
+2. **HIGH**: [action]
+3. **MEDIUM**: [action]
 ```
-**Fix**: [Suggested fix]
+
+## Scoring
+
+| Score | Status | Meaning |
+|-------|--------|---------|
+| 90-100 | Excellent | Ship it |
+| 80-89 | Good | Minor improvements |
+| 70-79 | Acceptable | Address soon |
+| 60-69 | Concerning | Fix before merge |
+| <60 | Critical | Must fix |
+
+## Quality Dimensions
+
+### Code Quality
+- Cyclomatic complexity
+- Code duplication
+- SOLID principles
+- Dead code detection
 
 ### Security
-[Issues with severity: CRITICAL/HIGH/MEDIUM/LOW]
+- OWASP Top 10
+- Auth/authz patterns
+- Input validation
+- Secrets in code
 
 ### Performance
-[Issues with impact assessment]
+- N+1 query detection
+- Inefficient algorithms
+- Bundle size
+- Caching opportunities
 
-### Architecture
-[Issues with refactoring suggestions]
+### Testing
+- Line/branch coverage
+- Test quality
+- Edge case coverage
+- Integration test gaps
 
-### Error Handling
-[Issues with improvement suggestions]
-```
+## When to Use
 
-## Review Philosophy
-
-1. **Be Specific**: Every finding must include exact file:line references
-2. **Be Actionable**: Every issue must include a concrete fix suggestion
-3. **Prioritize**: Focus on high-impact issues first
-4. **Be Thorough**: Check every file systematically, don't skip
-5. **Think Step-by-Step**: Reason through each check before concluding
-6. **Avoid False Positives**: Only report actual issues, not style preferences beyond CLAUDE.md rules
-
-## Critical Rules to Enforce
-
-These are NON-NEGOTIABLE violations that must always be flagged:
-
-1. Underscores in identifiers (e.g., `my_variable` should be `variable` or use module namespacing)
-2. Comments in code (remove all comments, make code self-documenting)
-3. `mod` directive usage (must use `pub use` instead)
-4. Deep re-exports (only one level of re-export allowed)
-5. Type annotations on bindings instead of turbofish
-6. Missing miette diagnostics on error types
-7. Hardcoded secrets or credentials
-8. Unsanitized user input at boundaries
+- Before major release
+- Onboarding to new codebase
+- Periodic health checks
+- Before refactoring

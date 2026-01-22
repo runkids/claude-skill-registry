@@ -1,33 +1,33 @@
 ---
 name: hook-creator
-description: Create and configure Claude Code hooks for customizing agent behavior. Use when the user wants to (1) create a new hook, (2) configure automatic formatting, logging, or notifications, (3) add file protection or custom permissions, (4) set up pre/post tool execution actions, or (5) asks about hook events like PreToolUse, PostToolUse, Notification, etc.
+description: 创建和配置 Claude Code 钩子以自定义代理行为。当用户需要以下操作时使用：(1) 创建新钩子，(2) 配置自动格式化、日志记录或通知，(3) 添加文件保护或自定义权限，(4) 设置工具执行前后的操作，(5) 询问钩子事件如 PreToolUse、PostToolUse、Notification 等。
 ---
 
-# Hook Creator
+# Hook 钩子创建器
 
-Create Claude Code hooks that execute shell commands at specific lifecycle events.
+创建在特定生命周期事件中执行 shell 命令的 Claude Code 钩子。
 
-## Hook Creation Workflow
+## 钩子创建工作流程
 
-1. **Identify the use case** - Determine what the hook should accomplish
-2. **Select the appropriate event** - Choose from available hook events (see references/hook-events.md)
-3. **Design the hook command** - Write shell command that processes JSON input from stdin
-4. **Configure the matcher** - Set tool/event filter (use `*` for all, or specific tool names like `Bash`, `Edit|Write`)
-5. **Choose storage location** - User settings (`~/.claude/settings.json`) or project (`.claude/settings.json`)
-6. **Test the hook** - Verify behavior with a simple test case
+1. **确定使用场景** - 明确钩子需要完成的功能
+2. **选择合适的事件** - 从可用的钩子事件中选择（参见 references/hook-events.md）
+3. **设计钩子命令** - 编写从 stdin 处理 JSON 输入的 shell 命令
+4. **配置匹配器** - 设置工具/事件过滤器（使用 `*` 匹配所有，或指定工具名称如 `Bash`、`Edit|Write`）
+5. **选择存储位置** - 用户设置（`~/.claude/settings.json`）或项目（`.claude/settings.json`）
+6. **测试钩子** - 使用简单测试用例验证行为
 
-## Hook Configuration Structure
+## 钩子配置结构
 
 ```json
 {
   "hooks": {
-    "<EventName>": [
+    "<事件名称>": [
       {
-        "matcher": "<ToolPattern>",
+        "matcher": "<工具模式>",
         "hooks": [
           {
             "type": "command",
-            "command": "<shell-command>"
+            "command": "<shell命令>"
           }
         ]
       }
@@ -36,53 +36,56 @@ Create Claude Code hooks that execute shell commands at specific lifecycle event
 }
 ```
 
-## Common Patterns
+## 常用模式
 
-### Reading Input Data
+### 读取输入数据
 
-Hooks receive JSON via stdin. Use `jq` to extract fields:
+钩子通过 stdin 接收 JSON。使用 `jq` 提取字段：
 
 ```bash
-# Extract tool input field
+# 提取工具输入字段
 jq -r '.tool_input.file_path'
 
-# Extract with fallback
-jq -r '.tool_input.description // "No description"'
+# 带默认值的提取
+jq -r '.tool_input.description // "无描述"'
 
-# Conditional processing
+# 条件处理
 jq -r 'if .tool_input.file_path then .tool_input.file_path else empty end'
 ```
 
-### Exit Codes for PreToolUse
+### PreToolUse 的退出代码
 
-- `0` - Allow the tool to proceed
-- `2` - Block the tool and provide feedback to Claude
+- `0` - 允许工具继续执行
+- `2` - 阻止工具并向 Claude 提供反馈
 
-### Matcher Patterns
+### 匹配器模式
 
-- `*` - Match all tools
-- `Bash` - Match only Bash tool
-- `Edit|Write` - Match Edit or Write tools
-- `Read` - Match Read tool
+- `*` - 匹配所有工具
+- `Bash` - 仅匹配 Bash 工具
+- `Edit|Write` - 匹配 Edit 或 Write 工具
+- `Read` - 匹配 Read 工具
 
-## Quick Examples
+## 快速示例
 
-**Log all bash commands:**
+**记录所有 bash 命令：**
+
 ```bash
 jq -r '"\(.tool_input.command)"' >> ~/.claude/bash-log.txt
 ```
 
-**Auto-format TypeScript after edit:**
+**编辑后自动格式化 TypeScript：**
+
 ```bash
 jq -r '.tool_input.file_path' | { read f; [[ "$f" == *.ts ]] && npx prettier --write "$f"; }
 ```
 
-**Block edits to .env files:**
+**阻止编辑 .env 文件：**
+
 ```bash
 python3 -c "import json,sys; p=json.load(sys.stdin).get('tool_input',{}).get('file_path',''); sys.exit(2 if '.env' in p else 0)"
 ```
 
-## Resources
+## 资源文档
 
-- **Hook Events Reference**: See `references/hook-events.md` for detailed event documentation with input/output schemas
-- **Example Configurations**: See `references/examples.md` for complete, tested hook configurations
+- **钩子事件参考**：查看 `references/hook-events.md` 了解详细的事件文档，包含输入/输出架构
+- **示例配置**：查看 `references/examples.md` 获取完整的、经过测试的钩子配置

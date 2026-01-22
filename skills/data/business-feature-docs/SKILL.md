@@ -1,11 +1,11 @@
 ---
 name: business-feature-docs
-description: Create or update EasyPlatform business feature documentation in docs/business-features/{Module}/. Use when asked to document a feature, create module docs, update feature documentation, or add detailed feature specs. Triggers on "feature docs", "business feature documentation", "module documentation", "document feature", "update feature docs".
+description: Generate enterprise module documentation with 26-section structure and folder hierarchy. Use for module docs, enterprise features, detailed specs in docs/business-features/{Module}/. Includes README, INDEX, API-REFERENCE, detailed-features/. Triggers on "module docs", "enterprise feature docs", "business module", "26-section docs", "detailed feature specs". For single-file quick docs, use feature-docs instead.
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob, Task, TodoWrite
 ---
 
-<!-- SOURCE OF TRUTH: docs/templates/skills/business-feature-docs/SKILL.md -->
-<!-- Synced to: .claude/skills/ and .github/skills/ -->
+<!-- SYNC: Source of truth is docs/templates/skills/business-feature-docs/SKILL.md -->
+<!-- Keep in sync with .github/skills/business-feature-docs/SKILL.md -->
 
 # EasyPlatform Business Feature Documentation
 
@@ -432,3 +432,8 @@ Before writing any documentation:
 - [ ] API contracts include request/response shapes
 - [ ] All evidence references preserved from full doc
 - [ ] Patterns section has required (✅) and anti-patterns (❌)
+
+## Task Planning Notes
+
+- Always plan and break many small todo tasks
+- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed

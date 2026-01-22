@@ -1,7 +1,7 @@
 {
   "name": "tmux",
-  "repo": "aiskillstore/marketplace",
-  "path": "skills/bind/tmux/SKILL.md",
-  "source": "github.com/aiskillstore/marketplace",
-  "downloaded_at": "2026-01-21T03:37:35.851346Z"
+  "repo": "gupsammy/Claude-setup",
+  "path": "skills/tmux/SKILL.md",
+  "source": "github.com/gupsammy/Claude-setup",
+  "downloaded_at": "2026-01-22T04:13:16.192297Z"
 }

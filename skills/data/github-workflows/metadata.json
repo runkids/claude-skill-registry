@@ -1,7 +1,7 @@
 {
   "name": "github-workflows",
-  "repo": "JohnnyVicious/copilot-cli-examples",
-  "path": ".claude/skills/github-workflows/SKILL.md",
-  "source": "github.com/JohnnyVicious/copilot-cli-examples",
-  "downloaded_at": "2026-01-21T04:18:30.546941Z"
+  "repo": "sgaunet/claude-plugins",
+  "path": "plugins/go-specialist/skills/github-workflows/SKILL.md",
+  "source": "github.com/sgaunet/claude-plugins",
+  "downloaded_at": "2026-01-22T02:13:44.945132Z"
 }

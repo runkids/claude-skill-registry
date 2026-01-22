@@ -1,7 +1,7 @@
 {
   "name": "tier-management",
-  "repo": "pollinations/pollinations",
-  "path": ".claude/skills/tier-management/SKILL.md",
-  "source": "github.com/pollinations/pollinations",
-  "downloaded_at": "2026-01-21T02:42:02.295049Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/tier-management/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:42.043875Z"
 }

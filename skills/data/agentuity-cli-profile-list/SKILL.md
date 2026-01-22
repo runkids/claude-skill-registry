@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-profile-list
 description: List all available profiles
-version: "0.0.104"
+version: "0.1.2"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:

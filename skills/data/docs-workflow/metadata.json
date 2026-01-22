@@ -1,7 +1,7 @@
 {
   "name": "docs-workflow",
-  "repo": "ilude/claude-code-config",
+  "repo": "jezweb/claude-skills",
   "path": "skills/docs-workflow/SKILL.md",
-  "source": "github.com/ilude/claude-code-config",
-  "downloaded_at": "2026-01-21T02:37:49.638110Z"
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-22T01:30:27.606652Z"
 }

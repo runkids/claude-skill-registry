@@ -1,6 +1,19 @@
 ---
 name: matchms
+display_name: Matchms
 description: Spectral similarity and compound identification for metabolomics. Use for comparing mass spectra, computing similarity scores (cosine, modified cosine), and identifying unknown compounds from spectral libraries. Best for metabolite identification, spectral matching, library searching. For full LC-MS/MS proteomics pipelines use pyopenms.
+version: 1.0.0
+author: K-Dense Inc.
+license: Apache-2.0 license
+tags: ["chemistry", "drug-discovery", "molecular"]
+category: chemistry
+allowed_tools: ["code_execute", "web_search", "read_url"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 10
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # Matchms

@@ -1,454 +1,317 @@
-# ID8TODAY
-
-```yaml
 ---
 name: today
-description: Daily operating layer for ID8Labs. Manage tasks across projects, TV production, and life. Context-aware method suggestions.
-version: 1.0.0
-mcps: []
-subagents: [operations-manager]
-skills: [tracker]
-integrations:
-  - tracker (pulls project tasks, syncs completion)
-  - TV production (reality TV beats, shoots, deliverables)
-  - Life admin (personal tasks, appointments, errands)
----
-```
-
-## Purpose
-
-You are the daily command center for ID8Labs operations. You help Eddie manage his day across three domains:
-
-1. **ID8 Projects** - Active product work synced from Tracker
-2. **TV Production** - Reality TV production tasks (beats, shoots, edits)
-3. **Life Admin** - Personal tasks, appointments, errands
-
-You have access to a library of productivity methodologies and can suggest the right approach based on context (energy, volume, resistance).
-
+description: Interactive daily productivity review with guided priority setting. Supports morning planning, midday check-ins, and end-of-day wrap-ups. Use for daily ritual or cron automation.
+version: 1.1.0
+category: productivity
+last_updated: 2026-01-21
+related_skills:
+  - context-management
+  - planning
 ---
 
-## Commands
+# Today - Daily Productivity Skill
 
-### `/today`
-Show today's task view with priorities and time blocks.
+## Overview
 
-### `/today add [task]`
-Capture a new task. Auto-categorize to domain (id8/tv/life).
+A daily ritual skill that reviews your workspace activity, summarizes progress, identifies blockers, and suggests focus items for sustained productivity. Features **interactive review mode** that guides you through priority setting and progress tracking.
 
-### `/today done [task]`
-Mark task complete. Sync to tracker if project-related.
+## Quick Start
 
-### `/today apply [method]`
-Apply a specific productivity method to organize today.
+```bash
+# Interactive review (auto-detects morning/midday/evening)
+/today
 
-### `/today suggest`
-Analyze current context and suggest the best method for today.
+# Specific modes
+/today morning    # Full review + set priorities
+/today midday     # Quick progress check
+/today --eod      # End-of-day wrap-up
 
-### `/today close`
-End-of-day review. Archive completed, roll forward incomplete.
+# Weekly review
+/today --week
 
-### `/today tomorrow`
-Set up tomorrow's priorities based on today's outcomes.
-
-### `/today week`
-Weekly planning view across all domains.
-
----
-
-## Process
-
-### Morning Setup (5 minutes)
-
-```
-1. PULL
-   - Sync active tasks from Tracker
-   - Check TV production calendar
-   - Review life admin inbox
-
-2. ASSESS
-   - What's the volume? (light/medium/heavy)
-   - What's my energy? (low/medium/high)
-   - What's my resistance? (which tasks am I avoiding?)
-
-3. APPLY
-   - Select method based on context
-   - Organize tasks using chosen method
-   - Set time blocks if appropriate
-
-4. COMMIT
-   - Lock top 3 priorities
-   - Set first task
-   - Begin
+# Cron automation (runs at 6 AM)
+0 6 * * * /path/to/workspace-hub/scripts/productivity/daily_today.sh
 ```
 
-### During Day
+## Interactive Modes
 
-```
-1. CAPTURE
-   - New tasks → inbox (don't organize mid-work)
-   - Two-minute rule: do it now if quick
+| Mode | When | Duration | What It Does |
+|------|------|----------|--------------|
+| **Morning** | Before noon | 5 min | Full review, set 3 priorities |
+| **Midday** | Noon-5pm | 2 min | Progress check, log blockers |
+| **Evening** | After 5pm / `--eod` | 3 min | Wrap-up, capture tomorrow's focus |
 
-2. EXECUTE
-   - Follow the method's rhythm
-   - Single-task, no context switching
-   - Take breaks as method prescribes
+### Morning Flow
+1. Review yesterday's git activity
+2. See open TODOs and in-progress work
+3. **Interactive:** Choose your top 3 priorities
+4. Optional: Block focus time
 
-3. ADJUST
-   - If derailed, don't restart—just pick up
-   - Move tasks forward, not to tomorrow
-   - Protect deep work blocks
-```
+### Midday Flow
+1. Quick status on priority #1
+2. Log any blockers
+3. Adjust priorities if needed
 
-### Evening Close (5 minutes)
+### Evening Flow
+1. Mark priorities as done/partial/blocked
+2. Capture blockers for tomorrow
+3. Set tomorrow's starting focus
 
-```
-1. REVIEW
-   - What got done?
-   - What blocked progress?
-   - What needs to roll forward?
+## When to Use
 
-2. SYNC
-   - Update Tracker with completions
-   - Archive completed tasks
-   - Move incomplete to tomorrow
+- Start of workday ritual
+- After returning from break/vacation
+- Weekly planning sessions
+- Automated daily reports via cron
+- Before standup meetings
 
-3. TOMORROW
-   - Set top 3 for tomorrow
-   - Clear inbox
-   - Pre-decide first task
-```
+## Instructions
 
----
+### Daily Review Process
 
-## Context Detection
+Execute these steps in order:
 
-### Volume Assessment
+#### 1. Gather Context (Automated)
 
-| Signal | Volume | Method Suggestions |
-|--------|--------|-------------------|
-| <5 tasks | Light | Eat the Frog, Ivy Lee |
-| 5-10 tasks | Medium | 1-3-5, Eisenhower |
-| >10 tasks | Heavy | GTD Capture, Must-Should-Could |
+Collect data from these sources:
 
-### Energy Assessment
+| Source | What to Extract |
+|--------|-----------------|
+| Git logs | Commits from last 24h across all repos |
+| TODO files | Open items in `TODO.md`, `TASKS.md` |
+| Specs | In-progress specs in `specs/modules/` |
+| Calendar | Today's meetings (if integrated) |
+| Notes | Recent entries in daily notes |
 
-| Signal | Energy | Method Suggestions |
-|--------|--------|-------------------|
-| Low/tired | Low | Two-Minute Rule, Batching |
-| Normal | Medium | Eisenhower, Time Blocking |
-| High/motivated | High | Eat the Frog, Deep Work |
-
-### Resistance Assessment
-
-| Signal | Resistance | Method Suggestions |
-|--------|------------|-------------------|
-| Avoiding hard tasks | High | Eat the Frog, Pomodoro |
-| Feeling scattered | High | GTD, Kanban |
-| Normal flow | Low | Any method works |
-
----
-
-## Method Selection Matrix
-
-| Context | Recommended Method | Why |
-|---------|-------------------|-----|
-| Heavy volume, low energy | Two-Minute Rule + Batching | Quick wins build momentum |
-| Light volume, high energy | Eat the Frog | Tackle the hardest thing first |
-| Scattered + overwhelmed | GTD Full Capture | Get everything out of your head |
-| Too many priorities | Eisenhower Matrix | Force urgency/importance decisions |
-| Consistent daily routine | Ivy Lee Method | Simple, repeatable structure |
-| Mixed task types | 1-3-5 Rule | Balanced ambition and realism |
-| Creative work day | Time Blocking | Protect deep work periods |
-| Admin/operations day | Batching | Group similar tasks |
-| Starting new week | Weekly Themes | Assign focus to each day |
-| Resistance to big task | Pomodoro | Make it small and timed |
-
----
-
-## Domain Integration
-
-### ID8 Projects
-
-**Sync from Tracker:**
-- Active project tasks marked for today
-- Decay warnings (projects needing attention)
-- Gate checkpoints approaching
-
-**Sync back to Tracker:**
-- Task completions
-- Activity logs
-- Blockers discovered
-
-**Pull pattern:**
-```
-/tracker status → extract today-tagged tasks
-/tracker pulse → check for decay warnings
-```
-
-### TV Production
-
-**Task types:**
-- Beat sheet development
-- Interview prep
-- Field directing
-- Edit reviews
-- Delivery deadlines
-
-**Context signals:**
-- Shoot days = blocked, no ID8 work
-- Edit days = need deep focus
-- Development days = creative work
-
-### Life Admin
-
-**Task types:**
-- Appointments
-- Errands
-- Personal admin
-- Health/fitness
-- Family/social
-
-**Context signals:**
-- Life tasks are supporting, not primary
-- Batch to specific times
-- Don't let them interrupt deep work
-
----
-
-## Task Capture Format
-
-When capturing tasks:
+#### 2. Generate Daily Summary
 
 ```markdown
-## Task
+## Daily Summary - {DATE}
 
-**Task:** {description}
-**Domain:** {id8 / tv / life}
-**Project:** {project-slug if id8}
-**Energy:** {low / medium / high required}
-**Duration:** {estimate in minutes}
-**Deadline:** {date if exists}
-**Resistance:** {0-5 how much are you avoiding?}
+### Completed Yesterday
+- [ ] List completed tasks from git commits
+- [ ] Closed issues/PRs
+
+### In Progress
+- [ ] Active branches/PRs
+- [ ] Open specs/plans
+
+### Blocked/Waiting
+- [ ] Items awaiting input
+- [ ] Dependency blockers
+
+### Today's Focus (Recommended)
+1. **High Priority:** [Most impactful task]
+2. **Quick Wins:** [Tasks completable in <30min]
+3. **Deep Work:** [Requires focus time]
 ```
 
-Quick capture format:
-```
-[domain] task description ~duration @deadline !resistance
-```
+#### 3. Long-Term Productivity Suggestions
 
-Examples:
-```
-[id8] write user auth flow ~60 @today !3
-[tv] review episode 3 beat ~30 @wed !1
-[life] dentist appointment ~60 @thu !2
-```
+Analyze patterns and suggest improvements:
 
----
+| Pattern | Suggestion |
+|---------|------------|
+| Many small commits | Consider batching related changes |
+| Stale branches | Clean up or merge abandoned work |
+| Repeated context switches | Block focus time for deep work |
+| No tests in commits | Add TDD to workflow |
+| Large uncommitted changes | Commit more frequently |
 
-## Output Format
+#### 4. Create Daily Log Entry
 
-### Daily View
+Save to `logs/daily/{YYYY-MM-DD}.md`:
 
 ```markdown
-# Today: {date}
-
-## Method: {selected method}
-{Brief description of how to use it today}
-
+---
+date: {YYYY-MM-DD}
+generated: auto
+reviewed: false
 ---
 
-## Top 3 (Non-negotiable)
-1. [ ] {task}
-2. [ ] {task}
-3. [ ] {task}
+# Daily Log - {DATE}
 
----
+## Summary
+[Auto-generated summary]
 
-## By Domain
+## Priorities
+1.
+2.
+3.
 
-### ID8 Projects
-| Task | Project | Est | Status |
-|------|---------|-----|--------|
-| {task} | {project} | {time} | [ ] |
+## Notes
+[Space for manual notes]
 
-### TV Production
-| Task | Show | Est | Status |
-|------|------|-----|--------|
-| {task} | {show} | {time} | [ ] |
-
-### Life Admin
-| Task | Est | Status |
-|------|-----|--------|
-| {task} | {time} | [ ] |
-
----
-
-## Time Blocks
-| Time | Block | Task |
-|------|-------|------|
-| 9-11 | Deep Work | {task} |
-| 11-12 | Admin | {batch} |
-| 1-3 | Deep Work | {task} |
-| 3-4 | Meetings | {call} |
-
----
-
-## Parking Lot
-{Tasks captured during day for later}
-
----
-
-## End of Day
-- Completed: {count}
-- Rolled forward: {count}
-- Energy: {reflection}
-- Tomorrow's first task: {task}
+## End of Day Review
+- [ ] Completed priorities
+- [ ] Blockers encountered
+- [ ] Tomorrow's focus
 ```
 
-### Weekly View
+### Data Sources Configuration
 
-```markdown
-# Week of {date}
+Configure in `.claude/config/today.yaml`:
 
-## Theme: {week's focus}
+```yaml
+today:
+  sources:
+    git:
+      enabled: true
+      lookback_hours: 24
+      repos:
+        - .  # Current repo
+        - ../related-project
 
----
+    files:
+      todo_patterns:
+        - "**/TODO.md"
+        - "**/TASKS.md"
+        - "**/.todo"
 
-## By Day
+      notes_dir: "logs/daily"
 
-### Monday: {theme}
-- Top 3: ...
+    calendar:
+      enabled: false  # Requires calendar integration
 
-### Tuesday: {theme}
-- Top 3: ...
+  output:
+    daily_log_dir: "logs/daily"
+    summary_format: "markdown"
 
-### Wednesday: {theme}
-- Top 3: ...
-
-### Thursday: {theme}
-- Top 3: ...
-
-### Friday: {theme}
-- Top 3: ...
-
----
-
-## ID8 Projects This Week
-| Project | Key Tasks | Status |
-|---------|-----------|--------|
-
-## TV Production This Week
-| Show | Key Tasks | Status |
-|------|-----------|--------|
-
----
-
-## Weekly Metrics
-- Tasks completed: {count}
-- Deep work hours: {count}
-- ID8 project progress: {summary}
+  automation:
+    cron_enabled: true
+    notify_on_complete: false
 ```
 
----
+## Cron Setup
 
-## Data Files
+### Installation
 
-### today.md
-Current day's task list and status.
-Location: `.id8labs/today/today.md`
+```bash
+# Make script executable
+chmod +x scripts/productivity/daily_today.sh
 
-### tomorrow.md
-Tomorrow's planned priorities.
-Location: `.id8labs/today/tomorrow.md`
-
-### parking-lot.md
-Captured tasks not yet prioritized.
-Location: `.id8labs/today/parking-lot.md`
-
-### preferences.md
-Method preferences, default time blocks, domain priorities.
-Location: `.id8labs/today/preferences.md`
-
----
-
-## Methods Library
-
-Access the full methods library at `frameworks/methods/`.
-
-Available methods:
-1. **Eisenhower Matrix** - Urgency vs importance quadrants
-2. **GTD (Getting Things Done)** - Full capture and process
-3. **Pomodoro Technique** - Timed work sprints
-4. **Eat the Frog** - Hardest task first
-5. **Time Blocking** - Calendar-based scheduling
-6. **Ivy Lee Method** - Six tasks, ranked
-7. **1-3-5 Rule** - 1 big, 3 medium, 5 small
-8. **Must-Should-Could** - Three-tier prioritization
-9. **Energy Mapping** - Match tasks to energy
-10. **Weekly Themes** - Day-based focus areas
-11. **Personal Kanban** - Visual workflow
-12. **Two-Minute Rule** - Quick task dispatch
-13. **Batching** - Group similar tasks
-14. **Hybrid Recipes** - Method combinations
-
-Use `/today apply [method]` to apply any method to today's tasks.
-
----
-
-## Tracker Integration
-
-### On Task Completion
-
-When marking an ID8 task complete:
-
-```
-1. Update today.md status
-2. If project task:
-   - Call /tracker log {project} "{task completed}"
-   - Check if milestone reached
-3. Archive to completed section
+# Add to crontab (runs at 6 AM daily)
+crontab -e
+# Add line:
+0 6 * * * /path/to/workspace-hub/scripts/productivity/daily_today.sh >> /tmp/daily_today.log 2>&1
 ```
 
-### On Day Close
+### Cron Script Features
+
+- Generates daily summary without interactive Claude
+- Creates log file in `logs/daily/`
+- Can trigger notifications (configurable)
+- Supports multiple workspace roots
+
+## Examples
+
+### Morning Ritual
 
 ```
-1. Sync all completions to tracker
-2. Log daily summary to relevant projects
-3. Check decay status of active projects
-4. Flag any projects needing attention tomorrow
+User: /today
+
+Claude: ## Daily Summary - 2026-01-21
+
+### Completed Yesterday
+- Merged PR #42: Add user authentication
+- Fixed 3 bugs in payment module
+- Updated API documentation
+
+### In Progress
+- Feature: Dashboard analytics (branch: feature/analytics)
+- Spec: Mobile app redesign (specs/modules/mobile-v2/)
+
+### Blocked
+- Waiting: Design review for mobile spec
+- Dependency: Backend team to deploy auth service
+
+### Today's Focus (Recommended)
+1. **High Priority:** Complete analytics dashboard tests
+2. **Quick Wins:** Review open PRs (2 waiting)
+3. **Deep Work:** Start mobile navigation implementation
+
+### Long-Term Suggestions
+- Consider: 15 context switches yesterday - block 2h focus time
+- Action: Stale branch `feature/old-feature` (30 days) - archive or delete
 ```
 
----
+### Weekly Planning
+
+```
+User: /today --week
+
+Claude: ## Weekly Summary - Week of 2026-01-20
+
+### Accomplishments
+- 23 commits across 4 repositories
+- 5 PRs merged, 2 pending
+- 2 specs completed
+
+### Patterns Observed
+- Most productive: Tuesday (8 commits)
+- Most meetings: Wednesday (4 hours)
+- Suggestion: Protect Tuesday mornings for deep work
+
+### Next Week Focus
+1. Complete mobile spec review
+2. Ship analytics v1
+3. Technical debt: Refactor auth module
+```
 
 ## Best Practices
 
 ### Do
-- Start day with method selection (2 minutes)
-- Protect at least one deep work block daily
-- Batch life admin to specific times
-- Close the day formally (5 minutes)
-- Pre-decide tomorrow's first task
+
+1. Run `/today` at consistent time each morning
+2. Review and adjust auto-generated priorities
+3. Update end-of-day notes before closing
+4. Use cron for consistent data collection
+5. Archive old daily logs monthly
 
 ### Don't
-- Don't reorganize mid-task (capture to inbox)
-- Don't context switch between domains
-- Don't skip the method—any system beats no system
-- Don't let today.md become a graveyard
-- Don't plan more than 6 hours of "real" work
 
-### When Derailed
-1. Stop and assess: What happened?
-2. Don't restart—just pick up from here
-3. Shorten the list, don't extend the day
-4. Protect tomorrow by being realistic today
+1. Skip the review - consistency builds habits
+2. Overload daily priorities (max 3-5 items)
+3. Ignore long-term suggestions repeatedly
+4. Let daily logs accumulate without review
+
+## Error Handling
+
+| Situation | Action |
+|-----------|--------|
+| No git activity | Note "No commits" - suggest catching up |
+| Missing config | Use defaults, create template config |
+| Calendar unavailable | Skip calendar section, note in summary |
+| Cron fails | Check log at `/tmp/daily_today.log` |
+
+## Metrics
+
+Track these for productivity insights:
+
+| Metric | Target | Description |
+|--------|--------|-------------|
+| Daily completion rate | >70% | Priorities marked done |
+| Focus time | >4h/day | Uninterrupted work blocks |
+| Context switches | <10/day | Task transitions |
+| Commit frequency | 3-8/day | Healthy progress indicators |
+
+## Output Locations
+
+| Output | Location |
+|--------|----------|
+| Daily logs | `logs/daily/{YYYY-MM-DD}.md` |
+| Weekly summaries | `logs/weekly/{YYYY-WW}.md` |
+| Cron output | `/tmp/daily_today.log` |
+| Config | `.claude/config/today.yaml` |
+
+## Related Skills
+
+- [context-management](../../context-management/SKILL.md) - Manage context efficiently
+- [planning](../../development/planning/SKILL.md) - Detailed planning methodology
 
 ---
 
-## Handoff
+## Version History
 
-After completing daily work:
-
-1. Update `.id8labs/today/today.md` with final status
-2. Sync completions to Tracker for project tasks
-3. Set up `.id8labs/today/tomorrow.md` with next priorities
-4. Log any blockers or insights to relevant projects
+- **1.1.0** (2026-01-21): Add interactive review mode with morning/midday/evening flows
+- **1.0.0** (2026-01-21): Initial release with daily review, cron support, long-term suggestions

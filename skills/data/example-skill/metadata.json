@@ -1,7 +1,7 @@
 {
   "name": "example-skill",
-  "repo": "okgoogle13/careercopilot",
-  "path": ".claude/skills/example-skill/SKILL.md",
-  "source": "github.com/okgoogle13/careercopilot",
-  "downloaded_at": "2026-01-21T03:45:59.518481Z"
+  "repo": "travisjneuman/.claude",
+  "path": "templates/plugin-template/skills/example-skill/SKILL.md",
+  "source": "github.com/travisjneuman/.claude",
+  "downloaded_at": "2026-01-22T04:01:35.804454Z"
 }

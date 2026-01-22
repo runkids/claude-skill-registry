@@ -1,99 +1,141 @@
 ---
 name: prompt-engineer
-description: Use when designing prompts for LLMs, optimizing model performance, building evaluation frameworks, or implementing advanced prompting techniques like chain-of-thought, few-shot learning, or structured outputs.
-triggers:
-  - prompt engineering
-  - prompt optimization
-  - chain-of-thought
-  - few-shot learning
-  - prompt testing
-  - LLM prompts
-  - prompt evaluation
-  - system prompts
-  - structured outputs
-  - prompt design
-role: expert
-scope: design
-output-format: document
+description: Optimize system prompts for Claude Code agents using proven prompt engineering patterns. Use when users request prompt improvement, optimization, or refinement for agent workflows, tool instructions, or system behaviors.
+license: MIT
+metadata:
+version: 1.0.0
+model: claude-sonnet-4-5
 ---
 
-# Prompt Engineer
+# Prompt Optimizer
 
-Expert prompt engineer specializing in designing, optimizing, and evaluating prompts that maximize LLM performance across diverse use cases.
+Optimizes system prompts by applying research-backed prompt engineering patterns. Human-in-the-loop phases: understand, plan, propose changes, receive approval, then integrate.
 
-## Role Definition
+## Purpose and Success Criteria
 
-You are an expert prompt engineer with deep knowledge of LLM capabilities, limitations, and prompting techniques. You design prompts that achieve reliable, high-quality outputs while considering token efficiency, latency, and cost. You build evaluation frameworks to measure prompt performance and iterate systematically toward optimal results.
+A well-optimized prompt achieves:
+
+1. **Behavioral clarity**: Agent knows exactly what to do in common cases and edge cases
+2. **Appropriate scope**: Complex tasks get decomposition; simple tasks don't trigger overthinking
+3. **Grounded changes**: Every modification traces to a specific pattern with documented impact
+
+Optimization is complete when:
+
+- Every change has explicit pattern attribution from the reference document
+- No section contradicts another section
+- The prompt matches its operating context (tool-use vs. conversational, token constraints)
+- Human has approved both section-level changes and full integration
 
 ## When to Use This Skill
 
-- Designing prompts for new LLM applications
-- Optimizing existing prompts for better accuracy or efficiency
-- Implementing chain-of-thought or few-shot learning
-- Creating system prompts with personas and guardrails
-- Building structured output schemas (JSON mode, function calling)
-- Developing prompt evaluation and testing frameworks
-- Debugging inconsistent or poor-quality LLM outputs
-- Migrating prompts between different models or providers
+Use when the user provides a prompt and wants it improved, refined, or reviewed for best practices.
 
-## Core Workflow
+Do NOT use for:
 
-1. **Understand requirements** - Define task, success criteria, constraints, edge cases
-2. **Design initial prompt** - Choose pattern (zero-shot, few-shot, CoT), write clear instructions
-3. **Test and evaluate** - Run diverse test cases, measure quality metrics
-4. **Iterate and optimize** - Refine based on failures, reduce tokens, improve reliability
-5. **Document and deploy** - Version prompts, document behavior, monitor production
+- Writing prompts from scratch (different skill)
+- Prompts that are already working well and user just wants validation
+- Non-prompt content (documentation, code, etc.)
 
-## Reference Guide
+## Required Resources
 
-Load detailed guidance based on context:
+Before ANY analysis, read the appropriate pattern reference(s):
 
-| Topic | Reference | Load When |
-|-------|-----------|-----------|
-| Prompt Patterns | `references/prompt-patterns.md` | Zero-shot, few-shot, chain-of-thought, ReAct |
-| Optimization | `references/prompt-optimization.md` | Iterative refinement, A/B testing, token reduction |
-| Evaluation | `references/evaluation-frameworks.md` | Metrics, test suites, automated evaluation |
-| Structured Outputs | `references/structured-outputs.md` | JSON mode, function calling, schema design |
-| System Prompts | `references/system-prompts.md` | Persona design, guardrails, context management |
+### Single-Turn Reference (Always Read)
 
-## Constraints
+```text
+Read references/prompt-engineering-single-turn.md
+```
 
-### MUST DO
-- Test prompts with diverse, realistic inputs including edge cases
-- Measure performance with quantitative metrics (accuracy, consistency)
-- Version prompts and track changes systematically
-- Document expected behavior and known limitations
-- Use few-shot examples that match target distribution
-- Validate structured outputs against schemas
-- Consider token costs and latency in design
-- Test across model versions before production deployment
+Contains: Technique Selection Guide table, Quick Reference principles, domain-organized techniques with citations, Anti-Patterns section.
 
-### MUST NOT DO
-- Deploy prompts without systematic evaluation on test cases
-- Use few-shot examples that contradict instructions
-- Ignore model-specific capabilities and limitations
-- Skip edge case testing (empty inputs, unusual formats)
-- Make multiple changes simultaneously when debugging
-- Hardcode sensitive data in prompts or examples
-- Assume prompts transfer perfectly between models
-- Neglect monitoring for prompt degradation in production
+### Multi-Turn Reference (Conditional)
 
-## Output Templates
+```text
+Read references/prompt-engineering-multi-turn.md
+```
 
-When delivering prompt work, provide:
-1. Final prompt with clear sections (role, task, constraints, format)
-2. Test cases and evaluation results
-3. Usage instructions (temperature, max tokens, model version)
-4. Performance metrics and comparison with baselines
-5. Known limitations and edge cases
+**Read ONLY when the prompt involves:**
 
-## Knowledge Reference
+- Multi-turn flows (iterative refinement, conversation chains)
+- Multi-agent / sub-agent orchestration
 
-Prompt engineering techniques, chain-of-thought prompting, few-shot learning, zero-shot prompting, ReAct pattern, tree-of-thoughts, constitutional AI, prompt injection defense, system message design, JSON mode, function calling, structured generation, evaluation metrics, LLM capabilities (GPT-4, Claude, Gemini), token optimization, temperature tuning, output parsing
+**Skip for:**
 
-## Related Skills
+- Static system prompts executed in a single LLM call
+- Tool instructions or one-shot prompts
 
-- **LLM Architect** - System design with LLM components
-- **AI Engineer** - Production AI application development
-- **Test Master** - Evaluation framework implementation
-- **Technical Writer** - Prompt documentation and guidelines
+### Workflow Reference
+
+```text
+Read references/workflow.md
+```
+
+Contains: Detailed Phase 0-4 workflows, visual card template, completion checkpoint.
+
+## Quick Process
+
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│ 1. READ THE REFERENCE(S)                                        │
+│    - Always: references/prompt-engineering-single-turn.md       │
+│    - If multi-turn/multi-agent: also read multi-turn reference  │
+├─────────────────────────────────────────────────────────────────┤
+│ 2. UNDERSTAND THE PROMPT (Phase 1)                              │
+│    - Operating context (single-shot? tool-use? constraints?)    │
+│    - Current state (working? unclear? missing?)                 │
+│    - Document specific problems with quoted prompt text         │
+├─────────────────────────────────────────────────────────────────┤
+│ 3. PLAN WITH VISUAL CARDS (Phase 2)                             │
+│    - Present each change as a visual card with:                 │
+│      SCOPE → PROBLEM → TECHNIQUE → BEFORE/AFTER                 │
+│    - Quote trigger conditions from reference                    │
+│    - ⚠️  WAIT FOR USER APPROVAL before proceeding               │
+├─────────────────────────────────────────────────────────────────┤
+│ 4. EXECUTE APPROVED CHANGES (Phase 3)                           │
+│    - Apply the BEFORE → AFTER transformations                   │
+├─────────────────────────────────────────────────────────────────┤
+│ 5. INTEGRATE AND VERIFY QUALITY (Phase 4)                       │
+│    - Check cross-section coherence                              │
+│    - Final anti-pattern check                                   │
+│    - Present complete optimized prompt                          │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Triage (Phase 0)
+
+**Simple prompts** (use lightweight process):
+
+- Under 20 lines
+- Single clear purpose
+- No conditional logic
+
+**Complex prompts** (use full process):
+
+- Multiple sections serving different functions
+- Conditional behaviors or rule hierarchies
+- Tool orchestration or multi-step workflows
+
+## Core Quality Principles
+
+1. **Quote before deciding**: Every technique selection must quote the reference's trigger condition.
+2. **Open verification questions**: Ask "What behavior will this produce?" not "Is this correct?"
+3. **Approval happens once, upfront**: The visual card format in Phase 2 shows full impact.
+4. **Preserve what works**: Optimization means improving problems, not rewriting everything.
+
+## Completion Checkpoint
+
+Before presenting the final prompt, verify:
+
+- [ ] Phase 2 plan used visual card format with BEFORE/AFTER
+- [ ] Phase 2 plan quoted trigger conditions from reference
+- [ ] Phase 2 plan was approved by user before Phase 3
+- [ ] No technique applied without matching trigger condition
+- [ ] Stacking compatibility checked; no conflicts
+- [ ] Anti-patterns section consulted; none introduced
+- [ ] Emphasis markers used sparingly (≤3 highest-level)
+
+## References
+
+- [prompt-engineering-single-turn.md](references/prompt-engineering-single-turn.md) - Single-turn patterns
+- [prompt-engineering-multi-turn.md](references/prompt-engineering-multi-turn.md) - Multi-turn patterns
+- [workflow.md](references/workflow.md) - Detailed phase workflows and card template

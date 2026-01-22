@@ -1,7 +1,7 @@
 {
   "name": "monorepo-management",
-  "repo": "wshobson/agents",
-  "path": "plugins/developer-essentials/skills/monorepo-management/SKILL.md",
-  "source": "github.com/wshobson/agents",
-  "downloaded_at": "2026-01-21T04:10:59.791705Z"
+  "repo": "aRustyDev/dotfiles",
+  "path": ".ai/plugins/skills/monorepo-management/SKILL.md",
+  "source": "github.com/aRustyDev/dotfiles",
+  "downloaded_at": "2026-01-22T03:54:09.639525Z"
 }

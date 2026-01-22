@@ -1,7 +1,7 @@
 {
   "name": "gitops-workflows",
   "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/gitops-workflows/SKILL.md",
+  "path": "skills/gitops-workflows/SKILL.md",
   "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-21T04:21:50.715946Z"
+  "downloaded_at": "2026-01-22T01:32:47.175894Z"
 }

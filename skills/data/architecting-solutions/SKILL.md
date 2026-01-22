@@ -1,459 +1,300 @@
 ---
-name: architecting-solutions
-description: Designs technical solutions and architecture. Use when user says "design solution", "architecture design", "technical design", or "方案设计" WITHOUT mentioning PRD. For PRD-specific work, use prd-planner skill instead.
-allowed-tools: Read, Write, Edit, Bash, AskUserQuestion, WebSearch, Grep, Glob
+name: "Architecting Solutions"
+description: "Analyzes problems and designs system architecture before implementation. Activates when user asks design questions, discusses architecture, or needs to break down complex features. Creates clear specifications following the brick philosophy of simple, modular, regeneratable components."
 ---
 
 # Architecting Solutions
 
-Analyzes requirements and creates detailed PRD documents for software implementation.
+You are activating the architectural design capability. Your role is to analyze problems deeply and create clear specifications before any implementation begins.
 
-## Description
+## Core Philosophy
 
-Use this skill when you need to:
-- Create PRD documents
-- Design software solutions
-- Analyze requirements
-- Specify features
-- Document technical plans
-- Plan refactoring or migration
+- **Occam's Razor**: Solutions should be as simple as possible, but no simpler
+- **Trust in Emergence**: Complex systems work best from simple components
+- **Analysis First**: Always analyze before implementing
+- **Design Before Code**: Clear specifications guide successful implementation
 
-## Installation
+## When to Activate
 
-This skill is typically installed globally at `~/.claude/skills/architecting-solutions/`.
+This skill activates when:
 
-## How It Works
+- User asks "how should I..." or "what's the best way to..."
+- Design discussions about system architecture
+- Breaking down complex features into components
+- Choosing between implementation approaches
+- Planning new features or refactoring
+- Questions about modularity, structure, or patterns
 
-The skill guides Claude through a structured workflow:
+## Process
 
-1. **Clarify requirements** - Ask targeted questions to understand the problem
-2. **Analyze context** - Review existing codebase for patterns and constraints
-3. **Design solution** - Propose architecture with trade-offs considered
-4. **Generate PRD** - Output markdown PRD to `{PROJECT_ROOT}/docs/` directory
+### 1. Problem Analysis
 
-**IMPORTANT**: Always write PRD to the project's `docs/` folder, never to plan files or hidden locations.
+Start with: "Let me analyze this problem and design the solution."
 
-## Workflow
+Provide:
 
-Copy this checklist and track progress:
+- **Problem Decomposition**: Break into manageable pieces
+- **Core Requirements**: What must the solution accomplish?
+- **Constraints**: Technical, performance, maintainability limits
+- **Success Criteria**: How do we know it works?
 
-```
-Requirements Analysis:
-- [ ] Step 1: Clarify user intent and success criteria
-- [ ] Step 2: Identify constraints (tech stack, timeline, resources)
-- [ ] Step 3: Analyze existing codebase patterns
-- [ ] Step 4: Research best practices (if needed)
-- [ ] Step 5: Design solution architecture
-- [ ] Step 6: Generate PRD document (must be in {PROJECT_ROOT}/docs/)
-- [ ] Step 7: Validate with user
-```
+### 2. Solution Options
 
-## Step 1: Clarify Requirements
+Present 2-3 approaches with:
 
-Ask these questions to understand the problem:
+- **Description**: Clear explanation of approach
+- **Pros**: Advantages and strengths
+- **Cons**: Limitations and tradeoffs
+- **Complexity**: Implementation effort estimate
+- **Maintainability**: Long-term sustainability
 
-### Core Understanding
-- **Problem Statement**: What problem are we solving? What is the current pain point?
-- **Success Criteria**: How do we know this is successful? Be specific.
-- **Target Users**: Who will use this feature? What are their goals?
+### 3. Recommendation
 
-### For Refactoring/Migration:
-- **Why Refactor?**: What's wrong with current implementation? Be specific.
-- **Breaking Changes**: What will break? What needs migration?
-- **Rollback Plan**: How do we revert if something goes wrong?
+Provide clear choice with:
 
-## Step 2: Identify Constraints
+- **Selected Approach**: Which option and why
+- **Justification**: Reasoning based on requirements/constraints
+- **Risk Assessment**: Potential issues and mitigation
+- **Alternative**: When to consider other options
 
-- **Technical Constraints**: Existing tech stack, architecture patterns, dependencies
-- **Time Constraints**: Any deadlines or phases?
-- **Resource Constraints**: Team size, expertise availability
-- **Business Constraints**: Budget, external dependencies, third-party APIs
+### 4. Module Specifications
 
-## Step 3: Analyze Existing Codebase
+For each component, create specifications following this template:
 
-```bash
-# Find similar patterns in the codebase
-grep -r "related_keyword" packages/ --include="*.ts" --include="*.tsx"
+```markdown
+## Module: [Name]
 
-# Find relevant directory structures
-find packages/ -type d -name "*keyword*"
+### Purpose
 
-# Check existing patterns
-ls -la packages/kit/src/views/similar-feature/
-```
+[Single clear responsibility - one sentence]
 
-**Critical for Refactoring:**
-- Find ALL consumers of the code being changed
-- Identify ALL state/data flows
-- Trace ALL entry points and exit points
-- **Look for existing mechanisms that might solve the problem already**
+### Contract
 
-```bash
-# Find all imports/usages of a module
-grep -r "useBorrowContext" packages/ --include="*.ts" --include="*.tsx"
-grep -r "borrowRefreshReservesRef" packages/ --include="*.ts" --include="*.tsx"
-```
+- **Inputs**: [Types, constraints, validation]
+- **Outputs**: [Types, guarantees, error cases]
+- **Side Effects**: [External interactions, state changes]
 
-**CRITICAL: Before proposing a refactoring, ask:**
-1. Is there an **existing mechanism** that can be extended?
-2. What's the **simplest possible solution**?
-3. Can we solve this with **minimal changes**?
-4. **Does my solution actually connect the dots?** (e.g., empty callbacks won't work)
+### Dependencies
 
-Look for:
-- **Architectural patterns**: How are similar features implemented?
-- **State management**: What state solution is used? (Jotai, Redux, Context, Refs)
-- **Component patterns**: How are components organized?
-- **API patterns**: How are API calls structured?
-- **Type definitions**: Where are types defined?
+- [Required modules/libraries with versions]
+- [External services/APIs]
 
-## Step 4: Research Best Practices
+### Implementation Notes
 
-For unfamiliar domains, search for best practices.
+- [Key design decisions]
+- [Important patterns to follow]
+- [Things to avoid]
 
-## Step 5: Design Solution Architecture
+### Test Requirements
 
-### CRITICAL: Consider Multiple Solutions
-
-**Before settling on a solution, ALWAYS present multiple options:**
-
-1. **Minimal Change Solution** - What's the absolute smallest change that could work?
-2. **Medium Effort Solution** - Balanced approach with some refactoring
-3. **Comprehensive Solution** - Full architectural overhaul
-
-**Example:**
-```
-Problem: Data doesn't refresh after operation
-
-Option 1 (Minimal): Hook into existing pendingTx count decrease
-  - Changes: 1-2 files
-  - Risk: Low
-  - Selected: ✓
-
-Option 2 (Medium): Add refresh callback through existing context
-  - Changes: 3-5 files
-  - Risk: Medium
-
-Option 3 (Comprehensive): Migrate to Jotai Context pattern
-  - Changes: 10+ files, new atoms/actions
-  - Risk: High
-  - Time: 2-3 days
+- [Critical behaviors to verify]
+- [Edge cases to cover]
+- [Integration points to test]
 ```
 
-**Ask user BEFORE writing PRD:**
-- Which option do you prefer?
-- Are you open to larger refactoring?
-- What's your tolerance for change?
+## Decision Framework
 
-### Architecture Design Principles
+Ask these questions in order:
 
-1. **Simplicity First**: Choose the simplest solution that meets requirements
-2. **Progressive Enhancement**: Start with MVP, extend iteratively
-3. **Separation of Concerns**: UI, logic, and data should be separated
-4. **Reusability**: Design components that can be reused
-5. **Testability**: Design for easy testing
+1. **Do we actually need this?**
+   - What problem does this solve?
+   - What happens if we don't build it?
+   - Is there a simpler alternative?
 
-### Document Trade-offs
+2. **What's the simplest solution?**
+   - Can we solve it with existing components?
+   - What's the minimum viable implementation?
+   - Where can we leverage existing tools?
 
-For each major decision, document:
+3. **Can this be more modular?**
+   - Does each piece have one clear purpose?
+   - Are boundaries clean and obvious?
+   - Can components be tested independently?
 
-| Option | Pros | Cons | Selected |
-|--------|------|------|----------|
-| Approach A | Pro1, Pro2 | Con1 | ✓ |
-| Approach B | Pro1 | Con1, Con2 | |
+4. **Will this be easy to regenerate?**
+   - Can someone rebuild from spec alone?
+   - Is all related code in one place?
+   - Are dependencies explicit and minimal?
 
-## Step 6: Generate PRD Document
+5. **Does complexity add value?**
+   - Is each abstraction justified?
+   - Does it solve a real problem?
+   - Will future developers understand it?
 
-**IMPORTANT**: Always write PRD to the project's `docs/` directory, never to plan files or hidden locations.
+## Module Design Principles
 
-Output location: `{PROJECT_ROOT}/docs/{feature-name}-prd.md`
+### Single Responsibility
 
-Example:
-- If project root is `/Users/user/my-project/`, write to `/Users/user/my-project/docs/feature-name-prd.md`
-- Use kebab-case for filename: `borrow-refresh-logic-refactoring-prd.md`
+- One clear purpose per module
+- Easy to describe in one sentence
+- Changes for one reason only
 
-## Step 7: Validate with User
+### Clear Contracts
 
-Before finalizing:
-1. **Review success criteria** - Do they align with user goals?
-2. **Check constraints** - Are all constraints addressed?
-3. **Verify completeness** - Can another agent implement from this PRD?
-4. **Confirm with user** - Get explicit approval before finalizing
+- Explicit inputs and outputs
+- Document side effects
+- Define error conditions
+- Specify performance characteristics
+
+### Self-Contained
+
+- All module code in one directory
+- Internal implementation details hidden
+- Minimal dependencies
+- Can be understood in isolation
+
+### Regeneratable
+
+- Specification is source of truth
+- Can be rebuilt from scratch
+- No hidden tribal knowledge
+- Clear documentation of decisions
+
+## Integration Points
+
+### Invokes
+
+- **Architect Agent**: Core architectural reasoning from `.claude/agents/architect.md`
+- **Module Templates**: Reference `Templates/ModuleSpec.md` for detailed specifications
+- **Design Patterns**: Reference `Specs/DesignPatterns.md` for common solutions
+
+### Escalates To
+
+- **/ultrathink**: For extremely complex architectural decisions requiring deep analysis
+- **/consensus**: When multiple valid approaches exist and team input is needed
+- **Builder Agent**: Once design is complete, hand off specifications for implementation
+
+### References
+
+- **Architecture Documentation**: `Specs/Architecture.md`
+- **Brick Philosophy**: `Specs/BrickPhilosophy.md`
+- **Module Examples**: `Examples/WellDesignedModules/`
+
+## Quality Checks
+
+Before finalizing design, verify:
+
+- [ ] Each module has single, clear responsibility
+- [ ] All contracts are explicit (inputs, outputs, side effects)
+- [ ] Dependencies are minimal and justified
+- [ ] Design can be explained to junior developer in 5 minutes
+- [ ] Each module can be regenerated from spec
+- [ ] Complexity is justified by value added
+- [ ] Test requirements are clear and achievable
+- [ ] Design follows established patterns (or justifies new ones)
+
+## Common Patterns
+
+### When to Use
+
+- **Layered Architecture**: Clear separation of concerns (UI, business logic, data)
+- **Pipeline Pattern**: Sequential data transformation steps
+- **Plugin Architecture**: Extensible systems with unknown future requirements
+- **Observer Pattern**: Multiple components need to react to events
+- **Repository Pattern**: Abstract data access from business logic
+
+### When NOT to Use
+
+- **Microservices**: Unless you have team/scaling issues (start monolith)
+- **Event Sourcing**: Unless audit trail is core requirement
+- **Complex Abstractions**: Unless pattern repeats 3+ times
+- **Premature Optimization**: Unless profiling shows bottleneck
+
+## Example Workflow
+
+```
+User: "I need to build a user authentication system with OAuth support."
+
+Architect Skill:
+1. Let me analyze this problem and design the solution.
+
+Problem Analysis:
+- Need to authenticate users
+- Support OAuth providers (Google, GitHub, etc.)
+- Manage sessions/tokens
+- Handle registration and login flows
+
+Constraints:
+- Security is critical
+- Must be extensible for new providers
+- Need to integrate with existing user system
+
+2. Solution Options:
+
+Option A: Roll our own OAuth client
+Pros: Full control, customizable
+Cons: High complexity, security risk, maintenance burden
+Complexity: High
+Maintainability: Low - OAuth is complex and evolving
+
+Option B: Use established OAuth library (e.g., passport.js, next-auth)
+Pros: Battle-tested, secure, maintained, extensible
+Cons: Learning curve, less flexibility
+Complexity: Low
+Maintainability: High - community maintained
+
+Option C: Use third-party auth service (e.g., Auth0, Clerk)
+Pros: No security burden, feature-rich, scalable
+Cons: Cost, vendor lock-in, less control
+Complexity: Very Low
+Maintainability: High - fully managed
+
+3. Recommendation: Option B (Established OAuth library)
+
+Justification:
+- Security is critical - battle-tested library reduces risk
+- Extensible for new providers
+- Good balance of control and complexity
+- Can migrate to Option C later if needed
+- Avoid Option A - security and complexity risks too high
+
+4. Module Specifications:
+
+[Detailed module specs for AuthProvider, SessionManager, UserRepository, etc.]
+
+Ready to proceed with implementation?
+Or would you like me to hand off to the Builder agent?
+```
+
+## Output Format
+
+Always structure your architectural analysis as:
+
+1. **Problem Statement** (2-3 sentences)
+2. **Requirements & Constraints** (bulleted lists)
+3. **Solution Options** (2-3 approaches with tradeoffs)
+4. **Recommendation** (clear choice with justification)
+5. **Module Specifications** (detailed contracts)
+6. **Next Steps** (hand off to builder or iterate design)
+
+## Anti-Patterns to Avoid
+
+- **Architecture Astronaut**: Over-engineering simple problems
+- **Golden Hammer**: Using same pattern for everything
+- **Premature Optimization**: Optimizing before profiling
+- **Resume-Driven Development**: Using trendy tech without justification
+- **Not Invented Here**: Rebuilding existing solutions
+- **Analysis Paralysis**: Endless debate without decision
+
+## Success Criteria
+
+Good architectural design:
+
+- Can be explained in simple terms
+- Makes tradeoffs explicit
+- Provides clear implementation path
+- Anticipates common changes
+- Minimizes accidental complexity
+- Focuses on essential complexity
+
+## Related Capabilities
+
+- **Slash Command**: `/ultrathink` for extremely complex decisions
+- **Slash Command**: `/consensus` for collaborative architecture decisions
+- **Agent**: Architect agent (this skill invokes it)
+- **Documentation**: `Specs/Architecture.md` for detailed guidelines
+- **Templates**: `Templates/ModuleSpec.md` for specification format
 
 ---
 
-# PRD Quality Checklist
-
-## Content Quality
-
-- [ ] Problem statement is clear and specific
-- [ ] Success criteria are measurable
-- [ ] Functional requirements are unambiguous
-- [ ] Non-functional requirements are specified
-- [ ] Constraints are documented
-- [ ] Trade-offs are explained
-
-## Implementation Readiness
-
-- [ ] Architecture is clearly defined
-- [ ] File structure is specified
-- [ ] API contracts are defined (if applicable)
-- [ ] Data models are specified
-- [ ] Edge cases are considered
-- [ ] Testing approach is outlined
-
-## Agent-Friendliness
-
-- [ ] Another agent can implement without clarification
-- [ ] Code examples are provided where helpful
-- [ ] File paths use forward slashes
-- [ ] Existing code references are accurate
-
----
-
-## Root Cause Analysis Checklist (CRITICAL)
-
-For bugs and refresh issues, ALWAYS verify:
-
-- [ ] **Existing mechanism already exists** - Does a working solution exist elsewhere?
-- [ ] **Why existing solution doesn't work** - Timing? Scope? Not connected?
-- [ ] **Each hook/component instance is independent** - They don't share state unless explicitly connected
-- [ ] **Callback chain is complete** - Trace from trigger to effect, every link must work
-- [ ] **Empty callbacks are called** - If `onRefresh` is provided, is it actually implemented?
-- [ ] **Polling/refresh timing** - What are the intervals? When do they fire?
-
-**Common Root Cause Mistakes**:
-- Assuming hooks share state (they don't - each instance is independent)
-- Empty callback implementations that do nothing
-- Not tracing the full call chain from trigger to effect
-- Not understanding when events fire (e.g., `revalidateOnFocus` requires actual focus change)
-
----
-
-# Migration Scope Completeness
-
-- [ ] **ALL existing state is accounted for**: List every piece of state being migrated
-  - What states are being migrated? (e.g., reserves, market, reservesLoading, swapConfig, pendingTxs)
-  - What's the migration strategy for each? (direct move / transform / deprecate)
-
-- [ ] **ALL consumers are identified**: Find every file that uses the code being changed
-  ```bash
-  # Must run: grep -r "import.*ModuleName" packages/
-  # Must run: grep -r "useHookName" packages/
-  ```
-
-- [ ] **Provider usage points are covered**: Every file using the Provider is updated
-  - Root Provider → Mirror Provider migration
-  - All pages/components using the provider
-
-## State/Data Flow Validation
-
-- [ ] **No orphaned state**: Every piece of state has a clear source and consumer
-- [ ] **No dead state**: Every new state/state variable has a defined purpose and consumer
-- [ ] **No undefined references**: All imports/references resolve to existing code
-- [ ] **Complete call chain documented**: From trigger → callback → effect, show every step
-- [ ] **All related operations covered**: If module has Supply/Withdraw/Borrow/Repay/Claim, test all of them
-
-## React/Hook Rules Compliance
-
-- [ ] **No conditional hooks**: Never call hooks conditionally (e.g., `isBorrowType ? useHook() : null`)
-  - Hooks MUST be called at the top level, unconditionally
-  - If conditional logic is needed, use early return or conditional rendering
-
-- [ ] **Ref usage is correct**: If using ref pattern, access via `.current`
-  - Check: `useBorrowActions().current` not `useBorrowActions()`
-
-## Provider Pattern Completeness
-
-- [ ] **Root Provider is defined**: Main Provider component exists
-- [ ] **Mirror Provider is defined**: Mirror Provider for modal/overlay contexts exists
-- [ ] **All usage points wrapped**: Every page/component using the provider is wrapped
-  ```bash
-  # Must verify: Each page that uses the context has the Provider wrapper
-  ```
-
-## Auto-mount/System Integration
-
-- [ ] **Enum registration**: Added to appropriate enum (e.g., `EJotaiContextStoreNames`)
-- [ ] **Switch case registration**: Added to auto-mount switch statement
-- [ ] **Store initialization**: Store initialization logic is complete
-- [ ] **No duplicate registrations**: Verify no conflicts with existing entries
-
-## Backward Compatibility
-
-- [ ] **Existing consumers work**: Code using the old pattern still works during migration
-- [ ] **Migration path is clear**: How do consumers migrate to the new pattern?
-- [ ] **Deprecation timeline**: When is the old pattern removed?
-
-## Code Examples
-
-- [ ] **Before/After comparisons**: Show code changes clearly
-- [ ] **Type definitions are accurate**: TypeScript types match the implementation
-- [ ] **Import paths are correct**: All imports use correct workspace paths
-
----
-
-# Common Anti-Patterns to Avoid
-
-| Anti-Pattern | Better Approach |
-|--------------|-----------------|
-| "Optimize the code" | "Reduce render time from 100ms to 16ms by memoizing expensive calculations" |
-| "Make it faster" | "Implement caching to reduce API calls from 5 to 1 per session" |
-| "Clean up the code" | "Extract duplicate logic into shared utility functions" |
-| "Fix the bug" | "Handle null case in getUserById when user doesn't exist" |
-| "Refactor to use Jotai" | "Migrate from Context+Ref to Jotai: <detailed state list and migration strategy>" |
-| **Over-engineering** | **Start with simplest solution, extend only if needed** |
-
----
-
-# Over-Engineering Warning (Critical Lesson)
-
-## The Problem with Jumping to Complex Solutions
-
-**Real Case Study:**
-- **PRD Proposed**: Full Jotai Context migration (10+ files, 2-3 days)
-- **Actual Solution**: Hook into existing pendingTx count decrease (1-2 files, 1 hour)
-- **Lesson**: Always look for the simplest solution first
-
-## Signs You Might Be Over-Engineering
-
-- ❌ Proposing new patterns when existing ones could work
-- ❌ Creating new state management before exhausting current options
-- ❌ Multiple new files when one file change could suffice
-- ❌ "Best practice" justification without considering practicality
-
-## Questions to Ask Before Writing PRD
-
-1. **Is there an existing mechanism that does 80% of what we need?**
-2. **Can we extend/modify existing code instead of creating new patterns?**
-3. **What's the absolute minimum change to solve THIS problem?**
-4. **Does the user actually want a major refactor?**
-5. **Does my solution's callback actually do something?** (Empty callbacks are bugs!)
-6. **Have I traced the complete call chain?** (Trigger → ... → Effect)
-
-## When Comprehensive Solutions ARE Appropriate
-
-- Current architecture is fundamentally broken
-- Technical debt is blocking all new features
-- Team has explicitly decided to modernize
-- Problem will recur if not properly addressed
-
-**Key**: Comprehensive solutions should be a CHOICE, not the DEFAULT.
-
----
-
-# Patterns for Common Scenarios
-
-## New Feature Implementation
-
-```
-1. Read similar feature implementations
-2. Identify reusable patterns
-3. Design component hierarchy
-4. Define state management approach
-5. Specify API integration points
-6. List all new files to create
-7. List all existing files to modify
-```
-
-## Refactoring Existing Code
-
-```
-1. Analyze current implementation
-2. Find ALL consumers (grep -r imports)
-3. Identify pain points and technical debt
-4. PROPOSE MULTIPLE SOLUTIONS (minimal → comprehensive)
-5. GET USER APPROVAL on approach
-6. Plan migration strategy (phased vs big-bang)
-7. Define rollback approach
-8. List migration checklist
-
-# CRITICAL: Start with the simplest solution!
-# Only propose comprehensive refactoring if user explicitly wants it.
-```
-
-## Bug Fix Investigation
-
-```
-1. Understand expected vs actual behavior
-2. Locate root cause in code
-3. Identify affected areas
-4. Design fix approach
-5. Specify testing for regression prevention
-```
-
----
-
-# Reference Materials
-
-- **PRD Template**: Look at existing PRDs in the project's `docs/` folder
-- **Similar Implementations**: Reference similar features/modules in the codebase
-
----
-
-# Tips for Effective PRDs
-
-1. **Be Specific**: "Improve performance" → "Reduce API response time from 2s to 500ms"
-2. **Show Context**: Explain why a decision was made, not just what was decided
-3. **Include Examples**: Show code snippets for complex patterns
-4. **Think About Edge Cases**: What happens when API fails? User has no data?
-5. **Consider Migration**: For refactoring, how do we move from A to B safely?
-6. **List ALL Changes**: For refactoring, list every file that changes
-7. **Validate Imports**: Verify all import paths exist and are correct
-8. **Check Hook Rules**: Ensure no conditional hooks, proper hook dependencies
-
----
-
-## Accuracy & Completeness (Critical Lessons from Real PRD Reviews)
-
-### Technical Terms - Be Precise
-
-| Wrong | Correct | Why |
-|-------|---------|-----|
-| "Shared state" | "Each instance polls independently" | Hooks don't share state unless explicitly connected |
-| "Pending changes" | "Pending count decreases" | Code checks `!isPending && prevIsPending` (true→false) |
-| "Triggers refresh" | "Calls navigation.goBack() which triggers..." | Show the complete chain |
-
-### Call Chain Documentation - Don't Skip Steps
-
-**Bad**: "onRefresh triggers data refresh"
-**Good**:
-```
-onRefresh() → navigation.goBack() → BorrowHome focused
-  → usePromiseResult (revalidateOnFocus: true) fires
-  → refreshReserves() → handleRefresh()
-  → fetchReserves() + refreshBorrowRewards() + refreshHealthFactor()
-```
-
-Include file paths and line numbers for each step!
-
-### Test Coverage - Cover ALL Operations
-
-If module has 5 operations (Supply/Withdraw/Borrow/Repay/Claim), test all 5.
-Don't just test the 2 you're focused on.
-
-### Timeline Analysis for Refresh/Timing Issues
-
-Draw out the timeline:
-```
-0s  ---- Modal opens, user starts Supply
-10s ---- Transaction submitted, pending: 0→1
-15s ---- Modal closes
-        └─ BorrowHome's hook last polled at 5s
-        └─ Next poll at 35s (25s away!) ❌
-```
-
-This shows WHY it doesn't work.
-
-### Common PRD Mistakes
-
-| Mistake | Example | Fix |
-|---------|---------|-----|
-| Empty callback | `onRefresh: () => {}` | Implement actual logic or remove |
-| Incomplete root cause | "It doesn't refresh" | Explain WHY: timing/scope/disconnected |
-| Missing call chain | "Somehow triggers refresh" | Document every step with file:line |
-| Incomplete testing | Only test Supply/Withdraw | Also test Borrow/Repay/Claim |
-| Assumptions as facts | "revalidateOnFocus fires on modal close" | Verify: only fires on actual focus change |
-| Wrong trigger condition | "Pending changes" | Code shows: `!isPending && prevIsPending` (decreases) |
-
----
+Remember: The goal is not perfect architecture, but clear, simple, and implementable design. Design for today's requirements while enabling tomorrow's changes.

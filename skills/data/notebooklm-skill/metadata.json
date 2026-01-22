@@ -1,7 +1,7 @@
 {
   "name": "notebooklm-skill",
-  "repo": "zircote/.claude",
+  "repo": "CommandCodeAI/agent-skills",
   "path": "skills/notebooklm-skill/SKILL.md",
-  "source": "github.com/zircote/.claude",
-  "downloaded_at": "2026-01-21T02:13:51.745322Z"
+  "source": "github.com/CommandCodeAI/agent-skills",
+  "downloaded_at": "2026-01-22T03:56:46.669198Z"
 }

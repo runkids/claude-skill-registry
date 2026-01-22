@@ -1,7 +1,7 @@
 {
   "name": "task-decomposer",
-  "repo": "turbobeest/cursor-dev-system",
-  "path": "skills/task-decomposer/SKILL.md",
-  "source": "github.com/turbobeest/cursor-dev-system",
-  "downloaded_at": "2026-01-21T04:07:51.068742Z"
+  "repo": "RevTechStudio/rts-plugins",
+  "path": "rts-plugin-generator/skills/task-decomposer/SKILL.md",
+  "source": "github.com/RevTechStudio/rts-plugins",
+  "downloaded_at": "2026-01-22T03:44:54.304452Z"
 }

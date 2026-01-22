@@ -1,7 +1,7 @@
 {
   "name": "conventional-commits",
-  "repo": "avvale/aurora-back",
-  "path": ".claude/skills/conventional-commits/SKILL.md",
-  "source": "github.com/avvale/aurora-back",
-  "downloaded_at": "2026-01-21T03:44:50.930318Z"
+  "repo": "bastos/skills",
+  "path": "conventional-commits/SKILL.md",
+  "source": "github.com/bastos/skills",
+  "downloaded_at": "2026-01-22T04:05:37.392001Z"
 }

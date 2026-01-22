@@ -1,7 +1,7 @@
 {
   "name": "speckit-checklist",
-  "repo": "dceoy/pdmt5",
-  "path": ".claude/skills/speckit-checklist/SKILL.md",
-  "source": "github.com/dceoy/pdmt5",
-  "downloaded_at": "2026-01-21T04:15:13.598461Z"
+  "repo": "dceoy/speckit-agent-skills",
+  "path": "skills/speckit-checklist/SKILL.md",
+  "source": "github.com/dceoy/speckit-agent-skills",
+  "downloaded_at": "2026-01-22T02:10:10.783585Z"
 }

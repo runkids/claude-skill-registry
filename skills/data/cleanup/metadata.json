@@ -1,7 +1,7 @@
 {
   "name": "cleanup",
-  "repo": "tbroadley/dotfiles",
-  "path": "claude/skills/cleanup/SKILL.md",
-  "source": "github.com/tbroadley/dotfiles",
-  "downloaded_at": "2026-01-21T02:41:47.892635Z"
+  "repo": "Brownbull/taskflow",
+  "path": ".claude/skills/utility/cleanup/skill.md",
+  "source": "github.com/Brownbull/taskflow",
+  "downloaded_at": "2026-01-22T03:49:09.574037Z"
 }

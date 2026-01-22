@@ -37,10 +37,9 @@ This skill provides **guidance and structure** for creating skills. Claude Code:
 
 ## What This Skill Does NOT Do
 
-- Test skills in production environments
-- Deploy or distribute skills
 - Handle skill versioning/updates after creation
 - Create requirement-specific skills (always create reusable intelligence)
+- Deploy skills to production (but DOES require local testing before delivery)
 
 ---
 
@@ -352,6 +351,12 @@ Before delivering a skill, verify:
 - [ ] SKILL.md <500 lines
 - [ ] Progressive disclosure (details in references/)
 
+### Design Principles (see `references/design-principles.md`)
+- [ ] Modular (one skill = one responsibility)
+- [ ] Clear (explicit > clever)
+- [ ] Simple (minimal complexity)
+- [ ] Transparent (inspectable, debuggable)
+
 ### Knowledge Coverage
 - [ ] **Procedural** (HOW): Workflows, decision trees, error handling
 - [ ] **Domain** (WHAT): Concepts, best practices, anti-patterns
@@ -374,11 +379,21 @@ Before delivering a skill, verify:
 - [ ] Analyzer: Scope, criteria, output format
 - [ ] Validator: Criteria, scoring, thresholds, remediation
 
+### Battle Testing (REQUIRED)
+- [ ] **Deployment tested**: `make test` or equivalent passes
+- [ ] **Versions verified**: Latest tool versions, no deprecated APIs
+- [ ] **Real scenario tested**: Skill answers domain questions, not just deploys tools
+- [ ] **Assets executed**: Every file in assets/ was actually run
+- [ ] **No over-engineering**: Uses native tools (Helm, kubectl), not Python wrappers
+
+See `references/validation-checklist.md` for detailed validation process.
+
 ---
 
 ## Reference Files
 | File | When to Read |
 |------|--------------|
+| `references/design-principles.md` | Unix philosophy applied to skill design (foundational) |
 | `references/creation-workflow.md` | Detailed step-by-step creation process |
 | `references/skill-patterns.md` | Frontmatter spec, type-specific patterns, assets guidance |
 | `references/reusability-patterns.md` | Procedural+domain knowledge, varies vs constant |

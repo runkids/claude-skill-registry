@@ -33,6 +33,37 @@ hooks:
 
             If criteria are NOT met OR the promise tag is missing, respond with:
             {"ok": false, "reason": "**AGENT: TAKE ACTION** - [which criteria failed and why]"}
+  SubagentStop:
+    - hooks:
+        - type: prompt
+          prompt: |
+            You must evaluate whether Claude has met all the below quality criteria for the request.
+
+            ## Quality Criteria
+
+            1. **Conversation Analyzed**: Did the agent review the conversation for DeepWork job executions?
+            2. **Confusion Identified**: Did the agent identify points of confusion, errors, or inefficiencies?
+            3. **Instructions Improved**: Were job instructions updated to address identified issues?
+            4. **Instructions Concise**: Are instructions free of redundancy and unnecessary verbosity?
+            5. **Shared Content Extracted**: Is lengthy/duplicated content extracted into referenced files?
+            6. **doc spec Reviewed (if applicable)**: For jobs with doc spec outputs, were doc spec-related learnings identified?
+            7. **doc spec Updated (if applicable)**: Were doc spec files updated with improved quality criteria or structure?
+            8. **Bespoke Learnings Captured**: Were run-specific learnings added to AGENTS.md?
+            9. **File References Used**: Do AGENTS.md entries reference other files where appropriate?
+            10. **Working Folder Correct**: Is AGENTS.md in the correct working folder for the job?
+            11. **Generalizable Separated**: Are generalizable improvements in instructions, not AGENTS.md?
+            12. **Sync Complete**: Has `deepwork sync` been run if instructions were modified?
+
+            ## Instructions
+
+            Review the conversation and determine if ALL quality criteria above have been satisfied.
+            Look for evidence that each criterion has been addressed.
+
+            If the agent has included `<promise>✓ Quality Criteria Met</promise>` in their response AND
+            all criteria appear to be met, respond with: {"ok": true}
+
+            If criteria are NOT met OR the promise tag is missing, respond with:
+            {"ok": false, "reason": "**AGENT: TAKE ACTION** - [which criteria failed and why]"}
 ---
 
 # deepwork_jobs.learn
@@ -50,13 +81,13 @@ hooks:
 
 ## Objective
 
-Think deeply about this task. Reflect on the current conversation to identify learnings from DeepWork job executions, improve job instructions with generalizable insights, and capture bespoke (run-specific) learnings in AGENTS.md files in the appropriate working folder.
+Think deeply about this task. Reflect on the current conversation to identify learnings from DeepWork job executions, improve job instructions with generalizable insights, and capture bespoke (run-specific) learnings in AGENTS.md files in the deepest common folder that would contain all work on the topic in the future.
 
 ## Task
 
 Analyze the conversation history to extract learnings and improvements, then apply them appropriately:
 - **Generalizable learnings** → Update job instruction files
-- **Bespoke learnings** (specific to this run) → Add to AGENTS.md in working folder
+- **Bespoke learnings** (specific to this run) → Add to AGENTS.md in the deepest common folder for the topic
 
 ### Step 1: Analyze Conversation for Job Executions
 
@@ -65,7 +96,8 @@ Analyze the conversation history to extract learnings and improvements, then app
    - Identify which jobs and steps were executed
    - Note the order of execution
 
-2. **Identify the working folder**
+2. **Identify the target folder**
+   - This should be the deepest common folder that would contain all work on the topic in the future
    - Should be clear from conversation history where work was done
    - If unclear, run `git diff` to see where changes were made on the branch
 
@@ -249,7 +281,7 @@ quality_criteria:
 The AGENTS.md file captures project-specific knowledge that helps future agent runs.
 
 1. **Determine the correct location**
-   - Place AGENTS.md in the working folder where job outputs live
+   - Place AGENTS.md in the deepest common folder that would contain all work on the topic in the future
    - This ensures the knowledge is available when working in that context
    - If uncertain, place at the project root
 
@@ -317,7 +349,7 @@ When adding entries to AGENTS.md, prefer these patterns:
 - Shared/lengthy content extracted into referenced files where appropriate
 - AGENTS.md created/updated with bespoke learnings
 - File references used instead of duplicating content
-- AGENTS.md is in the correct working folder
+- AGENTS.md is in the correct folder (the deepest common folder for the topic)
 - When all criteria are met, include `<promise>✓ Quality Criteria Met</promise>`
 
 ## Example Dialog

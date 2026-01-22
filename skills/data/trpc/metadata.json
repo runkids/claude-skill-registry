@@ -1,7 +1,7 @@
 {
   "name": "trpc",
-  "repo": "olegakbarov/ispo-code",
-  "path": ".claude/skills/trpc/SKILL.md",
-  "source": "github.com/olegakbarov/ispo-code",
-  "downloaded_at": "2026-01-21T04:08:59.452822Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/api-layer/trpc/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-22T03:54:18.045986Z"
 }

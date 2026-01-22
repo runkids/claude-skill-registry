@@ -1,321 +1,221 @@
 ---
-name: requirements-specification
-version: "2.0.0"
-description: Master requirements gathering, user story writing, acceptance criteria definition, and scope management. Transform insights into clear, actionable specifications.
-sasmp_version: "1.3.0"
-bonded_agent: 03-requirements-definition
-bond_type: PRIMARY_BOND
-parameters:
-  - name: feature_context
-    type: string
-    required: true
-  - name: output_format
-    type: string
-    enum: [user_stories, prd, bdd, use_cases]
-retry_logic:
-  max_attempts: 3
-  backoff: exponential
-logging:
-  level: info
-  hooks: [start, complete, error]
+name: requirements
+description: 要件・設計フェーズを実行。user-story → ui-sketch → usecase-description → feasibility-check → ddd-modeling → analyzing-requirements を順次実行し、DESIGN.md を生成。「設計フェーズを開始」「要件を整理したい」「/requirements」などで起動。
 ---
 
-# Requirements & Specification Skill
+# 要件・設計フェーズ
 
-Transform customer insights into clear, detailed specifications that engineering can build from. Master user story writing, define acceptance criteria, and manage scope ruthlessly.
+## 概要
 
-## User Story Writing (INVEST Format)
+6つのスキルを順次実行し、プロダクトの要件と設計をまとめる。
 
-### INVEST Principles
+## 実行スキル
 
-**I** - Independent (minimal dependencies)
-**N** - Negotiable (details can be discussed)
-**V** - Valuable (delivers customer value)
-**E** - Estimable (team can estimate effort)
-**S** - Small (can complete in 1-2 sprints)
-**T** - Testable (clear success criteria)
+1. **user-story** → docs/USER_STORIES.md
+2. **ui-sketch** → docs/UI_SKETCH.md
+3. **usecase-description** → docs/USECASES.md
+4. **feasibility-check** → docs/FEASIBILITY.md
+5. **ddd-modeling** → docs/GLOSSARY.md, docs/MODEL.md
+6. **analyzing-requirements** → docs/DESIGN.md
 
-### User Story Template
+## 前提条件
 
-```
-As a [user role]
-I want [action/capability]
-So that [benefit/outcome]
+以下のファイルが存在することを推奨：
+- docs/PRODUCT_SPEC.md（/ideation で生成）
+- docs/PROBLEM_DEFINITION.md
 
-Acceptance Criteria:
-Given [context]
-When [user action]
-Then [expected result]
-```
+## ワークフロー
 
-### Good vs Bad Examples
+### フェーズ0: 既存ドキュメントの確認
 
-**Bad Story:**
-```
-As a user
-I want a better dashboard
-So that I can see my data
-```
-Problem: Too vague, not testable, too large
+以下のファイルを確認し、開始ポイントを提案する。
 
-**Good Story:**
-```
-As a project manager
-I want to see all tasks assigned to me in the last 24 hours
-So that I can track what happened while I was offline
-
-Acceptance Criteria:
-Given I'm logged in
-When I view the Home dashboard
-Then I see a "Recent Tasks" section
-And it shows tasks assigned to me from last 24 hours
-And tasks are sorted by assignment time (newest first)
-And clicking a task opens the task detail page
+```javascript
+Read({ file_path: "docs/PRODUCT_SPEC.md" })
+Read({ file_path: "docs/USER_STORIES.md" })
+Read({ file_path: "docs/UI_SKETCH.md" })
+Read({ file_path: "docs/USECASES.md" })
+Read({ file_path: "docs/FEASIBILITY.md" })
+Read({ file_path: "docs/GLOSSARY.md" })
+Read({ file_path: "docs/DESIGN.md" })
 ```
 
-## Acceptance Criteria (BDD Format)
+存在するファイルがあれば、スキップするか確認：
 
-### Scenario Template
-
-```
-Scenario: [Specific user action]
-Given [initial context/state]
-When [user performs action]
-Then [expected result]
-And [additional verification]
-```
-
-### Example: Password Reset Feature
-
-```
-Scenario: User resets password with valid email
-Given I'm on the login page
-And I'm not logged in
-When I click "Forgot Password?"
-And enter my email address
-And click "Send Reset Email"
-Then I see message "Check your email for reset link"
-And a password reset email is sent to that address
-And the email contains a valid reset link
-
-Scenario: User uses expired reset link
-Given I received a password reset email
-And the reset link is more than 24 hours old
-When I click the reset link
-Then I see "Link has expired"
-And I'm offered to request a new reset link
-
-Scenario: Password doesn't meet requirements
-Given I'm on password reset page
-When I enter password "123"
-Then I see error "Password must be 8+ characters"
-And the form doesn't submit
+```javascript
+AskUserQuestion({
+  questions: [{
+    question: "既存のドキュメントがあります。どこから開始しますか？",
+    header: "開始ポイント",
+    options: [
+      { label: "最初から", description: "user-storyから開始" },
+      { label: "ui-sketchから", description: "USER_STORIES.mdを活用" },
+      { label: "usecase-descriptionから", description: "UI_SKETCH.mdを活用" },
+      { label: "feasibility-checkから", description: "USECASES.mdを活用" }
+    ],
+    multiSelect: false
+  }]
+})
 ```
 
-## Requirements Document Structure
+**遷移条件**: 開始ポイントが決まったら該当ステップへ
 
-### Executive Summary (1 page)
-- Overview of feature/product
-- Business goal/context
-- Key benefits
-- Timeline
-- Success metrics
+### ステップ1: ユーザーストーリー
 
-### Requirements Overview (5-10 pages)
-
-**Functional Requirements**
-- What the system must do
-- Features and capabilities
-- User interactions
-- Data handling
-
-**Non-Functional Requirements**
-- Performance (response time < 2s)
-- Scalability (support 10K concurrent users)
-- Security (encrypt PII)
-- Availability (99.9% uptime)
-- Accessibility (WCAG AA compliance)
-
-**Business Requirements**
-- Why we're building this
-- Business metrics
-- Customer need
-- Competitive advantage
-
-**Constraints**
-- Technical constraints
-- Budget constraints
-- Timeline constraints
-- Resource constraints
-
-### User Stories & Epics (20-50 pages)
-
-Structure:
-- **Epic:** Large initiative grouping related stories
-- **User Stories:** Individual features (10-20 stories per epic)
-- **Tasks:** Engineering breakdown (if needed)
-
-**Each Story Includes:**
-- Story ID and title
-- As a... I want... so that...
-- Acceptance criteria (3-8 scenarios)
-- Story points estimate
-- Dependencies
-- Design reference (wireframe/mockup)
-- Note/clarifications
-
-### Use Cases & Flows (10-20 pages)
-
-**Use Case Template:**
-```
-Use Case: [Use Case Name]
-Primary Actor: [User role]
-Precondition: [State before action]
-
-Main Flow:
-1. User does X
-2. System responds with Y
-3. User does Z
-4. System returns result
-
-Alternative Flows:
-3a. If data invalid
-    - System shows error
-    - User corrects and resubmits
-```
-
-### Data Models (10 pages)
-
-**Entity Relationship Diagram**
-- Entities (User, Post, Comment)
-- Relationships (User creates Posts)
-- Attributes (Post title, content, creation_date)
-- Primary keys, foreign keys
-
-### UI/Wireframes (Attached)
-- User interface mockups
-- User flows and navigation
-- Key interactions
-
-## Scope Management
-
-### MVP vs Nice-to-Have
-
-**MoSCoW Method:**
-
-**MUST Have** (Non-negotiable)
-- Core functionality
-- Without these: product won't work
-- Must launch with these
-- Example: User login, basic content view
-
-**SHOULD Have** (Important but not critical)
-- Enhance user experience
-- Value add
-- If time allows
-- Example: Advanced search, saved preferences
-
-**COULD Have** (Nice-to-have)
-- Polish features
-- Low priority
-- Do if extra time/budget
-- Example: Dark mode, animations
-
-**WON'T Have** (Explicitly out of scope)
-- Clear for future
-- Helps say "no" to stakeholders
-- Plan for later version
-- Example: Mobile app (launching web first)
-
-### Scope Creep Prevention
-
-**Red Flags:**
-- "Can we just add...?"
-- "This would be better if..."
-- "What about also including..."
-- "One more thing..."
-
-**Responses:**
-- "That's a great idea. Let's add it to the roadmap for Q2."
-- "That would add 3 weeks. What would you deprioritize?"
-- "That's outside current scope. Document for next phase."
-
-### Change Management
-
-**Change Request Process:**
-1. Document the change
-2. Assess impact (time, complexity)
-3. Present trade-offs
-4. Get stakeholder decision
-5. Update requirements document
-6. Communicate to team
-
-## Common Pitfalls
-
-### Too Vague
-❌ "Improve performance"
-✅ "Reduce page load time from 4s to under 2s"
-
-### No Success Criteria
-❌ "Build dashboard"
-✅ "Build dashboard showing active users in last 24h with 95% accuracy"
-
-### Missing Context
-❌ "Fix the bug"
-✅ "When searching with special characters, results show error. Fix to handle special chars."
-
-### Over-Specifying
-❌ "Use Redux with saga middleware for state management"
-✅ "State changes must be traceable and debuggable"
-
-### Ambiguous Acceptance Criteria
-❌ "System should be fast"
-✅ "API response time < 200ms for 95th percentile"
-
-## Requirements Review Checklist
-
-- ✓ Each requirement is testable
-- ✓ No requirement specifies implementation
-- ✓ Dependencies identified and documented
-- ✓ Acceptance criteria clear and complete
-- ✓ Engineering has estimated effort
-- ✓ Design mockups provided
-- ✓ Data models documented
-- ✓ Edge cases considered
-- ✓ Scope clearly defined (MVP vs future)
-- ✓ Success metrics identified
-- ✓ Timeline realistic
-- ✓ Reviewed by engineering lead
-- ✓ Reviewed by design lead
-- ✓ Stakeholder aligned
-
-## Troubleshooting
-
-### Yaygın Hatalar & Çözümler
-
-| Hata | Olası Sebep | Çözüm |
-|------|-------------|-------|
-| Story çok büyük | Epic olarak yazıldı | Story breakdown |
-| AC belirsiz | Vague criteria | Given/When/Then format |
-| Scope creep | Change mgmt yok | Change request process |
-| Missing edge cases | Happy path focus | Edge case workshop |
-
-### Debug Checklist
+進捗を表示：
 
 ```
-[ ] Her story INVEST criteria geçiyor mu?
-[ ] Acceptance criteria testable mı?
-[ ] Non-functional requirements tanımlı mı?
-[ ] Dependencies documented mı?
-[ ] Engineering review yapıldı mı?
+📍 要件・設計フェーズ [1/6]
+   ├─ ▶ user-story（実行中）
+   ├─ ○ ui-sketch
+   ├─ ○ usecase-description
+   ├─ ○ feasibility-check
+   ├─ ○ ddd-modeling
+   └─ ○ analyzing-requirements
 ```
 
-### Recovery Procedures
+```javascript
+Skill({ skill: "user-story" })
+```
 
-1. **Ambiguous Requirements** → Clarification meeting
-2. **Scope Creep** → Trade-off matrix
-3. **Missing Feasibility** → Engineering spike
+完了後、確認：
 
----
+```javascript
+AskUserQuestion({
+  questions: [{
+    question: "user-storyが完了しました。次に進みますか？",
+    header: "次のステップ",
+    options: [
+      { label: "次へ進む", description: "ui-sketchを開始" },
+      { label: "ここで終了", description: "後で続きを実行" }
+    ],
+    multiSelect: false
+  }]
+})
+```
 
-**Write clear requirements and avoid 90% of project problems!**
+### ステップ2: UI設計
+
+進捗を表示：
+
+```
+📍 要件・設計フェーズ [2/6]
+   ├─ ✓ user-story（完了）
+   ├─ ▶ ui-sketch（実行中）
+   ├─ ○ usecase-description
+   ├─ ○ feasibility-check
+   ├─ ○ ddd-modeling
+   └─ ○ analyzing-requirements
+```
+
+```javascript
+Skill({ skill: "ui-sketch" })
+```
+
+完了後、同様に確認。
+
+### ステップ3: ユースケース記述
+
+進捗を表示：
+
+```
+📍 要件・設計フェーズ [3/6]
+   ├─ ✓ user-story（完了）
+   ├─ ✓ ui-sketch（完了）
+   ├─ ▶ usecase-description（実行中）
+   ├─ ○ feasibility-check
+   ├─ ○ ddd-modeling
+   └─ ○ analyzing-requirements
+```
+
+```javascript
+Skill({ skill: "usecase-description" })
+```
+
+完了後、同様に確認。
+
+### ステップ4: 技術検証
+
+進捗を表示：
+
+```
+📍 要件・設計フェーズ [4/6]
+   ├─ ✓ user-story（完了）
+   ├─ ✓ ui-sketch（完了）
+   ├─ ✓ usecase-description（完了）
+   ├─ ▶ feasibility-check（実行中）
+   ├─ ○ ddd-modeling
+   └─ ○ analyzing-requirements
+```
+
+```javascript
+Skill({ skill: "feasibility-check" })
+```
+
+完了後、同様に確認。
+
+### ステップ5: ドメインモデリング
+
+進捗を表示：
+
+```
+📍 要件・設計フェーズ [5/6]
+   ├─ ✓ user-story（完了）
+   ├─ ✓ ui-sketch（完了）
+   ├─ ✓ usecase-description（完了）
+   ├─ ✓ feasibility-check（完了）
+   ├─ ▶ ddd-modeling（実行中）
+   └─ ○ analyzing-requirements
+```
+
+```javascript
+Skill({ skill: "ddd-modeling" })
+```
+
+完了後、同様に確認。
+
+### ステップ6: 技術設計
+
+進捗を表示：
+
+```
+📍 要件・設計フェーズ [6/6]
+   ├─ ✓ user-story（完了）
+   ├─ ✓ ui-sketch（完了）
+   ├─ ✓ usecase-description（完了）
+   ├─ ✓ feasibility-check（完了）
+   ├─ ✓ ddd-modeling（完了）
+   └─ ▶ analyzing-requirements（実行中）
+```
+
+```javascript
+Skill({ skill: "analyzing-requirements" })
+```
+
+### 完了
+
+```
+✅ 要件・設計フェーズ完了
+
+生成されたドキュメント：
+- docs/USER_STORIES.md
+- docs/UI_SKETCH.md
+- docs/USECASES.md
+- docs/FEASIBILITY.md
+- docs/GLOSSARY.md
+- docs/MODEL.md
+- docs/DESIGN.md
+
+次のステップ：
+- /implementation で実装フェーズへ
+```
+
+## 完了条件
+
+- [ ] 6つのスキルがすべて実行された（またはスキップ）
+- [ ] DESIGN.mdが生成された
+
+## 関連スキル
+
+- **ideation**: 前フェーズ（アイデア・企画）
+- **implementation**: 次フェーズ（実装）へ進む場合に使用

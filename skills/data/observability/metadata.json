@@ -1,7 +1,7 @@
 {
   "name": "observability",
-  "repo": "FlexNetOS/ripple-env",
-  "path": ".claude/skills/observability/SKILL.md",
-  "source": "github.com/FlexNetOS/ripple-env",
-  "downloaded_at": "2026-01-21T02:27:04.448063Z"
+  "repo": "5dlabs/cto",
+  "path": "templates/skills/tools/observability/SKILL.md",
+  "source": "github.com/5dlabs/cto",
+  "downloaded_at": "2026-01-22T03:27:08.028079Z"
 }

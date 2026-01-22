@@ -1,389 +1,450 @@
 ---
-name: tdd
-description: Test-driven development workflow with philosophy guide - plan → write tests → implement → validate
-keywords: [tdd, test-driven, test-first, red-green-refactor]
+name: arcanea-tdd
+description: Test-Driven Development with Arcanean philosophy - write tests first, fail intentionally, implement minimally, refactor with confidence. Embodies the Arcanean principle that constraint liberates creativity.
+version: 2.0.0
+author: Arcanea
+tags: [testing, tdd, development, quality, methodology]
+triggers:
+  - test
+  - tdd
+  - test driven
+  - write tests
+  - test first
+  - feature implementation
 ---
 
-# /tdd - Test-Driven Development Workflow
+# Test-Driven Development: The Arcanean Way
 
-Strict TDD workflow: tests first, then implementation.
-
-## When to Use
-
-- "Implement X using TDD"
-- "Build this feature test-first"
-- "Write tests for X then implement"
-- Any feature where test coverage is critical
-- Bug fixes that need regression tests
+> *"The test is not a check. The test is a specification. Write the specification before the implementation, and the implementation reveals itself."*
 
 ---
 
-# TDD Philosophy
+## The TDD Philosophy
 
-## Overview
-
-Write the test first. Watch it fail. Write minimal code to pass.
-
-**Core principle:** If you didn't watch the test fail, you don't know if it tests the right thing.
-
-**Violating the letter of the rules is violating the spirit of the rules.**
-
-## The Iron Law
+In Arcanea, we recognize that **constraints liberate creativity**. TDD embodies this principle perfectly:
 
 ```
-NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+CONSTRAINT: Write the test first
+LIBERATION: The implementation becomes clear
+CONSTRAINT: Make it fail first
+LIBERATION: You know what success looks like
+CONSTRAINT: Implement minimally
+LIBERATION: No over-engineering
+CONSTRAINT: Refactor with green tests
+LIBERATION: Confidence to improve
 ```
 
-Write code before the test? Delete it. Start over.
+---
 
-**No exceptions:**
-- Don't keep it as "reference"
-- Don't "adapt" it while writing tests
-- Don't look at it
-- Delete means delete
+## The Sacred Cycle
 
-Implement fresh from tests. Period.
+```
+         ╭──────────────────╮
+         │    RED           │
+         │  Write a test    │
+         │  that fails      │
+         ╰────────┬─────────╯
+                  │
+                  ▼
+         ╭──────────────────╮
+         │    GREEN         │
+         │  Write minimum   │
+         │  code to pass    │
+         ╰────────┬─────────╯
+                  │
+                  ▼
+         ╭──────────────────╮
+         │   REFACTOR       │
+         │  Improve code    │
+         │  tests stay green│
+         ╰────────┬─────────╯
+                  │
+                  ╰──────────────╮
+                                 │
+         ╭───────────────────────╯
+         │
+         ▼
+    (Next test)
+```
 
-## Red-Green-Refactor
+### RED: The Failing Test
 
-### RED - Write Failing Test
-
-Write one minimal test showing what should happen.
-
-**Good:**
 ```typescript
-test('retries failed operations 3 times', async () => {
-  let attempts = 0;
-  const operation = () => {
-    attempts++;
-    if (attempts < 3) throw new Error('fail');
-    return 'success';
-  };
+// Write a test for behavior that doesn't exist yet
+describe('UserService', () => {
+  it('should create a user with valid email', async () => {
+    const service = new UserService();
+    const user = await service.create({ email: 'test@example.com' });
 
-  const result = await retryOperation(operation);
-
-  expect(result).toBe('success');
-  expect(attempts).toBe(3);
+    expect(user.id).toBeDefined();
+    expect(user.email).toBe('test@example.com');
+    expect(user.createdAt).toBeInstanceOf(Date);
+  });
 });
-```
-Clear name, tests real behavior, one thing.
 
-**Bad:**
+// Run the test - IT MUST FAIL
+// This proves the test is testing something real
+```
+
+### GREEN: The Minimal Implementation
+
 ```typescript
-test('retry works', async () => {
-  const mock = jest.fn()
-    .mockRejectedValueOnce(new Error())
-    .mockResolvedValueOnce('success');
-  await retryOperation(mock);
-  expect(mock).toHaveBeenCalledTimes(3);
-});
-```
-Vague name, tests mock not code.
-
-**Requirements:**
-- One behavior
-- Clear name
-- Real code (no mocks unless unavoidable)
-
-### Verify RED - Watch It Fail
-
-**MANDATORY. Never skip.**
-
-```bash
-npm test path/to/test.test.ts
-# or
-pytest path/to/test_file.py
-```
-
-Confirm:
-- Test fails (not errors)
-- Failure message is expected
-- Fails because feature missing (not typos)
-
-**Test passes?** You're testing existing behavior. Fix test.
-**Test errors?** Fix error, re-run until it fails correctly.
-
-### GREEN - Minimal Code
-
-Write simplest code to pass the test.
-
-**Good:**
-```typescript
-async function retryOperation<T>(fn: () => Promise<T>): Promise<T> {
-  for (let i = 0; i < 3; i++) {
-    try {
-      return await fn();
-    } catch (e) {
-      if (i === 2) throw e;
-    }
+// Write the MINIMUM code to make the test pass
+// No more, no less
+class UserService {
+  async create(data: { email: string }) {
+    return {
+      id: crypto.randomUUID(),
+      email: data.email,
+      createdAt: new Date(),
+    };
   }
-  throw new Error('unreachable');
 }
-```
-Just enough to pass.
 
-**Bad:**
+// Run the test - IT MUST PASS
+```
+
+### REFACTOR: Improve With Confidence
+
 ```typescript
-async function retryOperation<T>(
-  fn: () => Promise<T>,
-  options?: {
-    maxRetries?: number;
-    backoff?: 'linear' | 'exponential';
-    onRetry?: (attempt: number) => void;
+// Now improve the code
+// The test protects you from breaking things
+class UserService {
+  private readonly users: Map<string, User> = new Map();
+
+  async create(data: CreateUserInput): Promise<User> {
+    const user = User.create(data);
+    this.users.set(user.id, user);
+    return user;
   }
-): Promise<T> {
-  // YAGNI - over-engineered
 }
+
+// Run the test - IT MUST STILL PASS
 ```
 
-Don't add features, refactor other code, or "improve" beyond the test.
+---
 
-### Verify GREEN - Watch It Pass
+## The TDD Workflow
 
-**MANDATORY.**
-
-```bash
-npm test path/to/test.test.ts
+### Step 1: Understand the Requirement
+```
+Before writing any code:
+1. What is the feature/behavior?
+2. What are the inputs?
+3. What are the expected outputs?
+4. What are the edge cases?
 ```
 
-Confirm:
-- Test passes
+### Step 2: Write the Test
+```
+The test describes the behavior you want:
+- Given [initial state]
+- When [action occurs]
+- Then [expected result]
+```
+
+### Step 3: Watch It Fail
+```
+Run the test and confirm:
+- It fails for the RIGHT reason
+- The error message makes sense
+- You understand what's missing
+```
+
+### Step 4: Write Minimal Code
+```
+Implement only what's needed to pass:
+- No additional features
+- No optimization
+- No "while I'm here" improvements
+```
+
+### Step 5: Watch It Pass
+```
+Run the test and confirm:
+- It passes
 - Other tests still pass
-- Output pristine (no errors, warnings)
+- You didn't break anything
+```
 
-**Test fails?** Fix code, not test.
-**Other tests fail?** Fix now.
-
-### REFACTOR - Clean Up
-
-After green only:
+### Step 6: Refactor
+```
+Now improve the code:
+- Extract functions
+- Rename for clarity
+- Optimize if needed
 - Remove duplication
-- Improve names
-- Extract helpers
 
-Keep tests green. Don't add behavior.
+The tests protect you.
+```
 
-## Common Rationalizations
-
-| Excuse | Reality |
-|--------|---------|
-| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
-| "I'll test after" | Tests passing immediately prove nothing. |
-| "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
-| "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
-| "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
-| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
-| "Need to explore first" | Fine. Throw away exploration, start with TDD. |
-| "Test hard = design unclear" | Listen to test. Hard to test = hard to use. |
-| "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
-| "Manual test faster" | Manual doesn't prove edge cases. You'll re-test every change. |
-
-## Red Flags - STOP and Start Over
-
-- Code before test
-- Test after implementation
-- Test passes immediately
-- Can't explain why test failed
-- Tests added "later"
-- Rationalizing "just this once"
-- "I already manually tested it"
-- "Tests after achieve the same purpose"
-- "Keep as reference" or "adapt existing code"
-
-**All of these mean: Delete code. Start over with TDD.**
-
-## Verification Checklist
-
-Before marking work complete:
-
-- [ ] Every new function/method has a test
-- [ ] Watched each test fail before implementing
-- [ ] Each test failed for expected reason (feature missing, not typo)
-- [ ] Wrote minimal code to pass each test
-- [ ] All tests pass
-- [ ] Output pristine (no errors, warnings)
-- [ ] Tests use real code (mocks only if unavoidable)
-- [ ] Edge cases and errors covered
-
-Can't check all boxes? You skipped TDD. Start over.
-
-## When Stuck
-
-| Problem | Solution |
-|---------|----------|
-| Don't know how to test | Write wished-for API. Write assertion first. Ask your human partner. |
-| Test too complicated | Design too complicated. Simplify interface. |
-| Must mock everything | Code too coupled. Use dependency injection. |
-| Test setup huge | Extract helpers. Still complex? Simplify design. |
+### Step 7: Repeat
+```
+Next behavior → Next test → Next cycle
+```
 
 ---
 
-# Workflow Execution
+## Test Categories
 
-## Workflow Overview
-
+### Unit Tests
 ```
-┌────────────┐    ┌──────────┐    ┌──────────┐    ┌───────────┐
-│   plan-    │───▶│ arbiter  │───▶│  kraken  │───▶│ arbiter  │
-│   agent    │    │          │    │          │    │           │
-└────────────┘    └──────────┘    └──────────┘    └───────────┘
-   Design          Write           Implement        Verify
-   approach        failing         minimal          all tests
-                   tests           code             pass
-```
+Test individual units in isolation.
 
-## Agent Sequence
+SCOPE: Single function, class, or module
+SPEED: Milliseconds
+DEPENDENCIES: Mocked/stubbed
+WHEN: Every code change
 
-| # | Agent | Role | Output |
-|---|-------|------|--------|
-| 1 | **plan-agent** | Design test cases and implementation approach | Test plan |
-| 2 | **arbiter** | Write failing tests (RED phase) | Test files |
-| 3 | **kraken** | Implement minimal code to pass (GREEN phase) | Implementation |
-| 4 | **arbiter** | Run all tests, verify nothing broken | Test report |
-
-## Core Principle
-
-```
-NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+Example:
+it('should validate email format', () => {
+  expect(isValidEmail('test@example.com')).toBe(true);
+  expect(isValidEmail('not-an-email')).toBe(false);
+});
 ```
 
-Each agent follows the TDD contract:
-- arbiter writes tests that MUST fail initially
-- kraken writes MINIMAL code to make tests pass
-- arbiter confirms the full suite passes
-
-## Execution
-
-### Phase 1: Plan Test Cases
-
+### Integration Tests
 ```
-Task(
-  subagent_type="plan-agent",
-  prompt="""
-  Design TDD approach for: [FEATURE_NAME]
+Test how units work together.
 
-  Define:
-  1. What behaviors need to be tested
-  2. Edge cases to cover
-  3. Expected test structure
+SCOPE: Multiple components interacting
+SPEED: Seconds
+DEPENDENCIES: Some real, some mocked
+WHEN: Before commits
 
-  DO NOT write any implementation code.
-  Output: Test plan document
-  """
-)
+Example:
+it('should save user to database', async () => {
+  const user = await userService.create({ email: 'test@example.com' });
+  const found = await userRepository.findById(user.id);
+  expect(found).toEqual(user);
+});
 ```
 
-### Phase 2: Write Failing Tests (RED)
-
+### End-to-End Tests
 ```
-Task(
-  subagent_type="arbiter",
-  prompt="""
-  Write failing tests for: [FEATURE_NAME]
+Test complete user flows.
 
-  Test plan: [from phase 1]
+SCOPE: Entire application
+SPEED: Seconds to minutes
+DEPENDENCIES: Real systems
+WHEN: Before release
 
-  Requirements:
-  - Write tests FIRST
-  - Run tests to confirm they FAIL
-  - Tests must fail because feature is missing (not syntax errors)
-  - Create clear test names describing expected behavior
-
-  DO NOT write any implementation code.
-  """
-)
+Example:
+it('should complete user registration flow', async () => {
+  await page.goto('/register');
+  await page.fill('input[name="email"]', 'test@example.com');
+  await page.fill('input[name="password"]', 'SecurePass123!');
+  await page.click('button[type="submit"]');
+  await expect(page).toHaveURL('/dashboard');
+});
 ```
 
-### Phase 3: Implement (GREEN)
+---
 
-```
-Task(
-  subagent_type="kraken",
-  prompt="""
-  Implement MINIMAL code to pass tests: [FEATURE_NAME]
+## Test Patterns
 
-  Tests location: [test file path]
+### Arrange-Act-Assert (AAA)
+```typescript
+it('should add items to cart', () => {
+  // ARRANGE: Set up the test
+  const cart = new ShoppingCart();
+  const item = { id: '1', name: 'Widget', price: 9.99 };
 
-  Requirements:
-  - Write ONLY enough code to make tests pass
-  - No additional features beyond what tests require
-  - No "improvements" or "enhancements"
-  - Run tests after each change
+  // ACT: Perform the action
+  cart.addItem(item);
 
-  Follow Red-Green-Refactor strictly.
-  """
-)
-```
-
-### Phase 4: Validate
-
-```
-Task(
-  subagent_type="arbiter",
-  prompt="""
-  Validate TDD implementation: [FEATURE_NAME]
-
-  - Run full test suite
-  - Verify all new tests pass
-  - Verify no existing tests broke
-  - Check test coverage if available
-  """
-)
+  // ASSERT: Verify the result
+  expect(cart.items).toContain(item);
+  expect(cart.total).toBe(9.99);
+});
 ```
 
-## TDD Rules Enforced
+### Given-When-Then (BDD Style)
+```typescript
+describe('Shopping Cart', () => {
+  describe('given an empty cart', () => {
+    describe('when an item is added', () => {
+      it('then the cart contains the item', () => {
+        // ...
+      });
 
-1. **arbiter** cannot write implementation code
-2. **kraken** cannot add untested features
-3. Tests must fail before implementation
-4. Tests must pass after implementation
-
-## Example
-
-```
-User: /tdd Add email validation to the signup form
-
-Claude: Starting /tdd workflow for email validation...
-
-Phase 1: Planning test cases...
-[Spawns plan-agent]
-Test plan:
-- Valid email formats
-- Invalid email formats
-- Empty email rejection
-- Edge cases (unicode, long emails)
-
-Phase 2: Writing failing tests (RED)...
-[Spawns arbiter]
-✅ 8 tests written, all failing as expected
-
-Phase 3: Implementing minimal code (GREEN)...
-[Spawns kraken]
-✅ All 8 tests now passing
-
-Phase 4: Validating...
-[Spawns arbiter]
-✅ 247 tests passing (8 new), 0 failing
-
-TDD workflow complete!
+      it('then the total reflects the item price', () => {
+        // ...
+      });
+    });
+  });
+});
 ```
 
-## Refactor Phase (Optional)
+### Test Fixtures
+```typescript
+describe('UserService', () => {
+  let service: UserService;
+  let mockRepository: jest.Mocked<UserRepository>;
 
-After GREEN, you can add a refactor phase:
+  beforeEach(() => {
+    mockRepository = createMockRepository();
+    service = new UserService(mockRepository);
+  });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  // Tests use fresh fixtures each time
+});
 ```
-Task(
-  subagent_type="kraken",
-  prompt="""
-  Refactor: [FEATURE_NAME]
 
-  - Clean up code while keeping tests green
-  - Remove duplication
-  - Improve naming
-  - Extract helpers if needed
+---
 
-  DO NOT add new behavior. Keep all tests passing.
-  """
-)
+## What to Test
+
+### The Testing Pyramid
 ```
+           /\
+          /  \
+         / E2E \      (Few: Slow, expensive, broad)
+        /______\
+       /        \
+      /Integration\   (Some: Medium speed, focused)
+     /____________\
+    /              \
+   /   Unit Tests   \  (Many: Fast, cheap, specific)
+  /__________________\
+```
+
+### Behavior, Not Implementation
+```typescript
+// BAD: Testing implementation details
+it('should call repository.save with user object', () => {
+  await service.createUser(userData);
+  expect(repository.save).toHaveBeenCalledWith(expect.any(User));
+});
+
+// GOOD: Testing behavior
+it('should persist user and return with id', async () => {
+  const user = await service.createUser(userData);
+  const found = await service.findById(user.id);
+  expect(found).toEqual(user);
+});
+```
+
+### Edge Cases
+```typescript
+describe('divide', () => {
+  it('should divide two numbers', () => {
+    expect(divide(10, 2)).toBe(5);
+  });
+
+  it('should throw on division by zero', () => {
+    expect(() => divide(10, 0)).toThrow('Division by zero');
+  });
+
+  it('should handle negative numbers', () => {
+    expect(divide(-10, 2)).toBe(-5);
+  });
+
+  it('should handle floating point', () => {
+    expect(divide(1, 3)).toBeCloseTo(0.333, 2);
+  });
+});
+```
+
+---
+
+## Common Pitfalls
+
+### The Oracle Problem
+```
+PROBLEM: Tests that test themselves
+EXAMPLE: expect(add(2, 2)).toBe(add(2, 2));
+SOLUTION: Use concrete expected values
+```
+
+### Test Pollution
+```
+PROBLEM: Tests depend on each other or shared state
+SOLUTION: Each test creates its own fixtures, cleanup after
+```
+
+### Over-Mocking
+```
+PROBLEM: Everything is mocked, testing mocks not reality
+SOLUTION: Mock at boundaries, test real logic
+```
+
+### Fragile Tests
+```
+PROBLEM: Tests break when implementation changes
+SOLUTION: Test behavior, not implementation
+```
+
+### Slow Tests
+```
+PROBLEM: Tests take too long, developers skip them
+SOLUTION: Fast unit tests, fewer integration tests
+```
+
+---
+
+## TDD Tips
+
+### Start with the Simplest Test
+```
+Don't start with complex edge cases.
+Start with the happy path.
+Build complexity incrementally.
+```
+
+### One Assertion Per Test (Usually)
+```
+Each test should verify one behavior.
+Multiple assertions are okay if testing one logical thing.
+```
+
+### Name Tests Clearly
+```
+WEAK: testUserCreate()
+STRONG: should_create_user_with_valid_email()
+         should_reject_user_with_invalid_email()
+         should_assign_unique_id_to_new_user()
+```
+
+### Delete Bad Tests
+```
+Tests that frequently break for wrong reasons
+Tests that don't catch bugs
+Tests that are hard to understand
+DELETE THEM. Bad tests are worse than no tests.
+```
+
+---
+
+## Quick Reference
+
+### TDD Checklist
+```
+□ Test written before code
+□ Test fails first
+□ Error message is clear
+□ Minimum code written to pass
+□ All tests pass
+□ Code refactored
+□ Tests still pass
+□ Tests are readable
+□ Tests are fast
+□ Tests don't depend on each other
+```
+
+### Test Quality Criteria
+```
+□ Tests document behavior (can read to understand feature)
+□ Tests catch bugs (when code breaks, tests fail)
+□ Tests allow refactoring (can change implementation safely)
+□ Tests run quickly (no excuse to skip them)
+□ Tests are maintainable (easy to update when behavior changes)
+```
+
+---
+
+*"The test is the specification made executable. Write the specification first, and the implementation reveals itself."*

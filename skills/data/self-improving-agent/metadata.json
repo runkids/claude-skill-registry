@@ -1,7 +1,7 @@
 {
   "name": "self-improving-agent",
-  "repo": "Charon-Fan/agent-playbook",
-  "path": "skills/self-improving-agent/SKILL.md",
-  "source": "github.com/Charon-Fan/agent-playbook",
-  "downloaded_at": "2026-01-21T03:43:47.666212Z"
+  "repo": "ederheisler/agent-skills",
+  "path": ".claude/skills/self-improving-agent/SKILL.md",
+  "source": "github.com/ederheisler/agent-skills",
+  "downloaded_at": "2026-01-22T02:36:33.563514Z"
 }

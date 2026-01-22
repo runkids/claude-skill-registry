@@ -1,9 +1,19 @@
 ---
 name: simpy
+display_name: Simpy
 description: Process-based discrete-event simulation framework in Python. Use this skill when building simulations of systems with processes, queues, resources, and time-based events such as manufacturing systems, service operations, network traffic, logistics, or any system where entities interact with shared resources over time.
+version: 1.0.0
+author: K-Dense Inc.
 license: MIT license
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["physics", "materials", "quantum"]
+category: physics
+allowed_tools: ["code_execute"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 7
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # SimPy - Discrete-Event Simulation

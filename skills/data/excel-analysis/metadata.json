@@ -1,7 +1,7 @@
 {
   "name": "excel-analysis",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/excel-analysis/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-01-21T03:12:26.521174Z"
+  "repo": "Krosebrook/source-of-truth-monorepo",
+  "path": "plugins/marketplaces/claude-code-templates/cli-tool/components/skills/enterprise-communication/excel-analysis/SKILL.md",
+  "source": "github.com/Krosebrook/source-of-truth-monorepo",
+  "downloaded_at": "2026-01-22T03:35:32.283886Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "enhancer",
-  "repo": "wtthornton/TappsCodingAgents",
-  "path": "tapps_agents/resources/claude/skills/enhancer/SKILL.md",
-  "source": "github.com/wtthornton/TappsCodingAgents",
-  "downloaded_at": "2026-01-21T04:13:12.526568Z"
+  "repo": "wtthornton/HomeIQ",
+  "path": ".claude/skills/enhancer/SKILL.md",
+  "source": "github.com/wtthornton/HomeIQ",
+  "downloaded_at": "2026-01-22T03:13:13.671349Z"
 }

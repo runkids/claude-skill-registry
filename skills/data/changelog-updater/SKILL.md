@@ -1,59 +1,71 @@
 ---
 name: changelog-updater
-description: Auto-update CHANGELOG.md following Keep a Changelog format. Triggers: CL, changelog, 變更, 版本, version, 更新日誌, whatsnew.
+description: Maintain and update CHANGELOG.md following Keep a Changelog format. Use when: updating changelog, version documentation, release notes, semver versioning, categorizing changes (Added/Changed/Fixed/Security).
 ---
 
-# CHANGELOG 更新技能
+# Changelog Updater
 
-## 描述
-根據變更內容自動更新 CHANGELOG.md。
+Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/) format.
 
-## 觸發條件
-- 「更新 changelog」
-- 被 git-precommit 編排器調用
+## Structure
 
-## 法規依據
-- 憲法：CONSTITUTION.md 第 7 條
-- 格式：Keep a Changelog
+```markdown
+# Changelog
 
-## 分類規則
-
-| 類型 | 關鍵字偵測 |
-|------|------------|
-| Added | 新增、add、feat |
-| Changed | 變更、修改、update、change |
-| Deprecated | 棄用、deprecate |
-| Removed | 移除、刪除、remove、delete |
-| Fixed | 修復、fix、bug |
-| Security | 安全、security、漏洞 |
-
-## 版本號決定
-
-```
-MAJOR.MINOR.PATCH
-
-MAJOR: 重大變更（Breaking Changes）
-MINOR: 新功能（向下相容）
-PATCH: Bug 修復
-```
-
-## 輸出格式
-
-```
-📋 CHANGELOG 更新
-
-偵測到的變更：
-  - [Added] 新增用戶認證模組
-  - [Fixed] 修復登入問題
-
-建議版本：0.2.0 (MINOR - 新功能)
-
-預覽：
-## [0.2.0] - 2025-12-15
+## [Unreleased]
 
 ### Added
-- 新增用戶認證模組
+- New features
 
-### Fixed  
-- 修復登入問題
+### Changed
+- Changes to existing functionality
+
+### Deprecated
+- Features to be removed
+
+### Removed
+- Removed features
+
+### Fixed
+- Bug fixes
+
+### Security
+- Security fixes
+
+## [X.Y.Z] - YYYY-MM-DD
+...
+```
+
+## Update Process
+
+1. Run `git log v2.1.0..HEAD --oneline` to see changes
+2. Categorize each significant commit
+3. Write user-facing descriptions
+4. Update version number per semver
+5. Move entries from [Unreleased] to version section
+
+## Version Guidelines
+
+**MAJOR** (X.0.0): Breaking changes
+**MINOR** (X.Y.0): New features, backwards compatible
+**PATCH** (X.Y.Z): Bug fixes, backwards compatible
+
+## Entry Format
+
+```markdown
+### Added
+- Brief description in user-facing language
+- Reference issue: #123
+```
+
+## Good Examples
+
+```markdown
+### Added
+- Browser node connection pooling for 60% faster execution
+- PostgreSQL async support with connection pooling
+
+### Fixed
+- Variable resolution in nested workflows (#234)
+- Memory leak in browser resource manager
 ```

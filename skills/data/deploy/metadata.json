@@ -1,7 +1,7 @@
 {
   "name": "deploy",
-  "repo": "cameronapak/freedom-stack-v3",
-  "path": ".opencode/skill/deploy/SKILL.md",
-  "source": "github.com/cameronapak/freedom-stack-v3",
-  "downloaded_at": "2026-01-21T01:52:47.636234Z"
+  "repo": "mmbianco78/signalroom",
+  "path": ".claude/skills/deploy/SKILL.md",
+  "source": "github.com/mmbianco78/signalroom",
+  "downloaded_at": "2026-01-22T02:15:39.756805Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "connection-pooling",
-  "repo": "yonatangross/skillforge-claude-plugin",
-  "path": "skills/connection-pooling/SKILL.md",
-  "source": "github.com/yonatangross/skillforge-claude-plugin",
-  "downloaded_at": "2026-01-21T04:14:22.033994Z"
+  "repo": "AmnadTaowsoam/cerebratechai-claude-skills",
+  "path": "04-database/connection-pooling/SKILL.md",
+  "source": "github.com/AmnadTaowsoam/cerebratechai-claude-skills",
+  "downloaded_at": "2026-01-22T02:36:54.489892Z"
 }

@@ -1,377 +1,400 @@
 ---
-description: Frontend development guidelines for Next.js 15 + React 19 + TypeScript with Tailwind CSS and TanStack Query
-trigger_keywords: ["component", "frontend", "react", "nextjs", "tailwind", "tanstack"]
+name: frontend-dev-guidelines
+description: Frontend development guidelines for React/TypeScript applications. Modern patterns including Suspense, lazy loading, useSuspenseQuery, file organization with features directory, MUI v7 styling, TanStack Router, performance optimization, and TypeScript best practices. Use when creating components, pages, features, fetching data, styling, routing, or working with frontend code.
 ---
 
 # Frontend Development Guidelines
 
-## Tech Stack
-
-- **Framework**: Next.js 15 with App Router
-- **UI Library**: React 19
-- **Language**: TypeScript (strict mode)
-- **Styling**: Tailwind CSS
-- **Data Fetching**: TanStack Query (React Query)
-- **State Management**: Zustand (client state) + TanStack Query (server state)
-- **Forms**: React Hook Form + Zod validation
-- **UI Components**: [ADD YOUR COMPONENT LIBRARY - shadcn/ui, Radix, MUI, etc.]
-
-## Project Structure
-
-```
-frontend/
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── (auth)/            # Route groups
-│   │   ├── api/               # API routes
-│   │   ├── layout.tsx         # Root layout
-│   │   └── page.tsx           # Home page
-│   ├── components/
-│   │   ├── ui/                # Base UI components
-│   │   ├── forms/             # Form components
-│   │   └── features/          # Feature-specific components
-│   ├── hooks/                 # Custom React hooks
-│   ├── lib/
-│   │   ├── api/              # API client functions
-│   │   ├── utils/            # Utility functions
-│   │   └── validations/      # Zod schemas
-│   ├── providers/            # Context providers
-│   ├── stores/               # Zustand stores
-│   └── types/                # TypeScript type definitions
-├── public/                   # Static assets
-└── tailwind.config.ts       # Tailwind configuration
-```
-
-## Component Patterns
-
-### Server vs Client Components
-
-```tsx
-// Server Component (default in Next.js 15)
-// - No 'use client' directive
-// - Can use async/await directly
-// - Can access server-only resources
-export default async function ServerComponent() {
-  const data = await fetchData(); // Direct data fetching
-  return <div>{data.title}</div>;
-}
-
-// Client Component
-// - Requires 'use client' directive at TOP of file
-// - Can use hooks, event handlers, browser APIs
-'use client';
-
-import { useState } from 'react';
-
-export function ClientComponent() {
-  const [count, setCount] = useState(0);
-  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
-}
-```
-
-### Component Structure
-
-```tsx
-'use client';
-
-import { useState, useCallback } from 'react';
-import { useQuery } from '@tanstack/react-query';
-
-// Types at top
-interface ComponentProps {
-  id: string;
-  onSuccess?: () => void;
-}
-
-// Component
-export function MyComponent({ id, onSuccess }: ComponentProps) {
-  // 1. Hooks first
-  const [state, setState] = useState<string>('');
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['item', id],
-    queryFn: () => fetchItem(id),
-  });
-
-  // 2. Callbacks
-  const handleClick = useCallback(() => {
-    // handle click
-    onSuccess?.();
-  }, [onSuccess]);
-
-  // 3. Early returns for loading/error states
-  if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage error={error} />;
-
-  // 4. Main render
-  return (
-    <div className="flex flex-col gap-4">
-      {/* JSX */}
-    </div>
-  );
-}
-```
-
-## Data Fetching with TanStack Query
-
-### Query Setup
-
-```tsx
-// lib/api/items.ts
-export async function fetchItems(): Promise<Item[]> {
-  const response = await fetch('/api/items');
-  if (!response.ok) {
-    throw new Error('Failed to fetch items');
-  }
-  return response.json();
-}
-
-// In component
-const { data, isLoading, error, refetch } = useQuery({
-  queryKey: ['items'],
-  queryFn: fetchItems,
-  staleTime: 5 * 60 * 1000, // 5 minutes
-});
-```
-
-### Mutations
-
-```tsx
-const mutation = useMutation({
-  mutationFn: createItem,
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ['items'] });
-    toast.success('Item created!');
-  },
-  onError: (error) => {
-    toast.error(error.message);
-  },
-});
-```
-
-## Styling with Tailwind
-
-### Best Practices
-
-```tsx
-// Use semantic class groupings
-<div className={cn(
-  // Layout
-  "flex flex-col gap-4",
-  // Sizing
-  "w-full max-w-md",
-  // Spacing
-  "p-4 m-2",
-  // Colors
-  "bg-white dark:bg-gray-900",
-  // Typography
-  "text-sm font-medium",
-  // Borders
-  "border rounded-lg",
-  // Conditional
-  isActive && "ring-2 ring-blue-500"
-)}>
-```
-
-### Utility Function for Class Names
-
-```tsx
-// lib/utils.ts
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-```
-
-## Form Handling
-
-```tsx
-'use client';
-
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-
-const formSchema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-});
-
-type FormData = z.infer<typeof formSchema>;
-
-export function LoginForm() {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-  });
-
-  const onSubmit = async (data: FormData) => {
-    // Handle form submission
-  };
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register('email')} />
-      {errors.email && <span>{errors.email.message}</span>}
-
-      <input type="password" {...register('password')} />
-      {errors.password && <span>{errors.password.message}</span>}
-
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Loading...' : 'Submit'}
-      </button>
-    </form>
-  );
-}
-```
-
-## Error Handling
-
-### Error Boundary
-
-```tsx
-'use client';
-
-import { ErrorBoundary } from 'react-error-boundary';
-
-function ErrorFallback({ error, resetErrorBoundary }) {
-  return (
-    <div role="alert" className="p-4 bg-red-50 border border-red-200 rounded">
-      <h2>Something went wrong</h2>
-      <pre className="text-sm">{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
-  );
-}
-
-// Usage
-<ErrorBoundary FallbackComponent={ErrorFallback}>
-  <MyComponent />
-</ErrorBoundary>
-```
-
-### API Error Handling
-
-```tsx
-// lib/api/client.ts
-export async function apiClient<T>(url: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options?.headers,
-    },
-  });
-
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new ApiError(response.status, error.message || 'Request failed');
-  }
-
-  return response.json();
-}
-
-class ApiError extends Error {
-  constructor(public status: number, message: string) {
-    super(message);
-    this.name = 'ApiError';
-  }
-}
-```
-
-## TypeScript Best Practices
-
-### Type Definitions
-
-```tsx
-// types/index.ts
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  createdAt: Date;
-}
-
-// Partial types for updates
-export type UserUpdate = Partial<Pick<User, 'email' | 'name'>>;
-
-// API response types
-export interface ApiResponse<T> {
-  data: T;
-  meta?: {
-    total: number;
-    page: number;
-  };
-}
-```
-
-### Avoid These
-
-```tsx
-// BAD
-const data: any = await fetch(...);
-const items = data as Item[];
-
-// GOOD
-const response = await fetch<ApiResponse<Item[]>>(...);
-const items = response.data;
-```
-
-## Performance Optimization
-
-### Code Splitting
-
-```tsx
-// Dynamic imports for heavy components
-import dynamic from 'next/dynamic';
-
-const HeavyChart = dynamic(() => import('@/components/HeavyChart'), {
-  loading: () => <ChartSkeleton />,
-  ssr: false,
-});
-```
-
-### Memoization
-
-```tsx
-// Memoize expensive computations
-const processedData = useMemo(() => {
-  return expensiveComputation(data);
-}, [data]);
-
-// Memoize callbacks passed to children
-const handleClick = useCallback(() => {
-  // handler logic
-}, [dependencies]);
-
-// Memoize components that receive object/array props
-const MemoizedComponent = memo(MyComponent);
-```
-
-## Common Patterns
-
-### Loading States
-
-```tsx
-// Use Suspense for loading
-import { Suspense } from 'react';
-
-<Suspense fallback={<LoadingSkeleton />}>
-  <AsyncComponent />
-</Suspense>
-```
-
-### Conditional Rendering
-
-```tsx
-// Prefer early returns
-if (!data) return null;
-if (isLoading) return <Loading />;
-if (error) return <Error />;
-
-return <Content data={data} />;
+## Purpose
+
+Comprehensive guide for modern React development, emphasizing Suspense-based data fetching, lazy loading, proper file organization, and performance optimization.
+
+## When to Use This Skill
+
+- Creating new components or pages
+- Building new features
+- Fetching data with TanStack Query
+- Setting up routing with TanStack Router
+- Styling components with MUI v7
+- Performance optimization
+- Organizing frontend code
+- TypeScript best practices
+- Applying inline HTML/CSS styling (e.g., for Jupyter presentation notebooks)
+
+---
+
+## Quick Start
+
+### New Component Checklist
+
+Creating a component? Follow this checklist:
+
+- [ ] Use `React.FC<Props>` pattern with TypeScript
+- [ ] Lazy load if heavy component: `React.lazy(() => import())`
+- [ ] Wrap in `<SuspenseLoader>` for loading states
+- [ ] Use `useSuspenseQuery` for data fetching
+- [ ] Import aliases: `@/`, `~types`, `~components`, `~features`
+- [ ] Styles: Inline if <100 lines, separate file if >100 lines
+- [ ] Use `useCallback` for event handlers passed to children
+- [ ] Default export at bottom
+- [ ] No early returns with loading spinners
+- [ ] Use `useMuiSnackbar` for user notifications
+
+### New Feature Checklist
+
+Creating a feature? Set up this structure:
+
+- [ ] Create `features/{feature-name}/` directory
+- [ ] Create subdirectories: `api/`, `components/`, `hooks/`, `helpers/`, `types/`
+- [ ] Create API service file: `api/{feature}Api.ts`
+- [ ] Set up TypeScript types in `types/`
+- [ ] Create route in `routes/{feature-name}/index.tsx`
+- [ ] Lazy load feature components
+- [ ] Use Suspense boundaries
+- [ ] Export public API from feature `index.ts`
+
+---
+
+## Import Aliases Quick Reference
+
+| Alias | Resolves To | Example |
+|-------|-------------|---------|
+| `@/` | `src/` | `import { apiClient } from '@/lib/apiClient'` |
+| `~types` | `src/types` | `import type { User } from '~types/user'` |
+| `~components` | `src/components` | `import { SuspenseLoader } from '~components/SuspenseLoader'` |
+| `~features` | `src/features` | `import { authApi } from '~features/auth'` |
+
+Defined in: [vite.config.ts](../../vite.config.ts) lines 180-185
+
+---
+
+## Common Imports Cheatsheet
+
+```typescript
+// React & Lazy Loading
+import React, { useState, useCallback, useMemo } from 'react';
+const Heavy = React.lazy(() => import('./Heavy'));
+
+// MUI Components
+import { Box, Paper, Typography, Button, Grid } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
+
+// TanStack Query (Suspense)
+import { useSuspenseQuery, useQueryClient } from '@tanstack/react-query';
+
+// TanStack Router
+import { createFileRoute } from '@tanstack/react-router';
+
+// Project Components
+import { SuspenseLoader } from '~components/SuspenseLoader';
+
+// Hooks
+import { useAuth } from '@/hooks/useAuth';
+import { useMuiSnackbar } from '@/hooks/useMuiSnackbar';
+
+// Types
+import type { Post } from '~types/post';
 ```
 
 ---
 
-**CUSTOMIZE THIS FILE** for your specific component library, design system, and project conventions.
+## Topic Guides
+
+### 🎨 Component Patterns
+
+**Modern React components use:**
+- `React.FC<Props>` for type safety
+- `React.lazy()` for code splitting
+- `SuspenseLoader` for loading states
+- Named const + default export pattern
+
+**Key Concepts:**
+- Lazy load heavy components (DataGrid, charts, editors)
+- Always wrap lazy components in Suspense
+- Use SuspenseLoader component (with fade animation)
+- Component structure: Props → Hooks → Handlers → Render → Export
+
+**[📖 Complete Guide: resources/component-patterns.md](resources/component-patterns.md)**
+
+---
+
+### 📊 Data Fetching
+
+**PRIMARY PATTERN: useSuspenseQuery**
+- Use with Suspense boundaries
+- Cache-first strategy (check grid cache before API)
+- Replaces `isLoading` checks
+- Type-safe with generics
+
+**API Service Layer:**
+- Create `features/{feature}/api/{feature}Api.ts`
+- Use `apiClient` axios instance
+- Centralized methods per feature
+- Route format: `/form/route` (NOT `/api/form/route`)
+
+**[📖 Complete Guide: resources/data-fetching.md](resources/data-fetching.md)**
+
+---
+
+### 📁 File Organization
+
+**features/ vs components/:**
+- `features/`: Domain-specific (posts, comments, auth)
+- `components/`: Truly reusable (SuspenseLoader, CustomAppBar)
+
+**Feature Subdirectories:**
+```
+features/
+  my-feature/
+    api/          # API service layer
+    components/   # Feature components
+    hooks/        # Custom hooks
+    helpers/      # Utility functions
+    types/        # TypeScript types
+```
+
+**[📖 Complete Guide: resources/file-organization.md](resources/file-organization.md)**
+
+---
+
+### 🎨 Styling
+
+**Inline vs Separate:**
+- <100 lines: Inline `const styles: Record<string, SxProps<Theme>>`
+- >100 lines: Separate `.styles.ts` file
+
+**Primary Method:**
+- Use `sx` prop for MUI components
+- Type-safe with `SxProps<Theme>`
+- Theme access: `(theme) => theme.palette.primary.main`
+
+**MUI v7 Grid:**
+```typescript
+<Grid size={{ xs: 12, md: 6 }}>  // ✅ v7 syntax
+<Grid xs={12} md={6}>             // ❌ Old syntax
+```
+
+**[📖 Complete Guide: resources/styling-guide.md](resources/styling-guide.md)**
+
+---
+
+### 🛣️ Routing
+
+**TanStack Router - Folder-Based:**
+- Directory: `routes/my-route/index.tsx`
+- Lazy load components
+- Use `createFileRoute`
+- Breadcrumb data in loader
+
+**Example:**
+```typescript
+import { createFileRoute } from '@tanstack/react-router';
+import { lazy } from 'react';
+
+const MyPage = lazy(() => import('@/features/my-feature/components/MyPage'));
+
+export const Route = createFileRoute('/my-route/')({
+    component: MyPage,
+    loader: () => ({ crumb: 'My Route' }),
+});
+```
+
+**[📖 Complete Guide: resources/routing-guide.md](resources/routing-guide.md)**
+
+---
+
+### ⏳ Loading & Error States
+
+**CRITICAL RULE: No Early Returns**
+
+```typescript
+// ❌ NEVER - Causes layout shift
+if (isLoading) {
+    return <LoadingSpinner />;
+}
+
+// ✅ ALWAYS - Consistent layout
+<SuspenseLoader>
+    <Content />
+</SuspenseLoader>
+```
+
+**Why:** Prevents Cumulative Layout Shift (CLS), better UX
+
+**Error Handling:**
+- Use `useMuiSnackbar` for user feedback
+- NEVER `react-toastify`
+- TanStack Query `onError` callbacks
+
+**[📖 Complete Guide: resources/loading-and-error-states.md](resources/loading-and-error-states.md)**
+
+---
+
+### ⚡ Performance
+
+**Optimization Patterns:**
+- `useMemo`: Expensive computations (filter, sort, map)
+- `useCallback`: Event handlers passed to children
+- `React.memo`: Expensive components
+- Debounced search (300-500ms)
+- Memory leak prevention (cleanup in useEffect)
+
+**[📖 Complete Guide: resources/performance.md](resources/performance.md)**
+
+---
+
+### 📘 TypeScript
+
+**Standards:**
+- Strict mode, no `any` type
+- Explicit return types on functions
+- Type imports: `import type { User } from '~types/user'`
+- Component prop interfaces with JSDoc
+
+**[📖 Complete Guide: resources/typescript-standards.md](resources/typescript-standards.md)**
+
+---
+
+### 🔧 Common Patterns
+
+**Covered Topics:**
+- React Hook Form with Zod validation
+- DataGrid wrapper contracts
+- Dialog component standards
+- `useAuth` hook for current user
+- Mutation patterns with cache invalidation
+
+**[📖 Complete Guide: resources/common-patterns.md](resources/common-patterns.md)**
+
+---
+
+### 📚 Complete Examples
+
+**Full working examples:**
+- Modern component with all patterns
+- Complete feature structure
+- API service layer
+- Route with lazy loading
+- Suspense + useSuspenseQuery
+- Form with validation
+
+**[📖 Complete Guide: resources/complete-examples.md](resources/complete-examples.md)**
+
+---
+
+## Navigation Guide
+
+| Need to... | Read this resource |
+|------------|-------------------|
+| Create a component | [component-patterns.md](resources/component-patterns.md) |
+| Fetch data | [data-fetching.md](resources/data-fetching.md) |
+| Organize files/folders | [file-organization.md](resources/file-organization.md) |
+| Style components | [styling-guide.md](resources/styling-guide.md) |
+| Set up routing | [routing-guide.md](resources/routing-guide.md) |
+| Handle loading/errors | [loading-and-error-states.md](resources/loading-and-error-states.md) |
+| Optimize performance | [performance.md](resources/performance.md) |
+| TypeScript types | [typescript-standards.md](resources/typescript-standards.md) |
+| Forms/Auth/DataGrid | [common-patterns.md](resources/common-patterns.md) |
+| See full examples | [complete-examples.md](resources/complete-examples.md) |
+
+---
+
+## Core Principles
+
+1. **Lazy Load Everything Heavy**: Routes, DataGrid, charts, editors
+2. **Suspense for Loading**: Use SuspenseLoader, not early returns
+3. **useSuspenseQuery**: Primary data fetching pattern for new code
+4. **Features are Organized**: api/, components/, hooks/, helpers/ subdirs
+5. **Styles Based on Size**: <100 inline, >100 separate
+6. **Import Aliases**: Use @/, ~types, ~components, ~features
+7. **No Early Returns**: Prevents layout shift
+8. **useMuiSnackbar**: For all user notifications
+
+---
+
+## Quick Reference: File Structure
+
+```
+src/
+  features/
+    my-feature/
+      api/
+        myFeatureApi.ts       # API service
+      components/
+        MyFeature.tsx         # Main component
+        SubComponent.tsx      # Related components
+      hooks/
+        useMyFeature.ts       # Custom hooks
+        useSuspenseMyFeature.ts  # Suspense hooks
+      helpers/
+        myFeatureHelpers.ts   # Utilities
+      types/
+        index.ts              # TypeScript types
+      index.ts                # Public exports
+
+  components/
+    SuspenseLoader/
+      SuspenseLoader.tsx      # Reusable loader
+    CustomAppBar/
+      CustomAppBar.tsx        # Reusable app bar
+
+  routes/
+    my-route/
+      index.tsx               # Route component
+      create/
+        index.tsx             # Nested route
+```
+
+---
+
+## Modern Component Template (Quick Copy)
+
+```typescript
+import React, { useState, useCallback } from 'react';
+import { Box, Paper } from '@mui/material';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { featureApi } from '../api/featureApi';
+import type { FeatureData } from '~types/feature';
+
+interface MyComponentProps {
+    id: number;
+    onAction?: () => void;
+}
+
+export const MyComponent: React.FC<MyComponentProps> = ({ id, onAction }) => {
+    const [state, setState] = useState<string>('');
+
+    const { data } = useSuspenseQuery({
+        queryKey: ['feature', id],
+        queryFn: () => featureApi.getFeature(id),
+    });
+
+    const handleAction = useCallback(() => {
+        setState('updated');
+        onAction?.();
+    }, [onAction]);
+
+    return (
+        <Box sx={{ p: 2 }}>
+            <Paper sx={{ p: 3 }}>
+                {/* Content */}
+            </Paper>
+        </Box>
+    );
+};
+
+export default MyComponent;
+```
+
+For complete examples, see [resources/complete-examples.md](resources/complete-examples.md)
+
+---
+
+## Related Skills
+
+- **error-tracking**: Error tracking with Sentry (applies to frontend too)
+- **backend-dev-guidelines**: Backend API patterns that frontend consumes
+
+---
+
+**Skill Status**: Modular structure with progressive loading for optimal context management

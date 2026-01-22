@@ -1,7 +1,7 @@
 {
   "name": "youtube-transcript-analyzer",
-  "repo": "Light-Brands/lawless-ai-v1",
-  "path": "plugins/core/skills/youtube-transcript-analyzer/SKILL.md",
-  "source": "github.com/Light-Brands/lawless-ai-v1",
-  "downloaded_at": "2026-01-21T01:59:44.430767Z"
+  "repo": "Krosebrook/source-of-truth-monorepo",
+  "path": "plugins/marketplaces/ai-coding-config/.claude/skills/youtube-transcript-analyzer/SKILL.md",
+  "source": "github.com/Krosebrook/source-of-truth-monorepo",
+  "downloaded_at": "2026-01-22T03:35:33.659487Z"
 }

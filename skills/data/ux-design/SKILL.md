@@ -1,371 +1,274 @@
 ---
 name: ux-design
-description: UX design expert for user research, personas, journey mapping, information architecture, wireframing, prototyping, usability testing, and accessibility. Creates user-centered designs with WCAG 2.1 AA/AAA compliance.
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash
+description: User experience and visual design expert - creates wireframes, mockups, and interactive prototypes. Ensures WCAG accessibility and mobile responsiveness. Self-evaluates using 8-metric UX standard (8.0/10 minimum).
+version: 2.0.0
 ---
 
-# UX Design Skill
+# GabeDA UX Design Expert
 
-Expert in user experience design, creating intuitive, accessible, and user-centered digital experiences.
+## Purpose
+
+This skill creates **user experience and visual designs** for the GabeDA platform. It produces wireframes, mockups, and design specifications while ensuring accessibility, mobile responsiveness, and professional quality.
+
+**Core Functions:**
+- Visual design (colors, typography, spacing, imagery)
+- Wireframing and mockups (lo-fi and hi-fi prototypes)
+- Responsive design (mobile-first, breakpoints, touch targets)
+- Accessibility compliance (WCAG 2.1 AA)
+- Interaction design (hover states, transitions, animations)
+- Design systems (component libraries, style guides)
+- Quality assurance (self-evaluation using 8-metric UX standard)
+
+**Key Differentiator:** This skill executes visual design. Business and marketing skills define UX strategy (who, what, why).
 
 ## When to Use This Skill
 
-Use this skill when:
+Invoke this skill when:
+- Creating webpage designs or mockups
+- Designing dashboard layouts and data visualizations
+- Ensuring WCAG accessibility compliance
+- Creating responsive designs (mobile/tablet/desktop)
+- Designing interaction patterns (hover, animations, transitions)
+- Evaluating existing designs for UX quality
+- Creating design systems and component libraries
 
-- Conducting user research and creating personas
-- Designing information architecture and user flows
-- Creating wireframes and prototypes
-- Planning usability tests
-- Ensuring accessibility compliance (WCAG 2.1 AA/AAA)
-- Developing design systems and component libraries
-- Analyzing user feedback and iterating on designs
+**NOT for:**
+- User research or personas (use **business** skill)
+- Marketing messaging or content (use **marketing** skill)
+- Data analysis or insights (use **insights** skill)
+- Code implementation (use **architect** skill)
 
-## Core UX Design Process
+## Quality Standard
 
-### 1. Discover & Research
+**CRITICAL:** All designs MUST meet the **UX Design Standard** before production.
 
-**User Research**
+**Standard Location:** [ai/standards/UX_DESIGN_STANDARD.md](../../../ai/standards/UX_DESIGN_STANDARD.md)
 
-- Conduct user interviews and surveys
-- Analyze user pain points and goals
-- Create data-driven user personas
-- Map user journeys and scenarios
-- Perform competitive analysis
-- Identify accessibility requirements
+### 8 Measurable Metrics (0-10 scale)
 
-**Deliverables:**
+1. **Visual Hierarchy** (12.5%) - Clear prioritization through size, color, spacing
+2. **Color & Contrast** (12.5%) - WCAG AA compliance, intentional palette
+3. **Whitespace & Spacing** (12.5%) - Consistent 8px grid, breathing room
+4. **Typography** (12.5%) - 2 fonts max, 16px+ body text, readability
+5. **Mobile Responsiveness** (12.5%) - 44px+ touch targets, no horizontal scroll
+6. **User Flow & Navigation** (12.5%) - Clear CTAs, 3-click rule, intuitive paths
+7. **Content Clarity** (12.5%) - Scannable text, jargon-free, value-first
+8. **Visual Polish** (12.5%) - Consistent styling, aligned elements, professional
 
-- User personas with demographics, goals, pain points, behaviors
-- Journey maps showing touchpoints and emotions
-- Competitive analysis reports
-- Research insights summary
+### Passing Criteria
 
-### 2. Define & Strategize
+- ✅ **8.0 - 10.0/10:** Production-ready (excellent)
+- 🟡 **7.0 - 7.9/10:** Needs refinement (good but not ready)
+- ❌ **< 7.0/10:** Requires major revision (not acceptable)
 
-**Information Architecture**
+**No single metric can score below 6/10** (even if average is 8.0+)
 
-- Define content hierarchy
-- Create site maps and navigation structures
-- Organize information logically
-- Plan user flows and task flows
-- Identify key user paths
+### Self-Evaluation Process
 
-**Deliverables:**
+After creating any design:
 
-- Site maps and IA diagrams
-- User flow diagrams
-- Task flow documentation
-- Navigation structures
-
-### 3. Design & Prototype
-
-**Wireframing**
-
-- Start with low-fidelity sketches
-- Create mid-fidelity wireframes
-- Progress to high-fidelity mockups
-- Focus on layout, hierarchy, and content placement
-- Ensure responsive design across breakpoints (mobile, tablet, desktop)
-
-**Prototyping**
-
-- Create interactive prototypes for testing
-- Design meaningful microinteractions
-- Plan transitions and animations
-- Consider loading states and error handling
-
-**Deliverables:**
-
-- Low-fidelity wireframes
-- High-fidelity mockups
-- Interactive prototypes
-- Responsive design specifications
-
-### 4. Validate & Test
-
-**Usability Testing**
-
-- Create test protocols and scenarios
-- Define success metrics
-- Conduct moderated/unmoderated tests
-- Gather qualitative and quantitative feedback
-- Identify usability issues
-
-**Accessibility Audits**
-
-- Test with screen readers
-- Verify keyboard navigation
-- Check color contrast ratios
-- Validate ARIA labels and semantic HTML
-- Ensure WCAG 2.1 AA/AAA compliance
-
-**Deliverables:**
-
-- Usability test protocols
-- Test results and insights
-- Accessibility audit reports
-- Recommended improvements
-
-### 5. Iterate & Refine
-
-**Design Iteration**
-
-- Analyze test results
-- Prioritize issues by severity
-- Implement improvements
-- Retest critical flows
-- Document design decisions
+1. **Evaluate** using 8-metric checklist (see UX_DESIGN_STANDARD.md)
+2. **Calculate** total score (average of 8 metrics)
+3. **If score < 8.0:**
+   - Identify lowest-scoring metrics
+   - Apply specific fixes from standard
+   - Re-evaluate
+   - Iterate up to 3 times
+4. **If still < 8.0 after 3 iterations:** Escalate to executive skill
+5. **Document** final score in deliverable
 
 ## Design Principles
 
-### User-Centered Design
+### Audience: Business Owners & Analysts
 
-- **Empathy First**: Always design for the user, not for yourself
-- **Accessibility is Non-Negotiable**: WCAG 2.1 AA minimum, AAA when possible
-- **Progressive Disclosure**: Show only what users need, when they need it
-- **Clear Feedback**: Provide immediate, clear feedback for all actions
-- **Error Prevention**: Design to prevent errors before they happen
+- **Clarity over creativity** - Users care about insights, not flashy design
+- **Data-driven aesthetic** - Professional, trustworthy, credible
+- **Reduce cognitive load** - Minimize choices, simplify decisions
+- **Build trust** - Use testimonials, logos, stats
 
-### Visual Hierarchy
+### Brand Characteristics
 
-- Use size, color, contrast, and spacing to guide attention
-- Most important elements should be most prominent
-- Group related elements together (proximity)
-- Use consistent patterns for similar elements
+- **Professional but approachable** - Not corporate-stiff, not startup-playful
+- **Data-focused** - Charts, numbers, metrics prominent
+- **LATAM-friendly** - Spanish language, Chilean currency (CLP)
+- **Efficiency-focused** - Emphasize time savings, automation
 
-### Cognitive Load
+**For detailed design principles:** See [references/design_principles.md](references/design_principles.md)
 
-- Minimize user memory burden
-- Use recognition over recall
-- Provide clear labels and instructions
-- Break complex tasks into simple steps
-- Use familiar patterns and conventions
+## Core Workflows
 
-## Accessibility Guidelines (WCAG 2.1)
+### Workflow 1: Design Landing Page
 
-### Perceivable
+**Input from other skills:**
+- **executive:** Requirements, target audience, key messages
+- **business:** User personas, use cases, value propositions
+- **marketing:** Messaging, content hierarchy, CTAs
 
-- **Text Alternatives**: Alt text for images, labels for icons
-- **Color Contrast**: Minimum 4.5:1 for normal text, 3:1 for large text
-- **Resizable Text**: Support up to 200% zoom
-- **Non-Text Contrast**: 3:1 for UI components and graphics
+**UX Design Output:**
+1. **Wireframe** (lo-fi mockup showing layout)
+2. **Hi-fi mockup** (full design with colors, typography, images)
+3. **Responsive versions** (mobile, tablet, desktop)
+4. **Interaction specs** (hover states, animations)
+5. **Self-evaluation** (8-metric score)
 
-### Operable
+**Template:** [assets/templates/landing_page_design_template.md](assets/templates/landing_page_design_template.md)
 
-- **Keyboard Navigation**: All functionality accessible via keyboard
-- **Focus Indicators**: Clear, visible focus states
-- **No Keyboard Traps**: Users can navigate away from all elements
-- **Skip Links**: Allow skipping repetitive content
-- **Timing**: Provide controls for time-based content
+### Workflow 2: Design Dashboard Layout
 
-### Understandable
+**Input from other skills:**
+- **insights:** Data to display, chart types, KPIs
+- **business:** User goals, decision-making context
+- **executive:** Priority hierarchy
 
-- **Clear Language**: Use simple, concise language
-- **Predictable Navigation**: Consistent patterns across pages
-- **Error Identification**: Clearly identify and describe errors
-- **Input Assistance**: Provide labels, instructions, and validation
+**UX Design Output:**
+1. **Information architecture** (what data where)
+2. **Dashboard mockup** (layout, widgets, navigation)
+3. **Data visualization design** (chart styles, colors)
+4. **Responsive behavior** (how dashboard adapts to mobile)
+5. **Self-evaluation** (8-metric score)
 
-### Robust
+**Dashboard Design Checklist:**
+- [ ] Most important KPIs above fold
+- [ ] Clear visual hierarchy (primary → secondary → tertiary)
+- [ ] Consistent chart styles (colors, fonts, legends)
+- [ ] Filters/controls easily accessible
+- [ ] Responsive grid layout (desktop 3-col, tablet 2-col, mobile 1-col)
+- [ ] Loading states for data fetching
+- [ ] Empty states for no data
 
-- **Valid HTML**: Use semantic, valid markup
-- **ARIA Attributes**: Use ARIA when native HTML isn't sufficient
-- **Screen Reader Compatible**: Test with NVDA, JAWS, VoiceOver
-- **Cross-Browser**: Work across modern browsers
+**Template:** [assets/templates/dashboard_design_template.md](assets/templates/dashboard_design_template.md)
 
-## Design System Components
+### Workflow 3: Evaluate Existing Design
 
-### Design Tokens
+**Input:**
+- URL or screenshot of current design
+- Specific concerns (if any)
 
-- Colors (primary, secondary, accent, semantic)
-- Typography (font families, sizes, weights, line heights)
-- Spacing (margins, padding, gaps)
-- Shadows and elevation
-- Border radius and borders
-- Breakpoints (mobile, tablet, desktop, wide)
+**UX Design Output:**
+1. **Evaluation** using 8-metric standard
+2. **Prioritized improvements** (fix lowest-scoring metrics first)
+3. **Redesign proposal** (if score < 7.0)
 
-### Component Library
+**Template:** [assets/templates/evaluation_report_template.md](assets/templates/evaluation_report_template.md)
 
-- Buttons (primary, secondary, tertiary, danger)
-- Forms (inputs, selects, checkboxes, radio buttons)
-- Navigation (headers, footers, menus, breadcrumbs)
-- Feedback (alerts, toasts, modals, tooltips)
-- Data display (tables, lists, cards, badges)
-- Loading states (spinners, skeletons, progress bars)
+### Workflow 4: Create Design System
 
-### Patterns
+**Input from other skills:**
+- **executive:** Scope (full design system vs component library)
+- **marketing:** Brand guidelines (if available)
 
-- Authentication flows (login, signup, password reset)
-- CRUD operations (create, read, update, delete)
-- Search and filtering
-- Pagination and infinite scroll
-- Empty states and error states
+**UX Design Output:**
+1. **Color palette** (primary, secondary, accent, neutrals, semantic)
+2. **Typography scale** (H1-H6, body, captions)
+3. **Spacing system** (8px grid)
+4. **Component library** (buttons, inputs, cards, modals)
+5. **Icon set** (consistent style, stroke width)
+6. **Documentation** (usage guidelines for each component)
 
-## Integration with Project
+**Example:** [assets/examples/design_system_example.md](assets/examples/design_system_example.md)
 
-When using this skill in the st44-home project:
+## Working Directory
 
-### With Frontend Skill
+**UX Design Workspace:** `/ai/ux-design/`
+- `wireframe_[page_name].md` - Wireframe specifications
+- `mockup_[page_name].md` - High-fidelity mockups
+- `evaluation_[page].md` - Design evaluations (with UX standard scores)
+- `component_library.md` - Reusable component catalog
 
-1. **UX Design** defines the structure, flows, and interactions
-2. **Frontend** implements using Angular 21+ patterns
-3. **Frontend Design** applies aesthetic polish
+**Bundled Resources:**
+- `references/design_principles.md` - Brand, colors, typography, spacing
+- `references/accessibility_guidelines.md` - WCAG 2.1 AA compliance (10 requirements)
+- `references/component_library.md` - 10 reusable UI components
+- `references/responsive_design.md` - Breakpoints, mobile-first approach, touch optimization
+- `references/tools_resources.md` - Figma, contrast checkers, design inspiration (25+ tools)
+- `assets/templates/` - 3 design templates (landing page, dashboard, evaluation)
+- `assets/examples/` - Design system example
 
-### With Database Skill
+**Context Folders (Reference as Needed):**
+- `/ai/frontend/` - React frontend context ([FRONTEND_ARCHITECTURE.md](../../ai/frontend/FRONTEND_ARCHITECTURE.md))
+- `/ai/backend/` - Django backend API specs
 
-- Design data models based on user needs
-- Plan for user-friendly data display
-- Consider performance for user experience
+**Living Documents (Append Only):**
+- `/ai/CHANGELOG.md` - When updating frontend components/styles
+- `/ai/FEATURE_IMPLEMENTATIONS.md` - When implementing new UI features
+- See [Documentation Guidelines](../../ai/standards/DOCUMENTATION_STANDARD.md)
 
-### Workflow Integration
+## Integration with Other Skills
 
-1. **Research Phase**: Use this skill to understand users
-2. **Design Phase**: Create wireframes and flows
-3. **Implementation**: Hand off to `frontend` skill with specs
-4. **Polish**: Apply `frontend-design` for aesthetics
-5. **Validate**: Return here for usability testing
+### From Business Skill
+- **Receive:** User personas, use cases, value propositions
+- **Use for:** Understanding audience needs, goals, pain points
 
-## Deliverable Templates
+### From Marketing Skill
+- **Receive:** Content hierarchy, messaging, CTAs
+- **Use for:** Placing content strategically, writing microcopy
 
-### User Persona Template
+### From Insights Skill
+- **Receive:** Data to visualize, chart types, dashboard requirements
+- **Use for:** Designing data visualizations and dashboards
 
-```markdown
-## Persona Name
+### To Architect Skill
+- **Deliver:** Design mockups, interaction specs, responsive breakpoints
+- **Expect:** Technical feasibility feedback, implementation effort estimates
 
-**Demographics:**
+### To Executive Skill
+- **Escalate:** Designs that fail quality standard after 3 iterations
+- **Request:** Strategic guidance on design trade-offs
 
-- Age, location, occupation, tech proficiency
+## Best Practices
 
-**Goals:**
+1. **Always review business personas first** - Design for specific audience
+2. **WCAG AA compliance is non-negotiable** - All designs must pass accessibility
+3. **Clarity over creativity** - Business users prefer simple over flashy
+4. **Always score designs before declaring "done"** - Use 8-metric standard
+5. **Test on mobile** - 50%+ users are on mobile devices
+6. **Use real screenshots or data** - Avoid generic stock photos
+7. **Max 2 font families** - Stick to Inter + JetBrains Mono
+8. **Always check WCAG contrast ratios** - Use WebAIM Contrast Checker
+9. **Progressive disclosure** - Don't overwhelm with too much at once
+10. **Iterate based on feedback** - Design is never "done" on first try
 
-- What they want to achieve
-- Why they use the product
+## Common Pitfalls to Avoid
 
-**Pain Points:**
-
-- Current frustrations
-- Barriers to success
-
-**Behaviors:**
-
-- How they currently solve problems
-- Preferred platforms and devices
-
-**Quote:**
-"A representative quote that captures their mindset"
-```
-
-### User Flow Template
-
-```markdown
-## User Flow: [Task Name]
-
-**Entry Point:** Where the user starts
-**Goal:** What the user wants to accomplish
-**Success Criteria:** How we know they succeeded
-
-**Steps:**
-
-1. Action → System Response
-2. Action → System Response
-3. [Continue...]
-
-**Alternative Paths:**
-
-- Error scenarios
-- Edge cases
-
-**Exit Points:**
-
-- Success state
-- Abandon points
-```
-
-### Wireframe Specifications
-
-```markdown
-## Page/Component: [Name]
-
-**Purpose:** Brief description
-**User Need:** What problem this solves
-
-**Layout:**
-
-- Header: [Elements]
-- Main Content: [Sections]
-- Sidebar: [Components]
-- Footer: [Elements]
-
-**Key Elements:**
-
-- Element 1: Purpose, behavior, states
-- Element 2: Purpose, behavior, states
-
-**Interactions:**
-
-- Hover states
-- Click actions
-- Form validation
-- Loading states
-
-**Responsive Behavior:**
-
-- Mobile: [Changes]
-- Tablet: [Changes]
-- Desktop: [Default]
-```
+1. **Designing without understanding audience** → Review business personas first
+2. **Ignoring accessibility** → WCAG AA compliance is required, not optional
+3. **Overdesigning** → Business users prefer clarity over creativity
+4. **Skipping self-evaluation** → Always score designs before declaring "done"
+5. **Not testing on mobile** → 50%+ users are on mobile
+6. **Generic stock photos** → Use real screenshots or data visualizations
+7. **Too many fonts** → Max 2 font families (Inter + JetBrains Mono)
+8. **Low-contrast text** → Always check WCAG ratios (4.5:1 for normal, 3:1 for large)
 
 ## Success Criteria
 
-Before marking UX design work complete:
+A design is **production-ready** when:
+- ✅ UX Standard score ≥ 8.0/10
+- ✅ All metrics ≥ 6/10 (no single metric below 6)
+- ✅ WCAG AA compliant (contrast ratios pass)
+- ✅ Mobile-responsive (tested on 3 devices: phone, tablet, desktop)
+- ✅ Navigation intuitive (3-click rule met)
+- ✅ CTAs clear and prominent
+- ✅ Content scannable (bullets, short paragraphs)
+- ✅ Visual polish (consistent styling, no alignment issues)
 
-- [ ] User research conducted with clear insights
-- [ ] Personas created based on real user data
-- [ ] User flows mapped for key tasks
-- [ ] Wireframes created (low to high fidelity)
-- [ ] Accessibility requirements defined (WCAG 2.1 AA minimum)
-- [ ] Interactive prototypes ready for testing
-- [ ] Usability test plan created
-- [ ] Design system tokens and components documented
-- [ ] Responsive behavior specified for all breakpoints
-- [ ] Handoff documentation clear for implementation
+## Version History
 
-## Tools & Testing
+**v2.0.0** (2025-10-30)
+- Refactored to use progressive disclosure pattern
+- Extracted detailed content to `references/` (5 files) and `assets/` (4 files)
+- Converted to imperative form (removed second-person voice)
+- Reduced from 452 lines to ~290 lines (36% reduction)
+- Added clear workflow sections with templates
+- Enhanced bundled resources with comprehensive guidelines
 
-### Recommended Testing Approach
+**v1.0.0** (2025-10-28)
+- Initial UX Design skill
+- Integrated with UX Design Standard (8-metric evaluation)
+- GabeDA-specific design principles
+- Self-evaluation workflow
 
-```bash
-# Accessibility testing tools
-# - AXE DevTools (browser extension)
-# - Lighthouse (Chrome DevTools)
-# - WAVE (browser extension)
+---
 
-# Screen readers
-# - NVDA (Windows) - free
-# - JAWS (Windows) - commercial
-# - VoiceOver (macOS/iOS) - built-in
-
-# Keyboard navigation testing
-# - Test all functionality with Tab, Enter, Escape, Arrow keys
-# - Verify focus order is logical
-# - Ensure no keyboard traps
-```
-
-## Philosophy
-
-> Great UX design is invisible. Users should accomplish their goals effortlessly, without thinking about the interface. Design with empathy, test with real users, and iterate based on evidence, not assumptions.
-
-## Resources
-
-### Key Principles
-
-- **Don't Make Me Think** (Steve Krug): Minimize cognitive load
-- **Fitts's Law**: Larger, closer targets are faster to acquire
-- **Hick's Law**: More choices = longer decision time
-- **Miller's Law**: People remember 7±2 items
-- **Jakob's Law**: Users expect your site to work like others
-
-### Accessibility Resources
-
-- WCAG 2.1 Guidelines: https://www.w3.org/WAI/WCAG21/quickref/
-- WebAIM Contrast Checker: https://webaim.org/resources/contrastchecker/
-- A11y Project Checklist: https://www.a11yproject.com/checklist/
+**Last Updated:** 2025-10-30
+**Core Principle:** All designs must meet 8.0/10 UX standard before production
+**Quality Gate:** Self-evaluation → Iteration → Executive escalation if needed

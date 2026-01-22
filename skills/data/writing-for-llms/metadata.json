@@ -1,7 +1,7 @@
 {
   "name": "writing-for-llms",
-  "repo": "carmentacollective/carmenta",
-  "path": ".claude/skills/writing-for-llms/SKILL.md",
-  "source": "github.com/carmentacollective/carmenta",
-  "downloaded_at": "2026-01-21T03:37:06.790360Z"
+  "repo": "TechNickAI/ai-coding-config",
+  "path": "plugins/core/skills/writing-for-llms/SKILL.md",
+  "source": "github.com/TechNickAI/ai-coding-config",
+  "downloaded_at": "2026-01-22T03:34:07.552339Z"
 }

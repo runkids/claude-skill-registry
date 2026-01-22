@@ -1,6 +1,6 @@
 ---
 name: Global Commenting
-description: Write minimal, evergreen code comments that explain complex logic without documenting obvious behavior or temporary changes. Use this skill when adding comments to PHP files, TypeScript/JavaScript files, or any code files, when documenting complex algorithms or business logic, when adding PHPDoc blocks or JSDoc comments, when writing self-documenting code with clear naming, or when reviewing existing comments for relevance and necessity. Focus on keeping code self-explanatory through clear structure and naming rather than relying heavily on comments.
+description: Write purposeful code comments that explain the "why" behind technical decisions, complex logic, and non-obvious implementations using JSDoc for components and APIs. Use this skill when documenting component props, explaining complex algorithms, noting performance optimizations, documenting workarounds, or adding API documentation. When working on component prop interfaces requiring JSDoc documentation, complex business logic or algorithms, performance optimization rationale, browser compatibility workarounds or hacks, API route documentation with request/response formats, configuration file explanations, Content Collection schema documentation, or regex patterns and what they match.
 ---
 
 # Global Commenting
@@ -9,16 +9,17 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When adding comments to PHP, TypeScript, JavaScript, or any code files
-- When documenting complex business logic or algorithms that aren't immediately obvious
-- When writing PHPDoc blocks for PHP classes, methods, or functions
-- When adding JSDoc or TSDoc comments for TypeScript/JavaScript functions
-- When explaining the "why" behind non-obvious code decisions
-- When refactoring code to be more self-documenting and reduce comment necessity
-- When reviewing existing comments to ensure they're evergreen and still relevant
-- When removing outdated comments about temporary fixes or recent changes
-- When documenting complex array shapes or data structures in PHPDoc
-- When choosing between adding a comment vs. refactoring for clarity
+- When documenting component props with JSDoc (@prop, @param annotations)
+- When explaining complex algorithms, business logic, or non-obvious implementation choices
+- When documenting performance optimizations and the rationale behind them
+- When noting browser compatibility issues or workarounds for bugs
+- When documenting API routes with request/response format specifications
+- When explaining Content Collection Zod schemas and validation constraints
+- When clarifying regex patterns and what they're designed to match
+- When documenting configuration files (astro.config.mjs, tailwind.config.mjs)
+- When adding file-level documentation headers for complex components or utilities
+- When explaining technical debt, TODOs, or future refactoring needs
+- Avoiding commenting obvious code, change history (use git), or commented-out code blocks
 
 ## Instructions
 

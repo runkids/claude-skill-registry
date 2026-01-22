@@ -1,386 +1,224 @@
 ---
 name: image-generation
-description: Generate detailed AI image prompts for website assets using Imagen 3 (Nano Bana Pro). Use when creating infographics, diagrams, icons, maps, comparison visuals, or any generated imagery for websites. Triggers on "generate image", "create visual", "image prompt", "infographic", "diagram", "icon set".
-allowed-tools: Read, Write, Edit, Glob, Grep
+description: >
+  Generate or edit images with Gemini Pro. Use when user says "generate an image",
+  "create a picture", "make me a logo", "edit this image", "remove the background",
+  "change the style", "combine these images", "add text to image", "style transfer",
+  "make a sticker", "product mockup", or any image creation/manipulation request.
+  Handles t2i (text-to-image), i2i (image-to-image editing), and multi-reference composition.
 ---
 
-# AI Image Generation Skill
+# Image Generation
 
-Generate production-ready prompts for Google Imagen 3 (Nano Bana Pro) optimized for website assets.
+Generate and edit images using Google's Gemini Pro Image API. Requires `GEMINI_API_KEY` environment variable.
 
-## When to Use
+## Default Output & Logging
 
-- Creating infographics (timelines, processes, comparisons)
-- Technical diagrams (medical, architectural, educational)
-- Icon sets (differentiators, features, services)
-- Maps (locations, travel times, geographic)
-- Data visualizations (charts, statistics, comparisons)
-- Comparison visuals (vs pages, before/after concepts)
-- Educational illustrations (how things work)
-
-## When NOT to Use
-
-- Real photography (products, people, locations)
-- Client-provided assets
-- Screenshots or UI mockups
-- Logos (should be vector/designed)
-
-## Prompt Structure
-
-Every prompt must include:
-
+When the user doesn't specify a location, save images to:
 ```
-**Filename:** `descriptive-name.png`
-**Used on:** [page names]
-**Dimensions:** [width x height]px
-
-**Prompt:**
-[Detailed generation prompt]
+/Users/samarthgupta/Documents/generated images/
 ```
 
-## Prompt Formula
+Every generated image gets a companion `.md` file with the prompt used (e.g., `logo.png` → `logo.md`).
+
+When gathering parameters (aspect ratio, resolution), offer the option to specify a custom output location.
+
+---
+
+## Core Prompting Principle
+
+**Describe scenes narratively, don't list keywords.** Gemini has deep language understanding—write prompts like prose, not tags.
 
 ```
-[Subject/Content] + [Style] + [Layout] + [Colors] + [Typography] + [Quality] + [Avoid]
+❌ "cat, wizard hat, magical, fantasy, 4k, detailed"
+
+✓ "A fluffy orange tabby sits regally on a velvet cushion, wearing an ornate
+   purple wizard hat embroidered with silver stars. Soft candlelight illuminates
+   the scene from the left. The mood is whimsical yet dignified."
 ```
 
-### 1. Subject/Content
-Be extremely specific about what the image shows:
-- Exact elements to include
-- Relationships between elements
-- Text/labels to display
-- Data to visualize
-
-### 2. Style
-Define the aesthetic:
-- "Premium medical illustration"
-- "Luxury brand infographic"
-- "Editorial map design"
-- "Clean icon set"
-- "Technical diagram"
-
-### 3. Layout
-Describe composition:
-- "Horizontal timeline left to right"
-- "Two-column comparison"
-- "Circular arrangement"
-- "Grid of 4 equal icons"
-- "Map with concentric rings"
-
-### 4. Colors
-Always specify exact colors:
-```
-Primary: #HEXCODE
-Accent: #HEXCODE
-Background: white/cream/gradient
-Text: charcoal/navy
-```
-
-### 5. Typography
-Specify text treatment:
-- "Clean sans-serif labels"
-- "Elegant serif headers"
-- "Minimal, only essential text"
-
-### 6. Quality
-Define output requirements:
-- "Ultra-high resolution"
-- "Sharp lines, no artifacts"
-- "Print and web ready"
-- "Medical publication quality"
-
-### 7. Avoid
-Explicitly state what NOT to include:
-- "No cartoon style"
-- "No clip art"
-- "No stock photo aesthetic"
-- "No busy backgrounds"
-- "No text overlapping elements"
-
-## Client Brand Integration
-
-Before generating prompts, check for client brand file:
-- `clients/[client]/brand-colors.md`
-- `clients/[client]/image-prompts.md` (existing prompts)
-
-If no brand file exists, ask for:
-1. Primary brand color (hex)
-2. Accent color (hex)
-3. Style preference (clinical, luxury, modern, corporate)
-4. Industry context
-
-## Image Categories & Templates
-
-### 1. Process/Timeline Infographic
+### The Formula
 
 ```
-**Prompt:**
-Premium horizontal infographic showing [X]-step [process name].
-
-Style: [Luxury/Corporate/Medical] aesthetic. Clean [white/colored] background.
-
-Layout: [X] equally spaced [circular/square] containers connected by [line/arrows].
-
-Step 1 - "[Label]"
-- Icon: [Specific icon description]
-- Color: [Primary] on white
-
-[Repeat for each step]
-
-Connecting element: [Thin gold line / Dotted arrow / Gradient bar] connecting all steps.
-
-Typography: [Step titles in charcoal, numbers in accent color].
-
-Quality: Editorial infographic, suitable for premium publication.
-
-Avoid: Corporate clip-art, busy backgrounds, inconsistent icon weights.
+[Subject + Adjectives] doing [Action] in [Location/Context].
+[Composition/Camera]. [Lighting/Atmosphere]. [Style/Media]. [Constraint].
 ```
 
-### 2. Comparison Visual
+Not every prompt needs every element—match detail to intent.
+
+### Prescriptive vs Open Prompting
+
+**Prescriptive** (user has specific vision): Detailed descriptions, exact specifications
+**Open** (exploring/want model creativity): General direction, let model decide details
+
+Both are valid. Ask the user's intent if unclear.
+
+---
+
+## Capability Patterns
+
+### Photorealistic Scenes
+Think like a photographer: describe lens, light, moment.
+- Specify camera (85mm portrait, 24mm wide), aperture (f/1.8 bokeh, f/11 sharp throughout)
+- Describe lighting direction and quality (golden hour from camera-left, three-point softbox)
+- Include mood and format (serene, vertical portrait)
+
+### Product Photography
+- **Isolation**: Clean white backdrop, soft even lighting, e-commerce ready
+- **Lifestyle**: Product in use context, natural setting, aspirational but authentic
+- **Hero shots**: Cinematic framing, dramatic lighting, space for text overlay
+
+### Logos & Text
+- Put text in quotes: `'Morning Brew Coffee Co'`
+- Describe typography: "clean bold sans-serif with generous letter-spacing"
+- Specify color scheme, shape constraints, design intent
+- Iterate with follow-up edits for refinement
+
+### Stylized Illustration
+- Name the style: "kawaii-style sticker", "anime-influenced", "vintage travel poster"
+- Describe design language: "bold outlines, flat colors, cel-shading"
+- Include format constraints: "white background", "die-cut sticker format"
+
+### Editing Images
+- **Acknowledge subject**: "Using the provided image of my cat..."
+- **Explicit preservation**: "Keep everything unchanged except..."
+- **Realistic integration**: "should look naturally printed on the fabric"
+- **Image ordering**: Main image to edit should be **last** in `--input` list
+
+Pattern: Acknowledge → specify change → describe integration → preserve the rest
+
+### Multi-Image Composition
+- State output goal first
+- Assign elements: "Take X from first image, Y from second"
+- Describe integration requirements (lighting match, realistic shadows)
+- Supports up to 14 reference images
+
+### Character Consistency
+- Use follow-up edits for multiple views of the same character
+- Reference distinctive features explicitly in follow-ups
+- Include "exact same character" or "maintain all design details"
+- Save successful designs as reference for future prompts
+
+---
+
+## Invoking Aesthetics Through Naming
+
+Names invoke aesthetics. The model learned associations for film stocks, cameras, studios, artists, and styles. Instead of describing characteristics, reference the name directly.
 
 ```
-**Prompt:**
-Side-by-side comparison infographic for [Option A] vs [Option B].
+"Portrait at golden hour, shot on Kodak Portra 400"
+→ Warm skin tones, pastel highlights, fine grain
 
-Style: Premium comparison layout, balanced presentation. Clean white background.
+"Studio Ghibli forest scene"
+→ Lush nature, soft lighting, whimsical atmosphere
 
-Layout: Two columns with center dividing element.
-
-Left Column - "[Option A]"
-- [Key point 1 with icon]
-- [Key point 2 with icon]
-- [Key highlight/badge]
-
-Right Column - "[Option B]"
-- [Key point 1 with icon]
-- [Key point 2 with icon]
-- [Key highlight/badge]
-
-Center element: Elegant vertical divider with "vs" in [accent color] circle.
-
-Bottom: "[Balanced insight statement]"
-
-Color palette: [Primary] for Option A accents, neutral gray for Option B, [accent] for shared elements.
-
-Quality: Premium comparison chart, luxury buyer's guide aesthetic.
+"Fashion editorial, Hasselblad medium format"
+→ Exceptional detail, shallow DOF, that medium format look
 ```
 
-### 3. Geographic Map
+This works for photography, animation, illustration, game art, graphic design, fine art—anything with a recognizable visual identity.
 
-```
-**Prompt:**
-Elegant map of [Region] showing [location/business name] with [travel times/coverage/connections].
+**See [STYLE_REFERENCE.md](STYLE_REFERENCE.md) for comprehensive lexicon of film stocks, cameras, studios, artists, and styles.**
 
-Style: Premium cartographic design, editorial travel magazine aesthetic. Not Google Maps style.
+---
 
-Map coverage: [Countries/regions visible]. Water in soft blue-gray, land in muted [green/beige].
+## Configuration
 
-Key elements:
-1. [Main location] marked with prominent [accent color] pin/marker
-2. [Concentric rings / Connection lines] showing [travel zones / service areas]
+### Aspect Ratios
+1:1, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9
 
-Indicators:
-- [City 1]: [icon], "[time/distance]"
-- [City 2]: [icon], "[time/distance]"
-[Repeat as needed]
+### Resolutions
+- **1K** (~1024px) — default, fast
+- **2K** (~2048px) — high quality
+- **4K** (~4096px) — maximum detail
 
-Color palette: Muted sage for land, soft blue-gray for water, [accent] for markers, [primary] for text.
+**Defaults**: 1K resolution, 1:1 aspect. Confirm with user before changing.
 
-Typography: Elegant [serif/sans-serif] for location names.
+---
 
-Quality: Luxury travel publication quality. Sophisticated, not cluttered.
-```
+## Advanced Features
 
-### 4. Technical/Medical Diagram
+### Google Search Grounding
+Enable with `--grounding` flag when real-time data helps:
+- Weather visualizations
+- Current events infographics
+- Real-world data charts
 
-```
-**Prompt:**
-[Technical/Medical] illustration showing [concept/process/anatomy].
+### Semantic Masking
+No manual masking needed. Describe changes conversationally:
+- "Change the sofa to red leather"
+- "Replace the background with a sunset beach"
+- "Remove the power lines from the sky"
 
-Style: Premium [medical/technical] illustration, educational but elegant. Clean white background.
+---
 
-Main illustration:
-- [Primary element with detailed description]
-- [Secondary elements]
-- [Relationships/connections between elements]
+## Script Usage
 
-Callout labels in clean sans-serif:
-- "[Label 1]"
-- "[Label 2]"
-[Repeat as needed]
+One unified script handles all modes: t2i, i2i, and multi-reference composition.
 
-[Optional] Inset/detail view: [Description of zoomed or alternate view]
+```bash
+# Text-to-image (t2i)
+uv run {baseDir}/scripts/generate.py --prompt "A serene mountain lake at dawn" --output landscape.png
 
-Color palette: [Appropriate colors for subject], [accent] for labels, [primary] for key elements.
+# Image-to-image editing (i2i)
+uv run {baseDir}/scripts/generate.py --prompt "Make it sunset colors" --input photo.png --output edited.png
 
-Quality: Medical textbook meets luxury editorial. Detailed but accessible.
+# Multi-reference composition (up to 14 images)
+uv run {baseDir}/scripts/generate.py --prompt "Combine the cat from image 1 with the background from image 2" --input cat.png --input background.png --output composite.png
 
-Avoid: Grotesque/scary imagery, overly clinical sterility, inconsistent detail levels.
-```
+# With options
+uv run {baseDir}/scripts/generate.py --prompt "Logo for 'Acme Corp'" --output logo.png --aspect 1:1 --resolution 2K
 
-### 5. Icon Set
+# With Google Search grounding
+uv run {baseDir}/scripts/generate.py --prompt "Current weather in Tokyo visualized" --output weather.png --grounding
 
-```
-**Prompt:**
-Set of [X] premium icons representing [theme/category].
-
-Style: Luxury brand iconography, consistent weight and style. [Line art / Subtle filled / Duotone].
-
-Icon 1 - "[Concept]"
-- Visual: [Specific icon description]
-- Feel: [Emotion/association]
-
-[Repeat for each icon]
-
-Consistency requirements:
-- All icons same [line weight / fill style]
-- Equal visual weight
-- Same level of detail
-- Cohesive family appearance
-
-Color: All icons in [primary color] with optional [accent] elements. Consistent [X]px stroke if line art.
-
-Quality: Luxury hotel or premium financial services icon quality. Timeless, not trendy.
-
-Avoid: Inconsistent weights, overly detailed vs simple mix, trendy effects.
+# Batch generation (up to 4 images, 2 parallel requests)
+uv run {baseDir}/scripts/generate.py --prompt "A cat in different poses" --output cat.png --batch 4
+# Outputs: cat-1.png, cat-2.png, cat-3.png, cat-4.png
 ```
 
-### 6. Data Visualization
+### Script Options
 
-```
-**Prompt:**
-[Chart type] visualizing [data/comparison/statistics].
+| Flag | Short | Description |
+|------|-------|-------------|
+| `--prompt` | `-p` | Image description or edit instruction (required) |
+| `--output` | `-o` | Output file path (required) |
+| `--input` | `-i` | Input image(s) for editing/composition (repeatable, up to 14) |
+| `--aspect` | `-a` | Aspect ratio (1:1, 16:9, 9:16, etc.) |
+| `--resolution` | `-r` | Output resolution: 1K, 2K, or 4K (default: auto-detect or 1K) |
+| `--grounding` | `-g` | Enable Google Search grounding |
+| `--batch` | `-b` | Generate multiple variations: 1-4 (default: 1, runs 2 parallel max) |
 
-Style: Premium data visualization, [publication/brand] aesthetic.
+### Auto-Resolution Detection
 
-Data to show:
-- [Data point 1]: [value]
-- [Data point 2]: [value]
-[Repeat as needed]
+When editing images, the script automatically detects appropriate resolution from input dimensions:
+- Input ≥3000px → 4K output
+- Input ≥1500px → 2K output
+- Otherwise → 1K output
 
-Visual treatment:
-- [Bar heights / Pie segments / Line trajectory] accurately representing data
-- [Legend / Labels] positioned [location]
-- [Highlight treatment] for key data point
+Override with explicit `--resolution` flag.
 
-Color palette: [Colors for each data series], [accent] for highlights.
+---
 
-Typography: Clean, minimal. Data labels in [size] [font style].
+## Recommended Defaults
 
-Quality: Financial Times / Economist chart quality. Clear hierarchy, no chartjunk.
+Unless the user specifies otherwise, use:
+- **Resolution**: 2K (good balance of quality and speed)
+- **Batch**: 3 (gives variety without overwhelming)
 
-Avoid: 3D effects, gradient fills, excessive grid lines, decorative elements.
-```
+Only use 4K when high detail is explicitly needed (large prints, zoom-in requirements).
 
-## Dimension Guidelines
+---
 
-| Image Type | Recommended Size | Aspect Ratio |
-|------------|------------------|--------------|
-| Hero/Banner | 1600 x 600px | 8:3 |
-| Infographic (horizontal) | 1400 x 500px | ~3:1 |
-| Infographic (vertical) | 600 x 1200px | 1:2 |
-| Comparison visual | 1400 x 700px | 2:1 |
-| Map | 1200 x 900px | 4:3 |
-| Icon set (row) | 1200 x 300px | 4:1 |
-| Individual icon | 200 x 200px | 1:1 |
-| Technical diagram | 1200 x 800px | 3:2 |
-| Square social | 1080 x 1080px | 1:1 |
+## Pre-Generation Confirmation
 
-## Output Format
+Before running the script, show the user: (1) the exact prompt, (2) input images in order if editing/composing, (3) resolution and aspect ratio. Ask for confirmation before proceeding.
 
-When generating prompts, output as:
+## Quick Checklist
 
-```markdown
-## [Image Name]
-
-**Filename:** `kebab-case-name.png`
-**Used on:** [page1], [page2]
-**Dimensions:** [W] x [H]px
-**Priority:** [Tier 1/2/3]
-
-**Prompt:**
-```
-[Full detailed prompt]
-```
-
-**Notes:** [Any implementation notes]
-```
-
-## Quality Checklist
-
-Before finalizing any prompt:
-
-- [ ] Specific dimensions included
-- [ ] Brand colors specified with hex codes
-- [ ] Style clearly defined (not generic)
-- [ ] Layout/composition described
-- [ ] All text/labels specified exactly
-- [ ] Typography treatment noted
-- [ ] Quality standard referenced
-- [ ] "Avoid" section included
-- [ ] Suitable for both web and print
-
-## Example: Complete Prompt
-
-```markdown
-## Recovery Timeline Infographic
-
-**Filename:** `recovery-timeline-12-months.png`
-**Used on:** hair-transplant
-**Dimensions:** 1600 x 600px
-**Priority:** Tier 1
-
-**Prompt:**
-Elegant horizontal timeline infographic showing hair transplant recovery from Day 1 to Month 12.
-
-Style: Premium luxury medical aesthetic. Clean white background with subtle texture. Timeline as elegant horizontal line with gold (#c9a86c) accent.
-
-Layout: 5 stages arranged left to right, evenly spaced along timeline.
-
-Stage 1 - "Day 1-7"
-- Small scalp illustration showing mild redness
-- Label below: "Initial Healing"
-
-Stage 2 - "Weeks 2-4"
-- Scalp showing shedding phase
-- Label: "Shock Shedding (Normal)"
-
-Stage 3 - "Months 2-3"
-- Clean scalp, minimal visible change
-- Label: "Dormant Phase"
-
-Stage 4 - "Months 4-6"
-- New wispy growth emerging
-- Label: "New Growth Begins"
-
-Stage 5 - "Months 9-12"
-- Full density, natural appearance
-- Label: "Final Results"
-
-Visual: Each stage as top-down head silhouette in charcoal gray. Hair in deep navy (#1a2744). Progressive density increase from stage 4.
-
-Connecting element: Thin gold (#c9a86c) line connecting stages with subtle directional flow.
-
-Typography: Clean sans-serif. Stage labels in charcoal. Time periods in gold.
-
-Badge: Small "99% Graft Survival" in gold near final stage.
-
-Quality: Editorial infographic suitable for premium medical publication.
-
-Avoid: Cartoon style, clinical sterility, inconsistent illustration styles, busy backgrounds.
-
-**Notes:** This image is referenced by multiple pages. Ensure it works as standalone and in context.
-```
-
-## Integration with Pages
-
-When adding image placeholders to markdown pages, use format:
-
-```markdown
-**Image:** `[filename.png]` `Alt: [Descriptive alt text for accessibility]`
-```
-
-## Reference
-
-- See `clients/[client]/image-prompts.md` for client-specific prompts
-- See `clients/fuegenix/image-prompts.md` for complete example library
+Before generating:
+- [ ] Narrative description (not keyword list)?
+- [ ] Camera/lighting details for photorealism?
+- [ ] Text in quotes, font style described?
+- [ ] Aspect ratio appropriate for use case?
+- [ ] User preference: prescriptive or open?

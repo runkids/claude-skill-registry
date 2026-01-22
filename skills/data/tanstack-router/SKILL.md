@@ -1,329 +1,398 @@
 ---
-name: tanstack-router
-description: TanStack Router type-safe file-based routing for React. Use for SPAs, TanStack Query integration, Cloudflare Workers, or encountering devtools, type safety, loader, Vite bundling errors.
-license: MIT
-allowed-tools: [Bash, Read, Write, Edit]
-metadata:
-  version: 1.0.0
-  author: Claude Skills Maintainers
-  last-verified: 2025-11-07
-  production-tested: true
-  keywords:
-    - tanstack router
-    - react router
-    - type-safe routing
-    - file-based routing
-    - client-side routing
-    - spa routing
-    - route loaders
-    - data loading
-    - navigation
-    - vite plugin
-    - cloudflare workers
-    - tanstack query integration
-    - typescript routing
-    - route params
-    - nested routes
-    - code splitting
+name: TanStack Router
+description: Expert guidance for TanStack Router including file-based routing, type-safe navigation, route loaders, search params, nested routes, and lazy loading. Use this when building type-safe React applications with client-side routing.
 ---
 
-# TanStack Router Skill
+# TanStack Router
 
-Build type-safe, file-based routing for React SPAs with TanStack Router, optimized for Cloudflare Workers deployment.
+Expert assistance with TanStack Router - Type-safe routing for React.
 
----
+## Overview
 
-## When to Use This Skill
+TanStack Router is a fully type-safe React router:
+- **File-Based Routing**: Automatic route generation from file structure
+- **Type Safety**: Full TypeScript inference for params, search, and more
+- **Code Splitting**: Automatic route-based code splitting
+- **Data Loading**: Built-in data loaders
+- **Search Params**: Type-safe search parameter handling
 
-**Auto-triggers when you mention:**
-- "TanStack Router" or "type-safe routing"
-- "file-based routing" or "route configuration"
-- "React routing" with TypeScript emphasis
-- "route loaders" or "data loading in routes"
-- "Cloudflare Workers routing"
-
-**Use this skill when:**
-- Building SPAs with type-safe navigation
-- Implementing file-based routing (like Next.js)
-- Need route-level data loading
-- Integrating routing with TanStack Query
-- Deploying to Cloudflare Workers
-- Want better TypeScript support than React Router
-
----
-
-## Quick Start
-
-### Installation
+## Installation
 
 ```bash
-bun add @tanstack/react-router @tanstack/router-devtools
-bun add -d @tanstack/router-plugin
+npm install @tanstack/react-router
+npm install --save-dev @tanstack/router-vite-plugin
 ```
 
-**Latest version:** v1.134.13 (verified 2025-11-07)
+## Basic Setup
 
 ### Vite Configuration
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
 
 export default defineConfig({
   plugins: [
-    TanStackRouterVite(), // MUST come before react()
     react(),
+    TanStackRouterVite(),
   ],
-})
+});
 ```
 
-### Basic Setup
+### Root Route
 
 ```typescript
 // src/routes/__root.tsx
-import { createRootRoute, Outlet } from '@tanstack/react-router'
+import { createRootRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createRootRoute({
   component: () => (
-    <div>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-      </nav>
+    <>
+      <div>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/certificates">Certificates</Link>
+        </nav>
+      </div>
       <hr />
       <Outlet />
-    </div>
+    </>
   ),
-})
+});
+```
 
+### Index Route
+
+```typescript
 // src/routes/index.tsx
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
-  component: () => <h1>Home Page</h1>,
-})
+  component: () => <div>Home Page</div>,
+});
+```
 
-// src/routes/about.tsx
-import { createFileRoute } from '@tanstack/react-router'
+## File-Based Routing
 
-export const Route = createFileRoute('/about')({
-  component: () => <h1>About Page</h1>,
-})
+```
+src/routes/
+├── __root.tsx                  -> /
+├── index.tsx                   -> /
+├── certificates/
+│   ├── index.tsx              -> /certificates
+│   └── $id.tsx                -> /certificates/:id
+├── cas/
+│   ├── index.tsx              -> /cas
+│   ├── $id.tsx                -> /cas/:id
+│   └── $id.edit.tsx           -> /cas/:id/edit
+└── audit.tsx                   -> /audit
+```
+
+### Dynamic Routes
+
+```typescript
+// src/routes/certificates/$id.tsx
+import { createFileRoute } from '@tanstack/react-router';
+
+export const Route = createFileRoute('/certificates/$id')({
+  component: CertificateDetail,
+});
+
+function CertificateDetail() {
+  const { id } = Route.useParams(); // Type-safe!
+  return <div>Certificate: {id}</div>;
+}
+```
+
+### Nested Routes
+
+```typescript
+// src/routes/certificates.tsx (layout)
+import { createFileRoute, Outlet } from '@tanstack/react-router';
+
+export const Route = createFileRoute('/certificates')({
+  component: () => (
+    <div>
+      <h1>Certificates</h1>
+      <Outlet /> {/* Render child routes */}
+    </div>
+  ),
+});
+
+// src/routes/certificates/index.tsx
+export const Route = createFileRoute('/certificates/')({
+  component: () => <div>Certificate List</div>,
+});
+
+// src/routes/certificates/$id.tsx
+export const Route = createFileRoute('/certificates/$id')({
+  component: () => {
+    const { id } = Route.useParams();
+    return <div>Certificate {id}</div>;
+  },
+});
+```
+
+## Navigation
+
+```typescript
+import { Link, useNavigate } from '@tanstack/react-router';
+
+function MyComponent() {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      {/* Link component */}
+      <Link to="/certificates">Certificates</Link>
+
+      {/* With params */}
+      <Link to="/certificates/$id" params={{ id: '123' }}>
+        Certificate 123
+      </Link>
+
+      {/* With search params */}
+      <Link to="/certificates" search={{ filter: 'active' }}>
+        Active Certificates
+      </Link>
+
+      {/* Programmatic navigation */}
+      <button onClick={() => navigate({ to: '/certificates' })}>
+        Go to Certificates
+      </button>
+
+      {/* Navigate with params */}
+      <button onClick={() => navigate({
+        to: '/certificates/$id',
+        params: { id: '123' },
+      })}>
+        View Certificate
+      </button>
+    </>
+  );
+}
+```
+
+## Search Params
+
+### Define Search Schema
+
+```typescript
+import { createFileRoute } from '@tanstack/react-router';
+import { z } from 'zod';
+
+const searchSchema = z.object({
+  filter: z.enum(['all', 'active', 'revoked']).optional().default('all'),
+  page: z.number().optional().default(1),
+  pageSize: z.number().optional().default(10),
+});
+
+export const Route = createFileRoute('/certificates/')({
+  validateSearch: searchSchema,
+  component: CertificateList,
+});
+
+function CertificateList() {
+  const { filter, page, pageSize } = Route.useSearch(); // Type-safe!
+
+  return (
+    <div>
+      <p>Filter: {filter}, Page: {page}</p>
+    </div>
+  );
+}
+```
+
+### Update Search Params
+
+```typescript
+import { useNavigate } from '@tanstack/react-router';
+
+function FilterButtons() {
+  const navigate = useNavigate({ from: '/certificates' });
+  const search = Route.useSearch();
+
+  return (
+    <>
+      <button onClick={() => navigate({
+        search: (prev) => ({ ...prev, filter: 'active' }),
+      })}>
+        Active
+      </button>
+
+      <button onClick={() => navigate({
+        search: { filter: 'revoked', page: 1 },
+      })}>
+        Revoked
+      </button>
+    </>
+  );
+}
+```
+
+## Route Loaders
+
+```typescript
+import { createFileRoute } from '@tanstack/react-router';
+
+export const Route = createFileRoute('/certificates/$id')({
+  loader: async ({ params }) => {
+    const certificate = await fetchCertificate(params.id);
+    return { certificate };
+  },
+  component: CertificateDetail,
+});
+
+function CertificateDetail() {
+  const { certificate } = Route.useLoaderData();
+  return <div>{certificate.subject}</div>;
+}
+```
+
+### Loader with Context
+
+```typescript
+// src/router.tsx
+import { createRouter } from '@tanstack/react-router';
+
+const router = createRouter({
+  routeTree,
+  context: {
+    queryClient, // React Query client
+    auth, // Auth context
+  },
+});
+
+// Route with context
+export const Route = createFileRoute('/certificates/$id')({
+  loader: async ({ params, context }) => {
+    const certificate = await context.queryClient.fetchQuery({
+      queryKey: ['certificate', params.id],
+      queryFn: () => fetchCertificate(params.id),
+    });
+    return { certificate };
+  },
+});
+```
+
+## Lazy Loading
+
+```typescript
+// src/routes/certificates/$id.lazy.tsx
+import { createLazyFileRoute } from '@tanstack/react-router';
+
+export const Route = createLazyFileRoute('/certificates/$id')({
+  component: CertificateDetail,
+});
+
+// Component defined in same file (lazy loaded)
+function CertificateDetail() {
+  const { id } = Route.useParams();
+  return <div>Certificate: {id}</div>;
+}
+```
+
+## Error Handling
+
+```typescript
+export const Route = createFileRoute('/certificates/$id')({
+  loader: async ({ params }) => {
+    const certificate = await fetchCertificate(params.id);
+    if (!certificate) {
+      throw new Error('Certificate not found');
+    }
+    return { certificate };
+  },
+  errorComponent: ({ error }) => (
+    <div>
+      <h2>Error!</h2>
+      <p>{error.message}</p>
+    </div>
+  ),
+  component: CertificateDetail,
+});
+```
+
+## Pending/Loading States
+
+```typescript
+export const Route = createFileRoute('/certificates/$id')({
+  loader: async ({ params }) => {
+    const certificate = await fetchCertificate(params.id);
+    return { certificate };
+  },
+  pendingComponent: () => <div>Loading certificate...</div>,
+  component: CertificateDetail,
+});
+
+// Or use hook
+function CertificateDetail() {
+  const { certificate } = Route.useLoaderData();
+  const isPending = Route.useLoaderPending();
+
+  if (isPending) return <div>Loading...</div>;
+
+  return <div>{certificate.subject}</div>;
+}
+```
+
+## Route Guards
+
+```typescript
+export const Route = createFileRoute('/admin')({
+  beforeLoad: async ({ context }) => {
+    if (!context.auth.isAuthenticated) {
+      throw redirect({ to: '/login' });
+    }
+  },
+  component: AdminPanel,
+});
+```
+
+## Router Setup
+
+```typescript
+// src/router.tsx
+import { createRouter } from '@tanstack/react-router';
+import { routeTree } from './routeTree.gen';
+
+export const router = createRouter({
+  routeTree,
+  defaultPreload: 'intent', // Preload on hover
+  defaultPreloadStaleTime: 0,
+});
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 // src/main.tsx
-import { createRouter, RouterProvider } from '@tanstack/react-router'
-import { routeTree } from './routeTree.gen' // Auto-generated
-
-const router = createRouter({ routeTree })
+import { RouterProvider } from '@tanstack/react-router';
+import { router } from './router';
 
 function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
 ```
 
----
+## Best Practices
 
-## Key Features
+1. **File Structure**: Organize routes by feature/domain
+2. **Type Safety**: Leverage full type inference
+3. **Search Params**: Define schemas for search params
+4. **Code Splitting**: Use lazy routes for large components
+5. **Error Boundaries**: Implement error components
+6. **Loading States**: Show pending UI for better UX
+7. **Preloading**: Use intent-based preloading
+8. **Route Guards**: Protect routes with beforeLoad
+9. **Loaders**: Fetch data in loaders, not components
+10. **Context**: Share context through router
 
-### 1. Type-Safe Navigation
+## Resources
 
-```typescript
-// Fully typed!
-<Link to="/posts/$postId" params={{ postId: '123' }} />
-
-// TypeScript error if route doesn't exist
-<Link to="/invalid-route" /> // ❌ Error!
-```
-
-### 2. Route Loaders (Data Fetching)
-
-```typescript
-// src/routes/posts.$postId.tsx
-export const Route = createFileRoute('/posts/$postId')({
-  loader: async ({ params }) => {
-    const post = await fetchPost(params.postId) // Fully typed!
-    return { post }
-  },
-  component: ({ useLoaderData }) => {
-    const { post } = useLoaderData()
-    return <h1>{post.title}</h1>
-  },
-})
-```
-
-### 3. TanStack Query Integration
-
-```typescript
-import { queryOptions } from '@tanstack/react-query'
-
-const postQueryOptions = (postId: string) =>
-  queryOptions({
-    queryKey: ['posts', postId],
-    queryFn: () => fetchPost(postId),
-  })
-
-export const Route = createFileRoute('/posts/$postId')({
-  loader: ({ context: { queryClient }, params }) =>
-    queryClient.ensureQueryData(postQueryOptions(params.postId)),
-  component: () => {
-    const { postId } = Route.useParams()
-    const { data: post } = useQuery(postQueryOptions(postId))
-    return <h1>{post.title}</h1>
-  },
-})
-```
-
----
-
-## Common Errors & Solutions
-
-### Error 1: Devtools Dependency Resolution
-
-**Problem:** Build fails with `@tanstack/router-devtools-core` not found.
-
-**Solution:**
-```bash
-bun add @tanstack/router-devtools
-```
-
-### Error 2: Vite Plugin Order
-
-**Problem:** Routes not auto-generated.
-
-**Solution:** TanStackRouterVite MUST come before react():
-```typescript
-plugins: [
-  TanStackRouterVite(), // First!
-  react(),
-]
-```
-
-### Error 3: Type Registration Missing
-
-**Problem:** `Link to` not typed.
-
-**Solution:**
-```typescript
-// src/routeTree.gen.ts is auto-generated
-// Import it in main.tsx to register types
-import { routeTree } from './routeTree.gen'
-```
-
-### Error 4: Loader Not Running
-
-**Problem:** Loader function not called on navigation.
-
-**Solution:** Ensure route exports `Route`:
-```typescript
-export const Route = createFileRoute('/path')({ loader: ... })
-```
-
-### Error 5: Memory Leak with Forms
-
-**Problem:** Production crashes when using TanStack Form + Router.
-
-**Solution:** This is a known issue (#5734). Workaround: Use React Hook Form instead, or wait for fix.
-
----
-
-## Cloudflare Workers Deployment
-
-### Vite Config
-
-```typescript
-import { defineConfig } from 'vite'
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
-import { cloudflare } from '@cloudflare/vite-plugin'
-
-export default defineConfig({
-  plugins: [
-    TanStackRouterVite(),
-    react(),
-    cloudflare(),
-  ],
-})
-```
-
-### API Backend Pattern
-
-```typescript
-// functions/api/posts.ts
-export async function onRequestGet({ env }) {
-  const { results } = await env.DB.prepare('SELECT * FROM posts').all()
-  return Response.json(results)
-}
-
-// Client-side route
-export const Route = createFileRoute('/posts')({
-  loader: async () => {
-    const posts = await fetch('/api/posts').then(r => r.json())
-    return { posts }
-  },
-})
-```
-
----
-
-## Templates
-
-All templates in `~/.claude/skills/tanstack-router/templates/`:
-
-1. **package.json** - Dependencies and versions
-2. **vite.config.ts** - Vite plugin setup
-3. **basic-routes/** - File-based routing structure
-4. **route-with-loader.tsx** - Data loading example
-5. **query-integration.tsx** - TanStack Query pattern
-6. **nested-routes/** - Layout pattern
-7. **cloudflare-deployment.md** - Workers setup guide
-
----
-
-## Reference Docs
-
-Deep-dive guides in `~/.claude/skills/tanstack-router/references/`:
-
-1. **file-based-routing.md** - Route structure conventions
-2. **type-safety.md** - TypeScript patterns
-3. **data-loading.md** - Loaders and TanStack Query
-4. **cloudflare-workers.md** - Deployment guide
-5. **common-errors.md** - All 7+ errors with solutions
-6. **migration-guide.md** - From React Router
-
----
-
-## Integration with Existing Skills
-
-**Works with:**
-- **tanstack-query** - Recommended for data fetching
-- **tanstack-table** - Display data from routes
-- **cloudflare-worker-base** - API backend
-- **tailwind-v4-shadcn** - UI styling
-
----
-
-## Token Efficiency
-
-**Without skill:** ~10k tokens, 40-50 min, 3-4 errors
-**With skill:** ~4k tokens, 15-20 min, 0 errors
-**Savings:** 60% tokens, 65% time
-
----
-
-## Production Validation
-
-**Tested with:**
-- React 19.2, Vite 6.0, TypeScript 5.8
-- Cloudflare Workers (Wrangler 4.0)
-- TanStack Query v5.90.7
-
-**Stack compatibility:**
-- ✅ Cloudflare Workers + Static Assets
-- ✅ TanStack Query integration
-- ✅ TypeScript strict mode
-
----
-
-**Last Updated:** 2025-11-07
-**Library Version:** @tanstack/react-router v1.134.13
+- Documentation: https://tanstack.com/router
+- GitHub: https://github.com/TanStack/router

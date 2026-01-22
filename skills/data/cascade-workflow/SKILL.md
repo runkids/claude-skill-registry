@@ -24,7 +24,6 @@ Implement graceful degradation through cascading fallback strategies. When optim
 ## When to Use This Skill
 
 **USE FOR:**
-
 - External service dependencies (APIs, databases)
 - Time-sensitive operations with acceptable degraded modes
 - Operations where partial results are better than no results
@@ -32,7 +31,6 @@ Implement graceful degradation through cascading fallback strategies. When optim
 - Scenarios where waiting for perfect solution is worse than good-enough solution
 
 **AVOID FOR:**
-
 - Operations requiring exact correctness (no acceptable degradation)
 - Security-critical operations (authentication, authorization)
 - Financial transactions (no room for "approximate")
@@ -44,14 +42,12 @@ Implement graceful degradation through cascading fallback strategies. When optim
 ### Core Parameters
 
 **Timeout Strategy:**
-
 - `aggressive` - Fast failures, quick degradation (5s / 2s / 1s)
 - `balanced` - Reasonable attempts (30s / 10s / 5s) - **DEFAULT**
 - `patient` - Thorough attempts before fallback (120s / 30s / 10s)
 - `custom` - Define your own timeouts
 
 **Fallback Types:**
-
 - `service` - External API → Cached data → Static defaults
 - `quality` - Comprehensive → Standard → Minimal analysis
 - `freshness` - Real-time → Recent → Historical data
@@ -59,7 +55,6 @@ Implement graceful degradation through cascading fallback strategies. When optim
 - `accuracy` - Precise → Approximate → Estimate
 
 **Degradation Notification:**
-
 - `silent` - Log only, no user notification
 - `warning` - Inform user of degradation
 - `explicit` - Detailed explanation of what degraded and why
@@ -67,21 +62,18 @@ Implement graceful degradation through cascading fallback strategies. When optim
 ## Cascade Level Requirements
 
 **PRIMARY (Optimal):**
-
 - Best possible outcome
 - May depend on external services
 - May be slow or resource-intensive
 - Can fail or timeout
 
 **SECONDARY (Acceptable):**
-
 - Reduced quality but functional
 - More reliable than primary
 - Faster or fewer dependencies
 - Acceptable for users
 
 **TERTIARY (Guaranteed):**
-
 - Always succeeds, never fails
 - No external dependencies
 - Fast and reliable
@@ -103,19 +95,16 @@ Implement graceful degradation through cascading fallback strategies. When optim
 **Example Cascade Definitions:**
 
 **Code Analysis with AI:**
-
 - PRIMARY: GPT-4 comprehensive analysis (timeout: 30s)
 - SECONDARY: GPT-3.5 standard analysis (timeout: 10s)
 - TERTIARY: Static analysis with regex (timeout: 5s)
 
 **External API Data Fetch:**
-
 - PRIMARY: Live API call (timeout: 10s)
 - SECONDARY: Cached data (timeout: 2s)
 - TERTIARY: Default values (timeout: 0s)
 
 **Test Execution:**
-
 - PRIMARY: Full test suite (timeout: 120s)
 - SECONDARY: Critical tests only (timeout: 30s)
 - TERTIARY: Smoke tests (timeout: 10s)
@@ -201,21 +190,18 @@ except Exception as e:
 **Degradation Reporting Templates:**
 
 **Silent Mode:**
-
 ```
 [LOG] CASCADE: PRIMARY timeout (30s) → SECONDARY success (6s)
 Result: standard_analysis (degraded from comprehensive)
 ```
 
 **Warning Mode:**
-
 ```
 ⚠️  Using cached data (less than 1 hour old)
 Current real-time data unavailable.
 ```
 
 **Explicit Mode:**
-
 ```
 ℹ️  Analysis Quality Notice
 
@@ -248,7 +234,6 @@ What's Missing:
 - Update cascade strategy if needed
 
 **Metrics to Track:**
-
 - Success rate by level
 - Average response times
 - Degradation frequency
@@ -261,10 +246,9 @@ What's Missing:
 - Adjust timeouts based on success rates
 - Improve secondary approaches if frequently used
 - Update tertiary if inadequate
-- Store learnings in memory using `store_discovery()` from `amplihack.memory.discoveries`
+- Document learnings in `.claude/context/DISCOVERIES.md`
 
 **Optimization Criteria:**
-
 - **If PRIMARY succeeds < 50%:** Timeout too aggressive → Increase timeout
 - **If SECONDARY used > 40%:** Secondary is really the "normal" case → Swap primary and secondary
 - **If TERTIARY used > 10%:** Secondary not reliable enough → Improve secondary
@@ -280,13 +264,11 @@ What's Missing:
 ### Example 1: Weather API Integration
 
 **Configuration:**
-
 - Strategy: Balanced (30s / 10s / 5s)
 - Type: Service fallback
 - Notification: Warning
 
 **Implementation:**
-
 ```python
 async def get_weather(location: str) -> WeatherData:
     """Get weather data with cascade fallback"""
@@ -315,13 +297,11 @@ async def get_weather(location: str) -> WeatherData:
 ### Example 2: Code Review with AI
 
 **Configuration:**
-
 - Strategy: Patient (120s / 30s / 10s)
 - Type: Quality fallback
 - Notification: Explicit
 
 **Cascade Path:**
-
 1. PRIMARY: GPT-4 comprehensive review - TIMEOUT after 120s
 2. SECONDARY: GPT-3.5 standard review - SUCCESS in 18s
 3. TERTIARY: Not attempted
@@ -329,13 +309,11 @@ async def get_weather(location: str) -> WeatherData:
 ### Example 3: Search Results Ranking
 
 **Configuration:**
-
 - Strategy: Aggressive (5s / 2s / 1s)
 - Type: Accuracy fallback
 - Notification: Silent
 
 **Implementation:**
-
 ```python
 def search_and_rank(query: str) -> List[Result]:
     """Search with ML ranking, fallback to simple ranking"""
@@ -361,7 +339,6 @@ def search_and_rank(query: str) -> List[Result]:
 ## Philosophy Alignment
 
 This workflow enforces:
-
 - **Resilience:** System always completes, never completely fails
 - **User Experience:** Better degraded service than error message
 - **Transparency:** Users understand what they're getting (if explicit mode)

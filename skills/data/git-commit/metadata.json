@@ -1,7 +1,7 @@
 {
   "name": "git-commit",
-  "repo": "ThinkInAIXYZ/deepchat",
-  "path": "resources/skills/git-commit/SKILL.md",
-  "source": "github.com/ThinkInAIXYZ/deepchat",
-  "downloaded_at": "2026-01-21T02:41:58.467429Z"
+  "repo": "medride/claude-code-research",
+  "path": ".claude/skills/git-commit/SKILL.md",
+  "source": "github.com/medride/claude-code-research",
+  "downloaded_at": "2026-01-22T04:02:33.037963Z"
 }

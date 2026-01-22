@@ -1,13 +1,7 @@
 {
   "name": "mental-saccade-execution",
-  "description": "Execute rapid attention shifts between cognitive focus points.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "mental",
-    "saccade",
-    "execution"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/mental-saccade-execution/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-22T01:18:44.797117Z"
 }

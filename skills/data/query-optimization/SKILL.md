@@ -1,162 +1,535 @@
 ---
 name: query-optimization
-description: |
-  データベースクエリ最適化を専門とするスキル。N+1問題の回避、フェッチ戦略の選択、実行計画分析、インデックス活用を通じてパフォーマンスを向上させます。
-
-  Anchors:
-  • High Performance MySQL (Baron Schwartz) / 適用: クエリ最適化原則 / 目的: パフォーマンス向上の体系的アプローチ
-  • SQL Performance Explained (Markus Winand) / 適用: インデックス設計とアクセスパターン / 目的: 実行計画の最適化
-  • High-Performance Java Persistence (Vlad Mihalcea) / 適用: ORM最適化とN+1問題解決 / 目的: アプリケーションレベルの最適化
-
-  Trigger:
-  Use when optimizing query performance, analyzing execution plans, resolving N+1 problems, designing fetch strategies, improving database performance, or tuning ORM queries.
-  Keywords: query optimization, N+1 problem, execution plan, index design, fetch strategy, database performance, ORM optimization
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
+description: Automatically applies when optimizing database queries. Ensures EXPLAIN analysis, proper indexing, N+1 prevention, query performance monitoring, and efficient SQL patterns.
+category: python
 ---
 
-# Query Optimization
+# Query Optimization Patterns
 
-## 概要
+When optimizing database queries, follow these patterns for efficient, scalable data access.
 
-Vlad MihaltseaとMarkus Winandの教えに基づくクエリ最適化を専門とするスキル。N+1問題の回避、フェッチ戦略の選択、実行計画分析、インデックス活用などのデータベースパフォーマンス最適化手法を提供します。
+**Trigger Keywords**: query optimization, EXPLAIN, index, N+1, query performance, slow query, database performance, SELECT, JOIN, query plan
 
-## ワークフロー
+**Agent Integration**: Used by `backend-architect`, `database-engineer`, `performance-engineer`
 
-### Phase 1: パフォーマンス分析
+## ✅ Correct Pattern: EXPLAIN Analysis
 
-**目的**: クエリパフォーマンスのボトルネックを特定する
+```python
+from sqlalchemy import create_engine, text
+from typing import Dict, List
+import logging
 
-**Task**: `agents/analysis.md`
+logger = logging.getLogger(__name__)
 
-**入力**:
 
-- 問題となっているクエリ
-- パフォーマンス要件
-- データベーススキーマ
+class QueryAnalyzer:
+    """Analyze query performance with EXPLAIN."""
 
-**出力**:
+    def __init__(self, engine):
+        self.engine = engine
 
-- ボトルネック診断レポート
-- 実行計画分析結果
-- N+1問題の検出結果
-- 最適化優先度リスト
+    def explain(self, query: str, params: Dict = None) -> List[Dict]:
+        """
+        Run EXPLAIN on query.
 
-**実行タイミング**: パフォーマンス問題の調査時、新規クエリのレビュー時
+        Args:
+            query: SQL query
+            params: Query parameters
 
-### Phase 2: 最適化実施
+        Returns:
+            EXPLAIN output
+        """
+        with self.engine.connect() as conn:
+            explain_query = f"EXPLAIN ANALYZE {query}"
+            result = conn.execute(text(explain_query), params or {})
+            return [dict(row._mapping) for row in result]
 
-**目的**: インデックス設計、フェッチ戦略、クエリリライトを実施する
+    def find_slow_queries(
+        self,
+        threshold_ms: float = 1000.0
+    ) -> List[Dict]:
+        """
+        Find queries slower than threshold.
 
-**Task**: `agents/optimization.md`
+        Args:
+            threshold_ms: Threshold in milliseconds
 
-**入力**:
+        Returns:
+            List of slow queries
+        """
+        # PostgreSQL pg_stat_statements
+        query = text("""
+            SELECT
+                query,
+                calls,
+                total_exec_time / 1000.0 as total_seconds,
+                mean_exec_time as avg_ms,
+                max_exec_time as max_ms
+            FROM pg_stat_statements
+            WHERE mean_exec_time > :threshold
+            ORDER BY total_exec_time DESC
+            LIMIT 50
+        """)
 
-- Phase 1の分析結果
-- データベーススキーマ
-- 現在のコード
+        with self.engine.connect() as conn:
+            result = conn.execute(query, {"threshold": threshold_ms})
+            return [dict(row._mapping) for row in result]
 
-**出力**:
 
-- 最適化されたクエリ/コード
-- インデックス設計案（DDL）
-- フェッチ戦略の推奨事項
-- パフォーマンス測定結果
+# Usage
+analyzer = QueryAnalyzer(engine)
 
-**実行タイミング**: 分析完了後、最適化施策の決定時
+# Analyze specific query
+explain_output = analyzer.explain(
+    "SELECT * FROM users WHERE email = :email",
+    {"email": "user@example.com"}
+)
 
-### Phase 3: 効果検証
+for row in explain_output:
+    logger.info(f"Query plan: {row}")
 
-**目的**: 最適化効果を測定し、本番適用の可否を判断する
+# Find slow queries
+slow_queries = analyzer.find_slow_queries(threshold_ms=500)
+```
 
-**Task**: `agents/validation.md`
+## Index Creation
 
-**入力**:
+```python
+from sqlalchemy import Index, Table, Column, Integer, String, DateTime
+from sqlalchemy.orm import declarative_base
 
-- 最適化前後のクエリ/コード
-- インデックス定義
-- ベンチマーク条件
+Base = declarative_base()
 
-**出力**:
 
-- パフォーマンス比較レポート
-- 副作用確認結果
-- デプロイ推奨判断
-- 残存課題リスト
+class User(Base):
+    """User model with proper indexes."""
 
-**実行タイミング**: 最適化実施後、本番デプロイ前
+    __tablename__ = "users"
 
-## Task仕様
+    id = Column(Integer, primary_key=True)
+    email = Column(String(255), nullable=False)
+    username = Column(String(100), nullable=False)
+    created_at = Column(DateTime, nullable=False)
+    status = Column(String(20), nullable=False)
 
-| Task         | 起動タイミング | 入力               | 出力               |
-| ------------ | -------------- | ------------------ | ------------------ |
-| analysis     | Phase 1開始時  | クエリ・スキーマ   | ボトルネック診断   |
-| optimization | Phase 2開始時  | 分析結果・コード   | 最適化実装         |
-| validation   | Phase 3開始時  | 最適化前後の成果物 | 検証・デプロイ判断 |
+    # Single column indexes
+    __table_args__ = (
+        Index('ix_users_email', 'email', unique=True),  # Unique constraint
+        Index('ix_users_username', 'username'),
+        Index('ix_users_status', 'status'),
 
-**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリを参照
+        # Composite indexes (order matters!)
+        Index('ix_users_status_created', 'status', 'created_at'),
 
-- [agents/analysis.md](agents/analysis.md)
-- [agents/optimization.md](agents/optimization.md)
-- [agents/validation.md](agents/validation.md)
+        # Partial index (PostgreSQL)
+        Index(
+            'ix_users_active_email',
+            'email',
+            postgresql_where=(status == 'active')
+        ),
 
-## ベストプラクティス
+        # Expression index
+        Index(
+            'ix_users_email_lower',
+            func.lower(email),
+            postgresql_using='btree'
+        ),
+    )
 
-### すべきこと
 
-- 測定から始める（推測による最適化を避ける）
-- EXPLAIN で実行計画を必ず確認
-- N+1問題を早期に検出して解決
-- インデックス追加前にクエリパターンを分析
-- 最適化効果を数値で検証
-- 既存テストで副作用がないことを確認
+# When to create indexes:
+# ✅ Columns in WHERE clauses
+# ✅ Columns in JOIN conditions
+# ✅ Columns in ORDER BY
+# ✅ Foreign key columns
+# ✅ Columns in GROUP BY
+```
 
-### 避けるべきこと
+## N+1 Query Prevention
 
-- 測定なしの盲目的なインデックス追加
-- 実行計画を見ずにクエリを変更
-- 過度なインデックス（書き込み性能の劣化）
-- 単一クエリのみの最適化（全体像を見失う）
-- 副作用確認なしの本番デプロイ
+```python
+from sqlalchemy import select
+from sqlalchemy.orm import Session, selectinload, joinedload, relationship
 
-## リソース参照
 
-### references/（詳細知識）
+class Order(Base):
+    """Order model."""
 
-| リソース                   | パス                                                                           | 内容             |
-| -------------------------- | ------------------------------------------------------------------------------ | ---------------- |
-| 基礎知識                   | [references/Level1_basics.md](references/Level1_basics.md)                     | 基礎概念と用語   |
-| 実務パターン               | [references/Level2_intermediate.md](references/Level2_intermediate.md)         | 実務での適用     |
-| 高度な最適化               | [references/Level3_advanced.md](references/Level3_advanced.md)                 | 高度な最適化技法 |
-| 専門トラブルシューティング | [references/Level4_expert.md](references/Level4_expert.md)                     | 専門的な問題解決 |
-| 実行計画分析               | [references/execution-plan-analysis.md](references/execution-plan-analysis.md) | EXPLAIN解析手法  |
-| インデックス戦略           | [references/index-strategies.md](references/index-strategies.md)               | インデックス設計 |
-| N+1パターン                | [references/n-plus-one-patterns.md](references/n-plus-one-patterns.md)         | N+1問題と解決策  |
-| フェッチ戦略               | [references/fetch-strategies.md](references/fetch-strategies.md)               | フェッチ最適化   |
+    __tablename__ = "orders"
 
-### scripts/（決定論的処理）
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    total = Column(Numeric)
 
-| スクリプト              | 用途         | 使用例                                                         |
-| ----------------------- | ------------ | -------------------------------------------------------------- |
-| `detect-n-plus-one.mjs` | N+1問題検出  | `node scripts/detect-n-plus-one.mjs --log query.log`           |
-| `log_usage.mjs`         | 使用履歴記録 | `node scripts/log_usage.mjs --result success --phase analysis` |
-| `validate-skill.mjs`    | 構造検証     | `node scripts/validate-skill.mjs`                              |
+    # Relationship
+    user = relationship("User", back_populates="orders")
+    items = relationship("OrderItem", back_populates="order")
 
-### assets/（テンプレート）
 
-| テンプレート                | 用途                 |
-| --------------------------- | -------------------- |
-| `optimization-checklist.md` | 最適化チェックリスト |
+# ❌ N+1 Query Problem
+def get_orders_with_users_bad(session: Session) -> List[Order]:
+    """
+    BAD: Causes N+1 queries.
 
-## 変更履歴
+    1 query for orders + N queries for users.
+    """
+    orders = session.execute(select(Order)).scalars().all()
 
-| Version | Date       | Changes                                                    |
-| ------- | ---------- | ---------------------------------------------------------- |
-| 3.0.0   | 2026-01-02 | 18-skills.md仕様完全準拠: validation agent追加、整合性修正 |
-| 2.0.0   | 2026-01-02 | 18-skills.md仕様準拠: Trigger英語化、Anchors追加           |
-| 1.0.0   | 2025-12-24 | 初版: 基本構造とリソース整備                               |
+    for order in orders:
+        print(f"Order {order.id} by {order.user.email}")  # N queries!
+
+    return orders
+
+
+# ✅ Solution 1: Eager Loading with joinedload
+def get_orders_with_users_joined(session: Session) -> List[Order]:
+    """
+    GOOD: Single query with JOIN.
+
+    Use for one-to-one or many-to-one relationships.
+    """
+    stmt = select(Order).options(
+        joinedload(Order.user)
+    )
+
+    orders = session.execute(stmt).unique().scalars().all()
+
+    for order in orders:
+        print(f"Order {order.id} by {order.user.email}")  # No extra queries!
+
+    return orders
+
+
+# ✅ Solution 2: Eager Loading with selectinload
+def get_orders_with_items(session: Session) -> List[Order]:
+    """
+    GOOD: Separate query with WHERE IN.
+
+    Use for one-to-many or many-to-many relationships.
+    """
+    stmt = select(Order).options(
+        selectinload(Order.items)
+    )
+
+    orders = session.execute(stmt).scalars().all()
+
+    for order in orders:
+        print(f"Order {order.id} has {len(order.items)} items")  # No N+1!
+
+    return orders
+
+
+# ✅ Solution 3: Load multiple relationships
+def get_orders_complete(session: Session) -> List[Order]:
+    """Load orders with users and items."""
+    stmt = select(Order).options(
+        joinedload(Order.user),      # JOIN for user
+        selectinload(Order.items)    # Separate query for items
+    )
+
+    return session.execute(stmt).unique().scalars().all()
+```
+
+## Batch Loading
+
+```python
+from typing import List, Dict
+
+
+async def get_users_by_ids_batch(
+    session: Session,
+    user_ids: List[int]
+) -> Dict[int, User]:
+    """
+    Load multiple users in single query.
+
+    Args:
+        session: Database session
+        user_ids: List of user IDs
+
+    Returns:
+        Dict mapping user_id to User
+    """
+    if not user_ids:
+        return {}
+
+    # Single query with WHERE IN
+    stmt = select(User).where(User.id.in_(user_ids))
+    users = session.execute(stmt).scalars().all()
+
+    # Return as dict for O(1) lookup
+    return {user.id: user for user in users}
+
+
+# Usage with DataLoader pattern
+class UserDataLoader:
+    """Batch load users to prevent N+1."""
+
+    def __init__(self, session: Session):
+        self.session = session
+        self._batch: List[int] = []
+        self._cache: Dict[int, User] = {}
+
+    async def load(self, user_id: int) -> User:
+        """
+        Load user by ID with batching.
+
+        Collects IDs and loads in batch.
+        """
+        if user_id in self._cache:
+            return self._cache[user_id]
+
+        self._batch.append(user_id)
+        return await self._load_batch()
+
+    async def _load_batch(self):
+        """Execute batch load."""
+        if not self._batch:
+            return None
+
+        users = await get_users_by_ids_batch(self.session, self._batch)
+        self._cache.update(users)
+        self._batch.clear()
+
+        return users
+```
+
+## Query Optimization Patterns
+
+```python
+from sqlalchemy import func, and_, or_
+
+
+# ✅ Use specific columns, not SELECT *
+def get_user_emails_good(session: Session) -> List[str]:
+    """Select only needed columns."""
+    stmt = select(User.email)
+    return session.execute(stmt).scalars().all()
+
+
+# ✅ Use pagination for large result sets
+def get_users_paginated(
+    session: Session,
+    page: int = 1,
+    page_size: int = 50
+) -> List[User]:
+    """Paginate results."""
+    offset = (page - 1) * page_size
+
+    stmt = (
+        select(User)
+        .order_by(User.id)
+        .limit(page_size)
+        .offset(offset)
+    )
+
+    return session.execute(stmt).scalars().all()
+
+
+# ✅ Use EXISTS for checking existence
+def user_has_orders_exists(session: Session, user_id: int) -> bool:
+    """Check if user has orders efficiently."""
+    stmt = select(
+        exists(select(Order.id).where(Order.user_id == user_id))
+    )
+    return session.execute(stmt).scalar()
+
+
+# ✅ Use COUNT efficiently
+def get_active_user_count(session: Session) -> int:
+    """Count without loading rows."""
+    stmt = select(func.count()).select_from(User).where(User.status == 'active')
+    return session.execute(stmt).scalar()
+
+
+# ✅ Use bulk operations
+def bulk_update_status(
+    session: Session,
+    user_ids: List[int],
+    new_status: str
+):
+    """Bulk update in single query."""
+    stmt = (
+        update(User)
+        .where(User.id.in_(user_ids))
+        .values(status=new_status)
+    )
+    session.execute(stmt)
+    session.commit()
+
+
+# ✅ Use window functions for rankings
+def get_top_users_by_orders(session: Session) -> List[Dict]:
+    """Get users ranked by order count."""
+    stmt = text("""
+        SELECT
+            u.id,
+            u.email,
+            COUNT(o.id) as order_count,
+            RANK() OVER (ORDER BY COUNT(o.id) DESC) as rank
+        FROM users u
+        LEFT JOIN orders o ON u.id = o.user_id
+        GROUP BY u.id, u.email
+        ORDER BY order_count DESC
+        LIMIT 100
+    """)
+
+    with session.connection() as conn:
+        result = conn.execute(stmt)
+        return [dict(row._mapping) for row in result]
+```
+
+## Query Performance Monitoring
+
+```python
+import time
+from functools import wraps
+from typing import Callable
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def monitor_query_performance(threshold_ms: float = 100.0):
+    """
+    Decorator to monitor query performance.
+
+    Args:
+        threshold_ms: Log warning if query exceeds threshold
+    """
+    def decorator(func: Callable) -> Callable:
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+            start = time.time()
+
+            try:
+                result = await func(*args, **kwargs)
+                duration_ms = (time.time() - start) * 1000
+
+                if duration_ms > threshold_ms:
+                    logger.warning(
+                        f"Slow query detected",
+                        extra={
+                            "function": func.__name__,
+                            "duration_ms": duration_ms,
+                            "threshold_ms": threshold_ms
+                        }
+                    )
+                else:
+                    logger.debug(
+                        f"Query completed",
+                        extra={
+                            "function": func.__name__,
+                            "duration_ms": duration_ms
+                        }
+                    )
+
+                return result
+
+            except Exception as e:
+                duration_ms = (time.time() - start) * 1000
+                logger.error(
+                    f"Query failed",
+                    extra={
+                        "function": func.__name__,
+                        "duration_ms": duration_ms,
+                        "error": str(e)
+                    }
+                )
+                raise
+
+        return wrapper
+    return decorator
+
+
+# Usage
+@monitor_query_performance(threshold_ms=500.0)
+async def get_user_orders(session: Session, user_id: int) -> List[Order]:
+    """Get user orders with performance monitoring."""
+    stmt = select(Order).where(Order.user_id == user_id)
+    return session.execute(stmt).scalars().all()
+```
+
+## ❌ Anti-Patterns
+
+```python
+# ❌ SELECT *
+stmt = select(User)  # Loads all columns!
+
+# ✅ Better: Select specific columns
+stmt = select(User.id, User.email)
+
+
+# ❌ N+1 queries
+orders = session.query(Order).all()
+for order in orders:
+    print(order.user.email)  # N queries!
+
+# ✅ Better: Eager load
+orders = session.query(Order).options(joinedload(Order.user)).all()
+
+
+# ❌ No pagination
+users = session.query(User).all()  # Could be millions!
+
+# ✅ Better: Paginate
+users = session.query(User).limit(100).offset(0).all()
+
+
+# ❌ Loading full objects for COUNT
+count = len(session.query(User).all())  # Loads all rows!
+
+# ✅ Better: Use COUNT
+count = session.query(func.count(User.id)).scalar()
+
+
+# ❌ No indexes on WHERE columns
+# Query: SELECT * FROM users WHERE email = ?
+# No index on email column!
+
+# ✅ Better: Create index
+Index('ix_users_email', 'email')
+
+
+# ❌ Using OR instead of IN
+stmt = select(User).where(
+    or_(User.id == 1, User.id == 2, User.id == 3)
+)
+
+# ✅ Better: Use IN
+stmt = select(User).where(User.id.in_([1, 2, 3]))
+```
+
+## Best Practices Checklist
+
+- ✅ Run EXPLAIN on complex queries
+- ✅ Create indexes on foreign keys
+- ✅ Create indexes on WHERE/JOIN columns
+- ✅ Use eager loading to prevent N+1
+- ✅ Select only needed columns
+- ✅ Paginate large result sets
+- ✅ Use EXISTS for existence checks
+- ✅ Use COUNT without loading rows
+- ✅ Use bulk operations for updates
+- ✅ Monitor slow queries
+- ✅ Use connection pooling
+- ✅ Cache frequent queries
+
+## Auto-Apply
+
+When writing database queries:
+1. Use EXPLAIN to analyze query plans
+2. Create indexes on filtered/joined columns
+3. Use joinedload/selectinload to prevent N+1
+4. Select specific columns, not SELECT *
+5. Implement pagination for large results
+6. Monitor query performance
+7. Use bulk operations when possible
+
+## Related Skills
+
+- `database-migrations` - For index creation
+- `type-safety` - For type hints
+- `monitoring-alerting` - For query monitoring
+- `performance-profiling` - For optimization
+- `async-await-checker` - For async queries

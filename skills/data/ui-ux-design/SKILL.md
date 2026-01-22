@@ -1,696 +1,228 @@
-# UI/UX Design Skill
-
-```yaml
-name: ui-ux-design-expert
-risk_level: MEDIUM
-description: Expert in interface design, spatial layouts, glass-morphism, attention management, and creating intuitive user experiences for AI assistants
-version: 1.0.0
-author: JARVIS AI Assistant
-tags: [design, ui, ux, interface, hud, jarvis]
-```
-
+---
+name: ui-ux-design
+description: "UI/UX design reference database. 50+ styles, 21 palettes, 50 font pairings, 20 charts, 8 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app, .html, .tsx, .vue, .svelte. Elements: button, modal, navbar, sidebar, card, table, form, chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, flat design. Topics: color palette, accessibility, animation, layout, typography, font pairing, spacing, hover, shadow, gradient."
 ---
 
-## 1. Overview
+# UI Design Reference - Searchable Pattern Database
 
-**Risk Level**: LOW-RISK
+Curated reference database of UI/UX patterns, styles, color palettes, font pairings, chart types, product recommendations, UX guidelines, and stack-specific best practices. Use this as a lookup tool to find proven design patterns and implementation guidance.
 
-**Justification**: UI/UX design produces visual assets and interface specifications without direct code execution or data processing.
+## Prerequisites
 
-You are an expert in **UI/UX design** for AI assistants and futuristic interfaces. You create intuitive, accessible, and visually stunning interfaces that balance aesthetics with usability.
-
-### Core Expertise
-- Spatial layout and visual hierarchy
-- Glass-morphism and modern aesthetics
-- Attention management systems
-- HUD (Heads-Up Display) design
-- Responsive and adaptive interfaces
-
-### Primary Use Cases
-- Designing AI assistant interfaces
-- Creating HUD layouts
-- Information density optimization
-- Attention and notification design
-
----
-
-## 2. Core Principles
-
-1. **TDD First**: Write component tests before implementation
-2. **Performance Aware**: Optimize rendering, loading, and interactions
-3. **User-Centered Design**: Prioritize user needs and cognitive load
-4. **Visual Hierarchy**: Guide attention through design
-5. **Accessibility**: Ensure interfaces work for all users
-6. **Consistency**: Maintain design patterns throughout
-
-### Design Guidelines
-- **Clarity over cleverness**: Function before form
-- **Progressive disclosure**: Show what's needed when needed
-- **Feedback loops**: Users always know system state
-- **Forgiveness**: Allow easy recovery from errors
-
----
-
-## 3. Technical Foundation
-
-### Color System
-
-```css
-/* JARVIS-inspired color palette */
-:root {
-  /* Primary - Cyan accent */
-  --color-primary-100: #e0f7fa;
-  --color-primary-500: #00bcd4;
-  --color-primary-900: #006064;
-
-  /* Surface - Glass effect base */
-  --surface-glass: rgba(255, 255, 255, 0.08);
-  --surface-glass-hover: rgba(255, 255, 255, 0.12);
-  --surface-glass-active: rgba(255, 255, 255, 0.16);
-
-  /* Status colors */
-  --color-success: #4caf50;
-  --color-warning: #ff9800;
-  --color-error: #f44336;
-  --color-info: #2196f3;
-
-  /* Text */
-  --text-primary: rgba(255, 255, 255, 0.95);
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --text-disabled: rgba(255, 255, 255, 0.38);
-}
-```
-
-### Typography Scale
-
-```css
-/* Modular type scale (1.25 ratio) */
-:root {
-  --font-size-xs: 0.64rem;    /* 10.24px */
-  --font-size-sm: 0.8rem;     /* 12.8px */
-  --font-size-base: 1rem;     /* 16px */
-  --font-size-lg: 1.25rem;    /* 20px */
-  --font-size-xl: 1.563rem;   /* 25px */
-  --font-size-2xl: 1.953rem;  /* 31.25px */
-  --font-size-3xl: 2.441rem;  /* 39.06px */
-
-  /* Line heights */
-  --line-height-tight: 1.25;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
-}
-
-/* Font families */
-body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-code {
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-}
-```
-
-### Spacing System
-
-```css
-/* 8px base grid */
-:root {
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.5rem;    /* 24px */
-  --space-6: 2rem;      /* 32px */
-  --space-8: 3rem;      /* 48px */
-  --space-10: 4rem;     /* 64px */
-}
-```
-
----
-
-## 4. Implementation Patterns
-
-### 4.1 Glass-Morphism Card
-
-```css
-.glass-card {
-  /* Glass effect */
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  /* Border for definition */
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-
-  /* Subtle shadow */
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-
-  /* Padding */
-  padding: var(--space-4);
-}
-
-.glass-card:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-```
-
-### 4.2 HUD Layout Structure
-
-```html
-<!-- Main HUD container -->
-<div class="hud-container">
-  <!-- Top bar - status and controls -->
-  <header class="hud-header">
-    <div class="status-indicators">
-      <span class="indicator active">System Online</span>
-      <span class="indicator">Processing: 23%</span>
-    </div>
-    <nav class="quick-actions">
-      <button aria-label="Settings">⚙</button>
-      <button aria-label="Help">?</button>
-    </nav>
-  </header>
-
-  <!-- Main content area -->
-  <main class="hud-main">
-    <!-- Primary interaction panel -->
-    <section class="primary-panel">
-      <div class="chat-interface">
-        <!-- Conversation display -->
-      </div>
-      <div class="input-area">
-        <!-- User input -->
-      </div>
-    </section>
-
-    <!-- Side panels for context -->
-    <aside class="context-panel">
-      <div class="data-widgets">
-        <!-- Status widgets -->
-      </div>
-    </aside>
-  </main>
-
-  <!-- Bottom bar - notifications -->
-  <footer class="hud-footer">
-    <div class="notifications">
-      <!-- System notifications -->
-    </div>
-  </footer>
-</div>
-```
-
-### 4.3 Visual Hierarchy
-
-```css
-/* Priority levels through visual weight */
-
-/* Critical - highest attention */
-.priority-critical {
-  color: var(--color-error);
-  font-weight: 700;
-  font-size: var(--font-size-lg);
-  animation: pulse 1s ease-in-out infinite;
-}
-
-/* High - significant attention */
-.priority-high {
-  color: var(--color-warning);
-  font-weight: 600;
-  font-size: var(--font-size-base);
-}
-
-/* Normal - default */
-.priority-normal {
-  color: var(--text-primary);
-  font-weight: 400;
-}
-
-/* Low - reduced attention */
-.priority-low {
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-}
-
-/* Ambient - minimal attention */
-.priority-ambient {
-  color: var(--text-disabled);
-  font-size: var(--font-size-xs);
-}
-```
-
-### 4.4 Attention Management
-
-```typescript
-// Attention priority queue
-interface AttentionItem {
-  id: string;
-  priority: "critical" | "high" | "normal" | "low";
-  content: string;
-  duration?: number;
-}
-
-class AttentionManager {
-  private queue: AttentionItem[] = [];
-
-  add(item: AttentionItem): void {
-    // Insert by priority
-    const index = this.queue.findIndex(i =>
-      this.getPriorityValue(i.priority) < this.getPriorityValue(item.priority)
-    );
-
-    if (index === -1) {
-      this.queue.push(item);
-    } else {
-      this.queue.splice(index, 0, item);
-    }
-
-    this.notify();
-  }
-
-  private getPriorityValue(priority: string): number {
-    const values = { critical: 4, high: 3, normal: 2, low: 1 };
-    return values[priority] || 0;
-  }
-}
-```
-
-### 4.5 Responsive Breakpoints
-
-```css
-/* Mobile-first breakpoints */
-:root {
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
-}
-
-/* Usage */
-.container {
-  padding: var(--space-4);
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding: var(--space-6);
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding: var(--space-8);
-  }
-}
-```
-
----
-
-## 5. Implementation Workflow (TDD)
-
-### Step 1: Write Failing Test First
-
-```typescript
-// tests/components/GlassCard.test.ts
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
-import GlassCard from '@/components/ui/GlassCard.vue'
-
-describe('GlassCard', () => {
-  it('renders with default glass styling', () => {
-    const wrapper = mount(GlassCard)
-    expect(wrapper.classes()).toContain('glass-card')
-  })
-
-  it('applies hover state on mouse enter', async () => {
-    const wrapper = mount(GlassCard)
-    await wrapper.trigger('mouseenter')
-    expect(wrapper.emitted('hover')).toBeTruthy()
-  })
-
-  it('renders slot content correctly', () => {
-    const wrapper = mount(GlassCard, {
-      slots: { default: '<p>Test content</p>' }
-    })
-    expect(wrapper.text()).toContain('Test content')
-  })
-
-  it('meets accessibility requirements', () => {
-    const wrapper = mount(GlassCard, {
-      props: { role: 'region', ariaLabel: 'Card section' }
-    })
-    expect(wrapper.attributes('role')).toBe('region')
-    expect(wrapper.attributes('aria-label')).toBe('Card section')
-  })
-})
-```
-
-### Step 2: Implement Minimum to Pass
-
-```vue
-<!-- components/ui/GlassCard.vue -->
-<template>
-  <div
-    class="glass-card"
-    :role="role"
-    :aria-label="ariaLabel"
-    @mouseenter="$emit('hover', true)"
-    @mouseleave="$emit('hover', false)"
-  >
-    <slot />
-  </div>
-</template>
-
-<script setup lang="ts">
-defineProps<{
-  role?: string
-  ariaLabel?: string
-}>()
-
-defineEmits<{
-  hover: [isHovered: boolean]
-}>()
-</script>
-```
-
-### Step 3: Refactor Following Design Patterns
-
-Apply glass-morphism styles, ensure spacing system compliance, add transitions.
-
-### Step 4: Run Full Verification
+Check if Python is installed:
 
 ```bash
-# Run component tests
-npm run test -- --filter=GlassCard
+python3 --version || python --version
+```
 
-# Check accessibility
-npm run test:a11y
+If Python is not installed, install it based on user's OS:
 
-# Visual regression test
-npm run test:visual
+**macOS:**
+```bash
+brew install python3
+```
 
-# Build verification
-npm run build
+**Ubuntu/Debian:**
+```bash
+sudo apt update && sudo apt install python3
+```
+
+**Windows:**
+```powershell
+winget install Python.Python.3.12
 ```
 
 ---
 
-## 6. Performance Patterns
+## How to Use This Skill
 
-### Pattern 1: Lazy Loading Components
+When user requests UI/UX work (design, build, create, implement, review, fix, improve), follow this workflow:
 
-```typescript
-// Bad - loads all components upfront
-import HeavyWidget from '@/components/HeavyWidget.vue'
-import DataChart from '@/components/DataChart.vue'
+### Step 1: Analyze User Requirements
 
-// Good - lazy load off-screen components
-const HeavyWidget = defineAsyncComponent(() =>
-  import('@/components/HeavyWidget.vue')
-)
+Extract key information from user request:
+- **Product type**: SaaS, e-commerce, portfolio, dashboard, landing page, etc.
+- **Style keywords**: minimal, playful, professional, elegant, dark mode, etc.
+- **Industry**: healthcare, fintech, gaming, education, etc.
+- **Stack**: React, Vue, Next.js, or default to `html-tailwind`
 
-const DataChart = defineAsyncComponent({
-  loader: () => import('@/components/DataChart.vue'),
-  loadingComponent: ChartSkeleton,
-  delay: 200
-})
+### Step 2: Search Relevant Domains
+
+Use `search.py` multiple times to gather comprehensive information. Search until you have enough context.
+
+```bash
+python3 .claude/skills/ui-ux-design/scripts/search.py "<keyword>" --domain <domain> [-n <max_results>]
 ```
 
-### Pattern 2: Image Optimization
+**Recommended search order:**
 
-```vue
-<!-- Bad - unoptimized images -->
-<img src="/hero.png" />
+1. **Product** - Get style recommendations for product type
+2. **Style** - Get detailed style guide (colors, effects, frameworks)
+3. **Typography** - Get font pairings with Google Fonts imports
+4. **Color** - Get color palette (Primary, Secondary, CTA, Background, Text, Border)
+5. **Landing** - Get page structure (if landing page)
+6. **Chart** - Get chart recommendations (if dashboard/analytics)
+7. **UX** - Get best practices and anti-patterns
+8. **Stack** - Get stack-specific guidelines (default: html-tailwind)
 
-<!-- Good - optimized with lazy loading and sizing -->
-<template>
-  <picture>
-    <source
-      srcset="/hero.avif"
-      type="image/avif"
-    />
-    <source
-      srcset="/hero.webp"
-      type="image/webp"
-    />
-    <img
-      src="/hero.png"
-      alt="Hero image"
-      loading="lazy"
-      decoding="async"
-      width="800"
-      height="600"
-    />
-  </picture>
-</template>
+### Step 3: Stack Guidelines (Default: html-tailwind)
+
+If user doesn't specify a stack, **default to `html-tailwind`**.
+
+```bash
+python3 .claude/skills/ui-ux-design/scripts/search.py "<keyword>" --stack html-tailwind
 ```
 
-### Pattern 3: Critical CSS Inlining
-
-```typescript
-// Bad - all styles in one bundle
-import './styles/all.css'
-
-// Good - inline critical, defer rest
-// In nuxt.config.ts
-export default defineNuxtConfig({
-  css: ['~/assets/css/critical.css'],
-  app: {
-    head: {
-      link: [
-        {
-          rel: 'preload',
-          href: '/styles/non-critical.css',
-          as: 'style',
-          onload: "this.onload=null;this.rel='stylesheet'"
-        }
-      ]
-    }
-  }
-})
-```
-
-### Pattern 4: Skeleton Screens
-
-```vue
-<!-- Bad - spinner or blank state -->
-<template>
-  <div v-if="loading">
-    <Spinner />
-  </div>
-</template>
-
-<!-- Good - skeleton matching content shape -->
-<template>
-  <div v-if="loading" class="skeleton-container">
-    <div class="skeleton skeleton-avatar" />
-    <div class="skeleton skeleton-text w-3/4" />
-    <div class="skeleton skeleton-text w-1/2" />
-  </div>
-  <div v-else>
-    <UserCard :user="data" />
-  </div>
-</template>
-
-<style scoped>
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.06) 25%,
-    rgba(255, 255, 255, 0.12) 50%,
-    rgba(255, 255, 255, 0.06) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-</style>
-```
-
-### Pattern 5: Progressive Enhancement
-
-```vue
-<!-- Bad - all-or-nothing rendering -->
-<template>
-  <ComplexAnimation v-if="supportsWebGL" />
-</template>
-
-<!-- Good - progressive enhancement -->
-<template>
-  <div class="hero-section">
-    <!-- Base: works everywhere -->
-    <StaticHero />
-
-    <!-- Enhanced: CSS animations -->
-    <CSSAnimatedHero v-if="prefersMotion" />
-
-    <!-- Premium: WebGL effects -->
-    <WebGLHero v-if="supportsWebGL && prefersMotion" />
-  </div>
-</template>
-
-<script setup lang="ts">
-const prefersMotion = !window.matchMedia(
-  '(prefers-reduced-motion: reduce)'
-).matches
-
-const supportsWebGL = (() => {
-  try {
-    const canvas = document.createElement('canvas')
-    return !!canvas.getContext('webgl2')
-  } catch {
-    return false
-  }
-})()
-</script>
-```
+Available stacks: `html-tailwind`, `react`, `nextjs`, `vue`, `svelte`, `swiftui`, `react-native`, `flutter`
 
 ---
 
-## 7. Quality Standards
+## Search Reference
 
-### 7.1 Accessibility Requirements
+### Available Domains
 
-- **Color Contrast**: Minimum 4.5:1 for normal text, 3:1 for large text
-- **Touch Targets**: Minimum 44x44px for interactive elements
-- **Focus Indicators**: Visible focus states for all interactive elements
-- **Motion**: Respect `prefers-reduced-motion` preference
+| Domain | Use For | Example Keywords |
+|--------|---------|------------------|
+| `product` | Product type recommendations | SaaS, e-commerce, portfolio, healthcare, beauty, service |
+| `style` | UI styles, colors, effects | glassmorphism, minimalism, dark mode, brutalism |
+| `typography` | Font pairings, Google Fonts | elegant, playful, professional, modern |
+| `color` | Color palettes by product type | saas, ecommerce, healthcare, beauty, fintech, service |
+| `landing` | Page structure, CTA strategies | hero, hero-centric, testimonial, pricing, social-proof |
+| `chart` | Chart types, library recommendations | trend, comparison, timeline, funnel, pie |
+| `ux` | Best practices, anti-patterns | animation, accessibility, z-index, loading |
+| `prompt` | AI prompts, CSS keywords | (style name) |
 
-```css
-/* Focus visible */
-:focus-visible {
-  outline: 2px solid var(--color-primary-500);
-  outline-offset: 2px;
-}
+### Available Stacks
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-```
-
-### 5.2 Performance
-
-- Keep DOM depth under 15 levels
-- Limit blur effects on low-end devices
-- Use `will-change` sparingly for animations
-- Lazy load off-screen content
+| Stack | Focus |
+|-------|-------|
+| `html-tailwind` | Tailwind utilities, responsive, a11y (DEFAULT) |
+| `react` | State, hooks, performance, patterns |
+| `nextjs` | SSR, routing, images, API routes |
+| `vue` | Composition API, Pinia, Vue Router |
+| `svelte` | Runes, stores, SvelteKit |
+| `swiftui` | Views, State, Navigation, Animation |
+| `react-native` | Components, Navigation, Lists |
+| `flutter` | Widgets, State, Layout, Theming |
 
 ---
 
-## 8. Common Mistakes
+## Example Workflow
 
-### ❌ DON'T: Overuse Glass-Morphism
+**User request:** "Làm landing page cho dịch vụ chăm sóc da chuyên nghiệp"
 
-```css
-/* ❌ Too many layers */
-.page {
-  background: rgba(255, 255, 255, 0.1);
-}
-.section {
-  background: rgba(255, 255, 255, 0.1);
-}
-.card {
-  background: rgba(255, 255, 255, 0.1);
-}
+**AI should:**
 
-/* ✅ Strategic use */
-.page {
-  background: var(--bg-solid);
-}
-.card {
-  background: var(--surface-glass);
-  backdrop-filter: blur(20px);
-}
+```bash
+# 1. Search product type
+python3 .claude/skills/ui-ux-design/scripts/search.py "beauty spa wellness service" --domain product
+
+# 2. Search style (based on industry: beauty, elegant)
+python3 .claude/skills/ui-ux-design/scripts/search.py "elegant minimal soft" --domain style
+
+# 3. Search typography
+python3 .claude/skills/ui-ux-design/scripts/search.py "elegant luxury" --domain typography
+
+# 4. Search color palette
+python3 .claude/skills/ui-ux-design/scripts/search.py "beauty spa wellness" --domain color
+
+# 5. Search landing page structure
+python3 .claude/skills/ui-ux-design/scripts/search.py "hero-centric social-proof" --domain landing
+
+# 6. Search UX guidelines
+python3 .claude/skills/ui-ux-design/scripts/search.py "animation" --domain ux
+python3 .claude/skills/ui-ux-design/scripts/search.py "accessibility" --domain ux
+
+# 7. Search stack guidelines (default: html-tailwind)
+python3 .claude/skills/ui-ux-design/scripts/search.py "layout responsive" --stack html-tailwind
 ```
 
-### ❌ DON'T: Ignore Information Density
-
-```css
-/* ❌ Wasted space */
-.widget {
-  padding: 48px;
-  margin: 32px;
-}
-
-/* ✅ Appropriate density */
-.widget {
-  padding: var(--space-4);
-  margin: var(--space-3);
-}
-```
-
-### ❌ DON'T: Neglect Loading States
-
-```jsx
-/* ❌ No feedback */
-{data && <Content data={data} />}
-
-/* ✅ Complete states */
-{loading && <Skeleton />}
-{error && <ErrorMessage error={error} />}
-{data && <Content data={data} />}
-{!data && !loading && !error && <EmptyState />}
-```
+**Then:** Synthesize all search results and implement the design.
 
 ---
 
-## 10. Pre-Implementation Checklist
+## Tips for Better Results
 
-### Phase 1: Before Writing Code
-- [ ] Component requirements documented
-- [ ] Write failing tests for component behavior
-- [ ] Write accessibility tests (ARIA, focus, contrast)
-- [ ] Design tokens identified from system
-- [ ] Performance budget defined
-
-### Phase 2: During Implementation
-- [ ] Tests passing incrementally
-- [ ] Color system applied consistently
-- [ ] Typography scale used correctly
-- [ ] Spacing follows 8px grid
-- [ ] Visual hierarchy guides attention
-- [ ] Loading states include skeletons
-- [ ] Images optimized (WebP/AVIF, lazy loading)
-
-### Phase 3: Before Committing
-- [ ] All component tests pass
-- [ ] Accessibility audit passes (WCAG AA)
-- [ ] Focus states visible on all interactive elements
-- [ ] Touch targets ≥44px
-- [ ] Reduced motion supported
-- [ ] Mobile/tablet/desktop layouts tested
-- [ ] Animations run at 60fps
-- [ ] No layout thrashing
-- [ ] Critical CSS inlined
-- [ ] Build completes without errors
+1. **Be specific with keywords** - "healthcare SaaS dashboard" > "app"
+2. **Search multiple times** - Different keywords reveal different insights
+3. **Combine domains** - Style + Typography + Color = Complete design system
+4. **Always check UX** - Search "animation", "z-index", "accessibility" for common issues
+5. **Use stack flag** - Get implementation-specific best practices
+6. **Iterate** - If first search doesn't match, try different keywords
 
 ---
 
-## 14. Summary
+## Common Rules for Professional UI
 
-Your goal is to create interfaces that are:
-- **Intuitive**: Users understand immediately how to interact
-- **Beautiful**: Aesthetically pleasing without sacrificing function
-- **Accessible**: Usable by everyone, regardless of ability
-- **Performant**: Fast and responsive on all devices
+These are frequently overlooked issues that make UI look unprofessional:
 
-You understand that great UI/UX design is invisible - users accomplish their goals without friction. Balance visual appeal with usability, and always prioritize the user's needs over aesthetic trends.
+### Icons & Visual Elements
 
-Design interfaces that delight users while helping them succeed.
+| Rule | Do | Don't |
+|------|----|----- |
+| **No emoji icons** | Use SVG icons (Heroicons, Lucide, Simple Icons) | Use emojis like 🎨 🚀 ⚙️ as UI icons |
+| **Stable hover states** | Use color/opacity transitions on hover | Use scale transforms that shift layout |
+| **Correct brand logos** | Research official SVG from Simple Icons | Guess or use incorrect logo paths |
+| **Consistent icon sizing** | Use fixed viewBox (24x24) with w-6 h-6 | Mix different icon sizes randomly |
+
+### Interaction & Cursor
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Cursor pointer** | Add `cursor-pointer` to all clickable/hoverable cards | Leave default cursor on interactive elements |
+| **Hover feedback** | Provide visual feedback (color, shadow, border) | No indication element is interactive |
+| **Smooth transitions** | Use `transition-colors duration-200` | Instant state changes or too slow (>500ms) |
+
+### Light/Dark Mode Contrast
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Glass card light mode** | Use `bg-white/80` or higher opacity | Use `bg-white/10` (too transparent) |
+| **Text contrast light** | Use `#0F172A` (slate-900) for text | Use `#94A3B8` (slate-400) for body text |
+| **Muted text light** | Use `#475569` (slate-600) minimum | Use gray-400 or lighter |
+| **Border visibility** | Use `border-gray-200` in light mode | Use `border-white/10` (invisible) |
+
+### Layout & Spacing
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Floating navbar** | Add `top-4 left-4 right-4` spacing | Stick navbar to `top-0 left-0 right-0` |
+| **Content padding** | Account for fixed navbar height | Let content hide behind fixed elements |
+| **Consistent max-width** | Use same `max-w-6xl` or `max-w-7xl` | Mix different container widths |
+
+---
+
+## Pre-Delivery Checklist
+
+Before delivering UI code, verify these items:
+
+### Visual Quality
+- [ ] No emojis used as icons (use SVG instead)
+- [ ] All icons from consistent icon set (Heroicons/Lucide)
+- [ ] Brand logos are correct (verified from Simple Icons)
+- [ ] Hover states don't cause layout shift
+- [ ] Use theme colors directly (bg-primary) not var() wrapper
+
+### Interaction
+- [ ] All clickable elements have `cursor-pointer`
+- [ ] Hover states provide clear visual feedback
+- [ ] Transitions are smooth (150-300ms)
+- [ ] Focus states visible for keyboard navigation
+
+### Light/Dark Mode
+- [ ] Light mode text has sufficient contrast (4.5:1 minimum)
+- [ ] Glass/transparent elements visible in light mode
+- [ ] Borders visible in both modes
+- [ ] Test both modes before delivery
+
+### Layout
+- [ ] Floating elements have proper spacing from edges
+- [ ] No content hidden behind fixed navbars
+- [ ] Responsive at 320px, 768px, 1024px, 1440px
+- [ ] No horizontal scroll on mobile
+
+### Accessibility
+- [ ] All images have alt text
+- [ ] Form inputs have labels
+- [ ] Color is not the only indicator
+- [ ] `prefers-reduced-motion` respected

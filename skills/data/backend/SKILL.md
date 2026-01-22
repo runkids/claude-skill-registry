@@ -1,98 +1,49 @@
 ---
-name: backend-technologies
-description: Master backend development with Node.js, Python, Java, Go, Rust, API design, databases, and microservices. Use when building APIs, designing systems, or learning backend frameworks.
-sasmp_version: "1.3.0"
-bonded_agent: 02-typescript-backend
-bond_type: PRIMARY_BOND
+name: Backend (FastAPI)
+description: Documentation for the FastAPI backend, endpoints, and dependency injection.
 ---
 
-# Backend Technologies Skill
+# Backend Architecture (FastAPI)
 
-## Quick Start - Express.js API
+## Overview
 
-```typescript
-import express, { Request, Response } from 'express';
-import { prisma } from './lib/prisma';
+The backend is a **FastAPI** application located in `backend/`. It powers the chatbot and RAG functionality.
 
-const app = express();
-app.use(express.json());
+## Entry Point
 
-// GET all users
-app.get('/users', async (req: Request, res: Response) => {
-  try {
-    const users = await prisma.user.findMany();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch users' });
-  }
-});
+- **File**: `backend/main.py`
+- **Run**: `uvicorn backend.main:app --reload` (or via `npm run dev`)
+- **Port**: Defaults to `8000`.
 
-// POST new user
-app.post('/users', async (req: Request, res: Response) => {
-  const { email, name } = req.body;
-  try {
-    const user = await prisma.user.create({
-      data: { email, name }
-    });
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(400).json({ error: 'Invalid data' });
-  }
-});
+## Endpoints
 
-app.listen(3000, () => console.log('Server running on 3000'));
-```
+### `POST /api/chat`
 
-## Core Technologies
+- **Purpose**: Main RAG chat endpoint.
+- **Input**: `ChatRequest` (query, history, user_context).
+- **Process**:
+  1. Embed query.
+  2. Search Qdrant (`search_qdrant`).
+  3. Build prompt (`build_rag_prompt`).
+  4. Generate Agent response.
+- **Output**: `ChatResponse` (answer, contexts).
 
-### Languages
-- **Node.js** - JavaScript runtime
-- **Python** - Versatile with many frameworks
-- **Java** - Enterprise standard
-- **Go** - Concurrent systems
-- **Rust** - Systems programming
+### `POST /api/ask-selection`
 
-### Web Frameworks
-- Express, Fastify, NestJS (Node.js)
-- Django, FastAPI, Flask (Python)
-- Spring Boot, Quarkus (Java)
-- Gin, Fiber (Go)
-- Actix, Axum (Rust)
+- **Purpose**: Targeted Q&A on selected text.
+- **Input**: `AskSelectionRequest` (question, selected_text).
+- **Process**:
+  1. Validates selection length.
+  2. Builds selection-specific prompt.
+  3. specific Agent instructions.
 
-### Databases
-- **SQL**: PostgreSQL, MySQL
-- **NoSQL**: MongoDB, DynamoDB
-- **Cache**: Redis, Memcached
-- **Search**: Elasticsearch
+## Dependencies & Utils
 
-### API & Messaging
-- REST APIs with best practices
-- GraphQL API design
-- gRPC for microservices
-- WebSockets for real-time
-- Kafka, RabbitMQ for messaging
+- `backend/utils/config.py`: Qdrant initialization.
+- `backend/utils/helpers.py`: Embedding and Prompt building logic.
+- `backend/models.py`: OpenAI/Gemini client setup.
 
-### ORM/Query Tools
-- Prisma, Sequelize (Node.js)
-- SQLAlchemy, Tortoise (Python)
-- Hibernate, Spring Data (Java)
-- GORM (Go)
+## Environment Variables
 
-## Best Practices
-
-1. **API Design** - RESTful or GraphQL standards
-2. **Database** - Proper indexing and optimization
-3. **Security** - Input validation, parameterized queries
-4. **Error Handling** - Meaningful error messages
-5. **Testing** - Unit and integration tests
-6. **Documentation** - OpenAPI/Swagger docs
-7. **Logging** - Structured logging
-8. **Performance** - Response time optimization
-
-## Resources
-
-- [Express.js Documentation](https://expressjs.com/)
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [Spring Boot Guide](https://spring.io/projects/spring-boot)
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [GraphQL Official](https://graphql.org/)
+- `GEMINI_API_KEY`: For LLM and Embeddings.
+- `QDRANT_URL`, `QDRANT_API_KEY`: Vector DB connection.

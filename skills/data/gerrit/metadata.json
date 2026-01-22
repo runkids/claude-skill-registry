@@ -1,7 +1,7 @@
 {
   "name": "gerrit",
-  "repo": "storj/storj",
-  "path": ".claude/skills/gerrit/SKILL.md",
-  "source": "github.com/storj/storj",
-  "downloaded_at": "2026-01-21T02:43:10.842108Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/gerrit/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:36.445532Z"
 }

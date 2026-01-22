@@ -1,7 +1,7 @@
 {
   "name": "openai-agents",
-  "repo": "Jawad-Chaudhary/Hackathone-2-TODO-Spec-Driven-Development",
-  "path": "Phase03/.claude/skills/openai-agents/SKILL.md",
-  "source": "github.com/Jawad-Chaudhary/Hackathone-2-TODO-Spec-Driven-Development",
-  "downloaded_at": "2026-01-21T01:52:25.636442Z"
+  "repo": "jezweb/claude-skills",
+  "path": "skills/openai-agents/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-22T01:30:26.170341Z"
 }

@@ -1,270 +1,142 @@
 ---
 name: tool-discovery
-description: "Guide for discovering and using @j0kz MCP tools efficiently through search, filtering, and progressive exploration. Use when exploring available capabilities, finding the right tool for a task, or ..."
+description: Guide for discovering and using MCP tools via the discover_tools meta-tool. Use this skill when asked to perform tasks that require finding the right tools, when you see only discover_tools in your available tools, when asked "what tools are available", "find tools for X", or when planning multi-step workflows across JIRA, Slack, WhatsApp, or Google Docs.
 ---
 
-# Tool Discovery for @j0kz/mcp-agents
+# Tool Discovery System
 
-Efficient discovery and exploration of 50 MCP tools across 7 categories using the orchestrator's meta-tools.
+This MCP server uses a **discovery-based tool loading pattern** to reduce context overhead. Instead of loading all 35+ tools upfront, only the `discover_tools` meta-tool is exposed. Use it to find and load the specific tools needed for your task.
 
-## When to Use This Skill
+## Quick Reference
 
-- **First time using @j0kz tools** - Get oriented with capabilities
-- **Need a specific capability** - Find the right tool by keyword
-- **Exploring a domain** - Browse tools by category
-- **Before complex workflows** - Discover available building blocks
-- **Training new users** - Introduce the ecosystem systematically
-
-## Quick Start
-
-### 1. Get Overview of All Capabilities
-
-```javascript
-Tool: list_capabilities
-Input: {}
-Output: {
-  categories: [
-    { name: "analysis", toolCount: 14, examples: ["review_file", "analyze_architecture"] },
-    { name: "generation", toolCount: 11, examples: ["generate_tests", "generate_jsdoc"] },
-    { name: "security", toolCount: 5, examples: ["scan_project", "scan_secrets"] },
-    { name: "refactoring", toolCount: 9, examples: ["extract_function", "remove_dead_code"] },
-    { name: "design", toolCount: 6, examples: ["design_rest_api", "design_schema"] },
-    { name: "documentation", toolCount: 5, examples: ["generate_readme", "generate_changelog"] },
-    { name: "orchestration", toolCount: 7, examples: ["run_workflow", "search_tools"] }
-  ],
-  totalTools: 50,
-  hint: "Use search_tools({ category: \"name\" }) to explore a category"
-}
 ```
+# List all categories
+discover_tools({ mode: "list_categories" })
 
-### 2. Explore a Category
+# Browse tools in a category
+discover_tools({ mode: "browse", category: "jira" })
 
-```javascript
-Tool: search_tools
-Input: { category: "security" }
-Output: {
-  tools: [
-    { name: "scan_file", server: "security-scanner", frequency: "medium" },
-    { name: "scan_project", server: "security-scanner", frequency: "medium" },
-    { name: "scan_secrets", server: "security-scanner", frequency: "medium" },
-    { name: "scan_vulnerabilities", server: "security-scanner", frequency: "medium" },
-    { name: "generate_security_report", server: "security-scanner", frequency: "medium" }
-  ],
-  totalAvailable: 50
-}
-```
+# Search by natural language
+discover_tools({ mode: "search", query: "send slack message" })
 
-### 3. Search by Keyword
-
-```javascript
-Tool: search_tools
-Input: { query: "test coverage" }
-Output: {
-  tools: [
-    { name: "generate_tests", relevance: 0.95 },
-    { name: "write_test_file", relevance: 0.88 },
-    { name: "batch_generate", relevance: 0.75 }
-  ]
-}
-```
-
-### 4. Load a Deferred Tool
-
-```javascript
-Tool: load_tool
-Input: { toolName: "design_schema" }
-Output: {
-  success: true,
-  toolName: "design_schema",
-  server: "db-schema",
-  message: "Tool loaded successfully. You can now use design_schema."
-}
+# Search by intent
+discover_tools({ mode: "search", intent: "check team blockers" })
 ```
 
 ## Tool Categories
 
-| Category | Description | Example Tools | Count |
-|----------|-------------|---------------|-------|
-| **analysis** | Code quality, architecture, metrics | review_file, analyze_architecture | 14 |
-| **generation** | Create tests, docs, boilerplate | generate_tests, generate_jsdoc | 11 |
-| **security** | Vulnerability scanning, secrets | scan_project, scan_secrets | 5 |
-| **refactoring** | Code transformation, cleanup | extract_function, remove_dead_code | 9 |
-| **design** | API and database schemas | design_rest_api, design_schema | 6 |
-| **documentation** | README, CHANGELOG, API docs | generate_readme, generate_changelog | 5 |
-| **orchestration** | Workflows, tool coordination | run_workflow, search_tools | 7 |
+| Category    | Tools | Use For                                          |
+| ----------- | ----- | ------------------------------------------------ |
+| `jira`      | 14    | Issues, sprints, blockers, SLA, weekly summaries |
+| `messaging` | 4     | Slack DMs, channel messages, user lookup         |
+| `whatsapp`  | 8     | Message history, contacts, groups, media         |
+| `docs`      | 11    | Google Slides, Sheets, presentations             |
+| `system`    | 2     | Health check, configuration                      |
 
-## Tool Frequency Levels
+## Workflow: Starting a Task
 
-The ecosystem uses frequency-based loading for efficiency:
+**Always discover tools before attempting to use them.**
 
-| Frequency | Description | Examples | Loading |
-|-----------|-------------|----------|---------|
-| **high** | Core tools, always needed | review_file, generate_tests | Always loaded |
-| **medium** | Common tools, often used | scan_project, generate_readme | Auto-loaded on demand |
-| **low** | Specialized tools, rare use | design_schema, extract_function | Manual load via `load_tool` |
+1. Identify what you need to accomplish
+2. Call `discover_tools` with appropriate mode
+3. Review returned tool schemas
+4. Execute the discovered tools
 
-### High-Frequency Tools (Always Available)
+## Examples
 
-```javascript
-Tool: search_tools
-Input: { frequency: "high" }
-Output: {
-  tools: [
-    { name: "review_file", server: "smart-reviewer" },
-    { name: "batch_review", server: "smart-reviewer" },
-    { name: "generate_tests", server: "test-generator" },
-    { name: "analyze_architecture", server: "architecture-analyzer" },
-    { name: "run_workflow", server: "orchestrator" },
-    { name: "search_tools", server: "orchestrator" },
-    { name: "load_tool", server: "orchestrator" },
-    { name: "list_capabilities", server: "orchestrator" }
-  ]
-}
-```
+### Example 1: Check Team Status
 
-## Discovery Patterns
-
-### Pattern 1: Domain-First Exploration
-
-**Use when:** You know the problem domain but not the specific tool
+**Task:** "What are the blockers for the team?"
 
 ```
-1. list_capabilities() → See all categories
-2. search_tools({ category: "domain" }) → Browse tools in category
-3. [optional] load_tool({ toolName: "..." }) → Load if needed
-4. Use the tool
+# Step 1: Find blocker-related tools
+discover_tools({ mode: "search", query: "blockers" })
+# Returns: ai_first_get_blockers
+
+# Step 2: Use the discovered tool
+ai_first_get_blockers({})
 ```
 
-**Example:** "I need to check for security issues"
-```javascript
-// Step 1: Browse security category
-search_tools({ category: "security" })
-// → Shows: scan_file, scan_project, scan_secrets, etc.
+### Example 2: Weekly Summary
 
-// Step 2: Use appropriate tool
-scan_project({ projectPath: "." })
-```
-
-### Pattern 2: Keyword Search
-
-**Use when:** You have a specific task or keyword in mind
+**Task:** "Give me a weekly summary of the team's progress"
 
 ```
-1. search_tools({ query: "your task" }) → Find relevant tools
-2. Review relevance scores
-3. Select best match
-4. Use the tool
+# Step 1: Find weekly summary tools
+discover_tools({ mode: "browse", category: "jira" })
+# Returns: ai_first_get_weekly_summary, ai_first_get_completed_this_week, etc.
+
+# Step 2: Get the summary
+ai_first_get_weekly_summary({})
 ```
 
-**Example:** "I want to generate API documentation"
-```javascript
-// Search for documentation tools
-search_tools({ query: "API documentation" })
-// → Shows: generate_api_docs, generate_openapi, design_rest_api
+### Example 3: Notify Team on Slack
 
-// Use the most relevant
-generate_api_docs({ sourceDir: "./src" })
-```
-
-### Pattern 3: Server-Focused Exploration
-
-**Use when:** You know which server you need but not the specific tool
-
-```javascript
-// List all tools from a server
-list_capabilities({ server: "security-scanner" })
-// → Shows all 5 security-scanner tools with descriptions
-```
-
-### Pattern 4: Find High-Impact Tools First
-
-**Use when:** Starting a new project or workflow
-
-```javascript
-// Get the essential high-frequency tools
-search_tools({ frequency: "high" })
-// These are the core tools you'll use most often
-```
-
-## Response Format Options
-
-All discovery tools support response format optimization:
-
-```javascript
-// Minimal - just counts
-list_capabilities({ response_format: "minimal" })
-// → { categoryCount: 7, totalTools: 50 }
-
-// Concise - summary without full details
-search_tools({ category: "security", response_format: "concise" })
-// → { tools: [...names only], totalAvailable: 50 }
-
-// Detailed - full information (default)
-list_capabilities({ response_format: "detailed" })
-// → Complete categories with descriptions, examples, hints
-```
-
-## Common Workflows
-
-### Workflow 1: New User Onboarding
+**Task:** "Send a message to the team channel about blockers"
 
 ```
-1. list_capabilities() → Get ecosystem overview
-2. search_tools({ frequency: "high" }) → Learn core tools
-3. run_workflow({ focus: "quality" }) → Try a pre-built workflow
+# Step 1: Find messaging and blocker tools
+discover_tools({ mode: "search", query: "send slack channel message" })
+discover_tools({ mode: "search", query: "blockers" })
+
+# Step 2: Get blockers and send message
+ai_first_get_blockers({})
+ai_first_slack_send_channel_message({ channel: "#orienter", message: "Current blockers: ..." })
 ```
 
-### Workflow 2: Find Tool for Task
+### Example 4: Search WhatsApp History
+
+**Task:** "Find messages about the project deadline"
 
 ```
-1. search_tools({ query: "your task" }) → Search by keyword
-2. Review results and relevance
-3. load_tool() if needed → Load low-frequency tool
-4. Use the tool
+# Step 1: Find WhatsApp tools
+discover_tools({ mode: "browse", category: "whatsapp" })
+# Returns: whatsapp_search_messages, whatsapp_get_conversation, etc.
+
+# Step 2: Search messages
+whatsapp_search_messages({ text: "project deadline" })
 ```
 
-### Workflow 3: Explore Domain
+### Example 5: Update Presentation
+
+**Task:** "Update the weekly presentation with completed JIRA issues"
 
 ```
-1. list_capabilities() → See categories
-2. search_tools({ category: "chosen" }) → Explore category
-3. Read tool descriptions
-4. Select and use appropriate tools
+# Step 1: Discover needed tools across categories
+discover_tools({ mode: "browse", category: "jira" })   # For completed issues
+discover_tools({ mode: "browse", category: "docs" })   # For slides
+
+# Step 2: Execute workflow
+ai_first_get_completed_this_week({})
+ai_first_slides_update_weekly({ presentationUrl: "..." })
 ```
 
-## Meta-Tools Reference
+## Search Tips
 
-| Tool | Purpose | Key Parameters |
-|------|---------|----------------|
-| **list_capabilities** | Get category overview or server tools | `server?`, `response_format?` |
-| **search_tools** | Find tools by keyword/category/frequency | `query?`, `category?`, `frequency?`, `server?`, `limit?` |
-| **load_tool** | Load a deferred tool into context | `toolName`, `server?` |
+- **Exact tool names** get highest scores: `discover_tools({ query: "ai_first_get_blockers" })`
+- **Keywords** work well: `"blocker"`, `"sprint"`, `"slack"`, `"whatsapp"`
+- **Intent phrases** find related tools: `"notify team about progress"`
+- **Use limit** to reduce results: `discover_tools({ mode: "search", query: "message", limit: 5 })`
 
-## Tips for Efficient Discovery
+## Common Tool Names
 
-1. **Start broad, then narrow** - Use `list_capabilities` first, then `search_tools`
-2. **Use relevance scores** - Higher scores mean better keyword matches
-3. **Check frequency** - High-frequency tools are always available
-4. **Combine filters** - `{ category: "security", frequency: "medium" }`
-5. **Use response_format** - "minimal" for quick checks, "detailed" for exploration
+Quick reference for frequently used tools:
 
-## Integration with Workflows
+**JIRA:**
 
-Discovery tools work seamlessly with workflows:
+- `ai_first_get_in_progress` - Current work
+- `ai_first_get_blockers` - Blocked issues
+- `ai_first_get_daily_digest` - Today's summary
+- `ai_first_get_weekly_summary` - Week overview
 
-```javascript
-// Find workflow-related tools
-search_tools({ category: "orchestration" })
+**Messaging (Slack):**
 
-// List available workflows
-list_workflows()
+- `ai_first_slack_send_dm` - Direct message
+- `ai_first_slack_send_channel_message` - Channel post
+- `ai_first_slack_get_channel_messages` - Read channel history
 
-// Run a workflow
-run_workflow({ workflow: "pre-commit" })
-```
+**WhatsApp:**
 
-## See Also
-
-- **Code Quality Pipeline** - For systematic quality improvement
-- **MCP Workflow Composition** - For combining tools into workflows
-- **MCP Troubleshooting** - When tools aren't working as expected
+- `whatsapp_search_messages` - Search message history
+- `whatsapp_get_conversation` - Get chat with contact
+- `whatsapp_list_groups` - List groups

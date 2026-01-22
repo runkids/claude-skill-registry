@@ -1,157 +1,143 @@
 ---
 name: code-review
-description: Perform thorough code reviews with security, performance, and maintainability analysis. Use when user asks to review code, check for bugs, or audit a codebase.
+description: "Code review practices with technical rigor and verification gates. Practices: receiving feedback, requesting reviews, verification gates. Capabilities: technical evaluation, evidence-based claims, PR review, subagent-driven review, completion verification. Actions: review, evaluate, verify, validate code changes. Keywords: code review, PR review, pull request, technical feedback, review feedback, completion claim, verification, evidence-based, code quality, review request, technical rigor, subagent review, code-reviewer, review gate, merge criteria. Use when: receiving code review feedback, completing major features, making completion claims, requesting systematic reviews, validating before merge, preventing false completion claims."
 ---
 
-# Code Review Skill
+# Code Review
 
-You now have expertise in conducting comprehensive code reviews. Follow this structured approach:
+Guide proper code review practices emphasizing technical rigor, evidence-based claims, and verification over performative responses.
 
-## Review Checklist
+## Overview
 
-### 1. Security (Critical)
+Code review requires three distinct practices:
 
-Check for:
-- [ ] **Injection vulnerabilities**: SQL, command, XSS, template injection
-- [ ] **Authentication issues**: Hardcoded credentials, weak auth
-- [ ] **Authorization flaws**: Missing access controls, IDOR
-- [ ] **Data exposure**: Sensitive data in logs, error messages
-- [ ] **Cryptography**: Weak algorithms, improper key management
-- [ ] **Dependencies**: Known vulnerabilities (check with `npm audit`, `pip-audit`)
+1. **Receiving feedback** - Technical evaluation over performative agreement
+2. **Requesting reviews** - Systematic review via code-reviewer subagent
+3. **Verification gates** - Evidence before any completion claims
 
-```bash
-# Quick security scans
-npm audit                    # Node.js
-pip-audit                    # Python
-cargo audit                  # Rust
-grep -r "password\|secret\|api_key" --include="*.py" --include="*.js"
+Each practice has specific triggers and protocols detailed in reference files.
+
+## Core Principle
+
+Always honoring **YAGNI**, **KISS**, and **DRY** principles.
+**Be honest, be brutal, straight to the point, and be concise.**
+
+**Technical correctness over social comfort.** Verify before implementing. Ask before assuming. Evidence before claims.
+
+## When to Use This Skill
+
+### Receiving Feedback
+Trigger when:
+- Receiving code review comments from any source
+- Feedback seems unclear or technically questionable
+- Multiple review items need prioritization
+- External reviewer lacks full context
+- Suggestion conflicts with existing decisions
+
+**Reference:** `references/code-review-reception.md`
+
+### Requesting Review
+Trigger when:
+- Completing tasks in subagent-driven development (after EACH task)
+- Finishing major features or refactors
+- Before merging to main branch
+- Stuck and need fresh perspective
+- After fixing complex bugs
+
+**Reference:** `references/requesting-code-review.md`
+
+### Verification Gates
+Trigger when:
+- About to claim tests pass, build succeeds, or work is complete
+- Before committing, pushing, or creating PRs
+- Moving to next task
+- Any statement suggesting success/completion
+- Expressing satisfaction with work
+
+**Reference:** `references/verification-before-completion.md`
+
+## Quick Decision Tree
+
+```
+SITUATION?
+│
+├─ Received feedback
+│  ├─ Unclear items? → STOP, ask for clarification first
+│  ├─ From human partner? → Understand, then implement
+│  └─ From external reviewer? → Verify technically before implementing
+│
+├─ Completed work
+│  ├─ Major feature/task? → Request code-reviewer subagent review
+│  └─ Before merge? → Request code-reviewer subagent review
+│
+└─ About to claim status
+   ├─ Have fresh verification? → State claim WITH evidence
+   └─ No fresh verification? → RUN verification command first
 ```
 
-### 2. Correctness
+## Receiving Feedback Protocol
 
-Check for:
-- [ ] **Logic errors**: Off-by-one, null handling, edge cases
-- [ ] **Race conditions**: Concurrent access without synchronization
-- [ ] **Resource leaks**: Unclosed files, connections, memory
-- [ ] **Error handling**: Swallowed exceptions, missing error paths
-- [ ] **Type safety**: Implicit conversions, any types
+### Response Pattern
+READ → UNDERSTAND → VERIFY → EVALUATE → RESPOND → IMPLEMENT
 
-### 3. Performance
+### Key Rules
+- ❌ No performative agreement: "You're absolutely right!", "Great point!", "Thanks for [anything]"
+- ❌ No implementation before verification
+- ✅ Restate requirement, ask questions, push back with technical reasoning, or just start working
+- ✅ If unclear: STOP and ask for clarification on ALL unclear items first
+- ✅ YAGNI check: grep for usage before implementing suggested "proper" features
 
-Check for:
-- [ ] **N+1 queries**: Database calls in loops
-- [ ] **Memory issues**: Large allocations, retained references
-- [ ] **Blocking operations**: Sync I/O in async code
-- [ ] **Inefficient algorithms**: O(n^2) when O(n) possible
-- [ ] **Missing caching**: Repeated expensive computations
+### Source Handling
+- **Human partner:** Trusted - implement after understanding, no performative agreement
+- **External reviewers:** Verify technically correct, check for breakage, push back if wrong
 
-### 4. Maintainability
+**Full protocol:** `references/code-review-reception.md`
 
-Check for:
-- [ ] **Naming**: Clear, consistent, descriptive
-- [ ] **Complexity**: Functions > 50 lines, deep nesting > 3 levels
-- [ ] **Duplication**: Copy-pasted code blocks
-- [ ] **Dead code**: Unused imports, unreachable branches
-- [ ] **Comments**: Outdated, redundant, or missing where needed
+## Requesting Review Protocol
 
-### 5. Testing
+### When to Request
+- After each task in subagent-driven development
+- After major feature completion
+- Before merge to main
 
-Check for:
-- [ ] **Coverage**: Critical paths tested
-- [ ] **Edge cases**: Null, empty, boundary values
-- [ ] **Mocking**: External dependencies isolated
-- [ ] **Assertions**: Meaningful, specific checks
+### Process
+1. Get git SHAs: `BASE_SHA=$(git rev-parse HEAD~1)` and `HEAD_SHA=$(git rev-parse HEAD)`
+2. Dispatch code-reviewer subagent via Task tool with: WHAT_WAS_IMPLEMENTED, PLAN_OR_REQUIREMENTS, BASE_SHA, HEAD_SHA, DESCRIPTION
+3. Act on feedback: Fix Critical immediately, Important before proceeding, note Minor for later
 
-## Review Output Format
+**Full protocol:** `references/requesting-code-review.md`
 
-```markdown
-## Code Review: [file/component name]
+## Verification Gates Protocol
 
-### Summary
-[1-2 sentence overview]
+### The Iron Law
+**NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE**
 
-### Critical Issues
-1. **[Issue]** (line X): [Description]
-   - Impact: [What could go wrong]
-   - Fix: [Suggested solution]
+### Gate Function
+IDENTIFY command → RUN full command → READ output → VERIFY confirms claim → THEN claim
 
-### Improvements
-1. **[Suggestion]** (line X): [Description]
+Skip any step = lying, not verifying
 
-### Positive Notes
-- [What was done well]
+### Requirements
+- Tests pass: Test output shows 0 failures
+- Build succeeds: Build command exit 0
+- Bug fixed: Test original symptom passes
+- Requirements met: Line-by-line checklist verified
 
-### Verdict
-[ ] Ready to merge
-[ ] Needs minor changes
-[ ] Needs major revision
-```
+### Red Flags - STOP
+Using "should"/"probably"/"seems to", expressing satisfaction before verification, committing without verification, trusting agent reports, ANY wording implying success without running verification
 
-## Common Patterns to Flag
+**Full protocol:** `references/verification-before-completion.md`
 
-### Python
-```python
-# Bad: SQL injection
-cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
-# Good:
-cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+## Integration with Workflows
 
-# Bad: Command injection
-os.system(f"ls {user_input}")
-# Good:
-subprocess.run(["ls", user_input], check=True)
+- **Subagent-Driven:** Review after EACH task, verify before moving to next
+- **Pull Requests:** Verify tests pass, request code-reviewer review before merge
+- **General:** Apply verification gates before any status claims, push back on invalid feedback
 
-# Bad: Mutable default argument
-def append(item, lst=[]):  # Bug: shared mutable default
-# Good:
-def append(item, lst=None):
-    lst = lst or []
-```
+## Bottom Line
 
-### JavaScript/TypeScript
-```javascript
-// Bad: Prototype pollution
-Object.assign(target, userInput)
-// Good:
-Object.assign(target, sanitize(userInput))
+1. Technical rigor over social performance - No performative agreement
+2. Systematic review processes - Use code-reviewer subagent
+3. Evidence before claims - Verification gates always
 
-// Bad: eval usage
-eval(userCode)
-// Good: Never use eval with user input
-
-// Bad: Callback hell
-getData(x => process(x, y => save(y, z => done(z))))
-// Good:
-const data = await getData();
-const processed = await process(data);
-await save(processed);
-```
-
-## Review Commands
-
-```bash
-# Show recent changes
-git diff HEAD~5 --stat
-git log --oneline -10
-
-# Find potential issues
-grep -rn "TODO\|FIXME\|HACK\|XXX" .
-grep -rn "password\|secret\|token" . --include="*.py"
-
-# Check complexity (Python)
-pip install radon && radon cc . -a
-
-# Check dependencies
-npm outdated  # Node
-pip list --outdated  # Python
-```
-
-## Review Workflow
-
-1. **Understand context**: Read PR description, linked issues
-2. **Run the code**: Build, test, run locally if possible
-3. **Read top-down**: Start with main entry points
-4. **Check tests**: Are changes tested? Do tests pass?
-5. **Security scan**: Run automated tools
-6. **Manual review**: Use checklist above
-7. **Write feedback**: Be specific, suggest fixes, be kind
+Verify. Question. Then implement. Evidence. Then claim.

@@ -1,442 +1,418 @@
 ---
-description: Imported skill utils from langchain
-name: utils
-signature: 084fc75dd74d4ebf79e1abaa14856060b2c3e0676c7ebf54f1bdfce20d3b5ae7
-source: /a0/tmp/skills_research/langchain/libs/deepagents/deepagents/backends/utils.py
+description: Assemble complete skill file from frontmatter and processed template content
+version: 1.0
+encoding: UTF-8
 ---
 
-"""Shared utility functions for memory backend implementations.
-
-This module contains both user-facing string formatters and structured
-helpers used by backends and the composite router. Structured helpers
-enable composition without fragile string parsing.
-"""
-
-import re
-from datetime import UTC, datetime
-from pathlib import Path
-from typing import Any, Literal
+# Skill File Assembly
 
-import wcmatch.glob as wcglob
-
-from deepagents.backends.protocol import FileInfo as _FileInfo, GrepMatch as _GrepMatch
+## Overview
 
-EMPTY_CONTENT_WARNING = "System reminder: File exists but has empty contents"
-MAX_LINE_LENGTH = 5000
-LINE_NUMBER_WIDTH = 6
-TOOL_RESULT_TOKEN_LIMIT = 20000  # Same threshold as eviction
-TRUNCATION_GUIDANCE = "... [results truncated, try being more specific with your parameters]"
-
-# Re-export protocol types for backwards compatibility
-FileInfo = _FileInfo
-GrepMatch = _GrepMatch
-
-
-def sanitize_tool_call_id(tool_call_id: str) -> str:
-    r"""Sanitize tool_call_id to prevent path traversal and separator issues.
-
-    Replaces dangerous characters (., /, \) with underscores.
-    """
-    sanitized = tool_call_id.replace(".", "_").replace("/", "_").replace("\\", "_")
-    return sanitized
-
+Combine generated frontmatter with processed template content to create the final, complete skill file ready for saving.
 
-def format_content_with_line_numbers(
-    content: str | list[str],
-    start_line: int = 1,
-) -> str:
-    """Format file content with line numbers (cat -n style).
-
-    Chunks lines longer than MAX_LINE_LENGTH with continuation markers (e.g., 5.1, 5.2).
-
-    Args:
-        content: File content as string or list of lines
-        start_line: Starting line number (default: 1)
-
-    Returns:
-        Formatted content with line numbers and continuation markers
-    """
-    if isinstance(content, str):
-        lines = content.split("\n")
-        if lines and lines[-1] == "":
-            lines = lines[:-1]
-    else:
-        lines = content
-
-    result_lines = []
-    for i, line in enumerate(lines):
-        line_num = i + start_line
-
-        if len(line) <= MAX_LINE_LENGTH:
-            result_lines.append(f"{line_num:{LINE_NUMBER_WIDTH}d}\t{line}")
-        else:
-            # Split long line into chunks with continuation markers
-            num_chunks = (len(line) + MAX_LINE_LENGTH - 1) // MAX_LINE_LENGTH
-            for chunk_idx in range(num_chunks):
-                start = chunk_idx * MAX_LINE_LENGTH
-                end = min(start + MAX_LINE_LENGTH, len(line))
-                chunk = line[start:end]
-                if chunk_idx == 0:
-                    # First chunk: use normal line number
-                    result_lines.append(f"{line_num:{LINE_NUMBER_WIDTH}d}\t{chunk}")
-                else:
-                    # Continuation chunks: use decimal notation (e.g., 5.1, 5.2)
-                    continuation_marker = f"{line_num}.{chunk_idx}"
-                    result_lines.append(f"{continuation_marker:>{LINE_NUMBER_WIDTH}}\t{chunk}")
-
-    return "\n".join(result_lines)
-
-
-def check_empty_content(content: str) -> str | None:
-    """Check if content is empty and return warning message.
-
-    Args:
-        content: Content to check
-
-    Returns:
-        Warning message if empty, None otherwise
-    """
-    if not content or content.strip() == "":
-        return EMPTY_CONTENT_WARNING
-    return None
-
-
-def file_data_to_string(file_data: dict[str, Any]) -> str:
-    """Convert FileData to plain string content.
-
-    Args:
-        file_data: FileData dict with 'content' key
-
-    Returns:
-        Content as string with lines joined by newlines
-    """
-    return "\n".join(file_data["content"])
-
-
-def create_file_data(content: str, created_at: str | None = None) -> dict[str, Any]:
-    """Create a FileData object with timestamps.
-
-    Args:
-        content: File content as string
-        created_at: Optional creation timestamp (ISO format)
-
-    Returns:
-        FileData dict with content and timestamps
-    """
-    lines = content.split("\n") if isinstance(content, str) else content
-    now = datetime.now(UTC).isoformat()
-
-    return {
-        "content": lines,
-        "created_at": created_at or now,
-        "modified_at": now,
-    }
-
-
-def update_file_data(file_data: dict[str, Any], content: str) -> dict[str, Any]:
-    """Update FileData with new content, preserving creation timestamp.
-
-    Args:
-        file_data: Existing FileData dict
-        content: New content as string
-
-    Returns:
-        Updated FileData dict
-    """
-    lines = content.split("\n") if isinstance(content, str) else content
-    now = datetime.now(UTC).isoformat()
-
-    return {
-        "content": lines,
-        "created_at": file_data["created_at"],
-        "modified_at": now,
-    }
+## Assembly Process
 
+<assembly_flow>
 
-def format_read_response(
-    file_data: dict[str, Any],
-    offset: int,
-    limit: int,
-) -> str:
-    """Format file data for read response with line numbers.
-
-    Args:
-        file_data: FileData dict
-        offset: Line offset (0-indexed)
-        limit: Maximum number of lines
-
-    Returns:
-        Formatted content or error message
-    """
-    content = file_data_to_string(file_data)
-    empty_msg = check_empty_content(content)
-    if empty_msg:
-        return empty_msg
-
-    lines = content.splitlines()
-    start_idx = offset
-    end_idx = min(start_idx + limit, len(lines))
-
-    if start_idx >= len(lines):
-        return f"Error: Line offset {offset} exceeds file length ({len(lines)} lines)"
-
-    selected_lines = lines[start_idx:end_idx]
-    return format_content_with_line_numbers(selected_lines, start_line=start_idx + 1)
-
-
-def perform_string_replacement(
-    content: str,
-    old_string: str,
-    new_string: str,
-    replace_all: bool,
-) -> tuple[str, int] | str:
-    """Perform string replacement with occurrence validation.
-
-    Args:
-        content: Original content
-        old_string: String to replace
-        new_string: Replacement string
-        replace_all: Whether to replace all occurrences
-
-    Returns:
-        Tuple of (new_content, occurrences) on success, or error message string
-    """
-    occurrences = content.count(old_string)
-
-    if occurrences == 0:
-        return f"Error: String not found in file: '{old_string}'"
-
-    if occurrences > 1 and not replace_all:
-        return f"Error: String '{old_string}' appears {occurrences} times in file. Use replace_all=True to replace all instances, or provide a more specific string with surrounding context."
-
-    new_content = content.replace(old_string, new_string)
-    return new_content, occurrences
-
-
-def truncate_if_too_long(result: list[str] | str) -> list[str] | str:
-    """Truncate list or string result if it exceeds token limit (rough estimate: 4 chars/token)."""
-    if isinstance(result, list):
-        total_chars = sum(len(item) for item in result)
-        if total_chars > TOOL_RESULT_TOKEN_LIMIT * 4:
-            return result[: len(result) * TOOL_RESULT_TOKEN_LIMIT * 4 // total_chars] + [TRUNCATION_GUIDANCE]
-        return result
-    # string
-    if len(result) > TOOL_RESULT_TOKEN_LIMIT * 4:
-        return result[: TOOL_RESULT_TOKEN_LIMIT * 4] + "\n" + TRUNCATION_GUIDANCE
-    return result
-
-
-def _validate_path(path: str | None) -> str:
-    """Validate and normalize a path.
-
-    Args:
-        path: Path to validate
-
-    Returns:
-        Normalized path starting with /
-
-    Raises:
-        ValueError: If path is invalid
-    """
-    path = path or "/"
-    if not path or path.strip() == "":
-        raise ValueError("Path cannot be empty")
-
-    normalized = path if path.startswith("/") else "/" + path
-
-    if not normalized.endswith("/"):
-        normalized += "/"
-
-    return normalized
-
-
-def _glob_search_files(
-    files: dict[str, Any],
-    pattern: str,
-    path: str = "/",
-) -> str:
-    """Search files dict for paths matching glob pattern.
-
-    Args:
-        files: Dictionary of file paths to FileData.
-        pattern: Glob pattern (e.g., "*.py", "**/*.ts").
-        path: Base path to search from.
-
-    Returns:
-        Newline-separated file paths, sorted by modification time (most recent first).
-        Returns "No files found" if no matches.
-
-    Example:
-        ```python
-        files = {"/src/main.py": FileData(...), "/test.py": FileData(...)}
-        _glob_search_files(files, "*.py", "/")
-        # Returns: "/test.py\n/src/main.py" (sorted by modified_at)
+<step number="1" name="prepare_components">
+
+### Step 1: Prepare Components
+
+Gather all components needed for assembly.
+
+<component_collection>
+  REQUIRED_COMPONENTS:
+    - Frontmatter (from generate-frontmatter.md)
+    - Template content (from replace-markers.md)
+    - Improvement metadata (if mode == "analyze")
+
+  VALIDATE:
+    - Frontmatter is valid YAML
+    - Template content is fully processed (no unresolved markers)
+    - All required sections present
+    - Code examples properly formatted
+</component_collection>
+
+</step>
+
+<step number="2" name="assemble_structure">
+
+### Step 2: Assemble File Structure
+
+Combine components into final structure.
+
+<assembly_structure>
+  FINAL_FILE_FORMAT:
+    1. YAML frontmatter (enclosed in ---)
+    2. Blank line
+    3. Main content (processed template)
+    4. Footer (optional metadata)
+
+  EXAMPLE_STRUCTURE:
+    ```markdown
+    ---
+    name: my-app-api-patterns
+    description: Spring Boot API patterns for my-app
+    version: 3.2.0
+    framework: spring-boot
+    globs:
+      - "src/**/*Controller.java"
+      - "src/**/*Service.java"
+    ---
+
+    # Spring Boot API Patterns
+
+    [Template content...]
+
+    ---
+
+    *Generated by Agent OS Add Skill Command*
+    ```
+</assembly_structure>
+
+<assembly_algorithm>
+  STEP_BY_STEP:
+    1. Start with empty string
+    2. Add frontmatter YAML (with --- delimiters)
+    3. Add single blank line
+    4. Add main content
+    5. Ensure proper line endings (LF, not CRLF)
+    6. Add footer if configured
+    7. Validate complete file
+
+  PSEUDOCODE:
+    ```
+    skill_content = ""
+    skill_content += "---\n"
+    skill_content += frontmatter_yaml
+    skill_content += "---\n\n"
+    skill_content += processed_template_content
+    skill_content += "\n\n---\n\n"
+    skill_content += footer_content
+    ```
+</assembly_algorithm>
+
+</step>
+
+<step number="3" name="format_sections">
+
+### Step 3: Format Sections
+
+Ensure consistent formatting throughout the file.
+
+<section_formatting>
+  HEADING_HIERARCHY:
+    - # (h1): Main title only (once)
+    - ## (h2): Major sections
+    - ### (h3): Subsections
+    - #### (h4): Detailed subsections (use sparingly)
+
+  SPACING:
+    - Blank line before each heading
+    - Blank line after each heading
+    - Blank line between sections
+    - Blank line before and after code blocks
+
+  CODE_BLOCKS:
+    - Always specify language (```java, ```typescript, etc.)
+    - Consistent indentation (2 spaces)
+    - Add descriptive comments
+    - Keep examples focused (< 40 lines)
+
+  LISTS:
+    - Use consistent bullet style (-)
+    - Indent nested lists by 2 spaces
+    - Blank line before and after lists
+
+  EMPHASIS:
+    - **Bold** for important terms
+    - `Code` for inline code
+    - ✅ ❌ ⚠️ Emojis for status indicators
+</section_formatting>
+
+</step>
+
+<step number="4" name="add_improvement_annotations">
+
+### Step 4: Add Improvement Annotations
+
+Mark sections that were enhanced with improvements.
+
+<improvement_annotations>
+  IF mode == "analyze" AND improvements_applied > 0:
+    FOR each section with applied_improvement:
+      ADD_ANNOTATION: Above or within section
+
+      ANNOTATION_FORMAT:
+        "✅ **Enhanced with Improvement:** {improvement_title}
+         {brief_description}"
+
+      EXAMPLE:
+        ```markdown
+        ## Error Handling
+
+        ✅ **Enhanced with Improvement:** Centralized Exception Handling
+        This pattern was added to replace duplicated error handling across controllers.
+
+        ### Global Exception Handler
+        ```java
+        @ControllerAdvice
+        public class GlobalExceptionHandler {
+            // ...
+        }
         ```
-    """
-    try:
-        normalized_path = _validate_path(path)
-    except ValueError:
-        return "No files found"
-
-    filtered = {fp: fd for fp, fd in files.items() if fp.startswith(normalized_path)}
-
-    # Respect standard glob semantics:
-    # - Patterns without path separators (e.g., "*.py") match only in the current
-    #   directory (non-recursive) relative to `path`.
-    # - Use "**" explicitly for recursive matching.
-    effective_pattern = pattern
-
-    matches = []
-    for file_path, file_data in filtered.items():
-        relative = file_path[len(normalized_path) :].lstrip("/")
-        if not relative:
-            relative = file_path.split("/")[-1]
-
-        if wcglob.globmatch(relative, effective_pattern, flags=wcglob.BRACE | wcglob.GLOBSTAR):
-            matches.append((file_path, file_data["modified_at"]))
-
-    matches.sort(key=lambda x: x[1], reverse=True)
-
-    if not matches:
-        return "No files found"
-
-    return "\n".join(fp for fp, _ in matches)
-
-
-def _format_grep_results(
-    results: dict[str, list[tuple[int, str]]],
-    output_mode: Literal["files_with_matches", "content", "count"],
-) -> str:
-    """Format grep search results based on output mode.
-
-    Args:
-        results: Dictionary mapping file paths to list of (line_num, line_content) tuples
-        output_mode: Output format - "files_with_matches", "content", or "count"
-
-    Returns:
-        Formatted string output
-    """
-    if output_mode == "files_with_matches":
-        return "\n".join(sorted(results.keys()))
-    if output_mode == "count":
-        lines = []
-        for file_path in sorted(results.keys()):
-            count = len(results[file_path])
-            lines.append(f"{file_path}: {count}")
-        return "\n".join(lines)
-    lines = []
-    for file_path in sorted(results.keys()):
-        lines.append(f"{file_path}:")
-        for line_num, line in results[file_path]:
-            lines.append(f"  {line_num}: {line}")
-    return "\n".join(lines)
-
-
-def _grep_search_files(
-    files: dict[str, Any],
-    pattern: str,
-    path: str | None = None,
-    glob: str | None = None,
-    output_mode: Literal["files_with_matches", "content", "count"] = "files_with_matches",
-) -> str:
-    """Search file contents for regex pattern.
-
-    Args:
-        files: Dictionary of file paths to FileData.
-        pattern: Regex pattern to search for.
-        path: Base path to search from.
-        glob: Optional glob pattern to filter files (e.g., "*.py").
-        output_mode: Output format - "files_with_matches", "content", or "count".
-
-    Returns:
-        Formatted search results. Returns "No matches found" if no results.
-
-    Example:
-        ```python
-        files = {"/file.py": FileData(content=["import os", "print('hi')"], ...)}
-        _grep_search_files(files, "import", "/")
-        # Returns: "/file.py" (with output_mode="files_with_matches")
         ```
-    """
-    try:
-        regex = re.compile(pattern)
-    except re.error as e:
-        return f"Invalid regex pattern: {e}"
 
-    try:
-        normalized_path = _validate_path(path)
-    except ValueError:
-        return "No matches found"
+  IMPROVEMENT_SUMMARY_SECTION:
+    IF improvements_applied > 0:
+      ADD_SECTION: Near beginning of content
 
-    filtered = {fp: fd for fp, fd in files.items() if fp.startswith(normalized_path)}
+      CONTENT:
+        "## Improvements Applied
 
-    if glob:
-        filtered = {fp: fd for fp, fd in filtered.items() if wcglob.globmatch(Path(fp).name, glob, flags=wcglob.BRACE)}
+         This skill includes {count} improvements to enhance code quality:
 
-    results: dict[str, list[tuple[int, str]]] = {}
-    for file_path, file_data in filtered.items():
-        for line_num, line in enumerate(file_data["content"], 1):
-            if regex.search(line):
-                if file_path not in results:
-                    results[file_path] = []
-                results[file_path].append((line_num, line))
+         Critical:
+         - {improvement_1}
+         - {improvement_2}
 
-    if not results:
-        return "No matches found"
-    return _format_grep_results(results, output_mode)
+         Warnings:
+         - {improvement_3}
+         - {improvement_4}
 
+         These improvements are integrated into the relevant sections below.
+         "
+</improvement_annotations>
 
-# -------- Structured helpers for composition --------
+</step>
 
+<step number="5" name="validate_assembly">
 
-def grep_matches_from_files(
-    files: dict[str, Any],
-    pattern: str,
-    path: str | None = None,
-    glob: str | None = None,
-) -> list[GrepMatch] | str:
-    """Return structured grep matches from an in-memory files mapping.
+### Step 5: Validate Assembled Content
 
-    Returns a list of GrepMatch on success, or a string for invalid inputs
-    (e.g., invalid regex). We deliberately do not raise here to keep backends
-    non-throwing in tool contexts and preserve user-facing error messages.
-    """
-    try:
-        regex = re.compile(pattern)
-    except re.error as e:
-        return f"Invalid regex pattern: {e}"
+Ensure the complete file is valid and ready to save.
 
-    try:
-        normalized_path = _validate_path(path)
-    except ValueError:
-        return []
+<validation_checks>
+  FRONTMATTER_VALIDATION:
+    - Valid YAML syntax
+    - All required fields present (name, description, globs)
+    - No parsing errors
+    - Proper --- delimiters
 
-    filtered = {fp: fd for fp, fd in files.items() if fp.startswith(normalized_path)}
+  CONTENT_VALIDATION:
+    - No unresolved markers remaining
+    - All sections present
+    - Code blocks have language identifiers
+    - No empty required sections
+    - Proper markdown syntax
 
-    if glob:
-        filtered = {fp: fd for fp, fd in filtered.items() if wcglob.globmatch(Path(fp).name, glob, flags=wcglob.BRACE)}
+  STRUCTURE_VALIDATION:
+    - Single h1 heading (title)
+    - Logical heading hierarchy (no jumps from h2 to h4)
+    - Sections in logical order
+    - Consistent formatting
 
-    matches: list[GrepMatch] = []
-    for file_path, file_data in filtered.items():
-        for line_num, line in enumerate(file_data["content"], 1):
-            if regex.search(line):
-                matches.append({"path": file_path, "line": int(line_num), "text": line})
-    return matches
+  SIZE_VALIDATION:
+    - File size reasonable (< 500 KB)
+    - Line count reasonable (< 10000 lines)
+    - Not too small (> 100 lines minimum)
 
+  ENCODING_VALIDATION:
+    - UTF-8 encoding
+    - LF line endings (not CRLF)
+    - No BOM (byte order mark)
+</validation_checks>
 
-def build_grep_results_dict(matches: list[GrepMatch]) -> dict[str, list[tuple[int, str]]]:
-    """Group structured matches into the legacy dict form used by formatters."""
-    grouped: dict[str, list[tuple[int, str]]] = {}
-    for m in matches:
-        grouped.setdefault(m["path"], []).append((m["line"], m["text"]))
-    return grouped
+<validation_result>
+  OUTPUT:
+    {
+      valid: true,
+      errors: [],
+      warnings: [
+        "File is large (8500 lines) - consider splitting",
+        "Section 'Security' is empty - add placeholder?"
+      ],
+      stats: {
+        total_lines: 542,
+        code_blocks: 42,
+        sections: 15,
+        file_size: "12.5 KB"
+      }
+    }
+</validation_result>
 
+</step>
 
-def format_grep_matches(
-    matches: list[GrepMatch],
-    output_mode: Literal["files_with_matches", "content", "count"],
-) -> str:
-    """Format structured grep matches using existing formatting logic."""
-    if not matches:
-        return "No matches found"
-    return _format_grep_results(build_grep_results_dict(matches), output_mode)
+<step number="6" name="final_output">
+
+### Step 6: Generate Final Output
+
+Produce the complete, ready-to-save skill file.
+
+<final_output>
+  STRUCTURE:
+    {
+      skill_content: "[Complete markdown string]",
+      file_name: "my-app-api-patterns.md",
+      file_path: ".claude/skills/my-app-api-patterns.md",
+      metadata: {
+        name: "my-app-api-patterns",
+        framework: "spring-boot",
+        version: "3.2.0",
+        skill_type: "api",
+        mode: "analyze",
+        patterns_count: 35,
+        improvements_applied: 8,
+        size_bytes: 12800,
+        line_count: 542
+      },
+      validation: {
+        valid: true,
+        ready_to_save: true
+      }
+    }
+</final_output>
+
+</step>
+
+</assembly_flow>
+
+## Quality Checks
+
+<quality_assurance>
+  CONTENT_QUALITY:
+    - Examples are clear and relevant
+    - Patterns are well-documented
+    - Anti-patterns are explained
+    - References are included
+    - Quick reference is comprehensive
+
+  FORMATTING_QUALITY:
+    - Consistent markdown formatting
+    - Code blocks properly highlighted
+    - Emojis used appropriately
+    - Visual indicators clear (✅ ❌ ⚠️)
+
+  COMPLETENESS:
+    - All major sections filled
+    - No TODO or placeholder text
+    - Best practices documented
+    - Examples for key patterns
+
+  USABILITY:
+    - Easy to scan and read
+    - Logical section order
+    - Quick reference available
+    - Code examples copy-paste ready
+</quality_assurance>
+
+## Example Output
+
+<example>
+  INPUT:
+    - Frontmatter: [YAML object]
+    - Template content: [Processed markdown]
+    - Improvements: [8 applied]
+    - Mode: "analyze"
+
+  PROCESS:
+    1. Generate frontmatter YAML
+    2. Format template content
+    3. Add improvement annotations
+    4. Combine components
+    5. Validate result
+
+  OUTPUT:
+    ```markdown
+    ---
+    name: my-app-api-patterns
+    description: Spring Boot 3.2.0 API patterns for my-app (analyzed from existing codebase)
+    version: 3.2.0
+    framework: spring-boot
+    created: 2025-12-31
+    mode: analyze
+    patterns_count: 35
+    improvements_applied: 8
+    files_analyzed: 45
+    globs:
+      - "src/**/*Controller.java"
+      - "src/**/*Service.java"
+      - "src/**/*Repository.java"
+      - "src/**/dto/**/*.java"
+    ---
+
+    # Spring Boot API Patterns
+
+    > Auto-generated skill for my-app
+    > Framework: Spring Boot 3.2.0
+    > Generated: 2025-12-31
+    > Mode: Analyzed from existing codebase
+
+    ## Improvements Applied
+
+    This skill includes 8 improvements to enhance code quality:
+
+    Critical:
+    - Fix SQL injection vulnerability
+    - Implement centralized error handling
+
+    Warnings:
+    - Add @Transactional to service methods
+    - Implement pagination with Pageable
+    - Use Optional for nullable returns
+
+    ## Framework Configuration
+
+    **Detected Setup:**
+    - Framework: Spring Boot 3.2.0
+    - Build Tool: Maven
+    - Language: Java
+    - Database: PostgreSQL
+    - ORM: Spring Data JPA
+
+    [... rest of content ...]
+
+    ---
+
+    *This skill was generated by Agent OS Add Skill Command*
+    *Framework: Spring Boot 3.2.0*
+    *Mode: analyze*
+    ```
+</example>
+
+## Error Handling
+
+<error_protocols>
+  <assembly_failure>
+    LOG: Which component failed
+    PROVIDE: Partial result if possible
+    SUGGEST: Manual intervention
+  </assembly_failure>
+
+  <invalid_encoding>
+    FIX: Convert to UTF-8
+    REMOVE: Invalid characters
+    WARN: About character conversion
+  </invalid_encoding>
+
+  <size_exceeded>
+    IF file_size > 500KB:
+      WARN: "Skill file is very large ({size})"
+      SUGGEST: "Consider splitting into multiple skills"
+      ALLOW: User to proceed or modify
+  </size_exceeded>
+</error_protocols>
+
+## Performance Considerations
+
+- Build content incrementally (don't store multiple copies)
+- Use string builder pattern for efficiency
+- Validate sections as they're added (not at end)
+- Stream to file if content is very large
+
+## Related Utilities
+
+- `@agent-os/workflows/skill/utils/generate-frontmatter.md`
+- `@agent-os/workflows/skill/utils/replace-markers.md`
+- `@agent-os/workflows/skill/utils/parse-template.md`
+- `@agent-os/workflows/skill/interactive/preview-skill.md`

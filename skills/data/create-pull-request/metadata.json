@@ -1,7 +1,7 @@
 {
   "name": "create-pull-request",
-  "repo": "BerryKuipers/claude-code-toolkit",
-  "path": ".claude/skills/git-workflows/create-pull-request/SKILL.md",
-  "source": "github.com/BerryKuipers/claude-code-toolkit",
-  "downloaded_at": "2026-01-21T01:39:11.360044Z"
+  "repo": "abyssparanoia/rapid-go",
+  "path": ".claude/skills/create-pull-request/SKILL.md",
+  "source": "github.com/abyssparanoia/rapid-go",
+  "downloaded_at": "2026-01-22T01:37:34.987890Z"
 }

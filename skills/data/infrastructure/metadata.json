@@ -1,7 +1,7 @@
 {
   "name": "infrastructure",
-  "repo": "BerryKuipers/claude-code-toolkit",
-  "path": ".claude/skills/infrastructure/SKILL.md",
-  "source": "github.com/BerryKuipers/claude-code-toolkit",
-  "downloaded_at": "2026-01-21T01:39:09.985504Z"
+  "repo": "ragnarula/cc-plugins",
+  "path": "sdd/skills/infrastructure/SKILL.md",
+  "source": "github.com/ragnarula/cc-plugins",
+  "downloaded_at": "2026-01-22T02:09:43.087994Z"
 }

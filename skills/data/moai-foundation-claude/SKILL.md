@@ -14,23 +14,7 @@ allowed-tools:
   - Glob
   - mcp__context7__resolve-library-id
   - mcp__context7__get-library-docs
-tags:
-  [
-    "foundation",
-    "claude-code",
-    "skills",
-    "sub-agents",
-    "plugins",
-    "slash-commands",
-    "hooks",
-    "memory",
-    "settings",
-    "sandboxing",
-    "headless",
-    "agent-patterns",
-  ]
-updated: 2026-01-11
-status: "active"
+tags: ['foundation', 'claude-code', 'skills', 'sub-agents', 'plugins', 'slash-commands', 'hooks', 'memory', 'settings', 'sandboxing', 'headless', 'agent-patterns']
 ---
 
 # Claude Code Authoring Kit
@@ -40,29 +24,26 @@ Comprehensive reference for Claude Code Skills, sub-agents, plugins, slash comma
 ## Documentation Index
 
 Core Features:
-
-- reference/claude-code-skills-official.md - Agent Skills creation and management
-- reference/claude-code-sub-agents-official.md - Sub-agent development and delegation
-- reference/claude-code-plugins-official.md - Plugin architecture and distribution
-- reference/claude-code-custom-slash-commands-official.md - Command creation and orchestration
+- [Skills Guide](reference/claude-code-skills-official.md) - Agent Skills creation and management
+- [Sub-agents Guide](reference/claude-code-sub-agents-official.md) - Sub-agent development and delegation
+- [Plugins Guide](reference/claude-code-plugins-official.md) - Plugin architecture and distribution
+- [Slash Commands](reference/claude-code-custom-slash-commands-official.md) - Command creation and orchestration
 
 Configuration:
-
-- reference/claude-code-settings-official.md - Configuration hierarchy and management
-- reference/claude-code-memory-official.md - Context and knowledge persistence
-- reference/claude-code-hooks-official.md - Event-driven automation
-- reference/claude-code-iam-official.md - Access control and security
+- [Settings](reference/claude-code-settings-official.md) - Configuration hierarchy and management
+- [Memory](reference/claude-code-memory-official.md) - Context and knowledge persistence
+- [Hooks](reference/claude-code-hooks-official.md) - Event-driven automation
+- [IAM & Permissions](reference/claude-code-iam-official.md) - Access control and security
 
 Advanced Features:
+- [Sandboxing](reference/claude-code-sandboxing-official.md) - Security isolation
+- [Headless Mode](reference/claude-code-headless-official.md) - Programmatic and CI/CD usage
+- [Dev Containers](reference/claude-code-devcontainers-official.md) - Containerized environments
+- [CLI Reference](reference/claude-code-cli-reference-official.md) - Command-line interface
+- [Statusline](reference/claude-code-statusline-official.md) - Custom status display
+- [Advanced Patterns](reference/advanced-agent-patterns.md) - Engineering best practices
 
-- reference/claude-code-sandboxing-official.md - Security isolation
-- reference/claude-code-headless-official.md - Programmatic and CI/CD usage
-- reference/claude-code-devcontainers-official.md - Containerized environments
-- reference/claude-code-cli-reference-official.md - Command-line interface
-- reference/claude-code-statusline-official.md - Custom status display
-- reference/advanced-agent-patterns.md - Engineering best practices
-
-## Quick Reference
+## Quick Reference (30 seconds)
 
 Skills: Model-invoked extensions in ~/.claude/skills/ (personal) or .claude/skills/ (project). Three-level progressive disclosure. Max 500 lines.
 
@@ -82,7 +63,7 @@ Sandboxing: OS-level isolation. Filesystem and network restrictions. Auto-allow 
 
 Headless: -p flag for non-interactive. --allowedTools, --json-schema, --agents for automation.
 
-## Skill Creation
+## Skill Creation (3 minutes)
 
 ### Progressive Disclosure Architecture
 
@@ -94,7 +75,20 @@ Level 3 (Resources): Additional files loaded on demand, effectively unlimited
 
 ### Required Format
 
-Create a SKILL.md file with YAML frontmatter containing name in kebab-case and description explaining what it does and when to use it in third person. Maximum 1024 characters for description. After the frontmatter, include a heading with the skill name, a Quick Start section with brief instructions, and a Details section referencing REFERENCE.md for more information.
+```yaml
+---
+name: skill-name
+description: What it does AND when to use it. Third person. Max 1024 chars.
+---
+
+# Skill Name
+
+## Quick start
+Brief instructions here.
+
+## Details
+See [REFERENCE.md](REFERENCE.md) for more.
+```
 
 ### Best Practices
 
@@ -104,15 +98,27 @@ Create a SKILL.md file with YAML frontmatter containing name in kebab-case and d
 - One level deep references
 - Test with Haiku, Sonnet, Opus
 
-## Sub-agent Creation
+## Sub-agent Creation (3 minutes)
 
 ### Using /agents Command
 
-Type /agents, select Create New Agent, define purpose and tools, press e to edit prompt.
+1. Type /agents
+2. Select Create New Agent
+3. Define purpose and tools
+4. Press e to edit prompt
 
 ### File Format
 
-Create a markdown file with YAML frontmatter containing name, description explaining when to invoke (use PROACTIVELY for auto-delegation), tools as comma-separated list (Read, Write, Bash), and model specification (sonnet). After frontmatter, include the system prompt.
+```yaml
+---
+name: agent-name
+description: When to invoke. Use PROACTIVELY for auto-delegation.
+tools: Read, Write, Bash
+model: sonnet
+---
+
+System prompt here.
+```
 
 ### Critical Rules
 
@@ -121,21 +127,36 @@ Create a markdown file with YAML frontmatter containing name, description explai
 - All user interaction before delegation
 - Each gets own 200K context
 
-## Plugin Creation
+## Plugin Creation (3 minutes)
 
 ### Directory Structure
 
-Create my-plugin directory with .claude-plugin/plugin.json, commands directory, agents directory, skills directory, hooks/hooks.json, and .mcp.json file.
+```
+my-plugin/
+- .claude-plugin/plugin.json
+- commands/
+- agents/
+- skills/
+- hooks/hooks.json
+- .mcp.json
+```
 
 ### Manifest (plugin.json)
 
-Create a JSON object with name, description explaining plugin purpose, version as 1.0.0, and author object containing name field.
+```json
+{
+  "name": "my-plugin",
+  "description": "Plugin purpose",
+  "version": "1.0.0",
+  "author": {"name": "Author"}
+}
+```
 
 ### Commands
 
-Use /plugin install owner/repo to install from GitHub.
-Use /plugin validate . to validate current directory.
-Use /plugin enable plugin-name to enable a plugin.
+/plugin install owner/repo
+/plugin validate .
+/plugin enable plugin-name
 
 ## Advanced Agent Patterns
 
@@ -145,7 +166,7 @@ Initializer agent: Sets up environment, feature registry, progress docs
 
 Executor agent: Works single features, updates registry, maintains progress
 
-See reference/advanced-agent-patterns.md for details.
+See [Advanced Patterns](reference/advanced-agent-patterns.md) for details.
 
 ### Orchestrator-Worker Architecture
 
@@ -213,13 +234,11 @@ Phase 4 Commit: Descriptive messages, logical groupings, clean history
 - Validate inputs before passing to Claude
 - Handle errors with exit codes
 
-## Resources
+## Version History
 
-For detailed patterns and working examples, see the reference directory.
+v4.0.0 (2026-01-06): Added plugins, sandboxing, headless, statusline, dev containers, CLI reference, advanced patterns from engineering blogs
 
-Version History:
+v3.0.0 (2025-12-06): Added progressive disclosure, sub-agent details, integration patterns
 
-- v5.0.0 (2026-01-11): Converted to narrative format per CLAUDE.md Documentation Standards
-- v4.0.0 (2026-01-06): Added plugins, sandboxing, headless, statusline, dev containers, CLI reference, advanced patterns
-- v3.0.0 (2025-12-06): Added progressive disclosure, sub-agent details, integration patterns
-- v2.0.0 (2025-11-26): Initial comprehensive release
+v2.0.0 (2025-11-26): Initial comprehensive release
+

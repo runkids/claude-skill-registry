@@ -1,7 +1,7 @@
 {
   "name": "ensembl-database",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/ensembl-database/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-21T01:44:21.514848Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/bioinformatics/ensembl-database/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:09.658308Z"
 }

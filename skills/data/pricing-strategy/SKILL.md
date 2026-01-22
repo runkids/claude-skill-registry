@@ -1,116 +1,179 @@
 ---
 name: pricing-strategy
-description: Эксперт по ценообразованию. Используй для pricing models, value-based pricing и monetization strategies.
+description: "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' or 'monetization.' This skill covers pricing research, tier structure, and packaging strategy."
 ---
 
-# Pricing Strategy Expert
+# Pricing Strategy
 
-Strategic expertise in SaaS pricing, monetization models, and value-based pricing.
+You are an expert in SaaS pricing and monetization strategy. Your goal is to help design pricing that captures value, drives growth, and aligns with customer willingness to pay.
 
-## Pricing Models
+## Before Starting
 
-```yaml
-pricing_models:
-  per_user:
-    description: "Charge per active user/seat"
-    pros: ["Predictable revenue", "Easy to understand"]
-    cons: ["Can limit adoption", "Encourages seat sharing"]
-    best_for: "Collaboration tools, CRM"
-    examples: "Slack, Salesforce"
+Gather this context:
 
-  usage_based:
-    description: "Charge based on consumption"
-    pros: ["Low barrier to entry", "Fair value exchange"]
-    cons: ["Revenue unpredictability", "Complex billing"]
-    best_for: "API services, infrastructure"
-    examples: "AWS, Twilio, Stripe"
+### 1. Business Context
+- What type of product? (SaaS, marketplace, e-commerce, service)
+- What's your current pricing (if any)?
+- What's your target market? (SMB, mid-market, enterprise)
+- What's your go-to-market motion? (self-serve, sales-led, hybrid)
 
-  tiered:
-    description: "Feature-based plan tiers"
-    pros: ["Clear upgrade path", "Natural segmentation"]
-    cons: ["Complexity risk", "Feature arbitrage"]
-    best_for: "Most B2B SaaS"
-    examples: "HubSpot, Zoom"
+### 2. Value & Competition
+- What's the primary value you deliver?
+- What alternatives do customers consider?
+- How do competitors price?
 
-  freemium:
-    description: "Free tier with paid upgrades"
-    pros: ["Viral growth potential", "Product-led growth"]
-    cons: ["Conversion challenges", "Free user costs"]
-    best_for: "PLG companies"
-    examples: "Dropbox, Notion"
+### 3. Current Performance
+- What's your current conversion rate?
+- What's your average revenue per user (ARPU)?
+- What's your churn rate?
+
+### 4. Goals
+- Are you optimizing for growth, revenue, or profitability?
+- Any pricing changes you're considering?
+
+---
+
+## Pricing Fundamentals
+
+### The Three Pricing Axes
+
+**1. Packaging** — What's included at each tier?
+**2. Pricing Metric** — What do you charge for?
+**3. Price Point** — How much do you charge?
+
+### Value-Based Pricing Framework
+
+Price should be based on value delivered, not cost to serve.
+
+**Key insight:** Price between the next best alternative and perceived value.
+
+---
+
+## Value Metrics
+
+The value metric is what you charge for—it should scale with the value customers receive.
+
+**Good value metrics:**
+- Align price with value delivered
+- Are easy to understand
+- Scale as customer grows
+- Are hard to game
+
+### Common Value Metrics
+
+| Metric | Best For | Example |
+|--------|----------|---------|
+| Per user/seat | Collaboration tools | Slack, Notion |
+| Per usage | Variable consumption | AWS, Twilio |
+| Per feature | Modular products | HubSpot add-ons |
+| Per contact/record | CRM, email tools | Mailchimp |
+| Per transaction | Payments, marketplaces | Stripe |
+| Flat fee | Simple products | Basecamp |
+
+---
+
+## Tier Structure
+
+### Good-Better-Best Framework
+
+**Good tier (Entry):**
+- Purpose: Remove barriers to entry
+- Includes: Core features, limited usage
+- Target: Small teams, try before buy
+
+**Better tier (Recommended):**
+- Purpose: Where most customers land
+- Includes: Full features, reasonable limits
+- Target: Growing teams, serious users
+
+**Best tier (Premium):**
+- Purpose: Capture high-value customers
+- Includes: Everything, advanced features
+- Target: Larger teams, power users
+
+### Tier Differentiation Strategies
+
+**Feature gating:**
+- Basic features in all tiers
+- Advanced features in higher tiers
+
+**Usage limits:**
+- Same features, different limits
+
+**Support level:**
+- Email → Priority → Dedicated success
+
+**Access and customization:**
+- API access, SSO, custom branding
+
+---
+
+## Freemium vs. Free Trial
+
+### When to Use Freemium
+
+**Freemium works when:**
+- Product has viral/network effects
+- Free users provide value
+- Large market where % conversion drives volume
+- Low marginal cost to serve free users
+
+### When to Use Free Trial
+
+**Free trial works when:**
+- Product needs time to demonstrate value
+- Onboarding/setup investment required
+- B2B with buying committees
+- Higher price points
+
+**Trial best practices:**
+- 7-14 days for simple products
+- 14-30 days for complex products
+- Full access (not feature-limited)
+
+---
+
+## Pricing Psychology
+
+- **Anchoring:** Show higher-priced option first
+- **Decoy effect:** Middle tier should be obviously best value
+- **Charm pricing:** $49 vs. $50 (for value-focused)
+- **Round pricing:** $50 vs. $49 (for premium)
+- **Annual savings:** Offer 17-20% discount for annual
+
+---
+
+## Output Format
+
+### Pricing Recommendation
+
+```
+## Recommended Pricing Structure
+
+### Tier 1: [Name] - $X/mo
+- Target: [Who]
+- Includes: [Features/limits]
+
+### Tier 2: [Name] - $X/mo (Recommended)
+- Target: [Who]
+- Includes: [Features/limits]
+
+### Tier 3: [Name] - $X/mo
+- Target: [Who]
+- Includes: [Features/limits]
+
+## Rationale
+[Why this structure]
+
+## Implementation Notes
+[Transition, communication, etc.]
 ```
 
-## Value-Based Pricing
+---
 
-### Research Methods
+## Related Skills
 
-```yaml
-pricing_research:
-  van_westendorp:
-    questions:
-      - "At what price would this be too cheap?"
-      - "At what price would this be a bargain?"
-      - "At what price would this be expensive?"
-      - "At what price would this be too expensive?"
-
-  conjoint_analysis:
-    purpose: "Understand feature value trade-offs"
-    output: "Willingness to pay per feature"
-
-  customer_interviews:
-    questions:
-      - "How do you currently solve this problem?"
-      - "What would you pay for [benefit]?"
-      - "What budget do you have for this?"
-```
-
-## Tier Design
-
-```yaml
-tier_structure:
-  free:
-    purpose: "Acquisition, product trial"
-    includes: "Core functionality, limited usage"
-
-  starter:
-    target: "Individual users, small teams"
-    features: "Core + basic analytics"
-
-  professional:
-    target: "Growing teams"
-    features: "Advanced features, integrations"
-
-  enterprise:
-    target: "Large organizations"
-    features: "Custom, security, SLA, dedicated support"
-```
-
-## Psychological Pricing
-
-```yaml
-pricing_psychology:
-  anchoring: "Show highest price first"
-  charm_pricing: "$99 instead of $100"
-  price_framing: "$3/day vs $90/month"
-  bundling: "Bundle price < sum of parts"
-  annual_discount: "15-20% for annual payment"
-```
-
-## Metrics
-
-```yaml
-pricing_metrics:
-  arpu: "MRR / Active Users"
-  arpa: "MRR / Active Accounts"
-  price_realization: "Actual Price / List Price (target >90%)"
-  discount_rate: "Average discount given (target <15%)"
-```
-
-## Лучшие практики
-
-1. **Value first** — цена на основе ценности для клиента
-2. **Segment pricing** — разные сегменты = разная готовность платить
-3. **Test everything** — данные важнее интуиции
-4. **Annual contracts** — стимулируйте годовые контракты
-5. **Simple packaging** — сложность убивает конверсию
-6. **Regular reviews** — пересматривайте цены ежегодно
+- **lp-optimizer**: For optimizing pricing page conversion
+- **copywriting**: For pricing page copy
+- **marketing-psychology**: For pricing psychology principles
+- **ab-test-setup**: For testing pricing changes

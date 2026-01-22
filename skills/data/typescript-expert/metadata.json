@@ -1,7 +1,7 @@
 {
   "name": "typescript-expert",
-  "repo": "dengineproblem/agents-monorepo",
-  "path": ".claude/skills/typescript-expert/SKILL.md",
-  "source": "github.com/dengineproblem/agents-monorepo",
-  "downloaded_at": "2026-01-21T04:13:17.366908Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/languages/typescript-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-22T04:02:11.980256Z"
 }

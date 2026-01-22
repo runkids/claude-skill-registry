@@ -1,261 +1,133 @@
 ---
 name: design
-description: 方案设计阶段详细规则；进入方案设计时读取；包含方案构思、任务拆解、风险评估、方案包创建
+description: UI/UX design guidelines for interactions, animation, layout, accessibility, and visual design. Use when building UI components, designing user experiences, or implementing user-facing features.
 ---
 
-# 方案设计 - 详细规则
+# Design System Guidelines
 
-**目标:** 构思可行方案并制定详细执行计划，生成 plan/ 目录下的方案包
+Follow Apple, Linear, and Vercel as design inspirations. Ask yourself "How would Apple, Linear, or Vercel design this?"
 
-**前置条件:** 需求分析已完成（评分≥7分）
+When designing React components, also use the [compound-components skill](../compound-components/SKILL.md) to build the components.
 
-**重要:** 方案设计必须创建新方案包，适用于所有模式（交互确认/全授权/规划命令）
+## Interactions
 
-**执行流程:**
-```
-方案构思 → [用户确认/推进模式下连续] → 详细规划（创建新方案包）
-```
+### Keyboard
 
----
+- MUST: Full keyboard support per [WAI-ARIA APG](https://www.w3.org/WAI/ARIA/apg/patterns/)
+- MUST: Visible focus rings (`:focus-visible`; group with `:focus-within`)
+- MUST: Manage focus (trap, move, and return) per APG patterns
 
-## 方案构思
+### Targets & Input
 
-### 动作步骤
+- MUST: Hit target >=24px (mobile >=44px). If visual <24px, expand hit area
+- MUST: Mobile `<input>` font-size >=16px or set:
+  ```html
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+  />
+  ```
+- NEVER: Disable browser zoom
+- MUST: `touch-action: manipulation` to prevent double-tap zoom; set `-webkit-tap-highlight-color` to match design
 
-**1. 检查知识库状态并处理**
-- 按 G10 快速决策树判定
-- 如需创建/重建知识库 → 读取 `../kb/SKILL.md` 执行完整流程
+### Inputs & Forms
 
-**2. 读取知识库**
-- 按 G10 快速流程执行（先检查知识库 → 不足则扫描代码库）
-- 如需详细规则 → 读取 `../kb/SKILL.md`
+- MUST: Hydration-safe inputs (no lost focus/value)
+- NEVER: Block paste in `<input>/<textarea>`
+- MUST: Loading buttons show spinner and keep original label
+- MUST: Enter submits focused text input. In `<textarea>`, Cmd/Ctrl+Enter submits; Enter adds newline
+- MUST: Keep submit enabled until request starts; then disable, show spinner, use idempotency key
+- MUST: Don't block typing; accept free text and validate after
+- MUST: Allow submitting incomplete forms to surface validation
+- MUST: Errors inline next to fields; on submit, focus first error
+- MUST: `autocomplete` + meaningful `name`; correct `type` and `inputmode`
+- SHOULD: Disable spellcheck for emails/codes/usernames
+- SHOULD: Placeholders end with ellipsis and show example pattern (eg, `+1 (123) 456-7890`, `sk-012345...`)
+- MUST: Warn on unsaved changes before navigation
+- MUST: Compatible with password managers & 2FA; allow pasting one-time codes
+- MUST: Trim values to handle text expansion trailing spaces
+- MUST: No dead zones on checkboxes/radios; label+control share one generous hit target
 
-**3. 判定项目规模**
-- 按 G4 规则执行
+### State & Navigation
 
-**4. 判定需求类型并选择模板**
-- 按G8判定是否触发产品设计原则
-- 技术变更（未触发G8）: 使用基础模板
-- 产品功能（触发G8）: 使用完整模板（包含产品分析章节）
+- MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels). Prefer libs like [nuqs](https://nuqs.dev)
+- MUST: Back/Forward restores scroll
+- MUST: Links are links--use `<a>/<Link>` for navigation (support Cmd/Ctrl/middle-click)
 
-**5. 产品视角分析（步骤4判定为"产品功能"时执行）**
-- 用户画像、场景分析、痛点分析
-- 价值主张、成功指标
-- 人文关怀考量
+### Feedback
 
-**6. 任务复杂度判定**
+- SHOULD: Optimistic UI; reconcile on response; on failure show error and rollback or offer Undo
+- MUST: Confirm destructive actions or provide Undo window
+- MUST: Use polite `aria-live` for toasts/inline validation
+- SHOULD: Ellipsis (`...`) for options that open follow-ups (eg, "Rename...")
 
-满足任一条件为复杂任务:
-```yaml
-- 需求属于"新项目初始化"或"重大功能重构"
-- 涉及架构决策
-- 涉及技术选型
-- 存在多种实现路径
-- 涉及多个模块(>1)或影响文件数>3
-- 用户明确要求多方案
-```
+### Touch/Drag/Scroll
 
-**7. 方案构思**
+- MUST: Design forgiving interactions (generous targets, clear affordances; avoid finickiness)
+- MUST: Delay first tooltip in a group; subsequent peers no delay
+- MUST: Intentional `overscroll-behavior: contain` in modals/drawers
+- MUST: During drag, disable text selection and set `inert` on dragged element/containers
+- MUST: No "dead-looking" interactive zones--if it looks clickable, it is
 
-<solution_design>
-**方案评估标准:**
-- 优点
-- 缺点
-- 性能影响
-- 可维护性
-- 实现复杂度
-- 风险评估（含EHRB）
-- 成本估算
-- 是否符合最佳实践
+### Autofocus
 
-**方案构思推理过程（在 <thinking> 标签中完成，不输出给用户）：**
+- SHOULD: Autofocus on desktop when there's a single primary input; rarely on mobile (to avoid layout shift)
 
-```
-<thinking>
-1. 列举所有可能的技术路径
-2. 逐一评估每个路径的优缺点、风险、成本
-3. 筛选出 2-3 个最可行的方案
-4. 确定推荐方案及理由
-</thinking>
-```
+## Animation
 
-**基于推理结果执行：**
+- MUST: Honor `prefers-reduced-motion` (provide reduced variant)
+- SHOULD: Prefer CSS > Web Animations API > JS libraries
+- MUST: Animate compositor-friendly props (`transform`, `opacity`); avoid layout/repaint props (`top/left/width/height`)
+- SHOULD: Animate only to clarify cause/effect or add deliberate delight
+- SHOULD: Choose easing to match the change (size/distance/trigger)
+- MUST: Animations are interruptible and input-driven (avoid autoplay)
+- MUST: Correct `transform-origin` (motion starts where it "physically" should)
 
-**复杂任务（强制方案对比）:**
-- 生成 2-3 个可行方案
-- 详细评估每个方案
-- 确定推荐方案和理由
-- 输出格式: 推荐方案标题后加"推荐"标识
-  - 例: "方案1（最小变更修复-推荐）" vs "方案2（完整重构）"
-- 交互确认模式: 输出方案对比，询问用户选择
-- 推进模式: 选择推荐方案（不输出对比）
+## Layout
 
-**简单任务:**
-- 直接确定唯一可行方案
-- 简要说明方案
-</solution_design>
+- SHOULD: Optical alignment; adjust by +/-1px when perception beats geometry
+- MUST: Deliberate alignment to grid/baseline/edges/optical centers--no accidental placement
+- SHOULD: Balance icon/text lockups (stroke/weight/size/spacing/color)
+- MUST: Verify mobile, laptop, ultra-wide (simulate ultra-wide at 50% zoom)
+- MUST: Respect safe areas (use `env(safe-area-inset-*)`)
+- MUST: Avoid unwanted scrollbars; fix overflows
 
-### 方案构思 输出格式（等待用户选择方案时）
+## Content & Accessibility
 
-行首: `❓【HelloAGENTS】- 方案构思`
+- SHOULD: Inline help first; tooltips last resort
+- MUST: Skeletons mirror final content to avoid layout shift
+- MUST: `<title>` matches current context
+- MUST: No dead ends; always offer next step/recovery
+- MUST: Design empty/sparse/dense/error states
+- SHOULD: Curly quotes (" "); avoid widows/orphans
+- MUST: Tabular numbers for comparisons (`font-variant-numeric: tabular-nums` or a monospace font)
+- MUST: Redundant status cues (not color-only); icons have text labels
+- MUST: Don't ship the schema--visuals may omit labels but accessible names still exist
+- MUST: Use the ellipsis character `...` (not `..`)
+- MUST: `scroll-margin-top` on headings for anchored links; include a "Skip to content" link; hierarchical `<h1-h6>`
+- MUST: Resilient to user-generated content (short/avg/very long)
+- MUST: Locale-aware dates/times/numbers/currency
+- MUST: Accurate names (`aria-label`), decorative elements `aria-hidden`, verify in the Accessibility Tree
+- MUST: Icon-only buttons have descriptive `aria-label`
+- MUST: Prefer native semantics (`button`, `a`, `label`, `table`) before ARIA
+- SHOULD: Right-clicking the nav logo surfaces brand assets
+- MUST: Use non-breaking spaces to glue terms: `10&nbsp;MB`, `Cmd&nbsp;+&nbsp;K`, `Vercel&nbsp;SDK`
 
-**输出内容(≤5条要点):**
-```
-❓【HelloAGENTS】- 方案构思
+## Visual Design
 
-- 📚 上下文: [项目规模] | [知识库状态]
-- 📋 需求类型: [技术变更/产品功能]
-- 🔍 复杂度: [复杂任务] - [判定依据]
-- 💡 方案对比:
-  - 方案1: [名称-推荐] - [一句话说明]
-  - 方案2: [名称] - [一句话说明]
-- ⚠️ 风险提示: [如有EHRB或重大风险]
+- SHOULD: Layered shadows (ambient + direct)
+- SHOULD: Crisp edges via semi-transparent borders + shadows
+- SHOULD: Nested radii: child <= parent; concentric
+- SHOULD: Hue consistency: tint borders/shadows/text toward bg hue
+- MUST: Accessible charts (color-blind-friendly palettes)
+- MUST: Meet contrast--prefer [APCA](https://apcacontrast.com/) over WCAG 2
+- MUST: Increase contrast on `:hover/:active/:focus`
+- SHOULD: Match browser UI to bg
+- SHOULD: Avoid gradient banding (use masks when needed)
 
-────
-🔄 下一步: 请输入方案序号(1/2/3)选择方案
-```
+## Performance (UX)
 
-**详细方案说明:** 如用户需要详细对比，可追问后展开
-
-### 方案构思 子阶段转换
-
-```yaml
-复杂任务:
-  交互确认模式:
-    - 用户选择有效序号(1-N) → 进入详细规划
-    - 用户拒绝所有方案 → 输出重新构思询问格式
-      - 确认重新构思: 返回方案构思，重新构思
-      - 拒绝: 提示"已取消方案设计"，流程终止
-      - 其他输入: 再次询问
-  推进模式:
-    - 选择推荐方案 → 立即静默进入详细规划
-
-简单任务: 直接进入详细规划
-```
-
-**重新构思方案询问格式:**
-```
-❓【HelloAGENTS】- 方案确认
-
-所有方案均被拒绝。
-
-[1] 重新构思 - 基于反馈重新设计方案
-[2] 取消 - 终止方案设计
-
-────
-🔄 下一步: 请输入序号选择
-```
-
----
-
-## 详细规划
-
-**前提:** 用户已选择/确认方案（来自方案构思）
-
-**重要:** 必须创建新方案包，使用当前时间戳，不得复用 plan/ 中的遗留方案
-
-### 动作步骤
-
-**所有文件操作遵循G5静默执行规范**
-
-**1. 创建新方案包目录**
-
-```yaml
-路径: plan/YYYYMMDDHHMM_<feature>/
-冲突处理:
-  1. 检查 plan/YYYYMMDDHHMM_<feature>/ 是否存在
-  2. 如不存在 → 直接创建
-  3. 如存在 → 使用版本后缀: plan/YYYYMMDDHHMM_<feature>_v2/
-     (如 _v2 也存在，则递增为 _v3, _v4...)
-示例:
-  - 首次创建: plan/202511181430_login/
-  - 同名冲突: plan/202511181430_login_v2/
-```
-
-**2. 新库/框架文档查询（如需要）**
-```yaml
-触发条件: 方案涉及项目中从未使用过的第三方库/框架，或涉及重大版本升级
-执行方式: 使用联网搜索或MCP工具(Context7)查询最新文档
-记录位置: how.md 的 技术方案 章节
-```
-
-**3. 生成方案文件**
-
-读取 `../templates/SKILL.md` 获取模板，生成:
-- `why.md` (变更提案/产品提案)
-- `how.md` (技术设计+ADR)
-- `task.md` (任务清单)
-
-**任务清单编写规则:**
-```yaml
-单任务代码改动量控制:
-  - 常规项目: ≤3文件/任务
-  - 大型项目: ≤2文件/任务
-验证任务: 定期插入
-安全检查: 必须包含安全检查任务
-```
-
-**4. 风险规避措施制定**
-- 基于方案构思风险评估，按G9制定详细规避措施
-- 交互确认模式: 询问用户
-- MODE_FULL_AUTH=true 或 MODE_PLANNING=true: 规避风险
-- 写入 `how.md` 的 安全与性能 章节
-
-**5. 设置方案包跟踪变量**
-```yaml
-设置: CREATED_PACKAGE = 步骤1创建的方案包路径
-用途: 在全授权命令中传递给开发实施，确保执行正确的方案包
-```
-
----
-
-## 方案设计 输出格式
-
-⚠️ **CRITICAL - 强制要求:**
-- ALWAYS使用G6.1统一输出格式
-- NEVER使用自由文本替代规范格式
-- 输出前MUST验证格式完整性
-
-严格调用 G6.1 统一输出格式，填充以下数据：
-
-1. **阶段名称:** `方案设计`
-2. **阶段具体内容(≤5条要点):**
-   - 📚 知识库状态
-   - 📝 方案概要（复杂度、方案说明）
-   - 📋 变更清单
-   - 📊 任务清单概要
-   - ⚠️ 风险评估（如检测到EHRB）
-3. **文件变更清单:**
-   - `helloagents/plan/YYYYMMDDHHMM_<feature>/why.md`
-   - `helloagents/plan/YYYYMMDDHHMM_<feature>/how.md`
-   - `helloagents/plan/YYYYMMDDHHMM_<feature>/task.md`
-4. **下一步建议:**
-   - 交互确认模式: 是否进入开发实施?（是/否）
-   - 规划命令: 方案包已生成，如需执行请输入`~exec`
-5. **遗留方案提醒:**
-   - 按G11扫描plan/目录
-   - 如检测到遗留方案包（排除本次创建的方案包），按G11规则显示
-
----
-
-## 阶段转换规则
-
-```yaml
-交互确认模式:
-  - 输出总结（包含"🔄 下一步: 是否进入开发实施?(是/否)"）
-  - 停止并等待用户明确确认
-  - 用户响应处理：
-    - 明确确认("是"/"继续"/"确认"等) → 进入开发实施
-    - 明确拒绝("否"/"取消"等) → 流程终止
-    - Feedback-Delta(提出修改意见) → 按Feedback-Delta规则处理
-    - 其他输入 → 视为新的用户需求，按路由机制重新判定
-
-推进模式:
-  - 全授权命令: 完成方案设计 → 立即静默进入开发实施
-  - 规划命令: 输出整体总结 → 停止 → 清除MODE_PLANNING
-
-关键约束（只有以下3种情况可以进入开发实施）：
-  1. 方案设计完成后用户明确确认
-  2. 全授权命令(~auto等)触发且已完成方案设计
-  3. 执行命令(~exec等)触发且plan/中存在方案包
-```
+- SHOULD: Test iOS Low Power Mode and macOS Safari
+- MUST: Mutations (`POST/PATCH/DELETE`) target <500 ms
+- MUST: Preload only above-the-fold images; lazy-load the rest
+- MUST: Prevent CLS from images (explicit dimensions or reserved space)

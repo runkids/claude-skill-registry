@@ -1,12 +1,7 @@
 {
   "name": "cl-mallet-linter",
-  "description": "malletリンターのルールと設定を適用。コードレビュー・品質チェック時に使用",
   "repo": "cxxxr/.claude",
-  "category": "development",
-  "tags": [
-    "mallet",
-    "linter"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/cl-mallet-linter/SKILL.md",
+  "source": "github.com/cxxxr/.claude",
+  "downloaded_at": "2026-01-22T03:14:22.447142Z"
 }

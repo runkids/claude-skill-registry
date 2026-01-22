@@ -1,7 +1,7 @@
 {
   "name": "remotion",
-  "repo": "remotion-dev/remotion",
-  "path": "packages/skills/skills/remotion/SKILL.md",
-  "source": "github.com/remotion-dev/remotion",
-  "downloaded_at": "2026-01-21T04:04:38.446848Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/remotion/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:39.398236Z"
 }

@@ -1,42 +1,91 @@
 ---
 name: frontend-design
-description: 創建具有高設計質量的獨特、生產級別的前端界面。當用戶要求構建網頁組件、頁面或應用程式時使用此技能。生成有創意、精緻的代碼，避免通用的 AI 美學。
-license: LICENSE.txt 中的完整條款
+description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications, OR when they provide screenshots/images/designs to replicate or draw inspiration from. For screenshot inputs, extracts design guidelines first using ai-multimodal analysis, then implements code following those guidelines. Generates creative, polished code that avoids generic AI aesthetics.
+license: Complete terms in LICENSE.txt
 ---
 
-此技能指導創建獨特的、生產級別的前端界面，避免通用的"AI 垃圾"美學。實現真正可工作的代碼，對美學細節和創意選擇有卓越的關注。
+This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
 
-用戶提供前端需求：要構建的組件、頁面、應用程式或界面。他們可能包括關於目的、受眾或技術約束的上下文。
+The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
 
-## 設計思維
+## Input Types & Workflows
 
-在編碼之前，理解上下文並承諾一個大膽的美學方向：
-- **目的**：此界面解決什麼問題？誰使用它？
-- **基調**：選擇一個極端：極簡主義、極繁主義混亂、復古未來主義、有機/自然、奢華/精緻、俏皮/玩具般、編輯/雜誌、野獸派/粗獷、裝飾藝術/幾何、柔和/粉彩、工業/實用等。有這麼多風格可供選擇。使用這些作為靈感，但設計一個忠於美學方向的。
-- **約束**：技術要求（框架、性能、可訪問性）。
-- **差異化**：什麼讓這個難以忘懷？人們會記住的一件事是什麼？
+### When User Provides Screenshot/Image/Design Reference
 
-**關鍵**：選擇一個清晰的概念方向並精確執行它。大膽的極繁主義和精緻的極簡主義都有效 - 關鍵是意圖性，而不是強度。
+**MANDATORY workflow for screenshot/image/design inputs**:
 
-然後實現可工作的代碼（HTML/CSS/JS、React、Vue 等），該代碼：
-- 生產級別且功能性
-- 視覺上引人注目且令人難忘
-- 具有清晰美學觀點的一致性
-- 在每個細節上都經過精心完善
+1. **Extract Design Guidelines** using `./references/design-extraction-overview.md`:
+   - Analyze screenshot/image with ai-multimodal skill
+   - Extract: colors (hex codes), typography (fonts, sizes, weights), spacing scale, layout patterns, visual hierarchy
+   - Document findings in project `docs/design-guidelines/extracted-design.md`
+   - See `./references/extraction-prompts.md` for comprehensive analysis prompts
 
-## 前端美學指南
+2. **Implement Code** following extracted guidelines:
+   - Use exact colors from extraction (hex codes)
+   - Match typography specifications (fonts, sizes, weights, line-heights)
+   - Replicate layout structure and spacing system
+   - Maintain visual hierarchy and component patterns
+   - Preserve aesthetic direction and mood
 
-關注：
-- **排版**：選擇美麗、獨特且有趣的字體。避免像 Arial 和 Inter 這樣的通用字體；相反，選擇提升前端美學的獨特選擇；出乎意料、有個性的字體選擇。將獨特的展示字體與精緻的正文字體配對。
-- **顏色和主題**：承諾一個連貫的美學。使用 CSS 變量保持一致性。具有鮮明強調色的主導色優於膽怯、均勻分布的調色板。
-- **動作**：使用動畫來產生效果和微交互。對於 HTML，優先考慮純 CSS 解決方案。對於 React，可用時使用 Motion 庫。專注於高影響力時刻：一個精心編排的頁面加載與交錯顯示（animation-delay）比分散的微交互創造更多樂趣。使用滾動觸發和令人驚訝的懸停狀態。
-- **空間構圖**：意外的佈局。不對稱。重疊。對角流動。打破網格的元素。慷慨的負空間或受控的密度。
-- **背景和視覺細節**：創造氛圍和深度，而不是默認使用純色。添加與整體美學相匹配的上下文效果和紋理。應用創意形式，如漸變網格、噪聲紋理、幾何圖案、分層透明度、戲劇性陰影、裝飾性邊框、自定義光標和顆粒覆蓋。
+3. **Verify Quality** using `./references/visual-analysis-overview.md`:
+   - Compare implementation to original screenshot
+   - Check color accuracy, spacing consistency, typography matching
+   - Ensure all design elements preserved
 
-永遠不要使用通用的 AI 生成美學，如過度使用的字體系列（Inter、Roboto、Arial、系統字體）、陳詞濫調的配色方案（特別是白色背景上的紫色漸變）、可預測的佈局和組件模式，以及缺乏特定上下文特徵的千篇一律的設計。
+**Important**: Do NOT skip to implementation. Extract design guidelines FIRST, then code.
 
-創造性地解釋並做出對上下文真正設計的意外選擇。沒有設計應該是相同的。在淺色和深色主題、不同字體、不同美學之間變化。永遠不要在生成中收斂到常見選擇（例如 Space Grotesk）。
+### When Building from Scratch (No Screenshot Provided)
 
-**重要**：將實現複雜性與美學願景相匹配。極繁主義設計需要具有大量動畫和效果的精心代碼。極簡主義或精緻設計需要克制、精確，並仔細關注間距、排版和微妙細節。優雅來自於很好地執行願景。
+Follow "Design Thinking" process below to create original design.
 
-請記住：Claude 能夠進行非凡的創意工作。不要退縮，展示在跳出框框思考並完全致力於獨特願景時真正可以創造的東西。
+## Design Thinking
+
+Before coding, understand the context and commit to a BOLD aesthetic direction:
+- **Purpose**: What problem does this interface solve? Who uses it?
+- **Tone**: Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc. There are so many flavors to choose from. Use these for inspiration but design one that is true to the aesthetic direction.
+- **Constraints**: Technical requirements (framework, performance, accessibility).
+- **Differentiation**: What makes this UNFORGETTABLE? What's the one thing someone will remember?
+
+**CRITICAL**: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work - the key is intentionality, not intensity.
+
+Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
+- Production-grade and functional
+- Visually striking and memorable
+- Cohesive with a clear aesthetic point-of-view
+- Meticulously refined in every detail
+
+## Frontend Aesthetics Guidelines
+
+Focus on:
+- **Typography**: Choose fonts that are beautiful, unique, and interesting. Avoid generic fonts like Arial and Inter; opt instead for distinctive choices that elevate the frontend's aesthetics; unexpected, characterful font choices. Pair a distinctive display font with a refined body font.
+- **Color & Theme**: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes.
+- **Motion**: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available (Use `anime.js` for animations: `./references/animejs.md`). Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions. Use scroll-triggering and hover states that surprise.
+- **Spatial Composition**: Unexpected layouts. Asymmetry. Overlap. Diagonal flow. Grid-breaking elements. Generous negative space OR controlled density.
+- **Backgrounds & Visual Details**: Create atmosphere and depth rather than defaulting to solid colors. Add contextual effects and textures that match the overall aesthetic. Apply creative forms like gradient meshes, noise textures, geometric patterns, layered transparencies, dramatic shadows, decorative borders, custom cursors, and grain overlays.
+- **Visual Assets**: Use `ai-multimodal` skills to generate the assets and `media-processing` skill to remove the background of generated assets if needed
+
+## Working with Visual Assets
+
+**Quick Start**: `./references/ai-multimodal-overview.md`
+
+### Generating New Visual Assets
+When you need to GENERATE new hero images, backgrounds, textures, or decorative elements that match the design aesthetic, use the `ai-multimodal` skill. This ensures generated assets align with the design thinking and aesthetics guidelines rather than producing generic imagery.
+
+### Analyzing Provided Screenshots/Images/Designs
+When user provides screenshots, photos, or design references to analyze or replicate, use `./references/design-extraction-overview.md` to extract design guidelines BEFORE implementation. This is MANDATORY for screenshot inputs (see "Input Types & Workflows" above).
+
+**Workflows**:
+- `./references/asset-generation.md` - Generate design-aligned visual assets
+- `./references/visual-analysis-overview.md` - Analyze and verify asset quality (modular)
+- `./references/design-extraction-overview.md` - Extract guidelines from inspiration (modular)
+- `./references/technical-overview.md` - Optimization and best practices (modular)
+
+Each overview references detailed sub-modules for progressive disclosure.
+
+NEVER use generic AI-generated aesthetics like overused font families (Inter, Roboto, Arial, system fonts), cliched color schemes (particularly purple gradients on white backgrounds), predictable layouts and component patterns, and cookie-cutter design that lacks context-specific character.
+
+Interpret creatively and make unexpected choices that feel genuinely designed for the context. No design should be the same. Vary between light and dark themes, different fonts, different aesthetics. NEVER converge on common choices (Space Grotesk, for example) across generations.
+
+**IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
+
+Remember: Claude is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.

@@ -1,205 +1,882 @@
 ---
 name: mobile-developer
-description: Develop React Native, Flutter, or native mobile apps with modern
-  architecture patterns. Masters cross-platform development, native
-  integrations, offline sync, and app store optimization. Use PROACTIVELY for
-  mobile features, cross-platform code, or app optimization.
-metadata:
-  model: inherit
+description: Expert in React Native, Expo, and cross-platform mobile development
+version: 1.0.0
+tags: [mobile, react-native, expo, ios, android, cross-platform]
 ---
 
-## Use this skill when
+# Mobile Developer Skill
 
-- Working on mobile developer tasks or workflows
-- Needing guidance, best practices, or checklists for mobile developer
+I help you build cross-platform mobile apps with React Native and Expo.
 
-## Do not use this skill when
+## What I Do
 
-- The task is unrelated to mobile developer
-- You need a different domain or tool outside this scope
+**App Development:**
 
-## Instructions
+- React Native / Expo apps (iOS + Android)
+- Navigation and routing
+- State management
+- API integration
 
-- Clarify goals, constraints, and required inputs.
-- Apply relevant best practices and validate outcomes.
-- Provide actionable steps and verification.
-- If detailed examples are required, open `resources/implementation-playbook.md`.
+**Native Features:**
 
-You are a mobile development expert specializing in cross-platform and native mobile application development.
+- Camera, location, notifications
+- Biometric authentication
+- File system access
+- Device sensors
 
-## Purpose
-Expert mobile developer specializing in React Native, Flutter, and native iOS/Android development. Masters modern mobile architecture patterns, performance optimization, and platform-specific integrations while maintaining code reusability across platforms.
+**Performance:**
 
-## Capabilities
+- Optimize bundle size
+- Lazy loading
+- Image optimization
+- Memory management
 
-### Cross-Platform Development
-- React Native with New Architecture (Fabric renderer, TurboModules, JSI)
-- Flutter with latest Dart 3.x features and Material Design 3
-- Expo SDK 50+ with development builds and EAS services
-- Ionic with Capacitor for web-to-mobile transitions
-- .NET MAUI for enterprise cross-platform solutions
-- Xamarin migration strategies to modern alternatives
-- PWA-to-native conversion strategies
+**Distribution:**
 
-### React Native Expertise
-- New Architecture migration and optimization
-- Hermes JavaScript engine configuration
-- Metro bundler optimization and custom transformers
-- React Native 0.74+ features and performance improvements
-- Flipper and React Native debugger integration
-- Code splitting and bundle optimization techniques
-- Native module creation with Swift/Kotlin
-- Brownfield integration with existing native apps
+- App Store / Google Play submission
+- Over-the-air (OTA) updates
+- Beta testing (TestFlight, internal testing)
 
-### Flutter & Dart Mastery
-- Flutter 3.x multi-platform support (mobile, web, desktop, embedded)
-- Dart 3 null safety and advanced language features
-- Custom render engines and platform channels
-- Flutter Engine customization and optimization
-- Impeller rendering engine migration from Skia
-- Flutter Web and desktop deployment strategies
-- Plugin development and FFI integration
-- State management with Riverpod, Bloc, and Provider
+## Quick Start: Expo App
 
-### Native Development Integration
-- Swift/SwiftUI for iOS-specific features and optimizations
-- Kotlin/Compose for Android-specific implementations
-- Platform-specific UI guidelines (Human Interface Guidelines, Material Design)
-- Native performance profiling and memory management
-- Core Data, SQLite, and Room database integrations
-- Camera, sensors, and hardware API access
-- Background processing and app lifecycle management
+### Create New App
 
-### Architecture & Design Patterns
-- Clean Architecture implementation for mobile apps
-- MVVM, MVP, and MVI architectural patterns
-- Dependency injection with Hilt, Dagger, or GetIt
-- Repository pattern for data abstraction
-- State management patterns (Redux, BLoC, MVI)
-- Modular architecture and feature-based organization
-- Microservices integration and API design
-- Offline-first architecture with conflict resolution
+```bash
+# Create Expo app
+npx create-expo-app my-app --template blank-typescript
 
-### Performance Optimization
-- Startup time optimization and cold launch improvements
-- Memory management and leak prevention
-- Battery optimization and background execution
-- Network efficiency and request optimization
-- Image loading and caching strategies
-- List virtualization for large datasets
-- Animation performance and 60fps maintenance
-- Code splitting and lazy loading patterns
+cd my-app
 
-### Data Management & Sync
-- Offline-first data synchronization patterns
-- SQLite, Realm, and Hive database implementations
-- GraphQL with Apollo Client or Relay
-- REST API integration with caching strategies
-- Real-time data sync with WebSockets or Firebase
-- Conflict resolution and operational transforms
-- Data encryption and security best practices
-- Background sync and delta synchronization
+# Install dependencies
+npx expo install react-native-screens react-native-safe-area-context
+npx expo install expo-router
 
-### Platform Services & Integrations
-- Push notifications (FCM, APNs) with rich media
-- Deep linking and universal links implementation
-- Social authentication (Google, Apple, Facebook)
-- Payment integration (Stripe, Apple Pay, Google Pay)
-- Maps integration (Google Maps, Apple MapKit)
-- Camera and media processing capabilities
-- Biometric authentication and secure storage
-- Analytics and crash reporting integration
+# Start development
+npx expo start
+```
 
-### Testing Strategies
-- Unit testing with Jest, Dart test, and XCTest
-- Widget/component testing frameworks
-- Integration testing with Detox, Maestro, or Patrol
-- UI testing and visual regression testing
-- Device farm testing (Firebase Test Lab, Bitrise)
-- Performance testing and profiling
-- Accessibility testing and compliance
-- Automated testing in CI/CD pipelines
+### Project Structure
 
-### DevOps & Deployment
-- CI/CD pipelines with Bitrise, GitHub Actions, or Codemagic
-- Fastlane for automated deployments and screenshots
-- App Store Connect and Google Play Console automation
-- Code signing and certificate management
-- Over-the-air (OTA) updates with CodePush or EAS Update
-- Beta testing with TestFlight and Internal App Sharing
-- Crash monitoring with Sentry, Bugsnag, or Firebase Crashlytics
-- Performance monitoring and APM tools
+```
+my-app/
+├── app/
+│   ├── (tabs)/
+│   │   ├── index.tsx          # Home tab
+│   │   ├── profile.tsx        # Profile tab
+│   │   └── _layout.tsx        # Tab layout
+│   ├── users/
+│   │   └── [id].tsx          # Dynamic route
+│   ├── _layout.tsx           # Root layout
+│   └── +not-found.tsx        # 404 page
+├── components/
+│   ├── Button.tsx
+│   ├── Card.tsx
+│   └── Loading.tsx
+├── hooks/
+│   └── useAuth.ts
+├── app.json
+└── package.json
+```
 
-### Security & Compliance
-- Mobile app security best practices (OWASP MASVS)
-- Certificate pinning and network security
-- Biometric authentication implementation
-- Secure storage and keychain integration
-- Code obfuscation and anti-tampering techniques
-- GDPR and privacy compliance implementation
-- App Transport Security (ATS) configuration
-- Runtime Application Self-Protection (RASP)
+---
 
-### App Store Optimization
-- App Store Connect and Google Play Console mastery
-- Metadata optimization and ASO best practices
-- Screenshots and preview video creation
-- A/B testing for store listings
-- Review management and response strategies
-- App bundle optimization and APK size reduction
-- Dynamic delivery and feature modules
-- Privacy nutrition labels and data disclosure
+## Navigation with Expo Router
 
-### Advanced Mobile Features
-- Augmented Reality (ARKit, ARCore) integration
-- Machine Learning on-device with Core ML and ML Kit
-- IoT device connectivity and BLE protocols
-- Wearable app development (Apple Watch, Wear OS)
-- Widget development for home screen integration
-- Live Activities and Dynamic Island implementation
-- Background app refresh and silent notifications
-- App Clips and Instant Apps development
+### Tab Navigation
 
-## Behavioral Traits
-- Prioritizes user experience across all platforms
-- Balances code reuse with platform-specific optimizations
-- Implements comprehensive error handling and offline capabilities
-- Follows platform-specific design guidelines religiously
-- Considers performance implications of every architectural decision
-- Writes maintainable, testable mobile code
-- Keeps up with platform updates and deprecations
-- Implements proper analytics and monitoring
-- Considers accessibility from the development phase
-- Plans for internationalization and localization
+```typescript
+// app/(tabs)/_layout.tsx
+import { Tabs } from 'expo-router'
+import { Ionicons } from '@expo/vector-icons'
 
-## Knowledge Base
-- React Native New Architecture and latest releases
-- Flutter roadmap and Dart language evolution
-- iOS SDK updates and SwiftUI advancements
-- Android Jetpack libraries and Kotlin evolution
-- Mobile security standards and compliance requirements
-- App store guidelines and review processes
-- Mobile performance optimization techniques
-- Cross-platform development trade-offs and decisions
-- Mobile UX patterns and platform conventions
-- Emerging mobile technologies and trends
+export default function TabLayout() {
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: '#007AFF',
+        headerShown: false
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" size={size} color={color} />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" size={size} color={color} />
+          )
+        }}
+      />
+    </Tabs>
+  )
+}
+```
 
-## Response Approach
-1. **Assess platform requirements** and cross-platform opportunities
-2. **Recommend optimal architecture** based on app complexity and team skills
-3. **Provide platform-specific implementations** when necessary
-4. **Include performance optimization** strategies from the start
-5. **Consider offline scenarios** and error handling
-6. **Implement proper testing strategies** for quality assurance
-7. **Plan deployment and distribution** workflows
-8. **Address security and compliance** requirements
+### Stack Navigation
 
-## Example Interactions
-- "Architect a cross-platform e-commerce app with offline capabilities"
-- "Migrate React Native app to New Architecture with TurboModules"
-- "Implement biometric authentication across iOS and Android"
-- "Optimize Flutter app performance for 60fps animations"
-- "Set up CI/CD pipeline for automated app store deployments"
-- "Create native modules for camera processing in React Native"
-- "Implement real-time chat with offline message queueing"
-- "Design offline-first data sync with conflict resolution"
+```typescript
+// app/users/[id].tsx
+import { useLocalSearchParams } from 'expo-router'
+import { View, Text } from 'react-native'
+
+export default function UserDetail() {
+  const { id } = useLocalSearchParams()
+
+  return (
+    <View>
+      <Text>User ID: {id}</Text>
+    </View>
+  )
+}
+```
+
+---
+
+## UI Components
+
+### Custom Button
+
+```typescript
+// components/Button.tsx
+import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
+
+interface ButtonProps {
+  title: string
+  onPress: () => void
+  variant?: 'primary' | 'secondary'
+  loading?: boolean
+  disabled?: boolean
+}
+
+export function Button({
+  title,
+  onPress,
+  variant = 'primary',
+  loading = false,
+  disabled = false
+}: ButtonProps) {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.button,
+        variant === 'primary' ? styles.primary : styles.secondary,
+        disabled && styles.disabled
+      ]}
+      onPress={onPress}
+      disabled={disabled || loading}
+      activeOpacity={0.7}
+    >
+      {loading ? (
+        <ActivityIndicator color="#fff" />
+      ) : (
+        <Text style={styles.text}>{title}</Text>
+      )}
+    </TouchableOpacity>
+  )
+}
+
+const styles = StyleSheet.create({
+  button: {
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  primary: {
+    backgroundColor: '#007AFF'
+  },
+  secondary: {
+    backgroundColor: '#8E8E93'
+  },
+  disabled: {
+    opacity: 0.5
+  },
+  text: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600'
+  }
+})
+```
+
+### Card Component
+
+```typescript
+// components/Card.tsx
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { ReactNode } from 'react'
+
+interface CardProps {
+  title?: string
+  children: ReactNode
+  onPress?: () => void
+}
+
+export function Card({ title, children, onPress }: CardProps) {
+  const Container = onPress ? TouchableOpacity : View
+
+  return (
+    <Container
+      style={styles.card}
+      onPress={onPress}
+      activeOpacity={onPress ? 0.7 : 1}
+    >
+      {title && <Text style={styles.title}>{title}</Text>}
+      {children}
+    </Container>
+  )
+}
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 12
+  }
+})
+```
+
+---
+
+## Data Fetching
+
+### Custom Hook
+
+```typescript
+// hooks/useQuery.ts
+import { useState, useEffect } from 'react'
+
+interface UseQueryResult<T> {
+  data: T | null
+  loading: boolean
+  error: Error | null
+  refetch: () => void
+}
+
+export function useQuery<T>(url: string): UseQueryResult<T> {
+  const [data, setData] = useState<T | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch(url)
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const json = await response.json()
+      setData(json)
+      setError(null)
+    } catch (e) {
+      setError(e as Error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [url])
+
+  return { data, loading, error, refetch: fetchData }
+}
+```
+
+### Usage
+
+```typescript
+// app/(tabs)/index.tsx
+import { View, Text, FlatList, RefreshControl } from 'react-native'
+import { useQuery } from '@/hooks/useQuery'
+import { Card } from '@/components/Card'
+
+interface Post {
+  id: string
+  title: string
+  content: string
+}
+
+export default function HomeScreen() {
+  const { data, loading, error, refetch } = useQuery<Post[]>(
+    'https://api.example.com/posts'
+  )
+
+  if (error) {
+    return (
+      <View>
+        <Text>Error: {error.message}</Text>
+      </View>
+    )
+  }
+
+  return (
+    <FlatList
+      data={data || []}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <Card title={item.title}>
+          <Text>{item.content}</Text>
+        </Card>
+      )}
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={refetch} />
+      }
+    />
+  )
+}
+```
+
+---
+
+## Native Features
+
+### Camera
+
+```typescript
+// app/camera.tsx
+import { Camera, CameraType } from 'expo-camera'
+import { useState } from 'react'
+import { Button, View, StyleSheet } from 'react-native'
+
+export default function CameraScreen() {
+  const [type, setType] = useState(CameraType.back)
+  const [permission, requestPermission] = Camera.useCameraPermissions()
+
+  if (!permission) {
+    return <View />
+  }
+
+  if (!permission.granted) {
+    return (
+      <View style={styles.container}>
+        <Button onPress={requestPermission} title="Grant Camera Permission" />
+      </View>
+    )
+  }
+
+  return (
+    <View style={styles.container}>
+      <Camera style={styles.camera} type={type}>
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => {
+              setType(current =>
+                current === CameraType.back
+                  ? CameraType.front
+                  : CameraType.back
+              )
+            }}
+            title="Flip Camera"
+          />
+        </View>
+      </Camera>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  camera: { flex: 1 },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    justifyContent: 'flex-end',
+    padding: 20
+  }
+})
+```
+
+### Push Notifications
+
+```typescript
+// hooks/useNotifications.ts
+import { useState, useEffect, useRef } from 'react'
+import * as Notifications from 'expo-notifications'
+import * as Device from 'expo-device'
+import { Platform } from 'react-native'
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false
+  })
+})
+
+export function useNotifications() {
+  const [expoPushToken, setExpoPushToken] = useState('')
+  const notificationListener = useRef<Notifications.Subscription>()
+  const responseListener = useRef<Notifications.Subscription>()
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token || ''))
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log('Notification received:', notification)
+    })
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log('Notification clicked:', response)
+    })
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current!)
+      Notifications.removeNotificationSubscription(responseListener.current!)
+    }
+  }, [])
+
+  return { expoPushToken }
+}
+
+async function registerForPushNotificationsAsync() {
+  let token
+
+  if (Platform.OS === 'android') {
+    await Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C'
+    })
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync()
+    let finalStatus = existingStatus
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync()
+      finalStatus = status
+    }
+
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!')
+      return
+    }
+
+    token = (await Notifications.getExpoPushTokenAsync()).data
+  } else {
+    alert('Must use physical device for Push Notifications')
+  }
+
+  return token
+}
+```
+
+### Location
+
+```typescript
+// hooks/useLocation.ts
+import { useState, useEffect } from 'react'
+import * as Location from 'expo-location'
+
+export function useLocation() {
+  const [location, setLocation] = useState<Location.LocationObject | null>(null)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    ;(async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync()
+
+      if (status !== 'granted') {
+        setError('Permission to access location was denied')
+        return
+      }
+
+      const location = await Location.getCurrentPositionAsync({})
+      setLocation(location)
+    })()
+  }, [])
+
+  return { location, error }
+}
+```
+
+---
+
+## State Management
+
+### Zustand (Recommended)
+
+```typescript
+// store/auth.ts
+import { create } from 'zustand'
+
+interface User {
+  id: string
+  email: string
+  name: string
+}
+
+interface AuthStore {
+  user: User | null
+  token: string | null
+  login: (email: string, password: string) => Promise<void>
+  logout: () => void
+}
+
+export const useAuthStore = create<AuthStore>(set => ({
+  user: null,
+  token: null,
+
+  login: async (email, password) => {
+    const response = await fetch('https://api.example.com/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+
+    const { user, token } = await response.json()
+
+    set({ user, token })
+  },
+
+  logout: () => {
+    set({ user: null, token: null })
+  }
+}))
+```
+
+**Usage:**
+
+```typescript
+// app/login.tsx
+import { useState } from 'react'
+import { View, TextInput } from 'react-native'
+import { useAuthStore } from '@/store/auth'
+import { Button } from '@/components/Button'
+
+export default function LoginScreen() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const login = useAuthStore(state => state.login)
+
+  return (
+    <View>
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        autoCapitalize="none"
+      />
+      <TextInput
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+      <Button
+        title="Login"
+        onPress={() => login(email, password)}
+      />
+    </View>
+  )
+}
+```
+
+---
+
+## Performance Optimization
+
+### Image Optimization
+
+```typescript
+// components/OptimizedImage.tsx
+import { Image } from 'expo-image'
+import { StyleSheet } from 'react-native'
+
+interface OptimizedImageProps {
+  uri: string
+  width: number
+  height: number
+}
+
+export function OptimizedImage({ uri, width, height }: OptimizedImageProps) {
+  return (
+    <Image
+      source={{ uri }}
+      style={{ width, height }}
+      contentFit="cover"
+      transition={200}
+      cachePolicy="memory-disk"
+      placeholder={require('@/assets/placeholder.png')}
+    />
+  )
+}
+```
+
+### Lazy Loading
+
+```typescript
+// app/(tabs)/index.tsx
+import { lazy, Suspense } from 'react'
+import { View, ActivityIndicator } from 'react-native'
+
+const HeavyComponent = lazy(() => import('@/components/HeavyComponent'))
+
+export default function HomeScreen() {
+  return (
+    <View>
+      <Suspense fallback={<ActivityIndicator />}>
+        <HeavyComponent />
+      </Suspense>
+    </View>
+  )
+}
+```
+
+### List Optimization
+
+```typescript
+import { FlashList } from '@shopify/flash-list'
+
+export default function OptimizedList({ data }) {
+  return (
+    <FlashList
+      data={data}
+      renderItem={({ item }) => <Card>{item.title}</Card>}
+      estimatedItemSize={100}
+      keyExtractor={(item) => item.id}
+    />
+  )
+}
+```
+
+---
+
+## App Configuration
+
+### app.json
+
+```json
+{
+  "expo": {
+    "name": "My App",
+    "slug": "my-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.myapp",
+      "buildNumber": "1"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.yourcompany.myapp",
+      "versionCode": 1,
+      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION", "NOTIFICATIONS"]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ]
+  }
+}
+```
+
+---
+
+## Building and Deploying
+
+### Build for iOS
+
+```bash
+# Install EAS CLI
+npm install -g eas-cli
+
+# Login
+eas login
+
+# Configure build
+eas build:configure
+
+# Build for iOS
+eas build --platform ios
+
+# Submit to App Store
+eas submit --platform ios
+```
+
+### Build for Android
+
+```bash
+# Build for Android
+eas build --platform android
+
+# Submit to Google Play
+eas submit --platform android
+```
+
+### Over-the-Air (OTA) Updates
+
+```bash
+# Create update
+eas update --branch production --message "Bug fixes"
+
+# Users get update automatically (no app store review)
+```
+
+---
+
+## Testing
+
+### Jest + React Native Testing Library
+
+```typescript
+// __tests__/Button.test.tsx
+import { render, fireEvent } from '@testing-library/react-native'
+import { Button } from '@/components/Button'
+
+describe('Button', () => {
+  it('calls onPress when pressed', () => {
+    const onPress = jest.fn()
+    const { getByText } = render(<Button title="Click me" onPress={onPress} />)
+
+    fireEvent.press(getByText('Click me'))
+
+    expect(onPress).toHaveBeenCalledTimes(1)
+  })
+
+  it('shows loading indicator when loading', () => {
+    const { getByTestId } = render(
+      <Button title="Click me" onPress={() => {}} loading />
+    )
+
+    expect(getByTestId('loading-indicator')).toBeTruthy()
+  })
+})
+```
+
+---
+
+## Common Patterns
+
+### Protected Routes
+
+```typescript
+// app/_layout.tsx
+import { useEffect } from 'react'
+import { useRouter, Slot } from 'expo-router'
+import { useAuthStore } from '@/store/auth'
+
+export default function RootLayout() {
+  const router = useRouter()
+  const user = useAuthStore(state => state.user)
+
+  useEffect(() => {
+    if (!user) {
+      router.replace('/login')
+    }
+  }, [user])
+
+  return <Slot />
+}
+```
+
+### Form Handling
+
+```typescript
+// hooks/useForm.ts
+import { useState } from 'react'
+
+export function useForm<T>(initialValues: T) {
+  const [values, setValues] = useState<T>(initialValues)
+  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({})
+
+  const handleChange = (name: keyof T) => (value: any) => {
+    setValues(prev => ({ ...prev, [name]: value }))
+    setErrors(prev => ({ ...prev, [name]: undefined }))
+  }
+
+  const validate = (rules: Partial<Record<keyof T, (value: any) => string | undefined>>) => {
+    const newErrors: Partial<Record<keyof T, string>> = {}
+
+    Object.keys(rules).forEach(key => {
+      const error = rules[key as keyof T]?.(values[key as keyof T])
+      if (error) {
+        newErrors[key as keyof T] = error
+      }
+    })
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  return { values, errors, handleChange, validate }
+}
+```
+
+---
+
+## When to Use Me
+
+**Perfect for:**
+
+- Building iOS + Android apps from one codebase
+- Rapid mobile prototyping
+- Apps with native features (camera, location, push)
+- Cross-platform mobile development
+
+**I'll help you:**
+
+- Set up React Native / Expo projects
+- Implement navigation
+- Integrate native features
+- Optimize performance
+- Submit to app stores
+
+## What I'll Create
+
+```
+📱 Cross-Platform Apps
+🧭 Navigation Systems
+📸 Camera Integration
+📍 Location Services
+🔔 Push Notifications
+🚀 App Store Submissions
+```
+
+Let's build amazing mobile experiences!

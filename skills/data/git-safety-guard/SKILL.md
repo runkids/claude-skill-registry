@@ -4,13 +4,13 @@ description: |
   Blocks destructive git and filesystem commands before execution.
   Prevents accidental loss of uncommitted work from git checkout --,
   git reset --hard, rm -rf, and similar destructive operations.
-  Works as a Codex CLI PreToolUse hook with fail-open semantics.
+  Works as a Claude Code PreToolUse hook with fail-open semantics.
 license: Apache-2.0
 ---
 
 # Git Safety Guard
 
-Use this skill when setting up or configuring protection against destructive git/filesystem commands in Codex CLI.
+Use this skill when setting up or configuring protection against destructive git/filesystem commands in Claude Code.
 
 ## Overview
 
@@ -18,14 +18,14 @@ Git Safety Guard intercepts Bash commands before execution and blocks dangerous 
 
 **Key Features:**
 - `terraphim-agent guard` - CLI command for pattern checking
-- PreToolUse hook - Intercept Codex CLI tool calls before execution
+- PreToolUse hook - Intercept Claude Code tool calls before execution
 - Allowlist support - Safe patterns override dangerous patterns
 - Fail-open semantics - If guard fails, commands pass through
 
 ## Architecture
 
 ```
-Codex CLI PreToolUse
+Claude Code PreToolUse
       |
       v
 git_safety_guard.sh (shell wrapper)
@@ -58,6 +58,9 @@ Pattern Matching (Regex)
 | `rm -rf` (non-temp paths) | Recursive file deletion |
 | `git stash drop` | Permanently deletes stashed changes |
 | `git stash clear` | Deletes ALL stashed changes |
+| `git commit --no-verify` | Bypasses pre-commit and commit-msg hooks |
+| `git commit -n` | Same as --no-verify |
+| `git push --no-verify` | Bypasses pre-push hooks |
 
 ## Commands Explicitly Allowed
 
@@ -77,15 +80,29 @@ Pattern Matching (Regex)
 ### Quick Start
 
 ```bash
-# Build terraphim-agent
-cd /path/to/terraphim-ai
-cargo build -p terraphim_agent --release
+# Install terraphim-agent from GitHub releases (latest version)
+# macOS ARM64 (Apple Silicon)
+gh release download --repo terraphim/terraphim-ai \
+  --pattern "terraphim-agent-aarch64-apple-darwin" --dir /tmp
+chmod +x /tmp/terraphim-agent-aarch64-apple-darwin
+mv /tmp/terraphim-agent-aarch64-apple-darwin ~/.cargo/bin/terraphim-agent
+
+# macOS x86_64 (Intel)
+# gh release download --repo terraphim/terraphim-ai \
+#   --pattern "terraphim-agent-x86_64-apple-darwin" --dir /tmp
+
+# Linux x86_64
+# gh release download --repo terraphim/terraphim-ai \
+#   --pattern "terraphim-agent-x86_64-unknown-linux-gnu" --dir /tmp
+
+# Note: crates.io version (cargo install terraphim_agent) is outdated (v1.0.0)
+# and missing the guard command. Use GitHub releases for latest features.
 
 # Test guard command
-echo "git checkout -- file.txt" | ./target/release/terraphim-agent guard --json
+echo "git checkout -- file.txt" | terraphim-agent guard --json
 # Output: {"decision":"block","reason":"git checkout -- discards...","command":"..."}
 
-echo "git checkout -b new-branch" | ./target/release/terraphim-agent guard --json
+echo "git checkout -b new-branch" | terraphim-agent guard --json
 # Output: {"decision":"allow","command":"git checkout -b new-branch"}
 ```
 
@@ -94,23 +111,23 @@ echo "git checkout -b new-branch" | ./target/release/terraphim-agent guard --jso
 **Project-local installation:**
 ```bash
 # Copy hook script
-cp .codex/hooks/git_safety_guard.sh /your/project/.codex/hooks/
+cp .claude/hooks/git_safety_guard.sh /your/project/.claude/hooks/
 
-# Add to .codex/settings.local.json
+# Add to .claude/settings.local.json
 {
   "hooks": {
     "PreToolUse": [{
       "matcher": "Bash",
       "hooks": [{
         "type": "command",
-        "command": ".codex/hooks/git_safety_guard.sh"
+        "command": ".claude/hooks/git_safety_guard.sh"
       }]
     }]
   }
 }
 ```
 
-**Global installation (~/.codex/):**
+**Global installation (~/.claude/):**
 ```bash
 # Run install script with --global flag
 ./scripts/install-terraphim-hooks.sh --global
@@ -210,7 +227,7 @@ export TERRAPHIM_VERBOSE=1
 
 ## What Happens When Blocked
 
-When Codex tries to run a blocked command, it receives feedback like:
+When Claude tries to run a blocked command, it receives feedback like:
 
 ```
 BLOCKED by git_safety_guard
@@ -222,7 +239,7 @@ Command: git checkout -- file.txt
 If this operation is truly needed, ask the user for explicit permission and have them run the command manually.
 ```
 
-The command never executes. Codex sees this feedback and should ask the user for help.
+The command never executes. Claude sees this feedback and should ask the user for help.
 
 ## Testing
 
@@ -238,17 +255,17 @@ cargo test -p terraphim_agent guard_patterns
 
 # Test hook script
 echo '{"tool_name":"Bash","tool_input":{"command":"git reset --hard"}}' | \
-  .codex/hooks/git_safety_guard.sh
+  .claude/hooks/git_safety_guard.sh
 ```
 
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| Hook not triggering | Check `.codex/settings.local.json` configuration |
+| Hook not triggering | Check `.claude/settings.local.json` configuration |
 | Command not blocked | Verify pattern matches with `terraphim-agent guard --json` |
 | Agent not found | Build with `cargo build -p terraphim_agent --release` |
-| Permission denied | Run `chmod +x .codex/hooks/git_safety_guard.sh` |
+| Permission denied | Run `chmod +x .claude/hooks/git_safety_guard.sh` |
 | jq not found | Install jq: `brew install jq` or `apt install jq` |
 
 ## The Incident That Prompted This

@@ -1,6 +1,6 @@
 ---
 name: Global Coding Style
-description: Maintain consistent code formatting, naming conventions, type safety, and automated code quality standards across PHP and TypeScript/JavaScript. Use this skill when writing or editing any PHP files (.php), TypeScript/JavaScript files (.ts, .tsx, .js, .jsx), when implementing type declarations and return types, when running code formatters (Laravel Pint, Ultracite) or linters, when running static analysis tools (Larastan), when naming variables, functions, classes, or files, when applying DRY principles, when removing dead code, or when preparing code for review or commit.
+description: Follow consistent code formatting, naming conventions, TypeScript standards, and Astro component structure patterns across the entire codebase. Use this skill when writing any code file to ensure proper formatting, naming, indentation, and style consistency. When working on TypeScript files (.ts, .tsx), Astro components (.astro), React/Vue/Svelte components, configuration files, utility functions, type definitions, import statements, prop interfaces, or any code that requires formatting with Prettier or linting with ESLint.
 ---
 
 # Global Coding Style
@@ -9,20 +9,17 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When writing or editing PHP files (.php) in any part of the application
-- When writing or editing TypeScript or JavaScript files (.ts, .tsx, .js, .jsx)
-- When implementing explicit return type declarations in PHP methods and functions
-- When adding type hints to function parameters in PHP
-- When leveraging TypeScript types in frontend code
-- When naming variables, functions, classes, methods, or files
-- When running Laravel Pint for PHP code formatting
-- When running Ultracite for JavaScript/TypeScript linting and formatting
-- When running Larastan (PHPStan) for static analysis
-- When applying DRY principles to eliminate code duplication
-- When removing unused imports, dead code, or commented-out blocks
-- When configuring pre-commit hooks via Lefthook
-- When preparing code for review with CodeRabbit CLI
-- When refactoring code for better readability and maintainability
+- When writing or editing any TypeScript (.ts, .tsx) or JavaScript (.js, .jsx) files
+- When creating or modifying Astro component files (.astro)
+- When structuring component frontmatter (imports, props, logic order)
+- When naming files, components, functions, variables, or constants
+- When defining TypeScript interfaces, types, or prop definitions
+- When organizing import statements (framework imports, components, utilities)
+- When applying code formatting rules (indentation, quotes, semicolons, line length)
+- When ensuring TypeScript strict mode compliance and avoiding `any` types
+- When using Prettier for auto-formatting or ESLint for code quality
+- When writing DRY code and extracting reusable utilities or components
+- When removing dead code, unused imports, or commented-out code blocks
 
 ## Instructions
 

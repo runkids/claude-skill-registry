@@ -1,270 +1,261 @@
 ---
 name: api-documentation
-description: This skill provides patterns for generating and maintaining API documentation including OpenAPI specs, endpoint documentation, and example generation.
+description: Use when API code changes (routes, endpoints, schemas). Enforces Swagger/OpenAPI sync. Pauses work if documentation has drifted, triggering documentation-audit skill.
 ---
 
-# API Documentation Skill
+# API Documentation Enforcement
 
-Generate and maintain comprehensive API documentation.
+## Overview
 
-## When to Use
+Ensures all API changes are reflected in Swagger/OpenAPI documentation. When documentation drift is detected, work pauses until documentation is synchronized.
 
-- Generating OpenAPI/Swagger specifications
-- Documenting REST API endpoints
-- Creating request/response examples
-- Documenting API versioning
-- Building API reference guides
+**Core principle:** API documentation is a first-class artifact, not an afterthought. No API change ships without documentation.
 
-## Reference Documents
+**Announce at start:** "I'm using api-documentation to verify Swagger/OpenAPI sync."
 
-- [OpenAPI Patterns](./references/openapi-patterns.md) - OpenAPI/Swagger specification patterns
-- [Endpoint Documentation](./references/endpoint-documentation.md) - Standards for documenting endpoints
-- [Example Generation](./references/example-generation.md) - Request/response example patterns
-- [Versioning Documentation](./references/versioning-docs.md) - API versioning documentation
+## When This Skill Triggers
 
-## Core Principles
+This skill is triggered when ANY of these file patterns are modified:
 
-### 1. Document Every Endpoint
+| Pattern | Framework | Trigger Reason |
+|---------|-----------|----------------|
+| `**/routes/**/*.ts` | Express/Fastify | Route definitions |
+| `**/controllers/**/*.ts` | NestJS/Express | Controller endpoints |
+| `**/*.controller.ts` | NestJS | Controller class |
+| `**/api/**/*.py` | FastAPI/Flask | API endpoints |
+| `**/*_router.py` | FastAPI | Router definitions |
+| `**/handlers/**/*.go` | Go | HTTP handlers |
+| `**/schema*.ts` | TypeScript | Schema definitions |
+| `**/dto/**/*.ts` | NestJS | Data transfer objects |
+| `**/models/**/*.ts` | Various | API models |
 
-Every public endpoint needs:
-- HTTP method and path
-- Description of purpose
-- Request parameters
-- Request body schema
-- Response schemas
-- Error responses
-- Authentication requirements
+## Documentation Locations
 
-### 2. Provide Realistic Examples
+Check these locations for existing API documentation:
 
-```yaml
-# Good example - realistic data
-example:
-  id: "ord_1234567890"
-  customer_email: "jane.doe@example.com"
-  total: 149.99
-  items:
-    - product_id: "prod_abc"
-      name: "Wireless Headphones"
-      quantity: 1
-      price: 149.99
+| File | Format | Standard |
+|------|--------|----------|
+| `openapi.yaml` | YAML | OpenAPI 3.x |
+| `openapi.json` | JSON | OpenAPI 3.x |
+| `swagger.yaml` | YAML | Swagger 2.0 |
+| `swagger.json` | JSON | Swagger 2.0 |
+| `docs/api.yaml` | YAML | OpenAPI 3.x |
+| `api/openapi.yaml` | YAML | OpenAPI 3.x |
 
-# Bad example - placeholder data
-example:
-  id: "string"
-  customer_email: "string"
-  total: 0
-```
+## The Protocol
 
-### 3. Document Errors Thoroughly
-
-```yaml
-responses:
-  400:
-    description: Validation error
-    content:
-      application/json:
-        schema:
-          $ref: '#/components/schemas/ValidationError'
-        example:
-          error: "validation_error"
-          message: "Invalid request parameters"
-          details:
-            - field: "email"
-              message: "Must be a valid email address"
-```
-
-## Workflow: Generating API Documentation
-
-### Step 1: Discover Endpoints
+### Step 1: Detect API Changes
 
 ```bash
-# Find all route definitions
-grep -r "@router\|@api\|@app\." --include="*.py" src/
-grep -r "router\.\|app\." --include="*.ts" src/
+# Check if current changes affect API
+API_CHANGED=false
+
+# Check common API file patterns
+for pattern in "routes/" "controllers/" "api/" "handlers/" "*.controller.ts" "*_router.py"; do
+  if git diff --name-only HEAD~1 | grep -q "$pattern"; then
+    API_CHANGED=true
+    break
+  fi
+done
+
+# Check for schema/DTO changes
+if git diff --name-only HEAD~1 | grep -qE "(schema|dto|model)"; then
+  API_CHANGED=true
+fi
+
+echo "API Changed: $API_CHANGED"
 ```
 
-### Step 2: Extract Endpoint Info
-
-For each endpoint, gather:
-- Path and method
-- Path parameters
-- Query parameters
-- Request body structure
-- Response structure
-- Status codes
-
-### Step 3: Generate OpenAPI Spec
-
-```yaml
-openapi: 3.0.0
-info:
-  title: My API
-  version: 1.0.0
-  description: API for managing orders
-
-paths:
-  /orders:
-    post:
-      summary: Create a new order
-      operationId: createOrder
-      tags:
-        - Orders
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateOrderRequest'
-      responses:
-        '201':
-          description: Order created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-```
-
-### Step 4: Add Examples
-
-```yaml
-components:
-  schemas:
-    Order:
-      type: object
-      properties:
-        id:
-          type: string
-          example: "ord_1234567890"
-        status:
-          type: string
-          enum: [pending, confirmed, shipped, delivered]
-          example: "pending"
-        total:
-          type: number
-          format: float
-          example: 149.99
-```
-
-### Step 5: Validate Spec
+### Step 2: Find Documentation File
 
 ```bash
-# Validate OpenAPI spec
-npx @redocly/cli lint openapi.yaml
+find_api_docs() {
+  for file in openapi.yaml openapi.json swagger.yaml swagger.json \
+              docs/api.yaml docs/openapi.yaml api/openapi.yaml; do
+    if [ -f "$file" ]; then
+      echo "$file"
+      return 0
+    fi
+  done
+  return 1
+}
 
-# Generate docs preview
-npx @redocly/cli preview-docs openapi.yaml
+DOC_FILE=$(find_api_docs)
+if [ -z "$DOC_FILE" ]; then
+  echo "ERROR: No API documentation file found"
+  echo "PAUSE: Trigger documentation-audit skill"
+fi
 ```
 
-## Documentation Templates
+### Step 3: Verify Sync
 
-### Endpoint Documentation
+Compare API code with documentation:
 
-```markdown
-## Create Order
+```bash
+verify_api_sync() {
+  local doc_file=$1
 
-Creates a new order for the authenticated user.
+  # Extract endpoints from code
+  CODE_ENDPOINTS=$(find . -name "*.ts" -path "*/routes/*" -exec grep -h "@(Get|Post|Put|Delete|Patch)" {} \; | \
+    sed 's/.*@\(Get\|Post\|Put\|Delete\|Patch\)(\([^)]*\)).*/\1 \2/' | sort -u)
 
-**Endpoint:** `POST /api/orders`
+  # Extract endpoints from OpenAPI
+  DOC_ENDPOINTS=$(yq '.paths | keys[]' "$doc_file" 2>/dev/null | sort -u)
 
-**Authentication:** Required (Bearer token)
+  # Compare
+  MISSING=$(comm -23 <(echo "$CODE_ENDPOINTS" | sort) <(echo "$DOC_ENDPOINTS" | sort))
 
-### Request
+  if [ -n "$MISSING" ]; then
+    echo "DRIFT DETECTED: Endpoints in code but not in docs:"
+    echo "$MISSING"
+    return 1
+  fi
 
-#### Headers
-| Header | Required | Description |
-|--------|----------|-------------|
-| Authorization | Yes | Bearer token |
-| Content-Type | Yes | application/json |
-
-#### Body
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| items | array | Yes | List of items to order |
-| items[].product_id | string | Yes | Product identifier |
-| items[].quantity | integer | Yes | Quantity (1-100) |
-| shipping_address_id | string | No | Use saved address |
-
-### Response
-
-#### Success (201)
-```json
-{
-  "id": "ord_1234567890",
-  "status": "pending",
-  "total": 149.99,
-  "items": [...],
-  "created_at": "2024-01-15T10:30:00Z"
+  return 0
 }
 ```
 
-#### Errors
-| Status | Description |
-|--------|-------------|
-| 400 | Invalid request body |
-| 401 | Authentication required |
-| 422 | Validation failed |
+### Step 4: Handle Drift
+
+If documentation drift is detected:
+
+```markdown
+## API Documentation Drift Detected
+
+**Status:** PAUSED
+**Reason:** API documentation is out of sync with code
+
+### Missing from Documentation
+- `POST /api/users` (found in `routes/users.ts:45`)
+- `GET /api/users/:id/profile` (found in `routes/users.ts:67`)
+
+### Action Required
+1. Invoke `documentation-audit` skill
+2. Update Swagger/OpenAPI documentation
+3. Resume current work after sync complete
+
+---
+*api-documentation skill paused work*
 ```
 
-## Quick Reference
+Then invoke documentation-audit:
 
-### HTTP Status Codes
+```
+Use Skill tool: documentation-audit
+```
 
-| Code | When to Use |
-|------|-------------|
-| 200 | Successful GET, PUT, PATCH |
-| 201 | Successful POST (resource created) |
-| 204 | Successful DELETE (no content) |
-| 400 | Bad request (malformed syntax) |
-| 401 | Authentication required |
-| 403 | Permission denied |
-| 404 | Resource not found |
-| 422 | Validation error |
-| 500 | Server error |
+## Documentation Requirements
 
-### Common Schema Patterns
+When updating API documentation, include:
+
+### Required Fields
+
+| Field | Description |
+|-------|-------------|
+| `summary` | Short description of endpoint |
+| `description` | Detailed explanation |
+| `parameters` | All path/query/header params |
+| `requestBody` | Request schema with examples |
+| `responses` | All response codes with schemas |
+| `tags` | Grouping for organization |
+| `security` | Auth requirements |
+
+### Required Examples
+
+Every endpoint must have:
+- Request example (for POST/PUT/PATCH)
+- Success response example
+- Error response example
+
+### Example OpenAPI Entry
 
 ```yaml
-# Pagination
-PaginatedResponse:
-  type: object
-  properties:
-    data:
-      type: array
-      items:
-        $ref: '#/components/schemas/Item'
-    meta:
-      type: object
-      properties:
-        total:
-          type: integer
-        page:
-          type: integer
-        per_page:
-          type: integer
-        has_next:
-          type: boolean
-
-# Error Response
-ErrorResponse:
-  type: object
-  required:
-    - error
-    - message
-  properties:
-    error:
-      type: string
-    message:
-      type: string
-    details:
-      type: array
-      items:
-        type: object
-        properties:
-          field:
-            type: string
-          message:
-            type: string
+/api/users:
+  post:
+    summary: Create a new user
+    description: |
+      Creates a new user account with the provided details.
+      Requires admin authentication.
+    tags:
+      - Users
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateUserRequest'
+          example:
+            email: user@example.com
+            name: John Doe
+            role: member
+    responses:
+      '201':
+        description: User created successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            example:
+              id: usr_123abc
+              email: user@example.com
+              name: John Doe
+              role: member
+              createdAt: '2025-01-02T10:30:00Z'
+      '400':
+        description: Invalid request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+            example:
+              code: VALIDATION_ERROR
+              message: Email is required
+      '401':
+        description: Authentication required
+      '403':
+        description: Insufficient permissions
 ```
+
+## Validation
+
+After updating documentation, validate:
+
+```bash
+# Validate OpenAPI spec
+npx @apidevtools/swagger-cli validate openapi.yaml
+
+# Or with yq for basic structure check
+yq 'has("openapi") and has("paths") and has("info")' openapi.yaml
+```
+
+## Checklist
+
+Before resuming work:
+
+- [ ] API documentation file exists
+- [ ] All endpoints are documented
+- [ ] Request/response schemas defined
+- [ ] Examples provided for all operations
+- [ ] Security requirements documented
+- [ ] Documentation validates successfully
+- [ ] Changes committed to branch
+
+## Integration
+
+This skill coordinates with:
+
+| Skill | Purpose |
+|-------|---------|
+| `documentation-audit` | Full documentation sync |
+| `issue-driven-development` | Triggered during implementation |
+| `comprehensive-review` | Validates documentation complete |
+
+## When to Skip
+
+This skill can be skipped when:
+- Changes are purely internal (no API surface change)
+- Changes are to test files only
+- Changes are to documentation itself
+- Project has no API (CLI tool, library, etc.)

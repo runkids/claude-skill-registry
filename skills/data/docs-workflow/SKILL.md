@@ -1,214 +1,202 @@
 ---
 name: docs-workflow
-description: Documentation workflow guidelines. Activate when working with Markdown files (.md), README files, technical documentation, RFCs, ADRs, or specification documents.
-location: user
+description: |
+  Four slash commands for documentation lifecycle: /docs, /docs-init, /docs-update, /docs-claude. Create, maintain, and audit CLAUDE.md, README.md, and docs/ structure with smart templates.
+
+  Use when: starting new projects, maintaining documentation, auditing docs for staleness, or ensuring CLAUDE.md matches project state.
+user-invocable: true
 ---
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
-interpreted as described in RFC 2119.
+# docs-workflow
 
-# Documentation Workflow
+**Last Updated**: 2026-01-11
+**Purpose**: Manage project documentation throughout its lifecycle
 
-## Tool Grid
-
-| Task | Tool | Command |
-|------|------|---------|
-| Lint | markdownlint | `npx markdownlint-cli2 "**/*.md"` |
-| Format | Prettier | `npx prettier --write "**/*.md"` |
-| Link check | markdown-link-check | `npx markdown-link-check README.md` |
-
-## Markdown Standards
-
-### Line Length
-
-- Line wrap at 80 characters (RECOMMENDED)
-- Exceptions: URLs, code blocks, tables
-
-### Headings
-
-- ATX-style headings MUST be used (`#` syntax, not underlines)
-- Single H1 per document (REQUIRED)
-- No skipped heading levels (SHOULD NOT skip from H2 to H4)
-- Blank line before and after headings (REQUIRED)
-
-### Lists
-
-- 4-space nesting for sub-items (REQUIRED)
-- Consistent marker style within document (SHOULD)
-
-```markdown
-- First item
-    - Nested item (4 spaces)
-- Second item
-```
-
-### Code Blocks
-
-- Fenced code blocks MUST specify language
-- Use triple backticks, not indentation
-
-### Links and References
-
-- Prefer reference-style links for repeated URLs
-- Relative paths for internal docs (RECOMMENDED)
-- Check links in CI (SHOULD)
-
-## Mermaid Diagrams
-
-Mermaid diagrams are RECOMMENDED for version-controlled visual documentation.
-
-- Version controlled alongside code
-- No external image dependencies
-- Renders in GitHub, GitLab, and most Markdown viewers
-
-```mermaid
-graph TD
-    A[Start] --> B{Decision}
-    B -->|Yes| C[Action]
-    B -->|No| D[End]
-```
-
-Common types: `flowchart`, `sequenceDiagram`, `classDiagram`, `erDiagram`,
-`gantt`, `stateDiagram-v2`
-
-Best practices:
-
-- Keep diagrams simple (SHOULD NOT exceed 20 nodes)
-- Test rendering before committing
-
-## Specification Types
-
-### RFCs (Request for Comments)
-
-Purpose: Consensus-requiring proposals for significant changes.
-
-```markdown
-# RFC-XXXX: Title
-
-## Status
-Draft | Review | Accepted | Rejected | Superseded
-
-## Summary | ## Motivation | ## Detailed Design | ## Alternatives | ## Open Questions
-```
-
-### ADRs (Architecture Decision Records)
-
-Purpose: Document architectural decisions and their context.
-
-**ADRs MUST NOT be deleted, only superseded** by newer ADRs.
-
-```markdown
-# ADR-XXXX: Title
-
-## Status
-Proposed | Accepted | Deprecated | Superseded by ADR-YYYY
-
-## Context | ## Decision | ## Consequences
-```
-
-Location: `docs/adr/` or `docs/architecture/decisions/`
-
-### Design Docs
-
-Purpose: Implementation blueprints for features or systems.
-
-Sections: Overview, Background, Technical Design, Security Considerations,
-Testing Strategy, Rollout Plan.
-
-## YAML Frontmatter
-
-Metadata SHOULD be included in YAML frontmatter:
-
-```yaml
 ---
-title: Document Title
-author: Name
-date: 2025-01-15
-status: draft | review | published
-tags: [api, architecture]
+
+## Overview
+
+This skill helps you:
+- **Initialize** documentation for new projects (CLAUDE.md, README.md, docs/)
+- **Maintain** CLAUDE.md to match actual project state
+- **Audit** all docs for staleness, broken links, outdated versions
+
+## Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/docs` | Main entry - shows available subcommands |
+| `/docs-init` | Create CLAUDE.md + README.md + docs/ structure |
+| `/docs-update` | Audit and maintain all documentation |
+| `/docs-claude` | Smart CLAUDE.md maintenance only |
+
+## Quick Start
+
+### New Project
+
+```bash
+# In a new project directory
+/docs-init
+```
+
+This will:
+1. Detect project type (Cloudflare Workers, Next.js, generic)
+2. Create CLAUDE.md from appropriate template
+3. Create README.md if missing
+4. Optionally scaffold docs/ directory
+
+### Existing Project
+
+```bash
+# Audit all documentation
+/docs-update
+
+# Or just maintain CLAUDE.md
+/docs-claude
+```
+
 ---
+
+## What Gets Created
+
+### CLAUDE.md
+
+Project-specific context for Claude Code, including:
+- Project overview and tech stack
+- Development setup commands
+- Architecture overview
+- Key file locations
+- Common tasks and workflows
+
+**Templates available:**
+- `CLAUDE-cloudflare.md` - Cloudflare Workers + Vite + D1 projects
+- `CLAUDE-nextjs.md` - Next.js App Router projects
+- `CLAUDE-generic.md` - Any other project type
+
+### README.md
+
+Standard README with:
+- Project name and description
+- Installation/setup instructions
+- Usage examples
+- Configuration
+- Contributing guidelines
+
+### docs/ Directory (Optional)
+
+Scaffolded documentation structure:
+- `docs/ARCHITECTURE.md` - System architecture
+- `docs/API.md` - API documentation
+- `docs/DATABASE.md` - Database schema
+
+---
+
+## Smart Maintenance
+
+### /docs-claude Features
+
+The CLAUDE.md maintenance command checks:
+
+1. **Tech Stack Match**
+   - Does CLAUDE.md list technologies that match package.json?
+   - Are versions mentioned still accurate?
+
+2. **Referenced Files**
+   - Do paths mentioned in CLAUDE.md still exist?
+   - Are there new important files not mentioned?
+
+3. **Section Freshness**
+   - Is "Last Updated" date recent?
+   - Are there outdated patterns or commands?
+
+4. **Critical Rules**
+   - For detected tech stack, are important rules present?
+   - E.g., Cloudflare project should mention wrangler.jsonc patterns
+
+### /docs-update Features
+
+Full documentation audit including:
+
+1. **Date Freshness**
+   - Compare doc dates against git history
+   - Flag docs not updated in >30 days
+
+2. **Version References**
+   - Check npm package versions mentioned
+   - Suggest updates for outdated versions
+
+3. **Broken Links**
+   - Verify internal markdown links
+   - Check that referenced files exist
+
+4. **Redundancy**
+   - Identify duplicate content across files
+   - Suggest consolidation
+
+5. **Orphaned Files**
+   - Find docs not referenced anywhere
+   - Suggest archiving or deletion
+
+---
+
+## Project Type Detection
+
+The skill auto-detects project type by looking for:
+
+| Indicator | Project Type |
+|-----------|-------------|
+| `wrangler.jsonc` or `wrangler.toml` | Cloudflare Workers |
+| `next.config.js` or `next.config.ts` | Next.js |
+| Neither | Generic |
+
+Additional indicators influence template content:
+- `package.json` dependencies (React, Vite, etc.)
+- Database config files (drizzle.config.ts, prisma/schema.prisma)
+- Auth config (clerk, better-auth)
+
+---
+
+## Integration with Other Skills
+
+- **project-workflow**: Use `/docs-init` after `/plan-project` to add documentation
+- **project-planning**: Generated `IMPLEMENTATION_PHASES.md` referenced in CLAUDE.md
+- **cloudflare-worker-base**: Cloudflare template includes Workers-specific patterns
+
+---
+
+## Best Practices
+
+### When to Run Each Command
+
+| Situation | Command |
+|-----------|---------|
+| New project | `/docs-init` |
+| After major changes | `/docs-claude` |
+| Before release | `/docs-update` |
+| Monthly maintenance | `/docs-update` |
+
+### CLAUDE.md Guidelines
+
+1. **Keep it current** - Update "Last Updated" when making changes
+2. **Focus on project-specific** - Don't duplicate generic tech docs
+3. **Include common tasks** - Commands you run frequently
+4. **Reference, don't duplicate** - Link to docs/ for detailed content
+
+---
+
+## Templates
+
+Templates are located in `templates/` within this skill:
+
+```
+templates/
+├── CLAUDE-cloudflare.md    # Cloudflare Workers projects
+├── CLAUDE-nextjs.md        # Next.js projects
+├── CLAUDE-generic.md       # Generic projects
+└── README-template.md      # Standard README
 ```
 
-## Cross-References and Linking
-
-### Internal Links
-
-- Use relative paths from document location
-- Link to specific headings with anchors
-
-```markdown
-See [Installation](./docs/install.md#prerequisites)
-```
-
-### External Links
-
-- HTTPS URLs only (REQUIRED)
-- Consider link permanence (prefer official docs over blog posts)
-
-### Anchor Generation (GitHub/GitLab)
-
-Lowercase, spaces become hyphens, remove punctuation except hyphens.
-Example: `## API Design Patterns` becomes `#api-design-patterns`
-
-## CI Validation
-
-Documentation SHOULD be validated in CI pipelines.
-
-```yaml
-# .github/workflows/docs.yml
-name: Docs
-on: [push, pull_request]
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: npx markdownlint-cli2 "**/*.md"
-      - run: npx markdown-link-check README.md
-```
-
-Configuration (`.markdownlint.json`):
-
-```json
-{ "default": true, "MD013": { "line_length": 80 }, "MD033": false }
-```
-
-## README Structure
-
-Project README files SHOULD follow this structure:
-
-1. **Title** - Project name
-2. **Badges** - Build status, coverage, license (OPTIONAL)
-3. **Description** - One-line summary
-4. **Installation** - Prerequisites and install commands
-5. **Usage** - Quick start examples
-6. **Documentation** - Links to detailed docs
-7. **Contributing** - Link to CONTRIBUTING.md
-8. **License** - License type and link
-
-## File Organization
-
-```
-docs/
-  adr/           # Architecture Decision Records
-  rfcs/          # Request for Comments
-  guides/        # User guides
-  api/           # API documentation
-README.md        # Project overview
-CONTRIBUTING.md  # Contribution guidelines
-CHANGELOG.md     # Version history
-```
-
-## Quick Reference
-
-| Element | Rule |
-|---------|------|
-| Line length | 80 chars (RECOMMENDED) |
-| Headings | ATX-style, no skips |
-| List indent | 4 spaces |
-| Code blocks | Fenced with language |
-| Links | Relative for internal |
-| ADRs | Never delete, supersede |
-| Diagrams | Mermaid (RECOMMENDED) |
-| Frontmatter | YAML metadata |
+Templates use placeholders:
+- `{{PROJECT_NAME}}` - Detected from package.json or folder name
+- `{{DATE}}` - Current date
+- `{{TECH_STACK}}` - Detected technologies

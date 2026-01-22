@@ -1,7 +1,7 @@
 {
   "name": "keyword-cluster-builder",
-  "repo": "nicepkg/ai-workflow",
-  "path": "workflows/marketing-pro-workflow/.claude/skills/keyword-cluster-builder/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-21T02:40:45.154197Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/seo/skills/keyword-cluster-builder/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-22T03:51:31.855995Z"
 }

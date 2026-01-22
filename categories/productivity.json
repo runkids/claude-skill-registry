@@ -1,7 +1,7 @@
 {
   "category": "productivity",
-  "count": 690,
-  "updated_at": "2026-01-21T04:24:32.501885Z",
+  "count": 686,
+  "updated_at": "2026-01-22T04:19:05.802092Z",
   "skills": [
     {
       "name": "positron-intake-rotation",
@@ -2626,19 +2626,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "automation-engineer",
-      "description": "\"RAN automation engineering with workflow creation, cognitive consciousness, and autonomous orchestration for intelligent network automation. Use when designing RAN automation workflows, implementing ",
-      "repo": "ricable/ericsson-ran-automation-agentdb",
-      "path": "data/automation-engineer",
-      "category": "productivity",
-      "tags": [
-        "automation",
-        "engineer"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "automation-scripts",
       "description": "Build automation, task runners, and scripting tools",
       "repo": "miles990/claude-software-skills",
@@ -3215,16 +3202,6 @@
       "description": "Colab file paths after unzipping repo. Trigger when: (1) API key file not found, (2) file path errors in Colab, (3) configuring notebook paths, (4) 'yfinance fallback' despite keys existing.",
       "repo": "smith6jt-cop/Skills_Registry",
       "path": "productivity/colab-unzip-workflow",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "command-basic-patterns",
-      "description": "基本実装パターン（シンプル指示/ステップバイステップ/条件分岐/ファイル参照）を整理し、パターン選定とテンプレート適用を支援するスキル。選定基準、実装の骨格、検証手順を一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: コマンド設計 / 目的: 実践的な手順設計パターンの習得Trigger:Us",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "productivity/command-basic-patterns",
       "category": "productivity",
       "tags": [],
       "stars": 0,
@@ -5488,26 +5465,6 @@
       ],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "obra-executing-plans",
-      "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
-      "repo": "",
-      "path": "productivity/obra-executing-plans",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
-    },
-    {
-      "name": "obra-subagent-driven-development",
-      "description": "Use when executing implementation plans with independent tasks in the current session",
-      "repo": "",
-      "path": "productivity/obra-subagent-driven-development",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "https://github.com/obra/superpowers"
     },
     {
       "name": "obsidian-tasks",

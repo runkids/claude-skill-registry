@@ -1,7 +1,7 @@
 {
   "name": "testing-strategy",
-  "repo": "shinpr/agentic-code",
-  "path": ".agents/skills/testing-strategy/SKILL.md",
-  "source": "github.com/shinpr/agentic-code",
-  "downloaded_at": "2026-01-21T02:55:25.816226Z"
+  "repo": "orient-bot/orient",
+  "path": ".claude/skills/testing-strategy/SKILL.md",
+  "source": "github.com/orient-bot/orient",
+  "downloaded_at": "2026-01-22T03:58:47.661521Z"
 }

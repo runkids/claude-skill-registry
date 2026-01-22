@@ -1,6 +1,6 @@
 ---
 name: Global Error Handling
-description: Implement user-friendly error handling with specific exception types, centralized error handling, graceful degradation, and proper resource cleanup. Use this skill when implementing error handling in controllers, services, or API endpoints, when creating custom exception classes, when writing try-catch blocks, when handling external service failures, when implementing retry strategies, when displaying error messages to users, when cleaning up resources in finally blocks, or when implementing fail-fast validation and error detection.
+description: Implement comprehensive error handling strategies including try-catch blocks, API error responses, Content Collection error handling, custom error pages, and production error monitoring. Use this skill when handling data fetching errors, API route errors, validation failures, or implementing error boundaries. When working on API route error responses with proper HTTP status codes, data fetching logic with try-catch error handling, Content Collection getEntry/getCollection error handling, custom error pages (404.astro, 500.astro), React Error Boundaries for client-side components, client-side script error handling, error logging and monitoring integration (Sentry), build-time error handling, or retry logic with exponential backoff.
 ---
 
 # Global Error Handling
@@ -9,18 +9,17 @@ This Skill provides Claude Code with specific guidance on how to adhere to codin
 
 ## When to use this skill
 
-- When implementing error handling in controllers, services, or API endpoints
-- When creating custom exception classes for specific error scenarios
-- When writing try-catch blocks for error handling
-- When providing user-friendly error messages without exposing technical details
-- When implementing fail-fast validation and precondition checks
-- When handling errors at appropriate boundaries (controllers, API layers)
-- When implementing graceful degradation for non-critical service failures
-- When creating retry strategies with exponential backoff for external services
-- When cleaning up resources (file handles, database connections) in finally blocks
-- When centralizing error handling rather than scattering try-catch everywhere
-- When handling transient vs. permanent failures differently
-- When logging errors appropriately while protecting sensitive information
+- When writing API routes that need consistent error responses with proper HTTP status codes
+- When implementing data fetching logic that requires try-catch error handling
+- When using Content Collections getEntry or getCollection methods
+- When creating custom error pages (src/pages/404.astro, 500 error pages)
+- When implementing React Error Boundaries for client-side component errors
+- When writing client-side scripts that need error handling and logging
+- When integrating error monitoring tools like Sentry for production tracking
+- When handling build-time errors or Content Collection schema validation failures
+- When implementing retry logic with exponential backoff for transient failures
+- When ensuring graceful degradation for non-critical feature failures
+- When logging errors with appropriate context and severity levels
 
 ## Instructions
 

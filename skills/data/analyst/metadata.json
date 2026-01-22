@@ -1,7 +1,7 @@
 {
   "name": "analyst",
-  "repo": "wtthornton/TappsCodingAgents",
-  "path": "tapps_agents/resources/claude/skills/analyst/SKILL.md",
-  "source": "github.com/wtthornton/TappsCodingAgents",
-  "downloaded_at": "2026-01-21T04:13:11.563280Z"
+  "repo": "Denissvgn/project-team-ag",
+  "path": ".agent/skills/analyst/SKILL.md",
+  "source": "github.com/Denissvgn/project-team-ag",
+  "downloaded_at": "2026-01-22T04:13:05.373594Z"
 }

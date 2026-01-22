@@ -1,60 +1,65 @@
 ---
 name: context7
-description: Fetch up-to-date library documentation using Context7 API. Use this skill when the user asks for docs, examples, or help with a specific library/framework (e.g., "look up React docs", "context7 nextjs routing", "fetch docs for fastapi").
+description: Query up-to-date library documentation and code examples before implementing features.
+agents: [blaze, rex, nova, tap, spark, grizz, bolt, cleo, cipher, tess, morgan]
+triggers: [documentation, docs, library, api, how to use, examples]
 ---
 
-# Context7 Documentation Fetcher
+# Context7 (Library Documentation)
 
-This skill fetches up-to-date documentation and code examples from libraries using the Context7 API.
+Use Context7 to query **up-to-date documentation** for any library before implementing code.
 
-## Standard Workflow
+## Tools
 
-Context7 requires a **two-step process**:
+| Tool | Purpose |
+|------|---------|
+| `context7_resolve_library_id` | Find the Context7 ID for a library |
+| `context7_get_library_docs` | Query documentation for a specific topic |
 
-### Step 1: Search for the Library ID
+## Workflow
 
-First, search for the library to get its ID:
-
-```
-GET https://context7.com/api/v2/libs/search?libraryName=<library>&query=<context>
-```
-
-Parameters:
-- `libraryName`: The library name (e.g., "react", "nextjs", "fastapi")
-- `query`: Search context to help find the right library
-
-The response contains a `results` array with library objects. Use the `id` field from the first result.
-
-### Step 2: Get Documentation Context
-
-Use the library ID to fetch relevant documentation:
+**Always query docs before implementing:**
 
 ```
-GET https://context7.com/api/v2/context?libraryId=<id>&query=<question>
+1. resolve_library_id({ libraryName: "effect typescript" })
+   → Returns: /effect-ts/effect
+
+2. get_library_docs({ 
+     context7CompatibleLibraryID: "/effect-ts/effect", 
+     topic: "schema validation" 
+   })
+   → Returns: Up-to-date documentation
 ```
 
-Parameters:
-- `libraryId`: The ID from step 1 (e.g., "/vercel/next.js")
-- `query`: Natural language question about the documentation
+## Common Library IDs
 
-This returns ranked code snippets and documentation matching your query.
+| Library | Context7 ID |
+|---------|-------------|
+| Effect | `/effect-ts/effect` |
+| Better Auth | `/better-auth/better-auth` |
+| Next.js | `/vercel/next.js` |
+| React | `/facebook/react` |
+| TanStack Query | `/tanstack/query` |
+| Drizzle ORM | `/drizzle-team/drizzle-orm` |
+| Elysia | `elysiajs` |
+| Axum | `/tokio-rs/axum` |
 
-## Example Usage
+## Best Practices
 
-When the user asks about a library:
+1. **Always resolve first** - Don't guess library IDs
+2. **Be specific with topics** - "schema validation" not just "validation"
+3. **Query before coding** - Get current patterns, not outdated knowledge
+4. **Check multiple topics** - Query auth, then session, then middleware separately
 
-1. **Search for the library**:
-   Fetch `https://context7.com/api/v2/libs/search?libraryName=nextjs&query=routing`
-   Extract the library ID from the response (e.g., "/vercel/next.js")
+## Example Queries
 
-2. **Fetch documentation**:
-   Fetch `https://context7.com/api/v2/context?libraryId=/vercel/next.js&query=How to setup dynamic routes`
-   
-3. **Present the results** to the user with the relevant code examples and documentation.
+```
+# React patterns
+get_library_docs({ libraryId: "/facebook/react", topic: "useEffect cleanup" })
 
-## Tips for Best Results
+# Authentication
+get_library_docs({ libraryId: "/better-auth/better-auth", topic: "next.js integration" })
 
-- Use specific, detailed queries rather than vague terms
-- Include relevant context in the query (e.g., "useState hook with TypeScript" instead of just "state")
-- The API works without an API key but has restricted rate limits
-
+# Type-safe APIs
+get_library_docs({ libraryId: "/effect-ts/effect", topic: "tagged errors" })
+```

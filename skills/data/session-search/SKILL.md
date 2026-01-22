@@ -3,7 +3,7 @@ name: session-search
 description: |
   Search and analyze AI coding assistant session history using Terraphim.
   Find past conversations, discover patterns, and learn from previous work.
-  Supports Codex CLI, Cursor, Aider, and other AI coding assistants.
+  Supports Claude Code, Cursor, Aider, and other AI coding assistants.
 license: Apache-2.0
 ---
 
@@ -15,7 +15,7 @@ Use this skill when searching through AI coding assistant history to find releva
 
 Terraphim provides unified session search across multiple AI coding assistants:
 
-- **Codex CLI** - Native session parsing from `~/.codex/sessions/`
+- **Claude Code** - Native session parsing from `~/.claude/projects/`
 - **Cursor** - IDE session history
 - **Aider** - Git-based conversation logs
 - **OpenCode** - Session history
@@ -33,8 +33,8 @@ Terraphim provides unified session search across multiple AI coding assistants:
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Session Sources                             │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
-│  │ Codex CLI  │  │   Cursor     │  │    Aider     │          │
-│  │ ~/.codex/   │  │ ~/.cursor/   │  │ .aider.chat  │          │
+│  │ Claude Code  │  │   Cursor     │  │    Aider     │          │
+│  │ ~/.claude/   │  │ ~/.cursor/   │  │ .aider.chat  │          │
 │  └──────────────┘  └──────────────┘  └──────────────┘          │
 └─────────────────────────────────────────────────────────────────┘
                               │
@@ -135,7 +135,7 @@ Check if sessions feature is available:
 
 ```bash
 # Check if terraphim-agent has session support
-if terraphim-agent sessions sources 2>/dev/null | grep -q "codex-cli"; then
+if terraphim-agent sessions sources 2>/dev/null | grep -q "claude-code"; then
     echo "Session search available"
 fi
 ```
@@ -214,12 +214,12 @@ Session search can be exposed via MCP tools:
 }
 ```
 
-### codex-log-analyzer Usage
+### claude-log-analyzer Usage
 
 For detailed session analysis:
 
 ```rust
-use codex_log_analyzer::{Analyzer, Reporter};
+use claude_log_analyzer::{Analyzer, Reporter};
 
 // Analyze from default location
 let analyzer = Analyzer::from_default_location()?;
@@ -246,7 +246,7 @@ reporter.print_terminal(&analyses);
 
 ```
 You: "How did I solve the authentication issue last month?"
-Codex: [session-search skill]
+Claude: [session-search skill]
 
 Action:
 1. /sessions search "authentication"
@@ -263,11 +263,11 @@ Output:
 
 ```
 You: "What agents have I used most frequently?"
-Codex: [session-search skill]
+Claude: [session-search skill]
 
 Action:
 1. Import all sessions
-2. Analyze agent usage via codex-log-analyzer
+2. Analyze agent usage via claude-log-analyzer
 3. Generate statistics
 
 Output:
@@ -280,7 +280,7 @@ Output:
 
 ```
 You: "I need to implement caching again"
-Codex: [session-search skill]
+Claude: [session-search skill]
 
 Action:
 1. /sessions concepts "caching"
@@ -297,7 +297,7 @@ Output:
 
 ```
 You: "Export my sessions about the payment system"
-Codex: [session-search skill]
+Claude: [session-search skill]
 
 Action:
 1. /sessions search "payment"
@@ -313,7 +313,7 @@ Output:
 ```rust
 pub struct Session {
     pub id: SessionId,
-    pub source: String,           // "codex-cli", "cursor", etc.
+    pub source: String,           // "claude-code", "cursor", etc.
     pub title: Option<String>,
     pub messages: Vec<Message>,
     pub metadata: SessionMetadata,
@@ -354,7 +354,7 @@ terraphim_sessions = {
 
 | Variable | Description |
 |----------|-------------|
-| `CODEX_SESSIONS_DIR` | Override Codex sessions location |
+| `CLAUDE_SESSIONS_DIR` | Override Claude sessions location |
 | `TERRAPHIM_VERBOSE` | Enable verbose logging |
 
 ## Troubleshooting
@@ -362,7 +362,7 @@ terraphim_sessions = {
 | Issue | Solution |
 |-------|----------|
 | No sessions found | Run `/sessions sources` to check available sources |
-| Import fails | Check permissions on `~/.codex/sessions/` |
+| Import fails | Check permissions on `~/.claude/projects/` |
 | Search too slow | Use `--limit` to reduce scope |
 | Concepts not matching | Verify knowledge graph files in `docs/src/kg/` |
 | Feature not available | Rebuild with `--features repl-sessions` |

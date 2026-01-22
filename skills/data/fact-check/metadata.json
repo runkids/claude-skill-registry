@@ -1,7 +1,7 @@
 {
   "name": "fact-check",
-  "repo": "leonardomso/33-js-concepts",
-  "path": ".opencode/skill/fact-check/SKILL.md",
-  "source": "github.com/leonardomso/33-js-concepts",
-  "downloaded_at": "2026-01-21T04:19:51.047433Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/fact-check/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-22T03:56:41.256935Z"
 }

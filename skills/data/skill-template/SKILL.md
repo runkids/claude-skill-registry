@@ -1,52 +1,44 @@
 ---
-name: <skill-name>
-description: <1-2 sentences, include trigger keywords, max 1024 chars>
-license: Apache-2.0
-metadata:
-  category: <one of: research, problem-framing, ideation, specification, validation, reflection, coordination>
-  frameworks: [triple-diamond, lean-startup, design-thinking]
-  author: product-on-purpose
-  version: "1.0.0"
+name: skill-name
+description: Brief description of what this skill enables. Include trigger keywords that should activate this skill. Triggers on keyword1, keyword2, keyword3.
 ---
 
-# <Skill Title>
+# Skill Title
 
-<One paragraph overview of what this skill produces and why it matters.>
+One-line description of the skill's purpose.
 
-## When to Use
+## Quick Start
 
-- <Situation 1>
-- <Situation 2>
-- <Situation 3>
+```typescript
+// Minimal working example
+// This should be copy-paste ready
+```
 
-## Instructions
+## Core Patterns
 
-When asked to <create artifact>, follow these steps:
+### Pattern 1
+```typescript
+// Implementation
+```
 
-1. **<Step 1 Title>**
-   <What to do and why>
+### Pattern 2
+```typescript
+// Implementation
+```
 
-2. **<Step 2 Title>**
-   <What to do and why>
+## Common Use Cases
 
-3. **<Step 3 Title>**
-   <What to do and why>
+### Use Case 1
+```typescript
+// Example
+```
 
-4. **<Step 4 Title>**
-   <What to do and why>
+### Use Case 2
+```typescript
+// Example
+```
 
-## Output Format
+## Resources
 
-Use the template in `references/TEMPLATE.md` to structure the output.
-
-## Quality Checklist
-
-Before finalizing, verify:
-
-- [ ] <Quality criterion 1>
-- [ ] <Quality criterion 2>
-- [ ] <Quality criterion 3>
-
-## Examples
-
-See `references/EXAMPLE.md` for a completed example.
+- **Official Docs**: https://...
+- **API Reference**: See `references/api.md`

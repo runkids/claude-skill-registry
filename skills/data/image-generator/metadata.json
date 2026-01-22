@@ -1,7 +1,7 @@
 {
   "name": "image-generator",
-  "repo": "92Bilal26/TaskPilotAI",
-  "path": ".claude/skills/image-generator/SKILL.md",
-  "source": "github.com/92Bilal26/TaskPilotAI",
-  "downloaded_at": "2026-01-21T04:00:45.742209Z"
+  "repo": "panaversity/agentfactory",
+  "path": "docs/_skills_archive/cold/image-generator/SKILL.md",
+  "source": "github.com/panaversity/agentfactory",
+  "downloaded_at": "2026-01-22T03:41:32.887795Z"
 }

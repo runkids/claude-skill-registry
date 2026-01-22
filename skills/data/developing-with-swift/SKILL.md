@@ -1,141 +1,127 @@
 ---
 name: developing-with-swift
-description: Use when you work with Swift code or Xcode tooling - establishes style guidelines, teaches you vital Swift techniques, and how to use Xcode build tools
+description: Use this before writing any Swift code, before planning code changes and enhancements - establishes style guidelines, teaches you vital Swift techniques
 ---
 
-## Swift Styleguide
+This repository contains an Xcode project written with Swift and SwiftUI. Please follow the guidelines below so that the development experience is built on modern, safe API usage.
 
-### Indentation
+## Role
 
-2 spaces, no tabs.
+You are a **Senior macOS/iOS Engineer**, specializing in SwiftUI, SwiftData, and related frameworks. Your code must always adhere to Apple's Human Interface Guidelines and App Review guidelines.
 
-### Code comments & code documentation
+## Core instructions
 
-If a comment contains documentation or explanation, it must use a triple slash
-(`///`), regardless of its position in the source code.
+- Target iOS 18.0 or later. (Yes, it definitely exists.)
+- Target Swift 5.10 or later, using modern Swift concurrency.
+- SwiftUI backed up by `@Observable` classes for shared data.
+- Do not introduce third-party frameworks without asking first.
+- Avoid UIKit unless requested.
 
-Use double slash comments (`//`) only for Xcode directive comments ("MARK:",
-"TODO:", etc.) and for temporarily disabling blocks of code. You must never use
-double slash (`//`) for documentation comments.
+## Swift instructions
 
-### `guard` clauses
+- Always mark `@Observable` classes with `@MainActor`.
+- Assume strict Swift concurrency rules are being applied.
+- Prefer Swift-native alternatives to Foundation methods where they exist, such as using `replacing("hello", with: "world")` with strings rather than `replacingOccurrences(of: "hello", with: "world")`.
+- Prefer modern Foundation API, for example `URL.documentsDirectory` to find the app’s documents directory, and `appending(path:)` to append strings to a URL.
+- Never use C-style number formatting such as `Text(String(format: "%.2f", abs(myNumber)))`; always use `Text(abs(change), format: .number.precision(.fractionLength(2)))` instead.
+- Prefer static member lookup to struct instances where possible, such as `.circle` rather than `Circle()`, and `.borderedProminent` rather than `BorderedProminentButtonStyle()`.
+- Filtering text based on user-input must be done using `localizedStandardContains()` as opposed to `contains()`.
+- Avoid force unwraps and force `try` unless it is unrecoverable.
+- Use modern async patterns:
+  - Use `async/await` as the default for asynchronous operations
+  - Never use old-style Grand Central Dispatch concurrency such as `DispatchQueue.main.async()`. If behavior like this is needed, always use modern Swift concurrency.
+  - Leverage `.task` modifier for lifecycle-aware async work
+  - Avoid Combine unless absolutely necessary
+  - Handle errors gracefully with try/catch
+- Leverage Swift 6 data race safety when available, i.e. when the project is built with Swift 6 or later
+- Use protocols for abstraction, not just for testing
 
-`guard` clauses must be written multi-line. If a clause combines multiple
-conditions, each condition must be on its own line.
+## SwiftUI instructions
 
-#### Examples
+- Always use `foregroundStyle()` instead of `foregroundColor()`.
+- Always use `clipShape(.rect(cornerRadius:))` instead of `cornerRadius()`.
+- Always use the `Tab` API instead of `tabItem()`.
+- Never use `ObservableObject`; always prefer `@Observable` classes instead.
+- Never use the `onChange()` modifier in its 1-parameter variant; either use the variant that accepts two parameters or accepts none.
+- Never use `onTapGesture()` unless you specifically need to know a tap’s location or the number of taps. All other usages should use `Button`.
+- Never use `Task.sleep(nanoseconds:)`; always use `Task.sleep(for:)` instead.
+- Never use `UIScreen.main.bounds` to read the size of the available space.
+- Do not break views up using computed properties; place them into new `View` structs instead.
+- Do not force specific font sizes; prefer using Dynamic Type instead.
+- Use the `navigationDestination(for:)` modifier to specify navigation, and always use `NavigationStack` instead of the old `NavigationView`.
+- If using an image for a button label, always specify text alongside like this: `Button("Tap me", systemImage: "plus", action: myButtonAction)`.
+- When rendering SwiftUI views, always prefer using `ImageRenderer` to `UIGraphicsImageRenderer`.
+- Don’t apply the `fontWeight()` modifier unless there is good reason. If you want to make some text bold, always use `bold()` instead of `fontWeight(.bold)`.
+- Do not use `GeometryReader` if a newer alternative would work as well, such as `containerRelativeFrame()` or `visualEffect()`.
+- When making a `ForEach` out of an `enumerated` sequence, do not convert it to an array first. So, prefer `ForEach(x.enumerated(), id: \.element.id)` instead of `ForEach(Array(x.enumerated()), id: \.element.id)`.
+- When hiding scroll view indicators, use the `.scrollIndicators(.hidden)` modifier rather than using `showsIndicators: false` in the scroll view initializer.
+- Extract complex or testable logic from views into separate types (view models, services, etc.) — but don't create a view model for every view.
+- Avoid `AnyView` unless it is absolutely required.
+- Avoid specifying hard-coded values for padding and stack spacing unless requested.
+- Avoid using UIKit colors in SwiftUI code.
 
-```swift
-// ❌ Bad
-guard somethingCondition else { return }
+## SwiftData instructions
 
-// ✅ Good
-guard somethingCondition else {
-  return
-}
+If SwiftData is configured to use CloudKit:
 
-// ❌ Bad
-guard !somethingCondition1, let something else { return }
+- Never use `@Attribute(.unique)`.
+- Model properties must always either have default values or be marked as optional.
+- All relationships must be marked optional.
 
-// ✅ Good
-guard !somethingCondition1,
-      let something
-else {
-  return
-}
-```
+## Project structure
 
-Any `guard` clause must be followed by a blank line.
+- Use a consistent project structure, with folder layout determined by app features.
+- Follow strict naming conventions for types, properties, methods, and SwiftData models.
+- Break different types up into different Swift files rather than placing multiple structs, classes, or enums into a single file.
+- Use extensions to organize large files.
+- Add code comments and documentation comments as needed.
+- If the project requires secrets such as API keys, never include them in the repository.
 
-### `if` blocks
+## Testing Strategy
 
-`if` clauses must be written multi-line. If a clause combines multiple
-conditions, each condition should be on its own line. If there is more than one
-condition, the opening bracket (`{`) should be on its own line.
+- Unit test business logic and data transformations.
+- Use SwiftUI Previews for visual testing, only write UI tests if unit tests are not possible.
+- Test @Observable classes independently.
+- Keep tests simple and focused.
+- Don't sacrifice code clarity for testability.
 
-#### Examples
+## PR instructions
 
-```swift
-// ❌ Bad
-if !somethingCondition1, let something {
-  return
-}
+- If installed, make sure SwiftLint returns no warnings or errors before committing.
 
-// ✅ Good
-if !somethingCondition1,
-   let something
-{
-  return
-}
-```
+## Dependency documentation
 
-### `switch/case`
+Package docs can be found in `<project-root>/dependency-docs/`. When docs are missing, use your `generating-swift-package-docs` skill.
 
-Every `case` block must be followed by a blank line.
+## Architecture guidelines
 
+### 1. Embrace Native State Management
 
-## Modern Swift
-
-Write idiomatic SwiftUI code following Apple's latest architectural
-recommendations and best practices.
-
-### Core Philosophy
-
-- SwiftUI is the default UI paradigm for Apple platforms - embrace its
-  declarative nature
-- Avoid legacy UIKit patterns and unnecessary abstractions
-- Focus on simplicity, clarity, and native data flow
-- Let SwiftUI handle the complexity - don't fight the framework
-
-### Architecture Guidelines
-
-#### 1. Embrace Native State Management
-
-For simple use cases that don't contain a lot of logic and state, use SwiftUI's
-built-in property wrappers appropriately:
+For simple use cases that don't contain a lot of logic and state, use SwiftUI's built-in property wrappers appropriately:
 
 - `@State` - Local, ephemeral view state
 - `@Binding` - Two-way data flow between views
-- `@Observable` - Shared state (iOS 17+)
-- `@ObservableObject` - Legacy shared state (pre-iOS 17)
 - `@Environment` - Dependency injection for app-wide concerns
 
-For more complex use cases with lots of logic and interdependent states, use
-[Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture).
-Before starting to write code, read the TCA documentation (see section 
-_"Read SDK/ package/ library/ framework documentation"_).
+For more complex use cases with lots of logic and interdependent states, use [Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture). Before starting to write code, read the TCA docs in `<project_root>/dependency-docs/`.
 
-#### 2. State Ownership Principles
+### 2. State Ownership Principles
 
 - Views own their local state unless sharing is required
 - State flows down, actions flow up
 - Keep state as close to where it's used as possible
 - Extract shared state only when multiple views need it
 
-#### 3. Modern Async Patterns
-
-- Use `async/await` as the default for asynchronous operations
-- Leverage `.task` modifier for lifecycle-aware async work
-- Avoid Combine unless absolutely necessary
-- Handle errors gracefully with try/catch
-
-#### 4. View Composition
+### 3. View Composition
 
 - Build UI with small, focused views
 - Extract reusable components naturally
 - Use view modifiers to encapsulate common styling
 - Prefer composition over inheritance
 
-#### 5. Code Organization
+## Implementation Patterns
 
-- Organize by feature, not by type (avoid Views/, Models/, ViewModels/ folders)
-- Keep related code together in the same file when appropriate
-- Use extensions to organize large files
-- Follow Swift naming conventions consistently
-
-### Implementation Patterns
-
-#### Simple State Example
+### Simple State Example
 
 ```swift
 struct CounterView: View {
@@ -152,7 +138,7 @@ struct CounterView: View {
 }
 ```
 
-#### Shared State with @Observable
+### Shared State with @Observable
 
 ```swift
 @Observable
@@ -178,7 +164,7 @@ struct MyApp: App {
 }
 ```
 
-#### Async Data Loading
+### Async Data Loading
 
 ```swift
 struct ProfileView: View {
@@ -214,59 +200,70 @@ struct ProfileView: View {
 }
 ```
 
-### Best Practices
+## Styleguide
 
-#### Do
+### Indentation
 
-- Write self-contained views when possible
-- Use property wrappers as intended by Apple
-- Test logic in isolation, preview UI visually
-- Handle loading and error states explicitly
-- Keep views focused on presentation
-- Use Swift's type system for safety
+2 spaces, no tabs.
 
-#### Do not
+### Code comments & code documentation
 
-- Create ViewModels for every view
-- Move state out of views unnecessarily
-- Add abstraction layers without clear benefit
-- Use Combine for simple async operations
-- Fight SwiftUI's update mechanism
-- Overcomplicate simple features
+If a comment contains documentation or explanation, it must use a triple slash (`///`), regardless of its position in the source code.
 
-### Testing Strategy
+Use double slash comments (`//`) only for Xcode directive comments ("MARK:", "TODO:", etc.) and for temporarily disabling blocks of code. You must never use double slash (`//`) for documentation comments.
 
-- Unit test business logic and data transformations
-- Use SwiftUI Previews for visual testing
-- Test @Observable classes independently
-- Keep tests simple and focused
-- Don't sacrifice code clarity for testability
+### `guard` clauses
 
-### Modern Swift Features
+`guard` clauses must be written multi-line. If a clause combines multiple conditions, each condition must be on its own line.
 
-- Use Swift Concurrency (async/await, actors)
-- Leverage Swift 6 data race safety when available, i.e. when the project is
-  built with Swift 6 or later
-- Utilize property wrappers effectively
-- Embrace value types where appropriate
-- Use protocols for abstraction, not just for testing
+#### Examples
 
-### Summary
+```swift
+// ❌ Bad
+guard somethingCondition else { return }
 
-Write SwiftUI code that looks and feels like SwiftUI. The framework has matured
-significantly - trust its patterns and tools. Focus on solving user problems
-rather than implementing architectural patterns from other platforms.
+// ✅ Good
+guard somethingCondition else {
+  return
+}
 
+// ❌ Bad
+guard !somethingCondition1, let something else { return }
 
-## Building Xcode projects
-
-Pipe `xcodebuild` output directly to `xcsift` to get clean, readable results for
-use by LLM:
-
-```bash
-xcodebuild [flags] 2>&1 | xcsift
+// ✅ Good
+guard !somethingCondition1,
+      let something
+else {
+  return
+}
 ```
 
-Important: Always use `2>&1` to redirect STDERR to STDOUT. This ensures all
-compiler errors, warnings, and build output are captured, removing noise and
-providing clean, structured JSON output.
+Any `guard` clause must be followed by a blank line.
+
+### `if` blocks
+
+`if` clauses must be written multi-line. If a clause combines multiple conditions, each condition should be on its own line. If there is more than one condition, the opening bracket (`{`) should be on its own line.
+
+#### Examples
+
+```swift
+// ❌ Bad
+if !somethingCondition1, let something {
+  return
+}
+
+// ✅ Good
+if !somethingCondition1,
+   let something
+{
+  return
+}
+```
+
+### `switch/case`
+
+Every `case` block must be followed by a blank line.
+
+## L10n rules
+
+- In l10n strings, never use typographic quotes, always use standard double quotes only.

@@ -1,227 +1,1047 @@
 ---
-name: ios-simulator-skill
-version: 1.3.0
-description: 21 production-ready scripts for iOS app testing, building, and automation. Provides semantic UI navigation, build automation, accessibility testing, and simulator lifecycle management. Optimized for AI agents with minimal token output.
+description: Generate project-specific Claude Code skills from codebase patterns or framework best practices
+version: 1.0
+encoding: UTF-8
 ---
 
-# iOS Simulator Skill
+# Add Skill Workflow
 
-Build, test, and automate iOS applications using accessibility-driven navigation and structured data instead of pixel coordinates.
+## Overview
 
-## Quick Start
+Generate customized Claude Code skill files based on either:
+- **Mode A (--analyze)**: Analyze existing codebase patterns
+- **Mode B (--best-practices)**: Use framework best practices templates
 
-```bash
-# 1. Check environment
-bash scripts/sim_health_check.sh
+## Process Flow
 
-# 2. Launch app
-python scripts/app_launcher.py --launch com.example.app
+<process_flow>
 
-# 3. Map screen to see elements
-python scripts/screen_mapper.py
+<step number="1" name="parse_arguments">
 
-# 4. Tap button
-python scripts/navigator.py --find-text "Login" --tap
+### Step 1: Parse Command Arguments
 
-# 5. Enter text
-python scripts/navigator.py --find-type TextField --enter-text "user@example.com"
-```
+Parse and validate user-provided arguments.
 
-All scripts support `--help` for detailed options and `--json` for machine-readable output.
+<instructions>
+  ACTION: Extract arguments from user command
 
-## 21 Production Scripts
+  REQUIRED_ARGS:
+    skill_type: Extract from --type argument
+      VALID_VALUES: ["api", "component", "testing", "deployment"]
+      IF missing: ERROR "Missing required --type argument. Use: api, component, testing, or deployment"
 
-### Build & Development (2 scripts)
+    mode: Determine from mode flags
+      IF --analyze provided: SET mode = "analyze"
+      ELSE IF --best-practices provided: SET mode = "best-practices"
+      ELSE: ERROR "Mode required. Use --analyze or --best-practices"
 
-1. **build_and_test.py** - Build Xcode projects, run tests, parse results with progressive disclosure
-   - Build with live result streaming
-   - Parse errors and warnings from xcresult bundles
-   - Retrieve detailed build logs on demand
-   - Options: `--project`, `--scheme`, `--clean`, `--test`, `--verbose`, `--json`
+  OPTIONAL_ARGS:
+    framework: Extract from --framework argument (can be null)
 
-2. **log_monitor.py** - Real-time log monitoring with intelligent filtering
-   - Stream logs or capture by duration
-   - Filter by severity (error/warning/info/debug)
-   - Deduplicate repeated messages
-   - Options: `--app`, `--severity`, `--follow`, `--duration`, `--output`, `--json`
+  VALIDATE:
+    IF skill_type NOT IN ["api", "component", "testing", "deployment"]:
+      ERROR "Invalid skill type. Use: api, component, testing, or deployment"
 
-### Navigation & Interaction (5 scripts)
+    IF framework provided:
+      VALIDATE framework matches skill_type
+        api: spring-boot, express, fastapi, django, rails
+        component: react, angular, vue, svelte
+        testing: playwright, jest, vitest, pytest, rspec, cypress
+        deployment: github-actions, gitlab-ci, jenkins, docker
 
-3. **screen_mapper.py** - Analyze current screen and list interactive elements
-   - Element type breakdown
-   - Interactive button list
-   - Text field status
-   - Options: `--verbose`, `--hints`, `--json`
+      IF invalid:
+        ERROR "Framework '{framework}' not valid for skill type '{skill_type}'"
 
-4. **navigator.py** - Find and interact with elements semantically
-   - Find by text (fuzzy matching)
-   - Find by element type
-   - Find by accessibility ID
-   - Enter text or tap elements
-   - Options: `--find-text`, `--find-type`, `--find-id`, `--tap`, `--enter-text`, `--json`
+  OUTPUT: Parsed arguments
+    {
+      skill_type: "api",
+      mode: "analyze",
+      framework: null | "spring-boot"
+    }
+</instructions>
 
-5. **gesture.py** - Perform swipes, scrolls, pinches, and complex gestures
-   - Directional swipes (up/down/left/right)
-   - Multi-swipe scrolling
-   - Pinch zoom
-   - Long press
-   - Pull to refresh
-   - Options: `--swipe`, `--scroll`, `--pinch`, `--long-press`, `--refresh`, `--json`
+</step>
 
-6. **keyboard.py** - Text input and hardware button control
-   - Type text (fast or slow)
-   - Special keys (return, delete, tab, space, arrows)
-   - Hardware buttons (home, lock, volume, screenshot)
-   - Key combinations
-   - Options: `--type`, `--key`, `--button`, `--slow`, `--clear`, `--dismiss`, `--json`
+<step number="2" name="detect_framework">
 
-7. **app_launcher.py** - App lifecycle management
-   - Launch apps by bundle ID
-   - Terminate apps
-   - Install/uninstall from .app bundles
-   - Deep link navigation
-   - List installed apps
-   - Check app state
-   - Options: `--launch`, `--terminate`, `--install`, `--uninstall`, `--open-url`, `--list`, `--state`, `--json`
+### Step 2: Detect Framework
 
-### Testing & Analysis (5 scripts)
+Auto-detect framework if not provided by user.
 
-8. **accessibility_audit.py** - Check WCAG compliance on current screen
-   - Critical issues (missing labels, empty buttons, no alt text)
-   - Warnings (missing hints, small touch targets)
-   - Info (missing IDs, deep nesting)
-   - Options: `--verbose`, `--output`, `--json`
+<instructions>
+  IF framework argument provided:
+    SKIP: Auto-detection
+    USE: User-specified framework
+    LOG: "Using user-specified framework: {framework}"
+    PROCEED: To step 3
 
-9. **visual_diff.py** - Compare two screenshots for visual changes
-   - Pixel-by-pixel comparison
-   - Threshold-based pass/fail
-   - Generate diff images
-   - Options: `--threshold`, `--output`, `--details`, `--json`
+  ELSE:
+    EXECUTE: Framework detection based on skill_type
 
-10. **test_recorder.py** - Automatically document test execution
-    - Capture screenshots and accessibility trees per step
-    - Generate markdown reports with timing data
-    - Options: `--test-name`, `--output`, `--verbose`, `--json`
+    IF skill_type == "api":
+      ACTION: Detect backend framework
 
-11. **app_state_capture.py** - Create comprehensive debugging snapshots
-    - Screenshot, UI hierarchy, app logs, device info
-    - Markdown summary for bug reports
-    - Options: `--app-bundle-id`, `--output`, `--log-lines`, `--json`
+      USE: Glob tool to check for indicator files:
+        - SEARCH pattern="pom.xml" → If found: Likely Spring Boot
+        - SEARCH pattern="build.gradle*" → If found: Likely Spring Boot
+        - SEARCH pattern="package.json" → If found: Check for express dependency
+        - SEARCH pattern="requirements.txt" → If found: Check for fastapi/django
+        - SEARCH pattern="pyproject.toml" → If found: Check for fastapi/django
+        - SEARCH pattern="Gemfile" → If found: Check for rails gem
+        - SEARCH pattern="manage.py" → If found: Likely Django
 
-12. **sim_health_check.sh** - Verify environment is properly configured
-    - Check macOS, Xcode, simctl, IDB, Python
-    - List available and booted simulators
-    - Verify Python packages (Pillow)
+      IF pom.xml OR build.gradle found:
+        READ: File content
+        SEARCH: For "spring-boot" in content
+        IF found:
+          SET framework = "spring-boot"
+          EXTRACT: Version from dependency
+          CONFIDENCE: high
 
-### Advanced Testing & Permissions (4 scripts)
+      ELSE IF package.json found:
+        READ: package.json
+        PARSE: JSON content
+        CHECK: dependencies["express"] exists
+        IF yes:
+          SET framework = "express"
+          EXTRACT: Version
+          CONFIDENCE: high
 
-13. **clipboard.py** - Manage simulator clipboard for paste testing
-    - Copy text to clipboard
-    - Test paste flows without manual entry
-    - Options: `--copy`, `--test-name`, `--expected`, `--json`
+      ELSE IF requirements.txt OR pyproject.toml found:
+        READ: File content
+        IF "fastapi" in content:
+          SET framework = "fastapi"
+        ELSE IF "django" in content OR manage.py found:
+          SET framework = "django"
 
-14. **status_bar.py** - Override simulator status bar appearance
-    - Presets: clean (9:41, 100% battery), testing (11:11, 50%), low-battery (20%), airplane (offline)
-    - Custom time, network, battery, WiFi settings
-    - Options: `--preset`, `--time`, `--data-network`, `--battery-level`, `--clear`, `--json`
+      ELSE IF Gemfile found:
+        READ: Gemfile
+        IF "rails" in content:
+          SET framework = "rails"
 
-15. **push_notification.py** - Send simulated push notifications
-    - Simple mode (title + body + badge)
-    - Custom JSON payloads
-    - Test notification handling and deep links
-    - Options: `--bundle-id`, `--title`, `--body`, `--badge`, `--payload`, `--json`
+      ELSE:
+        framework = null
+        CONFIDENCE: none
 
-16. **privacy_manager.py** - Grant, revoke, and reset app permissions
-    - 13 supported services (camera, microphone, location, contacts, photos, calendar, health, etc.)
-    - Batch operations (comma-separated services)
-    - Audit trail with test scenario tracking
-    - Options: `--bundle-id`, `--grant`, `--revoke`, `--reset`, `--list`, `--json`
+    ELSE IF skill_type == "component":
+      ACTION: Detect frontend framework
 
-### Device Lifecycle Management (5 scripts)
+      USE: Glob tool:
+        - SEARCH pattern="package.json"
+        - SEARCH pattern="angular.json"
+        - SEARCH pattern="**/*.vue"
+        - SEARCH pattern="**/*.svelte"
 
-17. **simctl_boot.py** - Boot simulators with optional readiness verification
-    - Boot by UDID or device name
-    - Wait for device ready with timeout
-    - Batch boot operations (--all, --type)
-    - Performance timing
-    - Options: `--udid`, `--name`, `--wait-ready`, `--timeout`, `--all`, `--type`, `--json`
+      IF package.json found:
+        READ: package.json
+        PARSE: JSON
 
-18. **simctl_shutdown.py** - Gracefully shutdown simulators
-    - Shutdown by UDID or device name
-    - Optional verification of shutdown completion
-    - Batch shutdown operations
-    - Options: `--udid`, `--name`, `--verify`, `--timeout`, `--all`, `--type`, `--json`
+        IF dependencies["react"]:
+          SET framework = "react"
+          CHECK: devDependencies["typescript"] for TypeScript usage
 
-19. **simctl_create.py** - Create simulators dynamically
-    - Create by device type and iOS version
-    - List available device types and runtimes
-    - Custom device naming
-    - Returns UDID for CI/CD integration
-    - Options: `--device`, `--runtime`, `--name`, `--list-devices`, `--list-runtimes`, `--json`
+        ELSE IF dependencies["@angular/core"]:
+          SET framework = "angular"
 
-20. **simctl_delete.py** - Permanently delete simulators
-    - Delete by UDID or device name
-    - Safety confirmation by default (skip with --yes)
-    - Batch delete operations
-    - Smart deletion (--old N to keep N per device type)
-    - Options: `--udid`, `--name`, `--yes`, `--all`, `--type`, `--old`, `--json`
+        ELSE IF dependencies["vue"]:
+          SET framework = "vue"
+          EXTRACT: Version to determine Vue 2 vs 3
 
-21. **simctl_erase.py** - Factory reset simulators without deletion
-    - Preserve device UUID (faster than delete+create)
-    - Erase all, by type, or booted simulators
-    - Optional verification
-    - Options: `--udid`, `--name`, `--verify`, `--timeout`, `--all`, `--type`, `--booted`, `--json`
+        ELSE IF dependencies["svelte"]:
+          SET framework = "svelte"
+          CHECK: dependencies["@sveltejs/kit"] for SvelteKit
 
-## Common Patterns
+    ELSE IF skill_type == "testing":
+      ACTION: Detect testing framework
 
-**Auto-UDID Detection**: Most scripts auto-detect the booted simulator if --udid is not provided.
+      USE: Glob tool:
+        - SEARCH pattern="playwright.config.*"
+        - SEARCH pattern="jest.config.*"
+        - SEARCH pattern="pytest.ini"
+        - SEARCH pattern=".rspec"
 
-**Device Name Resolution**: Use device names (e.g., "iPhone 16 Pro") instead of UDIDs - scripts resolve automatically.
+      IF playwright.config found:
+        SET framework = "playwright"
+      ELSE IF jest.config found OR package.json has jest:
+        SET framework = "jest"
+      ELSE IF pytest.ini found OR requirements.txt has pytest:
+        SET framework = "pytest"
+      ELSE IF .rspec found OR Gemfile has rspec:
+        SET framework = "rspec"
 
-**Batch Operations**: Many scripts support `--all` for all simulators or `--type iPhone` for device type filtering.
+    ELSE IF skill_type == "deployment":
+      ACTION: Detect CI/CD platform
 
-**Output Formats**: Default is concise human-readable output. Use `--json` for machine-readable output in CI/CD.
+      USE: Glob tool:
+        - SEARCH pattern=".github/workflows/*.yml"
+        - SEARCH pattern=".gitlab-ci.yml"
+        - SEARCH pattern="Jenkinsfile"
+        - SEARCH pattern="Dockerfile"
 
-**Help**: All scripts support `--help` for detailed options and examples.
+      IF .github/workflows found:
+        SET framework = "github-actions"
+      ELSE IF .gitlab-ci.yml found:
+        SET framework = "gitlab-ci"
+      ELSE IF Jenkinsfile found:
+        SET framework = "jenkins"
+      ELSE IF Dockerfile found:
+        SET framework = "docker"
 
-## Typical Workflow
+  IF framework == null:
+    IF mode == "best-practices":
+      ACTION: Ask user to select framework
+      USE: AskUserQuestion
+      QUESTION: "Which {skill_type} framework are you using?"
+      OPTIONS: [List of frameworks for skill_type]
+      RECEIVE: User selection
+      SET framework = user_selection
 
-1. Verify environment: `bash scripts/sim_health_check.sh`
-2. Launch app: `python scripts/app_launcher.py --launch com.example.app`
-3. Analyze screen: `python scripts/screen_mapper.py`
-4. Interact: `python scripts/navigator.py --find-text "Button" --tap`
-5. Verify: `python scripts/accessibility_audit.py`
-6. Debug if needed: `python scripts/app_state_capture.py --app-bundle-id com.example.app`
+    ELSE:
+      ERROR: "Could not detect framework. Use --framework to specify, or use --best-practices mode."
 
-## Requirements
+  OUTPUT:
+    detected_framework: {
+      name: "spring-boot",
+      version: "3.2.0",
+      confidence: "high",
+      source: "pom.xml"
+    }
+</instructions>
 
-- macOS 12+
-- Xcode Command Line Tools
-- Python 3
-- IDB (optional, for interactive features)
+</step>
 
-## Documentation
+<step number="3" name="mode_routing">
 
-- **SKILL.md** (this file) - Script reference and quick start
-- **README.md** - Installation and examples
-- **CLAUDE.md** - Architecture and implementation details
-- **references/** - Deep documentation on specific topics
-- **examples/** - Complete automation workflows
+### Step 3: Route to Appropriate Workflow
 
-## Key Design Principles
+Branch based on selected mode.
 
-**Semantic Navigation**: Find elements by meaning (text, type, ID) not pixel coordinates. Survives UI changes.
+<instructions>
+  IF mode == "analyze":
+    LOG: "Mode A: Analyzing existing codebase patterns"
+    EXECUTE: Steps 4-7 (Pattern discovery, validation, improvement selection)
 
-**Token Efficiency**: Concise default output (3-5 lines) with optional verbose and JSON modes for detailed results.
+  ELSE IF mode == "best-practices":
+    LOG: "Mode B: Using framework best practices"
+    SKIP: Steps 4-7
+    EXECUTE: Step 8 (Load best practices directly)
 
-**Accessibility-First**: Built on standard accessibility APIs for reliability and compatibility.
+  PROCEED: To appropriate next step
+</instructions>
 
-**Zero Configuration**: Works immediately on any macOS with Xcode. No setup required.
+</step>
 
-**Structured Data**: Scripts output JSON or formatted text, not raw logs. Easy to parse and integrate.
+<step number="4" subagent="Explore" name="discover_patterns" conditional="mode==analyze">
 
-**Auto-Learning**: Build system remembers your device preference. Configuration stored per-project.
+### Step 4: Discover Patterns (Mode A Only)
 
----
+Use Explore agent to find code patterns in the codebase.
 
-Use these scripts directly or let Claude Code invoke them automatically when your request matches the skill description.
+<instructions>
+  ACTION: Use Task tool with subagent_type="Explore"
+  THOROUGHNESS: "medium"
+
+  IF skill_type == "api":
+    CONSTRUCT: Prompt for API pattern discovery
+
+    PROMPT:
+      "Discover {framework} API patterns in the codebase:
+
+      Search for:
+      - Controller/Route files
+      - Service files
+      - Repository/Data access files
+
+      For {framework}, look for these patterns:
+      [Framework-specific file patterns based on detected framework]
+
+      Find the top 10-15 most representative files and extract:
+      - Routing/endpoint patterns
+      - Request validation patterns
+      - Error handling approaches
+      - Data access patterns
+      - Transaction management
+
+      Return file paths and key pattern observations."
+
+    EXECUTE: Explore agent task
+    WAIT: For agent completion
+    RECEIVE: List of discovered files and patterns
+
+    THEN:
+      FOR each discovered_file in results:
+        USE: Read tool to get file content
+        EXTRACT: Relevant code patterns
+        CATEGORIZE: By pattern type (routing, validation, error_handling, etc.)
+
+  ELSE IF skill_type == "component":
+    PROMPT:
+      "Discover {framework} component patterns:
+
+      Search for component files and extract:
+      - Component structure and organization
+      - Props/interface definitions
+      - State management approaches
+      - Event handling patterns
+      - Styling approaches
+
+      Return top 10-15 representative components."
+
+    EXECUTE: Explore agent task
+    PROCESS: Results similar to API
+
+  ELSE IF skill_type == "testing":
+    PROMPT:
+      "Discover {framework} testing patterns:
+
+      Search for test files and extract:
+      - Test structure (describe/it blocks)
+      - Assertion patterns
+      - Mocking strategies
+      - Setup/teardown approaches
+      - Page object patterns (if E2E)
+
+      Return top 10-15 test files."
+
+    EXECUTE: Explore agent task
+    PROCESS: Results
+
+  ELSE IF skill_type == "deployment":
+    PROMPT:
+      "Discover CI/CD and deployment patterns:
+
+      Search for:
+      - Workflow/pipeline files
+      - Docker configurations
+      - Build scripts
+
+      Extract:
+      - Build process
+      - Test execution in CI
+      - Deployment strategies
+      - Caching patterns
+
+      Return all relevant files."
+
+    EXECUTE: Explore agent task
+    PROCESS: Results
+
+  OUTPUT:
+    discovered_patterns: {
+      files_analyzed: 15,
+      patterns: [
+        {
+          category: "routing",
+          code: "...",
+          file: "UserController.java",
+          occurrences: 12
+        },
+        ...
+      ]
+    }
+</instructions>
+
+</step>
+
+<step number="5" name="validate_patterns" conditional="mode==analyze">
+
+### Step 5: Validate Patterns Against Best Practices (Mode A Only)
+
+Compare discovered patterns with framework best practices.
+
+<instructions>
+  ACTION: Load best practices for detected framework
+
+  READ: @agent-os/workflows/skill/validation/best-practices/{framework}.md
+
+  COMPARE: Discovered patterns vs best practices
+    FOR each discovered_pattern:
+      CHECK: Does it match a best practice pattern?
+      CALCULATE: Similarity score
+      IDENTIFY: Gaps or issues
+
+  DETECT: Anti-patterns
+    CHECK: For common anti-patterns:
+      - SQL injection (string concatenation in queries)
+      - Missing error handling
+      - Security vulnerabilities
+      - Performance issues
+
+  GENERATE: Improvement suggestions
+    FOR each gap or anti-pattern:
+      CREATE: Improvement suggestion
+        - Severity: critical | warning | info
+        - Current pattern
+        - Recommended pattern
+        - Code examples (before/after)
+        - Impact assessment
+
+  CATEGORIZE: By severity
+    critical_improvements: [...]
+    warning_improvements: [...]
+    info_improvements: [...]
+
+  OUTPUT:
+    validation_results: {
+      overall_score: 72,
+      improvements: [
+        {
+          id: "imp_001",
+          severity: "critical",
+          title: "Fix SQL Injection",
+          current: "String concatenation",
+          recommended: "Parameterized queries",
+          files_affected: 2
+        },
+        ...
+      ]
+    }
+</instructions>
+
+</step>
+
+<step number="6" name="present_improvements" conditional="mode==analyze">
+
+### Step 6: Present Improvements to User (Mode A Only)
+
+Show improvement suggestions and collect user selections.
+
+<instructions>
+  IF improvements.length == 0:
+    MESSAGE: "No improvements needed - your code follows best practices!"
+    SKIP: To step 8
+
+  ELSE:
+    DISPLAY: Improvement summary
+      MESSAGE:
+        "Found {total} improvement opportunities:
+        - ❌ {critical_count} Critical
+        - ⚠️ {warning_count} Warnings
+        - ℹ️ {info_count} Suggestions"
+
+    FOR each improvement IN [critical, warnings, info]:
+      DISPLAY: Improvement details
+        "═══════════════════════════════════════════
+        {severity_icon} {title}
+        ═══════════════════════════════════════════
+
+        Impact: {impact}
+        Effort: {effort}
+        Files: {file_count}
+
+        Current: {current_pattern_description}
+        Issues: {issues}
+
+        Recommended: {recommended_pattern_description}
+        Benefits: {benefits}
+        "
+
+      USE: AskUserQuestion
+      QUESTION: "Include this improvement?"
+      OPTIONS:
+        - "✅ Yes, include (Recommended)"
+        - "📖 Show code examples"
+        - "❌ No, skip"
+
+      RECEIVE: User decision
+
+      IF "Show code examples":
+        DISPLAY: Before/after code
+        ASK: Again for decision
+
+      IF "Yes":
+        RECORD: In accepted_improvements list
+      ELSE:
+        RECORD: In rejected_improvements list
+
+    DISPLAY: Selection summary
+      "You selected {accepted_count} out of {total_count} improvements.
+
+      Critical: {critical_accepted}/{critical_total}
+      Warnings: {warning_accepted}/{warning_total}
+      Info: {info_accepted}/{info_total}"
+
+    CONFIRM: "Continue with skill generation?"
+    IF no: EXIT workflow
+
+  OUTPUT:
+    user_selections: {
+      accepted: [imp_001, imp_002, ...],
+      rejected: [imp_008, ...],
+      accepted_count: 8
+    }
+</instructions>
+
+</step>
+
+<step number="7" name="apply_improvements" conditional="mode==analyze">
+
+### Step 7: Apply Selected Improvements (Mode A Only)
+
+Merge selected improvements into pattern data.
+
+<instructions>
+  FOR each accepted_improvement:
+    FIND: Related discovered pattern
+
+    IF pattern exists:
+      ENHANCE: Pattern with improvement
+        UPDATE: Pattern code with recommended version
+        ADD: Improvement metadata
+        MARK: As enhanced
+
+    ELSE:
+      ADD: New pattern from improvement
+        CREATE: Pattern entry
+        MARK: As added from improvement
+
+  FOR each rejected_critical_improvement:
+    CREATE: Warning note
+      ADD: To "Known Issues" section
+      DOCUMENT: Risk and recommendation
+
+  OUTPUT:
+    enhanced_patterns: {
+      patterns: [
+        {
+          category: "error_handling",
+          code: "[Enhanced code]",
+          status: "enhanced",
+          improvement_applied: "Centralized exception handling"
+        },
+        ...
+      ],
+      known_issues: [
+        {
+          issue: "SQL injection in UserRepository",
+          severity: "critical",
+          rejected_by_user: true
+        }
+      ]
+    }
+</instructions>
+
+</step>
+
+<step number="8" name="load_best_practices" conditional="mode==best-practices">
+
+### Step 8: Load Best Practices (Mode B Only)
+
+Load framework-specific best practices templates.
+
+<instructions>
+  ACTION: Confirm framework with user if auto-detected
+
+  IF framework auto-detected:
+    MESSAGE: "Detected framework: {framework} {version}"
+    USE: AskUserQuestion
+    QUESTION: "Use {framework} for skill generation?"
+    OPTIONS:
+      - "Yes, use {framework} (Recommended)"
+      - "No, choose different framework"
+
+    IF "No":
+      USE: AskUserQuestion
+      QUESTION: "Which {skill_type} framework?"
+      OPTIONS: [Framework options for skill_type]
+      SET framework = user_selection
+
+  ELSE IF framework == null:
+    USE: AskUserQuestion
+    QUESTION: "Which {skill_type} framework?"
+    OPTIONS: [Framework options for skill_type]
+    SET framework = user_selection
+
+  ACTION: Load best practices
+    READ: @agent-os/workflows/skill/validation/best-practices/{framework}.md
+    EXTRACT: All pattern sections
+    STORE: As pattern_content
+
+  OUTPUT:
+    best_practices_content: {
+      framework: "spring-boot",
+      patterns: [Extracted from best practices file],
+      examples: [Code examples from best practices],
+      anti_patterns: [Anti-patterns to avoid]
+    }
+</instructions>
+
+</step>
+
+<step number="9" name="detect_project_name">
+
+### Step 9: Detect Project Name
+
+Auto-detect project name for skill file naming.
+
+<instructions>
+  ACTION: Try multiple detection sources in priority order
+
+  PRIORITY_1: Check agent-os/config.yml
+    USE: Glob pattern="agent-os/config.yml"
+    IF found:
+      READ: File
+      PARSE: YAML (look for project.name field)
+      IF project.name exists:
+        SET project_name = value
+        SOURCE: "agent-os-config"
+        SKIP: Further detection
+
+  PRIORITY_2: Check package.json (if not found in step 1)
+    USE: Glob pattern="package.json"
+    IF found:
+      READ: File
+      PARSE: JSON
+      EXTRACT: name field
+      IF name starts with "@":
+        REMOVE: Scope (e.g., "@company/app" → "app")
+      SET project_name = cleaned_name
+      SOURCE: "package.json"
+      SKIP: Further detection
+
+  PRIORITY_3: Check Gemfile/gemspec
+    USE: Glob pattern="*.gemspec"
+    IF found:
+      READ: File
+      SEARCH: For spec.name = "..."
+      EXTRACT: Gem name
+      CONVERT: Underscores to hyphens
+      SET project_name = gem_name
+
+  PRIORITY_4: Use directory name
+    GET: Current working directory
+    EXTRACT: Last path component
+    CLEAN:
+      - Convert to lowercase
+      - Replace spaces/underscores with hyphens
+      - Remove special characters
+
+    IF name is generic (src, app, test, project):
+      SKIP: Too generic
+    ELSE:
+      SET project_name = cleaned_dir_name
+      SOURCE: "directory-name"
+
+  PRIORITY_5: Ask user
+    IF project_name still null:
+      USE: AskUserQuestion
+      QUESTION: "What is your project name?"
+      DEFAULT: Cleaned directory name (if available)
+      RECEIVE: User input
+      NORMALIZE: User input (lowercase, hyphens, no special chars)
+      SET project_name = normalized_input
+      SOURCE: "user-input"
+
+  ACTION: Confirm with user
+    MESSAGE: "Project name: {project_name} (from {source})"
+    USE: AskUserQuestion
+    QUESTION: "Is this correct?"
+    OPTIONS: ["Yes", "Enter different name"]
+
+    IF "Enter different name":
+      ASK: For new name
+      NORMALIZE: Input
+      SET project_name = new_name
+
+  OPTIONAL: Save to config
+    IF agent-os/config.yml exists:
+      ASK: "Save project name to agent-os/config.yml?"
+      IF yes:
+        READ: agent-os/config.yml
+        UPDATE: project.name field (or add if missing)
+        WRITE: Updated config
+
+  OUTPUT:
+    project_name: "my-app",
+    source: "package.json"
+</instructions>
+
+</step>
+
+<step number="10" name="process_template">
+
+### Step 10: Process Skill Template
+
+Load template and replace markers with content.
+
+<instructions>
+  ACTION: Load appropriate template
+    template_path = "@agent-os/templates/skills/{skill_type}-patterns.md.template"
+
+    IF skill_type == "api":
+      READ: @agent-os/templates/skills/api-patterns.md.template
+    ELSE IF skill_type == "component":
+      READ: @agent-os/templates/skills/component-patterns.md.template
+    ELSE IF skill_type == "testing":
+      READ: @agent-os/templates/skills/testing-patterns.md.template
+    ELSE IF skill_type == "deployment":
+      READ: @agent-os/templates/skills/deployment-patterns.md.template
+
+    STORE: template_content
+
+  ACTION: Build replacement map
+
+    project_replacements = {
+      "NAME": project_name,
+      "FRAMEWORK": framework,
+      "FRAMEWORK_VERSION": detected_version,
+      "DATE": current_date,
+      "LANGUAGE": programming_language,
+      "MODE": mode,
+      "MODE_DESCRIPTION": mode == "analyze" ? "Analyzed from existing codebase" : "Generated from best practices"
+    }
+
+    glob_replacements = {
+      "API_GLOBS": [Framework-specific globs],
+      "COMPONENT_GLOBS": [Framework-specific globs],
+      "TEST_GLOBS": [Framework-specific globs],
+      "DEPLOYMENT_GLOBS": [Framework-specific globs]
+    }
+
+    IF mode == "analyze":
+      customize_replacements = {
+        "CONTROLLER_PATTERNS": Extract from discovered_patterns,
+        "SERVICE_PATTERNS": Extract from discovered_patterns,
+        "ROUTING_EXAMPLE": Best example from patterns,
+        "VALIDATION_PATTERNS": Extract from patterns,
+        "ERROR_HANDLING_PATTERNS": Extract from enhanced_patterns (with improvements),
+        ...
+      }
+
+    ELSE IF mode == "best-practices":
+      customize_replacements = {
+        "CONTROLLER_PATTERNS": Extract from best_practices_content,
+        "SERVICE_PATTERNS": Extract from best_practices_content,
+        "ROUTING_EXAMPLE": Framework example from best practices,
+        ...
+      }
+
+  ACTION: Replace markers in template
+
+    processed_content = template_content
+
+    FOR each [PROJECT:MARKER] in template:
+      REPLACE: With project_replacements[MARKER]
+
+    FOR each [PROJECT:TYPE_GLOBS] in template:
+      REPLACE: With formatted YAML array of globs
+
+    FOR each [CUSTOMIZE:MARKER] in template:
+      REPLACE: With customize_replacements[MARKER]
+
+    VALIDATE: No unresolved markers remain
+      SEARCH: For any remaining [PROJECT: or [CUSTOMIZE:
+      IF found:
+        WARN: "Unresolved marker: {marker}"
+        REPLACE: With placeholder or empty string
+
+  OUTPUT:
+    processed_template: "[Complete markdown with replacements]"
+</instructions>
+
+</step>
+
+<step number="11" name="generate_skill_file">
+
+### Step 11: Generate Final Skill File
+
+Assemble frontmatter and content into complete skill file.
+
+<instructions>
+  ACTION: Generate frontmatter YAML
+
+    skill_name = "{project_name}-{skill_type}-patterns"
+    skill_description = "{framework} {skill_type} patterns for {project_name}"
+
+    IF mode == "analyze":
+      skill_description += " (analyzed from existing codebase)"
+
+    frontmatter_yaml = """---
+name: {skill_name}
+description: {skill_description}
+version: {framework_version}
+framework: {framework}
+created: {current_date}
+mode: {mode}
+globs:
+{glob_list_formatted}
+---"""
+
+  ACTION: Assemble complete skill file
+
+    skill_content = frontmatter_yaml + "\n\n" + processed_template
+
+  ACTION: Validate structure
+    CHECK: Valid YAML frontmatter
+    CHECK: All required sections present
+    CHECK: Code blocks have language identifiers
+    CHECK: No empty required sections
+
+    IF validation fails:
+      ERROR: "Skill generation failed validation: {errors}"
+      OFFER: "Show preview anyway?" | "Cancel"
+
+  OUTPUT:
+    skill_file: {
+      content: "[Complete skill markdown]",
+      name: "my-app-api-patterns.md",
+      path: ".claude/skills/my-app-api-patterns.md",
+      size: "12.5 KB",
+      lines: 542
+    }
+</instructions>
+
+</step>
+
+<step number="12" name="preview_and_confirm">
+
+### Step 12: Preview and Confirm with User
+
+Show skill preview and save on approval.
+
+<instructions>
+  ACTION: Generate preview (abbreviated version)
+
+    DISPLAY:
+      "═══════════════════════════════════════════════════════════════
+      📄 SKILL PREVIEW
+      ═══════════════════════════════════════════════════════════════
+
+      Skill Name: {skill_name}
+      Framework: {framework} {version}
+      Type: {skill_type}
+      Mode: {mode}
+
+      ─────────────────────────────────────────────────────────────
+      📋 FRONTMATTER
+      ─────────────────────────────────────────────────────────────
+
+      {frontmatter_yaml}
+
+      ─────────────────────────────────────────────────────────────
+      🎯 KEY PATTERNS (Top 3)
+      ─────────────────────────────────────────────────────────────
+
+      1. {pattern_1_title}
+         {brief_description}
+         {code_snippet_abbreviated}
+
+      2. {pattern_2_title}
+      ...
+
+      ─────────────────────────────────────────────────────────────
+      📁 FILE COVERAGE
+      ─────────────────────────────────────────────────────────────
+
+      Active for files matching:
+      {glob_list}
+
+      ─────────────────────────────────────────────────────────────
+      📊 STATISTICS
+      ─────────────────────────────────────────────────────────────
+
+      Total Patterns: {pattern_count}
+      Code Examples: {example_count}
+      {If mode A: Improvements Applied: {improvement_count}}
+
+      ═══════════════════════════════════════════════════════════════
+      "
+
+  ACTION: Ask for user decision
+    USE: AskUserQuestion
+    QUESTION: "What would you like to do?"
+    OPTIONS:
+      - "✅ Yes, save it (Recommended)"
+      - "📖 Show full content"
+      - "❌ No, cancel"
+
+    IF "Show full content":
+      DISPLAY: Complete skill_content
+      ASK: Again "Save this skill?"
+      OPTIONS: ["Yes, save it", "No, cancel"]
+
+    IF "Yes, save it":
+      PROCEED: To save
+
+    ELSE IF "No, cancel":
+      MESSAGE: "Skill generation cancelled."
+      EXIT: Workflow
+</instructions>
+
+</step>
+
+<step number="13" name="save_skill_file">
+
+### Step 13: Save Skill File
+
+Write skill file to disk.
+
+<instructions>
+  ACTION: Determine file path
+    skill_file_name = "{project_name}-{skill_type}-patterns.md"
+    skill_file_path = ".claude/skills/{skill_file_name}"
+
+  ACTION: Check if file exists
+    USE: Glob pattern=".claude/skills/{skill_file_name}"
+
+    IF file exists:
+      USE: AskUserQuestion
+      QUESTION: "File already exists. Overwrite?"
+      OPTIONS: ["Yes, overwrite", "Use different name", "Cancel"]
+
+      IF "Use different name":
+        skill_file_name = "{project_name}-{skill_type}-patterns-2.md"
+        skill_file_path = ".claude/skills/{skill_file_name}"
+
+      ELSE IF "Cancel":
+        EXIT: Workflow
+
+      ELSE IF "Yes, overwrite":
+        CREATE: Backup
+          USE: Bash command: cp "{skill_file_path}" "{skill_file_path}.backup"
+
+  ACTION: Create .claude/skills directory if needed
+    USE: Bash command: mkdir -p .claude/skills
+
+  ACTION: Write skill file
+    USE: Write tool
+    FILE_PATH: {skill_file_path}
+    CONTENT: {skill_content}
+    ENCODING: UTF-8
+
+  ACTION: Verify file was written
+    USE: Glob pattern="{skill_file_path}"
+    IF not found:
+      ERROR: "Failed to write skill file"
+
+    USE: Bash command: wc -l "{skill_file_path}"
+    VERIFY: Line count matches expected
+
+  OUTPUT:
+    saved_file: {
+      path: ".claude/skills/my-app-api-patterns.md",
+      size: "12.5 KB",
+      lines: 542
+    }
+</instructions>
+
+</step>
+
+<step number="14" name="display_success">
+
+### Step 14: Display Success Message
+
+Show completion message with next steps.
+
+<instructions>
+  DISPLAY: Success message
+    "✅ Skill created successfully!
+
+    📄 File: {skill_file_path}
+    📊 Patterns: {pattern_count}
+    {If mode A: ✨ Improvements: {improvement_count}}
+
+    🚀 Next Steps:
+
+    1. The skill is now active for files matching:
+       {glob_list}
+
+    2. Test the skill:
+       - Open a file that matches the globs
+       - Claude will automatically use these patterns
+
+    3. Optional: Reference in .claude/claude.json
+       - Add to 'skills' array for explicit activation
+
+    4. Update anytime:
+       - Run /add-skill again to regenerate with latest patterns
+    "
+
+  OPTIONAL_OFFERS:
+    USE: AskUserQuestion
+    QUESTION: "Would you like to do anything else?"
+    OPTIONS:
+      - "Create another skill (different type)"
+      - "View the generated skill file"
+      - "Done"
+
+    IF "Create another skill":
+      MESSAGE: "Run /add-skill with different --type to create another skill."
+
+    ELSE IF "View the generated skill file":
+      READ: {skill_file_path}
+      DISPLAY: Content
+
+  LOG: Operation completed
+    "Skill generation complete: {skill_file_path}"
+</instructions>
+
+</step>
+
+</process_flow>
+
+## Error Handling
+
+<error_protocols>
+  <invalid_arguments>
+    ERROR: "Invalid arguments. See usage examples above."
+    DISPLAY: Valid options for each argument
+    EXIT: Workflow
+  </invalid_arguments>
+
+  <framework_detection_failed>
+    IF mode == "analyze":
+      ERROR: "Could not detect framework. Please specify with --framework flag."
+      EXIT: Workflow
+    ELSE:
+      FALLBACK: Ask user to select framework
+      CONTINUE: Workflow
+  </framework_detection_failed>
+
+  <pattern_discovery_failed>
+    WARN: "Limited patterns found in codebase."
+    ASK: "Continue with available patterns or switch to --best-practices mode?"
+    IF switch:
+      SET mode = "best-practices"
+      GOTO: Step 8
+  </pattern_discovery_failed>
+
+  <file_write_failed>
+    ERROR: "Failed to write skill file: {error}"
+    CHECK: Directory permissions
+    SUGGEST: Manual file creation or different location
+  </file_write_failed>
+</error_protocols>
+
+## Quick Reference for Claude
+
+**When user runs:** `/add-skill --analyze --type api`
+
+**Execute:**
+1. Parse args (skill_type=api, mode=analyze)
+2. Detect backend framework (use Glob + Read for pom.xml, package.json, etc.)
+3. Run Explore agent to find API patterns
+4. Validate patterns against best practices
+5. Present improvements to user (AskUserQuestion)
+6. Apply selected improvements
+7. Detect project name (check config, package.json, directory)
+8. Load template (api-patterns.md.template)
+9. Replace all markers (PROJECT, CUSTOMIZE, GLOBS)
+10. Generate frontmatter
+11. Show preview to user
+12. Save on user approval (Write tool)
+13. Display success message
+
+**When user runs:** `/add-skill --best-practices --type component --framework react`
+
+**Execute:**
+1. Parse args (skill_type=component, mode=best-practices, framework=react)
+2. Skip framework detection (user specified)
+3. Skip pattern discovery (Mode B)
+4. Load React best practices (read best-practices/react.md)
+5. Detect project name
+6. Load template (component-patterns.md.template)
+7. Replace markers with best practices content
+8. Show preview
+9. Save on approval
+10. Display success

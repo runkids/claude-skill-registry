@@ -1,349 +1,467 @@
 ---
-name: skill-validator
-description: |
-  Validates skills against production-level criteria with 9-category scoring.
-  This skill should be used when reviewing, auditing, or improving skills to
-  ensure quality standards. Evaluates structure, content, user interaction,
-  documentation, domain standards, technical robustness, maintainability,
-  zero-shot implementation, and reusability. Returns actionable validation
-  report with scores and improvement recommendations.
+name: Skill Validator
+description: Validates that a skill or MCP implementation matches its manifest by running Codex-powered semantic comparisons across descriptions, preconditions, effects, and API surface.
+version: 0.1.0
+category: testing
+tags:
+  - codex
+  - validation
+  - quality
 ---
 
 # Skill Validator
 
-Validate any skill against production-level quality criteria.
+**Validate implementations match manifests using Codex for semantic comparison**
 
-## Validation Workflow
+## Purpose
 
-### Phase 1: Gather Context
+Ensures that skill/MCP implementations actually deliver what their manifests promise. Uses Codex to perform semantic analysis comparing descriptions, preconditions, and effects against actual code. Detects drift, missing functionality, and over-promised capabilities.
 
-1. **Read the skill's SKILL.md** completely
-2. **Identify skill type** from frontmatter description:
-   - Builder skill (creates artifacts)
-   - Guide skill (provides instructions)
-   - Automation skill (executes workflows)
-   - Analyzer skill (extracts insights)
-   - Validator skill (enforces quality)
-   - Hybrid skill (combination of above)
-3. **Read all reference files** in `references/` directory
-4. **Check for assets/scripts** directories
-5. **Note frontmatter fields** (`name`, `description`, `allowed-tools`, `model`)
+## When to Use
 
-### Phase 2: Apply Criteria
+- After updating skill implementations
+- During quality audits to verify accuracy
+- When manifests feel outdated or incorrect
+- To detect description-implementation drift
+- Before releasing new versions of resources
 
-Evaluate against **9 criteria categories**. Each criterion scores 0-3:
-- **0**: Missing/Absent
-- **1**: Present but inadequate
-- **2**: Adequate implementation
-- **3**: Excellent implementation
+## Key Capabilities
 
----
+- **Semantic Comparison**: Uses Codex to understand if code matches description
+- **Precondition Validation**: Verifies claimed preconditions are actually checked
+- **Effect Verification**: Confirms code produces claimed effects
+- **API Surface Analysis**: Validates exposed functions match manifest
+- **Drift Detection**: Identifies when implementation diverges from manifest
+- **Coverage Scoring**: Measures how much of manifest is implemented
 
-## Criteria Categories
+## Inputs
 
-### 1. Structure & Anatomy (Weight: 12%)
-
-| Criterion | What to Check |
-|-----------|---------------|
-| **SKILL.md exists** | Root file present |
-| **Line count** | <500 lines (context is precious) |
-| **Frontmatter complete** | `name` and `description` present in YAML |
-| **Name constraints** | Lowercase, numbers, hyphens only; ≤64 chars; matches directory |
-| **Description format** | [What] + [When] format; ≤1024 chars |
-| **Description style** | Third-person: "This skill should be used when..." |
-| **No extraneous files** | No README.md, CHANGELOG.md, LICENSE in skill dir |
-| **Progressive disclosure** | Details in `references/`, not bloated SKILL.md |
-| **Asset organization** | Templates in `assets/`, scripts in `scripts/` |
-| **Large file guidance** | If references >10k words, grep patterns in SKILL.md |
-
-**Fail condition**: Missing SKILL.md or >800 lines = automatic fail
-
-### 2. Content Quality (Weight: 15%)
-
-| Criterion | What to Check |
-|-----------|---------------|
-| **Conciseness** | No verbose explanations, context is public good |
-| **Imperative form** | Instructions use "Do X" not "You should do X" |
-| **Appropriate freedom** | Constraints where needed, flexibility where safe |
-| **Scope clarity** | Clear what skill does AND does not do |
-| **No hallucination risk** | No instructions that encourage making up info |
-| **Output specification** | Clear expected outputs defined |
-
-### 3. User Interaction (Weight: 12%)
-
-| Criterion | What to Check |
-|-----------|---------------|
-| **Clarification triggers** | Asks questions before acting on ambiguity |
-| **Required vs optional** | Distinguishes must-know from nice-to-know |
-| **Graceful handling** | What to do when user doesn't answer |
-| **No over-asking** | Doesn't ask obvious or inferrable questions |
-| **Question pacing** | Avoids too many questions in single message |
-| **Context awareness** | Uses available context before asking |
-
-**Key pattern to look for**:
-```markdown
-## Required Clarifications
-1. Question about X
-2. Question about Y
-
-## Optional Clarifications
-3. Question about Z (if relevant)
-
-Note: Avoid asking too many questions in a single message.
+```yaml
+inputs:
+  resource_path: string # Path to skill/MCP directory
+  manifest_path: string # Path to manifest.yaml (default: resource_path/manifest.yaml)
+  implementation_path: string # Path to code (default: resource_path/index.js)
+  strict_mode: boolean # Fail on warnings (default: false)
 ```
 
-### 4. Documentation & References (Weight: 10%)
+## Process
 
-| Criterion | What to Check |
-|-----------|---------------|
-| **Source URLs** | Official documentation links provided |
-| **Reference files** | Complex details in `references/` not main file |
-| **Fetch guidance** | Instructions to fetch docs for unlisted patterns |
-| **Version awareness** | Notes about checking for latest patterns |
-| **Example coverage** | Good/bad examples for key patterns |
+### Step 1: Load Manifest and Implementation
 
-**Key pattern to look for**:
-```markdown
-| Resource | URL | Use For |
-|----------|-----|---------|
-| Official Docs | https://... | Complex cases |
+```bash
+#!/bin/bash
+# Load manifest and implementation
+
+RESOURCE_PATH="$1"
+MANIFEST_PATH="${2:-$RESOURCE_PATH/manifest.yaml}"
+IMPL_PATH="${3:-$RESOURCE_PATH/index.js}"
+
+if [ ! -f "$MANIFEST_PATH" ]; then
+  echo "❌ Manifest not found: $MANIFEST_PATH"
+  exit 1
+fi
+
+if [ ! -f "$IMPL_PATH" ]; then
+  # Try alternative extensions
+  if [ -f "$RESOURCE_PATH/index.ts" ]; then
+    IMPL_PATH="$RESOURCE_PATH/index.ts"
+  elif [ -f "$RESOURCE_PATH/SKILL.md" ]; then
+    # Skill might be declarative only
+    IMPL_PATH=""
+  else
+    echo "⚠️  No implementation file found, validating description only"
+    IMPL_PATH=""
+  fi
+fi
+
+# Read manifest
+MANIFEST=$(cat "$MANIFEST_PATH")
+
+# Read implementation (if exists)
+if [ -n "$IMPL_PATH" ]; then
+  IMPLEMENTATION=$(cat "$IMPL_PATH")
+else
+  IMPLEMENTATION=""
+fi
 ```
 
-### 5. Domain Standards (Weight: 10%)
+### Step 2: Validate Description Accuracy
 
-| Criterion | What to Check |
-|-----------|---------------|
-| **Best practices** | Follows domain conventions (e.g., WCAG, OWASP) |
-| **Enforcement mechanism** | Checklists, validation steps, must-verify items |
-| **Anti-patterns** | Lists what NOT to do |
-| **Quality gates** | Output checklist before delivery |
+```bash
+# Use Codex to compare description with implementation
+codex exec "
+Compare this manifest description with the actual implementation:
 
-**Key pattern to look for**:
-```markdown
-### Must Follow
-- [ ] Requirement 1
-- [ ] Requirement 2
+MANIFEST:
+$MANIFEST
 
-### Must Avoid
-- Antipattern 1
-- Antipattern 2
+IMPLEMENTATION:
+$IMPLEMENTATION
+
+Questions:
+1. Does the implementation match the description?
+2. Are there features described but not implemented?
+3. Are there features implemented but not described?
+4. Is the description accurate and complete?
+
+Output JSON:
+{
+  \"description_accurate\": boolean,
+  \"missing_features\": [\"feature1\", \"feature2\"],
+  \"undocumented_features\": [\"feature3\"],
+  \"accuracy_score\": 0.0-1.0,
+  \"issues\": [
+    {
+      \"type\": \"missing_feature\",
+      \"severity\": \"high|medium|low\",
+      \"description\": \"...\",
+      \"suggestion\": \"...\"
+    }
+  ]
+}
+" > /tmp/validation-description.json
 ```
 
-### 6. Technical Robustness (Weight: 8%)
+### Step 3: Validate Preconditions
 
-| Criterion | What to Check |
-|-----------|---------------|
-| **Error handling** | Guidance for failure scenarios |
-| **Security considerations** | Input validation, secrets handling if relevant |
-| **Dependencies** | External tools/APIs documented |
-| **Edge cases** | Common edge cases addressed |
-| **Testability** | Can outputs be verified? |
+```bash
+# Check if preconditions are actually enforced in code
+PRECONDITIONS=$(python3 -c "
+import yaml, json
+manifest = yaml.safe_load(open('$MANIFEST_PATH'))
+print(json.dumps(manifest.get('preconditions', []), indent=2))
+")
 
-### 7. Maintainability (Weight: 8%)
+codex exec "
+Analyze if these preconditions are actually checked in the code:
 
-| Criterion | What to Check |
-|-----------|---------------|
-| **Modularity** | References are self-contained topics |
-| **Update path** | Easy to update when standards change |
-| **No hardcoded values** | Uses placeholders/variables where appropriate |
-| **Clear organization** | Logical section ordering |
+PRECONDITIONS:
+$PRECONDITIONS
 
-### 8. Zero-Shot Implementation (Weight: 12%)
+IMPLEMENTATION:
+$IMPLEMENTATION
 
-Skills should enable single-interaction implementation with embedded expertise.
+For each precondition, determine:
+1. Is it checked in the code?
+2. Where is it checked (function name, line number)?
+3. Does it fail gracefully if not met?
+4. Is the error message clear?
 
-| Criterion | What to Check |
-|-----------|---------------|
-| **Before Implementation section** | Context gathering guidance present |
-| **Codebase context** | Guidance to scan existing structure/patterns |
-| **Conversation context** | Uses discussed requirements/decisions |
-| **Embedded expertise** | Domain knowledge in `references/`, not runtime discovery |
-| **User-only questions** | Only asks for USER requirements, not domain knowledge |
-
-**Key pattern to look for**:
-```markdown
-## Before Implementation
-
-Gather context to ensure successful implementation:
-
-| Source | Gather |
-|--------|--------|
-| **Codebase** | Existing structure, patterns, conventions |
-| **Conversation** | User's specific requirements |
-| **Skill References** | Domain patterns from `references/` |
-| **User Guidelines** | Project-specific conventions |
+Output JSON:
+{
+  \"preconditions_validated\": [
+    {
+      \"check\": \"file_exists('package.json')\",
+      \"enforced\": boolean,
+      \"location\": \"function:line\",
+      \"error_handling\": \"good|poor|missing\",
+      \"suggestion\": \"...\"
+    }
+  ],
+  \"coverage_score\": 0.0-1.0
+}
+" > /tmp/validation-preconditions.json
 ```
 
-**Red flag**: Skill instructs to "research" or "discover" domain knowledge at runtime instead of embedding it.
+### Step 4: Validate Effects
 
-### 9. Reusability (Weight: 13%)
+```bash
+# Check if claimed effects are actually produced
+EFFECTS=$(python3 -c "
+import yaml, json
+manifest = yaml.safe_load(open('$MANIFEST_PATH'))
+print(json.dumps(manifest.get('effects', []), indent=2))
+")
 
-Skills should handle variations, not single requirements.
+codex exec "
+Verify that this code actually produces the claimed effects:
 
-| Criterion | What to Check |
-|-----------|---------------|
-| **Handles variations** | Not hardcoded to single use case |
-| **Variable elements** | Clarifications capture what VARIES |
-| **Constant patterns** | Domain best practices encoded as constants |
-| **Not requirement-specific** | Avoids hardcoded data, tools, configs |
-| **Abstraction level** | Appropriate generalization for domain |
+CLAIMED EFFECTS:
+$EFFECTS
 
-**Good example**:
-```markdown
-"Create visualizations - adaptable to data shape, chart type, library"
+IMPLEMENTATION:
+$IMPLEMENTATION
+
+For each effect, determine:
+1. Is the effect actually produced?
+2. Where in the code does it happen?
+3. Are there conditions where it might not happen?
+4. Are there other effects not listed?
+
+Output JSON:
+{
+  \"effects_validated\": [
+    {
+      \"effect\": \"creates_vector_index\",
+      \"implemented\": boolean,
+      \"location\": \"function:line\",
+      \"conditional\": boolean,
+      \"confidence\": 0.0-1.0
+    }
+  ],
+  \"missing_effects\": [\"effect1\"],
+  \"extra_effects\": [\"effect2\"],
+  \"coverage_score\": 0.0-1.0
+}
+" > /tmp/validation-effects.json
 ```
 
-**Bad example (too specific)**:
-```markdown
-"Create bar chart with sales data using Recharts"
+### Step 5: Validate API Surface
+
+```bash
+# For MCPs/tools with defined APIs, validate exports
+if [ -n "$IMPLEMENTATION" ]; then
+  codex exec "
+Analyze the API surface of this implementation:
+
+IMPLEMENTATION:
+$IMPLEMENTATION
+
+Questions:
+1. What functions/classes are exported?
+2. What are their signatures?
+3. Are they documented?
+4. Do they match what the manifest describes?
+
+Output JSON:
+{
+  \"exports\": [
+    {
+      \"name\": \"functionName\",
+      \"type\": \"function|class|object\",
+      \"signature\": \"(args) => result\",
+      \"documented\": boolean
+    }
+  ],
+  \"api_complete\": boolean,
+  \"documentation_quality\": \"good|fair|poor\"
+}
+" > /tmp/validation-api.json
+fi
 ```
 
-**Key check**: Does the skill work for multiple use cases within its domain?
+### Step 6: Generate Validation Report
 
----
+```bash
+# Combine all validation results
+python3 <<'PYTHON_SCRIPT'
+import json
+from datetime import datetime
 
-## Type-Specific Validation
+# Load validation results
+with open('/tmp/validation-description.json') as f:
+    desc_validation = json.load(f)
 
-After scoring general criteria, verify type-specific requirements:
+with open('/tmp/validation-preconditions.json') as f:
+    precond_validation = json.load(f)
 
-| Type | Must Have |
-|------|-----------|
-| **Builder** | Clarifications, Output Spec, Domain Standards, Output Checklist |
-| **Guide** | Workflow Steps, Examples (Good/Bad), Official Docs links |
-| **Automation** | Scripts in `scripts/`, Dependencies, Error Handling, I/O Spec |
-| **Analyzer** | Analysis Scope, Evaluation Criteria, Output Format, Synthesis |
-| **Validator** | Quality Criteria, Scoring Rubric, Thresholds, Remediation |
+with open('/tmp/validation-effects.json') as f:
+    effects_validation = json.load(f)
 
-**Scoring**: Deduct 10 points if type-specific requirements missing for identified type.
+try:
+    with open('/tmp/validation-api.json') as f:
+        api_validation = json.load(f)
+except FileNotFoundError:
+    api_validation = None
 
----
+# Calculate overall score
+scores = [
+    desc_validation.get('accuracy_score', 0),
+    precond_validation.get('coverage_score', 0),
+    effects_validation.get('coverage_score', 0)
+]
+overall_score = sum(scores) / len(scores)
 
-## Scoring Guide
+# Collect all issues
+all_issues = []
+all_issues.extend(desc_validation.get('issues', []))
 
-### Category Scores
+for precond in precond_validation.get('preconditions_validated', []):
+    if not precond.get('enforced'):
+        all_issues.append({
+            'type': 'unenforced_precondition',
+            'severity': 'medium',
+            'description': f"Precondition not enforced: {precond['check']}",
+            'suggestion': precond.get('suggestion', '')
+        })
 
-Calculate each category score:
-```
-Category Score = (Sum of criterion scores) / (Max possible) * 100
-```
+for effect in effects_validation.get('effects_validated', []):
+    if not effect.get('implemented'):
+        all_issues.append({
+            'type': 'unimplemented_effect',
+            'severity': 'high',
+            'description': f"Effect not implemented: {effect['effect']}",
+            'suggestion': 'Implement this effect or remove from manifest'
+        })
 
-### Overall Score
+# Generate report
+report = {
+    'resource': 'RESOURCE_NAME_PLACEHOLDER',
+    'validated_at': datetime.utcnow().isoformat() + 'Z',
+    'overall_score': round(overall_score, 3),
+    'scores': {
+        'description_accuracy': desc_validation.get('accuracy_score', 0),
+        'precondition_coverage': precond_validation.get('coverage_score', 0),
+        'effect_coverage': effects_validation.get('coverage_score', 0)
+    },
+    'validation_results': {
+        'description': desc_validation,
+        'preconditions': precond_validation,
+        'effects': effects_validation,
+        'api': api_validation
+    },
+    'issues': all_issues,
+    'issue_count': len(all_issues),
+    'passed': overall_score >= 0.8 and len([i for i in all_issues if i['severity'] == 'high']) == 0
+}
 
-```
-Overall = Σ(Category Score × Weight)
-```
+with open('/tmp/validation-report.json', 'w') as f:
+    json.dump(report, f, indent=2)
 
-### Rating Thresholds
-
-| Score | Rating | Meaning |
-|-------|--------|---------|
-| 90-100 | **Production** | Ready for wide use |
-| 75-89 | **Good** | Minor improvements needed |
-| 60-74 | **Adequate** | Functional but needs work |
-| 40-59 | **Developing** | Significant gaps |
-| 0-39 | **Incomplete** | Major rework required |
-
----
-
-## Output Format
-
-Generate validation report:
-
-```markdown
-# Skill Validation Report: [skill-name]
-
-**Rating**: [Production/Good/Adequate/Developing/Incomplete]
-**Overall Score**: [X]/100
-
-## Summary
-[2-3 sentence assessment]
-
-## Category Scores
-
-| Category | Score | Weight | Weighted |
-|----------|-------|--------|----------|
-| Structure & Anatomy | X/100 | 12% | X |
-| Content Quality | X/100 | 15% | X |
-| User Interaction | X/100 | 12% | X |
-| Documentation | X/100 | 10% | X |
-| Domain Standards | X/100 | 10% | X |
-| Technical Robustness | X/100 | 8% | X |
-| Maintainability | X/100 | 8% | X |
-| Zero-Shot Implementation | X/100 | 12% | X |
-| Reusability | X/100 | 13% | X |
-| **Type-Specific Deduction** | -X | - | -X |
-
-## Critical Issues (if any)
-- [Issue requiring immediate fix]
-
-## Improvement Recommendations
-1. **High Priority**: [Specific action]
-2. **Medium Priority**: [Specific action]
-3. **Low Priority**: [Specific action]
-
-## Strengths
-- [What skill does well]
+# Print summary
+print(f"\nValidation Score: {overall_score:.2f}")
+print(f"Issues Found: {len(all_issues)}")
+print(f"Status: {'✅ PASSED' if report['passed'] else '❌ FAILED'}")
+PYTHON_SCRIPT
 ```
 
----
+## Validation Criteria
 
-## Quick Validation Checklist
+### Scoring Rules
 
-For rapid assessment, check these critical items:
+```javascript
+// Overall score is average of component scores
+overallScore = (descriptionAccuracy + preconditionCoverage + effectCoverage) / 3
 
-### Structure & Frontmatter
-- [ ] SKILL.md <500 lines
-- [ ] Frontmatter: name (≤64 chars, lowercase, hyphens) + description (≤1024 chars)
-- [ ] Description uses third-person style ("This skill should be used when...")
-- [ ] No README.md/CHANGELOG.md in skill directory
-
-### Content & Interaction
-- [ ] Has clarification questions (Required vs Optional)
-- [ ] Has output specification
-- [ ] Has official documentation links
-
-### Zero-Shot & Reusability
-- [ ] Has "Before Implementation" section (context gathering)
-- [ ] Domain expertise embedded in `references/` (not runtime discovery)
-- [ ] Handles variations (not requirement-specific)
-
-### Type-Specific (check based on skill type)
-- [ ] Builder: Clarifications + Output Spec + Standards + Checklist
-- [ ] Guide: Workflow + Examples + Docs
-- [ ] Automation: Scripts + Dependencies + Error Handling
-- [ ] Analyzer: Scope + Criteria + Output Format
-- [ ] Validator: Criteria + Scoring + Thresholds + Remediation
-
-**If 10+ checked**: Likely Production (90+)
-**If 7-9 checked**: Likely Good (75-89)
-**If 5-6 checked**: Likely Adequate (60-74)
-**If <5 checked**: Needs significant work
-
----
-
-## Reference Files
-
-| File | When to Read |
-|------|--------------|
-| `references/detailed-criteria.md` | Deep evaluation of specific criterion |
-| `references/scoring-examples.md` | Example validations for calibration |
-| `references/improvement-patterns.md` | Common fixes for common issues |
-
----
-
-## Usage Examples
-
-### Validate a skill
-```
-Validate the chatgpt-widget-creator skill against production criteria
+// Pass criteria
+passed = overallScore >= 0.8 && highSeverityIssues.length === 0
 ```
 
-### Quick audit
-```
-Quick validation check on mcp-builder skill
+### Severity Levels
+
+- **High**: Missing core functionality, unenforced preconditions, unimplemented effects
+- **Medium**: Incomplete features, poor error handling, undocumented exports
+- **Low**: Minor inconsistencies, documentation gaps, style issues
+
+## Example Output
+
+```json
+{
+  "resource": "rag-implementer",
+  "validated_at": "2025-10-28T12:00:00Z",
+  "overall_score": 0.85,
+  "scores": {
+    "description_accuracy": 0.9,
+    "precondition_coverage": 0.8,
+    "effect_coverage": 0.85
+  },
+  "validation_results": {
+    "description": {
+      "description_accurate": true,
+      "missing_features": [],
+      "undocumented_features": ["vector_index_optimization"],
+      "accuracy_score": 0.9,
+      "issues": [
+        {
+          "type": "undocumented_feature",
+          "severity": "low",
+          "description": "Implementation includes vector optimization not mentioned in manifest",
+          "suggestion": "Add 'optimizes_vector_queries' to effects"
+        }
+      ]
+    },
+    "preconditions": {
+      "preconditions_validated": [
+        {
+          "check": "file_exists('package.json')",
+          "enforced": true,
+          "location": "validateProject:12",
+          "error_handling": "good"
+        },
+        {
+          "check": "env_var_set('OPENAI_API_KEY')",
+          "enforced": true,
+          "location": "setupEmbeddings:45",
+          "error_handling": "good"
+        }
+      ],
+      "coverage_score": 0.8
+    },
+    "effects": {
+      "effects_validated": [
+        {
+          "effect": "creates_vector_index",
+          "implemented": true,
+          "location": "createIndex:120",
+          "conditional": false,
+          "confidence": 0.95
+        },
+        {
+          "effect": "adds_embedding_pipeline",
+          "implemented": true,
+          "location": "setupPipeline:85",
+          "conditional": false,
+          "confidence": 0.9
+        }
+      ],
+      "missing_effects": [],
+      "extra_effects": ["optimizes_vector_queries"],
+      "coverage_score": 0.85
+    }
+  },
+  "issues": [
+    {
+      "type": "undocumented_feature",
+      "severity": "low",
+      "description": "Implementation includes vector optimization not mentioned in manifest",
+      "suggestion": "Add 'optimizes_vector_queries' to effects"
+    }
+  ],
+  "issue_count": 1,
+  "passed": true
+}
 ```
 
-### Focused review
+## Integration
+
+### With manifest-generator
+
+Validates that generated manifests are accurate by comparing with implementation.
+
+### With capability-graph-builder
+
+Ensures graph relationships are based on accurate capability descriptions.
+
+### CI/CD Pipeline
+
+```yaml
+# .github/workflows/validate-skills.yml
+name: Validate Skills
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Validate all skills
+        run: |
+          for skill in SKILLS/*/; do
+            bash SKILLS/skill-validator/validate.sh "$skill"
+          done
 ```
-Check if skill-creator skill has proper user interaction patterns
-```
+
+## Success Metrics
+
+- ✅ All skills score >= 0.8
+- ✅ No high severity issues in production skills
+- ✅ 100% of preconditions enforced
+- ✅ 95%+ of effects implemented
+- ✅ API surface matches manifest
+
+## Related Skills
+
+- manifest-generator: Generates manifests to be validated
+- capability-graph-builder: Uses validated manifests
+- system-diagnostician: Uses validation results for health checks

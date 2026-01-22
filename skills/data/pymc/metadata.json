@@ -1,7 +1,7 @@
 {
   "name": "pymc",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/pymc/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-01-21T02:28:31.576398Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/research-tools/pymc/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:06.830783Z"
 }

@@ -1,815 +1,388 @@
 ---
 name: python-testing
-description: Python-specific testing practices with pytest, fixtures, mocking, async testing, coverage configuration, and uv execution rules. Activate when working with pytest files, conftest.py, test directories, pyproject.toml testing configuration, or Python test-related tasks.
+description: Write and organize tests for scientific Python packages using pytest following Scientific Python community best practices. Use when setting up test suites, writing unit tests, integration tests, testing numerical algorithms, configuring test fixtures, parametrizing tests, or setting up continuous integration. Ideal for testing scientific computations, validating numerical accuracy, and ensuring code correctness.
 ---
 
-# Python Testing Practices
+# Scientific Python Testing with pytest
 
-Python-specific testing patterns and best practices using pytest, complementing general testing-workflow skill.
+A comprehensive guide to writing effective tests for scientific Python packages using pytest, following the [Scientific Python Community guidelines](https://learn.scientific-python.org/development/guides/pytest/) and [testing tutorial](https://learn.scientific-python.org/development/tutorials/test/). This skill focuses on modern testing patterns, fixtures, parametrization, and best practices specific to scientific computing.
 
-## CRITICAL: UV Execution Rules
+## Quick Reference Card
 
-**NEVER use `-m` flag with uv run:**
-
-```bash
-# ✅ CORRECT - UV pytest execution
-uv run pytest
-uv run pytest -v
-uv run pytest tests/unit/ -v
-uv run pytest --cov=app --cov-report=html
-
-# ❌ WRONG - Never add -m flag
-# ❌ uv run -m pytest
-# ❌ uv run -m pytest -v
-```
-
-**Always use `uv run pytest` directly** (never call pytest directly in uv projects).
-
----
-
-## Pytest Fixtures
-
-### Fixture Scopes
-
-Pytest fixtures support different scopes for setup/teardown control:
+**Common Testing Tasks - Quick Decisions:**
 
 ```python
-@pytest.fixture(scope="session")
-def database_connection():
-    """Created once per test session - expensive setup."""
-    connection = setup_expensive_database()
-    yield connection
-    connection.cleanup()
+# 1. Basic test → Use simple assert
+def test_function():
+    assert result == expected
 
+# 2. Floating-point comparison → Use approx
+from pytest import approx
+assert result == approx(0.333, rel=1e-6)
 
-@pytest.fixture(scope="module")
-def api_client():
-    """Created once per test module."""
-    return APIClient(config="test")
+# 3. Testing exceptions → Use pytest.raises
+with pytest.raises(ValueError, match="must be positive"):
+    function(-1)
 
+# 4. Multiple inputs → Use parametrize
+@pytest.mark.parametrize("input,expected", [(1,1), (2,4), (3,9)])
+def test_square(input, expected):
+    assert input**2 == expected
 
-@pytest.fixture(scope="class")
-def service_instance():
-    """Created once per test class."""
-    return Service()
-
-
-@pytest.fixture(scope="function")  # Default
-def user():
-    """Created for each test function - isolated."""
-    return User(email="test@example.com")
-```
-
-### Fixture Setup and Teardown
-
-Use `yield` pattern for setup/teardown with proper cleanup:
-
-```python
+# 5. Reusable setup → Use fixture
 @pytest.fixture
-def database():
-    """Fixture with setup and teardown."""
-    # Setup
-    db = Database(":memory:")
-    db.initialize()
-    db.create_schema()
+def sample_data():
+    return np.array([1, 2, 3, 4, 5])
 
-    # Provide to test
-    yield db
-
-    # Teardown
-    db.close()
-
-
-@pytest.fixture
-def mock_file(tmp_path):
-    """Create temporary file that auto-cleans up."""
-    temp_file = tmp_path / "test.txt"
-    temp_file.write_text("test data")
-    yield temp_file
-    # Cleanup automatic with tmp_path
+# 6. NumPy arrays → Use approx or numpy.testing
+assert np.mean(data) == approx(3.0)
 ```
 
-### Fixture Dependency Injection
+**Decision Tree:**
+- Need multiple test cases with same logic? → **Parametrize**
+- Need reusable test data/setup? → **Fixture**
+- Testing floating-point results? → **pytest.approx**
+- Testing exceptions/warnings? → **pytest.raises / pytest.warns**
+- Complex numerical arrays? → **numpy.testing.assert_allclose**
+- Organizing by speed? → **Markers and separate directories**
 
-Fixtures can depend on other fixtures:
+## When to Use This Skill
 
-```python
-@pytest.fixture
-def database():
-    """Base database fixture."""
-    db = Database(":memory:")
-    db.initialize()
-    yield db
-    db.close()
+- Writing tests for scientific Python packages and libraries
+- Testing numerical algorithms and scientific computations
+- Setting up test infrastructure for research software
+- Implementing continuous integration for scientific code
+- Testing data analysis pipelines and workflows
+- Validating scientific simulations and models
+- Ensuring reproducibility and correctness of research code
+- Testing code that uses NumPy, SciPy, Pandas, and other scientific libraries
 
+## Core Concepts
 
-@pytest.fixture
-def user_service(database):
-    """Service depending on database fixture."""
-    return UserService(database)
+### 1. Why pytest for Scientific Python
 
+pytest is the de facto standard for testing Python packages because it:
 
-@pytest.fixture
-def authenticated_user(user_service):
-    """User depending on service fixture."""
-    user = user_service.create_user(
-        username="testuser",
-        email="test@example.com",
-        password="secure"
-    )
-    yield user
-    user_service.delete_user(user.id)
+- **Simple syntax**: Just use Python's `assert` statement
+- **Detailed reporting**: Clear, informative failure messages
+- **Powerful features**: Fixtures, parametrization, marks, plugins
+- **Scientific ecosystem**: Native support for NumPy arrays, approximate comparisons
+- **Community standard**: Used by NumPy, SciPy, Pandas, scikit-learn, and more
+
+### 2. Test Structure and Organization
+
+**Standard test directory layout:**
+
+```text
+my-package/
+├── src/
+│   └── my_package/
+│       ├── __init__.py
+│       ├── analysis.py
+│       └── utils.py
+├── tests/
+│   ├── conftest.py
+│   ├── test_analysis.py
+│   └── test_utils.py
+└── pyproject.toml
 ```
 
----
+**Key principles:**
 
-## conftest.py Patterns
+- Tests directory separate from source code (alongside `src/`)
+- Test files named `test_*.py` (pytest discovery)
+- Test functions named `test_*` (pytest discovery)
+- No `__init__.py` in tests directory (avoid importability issues)
+- Test against installed package, not local source
 
-### Central Fixture Location
+### 3. pytest Configuration
 
-Place shared fixtures in `conftest.py` at appropriate levels:
+See [assets/pyproject-pytest.toml](assets/pyproject-pytest.toml) for a complete pytest configuration example.
 
-```
-tests/
-├── conftest.py              # Session/module level fixtures
-├── unit/
-│   ├── conftest.py          # Unit-specific fixtures
-│   └── test_*.py
-└── integration/
-    ├── conftest.py          # Integration-specific fixtures
-    └── test_*.py
-```
-
-### Example conftest.py
-
-```python
-# tests/conftest.py
-import pytest
-from app.services import UserService
-from app.database import Database
-
-
-@pytest.fixture(scope="session")
-def database_connection():
-    """Database connection for entire session."""
-    db = Database(":memory:")
-    db.initialize()
-    db.run_migrations()
-    yield db
-    db.close()
-
-
-@pytest.fixture
-def user_service(database_connection):
-    """UserService with test database."""
-    return UserService(database_connection)
-
-
-@pytest.fixture
-def sample_user_data():
-    """Standard user data for tests."""
-    return {
-        "username": "testuser",
-        "email": "test@example.com",
-        "password": "secure123",
-        "age": 25
-    }
-
-
-@pytest.fixture
-def temp_config_file(tmp_path):
-    """Create temporary config file."""
-    config_file = tmp_path / "config.json"
-    config_file.write_text('{"setting": "value"}')
-    return config_file
-```
-
----
-
-## Parametrized Testing
-
-### Basic Parametrization
-
-Use `@pytest.mark.parametrize` for multiple test inputs:
-
-```python
-import pytest
-
-
-@pytest.mark.parametrize("input,expected", [
-    ("hello", "HELLO"),
-    ("world", "WORLD"),
-    ("", ""),
-    ("MiXeD", "MIXED"),
-])
-def test_uppercase(input, expected):
-    """Test uppercase conversion with multiple inputs."""
-    assert input.upper() == expected
-```
-
-### Multiple Parameters
-
-```python
-@pytest.mark.parametrize("method,expected_status", [
-    ("GET", 200),
-    ("POST", 201),
-    ("PUT", 200),
-    ("DELETE", 204),
-])
-def test_http_methods(client, method, expected_status):
-    """Test different HTTP methods."""
-    response = client.request(method, "/api/resource")
-    assert response.status_code == expected_status
-```
-
-### Parametrized Fixtures
-
-```python
-@pytest.mark.parametrize("user_role", ["admin", "user", "guest"])
-def test_permission_levels(user_role):
-    """Test different user permission levels."""
-    user = User(role=user_role)
-    assert user.can_access_dashboard() == (user_role in ["admin", "user"])
-```
-
----
-
-## Async Testing
-
-### Marking Async Tests
-
-Use `@pytest.mark.asyncio` decorator:
-
-```python
-import pytest
-
-
-@pytest.mark.asyncio
-async def test_async_fetch_data():
-    """Test async data fetching."""
-    result = await fetch_data_async("user123")
-    assert result is not None
-    assert result["id"] == "user123"
-
-
-@pytest.mark.asyncio
-async def test_concurrent_requests():
-    """Test multiple concurrent async operations."""
-    results = await asyncio.gather(
-        fetch_user(1),
-        fetch_user(2),
-        fetch_user(3),
-    )
-    assert len(results) == 3
-```
-
-### Async Fixtures
-
-```python
-@pytest.fixture
-async def async_client():
-    """Async HTTP client fixture."""
-    client = AsyncHTTPClient()
-    await client.connect()
-    yield client
-    await client.disconnect()
-
-
-@pytest.mark.asyncio
-async def test_api_call(async_client):
-    """Test with async fixture."""
-    response = await async_client.get("/api/users")
-    assert response.status_code == 200
-```
-
----
-
-## Mocking Patterns
-
-### Mock Objects and Patching
-
-```python
-from unittest.mock import Mock, patch, MagicMock
-import pytest
-
-
-def test_send_email_success():
-    """Test email sending with mocked SMTP."""
-    # Create mock object
-    mock_smtp = Mock()
-
-    with patch("smtplib.SMTP", return_value=mock_smtp):
-        result = send_email("test@example.com", "Subject", "Body")
-
-    # Verify mock was called correctly
-    mock_smtp.send_message.assert_called_once()
-    assert result is True
-
-
-def test_api_call_with_mock():
-    """Test API call with mocked response."""
-    with patch("requests.get") as mock_get:
-        mock_get.return_value.json.return_value = {"status": "ok"}
-
-        result = fetch_api_data()
-
-        mock_get.assert_called_once_with("https://api.example.com/data")
-        assert result["status"] == "ok"
-```
-
-### Fixture-Based Mocking
-
-```python
-@pytest.fixture
-def mock_database():
-    """Provide mocked database."""
-    with patch("app.database.Database") as mock_db:
-        mock_db.return_value.query.return_value = {"id": 1, "name": "Test"}
-        yield mock_db
-
-
-def test_user_service_with_mock(mock_database):
-    """Test service with mocked database dependency."""
-    service = UserService(mock_database.return_value)
-    user = service.get_user(1)
-    assert user["name"] == "Test"
-
-
-@pytest.fixture
-def mock_api_client():
-    """Provide mocked API client."""
-    with patch("app.client.APIClient") as mock:
-        mock.return_value.get.return_value = {"status": "ok"}
-        mock.return_value.post.return_value = {"id": 123}
-        yield mock
-```
-
-### Spy on Real Objects
-
-```python
-from unittest.mock import MagicMock
-
-
-def test_spy_on_method():
-    """Spy on actual method calls."""
-    obj = RealObject()
-    obj.method = MagicMock(side_effect=obj.method)
-
-    result = obj.method("arg1")
-
-    obj.method.assert_called_once_with("arg1")
-    assert result == expected_value
-```
-
----
-
-## Exception Testing
-
-### Testing with Context Managers
-
-```python
-import pytest
-from app.exceptions import UserNotFoundError, ValidationError
-
-
-def test_exception_raised():
-    """Test that correct exception is raised."""
-    with pytest.raises(UserNotFoundError) as exc_info:
-        user_service.get_user("nonexistent_id")
-
-    assert "nonexistent_id" in str(exc_info.value)
-
-
-def test_validation_error():
-    """Test validation error with message check."""
-    user_data = {
-        "username": "testuser",
-        "email": "invalid-email",  # Invalid format
-        "age": 25
-    }
-
-    with pytest.raises(ValidationError) as exc_info:
-        user_service.create_user(user_data)
-
-    assert "email" in str(exc_info.value)
-
-
-def test_exception_type_matching():
-    """Test matching specific exception type."""
-    with pytest.raises((ValueError, TypeError)):
-        process_data(None)
-```
-
----
-
-## pyproject.toml Configuration
-
-### Complete Pytest Configuration
+Basic configuration in `pyproject.toml`:
 
 ```toml
 [tool.pytest.ini_options]
-# Test discovery
-testpaths = ["tests"]
-python_files = ["test_*.py", "*_test.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-
-# Output and behavior
+minversion = "7.0"
 addopts = [
-    "-v",
-    "--strict-markers",
-    "--tb=short",
-    "--cov=app",
-    "--cov-report=term-missing",
-    "--cov-report=html",
+    "-ra",              # Show summary of all test outcomes
+    "--showlocals",     # Show local variables in tracebacks
+    "--strict-markers", # Error on undefined markers
+    "--strict-config",  # Error on config issues
 ]
-
-# Custom markers
-markers = [
-    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
-    "integration: marks tests as integration tests",
-    "unit: marks tests as unit tests",
-    "asyncio: marks tests as async tests",
-]
-
-# Filter warnings as errors
-filterwarnings = [
-    "error",
-    "ignore::DeprecationWarning:setuptools",  # Ignore specific warnings if needed
-]
+testpaths = ["tests"]
 ```
 
-### Coverage Configuration
+## Testing Principles
 
-```toml
-[tool.coverage.run]
-source = ["app"]
-omit = [
-    "*/tests/*",
-    "*/migrations/*",
-    "*/__init__.py",
-    "*/__main__.py",
-]
+Following the [Scientific Python testing recommendations](https://learn.scientific-python.org/development/principles/testing/), effective testing provides multiple benefits and should follow key principles:
 
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-    "if TYPE_CHECKING:",
-    "class .*\\bProtocol\\):",
-    "@(abc\\.)?abstractmethod",
-]
-min_coverage = 80
+### Advantages of Testing
+
+- **Trustworthy code**: Well-tested code behaves as expected and can be relied upon
+- **Living documentation**: Tests communicate intent and expected behavior, validated with each run
+- **Preventing failure**: Tests protect against implementation errors and unexpected dependency changes
+- **Confidence when making changes**: Thorough test suites enable adding features, fixing bugs, and refactoring with confidence
+
+### Fundamental Principles
+
+**1. Any test case is better than none**
+
+When in doubt, write the test that makes sense at the time:
+- Test critical behaviors, features, and logic
+- Write clear, expressive, well-documented tests
+- Tests are documentation of developer intentions
+- Good tests make it clear what they are testing and how
+
+Don't get bogged down in taxonomy when learning—focus on writing tests that work.
+
+**2. As long as that test is correct**
+
+It's surprisingly easy to write tests that pass when they should fail:
+- **Check that your test fails when it should**: Deliberately break the code and verify the test fails
+- **Keep it simple**: Excessive mocks and fixtures make it difficult to know what's being tested
+- **Test one thing at a time**: A single test should test a single behavior
+
+**3. Start with Public Interface Tests**
+
+Begin by testing from the perspective of a user:
+- Test code as users will interact with it
+- Keep tests simple and readable for documentation purposes
+- Focus on supported use cases
+- Avoid testing private attributes
+- Minimize use of mocks/patches
+
+**4. Organize Tests into Suites**
+
+Divide tests by type and execution time for efficiency:
+- **Unit tests**: Fast, isolated tests of individual components
+- **Integration tests**: Tests of component interactions and dependencies
+- **End-to-end tests**: Complete workflow testing
+
+Benefits:
+- Run relevant tests quickly and frequently
+- "Fail fast" by running fast suites first
+- Easier to read and reason about
+- Avoid false positives from expected external failures
+
+### Outside-In Testing Approach
+
+The recommended approach is **outside-in**, starting from the user's perspective:
+
+1. **Public Interface Tests**: Test from user perspective, focusing on behavior and features
+2. **Integration Tests**: Test that components work together and with dependencies
+3. **Unit Tests**: Test individual units in isolation, optimized for speed
+
+This approach ensures you're building the right thing before optimizing implementation details.
+
+## Quick Start
+
+### Minimal Test Example
+
+```python
+# tests/test_basic.py
+
+def test_simple_math():
+    """Test basic arithmetic."""
+    assert 4 == 2**2
+
+def test_string_operations():
+    """Test string methods."""
+    result = "hello world".upper()
+    assert result == "HELLO WORLD"
+    assert "HELLO" in result
 ```
 
----
+### Scientific Test Example
 
-## Makefile Integration
+```python
+# tests/test_scientific.py
+import numpy as np
+from pytest import approx
 
-### Test Targets
+from my_package.analysis import compute_mean, fit_linear
 
-```makefile
-.PHONY: test test-unit test-integration test-coverage test-quick
+def test_compute_mean():
+    """Test mean calculation."""
+    data = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
+    result = compute_mean(data)
+    assert result == approx(3.0)
 
+def test_fit_linear():
+    """Test linear regression."""
+    x = np.array([0, 1, 2, 3, 4])
+    y = np.array([0, 2, 4, 6, 8])
+    slope, intercept = fit_linear(x, y)
+    
+    assert slope == approx(2.0)
+    assert intercept == approx(0.0)
+```
+
+## Testing Patterns
+
+See [references/TEST_PATTERNS.md](references/TEST_PATTERNS.md) for detailed patterns including:
+- Writing simple, focused tests
+- Testing for failures
+- Approximate comparisons
+- Using fixtures
+- Parametrized tests
+- Test organization with markers
+- Mocking and monkeypatching
+- Testing against installed version
+- Import best practices
+
+## Scientific Python Testing Patterns
+
+See [references/SCIENTIFIC_PATTERNS.md](references/SCIENTIFIC_PATTERNS.md) for scientific-specific patterns:
+- Testing numerical algorithms
+- Testing with different NumPy dtypes
+- Testing random/stochastic code
+- Testing data pipelines
+- Property-based testing with Hypothesis
+
+## Running pytest
+
+### Basic Usage
+
+```bash
 # Run all tests
-test:
-	uv run pytest
+pytest
 
-# Unit tests only
-test-unit:
-	uv run pytest tests/unit/ -v
+# Run specific file
+pytest tests/test_analysis.py
 
-# Integration tests
-test-integration:
-	uv run pytest tests/integration/ -v
+# Run specific test
+pytest tests/test_analysis.py::test_mean
 
-# Quick tests (skip slow)
-test-quick:
-	uv run pytest -m "not slow" -v
+# Run tests matching pattern
+pytest -k "mean or median"
 
-# Coverage report
-test-coverage:
-	uv run pytest --cov=app --cov-report=html --cov-report=term
-	@echo "Coverage report: htmlcov/index.html"
+# Verbose output
+pytest -v
 
-# Watch mode (requires pytest-watch)
-test-watch:
-	uv run ptw tests/unit/
+# Show local variables in failures
+pytest -l  # or --showlocals
 
-# Full test suite with all checks
-check: test lint type-check
-	@echo "All checks passed!"
+# Stop at first failure
+pytest -x
+
+# Show stdout/stderr
+pytest -s
 ```
 
----
-
-## Development Dependencies Installation
-
-### Installing with UV
+### Debugging Tests
 
 ```bash
-# Core testing
-uv add --dev pytest pytest-cov pytest-asyncio
+# Drop into debugger on failure
+pytest --pdb
 
-# Mocking
-uv add --dev pytest-mock
+# Drop into debugger at start of each test
+pytest --trace
 
-# Performance testing
-uv add --dev pytest-benchmark
+# Run last failed tests
+pytest --lf
 
-# Test data generation
-uv add --dev faker factory-boy
+# Run failed tests first, then rest
+pytest --ff
 
-# HTTP mocking
-uv add --dev responses
-
-# Watch mode (optional)
-uv add --dev pytest-watch
-
-# Parallel execution (optional)
-uv add --dev pytest-xdist
+# Show which tests would be run (dry run)
+pytest --collect-only
 ```
 
----
-
-## Import Error Solutions
-
-### Issue: Tests Can't Import App Modules
-
-**Solution 1: Ensure __init__.py exists**
-
-```
-tests/
-├── __init__.py  # Important!
-├── conftest.py
-└── unit/
-    ├── __init__.py
-    └── test_*.py
-```
-
-**Solution 2: Add to conftest.py**
-
-```python
-import sys
-from pathlib import Path
-
-# Add src directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-```
-
-**Solution 3: Use pyproject.toml**
-
-```toml
-[tool.pytest.ini_options]
-pythonpath = ["src"]
-```
-
----
-
-## Deleted File Handling
-
-### Skip Module-Level When Imports Fail
-
-Move `pytest.skip()` BEFORE imports to prevent collection errors:
-
-```python
-# tests/removed_feature_test.py
-import pytest
-
-pytest.skip("Module removed - feature deleted", allow_module_level=True)
-
-from deleted_module import Something  # Won't be evaluated
-```
-
----
-
-## Warnings as Errors Policy
-
-### Enforce Clean Test Output
-
-Treat all warnings as errors in tests:
+### Coverage
 
 ```bash
-# Run tests with warnings as errors
-uv run pytest -W error
+# Install pytest-cov
+pip install pytest-cov
 
-# Run with specific warning filters
-uv run pytest -W error::DeprecationWarning
+# Run with coverage
+pytest --cov=my_package
+
+# With coverage report
+pytest --cov=my_package --cov-report=html
+
+# With missing lines
+pytest --cov=my_package --cov-report=term-missing
+
+# Fail if coverage below threshold
+pytest --cov=my_package --cov-fail-under=90
 ```
 
-### Configuration in pyproject.toml
+See [assets/pyproject-pytest.toml](assets/pyproject-pytest.toml) for complete coverage configuration.
 
-```toml
-[tool.pytest.ini_options]
-filterwarnings = ["error"]
-```
+## File Templates and Examples
 
-### Handle Expected Warnings
+Ready-to-use templates are available in the `assets/` directory:
 
-```python
-import warnings
-import pytest
+- **[assets/pyproject-pytest.toml](assets/pyproject-pytest.toml)** - Complete pytest configuration with coverage
+- **[assets/conftest-example.py](assets/conftest-example.py)** - Example conftest.py with shared fixtures
+- **[assets/github-actions-tests.yml](assets/github-actions-tests.yml)** - GitHub Actions workflow for testing
 
+## Common Pitfalls and Solutions
 
-def test_deprecated_function():
-    """Test deprecated function with expected warning."""
-    with pytest.warns(DeprecationWarning):
-        deprecated_function()
+See [references/COMMON_PITFALLS.md](references/COMMON_PITFALLS.md) for solutions to:
+- Testing implementation instead of behavior
+- Non-deterministic tests
+- Exact floating-point comparisons
+- Testing too much in one test
 
+## Testing Checklist
 
-def test_suppress_specific_warning():
-    """Test while ignoring specific warning."""
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", DeprecationWarning)
-        function_that_warns()
-```
+- [ ] Tests are in `tests/` directory separate from source
+- [ ] Test files named `test_*.py`
+- [ ] Test functions named `test_*`
+- [ ] Tests run against installed package (use src/ layout)
+- [ ] pytest configured in `pyproject.toml`
+- [ ] Using `pytest.approx` for floating-point comparisons
+- [ ] Tests check exceptions with `pytest.raises`
+- [ ] Tests check warnings with `pytest.warns`
+- [ ] Parametrized tests for multiple inputs
+- [ ] Fixtures for reusable setup
+- [ ] Markers used for test organization
+- [ ] Random tests use fixed seeds
+- [ ] Tests are independent (can run in any order)
+- [ ] Each test focuses on one behavior
+- [ ] Coverage > 80% (preferably > 90%)
+- [ ] All tests pass before committing
+- [ ] Slow tests marked with `@pytest.mark.slow`
+- [ ] Integration tests marked appropriately
+- [ ] CI configured to run tests automatically
 
----
+## Continuous Integration
 
-## User Deletion Handling
+See [assets/github-actions-tests.yml](assets/github-actions-tests.yml) for a complete GitHub Actions workflow example.
 
-### Test Database User Cleanup
+## Resources
 
-When tests create users, ensure cleanup:
+- **Scientific Python pytest Guide**: <https://learn.scientific-python.org/development/guides/pytest/>
+- **Scientific Python Testing Tutorial**: <https://learn.scientific-python.org/development/tutorials/test/>
+- **Scientific Python Testing Principles**: <https://learn.scientific-python.org/development/principles/testing/>
+- **pytest Documentation**: <https://docs.pytest.org/>
+- **pytest-cov**: <https://pytest-cov.readthedocs.io/>
+- **pytest-mock**: <https://pytest-mock.readthedocs.io/>
+- **Hypothesis (property-based testing)**: <https://hypothesis.readthedocs.io/>
+- **NumPy testing utilities**: <https://numpy.org/doc/stable/reference/routines.testing.html>
+- **Testing best practices**: <https://docs.python-guide.org/writing/tests/>
 
-```python
-@pytest.fixture
-def created_user(user_service):
-    """Create test user with automatic cleanup."""
-    user = user_service.create_user(
-        username="testuser",
-        email="test@example.com",
-        password="secure"
-    )
+## Summary
 
-    yield user
+Testing scientific Python code with pytest, following Scientific Python community principles, provides:
 
-    # Cleanup - delete after test
-    user_service.delete_user(user.id)
+1. **Confidence**: Know your code works correctly
+2. **Reproducibility**: Ensure consistent behavior across environments
+3. **Documentation**: Tests show how code should be used and communicate developer intent
+4. **Refactoring safety**: Change code without breaking functionality
+5. **Regression prevention**: Catch bugs before they reach users
+6. **Scientific rigor**: Validate numerical accuracy and physical correctness
 
+**Key testing principles:**
 
-def test_user_operations(created_user):
-    """Test operations on created user."""
-    assert created_user.id is not None
-    # User automatically deleted after test
-```
+- Start with **public interface tests** from the user's perspective
+- Organize tests into **suites** (unit, integration, e2e) by type and speed
+- Follow **outside-in** approach: public interface → integration → unit tests
+- Keep tests **simple, focused, and independent**
+- Test **behavior rather than implementation**
+- Use pytest's powerful features (fixtures, parametrization, markers) effectively
+- Always verify tests **fail when they should** to avoid false confidence
 
-### Handle User Onboarding Flow
-
-```python
-@pytest.fixture
-def onboarded_user(user_service):
-    """Create and fully onboard test user."""
-    user = user_service.create_user(
-        username="newuser",
-        email="new@example.com",
-        password="secure"
-    )
-
-    # Complete onboarding
-    user_service.set_profile(user.id, name="Test User")
-    user_service.verify_email(user.id)
-
-    yield user
-
-    # Cleanup
-    user_service.delete_user(user.id)
-```
-
----
-
-## Common Testing Patterns
-
-### Arrange-Act-Assert
-
-```python
-def test_create_user_success(user_service):
-    """Test successful user creation."""
-    # Arrange - Set up test data
-    user_data = {
-        "username": "testuser",
-        "email": "test@example.com",
-        "age": 25
-    }
-
-    # Act - Execute functionality
-    user = user_service.create_user(user_data)
-
-    # Assert - Verify results
-    assert user is not None
-    assert user.username == "testuser"
-    assert user.email == "test@example.com"
-    assert user.age == 25
-```
-
-### Database Integration
-
-```python
-@pytest.fixture(scope="module")
-def test_database():
-    """Provide test database for integration tests."""
-    db = Database("test.db")
-    db.migrate()
-    yield db
-    db.close()
-
-
-def test_user_repository_integration(test_database):
-    """Test user repository with real database."""
-    repo = UserRepository(test_database)
-
-    # Create
-    user = repo.create(username="testuser", email="test@example.com")
-    assert user.id is not None
-
-    # Retrieve
-    retrieved = repo.get(user.id)
-    assert retrieved.username == "testuser"
-
-    # Update
-    retrieved.email = "updated@example.com"
-    repo.update(retrieved)
-
-    # Verify
-    updated = repo.get(user.id)
-    assert updated.email == "updated@example.com"
-```
-
-### Test Markers and Organization
-
-```python
-@pytest.mark.slow
-def test_expensive_operation():
-    """Long-running test - can be skipped."""
-    pass
-
-
-@pytest.mark.integration
-def test_database_integration():
-    """Integration test with external service."""
-    pass
-
-
-@pytest.mark.asyncio
-@pytest.mark.slow
-def test_async_integration():
-    """Async integration test."""
-    pass
-
-
-# Run commands:
-# uv run pytest -m "not slow"          # Skip slow tests
-# uv run pytest -m integration         # Only integration
-# uv run pytest -m "integration and not slow"  # Filter multiple
-```
-
----
-
-## Edge Case Testing
-
-### Common Edge Cases
-
-```python
-def test_edge_cases():
-    """Test edge cases comprehensively."""
-    calculator = Calculator()
-
-    # Empty input
-    assert calculator.sum([]) == 0
-
-    # Single item
-    assert calculator.sum([5]) == 5
-
-    # Negative numbers
-    assert calculator.sum([-1, -2, -3]) == -6
-
-    # Mixed positive/negative
-    assert calculator.sum([10, -5, 3]) == 8
-
-    # Large numbers
-    assert calculator.sum([10**10, 10**10]) == 2 * 10**10
-
-    # Zero
-    assert calculator.sum([0, 0, 0]) == 0
-```
-
-### None Value Handling
-
-```python
-def test_none_handling(service):
-    """Test handling of None values."""
-    # None input raises error
-    with pytest.raises(ValueError):
-        service.process(None)
-
-    # None in list gets filtered
-    result = service.process_list([1, None, 3])
-    assert result == [1, 3]
-```
-
----
-
-**Note:** For general testing principles and strategies not specific to Python, see the testing-workflow skill.
+**Remember**: Any test is better than none, but well-organized tests following these principles create trustworthy, maintainable scientific software that the community can rely on.

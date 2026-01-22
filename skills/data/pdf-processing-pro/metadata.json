@@ -1,7 +1,7 @@
 {
   "name": "pdf-processing-pro",
-  "repo": "Crumbgrabber/llm_system_template_agents_skills_patterns_tools_prompts",
-  "path": "skills/pdf-processing-pro/SKILL.md",
-  "source": "github.com/Crumbgrabber/llm_system_template_agents_skills_patterns_tools_prompts",
-  "downloaded_at": "2026-01-21T02:08:14.408550Z"
+  "repo": "Krosebrook/source-of-truth-monorepo",
+  "path": "plugins/marketplaces/claude-code-templates/cli-tool/components/skills/document-processing/pdf-processing-pro/SKILL.md",
+  "source": "github.com/Krosebrook/source-of-truth-monorepo",
+  "downloaded_at": "2026-01-22T03:35:32.161991Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "cl-coding-style",
-  "description": "Common Lispのコーディング規約を適用。Lispコード作成・レビュー時に使用",
   "repo": "cxxxr/.claude",
-  "category": "development",
-  "tags": [
-    "coding",
-    "style"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/cl-coding-style/SKILL.md",
+  "source": "github.com/cxxxr/.claude",
+  "downloaded_at": "2026-01-22T03:14:22.397892Z"
 }

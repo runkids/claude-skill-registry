@@ -1,279 +1,447 @@
 ---
 name: microsoft-agent-framework
-description: Expert guidance for building AI agents and multi-agent workflows using Microsoft Agent Framework for .NET. Use when (1) creating AI agents with OpenAI or Azure OpenAI, (2) implementing function tools and structured outputs, (3) building multi-turn conversations, (4) designing graph-based workflows with streaming/checkpointing, (5) implementing middleware pipelines, (6) orchestrating multi-agent systems with fan-out/fan-in patterns, (7) adding human-in-the-loop interactions, (8) integrating OpenTelemetry observability, or (9) exposing agents as MCP tools.
+version: 0.1.0-preview
+description: Expert knowledge of Microsoft Agent Framework for building production AI agents and workflows. Use when building agents with Microsoft's framework, multi-agent orchestration, or tool integration.
 ---
 
-# Microsoft Agent Framework for .NET
+# Microsoft Agent Framework Skill
 
-## Overview
+**Version**: 0.1.0-preview | **Last Updated**: 2025-11-15 | **Framework Version**: 0.1.0-preview
+**Languages**: Python 3.10+, C# (.NET 8.0+) | **License**: MIT
 
-Microsoft Agent Framework is a framework for building, orchestrating, and deploying AI agents and multi-agent workflows. It provides graph-based workflows with streaming, checkpointing, human-in-the-loop, and time-travel capabilities.
+## Quick Reference
 
-## Installation
+Microsoft Agent Framework is an open-source platform for building production AI agents and workflows, unifying AutoGen's simplicity with Semantic Kernel's enterprise features.
 
-```bash
-# Core AI package
-dotnet add package Microsoft.Agents.AI
+**Core Capabilities**: AI Agents (stateful conversations, tool integration) | Workflows (graph-based orchestration, parallel processing) | Enterprise features (telemetry, middleware, MCP support)
 
-# OpenAI/Azure OpenAI support
-dotnet add package Microsoft.Agents.AI.OpenAI --prerelease
+**Installation**:
 
-# Google Gemini support (via Microsoft.Extensions.AI)
-dotnet add package Mscc.GenerativeAI.Microsoft
+- Python: `pip install agent-framework --pre`
+- C#: `dotnet add package Microsoft.Agents.AI --prerelease`
 
-# Azure identity for authentication
-dotnet add package Azure.Identity
+**Repository**: https://github.com/microsoft/agent-framework (5.1k stars)
+
+---
+
+## When to Use This Skill
+
+Use Microsoft Agent Framework when you need:
+
+1. **Production AI Agents** with enterprise features (telemetry, middleware, structured outputs)
+2. **Multi-Agent Orchestration** via graph-based workflows with conditional routing
+3. **Tool/Function Integration** with approval workflows and error handling
+4. **Cross-Platform Development** requiring both Python and C# implementations
+5. **Research-to-Production Pipeline** leveraging AutoGen + Semantic Kernel convergence
+
+**Integration with amplihack**: Use Agent Framework for **stateful conversational agents** and **complex orchestration**. Use amplihack's native agent system for **stateless task delegation** and **simple orchestration**. See `@integration/decision-framework.md` for detailed guidance.
+
+---
+
+## Core Concepts
+
+### 1. AI Agents
+
+Stateful conversational entities that process messages, call tools, and maintain context.
+
+**Python Example**:
+
+```python
+from agents_framework import Agent, ModelClient
+
+# Create agent with model
+agent = Agent(
+    name="assistant",
+    model=ModelClient(model="gpt-4"),
+    instructions="You are a helpful assistant"
+)
+
+# Single-turn conversation
+response = await agent.run(message="Hello!")
+print(response.content)
+
+# Multi-turn with thread
+from agents_framework import Thread
+thread = Thread()
+response = await agent.run(thread=thread, message="What's 2+2?")
+response = await agent.run(thread=thread, message="Double that")
 ```
 
-## Quick Start
-
-### Basic Agent with OpenAI
+**C# Example**:
 
 ```csharp
 using Microsoft.Agents.AI;
-using OpenAI;
 
-var agent = new OpenAIClient("<api-key>")
-    .GetOpenAIResponseClient("gpt-4o-mini")
-    .CreateAIAgent(
-        name: "Assistant",
-        instructions: "You are a helpful assistant."
-    );
-
-Console.WriteLine(await agent.RunAsync("Hello!"));
-```
-
-### Azure OpenAI with Azure CLI Auth
-
-```csharp
-using Azure.AI.OpenAI;
-using Azure.Identity;
-using Microsoft.Agents.AI;
-
-var agent = new AzureOpenAIClient(
-    new Uri("https://<resource>.openai.azure.com/"),
-    new AzureCliCredential())
-    .GetChatClient("gpt-4o-mini")
-    .CreateAIAgent(instructions: "You are helpful.");
-
-Console.WriteLine(await agent.RunAsync("Tell me a joke."));
-```
-
-### Azure OpenAI with Bearer Token
-
-```csharp
-var agent = new OpenAIClient(
-    new BearerTokenPolicy(
-        new AzureCliCredential(),
-        "https://ai.azure.com/.default"),
-    new OpenAIClientOptions
-    {
-        Endpoint = new Uri("https://<resource>.openai.azure.com/openai/v1")
-    })
-    .GetOpenAIResponseClient("gpt-4o-mini")
-    .CreateAIAgent(name: "Bot", instructions: "You are helpful.");
-```
-
-### Google Gemini
-
-```csharp
-using Mscc.GenerativeAI;
-using Mscc.GenerativeAI.Microsoft;
-using Microsoft.Agents.AI;
-
-var googleAI = new GoogleAI("<gemini-api-key>");
-var geminiModel = googleAI.GenerativeModel("gemini-2.0-flash");
-IChatClient chatClient = geminiModel.AsIChatClient();
-
-var agent = chatClient.CreateAIAgent(
-    name: "Assistant",
-    instructions: "You are a helpful assistant."
+var agent = new Agent(
+    name: "assistant",
+    model: new ModelClient(model: "gpt-4"),
+    instructions: "You are a helpful assistant"
 );
 
-Console.WriteLine(await agent.RunAsync("Hello!"));
+var response = await agent.RunAsync("Hello!");
+Console.WriteLine(response.Content);
 ```
 
-## Function Tools
+### 2. Tools & Functions
 
-Define tools using attributes:
+Extend agent capabilities by providing callable functions.
+
+**Python Example**:
+
+```python
+from agents_framework import function_tool
+
+@function_tool
+def get_weather(location: str) -> str:
+    """Get weather for a location."""
+    return f"Weather in {location}: Sunny, 72°F"
+
+agent = Agent(
+    name="assistant",
+    model=ModelClient(model="gpt-4"),
+    tools=[get_weather]
+)
+
+response = await agent.run(message="What's the weather in Seattle?")
+# Agent automatically calls get_weather() and responds with result
+```
+
+**C# Example**:
 
 ```csharp
-public class WeatherTools
+[FunctionTool]
+public static string GetWeather(string location)
 {
-    [Description("Gets current weather for a location")]
-    public static string GetWeather(
-        [Description("City name")] string city)
+    return $"Weather in {location}: Sunny, 72°F";
+}
+
+var agent = new Agent(
+    name: "assistant",
+    model: new ModelClient(model: "gpt-4"),
+    tools: new[] { typeof(Tools).GetMethod("GetWeather") }
+);
+```
+
+### 3. Workflows
+
+Graph-based orchestration for multi-agent systems with conditional routing and parallel execution.
+
+**Python Example**:
+
+```python
+from agents_framework import Workflow, GraphWorkflow
+
+# Define workflow graph
+workflow = GraphWorkflow()
+
+# Add agents as nodes
+workflow.add_node("researcher", research_agent)
+workflow.add_node("writer", writer_agent)
+workflow.add_node("reviewer", review_agent)
+
+# Define edges (control flow)
+workflow.add_edge("researcher", "writer")  # Sequential
+workflow.add_edge("writer", "reviewer")
+
+# Conditional routing
+def should_revise(state):
+    return state.get("needs_revision", False)
+
+workflow.add_conditional_edge(
+    "reviewer",
+    should_revise,
+    {"revise": "writer", "done": "END"}
+)
+
+# Execute workflow
+result = await workflow.run(initial_message="Research AI trends")
+```
+
+**C# Example**:
+
+```csharp
+var workflow = new GraphWorkflow();
+
+workflow.AddNode("researcher", researchAgent);
+workflow.AddNode("writer", writerAgent);
+workflow.AddNode("reviewer", reviewAgent);
+
+workflow.AddEdge("researcher", "writer");
+workflow.AddEdge("writer", "reviewer");
+
+var result = await workflow.RunAsync("Research AI trends");
+```
+
+### 4. Context & State Management
+
+Maintain conversation history and shared state across agents.
+
+**Python**:
+
+```python
+from agents_framework import Thread, ContextProvider
+
+# Thread maintains conversation history
+thread = Thread()
+await agent.run(thread=thread, message="Remember: My name is Alice")
+await agent.run(thread=thread, message="What's my name?")  # "Alice"
+
+# Custom context provider
+class DatabaseContext(ContextProvider):
+    async def get_context(self, thread_id: str):
+        return await db.fetch_history(thread_id)
+
+    async def save_context(self, thread_id: str, messages):
+        await db.save_history(thread_id, messages)
+
+agent = Agent(model=model, context_provider=DatabaseContext())
+```
+
+### 5. Middleware & Telemetry
+
+Add cross-cutting concerns like logging, auth, and monitoring.
+
+**Python**:
+
+```python
+from agents_framework import Middleware
+from opentelemetry import trace
+
+# Custom middleware
+class LoggingMiddleware(Middleware):
+    async def process(self, message, next_handler):
+        print(f"Processing: {message.content}")
+        response = await next_handler(message)
+        print(f"Response: {response.content}")
+        return response
+
+# OpenTelemetry integration
+tracer = trace.get_tracer(__name__)
+with tracer.start_as_current_span("agent-run"):
+    response = await agent.run(message="Hello")
+```
+
+**C#**:
+
+```csharp
+public class LoggingMiddleware : IMiddleware
+{
+    public async Task<Message> ProcessAsync(Message message, Func<Message, Task<Message>> next)
     {
-        return $"Weather in {city}: Sunny, 72F";
+        Console.WriteLine($"Processing: {message.Content}");
+        var response = await next(message);
+        Console.WriteLine($"Response: {response.Content}");
+        return response;
     }
 }
-
-// Register tools with agent
-var agent = client.GetChatClient("gpt-4o-mini")
-    .CreateAIAgent(
-        instructions: "Help users check weather.",
-        tools: [typeof(WeatherTools)]);
-
-await agent.RunAsync("What's the weather in Seattle?");
 ```
 
-### Function Tools with Approval
+---
 
-For human-in-the-loop approval:
+## Common Patterns
 
-```csharp
-agent.OnToolCall += (sender, args) =>
-{
-    Console.WriteLine($"Tool: {args.ToolName}");
-    Console.Write("Approve? (y/n): ");
-    args.Approved = Console.ReadLine()?.ToLower() == "y";
-};
+### Human-in-the-Loop Approval
+
+```python
+from agents_framework import HumanInTheLoop
+
+@function_tool
+def delete_file(path: str) -> str:
+    """Delete a file (requires approval)."""
+    return f"Deleted {path}"
+
+# Add approval wrapper
+delete_file_with_approval = HumanInTheLoop(
+    tool=delete_file,
+    approval_prompt="Approve deletion of {path}?"
+)
+
+agent = Agent(tools=[delete_file_with_approval])
 ```
 
-## Structured Output
+### Parallel Agent Execution
 
-Return strongly-typed responses:
+```python
+workflow = GraphWorkflow()
 
-```csharp
-public class MovieRecommendation
-{
-    public string Title { get; set; }
-    public string Genre { get; set; }
-    public int Year { get; set; }
-    public string Reason { get; set; }
-}
+# Add multiple agents
+workflow.add_node("analyst1", analyst_agent)
+workflow.add_node("analyst2", analyst_agent)
+workflow.add_node("synthesizer", synthesis_agent)
 
-var result = await agent.RunAsync<MovieRecommendation>(
-    "Recommend a sci-fi movie from the 2020s");
+# Parallel execution
+workflow.add_edge("START", ["analyst1", "analyst2"])  # Both run in parallel
+workflow.add_edge(["analyst1", "analyst2"], "synthesizer")  # Wait for both
 
-Console.WriteLine($"{result.Title} ({result.Year}) - {result.Reason}");
+result = await workflow.run(message="Analyze market trends")
 ```
 
-## Multi-Turn Conversations
+### Structured Output Generation
 
-```csharp
-var agent = client.GetChatClient("gpt-4o-mini")
-    .CreateAIAgent(instructions: "You are a helpful assistant.");
+```python
+from pydantic import BaseModel
 
-// First turn
-var response1 = await agent.RunAsync("My name is Alice.");
+class WeatherReport(BaseModel):
+    location: str
+    temperature: float
+    conditions: str
 
-// Continues context
-var response2 = await agent.RunAsync("What's my name?");
+agent = Agent(
+    model=model,
+    instructions="Generate weather reports",
+    response_format=WeatherReport
+)
+
+response = await agent.run(message="Weather in Seattle")
+report: WeatherReport = response.parsed
+print(f"{report.location}: {report.temperature}°F, {report.conditions}")
 ```
 
-## Persisted Conversations
+### Error Handling & Retries
 
-Save and restore conversation state:
+```python
+from agents_framework import RetryPolicy
 
-```csharp
-// Save state
-var state = agent.GetConversationState();
-await File.WriteAllTextAsync("state.json", state.ToJson());
+agent = Agent(
+    model=model,
+    retry_policy=RetryPolicy(
+        max_retries=3,
+        backoff_factor=2.0,
+        exceptions=[TimeoutError, ConnectionError]
+    )
+)
 
-// Restore later
-var savedState = ConversationState.FromJson(
-    await File.ReadAllTextAsync("state.json"));
-agent.LoadConversationState(savedState);
+try:
+    response = await agent.run(message="Hello")
+except Exception as e:
+    print(f"Failed after retries: {e}")
 ```
 
-## Middleware
+---
 
-Add custom processing pipelines:
+## Integration with amplihack
 
-```csharp
-agent.UseMiddleware(async (context, next) =>
-{
-    Console.WriteLine($"Request: {context.Input}");
-    var start = DateTime.UtcNow;
+### Decision Framework
 
-    await next();
+**Use Microsoft Agent Framework when**:
 
-    var duration = DateTime.UtcNow - start;
-    Console.WriteLine($"Response time: {duration.TotalMilliseconds}ms");
-});
+- Building stateful conversational agents (multi-turn dialogue)
+- Need enterprise features (telemetry, middleware, auth)
+- Complex multi-agent orchestration with conditional routing
+- Cross-platform requirements (Python + C#)
+- Integration with Microsoft ecosystem (Azure, M365)
+
+**Use amplihack native agents when**:
+
+- Stateless task delegation (code review, analysis)
+- Simple sequential/parallel orchestration
+- File-based operations and local tooling
+- Rapid prototyping without infrastructure
+- Token-efficient skill-based architecture
+
+**Hybrid Approach**:
+
+```python
+# Use amplihack for orchestration
+from claude import Agent as ClaudeAgent
+
+orchestrator = ClaudeAgent("orchestrator.md")
+
+# Delegate to Agent Framework for stateful agents
+from agents_framework import Agent, Thread
+
+conversational_agent = Agent(
+    model=ModelClient(model="gpt-4"),
+    instructions="Maintain conversation context"
+)
+
+thread = Thread()
+response1 = await conversational_agent.run(thread=thread, message="Start task")
+response2 = await conversational_agent.run(thread=thread, message="Continue")
+
+# Use amplihack for final synthesis
+result = orchestrator.process({"responses": [response1, response2]})
 ```
 
-## Multi-Modal (Images)
+See `@integration/amplihack-integration.md` for complete patterns.
 
-```csharp
-var result = await agent.RunAsync(
-    "Describe this image",
-    images: [File.ReadAllBytes("photo.jpg")]);
-```
+---
 
-## Observability with OpenTelemetry
+## Quick Start Workflow
 
-```csharp
-using var tracerProvider = Sdk.CreateTracerProviderBuilder()
-    .AddSource("Microsoft.Agents")
-    .AddConsoleExporter()
-    .Build();
+1. **Install**: `pip install agent-framework --pre` (Python) or `dotnet add package Microsoft.Agents.AI --prerelease` (C#)
 
-// Agent calls are now traced
-await agent.RunAsync("Hello!");
-```
+2. **Create Basic Agent**:
 
-## Dependency Injection
+   ```python
+   from agents_framework import Agent, ModelClient
 
-```csharp
-services.AddSingleton<AIAgent>(sp =>
-{
-    var client = sp.GetRequiredService<OpenAIClient>();
-    return client.GetChatClient("gpt-4o-mini")
-        .CreateAIAgent(instructions: "You are helpful.");
-});
-```
+   agent = Agent(
+       name="assistant",
+       model=ModelClient(model="gpt-4"),
+       instructions="You are a helpful assistant"
+   )
 
-## Agent as MCP Tool
+   response = await agent.run(message="Hello!")
+   ```
 
-Expose agent as Model Context Protocol tool:
+3. **Add Tools**:
 
-```csharp
-var mcpTool = agent.AsMcpTool(
-    name: "research_assistant",
-    description: "Researches topics and provides summaries");
-```
+   ```python
+   @function_tool
+   def calculate(expr: str) -> float:
+       return eval(expr)
 
-## Agent as Function Tool
+   agent = Agent(model=model, tools=[calculate])
+   ```
 
-Compose agents by exposing one as a tool for another:
+4. **Build Workflow**:
 
-```csharp
-var researchAgent = client.GetChatClient("gpt-4o")
-    .CreateAIAgent(instructions: "You do deep research.");
+   ```python
+   workflow = GraphWorkflow()
+   workflow.add_node("agent1", agent1)
+   workflow.add_node("agent2", agent2)
+   workflow.add_edge("agent1", "agent2")
+   result = await workflow.run(message="Task")
+   ```
 
-var mainAgent = client.GetChatClient("gpt-4o-mini")
-    .CreateAIAgent(
-        instructions: "Answer questions, use research tool for complex topics.",
-        tools: [researchAgent.AsFunctionTool("research", "Deep research")]);
-```
+5. **Add Telemetry**:
+   ```python
+   from opentelemetry import trace
+   tracer = trace.get_tracer(__name__)
+   with tracer.start_as_current_span("agent-run"):
+       response = await agent.run(message="Hello")
+   ```
 
-## Workflows
+---
 
-For complex multi-agent orchestration, see [references/workflows.md](references/workflows.md).
+## Reference Documentation
 
-Key workflow patterns:
-- **Executors and Edges**: Basic workflow building blocks
-- **Streaming**: Real-time event streaming
-- **Fan-Out/Fan-In**: Parallel processing
-- **Checkpointing**: Save and resume workflow state
-- **Human-in-the-Loop**: Pause for user input
-- **Writer-Critic**: Iterative refinement loops
+For detailed information, see:
 
-## Best Practices
+- `@reference/01-overview.md` - Architecture, components, use cases
+- `@reference/02-agents.md` - Agent creation, lifecycle, advanced features
+- `@reference/03-workflows.md` - Workflow patterns, executors, checkpointing
+- `@reference/04-tools-functions.md` - Tool definition, approval workflows, error handling
+- `@reference/05-context-middleware.md` - Context providers, middleware patterns, auth
+- `@reference/06-telemetry-monitoring.md` - OpenTelemetry, logging, debugging
+- `@reference/07-advanced-patterns.md` - Multi-agent patterns, streaming, DevUI
 
-1. **Use Azure CLI credentials** for local development
-2. **Add OpenTelemetry** for production observability
-3. **Implement middleware** for logging, error handling, rate limiting
-4. **Use structured outputs** when you need typed responses
-5. **Persist conversation state** for stateless services
-6. **Use checkpointing** in workflows for reliability
-7. **Implement human-in-the-loop** for sensitive operations
+## Working Examples
 
-## Resources
+- `@examples/01-basic-agent.py` - Simple conversational agent
+- `@examples/02-tool-integration.py` - Agent with function calling
+- `@examples/03-simple-workflow.py` - Multi-agent workflow
+- `@examples/04-basic-agent.cs` - C# agent implementation
+- `@examples/05-tool-integration.cs` - C# tool integration
+- `@examples/06-simple-workflow.cs` - C# workflow example
 
-- [GitHub Repository](https://github.com/microsoft/agent-framework)
-- [MS Learn Documentation](https://learn.microsoft.com/en-us/agent-framework/)
-- [Quick Start Guide](https://learn.microsoft.com/agent-framework/tutorials/quick-start)
-- [Samples](https://github.com/microsoft/agent-framework/tree/main/dotnet/samples)
+## Maintenance
+
+Check framework freshness: `python @scripts/check-freshness.py`
+
+Current version tracking: `@metadata/version-tracking.json`
+
+---
+
+**Token Count**: ~4,200 tokens (under 4,800 limit)

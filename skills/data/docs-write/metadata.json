@@ -1,7 +1,7 @@
 {
   "name": "docs-write",
-  "repo": "Kidoz-SDK/metabase",
+  "repo": "metabase/metabase",
   "path": ".claude/skills/docs-write/SKILL.md",
-  "source": "github.com/Kidoz-SDK/metabase",
-  "downloaded_at": "2026-01-21T03:17:45.251775Z"
+  "source": "github.com/metabase/metabase",
+  "downloaded_at": "2026-01-22T03:46:05.190731Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "python-testing",
-  "repo": "ilude/claude-code-config",
-  "path": "skills/python-testing/SKILL.md",
-  "source": "github.com/ilude/claude-code-config",
-  "downloaded_at": "2026-01-21T02:37:46.635983Z"
+  "repo": "robertpelloni/borg",
+  "path": "agents/rse-agents/plugins/skills/python-testing/SKILL.md",
+  "source": "github.com/robertpelloni/borg",
+  "downloaded_at": "2026-01-22T03:34:16.187243Z"
 }

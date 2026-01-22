@@ -1,7 +1,7 @@
 {
   "name": "sendgrid",
-  "repo": "mshafei721/Turbocat",
-  "path": "turbocat-agent/templates/sendgrid/sendgrid.skill.md",
-  "source": "github.com/mshafei721/Turbocat",
-  "downloaded_at": "2026-01-21T02:12:26.754050Z"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/skills/sendgrid/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-22T03:54:18.497934Z"
 }

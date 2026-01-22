@@ -1,7 +1,7 @@
 {
   "name": "benchling-integration",
-  "repo": "K-Dense-AI/claude-scientific-skills",
-  "path": "scientific-skills/benchling-integration/SKILL.md",
-  "source": "github.com/K-Dense-AI/claude-scientific-skills",
-  "downloaded_at": "2026-01-21T01:44:21.292162Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/lab-automation/benchling-integration/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:07.255294Z"
 }

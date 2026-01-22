@@ -1,7 +1,7 @@
 {
   "name": "rust-skill-creator",
-  "repo": "ZhangHanDong/rust-skills",
-  "path": "skills/rust-skill-creator/SKILL.md",
-  "source": "github.com/ZhangHanDong/rust-skills",
-  "downloaded_at": "2026-01-21T03:52:18.435105Z"
+  "repo": "rustfs/rustfs",
+  "path": ".claude/skills/rust-skill-creator/SKILL.md",
+  "source": "github.com/rustfs/rustfs",
+  "downloaded_at": "2026-01-22T03:42:47.029126Z"
 }

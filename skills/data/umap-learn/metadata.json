@@ -1,7 +1,7 @@
 {
   "name": "umap-learn",
-  "repo": "overtimepog/AgentTheo",
-  "path": ".claude/skills/scientific-skills/umap-learn/SKILL.md",
-  "source": "github.com/overtimepog/AgentTheo",
-  "downloaded_at": "2026-01-21T02:28:36.735741Z"
+  "repo": "hxk622/TokenDance",
+  "path": "backend/app/skills/builtin/scientific/data-science/umap-learn/SKILL.md",
+  "source": "github.com/hxk622/TokenDance",
+  "downloaded_at": "2026-01-22T03:42:02.169263Z"
 }

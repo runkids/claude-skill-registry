@@ -2,6 +2,10 @@
 
 Daily update log for skill discoveries.
 
+## 2026-01-22
+- **Total**: 39868 skills
+- **New**: +695 skills
+
 ## 2026-01-21
 - **Total**: 39173 skills
 - **New**: +912 skills

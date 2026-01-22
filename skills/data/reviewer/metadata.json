@@ -1,7 +1,7 @@
 {
   "name": "reviewer",
-  "repo": "wtthornton/TappsCodingAgents",
-  "path": "tapps_agents/resources/claude/skills/reviewer/SKILL.md",
-  "source": "github.com/wtthornton/TappsCodingAgents",
-  "downloaded_at": "2026-01-21T04:13:11.782928Z"
+  "repo": "mag123c/linkhub",
+  "path": ".claude/skills/reviewer/SKILL.md",
+  "source": "github.com/mag123c/linkhub",
+  "downloaded_at": "2026-01-22T03:21:59.689504Z"
 }

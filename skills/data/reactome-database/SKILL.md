@@ -1,9 +1,19 @@
 ---
 name: reactome-database
+display_name: Reactome Database
 description: Query Reactome REST API for pathway analysis, enrichment, gene-pathway mapping, disease pathways, molecular interactions, expression analysis, for systems biology studies.
+version: 1.0.0
+author: K-Dense Inc.
 license: Unknown
-metadata:
-    skill-author: K-Dense Inc.
+tags: ["database", "api", "data-access"]
+category: database
+allowed_tools: ["code_execute", "web_search", "read_url"]
+max_iterations: 30
+timeout: 600
+enabled: true
+match_threshold: 0.7
+priority: 6
+source: K-Dense-AI/claude-scientific-skills
 ---
 
 # Reactome Database

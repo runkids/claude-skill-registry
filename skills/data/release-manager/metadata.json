@@ -1,7 +1,7 @@
 {
   "name": "release-manager",
-  "repo": "sunholo-data/ailang",
-  "path": ".claude/skills/release-manager/SKILL.md",
-  "source": "github.com/sunholo-data/ailang",
-  "downloaded_at": "2026-01-21T03:54:51.951734Z"
+  "repo": "daffy0208/ai-dev-standards",
+  "path": "skills/release-manager/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-22T04:14:01.420139Z"
 }

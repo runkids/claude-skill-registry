@@ -1,289 +1,332 @@
 ---
 name: memory-management
-description: Use when saving or retrieving important patterns, decisions, and learnings across sessions. Triggers on keywords like "remember", "save pattern", "recall", "memory", "persist", "knowledge base", "learnings".
-allowed-tools: Read, Write, Edit, mcp__memory__*
-infer: true
+description: Guide for managing Claude Code memory effectively. Use when setting up project memory, optimizing CLAUDE.md files, configuring rules directories, or establishing cross-session knowledge patterns. Covers memory hierarchy, best practices, and context optimization.
+allowed-tools: ["Read", "Write", "Edit", "Glob"]
 ---
 
-# Memory Management & Knowledge Persistence
+# Memory Management
 
-Build and maintain a knowledge graph of patterns, decisions, and learnings across sessions.
-
----
-
-## Memory Entity Types
-
-| Entity Type       | Purpose                                | Examples                       |
-| ----------------- | -------------------------------------- | ------------------------------ |
-| `Pattern`         | Recurring code patterns                | CQRS, Validation, Repository   |
-| `Decision`        | Architectural/design decisions         | Why we chose X over Y          |
-| `BugFix`          | Bug solutions for future reference     | Race condition fixes           |
-| `ServiceBoundary` | Service ownership and responsibilities | TextSnippet owns Snippets      |
-| `SessionSummary`  | End-of-session progress snapshots      | Task progress, next steps      |
-| `Dependency`      | Cross-service dependencies             | TextSnippet depends on Accounts|
-| `AntiPattern`     | Patterns to avoid                      | Don't call side effects in cmd |
-
----
-
-## Memory Operations
-
-### Create New Entity
-
-```javascript
-mcp__memory__create_entities([
-    {
-        name: 'EmployeeValidationPattern',
-        entityType: 'Pattern',
-        observations: [
-            'Use PlatformValidationResult fluent API',
-            'Chain with .And() and .AndAsync()',
-            "Return validation result, don't throw",
-            'Location: Growth.Application/UseCaseCommands/'
-        ]
-    }
-]);
-```
-
-### Create Relationships
-
-```javascript
-mcp__memory__create_relations([
-    {
-        from: 'TextSnippetService',
-        to: 'AccountsService',
-        relationType: 'depends_on'
-    },
-    {
-        from: 'EmployeeEntity',
-        to: 'UserEntity',
-        relationType: 'syncs_from'
-    }
-]);
-```
-
-### Add Observations
-
-```javascript
-mcp__memory__add_observations([
-    {
-        entityName: 'EmployeeValidationPattern',
-        contents: ['Also supports .AndNot() for negative validation', 'Use .Of<IPlatformCqrsRequest>() for type conversion']
-    }
-]);
-```
-
-### Search Knowledge
-
-```javascript
-// Search by query
-mcp__memory__search_nodes({ query: 'validation pattern' });
-
-// Open specific entities
-mcp__memory__open_nodes({ names: ['EmployeeValidationPattern', 'TextSnippetService'] });
-
-// Read entire graph
-mcp__memory__read_graph();
-```
-
-### Delete Outdated Knowledge
-
-```javascript
-// Delete entities
-mcp__memory__delete_entities({ entityNames: ['OutdatedPattern'] });
-
-// Delete specific observations
-mcp__memory__delete_observations([
-    {
-        entityName: 'EmployeeValidationPattern',
-        observations: ['Outdated observation text']
-    }
-]);
-
-// Delete relations
-mcp__memory__delete_relations([
-    {
-        from: 'OldService',
-        to: 'NewService',
-        relationType: 'depends_on'
-    }
-]);
-```
-
----
-
-## When to Save to Memory
-
-### Always Save
-
-1. **Discovered Patterns**: New code patterns not in documentation
-2. **Bug Solutions**: Complex bugs with non-obvious solutions
-3. **Service Boundaries**: Which service owns what
-4. **Architectural Decisions**: Why a particular approach was chosen
-5. **Anti-Patterns**: Mistakes to avoid
-
-### Save at Session End
-
-```javascript
-// Session summary template
-mcp__memory__create_entities([
-    {
-        name: `Session_${taskName}_${date}`,
-        entityType: 'SessionSummary',
-        observations: [
-            `Task: ${taskDescription}`,
-            `Completed: ${completedItems.join(', ')}`,
-            `Remaining: ${remainingItems.join(', ')}`,
-            `Key Files: ${keyFiles.join(', ')}`,
-            `Discoveries: ${discoveries.join(', ')}`,
-            `Next Steps: ${nextSteps.join(', ')}`
-        ]
-    }
-]);
-```
-
----
-
-## Memory Retrieval Patterns
-
-### Session Start Protocol
-
-```javascript
-// 1. Search for related context
-const results = mcp__memory__search_nodes({
-    query: 'current feature or task keywords'
-});
-
-// 2. Load relevant entities
-mcp__memory__open_nodes({
-    names: results.entities.map(e => e.name)
-});
-
-// 3. Check for incomplete sessions
-mcp__memory__search_nodes({ query: 'SessionSummary Remaining' });
-```
-
-### Before Implementation
-
-```javascript
-// Check for existing patterns
-mcp__memory__search_nodes({ query: 'CQRS command pattern' });
-
-// Check for anti-patterns
-mcp__memory__search_nodes({ query: 'AntiPattern command' });
-
-// Check for related decisions
-mcp__memory__search_nodes({ query: 'Decision validation' });
-```
-
-### After Bug Fix
-
-```javascript
-// Save the fix
-mcp__memory__create_entities([
-    {
-        name: `BugFix_${bugName}`,
-        entityType: 'BugFix',
-        observations: [
-            `Symptom: ${symptomDescription}`,
-            `Root Cause: ${rootCause}`,
-            `Solution: ${solution}`,
-            `Files: ${affectedFiles.join(', ')}`,
-            `Prevention: ${preventionTip}`
-        ]
-    }
-]);
-```
-
----
-
-## Knowledge Graph Structure
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     EasyPlatform Knowledge                    │
-├─────────────────────────────────────────────────────────────┤
-│  Services                                                   │
-│  ├── TextSnippetService ──depends_on──> AccountsService          │
-│  ├── TalentsService ──depends_on──> AccountsService         │
-│  └── SurveysService ──depends_on──> AccountsService         │
-│                                                             │
-│  Patterns                                                   │
-│  ├── CQRSCommandPattern                                     │
-│  ├── CQRSQueryPattern                                       │
-│  ├── EntityEventPattern                                     │
-│  └── ValidationPattern                                      │
-│                                                             │
-│  Entities                                                   │
-│  ├── Employee ──syncs_from──> User                          │
-│  ├── Company ──syncs_from──> Organization                   │
-│  └── LeaveRequest ──owned_by──> TextSnippetService               │
-│                                                             │
-│  Sessions                                                   │
-│  ├── Session_LeaveRequest_2025-01-15                        │
-│  └── Session_EmployeeImport_2025-01-14                      │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Importance Scoring
-
-When saving observations, prioritize:
-
-| Score | Criteria                                    |
-| ----- | ------------------------------------------- |
-| 10    | Critical bug fixes, security issues         |
-| 8-9   | Architectural decisions, service boundaries |
-| 6-7   | Code patterns, best practices               |
-| 4-5   | Session summaries, progress notes           |
-| 1-3   | Temporary notes, exploration results        |
-
----
-
-## Memory Maintenance
-
-### Weekly Cleanup
-
-```javascript
-// Find old session summaries (> 30 days)
-mcp__memory__search_nodes({ query: 'SessionSummary' });
-
-// Delete outdated sessions
-mcp__memory__delete_entities({
-    entityNames: ['Session_OldTask_2024-12-01']
-});
-```
-
-### Consolidation
-
-When multiple observations cover same topic:
-
-```javascript
-// 1. Read existing entity
-mcp__memory__open_nodes({ names: ['PatternName'] });
-
-// 2. Delete fragmented observations
-mcp__memory__delete_observations([
-    {
-        entityName: 'PatternName',
-        observations: ['Fragment 1', 'Fragment 2']
-    }
-]);
-
-// 3. Add consolidated observation
-mcp__memory__add_observations([
-    {
-        entityName: 'PatternName',
-        contents: ['Consolidated comprehensive observation']
-    }
-]);
-```
-
----
+Master Claude Code's memory system for persistent context across sessions, projects, and teams.
 
 ## Quick Reference
 
-**Create**: `mcp__memory__create_entities` / `mcp__memory__create_relations`
-**Read**: `mcp__memory__read_graph` / `mcp__memory__open_nodes` / `mcp__memory__search_nodes`
-**Update**: `mcp__memory__add_observations`
-**Delete**: `mcp__memory__delete_entities` / `mcp__memory__delete_observations` / `mcp__memory__delete_relations`
+| Memory Type | Location | Scope | Priority | Use For |
+|-------------|----------|-------|----------|---------|
+| Global | `~/.claude/CLAUDE.md` | All projects | Lowest | Personal preferences, global conventions |
+| Project Root | `./CLAUDE.md` | Project-wide | Medium | Project context, tech stack, conventions |
+| Project Config | `./.claude/CLAUDE.md` | Project-wide | Medium | Same as root (alternative location) |
+| Rules | `./.claude/rules/*.md` | Conditional | Highest | Modular, file-specific instructions |
+
+## Memory Hierarchy
+
+Claude Code reads memory files in this order (later overrides earlier):
+
+```
+~/.claude/CLAUDE.md           # Your global preferences
+  |
+  v
+./CLAUDE.md                   # Project root instructions
+  |
+  v
+./.claude/CLAUDE.md           # Project config directory
+  |
+  v
+./.claude/rules/*.md          # Conditional rules (when matched)
+```
+
+### Priority Rules
+
+1. **Rules always win** - When a rule file matches, its instructions take precedence
+2. **Project overrides global** - Project CLAUDE.md supersedes global settings
+3. **Later loads override earlier** - Last-loaded content has highest priority
+4. **Explicit beats implicit** - Specific rules override general guidelines
+
+## When to Use Each Memory Type
+
+### Use Global Memory (`~/.claude/CLAUDE.md`) For
+
+- Personal coding preferences (tabs vs spaces, quote style)
+- Universal tool preferences (Bun over npm, rg over find)
+- Cross-project conventions you always follow
+- Personal workflow shortcuts
+
+**Example:**
+```markdown
+# Global Preferences
+
+## Code Style
+- Use single quotes for strings
+- Prefer for-loops over forEach
+- Use Bun instead of npm
+
+## Tools
+- Use ripgrep (rg) for searching, not grep
+- Prefer Edit over Write for modifications
+```
+
+### Use Project Memory (`./CLAUDE.md` or `./.claude/CLAUDE.md`) For
+
+- Project-specific tech stack (React, Bun, Drizzle, etc.)
+- Build and test commands
+- Architecture overview
+- Team conventions
+- File structure explanations
+
+**Example:**
+```markdown
+# Project: E-Commerce API
+
+## Tech Stack
+- Runtime: Bun
+- Framework: Hono
+- Database: PostgreSQL with Drizzle ORM
+- Testing: Bun test
+
+## Commands
+- `bun dev` - Start development server
+- `bun test` - Run all tests
+- `bun db:migrate` - Run database migrations
+
+## Architecture
+- `/src/routes` - API route handlers
+- `/src/services` - Business logic
+- `/src/db` - Database schema and queries
+```
+
+### Use Rules (`./.claude/rules/*.md`) For
+
+- File-type-specific instructions (TypeScript, React, SQL)
+- Conditional guidance based on file paths
+- Modular memory that loads only when relevant
+- Team standards that apply to specific areas
+
+**Example:**
+```
+.claude/rules/
+  react-components.md     # Globs: src/components/**/*.tsx
+  api-routes.md           # Globs: src/routes/**/*.ts
+  database.md             # Globs: src/db/**/*.ts, *.sql
+  tests.md                # Globs: **/*.test.ts, **/*.spec.ts
+```
+
+## CLAUDE.md Structure
+
+A well-structured CLAUDE.md file includes:
+
+```markdown
+# Project Name
+
+Brief description (1-2 sentences).
+
+## Commands
+- `bun install` - Install dependencies
+- `bun dev` - Start development
+- `bun test` - Run tests
+- `bun build` - Build for production
+
+## Tech Stack
+- Runtime/Framework
+- Database
+- Key libraries
+
+## Architecture
+Brief overview of project structure.
+
+## Code Style
+Project-specific conventions.
+
+## Important Notes
+Critical information Claude should always know.
+```
+
+For detailed CLAUDE.md guidance, see [CLAUDE-MD.md](./CLAUDE-MD.md).
+
+## Rules Directory
+
+The `.claude/rules/` directory contains modular memory files that load conditionally.
+
+### Rule File Anatomy
+
+```yaml
+---
+globs: ["src/components/**/*.tsx", "src/ui/**/*.tsx"]
+description: React component conventions for this project
+alwaysApply: false
+---
+
+# React Components
+
+Follow these patterns for React components...
+```
+
+### Glob Matching
+
+- **Exact match**: `src/utils.ts`
+- **Directory**: `src/components/**/*`
+- **Extension**: `**/*.tsx`
+- **Multiple**: `["*.ts", "*.tsx"]`
+
+For complete rules documentation, see [RULES.md](./RULES.md).
+
+## Best Practices
+
+### Do Include
+
+- Commands with exact syntax
+- Tech stack overview
+- Key architectural decisions
+- Non-obvious conventions
+- Error-prone areas
+
+### Do NOT Include
+
+- Code that's easily discoverable (read the files instead)
+- Verbose documentation (link instead)
+- Information that changes frequently
+- Full API documentation
+
+### Keep Memory Focused
+
+```markdown
+## Good - Actionable and Specific
+
+- Use Drizzle ORM for database queries
+- Run `bun test` before committing
+- Components go in `src/components/{feature}/`
+
+## Avoid - Vague or Obvious
+
+- Write clean code
+- Test your changes
+- Follow best practices
+```
+
+### Reference, Don't Duplicate
+
+```markdown
+## Good - Reference External Docs
+
+See API documentation at `docs/api.md`.
+Architecture diagrams in `docs/architecture/`.
+
+## Avoid - Duplicating Content
+
+[Pasting entire API documentation here]
+```
+
+## Memory Strategies
+
+### Project Onboarding
+
+When starting with a new project:
+
+1. **Create minimal CLAUDE.md** with commands and tech stack
+2. **Add rules** for the main file types you work with
+3. **Expand gradually** as you discover project quirks
+4. **Update regularly** when conventions change
+
+### Team Conventions
+
+For team projects:
+
+1. **Commit CLAUDE.md** and `.claude/rules/` to version control
+2. **Keep personal preferences** in `~/.claude/CLAUDE.md`
+3. **Document decisions** in rules files, not code comments
+4. **Review memory files** during onboarding
+
+### Cross-Session Continuity
+
+To maintain context across sessions:
+
+1. **Session hooks** can inject recent context at start
+2. **Weave framework** captures learnings for future sessions
+3. **Project memory** persists architectural decisions
+4. **Rules files** encode learned patterns
+
+For advanced memory strategies, see [STRATEGIES.md](./STRATEGIES.md).
+
+## Common Patterns
+
+### Monorepo Pattern
+
+```
+project/
+  CLAUDE.md                    # Shared conventions
+  .claude/
+    rules/
+      frontend.md              # Globs: apps/web/**/*
+      backend.md               # Globs: apps/api/**/*
+      packages.md              # Globs: packages/**/*
+  apps/
+    web/
+      CLAUDE.md                # Web-specific context
+    api/
+      CLAUDE.md                # API-specific context
+```
+
+### Feature Flag Pattern
+
+```markdown
+# .claude/rules/feature-flags.md
+---
+globs: ["src/**/*.ts", "src/**/*.tsx"]
+---
+
+## Feature Flags
+
+Active flags:
+- `ENABLE_NEW_CHECKOUT` - New checkout flow (enabled in staging)
+- `DARK_MODE` - Dark mode support (enabled everywhere)
+
+Check flags with: `useFeatureFlag('FLAG_NAME')`
+```
+
+### Migration Pattern
+
+```markdown
+# .claude/rules/migrations.md
+---
+globs: ["src/db/migrations/**/*.ts"]
+---
+
+## Database Migrations
+
+1. Generate: `bun db:generate`
+2. Run: `bun db:migrate`
+3. Rollback: `bun db:rollback`
+
+Naming: `NNNN_description.ts`
+Always include down migration.
+```
+
+## Reference Files
+
+| File | Contents |
+|------|----------|
+| [CLAUDE-MD.md](./CLAUDE-MD.md) | Deep dive on CLAUDE.md structure and content |
+| [RULES.md](./RULES.md) | Complete rules directory documentation |
+| [STRATEGIES.md](./STRATEGIES.md) | Advanced memory strategies |
+
+## Validation Checklist
+
+Before finalizing memory setup:
+
+- [ ] Global preferences in `~/.claude/CLAUDE.md`
+- [ ] Project context in `./CLAUDE.md` or `./.claude/CLAUDE.md`
+- [ ] Modular rules for file-specific guidance
+- [ ] Commands section with exact syntax
+- [ ] Tech stack clearly documented
+- [ ] No duplicated documentation
+- [ ] Rules have appropriate glob patterns
+- [ ] Memory files committed to version control
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Putting everything in global | Use project memory for project-specific content |
+| Giant CLAUDE.md files | Split into rules files for modular loading |
+| Duplicating docs | Reference external documentation instead |
+| Vague instructions | Be specific and actionable |
+| Stale content | Review and update memory periodically |
+| Missing commands | Always include build/test/run commands |

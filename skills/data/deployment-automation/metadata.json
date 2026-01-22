@@ -1,7 +1,7 @@
 {
   "name": "deployment-automation",
-  "repo": "sitechfromgeorgia/georgian-distribution-system",
-  "path": ".claude/skills/deployment-automation/SKILL.md",
-  "source": "github.com/sitechfromgeorgia/georgian-distribution-system",
-  "downloaded_at": "2026-01-21T02:06:12.654050Z"
+  "repo": "michsindlinger/agent-os-extended",
+  "path": "agent-os/templates/skills/deployment-automation/SKILL.md",
+  "source": "github.com/michsindlinger/agent-os-extended",
+  "downloaded_at": "2026-01-22T03:54:32.682179Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-agents",
-  "repo": "enuno/claude-command-and-control",
-  "path": "skills-templates/cloudflare-agents/SKILL.md",
-  "source": "github.com/enuno/claude-command-and-control",
-  "downloaded_at": "2026-01-21T01:35:48.520031Z"
+  "repo": "jezweb/claude-skills",
+  "path": "skills/cloudflare-agents/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-22T01:30:23.834391Z"
 }
