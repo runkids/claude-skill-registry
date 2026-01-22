@@ -96,14 +96,28 @@ def scan_skills(skills_dir: Path) -> list:
         except Exception:
             description = ""
 
+        # Build install path
+        repo = metadata.get("repo", "")
+        github_path = metadata.get("github_path", "")
+        github_branch = metadata.get("github_branch", "main")
+
+        if github_path and repo:
+            install = f"{repo}/{github_path}"
+        elif repo:
+            install = repo
+        else:
+            install = f"unknown/{name}"
+
         skill_entry = {
             "name": name,
             "description": description[:200] if description else f"Skill: {name}",
-            "repo": metadata.get("repo", ""),
-            "path": str(rel_path.parent),
+            "repo": repo,
+            "path": github_path or str(rel_path.parent),
+            "branch": github_branch,
             "category": metadata.get("category", category),
             "tags": metadata.get("tags", []),
             "stars": metadata.get("stars", 0),
+            "install": install,
             "source": metadata.get("source", "local"),
         }
 
