@@ -282,7 +282,7 @@ function showSkillDetail(card) {
         </div>
 
         <div style="margin-top: 1rem;">
-            <a href="https://github.com/${install}" target="_blank" style="color: var(--accent-primary);">
+            <a href="${getGitHubUrl(install)}" target="_blank" style="color: var(--accent-primary);">
                 View on GitHub →
             </a>
         </div>
@@ -300,6 +300,24 @@ function copyInstall(event, install) {
         btn.textContent = '✓';
         setTimeout(() => btn.textContent = '📋', 1500);
     });
+}
+
+// Generate proper GitHub URL from install path
+// install format: "owner/repo/path/to/skill" or "owner/repo"
+function getGitHubUrl(install) {
+    if (!install) return '#';
+    const parts = install.split('/');
+    if (parts.length < 2) return '#';
+
+    const owner = parts[0];
+    const repo = parts[1];
+    const path = parts.slice(2).join('/');
+
+    if (path) {
+        return `https://github.com/${owner}/${repo}/tree/main/${path}`;
+    } else {
+        return `https://github.com/${owner}/${repo}`;
+    }
 }
 
 // Escape HTML
