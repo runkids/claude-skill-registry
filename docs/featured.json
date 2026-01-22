@@ -1,271 +1,12 @@
 {
-  "updated_at": "2026-01-22T08:32:34.004782Z",
+  "updated_at": "2026-01-22T08:58:42.970629Z",
   "count": 100,
   "skills": [
-    {
-      "name": "docs-review",
-      "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
-      "repo": "metabase/metabase",
-      "path": "documents/docs-review",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "review"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase/documents/docs-review",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docs-write",
-      "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
-      "repo": "metabase/metabase",
-      "path": "documents/docs-write",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "write"
-      ],
-      "stars": 44733,
-      "install": "metabase/metabase/documents/docs-write",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "cookbook-audit",
-      "description": "Audit an Anthropic Cookbook notebook based on a rubric. Use whenever a notebook review or audit is requested.",
-      "repo": "anthropics/claude-cookbooks",
-      "path": "security/cookbook-audit",
-      "category": "security",
-      "tags": [
-        "cookbook",
-        "audit"
-      ],
-      "stars": 28337,
-      "install": "anthropics/claude-cookbooks/security/cookbook-audit",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "website-maintainer",
-      "description": "Use this skill when working on the Repomix documentation website in `website/` directory, including VitePress configuration, multi-language content, or translation workflows.",
-      "repo": "yamadashy/repomix",
-      "path": "documents/website-maintainer",
-      "category": "documents",
-      "tags": [
-        "website",
-        "maintainer"
-      ],
-      "stars": 20912,
-      "install": "yamadashy/repomix/documents/website-maintainer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "clinical-decision-support",
-      "description": "Generate professional clinical decision support (CDS) documents for pharmaceutical and clinical research settings, including patient cohort analyses (biomarker-stratified with outcomes) and treatment",
-      "repo": "davila7/claude-code-templates",
-      "path": "documents/clinical-decision-support",
-      "category": "documents",
-      "tags": [
-        "clinical",
-        "decision",
-        "support"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates/documents/clinical-decision-support",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "latex-posters",
-      "description": "Create professional research posters in LaTeX using beamerposter, tikzposter, or baposter. Support for conference presentations, academic posters, and scientific communication. Includes layout design,",
-      "repo": "davila7/claude-code-templates",
-      "path": "testing/latex-posters",
-      "category": "testing",
-      "tags": [
-        "latex",
-        "posters"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates/testing/latex-posters",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "market-research-reports",
-      "description": "Generate comprehensive market research reports (50+ pages) in the style of top consulting firms (McKinsey, BCG, Gartner). Features professional LaTeX formatting, extensive visual generation with scien",
-      "repo": "davila7/claude-code-templates",
-      "path": "testing/market-research-reports",
-      "category": "testing",
-      "tags": [
-        "market",
-        "research",
-        "reports"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates/testing/market-research-reports",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "research-lookup",
-      "description": "Look up current research information using Perplexity's Sonar Pro Search or Sonar Reasoning Pro models through OpenRouter. Automatically selects the best model based on query complexity. Search academ",
-      "repo": "davila7/claude-code-templates",
-      "path": "documents/research-lookup",
-      "category": "documents",
-      "tags": [
-        "research",
-        "lookup"
-      ],
-      "stars": 14334,
-      "install": "davila7/claude-code-templates/documents/research-lookup",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "repo": "obra/superpowers",
-      "path": "product/using-git-worktrees",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "stars": 12395,
-      "install": "obra/superpowers/product/using-git-worktrees",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "writing-skills",
-      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
-      "repo": "obra/superpowers",
-      "path": "devops/writing-skills",
-      "category": "devops",
-      "tags": [
-        "writing",
-        "skills"
-      ],
-      "stars": 12395,
-      "install": "obra/superpowers/devops/writing-skills",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "doc-sync",
-      "description": "Keeps IdeaVim documentation in sync with code changes. Use this skill when you need to verify documentation accuracy after code changes, or when checking if documentation (in doc/, README.md, CONTRIBU",
-      "repo": "JetBrains/ideavim",
-      "path": "documents/doc-sync",
-      "category": "documents",
-      "tags": [
-        "doc",
-        "sync"
-      ],
-      "stars": 10026,
-      "install": "JetBrains/ideavim/documents/doc-sync",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "flow-nexus-platform",
-      "description": "Comprehensive Flow Nexus platform management - authentication, sandboxes, app deployment, payments, and challenges",
-      "repo": "ruvnet/claude-flow",
-      "path": "devops/flow-nexus-platform",
-      "category": "devops",
-      "tags": [
-        "flow",
-        "nexus",
-        "platform"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow/devops/flow-nexus-platform",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "github-release-management",
-      "description": "Comprehensive GitHub release orchestration with AI swarm coordination for automated versioning, testing, deployment, and rollback management",
-      "repo": "ruvnet/claude-flow",
-      "path": "testing/github-release-management",
-      "category": "testing",
-      "tags": [
-        "github",
-        "release",
-        "management"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow/testing/github-release-management",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "swarm-advanced",
-      "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
-      "repo": "ruvnet/claude-flow",
-      "path": "testing/swarm-advanced",
-      "category": "testing",
-      "tags": [
-        "swarm",
-        "advanced"
-      ],
-      "stars": 9856,
-      "install": "ruvnet/claude-flow/testing/swarm-advanced",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "material-component-doc",
-      "description": "用于 FlowGram 物料库组件文档撰写的专用技能，提供组件文档生成、Story 创建、翻译等功能的指导和自动化支持",
-      "repo": "bytedance/flowgram.ai",
-      "path": "documents/material-component-doc",
-      "category": "documents",
-      "tags": [
-        "material",
-        "component",
-        "doc"
-      ],
-      "stars": 7456,
-      "install": "bytedance/flowgram.ai/documents/material-component-doc",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "backend-dev-guidelines",
-      "description": "Comprehensive backend development guide for Node.js/Express/TypeScript microservices. Use when creating routes, controllers, services, repositories, middleware, or working with Express APIs, Prisma da",
-      "repo": "diet103/claude-code-infrastructure-showcase",
-      "path": "testing/backend-dev-guidelines",
-      "category": "testing",
-      "tags": [
-        "backend",
-        "dev",
-        "guidelines"
-      ],
-      "stars": 6654,
-      "install": "diet103/claude-code-infrastructure-showcase/testing/backend-dev-guidelines",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "route-tester",
-      "description": "Test authenticated routes in the your project using cookie-based authentication. Use this skill when testing API endpoints, validating route functionality, or debugging authentication issues. Includes",
-      "repo": "diet103/claude-code-infrastructure-showcase",
-      "path": "testing/route-tester",
-      "category": "testing",
-      "tags": [
-        "route",
-        "tester"
-      ],
-      "stars": 6654,
-      "install": "diet103/claude-code-infrastructure-showcase/testing/route-tester",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "web-e2e",
-      "description": "Run, create, and debug Playwright e2e tests for the web app. ALWAYS invoke this skill using the SlashCommand tool (i.e., `/web-e2e`) BEFORE attempting to run any e2e tests, playwright tests, anvil tes",
-      "repo": "Uniswap/interface",
-      "path": "testing/web-e2e",
-      "category": "testing",
-      "tags": [
-        "web",
-        "e2e"
-      ],
-      "stars": 5409,
-      "install": "Uniswap/interface/testing/web-e2e",
-      "source": "SkillsMP Synced Skills"
-    },
     {
       "name": "context-engineering-collection",
       "description": "A comprehensive collection of Agent Skills for context engineering, multi-agent architectures, and production agent systems. Use when building, optimizing, or debugging agent systems that require effe",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "data/context-engineering-collection",
+      "path": "",
       "category": "development",
       "tags": [
         "context",
@@ -273,84 +14,42 @@
         "collection"
       ],
       "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/data/context-engineering-collection",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "context-optimization",
-      "description": "This skill should be used when the user asks to \"optimize context\", \"reduce token costs\", \"improve context efficiency\", \"implement KV-cache optimization\", \"partition context\", or mentions context limi",
-      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "devops/context-optimization",
-      "category": "devops",
-      "tags": [
-        "context",
-        "optimization"
-      ],
-      "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/devops/context-optimization",
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "digital-brain",
       "description": "This skill should be used when the user asks to \"write a post\", \"check my voice\", \"look up contact\", \"prepare for meeting\", \"weekly review\", \"track goals\", or mentions personal brand, content creation",
       "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "marketing/digital-brain",
+      "path": "",
       "category": "marketing",
       "tags": [
         "digital",
         "brain"
       ],
       "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/marketing/digital-brain",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "evaluation",
-      "description": "This skill should be used when the user asks to \"evaluate agent performance\", \"build test framework\", \"measure agent quality\", \"create evaluation rubrics\", or mentions LLM-as-judge, multi-dimensional",
-      "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "path": "testing/evaluation",
-      "category": "testing",
-      "tags": [
-        "evaluation"
-      ],
-      "stars": 5035,
-      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering/testing/evaluation",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "add-cuda-kernel",
-      "description": "Step-by-step tutorial for adding new CUDA kernels to FlashInfer",
-      "repo": "flashinfer-ai/flashinfer",
-      "path": "data/add-cuda-kernel",
-      "category": "development",
-      "tags": [
-        "add",
-        "cuda",
-        "kernel"
-      ],
-      "stars": 4404,
-      "install": "flashinfer-ai/flashinfer/data/add-cuda-kernel",
+      "install": "muratcankoylan/Agent-Skills-for-Context-Engineering",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "benchmark-kernel",
       "description": "Guide for benchmarking FlashInfer kernels with CUPTI timing",
       "repo": "flashinfer-ai/flashinfer",
-      "path": "data/benchmark-kernel",
+      "path": "",
       "category": "design",
       "tags": [
         "benchmark",
         "kernel"
       ],
       "stars": 4404,
-      "install": "flashinfer-ai/flashinfer/data/benchmark-kernel",
+      "install": "flashinfer-ai/flashinfer",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "debug-cuda-crash",
       "description": "Tutorial for debugging CUDA crashes using API logging",
       "repo": "flashinfer-ai/flashinfer",
-      "path": "data/debug-cuda-crash",
+      "path": "",
       "category": "development",
       "tags": [
         "debug",
@@ -358,14 +57,29 @@
         "crash"
       ],
       "stars": 4404,
-      "install": "flashinfer-ai/flashinfer/data/debug-cuda-crash",
+      "install": "flashinfer-ai/flashinfer",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "add-cuda-kernel",
+      "description": "Step-by-step tutorial for adding new CUDA kernels to FlashInfer",
+      "repo": "flashinfer-ai/flashinfer",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "add",
+        "cuda",
+        "kernel"
+      ],
+      "stars": 4404,
+      "install": "flashinfer-ai/flashinfer",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "buck2-rule-basics",
       "description": "Guide users through writing their first Buck2 rule to learn fundamental concepts including rules, actions, targets, configurations, analysis, and select(). Use this skill when users want to learn Buck",
       "repo": "facebook/buck2",
-      "path": "data/buck2-rule-basics",
+      "path": "",
       "category": "design",
       "tags": [
         "buck2",
@@ -373,57 +87,14 @@
         "basics"
       ],
       "stars": 4153,
-      "install": "facebook/buck2/data/buck2-rule-basics",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "github-issues",
-      "description": "GitHub issue comment guidelines for community interaction. Use when responding to GitHub issues, bug reports, feature requests, or any GitHub discussion.",
-      "repo": "EpicenterHQ/epicenter",
-      "path": "testing/github-issues",
-      "category": "testing",
-      "tags": [
-        "github",
-        "issues"
-      ],
-      "stars": 3797,
-      "install": "EpicenterHQ/epicenter/testing/github-issues",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "social-media",
-      "description": "Social media post guidelines for LinkedIn, Reddit, and Twitter/X. Use when drafting posts, announcements, or sharing technical content on social platforms.",
-      "repo": "EpicenterHQ/epicenter",
-      "path": "marketing/social-media",
-      "category": "marketing",
-      "tags": [
-        "social",
-        "media"
-      ],
-      "stars": 3797,
-      "install": "EpicenterHQ/epicenter/marketing/social-media",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "positron-intake-rotation",
-      "description": "This skill should be used when handling issue intake rotation duties for the Positron repository. It provides workflows for reviewing and organizing new issues, responding to discussions, handling sup",
-      "repo": "posit-dev/positron",
-      "path": "data/positron-intake-rotation",
-      "category": "productivity",
-      "tags": [
-        "positron",
-        "intake",
-        "rotation"
-      ],
-      "stars": 3764,
-      "install": "posit-dev/positron/data/positron-intake-rotation",
+      "install": "facebook/buck2",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "positron-issue-creator",
       "description": "This skill should be used when drafting GitHub issues for the Positron repository. It provides workflows for searching duplicates, selecting appropriate labels, gathering complete context through ques",
       "repo": "posit-dev/positron",
-      "path": "data/positron-issue-creator",
+      "path": "",
       "category": "productivity",
       "tags": [
         "positron",
@@ -431,57 +102,57 @@
         "creator"
       ],
       "stars": 3764,
-      "install": "posit-dev/positron/data/positron-issue-creator",
+      "install": "posit-dev/positron",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "positron-intake-rotation",
+      "description": "This skill should be used when handling issue intake rotation duties for the Positron repository. It provides workflows for reviewing and organizing new issues, responding to discussions, handling sup",
+      "repo": "posit-dev/positron",
+      "path": "",
+      "category": "productivity",
+      "tags": [
+        "positron",
+        "intake",
+        "rotation"
+      ],
+      "stars": 3764,
+      "install": "posit-dev/positron",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "positron-notebooks",
       "description": "This skill should be used when developing, debugging, or maintaining Positron Notebooks - the React-based feature-flagged notebook editor. Load this skill when tasks involve notebook cells, execution,",
       "repo": "posit-dev/positron",
-      "path": "data/positron-notebooks",
+      "path": "",
       "category": "development",
       "tags": [
         "positron",
         "notebooks"
       ],
       "stars": 3764,
-      "install": "posit-dev/positron/data/positron-notebooks",
+      "install": "posit-dev/positron",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "pr-code-review",
       "description": "Comprehensive code review for GitHub pull requests using parallel agents. Checks bugs, CLAUDE.md compliance, git history, previous PR patterns, and code comments. Use when reviewing PRs, doing code re",
       "repo": "EvolvingLMMs-Lab/lmms-eval",
-      "path": "data/pr-code-review",
+      "path": "",
       "category": "development",
       "tags": [
         "code",
         "review"
       ],
       "stars": 3514,
-      "install": "EvolvingLMMs-Lab/lmms-eval/data/pr-code-review",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "test-with-spanner",
-      "description": "Run unit tests that require the Spanner emulator. Use this skill when the user wants to run tests in packages like satellite/metabase, satellite/metainfo, or any other tests that interact with Spanner",
-      "repo": "storj/storj",
-      "path": "testing/test-with-spanner",
-      "category": "testing",
-      "tags": [
-        "test",
-        "with",
-        "spanner"
-      ],
-      "stars": 3204,
-      "install": "storj/storj/testing/test-with-spanner",
+      "install": "EvolvingLMMs-Lab/lmms-eval",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "prepare-workspace-for-plan",
       "description": "Use when you have a plan file ready and need to create an isolated git worktree for implementation - creates worktree in parent directory following project conventions and moves the plan file",
       "repo": "go-vikunja/vikunja",
-      "path": "data/prepare-workspace-for-plan",
+      "path": "",
       "category": "development",
       "tags": [
         "prepare",
@@ -490,14 +161,14 @@
         "plan"
       ],
       "stars": 2934,
-      "install": "go-vikunja/vikunja/data/prepare-workspace-for-plan",
+      "install": "go-vikunja/vikunja",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "ispc-lit-tests",
       "description": "Best practices for creating ISPC lit tests. Use when writing regression tests, verifying code generation, or checking compiler diagnostics.",
       "repo": "ispc/ispc",
-      "path": "data/ispc-lit-tests",
+      "path": "",
       "category": "development",
       "tags": [
         "ispc",
@@ -505,28 +176,28 @@
         "tests"
       ],
       "stars": 2810,
-      "install": "ispc/ispc/data/ispc-lit-tests",
+      "install": "ispc/ispc",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "prepare-changelog",
       "description": "Guidelines for preparing changelog entries for nextest releases following Keep a Changelog format",
       "repo": "nextest-rs/nextest",
-      "path": "testing/prepare-changelog",
+      "path": "",
       "category": "testing",
       "tags": [
         "prepare",
         "changelog"
       ],
       "stars": 2751,
-      "install": "nextest-rs/nextest/testing/prepare-changelog",
+      "install": "nextest-rs/nextest",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "using-base-ui-with-material-ui",
       "description": "Always use this skill when integrating Base UI components `@base-ui-components/react` with Material UI `@mui/material`.",
       "repo": "siriwatknp/mui-treasury",
-      "path": "data/using-base-ui-with-material-ui",
+      "path": "",
       "category": "design",
       "tags": [
         "using",
@@ -535,14 +206,14 @@
         "material"
       ],
       "stars": 2424,
-      "install": "siriwatknp/mui-treasury/data/using-base-ui-with-material-ui",
+      "install": "siriwatknp/mui-treasury",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "writing-registry-meta",
       "description": "Use this skill when writing meta file for MUI Treasury registry.",
       "repo": "siriwatknp/mui-treasury",
-      "path": "data/writing-registry-meta",
+      "path": "",
       "category": "design",
       "tags": [
         "writing",
@@ -550,56 +221,14 @@
         "meta"
       ],
       "stars": 2424,
-      "install": "siriwatknp/mui-treasury/data/writing-registry-meta",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "debug-with-valgrind",
-      "description": "Debug crashes, segfaults, and memory errors using valgrind integration with nextest through pre-configured profiles",
-      "repo": "facet-rs/facet",
-      "path": "testing/debug-with-valgrind",
-      "category": "testing",
-      "tags": [
-        "debug",
-        "with",
-        "valgrind"
-      ],
-      "stars": 2292,
-      "install": "facet-rs/facet/testing/debug-with-valgrind",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "jit-overview",
-      "description": "Orientation to facet-format JIT deserialization (tiering, fallbacks, key types/entry points) and where to look when changing or debugging JIT code",
-      "repo": "facet-rs/facet",
-      "path": "data/jit-overview",
-      "category": "development",
-      "tags": [
-        "jit",
-        "overview"
-      ],
-      "stars": 2292,
-      "install": "facet-rs/facet/data/jit-overview",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "profiling",
-      "description": "Profile code performance using callgrind and valgrind with nextest integration for analyzing instruction counts, cache behavior, and identifying bottlenecks",
-      "repo": "facet-rs/facet",
-      "path": "testing/profiling",
-      "category": "testing",
-      "tags": [
-        "profiling"
-      ],
-      "stars": 2292,
-      "install": "facet-rs/facet/testing/profiling",
+      "install": "siriwatknp/mui-treasury",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "reproduce-reduce-regress",
       "description": "Systematic workflow for debugging by reproducing bugs with real data, reducing test cases to minimal examples, and adding regression tests",
       "repo": "facet-rs/facet",
-      "path": "data/reproduce-reduce-regress",
+      "path": "",
       "category": "development",
       "tags": [
         "reproduce",
@@ -607,14 +236,43 @@
         "regress"
       ],
       "stars": 2292,
-      "install": "facet-rs/facet/data/reproduce-reduce-regress",
+      "install": "facet-rs/facet",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "jit-overview",
+      "description": "Orientation to facet-format JIT deserialization (tiering, fallbacks, key types/entry points) and where to look when changing or debugging JIT code",
+      "repo": "facet-rs/facet",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "jit",
+        "overview"
+      ],
+      "stars": 2292,
+      "install": "facet-rs/facet",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "debug-with-valgrind",
+      "description": "Debug crashes, segfaults, and memory errors using valgrind integration with nextest through pre-configured profiles",
+      "repo": "facet-rs/facet",
+      "path": "",
+      "category": "testing",
+      "tags": [
+        "debug",
+        "with",
+        "valgrind"
+      ],
+      "stars": 2292,
+      "install": "facet-rs/facet",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "use-facet-crates",
       "description": "Guidelines for using facet crates (facet-json, facet-toml, facet-args) instead of serde-based alternatives for consistent dogfooding",
       "repo": "facet-rs/facet",
-      "path": "data/use-facet-crates",
+      "path": "",
       "category": "data",
       "tags": [
         "use",
@@ -622,55 +280,28 @@
         "crates"
       ],
       "stars": 2292,
-      "install": "facet-rs/facet/data/use-facet-crates",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "setup-deps",
-      "description": "Download iPlug2 dependencies including plugin format SDKs (VST3, CLAP, WAM) and optional Skia graphics backend libraries",
-      "repo": "iPlug2/iPlug2",
-      "path": "devops/setup-deps",
-      "category": "devops",
-      "tags": [
-        "setup",
-        "deps"
-      ],
-      "stars": 2209,
-      "install": "iPlug2/iPlug2/devops/setup-deps",
+      "install": "facet-rs/facet",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "async-drop",
       "description": "Guide to the AsyncDrop pattern for async cleanup in Rust. Use when working with AsyncDropGuard, implementing AsyncDrop trait, or handling async resource cleanup.",
       "repo": "cryfs/cryfs",
-      "path": "data/async-drop",
+      "path": "",
       "category": "data",
       "tags": [
         "async",
         "drop"
       ],
       "stars": 2188,
-      "install": "cryfs/cryfs/data/async-drop",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "testing",
-      "description": "Run and troubleshoot tests for DBHub, including unit tests, integration tests with Testcontainers, and database-specific tests. Use when asked to run tests, fix test failures, debug integration tests,",
-      "repo": "bytebase/dbhub",
-      "path": "testing/testing",
-      "category": "testing",
-      "tags": [
-        "testing"
-      ],
-      "stars": 1820,
-      "install": "bytebase/dbhub/testing/testing",
+      "install": "cryfs/cryfs",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "prp-core-runner",
       "description": "Orchestrate complete PRP workflow from feature request to pull request. Run create branch, create PRP, execute implementation, commit changes, and create PR in sequence. Use when implementing features",
       "repo": "Wirasm/PRPs-agentic-eng",
-      "path": "data/prp-core-runner",
+      "path": "",
       "category": "productivity",
       "tags": [
         "prp",
@@ -678,73 +309,14 @@
         "runner"
       ],
       "stars": 1737,
-      "install": "Wirasm/PRPs-agentic-eng/data/prp-core-runner",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "product-requirements",
-      "description": "Interactive Product Owner skill for requirements gathering, analysis, and PRD generation. Triggers when users request product requirements, feature specification, PRD creation, or need help understand",
-      "repo": "cexll/myclaude",
-      "path": "product/product-requirements",
-      "category": "product",
-      "tags": [
-        "product",
-        "requirements"
-      ],
-      "stars": 1535,
-      "install": "cexll/myclaude/product/product-requirements",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "claude-docs-consultant",
-      "description": "Consult official Claude Code documentation from docs.claude.com using selective fetching. Use this skill when working on Claude Code hooks, skills, subagents, MCP servers, or any Claude Code feature t",
-      "repo": "centminmod/my-claude-code-setup",
-      "path": "documents/claude-docs-consultant",
-      "category": "documents",
-      "tags": [
-        "claude",
-        "docs",
-        "consultant"
-      ],
-      "stars": 1443,
-      "install": "centminmod/my-claude-code-setup/documents/claude-docs-consultant",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "documenting-rust-code",
-      "description": "Rust documentation practices for HASH codebase. Use when writing doc comments, documenting functions and types, creating error documentation sections, using intra-doc links, documenting traits and mod",
-      "repo": "hashintel/hash",
-      "path": "documents/documenting-rust-code",
-      "category": "documents",
-      "tags": [
-        "documenting",
-        "rust",
-        "code"
-      ],
-      "stars": 1378,
-      "install": "hashintel/hash/documents/documenting-rust-code",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "handling-rust-errors",
-      "description": "HASH error handling patterns using error-stack crate. Use when working with Result types, Report types, defining custom errors, propagating errors with change_context, adding context with attach, impl",
-      "repo": "hashintel/hash",
-      "path": "data/handling-rust-errors",
-      "category": "development",
-      "tags": [
-        "handling",
-        "rust",
-        "errors"
-      ],
-      "stars": 1378,
-      "install": "hashintel/hash/data/handling-rust-errors",
+      "install": "Wirasm/PRPs-agentic-eng",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "managing-cargo-dependencies",
       "description": "Cargo.toml dependency management patterns for HASH workspace. Use when adding dependencies, managing workspace dependencies, organizing Cargo.toml sections, setting version pinning, configuring defaul",
       "repo": "hashintel/hash",
-      "path": "data/managing-cargo-dependencies",
+      "path": "",
       "category": "data",
       "tags": [
         "managing",
@@ -752,42 +324,44 @@
         "dependencies"
       ],
       "stars": 1378,
-      "install": "hashintel/hash/data/managing-cargo-dependencies",
+      "install": "hashintel/hash",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "firecrawl-scrape",
-      "description": "Scrape web pages and extract content via Firecrawl MCP",
-      "repo": "parcadei/Continuous-Claude-v2",
-      "path": "marketing/firecrawl-scrape",
-      "category": "marketing",
+      "name": "handling-rust-errors",
+      "description": "HASH error handling patterns using error-stack crate. Use when working with Result types, Report types, defining custom errors, propagating errors with change_context, adding context with attach, impl",
+      "repo": "hashintel/hash",
+      "path": "",
+      "category": "development",
       "tags": [
-        "firecrawl",
-        "scrape"
+        "handling",
+        "rust",
+        "errors"
       ],
-      "stars": 1318,
-      "install": "parcadei/Continuous-Claude-v2/marketing/firecrawl-scrape",
+      "stars": 1378,
+      "install": "hashintel/hash",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "nia-docs",
-      "description": "Search library documentation and code examples via Nia",
-      "repo": "parcadei/Continuous-Claude-v2",
-      "path": "documents/nia-docs",
+      "name": "documenting-rust-code",
+      "description": "Rust documentation practices for HASH codebase. Use when writing doc comments, documenting functions and types, creating error documentation sections, using intra-doc links, documenting traits and mod",
+      "repo": "hashintel/hash",
+      "path": "",
       "category": "documents",
       "tags": [
-        "nia",
-        "docs"
+        "documenting",
+        "rust",
+        "code"
       ],
-      "stars": 1318,
-      "install": "parcadei/Continuous-Claude-v2/documents/nia-docs",
+      "stars": 1378,
+      "install": "hashintel/hash",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "external-model-selection",
       "description": "Choose optimal external AI models for code analysis, bug investigation, and architectural decisions. Use when consulting multiple LLMs via claudish, comparing model perspectives, or investigating comp",
       "repo": "MadAppGang/dingo",
-      "path": "testing/external-model-selection",
+      "path": "",
       "category": "testing",
       "tags": [
         "external",
@@ -795,125 +369,42 @@
         "selection"
       ],
       "stars": 1265,
-      "install": "MadAppGang/dingo/testing/external-model-selection",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "microsoft-docs",
-      "description": "Query official Microsoft documentation to understand concepts, find tutorials, and learn how services work. Use for Azure, .NET, Microsoft 365, Windows, Power Platform, and all Microsoft technologies.",
-      "repo": "MicrosoftDocs/mcp",
-      "path": "documents/microsoft-docs",
-      "category": "documents",
-      "tags": [
-        "microsoft",
-        "docs"
-      ],
-      "stars": 1212,
-      "install": "MicrosoftDocs/mcp/documents/microsoft-docs",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docs-seeker",
-      "description": "Searching internet for technical documentation using llms.txt standard, GitHub repositories via Repomix, and parallel exploration. Use when user needs: (1) Latest documentation for libraries/framework",
-      "repo": "mrgoonie/claudekit-skills",
-      "path": "documents/docs-seeker",
-      "category": "documents",
-      "tags": [
-        "docs",
-        "seeker"
-      ],
-      "stars": 1108,
-      "install": "mrgoonie/claudekit-skills/documents/docs-seeker",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "mermaidjs-v11",
-      "description": "Create diagrams and visualizations using Mermaid.js v11 syntax. Use when generating flowcharts, sequence diagrams, class diagrams, state diagrams, ER diagrams, Gantt charts, user journeys, timelines,",
-      "repo": "mrgoonie/claudekit-skills",
-      "path": "documents/mermaidjs-v11",
-      "category": "documents",
-      "tags": [
-        "mermaidjs",
-        "v11"
-      ],
-      "stars": 1108,
-      "install": "mrgoonie/claudekit-skills/documents/mermaidjs-v11",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "repomix",
-      "description": "Package entire code repositories into single AI-friendly files using Repomix. Capabilities include pack codebases with customizable include/exclude patterns, generate multiple output formats (XML, Mar",
-      "repo": "mrgoonie/claudekit-skills",
-      "path": "documents/repomix",
-      "category": "documents",
-      "tags": [
-        "repomix"
-      ],
-      "stars": 1108,
-      "install": "mrgoonie/claudekit-skills/documents/repomix",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "create-skill",
-      "description": "Guide for creating new skills in Kai's personal AI infrastructure. Use when user wants to create, update, or structure a new skill that extends capabilities with specialized knowledge, workflows, or t",
-      "repo": "danielmiessler/Personal_AI_Infrastructure",
-      "path": "devops/create-skill",
-      "category": "devops",
-      "tags": [
-        "create",
-        "skill"
-      ],
-      "stars": 1085,
-      "install": "danielmiessler/Personal_AI_Infrastructure/devops/create-skill",
+      "install": "MadAppGang/dingo",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "cicd-diagnostics",
       "description": "Diagnoses DotCMS GitHub Actions failures (PR builds, merge queue, nightly, trunk). Analyzes failed tests, root causes, compares runs. Use for \"fails in GitHub\", \"merge queue failure\", \"PR build failed",
       "repo": "dotCMS/core",
-      "path": "devops/cicd-diagnostics",
+      "path": "",
       "category": "devops",
       "tags": [
         "cicd",
         "diagnostics"
       ],
       "stars": 924,
-      "install": "dotCMS/core/devops/cicd-diagnostics",
+      "install": "dotCMS/core",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "trpc-patterns",
       "description": "TRPC with Tanstack Query patterns Applies to files matching: *.tsx.",
       "repo": "FranciscoMoretti/sparka",
-      "path": "data/trpc-patterns",
+      "path": "",
       "category": "development",
       "tags": [
         "trpc",
         "patterns"
       ],
       "stars": 842,
-      "install": "FranciscoMoretti/sparka/data/trpc-patterns",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "cloudflare-manager",
-      "description": "Comprehensive Cloudflare account management for deploying Workers, KV Storage, R2, Pages, DNS, and Routes. Use when deploying cloudflare services, managing worker containers, configuring KV/R2 storage",
-      "repo": "qdhenry/Claude-Command-Suite",
-      "path": "devops/cloudflare-manager",
-      "category": "devops",
-      "tags": [
-        "cloudflare",
-        "manager"
-      ],
-      "stars": 834,
-      "install": "qdhenry/Claude-Command-Suite/devops/cloudflare-manager",
+      "install": "FranciscoMoretti/sparka",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "linear-todo-sync",
       "description": "This skill fetches open tasks assigned to the user from the Linear API and generates a markdown todo list file in the project root. This skill should be used when the user asks about their work items,",
       "repo": "qdhenry/Claude-Command-Suite",
-      "path": "data/linear-todo-sync",
+      "path": "",
       "category": "design",
       "tags": [
         "linear",
@@ -921,14 +412,14 @@
         "sync"
       ],
       "stars": 834,
-      "install": "qdhenry/Claude-Command-Suite/data/linear-todo-sync",
+      "install": "qdhenry/Claude-Command-Suite",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "ai-sdk-model-manager",
       "description": "Manages AI SDK model configurations - updates packages, identifies missing models, adds new models with research, and updates documentation",
       "repo": "tambo-ai/tambo",
-      "path": "documents/ai-sdk-model-manager",
+      "path": "",
       "category": "documents",
       "tags": [
         "sdk",
@@ -936,14 +427,14 @@
         "manager"
       ],
       "stars": 817,
-      "install": "tambo-ai/tambo/documents/ai-sdk-model-manager",
+      "install": "tambo-ai/tambo",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "debug-like-expert",
       "description": "Deep analysis debugging mode for complex issues. Activates methodical investigation protocol with evidence gathering, hypothesis testing, and rigorous verification. Use when standard troubleshooting f",
       "repo": "glittercowboy/taches-cc-resources",
-      "path": "testing/debug-like-expert",
+      "path": "",
       "category": "testing",
       "tags": [
         "debug",
@@ -951,14 +442,28 @@
         "expert"
       ],
       "stars": 817,
-      "install": "glittercowboy/taches-cc-resources/testing/debug-like-expert",
+      "install": "glittercowboy/taches-cc-resources",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "mcp-research",
+      "description": "Expert research tool for Model Context Protocol implementations. PROACTIVELY use when reviewing MCP server code, planning new MCP tools/resources/prompts, investigating protocol compliance issues, or",
+      "repo": "nspady/google-calendar-mcp",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "mcp",
+        "research"
+      ],
+      "stars": 804,
+      "install": "nspady/google-calendar-mcp",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "gcal-api-research",
       "description": "Expert research tool for Google Calendar API implementations. PROACTIVELY use when (1) reviewing PRs adding calendar features, (2) planning new event/attendee/recurring event functionality, (3) invest",
       "repo": "nspady/google-calendar-mcp",
-      "path": "data/gcal-api-research",
+      "path": "",
       "category": "productivity",
       "tags": [
         "gcal",
@@ -966,99 +471,85 @@
         "research"
       ],
       "stars": 804,
-      "install": "nspady/google-calendar-mcp/data/gcal-api-research",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "mcp-research",
-      "description": "Expert research tool for Model Context Protocol implementations. PROACTIVELY use when reviewing MCP server code, planning new MCP tools/resources/prompts, investigating protocol compliance issues, or",
-      "repo": "nspady/google-calendar-mcp",
-      "path": "data/mcp-research",
-      "category": "development",
-      "tags": [
-        "mcp",
-        "research"
-      ],
-      "stars": 804,
-      "install": "nspady/google-calendar-mcp/data/mcp-research",
+      "install": "nspady/google-calendar-mcp",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "copyright-docs",
       "description": "Generate software copyright design specification documents compliant with China Copyright Protection Center (CPCC) standards. Creates complete design documents with Mermaid diagrams based on source co",
       "repo": "catlog22/Claude-Code-Workflow",
-      "path": "data/copyright-docs",
+      "path": "",
       "category": "development",
       "tags": [
         "copyright",
         "docs"
       ],
       "stars": 800,
-      "install": "catlog22/Claude-Code-Workflow/data/copyright-docs",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "issue-manage",
-      "description": "Interactive issue management with menu-driven CRUD operations. Use when managing issues, viewing issue status, editing issue fields, performing bulk operations, or viewing issue history. Triggers on \"",
-      "repo": "catlog22/Claude-Code-Workflow",
-      "path": "data/issue-manage",
-      "category": "development",
-      "tags": [
-        "issue",
-        "manage"
-      ],
-      "stars": 800,
-      "install": "catlog22/Claude-Code-Workflow/data/issue-manage",
+      "install": "catlog22/Claude-Code-Workflow",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "project-analyze",
       "description": "Multi-phase iterative project analysis with Mermaid diagrams. Generates architecture reports, design reports, method analysis reports. Use when analyzing codebases, understanding project structure, re",
       "repo": "catlog22/Claude-Code-Workflow",
-      "path": "data/project-analyze",
+      "path": "",
       "category": "development",
       "tags": [
         "project",
         "analyze"
       ],
       "stars": 800,
-      "install": "catlog22/Claude-Code-Workflow/data/project-analyze",
+      "install": "catlog22/Claude-Code-Workflow",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "software-manual",
       "description": "Generate interactive TiddlyWiki-style HTML software manuals with screenshots, API docs, and multi-level code examples. Use when creating user guides, software documentation, or API references. Trigger",
       "repo": "catlog22/Claude-Code-Workflow",
-      "path": "data/software-manual",
+      "path": "",
       "category": "development",
       "tags": [
         "software",
         "manual"
       ],
       "stars": 800,
-      "install": "catlog22/Claude-Code-Workflow/data/software-manual",
+      "install": "catlog22/Claude-Code-Workflow",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "component-guidelines-docs",
-      "description": "Generate comprehensive component guideline documentation for SEED Design System. Use when creating or updating design guideline documentation in ./docs/content/docs/components directory. This skill he",
-      "repo": "daangn/seed-design",
-      "path": "data/component-guidelines-docs",
-      "category": "design",
+      "name": "issue-manage",
+      "description": "Interactive issue management with menu-driven CRUD operations. Use when managing issues, viewing issue status, editing issue fields, performing bulk operations, or viewing issue history. Triggers on \"",
+      "repo": "catlog22/Claude-Code-Workflow",
+      "path": "",
+      "category": "development",
       "tags": [
-        "component",
-        "guidelines",
-        "docs"
+        "issue",
+        "manage"
+      ],
+      "stars": 800,
+      "install": "catlog22/Claude-Code-Workflow",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "react-docs-generator",
+      "description": "Generate React component documentation for SEED Design System. Use when creating new React component docs in ./docs/content/react/components or updating existing implementation documentation. Helps do",
+      "repo": "daangn/seed-design",
+      "path": "",
+      "category": "documents",
+      "tags": [
+        "react",
+        "docs",
+        "generator"
       ],
       "stars": 789,
-      "install": "daangn/seed-design/data/component-guidelines-docs",
+      "install": "daangn/seed-design",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "docs-consistency-checker",
       "description": "Validate consistency across SEED Design component documentation layers (design guidelines in ./docs/content/docs/components, Rootage specs in ./packages/rootage/components, and React docs in ./docs/co",
       "repo": "daangn/seed-design",
-      "path": "data/docs-consistency-checker",
+      "path": "",
       "category": "design",
       "tags": [
         "docs",
@@ -1066,29 +557,29 @@
         "checker"
       ],
       "stars": 789,
-      "install": "daangn/seed-design/data/docs-consistency-checker",
+      "install": "daangn/seed-design",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "react-docs-generator",
-      "description": "Generate React component documentation for SEED Design System. Use when creating new React component docs in ./docs/content/react/components or updating existing implementation documentation. Helps do",
+      "name": "component-guidelines-docs",
+      "description": "Generate comprehensive component guideline documentation for SEED Design System. Use when creating or updating design guideline documentation in ./docs/content/docs/components directory. This skill he",
       "repo": "daangn/seed-design",
-      "path": "documents/react-docs-generator",
-      "category": "documents",
+      "path": "",
+      "category": "design",
       "tags": [
-        "react",
-        "docs",
-        "generator"
+        "component",
+        "guidelines",
+        "docs"
       ],
       "stars": 789,
-      "install": "daangn/seed-design/documents/react-docs-generator",
+      "install": "daangn/seed-design",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "react-headless-dev",
       "description": "SEED React Headless component development specialist. Use when developing unstyled, logic-only components in packages/react-headless folder. Focuses on data-driven primitives, custom hooks, and state",
       "repo": "daangn/seed-design",
-      "path": "data/react-headless-dev",
+      "path": "",
       "category": "development",
       "tags": [
         "react",
@@ -1096,86 +587,14 @@
         "dev"
       ],
       "stars": 789,
-      "install": "daangn/seed-design/data/react-headless-dev",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "data-stats-analysis",
-      "description": "Perform statistical tests, hypothesis testing, correlation analysis, and multiple testing corrections using scipy and statsmodels. Works with ANY LLM provider (GPT, Gemini, Claude, etc.).",
-      "repo": "Starlitnightly/omicverse",
-      "path": "testing/data-stats-analysis",
-      "category": "testing",
-      "tags": [
-        "data",
-        "stats",
-        "analysis"
-      ],
-      "stars": 783,
-      "install": "Starlitnightly/omicverse/testing/data-stats-analysis",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "create-worktree-skill",
-      "description": "Use when the user explicitly asks for a SKILL to create a worktree. If the user does not mention \"skill\" or explicitly request skill invocation, do NOT trigger this. Only use when user says things lik",
-      "repo": "disler/claude-code-hooks-multi-agent-observability",
-      "path": "devops/create-worktree-skill",
-      "category": "devops",
-      "tags": [
-        "create",
-        "worktree",
-        "skill"
-      ],
-      "stars": 758,
-      "install": "disler/claude-code-hooks-multi-agent-observability/devops/create-worktree-skill",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "git-commit",
-      "description": "Use when creating git commits to ensure commit messages follow project standards. Applies the 7 rules for great commit messages with focus on conciseness and imperative mood.",
-      "repo": "cloudflare/sandbox-sdk",
-      "path": "devops/git-commit",
-      "category": "devops",
-      "tags": [
-        "git",
-        "commit"
-      ],
-      "stars": 728,
-      "install": "cloudflare/sandbox-sdk/devops/git-commit",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "session-execution",
-      "description": "Use when working on or reviewing session execution, command handling, shell state, FIFO-based streaming, or stdout/stderr separation. Relevant for session.ts, command handlers, exec/execStream, or any",
-      "repo": "cloudflare/sandbox-sdk",
-      "path": "development/session-execution",
-      "category": "development",
-      "tags": [
-        "session",
-        "execution"
-      ],
-      "stars": 728,
-      "install": "cloudflare/sandbox-sdk/development/session-execution",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "blogpost-creator",
-      "description": "Create new posts using the hydrate command.",
-      "repo": "Xe/site",
-      "path": "data/blogpost-creator",
-      "category": "development",
-      "tags": [
-        "blogpost",
-        "creator"
-      ],
-      "stars": 708,
-      "install": "Xe/site/data/blogpost-creator",
+      "install": "daangn/seed-design",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "safe-file-reader",
       "description": "Read files without making changes. Use when you need read-only file access.",
       "repo": "Xe/site",
-      "path": "data/safe-file-reader",
+      "path": "",
       "category": "development",
       "tags": [
         "safe",
@@ -1183,114 +602,85 @@
         "reader"
       ],
       "stars": 708,
-      "install": "Xe/site/data/safe-file-reader",
+      "install": "Xe/site",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "pdf-translator",
-      "description": "Extract text from PDF files, translate it to a target language, and save the result as a Markdown file. Use this skill when the user wants to translate a PDF document.",
-      "repo": "ForceInjection/AI-fundermentals",
-      "path": "documents/pdf-translator",
-      "category": "documents",
+      "name": "blogpost-creator",
+      "description": "Create new posts using the hydrate command.",
+      "repo": "Xe/site",
+      "path": "",
+      "category": "development",
       "tags": [
-        "pdf",
-        "translator"
+        "blogpost",
+        "creator"
       ],
-      "stars": 675,
-      "install": "ForceInjection/AI-fundermentals/documents/pdf-translator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "run-tests",
-      "description": ">",
-      "repo": "DataDog/dd-trace-py",
-      "path": "testing/run-tests",
-      "category": "testing",
-      "tags": [
-        "run",
-        "tests"
-      ],
-      "stars": 607,
-      "install": "DataDog/dd-trace-py/testing/run-tests",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "rails-testing",
-      "description": "Help with Rails testing including unit tests, integration tests, fixtures, and debugging test failures. Use when working on tests or debugging test issues.",
-      "repo": "etewiah/property_web_builder",
-      "path": "testing/rails-testing",
-      "category": "testing",
-      "tags": [
-        "rails",
-        "testing"
-      ],
-      "stars": 586,
-      "install": "etewiah/property_web_builder/testing/rails-testing",
+      "stars": 708,
+      "install": "Xe/site",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "theme-creation",
       "description": "Create new themes for PropertyWebBuilder. Use when creating custom themes, styling websites, or modifying theme templates. Handles theme registration, view templates, CSS, and asset configuration.",
       "repo": "etewiah/property_web_builder",
-      "path": "data/theme-creation",
+      "path": "",
       "category": "design",
       "tags": [
         "theme",
         "creation"
       ],
       "stars": 586,
-      "install": "etewiah/property_web_builder/data/theme-creation",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "card-news-generator",
-      "description": "Create 600x600 Instagram-style card news series automatically with optional background images. User provides topic, colors, and optional images - Claude generates content and creates multiple cards wi",
-      "repo": "bear2u/my-skills",
-      "path": "marketing/card-news-generator",
-      "category": "marketing",
-      "tags": [
-        "card",
-        "news",
-        "generator"
-      ],
-      "stars": 575,
-      "install": "bear2u/my-skills/marketing/card-news-generator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "card-news-generator-v2",
-      "description": "Create 600x600 Instagram-style card news series automatically with optional background images. User provides topic, colors, and optional images - Claude generates content and creates multiple cards wi",
-      "repo": "bear2u/my-skills",
-      "path": "marketing/card-news-generator-v2",
-      "category": "marketing",
-      "tags": [
-        "card",
-        "news",
-        "generator"
-      ],
-      "stars": 575,
-      "install": "bear2u/my-skills/marketing/card-news-generator-v2",
+      "install": "etewiah/property_web_builder",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "code-changelog",
       "description": "AI가 만든 모든 코드 변경사항을 reviews 폴더에 기록하고 간단한 HTML 뷰어로 웹 브라우저에서 실시간 확인할 수 있습니다. 매 수정마다 문서가 생성되고 Python 서버로 즉시 확인 가능합니다.",
       "repo": "bear2u/my-skills",
-      "path": "data/code-changelog",
+      "path": "",
       "category": "data",
       "tags": [
         "code",
         "changelog"
       ],
       "stars": 575,
-      "install": "bear2u/my-skills/data/code-changelog",
+      "install": "bear2u/my-skills",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "nextjs15-init",
+      "description": "Use when user wants to create a new Next.js 15 project (Todo/Blog/Dashboard/E-commerce/Custom domain) with App Router, ShadCN, Zustand, Tanstack Query, and modern Next.js stack",
+      "repo": "bear2u/my-skills",
+      "path": "",
+      "category": "data",
+      "tags": [
+        "nextjs15",
+        "init"
+      ],
+      "stars": 575,
+      "install": "bear2u/my-skills",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "gemini-logo-remover",
+      "description": "Remove Gemini logos, watermarks, or AI-generated image markers using OpenCV inpainting. Use this skill when the user asks to remove Gemini logo, AI watermark, or any logo/watermark from images.",
+      "repo": "bear2u/my-skills",
+      "path": "",
+      "category": "data",
+      "tags": [
+        "gemini",
+        "logo",
+        "remover"
+      ],
+      "stars": 575,
+      "install": "bear2u/my-skills",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "codex-claude-cursor-loop",
       "description": "Orchestrates a triple-AI engineering loop where Claude plans, Codex validates logic and reviews code, and Cursor implements, with continuous feedback for optimal code quality",
       "repo": "bear2u/my-skills",
-      "path": "data/codex-claude-cursor-loop",
+      "path": "",
       "category": "development",
       "tags": [
         "codex",
@@ -1299,148 +689,763 @@
         "loop"
       ],
       "stars": 575,
-      "install": "bear2u/my-skills/data/codex-claude-cursor-loop",
+      "install": "bear2u/my-skills",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "flutter-init",
       "description": "Use when user wants to create a new Flutter project (Todo/Habit/Note/Expense/Custom domain) with Clean Architecture, Riverpod 3.0, Drift, and modern Flutter stack",
       "repo": "bear2u/my-skills",
-      "path": "data/flutter-init",
+      "path": "",
       "category": "data",
       "tags": [
         "flutter",
         "init"
       ],
       "stars": 575,
-      "install": "bear2u/my-skills/data/flutter-init",
+      "install": "bear2u/my-skills",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "gemini-logo-remover",
-      "description": "Remove Gemini logos, watermarks, or AI-generated image markers using OpenCV inpainting. Use this skill when the user asks to remove Gemini logo, AI watermark, or any logo/watermark from images.",
+      "name": "card-news-generator-v2",
+      "description": "Create 600x600 Instagram-style card news series automatically with optional background images. User provides topic, colors, and optional images - Claude generates content and creates multiple cards wi",
       "repo": "bear2u/my-skills",
-      "path": "data/gemini-logo-remover",
-      "category": "data",
+      "path": "",
+      "category": "marketing",
       "tags": [
-        "gemini",
-        "logo",
-        "remover"
+        "card",
+        "news",
+        "generator"
       ],
       "stars": 575,
-      "install": "bear2u/my-skills/data/gemini-logo-remover",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "landing-page-guide",
-      "description": "Comprehensive guide for creating effective landing pages using Next.js or React. This skill should be used when users request to create landing pages, marketing pages, or product pages that require th",
-      "repo": "bear2u/my-skills",
-      "path": "design/landing-page-guide",
-      "category": "design",
-      "tags": [
-        "landing",
-        "page",
-        "guide"
-      ],
-      "stars": 575,
-      "install": "bear2u/my-skills/design/landing-page-guide",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "nextjs15-init",
-      "description": "Use when user wants to create a new Next.js 15 project (Todo/Blog/Dashboard/E-commerce/Custom domain) with App Router, ShadCN, Zustand, Tanstack Query, and modern Next.js stack",
-      "repo": "bear2u/my-skills",
-      "path": "data/nextjs15-init",
-      "category": "data",
-      "tags": [
-        "nextjs15",
-        "init"
-      ],
-      "stars": 575,
-      "install": "bear2u/my-skills/data/nextjs15-init",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "web-to-markdown",
-      "description": "웹페이지 URL을 입력받아 마크다운 형태로 변환하여 저장합니다. 웹 문서를 로컬 마크다운 파일로 아카이빙하거나 정리할 때 유용합니다.",
-      "repo": "bear2u/my-skills",
-      "path": "documents/web-to-markdown",
-      "category": "documents",
-      "tags": [
-        "web",
-        "markdown"
-      ],
-      "stars": 575,
-      "install": "bear2u/my-skills/documents/web-to-markdown",
+      "install": "bear2u/my-skills",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "workthrough",
       "description": "Use this skill proactively and automatically after completing ANY development work. AI agent summarizes: what was done, what was changed/improved, and suggests future additions/improvements - all conc",
       "repo": "bear2u/my-skills",
-      "path": "data/workthrough",
+      "path": "",
       "category": "development",
       "tags": [
         "workthrough"
       ],
       "stars": 575,
-      "install": "bear2u/my-skills/data/workthrough",
+      "install": "bear2u/my-skills",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "smart-docs",
       "description": "\"AI-powered comprehensive codebase documentation generator. Analyzes project structure, identifies architecture patterns, creates C4 model diagrams, and generates professional technical documentation.",
       "repo": "sopaco/deepwiki-rs",
-      "path": "data/smart-docs",
+      "path": "",
       "category": "development",
       "tags": [
         "smart",
         "docs"
       ],
       "stars": 567,
-      "install": "sopaco/deepwiki-rs/data/smart-docs",
+      "install": "sopaco/deepwiki-rs",
       "source": "SkillsMP Synced Skills"
     },
     {
       "name": "enferno-dev",
       "description": "Development skill for Enferno Flask framework. Use when implementing features, fixing bugs, or writing code for Enferno-based applications. This includes creating models, API endpoints, Vue.js fronten",
       "repo": "level09/enferno",
-      "path": "data/enferno-dev",
+      "path": "",
       "category": "development",
       "tags": [
         "enferno",
         "dev"
       ],
       "stars": 563,
-      "install": "level09/enferno/data/enferno-dev",
+      "install": "level09/enferno",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "activitypub-testing",
-      "description": "Testing patterns for PHPUnit and Playwright E2E tests. Use when writing tests, debugging test failures, setting up test coverage, or implementing test patterns for ActivityPub features.",
-      "repo": "Automattic/wordpress-activitypub",
-      "path": "testing/activitypub-testing",
+      "name": "test-script",
+      "description": "Use when writing or modifying .txt test scripts in testdata/script/ for git-spice - covers txtar format, end-to-end testing, ShamHub forge simulation, interactive prompts, and golden file comparisons",
+      "repo": "abhinav/git-spice",
+      "path": "",
       "category": "testing",
       "tags": [
-        "activitypub",
-        "testing"
+        "test",
+        "script"
       ],
-      "stars": 556,
-      "install": "Automattic/wordpress-activitypub/testing/activitypub-testing",
+      "stars": 520,
+      "install": "abhinav/git-spice",
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "markdown-converter",
-      "description": "Convert documents and files to Markdown using markitdown. Use when converting PDF, Word (.docx), PowerPoint (.pptx), Excel (.xlsx, .xls), HTML, CSV, JSON, XML, images (with EXIF/OCR), audio (with tran",
-      "repo": "steipete/agent-scripts",
-      "path": "documents/markdown-converter",
+      "name": "custom-builtin-functions",
+      "description": "Create a custom builtin function to be used in the Rego policy engine",
+      "repo": "chainloop-dev/chainloop",
+      "path": "",
+      "category": "design",
+      "tags": [
+        "custom",
+        "builtin",
+        "functions"
+      ],
+      "stars": 517,
+      "install": "chainloop-dev/chainloop",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "upgrading-chart",
+      "description": "Upgrades Helm chart dependencies (PostgreSQL, Vault) in the Chainloop project, including vendorized charts, container images, and CI/CD workflows. Use when the user mentions upgrading Helm charts, Bit",
+      "repo": "chainloop-dev/chainloop",
+      "path": "",
+      "category": "data",
+      "tags": [
+        "upgrading",
+        "chart"
+      ],
+      "stars": 517,
+      "install": "chainloop-dev/chainloop",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "upgrading-golang",
+      "description": "Upgrades Go version across the entire Chainloop codebase including source files, Docker images, CI/CD workflows, and documentation. Use when the user mentions upgrading Go, golang version, or updating",
+      "repo": "chainloop-dev/chainloop",
+      "path": "",
+      "category": "devops",
+      "tags": [
+        "upgrading",
+        "golang"
+      ],
+      "stars": 517,
+      "install": "chainloop-dev/chainloop",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "sql-translation",
+      "description": "Guide for adding SQL function translations to dbplyr backends. Use when implementing new database-specific R-to-SQL translations for functions like string manipulation, date/time, aggregates, or windo",
+      "repo": "tidyverse/dbplyr",
+      "path": "",
+      "category": "data",
+      "tags": [
+        "sql",
+        "translation"
+      ],
+      "stars": 496,
+      "install": "tidyverse/dbplyr",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "tidy-deprecate-function",
+      "description": "Guide for deprecating R functions/arguments. Use when a user asks to deprecate a function or parameter, including adding lifecycle warnings, updating documentation, adding NEWS entries, and updating t",
+      "repo": "tidyverse/dbplyr",
+      "path": "",
       "category": "documents",
       "tags": [
-        "markdown",
-        "converter"
+        "tidy",
+        "deprecate",
+        "function"
       ],
-      "stars": 546,
-      "install": "steipete/agent-scripts/documents/markdown-converter",
+      "stars": 496,
+      "install": "tidyverse/dbplyr",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "writing-like-user",
+      "description": "Emulate the user's personal writing voice and style patterns. Use when the user asks to write content in their voice, draft documents, compose messages, or requests \"write this like me\" or \"in my styl",
+      "repo": "CaptainCrouton89/.claude",
+      "path": "",
+      "category": "documents",
+      "tags": [
+        "writing",
+        "like",
+        "user"
+      ],
+      "stars": 490,
+      "install": "CaptainCrouton89/.claude",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "typescript-sdk-reference",
+      "description": "Comprehensive reference for the TypeScript Agent SDK with functions, types, and interfaces for programmatic Claude Code interactions",
+      "repo": "CaptainCrouton89/.claude",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "typescript",
+        "sdk",
+        "reference"
+      ],
+      "stars": 490,
+      "install": "CaptainCrouton89/.claude",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "output-styles-guide",
+      "description": "Adapt Claude Code for different use cases beyond software engineering by customizing system prompts for teaching, learning, analysis, or domain-specific workflows.",
+      "repo": "CaptainCrouton89/.claude",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "output",
+        "styles",
+        "guide"
+      ],
+      "stars": 490,
+      "install": "CaptainCrouton89/.claude",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "git-commit-format",
+      "description": "\"Apply HyperShift conventional commit formatting rules. Use when generating commit messages or creating commits.\"",
+      "repo": "openshift/hypershift",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "git",
+        "commit",
+        "format"
+      ],
+      "stars": 485,
+      "install": "openshift/hypershift",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "debug-cluster",
+      "description": "\"Provides systematic debugging approaches for HyperShift hosted-cluster issues. Auto-applies when debugging cluster problems, investigating stuck deletions, or troubleshooting control plane issues.\"",
+      "repo": "openshift/hypershift",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "debug",
+        "cluster"
+      ],
+      "stars": 485,
+      "install": "openshift/hypershift",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "effective-go",
+      "description": "\"Apply Go best practices, idioms, and conventions from golang.org/doc/effective_go. Use when writing, reviewing, or refactoring Go code to ensure idiomatic, clean, and efficient implementations.\"",
+      "repo": "openshift/hypershift",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "effective"
+      ],
+      "stars": 485,
+      "install": "openshift/hypershift",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "github-assistant",
+      "description": "GitHub workflow automation using `gh` CLI. Use when creating PRs, reviewing code, managing issues, auto-replying to fixed issues, adding comments, assigning users, managing labels, merging PRs, or che",
+      "repo": "khaphanspace/gonhanh.org",
+      "path": "",
+      "category": "productivity",
+      "tags": [
+        "github",
+        "assistant"
+      ],
+      "stars": 456,
+      "install": "khaphanspace/gonhanh.org",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "analyze-log-files",
+      "description": "Analyze log files by stripping ANSI escape sequences first. Use when asked to process, handle, read, or analyze log files that may contain terminal escape codes.",
+      "repo": "r3bl-org/r3bl-open-core",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "analyze",
+        "log",
+        "files"
+      ],
+      "stars": 433,
+      "install": "r3bl-org/r3bl-open-core",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "check-code-quality",
+      "description": "Run comprehensive Rust code quality checks including compilation, linting, documentation, and tests. Use after completing code changes and before creating commits.",
+      "repo": "r3bl-org/r3bl-open-core",
+      "path": "",
+      "category": "documents",
+      "tags": [
+        "check",
+        "code",
+        "quality"
+      ],
+      "stars": 433,
+      "install": "r3bl-org/r3bl-open-core",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "organize-modules",
+      "description": "Apply private modules with public re-exports pattern for clean API design. Includes conditional visibility for docs and tests. Use when creating modules, organizing mod.rs files, or before creating co",
+      "repo": "r3bl-org/r3bl-open-core",
+      "path": "",
+      "category": "testing",
+      "tags": [
+        "organize",
+        "modules"
+      ],
+      "stars": 433,
+      "install": "r3bl-org/r3bl-open-core",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "check-bounds-safety",
+      "description": "Apply type-safe bounds checking patterns using Index/Length types instead of usize. Use when working with arrays, buffers, cursors, viewports, or any code that handles indices and lengths.",
+      "repo": "r3bl-org/r3bl-open-core",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "check",
+        "bounds",
+        "safety"
+      ],
+      "stars": 433,
+      "install": "r3bl-org/r3bl-open-core",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "analyze-performance",
+      "description": "Establish performance baselines and detect regressions using flamegraph analysis. Use when optimizing performance-critical code, investigating performance issues, or before creating commits with perfo",
+      "repo": "r3bl-org/r3bl-open-core",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "analyze",
+        "performance"
+      ],
+      "stars": 433,
+      "install": "r3bl-org/r3bl-open-core",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "run-clippy",
+      "description": "Run clippy linting, enforce comment punctuation rules, format code with cargo fmt, and verify module organization patterns. Use after code changes and before creating commits.",
+      "repo": "r3bl-org/r3bl-open-core",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "run",
+        "clippy"
+      ],
+      "stars": 433,
+      "install": "r3bl-org/r3bl-open-core",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "write-documentation",
+      "description": "Write and format Rust documentation correctly. Apply proactively when writing code with rustdoc comments (//! or ///). Covers structure (inverted pyramid), intra-doc links (crate:: paths, reference-st",
+      "repo": "r3bl-org/r3bl-open-core",
+      "path": "",
+      "category": "documents",
+      "tags": [
+        "write",
+        "documentation"
+      ],
+      "stars": 433,
+      "install": "r3bl-org/r3bl-open-core",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "design-documentation",
+      "description": "Transform approved requirements into comprehensive technical designs. Define system architecture, component interactions, data models, and interfaces to create a blueprint for implementation.",
+      "repo": "jasonkneen/kiro",
+      "path": "",
+      "category": "design",
+      "tags": [
+        "design",
+        "documentation"
+      ],
+      "stars": 417,
+      "install": "jasonkneen/kiro",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "ai-prompting",
+      "description": "Effective communication strategies for AI-assisted development. Learn context-first prompting, phased interactions, iterative refinement, and validation techniques to get better results from Claude an",
+      "repo": "jasonkneen/kiro",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "prompting"
+      ],
+      "stars": 417,
+      "install": "jasonkneen/kiro",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "spec-driven-development",
+      "description": "Systematic three-phase approach to feature development using Requirements, Design, and Tasks phases. Transforms vague feature ideas into well-defined, implementable solutions that reduce ambiguity, im",
+      "repo": "jasonkneen/kiro",
+      "path": "",
+      "category": "design",
+      "tags": [
+        "spec",
+        "driven",
+        "development"
+      ],
+      "stars": 417,
+      "install": "jasonkneen/kiro",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "create-steering-documents",
+      "description": "Create comprehensive steering documents for development projects. Generates project-specific standards, git workflows, and technology guidelines in .kiro/steering/ directory.",
+      "repo": "jasonkneen/kiro",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "create",
+        "steering",
+        "documents"
+      ],
+      "stars": 417,
+      "install": "jasonkneen/kiro",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "reddit-fetch",
+      "description": "Fetch content from Reddit using Gemini CLI when WebFetch is blocked. Use when accessing Reddit URLs, researching topics on Reddit, or when Reddit returns 403/blocked errors. (user)",
+      "repo": "ykdojo/claude-code-tips",
+      "path": "",
+      "category": "marketing",
+      "tags": [
+        "reddit",
+        "fetch"
+      ],
+      "stars": 374,
+      "install": "ykdojo/claude-code-tips",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "software-security",
+      "description": "A software security skill that integrates with Project CodeGuard to help AI coding agents write secure code and prevent common vulnerabilities. Use this skill when writing, reviewing, or modifying cod",
+      "repo": "project-codeguard/rules",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "software",
+        "security"
+      ],
+      "stars": 358,
+      "install": "project-codeguard/rules",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "git-changes-reporter",
+      "description": "生成结构化 git 变更报告（JSON + Markdown）。使用此技能当用户提到\"git 变更\"、\"commit 摘要\"、\"代码审查\"、\"release note\"、\"近期改动\"、\"每日摘要\"，或需要分析指定 commit 区间的代码变更。包含三元组结构（设计意图、核心代码、影响范围）的语义化报告，适用于代码审查、发布说明、团队同步、CI/CD 等场景。",
+      "repo": "No-Trade-No-Life/Yuan",
+      "path": "",
+      "category": "devops",
+      "tags": [
+        "git",
+        "changes",
+        "reporter"
+      ],
+      "stars": 347,
+      "install": "No-Trade-No-Life/Yuan",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "vendor-implementation",
+      "description": "基于Hyperliquid成功实现经验，为新交易所供应商提供Yuan框架集成指南。使用此技能当需要为新的交易所创建供应商实现，包括项目结构设计、API集成、核心服务实现和最佳实践。适用于交易所API集成、金融系统开发、微服务架构设计。",
+      "repo": "No-Trade-No-Life/Yuan",
+      "path": "",
+      "category": "design",
+      "tags": [
+        "vendor",
+        "implementation"
+      ],
+      "stars": 347,
+      "install": "No-Trade-No-Life/Yuan",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "problem-analysis",
+      "description": "Invoke IMMEDIATELY for structured problem analysis and solution discovery.",
+      "repo": "solatis/claude-config",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "problem",
+        "analysis"
+      ],
+      "stars": 342,
+      "install": "solatis/claude-config",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "logo-with-variants",
+      "description": "Create logo components with multiple variants (icon, wordmark, logo) and light/dark modes. Use when the user provides logo SVG files and wants to create a variant-based logo component following the Cl",
+      "repo": "crafter-station/elements",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "logo",
+        "with",
+        "variants"
+      ],
+      "stars": 322,
+      "install": "crafter-station/elements",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "devup-ui",
+      "description": "A zero-runtime CSS-in-JS preprocessor framework for React. Use this skill when working with Devup UI components, styling, theming, or build configuration. This skill covers component usage (Box, Flex,",
+      "repo": "dev-five-git/devup-ui",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "devup"
+      ],
+      "stars": 314,
+      "install": "dev-five-git/devup-ui",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "wordpress-org-compliance",
+      "description": "Ensures WordPress.org compliance for freemium plugins (free vs premium features, license keys, trial limits, upselling). Prevents trialware violations. Use when adding premium features, implementing u",
+      "repo": "bonny/WordPress-Simple-History",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "wordpress",
+        "org",
+        "compliance"
+      ],
+      "stars": 313,
+      "install": "bonny/WordPress-Simple-History",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "logger-messages",
+      "description": "Writes user-friendly logger messages in active voice for Simple History event logs. Fixes passive voice issues. Use when creating or modifying logger classes in loggers/ directory, writing getInfo() m",
+      "repo": "bonny/WordPress-Simple-History",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "logger",
+        "messages"
+      ],
+      "stars": 313,
+      "install": "bonny/WordPress-Simple-History",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "understanding-events",
+      "description": "Use when creating events, understanding event structure, or working with event properties. Covers entity-action naming, event properties, statelessness, and vendor-agnostic design. (project)",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "design",
+      "tags": [
+        "understanding",
+        "events"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "understanding-destinations",
+      "description": "Use when working with destinations, understanding the destination interface, or learning about env pattern and configuration. Covers interface, lifecycle, env mocking, and paths.",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "understanding",
+        "destinations"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "understanding-sources",
+      "description": "Use when working with sources, understanding event capture, or learning about the push interface. Covers browser, dataLayer, and server source patterns.",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "data",
+      "tags": [
+        "understanding",
+        "sources"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "using-logger",
+      "description": "Use when working with sources/destinations to understand standard logging patterns, replace console.log, or add logging to external API calls. Covers DRY principles, when to log, and migration pattern",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "devops",
+      "tags": [
+        "using",
+        "logger"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "understanding-development",
+      "description": "Use when contributing to walkerOS, before writing code, or when unsure about project conventions. Covers build/test/lint workflow, XP principles, folder structure, and package usage.",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "understanding",
+        "development"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "understanding-flow",
+      "description": "Use when learning walkerOS architecture, understanding data flow, or designing composable event pipelines. Covers Source→Collector→Destination pattern and separation of concerns.",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "data",
+      "tags": [
+        "understanding",
+        "flow"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "create-source",
+      "description": "Use when creating a new walkerOS source (web or server). Step-by-step workflow for capturing events from new platforms. (project)",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "productivity",
+      "tags": [
+        "create",
+        "source"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "writing-documentation",
+      "description": "Use when writing or updating any documentation - README, website docs, or skills. Covers quality standards, example validation, and DRY patterns. (project)",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "documents",
+      "tags": [
+        "writing",
+        "documentation"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "understanding-mapping",
+      "description": "Use when transforming events at any point in the flow (source→collector or collector→destination), configuring data/map/loop/condition, or understanding value extraction. Covers all mapping strategies",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "data",
+      "tags": [
+        "understanding",
+        "mapping"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "create-destination",
+      "description": "Use when creating a new walkerOS destination (web or server). Step-by-step workflow from research to documentation. (project)",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "documents",
+      "tags": [
+        "create",
+        "destination"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "waterui-native-bindings",
+      "description": "Implement FFI bindings for WaterUI components across Rust, Apple Swift, and Android Kotlin/JNI layers. Use when adding new component types, metadata wrappers, or fixing native binding errors (Unsatisf",
+      "repo": "water-rs/waterui",
+      "path": "",
+      "category": "data",
+      "tags": [
+        "waterui",
+        "native",
+        "bindings"
+      ],
+      "stars": 309,
+      "install": "water-rs/waterui",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "mapping-configuration",
+      "description": "Use when configuring event mappings for specific use cases. Provides recipes for GA4, Meta, custom APIs, and common transformation patterns.",
+      "repo": "elbwalker/walkerOS",
+      "path": "",
+      "category": "devops",
+      "tags": [
+        "mapping",
+        "configuration"
+      ],
+      "stars": 309,
+      "install": "elbwalker/walkerOS",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "kosmos-xray",
+      "description": "Context-efficient codebase exploration using AST analysis. Use when exploring Kosmos architecture, understanding code structure, or preparing documentation for AI programmers. Triggers: xray, map stru",
+      "repo": "jimmc414/Kosmos",
+      "path": "",
+      "category": "documents",
+      "tags": [
+        "kosmos",
+        "xray"
+      ],
+      "stars": 304,
+      "install": "jimmc414/Kosmos",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "categorize-revdep-issues",
+      "description": "Write revdep/issue.md to group packages by common error categories",
+      "repo": "r-lib/vctrs",
+      "path": "",
+      "category": "development",
+      "tags": [
+        "categorize",
+        "revdep",
+        "issues"
+      ],
+      "stars": 297,
+      "install": "r-lib/vctrs",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "sync-data-relational",
+      "description": "Analyze spring-data-relational version changes and identify required updates for the current project. Use when upgrading spring-data-relational versions or syncing with upstream changes.",
+      "repo": "naver/spring-jdbc-plus",
+      "path": "",
+      "category": "data",
+      "tags": [
+        "sync",
+        "data",
+        "relational"
+      ],
+      "stars": 291,
+      "install": "naver/spring-jdbc-plus",
       "source": "SkillsMP Synced Skills"
     }
   ]

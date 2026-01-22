@@ -1,70 +1,60 @@
 {
-  "updated_at": "2026-01-22T08:32:33.560753Z",
+  "updated_at": "2026-01-22T08:58:42.748841Z",
   "categories": [
-    {
-      "name": "PRD-to-Tasks",
-      "code": "oth",
-      "count": 1
-    },
     {
       "name": "data",
       "code": "dat",
-      "count": 20225
+      "count": 2732
     },
     {
       "name": "design",
       "code": "des",
-      "count": 2361
+      "count": 789
     },
     {
       "name": "development",
       "code": "dev",
-      "count": 7251
+      "count": 2835
     },
     {
       "name": "devops",
       "code": "ops",
-      "count": 2079
+      "count": 450
     },
     {
       "name": "documents",
       "code": "doc",
-      "count": 2044
+      "count": 446
     },
     {
       "name": "marketing",
       "code": "mkt",
-      "count": 353
-    },
-    {
-      "name": "official",
-      "code": "off",
-      "count": 16
+      "count": 96
     },
     {
       "name": "other",
       "code": "oth",
-      "count": 456
+      "count": 21273
     },
     {
       "name": "product",
       "code": "prd",
-      "count": 838
+      "count": 146
     },
     {
       "name": "productivity",
       "code": "pro",
-      "count": 686
+      "count": 349
     },
     {
       "name": "security",
       "code": "sec",
-      "count": 499
+      "count": 87
     },
     {
       "name": "testing",
       "code": "tst",
-      "count": 3059
+      "count": 664
     }
   ]
 }

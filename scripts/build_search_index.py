@@ -2,20 +2,24 @@
 """
 Build Search Index - Generate lightweight search index for fast client-side search
 
-This script generates multiple index files:
+This script generates multiple index files from VERIFIED downloaded skills:
 1. search-index.json - Minimal index for CLI/Web search (~1MB gzip)
 2. categories/*.json - Category-based indexes for filtering
 3. featured.json - Top skills for homepage display
+
+Key improvement: Only indexes skills that have been actually downloaded,
+using the original GitHub paths stored in metadata.json.
 """
 
 import json
 import gzip
-import hashlib
 from pathlib import Path
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 import argparse
 import logging
+import re
+import yaml
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger(__name__)
@@ -55,18 +59,127 @@ def truncate_text(text: Any, max_length: int) -> str:
 
 def get_category_code(category: str) -> str:
     """Get short code for category."""
+    if not category:
+        return "oth"
     return CATEGORY_CODES.get(category.lower(), "oth")
 
 
-def build_search_index(registry_path: Path, output_dir: Path) -> Dict[str, Any]:
-    """Build the lightweight search index."""
-    logger.info(f"Loading registry from {registry_path}")
+def extract_description_from_skill(skill_content: str) -> str:
+    """Extract description from SKILL.md content."""
+    # Try YAML frontmatter first
+    if skill_content.startswith("---"):
+        try:
+            end_idx = skill_content.find("---", 3)
+            if end_idx > 0:
+                frontmatter = skill_content[3:end_idx].strip()
+                data = yaml.safe_load(frontmatter)
+                if data and data.get("description"):
+                    return data["description"]
+        except Exception:
+            pass
 
-    with open(registry_path, 'r', encoding='utf-8') as f:
-        registry = json.load(f)
+    # Try first meaningful paragraph
+    lines = skill_content.split("\n")
+    in_frontmatter = False
 
-    skills = registry.get('skills', [])
-    logger.info(f"Processing {len(skills)} skills...")
+    for line in lines:
+        line = line.strip()
+        if line == "---":
+            in_frontmatter = not in_frontmatter
+            continue
+        if in_frontmatter:
+            continue
+        if line.startswith("#"):
+            continue
+        if line and not line.startswith("```") and len(line) > 20:
+            # Clean markdown
+            line = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', line)
+            line = re.sub(r'[*_`]', '', line)
+            return line
+
+    return ""
+
+
+def scan_downloaded_skills(skills_dir: Path) -> List[Dict]:
+    """Scan downloaded skills directory and build skill list."""
+    skills = []
+
+    # Look for SKILL.md files in skills/data/*/
+    data_dir = skills_dir / "data"
+    if not data_dir.exists():
+        logger.warning(f"Skills data directory not found: {data_dir}")
+        return skills
+
+    for skill_dir in data_dir.iterdir():
+        if not skill_dir.is_dir():
+            continue
+
+        skill_md = skill_dir / "SKILL.md"
+        metadata_file = skill_dir / "metadata.json"
+
+        if not skill_md.exists():
+            continue
+
+        name = skill_dir.name
+
+        # Read metadata
+        metadata = {}
+        if metadata_file.exists():
+            try:
+                with open(metadata_file, 'r', encoding='utf-8') as f:
+                    metadata = json.load(f)
+            except Exception:
+                pass
+
+        # Read SKILL.md for description if not in metadata
+        description = metadata.get("description", "")
+        if not description:
+            try:
+                content = skill_md.read_text(encoding='utf-8')
+                description = extract_description_from_skill(content)
+            except Exception:
+                pass
+
+        if not description:
+            description = f"Skill: {name}"
+
+        # Get install path - use github_path if available
+        repo = metadata.get("repo", "")
+        github_path = metadata.get("github_path", "")
+
+        if github_path and repo:
+            # Use the original GitHub path
+            install = f"{repo}/{github_path}"
+        elif repo:
+            install = repo
+        else:
+            # Fallback - won't be installable but at least indexed
+            install = f"unknown/{name}"
+
+        skill_entry = {
+            "name": name,
+            "description": description,
+            "repo": repo,
+            "path": github_path,  # Original GitHub path
+            "category": metadata.get("category", "other"),
+            "tags": metadata.get("tags", []),
+            "stars": metadata.get("stars", 0),
+            "source": metadata.get("source", "downloaded"),
+            "install": install,
+        }
+
+        skills.append(skill_entry)
+
+    return skills
+
+
+def build_search_index(
+    skills: List[Dict],
+    output_dir: Path,
+    source_name: str = "downloaded skills"
+) -> Dict[str, Any]:
+    """Build the lightweight search index from skill list."""
+    logger.info(f"Building index from {len(skills)} {source_name}...")
 
     # Build minimal search index
     search_index = {
@@ -88,13 +201,7 @@ def build_search_index(registry_path: Path, output_dir: Path) -> Dict[str, Any]:
         tags = skill.get('tags', [])
         stars = skill.get('stars', 0)
         repo = skill.get('repo', '')
-        path = skill.get('path', '')
-
-        # Build install path
-        if path:
-            install = f"{repo}/{path}"
-        else:
-            install = repo
+        install = skill.get('install', repo)
 
         # Minimal record for search index
         mini_record = {
@@ -112,7 +219,7 @@ def build_search_index(registry_path: Path, output_dir: Path) -> Dict[str, Any]:
             "name": name,
             "description": truncate_text(description, 200),
             "repo": repo,
-            "path": path,
+            "path": skill.get('path', ''),
             "category": category,
             "tags": tags[:10] if tags else [],
             "stars": stars,
@@ -222,29 +329,76 @@ def build_search_index(registry_path: Path, output_dir: Path) -> Dict[str, Any]:
     return stats
 
 
+def load_from_registry(registry_path: Path) -> List[Dict]:
+    """Load skills from registry.json (legacy mode)."""
+    with open(registry_path, 'r', encoding='utf-8') as f:
+        registry = json.load(f)
+
+    skills = registry.get('skills', [])
+
+    # Add install path
+    for skill in skills:
+        repo = skill.get('repo', '')
+        path = skill.get('path', '')
+        if path:
+            skill['install'] = f"{repo}/{path}"
+        else:
+            skill['install'] = repo
+
+    return skills
+
+
 def main():
-    parser = argparse.ArgumentParser(description='Build search index for skill registry')
+    parser = argparse.ArgumentParser(
+        description='Build search index for skill registry (from downloaded skills or registry.json)'
+    )
+    parser.add_argument(
+        '--skills-dir', '-s',
+        default='skills',
+        help='Path to downloaded skills directory (preferred)'
+    )
     parser.add_argument(
         '--registry', '-r',
         default='registry.json',
-        help='Path to registry.json'
+        help='Path to registry.json (fallback)'
     )
     parser.add_argument(
         '--output', '-o',
         default='docs',
         help='Output directory for index files'
     )
+    parser.add_argument(
+        '--use-registry',
+        action='store_true',
+        help='Force using registry.json instead of skills directory'
+    )
 
     args = parser.parse_args()
 
+    skills_dir = Path(args.skills_dir)
     registry_path = Path(args.registry)
     output_dir = Path(args.output)
 
-    if not registry_path.exists():
-        logger.error(f"Registry not found: {registry_path}")
+    # Prefer scanning downloaded skills unless --use-registry is specified
+    if not args.use_registry and (skills_dir / "data").exists():
+        logger.info(f"Scanning downloaded skills from {skills_dir}")
+        skills = scan_downloaded_skills(skills_dir)
+        source_name = "verified downloaded skills"
+    elif registry_path.exists():
+        logger.info(f"Loading from registry: {registry_path}")
+        skills = load_from_registry(registry_path)
+        source_name = "registry entries"
+    else:
+        logger.error("No skills source found!")
+        logger.error(f"  Skills directory: {skills_dir}/data (not found)")
+        logger.error(f"  Registry: {registry_path} (not found)")
         exit(1)
 
-    build_search_index(registry_path, output_dir)
+    if not skills:
+        logger.error("No skills found!")
+        exit(1)
+
+    build_search_index(skills, output_dir, source_name)
 
 
 if __name__ == '__main__':

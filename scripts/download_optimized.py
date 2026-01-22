@@ -340,7 +340,22 @@ async def download_skill(
     for url in patterns[:10]:  # Try top 10 patterns
         content, status = await fetch_url(session, url, semaphore)
         if content and is_valid_skill_content(content):
-            # Success!
+            # Success! Extract the GitHub path from the URL
+            # URL format: https://raw.githubusercontent.com/{repo}/{branch}/{path}
+            github_path = ""
+            try:
+                url_parts = url.replace(GITHUB_RAW_BASE + "/", "").split("/")
+                if len(url_parts) > 3:
+                    # Skip repo (2 parts) and branch (1 part), get the rest
+                    github_path = "/".join(url_parts[3:])
+                    # Remove SKILL.md from path to get directory
+                    if github_path.endswith("/SKILL.md"):
+                        github_path = github_path[:-9]
+                    elif github_path == "SKILL.md":
+                        github_path = ""
+            except Exception:
+                pass
+
             skill_dir.mkdir(parents=True, exist_ok=True)
             skill_file.write_text(content, encoding="utf-8")
 
@@ -352,6 +367,7 @@ async def download_skill(
                 "tags": skill.get("tags", []),
                 "stars": skill.get("stars", 0),
                 "source": skill.get("source", ""),
+                "github_path": github_path,  # Original GitHub path
             }
             (skill_dir / "metadata.json").write_text(
                 json.dumps(metadata, indent=2, ensure_ascii=False),
@@ -379,6 +395,13 @@ async def download_skill(
                         skill_dir.mkdir(parents=True, exist_ok=True)
                         skill_file.write_text(content, encoding="utf-8")
 
+                        # Remove SKILL.md from path to get directory
+                        github_path = skill_path
+                        if github_path.endswith("/SKILL.md"):
+                            github_path = github_path[:-9]
+                        elif github_path == "SKILL.md":
+                            github_path = ""
+
                         metadata = {
                             "name": name,
                             "description": skill.get("description", ""),
@@ -387,7 +410,7 @@ async def download_skill(
                             "tags": skill.get("tags", []),
                             "stars": skill.get("stars", 0),
                             "source": skill.get("source", ""),
-                            "discovered_path": skill_path,
+                            "github_path": github_path,  # Original GitHub path
                         }
                         (skill_dir / "metadata.json").write_text(
                             json.dumps(metadata, indent=2, ensure_ascii=False),
