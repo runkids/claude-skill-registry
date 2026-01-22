@@ -12,9 +12,14 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <div class="logo">
-                <span class="logo-icon">🎯</span>
-                <h1>Claude Skills Registry</h1>
+            <div class="header-top">
+                <div class="logo">
+                    <span class="logo-icon">🎯</span>
+                    <h1>Claude Skills Registry</h1>
+                </div>
+                <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+                    <span class="theme-icon" id="theme-icon">🌙</span>
+                </button>
             </div>
             <p class="tagline">Search <span id="total-count">67,000+</span> skills for Claude Code</p>
         </header>
@@ -43,8 +48,63 @@
                     <option value="stars">Most Stars</option>
                     <option value="name">Name A-Z</option>
                 </select>
+                <button class="filter-toggle" id="filter-toggle" title="Advanced Filters">
+                    <span class="filter-icon">⚙️</span>
+                    <span class="filter-label">Filters</span>
+                </button>
+            </div>
+
+            <!-- Advanced Filters Panel -->
+            <div class="advanced-filters hidden" id="advanced-filters">
+                <div class="filter-group">
+                    <label>Stars</label>
+                    <select id="stars-filter">
+                        <option value="">Any Stars</option>
+                        <option value="1000+">1,000+ ⭐⭐⭐</option>
+                        <option value="500+">500+ ⭐⭐</option>
+                        <option value="100+">100+ ⭐</option>
+                        <option value="10+">10+</option>
+                        <option value="0">No stars</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Source</label>
+                    <select id="source-filter">
+                        <option value="">All Sources</option>
+                        <option value="official">Official (Anthropic)</option>
+                        <option value="community">Community</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Tags</label>
+                    <div class="tag-filter-input">
+                        <input type="text" id="tag-filter" placeholder="Filter by tag..." autocomplete="off">
+                        <div class="active-tags" id="active-tags"></div>
+                    </div>
+                </div>
+                <button class="clear-filters" id="clear-filters">Clear All Filters</button>
             </div>
         </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs" id="nav-tabs">
+            <button class="nav-tab active" data-view="featured">
+                <span class="tab-icon">⭐</span>
+                <span class="tab-label">Featured</span>
+            </button>
+            <button class="nav-tab" data-view="leaderboard">
+                <span class="tab-icon">🏆</span>
+                <span class="tab-label">Leaderboard</span>
+            </button>
+            <button class="nav-tab" data-view="stats">
+                <span class="tab-icon">📊</span>
+                <span class="tab-label">Stats</span>
+            </button>
+            <button class="nav-tab" data-view="favorites">
+                <span class="tab-icon">💾</span>
+                <span class="tab-label">Favorites</span>
+            </button>
+        </nav>
 
         <!-- Quick Tags -->
         <div class="quick-tags" id="quick-tags">
@@ -56,6 +116,7 @@
             <span class="tag" data-query="database">database</span>
             <span class="tag" data-query="security">security</span>
             <span class="tag" data-query="docker">docker</span>
+            <button class="random-btn" id="random-btn" title="Discover random skill">🎲</button>
         </div>
 
         <!-- Stats Bar -->
@@ -76,6 +137,62 @@
             <div id="featured-section" class="featured-section hidden">
                 <h2>⭐ Featured Skills</h2>
                 <div id="featured-list" class="skill-grid"></div>
+            </div>
+
+            <!-- Leaderboard Section -->
+            <div id="leaderboard-section" class="leaderboard-section hidden">
+                <div class="leaderboard-header">
+                    <h2>🏆 Top Skills by Stars</h2>
+                    <select id="leaderboard-category" class="leaderboard-filter">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+                <div id="leaderboard-list" class="leaderboard-grid"></div>
+            </div>
+
+            <!-- Stats Section -->
+            <div id="stats-section" class="stats-section hidden">
+                <h2>📊 Registry Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-total">0</div>
+                        <div class="stat-label">Total Skills</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-repos">0</div>
+                        <div class="stat-label">Repositories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-official">0</div>
+                        <div class="stat-label">Official Skills</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-categories">0</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                </div>
+                <div class="stats-charts">
+                    <div class="chart-container">
+                        <h3>Category Distribution</h3>
+                        <div id="category-chart" class="chart"></div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Top Repositories</h3>
+                        <div id="repos-chart" class="chart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorites Section -->
+            <div id="favorites-section" class="favorites-section hidden">
+                <h2>💾 Your Favorites</h2>
+                <p class="favorites-hint">Click the ❤️ on any skill to save it here</p>
+                <div id="favorites-list" class="skill-grid"></div>
+                <div id="favorites-empty" class="empty-state">
+                    <span class="empty-icon">💾</span>
+                    <h3>No favorites yet</h3>
+                    <p>Browse skills and click ❤️ to save them here</p>
+                </div>
             </div>
 
             <!-- Search results -->

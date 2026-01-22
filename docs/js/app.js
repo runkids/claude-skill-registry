@@ -1,6 +1,7 @@
 /**
  * Claude Skills Registry - Search Application
  * Fast client-side search for 67,000+ skills
+ * v2.0 - Added Leaderboard, Stats, Favorites, Random Discovery
  */
 
 const CONFIG = {
@@ -8,6 +9,7 @@ const CONFIG = {
     FEATURED_URL: 'featured.json',
     CATEGORIES_URL: 'categories/index.json',
     PAGE_SIZE: 20,
+    LEADERBOARD_SIZE: 50,
     DEBOUNCE_MS: 300,
     FUSE_OPTIONS: {
         keys: [
@@ -39,6 +41,22 @@ const CATEGORY_NAMES = {
     'oth': 'Other'
 };
 
+// Category colors for charts
+const CATEGORY_COLORS = {
+    'dev': '#00fff2',
+    'ops': '#ff6b6b',
+    'sec': '#ffd93d',
+    'doc': '#6bcb77',
+    'des': '#c56cf0',
+    'tst': '#ff9ff3',
+    'prd': '#54a0ff',
+    'mkt': '#ff9f43',
+    'pro': '#5f27cd',
+    'dat': '#00d2d3',
+    'off': '#f368e0',
+    'oth': '#576574'
+};
+
 // State
 let state = {
     index: null,
@@ -50,6 +68,12 @@ let state = {
     currentQuery: '',
     currentCategory: '',
     currentSort: 'relevance',
+    currentView: 'featured',
+    currentStarsFilter: '',
+    currentSourceFilter: '',
+    currentTagFilters: [],
+    favorites: JSON.parse(localStorage.getItem('skillFavorites') || '[]'),
+    theme: localStorage.getItem('theme') || 'dark',
     isLoading: true
 };
 
@@ -61,18 +85,39 @@ const elements = {
     totalCount: document.getElementById('total-count'),
     resultCount: document.getElementById('result-count'),
     searchTime: document.getElementById('search-time'),
+    statsBar: document.getElementById('stats-bar'),
     loading: document.getElementById('loading'),
     featuredSection: document.getElementById('featured-section'),
     featuredList: document.getElementById('featured-list'),
+    leaderboardSection: document.getElementById('leaderboard-section'),
+    leaderboardList: document.getElementById('leaderboard-list'),
+    leaderboardCategory: document.getElementById('leaderboard-category'),
+    statsSection: document.getElementById('stats-section'),
+    favoritesSection: document.getElementById('favorites-section'),
+    favoritesList: document.getElementById('favorites-list'),
+    favoritesEmpty: document.getElementById('favorites-empty'),
     searchResults: document.getElementById('search-results'),
     emptyState: document.getElementById('empty-state'),
     loadMore: document.getElementById('load-more'),
     loadMoreBtn: document.getElementById('load-more-btn'),
     lastUpdated: document.getElementById('last-updated'),
     quickTags: document.getElementById('quick-tags'),
+    navTabs: document.getElementById('nav-tabs'),
+    randomBtn: document.getElementById('random-btn'),
     modal: document.getElementById('skill-modal'),
     modalClose: document.getElementById('modal-close'),
-    modalBody: document.getElementById('modal-body')
+    modalBody: document.getElementById('modal-body'),
+    // Advanced filters
+    filterToggle: document.getElementById('filter-toggle'),
+    advancedFilters: document.getElementById('advanced-filters'),
+    starsFilter: document.getElementById('stars-filter'),
+    sourceFilter: document.getElementById('source-filter'),
+    tagFilter: document.getElementById('tag-filter'),
+    activeTags: document.getElementById('active-tags'),
+    clearFilters: document.getElementById('clear-filters'),
+    // Theme
+    themeToggle: document.getElementById('theme-toggle'),
+    themeIcon: document.getElementById('theme-icon')
 };
 
 // Initialize
@@ -96,8 +141,9 @@ async function init() {
         elements.totalCount.textContent = state.index.t.toLocaleString();
         elements.lastUpdated.textContent = `Updated: ${state.index.v}`;
 
-        // Populate category filter
+        // Populate category filters
         populateCategoryFilter();
+        populateLeaderboardCategoryFilter();
 
         // Show featured
         showFeatured();
@@ -126,6 +172,52 @@ function populateCategoryFilter() {
     });
 }
 
+// Populate leaderboard category filter
+function populateLeaderboardCategoryFilter() {
+    state.categories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat.code;
+        option.textContent = `${cat.name}`;
+        elements.leaderboardCategory.appendChild(option);
+    });
+}
+
+// Switch view
+function switchView(view) {
+    state.currentView = view;
+
+    // Update nav tabs
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.view === view);
+    });
+
+    // Hide all sections
+    elements.featuredSection.classList.add('hidden');
+    elements.leaderboardSection.classList.add('hidden');
+    elements.statsSection.classList.add('hidden');
+    elements.favoritesSection.classList.add('hidden');
+    elements.searchResults.classList.add('hidden');
+    elements.emptyState.classList.add('hidden');
+    elements.loadMore.classList.add('hidden');
+    elements.statsBar.classList.toggle('hidden', view !== 'featured');
+
+    // Show selected section
+    switch (view) {
+        case 'featured':
+            showFeatured();
+            break;
+        case 'leaderboard':
+            showLeaderboard();
+            break;
+        case 'stats':
+            showStats();
+            break;
+        case 'favorites':
+            showFavorites();
+            break;
+    }
+}
+
 // Show featured skills
 function showFeatured() {
     elements.featuredSection.classList.remove('hidden');
@@ -134,8 +226,230 @@ function showFeatured() {
     ).join('');
 }
 
+// Show leaderboard
+function showLeaderboard(categoryFilter = '') {
+    elements.leaderboardSection.classList.remove('hidden');
+
+    // Get all skills sorted by stars
+    let skills = [...state.index.s].filter(s => s.r > 0);
+
+    // Apply category filter
+    if (categoryFilter) {
+        skills = skills.filter(s => s.c === categoryFilter);
+    }
+
+    // Sort by stars descending
+    skills.sort((a, b) => (b.r || 0) - (a.r || 0));
+
+    // Take top N
+    const topSkills = skills.slice(0, CONFIG.LEADERBOARD_SIZE);
+
+    elements.leaderboardList.innerHTML = topSkills.map((skill, index) =>
+        createLeaderboardCard(skill, index + 1)
+    ).join('');
+}
+
+// Create leaderboard card
+function createLeaderboardCard(skill, rank) {
+    const name = skill.n;
+    const description = skill.d;
+    const category = CATEGORY_NAMES[skill.c] || skill.c;
+    const stars = skill.r;
+    const install = skill.i;
+    const isFavorite = state.favorites.includes(install);
+
+    let rankClass = '';
+    let rankIcon = '';
+    if (rank === 1) { rankClass = 'gold'; rankIcon = '🥇'; }
+    else if (rank === 2) { rankClass = 'silver'; rankIcon = '🥈'; }
+    else if (rank === 3) { rankClass = 'bronze'; rankIcon = '🥉'; }
+
+    const isOfficial = skill.c === 'off';
+
+    return `
+        <div class="leaderboard-card ${rankClass}" data-install="${escapeHtml(install)}" onclick="showSkillDetail(this)">
+            <div class="rank ${rankClass}">${rankIcon || '#' + rank}</div>
+            <div class="leaderboard-info">
+                <div class="leaderboard-header">
+                    <span class="skill-name">
+                        ${escapeHtml(name)}
+                        ${isOfficial ? '<span class="official-badge" title="Official Anthropic Skill">✓</span>' : ''}
+                    </span>
+                    <span class="skill-stars">⭐ ${stars.toLocaleString()}</span>
+                </div>
+                <p class="skill-description">${escapeHtml(description)}</p>
+                <div class="leaderboard-meta">
+                    <span class="skill-category">${escapeHtml(category)}</span>
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite(event, '${escapeHtml(install)}')" title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}">
+                        ${isFavorite ? '❤️' : '🤍'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Show stats
+function showStats() {
+    elements.statsSection.classList.remove('hidden');
+
+    // Calculate stats
+    const totalSkills = state.index.t;
+    const uniqueRepos = new Set(state.index.s.map(s => {
+        const parts = s.i.split('/');
+        return parts.length >= 2 ? `${parts[0]}/${parts[1]}` : s.i;
+    })).size;
+    const officialCount = state.index.s.filter(s => s.c === 'off').length;
+    const categoryCount = state.categories.length;
+
+    // Update stat cards
+    document.getElementById('stat-total').textContent = totalSkills.toLocaleString();
+    document.getElementById('stat-repos').textContent = uniqueRepos.toLocaleString();
+    document.getElementById('stat-official').textContent = officialCount.toLocaleString();
+    document.getElementById('stat-categories').textContent = categoryCount;
+
+    // Render category chart
+    renderCategoryChart();
+
+    // Render top repos chart
+    renderReposChart();
+}
+
+// Render category distribution chart
+function renderCategoryChart() {
+    const chartContainer = document.getElementById('category-chart');
+
+    // Count by category
+    const categoryCounts = {};
+    state.index.s.forEach(skill => {
+        const cat = skill.c || 'oth';
+        categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+    });
+
+    // Sort by count
+    const sorted = Object.entries(categoryCounts)
+        .sort((a, b) => b[1] - a[1]);
+
+    const maxCount = sorted[0][1];
+
+    chartContainer.innerHTML = sorted.map(([code, count]) => {
+        const name = CATEGORY_NAMES[code] || code;
+        const color = CATEGORY_COLORS[code] || '#576574';
+        const percentage = ((count / state.index.t) * 100).toFixed(1);
+        const barWidth = (count / maxCount) * 100;
+
+        return `
+            <div class="chart-row">
+                <div class="chart-label">${name}</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: ${barWidth}%; background: ${color}"></div>
+                </div>
+                <div class="chart-value">${count.toLocaleString()} (${percentage}%)</div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Render top repositories chart
+function renderReposChart() {
+    const chartContainer = document.getElementById('repos-chart');
+
+    // Count by repo
+    const repoCounts = {};
+    state.index.s.forEach(skill => {
+        const parts = skill.i.split('/');
+        if (parts.length >= 2) {
+            const repo = `${parts[0]}/${parts[1]}`;
+            repoCounts[repo] = (repoCounts[repo] || 0) + 1;
+        }
+    });
+
+    // Sort by count and take top 10
+    const sorted = Object.entries(repoCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+
+    const maxCount = sorted[0][1];
+
+    chartContainer.innerHTML = sorted.map(([repo, count], index) => {
+        const barWidth = (count / maxCount) * 100;
+        const colors = ['#00fff2', '#ff6b6b', '#ffd93d', '#6bcb77', '#c56cf0',
+                        '#ff9ff3', '#54a0ff', '#ff9f43', '#5f27cd', '#00d2d3'];
+
+        return `
+            <div class="chart-row">
+                <div class="chart-label" title="${repo}">${repo.length > 25 ? repo.slice(0, 25) + '...' : repo}</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: ${barWidth}%; background: ${colors[index % colors.length]}"></div>
+                </div>
+                <div class="chart-value">${count.toLocaleString()}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Show favorites
+function showFavorites() {
+    elements.favoritesSection.classList.remove('hidden');
+
+    if (state.favorites.length === 0) {
+        elements.favoritesList.classList.add('hidden');
+        elements.favoritesEmpty.classList.remove('hidden');
+        return;
+    }
+
+    elements.favoritesEmpty.classList.add('hidden');
+    elements.favoritesList.classList.remove('hidden');
+
+    // Find favorite skills
+    const favoriteSkills = state.favorites
+        .map(install => state.index.s.find(s => s.i === install))
+        .filter(Boolean);
+
+    elements.favoritesList.innerHTML = favoriteSkills.map(skill =>
+        createSkillCard(skill, false, true)
+    ).join('');
+}
+
+// Toggle favorite
+function toggleFavorite(event, install) {
+    event.stopPropagation();
+
+    const index = state.favorites.indexOf(install);
+    if (index > -1) {
+        state.favorites.splice(index, 1);
+    } else {
+        state.favorites.push(install);
+    }
+
+    // Save to localStorage
+    localStorage.setItem('skillFavorites', JSON.stringify(state.favorites));
+
+    // Update button
+    const btn = event.target;
+    const isFavorite = state.favorites.includes(install);
+    btn.textContent = isFavorite ? '❤️' : '🤍';
+    btn.classList.toggle('active', isFavorite);
+
+    // Update favorites view if currently showing
+    if (state.currentView === 'favorites') {
+        showFavorites();
+    }
+}
+
+// Show random skill
+function showRandomSkill() {
+    const randomIndex = Math.floor(Math.random() * state.index.s.length);
+    const skill = state.index.s[randomIndex];
+
+    // Create a temporary card element to pass to showSkillDetail
+    const tempCard = document.createElement('div');
+    tempCard.dataset.install = skill.i;
+    showSkillDetail(tempCard);
+}
+
 // Create skill card HTML
-function createSkillCard(skill, isFeatured = false) {
+function createSkillCard(skill, isFeatured = false, showFavoriteBtn = true) {
     const name = isFeatured ? skill.name : skill.n;
     const description = isFeatured ? skill.description : skill.d;
     const category = isFeatured ? skill.category : CATEGORY_NAMES[skill.c] || skill.c;
@@ -144,6 +458,9 @@ function createSkillCard(skill, isFeatured = false) {
     const stars = isFeatured ? skill.stars : skill.r;
     const install = isFeatured ? skill.install : skill.i;
 
+    const isFavorite = state.favorites.includes(install);
+    const isOfficial = categoryCode === 'off' || categoryCode === 'official';
+
     const tagsHtml = tags.slice(0, 3).map(tag =>
         `<span class="skill-tag">#${tag}</span>`
     ).join('');
@@ -151,8 +468,18 @@ function createSkillCard(skill, isFeatured = false) {
     return `
         <div class="skill-card" data-install="${escapeHtml(install)}" onclick="showSkillDetail(this)">
             <div class="skill-header">
-                <span class="skill-name">${escapeHtml(name)}</span>
-                ${stars > 0 ? `<span class="skill-stars">⭐ ${stars.toLocaleString()}</span>` : ''}
+                <span class="skill-name">
+                    ${escapeHtml(name)}
+                    ${isOfficial ? '<span class="official-badge" title="Official Anthropic Skill">✓</span>' : ''}
+                </span>
+                <div class="skill-header-right">
+                    ${stars > 0 ? `<span class="skill-stars">⭐ ${stars.toLocaleString()}</span>` : ''}
+                    ${showFavoriteBtn ? `
+                        <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite(event, '${escapeHtml(install)}')" title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}">
+                            ${isFavorite ? '❤️' : '🤍'}
+                        </button>
+                    ` : ''}
+                </div>
             </div>
             <p class="skill-description">${escapeHtml(description)}</p>
             <div class="skill-meta">
@@ -178,26 +505,28 @@ function search(query) {
     state.displayedCount = 0;
 
     if (!state.currentQuery) {
-        showFeatured();
-        elements.searchResults.classList.add('hidden');
-        elements.emptyState.classList.add('hidden');
-        elements.loadMore.classList.add('hidden');
+        switchView('featured');
         elements.resultCount.textContent = '';
         elements.searchTime.textContent = '';
         return;
     }
 
-    // Hide featured, show search results
+    // Hide all sections, show search results
     elements.featuredSection.classList.add('hidden');
+    elements.leaderboardSection.classList.add('hidden');
+    elements.statsSection.classList.add('hidden');
+    elements.favoritesSection.classList.add('hidden');
     elements.searchResults.classList.remove('hidden');
+    elements.statsBar.classList.remove('hidden');
+
+    // Reset nav tabs
+    document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
 
     // Perform search
     let results = state.fuse.search(state.currentQuery);
 
-    // Apply category filter
-    if (state.currentCategory) {
-        results = results.filter(r => r.item.c === state.currentCategory);
-    }
+    // Apply all filters (category, stars, source, tags)
+    results = applyAllFilters(results);
 
     // Apply sort
     if (state.currentSort === 'stars') {
@@ -249,7 +578,7 @@ function displayResults() {
     }
 }
 
-// Show skill detail modal
+// Show skill detail modal with similar skills
 function showSkillDetail(card) {
     const install = card.dataset.install;
 
@@ -261,8 +590,35 @@ function showSkillDetail(card) {
         `<span class="tag">#${tag}</span>`
     ).join(' ');
 
+    const isFavorite = state.favorites.includes(install);
+    const isOfficial = skill.c === 'off';
+
+    // Find similar skills based on tags
+    const similarSkills = findSimilarSkills(skill, 4);
+    const similarHtml = similarSkills.length > 0 ? `
+        <div class="similar-skills">
+            <h4>Similar Skills</h4>
+            <div class="similar-grid">
+                ${similarSkills.map(s => `
+                    <div class="similar-card" data-install="${escapeHtml(s.i)}" onclick="showSkillDetail(this)">
+                        <span class="similar-name">${escapeHtml(s.n)}</span>
+                        <span class="similar-stars">${s.r > 0 ? '⭐' + s.r.toLocaleString() : ''}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    ` : '';
+
     elements.modalBody.innerHTML = `
-        <h2 style="margin-bottom: 1rem; color: var(--accent-primary);">${escapeHtml(skill.n)}</h2>
+        <div class="modal-header-row">
+            <h2 style="color: var(--accent-primary);">
+                ${escapeHtml(skill.n)}
+                ${isOfficial ? '<span class="official-badge" title="Official Anthropic Skill">✓</span>' : ''}
+            </h2>
+            <button class="favorite-btn large ${isFavorite ? 'active' : ''}" onclick="toggleFavorite(event, '${escapeHtml(install)}')">
+                ${isFavorite ? '❤️' : '🤍'}
+            </button>
+        </div>
         <p style="margin-bottom: 1rem; color: var(--text-secondary);">${escapeHtml(skill.d)}</p>
 
         <div style="margin-bottom: 1rem;">
@@ -286,9 +642,45 @@ function showSkillDetail(card) {
                 View on GitHub →
             </a>
         </div>
+
+        ${similarHtml}
     `;
 
     elements.modal.classList.remove('hidden');
+}
+
+// Find similar skills based on tags and category
+function findSimilarSkills(skill, limit = 4) {
+    const tags = skill.g || [];
+    const category = skill.c;
+
+    if (tags.length === 0 && !category) return [];
+
+    // Score each skill by similarity
+    const scored = state.index.s
+        .filter(s => s.i !== skill.i) // Exclude current skill
+        .map(s => {
+            let score = 0;
+            const sTags = s.g || [];
+
+            // Tag overlap
+            const tagOverlap = tags.filter(t => sTags.includes(t)).length;
+            score += tagOverlap * 2;
+
+            // Same category
+            if (s.c === category) score += 1;
+
+            // Bonus for stars
+            if (s.r > 0) score += 0.1;
+
+            return { skill: s, score };
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit)
+        .map(item => item.skill);
+
+    return scored;
 }
 
 // Copy install command
@@ -303,8 +695,6 @@ function copyInstall(event, install) {
 }
 
 // Generate proper GitHub URL from install path and branch
-// install format: "owner/repo/path/to/skill" or "owner/repo"
-// Links directly to SKILL.md file for better UX
 function getGitHubUrl(install, branch = 'main') {
     if (!install) return '#';
     const parts = install.split('/');
@@ -365,6 +755,26 @@ elements.sortFilter.addEventListener('change', (e) => {
 
 elements.loadMoreBtn.addEventListener('click', displayResults);
 
+// Nav tabs
+elements.navTabs.addEventListener('click', (e) => {
+    const tab = e.target.closest('.nav-tab');
+    if (tab) {
+        const view = tab.dataset.view;
+        switchView(view);
+        // Clear search when switching views
+        elements.searchInput.value = '';
+        state.currentQuery = '';
+    }
+});
+
+// Leaderboard category filter
+elements.leaderboardCategory.addEventListener('change', (e) => {
+    showLeaderboard(e.target.value);
+});
+
+// Random button
+elements.randomBtn.addEventListener('click', showRandomSkill);
+
 // Quick tags
 elements.quickTags.addEventListener('click', (e) => {
     if (e.target.classList.contains('tag')) {
@@ -396,7 +806,210 @@ document.addEventListener('keydown', (e) => {
         e.preventDefault();
         elements.searchInput.focus();
     }
+    // Random skill on 'r'
+    if (e.key === 'r' && document.activeElement !== elements.searchInput && !elements.modal.classList.contains('hidden') === false) {
+        showRandomSkill();
+    }
 });
+
+// ═══════════════════════════════════════════════════════════
+// ADVANCED FILTERS
+// ═══════════════════════════════════════════════════════════
+
+// Toggle advanced filters panel
+elements.filterToggle.addEventListener('click', () => {
+    elements.advancedFilters.classList.toggle('hidden');
+    elements.filterToggle.classList.toggle('active');
+});
+
+// Stars filter
+elements.starsFilter.addEventListener('change', (e) => {
+    state.currentStarsFilter = e.target.value;
+    applyFiltersAndSearch();
+});
+
+// Source filter
+elements.sourceFilter.addEventListener('change', (e) => {
+    state.currentSourceFilter = e.target.value;
+    applyFiltersAndSearch();
+});
+
+// Tag filter input
+elements.tagFilter.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.value.trim()) {
+        e.preventDefault();
+        const tag = e.target.value.trim().toLowerCase();
+        if (!state.currentTagFilters.includes(tag)) {
+            state.currentTagFilters.push(tag);
+            renderActiveTags();
+            applyFiltersAndSearch();
+        }
+        e.target.value = '';
+    }
+});
+
+// Render active tag filters
+function renderActiveTags() {
+    elements.activeTags.innerHTML = state.currentTagFilters.map(tag => `
+        <span class="active-tag">
+            #${tag}
+            <button onclick="removeTagFilter('${tag}')">&times;</button>
+        </span>
+    `).join('');
+}
+
+// Remove tag filter
+function removeTagFilter(tag) {
+    state.currentTagFilters = state.currentTagFilters.filter(t => t !== tag);
+    renderActiveTags();
+    applyFiltersAndSearch();
+}
+
+// Clear all filters
+elements.clearFilters.addEventListener('click', () => {
+    state.currentStarsFilter = '';
+    state.currentSourceFilter = '';
+    state.currentTagFilters = [];
+    state.currentCategory = '';
+    elements.starsFilter.value = '';
+    elements.sourceFilter.value = '';
+    elements.categoryFilter.value = '';
+    elements.tagFilter.value = '';
+    renderActiveTags();
+    applyFiltersAndSearch();
+});
+
+// Apply all filters and search
+function applyFiltersAndSearch() {
+    if (state.currentQuery) {
+        search(state.currentQuery);
+    } else if (hasActiveFilters()) {
+        // If no search query but filters active, search all
+        searchWithFiltersOnly();
+    }
+}
+
+// Check if any filters are active
+function hasActiveFilters() {
+    return state.currentStarsFilter || state.currentSourceFilter ||
+           state.currentTagFilters.length > 0 || state.currentCategory;
+}
+
+// Search with only filters (no query)
+function searchWithFiltersOnly() {
+    const startTime = performance.now();
+    state.displayedCount = 0;
+
+    // Get all skills
+    let results = state.index.s.map(item => ({ item, score: 0 }));
+
+    // Apply filters
+    results = applyAllFilters(results);
+
+    // Apply sort
+    if (state.currentSort === 'stars') {
+        results.sort((a, b) => (b.item.r || 0) - (a.item.r || 0));
+    } else if (state.currentSort === 'name') {
+        results.sort((a, b) => a.item.n.localeCompare(b.item.n));
+    }
+
+    state.results = results;
+
+    const endTime = performance.now();
+    const searchTimeMs = (endTime - startTime).toFixed(1);
+
+    // Update UI
+    elements.featuredSection.classList.add('hidden');
+    elements.leaderboardSection.classList.add('hidden');
+    elements.statsSection.classList.add('hidden');
+    elements.favoritesSection.classList.add('hidden');
+    elements.searchResults.classList.remove('hidden');
+    elements.statsBar.classList.remove('hidden');
+
+    document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+
+    elements.resultCount.textContent = `${results.length.toLocaleString()} results`;
+    elements.searchTime.textContent = `${searchTimeMs}ms`;
+
+    if (results.length === 0) {
+        elements.searchResults.classList.add('hidden');
+        elements.emptyState.classList.remove('hidden');
+        elements.loadMore.classList.add('hidden');
+    } else {
+        elements.emptyState.classList.add('hidden');
+        displayResults();
+    }
+}
+
+// Apply all filters to results
+function applyAllFilters(results) {
+    // Category filter
+    if (state.currentCategory) {
+        results = results.filter(r => r.item.c === state.currentCategory);
+    }
+
+    // Stars filter
+    if (state.currentStarsFilter) {
+        const minStars = parseStarsFilter(state.currentStarsFilter);
+        if (minStars === 0) {
+            results = results.filter(r => !r.item.r || r.item.r === 0);
+        } else if (minStars > 0) {
+            results = results.filter(r => (r.item.r || 0) >= minStars);
+        }
+    }
+
+    // Source filter
+    if (state.currentSourceFilter) {
+        if (state.currentSourceFilter === 'official') {
+            results = results.filter(r => r.item.c === 'off');
+        } else if (state.currentSourceFilter === 'community') {
+            results = results.filter(r => r.item.c !== 'off');
+        }
+    }
+
+    // Tag filters
+    if (state.currentTagFilters.length > 0) {
+        results = results.filter(r => {
+            const tags = (r.item.g || []).map(t => t.toLowerCase());
+            return state.currentTagFilters.some(tf =>
+                tags.some(t => t.includes(tf))
+            );
+        });
+    }
+
+    return results;
+}
+
+// Parse stars filter value
+function parseStarsFilter(value) {
+    if (value === '0') return 0;
+    if (value === '10+') return 10;
+    if (value === '100+') return 100;
+    if (value === '500+') return 500;
+    if (value === '1000+') return 1000;
+    return -1;
+}
+
+// ═══════════════════════════════════════════════════════════
+// THEME TOGGLE
+// ═══════════════════════════════════════════════════════════
+
+// Initialize theme
+function initTheme() {
+    document.documentElement.setAttribute('data-theme', state.theme);
+    elements.themeIcon.textContent = state.theme === 'dark' ? '🌙' : '☀️';
+}
+
+// Toggle theme
+elements.themeToggle.addEventListener('click', () => {
+    state.theme = state.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', state.theme);
+    localStorage.setItem('theme', state.theme);
+    elements.themeIcon.textContent = state.theme === 'dark' ? '🌙' : '☀️';
+});
+
+// Initialize theme on load
+initTheme();
 
 // Initialize
 init();
